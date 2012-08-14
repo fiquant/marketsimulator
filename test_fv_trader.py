@@ -42,3 +42,5 @@ world.workTill(5.5)
 
 assert book.bids.empty
 assert trader.PnL == -80*10 - 90*10 + 110*10
+
+world.reset()
