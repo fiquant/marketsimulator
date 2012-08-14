@@ -53,3 +53,5 @@ world.workTill(3.15)
 
 assert book.asks.best.price == 64
 assert book.asks.best.volume == 5
+
+world.reset()

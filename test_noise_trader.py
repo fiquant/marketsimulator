@@ -28,3 +28,5 @@ world.workTill(3.5)
 
 assert book.asks.best.volume == 10
 assert trader.PnL == +10*90 - 10*110
+
+world.reset()

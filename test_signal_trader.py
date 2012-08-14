@@ -40,3 +40,5 @@ world.workTill(4.5)
 assert book.bids.best.price == 80
 assert book.asks.empty
 assert trader.PnL == 90*10 - 110*10 - 120*10
+
+world.reset()
