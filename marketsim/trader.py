@@ -64,6 +64,28 @@ class OneSideTrader(SingleAssetTrader):
 
       eventGen.advise(wakeUp)
 
+class TwoSideTrader(SingleAssetTrader):
+
+   def __init__(self,
+                orderBook,             # book to place orders in
+                orderFactoryT,         # function to create orders
+                eventGen,              # event generator to be listened
+                orderFunc):            # function to calculate order parameters
+
+      SingleAssetTrader.__init__(self)
+
+      self.book = orderBook
+
+      def wakeUp(signal):
+         res = orderFunc(self, signal)
+         if res <> None:
+            (side, params) = res
+            order = orderFactoryT(side)(*params)
+            self.send(orderBook, order)
+
+      eventGen.advise(wakeUp)
+
+
 def liquidityProviderFunc(defaultValue, priceDistr, volumeDistr):
    def inner(trader,_):
       queue = trader.book.queue(trader.side)
@@ -120,48 +142,40 @@ class Canceller(object):
    def process(self, order):
       self._elements.append(order)
 
-class FVTrader(SingleAssetTrader):
+def fv_func(fundamentalValue, volumeDistr):
+   def inner(trader, _):
+      side = None
+      book = trader.book
+      if not book.asks.empty and book.asks.best.price < fundamentalValue:
+         side = Side.Buy
+      if not book.bids.empty and book.bids.best.price > fundamentalValue:
+         side = Side.Sell
+      if side <> None:
+         volume = int(volumeDistr())
+         return (side, (volume,))
+      return None
+   return inner
 
-   def __init__(self,
-                book,
+def FVTrader(   book,
                 orderFactory=MarketOrderT,
                 fundamentalValue=100,
                 volumeDistr=(lambda: random.expovariate(.1)),
                 creationIntervalDistr=(lambda: random.expovariate(1.))):
 
-      SingleAssetTrader.__init__(self)
+   return TwoSideTrader(book, orderFactory,
+                        Timer(creationIntervalDistr),
+                        fv_func(fundamentalValue, volumeDistr))
 
-      def wakeUp(_):
-         side = None
-         if not book.asks.empty and book.asks.best.price < fundamentalValue:
-            side = Side.Buy
-         if not book.bids.empty and book.bids.best.price > fundamentalValue:
-            side = Side.Sell
-         if side <> None:
-            volume = int(volumeDistr())
-            order = orderFactory(side)(volume)
-            self.send(book, order)
-
-      Timer(creationIntervalDistr).advise(wakeUp)
-
-class NoiseTrader(SingleAssetTrader):
-
-   def __init__(self,
-                book,
+def NoiseTrader(book,
                 orderFactory=MarketOrderT,
                 sideDistr=(lambda: random.randint(0,1)),
                 volumeDistr=(lambda: random.expovariate(.1)),
                 creationIntervalDistr=(lambda: random.expovariate(1.))):
 
-      SingleAssetTrader.__init__(self)
+   return TwoSideTrader(book, orderFactory,
+                        Timer(creationIntervalDistr),
+                        lambda _,__: (sideDistr(), (int(volumeDistr()),)))
 
-      def wakeUp(_):
-         side = sideDistr()
-         volume = int(volumeDistr())
-         order = orderFactory(side)(volume)
-         self.send(book, order)
-
-      Timer(creationIntervalDistr).advise(wakeUp)
 
 class Signal(object):
 
@@ -183,20 +197,17 @@ class Signal(object):
 
       Timer(intervalDistr).advise(wakeUp)
 
-class SignalTrader(SingleAssetTrader):
+def signalFunc(threshold, volumeDistr):
+   def inner(trader, signal):
+      value = signal.value
+      side = Side.Buy if value > threshold else Side.Sell if value < -threshold else None
+      return (side, (volumeDistr(),)) if side<>None else None
+   return inner
 
-   def __init__(self,
-                book,
-                signal,
-                threshold=0.7,
-                orderFactory=MarketOrderT,
-                volumeDistr=(lambda: random.expovariate(1.))):
+def SignalTrader(book,
+                 signal,
+                 threshold=0.7,
+                 orderFactory=MarketOrderT,
+                 volumeDistr=(lambda: random.expovariate(1.))):
 
-      SingleAssetTrader.__init__(self)
-      def onSignalChanged(signal):
-         value = signal.value
-         side = Side.Buy if value > threshold else Side.Sell if value < -threshold else None
-         if side<>None:
-            self.send(book, orderFactory(side)(volumeDistr()))
-
-      signal.advise(onSignalChanged)
+   return TwoSideTrader(book, orderFactory, signal, signalFunc(threshold, volumeDistr))
