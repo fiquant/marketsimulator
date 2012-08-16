@@ -42,10 +42,38 @@ class SingleAssetTrader(TraderBase):
    def amount(self):
       return self._amount
 
-
-class LiquidityProvider(SingleAssetTrader):
+class OneSideTrader(SingleAssetTrader):
 
    def __init__(self,
+                orderBook,             # book to place orders in
+                side,                  # side of orders to create
+                orderFactoryT,         # function to create orders
+                eventGen,              # event generator to be listened
+                orderFunc):            # function to calculate order parameters
+
+      SingleAssetTrader.__init__(self)
+
+      self.side = side
+      self.book = orderBook
+      orderFactory = orderFactoryT(side)
+
+      def wakeUp(signal):
+         params = orderFunc(self, signal)
+         order = orderFactory(*params)
+         self.send(orderBook, order)
+
+      eventGen.advise(wakeUp)
+
+def liquidityProviderFunc(defaultValue, priceDistr, volumeDistr):
+   def inner(trader,_):
+      queue = trader.book.queue(trader.side)
+      currentPrice = queue.best.price if not queue.empty else defaultValue
+      price = currentPrice * priceDistr()
+      volume = int(volumeDistr())
+      return (price, volume)
+   return inner
+
+def LiquidityProvider( \
                 orderBook,
                 side=Side.Sell,
                 orderFactoryT=LimitOrderT,
@@ -54,21 +82,13 @@ class LiquidityProvider(SingleAssetTrader):
                 priceDistr=(lambda: random.lognormvariate(0., .1)),
                 volumeDistr=(lambda: random.expovariate(.1))):
 
-      SingleAssetTrader.__init__(self)
+   return OneSideTrader(orderBook,
+                        side,
+                        orderFactoryT,
+                        Timer(creationIntervalDistr),
+                        liquidityProviderFunc(defaultValue, priceDistr, volumeDistr))
 
-      orderFactory = orderFactoryT(side)
 
-      self._side = side
-
-      def wakeUp(_):
-         queue = orderBook.queue(side)
-         currentPrice = queue.best.price if not queue.empty else defaultValue
-         price = currentPrice * priceDistr()
-         volume = int(volumeDistr())
-         order = orderFactory(price,volume)
-         self.send(orderBook, order)
-
-      Timer(creationIntervalDistr).advise(wakeUp)
 
 class Canceller(object):
 
