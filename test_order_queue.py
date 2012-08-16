@@ -1,25 +1,8 @@
 from marketsim.order import *
 from marketsim.order_queue import *
+from marketsim.test import *
 
-class HistoryChecker(object):
-   def __init__(self):
-      self._history = []
-      self._delta = []
-
-   def append(self, queue, best):
-      self._delta.append((best.price, best.volume) if best else None)
-
-   def checkDelta(self, other):
-      res = other == self._delta
-      self._history.extend(self._delta)
-      self._delta = []
-      return res
-
-   @property
-   def history(self):
-      return self._history + self._delta
-
-history = HistoryChecker()
+history = OrderQueueHistoryChecker()
 
 asks = Asks()
 asks.on_best_changed.add(history.append)
