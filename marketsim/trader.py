@@ -1,5 +1,5 @@
 import random
-from marketsim.scheduler import world
+from marketsim.scheduler import *
 from marketsim import Side
 from marketsim.order import *
 
@@ -60,7 +60,7 @@ class LiquidityProvider(SingleAssetTrader):
 
       self._side = side
 
-      def wakeUp():
+      def wakeUp(_):
          queue = orderBook.queue(side)
          currentPrice = queue.best.price if not queue.empty else defaultValue
          price = currentPrice * priceDistr()
@@ -68,7 +68,7 @@ class LiquidityProvider(SingleAssetTrader):
          order = orderFactory(price,volume)
          self.send(orderBook, order)
 
-      world.process(creationIntervalDistr, wakeUp)
+      Timer(creationIntervalDistr).advise(wakeUp)
 
 class Canceller(object):
 
@@ -82,7 +82,7 @@ class Canceller(object):
       if source:
          source.on_order_sent.add(self.process)
 
-      def wakeUp():
+      def wakeUp(_):
          while self._elements <> []:
             N = len(self._elements)
             idx = choiceFunc(N)
@@ -95,7 +95,7 @@ class Canceller(object):
                e.cancel()
                return
 
-      world.process(cancellationIntervalDistr, wakeUp)
+      Timer(cancellationIntervalDistr).advise(wakeUp)
 
    def process(self, order):
       self._elements.append(order)
@@ -111,7 +111,7 @@ class FVTrader(SingleAssetTrader):
 
       SingleAssetTrader.__init__(self)
 
-      def wakeUp():
+      def wakeUp(_):
          side = None
          if not book.asks.empty and book.asks.best.price < fundamentalValue:
             side = Side.Buy
@@ -122,7 +122,7 @@ class FVTrader(SingleAssetTrader):
             order = orderFactory(side)(volume)
             self.send(book, order)
 
-      world.process(creationIntervalDistr, wakeUp)
+      Timer(creationIntervalDistr).advise(wakeUp)
 
 class NoiseTrader(SingleAssetTrader):
 
@@ -135,15 +135,18 @@ class NoiseTrader(SingleAssetTrader):
 
       SingleAssetTrader.__init__(self)
 
-      def wakeUp():
+      def wakeUp(_):
          side = sideDistr()
          volume = int(volumeDistr())
          order = orderFactory(side)(volume)
          self.send(book, order)
 
-      world.process(creationIntervalDistr, wakeUp)
+      Timer(creationIntervalDistr).advise(wakeUp)
 
 class Signal(object):
+
+   def advise(self, listener):
+      self.on_changed.add(listener)
 
    def __init__(self,
                 initialValue=0,
@@ -153,12 +156,12 @@ class Signal(object):
       self.on_changed = set()
       self.value = initialValue
 
-      def wakeUp():
+      def wakeUp(_):
          self.value += deltaDistr()
          for x in self.on_changed:
-             x(self.value)
+             x(self)
 
-      world.process(intervalDistr, wakeUp)
+      Timer(intervalDistr).advise(wakeUp)
 
 class SignalTrader(SingleAssetTrader):
 
@@ -170,9 +173,10 @@ class SignalTrader(SingleAssetTrader):
                 volumeDistr=(lambda: random.expovariate(1.))):
 
       SingleAssetTrader.__init__(self)
-      def onSignalChanged(value):
+      def onSignalChanged(signal):
+         value = signal.value
          side = Side.Buy if value > threshold else Side.Sell if value < -threshold else None
          if side<>None:
             self.send(book, orderFactory(side)(volumeDistr()))
 
-      signal.on_changed.add(onSignalChanged)
+      signal.advise(onSignalChanged)
