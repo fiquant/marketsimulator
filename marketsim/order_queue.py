@@ -64,7 +64,7 @@ class OrderQueue(object):
       while not self.empty:
          (_,top) = self._elements[0]
          if not other.empty and top.matchWith(other):
-            heapq.heappop(self._elements)
+            self.makeValid()
          else:
             break
       self.notifyIfBestChanged()
