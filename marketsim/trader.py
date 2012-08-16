@@ -8,12 +8,16 @@ class TraderBase(object):
    def __init__(self):
       self._PnL = 0
       self.on_order_sent = set()
+      self.on_traded = set()
 
    def onOrderMatched(self, order, other, (price, volume)):
        pv = price*volume
        if order.side == Side.Buy:
           pv = -pv
        self._PnL += pv
+
+       for x in self.on_traded:
+           x(self)
 
    @property
    def PnL(self):
@@ -24,7 +28,22 @@ class TraderBase(object):
       book.process(order)
       for x in self.on_order_sent: x(order)
 
-class LiquidityProvider(TraderBase):
+class SingleAssetTrader(TraderBase):
+
+   def __init__(self):
+       TraderBase.__init__(self)
+       self._amount = 0
+
+   def onOrderMatched(self, order, other, (price, volume)):
+       self._amount += volume if order.side == Side.Buy else -volume
+       TraderBase.onOrderMatched(self, order, other, (price,volume))
+
+   @property
+   def amount(self):
+      return self._amount
+
+
+class LiquidityProvider(SingleAssetTrader):
 
    def __init__(self,
                 orderBook,
@@ -35,7 +54,7 @@ class LiquidityProvider(TraderBase):
                 priceDistr=(lambda: random.lognormvariate(0., .1)),
                 volumeDistr=(lambda: random.expovariate(.1))):
 
-      TraderBase.__init__(self)
+      SingleAssetTrader.__init__(self)
 
       orderFactory = orderFactoryT(side)
 
@@ -81,7 +100,7 @@ class Canceller(object):
    def process(self, order):
       self._elements.append(order)
 
-class FVTrader(TraderBase):
+class FVTrader(SingleAssetTrader):
 
    def __init__(self,
                 book,
@@ -90,7 +109,7 @@ class FVTrader(TraderBase):
                 volumeDistr=(lambda: random.expovariate(.1)),
                 creationIntervalDistr=(lambda: random.expovariate(1.))):
 
-      TraderBase.__init__(self)
+      SingleAssetTrader.__init__(self)
 
       def wakeUp():
          side = None
@@ -105,7 +124,7 @@ class FVTrader(TraderBase):
 
       world.process(creationIntervalDistr, wakeUp)
 
-class NoiseTrader(TraderBase):
+class NoiseTrader(SingleAssetTrader):
 
    def __init__(self,
                 book,
@@ -114,7 +133,7 @@ class NoiseTrader(TraderBase):
                 volumeDistr=(lambda: random.expovariate(.1)),
                 creationIntervalDistr=(lambda: random.expovariate(1.))):
 
-      TraderBase.__init__(self)
+      SingleAssetTrader.__init__(self)
 
       def wakeUp():
          side = sideDistr()
@@ -141,7 +160,7 @@ class Signal(object):
 
       world.process(intervalDistr, wakeUp)
 
-class SignalTrader(TraderBase):
+class SignalTrader(SingleAssetTrader):
 
    def __init__(self,
                 book,
@@ -150,7 +169,7 @@ class SignalTrader(TraderBase):
                 orderFactory=MarketOrderT,
                 volumeDistr=(lambda: random.expovariate(1.))):
 
-      TraderBase.__init__(self)
+      SingleAssetTrader.__init__(self)
       def onSignalChanged(value):
          side = Side.Buy if value > threshold else Side.Sell if value < -threshold else None
          if side<>None:

@@ -70,6 +70,7 @@ class LimitOrderBase(OrderBase):
    def matchWith(self, other):
       if other.canBeMatched(self):
          v = min(self.volume, other.volume)
+         assert v > 0
          p = self.price
          self.onMatchedWith(other, (p,v))
          other.onMatchedWith(self, (p,v))

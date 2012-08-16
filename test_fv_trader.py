@@ -3,17 +3,27 @@ from marketsim.scheduler import world
 from marketsim.order import *
 from marketsim.order_queue import *
 from marketsim.trader import *
+from marketsim.test import *
+
+ask_history = OrderQueueHistoryChecker()
+bid_history = OrderQueueHistoryChecker()
 
 book = OrderBook(tickSize=.001)
-
+book.asks.on_best_changed.add(ask_history.append)
+book.bids.on_best_changed.add(bid_history.append)
 
 trader = FVTrader(book, volumeDistr=(lambda:10), creationIntervalDistr=(lambda:1))
+
+fv_history = TraderHistoryChecker()
+trader.on_traded.add(fv_history.append)
 
 world.workTill(1.5)
 
 assert trader.PnL == 0
+assert fv_history.checkDelta([])
 
 book.process(LimitOrderSell(80, 10))
+assert ask_history.checkDelta([(80,10)])
 book.process(LimitOrderSell(90, 10))
 book.process(LimitOrderSell(100, 10))
 
@@ -23,24 +33,36 @@ world.workTill(2.5)
 
 assert book.asks.best.price == 90
 assert trader.PnL == -80*10
+assert trader.amount == 10
+assert ask_history.checkDelta([(90,10)])
+assert fv_history.checkDelta([(-800,10)])
 
 world.workTill(3.5)
 
+assert ask_history.checkDelta([(100,10)])
 assert book.asks.best.price == 100
 assert trader.PnL == -80*10 - 90*10
+assert trader.amount == 10 + 10
+assert fv_history.checkDelta([(-80*10 - 90*10, 10 + 10)])
 
 world.workTill(4.5)
 
+assert ask_history.checkDelta([])
 assert book.asks.best.price == 100
 assert trader.PnL == -80*10 - 90*10
 
 book.process(LimitOrderBuy(110, 20))
+assert bid_history.checkDelta([(110,10)])
+assert ask_history.checkDelta([None])
 assert book.asks.empty
 assert book.bids.best.price == 110
 
 world.workTill(5.5)
 
+assert bid_history.checkDelta([None])
 assert book.bids.empty
 assert trader.PnL == -80*10 - 90*10 + 110*10
+assert trader.amount == 10 + 10 - 10
+assert fv_history.checkDelta([(-80*10 - 90*10 + 110*10, 10 + 10 - 10)])
 
 world.reset()

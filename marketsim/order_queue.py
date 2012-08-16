@@ -63,7 +63,7 @@ class OrderQueue(object):
    def matchWith(self, other):
       while not self.empty:
          (_,top) = self._elements[0]
-         if top.matchWith(other):
+         if not other.empty and top.matchWith(other):
             heapq.heappop(self._elements)
          else:
             break
