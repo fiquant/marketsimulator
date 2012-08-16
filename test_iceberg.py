@@ -1,4 +1,5 @@
 from marketsim.order import *
+from marketsim.iceberg import *
 from marketsim.order_queue import *
 from marketsim.test import *
 
