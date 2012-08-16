@@ -62,3 +62,20 @@ class Scheduler(object):
        self.scheduleAfter(intervalFunc(), h)
 
 world = Scheduler()
+
+class Timer(object):
+
+   def advise(self, listener):
+      self.on_timer.add(listener)
+
+   def __init__(self, intervalFunc):
+      self.on_timer = set()
+
+      def notifyListeners():
+         for x in self.on_timer:
+             x(self)
+
+      world.process(intervalFunc, notifyListeners)
+
+
+
