@@ -1,9 +1,9 @@
 from marketsim import Side
-from marketsim.scheduler import world
 from marketsim.order import *
 from marketsim.order_queue import *
-from marketsim.trader import *
+from marketsim.scheduler import world
 from marketsim.test import *
+from marketsim.trader import *
 
 ask_history = OrderQueueHistoryChecker()
 bid_history = OrderQueueHistoryChecker()
@@ -28,6 +28,8 @@ book.process(LimitOrderSell(90, 10))
 book.process(LimitOrderSell(100, 10))
 
 assert book.asks.best.price == 80
+
+print book.asks
 
 world.workTill(2.5)
 
