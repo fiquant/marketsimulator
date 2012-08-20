@@ -167,3 +167,14 @@ class OrderBook(object):
     @property
     def asks(self):
         return self._asks
+
+    @property 
+    def price(self):
+        return None if self.asks.empty or self.bids.empty \
+                    else (self.asks.best.price + self.bids.best.price)/2
+                    
+    @property
+    def spread(self):
+        return None if self.asks.empty or self.bids.empty \
+                    else self.asks.best.price - self.bids.best.price
+        
