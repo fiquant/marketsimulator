@@ -3,30 +3,36 @@ import math
 
 from marketsim import Side
 
+
 class OrderQueue(object):
     """ Queue of limit orders
     """
-    def __init__(self, tickSize=1):
+    def __init__(self, tickSize=1, book=None):
         self._elements = []
         self._tickSize = tickSize
         self._counter = 0
         self.on_best_changed = set()
         self._lastBest = None
+        self._book = book
+
+    @property
+    def book(self):
+        return self._book
 
     def notifyIfBestChanged(self):
         """Notifies order queue listeners that best order has changed
         """
         if self._elements == []:
-            if self._lastBest <> None:
+            if self._lastBest != None:
                 for x in self.on_best_changed:
-                    x(self, None)
+                    x(self)
         else:
             best = self._elements[0][1]
             bestpv = (best.price, best.volume)
             if self._lastBest <> bestpv:
                 self._lastBest = bestpv
                 for x in self.on_best_changed:
-                    x(self, best)
+                    x(self)
 
     def __str__(self):
         return type(self).__name__ + "(" + str(self._elements) + ")"
@@ -36,15 +42,15 @@ class OrderQueue(object):
 
     def push(self, order):
         (ticks, corrected) = self.ticks(order.price)
-        if order.price <> corrected:
+        if order.price != corrected:
             order.price = corrected
         heapq.heappush(self._elements, ((ticks, self._counter), order))
         self._counter += 1
         self.notifyIfBestChanged()
 
     def makeValid(self):
-        while self._elements <> []:
-            (_,top) = self._elements[0]
+        while self._elements != []:
+            (_, top) = self._elements[0]
             if top.empty or top.cancelled:
                 heapq.heappop(self._elements)
             else:
@@ -65,7 +71,7 @@ class OrderQueue(object):
     """
     def matchWith(self, other):
         while not self.empty:
-            (_,top) = self._elements[0]
+            (_, top) = self._elements[0]
             if not other.empty and top.matchWith(other):
                 self.makeValid()
             else:
@@ -78,47 +84,54 @@ class OrderQueue(object):
             return
         if not self.better(limit, self._elements[idx][1].price):
             yield self._elements[idx][1]
-            for x in self.withPricesBetterThen(limit, idx*2+1):
+            for x in self.withPricesBetterThen(limit, idx * 2 + 1):
                 yield x
-            for x in self.withPricesBetterThen(limit, idx*2+2):
+            for x in self.withPricesBetterThen(limit, idx * 2 + 2):
                 yield x
+                
+    def volumeWithPriceBetterThan(self, limit):
+        return sum([x.volume for x in self.withPricesBetterThen(limit)])
+
 
 def oppositeSide(side):
     return 1 - side
 
+
 class Bids(OrderQueue):
-    def __init__(self, tickSize=1):
-        OrderQueue.__init__(self, tickSize)
+    def __init__(self, *args):
+        OrderQueue.__init__(self, *args)
 
     def ticks(self, price):
         ticks = int(math.floor(price / self._tickSize))
-        return (-ticks, ticks*self._tickSize)
+        return (-ticks, ticks * self._tickSize)
 
     @staticmethod
-    def better(x,y):
+    def better(x, y):
         return x > y
 
     side = Side.Buy
 
+
 class Asks(OrderQueue):
-    def __init__(self, tickSize=1):
-        OrderQueue.__init__(self, tickSize)
+    def __init__(self, *args):
+        OrderQueue.__init__(self, *args)
 
     def ticks(self, price):
         ticks = int(math.ceil(price / self._tickSize))
-        return (ticks, ticks*self._tickSize)
+        return (ticks, ticks * self._tickSize)
 
     @staticmethod
-    def better(x,y):
+    def better(x, y):
         return x < y
 
     side = Side.Sell
 
+
 class OrderBook(object):
     def __init__(self, tickSize = 1):
-        self._bids = Bids(tickSize)
-        self._asks = Asks(tickSize)
-        self._queues = [0,0]
+        self._bids = Bids(tickSize, self)
+        self._asks = Asks(tickSize, self)
+        self._queues = [0, 0]
         self._queues[self._bids.side] = self._bids
         self._queues[self._asks.side] = self._asks
         self._tickSize = tickSize

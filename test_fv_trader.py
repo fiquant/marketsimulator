@@ -29,8 +29,6 @@ book.process(LimitOrderSell(100, 10))
 
 assert book.asks.best.price == 80
 
-print book.asks
-
 world.workTill(2.5)
 
 assert book.asks.best.price == 90
