@@ -18,8 +18,8 @@ class HistoryCheckerBase(object):
 
 class OrderQueueHistoryChecker(HistoryCheckerBase):
 
-    def append(self, queue, best):
-        HistoryCheckerBase.append(self, (best.price, best.volume) if best else None)
+    def append(self, queue):
+        HistoryCheckerBase.append(self, (queue.best.price, queue.best.volume) if not queue.empty else None)
 
 class TraderHistoryChecker(HistoryCheckerBase):
 

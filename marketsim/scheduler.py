@@ -26,6 +26,7 @@ class Scheduler(object):
     def reset(self):
         self._elements = []
         self._currentTime = 0.
+        self._counter = 0
 
     def __repr__(self):
         return "(t=" + str(self.currentTime) + ": " + repr(self._elements) + ")"
@@ -37,7 +38,8 @@ class Scheduler(object):
     def schedule(self, actionTime, handler):
         assert actionTime >= self.currentTime
         eh = _EventHandler(handler)
-        event = (actionTime, eh)
+        event = ((actionTime, self._counter), eh)
+        self._counter += 1
         heapq.heappush(self._elements, event)
         return eh.cancel
 
@@ -45,8 +47,8 @@ class Scheduler(object):
         self.schedule(self.currentTime + dt, handler)
 
     def workTill(self, limitTime):
-        while (self._elements <> [] and self._elements[0][0] < limitTime):
-            (actionTime, eh) = heapq.heappop(self._elements)
+        while (self._elements <> [] and self._elements[0][0][0] < limitTime):
+            ((actionTime,_), eh) = heapq.heappop(self._elements)
             if not eh.cancelled:
                 self._currentTime = actionTime
                 eh()

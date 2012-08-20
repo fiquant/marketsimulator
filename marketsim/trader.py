@@ -12,9 +12,7 @@ class TraderBase(object):
 
     def onOrderMatched(self, order, other, (price, volume)):
         pv = price * volume
-        if order.side == Side.Buy:
-            pv = -pv
-        self._PnL += pv
+        self._PnL += pv if order.side == Side.Sell else -pv
         
         for x in self.on_traded:
             x(self)
@@ -23,11 +21,13 @@ class TraderBase(object):
     def PnL(self):
         return self._PnL
 
-    def send(self, book, order):
-        order.on_matched.add(self.onOrderMatched)
-        book.process(order)
+    def notifyOrderSent(self, book, order):
         for x in self.on_order_sent: x(order)
-
+        
+    def subscribed(self, order):
+        order.on_matched.add(self.onOrderMatched)
+        return order
+        
 class SingleAssetTrader(TraderBase):
 
     def __init__(self):
@@ -37,6 +37,10 @@ class SingleAssetTrader(TraderBase):
     def onOrderMatched(self, order, other, (price, volume)):
         self._amount += volume if order.side == Side.Buy else -volume
         TraderBase.onOrderMatched(self, order, other, (price,volume))
+        
+    def send(self, book, order):
+        book.process(self.subscribed(order))
+        self.notifyOrderSent(book, order)        
 
     @property
     def amount(self):

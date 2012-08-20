@@ -20,6 +20,12 @@ L = set(asks.withPricesBetterThen(12))
 assert a10 in L
 assert a12 in L
 assert a15 not in L
+assert asks.volumeWithPriceBetterThan(9) == 0
+assert asks.volumeWithPriceBetterThan(10) == 100
+assert asks.volumeWithPriceBetterThan(11) == 100
+assert asks.volumeWithPriceBetterThan(12) == 200
+assert asks.volumeWithPriceBetterThan(15) == 300
+assert asks.volumeWithPriceBetterThan(18) == 300
 
 
 b = LimitOrderBuy(9, 100)

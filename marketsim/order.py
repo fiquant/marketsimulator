@@ -17,6 +17,10 @@ class OrderBase(object):
     @property
     def volume(self):
         return self._volume
+    
+    @property 
+    def PnL(self):
+        return self.makePriceSigned(self._PnL)
 
     @property
     def empty(self):
@@ -59,9 +63,13 @@ class LimitOrderBase(OrderBase):
         orderBook.processLimitOrder(self)
 
     @property
+    def signedPrice(self):
+        return self.makePriceSigned(self._price)
+
+    @property
     def price(self):
         return self._price
-
+    
     @price.setter
     def price(self, value):
         self._price = value
@@ -86,7 +94,11 @@ class BuySideOrderBase(object):
     @property
     def PnL(self):
         return -self._PnL
-
+    
+    @staticmethod
+    def makePriceSigned(price):
+        return -price
+    
     side = Side.Buy
 
 class SellSideOrderBase(object):
@@ -96,6 +108,10 @@ class SellSideOrderBase(object):
     @property
     def PnL(self):
         return +self._PnL
+
+    @staticmethod
+    def makePriceSigned(price):
+        return +price
 
     side = Side.Sell
 
