@@ -24,7 +24,7 @@ class TraderBase(object):
     def notifyOrderSent(self, book, order):
         for x in self.on_order_sent: x(order)
         
-    def subscribed(self, order):
+    def makeSubscribedTo(self, order):
         order.on_matched.add(self.onOrderMatched)
         return order
         
@@ -39,7 +39,7 @@ class SingleAssetTrader(TraderBase):
         TraderBase.onOrderMatched(self, order, other, (price,volume))
         
     def send(self, book, order):
-        book.process(self.subscribed(order))
+        book.process(self.makeSubscribedTo(order))
         self.notifyOrderSent(book, order)        
 
     @property
@@ -146,29 +146,70 @@ class Canceller(object):
     def process(self, order):
         self._elements.append(order)
 
-def fv_func(fundamentalValue, volumeDistr):
-    def inner(trader, _):
+def fv_func(fundamentalValueFunc, volumeDistr):
+    def inner(trader, signal):
         side = None
         book = trader.book
-        if not book.asks.empty and book.asks.best.price < fundamentalValue:
+        if not book.asks.empty and book.asks.best.price < fundamentalValueFunc():
             side = Side.Buy
-        if not book.bids.empty and book.bids.best.price > fundamentalValue:
+        elif not book.bids.empty and book.bids.best.price > fundamentalValueFunc():
             side = Side.Sell
         if side <> None:
-            volume = int(volumeDistr())
+            volume = int(volumeDistr(side))
             return (side, (volume,))
         return None
     return inner
 
 def FVTrader(   book,
                 orderFactory=MarketOrderT,
-                fundamentalValue=100,
+                fundamentalValue=lambda: 100,
                 volumeDistr=(lambda: random.expovariate(.1)),
                 creationIntervalDistr=(lambda: random.expovariate(1.))):
 
     return TwoSideTrader(book, orderFactory,
                                 Timer(creationIntervalDistr),
-                                fv_func(fundamentalValue, volumeDistr))
+                                fv_func(fundamentalValue, lambda _: volumeDistr()))
+    
+class DependanceOnAsset(object):
+    
+    def __init__(self, book):
+        
+        self.on_changed = set()
+        
+        def updateCurrentPrice():
+            self._currentPrice = book.price
+            if self._currentPrice is not None: # this should be removed to a separate filter 
+                for x in self.on_changed:
+                    x(self)
+        
+        book.asks.on_best_changed.add(lambda _: updateCurrentPrice())
+        book.bids.on_best_changed.add(lambda _: updateCurrentPrice())
+        updateCurrentPrice()
+        
+    def advise(self, listener):
+        self.on_changed.add(listener)
+        
+    @property
+    def currentPrice(self):
+        return self._currentPrice
+
+def DependanceTrader(book,
+                     bookToDependOn,
+                     orderFactory=MarketOrderT,
+                     factor=1.,
+                     volumeDistr=(lambda: random.expovariate(.1))):
+    
+    dependance = DependanceOnAsset(bookToDependOn) 
+    
+    def wantedPrice():
+        return dependance.currentPrice * factor
+    
+    def wantedVolume(side):
+        oppositeQueue = book.queue(Side.opposite(side))
+        oppositeVolume = oppositeQueue.volumeWithPriceBetterThan(wantedPrice())
+        return min(oppositeVolume, volumeDistr())        
+
+    return TwoSideTrader(book, orderFactory, dependance, fv_func(wantedPrice, wantedVolume))
 
 def NoiseTrader(book,
                 orderFactory=MarketOrderT,

@@ -57,9 +57,12 @@ class ArbitrageTrader(TraderBase):
                             
                             volumeToTrade = min(oppositeVolume, bestOrder.volume)
                             
+                            myOrder = self.makeSubscribedTo(MarketOrderT(oppositeSide)(volumeToTrade))
+                            otherOrder = self.makeSubscribedTo(MarketOrderT(side)(volumeToTrade))
+                            
                             # make two complimentary trades
-                            myQueue.book.process(MarketOrderT(oppositeSide)(volumeToTrade))
-                            oppositeQueue.book.process(MarketOrderT(side)(volumeToTrade))
+                            myQueue.book.process(myOrder)
+                            oppositeQueue.book.process(otherOrder)
                     
             return lambda queue: world.scheduleAfter(0, lambda: inner(queue))
                         
