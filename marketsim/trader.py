@@ -1,7 +1,9 @@
 import random
-from marketsim.scheduler import Timer
+from marketsim.scheduler import Timer, world
 from marketsim import Side
 from marketsim.order import *
+from marketsim.order_queue import AssetPrice
+import math
 
 class TraderBase(object):
 
@@ -62,7 +64,7 @@ class OneSideTrader(SingleAssetTrader):
         orderFactory = orderFactoryT(side)
 
         def wakeUp(signal):
-            params = orderFunc(self, signal)
+            params = orderFunc(self)
             order = orderFactory(*params)
             self.send(orderBook, order)
 
@@ -81,7 +83,7 @@ class TwoSideTrader(SingleAssetTrader):
         self.book = orderBook
 
         def wakeUp(signal):
-            res = orderFunc(self, signal)
+            res = orderFunc(self)
             if res <> None:
                 (side, params) = res
                 order = orderFactoryT(side)(*params)
@@ -91,7 +93,7 @@ class TwoSideTrader(SingleAssetTrader):
 
 
 def liquidityProviderFunc(defaultValue, priceDistr, volumeDistr):
-    def inner(trader,_):
+    def inner(trader):
         queue = trader.book.queue(trader.side)
         currentPrice = queue.best.price if not queue.empty else defaultValue
         price = currentPrice * priceDistr()
@@ -147,7 +149,7 @@ class Canceller(object):
         self._elements.append(order)
 
 def fv_func(fundamentalValueFunc, volumeDistr):
-    def inner(trader, signal):
+    def inner(trader):
         side = None
         book = trader.book
         if not book.asks.empty and book.asks.best.price < fundamentalValueFunc():
@@ -170,46 +172,23 @@ def FVTrader(   book,
                                 Timer(creationIntervalDistr),
                                 fv_func(fundamentalValue, lambda _: volumeDistr()))
     
-class DependanceOnAsset(object):
-    
-    def __init__(self, book):
-        
-        self.on_changed = set()
-        
-        def updateCurrentPrice():
-            self._currentPrice = book.price
-            if self._currentPrice is not None: # this should be removed to a separate filter 
-                for x in self.on_changed:
-                    x(self)
-        
-        book.asks.on_best_changed.add(lambda _: updateCurrentPrice())
-        book.bids.on_best_changed.add(lambda _: updateCurrentPrice())
-        updateCurrentPrice()
-        
-    def advise(self, listener):
-        self.on_changed.add(listener)
-        
-    @property
-    def currentPrice(self):
-        return self._currentPrice
-
 def DependanceTrader(book,
                      bookToDependOn,
                      orderFactory=MarketOrderT,
                      factor=1.,
                      volumeDistr=(lambda: random.expovariate(.1))):
     
-    dependance = DependanceOnAsset(bookToDependOn) 
+    priceToDependOn = AssetPrice(bookToDependOn) 
     
     def wantedPrice():
-        return dependance.currentPrice * factor
+        return priceToDependOn.value * factor
     
     def wantedVolume(side):
         oppositeQueue = book.queue(Side.opposite(side))
         oppositeVolume = oppositeQueue.volumeWithPriceBetterThan(wantedPrice())
         return min(oppositeVolume, volumeDistr())        
 
-    return TwoSideTrader(book, orderFactory, dependance, fv_func(wantedPrice, wantedVolume))
+    return TwoSideTrader(book, orderFactory, priceToDependOn, fv_func(wantedPrice, wantedVolume))
 
 def NoiseTrader(book,
                 orderFactory=MarketOrderT,
@@ -219,7 +198,7 @@ def NoiseTrader(book,
 
     return TwoSideTrader(book, orderFactory,
                                 Timer(creationIntervalDistr),
-                                lambda _,__: (sideDistr(), (int(volumeDistr()),)))
+                                lambda _: (sideDistr(), (int(volumeDistr()),)))
 
 
 class Signal(object):
@@ -242,9 +221,9 @@ class Signal(object):
 
         Timer(intervalDistr).advise(wakeUp)
 
-def signalFunc(threshold, volumeDistr):
-    def inner(trader, signal):
-        value = signal.value
+def signalTraderFunc(threshold, volumeDistr, signalFunc):
+    def inner(trader):
+        value = signalFunc()
         side = Side.Buy if value > threshold else Side.Sell if value < -threshold else None
         return (side, (volumeDistr(),)) if side<>None else None
     return inner
@@ -254,5 +233,44 @@ def SignalTrader( book,
                   threshold=0.7,
                   orderFactory=MarketOrderT,
                   volumeDistr=(lambda: random.expovariate(1.))):
+    
+    return TwoSideTrader(book, orderFactory, signal, 
+                         signalTraderFunc(threshold, volumeDistr, lambda: signal.value))
 
-    return TwoSideTrader(book, orderFactory, signal, signalFunc(threshold, volumeDistr))
+class EWMA(object):
+    
+    def __init__(self, alpha):
+        self._alpha = alpha
+        self._avg = None
+        
+    @property 
+    def value(self):
+        return self._avg
+        
+    def at(self, t):
+        dt = t - self._lastTime
+        return self._avg + (self._lastValue - self._avg)*(1 - (1 - self._alpha)**dt)
+    
+    def derivativeAt(self, t):
+        dt = t - self._lastTime
+        return -(self._lastValue - self._avg)*math.log(1 - self._alpha)*(1 - self._alpha)**dt
+        
+    def update(self, time, value):
+        self._avg = self.at(time) if self._avg is not None else value
+        self._lastValue = value
+        self._lastTime = time
+      
+def TrendFollower(book,
+                  average = EWMA(alpha = 0.15),
+                  threshold = 0., 
+                  orderFactory=MarketOrderT,
+                  creationIntervalDistr=(lambda: random.expovariate(1.)),
+                  volumeDistr=(lambda: random.expovariate(1.))):
+    
+    AssetPrice(book).advise(\
+        lambda assetPrice: average.update(world.currentTime, assetPrice.value))
+    
+    return TwoSideTrader(book, orderFactory, Timer(creationIntervalDistr), 
+                         signalTraderFunc(threshold, volumeDistr, 
+                                          lambda: average.derivativeAt(world.currentTime)))
+
