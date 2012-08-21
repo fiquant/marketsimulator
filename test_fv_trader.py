@@ -9,13 +9,13 @@ ask_history = OrderQueueHistoryChecker()
 bid_history = OrderQueueHistoryChecker()
 
 book = OrderBook(tickSize=.001)
-book.asks.on_best_changed.add(ask_history.append)
-book.bids.on_best_changed.add(bid_history.append)
+book.asks.on_best_changed += ask_history.append
+book.bids.on_best_changed += bid_history.append
 
 trader = FVTrader(book, volumeDistr=(lambda:10), creationIntervalDistr=(lambda:1))
 
 fv_history = TraderHistoryChecker()
-trader.on_traded.add(fv_history.append)
+trader.on_traded += fv_history.append
 
 world.workTill(1.5)
 

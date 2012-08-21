@@ -74,7 +74,7 @@ class ArbitrageTrader(TraderBase):
         def regSide(side):
             for book in books:
                 queue = book.queue(side) 
-                queue.on_best_changed.add(onBestChanged(side))
+                queue.on_best_changed += onBestChanged(side)
                 if not queue.empty:
                     bests[side][queue.best.signedPrice] = queue
                     oldBests[queue] = queue.best.signedPrice

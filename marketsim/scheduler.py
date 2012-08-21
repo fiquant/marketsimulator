@@ -1,4 +1,5 @@
 import heapq
+from marketsim import Event
 
 class _EventHandler(object):
     def __init__(self, handler):
@@ -68,14 +69,9 @@ world = Scheduler()
 class Timer(object):
 
     def advise(self, listener):
-        self.on_timer.add(listener)
+        self.on_timer += listener
 
     def __init__(self, intervalFunc):
-        self.on_timer = set()
-
-        def notifyListeners():
-            for x in self.on_timer:
-                x(self)
-
-        world.process(intervalFunc, notifyListeners)
+        self.on_timer = Event()
+        world.process(intervalFunc, lambda: self.on_timer.fire(self))
 
