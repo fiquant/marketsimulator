@@ -64,7 +64,7 @@ class IcebergOrder(OrderBase):
             self._args._volume = v
             self._volume -= v
             self._current = self._orderFactory(*self._args.packed)
-            self._current.on_matched.add(lambda myOrder, otherOrder, pv: self.onMatchedWith(otherOrder, pv))
+            self._current.on_matched += lambda myOrder, otherOrder, pv: self.onMatchedWith(otherOrder, pv)
             self._book.process(self._current)
         else:
             self._current = None

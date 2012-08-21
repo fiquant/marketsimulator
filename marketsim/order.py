@@ -1,4 +1,4 @@
-from marketsim import Side
+from marketsim import Side, Event
 
 class OrderBase(object):
 
@@ -6,7 +6,7 @@ class OrderBase(object):
         self._volume = volume
         self._cancelled = False
         self._PnL = 0
-        self.on_matched = set()
+        self.on_matched = Event()
 
     def __str__(self):
         return type(self).__name__ + "(volume=" + str(self.volume) + ", P&L="+str(self.PnL)+")"
@@ -34,9 +34,7 @@ class OrderBase(object):
         self._cancelled = True
 
     def notifyOnMatched(self, other, (price, volume)):
-        for x in self.on_matched:
-            x(self, other, (price, volume))
-
+        self.on_matched.fire(self, other, (price, volume))
 
     def onMatchedWith(self, other, (price,volume)):
         """

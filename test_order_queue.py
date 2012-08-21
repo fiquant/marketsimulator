@@ -5,7 +5,7 @@ from marketsim.test import *
 history = OrderQueueHistoryChecker()
 
 asks = Asks()
-asks.on_best_changed.add(history.append)
+asks.on_best_changed += history.append
 
 a12 = LimitOrderSell(12, 100)
 a10 = LimitOrderSell(10, 100)

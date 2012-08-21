@@ -1,7 +1,7 @@
 import heapq
 import math
 
-from marketsim import Side
+from marketsim import Side, Event
 
 
 class OrderQueue(object):
@@ -11,7 +11,7 @@ class OrderQueue(object):
         self._elements = []
         self._tickSize = tickSize
         self._counter = 0
-        self.on_best_changed = set()
+        self.on_best_changed = Event()
         self._lastBest = None
         self._book = book
 
@@ -24,15 +24,13 @@ class OrderQueue(object):
         """
         if self._elements == []:
             if self._lastBest != None:
-                for x in self.on_best_changed:
-                    x(self)
+                self.on_best_changed.fire(self)
         else:
             best = self._elements[0][1]
             bestpv = (best.price, best.volume)
             if self._lastBest <> bestpv:
                 self._lastBest = bestpv
-                for x in self.on_best_changed:
-                    x(self)
+                self.on_best_changed.fire(self)
 
     def __str__(self):
         return type(self).__name__ + "(" + str(self._elements) + ")"
@@ -128,7 +126,7 @@ class Asks(OrderQueue):
 
 
 class OrderBook(object):
-    def __init__(self, tickSize = 1):
+    def __init__(self, tickSize=1):
         self._bids = Bids(tickSize, self)
         self._asks = Asks(tickSize, self)
         self._queues = [0, 0]
@@ -171,7 +169,7 @@ class OrderBook(object):
     @property 
     def price(self):
         return None if self.asks.empty or self.bids.empty \
-                    else (self.asks.best.price + self.bids.best.price)/2.0
+                    else (self.asks.best.price + self.bids.best.price) / 2.0
                     
     @property
     def spread(self):
@@ -182,20 +180,19 @@ class AssetPrice(object):
     
     def __init__(self, book):
         
-        self.on_changed = set()
+        self.on_changed = Event()
         
         def updateCurrentPrice():
             self._currentPrice = book.price
-            if self._currentPrice is not None: # this should be removed to a separate filter 
-                for x in self.on_changed:
-                    x(self)
+            if self._currentPrice is not None: # this should be removed into a separate filter
+                self.on_changed.fire(self) 
         
-        book.asks.on_best_changed.add(lambda _: updateCurrentPrice())
-        book.bids.on_best_changed.add(lambda _: updateCurrentPrice())
+        book.asks.on_best_changed += lambda _: updateCurrentPrice()
+        book.bids.on_best_changed += lambda _: updateCurrentPrice()
         updateCurrentPrice()
         
     def advise(self, listener):
-        self.on_changed.add(listener)
+        self.on_changed += listener
         
     @property
     def value(self):

@@ -2,32 +2,28 @@ import random
 from marketsim.scheduler import Timer, world
 from marketsim import Side
 from marketsim.order import *
-from marketsim.order_queue import AssetPrice
+from marketsim.order_queue import AssetPrice, Event
 import math
 
 class TraderBase(object):
 
     def __init__(self):
         self._PnL = 0
-        self.on_order_sent = set()
-        self.on_traded = set()
+        self.on_order_sent = Event()
+        self.on_traded = Event()
 
     def onOrderMatched(self, order, other, (price, volume)):
         pv = price * volume
         self._PnL += pv if order.side == Side.Sell else -pv
         
-        for x in self.on_traded:
-            x(self)
+        self.on_traded.fire(self)
 
     @property
     def PnL(self):
         return self._PnL
 
-    def notifyOrderSent(self, book, order):
-        for x in self.on_order_sent: x(order)
-        
     def makeSubscribedTo(self, order):
-        order.on_matched.add(self.onOrderMatched)
+        order.on_matched += self.onOrderMatched
         return order
         
 class SingleAssetTrader(TraderBase):
@@ -42,7 +38,7 @@ class SingleAssetTrader(TraderBase):
         
     def send(self, book, order):
         book.process(self.makeSubscribedTo(order))
-        self.notifyOrderSent(book, order)        
+        self.on_order_sent.fire(order)        
 
     @property
     def amount(self):
@@ -128,7 +124,7 @@ class Canceller(object):
         self._elements = []
 
         if source:
-            source.on_order_sent.add(self.process)
+            source.on_order_sent += self.process
 
         def wakeUp(_):
             while self._elements <> []:
@@ -204,20 +200,19 @@ def NoiseTrader(book,
 class Signal(object):
 
     def advise(self, listener):
-        self.on_changed.add(listener)
+        self.on_changed += listener
 
     def __init__(self,
                  initialValue=0,
                  deltaDistr=(lambda: random.normalvariate(0.,1.)),
                  intervalDistr=(lambda: random.expovariate(1.))):
 
-        self.on_changed = set()
+        self.on_changed = Event()
         self.value = initialValue
 
         def wakeUp(_):
             self.value += deltaDistr()
-            for x in self.on_changed:
-                x(self)
+            self.on_changed.fire(self)
 
         Timer(intervalDistr).advise(wakeUp)
 
@@ -267,8 +262,8 @@ def TrendFollower(book,
                   creationIntervalDistr=(lambda: random.expovariate(1.)),
                   volumeDistr=(lambda: random.expovariate(1.))):
     
-    AssetPrice(book).advise(\
-        lambda assetPrice: average.update(world.currentTime, assetPrice.value))
+    AssetPrice(book).on_changed += \
+        lambda assetPrice: average.update(world.currentTime, assetPrice.value)
     
     return TwoSideTrader(book, orderFactory, Timer(creationIntervalDistr), 
                          signalTraderFunc(threshold, volumeDistr, 
