@@ -25,3 +25,5 @@ class TraderHistoryChecker(HistoryCheckerBase):
 
     def append(self, trader):
         HistoryCheckerBase.append(self, (trader.PnL, trader.amount))
+        
+            
