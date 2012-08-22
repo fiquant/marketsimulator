@@ -176,24 +176,3 @@ class OrderBook(object):
         return None if self.asks.empty or self.bids.empty \
                     else self.asks.best.price - self.bids.best.price
                     
-class AssetPrice(object):
-    
-    def __init__(self, book):
-        
-        self.on_changed = Event()
-        
-        def updateCurrentPrice():
-            self._currentPrice = book.price
-            if self._currentPrice is not None: # this should be removed into a separate filter
-                self.on_changed.fire(self) 
-        
-        book.asks.on_best_changed += lambda _: updateCurrentPrice()
-        book.bids.on_best_changed += lambda _: updateCurrentPrice()
-        updateCurrentPrice()
-        
-    def advise(self, listener):
-        self.on_changed += listener
-        
-    @property
-    def value(self):
-        return self._currentPrice

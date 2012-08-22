@@ -12,6 +12,8 @@ class Event(object):
         self._listeners = set()
         
     def __iadd__(self, listener):
+        if listener is None:
+            pass
         self._listeners.add(listener)
         return self
         

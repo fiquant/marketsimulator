@@ -2,7 +2,7 @@ import random
 from marketsim.scheduler import Timer, world
 from marketsim import Side
 from marketsim.order import *
-from marketsim.order_queue import AssetPrice, Event
+from marketsim.indicator import AssetPrice
 import math
 
 class TraderBase(object):
@@ -243,8 +243,9 @@ class EWMA(object):
         return self._avg
         
     def at(self, t):
-        dt = t - self._lastTime
-        return self._avg + (self._lastValue - self._avg)*(1 - (1 - self._alpha)**dt)
+        return \
+            self._avg + (self._lastValue - self._avg)*(1 - (1 - self._alpha)**( t - self._lastTime)) \
+            if self._avg is not None else None
     
     def derivativeAt(self, t):
         dt = t - self._lastTime
@@ -254,6 +255,12 @@ class EWMA(object):
         self._avg = self.at(time) if self._avg is not None else value
         self._lastValue = value
         self._lastTime = time
+        
+class EWMA_Ex(EWMA):
+    
+    def __init__(self, source, alpha = 0.15):
+        EWMA.__init__(self, alpha)
+        source.on_changed += lambda _: self.update(world.currentTime, source.value)
       
 def TrendFollower(book,
                   average = EWMA(alpha = 0.15),
