@@ -1,5 +1,6 @@
 from marketsim import Event, Side
-from marketsim.scheduler import Timer
+from marketsim.scheduler import Timer, world
+import math
 
 def isIterable(x):
     return '__iter__' in dir(x)
@@ -61,6 +62,45 @@ def BidPrice(book):
 def AskPrice(book):
     return BestPrice(book, Side.Sell, "AskPrice ")
 
-def OnEveryDt(interval, source, label):
+def OnEveryDt(interval, source):
     
-    return IndicatorBase([Timer(lambda: interval).on_timer], source, label, {'smooth':True})
+    return IndicatorBase([Timer(lambda: interval).on_timer], 
+                         source, 
+                         getLabel(source), 
+                         {'smooth':True})
+
+
+class ewma(object):
+    
+    def __init__(self, alpha):
+        self._alpha = alpha
+        self._avg = None
+        
+    @property 
+    def value(self):
+        return self._avg
+        
+    def at(self, t):
+        return \
+            self._avg + (self._lastValue - self._avg)*(1 - (1 - self._alpha)**( t - self._lastTime)) \
+            if self._avg is not None else None
+    
+    def derivativeAt(self, t):
+        dt = t - self._lastTime
+        return -(self._lastValue - self._avg)*math.log(1 - self._alpha)*(1 - self._alpha)**dt
+        
+    def update(self, time, value):
+        self._avg = self.at(time) if self._avg is not None else value
+        self._lastValue = value
+        self._lastTime = time
+
+class EWMA(ewma):
+    
+    def __init__(self, source, alpha = 0.15):
+        ewma.__init__(self, alpha)
+        source.on_changed += lambda _: self.update(world.currentTime, source.value)
+        self.label = r"Avg_{\alpha="+str(alpha)+"}(" + getLabel(source) + ")"
+        
+        
+    def __call__(self):
+        return self.at(world.currentTime)
