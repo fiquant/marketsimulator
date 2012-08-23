@@ -3,7 +3,24 @@ from colorsys import hsv_to_rgb
 from random import uniform
 import sys
 from veusz.veusz_main import run
-    
+import os
+import errno
+import __main__
+
+
+def ensure_dir(path):
+    try:
+        os.makedirs(path)
+    except OSError as exception:
+        if exception.errno != errno.EEXIST:
+            raise
+
+def myDir():
+    d = r"_output/" + os.path.basename(__main__.__file__)
+    ensure_dir(d)
+    return d + r"/"
+
+   
 class CSV(file):
     
     def __init__(self, filename, source, label):
@@ -69,7 +86,7 @@ class Graph(object):
         
     def addTimeSerie(self, source):
         label = source.label
-        self._datas.append(CSV(label+'.csv', source, label))
+        self._datas.append(CSV(myDir()+label+'.csv', source, label))
         
     def exportTo(self, f):
         f.write(graphHeader.format(self._name))
@@ -81,9 +98,9 @@ class Graph(object):
         f.write(graphTrailer)
 
 def showGraphs(name, graphs):
-    with open(name+".vsz", "w") as f:
+    with open(myDir() + name+".vsz", "w") as f:
         for g in graphs:
             g.exportTo(f)
-    sys.argv = [sys.argv[0], name+".vsz"]
+    sys.argv = [sys.argv[0], myDir()+name+".vsz"]
     run()
     
