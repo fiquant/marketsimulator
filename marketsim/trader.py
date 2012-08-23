@@ -261,6 +261,9 @@ class EWMA_Ex(EWMA):
     def __init__(self, source, alpha = 0.15):
         EWMA.__init__(self, alpha)
         source.on_changed += lambda _: self.update(world.currentTime, source.value)
+        
+    def __call__(self):
+        return self.at(world.currentTime)
       
 def TrendFollower(book,
                   average = EWMA(alpha = 0.15),

@@ -10,10 +10,11 @@ def getLabel(x):
 
 class IndicatorBase(object):
     
-    def __init__(self, eventSource, dataSource, label):
+    def __init__(self, eventSource, dataSource, label, attributes = {}):
         
         self.on_changed = Event()
         self._label = label
+        self.attributes = attributes
 
         def update(_):
             self._current = dataSource()
@@ -62,4 +63,4 @@ def AskPrice(book):
 
 def OnEveryDt(interval, source, label):
     
-    return IndicatorBase([Timer(lambda: interval).on_timer], source, label)
+    return IndicatorBase([Timer(lambda: interval).on_timer], source, label, {'smooth':True})

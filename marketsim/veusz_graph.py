@@ -20,23 +20,6 @@ def myDir():
     ensure_dir(d)
     return d + r"/"
 
-   
-class CSV(file):
-    
-    def __init__(self, filename, source, label):
-        
-        file.__init__(self, filename, 'w')
-        self._filename = filename
-        self._label = label
-        
-        self.write('Time'+label+','+label+',\n')
-        
-        def wakeUp(_):
-            x = source.value
-            if x is not None:
-                self.write(str(world.currentTime) + ',' + str(x) + ',\n')
-        
-        source.advise(wakeUp)
 
 def randColor():
     h = uniform(0., 1.) 
@@ -50,6 +33,47 @@ def randColor():
     
     return toHex(r) + toHex(g) + toHex(b)
 
+graphDataHeader = """
+ImportFileCSV('{0}', linked=True)
+To(Add('xy', name='{1}', autoadd=False))
+"""
+   
+class CSV(file):
+    
+    def __init__(self, filename, source, label, attributes={}):
+        
+        file.__init__(self, filename, 'w')
+        self._filename = filename
+        self._label = label
+        
+        self.write('Time'+label+','+label+',\n')
+        
+        def wakeUp(_):
+            x = source.value
+            if x is not None:
+                self.write(str(world.currentTime) + ',' + str(x) + ',\n')
+        
+        source.advise(wakeUp)
+        
+        self._attributes = {
+            'xData' : "Time"+label,
+            'yData' : label,
+            'marker': 'none',
+            r'PlotLine/steps': u'left',
+            r'PlotLine/color': u'#' + randColor(),
+            'key' : label,
+            }
+        
+        for k,v in attributes.iteritems():
+            self._attributes[k] = v
+        
+    def exportToVsz(self, f):
+        f.write(graphDataHeader.format(self._filename, self._label))
+        for k,v in self._attributes.iteritems():
+            f.write("Set('{0}', {1})\n".format(k,repr(v)))
+        f.write("To('..')\n")
+  
+
 graphHeader = """
 To(Add('page', name='page_{0}', autoadd=False))
 Set('width', u'25cm')
@@ -60,40 +84,36 @@ To('..')
 Add('axis', name='y', autoadd=False)
 """
 
-graphData = """
-ImportFileCSV('{0}', linked=True)
-To(Add('xy', name='{1}', autoadd=False))
-Set('xData', u'Time{1}')
-Set('yData', u'{1}')
-Set('marker', u'none')
-Set('PlotLine/steps', u'left')
-Set('PlotLine/color', u'#{2}')
-Set('key', u'{1}')
-To('..')
-"""
-
 graphTrailer = """
 Add('key', name='key1', autoadd=False)
 To('..')
 To('..')
 """
-    
+
+def translateAttributes(src):
+    res = {}
+    if 'smooth' in src and src['smooth']:
+        res[r'PlotLine/steps'] = 'off'
+    return res
+        
 class Graph(object):
     
     def __init__(self, name):
         self._name = name
         self._datas = []
         
-    def addTimeSerie(self, source):
+    def addTimeSerie(self, source, attributes = {}):
         label = source.label
-        self._datas.append(CSV(myDir()+label+'.csv', source, label))
+        attr = translateAttributes(source.attributes)
+        for k,v in attributes.iteritems():
+            attr[k] = v
+        self._datas.append(CSV(myDir()+label+'.csv', source, label, attr))
         
     def exportTo(self, f):
         f.write(graphHeader.format(self._name))
 
         for ts in self._datas:
-            ts.flush()
-            f.write(graphData.format(ts._filename, ts._label, randColor()))
+            ts.exportToVsz(f)
             
         f.write(graphTrailer)
 
