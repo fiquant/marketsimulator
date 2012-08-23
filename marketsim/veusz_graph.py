@@ -32,6 +32,34 @@ def randColor():
     r, g, b = hsv_to_rgb(h, s, v)
     
     return toHex(r) + toHex(g) + toHex(b)
+
+graphHeader = """
+To(Add('page', name='page_{0}', autoadd=False))
+Set('width', u'25cm')
+To(Add('graph', name='graph_{0}', autoadd=False))
+To(Add('axis', name='x', autoadd=False))
+Set('label', u'Time')
+To('..')
+Add('axis', name='y', autoadd=False)
+"""
+
+graphData = """
+ImportFileCSV('{0}', linked=True)
+To(Add('xy', name='{1}', autoadd=False))
+Set('xData', u'Time{1}')
+Set('yData', u'{1}')
+Set('marker', u'none')
+Set('PlotLine/steps', u'left')
+Set('PlotLine/color', u'#{2}')
+Set('key', u'{1}')
+To('..')
+"""
+
+graphTrailer = """
+Add('key', name='key1', autoadd=False)
+To('..')
+To('..')
+"""
     
 class Graph(object):
     
@@ -43,34 +71,19 @@ class Graph(object):
         label = source.label
         self._datas.append(CSV(label+'.csv', source, label))
         
-    def show(self):
-        self.exportToVsz()
-        sys.argv = [sys.argv[0], self._name+".vsz"]
-        run()
-        
-    def exportToVsz(self):
-        with open(self._name+".vsz", "w") as f:
-            f.write("To(Add(\'page\', name=\'page1\', autoadd=False))\n")
-            f.write("Set(\'width\', u\'25cm\')\n")
-            f.write("To(Add(\'graph\', name=\'graph1\', autoadd=False))\n")
-            f.write("To(Add(\'axis\', name=\'x\', autoadd=False))\n")
-            f.write("Set(\'label\', u\'Time\')\n")
-            f.write("To(\'..\')\n")
-            f.write("Add(\'axis\', name=\'y\', autoadd=False)\n")
+    def exportTo(self, f):
+        f.write(graphHeader.format(self._name))
 
-            for ts in self._datas:
-                ts.flush()
-                f.write("ImportFileCSV(\'"+ts._filename+"\', linked=True)\n")
-                plotname = 'lineplot_' + ts._label
-                timename = "Time"+ts._label
-                f.write("To(Add(\'xy\', name=\'"+plotname+"\', autoadd=False))\n")
-                f.write("Set(\'xData\', u\'"+timename+"\')\n")
-                f.write("Set(\'yData\', u\'"+ts._label+"\')\n")
-                f.write("Set(\'marker\', u\'none\')\n")
-                f.write("Set(\'PlotLine/steps\', u\'left\')\n")
-                f.write("Set(\'PlotLine/color\', u\'#"+randColor()+"\')\n")
-                f.write("Set(\'key\', u\'"+ts._label+"\')\n")
-                f.write("To(\'..\')\n")
-                
-            f.write("Add(\'key\', name=\'key1\', autoadd=False)\n")
+        for ts in self._datas:
+            ts.flush()
+            f.write(graphData.format(ts._filename, ts._label, randColor()))
+            
+        f.write(graphTrailer)
 
+def showGraphs(name, graphs):
+    with open(name+".vsz", "w") as f:
+        for g in graphs:
+            g.exportTo(f)
+    sys.argv = [sys.argv[0], name+".vsz"]
+    run()
+    
