@@ -2,7 +2,7 @@ import random
 from marketsim.scheduler import Timer, world
 from marketsim import Side
 from marketsim.order import *
-from marketsim.indicator import AssetPrice
+from marketsim.indicator import AssetPrice, ewma
 import math
 
 class TraderBase(object):
@@ -231,42 +231,9 @@ def SignalTrader( book,
     
     return TwoSideTrader(book, orderFactory, signal, 
                          signalTraderFunc(threshold, volumeDistr, lambda: signal.value))
-
-class EWMA(object):
-    
-    def __init__(self, alpha):
-        self._alpha = alpha
-        self._avg = None
         
-    @property 
-    def value(self):
-        return self._avg
-        
-    def at(self, t):
-        return \
-            self._avg + (self._lastValue - self._avg)*(1 - (1 - self._alpha)**( t - self._lastTime)) \
-            if self._avg is not None else None
-    
-    def derivativeAt(self, t):
-        dt = t - self._lastTime
-        return -(self._lastValue - self._avg)*math.log(1 - self._alpha)*(1 - self._alpha)**dt
-        
-    def update(self, time, value):
-        self._avg = self.at(time) if self._avg is not None else value
-        self._lastValue = value
-        self._lastTime = time
-        
-class EWMA_Ex(EWMA):
-    
-    def __init__(self, source, alpha = 0.15):
-        EWMA.__init__(self, alpha)
-        source.on_changed += lambda _: self.update(world.currentTime, source.value)
-        
-    def __call__(self):
-        return self.at(world.currentTime)
-      
 def TrendFollower(book,
-                  average = EWMA(alpha = 0.15),
+                  average = ewma(alpha = 0.15),
                   threshold = 0., 
                   orderFactory=MarketOrderT,
                   creationIntervalDistr=(lambda: random.expovariate(1.)),
