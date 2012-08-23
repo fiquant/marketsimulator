@@ -1,4 +1,4 @@
-from marketsim.veusz_graph import Graph
+from marketsim.veusz_graph import Graph, showGraphs
 from marketsim.scheduler import world
 from marketsim.order_queue import OrderBook
 from marketsim.trader import LiquidityProvider
@@ -9,25 +9,28 @@ from marketsim.trader import EWMA_Ex
 book_A = OrderBook(tickSize=0.01)
 book_A.label = "A"
 
-graph = Graph("arbitrage")
+price_graph = Graph("Price")
+spread_graph = Graph("Bid-Ask Spread")
+ 
 assetPrice = AssetPrice(book_A)
-graph.addTimeSerie(assetPrice)
-#graph.addTimeSerie(BidPrice(book_A))
-#graph.addTimeSerie(AskPrice(book_A))
+price_graph.addTimeSerie(assetPrice)
+
+spread_graph.addTimeSerie(BidPrice(book_A))
+spread_graph.addTimeSerie(AskPrice(book_A))
 
 ewma_0_15 = EWMA_Ex(assetPrice, alpha=0.15)
 ewma_0_015 = EWMA_Ex(assetPrice, alpha=0.015)
 ewma_0_065 = EWMA_Ex(assetPrice, alpha=0.065)
 
-graph.addTimeSerie(OnEveryDt(1, lambda: ewma_0_15.at(world.currentTime), "Avg(0.15)"))
-graph.addTimeSerie(OnEveryDt(1, lambda: ewma_0_015.at(world.currentTime), "Avg(0.015)"))
-graph.addTimeSerie(OnEveryDt(1, lambda: ewma_0_065.at(world.currentTime), "Avg(0.065)"))
+price_graph.addTimeSerie(OnEveryDt(1, lambda: ewma_0_15.at(world.currentTime), "Avg(0.15)"))
+price_graph.addTimeSerie(OnEveryDt(1, lambda: ewma_0_015.at(world.currentTime), "Avg(0.015)"))
+price_graph.addTimeSerie(OnEveryDt(1, lambda: ewma_0_065.at(world.currentTime), "Avg(0.065)"))
 
 seller_A = LiquidityProvider(book_A, Side.Sell)
 buyer_A = LiquidityProvider(book_A, Side.Buy)
 
 world.workTill(500)
 
-graph.show()
+showGraphs("liquidity", [price_graph, spread_graph])
 
 world.reset()
