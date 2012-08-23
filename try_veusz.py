@@ -22,9 +22,9 @@ ewma_0_15 = EWMA_Ex(assetPrice, alpha=0.15)
 ewma_0_015 = EWMA_Ex(assetPrice, alpha=0.015)
 ewma_0_065 = EWMA_Ex(assetPrice, alpha=0.065)
 
-price_graph.addTimeSerie(OnEveryDt(1, lambda: ewma_0_15.at(world.currentTime), "Avg(0.15)"))
-price_graph.addTimeSerie(OnEveryDt(1, lambda: ewma_0_015.at(world.currentTime), "Avg(0.015)"))
-price_graph.addTimeSerie(OnEveryDt(1, lambda: ewma_0_065.at(world.currentTime), "Avg(0.065)"))
+price_graph.addTimeSerie(OnEveryDt(1, ewma_0_15, "Avg(0.15)"))
+price_graph.addTimeSerie(OnEveryDt(1, ewma_0_015, "Avg(0.015)"), {r'PlotLine/bezierJoin':True})
+price_graph.addTimeSerie(OnEveryDt(1, ewma_0_065, "Avg(0.065)"))
 
 seller_A = LiquidityProvider(book_A, Side.Sell)
 buyer_A = LiquidityProvider(book_A, Side.Buy)
