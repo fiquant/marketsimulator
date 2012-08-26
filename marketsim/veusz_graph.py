@@ -136,7 +136,7 @@ class Graph(object):
         attr = translateAttributes(source.attributes)
         for k,v in attributes.iteritems():
             attr[k] = v
-        filename = (myDir()+label+'.csv').replace('\\','_')
+        filename = (myDir()+label+'.csv').replace('\\','_').replace(r'/','_')
         self._datas.append(CSV(filename, source, label, attr))
         
     def exportTo(self, f):
