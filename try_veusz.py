@@ -1,7 +1,7 @@
 from marketsim.veusz_graph import Graph, showGraphs
 from marketsim.scheduler import world
 from marketsim.order_queue import OrderBook
-from marketsim.trader import LiquidityProvider
+from marketsim.trader import LiquidityProvider, FVTrader
 from marketsim import Side
 from marketsim.indicator import AssetPrice, BidPrice, AskPrice, OnEveryDt, EWMA
 

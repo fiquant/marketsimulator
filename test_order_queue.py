@@ -16,7 +16,7 @@ asks.push(a10)
 assert history.checkDelta([(10,100)])
 asks.push(a15)
 
-L = set(asks.withPricesBetterThen(12))
+L = set(asks.withPricesBetterThan(12))
 assert a10 in L
 assert a12 in L
 assert a15 not in L
