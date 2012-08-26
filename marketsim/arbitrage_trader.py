@@ -1,20 +1,28 @@
-from marketsim.trader import TraderBase
+from marketsim.trader import SingleAssetTrader
 from marketsim.order import MarketOrderT
 from blist import sorteddict
 from marketsim import Side
 from marketsim.scheduler import world
 
 
-class ArbitrageTrader(TraderBase):
+class ArbitrageTrader(SingleAssetTrader):
+    """ A trader that make use of arbitrage trading the same asset on several markets
+    """
     
     def __init__(self, *books):
+        """ Initializes trader by order books for the asset from different markets
+        """
         
-        TraderBase.__init__(self)
+        SingleAssetTrader.__init__(self)
         
+        # order queues ordered by their best asks and bids
+        # something like std::map<Ticks, OrderQueue>[2]
         bests = [sorteddict(), sorteddict()]
         oldBests = {}
         
         def onBestChanged(side):
+            """ Returns a function to be called when best order in a queue changed
+            """
             
             # ordered set of queues on my side
             myQueues = bests[side]
@@ -49,7 +57,7 @@ class ArbitrageTrader(TraderBase):
                         # and the queue itself
                         oppositeQueue = oppositeQueues[bestOppositeSignedPrice] 
     
-                        # calculate volume of ordere from opposite side that can be matched
+                        # calculate volume of orders from opposite side that can be matched
                         oppositeVolume = oppositeQueue.volumeWithPriceBetterThan(bestOrder.price)
 
                         # is there some sense to trade                    
@@ -57,20 +65,12 @@ class ArbitrageTrader(TraderBase):
                             
                             volumeToTrade = min(oppositeVolume, bestOrder.volume)
                             
-                            myOrder = self.makeSubscribedTo(MarketOrderT(oppositeSide)(volumeToTrade))
-                            otherOrder = self.makeSubscribedTo(MarketOrderT(side)(volumeToTrade))
-                            
                             # make two complimentary trades
-                            myQueue.book.process(myOrder)
-                            oppositeQueue.book.process(otherOrder)
+                            self.send(myQueue.book, MarketOrderT(oppositeSide)(volumeToTrade))
+                            self.send(oppositeQueue.book, MarketOrderT(side)(volumeToTrade))
                     
             return lambda queue: world.scheduleAfter(0, lambda: inner(queue))
                         
-                
-        
-        def onBidsChanged(queue, bestOrder):
-            pass
-        
         def regSide(side):
             for book in books:
                 queue = book.queue(side) 
@@ -81,5 +81,3 @@ class ArbitrageTrader(TraderBase):
                     
         regSide(Side.Buy)
         regSide(Side.Sell)
-            
-        
