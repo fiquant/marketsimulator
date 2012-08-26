@@ -130,6 +130,10 @@ class Bids(OrderQueue):
     
     def __init__(self, *args):
         OrderQueue.__init__(self, *args)
+        
+    @property
+    def label(self):
+        return self.book.label + "_{Bids}"
 
     def ticks(self, price):
         """ Corrects 'price' with respect to the tick size
@@ -155,6 +159,10 @@ class Asks(OrderQueue):
     def __init__(self, *args):
         OrderQueue.__init__(self, *args)
 
+    @property
+    def label(self):
+        return self.book.label + "^{Asks}"
+
     def ticks(self, price):
         """ Corrects 'price' with respect to the tick size
         Returns signed integer number of ticks for the price 
@@ -176,7 +184,7 @@ class OrderBook(object):
     """ Order book for a single asset in a market
     Maintains two order queues for orders of different sides
     """
-    def __init__(self, tickSize=1):
+    def __init__(self, tickSize=1, label=""):
         """ Initializes empty order book with given tick size
         """
         self._bids = Bids(tickSize, self)
@@ -186,6 +194,7 @@ class OrderBook(object):
         self._queues[self._bids.side] = self._bids
         self._queues[self._asks.side] = self._asks
         self._tickSize = tickSize
+        self.label = label
 
     def queue(self, side):
         """ Returns queue of the given side
