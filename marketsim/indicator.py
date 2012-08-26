@@ -70,6 +70,13 @@ def CrossSpread(book_A, book_B):
         [asks.on_best_changed, bids.on_best_changed], 
         lambda: asks.best.price - bids.best.price if not asks.empty and not bids.empty else None, 
         "Price("+asks.label+") - Price("+bids.label+")")
+    
+def VolumeTraded(trader):
+    return IndicatorBase(\
+        [trader.on_traded], 
+        lambda: trader.amount, 
+        "Amount(trader)")
+    
 
 def BestPrice(book, side, label):
     """ Creates an indicator bound to the price of the best order in a queue
