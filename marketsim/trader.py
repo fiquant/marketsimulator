@@ -36,7 +36,7 @@ class TraderBase(object):
         """ Returns traders's P&L
         """
         return self._PnL
-
+    
     def _makeSubscribedTo(self, order):
         """ Makes trader subscribed to 'order' on_matched event
         before sending it to the order book

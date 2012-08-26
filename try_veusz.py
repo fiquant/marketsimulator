@@ -5,8 +5,7 @@ from marketsim.trader import LiquidityProvider, FVTrader
 from marketsim import Side
 from marketsim.indicator import AssetPrice, BidPrice, AskPrice, OnEveryDt, EWMA
 
-book_A = OrderBook(tickSize=0.01)
-book_A.label = "A"
+book_A = OrderBook(tickSize=0.01, label="A")
 
 price_graph = Graph("Price")
 spread_graph = Graph("Bid-Ask Spread")

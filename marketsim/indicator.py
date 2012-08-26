@@ -62,6 +62,14 @@ def AssetPrice(book):
     return IndicatorBase(\
         [book.asks.on_best_changed, book.bids.on_best_changed], 
         lambda: book.price, "Price_{"+getLabel(book)+"}")
+    
+def CrossSpread(book_A, book_B):
+    asks = book_A.asks
+    bids = book_B.bids
+    return IndicatorBase(\
+        [asks.on_best_changed, bids.on_best_changed], 
+        lambda: asks.best.price - bids.best.price if not asks.empty and not bids.empty else None, 
+        "Price("+asks.label+") - Price("+bids.label+")")
 
 def BestPrice(book, side, label):
     """ Creates an indicator bound to the price of the best order in a queue
@@ -75,7 +83,7 @@ def BestPrice(book, side, label):
     return IndicatorBase(\
         [queue.on_best_changed], 
         lambda: queue.best.price if not queue.empty else None,
-        label+"_{"+getLabel(book)+"}")
+        "Price("+queue.label+")")
     
 def BidPrice(book):
     """ Creates an indicator bound to the bid price of the asset

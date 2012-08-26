@@ -38,7 +38,10 @@ class ArbitrageTrader(SingleAssetTrader):
                 # since the price of the best order changed,
                 # we remove its queue from the set of all queues
                 if myQueue in oldBests:
-                    myQueues.pop(oldBests[myQueue])
+                    try:
+                        myQueues.pop(oldBests[myQueue])
+                    except Exception, e:
+                        pass
                 
                 # if the queue becomes empty 
                 if bestOrder == None:
