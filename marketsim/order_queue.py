@@ -20,6 +20,7 @@ class OrderQueue(object):
         self._counter = 0           # arrival order counter
         self.on_best_changed = Event()  # event to be called when the best order changes
         self._lastBest = None       # pair (bestPrice, bestVolume)
+        self._lastPrice = None      # last valid price
         self._book = book           # book the queue belongs to if any
 
     @property
@@ -36,8 +37,14 @@ class OrderQueue(object):
             
         if bestpv != self._lastBest:
             self._lastBest = bestpv
+            if bestpv != None:
+                self._lastPrice = bestpv[0]
             self.on_best_changed.fire(self)
-
+            
+    @property
+    def lastPrice(self):
+        return self._lastPrice
+            
     def __str__(self):
         return type(self).__name__ + "(" + str(self._elements) + ")"
 

@@ -163,7 +163,9 @@ def liquidityProviderFunc(defaultValue, priceDistr, volumeDistr):
     """
     def inner(trader):
         queue = trader.book.queue(trader.side)
-        currentPrice = queue.best.price if not queue.empty else defaultValue
+        currentPrice = queue.best.price if not queue.empty else\
+                       queue.lastPrice if queue.lastPrice is not None else\
+                       defaultValue
         price = currentPrice * priceDistr()
         volume = int(volumeDistr())
         return (price, volume)

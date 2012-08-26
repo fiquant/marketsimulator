@@ -25,6 +25,8 @@ cross_AB = CrossSpread(book_A, book_B)
 cross_BA = CrossSpread(book_B, book_A)
 cross_graph.addTimeSerie(cross_AB)
 cross_graph.addTimeSerie(cross_BA)
+cross_graph.addTimeSerie(avg(cross_AB))
+cross_graph.addTimeSerie(avg(cross_BA))
 
 spread_graph.addTimeSerie(avg(BidPrice(book_A)))
 spread_graph.addTimeSerie(avg(AskPrice(book_A)))
