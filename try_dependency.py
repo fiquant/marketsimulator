@@ -19,7 +19,7 @@ assetPrice_B = AssetPrice(book_B)
 price_graph.addTimeSerie(assetPrice_B)
 
 def avg(source, alpha=0.15):
-    return OnEveryDt(1, EWMA(source, alpha=0.15))
+    return OnEveryDt(1, EWMA(source, alpha))
 
 ewma_0_15 = EWMA(assetPrice_A, alpha=0.15)
 ewma_0_015 = EWMA(assetPrice_A, alpha=0.015)
@@ -33,7 +33,7 @@ price_graph.addTimeSerie(avg(assetPrice_B, alpha=0.15))
 price_graph.addTimeSerie(avg(assetPrice_B, alpha=0.015), {r'PlotLine/bezierJoin':True})
 price_graph.addTimeSerie(avg(assetPrice_B, alpha=0.65))
 
-liqVol = lambda: random.expovariate(.1)*1
+liqVol = lambda: random.expovariate(.1)*5
 seller_A = LiquidityProvider(book_A, Side.Sell, defaultValue=50., volumeDistr=liqVol)
 buyer_A = LiquidityProvider(book_A, Side.Buy, defaultValue=50., volumeDistr=liqVol)
 
@@ -45,6 +45,6 @@ dep_BA = DependanceTrader(book_B, book_A, factor=.5)
 
 world.workTill(500)
 
-showGraphs("arbitrage", [price_graph])
+showGraphs("dependency", [price_graph])
 
 world.reset()

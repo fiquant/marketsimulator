@@ -13,7 +13,7 @@ assetPrice = AssetPrice(book_A)
 price_graph.addTimeSerie(assetPrice)
 
 def avg(source, alpha=0.15):
-    return OnEveryDt(1, EWMA(source, alpha=0.15))
+    return OnEveryDt(1, EWMA(source, alpha))
 
 price_graph.addTimeSerie(avg(assetPrice))
 
