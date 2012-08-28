@@ -2,7 +2,6 @@ from marketsim.scheduler import world
 from colorsys import hsv_to_rgb
 from random import uniform
 import sys
-from veusz.veusz_main import run
 import os
 import errno
 import __main__
@@ -48,13 +47,13 @@ class CSV(file):
     """ Represents a time serie to be written into a file 
     """
     
-    def __init__(self, filename, source, label, attributes={}):
+    def __init__(self, dir, filename, source, label, attributes={}):
         """ Initializes time serie writer
         filename - name of a file to write to 
         source - indicator with values to be saved
         label - time serie label
         """
-        file.__init__(self, filename, 'w')
+        file.__init__(self, dir + filename, 'w')
         self._filename = filename
         self._label = label
         
@@ -107,6 +106,7 @@ Add('key', name='key1', autoadd=False)
 To('..')
 To('..')
 """
+# Export(r'{0}.png', page={1})
 
 def translateAttributes(src):
     """ Translates abstract attributes to Veusz graph attributes
@@ -136,10 +136,14 @@ class Graph(object):
         attr = translateAttributes(source.attributes)
         for k,v in attributes.iteritems():
             attr[k] = v
-        filename = (myDir()+label+'.csv').replace('\\','_').replace(r'/','_')
-        self._datas.append(CSV(filename, source, label, attr))
+        filename = (label+'.csv').replace('\\','_')
+        self._datas.append(CSV(myDir(), filename, source, label, attr))
         
-    def exportTo(self, f):
+    def addTimeSeries(self, series):
+        for x in series:
+            self.addTimeSerie(x)
+        
+    def exportTo(self, f, idx):
         """ Exports graph to some Vsz file
         """
         f.write(graphHeader.format(self._name))
@@ -147,14 +151,24 @@ class Graph(object):
         for ts in self._datas:
             ts.exportToVsz(f)
             
-        f.write(graphTrailer)
+        f.write(graphTrailer.format(self._name, idx))
+        
+def run(name):
+    try:
+        import veusz.veusz_main 
+        sys.argv = [sys.argv[0], myDir()+name+".vsz"]
+        veusz.veusz_main.run()
+    except Exception:
+        print "Cannot run veusz. Please run manually 'veusz '" + myDir()+name+".vsz" 
+        
 
 def showGraphs(name, graphs):
     """ Draws a sequence of graphs into a Veusz workspace and launches veusz
     """
     with open(myDir() + name+".vsz", "w") as f:
+        idx = 0
         for g in graphs:
-            g.exportTo(f)
-    sys.argv = [sys.argv[0], myDir()+name+".vsz"]
-    run()
+            g.exportTo(f, idx)
+            idx += 1
+    run(name)
     

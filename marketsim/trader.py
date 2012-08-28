@@ -416,6 +416,8 @@ def TrendFollower(book,
     average - moving average object (update(time,value); derivativeAt(time))
     threshold - threshold of the moving average derivate when the trader starts to act
     orderFactory - order factory function: side -> *orderParams -> Order
+    creationIntervalDistr - defines intervals of time between order creation 
+                            (default: exponential distribution with \lambda=1)
     volumeDistr - function to determine volume of orders to create 
                             (default: exponential distribution with \lambda=1) 
     """

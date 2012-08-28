@@ -19,7 +19,7 @@ assetPrice = AssetPrice(book_A)
 price_graph.addTimeSerie(assetPrice)
 
 def avg(source, alpha=0.15):
-    return OnEveryDt(1, EWMA(source, alpha=0.15))
+    return OnEveryDt(1, EWMA(source, alpha))
 
 cross_AB = CrossSpread(book_A, book_B)
 cross_BA = CrossSpread(book_B, book_A)
