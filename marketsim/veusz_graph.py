@@ -1,6 +1,7 @@
 from marketsim.scheduler import world
 from colorsys import hsv_to_rgb
 from random import uniform
+from subprocess import Popen
 import sys
 import os
 import errno
@@ -154,12 +155,12 @@ class Graph(object):
         f.write(graphTrailer.format(self._name, idx))
         
 def run(name):
-    try:
-        import veusz.veusz_main 
-        sys.argv = [sys.argv[0], myDir()+name+".vsz"]
-        veusz.veusz_main.run()
-    except Exception:
-        print "Cannot run veusz. Please run manually 'veusz '" + myDir()+name+".vsz" 
+    if not 'VEUSZ_EXE' in os.environ:
+        print "Please specify path to Veusz executable in VEUSZ_EXE environment variable"
+        print "You may look also for the results manually in Veusz script: " + myDir()+name+".vsz"
+        return 
+    veusz_exe = os.environ['VEUSZ_EXE']
+    Popen(veusz_exe + ' ' + myDir()+name+".vsz")
         
 
 def showGraphs(name, graphs):
