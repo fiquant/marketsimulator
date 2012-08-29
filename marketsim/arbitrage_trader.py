@@ -40,7 +40,7 @@ class ArbitrageTrader(SingleAssetTrader):
                 if myQueue in oldBests:
                     try:
                         myQueues.pop(oldBests[myQueue])
-                    except Exception, e:
+                    except Exception:   # wtf??? 
                         pass
                 
                 # if the queue becomes empty 

@@ -1,4 +1,4 @@
-from marketsim.order import OrderBase
+from marketsim.order import OrderBase, CancelOrder
 
 class Volume(object):
     """ Auxiliary class to hold market order initialization parameters 
@@ -73,7 +73,7 @@ class IcebergOrder(OrderBase):
         """
         OrderBase.cancel(self)
         if self._current:
-            self._current.cancel()
+            self._book.process(CancelOrder(self._current))
 
     @property
     def PnL(self):

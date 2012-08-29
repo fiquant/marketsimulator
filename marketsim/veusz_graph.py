@@ -48,13 +48,13 @@ class CSV(file):
     """ Represents a time serie to be written into a file 
     """
     
-    def __init__(self, dir, filename, source, label, attributes={}):
+    def __init__(self, directory, filename, source, label, attributes={}):
         """ Initializes time serie writer
         filename - name of a file to write to 
         source - indicator with values to be saved
         label - time serie label
         """
-        file.__init__(self, dir + filename, 'w')
+        file.__init__(self, directory + filename, 'w')
         self._filename = filename
         self._label = label
         

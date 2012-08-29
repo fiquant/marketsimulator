@@ -19,6 +19,7 @@ class OrderQueue(object):
         self._tickSize = tickSize   # tick size
         self._counter = 0           # arrival order counter
         self.on_best_changed = Event()  # event to be called when the best order changes
+        self.on_order_cancelled = Event() # event (orderQueue, cancelledOrder) to be called when an order is cancelled 
         self._lastBest = None       # pair (bestPrice, bestVolume)
         self._lastPrice = None      # last valid price
         self._book = book           # book the queue belongs to if any
@@ -64,6 +65,15 @@ class OrderQueue(object):
         self._counter += 1
         # notify listeners if the best order changed
         self.notifyIfBestChanged()
+        
+    def onOrderCancelled(self, order):
+        """ To be called when 'order' is marked as cancelled 
+        Notifies 'on_order_cancelled' event listeners.
+        May fire 'on_best_changed' event
+        """
+        self._makeValid()
+        self.notifyIfBestChanged()
+        self.on_order_cancelled.fire(self, order)
 
     def _makeValid(self):
         """ Ensures that the queue is either empty or has a valid order on top
@@ -219,6 +229,11 @@ class OrderBook(object):
 
     def __repr__(self):
         return self.__str__()
+    
+    def onOrderCancelled(self, order):
+        """ To be called when 'order' is cancelled
+        """
+        self.queue(order.side).onOrderCancelled(order)
 
     def process(self, order):
         """ Processes an order by calling its processIn method
