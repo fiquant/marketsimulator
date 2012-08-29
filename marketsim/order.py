@@ -48,11 +48,14 @@ class OrderBase(object):
         """ Is order cancelled
         """
         return self._cancelled
+    
 
-    def cancel(self):
-        """ Marks order as cancelled
+    def cancel(self, book=None):
+        """ Marks order as cancelled. Notifies the order book about it
         """
         self._cancelled = True
+        if book:
+            book.onOrderCancelled(self)
 
     def onMatchedWith(self, other, (price,volume)):
         """ Called when the order is matched with another order
@@ -65,6 +68,15 @@ class OrderBase(object):
         self._volume -= volume
         self._PnL += volume * price
         self.on_matched.fire(self, other, (price, volume))
+        
+class CancelOrder(object):
+    """ Cancels another order that can be for example a limit or an iceberg order
+    """
+    def __init__(self, orderToBeCancelled):
+        self._toCancel = orderToBeCancelled
+        
+    def processIn(self, orderBook):
+        self._toCancel.cancel(book = orderBook)
 
 
 class LimitOrderBase(OrderBase):

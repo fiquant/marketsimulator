@@ -205,7 +205,7 @@ class Canceller(object):
     """
 
     def __init__(   self,
-                    source=None,
+                    source,
                     cancellationIntervalDistr=(lambda: random.expovariate(1.)),
                     choiceFunc=lambda N: random.randint(0,N-1)):
         """ Initializes canceller with 
@@ -218,10 +218,10 @@ class Canceller(object):
         # orders created by trader
         self._elements = []
 
-        # if there is a trader
-        if source:
-            # start listening its orders sent
-            source.on_order_sent += self.process
+        # start listening its orders sent
+        source.on_order_sent += self.process
+        
+        book = source.book
 
         def wakeUp(_):
             # if we have orders to cancel
@@ -239,7 +239,7 @@ class Canceller(object):
                     self._elements.pop()
                 else:
                     # if order is valid, cancel it
-                    e.cancel()
+                    book.process(CancelOrder(e))
                     return
 
         Timer(cancellationIntervalDistr).advise(wakeUp)
