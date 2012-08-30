@@ -6,6 +6,7 @@ from marketsim.test import *
 book = OrderBook(tickSize=1)
 
 createLimitSell = iceberg(10, LimitOrderSell)
+createMarketBuy = iceberg(5, MarketOrderBuy)
 
 a12 = createLimitSell(11.2, 100)
 book.process(a12)
@@ -19,7 +20,7 @@ assert a12.price == 11.2  # price correction is done only for real options
 
 assert book.bids.empty
 
-mb1 = MarketOrderBuy(25)
+mb1 = createMarketBuy(25)
 book.process(mb1)
 
 assert a12.PnL == 12*25
@@ -29,7 +30,6 @@ assert mb1.PnL == -12*25
 assert book.asks.best.price == 12
 assert book.asks.best.volume == 5
 
-createMarketBuy = iceberg(25, MarketOrderBuy)
 mb2 = createMarketBuy(65)
 book.process(mb2)
 assert a12.PnL == 12*90
