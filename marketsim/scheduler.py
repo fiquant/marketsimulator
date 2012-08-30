@@ -45,6 +45,7 @@ class Scheduler(object):
         self._elements = []
         self._currentTime = 0.
         self._counter = 0
+        self._working = False
 
     def __repr__(self):
         return "(t=" + str(self.currentTime) + ": " + repr(self._elements) + ")"
@@ -78,11 +79,16 @@ class Scheduler(object):
         in order of their action time and arrival order
         Postcondition: currentTime == limitTime and not exists e: actionTime(e) < limitTime
         """
+        if self._working:
+            raise Exception("Scheduler is already working")
+        
+        self._working = True
         while (self._elements <> [] and self._elements[0][0][0] < limitTime):
             ((actionTime,_), eh) = heapq.heappop(self._elements)
             self._currentTime = actionTime
             eh()
         self._currentTime = limitTime
+        self._working = False
 
     def advance(self, dt):
         """ Makes the scheduler work 'dt' moments of time more
