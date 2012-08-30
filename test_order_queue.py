@@ -16,6 +16,9 @@ asks.push(a10)
 assert history.checkDelta([(10,100)])
 asks.push(a15)
 
+S = [x.price for x in asks.sorted]
+assert S == [10,12,15]
+
 L = set(asks.withPricesBetterThan(12))
 assert a10 in L
 assert a12 in L
