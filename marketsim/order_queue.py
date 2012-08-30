@@ -136,6 +136,20 @@ class OrderQueue(object):
                     heapq.heappush(grey, nth(idx * 2 + 1))
                 if idx * 2 + 2 < len(self._elements):
                     heapq.heappush(grey, nth(idx * 2 + 2))
+    
+    @property             
+    def sortedPVs(self):
+        lastPV = (None, None)
+        for x in self.sorted:
+            if not x.cancelled and not x.empty:
+                if x.price == lastPV[0]:
+                    lastPV = (x.price, lastPV[1] + x.volume)
+                else: 
+                    if lastPV[0] is not None:
+                        yield lastPV
+                    lastPV = (x.price, x.volume)
+        if lastPV[0] is not None:
+            yield lastPV
 
     def withPricesBetterThan(self, limit, idx=0):
         """ Enumerates orders with price better than or equal to 'limit'
