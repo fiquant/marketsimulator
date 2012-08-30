@@ -122,6 +122,20 @@ class OrderQueue(object):
                 break
         self.notifyIfBestChanged()
         return other.empty
+    
+    @property
+    def sorted(self):
+        if self._elements <> []:
+            def nth(i):
+                return (self._elements[i][0], i)
+            grey = [nth(0)]
+            while grey <> []:
+                (_, idx) = heapq.heappop(grey)
+                yield self._elements[idx][1]
+                if idx * 2 + 1 < len(self._elements):
+                    heapq.heappush(grey, nth(idx * 2 + 1))
+                if idx * 2 + 2 < len(self._elements):
+                    heapq.heappush(grey, nth(idx * 2 + 2))
 
     def withPricesBetterThan(self, limit, idx=0):
         """ Enumerates orders with price better than or equal to 'limit'
