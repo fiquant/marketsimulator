@@ -1,5 +1,5 @@
 from marketsim.trader import SingleAssetTrader
-from marketsim.order import MarketOrderT
+from marketsim.order import LimitOrderT, CancelOrder
 from blist import sorteddict
 from marketsim import Side
 from marketsim.scheduler import world
@@ -67,10 +67,20 @@ class ArbitrageTrader(SingleAssetTrader):
                         if oppositeVolume > 0:
                             
                             volumeToTrade = min(oppositeVolume, bestOrder.volume)
+
+                            # we create limit orders since price may change before orders will be processed
+                            myOrder = LimitOrderT(oppositeSide)(abs(bestOppositeSignedPrice), volumeToTrade)
+                            oppositeOrder = LimitOrderT(side)(bestOrder.price, volumeToTrade)
                             
                             # make two complimentary trades
-                            self.send(myQueue.book, MarketOrderT(oppositeSide)(volumeToTrade))
-                            self.send(oppositeQueue.book, MarketOrderT(side)(volumeToTrade))
+                            self.send(myQueue.book, myOrder)
+                            # we send immediately cancel orders 
+                            # in order to avoid storing these limit orders in the book
+                            self.send(myQueue.book, CancelOrder(myOrder))
+
+                            self.send(oppositeQueue.book, oppositeOrder)
+                            self.send(oppositeQueue.book, CancelOrder(oppositeOrder))
+                            
                     
             return lambda queue: world.scheduleAfter(0, lambda: inner(queue))
                         

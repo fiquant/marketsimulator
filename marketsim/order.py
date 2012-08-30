@@ -74,6 +74,7 @@ class CancelOrder(object):
     """
     def __init__(self, orderToBeCancelled):
         self._toCancel = orderToBeCancelled
+        self.on_matched = Event() # just dummy event. never called
         
     def processIn(self, orderBook):
         self._toCancel.cancel(book = orderBook)

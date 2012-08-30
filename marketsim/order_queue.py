@@ -212,6 +212,7 @@ class OrderBook(object):
         self._queues[self._asks.side] = self._asks
         self._tickSize = tickSize
         self.label = label
+        self._incomingOrders = None
 
     def queue(self, side):
         """ Returns queue of the given side
@@ -238,7 +239,16 @@ class OrderBook(object):
     def process(self, order):
         """ Processes an order by calling its processIn method
         """
-        order.processIn(self)
+        if self._incomingOrders is None:
+            self._incomingOrders = []
+            order.processIn(self)
+            idx = 0
+            while idx < len(self._incomingOrders):
+                self._incomingOrders[idx].processIn(self)
+                idx += 1
+            self._incomingOrders = None
+        else:
+            self._incomingOrders.append(order)
 
     def processLimitOrder(self, order):
         """ Processes 'order' as limit order:
