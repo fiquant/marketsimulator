@@ -80,7 +80,7 @@ class Scheduler(object):
 
 In order to schedule an event a user should use \tmtexttt{schedule} or \tmtexttt{scheduleAfter} methods passing there an event handler which should be given as a callable object (a function, a method, lambda expression or a object exposing \tmtexttt{\_\_call\_\_} method). These functions return a callable object which can be called in order to cancel the scheduled event.
 
-Methods \tmtexttt{workTill} and \tmtexttt{advance} advance model time calling event handler in order of their action times. If two events have same action time it is garanteed that the event scheduled first will be executed first.
+Methods \tmtexttt{workTill} and \tmtexttt{advance} advance model time calling event handlers in order of their action times. If two events have same action time it is garanteed that the event scheduled first will be executed first. These methods must not be called from an event handler. In such a case an exception will be issued.
 
 Since a scheduler is supposed to be single for non-parallel simulations, for convenience it is made as a singleton which can be accessed via \tmtexttt{world} variable from \tmtexttt{marketsim.scheduler} module. 
 
@@ -198,7 +198,7 @@ where \tmtexttt{volume} is a maximal volume of an order that can be issued by th
 
 \subsection{Cancel orders}
 
-Cancel orders are aimed to cancel already issued limit (and possibly iceberg) orders. For the moment there is no special class for them. If a user wants to cancel an order she should call its \tmtexttt{cancel} method. This can lead to a situation where the best order in an order queue has changed and in order to keep statistics up-to-date, methods like \tmtexttt{empty} or \tmtexttt{best} of order queue or order book should be called. In future, cancel orders will wrapped in a class.
+Cancel orders are aimed to cancel already issued limit (and possibly iceberg) orders. If a user wants to cancel an \tmtexttt{order} she should send \tmtexttt{CancelOrder(order)} to the same order book. It will notify the order book event listeners if the best order in the book has changed. Also, \tmtexttt{on\_order\_cancelled} is fired.
 
 \section{Order book and order queue}
 
@@ -228,7 +228,7 @@ class OrderBook(object):
     def spread(self)
 \end{verbatim}
 
-Methods \tmtexttt{bids}, \tmtexttt{asks} and \tmtexttt{queue} give access to queues composing the order book. Methods \tmtexttt{price} and \tmtexttt{spread} return middle arithmetic price and spread if they are defined (i.e. bids and asks are not empty). Orders are handled by an order book by \tmtexttt{process} method.
+Methods \tmtexttt{bids}, \tmtexttt{asks} and \tmtexttt{queue} give access to queues composing the order book. Methods \tmtexttt{price} and \tmtexttt{spread} return middle arithmetic price and spread if they are defined (i.e. bids and asks are not empty). Orders are handled by an order book by \tmtexttt{process} method. If \tmtexttt{process} method is called recursively (e.g. from a listener of \tmtexttt{on\_best\_changed} event) its order is put into an internal queue which is to be processed when the current order processing is finished. This ensures that at every moment of time only one order is processed.
 
 \subsection{Order queue}
 
@@ -241,9 +241,11 @@ class OrderQueue(object):
     def best(self)
     def withPricesBetterThan(self, limit)
     def volumeWithPriceBetterThan(self, limit)
+    def sorted(self)
+    def sortedPVs(self) 
 \end{verbatim}
 
-The best order in a queue can be obtained by calling \tmtexttt{best} method provided that the queue is not \tmtexttt{empty}. Method \tmtexttt{withPricesBetterThan} enumerates orders having limit price better or equal to \tmtexttt{limit}. This function is used to obtain total volume of orders that can be traded on price better or equal to the given one: \tmtexttt{volumeWithPriceBetterThan}. Function enumerating orders in their limit price order is to be implemented (in fact, it is already implemented in C++ version of the library). It can be used to obtain best M orders in the queue.
+The best order in a queue can be obtained by calling \tmtexttt{best} method provided that the queue is not \tmtexttt{empty}. Method \tmtexttt{withPricesBetterThan} enumerates orders having limit price better or equal to \tmtexttt{limit}. This function is used to obtain total volume of orders that can be traded on price better or equal to the given one: \tmtexttt{volumeWithPriceBetterThan}. Property \tmtexttt{sorted} enumerates orders in their limit price order. Property \tmtexttt{sortedPVs} enumerates aggregate volumes for each price in the queue in their order.
 
 When the best order changes in a queue (a new order arrival or the best order has matched), \tmtexttt{on\_best\_changed} event listeners get notified.
 
