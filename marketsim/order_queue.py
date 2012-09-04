@@ -125,6 +125,9 @@ class OrderQueue(object):
     
     @property
     def sorted(self):
+        """ Enumerates orders in order of their price 
+        Enumeration best M orders requires O(MlogM) operations 
+        """
         if self._elements <> []:
             def nth(i):
                 return (self._elements[i][0], i)
