@@ -5,8 +5,9 @@ class OrderBase(object):
     Responsible for:
     - tracking order's volume
     - tracking order's P&L
-    - keeping order cancellation flag
+    - keeping order cancellation flag (does it needed for market orders???)
     - notifying order listeners about order matching
+    TBD: split into Cancelable, HavingVolume base classes
     """
 
     def __init__(self, volume):
@@ -260,3 +261,47 @@ def LimitOrderT(side):
     and a factory to create limit orders sell if 'side' is Side.Sell
     """
     return LimitOrderSell if side==Side.Sell else LimitOrderBuy
+
+class LimitMarketOrder(OrderBase):
+    """ This a combination of a limit order and a cancel order sent immediately
+    It works as a market order in sense that it is not put into the order queue 
+    but can be matched (as a limit order) 
+    only if there are orders with suitable price in the queue 
+    """
+    
+    def __init__(self, price, volume, limitOrderFactory):
+        """ Initializes order with 'price' and 'volume'
+        'limitOrderFactory' tells how to create limit orders
+        """
+        OrderBase.__init__(self, volume)
+        # we create a limit order
+        self._order = limitOrderFactory(price, volume)
+        # translate its events to our listeners
+        self._order.on_matched += self.on_matched.fire
+        self.side = limitOrderFactory.side
+        
+    def processIn(self, orderBook):
+        orderBook.process(self._order)
+        orderBook.process(CancelOrder(self._order))
+        
+    @property 
+    def volume(self):
+        return self._order.volume 
+    
+    @property
+    def PnL(self):
+        return self._order.PnL
+    
+class LimitMarketOrderBuy(LimitMarketOrder):
+    
+    def __init__(self, price, volume):
+        LimitMarketOrder.__init__(self, price, volume, LimitOrderBuy)
+        
+class LimitMarketOrderSell(LimitMarketOrder):
+    
+    def __init__(self, price, volume):
+        LimitMarketOrder.__init__(self, price, volume, LimitOrderSell)
+        
+def LimitMarketOrderT(side):
+    return LimitMarketOrderBuy if side == Side.Buy else LimitMarketOrderSell
+    

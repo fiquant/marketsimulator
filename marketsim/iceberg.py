@@ -51,6 +51,7 @@ class IcebergOrder(OrderBase):
         self._volumeLimit = volumeLimit
         self._orderFactory = orderFactory
         self._current = None
+        self.side = orderFactory.side
 
     @property
     def price(self):  # NB! defined only for limit orders

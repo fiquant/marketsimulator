@@ -1,5 +1,5 @@
 from marketsim.trader import SingleAssetTrader
-from marketsim.order import LimitOrderT, CancelOrder
+from marketsim.order import LimitMarketOrderT 
 from blist import sorteddict
 from marketsim import Side
 from marketsim.scheduler import world
@@ -69,20 +69,20 @@ class ArbitrageTrader(SingleAssetTrader):
                             
                             volumeToTrade = min(oppositeVolume, bestOrder.volume)
 
-                            # we create limit orders since price may change before orders will be processed
-                            myOrder = LimitOrderT(oppositeSide)(abs(bestOppositeSignedPrice), volumeToTrade)
-                            oppositeOrder = LimitOrderT(side)(bestOrder.price, volumeToTrade)
-                            
                             # make two complimentary trades
-                            self.send(myQueue.book, myOrder)
-                            # we send immediately cancel orders 
-                            # in order to avoid storing these limit orders in the book
-                            self.send(myQueue.book, CancelOrder(myOrder))
-
-                            self.send(oppositeQueue.book, oppositeOrder)
-                            self.send(oppositeQueue.book, CancelOrder(oppositeOrder))
+                            # for these trades we create limit orders 
+                            # since price may change before orders will be processed
+                            # but cancel them immediately in order to avoid storing these limit orders in the book
+                            # this logic is implemented by LimitMarketOrder
                             
-                    
+                            self.send(myQueue.book, 
+                                      LimitMarketOrderT(oppositeSide)(
+                                        abs(bestOppositeSignedPrice), volumeToTrade))
+                            
+                            self.send(oppositeQueue.book,
+                                      LimitMarketOrderT(side)(
+                                        bestOrder.price, volumeToTrade))
+
             return lambda queue: world.scheduleAfter(0, lambda: inner(queue))
                         
         def regSide(side):

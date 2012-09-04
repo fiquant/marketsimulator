@@ -199,6 +199,31 @@ def LiquidityProvider( \
                                 liquidityProviderFunc(defaultValue, priceDistr, volumeDistr))
 
 
+# TBD: TwoSides that takes a trader class and its parameters
+# and instantiates a trader composed of a buyer and a seller
+# with given distributions
+
+# TBD: A MarketMaker -- trader that send a limit order which 
+# is slightly better than the best order and cancels its elder one order
+# In fact it can be considered as a trading strategy like Iceberg strategy
+# AlwaysBetter strategy
+# If there are more than one market maker, they will quickly annihilate each other
+# So we really need to introduce notion of a remote order book 
+# in order to model latency
+
+# TBD: Latency, LocalOrderBook or RemoteOrderBook
+# This class will imitate an order book
+# it will send orders to the real order book with some latency
+# also it will listen to the order book and update its own statistics
+# with some latency (it can be accomplished by scheduling these updates)
+# It may require changing and restricting OrderBook interface
+# Users shall indicate explicitly what information should be collected 
+# since it is a time consuming task
+
+# TBD: TwoSides would produce TwoSidesTrader and TwoSidesTrader
+# would have seller and buyer sides that might be suspended or resumed
+
+# TBD: A strategy that suspends trading on a side that has a big disbalance 
 
 class Canceller(object):
     """ Randomly cancels created orders in specific moments of time    
