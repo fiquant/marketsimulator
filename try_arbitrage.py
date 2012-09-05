@@ -5,15 +5,19 @@ from marketsim.trader import LiquidityProvider, FVTrader
 from marketsim.arbitrage_trader import ArbitrageTrader
 from marketsim import Side
 from marketsim.indicator import AssetPrice, BidPrice, AskPrice, OnEveryDt, EWMA, CrossSpread
+from marketsim.remote_book import RemoteBook
 
 book_A = OrderBook(tickSize=0.01, label="A")
 book_B = OrderBook(tickSize=0.01, label="B")
+
+remote_A = RemoteBook(book_A)
+remote_B = RemoteBook(book_B)
 
 price_graph = Graph("Price")
 spread_graph = Graph("Bid-Ask Spread")
 cross_graph = Graph("Cross Bid-Ask Spread")
 
-arbitrager = ArbitrageTrader(book_A, book_B)
+arbitrager = ArbitrageTrader(remote_A, remote_B)
  
 assetPrice = AssetPrice(book_A)
 price_graph.addTimeSerie(assetPrice)
@@ -43,11 +47,11 @@ price_graph.addTimeSerie(OnEveryDt(1, ewma_0_15))
 price_graph.addTimeSerie(OnEveryDt(1, ewma_0_015), {r'PlotLine/bezierJoin':True})
 price_graph.addTimeSerie(OnEveryDt(1, ewma_0_065))
 
-seller_A = LiquidityProvider(book_A, Side.Sell)
-buyer_A = LiquidityProvider(book_A, Side.Buy)
+seller_A = LiquidityProvider(remote_A, Side.Sell)
+buyer_A = LiquidityProvider(remote_A, Side.Buy)
 
-seller_B = LiquidityProvider(book_B, Side.Sell)
-buyer_B = LiquidityProvider(book_B, Side.Buy)
+seller_B = LiquidityProvider(remote_B, Side.Sell)
+buyer_B = LiquidityProvider(remote_B, Side.Buy)
 
 world.workTill(500)
 

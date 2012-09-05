@@ -68,6 +68,7 @@ class OrderBase(object):
         """
         self._volume -= volume
         self._PnL += volume * price
+        #print "OrderMatched:", self, other, (price, volume)
         self.on_matched.fire(self, other, (price, volume))
         
 class CancelOrder(object):
@@ -125,6 +126,12 @@ class LimitOrderBase(OrderBase):
         """
         self._price = value
 
+    def canBeMatched(self, other):
+        """ Returns True iff this order can matched with 'other'
+        """
+        assert other.side == Side.opposite(self.side)
+        return not self.better(other.price, self.price)
+
     def matchWith(self, other):
         """ Matches the order with another one
         Returns True iff this order is completely matched
@@ -155,6 +162,12 @@ class BuySideOrderBase(object):
         return -self._PnL
     
     @staticmethod
+    def better(x, y):
+        """ Returns True iff signed price 'x' is more attractive than signed price 'y'
+        """
+        return x > y
+    
+    @staticmethod
     def makePriceSigned(price):
         """ Makes price of something on buy side negative
         """
@@ -179,6 +192,12 @@ class SellSideOrderBase(object):
         """ Leaves price of something on sell side positive
         """
         return +price
+
+    @staticmethod
+    def better(x, y):
+        """ Returns True iff signed price 'x' is more attractive than signed price 'y'
+        """
+        return x < y
 
     side = Side.Sell
 
@@ -233,13 +252,6 @@ class LimitOrderBuy(LimitOrderBase, BuySideOrderBase):
         """
         LimitOrderBase.__init__(self, price, volume)
 
-    def canBeMatched(self, other):
-        """ Returns True iff this order can matched with 'other'
-        """
-        assert other.side == Side.Sell
-        return self.price >= other.price
-
-
 class LimitOrderSell(LimitOrderBase, SellSideOrderBase):
     """ Limit order sell side
     """
@@ -249,12 +261,6 @@ class LimitOrderSell(LimitOrderBase, SellSideOrderBase):
         (trades cannot be done done on price lower than this one)
         """
         LimitOrderBase.__init__(self, price, volume)
-
-    def canBeMatched(self, other):
-        """ Returns True iff this order can matched with 'other'
-        """
-        assert other.side == Side.Buy
-        return self.price <= other.price
 
 def LimitOrderT(side):
     """ Returns a factory to create limit orders buy if 'side' is Side.Buy
