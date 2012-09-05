@@ -338,7 +338,7 @@ def DependanceTrader(book,
     
     def wantedVolume(side):
         """ Volume of order to create """        
-        oppositeQueue = book.queue(Side.opposite(side))
+        oppositeQueue = book.queue(side.opposite)
         oppositeVolume = oppositeQueue.volumeWithPriceBetterThan(wantedPrice())
         # we want to trade orders only with a good price
         return min(oppositeVolume, volumeDistr())        

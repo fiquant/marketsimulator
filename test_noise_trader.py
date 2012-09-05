@@ -10,7 +10,7 @@ counter = [0]
 
 def side():
     counter[0] = 1 - counter[0]
-    return counter[0]
+    return Side.byId(counter[0])
 
 trader = NoiseTrader(book, sideDistr=side, volumeDistr=(lambda:10), creationIntervalDistr=(lambda:1))
 

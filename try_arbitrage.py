@@ -5,13 +5,14 @@ from marketsim.trader import LiquidityProvider, FVTrader
 from marketsim.arbitrage_trader import ArbitrageTrader
 from marketsim import Side
 from marketsim.indicator import AssetPrice, BidPrice, AskPrice, OnEveryDt, EWMA, CrossSpread
-from marketsim.remote_book import RemoteBook
+from marketsim.remote_book import RemoteBook, TwoWayLink
 
 book_A = OrderBook(tickSize=0.01, label="A")
 book_B = OrderBook(tickSize=0.01, label="B")
 
-remote_A = RemoteBook(book_A)
-remote_B = RemoteBook(book_B)
+link = TwoWayLink()
+remote_A = RemoteBook(book_A, link)
+remote_B = RemoteBook(book_B, link)
 
 price_graph = Graph("Price")
 spread_graph = Graph("Bid-Ask Spread")

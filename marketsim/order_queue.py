@@ -239,8 +239,8 @@ class OrderBook(object):
         self._asks = Asks(tickSize, self)
         # queues indexed by their side
         self._queues = [0, 0]
-        self._queues[self._bids.side] = self._bids
-        self._queues[self._asks.side] = self._asks
+        self._queues[self._bids.side.id] = self._bids
+        self._queues[self._asks.side.id] = self._asks
         self._tickSize = tickSize
         self.label = label
         self._incomingOrders = None
@@ -248,7 +248,7 @@ class OrderBook(object):
     def queue(self, side):
         """ Returns queue of the given side
         """
-        return self._queues[side]
+        return self._queues[side.id]
 
     @property
     def tickSize(self):
@@ -286,14 +286,13 @@ class OrderBook(object):
         If it is not matched completely, it stays at the order queue
         """
         if not self.processMarketOrder(order):
-            self._queues[order.side].push(order)
+            self._queues[order.side.id].push(order)
 
     def processMarketOrder(self, order):
         """ Processes 'order' as market order:
         Iff it is not matched completely, returns False
         """
-        otherSide = Side.opposite(order.side)
-        return self._queues[otherSide].matchWith(order)
+        return self._queues[order.side.opposite.id].matchWith(order)
 
     @property
     def bids(self):
