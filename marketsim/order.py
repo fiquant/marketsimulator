@@ -36,7 +36,7 @@ class OrderBase(object):
         positive, if it is a sell side order
         negative, if it is a buy side order
         """
-        return self.makePriceSigned(self._PnL)
+        return self.side.makePriceSigned(self._PnL)
 
     @property
     def empty(self):
@@ -110,7 +110,7 @@ class LimitOrderBase(OrderBase):
         positive if the order is on sell side
         negative if the order is on buy side 
         """
-        return self.makePriceSigned(self._price)
+        return self.side.makePriceSigned(self._price)
 
     @property
     def price(self):
@@ -129,8 +129,8 @@ class LimitOrderBase(OrderBase):
     def canBeMatched(self, other):
         """ Returns True iff this order can matched with 'other'
         """
-        assert other.side == Side.opposite(self.side)
-        return not self.better(other.price, self.price)
+        assert other.side == self.side.opposite
+        return not self.side.better(other.price, self.price)
 
     def matchWith(self, other):
         """ Matches the order with another one
@@ -148,58 +148,6 @@ class LimitOrderBase(OrderBase):
             self.onMatchedWith(other, (p,v))
             other.onMatchedWith(self, (p,v))
         return self.empty
-
-class BuySideOrderBase(object):
-    """ Base class for buy side orders
-    TBD: this logic can be moved into future BuySide and SellSide classes
-    """
-
-    @property
-    def PnL(self):
-        """ Returns P&L for the order
-        negative for buy orders
-        """
-        return -self._PnL
-    
-    @staticmethod
-    def better(x, y):
-        """ Returns True iff signed price 'x' is more attractive than signed price 'y'
-        """
-        return x > y
-    
-    @staticmethod
-    def makePriceSigned(price):
-        """ Makes price of something on buy side negative
-        """
-        return -price
-    
-    side = Side.Buy
-
-class SellSideOrderBase(object):
-    """ Base class for sell side orders
-    TBD: this logic can be moved into future BuySide and SellSide classes
-    """
-
-    @property
-    def PnL(self):
-        """ Returns P&L for the order
-        positive for sell orders
-        """
-        return +self._PnL
-
-    @staticmethod
-    def makePriceSigned(price):
-        """ Leaves price of something on sell side positive
-        """
-        return +price
-
-    @staticmethod
-    def better(x, y):
-        """ Returns True iff signed price 'x' is more attractive than signed price 'y'
-        """
-        return x < y
-
-    side = Side.Sell
 
 class MarketOrderBase(OrderBase):
     """ Base class for market orders
@@ -219,19 +167,22 @@ class MarketOrderBase(OrderBase):
     def canBeMatched(self, other):
         """ Returns True iff this order can be matched with 'other'
         """
-        assert other.side == Side.opposite(self.side)
+        assert other.side == self.side.opposite
         return True
 
-class MarketOrderBuy(MarketOrderBase, BuySideOrderBase):
+class MarketOrderBuy(MarketOrderBase):
     """ Market order buy side
     """
+    side = Side.Buy
 
     def __init__(self, volume):
         MarketOrderBase.__init__(self, volume)
+        
 
-class MarketOrderSell(MarketOrderBase, SellSideOrderBase):
+class MarketOrderSell(MarketOrderBase):
     """ Market order sell side
     """
+    side = Side.Sell
 
     def __init__(self, volume):
         MarketOrderBase.__init__(self, volume)
@@ -242,9 +193,10 @@ def MarketOrderT(side):
     """
     return MarketOrderSell if side==Side.Sell else MarketOrderBuy
 
-class LimitOrderBuy(LimitOrderBase, BuySideOrderBase):
+class LimitOrderBuy(LimitOrderBase):
     """ Limit order buy side
     """
+    side = Side.Buy
 
     def __init__(self, price, volume):
         """ Initializes order with volume and a limit price 
@@ -252,9 +204,10 @@ class LimitOrderBuy(LimitOrderBase, BuySideOrderBase):
         """
         LimitOrderBase.__init__(self, price, volume)
 
-class LimitOrderSell(LimitOrderBase, SellSideOrderBase):
+class LimitOrderSell(LimitOrderBase):
     """ Limit order sell side
     """
+    side = Side.Sell
 
     def __init__(self, price, volume):
         """ Initializes order with volume and a limit price 

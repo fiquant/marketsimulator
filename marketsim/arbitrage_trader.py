@@ -25,10 +25,10 @@ class ArbitrageTrader(SingleAssetTrader):
             """
             
             # ordered set of queues on my side
-            myQueues = bests[side]
-            oppositeSide = Side.opposite(side)
+            myQueues = bests[side.id]
+            oppositeSide = side.opposite
             # ordered set of queues on the opposite side
-            oppositeQueues = bests[oppositeSide]
+            oppositeQueues = bests[oppositeSide.id]
             
             def inner(myQueue):
                 """Called when in some queue a new best order appeared"""
@@ -69,7 +69,7 @@ class ArbitrageTrader(SingleAssetTrader):
                         myPrice = bestOrder.price
                         
                         # is there some sense to trade                    
-                        if not bestOrder.better(oppositePrice, myPrice):
+                        if not side.better(oppositePrice, myPrice):
                             
                             volumeToTrade = min(bestOrder.volume, oppositeQueue.best.volume)
 
@@ -96,7 +96,7 @@ class ArbitrageTrader(SingleAssetTrader):
                 queue = book.queue(side) 
                 queue.on_best_changed += onBestChanged(side)
                 if not queue.empty:
-                    bests[side][queue.best.signedPrice] = queue
+                    bests[side.id][queue.best.signedPrice] = queue
                     oldBests[queue] = queue.best.signedPrice
                     
         regSide(Side.Buy)

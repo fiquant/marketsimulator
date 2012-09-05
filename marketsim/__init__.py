@@ -1,15 +1,54 @@
-class Side:
-    """ Enumeration representing trade side of an order
-    TBD: Sell and Buy should be literals of some class for readability reasons
-    """
-    Sell = 0
-    Buy = 1
+class SellSide(object):
+    
+    id = 0
+    
+    @property
+    def opposite(self):
+        return Side.Buy
+
+    @staticmethod
+    def better(x, y):
+        """ Returns True iff signed price 'x' is more attractive than signed price 'y'
+        """
+        return x < y
     
     @staticmethod
-    def opposite(side):
-        """ Returns side opposite to 'side'
+    def makePriceSigned(price):
+        """ Makes price of something on buy side negative
         """
-        return 1 - side
+        return +price
+    
+class BuySide(object):
+    
+    id = 1
+
+    @property
+    def opposite(self):
+        return Side.Sell
+    
+    @staticmethod
+    def better(x, y):
+        """ Returns True iff signed price 'x' is more attractive than signed price 'y'
+        """
+        return x > y
+    
+    @staticmethod
+    def makePriceSigned(price):
+        """ Makes price of something on buy side negative
+        """
+        return -price
+    
+
+class Side:
+    """ Enumeration representing trade side of an order
+    """
+    Sell = SellSide()
+    Buy = BuySide()
+    
+    @staticmethod
+    def byId(x):
+        return Side.Buy if x else Side.Sell  
+    
 
 
 class Event(object):
