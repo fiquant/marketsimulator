@@ -61,13 +61,17 @@ class ArbitrageTrader(SingleAssetTrader):
                         # and the queue itself
                         oppositeQueue = oppositeQueues[bestOppositeSignedPrice] 
     
-                        # calculate volume of orders from opposite side that can be matched
-                        oppositeVolume = oppositeQueue.volumeWithPriceBetterThan(bestOrder.price)
-
+                        if oppositeQueue.empty or oppositeQueue.best.price != abs(bestOppositeSignedPrice):
+                            # it means that we haven't yet received event that another queue has changed 
+                            return 
+                        
+                        oppositePrice = abs(bestOppositeSignedPrice)
+                        myPrice = bestOrder.price
+                        
                         # is there some sense to trade                    
-                        if oppositeVolume > 0:
+                        if not bestOrder.better(oppositePrice, myPrice):
                             
-                            volumeToTrade = min(oppositeVolume, bestOrder.volume)
+                            volumeToTrade = min(bestOrder.volume, oppositeQueue.best.volume)
 
                             # make two complimentary trades
                             # for these trades we create limit orders 
@@ -75,13 +79,15 @@ class ArbitrageTrader(SingleAssetTrader):
                             # but cancel them immediately in order to avoid storing these limit orders in the book
                             # this logic is implemented by LimitMarketOrder
                             
-                            self.send(myQueue.book, 
-                                      LimitMarketOrderT(oppositeSide)(
-                                        abs(bestOppositeSignedPrice), volumeToTrade))
+                            world.scheduleAfter(0, lambda: \
+                                self.send(myQueue.book, 
+                                          LimitMarketOrderT(oppositeSide)(
+                                            myPrice, volumeToTrade)))
                             
-                            self.send(oppositeQueue.book,
-                                      LimitMarketOrderT(side)(
-                                        bestOrder.price, volumeToTrade))
+                            world.scheduleAfter(0, lambda: \
+                                self.send(oppositeQueue.book,
+                                          LimitMarketOrderT(side)(
+                                            oppositePrice, volumeToTrade)))
 
             return lambda queue: world.scheduleAfter(0, lambda: inner(queue))
                         
