@@ -1,8 +1,9 @@
 from marketsim.order_queue import OrderBook
 from marketsim.trader import TrendFollower
 from marketsim.order import LimitOrderSell, LimitOrderBuy
-from marketsim.scheduler import world
+from marketsim.scheduler import Scheduler
 
+world = Scheduler()
 book = OrderBook()
 trader = TrendFollower(book, creationIntervalDistr=lambda: 1, volumeDistr=lambda: 1)
 
@@ -39,5 +40,3 @@ world.workTill(2.1)
 assert book.bids.best.price == 93
 assert trader.amount == 0
 assert trader.PnL == -102 +94
-
-world.reset()

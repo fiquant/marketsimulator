@@ -1,11 +1,13 @@
 from marketsim.veusz_graph import Graph, showGraphs
-from marketsim.scheduler import world
+from marketsim.scheduler import Scheduler
 from marketsim.order_queue import OrderBook
-from marketsim.trader import LiquidityProvider, FVTrader
+from marketsim.trader import LiquidityProvider
 from marketsim.arbitrage_trader import ArbitrageTrader
 from marketsim import Side
 from marketsim.indicator import AssetPrice, BidPrice, AskPrice, OnEveryDt, EWMA, CrossSpread
 from marketsim.remote_book import RemoteBook, TwoWayLink
+
+world = Scheduler()
 
 book_A = OrderBook(tickSize=0.01, label="A")
 book_B = OrderBook(tickSize=0.01, label="B")
@@ -57,5 +59,3 @@ buyer_B = LiquidityProvider(remote_B, Side.Buy)
 world.workTill(500)
 
 showGraphs("arbitrage", [price_graph, spread_graph, cross_graph])
-
-world.reset()

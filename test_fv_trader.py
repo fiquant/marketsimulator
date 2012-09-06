@@ -1,9 +1,11 @@
 from marketsim import Side
 from marketsim.order import *
 from marketsim.order_queue import *
-from marketsim.scheduler import world
+from marketsim.scheduler import Scheduler
 from marketsim.test import *
 from marketsim.trader import *
+
+world = Scheduler()
 
 ask_history = OrderQueueHistoryChecker()
 bid_history = OrderQueueHistoryChecker()
@@ -64,5 +66,3 @@ assert book.bids.empty
 assert trader.PnL == -80*10 - 90*10 + 110*10
 assert trader.amount == 10 + 10 - 10
 assert fv_history.checkDelta([(-80*10 - 90*10 + 110*10, 10 + 10 - 10)])
-
-world.reset()

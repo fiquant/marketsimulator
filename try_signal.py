@@ -1,10 +1,11 @@
 from marketsim.veusz_graph import Graph, showGraphs
-import math
-from marketsim.scheduler import world
+from marketsim.scheduler import Scheduler
 from marketsim.order_queue import OrderBook
 from marketsim.trader import LiquidityProvider, Signal, SignalTrader
 from marketsim import Side
-from marketsim.indicator import AssetPrice, BidPrice, AskPrice, OnEveryDt, EWMA, VolumeTraded
+from marketsim.indicator import AssetPrice, OnEveryDt, EWMA, VolumeTraded
+
+world = Scheduler()
 
 book_A = OrderBook(tickSize=0.01, label="A")
 
@@ -29,4 +30,3 @@ world.workTill(500)
 
 showGraphs("signal_trader", [price_graph])
 
-world.reset()

@@ -111,22 +111,23 @@ class Scheduler(object):
             self.scheduleAfter(intervalFunc(), h)
         self.scheduleAfter(intervalFunc(), h)
 
-"""        
-class world(object):
+class World(object):
+
+    @property
+    def currentTime(self):
+        return _instance.currentTime
     
-    @staticmethod
-    def schedule(actionTime, handler):
+    def schedule(self, actionTime, handler):
         _instance.schedule(actionTime, handler)
         
-    @staticmethod
-    def scheduleAfter(dt, handler):
+    def scheduleAfter(self, dt, handler):
         _instance.scheduleAfter(dt, handler)
         
-    @staticmethod
-    def process(intervalFunc, handler):
+    def process(self, intervalFunc, handler):
         _instance.process(intervalFunc, handler)
-"""
-world = Scheduler()
+        
+world = World()
+
 """ Global object representing simulation clock.
 """
 
