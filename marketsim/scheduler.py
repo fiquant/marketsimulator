@@ -31,13 +31,21 @@ class _EventHandler(object):
 
     def __repr__(self):
         return "("+repr(self._handler) + ("-> Cancelled" if self.cancelled else "") + ")"
+    
+_instance = None
 
 class Scheduler(object):
     """ Keeps a set of events to be launched in the future
     """
 
     def __init__(self):
+        global _instance
+        _instance = self
         self.reset()
+        
+    def __del__(self):
+        global _instance
+        _instance = None
 
     def reset(self):
         """ Resets scheduler to the initial state: empty event set and T=0
@@ -73,7 +81,7 @@ class Scheduler(object):
         """ Schedules an event given by 'handler' to be launched after 'dt' from now
         """
         self.schedule(self.currentTime + dt, handler)
-
+        
     def workTill(self, limitTime):
         """ Launches all events with action time in range [currentTime, limitTime)
         in order of their action time and arrival order
@@ -103,6 +111,21 @@ class Scheduler(object):
             self.scheduleAfter(intervalFunc(), h)
         self.scheduleAfter(intervalFunc(), h)
 
+"""        
+class world(object):
+    
+    @staticmethod
+    def schedule(actionTime, handler):
+        _instance.schedule(actionTime, handler)
+        
+    @staticmethod
+    def scheduleAfter(dt, handler):
+        _instance.scheduleAfter(dt, handler)
+        
+    @staticmethod
+    def process(intervalFunc, handler):
+        _instance.process(intervalFunc, handler)
+"""
 world = Scheduler()
 """ Global object representing simulation clock.
 """
