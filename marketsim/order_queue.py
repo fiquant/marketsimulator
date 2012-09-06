@@ -80,11 +80,12 @@ class OrderQueue(object):
         # notify listeners if the best order changed
         self.notifyIfBestChanged()
         
-    def onOrderCancelled(self, order):
+    def cancelOrder(self, order):
         """ To be called when 'order' is marked as cancelled 
         Notifies 'on_order_cancelled' event listeners.
         May fire 'on_best_changed' event
         """
+        order.cancel()
         self._makeValid()
         self.notifyIfBestChanged()
         self.on_order_cancelled.fire(self, order)
@@ -245,10 +246,10 @@ class OrderBookBase(object):
     def __repr__(self):
         return self.__str__()
     
-    def onOrderCancelled(self, order):
+    def cancelOrder(self, order):
         """ To be called when 'order' is cancelled
         """
-        self.queue(order.side).onOrderCancelled(order)
+        self.queue(order.side).cancelOrder(order)
 
     def process(self, order):
         """ Processes an order by calling its processIn method
