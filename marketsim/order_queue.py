@@ -52,6 +52,20 @@ class OrderQueue(object):
     def __repr__(self):
         return self.__str__()
 
+    def ticks(self, price):
+        """ Corrects 'price' with respect to the tick size
+        Returns signed integer number of ticks for the price 
+        and corrected unsigned order price
+        """
+        ticks = int(math.ceil(self.side.makePriceSigned(price) / self._tickSize))
+        return (+ticks, self.side.makePriceSigned(ticks * self._tickSize))
+
+    @staticmethod
+    def better(x, y):
+        """ Predicate to compare two signed ticks
+        """
+        return Asks.side.better(x,y)
+
     def push(self, order):
         """ Pushes 'order' into the queue.
         May correct limit price of the order with respect to the tick size
@@ -159,7 +173,7 @@ class OrderQueue(object):
         """
         if len(self._elements) <= idx:
             return
-        if not self.better(limit, self._elements[idx][1].price):
+        if not self.side.better(limit, self._elements[idx][1].price):
             yield self._elements[idx][1]
             for x in self.withPricesBetterThan(limit, idx * 2 + 1):
                 yield x
@@ -183,20 +197,6 @@ class Bids(OrderQueue):
     def label(self):
         return self.book.label + "_{Bids}"
 
-    def ticks(self, price):
-        """ Corrects 'price' with respect to the tick size
-        Returns signed integer number of ticks for the price 
-        and corrected unsigned order price
-        """
-        ticks = int(math.floor(price / self._tickSize))
-        return (-ticks, ticks * self._tickSize)
-
-    @staticmethod
-    def better(x, y):
-        """ Predicate to compare two signed ticks
-        """
-        return x > y
-
     side = Side.Buy
 
 
@@ -211,32 +211,15 @@ class Asks(OrderQueue):
     def label(self):
         return self.book.label + "^{Asks}"
 
-    def ticks(self, price):
-        """ Corrects 'price' with respect to the tick size
-        Returns signed integer number of ticks for the price 
-        and corrected unsigned order price
-        """
-        ticks = int(math.ceil(price / self._tickSize))
-        return (ticks, ticks * self._tickSize)
-
-    @staticmethod
-    def better(x, y):
-        """ Predicate to compare two signed ticks
-        """
-        return x < y
-
     side = Side.Sell
 
+class OrderBookBase(object):
 
-class OrderBook(object):
-    """ Order book for a single asset in a market
-    Maintains two order queues for orders of different sides
-    """
-    def __init__(self, tickSize=1, label=""):
+    def __init__(self, bids, asks, tickSize=1, label=""):
         """ Initializes empty order book with given tick size
         """
-        self._bids = Bids(tickSize, self)
-        self._asks = Asks(tickSize, self)
+        self._bids = bids
+        self._asks = asks
         # queues indexed by their side
         self._queues = [0, 0]
         self._queues[self._bids.side.id] = self._bids
@@ -321,4 +304,17 @@ class OrderBook(object):
         """
         return None if self.asks.empty or self.bids.empty \
                     else self.asks.best.price - self.bids.best.price
-                    
+
+class OrderBook(OrderBookBase):
+    """ Order book for a single asset in a market
+    Maintains two order queues for orders of different sides
+    """
+    def __init__(self, tickSize=1, label=""):
+        """ Initializes empty order book with given tick size
+        """
+        OrderBookBase.__init__(self, 
+                               Bids(tickSize, self), 
+                               Asks(tickSize, self), 
+                               tickSize, 
+                               label)
+
