@@ -1,11 +1,12 @@
 from marketsim.veusz_graph import Graph, showGraphs
 import random
-from marketsim.scheduler import world
+from marketsim.scheduler import Scheduler
 from marketsim.order_queue import OrderBook
 from marketsim.trader import LiquidityProvider, DependanceTrader
-from marketsim.arbitrage_trader import ArbitrageTrader
 from marketsim import Side
-from marketsim.indicator import AssetPrice, BidPrice, AskPrice, OnEveryDt, EWMA, CrossSpread
+from marketsim.indicator import AssetPrice, OnEveryDt, EWMA
+
+world = Scheduler()
 
 book_A = OrderBook(tickSize=0.01, label="A")
 book_B = OrderBook(tickSize=0.01, label="B")
@@ -46,5 +47,3 @@ dep_BA = DependanceTrader(book_B, book_A, factor=.5)
 world.workTill(500)
 
 showGraphs("dependency", [price_graph])
-
-world.reset()

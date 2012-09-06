@@ -1,8 +1,10 @@
 from marketsim import Side
-from marketsim.scheduler import world
+from marketsim.scheduler import Scheduler
 from marketsim.order import *
 from marketsim.order_queue import *
 from marketsim.trader import *
+
+world = Scheduler()
 
 book = OrderBook(tickSize=.001)
 
@@ -53,5 +55,3 @@ world.workTill(3.15)
 
 assert book.asks.best.price == 64
 assert book.asks.best.volume == 5
-
-world.reset()
