@@ -100,5 +100,5 @@ class RemoteBook(OrderBookBase):
     def processLimitOrder(self, order):
         self._upLink.send(lambda: self._book.processLimitOrder(self._remote(order)))
 
-    def onOrderCancelled(self, order):
-        self._upLink.send(lambda: self._book.onOrderCancelled(order.remote))
+    def cancelOrder(self, order):
+        self._upLink.send(lambda: self._book.cancelOrder(order.remote))

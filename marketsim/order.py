@@ -56,12 +56,10 @@ class OrderBase(object):
         return self._cancelled
     
 
-    def cancel(self, book=None):
+    def cancel(self):
         """ Marks order as cancelled. Notifies the order book about it
         """
         self._cancelled = True
-        if book:
-            book.onOrderCancelled(self)
 
     def onMatchedWith(self, other, (price,volume)):
         """ Called when the order is matched with another order
@@ -84,7 +82,7 @@ class CancelOrder(object):
         self.on_matched = Event() # just dummy event. never called
         
     def processIn(self, orderBook):
-        self._toCancel.cancel(book = orderBook)
+        orderBook.cancelOrder(self._toCancel)
 
 
 class LimitOrderBase(OrderBase):
