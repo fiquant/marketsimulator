@@ -17,6 +17,11 @@ class OrderBase(object):
         self._cancelled = False
         self._PnL = 0
         self.on_matched = Event()
+        
+    def copyTo(self, dst):
+        dst._volume = self._volume
+        dst._PnL = self._PnL
+        dst._cancelled = self._cancelled
 
     def __str__(self):
         return type(self).__name__ + "(volume=" + str(self.volume) + ", P&L="+str(self.PnL)+")"
@@ -94,6 +99,10 @@ class LimitOrderBase(OrderBase):
         """
         OrderBase.__init__(self, volume)
         self._price = price
+        
+    def copyTo(self, dst):
+        OrderBase.copyTo(self, dst)
+        dst._price = self._price
 
     def __str__(self):
         return type(self).__name__ + "(Price=" + str(self.price) + ", volume=" + str(self.volume) + ", P&L="+str(self.PnL)+")"
@@ -178,6 +187,9 @@ class MarketOrderBuy(MarketOrderBase):
     def __init__(self, volume):
         MarketOrderBase.__init__(self, volume)
         
+    def clone(self):
+        return MarketOrderBuy(self.volume)
+        
 
 class MarketOrderSell(MarketOrderBase):
     """ Market order sell side
@@ -186,6 +198,9 @@ class MarketOrderSell(MarketOrderBase):
 
     def __init__(self, volume):
         MarketOrderBase.__init__(self, volume)
+
+    def clone(self):
+        return MarketOrderSell(self.volume)
 
 def MarketOrderT(side):
     """ Returns a factory to create market orders buy if 'side' is Side.Buy
@@ -203,6 +218,10 @@ class LimitOrderBuy(LimitOrderBase):
         (trades cannot be done done on price higher than this one)
         """
         LimitOrderBase.__init__(self, price, volume)
+        
+    def clone(self):
+        return LimitOrderBuy(self.price, self.volume)
+        
 
 class LimitOrderSell(LimitOrderBase):
     """ Limit order sell side
@@ -214,6 +233,10 @@ class LimitOrderSell(LimitOrderBase):
         (trades cannot be done done on price lower than this one)
         """
         LimitOrderBase.__init__(self, price, volume)
+        
+    def clone(self):
+        return LimitOrderSell(self.price, self.volume)
+        
 
 def LimitOrderT(side):
     """ Returns a factory to create limit orders buy if 'side' is Side.Buy

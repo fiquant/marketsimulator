@@ -79,13 +79,26 @@ class RemoteBook(OrderBookBase):
                                book.label)
         
         self._upLink = twowaylink.up
+        self._downLink = twowaylink.down
         self._book = book
         
+    def _remote(self, order):
+        remote = order.clone()
+        assert 'remote' not in dir(order)
+        order.remote = remote
+        def on_matched(*args):
+            remote.copyTo(order)
+            order.on_matched.fire(*args)
+        remote.on_matched += lambda *args: self._downLink.send(lambda: on_matched(*args))
+        return remote
+        
+        
+        
     def processMarketOrder(self, order):
-        self._upLink.send(lambda: self._book.processMarketOrder(order))
+        self._upLink.send(lambda: self._book.processMarketOrder(self._remote(order)))
         
     def processLimitOrder(self, order):
-        self._upLink.send(lambda: self._book.processLimitOrder(order))
+        self._upLink.send(lambda: self._book.processLimitOrder(self._remote(order)))
 
     def onOrderCancelled(self, order):
-        self._upLink.send(lambda: self._book.onOrderCancelled(order))
+        self._upLink.send(lambda: self._book.onOrderCancelled(order.remote))
