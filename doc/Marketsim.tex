@@ -200,6 +200,14 @@ where \tmtexttt{volume} is a maximal volume of an order that can be issued by th
 
 Cancel orders are aimed to cancel already issued limit (and possibly iceberg) orders. If a user wants to cancel an \tmtexttt{order} she should send \tmtexttt{CancelOrder(order)} to the same order book. It will notify the order book event listeners if the best order in the book has changed. Also, \tmtexttt{on\_order\_cancelled} is fired.
 
+\subsection{Limit market orders}
+
+Limit market order is a virtual order which is composed of a limit order and a cancel order sent immediately after the limit one thus combining behavior of market and limit orders: the trade is done at price better than given one (limit order behavior) but in case of failure the limit order is not stored in the order book (market order behavior).
+
+\subsection{Always best orders}
+
+Always best order is a virtual order that ensures that it has the best price in the order book. It is implemented as a limit order which is cancelled once the best price in the order queue has changed and is sent again to the order book with a price a tick better than the best price in the book. If several always best orders are sent to one side of an order book, a price race will start thus leading to their elimination by orders of the other side.
+
 \section{Order book and order queue}
 
 Order book represents a single asset traded in some market. Same asset traded in different markets would have different order books. Order book stores unfulfilled limit orders sent for this asset in two order queues for each trade sides (Asks for sell orders and Bids for buy orders).
@@ -248,6 +256,10 @@ class OrderQueue(object):
 The best order in a queue can be obtained by calling \tmtexttt{best} method provided that the queue is not \tmtexttt{empty}. Method \tmtexttt{withPricesBetterThan} enumerates orders having limit price better or equal to \tmtexttt{limit}. This function is used to obtain total volume of orders that can be traded on price better or equal to the given one: \tmtexttt{volumeWithPriceBetterThan}. Property \tmtexttt{sorted} enumerates orders in their limit price order. Property \tmtexttt{sortedPVs} enumerates aggregate volumes for each price in the queue in their order.
 
 When the best order changes in a queue (a new order arrival or the best order has matched), \tmtexttt{on\_best\_changed} event listeners get notified.
+
+\subsection{Remote order book}
+
+Remote book represents an order book for a remote trader. Remoteness means that there is some delay between moment when an order is sent to a market and the moment when the order is received by market so it models latency in telecommunication networks. A remote book constructor accepts a reference to an actual order book (or to another remote order book) and a reference to a two-way communication channel. Class \tmtexttt{TwoWayLink} implements a two-way telecommunication channel having different latency functions in each direction (to market and from market). 
 
 \section{Traders}
 
