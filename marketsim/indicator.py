@@ -9,7 +9,51 @@ def getLabel(x):
     TBD: add label field to all classes  
     """
     return x.label if 'label' in dir(x) else "#"+str(id(x))
+
+def sign(x):
+    return 1 if x > 0 else -1 if x < 0 else 0
+
+class TraderEfficiency(object):
+    
+    def __init__(self, eventSources, trader):
         
+        self.on_changed = Event()
+        self._current = None
+        
+        def update(_):
+            def callback(sign): 
+                def inner((price, volume_unmatched)):
+                    if volume_unmatched == 0: 
+                        self._current = trader.PnL - sign*price
+                        self.on_changed.fire(self)
+                    else: # don't know what to do for the moment
+                        self._current = None
+                return inner
+        
+            side = Side.Buy if trader.amount < 0 else Side.Sell 
+            trader.book.evaluateOrderPriceAsync(side, abs(trader.amount), callback(-sign(trader.amount)))
+        
+        for es in eventSources:
+            es.advise(update)
+            
+        update(None)
+
+    @property
+    def label(self):
+        """ Returns indicator label
+        """
+        return "Efficiency("+self.trader.label+")"
+        
+    def advise(self, listener):
+        """ Subscribes 'listener' to value change event
+        """
+        self.on_changed += listener
+        
+    @property
+    def value(self):
+        """ Returns current value
+        """
+        return self._current
 
 class IndicatorBase(object):
     """ Indicator that stores some scalar value and knows how to update it

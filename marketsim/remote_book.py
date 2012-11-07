@@ -102,3 +102,8 @@ class RemoteBook(OrderBookBase):
 
     def cancelOrder(self, order):
         self._upLink.send(lambda: self._book.cancelOrder(order.remote))
+        
+    def evaluateOrderPriceAsync(self, side, volume, callback):
+        self._upLink.send(
+            lambda: self._book.evaluateOrderPriceAsync(side, volume, 
+                lambda x: self._downLink.send(lambda: callback(x))))

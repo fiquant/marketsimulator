@@ -18,6 +18,12 @@ assert history.checkDelta([(10,100)])
 asks.push(a15)
 asks.push(a10_2)
 
+assert asks.evaluateOrderPrice(10) == (10*10, 0)
+assert asks.evaluateOrderPrice(110) == (110*10, 0)
+assert asks.evaluateOrderPrice(200) == (190*10+10*12, 0)
+assert asks.evaluateOrderPrice(300) == (190*10+100*12+10*15, 0)
+assert asks.evaluateOrderPrice(400) == (190*10+100*12+100*15, 10)
+
 S = [x.price for x in asks.sorted]
 assert S == [10,10,12,15]
 

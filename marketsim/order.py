@@ -83,8 +83,30 @@ class CancelOrder(object):
         
     def processIn(self, orderBook):
         orderBook.cancelOrder(self._toCancel)
-
-
+        
+    def clone(self):
+        return CancelOrder(self._toCancel)
+    
+    def copyTo(self, dest):
+        assert dest._toCancel == self._toCancel
+        
+#class EvalOrderBase(object):
+#    """ Used to evaluates price at which a market order of given volume would be executed
+#        Since this query might be computationally expensive and done asynchronously,
+#        we wrap function OrderQueue.evaluateOrderPrice by this class
+#        The result will returned in on_matched event with empty 'other' field
+#        TBD: we make use of on_matched machinery since that is supported in RemoteBook
+#        but i'm not sure that it is a good design decision  
+#    """
+#    def __init__(self, volume):
+#        self.volume = volume
+#        
+#    def copyTo(self, dst):
+#        pass # we might copy here the total price
+#    
+#    def processIn(self, orderBook):
+#        orderBook.
+        
 class LimitOrderBase(OrderBase):
     """ Base class for limit orders. 
     Adds to the basic order functionality price handling

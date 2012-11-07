@@ -14,7 +14,7 @@ class SellSide(object):
     
     @staticmethod
     def makePriceSigned(price):
-        """ Makes price of something on buy side negative
+        """ Leaves price of something on sell side positive
         """
         return +price
     
