@@ -3,7 +3,7 @@ from marketsim.scheduler import Scheduler
 from marketsim.order_queue import OrderBook
 from marketsim.trader import LiquidityProvider, Signal, SignalTrader
 from marketsim import Side
-from marketsim.indicator import AssetPrice, OnEveryDt, EWMA, VolumeTraded
+from marketsim.indicator import AssetPrice, OnEveryDt, EWMA, VolumeTraded, TraderEfficiency, PnL
 
 world = Scheduler()
 
@@ -26,7 +26,15 @@ trader = SignalTrader(book_A, signal)
 
 price_graph.addTimeSerie(signal)
 price_graph.addTimeSerie(VolumeTraded(trader))
+
+trader.label = "signal"
+trader.efficiency = TraderEfficiency([trader.on_traded], trader)
+
+eff_graph = Graph("efficiency")
+eff_graph.addTimeSerie(trader.efficiency)
+eff_graph.addTimeSerie(PnL(trader))
+
 world.workTill(500)
 
-showGraphs("signal_trader", [price_graph])
+showGraphs("signal_trader", [price_graph, eff_graph])
 

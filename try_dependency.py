@@ -4,7 +4,7 @@ from marketsim.scheduler import Scheduler
 from marketsim.order_queue import OrderBook
 from marketsim.trader import LiquidityProvider, DependanceTrader
 from marketsim import Side
-from marketsim.indicator import AssetPrice, OnEveryDt, EWMA
+from marketsim.indicator import AssetPrice, OnEveryDt, EWMA, TraderEfficiency, PnL
 
 world = Scheduler()
 
@@ -44,6 +44,17 @@ buyer_B = LiquidityProvider(book_B, Side.Buy, defaultValue=150., volumeDistr=liq
 dep_AB = DependanceTrader(book_A, book_B, factor=2)
 dep_BA = DependanceTrader(book_B, book_A, factor=.5)
 
+dep_AB.label = "AB"
+dep_AB.efficiency = TraderEfficiency([dep_AB.on_traded], dep_AB)
+dep_BA.label = "BA"
+dep_BA.efficiency = TraderEfficiency([dep_BA.on_traded], dep_BA)
+
+eff_graph = Graph("efficiency")
+eff_graph.addTimeSerie(dep_AB.efficiency)
+eff_graph.addTimeSerie(dep_BA.efficiency)
+eff_graph.addTimeSerie(PnL(dep_AB))
+eff_graph.addTimeSerie(PnL(dep_BA))
+
 world.workTill(500)
 
-showGraphs("dependency", [price_graph])
+showGraphs("dependency", [price_graph, eff_graph])
