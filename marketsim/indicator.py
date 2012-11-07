@@ -19,6 +19,8 @@ class TraderEfficiency(object):
         
         self.on_changed = Event()
         self._current = None
+        self._trader = trader
+        self.attributes = {}
         
         def update(_):
             def callback(sign): 
@@ -42,7 +44,7 @@ class TraderEfficiency(object):
     def label(self):
         """ Returns indicator label
         """
-        return "Efficiency("+self.trader.label+")"
+        return "Efficiency_{"+getLabel(self._trader)+"}"
         
     def advise(self, listener):
         """ Subscribes 'listener' to value change event
@@ -99,6 +101,10 @@ class IndicatorBase(object):
         """ Returns current value
         """
         return self._current
+    
+def PnL(trader):
+    
+    return IndicatorBase([trader.on_traded], lambda: trader.PnL, "P&L_{"+getLabel(trader)+"}")
     
 def AssetPrice(book):
     """ Creates an indicator bound to the middle price of an asset

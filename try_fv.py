@@ -3,7 +3,7 @@ from marketsim.scheduler import Scheduler
 from marketsim.order_queue import OrderBook
 from marketsim.trader import LiquidityProvider, FVTrader
 from marketsim import Side
-from marketsim.indicator import AssetPrice, OnEveryDt, EWMA
+from marketsim.indicator import AssetPrice, OnEveryDt, EWMA, TraderEfficiency, PnL
 
 world = Scheduler()
 
@@ -23,6 +23,13 @@ seller_A = LiquidityProvider(book_A, Side.Sell)
 buyer_A = LiquidityProvider(book_A, Side.Buy)
 trader = FVTrader(book_A, fundamentalValue=lambda: 200.)
 
+trader.label = "fv"
+trader.efficiency = TraderEfficiency([trader.on_traded], trader)
+
+eff_graph = Graph("efficiency")
+eff_graph.addTimeSerie(trader.efficiency)
+eff_graph.addTimeSerie(PnL(trader))
+
 world.workTill(500)
 
-showGraphs("fv_trader", [price_graph])
+showGraphs("fv_trader", [price_graph, eff_graph])
