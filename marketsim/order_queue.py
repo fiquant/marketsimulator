@@ -168,6 +168,24 @@ class OrderQueue(object):
                     lastPV = (x.price, x.volume)
         if lastPV[0] is not None:
             yield lastPV
+            
+    def evaluateOrderPrice(self, volume):
+        """ Evaluates price for a potential market order with given 'volume'
+        Returns pair (price, volume_unmatched) where 'volume_unmatched' may be positive
+        if there is not enough volume in the order queue  
+        Complexity of the operation: O(MlogM) where M - number of orders involved       
+        """
+        price = 0
+        for x in self.sorted:
+            if volume > 0:
+                v = min(volume, x.volume)
+                price += x.price * v
+                volume -= v
+            else:
+                break
+        return (price, volume)
+        
+        
 
     def withPricesBetterThan(self, limit, idx=0):
         """ Enumerates orders with price better than or equal to 'limit'
@@ -264,6 +282,15 @@ class OrderBookBase(object):
             self._incomingOrders = None
         else:
             self._incomingOrders.append(order)
+            
+    def evaluateOrderPrice(self, side, volume):
+        """ Evaluates price at which a market order of given 'side' 
+            and having given 'volume' would be executed 
+        """
+        return self._queues[side.opposite.id].evaluateOrderPrice(volume)
+
+    def evaluateOrderPriceAsync(self, side, volume, callback):
+        callback(self.evaluateOrderPrice(side, volume))
 
     def processLimitOrder(self, order):
         """ Processes 'order' as limit order:
