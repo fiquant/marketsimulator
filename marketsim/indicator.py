@@ -125,7 +125,7 @@ def VolumeTraded(trader):
     return IndicatorBase(\
         [trader.on_traded], 
         lambda: trader.amount, 
-        "Amount(trader)")
+        "Amount_{"+getLabel(trader)+"}")
     
 
 def BestPrice(book, side, label):

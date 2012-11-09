@@ -73,7 +73,7 @@ class OrderBase(object):
         self._PnL += volume * price
         #print "OrderMatched:", self, other, (price, volume)
         self.on_matched.fire(self, other, (price, volume))
-        
+
 class CancelOrder(object):
     """ Cancels another order that can be for example a limit or an iceberg order
     """
@@ -89,23 +89,6 @@ class CancelOrder(object):
     
     def copyTo(self, dest):
         assert dest._toCancel == self._toCancel
-        
-#class EvalOrderBase(object):
-#    """ Used to evaluates price at which a market order of given volume would be executed
-#        Since this query might be computationally expensive and done asynchronously,
-#        we wrap function OrderQueue.evaluateOrderPrice by this class
-#        The result will returned in on_matched event with empty 'other' field
-#        TBD: we make use of on_matched machinery since that is supported in RemoteBook
-#        but i'm not sure that it is a good design decision  
-#    """
-#    def __init__(self, volume):
-#        self.volume = volume
-#        
-#    def copyTo(self, dst):
-#        pass # we might copy here the total price
-#    
-#    def processIn(self, orderBook):
-#        orderBook.
         
 class LimitOrderBase(OrderBase):
     """ Base class for limit orders. 
@@ -177,6 +160,56 @@ class LimitOrderBase(OrderBase):
             self.onMatchedWith(other, (p,v))
             other.onMatchedWith(self, (p,v))
         return self.empty
+
+class VirtualMarketOrderBase(object):
+    """ Used to evaluates price at which a market order of given volume would be executed
+        Since this query might be computationally expensive and done asynchronously,
+        we wrap function OrderQueue.evaluateOrderPrice by this class
+        The result will returned in on_matched event with empty 'other' field
+        TBD: we make use of on_matched machinery since that is supported in RemoteBook
+        but i'm not sure that it is a good design decision  
+    """
+    def __init__(self, volume):
+        self.volume = volume
+        self.on_matched = Event()
+        
+    def copyTo(self, dst):
+        pass # we might copy here the total price
+    
+    def processIn(self, orderBook):
+        def callback((price, volume_unmatched)):
+            self.on_matched.fire(self, None, (price, self.volume - volume_unmatched))
+            
+        orderBook.evaluateOrderPriceAsync(self.side, self.volume, callback)
+
+class VirtualMarketOrderBuy(VirtualMarketOrderBase):
+    """ Virtual market order buy side
+    """
+    side = Side.Buy
+
+    def __init__(self, volume):
+        VirtualMarketOrderBase.__init__(self, volume)
+        
+    def clone(self):
+        return VirtualMarketOrderBuy(self.volume)
+        
+
+class VirtualMarketOrderSell(VirtualMarketOrderBase):
+    """ Market order sell side
+    """
+    side = Side.Sell
+
+    def __init__(self, volume):
+        VirtualMarketOrderBase.__init__(self, volume)
+
+    def clone(self):
+        return VirtualMarketOrderSell(self.volume)
+
+def VirtualMarketOrderT(side):
+    """ Returns a factory to create virtual market orders buy if 'side' is Side.Buy
+    and a factory to create market orders sell if 'side' is Side.Sell
+    """
+    return VirtualMarketOrderSell if side==Side.Sell else VirtualMarketOrderBuy
 
 class MarketOrderBase(OrderBase):
     """ Base class for market orders
