@@ -2,7 +2,7 @@ import random
 from marketsim.scheduler import Timer, world
 from marketsim import Side
 from marketsim.order import *
-from marketsim.indicator import AssetPrice, ewma, Fold
+from marketsim.indicator import AssetPrice, ewma, Fold, derivative
 import math
 
 class TraderBase(object):
@@ -447,8 +447,8 @@ def TrendFollower(book,
                             (default: exponential distribution with \lambda=1) 
     """
     
-    trend = Fold(AssetPrice(book), average)
+    trend = Fold(AssetPrice(book), derivative(average))
     
     return TwoSideTrader(book, orderFactory, Timer(creationIntervalDistr), 
-                         signalTraderFunc(threshold, volumeDistr, trend.derivative))
+                         signalTraderFunc(threshold, volumeDistr, trend))
 
