@@ -76,4 +76,12 @@ class Event(object):
         """
         for x in self._listeners:
             x(*args)
+
+def getLabel(x):
+    """ Returns a printable label for x
+    We try to access 'label' field of the object 
+    If it doesn't exists, we return the object id string
+    TBD: add label field to all classes  
+    """
+    return x.label if 'label' in dir(x) else "#"+str(id(x))
                     

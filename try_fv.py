@@ -1,11 +1,13 @@
 from marketsim.veusz_graph import Graph, showGraphs
 from marketsim.scheduler import Scheduler
 from marketsim.order_queue import OrderBook
-from marketsim.trader import LiquidityProvider, FVTrader, TrendFollower
+from marketsim.trader import LiquidityProvider, FVTrader, TrendFollower, SASM_Trader
 from marketsim import Side
 from marketsim.indicator import AssetPrice, OnEveryDt, ewma, dEWMA, EWMA, TraderEfficiency, \
     PnL, VolumeTraded, InstEfficiency
 from marketsim.order import VirtualMarketOrderT
+
+from marketsim import strategy
 
 world = Scheduler()
 
@@ -27,11 +29,13 @@ price_graph.addTimeSerie(avg(assetPrice))
 seller_A = LiquidityProvider(book_A, Side.Sell, volumeDistr=lambda: 20)
 buyer_A = LiquidityProvider(book_A, Side.Buy, volumeDistr=lambda: 20)
 
-trader_200 = FVTrader(book_A, fundamentalValue=lambda: 200., volumeDistr=lambda: 5)
-trader_150 = FVTrader(book_A, fundamentalValue=lambda: 150., volumeDistr=lambda: 4)
-
+trader_200 = SASM_Trader(book_A) 
+trader_150 = SASM_Trader(book_A) 
 trader_200.label = "t200"
 trader_150.label = "t150"
+
+strategy.FundamentalValue(trader_200, fundamentalValue=lambda: 200., volumeDistr=lambda: 5)
+strategy.FundamentalValue(trader_150, fundamentalValue=lambda: 150., volumeDistr=lambda: 4)
 
 virtual_160 = FVTrader(book_A, fundamentalValue=lambda: 160., orderFactory=VirtualMarketOrderT, volumeDistr=lambda: 1)
 virtual_170 = FVTrader(book_A, fundamentalValue=lambda: 170., orderFactory=VirtualMarketOrderT, volumeDistr=lambda: 1)
