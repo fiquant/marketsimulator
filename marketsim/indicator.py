@@ -1,14 +1,6 @@
-from marketsim import Event, Side
+from marketsim import Event, Side, getLabel
 from marketsim.scheduler import Timer, world
 import math
-
-def getLabel(x):
-    """ Returns a printable label for x
-    We try to access 'label' field of the object 
-    If it doesn't exists, we return the object id string
-    TBD: add label field to all classes  
-    """
-    return x.label if 'label' in dir(x) else "#"+str(id(x))
 
 def sign(x):
     return 1 if x > 0 else -1 if x < 0 else 0

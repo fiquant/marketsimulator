@@ -1,6 +1,6 @@
 import random
 from marketsim.scheduler import Timer, world
-from marketsim import Side
+from marketsim import Side, getLabel
 from marketsim.order import *
 from marketsim.indicator import AssetPrice, ewma, Fold, derivative
 import math
@@ -83,9 +83,10 @@ class SingleAssetTrader(TraderBase):
     
 class SingleAssetSingleMarketTrader(SingleAssetTrader):
     
-    def __init__(self, orderBook):
+    def __init__(self, orderBook, label=None):
         SingleAssetTrader.__init__(self)
         self._orderBook = orderBook
+        self._label = label if label else getLabel(self)
         
     @property
     def book(self): # obsolete
