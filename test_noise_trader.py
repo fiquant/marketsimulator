@@ -3,6 +3,7 @@ from marketsim.scheduler import Scheduler
 from marketsim.order import *
 from marketsim.order_queue import *
 from marketsim.trader import *
+from marketsim import strategy
 
 world = Scheduler()
 
@@ -14,7 +15,7 @@ def side():
     counter[0] = 1 - counter[0]
     return Side.byId(counter[0])
 
-trader = NoiseTrader(book, sideDistr=side, volumeDistr=(lambda:10), creationIntervalDistr=(lambda:1))
+trader = strategy.Noise(SASM_Trader(book), sideDistr=side, volumeDistr=(lambda:10), creationIntervalDistr=(lambda:1))
 
 world.workTill(1.5)
 

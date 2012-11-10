@@ -1,12 +1,13 @@
 #from marketsim.scheduler import world
-from marketsim.trader import DependanceTrader
+from marketsim.trader import SASM_Trader
+from marketsim import strategy
 from marketsim.order import LimitOrderBuy, LimitOrderSell
 from marketsim.order_queue import OrderBook
 
 book_A = OrderBook()
 book_B = OrderBook()
 
-trader = DependanceTrader(book_A, book_B, factor=0.5, volumeDistr = lambda: 10)
+trader = strategy.Dependency(SASM_Trader(book_A), book_B, factor=0.5, volumeDistr = lambda: 10)
 
 for x in range(90,100):
     book_A.process(LimitOrderBuy(x, 1))

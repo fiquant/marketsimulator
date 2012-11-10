@@ -1,11 +1,12 @@
 from marketsim.order_queue import OrderBook
-from marketsim.trader import TrendFollower
 from marketsim.order import LimitOrderSell, LimitOrderBuy
 from marketsim.scheduler import Scheduler
+from marketsim.trader import SASM_Trader
+from marketsim import strategy
 
 world = Scheduler()
 book = OrderBook()
-trader = TrendFollower(book, creationIntervalDistr=lambda: 1, volumeDistr=lambda: 1)
+trader = strategy.TrendFollower(SASM_Trader(book), creationIntervalDistr=lambda: 1, volumeDistr=lambda: 1)
 
 for x in range(90, 100):
     book.process(LimitOrderBuy(x, 1))

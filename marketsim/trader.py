@@ -87,6 +87,7 @@ class SingleAssetSingleMarketTrader(SingleAssetTrader):
         SingleAssetTrader.__init__(self)
         self._orderBook = orderBook
         self._label = label if label else getLabel(self)
+        self.label = self._label
         
     @property
     def book(self): # obsolete
@@ -95,6 +96,10 @@ class SingleAssetSingleMarketTrader(SingleAssetTrader):
     @property
     def orderBook(self):
         return self._orderBook
+    
+#    @property
+#    def label(self):
+#        return self._label
     
     def send(self, order):
         SingleAssetTrader.send(self, self._orderBook, order)
