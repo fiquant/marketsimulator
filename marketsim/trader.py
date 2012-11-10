@@ -80,8 +80,27 @@ class SingleAssetTrader(TraderBase):
         negative otherwise
         """
         return self._amount
+    
+class SingleAssetSingleMarketTrader(SingleAssetTrader):
+    
+    def __init__(self, orderBook):
+        SingleAssetTrader.__init__(self)
+        self._orderBook = orderBook
+        
+    @property
+    def book(self): # obsolete
+        return self._orderBook
+    
+    @property
+    def orderBook(self):
+        return self._orderBook
+    
+    def send(self, order):
+        SingleAssetTrader.send(self, self._orderBook, order)
+        
+SASM_Trader = SingleAssetSingleMarketTrader 
 
-class OneSideTrader(SingleAssetTrader):
+class OneSideTrader(SingleAssetSingleMarketTrader):
     """ Generic trader that sends orders of only one side of a single asset
     """
 
@@ -99,13 +118,11 @@ class OneSideTrader(SingleAssetTrader):
         orderFunc - function to calculate order parameters: Trader -> *orderParams 
         """        
 
-        SingleAssetTrader.__init__(self)
+        SingleAssetSingleMarketTrader.__init__(self, orderBook)
 
         self.side = side
         # we may calculate order factory right now
         orderFactory = orderFactoryT(side)
-        # save book for later use in orderFuncs
-        self.book = orderBook
 
         def wakeUp(signal):
             # determine parameters of an order to create
@@ -113,12 +130,12 @@ class OneSideTrader(SingleAssetTrader):
             # create an order with given parameters
             order = orderFactory(*params)
             # send the order to the order book
-            self.send(orderBook, order)
+            self.send(order)
 
         # start listening calls from eventGen
         eventGen.advise(wakeUp)
 
-class TwoSideTrader(SingleAssetTrader):
+class TwoSideTrader(SingleAssetSingleMarketTrader):
     """ Generic trader that may send orders to two sides of a single asset
     """
 
@@ -134,10 +151,7 @@ class TwoSideTrader(SingleAssetTrader):
         orderFunc - function to calculate order parameters: Trader -> None | (side,*orderParams) 
         """        
 
-        SingleAssetTrader.__init__(self)
-
-        # save book for later use in orderFuncs
-        self.book = orderBook
+        SingleAssetSingleMarketTrader.__init__(self, orderBook)
 
         def wakeUp(signal):
             # determine side and parameters of an order to create
@@ -147,11 +161,10 @@ class TwoSideTrader(SingleAssetTrader):
                 # create order given side and parameters
                 order = orderFactoryT(side)(*params)
                 # send order to the order book
-                self.send(orderBook, order)
+                self.send(order)
 
         # start listening calls from eventGen
         eventGen.advise(wakeUp)
-
 
 def liquidityProviderFunc(defaultValue, priceDistr, volumeDistr):
     """ Calculates price and volume for a liquidity provider.
@@ -311,7 +324,7 @@ def FVTrader(   book,
     return TwoSideTrader(book, orderFactory,
                                 Timer(creationIntervalDistr),
                                 fv_func(fundamentalValue, lambda _: volumeDistr()))
-    
+
 def DependanceTrader(book,
                      bookToDependOn,
                      orderFactory=MarketOrderT,

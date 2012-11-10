@@ -5,6 +5,7 @@ from marketsim.scheduler import Scheduler
 from marketsim.test import *
 from marketsim.trader import *
 from marketsim.indicator import TraderEfficiency
+from marketsim import strategy
 
 world = Scheduler()
 
@@ -15,7 +16,8 @@ book = OrderBook(tickSize=.001)
 book.asks.on_best_changed += ask_history.append
 book.bids.on_best_changed += bid_history.append
 
-trader = FVTrader(book, volumeDistr=(lambda:10), creationIntervalDistr=(lambda:1))
+trader = SASM_Trader(book)
+strategy.FundamentalValue(trader, volumeDistr=(lambda:10), creationIntervalDistr=(lambda:1))
 trader_efficiency = TraderEfficiency([trader.on_traded], trader)
 
 fv_history = TraderHistoryChecker()

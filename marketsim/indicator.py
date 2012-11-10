@@ -102,6 +102,12 @@ class IndicatorBase(object):
         """
         return self._current
     
+def InstEfficiency(trader):
+    
+    return IndicatorBase([trader.on_traded], 
+                         lambda: trader.PnL + trader.amount*trader.book.price if trader.book.price else 0,
+                         "InstEfficiency_{" + getLabel(trader) + "}")
+    
 def PnL(trader):
     
     return IndicatorBase([trader.on_traded], lambda: trader.PnL, "P&L_{"+getLabel(trader)+"}")
