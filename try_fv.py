@@ -29,37 +29,30 @@ price_graph.addTimeSerie(avg(assetPrice))
 seller_A = LiquidityProvider(book_A, Side.Sell, volumeDistr=lambda: 20)
 buyer_A = LiquidityProvider(book_A, Side.Buy, volumeDistr=lambda: 20)
 
-trader_200 = SASM_Trader(book_A) 
-trader_150 = SASM_Trader(book_A) 
-trader_200.label = "t200"
-trader_150.label = "t150"
+trader_200 = SASM_Trader(book_A, "t200") 
+trader_150 = SASM_Trader(book_A, "t150") 
 
 strategy.FundamentalValue(trader_200, fundamentalValue=lambda: 200., volumeDistr=lambda: 5)
 strategy.FundamentalValue(trader_150, fundamentalValue=lambda: 150., volumeDistr=lambda: 4)
 
-virtual_160 = FVTrader(book_A, fundamentalValue=lambda: 160., orderFactory=VirtualMarketOrderT, volumeDistr=lambda: 1)
-virtual_170 = FVTrader(book_A, fundamentalValue=lambda: 170., orderFactory=VirtualMarketOrderT, volumeDistr=lambda: 1)
-virtual_180 = FVTrader(book_A, fundamentalValue=lambda: 180., orderFactory=VirtualMarketOrderT, volumeDistr=lambda: 1)
-virtual_190 = FVTrader(book_A, fundamentalValue=lambda: 190., orderFactory=VirtualMarketOrderT, volumeDistr=lambda: 1)
+def fv_virtual(fv):
+    return strategy.FundamentalValue(SASM_Trader(book_A, "v"+str(fv)), 
+                                     fundamentalValue=lambda: fv, 
+                                     orderFactory=VirtualMarketOrderT, 
+                                     volumeDistr=lambda: 1)
 
-virtual_160.label = "v160"
-virtual_170.label = "v170"
-virtual_180.label = "v180"
-virtual_190.label = "v190"
+virtual_160 = fv_virtual(160.)
+virtual_170 = fv_virtual(170.)
+virtual_180 = fv_virtual(180.)
+virtual_190 = fv_virtual(190.)
 
-tf = TrendFollower(book_A, average=ewma(0.015), volumeDistr=lambda: 5)
-tf.label = "TF"
+tf = strategy.TrendFollower(SASM_Trader(book_A, "TF"), average=ewma(0.015), volumeDistr=lambda: 5)
 
-tf_0_15 = TrendFollower(book_A, orderFactory=VirtualMarketOrderT, average=ewma(0.15))
-tf_0_015 = TrendFollower(book_A, orderFactory=VirtualMarketOrderT, average=ewma(0.015))
-
-tf_0_15.label = "tf0.15"
-tf_0_015.label = "tf0.015"
+tf_0_15 = strategy.TrendFollower(SASM_Trader(book_A, "tf0.15"), orderFactory=VirtualMarketOrderT, average=ewma(0.15))
+tf_0_015 = strategy.TrendFollower(SASM_Trader(book_A, "tf0.015"), orderFactory=VirtualMarketOrderT, average=ewma(0.015))
 
 def efficiency(trader):
     return TraderEfficiency([trader.on_traded], trader)
-
-        
 
 eff_graph = Graph("efficiency")
 trend_graph = Graph("efficiency trend")

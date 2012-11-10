@@ -2,9 +2,11 @@ from marketsim.veusz_graph import Graph, showGraphs
 import random
 from marketsim.scheduler import Scheduler
 from marketsim.order_queue import OrderBook
-from marketsim.trader import LiquidityProvider, DependanceTrader
+from marketsim.trader import LiquidityProvider, SASM_Trader
 from marketsim import Side
 from marketsim.indicator import AssetPrice, OnEveryDt, EWMA, TraderEfficiency, PnL
+
+from marketsim import strategy
 
 world = Scheduler()
 
@@ -41,12 +43,10 @@ buyer_A = LiquidityProvider(book_A, Side.Buy, defaultValue=50., volumeDistr=liqV
 seller_B = LiquidityProvider(book_B, Side.Sell, defaultValue=150., volumeDistr=liqVol)
 buyer_B = LiquidityProvider(book_B, Side.Buy, defaultValue=150., volumeDistr=liqVol)
 
-dep_AB = DependanceTrader(book_A, book_B, factor=2)
-dep_BA = DependanceTrader(book_B, book_A, factor=.5)
+dep_AB = strategy.Dependency(SASM_Trader(book_A, "AB"), book_B, factor=2)
+dep_BA = strategy.Dependency(SASM_Trader(book_B, "BA"), book_A, factor=.5)
 
-dep_AB.label = "AB"
 dep_AB.efficiency = TraderEfficiency([dep_AB.on_traded], dep_AB)
-dep_BA.label = "BA"
 dep_BA.efficiency = TraderEfficiency([dep_BA.on_traded], dep_BA)
 
 eff_graph = Graph("efficiency")
