@@ -3,7 +3,8 @@ from marketsim.scheduler import Scheduler
 from marketsim.order_queue import OrderBook
 from marketsim.trader import LiquidityProvider, FVTrader, TrendFollower
 from marketsim import Side
-from marketsim.indicator import AssetPrice, OnEveryDt, ewma, dEWMA, EWMA, TraderEfficiency, PnL, VolumeTraded
+from marketsim.indicator import AssetPrice, OnEveryDt, ewma, dEWMA, EWMA, TraderEfficiency, \
+    PnL, VolumeTraded, InstEfficiency
 from marketsim.order import VirtualMarketOrderT
 
 world = Scheduler()
@@ -65,12 +66,16 @@ def addToGraph(traders):
     for t in traders:
         e = efficiency(t)
         eff_graph.addTimeSerie(e)
+        eff_graph.addTimeSerie(InstEfficiency(t))
         eff_graph.addTimeSerie(avg(e))
         trend_graph.addTimeSerie(trend(e))
+        trend_graph.addTimeSerie(trend(InstEfficiency(t)))
         pnl_graph.addTimeSerie(PnL(t))
         volume_graph.addTimeSerie(VolumeTraded(t))
 
-addToGraph([trader_150, trader_200, tf, virtual_160, virtual_170, virtual_180, virtual_190, tf_0_15, tf_0_015])
+addToGraph([trader_150, trader_200, tf, 
+            virtual_160, virtual_170, virtual_180, virtual_190, 
+            tf_0_15, tf_0_015])
 
 world.workTill(1500)
 
