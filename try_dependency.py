@@ -1,10 +1,9 @@
 from marketsim.veusz_graph import Graph, showGraphs
 import random
 from marketsim.scheduler import Scheduler
-from marketsim.trader import SASM_Trader
 from marketsim.indicator import AssetPrice, OnEveryDt, EWMA, TraderEfficiency, PnL
 
-from marketsim import strategy, orderbook
+from marketsim import strategy, orderbook, trader
 
 world = Scheduler()
 
@@ -35,11 +34,11 @@ price_graph.addTimeSerie(avg(assetPrice_B, alpha=0.015), {r'PlotLine/bezierJoin'
 price_graph.addTimeSerie(avg(assetPrice_B, alpha=0.65))
 
 liqVol = lambda: random.expovariate(.1)*5
-lp_A = strategy.LiquidityProvider(SASM_Trader(book_A), defaultValue=50., volumeDistr=liqVol)
-lp_B = strategy.LiquidityProvider(SASM_Trader(book_B), defaultValue=150., volumeDistr=liqVol)
+lp_A = strategy.LiquidityProvider(trader.SASM(book_A), defaultValue=50., volumeDistr=liqVol)
+lp_B = strategy.LiquidityProvider(trader.SASM(book_B), defaultValue=150., volumeDistr=liqVol)
 
-dep_AB = strategy.Dependency(SASM_Trader(book_A, "AB"), book_B, factor=2)
-dep_BA = strategy.Dependency(SASM_Trader(book_B, "BA"), book_A, factor=.5)
+dep_AB = strategy.Dependency(trader.SASM(book_A, "AB"), book_B, factor=2)
+dep_BA = strategy.Dependency(trader.SASM(book_B, "BA"), book_A, factor=.5)
 
 dep_AB.efficiency = TraderEfficiency([dep_AB.on_traded], dep_AB)
 dep_BA.efficiency = TraderEfficiency([dep_BA.on_traded], dep_BA)

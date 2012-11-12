@@ -1,11 +1,6 @@
-import random
-from marketsim.scheduler import Timer, world
-from marketsim import Side, getLabel
-from marketsim.order import *
-from marketsim.indicator import AssetPrice, ewma, Fold, derivative
-import math
+from marketsim import getLabel, Event, Side
 
-class TraderBase(object):
+class Base(object):
     """ Base class for traders.
     Responsible for bookkeeping P&L of the trader and 
     maintaining on_order_sent and on_traded events
@@ -53,7 +48,7 @@ class TraderBase(object):
         self.on_order_sent.fire(order)        
 
         
-class SingleAssetTrader(TraderBase):
+class SingleAsset(Base):
     """ Trader that trades only one asset 
     (should we consider a same asset on different markets as the same asset?)
     Maintains number of assets traded:
@@ -62,7 +57,7 @@ class SingleAssetTrader(TraderBase):
     """
 
     def __init__(self):
-        TraderBase.__init__(self)
+        Base.__init__(self)
         self._amount = 0
 
     def _onOrderMatched(self, order, other, (price, volume)):
@@ -71,7 +66,7 @@ class SingleAssetTrader(TraderBase):
         Trader's amount and P&L is updated and listeners are notified about the trade   
         """
         self._amount += volume if order.side == Side.Buy else -volume
-        TraderBase._onOrderMatched(self, order, other, (price,volume))
+        Base._onOrderMatched(self, order, other, (price,volume))
         
     @property
     def amount(self):
@@ -81,10 +76,10 @@ class SingleAssetTrader(TraderBase):
         """
         return self._amount
     
-class SingleAssetSingleMarketTrader(SingleAssetTrader):
+class SingleAssetSingleMarket(SingleAsset):
     
     def __init__(self, orderBook, label=None):
-        SingleAssetTrader.__init__(self)
+        SingleAsset.__init__(self)
         self._orderBook = orderBook
         self._label = label if label else getLabel(self)
         self.label = self._label
@@ -102,17 +97,18 @@ class SingleAssetSingleMarketTrader(SingleAssetTrader):
 #        return self._label
     
     def send(self, order):
-        SingleAssetTrader.send(self, self._orderBook, order)
+        SingleAsset.send(self, self._orderBook, order)
         
-SASM_Trader = SingleAssetSingleMarketTrader 
-
-class SingleAssetMultipleMarketTrader(SingleAssetTrader):
+class SingleAssetMultipleMarket(SingleAsset):
     
     def __init__(self, orderBooks, label=None):
-        SingleAssetTrader.__init__(self)
+        SingleAsset.__init__(self)
         self._orderBooks = orderBooks
         self._label = label if label else getLabel(self)
         
     @property
     def orderBooks(self):
         return self._orderBooks
+    
+SASM = SingleAssetSingleMarket 
+SAMM = SingleAssetMultipleMarket    

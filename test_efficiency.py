@@ -1,16 +1,15 @@
-from marketsim.trader import SingleAssetTrader
 from marketsim.indicator import TraderEfficiency
-from marketsim import order, orderbook, remote
+from marketsim import order, orderbook, remote, trader
 
 book = orderbook.Local()
 
 book.process(order.Limit.Buy(90, 10))
 book.process(order.Limit.Sell(110, 10))
 
-class Trader(SingleAssetTrader):
+class Trader(trader.SingleAsset):
     
     def __init__(self, book):
-        SingleAssetTrader.__init__(self)
+        trader.SingleAsset.__init__(self)
         self.book = book
         self.efficiency = TraderEfficiency([self.on_traded], self)
         
@@ -20,21 +19,21 @@ class Trader(SingleAssetTrader):
     def sell(self, volume):
         self.send(self.book, order.Market.Sell(volume))
         
-trader = Trader(book)
+ltrader = Trader(book)
 
-assert trader.efficiency.value == 0
+assert ltrader.efficiency.value == 0
 
-trader.buy(3)
+ltrader.buy(3)
 
-assert trader.PnL == -3*110
-assert trader.amount == 3
-assert trader.efficiency.value == -3*110 + 3*90
+assert ltrader.PnL == -3*110
+assert ltrader.amount == 3
+assert ltrader.efficiency.value == -3*110 + 3*90
 
-trader.sell(5)
+ltrader.sell(5)
 
-assert trader.PnL == -3*110 + 5*90
-assert trader.amount == -2
-assert trader.efficiency.value == -3*110 + 5*90 - 2*110
+assert ltrader.PnL == -3*110 + 5*90
+assert ltrader.amount == -2
+assert ltrader.efficiency.value == -3*110 + 5*90 - 2*110
 
 ######## ----------------------  testing trader efficiency with remote book      
 

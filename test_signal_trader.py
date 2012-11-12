@@ -1,7 +1,6 @@
 from marketsim import Side
 from marketsim.scheduler import Scheduler
-from marketsim.trader import *
-from marketsim import signal, strategy, order, orderbook
+from marketsim import signal, strategy, order, orderbook, trader
 
 world = Scheduler()
 
@@ -9,7 +8,7 @@ book = orderbook.Local(tickSize=.001)
 
 signal = signal.RandomWalk(initialValue=-2, deltaDistr=(lambda: 1), intervalDistr=(lambda:1))
 
-trader = strategy.Signal(SASM_Trader(book), signal, volumeDistr=(lambda:10))
+trader = strategy.Signal(trader.SASM(book), signal, volumeDistr=(lambda:10))
 
 book.process(order.Limit.Sell(110,10))
 book.process(order.Limit.Sell(120,10))
