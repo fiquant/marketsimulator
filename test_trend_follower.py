@@ -1,10 +1,10 @@
 from marketsim.order_queue import OrderBook
 from marketsim.scheduler import Scheduler
 from marketsim.trader import SASM_Trader
-from marketsim import strategy, order
+from marketsim import strategy, order, orderbook
 
 world = Scheduler()
-book = OrderBook()
+book = orderbook.Local()
 trader = strategy.TrendFollower(SASM_Trader(book), creationIntervalDistr=lambda: 1, volumeDistr=lambda: 1)
 
 for x in range(90, 100):

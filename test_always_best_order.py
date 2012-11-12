@@ -1,8 +1,6 @@
-from marketsim import Side
-from marketsim import order
-from marketsim.order_queue import OrderBook
+from marketsim import Side, order, orderbook
 
-book = OrderBook(tickSize = 1)
+book = orderbook.Local(tickSize = 1)
 
 book.process(order.Limit.Sell(100,10))
 

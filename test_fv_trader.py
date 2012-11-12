@@ -1,17 +1,16 @@
 from marketsim import Side
-from marketsim.order_queue import *
 from marketsim.scheduler import Scheduler
 from marketsim.test import *
 from marketsim.trader import *
 from marketsim.indicator import TraderEfficiency
-from marketsim import strategy, order
+from marketsim import strategy, order, orderbook
 
 world = Scheduler()
 
 ask_history = OrderQueueHistoryChecker()
 bid_history = OrderQueueHistoryChecker()
 
-book = OrderBook(tickSize=.001)
+book = orderbook.Local(tickSize=.001)
 book.asks.on_best_changed += ask_history.append
 book.bids.on_best_changed += bid_history.append
 

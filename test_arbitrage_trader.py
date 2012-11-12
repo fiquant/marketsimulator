@@ -1,12 +1,10 @@
-from marketsim import order
-from marketsim.order_queue import OrderBook
 from marketsim.scheduler import Scheduler
-from marketsim import trader, strategy
+from marketsim import trader, strategy, order, orderbook
 
 world = Scheduler()
         
-book_A = OrderBook()
-book_B = OrderBook()
+book_A = orderbook.Local()
+book_B = orderbook.Local()
 
 trader = strategy.Arbitrage(trader.SingleAssetMultipleMarketTrader([book_A, book_B]))
 

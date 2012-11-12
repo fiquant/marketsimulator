@@ -1,7 +1,7 @@
-from marketsim import order
-from marketsim.order_queue import *
+from marketsim import order, orderbook
 
-book = OrderBook(tickSize=1)
+
+book = orderbook.Local(tickSize=1)
 
 a12 = order.Limit.Sell(11.2, 100)
 book.processLimitOrder(a12)
