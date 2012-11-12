@@ -106,3 +106,13 @@ class SingleAssetSingleMarketTrader(SingleAssetTrader):
         
 SASM_Trader = SingleAssetSingleMarketTrader 
 
+class SingleAssetMultipleMarketTrader(SingleAssetTrader):
+    
+    def __init__(self, orderBooks, label=None):
+        SingleAssetTrader.__init__(self)
+        self._orderBooks = orderBooks
+        self._label = label if label else getLabel(self)
+        
+    @property
+    def orderBooks(self):
+        return self._orderBooks
