@@ -1,5 +1,5 @@
 from marketsim import order
-from marketsim.order_queue import *
+from marketsim.orderbook._local import Asks,Bids
 from marketsim.test import *
 
 history = OrderQueueHistoryChecker()

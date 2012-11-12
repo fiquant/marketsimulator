@@ -1,9 +1,8 @@
 from marketsim.trader import SingleAssetTrader
-from marketsim.order_queue import OrderBook
 from marketsim.indicator import TraderEfficiency
-from marketsim import order
+from marketsim import order, orderbook, remote
 
-book = OrderBook()
+book = orderbook.Local()
 
 book.process(order.Limit.Buy(90, 10))
 book.process(order.Limit.Sell(110, 10))
@@ -40,12 +39,11 @@ assert trader.efficiency.value == -3*110 + 5*90 - 2*110
 ######## ----------------------  testing trader efficiency with remote book      
 
 from marketsim.scheduler import Scheduler
-from marketsim.remote_book import TwoWayLink, RemoteBook
 
 world = Scheduler()
 
-link = TwoWayLink(latencyUp=lambda: 1, latencyDown=lambda: 1)
-rbook = RemoteBook(book, link)
+link = remote.TwoWayLink(latencyUp=lambda: 1, latencyDown=lambda: 1)
+rbook = orderbook.Remote(book, link)
 rtrader = Trader(rbook) 
 
 assert rtrader.efficiency.value == None

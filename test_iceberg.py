@@ -1,8 +1,7 @@
-from marketsim import order 
-from marketsim.order_queue import *
+from marketsim import order, orderbook 
 from marketsim.test import *
 
-book = OrderBook(tickSize=1)
+book = orderbook.Local(tickSize=1)
 
 createLimitSell = order.iceberg(10, order.Limit.Sell)
 createMarketBuy = order.iceberg(5, order.Market.Buy)

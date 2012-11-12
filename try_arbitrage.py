@@ -1,20 +1,17 @@
 from marketsim.veusz_graph import Graph, showGraphs
 from marketsim.scheduler import Scheduler
-from marketsim.order_queue import OrderBook
-from marketsim import trader
-from marketsim import strategy
-from marketsim import Side
+from marketsim import trader, strategy, orderbook, remote
 from marketsim.indicator import AssetPrice, BidPrice, AskPrice, OnEveryDt, EWMA, CrossSpread
-from marketsim.remote_book import RemoteBook, TwoWayLink
+
 
 world = Scheduler()
 
-book_A = OrderBook(tickSize=0.01, label="A")
-book_B = OrderBook(tickSize=0.01, label="B")
+book_A = orderbook.Local(tickSize=0.01, label="A")
+book_B = orderbook.Local(tickSize=0.01, label="B")
 
-link = TwoWayLink()
-remote_A = RemoteBook(book_A, link)
-remote_B = RemoteBook(book_B, link)
+link = remote.TwoWayLink()
+remote_A = orderbook.Remote(book_A, link)
+remote_B = orderbook.Remote(book_B, link)
 
 price_graph = Graph("Price")
 spread_graph = Graph("Bid-Ask Spread")

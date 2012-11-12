@@ -1,12 +1,11 @@
 from marketsim import Side
 from marketsim.scheduler import Scheduler
-from marketsim.order_queue import *
 from marketsim.trader import *
-from marketsim import signal, strategy, order
+from marketsim import signal, strategy, order, orderbook
 
 world = Scheduler()
 
-book = OrderBook(tickSize=.001)
+book = orderbook.Local(tickSize=.001)
 
 signal = signal.RandomWalk(initialValue=-2, deltaDistr=(lambda: 1), intervalDistr=(lambda:1))
 
