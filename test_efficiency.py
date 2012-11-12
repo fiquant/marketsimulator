@@ -1,12 +1,12 @@
 from marketsim.trader import SingleAssetTrader
 from marketsim.order_queue import OrderBook
 from marketsim.indicator import TraderEfficiency
-from marketsim.order import LimitOrderBuy, LimitOrderSell, MarketOrderBuy, MarketOrderSell
+from marketsim import order
 
 book = OrderBook()
 
-book.process(LimitOrderBuy(90, 10))
-book.process(LimitOrderSell(110, 10))
+book.process(order.Limit.Buy(90, 10))
+book.process(order.Limit.Sell(110, 10))
 
 class Trader(SingleAssetTrader):
     
@@ -16,10 +16,10 @@ class Trader(SingleAssetTrader):
         self.efficiency = TraderEfficiency([self.on_traded], self)
         
     def buy(self, volume):
-        self.send(self.book, MarketOrderBuy(volume))
+        self.send(self.book, order.Market.Buy(volume))
         
     def sell(self, volume):
-        self.send(self.book, MarketOrderSell(volume))
+        self.send(self.book, order.Market.Sell(volume))
         
 trader = Trader(book)
 

@@ -1,10 +1,8 @@
 from marketsim import Side
 from marketsim.scheduler import Scheduler
-from marketsim.order import *
 from marketsim.order_queue import *
 from marketsim.trader import *
-from marketsim import signal
-from marketsim import strategy
+from marketsim import signal, strategy, order
 
 world = Scheduler()
 
@@ -14,11 +12,11 @@ signal = signal.RandomWalk(initialValue=-2, deltaDistr=(lambda: 1), intervalDist
 
 trader = strategy.Signal(SASM_Trader(book), signal, volumeDistr=(lambda:10))
 
-book.process(LimitOrderSell(110,10))
-book.process(LimitOrderSell(120,10))
+book.process(order.Limit.Sell(110,10))
+book.process(order.Limit.Sell(120,10))
 
-book.process(LimitOrderBuy(80,10))
-book.process(LimitOrderBuy(90,10))
+book.process(order.Limit.Buy(80,10))
+book.process(order.Limit.Buy(90,10))
 
 assert book.bids.best.price == 90
 

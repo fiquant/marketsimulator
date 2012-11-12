@@ -1,9 +1,8 @@
 from marketsim import Side
 from marketsim.scheduler import Scheduler
-from marketsim.order import *
 from marketsim.order_queue import *
 from marketsim.trader import *
-from marketsim import strategy
+from marketsim import strategy, order
 
 world = Scheduler()
 
@@ -36,10 +35,10 @@ world.workTill(2.5)
 assert book.asks.best.price == 32
 assert book.asks.best.volume == 10
 
-book.process(MarketOrderBuy(5))
+book.process(order.Market.Buy(5))
 assert trader.PnL == 32*5
 
-book.process(MarketOrderBuy(10))
+book.process(order.Market.Buy(10))
 assert trader.PnL == 32*10 + 64*5
 
 assert book.asks.best.price == 64

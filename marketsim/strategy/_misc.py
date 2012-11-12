@@ -5,7 +5,7 @@ from _basic import TwoSides
 
 
 def Noise(trader,
-          orderFactory=order.MarketOrderT,
+          orderFactory=order.Market.T,
           sideDistr=(lambda: random.randint(0,1)),
           volumeDistr=(lambda: random.expovariate(.1)),
           creationIntervalDistr=(lambda: random.expovariate(1.))):

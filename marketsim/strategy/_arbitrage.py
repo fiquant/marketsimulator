@@ -1,4 +1,4 @@
-from marketsim.order import LimitMarketOrderT 
+from marketsim import order 
 from blist import sorteddict
 from marketsim import Side
 from marketsim.scheduler import world
@@ -74,13 +74,11 @@ def Arbitrage(trader):
                         
                         world.scheduleAfter(0, lambda: \
                             trader.send(myQueue.book, 
-                                      LimitMarketOrderT(oppositeSide)(
-                                        myPrice, volumeToTrade)))
+                                      order.LimitMarket(oppositeSide, myPrice, volumeToTrade)))
                         
                         world.scheduleAfter(0, lambda: \
                             trader.send(oppositeQueue.book,
-                                      LimitMarketOrderT(side)(
-                                        oppositePrice, volumeToTrade)))
+                                      order.LimitMarket(side, oppositePrice, volumeToTrade)))
 
         return lambda queue: world.scheduleAfter(0, lambda: inner(queue))
                     

@@ -5,8 +5,7 @@ from marketsim.trader import SASM_Trader
 from marketsim import Side
 from marketsim.indicator import AssetPrice, OnEveryDt, ewma, dEWMA, EWMA, TraderEfficiency, \
     PnL, VolumeTraded, InstEfficiency
-from marketsim.order import VirtualMarketOrderT
-from marketsim import strategy
+from marketsim import strategy, order
 
 world = Scheduler()
 
@@ -36,7 +35,7 @@ strategy.FundamentalValue(trader_150, fundamentalValue=lambda: 150., volumeDistr
 def fv_virtual(fv):
     return strategy.FundamentalValue(SASM_Trader(book_A, "v"+str(fv)), 
                                      fundamentalValue=lambda: fv, 
-                                     orderFactory=VirtualMarketOrderT, 
+                                     orderFactory=order.VirtualMarket.T, 
                                      volumeDistr=lambda: 1)
 
 virtual_160 = fv_virtual(160.)
@@ -46,8 +45,8 @@ virtual_190 = fv_virtual(190.)
 
 tf = strategy.TrendFollower(SASM_Trader(book_A, "TF"), average=ewma(0.015), volumeDistr=lambda: 5)
 
-tf_0_15 = strategy.TrendFollower(SASM_Trader(book_A, "tf0.15"), orderFactory=VirtualMarketOrderT, average=ewma(0.15))
-tf_0_015 = strategy.TrendFollower(SASM_Trader(book_A, "tf0.015"), orderFactory=VirtualMarketOrderT, average=ewma(0.015))
+tf_0_15 = strategy.TrendFollower(SASM_Trader(book_A, "tf0.15"), orderFactory=order.VirtualMarket.T, average=ewma(0.15))
+tf_0_015 = strategy.TrendFollower(SASM_Trader(book_A, "tf0.015"), orderFactory=order.VirtualMarket.T, average=ewma(0.015))
 
 def efficiency(trader):
     return TraderEfficiency([trader.on_traded], trader)

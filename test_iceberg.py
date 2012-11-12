@@ -1,12 +1,11 @@
-from marketsim.order import *
-from marketsim.iceberg import *
+from marketsim import order 
 from marketsim.order_queue import *
 from marketsim.test import *
 
 book = OrderBook(tickSize=1)
 
-createLimitSell = iceberg(10, LimitOrderSell)
-createMarketBuy = iceberg(5, MarketOrderBuy)
+createLimitSell = order.iceberg(10, order.Limit.Sell)
+createMarketBuy = order.iceberg(5, order.Market.Buy)
 
 a12 = createLimitSell(11.2, 100)
 book.process(a12)
