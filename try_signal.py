@@ -1,16 +1,13 @@
 from marketsim.veusz_graph import Graph, showGraphs
 from marketsim.scheduler import Scheduler
-from marketsim.order_queue import OrderBook
-from marketsim.trader import SASM_Trader
 from marketsim import Side
 from marketsim.indicator import AssetPrice, OnEveryDt, EWMA, VolumeTraded, TraderEfficiency, PnL
 
-from marketsim import signal
-from marketsim import strategy
+from marketsim import signal, strategy, trader, orderbook
 
 world = Scheduler()
 
-book_A = OrderBook(tickSize=0.01, label="A")
+book_A = orderbook.Local(tickSize=0.01, label="A")
 
 price_graph = Graph("Price")
  
@@ -22,9 +19,9 @@ def avg(source, alpha=0.15):
 
 price_graph.addTimeSerie(avg(assetPrice))
 
-lp_A = strategy.LiquidityProvider(SASM_Trader(book_A), volumeDistr=lambda:1)
+lp_A = strategy.LiquidityProvider(trader.SASM(book_A), volumeDistr=lambda:1)
 signal = signal.RandomWalk(initialValue=20, deltaDistr=lambda: -.1, label="signal")
-trader = strategy.Signal(SASM_Trader(book_A, "signal"), signal)
+trader = strategy.Signal(trader.SASM(book_A, "signal"), signal)
 
 price_graph.addTimeSerie(signal)
 price_graph.addTimeSerie(VolumeTraded(trader))

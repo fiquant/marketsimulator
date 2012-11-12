@@ -1,7 +1,6 @@
 from marketsim import Side
 from marketsim.scheduler import Scheduler
-from marketsim.trader import *
-from marketsim import strategy, order, orderbook
+from marketsim import strategy, order, orderbook, trader
 
 world = Scheduler()
 
@@ -15,7 +14,7 @@ t.on_order_sent.add(c.process)
 world.workTill(1000.)
 """
 
-trader = strategy.LiquidityProviderSide(SASM_Trader(book),
+trader = strategy.LiquidityProviderSide(trader.SASM(book),
                            side=Side.Sell,
                            creationIntervalDistr=(lambda: 1),
                            priceDistr=(lambda: 0.5),

@@ -17,7 +17,7 @@ price_graph = Graph("Price")
 spread_graph = Graph("Bid-Ask Spread")
 cross_graph = Graph("Cross Bid-Ask Spread")
 
-arbitrager = strategy.Arbitrage(trader.SingleAssetMultipleMarketTrader([remote_A, remote_B]))
+arbitrager = strategy.Arbitrage(trader.SingleAssetMultipleMarket([remote_A, remote_B]))
  
 assetPrice = AssetPrice(book_A)
 price_graph.addTimeSerie(assetPrice)
@@ -47,8 +47,8 @@ price_graph.addTimeSerie(OnEveryDt(1, ewma_0_15))
 price_graph.addTimeSerie(OnEveryDt(1, ewma_0_015), {r'PlotLine/bezierJoin':True})
 price_graph.addTimeSerie(OnEveryDt(1, ewma_0_065))
 
-lp_A = strategy.LiquidityProvider(trader.SASM_Trader(remote_A))
-lp_B = strategy.LiquidityProvider(trader.SASM_Trader(remote_B))
+lp_A = strategy.LiquidityProvider(trader.SASM(remote_A))
+lp_B = strategy.LiquidityProvider(trader.SASM(remote_B))
 
 world.workTill(500)
 
