@@ -1,14 +1,14 @@
 from marketsim.order import (LimitOrderSell, LimitOrderBuy)
 from marketsim.order_queue import OrderBook
 from marketsim.scheduler import Scheduler
-from marketsim.arbitrage_trader import ArbitrageTrader        
+from marketsim import trader, strategy
 
 world = Scheduler()
         
 book_A = OrderBook()
 book_B = OrderBook()
 
-trader = ArbitrageTrader(book_A, book_B)
+trader = strategy.Arbitrage(trader.SingleAssetMultipleMarketTrader([book_A, book_B]))
 
 b_120 = LimitOrderBuy(120,10)
 b_110 = LimitOrderBuy(110,10)

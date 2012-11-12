@@ -1,9 +1,8 @@
 from marketsim.veusz_graph import Graph, showGraphs
 from marketsim.scheduler import Scheduler
 from marketsim.order_queue import OrderBook
-from marketsim.trader import SASM_Trader
+from marketsim import trader
 from marketsim import strategy
-from marketsim.arbitrage_trader import ArbitrageTrader
 from marketsim import Side
 from marketsim.indicator import AssetPrice, BidPrice, AskPrice, OnEveryDt, EWMA, CrossSpread
 from marketsim.remote_book import RemoteBook, TwoWayLink
@@ -21,7 +20,7 @@ price_graph = Graph("Price")
 spread_graph = Graph("Bid-Ask Spread")
 cross_graph = Graph("Cross Bid-Ask Spread")
 
-arbitrager = ArbitrageTrader(remote_A, remote_B)
+arbitrager = strategy.Arbitrage(trader.SingleAssetMultipleMarketTrader([remote_A, remote_B]))
  
 assetPrice = AssetPrice(book_A)
 price_graph.addTimeSerie(assetPrice)
@@ -51,8 +50,8 @@ price_graph.addTimeSerie(OnEveryDt(1, ewma_0_15))
 price_graph.addTimeSerie(OnEveryDt(1, ewma_0_015), {r'PlotLine/bezierJoin':True})
 price_graph.addTimeSerie(OnEveryDt(1, ewma_0_065))
 
-lp_A = strategy.LiquidityProvider(SASM_Trader(remote_A))
-lp_B = strategy.LiquidityProvider(SASM_Trader(remote_B))
+lp_A = strategy.LiquidityProvider(trader.SASM_Trader(remote_A))
+lp_B = strategy.LiquidityProvider(trader.SASM_Trader(remote_B))
 
 world.workTill(500)
 
