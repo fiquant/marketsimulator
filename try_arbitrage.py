@@ -1,7 +1,8 @@
 from marketsim.veusz_graph import Graph, showGraphs
 from marketsim.scheduler import Scheduler
 from marketsim.order_queue import OrderBook
-from marketsim.trader import LiquidityProvider
+from marketsim.trader import SASM_Trader
+from marketsim import strategy
 from marketsim.arbitrage_trader import ArbitrageTrader
 from marketsim import Side
 from marketsim.indicator import AssetPrice, BidPrice, AskPrice, OnEveryDt, EWMA, CrossSpread
@@ -50,11 +51,8 @@ price_graph.addTimeSerie(OnEveryDt(1, ewma_0_15))
 price_graph.addTimeSerie(OnEveryDt(1, ewma_0_015), {r'PlotLine/bezierJoin':True})
 price_graph.addTimeSerie(OnEveryDt(1, ewma_0_065))
 
-seller_A = LiquidityProvider(remote_A, Side.Sell)
-buyer_A = LiquidityProvider(remote_A, Side.Buy)
-
-seller_B = LiquidityProvider(remote_B, Side.Sell)
-buyer_B = LiquidityProvider(remote_B, Side.Buy)
+lp_A = strategy.LiquidityProvider(SASM_Trader(remote_A))
+lp_B = strategy.LiquidityProvider(SASM_Trader(remote_B))
 
 world.workTill(500)
 

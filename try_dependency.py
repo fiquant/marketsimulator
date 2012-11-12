@@ -2,7 +2,7 @@ from marketsim.veusz_graph import Graph, showGraphs
 import random
 from marketsim.scheduler import Scheduler
 from marketsim.order_queue import OrderBook
-from marketsim.trader import LiquidityProvider, SASM_Trader
+from marketsim.trader import SASM_Trader
 from marketsim import Side
 from marketsim.indicator import AssetPrice, OnEveryDt, EWMA, TraderEfficiency, PnL
 
@@ -37,11 +37,8 @@ price_graph.addTimeSerie(avg(assetPrice_B, alpha=0.015), {r'PlotLine/bezierJoin'
 price_graph.addTimeSerie(avg(assetPrice_B, alpha=0.65))
 
 liqVol = lambda: random.expovariate(.1)*5
-seller_A = LiquidityProvider(book_A, Side.Sell, defaultValue=50., volumeDistr=liqVol)
-buyer_A = LiquidityProvider(book_A, Side.Buy, defaultValue=50., volumeDistr=liqVol)
-
-seller_B = LiquidityProvider(book_B, Side.Sell, defaultValue=150., volumeDistr=liqVol)
-buyer_B = LiquidityProvider(book_B, Side.Buy, defaultValue=150., volumeDistr=liqVol)
+lp_A = strategy.LiquidityProvider(SASM_Trader(book_A), defaultValue=50., volumeDistr=liqVol)
+lp_B = strategy.LiquidityProvider(SASM_Trader(book_B), defaultValue=150., volumeDistr=liqVol)
 
 dep_AB = strategy.Dependency(SASM_Trader(book_A, "AB"), book_B, factor=2)
 dep_BA = strategy.Dependency(SASM_Trader(book_B, "BA"), book_A, factor=.5)
