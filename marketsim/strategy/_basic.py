@@ -20,3 +20,28 @@ def TwoSides(trader, orderFactoryT, eventGen, orderFunc):
         # start listening calls from eventGen
         eventGen.advise(wakeUp)
         return trader
+
+def OneSide(trader, side, orderFactoryT, eventGen, orderFunc):                
+    """ Initializes generic one side trader and makes it working
+    orderBook - book to place orders in
+    side - side of orders to create
+    orderFactoryT - function to create orders: side -> *orderParams -> Order
+    eventGen - event generator to be listened - we'll use its advise method to subscribe to
+    orderFunc - function to calculate order parameters: Trader -> *orderParams 
+    """        
+
+    # we may calculate order factory right now
+    orderFactory = orderFactoryT(side)
+
+    def wakeUp(signal):
+        # determine parameters of an order to create
+        params = orderFunc(trader)
+        # create an order with given parameters
+        order = orderFactory(*params)
+        # send the order to the order book
+        trader.send(order)
+
+    # start listening calls from eventGen
+    eventGen.advise(wakeUp)
+
+    return trader

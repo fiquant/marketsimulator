@@ -3,6 +3,7 @@ from marketsim.scheduler import Scheduler
 from marketsim.order import *
 from marketsim.order_queue import *
 from marketsim.trader import *
+from marketsim import strategy
 
 world = Scheduler()
 
@@ -16,7 +17,7 @@ t.on_order_sent.add(c.process)
 world.workTill(1000.)
 """
 
-trader = LiquidityProvider(book,
+trader = strategy.LiquidityProviderSide(SASM_Trader(book),
                            side=Side.Sell,
                            creationIntervalDistr=(lambda: 1),
                            priceDistr=(lambda: 0.5),
@@ -44,7 +45,7 @@ assert trader.PnL == 32*10 + 64*5
 assert book.asks.best.price == 64
 assert book.asks.best.volume == 5
 
-canceller = Canceller(source=trader,cancellationIntervalDistr=(lambda: .2), choiceFunc=(lambda N: 0))
+canceller = strategy.Canceller(source=trader,cancellationIntervalDistr=(lambda: .2), choiceFunc=(lambda N: 0))
 
 world.workTill(3.05)
 
