@@ -1,4 +1,3 @@
-from marketsim.order_queue import OrderBook
 from marketsim.scheduler import Scheduler
 from marketsim.trader import SASM_Trader
 from marketsim import strategy, order, orderbook
