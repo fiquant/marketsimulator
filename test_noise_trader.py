@@ -1,9 +1,8 @@
 from marketsim import Side
 from marketsim.scheduler import Scheduler
-from marketsim.order import *
 from marketsim.order_queue import *
 from marketsim.trader import *
-from marketsim import strategy
+from marketsim import strategy, order
 
 world = Scheduler()
 
@@ -19,8 +18,8 @@ trader = strategy.Noise(SASM_Trader(book), sideDistr=side, volumeDistr=(lambda:1
 
 world.workTill(1.5)
 
-book.process(LimitOrderBuy(90, 20))
-book.process(LimitOrderSell(110, 20))
+book.process(order.Limit.Buy(90, 20))
+book.process(order.Limit.Sell(110, 20))
 
 world.workTill(2.5)
 

@@ -23,7 +23,7 @@ def liquidityProviderFunc(side, defaultValue, priceDistr, volumeDistr):
 def LiquidityProviderSide( \
                      trader,
                      side=Side.Sell,
-                     orderFactoryT=order.LimitOrderT,
+                     orderFactoryT=order.Limit.T,
                      defaultValue=100,
                      creationIntervalDistr=(lambda: random.expovariate(1.)),
                      priceDistr=(lambda: random.lognormvariate(0., .1)),
@@ -49,7 +49,7 @@ def LiquidityProviderSide( \
 
 def LiquidityProvider( \
                      trader,
-                     orderFactoryT=order.LimitOrderT,
+                     orderFactoryT=order.Limit.T,
                      defaultValue=100,
                      creationIntervalDistr=(lambda: random.expovariate(1.)),
                      priceDistr=(lambda: random.lognormvariate(0., .1)),
@@ -98,7 +98,7 @@ class Canceller(object):
                     self._elements.pop()
                 else:
                     # if order is valid, cancel it
-                    book.process(order.CancelOrder(e))
+                    book.process(order.Cancel(e))
                     return
 
         scheduler.Timer(cancellationIntervalDistr).advise(wakeUp)

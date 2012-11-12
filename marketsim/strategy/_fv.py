@@ -22,7 +22,7 @@ def fv_func(fundamentalValueFunc, volumeDistr):
     return inner
 
 def FundamentalValue( trader,
-                      orderFactory=order.MarketOrderT,
+                      orderFactory=order.Market.T,
                       fundamentalValue=lambda: 100,
                       volumeDistr=(lambda: random.expovariate(.1)),
                       creationIntervalDistr=(lambda: random.expovariate(1.))):
@@ -43,7 +43,7 @@ def FundamentalValue( trader,
 
 def Dependency(trader,
                bookToDependOn,
-               orderFactory=order.MarketOrderT,
+               orderFactory=order.Market.T,
                factor=1.,
                volumeDistr=(lambda: random.expovariate(.1))):
     """ Creates a strategy that believes that fair asset price 

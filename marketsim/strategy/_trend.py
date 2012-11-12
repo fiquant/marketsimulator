@@ -19,7 +19,7 @@ def signalTraderFunc(threshold, volumeDistr, signalFunc):
 def Signal(trader,
            signal,
            threshold=0.7,
-           orderFactory=order.MarketOrderT,
+           orderFactory=order.Market.T,
            volumeDistr=(lambda: random.expovariate(1.))):
     """ Creates a signal trader.
     trader - single asset single market trader
@@ -36,7 +36,7 @@ def Signal(trader,
 def TrendFollower(trader,
                   average = indicator.ewma(alpha = 0.15),
                   threshold = 0., 
-                  orderFactory=order.MarketOrderT,
+                  orderFactory=order.Market.T,
                   creationIntervalDistr=(lambda: random.expovariate(1.)),
                   volumeDistr=(lambda: random.expovariate(1.))):
     """ Creates a trend follower trader

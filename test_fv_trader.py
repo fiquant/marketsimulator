@@ -1,11 +1,10 @@
 from marketsim import Side
-from marketsim.order import *
 from marketsim.order_queue import *
 from marketsim.scheduler import Scheduler
 from marketsim.test import *
 from marketsim.trader import *
 from marketsim.indicator import TraderEfficiency
-from marketsim import strategy
+from marketsim import strategy, order
 
 world = Scheduler()
 
@@ -28,10 +27,10 @@ world.workTill(1.5)
 assert trader.PnL == 0
 assert fv_history.checkDelta([])
 
-book.process(LimitOrderSell(80, 10))
+book.process(order.Limit.Sell(80, 10))
 assert ask_history.checkDelta([(80,10)])
-book.process(LimitOrderSell(90, 10))
-book.process(LimitOrderSell(100, 10))
+book.process(order.Limit.Sell(90, 10))
+book.process(order.Limit.Sell(100, 10))
 
 assert book.asks.best.price == 80
 assert trader_efficiency.value == 0
@@ -59,7 +58,7 @@ assert ask_history.checkDelta([])
 assert book.asks.best.price == 100
 assert trader.PnL == -80*10 - 90*10
 
-book.process(LimitOrderBuy(110, 20))
+book.process(order.Limit.Buy(110, 20))
 assert bid_history.checkDelta([(110,10)])
 assert ask_history.checkDelta([None])
 assert book.asks.empty
