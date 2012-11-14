@@ -4,7 +4,7 @@ from marketsim import strategy, order, orderbook, trader
 book_A = orderbook.Local()
 book_B = orderbook.Local()
 
-trader = strategy.Dependency(trader.SASM(book_A), book_B, factor=0.5, volumeDistr = lambda: 10)
+trader = strategy.Dependency(trader.SASM(book_A), book_B, factor=0.5, volumeDistr = lambda: 10).trader
 
 for x in range(90,100):
     book_A.process(order.Limit.Buy(x, 1))

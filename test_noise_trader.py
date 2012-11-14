@@ -12,7 +12,7 @@ def side():
     counter[0] = 1 - counter[0]
     return Side.byId(counter[0])
 
-trader = strategy.Noise(trader.SASM(book), sideDistr=side, volumeDistr=(lambda:10), creationIntervalDistr=(lambda:1))
+trader = strategy.Noise(trader.SASM(book), sideDistr=side, volumeDistr=(lambda:10), creationIntervalDistr=(lambda:1)).trader
 
 world.workTill(1.5)
 

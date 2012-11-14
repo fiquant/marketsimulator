@@ -3,7 +3,7 @@ from marketsim import strategy, order, orderbook, trader
 
 world = Scheduler()
 book = orderbook.Local()
-trader = strategy.TrendFollower(trader.SASM(book), creationIntervalDistr=lambda: 1, volumeDistr=lambda: 1)
+trader = strategy.TrendFollower(trader.SASM(book), creationIntervalDistr=lambda: 1, volumeDistr=lambda: 1).trader
 
 for x in range(90, 100):
     book.process(order.Limit.Buy(x, 1))

@@ -17,7 +17,7 @@ price_graph = Graph("Price")
 spread_graph = Graph("Bid-Ask Spread")
 cross_graph = Graph("Cross Bid-Ask Spread")
 
-arbitrager = strategy.Arbitrage(trader.SingleAssetMultipleMarket([remote_A, remote_B]))
+arbitrager = strategy.Arbitrage(trader.SingleAssetMultipleMarket([remote_A, remote_B])).trader
  
 assetPrice = AssetPrice(book_A)
 price_graph.addTimeSerie(assetPrice)

@@ -19,7 +19,7 @@ trader = strategy.LiquidityProviderSide(trader.SASM(book),
                            creationIntervalDistr=(lambda: 1),
                            priceDistr=(lambda: 0.5),
                            volumeDistr=(lambda: 10),
-                           defaultValue=128)
+                           defaultValue=128).trader
 
 assert book.asks.empty
 

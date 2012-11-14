@@ -24,8 +24,8 @@ price_graph.addTimeSeries([\
 def volume(v):
     return lambda: v*random.expovariate(.1)
 
-lp_A = strategy.LiquidityProvider(trader.SASM(book_A, "A"), volumeDistr=volume(10))
-lp_a = strategy.LiquidityProvider(trader.SASM(book_A, "a"), volumeDistr=volume(1))
+lp_A = strategy.LiquidityProvider(trader.SASM(book_A, "A"), volumeDistr=volume(10)).trader
+lp_a = strategy.LiquidityProvider(trader.SASM(book_A, "a"), volumeDistr=volume(1)).trader
 
 spread_graph = Graph("Bid-Ask Spread")
 

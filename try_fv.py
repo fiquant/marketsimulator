@@ -21,29 +21,44 @@ def trend(source, alpha=0.015):
 
 price_graph.addTimeSerie(avg(assetPrice))
 
-lp_A = strategy.LiquidityProvider(trader.SASM(book_A), volumeDistr=lambda: 20)
+lp_A = strategy.LiquidityProvider(trader.SASM(book_A), volumeDistr=lambda: 30).trader
 
 trader_200 = trader.SASM(book_A, "t200") 
 trader_150 = trader.SASM(book_A, "t150") 
 
-strategy.FundamentalValue(trader_200, fundamentalValue=lambda: 200., volumeDistr=lambda: 5)
-strategy.FundamentalValue(trader_150, fundamentalValue=lambda: 150., volumeDistr=lambda: 4)
+strategy.FundamentalValue(trader_200, fundamentalValue=lambda: 200., volumeDistr=lambda: 8).trader
+strategy.FundamentalValue(trader_150, fundamentalValue=lambda: 150., volumeDistr=lambda: 6).trader
 
 def fv_virtual(fv):
-    return strategy.FundamentalValue(trader.SASM(book_A, "v"+str(fv)), 
-                                     fundamentalValue=lambda: fv, 
-                                     orderFactory=order.VirtualMarket.T, 
-                                     volumeDistr=lambda: 1)
+    return strategy.suspendIfNotEffective(\
+                strategy.withEstimator(
+                        strategy.FundamentalValue, 
+                        trader = trader.SASM(book_A, "v"+str(fv)), 
+                        volumeDistr = lambda: 1,
+                        fundamentalValue=lambda: fv)).trader
 
 virtual_160 = fv_virtual(160.)
 virtual_170 = fv_virtual(170.)
 virtual_180 = fv_virtual(180.)
 virtual_190 = fv_virtual(190.)
 
-tf = strategy.TrendFollower(trader.SASM(book_A, "TF"), average=ewma(0.015), volumeDistr=lambda: 5)
+tf = strategy.suspendIfNotEffective(\
+        strategy.withEstimator(strategy.TrendFollower, 
+                               trader = trader.SASM(book_A, "TF"), 
+                               average=ewma(0.015), 
+                               volumeDistr=lambda: 10)).trader
 
-tf_0_15 = strategy.TrendFollower(trader.SASM(book_A, "tf0.15"), orderFactory=order.VirtualMarket.T, average=ewma(0.15))
-tf_0_015 = strategy.TrendFollower(trader.SASM(book_A, "tf0.015"), orderFactory=order.VirtualMarket.T, average=ewma(0.015))
+tf_0_15 = strategy.suspendIfNotEffective(\
+            strategy.withEstimator(strategy.TrendFollower,
+                                   trader=trader.SASM(book_A, "tf0.15"), 
+                                   average=ewma(0.15),
+                                   volumeDistr=lambda: 1)).trader
+                                         
+tf_0_015 = strategy.suspendIfNotEffective(\
+            strategy.withEstimator(strategy.TrendFollower,
+                                   trader=trader.SASM(book_A, "tf0.015"), 
+                                   average=ewma(0.015),
+                                   volumeDistr=lambda: 1)).trader
 
 def efficiency(trader):
     return TraderEfficiency([trader.on_traded], trader)

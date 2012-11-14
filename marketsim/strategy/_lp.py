@@ -1,5 +1,5 @@
 import random
-from _basic import OneSide
+from _basic import OneSide, Strategy
 from marketsim import order, Side, scheduler
 
 def liquidityProviderFunc(side, defaultValue, priceDistr, volumeDistr):
@@ -47,17 +47,28 @@ def LiquidityProviderSide( \
                    scheduler.Timer(creationIntervalDistr),
                    liquidityProviderFunc(side, defaultValue, priceDistr, volumeDistr))
 
-def LiquidityProvider( \
-                     trader,
-                     orderFactoryT=order.Limit.T,
-                     defaultValue=100,
-                     creationIntervalDistr=(lambda: random.expovariate(1.)),
-                     priceDistr=(lambda: random.lognormvariate(0., .1)),
-                     volumeDistr=(lambda: random.expovariate(.1))):
-
-    LiquidityProviderSide(trader, Side.Sell, orderFactoryT, defaultValue, creationIntervalDistr, priceDistr, volumeDistr)
-    LiquidityProviderSide(trader, Side.Buy, orderFactoryT, defaultValue, creationIntervalDistr, priceDistr, volumeDistr)
-    return trader
+class LiquidityProvider(Strategy):
+    def __init__(self, 
+                 trader,
+                 orderFactoryT=order.Limit.T,
+                 defaultValue=100,
+                 creationIntervalDistr=(lambda: random.expovariate(1.)),
+                 priceDistr=(lambda: random.lognormvariate(0., .1)),
+                 volumeDistr=(lambda: random.expovariate(.1))):
+        Strategy.__init__(self, trader)
+        self._sell = LiquidityProviderSide(trader, Side.Sell, orderFactoryT, defaultValue, creationIntervalDistr, priceDistr, volumeDistr)
+        self._buy = LiquidityProviderSide(trader, Side.Buy, orderFactoryT, defaultValue, creationIntervalDistr, priceDistr, volumeDistr)
+    
+    def suspend(self, s):
+        Strategy.suspend(self, s)
+        self._sell.suspend(s)
+        self._buy.suspend(s)
+        
+    @property
+    def suspended(self):
+        assert self._sell.suspended == self._suspended
+        assert self._buy.suspended == self._suspended
+        return Strategy.suspended(self)
 
 class Canceller(object):
     """ Randomly cancels created orders in specific moments of time    
