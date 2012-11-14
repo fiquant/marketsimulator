@@ -42,11 +42,22 @@ virtual_170 = fv_virtual(170.)
 virtual_180 = fv_virtual(180.)
 virtual_190 = fv_virtual(190.)
 
+def fv(x, trader):
+    return strategy.withEstimator(
+                strategy.FundamentalValue, 
+                trader = trader, 
+                volumeDistr = lambda: 1,
+                fundamentalValue=lambda: fv)
+
+best_trader = trader.SASM(book_A, "best")    
+strategies = [fv(x, best_trader) for x in range(150, 240, 10)]
+best = strategy.suspendIfNotBest(strategies)    
+
 tf = strategy.suspendIfNotEffective(\
         strategy.withEstimator(strategy.TrendFollower, 
                                trader = trader.SASM(book_A, "TF"), 
                                average=ewma(0.015), 
-                               volumeDistr=lambda: 10)).trader
+                               volumeDistr=lambda: 5)).trader
 
 tf_0_15 = strategy.suspendIfNotEffective(\
             strategy.withEstimator(strategy.TrendFollower,
@@ -79,7 +90,8 @@ def addToGraph(traders):
         pnl_graph.addTimeSerie(PnL(t))
         volume_graph.addTimeSerie(VolumeTraded(t))
 
-addToGraph([trader_150, trader_200, tf, 
+
+addToGraph([trader_150, trader_200, tf, best_trader,
             virtual_160, virtual_170, virtual_180, virtual_190, 
             tf_0_15, tf_0_015])
 
