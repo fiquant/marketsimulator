@@ -1,13 +1,34 @@
+class Strategy(object):
+    
+    def __init__(self, trader):
+        self._suspended = False
+        self._trader = trader
+        
+    @property
+    def suspended(self):
+        return self._suspended
+    
+    def suspend(self, s):
+        self._suspended = s
+        
+    @property
+    def trader(self):
+        return self._trader
 
-def TwoSides(trader, orderFactoryT, eventGen, orderFunc):                
+class TwoSides(Strategy):    
+    
+    def __init__(self, trader, orderFactoryT, eventGen, orderFunc):                
         """ Runs generic two side strategy 
         trader - single asset single market trader
         orderFactoryT - function to create orders: side -> *orderParams -> Order
         eventGen - event generator to be listened - we'll use its advise method to subscribe to
         orderFunc - function to calculate order parameters: Trader -> None | (side,*orderParams) 
         """        
-
+        Strategy.__init__(self, trader)
+        
         def wakeUp(signal):
+            if self._suspended:
+                return
             # determine side and parameters of an order to create
             res = orderFunc(trader)
             if res <> None:
@@ -19,29 +40,31 @@ def TwoSides(trader, orderFactoryT, eventGen, orderFunc):
 
         # start listening calls from eventGen
         eventGen.advise(wakeUp)
-        return trader
-
-def OneSide(trader, side, orderFactoryT, eventGen, orderFunc):                
-    """ Initializes generic one side trader and makes it working
-    orderBook - book to place orders in
-    side - side of orders to create
-    orderFactoryT - function to create orders: side -> *orderParams -> Order
-    eventGen - event generator to be listened - we'll use its advise method to subscribe to
-    orderFunc - function to calculate order parameters: Trader -> *orderParams 
-    """        
-
-    # we may calculate order factory right now
-    orderFactory = orderFactoryT(side)
-
-    def wakeUp(signal):
-        # determine parameters of an order to create
-        params = orderFunc(trader)
-        # create an order with given parameters
-        order = orderFactory(*params)
-        # send the order to the order book
-        trader.send(order)
-
-    # start listening calls from eventGen
-    eventGen.advise(wakeUp)
-
-    return trader
+        
+class OneSide(Strategy):
+    
+    def __init__(self, trader, side, orderFactoryT, eventGen, orderFunc):                
+        """ Initializes generic one side trader and makes it working
+        orderBook - book to place orders in
+        side - side of orders to create
+        orderFactoryT - function to create orders: side -> *orderParams -> Order
+        eventGen - event generator to be listened - we'll use its advise method to subscribe to
+        orderFunc - function to calculate order parameters: Trader -> *orderParams 
+        """     
+        Strategy.__init__(self, trader)   
+    
+        # we may calculate order factory right now
+        orderFactory = orderFactoryT(side)
+    
+        def wakeUp(signal):
+            if self._suspended:
+                return
+            # determine parameters of an order to create
+            params = orderFunc(trader)
+            # create an order with given parameters
+            order = orderFactory(*params)
+            # send the order to the order book
+            trader.send(order)
+    
+        # start listening calls from eventGen
+        eventGen.advise(wakeUp)

@@ -34,11 +34,11 @@ price_graph.addTimeSerie(avg(assetPrice_B, alpha=0.015), {r'PlotLine/bezierJoin'
 price_graph.addTimeSerie(avg(assetPrice_B, alpha=0.65))
 
 liqVol = lambda: random.expovariate(.1)*5
-lp_A = strategy.LiquidityProvider(trader.SASM(book_A), defaultValue=50., volumeDistr=liqVol)
-lp_B = strategy.LiquidityProvider(trader.SASM(book_B), defaultValue=150., volumeDistr=liqVol)
+lp_A = strategy.LiquidityProvider(trader.SASM(book_A), defaultValue=50., volumeDistr=liqVol).trader
+lp_B = strategy.LiquidityProvider(trader.SASM(book_B), defaultValue=150., volumeDistr=liqVol).trader
 
-dep_AB = strategy.Dependency(trader.SASM(book_A, "AB"), book_B, factor=2)
-dep_BA = strategy.Dependency(trader.SASM(book_B, "BA"), book_A, factor=.5)
+dep_AB = strategy.Dependency(trader.SASM(book_A, "AB"), book_B, factor=2).trader
+dep_BA = strategy.Dependency(trader.SASM(book_B, "BA"), book_A, factor=.5).trader
 
 dep_AB.efficiency = TraderEfficiency([dep_AB.on_traded], dep_AB)
 dep_BA.efficiency = TraderEfficiency([dep_BA.on_traded], dep_BA)

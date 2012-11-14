@@ -19,9 +19,9 @@ def avg(source, alpha=0.15):
 
 price_graph.addTimeSerie(avg(assetPrice))
 
-lp_A = strategy.LiquidityProvider(trader.SASM(book_A), volumeDistr=lambda:1)
+lp_A = strategy.LiquidityProvider(trader.SASM(book_A), volumeDistr=lambda:1).trader
 signal = signal.RandomWalk(initialValue=20, deltaDistr=lambda: -.1, label="signal")
-trader = strategy.Signal(trader.SASM(book_A, "signal"), signal)
+trader = strategy.Signal(trader.SASM(book_A, "signal"), signal).trader
 
 price_graph.addTimeSerie(signal)
 price_graph.addTimeSerie(VolumeTraded(trader))

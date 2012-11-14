@@ -6,7 +6,7 @@ world = Scheduler()
 book_A = orderbook.Local()
 book_B = orderbook.Local()
 
-trader = strategy.Arbitrage(trader.SAMM([book_A, book_B]))
+trader = strategy.Arbitrage(trader.SAMM([book_A, book_B])).trader
 
 b_120 = order.Limit.Buy(120,10)
 b_110 = order.Limit.Buy(110,10)

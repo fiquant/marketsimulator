@@ -1,4 +1,5 @@
 from marketsim import Event, Side
+from marketsim.scheduler import world
 from _base import Base
 from _limit import Limit
 
@@ -25,11 +26,12 @@ class LimitMarket(Base):
     only if there are orders with suitable price in the queue 
     """
     
-    def __init__(self, side, price, volume):
+    def __init__(self, side, price, volume, delay=None):
         """ Initializes order with 'price' and 'volume'
         'limitOrderFactory' tells how to create limit orders
         """
         Base.__init__(self, side, volume)
+        self._delay = delay
         # we create a limit order
         self._order = Limit(side, price, volume)
         # translate its events to our listeners
@@ -37,7 +39,12 @@ class LimitMarket(Base):
         
     def processIn(self, orderBook):
         orderBook.process(self._order)
-        orderBook.process(Cancel(self._order))
+        cancel = lambda: orderBook.process(Cancel(self._order))
+         
+        if self._delay is None: 
+            cancel()
+        else:
+            world.scheduleAfter(self._delay, cancel)
         
     @property 
     def volume(self):
