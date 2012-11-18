@@ -14,12 +14,15 @@ def createVirtual(constructor, kwargs):
 def trend(source, alpha=0.015):
     return indicator.OnEveryDt(1, indicator.dEWMA(source, alpha))
 
+def efficiency(trader):
+    return indicator.TraderEfficiency([trader.on_traded], trader)
+
 def withEstimator(constructor, *args, **kwargs): # todo: parametrize by efficiency criteria
     assert len(args) == 0, "positional arguments are not supported"
     estimator = createVirtual(constructor, copy(kwargs))
     real = constructor(*args, **kwargs)
     real.estimator = estimator 
-    real.efficiency = trend(indicator.InstEfficiency(estimator.trader))
+    real.efficiency = trend(efficiency(estimator.trader))
     return real
 
 def suspendIfNotEffective(strategy):    
@@ -27,7 +30,7 @@ def suspendIfNotEffective(strategy):
         lambda _: strategy.suspend(strategy.efficiency.value < 0)
     return strategy
 
-class suspendIfNotBest(Strategy):
+class chooseTheBest(Strategy):
 
     def __init__(self, strategies, event_gen=None):
         assert all(map(lambda s: s.trader == strategies[0].trader, strategies))
