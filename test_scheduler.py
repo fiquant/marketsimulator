@@ -1,6 +1,6 @@
-from marketsim.scheduler import Scheduler
+from marketsim import scheduler 
 
-S = Scheduler()
+S = scheduler.create()
 
 def F(actionTime):
     def inner():

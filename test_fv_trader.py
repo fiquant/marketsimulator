@@ -1,9 +1,8 @@
-from marketsim.scheduler import Scheduler
 from marketsim.test import *
 from marketsim.indicator import TraderEfficiency
-from marketsim import strategy, order, orderbook, trader
+from marketsim import strategy, order, orderbook, trader, scheduler
 
-world = Scheduler()
+world = scheduler.create()
 
 ask_history = OrderQueueHistoryChecker()
 bid_history = OrderQueueHistoryChecker()
