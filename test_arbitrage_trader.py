@@ -1,7 +1,6 @@
-from marketsim.scheduler import Scheduler
-from marketsim import trader, strategy, order, orderbook
+from marketsim import trader, strategy, order, orderbook, scheduler
 
-world = Scheduler()
+world = scheduler.create()
         
 book_A = orderbook.Local()
 book_B = orderbook.Local()

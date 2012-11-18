@@ -1,11 +1,9 @@
 from marketsim.veusz_graph import Graph, showGraphs
-from marketsim.scheduler import Scheduler
-from marketsim import Side
 from marketsim.indicator import AssetPrice, OnEveryDt, EWMA, VolumeTraded, TraderEfficiency, PnL
 
-from marketsim import signal, strategy, trader, orderbook
+from marketsim import signal, strategy, trader, orderbook, scheduler
 
-world = Scheduler()
+world = scheduler.create()
 
 book_A = orderbook.Local(tickSize=0.01, label="A")
 

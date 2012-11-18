@@ -1,10 +1,9 @@
 from marketsim.veusz_graph import Graph, showGraphs
-from marketsim.scheduler import Scheduler
 from marketsim.indicator import AssetPrice, BidPrice, AskPrice, OnEveryDt, EWMA, TraderEfficiency, PnL
 import random
-from marketsim import strategy, trader, orderbook
+from marketsim import strategy, trader, orderbook, scheduler
 
-world = Scheduler()
+world = scheduler.create()
 
 def avg(source, alpha=0.15):
     return OnEveryDt(1, EWMA(source, alpha))

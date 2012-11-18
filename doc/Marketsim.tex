@@ -82,7 +82,7 @@ In order to schedule an event a user should use \tmtexttt{schedule} or \tmtexttt
 
 Methods \tmtexttt{workTill} and \tmtexttt{advance} advance model time calling event handlers in order of their action times. If two events have same action time it is garanteed that the event scheduled first will be executed first. These methods must not be called from an event handler. In such a case an exception will be issued.
 
-Since a scheduler is supposed to be single for non-parallel simulations, for convenience it is made as a singleton which can be accessed via \tmtexttt{world} variable from \tmtexttt{marketsim.scheduler} module. 
+Since a scheduler is supposed to be single for non-parallel simulations, for convenient use from other parts of the library \tmtexttt{marketsim.scheduler.world} static class is introduced which grants access to  \tmtexttt{currentTime}, \tmtexttt{schedule} and \tmtexttt{scheduleAfter} methods of the unique scheduler. This scheduler should be initialized by creating an instance of \tmtexttt{Scheduler} class in client code and it gives right to manage simulation by calling \tmtexttt{workTill} and \tmtexttt{advance} methods. 
 
 \subsection{Timer}
 

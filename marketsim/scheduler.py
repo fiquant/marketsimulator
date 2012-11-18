@@ -5,7 +5,8 @@ from marketsim import Event
 """
 
 class _EventHandler(object):
-    """ Internal class appending to a user event handler ability to cancel the event 
+    """ Internal class appending to a user event handler ability to cancel the event
+    (this feature hasn't been used so far. do we really need it?) 
     """
     
     def __init__(self, handler):
@@ -32,6 +33,7 @@ class _EventHandler(object):
     def __repr__(self):
         return "("+repr(self._handler) + ("-> Cancelled" if self.cancelled else "") + ")"
     
+# Scheduler singleton. Initialized once Scheduler instance is created
 _instance = None
 
 class Scheduler(object):
@@ -110,6 +112,9 @@ class Scheduler(object):
             handler()
             self.scheduleAfter(intervalFunc(), h)
         self.scheduleAfter(intervalFunc(), h)
+        
+def create():
+    return Scheduler()
 
 class World(object):
 
