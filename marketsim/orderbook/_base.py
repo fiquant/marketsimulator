@@ -30,11 +30,6 @@ class BookBase(object):
     def __repr__(self):
         return self.__str__()
     
-    def cancelOrder(self, order):
-        """ To be called when 'order' is cancelled
-        """
-        self.queue(order.side).cancelOrder(order)
-
     def process(self, order):
         """ Processes an order by calling its processIn method
         """
@@ -49,28 +44,6 @@ class BookBase(object):
         else:
             self._incomingOrders.append(order)
             
-    def evaluateOrderPrice(self, side, volume):
-        """ Evaluates price at which a market order of given 'side' 
-            and having given 'volume' would be executed 
-        """
-        return self._queues[side.opposite.id].evaluateOrderPrice(volume)
-
-    def evaluateOrderPriceAsync(self, side, volume, callback):
-        callback(self.evaluateOrderPrice(side, volume))
-
-    def processLimitOrder(self, order):
-        """ Processes 'order' as limit order:
-        If it is not matched completely, it stays at the order queue
-        """
-        if not self.processMarketOrder(order):
-            self._queues[order.side.id].push(order)
-
-    def processMarketOrder(self, order):
-        """ Processes 'order' as market order:
-        Iff it is not matched completely, returns False
-        """
-        return self._queues[order.side.opposite.id].matchWith(order)
-
     @property
     def bids(self):
         """ Returns buy side order queue

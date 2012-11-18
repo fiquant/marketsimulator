@@ -15,6 +15,9 @@ class Base(object):
         self.on_order_sent = Event()
         # event to be fired when a trader's is traded
         self.on_traded = Event()
+        
+    def charge(self, price):
+        self._PnL -= price
 
     def _onOrderMatched(self, order, other, (price, volume)):
         """ Called when a trader's 'order' is traded against 'other' order 

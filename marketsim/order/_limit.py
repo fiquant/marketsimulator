@@ -6,16 +6,16 @@ class Limit(Base):
     Adds to the basic order functionality price handling
     """
 
-    def __init__(self, side, price, volume):
+    def __init__(self, side, price, volume, trader=None):
         """ Initializes order with price and volume
         price is a limit price on which order can be traded
         if there are no suitable orders, the limit order remains in the order book
         """
-        Base.__init__(self, side, volume)
+        Base.__init__(self, side, volume, trader)
         self._price = price
         
     def clone(self):
-        return Limit(self.side, self.price, self.volume)
+        return Limit(self.side, self.price, self.volume, self._trader)
         
     def copyTo(self, dst):
         Base.copyTo(self, dst)

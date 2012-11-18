@@ -5,13 +5,13 @@ class Market(Base):
     """ Base class for market orders
     """
 
-    def __init__(self, side, volume):
+    def __init__(self, side, volume, trader=None):
         """ Initializes order with volume to trade
         """
-        Base.__init__(self, side, volume)
+        Base.__init__(self, side, volume, trader)
         
     def clone(self):
-        return Market(self.side, self.volume)
+        return Market(self.side, self.volume, self._trader)
 
     def processIn(self, orderBook):
         """ Order book calls this method to ask the order 
