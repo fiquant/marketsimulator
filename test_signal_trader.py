@@ -1,4 +1,4 @@
-from marketsim import signal, strategy, order, orderbook, trader, Side, scheduler
+from marketsim import signal, strategy, order, orderbook, trader, scheduler
 
 world = scheduler.create()
 

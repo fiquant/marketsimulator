@@ -1,6 +1,5 @@
 from marketsim.test import *
-from marketsim.indicator import TraderEfficiency
-from marketsim import strategy, order, orderbook, trader, scheduler
+from marketsim import strategy, order, orderbook, trader, scheduler, observable
 
 world = scheduler.create()
 
@@ -13,7 +12,7 @@ book.bids.on_best_changed += bid_history.append
 
 trader = trader.SASM(book)
 strategy.FundamentalValue(trader, volumeDistr=(lambda:10), creationIntervalDistr=(lambda:1))
-trader_efficiency = TraderEfficiency([trader.on_traded], trader)
+trader_efficiency = observable.Efficiency(trader)
 
 fv_history = TraderHistoryChecker()
 trader.on_traded += fv_history.append
