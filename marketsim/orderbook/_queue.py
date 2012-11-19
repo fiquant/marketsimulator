@@ -60,12 +60,6 @@ class Queue(object):
         ticks = int(math.ceil(self.side.makePriceSigned(price) / self._tickSize))
         return (+ticks, self.side.makePriceSigned(ticks * self._tickSize))
 
-#    @staticmethod
-#    def better(x, y):
-#        """ Predicate to compare two signed ticks
-#        """
-#        return Asks.side.better(x,y)
-
     def push(self, order):
         """ Pushes 'order' into the queue.
         May correct limit price of the order with respect to the tick size

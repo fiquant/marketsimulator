@@ -4,6 +4,12 @@ from _limit import Limit
 from _cancel import Cancel
 
 class AlwaysBest(Base):
+    """ AlwaysBest is a virtual order that ensures that it has the best price in the order book. 
+    It is implemented as a limit order which is cancelled 
+    once the best price in the order queue has changed 
+    and is sent again to the order book 
+    with a price one tick better than the best price in the book.
+    """
     
     def __init__(self, volume, 
                  side = Side.Sell, 

@@ -1,7 +1,7 @@
 from marketsim import Event
 from _base import BookBase
 
-class RemoteQueue(object):
+class Queue(object):
     
     def __init__(self, queue, book, link):
         self._queue = queue
@@ -40,8 +40,8 @@ class Remote(BookBase):
     def __init__(self, book, twowaylink):
         
         BookBase.__init__(self, 
-                          RemoteQueue(book.bids, self, twowaylink.down), 
-                          RemoteQueue(book.asks, self, twowaylink.down), 
+                          Queue(book.bids, self, twowaylink.down), 
+                          Queue(book.asks, self, twowaylink.down), 
                           book.tickSize, 
                           book.label)
         

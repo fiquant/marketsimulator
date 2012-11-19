@@ -20,9 +20,6 @@ class Base(object):
         self._PnL = 0
         self.on_matched = Event()
         
-    def charge(self, price): # will fail if there is no trader but it's ok
-        self._trader.charge(price)
-        
     @property
     def side(self):
         return self._side
@@ -71,6 +68,11 @@ class Base(object):
         """ Marks order as cancelled. Notifies the order book about it
         """
         self._cancelled = True
+
+    #--------------------------------- these methods are to be called by order book
+            
+    def charge(self, price): # will fail if there is no trader but it's ok
+        self._trader.charge(price)
 
     def onMatchedWith(self, other, (price,volume)):
         """ Called when the order is matched with another order
