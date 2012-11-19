@@ -1,7 +1,5 @@
 from marketsim.veusz_graph import Graph, showGraphs
-from marketsim.indicator import AssetPrice, OnEveryDt, ewma, dEWMA, EWMA, TraderEfficiency, \
-    PnL, VolumeTraded, InstEfficiency
-from marketsim import strategy, orderbook, trader, scheduler
+from marketsim import strategy, orderbook, trader, scheduler, observable
 
 world = scheduler.create()
 
@@ -9,14 +7,11 @@ book_A = orderbook.Local(tickSize=0.01, label="A")
 
 price_graph = Graph("Price")
  
-assetPrice = AssetPrice(book_A)
+assetPrice = observable.Price(book_A)
 price_graph.addTimeSerie(assetPrice)
 
-def avg(source, alpha=0.15):
-    return OnEveryDt(1, EWMA(source, alpha))
-
-def trend(source, alpha=0.015):
-    return OnEveryDt(1, dEWMA(source, alpha))
+avg = observable.avg
+trend = observable.trend
 
 price_graph.addTimeSerie(avg(assetPrice))
 
@@ -70,9 +65,6 @@ best = strategy.chooseTheBest(strategies)
 #                                   average=ewma(0.015),
 #                                   volumeDistr=lambda: 1)).trader
 
-def efficiency(trader):
-    return TraderEfficiency([trader.on_traded], trader)
-
 eff_graph = Graph("efficiency")
 trend_graph = Graph("efficiency trend")
 pnl_graph = Graph("P&L")
@@ -80,14 +72,14 @@ volume_graph = Graph("volume")
 
 def addToGraph(traders):
     for t in traders:
-        e = efficiency(t)
+        e = observable.Efficiency(t)
         #eff_graph.addTimeSerie(e)
         #eff_graph.addTimeSerie(InstEfficiency(t))
         eff_graph.addTimeSerie(avg(e))
         trend_graph.addTimeSerie(trend(e))
         #trend_graph.addTimeSerie(trend(InstEfficiency(t)))
-        pnl_graph.addTimeSerie(PnL(t))
-        volume_graph.addTimeSerie(VolumeTraded(t))
+        pnl_graph.addTimeSerie(observable.PnL(t))
+        volume_graph.addTimeSerie(observable.VolumeTraded(t))
 
 
 addToGraph([trader_150, trader_200, best_trader, trader_200_1, trader_200_2,

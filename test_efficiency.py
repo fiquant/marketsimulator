@@ -1,5 +1,4 @@
-from marketsim.indicator import TraderEfficiency
-from marketsim import order, orderbook, remote, trader
+from marketsim import order, orderbook, remote, trader, observable
 
 book = orderbook.Local()
 
@@ -11,7 +10,7 @@ class Trader(trader.SingleAsset):
     def __init__(self, book):
         trader.SingleAsset.__init__(self)
         self.book = book
-        self.efficiency = TraderEfficiency([self.on_traded], self)
+        self.efficiency = observable.Efficiency(self)
         
     def buy(self, volume):
         self.send(self.book, order.Market.Buy(volume))

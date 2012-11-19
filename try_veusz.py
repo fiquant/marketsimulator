@@ -1,18 +1,15 @@
 from marketsim.veusz_graph import Graph, showGraphs
-from marketsim.indicator import AssetPrice, BidPrice, AskPrice, OnEveryDt, EWMA, TraderEfficiency, PnL
 import random
-from marketsim import strategy, trader, orderbook, scheduler
+from marketsim import strategy, trader, orderbook, scheduler, observable
 
 world = scheduler.create()
 
-def avg(source, alpha=0.15):
-    return OnEveryDt(1, EWMA(source, alpha))
-
+avg = observable.avg
 book_A = orderbook.Local(tickSize=0.01, label="A")
 
 price_graph = Graph("Price")
  
-assetPrice = AssetPrice(book_A)
+assetPrice = observable.Price(book_A)
 
 price_graph.addTimeSeries([\
     assetPrice,
@@ -28,14 +25,12 @@ lp_a = strategy.LiquidityProvider(trader.SASM(book_A, "a"), volumeDistr=volume(1
 
 spread_graph = Graph("Bid-Ask Spread")
 
-spread_graph.addTimeSerie(BidPrice(book_A))
-spread_graph.addTimeSerie(AskPrice(book_A))
-
-lp_a.efficiency = TraderEfficiency([lp_a.on_traded], lp_a)
+spread_graph.addTimeSerie(observable.BidPrice(book_A))
+spread_graph.addTimeSerie(observable.AskPrice(book_A))
 
 eff_graph = Graph("efficiency")
-eff_graph.addTimeSerie(lp_a.efficiency)
-eff_graph.addTimeSerie(PnL(lp_a))
+eff_graph.addTimeSerie(observable.Efficiency(lp_a))
+eff_graph.addTimeSerie(observable.PnL(lp_a))
 
 world.workTill(500)
 
