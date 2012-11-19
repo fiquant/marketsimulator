@@ -82,7 +82,7 @@ In order to schedule an event a user should use \tmtexttt{schedule} or \tmtexttt
 
 Methods \tmtexttt{workTill} and \tmtexttt{advance} advance model time calling event handlers in order of their action times. If two events have same action time it is garanteed that the event scheduled first will be executed first. These methods must not be called from an event handler. In such a case an exception will be issued.
 
-Since a scheduler is supposed to be single for non-parallel simulations, for convenient use from other parts of the library \tmtexttt{marketsim.scheduler.world} static class is introduced which grants access to  \tmtexttt{currentTime}, \tmtexttt{schedule} and \tmtexttt{scheduleAfter} methods of the unique scheduler. This scheduler should be initialized by creating an instance of \tmtexttt{Scheduler} class in client code and it gives right to manage simulation by calling \tmtexttt{workTill} and \tmtexttt{advance} methods. 
+Since a scheduler is supposed to be single for non-parallel simulations, for convenient use from other parts of the library \tmtexttt{marketsim.scheduler.world} static class is introduced which grants access to  \tmtexttt{currentTime}, \tmtexttt{schedule} and \tmtexttt{scheduleAfter} methods of the unique scheduler. This scheduler should be initialized by creating an instance of \tmtexttt{Scheduler} class in client code (\tmtexttt{scheduler.create} method) and it gives right to manage simulation by calling \tmtexttt{workTill} and \tmtexttt{advance} methods. 
 
 \subsection{Timer}
 
@@ -97,7 +97,7 @@ class Timer(object):
         self.on_timer += listener
 \end{verbatim}
 
-It is initialized by a function defining interval of time to the next event invocation. Event handler to be invoked should be passed to \tmtexttt{advise} method (there can be plusieurs listeners).
+It is initialized by a function defining interval of time to the next event invocation. Event handler to be invoked should be passed to \tmtexttt{advise} method (there can be multiple listeners).
 
 For example, sample path a Poisson process with $\lambda$=1 can be obtained in the following way:
 \begin{verbatim}
@@ -141,7 +141,7 @@ From trader point of view there can be other order types like Iceberg order but 
 
 \subsection{Basic order functionality}
 
-Class \tmtexttt{OrderBase} provides basic functionality for market, limit and iceberg orders. It has following user interface:
+Orders to buy or sell some assets should derive from \tmtexttt{order.Base} which provides basic functionality. It has following user interface:
 
 \begin{verbatim}
 class OrderBase(object):
@@ -156,76 +156,83 @@ class OrderBase(object):
     side = Side.Buy | Side.Sell
 \end{verbatim}
 
-It manages number of assets to trade (\tmtexttt{volume}), calculates P\&L for this order (positive if it is a sell order and negative if it is a buy order) and keeps a cancellation flag. An order is considered as empty if its volume is equal to 0. When order is matched (partially or completely) \tmtexttt{on\_matched} event listeners are invoked with information what order are matched, at what price and what volume with.
+It stores number of assets to trade (\tmtexttt{volume}), calculates P\&L for this order (positive if it is a sell order and negative if it is a buy order) and keeps a cancellation flag. An order is considered as empty if its volume is equal to 0. When order is matched (partially or completely) \tmtexttt{on\_matched} event listeners are invoked with information what orders are matched, at what price and what volume with.
 
-\subsection{Market orders}
-
-Market orders (\tmtexttt{MarketOrderSell} and \tmtexttt{MarketOrderBuy}) derive from \tmtexttt{OrderBase} and simply add some logic how they should be processed in an order book.
-
-Function \tmtexttt{MarketOrderT} returns factories for market orders for the given trade side:
+Usually the library provides a generic class for an order that accepts in its constructor side of the order. Also, that class provides \tmtexttt{Buy} and \tmtexttt{Sell} static methods that create orders with fixed side. For convenience, a method to call the constructor in curried form \tmtexttt{side->*args->Order}  is also provided (\tmtexttt{T})
 
 \begin{verbatim}
-def MarketOrderT(side):
-    return MarketOrderSell if side==Side.Sell else MarketOrderBuy
+    # from marketsim.order.Market class definition 
+    @staticmethod
+    def Buy(volume): return Market(Side.Buy, volume)
+    
+    @staticmethod
+    def Sell(volume): return Market(Side.Sell, volume)
+    
+    @staticmethod
+    def T(side): return lambda volume: Market(side, volume)
 \end{verbatim}
 
+\subsection{Market orders}
+Market order (\tmtexttt{order.Market} class) derives from \tmtexttt{order.Base} and simply add some logic how it should be processed in an order book.
 
 \subsection{Limit orders}
 
-Limit orders (\tmtexttt{LimitOrderSell} and \tmtexttt{LimitOrderBuy}) store also their limit price and have a bit more complicated logic of processing in an order book.
-
-Function \tmtexttt{LimitOrderT} returns factories for limit orders for the given trade side:
-
-\begin{verbatim}
-def LimitOrderT(side):
-    return LimitOrderSell if side==Side.Sell else LimitOrderBuy
-\end{verbatim}
+Limit order (\tmtexttt{order.Limit} class) stores also its limit price and has a bit more complicated logic of processing in an order book.
 
 \subsection{Iceberg orders}
 
-Iceberg orders are virtual orders (so they are composed as a sequence of basic orders) and are never stored in order books. Once an iceberg order is sent to an order book, it creates an order of underlying type with volume constrained by some limit and sends it to the order book instead of itself. Once the underlying order is matched completely, the iceberg order resends another order to the order book till all iceberg order volume will be traded. 
+Iceberg orders  (\tmtexttt{order.Iceberg} class) are virtual orders (so they are composed as a sequence of basic orders) and are never stored in order books. Once an iceberg order is sent to an order book, it creates an order of underlying type with volume constrained by some limit and sends it to the order book instead of itself. Once the underlying order is matched completely, the iceberg order resends another order to the order book till all iceberg order volume will be traded. 
 
 Iceberg orders are created by the following function in curried form:
 
 \begin{verbatim}
 def iceberg(volumeLimit, orderFactory):
     def inner(*args):
-        return IcebergOrder(volumeLimit, orderFactory, *args)
+        return Iceberg(volumeLimit, orderFactory, *args)
     return inner
 \end{verbatim}
 
-where \tmtexttt{volume} is a maximal volume of an order that can be issued by the iceberg order and \tmtexttt{orderFactory} is a factory to create underlying orders like \tmtexttt{MarketOrderSell} or \tmtexttt{LimitOrderBuy} and \tmtexttt{*args} are parameters to be passed to order's initializer.
+where \tmtexttt{volume} is a maximal volume of an order that can be issued by the iceberg order and \tmtexttt{orderFactory} is a factory to create underlying orders like \tmtexttt{order.Market.Sell} or \tmtexttt{order.Limit.Buy} and \tmtexttt{*args} are parameters to be passed to order's initializer.
 
 \subsection{Cancel orders}
 
-Cancel orders are aimed to cancel already issued limit (and possibly iceberg) orders. If a user wants to cancel an \tmtexttt{order} she should send \tmtexttt{CancelOrder(order)} to the same order book. It will notify the order book event listeners if the best order in the book has changed. Also, \tmtexttt{on\_order\_cancelled} is fired.
+Cancel orders  (\tmtexttt{order.Cancel} class) are aimed to cancel already issued limit (and possibly iceberg) orders. If a user wants to cancel \tmtexttt{anOrder} she should send \tmtexttt{order.Cancel(anOrder)} to the same order book. It will notify the order book event listeners if the best order in the book has changed. Also, \tmtexttt{on\_order\_cancelled} event is fired.
 
 \subsection{Limit market orders}
 
-Limit market order is a virtual order which is composed of a limit order and a cancel order sent immediately after the limit one thus combining behavior of market and limit orders: the trade is done at price better than given one (limit order behavior) but in case of failure the limit order is not stored in the order book (market order behavior).
+Limit market order  (\tmtexttt{order.LimitMarket} class) is a virtual order which is composed of a limit order and a cancel order sent immediately after the limit one thus combining behavior of market and limit orders: the trade is done at price better than given one (limit order behavior) but in case of failure the limit order is not stored in the order book (market order behavior).
+This class also has  optional \tmtexttt{delay} parameter which, when given, instructs to store the limit order for this delay (Should it be extracted into a separate Cancellable virtual order which should be parametrized by an order to cancel -- it might be a limit order, an iceberg or an always best order???).
 
 \subsection{Always best orders}
 
-Always best order is a virtual order that ensures that it has the best price in the order book. It is implemented as a limit order which is cancelled once the best price in the order queue has changed and is sent again to the order book with a price a tick better than the best price in the book. If several always best orders are sent to one side of an order book, a price race will start thus leading to their elimination by orders of the other side.
+Always best order (\tmtexttt{order.AlwaysBest} class) is a virtual order that ensures that it has the best price in the order book. It is implemented as a limit order which is cancelled once the best price in the order queue has changed and is sent again to the order book with a price one tick better than the best price in the book. If several always best orders are sent to one side of an order book, a price race will start thus leading to their elimination by orders of the other side.
+
+\subsection{Virtual market orders}
+
+Virtual market orders (\tmtexttt{order.VirtualMarket} class) are utilitary orders that are used to evaluate a P\&L of a market order without submitting it. These orders don't make any influence onto the market and end with call to \tmtexttt{orderBook.evaluateOrderPriceAsync} method. When the P\&L is evaluated, \tmtexttt{on\_matched} event is fired with parameters \tmtexttt{(self, None, PnL, volume\_matched)}
 
 \section{Order book and order queue}
 
-Order book represents a single asset traded in some market. Same asset traded in different markets would have different order books. Order book stores unfulfilled limit orders sent for this asset in two order queues for each trade sides (Asks for sell orders and Bids for buy orders).
+Order book represents a single asset traded in some market. Same asset traded in different markets would have been represented by different order books. An order book stores unfulfilled limit orders sent for this asset in two order queues, one for each trade sides (Asks for sell orders and Bids for buy orders).
 
-Order queues are organized in a way to extract quickly the best order and place a new order inside. In order to achieve this a heap based implementation is used. 
+Order queues are organized in a way to extract quickly the best order and to place a new order inside. In order to achieve this a heap based implementation is used. 
 
-Order book supports a notion of a tick size: all limit orders stored in the book should have prices that are multipliers of the chosen tick size. If order has a limit price not divisible by the tick size it is rounded to the closest 'weaker' tick ('floored' for buy orders and 'ceiled' for sell orders).
+Order books support a notion of a tick size: all limit orders stored in the book should have prices that are multipliers of the chosen tick size. If an order has a limit price not divisible by the tick size it is rounded to the closest 'weaker' tick ('floored' for buy orders and 'ceiled' for sell orders).
 
-Market orders are processed by an order book in the following way: if there are unfulfilled limit orders at opposite trade side, the market order is matched against them till either it is fulfilled or there are no more unfilled limit orders. Price for the trade is taken as limit order limit price. Limit orders are matched in order of their price (ascending for sell orders and descending for buy orders). If two orders have the same price, it is garanteed that the elder order will be matched first.
+Market orders are processed by an order book in the following way: if there are unfulfilled limit orders at the opposite trade side, the market order is matched against them till either it is fulfilled or there are no more unfilled limit orders. Price for the trade is taken as the limit order limit price. Limit orders are matched in order of their price (ascending for sell orders and descending for buy orders). If two orders have the same price, it is garanteed that the elder order will be matched first.
 
 Limit orders firstly processed exactly as market orders. If a limit order is not filled completely it is stored in a corresponding order queue.
 
+There is a notion of transaction costs: if a user wants to define functions computing transaction fees for market, limit and cancel orders she should pass functions of form \tmtexttt{(anOrder, orderBook) --> Price} to the order book constructor.  If \tmtexttt{Price} is negative, the trader gains some money on this transaction. If the functions are given,  once an order is processed by an order book, method \tmtexttt{order.charge(price)} is called. The default implementation for the method delegates it to \tmtexttt{trader.charge(price)} where \tmtexttt{trader} is a trader associated with the \tmtexttt{order}. 
+
 \subsection{Order book}
 
-Order book has following interface:
+For the moment, there are two kinds of order books: local and remote ones. Local order books execute methods immediately but remote onces try to simulate some delay between a trader and a market by means of message passing (so they are asynchronous by their nature). These books try to have the same interface in order that traders cannot tell the difference between them.
+
+The base class for the order books is:
 
 \begin{verbatim}
-class OrderBook(object):
+class orderbook._base.BookBase(object):
     def __init__(self, tickSize=1, label="")
     def queue(self, side)
     def tickSize(self)
@@ -234,16 +241,38 @@ class OrderBook(object):
     def asks(self)
     def price(self)
     def spread(self)
+    def evaluateOrderPriceAsync(self, side, volume, callback)
 \end{verbatim}
 
-Methods \tmtexttt{bids}, \tmtexttt{asks} and \tmtexttt{queue} give access to queues composing the order book. Methods \tmtexttt{price} and \tmtexttt{spread} return middle arithmetic price and spread if they are defined (i.e. bids and asks are not empty). Orders are handled by an order book by \tmtexttt{process} method. If \tmtexttt{process} method is called recursively (e.g. from a listener of \tmtexttt{on\_best\_changed} event) its order is put into an internal queue which is to be processed when the current order processing is finished. This ensures that at every moment of time only one order is processed.
+Methods \tmtexttt{bids}, \tmtexttt{asks} and \tmtexttt{queue} give access to queues composing the order book. Methods \tmtexttt{price} and \tmtexttt{spread} return middle arithmetic price and spread if they are defined (i.e. bids and asks are not empty). Orders are handled by an order book by \tmtexttt{process} method. If \tmtexttt{process} method is called recursively (e.g. from a listener of \tmtexttt{on\_best\_changed} event) its order is put into an internal queue which is to be processed when the current order processing is finished. This ensures that at every moment of time only one order is processed. Method \tmtexttt{evaluateOrderPriceAsync} is used to compute P\&L of a market order of given side and volume without executing it. Since this operation might be expensive to be computed locally in case of a remote order book we return the result price asynchronously by calling function given by \tmtexttt{callback} parameter. 
+
+\subsection{Local order book}
+
+Local order books extend the base order book by concrete order processing implementation (methods \tmtexttt{processLimitOrder}, \tmtexttt{cancelOrder} etc.) and allow user to define functions computing transaction fees:
+
+\begin{verbatim}
+class orderbook.Local(BookBase):
+    """ Order book for a single asset in a market
+    Maintains two order queues for orders of different sides
+    """
+    def __init__(self, tickSize=1, label="",
+                 marketOrderFee = None,
+                 limitOrderFee = None,
+                 cancelOrderFee = None)
+\end{verbatim}
 
 \subsection{Order queue}
 
-Order queue has following user interface:
+Order queues can be accessed via \tmtexttt{queue}, \tmtexttt{asks} and \tmtexttt{bids} methods of an order book and provide following user interface:
 
 \begin{verbatim}
-class OrderQueue(object):
+class orderbook._queue.Queue(object):
+    def __init__(self, ...):
+        # event to be called when the best order changes
+        self.on_best_changed = Event()  
+        # event (orderQueue, cancelledOrder) to be called when an order is cancelled
+        self.on_order_cancelled = Event() 
+
     def book(self)
     def empty(self)
     def best(self)
@@ -259,38 +288,92 @@ When the best order changes in a queue (a new order arrival or the best order ha
 
 \subsection{Remote order book}
 
-Remote book represents an order book for a remote trader. Remoteness means that there is some delay between moment when an order is sent to a market and the moment when the order is received by market so it models latency in telecommunication networks. A remote book constructor accepts a reference to an actual order book (or to another remote order book) and a reference to a two-way communication channel. Class \tmtexttt{TwoWayLink} implements a two-way telecommunication channel having different latency functions in each direction (to market and from market). 
+Remote order book (\tmtexttt{orderbook.Remote} class) represents an order book for a remote trader. Remoteness means that there is some delay between moment when an order is sent to a market and the moment when the order is received by the market so it models latency in telecommunication networks. A remote book constructor accepts a reference to an actual order book (or to another remote order book) and a reference to a two-way communication channel. 
+Class \tmtexttt{remote.TwoWayLink} implements a two-way telecommunication channel having different latency functions in each direction (to market and from market). It also ensures that messages are delivired to the recipient in the order they were sent. 
+Queues in a remote book are instances of \tmtexttt{orderbook.\_remote.Queue} class. This class is connected to the real order queue and listens \tmtexttt{on\_best\_changed} events thus keeping information about the best order in the queue up-to-date. 
+When a remote order book receives an order, it is cloned and sent to the actual order book via communication link. The remote order book gets subscribed to the clone order's events via downside link. It leads to that in some moments of time the state of the original order and its clone are not synchronised (and this is normal).
 
 \section{Traders}
 
-\subsection{Basic trader functionality}
-
-Class \tmtexttt{TraderBase} provides basic functionality for all traders: P\&L bookkeeping (\tmtexttt{PnL} method) and notifying listeners  about two events: \tmtexttt{on\_order\_sent} when a new order is sent to market and \tmtexttt{on\_traded} when an order sent to market partially or completely fulfilled.
-
-Class \tmtexttt{SingleAssetTrader} derives from \tmtexttt{TraderBase} and adds tracking of a number of assets traded (\tmtexttt{amount} property).
-
-\subsection{Generic one side trader}
-
-Class \tmtexttt{OneSideTrader} derives from \tmtexttt{SingleAssetTrader} and provides generic structure for creating traders that trade only at one side. It is parametrized by following data:
+Trader functionality can be divided into the following parts:
 
 \begin{itemize}
-\item A book to trade in.
+\item Ability to send orders to the market
+\item Tracking number of assets traded and current P\&L 
+\item Managing number of assets and money that can be involved into trade (currently, a trader may send as many orders as it wishes; in future, when modelling money management there should be some limitations on how many resources it may use)
+\item Logic for determining moments of time when orders should to be sent and their parameters.
+\end{itemize}
+
+In our library trading strategy classes encapsulate trader behaviour (the last point) while trader classes are responsible for resource management (first three points).
+
+Class \tmtexttt{trader.Base} provides basic functionality for all traders: P\&L bookkeeping (\tmtexttt{PnL} method) and notifying listeners  about two events: \tmtexttt{on\_order\_sent} when a new order is sent to market and \tmtexttt{on\_traded} when an order sent to market partially or completely fulfilled.
+
+Class \tmtexttt{trader.SingleAsset} derives from \tmtexttt{trader.Base} and adds tracking of a number of assets traded (\tmtexttt{amount} property).
+
+Class \tmtexttt{trader.SingleAssetSingleMarket} derives from \tmtexttt{trader.SingleAsset} and associates with a specific order book where orders are to be sent. Class \tmtexttt{trader.SingleAssetMultipleMarkets} stores references to a collection of order books where the trader can trade.
+
+\section{Strategies}
+
+\subsection{Strategy base classes}
+
+All strategies should derive from  \tmtexttt{strategy.\_basic.Strategy} class. This class keeps  \tmtexttt{suspended} flag and stores a reference to a trader for the strategy.
+
+\begin{verbatim}
+class Strategy(object):
+    
+    def __init__(self, trader):
+        self._suspended = False
+        self._trader = trader
+        
+    @property
+    def suspended(self):
+        return self._suspended
+    
+    def suspend(self, s):
+        self._suspended = s
+        
+    @property
+    def trader(self):
+        return self._trader
+\end{verbatim}
+
+\subsubsection{Generic one side strategy}
+
+Class \tmtexttt{strategy.OneSide} derives from \tmtexttt{strategy.\_basic.Strategy} and provides generic structure for creating strategies that trade only at one side. It is parametrized by following data:
+
+\begin{itemize}
+\item Trader.
 \item Side of the trader.
 \item Event source. It is an object having \tmtexttt{advise} method that allows to start listening some events. Typical examples of event sources are timer events or an event that the best price in an order queue has changed. Of course, possible choices of event sources are not limited to these examples.
-\item Function to calculate parameters of an order to create. For limit orders it should return pair \tmtexttt{(price, volume)} and for market orders it should return a 1-tuple \tmtexttt{(volume,)}. This function has one parameter - \tmtexttt{trader} which can be requested for example for its current P\&L and about the asset being traded.
+\item Function to calculate parameters of an order to create. For limit orders it should return pair \tmtexttt{(price, volume)} and for market orders it should return a 1-tuple \tmtexttt{(volume,)}. This function has one parameter - \tmtexttt{trader} which can be requested for example for its current P\&L and about amount of the asset being traded.
 \item Factory to create orders that will be used as a function in curried form \tmtexttt{side -> *orderArgs -> Order} where \tmtexttt{*orderArgs} is type of return value of the function calculating order parameters. Typical values for this factory are \tmtexttt{marketOrderT}, \tmtexttt{limitOrderT} or, for exalmple, \tmtexttt{icebergT(someVolume, limitOrderT)}.
 \end{itemize}
 
-The trader wakes up in moments of time given by the event source, calculates parameters of an order to create, creates an order and sends it to the order book.
+The strategy wakes up in moments of time given by the event source, calculates parameters of an order to create, creates an order and sends it to the order book.
+
+\subsubsection{Generic two side strategy}
+
+Class \tmtexttt{strategy.TwoSide} derives from \tmtexttt{strategy.\_basic.Strategy} and provides generic structure for creating traders that trade on both sides. It is parametrized by following data (see also \tmtexttt{strategy.OneSide} parameters):
+
+\begin{itemize}
+\item Trader.
+\item Event source. It is an object having \tmtexttt{advise} method that allows to start listening some events. 
+\item Function to calculate parameters of an order to create. It should return either pair \tmtexttt{(side, *orderArgs)} if it wants to create an order, or \tmtexttt{None} if no order should be created.
+\item Factory to create orders that will be used as a function in curried form \tmtexttt{side -> *orderArgs -> Order} where \tmtexttt{*orderArgs} is type of return value of the function calculating order parameters. 
+\end{itemize}
+
+The strategy wakes up in moments of time given by the event source, calculates parameters and side of an order to create, if the side is defined creates an order and sends it to the order book.
+
+\subsection{Concrete strategies}
 
 \subsubsection{Liquidity provider}
 
-\tmtexttt{LiquidityProvider} trader is implemented as instance of \tmtexttt{OneSideTrader}. It has followng parameters:
+Liquidity provider (\tmtexttt{strategy.LiquidityProviderSide} class) strategy is implemented as instance of \tmtexttt{strategy.OneSide}. It has followng parameters:
 
 \begin{itemize}
-\item    \tmtexttt{orderBook} - book to place orders in
+\item    \tmtexttt{trader} - strategy's trader
 \item    \tmtexttt{side} - side of orders to create (default: \tmtexttt{Side.Sell})
-\item    \tmtexttt{orderFactoryT} - order factory function (default: \tmtexttt{LimitOrderT})
+\item    \tmtexttt{orderFactoryT} - order factory function (default: \tmtexttt{order.Limit.T})
 \item    \tmtexttt{initialValue} - initial price which is taken if \tmtexttt{orderBook} is empty (default: 100)
 \item    \tmtexttt{creationIntervalDistr} - defines intervals of time between order creation 
                             (default: exponential distribution with $\lambda$=1)
@@ -300,7 +383,9 @@ The trader wakes up in moments of time given by the event source, calculates par
                             (default: exponential distribution with $\lambda$=1)
 \end{itemize}
 
-It wakes up in moments of time given by \tmtexttt{creationIntervalDistr}, checks the last best price of orders in the corresponding queue, takes \tmtexttt{initialValue} if it is empty, multiplies it by a value taken from \tmtexttt{priceDistr} to obtain price of the order to create, calculates order volume using \tmtexttt{volumeDistr}, creates an order via \tmtexttt{orderFactoryT(side)} and sends it to the \tmtexttt{orderBook}.
+It wakes up in moments of time given by \tmtexttt{creationIntervalDistr}, checks the last best price of orders in the corresponding queue, takes \tmtexttt{initialValue} if it is empty, multiplies it by a value taken from \tmtexttt{priceDistr} to obtain price of the order to create, calculates order volume using \tmtexttt{volumeDistr}, creates an order via \tmtexttt{orderFactoryT(side)} and tells the trader to send it.
+
+For convenience, there is a \tmtexttt{strategy.LiquidityProvider} function that creates two liquidity providers with same parameters except but of two different trading sides.
 
 \begin{figure}[htbp]
 \centering
@@ -340,7 +425,7 @@ showGraphs("liquidity", [price_graph])
 
 \subsubsection{Canceller}
 
-\tmtexttt{Canceller} is an agent aimed to cancel limit or iceberg orders issued by a trader. In order to do that it subscribes to \tmtexttt{on\_order\_sent} event of the trader, stores incoming orders in an array and in some moments of time chooses randomly an order and cancels it (In future it shall send CancelOrder to the order book).
+\tmtexttt{strategy.Canceller} is an agent aimed to cancel persistent (limit, iceberg etc.) orders issued by a trader. In order to do that it subscribes to \tmtexttt{on\_order\_sent} event of the trader, stores incoming orders in an array and in some moments of time chooses randomly an order and cancels it by sending \tmtexttt{order.Cancel}.
 
 It has following parameters:
 \begin{itemize}
@@ -350,26 +435,13 @@ It has following parameters:
 \item  \tmtexttt{choiceFunc} - function N -> idx that chooses which order should be cancelled
 \end{itemize}
 
-\subsection{Generic two side trader}
+\subsubsection{Fundamental value strategy}
 
-Class \tmtexttt{TwoSideTrader} derives from \tmtexttt{SingleAssetTrader} and provides generic structure for creating traders that trade on both sides. It is parametrized by following data (see also \tmtexttt{OneSideTrader} parameters):
-
-\begin{itemize}
-\item A book to trade in.
-\item Event source. It is an object having \tmtexttt{advise} method that allows to start listening some events. 
-\item Function to calculate parameters of an order to create. It should return either pair \tmtexttt{(side, *orderArgs)} if it wants to create an order, or \tmtexttt{None} if no order should be created.
-\item Factory to create orders that will be used as a function in curried form \tmtexttt{side -> *orderArgs -> Order} where \tmtexttt{*orderArgs} is type of return value of the function calculating order parameters. 
-\end{itemize}
-
-The trader wakes up in moments of time given by the event source, calculates parameters and side of an order to create, if the side is defined creates an order and sends it to the order book.
-
-\subsubsection{Fundamental value trader}
-
-Fundamental value trader believes that an asset should cost some specific price ('fundamental value') and if current asset price is lower than fundamental value it starts to buy the asset and if the price is higher than it starts to sell the asset. \tmtexttt{FVTrader} has following parameters: 
+Fundamental value strategy (\tmtexttt{strategy.FundamentalValue} class) believes that an asset should cost some specific price ('fundamental value') and if current asset price is lower than fundamental value it starts to buy the asset and if the price is higher than it starts to sell the asset. It has following parameters: 
 
 \begin{itemize}
-\item    \tmtexttt{orderBook} - book to place orders in
-\item    \tmtexttt{orderFactoryT} - order factory function (default: \tmtexttt{MarketOrderT})
+\item    \tmtexttt{trader} -strategy's trader
+\item    \tmtexttt{orderFactoryT} - order factory function (default: \tmtexttt{order.Market.T})
 \item    \tmtexttt{creationIntervalDistr} - defines intervals of time between order creation 
                             (default: exponential distribution with $\lambda$=1)
 \item    \tmtexttt{fundamentalValue} - defines fundamental value 
@@ -410,14 +482,14 @@ world.workTill(500)
 showGraphs("fv_trader", [price_graph])
 \end{verbatim}
 
-\subsubsection{Dependance trader}
+\subsubsection{Dependent price strategy}
 
-Dependance trader believes that the fair price of an asset \textit{A} is completely correlated with price of another asset \textit{B} and the following relation should be held: \textit{$Price_{A}$ = $kPrice_B$}, where \textit{k} is some factor. It may be considered as a variety of a fundamental value trader with the exception that it is invoked every the time price of another asset \textit{B} has changed. \tmtexttt{DependanceTrader} has following parameters: 
+Dependent price strategy (\tmtexttt{strategy.Dependency} class) believes that the fair price of an asset \textit{A} is completely correlated with price of another asset \textit{B} and the following relation should be held: \textit{$Price_{A}$ = $kPrice_B$}, where \textit{k} is some factor. It may be considered as a variety of a fundamental value strategy with the exception that it is invoked every the time price of another asset \textit{B} has changed. It has following parameters: 
 
 \begin{itemize}
-\item    \tmtexttt{orderBook} - book to place orders in
+\item    \tmtexttt{trader} -strategy's trader
 \item    \tmtexttt{bookToDependOn} - asset that is considered as a reference one
-\item    \tmtexttt{orderFactoryT} - order factory function (default: \tmtexttt{MarketOrderT})
+\item    \tmtexttt{orderFactoryT} - order factory function (default: \tmtexttt{order.Market.T})
 \item    \tmtexttt{factor} - multiplier to obtain fair asset price from the reference asset price
 \item    \tmtexttt{volumeDistr} - defines volumes of orders to create
                             (default: exponential distribution with $\lambda$=1)
@@ -470,13 +542,13 @@ world.workTill(500)
 showGraphs("dependency", [price_graph])
 \end{verbatim}
 
-\subsubsection{Noise trader}
+\subsubsection{Noise strategy}
 
-Noise trader is quite dummy trader that randomly creates an order and sends it to the order book. tmtexttt{NoiseTrader} has following parameters:
+Noise strategy (\tmtexttt{strategy.Noise} class) is quite dummy strategy that randomly creates an order and sends it to the order book. It has following parameters:
 
 \begin{itemize}
-\item    \tmtexttt{orderBook} - book to place orders in
-\item    \tmtexttt{orderFactoryT} - order factory function (default: \tmtexttt{MarketOrderT})
+\item    \tmtexttt{trader} -strategy's trader
+\item    \tmtexttt{orderFactoryT} - order factory function (default: \tmtexttt{order.Market.T})
 \item    \tmtexttt{creationIntervalDistr} - defines intervals of time between order creation 
                             (default: exponential distribution with $\lambda$=1)
 \item    \tmtexttt{sideDistr} - side of orders to create 
@@ -485,14 +557,14 @@ Noise trader is quite dummy trader that randomly creates an order and sends it t
                             (default: exponential distribution with $\lambda$=1)
 \end{itemize}
 
-\subsubsection{Signal trader}
+\subsubsection{Signal strategy}
 
-Signal trader listens to some discrete signal and when the signal becomes more than some threshold the trader starts to buy. When the signal  gets lower than -threshold the trader starts to sell. \tmtexttt{SignalTrader} has following parameters: 
+Signal strategy (\tmtexttt{strategy.Signal} class) listens to some discrete signal and when the signal becomes more than some \tmtexttt{threshold} the strategy starts to buy. When the signal  gets lower than \tmtexttt{-threshold} the strategy starts to sell. It has following parameters: 
 
 \begin{itemize}
-\item    \tmtexttt{orderBook} - book to place orders in
+\item    \tmtexttt{trader} -strategy's trader
 \item    \tmtexttt{signal} - signal to be listened to
-\item    \tmtexttt{orderFactoryT} - order factory function (default: \tmtexttt{MarketOrderT})
+\item    \tmtexttt{orderFactoryT} - order factory function (default: \tmtexttt{order.Market.T})
 \item    \tmtexttt{threshold} - threshold when the trader starts to act (default: 0.7)
 \item    \tmtexttt{volumeDistr} - defines volumes of orders to create
                             (default: exponential distribution with $\lambda$=1)
@@ -536,7 +608,7 @@ showGraphs("signal_trader", [price_graph])
 
 \subsubsection{Signal}
 
-\tmtexttt{Signal} is a sample discrete signal that changes at some moments of time by incrementing on some random value. \tmtexttt{Signal} has following parameters:
+\tmtexttt{signal.RandomWalk} is a sample discrete signal that changes at some moments of time by incrementing on some random value. It has following parameters:
 
 \begin{itemize}
 \item    \tmtexttt{initialValue} - initial value of the signal (default: 0)
@@ -547,12 +619,12 @@ showGraphs("signal_trader", [price_graph])
 
 \subsubsection{Trend follower}
 
-Trend follower can be considered as a sort of  \tmtexttt{SignalTrader} where signal is a trend of the asset. Under trend we understand the first derivative of some moving average of asset prices. If the derivative is positive, the trader buys; if negative -- sells. Since moving average is a continuously changing signal, we check its derivative at random moments of time. \tmtexttt{TrendFollower} has following parameters: 
+Trend follower (\tmtexttt{strategy.TrendFollower} class) can be considered as a sort of a signal strategy (\tmtexttt{strategy.Signal}) where the signal is a trend of the asset. Under trend we understand the first derivative of some moving average of asset prices. If the derivative is positive, the trader buys; if negative -- sells. Since moving average is a continuously changing signal, we check its derivative at random moments of time. It has following parameters: 
 
 \begin{itemize}
-\item    \tmtexttt{orderBook} - book to place orders in
+\item    \tmtexttt{trader} -strategy's trader
 \item    \tmtexttt{average} - moving average object. It should have methods \tmtexttt{update(time,value)} and \tmtexttt{derivativeAt(time)}. By default, we use exponentially weighted moving average with $\alpha=0.15$.
-\item    \tmtexttt{orderFactoryT} - order factory function (default: \tmtexttt{MarketOrderT})
+\item    \tmtexttt{orderFactoryT} - order factory function (default: \tmtexttt{order.Market.T})
 \item    \tmtexttt{threshold} - threshold when the trader starts to act (default: 0.)
 \item    \tmtexttt{creationIntervalDistr} - defines intervals of time between order creation 
                             (default: exponential distribution with $\lambda$=1)
@@ -560,9 +632,9 @@ Trend follower can be considered as a sort of  \tmtexttt{SignalTrader} where sig
                             (default: exponential distribution with $\lambda$=1)
 \end{itemize}
 
-\subsection{Arbitrage trader}
+\subsection{Arbitrage trading strategy}
 
-Arbitrage trader tries to make arbitrage trading the same asset on different markets. Once a bid price at one market becomes more than ask price at other market, the trader sends two complimentary market orders with opposite sides and the same volume (which is calculated using order queue's \tmtexttt{volumeWithPriceBetterThan} method) having thus non-negative profit. \tmtexttt{ArbitrageTrader} is initialized by a sequence of order books it will follow for.
+Arbitrage trading strategy (\tmtexttt{strategy.Arbitrage}) tries to make arbitrage trading the same asset on different markets. Once a bid price at one market becomes more than ask price at other market, the strategy sends two complimentary market orders with opposite sides and the same volume (which is calculated using order queue's \tmtexttt{volumeWithPriceBetterThan} method) having thus non-negative profit. This strategy is initialized by a sequence of order books it will follow for.
 
 \begin{figure}[htbp]
 \centering
