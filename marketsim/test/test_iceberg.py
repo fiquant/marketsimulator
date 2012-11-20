@@ -1,5 +1,4 @@
-from marketsim import order, orderbook 
-from marketsim.test import *
+from marketsim import order, orderbook
 
 book = orderbook.Local(tickSize=1)
 

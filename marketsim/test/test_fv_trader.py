@@ -1,10 +1,9 @@
-from marketsim.test import *
-from marketsim import strategy, order, orderbook, trader, scheduler, observable
+from marketsim import strategy, order, orderbook, trader, scheduler, observable, test
 
 world = scheduler.create()
 
-ask_history = OrderQueueHistoryChecker()
-bid_history = OrderQueueHistoryChecker()
+ask_history = test.OrderQueueHistoryChecker()
+bid_history = test.OrderQueueHistoryChecker()
 
 book = orderbook.Local(tickSize=.001)
 book.asks.on_best_changed += ask_history.append
@@ -14,7 +13,7 @@ trader = trader.SASM(book)
 strategy.FundamentalValue(trader, volumeDistr=(lambda:10), creationIntervalDistr=(lambda:1))
 trader_efficiency = observable.Efficiency(trader)
 
-fv_history = TraderHistoryChecker()
+fv_history = test.TraderHistoryChecker()
 trader.on_traded += fv_history.append
 
 world.workTill(1.5)
