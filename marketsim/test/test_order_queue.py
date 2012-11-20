@@ -1,8 +1,7 @@
-from marketsim import order
-from marketsim.orderbook._local import Asks,Bids
-from marketsim.test import *
+from marketsim import order, test
+from marketsim.orderbook._local import Asks
 
-history = OrderQueueHistoryChecker()
+history = test.OrderQueueHistoryChecker()
 
 asks = Asks()
 asks.on_best_changed += history.append
