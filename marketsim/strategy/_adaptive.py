@@ -1,4 +1,4 @@
-from marketsim import trader, order, indicator, scheduler
+from marketsim import trader, order, scheduler, observable
 from copy import copy
 
 from _basic import Strategy
@@ -11,16 +11,12 @@ def createVirtual(constructor, kwargs):
     kwargs['orderFactory'] = order.VirtualMarket.T 
     return constructor(*[], **kwargs)
 
-def trend(source, alpha=0.015):
-    return indicator.OnEveryDt(1, indicator.dEWMA(source, alpha))
-
-def efficiency(trader):
-    return indicator.TraderEfficiency([trader.on_traded], trader)
+trend = observable.trend
 
 def withEstimator(constructor, *args, **kwargs): 
     assert len(args) == 0, "positional arguments are not supported"
     efficiencyFunc = kwargs['efficiencyFunc'] if 'efficiencyFunc' in kwargs \
-                else lambda trader: trend(efficiency(trader)) 
+                else lambda trader: trend(observable.Efficiency(trader)) 
     real = constructor(*args, **kwargs)
     real.estimator = createVirtual(constructor, copy(kwargs))
     real.efficiency = efficiencyFunc(real.estimator.trader)
