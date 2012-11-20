@@ -1,5 +1,5 @@
 import random
-from marketsim import Side, order, observable, scheduler
+from marketsim import Side, order, observable, scheduler, mathutils
 from _basic import TwoSides
 
 def signalTraderFunc(threshold, volumeDistr, signalFunc):
@@ -34,7 +34,7 @@ def Signal(trader,
                                      lambda: signal.value))
 
 def TrendFollower(trader,
-                  average = observable.ewma(alpha = 0.15),
+                  average = mathutils.ewma(alpha = 0.15),
                   threshold = 0., 
                   orderFactory=order.Market.T,
                   creationIntervalDistr=(lambda: random.expovariate(1.)),

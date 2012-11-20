@@ -1,7 +1,6 @@
 from marketsim.veusz_graph import Graph, showGraphs
 from marketsim import trader, strategy, orderbook, remote, scheduler, observable
 
-
 world = scheduler.create()
 
 book_A = orderbook.Local(tickSize=0.01, label="A")
