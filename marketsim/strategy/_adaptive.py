@@ -17,17 +17,13 @@ def trend(source, alpha=0.015):
 def efficiency(trader):
     return indicator.TraderEfficiency([trader.on_traded], trader)
 
-def withEstimator(constructor, *args, **kwargs): # todo: parametrize by efficiency criteria
+def withEstimator(constructor, *args, **kwargs): 
     assert len(args) == 0, "positional arguments are not supported"
-    estimator = createVirtual(constructor, copy(kwargs))
-    if 'efficiencyFunc' in kwargs:
-        efficiencyFunc = kwargs['efficiencyFunc']
-        del kwargs['efficiencyFunc']
-    else:
-        efficiencyFunc = lambda trader: trend(efficiency(trader)) 
+    efficiencyFunc = kwargs['efficiencyFunc'] if 'efficiencyFunc' in kwargs \
+                else lambda trader: trend(efficiency(trader)) 
     real = constructor(*args, **kwargs)
-    real.estimator = estimator
-    real.efficiency = efficiencyFunc(estimator.trader)
+    real.estimator = createVirtual(constructor, copy(kwargs))
+    real.efficiency = efficiencyFunc(real.estimator.trader)
     return real
 
 def suspendIfNotEffective(strategy):    
