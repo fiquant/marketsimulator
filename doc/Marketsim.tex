@@ -312,6 +312,8 @@ Class \tmtexttt{trader.SingleAsset} derives from \tmtexttt{trader.Base} and adds
 
 Class \tmtexttt{trader.SingleAssetSingleMarket} derives from \tmtexttt{trader.SingleAsset} and associates with a specific order book where orders are to be sent. Class \tmtexttt{trader.SingleAssetMultipleMarkets} stores references to a collection of order books where the trader can trade.
 
+Class \tmtexttt{observable.Efficiency} can be used to measure trader "efficiency" i.e. trader's balance if it were "cleared" (if the trader bought missing assets or sold the excess ones by sending a market order for \tmtexttt{-trader.amount} assets). 
+
 \section{Strategies}
 
 \subsection{Strategy base classes}
@@ -461,25 +463,47 @@ Sample usage:
 
 \begin{verbatim}
 from marketsim.veusz_graph import Graph, showGraphs
-from marketsim.scheduler import world
-from marketsim.order_queue import OrderBook
-from marketsim.trader import LiquidityProvider, FVTrader
-from marketsim import Side
-from marketsim.indicator import AssetPrice, avg
+from marketsim import strategy, orderbook, trader, scheduler, observable
 
-book_A = OrderBook(tickSize=0.01, label="A")
+world = scheduler.create()
+
+book_A = orderbook.Local(tickSize=0.01, label="A")
+
 price_graph = Graph("Price")
  
-assetPrice = AssetPrice(book_A)
+assetPrice = observable.Price(book_A)
 price_graph.addTimeSerie(assetPrice)
+
+avg = observable.avg
+trend = observable.trend
+
 price_graph.addTimeSerie(avg(assetPrice))
 
-seller_A = LiquidityProvider(book_A, Side.Sell)
-buyer_A = LiquidityProvider(book_A, Side.Buy)
-trader = FVTrader(book_A, fundamentalValue=lambda: 200.)
+lp_A = strategy.LiquidityProvider(trader.SASM(book_A), volumeDistr=lambda: 70).trader
 
-world.workTill(500)
-showGraphs("fv_trader", [price_graph])
+trader_200 = strategy.FundamentalValue(trader.SASM(book_A, "t200"),\
+                fundamentalValue=lambda: 200., volumeDistr=lambda: 12).trader
+trader_150 = strategy.FundamentalValue(trader.SASM(book_A, "t150"), \
+                fundamentalValue=lambda: 150., volumeDistr=lambda: 1).trader
+
+eff_graph = Graph("efficiency")
+trend_graph = Graph("efficiency trend")
+pnl_graph = Graph("P&L")
+volume_graph = Graph("volume")
+
+def addToGraph(traders):
+    for t in traders:
+        e = observable.Efficiency(t)
+        eff_graph.addTimeSerie(avg(e))
+        trend_graph.addTimeSerie(trend(e))
+        pnl_graph.addTimeSerie(observable.PnL(t))
+        volume_graph.addTimeSerie(observable.VolumeTraded(t))
+
+addToGraph([trader_150, trader_200])
+
+world.workTill(1500)
+
+showGraphs("fv_trader", [price_graph, eff_graph, trend_graph, pnl_graph, volume_graph])
 \end{verbatim}
 
 \subsubsection{Dependent price strategy}
@@ -507,39 +531,45 @@ Sample usage:
 \begin{verbatim}
 from marketsim.veusz_graph import Graph, showGraphs
 import random
-from marketsim.scheduler import world
-from marketsim.order_queue import OrderBook
-from marketsim.trader import LiquidityProvider, DependanceTrader
-from marketsim import Side
-from marketsim.indicator import AssetPrice, avg
+
+from marketsim import strategy, orderbook, trader, scheduler, observable
+
+world = scheduler.create()
+
+book_A = orderbook.Local(tickSize=0.01, label="A")
+book_B = orderbook.Local(tickSize=0.01, label="B")
 
 price_graph = Graph("Price")
-
-book_A = OrderBook(tickSize=0.01, label="A")
-book_B = OrderBook(tickSize=0.01, label="B")
  
-assetPrice_A = AssetPrice(book_A)
+assetPrice_A = observable.Price(book_A)
 price_graph.addTimeSerie(assetPrice_A)
 
-assetPrice_B = AssetPrice(book_B)
+assetPrice_B = observable.Price(book_B)
 price_graph.addTimeSerie(assetPrice_B)
+
+avg = observable.avg
 
 price_graph.addTimeSerie(avg(assetPrice_A, alpha=0.15))
 price_graph.addTimeSerie(avg(assetPrice_B, alpha=0.15))
 
-liqVol = lambda: random.expovariate(.1)*1
-seller_A = LiquidityProvider(book_A, Side.Sell, defaultValue=50., volumeDistr=liqVol)
-buyer_A = LiquidityProvider(book_A, Side.Buy, defaultValue=50., volumeDistr=liqVol)
+liqVol = lambda: random.expovariate(.1)*5
+lp_A = strategy.LiquidityProvider(trader.SASM(book_A), \
+                 defaultValue=50., volumeDistr=liqVol).trader
+lp_B = strategy.LiquidityProvider(trader.SASM(book_B), \
+                 defaultValue=150., volumeDistr=liqVol).trader
 
-seller_B = LiquidityProvider(book_B, Side.Sell, defaultValue=150., volumeDistr=liqVol)
-buyer_B = LiquidityProvider(book_B, Side.Buy, defaultValue=150., volumeDistr=liqVol)
+dep_AB = strategy.Dependency(trader.SASM(book_A, "AB"), book_B, factor=2).trader
+dep_BA = strategy.Dependency(trader.SASM(book_B, "BA"), book_A, factor=.5).trader
 
-dep_AB = DependanceTrader(book_A, book_B, factor=2)
-dep_BA = DependanceTrader(book_B, book_A, factor=.5)
+eff_graph = Graph("efficiency")
+eff_graph.addTimeSerie(observable.Efficiency(dep_AB))
+eff_graph.addTimeSerie(observable.Efficiency(dep_BA))
+eff_graph.addTimeSerie(observable.PnL(dep_AB))
+eff_graph.addTimeSerie(observable.PnL(dep_BA))
 
 world.workTill(500)
 
-showGraphs("dependency", [price_graph])
+showGraphs("dependency", [price_graph, eff_graph])
 \end{verbatim}
 
 \subsubsection{Noise strategy}
@@ -581,29 +611,35 @@ Sample usage:
 
 \begin{verbatim}
 from marketsim.veusz_graph import Graph, showGraphs
-from marketsim.scheduler import world
-from marketsim.order_queue import OrderBook
-from marketsim.trader import LiquidityProvider, Signal, SignalTrader
-from marketsim import Side
-from marketsim.indicator import AssetPrice, avg, VolumeTraded
+from marketsim import signal, strategy, trader, orderbook, scheduler, observable
 
-book_A = OrderBook(tickSize=0.01, label="A")
+world = scheduler.create()
+
+book_A = orderbook.Local(tickSize=0.01, label="A")
+
 price_graph = Graph("Price")
  
-assetPrice = AssetPrice(book_A)
+assetPrice = observable.Price(book_A)
 price_graph.addTimeSerie(assetPrice)
+
+avg = observable.avg
+
 price_graph.addTimeSerie(avg(assetPrice))
 
-seller_A = LiquidityProvider(book_A, Side.Sell, volumeDistr=lambda:1)
-buyer_A = LiquidityProvider(book_A, Side.Buy, volumeDistr=lambda:1)
-signal = Signal(initialValue=20, deltaDistr=lambda: -.1, label="signal")
-trader = SignalTrader(book_A, signal)
+lp_A = strategy.LiquidityProvider(trader.SASM(book_A), volumeDistr=lambda:1).trader
+signal = signal.RandomWalk(initialValue=20, deltaDistr=lambda: -.1, label="signal")
+trader = strategy.Signal(trader.SASM(book_A, "signal"), signal).trader
 
 price_graph.addTimeSerie(signal)
-price_graph.addTimeSerie(VolumeTraded(trader))
+price_graph.addTimeSerie(observable.VolumeTraded(trader))
+
+eff_graph = Graph("efficiency")
+eff_graph.addTimeSerie(observable.Efficiency(trader))
+eff_graph.addTimeSerie(observable.PnL(trader))
 
 world.workTill(500)
-showGraphs("signal_trader", [price_graph])
+
+showGraphs("signal_trader", [price_graph, eff_graph])
 \end{verbatim}
 
 \subsubsection{Signal}
@@ -654,43 +690,101 @@ Sample usage:
 
 \begin{verbatim}
 from marketsim.veusz_graph import Graph, showGraphs
-from marketsim.scheduler import world
-from marketsim.order_queue import OrderBook
-from marketsim.trader import LiquidityProvider
-from marketsim.arbitrage_trader import ArbitrageTrader
-from marketsim import Side
-from marketsim.indicator import AssetPrice, avg, CrossSpread
+from marketsim import trader, strategy, orderbook, remote, scheduler, observable
 
-book_A = OrderBook(tickSize=0.01, label="A")
-book_B = OrderBook(tickSize=0.01, label="B")
+world = scheduler.create()
 
+book_A = orderbook.Local(tickSize=0.01, label="A")
+book_B = orderbook.Local(tickSize=0.01, label="B")
+
+link = remote.TwoWayLink()
+remote_A = orderbook.Remote(book_A, link)
+remote_B = orderbook.Remote(book_B, link)
+
+price_graph = Graph("Price")
 spread_graph = Graph("Bid-Ask Spread")
 cross_graph = Graph("Cross Bid-Ask Spread")
 
-cross_AB = CrossSpread(book_A, book_B)
-cross_BA = CrossSpread(book_B, book_A)
+arbitrager = strategy.Arbitrage(\
+   trader.SingleAssetMultipleMarket([remote_A, remote_B])).trader
+ 
+assetPrice = observable.Price(book_A)
+price_graph.addTimeSerie(assetPrice)
+
+avg = observable.avg
+
+cross_AB = observable.CrossSpread(book_A, book_B)
+cross_BA = observable.CrossSpread(book_B, book_A)
 cross_graph.addTimeSerie(cross_AB)
 cross_graph.addTimeSerie(cross_BA)
 cross_graph.addTimeSerie(avg(cross_AB))
 cross_graph.addTimeSerie(avg(cross_BA))
 
-spread_graph.addTimeSerie(avg(BidPrice(book_A)))
-spread_graph.addTimeSerie(avg(AskPrice(book_A)))
-spread_graph.addTimeSerie(avg(BidPrice(book_B)))
-spread_graph.addTimeSerie(avg(AskPrice(book_B)))
+spread_graph.addTimeSerie(avg(observable.BidPrice(book_A)))
+spread_graph.addTimeSerie(avg(observable.AskPrice(book_A)))
 
-seller_A = LiquidityProvider(book_A, Side.Sell)
-buyer_A = LiquidityProvider(book_A, Side.Buy)
+spread_graph.addTimeSerie(avg(observable.BidPrice(book_B)))
+spread_graph.addTimeSerie(avg(observable.AskPrice(book_B)))
 
-seller_B = LiquidityProvider(book_B, Side.Sell)
-buyer_B = LiquidityProvider(book_B, Side.Buy)
 
-arbitrager = ArbitrageTrader(book_A, book_B)
+ewma_0_15 = observable.EWMA(assetPrice, alpha=0.15)
+price_graph.addTimeSerie(observable.OnEveryDt(1, ewma_0_15))
+
+lp_A = strategy.LiquidityProvider(trader.SASM(remote_A))
+lp_B = strategy.LiquidityProvider(trader.SASM(remote_B))
 
 world.workTill(500)
 
-showGraphs("arbitrage", [spread_graph, cross_graph])
+showGraphs("arbitrage", [price_graph, spread_graph, cross_graph])
 \end{verbatim}
+
+\subsection{Adaptive strategies}
+An adaptive strategy is a strategy that is suspended or resumed in function of its "efficiency". Adaptive strategies in the library are parametrized by an object measuring the efficiency since there can be different ways to do it.  The default estimator is the first derivative of trader "efficiency" exponentially weighted moving average. To measure strategy efficiency without influencing  the market we use a "phantom" strategy having same parameters as the original one (except \tmtexttt{volumeDistr} is taken as constant 1) but sending \tmtexttt{order.VirtualMarket} to the order book.
+Function \tmtexttt{adaptive.withEstimator} creates a real strategy coupled with its "phantom" and estimator object. 
+\begin{verbatim}
+def withEstimator(constructor, *args, **kwargs): 
+    assert len(args) == 0, "positional arguments are not supported"
+    efficiencyFunc = kwargs['efficiencyFunc'] \
+                if 'efficiencyFunc' in kwargs \
+                else lambda trader: trend(efficiency(trader)) 
+    real = constructor(*args, **kwargs)
+    real.estimator = createVirtual(constructor, copy(kwargs))
+    real.efficiency = efficiencyFunc(real.estimator.trader)
+    return real
+\end{verbatim}
+
+Function  \tmtexttt{adaptive.suspendIfNotEffective} suspends a strategy if it is considered as ineffective:
+
+\begin{verbatim}
+def suspendIfNotEffective(strategy):    
+    strategy.efficiency.on_changed += \
+        lambda _: strategy.suspend(strategy.efficiency.value < 0)
+    return strategy
+\end{verbatim}
+
+Class \tmtexttt{adaptive.chooseTheBest} is a composite strategy. It is initialized with a sequence of strategies coupled with their efficiency estimators (i.e. having  \tmtexttt{efficiency} field). In some moments of time (given by  \tmtexttt{eventGen} parameter) the most effective strategy is chosen and made running; other strategies are suspended.
+
+\begin{verbatim}
+class chooseTheBest(Strategy):
+
+    def __init__(self, strategies, event_gen=None):
+        assert all(map(lambda s: s.trader == strategies[0].trader, strategies))
+        if event_gen is None:
+            event_gen = scheduler.Timer(lambda: 1)
+        Strategy.__init__(self, strategies[0].trader)
+        self._strategies = strategies
+        event_gen.advise(self._chooseTheBest)
+
+    def _chooseTheBest(self, _):
+        best = -10e38        
+        for s in self._strategies:
+            if s.efficiency.value > best:
+                best = s.efficiency.value
+        for s in self._strategies:
+            s.suspend(best != s.efficiency.value)
+\end{verbatim}
+
+
 \end{document}
 
 

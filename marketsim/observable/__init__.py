@@ -3,4 +3,4 @@ from _computed import InstEfficiency, PnL, Price, CrossSpread,\
                         
 from _average import ewma, EWMA, dEWMA, derivative, Fold, avg, trend
 
-from _async import Efficiency, EfficiencyEx
+from _async import Efficiency

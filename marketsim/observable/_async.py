@@ -3,14 +3,17 @@ from marketsim import Side, getLabel, Event
 def sign(x):
     return 1 if x > 0 else -1 if x < 0 else 0
 
-class EfficiencyEx(object):
+class Efficiency(object):
     
-    def __init__(self, eventSources, trader):
+    def __init__(self, trader, eventSources=None):
         
         self.on_changed = Event()
         self._current = None
         self._trader = trader
         self.attributes = {}
+        
+        if eventSources is None:
+            eventSources = [trader.on_traded]
         
         def update(_):
             def callback(sign): 
@@ -46,6 +49,3 @@ class EfficiencyEx(object):
         """ Returns current value
         """
         return self._current
-
-def Efficiency(trader):
-    return EfficiencyEx([trader.on_traded], trader)
