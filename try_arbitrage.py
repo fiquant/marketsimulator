@@ -1,5 +1,4 @@
-from marketsim.veusz_graph import Graph, showGraphs
-from marketsim import trader, strategy, orderbook, remote, scheduler, observable
+from marketsim import trader, strategy, orderbook, remote, scheduler, observable, veusz
 
 world = scheduler.create()
 
@@ -10,9 +9,9 @@ link = remote.TwoWayLink()
 remote_A = orderbook.Remote(book_A, link)
 remote_B = orderbook.Remote(book_B, link)
 
-price_graph = Graph("Price")
-spread_graph = Graph("Bid-Ask Spread")
-cross_graph = Graph("Cross Bid-Ask Spread")
+price_graph = veusz.Graph("Price")
+spread_graph = veusz.Graph("Bid-Ask Spread")
+cross_graph = veusz.Graph("Cross Bid-Ask Spread")
 
 arbitrager = strategy.Arbitrage(\
    trader.SingleAssetMultipleMarket([remote_A, remote_B])).trader
@@ -49,4 +48,4 @@ lp_B = strategy.LiquidityProvider(trader.SASM(remote_B))
 
 world.workTill(500)
 
-showGraphs("arbitrage", [price_graph, spread_graph, cross_graph])
+veusz.render("arbitrage", [price_graph, spread_graph, cross_graph])

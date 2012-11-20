@@ -163,7 +163,7 @@ def run(name):
     Popen(veusz_exe + ' ' + os.path.abspath(myDir()+name+".vsz"))
         
 
-def showGraphs(name, graphs):
+def render(name, graphs):
     """ Draws a sequence of graphs into a Veusz workspace and launches veusz
     """
     with open(myDir() + name+".vsz", "w") as f:
