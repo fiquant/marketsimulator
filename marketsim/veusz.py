@@ -143,6 +143,10 @@ class Graph(object):
     def addTimeSeries(self, series):
         for x in series:
             self.addTimeSerie(x)
+            
+    def __iadd__(self, series):
+        self.addTimeSeries(series)
+        return self
         
     def exportTo(self, f, idx):
         """ Exports graph to some Vsz file

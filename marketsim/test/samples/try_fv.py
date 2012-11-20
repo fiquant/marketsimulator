@@ -1,4 +1,5 @@
-from marketsim import strategy, orderbook, trader, scheduler, observable, veusz
+from marketsim import strategy, orderbook, trader, scheduler, observable, veusz,\
+    mathutils
 
 world = scheduler.create()
 
@@ -49,19 +50,19 @@ best = strategy.chooseTheBest(strategies)
 #tf = strategy.suspendIfNotEffective(\
 #        strategy.withEstimator(strategy.TrendFollower, 
 #                               trader = trader.SASM(book_A, "TF"), 
-#                               average=ewma(0.015), 
+#                               average=mathutils.ewma(0.015), 
 #                               volumeDistr=lambda: 5)).trader
 #
 #tf_0_15 = strategy.suspendIfNotEffective(\
 #            strategy.withEstimator(strategy.TrendFollower,
 #                                   trader=trader.SASM(book_A, "tf0.15"), 
-#                                   average=ewma(0.15),
+#                                   average=mathutils.ewma(0.15),
 #                                   volumeDistr=lambda: 1)).trader
 #                                         
 #tf_0_015 = strategy.suspendIfNotEffective(\
 #            strategy.withEstimator(strategy.TrendFollower,
 #                                   trader=trader.SASM(book_A, "tf0.015"), 
-#                                   average=ewma(0.015),
+#                                   average=mathutils.ewma(0.015),
 #                                   volumeDistr=lambda: 1)).trader
 
 eff_graph = veusz.Graph("efficiency")
