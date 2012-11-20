@@ -1,5 +1,5 @@
 import random
-from marketsim import order, Side, scheduler, indicator
+from marketsim import order, Side, scheduler, observable
 
 from _basic import TwoSides
 
@@ -59,7 +59,7 @@ def Dependency(trader,
     """
     
     # start listening changes in a reference asset price
-    priceToDependOn = indicator.AssetPrice(bookToDependOn) 
+    priceToDependOn = observable.Price(bookToDependOn) 
     
     def wantedPrice():
         """ Price of order to create """
