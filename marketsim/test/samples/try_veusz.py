@@ -10,11 +10,10 @@ price_graph = veusz.Graph("Price")
  
 assetPrice = observable.Price(book_A)
 
-price_graph.addTimeSeries([\
-    assetPrice,
-    avg(assetPrice, alpha=0.15),
-    avg(assetPrice, alpha=0.015),
-    avg(assetPrice, alpha=0.65)])
+price_graph += [assetPrice,
+                avg(assetPrice, alpha=0.15),
+                avg(assetPrice, alpha=0.015),
+                avg(assetPrice, alpha=0.65)]
 
 def volume(v):
     return lambda: v*random.expovariate(.1)
@@ -26,12 +25,12 @@ lp_a = strategy.LiquidityProvider(\
 
 spread_graph = veusz.Graph("Bid-Ask Spread")
 
-spread_graph.addTimeSerie(observable.BidPrice(book_A))
-spread_graph.addTimeSerie(observable.AskPrice(book_A))
+spread_graph += [observable.BidPrice(book_A), 
+                 observable.AskPrice(book_A)]
 
 eff_graph = veusz.Graph("efficiency")
-eff_graph.addTimeSerie(observable.Efficiency(lp_a))
-eff_graph.addTimeSerie(observable.PnL(lp_a))
+eff_graph += [observable.Efficiency(lp_a),
+              observable.PnL(lp_a)]
 
 world.workTill(500)
 
