@@ -1,11 +1,10 @@
-from marketsim.veusz_graph import Graph, showGraphs
-from marketsim import strategy, orderbook, trader, scheduler, observable
+from marketsim import strategy, orderbook, trader, scheduler, observable, veusz
 
 world = scheduler.create()
 
 book_A = orderbook.Local(tickSize=0.01, label="A")
 
-price_graph = Graph("Price")
+price_graph = veusz.Graph("Price")
  
 assetPrice = observable.Price(book_A)
 price_graph.addTimeSerie(assetPrice)
@@ -65,10 +64,10 @@ best = strategy.chooseTheBest(strategies)
 #                                   average=ewma(0.015),
 #                                   volumeDistr=lambda: 1)).trader
 
-eff_graph = Graph("efficiency")
-trend_graph = Graph("efficiency trend")
-pnl_graph = Graph("P&L")
-volume_graph = Graph("volume")
+eff_graph = veusz.Graph("efficiency")
+trend_graph = veusz.Graph("efficiency trend")
+pnl_graph = veusz.Graph("P&L")
+volume_graph = veusz.Graph("volume")
 
 def addToGraph(traders):
     for t in traders:
@@ -87,4 +86,4 @@ addToGraph([trader_150, trader_200, best_trader, trader_200_1, trader_200_2,
 
 world.workTill(1500)
 
-showGraphs("fv_trader", [price_graph, eff_graph, trend_graph, pnl_graph, volume_graph])
+veusz.render("fv_trader", [price_graph, eff_graph, trend_graph, pnl_graph, volume_graph])

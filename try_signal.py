@@ -1,11 +1,10 @@
-from marketsim.veusz_graph import Graph, showGraphs
-from marketsim import signal, strategy, trader, orderbook, scheduler, observable
+from marketsim import signal, strategy, trader, orderbook, scheduler, observable, veusz
 
 world = scheduler.create()
 
 book_A = orderbook.Local(tickSize=0.01, label="A")
 
-price_graph = Graph("Price")
+price_graph = veusz.Graph("Price")
  
 assetPrice = observable.Price(book_A)
 price_graph.addTimeSerie(assetPrice)
@@ -21,11 +20,11 @@ trader = strategy.Signal(trader.SASM(book_A, "signal"), signal).trader
 price_graph.addTimeSerie(signal)
 price_graph.addTimeSerie(observable.VolumeTraded(trader))
 
-eff_graph = Graph("efficiency")
+eff_graph = veusz.Graph("efficiency")
 eff_graph.addTimeSerie(observable.Efficiency(trader))
 eff_graph.addTimeSerie(observable.PnL(trader))
 
 world.workTill(500)
 
-showGraphs("signal_trader", [price_graph, eff_graph])
+veusz.render("signal_trader", [price_graph, eff_graph])
 

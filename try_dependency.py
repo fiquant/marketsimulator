@@ -1,14 +1,12 @@
-from marketsim.veusz_graph import Graph, showGraphs
 import random
-
-from marketsim import strategy, orderbook, trader, scheduler, observable
+from marketsim import strategy, orderbook, trader, scheduler, observable, veusz
 
 world = scheduler.create()
 
 book_A = orderbook.Local(tickSize=0.01, label="A")
 book_B = orderbook.Local(tickSize=0.01, label="B")
 
-price_graph = Graph("Price")
+price_graph = veusz.Graph("Price")
  
 assetPrice_A = observable.Price(book_A)
 price_graph.addTimeSerie(assetPrice_A)
@@ -33,7 +31,7 @@ lp_B = strategy.LiquidityProvider(trader.SASM(book_B), defaultValue=150., volume
 dep_AB = strategy.Dependency(trader.SASM(book_A, "AB"), book_B, factor=2).trader
 dep_BA = strategy.Dependency(trader.SASM(book_B, "BA"), book_A, factor=.5).trader
 
-eff_graph = Graph("efficiency")
+eff_graph = veusz.Graph("efficiency")
 eff_graph.addTimeSerie(observable.Efficiency(dep_AB))
 eff_graph.addTimeSerie(observable.Efficiency(dep_BA))
 eff_graph.addTimeSerie(observable.PnL(dep_AB))
@@ -41,4 +39,4 @@ eff_graph.addTimeSerie(observable.PnL(dep_BA))
 
 world.workTill(500)
 
-showGraphs("dependency", [price_graph, eff_graph])
+veusz.render("dependency", [price_graph, eff_graph])
