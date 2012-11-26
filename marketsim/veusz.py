@@ -1,8 +1,7 @@
-from marketsim.scheduler import world
+from marketsim import scheduler 
 from colorsys import hsv_to_rgb
 from random import uniform
 from subprocess import Popen
-import sys
 import os
 import errno
 import __main__
@@ -48,7 +47,7 @@ class CSV(file):
     """ Represents a time serie to be written into a file 
     """
     
-    def __init__(self, directory, filename, source, label, attributes={}):
+    def __init__(self, directory, filename, source, label, attributes={}, sched = None):
         """ Initializes time serie writer
         filename - name of a file to write to 
         source - indicator with values to be saved
@@ -57,6 +56,8 @@ class CSV(file):
         file.__init__(self, directory + filename, 'w')
         self._filename = filename
         self._label = label
+        if sched is None:
+            sched = scheduler.current()
         
         self.write('Time'+label+','+label+',\n')
         
@@ -65,7 +66,7 @@ class CSV(file):
             """
             x = source.value
             if x is not None: # for the moment we don't know what to do with breaks in data
-                self.write(str(world.currentTime) + ',' + str(x) + ',\n')
+                self.write(str(sched.currentTime) + ',' + str(x) + ',\n')
         
         source.advise(wakeUp)
         

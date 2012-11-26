@@ -1,4 +1,4 @@
-from marketsim import order, orderbook, remote, trader, observable
+from marketsim import order, orderbook, remote, trader, observable, scheduler
 
 book = orderbook.Local()
 
@@ -36,39 +36,37 @@ assert ltrader.efficiency.value == -3*110 + 5*90 - 2*110
 
 ######## ----------------------  testing trader efficiency with remote book      
 
-from marketsim.scheduler import Scheduler
-
-world = Scheduler()
-
-link = remote.TwoWayLink(latencyUp=lambda: 1, latencyDown=lambda: 1)
-rbook = orderbook.Remote(book, link)
-rtrader = Trader(rbook) 
-
-assert rtrader.efficiency.value == None
-
-rtrader.buy(3)
-assert rtrader.PnL == 0
-assert rtrader.amount == 0
-assert rtrader.efficiency.value == None
-
-world.workTill(2.5)
-
-assert rtrader.PnL == -3*110
-assert rtrader.amount == 3
-assert rtrader.efficiency.value == 0
-
-world.workTill(4.5)
-
-assert rtrader.efficiency.value == -3*110 + 3*90
-
-rtrader.sell(5)
-
-world.workTill(7)
-
-assert rtrader.PnL == -3*110 + 5*90
-assert rtrader.amount == 3-5
-assert rtrader.efficiency.value == -3*110 + 3*90
-
-world.workTill(9)
-
-assert rtrader.efficiency.value == -3*110 + 5*90 -2*110 
+with scheduler.create() as world:
+    
+    link = remote.TwoWayLink(latencyUp=lambda: 1, latencyDown=lambda: 1)
+    rbook = orderbook.Remote(book, link)
+    rtrader = Trader(rbook) 
+    
+    assert rtrader.efficiency.value == None
+    
+    rtrader.buy(3)
+    assert rtrader.PnL == 0
+    assert rtrader.amount == 0
+    assert rtrader.efficiency.value == None
+    
+    world.workTill(2.5)
+    
+    assert rtrader.PnL == -3*110
+    assert rtrader.amount == 3
+    assert rtrader.efficiency.value == 0
+    
+    world.workTill(4.5)
+    
+    assert rtrader.efficiency.value == -3*110 + 3*90
+    
+    rtrader.sell(5)
+    
+    world.workTill(7)
+    
+    assert rtrader.PnL == -3*110 + 5*90
+    assert rtrader.amount == 3-5
+    assert rtrader.efficiency.value == -3*110 + 3*90
+    
+    world.workTill(9)
+    
+    assert rtrader.efficiency.value == -3*110 + 5*90 -2*110 

@@ -41,14 +41,19 @@ class Scheduler(object):
     """
 
     def __init__(self):
-        global _instance
-        _instance = self
         self.reset()
-        
-    def __del__(self):
-        global _instance
-        _instance = None
 
+    def __enter__(self):
+        global _instance
+        assert _instance == None
+        _instance = self
+        return self
+        
+    def __exit__(self, exc_type, exc_value, traceback):
+        global _instance
+        assert _instance==self
+        _instance = None
+        
     def reset(self):
         """ Resets scheduler to the initial state: empty event set and T=0
         """
@@ -116,22 +121,8 @@ class Scheduler(object):
 def create():
     return Scheduler()
 
-class World(object):
-
-    @property
-    def currentTime(self):
-        return _instance.currentTime
-    
-    def schedule(self, actionTime, handler):
-        _instance.schedule(actionTime, handler)
-        
-    def scheduleAfter(self, dt, handler):
-        _instance.scheduleAfter(dt, handler)
-        
-    def process(self, intervalFunc, handler):
-        _instance.process(intervalFunc, handler)
-        
-world = World()
+def current():
+    return _instance
 
 """ Global object representing simulation clock.
 """
@@ -142,9 +133,11 @@ class Timer(object):
     when subscribed listeners are to be called  
     """
 
-    def __init__(self, intervalFunc):
+    def __init__(self, intervalFunc, scheduler=None):
         self.on_timer = Event()
-        world.process(intervalFunc, lambda: self.on_timer.fire(self))
+        scheduler = scheduler if scheduler else current()
+        assert scheduler is not None
+        scheduler.process(intervalFunc, lambda: self.on_timer.fire(self))
 
     def advise(self, listener):
         """ Subscribes 'listener' to be called when on_timer event occurs
