@@ -4,3 +4,5 @@ from _trend import Signal, TrendFollower
 from _lp import LiquidityProviderSide, LiquidityProvider, Canceller
 from _arbitrage import Arbitrage
 from _adaptive import suspendIfNotEffective, withEstimator, chooseTheBest
+
+__all__ = [Noise]

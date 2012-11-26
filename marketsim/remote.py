@@ -1,13 +1,14 @@
 import random
-from marketsim.scheduler import world
+from marketsim import scheduler
 
 class Link(object):
     """ Ensures that sending packets via a link preserves their order
     """
     
-    def __init__(self, latency):
+    def __init__(self, latency, sched = None):
         """ Initializes the link with a latency function
         """
+        self._scheduler = sched if sched else scheduler.current() 
         self._latency = latency
         self._lastT = 0
         
@@ -17,11 +18,11 @@ class Link(object):
         If there is another function that is scheduled for later time 
         we adjust action time of 'func' in order to preserve their order 
         """
-        t = world.currentTime + self._latency()
+        t = self._scheduler.currentTime + self._latency()
         if t < self._lastT:
             t = self._lastT
         self._lastT = t 
-        world.schedule(t, func)
+        self._scheduler.schedule(t, func)
 
 class TwoWayLink(object):
     

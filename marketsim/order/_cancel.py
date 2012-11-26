@@ -1,5 +1,4 @@
-from marketsim import Event, Side
-from marketsim.scheduler import world
+from marketsim import Event, Side, scheduler
 from _base import Base
 from _limit import Limit
 
@@ -28,10 +27,11 @@ class LimitMarket(Base):
     """ This a combination of a limit order and a cancel order sent immediately
     It works as a market order in sense that it is not put into the order queue 
     but can be matched (as a limit order) 
-    only if there are orders with suitable price in the queue 
+    only if there are orders with suitable price in the queue
+    TBD: Cancelable order having delay and sched not None  
     """
     
-    def __init__(self, side, price, volume, delay=None):
+    def __init__(self, side, price, volume, delay=None, sched=None):
         """ Initializes order with 'price' and 'volume'
         'limitOrderFactory' tells how to create limit orders
         """
@@ -41,6 +41,7 @@ class LimitMarket(Base):
         self._order = Limit(side, price, volume)
         # translate its events to our listeners
         self._order.on_matched += self.on_matched.fire
+        self._scheduler = sched if sched else scheduler.current()
         
     def processIn(self, orderBook):
         orderBook.process(self._order)
@@ -49,7 +50,7 @@ class LimitMarket(Base):
         if self._delay is None: 
             cancel()
         else:
-            world.scheduleAfter(self._delay, cancel)
+            self._scheduler.scheduleAfter(self._delay, cancel)
         
     @property 
     def volume(self):

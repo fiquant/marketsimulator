@@ -1,5 +1,4 @@
-from marketsim import getLabel, mathutils
-from marketsim.scheduler import world
+from marketsim import getLabel, mathutils, scheduler
 
 from _computed import OnEveryDt
         
@@ -14,18 +13,19 @@ class Fold(object):
     """ Folds values from some source using a time-dependent accumulator....
     """
     
-    def __init__(self, source, acc):
+    def __init__(self, source, acc, sched=None):
         """ Initializes folder with source of values and accumulator object        
         """
+        self._scheduler = sched if sched else scheduler.current()
         self._acc = acc
-        source.on_changed += lambda _: acc.update(world.currentTime, source.value)
+        source.on_changed += lambda _: acc.update(self._scheduler.currentTime, source.value)
         self.label = getLabel(acc) + "(" + getLabel(source) + ")"
         
     @property
     def value(self):
         """ Returns value from the accumulator corresponding to the current time
         """
-        return self._acc.at(world.currentTime)
+        return self._acc.at(self._scheduler.currentTime)
     
     def __call__(self):
         """ Returns value from the accumulator corresponding to the current time

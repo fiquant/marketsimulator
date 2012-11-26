@@ -1,16 +1,17 @@
-from marketsim import order 
+from marketsim import order, Side, scheduler
 from blist import sorteddict
-from marketsim import Side
-from marketsim.scheduler import world
 
 from _basic import Strategy
 
 class Arbitrage(Strategy):
 
-    def __init__(self, trader):
+    def __init__(self, trader, sched=None):
         """ Initializes trader by order books for the asset from different markets
         """
         Strategy.__init__(self, trader)
+        
+        if sched is None: 
+            sched = scheduler.current() 
         
         books = trader.orderBooks
         
@@ -81,15 +82,15 @@ class Arbitrage(Strategy):
                             # but cancel them immediately in order to avoid storing these limit orders in the book
                             # this logic is implemented by LimitMarketOrder
                             
-                            world.scheduleAfter(0, lambda: \
+                            sched.scheduleAfter(0, lambda: \
                                 trader.send(myQueue.book, 
                                           order.LimitMarket(oppositeSide, myPrice, volumeToTrade)))
                             
-                            world.scheduleAfter(0, lambda: \
+                            sched.scheduleAfter(0, lambda: \
                                 trader.send(oppositeQueue.book,
                                           order.LimitMarket(side, oppositePrice, volumeToTrade)))
     
-            return lambda queue: world.scheduleAfter(0, lambda: inner(queue))
+            return lambda queue: sched.scheduleAfter(0, lambda: inner(queue))
                         
         def regSide(side):
             for book in books:
