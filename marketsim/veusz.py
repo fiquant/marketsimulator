@@ -165,7 +165,7 @@ def run(name):
         print "You may look also for the results manually in Veusz script: " + myDir()+name+".vsz"
         return 
     veusz_exe = os.environ['VEUSZ_EXE']
-    Popen(veusz_exe + ' ' + os.path.abspath(myDir()+name+".vsz"))
+    Popen(veusz_exe + ' ' + os.path.abspath(myDir()+name+".vsz"), shell=True)
         
 
 def render(name, graphs):
