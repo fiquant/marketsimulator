@@ -12,16 +12,15 @@ with scheduler.create() as world:
     price_graph = veusz.Graph("Price")
      
     assetPrice_A = observable.Price(book_A)
-    price_graph.addTimeSerie(assetPrice_A)
-    
     assetPrice_B = observable.Price(book_B)
-    price_graph.addTimeSerie(assetPrice_B)
-    
+
     avg = observable.avg
     
-    price_graph += [avg(assetPrice_A, alpha=0.15),
+    price_graph += [assetPrice_A,
+                    avg(assetPrice_A, alpha=0.15),
                     avg(assetPrice_A, alpha=0.015),
                     avg(assetPrice_A, alpha=0.65),
+                    assetPrice_B,
                     avg(assetPrice_B, alpha=0.15),
                     avg(assetPrice_B, alpha=0.015),
                     avg(assetPrice_B, alpha=0.65)]

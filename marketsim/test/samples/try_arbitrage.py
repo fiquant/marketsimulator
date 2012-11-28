@@ -37,10 +37,6 @@ with scheduler.create() as world:
                      avg(observable.AskPrice(book_B))]
     
     
-    ewma_0_15 = observable.EWMA(assetPrice, alpha=0.15)
-    ewma_0_015 = observable.EWMA(assetPrice, alpha=0.015)
-    ewma_0_065 = observable.EWMA(assetPrice, alpha=0.065)
-    
     price_graph += [assetPrice, 
                     avg(assetPrice, 0.15),
                     avg(assetPrice, 0.065),

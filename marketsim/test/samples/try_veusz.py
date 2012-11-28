@@ -18,7 +18,7 @@ def createSimulation(world, i):
     
     with world:
         avg = observable.avg
-        book_A = orderbook.Local(tickSize=0.01, label="A"+i)
+        book_A = orderbook.Local(tickSize=0.01, label=i)
         
         assetPrice = observable.Price(book_A)
         

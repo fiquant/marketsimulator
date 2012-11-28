@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../../..')
 
-from marketsim import strategy, orderbook, trader, scheduler, observable, veusz
+from marketsim import strategy, orderbook, trader, scheduler, observable, veusz, mathutils
 
 with scheduler.create() as world:
     
@@ -49,23 +49,23 @@ with scheduler.create() as world:
     strategies = [fv(x, best_trader) for x in range(170, 190, 10)]
     best = strategy.chooseTheBest(strategies)    
     
-    #tf = strategy.suspendIfNotEffective(\
-    #        strategy.withEstimator(strategy.TrendFollower, 
-    #                               trader = trader.SASM(book_A, "TF"), 
-    #                               average=mathutils.ewma(0.015), 
-    #                               volumeDistr=lambda: 5)).trader
-    #
-    #tf_0_15 = strategy.suspendIfNotEffective(\
-    #            strategy.withEstimator(strategy.TrendFollower,
-    #                                   trader=trader.SASM(book_A, "tf0.15"), 
-    #                                   average=mathutils.ewma(0.15),
-    #                                   volumeDistr=lambda: 1)).trader
-    #                                         
-    #tf_0_015 = strategy.suspendIfNotEffective(\
-    #            strategy.withEstimator(strategy.TrendFollower,
-    #                                   trader=trader.SASM(book_A, "tf0.015"), 
-    #                                   average=mathutils.ewma(0.015),
-    #                                   volumeDistr=lambda: 1)).trader
+    tf = strategy.suspendIfNotEffective(\
+            strategy.withEstimator(strategy.TrendFollower, 
+                                   trader = trader.SASM(book_A, "TF"), 
+                                   average=mathutils.ewma(0.015), 
+                                   volumeDistr=lambda: 5)).trader
+    
+    tf_0_15 = strategy.suspendIfNotEffective(\
+                strategy.withEstimator(strategy.TrendFollower,
+                                       trader=trader.SASM(book_A, "tf0.15"), 
+                                       average=mathutils.ewma(0.15),
+                                       volumeDistr=lambda: 1)).trader
+                                             
+    tf_0_015 = strategy.suspendIfNotEffective(\
+                strategy.withEstimator(strategy.TrendFollower,
+                                       trader=trader.SASM(book_A, "tf0.015"), 
+                                       average=mathutils.ewma(0.015),
+                                       volumeDistr=lambda: 1)).trader
     
     eff_graph = veusz.Graph("efficiency")
     trend_graph = veusz.Graph("efficiency trend")
@@ -85,6 +85,7 @@ with scheduler.create() as world:
     
     
     addToGraph([trader_150, trader_200, best_trader, trader_200_1, trader_200_2,
+                tf, tf_0_15, tf_0_015,
                 virtual_160, virtual_170, virtual_180, virtual_190])
     
     world.workTill(1500)
