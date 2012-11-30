@@ -2,50 +2,45 @@ import random
 from _basic import OneSide, Strategy
 from marketsim import order, Side, scheduler
 
-def liquidityProviderFunc(side, defaultValue, priceDistr, volumeDistr):
-    """ Calculates price and volume for a liquidity provider.
-    defaultValue - price to be taken if the order queue is empty
-    priceDistr - function returning a value 
-                 that being multiplied to currentPrice gives price of order to create  
-    volumeDistr - function returning volume of order to create
-    Returns function: trader -> (price, volume) of order to create
-    """
-    def inner(trader):
-        queue = trader.book.queue(side)
-        currentPrice = queue.best.price if not queue.empty else\
-                       queue.lastPrice if queue.lastPrice is not None else\
-                       defaultValue
-        price = currentPrice * priceDistr()
-        volume = int(volumeDistr())
+class LiquidityProviderSide(OneSide):
+
+    def __init__(self, \
+                 trader,
+                 side=Side.Sell,
+                 orderFactoryT=order.Limit.T,
+                 defaultValue=100,
+                 creationIntervalDistr=(lambda: random.expovariate(1.)),
+                 priceDistr=(lambda: random.lognormvariate(0., .1)),
+                 volumeDistr=(lambda: random.expovariate(.1))):
+        """ Creates a liquidity provider trader
+        trader - single asset single market trader
+        side - side of orders to create (default: Sell)
+        orderFactoryT - order factory function (default: LimitOrderT)
+        defaultValue - default price which is taken if orderBook is empty (default: 100)
+        creationIntervalDistr - defines intervals of time between order creation 
+                                (default: exponential distribution with \lambda=1)
+        priceDistr - defines multipliers for current asset price when price of order ti create is calculated 
+                                (default: log normal distribution with \mu=0 and \sigma=0.1)
+        volumeDistr - defines volumes of orders to create
+                                (default: exponential distribution with \lambda=1)
+        """
+        self._orderFactory = orderFactoryT(side)
+        self._queue = trader.book.queue(side)
+        self._defaultValue = defaultValue
+        self._priceDistr = priceDistr
+        self._volumeDistr = volumeDistr
+        self._eventGen = scheduler.Timer(creationIntervalDistr)
+    
+        OneSide.__init__(self, trader)
+        
+    def _orderFunc(self):
+        currentPrice = self._queue.best.price if not self._queue.empty else\
+                       self._queue.lastPrice if self._queue.lastPrice is not None else\
+                       self._defaultValue
+        price = currentPrice * self._priceDistr()
+        volume = int(self._volumeDistr())
         return (price, volume)
-    return inner
-
-def LiquidityProviderSide( \
-                     trader,
-                     side=Side.Sell,
-                     orderFactoryT=order.Limit.T,
-                     defaultValue=100,
-                     creationIntervalDistr=(lambda: random.expovariate(1.)),
-                     priceDistr=(lambda: random.lognormvariate(0., .1)),
-                     volumeDistr=(lambda: random.expovariate(.1))):
-    """ Creates a liquidity provider trader
-    trader - single asset single market trader
-    side - side of orders to create (default: Sell)
-    orderFactoryT - order factory function (default: LimitOrderT)
-    defaultValue - default price which is taken if orderBook is empty (default: 100)
-    creationIntervalDistr - defines intervals of time between order creation 
-                            (default: exponential distribution with \lambda=1)
-    priceDistr - defines multipliers for current asset price when price of order ti create is calculated 
-                            (default: log normal distribution with \mu=0 and \sigma=0.1)
-    volumeDistr - defines volumes of orders to create
-                            (default: exponential distribution with \lambda=1)
-    """
-
-    return OneSide(trader,
-                   side,
-                   orderFactoryT,
-                   scheduler.Timer(creationIntervalDistr),
-                   liquidityProviderFunc(side, defaultValue, priceDistr, volumeDistr))
+        
 
 class LiquidityProvider(Strategy):
     def __init__(self, 
