@@ -43,7 +43,7 @@ class TwoSides(Strategy):
         
 class OneSide(Strategy):
     
-    def __init__(self, trader, side, orderFactoryT, eventGen, orderFunc):                
+    def __init__(self, trader):                
         """ Initializes generic one side trader and makes it working
         orderBook - book to place orders in
         side - side of orders to create
@@ -53,18 +53,15 @@ class OneSide(Strategy):
         """     
         Strategy.__init__(self, trader)   
     
-        # we may calculate order factory right now
-        orderFactory = orderFactoryT(side)
-    
         def wakeUp(signal):
             if self._suspended:
                 return
             # determine parameters of an order to create
-            params = orderFunc(trader)
+            params = self._orderFunc()
             # create an order with given parameters
-            order = orderFactory(*params)
+            order = self._orderFactory(*params)
             # send the order to the order book
-            trader.send(order)
+            self._trader.send(order)
     
         # start listening calls from eventGen
-        eventGen.advise(wakeUp)
+        self._eventGen.advise(wakeUp)

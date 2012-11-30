@@ -2,6 +2,7 @@ import random
 from marketsim import order, Side, scheduler, observable
 
 from _basic import TwoSides
+from _trend import signalFunc
 
 def fv_func(fundamentalValueFunc, volumeDistr):
     """ Calculates side and volume for fundamental value trader
@@ -36,6 +37,13 @@ def FundamentalValue( trader,
     creationIntervalDistr - defines intervals of time between order creation 
                             (default: exponential distribution with \lambda=1)
     """
+    
+    def signal(): # to be used later
+        book = trader.book
+        fv = fundamentalValue()
+        return book.asks.best.price - fv if not book.asks.empty and book.asks.best.price < fv else\
+               book.bids.best.price - fv if not book.bids.empty and book.bids.best.price > fv else\
+               None
 
     return TwoSides(trader, orderFactory,
                     scheduler.Timer(creationIntervalDistr),

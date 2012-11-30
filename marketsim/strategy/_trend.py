@@ -2,7 +2,11 @@ import random
 from marketsim import Side, order, observable, scheduler, mathutils
 from _basic import TwoSides
 
-def signalTraderFunc(threshold, volumeDistr, signalFunc):
+# TBD: fundamental trader and dependency traders should be written through signal trader
+#      signal function for fundamental trader will be currentPrice - fv()
+#      for dependent trader - currentPrice - wantedPrice()
+
+def signalFunc(threshold, volumeDistr, signalFunc):
     """ Calculates side and volume for a signal trader
     threshold - when signal value is higher than threshold, the trader buys
                 when signal value is less than -threshold, the trader sells
@@ -13,7 +17,7 @@ def signalTraderFunc(threshold, volumeDistr, signalFunc):
     def inner(trader):
         value = signalFunc()
         side = Side.Buy if value > threshold else Side.Sell if value < -threshold else None
-        return (side, (volumeDistr(),)) if side<>None else None
+        return (side, (volumeDistr(side),)) if side else None
     return inner
 
 def Signal(trader,
@@ -30,8 +34,8 @@ def Signal(trader,
                             (default: exponential distribution with \lambda=1) 
     """
     return TwoSides(trader, orderFactory, signal, 
-                    signalTraderFunc(threshold, volumeDistr, 
-                                     lambda: signal.value))
+                    signalFunc(threshold, lambda _: volumeDistr(), 
+                               lambda: signal.value))
 
 def TrendFollower(trader,
                   average = mathutils.ewma(alpha = 0.15),
@@ -53,4 +57,4 @@ def TrendFollower(trader,
     trend = observable.Fold(observable.Price(trader.orderBook), observable.derivative(average))
     
     return TwoSides(trader, orderFactory, scheduler.Timer(creationIntervalDistr), 
-                    signalTraderFunc(threshold, volumeDistr, trend))
+                    signalFunc(threshold, lambda _: volumeDistr(), trend))
