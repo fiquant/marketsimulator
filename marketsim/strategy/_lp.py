@@ -29,6 +29,7 @@ class LiquidityProviderSide(OneSide):
         self._defaultValue = defaultValue
         self._priceDistr = priceDistr
         self._volumeDistr = volumeDistr
+        self._creationIntervalDistr = creationIntervalDistr
         self._eventGen = scheduler.Timer(creationIntervalDistr)
     
         OneSide.__init__(self, trader)
@@ -40,8 +41,7 @@ class LiquidityProviderSide(OneSide):
         price = currentPrice * self._priceDistr()
         volume = int(self._volumeDistr())
         return (price, volume)
-        
-
+    
 class LiquidityProvider(Strategy):
     def __init__(self, 
                  trader,
