@@ -1,25 +1,27 @@
 import random
-from marketsim import order, Side, scheduler, observable, cached_property
+from marketsim import order, scheduler, observable, cached_property, mathutils
 
-from _basic import TwoSides
+from _trend import SignalBase
 
-class FundamentalValueBase(TwoSides):
+class FundamentalValueBase(SignalBase):
 
     def __init__(self, trader):
-        TwoSides.__init__(self, trader)
+        SignalBase.__init__(self, trader)
         
-    def _orderFunc(self):
+    @property
+    def _threshold(self):
+        return 0.
+    
+    def _signalFunc(self):
         book = self._trader.book
+        fv = self._fundamentalValue()
+        
         # if current price is defined, compare it with the fundamental value and define the side
-        side = Side.Buy  if not book.asks.empty\
-                         and book.asks.best.price < self._fundamentalValue() else\
-               Side.Sell if not book.bids.empty\
-                         and book.bids.best.price > self._fundamentalValue() else\
+        return +1 if not book.asks.empty\
+                  and book.asks.best.price < fv else\
+               -1 if not book.bids.empty\
+                  and book.bids.best.price > fv else\
                None
-        if side <> None:
-            volume = int(self._volume(side))
-            return (side, (volume,))
-        return None
 
 class FundamentalValue(FundamentalValueBase):
 
@@ -27,8 +29,8 @@ class FundamentalValue(FundamentalValueBase):
                  trader,
                  orderFactory=order.Market.T,
                  fundamentalValue=lambda: 100,
-                 volumeDistr=(lambda: random.expovariate(.1)),
-                 creationIntervalDistr=(lambda: random.expovariate(1.))):
+                 volumeDistr= lambda: random.expovariate(.1),
+                 creationIntervalDistr=lambda: random.expovariate(1.)):
         """ Creates a fundamental value trader
         trader - single asset single market trader
         orderFactoryT - order factory function: side -> *orderParams -> Order
@@ -45,6 +47,32 @@ class FundamentalValue(FundamentalValueBase):
         self._fundamentalValue = fundamentalValue  
         
         FundamentalValueBase.__init__(self, trader)
+        
+    def _volume(self, side):
+        return self._volumeDistr()
+        
+    @cached_property
+    def _eventGen(self):
+        return scheduler.Timer(self._creationIntervalDistr)
+
+class MeanReversion(FundamentalValueBase):
+
+    def __init__(self, 
+                 trader,
+                 orderFactory=order.Market.T,
+                 average = mathutils.ewma(alpha = 0.15),
+                 volumeDistr= lambda: random.expovariate(.1),
+                 creationIntervalDistr=lambda: random.expovariate(1.)):
+
+        self._orderFactoryT = orderFactory
+        self._creationIntervalDistr = creationIntervalDistr
+        self._volumeDistr = volumeDistr
+        self._average = observable.Fold(observable.Price(trader.book), average)
+        
+        FundamentalValueBase.__init__(self, trader)
+        
+    def _fundamentalValue(self):
+        return self._average.value
         
     def _volume(self, side):
         return self._volumeDistr()
