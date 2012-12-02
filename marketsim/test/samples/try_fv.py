@@ -25,7 +25,16 @@ with scheduler.create() as world:
     
     trader_150 = strategy.FundamentalValue(trader.SASM(book_A, "t150"), fundamentalValue=lambda: 150., volumeDistr=lambda: 1).trader
     
-    meanreversion = strategy.MeanReversion(trader.SASM(book_A, "mr_0_15")).trader
+    meanreversion = strategy.MeanReversion(trader.SASM(book_A, "mr_0_15"), volumeDistr=lambda:1).trader
+    avg_plus = strategy.TwoAverages(trader.SASM(book_A, "avg+"), 
+                                    average1=mathutils.ewma(0.15),
+                                    average2=mathutils.ewma(0.015),
+                                    volumeDistr=lambda:1).trader
+
+    avg_minus= strategy.TwoAverages(trader.SASM(book_A, "avg-"), 
+                                    average1=mathutils.ewma(0.015),
+                                    average2=mathutils.ewma(0.15),
+                                    volumeDistr=lambda:1).trader
     
     def fv_virtual(fv):
         return strategy.suspendIfNotEffective(\
@@ -87,7 +96,7 @@ with scheduler.create() as world:
     
     
     addToGraph([trader_150, trader_200, best_trader, trader_200_1, trader_200_2,
-                tf, tf_0_15, tf_0_015, meanreversion,
+                tf, tf_0_15, tf_0_015, meanreversion, avg_plus, avg_minus,
                 virtual_160, virtual_170, virtual_180, virtual_190])
     
     world.workTill(1500)

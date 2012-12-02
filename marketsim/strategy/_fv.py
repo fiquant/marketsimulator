@@ -29,7 +29,7 @@ class FundamentalValue(FundamentalValueBase):
                  trader,
                  orderFactory=order.Market.T,
                  fundamentalValue=lambda: 100,
-                 volumeDistr= lambda: random.expovariate(.1),
+                 volumeDistr= lambda: random.expovariate(1.),
                  creationIntervalDistr=lambda: random.expovariate(1.)):
         """ Creates a fundamental value trader
         trader - single asset single market trader
@@ -61,7 +61,7 @@ class MeanReversion(FundamentalValueBase):
                  trader,
                  orderFactory=order.Market.T,
                  average = mathutils.ewma(alpha = 0.15),
-                 volumeDistr= lambda: random.expovariate(.1),
+                 volumeDistr= lambda: random.expovariate(1.),
                  creationIntervalDistr=lambda: random.expovariate(1.)):
 
         self._orderFactoryT = orderFactory

@@ -43,6 +43,34 @@ class Signal(SignalBase):
         
         SignalBase.__init__(self, trader)
 
+class TwoAverages(SignalBase):
+    
+    def __init__(self, 
+                 trader,
+                 average1 = mathutils.ewma(alpha = 0.15),
+                 average2 = mathutils.ewma(alpha = 0.015),
+                 threshold = 0., 
+                 orderFactory=order.Market.T,
+                 creationIntervalDistr=(lambda: random.expovariate(1.)),
+                 volumeDistr=(lambda: random.expovariate(1.))):
+        
+        self._eventGen = scheduler.Timer(creationIntervalDistr)
+        self._volume = lambda _: volumeDistr()
+        self._threshold = threshold
+        self._orderFactoryT = orderFactory
+        
+        price = observable.Price(trader.orderBook)
+        self._average1 = observable.Fold(price, average1)
+        self._average2 = observable.Fold(price, average2)
+        
+        SignalBase.__init__(self, trader)
+        
+    def _signalFunc(self):
+        avg1 = self._average1.value
+        avg2 = self._average2.value
+        return avg1 - avg2 if avg1 is not None and avg2 is not None else None 
+
+
 class TrendFollower(SignalBase):
     
     def __init__(self, 
