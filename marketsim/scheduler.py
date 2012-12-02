@@ -140,6 +140,14 @@ class Timer(object):
         self._intervalFunc = intervalFunc
         self._scheduler.scheduleAfter(self._intervalFunc(), self._wakeUp)
         
+    @property
+    def interval(self):
+        return self._intervalFunc
+    
+    @interval.setter
+    def interval(self, value):
+        self._intervalFunc = value
+        
     def _wakeUp(self):
         self.on_timer.fire(self)
         self._scheduler.scheduleAfter(self._intervalFunc(), self._wakeUp)

@@ -17,7 +17,7 @@ class Strategy(object):
 
 class TwoSides(Strategy):    
     
-    def __init__(self, trader, orderFactoryT, eventGen, orderFunc):                
+    def __init__(self, trader):                
         """ Runs generic two side strategy 
         trader - single asset single market trader
         orderFactoryT - function to create orders: side -> *orderParams -> Order
@@ -30,16 +30,16 @@ class TwoSides(Strategy):
             if self._suspended:
                 return
             # determine side and parameters of an order to create
-            res = orderFunc(trader)
+            res = self._orderFunc()
             if res <> None:
                 (side, params) = res
                 # create order given side and parameters
-                order = orderFactoryT(side)(*params)
+                order = self._orderFactoryT(side)(*params)
                 # send order to the order book
-                trader.send(order)
+                self._trader.send(order)
 
         # start listening calls from eventGen
-        eventGen.advise(wakeUp)
+        self._eventGen.advise(wakeUp)
         
 class OneSide(Strategy):
     

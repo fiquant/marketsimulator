@@ -1,83 +1,98 @@
 import random
-from marketsim import order, Side, scheduler, observable
+from marketsim import order, Side, scheduler, observable, cached_property
 
 from _basic import TwoSides
-from _trend import signalFunc
 
-def fv_func(fundamentalValueFunc, volumeDistr):
-    """ Calculates side and volume for fundamental value trader
-    fundamentalValueFunc -- function to determine current fundamental value
-    volumeDistr - defines volume of order to create
-    Returns function: trader -> (side,(volume,))
-    """
-    def inner(trader):
-        book = trader.book
+class FundamentalValueBase(TwoSides):
+
+    def __init__(self, trader):
+        TwoSides.__init__(self, trader)
+        
+    def _orderFunc(self):
+        book = self._trader.book
         # if current price is defined, compare it with the fundamental value and define the side
-        side = Side.Buy  if not book.asks.empty and book.asks.best.price < fundamentalValueFunc() else\
-               Side.Sell if not book.bids.empty and book.bids.best.price > fundamentalValueFunc() else\
+        side = Side.Buy  if not book.asks.empty\
+                         and book.asks.best.price < self._fundamentalValue() else\
+               Side.Sell if not book.bids.empty\
+                         and book.bids.best.price > self._fundamentalValue() else\
                None
         if side <> None:
-            volume = int(volumeDistr(side))
+            volume = int(self._volume(side))
             return (side, (volume,))
         return None
-    return inner
 
-def FundamentalValue( trader,
-                      orderFactory=order.Market.T,
-                      fundamentalValue=lambda: 100,
-                      volumeDistr=(lambda: random.expovariate(.1)),
-                      creationIntervalDistr=(lambda: random.expovariate(1.))):
-    """ Creates a fundamental value trader
-    trader - single asset single market trader
-    orderFactory - order factory function: side -> *orderParams -> Order
-    fundamentalValue - defines fundamental value 
-                            (default: constant 100)
-    volumeDistr - function to determine volume of orders to create 
-                            (default: exponential distribution with \lambda=1) 
-    creationIntervalDistr - defines intervals of time between order creation 
-                            (default: exponential distribution with \lambda=1)
-    """
-    
-    def signal(): # to be used later
-        book = trader.book
-        fv = fundamentalValue()
-        return book.asks.best.price - fv if not book.asks.empty and book.asks.best.price < fv else\
-               book.bids.best.price - fv if not book.bids.empty and book.bids.best.price > fv else\
-               None
+class FundamentalValue(FundamentalValueBase):
 
-    return TwoSides(trader, orderFactory,
-                    scheduler.Timer(creationIntervalDistr),
-                    fv_func(fundamentalValue, lambda _: volumeDistr()))
+    def __init__(self, 
+                 trader,
+                 orderFactory=order.Market.T,
+                 fundamentalValue=lambda: 100,
+                 volumeDistr=(lambda: random.expovariate(.1)),
+                 creationIntervalDistr=(lambda: random.expovariate(1.))):
+        """ Creates a fundamental value trader
+        trader - single asset single market trader
+        orderFactoryT - order factory function: side -> *orderParams -> Order
+        fundamentalValue - defines fundamental value 
+                                (default: constant 100)
+        volumeDistr - function to determine volume of orders to create 
+                                (default: exponential distribution with \lambda=1) 
+        creationIntervalDistr - defines intervals of time between order creation 
+                                (default: exponential distribution with \lambda=1)
+        """
+        self._orderFactoryT = orderFactory
+        self._creationIntervalDistr = creationIntervalDistr
+        self._volumeDistr = volumeDistr
+        self._fundamentalValue = fundamentalValue  
+        
+        FundamentalValueBase.__init__(self, trader)
+        
+    def _volume(self, side):
+        return self._volumeDistr()
+        
+    @cached_property
+    def _eventGen(self):
+        return scheduler.Timer(self._creationIntervalDistr)
 
-def Dependency(trader,
-               bookToDependOn,
-               orderFactory=order.Market.T,
-               factor=1.,
-               volumeDistr=(lambda: random.expovariate(.1))):
-    """ Creates a strategy that believes that fair asset price 
-    can be obtained as current price of another asset multiplied by some factor
-    Once this relation doesn't hold it tries to buy or sell orders with better price     
+class Dependency(FundamentalValueBase):
+    
+    def __init__(self, 
+                 trader,
+                 bookToDependOn,
+                 orderFactory=order.Market.T,
+                 factor=1.,
+                 volumeDistr=lambda: random.expovariate(.1)):
+        """ Creates a strategy that believes that fair asset price 
+        can be obtained as current price of another asset multiplied by some factor
+        Once this relation doesn't hold it tries to buy or sell orders with better price     
+    
+        trader - single asset single market trader
+        bookToDependOn - asset that is considered as reference one
+        orderFactory - order factory function: side -> *orderParams -> Order
+        factor - multiplier to obtain fair the asset price by reference price
+        volumeDistr - function to determine volume of orders to create 
+                                (default: exponential distribution with \lambda=1) 
+        """
+        
+        # start listening changes in a reference asset price
+        self._priceToDependOn = observable.Price(bookToDependOn) 
+        self._factor = factor
+        self._volumeDistr = volumeDistr
+        self._orderFactoryT = orderFactory
+        
+        FundamentalValueBase.__init__(self, trader)
 
-    trader - single asset single market trader
-    bookToDependOn - asset that is considered as reference one
-    orderFactory - order factory function: side -> *orderParams -> Order
-    factor - multiplier to obtain fair the asset price by reference price
-    volumeDistr - function to determine volume of orders to create 
-                            (default: exponential distribution with \lambda=1) 
-    """
+    def _fundamentalValue(self):
+        return self._priceToDependOn.value * self._factor
     
-    # start listening changes in a reference asset price
-    priceToDependOn = observable.Price(bookToDependOn) 
-    
-    def wantedPrice():
-        """ Price of order to create """
-        return priceToDependOn.value * factor
-    
-    def wantedVolume(side):
-        """ Volume of order to create """        
-        oppositeQueue = trader.book.queue(side.opposite)
-        oppositeVolume = oppositeQueue.volumeWithPriceBetterThan(wantedPrice())
+    def _volume(self, side):
+        oppositeQueue = self._trader.book.queue(side.opposite)
+        # should we send limit and cancel orders here?
+        oppositeVolume = oppositeQueue.volumeWithPriceBetterThan(self._fundamentalValue())
         # we want to trade orders only with a good price
-        return min(oppositeVolume, volumeDistr())        
+        return min(oppositeVolume, self._volumeDistr())
+    
+    @property
+    def _eventGen(self):
+        return self._priceToDependOn        
 
-    return TwoSides(trader, orderFactory, priceToDependOn, fv_func(wantedPrice, wantedVolume))
+        
