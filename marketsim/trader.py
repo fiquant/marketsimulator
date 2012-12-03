@@ -62,7 +62,8 @@ class SingleAsset(Base):
     def __init__(self):
         Base.__init__(self)
         self._amount = 0
-
+        self._strategies = []
+        
     def _onOrderMatched(self, order, other, (price, volume)):
         """ Called when a trader's 'order' is traded against 'other' order 
         at given 'price' and 'volume'
@@ -81,11 +82,18 @@ class SingleAsset(Base):
     
 class SingleAssetSingleMarket(SingleAsset):
     
-    def __init__(self, orderBook, label=None):
+    def __init__(self, orderBook, label=None, strategy=None, strategies=[]):
         SingleAsset.__init__(self)
         self._orderBook = orderBook
         self._label = label if label else getLabel(self)
         self.label = self._label
+        
+        if strategy is not None:
+            strategies = strategies + [strategy]
+
+        for strategy in strategies:
+            self._strategies.append(strategy)
+            strategy.runAt(self)
         
     @property
     def book(self): # obsolete

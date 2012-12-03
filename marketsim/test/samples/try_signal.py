@@ -14,7 +14,7 @@ with scheduler.create() as world:
     avg = observable.avg
     
     
-    lp_A = strategy.LiquidityProvider(trader.SASM(book_A), volumeDistr=lambda:1).trader
+    lp_A = trader.SASM(book_A, strategy = strategy.LiquidityProvider(volumeDistr=lambda:1))
     signal = signal.RandomWalk(initialValue=20, deltaDistr=lambda: -.1, label="signal")
     trader = strategy.Signal(trader.SASM(book_A, "signal"), signal).trader
     
