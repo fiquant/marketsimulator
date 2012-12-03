@@ -12,6 +12,10 @@ class Event(object):
         """
         self._listeners.add(listener)
         return self
+    
+    def __isub__(self, listener):
+        self._listeners.remove(listener)
+        return self
         
     def advise(self, listener):
         """ Adds *listener* to the listeners set

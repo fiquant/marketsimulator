@@ -135,25 +135,25 @@ class Timer(object):
 
     def __init__(self, intervalFunc, scheduler=None):
         self.on_timer = Event()
+        self._cancelled = False
         self._scheduler = scheduler if scheduler else current()
         assert self._scheduler is not None
         self._intervalFunc = intervalFunc
         self._scheduler.scheduleAfter(self._intervalFunc(), self._wakeUp)
         
-    @property
-    def interval(self):
-        return self._intervalFunc
-    
-    @interval.setter
-    def interval(self, value):
-        self._intervalFunc = value
-        
     def _wakeUp(self):
-        self.on_timer.fire(self)
-        self._scheduler.scheduleAfter(self._intervalFunc(), self._wakeUp)
+        if not self._cancelled:
+            self.on_timer.fire(self)
+            self._scheduler.scheduleAfter(self._intervalFunc(), self._wakeUp)
 
     def advise(self, listener):
         """ Subscribes 'listener' to be called when on_timer event occurs
         """
         self.on_timer += listener
+        
+    def unadvise(self, listener):
+        self.on_timer -= listener
+        
+    def cancel(self):
+        self._cancelled = True
 

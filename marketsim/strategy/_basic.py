@@ -26,20 +26,23 @@ class TwoSides(Strategy):
         """        
         Strategy.__init__(self, trader)
         
-        def wakeUp(signal):
-            if self._suspended:
-                return
-            # determine side and parameters of an order to create
-            res = self._orderFunc()
-            if res <> None:
-                (side, params) = res
-                # create order given side and parameters
-                order = self._orderFactoryT(side)(*params)
-                # send order to the order book
-                self._trader.send(order)
-
         # start listening calls from eventGen
-        self._eventGen.advise(wakeUp)
+        self._eventGen.advise(self._wakeUp)
+        
+    def dtor(self):
+        self._eventGen.unadvise(self._wakeUp)
+
+    def _wakeUp(self, signal):
+        if self._suspended:
+            return
+        # determine side and parameters of an order to create
+        res = self._orderFunc()
+        if res <> None:
+            (side, params) = res
+            # create order given side and parameters
+            order = self._orderFactoryT(side)(*params)
+            # send order to the order book
+            self._trader.send(order)
         
 class OneSide(Strategy):
     
@@ -53,15 +56,20 @@ class OneSide(Strategy):
         """     
         Strategy.__init__(self, trader)   
     
-        def wakeUp(signal):
-            if self._suspended:
-                return
-            # determine parameters of an order to create
-            params = self._orderFunc()
-            # create an order with given parameters
-            order = self._orderFactory(*params)
-            # send the order to the order book
-            self._trader.send(order)
-    
         # start listening calls from eventGen
-        self._eventGen.advise(wakeUp)
+        self._eventGen.advise(self._wakeUp)
+        
+    def dtor(self):
+        self._eventGen.unadvise(self._wakeUp)
+
+    def _wakeUp(self, signal):
+        if self._suspended:
+            return
+        # determine parameters of an order to create
+        params = self._orderFunc()
+        # create an order with given parameters
+        order = self._orderFactory(*params)
+        # send the order to the order book
+        self._trader.send(order)
+
+    
