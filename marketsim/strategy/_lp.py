@@ -19,13 +19,17 @@ class Wrapper(object):
         
     def _respawn(self):
         if self._impl is not None:
-            self._impl.dtor()
+            self._impl.dispose()
         self._impl = self._ctor(self._trader, self)
         
     def runAt(self, trader):
         assert self._impl is None, "a strategy can be bound to only one trader"
         self._trader = trader
         self._respawn()
+        
+    def __getattr__(self, item):
+        if self._impl is not None:
+            return getattr(self._impl, item)
         
     def __setattr__(self, item, value):
         self.__dict__[item] = value
@@ -90,8 +94,8 @@ class _LiquidityProviderSide_Impl(OneSide):
         volume = int(self._params.volumeDistr())
         return (price, volume)
     
-    def dtor(self):
-        OneSide.dtor(self)
+    def dispose(self):
+        OneSide.dispose(self)
         self._eventGen.cancel()
         
 def LiquidityProviderSideWrapper(\
