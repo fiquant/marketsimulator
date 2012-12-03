@@ -1,6 +1,36 @@
 import random
+import inspect
 from _basic import OneSide, Strategy
 from marketsim import order, Side, scheduler
+
+class Wrapper(object):
+    
+    def __init__(self, ctor, frame):
+                
+        _, _, _, values = inspect.getargvalues(frame)
+
+        values = dict(values)
+        for k in values:
+            if k != 'self' and k != 'frame':
+                self.__dict__[k] = values[k]
+                
+        self._impl = None
+        self._ctor = ctor
+        
+    def _respawn(self):
+        if self._impl is not None:
+            self._impl.dtor()
+        self._impl = self._ctor(self._trader, self)
+        
+    def runAt(self, trader):
+        assert self._impl is None, "a strategy can be bound to only one trader"
+        self._trader = trader
+        self._respawn()
+        
+    def __setattr__(self, item, value):
+        self.__dict__[item] = value
+        if item[0] != '_':
+            self._respawn()
 
 class LiquidityProviderSide(OneSide):
 
@@ -31,7 +61,7 @@ class LiquidityProviderSide(OneSide):
         self._volumeDistr = volumeDistr
         self._creationIntervalDistr = creationIntervalDistr
         self._eventGen = scheduler.Timer(creationIntervalDistr)
-    
+        
         OneSide.__init__(self, trader)
         
     def _orderFunc(self):
@@ -41,6 +71,38 @@ class LiquidityProviderSide(OneSide):
         price = currentPrice * self._priceDistr()
         volume = int(self._volumeDistr())
         return (price, volume)
+
+class _LiquidityProviderSide_Impl(OneSide):
+
+    def __init__(self, trader, params):
+        self._params = params
+        self._orderFactory = params.orderFactoryT(params.side)
+        self._queue = trader.book.queue(params.side)
+        self._eventGen = scheduler.Timer(params.creationIntervalDistr)
+        
+        OneSide.__init__(self, trader)
+        
+    def _orderFunc(self):
+        currentPrice = self._queue.best.price if not self._queue.empty else\
+                       self._queue.lastPrice if self._queue.lastPrice is not None else\
+                       self._params.defaultValue
+        price = currentPrice * self._params.priceDistr()
+        volume = int(self._params.volumeDistr())
+        return (price, volume)
+    
+    def dtor(self):
+        OneSide.dtor(self)
+        self._eventGen.cancel()
+        
+def LiquidityProviderSideWrapper(\
+                 side=Side.Sell,
+                 orderFactoryT=order.Limit.T,
+                 defaultValue=100,
+                 creationIntervalDistr=(lambda: random.expovariate(1.)),
+                 priceDistr=(lambda: random.lognormvariate(0., .1)),
+                 volumeDistr=(lambda: random.expovariate(.1))):
+    
+    return Wrapper(_LiquidityProviderSide_Impl, inspect.currentframe())
     
 class LiquidityProvider(Strategy):
     def __init__(self, 

@@ -12,12 +12,19 @@ with scheduler.create() as world:
     world.workTill(1000.)
     """
     
-    trader = strategy.LiquidityProviderSide(trader.SASM(book),
+    trader = trader.SASM(book)
+    
+    st = strategy.LiquidityProviderSideWrapper(\
                                side=Side.Sell,
                                creationIntervalDistr=(lambda: 1),
                                priceDistr=(lambda: 0.5),
                                volumeDistr=(lambda: 10),
-                               defaultValue=128).trader
+                               defaultValue=128)
+    
+    st.runAt(trader)
+    
+    st.defaultValue = 100
+    st.defaultValue = 128
     
     assert book.asks.empty
     
