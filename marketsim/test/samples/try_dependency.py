@@ -26,8 +26,8 @@ with scheduler.create() as world:
                     avg(assetPrice_B, alpha=0.65)]
     
     liqVol = lambda: random.expovariate(.1)*5
-    lp_A = strategy.LiquidityProvider(trader.SASM(book_A), defaultValue=50., volumeDistr=liqVol).trader
-    lp_B = strategy.LiquidityProvider(trader.SASM(book_B), defaultValue=150., volumeDistr=liqVol).trader
+    t_A = trader.SASM(book_A, strategy=strategy.LiquidityProvider(defaultValue=50., volumeDistr=liqVol))
+    t_B = trader.SASM(book_B, strategy=strategy.LiquidityProvider(defaultValue=150., volumeDistr=liqVol))
     
     dep_AB = strategy.Dependency(trader.SASM(book_A, "AB"), book_B, factor=2).trader
     dep_BA = strategy.Dependency(trader.SASM(book_B, "BA"), book_A, factor=.5).trader

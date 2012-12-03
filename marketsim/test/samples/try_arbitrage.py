@@ -42,8 +42,8 @@ with scheduler.create() as world:
                     avg(assetPrice, 0.065),
                     avg(assetPrice, 0.015)]
     
-    lp_A = strategy.LiquidityProvider(trader.SASM(remote_A))
-    lp_B = strategy.LiquidityProvider(trader.SASM(remote_B))
+    t_A = trader.SASM(remote_A, strategy=strategy.LiquidityProvider())
+    t_B = trader.SASM(remote_B, strategy=strategy.LiquidityProvider())
     
     world.workTill(500)
     

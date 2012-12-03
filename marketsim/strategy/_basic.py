@@ -1,3 +1,5 @@
+import inspect
+
 class Strategy(object):
     
     def __init__(self, trader):
@@ -72,4 +74,42 @@ class OneSide(Strategy):
         # send the order to the order book
         self._trader.send(order)
 
+class merge(object):
+    def __init__(self, d, **kwargs):
+        self.__dict__ = d.__dict__.copy()
+        for k in kwargs:
+            self.__dict__[k] = kwargs[k]
+
+class Wrapper(object):
+    
+    def __init__(self, ctor, frame):
+                
+        _, _, _, values = inspect.getargvalues(frame)
+
+        values = dict(values)
+        for k in values:
+            if k != 'self' and k != 'frame':
+                self.__dict__[k] = values[k]
+                
+        self._impl = None
+        self._ctor = ctor
+        
+    def _respawn(self):
+        if self._impl is not None:
+            self._impl.dispose()
+        self._impl = self._ctor(self._trader, self)
+        
+    def runAt(self, trader):
+        assert self._impl is None, "a strategy can be bound to only one trader"
+        self._trader = trader
+        self._respawn()
+        
+    def __getattr__(self, item):
+        if self._impl is not None:
+            return getattr(self._impl, item)
+        
+    def __setattr__(self, item, value):
+        self.__dict__[item] = value
+        if item[0] != '_':
+            self._respawn()
     

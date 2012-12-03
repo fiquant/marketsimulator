@@ -1,80 +1,8 @@
 import random
 import inspect
-from _basic import OneSide, Strategy
+from _basic import OneSide, Strategy, Wrapper, merge
 from marketsim import order, Side, scheduler
 
-class Wrapper(object):
-    
-    def __init__(self, ctor, frame):
-                
-        _, _, _, values = inspect.getargvalues(frame)
-
-        values = dict(values)
-        for k in values:
-            if k != 'self' and k != 'frame':
-                self.__dict__[k] = values[k]
-                
-        self._impl = None
-        self._ctor = ctor
-        
-    def _respawn(self):
-        if self._impl is not None:
-            self._impl.dispose()
-        self._impl = self._ctor(self._trader, self)
-        
-    def runAt(self, trader):
-        assert self._impl is None, "a strategy can be bound to only one trader"
-        self._trader = trader
-        self._respawn()
-        
-    def __getattr__(self, item):
-        if self._impl is not None:
-            return getattr(self._impl, item)
-        
-    def __setattr__(self, item, value):
-        self.__dict__[item] = value
-        if item[0] != '_':
-            self._respawn()
-
-class LiquidityProviderSide(OneSide):
-
-    def __init__(self, \
-                 trader,
-                 side=Side.Sell,
-                 orderFactoryT=order.Limit.T,
-                 defaultValue=100,
-                 creationIntervalDistr=(lambda: random.expovariate(1.)),
-                 priceDistr=(lambda: random.lognormvariate(0., .1)),
-                 volumeDistr=(lambda: random.expovariate(.1))):
-        """ Creates a liquidity provider trader
-        trader - single asset single market trader
-        side - side of orders to create (default: Sell)
-        orderFactoryT - order factory function (default: LimitOrderT)
-        defaultValue - default price which is taken if orderBook is empty (default: 100)
-        creationIntervalDistr - defines intervals of time between order creation 
-                                (default: exponential distribution with \lambda=1)
-        priceDistr - defines multipliers for current asset price when price of order ti create is calculated 
-                                (default: log normal distribution with \mu=0 and \sigma=0.1)
-        volumeDistr - defines volumes of orders to create
-                                (default: exponential distribution with \lambda=1)
-        """
-        self._orderFactory = orderFactoryT(side)
-        self._queue = trader.book.queue(side)
-        self._defaultValue = defaultValue
-        self._priceDistr = priceDistr
-        self._volumeDistr = volumeDistr
-        self._creationIntervalDistr = creationIntervalDistr
-        self._eventGen = scheduler.Timer(creationIntervalDistr)
-        
-        OneSide.__init__(self, trader)
-        
-    def _orderFunc(self):
-        currentPrice = self._queue.best.price if not self._queue.empty else\
-                       self._queue.lastPrice if self._queue.lastPrice is not None else\
-                       self._defaultValue
-        price = currentPrice * self._priceDistr()
-        volume = int(self._volumeDistr())
-        return (price, volume)
 
 class _LiquidityProviderSide_Impl(OneSide):
 
@@ -98,7 +26,7 @@ class _LiquidityProviderSide_Impl(OneSide):
         OneSide.dispose(self)
         self._eventGen.cancel()
         
-def LiquidityProviderSideWrapper(\
+def LiquidityProviderSide(\
                  side=Side.Sell,
                  orderFactoryT=order.Limit.T,
                  defaultValue=100,
@@ -108,17 +36,13 @@ def LiquidityProviderSideWrapper(\
     
     return Wrapper(_LiquidityProviderSide_Impl, inspect.currentframe())
     
-class LiquidityProvider(Strategy):
-    def __init__(self, 
-                 trader,
-                 orderFactoryT=order.Limit.T,
-                 defaultValue=100,
-                 creationIntervalDistr=(lambda: random.expovariate(1.)),
-                 priceDistr=(lambda: random.lognormvariate(0., .1)),
-                 volumeDistr=(lambda: random.expovariate(.1))):
+class _LiquidityProvider_Impl(Strategy):
+    def __init__(self, trader, params):
         Strategy.__init__(self, trader)
-        self._sell = LiquidityProviderSide(trader, Side.Sell, orderFactoryT, defaultValue, creationIntervalDistr, priceDistr, volumeDistr)
-        self._buy = LiquidityProviderSide(trader, Side.Buy, orderFactoryT, defaultValue, creationIntervalDistr, priceDistr, volumeDistr)
+        sp = merge(params, side=Side.Sell)
+        bp = merge(params, side=Side.Buy) 
+        self._sell = _LiquidityProviderSide_Impl(trader, sp)
+        self._buy = _LiquidityProviderSide_Impl(trader, bp)
     
     def suspend(self, s):
         Strategy.suspend(self, s)
@@ -130,6 +54,20 @@ class LiquidityProvider(Strategy):
         assert self._sell.suspended == self._suspended
         assert self._buy.suspended == self._suspended
         return Strategy.suspended(self)
+    
+    def dispose(self):
+        self._sell.dispose()
+        self._buy.dispose()
+
+def LiquidityProvider(\
+                 orderFactoryT=order.Limit.T,
+                 defaultValue=100,
+                 creationIntervalDistr=(lambda: random.expovariate(1.)),
+                 priceDistr=(lambda: random.lognormvariate(0., .1)),
+                 volumeDistr=(lambda: random.expovariate(.1))):
+    
+    return Wrapper(_LiquidityProvider_Impl, inspect.currentframe())
+
 
 class Canceller(object):
     """ Randomly cancels created orders in specific moments of time    
