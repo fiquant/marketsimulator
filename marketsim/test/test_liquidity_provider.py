@@ -26,6 +26,11 @@ with scheduler.create() as world:
     st.defaultValue = 100
     st.defaultValue = 128
     
+    st.suspend(True)
+    assert st.suspended == True
+    st.suspend(False)
+    assert st.suspended == False
+    
     assert book.asks.empty
     
     world.workTill(1.5)

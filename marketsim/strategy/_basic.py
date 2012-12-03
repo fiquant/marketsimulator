@@ -29,7 +29,7 @@ class TwoSides(Strategy):
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
         
-    def dtor(self):
+    def dispose(self):
         self._eventGen.unadvise(self._wakeUp)
 
     def _wakeUp(self, signal):
@@ -59,7 +59,7 @@ class OneSide(Strategy):
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
         
-    def dtor(self):
+    def dispose(self):
         self._eventGen.unadvise(self._wakeUp)
 
     def _wakeUp(self, signal):
