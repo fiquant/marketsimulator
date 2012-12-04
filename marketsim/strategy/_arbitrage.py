@@ -1,17 +1,16 @@
 from marketsim import order, Side, scheduler
 from blist import sorteddict
 
-from _basic import Strategy
+from _basic import Strategy, Wrapper, currentframe
 
-class Arbitrage(Strategy):
+class _Arbitrage_Impl(Strategy):
 
-    def __init__(self, trader, sched=None):
+    def __init__(self, trader, params):
         """ Initializes trader by order books for the asset from different markets
         """
         Strategy.__init__(self, trader)
         
-        if sched is None: 
-            sched = scheduler.current() 
+        sched = scheduler.current() if params.sched is None else params.sched 
         
         books = trader.orderBooks
         
@@ -102,3 +101,6 @@ class Arbitrage(Strategy):
                     
         regSide(Side.Buy)
         regSide(Side.Sell)
+
+def Arbitrage(sched=None):
+    return Wrapper(_Arbitrage_Impl, currentframe())

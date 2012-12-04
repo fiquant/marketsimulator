@@ -4,9 +4,9 @@ with scheduler.create() as world:
     
     book = orderbook.Local()
     
-    trader = strategy.TrendFollower(trader.SASM(book), 
-                                    creationIntervalDistr=lambda: 1, 
-                                    volumeDistr=lambda: 1).trader
+    trader = trader.SASM(book, 
+                         strategy.TrendFollower(creationIntervalDistr=lambda: 1, 
+                                                volumeDistr=lambda: 1))
     
     for x in range(90, 100):
         book.process(order.Limit.Buy(x, 1))

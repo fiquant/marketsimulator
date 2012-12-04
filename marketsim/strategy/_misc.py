@@ -1,16 +1,11 @@
 import random
 from marketsim import scheduler, order
 
-from _basic import TwoSides
+from _basic import TwoSides, Wrapper, currentframe
 
-class Noise(TwoSides):
+class _Noise_Impl(TwoSides):
     
-    def __init__( self,
-                  trader,
-                  orderFactoryT=order.Market.T,
-                  sideDistr=lambda: random.randint(0,1),
-                  volumeDistr=lambda: random.expovariate(.1),
-                  creationIntervalDistr=lambda: random.expovariate(1.)):
+    def __init__( self, trader, params):
         """ Noise(trader,\
               orderFactoryT=order.Market.T,\
               sideDistr=lambda: random.randint(0,1),\
@@ -39,14 +34,18 @@ class Noise(TwoSides):
                 defines volumes of orders to create
                 (default: exponential distribution with \lambda=1)
         """
-        self._orderFactoryT = orderFactoryT
-        self._creationIntervalDistr = creationIntervalDistr
-        self._eventGen = scheduler.Timer(self._creationIntervalDistr)
-        self._sideDistr = sideDistr
-        self._volumeDistr = volumeDistr
+        self._params = params
+        self._orderFactoryT = params.orderFactoryT
+        self._eventGen = scheduler.Timer(params.creationIntervalDistr)
     
         TwoSides.__init__(self, trader)
         
     def _orderFunc(self):
-        return (self._sideDistr(), (int(self._volumeDistr()),)) 
+        return (self._params.sideDistr(), (int(self._params.volumeDistr()),)) 
 
+def Noise(orderFactoryT=order.Market.T,
+          sideDistr=lambda: random.randint(0,1),
+          volumeDistr=lambda: random.expovariate(.1),
+          creationIntervalDistr=lambda: random.expovariate(1.)):
+    
+    return Wrapper(_Noise_Impl, currentframe())

@@ -51,7 +51,8 @@ with scheduler.create() as world:
     assert book.asks.best.price == 64
     assert book.asks.best.volume == 5
     
-    canceller = strategy.Canceller(source=trader,cancellationIntervalDistr=(lambda: .2), choiceFunc=(lambda N: 0))
+    trader.addStrategy(strategy.Canceller(cancellationIntervalDistr=(lambda: .2), 
+                                          choiceFunc=(lambda N: 0)))
     
     world.workTill(3.05)
     

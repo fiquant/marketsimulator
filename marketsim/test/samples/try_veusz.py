@@ -30,10 +30,13 @@ def createSimulation(world, i):
         def volume(v):
             return lambda: v*random.expovariate(.1)
         
-        lp_A = trader.SASM(book_A, "A"+i, 
-                           strategy=strategy.LiquidityProvider(volumeDistr=volume(10)))
-        lp_a = trader.SASM(book_A, "a"+i, 
-                           strategy=strategy.LiquidityProvider(volumeDistr=volume(1)))
+        lp_A = trader.SASM(book_A,  
+                           strategy.LiquidityProvider(volumeDistr=volume(10)), 
+                           "A"+i)
+        
+        lp_a = trader.SASM(book_A,  
+                           strategy.LiquidityProvider(volumeDistr=volume(1)),
+                           "a"+i)
         
         spread_graph += [observable.BidPrice(book_A), 
                          observable.AskPrice(book_A)]

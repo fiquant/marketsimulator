@@ -9,8 +9,10 @@ with scheduler.create() as world:
     book.asks.on_best_changed += ask_history.append
     book.bids.on_best_changed += bid_history.append
     
-    trader = trader.SASM(book)
-    strategy.FundamentalValue(trader, volumeDistr=(lambda:10), creationIntervalDistr=(lambda:1))
+    trader = trader.SASM(book, 
+                         strategy.FundamentalValue(volumeDistr=(lambda:10), 
+                                                   creationIntervalDistr=(lambda:1)))
+    
     trader_efficiency = observable.Efficiency(trader)
     
     fv_history = test.TraderHistoryChecker()

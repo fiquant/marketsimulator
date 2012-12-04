@@ -59,18 +59,30 @@ class SingleAsset(Base):
     negative otherwise
     """
 
-    def __init__(self):
+    def __init__(self, strategy=None, label=None, strategies=[]):
         Base.__init__(self)
         self._amount = 0
         self._strategies = []
+        self._label = label if label else getLabel(self)
+        self.label = self._label
         
+        if strategy is not None:
+            strategies = strategies + [strategy]
+
+        for strategy in strategies:
+            self.addStrategy(strategy)
+        
+    def addStrategy(self, strategy):
+        self._strategies.append(strategy)
+        strategy.runAt(self)
+
     def _onOrderMatched(self, order, other, (price, volume)):
         """ Called when a trader's 'order' is traded against 'other' order 
         at given 'price' and 'volume'
         Trader's amount and P&L is updated and listeners are notified about the trade   
         """
         self._amount += volume if order.side == Side.Buy else -volume
-        Base._onOrderMatched(self, order, other, (price,volume))
+        Base._onOrderMatched(self, order, other, (price, volume))
         
     @property
     def amount(self):
@@ -82,19 +94,10 @@ class SingleAsset(Base):
     
 class SingleAssetSingleMarket(SingleAsset):
     
-    def __init__(self, orderBook, label=None, strategy=None, strategies=[]):
-        SingleAsset.__init__(self)
+    def __init__(self, orderBook, strategy=None, label=None, strategies=[]):
         self._orderBook = orderBook
-        self._label = label if label else getLabel(self)
-        self.label = self._label
-        
-        if strategy is not None:
-            strategies = strategies + [strategy]
-
-        for strategy in strategies:
-            self._strategies.append(strategy)
-            strategy.runAt(self)
-        
+        SingleAsset.__init__(self, strategy, label, strategies)
+            
     @property
     def book(self): # obsolete
         return self._orderBook
@@ -102,20 +105,15 @@ class SingleAssetSingleMarket(SingleAsset):
     @property
     def orderBook(self):
         return self._orderBook
-    
-#    @property
-#    def label(self):
-#        return self._label
-    
+        
     def send(self, order):
         SingleAsset.send(self, self._orderBook, order)
         
 class SingleAssetMultipleMarket(SingleAsset):
     
-    def __init__(self, orderBooks, label=None):
-        SingleAsset.__init__(self)
+    def __init__(self, orderBooks, strategy=None, label=None, strategies=[]):
         self._orderBooks = orderBooks
-        self._label = label if label else getLabel(self)
+        SingleAsset.__init__(self, strategy, label, strategies)
         
     @property
     def orderBooks(self):

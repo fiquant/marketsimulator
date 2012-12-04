@@ -79,6 +79,8 @@ class merge(object):
         self.__dict__ = d.__dict__.copy()
         for k in kwargs:
             self.__dict__[k] = kwargs[k]
+            
+currentframe = inspect.currentframe
 
 class Wrapper(object):
     
