@@ -1,6 +1,5 @@
 import random
-import inspect
-from _basic import OneSide, Strategy, Wrapper, merge
+from _basic import OneSide, Strategy, Wrapper, merge, currentframe
 from marketsim import order, Side, scheduler
 
 
@@ -34,7 +33,7 @@ def LiquidityProviderSide(\
                  priceDistr=(lambda: random.lognormvariate(0., .1)),
                  volumeDistr=(lambda: random.expovariate(.1))):
     
-    return Wrapper(_LiquidityProviderSide_Impl, inspect.currentframe())
+    return Wrapper(_LiquidityProviderSide_Impl, currentframe())
     
 class _LiquidityProvider_Impl(Strategy):
     def __init__(self, trader, params):
@@ -66,23 +65,14 @@ def LiquidityProvider(\
                  priceDistr=(lambda: random.lognormvariate(0., .1)),
                  volumeDistr=(lambda: random.expovariate(.1))):
     
-    return Wrapper(_LiquidityProvider_Impl, inspect.currentframe())
+    return Wrapper(_LiquidityProvider_Impl, currentframe())
 
 
-class Canceller(object):
+class _Canceller_Impl(object):
     """ Randomly cancels created orders in specific moments of time    
     """
 
-    def __init__(   self,
-                    source,
-                    cancellationIntervalDistr=(lambda: random.expovariate(1.)),
-                    choiceFunc=lambda N: random.randint(0,N-1)):
-        """ Initializes canceller with 
-        cancellationIntervalDistr - intervals of times between order cancellations
-                                    (default: exponential distribution with \lambda=1)
-        choiceFunc - function N -> idx that chooses which order should be cancelled
-        source - optional trader to subscribe to  
-        """
+    def __init__(self, source, params):
 
         # orders created by trader
         self._elements = []
@@ -97,7 +87,7 @@ class Canceller(object):
             while self._elements <> []:
                 # choose an order
                 N = len(self._elements)
-                idx = choiceFunc(N)
+                idx = params.choiceFunc(N)
                 e = self._elements[idx]
                 # if the order is invalid
                 if e.empty or e.cancelled:
@@ -111,10 +101,19 @@ class Canceller(object):
                     book.process(order.Cancel(e))
                     return
 
-        scheduler.Timer(cancellationIntervalDistr).advise(wakeUp)
+        scheduler.Timer(params.cancellationIntervalDistr).advise(wakeUp)
 
     def process(self, order):
         """ Puts 'order' to future cancellation list
         """
         self._elements.append(order)
 
+
+def Canceller(cancellationIntervalDistr=(lambda: random.expovariate(1.)),
+              choiceFunc=lambda N: random.randint(0,N-1)):
+    """ Initializes canceller with 
+    cancellationIntervalDistr - intervals of times between order cancellations
+                                (default: exponential distribution with \lambda=1)
+    choiceFunc - function N -> idx that chooses which order should be cancelled
+    """
+    return Wrapper(_Canceller_Impl, currentframe())

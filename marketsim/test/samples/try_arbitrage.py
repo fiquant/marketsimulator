@@ -16,8 +16,7 @@ with scheduler.create() as world:
     spread_graph = veusz.Graph("Bid-Ask Spread")
     cross_graph = veusz.Graph("Cross Bid-Ask Spread")
     
-    arbitrager = strategy.Arbitrage(\
-       trader.SingleAssetMultipleMarket([remote_A, remote_B])).trader
+    arbitrager = trader.SAMM([remote_A, remote_B], strategy.Arbitrage())
      
     assetPrice = observable.Price(book_A)
     
@@ -42,8 +41,8 @@ with scheduler.create() as world:
                     avg(assetPrice, 0.065),
                     avg(assetPrice, 0.015)]
     
-    t_A = trader.SASM(remote_A, strategy=strategy.LiquidityProvider())
-    t_B = trader.SASM(remote_B, strategy=strategy.LiquidityProvider())
+    t_A = trader.SASM(remote_A, strategy.LiquidityProvider())
+    t_B = trader.SASM(remote_B, strategy.LiquidityProvider())
     
     world.workTill(500)
     

@@ -26,11 +26,11 @@ with scheduler.create() as world:
                     avg(assetPrice_B, alpha=0.65)]
     
     liqVol = lambda: random.expovariate(.1)*5
-    t_A = trader.SASM(book_A, strategy=strategy.LiquidityProvider(defaultValue=50., volumeDistr=liqVol))
-    t_B = trader.SASM(book_B, strategy=strategy.LiquidityProvider(defaultValue=150., volumeDistr=liqVol))
+    t_A = trader.SASM(book_A, strategy.LiquidityProvider(defaultValue=50., volumeDistr=liqVol))
+    t_B = trader.SASM(book_B, strategy.LiquidityProvider(defaultValue=150., volumeDistr=liqVol))
     
-    dep_AB = strategy.Dependency(trader.SASM(book_A, "AB"), book_B, factor=2).trader
-    dep_BA = strategy.Dependency(trader.SASM(book_B, "BA"), book_A, factor=.5).trader
+    dep_AB = trader.SASM(book_A, strategy.Dependency(book_B, factor=2), "AB")
+    dep_BA = trader.SASM(book_B, strategy.Dependency(book_A, factor=.5), "BA")
     
     eff_graph = veusz.Graph("efficiency")
     eff_graph += [observable.Efficiency(dep_AB),

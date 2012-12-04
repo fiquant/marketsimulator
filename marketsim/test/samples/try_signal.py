@@ -16,7 +16,7 @@ with scheduler.create() as world:
     
     lp_A = trader.SASM(book_A, strategy = strategy.LiquidityProvider(volumeDistr=lambda:1))
     signal = signal.RandomWalk(initialValue=20, deltaDistr=lambda: -.1, label="signal")
-    trader = strategy.Signal(trader.SASM(book_A, "signal"), signal).trader
+    trader = trader.SASM(book_A, strategy.Signal(signal), "signal")
     
     price_graph += [assetPrice,
                     avg(assetPrice),
