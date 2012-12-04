@@ -1,9 +1,6 @@
-import random
-from marketsim import order, scheduler, observable, cached_property, mathutils
+from marketsim import scheduler, observable, cached_property
 
 from _trend import SignalBase
-from _basic import Wrapper, currentframe
-from codetools.util.cbook import wrap
 
 class FundamentalValueBase(SignalBase):
 
@@ -28,16 +25,6 @@ class FundamentalValueBase(SignalBase):
 class _FundamentalValue_Impl(FundamentalValueBase):
 
     def __init__(self, trader, params):
-        """ Creates a fundamental value trader
-        trader - single asset single market trader
-        orderFactoryT - order factory function: side -> *orderParams -> Order
-        fundamentalValue - defines fundamental value 
-                                (default: constant 100)
-        volumeDistr - function to determine volume of orders to create 
-                                (default: exponential distribution with \lambda=1) 
-        creationIntervalDistr - defines intervals of time between order creation 
-                                (default: exponential distribution with \lambda=1)
-        """
         self._params = params
         self._orderFactoryT = params.orderFactory
         self._fundamentalValue = params.fundamentalValue  
@@ -51,13 +38,6 @@ class _FundamentalValue_Impl(FundamentalValueBase):
     def _eventGen(self):
         return scheduler.Timer(self._params.creationIntervalDistr)
 
-def FundamentalValue(orderFactory=order.Market.T,
-                     fundamentalValue=lambda: 100,
-                     volumeDistr= lambda: random.expovariate(1.),
-                     creationIntervalDistr=lambda: random.expovariate(1.)):
-    
-    return Wrapper(_FundamentalValue_Impl, currentframe())
-
 class _MeanReversion_Impl(FundamentalValueBase):
 
     def __init__(self,trader,params):
@@ -70,13 +50,6 @@ class _MeanReversion_Impl(FundamentalValueBase):
         
         FundamentalValueBase.__init__(self, trader)
         
-def MeanReversion(orderFactory=order.Market.T,
-                  average = mathutils.ewma(alpha = 0.15),
-                  volumeDistr= lambda: random.expovariate(1.),
-                  creationIntervalDistr=lambda: random.expovariate(1.)):
-    
-    return Wrapper(_MeanReversion_Impl, currentframe())
-
 class _Dependency_Impl(FundamentalValueBase):
     
     def __init__(self,trader,params):
@@ -101,20 +74,3 @@ class _Dependency_Impl(FundamentalValueBase):
     def _eventGen(self):
         return self._priceToDependOn        
 
-def Dependency(bookToDependOn,
-               orderFactory=order.Market.T,
-               factor=1.,
-               volumeDistr=lambda: random.expovariate(.1)):
-    """ Creates a strategy that believes that fair asset price 
-    can be obtained as current price of another asset multiplied by some factor
-    Once this relation doesn't hold it tries to buy or sell orders with better price     
-
-    trader - single asset single market trader
-    bookToDependOn - asset that is considered as reference one
-    orderFactory - order factory function: side -> *orderParams -> Order
-    factor - multiplier to obtain fair the asset price by reference price
-    volumeDistr - function to determine volume of orders to create 
-                            (default: exponential distribution with \lambda=1) 
-    """
-    
-    return Wrapper(_Dependency_Impl, currentframe())
