@@ -1,5 +1,4 @@
-import random
-from _basic import OneSide, Strategy, Wrapper, merge, currentframe
+from _basic import OneSide, Strategy, merge
 from marketsim import order, Side, scheduler
 
 
@@ -25,16 +24,6 @@ class _LiquidityProviderSide_Impl(OneSide):
         OneSide.dispose(self)
         self._eventGen.cancel()
         
-def LiquidityProviderSide(\
-                 side=Side.Sell,
-                 orderFactoryT=order.Limit.T,
-                 defaultValue=100,
-                 creationIntervalDistr=(lambda: random.expovariate(1.)),
-                 priceDistr=(lambda: random.lognormvariate(0., .1)),
-                 volumeDistr=(lambda: random.expovariate(.1))):
-    
-    return Wrapper(_LiquidityProviderSide_Impl, currentframe())
-    
 class _LiquidityProvider_Impl(Strategy):
     def __init__(self, trader, params):
         Strategy.__init__(self, trader)
@@ -57,16 +46,6 @@ class _LiquidityProvider_Impl(Strategy):
     def dispose(self):
         self._sell.dispose()
         self._buy.dispose()
-
-def LiquidityProvider(\
-                 orderFactoryT=order.Limit.T,
-                 defaultValue=100,
-                 creationIntervalDistr=(lambda: random.expovariate(1.)),
-                 priceDistr=(lambda: random.lognormvariate(0., .1)),
-                 volumeDistr=(lambda: random.expovariate(.1))):
-    
-    return Wrapper(_LiquidityProvider_Impl, currentframe())
-
 
 class _Canceller_Impl(object):
     """ Randomly cancels created orders in specific moments of time    
@@ -107,13 +86,3 @@ class _Canceller_Impl(object):
         """ Puts 'order' to future cancellation list
         """
         self._elements.append(order)
-
-
-def Canceller(cancellationIntervalDistr=(lambda: random.expovariate(1.)),
-              choiceFunc=lambda N: random.randint(0,N-1)):
-    """ Initializes canceller with 
-    cancellationIntervalDistr - intervals of times between order cancellations
-                                (default: exponential distribution with \lambda=1)
-    choiceFunc - function N -> idx that chooses which order should be cancelled
-    """
-    return Wrapper(_Canceller_Impl, currentframe())
