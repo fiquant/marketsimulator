@@ -19,20 +19,14 @@ with scheduler.create() as world:
     
     t_A = trader.SASM(book_A, strategy.LiquidityProvider(volumeDistr=lambda: 70))
     
-    trader_200 = trader.SASM(book_A, 
-                             strategy.FundamentalValue(fundamentalValue=lambda: 200., 
-                                                            volumeDistr=lambda: 12),
-                             "t200")
+    fv_200_12 = strategy.FundamentalValue(fundamentalValue=lambda: 200., volumeDistr=lambda: 12)
     
-    trader_200_1=trader.SASM(book_A, 
-                             strategy.FundamentalValue(fundamentalValue=lambda: 200., 
-                                                            volumeDistr=lambda: 1), 
-                             "t200_1")
+    trader_200 = trader.SASM(book_A, fv_200_12, "t200")
     
-    trader_200_2=trader.SASM(book_A, 
-                             strategy.FundamentalValue(fundamentalValue=lambda: 200., 
-                                                            volumeDistr=lambda: 1), 
-                             "t200_2")
+    fv_200 = fv_200_12.cloneWith(volumeDistr = lambda: 1)
+     
+    trader_200_1=trader.SASM(book_A, fv_200, "t200_1")    
+    trader_200_2=trader.SASM(book_A, fv_200.clone(), "t200_2")
     
     trader_150 = trader.SASM(book_A, 
                              strategy.FundamentalValue(fundamentalValue=lambda: 150., 
@@ -55,18 +49,27 @@ with scheduler.create() as world:
                                                 volumeDistr=lambda:1),
                            label="avg-")
     
-#    def fv_virtual(fv):
-#        return strategy.suspendIfNotEffective(\
-#                    strategy.withEstimator(
-#                            strategy.FundamentalValue, 
-#                            trader = trader.SASM(book_A, "v"+str(fv)), 
-#                            volumeDistr = lambda: 1,
-#                            fundamentalValue=lambda: fv)).trader
-#    
-#    virtual_160 = fv_virtual(160.)
-#    virtual_170 = fv_virtual(170.)
-#    virtual_180 = fv_virtual(180.)
-#    virtual_190 = fv_virtual(190.)
+    v_fv200 = trader.SASM(book_A, 
+                          strategy.tradeIfProfitable(fv_200.clone()), 
+                          "v_fv200")
+    def s_fv(fv):
+        return strategy.tradeIfProfitable(fv_200.cloneWith(fundamentalValue=lambda: fv))
+
+    def fv_virtual(fv):
+        return trader.SASM(book_A, s_fv(fv), "v"+str(fv))
+        
+    
+    virtual_160 = fv_virtual(160.)
+    virtual_170 = fv_virtual(170.)
+    virtual_180 = fv_virtual(180.)
+    virtual_190 = fv_virtual(190.)
+    
+    best = trader.SASM(book_A, 
+                       strategy.chooseTheBestEx([s_fv(160.), 
+                                                 s_fv(170.), 
+                                                 s_fv(180.), 
+                                                 s_fv(190.),]), 
+                       "best")
 #    
 #    def fv(x, trader):
 #        return strategy.withEstimator(
@@ -115,10 +118,10 @@ with scheduler.create() as world:
     
     
     addToGraph([trader_150, trader_200, trader_200_1, trader_200_2, 
-#                best_trader, 
+                best, 
 #                tf, tf_0_15, tf_0_015, 
-                meanreversion, avg_plus, avg_minus,
-#                virtual_160, virtual_170, virtual_180, virtual_190
+                meanreversion, avg_plus, avg_minus, v_fv200,
+                virtual_160, virtual_170, virtual_180, virtual_190
                 ])
     
     world.workTill(1500)
