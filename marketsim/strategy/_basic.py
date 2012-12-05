@@ -84,18 +84,26 @@ currentframe = inspect.currentframe
 
 class Wrapper(object):
     
-    def __init__(self, ctor, frame):
+    def __init__(self, ctor, properties):
                 
-        _, _, _, values = inspect.getargvalues(frame)
-
-        values = dict(values)
-        for k in values:
+        for k in properties:
             if k != 'self' and k != 'frame':
-                self.__dict__[k] = values[k]
+                self.__dict__[k] = properties[k]
                 
         self._impl = None
         self._ctor = ctor
         
+    @staticmethod
+    def fromFrame(ctor, frame):
+        _, _, _, values = inspect.getargvalues(frame)
+        return Wrapper(ctor, dict(values))
+    
+    def clone(self):
+        return Wrapper(self._ctor, self.__dict__)
+    
+    def cloneWith(self, **kwargs):
+        return Wrapper(self._ctor, merge(self, **kwargs).__dict__)    
+    
     def _respawn(self):
         if self._impl is not None:
             self._impl.dispose()
