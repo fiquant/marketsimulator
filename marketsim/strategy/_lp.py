@@ -1,4 +1,5 @@
-from _basic import OneSide, Strategy, merge
+from _basic import OneSide, Strategy
+from _wrap import merge
 from marketsim import order, Side, scheduler
 
 

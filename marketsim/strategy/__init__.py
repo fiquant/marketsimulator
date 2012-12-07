@@ -1,12 +1,9 @@
-from _adaptive import (suspendIfNotEffective, withEstimator, chooseTheBest, 
-                       tradeIfProfitable, chooseTheBestEx)
-
 import random
-from marketsim import order, mathutils, Side
+from marketsim import order, mathutils, Side, observable
 
-from _basic import Wrapper, currentframe
+from _wrap import Params, currentframe
 
-import _misc, _arbitrage, _fv, _trend, _lp
+import _misc, _arbitrage, _fv, _trend, _lp, _adaptive
 
 def LiquidityProviderSide(\
                  side=Side.Sell,
@@ -16,7 +13,7 @@ def LiquidityProviderSide(\
                  priceDistr=(lambda: random.lognormvariate(0., .1)),
                  volumeDistr=(lambda: random.expovariate(.1))):
     
-    return Wrapper.fromFrame(_lp._LiquidityProviderSide_Impl, currentframe())
+    return Params.fromFrame(_lp._LiquidityProviderSide_Impl, currentframe())
     
 def LiquidityProvider(\
                  orderFactoryT=order.Limit.T,
@@ -25,7 +22,7 @@ def LiquidityProvider(\
                  priceDistr=(lambda: random.lognormvariate(0., .1)),
                  volumeDistr=(lambda: random.expovariate(.1))):
     
-    return Wrapper.fromFrame(_lp._LiquidityProvider_Impl, currentframe())
+    return Params.fromFrame(_lp._LiquidityProvider_Impl, currentframe())
 
 def Canceller(cancellationIntervalDistr=(lambda: random.expovariate(1.)),
               choiceFunc=lambda N: random.randint(0,N-1)):
@@ -34,7 +31,7 @@ def Canceller(cancellationIntervalDistr=(lambda: random.expovariate(1.)),
                                 (default: exponential distribution with \lambda=1)
     choiceFunc - function N -> idx that chooses which order should be cancelled
     """
-    return Wrapper.fromFrame(_lp._Canceller_Impl, currentframe())
+    return Params.fromFrame(_lp._Canceller_Impl, currentframe())
 
 def Noise(orderFactoryT=order.Market.T,
           sideDistr=lambda: random.randint(0,1),
@@ -69,11 +66,11 @@ def Noise(orderFactoryT=order.Market.T,
             (default: exponential distribution with \lambda=1)
     """
     
-    return Wrapper.fromFrame(_misc._Noise_Impl, currentframe())
+    return Params.fromFrame(_misc._Noise_Impl, currentframe())
 
 
 def Arbitrage(sched=None):
-    return Wrapper.fromFrame(_arbitrage._Arbitrage_Impl, currentframe())
+    return Params.fromFrame(_arbitrage._Arbitrage_Impl, currentframe())
 
 def FundamentalValue(orderFactory=order.Market.T,
                      fundamentalValue=lambda: 100,
@@ -89,14 +86,14 @@ def FundamentalValue(orderFactory=order.Market.T,
     creationIntervalDistr - defines intervals of time between order creation 
                             (default: exponential distribution with \lambda=1)
     """
-    return Wrapper.fromFrame(_fv._FundamentalValue_Impl, currentframe())
+    return Params.fromFrame(_fv._FundamentalValue_Impl, currentframe())
 
 def MeanReversion(orderFactory=order.Market.T,
                   average = mathutils.ewma(alpha = 0.15),
                   volumeDistr= lambda: random.expovariate(1.),
                   creationIntervalDistr=lambda: random.expovariate(1.)):
     
-    return Wrapper.fromFrame(_fv._MeanReversion_Impl, currentframe())
+    return Params.fromFrame(_fv._MeanReversion_Impl, currentframe())
 
 
 def Dependency(bookToDependOn,
@@ -115,7 +112,7 @@ def Dependency(bookToDependOn,
                             (default: exponential distribution with \lambda=1) 
     """
     
-    return Wrapper.fromFrame(_fv._Dependency_Impl, currentframe())
+    return Params.fromFrame(_fv._Dependency_Impl, currentframe())
 
 def Signal(signal,
            threshold=0.7,
@@ -129,7 +126,7 @@ def Signal(signal,
     volumeDistr - function to determine volume of orders to create 
                             (default: exponential distribution with \lambda=1) 
     """
-    return Wrapper.fromFrame(_trend._Signal_Impl, currentframe())
+    return Params.fromFrame(_trend._Signal_Impl, currentframe())
 
 def TwoAverages(average1 = mathutils.ewma(alpha = 0.15),
                 average2 = mathutils.ewma(alpha = 0.015),
@@ -138,7 +135,7 @@ def TwoAverages(average1 = mathutils.ewma(alpha = 0.15),
                 creationIntervalDistr=(lambda: random.expovariate(1.)),
                 volumeDistr=(lambda: random.expovariate(1.))):
 
-    return Wrapper.fromFrame(_trend._TwoAverages_Impl, currentframe())
+    return Params.fromFrame(_trend._TwoAverages_Impl, currentframe())
 
 def TrendFollower(average = mathutils.ewma(alpha = 0.15),
                   threshold = 0., 
@@ -156,4 +153,22 @@ def TrendFollower(average = mathutils.ewma(alpha = 0.15),
                             (default: exponential distribution with \lambda=1) 
     """
      
-    return Wrapper.fromFrame(_trend._TrendFollower_Impl, currentframe())
+    return Params.fromFrame(_trend._TrendFollower_Impl, currentframe())
+
+def efficiencyTrend(trader):
+    return observable.trend(observable.Efficiency(trader))
+
+def virtualWithUnitVolume(strategy):
+    return strategy.With(volumeDistr=lambda: 1, orderFactory=order.VirtualMarket.T)    
+
+def tradeIfProfitable(strategy, 
+                      efficiency = efficiencyTrend,
+                      estimator = virtualWithUnitVolume):
+    
+    return Params.fromFrame(_adaptive._TradeIfProfitable_Impl, currentframe())
+
+def chooseTheBestEx(strategies,
+                    efficiency = efficiencyTrend,
+                    estimator = virtualWithUnitVolume):
+
+    return Params.fromFrame(_adaptive._ChooseTheBest_Impl, currentframe())
