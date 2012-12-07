@@ -22,6 +22,8 @@ with scheduler.create() as world:
     
     trader = trader.SASM(book, strategy = st)
     
+    st = trader._strategies[0]
+    
     st.defaultValue = 100
     st.defaultValue = 128
     

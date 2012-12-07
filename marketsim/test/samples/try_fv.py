@@ -23,10 +23,10 @@ with scheduler.create() as world:
     
     trader_200 = trader.SASM(book_A, fv_200_12, "t200")
     
-    fv_200 = fv_200_12.cloneWith(volumeDistr = lambda: 1)
+    fv_200 = fv_200_12.With(volumeDistr = lambda: 1)
      
     trader_200_1=trader.SASM(book_A, fv_200, "t200_1")    
-    trader_200_2=trader.SASM(book_A, fv_200.clone(), "t200_2")
+    trader_200_2=trader.SASM(book_A, fv_200, "t200_2")
     
     trader_150 = trader.SASM(book_A, 
                              strategy.FundamentalValue(fundamentalValue=lambda: 150., 
@@ -50,10 +50,10 @@ with scheduler.create() as world:
                            label="avg-")
     
     v_fv200 = trader.SASM(book_A, 
-                          strategy.tradeIfProfitable(fv_200.clone()), 
+                          strategy.tradeIfProfitable(fv_200), 
                           "v_fv200")
     def s_fv(fv):
-        return strategy.tradeIfProfitable(fv_200.cloneWith(fundamentalValue=lambda: fv))
+        return strategy.tradeIfProfitable(fv_200.With(fundamentalValue=lambda: fv))
 
     def fv_virtual(fv):
         return trader.SASM(book_A, s_fv(fv), "v"+str(fv))

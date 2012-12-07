@@ -73,8 +73,7 @@ class SingleAsset(Base):
             self.addStrategy(strategy)
         
     def addStrategy(self, strategy):
-        self._strategies.append(strategy)
-        strategy.runAt(self)
+        self._strategies.append(strategy.runAt(self))        
 
     def _onOrderMatched(self, order, other, (price, volume)):
         """ Called when a trader's 'order' is traded against 'other' order 
