@@ -1,5 +1,5 @@
 import sys
-sys.path.append(r'../../..')
+sys.path.append(r'..')
 
 import random
 from marketsim import strategy, orderbook, trader, scheduler, observable, veusz
