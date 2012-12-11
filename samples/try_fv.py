@@ -3,6 +3,8 @@ sys.path.append(r'..')
 
 from marketsim import strategy, orderbook, trader, scheduler, observable, veusz, mathutils
 
+const = mathutils.constant
+
 with scheduler.create() as world:
     
     book_A = orderbook.Local(tickSize=0.01, label="A")
@@ -17,43 +19,43 @@ with scheduler.create() as world:
     
     price_graph.addTimeSerie(avg(assetPrice))
     
-    t_A = trader.SASM(book_A, strategy.LiquidityProvider(volumeDistr=lambda: 70))
+    t_A = trader.SASM(book_A, strategy.LiquidityProvider(volumeDistr=const(70.)))
     
-    fv_200_12 = strategy.FundamentalValue(fundamentalValue=lambda: 200., volumeDistr=lambda: 12)
+    fv_200_12 = strategy.FundamentalValue(fundamentalValue=const(200.), volumeDistr=const(12))
     
     trader_200 = trader.SASM(book_A, fv_200_12, "t200")
     
-    fv_200 = fv_200_12.With(volumeDistr = lambda: 1)
+    fv_200 = fv_200_12.With(volumeDistr = const(1.))
      
     trader_200_1=trader.SASM(book_A, fv_200, "t200_1")    
     trader_200_2=trader.SASM(book_A, fv_200, "t200_2")
     
     trader_150 = trader.SASM(book_A, 
-                             strategy.FundamentalValue(fundamentalValue=lambda: 150., 
-                                                            volumeDistr=lambda: 1), 
+                             strategy.FundamentalValue(fundamentalValue=const(150.), 
+                                                            volumeDistr=const(1.)), 
                              "t150")
     
     meanreversion = trader.SASM(book_A, 
-                                strategy.MeanReversion(volumeDistr=lambda:1), 
+                                strategy.MeanReversion(volumeDistr=const(1.)), 
                                 "mr_0_15")
     
     avg_plus = trader.SASM(book_A, 
                            strategy.TwoAverages(average1=mathutils.ewma(0.15),
                                                 average2=mathutils.ewma(0.015),
-                                                volumeDistr=lambda:1),
+                                                volumeDistr=const(1.)),
                            label="avg+")
 
     avg_minus= trader.SASM(book_A, 
                            strategy.TwoAverages(average1=mathutils.ewma(0.015),
                                                 average2=mathutils.ewma(0.15),
-                                                volumeDistr=lambda:1),
+                                                volumeDistr=const(1.)),
                            label="avg-")
     
     v_fv200 = trader.SASM(book_A, 
                           strategy.tradeIfProfitable(fv_200), 
                           "v_fv200")
     def s_fv(fv):
-        return strategy.tradeIfProfitable(fv_200.With(fundamentalValue=lambda: fv))
+        return strategy.tradeIfProfitable(fv_200.With(fundamentalValue=const(fv)))
 
     def fv_virtual(fv):
         return trader.SASM(book_A, s_fv(fv), "v"+str(fv))
