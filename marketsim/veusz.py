@@ -1,7 +1,7 @@
 from marketsim import scheduler 
 from colorsys import hsv_to_rgb
-from random import uniform
 from subprocess import Popen
+import random
 import os
 import errno
 import __main__
@@ -27,9 +27,9 @@ def myDir():
 def randColor():
     """ Returns a color randomly chosen from HSV space
     """
-    h = uniform(0., 1.) 
-    s = uniform(0.2, .8)
-    v = uniform(0.3, .8)
+    h = random.uniform(0., 1.) 
+    s = random.uniform(0.2, .8)
+    v = random.uniform(0.3, .8)
     
     def toHex(x):
         return hex(int(x*255))[2:]
