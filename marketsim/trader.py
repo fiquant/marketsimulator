@@ -45,6 +45,7 @@ class Base(object):
         Returns the order itself 
         """
         order.on_matched += self._onOrderMatched
+        order.on_charged += self.charge
         return order
 
     def send(self, book, order):

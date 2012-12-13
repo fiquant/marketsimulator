@@ -12,6 +12,7 @@ class VirtualMarket(object):
         self.volume = volume
         self.side = side
         self.on_matched = Event()
+        self.on_charged = Event()
         
     def copyTo(self, dst):
         pass # we might copy here the total price
