@@ -1,4 +1,5 @@
-from marketsim import strategy, order, orderbook, trader, scheduler, observable, test
+from marketsim import strategy, order, orderbook, trader, scheduler, observable
+import test
 
 with scheduler.create() as world:
     

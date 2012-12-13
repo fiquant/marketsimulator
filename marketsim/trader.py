@@ -6,15 +6,25 @@ class Base(object):
     maintaining on_order_sent and on_traded events
     """
 
-    def __init__(self):
+    def __init__(self, PnL = 0):
         # P&L is the minus sum of money spent for the trades done
         # if a trader sells P&L increases
         # if a trader buys P&L falls
-        self._PnL = 0
+        self._PnL = PnL
         # event to be fired when an order has been sent
         self.on_order_sent = Event()
         # event to be fired when a trader's is traded
         self.on_traded = Event()
+        
+    _properties = ['PnL']
+    
+    @property
+    def PnL(self):
+        return self._PnL
+    
+    @PnL.setter
+    def PnL(self, value):
+        self._PnL = value
         
     def charge(self, price):
         self._PnL -= price
@@ -29,12 +39,6 @@ class Base(object):
         
         self.on_traded.fire(self)
 
-    @property
-    def PnL(self):
-        """ Returns traders's P&L
-        """
-        return self._PnL
-    
     def _makeSubscribedTo(self, order):
         """ Makes trader subscribed to 'order' on_matched event
         before sending it to the order book
@@ -59,9 +63,9 @@ class SingleAsset(Base):
     negative otherwise
     """
 
-    def __init__(self, strategy=None, label=None, strategies=[]):
+    def __init__(self, strategy=None, label=None, strategies=[], amount = 0):
         Base.__init__(self)
-        self._amount = 0
+        self._amount = amount
         self._strategies = []
         self._label = label if label else getLabel(self)
         self.label = self._label
@@ -71,7 +75,25 @@ class SingleAsset(Base):
 
         for strategy in strategies:
             self.addStrategy(strategy)
+            
+    _properties = Base._properties + ['amount', 'strategies', 'label']
+    
+    @property
+    def amount(self):
+        """ Number of assets traded:
+        positive if trader has bought more assets than sold them
+        negative otherwise
+        """
+        return self._amount
+    
+    @amount.setter
+    def amount(self, value):
+        self._amount = value
         
+    @property # TODO: notification mechanism about strategy add
+    def strategies(self):
+        return self._strategies
+    
     def addStrategy(self, strategy):
         self._strategies.append(strategy.runAt(self))        
 
@@ -83,19 +105,13 @@ class SingleAsset(Base):
         self._amount += volume if order.side == Side.Buy else -volume
         Base._onOrderMatched(self, order, other, (price, volume))
         
-    @property
-    def amount(self):
-        """ Number of assets traded:
-        positive if trader has bought more assets than sold them
-        negative otherwise
-        """
-        return self._amount
-    
 class SingleAssetSingleMarket(SingleAsset):
     
     def __init__(self, orderBook, strategy=None, label=None, strategies=[]):
         self._orderBook = orderBook
         SingleAsset.__init__(self, strategy, label, strategies)
+        
+    _properties = SingleAsset._properties + ['orderBook']
             
     @property
     def book(self): # obsolete
