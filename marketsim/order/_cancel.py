@@ -5,23 +5,22 @@ from _limit import Limit
 class Cancel(object):
     """ Cancels another order that can be for example a limit or an iceberg order
     """
-    def __init__(self, orderToBeCancelled, trader=None):
+    def __init__(self, orderToBeCancelled):
         self._toCancel = orderToBeCancelled
         self.on_matched = Event() # just dummy event. never called
-        self._trader = trader
+        self.on_charged = Event()
         
     def charge(self, price):
-        self._trader.charge(price)
+        self.on_charge.fire(price)
         
     def processIn(self, orderBook):
         orderBook.cancelOrder(self._toCancel)
         
     def clone(self):
-        return Cancel(self._toCancel, self._trader)
+        return Cancel(self._toCancel)
     
     def copyTo(self, dest):
         assert dest._toCancel == self._toCancel
-        assert dest._trader == self._trader
 
 class LimitMarket(Base):
     """ This a combination of a limit order and a cancel order sent immediately
