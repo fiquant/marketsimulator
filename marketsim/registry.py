@@ -1,6 +1,19 @@
 import weakref
 import inspect
 
+def meta(frame):
+    _, _, _, values = inspect.getargvalues(frame)
+    module = inspect.getmodule(frame).__name__
+    function = inspect.getframeinfo(frame).function
+    constructAs = module + "." + function
+    return (dict(values), constructAs)
+
+def expose(f):
+    f._properties = None
+    f._constructAs = f.__module__ + "." + f.__name__
+    return f
+
+
 class Registry(object):
     
     def __init__(self):
@@ -45,13 +58,16 @@ class Registry(object):
         properties = {}
         
         if '_properties' in dir(obj):
-            for k in obj._properties: 
-                properties[k] = self._tojson(getattr(obj, k))
+            if obj._properties:
+                for k in obj._properties: 
+                    properties[k] = self._tojson(getattr(obj, k))
+            else:
+                properties = None
         else:
             print "object " + str(obj) + " doesn't have field _properties."
         
         
-        return [ctor, properties]
+        return [ctor, properties] if properties is not None else [ctor]
                 
     def dumpall(self):
         rv = {}
@@ -67,11 +83,12 @@ class Registry(object):
             if k_id not in rv: # check that it hasn't been yet processed
                 dumped = self.dump(k_id)    # getting dump representation
                 rv[k_id] = dumped           # storing it in the dictionary
-                for p in dumped[1].itervalues():        # iterating its fields
-                    visit_if_ref(p)
-                    if type(p) is list:                 # if a field is list (other sequences are to be processed in future)
-                        for e in p:                     # for each its element
-                            visit_if_ref(e)
+                if len(dumped) > 1:         # if it has properties
+                    for p in dumped[1].itervalues():        # iterating its fields
+                        visit_if_ref(p)
+                        if type(p) is list:                 # if a field is list (other sequences are to be processed in future)
+                            for e in p:                     # for each its element
+                                visit_if_ref(e)
                                 
         for k_id in list(self._id2obj.iterkeys()): # getting initial set of the dictionary keys
             visit(k_id)

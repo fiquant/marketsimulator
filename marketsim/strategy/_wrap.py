@@ -1,4 +1,5 @@
 import inspect
+from marketsim import registry
 
 class merge(object):
     def __init__(self, d, **kwargs):
@@ -8,23 +9,28 @@ class merge(object):
             
 currentframe = inspect.currentframe
 
+# TODO: consider using collections.namedtuple
+
 class Params(object):
 
-    def __init__(self, ctor, properties):
+    def __init__(self, ctor, properties, constructAs):
                 
         for k in properties:
             if k != 'self' and k != 'frame':
                 self.__dict__[k] = properties[k]
                 
+        self._properties = [k for k in properties if k[0] != '_']
+                
+        self._constructAs = constructAs                
         self._ctor = ctor
         
     @staticmethod
     def fromFrame(ctor, frame):
-        _, _, _, values = inspect.getargvalues(frame)
-        return Params(ctor, dict(values))
+        values, constructAs = registry.meta(frame)
+        return Params(ctor, dict(values), constructAs)
     
     def With(self, **kwargs):
-        return Params(self._ctor, merge(self, **kwargs).__dict__)    
+        return Params(self._ctor, merge(self, **kwargs).__dict__, self._constructAs)    
     
     def runAt(self, trader):
         return Running(trader, self._ctor, self.__dict__)
@@ -35,7 +41,7 @@ class Params(object):
         
     def __setattr__(self, item, value):
         self.__dict__[item] = value
-        if item[0] != '_':
+        if item[0] != '_': # TODO: should it be here?
             self._respawn()
 
 class Running(Params):

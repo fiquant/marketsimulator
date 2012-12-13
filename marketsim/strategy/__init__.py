@@ -1,5 +1,5 @@
 import random
-from marketsim import order, mathutils, Side, observable
+from marketsim import order, mathutils, Side, observable, registry
 
 from _wrap import Params, currentframe
 
@@ -152,9 +152,11 @@ def TrendFollower(average               = mathutils.ewma(alpha = 0.15),
      
     return Params.fromFrame(_trend._TrendFollower_Impl, currentframe())
 
+@registry.expose
 def efficiencyTrend(trader):
     return observable.trend(observable.Efficiency(trader))
 
+@registry.expose
 def virtualWithUnitVolume(strategy):
     return strategy.With(volumeDistr=lambda: 1, orderFactory=order.VirtualMarket.T)    
 
