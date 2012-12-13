@@ -1,11 +1,14 @@
 import random
 import inspect
+from marketsim import registry
 
 class _Wrapper(object):
     
     def __init__(self, frame, original, label):
-        _, _, _, values = inspect.getargvalues(frame)
-        self.__dict__ = dict(values)
+        values, constructAs = registry.meta(frame)
+        self.__dict__ = values
+        self._properties = list(self.__dict__.iterkeys())
+        self._constructAs = constructAs        
         self.__original = original
         self.__label = label
     

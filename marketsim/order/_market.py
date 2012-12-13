@@ -1,4 +1,4 @@
-from marketsim import Side
+from marketsim import Side, registry
 from _base import Base
 
 class Market(Base):

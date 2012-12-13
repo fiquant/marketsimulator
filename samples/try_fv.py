@@ -128,8 +128,8 @@ with scheduler.create() as world:
     
     registry.instance.insert(best)
     
-    for k,v in registry.instance.dumpall().iteritems():
-        print k, v
+#    for k,v in registry.instance.dumpall().iteritems():
+#        print k, v
     
     world.workTill(1500)
     
