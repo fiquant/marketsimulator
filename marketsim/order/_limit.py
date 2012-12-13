@@ -1,5 +1,5 @@
 from _base import Base
-from marketsim import Side
+from marketsim import Side, registry
 
 class Limit(Base):
     """ Base class for limit orders. 
@@ -82,4 +82,5 @@ class Limit(Base):
     def Sell(price, volume): return Limit(Side.Sell, price, volume) 
     
     @staticmethod
+    @registry.expose
     def T(side): return lambda price, volume: Limit(side, price, volume) 

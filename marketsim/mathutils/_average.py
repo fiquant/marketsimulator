@@ -11,6 +11,12 @@ class ewma(object):
         self._avg = None
         self.label = r"Avg_{\alpha="+str(alpha)+"}"
         
+    _properties = ['alpha']
+    
+    @property
+    def alpha(self):
+        return self._alpha
+        
     @property 
     def value(self):
         """ Returns average value at the last update point 

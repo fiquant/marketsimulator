@@ -118,18 +118,20 @@ with scheduler.create() as world:
             pnl_graph.addTimeSerie(observable.PnL(t))
             volume_graph.addTimeSerie(observable.VolumeTraded(t))
     
-    
-    addToGraph([trader_150, trader_200, trader_200_1, trader_200_2, 
+    traders = [trader_150, trader_200, trader_200_1, trader_200_2, 
                 best, 
 #                tf, tf_0_15, tf_0_015, 
                 meanreversion, avg_plus, avg_minus, v_fv200,
                 virtual_160, virtual_170, virtual_180, virtual_190
-                ])
+               ]
     
-    registry.instance.insert(best)
+    addToGraph(traders)
     
-#    for k,v in registry.instance.dumpall().iteritems():
-#        print k, v
+    for t in traders + [t_A]:
+        registry.instance.insert(t)
+    
+    for k,v in registry.instance.dumpall().iteritems():
+        print k, v
     
     world.workTill(1500)
     

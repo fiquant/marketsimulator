@@ -8,41 +8,37 @@ def meta(frame):
     constructAs = module + "." + function
     return (dict(values), constructAs)
 
-def expose(f):
-    f._properties = None
-    f._constructAs = f.__module__ + "." + f.__name__
-    return f
-
-
 class Registry(object):
     
     def __init__(self):
-        self._id2obj = weakref.WeakValueDictionary()
+        self._id2obj = dict() #weakref.WeakValueDictionary()
         self._counter = 0
         
     def insert(self, obj):
-        if '__id' in dir(obj):
+        if '_id' in dir(obj):
             # the object is supposed to be in the dictionary
             # so we just check this
-            Id = obj.__id
+            Id = obj._id
             assert Id in self._id2obj
             assert self._id2obj[Id] == obj
             return Id 
         else:
-            obj.__id = self._counter
+            obj._id = self._counter
             self._id2obj[self._counter] = obj
             self._counter += 1
-            return obj.__id
+            return obj._id
         
     def _tojson(self, value):
         typ = type(value)
-        if typ is int or typ is float or typ is bool or typ is str:
+        if typ is int or typ is float or typ is bool:
             return value
+        if typ is str:
+            return "#"+value if len(value) and value[0]=="#" else value
         if typ is list:
             return [self._tojson(x) for x in value]
         # other sequences we'll consider later
         # so value is a class instance
-        return "#" + str(self.insert(value))  
+        return "#" +  str(self.insert(value)) 
         
     def dump(self, Id):
         obj = self._id2obj.get(Id)
@@ -74,8 +70,11 @@ class Registry(object):
         
         def visit_if_ref(p):
             if type(p) is str and p[0] == "#":  # if a field is class instance
-                p_id = int(p[1:])               # getting id of its value
-                visit(p_id)                     # and recursively visit it
+                try:
+                    p_id = int(p[1:])               # getting id of its value
+                    visit(p_id)                     # and recursively visit it
+                except ValueError:
+                    pass
 
         def visit(k_id):
             """ Processes an object with id = k_id
@@ -98,5 +97,10 @@ class Registry(object):
 instance = Registry()                
          
         
+def expose(f):
+    f._properties = None
+    f._constructAs = f.__module__ + "." + f.__name__
+    instance.insert(f)
+    return f
         
     

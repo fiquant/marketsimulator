@@ -32,4 +32,5 @@ class Market(Base):
     def Sell(volume): return Market(Side.Sell, volume)
     
     @staticmethod
+    @registry.expose
     def T(side): return lambda volume: Market(side, volume)
