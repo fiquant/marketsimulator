@@ -12,6 +12,8 @@ class BookBase(object):
         self._tickSize = tickSize
         self.label = label
         self._incomingOrders = None
+        
+    _properties = ['label', 'tickSize']
 
     def queue(self, side):
         """ Returns queue of the given side
@@ -23,6 +25,10 @@ class BookBase(object):
         """ Returns the tick side
         """
         return self._tickSize
+    
+    @tickSize.setter
+    def tickSize(self, value):
+        self._tickSize = value
 
     def __str__(self):
         return type(self).__name__ + "(" + str(self._bids) + ", " + str(self._asks) + ")"
