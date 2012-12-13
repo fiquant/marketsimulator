@@ -1,4 +1,5 @@
-from marketsim import order, test
+from marketsim import order
+import test
 from marketsim.orderbook._local import Asks
 
 history = test.OrderQueueHistoryChecker()

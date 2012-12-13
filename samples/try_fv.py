@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'..')
 
-from marketsim import strategy, orderbook, trader, scheduler, observable, veusz, mathutils
+from marketsim import strategy, orderbook, trader, scheduler, observable, veusz, mathutils, registry
 
 const = mathutils.constant
 
@@ -125,6 +125,11 @@ with scheduler.create() as world:
                 meanreversion, avg_plus, avg_minus, v_fv200,
                 virtual_160, virtual_170, virtual_180, virtual_190
                 ])
+    
+    registry.instance.insert(best)
+    
+    for k,v in registry.instance.dumpall().iteritems():
+        print k, v
     
     world.workTill(1500)
     
