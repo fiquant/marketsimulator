@@ -57,6 +57,9 @@ class Running(Params):
         self._trader = trader
         self._respawn()
         
+    def _on_property_changed(self):
+        self._respawn()
+        
     def _respawn(self):
         if self._impl is not None:
             self._impl.dispose()

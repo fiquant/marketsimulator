@@ -11,7 +11,7 @@ def meta(frame):
 class Registry(object):
     
     def __init__(self):
-        self._id2obj = dict() #weakref.WeakValueDictionary()
+        self._id2obj = weakref.WeakValueDictionary()
         self._counter = 0
         
     def insert(self, obj):
@@ -26,19 +26,39 @@ class Registry(object):
             obj._id = self._counter
             self._id2obj[self._counter] = obj
             self._counter += 1
+            obj._referencedBy = weakref.WeakSet()
             return obj._id
         
-    def _tojson(self, value):
+    def setAttr(self, Id, propname, value):
+        obj = self._id2obj[Id]
+        setattr(obj, propname, value)
+        
+        #notifing all referencees that the object has changed
+        visited = set()
+        def notify(o):
+            for r in o._referencedBy:
+                if r not in visited:
+                    if '_on_property_changed' in dir(r):
+                        r._on_property_changed()
+                    notify(r)
+        
+        notify(obj)
+        
+    def _dumpPropertyValue(self, value, parent):
         typ = type(value)
         if typ is int or typ is float or typ is bool:
             return value
         if typ is str:
             return "#"+value if len(value) and value[0]=="#" else value
         if typ is list:
-            return [self._tojson(x) for x in value]
+            return [self._dumpPropertyValue(x, parent) for x in value]
         # other sequences we'll consider later
         # so value is a class instance
-        return "#" +  str(self.insert(value)) 
+
+        Id = self.insert(value)
+        value._referencedBy.add(parent)
+        
+        return "#" +  str(Id) 
         
     def dump(self, Id):
         obj = self._id2obj.get(Id)
@@ -56,7 +76,7 @@ class Registry(object):
         if '_properties' in dir(obj):
             if obj._properties:
                 for k in obj._properties: 
-                    properties[k] = self._tojson(getattr(obj, k))
+                    properties[k] = self._dumpPropertyValue(getattr(obj, k), obj)
             else:
                 properties = None
         else:
