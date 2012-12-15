@@ -21,7 +21,9 @@ with scheduler.create() as world:
     
     t_A = trader.SASM(book_A, strategy.LiquidityProvider(volumeDistr=const(70.)))
     
-    fv_200_12 = strategy.FundamentalValue(fundamentalValue=const(200.), volumeDistr=const(12))
+    c_200 = const(200.)
+    
+    fv_200_12 = strategy.FundamentalValue(fundamentalValue=c_200, volumeDistr=const(12))
     
     trader_200 = trader.SASM(book_A, fv_200_12, "t200")
     
@@ -133,6 +135,14 @@ with scheduler.create() as world:
     for k,v in registry.instance.dumpall().iteritems():
         print k, v
     
-    world.workTill(1500)
+    world.workTill(500)
+    
+    registry.instance.setAttr(fv_200.fundamentalValue._id, 'value', 50.)
+
+    world.advance(500)
+
+    registry.instance.setAttr(fv_200.fundamentalValue._id, 'value', 200.)
+
+    world.advance(500)
     
     veusz.render("fv_trader", [price_graph, eff_graph, trend_graph, pnl_graph, volume_graph])
