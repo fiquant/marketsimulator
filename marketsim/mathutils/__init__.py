@@ -3,8 +3,8 @@ import rnd
 
 class constant(object):
     
-    def __init__(self, x):
-        self.value = x
+    def __init__(self, value):
+        self.value = value
         
     _properties = ['value']
         
