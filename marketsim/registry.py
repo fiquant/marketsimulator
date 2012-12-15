@@ -1,5 +1,6 @@
 import weakref
 import inspect
+import marketsim
 
 def meta(frame):
     _, _, _, values = inspect.getargvalues(frame)
@@ -14,6 +15,12 @@ class Registry(object):
         self._id2obj = weakref.WeakValueDictionary()
         self._counter = 0
         
+    def _insertNew(self, Id, obj):
+        obj._id = Id
+        self._id2obj[Id] = obj
+        obj._referencedBy = weakref.WeakSet()
+        return obj._id
+        
     def insert(self, obj):
         if '_id' in dir(obj):
             # the object is supposed to be in the dictionary
@@ -23,11 +30,9 @@ class Registry(object):
             assert self._id2obj[Id] == obj
             return Id 
         else:
-            obj._id = self._counter
-            self._id2obj[self._counter] = obj
-            self._counter += 1
-            obj._referencedBy = weakref.WeakSet()
-            return obj._id
+            while self._counter in self._id2obj:
+                self._counter += 1  # looking for a next free id
+            return self._insertNew(self._counter, obj)
         
     def setAttr(self, Id, propname, value):
         obj = self._id2obj[Id]
@@ -43,6 +48,18 @@ class Registry(object):
                     notify(r)
         
         notify(obj)
+        
+    def createFromMeta(self, Id, meta):
+        """ Creates a new object from meta information 
+        Id should be a unique number
+        meta - an array of length 2 containing constructor name and parameters dictionary
+        """
+        assert Id not in self._id2obj
+        assert len(meta) == 2
+        ctor, props = meta
+        obj = eval(ctor)(**props)
+        self._insertNew(Id, obj)
+        return obj
         
     def _dumpPropertyValue(self, value, parent):
         typ = type(value)

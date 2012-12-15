@@ -35,14 +35,14 @@ class Params(object):
     def runAt(self, trader):
         return Running(trader, self._ctor, self.__dict__)
         
-    def __getattr__(self, item):
-        if self._impl is not None:
-            return getattr(self._impl, item)
-        
-    def __setattr__(self, item, value):
-        self.__dict__[item] = value
-        if item[0] != '_': # TODO: should it be here?
-            self._respawn()
+#    def __getattr__(self, item):
+#        if self.__dict__['_impl'] is not None:
+#            return getattr(self.__dict__['_impl'], item)
+#        
+#    def __setattr__(self, item, value):
+#        self.__dict__[item] = value
+#        if item[0] != '_': # TODO: should it be here?
+#            self._respawn()
 
 class Running(Params):
     
@@ -65,9 +65,9 @@ class Running(Params):
             self._impl.dispose()
         self._impl = self._ctor(self._trader, self)
         
-    def __getattr__(self, item):
-        if self._impl is not None:
-            return getattr(self._impl, item)
+#    def __getattr__(self, item):
+#        if self._impl is not None:
+#            return getattr(self._impl, item)
         
     def __setattr__(self, item, value):
         self.__dict__[item] = value
