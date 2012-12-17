@@ -52,12 +52,22 @@ class Registry(object):
             assert self._id2obj[Id] == obj
             return Id 
         else:
-            while self._counter in self._id2obj:
-                self._counter += 1  # looking for a next free id
-            return self._insertNew(self._counter, obj)
+            return self._insertNew(self.getUniqueId(), obj)
+
+    def getUniqueId(self):
+        while self._counter in self._id2obj:
+            self._counter += 1  # looking for a next free id
+        return self._counter
         
     def setAttr(self, Id, propname, value):
         obj = self._id2obj[Id]
+        props = properties(obj)
+        # try:
+        converter = props[propname]
+        if converter is not None:
+            value = converter(value)
+        # except: 
+        
         setattr(obj, propname, value)
         
         #notifing all referencees that the object has changed
@@ -78,8 +88,14 @@ class Registry(object):
         """
         assert Id not in self._id2obj
         assert len(meta) == 2
-        ctor, props = meta
-        obj = eval(ctor)(**props)
+        ctorname, props = meta
+        # TODO: call for every parameter its converter
+        qualified_name = ctorname.split('.')
+        assert qualified_name[0] == 'marketsim', "We may create only marketsim types"
+        ctor = globals()['marketsim']
+        for k in qualified_name[1:]:
+            ctor = getattr(ctor, k)
+        obj = ctor(**props)
         self._insertNew(Id, obj)
         return obj
         
@@ -111,8 +127,8 @@ class Registry(object):
             ctor = cls.__module__ + "." + cls.__name__            
             
         propnames = properties(obj)
-        props     = dict([(k, self._dumpPropertyValue(getattr(obj, k), obj)) \
-                                              for k in propnames.iterkeys()])\
+        props     = dict([(k, (v, self._dumpPropertyValue(getattr(obj, k), obj))) \
+                                                for k,v in propnames.iteritems()])\
                      if propnames is not None else None
         
         return [ctor, props] if props is not None else [ctor]
@@ -135,7 +151,7 @@ class Registry(object):
                 dumped = self.dump(k_id)    # getting dump representation
                 rv[k_id] = dumped           # storing it in the dictionary
                 if len(dumped) > 1:         # if it has properties
-                    for p in dumped[1].itervalues():        # iterating its fields
+                    for _,p in dumped[1].itervalues():        # iterating its fields
                         visit_if_ref(p)
                         if type(p) is list:                 # if a field is list (other sequences are to be processed in future)
                             for e in p:                     # for each its element

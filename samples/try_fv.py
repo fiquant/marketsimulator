@@ -137,7 +137,8 @@ with scheduler.create() as world:
         
     fv_200 = trader_200.strategies[0]
         
-    c = registry.instance.createFromMeta(100, ['marketsim.mathutils.constant', {'value': 50.0}])
+    c = registry.instance.createFromMeta(registry.instance.getUniqueId(), 
+                                         ['marketsim.mathutils.constant', {'value': 50.0}])
     
     world.workTill(500)
 
@@ -145,7 +146,7 @@ with scheduler.create() as world:
     
     world.advance(500)
 
-    registry.instance.setAttr(fv_200.fundamentalValue._id, 'value', 200.)
+    registry.instance.setAttr(fv_200.fundamentalValue._id, 'value', '200.')
 
     world.advance(500)
     
