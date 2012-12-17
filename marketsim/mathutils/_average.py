@@ -11,7 +11,7 @@ class ewma(object):
         self._avg = None
         self.label = r"Avg_{\alpha="+str(alpha)+"}"
         
-    _properties = ['alpha']
+    _properties = {'alpha' : float}
     
     @property
     def alpha(self):

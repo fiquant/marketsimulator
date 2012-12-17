@@ -13,7 +13,7 @@ class BookBase(object):
         self.label = label
         self._incomingOrders = None
         
-    _properties = ['label', 'tickSize']
+    _properties = {'label' : str, 'tickSize' : float}
 
     def queue(self, side):
         """ Returns queue of the given side

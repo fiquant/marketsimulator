@@ -12,17 +12,17 @@ def meta(frame):
 def properties(obj):
     cls = type(obj)
     bases = inspect.getmro(cls)
-    rv = []
+    rv = {}
     
     for base in reversed(bases):
         if '_properties' in dir(base):
-            for k in base._properties:
-                rv.append(k)
+            for k,v in base._properties.iteritems():
+                rv[k] = v
                 
     if '_properties' in dir(obj):
         if obj._properties:
-            for k in obj._properties:
-                rv.append(k) 
+            for k,v in obj._properties.iteritems():
+                rv[k] = v 
         else:
             rv = None
     else:
@@ -111,7 +111,8 @@ class Registry(object):
             ctor = cls.__module__ + "." + cls.__name__            
             
         propnames = properties(obj)
-        props     = dict([(k, self._dumpPropertyValue(getattr(obj, k), obj)) for k in propnames])\
+        props     = dict([(k, self._dumpPropertyValue(getattr(obj, k), obj)) \
+                                              for k in propnames.iterkeys()])\
                      if propnames is not None else None
         
         return [ctor, props] if props is not None else [ctor]
