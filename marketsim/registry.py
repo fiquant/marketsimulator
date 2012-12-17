@@ -9,6 +9,28 @@ def meta(frame):
     constructAs = module + "." + function
     return (dict(values), constructAs)
 
+def properties(obj):
+    cls = type(obj)
+    bases = inspect.getmro(cls)
+    rv = []
+    
+    for base in reversed(bases):
+        if '_properties' in dir(base):
+            for k in base._properties:
+                rv.append(k)
+                
+    if '_properties' in dir(obj):
+        if obj._properties:
+            for k in obj._properties:
+                rv.append(k) 
+        else:
+            rv = None
+    else:
+        print "object " + str(obj) + " doesn't have field _properties."
+    
+    return rv            
+                
+
 class Registry(object):
     
     def __init__(self):
@@ -88,19 +110,11 @@ class Registry(object):
             cls = obj.__class__
             ctor = cls.__module__ + "." + cls.__name__            
             
-        properties = {}
+        propnames = properties(obj)
+        props     = dict([(k, self._dumpPropertyValue(getattr(obj, k), obj)) for k in propnames])\
+                     if propnames is not None else None
         
-        if '_properties' in dir(obj):
-            if obj._properties:
-                for k in obj._properties: 
-                    properties[k] = self._dumpPropertyValue(getattr(obj, k), obj)
-            else:
-                properties = None
-        else:
-            print "object " + str(obj) + " doesn't have field _properties."
-        
-        
-        return [ctor, properties] if properties is not None else [ctor]
+        return [ctor, props] if props is not None else [ctor]
                 
     def dumpall(self):
         rv = {}

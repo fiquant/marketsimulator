@@ -77,7 +77,7 @@ class SingleAsset(Base):
         for strategy in strategies:
             self.addStrategy(strategy)
             
-    _properties = Base._properties + ['amount', 'strategies', 'label']
+    _properties = ['amount', 'strategies', 'label']
     
     @property
     def amount(self):
@@ -112,7 +112,7 @@ class SingleAssetSingleMarket(SingleAsset):
         self._orderBook = orderBook
         SingleAsset.__init__(self, strategy, label, strategies)
         
-    _properties = SingleAsset._properties + ['orderBook']
+    _properties = ['orderBook']
             
     @property
     def book(self): # obsolete
