@@ -89,13 +89,18 @@ class Registry(object):
         assert Id not in self._id2obj
         assert len(meta) == 2
         ctorname, props = meta
-        # TODO: call for every parameter its converter
         qualified_name = ctorname.split('.')
         assert qualified_name[0] == 'marketsim', "We may create only marketsim types"
         ctor = globals()['marketsim']
         for k in qualified_name[1:]:
             ctor = getattr(ctor, k)
-        obj = ctor(**props)
+        obj = ctor()
+        dst_properties = properties(obj)
+        for k,v in props.iteritems():
+            converter = dst_properties[k]
+            if converter is not None:
+                v = converter(v)
+            setattr(obj, k, v)
         self._insertNew(Id, obj)
         return obj
         

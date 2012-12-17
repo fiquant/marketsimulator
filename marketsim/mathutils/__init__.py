@@ -3,7 +3,7 @@ import rnd
 
 class constant(object):
     
-    def __init__(self, value):
+    def __init__(self, value=100.):
         self.value = value
         
     _properties = {'value' : float}
