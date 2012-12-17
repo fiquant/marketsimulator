@@ -16,7 +16,7 @@ class Base(object):
         # event to be fired when a trader's is traded
         self.on_traded = Event()
         
-    _properties = ['PnL']
+    _properties = {'PnL' : float}
     
     @property
     def PnL(self):
@@ -77,7 +77,9 @@ class SingleAsset(Base):
         for strategy in strategies:
             self.addStrategy(strategy)
             
-    _properties = ['amount', 'strategies', 'label']
+    _properties = {'amount' : float, 
+                   'strategies' : None,
+                   'label' : str}
     
     @property
     def amount(self):
@@ -112,7 +114,7 @@ class SingleAssetSingleMarket(SingleAsset):
         self._orderBook = orderBook
         SingleAsset.__init__(self, strategy, label, strategies)
         
-    _properties = ['orderBook']
+    _properties = {'orderBook' : None}
             
     @property
     def book(self): # obsolete

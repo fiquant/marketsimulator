@@ -6,7 +6,7 @@ class constant(object):
     def __init__(self, value):
         self.value = value
         
-    _properties = ['value']
+    _properties = {'value' : float}
         
     def __call__(self, *args, **kwargs):
         return self.value

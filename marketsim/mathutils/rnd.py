@@ -7,7 +7,7 @@ class _Wrapper(object):
     def __init__(self, frame, original, label):
         values, constructAs = registry.meta(frame)
         self.__dict__ = values
-        self._properties = list(self.__dict__.iterkeys())
+        self._properties = dict([(k,float) for k in self.__dict__])
         self._constructAs = constructAs        
         self.__original = original
         self.__label = label

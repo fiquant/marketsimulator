@@ -19,7 +19,7 @@ class Params(object):
             if k != 'self' and k != 'frame':
                 self.__dict__[k] = properties[k]
                 
-        self._properties = [k for k in properties if k[0] != '_']
+        self._properties = dict([(k, None) for k in properties if k[0] != '_'])
                 
         self._constructAs = constructAs                
         self._ctor = ctor
@@ -65,9 +65,9 @@ class Running(Params):
             self._impl.dispose()
         self._impl = self._ctor(self._trader, self)
         
-#    def __getattr__(self, item):
-#        if self._impl is not None:
-#            return getattr(self._impl, item)
+    def __getattr__(self, item):
+        if self._impl is not None:
+            return getattr(self._impl, item)
         
     def __setattr__(self, item, value):
         self.__dict__[item] = value
