@@ -1,84 +1,82 @@
 import random
+import math
 import inspect
 from marketsim import registry
+from marketsim.mathutils.predicates import *
 
-class _Wrapper(object):
-    
-    def __init__(self, frame, original, label):
-        values, constructAs = registry.meta(frame)
-        self.__dict__ = values
-        self._properties = dict([(k,float) for k in self.__dict__])
-        self._constructAs = constructAs        
-        self.__original = original
-        self.__label = label
+template = """
+class %(name)s(object):    
+
+    def __init__(self, %(init)s):
+        self.__dict__ = { %(dict_)s }
+        
+    _properties = { %(props)s }
     
     def __call__(self, *args, **kwargs):
-        return self.__original(self)
+        return random.%(name)s(%(call)s)
     
     def __repr__(self):
-        rv = self.__label
+        rv = "%(name)s"
         rv += "("
         for k in self.__dict__:
-            if k[:2] != "__":
-                rv += (k + "=" + str(self.__dict__[k]) + ",")
+            rv += (k + "=" + str(self.__dict__[k]) + ",")
         return rv[:-1] + ")"
+"""
     
-def expovariate(Lambda=1.):
-    return _Wrapper(inspect.currentframe(), 
-                    lambda p: random.expovariate(p.Lambda),
-                    "expovariate") 
-
-def randint(A=-10,B=+10):
-    return _Wrapper(inspect.currentframe(), 
-                    lambda p: random.randint(p.A, p.B),
-                    "randint") 
+def wrapper(name, fields):
+    def process(tmpl):
+        return ",".join([tmpl % locals() for (name, ini, typ) in fields])
     
-def uniform(A=-10.,B=+10.):
-    return _Wrapper(inspect.currentframe(), 
-                    lambda p: random.uniform(p.A, p.B),
-                    "uniform") 
-
-def triangular(Low=0., High=1., Mode=0.5):
-    return _Wrapper(inspect.currentframe(), 
-                    lambda p: random.triangular(p.Low, p.High, p.Mode),
-                    "triangular") 
-
-def betavariate(Alpha=1., Beta=1.):
-    return _Wrapper(inspect.currentframe(), 
-                    lambda p: random.betavariate(p.Alpha, p.Beta),
-                    "betavariate") 
+    init = process("%(name)s = %(ini)s")
+    dict_= process("\'%(name)s\' : %(name)s")
+    props= process("\'%(name)s\' : %(typ)s")
+    call = process("self.%(name)s")
     
-def gammavariate(Alpha=1., Beta=1.):
-    return _Wrapper(inspect.currentframe(), 
-                    lambda p: random.gammavariate(p.Alpha, p.Beta),
-                    "gammavariate") 
+    return template % locals()
 
-def gauss(Mu=0., Sigma=1.):
-    return _Wrapper(inspect.currentframe(), 
-                    lambda p: random.gauss(p.Mu, p.Sigma),
-                    "gauss") 
-    
-def lognormvariate(Mu=0., Sigma=1.):
-    return _Wrapper(inspect.currentframe(), 
-                    lambda p: random.lognormvariate(p.Mu, p.Sigma),
-                    "lognormvariate") 
+exec wrapper('expovariate', 
+             [('Lambda', '1.', 'positive')])
 
-def normalvariate(Mu=0., Sigma=1.):
-    return _Wrapper(inspect.currentframe(), 
-                    lambda p: random.normalvariate(p.Mu, p.Sigma),
-                    "normalvariate") 
+exec wrapper('randint', 
+             [('Low',  '-10', 'int'), 
+              ('High', '+10', 'int')])
 
-def vonmisesvariate(Mu=0., Kappa=0.):
-    return _Wrapper(inspect.currentframe(), 
-                    lambda p: random.vonmisesvariate(p.Mu, p.Kappa),
-                    "vonmisesvariate") 
+exec wrapper('uniform', 
+             [('Low',  '-10.', 'float'), 
+              ('High', '+10.', 'float')])
 
-def paretovariate(Alpha=1.):
-    return _Wrapper(inspect.currentframe(), 
-                    lambda p: random.paretovariate(p.Alpha),
-                    "paretovariate") 
+exec wrapper('triangular', 
+             [('Low',  '0.', 'float'), 
+              ('High', '1.', 'float'), 
+              ('Mode', '0.5', 'float')])
 
-def weibullvariate(Alpha=1., Beta=1.):
-    return _Wrapper(inspect.currentframe(), 
-                    lambda p: random.weibullvariate(p.Alpha, p.Beta),
-                    "weibullvariate")
+exec wrapper('betavariate', 
+             [('Alpha', '1.', 'positive'), 
+              ('Beta', '1.', 'positive')])
+
+exec wrapper('gammavariate', 
+             [('Alpha', '1.', 'positive'), 
+              ('Beta', '1.', 'positive')])
+
+exec wrapper('gauss', 
+             [('Mu', '0.', 'float'), 
+              ('Sigma', '1.', 'float')])
+
+exec wrapper('lognormvariate', 
+             [('Mu', '0.', 'float'), 
+              ('Sigma', '1.', 'positive')])
+
+exec wrapper('normalvariate', 
+             [('Mu', '0.', 'float'), 
+              ('Sigma', '1.', 'float')])
+
+exec wrapper('vonmisesvariate', 
+             [('Mu', '0.', 'less_than(2*math.pi, non_negative)'), 
+              ('Kappa', '0.', 'non_negative')])
+
+exec wrapper('paretovariate', 
+             [('Alpha', '1.', 'positive')])
+
+exec wrapper('weibullvariate', 
+             [('Alpha', '1.', 'positive'), 
+              ('Beta', '1.', 'positive')])
