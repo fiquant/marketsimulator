@@ -139,6 +139,11 @@ with scheduler.create() as world:
         
     c = registry.instance.createFromMeta(registry.instance.getUniqueId(), 
                                          ['marketsim.mathutils.constant', {'value': '50.0'}])
+
+    interval = registry.instance.createFromMeta(registry.instance.getUniqueId(), 
+                                         ['marketsim.mathutils.rnd.expovariate', {'Lambda': '+1.0'}])
+ 
+    registry.instance.setAttr(fv_200._id, 'creationIntervalDistr', interval)
     
     world.workTill(500)
 
