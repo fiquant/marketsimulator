@@ -1,16 +1,17 @@
-from marketsim import trader, order, scheduler, observable
+from marketsim import trader, order, scheduler, observable, order, registry
 from copy import copy
 
 from _basic import Strategy
+from _wrap import wrapper
 
-class _TradeIfProfitable_Impl(Strategy):
+class _tradeIfProfitable_Impl(Strategy):
 
     def __init__(self, aTrader, params):
         
-        self._strategy = params.strategy._ctor(aTrader, params.strategy)
+        self._strategy = params.strategy.runAt(aTrader)
         self._estimator = trader.SASM(aTrader.orderBook, label = "estimator_"+aTrader.label)
-        self._estimator_strategy = params.strategy._ctor(self._estimator, 
-                                                         params.estimator(params.strategy))
+        self._estimator_strategy = params.estimator(params.strategy).runAt(self._estimator) 
+                                                         
         self._efficiency = params.efficiency(self._estimator)
         
         self._efficiency.on_changed += \
@@ -28,15 +29,49 @@ class _TradeIfProfitable_Impl(Strategy):
     @property
     def suspended(self):
         return self._strategy.suspended
+
+@registry.expose
+def efficiencyTrend(trader):
+    return observable.trend(observable.Efficiency(trader))
+
+@registry.expose
+def virtualWithUnitVolume(strategy):
+    return strategy.With(volumeDistr=lambda: 1, orderFactory=order.VirtualMarket.T)    
+
+exec wrapper("tradeIfProfitable", 
+             [('strategy',   'None',                  'None'), 
+              ('efficiency', 'efficiencyTrend',       'None'),
+              ('estimator',  'virtualWithUnitVolume', 'None')])
+
+class TradeIfProfitable(tradeIfProfitable):
+    
+    def With(self, 
+             strategy = None, 
+             efficiency = None,
+             estimator = None,
+             **kwargs):
         
-class _ChooseTheBest_Impl(Strategy):
+        if strategy is None: strategy = self.strategy
+        
+        # TODO: we should also make _properties as union of all members _properties
+        # during this union we should also check that there is no conflicts
+        # With method should be implemented as walk over _properties
+        # but there is no clear answer about what shall we do in case of chooseTheBest 
+        # OR: we may consider these classes as decorators to exisiting strategies and believe
+        # that parameters are passed to strategies not to 'efficiency' or 'estimator'
+        # if someone wants to change 'efficiency' or 'estimator' parameters he should do it explicitly 
+        return tradeIfProfitable.With(self, strategy.With(**kwargs), efficiency, estimator)
+        
+        
+        
+class _chooseTheBest_Impl(Strategy):
     
     def __init__(self, aTrader, params):
         
         def _createInstance(sp):
-            strategy = sp._ctor(aTrader, sp)
+            strategy = sp.runAt(aTrader)
             estimator = trader.SASM(aTrader.orderBook, label = "estimator_"+aTrader.label)
-            estimator_strategy = sp._ctor(estimator, params.estimator(sp))
+            estimator_strategy = params.estimator(sp).runAt(estimator)
             efficiency = params.efficiency(estimator)
             return (strategy, estimator, estimator_strategy, efficiency)
         
@@ -76,3 +111,7 @@ class _ChooseTheBest_Impl(Strategy):
     def suspended(self):
         return not self._current or self._current.suspended
 
+exec wrapper("chooseTheBest",
+             [('strategies',  '[]',                     'None'),
+              ('efficiency',  'efficiencyTrend',        'None'),
+              ('estimator',   'virtualWithUnitVolume',  'None')])

@@ -54,10 +54,10 @@ with scheduler.create() as world:
                            label="avg-")
     
     v_fv200 = trader.SASM(book_A, 
-                          strategy.tradeIfProfitable(fv_200), 
+                          strategy.TradeIfProfitable(fv_200), 
                           "v_fv200")
     def s_fv(fv):
-        return strategy.tradeIfProfitable(fv_200.With(fundamentalValue=const(fv)))
+        return strategy.TradeIfProfitable(fv_200.With(fundamentalValue=const(fv)))
 
     def fv_virtual(fv):
         return trader.SASM(book_A, s_fv(fv), "v"+str(fv))
@@ -69,10 +69,10 @@ with scheduler.create() as world:
     virtual_190 = fv_virtual(190.)
     
     best = trader.SASM(book_A, 
-                       strategy.chooseTheBestEx([s_fv(160.), 
-                                                 s_fv(170.), 
-                                                 s_fv(180.), 
-                                                 s_fv(190.),]), 
+                       strategy.chooseTheBest([s_fv(160.), 
+                                               s_fv(170.), 
+                                               s_fv(180.), 
+                                               s_fv(190.),]), 
                        "best")
 #    
 #    def fv(x, trader):
@@ -136,13 +136,15 @@ with scheduler.create() as world:
         print k, v
         
     fv_200 = trader_200.strategies[0]
+    
+    def new(name, fields):
+        return registry.instance.createFromMeta(registry.instance.getUniqueId(), 
+                                                [name, fields])
         
-    c = registry.instance.createFromMeta(registry.instance.getUniqueId(), 
-                                         ['marketsim.mathutils.constant', {'value': '50.0'}])
+    c = new('marketsim.mathutils.constant', {'value': '50.0'})
 
-    interval = registry.instance.createFromMeta(registry.instance.getUniqueId(), 
-                                         ['marketsim.mathutils.rnd.expovariate', {'Lambda': '+1.0'}])
- 
+    interval = new('marketsim.mathutils.rnd.expovariate', {'Lambda': '+1.0'})
+    
     registry.instance.setAttr(fv_200._id, 'creationIntervalDistr', interval)
     
     world.workTill(500)

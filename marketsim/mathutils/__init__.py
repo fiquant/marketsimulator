@@ -1,5 +1,6 @@
 from _average import ewma
 import rnd
+from marketsim import types
 
 class constant(object):
     
@@ -7,6 +8,7 @@ class constant(object):
         self.value = value
         
     _properties = {'value' : float}
+    _types = [types.function(args=(), rv=float)]
         
     def __call__(self, *args, **kwargs):
         return self.value

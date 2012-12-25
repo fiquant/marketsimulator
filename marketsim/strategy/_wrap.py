@@ -1,69 +1,40 @@
-import inspect
-from marketsim import registry
-
 class merge(object):
     def __init__(self, d, **kwargs):
         self.__dict__ = d.__dict__.copy()
         for k in kwargs:
             self.__dict__[k] = kwargs[k]
-            
-currentframe = inspect.currentframe
 
-# TODO: consider using collections.namedtuple
-
-class Params(object):
-
-    def __init__(self, ctor, properties, constructAs):
-                
-        for k in properties:
-            if k != 'self' and k != 'frame':
-                self.__dict__[k] = properties[k]
-                
-        self._properties = dict([(k, None) for k in properties if k[0] != '_'])
-                
-        self._constructAs = constructAs                
-        self._ctor = ctor
+template = """
+class %(name)s(object):
+    
+    def __init__(self, %(init)s):
         
-    @staticmethod
-    def fromFrame(ctor, frame):
-        values, constructAs = registry.meta(frame)
-        return Params(ctor, dict(values), constructAs)
+        %(dict_)s 
+        
+    _properties = { %(props)s }
     
-    def With(self, **kwargs):
-        return Params(self._ctor, merge(self, **kwargs).__dict__, self._constructAs)    
-    
+    def With(self, %(withini)s):
+        
+        %(withbody)s
+        
+        return %(name)s(%(withrv)s)
+        
     def runAt(self, trader):
-        return Running(trader, self._ctor, self.__dict__)
-        
-#    def __getattr__(self, item):
-#        if self.__dict__['_impl'] is not None:
-#            return getattr(self.__dict__['_impl'], item)
-#        
-#    def __setattr__(self, item, value):
-#        self.__dict__[item] = value
-#        if item[0] != '_': # TODO: should it be here?
-#            self._respawn()
-
-class Running(Params):
+        return %(name)s_Running(trader, %(call)s)    
     
-    def __init__(self, trader, ctor, properties):
-                
-        for k in properties:
-            if k != 'self' and k != 'frame':
-                self.__dict__[k] = properties[k]
-                
-        self._ctor = ctor
-        self._impl = None
+class %(name)s_Running(%(name)s):
+    
+    def __init__(self, trader, %(init)s):
+    
+        %(name)s.__init__(self, %(withrv)s)
         self._trader = trader
+        self._impl = None
         self._respawn()
-        
-    def _on_property_changed(self):
-        self._respawn()
-        
+
     def _respawn(self):
         if self._impl is not None:
             self._impl.dispose()
-        self._impl = self._ctor(self._trader, self)
+        self._impl = _%(name)s_Impl(self._trader, self)
         
     def __getattr__(self, item):
         if self._impl is not None:
@@ -71,5 +42,30 @@ class Running(Params):
         
     def __setattr__(self, item, value):
         self.__dict__[item] = value
-        if item[0] != '_':
+        if item in %(name)s_Running._properties:
             self._respawn()
+"""
+
+def demangleIfFunction(s):
+    head, sep, tail = s.partition('->')
+    if sep == '': return s
+    rv = demangleIfFunction(tail)
+    return 'types.function(%(head)s, %(rv)s)' % locals() 
+    
+def mapped(locs):
+    locs['typ'] = demangleIfFunction(locs['typ'])
+    return locs
+
+def wrapper(name, params):
+    def process(tmpl, sep=", "):
+        return sep.join([tmpl % mapped(locals()) for (name, ini, typ) in params])
+    
+    init = process("%(name)s = %(ini)s")
+    withini = process("%(name)s = None")
+    withbody = process("%(name)s = %(name)s if %(name)s is not None else self.%(name)s", "; ")
+    withrv = process("%(name)s")
+    dict_= process("self.__dict__[\'%(name)s\'] = %(name)s", "; ")
+    props= process("\'%(name)s\' : %(typ)s")
+    call = process("self.%(name)s")
+    
+    return template % locals()

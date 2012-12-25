@@ -1,5 +1,7 @@
-from marketsim import Side, observable, scheduler
+from marketsim.mathutils.predicates import *
+from marketsim import Side, observable, scheduler, order, mathutils, types
 from _basic import TwoSides
+from _wrap import wrapper
 
 class SignalBase(TwoSides):
     
@@ -25,6 +27,12 @@ class _Signal_Impl(SignalBase):
         
         SignalBase.__init__(self, trader)
 
+exec wrapper("Signal", 
+             [('signal',        'None',                         'None'),  
+              ('threshold',     '0.7',                          'non_negative'),
+              ('orderFactory',  'order.Market.T',               'None'),
+              ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> float')])
+
 class _TwoAverages_Impl(SignalBase):
     
     def __init__(self, trader, params):
@@ -45,6 +53,14 @@ class _TwoAverages_Impl(SignalBase):
         avg2 = self._average2.value
         return avg1 - avg2 if avg1 is not None and avg2 is not None else None 
 
+exec wrapper("TwoAverages", 
+             [('average1',              'mathutils.ewma(alpha = 0.15)',  'None'),
+              ('average2',              'mathutils.ewma(alpha = 0.015)', 'None'),
+              ('threshold',             '0.',                            'non_negative'), 
+              ('orderFactory',          'order.Market.T',                'None'),
+              ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> float'),
+              ('volumeDistr',           'mathutils.rnd.expovariate(1.)', '() -> float')])
+
 class _TrendFollower_Impl(SignalBase):
     
     def __init__(self, trader, params):
@@ -59,3 +75,10 @@ class _TrendFollower_Impl(SignalBase):
         self._signalFunc = lambda: trend.value
         
         SignalBase.__init__(self, trader)
+
+exec wrapper('TrendFollower', 
+             [('average',                'mathutils.ewma(alpha = 0.15)',  'None'),
+              ('threshold',              '0.',                            'non_negative'), 
+              ('orderFactory',           'order.Market.T',                'None'),
+              ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)', '() -> float'),
+              ('volumeDistr',            'mathutils.rnd.expovariate(1.)', '() -> float')])
