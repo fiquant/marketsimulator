@@ -1,6 +1,7 @@
-from marketsim import scheduler, observable, cached_property
+from marketsim import scheduler, observable, cached_property, types
 
 from _trend import SignalBase
+from _wrap import wrapper
 
 class FundamentalValueBase(SignalBase):
 
@@ -38,6 +39,15 @@ class _FundamentalValue_Impl(FundamentalValueBase):
     def _eventGen(self):
         return scheduler.Timer(self._params.creationIntervalDistr)
 
+from marketsim import order, mathutils
+from marketsim.mathutils.predicates import *
+
+exec  wrapper("FundamentalValue", 
+              [('orderFactory',         'order.Market.T',               'None'),
+               ('fundamentalValue',     'mathutils.constant(100)',      '() -> float'),
+               ('volumeDistr',          'mathutils.rnd.expovariate(1.)','() -> float'),
+               ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> float')])
+
 class _MeanReversion_Impl(FundamentalValueBase):
 
     def __init__(self,trader,params):
@@ -49,6 +59,12 @@ class _MeanReversion_Impl(FundamentalValueBase):
         self._volume = lambda side: params.volumeDistr()  
         
         FundamentalValueBase.__init__(self, trader)
+
+exec wrapper("MeanReversion",
+             [('orderFactory',          'order.Market.T',                   'None'),
+              ('average',               'mathutils.ewma(alpha = 0.15)',     'None'),
+              ('volumeDistr',           'mathutils.rnd.expovariate(1.)',    '() -> float'),
+              ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> float')])
         
 class _Dependency_Impl(FundamentalValueBase):
     
@@ -74,3 +90,8 @@ class _Dependency_Impl(FundamentalValueBase):
     def _eventGen(self):
         return self._priceToDependOn        
 
+exec wrapper("Dependency", 
+             [('bookToDependOn','None',                         'None'),
+              ('orderFactory',  'order.Market.T',               'None'),
+              ('factor',        '1.',                           'positive'),
+              ('volumeDistr',   'mathutils.rnd.expovariate(.1)','() -> float')])

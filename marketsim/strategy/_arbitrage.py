@@ -2,6 +2,7 @@ from marketsim import order, Side, scheduler
 from blist import sorteddict
 
 from _basic import Strategy
+from _wrap import wrapper
 
 class _Arbitrage_Impl(Strategy):
 
@@ -101,3 +102,5 @@ class _Arbitrage_Impl(Strategy):
                     
         regSide(Side.Buy)
         regSide(Side.Sell)
+
+exec wrapper("Arbitrage", [('sched', 'None', 'None')])

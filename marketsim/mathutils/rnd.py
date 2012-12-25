@@ -1,7 +1,7 @@
 import random
 import math
 import inspect
-from marketsim import registry
+from marketsim import registry, types
 from marketsim.mathutils.predicates import *
 
 template = """
@@ -11,6 +11,7 @@ class %(name)s(object):
         self.__dict__ = { %(dict_)s }
         
     _properties = { %(props)s }
+    _types = [types.function((), %(rvtype)s)]
     
     def __call__(self, *args, **kwargs):
         return random.%(name)s(%(call)s)
@@ -23,7 +24,7 @@ class %(name)s(object):
         return rv[:-1] + ")"
 """
     
-def wrapper(name, fields):
+def wrapper(name, fields, rvtype='float'):
     def process(tmpl):
         return ",".join([tmpl % locals() for (name, ini, typ) in fields])
     
@@ -39,7 +40,8 @@ exec wrapper('expovariate',
 
 exec wrapper('randint', 
              [('Low',  '-10', 'int'), 
-              ('High', '+10', 'int')])
+              ('High', '+10', 'int')],
+             rvtype = 'int')
 
 exec wrapper('uniform', 
              [('Low',  '-10.', 'float'), 

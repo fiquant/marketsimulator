@@ -1,6 +1,7 @@
 from _basic import OneSide, Strategy
-from _wrap import merge
-from marketsim import order, Side, scheduler
+from _wrap import merge, wrapper
+from marketsim import order, Side, scheduler, mathutils, types
+from marketsim.mathutils.predicates import *
 
 
 class _LiquidityProviderSide_Impl(OneSide):
@@ -25,6 +26,14 @@ class _LiquidityProviderSide_Impl(OneSide):
         OneSide.dispose(self)
         self._eventGen.cancel()
         
+exec wrapper("LiquidityProviderSide",
+             [('side',                  'Side.Sell',                            'None'),
+              ('orderFactoryT',         'order.Limit.T',                        'None'),
+              ('defaultValue',          '100',                                  'non_negative'),
+              ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',        '() -> float'),
+              ('priceDistr',            'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
+              ('volumeDistr',           'mathutils.rnd.expovariate(1.)',        '() -> float')])
+       
 class _LiquidityProvider_Impl(Strategy):
     def __init__(self, trader, params):
         Strategy.__init__(self, trader)
@@ -47,6 +56,13 @@ class _LiquidityProvider_Impl(Strategy):
     def dispose(self):
         self._sell.dispose()
         self._buy.dispose()
+
+exec wrapper('LiquidityProvider',
+            [('orderFactoryT',          'order.Limit.T',                        'None'),
+             ('defaultValue',           '100',                                  'non_negative'),
+             ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)',        '() -> float'),
+             ('priceDistr',             'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
+             ('volumeDistr',            'mathutils.rnd.expovariate(.1)',        '() -> float')])
 
 class _Canceller_Impl(object):
     """ Randomly cancels created orders in specific moments of time    
@@ -87,3 +103,7 @@ class _Canceller_Impl(object):
         """ Puts 'order' to future cancellation list
         """
         self._elements.append(order)
+
+exec wrapper("Canceller",
+             [('cancellationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> float'),
+              ('choiceFunc',                'lambda N: random.randint(0,N-1)',  'None')])
