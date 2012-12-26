@@ -1,4 +1,5 @@
-from marketsim import Event, Side
+from marketsim import Event, Side, registry
+from marketsim.types import *
 
 class VirtualMarket(object):
     """ Used to evaluates price at which a market order of given volume would be executed
@@ -30,4 +31,6 @@ class VirtualMarket(object):
     def Sell(volume): return VirtualMarket(Side.Sell, volume)
     
     @staticmethod
+    @registry.expose
+    @sig(args=(Side,), rv=function((Volume,), Order))
     def T(side): return lambda volume: VirtualMarket(side, volume)

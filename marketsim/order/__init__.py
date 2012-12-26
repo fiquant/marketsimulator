@@ -6,3 +6,6 @@ from _cancel import Cancel, LimitMarket
 from _virtual import VirtualMarket
 from _always_best import AlwaysBest        
 from _iceberg import iceberg, Iceberg
+
+# TODO: but do we really need to expose this name?
+from _base import Base

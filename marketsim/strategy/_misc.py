@@ -1,6 +1,7 @@
 from marketsim import scheduler, order, mathutils, types   
 from _basic import TwoSides
 from _wrap import wrapper
+from marketsim.types import *
 
 class _Noise_Impl(TwoSides):
     
@@ -15,7 +16,7 @@ class _Noise_Impl(TwoSides):
         return (self._params.sideDistr(), (int(self._params.volumeDistr()),)) 
 
 exec wrapper("Noise", 
-             [("orderFactoryT",         "order.Market.T",               "None"),
+             [("orderFactoryT",         "order.Market.T",               'Side -> Volume -> Order'),
               ("sideDistr",             "mathutils.rnd.randint(0,1)",   "() -> int"), # in fact it should be () -> Side
-              ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> float'),
-              ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> float')])
+              ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> Volume'),
+              ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')])

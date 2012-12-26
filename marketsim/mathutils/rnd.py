@@ -1,8 +1,8 @@
 import random
 import math
 import inspect
-from marketsim import registry, types
-from marketsim.mathutils.predicates import *
+from marketsim import registry
+from marketsim.types import *
 
 template = """
 class %(name)s(object):    
@@ -11,7 +11,7 @@ class %(name)s(object):
         self.__dict__ = { %(dict_)s }
         
     _properties = { %(props)s }
-    _types = [types.function((), %(rvtype)s)]
+    _types = [function((), %(rvtype)s)]
     
     def __call__(self, *args, **kwargs):
         return random.%(name)s(%(call)s)

@@ -1,5 +1,6 @@
 from _base import Base
-from marketsim import Side, registry
+from marketsim import registry
+from marketsim.types import *
 
 class Limit(Base):
     """ Base class for limit orders. 
@@ -83,4 +84,5 @@ class Limit(Base):
     
     @staticmethod
     @registry.expose
+    @sig(args=(Side,), rv=function((Price, Volume,), Base))
     def T(side): return lambda price, volume: Limit(side, price, volume) 

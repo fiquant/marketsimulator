@@ -1,7 +1,7 @@
 from _basic import OneSide, Strategy
 from _wrap import merge, wrapper
 from marketsim import order, Side, scheduler, mathutils, types
-from marketsim.mathutils.predicates import *
+from marketsim.types import *
 
 
 class _LiquidityProviderSide_Impl(OneSide):
@@ -27,12 +27,12 @@ class _LiquidityProviderSide_Impl(OneSide):
         self._eventGen.cancel()
         
 exec wrapper("LiquidityProviderSide",
-             [('side',                  'Side.Sell',                            'None'),
-              ('orderFactoryT',         'order.Limit.T',                        'None'),
-              ('defaultValue',          '100',                                  'non_negative'),
-              ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',        '() -> float'),
+             [('side',                  'Side.Sell',                            'Side'),
+              ('orderFactoryT',         'order.Limit.T',                        'Side -> (Price, Volume) -> Order'),
+              ('defaultValue',          '100',                                  'Price'),
+              ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
               ('priceDistr',            'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
-              ('volumeDistr',           'mathutils.rnd.expovariate(1.)',        '() -> float')])
+              ('volumeDistr',           'mathutils.rnd.expovariate(1.)',        '() -> Volume')])
        
 class _LiquidityProvider_Impl(Strategy):
     def __init__(self, trader, params):
@@ -58,11 +58,11 @@ class _LiquidityProvider_Impl(Strategy):
         self._buy.dispose()
 
 exec wrapper('LiquidityProvider',
-            [('orderFactoryT',          'order.Limit.T',                        'None'),
-             ('defaultValue',           '100',                                  'non_negative'),
-             ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)',        '() -> float'),
+            [('orderFactoryT',          'order.Limit.T',                        'Side -> (Price, Volume) -> Order'),
+             ('defaultValue',           '100',                                  'Price'),
+             ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
              ('priceDistr',             'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
-             ('volumeDistr',            'mathutils.rnd.expovariate(.1)',        '() -> float')])
+             ('volumeDistr',            'mathutils.rnd.expovariate(.1)',        '() -> Volume')])
 
 class _Canceller_Impl(object):
     """ Randomly cancels created orders in specific moments of time    
@@ -105,5 +105,5 @@ class _Canceller_Impl(object):
         self._elements.append(order)
 
 exec wrapper("Canceller",
-             [('cancellationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> float'),
+             [('cancellationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval'),
               ('choiceFunc',                'lambda N: random.randint(0,N-1)',  'None')])

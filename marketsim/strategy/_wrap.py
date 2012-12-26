@@ -49,6 +49,9 @@ class %(name)s_Running(%(name)s):
 def demangleIfFunction(s):
     head, sep, tail = s.partition('->')
     if sep == '': return s
+    head = head.strip()
+    if head[0] != '(' and head[-1] != ')':
+        head = '(' + head + ',)'
     rv = demangleIfFunction(tail)
     return 'types.function(%(head)s, %(rv)s)' % locals() 
     
