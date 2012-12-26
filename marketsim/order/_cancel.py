@@ -1,4 +1,5 @@
-from marketsim import Event, Side, scheduler
+from marketsim import Event, scheduler, registry
+from marketsim.types import *
 from _base import Base
 from _limit import Limit
 
@@ -66,4 +67,6 @@ class LimitMarket(Base):
     def Sell(price, volume): return LimitMarket(Limit.Sell, price, volume)
     
     @staticmethod
+    @registry.expose
+    @sig(args=(Side,), rv=function((Price, Volume), Base))
     def T(side): return lambda price, volume: LimitMarket(side, price, volume)

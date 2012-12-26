@@ -1,7 +1,8 @@
 import sys
 sys.path.append(r'..')
 
-from marketsim import strategy, orderbook, trader, scheduler, observable, veusz, mathutils, registry
+from marketsim import (strategy, orderbook, trader, order, 
+                       scheduler, observable, veusz, mathutils, registry)
 
 const = mathutils.constant
 
@@ -74,6 +75,7 @@ with scheduler.create() as world:
                                                s_fv(180.), 
                                                s_fv(190.),]), 
                        "best")
+    
 #    
 #    def fv(x, trader):
 #        return strategy.withEstimator(
@@ -141,19 +143,23 @@ with scheduler.create() as world:
         return registry.instance.createFromMeta(registry.instance.getUniqueId(), 
                                                 [name, fields])
         
+    def setAttr(obj, name, value):
+        registry.instance.setAttr(obj._id, name, value)
+        
     c = new('marketsim.mathutils.constant', {'value': '50.0'})
 
     interval = new('marketsim.mathutils.rnd.expovariate', {'Lambda': '+1.0'})
     
-    registry.instance.setAttr(fv_200._id, 'creationIntervalDistr', interval)
+    setAttr(fv_200, 'orderFactory', order.Market.T)
+    setAttr(fv_200, 'creationIntervalDistr', interval)
     
     world.workTill(500)
 
-    registry.instance.setAttr(fv_200._id, 'fundamentalValue', c)
+    setAttr(fv_200, 'fundamentalValue', c)
     
     world.advance(500)
 
-    registry.instance.setAttr(fv_200.fundamentalValue._id, 'value', '200.')
+    setAttr(fv_200.fundamentalValue, 'value', '200.')
 
     world.advance(500)
     

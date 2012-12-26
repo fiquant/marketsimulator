@@ -1,4 +1,12 @@
 import collections
+from marketsim import Side
+from marketsim.order import _base
+from marketsim.constraints import *
+
+Order = _base.Base
+Price = float   # non_negative
+Volume = float  # non_negative
+TimeInterval = float # non_negative
 
 def casts_to(src, dst):
     if src == dst: return True
@@ -23,3 +31,10 @@ class function(collections.namedtuple("function", ["args", "rv"])):
             if self._accepts(typ):
                 return obj
         assert False, "cannot convert " + str(obj) + " to " + str(self)
+        
+def sig(args, rv):
+    def inner(f):
+        f._types = [function(args, rv)]
+        return f
+    return inner
+    
