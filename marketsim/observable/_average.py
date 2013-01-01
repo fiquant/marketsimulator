@@ -8,6 +8,7 @@ class derivative(object):
         self._src = src
         self.update = self._src.update
         self.at = self._src.derivativeAt
+        self.label = "d(" + src.label + ")"
         
 class Fold(object):
     """ Folds values from some source using a time-dependent accumulator....

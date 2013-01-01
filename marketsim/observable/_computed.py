@@ -39,6 +39,9 @@ class IndicatorBase(object):
         """
         self.on_changed += listener
         
+    def unadvise(self, listener):
+        self.on_changed -= listener
+        
     @property
     def value(self):
         """ Returns current value

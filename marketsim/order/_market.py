@@ -25,7 +25,7 @@ class Market(Base):
         """
         assert other.side == self.side.opposite
         return True
-
+    
     @staticmethod
     def Buy(volume): return Market(Side.Buy, volume)
     

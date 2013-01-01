@@ -13,6 +13,9 @@ class %(name)s(object):
     _properties = { %(props)s }
     _types = [function((), %(rvtype)s)]
     
+    def _casts_to(self, dst):
+        return %(name)s._types[0]._casts_to(dst)
+    
     def __call__(self, *args, **kwargs):
         return random.%(name)s(%(call)s)
     
@@ -36,7 +39,8 @@ def wrapper(name, fields, rvtype='float'):
     return template % locals()
 
 exec wrapper('expovariate', 
-             [('Lambda', '1.', 'positive')])
+             [('Lambda', '1.', 'positive')],
+             'positive')
 
 exec wrapper('randint', 
              [('Low',  '-10', 'int'), 

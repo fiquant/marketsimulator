@@ -1,5 +1,6 @@
-from marketsim import trader, order, scheduler, observable, order, registry
+from marketsim import trader, order, scheduler, observable, order, registry, types
 from copy import copy
+from marketsim.types import *
 
 from _basic import Strategy
 from _wrap import wrapper
@@ -35,13 +36,14 @@ def efficiencyTrend(trader):
     return observable.trend(observable.Efficiency(trader))
 
 @registry.expose
+@sig(args=(Strategy,), rv=Strategy)
 def virtualWithUnitVolume(strategy):
     return strategy.With(volumeDistr=lambda: 1, orderFactory=order.VirtualMarket.T)    
 
 exec wrapper("tradeIfProfitable", 
              [('strategy',   'None',                  'None'), 
               ('efficiency', 'efficiencyTrend',       'None'),
-              ('estimator',  'virtualWithUnitVolume', 'None')])
+              ('estimator',  'virtualWithUnitVolume', 'Strategy -> Strategy')])
 
 class TradeIfProfitable(tradeIfProfitable):
     

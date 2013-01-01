@@ -9,8 +9,7 @@ def meta(frame):
     constructAs = module + "." + function
     return (dict(values), constructAs)
 
-def properties(obj):
-    cls = type(obj)
+def properties_t(cls):
     bases = inspect.getmro(cls)
     rv = {}
     
@@ -19,6 +18,13 @@ def properties(obj):
             for k,v in base._properties.iteritems():
                 rv[k] = v
                 
+    return rv            
+
+
+def properties(obj):
+    cls = type(obj)
+    rv = properties_t(cls)
+    
     if '_properties' in dir(obj):
         if obj._properties:
             for k,v in obj._properties.iteritems():
@@ -63,9 +69,7 @@ class Registry(object):
         obj = self._id2obj[Id]
         props = properties(obj)
         # try:
-        converter = props[propname]
-        if converter is not None:
-            value = converter(value)
+        value = self._convert(props, propname, value)
         # except: 
         
         setattr(obj, propname, value)
@@ -81,6 +85,23 @@ class Registry(object):
         
         notify(obj)
         
+    def _convert(self, dst_properties, k, v):
+        typeinfo = dst_properties[k]
+        
+        if '_casts_to' in dir(v):
+            assert v._casts_to(typeinfo)
+            return v
+        
+        if inspect.isclass(typeinfo) and issubclass(type(v), typeinfo):
+            # we just checked that our object is a subclass for the constraint
+            return v# so we may leave it
+        
+        if typeinfo is not None: # consider it as a converter
+            return typeinfo(v)
+        
+        return v
+        
+        
     def createFromMeta(self, Id, meta):
         """ Creates a new object from meta information 
         Id should be a unique number
@@ -94,13 +115,11 @@ class Registry(object):
         ctor = globals()['marketsim']
         for k in qualified_name[1:]:
             ctor = getattr(ctor, k)
-        obj = ctor()
-        dst_properties = properties(obj)
+        dst_properties = properties_t(ctor)
+        converted = dict()
         for k,v in props.iteritems():
-            converter = dst_properties[k]
-            if converter is not None:
-                v = converter(v)
-            setattr(obj, k, v)
+            converted[k] = self._convert(dst_properties, k, v)
+        obj = ctor(**converted)
         self._insertNew(Id, obj)
         return obj
         
@@ -176,4 +195,16 @@ def expose(f):
     instance.insert(f)
     return f
         
+def new(name, fields):
+    return instance.createFromMeta(instance.getUniqueId(), 
+                                            [name, fields])
+    
+def setAttr(obj, name, value):
+    instance.setAttr(obj._id, name, value)
+    
+def insert(obj):
+    instance.insert(obj)
+    
+def dumpall():
+    return instance.dumpall()
     

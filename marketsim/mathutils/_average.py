@@ -1,22 +1,19 @@
 import math
+from marketsim import types
 
-class ewma(object):
+class ewma(types.UpdatableValue):
     """ Exponentially weighted moving average
     """
     
-    def __init__(self, alpha):
+    def __init__(self, alpha=0.15):
         """ Initializes EWMA with \alpha = alpha
         """
-        self._alpha = alpha
+        self.alpha = alpha
         self._avg = None
         self.label = r"Avg_{\alpha="+str(alpha)+"}"
         
     _properties = {'alpha' : float}
     
-    @property
-    def alpha(self):
-        return self._alpha
-        
     @property 
     def value(self):
         """ Returns average value at the last update point 
@@ -28,7 +25,7 @@ class ewma(object):
         Returns None if no data has come
         """
         return \
-            self._avg + (self._lastValue - self._avg)*(1 - (1 - self._alpha)**( t - self._lastTime)) \
+            self._avg + (self._lastValue - self._avg)*(1 - (1 - self.alpha)**( t - self._lastTime)) \
             if self._avg is not None else None
     
     def derivativeAt(self, t):
@@ -38,7 +35,7 @@ class ewma(object):
         if self._avg is None:
             return None
         dt = t - self._lastTime
-        return -(self._lastValue - self._avg)*math.log(1 - self._alpha)*(1 - self._alpha)**dt
+        return -(self._lastValue - self._avg)*math.log(1 - self.alpha)*(1 - self.alpha)**dt
         
     def update(self, time, value):
         """ Adds point (time, value) to calculate the average

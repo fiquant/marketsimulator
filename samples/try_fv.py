@@ -132,26 +132,24 @@ with scheduler.create() as world:
     addToGraph(traders)
     
     for t in traders + [t_A]:
-        registry.instance.insert(t)
+        registry.insert(t)
     
-    for k,v in registry.instance.dumpall().iteritems():
+    for k,v in registry.dumpall().iteritems():
         print k, v
         
     fv_200 = trader_200.strategies[0]
     
-    def new(name, fields):
-        return registry.instance.createFromMeta(registry.instance.getUniqueId(), 
-                                                [name, fields])
-        
-    def setAttr(obj, name, value):
-        registry.instance.setAttr(obj._id, name, value)
-        
+    new = registry.new
+    setAttr = registry.setAttr
+    
     c = new('marketsim.mathutils.constant', {'value': '50.0'})
 
     interval = new('marketsim.mathutils.rnd.expovariate', {'Lambda': '+1.0'})
     
     setAttr(fv_200, 'orderFactory', order.Market.T)
     setAttr(fv_200, 'creationIntervalDistr', interval)
+    setAttr(avg_plus.strategies[0], 'average1', new('marketsim.mathutils.ewma', {'alpha' : 0.15 }))
+    setAttr(virtual_160.strategies[0], 'estimator', strategy.virtualWithUnitVolume)
     
     world.workTill(500)
 

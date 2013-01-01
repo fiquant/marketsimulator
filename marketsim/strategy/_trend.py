@@ -54,8 +54,8 @@ class _TwoAverages_Impl(SignalBase):
         return avg1 - avg2 if avg1 is not None and avg2 is not None else None 
 
 exec wrapper("TwoAverages", 
-             [('average1',              'mathutils.ewma(alpha = 0.15)',  'None'),
-              ('average2',              'mathutils.ewma(alpha = 0.015)', 'None'),
+             [('average1',              'mathutils.ewma(alpha = 0.15)',  'UpdatableValue'),
+              ('average2',              'mathutils.ewma(alpha = 0.015)', 'UpdatableValue'),
               ('threshold',             '0.',                            'non_negative'), 
               ('orderFactory',          'order.Market.T',                'Side -> Volume -> Order'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
