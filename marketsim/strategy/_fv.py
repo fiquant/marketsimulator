@@ -65,7 +65,7 @@ class _MeanReversion_Impl(FundamentalValueBase):
 
 exec wrapper("MeanReversion",
              [('orderFactory',          'order.Market.T',                   'Side -> Volume -> Order'),
-              ('average',               'mathutils.ewma(alpha = 0.15)',     'None'),
+              ('average',               'mathutils.ewma(alpha = 0.15)',     'UpdatableValue'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)',    '() -> Volume'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')])
         
@@ -94,7 +94,7 @@ class _Dependency_Impl(FundamentalValueBase):
         return self._priceToDependOn        
 
 exec wrapper("Dependency", 
-             [('bookToDependOn','None',                         'None'),
+             [('bookToDependOn','None',                         'OrderBook'),
               ('orderFactory',  'order.Market.T',               'Side -> Volume -> Order'),
               ('factor',        '1.',                           'positive'),
               ('volumeDistr',   'mathutils.rnd.expovariate(.1)','() -> Volume')])

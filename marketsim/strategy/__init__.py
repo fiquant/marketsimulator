@@ -10,4 +10,4 @@ from _misc import Noise
 from _arbitrage import Arbitrage
 from _fv import FundamentalValue, MeanReversion, Dependency
 from _trend import Signal, TwoAverages, TrendFollower
-from _adaptive import TradeIfProfitable, chooseTheBest
+from _adaptive import TradeIfProfitable, chooseTheBest, virtualWithUnitVolume, efficiencyTrend
