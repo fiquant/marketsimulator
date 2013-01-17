@@ -1,0 +1,147 @@
+* {
+   font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+input {
+   width: 100%;
+}
+
+input[type="checkbox"] {
+   margin-right: 15px;
+}
+
+select {
+   width: 100%; 
+}
+
+.history td {
+   text-align: right;
+}
+
+tr {
+   vertical-align: top;
+}
+
+.iteration {
+   padding:0px;   
+   margin: 0px;
+   width: 100%
+}
+
+.iteration .values {
+    max-width: 80px;
+}
+
+.iteration input {
+    text-align: right;
+}
+
+.values {
+   font-style: italic;
+   text-align: right;
+}
+
+.keys {
+   text-align: right;  
+   vertical-align: middle;
+}
+
+.constraints {
+   text-align: left;  
+   vertical-align: middle;
+}
+
+.footer {
+   font-style: italic;
+   margin: auto;
+}
+
+.error {
+   background-color: red;
+   color: white;
+}
+
+.error input {
+   background-color: #ffcccc;
+}
+
+.odd {
+   background-color: white;
+}
+
+table {
+   border-collapse:collapse;
+   padding:3px 7px 2px 7px;   
+   margin: 3px 5px 10px 5px;
+}
+
+.iteration {
+   
+}
+
+.model {
+   border:1px solid #98bf21;
+}
+
+th {
+   font-size:1.1em;
+   padding-top:5px;
+   padding-bottom:4px;
+   color:#ffffff;
+}
+
+.model th {
+   background-color:#A7C942;
+}
+
+.model .even {
+   color:#000000;
+   background-color:#EAF2D3;
+}
+
+.inherit {
+   vertical-align: middle;
+}
+
+.inherit .even {
+   background-color:#EAF2D3;  
+}
+.option {
+   border:1px solid #FF9900;
+}
+
+.option th {
+   background-color:#FF9900;
+}
+
+.option .even {
+   background-color: #FFE0B2;
+}
+
+.pricing_method {
+   border:1px solid #9966FF;
+}
+
+.pricing_method th {
+   background-color:#9966FF;
+}
+
+.pricing_method .even{
+   background-color: #E0C2FF;
+}
+
+.even_scalar  {
+   background-color: lightgrey;
+}
+
+.result1d .even {
+   background-color: lightgrey;
+}
+
+.result2d .even {
+   background-color: lightgrey;
+}
+
+.inherit .even {
+   background-color: lightblue;
+}
