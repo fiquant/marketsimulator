@@ -50,6 +50,9 @@ class Registry(object):
         return obj._id
         
     def insert(self, obj):
+        if 'label' not in dir(obj):
+            a = 1
+        #assert 'label' in dir(obj)
         if '_id' in dir(obj):
             # the object is supposed to be in the dictionary
             # so we just check this
@@ -138,6 +141,53 @@ class Registry(object):
         value._referencedBy.add(parent)
         
         return "#" +  str(Id) 
+    
+    def tojson(self, Id):
+        obj = self._id2obj.get(Id)
+        if obj is None:
+            return None
+        
+        if '_constructAs' in dir(obj):
+            ctor = obj._constructAs
+        else:
+            cls = obj.__class__
+            ctor = cls.__module__ + "." + cls.__name__            
+            
+        propnames = properties(obj)
+        props     = dict([(k, self._dumpPropertyValue(getattr(obj, k), obj)) \
+                                           for k,v in propnames.iteritems()])\
+                     if propnames is not None else None
+        
+        return [ctor, props] if props is not None else [ctor, {}]
+    
+    def tojsonall(self):
+        rv = {}
+        
+        def visit_if_ref(p):
+            if type(p) is str and p[0] == "#":  # if a field is class instance
+                try:
+                    p_id = int(p[1:])               # getting id of its value
+                    visit(p_id)                     # and recursively visit it
+                except ValueError:
+                    pass
+
+        def visit(k_id):
+            """ Processes an object with id = k_id
+            """
+            if k_id not in rv: # check that it hasn't been yet processed
+                dumped = self.tojson(k_id)    # getting dump representation
+                rv[k_id] = dumped           # storing it in the dictionary
+                for p in dumped[1].itervalues():        # iterating its fields
+                    visit_if_ref(p)
+                    if type(p) is list:                 # if a field is list (other sequences are to be processed in future)
+                        for e in p:                     # for each its element
+                            visit_if_ref(e)
+                                
+        for k_id in list(self._id2obj.iterkeys()): # getting initial set of the dictionary keys
+            visit(k_id)
+            
+        return rv
+        
         
     def dump(self, Id):
         obj = self._id2obj.get(Id)
@@ -185,7 +235,7 @@ class Registry(object):
             visit(k_id)
             
         return rv
-                        
+    
 instance = Registry()                
          
         
@@ -205,6 +255,26 @@ def setAttr(obj, name, value):
 def insert(obj):
     instance.insert(obj)
     
+def dump(objId):
+    return instance.dump(objId)
+    
 def dumpall():
     return instance.dumpall()
-    
+
+
+# Naming service
+
+uniqueNames = dict()
+
+def uniqueName(s):
+    base, _, suffix = s.rpartition("#")
+    sbase = base.strip()
+    if sbase not in uniqueNames:
+        uniqueNames[sbase] = set()
+        return s
+    ssuffix = suffix.strip()
+    usednames = uniqueNames[sbase]
+    if ssuffix in usednames:
+        suffix = ssuffix = str(len(usednames))
+    usednames.add(ssuffix)
+    return base + "#" + suffix

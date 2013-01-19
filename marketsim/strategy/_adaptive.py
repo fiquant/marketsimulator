@@ -32,17 +32,18 @@ class _tradeIfProfitable_Impl(Strategy):
         return self._strategy.suspended
 
 @registry.expose
+@sig(args=(SingleAssetTrader,), rv=SingleAssetTrader, label="trader's efficiency trend")
 def efficiencyTrend(trader):
     return observable.trend(observable.Efficiency(trader))
 
 @registry.expose
-@sig(args=(Strategy,), rv=Strategy)
+@sig(args=(Strategy,), rv=Strategy, label='Virtual market orders with unit volume')
 def virtualWithUnitVolume(strategy):
     return strategy.With(volumeDistr=lambda: 1, orderFactory=order.VirtualMarket.T)    
 
 exec wrapper("tradeIfProfitable", 
              [('strategy',   'None',                  'None'), 
-              ('efficiency', 'efficiencyTrend',       'None'),
+              ('efficiency', 'efficiencyTrend',       'SingleAssetTrader -> SingleAssetTrader'),
               ('estimator',  'virtualWithUnitVolume', 'Strategy -> Strategy')])
 
 class TradeIfProfitable(tradeIfProfitable):

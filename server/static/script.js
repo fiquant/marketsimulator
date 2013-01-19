@@ -10,9 +10,10 @@ function all() {
 
 function AppViewModel() {
 	var self = this;
+	self.raw_source = all();
 	self.source = ko.computed(function () {
 		var res = [];
-		var src = all();
+		var src = self.raw_source;
 		for (var i in src) {
 			res.push([i, src[i]]);
 		}
