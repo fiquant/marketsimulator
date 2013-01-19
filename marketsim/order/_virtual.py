@@ -32,5 +32,5 @@ class VirtualMarket(object):
     
     @staticmethod
     @registry.expose
-    @sig(args=(Side,), rv=function((Volume,), Order))
+    @sig(args=(Side,), rv=function((Volume,), Order), label='VirtualMarket')
     def T(side): return lambda volume: VirtualMarket(side, volume)

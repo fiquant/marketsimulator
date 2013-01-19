@@ -34,5 +34,5 @@ class Market(Base):
     
     @staticmethod
     @registry.expose
-    @sig(args=(Side,), rv=function((Volume,), Base))
+    @sig(args=(Side,), rv=function((Volume,), Base), label='Market')
     def T(side): return lambda volume: Market(side, volume)

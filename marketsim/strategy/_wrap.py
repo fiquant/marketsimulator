@@ -8,7 +8,8 @@ template = """
 class %(name)s(object):
     
     def __init__(self, %(init)s):
-        
+        from marketsim.registry import uniqueName
+        self.label = uniqueName('%(name)s')
         %(dict_)s 
         
     _properties = { %(props)s }

@@ -4,6 +4,7 @@ from marketsim import Side
 from marketsim.order._base import Base as Order
 from marketsim.orderbook._base import BookBase as OrderBook
 from marketsim.constraints import *
+from marketsim.trader import SingleAsset as SingleAssetTrader
 
 Price = non_negative
 Volume = non_negative
@@ -32,10 +33,11 @@ class function(collections.namedtuple("function", ["args", "rv"])):
             return casts_to(self.rv, dst.rv)
         return False
     
-def sig(args, rv):
+def sig(args, rv, label):
     def inner(f):
         f._types = [function(args, rv)]
         f._casts_to = f._types[0]._casts_to
+        f.label = label
         return f
     return inner
 
