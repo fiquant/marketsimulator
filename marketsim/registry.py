@@ -50,9 +50,6 @@ class Registry(object):
         return obj._id
         
     def insert(self, obj):
-        if 'label' not in dir(obj):
-            a = 1
-        #assert 'label' in dir(obj)
         if '_id' in dir(obj):
             # the object is supposed to be in the dictionary
             # so we just check this
@@ -151,14 +148,18 @@ class Registry(object):
             ctor = obj._constructAs
         else:
             cls = obj.__class__
-            ctor = cls.__module__ + "." + cls.__name__            
+            ctor = cls.__module__ + "." + cls.__name__
+            
+        label = obj.jsLabel if 'jsLabel' in dir(obj) else\
+                obj.label if 'label' in dir(obj) else\
+                repr(obj)            
             
         propnames = properties(obj)
         props     = dict([(k, self._dumpPropertyValue(getattr(obj, k), obj)) \
                                            for k,v in propnames.iteritems()])\
                      if propnames is not None else None
         
-        return [ctor, props] if props is not None else [ctor, {}]
+        return [ctor, props, label] if props is not None else [ctor, {}, label]
     
     def tojsonall(self):
         rv = {}
@@ -268,13 +269,16 @@ uniqueNames = dict()
 
 def uniqueName(s):
     base, _, suffix = s.rpartition("#")
+    if base == "":
+        base = suffix
+        suffix = ""
     sbase = base.strip()
     if sbase not in uniqueNames:
         uniqueNames[sbase] = set()
         return s
     ssuffix = suffix.strip()
     usednames = uniqueNames[sbase]
-    if ssuffix in usednames:
+    if ssuffix in usednames or ssuffix == "":
         suffix = ssuffix = str(len(usednames))
     usednames.add(ssuffix)
     return base + "#" + suffix

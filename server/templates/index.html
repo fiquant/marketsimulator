@@ -5,18 +5,52 @@
 	<script type='text/javascript' src='static/knockout-2.2.1.js'></script>
 	<script type='text/javascript' src='static/jquery-1.9.0.min.js'></script>
 	<script type='text/javascript' src='static/script.js'></script>
+	<!---
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({tex2jax: {inlineMath: [['\\(','\\)']]}});
+	</script>
+	<script type="text/javascript"
+	  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script> -->	
 </head>
 <body>
+	<script type="text/html" id="renderField">
+        <tr data-bind="css: { even: $index()%2==0 }">
+            <td></td>
+            <!-- ko if: isInput($data) -->
+	            <td data-bind="html: indentify(name, 2*$parents.length-2)"></td>
+	            <td><input data-bind="value: value.value"></input></td>
+	        <!-- /ko -->
+            <!-- ko if: !isInput($data) -->
+	            <td data-bind="html: indentify(name, 2*$parents.length-2)"></td>
+	            <td data-bind="text: value.brief()"></td>
+	        <!-- /ko -->
+        </tr>
+        <!-- ko foreach: value.expanded() -->
+        	<!-- ko template: 'renderField'-->
+	        <!-- /ko -->
+        <!-- /ko -->
+	</script>
+	
 	<script type="text/html" id="current">
 		<table class="model">
 		    <thead>
-		        <tr><th>#</th><th>Type</th></tr>
-		    </thead>
-		    <tbody data-bind="foreach: source">
-		        <tr data-bind="css: { even: $index()%2==0 }">
-		            <td data-bind="text: $data[0]"></td>
-		            <td data-bind="text: $data[1]"></td>
+		        <tr>
+		        	<th>#</th>
+		        	<th>Type</th>
+		        	<th>Name</th>
 		        </tr>
+		    </thead>
+		    <tbody data-bind="foreach: all">
+		        <tr data-bind="css: { even: $index()%2==0 }">
+		            <td data-bind="text: id"></td>
+		            <td data-bind="text: constructor"></td>
+		            <td data-bind="text: name"></td>
+		        </tr>
+		        <!-- ko foreach: fields -->
+		        	<!-- ko template: 'renderField'-->
+			        <!-- /ko -->
+		        <!-- /ko -->
 		    </tbody>
 		</table>	
 	</script>

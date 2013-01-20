@@ -9,6 +9,10 @@ class %(name)s(object):
 
     def __init__(self, %(init)s):
         self.__dict__ = { %(dict_)s }
+    
+    @property
+    def label(self):
+        return repr(self)
         
     _properties = { %(props)s }
     _types = [function((), %(rvtype)s)]
@@ -22,7 +26,7 @@ class %(name)s(object):
     def __repr__(self):
         rv = "%(name)s"
         rv += "("
-        for k in self.__dict__:
+        for k in %(name)s._properties:
             rv += (k + "=" + str(self.__dict__[k]) + ",")
         return rv[:-1] + ")"
 """

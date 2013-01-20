@@ -7,9 +7,10 @@ class merge(object):
 template = """
 class %(name)s(object):
     
-    def __init__(self, %(init)s):
+    def __init__(self, %(init)s, label=None):
         from marketsim.registry import uniqueName
-        self.label = uniqueName('%(name)s')
+        self.label = uniqueName('%(name)s') if label is None else label
+        self._constructAs = 'marketsim.strategy.%(name)s'
         %(dict_)s 
         
     _properties = { %(props)s }
@@ -21,13 +22,13 @@ class %(name)s(object):
         return %(name)s(%(withrv)s)
         
     def runAt(self, trader):
-        return %(name)s_Running(trader, %(call)s)    
+        return %(name)s_Running(trader, %(call)s, self.label)    
     
 class %(name)s_Running(%(name)s):
     
-    def __init__(self, trader, %(init)s):
+    def __init__(self, trader, %(init)s, label=None):
     
-        %(name)s.__init__(self, %(withrv)s)
+        %(name)s.__init__(self, %(withrv)s, label)
         self._trader = trader
         self._impl = None
         self._respawn()
