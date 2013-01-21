@@ -45,59 +45,51 @@ var ARRAY = 0x2;
 var LISTBOX = 0x4;
 
 function isInput(x) {
-	return x.value.editor == INPUT;
+	return x.val.editor == INPUT;
 }
+
+var EMPTYSTR = "";
 
 function StringValue(s) {
 	var self = this;
-	self.value = ko.observable(s);
-	
-	self.brief = function () {
-		return self.value;
-	}
-	self.expanded = function () { return []; }
-	
+	self.val = ko.observable(s);
 	self.editor = INPUT;
 }
 
 function NumberValue(s) {
 	var self = this;
-	self.value = ko.observable(s);
-	
-	self.brief = function () {
-		return self.value;
-	}
-	self.expanded = function () { return []; }
-	
+	self.val = ko.observable(s);
 	self.editor = INPUT;
 }
 
 function ArrayValue(s) {
 	var self = this;
-	self.value = s;
+	self.val = s;
 	
 	self.brief = function () {
 		return "...";
 	}
-	self.expanded = function () { 
-		return map(self.value, function (x,i) {
-			return {'name' : i, 'value' : x };
+
+	self.expanded = ko.computed(function () { 
+		return map(self.val, function (x,i) {
+			return new Property(i, x);
 		}); 
-	}
+	});
 	
 	self.editor = ARRAY;
 }
 
 function ObjectValue(s) {
 	var self = this;
-	self.value = s;
+	self.val = s;
 	
 	self.brief = function () {
-		return self.value.name;
+		return self.val.name;
 	}
-	self.expanded = function() {
-		return self.value.fields;
-	}
+
+	self.expanded = ko.computed(function() {
+		return self.val.fields;
+	});
 	
 	self.editor = LISTBOX;
 }
@@ -131,22 +123,16 @@ function treatAny(value) {
 	}	
 }
 
-function Property(src) {
+function Property(name, value) {
 	var self = this;
-	self.name = src.key;
-	self.value = treatAny(src.value);
-	self.isArray = function() {
-		return isArray(self.value);
-	}
-	self.isObject = function() {
-		return typeof(self.value) == 'object' && !self.isArray();
-	}
-	self.isString = function() {
-		return typeof(self.value) == 'string';
-	}
-	self.isNumber = function() {
-		return typeof(self.value) == 'number';
-	}
+	self.name = name;
+	self.val = value;
+	
+	self.isExpanded = ko.observable(false);
+
+	self.expandedView = ko.computed(function() {
+		return self.isExpanded() ? self.val.expanded() : [];
+	});
 }
 
 
@@ -155,10 +141,9 @@ function Instance(id, src) {
 	self.id = id;
 	self.constructor = src[0];
 	self.name = src[2];
-	self.fields = map(dict2array(src[1]), function (x) { return new Property(x); });
-	if (self.fields == undefined) { 
-		console.log(self);
-	}
+	self.fields = map(dict2array(src[1]), function (x) { 
+		return new Property(x.key, treatAny(x.value)); 
+	});
 }
 
 function getObj(id) {
@@ -171,15 +156,6 @@ function getObj(id) {
 
 function AppViewModel() {
 	var self = this;
-	self.raw_source = all();
-	self.source = ko.computed(function () {
-		var res = [];
-		var src = self.raw_source;
-		for (var i in src) {
-			res.push([i, src[i]]);
-		}
-		return res;
-	})
 	self.all = ko.computed(function () {
 		var res = [];
 		var src = original;

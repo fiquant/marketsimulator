@@ -2,16 +2,21 @@
    font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
-input {
+select {
+   width: 100%; 
+}
+
+td {
+	margin: 0px;
+	padding: 1px
+}
+
+td table {
    width: 100%;
 }
 
-input[type="checkbox"] {
-   margin-right: 15px;
-}
-
-select {
-   width: 100%; 
+td input {
+   width: 100%;
 }
 
 .history td {
@@ -71,8 +76,6 @@ tr {
 
 table {
    border-collapse:collapse;
-   padding:3px 7px 2px 7px;   
-   margin: 3px 5px 10px 5px;
 }
 
 .iteration {
