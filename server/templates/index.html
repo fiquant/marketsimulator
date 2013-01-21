@@ -16,41 +16,67 @@
 <body>
 	<script type="text/html" id="renderField">
         <tr data-bind="css: { even: $index()%2==0 }">
-            <td></td>
-            <!-- ko if: isInput($data) -->
-	            <td data-bind="html: indentify(name, 2*$parents.length-2)"></td>
-	            <td><input data-bind="value: value.value"></input></td>
+            <!-- ko if: val.editor == INPUT -->
+            	<td></td>
+	            <td>
+	            	<a data-bind="text: name"/>	            		            	
+	            </td>	           
+	            <td>
+	            	<input data-bind="value: val.val"></input>
+	            </td> 
 	        <!-- /ko -->
-            <!-- ko if: !isInput($data) -->
-	            <td data-bind="html: indentify(name, 2*$parents.length-2)"></td>
-	            <td data-bind="text: value.brief()"></td>
+            <!-- ko if: val.editor != INPUT -->
+            	<td>
+					<input type="checkbox" data-bind="checked: $data.isExpanded"/>	            	            		
+            	</td>
+	            <td>
+	            	<a data-bind="html: name"/>	            		            	
+	            </td>
+	            <td>
+	            	<a data-bind="text: val.brief()"></a>
+	            </td>
 	        <!-- /ko -->
         </tr>
-        <!-- ko foreach: value.expanded() -->
-        	<!-- ko template: 'renderField'-->
-	        <!-- /ko -->
-        <!-- /ko -->
+        <tr data-bind="if: $data.expandedView().length > 0">
+        	<td>&nbsp; &nbsp; &nbsp; &nbsp; </td>
+        	<td colspan="2">
+        		<table>
+			        <!-- ko foreach: $data.expandedView -->
+			        	<!-- ko template: 'renderField'-->
+				        <!-- /ko -->
+			        <!-- /ko -->
+        		</table>
+        	</td>
+        </tr>
 	</script>
 	
 	<script type="text/html" id="current">
 		<table class="model">
 		    <thead>
 		        <tr>
-		        	<th>#</th>
 		        	<th>Type</th>
 		        	<th>Name</th>
 		        </tr>
 		    </thead>
 		    <tbody data-bind="foreach: all">
 		        <tr data-bind="css: { even: $index()%2==0 }">
-		            <td data-bind="text: id"></td>
-		            <td data-bind="text: constructor"></td>
-		            <td data-bind="text: name"></td>
+		            <td>
+		            	<a data-bind="text: constructor"></a>
+		            </td>		   
+		            <td>
+		            	<a data-bind="text: name"></a>
+		            </td>         
 		        </tr>
-		        <!-- ko foreach: fields -->
-		        	<!-- ko template: 'renderField'-->
-			        <!-- /ko -->
-		        <!-- /ko -->
+		        <tr>
+		        	<td colspan="2">
+		        		<table>
+					        <!-- ko foreach: fields -->
+					        	<!-- ko template: 'renderField'-->
+						        <!-- /ko -->
+					        <!-- /ko -->
+		        		</table>
+		        	</td>
+		        </tr>
 		    </tbody>
 		</table>	
 	</script>
