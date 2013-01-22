@@ -64,17 +64,15 @@ function NumberValue(s) {
 
 function ArrayValue(s) {
 	var self = this;
-	self.val = s;
+	self.val = ko.observableArray(map(s, function (x,i) {
+					return new Property(i, x);
+				}));
 	
 	self.brief = function () {
 		return "...";
 	}
 
-	self.expanded = ko.computed(function () { 
-		return map(self.val, function (x,i) {
-			return new Property(i, x);
-		}); 
-	});
+	self.expanded = self.val;
 	
 	self.editor = ARRAY;
 }
