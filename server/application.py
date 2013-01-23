@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import sys, json
 sys.path.append(r'..')
 
@@ -132,6 +132,14 @@ def get_object(obj_id):
 @app.route('/all')
 def get_all():
     return json.dumps(registry.instance.tojsonall())
+
+@app.route('/update')
+def update():
+    raw = request.args.iterkeys().__iter__().next()
+    parsed = json.loads(raw)
+    for (id, field, value) in parsed:
+        registry.instance.setAttr(id, field, value)
+    return json.dumps(parsed)
 
 @app.route('/')
 def index():
