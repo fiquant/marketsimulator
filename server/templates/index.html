@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="static/style.css" />
 	<script type='text/javascript' src='static/knockout-2.2.1.js'></script>
 	<script type='text/javascript' src='static/jquery-1.9.0.min.js'></script>
+    <script type="text/javascript" src="static/jquery.json-2.3.min.js"></script>
 	<script type='text/javascript' src='static/script.js'></script>
 	<!---
 	<script type="text/x-mathjax-config">
@@ -19,7 +20,7 @@
             <!-- ko if: val.editor == INPUT -->
             	<td></td>
 	            <td>
-	            	<a data-bind="text: name"/>	            		            	
+	            	<a data-bind="text: name + hasChangedSign($data)"/>	            		            	
 	            </td>	           
 	            <td>
 	            	<input data-bind="value: val.val"></input>
@@ -53,11 +54,14 @@
 	</script>
 	
 	<script type="text/html" id="current">
+		<a data-bind="text: changes"></a>
+		<input type="button" text="Submit" data-bind="click: submitChanges"></input>	
 		<table class="model">
 		    <thead>
 		        <tr>
 		        	<th>Type</th>
 		        	<th>Name</th>
+		        	<th>ChangeSet</th>
 		        </tr>
 		    </thead>
 		    <tbody data-bind="foreach: all">
@@ -67,10 +71,11 @@
 		            </td>		   
 		            <td>
 		            	<a data-bind="text: name"></a>
-		            </td>         
+		            </td>
+		            <td data-bind="text: changes"></td>         
 		        </tr>
 		        <tr>
-		        	<td colspan="2">
+		        	<td colspan="3">
 		        		<table>
 					        <!-- ko foreach: fields -->
 					        	<!-- ko template: 'renderField'-->
@@ -80,7 +85,7 @@
 		        	</td>
 		        </tr>
 		    </tbody>
-		</table>	
+		</table>
 	</script>
 
 	<div data-bind="template: { name: 'current' }">
