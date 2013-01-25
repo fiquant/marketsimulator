@@ -215,6 +215,25 @@ function AppViewModel() {
 		}
 		return res;
 	})
+	self.filteredView = function(startsWith) {
+		var result = [];
+		var ids = self.id2obj();
+		for (var i in ids) {
+			var x = ids[i];
+			if (x.constructor.indexOf(startsWith) == 0) {
+				result.push(new Property("", new ObjectValue(x)));
+			}
+		}
+		return result;		
+	}
+	self.entities = ko.computed(function () {
+		return [
+			["Traders" , "model", self.filteredView("marketsim.trader.")],
+			["Order books", "option", self.filteredView("marketsim.orderbook.")],
+			["Scheduler", "pricing_method", self.filteredView("marketsim.scheduler.")]
+		];
+	})
+	
 	self.changes = ko.computed(function(){
 		var updates = [];
 		var all = self.all();

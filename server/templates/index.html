@@ -53,41 +53,40 @@
         </tr>
 	</script>
 	
+	<script type="text/html" id="renderEntities">
+		<td>
+			<table data-bind="css: $data[1]">
+			    <thead>
+			        <tr>
+			        	<th data-bind="text: $data[0]"></th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			        <tr>
+			        	<td>
+			        		<table>
+						        <!-- ko foreach: $data[2] -->
+						        	<!-- ko template: 'renderField'-->
+							        <!-- /ko -->
+						        <!-- /ko -->
+			        		</table>
+			        	</td>
+			        </tr>
+			    </tbody>
+			</table>
+		</td>
+	</script>
+		
 	<script type="text/html" id="current">
 		<a data-bind="text: changes"></a>
 		<input data-bind="value: advance" />
 		<button data-bind="click: submitChanges">Run</button>	
 		<a data-bind="text: response"></a>
-		<table class="model">
-		    <thead>
-		        <tr>
-		        	<th>Type</th>
-		        	<th>Name</th>
-		        	<th>ChangeSet</th>
-		        </tr>
-		    </thead>
-		    <tbody data-bind="foreach: all">
-		        <tr data-bind="css: { even: $index()%2==0 }">
-		            <td>
-		            	<a data-bind="text: constructor"></a>
-		            </td>		   
-		            <td>
-		            	<a data-bind="text: name"></a>
-		            </td>
-		            <td data-bind="text: changes"></td>         
-		        </tr>
-		        <tr>
-		        	<td colspan="3">
-		        		<table>
-					        <!-- ko foreach: fields -->
-					        	<!-- ko template: 'renderField'-->
-						        <!-- /ko -->
-					        <!-- /ko -->
-		        		</table>
-		        	</td>
-		        </tr>
-		    </tbody>
+		<table>
+			<tr data-bind="template: { name: 'renderEntities', foreach: entities }">
+			</tr>
 		</table>
+		
 	</script>
 
 	<div data-bind="template: { name: 'current' }">
