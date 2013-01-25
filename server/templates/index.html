@@ -55,7 +55,9 @@
 	
 	<script type="text/html" id="current">
 		<a data-bind="text: changes"></a>
-		<input type="button" text="Submit" data-bind="click: submitChanges"></input>	
+		<input data-bind="value: advance" />
+		<button data-bind="click: submitChanges">Run</button>	
+		<a data-bind="text: response"></a>
 		<table class="model">
 		    <thead>
 		        <tr>

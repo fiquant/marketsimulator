@@ -70,6 +70,12 @@ class Scheduler(object):
         """ Current simulation time        
         """
         return self._currentTime
+    
+    @property
+    def label(self):
+        return "scheduler"
+    
+    _properties = {'currentTime' : float}
 
     def schedule(self, actionTime, handler):
         """ Schedules an event given by 'handler' to be launched at 'actionTime'.

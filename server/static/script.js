@@ -36,9 +36,6 @@ function TeXize(s) {
 	return "$$" + s + "$$";
 }
 
-var original = all();
-
-var id2obj = {};
 
 function isArray(o) {
   return Object.prototype.toString.call(o) === '[object Array]';
@@ -129,7 +126,7 @@ function indentify (s, n) {
 	return spaces[n] + s;
 } 
 
-function treatAny(value) {
+function treatAny(value, getObj) {
 	if (typeof(value) == 'string'){
 		if (value.length > 1 && value[0]=='#' && value[1] != "#") {
 			return new ObjectValue(getObj(parseInt(value.substring(1))));
@@ -141,7 +138,7 @@ function treatAny(value) {
 			}
 		}
 	} else if (isArray(value)) {
-		return new ArrayValue(map(value, treatAny));
+		return new ArrayValue(map(value, function (x) { return treatAny(x, getObj); }));
 	} else {
 		return new ScalarValue(value, _parseFloat);
 	}	
@@ -160,13 +157,13 @@ function Property(name, value) {
 }
 
 
-function Instance(id, src) {
+function Instance(id, src, getObj) {
 	var self = this;
 	self.id = parseInt(id);
 	self.constructor = src[0];
 	self.name = src[2];
 	self.fields = map(dict2array(src[1]), function (x) { 
-		return new Property(x.key, treatAny(x.value)); 
+		return new Property(x.key, treatAny(x.value, getObj)); 
 	});
 	
 	self.changes = ko.computed(function() {
@@ -181,37 +178,60 @@ function Instance(id, src) {
 	});
 }
 
-function getObj(id) {
-	if (id2obj[id] == undefined) {
-		id2obj[id] = new Instance(id, original[id]);
-	}
-	return id2obj[id];
-}
-
-
 function AppViewModel() {
 	var self = this;
+	self.advance = ko.observable(500);
+	self.recompute = ko.observable(0);
+	
+	self.original = ko.computed(function () {
+		var dummy = self.recompute();
+		return all();
+	})
+	
+	
+	self.id2obj = ko.computed(function () {
+		var result = {};
+		var original = self.original();
+		var getObj = function (id) {
+			if (result[id] == undefined) {
+				result[id] = new Instance(id, original[id], function (id) { return getObj(id); });
+			}
+			return result[id];
+		}
+		
+		for (var i in original) {
+			result[i] = getObj(i);
+		}
+		return result;
+	})
+	
+	self.response = ko.observable("");
+	
 	self.all = ko.computed(function () {
 		var res = [];
-		var src = original;
-		for (var i in src) {
-			res.push(getObj(i));
+		var ids = self.id2obj();
+		for (var i in ids) {
+			res.push(ids[i]);
 		}
 		return res;
 	})
 	self.changes = ko.computed(function(){
-		var result = [];
+		var updates = [];
 		var all = self.all();
 		for (var i=0; i<all.length; i++) {
 			var x = all[i].changes();
 			for (var j=0; j<x.length; j++) {
-				result.push(x[j]);
+				updates.push(x[j]);
 			}
 		}
-		return $.toJSON(result);
+		return $.toJSON({'updates' : updates, 
+						 'advance' : _parseFloat(self.advance())});
 	})
 	self.submitChanges = function() {
-		$.getJSON('/update?'+self.changes());
+		$.post('/update?'+self.changes(), function (data) {
+			self.recompute(self.recompute() + 1); 
+			self.response(data); 
+		});
 	}
 };
 

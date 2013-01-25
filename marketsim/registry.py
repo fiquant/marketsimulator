@@ -251,7 +251,7 @@ def new(name, fields):
                                             [name, fields])
     
 def setAttr(obj, name, value):
-    instance.setAttr(obj._id, name, value)
+    instance.setAttr(instance.insert(obj), name, value)
     
 def insert(obj):
     instance.insert(obj)
