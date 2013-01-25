@@ -105,8 +105,6 @@ with scheduler.create() as world:
     for t in traders + [t_A]:
         registry.insert(t)
     
-    for k,v in registry.dumpall().iteritems():
-        print k, v
         
     fv_200 = trader_200.strategies[0]
     
@@ -121,29 +119,36 @@ with scheduler.create() as world:
     setAttr(fv_200, 'creationIntervalDistr', interval)
     setAttr(avg_plus.strategies[0], 'average1', new('marketsim.mathutils.ewma', {'alpha' : 0.15 }))
     setAttr(virtual_160.strategies[0], 'estimator', strategy.virtualWithUnitVolume)
+    
+    registry.insert(world)
 
 
-app = Flask(__name__)
-
-@app.route('/obj/<int:obj_id>')
-def get_object(obj_id):
-    return json.dumps(registry.instance.tojson(obj_id))
-
-@app.route('/all')
-def get_all():
-    return json.dumps(registry.instance.tojsonall())
-
-@app.route('/update')
-def update():
-    raw = request.args.iterkeys().__iter__().next()
-    parsed = json.loads(raw)
-    for (id, field, value) in parsed:
-        registry.instance.setAttr(id, field, value)
-    return json.dumps(parsed)
-
-@app.route('/')
-def index():
-    return render_template('index.html')
+    app = Flask(__name__)
+    
+    @app.route('/obj/<int:obj_id>')
+    def get_object(obj_id):
+        return json.dumps(registry.instance.tojson(obj_id))
+    
+    @app.route('/all')
+    def get_all():
+        return json.dumps(registry.instance.tojsonall())
+    
+    @app.route('/update', methods=['POST'])
+    def update():
+        raw = request.args.iterkeys().__iter__().next()
+        parsed = json.loads(raw)
+        result = parsed["updates"]
+        for (id, field, value) in parsed['updates']:
+            registry.instance.setAttr(id, field, value)
+        if 'advance' in parsed:
+            advance = parsed['advance']
+            if advance > 0:
+                world.advance(advance)
+        return json.dumps(result)
+    
+    @app.route('/')
+    def index():
+        return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

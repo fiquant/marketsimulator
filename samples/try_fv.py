@@ -131,11 +131,10 @@ with scheduler.create() as world:
     
     addToGraph(traders)
     
+    registry.insert(world)
+    
     for t in traders + [t_A]:
         registry.insert(t)
-    
-    for k,v in registry.dumpall().iteritems():
-        print k, v
         
     fv_200 = trader_200.strategies[0]
     
