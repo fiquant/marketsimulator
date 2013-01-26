@@ -7,6 +7,15 @@ function all() {
 
    return $.parseJSON(z.responseText);
 }
+function alltimeseries() {
+   z = ($.ajax({
+     url: 'alltimeseries',
+     dataType: 'json',
+     async: false
+   }));
+
+   return $.parseJSON(z.responseText);
+}
 
 function isInteger (s) {
     var isInteger_re     = /^\s*(\+|-)?\d+\s*$/;
@@ -178,6 +187,43 @@ function Instance(id, src, getObj) {
 	});
 }
 
+function TimeSerie(id, label, data) {
+	var self = this;
+	self.id = id;
+	self.label = ko.observable(label);
+	self.data = data;
+/*	self.rawdata = [];
+	self.recompute = ko.observable(false);
+	self.data = ko.computed(function (){
+		var dummy = self.recompute();
+		return self.rawdata;
+	})
+	self.update = function() {
+		$.getJSON('/timeserie/' + self.id, function (data) {
+			self.rawdata = data; // later 'data' will be just an update
+			self.recompute(!self.recompute());
+		 	// drop the timeserie from the server
+		})
+	}
+	self.update(); */
+}
+
+function Graph(label, timeseries) {
+	var self = this;
+	self.label = label;
+	self.data = timeseries;
+}
+
+function firstChild(e) {
+    for (var j=0; j<e.childNodes.length; j++) {
+        if (e.childNodes[j].nodeType == 1) {
+            return e.childNodes[j];
+        }
+    }    
+    return undefined;
+}
+
+
 function AppViewModel() {
 	var self = this;
 	self.advance = ko.observable(500);
@@ -191,10 +237,10 @@ function AppViewModel() {
 	
 	self.id2obj = ko.computed(function () {
 		var result = {};
-		var original = self.original();
+		var original = self.original().objects;
 		var getObj = function (id) {
 			if (result[id] == undefined) {
-				result[id] = new Instance(id, original[id], function (id) { return getObj(id); });
+				result[id] = new Instance(id, original[id], getObj);
 			}
 			return result[id];
 		}
@@ -215,7 +261,21 @@ function AppViewModel() {
 		}
 		return res;
 	})
+
+	self.filteredViewEx = function(startsWith) {
+		var result = [];
+		var ids = self.id2obj();
+		for (var i in ids) {
+			var x = ids[i];
+			if (x.constructor.indexOf(startsWith) == 0) {
+				result.push(x);
+			}
+		}
+		return result;		
+	}
+	
 	self.filteredView = function(startsWith) {
+		// to implement through filteredViewEx
 		var result = [];
 		var ids = self.id2obj();
 		for (var i in ids) {
@@ -226,11 +286,38 @@ function AppViewModel() {
 		}
 		return result;		
 	}
+	
+	self.graphs = ko.computed(function () {
+		var rawtimeseries = self.filteredViewEx("marketsim.js.TimeSerie");
+		var ts_data = alltimeseries();
+		
+		var timeseries = {};
+		
+		for (var i in rawtimeseries) {
+			var t = rawtimeseries[i];
+			var ts = new TimeSerie(t.id, t.name, ts_data[t.id]);
+			timeseries[ts.id] = ts;		
+		}
+		
+		var rawgraphs = self.filteredViewEx("marketsim.js.Graph");
+		
+		return map(rawgraphs, function (g) {
+			var tss = g.fields[0].val.val();
+			var res = [];
+			for (var i in tss) {
+				var ts = tss[i].val.val; 
+				res.push(timeseries[ts.id]);
+			}
+			return new Graph(g.name, res);
+		})
+	})
+	
 	self.entities = ko.computed(function () {
 		return [
 			["Traders" , "model", self.filteredView("marketsim.trader.")],
 			["Order books", "option", self.filteredView("marketsim.orderbook.")],
-			["Scheduler", "pricing_method", self.filteredView("marketsim.scheduler.")]
+			["Scheduler", "pricing_method", self.filteredView("marketsim.scheduler.")],
+			["Graphs", "pricing_method", self.filteredView("marketsim.js.Graph")],
 		];
 	})
 	
@@ -245,7 +332,31 @@ function AppViewModel() {
 		}
 		return $.toJSON({'updates' : updates, 
 						 'advance' : _parseFloat(self.advance())});
-	})
+	});
+	
+	
+    self.renderGraph1d = function (elem, graph) {
+		var data = map(graph.data, function (ts) {
+			return { 'data' : ts.data, 'label' : ts.label() };
+		});
+        
+        for (var i=0; i<elem.length; i++) {
+            var e = elem[i];
+            if (e.nodeType==1) {
+                var ee = firstChild(firstChild(firstChild(firstChild(e))));
+                ee.style.width = '1700px'; //self.graphSizeX()+'px';
+                ee.style.height = '800px'; //self.graphSizeY()+'px';
+                Flotr.draw(ee, data, {
+                    legend : {
+                        position : 'se',            // Position the legend 'south-east'.
+                        backgroundColor : '#D2E8FF' // A light blue background color.
+                    },
+                    HtmlText : false
+                });
+            }
+        }
+    } 
+	
 	self.submitChanges = function() {
 		$.post('/update?'+self.changes(), function (data) {
 			self.recompute(self.recompute() + 1); 
