@@ -36,6 +36,14 @@ def properties(obj):
     
     return rv            
                 
+def getCtor(obj): 
+    if '_constructAs' in dir(obj):
+        ctor = obj._constructAs
+    else:
+        cls = obj.__class__
+        ctor = cls.__module__ + "." + cls.__name__
+    return ctor
+
 
 class Registry(object):
     
@@ -48,6 +56,9 @@ class Registry(object):
         self._id2obj[Id] = obj
         obj._referencedBy = weakref.WeakSet()
         return obj._id
+    
+    def get(self, id):
+        return self._id2obj[id]
         
     def insert(self, obj):
         if '_id' in dir(obj):
@@ -137,13 +148,19 @@ class Registry(object):
         Id = self.insert(value)
         value._referencedBy.add(parent)
         
-        return "#" +  str(Id) 
+        return "#" +  str(Id)
+
+    def ofType(self, prefix):
+        return [k for (k,v) in self._id2obj.iteritems() if getCtor(v).startswith(prefix)]
+    
+    @property
+    def traders(self):
+        return self.ofType("marketsim.trader.")
     
     def tojson(self, Id):
         obj = self._id2obj.get(Id)
         if obj is None:
             return None
-        
         if '_constructAs' in dir(obj):
             ctor = obj._constructAs
         else:
@@ -194,12 +211,8 @@ class Registry(object):
         obj = self._id2obj.get(Id)
         if obj is None:
             return None
-        
-        if '_constructAs' in dir(obj):
-            ctor = obj._constructAs
-        else:
-            cls = obj.__class__
-            ctor = cls.__module__ + "." + cls.__name__            
+
+        ctor = getCtor(obj)
             
         propnames = properties(obj)
         props     = dict([(k, (v, self._dumpPropertyValue(getattr(obj, k), obj))) \

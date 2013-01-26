@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import sys, json
 sys.path.append(r'..')
 
-from marketsim import (strategy, orderbook, trader, order, 
+from marketsim import (strategy, orderbook, trader, order, js,
                        scheduler, observable, veusz, mathutils, registry)
 
 const = mathutils.constant
@@ -11,7 +11,7 @@ with scheduler.create() as world:
     
     book_A = orderbook.Local(tickSize=0.01, label="A")
     
-    price_graph = veusz.Graph("Price")
+    price_graph = js.Graph("Price")
      
     assetPrice = observable.Price(book_A)
     price_graph.addTimeSerie(assetPrice)
@@ -77,10 +77,10 @@ with scheduler.create() as world:
                                                s_fv(190.),]), 
                        "best")
 
-    eff_graph = veusz.Graph("efficiency")
-    trend_graph = veusz.Graph("efficiency trend")
-    pnl_graph = veusz.Graph("P&L")
-    volume_graph = veusz.Graph("volume")
+    eff_graph = js.Graph("efficiency")
+    trend_graph = js.Graph("efficiency trend")
+    pnl_graph = js.Graph("P&L")
+    volume_graph = js.Graph("volume")
     
     def addToGraph(traders):
         for t in traders:
@@ -102,10 +102,9 @@ with scheduler.create() as world:
     
     addToGraph(traders)
     
-    for t in traders + [t_A]:
+    for t in traders + [t_A] + [price_graph, eff_graph, trend_graph, pnl_graph, volume_graph]:
         registry.insert(t)
     
-        
     fv_200 = trader_200.strategies[0]
     
     new = registry.new
@@ -129,9 +128,29 @@ with scheduler.create() as world:
     def get_object(obj_id):
         return json.dumps(registry.instance.tojson(obj_id))
     
+    @app.route('/timeserie/<int:serie_id>')
+    def get_timeserie(serie_id):
+        x = registry.instance.get(serie_id)
+        assert type(x) == js.TimeSerie
+        return json.dumps(x.data)
+    
+    @app.route('/alltimeseries')
+    def get_all_timeseries():
+        res = {}
+        for k,v in registry.instance._id2obj.iteritems():
+            if type(v) == js.TimeSerie:
+               res[k] = v.data
+        return json.dumps(res) 
+    
     @app.route('/all')
     def get_all():
-        return json.dumps(registry.instance.tojsonall())
+        result = {
+            "objects" : registry.instance.tojsonall(),
+            # for the moment these fields are not used at client side
+            # because of problems in knockoutjs dependency tracking
+            "traders" : registry.instance.traders
+        }
+        return json.dumps(result)
     
     @app.route('/update', methods=['POST'])
     def update():

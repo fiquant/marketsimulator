@@ -5,6 +5,7 @@
 	<script type='text/javascript' src='static/knockout-2.2.1.js'></script>
 	<script type='text/javascript' src='static/jquery-1.9.0.min.js'></script>
     <script type="text/javascript" src="static/jquery.json-2.3.min.js"></script>
+    <script type="text/javascript" src="static/flotr2.min.js"></script>
 	<script type='text/javascript' src='static/script.js'></script>
 	<!---
 	<script type="text/x-mathjax-config">
@@ -86,6 +87,19 @@
 			<tr data-bind="template: { name: 'renderEntities', foreach: entities }">
 			</tr>
 		</table>
+	  <div data-bind="template: { foreach: graphs, afterRender: renderGraph1d }">
+	  	<th data-bind="text: label"></th>
+	    <table class="graph1d">
+	      <tr>
+	        <td>
+	          <div data-bind="attr: { id: $index }">
+	          </div>
+	        </td>
+	      </tr>
+	    </table>
+	  </div>
+        
+		
 		
 	</script>
 
