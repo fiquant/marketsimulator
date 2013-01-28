@@ -223,35 +223,51 @@ function firstChild(e) {
     return undefined;
 }
 
+function dir(object) {
+    stuff = [];
+    for (s in object) {
+        stuff.push(s);
+    }
+    stuff.sort();
+    return stuff;
+}
 
 function AppViewModel() {
 	var self = this;
 	self.advance = ko.observable(500);
-	self.recompute = ko.observable(0);
+	self.response = ko.observable("");
+	self.response(all());
 	
 	self.original = ko.computed(function () {
-		var dummy = self.recompute();
-		return all();
+		return self.response();
 	})
 	
-	
-	self.id2obj = ko.computed(function () {
-		var result = {};
+	self.parsed = ko.computed(function () {
+		var id2obj = {};
+		//----------- building new objects
 		var original = self.original().objects;
 		var getObj = function (id) {
-			if (result[id] == undefined) {
-				result[id] = new Instance(id, original[id], getObj);
+			if (id2obj[id] == undefined) {
+				id2obj[id] = new Instance(id, original[id], getObj);
 			}
-			return result[id];
+			return id2obj[id];
 		}
 		
 		for (var i in original) {
-			result[i] = getObj(i);
+			id2obj[i] = getObj(i);
 		}
-		return result;
+		
+		var result = {
+			"id2obj" : id2obj
+		}
+		self._parsed = result;
+		return result;		
 	})
 	
-	self.response = ko.observable("");
+	
+	self.id2obj = function () {
+		return self.parsed().id2obj;
+	}
 	
 	self.all = ko.computed(function () {
 		var res = [];
@@ -359,8 +375,7 @@ function AppViewModel() {
 	
 	self.submitChanges = function() {
 		$.post('/update?'+self.changes(), function (data) {
-			self.recompute(self.recompute() + 1); 
-			self.response(data); 
+			self.response($.parseJSON(data)); 
 		});
 	}
 };
