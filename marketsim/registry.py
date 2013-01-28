@@ -157,6 +157,14 @@ class Registry(object):
     def traders(self):
         return self.ofType("marketsim.trader.")
     
+    @property
+    def books(self):
+        return self.ofType("marketsim.orderbook.")
+    
+    @property
+    def graphs(self):
+        return self.ofType("marketsim.js.Graph")
+    
     def tojson(self, Id):
         obj = self._id2obj.get(Id)
         if obj is None:

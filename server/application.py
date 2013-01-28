@@ -152,17 +152,27 @@ with scheduler.create() as world:
         }
         return json.dumps(result)
     
+    @app.route('/reset', methods=['POST'])
+    def reset():
+        pass
+    
     @app.route('/update', methods=['POST'])
     def update():
         raw = request.args.iterkeys().__iter__().next()
         parsed = json.loads(raw)
-        result = parsed["updates"]
         for (id, field, value) in parsed['updates']:
             registry.instance.setAttr(id, field, value)
         if 'advance' in parsed:
             advance = parsed['advance']
             if advance > 0:
                 world.advance(advance)
+        result = {
+            "objects" : registry.instance.tojsonall(),
+            "traders" : registry.instance.traders,
+            "books" : registry.instance.books,
+            "graphs" : registry.instance.graphs,
+            "currentTime" : world.currentTime
+        }
         return json.dumps(result)
     
     @app.route('/')
