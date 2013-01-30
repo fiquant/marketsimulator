@@ -1,6 +1,48 @@
 import weakref
 import inspect
 import marketsim
+from functools import reduce
+
+
+## {{{ http://code.activestate.com/recipes/578272/ (r1)
+def toposort2(data):
+    """Dependencies are expressed as a dictionary whose keys are items
+and whose values are a set of dependent items. Output is a list of
+sets in topological order. The first set consists of items with no
+dependences, each subsequent set consists of items that depend upon
+items in the preceeding sets.
+
+>>> print '\\n'.join(repr(sorted(x)) for x in toposort2({
+...     2: set([11]),
+...     9: set([11,8]),
+...     10: set([11,3]),
+...     11: set([7,5]),
+...     8: set([7,3]),
+...     }) )
+[3, 5, 7]
+[8, 11]
+[2, 9, 10]
+
+"""
+
+    # Ignore self dependencies.
+    for k, v in data.items():
+        v.discard(k)
+    # Find all items that don't depend on anything.
+    extra_items_in_deps = reduce(set.union, data.itervalues()) - set(data.iterkeys())
+    # Add empty dependences where needed
+    data.update({item:set() for item in extra_items_in_deps})
+    while True:
+        ordered = set(item for item, dep in data.iteritems() if not dep)
+        if not ordered:
+            break
+        yield ordered
+        data = {item: (dep - ordered)
+                for item, dep in data.iteritems()
+                    if item not in ordered}
+    assert not data, "Cyclic dependencies exist among these items:\n%s" % '\n'.join(repr(x) for x in data.iteritems())
+## end of http://code.activestate.com/recipes/578272/ }}}
+
 
 def meta(frame):
     _, _, _, values = inspect.getargvalues(frame)
@@ -44,18 +86,67 @@ def getCtor(obj):
         ctor = cls.__module__ + "." + cls.__name__
     return ctor
 
+def getObjRef(value):
+    if type(value) == str and len(value) > 1:
+        if value[0] == '#' and value[1] != "#":
+            return int(value[1:])
+    return -1
+            
 
 class Registry(object):
     
     def __init__(self):
-        self._id2obj = weakref.WeakValueDictionary()
+        self._id2obj = dict() #weakref.WeakValueDictionary()
+        self._initial = dict()
         self._counter = 0
         
     def _insertNew(self, Id, obj):
+        if id in self._id2obj:
+            old = self._id2obj[id]
+            del old._id
+            del old._referencedBy
         obj._id = Id
-        self._id2obj[Id] = obj
         obj._referencedBy = weakref.WeakSet()
+        self._id2obj[Id] = obj
+        self._initial[Id] = self.dump(Id)
         return obj._id
+    
+    def _toposort(self, objects):
+        """
+        object - list of pairs (id, meta) of objects to create
+                 where meta is pair (ctor, properties)
+                     where ctor is a type name to instantiate (should be in marketsim module)
+                     properties is a dictionary property_name -> property_value_representation
+                     property_value_representation may be either a reference to an object of form #id
+                     or a number or a string
+        """
+        children = {}
+        for id, meta in objects:
+            if len(meta) == 2: # it is a createable object
+                ctor, props = meta
+                children[id] = set()
+                for (_, (_, value)) in props.iteritems():
+                    child = getObjRef(value)
+                    if child != -1:
+                        children[id].add(child)
+                    if type(value) == list:
+                        for v in value:
+                            child = getObjRef(v)
+                            if child != -1:
+                                children[id].add(child)
+                                
+        return toposort2(children)
+                
+    
+    def reset(self):
+        ordered = self._toposort(list(self._initial.iteritems()))
+        for outer in ordered:
+            for id in outer:
+                meta = self._initial[id]
+                if len(meta) == 2:
+                    ctor, props = self._initial[id]
+                    props = dict([(name, value) for (name, (_, value)) in props.iteritems()])
+                    self.createFromMeta(id, (ctor, props))               
     
     def get(self, id):
         return self._id2obj[id]
@@ -97,12 +188,25 @@ class Registry(object):
         notify(obj)
         
     def _convert(self, dst_properties, k, v):
+        id = getObjRef(v)
+        if id != -1:
+            v = self._id2obj[id]
+            
+        if type(v) == list:
+            for i in range(len(v)):
+                id = getObjRef(v[i])
+                if id != -1:
+                    v[i] = self._id2obj[id]
+                
         typeinfo = dst_properties[k]
         
         if '_casts_to' in dir(v):
+            if not v._casts_to(typeinfo):
+                a = 1
             assert v._casts_to(typeinfo)
             return v
         
+       
         if inspect.isclass(typeinfo) and issubclass(type(v), typeinfo):
             # we just checked that our object is a subclass for the constraint
             return v# so we may leave it
@@ -118,7 +222,6 @@ class Registry(object):
         Id should be a unique number
         meta - an array of length 2 containing constructor name and parameters dictionary
         """
-        assert Id not in self._id2obj
         assert len(meta) == 2
         ctorname, props = meta
         qualified_name = ctorname.split('.')

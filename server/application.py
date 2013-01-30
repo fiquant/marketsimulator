@@ -120,6 +120,8 @@ with scheduler.create() as world:
     setAttr(virtual_160.strategies[0], 'estimator', strategy.virtualWithUnitVolume)
     
     registry.insert(world)
+    
+    registry.instance.reset()
 
 
     app = Flask(__name__)

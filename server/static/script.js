@@ -260,6 +260,9 @@ function AppViewModel() {
 		var result = {
 			"id2obj" : id2obj
 		}
+		//-------------- traders
+		var src_traders = self.original().traders;
+		
 		self._parsed = result;
 		return result;		
 	})
