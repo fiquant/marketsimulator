@@ -1,3 +1,6 @@
+import sys
+sys.path.append(r'..')
+
 from marketsim import scheduler 
 
 with scheduler.create() as S:

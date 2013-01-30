@@ -29,6 +29,9 @@ class TwoSides(Strategy):
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
         
+    def reset(self):
+        self._eventGen.schedule()
+        
     def dispose(self):
         self._eventGen.unadvise(self._wakeUp)
 
@@ -58,6 +61,9 @@ class OneSide(Strategy):
     
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
+        
+    def reset(self):
+        self._eventGen.schedule()
         
     def dispose(self):
         self._eventGen.unadvise(self._wakeUp)

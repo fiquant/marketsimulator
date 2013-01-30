@@ -381,6 +381,11 @@ function AppViewModel() {
 			self.response($.parseJSON(data)); 
 		});
 	}
+	self.reset = function() {
+		$.post('/reset', function (data) {
+			//self.response($.parseJSON(data)); 
+		});
+	}
 };
 
 viewmodel = new AppViewModel();

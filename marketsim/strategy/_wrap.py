@@ -32,6 +32,10 @@ class %(name)s_Running(%(name)s):
         self._trader = trader
         self._impl = None
         self._respawn()
+        
+    def reset(self):
+        if 'reset' in dir(self._impl):
+            self._impl.reset()
 
     def _respawn(self):
         if self._impl is not None:

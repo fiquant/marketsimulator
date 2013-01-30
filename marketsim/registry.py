@@ -97,7 +97,6 @@ class Registry(object):
     
     def __init__(self):
         self._id2obj = dict() #weakref.WeakValueDictionary()
-        self._initial = dict()
         self._counter = 0
         
     def _insertNew(self, Id, obj):
@@ -108,7 +107,6 @@ class Registry(object):
         obj._id = Id
         obj._referencedBy = weakref.WeakSet()
         self._id2obj[Id] = obj
-        self._initial[Id] = self.dump(Id)
         return obj._id
     
     def _toposort(self, objects):
@@ -139,14 +137,12 @@ class Registry(object):
                 
     
     def reset(self):
-        ordered = self._toposort(list(self._initial.iteritems()))
-        for outer in ordered:
-            for id in outer:
-                meta = self._initial[id]
-                if len(meta) == 2:
-                    ctor, props = self._initial[id]
-                    props = dict([(name, value) for (name, (_, value)) in props.iteritems()])
-                    self.createFromMeta(id, (ctor, props))               
+        # it is a dirty hack and later we'll have to 
+        # store complete object graph in the registry (not only properties)
+        marketsim.scheduler.current()._reset()
+        for x in self._id2obj.itervalues():
+            if 'reset' in dir(x):
+                x.reset()
     
     def get(self, id):
         return self._id2obj[id]

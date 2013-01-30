@@ -10,6 +10,9 @@ class Link(object):
         """
         self._scheduler = sched if sched else scheduler.current() 
         self._latency = latency
+        self.reset()
+        
+    def reset(self):
         self._lastT = 0
         
     def send(self, func):

@@ -16,19 +16,27 @@ class RandomWalk(object):
         deltaDistr - increment function (default: normal distribution with \mu=0, \sigma=1)
         intervalDistr - defines intervals between signal updates
         """
-
-        self.on_changed = Event()
-        
         self.label = label if label is not None else "#"+str(id(self))
         
-        self.value = initialValue
+        self._initialValue = initialValue
         self.attributes = {"smooth":True}
-
+        self._deltaDistr = deltaDistr
+        self._intervalDistr = intervalDistr
+        self.on_changed = Event()
         def wakeUp(_):
-            self.value += deltaDistr()
+            self.value += self._deltaDistr()
             self.on_changed.fire(self)
+            
+        if '_timer' in dir(self):
+            self._timer.unadvise(wakeUp)
 
-        Timer(intervalDistr).advise(wakeUp)
+        self._timer = Timer(self._intervalDistr)
+        self._timer.advise(wakeUp)
+        
+        self.reset()
+        
+    def reset(self):
+        self.value = self._initialValue
 
     def advise(self, listener):
         """ Subscribes 'listener' to value changed events 

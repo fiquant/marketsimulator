@@ -1,3 +1,6 @@
+import sys
+sys.path.append(r'..')
+
 from marketsim import order
 import test
 from marketsim.orderbook._local import Asks
