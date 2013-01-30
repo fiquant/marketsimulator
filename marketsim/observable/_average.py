@@ -9,7 +9,7 @@ class derivative(object):
         self.update = self._src.update
         self.at = self._src.derivativeAt
         self.label = "d(" + src.label + ")"
-        
+    
 class Fold(object):
     """ Folds values from some source using a time-dependent accumulator....
     """
@@ -19,9 +19,11 @@ class Fold(object):
         """
         self._scheduler = sched if sched else scheduler.current()
         self._acc = acc
-        source.on_changed += lambda _: acc.update(self._scheduler.currentTime, source.value)
         self.label = getLabel(acc) + "(" + getLabel(source) + ")"
-        
+        self._source = source
+        self._source.on_changed += \
+            lambda _: self._acc.update(self._scheduler.currentTime, self._source.value)
+                
     @property
     def value(self):
         """ Returns value from the accumulator corresponding to the current time

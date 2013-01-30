@@ -7,31 +7,36 @@ class Efficiency(object):
     
     def __init__(self, trader, eventSources=None):
         
-        self.on_changed = Event()
-        self._current = None
         self._trader = trader
-        self.attributes = {}
-        
         if eventSources is None:
-            eventSources = [trader.on_traded]
+            self._eventSources = [trader.on_traded]
+        
+        self.on_changed = Event()
+        self.attributes = {}
         
         def update(_):
             def callback(sign): 
                 def inner((price, volume_unmatched)):
                     if volume_unmatched == 0: 
-                        self._current = trader.PnL - sign*price
+                        self._current = self._trader.PnL - sign*price
                         self.on_changed.fire(self)
                     else: # don't know what to do for the moment
                         self._current = None
                 return inner
         
-            side = Side.Buy if trader.amount < 0 else Side.Sell 
-            trader.book.evaluateOrderPriceAsync(side, abs(trader.amount), callback(-sign(trader.amount)))
+            side = Side.Buy if self._trader.amount < 0 else Side.Sell 
+            self._trader.book.evaluateOrderPriceAsync(side, 
+                                                      abs(self._trader.amount), 
+                                                      callback(-sign(self._trader.amount)))
         
-        for es in eventSources:
+        for es in self._eventSources:
             es.advise(update)
             
         update(None)
+        self.reset()
+        
+    def reset(self):
+        self._current = None
 
     @property
     def label(self):

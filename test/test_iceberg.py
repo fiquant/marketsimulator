@@ -1,3 +1,6 @@
+import sys
+sys.path.append(r'..')
+
 from marketsim import order, orderbook
 
 book = orderbook.Local(tickSize=1)

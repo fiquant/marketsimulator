@@ -7,6 +7,9 @@ class constant(object):
     def __init__(self, value=100.):
         self.value = value
         
+    def reset(self):
+        pass
+        
     _properties = {'value' : float}
     _types = [types.function(args=(), rv=float)]
     

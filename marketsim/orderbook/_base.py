@@ -5,12 +5,17 @@ class BookBase(object):
         """
         self._bids = bids
         self._asks = asks
+        self._tickSize = tickSize
         # queues indexed by their side
         self._queues = [0, 0]
         self._queues[self._bids.side.id] = self._bids
         self._queues[self._asks.side.id] = self._asks
-        self._tickSize = tickSize
         self.label = label
+        self.reset()
+        
+    def reset(self):
+        self._bids.reset()
+        self._asks.reset()
         self._incomingOrders = None
         
     _properties = {'label' : str, 'tickSize' : float}

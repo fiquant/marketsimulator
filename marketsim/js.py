@@ -4,19 +4,20 @@ class TimeSerie(object):
     
     def __init__(self, source, label, sched = None):
         self.label = label
-        self._data = []
-
-        if sched is None:
-            sched = scheduler.current()
-                
+        self._sched = scheduler.current() if sched is None else sched
+        self._source = source
         def wakeUp(_):
             """ Called when the source has chaged
             """
-            x = source.value
+            x = self._source.value
             if x is not None: # for the moment we don't know what to do with breaks in data
-                self._data.append((sched.currentTime, x))
+                self._data.append((self._sched.currentTime, x))
         
-        source.advise(wakeUp)
+        self._source.advise(wakeUp)
+        self.reset()
+        
+    def reset(self):
+        self._data = []
         
     _properties = {}
     
@@ -32,7 +33,7 @@ class Graph(object):
     def __init__(self, label):
         self.label = label
         self.series = []
-
+        
     def addTimeSerie(self, source):
         """ Adds a time serie to the graph
         source should be a source of events (so to have advise method) 

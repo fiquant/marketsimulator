@@ -11,23 +11,25 @@ class IndicatorBase(object):
         attributes -- a dictionary of attributes to be associated with the indicator
         """
         
-        # this event is called when currentValue updates        
-        self.on_changed = Event()
         
         self._label = label
         self.attributes = attributes
+        self._eventSources = eventSources
+        self._dataSource = dataSource
+        self.on_changed = Event()
 
+        # this event is called when currentValue updates        
         def update(_):
             # calculate current value
-            self._current = dataSource()
+            self._current = self._dataSource()
             if self._current is not None: # this should be removed into a separate filter
                 self.on_changed.fire(self) 
         
-        for es in eventSources:
+        for es in self._eventSources:
             es.advise(update)
             
         update(None)
-        
+                
     @property
     def label(self):
         """ Returns indicator label

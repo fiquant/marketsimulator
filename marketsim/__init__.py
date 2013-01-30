@@ -5,6 +5,9 @@ class Event(object):
     """
 
     def __init__(self):
+        self.reset()
+        
+    def reset(self):
         self._listeners = set()
         
     def __iadd__(self, listener):

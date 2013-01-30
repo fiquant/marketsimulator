@@ -41,7 +41,7 @@ class Scheduler(object):
     """
 
     def __init__(self, currentTime = 0):
-        self.reset()
+        self._reset()
 
     def __enter__(self):
         global _instance
@@ -54,7 +54,7 @@ class Scheduler(object):
         assert _instance==self
         _instance = None
         
-    def reset(self):
+    def _reset(self):
         """ Resets scheduler to the initial state: empty event set and T=0
         """
         self._elements = []
@@ -145,12 +145,15 @@ class Timer(object):
         self._scheduler = scheduler if scheduler else current()
         assert self._scheduler is not None
         self._intervalFunc = intervalFunc
+        self.schedule()
+        
+    def schedule(self):
         self._scheduler.scheduleAfter(self._intervalFunc(), self._wakeUp)
         
     def _wakeUp(self):
         if not self._cancelled:
             self.on_timer.fire(self)
-            self._scheduler.scheduleAfter(self._intervalFunc(), self._wakeUp)
+            self.schedule()
 
     def advise(self, listener):
         """ Subscribes 'listener' to be called when on_timer event occurs

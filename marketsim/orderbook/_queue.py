@@ -15,14 +15,17 @@ class Queue(object):
         """ Initializes an empty queue with given tickSize 
         and remembers order book the queue belong to if any
         """
-        self._elements = []         # pairs ((signedTicks, arrivalSeqNo), order) kept in a heap
         self._tickSize = tickSize   # tick size
-        self._counter = 0           # arrival order counter
+        self._book = book           # book the queue belongs to if any
         self.on_best_changed = Event()  # event to be called when the best order changes
         self.on_order_cancelled = Event() # event (orderQueue, cancelledOrder) to be called when an order is cancelled 
+        self.reset()
+        
+    def reset(self):
+        self._elements = []         # pairs ((signedTicks, arrivalSeqNo), order) kept in a heap
+        self._counter = 0           # arrival order counter
         self._lastBest = None       # pair (bestPrice, bestVolume)
         self._lastPrice = None      # last valid price
-        self._book = book           # book the queue belongs to if any
 
     @property
     def book(self):

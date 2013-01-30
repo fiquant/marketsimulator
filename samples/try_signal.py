@@ -1,7 +1,8 @@
 import sys
 sys.path.append(r'..')
 
-from marketsim import signal, strategy, trader, orderbook, scheduler, observable, veusz
+from marketsim import (signal, strategy, trader, orderbook, 
+                       scheduler, observable, veusz, registry)
 
 with scheduler.create() as world:
     

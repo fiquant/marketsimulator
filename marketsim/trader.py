@@ -15,6 +15,10 @@ class Base(object):
         self.on_order_sent = Event()
         # event to be fired when a trader's is traded
         self.on_traded = Event()
+        self.reset()
+        
+    def reset(self):   
+        self._PnL = 0 
         
     _properties = {'PnL' : float}
     
@@ -76,6 +80,10 @@ class SingleAsset(Base):
 
         for strategy in strategies:
             self.addStrategy(strategy)
+            
+    def reset(self):
+        Base.reset(self)
+        self._amount = 0
             
     _properties = {'amount' : float, 
                    'strategies' : None,

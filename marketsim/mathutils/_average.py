@@ -9,7 +9,12 @@ class ewma(types.UpdatableValue):
         """ Initializes EWMA with \alpha = alpha
         """
         self.alpha = alpha
+        self.reset()
+        
+    def reset(self):
         self._avg = None
+        self._lastValue = None
+        self._lastTime = None
         
     @property
     def label(self):

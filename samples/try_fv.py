@@ -149,20 +149,19 @@ with scheduler.create() as world:
     setAttr(fv_200, 'creationIntervalDistr', interval)
     setAttr(avg_plus.strategies[0], 'average1', new('marketsim.mathutils.ewma', {'alpha' : 0.15 }))
     setAttr(virtual_160.strategies[0], 'estimator', strategy.virtualWithUnitVolume)
-    
-#    for outer in (registry.instance._toposort(list(registry.instance._initial.iteritems()))):
-#        for inner in outer:
-#            print registry.instance._initial[inner]
 
+    L = registry.instance.dumpall()
     
+
     world.workTill(500)
 
-    setAttr(fv_200, 'fundamentalValue', c)
-    
-    world.advance(1500)
+    registry.instance.reset()
+    world.workTill(500)
 
     registry.instance.reset()
+    world.workTill(500)
 
-    world.advance(2500)
+    registry.instance.reset()
+    #setAttr(fv_200, 'fundamentalValue', c)
     
     veusz.render("fv_trader", [price_graph, eff_graph, trend_graph, pnl_graph, volume_graph])

@@ -1,3 +1,6 @@
+import sys
+sys.path.append(r'..')
+
 from marketsim import trader, strategy, order, orderbook, scheduler
 
 with scheduler.create() as world:

@@ -41,6 +41,10 @@ class _LiquidityProvider_Impl(Strategy):
         bp = merge(params, side=Side.Buy) 
         self._sell = _LiquidityProviderSide_Impl(trader, sp)
         self._buy = _LiquidityProviderSide_Impl(trader, bp)
+        
+    def reset(self):
+        self._sell.reset()
+        self._buy.reset()
     
     def suspend(self, s):
         Strategy.suspend(self, s)
