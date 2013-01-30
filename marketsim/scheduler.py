@@ -40,7 +40,7 @@ class Scheduler(object):
     """ Keeps a set of events to be launched in the future
     """
 
-    def __init__(self):
+    def __init__(self, currentTime = 0):
         self.reset()
 
     def __enter__(self):

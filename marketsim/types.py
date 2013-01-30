@@ -24,6 +24,8 @@ def casts_to(src, dst):
 class function(collections.namedtuple("function", ["args", "rv"])):
     
     def _casts_to(self, dst):
+        if dst is None:
+            return True
         if type(dst) is function:
             for i in range(len(self.args)):
                 if i >= len(dst.args):

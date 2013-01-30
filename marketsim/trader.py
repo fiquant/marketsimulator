@@ -64,8 +64,8 @@ class SingleAsset(Base):
     negative otherwise
     """
 
-    def __init__(self, strategy=None, label=None, strategies=[], amount = 0):
-        Base.__init__(self)
+    def __init__(self, strategy=None, label=None, strategies=[], amount = 0, PnL=0):
+        Base.__init__(self, PnL)
         self._amount = amount
         self._strategies = []
         self._label = label if label else getLabel(self)
@@ -110,9 +110,9 @@ class SingleAsset(Base):
         
 class SingleAssetSingleMarket(SingleAsset):
     
-    def __init__(self, orderBook, strategy=None, label=None, strategies=[]):
+    def __init__(self, orderBook, strategy=None, label=None, strategies=[], amount=0, PnL=0):
         self._orderBook = orderBook
-        SingleAsset.__init__(self, strategy, label, strategies)
+        SingleAsset.__init__(self, strategy, label, strategies, amount, PnL)
         
     _properties = {'orderBook' : None}
             

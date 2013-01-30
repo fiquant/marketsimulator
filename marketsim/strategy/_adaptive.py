@@ -48,6 +48,13 @@ exec wrapper("tradeIfProfitable",
 
 class TradeIfProfitable(tradeIfProfitable):
     
+    def __init__(self, strategy, 
+                 efficiency=efficiencyTrend, 
+                 estimator=virtualWithUnitVolume, 
+                 **kwargs):
+        tradeIfProfitable.__init__(self, strategy.With(**kwargs), efficiency, estimator)
+        self._constructAs = 'marketsim.strategy.TradeIfProfitable'
+    
     def With(self, 
              strategy = None, 
              efficiency = None,
