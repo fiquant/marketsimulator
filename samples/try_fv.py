@@ -131,6 +131,9 @@ with scheduler.create() as world:
     
     addToGraph(traders)
     
+    for g in [price_graph, eff_graph, trend_graph, pnl_graph, volume_graph]:
+        registry.insert(g)
+    
     registry.insert(world)
     
     for t in traders + [t_A]:
@@ -155,13 +158,13 @@ with scheduler.create() as world:
 
     world.workTill(500)
 
-    registry.instance.reset()
+    #registry.instance.reset()
     world.workTill(500)
 
-    registry.instance.reset()
+    #registry.instance.reset()
     world.workTill(500)
 
-    registry.instance.reset()
+    #registry.instance.reset()
     #setAttr(fv_200, 'fundamentalValue', c)
     
     veusz.render("fv_trader", [price_graph, eff_graph, trend_graph, pnl_graph, volume_graph])

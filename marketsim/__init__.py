@@ -5,10 +5,10 @@ class Event(object):
     """
 
     def __init__(self):
-        self.reset()
+        self._listeners = set()
         
     def reset(self):
-        self._listeners = set()
+        pass
         
     def __iadd__(self, listener):
         """ Adds 'listener' to the listeners set
@@ -24,6 +24,11 @@ class Event(object):
         """ Adds *listener* to the listeners set
         """
         self += listener
+
+    def unadvise(self, listener):
+        """ Removes *listener* from the listeners set
+        """
+        self -= listener
         
     def fire(self, *args):
         """ Calls all listeners passing *args to them

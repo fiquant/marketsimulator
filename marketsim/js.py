@@ -19,7 +19,11 @@ class TimeSerie(object):
     def reset(self):
         self._data = []
         
-    _properties = {}
+    @property
+    def source(self):
+        return self._source
+        
+    _properties = { "source" : None }
     
     @property    
     def data(self):

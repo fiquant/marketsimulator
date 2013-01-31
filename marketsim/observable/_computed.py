@@ -29,6 +29,15 @@ class IndicatorBase(object):
             es.advise(update)
             
         update(None)
+        
+    _properties = {}
+        
+    def reset(self):
+        self._current = None
+        if 'reset' in dir(self._dataSource):
+            self._dataSource.reset()
+        for es in self._eventSources:
+            es.reset()
                 
     @property
     def label(self):
@@ -114,7 +123,7 @@ def OnEveryDt(interval, source):
     source - function to obtain indicator value
     """
     
-    return IndicatorBase([scheduler.Timer(lambda: interval).on_timer], 
+    return IndicatorBase([scheduler.Timer(lambda: interval)],
                          source, 
                          getLabel(source), 
                          {'smooth':True})

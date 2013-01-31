@@ -8,6 +8,7 @@ class derivative(object):
         self._src = src
         self.update = self._src.update
         self.at = self._src.derivativeAt
+        self.reset = self._src.reset
         self.label = "d(" + src.label + ")"
     
 class Fold(object):
@@ -23,6 +24,9 @@ class Fold(object):
         self._source = source
         self._source.on_changed += \
             lambda _: self._acc.update(self._scheduler.currentTime, self._source.value)
+            
+    def reset(self):
+        self._acc.reset()
                 
     @property
     def value(self):
