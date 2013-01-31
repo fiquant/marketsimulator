@@ -53,13 +53,13 @@ class CSV(file):
         source - indicator with values to be saved
         label - time serie label
         """
-        file.__init__(self, directory + filename, 'w')
+        self._fullname = directory + filename
         self._filename = filename
         self._label = label
         if sched is None:
             sched = scheduler.current()
         
-        self.write('Time'+label+','+label+',\n')
+        self._source = source
         
         def wakeUp(_):
             """ Called when the source has chaged
@@ -81,6 +81,20 @@ class CSV(file):
         
         for k,v in attributes.iteritems():
             self._attributes[k] = v
+            
+        self.reset()
+            
+    def reset(self):
+        file.close(self)
+        file.__init__(self, self._fullname, 'w')
+        self.write('Time'+self._label+','+self._label+',\n')
+        
+            
+    @property
+    def source(self):
+        return self._source
+    
+    _properties = { "source" : None }
         
     def exportToVsz(self, f):
         """ Exports time serie to Vsz file
@@ -127,6 +141,12 @@ class Graph(object):
         """
         self._name = name
         self._datas = []
+        
+    @property
+    def series(self):
+        return self._datas
+    
+    _properties = { "series" : None }
         
     def addTimeSerie(self, source, attributes = {}):
         """ Adds a time serie to the graph

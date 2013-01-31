@@ -133,14 +133,14 @@ def current():
 """ Global object representing simulation clock.
 """
 
-class Timer(object):
+class Timer(Event):
     """ Event wrapper over Scheduler.process.
     'intervalFunc' defines intervals between moments of time 
     when subscribed listeners are to be called  
     """
 
     def __init__(self, intervalFunc, scheduler=None):
-        self.on_timer = Event()
+        Event.__init__(self)
         self._cancelled = False
         self._scheduler = scheduler if scheduler else current()
         assert self._scheduler is not None
@@ -150,19 +150,14 @@ class Timer(object):
     def schedule(self):
         self._scheduler.scheduleAfter(self._intervalFunc(), self._wakeUp)
         
+    def reset(self):
+        self.schedule()
+        
     def _wakeUp(self):
         if not self._cancelled:
-            self.on_timer.fire(self)
+            self.fire(self)
             self.schedule()
 
-    def advise(self, listener):
-        """ Subscribes 'listener' to be called when on_timer event occurs
-        """
-        self.on_timer += listener
-        
-    def unadvise(self, listener):
-        self.on_timer -= listener
-        
     def cancel(self):
         self._cancelled = True
 
