@@ -12,13 +12,22 @@ class TimeSerie(object):
             x = self._source.value
             if x is not None: # for the moment we don't know what to do with breaks in data
                 self._data.append((self._sched.currentTime, x))
+                # we should also filter out constant segmemnts
+                self._changes.append((self._sched.currentTime, x))
         
         self._source.advise(wakeUp)
         self.reset()
         
     def reset(self):
         self._data = []
-        
+        self._changes = []
+
+    def save_state_before_changes(self):
+        self._changes = []        
+    
+    def get_changes(self):
+        return self._changes    
+    
     @property
     def source(self):
         return self._source
