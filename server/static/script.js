@@ -337,6 +337,8 @@ function AppViewModel() {
 	self.parsed = ko.computed(function () {
 		var response = self.response();
 		
+		self.currentTime = response.currentTime;
+		
 		//----------- building new objects
 		if (response.objects) {
 			var id2obj = self.id2obj;
@@ -382,6 +384,8 @@ function AppViewModel() {
 	self.updategraph = ko.observable(false);
 	
 	self.processResponse = function (data, reset) {
+		self.currentTime = data.currentTime;
+		
 		//------------------------ update properties
 		var changes = data.changes;
 		for (var i in changes) {
@@ -452,6 +456,8 @@ function AppViewModel() {
 		];
 	})
 	
+	self.limitTime = ko.observable(500);
+	
 	self.changes = ko.computed(function(){
 		var updates = [];
 		var all = self.all();
@@ -462,16 +468,26 @@ function AppViewModel() {
 			}
 		}
 		return $.toJSON({'updates' : updates, 
-						 'advance' : _parseFloat(self.advance())});
+						 'limitTime' : self.limitTime()});
 	});
 	
 	
     self.renderGraph1d = function (elem, graph) { graph.render(elem); }
-	
+    
 	self.submitChanges = function() {
-		$.post('/update?'+self.changes(), function (data) {
-			self.processResponse($.parseJSON(data), false); 
-		});
+		self.limitTime(_parseFloat(self.advance()) + self.currentTime);
+		function run() {
+			var changes = self.changes();
+			$.post('/update?'+changes, function (data) {
+				var response = $.parseJSON(data);
+				self.processResponse(response, false); 
+				//console.log(response.currentTime + "...." + self.limitTime());
+				if (response.currentTime < self.limitTime()) {
+					run();
+				}
+			});
+		}
+		run();
 	}
 	self.reset = function() {
 		$.post('/reset', function (data) {
