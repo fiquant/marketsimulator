@@ -97,7 +97,7 @@ function ScalarValue(s, checker) {
 function ArrayValue(s) {
 	var self = this;
 	self.val = ko.observableArray(map(s, function (x,i) {
-					return new Property(i, x);
+					return new Property(i, x, true);
 				}));
 	
 	self.brief = function () {
@@ -153,12 +153,13 @@ function treatAny(value, getObj) {
 	}	
 }
 
-function Property(name, value) {
+function Property(name, value, expanded) {
 	var self = this;
 	self.name = name;
 	self.val = value;
 	
-	self.isExpanded = ko.observable(false);
+	var expandable = value.editor != INPUT && value.expanded().length;
+	self.isExpanded = ko.observable(expandable && expanded);
 
 	self.expandedView = ko.computed(function() {
 		return self.isExpanded() ? self.val.expanded() : [];
@@ -172,7 +173,7 @@ function Instance(id, src, getObj) {
 	self.constructor = src[0];
 	self.name = src[2];
 	self.fields = map(dict2array(src[1]), function (x) { 
-		return new Property(x.key, treatAny(x.value, getObj)); 
+		return new Property(x.key, treatAny(x.value, getObj), true); 
 	});
 	
 	self.changes = ko.computed(function() {
@@ -327,7 +328,7 @@ function AppViewModel() {
 		for (var i in ids) {
 			var x = ids[i];
 			if (x.constructor.indexOf(startsWith) == 0) {
-				result.push(new Property("", new ObjectValue(x)));
+				result.push(new Property("", new ObjectValue(x), false));
 			}
 		}
 		return result;		
@@ -353,7 +354,7 @@ function AppViewModel() {
 		}
 		
 		var asfield = function (id) {
-			return new Property("", new ObjectValue(self.id2obj[id]));
+			return new Property("", new ObjectValue(self.id2obj[id]), false);
 		}
 		
 		//-------------- traders
