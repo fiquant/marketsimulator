@@ -95,6 +95,15 @@ class Scheduler(object):
         """
         self.schedule(self.currentTime + dt, handler)
         
+    def step(self, limitTime):
+        if (self._elements <> [] and self._elements[0][0][0] < limitTime):
+            ((actionTime,_), eh) = heapq.heappop(self._elements)
+            self._currentTime = actionTime
+            eh()
+            return True
+        else:
+            return False
+        
     def workTill(self, limitTime):
         """ Launches all events with action time in range [currentTime, limitTime)
         in order of their action time and arrival order
@@ -104,10 +113,8 @@ class Scheduler(object):
             raise Exception("Scheduler is already working")
         
         self._working = True
-        while (self._elements <> [] and self._elements[0][0][0] < limitTime):
-            ((actionTime,_), eh) = heapq.heappop(self._elements)
-            self._currentTime = actionTime
-            eh()
+        while (self.step(limitTime)):
+            pass
         self._currentTime = limitTime
         self._working = False
 

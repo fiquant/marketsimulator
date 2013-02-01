@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-import sys, json
+import sys, json, time
 sys.path.append(r'..')
 
 from marketsim import (strategy, orderbook, trader, order, js,
@@ -175,17 +175,25 @@ with scheduler.create() as world:
         registry.instance.reset()
         return changes()
     
+    def run(timeout, limitTime):
+        t0 = time.clock()
+        while time.clock() - t0 < timeout:
+            if not world.step(limitTime):
+                world.workTill(limitTime)
+                return
+        
+    
     @app.route('/update', methods=['POST'])
     def update():
         raw = request.args.iterkeys().__iter__().next()
         parsed = json.loads(raw)
         for (id, field, value) in parsed['updates']:
             registry.instance.setAttr(id, field, value)
-        save_state_before_changes()
-        if 'advance' in parsed:
-            advance = parsed['advance']
-            if advance > 0:
-                world.advance(advance)
+        save_state_before_changes() 
+        if 'limitTime' in parsed:
+            limitTime = parsed['limitTime']
+            timeout = 1
+            run(timeout, limitTime)
         return changes()
     
     @app.route('/')
