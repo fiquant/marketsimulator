@@ -192,7 +192,7 @@ with scheduler.create() as world:
         save_state_before_changes() 
         if 'limitTime' in parsed:
             limitTime = parsed['limitTime']
-            timeout = 1
+            timeout = parsed["timeout"]
             run(timeout, limitTime)
         return changes()
     
