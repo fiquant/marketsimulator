@@ -221,6 +221,35 @@ function Graph(label, timeseries) {
 		}
 		return true;
 	}
+	
+	self.render = function (elem) {
+		var graph = self;
+		
+    	if (graph.empty()) {
+    		return;
+    	}
+    	
+		var data = map(graph.data, function (ts) {
+			return { 'data' : ts.data, 'label' : ts.label() };
+		});
+        
+        for (var i=0; i<elem.length; i++) {
+            var e = elem[i];
+            if (e.nodeType==1) {
+                var ee = firstChild(firstChild(firstChild(firstChild(e))));
+                ee.style.width = '1700px'; //self.graphSizeX()+'px';
+                ee.style.height = '800px'; //self.graphSizeY()+'px';
+                Flotr.draw(ee, data, {
+                    legend : {
+                        position : 'se',            // Position the legend 'south-east'.
+                        backgroundColor : '#D2E8FF' // A light blue background color.
+                    },
+                    HtmlText : false
+                });
+            }
+        }
+		
+	}
 }
 
 function firstChild(e) {
@@ -276,24 +305,32 @@ function AppViewModel() {
 	
 	self.id2obj = {};
 	self.traders = [];
+	self.timeseries = {};
+	self._graphs = [];
 	
-	self.processResponse = function (data) {
-		var changes = data.changes;
-		for (var i in changes) {
-			var ch = changes[i];
-			var id = ch[0];
-			var pname = ch[1];
-			var value = ch[2];
-			var obj = self.id2obj[id];
-			for (var j in obj.fields) {
-				var field = obj.fields[j];
-				if (field.name == pname) {
-					var x = field.val;
-					x.initial = value;
-					x.val(value);
-				}
+	self.filteredViewEx = function(startsWith) {
+		var result = [];
+		var ids = self.id2obj;
+		for (var i in ids) {
+			var x = ids[i];
+			if (x.constructor.indexOf(startsWith) == 0) {
+				result.push(x);
 			}
 		}
+		return result;		
+	}
+	
+	self.filteredView = function(startsWith) {
+		// to implement through filteredViewEx
+		var result = [];
+		var ids = self.id2obj;
+		for (var i in ids) {
+			var x = ids[i];
+			if (x.constructor.indexOf(startsWith) == 0) {
+				result.push(new Property("", new ObjectValue(x)));
+			}
+		}
+		return result;		
 	}
 	
 	self.parsed = ko.computed(function () {
@@ -325,45 +362,7 @@ function AppViewModel() {
 			self.traders = map(src_traders, asfield);
 		}
 		
-		return [id2obj];		
-	})
-	
-	self.all = ko.computed(function () {
-		var dummy = self.parsed();
-		var res = [];
-		var ids = self.id2obj;
-		for (var i in ids) {
-			res.push(ids[i]);
-		}
-		return res;
-	})
-
-	self.filteredViewEx = function(startsWith) {
-		var result = [];
-		var ids = self.id2obj;
-		for (var i in ids) {
-			var x = ids[i];
-			if (x.constructor.indexOf(startsWith) == 0) {
-				result.push(x);
-			}
-		}
-		return result;		
-	}
-	
-	self.filteredView = function(startsWith) {
-		// to implement through filteredViewEx
-		var result = [];
-		var ids = self.id2obj;
-		for (var i in ids) {
-			var x = ids[i];
-			if (x.constructor.indexOf(startsWith) == 0) {
-				result.push(new Property("", new ObjectValue(x)));
-			}
-		}
-		return result;		
-	}
-	
-	self.graphs = ko.computed(function () {
+		//----------------- graphs
 		var rawtimeseries = self.filteredViewEx("marketsim.js.TimeSerie");
 		var ts_data = alltimeseries();
 		
@@ -375,14 +374,68 @@ function AppViewModel() {
 			timeseries[ts.id] = ts;		
 		}
 		
-		var rawgraphs = self.filteredViewEx("marketsim.js.Graph");
+		self.timeseries = timeseries;
 		
+		return [id2obj];		
+	})
+	self.updategraph = ko.observable(false);
+	
+	self.processResponse = function (data, reset) {
+		//------------------------ update properties
+		var changes = data.changes;
+		for (var i in changes) {
+			var ch = changes[i];
+			var id = ch[0];
+			var pname = ch[1];
+			var value = ch[2];
+			var obj = self.id2obj[id];
+			for (var j in obj.fields) {
+				var field = obj.fields[j];
+				if (field.name == pname) {
+					var x = field.val;
+					x.initial = value;
+					x.val(value);
+				}
+			}
+		}
+		// -------------------- update timeseries
+		if (reset) {
+			for (var i in self.timeseries) {
+				self.timeseries[i].data = [];
+			}	
+		} else {
+			var ts_changes = data.ts_changes;
+			for (var i in ts_changes) {
+				var src = ts_changes[i];
+				var dst = self.timeseries[i];
+				for (var j in src) {
+					dst.data.push(src[j]);
+				}
+			}
+		}
+		self.updategraph(!self.updategraph());
+	}
+
+	
+	self.all = ko.computed(function () {
+		var dummy = self.parsed();
+		var res = [];
+		var ids = self.id2obj;
+		for (var i in ids) {
+			res.push(ids[i]);
+		}
+		return res;
+	})
+
+	self.graphs = ko.computed(function () {
+		var dummy = self.updategraph();
+		var rawgraphs = self.filteredViewEx("marketsim.js.Graph");
 		return map(rawgraphs, function (g) {
 			var tss = g.fields[0].val.val();
 			var res = [];
 			for (var i in tss) {
 				var ts = tss[i].val.val; 
-				res.push(timeseries[ts.id]);
+				res.push(self.timeseries[ts.id]);
 			}
 			return new Graph(g.name, res);
 		})
@@ -412,41 +465,16 @@ function AppViewModel() {
 	});
 	
 	
-    self.renderGraph1d = function (elem, graph) {
-    	
-    	if (graph.empty()) {
-    		return;
-    	}
-    	
-		var data = map(graph.data, function (ts) {
-			return { 'data' : ts.data, 'label' : ts.label() };
-		});
-        
-        for (var i=0; i<elem.length; i++) {
-            var e = elem[i];
-            if (e.nodeType==1) {
-                var ee = firstChild(firstChild(firstChild(firstChild(e))));
-                ee.style.width = '1700px'; //self.graphSizeX()+'px';
-                ee.style.height = '800px'; //self.graphSizeY()+'px';
-                Flotr.draw(ee, data, {
-                    legend : {
-                        position : 'se',            // Position the legend 'south-east'.
-                        backgroundColor : '#D2E8FF' // A light blue background color.
-                    },
-                    HtmlText : false
-                });
-            }
-        }
-    } 
+    self.renderGraph1d = function (elem, graph) { graph.render(elem); }
 	
 	self.submitChanges = function() {
 		$.post('/update?'+self.changes(), function (data) {
-			self.processResponse($.parseJSON(data)); 
+			self.processResponse($.parseJSON(data), false); 
 		});
 	}
 	self.reset = function() {
 		$.post('/reset', function (data) {
-			self.processResponse($.parseJSON(data)); 
+			self.processResponse($.parseJSON(data), true); 
 		});
 	}
 };

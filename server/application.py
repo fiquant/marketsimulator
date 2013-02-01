@@ -133,16 +133,22 @@ with scheduler.create() as world:
         assert type(x) == js.TimeSerie
         return json.dumps(x.data)
     
+    def _timeseries():
+        return [(k,v) for (k,v) in registry.instance._id2obj.iteritems()\
+                         if type(v) == js.TimeSerie]
+    
     @app.route('/alltimeseries')
     def get_all_timeseries():
-        res = {}
-        for k, v in registry.instance._id2obj.iteritems():
-            if type(v) == js.TimeSerie:
-               res[k] = v.data
+        res = dict([(k,v.data) for (k,v) in _timeseries()])
         return json.dumps(res) 
     
     def save_state_before_changes():
         registry.instance.save_state_before_changes()
+        for (_,ts) in _timeseries(): 
+            ts.save_state_before_changes()
+            
+    def get_ts_changes():
+        return dict([(k, v.get_changes()) for (k,v) in _timeseries()])
     
     @app.route('/all')
     def get_all():
@@ -152,17 +158,22 @@ with scheduler.create() as world:
             "books" : registry.instance.books,
             "graphs" : registry.instance.graphs,
             "currentTime" : world.currentTime,
-            "alltimeseries" : [(k, v.data) \
-                               for (k,v) in registry.instance._id2obj.iteritems() \
-                                    if type(v) == js.TimeSerie],
-            "changes" : registry.instance.get_changes()
+        }
+        return json.dumps(result)
+    
+    def changes():
+        result = {
+            "currentTime" : world.currentTime,
+            "changes" : registry.instance.get_changes(),
+            "ts_changes" : get_ts_changes()
         }
         return json.dumps(result)
     
     @app.route('/reset', methods=['POST', 'GET'])
     def reset():
+        save_state_before_changes()
         registry.instance.reset()
-        return get_all()
+        return changes()
     
     @app.route('/update', methods=['POST'])
     def update():
@@ -175,7 +186,7 @@ with scheduler.create() as world:
             advance = parsed['advance']
             if advance > 0:
                 world.advance(advance)
-        return get_all()
+        return changes()
     
     @app.route('/')
     def index():
