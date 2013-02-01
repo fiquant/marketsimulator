@@ -308,6 +308,7 @@ function AppViewModel() {
 	self.traders = [];
 	self.timeseries = {};
 	self._graphs = [];
+	self.updateInterval = ko.observable(1);
 	
 	self.filteredViewEx = function(startsWith) {
 		var result = [];
@@ -468,8 +469,15 @@ function AppViewModel() {
 			}
 		}
 		return $.toJSON({'updates' : updates, 
+						 'timeout' : _parseFloat(self.updateInterval()),
 						 'limitTime' : self.limitTime()});
 	});
+	
+	self.running = ko.observable(0);
+	self.enabled = ko.computed(function () {
+		return self.running() == 0;
+	})
+	self.toBeStopped = false;
 	
 	
     self.renderGraph1d = function (elem, graph) { graph.render(elem); }
@@ -477,14 +485,18 @@ function AppViewModel() {
 	self.submitChanges = function() {
 		self.limitTime(_parseFloat(self.advance()) + self.currentTime);
 		function run() {
+			self.running(self.running() + 1);
 			var changes = self.changes();
 			$.post('/update?'+changes, function (data) {
 				var response = $.parseJSON(data);
 				self.processResponse(response, false); 
 				//console.log(response.currentTime + "...." + self.limitTime());
-				if (response.currentTime < self.limitTime()) {
+				if (self.toBeStopped) {
+					self.toBeStopped = false;
+				} else if (response.currentTime < self.limitTime()) {
 					run();
 				}
+				self.running(self.running() - 1);
 			});
 		}
 		run();

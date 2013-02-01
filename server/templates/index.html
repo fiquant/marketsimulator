@@ -79,10 +79,12 @@
 	</script>
 		
 	<script type="text/html" id="current">
-		<a data-bind="text: changes"></a>
-		<input data-bind="value: advance" />
-		<button data-bind="click: submitChanges">Run</button>	
-		<button data-bind="click: reset">Reset</button>	
+		<button data-bind="click: submitChanges, enable: enabled">Run</button>	
+		<button data-bind="click: reset, enable: enabled">Reset</button>	
+		<button data-bind="click: function () { toBeStopped = true; }, disable: enabled">Stop</button>	
+		<!-- <a data-bind="text: changes"></a> -->
+		Advance: <input data-bind="value: advance" />
+		Update interval: <input data-bind="value: updateInterval" />
 		<table>
 			<tr data-bind="template: { name: 'renderEntities', foreach: entities }">
 			</tr>
