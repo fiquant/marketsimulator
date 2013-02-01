@@ -98,6 +98,7 @@ class Registry(object):
     def __init__(self):
         self._id2obj = dict() #weakref.WeakValueDictionary()
         self._counter = 0
+        self._id2savedfields = {}
         
     def _insertNew(self, Id, obj):
         if id in self._id2obj:
@@ -143,6 +144,32 @@ class Registry(object):
         for x in self._id2obj.itervalues():
             if 'reset' in dir(x):
                 x.reset()
+                
+    def save_state_before_changes(self):
+        self._id2savedfields = {}
+        for k,v in self._id2obj.iteritems():
+            fields = {}
+            for pname in (properties(v) or []):
+                x = getattr(v, pname)
+                if type(x) == int or type(x) == float or type(x) == str:
+                    # we'd better to check here also that this field is "mutable"
+                    fields[pname] = x
+            if fields != {}:
+                self._id2savedfields[k] = fields
+                
+    def get_changes(self):
+        changes = []
+        for k,v in self._id2obj.iteritems():
+            if k in self._id2savedfields:
+                saved = self._id2savedfields[k]
+                for pname in properties(v):
+                    x = getattr(v, pname)
+                    if type(x) == int or type(x) == float or type(x) == str:
+                        # we'd better to check here also that this field is "mutable"
+                        if x != saved[pname]:
+                            changes.append((k, pname, x))
+        return changes
+        
     
     def get(self, id):
         return self._id2obj[id]

@@ -88,6 +88,7 @@
 			</tr>
 		</table>
 	  <div data-bind="template: { foreach: graphs, afterRender: renderGraph1d }">
+	  	<!-- ko if: !$data.empty() -->
 	  	<th data-bind="text: label"></th>
 	    <table class="graph1d">
 	      <tr>
@@ -97,6 +98,7 @@
 	        </td>
 	      </tr>
 	    </table>
+	    <!-- /ko -->
 	  </div>
         
 		
