@@ -141,6 +141,9 @@ with scheduler.create() as world:
                res[k] = v.data
         return json.dumps(res) 
     
+    def save_state_before_changes():
+        registry.instance.save_state_before_changes()
+    
     @app.route('/all')
     def get_all():
         result = {
@@ -148,7 +151,11 @@ with scheduler.create() as world:
             "traders" : registry.instance.traders,
             "books" : registry.instance.books,
             "graphs" : registry.instance.graphs,
-            "currentTime" : world.currentTime
+            "currentTime" : world.currentTime,
+            "alltimeseries" : [(k, v.data) \
+                               for (k,v) in registry.instance._id2obj.iteritems() \
+                                    if type(v) == js.TimeSerie],
+            "changes" : registry.instance.get_changes()
         }
         return json.dumps(result)
     
@@ -163,6 +170,7 @@ with scheduler.create() as world:
         parsed = json.loads(raw)
         for (id, field, value) in parsed['updates']:
             registry.instance.setAttr(id, field, value)
+        save_state_before_changes()
         if 'advance' in parsed:
             advance = parsed['advance']
             if advance > 0:

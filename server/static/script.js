@@ -212,6 +212,15 @@ function Graph(label, timeseries) {
 	var self = this;
 	self.label = label;
 	self.data = timeseries;
+	
+	self.empty = function () {
+		for (var i in self.data) {
+			if (self.data[i].data.length > 0) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
 
 function firstChild(e) {
@@ -232,49 +241,97 @@ function dir(object) {
     return stuff;
 }
 
+/*
+ * We will create observables tree only when 
+ *   -- initialization
+ *   -- user refreshes the page
+ * In these cases we will explicitly construct all the data structures
+ * (not implicitely in functional style)
+ * id2obj -- it is not an obsevable
+ * traders -- observableArray
+ * orderbooks -- observableArray
+ * graphs -- observableArray
+ * scheduler.currentTime -- observable
+ * scalar fields -- observable
+ * options list -- computed (???). yes it is computed since once a new type added
+ * we'll need to reflect this in all options lists involved
+ * We seriously rely on fact that data passed from server are mainly deltas 
+ * otherwise we'll have to re-render the view every time
+ * It is essential that server can only send messages about scalar value attribute changes
+ * and time series expansion
+ * Model structure cannot changed by the server -- it can only be done by user in browser
+ *  
+ * first, we should provide change sets at server side and then we'll process them client side
+ * 
+ * changeset -- it is a difference between state of the server before and after request execution
+ * to implement this we'll store for every object it fields and then compare them with current values
+ * also we should check that only scalar fields may change
+ */
+
 function AppViewModel() {
 	var self = this;
 	self.advance = ko.observable(500);
 	self.response = ko.observable("");
 	self.response(all());
 	
-	self.original = ko.computed(function () {
-		return self.response();
-	})
+	self.id2obj = {};
+	self.traders = [];
 	
-	self.parsed = ko.computed(function () {
-		var id2obj = {};
-		//----------- building new objects
-		var original = self.original().objects;
-		var getObj = function (id) {
-			if (id2obj[id] == undefined) {
-				id2obj[id] = new Instance(id, original[id], getObj);
+	self.processResponse = function (data) {
+		var changes = data.changes;
+		for (var i in changes) {
+			var ch = changes[i];
+			var id = ch[0];
+			var pname = ch[1];
+			var value = ch[2];
+			var obj = self.id2obj[id];
+			for (var j in obj.fields) {
+				var field = obj.fields[j];
+				if (field.name == pname) {
+					var x = field.val;
+					x.initial = value;
+					x.val(value);
+				}
 			}
-			return id2obj[id];
 		}
-		
-		for (var i in original) {
-			id2obj[i] = getObj(i);
-		}
-		
-		var result = {
-			"id2obj" : id2obj
-		}
-		//-------------- traders
-		var src_traders = self.original().traders;
-		
-		self._parsed = result;
-		return result;		
-	})
-	
-	
-	self.id2obj = function () {
-		return self.parsed().id2obj;
 	}
 	
+	self.parsed = ko.computed(function () {
+		var response = self.response();
+		
+		//----------- building new objects
+		if (response.objects) {
+			var id2obj = self.id2obj;
+			var original = response.objects;
+			var getObj = function (id) {
+				if (id2obj[id] == undefined) {
+					id2obj[id] = new Instance(id, original[id], getObj);
+				}
+				return id2obj[id];
+			}
+			
+			for (var i in original) {
+				id2obj[i] = getObj(i);
+			}
+		}
+		
+		var asfield = function (id) {
+			return new Property("", new ObjectValue(self.id2obj[id]));
+		}
+		
+		//-------------- traders
+		if (response.traders) {
+			var src_traders = self.response().traders;
+			self.traders = map(src_traders, asfield);
+		}
+		
+		return [id2obj];		
+	})
+	
 	self.all = ko.computed(function () {
+		var dummy = self.parsed();
 		var res = [];
-		var ids = self.id2obj();
+		var ids = self.id2obj;
 		for (var i in ids) {
 			res.push(ids[i]);
 		}
@@ -283,7 +340,7 @@ function AppViewModel() {
 
 	self.filteredViewEx = function(startsWith) {
 		var result = [];
-		var ids = self.id2obj();
+		var ids = self.id2obj;
 		for (var i in ids) {
 			var x = ids[i];
 			if (x.constructor.indexOf(startsWith) == 0) {
@@ -296,7 +353,7 @@ function AppViewModel() {
 	self.filteredView = function(startsWith) {
 		// to implement through filteredViewEx
 		var result = [];
-		var ids = self.id2obj();
+		var ids = self.id2obj;
 		for (var i in ids) {
 			var x = ids[i];
 			if (x.constructor.indexOf(startsWith) == 0) {
@@ -332,8 +389,9 @@ function AppViewModel() {
 	})
 	
 	self.entities = ko.computed(function () {
+		var dummy = self.parsed();
 		return [
-			["Traders" , "model", self.filteredView("marketsim.trader.")],
+			["Traders" , "model", self.traders],
 			["Order books", "option", self.filteredView("marketsim.orderbook.")],
 			["Scheduler", "pricing_method", self.filteredView("marketsim.scheduler.")],
 			["Graphs", "pricing_method", self.filteredView("marketsim.js.Graph")],
@@ -355,6 +413,11 @@ function AppViewModel() {
 	
 	
     self.renderGraph1d = function (elem, graph) {
+    	
+    	if (graph.empty()) {
+    		return;
+    	}
+    	
 		var data = map(graph.data, function (ts) {
 			return { 'data' : ts.data, 'label' : ts.label() };
 		});
@@ -378,12 +441,12 @@ function AppViewModel() {
 	
 	self.submitChanges = function() {
 		$.post('/update?'+self.changes(), function (data) {
-			self.response($.parseJSON(data)); 
+			self.processResponse($.parseJSON(data)); 
 		});
 	}
 	self.reset = function() {
 		$.post('/reset', function (data) {
-			//self.response($.parseJSON(data)); 
+			self.processResponse($.parseJSON(data)); 
 		});
 	}
 };
