@@ -19,7 +19,7 @@
 	<script type="text/html" id="renderField">
         <tr data-bind="css: { even: $index()%2==0 }">
             <!-- ko if: val.editor == INPUT -->
-            	<td></td>
+            	<td data-bind="css: { error: val.hasError }"></td>
 	            <td data-bind="css: { error: val.hasError }">
 	            	<a data-bind="text: name + hasChangedSign($data)"/>	            		            	
 	            </td>	           
@@ -40,6 +40,9 @@
 	            	<a data-bind="text: val.brief()"></a>
 	            </td>
 	        <!-- /ko -->
+        </tr>
+        <tr class="error" data-bind="if: val.editor == INPUT && val.errormsg().length">
+        	<td colspan="3" data-bind="text: val.errormsg()"></td>
         </tr>
         <tr data-bind="if: $data.expandedView().length > 0">
         	<td>&nbsp; &nbsp; &nbsp; &nbsp; </td>
