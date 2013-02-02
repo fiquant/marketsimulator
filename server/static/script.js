@@ -29,37 +29,49 @@ function isFloat (s) {
 
 function _parseInt(x) {
     if (typeof(x) == "string" && !isInteger(x.trim()))
-        return NaN;
+        throw "should be an integer value";
     return parseInt(x,10);
 }
 
 function _parseFloat(x) {
     if (typeof(x) == "string" && !isFloat(x.trim()))
-        return NaN;
+        throw "should be a floating point value";
     return parseFloat(x);
 }
 
 function less(y) {
     return function (x) {
-        return x < y ? x : NaN;
+    	if (!(x < y)) {
+    		throw "should be less than " + y;
+    	}
+        return x;
     }
 }
 
 function less_or_equal(y) {
     return function (x) {
-        return x <= y ? x : NaN;
+    	if (!(x <= y)) {
+    		throw "should be less or equal to " + y;
+    	}
+        return x;
     }
 }
 
 function greater(y) {
     return function (x) {
-        return x > y ? x : NaN;
+    	if (!(x > y)) {
+    		throw "should be greater than " + y;
+    	}
+        return x;
     }
 }
 
 function greater_or_equal(y) {
     return function (x) {
-        return x >= y ? x : NaN;
+    	if (!(x >= y)) {
+    		throw "should be greater or equal to " + y;
+    	}
+        return x;
     }
 }
 
@@ -124,8 +136,16 @@ function ScalarValue(s, checker) {
 	self.initial = ko.observable(s);
 	self.val = ko.observable(s);
 	self.editor = INPUT;
+	self.errormsg = ko.observable("");
 	self.convertedValue = ko.computed(function (){
-		return checker(self.val());
+		try {
+			var r = checker(self.val());
+			self.errormsg("");
+			return r;
+		} catch (err) {
+			self.errormsg(err);
+			return NaN;
+		}
 	});
 	self.hasError = ko.computed(function () {
 		return isnan(self.convertedValue());
