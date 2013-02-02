@@ -291,6 +291,17 @@ class Registry(object):
     def graphs(self):
         return self.ofType("marketsim.js.Graph")
     
+    def _dumpPropertyConstraint(self, constraint):
+        if constraint == int:
+            return "int"
+        if constraint == float:
+            return "float"
+        if constraint == bool:
+            return "bool"
+        if constraint == str:
+            return "str"
+        return ""
+    
     def tojson(self, Id):
         obj = self._id2obj.get(Id)
         if obj is None:
@@ -306,7 +317,9 @@ class Registry(object):
                 repr(obj)            
             
         propnames = properties(obj)
-        props     = dict([(k, self._dumpPropertyValue(getattr(obj, k), obj)) \
+        props     = dict([(k, 
+                           (self._dumpPropertyValue(getattr(obj, k), obj), 
+                            self._dumpPropertyConstraint(v))) \
                                            for k,v in propnames.iteritems()])\
                      if propnames is not None else None
         

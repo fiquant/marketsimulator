@@ -20,11 +20,11 @@
         <tr data-bind="css: { even: $index()%2==0 }">
             <!-- ko if: val.editor == INPUT -->
             	<td></td>
-	            <td>
+	            <td data-bind="css: { error: val.hasError }">
 	            	<a data-bind="text: name + hasChangedSign($data)"/>	            		            	
 	            </td>	           
-	            <td>
-	            	<input data-bind="value: val.val"></input>
+	            <td data-bind="css: { error: val.hasError }">
+	            	<input data-bind="value: val.val, valueUpdate: 'afterkeydown'"></input>
 	            </td> 
 	        <!-- /ko -->
             <!-- ko if: val.editor != INPUT -->
@@ -81,7 +81,7 @@
 	<script type="text/html" id="current">
 		<button data-bind="click: submitChanges, enable: enabled">Run</button>	
 		<button data-bind="click: reset, enable: enabled">Reset</button>	
-		<button data-bind="click: function () { toBeStopped = true; }, disable: enabled">Stop</button>	
+		<button data-bind="click: function () { toBeStopped = true; }, enable: running">Stop</button>	
 		<!-- <a data-bind="text: changes"></a> -->
 		Advance: <input data-bind="value: advance" />
 		Update interval: <input data-bind="value: updateInterval" />
