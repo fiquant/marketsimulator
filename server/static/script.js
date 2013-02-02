@@ -84,6 +84,10 @@ function hasChangedSign(x) {
 	return x.val.initial != x.val.val() ? "*" : "";
 }
 
+function isnan(x) {
+	return typeof(x) != "string" && isNaN(x);
+}
+
 function ScalarValue(s, checker) {
 	var self = this;
 	self.initial = s;
@@ -92,6 +96,9 @@ function ScalarValue(s, checker) {
 	self.convertedValue = ko.computed(function (){
 		return checker(self.val());
 	});
+	self.hasError = ko.computed(function () {
+		return isnan(self.convertedValue());
+	})
 }
 
 function ArrayValue(s) {
@@ -103,6 +110,15 @@ function ArrayValue(s) {
 	self.brief = function () {
 		return "...";
 	}
+	self.hasError = ko.computed(function () {
+		var elements = self.val();
+		for (var i in elements) {
+			if (elements[i].val.hasError()) {
+				return true;
+			}
+		}
+		return false;
+	})
 
 	self.expanded = self.val;
 	
@@ -121,6 +137,17 @@ function ObjectValue(s) {
 		return self.val.fields;
 	});
 	
+	self.hasError = ko.computed(function () {
+		var fields = self.val.fields;
+		for (var i in fields) {
+			if (fields[i].val.hasError()) {
+				return true;
+			}
+		}
+		return false;
+	})
+	
+	
 	self.editor = LISTBOX;
 }
 
@@ -135,7 +162,7 @@ function indentify (s, n) {
 	return spaces[n] + s;
 } 
 
-function treatAny(value, getObj) {
+function treatAny(value, constraint, getObj) {
 	if (typeof(value) == 'string'){
 		if (value.length > 1 && value[0]=='#' && value[1] != "#") {
 			return new ObjectValue(getObj(parseInt(value.substring(1))));
@@ -147,9 +174,11 @@ function treatAny(value, getObj) {
 			}
 		}
 	} else if (isArray(value)) {
-		return new ArrayValue(map(value, function (x) { return treatAny(x, getObj); }));
+		return new ArrayValue(map(value, function (x) { return treatAny(x, "", getObj); }));
 	} else {
-		return new ScalarValue(value, _parseFloat);
+		var converter = (constraint == "float" ? _parseFloat : 
+		                 constraint == "int" ? _parseInt : _parseFloat);
+		return new ScalarValue(value, converter);
 	}	
 }
 
@@ -164,6 +193,10 @@ function Property(name, value, expanded) {
 	self.expandedView = ko.computed(function() {
 		return self.isExpanded() ? self.val.expanded() : [];
 	});
+	
+	self.hasError = ko.computed(function () {
+		return self.val.hasError();
+	})
 }
 
 
@@ -173,7 +206,7 @@ function Instance(id, src, getObj) {
 	self.constructor = src[0];
 	self.name = src[2];
 	self.fields = map(dict2array(src[1]), function (x) { 
-		return new Property(x.key, treatAny(x.value, getObj), true); 
+		return new Property(x.key, treatAny(x.value[0], x.value[1], getObj), true); 
 	});
 	
 	self.changes = ko.computed(function() {
@@ -193,20 +226,6 @@ function TimeSerie(id, label, data) {
 	self.id = id;
 	self.label = ko.observable(label);
 	self.data = data;
-/*	self.rawdata = [];
-	self.recompute = ko.observable(false);
-	self.data = ko.computed(function (){
-		var dummy = self.recompute();
-		return self.rawdata;
-	})
-	self.update = function() {
-		$.getJSON('/timeserie/' + self.id, function (data) {
-			self.rawdata = data; // later 'data' will be just an update
-			self.recompute(!self.recompute());
-		 	// drop the timeserie from the server
-		})
-	}
-	self.update(); */
 }
 
 function Graph(label, timeseries) {
@@ -382,6 +401,16 @@ function AppViewModel() {
 		
 		return [id2obj];		
 	})
+	
+	self.hasError = ko.computed(function () {
+		for (var i in self.traders) {
+			if (self.traders[i].hasError()) {
+				return true;
+			}
+		}
+		return false;
+	})
+	
 	self.updategraph = ko.observable(false);
 	
 	self.processResponse = function (data, reset) {
@@ -475,7 +504,7 @@ function AppViewModel() {
 	
 	self.running = ko.observable(0);
 	self.enabled = ko.computed(function () {
-		return self.running() == 0;
+		return self.running() == 0 && !self.hasError();
 	})
 	self.toBeStopped = false;
 	
