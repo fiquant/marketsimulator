@@ -81,7 +81,7 @@ function isInput(x) {
 var EMPTYSTR = "";
 
 function hasChangedSign(x) {
-	return x.val.initial != x.val.val() ? "*" : "";
+	return x.val.initial() != x.val.val() ? "*" : "";
 }
 
 function isnan(x) {
@@ -90,7 +90,7 @@ function isnan(x) {
 
 function ScalarValue(s, checker) {
 	var self = this;
-	self.initial = s;
+	self.initial = ko.observable(s);
 	self.val = ko.observable(s);
 	self.editor = INPUT;
 	self.convertedValue = ko.computed(function (){
@@ -213,12 +213,21 @@ function Instance(id, src, getObj) {
 		var result = [];
 		for (var i=0; i < self.fields.length; i++) {
 			var f = self.fields[i];
-			if (f.val.editor == INPUT && f.val.initial != f.val.val()) {
+			if (f.val.editor == INPUT && f.val.initial() != f.val.val()) {
 				result.push([self.id, f.name, f.val.convertedValue()]);
 			}
 		}
 		return result;
 	});
+	
+	self.changesSubmitted = function () {
+		for (var i=0; i < self.fields.length; i++) {
+			var f = self.fields[i];
+			if (f.val.editor == INPUT) {
+				f.val.initial(f.val.val());
+			} 
+		}
+	}
 }
 
 function TimeSerie(id, label, data) {
@@ -428,7 +437,7 @@ function AppViewModel() {
 				var field = obj.fields[j];
 				if (field.name == pname) {
 					var x = field.val;
-					x.initial = value;
+					x.initial(value);
 					x.val(value);
 				}
 			}
@@ -511,11 +520,19 @@ function AppViewModel() {
 	
     self.renderGraph1d = function (elem, graph) { graph.render(elem); }
     
+    self.changesSubmitted = function () {
+		var all = self.all();
+		for (var i=0; i<all.length; i++) {
+			all[i].changesSubmitted();
+		}
+    }
+    
 	self.submitChanges = function() {
 		self.limitTime(_parseFloat(self.advance()) + self.currentTime);
 		function run() {
 			self.running(self.running() + 1);
 			var changes = self.changes();
+			self.changesSubmitted();
 			$.post('/update?'+changes, function (data) {
 				var response = $.parseJSON(data);
 				self.processResponse(response, false); 
