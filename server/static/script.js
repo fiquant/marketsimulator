@@ -39,6 +39,37 @@ function _parseFloat(x) {
     return parseFloat(x);
 }
 
+function less(y) {
+    return function (x) {
+        return x < y ? x : NaN;
+    }
+}
+
+function less_or_equal(y) {
+    return function (x) {
+        return x <= y ? x : NaN;
+    }
+}
+
+function greater(y) {
+    return function (x) {
+        return x > y ? x : NaN;
+    }
+}
+
+function greater_or_equal(y) {
+    return function (x) {
+        return x >= y ? x : NaN;
+    }
+}
+
+function combine(f,g) {
+    return function (x) {
+        return f(g(x));
+    }
+}
+
+
 function identity(s) { return s; }
 
 function TeXize(s) {
@@ -176,9 +207,9 @@ function treatAny(value, constraint, getObj) {
 	} else if (isArray(value)) {
 		return new ArrayValue(map(value, function (x) { return treatAny(x, "", getObj); }));
 	} else {
-		var converter = (constraint == "float" ? _parseFloat : 
-		                 constraint == "int" ? _parseInt : _parseFloat);
-		return new ScalarValue(value, converter);
+		//console.log(constraint);
+		var s = eval(constraint);
+		return new ScalarValue(value, s);
 	}	
 }
 

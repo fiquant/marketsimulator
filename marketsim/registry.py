@@ -292,15 +292,13 @@ class Registry(object):
         return self.ofType("marketsim.js.Graph")
     
     def _dumpPropertyConstraint(self, constraint):
+        if 'toJS' in dir(constraint):
+            return constraint.toJS()(self._dumpPropertyConstraint)
         if constraint == int:
-            return "int"
+            return "_parseInt"
         if constraint == float:
-            return "float"
-        if constraint == bool:
-            return "bool"
-        if constraint == str:
-            return "str"
-        return ""
+            return "_parseFloat"
+        return "identity"
     
     def tojson(self, Id):
         obj = self._id2obj.get(Id)
