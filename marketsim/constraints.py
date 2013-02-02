@@ -1,8 +1,14 @@
+def tojs(t, x):
+    return lambda c: "combine("+t+"(" + str(x._bound) + "), "+c(x._f)+")"
+
 class greater_than(object):
 
     def __init__(self, x, f = float):
         self._bound = x
         self._f = f
+        
+    def toJS(self):
+        return tojs("greater", self)
         
     def _casts_to(self, dst):
         return dst is float or\
@@ -24,6 +30,10 @@ class less_than(object):
         self._bound = x
         self._f = f
 
+    def toJS(self):
+        return tojs("less", self)
+        
+
     def _casts_to(self, dst):
         return dst is float or\
             (type(dst) is less_than and dst._bound >= self._bound) or\
@@ -43,6 +53,9 @@ class greater_or_equal(object):
     def __init__(self, x, f = float):
         self._bound = x
         self._f = f
+    
+    def toJS(self):
+        return tojs("greater_or_equal", self)
     
     def _casts_to(self, dst):
         return dst is float or\
@@ -64,6 +77,9 @@ class less_or_equal(object):
         self._bound = x
         self._f = f
     
+    def toJS(self):
+        return tojs("less_or_equal", self)
+        
     def _casts_to(self, dst):
         return dst is float or\
             (type(dst) is less_than and dst._bound > self._bound) or\
