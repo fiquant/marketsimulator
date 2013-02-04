@@ -31,13 +31,13 @@ class _tradeIfProfitable_Impl(Strategy):
     def suspended(self):
         return self._strategy.suspended
 
-@registry.expose
-@sig(args=(SingleAssetTrader,), rv=SingleAssetTrader, label="trader's efficiency trend")
+@registry.expose(alias="trader's efficiency trend")
+@sig(args=(SingleAssetTrader,), rv=SingleAssetTrader)
 def efficiencyTrend(trader):
     return observable.trend(observable.Efficiency(trader))
 
-@registry.expose
-@sig(args=(Strategy,), rv=Strategy, label='Virtual market orders with unit volume')
+@registry.expose(alias='Virtual market orders with unit volume')
+@sig(args=(Strategy,), rv=Strategy)
 def virtualWithUnitVolume(strategy):
     return strategy.With(volumeDistr=lambda: 1, orderFactory=order.VirtualMarket.T)    
 

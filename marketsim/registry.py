@@ -74,7 +74,7 @@ def properties(obj):
         else:
             rv = None
     else:
-        print "object " + str(obj) + " doesn't have field _properties."
+        rv = None
     
     return rv            
                 
@@ -318,9 +318,7 @@ class Registry(object):
             cls = obj.__class__
             ctor = cls.__module__ + "." + cls.__name__
             
-        label = obj.jsLabel if 'jsLabel' in dir(obj) else\
-                obj.label if 'label' in dir(obj) else\
-                repr(obj)            
+        label = obj._alias if '_alias' in dir(obj) else ""
             
         propnames = properties(obj)
         props     = dict([(k, 
@@ -412,11 +410,13 @@ class Registry(object):
 instance = Registry()                
          
         
-def expose(f):
-    f._properties = None
-    f._constructAs = f.__module__ + "." + f.__name__
-    instance.insert(f)
-    return f
+def expose(alias):
+    def inner(f):
+        f._constructAs = f.__module__ + "." + f.__name__
+        f._alias = alias
+        instance.insert(f)
+        return f
+    return inner
         
 def new(name, fields):
     return instance.createFromMeta(instance.getUniqueId(), 

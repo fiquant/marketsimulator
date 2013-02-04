@@ -83,6 +83,6 @@ class Limit(Base):
     def Sell(price, volume): return Limit(Side.Sell, price, volume) 
     
     @staticmethod
-    @registry.expose
-    @sig(args=(Side,), rv=function((Price, Volume,), Base), label='Limit')
+    @registry.expose(alias='Limit')
+    @sig(args=(Side,), rv=function((Price, Volume,), Base))
     def T(side): return lambda price, volume: Limit(side, price, volume) 
