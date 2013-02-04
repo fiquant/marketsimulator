@@ -6,9 +6,9 @@ from marketsim.orderbook._base import BookBase as OrderBook
 from marketsim.constraints import *
 from marketsim.trader import SingleAsset as SingleAssetTrader
 
-Price = non_negative
-Volume = non_negative
-TimeInterval = non_negative
+Price = float #non_negative
+Volume = float #non_negative
+TimeInterval = float #non_negative
 
 def casts_to(src, dst):
     if src == dst: return True
@@ -37,7 +37,7 @@ class function(collections.namedtuple("function", ["args", "rv"])):
     
     def toJS(self):
         def impl(convertToJs):
-            { "args" : [convertToJs(x) for x in self.args], "rv" : convertToJs(self.rv) }
+            return { "args" : [convertToJs(x) for x in self.args], "rv" : convertToJs(self.rv) }
         return impl
     
 def sig(args, rv, label):

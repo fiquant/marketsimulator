@@ -1,5 +1,6 @@
 from marketsim import scheduler, observable, cached_property, types, Side
 
+from _basic import Strategy
 from _trend import SignalBase
 from _wrap import wrapper
 

@@ -13,6 +13,8 @@ class %(name)s(object):
         self._constructAs = 'marketsim.strategy.%(name)s'
         %(dict_)s 
         
+    _types = [Strategy]
+        
     _properties = { %(props)s }
     
     def With(self, %(withini)s):
