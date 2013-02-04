@@ -40,11 +40,10 @@ class function(collections.namedtuple("function", ["args", "rv"])):
             return { "args" : [convertToJs(x) for x in self.args], "rv" : convertToJs(self.rv) }
         return impl
     
-def sig(args, rv, label):
+def sig(args, rv):
     def inner(f):
         f._types = [function(args, rv)]
         f._casts_to = f._types[0]._casts_to
-        f.label = label
         return f
     return inner
 

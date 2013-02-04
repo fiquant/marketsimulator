@@ -396,7 +396,7 @@ function AppViewModel() {
 		var jsc = $.toJSON(constraint);
 		for (var i in self.id2obj) {
 			var typeinfo = self.id2obj[i].typeinfo;
-			if ($.toJSON(typeinfo) == jsc) {
+			if ($.toJSON(typeinfo) == jsc && self.id2obj[i].name != "") {
 				candidates.push(self.id2obj[i]);
 			}
 		}

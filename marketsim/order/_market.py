@@ -33,6 +33,6 @@ class Market(Base):
     def Sell(volume): return Market(Side.Sell, volume)
     
     @staticmethod
-    @registry.expose
-    @sig(args=(Side,), rv=function((Volume,), Base), label='Market')
+    @registry.expose(alias='Market')
+    @sig(args=(Side,), rv=function((Volume,), Base))
     def T(side): return lambda volume: Market(side, volume)
