@@ -153,7 +153,7 @@ with scheduler.create() as world:
     setAttr(avg_plus.strategies[0], 'average1', new('marketsim.mathutils.ewma', {'alpha' : 0.15 }))
     setAttr(virtual_160.strategies[0], 'estimator', strategy.virtualWithUnitVolume)
 
-    L = registry.instance.dumpall()
+    L = registry.instance.tojsonall()
     
 
     world.workTill(500)
