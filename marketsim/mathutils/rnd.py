@@ -32,9 +32,11 @@ class %(name)s(object):
         for k in %(name)s._properties:
             rv += (k + "=" + str(self.__dict__[k]) + ",")
         return rv[:-1] + ")"
+        
+registry.insert(%(name)s(), '%(alias)s')
 """
     
-def wrapper(name, fields, rvtype='float'):
+def wrapper(name, alias, fields, rvtype='float'):
     def process(tmpl):
         return ",".join([tmpl % locals() for (name, ini, typ) in fields])
     
@@ -45,51 +47,51 @@ def wrapper(name, fields, rvtype='float'):
     
     return template % locals()
 
-exec wrapper('expovariate', 
+exec wrapper('expovariate', "Exponential distribution",
              [('Lambda', '1.', 'positive')],
              'float')
 
-exec wrapper('randint', 
+exec wrapper('randint', "Uniform integer distribution",
              [('Low',  '-10', 'int'), 
               ('High', '+10', 'int')],
              'int')
 
-exec wrapper('uniform', 
+exec wrapper('uniform', "Uniform distribution",
              [('Low',  '-10.', 'float'), 
               ('High', '+10.', 'float')])
 
-exec wrapper('triangular', 
+exec wrapper('triangular', "Triangular distribution",
              [('Low',  '0.', 'float'), 
               ('High', '1.', 'float'), 
               ('Mode', '0.5', 'float')])
 
-exec wrapper('betavariate', 
+exec wrapper('betavariate', "Beta distribution",
              [('Alpha', '1.', 'positive'), 
               ('Beta', '1.', 'positive')])
 
-exec wrapper('gammavariate', 
+exec wrapper('gammavariate',"Gamma distribution", 
              [('Alpha', '1.', 'positive'), 
               ('Beta', '1.', 'positive')])
 
-exec wrapper('gauss', 
+exec wrapper('gauss', "Gaussian distribution",
              [('Mu', '0.', 'float'), 
               ('Sigma', '1.', 'float')])
 
-exec wrapper('lognormvariate', 
+exec wrapper('lognormvariate', "Log normal distribution",
              [('Mu', '0.', 'float'), 
               ('Sigma', '1.', 'positive')])
 
-exec wrapper('normalvariate', 
+exec wrapper('normalvariate', "Normal distribution",
              [('Mu', '0.', 'float'), 
               ('Sigma', '1.', 'float')])
 
-exec wrapper('vonmisesvariate', 
+exec wrapper('vonmisesvariate', "Von Mises distribution",
              [('Mu', '0.', 'less_than(2*math.pi, non_negative)'), 
               ('Kappa', '0.', 'non_negative')])
 
-exec wrapper('paretovariate', 
+exec wrapper('paretovariate', "Pareto distribution",
              [('Alpha', '1.', 'positive')])
 
-exec wrapper('weibullvariate', 
+exec wrapper('weibullvariate', "Weibull distribution",
              [('Alpha', '1.', 'positive'), 
               ('Beta', '1.', 'positive')])

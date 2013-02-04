@@ -10,6 +10,18 @@ const = mathutils.constant
 with scheduler.create() as world:
     
     book_A = orderbook.Local(tickSize=0.01, label="A")
+    book_B = orderbook.Local(tickSize=0.01, label="B")
+    
+    def register(annotated_objects):
+        for obj, alias in annotated_objects:
+            obj._alias = alias
+            registry.insert(obj)
+            
+    register([
+        (book_A, "Asset A"),
+        (book_B, "Asset B"),
+        (mathutils.constant(), "constant"),
+    ])
     
     price_graph = js.Graph("Price")
      

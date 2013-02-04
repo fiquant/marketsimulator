@@ -425,7 +425,9 @@ def new(name, fields):
 def setAttr(obj, name, value):
     instance.setAttr(instance.insert(obj), name, value)
     
-def insert(obj):
+def insert(obj, alias=None):
+    if alias is not None:
+        obj._alias = alias
     instance.insert(obj)
     
 def dump(objId):

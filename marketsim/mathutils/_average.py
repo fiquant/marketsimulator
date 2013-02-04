@@ -1,5 +1,5 @@
 import math
-from marketsim import types
+from marketsim import types, registry
 
 class ewma(types.UpdatableValue):
     """ Exponentially weighted moving average
@@ -55,3 +55,5 @@ class ewma(types.UpdatableValue):
         self._avg = self.at(time) if self._avg is not None else value
         self._lastValue = value
         self._lastTime = time
+
+registry.insert(ewma(), 'Exponentially weighted moving average')
