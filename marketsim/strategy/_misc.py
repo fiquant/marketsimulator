@@ -1,5 +1,5 @@
 from marketsim import scheduler, order, mathutils, types   
-from _basic import TwoSides
+from _basic import TwoSides, Strategy
 from _wrap import wrapper
 from marketsim.types import *
 

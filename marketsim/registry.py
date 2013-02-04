@@ -328,8 +328,14 @@ class Registry(object):
                             self._dumpPropertyConstraint(v))) \
                                            for k,v in propnames.iteritems()])\
                      if propnames is not None else None
+                     
+        if '_types' in dir(obj):
+            assert len(obj._types) == 1
+            typ = self._dumpPropertyConstraint(obj._types[0])
+        else:
+            typ = ctor
         
-        return [ctor, props, label] if props is not None else [ctor, {}, label]
+        return [ctor, props, label, typ] if props is not None else [ctor, {}, label, typ]
     
     def tojsonall(self):
         rv = {}

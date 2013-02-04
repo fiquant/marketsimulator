@@ -1,6 +1,6 @@
 from marketsim.types import *
 from marketsim import Side, observable, scheduler, order, mathutils, types
-from _basic import TwoSides
+from _basic import TwoSides, Strategy
 from _wrap import wrapper
 
 class SignalBase(TwoSides):

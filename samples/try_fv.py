@@ -154,7 +154,9 @@ with scheduler.create() as world:
     setAttr(virtual_160.strategies[0], 'estimator', strategy.virtualWithUnitVolume)
 
     L = registry.instance.tojsonall()
-    
+
+    for k,v in L.iteritems():
+        print k,v
 
     world.workTill(500)
 

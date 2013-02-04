@@ -47,12 +47,12 @@ def wrapper(name, fields, rvtype='float'):
 
 exec wrapper('expovariate', 
              [('Lambda', '1.', 'positive')],
-             'positive')
+             'float')
 
 exec wrapper('randint', 
              [('Low',  '-10', 'int'), 
               ('High', '+10', 'int')],
-             rvtype = 'int')
+             'int')
 
 exec wrapper('uniform', 
              [('Low',  '-10.', 'float'), 

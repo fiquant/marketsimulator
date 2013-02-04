@@ -176,9 +176,10 @@ function ArrayValue(s) {
 	self.editor = ARRAY;
 }
 
-function ObjectValue(s) {
+function ObjectValue(s, constraint) {
 	var self = this;
 	self.val = s;
+	self.constraint = constraint;
 	
 	self.brief = function () {
 		return self.val.name;
@@ -216,7 +217,7 @@ function indentify (s, n) {
 function treatAny(value, constraint, getObj) {
 	if (typeof(value) == 'string'){
 		if (value.length > 1 && value[0]=='#' && value[1] != "#") {
-			return new ObjectValue(getObj(parseInt(value.substring(1))));
+			return new ObjectValue(getObj(parseInt(value.substring(1))), constraint);
 		} else {
 			if (value.length > 1 && value[0]=='#' && value[1] == "#") {
 				return new ScalarValue(value.substring(1), identity);
@@ -256,6 +257,7 @@ function Instance(id, src, getObj) {
 	self.id = parseInt(id);
 	self.constructor = src[0];
 	self.name = src[2];
+	self.typeinfo = src[3];
 	self.fields = map(dict2array(src[1]), function (x) { 
 		return new Property(x.key, treatAny(x.value[0], x.value[1], getObj), true); 
 	});
@@ -389,6 +391,18 @@ function AppViewModel() {
 	self._graphs = [];
 	self.updateInterval = ko.observable(1);
 	
+	self.getCandidates = function (constraint) {
+		var candidates = [];
+		var jsc = $.toJSON(constraint);
+		for (var i in self.id2obj) {
+			var typeinfo = self.id2obj[i].typeinfo;
+			if ($.toJSON(typeinfo) == jsc) {
+				candidates.push(self.id2obj[i]);
+			}
+		}
+		return candidates;
+	}
+	
 	self.filteredViewEx = function(startsWith) {
 		var result = [];
 		var ids = self.id2obj;
@@ -408,7 +422,7 @@ function AppViewModel() {
 		for (var i in ids) {
 			var x = ids[i];
 			if (x.constructor.indexOf(startsWith) == 0) {
-				result.push(new Property("", new ObjectValue(x), false));
+				result.push(new Property("", new ObjectValue(x, "--"), false));
 			}
 		}
 		return result;		
@@ -436,7 +450,7 @@ function AppViewModel() {
 		}
 		
 		var asfield = function (id) {
-			return new Property("", new ObjectValue(self.id2obj[id]), false);
+			return new Property("", new ObjectValue(self.id2obj[id], "--"), false);
 		}
 		
 		//-------------- traders

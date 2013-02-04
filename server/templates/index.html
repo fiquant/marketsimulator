@@ -44,6 +44,19 @@
         <tr class="error" data-bind="if: val.editor == INPUT && val.errormsg().length">
         	<td colspan="3" data-bind="text: val.errormsg()"></td>
         </tr>
+        <!-- ko if: val.editor != INPUT -->
+	        <tr>
+	        	<td colspan="3" data-bind="text: $.toJSON($data.val.constraint)"></td>
+	        </tr>
+	        <tr>
+	        	<td colspan="3" data-bind="text: $.toJSON($data.val.val.typeinfo)"></td>
+	        </tr>
+	        <!-- ko foreach: $root.getCandidates($data.val.constraint) -->
+	        <tr>
+	        	<td colspan="3" data-bind="text: $data.name"></td>
+	        </tr>
+	        <!-- /ko -->
+        <!-- /ko -->
         <tr data-bind="if: $data.expandedView().length > 0">
         	<td>&nbsp; &nbsp; &nbsp; &nbsp; </td>
         	<td colspan="2">
