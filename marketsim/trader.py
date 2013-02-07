@@ -1,4 +1,5 @@
-from marketsim import getLabel, Event, Side
+from marketsim import getLabel, Event, Side, meta
+from marketsim.strategy._basic import Strategy
 
 class Base(object):
     """ Base class for traders.
@@ -86,7 +87,7 @@ class SingleAsset(Base):
         self._amount = 0
             
     _properties = {'amount' : float, 
-                   'strategies' : None,
+                   'strategies' : meta.listOf(Strategy),
                    'label' : str}
     
     @property

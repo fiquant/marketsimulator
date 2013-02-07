@@ -1,6 +1,6 @@
 from _basic import OneSide, Strategy
 from _wrap import merge, wrapper
-from marketsim import order, Side, scheduler, mathutils, types
+from marketsim import order, Side, scheduler, mathutils, types, registry
 from marketsim.types import *
 
 

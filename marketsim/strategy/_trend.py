@@ -1,5 +1,5 @@
 from marketsim.types import *
-from marketsim import Side, observable, scheduler, order, mathutils, types
+from marketsim import Side, observable, scheduler, order, mathutils, types, registry, signal
 from _basic import TwoSides, Strategy
 from _wrap import wrapper
 
@@ -31,7 +31,7 @@ exec wrapper("Signal",
              [('signal',        'None',                         'None'),  
               ('threshold',     '0.7',                          'non_negative'),
               ('orderFactory',  'order.Market.T',               'Side -> Volume -> Order'),
-              ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')])
+              ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')], register=False)
 
 class _TwoAverages_Impl(SignalBase):
     

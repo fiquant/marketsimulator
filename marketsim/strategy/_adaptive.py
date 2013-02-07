@@ -4,6 +4,7 @@ from marketsim.types import *
 
 from _basic import Strategy
 from _wrap import wrapper
+from _fv import FundamentalValue
 
 class _tradeIfProfitable_Impl(Strategy):
 
@@ -42,13 +43,13 @@ def virtualWithUnitVolume(strategy):
     return strategy.With(volumeDistr=lambda: 1, orderFactory=order.VirtualMarket.T)    
 
 exec wrapper("tradeIfProfitable", 
-             [('strategy',   'None',                  'None'), 
+             [('strategy',   'FundamentalValue()',    'Strategy'), 
               ('efficiency', 'efficiencyTrend',       'SingleAssetTrader -> SingleAssetTrader'),
-              ('estimator',  'virtualWithUnitVolume', 'Strategy -> Strategy')])
+              ('estimator',  'virtualWithUnitVolume', 'Strategy -> Strategy')], register=False)
 
 class TradeIfProfitable(tradeIfProfitable):
     
-    def __init__(self, strategy, 
+    def __init__(self, strategy = FundamentalValue(), 
                  efficiency=efficiencyTrend, 
                  estimator=virtualWithUnitVolume, 
                  **kwargs):
@@ -72,7 +73,7 @@ class TradeIfProfitable(tradeIfProfitable):
         # if someone wants to change 'efficiency' or 'estimator' parameters he should do it explicitly 
         return tradeIfProfitable.With(self, strategy.With(**kwargs), efficiency, estimator)
         
-        
+registry.insert(TradeIfProfitable(), 'TradeIfProfitable')
         
 class _chooseTheBest_Impl(Strategy):
     

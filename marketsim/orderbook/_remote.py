@@ -1,4 +1,4 @@
-from marketsim import Event
+from marketsim import Event, registry, remote
 from _base import BookBase
 
 class Queue(object):
@@ -7,9 +7,12 @@ class Queue(object):
         self._queue = queue
         self.book = book
         self._link = link
-        self._best = queue.best
         queue.on_best_changed += self._onBestChanged
         self.on_best_changed = Event()
+        self.reset()
+        
+    def reset(self):
+        self._best = self._queue.best
         self._lastT = 0
         
     @property
@@ -47,7 +50,9 @@ class Remote(BookBase):
         
         self._upLink = twowaylink.up
         self._downLink = twowaylink.down
+        self.link = twowaylink
         self._book = book
+        
         
     def _remote(self, order):
         remote = order.clone()
@@ -74,3 +79,4 @@ class Remote(BookBase):
         self._upLink.send(
             lambda: self._book.evaluateOrderPriceAsync(side, volume, 
                 lambda x: self._downLink.send(lambda: callback(x))))
+        

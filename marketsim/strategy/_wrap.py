@@ -26,6 +26,8 @@ class %(name)s(object):
     def runAt(self, trader):
         return %(name)s_Running(trader, %(call)s, self.label)    
     
+%(reg)s
+
 class %(name)s_Running(%(name)s):
     
     def __init__(self, trader, %(init)s, label=None):
@@ -67,7 +69,7 @@ def mapped(locs):
     locs['typ'] = demangleIfFunction(locs['typ'])
     return locs
 
-def wrapper(name, params):
+def wrapper(name, params, register=True):
     def process(tmpl, sep=", "):
         return sep.join([tmpl % mapped(locals()) for (name, ini, typ) in params])
     
@@ -78,5 +80,6 @@ def wrapper(name, params):
     dict_= process("self.__dict__[\'%(name)s\'] = %(name)s", "; ")
     props= process("\'%(name)s\' : %(typ)s")
     call = process("self.%(name)s")
+    reg = "registry.insert("+name+"(),'"+name+"')" if register else ""
     
     return template % locals()
