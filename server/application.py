@@ -2,15 +2,16 @@ from flask import Flask, render_template, request
 import sys, json, time
 sys.path.append(r'..')
 
-from marketsim import (strategy, orderbook, trader, order, js,
+from marketsim import (strategy, orderbook, trader, order, js, signal, remote,
                        scheduler, observable, veusz, mathutils, registry)
 
 const = mathutils.constant
 
 with scheduler.create() as world:
     
-    book_A = orderbook.Local(tickSize=0.01, label="A")
-    book_B = orderbook.Local(tickSize=0.01, label="B")
+    book_A = orderbook.local_A
+    book_B = orderbook.local_B
+    remote_A = orderbook.Remote(book_A, remote.TwoWayLink())
     
     def register(annotated_objects):
         for obj, alias in annotated_objects:
@@ -18,9 +19,9 @@ with scheduler.create() as world:
             registry.insert(obj)
             
     register([
-        (book_A, "Asset A"),
-        (book_B, "Asset B"),
-        (mathutils.constant(), "constant"),
+              (signal.RandomWalk(), "Random walk"),
+              (strategy.Signal(signal.RandomWalk()), "Signal"),
+              (remote_A, "Remote asset A"),
     ])
     
     price_graph = js.Graph("Price")

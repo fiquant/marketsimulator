@@ -179,7 +179,7 @@ function ArrayValue(s) {
 function ObjectValue(s, constraint) {
 	var self = this;
 	self.val = s;
-	self.constraint = constraint;
+	self.constraint = constraint == undefined ? "" : constraint;
 	
 	self.brief = function () {
 		return self.val.name;
@@ -226,7 +226,8 @@ function treatAny(value, constraint, getObj) {
 			}
 		}
 	} else if (isArray(value)) {
-		return new ArrayValue(map(value, function (x) { return treatAny(x, "", getObj); }));
+		var elementType = constraint.elementType;
+		return new ArrayValue(map(value, function (x) { return treatAny(x, elementType, getObj); }));
 	} else {
 		//console.log(constraint);
 		var s = eval(constraint);

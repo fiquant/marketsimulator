@@ -1,6 +1,6 @@
 from _queue import Queue
 from _base import BookBase
-from marketsim import Side
+from marketsim import Side, registry
 
 class Bids(Queue):
     """ Queue of limit orders buy
@@ -84,3 +84,8 @@ class Local(BookBase):
             order.charge(self._marketOrderFee(order, self))
             
         return self._queues[order.side.opposite.id].matchWith(order)
+
+local_A = Local(tickSize=0.01, label="A")
+local_B = Local(tickSize=0.01, label="B")
+registry.insert(local_A, alias="Asset A")
+registry.insert(local_B, alias="Asset B")

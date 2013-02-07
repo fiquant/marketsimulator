@@ -1,6 +1,6 @@
 from _average import ewma
 import rnd
-from marketsim import types
+from marketsim import types, registry
 
 class constant(object):
     
@@ -28,3 +28,5 @@ class constant(object):
     
     def __repr__(self):
         return "constant("+repr(self.value)+")"
+
+registry.insert(constant(), "Constant")

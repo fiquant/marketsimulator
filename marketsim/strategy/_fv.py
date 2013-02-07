@@ -1,4 +1,4 @@
-from marketsim import scheduler, observable, cached_property, types, Side
+from marketsim import scheduler, observable, cached_property, types, Side, registry, orderbook
 
 from _basic import Strategy
 from _trend import SignalBase
@@ -95,7 +95,7 @@ class _Dependency_Impl(FundamentalValueBase):
         return self._priceToDependOn        
 
 exec wrapper("Dependency", 
-             [('bookToDependOn','None',                         'OrderBook'),
+             [('bookToDependOn','orderbook.local_B',            'OrderBook'),
               ('orderFactory',  'order.Market.T',               'Side -> Volume -> Order'),
               ('factor',        '1.',                           'positive'),
               ('volumeDistr',   'mathutils.rnd.expovariate(.1)','() -> Volume')])

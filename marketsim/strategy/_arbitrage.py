@@ -103,4 +103,4 @@ class _Arbitrage_Impl(Strategy):
         regSide(Side.Buy)
         regSide(Side.Sell)
 
-exec wrapper("Arbitrage", [('sched', 'None', 'None')])
+exec wrapper("Arbitrage", [('sched', 'None', 'None')], register=False)
