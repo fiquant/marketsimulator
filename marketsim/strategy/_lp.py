@@ -3,7 +3,6 @@ from _wrap import merge, wrapper
 from marketsim import order, Side, scheduler, mathutils, types, registry
 from marketsim.types import *
 
-
 class _LiquidityProviderSide_Impl(OneSide):
 
     def __init__(self, trader, params):
@@ -28,7 +27,7 @@ class _LiquidityProviderSide_Impl(OneSide):
         
 exec wrapper("LiquidityProviderSide",
              [('side',                  'Side.Sell',                            'Side'),
-              ('orderFactoryT',         'order.Limit.T',                        'Side -> (Price, Volume) -> Order'),
+              ('orderFactoryT',         'order.Limit.T',                        'Side -> (Price, Volume) -> IOrder'),
               ('defaultValue',          '100',                                  'Price'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
               ('priceDistr',            'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
@@ -62,7 +61,7 @@ class _LiquidityProvider_Impl(Strategy):
         self._buy.dispose()
 
 exec wrapper('LiquidityProvider',
-            [('orderFactoryT',          'order.Limit.T',                        'Side -> (Price, Volume) -> Order'),
+            [('orderFactoryT',          'order.Limit.T',                        'Side -> (Price, Volume) -> IOrder'),
              ('defaultValue',           '100',                                  'Price'),
              ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
              ('priceDistr',             'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),

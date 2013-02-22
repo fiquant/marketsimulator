@@ -11,11 +11,30 @@ class %(name)s(object):
         from marketsim.registry import uniqueName
         self.label = uniqueName('%(name)s') if label is None else label
         self._constructAs = 'marketsim.strategy.%(name)s'
-        %(dict_)s 
+        %(dict_)s
+        self._impl = None
         
     _types = [Strategy]
         
     _properties = { %(props)s }
+
+    def reset(self):
+        if 'reset' in dir(self._impl):
+            self._impl.reset()
+
+    def _respawn(self):
+        if self._impl is not None:
+            self._impl.dispose()
+        self._impl = _%(name)s_Impl(self._trader, self)
+        
+    def __getattr__(self, item):
+        if self._impl is not None:
+            return getattr(self._impl, item)
+        
+    def __setattr__(self, item, value):
+        self.__dict__[item] = value
+        if item in %(name)s._properties:
+            self._respawn()
     
     def With(self, %(withini)s):
         
@@ -24,7 +43,10 @@ class %(name)s(object):
         return %(name)s(%(withrv)s)
         
     def runAt(self, trader):
-        return %(name)s_Running(trader, %(call)s, self.label)    
+        assert self._impl == None, "a strategy can be bound to only one trader"
+        self._trader = trader
+        self._respawn()
+        return self
     
 %(reg)s
 

@@ -10,7 +10,8 @@ class _tradeIfProfitable_Impl(Strategy):
 
     def __init__(self, aTrader, params):
         
-        self._strategy = params.strategy.runAt(aTrader)
+        self._strategy = params.strategy.With()
+        self._strategy.runAt(aTrader)
         self._estimator = trader.SASM(aTrader.orderBook, label = "estimator_"+aTrader.label)
         self._estimator_strategy = params.estimator(params.strategy).runAt(self._estimator) 
                                                          
@@ -33,19 +34,19 @@ class _tradeIfProfitable_Impl(Strategy):
         return self._strategy.suspended
 
 @registry.expose(alias="trader's efficiency trend")
-@sig(args=(SingleAssetTrader,), rv=SingleAssetTrader)
+@sig(args=(ISingleAssetTrader,), rv=ISingleAssetTrader)
 def efficiencyTrend(trader):
     return observable.trend(observable.Efficiency(trader))
 
 @registry.expose(alias='Virtual market orders with unit volume')
-@sig(args=(Strategy,), rv=Strategy)
+@sig(args=(IStrategy,), rv=IStrategy)
 def virtualWithUnitVolume(strategy):
     return strategy.With(volumeDistr=lambda: 1, orderFactory=order.VirtualMarket.T)    
 
 exec wrapper("tradeIfProfitable", 
-             [('strategy',   'FundamentalValue()',    'Strategy'), 
-              ('efficiency', 'efficiencyTrend',       'SingleAssetTrader -> SingleAssetTrader'),
-              ('estimator',  'virtualWithUnitVolume', 'Strategy -> Strategy')], register=False)
+             [('strategy',   'FundamentalValue()',    'IStrategy'), 
+              ('efficiency', 'efficiencyTrend',       'ISingleAssetTrader -> ISingleAssetTrader'),
+              ('estimator',  'virtualWithUnitVolume', 'IStrategy -> IStrategy')], register=False)
 
 class TradeIfProfitable(tradeIfProfitable):
     

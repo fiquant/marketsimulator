@@ -1,16 +1,28 @@
 from marketsim import Side
-from marketsim.order._base import Base as Order
 from marketsim.orderbook._base import BookBase as OrderBook
 from marketsim.constraints import *
-from marketsim.trader import SingleAsset as SingleAssetTrader
 from marketsim.meta import *
 
 Price = float #non_negative
 Volume = float #non_negative
 TimeInterval = float #non_negative
 
+class IStrategy(object):
+    pass
 
-class UpdatableValue(object):    
+IStrategy._types = [IStrategy]
+
+class ISingleAssetTrader(object):
+    pass
+
+ISingleAssetTrader._types = [ISingleAssetTrader]
+
+class IOrder(object):
+    pass
+
+IOrder._types = [IOrder]
+
+class IUpdatableValue(object):    
     """
     Class implementing UpdatableValue concept should obey the following interface
     @property 
@@ -21,4 +33,4 @@ class UpdatableValue(object):
     """
     pass
 
-UpdatableValue._types = [UpdatableValue]
+IUpdatableValue._types = [IUpdatableValue]

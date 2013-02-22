@@ -1,7 +1,7 @@
 import math
 from marketsim import types, registry
 
-class ewma(types.UpdatableValue):
+class ewma(types.IUpdatableValue):
     """ Exponentially weighted moving average
     """
     

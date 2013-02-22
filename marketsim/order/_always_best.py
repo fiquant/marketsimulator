@@ -2,6 +2,7 @@ from marketsim import Side, registry, meta, types
 from _base import Base
 from _limit import Limit
 from _cancel import Cancel
+from marketsim.types import *
 
 class AlwaysBest(Base):
     """ AlwaysBest is a virtual order that ensures that it has the best price in the order book. 
@@ -37,5 +38,5 @@ class AlwaysBest(Base):
         
     @staticmethod
     @registry.expose(alias='AlwaysBest')
-    @meta.sig(args=(types.Side,), rv=meta.function((types.Volume,), Base))
+    @meta.sig(args=(Side,), rv=meta.function((Volume,), IOrder))
     def T(side): return lambda volume: AlwaysBest(volume, side)        

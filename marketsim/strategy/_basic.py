@@ -1,4 +1,6 @@
-class Strategy(object):
+from marketsim import types
+
+class Strategy(types.IStrategy):
     
     def __init__(self, trader):
         self._suspended = False

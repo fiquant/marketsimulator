@@ -100,6 +100,15 @@ class Registry(object):
         self._counter = 0
         self._id2savedfields = {}
         
+    def _findCreatedFrom(self, obj):
+        t = type(obj)
+        if '_alias' in dir(obj):
+            return obj._alias
+        for x in self._id2obj.itervalues():
+            if type(x) == t and '_alias' in dir(x) and x._alias != "":
+                return x._alias
+        return obj.__class__.__name__
+        
     def _insertNew(self, Id, obj):
         if id in self._id2obj:
             old = self._id2obj[id]
@@ -107,6 +116,8 @@ class Registry(object):
             del old._referencedBy
         obj._id = Id
         obj._referencedBy = weakref.WeakSet()
+        if '_createdFrom' not in dir(obj):
+            obj._createdFrom = self._findCreatedFrom(obj)
         self._id2obj[Id] = obj
         return obj._id
     
@@ -319,6 +330,7 @@ class Registry(object):
             ctor = cls.__module__ + "." + cls.__name__
             
         label = obj._alias if '_alias' in dir(obj) else ""
+        createdFrom = obj._createdFrom
             
         propnames = properties(obj)
         props     = dict([(k, 
@@ -332,8 +344,11 @@ class Registry(object):
             typ = self._dumpPropertyConstraint(obj._types[0])
         else:
             typ = ctor
+            
+        if props is None:
+            props = {}
         
-        return [ctor, props, label, typ] if props is not None else [ctor, {}, label, typ]
+        return [ctor, props, label, typ, createdFrom]
     
     def tojsonall(self):
         rv = {}
