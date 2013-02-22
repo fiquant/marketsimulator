@@ -1,5 +1,4 @@
-from marketsim import getLabel, Event, Side, meta
-from marketsim.strategy._basic import Strategy
+from marketsim import getLabel, Event, Side, meta, types
 
 class Base(object):
     """ Base class for traders.
@@ -61,7 +60,7 @@ class Base(object):
         self.on_order_sent.fire(order)        
 
         
-class SingleAsset(Base):
+class SingleAsset(Base, types.ISingleAssetTrader):
     """ Trader that trades only one asset 
     (should we consider a same asset on different markets as the same asset?)
     Maintains number of assets traded:
@@ -85,9 +84,9 @@ class SingleAsset(Base):
     def reset(self):
         Base.reset(self)
         self._amount = 0
-            
+        
     _properties = {'amount' : float, 
-                   'strategies' : meta.listOf(Strategy),
+                   'strategies' : meta.listOf(types.IStrategy),
                    'label' : str}
     
     @property
@@ -107,7 +106,8 @@ class SingleAsset(Base):
         return self._strategies
     
     def addStrategy(self, strategy):
-        self._strategies.append(strategy.runAt(self))        
+        strategy.runAt(self)
+        self._strategies.append(strategy)        
 
     def _onOrderMatched(self, order, other, (price, volume)):
         """ Called when a trader's 'order' is traded against 'other' order 

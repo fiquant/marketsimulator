@@ -38,6 +38,9 @@ class IndicatorBase(object):
             self._dataSource.reset()
         for es in self._eventSources:
             es.reset()
+            
+    def schedule(self):
+        self.reset()
                 
     @property
     def label(self):

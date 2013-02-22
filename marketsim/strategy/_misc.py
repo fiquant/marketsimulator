@@ -16,7 +16,7 @@ class _Noise_Impl(TwoSides):
         return (self._params.sideDistr(), (int(self._params.volumeDistr()),)) 
 
 exec wrapper("Noise", 
-             [("orderFactoryT",         "order.Market.T",               'Side -> Volume -> Order'),
+             [("orderFactoryT",         "order.Market.T",               'Side -> Volume -> IOrder'),
               ("sideDistr",             "mathutils.rnd.randint(0,1)",   "() -> int"), # in fact it should be () -> Side
               ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> Volume'),
               ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')])

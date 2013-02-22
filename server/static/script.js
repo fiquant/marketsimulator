@@ -182,7 +182,7 @@ function ObjectValue(s, constraint) {
 	self.constraint = constraint == undefined ? "" : constraint;
 	
 	self.brief = function () {
-		return self.val.name;
+		return self.val.createdFrom;
 	}
 
 	self.expanded = ko.computed(function() {
@@ -259,6 +259,7 @@ function Instance(id, src, getObj) {
 	self.constructor = src[0];
 	self.name = src[2];
 	self.typeinfo = src[3];
+	self.createdFrom = src[4];
 	self.fields = map(dict2array(src[1]), function (x) { 
 		return new Property(x.key, treatAny(x.value[0], x.value[1], getObj), true); 
 	});
@@ -451,7 +452,15 @@ function AppViewModel() {
 		}
 		
 		var asfield = function (id) {
-			return new Property("", new ObjectValue(self.id2obj[id], "--"), false);
+			var fields = self.id2obj[id].fields;
+			var label = "";
+			for (var i in fields) {
+				var f = fields[i];
+				if (f.name == 'label') {
+					label = f.val.val;
+				}
+			}
+			return new Property(label, new ObjectValue(self.id2obj[id], "--"), false);
 		}
 		
 		//-------------- traders

@@ -45,7 +45,7 @@ with scheduler.create() as world:
     fv_200 = fv_200_12.With(volumeDistr=const(1.))
      
     trader_200_1 = trader.SASM(book_A, fv_200, "t200_1")    
-    trader_200_2 = trader.SASM(book_A, fv_200, "t200_2")
+    trader_200_2 = trader.SASM(book_A, fv_200.With(), "t200_2")
     
     trader_150 = trader.SASM(book_A,
                              strategy.FundamentalValue(fundamentalValue=const(150.),

@@ -1,4 +1,4 @@
-from marketsim import registry
+from marketsim import registry, meta, types
 from marketsim.types import *
 from _base import Base
 
@@ -34,5 +34,5 @@ class Market(Base):
     
     @staticmethod
     @registry.expose(alias='Market')
-    @sig(args=(Side,), rv=function((Volume,), Base))
+    @meta.sig(args=(Side,), rv=meta.function((Volume,), IOrder))
     def T(side): return lambda volume: Market(side, volume)

@@ -30,7 +30,7 @@ class _Signal_Impl(SignalBase):
 exec wrapper("Signal", 
              [('signal',        'None',                         'None'),  
               ('threshold',     '0.7',                          'non_negative'),
-              ('orderFactory',  'order.Market.T',               'Side -> Volume -> Order'),
+              ('orderFactory',  'order.Market.T',               'Side -> Volume -> IOrder'),
               ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')], register=False)
 
 class _TwoAverages_Impl(SignalBase):
@@ -54,10 +54,10 @@ class _TwoAverages_Impl(SignalBase):
         return avg1 - avg2 if avg1 is not None and avg2 is not None else None 
 
 exec wrapper("TwoAverages", 
-             [('average1',              'mathutils.ewma(alpha = 0.15)',  'UpdatableValue'),
-              ('average2',              'mathutils.ewma(alpha = 0.015)', 'UpdatableValue'),
+             [('average1',              'mathutils.ewma(alpha = 0.15)',  'IUpdatableValue'),
+              ('average2',              'mathutils.ewma(alpha = 0.015)', 'IUpdatableValue'),
               ('threshold',             '0.',                            'non_negative'), 
-              ('orderFactory',          'order.Market.T',                'Side -> Volume -> Order'),
+              ('orderFactory',          'order.Market.T',                'Side -> Volume -> IOrder'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)', '() -> Volume')])
 
@@ -79,6 +79,6 @@ class _TrendFollower_Impl(SignalBase):
 exec wrapper('TrendFollower', 
              [('average',                'mathutils.ewma(alpha = 0.15)',  'None'),
               ('threshold',              '0.',                            'non_negative'), 
-              ('orderFactory',           'order.Market.T',                'Side -> Volume -> Order'),
+              ('orderFactory',           'order.Market.T',                'Side -> Volume -> IOrder'),
               ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
               ('volumeDistr',            'mathutils.rnd.expovariate(1.)', '() -> Volume')])

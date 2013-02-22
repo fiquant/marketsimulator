@@ -49,7 +49,6 @@ with scheduler.create() as world:
                   observable.PnL(dep_AB),
                   observable.PnL(dep_BA)]
     
-    registry.instance.reset()
     
     world.workTill(500)
     
