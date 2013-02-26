@@ -214,7 +214,7 @@ function indentify (s, n) {
 	return spaces[n] + s;
 } 
 
-function treatAny(value, constraint, getObj) {
+function treatAny(value, constraint, getObj, alias2id) {
 	if (typeof(value) == 'string'){
 		if (value.length > 1 && value[0]=='#' && value[1] != "#") {
 			return new ObjectValue(getObj(parseInt(value.substring(1))), constraint);
@@ -227,7 +227,7 @@ function treatAny(value, constraint, getObj) {
 		}
 	} else if (isArray(value)) {
 		var elementType = constraint.elementType;
-		return new ArrayValue(map(value, function (x) { return treatAny(x, elementType, getObj); }));
+		return new ArrayValue(map(value, function (x) { return treatAny(x, elementType, getObj, alias2id); }));
 	} else {
 		//console.log(constraint);
 		var s = eval(constraint);
@@ -253,16 +253,23 @@ function Property(name, value, expanded) {
 }
 
 
-function Instance(id, src, getObj) {
+function Instance(id, src, getObj, alias2id) {
 	var self = this;
 	self.id = parseInt(id);
 	self.constructor = src[0];
-	self.name = src[2];
-	self.typeinfo = src[3];
-	self.createdFrom = src[4];
+	self.name = src[3];
+	self.typeinfo = src[2];
+	self.alias = ko.observable(src[3]);
+	if (alias2id[self.alias()] == undefined) {
+		alias2id[self.alias()] = self.id;
+	}
 	self.fields = map(dict2array(src[1]), function (x) { 
-		return new Property(x.key, treatAny(x.value[0], x.value[1], getObj), true); 
+		return new Property(x.key, treatAny(x.value[0], x.value[1], getObj, alias2id), true); 
 	});
+	
+	self.isPrimary = function () {
+		return alias2id[self.alias()] == self.id;
+	}
 	
 	self.changes = ko.computed(function() {
 		var result = [];
@@ -393,13 +400,17 @@ function AppViewModel() {
 	self._graphs = [];
 	self.updateInterval = ko.observable(1);
 	
+	self.alias2id = {};
+	
 	self.getCandidates = function (constraint) {
 		var candidates = [];
 		var jsc = $.toJSON(constraint);
 		for (var i in self.id2obj) {
-			var typeinfo = self.id2obj[i].typeinfo;
-			if ($.toJSON(typeinfo) == jsc && self.id2obj[i].name != "") {
-				candidates.push(self.id2obj[i]);
+			if (self.id2obj[i].isPrimary()) {
+				var typeinfo = self.id2obj[i].typeinfo;
+				if ($.toJSON(typeinfo) == jsc) {
+					candidates.push(self.id2obj[i]);
+				}
 			}
 		}
 		return candidates;
@@ -441,7 +452,7 @@ function AppViewModel() {
 			var original = response.objects;
 			var getObj = function (id) {
 				if (id2obj[id] == undefined) {
-					id2obj[id] = new Instance(id, original[id], getObj);
+					id2obj[id] = new Instance(id, original[id], getObj, self.alias2id);
 				}
 				return id2obj[id];
 			}
