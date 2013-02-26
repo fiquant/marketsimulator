@@ -100,7 +100,7 @@ class Registry(object):
         self._counter = 0
         self._id2savedfields = {}
         
-    def _findCreatedFrom(self, obj):
+    def _findAlias(self, obj):
         t = type(obj)
         if '_alias' in dir(obj):
             return obj._alias
@@ -116,8 +116,7 @@ class Registry(object):
             del old._referencedBy
         obj._id = Id
         obj._referencedBy = weakref.WeakSet()
-        if '_createdFrom' not in dir(obj):
-            obj._createdFrom = self._findCreatedFrom(obj)
+        obj._alias = self._findAlias(obj)
         self._id2obj[Id] = obj
         return obj._id
     
@@ -329,8 +328,7 @@ class Registry(object):
             cls = obj.__class__
             ctor = cls.__module__ + "." + cls.__name__
             
-        label = obj._alias if '_alias' in dir(obj) else ""
-        createdFrom = obj._createdFrom
+        alias = obj._alias
             
         propnames = properties(obj)
         props     = dict([(k, 
@@ -348,7 +346,7 @@ class Registry(object):
         if props is None:
             props = {}
         
-        return [ctor, props, label, typ, createdFrom]
+        return [ctor, props, typ, alias]
     
     def tojsonall(self):
         rv = {}

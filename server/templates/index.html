@@ -37,7 +37,7 @@
 	            	<a data-bind="html: name"/>	            		            	
 	            </td>
 	            <td data-bind="if: val.editor == LISTBOX && $root.getCandidates($data.val.constraint).length">
-	            	<select data-bind="options: map($root.getCandidates($data.val.constraint), function (x) { return x.name; }), value: val.brief()"></select>
+	            	<select data-bind="options: map($root.getCandidates($data.val.constraint), function (x) { return x.alias; }), value: val.val.alias"></select>
 	            </td>
 	            <td data-bind="if: val.editor == ARRAY">
 	            	<a data-bind="text: val.brief()"></a>
@@ -47,9 +47,12 @@
         <tr class="error" data-bind="if: val.editor == INPUT && val.errormsg().length">
         	<td colspan="3" data-bind="text: val.errormsg()"></td>
         </tr>
-        <!-- ko if: false && val.editor != INPUT -->
+        <!-- ko if: val.editor != INPUT -->
 	        <tr>
 	        	<td colspan="3" data-bind="text: $.toJSON($data.val.constraint)"></td>
+	        </tr>
+	        <tr>
+	        	<td colspan="3" data-bind="text: $.toJSON($data.val.val.alias)"></td>
 	        </tr>
 	        <tr>
 	        	<td colspan="3" data-bind="text: $.toJSON($data.val.val.typeinfo)"></td>
