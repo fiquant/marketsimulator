@@ -188,34 +188,24 @@ function ObjectValue(s, constraint, root) {
 	}
 	
 	self._dummy = ko.observable(false);
-	self.optionsDict = ko.computed(function (){
-		self._dummy();
-		self.val.alias();
-		var candidates = self.root.getCandidates(self.constraint);
-		var result = {};
-		for (var i in candidates) {
-			var x = candidates[i];
-			result[x.alias.peek()] = x;
-		}
-		return result;		
-	});
-
-	self.optionsEx = ko.computed(function () {
-		var dict = self.optionsDict();
-		if (dict == undefined) {
-			return [[self.val.alias.peek()], self.val.alias.peek()];
-		}
-		var result = [];
-		for (var i in dict) {
-			result.push(i);
-		}
-		console.log($.toJSON(result));
-		return [result, self.val.alias.peek()];
-	});
 	
-	self.options = ko.computed(function () {
-		return self.optionsEx()[0];
-	})
+	self.options = ko.computed(function (){
+		self._dummy();
+		var myAlias = self.val.alias();
+		var candidates = self.root.getCandidates(self.constraint);
+		var position = -1;
+		for (var i in candidates) {
+			var c = candidates[i];
+			if (c.alias.peek() == myAlias) {
+				position = i;
+				break;
+			}
+		}
+		if (position != -1) {
+			candidates[position] = self.val;
+		}
+		return candidates;
+	});
 	
 	self.updateOptions = function () {
 		self._dummy(!self._dummy());
@@ -223,7 +213,7 @@ function ObjectValue(s, constraint, root) {
 
 	self.currentOption = ko.computed({
 		read: function () {
-			return self.optionsEx()[1];
+			return self.val.id;
 		}		
 	})
 	
@@ -464,7 +454,7 @@ function AppViewModel() {
 		var candidates = [];
 		var jsc = $.toJSON(constraint);
 		for (var i in self.id2obj) {
-			if (self.id2obj[i].isPrimary()) {
+			if (self.id2obj[i].isPrimary.peek()) {
 				var typeinfo = self.id2obj[i].typeinfo;
 				if ($.toJSON(typeinfo) == jsc) {
 					candidates.push(self.id2obj[i]);
