@@ -462,7 +462,7 @@ function AppViewModel() {
 			}
 		}
 		
-		var asfield = function (id) {
+		var asfield = function (id, constraint) {
 			var fields = self.id2obj[id].fields;
 			var label = "";
 			for (var i in fields) {
@@ -471,13 +471,15 @@ function AppViewModel() {
 					label = f.val.val;
 				}
 			}
-			return new Property(label, new ObjectValue(self.id2obj[id], "--"), false);
+			return new Property(label, new ObjectValue(self.id2obj[id], constraint), false);
 		}
 		
 		//-------------- traders
 		if (response.traders) {
 			var src_traders = self.response().traders;
-			self.traders = map(src_traders, asfield);
+			self.traders = map(src_traders, function (id) {
+				return asfield(id,  "marketsim.types.ISingleAssetTrader");
+			});
 		}
 		
 		//----------------- graphs

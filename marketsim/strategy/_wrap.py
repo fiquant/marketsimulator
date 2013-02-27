@@ -14,7 +14,7 @@ class %(name)s(object):
         %(dict_)s
         self._impl = None
         
-    _types = [Strategy]
+    _types = [types.IStrategy]
         
     _properties = { %(props)s }
 

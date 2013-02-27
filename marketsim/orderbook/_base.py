@@ -1,4 +1,6 @@
-class BookBase(object):
+from marketsim import types
+
+class BookBase(types.IOrderBook):
 
     def __init__(self, bids, asks, tickSize=1, label=""):
         """ Initializes empty order book with given tick size

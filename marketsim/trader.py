@@ -74,6 +74,7 @@ class SingleAsset(Base, types.ISingleAssetTrader):
         self._strategies = []
         self._label = label if label else getLabel(self)
         self.label = self._label
+        self._alias = self._label
         
         if strategy is not None:
             strategies = strategies + [strategy]
@@ -123,7 +124,7 @@ class SingleAssetSingleMarket(SingleAsset):
         self._orderBook = orderBook
         SingleAsset.__init__(self, strategy, label, strategies, amount, PnL)
         
-    _properties = {'orderBook' : None}
+    _properties = {'orderBook' : types.IOrderBook}
             
     @property
     def book(self): # obsolete
