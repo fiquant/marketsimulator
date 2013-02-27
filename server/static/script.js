@@ -187,12 +187,29 @@ function ObjectValue(s, constraint) {
 	self.brief = function () {
 		return self.val.createdFrom;
 	}
+	
+	self.optionsDict = ko.observable(undefined);
 
-	self.options = ko.observable([self.val.alias()]);
+	self.options = ko.computed(function () {
+		var dict = self.optionsDict();
+		if (dict == undefined) {
+			return [self.val.alias()];
+		}
+		var result = [];
+		for (var i in dict) {
+			result.push(i);
+		}
+		return result;
+	});
 	
 	self.updateOptions = function (root) {
-		self.options(map(root.getCandidates(self.constraint), 
-		                 function (x) { return x.alias(); }));
+		var candidates = root.getCandidates(self.constraint);
+		var result = {};
+		for (var i in candidates) {
+			var x = candidates[i];
+			result[x.alias()] = x;
+		}
+		self.optionsDict(result);
 	}	
 
 	self.expanded = ko.computed(function() {
