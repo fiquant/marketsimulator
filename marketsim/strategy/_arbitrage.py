@@ -1,4 +1,4 @@
-from marketsim import order, Side, scheduler
+from marketsim import order, Side, scheduler, types
 from blist import sorteddict
 
 from _basic import Strategy

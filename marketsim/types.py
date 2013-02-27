@@ -1,11 +1,15 @@
 from marketsim import Side
-from marketsim.orderbook._base import BookBase as OrderBook
 from marketsim.constraints import *
 from marketsim.meta import *
 
 Price = float #non_negative
 Volume = float #non_negative
 TimeInterval = float #non_negative
+
+class IOrderBook(object):
+    pass
+
+IOrderBook._types = [IOrderBook]
 
 class IStrategy(object):
     pass
