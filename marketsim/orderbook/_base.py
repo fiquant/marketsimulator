@@ -20,7 +20,7 @@ class BookBase(types.IOrderBook):
         self._asks.reset()
         self._incomingOrders = None
         
-    _properties = {'label' : str, 'tickSize' : float}
+    _properties = {'tickSize' : float}
 
     def queue(self, side):
         """ Returns queue of the given side
