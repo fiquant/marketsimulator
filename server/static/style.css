@@ -61,6 +61,14 @@ tr {
    margin: auto;
 }
 
+.notPrimary {
+   color: gray;
+}
+
+.notPrimary input {
+   color: gray;
+}
+
 .error {
    background-color: red;
    color: white;

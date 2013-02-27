@@ -37,7 +37,7 @@
 	            <td data-bind="event: { mouseover: $data.val.startEdit, mouseout: $data.val.stopEdit }">
 		            <!-- ko if: val.editor == LISTBOX -->
 	            		<select data-bind="event: { mouseover: function () {$data.val.updateOptions($root)}},
-	            		 options: val.options, value: val.val.alias"></select>
+	            		 options: val.options, value: $data.val.currentOption"></select>
 		            <!-- /ko -->
 		            <!-- ko if: val.editor == ARRAY -->
 	    	        	<a data-bind="text: val.brief()"></a>
@@ -72,7 +72,18 @@
 			        	<!-- ko template: 'renderField'-->
 				        <!-- /ko -->
 			        <!-- /ko -->
-        		</table>
+					
+				        <tr data-bind="ko if: val.editor == LISTBOX, css: { notPrimary: $data.val.val.notPrimary }">
+				        	<td></td>
+				        	<td>
+				        		Alias
+				        	</td>
+				        	<td>
+				        		<input data-bind="value: $data.val.val.alias"/>
+				        	</td>
+				        </tr>
+					
+				</table>
         	</td>
         </tr>
 	</script>

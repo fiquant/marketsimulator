@@ -161,9 +161,7 @@ function ArrayValue(s) {
 	self.brief = function () {
 		return "...";
 	}
-	self.startEdit = function () {}
-	self.stopEdit = function () {}
-	
+
 	self.hasError = ko.computed(function () {
 		var elements = self.val();
 		for (var i in elements) {
@@ -201,6 +199,12 @@ function ObjectValue(s, constraint) {
 		}
 		return result;
 	});
+	
+	self.currentOption = ko.computed({
+		read: function () {
+			return self.val.alias();
+		}		
+	})
 	
 	self.updateOptions = function (root) {
 		var candidates = root.getCandidates(self.constraint);
@@ -286,17 +290,52 @@ function Instance(id, src, getObj, alias2id) {
 	self.constructor = src[0];
 	self.name = src[3];
 	self.typeinfo = src[2];
+	
 	self.alias = ko.observable(src[3]);
-	if (alias2id[self.alias()] == undefined) {
-		alias2id[self.alias()] = self.id;
+	self.updateAlias = function (newvalue) {
+		console.log(newvalue + '@' + id);
+		if (self._savedAlias) {
+			delete alias2id[self._savedAlias];
+		}
+		if (alias2id[newvalue] == undefined) {
+			self._savedAlias = newvalue;
+			alias2id[newvalue] = self.id;
+		}
+		return newvalue;
 	}
+	self.updateAlias(src[3]);
+	self.alias.subscribe(self.updateAlias);
+
+	
+/*	self._alias = src[3];
+	self.alias = ko.computed({
+		read: function () { return self._alias; },
+		write: function (x) {
+			console.log(x + '@' + id);
+			if (self._savedAlias) {
+				delete alias2id[self._savedAlias];
+			}
+			if (alias2id[x] == undefined) {
+				self._savedAlias = x;
+				alias2id[x] = self.id;
+			}
+			self._alias = x;
+		}
+	});
+	
+	self.alias(src[3]);
+	*/
 	self.fields = map(dict2array(src[1]), function (x) { 
 		return new Property(x.key, treatAny(x.value[0], x.value[1], getObj, alias2id), true); 
 	});
 	
-	self.isPrimary = function () {
+	self.isPrimary = ko.computed(function () {
 		return alias2id[self.alias()] == self.id;
-	}
+	});
+	
+	self.notPrimary = ko.computed(function () {
+		return !self.isPrimary();
+	});
 	
 	self.changes = ko.computed(function() {
 		var result = [];
