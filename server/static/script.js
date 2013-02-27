@@ -177,45 +177,56 @@ function ArrayValue(s) {
 	self.editor = ARRAY;
 }
 
-function ObjectValue(s, constraint) {
+function ObjectValue(s, constraint, root) {
 	var self = this;
 	self.val = s;
+	self.root = root;
 	self.constraint = constraint == undefined ? "" : constraint;
 	
 	self.brief = function () {
 		return self.val.createdFrom;
 	}
 	
-	self.optionsDict = ko.observable(undefined);
+	self._dummy = ko.observable(false);
+	self.optionsDict = ko.computed(function (){
+		self._dummy();
+		self.val.alias();
+		var candidates = self.root.getCandidates(self.constraint);
+		var result = {};
+		for (var i in candidates) {
+			var x = candidates[i];
+			result[x.alias.peek()] = x;
+		}
+		return result;		
+	});
 
-	self.options = ko.computed(function () {
+	self.optionsEx = ko.computed(function () {
 		var dict = self.optionsDict();
 		if (dict == undefined) {
-			return [self.val.alias()];
+			return [[self.val.alias.peek()], self.val.alias.peek()];
 		}
 		var result = [];
 		for (var i in dict) {
 			result.push(i);
 		}
-		return result;
+		console.log($.toJSON(result));
+		return [result, self.val.alias.peek()];
 	});
 	
+	self.options = ko.computed(function () {
+		return self.optionsEx()[0];
+	})
+	
+	self.updateOptions = function () {
+		self._dummy(!self._dummy());
+	}	
+
 	self.currentOption = ko.computed({
 		read: function () {
-			return self.val.alias();
+			return self.optionsEx()[1];
 		}		
 	})
 	
-	self.updateOptions = function (root) {
-		var candidates = root.getCandidates(self.constraint);
-		var result = {};
-		for (var i in candidates) {
-			var x = candidates[i];
-			result[x.alias()] = x;
-		}
-		self.optionsDict(result);
-	}	
-
 	self.expanded = ko.computed(function() {
 		return self.val.fields;
 	});
@@ -245,10 +256,10 @@ function indentify (s, n) {
 	return spaces[n] + s;
 } 
 
-function treatAny(value, constraint, getObj, alias2id) {
+function treatAny(value, constraint, root) {
 	if (typeof(value) == 'string'){
 		if (value.length > 1 && value[0]=='#' && value[1] != "#") {
-			return new ObjectValue(getObj(parseInt(value.substring(1))), constraint);
+			return new ObjectValue(root.getObj(parseInt(value.substring(1))), constraint, root);
 		} else {
 			if (value.length > 1 && value[0]=='#' && value[1] == "#") {
 				return new ScalarValue(value.substring(1), identity);
@@ -258,7 +269,7 @@ function treatAny(value, constraint, getObj, alias2id) {
 		}
 	} else if (isArray(value)) {
 		var elementType = constraint.elementType;
-		return new ArrayValue(map(value, function (x) { return treatAny(x, elementType, getObj, alias2id); }));
+		return new ArrayValue(map(value, function (x) { return treatAny(x, elementType, root); }));
 	} else {
 		//console.log(constraint);
 		var s = eval(constraint);
@@ -284,15 +295,17 @@ function Property(name, value, expanded) {
 }
 
 
-function Instance(id, src, getObj, alias2id) {
+function Instance(id, src, root) {
 	var self = this;
 	self.id = parseInt(id);
 	self.constructor = src[0];
 	self.name = src[3];
 	self.typeinfo = src[2];
+	var alias2id = root.alias2id;
 	
-	self.alias = ko.observable(src[3]);
-	self.updateAlias = function (newvalue) {
+	self.alias_back = ko.observable(src[3]);
+	self.alias = ko.computed(function () {
+		var newvalue = self.alias_back();
 		console.log(newvalue + '@' + id);
 		if (self._savedAlias) {
 			delete alias2id[self._savedAlias];
@@ -302,31 +315,10 @@ function Instance(id, src, getObj, alias2id) {
 			alias2id[newvalue] = self.id;
 		}
 		return newvalue;
-	}
-	self.updateAlias(src[3]);
-	self.alias.subscribe(self.updateAlias);
-
-	
-/*	self._alias = src[3];
-	self.alias = ko.computed({
-		read: function () { return self._alias; },
-		write: function (x) {
-			console.log(x + '@' + id);
-			if (self._savedAlias) {
-				delete alias2id[self._savedAlias];
-			}
-			if (alias2id[x] == undefined) {
-				self._savedAlias = x;
-				alias2id[x] = self.id;
-			}
-			self._alias = x;
-		}
 	});
-	
-	self.alias(src[3]);
-	*/
+
 	self.fields = map(dict2array(src[1]), function (x) { 
-		return new Property(x.key, treatAny(x.value[0], x.value[1], getObj, alias2id), true); 
+		return new Property(x.key, treatAny(x.value[0], x.value[1], root), true); 
 	});
 	
 	self.isPrimary = ko.computed(function () {
@@ -501,11 +493,20 @@ function AppViewModel() {
 		for (var i in ids) {
 			var x = ids[i];
 			if (x.constructor.indexOf(startsWith) == 0) {
-				result.push(new Property("", new ObjectValue(x, "--"), false));
+				result.push(new Property("", new ObjectValue(x, "--", self), false));
 			}
 		}
 		return result;		
 	}
+
+	var getObj = function (id) {
+		if (self.id2obj[id] == undefined) {
+			self.id2obj[id] = new Instance(id, self.response().objects[id], self);
+		}
+		return self.id2obj[id];
+	}
+	
+	self.getObj = getObj;
 	
 	self.parsed = ko.computed(function () {
 		var response = self.response();
@@ -516,12 +517,6 @@ function AppViewModel() {
 		if (response.objects) {
 			var id2obj = self.id2obj;
 			var original = response.objects;
-			var getObj = function (id) {
-				if (id2obj[id] == undefined) {
-					id2obj[id] = new Instance(id, original[id], getObj, self.alias2id);
-				}
-				return id2obj[id];
-			}
 			
 			for (var i in original) {
 				id2obj[i] = getObj(i);
@@ -537,7 +532,7 @@ function AppViewModel() {
 					label = f.val.val;
 				}
 			}
-			return new Property(label, new ObjectValue(self.id2obj[id], constraint), false);
+			return new Property(label, new ObjectValue(self.id2obj[id], constraint, self), false);
 		}
 		
 		//-------------- traders
