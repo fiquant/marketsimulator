@@ -161,6 +161,9 @@ function ArrayValue(s) {
 	self.brief = function () {
 		return "...";
 	}
+	self.startEdit = function () {}
+	self.stopEdit = function () {}
+	
 	self.hasError = ko.computed(function () {
 		var elements = self.val();
 		for (var i in elements) {
@@ -184,6 +187,13 @@ function ObjectValue(s, constraint) {
 	self.brief = function () {
 		return self.val.createdFrom;
 	}
+
+	self.options = ko.observable([self.val.alias()]);
+	
+	self.updateOptions = function (root) {
+		self.options(map(root.getCandidates(self.constraint), 
+		                 function (x) { return x.alias(); }));
+	}	
 
 	self.expanded = ko.computed(function() {
 		return self.val.fields;
