@@ -87,8 +87,7 @@ class SingleAsset(Base, types.ISingleAssetTrader):
         self._amount = 0
         
     _properties = {'amount' : float, 
-                   'strategies' : meta.listOf(types.IStrategy),
-                   'label' : str}
+                   'strategies' : meta.listOf(types.IStrategy)}
     
     @property
     def amount(self):
