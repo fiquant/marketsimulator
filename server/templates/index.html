@@ -36,7 +36,8 @@
 	            <td data-bind="html: name" />
 	            <td data-bind="event: { mouseover: $data.val.startEdit, mouseout: $data.val.stopEdit }">
 		            <!-- ko if: val.editor == LISTBOX -->
-	            		<select data-bind="event: { mouseover: function () {$data.val.updateOptions($root)}}, options: val.options, value: val.val.alias"></select>
+	            		<select data-bind="event: { mouseover: function () {$data.val.updateOptions($root)}},
+	            		 options: val.options, value: val.val.alias"></select>
 		            <!-- /ko -->
 		            <!-- ko if: val.editor == ARRAY -->
 	    	        	<a data-bind="text: val.brief()"></a>

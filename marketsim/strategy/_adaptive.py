@@ -1,4 +1,4 @@
-from marketsim import trader, order, scheduler, observable, order, registry, types
+from marketsim import trader, order, scheduler, observable, order, registry, types, meta
 from copy import copy
 from marketsim.types import *
 
@@ -124,6 +124,6 @@ class _chooseTheBest_Impl(Strategy):
         return not self._current or self._current.suspended
 
 exec wrapper("chooseTheBest",
-             [('strategies',  '[]',                     'None'),
-              ('efficiency',  'efficiencyTrend',        'None'),
-              ('estimator',   'virtualWithUnitVolume',  'None')])
+             [('strategies',  '[]',                     'meta.listOf(IStrategy)'),
+              ('efficiency',  'efficiencyTrend',        'ISingleAssetTrader -> ISingleAssetTrader'),
+              ('estimator',   'virtualWithUnitVolume',  'IStrategy -> IStrategy')])
