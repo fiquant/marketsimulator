@@ -17,6 +17,13 @@ function alltimeseries() {
    return $.parseJSON(z.responseText);
 }
 
+function isReferenceType(typename) {
+	return (typename.indexOf("marketsim.orderbook.") == 0 ||
+			typename.indexOf("marketsim.scheduler.") == 0 ||
+			typename.indexOf("marketsim.js.Graph") == 0 ||
+			typename.indexOf("marketsim.trader.") == 0);
+}
+
 function isInteger (s) {
     var isInteger_re     = /^\s*(\+|-)?\d+\s*$/;
     return String(s).search (isInteger_re) != -1
@@ -161,6 +168,8 @@ function ArrayValue(s) {
 	self.brief = function () {
 		return "...";
 	}
+	
+	self.isReference = function () { return false; }
 
 	self.hasError = ko.computed(function () {
 		var elements = self.val();
@@ -177,7 +186,7 @@ function ArrayValue(s) {
 	self.editor = ARRAY;
 }
 
-function ObjectValue(s, constraint, root) {
+function ObjectValue(s, constraint, root, expandReference) {
 	var self = this;
 	self.pointee = ko.observable(s);
 	self.root = root;
@@ -234,7 +243,7 @@ function ObjectValue(s, constraint, root) {
 	self.currentOption.subscribe(updateCurrentOption);	
 
 	self.expanded = ko.computed(function() {
-		return self.pointee().fields;
+		return (self.pointee().isReference() && !expandReference) ? [] : self.pointee().fields;
 	});
 	
 	self.hasError = ko.computed(function () {
@@ -266,7 +275,7 @@ function indentify (s, n) {
 function treatAny(value, constraint, root) {
 	if (typeof(value) == 'string'){
 		if (value.length > 1 && value[0]=='#' && value[1] != "#") {
-			return new ObjectValue(root.getObj(parseInt(value.substring(1))), constraint, root);
+			return new ObjectValue(root.getObj(parseInt(value.substring(1))), constraint, root, false);
 		} else {
 			if (value.length > 1 && value[0]=='#' && value[1] == "#") {
 				return new ScalarValue(value.substring(1), identity);
@@ -311,7 +320,7 @@ function Instance(id, src, root) {
 	var alias2id = root.alias2id;
 	
 	self.withId = function (id) {
-		return new Instance(id, src, root, true);
+		return new Instance(id, src, root);
 	}
 	
 	self.alias_back = ko.observable(src[3]);
@@ -327,6 +336,10 @@ function Instance(id, src, root) {
 		}
 		return newvalue;
 	});
+	
+	self.isReference = function () {
+		return isReferenceType(self.constructor);
+	}
 
 	self.fields = map(dict2array(src[1]), function (x) { 
 		return new Property(x.key, treatAny(x.value[0], x.value[1], root), true); 
@@ -505,7 +518,7 @@ function AppViewModel() {
 		for (var i in ids) {
 			var x = ids[i];
 			if (x.constructor.indexOf(startsWith) == 0) {
-				result.push(new Property("", new ObjectValue(x, "--", self), false));
+				result.push(new Property("", new ObjectValue(x, "--", self, true), false));
 			}
 		}
 		return result;		
@@ -521,6 +534,14 @@ function AppViewModel() {
 		return self.id2obj[id];
 	}
 	
+	// главная идея в том, чтобы getObj всегда, 
+	// за исключением ссылочных типов выдавал новые объекты.
+	// В таком случае для доступа к существующему объекту
+	// мы будем использовать id2obj, для клонирования существующих getObj
+	// Способ определения ссылочного типа: 
+	// если этот id еще не обрабатывался, то мы смотрим на тип в response
+	// если обрабатывался - на constructor
+	
 	self.getObj = getObj;
 	
 	self.cloneObj = function (obj) {
@@ -530,6 +551,7 @@ function AppViewModel() {
 		self.id2obj[id] = clone;
 		return clone;
 	}
+	
 	
 	self.parsed = ko.computed(function () {
 		var response = self.response();
@@ -555,7 +577,7 @@ function AppViewModel() {
 					label = f.val.val;
 				}
 			}
-			return new Property(label, new ObjectValue(self.id2obj[id], constraint, self), false);
+			return new Property(label, new ObjectValue(self.id2obj[id], constraint, self, true), false);
 		}
 		
 		//-------------- traders
