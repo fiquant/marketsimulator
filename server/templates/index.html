@@ -72,7 +72,7 @@
         	<td>&nbsp; &nbsp; &nbsp; &nbsp; </td>
         	<td colspan="2">
         		<table>
-			        <tr data-bind="if: val.objectref">
+			        <tr data-bind="if: val.objectref && val.pointee().changes().length">
 			        	<td></td>
 			        	<td data-bind="css: { notPrimary: $data.val.pointee().notPrimary }">
 			        		Alias
