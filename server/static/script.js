@@ -233,22 +233,6 @@ function ObjectValue(s, constraint, root) {
 	
 	self.currentOption.subscribe(updateCurrentOption);	
 
-/*	self.currentOption = ko.computed({
-		read: function () {
-			return self.pointee().id;
-		}, 
-		write: function (id) {
-			console.log('option changed: ' + id);
-			var options = self.options();
-			for (var i in options) { // it is better to have a true mapping
-				if (options[i].id == id) {
-					self.pointee(root.cloneObj(options[i]));
-					self.updateOptions();
-				}
-			}
-		}		
-	})
-*/	
 	self.expanded = ko.computed(function() {
 		return self.pointee().fields;
 	});
