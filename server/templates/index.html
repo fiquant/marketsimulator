@@ -57,10 +57,10 @@
 	        	<td colspan="3" data-bind="text: $.toJSON($data.val.constraint)"></td>
 	        </tr>
 	        <tr>
-	        	<td colspan="3" data-bind="text: $.toJSON($data.val.pointee.alias)"></td>
+	        	<td colspan="3" data-bind="text: $.toJSON($data.val.pointee().alias)"></td>
 	        </tr>
 	        <tr>
-	        	<td colspan="3" data-bind="text: $.toJSON($data.val.pointee.typeinfo)"></td>
+	        	<td colspan="3" data-bind="text: $.toJSON($data.val.pointee().typeinfo)"></td>
 	        </tr>
 	        <!-- ko foreach: $root.getCandidates($data.val.constraint) -->
 	        <tr>
@@ -74,11 +74,11 @@
         		<table>
 			        <tr data-bind="if: val.objectref">
 			        	<td></td>
-			        	<td data-bind="css: { notPrimary: $data.val.pointee.notPrimary }">
+			        	<td data-bind="css: { notPrimary: $data.val.pointee().notPrimary }">
 			        		Alias
 			        	</td>
-			        	<td data-bind="css: { notPrimary: $data.val.pointee.notPrimary }">
-			        		<input data-bind="value: $data.val.pointee.alias_back"/>
+			        	<td data-bind="css: { notPrimary: $data.val.pointee().notPrimary }">
+			        		<input data-bind="value: $data.val.pointee().alias_back"/>
 			        	</td>
 			        </tr>
 			        
