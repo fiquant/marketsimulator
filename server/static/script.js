@@ -179,30 +179,22 @@ function ArrayValue(s) {
 
 function ObjectValue(s, constraint, root) {
 	var self = this;
-	self.val = s;
+	self.pointee = s;
 	self.root = root;
 	self.constraint = constraint == undefined ? "" : constraint;
-	
-	self.brief = function () {
-		return self.val.createdFrom;
-	}
 	
 	self._dummy = ko.observable(false);
 	
 	self.options = ko.computed(function (){
 		self._dummy();
-		var myAlias = self.val.alias();
+		var myAlias = self.pointee.alias();
 		var candidates = self.root.getCandidates(self.constraint);
-		var position = -1;
+		
 		for (var i in candidates) {
 			var c = candidates[i];
 			if (c.alias.peek() == myAlias) {
-				position = i;
-				break;
+				candidates[i] = self.pointee;
 			}
-		}
-		if (position != -1) {
-			candidates[position] = self.val;
 		}
 		return candidates;
 	});
@@ -213,16 +205,24 @@ function ObjectValue(s, constraint, root) {
 
 	self.currentOption = ko.computed({
 		read: function () {
-			return self.val.id;
+			return self.pointee.id;
+		}, 
+		write: function (id) {
+			var options = self.options();
+			for (var i in options) {
+				if (options[i].id == id) {
+					
+				}
+			}
 		}		
 	})
 	
 	self.expanded = ko.computed(function() {
-		return self.val.fields;
+		return self.pointee.fields;
 	});
 	
 	self.hasError = ko.computed(function () {
-		var fields = self.val.fields;
+		var fields = self.pointee.fields;
 		for (var i in fields) {
 			if (fields[i].val.hasError()) {
 				return true;
@@ -233,6 +233,7 @@ function ObjectValue(s, constraint, root) {
 	
 	
 	self.editor = LISTBOX;
+	self.objectref = true;
 }
 
 nbsp = "&nbsp;";
@@ -293,10 +294,14 @@ function Instance(id, src, root) {
 	self.typeinfo = src[2];
 	var alias2id = root.alias2id;
 	
+	self.withId = function (id) {
+		return new Instance(id, src, root, true);
+	}
+	
 	self.alias_back = ko.observable(src[3]);
 	self.alias = ko.computed(function () {
 		var newvalue = self.alias_back();
-		console.log(newvalue + '@' + id);
+		//console.log(newvalue + '@' + id);
 		if (self._savedAlias) {
 			delete alias2id[self._savedAlias];
 		}
@@ -443,6 +448,7 @@ function AppViewModel() {
 	self.response(all());
 	
 	self.id2obj = {};
+	self.biggestId = -1;
 	self.traders = [];
 	self.timeseries = {};
 	self._graphs = [];
@@ -492,11 +498,22 @@ function AppViewModel() {
 	var getObj = function (id) {
 		if (self.id2obj[id] == undefined) {
 			self.id2obj[id] = new Instance(id, self.response().objects[id], self);
+			if (id > self.biggestId) {
+				self.biggestId = id;
+			}
 		}
 		return self.id2obj[id];
 	}
 	
 	self.getObj = getObj;
+	
+	self.cloneObj = function (obj) {
+		var id = self.biggestId + 1;
+		var clone = obj.withId(id);
+		self.biggestId = id;
+		self.id2obj[id] = clone;
+		return clone;
+	}
 	
 	self.parsed = ko.computed(function () {
 		var response = self.response();
@@ -617,7 +634,7 @@ function AppViewModel() {
 			var tss = g.fields[0].val.val();
 			var res = [];
 			for (var i in tss) {
-				var ts = tss[i].val.val; 
+				var ts = tss[i].val.pointee; 
 				res.push(self.timeseries[ts.id]);
 			}
 			return new Graph(g.name, res);

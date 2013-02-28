@@ -34,7 +34,7 @@
             		<!-- /ko -->	            	            		
             	</td>
 	            <td data-bind="html: name" />
-	            <td data-bind="event: { mouseover: $data.val.startEdit, mouseout: $data.val.stopEdit }">
+	            <td>
 		            <!-- ko if: val.editor == LISTBOX -->
 	            		<select data-bind="event: { mouseover: val.updateOptions }, 
 	            		options: val.options, 
@@ -57,10 +57,10 @@
 	        	<td colspan="3" data-bind="text: $.toJSON($data.val.constraint)"></td>
 	        </tr>
 	        <tr>
-	        	<td colspan="3" data-bind="text: $.toJSON($data.val.val.alias)"></td>
+	        	<td colspan="3" data-bind="text: $.toJSON($data.val.pointee.alias)"></td>
 	        </tr>
 	        <tr>
-	        	<td colspan="3" data-bind="text: $.toJSON($data.val.val.typeinfo)"></td>
+	        	<td colspan="3" data-bind="text: $.toJSON($data.val.pointee.typeinfo)"></td>
 	        </tr>
 	        <!-- ko foreach: $root.getCandidates($data.val.constraint) -->
 	        <tr>
@@ -72,21 +72,22 @@
         	<td>&nbsp; &nbsp; &nbsp; &nbsp; </td>
         	<td colspan="2">
         		<table>
+			        <tr data-bind="if: val.objectref">
+			        	<td></td>
+			        	<td data-bind="css: { notPrimary: $data.val.pointee.notPrimary }">
+			        		Alias
+			        	</td>
+			        	<td data-bind="css: { notPrimary: $data.val.pointee.notPrimary }">
+			        		<input data-bind="value: $data.val.pointee.alias_back"/>
+			        	</td>
+			        </tr>
+			        
 			        <!-- ko foreach: $data.expandedView -->
 			        	<!-- ko template: 'renderField'-->
 				        <!-- /ko -->
 			        <!-- /ko -->
 					
-				        <tr data-bind="ko if: val.editor == LISTBOX, css: { notPrimary: $data.val.val.notPrimary }">
-				        	<td></td>
-				        	<td>
-				        		Alias
-				        	</td>
-				        	<td>
-				        		<input data-bind="value: $data.val.val.alias_back"/>
-				        	</td>
-				        </tr>
-					
+				
 				</table>
         	</td>
         </tr>
