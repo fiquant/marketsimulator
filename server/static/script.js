@@ -21,7 +21,8 @@ function isReferenceType(typename) {
 	return (typename.indexOf("marketsim.orderbook.") == 0 ||
 			typename.indexOf("marketsim.scheduler.") == 0 ||
 			typename.indexOf("marketsim.js.Graph") == 0 ||
-			typename.indexOf("marketsim.trader.") == 0);
+			typename.indexOf("marketsim.trader.") == 0 ||
+			typename.indexOf("marketsim.js.TimeSerie") == 0);
 }
 
 function isInteger (s) {
@@ -231,7 +232,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 		var options = self.options();
 		for (var i in options) { // it is better to have a true mapping
 			if (options[i].id == id) {
-				var freshly_created = root.cloneObj(options[i]);
+				var freshly_created = root.getObj(options[i].id);
 				console.log('created: ' + freshly_created.id);
 				self.pointee(freshly_created);
 			}
@@ -313,6 +314,9 @@ function Property(name, value, expanded) {
 
 function Instance(id, src, root) {
 	var self = this;
+	if (src == undefined) {
+		var a = 11;
+	}
 	self.id = parseInt(id);
 	self.constructor = src[0];
 	self.name = src[3];
@@ -388,6 +392,9 @@ function Graph(label, timeseries) {
 	
 	self.empty = function () {
 		for (var i in self.data) {
+			if (self.data[i] == undefined) {
+				var a = 12;
+			}
 			if (self.data[i].data.length > 0) {
 				return false;
 			}
@@ -478,6 +485,12 @@ function AppViewModel() {
 	
 	self.id2obj = {};
 	self.biggestId = -1;
+	for (var i in self.response().objects) {
+		var ii = parseInt(i);
+		if (ii > self.biggestId) {
+			self.biggestId = ii;
+		}
+	}
 	self.traders = [];
 	self.timeseries = {};
 	self._graphs = [];
@@ -523,16 +536,6 @@ function AppViewModel() {
 		}
 		return result;		
 	}
-
-	var getObj = function (id) {
-		if (self.id2obj[id] == undefined) {
-			self.id2obj[id] = new Instance(id, self.response().objects[id], self);
-			if (id > self.biggestId) {
-				self.biggestId = id;
-			}
-		}
-		return self.id2obj[id];
-	}
 	
 	// главная идея в том, чтобы getObj всегда, 
 	// за исключением ссылочных типов выдавал новые объекты.
@@ -542,14 +545,25 @@ function AppViewModel() {
 	// если этот id еще не обрабатывался, то мы смотрим на тип в response
 	// если обрабатывался - на constructor
 	
-	self.getObj = getObj;
-	
-	self.cloneObj = function (obj) {
-		var id = self.biggestId + 1;
-		var clone = obj.withId(id);
-		self.biggestId = id;
-		self.id2obj[id] = clone;
-		return clone;
+	self.getObj = function (id) {
+		var obj = self.id2obj[id]
+		if (obj == undefined) {
+			var created = new Instance(id, self.response().objects[id], self);
+			if (id > self.biggestId) {
+				self.biggestId = id;
+			}
+			self.id2obj[id] = created;
+			return created;
+		}
+		
+		if (!obj.isReference()) {
+			var id = self.biggestId + 1;
+			var clone = obj.withId(id);
+			self.biggestId = id;
+			self.id2obj[id] = clone;
+			return clone;
+		}
+		return obj;
 	}
 	
 	
@@ -564,7 +578,7 @@ function AppViewModel() {
 			var original = response.objects;
 			
 			for (var i in original) {
-				id2obj[i] = getObj(i);
+				id2obj[i] = self.getObj(i);
 			}
 		}
 		
@@ -673,6 +687,9 @@ function AppViewModel() {
 			var res = [];
 			for (var i in tss) {
 				var ts = tss[i].val.pointee(); 
+				if (self.timeseries[ts.id] == undefined) {
+					var a = 11;
+				}
 				res.push(self.timeseries[ts.id]);
 			}
 			return new Graph(g.name, res);
