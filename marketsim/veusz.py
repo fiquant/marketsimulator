@@ -181,10 +181,12 @@ class Graph(object):
         
 def run(name):
     if not 'VEUSZ_EXE' in os.environ:
-        print "Please specify path to Veusz executable in VEUSZ_EXE environment variable"
+        print "Path to Veusz executable is not specified in VEUSZ_EXE environment variable"
+        print "Hoping that 'veusz' executable is in standard paths"
         print "You may look also for the results manually in Veusz script: " + myDir()+name+".vsz"
-        return 
-    veusz_exe = os.environ['VEUSZ_EXE']
+        veusz_exe = 'veusz'
+    else:
+        veusz_exe = os.environ['VEUSZ_EXE']
     Popen(veusz_exe + ' ' + os.path.abspath(myDir()+name+".vsz"), shell=True)
         
 
