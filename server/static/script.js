@@ -179,7 +179,7 @@ function ArrayValue(s) {
 
 function ObjectValue(s, constraint, root) {
 	var self = this;
-	self.pointee = s;
+	self.pointee = ko.observable(s);
 	self.root = root;
 	self.constraint = constraint == undefined ? "" : constraint;
 	
@@ -187,13 +187,13 @@ function ObjectValue(s, constraint, root) {
 	
 	self.options = ko.computed(function (){
 		self._dummy();
-		var myAlias = self.pointee.alias();
+		var myAlias = self.pointee().alias();
 		var candidates = self.root.getCandidates(self.constraint);
 		
 		for (var i in candidates) {
 			var c = candidates[i];
 			if (c.alias.peek() == myAlias) {
-				candidates[i] = self.pointee;
+				candidates[i] = self.pointee();
 			}
 		}
 		return candidates;
@@ -201,28 +201,60 @@ function ObjectValue(s, constraint, root) {
 	
 	self.updateOptions = function () {
 		self._dummy(!self._dummy());
-	}	
+	}
+	
+	self.currentOption = ko.observable(self.pointee().id);
+	
+	self.pointee.subscribe(function (new_pointee) {
+		self.currentOption(new_pointee.id);
+	})
+	
+	self._lock = false;
+	
+	function updateCurrentOption(id) {
+		if (self._lock) {
+			return;
+		}
+		self._lock = true;
+		
+		self._lastId = id;
+		console.log('option changed: ' + id);
+		var options = self.options();
+		for (var i in options) { // it is better to have a true mapping
+			if (options[i].id == id) {
+				var freshly_created = root.cloneObj(options[i]);
+				console.log('created: ' + freshly_created.id);
+				self.pointee(freshly_created);
+			}
+		}
+		
+		self._lock = false;
+	}
+	
+	self.currentOption.subscribe(updateCurrentOption);	
 
-	self.currentOption = ko.computed({
+/*	self.currentOption = ko.computed({
 		read: function () {
-			return self.pointee.id;
+			return self.pointee().id;
 		}, 
 		write: function (id) {
+			console.log('option changed: ' + id);
 			var options = self.options();
-			for (var i in options) {
+			for (var i in options) { // it is better to have a true mapping
 				if (options[i].id == id) {
-					
+					self.pointee(root.cloneObj(options[i]));
+					self.updateOptions();
 				}
 			}
 		}		
 	})
-	
+*/	
 	self.expanded = ko.computed(function() {
-		return self.pointee.fields;
+		return self.pointee().fields;
 	});
 	
 	self.hasError = ko.computed(function () {
-		var fields = self.pointee.fields;
+		var fields = self.pointee().fields;
 		for (var i in fields) {
 			if (fields[i].val.hasError()) {
 				return true;
@@ -634,7 +666,7 @@ function AppViewModel() {
 			var tss = g.fields[0].val.val();
 			var res = [];
 			for (var i in tss) {
-				var ts = tss[i].val.pointee; 
+				var ts = tss[i].val.pointee(); 
 				res.push(self.timeseries[ts.id]);
 			}
 			return new Graph(g.name, res);
