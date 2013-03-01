@@ -74,6 +74,18 @@ function isArray(o) {
   return Object.prototype.toString.call(o) === '[object Array]';
 }
 
+foreach = ko.utils.arrayForEach;
+
+function any(array, predicate) {
+	for (var i in array) {
+		if (predicate(array[i])) {
+			return true;
+		}
+	}
+	return false;
+}
+
+
 function map(elements, f) {
     var res = [];
     for (var i=0; i<elements.length; i++)

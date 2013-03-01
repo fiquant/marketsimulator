@@ -26,56 +26,6 @@ function isReferenceType(typename) {
 }
 
 
-function hasChangedSign(x) {
-	return x.val.initial() != x.val.val() ? "*" : "";
-}
-
-function ScalarValue(s, checker) {
-	var self = this;
-	self.initial = ko.observable(s);
-	self.val = ko.observable(s);
-	self.scalar = function () { return true; }
-	self.errormsg = ko.observable("");
-	self.convertedValue = ko.computed(function (){
-		try {
-			var r = checker(self.val());
-			self.errormsg("");
-			return r;
-		} catch (err) {
-			self.errormsg(err);
-			return NaN;
-		}
-	});
-	self.hasError = ko.computed(function () {
-		return isnan(self.convertedValue());
-	})
-}
-
-function ArrayValue(s) {
-	var self = this;
-	self.val = ko.observableArray(map(s, function (x,i) {
-					return new Property(i, x, true);
-				}));
-	
-	self.brief = function () {
-		return "...";
-	}
-	
-	self.isReference = function () { return false; }
-
-	self.hasError = ko.computed(function () {
-		var elements = self.val();
-		for (var i in elements) {
-			if (elements[i].val.hasError()) {
-				return true;
-			}
-		}
-		return false;
-	})
-
-	self.expanded = self.val;
-	self.array = function () { return true; }
-}
 
 function ObjectValue(s, constraint, root, expandReference) {
 	var self = this;
@@ -89,7 +39,6 @@ function ObjectValue(s, constraint, root, expandReference) {
 		self._dummy();
 		var myAlias = self.pointee().alias();
 		var candidates = self.root.getCandidates(self.constraint);
-		console.log('updating options for ' + myAlias);
 		
 		for (var i in candidates) {
 			var c = candidates[i];
@@ -118,12 +67,10 @@ function ObjectValue(s, constraint, root, expandReference) {
 		}
 		self._lock = true;
 		
-		console.log('option changed: ' + id);
 		var options = self.options();
 		for (var i in options) { // it is better to have a true mapping
 			if (options[i].uniqueId() == id) {
 				var freshly_created = root.getObj(options[i].uniqueId());
-				console.log('created: ' + freshly_created.uniqueId() + '/' + i);
 				self.pointee(freshly_created);
 			}
 		}
@@ -249,8 +196,8 @@ function Instance(id, src, root) {
 		var result = [];
 		for (var i=0; i < self.fields.length; i++) {
 			var f = self.fields[i];
-			if (f.val.scalar && f.val.initial() != f.val.val()) {
-				result.push([self.id, f.name, f.val.convertedValue()]);
+			if (f.val.scalar && f.val.hasChanged()) {
+				result.push([self.id, f.name, f.val.validated()]);
 			}
 		}
 		return result;
@@ -260,7 +207,7 @@ function Instance(id, src, root) {
 		for (var i=0; i < self.fields.length; i++) {
 			var f = self.fields[i];
 			if (f.val.scalar) {
-				f.val.initial(f.val.val());
+				f.val.dropHistory();
 			} 
 		}
 	}
@@ -567,9 +514,7 @@ function AppViewModel() {
 			for (var j in obj.fields) {
 				var field = obj.fields[j];
 				if (field.name == pname) {
-					var x = field.val;
-					x.initial(value);
-					x.val(value);
+					field.val.set(value);
 				}
 			}
 		}
@@ -603,7 +548,7 @@ function AppViewModel() {
 		var dummy = self.updategraph();
 		var rawgraphs = self.filteredViewEx("marketsim.js.Graph");
 		return map(rawgraphs, function (g) {
-			var tss = g.fields[0].val.val();
+			var tss = g.fields[0].val.elements();
 			var res = [];
 			for (var i in tss) {
 				var ts = tss[i].val.pointee(); 

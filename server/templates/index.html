@@ -8,6 +8,8 @@
     <script type="text/javascript" src="static/_external/flotr2.min.js"></script>
     
 	<script type='text/javascript' src='static/js/prelude.js'></script>
+	<script type='text/javascript' src='static/js/fields/scalar.js'></script>
+	<script type='text/javascript' src='static/js/fields/array.js'></script>
 	<script type='text/javascript' src='static/js/script.js'></script>
 	<!---
 	<script type="text/x-mathjax-config">
@@ -23,10 +25,10 @@
             <!-- ko if: val.scalar -->
             	<td data-bind="css: { error: val.hasError }"></td>
 	            <td data-bind="css: { error: val.hasError }">
-	            	<a data-bind="text: name + hasChangedSign($data)"/>	            		            	
+	            	<a data-bind="text: $data.name + $data.val.changedSign()"/>	            		            	
 	            </td>	           
 	            <td data-bind="css: { error: val.hasError }">
-	            	<input data-bind="value: val.val, valueUpdate: 'afterkeydown'"></input>
+	            	<input data-bind="value: val._storage, valueUpdate: 'afterkeydown'"></input>
 	            </td> 
 	        <!-- /ko -->
             <!-- ko if: !val.scalar -->
@@ -46,7 +48,7 @@
 	            		</select>
 		            <!-- /ko -->
 		            <!-- ko if: val.array -->
-	    	        	<a data-bind="text: val.brief()"></a>
+	    	        	...
 			        <!-- /ko -->
 	            </td>
 	        <!-- /ko -->
