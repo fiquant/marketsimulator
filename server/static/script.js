@@ -538,7 +538,7 @@ function AppViewModel() {
 		self.id2obj.foreach(function (x) {
 			var myId = x.uniqueId();
 
-			if (true || x.isPrimary.peek()) {
+			if (x.isPrimary.peek()) {
 				var typeinfo = $.toJSON(x.typeinfo);
 				if (typeinfo == jsc) {
 					candidates.push(x);
