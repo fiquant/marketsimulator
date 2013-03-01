@@ -199,6 +199,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 		self._dummy();
 		var myAlias = self.pointee().alias();
 		var candidates = self.root.getCandidates(self.constraint);
+		console.log('updating options for ' + myAlias);
 		
 		for (var i in candidates) {
 			var c = candidates[i];
@@ -213,10 +214,10 @@ function ObjectValue(s, constraint, root, expandReference) {
 		self._dummy(!self._dummy());
 	}
 	
-	self.currentOption = ko.observable(self.pointee().id);
+	self.currentOption = ko.observable(self.pointee().uniqueId());
 	
 	self.pointee.subscribe(function (new_pointee) {
-		self.currentOption(new_pointee.id);
+		self.currentOption(new_pointee.uniqueId());
 	})
 	
 	self._lock = false;
@@ -227,13 +228,12 @@ function ObjectValue(s, constraint, root, expandReference) {
 		}
 		self._lock = true;
 		
-		self._lastId = id;
 		console.log('option changed: ' + id);
 		var options = self.options();
 		for (var i in options) { // it is better to have a true mapping
-			if (options[i].id == id) {
-				var freshly_created = root.getObj(options[i].id);
-				console.log('created: ' + freshly_created.id);
+			if (options[i].uniqueId() == id) {
+				var freshly_created = root.getObj(options[i].uniqueId());
+				console.log('created: ' + freshly_created.uniqueId() + '/' + i);
 				self.pointee(freshly_created);
 			}
 		}
@@ -314,17 +314,16 @@ function Property(name, value, expanded) {
 
 function Instance(id, src, root) {
 	var self = this;
-	if (src == undefined) {
-		var a = 11;
-	}
-	self.id = parseInt(id);
+	var _uniqueId = parseInt(id);
+	self.uniqueId = function () { return _uniqueId; }
+	
 	self.constructor = src[0];
 	self.name = src[3];
 	self.typeinfo = src[2];
 	var alias2id = root.alias2id;
 	
-	self.withId = function (id) {
-		return new Instance(id, src, root);
+	self.withId = function (idex) {
+		return new Instance(idex, src, root);
 	}
 	
 	self.alias_back = ko.observable(src[3]);
@@ -336,7 +335,7 @@ function Instance(id, src, root) {
 		}
 		if (alias2id[newvalue] == undefined) {
 			self._savedAlias = newvalue;
-			alias2id[newvalue] = self.id;
+			alias2id[newvalue] = self.uniqueId();
 		}
 		return newvalue;
 	});
@@ -350,7 +349,7 @@ function Instance(id, src, root) {
 	});
 	
 	self.isPrimary = ko.computed(function () {
-		return alias2id[self.alias()] == self.id;
+		return alias2id[self.alias()] == self.uniqueId();
 	});
 	
 	self.notPrimary = ko.computed(function () {
@@ -477,13 +476,47 @@ function dir(object) {
  * also we should check that only scalar fields may change
  */
 
+function assert(cond) {
+	if (!cond) {
+		var a = 11;
+	}
+}
+
+function Ids2Objs() {
+	var self = this;
+	var _id2obj = {};
+
+	self.contains = function (id) {
+		return _id2obj[id] != undefined;
+	}
+	
+	self.lookup = function (id) {
+		assert(!self.contains());
+		return _id2obj[id];
+	}
+	
+	self.insert = function (anInstance) {
+		var id = anInstance.uniqueId();
+		assert(!self.contains());
+		_id2obj[id] = anInstance;
+		return anInstance;
+	} 
+	
+	self.foreach = function (F) {
+		for (var i in _id2obj) {
+			F(_id2obj[i]);
+		}
+	}
+}
+
 function AppViewModel() {
 	var self = this;
 	self.advance = ko.observable(500);
 	self.response = ko.observable("");
 	self.response(all());
+
+	self.id2obj = new Ids2Objs();	
 	
-	self.id2obj = {};
 	self.biggestId = -1;
 	for (var i in self.response().objects) {
 		var ii = parseInt(i);
@@ -501,39 +534,38 @@ function AppViewModel() {
 	self.getCandidates = function (constraint) {
 		var candidates = [];
 		var jsc = $.toJSON(constraint);
-		for (var i in self.id2obj) {
-			if (self.id2obj[i].isPrimary.peek()) {
-				var typeinfo = self.id2obj[i].typeinfo;
-				if ($.toJSON(typeinfo) == jsc) {
-					candidates.push(self.id2obj[i]);
+		
+		self.id2obj.foreach(function (x) {
+			var myId = x.uniqueId();
+
+			if (true || x.isPrimary.peek()) {
+				var typeinfo = $.toJSON(x.typeinfo);
+				if (typeinfo == jsc) {
+					candidates.push(x);
 				}
 			}
-		}
+		});
 		return candidates;
 	}
 	
 	self.filteredViewEx = function(startsWith) {
 		var result = [];
-		var ids = self.id2obj;
-		for (var i in ids) {
-			var x = ids[i];
+		self.id2obj.foreach(function (x){
 			if (x.constructor.indexOf(startsWith) == 0) {
 				result.push(x);
 			}
-		}
+		});
 		return result;		
 	}
 	
 	self.filteredView = function(startsWith) {
 		// to implement through filteredViewEx
 		var result = [];
-		var ids = self.id2obj;
-		for (var i in ids) {
-			var x = ids[i];
+		self.id2obj.foreach(function (x) {
 			if (x.constructor.indexOf(startsWith) == 0) {
 				result.push(new Property("", new ObjectValue(x, "--", self, true), false));
 			}
-		}
+		});
 		return result;		
 	}
 	
@@ -546,21 +578,21 @@ function AppViewModel() {
 	// если обрабатывался - на constructor
 	
 	self.getObj = function (id) {
-		var obj = self.id2obj[id]
-		if (obj == undefined) {
+		id = parseInt(id);
+		if (!self.id2obj.contains(id)) {
 			var created = new Instance(id, self.response().objects[id], self);
 			if (id > self.biggestId) {
 				self.biggestId = id;
 			}
-			self.id2obj[id] = created;
+			self.id2obj.insert(created);
 			return created;
 		}
-		
+		var obj = self.id2obj.lookup(id);
 		if (!obj.isReference()) {
-			var id = self.biggestId + 1;
-			var clone = obj.withId(id);
-			self.biggestId = id;
-			self.id2obj[id] = clone;
+			var newid = self.biggestId + 1;
+			var clone = obj.withId(newid);
+			self.biggestId = newid;
+			self.id2obj.insert(clone);
 			return clone;
 		}
 		return obj;
@@ -574,7 +606,7 @@ function AppViewModel() {
 		
 		//----------- building new objects
 		if (response.objects) {
-			var id2obj = self.id2obj;
+			var id2obj = {};
 			var original = response.objects;
 			
 			for (var i in original) {
@@ -583,7 +615,7 @@ function AppViewModel() {
 		}
 		
 		var asfield = function (id, constraint) {
-			var fields = self.id2obj[id].fields;
+			var fields = self.id2obj.lookup(id).fields;
 			var label = "";
 			for (var i in fields) {
 				var f = fields[i];
@@ -591,7 +623,9 @@ function AppViewModel() {
 					label = f.val.val;
 				}
 			}
-			return new Property(label, new ObjectValue(self.id2obj[id], constraint, self, true), false);
+			return new Property(label, 
+								new ObjectValue(self.id2obj.lookup(id), constraint, self, true), 
+								false);
 		}
 		
 		//-------------- traders
@@ -610,7 +644,7 @@ function AppViewModel() {
 		
 		for (var i in rawtimeseries) {
 			var t = rawtimeseries[i];
-			var ts = new TimeSerie(t.id, t.name, ts_data[t.id]);
+			var ts = new TimeSerie(t.uniqueId(), t.name, ts_data[t.uniqueId()]);
 			timeseries[ts.id] = ts;		
 		}
 		
@@ -640,7 +674,7 @@ function AppViewModel() {
 			var id = ch[0];
 			var pname = ch[1];
 			var value = ch[2];
-			var obj = self.id2obj[id];
+			var obj = self.id2obj.lookup(id);
 			for (var j in obj.fields) {
 				var field = obj.fields[j];
 				if (field.name == pname) {
@@ -672,10 +706,7 @@ function AppViewModel() {
 	self.all = ko.computed(function () {
 		var dummy = self.parsed();
 		var res = [];
-		var ids = self.id2obj;
-		for (var i in ids) {
-			res.push(ids[i]);
-		}
+		self.id2obj.foreach(function (x) { res.push(x); });
 		return res;
 	})
 
@@ -687,10 +718,10 @@ function AppViewModel() {
 			var res = [];
 			for (var i in tss) {
 				var ts = tss[i].val.pointee(); 
-				if (self.timeseries[ts.id] == undefined) {
+				if (self.timeseries[ts.uniqueId()] == undefined) {
 					var a = 11;
 				}
-				res.push(self.timeseries[ts.id]);
+				res.push(self.timeseries[ts.uniqueId()]);
 			}
 			return new Graph(g.name, res);
 		})
