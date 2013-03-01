@@ -6,6 +6,8 @@
 	<script type='text/javascript' src='static/_external/jquery-1.9.0.min.js'></script>
     <script type="text/javascript" src="static/_external/jquery.json-2.3.min.js"></script>
     <script type="text/javascript" src="static/_external/flotr2.min.js"></script>
+    
+	<script type='text/javascript' src='static/js/prelude.js'></script>
 	<script type='text/javascript' src='static/js/script.js'></script>
 	<!---
 	<script type="text/x-mathjax-config">
@@ -18,7 +20,7 @@
 <body>
 	<script type="text/html" id="renderField">
         <tr data-bind="css: { even: $index()%2==0 }">
-            <!-- ko if: val.editor == INPUT -->
+            <!-- ko if: val.scalar -->
             	<td data-bind="css: { error: val.hasError }"></td>
 	            <td data-bind="css: { error: val.hasError }">
 	            	<a data-bind="text: name + hasChangedSign($data)"/>	            		            	
@@ -27,7 +29,7 @@
 	            	<input data-bind="value: val.val, valueUpdate: 'afterkeydown'"></input>
 	            </td> 
 	        <!-- /ko -->
-            <!-- ko if: val.editor != INPUT -->
+            <!-- ko if: !val.scalar -->
             	<td>
             		<!-- ko if: $data.val.expanded().length -->
             			<input type="checkbox" data-bind="checked: $data.isExpanded"/>
@@ -35,7 +37,7 @@
             	</td>
 	            <td data-bind="html: name" />
 	            <td>
-		            <!-- ko if: val.editor == LISTBOX -->
+		            <!-- ko if: val.object -->
 	            		<select data-bind="event: { mouseover: val.updateOptions }, 
 	            		options: val.options, 
 	            		value: $data.val.currentOption, 
@@ -43,16 +45,16 @@
 	            		optionsValue: function (item) { return item.uniqueId(); }">
 	            		</select>
 		            <!-- /ko -->
-		            <!-- ko if: val.editor == ARRAY -->
+		            <!-- ko if: val.array -->
 	    	        	<a data-bind="text: val.brief()"></a>
 			        <!-- /ko -->
 	            </td>
 	        <!-- /ko -->
         </tr>
-        <tr class="error" data-bind="if: val.editor == INPUT && val.errormsg().length">
+        <tr class="error" data-bind="if: val.scalar && val.errormsg().length">
         	<td colspan="3" data-bind="text: val.errormsg()"></td>
         </tr>
-        <!-- ko if: false && val.editor != INPUT -->
+        <!-- ko if: false && !val.scalar -->
 	        <tr>
 	        	<td colspan="3" data-bind="text: $.toJSON($data.val.constraint)"></td>
 	        </tr>
@@ -72,7 +74,7 @@
         	<td>&nbsp; &nbsp; &nbsp; &nbsp; </td>
         	<td colspan="2">
         		<table>
-			        <tr data-bind="if: val.objectref && val.pointee().changes().length">
+			        <tr data-bind="if: val.object && val.pointee().changes().length">
 			        	<td></td>
 			        	<td data-bind="css: { notPrimary: $data.val.pointee().notPrimary }">
 			        		Alias

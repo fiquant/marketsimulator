@@ -25,125 +25,16 @@ function isReferenceType(typename) {
 			typename.indexOf("marketsim.js.TimeSerie") == 0);
 }
 
-function isInteger (s) {
-    var isInteger_re     = /^\s*(\+|-)?\d+\s*$/;
-    return String(s).search (isInteger_re) != -1
-}
-
-function isFloat (s) {
-    var isDecimal_re     = /^\s*(\+|-)?((\d+(\.\d+)?)|(\.\d+))\s*$/;
-    return String(s).search (isDecimal_re) != -1
-}
-
-function _parseInt(x) {
-    if (typeof(x) == "string" && !isInteger(x.trim()))
-        throw "should be an integer value";
-    return parseInt(x,10);
-}
-
-function _parseFloat(x) {
-    if (typeof(x) == "string" && !isFloat(x.trim()))
-        throw "should be a floating point value";
-    return parseFloat(x);
-}
-
-function less(y) {
-    return function (x) {
-    	if (!(x < y)) {
-    		throw "should be less than " + y;
-    	}
-        return x;
-    }
-}
-
-function less_or_equal(y) {
-    return function (x) {
-    	if (!(x <= y)) {
-    		throw "should be less or equal to " + y;
-    	}
-        return x;
-    }
-}
-
-function greater(y) {
-    return function (x) {
-    	if (!(x > y)) {
-    		throw "should be greater than " + y;
-    	}
-        return x;
-    }
-}
-
-function greater_or_equal(y) {
-    return function (x) {
-    	if (!(x >= y)) {
-    		throw "should be greater or equal to " + y;
-    	}
-        return x;
-    }
-}
-
-function combine(f,g) {
-    return function (x) {
-        return f(g(x));
-    }
-}
-
-
-function identity(s) { return s; }
-
-function TeXize(s) {
-	return "$$" + s + "$$";
-}
-
-
-function isArray(o) {
-  return Object.prototype.toString.call(o) === '[object Array]';
-}
-
-function map(elements, f) {
-    var res = [];
-    for (var i=0; i<elements.length; i++)
-        res.push(f(elements[i], i));
-    return res;
-}
-
-function mapDictionaryToArray(dictionary) {
-    var result = [];
-    for (var key in dictionary) {
-        if (dictionary.hasOwnProperty(key)) {
-            result.push({ key: key, value: dictionary[key] }); 
-        }  
-    }
-
-    return result;
-}
-
-var dict2array = mapDictionaryToArray;
-
-var INPUT = 0x1;
-var ARRAY = 0x2;
-var LISTBOX = 0x4;
-
-function isInput(x) {
-	return x.val.editor == INPUT;
-}
-
-var EMPTYSTR = "";
 
 function hasChangedSign(x) {
 	return x.val.initial() != x.val.val() ? "*" : "";
-}
-
-function isnan(x) {
-	return typeof(x) != "string" && isNaN(x);
 }
 
 function ScalarValue(s, checker) {
 	var self = this;
 	self.initial = ko.observable(s);
 	self.val = ko.observable(s);
-	self.editor = INPUT;
+	self.scalar = function () { return true; }
 	self.errormsg = ko.observable("");
 	self.convertedValue = ko.computed(function (){
 		try {
@@ -183,8 +74,7 @@ function ArrayValue(s) {
 	})
 
 	self.expanded = self.val;
-	
-	self.editor = ARRAY;
+	self.array = function () { return true; }
 }
 
 function ObjectValue(s, constraint, root, expandReference) {
@@ -258,8 +148,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 	})
 	
 	
-	self.editor = LISTBOX;
-	self.objectref = true;
+	self.object = function () { return true; }
 }
 
 nbsp = "&nbsp;";
@@ -299,7 +188,7 @@ function Property(name, value, expanded) {
 	self.name = name;
 	self.val = value;
 	
-	var expandable = value.editor != INPUT && value.expanded().length;
+	var expandable = !value.scalar && value.expanded().length;
 	self.isExpanded = ko.observable(expandable && expanded);
 
 	self.expandedView = ko.computed(function() {
@@ -360,7 +249,7 @@ function Instance(id, src, root) {
 		var result = [];
 		for (var i=0; i < self.fields.length; i++) {
 			var f = self.fields[i];
-			if (f.val.editor == INPUT && f.val.initial() != f.val.val()) {
+			if (f.val.scalar && f.val.initial() != f.val.val()) {
 				result.push([self.id, f.name, f.val.convertedValue()]);
 			}
 		}
@@ -370,7 +259,7 @@ function Instance(id, src, root) {
 	self.changesSubmitted = function () {
 		for (var i=0; i < self.fields.length; i++) {
 			var f = self.fields[i];
-			if (f.val.editor == INPUT) {
+			if (f.val.scalar) {
 				f.val.initial(f.val.val());
 			} 
 		}
