@@ -39,27 +39,6 @@ function indentify (s, n) {
 	return spaces[n] + s;
 } 
 
-function treatAny(value, constraint, root) {
-	if (typeof(value) == 'string'){
-		if (value.length > 1 && value[0]=='#' && value[1] != "#") {
-			return new ObjectValue(root.getObj(parseInt(value.substring(1))), constraint, root, false);
-		} else {
-			if (value.length > 1 && value[0]=='#' && value[1] == "#") {
-				return new ScalarValue(value.substring(1), identity);
-			} else {
-				return new ScalarValue(value, identity);
-			}
-		}
-	} else if (isArray(value)) {
-		var elementType = constraint.elementType;
-		return new ArrayValue(map(value, function (x) { return treatAny(x, elementType, root); }));
-	} else {
-		//console.log(constraint);
-		var s = eval(constraint);
-		return new ScalarValue(value, s);
-	}	
-}
-
 function Property(name, value, expanded) {
 	var self = this;
 	self.name = name;
