@@ -84,4 +84,10 @@ function Property(name, value, expanded) {
 		assert(self.scalar);
 		self.impl().set(newvalue);
 	}
+	
+	self.dropHistory = function () {
+		if (self.scalar) {
+			self.dropHistory();
+		} 
+	}
 }

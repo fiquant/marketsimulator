@@ -93,6 +93,17 @@ function map(elements, f) {
     return res;
 }
 
+function map_opt(elements, f) {
+    var res = [];
+    for (var i=0; i<elements.length; i++) {
+        var e = f(elements[i], i);
+        if (e != undefined) {
+        	res.push(e);
+        }
+    }
+    return res;
+}
+
 function mapDictionaryToArray(dictionary) {
     var result = [];
     for (var key in dictionary) {

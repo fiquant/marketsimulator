@@ -17,9 +17,9 @@ function decodeString(value) {
 			:   value);
 }
 
-/**
+/** JsonValue = number|string|list<JsonValue>
  * Factory to construct concrete fields (of scalar, array or object type) by raw json data come from server 
- * @param {string|list<string>|number} value -- raw json data containing initial value of the field
+ * @param {JsonValue} value -- raw json data containing initial value of the field
  * @param {IType} constraint -- constraint for the field defining set of possible values that the field can contain
  * @param {AppViewModel} root -- reference to the root viewmodel
  */
