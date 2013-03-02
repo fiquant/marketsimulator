@@ -133,6 +133,11 @@ function Instance(id, src, root) {
 		return result;
 	});
 	
+	self.hasError = ko.computed(function () {
+		return any(self.fields, function (field) { return field.val.hasError(); } );
+	})
+	
+	
 	self.changesSubmitted = function () {
 		for (var i=0; i < self.fields.length; i++) {
 			var f = self.fields[i];

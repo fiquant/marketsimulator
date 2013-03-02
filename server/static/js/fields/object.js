@@ -7,6 +7,7 @@
  */
 function ObjectValue(s, constraint, root, expandReference) {
 	var self = this;
+	self.object = function () { return true; }
 	
 	/**
 	 *  stored reference to the object 
@@ -14,7 +15,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 	var _storage = ko.observable(s);
 	
 	/**
-	 *  read-only reference  
+	 *  read-only reference to the referenced object
 	 */
 	self.pointee = ko.computed(function () {
 		return _storage();
@@ -26,57 +27,54 @@ function ObjectValue(s, constraint, root, expandReference) {
 	/**
 	 *  Array of objects representing available options for the field 
 	 */
-	self.options = ko.computed(function (){
+	self._options = ko.computed(function (){
 		self._dummy();
-		var myAlias = self.pointee().alias();
+		// we need to recalculate options once our alias has changed
+		self.pointee.peek().alias();
 		return root.getCandidates(constraint);
 	});
 	
+	/**
+	 *  Forces to recalculate options 
+	 */
 	self.updateOptions = function () {
 		self._dummy(!self._dummy());
 	}
 	
+	/**
+	 *	Returns Id of the primary object having the same alias as ours 
+	 */
 	var primaryId = ko.computed(function () {
 		return root.alias2id[self.pointee().alias()];
 	})
 	
-	self.currentOption = ko.observable(primaryId());
+	/**
+	 *	Id of the alias chosen at the moment
+	 */
+	self._currentOption = ko.computed ({
+		read: function () { return primaryId(); },
+		write: function (id) {
+			if (id != undefined) {
+				// if alias id has changed, let's create a new instance for the chosen alias
+				var freshly_created = root.getObj(id);
+				console.log(self.pointee().uniqueId() + ' --> ' + freshly_created.uniqueId());
+				// and set it as current object
+				_storage(freshly_created);
+			}
+		}	
+	});
 	
-	primaryId.subscribe(function (newid) {
-		self.currentOption(newid);
-	})
-	
-	self._lock = false;
-	
-	function updateCurrentOption(id) {
-		if (self._lock || id == undefined) {
-			return;
-		}
-		self._lock = true;
-		
-		var freshly_created = root.getObj(id);
-		console.log(self.pointee().uniqueId() + ' --> ' + freshly_created.uniqueId());
-		_storage(freshly_created);
-		
-		self._lock = false;
-	}
-	
-	self.currentOption.subscribe(updateCurrentOption);	
-
+	/**
+	 *	List of fields to be rendered in expanded view 
+	 */
 	self.expanded = ko.computed(function() {
 		return (self.pointee().isReference() && !expandReference) ? [] : self.pointee().fields;
 	});
 	
+	/**
+	 * Are there any errors in our object? 
+	 */
 	self.hasError = ko.computed(function () {
-		var fields = self.pointee().fields;
-		for (var i in fields) {
-			if (fields[i].val.hasError()) {
-				return true;
-			}
-		}
-		return false;
+		return self.pointee().hasError();
 	})
-	
-	
-	self.object = function () { return true; }
 }
