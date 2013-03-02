@@ -1,9 +1,16 @@
+/**
+ * 	tries to convert a string into a reference id if has appropriate format
+ *  return undefined if fails  
+ */
 function decodeReferenceToObject(value) {
 	return (value.length > 1 && value[0]=='#' && value[1] != "#" 
 			? 	parseInt(value.substring(1)) 
 			: 	undefined);
 }
 
+/**
+ *	corrects a string came from server 
+ */
 function decodeString(value) {
 	return (value.length > 1 && value[0]=='#' && value[1] == "#"
 			? 	value.substring(1)

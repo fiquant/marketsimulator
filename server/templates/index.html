@@ -12,6 +12,7 @@
 	<script type='text/javascript' src='static/js/fields/array.js'></script>
 	<script type='text/javascript' src='static/js/fields/object.js'></script>
 	<script type='text/javascript' src='static/js/fields/factory.js'></script>
+	<script type='text/javascript' src='static/js/fields/property.js'></script>
 	<script type='text/javascript' src='static/js/script.js'></script>
 	<!---
 	<script type="text/x-mathjax-config">
@@ -23,72 +24,54 @@
 </head>
 <body>
 	<script type="text/html" id="renderField">
-        <tr data-bind="css: { even: $index()%2==0 }">
-            <!-- ko if: val.scalar -->
-            	<td data-bind="css: { error: val.hasError }"></td>
-	            <td data-bind="css: { error: val.hasError }">
-	            	<a data-bind="text: $data.name + $data.val.changedSign()"/>	            		            	
-	            </td>	           
-	            <td data-bind="css: { error: val.hasError }">
-	            	<input data-bind="value: val._storage, valueUpdate: 'afterkeydown'"></input>
-	            </td> 
-	        <!-- /ko -->
-            <!-- ko if: !val.scalar -->
-            	<td>
-            		<!-- ko if: $data.val.expanded().length -->
-            			<input type="checkbox" data-bind="checked: $data.isExpanded"/>
-            		<!-- /ko -->	            	            		
-            	</td>
-	            <td data-bind="html: name" />
-	            <td>
-		            <!-- ko if: val.object -->
-	            		<select data-bind="event: { mouseover: val.updateOptions }, 
-	            		options: val._options, 
-	            		value: $data.val._currentOption, 
-	            		optionsText: function (item) { return item.alias.peek(); },
+        <tr data-bind="css: { even: $index()%2==0, error: hasErrorStyle }">
+        	<td>
+        		<!-- ko if: expandable() -->
+        			<input type="checkbox" data-bind="checked: isExpanded"/>
+        		<!-- /ko -->	            	            		
+        	</td>
+            <td data-bind="text: displayLabel()" />
+            <td>
+	            <!-- ko with: impl() -->
+		            <!-- ko if: $data.scalar  -->
+		            	<input data-bind="value: _storage, valueUpdate: 'afterkeydown'">
+		            	</input>
+			        <!-- /ko -->
+		            <!-- ko if: $data.object -->
+	            		<select data-bind="
+	            		event: 		{ mouseover: updateOptions }, 
+	            		options: 	  _options, 
+	            		value: 		  _currentOption, 
+	            		optionsText:  function (item) { return item.alias.peek(); },
 	            		optionsValue: function (item) { return item.uniqueId(); }">
 	            		</select>
 		            <!-- /ko -->
-		            <!-- ko if: val.array -->
+		            <!-- ko if: $data.array -->
 	    	        	...
 			        <!-- /ko -->
-	            </td>
-	        <!-- /ko -->
+	            <!-- /ko -->
+            </td>
         </tr>
-        <tr class="error" data-bind="if: val.scalar && val.errormsg().length">
-        	<td colspan="3" data-bind="text: val.errormsg()"></td>
+        <tr class="error" data-bind="if: errorMessage().length">
+        	<td colspan="3" data-bind="text: errorMessage"></td>
         </tr>
-        <!-- ko if: false && !val.scalar -->
-	        <tr>
-	        	<td colspan="3" data-bind="text: $.toJSON($data.val.constraint)"></td>
-	        </tr>
-	        <tr>
-	        	<td colspan="3" data-bind="text: $.toJSON($data.val.pointee().alias)"></td>
-	        </tr>
-	        <tr>
-	        	<td colspan="3" data-bind="text: $.toJSON($data.val.pointee().typeinfo)"></td>
-	        </tr>
-	        <!-- ko foreach: $root.getCandidates($data.val.constraint) -->
-	        <tr>
-	        	<td colspan="3" data-bind="text: $data.name"></td>
-	        </tr>
-	        <!-- /ko -->
-        <!-- /ko -->
-        <tr data-bind="if: $data.expandedView().length > 0">
+        <tr data-bind="if: expandedView().length">
         	<td>&nbsp; &nbsp; &nbsp; &nbsp; </td>
         	<td colspan="2">
         		<table>
-			        <tr data-bind="if: val.object && val.pointee().changes().length">
+        			<!--
+			        <tr data-bind="if: impl().object && impl().pointee().changes().length">
 			        	<td></td>
-			        	<td data-bind="css: { notPrimary: $data.val.pointee().notPrimary }">
+			        	<td data-bind="css: { notPrimary: $data.impl().pointee().notPrimary }">
 			        		Alias
 			        	</td>
-			        	<td data-bind="css: { notPrimary: $data.val.pointee().notPrimary }">
-			        		<input data-bind="value: $data.val.pointee().alias_back"/>
+			        	<td data-bind="css: { notPrimary: $data.impl().pointee().notPrimary }">
+			        		<input data-bind="value: $data.impl().pointee().alias_back"/>
 			        	</td>
 			        </tr>
+			        -->
 			        
-			        <!-- ko foreach: $data.expandedView -->
+			        <!-- ko foreach: expandedView -->
 			        	<!-- ko template: 'renderField'-->
 				        <!-- /ko -->
 			        <!-- /ko -->
