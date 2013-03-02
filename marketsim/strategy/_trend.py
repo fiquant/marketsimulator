@@ -77,7 +77,7 @@ class _TrendFollower_Impl(SignalBase):
         SignalBase.__init__(self, trader)
 
 exec wrapper('TrendFollower', 
-             [('average',                'mathutils.ewma(alpha = 0.15)',  'None'),
+             [('average',                'mathutils.ewma(alpha = 0.15)',  'IUpdatableValue'),
               ('threshold',              '0.',                            'non_negative'), 
               ('orderFactory',           'order.Market.T',                'Side -> Volume -> IOrder'),
               ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),

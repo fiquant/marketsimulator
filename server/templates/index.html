@@ -42,8 +42,8 @@
 	            <td>
 		            <!-- ko if: val.object -->
 	            		<select data-bind="event: { mouseover: val.updateOptions }, 
-	            		options: val.options, 
-	            		value: $data.val.currentOption, 
+	            		options: val._options, 
+	            		value: $data.val._currentOption, 
 	            		optionsText: function (item) { return item.alias.peek(); },
 	            		optionsValue: function (item) { return item.uniqueId(); }">
 	            		</select>
