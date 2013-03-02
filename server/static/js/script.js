@@ -17,83 +17,6 @@ function alltimeseries() {
    return $.parseJSON(z.responseText);
 }
 
-function isReferenceType(typename) {
-	return (typename.indexOf("marketsim.orderbook.") == 0 ||
-			typename.indexOf("marketsim.scheduler.") == 0 ||
-			typename.indexOf("marketsim.js.Graph") == 0 ||
-			typename.indexOf("marketsim.trader.") == 0 ||
-			typename.indexOf("marketsim.js.TimeSerie") == 0);
-}
-
-function Instance(id, src, root) {
-	var self = this;
-	var _uniqueId = parseInt(id);
-	self.uniqueId = function () { return _uniqueId; }
-	
-	self.constructor = src[0];
-	self.name = src[3];
-	self.typeinfo = src[2];
-	var alias2id = root.alias2id;
-	
-	self.withId = function (idex) {
-		return new Instance(idex, src, root);
-	}
-	
-	self.alias_back = ko.observable(src[3]);
-	self.alias = ko.computed(function () {
-		var newvalue = self.alias_back();
-		//console.log(newvalue + '@' + id);
-		if (self._savedAlias) {
-			delete alias2id[self._savedAlias];
-		}
-		if (alias2id[newvalue] == undefined) {
-			self._savedAlias = newvalue;
-			alias2id[newvalue] = self.uniqueId();
-		}
-		return newvalue;
-	});
-	
-	self.isReference = function () {
-		return isReferenceType(self.constructor);
-	}
-
-	self.fields = map(dict2array(src[1]), function (x) { 
-		return new Property(x.key, treatAny(x.value[0], x.value[1], root), true); 
-	});
-	
-	self.isPrimary = ko.computed(function () {
-		return alias2id[self.alias()] == self.uniqueId();
-	});
-	
-	self.notPrimary = ko.computed(function () {
-		return !self.isPrimary();
-	});
-	
-	self.changes = ko.computed(function() {
-		var result = [];
-		for (var i=0; i < self.fields.length; i++) {
-			var f = self.fields[i];
-			if (f.hasChanged()) {
-				result.push([self.id, f.name, f.toSave()]);
-			}
-		}
-		return result;
-	});
-	
-	self.hasError = ko.computed(function () {
-		return any(self.fields, function (field) { return field.hasError(); } );
-	})
-	
-	
-	self.changesSubmitted = function () {
-		for (var i=0; i < self.fields.length; i++) {
-			var f = self.fields[i];
-			if (f.impl().scalar) {
-				f.impl().dropHistory();
-			} 
-		}
-	}
-}
 
 function TimeSerie(id, label, data) {
 	var self = this;
@@ -257,7 +180,7 @@ function AppViewModel() {
 			var myId = x.uniqueId();
 
 			if (x.isPrimary.peek()) {
-				var typeinfo = $.toJSON(x.typeinfo);
+				var typeinfo = $.toJSON(x.typeinfo());
 				if (typeinfo == jsc) {
 					candidates.push(x);
 				}
@@ -269,7 +192,7 @@ function AppViewModel() {
 	self.filteredViewEx = function(startsWith) {
 		var result = [];
 		self.id2obj.foreach(function (x){
-			if (x.constructor.indexOf(startsWith) == 0) {
+			if (x.constructor().indexOf(startsWith) == 0) {
 				result.push(x);
 			}
 		});
@@ -280,7 +203,7 @@ function AppViewModel() {
 		// to implement through filteredViewEx
 		var result = [];
 		self.id2obj.foreach(function (x) {
-			if (x.constructor.indexOf(startsWith) == 0) {
+			if (x.constructor().indexOf(startsWith) == 0) {
 				result.push(new Property("", new ObjectValue(x, "--", self, true), false));
 			}
 		});
@@ -333,7 +256,7 @@ function AppViewModel() {
 		}
 		
 		var asfield = function (id, constraint) {
-			var fields = self.id2obj.lookup(id).fields;
+			var fields = self.id2obj.lookup(id).fields();
 			var label = "";
 			for (var i in fields) {
 				var f = fields[i];
@@ -393,8 +316,8 @@ function AppViewModel() {
 			var pname = ch[1];
 			var value = ch[2];
 			var obj = self.id2obj.lookup(id);
-			for (var j in obj.fields) {
-				var field = obj.fields[j];
+			for (var j in obj.fields()) {
+				var field = obj.fields()[j];
 				if (field.name == pname) {
 					field.set(value);
 				}
@@ -430,7 +353,7 @@ function AppViewModel() {
 		var dummy = self.updategraph();
 		var rawgraphs = self.filteredViewEx("marketsim.js.Graph");
 		return map(rawgraphs, function (g) {
-			var tss = g.fields[0].impl().elements();
+			var tss = g.fields()[0].impl().elements();
 			var res = [];
 			for (var i in tss) {
 				var ts = tss[i].impl().pointee(); 
@@ -459,7 +382,7 @@ function AppViewModel() {
 		var updates = [];
 		var all = self.all();
 		for (var i=0; i<all.length; i++) {
-			var x = all[i].changes();
+			var x = all[i].changedFields();
 			for (var j=0; j<x.length; j++) {
 				updates.push(x[j]);
 			}
