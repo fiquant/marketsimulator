@@ -27,7 +27,7 @@ function ArrayValue(s) {
 	 *  Returns true iff any child has an error 
 	 */
 	self.hasError = ko.computed(function () {
-		return any(self._storage(), function (x) { return x.val.hasError(); })
+		return any(self._storage(), function (x) { return x.impl().hasError(); })
 	})
 
 	/**

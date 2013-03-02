@@ -69,7 +69,7 @@ tr {
    color: gray;
 }
 
-.error {
+.error td {
    background-color: red;
    color: white;
 }

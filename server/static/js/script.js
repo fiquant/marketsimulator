@@ -25,38 +25,6 @@ function isReferenceType(typename) {
 			typename.indexOf("marketsim.js.TimeSerie") == 0);
 }
 
-
-
-
-nbsp = "&nbsp;";
-spaces = [nbsp];
-
-for (var i=0; i<30; i++) {
-	spaces.push(spaces[spaces.length-1]+nbsp);
-}
-
-function indentify (s, n) {
-	return spaces[n] + s;
-} 
-
-function Property(name, value, expanded) {
-	var self = this;
-	self.name = name;
-	self.val = value;
-	
-	var expandable = !value.scalar && value.expanded().length;
-	self.isExpanded = ko.observable(expandable && expanded);
-
-	self.expandedView = ko.computed(function() {
-		return self.isExpanded() ? self.val.expanded() : [];
-	});
-	
-	self.hasError = ko.computed(function () {
-		return self.val.hasError();
-	})
-}
-
-
 function Instance(id, src, root) {
 	var self = this;
 	var _uniqueId = parseInt(id);
@@ -105,23 +73,23 @@ function Instance(id, src, root) {
 		var result = [];
 		for (var i=0; i < self.fields.length; i++) {
 			var f = self.fields[i];
-			if (f.val.scalar && f.val.hasChanged()) {
-				result.push([self.id, f.name, f.val.validated()]);
+			if (f.hasChanged()) {
+				result.push([self.id, f.name, f.toSave()]);
 			}
 		}
 		return result;
 	});
 	
 	self.hasError = ko.computed(function () {
-		return any(self.fields, function (field) { return field.val.hasError(); } );
+		return any(self.fields, function (field) { return field.hasError(); } );
 	})
 	
 	
 	self.changesSubmitted = function () {
 		for (var i=0; i < self.fields.length; i++) {
 			var f = self.fields[i];
-			if (f.val.scalar) {
-				f.val.dropHistory();
+			if (f.impl().scalar) {
+				f.impl().dropHistory();
 			} 
 		}
 	}
@@ -370,7 +338,7 @@ function AppViewModel() {
 			for (var i in fields) {
 				var f = fields[i];
 				if (f.name == 'label') {
-					label = f.val.val;
+					label = f.impl().val;
 				}
 			}
 			return new Property(label, 
@@ -428,7 +396,7 @@ function AppViewModel() {
 			for (var j in obj.fields) {
 				var field = obj.fields[j];
 				if (field.name == pname) {
-					field.val.set(value);
+					field.set(value);
 				}
 			}
 		}
@@ -462,10 +430,10 @@ function AppViewModel() {
 		var dummy = self.updategraph();
 		var rawgraphs = self.filteredViewEx("marketsim.js.Graph");
 		return map(rawgraphs, function (g) {
-			var tss = g.fields[0].val.elements();
+			var tss = g.fields[0].impl().elements();
 			var res = [];
 			for (var i in tss) {
-				var ts = tss[i].val.pointee(); 
+				var ts = tss[i].impl().pointee(); 
 				if (self.timeseries[ts.uniqueId()] == undefined) {
 					var a = 11;
 				}
