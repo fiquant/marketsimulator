@@ -13,6 +13,13 @@ function ScalarValue(s, checker) {
 	self._storage = ko.observable(s);
 	
 	/**
+	 *	Clones scalar field 
+	 */
+	self.clone = function () {
+		return new ScalarValue(s, checker);
+	}
+	
+	/**
 	 *	Returns 'true' iff fields has changes 
 	 */
 	self.hasChanged = ko.computed(function () {

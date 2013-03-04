@@ -17,7 +17,7 @@ function isReferenceType(typename) {
  * 			(python constructor, [(field_name, (field_value, field_constraint))], static_type, alias)
  * @param {AppViewModel} root -- reference to the root viewmodel
  */
-function Instance(id, src, root) {
+function Instance(id, constructor, fields, typeinfo, alias, root) {
 	var self = this;
 
 	/**
@@ -28,25 +28,37 @@ function Instance(id, src, root) {
 	/**
 	 *	String telling how to construct corresponding Python type (to be moved to types)
 	 */
-	self.constructor = function () { return src[0]; }
+	self.constructor = function () { return constructor; }
 	
 	/**
 	 *	'Static' type of the field (should be removed and calculated from constructor) 
 	 */
-	self.typeinfo = function () { return src[2]; }
+	self.typeinfo = function () { return typeinfo; }
 	
 	/**
 	 *  Clones this instance and assigns given id to the clone
  	 * @param {int} id -- identifier for a freshly created clone
 	 */
 	self.withId = function (id) {
-		return new Instance(id, src, root);
+		return new Instance(id, constructor, fields, typeinfo, alias, root);
+	}
+	
+	/**
+	 *	Makes a deep clone of the object 
+	 */
+	self.clone = function () {
+		var fresh_id = root.getNextId();
+		var created = new Instance(fresh_id, constructor, 
+			map(fields, function (field) { return field.clone(); }),
+			typeinfo, alias, root);
+		root.insertObj(created);
+		return created;
 	}
 	
 	/**
 	 *	Stores alias for the instance. Private.
 	 */
-	self.alias_back = ko.observable(src[3]);
+	self.alias_back = ko.observable(alias);
 	
 	/**
 	 *	Read only alias for the instance. Public 
@@ -72,10 +84,6 @@ function Instance(id, src, root) {
 		return isReferenceType(self.constructor());
 	}
 
-	var fields = map(dict2array(src[1]), function (x) { 
-		return new Property(x.key, treatAny(x.value[0], x.value[1], root), true); 
-	});
-	
 	/**
 	 *	Array of fields. 
 	 * 	Later it will be an observableArray when arrays will be represented as instances 
@@ -124,4 +132,11 @@ function Instance(id, src, root) {
 			f.dropHistory(); 
 		});
 	}
+}
+
+function createInstance(id, src, root) {
+	var fields = map(dict2array(src[1]), function (x) { 
+		return new Property(x.key, treatAny(x.value[0], x.value[1], root), true); 
+	});
+	return new Instance(id, src[0], fields, src[2], src[3], root);
 }
