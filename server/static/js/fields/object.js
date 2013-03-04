@@ -21,6 +21,13 @@ function ObjectValue(s, constraint, root, expandReference) {
 		return _storage();
 	})
 	
+	/**
+	 *  Clones object field (if pointee is a reference it is not cloned)
+	 */
+	self.clone = function () {
+		return new ObjectValue(s.isReference() ? s : s.clone(), constraint, root, expandReference);
+	}
+	
 	// used to recalculate options
 	self._dummy = ko.observable(false);
 	
@@ -56,7 +63,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 		write: function (id) {
 			if (id != undefined) {
 				// if alias id has changed, let's create a new instance for the chosen alias
-				var freshly_created = root.getObj(id);
+				var freshly_created = root.getObj(id).clone();
 				console.log(self.pointee().uniqueId() + ' --> ' + freshly_created.uniqueId());
 				// and set it as current object
 				_storage(freshly_created);

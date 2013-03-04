@@ -19,6 +19,13 @@ function ArrayValue(s) {
 	})
 	
 	/**
+	 *	Clones array field 
+	 */
+	self.clone = function () {
+		return new ArrayValue(map(s, function (x) { return x.clone(); }));
+	}
+	
+	/**
 	 *  For the moment we consider all arrays as value types  
 	 */
 	self.isReference = function () { return false; }

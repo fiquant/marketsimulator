@@ -22,6 +22,13 @@ function Property(name, value, expanded) {
 	self.impl = function (){ return value; }
 	
 	/**
+	 *  Clones the property 
+	 */
+	self.clone = function () {
+		return new Property(name, value.clone(), expanded);
+	}
+	
+	/**
 	 * Error message for the field if any 
 	 */
 	self.errorMessage = ko.computed(function () {
