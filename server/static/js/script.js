@@ -167,14 +167,6 @@ function AppViewModel() {
 			return self.id2obj.lookup(id);
 		}
 		return self.id2obj.lookup(id);
-		if (false && !obj.isReference()) {
-			var newid = self.biggestId + 1;
-			var clone = obj.withId(newid);
-			self.biggestId = newid;
-			self.id2obj.insert(clone);
-			return clone;
-		}
-		return obj;
 	}
 	
 	self.getNextId = function () {
@@ -182,14 +174,14 @@ function AppViewModel() {
 		return self.biggestId;
 	}
 	
-	self.insertObj = function (obj) {
-		var id = obj.uniqueId();
+	self.createObj = function (factory) {
+		self.biggestId++;
+		var id = self.biggestId;
+		var obj = factory(id);
 		//console.log("inserting " + obj.alias() + "with id " + id);
 		assert(!self.id2obj.contains(id));
 		self.id2obj.insert(obj);
-		if (id > self.biggestId) {
-			self.biggestId = id;
-		}
+		return obj;
 	}
 	
 	
