@@ -36,23 +36,19 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	self.typeinfo = function () { return typeinfo; }
 	
 	/**
-	 *  Clones this instance and assigns given id to the clone
- 	 * @param {int} id -- identifier for a freshly created clone
-	 */
-	self.withId = function (id) {
-		return new Instance(id, constructor, fields, typeinfo, alias, root);
-	}
-	
-	/**
 	 *	Makes a deep clone of the object 
 	 */
 	self.clone = function () {
-		var fresh_id = root.getNextId();
-		var created = new Instance(fresh_id, constructor, 
-			map(fields, function (field) { return field.clone(); }),
-			typeinfo, alias, root);
-		root.insertObj(created);
-		return created;
+		return root.createObj(function (id) {
+			return new Instance(id, 
+								constructor, 
+								map(fields, function (field) { 
+									return field.clone(); 
+								}), 
+								typeinfo, 
+								alias, 
+								root);
+		});
 	}
 	
 	/**
