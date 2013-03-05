@@ -94,7 +94,7 @@ function Property(name, value, expanded) {
 	
 	self.dropHistory = function () {
 		if (self.scalar) {
-			self.dropHistory();
+			self.impl().dropHistory();
 		} 
 	}
 }
