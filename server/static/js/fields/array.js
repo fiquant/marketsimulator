@@ -3,13 +3,15 @@
  * @param {list<Field>} s -- array of fields (of scalar, array or object type)
  */
 
-function ArrayValue(s) {
+function ArrayValue(s, root) {
 	var self = this;
 	self.array = function () { return true; }
 	
-	self._storage = ko.observableArray(map(s, function (x,i) {
+	var fields = map(s, function (x,i) {
 						return new Property(i, x, true);
-					}));
+				});
+	
+	self._storage = ko.observableArray(fields);
 	
 	/**
 	 *	Elements of the array 

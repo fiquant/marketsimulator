@@ -91,7 +91,25 @@ def getObjRef(value):
         if value[0] == '#' and value[1] != "#":
             return int(value[1:])
     return -1
-            
+
+class ListProxy(object):
+    
+    def __init__(self, elements, elementConstraint):
+        self.__dict__['_elements'] = elements
+        self.__dict__['_elementConstraint'] = elementConstraint
+        self.__dict__['_properties'] = dict((str(i), self._elementConstraint) for i in range(len(self.__dict__['_elements'])))
+        
+    def __getattr__(self, s):
+        try:
+            return self.__dict__['_elements'][int(s)]
+        except ValueError:
+            return self.__dict__[s]
+    
+    def __setattr__(self, s, value):
+        try:
+            self.__dict__['_elements'][int(s)] = value
+        except ValueError:
+            self.__dict__[s] = value
 
 class Registry(object):
     
@@ -270,14 +288,16 @@ class Registry(object):
         self._insertNew(Id, obj)
         return obj
         
-    def _dumpPropertyValue(self, value, parent):
+    def _dumpPropertyValue(self, constraint, value, parent):
         typ = type(value)
         if typ is int or typ is float or typ is bool:
             return value
         if typ is str:
             return "#"+value if len(value) and value[0]=="#" else value
         if typ is list:
-            return [self._dumpPropertyValue(x, parent) for x in value]
+            elementType = constraint.elementType if type(constraint) == marketsim.meta.listOf else None
+            value = ListProxy(value, elementType)
+
         # other sequences we'll consider later
         # so value is a class instance
 
@@ -332,7 +352,7 @@ class Registry(object):
             
         propnames = properties(obj)
         props     = dict([(k, 
-                           (self._dumpPropertyValue(getattr(obj, k), obj), 
+                           (self._dumpPropertyValue(v, getattr(obj, k), obj), 
                             self._dumpPropertyConstraint(v))) \
                                            for k,v in propnames.iteritems()])\
                      if propnames is not None else None
@@ -366,10 +386,7 @@ class Registry(object):
                 dumped = self.tojson(k_id)    # getting dump representation
                 rv[k_id] = dumped           # storing it in the dictionary
                 for p in dumped[1].itervalues():        # iterating its fields
-                    visit_if_ref(p)
-                    if type(p) is list:                 # if a field is list (other sequences are to be processed in future)
-                        for e in p:                     # for each its element
-                            visit_if_ref(e)
+                    visit_if_ref(p[0])
                                 
         for k_id in list(self._id2obj.iterkeys()): # getting initial set of the dictionary keys
             visit(k_id)
@@ -385,7 +402,7 @@ class Registry(object):
         ctor = getCtor(obj)
             
         propnames = properties(obj)
-        props     = dict([(k, (v, self._dumpPropertyValue(getattr(obj, k), obj))) \
+        props     = dict([(k, (v, self._dumpPropertyValue(v, getattr(obj, k), obj))) \
                                                 for k,v in propnames.iteritems()])\
                      if propnames is not None else None
         
