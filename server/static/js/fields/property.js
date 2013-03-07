@@ -29,6 +29,13 @@ function Property(name, value, expanded) {
 	}
 	
 	/**
+	 *	Returns a JSON representation of the field: (name, value) 
+	 */
+	self.toJSON = function () {
+		return [name, value.toJSON()];
+	}
+	
+	/**
 	 * Error message for the field if any 
 	 */
 	self.errorMessage = ko.computed(function () {

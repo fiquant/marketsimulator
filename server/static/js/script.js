@@ -174,13 +174,16 @@ function AppViewModel() {
 		return self.biggestId;
 	}
 	
+	self._createdObjects = {};
+	
 	self.createObj = function (factory) {
 		self.biggestId++;
 		var id = self.biggestId;
 		var obj = factory(id);
-		//console.log("inserting " + obj.alias() + "with id " + id);
+		console.log("inserting " + obj.alias() + " with id " + id);
 		assert(!self.id2obj.contains(id));
 		self.id2obj.insert(obj);
+		self._createdObjects[id] = true;
 		return obj;
 	}
 	
@@ -324,6 +327,11 @@ function AppViewModel() {
 	self.limitTime = ko.observable(500);
 	
 	self.changes = ko.computed(function(){
+		var created = {}
+		for (var id in self._createdObjects) {
+			var obj = self.id2obj.lookup(id);
+			created[id] = obj.toJSON();
+		}
 		var updates = [];
 		var all = self.all();
 		for (var i=0; i<all.length; i++) {
@@ -332,7 +340,8 @@ function AppViewModel() {
 				updates.push(x[j]);
 			}
 		}
-		return $.toJSON({'updates' : updates, 
+		return $.toJSON({'updates' : updates,
+						 'created' : created, 
 						 'timeout' : _parseFloat(self.updateInterval()),
 						 'limitTime' : self.limitTime()});
 	});
@@ -359,7 +368,7 @@ function AppViewModel() {
 			self.running(self.running() + 1);
 			var changes = self.changes();
 			self.changesSubmitted();
-			$.post('/update?'+changes, function (data) {
+			$.post('/update', changes, function (data) {
 				var response = $.parseJSON(data);
 				self.processResponse(response, false); 
 				//console.log(response.currentTime + "...." + self.limitTime());

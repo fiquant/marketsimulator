@@ -7,7 +7,8 @@
  */
 function ObjectValue(s, constraint, root, expandReference) {
 	var self = this;
-	self.object = function () { return true; }
+	self.object = !constraint.elementType; 
+	self.array = !self.object; 
 	
 	/**
 	 *  stored reference to the object 
@@ -26,6 +27,13 @@ function ObjectValue(s, constraint, root, expandReference) {
 	 */
 	self.clone = function () {
 		return new ObjectValue(s.isReference() ? s : s.clone(), constraint, root, expandReference);
+	}
+	
+	/**
+	 *	Returns JSON representation to be sent to server 
+	 */
+	self.toJSON = function () {
+		return "#" + self.pointee().uniqueId();
 	}
 	
 	// used to recalculate options

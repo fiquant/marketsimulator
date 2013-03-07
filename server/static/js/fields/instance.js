@@ -39,16 +39,28 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	 *	Makes a deep clone of the object 
 	 */
 	self.clone = function () {
+		var fields_cloned = map(fields, function (field) { 
+								return field.clone(); 
+						});
+						
 		return root.createObj(function (id) {
 			return new Instance(id, 
 								constructor, 
-								map(fields, function (field) { 
-									return field.clone(); 
-								}), 
+								fields_cloned, 
 								typeinfo, 
 								alias, 
 								root);
 		});
+	}
+	
+	/**
+	 *	Returns JSON representation for a freshly created object 
+	 */
+	self.toJSON = function () {
+		return [self.constructor(), 
+				map(self.fields(), function (field) {
+					return field.toJSON(); }), 
+				self.alias()];
 	}
 	
 	/**
