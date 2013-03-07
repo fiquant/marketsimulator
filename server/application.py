@@ -198,7 +198,7 @@ with scheduler.create() as world:
     
     @app.route('/update', methods=['POST'])
     def update():
-        raw = request.args.iterkeys().__iter__().next()
+        raw = request.form.iterkeys().__iter__().next()
         parsed = json.loads(raw)
         for (id, field, value) in parsed['updates']:
             registry.instance.setAttr(id, field, value)

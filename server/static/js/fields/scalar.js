@@ -34,6 +34,13 @@ function ScalarValue(s, checker) {
 	})
 	
 	/**
+	 *	Returns representation to be sent to server 
+	 */
+	self.toJSON = function () {
+		return self.validated();
+	}
+	
+	/**
 	 * Changes current value of the field and drops his history
  	 * @param {T} newvalue -- new value to be set
 	 */
