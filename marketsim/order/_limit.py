@@ -83,6 +83,6 @@ class Limit(Base):
     def Sell(price, volume): return Limit(Side.Sell, price, volume) 
     
     @staticmethod
-    @registry.expose(alias='Limit')
+    @registry.expose(alias='Limit', constructor='marketsim.order.Limit.T')
     @sig(args=(Side,), rv=function((Price, Volume,), IOrder))
     def T(side): return lambda price, volume: Limit(side, price, volume) 

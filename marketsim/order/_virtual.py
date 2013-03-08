@@ -31,6 +31,6 @@ class VirtualMarket(object):
     def Sell(volume): return VirtualMarket(Side.Sell, volume)
     
     @staticmethod
-    @registry.expose(alias='VirtualMarket')
+    @registry.expose(alias='VirtualMarket', constructor='marketsim.order.VirtualMarket.T')
     @sig(args=(Side,), rv=function((Volume,), IOrder))
     def T(side): return lambda volume: VirtualMarket(side, volume)
