@@ -37,6 +37,6 @@ class AlwaysBest(Base):
         book.queue(self.side).on_best_changed += onBestChanged
         
     @staticmethod
-    @registry.expose(alias='AlwaysBest')
+    @registry.expose(alias='AlwaysBest', constructor='marketsim.order.AlwaysBest.T')
     @meta.sig(args=(Side,), rv=meta.function((Volume,), IOrder))
     def T(side): return lambda volume: AlwaysBest(volume, side)        

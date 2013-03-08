@@ -67,6 +67,6 @@ class LimitMarket(Base):
     def Sell(price, volume): return LimitMarket(Limit.Sell, price, volume)
     
     @staticmethod
-    @registry.expose(alias='LimitMarket')
+    @registry.expose(alias='LimitMarket', constructor='marketsim.order.LimitMarket.T')
     @sig(args=(Side,), rv=function((Price, Volume), IOrder))
     def T(side): return lambda price, volume: LimitMarket(side, price, volume)
