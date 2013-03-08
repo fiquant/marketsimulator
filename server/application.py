@@ -200,6 +200,12 @@ with scheduler.create() as world:
     def update():
         raw = request.form.iterkeys().__iter__().next()
         parsed = json.loads(raw)
+        
+        # creating new objects
+        for (id, meta) in parsed['created']:
+            registry.instance.createFromMeta(int(id), (meta[0], meta[1]))
+        
+        # changing fields for existing ones    
         for (id, field, value) in parsed['updates']:
             registry.instance.setAttr(id, field, value)
         save_state_before_changes() 
@@ -213,4 +219,4 @@ with scheduler.create() as world:
     def index():
         return render_template('index.html')
 
-    app.run(debug=True)
+    app.run(debug=False)

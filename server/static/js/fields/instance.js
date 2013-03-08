@@ -58,8 +58,8 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	 */
 	self.toJSON = function () {
 		return [self.constructor(), 
-				map(self.fields(), function (field) {
-					return field.toJSON(); }), 
+				dictOf(map(self.fields(), function (field) {
+					return field.toJSON(); })), 
 				self.alias()];
 	}
 	
@@ -113,15 +113,23 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	});
 	
 	/**
+	 *	Returns true iff some fields have changed 
+	 */
+	self.hasChanged = function () {
+		return any(self.fields(), function (field) { 
+			return field.hasChanged(); });
+	}
+	
+	/**
 	 *	Returns list of tuples (instance_id, field_name, new_value) of modified fields
 	 */
-	self.changedFields = ko.computed(function() {
+	self.changedFields = function() {
 		return map_opt(self.fields(), function (f) {
 			return (f.hasChanged()
-					?	[self.id, f.name, f.toSave()]
+					?	[self.uniqueId(), f.name(), f.toSave()]
 					:   undefined);
 		});
-	});	
+	};	
 	
 	/**
 	 * 	Returns true if there are any errors in the fields 
@@ -135,7 +143,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	/**
 	 *	After fields changes have been sent to server we may drop history 
 	 */
-	self.changesSubmitted = function () {
+	self.dropHistory = function () {
 		foreach(self.fields(), function (f) { 
 			f.dropHistory(); 
 		});

@@ -104,6 +104,15 @@ function map_opt(elements, f) {
     return res;
 }
 
+function collect(elements, f) {
+	var res = [];
+	for (var i in elements) {
+		var x = f(elements[i]);
+		res = res.concat(x);
+	}
+	return res;
+}
+
 function mapDictionaryToArray(dictionary) {
     var result = [];
     for (var key in dictionary) {
@@ -113,6 +122,15 @@ function mapDictionaryToArray(dictionary) {
     }
 
     return result;
+}
+
+function dictOf(array) {
+	var result = {};
+	for (var i in array) {
+		var e = array[i];
+		result[e[0]] = e[1];
+	}
+	return result;
 }
 
 var dict2array = mapDictionaryToArray;
