@@ -9,7 +9,7 @@ function ScalarValue(s, checker) {
 	var self = this;
 	self.scalar = function () { return true; }
 
-	self._initial = s;
+	self._initial = ko.observable(s);
 	self._storage = ko.observable(s);
 	
 	/**
@@ -23,7 +23,7 @@ function ScalarValue(s, checker) {
 	 *	Returns 'true' iff fields has changes 
 	 */
 	self.hasChanged = ko.computed(function () {
-		return self._storage() != self._initial;
+		return self._storage() != self._initial();
 	})
 	
 	/**
@@ -45,7 +45,7 @@ function ScalarValue(s, checker) {
  	 * @param {T} newvalue -- new value to be set
 	 */
 	self.set = function (newvalue) {
-		self._initial = newvalue;
+		self._initial(newvalue);
 		self._storage(newvalue);
 	}
 
@@ -53,7 +53,9 @@ function ScalarValue(s, checker) {
 	 *  Drops field history 
 	 */	
 	self.dropHistory = function () {
-		self.set(self._storage());
+		if (self.hasChanged()) {
+			self.set(self._storage());
+		}
 	}
 	
 	/**

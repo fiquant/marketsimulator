@@ -52,8 +52,10 @@ def meta(frame):
     return (dict(values), constructAs)
 
 def properties_t(cls):
-    bases = inspect.getmro(cls)
+    
     rv = {}
+    assert inspect.isclass(cls), "only classes may have properties - functions are considered as literals"
+    bases = inspect.getmro(cls)
     
     for base in reversed(bases):
         if '_properties' in dir(base):
@@ -71,10 +73,6 @@ def properties(obj):
         if obj._properties:
             for k,v in obj._properties.iteritems():
                 rv[k] = v 
-        else:
-            rv = None
-    else:
-        rv = None
     
     return rv            
                 
@@ -87,7 +85,7 @@ def getCtor(obj):
     return ctor
 
 def getObjRef(value):
-    if type(value) == str and len(value) > 1:
+    if type(value) in [str, unicode] and len(value) > 1:
         if value[0] == '#' and value[1] != "#":
             return int(value[1:])
     return -1
@@ -111,6 +109,15 @@ class ListProxy(object):
         except ValueError:
             self.__dict__[s] = value
 
+def _findType(ctorname):    
+    qualified_name = ctorname.split('.')
+    assert qualified_name[0] == 'marketsim', "We may create only marketsim types"
+    ctor = globals()['marketsim']
+    for k in qualified_name[1:]:
+        ctor = getattr(ctor, k)
+    return ctor
+    
+
 class Registry(object):
     
     def __init__(self):
@@ -128,6 +135,9 @@ class Registry(object):
         return obj.__class__.__name__
         
     def _insertNew(self, Id, obj):
+        if type(Id) != int:
+            a = 12
+        assert type(Id) == int
         if id in self._id2obj:
             old = self._id2obj[id]
             del old._id
@@ -266,8 +276,7 @@ class Registry(object):
             return typeinfo(v)
         
         return v
-        
-        
+    
     def createFromMeta(self, Id, meta):
         """ Creates a new object from meta information 
         Id should be a unique number
@@ -275,16 +284,16 @@ class Registry(object):
         """
         assert len(meta) == 2
         ctorname, props = meta
-        qualified_name = ctorname.split('.')
-        assert qualified_name[0] == 'marketsim', "We may create only marketsim types"
-        ctor = globals()['marketsim']
-        for k in qualified_name[1:]:
-            ctor = getattr(ctor, k)
-        dst_properties = properties_t(ctor)
-        converted = dict()
-        for k,v in props.iteritems():
-            converted[k] = self._convert(dst_properties, k, v)
-        obj = ctor(**converted)
+        ctor = _findType(ctorname)
+        if inspect.isclass(ctor):
+            dst_properties = properties_t(ctor)
+            converted = dict()
+            for k,v in props.iteritems():
+                converted[k] = self._convert(dst_properties, k, v)
+            obj = ctor(**converted)
+        else:
+            assert inspect.isfunction(ctor)
+            obj = ctor
         self._insertNew(Id, obj)
         return obj
         
@@ -440,9 +449,9 @@ class Registry(object):
 instance = Registry()                
          
         
-def expose(alias):
+def expose(alias, constructor=None):
     def inner(f):
-        f._constructAs = f.__module__ + "." + f.__name__
+        f._constructAs = constructor if constructor else f.__module__ + "." + f.__name__
         f._alias = alias
         instance.insert(f)
         return f

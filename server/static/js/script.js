@@ -79,6 +79,10 @@ function Ids2Objs() {
 		assert(!self.contains());
 		_id2obj[id] = anInstance;
 		return anInstance;
+	}
+	
+	self.items = function () {
+		return _id2obj;
 	} 
 	
 	self.foreach = function (F) {
@@ -326,25 +330,21 @@ function AppViewModel() {
 	
 	self.limitTime = ko.observable(500);
 	
-	self.changes = ko.computed(function(){
-		var created = {}
+	self.changes = function(){
+		var created = [];
 		for (var id in self._createdObjects) {
 			var obj = self.id2obj.lookup(id);
-			created[id] = obj.toJSON();
+			created.push([id, obj.toJSON()]);
 		}
-		var updates = [];
-		var all = self.all();
-		for (var i=0; i<all.length; i++) {
-			var x = all[i].changedFields();
-			for (var j=0; j<x.length; j++) {
-				updates.push(x[j]);
-			}
-		}
+
+		var updates = collect(self.id2obj.items(), function (obj) { 
+						return obj.changedFields(); 
+					});
 		return $.toJSON({'updates' : updates,
 						 'created' : created, 
 						 'timeout' : _parseFloat(self.updateInterval()),
 						 'limitTime' : self.limitTime()});
-	});
+	};
 	
 	self.running = ko.observable(0);
 	self.enabled = ko.computed(function () {
@@ -355,11 +355,8 @@ function AppViewModel() {
 	
     self.renderGraph1d = function (elem, graph) { graph.render(elem); }
     
-    self.changesSubmitted = function () {
-		var all = self.all();
-		for (var i=0; i<all.length; i++) {
-			all[i].changesSubmitted();
-		}
+    self.dropHistory = function () {
+    	self.id2obj.foreach(function (obj) { obj.dropHistory(); });
     }
     
 	self.submitChanges = function() {
@@ -367,7 +364,7 @@ function AppViewModel() {
 		function run() {
 			self.running(self.running() + 1);
 			var changes = self.changes();
-			self.changesSubmitted();
+			self.dropHistory();
 			$.post('/update', changes, function (data) {
 				var response = $.parseJSON(data);
 				self.processResponse(response, false); 

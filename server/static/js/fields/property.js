@@ -12,14 +12,21 @@ function Property(name, value, expanded) {
 	self.object = value.object;
 	
 	/**
-	 *	Property name to display 
+	 *	Returns name of the field
 	 */
-	self.displayLabel = function () { return name + (self.scalar ? self.impl().changedSign() : ""); }
+	self.name = function () { return name; }
 	
 	/**
 	 * Concrete implementation of the field 
 	 */
 	self.impl = function (){ return value; }
+	
+	/**
+	 *	Property name to display 
+	 */
+	self.displayLabel = ko.computed(function () { 
+		return name + (self.scalar ? self.impl().changedSign() : ""); 
+	});
 	
 	/**
 	 *  Clones the property 
