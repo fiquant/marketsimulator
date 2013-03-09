@@ -305,7 +305,7 @@ function AppViewModel() {
 		var dummy = self.updategraph();
 		var rawgraphs = self.filteredViewEx("marketsim.js.Graph");
 		return map(rawgraphs, function (g) {
-			var tss = g.fields()[0].impl().pointee().fields();
+			var tss = g.fields()[0].impl().elements();
 			var res = [];
 			for (var i in tss) {
 				var ts = tss[i].impl().pointee(); 

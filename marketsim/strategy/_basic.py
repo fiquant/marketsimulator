@@ -10,7 +10,7 @@ class Strategy(types.IStrategy):
     def suspended(self):
         return self._suspended
     
-    def suspend(self, s):
+    def suspend(self, s=True):
         self._suspended = s
         
     @property
