@@ -105,6 +105,13 @@ class SingleAsset(Base, types.ISingleAssetTrader):
     def strategies(self):
         return self._strategies
     
+    @strategies.setter
+    def strategies(self, value):
+        for s in self._strategies:
+            s.suspend()
+        for s in value:
+            self.addStrategy(s)
+    
     def addStrategy(self, strategy):
         strategy.runAt(self)
         self._strategies.append(strategy)        

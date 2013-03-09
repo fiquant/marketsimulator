@@ -92,10 +92,13 @@ def getObjRef(value):
 
 class ListProxy(object):
     
-    def __init__(self, elements, elementConstraint):
-        self.__dict__['_elements'] = elements
-        self.__dict__['_elementConstraint'] = elementConstraint
-        self.__dict__['_properties'] = dict((str(i), self._elementConstraint) for i in range(len(self.__dict__['_elements'])))
+    def __init__(self, **kwargs):
+        if 'elements' in kwargs and  'elementConstraint' in kwargs:
+            elements = kwargs['elements']
+            elementConstraint = kwargs['elementConstraint']
+            self.__dict__['_elements'] = elements
+            self.__dict__['_elementConstraint'] = elementConstraint
+            self.__dict__['_properties'] = {str(i) : self._elementConstraint for i in range(len(self.__dict__['_elements']))}
         
     def __getattr__(self, s):
         try:
@@ -108,6 +111,8 @@ class ListProxy(object):
             self.__dict__['_elements'][int(s)] = value
         except ValueError:
             self.__dict__[s] = value
+
+
 
 def _findType(ctorname):    
     qualified_name = ctorname.split('.')
@@ -258,6 +263,8 @@ class Registry(object):
                 id = getObjRef(v[i])
                 if id != -1:
                     v[i] = self._id2obj[id]
+                # we should check that all elements meet the constraint
+            return v
                 
         typeinfo = dst_properties[k]
         
@@ -308,7 +315,8 @@ class Registry(object):
             return "#"+value if len(value) and value[0]=="#" else value
         if typ is list:
             elementType = constraint.elementType if type(constraint) == marketsim.meta.listOf else None
-            value = ListProxy(value, elementType)
+            return [self._dumpPropertyValue(elementType, x, parent) for x in value]
+            #value = ListProxy(value, elementType)
 
         # other sequences we'll consider later
         # so value is a class instance

@@ -1,5 +1,5 @@
 from marketsim.types import *
-from marketsim import Side, observable, scheduler, order, mathutils, types, registry, signal
+from marketsim import observable, scheduler, order, mathutils, types, registry, signal
 from _basic import TwoSides, Strategy
 from _wrap import wrapper
 

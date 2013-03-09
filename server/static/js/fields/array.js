@@ -10,7 +10,7 @@ function ArrayValue(s, root) {
 	var fields = map(s, function (x,i) {
 						return new Property(i, x, true);
 				});
-	
+				
 	self._storage = ko.observableArray(fields);
 	
 	/**
@@ -21,10 +21,34 @@ function ArrayValue(s, root) {
 	})
 	
 	/**
+	 *	Returns true if the fields has been changed 
+	 */
+	self.hasChanged = function () { 
+		return any(self.elements(), function (e) {
+			return e.hasChanged();
+		}); 
+	}
+	
+	/**
 	 *	Clones array field 
 	 */
 	self.clone = function () {
 		return new ArrayValue(map(s, function (x) { return x.clone(); }));
+	}
+
+	/**
+	 *  Returns serialized representation of the field 
+	 */
+	self.serialized = function () {
+		return map(self.elements(), function (property) {
+			return property.impl().serialized();
+		});
+	}
+	
+	self.dropHistory = function () {
+		foreach(self.elements(), function (e) {
+			e.dropHistory();
+		})
 	}
 	
 	/**

@@ -124,6 +124,6 @@ class _chooseTheBest_Impl(Strategy):
         return not self._current or self._current.suspended
 
 exec wrapper("chooseTheBest",
-             [('strategies',  '[]',                     'meta.listOf(IStrategy)'),
+             [('strategies',  '[FundamentalValue()]',   'meta.listOf(IStrategy)'),
               ('efficiency',  'efficiencyTrend',        'ISingleAssetTrader -> ISingleAssetTrader'),
               ('estimator',   'virtualWithUnitVolume',  'IStrategy -> IStrategy')])

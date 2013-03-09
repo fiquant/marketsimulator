@@ -7,8 +7,7 @@
  */
 function ObjectValue(s, constraint, root, expandReference) {
 	var self = this;
-	self.object = !constraint.elementType; 
-	self.array = !self.object; 
+	self.object = function () { return true; } 
 	
 	/**
 	 *	Initial value of the field. (synchronized with server) 
