@@ -1,4 +1,4 @@
-from marketsim import Side
+from marketsim.Side import Tag as Side
 from marketsim.constraints import *
 from marketsim.meta import *
 

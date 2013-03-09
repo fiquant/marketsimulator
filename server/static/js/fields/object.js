@@ -11,9 +11,30 @@ function ObjectValue(s, constraint, root, expandReference) {
 	self.array = !self.object; 
 	
 	/**
+	 *	Initial value of the field. (synchronized with server) 
+	 */
+	var _initial = ko.observable(s);
+	
+	/**
 	 *  stored reference to the object 
 	 */
 	var _storage = ko.observable(s);
+	
+	/**
+	 *	Returns true if the fields has been changed 
+	 */
+	self.hasChanged = ko.computed(function () {
+		return _initial() != _storage();
+	});
+	
+	/**
+	 *  Drops field history 
+	 */	
+	self.dropHistory = function () {
+		if (self.hasChanged()) {
+			_initial(_storage());
+		}
+	}
 	
 	/**
 	 *  read-only reference to the referenced object
@@ -23,17 +44,17 @@ function ObjectValue(s, constraint, root, expandReference) {
 	})
 	
 	/**
+	 *  Returns serialized representation of the field 
+	 */
+	self.serialized = function () {
+		return "#" + self.pointee().uniqueId();
+	}
+	
+	/**
 	 *  Clones object field (if pointee is a reference it is not cloned)
 	 */
 	self.clone = function () {
 		return new ObjectValue(s.isReference() ? s : s.clone(), constraint, root, expandReference);
-	}
-	
-	/**
-	 *	Returns JSON representation to be sent to server 
-	 */
-	self.toJSON = function () {
-		return "#" + self.pointee().uniqueId();
 	}
 	
 	// used to recalculate options

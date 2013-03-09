@@ -36,10 +36,15 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	self.typeinfo = function () { return typeinfo; }
 	
 	/**
+	 *	Array of fields. 
+	 */
+	self.fields = ko.observableArray(fields);
+	
+	/**
 	 *	Makes a deep clone of the object 
 	 */
 	self.clone = function () {
-		var fields_cloned = map(fields, function (field) { 
+		var fields_cloned = map(self.fields(), function (field) { 
 								return field.clone(); 
 						});
 						
@@ -56,10 +61,10 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	/**
 	 *	Returns JSON representation for a freshly created object 
 	 */
-	self.toJSON = function () {
+	self.serialized = function () {
 		return [self.constructor(), 
 				dictOf(map(self.fields(), function (field) {
-					return field.toJSON(); })), 
+					return field.serialized(); })), 
 				self.alias()];
 	}
 	
@@ -93,12 +98,6 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	}
 
 	/**
-	 *	Array of fields. 
-	 * 	Later it will be an observableArray when arrays will be represented as instances 
-	 */
-	self.fields = function () { return fields; }
-	
-	/**
 	 * 	Returns true iff this instance is primary with respect to the alias 
 	 */
 	self.isPrimary = ko.computed(function () {
@@ -126,7 +125,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	self.changedFields = function() {
 		return map_opt(self.fields(), function (f) {
 			return (f.hasChanged()
-					?	[self.uniqueId(), f.name(), f.toSave()]
+					?	[self.uniqueId()].concat(f.serialized())
 					:   undefined);
 		});
 	};	

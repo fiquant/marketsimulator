@@ -16,7 +16,7 @@ class constant(object):
     def _casts_to(self, dst):
         if type(dst) is types.function:
             rv = dst.rv
-            return dst is float or\
+            return rv is float or\
                 (type(rv) is types.greater_or_equal and rv._bound <= self.value) or\
                 (type(rv) is types.greater_than and rv._bound < self.value) or\
                 (type(rv) is types.less_or_equal and rv._bound >= self.value) or\

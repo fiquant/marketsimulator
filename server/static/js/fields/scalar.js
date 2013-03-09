@@ -27,20 +27,6 @@ function ScalarValue(s, checker) {
 	})
 	
 	/**
-	 *  Returns changed field mark if there are any changes 
-	 */
-	self.changedSign = ko.computed(function () {
-		return self.hasChanged() ? "*" : "";
-	})
-	
-	/**
-	 *	Returns representation to be sent to server 
-	 */
-	self.toJSON = function () {
-		return self.validated();
-	}
-	
-	/**
 	 * Changes current value of the field and drops his history
  	 * @param {T} newvalue -- new value to be set
 	 */
@@ -66,7 +52,7 @@ function ScalarValue(s, checker) {
 	/**
 	 *  Contains validated field value or NaN if errors 
 	 */
-	self.validated = ko.computed(function (){
+	self.serialized = ko.computed(function (){
 		try {
 			var r = checker(self._storage());
 			self.errormsg("");
@@ -81,6 +67,6 @@ function ScalarValue(s, checker) {
 	 *	Returns true iff there are any errors 
 	 */
 	self.hasError = ko.computed(function () {
-		return isnan(self.validated());
+		return isnan(self.serialized());
 	})
 }

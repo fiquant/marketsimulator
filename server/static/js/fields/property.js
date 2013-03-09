@@ -21,25 +21,12 @@ function Property(name, value, expanded) {
 	 */
 	self.impl = function (){ return value; }
 	
-	/**
-	 *	Property name to display 
-	 */
-	self.displayLabel = ko.computed(function () { 
-		return name + (self.scalar ? self.impl().changedSign() : ""); 
-	});
 	
 	/**
 	 *  Clones the property 
 	 */
 	self.clone = function () {
 		return new Property(name, value.clone(), expanded);
-	}
-	
-	/**
-	 *	Returns a JSON representation of the field: (name, value) 
-	 */
-	self.toJSON = function () {
-		return [name, value.toJSON()];
 	}
 	
 	/**
@@ -52,16 +39,29 @@ function Property(name, value, expanded) {
 	/**
 	 *	Returns true if there are changes in the field 
 	 */
-	self.hasChanged = function () {
-		return self.scalar && self.impl().hasChanged();
-	}
+	self.hasChanged = ko.computed(function () {
+		return self.impl().hasChanged();
+	});
 	
 	/**
-	 *	Returns value to save of the field (for the moment it is only for scalar fields)
+	 *  Returns changed field mark if there are any changes 
 	 */
-	self.toSave = function () {
-		assert(self.scalar);
-		return self.impl().validated();
+	self.changedSign = ko.computed(function () {
+		return self.hasChanged() ? "*" : "";
+	})
+	
+	/**
+	 *	Property name to display 
+	 */
+	self.displayLabel = ko.computed(function () { 
+		return name + self.changedSign(); 
+	});
+	
+	/**
+	 *	Returns value to save of the field: (name, value) 
+	 */
+	self.serialized = function () {
+		return [name, self.impl().serialized()];
 	}
 	
 	/**
@@ -107,8 +107,6 @@ function Property(name, value, expanded) {
 	}
 	
 	self.dropHistory = function () {
-		if (self.scalar) {
-			self.impl().dropHistory();
-		} 
+		self.impl().dropHistory();
 	}
 }
