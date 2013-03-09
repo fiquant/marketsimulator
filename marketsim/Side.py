@@ -1,8 +1,13 @@
+class Tag(object):
+    pass
+
 class _SellSide(object):
     """ Tag class representing the sell side 
     """
     
     id = 0
+    
+    _types = [Tag]
     
     @property
     def opposite(self):
@@ -24,6 +29,8 @@ class _BuySide(object):
     
     id = 1
 
+    _types = [Tag]
+    
     @property
     def opposite(self):
         return Sell
@@ -43,6 +50,9 @@ class _BuySide(object):
 
 Sell = _SellSide()
 Buy = _BuySide()
+
+Tag.Sell = Sell
+Tag.Buy = Buy
 
 def byId(x):
     return Buy if x else Sell  

@@ -334,7 +334,7 @@ function AppViewModel() {
 		var created = [];
 		for (var id in self._createdObjects) {
 			var obj = self.id2obj.lookup(id);
-			created.push([id, obj.toJSON()]);
+			created.push([id, obj.serialized()]);
 		}
 
 		var updates = collect(self.id2obj.items(), function (obj) { 
@@ -356,6 +356,7 @@ function AppViewModel() {
     self.renderGraph1d = function (elem, graph) { graph.render(elem); }
     
     self.dropHistory = function () {
+    	self._createdObjects = {};
     	self.id2obj.foreach(function (obj) { obj.dropHistory(); });
     }
     

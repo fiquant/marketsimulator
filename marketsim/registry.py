@@ -267,6 +267,9 @@ class Registry(object):
             assert v._casts_to(typeinfo)
             return v
         
+        if '_types' in dir(v) and typeinfo in v._types:
+            return v
+        
        
         if inspect.isclass(typeinfo) and issubclass(type(v), typeinfo):
             # we just checked that our object is a subclass for the constraint
