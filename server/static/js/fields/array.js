@@ -8,10 +8,31 @@ function ArrayValue(s, root) {
 	self.array = function () { return true; }
 	
 	var fields = map(s, function (x,i) {
-						return new Property(i, x, true);
+						return new Property("", x, true, self);
 				});
 				
 	self._storage = ko.observableArray(fields);
+	
+	/**
+	 *	Removes an element from the array 
+	 */
+	self.remove = function (element) {
+		self._storage.remove(element);
+	}
+
+	/**
+	 * 	Returns true iff element can be removed from array
+	 */
+	self.canBeRemoved = ko.computed(function () {
+		return self._storage().length > 1;
+	})
+		
+	/**
+	 *	Duplicates an element in the array 
+	 */
+	self.duplicate = function (element) {
+		self._storage.push(element.clone());
+	}
 	
 	/**
 	 *	Elements of the array 

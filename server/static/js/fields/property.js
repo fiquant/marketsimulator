@@ -5,28 +5,52 @@
  * @param {ObjectValue|ArrayValue|ScalarValue} value -- concrete implementation of the field
  * @param {bool} expanded -- are property fields expanded ininitially
  */
-function Property(name, value, expanded) {
+function Property(name, value, expanded, parentArray) {
 	var self = this;
 	self.scalar = value.scalar;
 	self.array  = value.array;
 	self.object = value.object;
 	
+	// TODO: introduce special array element to handle case with non-trivial parentArray
+	
 	/**
 	 *	Returns name of the field
 	 */
-	self.name = function () { return name; }
+	self.name = ko.observable(name); 
 	
 	/**
 	 * Concrete implementation of the field 
 	 */
 	self.impl = function (){ return value; }
 	
+	/**
+	 *	Returns true iff the property belongs to an array 
+	 */
+	self.isArrayElement = function (){ return parentArray != undefined; }
+	
+	/**
+	 *	Removes this field from parent array if any 
+	 */
+	self._removeFromArray = function () { 
+		parentArray.remove(self); 
+	}
+
+	self.parentArray = function () {
+		return parentArray;
+	}	
+	
+	/**
+	 *	Creates a duplicate of this in the parent array if any 
+	 */
+	self._duplicateInArray = function () {
+		parentArray.duplicate(self);	
+	}
 	
 	/**
 	 *  Clones the property 
 	 */
 	self.clone = function () {
-		return new Property(name, value.clone(), expanded);
+		return new Property(self.name(), value.clone(), expanded, parentArray);
 	}
 	
 	/**
@@ -54,14 +78,14 @@ function Property(name, value, expanded) {
 	 *	Property name to display 
 	 */
 	self.displayLabel = ko.computed(function () { 
-		return name + self.changedSign(); 
+		return self.name() + self.changedSign(); 
 	});
 	
 	/**
 	 *	Returns value to save of the field: (name, value) 
 	 */
 	self.serialized = function () {
-		return [name, self.impl().serialized()];
+		return [self.name(), self.impl().serialized()];
 	}
 	
 	/**

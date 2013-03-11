@@ -26,7 +26,7 @@ class _tradeIfProfitable_Impl(Strategy):
         self._strategy.dispose()
         self._estimator_strategy.dispose()
         
-    def suspend(self, s):
+    def suspend(self, s=True):
         self._strategy.suspend(s)
         
     @property
@@ -115,7 +115,7 @@ class _chooseTheBest_Impl(Strategy):
             strategy.dispose()
             estimator_strategy.dispose()
             
-    def suspend(self, s):
+    def suspend(self, s=True):
         if self._current:
             self._current.suspend(s)
             

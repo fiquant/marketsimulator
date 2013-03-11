@@ -46,6 +46,8 @@ class TwoSides(Strategy):
             (side, params) = res
             # create order given side and parameters
             order = self._orderFactoryT(side)(*params)
+            if type(order.side) == int:
+                a = 12
             # send order to the order book
             self._trader.send(order)
         

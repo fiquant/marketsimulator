@@ -13,7 +13,8 @@ class _Noise_Impl(TwoSides):
         TwoSides.__init__(self, trader)
         
     def _orderFunc(self):
-        return (self._params.sideDistr(), (int(self._params.volumeDistr()),)) 
+        conv = types.Side.byId
+        return (types.Side.byId(self._params.sideDistr()), (int(self._params.volumeDistr()),)) 
 
 exec wrapper("Noise", 
              [("orderFactoryT",         "order.Market.T",               'Side -> Volume -> IOrder'),

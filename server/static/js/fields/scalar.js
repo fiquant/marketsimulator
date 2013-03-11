@@ -16,7 +16,7 @@ function ScalarValue(s, checker) {
 	 *	Clones scalar field 
 	 */
 	self.clone = function () {
-		return new ScalarValue(s, checker);
+		return new ScalarValue(self._storage(), checker);
 	}
 	
 	/**
