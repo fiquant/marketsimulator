@@ -331,8 +331,29 @@ class Registry(object):
         
         return "#" +  str(Id)
 
+    def assureAllReferencedAreRegistred(self, obj):
+        typ = type(obj)
+        if typ is int or typ is float or typ is bool or typ is str:
+            return 
+        
+        if typ is list:
+            for x in obj:
+                self.assureAllReferencedAreRegistred(x)
+        else:
+            self.insert(obj)
+            
+            propnames = properties(obj)
+            if propnames is None:
+                propnames = {}
+                
+            for propname in propnames.iterkeys():
+                self.assureAllReferencedAreRegistred(getattr(obj, propname))        
+
     def ofType(self, prefix):
         return [k for (k,v) in self._id2obj.iteritems() if getCtor(v).startswith(prefix)]
+    
+    def valuesOfType(self, prefix):
+        return [v for v in self._id2obj.itervalues() if getCtor(v).startswith(prefix)]
     
     @property
     def traders(self):
@@ -394,12 +415,18 @@ class Registry(object):
         return [ctor, props, typ, alias]
     
     def tojsonall(self):
+        
+        root = list(self._id2obj.itervalues())                        
+        for obj in root: # getting initial set of the dictionary keys
+            self.assureAllReferencedAreRegistred(obj)
+        
         rv = {}
         
         def visit_if_ref(p):
             if type(p) is str and p[0] == "#":  # if a field is class instance
                 try:
                     p_id = int(p[1:])               # getting id of its value
+                    assert p_id in self._id2obj, 'cannot get here'
                     visit(p_id)                     # and recursively visit it
                 except ValueError:
                     pass
@@ -412,8 +439,9 @@ class Registry(object):
                 rv[k_id] = dumped           # storing it in the dictionary
                 for p in dumped[1].itervalues():        # iterating its fields
                     visit_if_ref(p[0])
-                                
-        for k_id in list(self._id2obj.iterkeys()): # getting initial set of the dictionary keys
+        
+        root = list(self._id2obj.iteritems())                        
+        for (k_id, obj) in root: # getting initial set of the dictionary keys
             visit(k_id)
             
         return rv
