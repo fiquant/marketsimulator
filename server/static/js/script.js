@@ -160,8 +160,8 @@ function AppViewModel() {
 	// если этот id еще не обрабатывался, то мы смотрим на тип в response
 	// если обрабатывался - на constructor
 	
-	self.getObj = function (id) {
-		id = parseInt(id);
+	self.getObj = function (sid) {
+		var id = parseInt(sid);
 		if (!self.id2obj.contains(id)) {
 			var created = createInstance(id, self.response().objects[id], self);
 			if (id > self.biggestId) {

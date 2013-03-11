@@ -138,8 +138,6 @@ with scheduler.create() as world:
     registry.insert(Side.Buy)    
     registry.insert(world)
     
-    traders_root = trader.Collection(registry.instance.traders)
-    
     app = Flask(__name__)
     
     @app.route('/obj/<int:obj_id>')
@@ -174,7 +172,6 @@ with scheduler.create() as world:
         result = {
             "objects" : registry.instance.tojsonall(),
             "traders" : registry.instance.traders,
-            #"trader_root" : traders_root,
             "books" : registry.instance.books,
             "graphs" : registry.instance.graphs,
             "currentTime" : world.currentTime,
