@@ -32,7 +32,13 @@
         			<input type="checkbox" data-bind="checked: isExpanded"/>
         		<!-- /ko -->	            	            		
         	</td>
-            <td data-bind="text: displayLabel()" />
+            <td>
+            	<span  data-bind="text: displayLabel()"></span>
+            	<!-- ko if: isArrayElement() -->
+            		<button data-bind="click: _duplicateInArray">Clone</button>
+            		<button data-bind="click: _removeFromArray, enable: $data.parentArray().canBeRemoved()">Delete</button>
+            	<!-- /ko -->
+            </td>
             <td>
 	            <!-- ko with: impl() -->
 		            <!-- ko if: $data.scalar  -->

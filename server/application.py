@@ -5,6 +5,8 @@ sys.path.append(r'..')
 from marketsim import (strategy, orderbook, trader, order, js, signal, remote,
                        scheduler, observable, veusz, mathutils, registry)
 
+from marketsim.types import Side
+
 const = mathutils.constant
 
 with scheduler.create() as world:
@@ -131,8 +133,12 @@ with scheduler.create() as world:
     setAttr(fv_200, 'creationIntervalDistr', interval)
     setAttr(avg_plus.strategies[0], 'average1', new('marketsim.mathutils.ewma', {'alpha' : 0.15 }))
     setAttr(virtual_160.strategies[0], 'estimator', strategy.virtualWithUnitVolume)
-    
+
+    registry.insert(Side.Sell)
+    registry.insert(Side.Buy)    
     registry.insert(world)
+    
+    traders_root = trader.Collection(registry.instance.traders)
     
     app = Flask(__name__)
     
@@ -168,6 +174,7 @@ with scheduler.create() as world:
         result = {
             "objects" : registry.instance.tojsonall(),
             "traders" : registry.instance.traders,
+            #"trader_root" : traders_root,
             "books" : registry.instance.books,
             "graphs" : registry.instance.graphs,
             "currentTime" : world.currentTime,
@@ -219,4 +226,4 @@ with scheduler.create() as world:
     def index():
         return render_template('index.html')
 
-    app.run(debug=False)
+    app.run(debug=True, use_reloader=False)

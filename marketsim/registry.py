@@ -3,6 +3,7 @@ import inspect
 import marketsim
 from functools import reduce
 
+from marketsim import Side
 
 ## {{{ http://code.activestate.com/recipes/578272/ (r1)
 def toposort2(data):
@@ -295,7 +296,11 @@ class Registry(object):
         assert len(meta) == 2
         ctorname, props = meta
         ctor = _findType(ctorname)
-        if inspect.isclass(ctor):
+        if ctorname == 'marketsim.Side._SellSide':
+            obj = Side.Sell
+        elif ctorname == 'marketsim.Side._BuySide':
+            obj = Side.Buy
+        elif inspect.isclass(ctor):
             dst_properties = properties_t(ctor)
             converted = dict()
             for k,v in props.iteritems():
@@ -478,7 +483,7 @@ def setAttr(obj, name, value):
 def insert(obj, alias=None):
     if alias is not None:
         obj._alias = alias
-    instance.insert(obj)
+    return instance.insert(obj)
     
 def dump(objId):
     return instance.dump(objId)

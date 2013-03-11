@@ -107,9 +107,14 @@ class SingleAsset(Base, types.ISingleAssetTrader):
     
     @strategies.setter
     def strategies(self, value):
-        for s in self._strategies:
+        old = set(self._strategies)
+        new = set(value)
+        to_delete = old - new
+        to_add = new - old
+        for s in to_delete:
             s.suspend()
-        for s in value:
+            self._strategies.remove(s)
+        for s in to_add:
             self.addStrategy(s)
     
     def addStrategy(self, strategy):
@@ -155,3 +160,11 @@ class SingleAssetMultipleMarket(SingleAsset):
     
 SASM = SingleAssetSingleMarket 
 SAMM = SingleAssetMultipleMarket    
+
+class Collection(object):
+    
+    _properties = { 'traders': meta.listOf(types.ISingleAssetTrader) }
+    
+    def __init__(self, traders):
+        self.traders = traders
+

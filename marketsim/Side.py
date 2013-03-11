@@ -1,5 +1,8 @@
 class Tag(object):
-    pass
+
+    @staticmethod
+    def byId(x):
+        return Buy if x else Sell  
 
 class _SellSide(object):
     """ Tag class representing the sell side 
@@ -8,6 +11,7 @@ class _SellSide(object):
     id = 0
     
     _types = [Tag]
+    _alias = 'Sell'
     
     @property
     def opposite(self):
@@ -30,6 +34,7 @@ class _BuySide(object):
     id = 1
 
     _types = [Tag]
+    _alias = 'Buy'
     
     @property
     def opposite(self):

@@ -53,7 +53,8 @@ function ObjectValue(s, constraint, root, expandReference) {
 	 *  Clones object field (if pointee is a reference it is not cloned)
 	 */
 	self.clone = function () {
-		return new ObjectValue(s.isReference() ? s : s.clone(), constraint, root, expandReference);
+		return new ObjectValue(self.pointee().isReference() ? self.pointee() : self.pointee().clone(), 
+								constraint, root, expandReference);
 	}
 	
 	// used to recalculate options
