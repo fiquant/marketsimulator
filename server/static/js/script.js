@@ -152,14 +152,6 @@ function AppViewModel() {
 		return result;		
 	}
 	
-	// главная идея в том, чтобы getObj всегда, 
-	// за исключением ссылочных типов выдавал новые объекты.
-	// В таком случае для доступа к существующему объекту
-	// мы будем использовать id2obj, для клонирования существующих getObj
-	// Способ определения ссылочного типа: 
-	// если этот id еще не обрабатывался, то мы смотрим на тип в response
-	// если обрабатывался - на constructor
-	
 	self.getObj = function (sid) {
 		var id = parseInt(sid);
 		if (!self.id2obj.contains(id)) {
@@ -223,7 +215,7 @@ function AppViewModel() {
 		
 		//-------------- traders
 		if (response.traders) {
-			var src_traders = self.response().traders;
+			var src_traders = self.response().traders;		
 			self.traders = map(src_traders, function (id) {
 				return asfield(id,  "marketsim.types.ISingleAssetTrader");
 			});
