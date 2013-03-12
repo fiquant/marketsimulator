@@ -16,7 +16,7 @@ with scheduler.create() as world:
     
     
     lp_A = trader.SASM(book_A, strategy = strategy.LiquidityProvider(volumeDistr=lambda:1))
-    trader = trader.SASM(book_A, strategy.FundamentalValue(fundamentalValue = lambda: 200), "fv_200")
+    trader = trader.SASM(book_A, strategy.FundamentalValue(fundamentalValue = lambda: world.currentTime), "fv_200")
     
     price_graph += [assetPrice,
                     avg(assetPrice)]

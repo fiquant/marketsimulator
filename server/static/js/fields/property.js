@@ -105,7 +105,7 @@ function Property(name, value, toplevel, parentArray) {
 	/**
 	 *  Returns true if the field is expanded at the moment 
 	 */
-	self.isExpanded = ko.observable(self.expandable.peek() && !toplevel);
+	self.isExpanded = ko.observable(!toplevel && self.expandable.peek());
 	
 	/**
 	 *	Returns array of expanded field items if in expanded state 
