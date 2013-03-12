@@ -47,13 +47,6 @@ function Property(name, value, expanded, parentArray) {
 	}
 	
 	/**
-	 *  Clones the property 
-	 */
-	self.clone = function () {
-		return new Property(self.name(), value.clone(), expanded, parentArray);
-	}
-	
-	/**
 	 * Error message for the field if any 
 	 */
 	self.errorMessage = ko.computed(function () {
@@ -109,17 +102,26 @@ function Property(name, value, expanded, parentArray) {
 		return !self.scalar && self.impl().expanded().length;
 	});
 	
+	var expandedInitially = self.expandable.peek() && expanded;
+	
 	/**
 	 *  Returns true if the field is expanded at the moment 
 	 */
-	self.isExpanded = ko.observable(self.expandable() && expanded);
-
+	self.isExpanded = ko.observable(self.expandable.peek() && expanded);
+	
 	/**
 	 *	Returns array of expanded field items if in expanded state 
 	 */
 	self.expandedView = ko.computed(function() {
 		return self.isExpanded() ? self.impl().expanded() : [];
 	});
+	
+	/**
+	 *  Clones the property 
+	 */
+	self.clone = function () {
+		return new Property(self.name(), value.clone(), self.isExpanded(), parentArray);
+	}
 	
 	/**
 	 * 	Sets new value to the field. At the moment server may update only scalar values
