@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'..')
 
-from marketsim import (strategy, trader, orderbook, 
+from marketsim import (strategy, trader, orderbook, order,
                        scheduler, observable, veusz, registry)
 
 with scheduler.create() as world:
@@ -15,8 +15,15 @@ with scheduler.create() as world:
     avg = observable.avg
     
     
-    lp_A = trader.SASM(book_A, strategy = strategy.LiquidityProvider(volumeDistr=lambda:1))
-    trader = trader.SASM(book_A, strategy.FundamentalValue(fundamentalValue = lambda: world.currentTime), "fv_200")
+    lp_A = trader.SASM(book_A, 
+                       strategy.LiquidityProvider(
+                            volumeDistr=lambda:1,
+                            orderFactoryT=order.WithExpiryFactory(
+                                expirationDistr=lambda: 10)))
+    trader = trader.SASM(book_A, 
+                         strategy.FundamentalValue(
+                            fundamentalValue = lambda: 200), 
+                         "fv_200")
     
     price_graph += [assetPrice,
                     avg(assetPrice)]

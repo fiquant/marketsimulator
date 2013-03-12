@@ -1,5 +1,4 @@
-from marketsim import Event, scheduler, registry
-from marketsim.types import *
+from marketsim import Event, scheduler, registry, mathutils, types, meta
 from _base import Base
 from _limit import Limit
 
@@ -68,5 +67,52 @@ class LimitMarket(Base):
     
     @staticmethod
     @registry.expose(alias='LimitMarket', constructor='marketsim.order.LimitMarket.T')
-    @sig(args=(Side,), rv=function((Price, Volume), IOrder))
+    @meta.sig(args=(types.Side,), rv=meta.function((types.Price, types.Volume), types.IOrder))
     def T(side): return lambda price, volume: LimitMarket(side, price, volume)
+
+class WithExpiry(Base):
+    
+    def __init__(self, order, delay):
+        """ Initializes order with 'price' and 'volume'
+        'limitOrderFactory' tells how to create limit orders
+        """
+        Base.__init__(self, order.side, order.volume)
+        self._delay = delay
+        # we create a limit order
+        self._order = order
+        # translate its events to our listeners
+        self._order.on_matched += self.on_matched.fire
+        self._scheduler = scheduler.current()
+        
+    def processIn(self, orderBook):
+        orderBook.process(self._order)
+        self._scheduler.scheduleAfter(self._delay, 
+                                      lambda: orderBook.process(Cancel(self._order)))
+        
+    @property 
+    def volume(self):
+        return self._order.volume 
+    
+    @property
+    def PnL(self):
+        return self._order.PnL
+
+LimitOrderFactorySignature = meta.function((types.Side,), meta.function((types.Price, types.Volume), types.IOrder))
+
+class WithExpiryFactory(object):
+    
+    def __init__(self, expirationDistr=mathutils.constant(10), orderFactory = Limit.T):
+        self.expirationDistr = expirationDistr
+        self.orderFactory = orderFactory
+        
+    _types = [LimitOrderFactorySignature]
+        
+    _properties = {'expirationDistr'  : meta.function((), types.TimeInterval),
+                   'orderFactory' : LimitOrderFactorySignature}
+        
+    def __call__(self, side):
+        def inner(price, volume):
+            return WithExpiry(self.orderFactory(side)(price, volume), self.expirationDistr())
+        return inner
+    
+registry.insert(WithExpiryFactory(), 'WithExpiry')

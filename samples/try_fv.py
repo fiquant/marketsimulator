@@ -20,7 +20,7 @@ with scheduler.create() as world:
     
     price_graph.addTimeSerie(avg(assetPrice))
     
-    t_A = trader.SASM(book_A, strategy.LiquidityProvider(volumeDistr=const(70.)))
+    t_A = trader.SASM(book_A, strategy.LiquidityProvider(volumeDistr=const(70.), orderFactoryT=order.WithExpiryFactory()))
     
     c_200 = const(200.)
     
