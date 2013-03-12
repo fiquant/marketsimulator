@@ -92,6 +92,22 @@ function Ids2Objs() {
 	}
 }
 
+function arrayController(array) {
+	return {
+		remove : function (element) {
+			array.remove(element);
+		},
+		canBeRemoved : ko.computed(function () {
+			return array().length > 1;
+		}),
+		duplicate : function (element) {
+			array.push(element.clone());
+		}
+	}
+}
+
+
+
 function AppViewModel() {
 	var self = this;
 	self.advance = ko.observable(500);
@@ -107,7 +123,6 @@ function AppViewModel() {
 			self.biggestId = ii;
 		}
 	}
-	self.traders = [];
 	self.timeseries = {};
 	self._graphs = [];
 	self.updateInterval = ko.observable(1);
@@ -143,10 +158,11 @@ function AppViewModel() {
 	
 	self.filteredView = function(startsWith) {
 		// to implement through filteredViewEx
-		var result = [];
+		var result = ko.observableArray([]);	// TODO: map_opt / collect
+		var controller = arrayController(result);
 		self.id2obj.foreach(function (x) {
 			if (x.constructor().indexOf(startsWith) == 0) {
-				result.push(new Property("", new ObjectValue(x, "--", self, true), false));
+				result.push(new Property("", new ObjectValue(x, "--", self, true), true, controller));
 			}
 		});
 		return result;		
@@ -199,6 +215,10 @@ function AppViewModel() {
 			}
 		}
 		
+		self.traders = ko.observableArray([]);
+		
+		var tradersController = arrayController(self.traders);
+		
 		var asfield = function (id, constraint) {
 			var fields = self.id2obj.lookup(id).fields();
 			var label = "";
@@ -210,15 +230,15 @@ function AppViewModel() {
 			}
 			return new Property(label, 
 								new ObjectValue(self.id2obj.lookup(id), constraint, self, true), 
-								false);
+								true, tradersController);
 		}
 		
 		//-------------- traders
 		if (response.traders) {
 			var src_traders = self.response().traders;		
-			self.traders = map(src_traders, function (id) {
+			self.traders(map(src_traders, function (id) {
 				return asfield(id,  "marketsim.types.ISingleAssetTrader");
-			});
+			}));
 		}
 		
 		//----------------- graphs
@@ -239,8 +259,8 @@ function AppViewModel() {
 	})
 	
 	self.hasError = ko.computed(function () {
-		for (var i in self.traders) {
-			if (self.traders[i].hasError()) {
+		for (var i in self.traders()) {  // TODO: foreach
+			if (self.traders()[i].hasError()) {
 				return true;
 			}
 		}
@@ -315,7 +335,6 @@ function AppViewModel() {
 		return [
 			["Traders" , "model", self.traders],
 			["Order books", "option", self.filteredView("marketsim.orderbook.")],
-			["Scheduler", "pricing_method", self.filteredView("marketsim.scheduler.")],
 			["Graphs", "pricing_method", self.filteredView("marketsim.js.Graph")],
 		];
 	})

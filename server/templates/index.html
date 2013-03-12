@@ -45,6 +45,9 @@
 		            	<input data-bind="value: _storage, valueUpdate: 'afterkeydown'">
 		            	</input>
 			        <!-- /ko -->
+		            <!-- ko if: $data.toplevel -->
+	    	        	<span data-bind="text: alias()"></span>
+			        <!-- /ko -->
 		            <!-- ko if: $data.object -->
 	            		<select data-bind="
 	            		event: 		{ mouseover: updateOptions }, 

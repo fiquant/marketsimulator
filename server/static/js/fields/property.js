@@ -3,9 +3,9 @@
  * Contains label to display and reference to a concrete field implementation (scalar, array or object)
  * @param {string} name  -- displayable label
  * @param {ObjectValue|ArrayValue|ScalarValue} value -- concrete implementation of the field
- * @param {bool} expanded -- are property fields expanded ininitially
+ * @param {bool} toplevel -- is this field top-level? (it will be rendered initially as collapsed)
  */
-function Property(name, value, expanded, parentArray) {
+function Property(name, value, toplevel, parentArray) {
 	var self = this;
 	self.scalar = value.scalar;
 	self.array  = value.array;
@@ -102,12 +102,10 @@ function Property(name, value, expanded, parentArray) {
 		return !self.scalar && self.impl().expanded().length;
 	});
 	
-	var expandedInitially = self.expandable.peek() && expanded;
-	
 	/**
 	 *  Returns true if the field is expanded at the moment 
 	 */
-	self.isExpanded = ko.observable(self.expandable.peek() && expanded);
+	self.isExpanded = ko.observable(self.expandable.peek() && !toplevel);
 	
 	/**
 	 *	Returns array of expanded field items if in expanded state 
@@ -120,7 +118,7 @@ function Property(name, value, expanded, parentArray) {
 	 *  Clones the property 
 	 */
 	self.clone = function () {
-		return new Property(self.name(), value.clone(), self.isExpanded(), parentArray);
+		return new Property(self.name(), value.clone(), toplevel, parentArray);
 	}
 	
 	/**
