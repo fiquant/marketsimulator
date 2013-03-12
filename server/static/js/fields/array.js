@@ -8,7 +8,7 @@ function ArrayValue(s, root) {
 	self.array = function () { return true; }
 	
 	var fields = map(s, function (x,i) {
-						return new Property("", x, true, self);
+						return new Property("", x, false, self);
 				});
 				
 	self._storage = ko.observableArray(fields);

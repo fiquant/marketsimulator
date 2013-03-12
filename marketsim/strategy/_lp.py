@@ -1,3 +1,4 @@
+import random
 from _basic import OneSide, Strategy
 from _wrap import merge, wrapper
 from marketsim import order, scheduler, mathutils, types, registry
@@ -70,6 +71,9 @@ exec wrapper('LiquidityProvider',
 class _Canceller_Impl(object):
     """ Randomly cancels created orders in specific moments of time    
     """
+    
+    def choiceFunc(self, N):
+        return random.randint(0, N-1)
 
     def __init__(self, source, params):
 
@@ -86,7 +90,7 @@ class _Canceller_Impl(object):
             while self._elements <> []:
                 # choose an order
                 N = len(self._elements)
-                idx = params.choiceFunc(N)
+                idx = self.choiceFunc(N)
                 e = self._elements[idx]
                 # if the order is invalid
                 if e.empty or e.cancelled:
@@ -108,5 +112,4 @@ class _Canceller_Impl(object):
         self._elements.append(order)
 
 exec wrapper("Canceller",
-             [('cancellationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval'),
-              ('choiceFunc',                'lambda N: random.randint(0,N-1)',  'None')])
+             [('cancellationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')])

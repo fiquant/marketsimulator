@@ -7,7 +7,12 @@
  */
 function ObjectValue(s, constraint, root, expandReference) {
 	var self = this;
-	self.object = function () { return true; } 
+	if (expandReference) {
+		self.toplevel = function () { return true; }
+		self.alias = function () { return s.alias(); }
+	} else {
+		self.object = function () { return true; }
+	} 
 	
 	/**
 	 *	Initial value of the field. (synchronized with server) 
