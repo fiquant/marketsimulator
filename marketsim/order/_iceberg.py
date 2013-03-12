@@ -1,5 +1,8 @@
 from _base import Base
 from _cancel import Cancel
+from _limit import Limit
+
+from marketsim import meta, types, registry
 
 class Volume(object):
     """ Auxiliary class to hold market order initialization parameters 
@@ -126,3 +129,23 @@ def iceberg(volumeLimit, orderFactory):
     def inner(*args):
         return Iceberg(volumeLimit, orderFactory, *args)
     return inner
+
+LimitOrderFactorySignature = meta.function((types.Side,), meta.function((types.Price, types.Volume), types.IOrder))
+
+class IcebergFactory(object):
+    
+    def __init__(self, volumeLimit = 10, orderFactory = Limit.T):
+        self.volumeLimit = volumeLimit
+        self.orderFactory = orderFactory
+        
+    _types = [LimitOrderFactorySignature]
+        
+    _properties = {'volumeLimit'  : int,
+                   'orderFactory' : LimitOrderFactorySignature}
+        
+    def __call__(self, side):
+        def inner(price, volume):
+            return Iceberg(self.volumeLimit, self.orderFactory(side), price, volume)
+        return inner
+    
+registry.insert(IcebergFactory(), 'Iceberg')
