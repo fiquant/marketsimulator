@@ -20,17 +20,14 @@ with scheduler.create() as world:
                             volumeDistr=lambda:1,
                             orderFactoryT=order.WithExpiryFactory(
                                 expirationDistr=lambda: 10)))
-    trader = trader.SASM(book_A, 
-                         strategy.FundamentalValue(
-                            fundamentalValue = lambda: 200), 
-                         "fv_200")
+    noise_trader = trader.SASM(book_A, strategy.Noise(), "noise")
     
     price_graph += [assetPrice,
                     avg(assetPrice)]
     
     eff_graph = veusz.Graph("efficiency")
-    eff_graph += [observable.Efficiency(trader),
-                  observable.PnL(trader)]
+    eff_graph += [observable.Efficiency(noise_trader),
+                  observable.PnL(noise_trader)]
     
     world.workTill(500)
     
