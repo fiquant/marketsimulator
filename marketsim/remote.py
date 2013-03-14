@@ -9,7 +9,7 @@ class Link(object):
         """ Initializes the link with a latency function
         """
         self._scheduler = sched if sched else scheduler.current() 
-        self._latency = latency
+        self.latency = latency
         self.reset()
         
     _properties = { "latency" : meta.function(args=(), rv=float) }
@@ -23,7 +23,7 @@ class Link(object):
         If there is another function that is scheduled for later time 
         we adjust action time of 'func' in order to preserve their order 
         """
-        t = self._scheduler.currentTime + self._latency()
+        t = self._scheduler.currentTime + self.latency()
         if t < self._lastT:
             t = self._lastT
         self._lastT = t 

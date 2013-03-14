@@ -156,13 +156,13 @@ function AppViewModel() {
 		return result;		
 	}
 	
-	self.filteredView = function(startsWith) {
+	self.filteredView = function(startsWith, constraint) {
 		// to implement through filteredViewEx
 		var result = ko.observableArray([]);	// TODO: map_opt / collect
 		var controller = arrayController(result);
 		self.id2obj.foreach(function (x) {
 			if (x.constructor().indexOf(startsWith) == 0) {
-				result.push(new Property("", new ObjectValue(x, "--", self, true), true, controller));
+				result.push(new Property("", new ObjectValue(x, constraint, self, true), true, controller));
 			}
 		});
 		return result;		
@@ -334,8 +334,8 @@ function AppViewModel() {
 		var dummy = self.parsed();
 		return [
 			["Traders" , "model", self.traders],
-			["Order books", "option", self.filteredView("marketsim.orderbook.")],
-			["Graphs", "pricing_method", self.filteredView("marketsim.js.Graph")],
+			["Order books", "option", self.filteredView("marketsim.orderbook.", 'marketsim.types.IOrderBook')],
+			["Graphs", "pricing_method", self.filteredView("marketsim.js.Graph", 'marketsim.js.Graph')],
 		];
 	})
 	
