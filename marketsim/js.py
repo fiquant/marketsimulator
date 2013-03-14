@@ -18,6 +18,14 @@ class TimeSerie(object):
         self._source.advise(wakeUp)
         self.reset()
         
+    @property 
+    def _alias(self):
+        return self.label
+        
+    @_alias.setter
+    def _alias(self, value):
+        self.label = value
+        
     def reset(self):
         self._data = []
         self._changes = []
@@ -56,6 +64,14 @@ class Graph(object):
         self.series.append(TimeSerie(source, label))
         
     _properties = {"series": None}
+    
+    @property
+    def _alias(self):
+        return self.label
+    
+    @_alias.setter
+    def _alias(self, value):
+        self.label = value
         
     def addTimeSeries(self, series):
         for x in series:

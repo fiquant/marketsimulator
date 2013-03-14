@@ -1,4 +1,4 @@
-from marketsim import Event, registry, remote
+from marketsim import Event, registry, remote, types
 from _base import BookBase
 
 class Queue(object):
@@ -40,7 +40,7 @@ class Queue(object):
     
 class Remote(BookBase):
     
-    def __init__(self, book, twowaylink):
+    def __init__(self, book, twowaylink = remote.TwoWayLink()):
         
         BookBase.__init__(self, 
                           Queue(book.bids, self, twowaylink.down), 
@@ -53,6 +53,16 @@ class Remote(BookBase):
         self.link = twowaylink
         self._book = book
         
+    @property
+    def orderbook(self):
+        return self._book
+    
+    @orderbook.setter
+    def orderbook(self, value):
+        self._book = value
+        
+    _properties = { 'link'      : remote.TwoWayLink,
+                    'orderbook' : types.IOrderBook }
         
     def _remote(self, order):
         remote = order.clone()

@@ -58,7 +58,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 	 *  Clones object field (if pointee is a reference it is not cloned)
 	 */
 	self.clone = function () {
-		return new ObjectValue(self.pointee().isReference() ? self.pointee() : self.pointee().clone(), 
+		return new ObjectValue(self.pointee().clone(), 
 								constraint, root, expandReference);
 	}
 	
@@ -96,8 +96,9 @@ function ObjectValue(s, constraint, root, expandReference) {
 		read: function () { return primaryId(); },
 		write: function (id) {
 			if (id != undefined) {
+				var source = root.getObj(id);
 				// if alias id has changed, let's create a new instance for the chosen alias
-				var freshly_created = root.getObj(id).clone();
+				var freshly_created = source.isReference() ? source : source.clone();
 				console.log(self.pointee().uniqueId() + ' --> ' + freshly_created.uniqueId());
 				// and set it as current object
 				_storage(freshly_created);

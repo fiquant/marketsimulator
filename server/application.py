@@ -13,7 +13,10 @@ with scheduler.create() as world:
     
     book_A = orderbook.local_A
     book_B = orderbook.local_B
-    remote_A = orderbook.Remote(book_A, remote.TwoWayLink())
+    remote_A = orderbook.Remote(book_A, 
+                                remote.TwoWayLink(
+                                    mathutils.rnd.expovariate(1), 
+                                    mathutils.rnd.expovariate(1)))
     
     def register(annotated_objects):
         for obj, alias in annotated_objects:
