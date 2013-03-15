@@ -1,39 +1,51 @@
-from marketsim import Side, getLabel, Event
+from marketsim import Side, getLabel, Event, meta, types
 
 def sign(x):
     return 1 if x > 0 else -1 if x < 0 else 0
 
-class Efficiency(object):
+class Efficiency(types.IObservable):
     
-    def __init__(self, trader, eventSources=None):
+    def __init__(self, trader):
         
         self._trader = trader
-        if eventSources is None:
-            self._eventSources = [trader.on_traded]
         
         self.on_changed = Event()
         self.attributes = {}
         
-        def update(_):
-            def callback(sign): 
-                def inner((price, volume_unmatched)):
-                    if volume_unmatched == 0: 
-                        self._current = self._trader.PnL - sign*price
-                        self.on_changed.fire(self)
-                    else: # don't know what to do for the moment
-                        self._current = None
-                return inner
-        
-            side = Side.Buy if self._trader.amount < 0 else Side.Sell 
-            self._trader.book.evaluateOrderPriceAsync(side, 
-                                                      abs(self._trader.amount), 
-                                                      callback(-sign(self._trader.amount)))
-        
-        for es in self._eventSources:
-            es.advise(update)
+        self._trader.on_traded += self._update
             
-        update(None)
+        self._update(None)
         self.reset()
+
+    def _update(self, _):
+        def callback(sign): 
+            def inner((price, volume_unmatched)):
+                if volume_unmatched == 0: 
+                    self._current = self._trader.PnL - sign*price
+                    self.on_changed.fire(self)
+                else: # don't know what to do for the moment
+                    self._current = None
+            return inner
+    
+        side = Side.Buy if self._trader.amount < 0 else Side.Sell 
+        self._trader.book.evaluateOrderPriceAsync(side, 
+                                                  abs(self._trader.amount), 
+                                                  callback(-sign(self._trader.amount)))
+    
+        
+    @property
+    def trader(self):
+        return self._trader
+    
+    @trader.setter
+    def trader(self, value):
+        self._trader.on_traded -= self._update
+        self._trader = value    
+        self._trader.on_traded += self._update
+            
+
+    _properties = { 'trader' : types.ISingleAssetTrader }
+    
         
     def reset(self):
         self._current = None

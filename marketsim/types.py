@@ -21,6 +21,11 @@ class ISingleAssetTrader(object):
 
 ISingleAssetTrader._types = [ISingleAssetTrader]
 
+class IObservable(object):
+    pass
+
+IObservable._types = [IObservable]
+
 class IOrder(object):
     pass
 

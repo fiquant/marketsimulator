@@ -58,7 +58,8 @@ function ObjectValue(s, constraint, root, expandReference) {
 	 *  Clones object field (if pointee is a reference it is not cloned)
 	 */
 	self.clone = function () {
-		return new ObjectValue(self.pointee().clone(), 
+		var deep_cloning = self.toplevel || !self.pointee().isReference();
+		return new ObjectValue(deep_cloning ? self.pointee().clone() : self.pointee(), 
 								constraint, root, expandReference);
 	}
 	

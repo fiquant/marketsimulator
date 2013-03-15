@@ -32,7 +32,7 @@ with scheduler.create() as world:
     price_graph = js.Graph("Price")
      
     assetPrice = observable.Price(book_A)
-    price_graph.addTimeSerie(assetPrice)
+    price_graph.addTimeSeries([assetPrice, observable.AskPrice(book_A), observable.BidPrice(book_A)])
     
     avg = observable.avg
     trend = observable.trend
