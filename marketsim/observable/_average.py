@@ -1,15 +1,18 @@
-from marketsim import getLabel, mathutils, scheduler
+from marketsim import getLabel, mathutils, scheduler, meta, types
 
 from _computed import OnEveryDt
         
-class derivative(object):
+class derivative(types.IUpdatableValue):
     
-    def __init__(self, src):
-        self._src = src
-        self.update = self._src.update
-        self.at = self._src.derivativeAt
-        self.reset = self._src.reset
-        self.label = "d(" + src.label + ")"
+    def __init__(self, source):
+        self.source = source
+        self.update = self.source.update
+        self.at = self.source.derivativeAt
+        self.derivativeAt = self.at  # temporary hack 
+        self.reset = self.source.reset
+        self.label = "d(" + source.label + ")"
+        
+    _properties = { "source" : types.IUpdatableValue }
     
 class Fold(object):
     """ Folds values from some source using a time-dependent accumulator....
@@ -22,8 +25,33 @@ class Fold(object):
         self._acc = acc
         self.label = getLabel(acc) + "(" + getLabel(source) + ")"
         self._source = source
-        self._source.on_changed += \
-            lambda _: self._acc.update(self._scheduler.currentTime, self._source.value)
+        self._source.on_changed += self._update
+            
+    _properties = { 'source' : types.IObservable,
+                    'folder' : types.IUpdatableValue }
+    
+    _types = [meta.function((), float)]
+    
+    def _update(self, _):
+        self._acc.update(self._scheduler.currentTime, self._source.value)
+        
+    @property
+    def folder(self):
+        return self._acc
+    
+    @folder.setter
+    def folder(self, value):
+        self._acc = value
+        
+    @property
+    def source(self):
+        return self._source
+    
+    @source.setter
+    def source(self, value):
+        self._source.on_changed -= self._update
+        self._source = value
+        self._source.on_changed += self._update
             
     def reset(self):
         self._acc.reset()

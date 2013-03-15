@@ -1,4 +1,4 @@
-from marketsim import scheduler
+from marketsim import scheduler, meta, types
 
 class TimeSerie(object):
     
@@ -6,17 +6,17 @@ class TimeSerie(object):
         self.label = label
         self._sched = scheduler.current() if sched is None else sched
         self._source = source
-        def wakeUp(_):
-            """ Called when the source has chaged
-            """
-            x = self._source.value
-            if x is not None: # for the moment we don't know what to do with breaks in data
-                self._data.append((self._sched.currentTime, x))
-                # we should also filter out constant segmemnts
-                self._changes.append((self._sched.currentTime, x))
-        
-        self._source.advise(wakeUp)
+        self._source.advise(self._wakeUp)
         self.reset()
+        
+    def _wakeUp(self, _):
+        """ Called when the source has chaged
+        """
+        x = self._source.value
+        if x is not None: # for the moment we don't know what to do with breaks in data
+            self._data.append((self._sched.currentTime, x))
+            # we should also filter out constant segmemnts
+            self._changes.append((self._sched.currentTime, x))
         
     @property 
     def _alias(self):
@@ -39,8 +39,14 @@ class TimeSerie(object):
     @property
     def source(self):
         return self._source
+    
+    @source.setter
+    def source(self, value):
+        self._source.unadvise(self._wakeUp)
+        self._source = value
+        self._source.advise(self._wakeUp)
         
-    _properties = { "source" : None }
+    _properties = { "source" : types.IObservable }
     
     @property    
     def data(self):
@@ -63,7 +69,7 @@ class Graph(object):
         label = source.label
         self.series.append(TimeSerie(source, label))
         
-    _properties = {"series": None}
+    _properties = {"series": meta.listOf(TimeSerie) }
     
     @property
     def _alias(self):

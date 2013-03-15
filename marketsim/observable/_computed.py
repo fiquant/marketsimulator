@@ -1,6 +1,6 @@
-from marketsim import Event, getLabel, Side, scheduler
+from marketsim import Event, getLabel, Side, scheduler, types, meta
 
-class IndicatorBase(object):
+class IndicatorBase(types.IObservable):
     """ Indicator that stores some scalar value and knows how to update it
     """
     def __init__(self, eventSources, dataSource, label, attributes = {}):
@@ -30,7 +30,23 @@ class IndicatorBase(object):
             
         update(None)
         
-    _properties = {}
+    _properties = { 'dataSource' : meta.function((), float) }
+    
+    @property
+    def dataSource(self):
+        return self._dataSource
+    
+    @dataSource.setter
+    def dataSource(self, value):
+        self._dataSource = value
+    
+    @property
+    def _alias(self):
+        return self._label
+    
+    @_alias.setter
+    def _alias(self, value):
+        self._label = value
         
     def reset(self):
         self._current = None
@@ -61,23 +77,60 @@ class IndicatorBase(object):
         """ Returns current value
         """
         return self._current
+
+class rough_balance(object):
+    
+    def __init__(self, trader):
+        self.trader = trader
+        
+    _types = [meta.function((), float)]
+    
+    def __call__(self):
+        return self.trader.PnL + self.trader.amount*self.trader.book.price if self.trader.book.price else 0
+    
+    _properties = { 'trader' : types.ISingleAssetTrader }
+
     
 def InstEfficiency(trader):
     
     return IndicatorBase([trader.on_traded], 
-                         lambda: trader.PnL + trader.amount*trader.book.price if trader.book.price else 0,
+                         rough_balance(trader),
                          "InstEfficiency_{" + getLabel(trader) + "}")
+
+class profit_and_loss(object):
+    
+    def __init__(self, trader):
+        self.trader = trader
+        
+    _types = [meta.function((), float)]
+    
+    def __call__(self):
+        return self.trader.PnL
+    
+    _properties = { 'trader' : types.ISingleAssetTrader }
     
 def PnL(trader):
     
-    return IndicatorBase([trader.on_traded], lambda: trader.PnL, "P&L_{"+getLabel(trader)+"}")
+    return IndicatorBase([trader.on_traded], profit_and_loss(trader), "P&L_{"+getLabel(trader)+"}")
+
+class mid_price(object):
+    
+    def __init__(self, orderbook):
+        self.orderbook = orderbook
+        
+    _types = [meta.function((), float)]
+    
+    def __call__(self):
+        return self.orderbook.price
+    
+    _properties = { 'orderbook' : types.IOrderBook }
     
 def Price(book):
     """ Creates an indicator bound to the middle price of an asset
     """   
     return IndicatorBase(\
         [book.asks.on_best_changed, book.bids.on_best_changed], 
-        lambda: book.price, "Price_{"+getLabel(book)+"}")
+        mid_price(book), "Price_{"+getLabel(book)+"}")
     
 def CrossSpread(book_A, book_B):
     asks = book_A.asks
@@ -86,12 +139,40 @@ def CrossSpread(book_A, book_B):
         [asks.on_best_changed, bids.on_best_changed], 
         lambda: asks.best.price - bids.best.price if not asks.empty and not bids.empty else None, 
         "Price("+asks.label+") - Price("+bids.label+")")
+
+class volume_traded(object):
+    
+    def __init__(self, trader):
+        self.trader = trader
+        
+    _types = [meta.function((), float)]
+    
+    def __call__(self):
+        return self.trader.amount
+    
+    _properties = { 'trader' : types.ISingleAssetTrader }
+
     
 def VolumeTraded(trader):
     return IndicatorBase(\
         [trader.on_traded], 
-        lambda: trader.amount, 
+        volume_traded(trader), 
         "Amount_{"+getLabel(trader)+"}")
+    
+class side_price(object):
+    
+    def __init__(self, orderbook, side):
+        self.orderbook = orderbook
+        self.side = side
+        
+    _types = [meta.function((), float)]
+    
+    def __call__(self):
+        queue = self.orderbook.queue(self.side)
+        return queue.best.price if not queue.empty else None
+    
+    _properties = { 'orderbook' : types.IOrderBook, 
+                    'side'      : types.Side }
     
 
 def BestPrice(book, side, label):
@@ -105,7 +186,7 @@ def BestPrice(book, side, label):
 
     return IndicatorBase(\
         [queue.on_best_changed], 
-        lambda: queue.best.price if not queue.empty else None,
+        side_price(book, side),
         "Price("+queue.label+")")
     
 def BidPrice(book):

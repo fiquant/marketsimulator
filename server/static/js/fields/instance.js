@@ -6,8 +6,7 @@ function isReferenceType(typename) {
 	return (typename.indexOf("marketsim.orderbook.") == 0 ||
 			typename.indexOf("marketsim.scheduler.") == 0 ||
 			typename.indexOf("marketsim.js.Graph") == 0 ||
-			typename.indexOf("marketsim.trader.") == 0 ||
-			typename.indexOf("marketsim.js.TimeSerie") == 0);
+			typename.indexOf("marketsim.trader.") == 0);
 }
 
 /**
