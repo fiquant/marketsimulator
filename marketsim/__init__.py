@@ -35,6 +35,8 @@ class Event(object):
         """
         for x in self._listeners:
             x(*args)
+            
+Event._types = [Event]
 
 def getLabel(x):
     """ Returns a printable label for *x*
