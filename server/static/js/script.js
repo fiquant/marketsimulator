@@ -371,6 +371,8 @@ function AppViewModel() {
     	self.id2obj.foreach(function (obj) { obj.dropHistory(); });
     }
     
+    self.errorMessage = ko.observable('');
+    
 	self.submitChanges = function() {
 		self.limitTime(_parseFloat(self.advance()) + self.currentTime);
 		function run() {
@@ -387,6 +389,8 @@ function AppViewModel() {
 					run();
 				}
 				self.running(self.running() - 1);
+			}).fail(function (data) { 
+				self.errorMessage(data.responseText); 
 			});
 		}
 		run();
@@ -394,6 +398,8 @@ function AppViewModel() {
 	self.reset = function() {
 		$.post('/reset', function (data) {
 			self.processResponse($.parseJSON(data), true); 
+		}).fail(function (data) { 
+			self.errorMessage(data.responseText); 
 		});
 	}
 };

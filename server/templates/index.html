@@ -104,6 +104,7 @@
 	</script>
 		
 	<script type="text/html" id="current">
+		<span data-bind="html: errorMessage"></span>
 		<button data-bind="click: submitChanges, enable: enabled">Run</button>	
 		<button data-bind="click: reset, enable: enabled">Reset</button>	
 		<button data-bind="click: function () { toBeStopped = true; }, enable: running">Stop</button>	
