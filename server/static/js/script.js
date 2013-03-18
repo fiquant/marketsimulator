@@ -378,6 +378,7 @@ function AppViewModel() {
 		function run() {
 			self.running(self.running() + 1);
 			var changes = self.changes();
+			var changes_parsed = $.parseJSON(changes);
 			self.dropHistory();
 			$.post('/update', changes, function (data) {
 				var response = $.parseJSON(data);

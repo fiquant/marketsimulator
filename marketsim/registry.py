@@ -394,7 +394,7 @@ class Registry(object):
             cls = obj.__class__
             ctor = cls.__module__ + "." + cls.__name__
             
-        alias = obj._alias
+        alias = obj._alias.replace("\\", '')
             
         propnames = properties(obj)
         props     = dict([(k, 
