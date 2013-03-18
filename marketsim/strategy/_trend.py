@@ -28,7 +28,7 @@ class _Signal_Impl(SignalBase):
         SignalBase.__init__(self, trader)
 
 exec wrapper("Signal", 
-             [('signal',        'None',                         'None'),  
+             [('signal',        'None',                         'IObservable'),  
               ('threshold',     '0.7',                          'non_negative'),
               ('orderFactory',  'order.Market.T',               'Side -> Volume -> IOrder'),
               ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')], register=False)
