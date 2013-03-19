@@ -18,12 +18,12 @@ class Fold(object):
     """ Folds values from some source using a time-dependent accumulator....
     """
     
-    def __init__(self, source, acc, sched=None):
+    def __init__(self, source, folder, sched=None):
         """ Initializes folder with source of values and accumulator object        
         """
         self._scheduler = sched if sched else scheduler.current()
-        self._acc = acc
-        self.label = getLabel(acc) + "(" + getLabel(source) + ")"
+        self._acc = folder
+        self.label = getLabel(folder) + "(" + getLabel(source) + ")"
         self._source = source
         self._source.on_changed += self._update
             

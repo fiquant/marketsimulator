@@ -1,4 +1,4 @@
-from marketsim import types
+from marketsim import types, Event
 
 class BookBase(types.IOrderBook):
 
@@ -13,6 +13,9 @@ class BookBase(types.IOrderBook):
         self._queues[self._bids.side.id] = self._bids
         self._queues[self._asks.side.id] = self._asks
         self.label = label
+        self.on_price_changed = Event()
+        self._bids.on_best_changed += self.on_price_changed.fire
+        self._asks.on_best_changed += self.on_price_changed.fire
         self.reset()
         
     def reset(self):

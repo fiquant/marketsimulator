@@ -1,5 +1,5 @@
 import heapq
-from marketsim import Event
+from marketsim import Event, meta
 
 """ Module for managing discrete event simulation. 
 """
@@ -151,11 +151,13 @@ class Timer(Event):
         self._cancelled = False
         self._scheduler = scheduler if scheduler else current()
         assert self._scheduler is not None
-        self._intervalFunc = intervalFunc
+        self.intervalFunc = intervalFunc
         self.schedule()
         
+    _properties = { 'intervalFunc' : meta.function((), float) }
+        
     def schedule(self):
-        self._scheduler.scheduleAfter(self._intervalFunc(), self._wakeUp)
+        self._scheduler.scheduleAfter(self.intervalFunc(), self._wakeUp)
         
     def reset(self):
         self.schedule()
