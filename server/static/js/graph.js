@@ -1,8 +1,58 @@
-function TimeSerie(id, label, data) {
+/**
+ * 	Represents a time serie to be rendered on graph 
+ * @param {Instance}    source 	 -- source object for the time serie
+ * @param {map<int, list<(float, float)>>} data -- initial data to be rendered 
+ */
+function TimeSerie(source, initialData) {
 	var self = this;
-	self.id = id;
-	self.label = ko.observable(label);
-	self.data = data;
+	
+	self._data = [];
+	
+	/**
+	 *	Returns unique object identifier of the time serie
+	 */
+	self.uniqueId = function () { return source.uniqueId(); }
+	
+	/**
+	 *	Returns a label to be rendrered on a graph for this time serie 
+	 */
+	self.label = function () { return source.alias(); }
+
+	/**
+	 *  Appends updates in the time serie 
+ 	 *  @param {list<(float, float)>} dataDelta -- list of pair (time, value) to be appended to the time serie
+	 */
+	self.appendData = function (dataDelta) {
+		self._data = self._data.concat(dataDelta);
+	}
+
+	/**
+	 *	Updates time serie from data fetched from server
+	 *  @param {map<int, list<(float, float)>>} -- time serie relevant data fetched from server 
+	 */	
+	self.updateFrom = function (ts_changes) {
+		if (ts_changes[self.uniqueId()]) {
+			self.appendData(ts_changes[self.uniqueId()]);
+		}
+	}
+	
+	if (initialData) {
+		self.updateFrom(initialData);
+	}
+	
+	/**
+	 *	Resets time serie data 
+	 */
+	self.resetData = function () {
+		self._data = [];
+	}
+	
+	/**
+	 *	Returns time serie data to be rendered 
+	 */
+	self.getData = function () {
+		return self._data;
+	};
 }
 
 function Graph(label, timeseries) {
@@ -15,7 +65,7 @@ function Graph(label, timeseries) {
 			if (self.data[i] == undefined) {
 				var a = 12;
 			}
-			if (self.data[i].data.length > 0) {
+			if (self.data[i].getData().length > 0) {
 				return false;
 			}
 		}
@@ -30,7 +80,7 @@ function Graph(label, timeseries) {
     	}
     	
 		var data = map(graph.data, function (ts) {
-			return { 'data' : ts.data, 'label' : ts.label() };
+			return { 'data' : ts.getData(), 'label' : ts.label() };
 		});
         
         for (var i=0; i<elem.length; i++) {

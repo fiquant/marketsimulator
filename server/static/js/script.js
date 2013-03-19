@@ -123,6 +123,9 @@ function AppViewModel() {
 			self.biggestId = ii;
 		}
 	}
+	/**
+	 * Mapping id -> TimeSerie objects 
+	 */
 	self.timeseries = {};
 	self._graphs = [];
 	self.updateInterval = ko.observable(1);
@@ -242,24 +245,16 @@ function AppViewModel() {
 		}
 		
 		//----------------- graphs
-		var rawtimeseries = self.filteredViewEx("marketsim.js.TimeSerie");
-		var ts_data = alltimeseries();
-		
-		var timeseries = {};
-		
-		for (var i in rawtimeseries) {
-			var t = rawtimeseries[i];
-			var ts = new TimeSerie(t.uniqueId(), t.name, ts_data[t.uniqueId()]);
-			timeseries[ts.id] = ts;		
-		}
-		
-		self.timeseries = timeseries;
+		self.timeseries = dictOf(
+			map(self.filteredViewEx("marketsim.js.TimeSerie"), function (t) {
+				return [t.uniqueId(), new TimeSerie(t, response.ts_changes)];
+			}));
 		
 		return [id2obj];		
 	})
 	
 	self.hasError = ko.computed(function () {
-		for (var i in self.traders()) {  // TODO: foreach
+		for (var i in self.traders()) {  // TODO: any
 			if (self.traders()[i].hasError()) {
 				return true;
 			}
@@ -273,28 +268,19 @@ function AppViewModel() {
 		self.currentTime = data.currentTime;
 		
 		//------------------------ update properties
-		var changes = data.changes;
-		for (var i in changes) {
-			var ch = changes[i];
-			var id = ch[0];
-			var pname = ch[1];
-			var value = ch[2];
-			self.id2obj.lookup(id).lookupField(pname).set(value);
-		}
+		foreach(data.changes, function (ch) {
+			self.id2obj.lookup(ch[0]).lookupField(ch[1]).set(ch[2]);
+		});
 		// -------------------- update timeseries
 		if (reset) {
-			for (var i in self.timeseries) {
-				self.timeseries[i].data = [];
-			}	
+			foreach(self.timeseries, function (ts) {
+				ts.resetData();
+			})
 		} else {
 			var ts_changes = data.ts_changes;
-			for (var i in ts_changes) {
-				var src = ts_changes[i];
-				var dst = self.timeseries[i];
-				for (var j in src) {
-					dst.data.push(src[j]);
-				}
-			}
+			foreach(self.timeseries, function (ts) {
+				ts.updateFrom(ts_changes);
+			})
 		}
 		self.updategraph(!self.updategraph());
 	}
@@ -315,9 +301,6 @@ function AppViewModel() {
 			var res = [];
 			for (var i in tss) {
 				var ts = tss[i].impl().pointee(); 
-				if (self.timeseries[ts.uniqueId()] == undefined) {
-					var a = 11;
-				}
 				res.push(self.timeseries[ts.uniqueId()]);
 			}
 			return new Graph(g.name, res);

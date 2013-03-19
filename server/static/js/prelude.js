@@ -74,7 +74,11 @@ function isArray(o) {
   return Object.prototype.toString.call(o) === '[object Array]';
 }
 
-foreach = ko.utils.arrayForEach;
+function foreach(array, func) {
+	for (var i in array) {
+		func(array[i]);
+	}
+}
 
 function any(array, predicate) {
 	for (var i in array) {
@@ -138,6 +142,15 @@ function dictOf(array) {
 	for (var i in array) {
 		var e = array[i];
 		result[e[0]] = e[1];
+	}
+	return result;
+}
+
+function dictByKey(array, keyFunc) {
+	var result = {};
+	for (var i in array) {
+		var e = array[i];
+		result[keyFunc(e)] = e;
 	}
 	return result;
 }

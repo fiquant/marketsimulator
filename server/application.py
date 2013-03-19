@@ -157,11 +157,6 @@ with scheduler.create() as world:
         return [(k,v) for (k,v) in registry.instance._id2obj.iteritems()\
                          if type(v) == js.TimeSerie]
     
-    @app.route('/alltimeseries')
-    def get_all_timeseries():
-        res = dict([(k,v.data) for (k,v) in _timeseries()])
-        return json.dumps(res) 
-    
     def save_state_before_changes():
         registry.instance.save_state_before_changes()
         for (_,ts) in _timeseries(): 
@@ -178,6 +173,7 @@ with scheduler.create() as world:
             "books" : registry.instance.books,
             "graphs" : registry.instance.graphs,
             "currentTime" : world.currentTime,
+            "ts_changes" : dict([(k,v.data) for (k,v) in _timeseries()])
         }
         return json.dumps(result)
     
