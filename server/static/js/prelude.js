@@ -85,6 +85,15 @@ function any(array, predicate) {
 	return false;
 }
 
+function findFirst(array, predicate) {
+	for (var i in array) {
+		if (predicate(array[i])) {
+			return array[i];
+		}
+	}
+	return undefined;
+}
+
 
 function map(elements, f) {
     var res = [];
