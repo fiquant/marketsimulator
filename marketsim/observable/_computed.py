@@ -161,6 +161,17 @@ def Price(book):
         [OnPriceChanged(book)], 
         mid_price(book), "Price_{"+getLabel(book)+"}")
     
+class OnSideBestChanged(Event):
+    
+    def __init__(self, orderbook, side):
+        Event.__init__(self)
+        self.orderbook = orderbook
+        self.side = side
+        self.orderbook.queue(self.side).on_best_changed += self.fire
+        
+    _properties = { 'orderbook' : types.IOrderBook, 
+                    'side'      : types.Side }
+    
 def CrossSpread(book_A, book_B):
     asks = book_A.asks
     bids = book_B.bids
@@ -214,7 +225,7 @@ def BestPrice(book, side, label):
     queue = book.queue(side)
 
     return IndicatorBase(\
-        [queue.on_best_changed], 
+        [OnSideBestChanged(book, side)], 
         side_price(book, side),
         "Price("+queue.label+")")
     
