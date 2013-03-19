@@ -1,4 +1,4 @@
-from marketsim import Event, getLabel, Side, scheduler, types, meta
+from marketsim import Event, getLabel, Side, scheduler, types, meta, mathutils
 
 class IndicatorBase(types.IObservable):
     """ Indicator that stores some scalar value and knows how to update it
@@ -12,25 +12,37 @@ class IndicatorBase(types.IObservable):
         """
         
         
-        self._label = label
+        self.label = label
         self.attributes = attributes
-        self._eventSources = eventSources
+        self._eventSources = []
+        self.eventSources = eventSources
         self._dataSource = dataSource
         self.on_changed = Event()
-
-        # this event is called when currentValue updates        
-        def update(_):
-            # calculate current value
-            self._current = self._dataSource()
-            if self._current is not None: # this should be removed into a separate filter
-                self.on_changed.fire(self) 
-        
-        for es in self._eventSources:
-            es.advise(update)
             
-        update(None)
+        self.update(None)
         
-    _properties = { 'dataSource' : meta.function((), float) }
+    _properties = { 'dataSource'   : meta.function((), float),
+                    'eventSources' : meta.listOf(Event),
+                    'label'        : str  }
+    
+    # this event is called when currentValue updates        
+    def update(self, _):
+        # calculate current value
+        self._current = self._dataSource()
+        if self._current is not None: # this should be removed into a separate filter
+            self.on_changed.fire(self) 
+    
+    @property
+    def eventSources(self):
+        return self._eventSources
+    
+    @eventSources.setter
+    def eventSources(self, value):
+        for es in self._eventSources:
+            es.unadvise(self.update)
+        self._eventSources = value
+        for es in self._eventSources:
+            es.advise(self.update)
     
     @property
     def dataSource(self):
@@ -42,11 +54,11 @@ class IndicatorBase(types.IObservable):
     
     @property
     def _alias(self):
-        return self._label
+        return self.label
     
     @_alias.setter
     def _alias(self, value):
-        self._label = value
+        self.label = value
         
     def reset(self):
         self._current = None
@@ -58,12 +70,6 @@ class IndicatorBase(types.IObservable):
     def schedule(self):
         self.reset()
                 
-    @property
-    def label(self):
-        """ Returns indicator label
-        """
-        return self._label
-        
     def advise(self, listener):
         """ Subscribes 'listener' to value change event
         """
@@ -90,10 +96,24 @@ class rough_balance(object):
     
     _properties = { 'trader' : types.ISingleAssetTrader }
 
+
+class OnTraded(Event):
+    """ Multicast event
+    
+    Keeps a set of callable listeners 
+    """
+
+    def __init__(self, trader):
+        Event.__init__(self)
+        self.trader = trader
+        self.trader.on_traded += self.fire
+        
+    _properties = { 'trader' : types.ISingleAssetTrader }
+    
     
 def InstEfficiency(trader):
     
-    return IndicatorBase([trader.on_traded], 
+    return IndicatorBase([OnTraded(trader)], 
                          rough_balance(trader),
                          "InstEfficiency_{" + getLabel(trader) + "}")
 
@@ -111,7 +131,7 @@ class profit_and_loss(object):
     
 def PnL(trader):
     
-    return IndicatorBase([trader.on_traded], profit_and_loss(trader), "P&L_{"+getLabel(trader)+"}")
+    return IndicatorBase([OnTraded(trader)], profit_and_loss(trader), "P&L_{"+getLabel(trader)+"}")
 
 class mid_price(object):
     
@@ -125,11 +145,20 @@ class mid_price(object):
     
     _properties = { 'orderbook' : types.IOrderBook }
     
+class OnPriceChanged(Event):
+    
+    def __init__(self, orderbook):
+        Event.__init__(self)
+        self.orderbook = orderbook
+        self.orderbook.on_price_changed += self.fire
+        
+    _properties = { 'orderbook' : types.IOrderBook }
+    
 def Price(book):
     """ Creates an indicator bound to the middle price of an asset
     """   
     return IndicatorBase(\
-        [book.asks.on_best_changed, book.bids.on_best_changed], 
+        [OnPriceChanged(book)], 
         mid_price(book), "Price_{"+getLabel(book)+"}")
     
 def CrossSpread(book_A, book_B):
@@ -155,7 +184,7 @@ class volume_traded(object):
     
 def VolumeTraded(trader):
     return IndicatorBase(\
-        [trader.on_traded], 
+        [OnTraded(trader)], 
         volume_traded(trader), 
         "Amount_{"+getLabel(trader)+"}")
     
@@ -207,7 +236,7 @@ def OnEveryDt(interval, source):
     source - function to obtain indicator value
     """
     
-    return IndicatorBase([scheduler.Timer(lambda: interval)],
+    return IndicatorBase([scheduler.Timer(mathutils.constant(interval))],
                          source, 
                          getLabel(source), 
                          {'smooth':True})
