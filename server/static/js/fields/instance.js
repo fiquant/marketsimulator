@@ -130,6 +130,15 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	};	
 	
 	/**
+	 *	Returns a reference to the field with given name 
+	 */
+	self.lookupField = function (fieldName) {
+		return findFirst(self.fields(), function (f) {
+			return f.name() == fieldName;
+		})
+	}
+	
+	/**
 	 * 	Returns true if there are any errors in the fields 
 	 */
 	self.hasError = ko.computed(function () {

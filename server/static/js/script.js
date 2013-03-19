@@ -279,13 +279,7 @@ function AppViewModel() {
 			var id = ch[0];
 			var pname = ch[1];
 			var value = ch[2];
-			var obj = self.id2obj.lookup(id);
-			for (var j in obj.fields()) {
-				var field = obj.fields()[j];
-				if (field.name == pname) {
-					field.set(value);
-				}
-			}
+			self.id2obj.lookup(id).lookupField(pname).set(value);
 		}
 		// -------------------- update timeseries
 		if (reset) {
