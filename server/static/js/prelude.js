@@ -89,6 +89,15 @@ function any(array, predicate) {
 	return false;
 }
 
+function all(array, predicate) {
+	for (var i in array) {
+		if (predicate(array[i]) == false) {
+			return false;
+		}
+	}
+	return true;
+}
+
 function findFirst(array, predicate) {
 	for (var i in array) {
 		if (predicate(array[i])) {

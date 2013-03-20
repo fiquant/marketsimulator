@@ -6,14 +6,14 @@
 function TimeSerie(source, initialData) {
 	var self = source;
 	
-	self._data = [];
+	self._data = ko.observable([]);
 	
 	/**
 	 *  Appends updates in the time serie 
  	 *  @param {list<(float, float)>} dataDelta -- list of pair (time, value) to be appended to the time serie
 	 */
 	self.appendData = function (dataDelta) {
-		self._data = self._data.concat(dataDelta);
+		self._data(self._data().concat(dataDelta));
 	}
 
 	/**
@@ -34,46 +34,75 @@ function TimeSerie(source, initialData) {
 	 *	Resets time serie data 
 	 */
 	self.resetData = function () {
-		self._data = [];
+		self._data([]);
 	}
 	
 	/**
 	 *	Returns time serie data to be rendered 
 	 */
-	self.getData = function () {
-		return self._data;
-	};
+	self.getData = ko.computed(function () {
+		return self._data();
+	});
+	
+	/**
+	 *	Returns true iff there is no data to render 
+	 */
+	self.empty = ko.computed(function () {
+		return self._data().length == 0;
+	});
 	
 	return self;
 }
 
 var makeTimeSerie = TimeSerie;
 
-function Graph(label, timeseries) {
+function firstChild(e) {
+    for (var j=0; j<e.childNodes.length; j++) {
+        if (e.childNodes[j].nodeType == 1) {
+            return e.childNodes[j];
+        }
+    }    
+    return undefined;
+}
+
+function Graph(source, root) {
+	
+	var self = source;
+	
+	self.data = ko.computed(function () {
+		var timeseries = source.fields()[0].impl().elements();
+		return map(timeseries, function (timeserie) {
+			return root.id2obj.lookup(timeserie.impl().pointee().uniqueId());
+		});
+	});
+	
+	self.empty = ko.computed(function () {
+		return all(self.data(), function (timeserie) {
+			return timeserie.empty();
+		});
+	});
+	
+	return self;
+}
+
+function GraphRenderer(source) {
 	var self = this;
-	self.label = label;
-	self.data = timeseries;
 	
 	self.empty = function () {
-		for (var i in self.data) {
-			if (self.data[i] == undefined) {
-				var a = 12;
-			}
-			if (self.data[i].getData().length > 0) {
-				return false;
-			}
-		}
-		return true;
+		return source.empty();
+	}
+	
+	self.alias = function () {
+		return source.alias();
 	}
 	
 	self.render = function (elem) {
-		var graph = self;
 		
-    	if (graph.empty()) {
+    	if (self.empty()) {
     		return;
     	}
     	
-		var data = map(graph.data, function (ts) {
+		var data = map(source.data(), function (ts) {
 			return { 'data' : ts.getData(), 'label' : ts.alias() };
 		});
         
@@ -91,16 +120,10 @@ function Graph(label, timeseries) {
                     HtmlText : false
                 });
             }
-        }
-		
+        }		
 	}
+	
 }
 
-function firstChild(e) {
-    for (var j=0; j<e.childNodes.length; j++) {
-        if (e.childNodes[j].nodeType == 1) {
-            return e.childNodes[j];
-        }
-    }    
-    return undefined;
-}
+var makeGraph = Graph;
+
