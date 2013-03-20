@@ -161,5 +161,9 @@ function createInstance(id, src, root) {
 	var fields = map(dict2array(src[1]), function (x) { 
 		return new Property(x.key, treatAny(x.value[0], x.value[1], root)); 
 	});
-	return new Instance(id, src[0], fields, src[2], src[3], root);
+	var created = new Instance(id, src[0], fields, src[2], src[3], root);
+	if (src[0] == "marketsim.js.TimeSerie") {
+		created = makeTimeSerie(created, root.response().ts_changes);
+	}
+	return created;
 }

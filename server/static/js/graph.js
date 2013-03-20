@@ -4,20 +4,10 @@
  * @param {map<int, list<(float, float)>>} data -- initial data to be rendered 
  */
 function TimeSerie(source, initialData) {
-	var self = this;
+	var self = source;
 	
 	self._data = [];
 	
-	/**
-	 *	Returns unique object identifier of the time serie
-	 */
-	self.uniqueId = function () { return source.uniqueId(); }
-	
-	/**
-	 *	Returns a label to be rendrered on a graph for this time serie 
-	 */
-	self.label = function () { return source.alias(); }
-
 	/**
 	 *  Appends updates in the time serie 
  	 *  @param {list<(float, float)>} dataDelta -- list of pair (time, value) to be appended to the time serie
@@ -53,7 +43,11 @@ function TimeSerie(source, initialData) {
 	self.getData = function () {
 		return self._data;
 	};
+	
+	return self;
 }
+
+var makeTimeSerie = TimeSerie;
 
 function Graph(label, timeseries) {
 	var self = this;
@@ -80,7 +74,7 @@ function Graph(label, timeseries) {
     	}
     	
 		var data = map(graph.data, function (ts) {
-			return { 'data' : ts.getData(), 'label' : ts.label() };
+			return { 'data' : ts.getData(), 'label' : ts.alias() };
 		});
         
         for (var i=0; i<elem.length; i++) {

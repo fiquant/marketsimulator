@@ -123,10 +123,6 @@ function AppViewModel() {
 			self.biggestId = ii;
 		}
 	}
-	/**
-	 * Mapping id -> TimeSerie objects 
-	 */
-	self.timeseries = {};
 	self._graphs = [];
 	self.updateInterval = ko.observable(1);
 	
@@ -244,12 +240,6 @@ function AppViewModel() {
 			}));
 		}
 		
-		//----------------- graphs
-		self.timeseries = dictOf(
-			map(self.filteredViewEx("marketsim.js.TimeSerie"), function (t) {
-				return [t.uniqueId(), new TimeSerie(t, response.ts_changes)];
-			}));
-		
 		return [id2obj];		
 	})
 	
@@ -272,16 +262,15 @@ function AppViewModel() {
 			self.id2obj.lookup(ch[0]).lookupField(ch[1]).set(ch[2]);
 		});
 		// -------------------- update timeseries
-		if (reset) {
-			foreach(self.timeseries, function (ts) {
-				ts.resetData();
-			})
-		} else {
-			var ts_changes = data.ts_changes;
-			foreach(self.timeseries, function (ts) {
-				ts.updateFrom(ts_changes);
-			})
-		}
+		var ts_changes = data.ts_changes;
+		foreach(ts_changes, function (newData, idx) {
+			var target = self.id2obj.lookup(idx);
+			if (reset) {
+				target.resetData();
+			} else {
+				target.appendData(newData);
+			}
+		});
 		self.updategraph(!self.updategraph());
 	}
 
@@ -301,7 +290,7 @@ function AppViewModel() {
 			var res = [];
 			for (var i in tss) {
 				var ts = tss[i].impl().pointee(); 
-				res.push(self.timeseries[ts.uniqueId()]);
+				res.push(self.id2obj.lookup(ts.uniqueId()));
 			}
 			return new Graph(g.name, res);
 		})

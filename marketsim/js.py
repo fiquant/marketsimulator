@@ -10,7 +10,7 @@ class TimeSerie(object):
         self.reset()
         
     def _wakeUp(self, _):
-        """ Called when the source has chaged
+        """ Called when the source has changed
         """
         x = self._source.value
         if x is not None: # for the moment we don't know what to do with breaks in data
