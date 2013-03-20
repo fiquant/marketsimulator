@@ -1,4 +1,4 @@
-function all() {
+function alldata() {
    z = ($.ajax({
      url: 'all',
      dataType: 'json',
@@ -112,7 +112,7 @@ function AppViewModel() {
 	var self = this;
 	self.advance = ko.observable(500);
 	self.response = ko.observable("");
-	self.response(all());
+	self.response(alldata());
 
 	self.id2obj = new Ids2Objs();	
 	
@@ -123,7 +123,6 @@ function AppViewModel() {
 			self.biggestId = ii;
 		}
 	}
-	self._graphs = [];
 	self.updateInterval = ko.observable(1);
 	
 	self.alias2id = {};
@@ -281,19 +280,12 @@ function AppViewModel() {
 		self.id2obj.foreach(function (x) { res.push(x); });
 		return res;
 	})
-
+	
 	self.graphs = ko.computed(function () {
 		var dummy = self.updategraph();
-		var rawgraphs = self.filteredViewEx("marketsim.js.Graph");
-		return map(rawgraphs, function (g) {
-			var tss = g.fields()[0].impl().elements();
-			var res = [];
-			for (var i in tss) {
-				var ts = tss[i].impl().pointee(); 
-				res.push(self.id2obj.lookup(ts.uniqueId()));
-			}
-			return new Graph(g.name, res);
-		})
+		return map(self.filteredViewEx("marketsim.js.Graph"), function (g) {
+			return new GraphRenderer(g);
+		});
 	})
 	
 	self.entities = ko.computed(function () {

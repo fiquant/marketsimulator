@@ -164,6 +164,8 @@ function createInstance(id, src, root) {
 	var created = new Instance(id, src[0], fields, src[2], src[3], root);
 	if (src[0] == "marketsim.js.TimeSerie") {
 		created = makeTimeSerie(created, root.response().ts_changes);
+	} else if (src[0] == "marketsim.js.Graph") {
+		created = makeGraph(created, root);
 	}
 	return created;
 }
