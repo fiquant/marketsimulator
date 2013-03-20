@@ -76,7 +76,7 @@ function isArray(o) {
 
 function foreach(array, func) {
 	for (var i in array) {
-		func(array[i]);
+		func(array[i], i);
 	}
 }
 
