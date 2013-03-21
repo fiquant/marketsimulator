@@ -1,16 +1,16 @@
 /**
  * Field of array type 
- * @param {list<Field>} s -- array of fields (of scalar, array or object type)
+ * @param {list<ArrayValue -> Field>} s -- array of field factories (of scalar, array or object type)
  */
 
-function ArrayValue(s, root) {
+function ArrayValue(fieldFactories) {
 	var self = this;
 	self.array = function () { return true; }
 	
-	var fields = map(s, function (x,i) {
-						return new Property("", x, false, self);
-				});
-				
+	var fields = map(fieldFactories, function (factory) {
+		return factory(self);
+	});
+	
 	self._storage = ko.observableArray(fields);
 	
 	/**
@@ -18,6 +18,7 @@ function ArrayValue(s, root) {
 	 */
 	self.remove = function (element) {
 		self._storage.remove(element);
+		self.hasChanged(true);
 	}
 
 	/**
@@ -31,7 +32,8 @@ function ArrayValue(s, root) {
 	 *	Duplicates an element in the array 
 	 */
 	self.duplicate = function (element) {
-		self._storage.push(element.clone());
+		self._storage.push(element.clone(self));
+		self.hasChanged(true);
 	}
 	
 	/**
@@ -44,17 +46,16 @@ function ArrayValue(s, root) {
 	/**
 	 *	Returns true if the fields has been changed 
 	 */
-	self.hasChanged = function () { 
-		return any(self.elements(), function (e) {
-			return e.hasChanged();
-		}); 
-	}
+	self.hasChanged = ko.observable(false);
 	
 	/**
 	 *	Clones array field 
 	 */
 	self.clone = function () {
-		return new ArrayValue(map(s, function (x) { return x.clone(); }));
+		return new ArrayValue(map(self._storage(), function (element) { 
+			return function (newParentArray) {
+				return element.clone(newParentArray); }
+			}));
 	}
 
 	/**
@@ -67,9 +68,7 @@ function ArrayValue(s, root) {
 	}
 	
 	self.dropHistory = function () {
-		foreach(self.elements(), function (e) {
-			e.dropHistory();
-		})
+		self.hasChanged(false);
 	}
 	
 	/**
@@ -90,3 +89,10 @@ function ArrayValue(s, root) {
 	self.expanded = self._storage;
 }
 
+function createArrayValue(s) {
+	return new ArrayValue(map(s, function (x) {
+						return function (self) {
+							return new Property("", x, false, self);
+						}
+				}));
+}

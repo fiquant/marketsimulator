@@ -31,9 +31,9 @@ function treatAny(value, constraint, root) {
         		: 	new ScalarValue(decodeString(value), identity));
     } else {
         return (isArray(value) 
-        		?	new ArrayValue(map(value, function (x) { 
+        		?	createArrayValue(map(value, function (x) { 
         				return treatAny(x, constraint.elementType, root); 
-        			}), root)
+        			}))
         		:   new ScalarValue(value, eval(constraint)));
     }    
 }

@@ -141,6 +141,8 @@ with scheduler.create() as world:
     registry.insert(Side.Buy)    
     registry.insert(world)
     
+    root = registry.insert(registry.createSimulation())
+    
     app = Flask(__name__)
     
     @app.route('/obj/<int:obj_id>')
@@ -168,6 +170,7 @@ with scheduler.create() as world:
     @app.route('/all')
     def get_all():
         result = {
+            "root"  :   root,
             "objects" : registry.instance.tojsonall(),
             "traders" : registry.instance.traders,
             "books" : registry.instance.books,

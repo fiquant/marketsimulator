@@ -101,7 +101,7 @@ function arrayController(array) {
 			return array().length > 1;
 		}),
 		duplicate : function (element) {
-			array.push(element.clone());
+			array.push(element.clone(this));
 		}
 	}
 }
