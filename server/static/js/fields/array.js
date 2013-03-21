@@ -80,7 +80,9 @@ function ArrayValue(fieldFactories) {
 	 *  Returns true iff any child has an error 
 	 */
 	self.hasError = ko.computed(function () {
-		return any(self._storage(), function (x) { return x.impl().hasError(); })
+		return any(self._storage(), function (x) { 
+			return x.impl().hasError(); 
+		})
 	})
 
 	/**
