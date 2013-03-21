@@ -117,8 +117,8 @@ function Property(name, value, toplevel, parentArray) {
 	/**
 	 *  Clones the property 
 	 */
-	self.clone = function () {
-		return new Property(self.name(), value.clone(), toplevel, parentArray);
+	self.clone = function (newParentArray) {
+		return new Property(self.name(), value.clone(), toplevel, newParentArray);
 	}
 	
 	/**

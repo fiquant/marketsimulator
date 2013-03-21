@@ -3,7 +3,7 @@ import inspect
 import marketsim
 from functools import reduce
 
-from marketsim import Side
+from marketsim import Side, meta, types, js
 
 ## {{{ http://code.activestate.com/recipes/578272/ (r1)
 def toposort2(data):
@@ -44,14 +44,14 @@ items in the preceeding sets.
     assert not data, "Cyclic dependencies exist among these items:\n%s" % '\n'.join(repr(x) for x in data.iteritems())
 ## end of http://code.activestate.com/recipes/578272/ }}}
 
-
+"""
 def meta(frame):
     _, _, _, values = inspect.getargvalues(frame)
     module = inspect.getmodule(frame).__name__
     function = inspect.getframeinfo(frame).function
     constructAs = module + "." + function
     return (dict(values), constructAs)
-
+"""
 def properties_t(cls):
     
     rv = {}
@@ -519,6 +519,22 @@ def dump(objId):
 def dumpall():
     return instance.dumpall()
 
+class Simulation(object):
+    
+    def __init__(self, traders = [], orderbooks = [], graphs = []):
+        self.traders = traders
+        self.orderbooks = orderbooks
+        self.graphs = graphs
+    
+    _properties = { 'traders'    : meta.listOf(types.ISingleAssetTrader),
+                    'orderbooks' : meta.listOf(types.IOrderBook),
+                    'graphs'     : meta.listOf(js.Graph) }
+
+def createSimulation():
+    traders = instance.valuesOfType("marketsim.trader.")
+    orderbooks = instance.valuesOfType("marketsim.orderbook.")
+    graphs = instance.valuesOfType("marketsim.js.Graph")
+    return Simulation(traders, orderbooks, graphs)
 
 # Naming service
 
