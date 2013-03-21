@@ -153,20 +153,7 @@ function AppViewModel() {
 		});
 		return result;		
 	}
-	
-	self.filteredView = function(startsWith, constraint, propertyName) {
-		// to implement through filteredViewEx
-		var elementFactories = [];	// TODO: map_opt / collect
-		self.id2obj.foreach(function (x) {
-			if (x.constructor().indexOf(startsWith) == 0) {
-				elementFactories.push(function (parentArray){
-					return new Property("", new ObjectValue(x, constraint, self, true), true, parentArray);
-				});
-			}
-		});
-		return ko.observable(new Property(propertyName, new ArrayValue(elementFactories)));		
-	}
-	
+		
 	self.getObj = function (sid) {
 		var id = parseInt(sid);
 		if (!self.id2obj.contains(id)) {
@@ -214,39 +201,13 @@ function AppViewModel() {
 			}
 		}
 		
-		self.traders = ko.observableArray([]);
-		
-		var asfield = function (id, constraint) {
-			var fields = self.id2obj.lookup(id).fields();
-			var label = "";
-			for (var i in fields) {
-				var f = fields[i];
-				if (f.name == 'label') {
-					label = f.impl().val;
-				}
-			}
-			return function (parentArray) {
-				return new Property(label, 
-								new ObjectValue(self.id2obj.lookup(id), constraint, self, true), 
-								true, parentArray);
-			}
-		}
-		
-		//-------------- traders
-		if (response.traders) {
-			var src_traders = self.response().traders;		
-			self.traders(new Property('traders', new ArrayValue(map(src_traders, function (id) {
-				return asfield(id,  "marketsim.types.ISingleAssetTrader");
-			}))));
-		}
-		
-		self.root = response.root;
+		self.root = self.id2obj.lookup(response.root);
 		
 		return [id2obj];		
 	})
 	
 	self.hasError = ko.computed(function () { 
-		return self.traders().hasError();
+		return self.root.hasError();
 	})
 	
 	self.updategraph = ko.observable(false);
@@ -288,11 +249,10 @@ function AppViewModel() {
 	
 	self.entities = ko.computed(function () {
 		var parsed = self.parsed();
-		var root = self.id2obj.lookup(self.root);
 		return [
-			["Traders" , "model", root.lookupField('traders')],
-			["Order books", "option", root.lookupField('orderbooks')],
-			["Graphs", "pricing_method", root.lookupField('graphs')],
+			["Traders" , "model", self.root.lookupField('traders')],
+			["Order books", "option", self.root.lookupField('orderbooks')],
+			["Graphs", "pricing_method", self.root.lookupField('graphs')],
 		];
 	})
 	
