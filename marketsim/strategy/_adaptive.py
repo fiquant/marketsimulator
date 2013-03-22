@@ -17,8 +17,11 @@ class _tradeIfProfitable_Impl(Strategy):
                                                          
         self._efficiency = params.efficiency(self._estimator)
         
-        self._efficiency.on_changed += \
-            lambda _: self.suspend(self._efficiency.value < 0)
+        def wakeUp(_):
+            if not self.suspended:
+                self.suspend(self._efficiency.value < 0)
+        
+        self._efficiency.on_changed += wakeUp
         
         Strategy.__init__(self, aTrader)
         
@@ -27,7 +30,9 @@ class _tradeIfProfitable_Impl(Strategy):
         self._estimator_strategy.dispose()
         
     def suspend(self, s=True):
+        Strategy.suspend(self, s)
         self._strategy.suspend(s)
+        self._estimator_strategy.suspend(s)
         
     @property
     def suspended(self):
@@ -97,17 +102,18 @@ class _chooseTheBest_Impl(Strategy):
         Strategy.__init__(self, aTrader)
 
     def _chooseTheBest(self,_):
-        best = -10e38
-        for (_, _, _, efficiency) in self._strategies:
-            if efficiency.value > best:
-                best = efficiency.value                   
-        if best < 0:
-            best = 0
-        self._current = None
-        for (strategy, _, _, efficiency) in self._strategies:
-            strategy.suspend(efficiency.value != best)
-            if efficiency.value != best:
-                self._current = strategy
+        if not self.suspended:
+            best = -10e38
+            for (_, _, _, efficiency) in self._strategies:
+                if efficiency.value > best:
+                    best = efficiency.value                   
+            if best < 0:
+                best = 0
+            self._current = None
+            for (strategy, _, _, efficiency) in self._strategies:
+                strategy.suspend(efficiency.value != best)
+                if efficiency.value != best:
+                    self._current = strategy
         
     def dispose(self):
         self._eventGen.unadvise(self._chooseTheBest)
@@ -116,8 +122,11 @@ class _chooseTheBest_Impl(Strategy):
             estimator_strategy.dispose()
             
     def suspend(self, s=True):
+        Strategy.suspend(self, s)
         if self._current:
             self._current.suspend(s)
+        for (_, _, estimator_strategy, _) in self._strategies:
+            estimator_strategy.suspend(s)
             
     @property
     def suspended(self):

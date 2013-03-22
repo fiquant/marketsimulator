@@ -15,7 +15,15 @@ class Base(object):
         self.on_order_sent = Event()
         # event to be fired when a trader's is traded
         self.on_traded = Event()
+        self._suspended = False
         self.reset()
+        
+    @property
+    def suspended(self):
+        return self._suspended
+    
+    def suspend(self):
+        self._suspended = True
         
     def reset(self):   
         self._PnL = 0 
@@ -85,6 +93,10 @@ class SingleAsset(Base, types.ISingleAssetTrader):
     def reset(self):
         Base.reset(self)
         self._amount = 0
+        
+    def suspend(self):
+        for strategy in self._strategies:
+            strategy.suspend()
         
     _properties = {'amount' : float, 
                    'strategies' : meta.listOf(types.IStrategy)}
