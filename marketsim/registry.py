@@ -522,13 +522,24 @@ def dumpall():
 class Simulation(object):
     
     def __init__(self, traders = [], orderbooks = [], graphs = []):
-        self.traders = traders
+        self._traders = traders
         self.orderbooks = orderbooks
         self.graphs = graphs
     
     _properties = { 'traders'    : meta.listOf(types.ISingleAssetTrader),
                     'orderbooks' : meta.listOf(types.IOrderBook),
                     'graphs'     : meta.listOf(js.Graph) }
+    
+    @property
+    def traders(self):
+        return self._traders
+    
+    @traders.setter
+    def traders(self, newtraders):
+        todelete = set(self._traders) - set(newtraders)
+        for oldtrader in todelete:
+            oldtrader.suspend()
+        self._traders = newtraders
 
 def createSimulation():
     traders = instance.valuesOfType("marketsim.trader.")
