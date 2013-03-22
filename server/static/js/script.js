@@ -249,10 +249,17 @@ function AppViewModel() {
 	
 	self.entities = ko.computed(function () {
 		var parsed = self.parsed();
+		function getTopLevelArray(fieldName) {
+			var arrayField = self.root.lookupField(fieldName);
+			foreach(arrayField.impl().elements(), function (element) {
+				element.impl().makeTopLevel();
+			});
+			return arrayField;
+		}
 		return [
-			["Traders" , "model", self.root.lookupField('traders')],
-			["Order books", "option", self.root.lookupField('orderbooks')],
-			["Graphs", "pricing_method", self.root.lookupField('graphs')],
+			["Traders" , "model", getTopLevelArray('traders')],
+			["Order books", "option", getTopLevelArray('orderbooks')],
+			["Graphs", "pricing_method", getTopLevelArray('graphs')],
 		];
 	})
 	
