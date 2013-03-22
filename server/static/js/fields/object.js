@@ -7,13 +7,21 @@
  */
 function ObjectValue(s, constraint, root, expandReference) {
 	var self = this;
-	if (expandReference) {
+	self._expandReference = ko.observable(expandReference);
+	
+	self.makeTopLevel = function () {
+		self._expandReference(true);
 		self.toplevel = function () { return true; }
 		self.alias = function () { return s.alias(); }
+		self.object = undefined;
+	}
+	
+	if (self._expandReference()) {
+		self.makeTopLevel();
 	} else {
 		self.object = function () { return true; }
 	} 
-	
+
 	/**
 	 *	Initial value of the field. (synchronized with server) 
 	 */
@@ -60,7 +68,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 	self.clone = function () {
 		var deep_cloning = self.toplevel || !self.pointee().isReference();
 		return new ObjectValue(deep_cloning ? self.pointee().clone() : self.pointee(), 
-								constraint, root, expandReference);
+								constraint, root, self._expandReference());
 	}
 	
 	// used to recalculate options
@@ -111,7 +119,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 	 *	List of fields to be rendered in expanded view 
 	 */
 	self.expanded = ko.computed(function() {
-		return (self.pointee().isReference() && !expandReference) ? [] : self.pointee().fields();
+		return (self.pointee().isReference() && !self._expandReference()) ? [] : self.pointee().fields();
 	});
 	
 	/**
