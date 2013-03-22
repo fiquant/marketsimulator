@@ -255,15 +255,21 @@ class Registry(object):
         notify(obj)
         
     def _convert(self, dst_properties, k, v):
+        
+        def lookup(id):
+            if '_metaToCreate' in dir(self):
+                self.createFromMetaEx(id)                    
+            return self._id2obj[id]
+        
         id = getObjRef(v)
         if id != -1:
-            v = self._id2obj[id]
+            v = lookup(id)
             
         if type(v) == list:
             for i in range(len(v)):
                 id = getObjRef(v[i])
                 if id != -1:
-                    v[i] = self._id2obj[id]
+                    v[i] = lookup(id)
                 # we should check that all elements meet the constraint
             return v
                 
@@ -311,6 +317,18 @@ class Registry(object):
             obj = ctor
         self._insertNew(Id, obj)
         return obj
+    
+    def createFromMetaEx(self, Id):
+        if Id in self._metaToCreate and self._metaToCreate[Id] is not None:
+            meta = self._metaToCreate[Id]
+            self._metaToCreate[Id] = None
+            self.createFromMeta(Id, meta)
+    
+    def createNewObjects(self, metaToCreate):
+        self._metaToCreate = metaToCreate
+        for Id in self._metaToCreate.iterkeys():
+            self.createFromMetaEx(Id)
+        del self._metaToCreate
         
     def _dumpPropertyValue(self, constraint, value, parent):
         typ = type(value)

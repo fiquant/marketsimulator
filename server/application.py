@@ -207,9 +207,9 @@ with scheduler.create() as world:
         raw = request.form.iterkeys().__iter__().next()
         parsed = json.loads(raw)
         
-        # creating new objects
-        for (id, meta) in parsed['created']:
-            registry.instance.createFromMeta(int(id), (meta[0], meta[1]))
+        metaToCreate = {int(id) : (meta[0], meta[1]) for (id, meta) in parsed['created']}
+        registry.instance.createNewObjects(metaToCreate)
+        
         
         # changing fields for existing ones    
         for (id, field, value) in parsed['updates']:
