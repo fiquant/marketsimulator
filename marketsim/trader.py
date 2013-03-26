@@ -172,6 +172,12 @@ class SingleAssetSingleMarket(SingleAsset):
     @property
     def orderBook(self):
         return self._orderBook
+    
+    @orderBook.setter
+    def orderBook(self, newvalue):
+        self.stop()
+        self._orderBook = newvalue
+        self.run()
         
     def send(self, order):
         SingleAsset.send(self, self._orderBook, order)

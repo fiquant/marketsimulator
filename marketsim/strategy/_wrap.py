@@ -53,9 +53,9 @@ class %(name)s(object):
         
     def stopRunning(self):
         assert self._impl, "a strategy must be running"
+        self.dispose()
         self._impl = None
         self._trader = None
-        self.dispose()
     
     
 %(reg)s
