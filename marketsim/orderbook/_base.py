@@ -2,12 +2,11 @@ from marketsim import types, Event
 
 class BookBase(types.IOrderBook):
 
-    def __init__(self, bids, asks, tickSize=1, label=""):
+    def __init__(self, bids, asks, label=""):
         """ Initializes empty order book with given tick size
         """
         self._bids = bids
         self._asks = asks
-        self._tickSize = tickSize
         # queues indexed by their side
         self._queues = [0, 0]
         self._queues[self._bids.side.id] = self._bids
@@ -23,22 +22,10 @@ class BookBase(types.IOrderBook):
         self._asks.reset()
         self._incomingOrders = None
         
-    _properties = {'tickSize' : float}
-
     def queue(self, side):
         """ Returns queue of the given side
         """
         return self._queues[side.id]
-
-    @property
-    def tickSize(self):
-        """ Returns the tick side
-        """
-        return self._tickSize
-    
-    @tickSize.setter
-    def tickSize(self, value):
-        self._tickSize = value
 
     def __str__(self):
         return type(self).__name__ + "(" + str(self._bids) + ", " + str(self._asks) + ")"

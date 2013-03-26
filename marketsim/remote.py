@@ -1,11 +1,11 @@
 import random
-from marketsim import scheduler, meta
+from marketsim import scheduler, meta, mathutils
 
 class Link(object):
     """ Ensures that sending packets via a link preserves their order
     """
     
-    def __init__(self, latency, sched = None):
+    def __init__(self, latency=mathutils.constant(0.001), sched = None):
         """ Initializes the link with a latency function
         """
         self._scheduler = sched if sched else scheduler.current() 
@@ -32,10 +32,10 @@ class Link(object):
 class TwoWayLink(object):
     
     def __init__(self, 
-                 latencyUp = lambda: 0.001 * random.lognormvariate(0.,1.), 
-                 latencyDown = lambda: 0.001 * random.lognormvariate(0.,1.)):
+                 up = Link(), 
+                 down = Link()):
         
-        self.up = Link(latencyUp)
-        self.down = Link(latencyDown)
+        self.up = up
+        self.down = down
         
     _properties = { "up" : Link, "down" : Link }
