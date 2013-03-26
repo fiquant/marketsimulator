@@ -201,13 +201,13 @@ function AppViewModel() {
 			}
 		}
 		
-		self.root = self.id2obj.lookup(response.root);
+		self.root = ko.observable(self.id2obj.lookup(response.root));
 		
 		return [id2obj];		
 	})
 	
 	self.hasError = ko.computed(function () { 
-		return self.root.hasError();
+		return self.root().hasError();
 	})
 	
 	self.updategraph = ko.observable(false);
@@ -242,15 +242,16 @@ function AppViewModel() {
 	
 	self.graphs = ko.computed(function () {
 		var dummy = self.updategraph();
-		return map(self.filteredViewEx("marketsim.js.Graph"), function (g) {
-			return new GraphRenderer(g);
+		var fieldGraphs = self.root().lookupField('graphs');
+		return map(fieldGraphs.impl().elements(), function (g) {
+			return new GraphRenderer(g.impl().pointee());
 		});
 	})
 	
 	self.entities = ko.computed(function () {
 		var parsed = self.parsed();
 		function getTopLevelArray(fieldName) {
-			var arrayField = self.root.lookupField(fieldName);
+			var arrayField = self.root().lookupField(fieldName);
 			foreach(arrayField.impl().elements(), function (element) {
 				element.impl().makeTopLevel();
 			});

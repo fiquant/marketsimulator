@@ -88,19 +88,25 @@ function Graph(source, root) {
 		});
 	});
 	
+	self._base_clone = source.clone;
+	
+	self.clone = function () {
+		return Graph(self._base_clone(), root);
+	}
+	
 	return self;
 }
 
 function GraphRenderer(source) {
 	var self = this;
 	
-	self.empty = function () {
+	self.empty = ko.computed(function () {
 		return source.empty();
-	}
+	});
 	
-	self.alias = function () {
+	self.alias = ko.computed(function () {
 		return source.alias();
-	}
+	});
 	
 	self.render = function (elem) {
 		
