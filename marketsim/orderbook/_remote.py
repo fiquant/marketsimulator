@@ -40,18 +40,17 @@ class Queue(object):
     
 class Remote(BookBase):
     
-    def __init__(self, book, twowaylink = remote.TwoWayLink()):
+    def __init__(self, orderbook, link = remote.TwoWayLink()):
         
         BookBase.__init__(self, 
-                          Queue(book.bids, self, twowaylink.down), 
-                          Queue(book.asks, self, twowaylink.down), 
-                          book.tickSize, 
-                          book.label)
+                          Queue(orderbook.bids, self, link.down), 
+                          Queue(orderbook.asks, self, link.down), 
+                          orderbook.label)
         
-        self._upLink = twowaylink.up
-        self._downLink = twowaylink.down
-        self.link = twowaylink
-        self._book = book
+        self._upLink = link.up
+        self._downLink = link.down
+        self.link = link
+        self._book = orderbook
         
     @property
     def orderbook(self):

@@ -42,12 +42,24 @@ class Local(BookBase):
         BookBase.__init__(self, 
                           Bids(tickSize, self), 
                           Asks(tickSize, self), 
-                          tickSize, 
                           label)
         
+        self._tickSize = tickSize
         self._marketOrderFee = marketOrderFee
         self._limitOrderFee = limitOrderFee
         self._cancelOrderFee = cancelOrderFee
+
+    _properties = {'tickSize' : float}
+
+    @property
+    def tickSize(self):
+        """ Returns the tick side
+        """
+        return self._tickSize
+    
+    @tickSize.setter
+    def tickSize(self, value):
+        self._tickSize = value
 
     def cancelOrder(self, order):
         """ To be called when 'order' is cancelled
