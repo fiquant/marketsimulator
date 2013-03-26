@@ -554,13 +554,18 @@ class Simulation(object):
     
     @traders.setter
     def traders(self, newtraders):
-        todelete = set(self._traders) - set(newtraders)
-        for oldtrader in todelete:
-            oldtrader.suspend()
+        
+        for oldtrader in set(self._traders) - set(newtraders):
+            oldtrader.stop()
+        for newtrader in set(newtraders) - set(self._traders):
+            newtrader.run()
+            
         self._traders = newtraders
 
 def createSimulation():
     traders = instance.valuesOfType("marketsim.trader.")
+    for trader in traders:
+        trader.run()
     orderbooks = instance.valuesOfType("marketsim.orderbook.")
     graphs = instance.valuesOfType("marketsim.js.Graph")
     return Simulation(traders, orderbooks, graphs)

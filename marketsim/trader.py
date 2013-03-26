@@ -15,15 +15,20 @@ class Base(object):
         self.on_order_sent = Event()
         # event to be fired when a trader's is traded
         self.on_traded = Event()
-        self._suspended = False
+        self._running = False
         self.reset()
         
     @property
-    def suspended(self):
-        return self._suspended
+    def running(self):
+        return self._running
     
-    def suspend(self):
-        self._suspended = True
+    def run(self):
+        assert not self._running
+        self._running = True
+    
+    def stop(self):
+        assert self._running
+        self._running = False
         
     def reset(self):   
         self._PnL = 0 
@@ -94,9 +99,10 @@ class SingleAsset(Base, types.ISingleAssetTrader):
         Base.reset(self)
         self._amount = 0
         
-    def suspend(self):
+    def stop(self):
+        Base.stop(self) 
         for strategy in self._strategies:
-            strategy.suspend()
+            strategy.stopRunning() 
         
     _properties = {'amount' : float, 
                    'strategies' : meta.listOf(types.IStrategy)}
@@ -113,7 +119,7 @@ class SingleAsset(Base, types.ISingleAssetTrader):
     def amount(self, value):
         self._amount = value
         
-    @property # TODO: notification mechanism about strategy add
+    @property 
     def strategies(self):
         return self._strategies
     
@@ -124,13 +130,23 @@ class SingleAsset(Base, types.ISingleAssetTrader):
         to_delete = old - new
         to_add = new - old
         for s in to_delete:
-            s.suspend()
-            self._strategies.remove(s)
+            self.removeStrategy(s)
         for s in to_add:
             self.addStrategy(s)
+            
+    def run(self):
+        Base.run(self)
+        for strategy in self._strategies:
+            strategy.runAt(self)
+            
+    def removeStrategy(self, strategy):
+        if not self.running:
+            strategy.stopRunning()
+        self._strategies.remove(strategy)
     
     def addStrategy(self, strategy):
-        strategy.runAt(self)
+        if self.running:
+            strategy.runAt(self)
         self._strategies.append(strategy)        
 
     def _onOrderMatched(self, order, other, (price, volume)):

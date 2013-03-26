@@ -21,10 +21,13 @@ class %(name)s(object):
     def reset(self):
         if 'reset' in dir(self._impl):
             self._impl.reset()
-
-    def _respawn(self):
+            
+    def dispose(self):
         if self._impl is not None:
             self._impl.dispose()
+
+    def _respawn(self):
+        self.dispose()
         self._impl = _%(name)s_Impl(self._trader, self)
         
     def __getattr__(self, item):
@@ -33,7 +36,7 @@ class %(name)s(object):
         
     def __setattr__(self, item, value):
         self.__dict__[item] = value
-        if item in %(name)s._properties:
+        if item in %(name)s._properties and self._trader:
             self._respawn()
     
     def With(self, %(withini)s):
@@ -47,35 +50,15 @@ class %(name)s(object):
         self._trader = trader
         self._respawn()
         return self
+        
+    def stopRunning(self):
+        assert self._impl, "a strategy must be running"
+        self._impl = None
+        self._trader = None
+        self.dispose()
+    
     
 %(reg)s
-
-class %(name)s_Running(%(name)s):
-    
-    def __init__(self, trader, %(init)s, label=None):
-    
-        %(name)s.__init__(self, %(withrv)s, label)
-        self._trader = trader
-        self._impl = None
-        self._respawn()
-        
-    def reset(self):
-        if 'reset' in dir(self._impl):
-            self._impl.reset()
-
-    def _respawn(self):
-        if self._impl is not None:
-            self._impl.dispose()
-        self._impl = _%(name)s_Impl(self._trader, self)
-        
-    def __getattr__(self, item):
-        if self._impl is not None:
-            return getattr(self._impl, item)
-        
-    def __setattr__(self, item, value):
-        self.__dict__[item] = value
-        if item in %(name)s_Running._properties:
-            self._respawn()
 """
 
 def demangleIfFunction(s):
