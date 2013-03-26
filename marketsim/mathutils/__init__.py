@@ -30,3 +30,81 @@ class constant(object):
         return "constant("+repr(self.value)+")"
 
 registry.insert(constant(), "Constant")
+
+class product(object):
+    
+    def __init__(self, LeftHandSide, RightHandSide):
+        self.LeftHandSide = LeftHandSide
+        self.RightHandSide = RightHandSide
+        
+    _properties = { "LeftHandSide" : types.function((), float), 
+                    "RightHandSide" : types.function((), float) }
+    
+    _types = [types.function((), float)]
+    
+    def __call__(self, *args, **kwargs):
+        return self.LeftHandSide() * self.RightHandSide()
+    
+    def __repr__(self):
+        return repr(self.RightHandSide)+ "*" + repr(self.RightHandSide)
+    
+registry.insert(product(constant(1), constant(1)), alias="*")
+    
+class sum(object):
+    
+    def __init__(self, LeftHandSide, RightHandSide):
+        self.LeftHandSide = LeftHandSide
+        self.RightHandSide = RightHandSide
+        
+    _properties = { "LeftHandSide" : types.function((), float), 
+                    "RightHandSide" : types.function((), float) }
+    
+    _types = [types.function((), float)]
+    
+    def __call__(self, *args, **kwargs):
+        return self.LeftHandSide() + self.RightHandSide()
+    
+    def __repr__(self):
+        return repr(self.RightHandSide)+ "+" + repr(self.RightHandSide)
+    
+registry.insert(sum(constant(1), constant(1)), alias="+")
+
+class div(object):
+    
+    def __init__(self, LeftHandSide, RightHandSide):
+        self.LeftHandSide = LeftHandSide
+        self.RightHandSide = RightHandSide
+        
+    _properties = { "LeftHandSide" : types.function((), float), 
+                    "RightHandSide" : types.function((), float) }
+    
+    _types = [types.function((), float)]
+    
+    def __call__(self, *args, **kwargs):
+        return self.LeftHandSide() / self.RightHandSide()
+    
+    def __repr__(self):
+        return repr(self.RightHandSide)+ "/" + repr(self.RightHandSide)
+    
+registry.insert(div(constant(1), constant(1)), alias="/")
+    
+class sub(object):
+    
+    def __init__(self, LeftHandSide, RightHandSide):
+        self.LeftHandSide = LeftHandSide
+        self.RightHandSide = RightHandSide
+        
+    _properties = { "LeftHandSide" : types.function((), float), 
+                    "RightHandSide" : types.function((), float) }
+    
+    _types = [types.function((), float)]
+    
+    def __call__(self, *args, **kwargs):
+        return self.LeftHandSide() + self.RightHandSide()
+    
+    def __repr__(self):
+        return repr(self.RightHandSide)+ "-" + repr(self.RightHandSide)
+    
+registry.insert(sub(constant(1), constant(1)), alias="-")
+
+    
