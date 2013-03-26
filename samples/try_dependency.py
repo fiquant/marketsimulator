@@ -38,6 +38,8 @@ with scheduler.create() as world:
     registry.insert(dep_AB)
     registry.insert(dep_BA)
     
+    for t in [dep_AB, dep_BA, t_A, t_B]: t.run()
+    
     for k,v in registry.dumpall().iteritems():
         print k, v
         

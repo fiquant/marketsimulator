@@ -138,6 +138,8 @@ with scheduler.create() as world:
     
     for t in traders + [t_A]:
         registry.insert(t)
+        t.run()
+    
         
     fv_200 = trader_200.strategies[0]
     

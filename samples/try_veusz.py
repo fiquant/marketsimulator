@@ -38,6 +38,8 @@ def createSimulation(world, i):
                            strategy.LiquidityProvider(volumeDistr=volume(1)),
                            "a"+i)
         
+        for t in [lp_A, lp_a]: t.run()
+        
         spread_graph += [observable.BidPrice(book_A), 
                          observable.AskPrice(book_A)]
         

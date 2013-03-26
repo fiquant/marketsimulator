@@ -32,6 +32,9 @@ with scheduler.create() as world:
     eff_graph += [observable.Efficiency(trader),
                   observable.PnL(trader)]
     
+    
+    for t in [lp_A, trader]: t.run()
+    
     world.workTill(500)
     
     veusz.render("fv_200_trader", [price_graph, eff_graph])
