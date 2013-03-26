@@ -117,12 +117,22 @@
 		</table>
 	  <div data-bind="template: { foreach: graphs, afterRender: renderGraph1d }">
 	  	<!-- ko if: !$data.empty() -->
-	  	<th data-bind="text: alias"></th>
 	    <table class="graph1d">
-	      <tr>
+          <tr>
 	        <td>
 	          <div data-bind="attr: { id: $index }">
 	          </div>
+	        </td>
+	        <td>
+			    <h4 data-bind="text: $data.alias()"></h4>
+	        	<table data-bind="foreach: $data.data()">
+	        		<tr>
+	        			<td>
+		        			<input type="checkbox" data-bind="checked: visible"/>
+	        			</td>
+	        			<td data-bind="text: alias"></td>
+	        		</tr>
+	        	</table>
 	        </td>
 	      </tr>
 	    </table>

@@ -15,7 +15,7 @@ td table {
    width: 100%;
 }
 
-td input {
+td input[type="text"] {
    width: 100%;
 }
 

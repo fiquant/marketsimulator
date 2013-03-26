@@ -9,6 +9,11 @@ function TimeSerie(source, initialData) {
 	self._data = ko.observable([]);
 	
 	/**
+	 *	Should be the timeserie visible on a graph 
+	 */
+	self.visible = ko.observable(true);
+	
+	/**
 	 *  Appends updates in the time serie 
  	 *  @param {list<(float, float)>} dataDelta -- list of pair (time, value) to be appended to the time serie
 	 */
@@ -75,6 +80,9 @@ function Graph(source, root) {
 	
 	var self = source;
 	
+	/**
+	 *	Returns an array of TimeSerie instances held by the graph 
+	 */
 	self.data = ko.computed(function () {
 		var timeseries = source.fields()[0].impl().elements();
 		return map(timeseries, function (timeserie) {
@@ -108,6 +116,8 @@ function GraphRenderer(source) {
 		return source.alias();
 	});
 	
+	self.data = source.data;
+	
 	self.render = function (elem) {
 		
     	if (self.empty()) {
@@ -115,7 +125,7 @@ function GraphRenderer(source) {
     	}
     	
 		var data = map(source.data(), function (ts) {
-			return { 'data' : ts.getData(), 'label' : ts.alias() };
+			return ts.visible() ? { 'data' : ts.getData(), 'label' : ts.alias() } : {};
 		});
         
         for (var i=0; i<elem.length; i++) {
