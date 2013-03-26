@@ -244,7 +244,14 @@ function AppViewModel() {
 		var dummy = self.updategraph();
 		var fieldGraphs = self.root().lookupField('graphs');
 		return map(fieldGraphs.impl().elements(), function (g) {
-			return new GraphRenderer(g.impl().pointee());
+			var graph = ko.observable(new GraphRenderer(g.impl().pointee()));
+			function invalidate() {
+				graph.valueHasMutated();
+			}
+			foreach(graph.peek().data(), function (ts_instance) {
+				ts_instance.visible.subscribe(invalidate);
+			})
+			return graph;
 		});
 	})
 	
@@ -289,7 +296,7 @@ function AppViewModel() {
 	self.toBeStopped = false;
 	
 	
-    self.renderGraph1d = function (elem, graph) { graph.render(elem); }
+    self.renderGraph1d = function (elem, graph) { graph().render(elem); }
     
     self.dropHistory = function () {
     	self._createdObjects = {};
