@@ -49,3 +49,6 @@ class RandomWalk(types.IObservable):
         """ Subscribes 'listener' to value changed events 
         """
         self.on_changed += listener
+        
+    def unadvise(self, listener):
+        self.on_changed -= listener
