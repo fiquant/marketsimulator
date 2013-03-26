@@ -57,9 +57,9 @@ class TimeSerie(object):
         
 class Graph(object):
     
-    def __init__(self, label):
+    def __init__(self, label, series=None):
         self.label = label
-        self.series = []
+        self.series = series if series else []
         
     def addTimeSerie(self, source):
         """ Adds a time serie to the graph
@@ -69,7 +69,7 @@ class Graph(object):
         label = source.label
         self.series.append(TimeSerie(source, label))
         
-    _properties = {"series": meta.listOf(TimeSerie) }
+    _properties = {"series": meta.listOf(TimeSerie), "label" : str }
     
     @property
     def _alias(self):
