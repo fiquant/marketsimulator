@@ -18,11 +18,11 @@ class ewma(types.IUpdatableValue):
         
     @property
     def label(self):
-        return r"Avg_{\alpha="+str(self.alpha)+"}"
+        return r"Avg_{"+str(self.alpha)+"}"
     
     @property
     def jsLabel(self):
-        return "EWMA(alpha=" + str(self.alpha) + ")"
+        return "EWMA(" + str(self.alpha) + ")"
         
     _properties = {'alpha' : float}
     

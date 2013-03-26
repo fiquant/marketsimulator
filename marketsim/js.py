@@ -46,7 +46,7 @@ class TimeSerie(object):
         self._source = value
         self._source.advise(self._wakeUp)
         
-    _properties = { "source" : types.IObservable }
+    _properties = { "source" : types.IObservable, "label" : str }
     
     @property    
     def data(self):

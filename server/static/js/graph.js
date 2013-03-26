@@ -26,6 +26,12 @@ function TimeSerie(source, initialData) {
 		}
 	}
 	
+	self._base_clone = source.clone;
+	
+	self.clone = function () {
+		return TimeSerie(self._base_clone());
+	}
+	
 	if (initialData) {
 		self.updateFrom(initialData);
 	}
