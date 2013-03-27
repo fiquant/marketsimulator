@@ -12,7 +12,6 @@ function ObjectValue(s, constraint, root, expandReference) {
 	self.makeTopLevel = function () {
 		self._expandReference(true);
 		self.toplevel = function () { return true; }
-		self.alias = function () { return s.alias(); }
 		self.object = undefined;
 	}
 	
@@ -31,6 +30,24 @@ function ObjectValue(s, constraint, root, expandReference) {
 	 *  stored reference to the object 
 	 */
 	var _storage = ko.observable(s);
+	
+	self.editAliasMode = ko.observable(false);
+	
+	self.enterEditMode = function () {
+		self.editAliasMode(true);
+	}
+
+	self.exitEditMode = function () {
+		self.editAliasMode(false);
+	}
+	
+	
+	self.alias = ko.computed({
+		read: function () { return _storage().alias(); },
+		write: function (newvalue) {
+			_storage().alias_back(newvalue);
+		}
+	})
 	
 	/**
 	 *	Returns true if the fields has been changed 
