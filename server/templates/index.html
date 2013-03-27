@@ -51,13 +51,18 @@
 				        <!-- /ko -->
 			        <!-- /ko -->
 		            <!-- ko if: $data.object -->
-	            		<select data-bind="
-	            		event: 		{ mouseover: updateOptions }, 
-	            		options: 	  _options, 
-	            		value: 		  _currentOption, 
-	            		optionsText:  function (item) { return item.alias.peek(); },
-	            		optionsValue: function (item) { return item.uniqueId(); }">
-	            		</select>
+			            <!-- ko ifnot: editAliasMode -->
+		            		<select data-bind="
+		            		event: 		{ mouseover: updateOptions, dblclick: enterEditMode }, 
+		            		options: 	  _options, 
+		            		value: 		  _currentOption, 
+		            		optionsText:  function (item) { return item.alias.peek(); },
+		            		optionsValue: function (item) { return item.uniqueId(); }">
+		            		</select>
+			            <!-- /ko -->
+		            	<!-- ko if: editAliasMode -->
+			        		<input data-bind="value: alias, event: { blur: exitEditMode }" />
+			            <!-- /ko -->
 		            <!-- /ko -->
 		            <!-- ko if: $data.array -->
 	    	        	...
@@ -76,13 +81,6 @@
 			        	<!-- ko template: 'renderField'-->
 				        <!-- /ko -->
 			        <!-- /ko -->
-			        <tr data-bind="if: impl().toplevel || impl().object">
-			        	<td></td>
-			        	<td>Name</td>
-			        	<td>
-			        		<input data-bind="value: impl().pointee().alias_back" />
-			        	</td>
-			        </tr>
 				</table>
         	</td>
         </tr>
