@@ -46,7 +46,9 @@
 		            	</input>
 			        <!-- /ko -->
 		            <!-- ko if: $data.toplevel -->
-	    	        	<span data-bind="text: alias()"></span>
+			            <!-- ko if: !$parentContext.$data.expandedView().length -->
+		    	        	<span data-bind="text: alias()"></span>
+				        <!-- /ko -->
 			        <!-- /ko -->
 		            <!-- ko if: $data.object -->
 	            		<select data-bind="
@@ -74,6 +76,13 @@
 			        	<!-- ko template: 'renderField'-->
 				        <!-- /ko -->
 			        <!-- /ko -->
+			        <tr data-bind="if: impl().toplevel">
+			        	<td></td>
+			        	<td>Name</td>
+			        	<td>
+			        		<input data-bind="value: impl().pointee().alias_back" />
+			        	</td>
+			        </tr>
 				</table>
         	</td>
         </tr>
