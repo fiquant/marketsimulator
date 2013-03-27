@@ -102,13 +102,15 @@ function ObjectValue(s, constraint, root, expandReference) {
 	 *	Id of the alias chosen at the moment
 	 */
 	self._currentOption = ko.computed ({
-		read: function () { return primaryId(); },
+		read: function () { 
+			return primaryId(); 
+		},
 		write: function (id) {
 			if (id != undefined) {
 				var source = root.getObj(id);
 				// if alias id has changed, let's create a new instance for the chosen alias
 				var freshly_created = source.isReference() ? source : source.clone();
-				console.log(self.pointee().uniqueId() + ' --> ' + freshly_created.uniqueId());
+				console.log(self.pointee().uniqueId() + ' --> ' + freshly_created.uniqueId() + " @ " + id);
 				// and set it as current object
 				_storage(freshly_created);
 			}

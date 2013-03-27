@@ -40,34 +40,6 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	self.fields = ko.observableArray(fields);
 	
 	/**
-	 *	Makes a deep clone of the object 
-	 */
-	self.clone = function () {
-		var fields_cloned = map(self.fields(), function (field) { 
-								return field.clone(); 
-						});
-						
-		return root.createObj(function (id) {
-			return new Instance(id, 
-								constructor, 
-								fields_cloned, 
-								typeinfo, 
-								alias, 
-								root);
-		});
-	}
-	
-	/**
-	 *	Returns JSON representation for a freshly created object 
-	 */
-	self.serialized = function () {
-		return [self.constructor(), 
-				dictOf(map(self.fields(), function (field) {
-					return field.serialized(); })), 
-				self.alias()];
-	}
-	
-	/**
 	 *	Stores alias for the instance. Private.
 	 */
 	self.alias_back = ko.observable(alias);
@@ -88,6 +60,34 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 		}
 		return newvalue;
 	});
+	
+	/**
+	 *	Makes a deep clone of the object 
+	 */
+	self.clone = function () {
+		var fields_cloned = map(self.fields(), function (field) { 
+								return field.clone(); 
+						});
+						
+		return root.createObj(function (id) {
+			return new Instance(id, 
+								constructor, 
+								fields_cloned, 
+								typeinfo, 
+								self.alias(), 
+								root);
+		});
+	}
+	
+	/**
+	 *	Returns JSON representation for a freshly created object 
+	 */
+	self.serialized = function () {
+		return [self.constructor(), 
+				dictOf(map(self.fields(), function (field) {
+					return field.serialized(); })), 
+				self.alias()];
+	}
 	
 	/**
 	 *	Returns true iff this instance should be considered as of reference type
