@@ -43,7 +43,7 @@
             <td>
 	            <!-- ko with: impl() -->
 		            <!-- ko if: $data.scalar  -->
-		            	<input data-bind="value: _storage, valueUpdate: 'afterkeydown'">
+		            	<input type="text" data-bind="value: _storage, valueUpdate: 'afterkeydown'">
 		            	</input>
 			        <!-- /ko -->
 		            <!-- ko if: $data.toplevel -->
@@ -62,7 +62,11 @@
 		            		</select>
 			            <!-- /ko -->
 		            	<!-- ko if: editAliasMode -->
-			        		<input data-bind="value: alias, event: { blur: exitEditMode }" />
+			        		<input data-bind="
+			        			value: alias, 
+			        			event: { blur: exitEditMode, 
+			        					 dblclick: exitEditMode }" 
+			        		type="text" />
 			            <!-- /ko -->
 		            <!-- /ko -->
 		            <!-- ko if: $data.array -->
