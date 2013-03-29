@@ -17,6 +17,15 @@ function alltimeseries() {
    return $.parseJSON(z.responseText);
 }
 
+xlats = {};
+
+/**
+ *	Translates string 's' to the active language (only english for the moment) 
+ */
+function translate(s) {
+	xlats[s] = s;
+	return translations_en[s] || s;
+}
 
 
 function dir(object) {

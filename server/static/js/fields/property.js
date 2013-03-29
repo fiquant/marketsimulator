@@ -12,7 +12,7 @@ function Property(name, value, toplevel, parentArray) {
 	self.object = value.object;
 	
 	// TODO: introduce special array element to handle case with non-trivial parentArray
-	
+
 	/**
 	 *	Returns name of the field
 	 */
@@ -68,10 +68,17 @@ function Property(name, value, toplevel, parentArray) {
 	})
 	
 	/**
+	 *	Returns name of the field to render in current language 
+	 */
+	self.displayName = ko.computed(function () {
+		return translate(self.name());
+	})
+	
+	/**
 	 *	Property name to display 
 	 */
 	self.displayLabel = ko.computed(function () { 
-		return self.name() + self.changedSign(); 
+		return self.displayName() + self.changedSign(); 
 	});
 	
 	/**
