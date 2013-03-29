@@ -15,8 +15,8 @@ td table {
    width: 100%;
 }
 
-td input[type="text"] {
-   width: 100%;
+input[type="text"] {
+   float: right;
 }
 
 .history td {
