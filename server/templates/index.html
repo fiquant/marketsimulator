@@ -34,7 +34,7 @@
         		<!-- /ko -->	            	            		
         	</td>
             <td>
-            	<span  data-bind="text: displayLabel()"></span>
+            	<span  data-bind="html: displayLabel()"></span>
             	<!-- ko if: isArrayElement() -->
             		<button data-bind="click: _duplicateInArray">Clone</button>
             		<button data-bind="click: _removeFromArray, enable: $data.parentArray().canBeRemoved()">Delete</button>
