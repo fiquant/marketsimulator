@@ -5,53 +5,6 @@ from functools import reduce
 
 from marketsim import Side, meta, types, js
 
-## {{{ http://code.activestate.com/recipes/578272/ (r1)
-def toposort2(data):
-    """Dependencies are expressed as a dictionary whose keys are items
-and whose values are a set of dependent items. Output is a list of
-sets in topological order. The first set consists of items with no
-dependences, each subsequent set consists of items that depend upon
-items in the preceeding sets.
-
->>> print '\\n'.join(repr(sorted(x)) for x in toposort2({
-...     2: set([11]),
-...     9: set([11,8]),
-...     10: set([11,3]),
-...     11: set([7,5]),
-...     8: set([7,3]),
-...     }) )
-[3, 5, 7]
-[8, 11]
-[2, 9, 10]
-
-"""
-
-    # Ignore self dependencies.
-    for k, v in data.items():
-        v.discard(k)
-    # Find all items that don't depend on anything.
-    extra_items_in_deps = reduce(set.union, data.itervalues()) - set(data.iterkeys())
-    # Add empty dependences where needed
-    data.update({item:set() for item in extra_items_in_deps})
-    while True:
-        ordered = set(item for item, dep in data.iteritems() if not dep)
-        if not ordered:
-            break
-        yield ordered
-        data = {item: (dep - ordered)
-                for item, dep in data.iteritems()
-                    if item not in ordered}
-    assert not data, "Cyclic dependencies exist among these items:\n%s" % '\n'.join(repr(x) for x in data.iteritems())
-## end of http://code.activestate.com/recipes/578272/ }}}
-
-"""
-def meta(frame):
-    _, _, _, values = inspect.getargvalues(frame)
-    module = inspect.getmodule(frame).__name__
-    function = inspect.getframeinfo(frame).function
-    constructAs = module + "." + function
-    return (dict(values), constructAs)
-"""
 def properties_t(cls):
     
     rv = {}
@@ -153,33 +106,6 @@ class Registry(object):
         obj._alias = self._findAlias(obj)
         self._id2obj[Id] = obj
         return obj._id
-    
-    def _toposort(self, objects):
-        """
-        object - list of pairs (id, meta) of objects to create
-                 where meta is pair (ctor, properties)
-                     where ctor is a type name to instantiate (should be in marketsim module)
-                     properties is a dictionary property_name -> property_value_representation
-                     property_value_representation may be either a reference to an object of form #id
-                     or a number or a string
-        """
-        children = {}
-        for id, meta in objects:
-            if len(meta) == 2: # it is a createable object
-                ctor, props = meta
-                children[id] = set()
-                for (_, (_, value)) in props.iteritems():
-                    child = getObjRef(value)
-                    if child != -1:
-                        children[id].add(child)
-                    if type(value) == list:
-                        for v in value:
-                            child = getObjRef(v)
-                            if child != -1:
-                                children[id].add(child)
-                                
-        return toposort2(children)
-                
     
     def reset(self):
         # it is a dirty hack and later we'll have to 
@@ -519,13 +445,6 @@ def expose(alias, constructor=None):
         return f
     return inner
         
-def new(name, fields):
-    return instance.createFromMeta(instance.getUniqueId(), 
-                                            [name, fields])
-    
-def setAttr(obj, name, value):
-    instance.setAttr(instance.insert(obj), name, value)
-    
 def insert(obj, alias=None):
     if alias is not None:
         obj._alias = alias

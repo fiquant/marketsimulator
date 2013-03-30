@@ -2,7 +2,7 @@ import sys
 sys.path.append(r'..')
 
 from marketsim import (strategy, orderbook, trader, order, 
-                       scheduler, observable, veusz, mathutils, registry)
+                       scheduler, observable, veusz, mathutils)
 
 const = mathutils.constant
 
@@ -131,44 +131,14 @@ with scheduler.create() as world:
     
     addToGraph(traders)
     
-    for g in [price_graph, eff_graph, trend_graph, pnl_graph, volume_graph]:
-        registry.insert(g)
-    
-    registry.insert(world)
-    
     for t in traders + [t_A]:
-        registry.insert(t)
         t.run()
     
         
     fv_200 = trader_200.strategies[0]
     
-    new = registry.new
-    setAttr = registry.setAttr
-    
-    c = new('marketsim.mathutils.constant', {'value': '50.0'})
-
-    interval = new('marketsim.mathutils.rnd.expovariate', {'Lambda': '+1.0'})
-    
-    setAttr(fv_200, 'orderFactory', order.Market.T)
-    setAttr(fv_200, 'creationIntervalDistr', interval)
-    setAttr(avg_plus.strategies[0], 'average1', new('marketsim.mathutils.ewma', {'alpha' : 0.15 }))
-    setAttr(virtual_160.strategies[0], 'estimator', strategy.virtualWithUnitVolume)
-
-    L = registry.instance.tojsonall()
-
-    for k,v in L.iteritems():
-        print k,v
-
     world.workTill(500)
-
-    #registry.instance.reset()
+    world.advance(500)
     world.advance(500)
 
-    #registry.instance.reset()
-    world.advance(500)
-
-    #registry.instance.reset()
-    #setAttr(fv_200, 'fundamentalValue', c)
-    
     veusz.render("fv_trader", [price_graph, eff_graph, trend_graph, pnl_graph, volume_graph])

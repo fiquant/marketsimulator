@@ -2,10 +2,7 @@ import sys
 sys.path.append(r'..')
 
 import random
-from marketsim import strategy, orderbook, trader, scheduler, observable, veusz, registry
-
-new = registry.new
-setAttr = registry.setAttr
+from marketsim import strategy, orderbook, trader, scheduler, observable, veusz
 
 with scheduler.create() as world:
     
@@ -35,15 +32,7 @@ with scheduler.create() as world:
     dep_AB = trader.SASM(book_A, strategy.Dependency(book_B, factor=2), "AB")
     dep_BA = trader.SASM(book_B, strategy.Dependency(book_A, factor=.5), "BA")
     
-    registry.insert(dep_AB)
-    registry.insert(dep_BA)
-    
     for t in [dep_AB, dep_BA, t_A, t_B]: t.run()
-    
-    for k,v in registry.dumpall().iteritems():
-        print k, v
-        
-    registry.setAttr(dep_AB.strategies[0], 'bookToDependOn', book_B)
     
     eff_graph = veusz.Graph("efficiency")
     eff_graph += [observable.Efficiency(dep_AB),
