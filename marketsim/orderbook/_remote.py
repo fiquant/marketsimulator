@@ -40,7 +40,7 @@ class Queue(object):
     
 class Remote(BookBase):
     
-    def __init__(self, orderbook, link = remote.TwoWayLink()):
+    def __init__(self, orderbook, link):
         
         BookBase.__init__(self, 
                           Queue(orderbook.bids, self, link.down), 

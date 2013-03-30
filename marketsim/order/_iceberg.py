@@ -132,6 +132,7 @@ def iceberg(volumeLimit, orderFactory):
 
 LimitOrderFactorySignature = meta.function((types.Side,), meta.function((types.Price, types.Volume), types.IOrder))
 
+@registry.expose('Iceberg')
 class IcebergFactory(object):
     
     def __init__(self, volumeLimit = 10, orderFactory = Limit.T):
@@ -147,5 +148,3 @@ class IcebergFactory(object):
         def inner(price, volume):
             return Iceberg(self.volumeLimit, self.orderFactory(side), price, volume)
         return inner
-    
-registry.insert(IcebergFactory(), 'Iceberg')

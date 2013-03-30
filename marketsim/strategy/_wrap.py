@@ -5,6 +5,7 @@ class merge(object):
             self.__dict__[k] = kwargs[k]
 
 template = """
+%(reg)s
 class %(name)s(object):
     
     def __init__(self, %(init)s, label=None):
@@ -57,8 +58,6 @@ class %(name)s(object):
         self._impl = None
         self._trader = None
     
-    
-%(reg)s
 """
 
 def demangleIfFunction(s):
@@ -85,6 +84,6 @@ def wrapper(name, params, register=True):
     dict_= process("self.__dict__[\'%(name)s\'] = %(name)s", "; ")
     props= process("\'%(name)s\' : %(typ)s")
     call = process("self.%(name)s")
-    reg = "registry.insert("+name+"(),'"+name+"')" if register else ""
+    reg = "@registry.expose('"+name+"')" if register else ""
     
     return template % locals()

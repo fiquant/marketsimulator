@@ -53,6 +53,8 @@ exec wrapper("tradeIfProfitable",
               ('efficiency', 'efficiencyTrend',       'ISingleAssetTrader -> ISingleAssetTrader'),
               ('estimator',  'virtualWithUnitVolume', 'IStrategy -> IStrategy')], register=False)
 
+        
+@registry.expose('TradeIfProfitable')
 class TradeIfProfitable(tradeIfProfitable):
     
     def __init__(self, strategy = FundamentalValue(), 
@@ -78,8 +80,6 @@ class TradeIfProfitable(tradeIfProfitable):
         # that parameters are passed to strategies not to 'efficiency' or 'estimator'
         # if someone wants to change 'efficiency' or 'estimator' parameters he should do it explicitly 
         return tradeIfProfitable.With(self, strategy.With(**kwargs), efficiency, estimator)
-        
-registry.insert(TradeIfProfitable(), 'TradeIfProfitable')
         
 class _chooseTheBest_Impl(Strategy):
     

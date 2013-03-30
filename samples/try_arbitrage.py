@@ -8,7 +8,7 @@ with scheduler.create() as world:
     book_A = orderbook.Local(tickSize=0.01, label="A")
     book_B = orderbook.Local(tickSize=0.01, label="B")
     
-    link = remote.TwoWayLink()
+    link = remote.TwoWayLink(remote.Link(), remote.Link())
     remote_A = orderbook.Remote(book_A, link)
     remote_B = orderbook.Remote(book_B, link)
     

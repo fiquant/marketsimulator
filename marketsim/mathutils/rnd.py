@@ -5,6 +5,7 @@ from marketsim import registry
 from marketsim.types import *
 
 template = """
+@registry.expose('%(alias)s')
 class %(name)s(object):    
 
     def __init__(self, %(init)s):
@@ -32,8 +33,6 @@ class %(name)s(object):
         for k in %(name)s._properties:
             rv += (k + "=" + str(self.__dict__[k]) + ",")
         return rv[:-1] + ")"
-        
-registry.insert(%(name)s(), '%(alias)s')
 """
     
 def wrapper(name, alias, fields, rvtype='float'):

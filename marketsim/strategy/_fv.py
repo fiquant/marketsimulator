@@ -95,7 +95,7 @@ class _Dependency_Impl(FundamentalValueBase):
         return self._priceToDependOn        
 
 exec wrapper("Dependency", 
-             [('bookToDependOn','orderbook.local_B',            'IOrderBook'),
-              ('orderFactory',  'order.Market.T',               'Side -> Volume -> IOrder'),
-              ('factor',        '1.',                           'positive'),
-              ('volumeDistr',   'mathutils.rnd.expovariate(.1)','() -> Volume')])
+             [('bookToDependOn','orderbook.Local(label="Asset B")', 'IOrderBook'),
+              ('orderFactory',  'order.Market.T',                   'Side -> Volume -> IOrder'),
+              ('factor',        '1.',                               'positive'),
+              ('volumeDistr',   'mathutils.rnd.expovariate(.1)',    '() -> Volume')])

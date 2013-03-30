@@ -15,8 +15,12 @@ app.secret_key = 'A0Zr98j/8769876IUOYOHOA0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 with scheduler.create() as world:
     
-    book_A = orderbook.local_A
-    book_B = orderbook.local_B
+    for s in registry.startup:
+        s(registry.instance)
+    
+
+    book_A = orderbook.Local(tickSize=0.01, label="Asset A")
+    registry.instance.insert(book_A)
     remote_A = orderbook.Remote(book_A, 
                                 remote.TwoWayLink(
                                     remote.Link(mathutils.rnd.expovariate(1)), 
