@@ -47,7 +47,7 @@ class CSV(file):
     """ Represents a time serie to be written into a file 
     """
     
-    def __init__(self, directory, filename, source, label, attributes={}, sched = None):
+    def __init__(self, directory, filename, source, label, attributes={}):
         """ Initializes time serie writer
         filename - name of a file to write to 
         source - indicator with values to be saved
@@ -56,8 +56,7 @@ class CSV(file):
         self._fullname = directory + filename
         self._filename = filename
         self._label = label
-        if sched is None:
-            sched = scheduler.current()
+        sched = scheduler.current()
         
         self._source = source
         

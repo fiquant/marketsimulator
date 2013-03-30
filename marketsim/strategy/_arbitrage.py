@@ -11,7 +11,7 @@ class _Arbitrage_Impl(Strategy):
         """
         Strategy.__init__(self, trader)
         
-        sched = scheduler.current() if params.sched is None else params.sched 
+        sched = scheduler.current() 
         
         books = trader.orderBooks
         

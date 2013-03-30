@@ -5,10 +5,10 @@ class Link(object):
     """ Ensures that sending packets via a link preserves their order
     """
     
-    def __init__(self, latency=mathutils.constant(0.001), sched = None):
+    def __init__(self, latency=mathutils.constant(0.001)):
         """ Initializes the link with a latency function
         """
-        self._scheduler = sched if sched else scheduler.current() 
+        self._scheduler = scheduler.current() 
         self.latency = latency
         self.reset()
         

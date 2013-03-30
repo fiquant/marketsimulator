@@ -2,9 +2,9 @@ from marketsim import scheduler, meta, types
 
 class TimeSerie(object):
     
-    def __init__(self, source, label, sched = None):
+    def __init__(self, source, label):
         self.label = label
-        self._sched = scheduler.current() if sched is None else sched
+        self._sched = scheduler.current()
         self._source = source
         self._source.advise(self._wakeUp)
         self.reset()
