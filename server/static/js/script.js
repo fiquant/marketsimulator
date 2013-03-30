@@ -332,7 +332,7 @@ function AppViewModel() {
 				}
 				self.running(self.running() - 1);
 			}).fail(function (data) { 
-				self.errorMessage(data.responseText); 
+				document.documentElement.innerHTML = data.responseText; 
 			});
 		}
 		run();
@@ -341,7 +341,7 @@ function AppViewModel() {
 		$.post('/reset', function (data) {
 			self.processResponse($.parseJSON(data), true); 
 		}).fail(function (data) { 
-			self.errorMessage(data.responseText); 
+			document.documentElement.innerHTML = data.responseText; 
 		});
 	}
 };

@@ -101,8 +101,8 @@ class Registry(object):
         if type(Id) != int:
             a = 12
         assert type(Id) == int
-        if id in self._id2obj:
-            old = self._id2obj[id]
+        if Id in self._id2obj:
+            old = self._id2obj[Id]
             del old._id
             del old._referencedBy
         obj._id = Id
@@ -153,8 +153,10 @@ class Registry(object):
             # the object is supposed to be in the dictionary
             # so we just check this
             Id = obj._id
-            assert Id in self._id2obj
-            assert self._id2obj[Id] == obj
+            if Id not in self._id2obj:
+                self._insertNew(Id, obj)
+            else:
+                assert self._id2obj[Id] == obj
             return Id 
         else:
             return self._insertNew(self.getUniqueId(), obj)
