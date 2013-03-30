@@ -15,12 +15,10 @@ app.secret_key = 'A0Zr98j/8769876IUOYOHOA0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 with scheduler.create() as world:
     
-    for s in registry.startup:
-        s(registry.instance)
+    myRegistry = registry.create()
     
-
     book_A = orderbook.Local(tickSize=0.01, label="Asset A")
-    registry.instance.insert(book_A)
+    myRegistry.insert(book_A)
     remote_A = orderbook.Remote(book_A, 
                                 remote.TwoWayLink(
                                     remote.Link(mathutils.rnd.expovariate(1)), 
@@ -29,7 +27,7 @@ with scheduler.create() as world:
     def register(annotated_objects):
         for obj, alias in annotated_objects:
             obj._alias = alias
-            registry.instance.insert(obj)
+            myRegistry.insert(obj)
             
     register([
               (signal.RandomWalk(), "Random walk"),
@@ -133,16 +131,16 @@ with scheduler.create() as world:
     addToGraph(traders)
     
     for t in traders + [t_A] + [price_graph, eff_graph, trend_graph, pnl_graph, volume_graph]:
-        registry.instance.insert(t)
+        myRegistry.insert(t)
     
     fv_200 = trader_200.strategies[0]
     
     def new(name, fields):
-        return registry.instance.createFromMeta(registry.instance.getUniqueId(), 
+        return myRegistry.createFromMeta(myRegistry.getUniqueId(), 
                                                 [name, fields])
 
     def setAttr(obj, name, value):
-        registry.instance.setAttr(registry.instance.insert(obj), name, value)
+        myRegistry.setAttr(myRegistry.insert(obj), name, value)
     
     c = new('marketsim.mathutils.constant', {'value': '50.0'})
 
@@ -153,18 +151,18 @@ with scheduler.create() as world:
     setAttr(avg_plus.strategies[0], 'average1', new('marketsim.mathutils.ewma', {'alpha' : 0.15 }))
     setAttr(virtual_160.strategies[0], 'estimator', strategy.virtualWithUnitVolume)
 
-    registry.instance.insert(Side.Sell)
-    registry.instance.insert(Side.Buy)    
-    registry.instance.insert(world)
+    myRegistry.insert(Side.Sell)
+    myRegistry.insert(Side.Buy)    
+    myRegistry.insert(world)
     
-    root = registry.instance.insert(registry.createSimulation())
+    root = myRegistry.insert(registry.createSimulation(myRegistry))
     
     def _timeseries():
-        return [(k,v) for (k,v) in registry.instance._id2obj.iteritems()\
+        return [(k,v) for (k,v) in myRegistry._id2obj.iteritems()\
                          if type(v) == js.TimeSerie]
     
     def save_state_before_changes():
-        registry.instance.save_state_before_changes()
+        myRegistry.save_state_before_changes()
         for (_,ts) in _timeseries(): 
             ts.save_state_before_changes()
             
@@ -175,10 +173,10 @@ with scheduler.create() as world:
     def get_all():
         result = {
             "root"  :   root,
-            "objects" : registry.instance.tojsonall(),
-            "traders" : registry.instance.traders,
-            "books" : registry.instance.books,
-            "graphs" : registry.instance.graphs,
+            "objects" : myRegistry.tojsonall(),
+            "traders" : myRegistry.traders,
+            "books" : myRegistry.books,
+            "graphs" : myRegistry.graphs,
             "currentTime" : world.currentTime,
             "ts_changes" : dict([(k,v.data) for (k,v) in _timeseries()])
         }
@@ -187,7 +185,7 @@ with scheduler.create() as world:
     def changes():
         result = {
             "currentTime" : world.currentTime,
-            "changes" : registry.instance.get_changes(),
+            "changes" : myRegistry.get_changes(),
             "ts_changes" : get_ts_changes()
         }
         return json.dumps(result)
@@ -195,7 +193,7 @@ with scheduler.create() as world:
     @app.route('/reset', methods=['POST', 'GET'])
     def reset():
         save_state_before_changes()
-        registry.instance.reset()
+        myRegistry.reset()
         return changes()
     
     def run(timeout, limitTime):
@@ -212,12 +210,12 @@ with scheduler.create() as world:
         parsed = json.loads(raw)
         
         metaToCreate = {int(id) : (meta[0], meta[1]) for (id, meta) in parsed['created']}
-        registry.instance.createNewObjects(metaToCreate)
+        myRegistry.createNewObjects(metaToCreate)
         
         
         # changing fields for existing ones    
         for (id, field, value) in parsed['updates']:
-            registry.instance.setAttr(id, field, value)
+            myRegistry.setAttr(id, field, value)
         save_state_before_changes() 
         if 'limitTime' in parsed:
             limitTime = parsed['limitTime']
