@@ -2,6 +2,7 @@ from _average import ewma
 import rnd
 from marketsim import types, registry
 
+@registry.expose('Constant')
 class constant(object):
     
     def __init__(self, value=100.):
@@ -29,11 +30,10 @@ class constant(object):
     def __repr__(self):
         return "constant("+repr(self.value)+")"
 
-registry.insert(constant(), "Constant")
-
+@registry.expose('*')
 class product(object):
     
-    def __init__(self, LeftHandSide, RightHandSide):
+    def __init__(self, LeftHandSide=constant(1.), RightHandSide=constant(1.)):
         self.LeftHandSide = LeftHandSide
         self.RightHandSide = RightHandSide
         
@@ -47,12 +47,11 @@ class product(object):
     
     def __repr__(self):
         return repr(self.RightHandSide)+ "*" + repr(self.RightHandSide)
-    
-registry.insert(product(constant(1), constant(1)), alias="*")
-    
+
+@registry.expose('+')    
 class sum(object):
     
-    def __init__(self, LeftHandSide, RightHandSide):
+    def __init__(self, LeftHandSide=constant(1), RightHandSide=constant(1)):
         self.LeftHandSide = LeftHandSide
         self.RightHandSide = RightHandSide
         
@@ -66,12 +65,11 @@ class sum(object):
     
     def __repr__(self):
         return repr(self.RightHandSide)+ "+" + repr(self.RightHandSide)
-    
-registry.insert(sum(constant(1), constant(1)), alias="+")
 
+@registry.expose('/')
 class div(object):
     
-    def __init__(self, LeftHandSide, RightHandSide):
+    def __init__(self, LeftHandSide=constant(1.), RightHandSide=constant(1.)):
         self.LeftHandSide = LeftHandSide
         self.RightHandSide = RightHandSide
         
@@ -85,12 +83,11 @@ class div(object):
     
     def __repr__(self):
         return repr(self.RightHandSide)+ "/" + repr(self.RightHandSide)
-    
-registry.insert(div(constant(1), constant(1)), alias="/")
-    
+
+@registry.expose('-')    
 class sub(object):
     
-    def __init__(self, LeftHandSide, RightHandSide):
+    def __init__(self, LeftHandSide=constant(1), RightHandSide=constant(1)):
         self.LeftHandSide = LeftHandSide
         self.RightHandSide = RightHandSide
         
@@ -104,7 +101,5 @@ class sub(object):
     
     def __repr__(self):
         return repr(self.RightHandSide)+ "-" + repr(self.RightHandSide)
-    
-registry.insert(sub(constant(1), constant(1)), alias="-")
 
     

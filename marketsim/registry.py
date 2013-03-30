@@ -433,28 +433,25 @@ class Registry(object):
             visit(k_id)
             
         return rv
-    
+
+startup = []    
 instance = Registry()                
          
         
 def expose(alias, constructor=None):
     def inner(f):
-        f._constructAs = constructor if constructor else f.__module__ + "." + f.__name__
-        f._alias = alias
-        instance.insert(f)
+        if inspect.isfunction(f):
+            f._constructAs = constructor if constructor else f.__module__ + "." + f.__name__
+            f._alias = alias
+            startup.append(lambda instance: instance.insert(f))
+        if inspect.isclass(f):
+            def inner(instance):
+                obj = f()
+                obj._alias = alias
+                instance.insert(obj)
+            startup.append(inner)
         return f
     return inner
-        
-def insert(obj, alias=None):
-    if alias is not None:
-        obj._alias = alias
-    return instance.insert(obj)
-    
-def dump(objId):
-    return instance.dump(objId)
-    
-def dumpall():
-    return instance.dumpall()
 
 class Simulation(object):
     

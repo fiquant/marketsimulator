@@ -99,6 +99,7 @@ class WithExpiry(Base):
 
 LimitOrderFactorySignature = meta.function((types.Side,), meta.function((types.Price, types.Volume), types.IOrder))
 
+@registry.expose('WithExpiry')
 class WithExpiryFactory(object):
     
     def __init__(self, expirationDistr=mathutils.constant(10), orderFactory = Limit.T):
@@ -114,5 +115,3 @@ class WithExpiryFactory(object):
         def inner(price, volume):
             return WithExpiry(self.orderFactory(side)(price, volume), self.expirationDistr())
         return inner
-    
-registry.insert(WithExpiryFactory(), 'WithExpiry')

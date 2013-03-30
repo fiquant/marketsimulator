@@ -12,6 +12,8 @@ class BookBase(types.IOrderBook):
         self._queues[self._bids.side.id] = self._bids
         self._queues[self._asks.side.id] = self._asks
         self.label = label
+        if label != "":
+            self._alias = label
         self.on_price_changed = Event()
         self._bids.on_best_changed += self.on_price_changed.fire
         self._asks.on_best_changed += self.on_price_changed.fire

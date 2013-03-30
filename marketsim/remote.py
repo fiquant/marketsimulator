@@ -31,9 +31,7 @@ class Link(object):
 
 class TwoWayLink(object):
     
-    def __init__(self, 
-                 up = Link(), 
-                 down = Link()):
+    def __init__(self, up, down):
         
         self.up = up
         self.down = down
