@@ -12,10 +12,9 @@ const = mathutils.constant
 app = Flask(__name__)
 app.secret_key = 'A0Zr98j/8769876IUOYOHOA0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
+myRegistry = registry.create()
 
 with scheduler.create() as world:
-    
-    myRegistry = registry.create()
     
     book_A = orderbook.Local(tickSize=0.01, label="Asset A")
     myRegistry.insert(book_A)
@@ -157,55 +156,55 @@ with scheduler.create() as world:
     
     root = myRegistry.insert(registry.createSimulation(myRegistry))
     
-    def _timeseries():
-        return [(k,v) for (k,v) in myRegistry._id2obj.iteritems()\
-                         if type(v) == js.TimeSerie]
-    
-    def save_state_before_changes():
-        myRegistry.save_state_before_changes()
-        for (_,ts) in _timeseries(): 
-            ts.save_state_before_changes()
-            
-    def get_ts_changes():
-        return dict([(k, v.get_changes()) for (k,v) in _timeseries()])
-    
-    @app.route('/all')
-    def get_all():
+def _timeseries(myRegistry):
+    return [(k,v) for (k,v) in myRegistry._id2obj.iteritems()\
+                     if type(v) == js.TimeSerie]
+
+def save_state_before_changes(myRegistry):
+    myRegistry.save_state_before_changes()
+    for (_,ts) in _timeseries(myRegistry): 
+        ts.save_state_before_changes()
+        
+def get_ts_changes(myRegistry):
+    return dict([(k, v.get_changes()) for (k,v) in _timeseries(myRegistry)])
+
+@app.route('/all')
+def get_all():
+    with world: 
         result = {
             "root"  :   root,
             "objects" : myRegistry.tojsonall(),
-            "traders" : myRegistry.traders,
-            "books" : myRegistry.books,
-            "graphs" : myRegistry.graphs,
             "currentTime" : world.currentTime,
-            "ts_changes" : dict([(k,v.data) for (k,v) in _timeseries()])
+            "ts_changes" : dict([(k,v.data) for (k,v) in _timeseries(myRegistry)])
         }
         return json.dumps(result)
-    
-    def changes():
-        result = {
-            "currentTime" : world.currentTime,
-            "changes" : myRegistry.get_changes(),
-            "ts_changes" : get_ts_changes()
-        }
-        return json.dumps(result)
-    
-    @app.route('/reset', methods=['POST', 'GET'])
-    def reset():
-        save_state_before_changes()
+
+def changes(world, myRegistry):
+    result = {
+        "currentTime" : world.currentTime,
+        "changes" : myRegistry.get_changes(),
+        "ts_changes" : get_ts_changes(myRegistry)
+    }
+    return json.dumps(result)
+
+@app.route('/reset', methods=['POST', 'GET'])
+def reset():
+    with world: 
+        save_state_before_changes(myRegistry)
         myRegistry.reset()
         return changes()
+
+def run(world, timeout, limitTime):
+    t0 = time.clock()
+    while time.clock() - t0 < timeout:
+        if not world.step(limitTime):
+            world.workTill(limitTime)
+            return
     
-    def run(timeout, limitTime):
-        t0 = time.clock()
-        while time.clock() - t0 < timeout:
-            if not world.step(limitTime):
-                world.workTill(limitTime)
-                return
-        
-    
-    @app.route('/update', methods=['POST'])
-    def update():
+
+@app.route('/update', methods=['POST'])
+def update():
+    with world: 
         raw = request.form.iterkeys().__iter__().next()
         parsed = json.loads(raw)
         
@@ -216,15 +215,16 @@ with scheduler.create() as world:
         # changing fields for existing ones    
         for (id, field, value) in parsed['updates']:
             myRegistry.setAttr(id, field, value)
-        save_state_before_changes() 
-        if 'limitTime' in parsed:
-            limitTime = parsed['limitTime']
-            timeout = parsed["timeout"]
-            run(timeout, limitTime)
-        return changes()
-    
-    @app.route('/')
-    def index():
-        return render_template('index.html')
+            
+    save_state_before_changes(myRegistry) 
+    if 'limitTime' in parsed:
+        limitTime = parsed['limitTime']
+        timeout = parsed["timeout"]
+        run(world, timeout, limitTime)
+    return changes(world, myRegistry)
 
-    app.run(debug=True, use_reloader=False, threaded=True)
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+app.run(debug=True, use_reloader=False, threaded=True)
