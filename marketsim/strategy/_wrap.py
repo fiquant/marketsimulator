@@ -9,8 +9,7 @@ template = """
 class %(name)s(object):
     
     def __init__(self, %(init)s, label=None):
-        from marketsim.registry import uniqueName
-        self.label = uniqueName('%(name)s') if label is None else label
+        self.label = label
         self._constructAs = 'marketsim.strategy.%(name)s'
         %(dict_)s
         self._impl = None

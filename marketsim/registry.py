@@ -5,6 +5,8 @@ from functools import reduce
 
 from marketsim import Side, meta, types, js
 
+startup = []    
+
 def properties_t(cls):
     
     rv = {}
@@ -83,7 +85,9 @@ class Registry(object):
         self._id2obj = dict() #weakref.WeakValueDictionary()
         self._counter = 0
         self._id2savedfields = {}
-        
+        for s in startup:
+            s(self)
+                
     def _findAlias(self, obj):
         t = type(obj)
         if '_alias' in dir(obj):
@@ -434,10 +438,6 @@ class Registry(object):
             
         return rv
 
-startup = []    
-instance = Registry()                
-         
-        
 def expose(alias, constructor=None):
     def inner(f):
         if inspect.isfunction(f):
@@ -478,7 +478,7 @@ class Simulation(object):
             
         self._traders = newtraders
 
-def createSimulation():
+def createSimulation(instance):
     traders = instance.valuesOfType("marketsim.trader.")
     for trader in traders:
         trader.run()
@@ -486,22 +486,5 @@ def createSimulation():
     graphs = instance.valuesOfType("marketsim.js.Graph")
     return Simulation(traders, orderbooks, graphs)
 
-# Naming service
-
-uniqueNames = dict()
-
-def uniqueName(s):
-    base, _, suffix = s.rpartition("#")
-    if base == "":
-        base = suffix
-        suffix = ""
-    sbase = base.strip()
-    if sbase not in uniqueNames:
-        uniqueNames[sbase] = set()
-        return s
-    ssuffix = suffix.strip()
-    usednames = uniqueNames[sbase]
-    if ssuffix in usednames or ssuffix == "":
-        suffix = ssuffix = str(len(usednames))
-    usednames.add(ssuffix)
-    return base + "#" + suffix
+def create():
+    return Registry()
