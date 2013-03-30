@@ -65,7 +65,7 @@ class LimitMarket(Base):
 
 class WithExpiry(Base):
     
-    def __init__(self, order, delay):
+    def __init__(self, order, delay, sched):
         """ Initializes order with 'price' and 'volume'
         'limitOrderFactory' tells how to create limit orders
         """
@@ -75,7 +75,7 @@ class WithExpiry(Base):
         self._order = order
         # translate its events to our listeners
         self._order.on_matched += self.on_matched.fire
-        self._scheduler = scheduler.current()
+        self._scheduler = sched
         
     def processIn(self, orderBook):
         orderBook.process(self._order)
@@ -98,6 +98,7 @@ class WithExpiryFactory(object):
     def __init__(self, expirationDistr=mathutils.constant(10), orderFactory = Limit.T):
         self.expirationDistr = expirationDistr
         self.orderFactory = orderFactory
+        self._scheduler = scheduler.current()
         
     _types = [LimitOrderFactorySignature]
         
@@ -106,5 +107,5 @@ class WithExpiryFactory(object):
         
     def __call__(self, side):
         def inner(price, volume):
-            return WithExpiry(self.orderFactory(side)(price, volume), self.expirationDistr())
+            return WithExpiry(self.orderFactory(side)(price, volume), self.expirationDistr(), self._scheduler)
         return inner
