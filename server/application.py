@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 import sys, json, time
 sys.path.append(r'..')
 
@@ -8,6 +8,10 @@ from marketsim import (strategy, orderbook, trader, order, js, signal, remote,
 from marketsim.types import Side
 
 const = mathutils.constant
+
+app = Flask(__name__)
+app.secret_key = 'A0Zr98j/8769876IUOYOHOA0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+
 
 with scheduler.create() as world:
     
@@ -21,7 +25,7 @@ with scheduler.create() as world:
     def register(annotated_objects):
         for obj, alias in annotated_objects:
             obj._alias = alias
-            registry.insert(obj)
+            registry.instance.insert(obj)
             
     register([
               (signal.RandomWalk(), "Random walk"),
@@ -125,12 +129,16 @@ with scheduler.create() as world:
     addToGraph(traders)
     
     for t in traders + [t_A] + [price_graph, eff_graph, trend_graph, pnl_graph, volume_graph]:
-        registry.insert(t)
+        registry.instance.insert(t)
     
     fv_200 = trader_200.strategies[0]
     
-    new = registry.new
-    setAttr = registry.setAttr
+    def new(name, fields):
+        return registry.instance.createFromMeta(registry.instance.getUniqueId(), 
+                                                [name, fields])
+
+    def setAttr(obj, name, value):
+        registry.instance.setAttr(registry.instance.insert(obj), name, value)
     
     c = new('marketsim.mathutils.constant', {'value': '50.0'})
 
@@ -141,23 +149,11 @@ with scheduler.create() as world:
     setAttr(avg_plus.strategies[0], 'average1', new('marketsim.mathutils.ewma', {'alpha' : 0.15 }))
     setAttr(virtual_160.strategies[0], 'estimator', strategy.virtualWithUnitVolume)
 
-    registry.insert(Side.Sell)
-    registry.insert(Side.Buy)    
-    registry.insert(world)
+    registry.instance.insert(Side.Sell)
+    registry.instance.insert(Side.Buy)    
+    registry.instance.insert(world)
     
-    root = registry.insert(registry.createSimulation())
-    
-    app = Flask(__name__)
-    
-    @app.route('/obj/<int:obj_id>')
-    def get_object(obj_id):
-        return json.dumps(registry.instance.tojson(obj_id))
-    
-    @app.route('/timeserie/<int:serie_id>')
-    def get_timeserie(serie_id):
-        x = registry.instance.get(serie_id)
-        assert type(x) == js.TimeSerie
-        return json.dumps(x.data)
+    root = registry.instance.insert(registry.createSimulation())
     
     def _timeseries():
         return [(k,v) for (k,v) in registry.instance._id2obj.iteritems()\
@@ -229,4 +225,4 @@ with scheduler.create() as world:
     def index():
         return render_template('index.html')
 
-    app.run(debug=True, use_reloader=False)
+    app.run(debug=True, use_reloader=False, threaded=True)

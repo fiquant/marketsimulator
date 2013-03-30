@@ -33,5 +33,5 @@ with scheduler.create() as world:
     
     world.workTill(500)
     
-    veusz.render("fv_200_trader", [price_graph, eff_graph])
+    veusz.render("noise_trader", [price_graph, eff_graph])
     

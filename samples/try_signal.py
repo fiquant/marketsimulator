@@ -2,7 +2,7 @@ import sys
 sys.path.append(r'..')
 
 from marketsim import (signal, strategy, trader, orderbook, 
-                       scheduler, observable, veusz, registry)
+                       scheduler, observable, veusz)
 
 with scheduler.create() as world:
     
@@ -13,7 +13,6 @@ with scheduler.create() as world:
     assetPrice = observable.Price(book_A)
     
     avg = observable.avg
-    
     
     lp_A = trader.SASM(book_A, strategy = strategy.LiquidityProvider(volumeDistr=lambda:1))
     signal = signal.RandomWalk(initialValue=20, deltaDistr=lambda: -.1, label="signal")
