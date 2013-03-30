@@ -30,26 +30,19 @@ class LimitMarket(Base):
     TBD: Cancelable order having delay and sched not None  
     """
     
-    def __init__(self, side, price, volume, delay=None, sched=None):
+    def __init__(self, side, price, volume):
         """ Initializes order with 'price' and 'volume'
         'limitOrderFactory' tells how to create limit orders
         """
         Base.__init__(self, side, volume)
-        self._delay = delay
         # we create a limit order
         self._order = Limit(side, price, volume)
         # translate its events to our listeners
         self._order.on_matched += self.on_matched.fire
-        self._scheduler = sched if sched else scheduler.current()
         
     def processIn(self, orderBook):
         orderBook.process(self._order)
-        cancel = lambda: orderBook.process(Cancel(self._order))
-         
-        if self._delay is None: 
-            cancel()
-        else:
-            self._scheduler.scheduleAfter(self._delay, cancel)
+        orderBook.process(Cancel(self._order))
         
     @property 
     def volume(self):
