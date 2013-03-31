@@ -11,8 +11,6 @@ eff_graph = veusz.Graph("efficiency")
 
 N = 10
 
-worlds = [scheduler.create() for i in range(N)]
-
 def createSimulation(world, i):
     global price_graph, spread_graph, eff_graph
     
@@ -45,11 +43,13 @@ def createSimulation(world, i):
         
         eff_graph += [observable.Efficiency(lp_a),
                       observable.PnL(lp_a)]
+        
+def createJob(i):
+    world = scheduler.create()
+    createSimulation(world, str(i))
+    world.workTill(500)
 
-for i in range(N):
-    createSimulation(worlds[i], str(i))
-
-threads = [threading.Thread(target=world.workTill, args=(500,)) for world in worlds]
+threads = [threading.Thread(target=createJob, args=(i,)) for i in range(N)]
 
 for t in threads:
     t.start()
@@ -57,4 +57,4 @@ for t in threads:
 for t in threads:
     t.join()
 
-veusz.render("liquidity", [price_graph, spread_graph, eff_graph])
+veusz.render("threading", [price_graph, spread_graph, eff_graph])
