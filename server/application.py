@@ -204,7 +204,8 @@ def reset():
 
 def run(world, timeout, limitTime):
     t0 = time.clock()
-    while time.clock() - t0 < timeout:
+    world._to_be_stopped = False
+    while time.clock() - t0 < timeout and not world._to_be_stopped:
         if not world.step(limitTime):
             world.workTill(limitTime)
             return
@@ -232,6 +233,12 @@ def update():
         timeout = parsed["timeout"]
         run(world, timeout, limitTime)
     return changes(world, myRegistry)
+
+@app.route('/stop', methods=['POST'])
+def stop():
+    _,_, world = inmemory[session[KEY]]
+    world._to_be_stopped = True
+    return ""
 
 @app.route('/')
 def index():

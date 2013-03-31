@@ -119,7 +119,7 @@
 		<span data-bind="html: errorMessage"></span>
 		<button data-bind="click: submitChanges, enable: enabled">Run</button>	
 		<button data-bind="click: reset, enable: enabled">Reset</button>	
-		<button data-bind="click: function () { toBeStopped = true; }, enable: running">Stop</button>	
+		<button data-bind="click: stop, enable: running">Stop</button>	
 		<!-- <a data-bind="text: changes"></a> -->
 		Advance: <input data-bind="value: advance" />
 		Update interval: <input data-bind="value: updateInterval" />

@@ -304,6 +304,11 @@ function AppViewModel() {
 	})
 	self.toBeStopped = false;
 	
+	self.stop = function () {
+		$.post('/stop');
+		self.toBeStopped = true;
+	}
+	
 	
     self.renderGraph1d = function (elem, graph) { graph().render(elem); }
     
