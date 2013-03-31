@@ -1,4 +1,4 @@
-import heapq
+import heapq, threading
 from marketsim import Event, meta
 
 """ Module for managing discrete event simulation. 
@@ -35,6 +35,7 @@ class _EventHandler(object):
     
 # Scheduler singleton. Initialized once Scheduler instance is created
 _instance = None
+_lock = threading.Lock()
 
 class Scheduler(object):
     """ Keeps a set of events to be launched in the future
@@ -45,6 +46,7 @@ class Scheduler(object):
 
     def __enter__(self):
         global _instance
+        _lock.acquire()
         assert _instance == None
         _instance = self
         return self
@@ -53,6 +55,7 @@ class Scheduler(object):
         global _instance
         assert _instance==self
         _instance = None
+        _lock.release()
         
     def _reset(self):
         """ Resets scheduler to the initial state: empty event set and T=0
