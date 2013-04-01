@@ -83,21 +83,21 @@ function Graph(source, root) {
 	/**
 	 *	Returns an array of TimeSerie instances held by the graph 
 	 */
-	self.data = ko.computed(function () {
+	self.series = ko.computed(function () {
 		var timeseries = source.fields()[0].impl().elements();
 		return map(timeseries, function (timeserie) {
 			return root.id2obj.lookup(timeserie.impl().pointee().uniqueId());
 		});
 	});
 	
-	self.data_to_render = ko.computed(function () {
-		return map(self.data(), function (ts) {
+	self.asFlotr = ko.computed(function () {
+		return map(self.series(), function (ts) {
 			return ts.visible() ? { 'data' : ts.getData(), 'label' : ts.alias() } : {};
 		});		
 	})
 	
 	self.empty = ko.computed(function () {
-		return all(self.data(), function (timeserie) {
+		return all(self.series(), function (timeserie) {
 			return timeserie.empty();
 		});
 	});
@@ -114,8 +114,6 @@ function Graph(source, root) {
 var makeGraph = Graph;
 
 ko.bindingHandlers.flotr = {
-    init:function (element, valueAccessor, allBindingsAccessor, viewModel) {
-    },
     update:function (element, valueAccessor, allBindingsAccessor, viewModel) {
     	
 		var data = ko.utils.unwrapObservable(valueAccessor());
