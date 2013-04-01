@@ -92,7 +92,7 @@ function Graph(source, root) {
 	
 	self.asFlotr = ko.computed(function () {
 		return map(self.series(), function (ts) {
-			return ts.visible() ? { 'data' : ts.getData(), 'label' : ts.alias() } : {};
+			return ts.visible() ? { 'data' : ts.getData(), 'label' : ts.alias(), 'name': ts.alias() } : {};
 		});		
 	})
 	
@@ -126,6 +126,36 @@ ko.bindingHandlers.flotr = {
                 backgroundColor : '#D2E8FF' // A light blue background color.
             },
             HtmlText : false
+        });
+    }
+}
+
+ko.bindingHandlers.highstock = {
+    update:function (element, valueAccessor, allBindingsAccessor, viewModel) {
+    	
+		var data = ko.utils.unwrapObservable(valueAccessor());
+        
+        element.style.width = '1700px'; //self.graphSizeX()+'px';
+        element.style.height = '800px'; //self.graphSizeY()+'px';
+        new Highcharts.StockChart({
+        	chart: {
+        		renderTo: element.id,
+        		type: 'line',
+        		animation: false
+        	},
+        	series: data,
+		    rangeSelector: {
+		    	enabled: false
+		    },	        
+	        xAxis: {        
+	            labels: {
+	                format: '{value}'
+	            }
+	        },
+	        legend: {
+	        	enabled: true
+	        }
+        	
         });
     }
 }
