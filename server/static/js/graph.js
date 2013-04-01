@@ -90,6 +90,12 @@ function Graph(source, root) {
 		});
 	});
 	
+	self.data_to_render = ko.computed(function () {
+		return map(self.data(), function (ts) {
+			return ts.visible() ? { 'data' : ts.getData(), 'label' : ts.alias() } : {};
+		});		
+	})
+	
 	self.empty = ko.computed(function () {
 		return all(self.data(), function (timeserie) {
 			return timeserie.empty();
@@ -105,47 +111,23 @@ function Graph(source, root) {
 	return self;
 }
 
-function GraphRenderer(source) {
-	var self = this;
-	
-	self.empty = ko.computed(function () {
-		return source.empty();
-	});
-	
-	self.alias = ko.computed(function () {
-		return source.alias();
-	});
-	
-	self.data = source.data;
-	
-	self.render = function (elem) {
-		
-    	if (self.empty()) {
-    		return;
-    	}
-    	
-		var data = map(source.data(), function (ts) {
-			return ts.visible() ? { 'data' : ts.getData(), 'label' : ts.alias() } : {};
-		});
-        
-        for (var i=0; i<elem.length; i++) {
-            var e = elem[i];
-            if (e.nodeType==1) {
-                var ee = firstChild(firstChild(firstChild(firstChild(e))));
-                ee.style.width = '1700px'; //self.graphSizeX()+'px';
-                ee.style.height = '800px'; //self.graphSizeY()+'px';
-                Flotr.draw(ee, data, {
-                    legend : {
-                        position : 'se',            // Position the legend 'south-east'.
-                        backgroundColor : '#D2E8FF' // A light blue background color.
-                    },
-                    HtmlText : false
-                });
-            }
-        }		
-	}
-	
-}
-
 var makeGraph = Graph;
 
+ko.bindingHandlers.flotr = {
+    init:function (element, valueAccessor, allBindingsAccessor, viewModel) {
+    },
+    update:function (element, valueAccessor, allBindingsAccessor, viewModel) {
+    	
+		var data = ko.utils.unwrapObservable(valueAccessor());
+        
+        element.style.width = '1700px'; //self.graphSizeX()+'px';
+        element.style.height = '800px'; //self.graphSizeY()+'px';
+        Flotr.draw(element, data, {
+            legend : {
+                position : 'se',            // Position the legend 'south-east'.
+                backgroundColor : '#D2E8FF' // A light blue background color.
+            },
+            HtmlText : false
+        });
+    }
+}

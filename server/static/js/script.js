@@ -250,17 +250,9 @@ function AppViewModel() {
 	})
 	
 	self.graphs = ko.computed(function () {
-		var dummy = self.updategraph();
 		var fieldGraphs = self.root().lookupField('graphs');
 		return map(fieldGraphs.impl().elements(), function (g) {
-			var graph = ko.observable(new GraphRenderer(g.impl().pointee()));
-			function invalidate() {
-				graph.valueHasMutated();
-			}
-			foreach(graph.peek().data(), function (ts_instance) {
-				ts_instance.visible.subscribe(invalidate);
-			})
-			return graph;
+			return g.impl().pointee();
 		});
 	})
 	

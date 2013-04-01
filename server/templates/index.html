@@ -127,12 +127,12 @@
 			<tr data-bind="template: { name: 'renderEntities', foreach: entities }">
 			</tr>
 		</table>
-	  <div data-bind="template: { foreach: graphs, afterRender: renderGraph1d }">
+	  <div data-bind="template: { foreach: graphs }">
 	  	<!-- ko if: !$data.empty() -->
 	    <table class="graph1d">
           <tr>
 	        <td>
-	          <div data-bind="attr: { id: $index }">
+	          <div data-bind="flotr: $data.data_to_render()">
 	          </div>
 	        </td>
 	        <td>
