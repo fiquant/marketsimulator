@@ -128,16 +128,16 @@
 			</tr>
 		</table>
 	  <div data-bind="template: { foreach: graphs }">
-	  	<!-- ko if: !$data.empty() -->
+	  	<!-- ko ifnot: empty -->
 	    <table class="graph1d">
           <tr>
 	        <td>
-	          <div data-bind="flotr: $data.data_to_render()">
+	          <div data-bind="flotr: asFlotr">
 	          </div>
 	        </td>
 	        <td>
-			    <h4 data-bind="text: $data.alias()"></h4>
-	        	<table data-bind="foreach: $data.data()">
+			    <h4 data-bind="text: alias"></h4>
+	        	<table data-bind="foreach: series">
 	        		<tr>
 	        			<td>
 		        			<input type="checkbox" data-bind="checked: visible"/>
