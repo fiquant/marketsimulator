@@ -123,6 +123,7 @@
 		<!-- <a data-bind="text: changes"></a> -->
 		Advance: <input data-bind="value: advance" />
 		Update interval: <input data-bind="value: updateInterval" />
+		<select data-bind="options: graphRenderers, value: currentRenderer"></select>
 		<table>
 			<tr data-bind="template: { name: 'renderEntities', foreach: entities }">
 			</tr>
@@ -130,9 +131,9 @@
 	  <div data-bind="template: { foreach: graphs }">
 	  	<!-- ko ifnot: empty -->
 	    <table class="graph1d">
-          <tr>
+          <tr data-bind="if: $root.currentRenderer() == 'Flotr2'">
 	        <td>
-	          <div data-bind="attr: { id: $index }, highstock: asFlotr">
+	          <div data-bind="flotr: asFlotr">
 	          </div>
 	        </td>
 	        <td>
@@ -145,6 +146,12 @@
 	        			<td data-bind="text: alias"></td>
 	        		</tr>
 	        	</table>
+	        </td>
+	      </tr>
+          <tr data-bind="if: $root.currentRenderer() == 'HighStocks'">
+	        <td>
+	          <div data-bind="attr: { id: $index }, highstocks: asFlotr">
+	          </div>
 	        </td>
 	      </tr>
 	    </table>

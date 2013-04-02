@@ -2,8 +2,8 @@
    font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
-select {
-   width: 100%; 
+td select {
+   float: right; 
 }
 
 td {

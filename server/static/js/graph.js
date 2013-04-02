@@ -130,7 +130,7 @@ ko.bindingHandlers.flotr = {
     }
 }
 
-ko.bindingHandlers.highstock = {
+ko.bindingHandlers.highstocks = {
     update:function (element, valueAccessor, allBindingsAccessor, viewModel) {
     	
 		var data = ko.utils.unwrapObservable(valueAccessor());
