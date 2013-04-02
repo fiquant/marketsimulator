@@ -101,27 +101,14 @@ function Ids2Objs() {
 	}
 }
 
-function arrayController(array) {
-	return {
-		remove : function (element) {
-			array.remove(element);
-		},
-		canBeRemoved : ko.computed(function () {
-			return array().length > 1;
-		}),
-		duplicate : function (element) {
-			array.push(element.clone(this));
-		}
-	}
-}
-
-
-
 function AppViewModel() {
 	var self = this;
 	self.advance = ko.observable(500);
 	self.response = ko.observable("");
 	self.response(alldata());
+	
+	self.graphRenderers = ["Flotr2", "HighStocks"];
+	self.currentRenderer = ko.observable(self.graphRenderers[0]);
 
 	self.id2obj = new Ids2Objs();	
 	
