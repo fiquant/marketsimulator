@@ -120,13 +120,27 @@ function Graph(source, root) {
 
 var makeGraph = Graph;
 
+function viewport()
+{
+	var e = window
+	  , a = 'inner';
+	if ( !( 'innerWidth' in window ) )
+	{
+		a = 'client';
+		e = document.documentElement || document.body;
+	}
+	return { width : e[ a+'Width' ] , height : e[ a+'Height' ] }
+}
+
 ko.bindingHandlers.flotr = {
     update:function (element, valueAccessor, allBindingsAccessor, viewModel) {
     	
 		var data = ko.utils.unwrapObservable(valueAccessor());
+		var metrics = viewport();
         
-        element.style.width = '1700px'; //self.graphSizeX()+'px';
-        element.style.height = '800px'; //self.graphSizeY()+'px';
+        element.style.width = Math.round(metrics.width*0.89)+'px';
+        element.style.height = Math.round(metrics.height*0.9)+'px';
+        
         Flotr.draw(element, data, {
             legend : {
                 position : 'se',            // Position the legend 'south-east'.
@@ -141,57 +155,36 @@ ko.bindingHandlers.highstocks = {
     update:function (element, valueAccessor, allBindingsAccessor, viewModel) {
     	
 		var data = ko.utils.unwrapObservable(valueAccessor());
-        
-        if (false && viewModel._highstocks) {
-        	 foreach (data, function (serie) {
-        	 	var src = serie.source;
-        	 	var original = src.getData();
-        	 	for (var idx = src._lastLength; idx < original.length; idx++) {
-        	 		src._highstock.addPoint(original[idx], false);
-        	 	}
-        	 });
-        	 viewModel._highstocks.redraw();
-        } else {
-	        element.style.width = '1700px'; //self.graphSizeX()+'px';
-	        element.style.height = '800px'; //self.graphSizeY()+'px';
-	        new Highcharts.StockChart({
-	        	chart: {
-	        		renderTo: element.id,
-	        		type: 'line',
-	        		animation: false
-	        	},
-	        	series: data,
-			    rangeSelector: {
-			    	enabled: false
-			    },	        
-		        xAxis: {        
-		            labels: {
-		                format: '{value}'
-		            }
-		        },
-		        legend: {
-		        	enabled: true
-		        }, 
-		        credits: {
-		        	enabled: false
-		        },
-		        plotOptions: {
-		        	line: {
-		        		dataGrouping: {
-		        			groupPixelWidth: 2,
-		        			approximation: "open"
-		        		}
-		        	}
-		        }	        	
-	        });
-	        /*foreach (viewModel._highstocks.series, function (serie, i) {
-	        	if (data[i]) {
-	        		data[i].source._highstock = serie;
+
+        new Highcharts.StockChart({
+        	chart: {
+        		renderTo: element.id,
+        		type: 'line',
+        		animation: false
+        	},
+        	series: data,
+		    rangeSelector: {
+		    	enabled: false
+		    },	        
+	        xAxis: {        
+	            labels: {
+	                format: '{value}'
+	            }
+	        },
+	        legend: {
+	        	enabled: true
+	        }, 
+	        credits: {
+	        	enabled: false
+	        },
+	        plotOptions: {
+	        	line: {
+	        		dataGrouping: {
+	        			groupPixelWidth: 2,
+	        			approximation: "open"
+	        		}
 	        	}
-	        })*/;
-        }
-        foreach (data, function (serie) {
-        	serie.source._lastLength = serie.source.getData().length;
+	        }	        	
         });
     }
 }
