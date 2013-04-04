@@ -103,6 +103,8 @@ function Ids2Objs() {
 
 function AppViewModel() {
 	var self = this;
+	self.updategraph = ko.observable(false);
+	
 	self.advance = ko.observable(500);
 	self.response = ko.observable("");
 	self.response(alldata());
@@ -205,8 +207,6 @@ function AppViewModel() {
 	self.hasError = ko.computed(function () { 
 		return self.root().hasError();
 	})
-	
-	self.updategraph = ko.observable(false);
 	
 	self.processResponse = function (data, reset) {
 		self.currentTime = data.currentTime;
