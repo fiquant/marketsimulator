@@ -89,10 +89,17 @@ function Graph(source, root) {
 			return root.id2obj.lookup(timeserie.impl().pointee().uniqueId());
 		});
 	});
-	
+		
 	self.asFlotr = ko.computed(function () {
+		var dummy = root.updategraph();
+		console.log("asFlotr for " + self.alias());
 		return map(self.series(), function (ts) {
-			return ts.visible() ? { 'data' : ts.getData(), 'label' : ts.alias(), 'name': ts.alias() } : {};
+			return ts.visible() ? { 
+				'source' : ts,
+				'data' : ts.getData.peek(), 
+				'label' : ts.alias.peek(), 
+				'name': ts.alias.peek() 
+			} : {};
 		});		
 	})
 	
@@ -135,27 +142,56 @@ ko.bindingHandlers.highstocks = {
     	
 		var data = ko.utils.unwrapObservable(valueAccessor());
         
-        element.style.width = '1700px'; //self.graphSizeX()+'px';
-        element.style.height = '800px'; //self.graphSizeY()+'px';
-        new Highcharts.StockChart({
-        	chart: {
-        		renderTo: element.id,
-        		type: 'line',
-        		animation: false
-        	},
-        	series: data,
-		    rangeSelector: {
-		    	enabled: false
-		    },	        
-	        xAxis: {        
-	            labels: {
-	                format: '{value}'
-	            }
-	        },
-	        legend: {
-	        	enabled: true
-	        }
-        	
+        if (false && viewModel._highstocks) {
+        	 foreach (data, function (serie) {
+        	 	var src = serie.source;
+        	 	var original = src.getData();
+        	 	for (var idx = src._lastLength; idx < original.length; idx++) {
+        	 		src._highstock.addPoint(original[idx], false);
+        	 	}
+        	 });
+        	 viewModel._highstocks.redraw();
+        } else {
+	        element.style.width = '1700px'; //self.graphSizeX()+'px';
+	        element.style.height = '800px'; //self.graphSizeY()+'px';
+	        new Highcharts.StockChart({
+	        	chart: {
+	        		renderTo: element.id,
+	        		type: 'line',
+	        		animation: false
+	        	},
+	        	series: data,
+			    rangeSelector: {
+			    	enabled: false
+			    },	        
+		        xAxis: {        
+		            labels: {
+		                format: '{value}'
+		            }
+		        },
+		        legend: {
+		        	enabled: true
+		        }, 
+		        credits: {
+		        	enabled: false
+		        },
+		        plotOptions: {
+		        	line: {
+		        		dataGrouping: {
+		        			groupPixelWidth: 2,
+		        			approximation: "open"
+		        		}
+		        	}
+		        }	        	
+	        });
+	        /*foreach (viewModel._highstocks.series, function (serie, i) {
+	        	if (data[i]) {
+	        		data[i].source._highstock = serie;
+	        	}
+	        })*/;
+        }
+        foreach (data, function (serie) {
+        	serie.source._lastLength = serie.source.getData().length;
         });
     }
 }

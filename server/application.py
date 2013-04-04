@@ -247,4 +247,4 @@ def index():
         inmemory[session[KEY]] = createSimulation()
     return render_template('index.html')
 
-app.run(debug=True, use_reloader=False, threaded=True)
+app.run(debug=True, use_reloader=False, threaded=True, port=80)
