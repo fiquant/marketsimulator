@@ -149,8 +149,9 @@
 	        </td>
 	      </tr>
           <tr data-bind="if: $root.currentRenderer() == 'HighStocks'">
+          	<h3 data-bind='text: alias'></h3>
 	        <td>
-	          <div data-bind="attr: { id: $index }, highstocks: asFlotr">
+	          <div style="width: 97%; height: 95%" data-bind="attr: { id: $index }, highstocks: asFlotr">
 	          </div>
 	        </td>
 	      </tr>
