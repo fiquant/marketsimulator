@@ -1,6 +1,6 @@
 from _base import Base
 from _cancel import Cancel
-from _limit import Limit
+from _limit import LimitFactory
 
 from marketsim import meta, types, registry
 
@@ -135,7 +135,7 @@ LimitOrderFactorySignature = meta.function((types.Side,), meta.function((types.P
 @registry.expose('Iceberg')
 class IcebergFactory(object):
     
-    def __init__(self, volumeLimit = 10, orderFactory = Limit.T):
+    def __init__(self, volumeLimit = 10, orderFactory = LimitFactory):
         self.volumeLimit = volumeLimit
         self.orderFactory = orderFactory
         

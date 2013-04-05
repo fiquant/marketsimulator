@@ -1,4 +1,4 @@
-from marketsim import scheduler 
+from marketsim import scheduler, Method
 from colorsys import hsv_to_rgb
 from subprocess import Popen
 import random
@@ -42,8 +42,34 @@ graphDataHeader = """
 ImportFileCSV('{0}', linked=True)
 To(Add('xy', name='{1}', autoadd=False))
 """
+
+class OutputStream(object):
+    
+    def __init__(self, filename):
+        self._filename = filename
+        self._file = None
+        
+    def reset(self):
+        if self._file: 
+            self._file.close(self)
+        self._file = file(self._filename, 'w')
+    
+    def __getstate__(self):
+        return {'filename', self._filename}
+
+    def __setstate__(self, dict):
+        self._filename = dict['_filename']
+        self._file = None
+        self.reset()
+        
+    def write(self, s):
+        self._file.write(s)
+ 
+    def flush(self):
+        self._file.flush()
+        os.fsync(self._file)       
    
-class CSV(file):
+class CSV(object):
     """ Represents a time serie to be written into a file 
     """
     
@@ -55,19 +81,13 @@ class CSV(file):
         """
         self._fullname = directory + filename
         self._filename = filename
+        self._file = OutputStream(self._fullname)
         self._label = label
-        sched = scheduler.current()
+        self._sched = scheduler.current()
         
         self._source = source
         
-        def wakeUp(_):
-            """ Called when the source has chaged
-            """
-            x = source.value
-            if x is not None: # for the moment we don't know what to do with breaks in data
-                self.write(str(sched.currentTime) + ',' + str(x) + ',\n')
-        
-        source.advise(wakeUp)
+        source.advise(self)
         
         self._attributes = {
             'xData' : "Time"+label,
@@ -82,11 +102,18 @@ class CSV(file):
             self._attributes[k] = v
             
         self.reset()
+        
+        
+    def __call__(self, _):
+        """ Called when the source has chaged
+        """
+        x = self._source.value
+        if x is not None: # for the moment we don't know what to do with breaks in data
+            self._file.write(str(self._sched.currentTime) + ',' + str(x) + ',\n')
             
     def reset(self):
-        file.close(self)
-        file.__init__(self, self._fullname, 'w')
-        self.write('Time'+self._label+','+self._label+',\n')
+        self._file.reset()
+        self._file.write('Time'+self._label+','+self._label+',\n')
         
             
     @property
@@ -98,8 +125,7 @@ class CSV(file):
     def exportToVsz(self, f):
         """ Exports time serie to Vsz file
         """
-        self.flush()
-        os.fsync(self)
+        self._file.flush()
         f.write(graphDataHeader.format(self._filename, self._label))
         for k,v in self._attributes.iteritems():
             f.write("Set('{0}', {1})\n".format(k,repr(v)))

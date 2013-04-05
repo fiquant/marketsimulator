@@ -28,7 +28,7 @@ class _LiquidityProviderSide_Impl(OneSide):
         
 exec wrapper("LiquidityProviderSide",
              [('side',                  'Side.Sell',                            'Side'),
-              ('orderFactoryT',         'order.Limit.T',                        'Side -> (Price, Volume) -> IOrder'),
+              ('orderFactoryT',         'order.LimitFactory',                   'Side -> (Price, Volume) -> IOrder'),
               ('defaultValue',          '100',                                  'Price'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
               ('priceDistr',            'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
@@ -62,7 +62,7 @@ class _LiquidityProvider_Impl(Strategy):
         self._buy.dispose()
 
 exec wrapper('LiquidityProvider',
-            [('orderFactoryT',          'order.Limit.T',                        'Side -> (Price, Volume) -> IOrder'),
+            [('orderFactoryT',          'order.LimitFactory',                   'Side -> (Price, Volume) -> IOrder'),
              ('defaultValue',           '100',                                  'Price'),
              ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
              ('priceDistr',             'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
