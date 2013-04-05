@@ -46,7 +46,7 @@ from marketsim import order, mathutils
 from marketsim.types import *
 
 exec  wrapper("FundamentalValue", 
-              [('orderFactory',         'order.Market.T',               'Side -> Volume -> IOrder'),
+              [('orderFactory',         'order.MarketFactory',          'Side -> Volume -> IOrder'),
                ('fundamentalValue',     'mathutils.constant(100)',      '() -> Price'),
                ('volumeDistr',          'mathutils.rnd.expovariate(1.)','() -> Volume'),
                ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> TimeInterval')])
@@ -65,7 +65,7 @@ class _MeanReversion_Impl(FundamentalValueBase):
         FundamentalValueBase.__init__(self, trader)
 
 exec wrapper("MeanReversion",
-             [('orderFactory',          'order.Market.T',                   'Side -> Volume -> IOrder'),
+             [('orderFactory',          'order.MarketFactory',              'Side -> Volume -> IOrder'),
               ('average',               'mathutils.ewma(alpha = 0.15)',     'IUpdatableValue'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)',    '() -> Volume'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')])
@@ -96,6 +96,6 @@ class _Dependency_Impl(FundamentalValueBase):
 
 exec wrapper("Dependency", 
              [('bookToDependOn','orderbook.Local(label="Asset B")', 'IOrderBook'),
-              ('orderFactory',  'order.Market.T',                   'Side -> Volume -> IOrder'),
+              ('orderFactory',  'order.MarketFactory',              'Side -> Volume -> IOrder'),
               ('factor',        '1.',                               'positive'),
               ('volumeDistr',   'mathutils.rnd.expovariate(.1)',    '() -> Volume')])

@@ -1,4 +1,4 @@
-from marketsim import Event, scheduler, registry, mathutils, types, meta, Method
+from marketsim import Event, scheduler, registry, mathutils, types, meta, Method, Construct, Side
 from _base import Base
 from _limit import LimitFactory
 
@@ -58,10 +58,10 @@ class LimitMarket(Base):
     @staticmethod
     def Sell(price, volume): return LimitMarket(Limit.Sell, price, volume)
     
-    @staticmethod
-    @registry.expose(alias='LimitMarket', constructor='marketsim.order.LimitMarket.T')
-    @meta.sig(args=(types.Side,), rv=meta.function((types.Price, types.Volume), types.IOrder))
-    def T(side): return lambda price, volume: LimitMarket(side, price, volume)
+@registry.expose(alias='LimitMarket')
+@meta.sig(args=(Side,), rv=meta.function((types.Price,), types.IOrder))
+def LimitMarketFactory(side):
+    return Construct(LimitMarket, side)
 
 class WithExpiry(Base):
     

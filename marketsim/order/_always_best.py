@@ -1,4 +1,4 @@
-from marketsim import Side, registry, meta, types
+from marketsim import Side, registry, meta, types, Construct
 from _base import Base
 from _limit import LimitFactory
 from _cancel import Cancel
@@ -35,8 +35,9 @@ class AlwaysBest(Base):
                     book.process(self._current)
         onBestChanged(book.queue(self.side))
         book.queue(self.side).on_best_changed += onBestChanged
-        
-    @staticmethod
-    @registry.expose(alias='AlwaysBest', constructor='marketsim.order.AlwaysBest.T')
-    @meta.sig(args=(Side,), rv=meta.function((Volume,), IOrder))
-    def T(side): return lambda volume: AlwaysBest(volume, side)        
+    
+@registry.expose(alias='AlwaysBest')
+@sig(args=(Side,), rv=function((Price,), IOrder))
+def AlwaysBestFactory(side):
+    return Construct(AlwaysBest, side)
+         
