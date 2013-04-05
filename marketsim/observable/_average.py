@@ -1,4 +1,4 @@
-from marketsim import getLabel, mathutils, scheduler, meta, types
+from marketsim import getLabel, mathutils, scheduler, meta, types, Method
 
 from _computed import OnEveryDt
         
@@ -14,6 +14,7 @@ class derivative(types.IUpdatableValue):
         
     _properties = { "source" : types.IUpdatableValue }
     
+    
 class Fold(object):
     """ Folds values from some source using a time-dependent accumulator....
     """
@@ -25,6 +26,7 @@ class Fold(object):
         self._acc = folder
         self.label = getLabel(folder) + "(" + getLabel(source) + ")"
         self._source = source
+        self._update = Method(self, '_update_impl')
         self._source.on_changed += self._update
             
     _properties = { 'source' : types.IObservable,
@@ -32,7 +34,7 @@ class Fold(object):
     
     _types = [meta.function((), float)]
     
-    def _update(self, _):
+    def _update_impl(self, _):
         self._acc.update(self._scheduler.currentTime, self._source.value)
         
     @property

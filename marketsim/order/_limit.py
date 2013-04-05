@@ -82,7 +82,15 @@ class Limit(Base):
     @staticmethod
     def Sell(price, volume): return Limit(Side.Sell, price, volume) 
     
-    @staticmethod
-    @registry.expose(alias='Limit', constructor='marketsim.order.Limit.T')
-    @sig(args=(Side,), rv=function((Price, Volume,), IOrder))
-    def T(side): return lambda price, volume: Limit(side, price, volume) 
+class LimitFactoryImpl(object):
+    
+    def __init__(self, side):
+        self.side = side
+        
+    def __call__(self, price, volume):
+        return Limit(self.side, price, volume)
+
+@registry.expose(alias='Limit')
+@sig(args=(Side,), rv=function((Price, Volume,), IOrder))
+def LimitFactory(side):
+    return LimitFactoryImpl(side)

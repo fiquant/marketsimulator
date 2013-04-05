@@ -1,6 +1,6 @@
 from marketsim import Side, registry, meta, types
 from _base import Base
-from _limit import Limit
+from _limit import LimitFactory
 from _cancel import Cancel
 from marketsim.types import *
 
@@ -14,7 +14,7 @@ class AlwaysBest(Base):
     
     def __init__(self, volume, 
                  side = Side.Sell, 
-                 orderFactoryT = Limit.T):
+                 orderFactoryT = LimitFactory):
         
         Base.__init__(self, side, volume)
 

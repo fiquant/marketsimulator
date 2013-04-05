@@ -1,7 +1,7 @@
 from marketsim import Side, Event
 
 from _market import Market
-from _limit import Limit
+from _limit import Limit, LimitFactory
 from _cancel import Cancel, LimitMarket, WithExpiry, WithExpiryFactory
 from _virtual import VirtualMarket
 from _always_best import AlwaysBest        

@@ -1,4 +1,4 @@
-from marketsim import types
+from marketsim import types, Method
 
 class Strategy(types.IStrategy):
     
@@ -27,6 +27,7 @@ class TwoSides(Strategy):
         orderFunc - function to calculate order parameters: Trader -> None | (side,*orderParams) 
         """        
         Strategy.__init__(self, trader)
+        self._wakeUp = Method(self, '_wakeUp_impl')
         
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
@@ -37,7 +38,7 @@ class TwoSides(Strategy):
     def dispose(self):
         self._eventGen.unadvise(self._wakeUp)
 
-    def _wakeUp(self, signal):
+    def _wakeUp_impl(self, signal):
         if self._suspended:
             return
         # determine side and parameters of an order to create
@@ -62,6 +63,7 @@ class OneSide(Strategy):
         orderFunc - function to calculate order parameters: Trader -> *orderParams 
         """     
         Strategy.__init__(self, trader)   
+        self._wakeUp = Method(self, '_wakeUp_impl')
     
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
@@ -72,7 +74,7 @@ class OneSide(Strategy):
     def dispose(self):
         self._eventGen.unadvise(self._wakeUp)
 
-    def _wakeUp(self, signal):
+    def _wakeUp_impl(self, signal):
         if self._suspended:
             return
         # determine parameters of an order to create

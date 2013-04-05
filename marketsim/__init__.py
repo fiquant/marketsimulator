@@ -30,13 +30,28 @@ class Event(object):
         """
         self -= listener
         
-    def fire(self, *args):
+    def __call__(self, *args):
         """ Calls all listeners passing *args to them
         """
         for x in self._listeners:
             x(*args)
+    
+    @property    
+    def fire(self):
+        return self
             
 Event._types = [Event]
+
+class Method(object):
+    
+    def __init__(self, obj, methodname, *args):
+        self.obj = obj
+        self.methodname = methodname 
+        self.args = args
+        
+    def __call__(self, *args):
+        return getattr(self.obj, self.methodname)(*(self.args + args))
+
 
 def getLabel(x):
     """ Returns a printable label for *x*

@@ -1,7 +1,7 @@
-import sys
+import sys, pickle
 sys.path.append(r'..')
 
-from marketsim import (strategy, trader, orderbook, order,
+from marketsim import (strategy, trader, orderbook, order, mathutils,
                        scheduler, observable, veusz, registry)
 
 with scheduler.create() as world:
@@ -17,9 +17,9 @@ with scheduler.create() as world:
     
     lp_A = trader.SASM(book_A, 
                        strategy.LiquidityProvider(
-                            volumeDistr=lambda:1,
+                            volumeDistr=mathutils.constant(1),
                             orderFactoryT=order.WithExpiryFactory(
-                                expirationDistr=lambda: 10)))
+                                expirationDistr=mathutils.constant(10))))
     noise_trader = trader.SASM(book_A, strategy.Noise(), "noise")
     
     price_graph += [assetPrice,
@@ -32,6 +32,8 @@ with scheduler.create() as world:
     for t in [lp_A, noise_trader]: t.run()
     
     world.workTill(500)
+    
+    #pickle.dumps(book_A)
     
     veusz.render("noise_trader", [price_graph, eff_graph])
     

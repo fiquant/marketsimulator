@@ -1,4 +1,4 @@
-from marketsim import getLabel, Event, Side, meta, types
+from marketsim import getLabel, Event, Side, meta, types, Method
 
 class Base(object):
     """ Base class for traders.
@@ -16,6 +16,8 @@ class Base(object):
         # event to be fired when a trader's is traded
         self.on_traded = Event()
         self._running = False
+        self.charge = Method(self, '_charge_impl')
+        self._onOrderMatched = Method(self, '_onOrderMatched_impl')
         self.reset()
         
     @property
@@ -43,10 +45,10 @@ class Base(object):
     def PnL(self, value):
         self._PnL = value
         
-    def charge(self, price):
+    def _charge_impl(self, price):
         self._PnL -= price
 
-    def _onOrderMatched(self, order, other, (price, volume)):
+    def _onOrderMatched_impl(self, order, other, (price, volume)):
         """ Called when a trader's 'order' is traded against 'other' order 
         at given 'price' and 'volume'
         Trader's P&L is updated and listeners are notified about the trade   
@@ -149,13 +151,13 @@ class SingleAsset(Base, types.ISingleAssetTrader):
             strategy.runAt(self)
         self._strategies.append(strategy)        
 
-    def _onOrderMatched(self, order, other, (price, volume)):
+    def _onOrderMatched_impl(self, order, other, (price, volume)):
         """ Called when a trader's 'order' is traded against 'other' order 
         at given 'price' and 'volume'
         Trader's amount and P&L is updated and listeners are notified about the trade   
         """
         self._amount += volume if order.side == Side.Buy else -volume
-        Base._onOrderMatched(self, order, other, (price, volume))
+        Base._onOrderMatched_impl(self, order, other, (price, volume))
         
 class SingleAssetSingleMarket(SingleAsset):
     

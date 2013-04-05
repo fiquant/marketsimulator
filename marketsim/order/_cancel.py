@@ -1,6 +1,6 @@
-from marketsim import Event, scheduler, registry, mathutils, types, meta
+from marketsim import Event, scheduler, registry, mathutils, types, meta, Method
 from _base import Base
-from _limit import Limit
+from _limit import LimitFactory
 
 class Cancel(object):
     """ Cancels another order that can be for example a limit or an iceberg order
@@ -36,7 +36,7 @@ class LimitMarket(Base):
         """
         Base.__init__(self, side, volume)
         # we create a limit order
-        self._order = Limit(side, price, volume)
+        self._order = LimitFactory(side)(price, volume)
         # translate its events to our listeners
         self._order.on_matched += self.on_matched.fire
         
@@ -80,7 +80,7 @@ class WithExpiry(Base):
     def processIn(self, orderBook):
         orderBook.process(self._order)
         self._scheduler.scheduleAfter(self._delay, 
-                                      lambda: orderBook.process(Cancel(self._order)))
+                                      Method(orderBook, 'process', Cancel(self._order)))
         
     @property 
     def volume(self):
@@ -95,7 +95,7 @@ LimitOrderFactorySignature = meta.function((types.Side,), meta.function((types.P
 @registry.expose('WithExpiry')
 class WithExpiryFactory(object):
     
-    def __init__(self, expirationDistr=mathutils.constant(10), orderFactory = Limit.T):
+    def __init__(self, expirationDistr=mathutils.constant(10), orderFactory = LimitFactory):
         self.expirationDistr = expirationDistr
         self.orderFactory = orderFactory
         self._scheduler = scheduler.current()
@@ -104,8 +104,9 @@ class WithExpiryFactory(object):
         
     _properties = {'expirationDistr'  : meta.function((), types.TimeInterval),
                    'orderFactory' : LimitOrderFactorySignature}
-        
+    
+    def create(self, side, price, volume):
+        return WithExpiry(self.orderFactory(side)(price, volume), self.expirationDistr(), self._scheduler)
+    
     def __call__(self, side):
-        def inner(price, volume):
-            return WithExpiry(self.orderFactory(side)(price, volume), self.expirationDistr(), self._scheduler)
-        return inner
+        return Method(self, 'create', side)

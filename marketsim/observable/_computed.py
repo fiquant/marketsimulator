@@ -19,14 +19,14 @@ class IndicatorBase(types.IObservable):
         self._dataSource = dataSource
         self.on_changed = Event()
             
-        self.update(None)
+        self(None)
         
     _properties = { 'dataSource'   : meta.function((), float),
                     'eventSources' : meta.listOf(Event),
                     'label'        : str  }
     
     # this event is called when currentValue updates        
-    def update(self, _):
+    def __call__(self, _):
         # calculate current value
         self._current = self._dataSource()
         if self._current is not None: # this should be removed into a separate filter
@@ -39,10 +39,10 @@ class IndicatorBase(types.IObservable):
     @eventSources.setter
     def eventSources(self, value):
         for es in self._eventSources:
-            es.unadvise(self.update)
+            es.unadvise(self)
         self._eventSources = value
         for es in self._eventSources:
-            es.advise(self.update)
+            es.advise(self)
     
     @property
     def dataSource(self):
