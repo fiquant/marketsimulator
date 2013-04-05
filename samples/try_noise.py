@@ -1,4 +1,4 @@
-import sys, pickle
+import sys
 sys.path.append(r'..')
 
 from marketsim import (strategy, trader, orderbook, order, mathutils,
@@ -32,8 +32,6 @@ with scheduler.create() as world:
     for t in [lp_A, noise_trader]: t.run()
     
     world.workTill(500)
-    
-    #pickle.dumps(book_A)
     
     veusz.render("noise_trader", [price_graph, eff_graph])
     

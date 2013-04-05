@@ -1,5 +1,5 @@
 from marketsim.types import *
-from marketsim import observable, scheduler, order, mathutils, types, registry, signal
+from marketsim import observable, scheduler, order, mathutils, types, registry, signal, Method
 from _basic import TwoSides, Strategy
 from _wrap import wrapper
 
@@ -23,7 +23,7 @@ class _Signal_Impl(SignalBase):
         self._threshold = params.threshold
         self._orderFactoryT = params.orderFactory
         self._signalFunc = lambda: params.signal.value
-        self._volume = lambda _: params.volumeDistr()
+        self._volume = Method(params, 'volumeDistr')
         
         SignalBase.__init__(self, trader)
 
@@ -38,7 +38,7 @@ class _TwoAverages_Impl(SignalBase):
     def __init__(self, trader, params):
         
         self._eventGen = scheduler.Timer(params.creationIntervalDistr)
-        self._volume = lambda _: params.volumeDistr()
+        self._volume = Method(params, 'volumeDistr')
         self._threshold = params.threshold
         self._orderFactoryT = params.orderFactory
         

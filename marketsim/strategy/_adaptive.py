@@ -1,4 +1,4 @@
-from marketsim import trader, order, scheduler, observable, order, registry, types, meta
+from marketsim import trader, order, scheduler, observable, order, registry, types, meta, Method, mathutils
 from copy import copy
 from marketsim.types import *
 
@@ -7,6 +7,10 @@ from _wrap import wrapper
 from _fv import FundamentalValue
 
 class _tradeIfProfitable_Impl(Strategy):
+
+    def _wakeUp_impl(self, _):
+        if not self.suspended:
+            self.suspend(self._efficiency.value < 0)
 
     def __init__(self, aTrader, params):
         
@@ -17,11 +21,7 @@ class _tradeIfProfitable_Impl(Strategy):
                                                          
         self._efficiency = params.efficiency(self._estimator)
         
-        def wakeUp(_):
-            if not self.suspended:
-                self.suspend(self._efficiency.value < 0)
-        
-        self._efficiency.on_changed += wakeUp
+        self._efficiency.on_changed += Method(self, '_wakeUp_impl')
         
         Strategy.__init__(self, aTrader)
         
@@ -46,7 +46,7 @@ def efficiencyTrend(trader):
 @registry.expose(alias='Virtual market orders with unit volume')
 @sig(args=(IStrategy,), rv=IStrategy)
 def virtualWithUnitVolume(strategy):
-    return strategy.With(volumeDistr=lambda: 1, orderFactory=order.VirtualMarketFactory)    
+    return strategy.With(volumeDistr=mathutils.constant(1), orderFactory=order.VirtualMarketFactory)    
 
 exec wrapper("tradeIfProfitable", 
              [('strategy',   'FundamentalValue()',    'IStrategy'), 
@@ -94,9 +94,9 @@ class _chooseTheBest_Impl(Strategy):
         
         self._strategies = [_createInstance(sp) for sp in params.strategies]
         
-        self._eventGen = scheduler.Timer(intervalFunc=lambda:1)
+        self._eventGen = scheduler.Timer(intervalFunc=mathutils.constant(1))
         
-        self._eventGen.advise(self._chooseTheBest)
+        self._eventGen.advise(Method(self, '_chooseTheBest'))
         self._current = None
             
         Strategy.__init__(self, aTrader)

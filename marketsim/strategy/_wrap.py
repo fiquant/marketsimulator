@@ -33,6 +33,7 @@ class %(name)s(object):
     def __getattr__(self, item):
         if self._impl is not None:
             return getattr(self._impl, item)
+        raise AttributeError()
         
     def __setattr__(self, item, value):
         self.__dict__[item] = value

@@ -1,4 +1,5 @@
-from marketsim import scheduler, observable, cached_property, types, Side, registry, orderbook
+from marketsim import (scheduler, observable, cached_property, types,
+                       Side, registry, orderbook, Method, order, mathutils)
 
 from _basic import Strategy
 from _trend import SignalBase
@@ -32,18 +33,13 @@ class _FundamentalValue_Impl(FundamentalValueBase):
         self._params = params
         self._orderFactoryT = params.orderFactory
         self._fundamentalValue = params.fundamentalValue  
+        self._eventGen = scheduler.Timer(self._params.creationIntervalDistr)
         
         FundamentalValueBase.__init__(self, trader)
         
     def _volume(self, side):
         return self._params.volumeDistr()
         
-    @cached_property
-    def _eventGen(self):
-        return scheduler.Timer(self._params.creationIntervalDistr)
-
-from marketsim import order, mathutils
-from marketsim.types import *
 
 exec  wrapper("FundamentalValue", 
               [('orderFactory',         'order.MarketFactory',          'Side -> Volume -> IOrder'),
@@ -60,7 +56,7 @@ class _MeanReversion_Impl(FundamentalValueBase):
         self._eventGen = scheduler.Timer(params.creationIntervalDistr)
         avg = observable.Fold(observable.Price(trader.book), params.average)
         self._fundamentalValue = lambda: avg.value
-        self._volume = lambda side: params.volumeDistr()  
+        self._volume = Method(params, 'volumeDistr')  
         
         FundamentalValueBase.__init__(self, trader)
 
