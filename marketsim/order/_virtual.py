@@ -1,4 +1,4 @@
-from marketsim import Event, Side, registry
+from marketsim import Event, Side, registry, Construct
 from marketsim.types import *
 
 class VirtualMarket(object):
@@ -30,7 +30,8 @@ class VirtualMarket(object):
     @staticmethod
     def Sell(volume): return VirtualMarket(Side.Sell, volume)
     
-    @staticmethod
-    @registry.expose(alias='VirtualMarket', constructor='marketsim.order.VirtualMarket.T')
-    @sig(args=(Side,), rv=function((Volume,), IOrder))
-    def T(side): return lambda volume: VirtualMarket(side, volume)
+@registry.expose(alias='VirtualMarket')
+@sig(args=(Side,), rv=function((Volume,), IOrder))
+def VirtualMarketFactory(side):
+    return Construct(VirtualMarket, side)
+    

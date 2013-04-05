@@ -46,7 +46,7 @@ def efficiencyTrend(trader):
 @registry.expose(alias='Virtual market orders with unit volume')
 @sig(args=(IStrategy,), rv=IStrategy)
 def virtualWithUnitVolume(strategy):
-    return strategy.With(volumeDistr=lambda: 1, orderFactory=order.VirtualMarket.T)    
+    return strategy.With(volumeDistr=lambda: 1, orderFactory=order.VirtualMarketFactory)    
 
 exec wrapper("tradeIfProfitable", 
              [('strategy',   'FundamentalValue()',    'IStrategy'), 

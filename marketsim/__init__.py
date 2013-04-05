@@ -52,6 +52,14 @@ class Method(object):
     def __call__(self, *args):
         return getattr(self.obj, self.methodname)(*(self.args + args))
 
+class Construct(object):
+    
+    def __init__(self, class_, *args):
+        self.class_ = class_
+        self.args = args
+        
+    def __call__(self, *args):
+        return self.class_(*(self.args + args))
 
 def getLabel(x):
     """ Returns a printable label for *x*

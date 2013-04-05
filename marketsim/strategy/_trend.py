@@ -30,7 +30,7 @@ class _Signal_Impl(SignalBase):
 exec wrapper("Signal", 
              [('signal',        'None',                         'IObservable'),  
               ('threshold',     '0.7',                          'non_negative'),
-              ('orderFactory',  'order.Market.T',               'Side -> Volume -> IOrder'),
+              ('orderFactory',  'order.MarketFactory',          'Side -> Volume -> IOrder'),
               ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')], register=False)
 
 class _TwoAverages_Impl(SignalBase):
@@ -57,7 +57,7 @@ exec wrapper("TwoAverages",
              [('average1',              'mathutils.ewma(alpha = 0.15)',  'IUpdatableValue'),
               ('average2',              'mathutils.ewma(alpha = 0.015)', 'IUpdatableValue'),
               ('threshold',             '0.',                            'non_negative'), 
-              ('orderFactory',          'order.Market.T',                'Side -> Volume -> IOrder'),
+              ('orderFactory',          'order.MarketFactory',           'Side -> Volume -> IOrder'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)', '() -> Volume')])
 
@@ -79,6 +79,6 @@ class _TrendFollower_Impl(SignalBase):
 exec wrapper('TrendFollower', 
              [('average',                'mathutils.ewma(alpha = 0.15)',  'IUpdatableValue'),
               ('threshold',              '0.',                            'non_negative'), 
-              ('orderFactory',           'order.Market.T',                'Side -> Volume -> IOrder'),
+              ('orderFactory',           'order.MarketFactory',           'Side -> Volume -> IOrder'),
               ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
               ('volumeDistr',            'mathutils.rnd.expovariate(1.)', '() -> Volume')])

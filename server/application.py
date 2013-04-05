@@ -148,7 +148,7 @@ def createSimulation():
     
         interval = new('marketsim.mathutils.rnd.expovariate', {'Lambda': '+1.0'})
         
-        setAttr(fv_200, 'orderFactory', order.Market.T)
+        setAttr(fv_200, 'orderFactory', order.MarketFactory)
         setAttr(fv_200, 'creationIntervalDistr', interval)
         setAttr(avg_plus.strategies[0], 'average1', new('marketsim.mathutils.ewma', {'alpha' : 0.15 }))
         setAttr(virtual_160.strategies[0], 'estimator', strategy.virtualWithUnitVolume)
