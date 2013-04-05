@@ -2,7 +2,7 @@ import sys
 sys.path.append(r'..')
 
 from marketsim import (strategy, trader, orderbook, order,
-                       scheduler, observable, veusz)
+                       scheduler, observable, veusz, mathutils)
 
 with scheduler.create() as world:
     
@@ -17,12 +17,12 @@ with scheduler.create() as world:
     
     lp_A = trader.SASM(book_A, 
                        strategy.LiquidityProvider(
-                            volumeDistr=lambda:1,
+                            volumeDistr=mathutils.constant(1),
                             orderFactoryT=order.WithExpiryFactory(
-                                expirationDistr=lambda: 10)))
+                                expirationDistr=mathutils.constant(10))))
     trader = trader.SASM(book_A, 
                          strategy.FundamentalValue(
-                            fundamentalValue = lambda: 200), 
+                            fundamentalValue = mathutils.constant(200)), 
                          "fv_200")
     
     price_graph += [assetPrice,
@@ -31,7 +31,6 @@ with scheduler.create() as world:
     eff_graph = veusz.Graph("efficiency")
     eff_graph += [observable.Efficiency(trader),
                   observable.PnL(trader)]
-    
     
     for t in [lp_A, trader]: t.run()
     

@@ -6,10 +6,10 @@ class derivative(types.IUpdatableValue):
     
     def __init__(self, source):
         self.source = source
-        self.update = self.source.update
-        self.at = self.source.derivativeAt
-        self.derivativeAt = self.at  # temporary hack 
-        self.reset = self.source.reset
+        self.update = Method(self.source, 'update')
+        self.at = Method(self.source, 'derivativeAt')
+        self.derivativeAt = Method(self, 'at')  # temporary hack 
+        self.reset = Method(self.source, 'reset')
         self.label = "d(" + source.label + ")"
         
     _properties = { "source" : types.IUpdatableValue }

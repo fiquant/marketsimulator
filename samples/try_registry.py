@@ -1,4 +1,4 @@
-import sys
+import sys, pickle
 sys.path.append(r'..')
 
 from marketsim import (strategy, orderbook, trader, order, 
@@ -133,7 +133,8 @@ with scheduler.create() as world:
     
     for t in traders + [t_A]:
         t.run()
-    
+
+    #pickle.dumps([price_graph, eff_graph, trend_graph, pnl_graph, volume_graph])
         
     fv_200 = trader_200.strategies[0]
     

@@ -1,4 +1,4 @@
-from marketsim import Side, getLabel, Event, meta, types
+from marketsim import Side, getLabel, Event, meta, types, Method
 
 def sign(x):
     return 1 if x > 0 else -1 if x < 0 else 0
@@ -8,6 +8,7 @@ class Efficiency(types.IObservable):
     def __init__(self, trader):
         
         self._trader = trader
+        self._update = Method(self, '_update_impl')
         
         self.on_changed = Event()
         self.attributes = {}
@@ -17,7 +18,7 @@ class Efficiency(types.IObservable):
         self._update(None)
         self.reset()
 
-    def _update(self, _):
+    def _update_impl(self, _):
         def callback(sign): 
             def inner((price, volume_unmatched)):
                 if volume_unmatched == 0: 
