@@ -18,20 +18,19 @@ class Efficiency(types.IObservable):
         self._update(None)
         self.reset()
 
+    def _callback_impl(self, sign, (price, volume_unmatched)): 
+        if volume_unmatched == 0: 
+            self._current = self._trader.PnL - sign*price
+            self.on_changed.fire(self)
+        else: # don't know what to do for the moment
+            self._current = None
+
     def _update_impl(self, _):
-        def callback(sign): 
-            def inner((price, volume_unmatched)):
-                if volume_unmatched == 0: 
-                    self._current = self._trader.PnL - sign*price
-                    self.on_changed.fire(self)
-                else: # don't know what to do for the moment
-                    self._current = None
-            return inner
     
         side = Side.Buy if self._trader.amount < 0 else Side.Sell 
         self._trader.book.evaluateOrderPriceAsync(side, 
                                                   abs(self._trader.amount), 
-                                                  callback(-sign(self._trader.amount)))
+                                                  Method(self, '_callback_impl', -sign(self._trader.amount)))
     
         
     @property

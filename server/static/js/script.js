@@ -328,6 +328,11 @@ function AppViewModel() {
 			document.documentElement.innerHTML = data.responseText; 
 		});
 	}
+	self.save = function () {
+		$.post('/save', function (data) {
+			
+		});
+	}
 };
 
 viewmodel = new AppViewModel();

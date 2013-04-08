@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session, current_app
-import sys, json, time
+import sys, json, time, pickle, weakref
 sys.path.append(r'..')
+sys.setrecursionlimit(10000)
 
 from marketsim import (strategy, orderbook, trader, order, js, signal, remote,
                        scheduler, observable, veusz, mathutils, registry)
@@ -174,6 +175,11 @@ def get_ts_changes(myRegistry):
     return dict([(k, v.get_changes()) for (k,v) in _timeseries(myRegistry)])
 
 KEY = 'LLHJLKH'
+
+@app.route('/save', methods=['POST'])
+def save():
+    root, myRegistry, world = inmemory[session[KEY]]
+    return pickle.dumps(myRegistry)
 
 @app.route('/all')
 def get_all():

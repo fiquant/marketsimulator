@@ -1,4 +1,4 @@
-from marketsim import Event, registry, remote, types
+from marketsim import Event, registry, remote, types, Method, Bind
 from _base import BookBase
 
 class Queue(object):
@@ -7,6 +7,7 @@ class Queue(object):
         self._queue = queue
         self.book = book
         self._link = link
+        self._onBestChanged = Method(self, '_onBestChanged_impl')
         queue.on_best_changed += self._onBestChanged
         self.on_best_changed = Event()
         self.reset()
@@ -23,12 +24,13 @@ class Queue(object):
     def lastPrice(self):
         return self._best.price if self._best is not None else None
         
-    def _onBestChanged(self, queue):
+    def _update_impl(self, best):
+        self._best = best
+        self.on_best_changed.fire(self)
+
+    def _onBestChanged_impl(self, queue):
         best = queue.best
-        def update():
-            self._best = best
-            self.on_best_changed.fire(self)
-        self._link.send(update)
+        self._link.send(Method(self, '_update_impl', best))
         
     @property 
     def best(self):
@@ -63,29 +65,32 @@ class Remote(BookBase):
     _properties = { 'link'      : remote.TwoWayLink,
                     'orderbook' : types.IOrderBook }
         
+    def _on_matched_impl(self, order, *args):
+        order.remote.copyTo(order)
+        order.on_matched.fire(*args)
+        
+    def _send_to_downlink(self, order, *args):
+        self._downLink.send(Method(self, '_on_matched_impl', order, *args))
+
     def _remote(self, order):
         remote = order.clone()
         assert 'remote' not in dir(order)
         order.remote = remote
-        def on_matched(*args):
-            remote.copyTo(order)
-            order.on_matched.fire(*args)
-        remote.on_matched += lambda *args: self._downLink.send(lambda: on_matched(*args))
-        return remote
-        
+        remote.on_matched += Method(self, '_send_to_downlink', order)
+        return remote       
         
         
     def processMarketOrder(self, order):
-        self._upLink.send(lambda: self._book.processMarketOrder(self._remote(order)))
+        self._upLink.send(Method(self._book, 'processMarketOrder', self._remote(order)))
         
     def processLimitOrder(self, order):
-        self._upLink.send(lambda: self._book.processLimitOrder(self._remote(order)))
+        self._upLink.send(Method(self._book, 'processLimitOrder', self._remote(order)))
 
     def cancelOrder(self, order):
-        self._upLink.send(lambda: self._book.cancelOrder(order.remote))
+        self._upLink.send(Method(self._book, 'cancelOrder', order.remote))
         
     def evaluateOrderPriceAsync(self, side, volume, callback):
         self._upLink.send(
-            lambda: self._book.evaluateOrderPriceAsync(side, volume, 
-                lambda x: self._downLink.send(lambda: callback(x))))
+            Method(self._book, 'evaluateOrderPriceAsync', side, volume, 
+                Method(self._downLink, 'send', Bind(callback, x))))
         

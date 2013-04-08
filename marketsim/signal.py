@@ -1,10 +1,13 @@
 import random
-from marketsim import Event, meta, types, mathutils
+from marketsim import Method, Event, meta, types, mathutils
 from marketsim.scheduler import Timer
 
 class RandomWalk(types.IObservable):
     """ A discrete signal with user-defined increments   
     """
+    def _wakeUp_impl(self, _):
+        self.value += self.deltaDistr()
+        self.on_changed.fire(self)
 
     def __init__(self,
                  initialValue=0,
@@ -23,9 +26,7 @@ class RandomWalk(types.IObservable):
         self.deltaDistr = deltaDistr
         self.intervalDistr = intervalDistr
         self.on_changed = Event()
-        def wakeUp(_):
-            self.value += self.deltaDistr()
-            self.on_changed.fire(self)
+        wakeUp = Method(self, '_wakeUp_impl')
             
         if '_timer' in dir(self):
             self._timer.unadvise(wakeUp)

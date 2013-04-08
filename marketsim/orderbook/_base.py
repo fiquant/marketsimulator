@@ -15,8 +15,8 @@ class BookBase(types.IOrderBook):
         if label != "":
             self._alias = label
         self.on_price_changed = Event()
-        self._bids.on_best_changed += self.on_price_changed.fire
-        self._asks.on_best_changed += self.on_price_changed.fire
+        self._bids.on_best_changed += self.on_price_changed
+        self._asks.on_best_changed += self.on_price_changed
         self.reset()
         
     def reset(self):
