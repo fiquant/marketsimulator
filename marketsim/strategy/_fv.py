@@ -39,14 +39,13 @@ class _FundamentalValue_Impl(FundamentalValueBase):
         
     def _volume(self, side):
         return self._params.volumeDistr()
-        
+
 
 exec  wrapper("FundamentalValue", 
               [('orderFactory',         'order.MarketFactory',          'Side -> Volume -> IOrder'),
                ('fundamentalValue',     'mathutils.constant(100)',      '() -> Price'),
                ('volumeDistr',          'mathutils.rnd.expovariate(1.)','() -> Volume'),
                ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> TimeInterval')])
-
 
 class _MeanReversion_Impl(FundamentalValueBase):
 
@@ -55,7 +54,7 @@ class _MeanReversion_Impl(FundamentalValueBase):
         self._orderFactoryT = params.orderFactory
         self._eventGen = scheduler.Timer(params.creationIntervalDistr)
         avg = observable.Fold(observable.Price(trader.book), params.average)
-        self._fundamentalValue = lambda: avg.value
+        self._fundamentalValue = avg
         self._volume = Method(params, 'volumeDistr')  
         
         FundamentalValueBase.__init__(self, trader)

@@ -1,4 +1,4 @@
-from marketsim import scheduler, meta, types
+from marketsim import scheduler, meta, types, Method
 
 class TimeSerie(object):
     
@@ -6,10 +6,11 @@ class TimeSerie(object):
         self.label = label
         self._sched = scheduler.current()
         self._source = source
+        self._wakeUp = Method(self, '_wakeUp_impl')
         self._source.advise(self._wakeUp)
         self.reset()
         
-    def _wakeUp(self, _):
+    def _wakeUp_impl(self, _):
         """ Called when the source has changed
         """
         x = self._source.value

@@ -13,6 +13,7 @@ class %(name)s(object):
         self._constructAs = 'marketsim.strategy.%(name)s'
         %(dict_)s
         self._impl = None
+        self._trader = None
         
     _types = [types.IStrategy]
         

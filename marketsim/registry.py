@@ -77,7 +77,16 @@ def _findType(ctorname):
     for k in qualified_name[1:]:
         ctor = getattr(ctor, k)
     return ctor
+
+class WeakSet(weakref.WeakSet):
     
+    def __getstate__(self):
+        return {'elements': [x for x in self]}
+    
+    def __setstate__(self, state):
+        self.clear()
+        for x in state['elements']:
+            self.add(x)    
 
 class Registry(object):
     
@@ -106,7 +115,7 @@ class Registry(object):
             del old._id
             del old._referencedBy
         obj._id = Id
-        obj._referencedBy = weakref.WeakSet()
+        obj._referencedBy = set()
         obj._alias = self._findAlias(obj)
         self._id2obj[Id] = obj
         return obj._id

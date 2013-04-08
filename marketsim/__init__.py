@@ -42,6 +42,16 @@ class Event(object):
             
 Event._types = [Event]
 
+class Bind(object):
+    
+    def __init__(self, callable, *args):
+        self.callable = callable
+        self.args = args
+        
+    def __call__(self, *args):
+        return self.callable(*(self.args + args))
+
+
 class Method(object):
     
     def __init__(self, obj, methodname, *args):
@@ -51,6 +61,7 @@ class Method(object):
         
     def __call__(self, *args):
         return getattr(self.obj, self.methodname)(*(self.args + args))
+
 
 class Construct(object):
     
