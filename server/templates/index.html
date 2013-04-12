@@ -128,7 +128,7 @@
 			<select data-bind="
 			options: simulations, 
 			value: 	 filename, 
-			event: { dblclick: enterEditSimulationName }"
+			event: { dblclick: enterEditSimulationName, change: load }"
 			></select>
 		<!-- /ko -->
 		<!-- ko if: editSimulationNameMode -->
