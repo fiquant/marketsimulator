@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, current_app
-import sys, json, time, pickle, weakref
+import sys, os, json, time, pickle, weakref
 sys.path.append(r'..')
 sys.setrecursionlimit(10000)
 
@@ -176,15 +176,47 @@ def get_ts_changes(myRegistry):
 
 KEY = 'LLHJLKH'
 
+def ensure_dir(f):
+    d = os.path.dirname(f)
+    if not os.path.exists(d):
+        os.makedirs(d)
+        
+def make_filename_safe(s):
+    return s.replace(":", '_').replace("/", '_').replace('\\', '_')
+
 @app.route('/save', methods=['POST'])
 def save():
-    root, myRegistry, world = inmemory[session[KEY]]
-    return pickle.dumps(myRegistry)
+    raw = request.form.iterkeys().__iter__().next()
+    parsed = json.loads(raw)
+    name = parsed["saveTo"]
+    filename = os.path.join('_saved', str(session[KEY]), parsed["saveTo"])
+    ensure_dir(filename)
+    with open(filename, 'wb') as output:
+        root, myRegistry, world = inmemory[session[KEY]]
+        world.name = name
+        pickle.dump(inmemory[session[KEY]], output)
+    return ""
+
+@app.route('/simulations')
+def simulations():
+    path = os.path.join('_saved', str(session[KEY]))
+    files = os.listdir(path)
+    return json.dumps(files)
+
+@app.route('/load', methods=['POST'])
+def load():
+    raw = request.form.iterkeys().__iter__().next()
+    parsed = json.loads(raw)
+    filename = os.path.join('_saved', str(session[KEY]), parsed["loadFrom"])
+    with open(filename, 'r') as input:
+        inmemory[session[KEY]] = pickle.load(input)
+        return ""
 
 @app.route('/all')
 def get_all():
     root, myRegistry, world = inmemory[session[KEY]]
     result = {
+        "name"  :   getattr(world, 'name', 'default'),
         "root"  :   root,
         "objects" : myRegistry.tojsonall(),
         "currentTime" : world.currentTime,

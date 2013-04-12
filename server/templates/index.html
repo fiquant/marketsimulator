@@ -118,13 +118,27 @@
 	<script type="text/html" id="current">
 		<span data-bind="html: errorMessage"></span>
 		<button data-bind="click: submitChanges, enable: enabled">Run</button>	
-		<button data-bind="click: save, enable: enabled">Save</button>	
 		<button data-bind="click: reset, enable: enabled">Reset</button>	
 		<button data-bind="click: stop, enable: running">Stop</button>	
-		<!-- <a data-bind="text: changes"></a> -->
 		Advance: <input data-bind="value: advance" />
 		Update interval: <input data-bind="value: updateInterval" />
 		<select data-bind="options: graphRenderers, value: currentRenderer"></select>
+		Simulation name: 
+		<!-- ko ifnot: editSimulationNameMode -->
+			<select data-bind="
+			options: simulations, 
+			value: 	 filename, 
+			event: { dblclick: enterEditSimulationName }"
+			></select>
+		<!-- /ko -->
+		<!-- ko if: editSimulationNameMode -->
+			<input data-bind="
+			value: filename,
+			event: { blur: exitEditSimulationName, 
+					 dblclick: exitEditSimulationName } 
+			"></select>
+		<!-- /ko -->
+		<button data-bind="click: save, enable: enabled">Save</button>	
 		<table>
 			<tr data-bind="template: { name: 'renderEntities', foreach: entities }">
 			</tr>

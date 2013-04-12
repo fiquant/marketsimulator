@@ -55,7 +55,7 @@ class OutputStream(object):
         self._file = file(self._filename, 'w')
     
     def __getstate__(self):
-        return {'filename': self._filename}
+        return {'_filename': self._filename}
 
     def __setstate__(self, dict):
         self._filename = dict['_filename']
