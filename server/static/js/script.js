@@ -7,16 +7,6 @@ function alldata() {
 
    return $.parseJSON(z.responseText);
 }
-function simulations() {
-   z = ($.ajax({
-     url: 'simulations',
-     dataType: 'json',
-     async: false
-   }));
-
-   return $.parseJSON(z.responseText);
-}
-
 function alltimeseries() {
    z = ($.ajax({
      url: 'alltimeseries',
@@ -193,6 +183,8 @@ function AppViewModel() {
 		return obj;
 	}
 	
+	self.simulations = ko.observableArray([]);
+	self.filename = ko.observable();
 	
 	self.parsed = ko.computed(function () {
 		var response = self.response();
@@ -210,6 +202,13 @@ function AppViewModel() {
 		}
 		
 		self.root = ko.observable(self.id2obj.lookup(response.root));
+
+		//------------ simulations
+		self.simulations(response.simulations);
+		if (response.simulations.length == 0) {
+			self.simulations.push("default");
+		}
+		self.filename(response.name);
 		
 		return [id2obj];		
 	})
@@ -339,16 +338,12 @@ function AppViewModel() {
 		});
 	}
 	
-	var sims = simulations();
-	if (sims == []) {
-		sims = ["default"];
-	}
-	
-	self.simulations = ko.observableArray(sims);
-	self.filename = ko.observable(sims[0]);
-	
 	self.editSimulationNameMode = ko.observable(false);
-	self.enterEditSimulationName = function () { self.editSimulationNameMode(true); }	
+	
+	self.enterEditSimulationName = function () { 
+		self.editSimulationNameMode(true); 
+	}	
+	
 	self.exitEditSimulationName = function () {
 		 self.simulations.push(self.filename());
 		 self.editSimulationNameMode(false); 
@@ -363,7 +358,7 @@ function AppViewModel() {
 
 	self.load = function () {
 		$.post('/load', $.toJSON({'loadFrom': self.filename()}), function (data) {
-			
+			document.location.reload(true);	
 		});
 	}
 };

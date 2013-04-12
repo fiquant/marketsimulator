@@ -197,12 +197,6 @@ def save():
         pickle.dump(inmemory[session[KEY]], output)
     return ""
 
-@app.route('/simulations')
-def simulations():
-    path = os.path.join('_saved', str(session[KEY]))
-    files = os.listdir(path)
-    return json.dumps(files)
-
 @app.route('/load', methods=['POST'])
 def load():
     raw = request.form.iterkeys().__iter__().next()
@@ -215,7 +209,10 @@ def load():
 @app.route('/all')
 def get_all():
     root, myRegistry, world = inmemory[session[KEY]]
+    path = os.path.join('_saved', str(session[KEY]))
+    files = os.listdir(path) if os.path.exists(path) else []
     result = {
+        "simulations" : files,
         "name"  :   getattr(world, 'name', 'default'),
         "root"  :   root,
         "objects" : myRegistry.tojsonall(),
