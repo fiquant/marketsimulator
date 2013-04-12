@@ -16,6 +16,12 @@ class _SellSide(object):
     @property
     def opposite(self):
         return Buy
+    
+    def __eq__(self, other):
+        return isinstance(other, self.__class__)
+    
+    def __ne__(self, other):
+        return not self.__eq__(other)
 
     @staticmethod
     def better(x, y):
@@ -52,6 +58,12 @@ class _BuySide(object):
         """
         return -price
     
+    def __eq__(self, other):
+        return isinstance(other, self.__class__)
+    
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
 
 Sell = _SellSide()
 Buy = _BuySide()

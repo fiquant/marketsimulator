@@ -32,7 +32,7 @@ class %(name)s(object):
         self._impl = _%(name)s_Impl(self._trader, self)
         
     def __getattr__(self, item):
-        if self._impl is not None:
+        if '_impl' in self.__dict__ and self._impl is not None:
             return getattr(self._impl, item)
         raise AttributeError()
         

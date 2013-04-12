@@ -7,6 +7,16 @@ function alldata() {
 
    return $.parseJSON(z.responseText);
 }
+function simulations() {
+   z = ($.ajax({
+     url: 'simulations',
+     dataType: 'json',
+     async: false
+   }));
+
+   return $.parseJSON(z.responseText);
+}
+
 function alltimeseries() {
    z = ($.ajax({
      url: 'alltimeseries',
@@ -328,8 +338,31 @@ function AppViewModel() {
 			document.documentElement.innerHTML = data.responseText; 
 		});
 	}
+	
+	var sims = simulations();
+	if (sims == []) {
+		sims = ["default"];
+	}
+	
+	self.simulations = ko.observableArray(sims);
+	self.filename = ko.observable(sims[0]);
+	
+	self.editSimulationNameMode = ko.observable(false);
+	self.enterEditSimulationName = function () { self.editSimulationNameMode(true); }	
+	self.exitEditSimulationName = function () {
+		 self.simulations.push(self.filename());
+		 self.editSimulationNameMode(false); 
+		 self.save();
+	}	
+	
 	self.save = function () {
-		$.post('/save', function (data) {
+		$.post('/save', $.toJSON({'saveTo': self.filename()}), function (data) {
+			
+		});
+	}
+
+	self.load = function () {
+		$.post('/load', $.toJSON({'loadFrom': self.filename()}), function (data) {
 			
 		});
 	}
