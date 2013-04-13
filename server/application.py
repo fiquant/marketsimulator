@@ -190,6 +190,18 @@ def make_filename_safe(s):
 def current_user_dir():
     return os.path.join('_saved', str(session[KEY]))
 
+def latest_workspace_for_user():
+    d = current_user_dir()
+    bestt = 0
+    bestw = None
+    for w in os.listdir(d):
+        f = os.path.join(d, w)
+        t = os.path.getmtime(f)
+        if t > bestt:
+            bestt = t
+            bestw = w
+    return bestw
+
 class Workspace(object):
     
     def __init__(self, name, root, registry, world):
@@ -200,7 +212,7 @@ class Workspace(object):
 
 def current_user_workspace():
     if session[KEY] not in inmemory:
-        _load('default')
+        _load(latest_workspace_for_user())
     return inmemory[session[KEY]]
 
 def set_current_workspace(workspace):
@@ -315,7 +327,7 @@ def index():
         set_current_workspace(Workspace('default', *createSimulation()))
         ensure_dir_ex(current_user_dir())
     elif session[KEY] not in inmemory:
-        _load('default')
+        _load(latest_workspace_for_user())
     return render_template('index.html')
 
 app.run(debug=True, use_reloader=False, threaded=True, port=80)
