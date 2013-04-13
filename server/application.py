@@ -176,66 +176,86 @@ def get_ts_changes(myRegistry):
 
 KEY = 'LLHJLKH'
 
-def ensure_dir(f):
-    d = os.path.dirname(f)
+def ensure_dir_ex(d):
     if not os.path.exists(d):
         os.makedirs(d)
+
+def ensure_dir(f):
+    ensure_dir_ex(os.path.dirname(f))
+
         
 def make_filename_safe(s):
     return s.replace(":", '_').replace("/", '_').replace('\\', '_')
 
+def current_user_dir():
+    return os.path.join('_saved', str(session[KEY]))
+
+class Workspace(object):
+    
+    def __init__(self, root, registry, world):
+        self.root = root
+        self.registry = registry
+        self.world = world
+
+def current_user_workspace():
+    return inmemory[session[KEY]]
+
+def set_current_workspace(workspace):
+    inmemory[session[KEY]] = workspace 
+    
+def request_parsed():
+    raw = request.form.iterkeys().__iter__().next()
+    return json.loads(raw)
+    
 @app.route('/save', methods=['POST'])
 def save():
-    raw = request.form.iterkeys().__iter__().next()
-    parsed = json.loads(raw)
+    parsed = request_parsed()
     name = parsed["saveTo"]
-    filename = os.path.join('_saved', str(session[KEY]), parsed["saveTo"])
+    filename = os.path.join(current_user_dir(), parsed["saveTo"])
     ensure_dir(filename)
     with open(filename, 'wb') as output:
-        root, myRegistry, world = inmemory[session[KEY]]
-        world.name = name
-        pickle.dump(inmemory[session[KEY]], output)
+        workspace = current_user_workspace()
+        workspace.world.name = name
+        pickle.dump(current_user_workspace(), output)
     return ""
 
 @app.route('/load', methods=['POST'])
 def load():
-    raw = request.form.iterkeys().__iter__().next()
-    parsed = json.loads(raw)
-    filename = os.path.join('_saved', str(session[KEY]), parsed["loadFrom"])
+    parsed = request_parsed()
+    filename = os.path.join(current_user_dir(), parsed["loadFrom"])
     with open(filename, 'r') as input:
-        inmemory[session[KEY]] = pickle.load(input)
+        set_current_workspace(pickle.load(input))
         return ""
 
 @app.route('/all')
 def get_all():
-    root, myRegistry, world = inmemory[session[KEY]]
-    path = os.path.join('_saved', str(session[KEY]))
-    files = os.listdir(path) if os.path.exists(path) else []
+    w = current_user_workspace()
+    files = os.listdir(current_user_dir())
     result = {
         "simulations" : files,
-        "name"  :   getattr(world, 'name', 'default'),
-        "root"  :   root,
-        "objects" : myRegistry.tojsonall(),
-        "currentTime" : world.currentTime,
-        "ts_changes" : dict([(k,v.data) for (k,v) in _timeseries(myRegistry)])
+        "name"  :   getattr(w.world, 'name', 'default'),
+        "root"  :   w.root,
+        "objects" : w.registry.tojsonall(),
+        "currentTime" : w.world.currentTime,
+        "ts_changes" : dict([(k,v.data) for (k,v) in _timeseries(w.registry)])
     }
     return json.dumps(result)
 
-def changes(world, myRegistry):
+def changes(w):
     result = {
-        "currentTime" : world.currentTime,
-        "changes" : myRegistry.get_changes(),
-        "ts_changes" : get_ts_changes(myRegistry)
+        "currentTime" : w.world.currentTime,
+        "changes" : w.registry.get_changes(),
+        "ts_changes" : get_ts_changes(w.registry)
     }
     return json.dumps(result)
 
 @app.route('/reset', methods=['POST', 'GET'])
 def reset():
-    root, myRegistry, world = inmemory[session[KEY]]
-    save_state_before_changes(myRegistry)
-    with world: 
-        myRegistry.reset()
-    return changes(world, myRegistry)
+    w = current_user_workspace()
+    save_state_before_changes(w.registry)
+    with w.world: 
+        w.registry.reset()
+    return changes(w)
 
 def run(world, timeout, limitTime):
     t0 = time.clock()
@@ -248,38 +268,40 @@ def run(world, timeout, limitTime):
 
 @app.route('/update', methods=['POST'])
 def update():
-    root, myRegistry, world = inmemory[session[KEY]]
+    w = current_user_workspace()
     
-    raw = request.form.iterkeys().__iter__().next()
-    parsed = json.loads(raw)
-    
+    parsed = request_parsed()
+
     metaToCreate = {int(Id) : (meta[0], meta[1]) for (Id, meta) in parsed['created']}
 
-    with world: 
-        myRegistry.createNewObjects(metaToCreate)
+    with w.world: 
+        w.registry.createNewObjects(metaToCreate)
         
         # changing fields for existing ones    
         for (Id, field, value) in parsed['updates']:
-            myRegistry.setAttr(Id, field, value)
+            w.registry.setAttr(Id, field, value)
             
-    save_state_before_changes(myRegistry) 
+    save_state_before_changes(w.registry) 
+    
     if 'limitTime' in parsed:
         limitTime = parsed['limitTime']
         timeout = parsed["timeout"]
-        run(world, timeout, limitTime)
-    return changes(world, myRegistry)
+        run(w.world, timeout, limitTime)
+        
+    return changes(w)
 
 @app.route('/stop', methods=['POST'])
 def stop():
-    _,_, world = inmemory[session[KEY]]
-    world._to_be_stopped = True
+    w = current_user_workspace()
+    w.world._to_be_stopped = True
     return ""
 
 @app.route('/')
 def index():
     if KEY not in session or session[KEY] not in inmemory:
         session[KEY] = time.time()
-        inmemory[session[KEY]] = createSimulation()
+        set_current_workspace(Workspace(*createSimulation()))
+        ensure_dir_ex(current_user_dir())
     return render_template('index.html')
 
 app.run(debug=True, use_reloader=False, threaded=True, port=80)

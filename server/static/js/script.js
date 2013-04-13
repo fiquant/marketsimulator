@@ -308,8 +308,6 @@ function AppViewModel() {
     	self.id2obj.foreach(function (obj) { obj.dropHistory(); });
     }
     
-    self.errorMessage = ko.observable('');
-    
 	self.submitChanges = function() {
 		self.limitTime(_parseFloat(self.advance()) + self.currentTime);
 		function run() {
@@ -341,6 +339,8 @@ function AppViewModel() {
 		});
 	}
 	
+	self.errorMessage = ko.observable('');
+	
 	self.editSimulationNameMode = ko.observable(false);
 	
 	self.enterEditSimulationName = function () { self.editSimulationNameMode(true); }	
@@ -363,5 +363,22 @@ function AppViewModel() {
 		});
 	}
 };
+
+/**
+ *	We will have some workspaces
+ *  User can switch between them
+ *  Workspaces try to be synchronized with server
+ *  Current workspace can be forked
+ *  Default suggestion for forked workspace name is current workspace + . + id
+ *  where id is first natural number that name.id is unused 
+ * 
+ *  TODO: 
+ *  1. we need to save current workspace before and after running simulation
+ *  2. Commit button sends current state to server
+ *     It is enabled if there are any changes in client
+ *  3. Fork button is enabled if fork name doesn't conflict with other names
+ *  4. If server is restarted we try to load saved workspace with given name
+ *     It means that at server side we should save current work
+ */
 
 viewmodel = new AppViewModel();
