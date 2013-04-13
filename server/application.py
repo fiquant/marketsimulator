@@ -192,11 +192,12 @@ def current_user_dir():
 
 def latest_workspace_for_user():
     d = current_user_dir()
+    ensure_dir_ex(d)
     bestt = 0
     bestw = None
     for w in os.listdir(d):
         f = os.path.join(d, w)
-        t = os.path.getmtime(f)
+        t = os.path.getatime(f)
         if t > bestt:
             bestt = t
             bestw = w
@@ -229,21 +230,26 @@ def save_current_workspace():
     with open(filename, 'wb') as output:
         pickle.dump(w, output)
     
-@app.route('/save', methods=['POST'])
-def save():
+@app.route('/fork', methods=['POST'])
+def fork():
     parsed = request_parsed()
+    save_current_workspace()
     workspace = current_user_workspace()
-    workspace.name = parsed["saveTo"]
+    workspace.name = parsed["forkAs"]
     save_current_workspace()
     return ""
 
 def _load(workspace_name):
-    filename = os.path.join(current_user_dir(), workspace_name)
-    with open(filename, 'r') as input:
-        set_current_workspace(pickle.load(input))
+    if workspace_name is None:
+        set_current_workspace(Workspace('default', *createSimulation()))
+    else:    
+        filename = os.path.join(current_user_dir(), workspace_name)
+        with open(filename, 'r') as input:
+            set_current_workspace(pickle.load(input))
 
 @app.route('/load', methods=['POST'])
 def load():
+    save_current_workspace()
     _load(request_parsed()['loadFrom'])
     return ""
 
@@ -310,8 +316,8 @@ def update():
         limitTime = parsed['limitTime']
         timeout = parsed["timeout"]
         run(w.world, timeout, limitTime)
-        
-    save_current_workspace()
+        save_current_workspace()
+
     return changes(w)
 
 @app.route('/stop', methods=['POST'])
