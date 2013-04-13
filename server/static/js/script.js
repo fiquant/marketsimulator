@@ -283,10 +283,8 @@ function AppViewModel() {
 		var updates = collect(self.id2obj.items(), function (obj) { 
 						return obj.changedFields(); 
 					});
-		return $.toJSON({'updates' : updates,
-						 'created' : created, 
-						 'timeout' : _parseFloat(self.updateInterval()),
-						 'limitTime' : self.limitTime()});
+		return {'updates' : updates,
+				'created' : created};
 	};
 	
 	self.running = ko.observable(0);
@@ -313,9 +311,10 @@ function AppViewModel() {
 		function run() {
 			self.running(self.running() + 1);
 			var changes = self.changes();
-			var changes_parsed = $.parseJSON(changes);
-			self.dropHistory();
-			$.post('/update', changes, function (data) {
+			changes.timeout = _parseFloat(self.updateInterval());
+			changes.limitTime = self.limitTime();
+			$.post('/update', $.toJSON(changes), function (data) {
+				self.dropHistory();
 				var response = $.parseJSON(data);
 				self.processResponse(response, false); 
 				//console.log(response.currentTime + "...." + self.limitTime());
@@ -351,9 +350,9 @@ function AppViewModel() {
 		 self.save();
 	}	
 	
-	self.save = function () {
-		$.post('/save', $.toJSON({'saveTo': self.filename()}), function (data) {
-			
+	self.commit = function () {
+		$.post('/update', $.toJSON(self.changes()), function (data) {
+			self.dropHistory();
 		});
 	}
 
