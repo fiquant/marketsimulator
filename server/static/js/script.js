@@ -172,9 +172,12 @@ function AppViewModel() {
 	
 	
 	self.originalmodel = ko.observable("");
+	self.response = ko.observable("");
+	self.root = ko.observable('');
+	self.simulations = ko.observableArray();
+	self.filename = ko.observable("");
 	
 	function init_model() {
-		self.response = ko.observable("");
 		self.response(alldata());
 		var response = self.response.peek();
 		self.id2obj = new Ids2Objs();	
@@ -200,13 +203,13 @@ function AppViewModel() {
 				id2obj[i] = self.getObj(i);
 			}
 		}
-		self.root = ko.observable(self.id2obj.lookup(self.response.peek().root));
+		self.root(self.id2obj.lookup(self.response.peek().root));
 
-		self.simulations = ko.observableArray(response.simulations);
+		self.simulations(response.simulations);
 		if (!response.simulations.length) {
 			self.simulations.push(response.name);
 		}
-		self.filename = ko.observable(response.name);
+		self.filename(response.name);
 	
 		self.originalmodel.valueHasMutated();
 	}
@@ -356,7 +359,7 @@ function AppViewModel() {
 
 	self.load = function () {
 		$.post('/load', $.toJSON({'loadFrom': self.filename()}), function (data) {
-			document.location.reload(true);
+			init_model();
 		});
 	}
 };
