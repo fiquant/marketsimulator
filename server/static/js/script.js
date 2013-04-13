@@ -340,15 +340,23 @@ function AppViewModel() {
 	
 	self.errorMessage = ko.observable('');
 	
-	self.editSimulationNameMode = ko.observable(false);
+	self.forkName = ko.observable('');
 	
-	self.enterEditSimulationName = function () { self.editSimulationNameMode(true); }	
+	function updateForkName () {
+		var filename = self.filename();
+		for (var i=0; true; i++) {
+			var suggestion = filename + '.' + i;
+			if (self.simulations.indexOf(suggestion) < 0) {
+				self.forkName(suggestion);
+				return;
+			}			
+		}
+	}
 	
-	self.exitEditSimulationName = function () {
-		 self.simulations.push(self.filename());
-		 self.editSimulationNameMode(false); 
-		 self.save();
-	}	
+	updateForkName();
+	
+	self.filename.subscribe(updateForkName);
+	self.simulations.subscribe(updateForkName);
 	
 	self.commit = function () {
 		$.post('/update', $.toJSON(self.changes()), function (data) {
@@ -359,6 +367,14 @@ function AppViewModel() {
 	self.load = function () {
 		$.post('/load', $.toJSON({'loadFrom': self.filename()}), function (data) {
 			init_model();
+		});
+	}
+
+	self.fork = function () {
+		self.commit();
+		$.post('/fork', $.toJSON({'forkAs': self.forkName()}), function (data) {
+			self.simulations.push(self.forkName());
+			self.filename(self.forkName());
 		});
 	}
 };

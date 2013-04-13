@@ -123,22 +123,15 @@
 		Advance: <input data-bind="value: advance" />
 		Update interval: <input data-bind="value: updateInterval" />
 		<select data-bind="options: graphRenderers, value: currentRenderer"></select>
-		Simulation name: 
-		<!-- ko ifnot: editSimulationNameMode -->
+		Simulation:
 			<select data-bind="
 			options: simulations, 
 			value: 	 filename, 
-			event: { dblclick: enterEditSimulationName, change: load }"
+			event: { change: load }"
 			></select>
-		<!-- /ko -->
-		<!-- ko if: editSimulationNameMode -->
-			<input data-bind="
-			value: filename,
-			event: { blur: exitEditSimulationName, 
-					 dblclick: exitEditSimulationName } 
-			"></select>
-		<!-- /ko -->
 		<button data-bind="click: commit, enable: enabled">Commit</button>	
+		<button data-bind="click: fork, enable: enabled">Fork as</button>	
+		<input data-bind="value: forkName"></input>
 		<table>
 			<tr data-bind="template: { name: 'renderEntities', foreach: entities }">
 			</tr>
