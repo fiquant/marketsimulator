@@ -106,24 +106,11 @@ function AppViewModel() {
 	self.updategraph = ko.observable(false);
 	
 	self.advance = ko.observable(500);
-	self.response = ko.observable("");
-	self.response(alldata());
 	
 	self.graphRenderers = ["Flotr2", "HighStocks"];
 	self.currentRenderer = ko.observable(self.graphRenderers[0]);
 
-	self.id2obj = new Ids2Objs();	
-	
-	self.biggestId = -1;
-	for (var i in self.response().objects) {
-		var ii = parseInt(i);
-		if (ii > self.biggestId) {
-			self.biggestId = ii;
-		}
-	}
 	self.updateInterval = ko.observable(1);
-	
-	self.alias2id = {};
 	
 	self.getCandidates = function (constraint) {
 		var candidates = [];
@@ -155,7 +142,7 @@ function AppViewModel() {
 	self.getObj = function (sid) {
 		var id = parseInt(sid);
 		if (!self.id2obj.contains(id)) {
-			var created = createInstance(id, self.response().objects[id], self);
+			var created = createInstance(id, self.response.peek().objects[id], self);
 			if (id > self.biggestId) {
 				self.biggestId = id;
 			}
@@ -183,11 +170,24 @@ function AppViewModel() {
 		return obj;
 	}
 	
-	self.simulations = ko.observableArray([]);
-	self.filename = ko.observable();
 	
-	self.parsed = ko.computed(function () {
-		var response = self.response();
+	self.originalmodel = ko.observable("");
+	
+	function init_model() {
+		self.response = ko.observable("");
+		self.response(alldata());
+		var response = self.response.peek();
+		self.id2obj = new Ids2Objs();	
+		
+		self.biggestId = -1;
+		for (var i in self.response().objects) {
+			var ii = parseInt(i);
+			if (ii > self.biggestId) {
+				self.biggestId = ii;
+			}
+		}
+	
+		self.alias2id = {};
 		
 		self.currentTime = response.currentTime;
 		
@@ -200,19 +200,19 @@ function AppViewModel() {
 				id2obj[i] = self.getObj(i);
 			}
 		}
-		
-		self.root = ko.observable(self.id2obj.lookup(response.root));
+		self.root = ko.observable(self.id2obj.lookup(self.response.peek().root));
 
-		//------------ simulations
-		self.simulations(response.simulations);
-		if (response.simulations.length == 0) {
-			self.simulations.push("default");
+		self.simulations = ko.observableArray(response.simulations);
+		if (!response.simulations.length) {
+			self.simulations.push(response.name);
 		}
-		self.filename(response.name);
-		
-		return [id2obj];		
-	})
+		self.filename = ko.observable(response.name);
 	
+		self.originalmodel.valueHasMutated();
+	}
+	
+	init_model();
+			
 	self.hasError = ko.computed(function () { 
 		return self.root().hasError();
 	})
@@ -239,7 +239,7 @@ function AppViewModel() {
 
 	
 	self.all = ko.computed(function () {
-		var dummy = self.parsed();
+		var dummy = self.originalmodel();
 		var res = [];
 		self.id2obj.foreach(function (x) { res.push(x); });
 		return res;
@@ -253,7 +253,7 @@ function AppViewModel() {
 	})
 	
 	self.entities = ko.computed(function () {
-		var parsed = self.parsed();
+		var dummy = self.originalmodel();
 		function getTopLevelArray(fieldName) {
 			var arrayField = self.root().lookupField(fieldName);
 			foreach(arrayField.impl().elements(), function (element) {
@@ -340,9 +340,7 @@ function AppViewModel() {
 	
 	self.editSimulationNameMode = ko.observable(false);
 	
-	self.enterEditSimulationName = function () { 
-		self.editSimulationNameMode(true); 
-	}	
+	self.enterEditSimulationName = function () { self.editSimulationNameMode(true); }	
 	
 	self.exitEditSimulationName = function () {
 		 self.simulations.push(self.filename());
@@ -358,7 +356,7 @@ function AppViewModel() {
 
 	self.load = function () {
 		$.post('/load', $.toJSON({'loadFrom': self.filename()}), function (data) {
-			document.location.reload(true);	
+			document.location.reload(true);
 		});
 	}
 };
