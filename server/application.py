@@ -192,12 +192,15 @@ def current_user_dir():
 
 class Workspace(object):
     
-    def __init__(self, root, registry, world):
+    def __init__(self, name, root, registry, world):
         self.root = root
         self.registry = registry
         self.world = world
+        self.name = name
 
 def current_user_workspace():
+    if session[KEY] not in inmemory:
+        _load('default')
     return inmemory[session[KEY]]
 
 def set_current_workspace(workspace):
@@ -206,26 +209,31 @@ def set_current_workspace(workspace):
 def request_parsed():
     raw = request.form.iterkeys().__iter__().next()
     return json.loads(raw)
+
+def save_current_workspace():
+    w = current_user_workspace()
+    filename = os.path.join(current_user_dir(), w.name)
+    ensure_dir(filename)
+    with open(filename, 'wb') as output:
+        pickle.dump(w, output)
     
 @app.route('/save', methods=['POST'])
 def save():
     parsed = request_parsed()
-    name = parsed["saveTo"]
-    filename = os.path.join(current_user_dir(), parsed["saveTo"])
-    ensure_dir(filename)
-    with open(filename, 'wb') as output:
-        workspace = current_user_workspace()
-        workspace.world.name = name
-        pickle.dump(current_user_workspace(), output)
+    workspace = current_user_workspace()
+    workspace.name = parsed["saveTo"]
+    save_current_workspace()
     return ""
+
+def _load(workspace_name):
+    filename = os.path.join(current_user_dir(), workspace_name)
+    with open(filename, 'r') as input:
+        set_current_workspace(pickle.load(input))
 
 @app.route('/load', methods=['POST'])
 def load():
-    parsed = request_parsed()
-    filename = os.path.join(current_user_dir(), parsed["loadFrom"])
-    with open(filename, 'r') as input:
-        set_current_workspace(pickle.load(input))
-        return ""
+    _load(request_parsed()['loadFrom'])
+    return ""
 
 @app.route('/all')
 def get_all():
@@ -233,7 +241,7 @@ def get_all():
     files = os.listdir(current_user_dir())
     result = {
         "simulations" : files,
-        "name"  :   getattr(w.world, 'name', 'default'),
+        "name"  :   w.name,
         "root"  :   w.root,
         "objects" : w.registry.tojsonall(),
         "currentTime" : w.world.currentTime,
@@ -255,6 +263,7 @@ def reset():
     save_state_before_changes(w.registry)
     with w.world: 
         w.registry.reset()
+    save_current_workspace()
     return changes(w)
 
 def run(world, timeout, limitTime):
@@ -282,12 +291,15 @@ def update():
             w.registry.setAttr(Id, field, value)
             
     save_state_before_changes(w.registry) 
+
+    save_current_workspace()
     
     if 'limitTime' in parsed:
         limitTime = parsed['limitTime']
         timeout = parsed["timeout"]
         run(w.world, timeout, limitTime)
         
+    save_current_workspace()
     return changes(w)
 
 @app.route('/stop', methods=['POST'])
@@ -298,10 +310,12 @@ def stop():
 
 @app.route('/')
 def index():
-    if KEY not in session or session[KEY] not in inmemory:
+    if KEY not in session:
         session[KEY] = time.time()
-        set_current_workspace(Workspace(*createSimulation()))
+        set_current_workspace(Workspace('default', *createSimulation()))
         ensure_dir_ex(current_user_dir())
+    elif session[KEY] not in inmemory:
+        _load('default')
     return render_template('index.html')
 
 app.run(debug=True, use_reloader=False, threaded=True, port=80)
