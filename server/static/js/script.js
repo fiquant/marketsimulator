@@ -341,6 +341,10 @@ function AppViewModel() {
 	self.errorMessage = ko.observable('');
 	
 	self.forkName = ko.observable('');
+
+	self.forkNameValid = function () {
+		return self.simulations.indexOf(self.forkName()) < 0;
+	}
 	
 	function updateForkName () {
 		var filename = self.filename();
@@ -352,6 +356,7 @@ function AppViewModel() {
 			}			
 		}
 	}
+	
 	
 	updateForkName();
 	
@@ -372,9 +377,10 @@ function AppViewModel() {
 
 	self.fork = function () {
 		self.commit();
-		$.post('/fork', $.toJSON({'forkAs': self.forkName()}), function (data) {
-			self.simulations.push(self.forkName());
-			self.filename(self.forkName());
+		var forkName = self.forkName();
+		$.post('/fork', $.toJSON({'forkAs': forkName}), function (data) {
+			self.simulations.push(forkName);
+			self.filename(forkName);
 		});
 	}
 };
