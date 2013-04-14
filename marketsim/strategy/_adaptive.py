@@ -83,25 +83,7 @@ class TradeIfProfitable(tradeIfProfitable):
         
 class _chooseTheBest_Impl(Strategy):
     
-    def __init__(self, aTrader, params):
-        
-        def _createInstance(sp):
-            strategy = sp.runAt(aTrader)
-            estimator = trader.SASM(aTrader.orderBook, label = "estimator_"+aTrader.label)
-            estimator_strategy = params.estimator(sp).runAt(estimator)
-            efficiency = params.efficiency(estimator)
-            return (strategy, estimator, estimator_strategy, efficiency)
-        
-        self._strategies = [_createInstance(sp) for sp in params.strategies]
-        
-        self._eventGen = scheduler.Timer(intervalFunc=mathutils.constant(1))
-        
-        self._eventGen.advise(Method(self, '_chooseTheBest'))
-        self._current = None
-            
-        Strategy.__init__(self, aTrader)
-
-    def _chooseTheBest(self,_):
+    def _chooseTheBest_impl(self,_):
         if not self.suspended:
             best = -10e38
             for (_, _, _, efficiency) in self._strategies:
@@ -115,6 +97,25 @@ class _chooseTheBest_Impl(Strategy):
                 if efficiency.value != best:
                     self._current = strategy
         
+    def __init__(self, aTrader, params):
+        
+        def _createInstance(sp):
+            strategy = sp.runAt(aTrader)
+            estimator = trader.SASM(aTrader.orderBook, label = "estimator_"+aTrader.label)
+            estimator_strategy = params.estimator(sp).runAt(estimator)
+            efficiency = params.efficiency(estimator)
+            return (strategy, estimator, estimator_strategy, efficiency)
+        
+        self._strategies = [_createInstance(sp) for sp in params.strategies]
+        
+        self._eventGen = scheduler.Timer(intervalFunc=mathutils.constant(1))
+        
+        self._chooseTheBest = Method(self, '_chooseTheBest_impl')
+        self._eventGen.advise(self._chooseTheBest)
+        self._current = None
+            
+        Strategy.__init__(self, aTrader)
+
     def dispose(self):
         self._eventGen.unadvise(self._chooseTheBest)
         for (strategy, _, estimator_strategy, _) in self._strategies:

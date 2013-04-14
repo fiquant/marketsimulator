@@ -26,6 +26,7 @@ class %(name)s(object):
     def dispose(self):
         if self._impl is not None:
             self._impl.dispose()
+            self._impl = None
 
     def _respawn(self):
         self.dispose()
@@ -34,6 +35,8 @@ class %(name)s(object):
     def __getattr__(self, item):
         if '_impl' in self.__dict__ and self._impl is not None:
             return getattr(self._impl, item)
+        if item == 'suspended':
+            return True
         raise AttributeError()
         
     def __setattr__(self, item, value):
