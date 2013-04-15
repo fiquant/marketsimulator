@@ -18,7 +18,6 @@ function ArrayValue(fieldFactories) {
 	 */
 	self.remove = function (element) {
 		self._storage.remove(element);
-		self.hasChanged(true);
 	}
 
 	/**
@@ -34,7 +33,6 @@ function ArrayValue(fieldFactories) {
 	self.duplicate = function (element) {
 		var idx = self._storage().indexOf(element);
 		self._storage.splice(idx, 0, element.clone(self));
-		self.hasChanged(true);
 	}
 	
 	/**
@@ -43,11 +41,6 @@ function ArrayValue(fieldFactories) {
 	self.elements = ko.computed(function () {
 		return self._storage();
 	})
-	
-	/**
-	 *	Returns true if the fields has been changed 
-	 */
-	self.hasChanged = ko.observable(false);
 	
 	/**
 	 *	Clones array field 
@@ -62,14 +55,31 @@ function ArrayValue(fieldFactories) {
 	/**
 	 *  Returns serialized representation of the field 
 	 */
-	self.serialized = function () {
+	self.serialized = ko.computed(function () {
 		return map(self.elements(), function (property) {
 			return property.impl().serialized();
 		});
-	}
+	});
 	
+	var _init = self.serialized();
+	
+	self._initial = ko.observable(_init);
+	
+	/**
+	 *	Returns true if the fields has been changed 
+	 */
+	self.hasChanged = ko.computed(function() {
+		return $.toJSON(self.serialized()) != $.toJSON(self._initial());
+	});
+	
+	self.haveChildrenChanged = ko.computed(function () {
+		return any(self.elements(), function (property) {
+			return false && property.hasChangedWithChildren();
+		})
+	})
+
 	self.dropHistory = function () {
-		self.hasChanged(false);
+		self._initial(self.serialized());
 	}
 	
 	/**

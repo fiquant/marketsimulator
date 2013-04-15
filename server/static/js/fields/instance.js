@@ -113,10 +113,15 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	/**
 	 *	Returns true iff some fields have changed 
 	 */
-	self.hasChanged = function () {
+	self.hasChanged = ko.computed(function () {
 		return any(self.fields(), function (field) { 
 			return field.hasChanged(); });
-	}
+	});
+	
+	self.hasChangedWithChildren = ko.computed(function () {
+		return any(self.fields(), function (field) { 
+			return field.hasChanged() || field.haveChildrenChanged(); });
+	})
 	
 	/**
 	 *	Returns list of tuples (instance_id, field_name, new_value) of modified fields
