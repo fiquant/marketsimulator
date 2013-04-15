@@ -64,6 +64,10 @@ function Property(name, value, toplevel, parentArray) {
 		return self.impl().haveChildrenChanged();
 	}
 	
+	self.hasChangedWithChildren = ko.computed(function () {
+		return self.hasChanged() || self.haveChildrenChanged();
+	})
+	
 	/**
 	 *  Returns changed field mark if there are any changes 
 	 */
@@ -82,7 +86,7 @@ function Property(name, value, toplevel, parentArray) {
 	 *	Property name to display 
 	 */
 	self.displayLabel = ko.computed(function () { 
-		return self.displayName() + self.changedSign() + (false && self.haveChildrenChanged() ? "@" : ""); 
+		return self.displayName() + self.changedSign(); 
 	});
 	
 	/**

@@ -129,7 +129,7 @@
 			value: 	 filename, 
 			event: { change: load }"
 			></select>
-		<button data-bind="click: commit, enable: enabled">Commit</button>	
+		<button data-bind="click: commit, enable: enabled() && hasChanged()">Commit</button>	
 		<button data-bind="click: fork, enable: enabled() && forkNameValid()">Fork as</button>	
 		<input data-bind="value: forkName, valueUpdate: 'afterkeydown'"></input>
 		<table>

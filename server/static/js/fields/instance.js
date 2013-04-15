@@ -120,7 +120,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	
 	self.hasChangedWithChildren = ko.computed(function () {
 		return any(self.fields(), function (field) { 
-			return field.hasChanged() || field.haveChildrenChanged(); });
+			return field.hasChangedWithChildren(); });
 	})
 	
 	/**
