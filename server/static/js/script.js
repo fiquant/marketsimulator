@@ -215,6 +215,10 @@ function AppViewModel() {
 	}
 	
 	init_model();
+	
+	self.hasChanged = ko.computed(function () {
+		return self.root().hasChangedWithChildren();
+	})
 			
 	self.hasError = ko.computed(function () { 
 		return self.root().hasError();
@@ -364,12 +368,15 @@ function AppViewModel() {
 	self.simulations.subscribe(updateForkName);
 	
 	self.commit = function () {
-		$.post('/update', $.toJSON(self.changes()), function (data) {
-			self.dropHistory();
-		});
+		if (self.hasChanged()) {
+			$.post('/update', $.toJSON(self.changes()), function (data) {
+				self.dropHistory();
+			});
+		}
 	}
 
 	self.load = function () {
+		self.commit();
 		$.post('/load', $.toJSON({'loadFrom': self.filename()}), function (data) {
 			init_model();
 		});

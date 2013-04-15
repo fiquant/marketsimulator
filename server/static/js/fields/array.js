@@ -74,7 +74,7 @@ function ArrayValue(fieldFactories) {
 	
 	self.haveChildrenChanged = ko.computed(function () {
 		return any(self.elements(), function (property) {
-			return false && property.hasChangedWithChildren();
+			return property.hasChangedWithChildren();
 		})
 	})
 
