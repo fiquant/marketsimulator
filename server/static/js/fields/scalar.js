@@ -26,6 +26,10 @@ function ScalarValue(s, checker) {
 		return self._storage() != self._initial();
 	})
 	
+	self.haveChildrenChanged = function () {
+		return false;
+	}
+	
 	/**
 	 * Changes current value of the field and drops his history
  	 * @param {T} newvalue -- new value to be set

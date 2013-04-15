@@ -56,6 +56,10 @@ function ObjectValue(s, constraint, root, expandReference) {
 		return _initial() != _storage();
 	});
 	
+	self.haveChildrenChanged = function () {
+		return self.pointee().hasChangedWithChildren();
+	}
+	
 	/**
 	 *  Drops field history 
 	 */	
