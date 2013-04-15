@@ -130,8 +130,11 @@
 			event: { change: load }"
 			></select>
 		<button data-bind="click: commit, enable: enabled() && hasChanged()">Commit</button>	
+		<button data-bind="click: remove, enable: enabled()">Remove</button>	
 		<button data-bind="click: fork, enable: enabled() && forkNameValid()">Fork as</button>	
 		<input data-bind="value: forkName, valueUpdate: 'afterkeydown'"></input>
+		<button data-bind="click: createFrom, enable: enabled()">Create from</button>	
+		<select data-bind="options: createFromOptions, value: currentCreateFrom"></select>
 		<table>
 			<tr data-bind="template: { name: 'renderEntities', foreach: entities }">
 			</tr>

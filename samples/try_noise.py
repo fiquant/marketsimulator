@@ -4,11 +4,13 @@ sys.path.append(r'..')
 from marketsim import (strategy, trader, orderbook, order, mathutils,
                        scheduler, observable, veusz, registry)
 
-with scheduler.create() as world:
-    
-    book_A = orderbook.Local(tickSize=0.01, label="A")
-    
-    price_graph = veusz.Graph("Price")
+from common import run 
+
+def Noise(graph, world, books):
+
+    book_A = books['Asset A']
+
+    price_graph = graph("Price")
      
     assetPrice = observable.Price(book_A)
     
@@ -25,13 +27,12 @@ with scheduler.create() as world:
     price_graph += [assetPrice,
                     avg(assetPrice)]
     
-    eff_graph = veusz.Graph("efficiency")
+    eff_graph = graph("efficiency")
     eff_graph += [observable.Efficiency(noise_trader),
                   observable.PnL(noise_trader)]
     
-    for t in [lp_A, noise_trader]: t.run()
-    
-    world.workTill(500)
-    
-    veusz.render("noise_trader", [price_graph, eff_graph])
-    
+    return [lp_A, noise_trader], [price_graph, eff_graph]
+
+
+if __name__ == '__main__':    
+    run("noise_trader", Noise)
