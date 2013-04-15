@@ -4,23 +4,23 @@ sys.path.append(r'..')
 from marketsim import (strategy, trader, orderbook, order,
                        scheduler, observable, veusz, mathutils)
 
-with scheduler.create() as world:
-    
-    book_A = orderbook.Local(tickSize=0.01, label="A")
-    
-    price_graph = veusz.Graph("Price")
+from common import run 
+
+def FundamentalValue(graph, world, books):
+
+    book_A = books['Asset A']
      
+    price_graph = graph("Price")
     assetPrice = observable.Price(book_A)
     
-    avg = observable.avg
-    
+    avg = observable.avg    
     
     lp_A = trader.SASM(book_A, 
                        strategy.LiquidityProvider(
                             volumeDistr=mathutils.constant(1),
                             orderFactoryT=order.WithExpiryFactory(
                                 expirationDistr=mathutils.constant(10))))
-    trader = trader.SASM(book_A, 
+    fv = trader.SASM(book_A, 
                          strategy.FundamentalValue(
                             fundamentalValue = mathutils.constant(200)), 
                          "fv_200")
@@ -28,13 +28,12 @@ with scheduler.create() as world:
     price_graph += [assetPrice,
                     avg(assetPrice)]
     
-    eff_graph = veusz.Graph("efficiency")
-    eff_graph += [observable.Efficiency(trader),
-                  observable.PnL(trader)]
+    eff_graph = graph("efficiency")
+    eff_graph += [observable.Efficiency(fv),
+                  observable.PnL(fv)]
     
-    for t in [lp_A, trader]: t.run()
-    
-    world.workTill(500)
-    
-    veusz.render("fv_200_trader", [price_graph, eff_graph])
-    
+    return [lp_A, fv], [price_graph, eff_graph]
+
+if __name__ == '__main__':    
+    run("fv_200_trader", FundamentalValue)
+        

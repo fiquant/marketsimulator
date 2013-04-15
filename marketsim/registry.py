@@ -323,6 +323,12 @@ class Registry(object):
         return self.ofType("marketsim.orderbook.")
     
     @property
+    def orderBooksByName(self):
+        return {v._alias : v\
+                 for v in self._id2obj.itervalues() \
+                    if getCtor(v).startswith("marketsim.orderbook.") }
+    
+    @property
     def graphs(self):
         return self.ofType("marketsim.js.Graph")
     
@@ -373,11 +379,14 @@ class Registry(object):
         
         return [ctor, props, typ, alias]
     
-    def tojsonall(self):
-        
+    def pushAllReferences(self):
         root = list(self._id2obj.itervalues())                        
         for obj in root: # getting initial set of the dictionary keys
             self.assureAllReferencedAreRegistred(obj)
+    
+    def tojsonall(self):
+
+        self.pushAllReferences()
         
         rv = {}
         
@@ -490,6 +499,7 @@ class Simulation(object):
         self._traders = newtraders
 
 def createSimulation(instance):
+    instance.pushAllReferences()
     traders = instance.valuesOfType("marketsim.trader.")
     for trader in traders:
         trader.run()

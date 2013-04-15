@@ -8,6 +8,8 @@ from marketsim import (strategy, orderbook, trader, order, js, signal, remote,
 
 from marketsim.types import Side
 
+import samples
+
 const = mathutils.constant
 
 app = Flask(__name__)
@@ -15,7 +17,21 @@ app.secret_key = 'A0Zr98j/8769876IUOYOHOA0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 inmemory = {}
 
-def createSimulation():
+
+predefined = {"Default" : samples.Complete, 
+              "Fundamental Value" : samples.FundamentalValue,
+              "Dependency" : samples.Dependency,
+              "Noise": samples.Noise }
+
+preset = "Fundamental Value"
+preset = "Dependency"
+preset = "Noise"
+preset = "Default"
+
+def createSimulation(name):
+    
+    constructor = predefined[name]
+    
     myRegistry = registry.create()
     
     with scheduler.create() as world:
@@ -38,129 +54,28 @@ def createSimulation():
                   (remote_A, "Remote asset A"),
         ])
         
-        price_graph = js.Graph("Price")
-         
-        assetPrice = observable.Price(book_A)
-        price_graph.addTimeSeries([assetPrice, observable.AskPrice(book_A), observable.BidPrice(book_A)])
-        
-        avg = observable.avg
-        trend = observable.trend
-        
-        price_graph.addTimeSerie(avg(assetPrice))
-        
-        t_A = trader.SASM(book_A, 
-                          strategy.LiquidityProvider(
-                                volumeDistr=const(70.), 
-                                orderFactoryT=order.WithExpiryFactory(
-                                    expirationDistr=const(10))))
-        
-        c_200 = const(200.)
-        
-        fv_200_12 = strategy.FundamentalValue(fundamentalValue=c_200, volumeDistr=const(12))
-        
-        trader_200 = trader.SASM(book_A, fv_200_12, "t200")
-        
-        fv_200 = fv_200_12.With(volumeDistr=const(1.))
-         
-        trader_200_1 = trader.SASM(book_A, fv_200, "t200_1")    
-        trader_200_2 = trader.SASM(book_A, fv_200.With(), "t200_2")
-        
-        trader_150 = trader.SASM(book_A,
-                                 strategy.FundamentalValue(fundamentalValue=const(150.),
-                                                                volumeDistr=const(1.)),
-                                 "t150")
-        
-        meanreversion = trader.SASM(book_A,
-                                    strategy.MeanReversion(volumeDistr=const(1.)),
-                                    "mr_0_15")
-        
-        avg_plus = trader.SASM(book_A,
-                               strategy.TwoAverages(average1=mathutils.ewma(0.15),
-                                                    average2=mathutils.ewma(0.015),
-                                                    volumeDistr=const(1.)),
-                               label="avg+")
+        myRegistry.pushAllReferences()
+        traders, graphs = constructor(js.Graph, world, myRegistry.orderBooksByName)
     
-        avg_minus = trader.SASM(book_A,
-                               strategy.TwoAverages(average1=mathutils.ewma(0.015),
-                                                    average2=mathutils.ewma(0.15),
-                                                    volumeDistr=const(1.)),
-                               label="avg-")
-        
-        v_fv200 = trader.SASM(book_A,
-                              strategy.TradeIfProfitable(fv_200),
-                              "v_fv200")
-        def s_fv(fv):
-            return strategy.TradeIfProfitable(fv_200.With(fundamentalValue=const(fv)))
-    
-        def fv_virtual(fv):
-            return trader.SASM(book_A, s_fv(fv), "v" + str(fv))
-            
-        
-        virtual_160 = fv_virtual(160.)
-        virtual_170 = fv_virtual(170.)
-        virtual_180 = fv_virtual(180.)
-        virtual_190 = fv_virtual(190.)
-        
-        best = trader.SASM(book_A,
-                           strategy.chooseTheBest([s_fv(160.),
-                                                   s_fv(170.),
-                                                   s_fv(180.),
-                                                   s_fv(190.), ]),
-                           "best")
-    
-        eff_graph = js.Graph("efficiency")
-        trend_graph = js.Graph("efficiency trend")
-        pnl_graph = js.Graph("P&L")
-        volume_graph = js.Graph("volume")
-        
-        def addToGraph(traders):
-            for t in traders:
-                e = observable.Efficiency(t)
-                # eff_graph.addTimeSerie(e)
-                # eff_graph.addTimeSerie(InstEfficiency(t))
-                eff_graph.addTimeSerie(avg(e))
-                trend_graph.addTimeSerie(trend(e))
-                # trend_graph.addTimeSerie(trend(InstEfficiency(t)))
-                pnl_graph.addTimeSerie(observable.PnL(t))
-                volume_graph.addTimeSerie(observable.VolumeTraded(t))
-        
-        traders = [trader_150, trader_200, trader_200_1, trader_200_2,
-                    best,
-    #                tf, tf_0_15, tf_0_015, 
-                    meanreversion, avg_plus, avg_minus, v_fv200,
-                    virtual_160, virtual_170, virtual_180, virtual_190
-                   ]
-        
-        addToGraph(traders)
-        
-        for t in traders + [t_A] + [price_graph, eff_graph, trend_graph, pnl_graph, volume_graph]:
+        for t in traders + graphs:
             myRegistry.insert(t)
-        
-        fv_200 = trader_200.strategies[0]
-        
-        def new(name, fields):
-            return myRegistry.createFromMeta(myRegistry.getUniqueId(), 
-                                                    [name, fields])
-    
-        def setAttr(obj, name, value):
-            myRegistry.setAttr(myRegistry.insert(obj), name, value)
-        
-        c = new('marketsim.mathutils.constant', {'value': '50.0'})
-    
-        interval = new('marketsim.mathutils.rnd.expovariate', {'Lambda': '+1.0'})
-        
-        setAttr(fv_200, 'orderFactory', order.MarketFactory)
-        setAttr(fv_200, 'creationIntervalDistr', interval)
-        setAttr(avg_plus.strategies[0], 'average1', new('marketsim.mathutils.ewma', {'alpha' : 0.15 }))
-        setAttr(virtual_160.strategies[0], 'estimator', strategy.virtualWithUnitVolume)
-    
+            
         myRegistry.insert(Side.Sell)
         myRegistry.insert(Side.Buy)    
         myRegistry.insert(world)
         
         root = myRegistry.insert(registry.createSimulation(myRegistry))
         
-        return root, myRegistry, world
+        current_dir = current_user_dir()
+        ensure_dir_ex(current_dir)
+        
+        if os.path.exists(os.path.join(current_dir, name)):
+            i = 0
+            while os.path.exists(os.path.join(current_dir, name + "." + str(i))): 
+                i += 1
+            name += '.' + str(i) 
+        
+        return name, root, myRegistry, world
     
 def _timeseries(myRegistry):
     return [(k,v) for (k,v) in myRegistry._id2obj.iteritems()\
@@ -216,6 +131,15 @@ def current_user_workspace():
         _load(latest_workspace_for_user())
     return inmemory[session[KEY]]
 
+@app.route('/remove', methods=['POST'])
+def remove():
+    w = current_user_workspace()
+    filename = os.path.join(current_user_dir(), w.name)
+    if os.path.exists(filename):
+        os.remove(filename)
+    del inmemory[session[KEY]]
+    return ""
+
 def set_current_workspace(workspace):
     inmemory[session[KEY]] = workspace 
     
@@ -229,6 +153,10 @@ def save_current_workspace():
     ensure_dir(filename)
     with open(filename, 'wb') as output:
         pickle.dump(w, output)
+        
+@app.route('/common')
+def common():
+    return json.dumps(list(predefined.iterkeys()))
     
 @app.route('/fork', methods=['POST'])
 def fork():
@@ -239,13 +167,23 @@ def fork():
     save_current_workspace()
     return ""
 
+def _createFrom(name):
+    set_current_workspace(Workspace(*createSimulation(name)))    
+
 def _load(workspace_name):
     if workspace_name is None:
-        set_current_workspace(Workspace('default', *createSimulation()))
+        _createFrom('Default')
     else:    
         filename = os.path.join(current_user_dir(), workspace_name)
         with open(filename, 'r') as input:
             set_current_workspace(pickle.load(input))
+            
+@app.route('/createFrom', methods=['POST'])
+def createFrom():
+    save_current_workspace()
+    _createFrom(request_parsed()['createFrom'])
+    save_current_workspace()
+    return ""
 
 @app.route('/load', methods=['POST'])
 def load():
@@ -330,8 +268,7 @@ def stop():
 def index():
     if KEY not in session:
         session[KEY] = time.time()
-        set_current_workspace(Workspace('default', *createSimulation()))
-        ensure_dir_ex(current_user_dir())
+        _createFrom("Default")
     elif session[KEY] not in inmemory:
         _load(latest_workspace_for_user())
     return render_template('index.html')

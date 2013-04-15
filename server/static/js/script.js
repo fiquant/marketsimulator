@@ -7,6 +7,13 @@ function alldata() {
 
    return $.parseJSON(z.responseText);
 }
+
+var createFromPossibilites = $.parseJSON($.ajax({
+	     url: 'common',
+	     dataType: 'json',
+	     async: false
+	   }).responseText);
+	   
 function alltimeseries() {
    z = ($.ajax({
      url: 'alltimeseries',
@@ -374,10 +381,26 @@ function AppViewModel() {
 			});
 		}
 	}
+	
+	self.createFromOptions = createFromPossibilites
+	   
+	self.currentCreateFrom = ko.observable(self.createFromOptions[0]);
 
+	self.createFrom = function () {
+		self.commit();
+		$.post('/createFrom', $.toJSON({'createFrom': self.currentCreateFrom()}), 
+				function (data) {init_model();});
+	}
+		
 	self.load = function () {
 		self.commit();
 		$.post('/load', $.toJSON({'loadFrom': self.filename()}), function (data) {
+			init_model();
+		});
+	}
+	
+	self.remove = function () {
+		$.post('/remove', function (data) {
 			init_model();
 		});
 	}
