@@ -23,7 +23,8 @@ predefined = {"Default"             : samples.Complete,
               "Dependency"          : samples.Dependency,
               "Noise"               : samples.Noise,
               "Signal 20-0.1t"      : samples.Signal, 
-              "Trend Follower"      : samples.TrendFollower }
+              "Trend Follower"      : samples.TrendFollower,
+              "Two Averages"        : samples.TwoAverages }
 
 def createSimulation(name):
     
