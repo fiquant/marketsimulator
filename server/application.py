@@ -18,10 +18,11 @@ app.secret_key = 'A0Zr98j/8769876IUOYOHOA0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 inmemory = {}
 
 
-predefined = {"Default" : samples.Complete, 
-              "Fundamental Value" : samples.FundamentalValue,
-              "Dependency" : samples.Dependency,
-              "Noise": samples.Noise }
+predefined = {"Default"             : samples.Complete, 
+              "Fundamental Value"   : samples.FundamentalValue,
+              "Dependency"          : samples.Dependency,
+              "Noise"               : samples.Noise,
+              "Signal 20-0.1t"      : samples.Signal }
 
 preset = "Fundamental Value"
 preset = "Dependency"

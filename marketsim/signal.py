@@ -53,3 +53,6 @@ class RandomWalk(types.IObservable):
         
     def unadvise(self, listener):
         self.on_changed -= listener
+
+    def __call__(self):
+        return self.value
