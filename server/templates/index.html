@@ -139,8 +139,19 @@
 			<tr data-bind="template: { name: 'renderEntities', foreach: entities }">
 			</tr>
 		</table>
+	  	<!-- ko if: hasGraphs -->
+			<ul class="tabrow" data-bind="foreach: graphs">
+				<!-- ko if: !$data.empty() -->
+				  	<li data-bind="
+				  	            css: { selected: $index() == $root.currentGraph() }, 
+				  				click: function() { $root.currentGraph($index()); }">
+				  		<a href="#" data-bind="text: alias"></a>
+				  	</li>
+			<!-- /ko -->
+			</ul>
+      	<!-- /ko -->
 	  <div data-bind="template: { foreach: graphs }">
-	  	<!-- ko ifnot: empty -->
+	  	<!-- ko if: !$data.empty() && $index() == $root.currentGraph() -->
 	    <table class="graph1d">
           <tr data-bind="if: $root.currentRenderer() == 'Flotr2'">
 	        <td>
@@ -148,8 +159,7 @@
 	          </div>
 	        </td>
 	        <td>
-			    <h4 data-bind="text: alias"></h4>
-	        	<table data-bind="foreach: series">
+			    <table data-bind="foreach: series">
 	        		<tr>
 	        			<td>
 		        			<input type="checkbox" data-bind="checked: visible"/>
@@ -160,8 +170,7 @@
 	        </td>
 	      </tr>
           <tr data-bind="if: $root.currentRenderer() == 'HighStocks'">
-          	<h3 data-bind='text: alias'></h3>
-	        <td>
+          	<td>
 	          <div style="width: 97%; height: 95%" data-bind="attr: { id: $index }, highstocks: asFlotr">
 	          </div>
 	        </td>
