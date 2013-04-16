@@ -25,7 +25,8 @@ predefined = {"Default"             : samples.Complete,
               "Signal 20-0.1t"      : samples.Signal, 
               "Trend Follower"      : samples.TrendFollower,
               "Two Averages"        : samples.TwoAverages,
-              "Mean Reversion"      : samples.MeanReversion }
+              "Mean Reversion"      : samples.MeanReversion,
+              "Canceller"           : samples.Canceller  }
 
 def createSimulation(name):
     

@@ -6,3 +6,4 @@ from try_signal import Signal
 from try_trend_follower import TrendFollower
 from try_two_averages import TwoAverages
 from try_mean_reversion import MeanReversion
+from try_canceller import Canceller

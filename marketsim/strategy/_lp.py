@@ -1,7 +1,7 @@
 import random
 from _basic import OneSide, Strategy
 from _wrap import merge, wrapper
-from marketsim import order, scheduler, mathutils, types, registry
+from marketsim import order, scheduler, mathutils, types, registry, Method
 from marketsim.types import *
 
 class _LiquidityProviderSide_Impl(OneSide):
@@ -75,36 +75,43 @@ class _Canceller_Impl(object):
     def choiceFunc(self, N):
         return random.randint(0, N-1)
 
-    def __init__(self, source, params):
+    def _wakeUp_impl(self, _):
+        # if we have orders to cancel
+        while self._elements <> []:
+            # choose an order
+            N = len(self._elements)
+            idx = self.choiceFunc(N)
+            e = self._elements[idx]
+            # if the order is invalid
+            if e.empty or e.cancelled:
+                # put the last order instead of it and repeat the procedure
+                if e <> self._elements[-1]:
+                    self._elements[idx] = self._elements[-1]
+                # it converges since every time we pops an element from the queue
+                self._elements.pop()
+            else:
+                # if order is valid, cancel it
+                self._book.process(order.Cancel(e))
+                return
+
+    def __init__(self, trader, params):
 
         # orders created by trader
         self._elements = []
 
         # start listening its orders sent
-        source.on_order_sent += self.process
+        trader.on_order_sent += Method(self, 'process')
+        self.wakeUp = Method(self, '_wakeUp_impl')
         
-        book = source.book
-
-        def wakeUp(_):
-            # if we have orders to cancel
-            while self._elements <> []:
-                # choose an order
-                N = len(self._elements)
-                idx = self.choiceFunc(N)
-                e = self._elements[idx]
-                # if the order is invalid
-                if e.empty or e.cancelled:
-                    # put the last order instead of it and repeat the procedure
-                    if e <> self._elements[-1]:
-                        self._elements[idx] = self._elements[-1]
-                    # it converges since every time we pops an element from the queue
-                    self._elements.pop()
-                else:
-                    # if order is valid, cancel it
-                    book.process(order.Cancel(e))
-                    return
-
-        scheduler.Timer(params.cancellationIntervalDistr).advise(wakeUp)
+        self._book = trader.book
+        self._eventGen = scheduler.Timer(params.cancellationIntervalDistr)
+        self._eventGen += self.wakeUp
+        
+    def dispose(self):
+        self._eventGen -= self.wakeUp
+        
+    def reset(self):
+        self._eventGen.schedule()
 
     def process(self, order):
         """ Puts 'order' to future cancellation list
