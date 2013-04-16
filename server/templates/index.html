@@ -92,13 +92,9 @@
 	</script>
 	
 	<script type="text/html" id="renderEntities">
+		<!-- ko if: $index() == $root.currentEntity() -->
 		<td>
 			<table data-bind="css: $data[1]">
-			    <thead>
-			        <tr>
-			        	<th data-bind="text: $data[0]"></th>
-			        </tr>
-			    </thead>
 			    <tbody>
 			        <tr>
 			        	<td>
@@ -113,6 +109,7 @@
 			    </tbody>
 			</table>
 		</td>
+		<!-- /ko -->
 	</script>
 		
 	<script type="text/html" id="current">
@@ -136,20 +133,38 @@
 		<button data-bind="click: createFrom, enable: enabled()">Create from</button>	
 		<select data-bind="options: createFromOptions, value: currentCreateFrom"></select>
 		<table>
+			<tr>
+				<td>
+					<ul class="tabrow" data-bind="foreach: entities">
+					  	<li data-bind="
+					  	            css: { selected: $index() == $root.currentEntity() }, 
+					  				click: function() { $root.currentEntity($index()); 
+					  					                $root.currentEntity.valueHasMutated(); }">
+							<a href="#" data-bind="text: $data[0]"></a>
+						</li>
+					</ul>
+				</td>
+		  		<!-- ko if: hasGraphs -->
+				<td>
+					<ul class="tabrow" data-bind="foreach: graphs">
+						<!-- ko if: !$data.empty() -->
+						  	<li data-bind="
+						  	            css: { selected: $index() == $root.currentGraph() }, 
+						  				click: function() { $root.currentGraph($index()); 
+						  									$root.currentGraph.valueHasMutated(); }">
+						  		<a href="#" data-bind="text: alias"></a>
+						  	</li>
+						<!-- /ko -->
+					</ul>
+				</td>
+	      		<!-- /ko -->
+	      	</tr>
+	    </table>
+		<table data-bind="ifnot: showGraphs">
 			<tr data-bind="template: { name: 'renderEntities', foreach: entities }">
 			</tr>
 		</table>
-	  	<!-- ko if: hasGraphs -->
-			<ul class="tabrow" data-bind="foreach: graphs">
-				<!-- ko if: !$data.empty() -->
-				  	<li data-bind="
-				  	            css: { selected: $index() == $root.currentGraph() }, 
-				  				click: function() { $root.currentGraph($index()); }">
-				  		<a href="#" data-bind="text: alias"></a>
-				  	</li>
-			<!-- /ko -->
-			</ul>
-      	<!-- /ko -->
+      <!-- ko if: showGraphs -->
 	  <div data-bind="template: { foreach: graphs }">
 	  	<!-- ko if: !$data.empty() && $index() == $root.currentGraph() -->
 	    <table class="graph1d">
@@ -178,7 +193,7 @@
 	    </table>
 	    <!-- /ko -->
 	  </div>
-        
+      <!-- /ko -->  
 		
 		
 	</script>
