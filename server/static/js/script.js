@@ -414,10 +414,20 @@ function AppViewModel() {
 		});
 	}
 	
+	self.showGraphs = ko.observable(false);
 	self.currentGraph = ko.observable(0);
+	self.currentEntity = ko.observable(0);
+	
+	self.currentGraph.subscribe(function () {
+		self.showGraphs(true);
+	})
+	
+	self.currentEntity.subscribe(function () {
+		self.showGraphs(false);
+	})
 	
 	self.graphs.subscribe(function (value) {
-		if (value.length >= self.currentGraph()) {
+		if (value[self.currentGraph()] == undefined || value[self.currentGraph()].empty()) {
 			var t = 0;
 			for (var i in value) {
 				if (!value[i].empty()) {
@@ -432,6 +442,10 @@ function AppViewModel() {
 		return any(self.graphs(), function (graph) {
 			return !graph.empty();
 		})
+	})
+	
+	self.hasGraphs.subscribe(function (value) {
+		self.showGraphs(value);
 	})
 };
 

@@ -161,7 +161,7 @@ th {
     text-align: center;
     list-style: none;
     margin: 20px 0 0px;
-    padding: 0;
+    padding: 0px 20px;
     line-height: 24px;
     height: 26px;
     overflow: hidden;
