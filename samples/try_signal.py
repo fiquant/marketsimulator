@@ -2,34 +2,36 @@ import sys
 sys.path.append(r'..')
 
 from marketsim import (signal, strategy, trader, orderbook, 
-                       scheduler, observable, veusz)
+                       scheduler, observable, veusz, mathutils)
 
-with scheduler.create() as world:
-    
-    book_A = orderbook.Local(tickSize=0.01, label="A")
-    
-    price_graph = veusz.Graph("Price")
+from common import run
+
+const = mathutils.constant
+
+def Signal(graph, world, books):
+
+    book_A = books['Asset A']
+
+    price_graph = graph("Price")
      
     assetPrice = observable.Price(book_A)
     
     avg = observable.avg
     
-    lp_A = trader.SASM(book_A, strategy = strategy.LiquidityProvider(volumeDistr=lambda:1))
-    signal = signal.RandomWalk(initialValue=20, deltaDistr=lambda: -.1, label="signal")
-    trader = trader.SASM(book_A, strategy.Signal(signal), "signal")
+    lp_A = trader.SASM(book_A, strategy = strategy.LiquidityProvider(volumeDistr=const(1)))
+    linear_signal = signal.RandomWalk(initialValue=20, deltaDistr=const(-.1), label="20-0.1t")
+    signal_trader = trader.SASM(book_A, strategy.Signal(linear_signal), "signal")
     
     price_graph += [assetPrice,
                     avg(assetPrice),
-                    signal,
-                    observable.VolumeTraded(trader)]
+                    linear_signal,
+                    observable.VolumeTraded(signal_trader)]
     
-    eff_graph = veusz.Graph("efficiency")
-    eff_graph += [observable.Efficiency(trader),
-                  observable.PnL(trader)]
+    eff_graph = graph("efficiency")
+    eff_graph += [observable.Efficiency(signal_trader),
+                  observable.PnL(signal_trader)]
     
-    for t in [lp_A, trader]: t.run()
-    
-    world.workTill(500)
-    
-    veusz.render("signal_trader", [price_graph, eff_graph])
-    
+    return [lp_A, signal_trader], [price_graph, eff_graph]
+
+if __name__ == '__main__':
+    run("signal_trader", Signal)

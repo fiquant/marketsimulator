@@ -22,7 +22,7 @@ class _Signal_Impl(SignalBase):
         self._eventGen = params.signal
         self._threshold = params.threshold
         self._orderFactoryT = params.orderFactory
-        self._signalFunc = lambda: params.signal.value
+        self._signalFunc = params.signal
         self._volume = Method(params, 'volumeDistr')
         
         SignalBase.__init__(self, trader)
@@ -66,13 +66,13 @@ class _TrendFollower_Impl(SignalBase):
     def __init__(self, trader, params):
         
         self._eventGen = scheduler.Timer(params.creationIntervalDistr)
-        self._volume = lambda _: params.volumeDistr()
+        self._volume = Method(params, 'volumeDistr')
         self._threshold = params.threshold
         self._orderFactoryT = params.orderFactory
         
         trend = observable.Fold(observable.Price(trader.orderBook), 
                                 observable.derivative(params.average))
-        self._signalFunc = lambda: trend.value
+        self._signalFunc = trend
         
         SignalBase.__init__(self, trader)
 
