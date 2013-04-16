@@ -190,6 +190,8 @@ class SingleAssetMultipleMarket(SingleAsset):
         self._orderBooks = orderBooks
         SingleAsset.__init__(self, strategy, label, strategies)
         
+    _properties = { 'orderBooks' : meta.listOf(types.IOrderBook) }
+        
     @property
     def orderBooks(self):
         return self._orderBooks
