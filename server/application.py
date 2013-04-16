@@ -36,6 +36,8 @@ def createSimulation(name):
     
     with scheduler.create() as world:
         
+        myRegistry.insert(Side.Sell)
+        myRegistry.insert(Side.Buy)    
         book_A = orderbook.Local(tickSize=0.01, label="Asset A")
         myRegistry.insert(book_A)
         remote_A = orderbook.Remote(book_A, 
@@ -60,8 +62,6 @@ def createSimulation(name):
         for t in traders + graphs:
             myRegistry.insert(t)
             
-        myRegistry.insert(Side.Sell)
-        myRegistry.insert(Side.Buy)    
         myRegistry.insert(world)
         
         root = myRegistry.insert(registry.createSimulation(myRegistry))

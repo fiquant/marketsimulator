@@ -413,6 +413,26 @@ function AppViewModel() {
 			self.filename(forkName);
 		});
 	}
+	
+	self.currentGraph = ko.observable(0);
+	
+	self.graphs.subscribe(function (value) {
+		if (value.length >= self.currentGraph()) {
+			var t = 0;
+			for (var i in value) {
+				if (!value[i].empty()) {
+					t = i;
+				}
+			}
+			self.currentGraph(t);
+		}
+	})
+	
+	self.hasGraphs = ko.computed(function () {
+		return any(self.graphs(), function (graph) {
+			return !graph.empty();
+		})
+	})
 };
 
 /**

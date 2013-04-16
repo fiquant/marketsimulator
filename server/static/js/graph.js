@@ -178,7 +178,10 @@ ko.bindingHandlers.highstocks = {
 	        	enabled: false
 	        },
 	        plotOptions: {
-	        	line: {
+	            series: {
+                	animation: false
+            	},
+            	line: {
 	        		dataGrouping: {
 	        			groupPixelWidth: 2,
 	        			approximation: "open"
