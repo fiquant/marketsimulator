@@ -115,7 +115,7 @@ function AppViewModel() {
 	self.advance = ko.observable(500);
 	
 	self.graphRenderers = ["Flotr2", "HighStocks"];
-	self.currentRenderer = ko.observable(self.graphRenderers[0]);
+	self.currentRenderer = ko.observable(self.graphRenderers[1]);
 
 	self.updateInterval = ko.observable(1);
 	
