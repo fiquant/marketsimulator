@@ -25,7 +25,7 @@ def MeanReversion(graph, world, books):
                             volumeDistr=const(V*10), 
                             orderFactoryT=order.WithExpiryFactory(
                                 expirationDistr=const(10))),
-                       label="LiquidityProvider")
+                       label="liquidity")
     
     linear_signal = signal.RandomWalk(initialValue=200, 
                                       deltaDistr=const(-1), 

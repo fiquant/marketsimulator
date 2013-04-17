@@ -18,7 +18,7 @@ def Canceller(graph, world, books):
     
     lp = trader.SASM(book_A, 
                      strategy.LiquidityProviderSide(side = Side.Sell),
-                     "LiquidityProvider")
+                     "LiquidityProvider'")
 
     lp_B = trader.SASM(book_A, 
                      strategy.LiquidityProviderSide(side = Side.Buy),

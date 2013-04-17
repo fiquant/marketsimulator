@@ -25,7 +25,8 @@ def Complete(graph, world, books):
                       strategy.LiquidityProvider(
                             volumeDistr=const(70.), 
                             orderFactoryT=order.WithExpiryFactory(
-                                expirationDistr=const(10))))
+                                expirationDistr=const(10))), 
+                      "liquidity")
     
     c_200 = const(200.)
     

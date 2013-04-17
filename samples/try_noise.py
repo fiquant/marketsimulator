@@ -21,7 +21,9 @@ def Noise(graph, world, books):
                        strategy.LiquidityProvider(
                             volumeDistr=mathutils.constant(1),
                             orderFactoryT=order.WithExpiryFactory(
-                                expirationDistr=mathutils.constant(10))))
+                                expirationDistr=mathutils.constant(10))), 
+                       "liquidity")
+    
     noise_trader = trader.SASM(book_A, strategy.Noise(), "noise")
     
     price_graph += [assetPrice,

@@ -26,11 +26,11 @@ def Dependency(graph, world, books):
                     avg(assetPrice_B, alpha=0.65)]
     
     liqVol = mathutils.product(mathutils.rnd.expovariate(.1), mathutils.constant(5))
-    t_A = trader.SASM(book_A, strategy.LiquidityProvider(defaultValue=50., volumeDistr=liqVol))
-    t_B = trader.SASM(book_B, strategy.LiquidityProvider(defaultValue=150., volumeDistr=liqVol))
+    t_A = trader.SASM(book_A, strategy.LiquidityProvider(defaultValue=50., volumeDistr=liqVol), "LiquidityProvider_A")
+    t_B = trader.SASM(book_B, strategy.LiquidityProvider(defaultValue=150., volumeDistr=liqVol), "LiquidityProvider_B")
     
-    dep_AB = trader.SASM(book_A, strategy.Dependency(book_B, factor=2), "AB")
-    dep_BA = trader.SASM(book_B, strategy.Dependency(book_A, factor=.5), "BA")
+    dep_AB = trader.SASM(book_A, strategy.Dependency(book_B, factor=2), "A dependent on B")
+    dep_BA = trader.SASM(book_B, strategy.Dependency(book_A, factor=.5), "B dependent on A")
     
     eff_graph = graph("efficiency")
     eff_graph += [observable.Efficiency(dep_AB),

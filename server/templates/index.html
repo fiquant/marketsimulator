@@ -46,12 +46,7 @@
 		            	<input type="text" data-bind="value: _storage, valueUpdate: 'afterkeydown'">
 		            	</input>
 			        <!-- /ko -->
-		            <!-- ko if: $data.toplevel -->
-			            <!-- ko if: !$parentContext.$data.expandedView().length -->
-		    	        	<span data-bind="text: alias()"></span>
-				        <!-- /ko -->
-			        <!-- /ko -->
-		            <!-- ko if: $data.object -->
+		            <!-- ko if: $data.object || $data.toplevel -->
 			            <!-- ko ifnot: editAliasMode -->
 		            		<select data-bind="
 		            		event: 		{ mouseover: updateOptions, dblclick: enterEditMode }, 
@@ -95,18 +90,10 @@
 		<!-- ko if: $index() == $root.currentEntity() -->
 		<td>
 			<table data-bind="css: $data[1]">
-			    <tbody>
-			        <tr>
-			        	<td>
-			        		<table>
 						        <!-- ko with: $data[2].impl().expanded()[$root.currentEntityChoice()] -->
 						        	<!-- ko template: 'renderField'-->
 							        <!-- /ko -->
 						        <!-- /ko -->
-			        		</table>
-			        	</td>
-			        </tr>
-			    </tbody>
 			</table>
 		</td>
 		<!-- /ko -->
@@ -166,7 +153,6 @@
 					<div id="v-nav">
 						<ul data-bind="foreach: currentEntityElements">
 							<li data-bind="
-								text: impl().alias(), 
 								css: {
 									current: $index() == $root.currentEntityChoice(),
 									first: $index() == 0, 
@@ -176,6 +162,7 @@
 									click: function () { $root.currentEntityChoice($index()); }
 								}
 								">
+								<a href="#" data-bind="text: impl().alias()"></a>
 						  	</li>
 						</ul>
 					</div>
