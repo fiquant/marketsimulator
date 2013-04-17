@@ -142,7 +142,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 	 *	List of fields to be rendered in expanded view 
 	 */
 	self.expanded = ko.computed(function() {
-		return (self.pointee().isReference() && !self._expandReference()) ? [] : self.pointee().fields();
+		return (self.pointee().isReference() && self.toplevel) ? [] : self.pointee().fields();
 	});
 	
 	/**

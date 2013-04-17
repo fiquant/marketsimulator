@@ -99,7 +99,7 @@
 			        <tr>
 			        	<td>
 			        		<table>
-						        <!-- ko foreach: $data[2].impl().expanded() -->
+						        <!-- ko with: $data[2].impl().expanded()[$root.currentEntityChoice()] -->
 						        	<!-- ko template: 'renderField'-->
 							        <!-- /ko -->
 						        <!-- /ko -->
@@ -137,7 +137,7 @@
 				<td>
 					<ul class="tabrow" data-bind="foreach: entities">
 					  	<li data-bind="
-					  	            css: { selected: $index() == $root.currentEntity() }, 
+					  	            css: { selected: $index() == $root.currentEntity() && !$root.showGraphs() }, 
 					  				click: function() { $root.currentEntity($index()); 
 					  					                $root.currentEntity.valueHasMutated(); }">
 							<a href="#" data-bind="text: $data[0]"></a>
@@ -149,7 +149,7 @@
 					<ul class="tabrow" data-bind="foreach: graphs">
 						<!-- ko if: !$data.empty() -->
 						  	<li data-bind="
-						  	            css: { selected: $index() == $root.currentGraph() }, 
+						  	            css: { selected: $index() == $root.currentGraph()  && $root.showGraphs() }, 
 						  				click: function() { $root.currentGraph($index()); 
 						  									$root.currentGraph.valueHasMutated(); }">
 						  		<a href="#" data-bind="text: alias"></a>
@@ -161,7 +161,31 @@
 	      	</tr>
 	    </table>
 		<table data-bind="ifnot: showGraphs">
-			<tr data-bind="template: { name: 'renderEntities', foreach: entities }">
+			<tr>
+				<td>
+					<div id="v-nav">
+						<ul data-bind="foreach: currentEntityElements">
+							<li data-bind="
+								text: impl().alias(), 
+								css: {
+									current: $index() == $root.currentEntityChoice(),
+									first: $index() == 0, 
+									last: $index() == $root.currentEntityElements().length - 1
+								}, 
+								event: {
+									click: function () { $root.currentEntityChoice($index()); }
+								}
+								">
+						  	</li>
+						</ul>
+					</div>
+				</td>
+				<td>
+					<table>
+						<tr data-bind="template: { name: 'renderEntities', foreach: entities }">
+						</tr>
+					</table>
+				</td>
 			</tr>
 		</table>
       <!-- ko if: showGraphs -->

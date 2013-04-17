@@ -276,9 +276,9 @@ function AppViewModel() {
 			return arrayField;
 		}
 		return [
-			["Traders" , "model", getTopLevelArray('traders')],
-			["Order books", "option", getTopLevelArray('orderbooks')],
-			["Graphs", "pricing_method", getTopLevelArray('graphs')],
+			["Traders" , "model", getTopLevelArray('traders'), ko.observable(0)],
+			["Order books", "option", getTopLevelArray('orderbooks'), ko.observable(0)],
+			["Graphs", "pricing_method", getTopLevelArray('graphs'), ko.observable(0)],
 		];
 	})
 	
@@ -424,6 +424,17 @@ function AppViewModel() {
 	
 	self.currentEntity.subscribe(function () {
 		self.showGraphs(false);
+	})
+	
+	self.currentEntityElements = ko.computed(function () {
+		return self.entities()[self.currentEntity()][2].impl().elements();
+	})
+	
+	self.currentEntityChoice = ko.computed({
+		read: function () { return self.entities()[self.currentEntity()][3](); },
+		write: function (value) {
+			self.entities()[self.currentEntity()][3](value);
+		}
 	})
 	
 	self.graphs.subscribe(function (value) {
