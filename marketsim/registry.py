@@ -166,7 +166,11 @@ class Registry(object):
             if Id not in self._id2obj:
                 self._insertNew(Id, obj)
             else:
-                assert self._id2obj[Id] == obj
+                if self._id2obj[Id] != obj:
+                    if self._id2obj[Id]._id != obj._id:
+                        a = 12
+                    else:
+                        self._id2obj[Id] = obj
             return Id 
         else:
             return self._insertNew(self.getUniqueId(), obj)
