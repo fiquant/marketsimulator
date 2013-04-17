@@ -19,7 +19,9 @@ def FundamentalValue(graph, world, books):
                        strategy.LiquidityProvider(
                             volumeDistr=mathutils.constant(1),
                             orderFactoryT=order.WithExpiryFactory(
-                                expirationDistr=mathutils.constant(10))))
+                                expirationDistr=mathutils.constant(10))),
+                       "liquidity")
+    
     fv = trader.SASM(book_A, 
                          strategy.FundamentalValue(
                             fundamentalValue = mathutils.constant(200)), 

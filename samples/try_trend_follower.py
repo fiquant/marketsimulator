@@ -25,7 +25,7 @@ def TrendFollower(graph, world, books):
                             volumeDistr=const(V*3), 
                             orderFactoryT=order.WithExpiryFactory(
                                 expirationDistr=const(100))),
-                       label="LiquidityProvider")
+                       label="liquidity")
     
     linear_signal = signal.RandomWalk(initialValue=200, 
                                       deltaDistr=const(-1), 

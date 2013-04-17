@@ -18,7 +18,10 @@ def Signal(graph, world, books):
     
     avg = observable.avg
     
-    lp_A = trader.SASM(book_A, strategy = strategy.LiquidityProvider(volumeDistr=const(1)))
+    lp_A = trader.SASM(book_A, 
+                       strategy.LiquidityProvider(volumeDistr=const(1)),
+                       "liquidity")
+    
     linear_signal = signal.RandomWalk(initialValue=20, deltaDistr=const(-.1), label="20-0.1t")
     signal_trader = trader.SASM(book_A, strategy.Signal(linear_signal), "signal")
     

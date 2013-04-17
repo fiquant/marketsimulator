@@ -18,7 +18,10 @@ def TwoAverages(graph, world, books):
     
     avg = observable.avg
     
-    lp_A = trader.SASM(book_A, strategy = strategy.LiquidityProvider(volumeDistr=const(8)))
+    lp_A = trader.SASM(book_A, 
+                       strategy.LiquidityProvider(volumeDistr=const(8)),
+                       "liquidity")
+    
     linear_signal = signal.RandomWalk(initialValue=200, deltaDistr=const(-1), label="200-t")
     signal_trader = trader.SASM(book_A, strategy.Signal(linear_signal, volumeDistr=const(3)), "signal")
     

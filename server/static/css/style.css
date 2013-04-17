@@ -270,8 +270,13 @@ th {
 {
     height: 100%;
     margin: auto;
-    color: #333;
     font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+    color: #555;
+}
+
+#v-nav a {
+    text-decoration: none;
+    color: #555;
 }
 
 #v-nav li
@@ -325,6 +330,17 @@ th {
     background: -o-linear-gradient(top, #f2f2f2 0%, #e2e2e2 100%); /* Opera 11.10+ */
     background: -ms-linear-gradient(top, #f2f2f2 0%, #e2e2e2 100%); /* IE10+ */
     background: linear-gradient(top, #f2f2f2 0%, #e2e2e2 100%); /* W3C */       
+}
+
+#v-nav >ul >li:hover
+{
+    background: whiteSmoke; /* Old browsers */
+    background: -moz-linear-gradient(top, #CCC 0%, #AAA 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #CCC), color-stop(100%, #AAA)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #CCC 0%, #AAA 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #CCC 0%, #AAA 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #CCC 0%, #AAA 100%); /* IE10+ */
+    background: linear-gradient(top, #CCC 0%, #AAA 100%); /* W3C */       
 }
 
 #v-nav >ul >li.current
