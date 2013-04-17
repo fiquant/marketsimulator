@@ -96,6 +96,7 @@ class Registry(object):
         self._id2savedfields = {}
         for s in startup:
             s(self)
+        self.pushAllReferences()
                 
     def _findAlias(self, obj):
         t = type(obj)
