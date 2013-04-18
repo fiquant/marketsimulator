@@ -55,7 +55,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 	 *	Returns true if the fields has been changed 
 	 */
 	self.hasChanged = ko.computed(function () {
-		return _initial() != _storage();
+		return _initial() != _storage() || _storage()._aliasChanged();
 	});
 	
 	self.haveChildrenChanged = function () {
