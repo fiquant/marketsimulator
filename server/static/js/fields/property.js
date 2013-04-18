@@ -120,7 +120,7 @@ function Property(name, value, toplevel, parentArray) {
 	/**
 	 *  Returns true if the field is expanded at the moment 
 	 */
-	self.isExpanded = ko.observable(self.expandable());
+	self.isExpanded = ko.observable(self.expandable() && (!self.object || self.impl().expandedByDefault));
 	
 	self.expandable.subscribe(function (value) {
 		self.isExpanded(value);
