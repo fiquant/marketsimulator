@@ -130,9 +130,10 @@ function ObjectValue(s, constraint, root, expandReference) {
 			if (id != undefined) {
 				var source = root.getObj(id);
 				// if alias id has changed, let's create a new instance for the chosen alias
-				var freshly_created = source.isReference() ? source : source.clone();
+				var freshly_created = !self.toplevel && source.isReference() ? source : source.clone();
 				console.log(self.pointee().uniqueId() + ' --> ' + freshly_created.uniqueId() + " @ " + id);
 				// and set it as current object
+				self.updateOptions();
 				_storage(freshly_created);
 			}
 		}	
