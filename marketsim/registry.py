@@ -182,6 +182,11 @@ class Registry(object):
         
     def setAttr(self, Id, propname, value):
         obj = self._id2obj[Id]
+        
+        if propname == '_alias':
+            obj._alias = value
+            return
+        
         props = properties(obj)
         # try:
         value = self._convert(props, propname, value)
@@ -245,8 +250,13 @@ class Registry(object):
         Id should be a unique number
         meta - an array of length 2 containing constructor name and parameters dictionary
         """
-        assert len(meta) == 2
-        ctorname, props = meta
+        if len(meta) == 3:
+            ctorname, props, alias = meta
+        elif len(meta) == 2:
+            ctorname, props = meta
+            alias = None
+        else:
+            assert 'wrong meta'
         ctor = _findType(ctorname)
         if ctorname == 'marketsim.Side._SellSide':
             obj = Side.Sell
@@ -258,6 +268,8 @@ class Registry(object):
             for k,v in props.iteritems():
                 converted[k] = self._convert(dst_properties, k, v)
             obj = ctor(**converted)
+            if alias is not None:
+                obj._alias = alias
         else:
             assert inspect.isfunction(ctor)
             obj = ctor
