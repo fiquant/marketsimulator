@@ -36,7 +36,9 @@ function ObjectValue(s, constraint, root, expandReference) {
 	self.editAliasMode = ko.observable(false);
 	
 	self.enterEditMode = function () {
-		self.editAliasMode(true);
+		if (self.toplevel || !_storage().isReference() && _storage().fields().length) {
+			self.editAliasMode(true);
+		}
 	}
 
 	self.exitEditMode = function () {
@@ -89,7 +91,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 	 *  Clones object field (if pointee is a reference it is not cloned)
 	 */
 	self.clone = function () {
-		var deep_cloning = self.toplevel || !self.pointee().isReference();
+		var deep_cloning = self.toplevel || !self.pointee().isReference() && _storage().fields().length;
 		return new ObjectValue(deep_cloning ? self.pointee().clone() : self.pointee(), 
 								constraint, root, self._expandReference());
 	}
@@ -132,7 +134,11 @@ function ObjectValue(s, constraint, root, expandReference) {
 			if (id != undefined) {
 				var source = root.getObj(id);
 				// if alias id has changed, let's create a new instance for the chosen alias
-				var freshly_created = !self.toplevel && source.isReference() ? source : source.clone();
+				var freshly_created = !self.toplevel && (
+					source.isReference() || _storage().fields().length == 0)
+					? 	source 
+					: 	source.clone();
+					
 				console.log(self.pointee().uniqueId() + ' --> ' + freshly_created.uniqueId() + " @ " + id);
 				// and set it as current object
 				self.updateOptions();
