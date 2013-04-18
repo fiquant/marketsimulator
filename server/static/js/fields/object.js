@@ -7,7 +7,9 @@
  */
 function ObjectValue(s, constraint, root, expandReference) {
 	var self = this;
+	
 	self._expandReference = ko.observable(expandReference);
+	self.expandedByDefault = constraint != "marketsim.js.TimeSerie";
 	
 	self.makeTopLevel = function () {
 		self._expandReference(true);
