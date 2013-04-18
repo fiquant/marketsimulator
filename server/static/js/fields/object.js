@@ -36,7 +36,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 	self.editAliasMode = ko.observable(false);
 	
 	self.enterEditMode = function () {
-		if (self.toplevel || !_storage().isReference() && _storage().fields().length) {
+		if (self.toplevel || (!_storage().isReference() && _storage().fields().length)) {
 			self.editAliasMode(true);
 		}
 	}
