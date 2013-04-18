@@ -101,33 +101,97 @@
 		
 	<script type="text/html" id="current">
 		<span data-bind="html: errorMessage"></span>
-		<button data-bind="click: submitChanges, enable: enabled">Run</button>	
-		<button data-bind="click: reset, enable: enabled">Reset</button>	
-		<button data-bind="click: stop, enable: running">Stop</button>	
-		Advance: <input data-bind="value: advance" />
-		Update interval: <input data-bind="value: updateInterval" />
-		<select data-bind="options: graphRenderers, value: currentRenderer"></select>
-		Simulation:
-			<select data-bind="
-			options: simulations, 
-			value: 	 filename, 
-			event: { change: load }"
-			></select>
-		<button data-bind="click: commit, enable: enabled() && hasChanged()">Commit</button>	
-		<button data-bind="click: remove, enable: enabled()">Remove</button>	
-		<button data-bind="click: fork, enable: enabled() && forkNameValid()">Fork as</button>	
-		<input data-bind="value: forkName, valueUpdate: 'afterkeydown'"></input>
-		<button data-bind="click: createFrom, enable: enabled()">Create from</button>	
-		<select data-bind="options: createFromOptions, value: currentCreateFrom"></select>
+
+	<div id='cssmenu'>
+		<ul>
+			<li data-bind="css: { 'has-sub': enabled }">
+				<a href='#'><span data-bind="text: filename() + (hasChanged() ? '*' : '')"></span></a>
+				<!-- ko if: enabled -->
+				<ul>
+					<li data-bind="css: { 'has-sub': forkNameValid }">
+						<a href='#'>
+						<input data-bind="value: forkName, valueUpdate: 'afterkeydown'" />
+						</a>
+						<!-- ko if: forkNameValid -->
+						<ul data-bind="enabled: forkNameValid">
+							<li data-bind="click: fork">
+								<a href='#'> Fork! </a>
+							</li>
+						</ul>
+						<!-- /ko -->
+					</li>
+					<li>
+						<a href='#'><span data-bind="click: remove">Delete</span></a>
+					</li>
+					<!-- ko if: hasChanged -->
+					<li>
+						<a href='#'><span data-bind="click: commit">Save</span></a>
+					</li>
+					<!-- /ko -->
+					<!-- ko if: currentTime -->
+					<li>
+						<a href='#'><span data-bind="click: reset">Reset</span></a>
+					</li>
+					<!-- /ko -->
+				</ul>
+				<!-- /ko -->
+			</li>
+			<li data-bind="css: { 'has-sub': enabled }">
+				<a href='#'><span>Create new from...</span></a>
+				<!-- ko if: enabled -->
+				<ul data-bind='foreach: createFromOptions'>
+					<li>
+						<a href='#' data-bind="click: function() { $root.createFromEx($data);}"> <span data-bind="text: $data"> </span> </a>
+					</li>
+				</ul>
+				<!-- /ko -->
+			</li>
+			<li data-bind="css: { 'has-sub': enabled }">
+				<a href='#'><span>Switch to...</span></a>
+				<!-- ko if: enabled -->
+				<ul data-bind='foreach: simulations'>
+					<li data-bind="
+					if: $data != $root.filename(),
+					click: function() { $root.loadEx($data);}
+					">
+						<a href='#'> <span data-bind="text: $data"> </span></a>
+					</li>
+				</ul>
+				<!-- /ko -->
+			</li>
+			<!-- ko if: enabled -->
+			<li data-bind="click: submitChanges">
+				<a href='#'><span>Run</span></a>
+			</li>
+			<!-- /ko -->
+			<!-- ko if: running -->
+			<li data-bind="click: stop">
+				<a href='#'><span>Stop</span></a>
+			</li>
+			<!-- /ko -->
+		</ul>
+	</div>
+		
 		<table>
 			<tr>
 				<td>
 					<ul class="tabrow" data-bind="foreach: entities">
 					  	<li data-bind="
-					  	            css: { selected: $index() == $root.currentEntity() && !$root.showGraphs() }, 
+					  	            css: { selected: $index() == $root.currentEntity() 
+					  	            	          && !$root.showOptions()
+					  	            	          && !$root.showGraphs() }, 
 					  				click: function() { $root.currentEntity($index()); 
 					  					                $root.currentEntity.valueHasMutated(); }">
 							<a href="#" data-bind="text: $data[0]"></a>
+						</li>
+					</ul>
+				</td>
+				<td>
+					<ul class="tabrow">
+					  	<li data-bind="
+					  	            css: { selected: $root.showOptions() }, 
+					  				click: function() { $root.showOptions(true); }">
+							<a href="#">Options</a>
 						</li>
 					</ul>
 				</td>
@@ -136,7 +200,9 @@
 					<ul class="tabrow" data-bind="foreach: graphs">
 						<!-- ko if: !$data.empty() -->
 						  	<li data-bind="
-						  	            css: { selected: $index() == $root.currentGraph()  && $root.showGraphs() }, 
+						  	            css: { selected: $index() == $root.currentGraph()
+						  	            	          && !$root.showOptions()  
+						  	            	          && $root.showGraphs() }, 
 						  				click: function() { $root.currentGraph($index()); 
 						  									$root.currentGraph.valueHasMutated(); }">
 						  		<a href="#" data-bind="text: alias"></a>
@@ -147,7 +213,18 @@
 	      		<!-- /ko -->
 	      	</tr>
 	    </table>
-		<table data-bind="ifnot: showGraphs">
+	    <!-- ko if: showOptions -->
+	    	<h4>Simulation:</h4>
+	    	<p>When simulation is run the model advances by 
+	    		<input data-bind="value: advance" /> time units</p>
+	    	<p>Simulation results are updated every 
+	    		<input data-bind="value: updateInterval" /> seconds</p>
+	    	<h4>Graph:</h4>
+	    	<p>Renderer is 
+	    		<select data-bind="options: graphRenderers, value: currentRenderer"></select>
+	    	</p>
+	    <!-- /ko -->
+		<table data-bind="if: !$root.showOptions() && !$root.showGraphs()">
 			<tr>
 				<td>
 					<div id="v-nav">
@@ -175,7 +252,7 @@
 				</td>
 			</tr>
 		</table>
-      <!-- ko if: showGraphs -->
+      <!-- ko if: !$root.showOptions() && $root.showGraphs() -->
 	  <div data-bind="template: { foreach: graphs }">
 	  	<!-- ko if: !$data.empty() && $index() == $root.currentGraph() -->
 	    <table class="graph1d">
@@ -197,7 +274,7 @@
 	      </tr>
           <tr data-bind="if: $root.currentRenderer() == 'HighStocks'">
           	<td>
-	          <div style="width: 97%; height: 95%" data-bind="attr: { id: $index }, highstocks: asFlotr">
+	          <div style="width: 97%; height: 92%" data-bind="attr: { id: $index }, highstocks: asFlotr">
 	          </div>
 	        </td>
 	      </tr>

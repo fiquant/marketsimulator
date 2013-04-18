@@ -118,6 +118,7 @@ function AppViewModel() {
 	self.currentRenderer = ko.observable(self.graphRenderers[1]);
 
 	self.updateInterval = ko.observable(1);
+	self.showOptions = ko.observable(false);
 	
 	self.getCandidates = function (constraint) {
 		var candidates = [];
@@ -183,11 +184,12 @@ function AppViewModel() {
 	self.root = ko.observable('');
 	self.simulations = ko.observableArray();
 	self.filename = ko.observable("");
+	self.currentTime = ko.observable(0);
 	
 	function init_model() {
 		self.response(alldata());
 		var response = self.response.peek();
-		self.id2obj = new Ids2Objs();	
+		self.id2obj = new Ids2Objs();
 		
 		self.biggestId = -1;
 		for (var i in self.response().objects) {
@@ -199,7 +201,7 @@ function AppViewModel() {
 	
 		self.alias2id = {};
 		
-		self.currentTime = response.currentTime;
+		self.currentTime(response.currentTime);
 		
 		//----------- building new objects
 		if (response.objects) {
@@ -232,8 +234,6 @@ function AppViewModel() {
 	})
 	
 	self.processResponse = function (data, reset) {
-		self.currentTime = data.currentTime;
-		
 		//------------------------ update properties
 		foreach(data.changes, function (ch) {
 			self.id2obj.lookup(ch[0]).lookupField(ch[1]).set(ch[2]);
@@ -248,6 +248,8 @@ function AppViewModel() {
 				target.appendData(newData);
 			}
 		});
+		
+		self.currentTime(data.currentTime);
 		self.updategraph(!self.updategraph());
 	}
 
@@ -318,7 +320,7 @@ function AppViewModel() {
     }
     
 	self.submitChanges = function() {
-		self.limitTime(_parseFloat(self.advance()) + self.currentTime);
+		self.limitTime(_parseFloat(self.advance()) + self.currentTime());
 		function run() {
 			self.running(self.running() + 1);
 			var changes = self.changes();
@@ -391,10 +393,23 @@ function AppViewModel() {
 		$.post('/createFrom', $.toJSON({'createFrom': self.currentCreateFrom()}), 
 				function (data) {init_model();});
 	}
+
+	self.createFromEx = function (filename) {
+		self.commit();
+		$.post('/createFrom', $.toJSON({'createFrom': filename}), 
+				function (data) {init_model();});
+	}
 		
 	self.load = function () {
 		self.commit();
 		$.post('/load', $.toJSON({'loadFrom': self.filename()}), function (data) {
+			init_model();
+		});
+	}
+	
+	self.loadEx = function (filename) {
+		self.commit();
+		$.post('/load', $.toJSON({'loadFrom': filename }), function (data) {
 			init_model();
 		});
 	}
@@ -420,10 +435,12 @@ function AppViewModel() {
 	
 	self.currentGraph.subscribe(function () {
 		self.showGraphs(true);
+		self.showOptions(false);
 	})
 	
 	self.currentEntity.subscribe(function () {
 		self.showGraphs(false);
+		self.showOptions(false);
 	})
 	
 	self.currentEntityElements = ko.computed(function () {
