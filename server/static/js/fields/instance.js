@@ -62,6 +62,26 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	});
 	
 	/**
+	 *	Returns true iff this instance should be considered as of reference type
+	 */
+	self.isReference = function () {
+		return isReferenceType(self.constructor());
+	}
+	
+	self._generateNewAlias = function () {
+		if (self.isReference()) {
+			for (var i = 0; true; i++) {
+				var s = self.alias() + '.' + i;
+				if (root.alias2id[s] == undefined) {
+					return s;
+				}
+			}
+		} else {
+			return self.alias();
+		}
+	}
+
+	/**
 	 *	Makes a deep clone of the object 
 	 */
 	self.clone = function () {
@@ -74,7 +94,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 								constructor, 
 								fields_cloned, 
 								typeinfo, 
-								self.alias(), 
+								self._generateNewAlias(), 
 								root);
 		});
 	}
@@ -89,13 +109,6 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 				self.alias()];
 	}
 	
-	/**
-	 *	Returns true iff this instance should be considered as of reference type
-	 */
-	self.isReference = function () {
-		return isReferenceType(self.constructor());
-	}
-
 	/**
 	 * 	Returns true iff this instance is primary with respect to the alias 
 	 */
