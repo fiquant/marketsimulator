@@ -42,19 +42,28 @@ def TrendFollower(graph, world, books):
                                  strategy.TrendFollower(
                                     average=mathutils.ewma(alpha),
                                     volumeDistr = const(V)),
-                                 label="trendfolllower")
+                                 label="trendfollower")
+
+    trend_follower_ex = trader.SASM(book_A, 
+                                    strategy.TrendFollowerEx(book_A,
+                                       average=mathutils.ewma(alpha),
+                                       volumeDistr = const(V)),
+                                    label="trendfollower_ex")
     
     price_graph += [assetPrice,
                     avg(assetPrice, alpha),
                     linear_signal,
                     observable.VolumeTraded(signal_trader), 
-                    observable.VolumeTraded(trend_follower),]
+                    observable.VolumeTraded(trend_follower),
+                    observable.VolumeTraded(trend_follower_ex)]
     
     eff_graph = graph("efficiency")
     eff_graph += [observable.Efficiency(trend_follower),
                   observable.PnL(trend_follower)]
+    eff_graph += [observable.Efficiency(trend_follower_ex),
+                  observable.PnL(trend_follower_ex)]
     
-    return [lp_A, signal_trader, trend_follower], [price_graph, eff_graph]
+    return [lp_A, signal_trader, trend_follower, trend_follower_ex], [price_graph, eff_graph]
 
 if __name__ == '__main__':
     run("trend_follower", TrendFollower)

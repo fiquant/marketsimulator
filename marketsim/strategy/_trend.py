@@ -168,3 +168,23 @@ exec wrapper('TrendFollower',
               ('orderFactory',           'order.MarketFactory',           'Side -> Volume -> IOrder'),
               ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
               ('volumeDistr',            'mathutils.rnd.expovariate(1.)', '() -> Volume')])
+
+def TrendFollowerEx(orderBook, 
+                    average                 = mathutils.ewma(alpha = 0.15), 
+                    threshold               = 0., 
+                    orderFactory            = order.MarketFactory, 
+                    creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
+                    volumeDistr             = mathutils.rnd.expovariate(1.)):
+    
+    trend = observable.Fold(observable.Price(orderBook), 
+                            observable.derivative(average))
+    
+    r = Generic(orderFactory= orderFactory, 
+                volumeFunc  = volumeDistr,
+                eventGen    = scheduler.Timer(creationIntervalDistr),
+                sideFunc    = SignalSide(trend, threshold))
+    
+    r._alias = 'TrendFollowerEx'
+    
+    return r
+    
