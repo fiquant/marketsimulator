@@ -1,6 +1,6 @@
 from marketsim.types import *
-from marketsim import observable, scheduler, order, mathutils, types, registry, signal, Method
-from _basic import TwoSides, Strategy
+from marketsim import Event, observable, scheduler, order, mathutils, types, meta, registry, signal, Method
+from _basic import TwoSides, Strategy, Generic
 from _wrap import wrapper
 
 class SignalBase(TwoSides):
@@ -32,6 +32,69 @@ exec wrapper("Signal",
               ('threshold',     '0.7',                          'non_negative'),
               ('orderFactory',  'order.MarketFactory',          'Side -> Volume -> IOrder'),
               ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')], register=False)
+
+class SignalSide(object):
+    
+    def __init__(self, source, threshold = 0):
+        self.source = source
+        self.threshold = threshold
+        self._alias = "SignalSide"
+        
+    _properties = { 'source'    : meta.function((), float),
+                    'threshold' : float }
+    
+    _types = [meta.function((), Side)]
+        
+    def __call__(self):
+        value = self.source()
+        side = Side.Buy  if value > self.threshold else\
+               Side.Sell if value < -self.threshold else\
+               None
+        return side
+    
+class SignalValue(object):
+    
+    def __init__(self, signal):
+        self.signal = signal
+        
+    _properties = { 'signal' : types.IObservable }
+    _types = [meta.function((), float)]
+        
+    def __call__(self):
+        return self.signal()
+
+class SignalEvent(Event):
+    
+    def __init__(self, signal):
+        Event.__init__(self)
+        self.signal = signal
+        self.signal.advise(self)
+        
+    def schedule(self):
+        self.signal.schedule()
+        
+    def dispose(self):
+        self.signal.unadvise(self)
+        
+    _properties = { 'signal' : types.IObservable }
+        
+
+def SignalEx(signal, 
+             threshold      = 0, 
+             orderFactory   = order.MarketFactory, 
+             volumeDistr    = mathutils.rnd.expovariate(1.)):
+    
+    r = Generic(sideFunc     = SignalSide(SignalValue(signal), threshold),
+                volumeFunc   = volumeDistr, 
+                orderFactory = orderFactory, 
+                eventGen     = SignalEvent(signal))  
+    
+    r._alias = 'SignalEx'
+    
+    return r
+
+registry.startup.append(lambda instance: instance.insert(SignalEx(signal.RandomWalk())))
+  
 
 class _TwoAverages_Impl(SignalBase):
     
