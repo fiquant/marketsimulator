@@ -97,7 +97,9 @@ class sub(object):
     _types = [types.function((), float)]
     
     def __call__(self, *args, **kwargs):
-        return self.LeftHandSide() + self.RightHandSide()
+        lhs = self.LeftHandSide()
+        rhs = self.RightHandSide()
+        return lhs - rhs if lhs is not None and rhs is not None else None
     
     def __repr__(self):
         return repr(self.RightHandSide)+ "-" + repr(self.RightHandSide)

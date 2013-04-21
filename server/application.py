@@ -44,6 +44,7 @@ def createSimulation(name):
                                     remote.TwoWayLink(
                                         remote.Link(mathutils.rnd.expovariate(1)), 
                                         remote.Link(mathutils.rnd.expovariate(1))))
+        twoaverages = strategy.TwoAverages(book_A)
         
         def register(annotated_objects):
             for obj, alias in annotated_objects:
@@ -54,6 +55,7 @@ def createSimulation(name):
                   (signal.RandomWalk(), "Random walk"),
                   (strategy.Signal(signal.RandomWalk()), "Signal"),
                   (remote_A, "Remote asset A"),
+                  (twoaverages, "TwoAveragesEx")
         ])
         
         myRegistry.pushAllReferences()
