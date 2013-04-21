@@ -30,6 +30,9 @@ def TwoAverages(graph, world, books):
     
     avg_plus = trader.SASM(book_A, strategy.TwoAverages(average1 = slow, average2 = fast), 'avg+')
     avg_minus = trader.SASM(book_A, strategy.TwoAverages(average1 = fast, average2 = slow), 'avg-')
+
+    avg_ex_plus = trader.SASM(book_A, strategy.TwoAveragesEx(book_A, average1 = slow, average2 = fast), 'avg_ex+')
+    avg_ex_minus = trader.SASM(book_A, strategy.TwoAveragesEx(book_A, average1 = fast, average2 = slow), 'avg_ex-')
     
     price_graph += [assetPrice,
                     avg(assetPrice, 0.015),
@@ -37,15 +40,19 @@ def TwoAverages(graph, world, books):
                     linear_signal,
                     observable.VolumeTraded(signal_trader),
                     observable.VolumeTraded(avg_plus),
-                    observable.VolumeTraded(avg_minus)]
+                    observable.VolumeTraded(avg_minus), 
+                    observable.VolumeTraded(avg_ex_plus),
+                    observable.VolumeTraded(avg_ex_minus)]
     
     eff_graph = graph("efficiency")
     eff_graph += [
                   observable.Efficiency(avg_plus),
                   observable.Efficiency(avg_minus),
+                  observable.Efficiency(avg_ex_plus),
+                  observable.Efficiency(avg_ex_minus),
                   ]
     
-    return [lp_A, signal_trader, avg_plus, avg_minus], [price_graph, eff_graph]
+    return [lp_A, signal_trader, avg_plus, avg_minus, avg_ex_plus, avg_ex_minus], [price_graph, eff_graph]
 
 if __name__ == '__main__':
     run("two_averages", TwoAverages)

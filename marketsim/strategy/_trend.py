@@ -124,6 +124,29 @@ exec wrapper("TwoAverages",
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)', '() -> Volume')])
 
+def TwoAveragesEx(orderBook,
+                  average1 = mathutils.ewma(alpha = 0.15), 
+                  average2 = mathutils.ewma(alpha = 0.015), 
+                  threshold             = 0, 
+                  orderFactory          = order.MarketFactory, 
+                  creationIntervalDistr = mathutils.rnd.expovariate(1.), 
+                  volumeDistr           = mathutils.rnd.expovariate(1.)):
+    
+    price = observable.Price(orderBook)
+    
+    r = Generic(orderFactory= orderFactory, 
+                volumeFunc  = volumeDistr,
+                eventGen    = scheduler.Timer(creationIntervalDistr),
+                sideFunc    = SignalSide(
+                                 mathutils.sub(
+                                     observable.Fold(price, average1),
+                                     observable.Fold(price, average2)),
+                                 threshold))
+    
+    r._alias = 'TwoAveragesEx'
+    
+    return r
+
 class _TrendFollower_Impl(SignalBase):
     
     def __init__(self, trader, params):
