@@ -32,10 +32,10 @@ def createSimulation(name):
     
     constructor = predefined[name]
     
-    myRegistry = registry.create()
-    
     with scheduler.create() as world:
         
+        myRegistry = registry.create()
+    
         myRegistry.insert(Side.Sell)
         myRegistry.insert(Side.Buy)    
         book_A = orderbook.Local(tickSize=0.01, label="Asset A")

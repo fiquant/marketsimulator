@@ -19,12 +19,13 @@ def Noise(graph, world, books):
     
     lp_A = trader.SASM(book_A, 
                        strategy.LiquidityProvider(
-                            volumeDistr=mathutils.constant(1),
+                            volumeDistr=mathutils.constant(2),
                             orderFactoryT=order.WithExpiryFactory(
                                 expirationDistr=mathutils.constant(10))), 
                        "liquidity")
     
     noise_trader = trader.SASM(book_A, strategy.Noise(), "noise")
+    noise_ex_trader = trader.SASM(book_A, strategy.NoiseEx(), "noise_ex")
     
     price_graph += [assetPrice,
                     avg(assetPrice)]
@@ -32,8 +33,10 @@ def Noise(graph, world, books):
     eff_graph = graph("efficiency")
     eff_graph += [observable.Efficiency(noise_trader),
                   observable.PnL(noise_trader)]
+    eff_graph += [observable.Efficiency(noise_ex_trader),
+                  observable.PnL(noise_ex_trader)]
     
-    return [lp_A, noise_trader], [price_graph, eff_graph]
+    return [lp_A, noise_trader, noise_ex_trader], [price_graph, eff_graph]
 
 
 if __name__ == '__main__':    

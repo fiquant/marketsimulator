@@ -382,6 +382,7 @@ th {
   position: relative;
   z-index: 597;
   float: left;
+  padding-left: 50px;
 }
 #cssmenu ul li {
   float: left;
