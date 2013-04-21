@@ -46,6 +46,7 @@ def createSimulation(name):
                                         remote.Link(mathutils.rnd.expovariate(1))))
         twoaverages = strategy.TwoAveragesEx(book_A)
         trendfollower = strategy.TrendFollowerEx(book_A)
+        fundamentalvalue = strategy.FundamentalValueEx(book_A)
         
         def register(annotated_objects):
             for obj, alias in annotated_objects:
@@ -57,7 +58,8 @@ def createSimulation(name):
                   (strategy.Signal(signal.RandomWalk()), "Signal"),
                   (remote_A, "Remote asset A"),
                   (twoaverages, "TwoAveragesEx"),
-                  (trendfollower, "TrendFollowerEx")
+                  (trendfollower, "TrendFollowerEx"), 
+                  (fundamentalvalue, "FundamentalValueEx")
         ])
         
         myRegistry.pushAllReferences()
