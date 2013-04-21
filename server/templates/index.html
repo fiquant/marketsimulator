@@ -105,7 +105,7 @@
 	<div id='cssmenu'>
 		<ul>
 			<li data-bind="css: { 'has-sub': enabled }">
-				<a href='#'><span data-bind="text: filename() + (hasChanged() ? '*' : '')"></span></a>
+				<a href='#'><h3 data-bind="text: filename() + (hasChanged() ? '*' : '')"></h3></a>
 				<!-- ko if: enabled -->
 				<ul>
 					<li data-bind="css: { 'has-sub': forkNameValid }">
@@ -120,35 +120,36 @@
 						</ul>
 						<!-- /ko -->
 					</li>
-					<li>
-						<a href='#'><span data-bind="click: remove">Delete</span></a>
+					<li data-bind="click: remove">
+						<a href='#'><span>Delete</span></a>
 					</li>
 					<!-- ko if: hasChanged -->
-					<li>
-						<a href='#'><span data-bind="click: commit">Save</span></a>
+					<li data-bind="click: commit">
+						<a href='#'><span>Save</span></a>
 					</li>
 					<!-- /ko -->
 					<!-- ko if: currentTime -->
-					<li>
-						<a href='#'><span data-bind="click: reset">Reset</span></a>
+					<li  data-bind="click: reset">
+						<a href='#'><span>Reset</span></a>
 					</li>
 					<!-- /ko -->
 				</ul>
 				<!-- /ko -->
 			</li>
 			<li data-bind="css: { 'has-sub': enabled }">
-				<a href='#'><span>Create new from...</span></a>
+				<a href='#'><h3>Create new from...</h3></a>
 				<!-- ko if: enabled -->
 				<ul data-bind='foreach: createFromOptions'>
-					<li>
-						<a href='#' data-bind="click: function() { $root.createFromEx($data);}"> <span data-bind="text: $data"> </span> </a>
+					<li data-bind="click: function() { $root.createFromEx($data);}">
+						<a href='#'> <span data-bind="text: $data"> </span> </a>
 					</li>
 				</ul>
 				<!-- /ko -->
 			</li>
+			<!-- ko if: simulations().length > 1 -->
 			<li data-bind="css: { 'has-sub': enabled }">
-				<a href='#'><span>Switch to...</span></a>
-				<!-- ko if: enabled -->
+				<a href='#'><h3>Switch to...</h3></a>
+				<!-- ko if: enabled () -->
 				<ul data-bind='foreach: simulations'>
 					<li data-bind="
 					if: $data != $root.filename(),
@@ -159,14 +160,15 @@
 				</ul>
 				<!-- /ko -->
 			</li>
+			<!-- /ko -->
 			<!-- ko if: enabled -->
 			<li data-bind="click: submitChanges">
-				<a href='#'><span>Run</span></a>
+				<a href='#'><h3>Run</h3></a>
 			</li>
 			<!-- /ko -->
 			<!-- ko if: running -->
 			<li data-bind="click: stop">
-				<a href='#'><span>Stop</span></a>
+				<a href='#'><h3>Stop</h3></a>
 			</li>
 			<!-- /ko -->
 		</ul>
@@ -274,7 +276,7 @@
 	      </tr>
           <tr data-bind="if: $root.currentRenderer() == 'HighStocks'">
           	<td>
-	          <div style="width: 97%; height: 92%" data-bind="attr: { id: $index }, highstocks: asFlotr">
+	          <div style="width: 97%; height: 88%" data-bind="attr: { id: $index }, highstocks: asFlotr">
 	          </div>
 	        </td>
 	      </tr>

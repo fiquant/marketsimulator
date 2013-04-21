@@ -1,4 +1,7 @@
-from marketsim import types, Method
+from marketsim import types, Method, Event, mathutils, registry, order, scheduler, Side, meta
+from marketsim.types import *
+
+from _wrap import wrapper
 
 class Strategy(types.IStrategy):
     
@@ -51,6 +54,55 @@ class TwoSides(Strategy):
                 a = 12
             # send order to the order book
             self._trader.send(order)
+
+class _Generic_Impl(Strategy):    
+    
+    def __init__(self, trader, params):                
+        """ Runs generic two side strategy 
+        trader - single asset single market trader
+        params.eventGen -- event that initiates strategy work
+        params.sideFunc -- function '() -> Side option' that calculates side of order to create
+        params.volumeFunc -- function '() -> Volume' calculating volume of order to create
+        params.orderFactory -- function 'Side -> Volume -> IOrder' instantiating orders
+        """        
+        Strategy.__init__(self, trader)
+        self._eventGen = params.eventGen
+        self._sideFunc = params.sideFunc
+        self._volumeFunc = params.volumeFunc
+        self._orderFactory = params.orderFactory
+        self._wakeUp = Method(self, '_wakeUp_impl')
+        
+        # start listening calls from eventGen
+        self._eventGen.advise(self._wakeUp)
+        
+    def reset(self):
+        self._eventGen.schedule()
+        
+    def dispose(self):
+        self._eventGen.unadvise(self._wakeUp)
+
+    def _wakeUp_impl(self, _):
+        if self._suspended:
+            return
+        # determine side and parameters of an order to create
+        side = self._sideFunc()
+        if side <> None:
+            volume = self._volumeFunc()
+            # create order given side and parameters
+            order = self._orderFactory(side)(volume)
+            # send order to the order book
+            self._trader.send(order)
+
+@registry.expose(alias = 'Random side')
+@meta.sig(args=(), rv=Side)
+def randomSide():
+    return types.Side.byId(mathutils.rnd.randint(0,1)())
+
+exec  wrapper("Generic", 
+              [('orderFactory',         'order.MarketFactory',                  'Side -> Volume -> IOrder'),
+               ('eventGen',             'None',                                 'Event'),
+               ('volumeFunc',           'mathutils.rnd.expovariate(1.)',        '() -> Volume'),
+               ('sideFunc',             'randomSide',                           '() -> Side')], register=False)
         
 class OneSide(Strategy):
     

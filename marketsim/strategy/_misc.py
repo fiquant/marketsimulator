@@ -1,5 +1,5 @@
 from marketsim import scheduler, order, mathutils, types, registry   
-from _basic import TwoSides, Strategy
+from _basic import TwoSides, Strategy, Generic, randomSide
 from _wrap import wrapper
 from marketsim.types import *
 
@@ -21,3 +21,21 @@ exec wrapper("Noise",
               ("sideDistr",             "mathutils.rnd.randint(0,1)",   "() -> int"), # in fact it should be () -> Side
               ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> Volume'),
               ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')])
+
+def NoiseEx     (orderFactory           = order.MarketFactory,
+                 sideDistr              = randomSide, 
+                 volumeDistr            = mathutils.rnd.expovariate(1.), 
+                 creationIntervalDistr  = mathutils.rnd.expovariate(1.)):
+    
+    r = Generic(orderFactory = orderFactory, 
+                eventGen     = scheduler.Timer(creationIntervalDistr), 
+                sideFunc     = sideDistr, 
+                volumeFunc   = volumeDistr)
+    
+    r._alias = "NoiseEx"
+    
+    return r
+
+registry.startup.append(lambda instance: instance.insert(NoiseEx()))
+                        
+    
