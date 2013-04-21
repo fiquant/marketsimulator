@@ -47,6 +47,7 @@ def createSimulation(name):
         twoaverages = strategy.TwoAveragesEx(book_A)
         trendfollower = strategy.TrendFollowerEx(book_A)
         fundamentalvalue = strategy.FundamentalValueEx(book_A)
+        meanreversion = strategy.MeanReversion(book_A)
         
         def register(annotated_objects):
             for obj, alias in annotated_objects:
@@ -59,7 +60,8 @@ def createSimulation(name):
                   (remote_A, "Remote asset A"),
                   (twoaverages, "TwoAveragesEx"),
                   (trendfollower, "TrendFollowerEx"), 
-                  (fundamentalvalue, "FundamentalValueEx")
+                  (fundamentalvalue, "FundamentalValueEx"),
+                  (meanreversion, "MeanReversionEx"),
         ])
         
         myRegistry.pushAllReferences()

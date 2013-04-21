@@ -100,6 +100,23 @@ exec wrapper("MeanReversion",
               ('average',               'mathutils.ewma(alpha = 0.15)',     'IUpdatableValue'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)',    '() -> Volume'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')])
+
+def MeanReversionEx   (orderBook, 
+                       average               = mathutils.ewma(alpha = 0.15),
+                       orderFactory          = order.MarketFactory, 
+                       volumeDistr           = mathutils.rnd.expovariate(1.), 
+                       creationIntervalDistr = mathutils.rnd.expovariate(1.)):
+
+    avg = observable.Fold(observable.Price(orderBook), average)
+    
+    r = Generic(orderFactory= orderFactory, 
+                volumeFunc  = volumeDistr, 
+                eventGen    = scheduler.Timer(creationIntervalDistr), 
+                sideFunc    = FundamentalValueSide(orderBook, avg))
+    
+    r._alias = "MeanReversionEx"
+    
+    return r
         
 class _Dependency_Impl(FundamentalValueBase):
     
