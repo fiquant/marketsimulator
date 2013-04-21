@@ -1,7 +1,7 @@
-from marketsim import (scheduler, observable, cached_property, types,
+from marketsim import (scheduler, observable, cached_property, types, meta,
                        Side, registry, orderbook, Method, order, mathutils)
 
-from _basic import Strategy
+from _basic import Strategy, Generic
 from _trend import SignalBase
 from _wrap import wrapper
 
@@ -46,6 +46,42 @@ exec  wrapper("FundamentalValue",
                ('fundamentalValue',     'mathutils.constant(100)',      '() -> Price'),
                ('volumeDistr',          'mathutils.rnd.expovariate(1.)','() -> Volume'),
                ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> TimeInterval')])
+
+class FundamentalValueSide(object):
+    
+    def __init__(self, orderBook, fundamentalValue):
+        self.orderBook = orderBook
+        self.fundamentalValue = fundamentalValue
+        self._alias = "FundamentalValueSide"
+        
+    _properties = { 'fundamentalValue'    : meta.function((), Price),
+                    'orderBook'           : types.IOrderBook }
+    
+    _types = [meta.function((), Side)]
+        
+    def __call__(self):
+        fv = self.fundamentalValue()
+        book = self.orderBook
+        return Side.Buy if not book.asks.empty\
+                  and book.asks.best.price < fv else\
+               Side.Sell if not book.bids.empty\
+                  and book.bids.best.price > fv else\
+               None
+
+def FundamentalValueEx(orderBook, 
+                       fundamentalValue      = mathutils.constant(100.),
+                       orderFactory          = order.MarketFactory, 
+                       volumeDistr           = mathutils.rnd.expovariate(1.), 
+                       creationIntervalDistr = mathutils.rnd.expovariate(1.)):
+    
+    r = Generic(orderFactory= orderFactory, 
+                volumeFunc  = volumeDistr, 
+                eventGen    = scheduler.Timer(creationIntervalDistr), 
+                sideFunc    = FundamentalValueSide(orderBook, fundamentalValue))
+    
+    r._alias = "FundamentalValueEx"
+    
+    return r
 
 class _MeanReversion_Impl(FundamentalValueBase):
 

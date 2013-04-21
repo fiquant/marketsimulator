@@ -17,24 +17,33 @@ def FundamentalValue(graph, world, books):
     
     lp_A = trader.SASM(book_A, 
                        strategy.LiquidityProvider(
-                            volumeDistr=mathutils.constant(1),
+                            volumeDistr=mathutils.constant(300),
                             orderFactoryT=order.WithExpiryFactory(
                                 expirationDistr=mathutils.constant(10))),
                        "liquidity")
     
     fv = trader.SASM(book_A, 
                          strategy.FundamentalValue(
-                            fundamentalValue = mathutils.constant(200)), 
+                            fundamentalValue = mathutils.constant(200),
+                            volumeDistr = mathutils.constant(1)), 
                          "fv_200")
+
+    fv_ex = trader.SASM(book_A, 
+                         strategy.FundamentalValueEx(book_A,
+                            fundamentalValue = mathutils.constant(200),
+                            volumeDistr = mathutils.constant(1)), 
+                         "fv_ex_200")
     
     price_graph += [assetPrice,
                     avg(assetPrice)]
     
     eff_graph = graph("efficiency")
     eff_graph += [observable.Efficiency(fv),
-                  observable.PnL(fv)]
+                  observable.VolumeTraded(fv)]
+    eff_graph += [observable.Efficiency(fv_ex),
+                  observable.VolumeTraded(fv_ex)]
     
-    return [lp_A, fv], [price_graph, eff_graph]
+    return [lp_A, fv, fv_ex], [price_graph, eff_graph]
 
 if __name__ == '__main__':    
     run("fv_200_trader", FundamentalValue)
