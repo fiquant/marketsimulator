@@ -22,7 +22,7 @@ def MeanReversion(graph, world, books):
     
     lp_A = trader.SASM(book_A, 
                        strategy.LiquidityProvider(
-                            volumeDistr=const(V*10), 
+                            volumeDistr=const(V*20), 
                             orderFactoryT=order.WithExpiryFactory(
                                 expirationDistr=const(10))),
                        label="liquidity")
@@ -44,17 +44,25 @@ def MeanReversion(graph, world, books):
                                     volumeDistr = const(V)),
                                  label="meanreversion")
     
+    mean_reversion_ex=trader.SASM(book_A, 
+                                 strategy.MeanReversionEx(book_A,
+                                    average=mathutils.ewma(alpha),
+                                    volumeDistr = const(V)),
+                                 label="meanreversion_ex")
+    
     price_graph += [assetPrice,
                     avg(assetPrice, alpha),
                     linear_signal,
                     observable.VolumeTraded(signal_trader), 
-                    observable.VolumeTraded(mean_reversion),]
+                    observable.VolumeTraded(mean_reversion),
+                    observable.VolumeTraded(mean_reversion_ex)]
     
     eff_graph = graph("efficiency")
     eff_graph += [observable.Efficiency(mean_reversion),
+                  observable.Efficiency(mean_reversion_ex),
                   observable.Efficiency(signal_trader)]
     
-    return [lp_A, signal_trader, mean_reversion], [price_graph, eff_graph]
+    return [lp_A, signal_trader, mean_reversion, mean_reversion_ex], [price_graph, eff_graph]
 
 if __name__ == '__main__':
     run("mean_reversion", MeanReversion)
