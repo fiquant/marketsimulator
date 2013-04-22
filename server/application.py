@@ -52,6 +52,7 @@ def createSimulation(name):
         dependency = strategy.Dependency(book_B)
         dependency_ex = strategy.DependencyEx(book_A, book_B)
         lp_sell = strategy.LiquidityProviderSideEx(book_A)
+        lp = strategy.LiquidityProviderEx(book_A)
         
         def register(annotated_objects):
             for obj, alias in annotated_objects:
@@ -68,7 +69,8 @@ def createSimulation(name):
                   (meanreversion, "MeanReversionEx"),
                   (dependency, "Dependency"),
                   (dependency_ex, "DependencyEx"),
-                  (lp_sell, "LiquidityProviderSideEx")
+                  (lp_sell, "LiquidityProviderSideEx"),
+                  (lp, "LiquidityProviderEx")
         ])
         
         myRegistry.pushAllReferences()

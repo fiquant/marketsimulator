@@ -87,11 +87,12 @@ class _Generic_Impl(Strategy):
         # determine side and parameters of an order to create
         side = self._sideFunc()
         if side <> None:
-            volume = self._volumeFunc()
-            # create order given side and parameters
-            order = self._orderFactory(side)(volume)
-            # send order to the order book
-            self._trader.send(order)
+            volume = int(self._volumeFunc())
+            if volume > 0:
+                # create order given side and parameters
+                order = self._orderFactory(side)(volume)
+                # send order to the order book
+                self._trader.send(order)
 
 @registry.expose(alias = 'Random side')
 @meta.sig(args=(), rv=Side)
