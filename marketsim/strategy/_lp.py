@@ -1,7 +1,7 @@
 import random
-from _basic import OneSide, Strategy
+from _basic import OneSide, Strategy, Generic
 from _wrap import merge, wrapper
-from marketsim import order, scheduler, mathutils, types, registry, Method
+from marketsim import order, scheduler, mathutils, types, registry, Method, meta
 from marketsim.types import *
 
 class _LiquidityProviderSide_Impl(OneSide):
@@ -33,7 +33,62 @@ exec wrapper("LiquidityProviderSide",
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
               ('priceDistr',            'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)',        '() -> Volume')])
+
+class ConstantSide(object):
+    
+    def __init__(self, side = Side.Sell):
+        self.side = side
+        self._alias = 'Constant side'
+        
+    _properties = { 'side' : Side }
+    _types = [ meta.function((), Side) ]
+        
+    def __call__(self):
+        return self.side
+    
+class SafeSidePrice(object):
+    
+    def __init__(self, orderBook, side, defaultValue):
+        self.orderBook = orderBook
+        self.side = side
+        self.defaultValue = defaultValue
+        self._alias = 'Safe order queue price'
+        
+    _properties = { 'orderBook'     : IOrderBook, 
+                    'side'          : Side, 
+                    'defaultValue'  : float }
+    
+    _types = [meta.function((), Price)]
+        
+    def __call__(self):
+        queue = self.orderBook.queue(self.side)
+        return queue.best.price if not queue.empty else\
+               queue.lastPrice if queue.lastPrice is not None else\
+               self.defaultValue
+        
+
+def LiquidityProviderSideEx(orderBook, 
+                            side                    = Side.Sell, 
+                            orderFactory            = order.LimitFactory, 
+                            defaultValue            = 100., 
+                            creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
+                            priceDistr              = mathutils.rnd.lognormvariate(0., .1), 
+                            volumeDistr             = mathutils.rnd.expovariate(1.)):
        
+    r = Generic(eventGen    = scheduler.Timer(creationIntervalDistr),
+                volumeFunc  = volumeDistr, 
+                sideFunc    = ConstantSide(side),
+                orderFactory= order.AdaptLimit(orderFactory,
+                                               mathutils.product( 
+                                                  SafeSidePrice(orderBook, side, defaultValue), 
+                                                  priceDistr)))
+    
+    r._alias = 'LiquidityProviderSideEx'
+    
+    return r
+
+
+    
 class _LiquidityProvider_Impl(Strategy):
     def __init__(self, trader, params):
         Strategy.__init__(self, trader)
@@ -67,6 +122,7 @@ exec wrapper('LiquidityProvider',
              ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
              ('priceDistr',             'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
              ('volumeDistr',            'mathutils.rnd.expovariate(.1)',        '() -> Volume')])
+
 
 class _Canceller_Impl(object):
     """ Randomly cancels created orders in specific moments of time    
