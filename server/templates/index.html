@@ -61,7 +61,8 @@
 			        		<input data-bind="
 			        			value: alias, 
 			        			event: { blur: exitEditMode, 
-			        					 dblclick: exitEditMode }" 
+			        					 dblclick: exitEditMode,
+			        					 mouseover: setCurrentHint }" 
 			        		type="text" />
 			            <!-- /ko -->
 		            <!-- /ko -->
@@ -252,6 +253,9 @@
 						<tr data-bind="template: { name: 'renderEntities', foreach: entities }">
 						</tr>
 					</table>
+				</td>
+				<td>
+					<span data-bind="html: $root.hint()"></span>
 				</td>
 			</tr>
 		</table>

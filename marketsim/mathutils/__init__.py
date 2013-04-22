@@ -4,6 +4,8 @@ from marketsim import types, registry
 
 @registry.expose('Constant')
 class constant(object):
+    """ Constant function returning *value*.
+    """
     
     def __init__(self, value=100.):
         self.value = value
