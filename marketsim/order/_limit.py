@@ -86,3 +86,21 @@ class Limit(Base):
 @sig(args=(Side,), rv=function((Price, Volume,), IOrder))
 def LimitFactory(side):
     return Construct(Limit, side)
+"""
+class AdaptLimit(object):
+    
+    def __init__(self, orderFactory, priceFunc):
+        self.orderFactory = orderFactory
+        self.priceFunc = priceFunc
+        self._alias = "Adapt limit order"
+        
+    _properties = { 'orderFactory' : meta.function(args=(Side,), rv=function((Price, Volume,), IOrder)),
+                    'priceFunc'    : meta.function((), Price)}
+    
+    _types = [meta.function(args=(Side,), rv=function((Volume,), IOrder))]
+        
+    def __call__(self, side):
+        price = self.priceFunc()
+        return Construct(self.orderFactory, side, price)
+        
+"""
