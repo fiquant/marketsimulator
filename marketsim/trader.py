@@ -106,7 +106,7 @@ class SingleAsset(Base, types.ISingleAssetTrader):
         for strategy in self._strategies:
             strategy.stopRunning() 
         
-    _properties = {'amount' : float, 
+    _properties = {'amount'     : float, 
                    'strategies' : meta.listOf(types.IStrategy)}
     
     @property

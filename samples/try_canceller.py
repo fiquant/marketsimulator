@@ -21,9 +21,8 @@ def Canceller(graph, world, books):
                      "LiquidityProvider-")
     
     lp_ex = trader.SASM(book_A, 
-                     strategy.LiquidityProviderSideEx(
+                     strategy.LiquidityProviderEx(
                         book_A, 
-                        side = Side.Buy,
                         orderFactory=order.WithExpiryFactory(
                                 expirationDistr=mathutils.constant(1))),
                      "LiquidityProviderEx-")

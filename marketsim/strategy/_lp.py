@@ -87,8 +87,6 @@ def LiquidityProviderSideEx(orderBook,
     
     return r
 
-
-    
 class _LiquidityProvider_Impl(Strategy):
     def __init__(self, trader, params):
         Strategy.__init__(self, trader)
@@ -123,6 +121,60 @@ exec wrapper('LiquidityProvider',
              ('priceDistr',             'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
              ('volumeDistr',            'mathutils.rnd.expovariate(.1)',        '() -> Volume')])
 
+
+class _StrategyArray_Impl(Strategy):
+    
+    def __init__(self, trader, params):
+        Strategy.__init__(self, trader)
+        self.strategies = params.strategies
+        for s in self.strategies:
+            s.runAt(trader)
+            
+    def reset(self):
+        for s in self.strategies:
+            s.reset()
+    
+    def dispose(self):
+        for s in self.strategies:
+            s.dispose()
+
+    def suspend(self, flag):
+        Strategy.suspend(self, flag)
+        for s in self.strategies:
+            s.suspend(flag)
+
+    @property
+    def suspended(self):
+        for s in self.strategies:
+            assert s.suspended == self._suspended
+        return Strategy.suspended(self)
+    
+exec wrapper('StrategyArray', [('strategies', '[LiquidityProvider()]', 'meta.listOf(IStrategy)')])
+
+def LiquidityProviderEx    (orderBook, 
+                            orderFactory            = order.LimitFactory, 
+                            defaultValue            = 100., 
+                            creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
+                            priceDistr              = mathutils.rnd.lognormvariate(0., .1), 
+                            volumeDistr             = mathutils.rnd.expovariate(1.)):
+
+    def create(side):
+        return LiquidityProviderSideEx(orderBook, 
+                                       side, 
+                                       orderFactory, 
+                                       defaultValue, 
+                                       creationIntervalDistr, 
+                                       priceDistr, 
+                                       volumeDistr)
+
+    r = StrategyArray([
+            create(Side.Sell),
+            create(Side.Buy)
+        ])
+    
+    r._alias = 'LiquidityProviderEx'
+    
+    return r
 
 class _Canceller_Impl(object):
     """ Randomly cancels created orders in specific moments of time    
