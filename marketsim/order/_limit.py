@@ -1,5 +1,5 @@
 from _base import Base
-from marketsim import registry, Construct
+from marketsim import registry, Construct, mathutils, meta
 from marketsim.types import *
 
 class Limit(Base):
@@ -86,13 +86,23 @@ class Limit(Base):
 @sig(args=(Side,), rv=function((Price, Volume,), IOrder))
 def LimitFactory(side):
     return Construct(Limit, side)
-"""
+
+class AdaptLimit_SidePriceBound(object):
+    
+    def __init__(self, orderFactory, side, price):
+        self.orderFactory = orderFactory
+        self.side = side
+        self.price = price
+        
+    def __call__(self, volume):
+        return self.orderFactory(self.side)(self.price, volume)
+
+@registry.expose(alias='Adapt limit order')
 class AdaptLimit(object):
     
-    def __init__(self, orderFactory, priceFunc):
+    def __init__(self, orderFactory = LimitFactory, priceFunc = mathutils.constant(100)):
         self.orderFactory = orderFactory
         self.priceFunc = priceFunc
-        self._alias = "Adapt limit order"
         
     _properties = { 'orderFactory' : meta.function(args=(Side,), rv=function((Price, Volume,), IOrder)),
                     'priceFunc'    : meta.function((), Price)}
@@ -101,6 +111,4 @@ class AdaptLimit(object):
         
     def __call__(self, side):
         price = self.priceFunc()
-        return Construct(self.orderFactory, side, price)
-        
-"""
+        return AdaptLimit_SidePriceBound(self.orderFactory, side, price)

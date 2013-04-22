@@ -18,8 +18,16 @@ def Canceller(graph, world, books):
     
     lp = trader.SASM(book_A, 
                      strategy.LiquidityProviderSide(side = Side.Sell),
-                     "LiquidityProvider'")
-
+                     "LiquidityProvider-")
+    
+    lp_ex = trader.SASM(book_A, 
+                     strategy.LiquidityProviderSideEx(
+                        book_A, 
+                        side = Side.Buy,
+                        orderFactory=order.WithExpiryFactory(
+                                expirationDistr=mathutils.constant(1))),
+                     "LiquidityProviderEx-")
+    
     lp_B = trader.SASM(book_A, 
                      strategy.LiquidityProviderSide(side = Side.Buy),
                      "LiquidityProviderBuy")
@@ -47,10 +55,11 @@ def Canceller(graph, world, books):
     
     amount_graph = graph("amount")
     amount_graph += [observable.VolumeTraded(lp),
+                     observable.VolumeTraded(lp_ex),
                      observable.VolumeTraded(lp_C),
                      observable.VolumeTraded(lp_A)]
     
-    return [lp_A, lp, lp_C, lp_B, fv_trader], [price_graph, amount_graph]
+    return [lp_A, lp, lp_C, lp_B, lp_ex, fv_trader], [price_graph, amount_graph]
 
 if __name__ == '__main__':    
     run("canceller", Canceller)
