@@ -28,9 +28,7 @@ predefined = {"Default"             : samples.Complete,
               "Mean Reversion"      : samples.MeanReversion,
               "Canceller"           : samples.Canceller  }
 
-def createSimulation(name):
-    
-    constructor = predefined[name]
+def createSimulation(name = 'All'):
     
     with scheduler.create() as world:
         
@@ -74,23 +72,34 @@ def createSimulation(name):
         ])
         
         myRegistry.pushAllReferences()
-        traders, graphs = constructor(js.Graph, world, myRegistry.orderBooksByName)
-    
-        for t in traders + graphs:
-            myRegistry.insert(t)
+
+        def process(name):
+            constructor = predefined[name]
+        
+            traders, graphs = constructor(js.Graph, world, myRegistry.orderBooksByName)
+        
+            for t in traders + graphs:
+                myRegistry.insert(t)
+                
+        if name != 'All':
+            process(name)
+        else: 
+            for n in predefined.iterkeys():
+                process(n)
             
         myRegistry.insert(world)
         
         root = myRegistry.insert(registry.createSimulation(myRegistry))
         
-        current_dir = current_user_dir()
-        ensure_dir_ex(current_dir)
-        
-        if os.path.exists(os.path.join(current_dir, name)):
-            i = 0
-            while os.path.exists(os.path.join(current_dir, name + "." + str(i))): 
-                i += 1
-            name += '.' + str(i) 
+        if name != 'All':
+            current_dir = current_user_dir()
+            ensure_dir_ex(current_dir)
+            
+            if os.path.exists(os.path.join(current_dir, name)):
+                i = 0
+                while os.path.exists(os.path.join(current_dir, name + "." + str(i))): 
+                    i += 1
+                name += '.' + str(i) 
         
         return name, root, myRegistry, world
     
@@ -121,6 +130,17 @@ def make_filename_safe(s):
 
 def current_user_dir():
     return os.path.join('_saved', str(session[KEY]))
+
+def collectTypeInfo():
+    _, _, myRegistry, _ = createSimulation('All')
+    typeinfo = myRegistry.getTypeInfo()
+    filename = os.path.join('static', '_generated', 'typeinfo.js')
+    ensure_dir(filename)
+    with open(filename, 'w') as f:
+        f.write('var typeinfo = ');
+        json.dump(typeinfo, f)
+        
+collectTypeInfo()
 
 def latest_workspace_for_user():
     d = current_user_dir()

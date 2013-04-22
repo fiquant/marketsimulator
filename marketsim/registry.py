@@ -365,6 +365,37 @@ class Registry(object):
         else:
             ctor = constraint.__module__ + "." + constraint.__name__
         return ctor
+
+    def getTypeInfo(self):
+        types = {}
+        self.pushAllReferences()
+        for obj in self._id2obj.itervalues():
+            
+            if '_constructAs' in dir(obj):
+                ctor = obj._constructAs
+            else:
+                cls = obj.__class__
+                ctor = cls.__module__ + "." + cls.__name__
+                
+            if ctor not in types:
+
+                propnames = properties(obj)
+                props     = dict([(k, self._dumpPropertyConstraint(v)) \
+                                                   for k,v in propnames.iteritems()])\
+                             if propnames is not None else None
+    
+                if '_types' in dir(obj):
+                    assert len(obj._types) == 1
+                    typ = self._dumpPropertyConstraint(obj._types[0])
+                else:
+                    typ = ctor
+                    
+                if props is None:
+                    props = {}
+                    
+                types[ctor] = (typ, props)
+            
+        return types
     
     def tojson(self, Id):
         obj = self._id2obj.get(Id)
@@ -379,28 +410,20 @@ class Registry(object):
         alias = obj._alias.replace("\\", '').replace('{', '(').replace('}', ')')
             
         propnames = properties(obj)
-        props     = dict([(k, 
-                           (self._dumpPropertyValue(v, getattr(obj, k), obj), 
-                            self._dumpPropertyConstraint(v))) \
-                                           for k,v in propnames.iteritems()])\
+        props     = {k : self._dumpPropertyValue(v, getattr(obj, k), obj) \
+                                           for k,v in propnames.iteritems()}\
                      if propnames is not None else None
-                     
-        if '_types' in dir(obj):
-            assert len(obj._types) == 1
-            typ = self._dumpPropertyConstraint(obj._types[0])
-        else:
-            typ = ctor
-            
+                                 
         if props is None:
             props = {}
         
-        return [ctor, props, typ, alias]
+        return [ctor, props, alias]
     
     def pushAllReferences(self):
         root = list(self._id2obj.itervalues())                        
         for obj in root: # getting initial set of the dictionary keys
             self.assureAllReferencedAreRegistred(obj)
-    
+            
     def tojsonall(self):
 
         self.pushAllReferences()
@@ -423,7 +446,7 @@ class Registry(object):
                 dumped = self.tojson(k_id)    # getting dump representation
                 rv[k_id] = dumped           # storing it in the dictionary
                 for p in dumped[1].itervalues():        # iterating its fields
-                    visit_if_ref(p[0])
+                    visit_if_ref(p)
         
         root = list(self._id2obj.iteritems())                        
         for (k_id, obj) in root: # getting initial set of the dictionary keys

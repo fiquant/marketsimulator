@@ -183,13 +183,15 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 }
 
 function createInstance(id, src, root) {
+	var ctor = src[0];
+	var myTypeinfo = typeinfo[ctor];
 	var fields = map(dict2array(src[1]), function (x) { 
-		return new Property(x.key, treatAny(x.value[0], x.value[1], root)); 
+		return new Property(x.key, treatAny(x.value, myTypeinfo[1][x.key], root)); 
 	});
-	var created = new Instance(id, src[0], fields, src[2], src[3], root);
-	if (src[0] == "marketsim.js.TimeSerie") {
+	var created = new Instance(id, ctor, fields, myTypeinfo[0], src[2], root);
+	if (ctor == "marketsim.js.TimeSerie") {
 		created = makeTimeSerie(created, root.response().ts_changes);
-	} else if (src[0] == "marketsim.js.Graph") {
+	} else if (ctor == "marketsim.js.Graph") {
 		created = makeGraph(created, root);
 	}
 	return created;
