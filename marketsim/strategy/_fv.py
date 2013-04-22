@@ -2,7 +2,7 @@ from marketsim import (scheduler, observable, cached_property, types, meta,
                        Side, registry, orderbook, Method, order, mathutils)
 
 from _basic import Strategy, Generic
-from _trend import SignalBase
+from _trend import SignalBase, SignalValue, SignalEvent
 from _wrap import wrapper
 
 from marketsim.types import *
@@ -143,7 +143,25 @@ class _Dependency_Impl(FundamentalValueBase):
         return self._priceToDependOn        
 
 exec wrapper("Dependency", 
-             [('bookToDependOn','orderbook.Local(label="Asset B")', 'IOrderBook'),
+             [('bookToDependOn','None',                             'IOrderBook'),
               ('orderFactory',  'order.MarketFactory',              'Side -> Volume -> IOrder'),
               ('factor',        '1.',                               'positive'),
-              ('volumeDistr',   'mathutils.rnd.expovariate(.1)',    '() -> Volume')])
+              ('volumeDistr',   'mathutils.rnd.expovariate(.1)',    '() -> Volume')], register=False)
+        
+
+def DependencyEx      (orderBook, 
+                       bookToDependOn,
+                       factor                = mathutils.constant(1.),
+                       orderFactory          = order.MarketFactory, 
+                       volumeDistr           = mathutils.rnd.expovariate(1.)):
+
+    priceToDependOn = observable.Price(bookToDependOn) 
+    
+    r = Generic(orderFactory= orderFactory, 
+                volumeFunc  = volumeDistr, 
+                eventGen    = SignalEvent(priceToDependOn), 
+                sideFunc    = FundamentalValueSide(orderBook, SignalValue(priceToDependOn)))
+    
+    r._alias = "DependencyEx"
+    
+    return r

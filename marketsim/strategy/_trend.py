@@ -61,7 +61,7 @@ class SignalValue(object):
     _types = [meta.function((), float)]
         
     def __call__(self):
-        return self.signal()
+        return self.signal.value
 
 class SignalEvent(Event):
     

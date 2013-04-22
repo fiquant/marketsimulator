@@ -39,6 +39,7 @@ def createSimulation(name):
         myRegistry.insert(Side.Sell)
         myRegistry.insert(Side.Buy)    
         book_A = orderbook.Local(tickSize=0.01, label="Asset A")
+        book_B = orderbook.Local(tickSize=0.01, label="Asset B")
         myRegistry.insert(book_A)
         remote_A = orderbook.Remote(book_A, 
                                     remote.TwoWayLink(
@@ -48,6 +49,8 @@ def createSimulation(name):
         trendfollower = strategy.TrendFollowerEx(book_A)
         fundamentalvalue = strategy.FundamentalValueEx(book_A)
         meanreversion = strategy.MeanReversion(book_A)
+        dependency = strategy.Dependency(book_B)
+        dependency_ex = strategy.DependencyEx(book_A, book_B)
         
         def register(annotated_objects):
             for obj, alias in annotated_objects:
@@ -62,6 +65,8 @@ def createSimulation(name):
                   (trendfollower, "TrendFollowerEx"), 
                   (fundamentalvalue, "FundamentalValueEx"),
                   (meanreversion, "MeanReversionEx"),
+                  (dependency, "Dependency"),
+                  (dependency_ex, "DependencyEx")
         ])
         
         myRegistry.pushAllReferences()
