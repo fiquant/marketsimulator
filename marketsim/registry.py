@@ -1,14 +1,11 @@
 import weakref, inspect, sys
 
-from docutils.core import publish_parts
-def rst2html(rst):
-    return publish_parts(rst,writer_name='html')['html_body']
 
 import marketsim
 
 from functools import reduce
 
-from marketsim import Side, meta, types, js
+from marketsim import Side, meta, types, js, utils
 
 startup = []    
 
@@ -423,7 +420,7 @@ class Registry(object):
                 if props is None:
                     props = {}
                     
-                types[ctor] = (typ, props, rst2html(trim(obj.__doc__)))
+                types[ctor] = (typ, props, utils.rst2html(trim(obj.__doc__)))
             
         return types
     
