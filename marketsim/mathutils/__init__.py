@@ -4,7 +4,7 @@ from marketsim import types, registry
 
 @registry.expose('Constant')
 class constant(object):
-    """ Constant function returning *value*.
+    """ Constant function returning **value**.
     """
     
     def __init__(self, value=100.):
@@ -34,6 +34,8 @@ class constant(object):
 
 @registry.expose('*')
 class product(object):
+    """ Function returning product of the operands
+    """
     
     def __init__(self, LeftHandSide=constant(1.), RightHandSide=constant(1.)):
         self.LeftHandSide = LeftHandSide
@@ -52,6 +54,8 @@ class product(object):
 
 @registry.expose('+')    
 class sum(object):
+    """ Function returning sum of the operands
+    """
     
     def __init__(self, LeftHandSide=constant(1), RightHandSide=constant(1)):
         self.LeftHandSide = LeftHandSide
@@ -70,6 +74,8 @@ class sum(object):
 
 @registry.expose('/')
 class div(object):
+    """ Function returning division of the operands
+    """
     
     def __init__(self, LeftHandSide=constant(1.), RightHandSide=constant(1.)):
         self.LeftHandSide = LeftHandSide
@@ -88,6 +94,8 @@ class div(object):
 
 @registry.expose('-')    
 class sub(object):
+    """ Function substructing the right operand from the left one
+    """
     
     def __init__(self, LeftHandSide=constant(1), RightHandSide=constant(1)):
         self.LeftHandSide = LeftHandSide
