@@ -1,7 +1,10 @@
-from marketsim import Event, getLabel, Side, scheduler, types, meta, mathutils
+from marketsim import Event, getLabel, Side, scheduler, types, meta, mathutils, registry
 
 class IndicatorBase(types.IObservable):
-    """ Indicator that stores some scalar value and knows how to update it
+    """ Observable that stores some scalar value and knows how to update it
+    
+    * **Source of data** -- function that provides data
+    * **Events when to act** -- events when to act
     """
     def __init__(self, eventSources, dataSource, label, attributes = {}):
         """ Initializes indicator
@@ -85,6 +88,12 @@ class IndicatorBase(types.IObservable):
         return self._current
 
 class rough_balance(object):
+    """ Approximation for trader's cleared balance. :: 
+    
+        Rb(trader) = Balance(trader) + VolumeTraded(trader)*MidPrice(Asset(trader))
+    
+    (so, bigger the trader position worse the approximation).
+    """
     
     def __init__(self, trader):
         self.trader = trader
@@ -98,9 +107,7 @@ class rough_balance(object):
 
 
 class OnTraded(Event):
-    """ Multicast event
-    
-    Keeps a set of callable listeners 
+    """ Multicast event that is fired once a trade is done by *trader*
     """
 
     def __init__(self, trader):
@@ -112,15 +119,20 @@ class OnTraded(Event):
     
     
 def InstEfficiency(trader):
+    """ Creates an indicator bound to rough estimation of a trader's balance if cleared
+    """
     
     return IndicatorBase([OnTraded(trader)], 
                          rough_balance(trader),
                          "InstEfficiency_{" + getLabel(trader) + "}")
 
 class profit_and_loss(object):
+    """ Returns balance of the given *trader*
+    """
     
     def __init__(self, trader):
         self.trader = trader
+        self._alias = "Trader's balance"
         
     _types = [meta.function((), float)]
     
@@ -134,9 +146,12 @@ def PnL(trader):
     return IndicatorBase([OnTraded(trader)], profit_and_loss(trader), "P&L_{"+getLabel(trader)+"}")
 
 class mid_price(object):
+    """ Returns middle price in the given *orderbook*
+    """
     
     def __init__(self, orderbook):
         self.orderbook = orderbook
+        self._alias = "Asset's mid-price"
         
     _types = [meta.function((), float)]
     
@@ -146,6 +161,8 @@ class mid_price(object):
     _properties = { 'orderbook' : types.IOrderBook }
     
 class OnPriceChanged(Event):
+    """ Event that is fired once mid-price in the *orderbook* has changed
+    """
     
     def __init__(self, orderbook):
         Event.__init__(self)
@@ -162,6 +179,8 @@ def Price(book):
         mid_price(book), "Price_{"+getLabel(book)+"}")
     
 class OnSideBestChanged(Event):
+    """ Event that is fired once a *side* price in the *orderbook* has changed
+    """
     
     def __init__(self, orderbook, side):
         Event.__init__(self)
@@ -173,6 +192,8 @@ class OnSideBestChanged(Event):
                     'side'      : types.Side }
     
 def CrossSpread(book_A, book_B):
+    """ Returns indicator bound to difference between ask of book_A and bid of book_B
+    """
     asks = book_A.asks
     bids = book_B.bids
     return IndicatorBase(\
@@ -181,9 +202,12 @@ def CrossSpread(book_A, book_B):
         "Price("+asks.label+") - Price("+bids.label+")")
 
 class volume_traded(object):
+    """ Returns trader's position (i.e. number of assets traded)
+    """
     
     def __init__(self, trader):
         self.trader = trader
+        self._alias = "Trader's position"
         
     _types = [meta.function((), float)]
     
@@ -194,16 +218,21 @@ class volume_traded(object):
 
     
 def VolumeTraded(trader):
+    """ Returns an indicator bound to trader's position 
+    """
     return IndicatorBase(\
         [OnTraded(trader)], 
         volume_traded(trader), 
         "Amount_{"+getLabel(trader)+"}")
     
 class side_price(object):
+    """ Returns *orderbook* *side* price 
+    """
     
     def __init__(self, orderbook, side):
         self.orderbook = orderbook
         self.side = side
+        self._alias = 'Order book side price'
         
     _types = [meta.function((), float)]
     

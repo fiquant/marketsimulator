@@ -41,3 +41,4 @@ class AlwaysBest(Base):
 def AlwaysBestFactory(side):
     return Construct(AlwaysBest, side)
          
+AlwaysBestFactory.__doc__ = AlwaysBest.__doc__

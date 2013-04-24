@@ -1,10 +1,4 @@
 greeks = """
-.. This data file has been placed in the public domain.
-.. Derived from the Unicode character mappings available from
-   <http://www.w3.org/2003/entities/xml/>.
-   Processed by unicode2rstsubs.py, part of Docutils:
-   <http://docutils.sourceforge.net>.
-
 .. |alpha|  unicode:: U+003B1 .. GREEK SMALL LETTER ALPHA
 .. |beta|   unicode:: U+003B2 .. GREEK SMALL LETTER BETA
 .. |chi|    unicode:: U+003C7 .. GREEK SMALL LETTER CHI
