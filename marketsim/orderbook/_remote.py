@@ -41,6 +41,9 @@ class Queue(object):
         return self._best is None
     
 class Remote(BookBase):
+    """ Represent an *orderbook* from point of view of a remote trader connected
+    to the market by means of a *link* that introduces some latency in information propagation
+    """
     
     def __init__(self, orderbook, link):
         

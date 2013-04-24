@@ -30,7 +30,7 @@ class Asks(Queue):
     side = Side.Sell
 
 class Local(BookBase):
-    """ Order book for a single asset in a market
+    """ Order book for a single asset in a market.
     Maintains two order queues for orders of different sides
     """
     def __init__(self, tickSize=1, label="",
