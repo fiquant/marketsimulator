@@ -41,11 +41,15 @@ class _tradeIfProfitable_Impl(Strategy):
 @registry.expose(alias="trader's efficiency trend")
 @sig(args=(ISingleAssetTrader,), rv=ISingleAssetTrader)
 def efficiencyTrend(trader):
+    """ Returns derivative of a *trader*'s "cleared" balance
+    """
     return observable.trend(observable.Efficiency(trader))
 
 @registry.expose(alias='Virtual market orders with unit volume')
 @sig(args=(IStrategy,), rv=IStrategy)
 def virtualWithUnitVolume(strategy):
+    """ Creates for a *strategy* a clone with same parameters but sending virtual market orders of unit volume
+    """
     return strategy.With(volumeDistr=mathutils.constant(1), orderFactory=order.VirtualMarketFactory)    
 
 exec wrapper("tradeIfProfitable", 
@@ -56,6 +60,13 @@ exec wrapper("tradeIfProfitable",
         
 @registry.expose('TradeIfProfitable')
 class TradeIfProfitable(tradeIfProfitable):
+    """ Strategy that estimates efficiency of original *strategy* 
+    (normally as derivative of "cleared" balance for its clone sending unit volume orders)
+    
+    * **strategy** -- original strategy that can be suspended
+    * **efficiency** -- function estimating is the strategy efficient or not
+    * **estimator** -- function creating phantom strategy used for efficiency estimation
+    """
     
     def __init__(self, strategy = FundamentalValue(), 
                  efficiency=efficiencyTrend, 
