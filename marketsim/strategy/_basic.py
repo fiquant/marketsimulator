@@ -100,6 +100,10 @@ def randomSide():
     return types.Side.byId(mathutils.rnd.randint(0,1)())
 
 exec  wrapper("Generic", 
+             """ Generic strategy that wakes up on events given by *eventGen*, 
+             chooses side of order to create using *sideFunc* and its volume by *volumeFunc*,
+             creates an order via *orderFactory* and sends the order to the market using its trader
+             """,
               [('orderFactory',         'order.MarketFactory',                  'Side -> Volume -> IOrder'),
                ('eventGen',             'None',                                 'Event'),
                ('volumeFunc',           'mathutils.rnd.expovariate(1.)',        '() -> Volume'),

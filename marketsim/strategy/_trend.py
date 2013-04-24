@@ -28,12 +28,36 @@ class _Signal_Impl(SignalBase):
         SignalBase.__init__(self, trader)
 
 exec wrapper("Signal", 
+             """ Signal strategy listens to some discrete signal
+                 and when the signal becomes more than some threshold the strategy starts to buy. 
+                 When the signal gets lower than -threshold the strategy starts to sell. 
+                 
+                 It has following parameters:
+
+                 **signal** 
+                      signal to be listened to
+                      
+                 **orderFactory** 
+                     order factory function (default: order.Market.T)
+                     
+                 **threshold** 
+                     threshold when the trader starts to act (default: 0.7)
+                     
+                 **volumeDistr** 
+                     defines volumes of orders to create 
+                     (default: exponential distribution with |lambda| = 1)
+             """,
              [('signal',        'None',                         'IObservable'),  
               ('threshold',     '0.7',                          'non_negative'),
               ('orderFactory',  'order.MarketFactory',          'Side -> Volume -> IOrder'),
               ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')], register=False)
 
 class SignalSide(object):
+    """ Function determining side of a trade given a signal value.
+        If signal value is greater than *threshold*, returns *Side.Buy*
+        If signal value is lower than *-threshold*, returns *Side.Sell*
+        Otherwise returns *None*
+    """
     
     def __init__(self, source, threshold = 0):
         self.source = source
@@ -53,6 +77,10 @@ class SignalSide(object):
         return side
     
 class SignalValue(object):
+    """ Returns signal value
+    
+        Note: we need it since current type system doesn't allow to cast IObservable to () -> float
+    """
     
     def __init__(self, signal):
         self.signal = signal
@@ -64,6 +92,10 @@ class SignalValue(object):
         return self.signal.value
 
 class SignalEvent(Event):
+    """ Represents event about signal value change
+    
+        Note: we need it since current type system doesn't allow to cast IObservable to Event
+    """
     
     def __init__(self, signal):
         Event.__init__(self)
@@ -117,6 +149,35 @@ class _TwoAverages_Impl(SignalBase):
         return avg1 - avg2 if avg1 is not None and avg2 is not None else None 
 
 exec wrapper("TwoAverages", 
+             """ Two averages strategy compares two averages of price of the same asset but
+                 with different parameters ('slow' and 'fast' averages) and when 
+                 the first is greater than the second one it buys, 
+                 when the first is lower than the second one it sells
+                 
+                 It has following parameters:
+
+                 **average1** 
+                      functional used to obtain the first average
+                      (defaut: expenentially weighted moving average with |alpha| = 0.15)
+                      
+                 **average2** 
+                      functional used to obtain the second average
+                      (defaut: expenentially weighted moving average with |alpha| = 0.015)
+                      
+                 **orderFactory** 
+                     order factory function (default: order.Market.T)
+                     
+                 **threshold** 
+                     threshold when the trader starts to act (default: 0.)
+                     
+                 **volumeDistr** 
+                     defines volumes of orders to create 
+                     (default: exponential distribution with |lambda| = 1)
+
+                 **creationIntervalDistr** 
+                     defines intervals of time between order creation 
+                     (default: exponential distribution with |lambda| = 1)                     
+             """,
              [('average1',              'mathutils.ewma(alpha = 0.15)',  'IUpdatableValue'),
               ('average2',              'mathutils.ewma(alpha = 0.015)', 'IUpdatableValue'),
               ('threshold',             '0.',                            'non_negative'), 
@@ -163,6 +224,33 @@ class _TrendFollower_Impl(SignalBase):
         SignalBase.__init__(self, trader)
 
 exec wrapper('TrendFollower', 
+             """ Trend follower can be considered as a sort of a signal strategy 
+                 where the *signal* is a trend of the asset. 
+                 Under trend we understand the first derivative of some moving average of asset prices. 
+                 If the derivative is positive, the trader buys; if negative - it sells.
+                 Since moving average is a continuously changing signal, we check its
+                 derivative at random moments of time given by *creationIntervalDistr*. 
+                 
+                 It has following parameters:
+                
+                 **average** 
+                     moving average functional. By default, we use exponentially weighted
+                     moving average with |alpha| = 0.15.
+                     
+                 **orderFactory** 
+                     order factory function (default: order.Market.T)
+                     
+                 **threshold** 
+                     threshold when the trader starts to act (default: 0.)
+                     
+                 **creationIntervalDistr**
+                     defines intervals of time between order creation
+                     (default: exponential distribution with |lambda| = 1)
+                     
+                 **volumeDistr** 
+                     defines volumes of orders to create 
+                     (default: exponential distribution with |lambda| = 1)
+             """,
              [('average',                'mathutils.ewma(alpha = 0.15)',  'IUpdatableValue'),
               ('threshold',              '0.',                            'non_negative'), 
               ('orderFactory',           'order.MarketFactory',           'Side -> Volume -> IOrder'),
