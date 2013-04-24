@@ -17,6 +17,22 @@ class _Noise_Impl(TwoSides):
         return (types.Side.byId(self._params.sideDistr()), (int(self._params.volumeDistr()),)) 
 
 exec wrapper("Noise", 
+             """ Noise strategy is a quite dummy strategy that randomly creates an order 
+                 and sends it to the order book. 
+                 
+                 It has following parameters:
+
+                 **orderFactoryT** 
+                     order factory function (default: order.Market.T)
+
+                 **creationIntervalDistr** 
+                     defines intervals of time between order creation 
+                     (default: exponential distribution with |lambda| = 1)
+                     
+                 **sideDistr** 
+                     side of orders to create 
+                     (default: discrete uniform distribution P(Sell)=P(Buy)=.5)
+             """,
              [("orderFactoryT",         "order.MarketFactory",          'Side -> Volume -> IOrder'),
               ("sideDistr",             "mathutils.rnd.randint(0,1)",   "() -> int"), # in fact it should be () -> Side
               ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> Volume'),

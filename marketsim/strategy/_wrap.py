@@ -7,6 +7,8 @@ class merge(object):
 template = """
 %(reg)s
 class %(name)s(object):
+    \"\"\" %(docstring)s
+    \"\"\"    
     
     def __init__(self, %(init)s, label=None):
         self.label = label
@@ -77,7 +79,7 @@ def mapped(locs):
     locs['typ'] = demangleIfFunction(locs['typ'])
     return locs
 
-def wrapper(name, params, register=True):
+def wrapper(name, docstring, params, register=True):
     def process(tmpl, sep=", "):
         return sep.join([tmpl % mapped(locals()) for (name, ini, typ) in params])
     

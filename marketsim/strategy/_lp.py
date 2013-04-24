@@ -27,6 +27,36 @@ class _LiquidityProviderSide_Impl(OneSide):
         self._eventGen.cancel()
         
 exec wrapper("LiquidityProviderSide",
+             """ Liquidity provider for one side has followng parameters:
+
+                 **side**
+                     side of orders to create (default: Side.Sell)
+                     
+                 **orderFactory** 
+                     order factory function (default: order.Limit.T)
+                     
+                 **initialValue** 
+                     initial price which is taken if orderBook is empty (default: 100)
+                     
+                 **creationIntervalDistr**
+                     defines intervals of time between order creation 
+                     (default: exponential distribution with |lambda| = 1)
+                     
+                 **priceDistr**
+                     defines multipliers for current asset price when price of
+                     order to create is calculated (default: log normal distribution with 
+                     |mu| = 0 and |sigma| = 0.1)
+                     
+                 **volumeDistr** 
+                     defines volumes of orders to create 
+                     (default: exponential distribution with |lambda| = 1)
+
+                 It wakes up in moments of time given by *creationIntervalDistr*, checks
+                 the last best price of orders in the corresponding queue, takes *initialValue*
+                 if it is empty, multiplies it by a value taken from *priceDistr* to obtain price
+                 of the order to create, calculates order volume using *volumeDistr*, creates
+                 an order via *orderFactoryT(side)* and tells the trader to send it.
+             """,
              [('side',                  'Side.Sell',                            'Side'),
               ('orderFactoryT',         'order.LimitFactory',                   'Side -> (Price, Volume) -> IOrder'),
               ('defaultValue',          '100',                                  'Price'),
@@ -35,6 +65,11 @@ exec wrapper("LiquidityProviderSide",
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)',        '() -> Volume')])
 
 class ConstantSide(object):
+    """ Constant function always returning given *side*. 
+    
+    Note: We need it since our type system doesn't support for the moment generic
+    Constant: 'a -> 'a
+    """
     
     def __init__(self, side = Side.Sell):
         self.side = side
@@ -47,6 +82,10 @@ class ConstantSide(object):
         return self.side
     
 class SafeSidePrice(object):
+    """ Returns the best price of the given by *orderBook* and *side* order queue, 
+        if there is no orders in the queue returns the price of the last trade and
+        if there were no trades returns *defaultValue*.
+    """
     
     def __init__(self, orderBook, side, defaultValue):
         self.orderBook = orderBook
@@ -115,6 +154,30 @@ class _LiquidityProvider_Impl(Strategy):
         self._buy.dispose()
 
 exec wrapper('LiquidityProvider',
+             """ Liquidity provider is a combination of two LiquidityProviderSide traders 
+                 with the same parameters but different trading sides. 
+                 
+                 It has followng parameters:
+
+                 **orderFactory** 
+                     order factory function (default: order.Limit.T)
+                     
+                 **initialValue** 
+                     initial price which is taken if orderBook is empty (default: 100)
+                     
+                 **creationIntervalDistr**
+                     defines intervals of time between order creation 
+                     (default: exponential distribution with |lambda| = 1)
+                     
+                 **priceDistr**
+                     defines multipliers for current asset price when price of
+                     order to create is calculated (default: log normal distribution with 
+                     |mu| = 0 and |sigma| = 0.1)
+                     
+                 **volumeDistr** 
+                     defines volumes of orders to create 
+                     (default: exponential distribution with |lambda| = 1)
+            """,  
             [('orderFactoryT',          'order.LimitFactory',                   'Side -> (Price, Volume) -> IOrder'),
              ('defaultValue',           '100',                                  'Price'),
              ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
@@ -149,7 +212,7 @@ class _StrategyArray_Impl(Strategy):
             assert s.suspended == self._suspended
         return Strategy.suspended(self)
     
-exec wrapper('StrategyArray', [('strategies', '[LiquidityProvider()]', 'meta.listOf(IStrategy)')])
+exec wrapper('StrategyArray', "", [('strategies', '[LiquidityProvider()]', 'meta.listOf(IStrategy)')])
 
 def LiquidityProviderEx    (orderBook, 
                             orderFactory            = order.LimitFactory, 
@@ -227,4 +290,5 @@ class _Canceller_Impl(object):
         self._elements.append(order)
 
 exec wrapper("Canceller",
+             "",
              [('cancellationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')])

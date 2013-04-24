@@ -42,6 +42,26 @@ class _FundamentalValue_Impl(FundamentalValueBase):
 
 
 exec  wrapper("FundamentalValue", 
+             """ Fundamental value strategy believes that an asset should have some specific price 
+                 (*fundamental value*) and if the current asset price is lower than the fundamental value 
+                 it starts to buy the asset and if the price is higher it starts to sell the asset. 
+             
+                 It has following parameters: 
+                 
+                 **orderFactory** 
+                     order factory function (default: order.Market.T)
+                 
+                 **creationIntervalDistr** 
+                     defines intervals of time between order creation 
+                     (default: exponential distribution with |lambda| = 1)
+                 
+                 **fundamentalValue** 
+                     defines fundamental value (default: constant 100)
+                     
+                 **volumeDistr** 
+                     defines volumes of orders to create 
+                     (default: exponential distribution with |lambda| = 1)
+             """,
               [('orderFactory',         'order.MarketFactory',          'Side -> Volume -> IOrder'),
                ('fundamentalValue',     'mathutils.constant(100)',      '() -> Price'),
                ('volumeDistr',          'mathutils.rnd.expovariate(1.)','() -> Volume'),
@@ -96,6 +116,28 @@ class _MeanReversion_Impl(FundamentalValueBase):
         FundamentalValueBase.__init__(self, trader)
 
 exec wrapper("MeanReversion",
+             """ Mean reversion strategy believes that asset price should return to its average value.
+                 It estimates this average using some functional and 
+                 if the current asset price is lower than the average
+                 it buys the asset and if the price is higher it sells the asset. 
+             
+                 It has following parameters: 
+                 
+                 **orderFactory** 
+                     order factory function (default: order.Market.T)
+                 
+                 **creationIntervalDistr** 
+                     defines intervals of time between order creation 
+                     (default: exponential distribution with |lambda| = 1)
+                 
+                 **average** 
+                     functional used to calculate the average 
+                     (default: exponentially weighted moving average with |alpha| = 0.15)
+                     
+                 **volumeDistr** 
+                     defines volumes of orders to create 
+                     (default: exponential distribution with |lambda| = 1)
+             """,
              [('orderFactory',          'order.MarketFactory',              'Side -> Volume -> IOrder'),
               ('average',               'mathutils.ewma(alpha = 0.15)',     'IUpdatableValue'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)',    '() -> Volume'),
@@ -143,6 +185,28 @@ class _Dependency_Impl(FundamentalValueBase):
         return self._priceToDependOn        
 
 exec wrapper("Dependency", 
+             """ Dependent price strategy believes that the fair price of an asset *A* 
+                 is completely correlated with price of another asset *B* and the following relation 
+                 should be held: *PriceA* = *kPriceB*, where *k* is some factor. 
+                 It may be considered as a variety of a fundamental value strategy 
+                 with the exception that it is invoked every the time price of another
+                 asset *B* changes. 
+             
+                 It has following parameters: 
+                 
+                 **orderFactory** 
+                     order factory function (default: order.Market.T)
+                 
+                 **bookToDependOn** 
+                     reference to order book for another asset used to evaluate fair price of our asset
+                 
+                 **factor** 
+                     multiplier to obtain fair asset price from the reference asset price
+                     
+                 **volumeDistr** 
+                     defines volumes of orders to create 
+                     (default: exponential distribution with |lambda| = 1)
+             """,
              [('bookToDependOn','None',                             'IOrderBook'),
               ('orderFactory',  'order.MarketFactory',              'Side -> Volume -> IOrder'),
               ('factor',        '1.',                               'positive'),

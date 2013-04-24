@@ -53,6 +53,7 @@ def virtualWithUnitVolume(strategy):
     return strategy.With(volumeDistr=mathutils.constant(1), orderFactory=order.VirtualMarketFactory)    
 
 exec wrapper("tradeIfProfitable", 
+             "",
              [('strategy',   'FundamentalValue()',    'IStrategy'), 
               ('efficiency', 'efficiencyTrend',       'ISingleAssetTrader -> ISingleAssetTrader'),
               ('estimator',  'virtualWithUnitVolume', 'IStrategy -> IStrategy')], register=False)
@@ -145,6 +146,9 @@ class _chooseTheBest_Impl(Strategy):
         return not self._current or self._current.suspended
 
 exec wrapper("chooseTheBest",
+             """Class adaptive.chooseTheBest is a composite strategy. It is initialized
+            with an array of strategies. In some moments of time the most effective strategy 
+            is chosen and made running; other strategies are suspended.""",
              [('strategies',  '[FundamentalValue()]',   'meta.listOf(IStrategy)'),
               ('efficiency',  'efficiencyTrend',        'ISingleAssetTrader -> ISingleAssetTrader'),
               ('estimator',   'virtualWithUnitVolume',  'IStrategy -> IStrategy')])
