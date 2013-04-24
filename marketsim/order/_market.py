@@ -3,7 +3,7 @@ from marketsim.types import *
 from _base import Base
 
 class Market(Base):
-    """ Base class for market orders
+    """ Market order of given *side* and *volume*
     """
 
     def __init__(self, side, volume):
@@ -39,3 +39,4 @@ class Market(Base):
 def MarketFactory(side):
     return Construct(Market, side)
     
+MarketFactory.__doc__ = Market.__doc__

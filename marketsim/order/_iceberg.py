@@ -136,6 +136,10 @@ LimitOrderFactorySignature = meta.function((types.Side,), meta.function((types.P
 
 @registry.expose('Iceberg')
 class IcebergFactory(object):
+    """ Virtual order that implements iceberg strategy:
+    First it sends an order for a small potion of its volume to a book and
+    once it is filled resends a new order 
+    """
     
     def __init__(self, volumeLimit = 10, orderFactory = LimitFactory):
         self.volumeLimit = volumeLimit

@@ -4,10 +4,10 @@ from marketsim.types import *
 class VirtualMarket(object):
     """ Used to evaluates price at which a market order of given volume would be executed
         Since this query might be computationally expensive and done asynchronously,
-        we wrap function OrderQueue.evaluateOrderPrice by this class
+        we wrap function OrderQueue.evaluateOrderPrice by this class.
         The result will returned in on_matched event with empty 'other' field
         TBD: we make use of on_matched machinery since that is supported in RemoteBook
-        but i'm not sure that it is a good design decision  
+        but i'm not sure that it is a good design decision.  
     """
     def __init__(self, side, volume):
         self.volume = volume
@@ -35,3 +35,4 @@ class VirtualMarket(object):
 def VirtualMarketFactory(side):
     return Construct(VirtualMarket, side)
     
+VirtualMarketFactory.__doc__ = VirtualMarket.__doc__

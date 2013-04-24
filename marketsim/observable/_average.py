@@ -3,6 +3,9 @@ from marketsim import getLabel, mathutils, scheduler, meta, types, Method
 from _computed import OnEveryDt
         
 class derivative(types.IUpdatableValue):
+    """ Derivative of some moving average like value. 
+    Updated when underlying value is updated.
+    """
     
     def __init__(self, source):
         self.source = source
@@ -16,7 +19,13 @@ class derivative(types.IUpdatableValue):
     
     
 class Fold(object):
-    """ Folds values from some source using a time-dependent accumulator....
+    """ Aggregates (folds) time-dependent data from *source* using given functional  *folder* (e.g. moving average)
+    
+    For example ::
+    
+        price_avg = Fold(Price(book_A), ewma(alpha = 0.15))
+        
+    creates a observable for a moving average with |alpha| = 0.15 of mid-price of asset *book_A*     
     """
     
     def __init__(self, source, folder):

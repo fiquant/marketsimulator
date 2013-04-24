@@ -27,7 +27,6 @@ class LimitMarket(Base):
     It works as a market order in sense that it is not put into the order queue 
     but can be matched (as a limit order) 
     only if there are orders with suitable price in the queue
-    TBD: Cancelable order having delay and sched not None  
     """
     
     def __init__(self, side, price, volume):
@@ -63,7 +62,11 @@ class LimitMarket(Base):
 def LimitMarketFactory(side):
     return Construct(LimitMarket, side)
 
+LimitMarketFactory.__doc__ = LimitMarket.__doc__
+
 class WithExpiry(Base):
+    """ Limit-like order which is cancelled after given *delay*
+    """
     
     def __init__(self, order, delay, sched):
         """ Initializes order with 'price' and 'volume'
@@ -94,6 +97,8 @@ LimitOrderFactorySignature = meta.function((types.Side,), meta.function((types.P
 
 @registry.expose('WithExpiry')
 class WithExpiryFactory(object):
+    """ Limit-like order which is cancelled after given *delay*
+    """
     
     def __init__(self, expirationDistr=mathutils.constant(10), orderFactory = LimitFactory):
         self.expirationDistr = expirationDistr

@@ -228,7 +228,8 @@
 	    		<select data-bind="options: graphRenderers, value: currentRenderer"></select>
 	    	</p>
 	    <!-- /ko -->
-		<table data-bind="if: !$root.showOptions() && !$root.showGraphs()">
+	    <!-- ko if: !$root.showOptions() && !$root.showGraphs() -->
+		<table>
 			<tr>
 				<td>
 					<div id="v-nav">
@@ -252,13 +253,12 @@
 					<table>
 						<tr data-bind="template: { name: 'renderEntities', foreach: entities }">
 						</tr>
-					</table>
-				</td>
-				<td>
-					<span data-bind="html: $root.hint()"></span>
+					</table>	
 				</td>
 			</tr>
 		</table>
+		<span data-bind="html: $root.hint()"></span>
+		<!-- /ko -->
       <!-- ko if: !$root.showOptions() && $root.showGraphs() -->
 	  <div data-bind="template: { foreach: graphs }">
 	  	<!-- ko if: !$data.empty() && $index() == $root.currentGraph() -->

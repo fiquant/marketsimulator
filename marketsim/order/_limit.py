@@ -3,8 +3,7 @@ from marketsim import registry, Construct, mathutils, meta
 from marketsim.types import *
 
 class Limit(Base):
-    """ Base class for limit orders. 
-    Adds to the basic order functionality price handling
+    """ Limit order of the given *side*, *price* and *volume*
     """
 
     def __init__(self, side, price, volume):
@@ -87,6 +86,8 @@ class Limit(Base):
 def LimitFactory(side):
     return Construct(Limit, side)
 
+LimitFactory.__doc__ = Limit.__doc__ 
+
 class AdaptLimit_SidePriceBound(object):
     
     def __init__(self, orderFactory, side, price):
@@ -99,6 +100,9 @@ class AdaptLimit_SidePriceBound(object):
 
 @registry.expose(alias='Adapt limit order')
 class AdaptLimit(object):
+    """ Adapts limit-like orders for usage where market-like orders are expected.
+    User should provide *priceFunc* calculating price of order to create
+    """
     
     def __init__(self, orderFactory = LimitFactory, priceFunc = mathutils.constant(100)):
         self.orderFactory = orderFactory
