@@ -49,20 +49,30 @@
 			        <!-- /ko -->
 		            <!-- ko if: $data.object || $data.toplevel -->
 			            <!-- ko ifnot: editAliasMode -->
-		            		<select data-bind="
+			            <div style="float: right;">
+		            		<select style="float: left;"
+		            		data-bind="
 		            		event: 		{ mouseover: updateOptions, dblclick: enterEditMode }, 
 		            		options: 	  _options, 
 		            		value: 		  _currentOption, 
 		            		optionsText:  function (item) { return item.alias.peek(); },
 		            		optionsValue: function (item) { return item.uniqueId(); }">
 		            		</select>
+		            		<a class="tooltip" style="float:right">
+		            			?
+		            			<span>
+		            				<img class="callout" src="static/img/callout.gif" />
+							        <strong data-bind="text: alias"></strong><br />
+		            				<span data-bind="html: hint"></span>
+								</span> 
+							</a>
+						  </div>
 			            <!-- /ko -->
 		            	<!-- ko if: editAliasMode -->
 			        		<input data-bind="
 			        			value: alias, 
 			        			event: { blur: exitEditMode, 
-			        					 dblclick: exitEditMode,
-			        					 mouseover: setCurrentHint }" 
+			        					 dblclick: exitEditMode }" 
 			        		type="text" />
 			            <!-- /ko -->
 		            <!-- /ko -->
@@ -257,7 +267,6 @@
 				</td>
 			</tr>
 		</table>
-		<span data-bind="html: $root.hint()"></span>
 		<!-- /ko -->
       <!-- ko if: !$root.showOptions() && $root.showGraphs() -->
 	  <div data-bind="template: { foreach: graphs }">

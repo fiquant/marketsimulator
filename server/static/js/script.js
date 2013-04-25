@@ -119,9 +119,7 @@ function AppViewModel() {
 
 	self.updateInterval = ko.observable(1);
 	self.showOptions = ko.observable(false);
-	
-	self.hint = ko.observable(undefined);
-	
+		
 	self.getCandidates = function (constraint) {
 		var candidates = [];
 		var jsc = $.toJSON(constraint);

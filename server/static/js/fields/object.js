@@ -52,14 +52,12 @@ function ObjectValue(s, constraint, root, expandReference) {
 			_storage().alias_back(newvalue);
 		}
 	})
-
-	self.setCurrentHint = function () {
-		var myTypeinfo = typeinfo[_storage().constructor()];
-		if (myTypeinfo) {
-			root.hint(myTypeinfo[2]);
-		}
-	}
 	
+	self.hint = ko.computed(function () {
+		var myTypeinfo = typeinfo[_storage().constructor()];
+		return myTypeinfo ? myTypeinfo[2] : "";
+	});
+
 	/**
 	 *	Returns true if the fields has been changed 
 	 */
@@ -121,7 +119,6 @@ function ObjectValue(s, constraint, root, expandReference) {
 	 */
 	self.updateOptions = function () {
 		self._dummy(!self._dummy());
-		self.setCurrentHint();
 	}
 	
 	/**
