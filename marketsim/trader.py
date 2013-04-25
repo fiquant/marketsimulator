@@ -160,6 +160,22 @@ class SingleAsset(Base, types.ISingleAssetTrader):
         Base._onOrderMatched_impl(self, order, other, (price, volume))
         
 class SingleAssetSingleMarket(SingleAsset):
+    """ A trader that trades a single asset on a single market.
+    
+        Parameters:
+        
+        **orderBook**
+            order book for the asset being traded
+            
+        **strategies**
+            array of strategies run by the trader
+            
+        **amount** 
+            current position of the trader (number of assets that it owns)
+            
+        **PnL**
+            current trader balance (number of money units that it owns)
+    """
     
     def __init__(self, orderBook, strategy=None, label=None, strategies=[], amount=0, PnL=0):
         self._orderBook = orderBook

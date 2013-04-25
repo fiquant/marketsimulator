@@ -4,7 +4,7 @@ sys.path.append(r'..')
 sys.setrecursionlimit(10000)
 
 from marketsim import (strategy, orderbook, trader, order, js, signal, remote,
-                       scheduler, observable, veusz, mathutils, registry)
+                       scheduler, observable, veusz, mathutils, registry, translations)
 
 from marketsim.types import Side
 
@@ -131,16 +131,31 @@ def make_filename_safe(s):
 def current_user_dir():
     return os.path.join('_saved', str(session[KEY]))
 
+forceGenerate = True
+
 def collectTypeInfo():
-    _, _, myRegistry, _ = createSimulation('All')
-    typeinfo = myRegistry.getTypeInfo()
     filename = os.path.join('static', '_generated', 'typeinfo.js')
     ensure_dir(filename)
-    with open(filename, 'w') as f:
-        f.write('var typeinfo = ');
-        json.dump(typeinfo, f)
+    if not os.path.exists(filename) or forceGenerate:
+        _, _, myRegistry, _ = createSimulation('All')
+        typeinfo = myRegistry.getTypeInfo()
+        with open(filename, 'w') as f:
+            f.write('var typeinfo = ');
+            json.dump(typeinfo, f)
+        
+def generateTranslations():
+    filename = os.path.join('static', '_generated', 'translations', 'en.js')
+    ensure_dir(filename)
+    if not os.path.exists(filename) or forceGenerate:
+        with open(filename, 'w') as f:
+            f.write('var translations_en = ');
+            r = {}
+            r.update(translations.en.property_names)
+            r.update(translations.en.greeks)
+            json.dump(r, f)
         
 collectTypeInfo()
+generateTranslations()
 
 def latest_workspace_for_user():
     d = current_user_dir()

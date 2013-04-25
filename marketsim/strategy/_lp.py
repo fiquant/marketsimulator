@@ -29,25 +29,25 @@ class _LiquidityProviderSide_Impl(OneSide):
 exec wrapper("LiquidityProviderSide",
              """ Liquidity provider for one side has followng parameters:
 
-                 **side**
+                 |side|
                      side of orders to create (default: Side.Sell)
                      
-                 **orderFactory** 
+                 |orderFactory| 
                      order factory function (default: order.Limit.T)
                      
-                 **initialValue** 
+                 |initialValue| 
                      initial price which is taken if orderBook is empty (default: 100)
                      
-                 **creationIntervalDistr**
+                 |creationIntervalDistr|
                      defines intervals of time between order creation 
                      (default: exponential distribution with |lambda| = 1)
                      
-                 **priceDistr**
+                 |priceDistr|
                      defines multipliers for current asset price when price of
                      order to create is calculated (default: log normal distribution with 
                      |mu| = 0 and |sigma| = 0.1)
                      
-                 **volumeDistr** 
+                 |volumeDistr| 
                      defines volumes of orders to create 
                      (default: exponential distribution with |lambda| = 1)
 
@@ -159,22 +159,22 @@ exec wrapper('LiquidityProvider',
                  
                  It has followng parameters:
 
-                 **orderFactory** 
+                 |orderFactory| 
                      order factory function (default: order.Limit.T)
                      
-                 **initialValue** 
+                 |initialValue| 
                      initial price which is taken if orderBook is empty (default: 100)
                      
-                 **creationIntervalDistr**
+                 |creationIntervalDistr|
                      defines intervals of time between order creation 
                      (default: exponential distribution with |lambda| = 1)
                      
-                 **priceDistr**
+                 |priceDistr|
                      defines multipliers for current asset price when price of
                      order to create is calculated (default: log normal distribution with 
                      |mu| = 0 and |sigma| = 0.1)
                      
-                 **volumeDistr** 
+                 |volumeDistr| 
                      defines volumes of orders to create 
                      (default: exponential distribution with |lambda| = 1)
             """,  

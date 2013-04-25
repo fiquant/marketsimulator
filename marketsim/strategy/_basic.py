@@ -101,8 +101,24 @@ def randomSide():
 
 exec  wrapper("Generic", 
              """ Generic strategy that wakes up on events given by *eventGen*, 
-             chooses side of order to create using *sideFunc* and its volume by *volumeFunc*,
-             creates an order via *orderFactory* and sends the order to the market using its trader
+                 chooses side of order to create using *sideFunc* and its volume by *volumeFunc*,
+                 creates an order via *orderFactory* and sends the order to the market using its trader
+             
+                 Parameters:
+                 
+                     |orderFactory|
+                         order factory function (default: order.Limit.T)
+                         
+                     |eventGen|
+                         Event source making the strategy to wake up
+                         
+                     |volumeFunc|
+                         defines volumes of orders to create 
+                         (default: exponential distribution with |lambda| = 1)
+                         
+                     |sideFunc|
+                         function choosing side of order to create (default: randomSide)
+                         
              """,
               [('orderFactory',         'order.MarketFactory',                  'Side -> Volume -> IOrder'),
                ('eventGen',             'None',                                 'Event'),

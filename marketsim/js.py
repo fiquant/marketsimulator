@@ -1,6 +1,8 @@
 from marketsim import scheduler, meta, types, Method
 
 class TimeSerie(object):
+    """ Listens to an observable and accumulates its values with time stamps
+    """
     
     def __init__(self, source, label):
         self.label = label
@@ -57,6 +59,8 @@ class TimeSerie(object):
         self._data = []
         
 class Graph(object):
+    """ Generic 2D graph to be rendered by means of javascript libraries
+    """
     
     def __init__(self, label, series=None):
         self.label = label
