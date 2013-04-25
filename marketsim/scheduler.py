@@ -144,9 +144,12 @@ def current():
 """
 
 class Timer(Event):
-    """ Event wrapper over Scheduler.process.
-    'intervalFunc' defines intervals between moments of time 
-    when subscribed listeners are to be called  
+    """ Represents a repeating action. 
+    
+        Parameters:
+        
+        *intervalFunc*
+            intervals of time between moments when subscribed listeners are to be called  
     """
 
     def __init__(self, intervalFunc, scheduler=None):

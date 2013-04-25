@@ -3,7 +3,19 @@ from marketsim import Method, Event, meta, types, mathutils
 from marketsim.scheduler import Timer
 
 class RandomWalk(types.IObservable):
-    """ A discrete signal with user-defined increments   
+    """ A discrete signal with user-defined increments.
+    
+        Parameters:
+        
+        **initialValue** 
+            initial value of the signal (default: 0)
+            
+        **deltaDistr**
+            increment function (default: normal distribution with |mu| = 0, |sigma| = 1)
+        
+        **intervalDistr**
+            defines intervals between signal updates
+            (default: exponential distribution with |lambda| = 1)
     """
     def _wakeUp_impl(self, _):
         self.value += self.deltaDistr()
@@ -14,11 +26,6 @@ class RandomWalk(types.IObservable):
                  deltaDistr=mathutils.rnd.normalvariate(0.,1.),
                  intervalDistr=mathutils.rnd.expovariate(1.),
                  label=None):
-        """ Initializes a signal
-        initialValue - initial value of the signal (default: 0)
-        deltaDistr - increment function (default: normal distribution with \mu=0, \sigma=1)
-        intervalDistr - defines intervals between signal updates
-        """
         self.label = label if label is not None else "#"+str(id(self))
         
         self.initialValue = initialValue

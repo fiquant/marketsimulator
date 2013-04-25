@@ -64,9 +64,16 @@ class TradeIfProfitable(tradeIfProfitable):
     """ Strategy that estimates efficiency of original *strategy* 
     (normally as derivative of "cleared" balance for its clone sending unit volume orders)
     
-    * **strategy** -- original strategy that can be suspended
-    * **efficiency** -- function estimating is the strategy efficient or not
-    * **estimator** -- function creating phantom strategy used for efficiency estimation
+    Parameters: 
+    
+        |strategy| 
+            original strategy that can be suspended
+            
+        |efficiency| 
+            function estimating is the strategy efficient or not
+            
+        |estimator| 
+            function creating phantom strategy used for efficiency estimation
     """
     
     def __init__(self, strategy = FundamentalValue(), 
@@ -146,9 +153,22 @@ class _chooseTheBest_Impl(Strategy):
         return not self._current or self._current.suspended
 
 exec wrapper("chooseTheBest",
-             """Class adaptive.chooseTheBest is a composite strategy. It is initialized
-            with an array of strategies. In some moments of time the most effective strategy 
-            is chosen and made running; other strategies are suspended.""",
+             """ A composite strategy initialized with an array of strategies. 
+                 In some moments of time the most effective strategy 
+                 is chosen and made running; other strategies are suspended.
+                 
+                 Parameters: 
+                
+                     |strategies| 
+                        original strategies that can be suspended
+                     
+                     |efficiency| 
+                         function estimating is the strategy efficient or not
+                     
+                     |estimator| 
+                        function creating phantom strategy used for efficiency estimation
+                 
+                 """,
              [('strategies',  '[FundamentalValue()]',   'meta.listOf(IStrategy)'),
               ('efficiency',  'efficiencyTrend',        'ISingleAssetTrader -> ISingleAssetTrader'),
               ('estimator',   'virtualWithUnitVolume',  'IStrategy -> IStrategy')])

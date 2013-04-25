@@ -22,14 +22,14 @@ exec wrapper("Noise",
                  
                  It has following parameters:
 
-                 **orderFactoryT** 
+                 |orderFactoryT| 
                      order factory function (default: order.Market.T)
 
-                 **creationIntervalDistr** 
+                 |creationIntervalDistr| 
                      defines intervals of time between order creation 
                      (default: exponential distribution with |lambda| = 1)
                      
-                 **sideDistr** 
+                 |sideDistr| 
                      side of orders to create 
                      (default: discrete uniform distribution P(Sell)=P(Buy)=.5)
              """,

@@ -48,17 +48,17 @@ exec  wrapper("FundamentalValue",
              
                  It has following parameters: 
                  
-                 **orderFactory** 
+                 |orderFactory| 
                      order factory function (default: order.Market.T)
                  
-                 **creationIntervalDistr** 
+                 |creationIntervalDistr| 
                      defines intervals of time between order creation 
                      (default: exponential distribution with |lambda| = 1)
                  
-                 **fundamentalValue** 
+                 |fundamentalValue| 
                      defines fundamental value (default: constant 100)
                      
-                 **volumeDistr** 
+                 |volumeDistr| 
                      defines volumes of orders to create 
                      (default: exponential distribution with |lambda| = 1)
              """,
@@ -123,18 +123,18 @@ exec wrapper("MeanReversion",
              
                  It has following parameters: 
                  
-                 **orderFactory** 
+                 |orderFactory| 
                      order factory function (default: order.Market.T)
                  
-                 **creationIntervalDistr** 
+                 |creationIntervalDistr| 
                      defines intervals of time between order creation 
                      (default: exponential distribution with |lambda| = 1)
                  
-                 **average** 
+                 |average| 
                      functional used to calculate the average 
                      (default: exponentially weighted moving average with |alpha| = 0.15)
                      
-                 **volumeDistr** 
+                 |volumeDistr| 
                      defines volumes of orders to create 
                      (default: exponential distribution with |lambda| = 1)
              """,
@@ -194,16 +194,16 @@ exec wrapper("Dependency",
              
                  It has following parameters: 
                  
-                 **orderFactory** 
+                 |orderFactory| 
                      order factory function (default: order.Market.T)
                  
-                 **bookToDependOn** 
+                 |bookToDependOn| 
                      reference to order book for another asset used to evaluate fair price of our asset
                  
-                 **factor** 
+                 |factor| 
                      multiplier to obtain fair asset price from the reference asset price
                      
-                 **volumeDistr** 
+                 |volumeDistr| 
                      defines volumes of orders to create 
                      (default: exponential distribution with |lambda| = 1)
              """,

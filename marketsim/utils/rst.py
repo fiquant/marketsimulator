@@ -48,6 +48,11 @@ greeks = """
 
 """
 
+from marketsim import translations
+
+xlat = reduce(lambda x,y: x + y,
+              [".. |"+k+"| replace:: **" + v + "** \n" for (k,v) in translations.en.property_names.iteritems()])
+
 from docutils.core import publish_parts
 def rst2html(rst):
-    return publish_parts(greeks + rst,writer_name='html')['html_body']
+    return publish_parts(xlat + greeks + rst,writer_name='html')['html_body']

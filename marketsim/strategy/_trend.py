@@ -34,16 +34,16 @@ exec wrapper("Signal",
                  
                  It has following parameters:
 
-                 **signal** 
+                 |signal| 
                       signal to be listened to
                       
-                 **orderFactory** 
+                 |orderFactory| 
                      order factory function (default: order.Market.T)
                      
-                 **threshold** 
+                 |threshold| 
                      threshold when the trader starts to act (default: 0.7)
                      
-                 **volumeDistr** 
+                 |volumeDistr| 
                      defines volumes of orders to create 
                      (default: exponential distribution with |lambda| = 1)
              """,
@@ -156,25 +156,25 @@ exec wrapper("TwoAverages",
                  
                  It has following parameters:
 
-                 **average1** 
+                 |average1| 
                       functional used to obtain the first average
                       (defaut: expenentially weighted moving average with |alpha| = 0.15)
                       
-                 **average2** 
+                 |average2| 
                       functional used to obtain the second average
                       (defaut: expenentially weighted moving average with |alpha| = 0.015)
                       
-                 **orderFactory** 
+                 |orderFactory| 
                      order factory function (default: order.Market.T)
                      
-                 **threshold** 
+                 |threshold| 
                      threshold when the trader starts to act (default: 0.)
                      
-                 **volumeDistr** 
+                 |volumeDistr| 
                      defines volumes of orders to create 
                      (default: exponential distribution with |lambda| = 1)
 
-                 **creationIntervalDistr** 
+                 |creationIntervalDistr| 
                      defines intervals of time between order creation 
                      (default: exponential distribution with |lambda| = 1)                     
              """,
@@ -233,21 +233,21 @@ exec wrapper('TrendFollower',
                  
                  It has following parameters:
                 
-                 **average** 
+                 |average| 
                      moving average functional. By default, we use exponentially weighted
                      moving average with |alpha| = 0.15.
                      
-                 **orderFactory** 
+                 |orderFactory| 
                      order factory function (default: order.Market.T)
                      
-                 **threshold** 
+                 |threshold| 
                      threshold when the trader starts to act (default: 0.)
                      
-                 **creationIntervalDistr**
+                 |creationIntervalDistr|
                      defines intervals of time between order creation
                      (default: exponential distribution with |lambda| = 1)
                      
-                 **volumeDistr** 
+                 |volumeDistr| 
                      defines volumes of orders to create 
                      (default: exponential distribution with |lambda| = 1)
              """,

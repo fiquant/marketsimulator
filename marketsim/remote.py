@@ -2,7 +2,15 @@ import random
 from marketsim import scheduler, meta, mathutils
 
 class Link(object):
-    """ Ensures that sending packets via a link preserves their order
+    """ Represents latency in information propagation from one agent to another one 
+        (normally between a trader and a market).
+        Ensures that sending packets via a link preserves their order.
+        
+        Parameters:
+        
+        **latency** 
+            function called for each packet in order to determine 
+            when it will appear at the destination point
     """
     
     def __init__(self, latency=mathutils.constant(0.001)):
@@ -30,6 +38,19 @@ class Link(object):
         self._scheduler.schedule(t, func)
 
 class TwoWayLink(object):
+    """ Represents latency in information propagation between two agents 
+        (normally between a trader and a market).
+        Ensures that sending packets via links preserves their order.
+        Holds two one-way links in opposite directions.
+        
+        Parameters:
+        
+        **up** 
+            Forward link (normally from a trader to a market)
+            
+        **down**
+            Backward link (normally from a market to a trader)
+    """
     
     def __init__(self, up, down):
         
