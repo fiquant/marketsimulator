@@ -28,11 +28,12 @@
 </head>
 <body>
 	<script type="text/html" id="renderField">
-        <tr data-bind="css: { even: (localIndex(elements, $context)+isOdd)%2==0, error: hasErrorStyle }">
+        <tr data-bind="css: { even: ko.computed(function() {$data.context($context);return localIndex()%2==0}), error: hasErrorStyle }">
         	<td>
         		<!-- ko if: expandable() -->
         			<input type="checkbox" data-bind="checked: isExpanded"/>
         		<!-- /ko -->	  
+        		<!-- span data-bind="text: localIndex"></span -->
         	</td>
             <td>
             	<span  data-bind="html: displayLabel()"></span>
@@ -88,7 +89,7 @@
         <tr data-bind="if: expandedView().length">
         	<td>&nbsp; &nbsp; &nbsp; &nbsp; </td>
         	<td colspan="2">
-        		<table data-bind="withProperties: { isOdd: (localIndex(elements, $context)+isOdd)%2==0, elements: expandedView }">
+        		<table data-bind="withProperties: { elements: expandedView }">
 			        <!-- ko foreach: expandedView -->
 			        	<!-- ko template: 'renderField'-->
 				        <!-- /ko -->
@@ -101,7 +102,7 @@
 	<script type="text/html" id="renderEntities">
 		<!-- ko if: $index() == $root.currentEntity() -->
 		<td>
-			<table data-bind="css: $data[1], withProperties: { isOdd: false, elements: $data[2].impl().expanded()[$root.currentEntityChoice()] }">
+			<table data-bind="css: $data[1], withProperties: { elements: $data[2].impl().expanded()[$root.currentEntityChoice()] }">
 						        <!-- ko with: $data[2].impl().expanded()[$root.currentEntityChoice()] -->
 						        	<!-- ko template: 'renderField'-->
 							        <!-- /ko -->
