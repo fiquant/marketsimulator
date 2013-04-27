@@ -110,6 +110,11 @@ th {
    background-color:#EAF2D3;
 }
 
+.model .odd {
+   color:#000000;
+   background-color:#FFFFCC;
+}
+
 .inherit {
    vertical-align: middle;
 }
@@ -129,6 +134,11 @@ th {
    background-color: #FFE0B2;
 }
 
+.option .odd {
+   color:#000000;
+   background-color:#FFF0D2;
+}
+
 .pricing_method {
    border:1px solid #9966FF;
 }
@@ -139,6 +149,10 @@ th {
 
 .pricing_method .even{
    background-color: #E0C2FF;
+}
+
+.pricing_method .odd{
+   background-color: #F0E2FF;
 }
 
 .even_scalar  {
