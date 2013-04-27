@@ -126,6 +126,25 @@ function Property(name, value, toplevel, parentArray) {
 		self.isExpanded(value);
 	})
 	
+	self.rowsWithChildren = ko.computed(function () {
+		return 1 + (self.isExpanded() 
+					? reduce(self.impl().expanded(), function (acc, field) {
+						return acc + field.rowsWithChildren();
+					}) : 0);
+	})
+	
+	self._localIndex = ko.observable(0);
+	
+	self.localIndexAfter = function () {
+		return self._localIndex() + self.rowsWithChildren();
+	}
+	
+	self.localIndex = function (elements, index) {
+		self._localIndex(index == 0 ? 0 : elements()[index - 1].localIndexAfter());
+		return self._localIndex();
+	}
+
+	
 	/**
 	 *	Returns array of expanded field items if in expanded state 
 	 */

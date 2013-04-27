@@ -24,6 +24,18 @@ function alltimeseries() {
    return $.parseJSON(z.responseText);
 }
 
+ko.bindingHandlers.withProperties = {
+    init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        // Make a modified binding context, with a extra properties, and apply it to descendant elements
+        var newProperties = valueAccessor(),
+            innerBindingContext = bindingContext.extend(newProperties);
+        ko.applyBindingsToDescendants(innerBindingContext, element);
+ 
+        // Also tell KO *not* to bind the descendants itself, otherwise they will be bound twice
+        return { controlsDescendantBindings: true };
+    }
+};
+
 xlats = {};
 
 /**
@@ -119,7 +131,7 @@ function AppViewModel() {
 
 	self.updateInterval = ko.observable(1);
 	self.showOptions = ko.observable(false);
-		
+	
 	self.getCandidates = function (constraint) {
 		var candidates = [];
 		var jsc = $.toJSON(constraint);
@@ -495,3 +507,23 @@ function AppViewModel() {
  */
 
 viewmodel = new AppViewModel();
+
+/*
+function initmenu(){
+	var e=document.getElementById("menuV2"),
+		i=e.offsetHeight,
+		b=e.getElementsByTagName("ul"),
+		for(var a=0;a<b.length;a++){
+			var c=b[a].parentNode;
+			c.getElementsByTagName("a")[0].className+=" arrow";
+			b[a].style.left=c.offsetWidth+"px";
+			b[a].style.top=c.offsetTop+"px";
+		}
+		for(var a=b.length-1;a>-1;a--)
+			b[a].style.display="none"
+	}
+	if(window.addEventListener)
+		window.addEventListener("load",initmenu,false);
+	else 
+		window.attachEvent&&window.attachEvent("onload",initmenu)
+*/

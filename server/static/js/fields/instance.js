@@ -180,6 +180,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 			f.dropHistory(); 
 		});
 	}
+
 }
 
 function createInstance(id, src, root) {

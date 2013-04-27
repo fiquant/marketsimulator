@@ -115,6 +115,16 @@ function map(elements, f) {
     return res;
 }
 
+function reduce(elements, f, initial) {
+	if (initial == undefined) {
+		initial = 0;
+	}
+	if (f == undefined) {
+		f = function (a,b) { return a + b; }
+	}
+	return elements.reduce(f, initial);
+}
+
 function map_opt(elements, f) {
     var res = [];
     for (var i=0; i<elements.length; i++) {
