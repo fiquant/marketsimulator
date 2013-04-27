@@ -33,6 +33,7 @@ function ArrayValue(fieldFactories) {
 	self.duplicate = function (element) {
 		var idx = self._storage().indexOf(element);
 		self._storage.splice(idx, 0, element.clone(self));
+		element.context.valueHasMutated();
 	}
 	
 	/**

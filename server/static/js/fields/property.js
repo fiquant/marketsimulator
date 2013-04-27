@@ -133,18 +133,36 @@ function Property(name, value, toplevel, parentArray) {
 					}) : 0);
 	})
 	
-	self._localIndex = ko.observable(0);
+	self.context = ko.observable(undefined);
 	
-	self.localIndexAfter = function () {
-		return self._localIndex() + self.rowsWithChildren();
-	}
-	
-	self.localIndex = function (elements, context) {
-		var index = self.impl().toplevel ? 0 : context.$index();
-		self._localIndex(index == 0 ? 0 : elements()[index - 1].localIndexAfter());
-		return self._localIndex();
-	}
+	self.localIndex = ko.computed(function () {
+		if (self.impl().toplevel || self.context() == undefined) {
+			return 0;
+		} else {
+			var index = self.context().$index();
+			if (index == 0) {
+				var parent = self.context().$parent.localIndex;
+				if (parent == undefined) {
+					var a = 12;
+				}
+				return parent() + 1;				
+			} else {
+				var elements = self.context().$parent.expandedView();
+				if (elements.length > 0) {
+					if (elements[index - 1] == undefined) {
+						var a = 1;
+					}			
+					var prev =  elements[index - 1].localIndexAfter;
+					return prev();			
+				} else return 0;
+			}
+		}
+	});
 
+	self.localIndexAfter = ko.computed(function () {
+		return self.localIndex() + self.rowsWithChildren();
+	})
+	
 	
 	/**
 	 *	Returns array of expanded field items if in expanded state 
