@@ -28,7 +28,11 @@
 </head>
 <body>
 	<script type="text/html" id="renderField">
-        <tr data-bind="css: { even: ko.computed(function() {$data.context($context);return localIndex()%2==0}), error: hasErrorStyle }">
+        <tr data-bind="css: { even: ko.computed(function() {
+        							$data.context($context);
+        							return localIndex()%2==0}), 
+        					  odd: localIndex()%2==1, 
+        					  error: hasErrorStyle }">
         	<td>
         		<!-- ko if: expandable() -->
         			<input type="checkbox" data-bind="checked: isExpanded"/>
