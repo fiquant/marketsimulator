@@ -67,6 +67,10 @@ function ScalarValue(s, checker) {
 		}
 	});
 	
+	self.rowsWithChildren = function () {
+		return 1;
+	}
+	
 	/**
 	 *	Returns true iff there are any errors 
 	 */

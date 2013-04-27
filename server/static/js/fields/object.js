@@ -159,6 +159,12 @@ function ObjectValue(s, constraint, root, expandReference) {
 		return (self.pointee().isReference() && !self._expandReference()) ? [] : self.pointee().fields();
 	});
 	
+	self.rowsWithChildren = ko.computed(function () {
+		return 1 + reduce(self.expanded(), function (acc, field) {
+			return acc + field.rowsWithChildren();
+		})
+	})
+	
 	/**
 	 * Are there any errors in our object? 
 	 */

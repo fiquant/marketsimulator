@@ -100,6 +100,12 @@ function ArrayValue(fieldFactories) {
 	 *  expanded representation of the array 
 	 */
 	self.expanded = self._storage;
+	
+	self.rowsWithChildren = ko.computed(function () {
+		return 1 + reduce(self._storage(), function (acc, element) {
+			return acc + element.rowsWithChildren();
+		})
+	})
 }
 
 function createArrayValue(s) {
