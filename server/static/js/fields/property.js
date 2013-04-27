@@ -139,7 +139,8 @@ function Property(name, value, toplevel, parentArray) {
 		return self._localIndex() + self.rowsWithChildren();
 	}
 	
-	self.localIndex = function (elements, index) {
+	self.localIndex = function (elements, context) {
+		var index = self.impl().toplevel ? 0 : context.$index();
 		self._localIndex(index == 0 ? 0 : elements()[index - 1].localIndexAfter());
 		return self._localIndex();
 	}

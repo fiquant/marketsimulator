@@ -28,7 +28,7 @@
 </head>
 <body>
 	<script type="text/html" id="renderField">
-        <tr data-bind="css: { even: (localIndex(elements, $index())+isOdd)%2==0, error: hasErrorStyle }">
+        <tr data-bind="css: { even: (localIndex(elements, $context)+isOdd)%2==0, error: hasErrorStyle }">
         	<td>
         		<!-- ko if: expandable() -->
         			<input type="checkbox" data-bind="checked: isExpanded"/>
@@ -88,7 +88,7 @@
         <tr data-bind="if: expandedView().length">
         	<td>&nbsp; &nbsp; &nbsp; &nbsp; </td>
         	<td colspan="2">
-        		<table data-bind="withProperties: { isOdd: (localIndex(elements, $index())+isOdd)%2==0, elements: expandedView }">
+        		<table data-bind="withProperties: { isOdd: (localIndex(elements, $context)+isOdd)%2==0, elements: expandedView }">
 			        <!-- ko foreach: expandedView -->
 			        	<!-- ko template: 'renderField'-->
 				        <!-- /ko -->
