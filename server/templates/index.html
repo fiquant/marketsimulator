@@ -35,8 +35,12 @@
         					  error: hasErrorStyle }">
         	<td>
         		<!-- ko if: expandable() -->
-        			<input type="checkbox" data-bind="checked: isExpanded"/>
-        		<!-- /ko -->	  
+        			<a href="#" target="_blank" class="treeexp" data-bind="
+        				html: isExpanded() ? southeast : east, 
+        				click: toggle">
+        			</a>
+        		<!-- /ko -->
+        		 	  
         		<!-- span data-bind="text: localIndex"></span -->
         	</td>
             <td>

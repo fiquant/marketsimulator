@@ -24,6 +24,9 @@ function alltimeseries() {
    return $.parseJSON(z.responseText);
 }
 
+var southeast = '&#9698;';
+var east = '&#9654;';
+
 ko.bindingHandlers.withProperties = {
     init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         // Make a modified binding context, with a extra properties, and apply it to descendant elements
