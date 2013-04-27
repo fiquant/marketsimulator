@@ -126,6 +126,10 @@ function Property(name, value, toplevel, parentArray) {
 		self.isExpanded(value);
 	})
 	
+	self.toggle = function (value) {
+		self.isExpanded(!self.isExpanded());
+	}
+	
 	self.rowsWithChildren = ko.computed(function () {
 		return 1 + (self.isExpanded() 
 					? reduce(self.impl().expanded(), function (acc, field) {
