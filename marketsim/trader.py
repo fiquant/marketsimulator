@@ -89,7 +89,7 @@ class SingleAsset(Base, types.ISingleAssetTrader):
         self._strategies = []
         self._label = label if label else getLabel(self)
         self.label = self._label
-        self._alias = self._label
+        self._alias = [self._label]
         
         if strategy is not None:
             strategies = strategies + [strategy]

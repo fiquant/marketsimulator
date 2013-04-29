@@ -36,7 +36,7 @@ class AlwaysBest(Base):
         onBestChanged(book.queue(self.side))
         book.queue(self.side).on_best_changed += onBestChanged
     
-@registry.expose(alias='AlwaysBest')
+@registry.expose(alias=['AlwaysBest'])
 @sig(args=(Side,), rv=function((Price,), IOrder))
 def AlwaysBestFactory(side):
     return Construct(AlwaysBest, side)

@@ -30,7 +30,7 @@ class VirtualMarket(object):
     @staticmethod
     def Sell(volume): return VirtualMarket(Side.Sell, volume)
     
-@registry.expose(alias='VirtualMarket')
+@registry.expose(alias=['VirtualMarket'])
 @sig(args=(Side,), rv=function((Volume,), IOrder))
 def VirtualMarketFactory(side):
     return Construct(VirtualMarket, side)

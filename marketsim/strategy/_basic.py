@@ -94,7 +94,7 @@ class _Generic_Impl(Strategy):
                 # send order to the order book
                 self._trader.send(order)
 
-@registry.expose(alias = 'Random side')
+@registry.expose(alias = ['Random side'])
 @meta.sig(args=(), rv=Side)
 def randomSide():
     return types.Side.byId(mathutils.rnd.randint(0,1)())

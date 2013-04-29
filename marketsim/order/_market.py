@@ -34,7 +34,7 @@ class Market(Base):
     @staticmethod
     def Sell(volume): return Market(Side.Sell, volume)
         
-@registry.expose(alias='Market')
+@registry.expose(alias=['Market'])
 @sig(args=(Side,), rv=function((Volume,), IOrder))
 def MarketFactory(side):
     return Construct(Market, side)

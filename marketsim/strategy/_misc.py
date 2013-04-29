@@ -48,7 +48,7 @@ def NoiseEx     (orderFactory           = order.MarketFactory,
                 sideFunc     = sideDistr, 
                 volumeFunc   = volumeDistr)
     
-    r._alias = "NoiseEx"
+    r._alias = ["NoiseEx"]
     
     return r
 

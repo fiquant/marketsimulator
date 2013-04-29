@@ -72,7 +72,7 @@ class FundamentalValueSide(object):
     def __init__(self, orderBook, fundamentalValue):
         self.orderBook = orderBook
         self.fundamentalValue = fundamentalValue
-        self._alias = "FundamentalValueSide"
+        self._alias = ["FundamentalValueSide"]
         
     _properties = { 'fundamentalValue'    : meta.function((), Price),
                     'orderBook'           : types.IOrderBook }
@@ -99,7 +99,7 @@ def FundamentalValueEx(orderBook,
                 eventGen    = scheduler.Timer(creationIntervalDistr), 
                 sideFunc    = FundamentalValueSide(orderBook, fundamentalValue))
     
-    r._alias = "FundamentalValueEx"
+    r._alias = ["FundamentalValueEx"]
     
     return r
 
@@ -156,7 +156,7 @@ def MeanReversionEx   (orderBook,
                 eventGen    = scheduler.Timer(creationIntervalDistr), 
                 sideFunc    = FundamentalValueSide(orderBook, avg))
     
-    r._alias = "MeanReversionEx"
+    r._alias = ["MeanReversionEx"]
     
     return r
         
@@ -226,6 +226,6 @@ def DependencyEx      (orderBook,
                 eventGen    = SignalEvent(priceToDependOn), 
                 sideFunc    = FundamentalValueSide(orderBook, SignalValue(priceToDependOn)))
     
-    r._alias = "DependencyEx"
+    r._alias = ["DependencyEx"]
     
     return r

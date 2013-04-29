@@ -11,7 +11,7 @@ class _SellSide(object):
     id = 0
     
     _types = [Tag]
-    _alias = 'Sell'
+    _alias = ['Sell']
     
     @property
     def opposite(self):
@@ -40,7 +40,7 @@ class _BuySide(object):
     id = 1
 
     _types = [Tag]
-    _alias = 'Buy'
+    _alias = ['Buy']
     
     @property
     def opposite(self):

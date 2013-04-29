@@ -73,7 +73,7 @@ class ConstantSide(object):
     
     def __init__(self, side = Side.Sell):
         self.side = side
-        self._alias = 'Constant side'
+        self._alias = ['Constant side']
         
     _properties = { 'side' : Side }
     _types = [ meta.function((), Side) ]
@@ -91,7 +91,7 @@ class SafeSidePrice(object):
         self.orderBook = orderBook
         self.side = side
         self.defaultValue = defaultValue
-        self._alias = 'Safe order queue price'
+        self._alias = ['Safe order queue price']
         
     _properties = { 'orderBook'     : IOrderBook, 
                     'side'          : Side, 
@@ -122,7 +122,7 @@ def LiquidityProviderSideEx(orderBook,
                                                   SafeSidePrice(orderBook, side, defaultValue), 
                                                   priceDistr)))
     
-    r._alias = 'LiquidityProviderSideEx'
+    r._alias = ['LiquidityProviderSideEx']
     
     return r
 
@@ -235,7 +235,7 @@ def LiquidityProviderEx    (orderBook,
             create(Side.Buy)
         ])
     
-    r._alias = 'LiquidityProviderEx'
+    r._alias = ['LiquidityProviderEx']
     
     return r
 

@@ -42,9 +42,9 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	/**
 	 *	Stores alias for the instance. Private.
 	 */
-	self.alias_back = ko.observable(alias);
+	self.alias_back = ko.observable(alias[0]);
 	
-	self._initial_alias = ko.observable(alias);
+	self._initial_alias = ko.observable(alias[0]);
 	
 	/**
 	 *	Read only alias for the instance. Public 
@@ -108,7 +108,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 		return [self.constructor(), 
 				dictOf(map(self.fields(), function (field) {
 					return field.serialized(); })), 
-				self.alias()];
+				[self.alias()]];
 	}
 	
 	/**
@@ -150,7 +150,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 			return (f.hasChanged()
 					?	[self.uniqueId()].concat(f.serialized())
 					:   undefined);
-		}).concat(self._aliasChanged() ? [[self.uniqueId(), "_alias", self.alias()]] : []);
+		}).concat(self._aliasChanged() ? [[self.uniqueId(), "_alias", [self.alias()]]] : []);
 	};	
 	
 	/**

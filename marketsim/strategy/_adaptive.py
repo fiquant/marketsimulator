@@ -38,14 +38,14 @@ class _tradeIfProfitable_Impl(Strategy):
     def suspended(self):
         return self._strategy.suspended
 
-@registry.expose(alias="trader's efficiency trend")
+@registry.expose(alias=["trader's efficiency trend"])
 @sig(args=(ISingleAssetTrader,), rv=ISingleAssetTrader)
 def efficiencyTrend(trader):
     """ Returns derivative of a *trader*'s "cleared" balance
     """
     return observable.trend(observable.Efficiency(trader))
 
-@registry.expose(alias='Virtual market orders with unit volume')
+@registry.expose(alias=['Virtual market orders with unit volume'])
 @sig(args=(IStrategy,), rv=IStrategy)
 def virtualWithUnitVolume(strategy):
     """ Creates for a *strategy* a clone with same parameters but sending virtual market orders of unit volume
@@ -59,7 +59,7 @@ exec wrapper("tradeIfProfitable",
               ('estimator',  'virtualWithUnitVolume', 'IStrategy -> IStrategy')], register=False)
 
         
-@registry.expose('TradeIfProfitable')
+@registry.expose(['TradeIfProfitable'])
 class TradeIfProfitable(tradeIfProfitable):
     """ Strategy that estimates efficiency of original *strategy* 
     (normally as derivative of "cleared" balance for its clone sending unit volume orders)
