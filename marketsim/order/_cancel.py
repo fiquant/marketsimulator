@@ -57,7 +57,7 @@ class LimitMarket(Base):
     @staticmethod
     def Sell(price, volume): return LimitMarket(Limit.Sell, price, volume)
     
-@registry.expose(alias='LimitMarket')
+@registry.expose(alias=['LimitMarket'])
 @meta.sig(args=(Side,), rv=meta.function((types.Price,), types.IOrder))
 def LimitMarketFactory(side):
     return Construct(LimitMarket, side)
@@ -95,7 +95,7 @@ class WithExpiry(Base):
 
 LimitOrderFactorySignature = meta.function((types.Side,), meta.function((types.Price, types.Volume), types.IOrder))
 
-@registry.expose('WithExpiry')
+@registry.expose(['WithExpiry'])
 class WithExpiryFactory(object):
     """ Limit-like order which is cancelled after given *delay*
     """

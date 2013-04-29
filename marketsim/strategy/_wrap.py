@@ -90,6 +90,6 @@ def wrapper(name, docstring, params, register=True):
     dict_= process("self.__dict__[\'%(name)s\'] = %(name)s", "; ")
     props= process("\'%(name)s\' : %(typ)s")
     call = process("self.%(name)s")
-    reg = "@registry.expose('"+name+"')" if register else ""
+    reg = "@registry.expose(['"+name+"'])" if register else ""
     
     return template % locals()

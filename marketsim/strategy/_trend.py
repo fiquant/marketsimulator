@@ -62,7 +62,7 @@ class SignalSide(object):
     def __init__(self, source, threshold = 0):
         self.source = source
         self.threshold = threshold
-        self._alias = "SignalSide"
+        self._alias = ["SignalSide"]
         
     _properties = { 'source'    : meta.function((), float),
                     'threshold' : float }
@@ -121,7 +121,7 @@ def SignalEx(signal,
                 orderFactory = orderFactory, 
                 eventGen     = SignalEvent(signal))  
     
-    r._alias = 'SignalEx'
+    r._alias = ['SignalEx']
     
     return r
 
@@ -204,7 +204,7 @@ def TwoAveragesEx(orderBook,
                                      observable.Fold(price, average2)),
                                  threshold))
     
-    r._alias = 'TwoAveragesEx'
+    r._alias = ['TwoAveragesEx']
     
     return r
 
@@ -272,7 +272,7 @@ def TrendFollowerEx(orderBook,
                 eventGen    = scheduler.Timer(creationIntervalDistr),
                 sideFunc    = SignalSide(trend, threshold))
     
-    r._alias = 'TrendFollowerEx'
+    r._alias = ['TrendFollowerEx']
     
     return r
     

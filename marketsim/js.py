@@ -23,11 +23,11 @@ class TimeSerie(object):
         
     @property 
     def _alias(self):
-        return self.label + "'"
+        return [self.label + "'"]
         
     @_alias.setter
     def _alias(self, value):
-        self.label = value
+        self.label = value[-1]
         
     def reset(self):
         self._data = []
@@ -78,11 +78,11 @@ class Graph(object):
     
     @property
     def _alias(self):
-        return self.label
+        return [self.label]
     
     @_alias.setter
     def _alias(self, value):
-        self.label = value
+        self.label = value[-1]
         
     def addTimeSeries(self, series):
         for x in series:

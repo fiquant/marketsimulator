@@ -2,7 +2,7 @@ from _average import ewma
 import rnd
 from marketsim import types, registry
 
-@registry.expose('Constant')
+@registry.expose(['Constant'])
 class constant(object):
     """ Constant function returning **value**.
     """
@@ -32,7 +32,7 @@ class constant(object):
     def __repr__(self):
         return "constant("+repr(self.value)+")"
 
-@registry.expose('*')
+@registry.expose(['*'])
 class product(object):
     """ Function returning product of the operands
     """
@@ -54,7 +54,7 @@ class product(object):
     def __repr__(self):
         return repr(self.RightHandSide)+ "*" + repr(self.RightHandSide)
 
-@registry.expose('+')    
+@registry.expose(['+'])    
 class sum(object):
     """ Function returning sum of the operands
     """
@@ -76,7 +76,7 @@ class sum(object):
     def __repr__(self):
         return repr(self.RightHandSide)+ "+" + repr(self.RightHandSide)
 
-@registry.expose('/')
+@registry.expose(['/'])
 class div(object):
     """ Function returning division of the operands
     """
@@ -98,7 +98,7 @@ class div(object):
     def __repr__(self):
         return repr(self.RightHandSide)+ "/" + repr(self.RightHandSide)
 
-@registry.expose('-')    
+@registry.expose(['-'])    
 class sub(object):
     """ Function substructing the right operand from the left one
     """

@@ -81,7 +81,7 @@ class Limit(Base):
     @staticmethod
     def Sell(price, volume): return Limit(Side.Sell, price, volume) 
     
-@registry.expose(alias='Limit')
+@registry.expose(alias=['Limit'])
 @sig(args=(Side,), rv=function((Price, Volume,), IOrder))
 def LimitFactory(side):
     return Construct(Limit, side)
@@ -98,7 +98,7 @@ class AdaptLimit_SidePriceBound(object):
     def __call__(self, volume):
         return self.orderFactory(self.side)(self.price, volume)
 
-@registry.expose(alias='Adapt limit order')
+@registry.expose(alias=['Adapt limit order'])
 class AdaptLimit(object):
     """ Adapts limit-like orders for usage where market-like orders are expected.
     User should provide *priceFunc* calculating price of order to create

@@ -130,9 +130,9 @@ class Registry(object):
         if '_alias' in dir(obj):
             return obj._alias
         for x in self._id2obj.itervalues():
-            if type(x) == t and '_alias' in dir(x) and x._alias != "":
+            if type(x) == t and '_alias' in dir(x) and x._alias != []:
                 return x._alias
-        return obj.__class__.__name__
+        return [obj.__class__.__name__]
         
     def _insertNew(self, Id, obj):
         if type(Id) != int:
@@ -145,6 +145,8 @@ class Registry(object):
         obj._id = Id
         obj._referencedBy = set()
         obj._alias = self._findAlias(obj)
+        if type(obj._alias) != list:
+            a = 12
         self._id2obj[Id] = obj
         return obj._id
     
@@ -368,7 +370,7 @@ class Registry(object):
     
     @property
     def orderBooksByName(self):
-        return {v._alias : v\
+        return {v._alias[-1] : v\
                  for v in self._id2obj.itervalues() \
                     if getCtor(v).startswith("marketsim.orderbook.") }
     
@@ -434,7 +436,7 @@ class Registry(object):
             cls = obj.__class__
             ctor = cls.__module__ + "." + cls.__name__
             
-        alias = obj._alias.replace("\\", '').replace('{', '(').replace('}', ')')
+        alias = obj._alias
             
         propnames = properties(obj)
         props     = {k : self._dumpPropertyValue(v, getattr(obj, k), obj) \
