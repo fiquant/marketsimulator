@@ -42,9 +42,9 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	/**
 	 *	Stores alias for the instance. Private.
 	 */
-	self.alias_back = ko.observable(alias[0]);
-	
-	self._initial_alias = ko.observable(alias[0]);
+	self.alias_back = ko.observable(alias);
+		
+	self._initial_alias = ko.observable(alias);
 	
 	/**
 	 *	Read only alias for the instance. Public 
@@ -53,12 +53,12 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 		var newvalue = self.alias_back();
 		// remove old alias from alias registry
 		if (self._savedAlias) {
-			delete root.alias2id[self._savedAlias];
+			delete root.alias2id[$.toJSON(self._savedAlias)];
 		}
 		// update mapping (todo: instroduce AliasRegistry that will manage this mapping)
-		if (root.alias2id[newvalue] == undefined) {
+		if (root.alias2id[$.toJSON(newvalue)] == undefined) {
 			self._savedAlias = newvalue;
-			root.alias2id[newvalue] = self.uniqueId();
+			root.alias2id[$.toJSON(newvalue)] = self.uniqueId();
 		}
 		return newvalue;
 	});
@@ -74,7 +74,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 		if (self.isReference()) {
 			for (var i = 0; true; i++) {
 				var s = self.alias() + '.' + i;
-				if (root.alias2id[s] == undefined) {
+				if (root.alias2id[$.toJSON(s)] == undefined) {
 					return s;
 				}
 			}
@@ -115,7 +115,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	 * 	Returns true iff this instance is primary with respect to the alias 
 	 */
 	self.isPrimary = ko.computed(function () {
-		return root.alias2id[self.alias()] == self.uniqueId();
+		return root.alias2id[$.toJSON(self.alias())] == self.uniqueId();
 	});
 	
 	/**
@@ -126,7 +126,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	});
 	
 	self._aliasChanged = ko.computed(function () {
-		return self.alias_back() != self._initial_alias();
+		return $.toJSON(self.alias_back()) != $.toJSON(self._initial_alias());
 	})
 	
 	/**

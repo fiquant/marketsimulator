@@ -64,7 +64,7 @@
 		            		event: 		{ mouseover: updateOptions, dblclick: enterEditMode }, 
 		            		options: 	  _options, 
 		            		value: 		  _currentOption, 
-		            		optionsText:  function (item) { return item.alias.peek(); },
+		            		optionsText:  function (item) { return item.alias.peek()[item.alias.peek().length - 1]; },
 		            		optionsValue: function (item) { return item.uniqueId(); }">
 		            		</select>
 		            		<a class="tooltip" style="float:right">
@@ -72,7 +72,8 @@
 		            			<span>
 		            				<img class="callout" src="static/img/callout.gif" />
 							        <strong data-bind="text: alias"></strong><br />
-		            				<span data-bind="html: hint"></span>
+		            				<!--span data-bind="html: hint"></span-->
+		            				<span data-bind="text: $.toJSON(map($data._options(), function (item) { return item.alias.peek()[item.alias.peek().length - 1]; }))"></span>
 								</span> 
 							</a>
 						  </div>

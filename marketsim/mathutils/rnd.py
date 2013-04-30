@@ -5,7 +5,7 @@ from marketsim import registry
 from marketsim.types import *
 
 template = """
-@registry.expose(['%(alias)s'])
+@registry.expose(['Random', '%(alias)s'])
 class %(name)s(object):
     \"\"\" %(docstring)s
     \"\"\"    
