@@ -131,7 +131,7 @@ def make_filename_safe(s):
 def current_user_dir():
     return os.path.join('_saved', str(session[KEY]))
 
-forceGenerate = True
+forceGenerate = False
 
 def collectTypeInfo():
     filename = os.path.join('static', '_generated', 'typeinfo.js')

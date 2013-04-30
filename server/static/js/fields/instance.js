@@ -44,7 +44,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	 */
 	self.alias_back = ko.observable(alias);
 		
-	self._initial_alias = ko.observable(alias);
+	self._initial_alias = ko.observable($.toJSON(alias));
 	
 	/**
 	 *	Read only alias for the instance. Public 
@@ -126,7 +126,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	});
 	
 	self._aliasChanged = ko.computed(function () {
-		return $.toJSON(self.alias_back()) != $.toJSON(self._initial_alias());
+		return $.toJSON(self.alias_back()) != self._initial_alias();
 	})
 	
 	/**
@@ -150,7 +150,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 			return (f.hasChanged()
 					?	[self.uniqueId()].concat(f.serialized())
 					:   undefined);
-		}).concat(self._aliasChanged() ? [[self.uniqueId(), "_alias", [self.alias()]]] : []);
+		}).concat(self._aliasChanged() ? [[self.uniqueId(), "_alias", self.alias()]] : []);
 	};	
 	
 	/**
@@ -175,7 +175,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	 *	After fields changes have been sent to server we may drop history 
 	 */
 	self.dropHistory = function () {
-		self._initial_alias(self.alias_back());
+		self._initial_alias($.toJSON(self.alias_back()));
 		foreach(self.fields(), function (f) { 
 			f.dropHistory(); 
 		});

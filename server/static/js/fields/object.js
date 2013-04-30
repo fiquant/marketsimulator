@@ -4,15 +4,22 @@
  *  @param {array<string>} alias -- alias defining initial state of the filters
  *  @param {int} idx -- index of the current filter
  */
-function Filter(parent, aliaspart, idx) {
+function Filter(parentOptions, alias, idx) {
 	var self = this;
 	
 	self.aliaspart = ko.observable(alias[idx]);
 	
 	self._options = ko.computed(function () {
-		return filter(parent._options(), function (instance) {
+		if (self.aliaspart() == undefined) {
+			return [];
+		}
+		return filter(parentOptions(), function (instance) {
 			return instance.alias()[idx] == self.aliaspart();
 		});
+	})
+	
+	self._child = ko.computed(function () {
+		return self._options().length ? new Filter(self._options, alias, idx + 1) : null;
 	})
 }
 
@@ -143,6 +150,10 @@ function ObjectValue(s, constraint, root, expandReference) {
 	self.updateOptions = function () {
 		self._dummy(!self._dummy());
 	}
+	
+	self.filters = ko.computed(function () {
+		return new Filter(self._options, self.fullAlias(), 0);
+	})
 	
 	/**
 	 *	Returns Id of the primary object having the same alias as ours 
