@@ -1,4 +1,22 @@
 /**
+ *	Filters availableOptions from parent by current aliaspart
+ *  @param {Filter|ObjectValue} parent -- Value part of an object field or another filter
+ *  @param {array<string>} alias -- alias defining initial state of the filters
+ *  @param {int} idx -- index of the current filter
+ */
+function Filter(parent, aliaspart, idx) {
+	var self = this;
+	
+	self.aliaspart = ko.observable(alias[idx]);
+	
+	self._options = ko.computed(function () {
+		return filter(parent._options(), function (instance) {
+			return instance.alias()[idx] == self.aliaspart();
+		});
+	})
+}
+
+/**
  * Creates a value of object type for a field 
  * @param {Instance} s -- reference to an existing object instance
  * @param {Object} constraint -- type representing constraint for the field value
@@ -45,11 +63,16 @@ function ObjectValue(s, constraint, root, expandReference) {
 		self.editAliasMode(false);
 	}
 	
+	self.fullAlias = ko.computed(function () {
+		return _storage().alias();
+	})
+	
 	
 	self.alias = ko.computed({
-		read: function () { return _storage().alias(); },
+		read: function () { return _storage().alias()[_storage().alias().length - 1]; },
 		write: function (newvalue) {
-			_storage().alias_back(newvalue);
+			_storage().alias_back()[_storage().alias().length - 1] = newvalue;
+			_storage().alias_back.valueHasMutated();
 		}
 	})
 	
@@ -125,7 +148,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 	 *	Returns Id of the primary object having the same alias as ours 
 	 */
 	var primaryId = ko.computed(function () {
-		return root.alias2id[self.pointee().alias()];
+		return root.alias2id[$.toJSON(self.fullAlias())];
 	})
 	
 	/**
@@ -136,7 +159,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 			return primaryId(); 
 		},
 		write: function (id) {
-			if (id != undefined) {
+			if (id != undefined && id != self.pointee().uniqueId()) {
 				var source = root.getObj(id);
 				// if alias id has changed, let's create a new instance for the chosen alias
 				var freshly_created = !self.toplevel && (

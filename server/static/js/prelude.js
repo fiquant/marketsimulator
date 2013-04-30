@@ -125,6 +125,10 @@ function reduce(elements, f, initial) {
 	return elements.reduce(f, initial);
 }
 
+function filter(elements, predicate) {
+	return elements.filter(predicate);
+}
+
 function map_opt(elements, f) {
     var res = [];
     for (var i=0; i<elements.length; i++) {
