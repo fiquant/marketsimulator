@@ -57,6 +57,17 @@
 		            	</input>
 			        <!-- /ko -->
 		            <!-- ko if: $data.object || $data.toplevel -->
+		            	<table data-bind="foreach: filters().childrenWithMe()">
+							<tr data-bind="ifnot: terminal">
+		            			<td>
+		            				<select data-bind="
+		            					options: availableParts, 
+		            					value: aliaspart">
+		            					
+		            				</select>
+		            			</td>
+		            		</tr>
+		            	</table>
 			            <!-- ko ifnot: editAliasMode -->
 			            <div style="float: right;">
 		            		<select style="float: left;"
