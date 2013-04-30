@@ -6,11 +6,24 @@
  */
 function Filter(parentOptions, alias, idx) {
 	var self = this;
+
+	self.terminal = alias[idx] == undefined;
 	
 	self.aliaspart = ko.observable(alias[idx]);
 	
+	var availableParts = {};
+	self.availableParts = [];
+	
+	foreach(parentOptions(), function (instance) {
+		var part = instance.alias()[idx];
+		if (availableParts[part] == undefined) {
+			availableParts[part] = true;
+			self.availableParts.push(part);
+		}
+	})
+	
 	self._options = ko.computed(function () {
-		if (self.aliaspart() == undefined) {
+		if (self.terminal) {
 			return [];
 		}
 		return filter(parentOptions(), function (instance) {
@@ -20,6 +33,16 @@ function Filter(parentOptions, alias, idx) {
 	
 	self._child = ko.computed(function () {
 		return self._options().length ? new Filter(self._options, alias, idx + 1) : null;
+	})
+	
+	self.childrenWithMe = ko.computed(function () {
+		if (self._child() == null) {
+			return ko.observableArray([]);
+		} else {
+			var r = self._child().childrenWithMe();
+			r.unshift(self);
+			return r;
+		}
 	})
 }
 
