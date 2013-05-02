@@ -6,7 +6,7 @@ class IndicatorBase(types.IObservable):
     * **Source of data** -- function that provides data
     * **Events when to act** -- events when to act
     """
-    def __init__(self, eventSources, dataSource, label, attributes = {}):
+    def __init__(self, eventSources, dataSource, label = "", attributes = {}):
         """ Initializes indicator
         eventSources -- sequence of events to be subscribed to 
         dataSource -- function to be called in order to obtain the value
@@ -16,6 +16,7 @@ class IndicatorBase(types.IObservable):
         
         
         self.label = label
+        assert type(label) == str
         self.attributes = attributes
         self._eventSources = []
         self.eventSources = eventSources
@@ -25,8 +26,7 @@ class IndicatorBase(types.IObservable):
         self(None)
         
     _properties = { 'dataSource'   : meta.function((), float),
-                    'eventSources' : meta.listOf(Event),
-                    'label'        : str  }
+                    'eventSources' : meta.listOf(Event) }
     
     # this event is called when currentValue updates        
     def __call__(self, _):
@@ -55,14 +55,6 @@ class IndicatorBase(types.IObservable):
     def dataSource(self, value):
         self._dataSource = value
     
-    @property
-    def _alias(self):
-        return [self.label]
-    
-    @_alias.setter
-    def _alias(self, value):
-        self.label = value
-        
     def reset(self):
         self._current = None
         if 'reset' in dir(self._dataSource):

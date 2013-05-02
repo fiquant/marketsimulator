@@ -46,7 +46,7 @@ def createSimulation(name='All'):
         twoaverages = strategy.TwoAveragesEx(book_A)
         trendfollower = strategy.TrendFollowerEx(book_A)
         fundamentalvalue = strategy.FundamentalValueEx(book_A)
-        meanreversion = strategy.MeanReversion(book_A)
+        meanreversion = strategy.MeanReversionEx(book_A)
         dependency = strategy.Dependency(book_B)
         dependency_ex = strategy.DependencyEx(book_A, book_B)
         lp_sell = strategy.LiquidityProviderSideEx(book_A)
@@ -129,7 +129,9 @@ def make_filename_safe(s):
     return s.replace(":", '_').replace("/", '_').replace('\\', '_')
 
 def current_user_dir():
-    return os.path.join('_saved', str(session[KEY]))
+    p = os.path.join('_saved', str(session[KEY]))
+    ensure_dir_ex(p)
+    return p
 
 forceGenerate = False
 
