@@ -57,8 +57,8 @@
 		            	</input>
 			        <!-- /ko -->
 		            <!-- ko if: $data.object || $data.toplevel -->
-		            	<table data-bind="foreach: filters().childrenWithMe()">
-							<tr data-bind="ifnot: terminal">
+		            	<!-- table data-bind="foreach: filters().childrenWithMe()">
+							<tr>
 		            			<td>
 		            				<select data-bind="
 		            					options: availableParts, 
@@ -67,7 +67,7 @@
 		            				</select>
 		            			</td>
 		            		</tr>
-		            	</table>
+		            	</table -->
 			            <!-- ko ifnot: editAliasMode -->
 			            <div style="float: right;">
 		            		<select style="float: left;"
@@ -84,7 +84,7 @@
 		            				<img class="callout" src="static/img/callout.gif" />
 							        <strong data-bind="text: alias"></strong><br />
 		            				<!--span data-bind="html: hint"></span-->
-		            				<span data-bind="text: $.toJSON(map($data._options(), function (item) { return item.alias.peek()[item.alias.peek().length - 1]; }))"></span>
+		            				<span data-bind="text: $.toJSON(filters().alias())"></span>
 								</span> 
 							</a>
 						  </div>

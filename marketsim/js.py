@@ -4,7 +4,7 @@ class TimeSerie(object):
     """ Listens to an observable and accumulates its values with time stamps
     """
     
-    def __init__(self, source, label):
+    def __init__(self, source, label=""):
         self.label = label
         self._sched = scheduler.current()
         self._source = source
@@ -20,15 +20,7 @@ class TimeSerie(object):
             self._data.append((self._sched.currentTime, x))
             # we should also filter out constant segmemnts
             self._changes.append((self._sched.currentTime, x))
-        
-    @property 
-    def _alias(self):
-        return [self.label + "'"]
-        
-    @_alias.setter
-    def _alias(self, value):
-        self.label = value[-1]
-        
+                
     def reset(self):
         self._data = []
         self._changes = []
@@ -49,7 +41,7 @@ class TimeSerie(object):
         self._source = value
         self._source.advise(self._wakeUp)
         
-    _properties = { "source" : types.IObservable, "label" : str }
+    _properties = { "source" : types.IObservable }
     
     @property    
     def data(self):
@@ -62,7 +54,7 @@ class Graph(object):
     """ Generic 2D graph to be rendered by means of javascript libraries
     """
     
-    def __init__(self, label, series=None):
+    def __init__(self, label="", series=None):
         self.label = label
         self.series = series if series else []
         
@@ -74,7 +66,7 @@ class Graph(object):
         label = source.label
         self.series.append(TimeSerie(source, label))
         
-    _properties = {"series": meta.listOf(TimeSerie), "label" : str }
+    _properties = {"series": meta.listOf(TimeSerie) }
     
     @property
     def _alias(self):

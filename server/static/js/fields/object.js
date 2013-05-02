@@ -1,49 +1,99 @@
 /**
  *	Filters availableOptions from parent by current aliaspart
- *  @param {Filter|ObjectValue} parent -- Value part of an object field or another filter
- *  @param {array<string>} alias -- alias defining initial state of the filters
+ *  @param {ko.observable(array<Instance>)} parentOptions -- options to be filtered
+ *  @param {string} -- initial state of the filter
  *  @param {int} idx -- index of the current filter
+ *  @param {ObjectValue} base -- reference to the object value containing this filter
  */
-function Filter(parentOptions, alias, idx) {
+function Filter(parentOptions, aliaspart, idx, base) {
 	var self = this;
-
-	self.terminal = alias[idx] == undefined;
 	
-	self.aliaspart = ko.observable(alias[idx]);
+	if (typeof(aliaspart) != 'string'){
+		console.log('incorrect alias part type');
+	}
+	
+	self.alive = ko.observable(true);
+	
+	/**
+	 * 	Editable alias part 
+	 */
+	self.aliaspart = ko.observable(aliaspart);
+
+	/**
+	 *	Alias has changed iff it isn't equal to the corresponding alias part saved in 'base'  
+	 */	
+	self.hasChanged = function () {
+		return self.aliaspart() != base.fullAlias()[idx];
+	}
+	
+	self.editMode = ko.observable(false);
 	
 	var availableParts = {};
 	self.availableParts = [];
 	
 	foreach(parentOptions(), function (instance) {
 		var part = instance.alias()[idx];
+		if (typeof(part) != 'string'){
+			console.log('incorrect alias part type');
+		}
 		if (availableParts[part] == undefined) {
 			availableParts[part] = true;
 			self.availableParts.push(part);
 		}
 	})
 	
+	/**
+	 *  Available choices for the child 
+	 */
 	self._options = ko.computed(function () {
-		if (self.terminal) {
+		if (!self.alive()) {
 			return [];
+		} else {
+			return filter(parentOptions(), function (instance) {
+				return instance.alias()[idx] == self.aliaspart();
+			});
 		}
-		return filter(parentOptions(), function (instance) {
-			return instance.alias()[idx] == self.aliaspart();
-		});
 	})
 	
 	self._child = ko.computed(function () {
-		return self._options().length ? new Filter(self._options, alias, idx + 1) : null;
+		if (!self.alive()) {
+			return null;
+		}
+		
+		if (self['_child'] && self._child()) {
+			self._child().alive(false);
+		}
+		
+		if (self._options().length == 0) {
+			console.log('there cannot be empty options');
+			return null;			
+		}
+		var next_choice = (self.hasChanged() 
+							? 	self._options()[0].alias()[idx + 1] 
+							: 	base.fullAlias()[idx + 1]);
+							
+		if (next_choice == undefined) {
+			return null;
+		}
+							
+		return new Filter(self._options, next_choice, idx + 1, base);
 	})
 	
 	self.childrenWithMe = ko.computed(function () {
 		if (self._child() == null) {
-			return ko.observableArray([]);
+			return ko.observableArray([self]);
 		} else {
 			var r = self._child().childrenWithMe();
 			r.unshift(self);
 			return r;
 		}
 	})
+	
+	self.alias = ko.computed(function () {
+		return [self.aliaspart.peek()].concat(self._child() 
+				         			     	 ?   self._child().alias() 
+										     :   []);
+	});
 }
 
 /**
@@ -175,14 +225,27 @@ function ObjectValue(s, constraint, root, expandReference) {
 	}
 	
 	self.filters = ko.computed(function () {
-		return new Filter(self._options, self.fullAlias(), 0);
+		return new Filter(self._options, self.fullAlias()[0], 0, self);
 	})
 	
+	self.updateAlias = function () {
+		var newAlias = self.filters().alias();
+		_storage().alias_back(newAlias);
+	}
+	
+
 	/**
 	 *	Returns Id of the primary object having the same alias as ours 
 	 */
 	var primaryId = ko.computed(function () {
 		return root.alias2id[$.toJSON(self.fullAlias())];
+	})
+	
+	self.filters().alias.subscribe(function (value) {
+		var newval = $.toJSON(value);
+		if (newval != $.toJSON(self.fullAlias())) {
+			console.log('--> ' + newval);
+		}
 	})
 	
 	/**

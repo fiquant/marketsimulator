@@ -154,7 +154,12 @@ function Property(name, value, toplevel, parentArray) {
 				var elements = self.context().$parent.expandedView();
 				if (elements.length > 0) {
 					if (elements[index - 1] == undefined) {
-						var a = 1;
+						var a = 1; // TODO: understand how it can happen
+						var parent = self.context().$parent.localIndex;
+						if (parent == undefined) {
+							var a = 12;
+						}
+						return parent() + 1;				
 					}			
 					var prev =  elements[index - 1].localIndexAfter;
 					return prev();			
