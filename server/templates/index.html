@@ -57,7 +57,7 @@
 		            	</input>
 			        <!-- /ko -->
 		            <!-- ko if: $data.object || $data.toplevel -->
-		            	<!-- table data-bind="foreach: filters().childrenWithMe()">
+		            	<table data-bind="foreach: filters().childrenWithMe()">
 							<tr>
 		            			<td>
 		            				<select data-bind="
@@ -67,7 +67,7 @@
 		            				</select>
 		            			</td>
 		            		</tr>
-		            	</table -->
+		            	</table>
 			            <!-- ko ifnot: editAliasMode -->
 			            <div style="float: right;">
 		            		<select style="float: left;"

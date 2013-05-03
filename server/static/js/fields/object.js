@@ -46,7 +46,7 @@ function Filter(parentOptions, aliaspart, idx, base) {
 	 *  Available choices for the child 
 	 */
 	self._options = ko.computed(function () {
-		if (!self.alive()) {
+		if (!self.alive.peek()) {
 			return [];
 		} else {
 			return filter(parentOptions(), function (instance) {
@@ -56,7 +56,7 @@ function Filter(parentOptions, aliaspart, idx, base) {
 	})
 	
 	self._child = ko.computed(function () {
-		if (!self.alive()) {
+		if (!self.alive.peek()) {
 			return null;
 		}
 		
@@ -80,6 +80,9 @@ function Filter(parentOptions, aliaspart, idx, base) {
 	})
 	
 	self.childrenWithMe = ko.computed(function () {
+		if (!self.alive.peek()) {
+			return null;
+		}
 		if (self._child() == null) {
 			return ko.observableArray([self]);
 		} else {
@@ -90,10 +93,15 @@ function Filter(parentOptions, aliaspart, idx, base) {
 	})
 	
 	self.alias = ko.computed(function () {
-		return [self.aliaspart.peek()].concat(self._child() 
+		if (!self.alive.peek()) {
+			return null;
+		}
+		var r = [self.aliaspart.peek()].concat(self._child() 
 				         			     	 ?   self._child().alias() 
 										     :   []);
+		return idx == 0 ? $.toJSON(r) : r;
 	});
+	
 }
 
 /**
@@ -204,28 +212,51 @@ function ObjectValue(s, constraint, root, expandReference) {
 								constraint, root, self._expandReference());
 	}
 	
-	// used to recalculate options
-	self._dummy = ko.observable(false);
-	
 	/**
 	 *  Array of objects representing available options for the field 
 	 */
-	self._options = ko.computed(function (){
-		self._dummy();
-		// we need to recalculate options once our alias has changed
-		self.pointee.peek().alias();
-		return root.getCandidates(constraint);
-	});
+	self._options = ko.observable([]);
 	
 	/**
 	 *  Forces to recalculate options 
 	 */
 	self.updateOptions = function () {
-		self._dummy(!self._dummy());
+		var candidates = root.getCandidates(constraint);
+		if (!equals(candidates, self._options(), function (instA, instB) {
+			return instA.uniqueId() == instB.uniqueId();
+		})) {
+			self._options(candidates);
+		}
 	}
+	
+	self.updateOptions();
 	
 	self.filters = ko.computed(function () {
 		return new Filter(self._options, self.fullAlias()[0], 0, self);
+	})
+	
+	self.__alias = ko.computed(function () {
+		return self.filters().alias();
+	})
+	
+	self.__alias.subscribe(function (value) {
+		if ((value) != $.toJSON(self.fullAlias())) {
+			var id = root.alias2id[value];
+			
+			if (id != undefined && id != self.pointee().uniqueId()) {
+				var source = root.getObj(id);
+				// if alias id has changed, let's create a new instance for the chosen alias
+				var freshly_created = !self.toplevel && (
+					source.isReference() || _storage().fields().length == 0)
+					? 	source 
+					: 	source.clone();
+					
+				console.log(self.pointee().uniqueId() + ' --> ' + freshly_created.uniqueId() + " @ " + id);
+				// and set it as current object
+				self.updateOptions();
+				_storage(freshly_created);
+			}
+		}
 	})
 	
 	self.updateAlias = function () {
@@ -241,12 +272,6 @@ function ObjectValue(s, constraint, root, expandReference) {
 		return root.alias2id[$.toJSON(self.fullAlias())];
 	})
 	
-	self.filters().alias.subscribe(function (value) {
-		var newval = $.toJSON(value);
-		if (newval != $.toJSON(self.fullAlias())) {
-			console.log('--> ' + newval);
-		}
-	})
 	
 	/**
 	 *	Id of the alias chosen at the moment

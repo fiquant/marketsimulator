@@ -129,6 +129,18 @@ function filter(elements, predicate) {
 	return elements.filter(predicate);
 }
 
+function equals(seqA, seqB, predicate) {
+	if (seqA.length != seqB.length) {
+		return false;
+	}
+	for (var i in seqA) {
+		if (!predicate(seqA[i], seqB[i])) {
+			return false;
+		}
+	}
+	return true;
+}
+
 function map_opt(elements, f) {
     var res = [];
     for (var i=0; i<elements.length; i++) {
