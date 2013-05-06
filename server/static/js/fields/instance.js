@@ -43,26 +43,41 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	 *	Stores alias for the instance. Private.
 	 */
 	self.alias_back = ko.observable(alias);
-		
+	
+	var strAlias = $.toJSON(alias);
+	if (root.alias2id[strAlias] == undefined) {
+		root.alias2id[strAlias] = [];
+	}
+	root.alias2id[strAlias].push(id);
+	
 	self._initial_alias = ko.observable($.toJSON(alias));
 	
-	/**
-	 *	Read only alias for the instance. Public 
-	 */
-	self.alias = ko.computed(function () {
-		var newvalue = self.alias_back();
-		// remove old alias from alias registry
-		if (self._savedAlias) {
-			delete root.alias2id[$.toJSON(self._savedAlias)];
+	self.alias = ko.computed({
+		read: function () {
+			foreach(self.alias_back(), function (v) {
+				if (typeof(v) != 'string') {
+					console.log('incorrect alias type');
+				}
+			})
+			return self.alias_back();
+		},
+		write: function (newvalue) {
+			var strNew = $.toJSON(newvalue);
+			var strOld = $.toJSON(self.alias_back());
+			
+			if (strNew != strOld) {
+				var oldids = root.alias2id[strOld];
+				oldids.splice(oldids.indexOf(id), 1);
+				
+				if (root.alias2id[strNew] == undefined) {
+					root.alias2id[strNew] = [];
+				}
+				root.alias2id[strNew].push(id);
+				self.alias_back(newvalue);
+			}
 		}
-		// update mapping (todo: instroduce AliasRegistry that will manage this mapping)
-		if (root.alias2id[$.toJSON(newvalue)] == undefined) {
-			self._savedAlias = newvalue;
-			root.alias2id[$.toJSON(newvalue)] = self.uniqueId();
-		}
-		return newvalue;
-	});
-	
+	})
+		
 	/**
 	 *	Returns true iff this instance should be considered as of reference type
 	 */
@@ -115,7 +130,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	 * 	Returns true iff this instance is primary with respect to the alias 
 	 */
 	self.isPrimary = ko.computed(function () {
-		return root.alias2id[$.toJSON(self.alias())] == self.uniqueId();
+		return root.alias2id[$.toJSON(self.alias())][0] == self.uniqueId();
 	});
 	
 	/**
@@ -126,7 +141,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	});
 	
 	self._aliasChanged = ko.computed(function () {
-		return $.toJSON(self.alias_back()) != self._initial_alias();
+		return $.toJSON(self.alias()) != self._initial_alias();
 	})
 	
 	/**
@@ -175,7 +190,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	 *	After fields changes have been sent to server we may drop history 
 	 */
 	self.dropHistory = function () {
-		self._initial_alias($.toJSON(self.alias_back()));
+		self._initial_alias($.toJSON(self.alias()));
 		foreach(self.fields(), function (f) { 
 			f.dropHistory(); 
 		});

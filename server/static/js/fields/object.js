@@ -18,12 +18,14 @@ function Filter(parentOptions, aliaspart, idx, base) {
 	 * 	Editable alias part 
 	 */
 	self.aliaspart = ko.observable(aliaspart);
+	
+	self.editableAliaspart = ko.observable(aliaspart);
 
 	/**
 	 *	Alias has changed iff it isn't equal to the corresponding alias part saved in 'base'  
 	 */	
 	self.hasChanged = function () {
-		return self.aliaspart() != base.fullAlias()[idx];
+		return self.aliaspart() != base.alias.peek()[idx];
 	}
 	
 	self.editMode = ko.observable(false);
@@ -32,7 +34,7 @@ function Filter(parentOptions, aliaspart, idx, base) {
 	self.availableParts = [];
 	
 	foreach(parentOptions(), function (instance) {
-		var part = instance.alias()[idx];
+		var part = instance.alias.peek()[idx];
 		if (typeof(part) != 'string'){
 			console.log('incorrect alias part type');
 		}
@@ -49,8 +51,8 @@ function Filter(parentOptions, aliaspart, idx, base) {
 		if (!self.alive.peek()) {
 			return [];
 		} else {
-			return filter(parentOptions(), function (instance) {
-				return instance.alias()[idx] == self.aliaspart();
+			return filter(parentOptions.peek(), function (instance) {
+				return instance.alias.peek()[idx] == self.aliaspart();
 			});
 		}
 	})
@@ -61,7 +63,7 @@ function Filter(parentOptions, aliaspart, idx, base) {
 		}
 		
 		if (self['_child'] && self._child()) {
-			self._child().alive(false);
+			self._child().dispose();
 		}
 		
 		if (self._options().length == 0) {
@@ -69,8 +71,8 @@ function Filter(parentOptions, aliaspart, idx, base) {
 			return null;			
 		}
 		var next_choice = (self.hasChanged() 
-							? 	self._options()[0].alias()[idx + 1] 
-							: 	base.fullAlias()[idx + 1]);
+							? 	self._options()[0].alias.peek()[idx + 1] 
+							: 	base.alias.peek()[idx + 1]);
 							
 		if (next_choice == undefined) {
 			return null;
@@ -78,6 +80,13 @@ function Filter(parentOptions, aliaspart, idx, base) {
 							
 		return new Filter(self._options, next_choice, idx + 1, base);
 	})
+	
+	self.dispose = function () {
+		self.alive(false);
+		if (self._child()) {
+			self._child().dispose();
+		}
+	}
 	
 	self.childrenWithMe = ko.computed(function () {
 		if (!self.alive.peek()) {
@@ -101,6 +110,17 @@ function Filter(parentOptions, aliaspart, idx, base) {
 										     :   []);
 		return idx == 0 ? $.toJSON(r) : r;
 	});
+	
+	self.editedAlias = function () {
+		if (!self.alive.peek()) {
+			return null;
+		}
+		var r = [self.editableAliaspart()].concat(self._child() 
+				         			     	 ?   self._child().editedAlias() 
+										     :   []);
+		return idx == 0 ? $.toJSON(r) : r;
+	};
+	
 	
 }
 
@@ -147,23 +167,10 @@ function ObjectValue(s, constraint, root, expandReference) {
 		}
 	}
 
-	self.exitEditMode = function () {
-		self.editAliasMode(false);
-	}
-	
-	self.fullAlias = ko.computed(function () {
+	self.alias = ko.computed(function () {
 		return _storage().alias();
 	})
-	
-	
-	self.alias = ko.computed({
-		read: function () { return _storage().alias()[_storage().alias().length - 1]; },
-		write: function (newvalue) {
-			_storage().alias_back()[_storage().alias().length - 1] = newvalue;
-			_storage().alias_back.valueHasMutated();
-		}
-	})
-	
+		
 	self.hint = ko.computed(function () {
 		var myTypeinfo = typeinfo[_storage().constructor()];
 		return myTypeinfo ? myTypeinfo[2] : "";
@@ -229,10 +236,9 @@ function ObjectValue(s, constraint, root, expandReference) {
 		}
 	}
 	
-	self.updateOptions();
-	
 	self.filters = ko.computed(function () {
-		return new Filter(self._options, self.fullAlias()[0], 0, self);
+		self.updateOptions();
+		return new Filter(self._options, _storage().alias.peek()[0], 0, self);
 	})
 	
 	self.__alias = ko.computed(function () {
@@ -240,8 +246,9 @@ function ObjectValue(s, constraint, root, expandReference) {
 	})
 	
 	self.__alias.subscribe(function (value) {
-		if ((value) != $.toJSON(self.fullAlias())) {
-			var id = root.alias2id[value];
+		if (value != null && (value) != $.toJSON(self.alias()) && self.alias() != undefined) {
+			console.log($.toJSON(self.alias()) + ' -> '  + value);
+			var id = root.alias2id[value][0];
 			
 			if (id != undefined && id != self.pointee().uniqueId()) {
 				var source = root.getObj(id);
@@ -259,9 +266,16 @@ function ObjectValue(s, constraint, root, expandReference) {
 		}
 	})
 	
-	self.updateAlias = function () {
-		var newAlias = self.filters().alias();
-		_storage().alias_back(newAlias);
+	self.exitEditMode = function () {
+		var newAlias = self.filters().editedAlias();
+		var oldAlias = self.filters().alias();
+		self.editAliasMode(false);
+		if (newAlias != oldAlias) {
+			self.filters().dispose();		
+			_storage().alias($.parseJSON(newAlias));
+			self.updateOptions();
+			self._options.valueHasMutated();
+		}
 	}
 	
 
@@ -269,7 +283,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 	 *	Returns Id of the primary object having the same alias as ours 
 	 */
 	var primaryId = ko.computed(function () {
-		return root.alias2id[$.toJSON(self.fullAlias())];
+		return root.alias2id[$.toJSON(self.alias())][0];
 	})
 	
 	

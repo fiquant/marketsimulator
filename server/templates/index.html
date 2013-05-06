@@ -57,45 +57,50 @@
 		            	</input>
 			        <!-- /ko -->
 		            <!-- ko if: $data.object || $data.toplevel -->
+		            	<!-- ko ifnot: editAliasMode -->
+		            	<table>
+		            	  <tr>
+		            	  	 <td>
+				            	<table data-bind="foreach: filters().childrenWithMe()">
+									<tr>
+				            			<td>
+				            				<select data-bind="
+				            					event: 	{ mouseover: $parent.updateOptions, 
+				            							  dblclick: $parent.enterEditMode }, 
+				            					options: availableParts, 
+				            					value: aliaspart">
+				            					
+				            				</select>
+				            			</td>
+				            		</tr>
+				            	</table>
+				              </td>
+  	            			  <td>
+				            		<a class="tooltip" style="float:right;">
+				            			?
+				            			<span>
+				            				<img class="callout" src="static/img/callout.gif" />
+									        <strong data-bind="text: alias"></strong><br />
+				            				<span data-bind="html: hint"></span>
+										</span> 
+									</a>
+	            			  </td>
+				           </tr>
+		            	</table>
+		            	<!-- /ko -->
+		            	<!-- ko if: editAliasMode -->
 		            	<table data-bind="foreach: filters().childrenWithMe()">
 							<tr>
 		            			<td>
-		            				<select data-bind="
-		            					options: availableParts, 
-		            					value: aliaspart">
-		            					
-		            				</select>
+					        		<input data-bind="
+					        			value: editableAliaspart, 
+					        			event: { blur: 	   $parent.exitEditMode, 
+					        					 dblclick: $parent.exitEditMode }" 
+					        		type="text" />
 		            			</td>
 		            		</tr>
 		            	</table>
-			            <!-- ko ifnot: editAliasMode -->
-			            <div style="float: right;">
-		            		<select style="float: left;"
-		            		data-bind="
-		            		event: 		{ mouseover: updateOptions, dblclick: enterEditMode }, 
-		            		options: 	  _options, 
-		            		value: 		  _currentOption, 
-		            		optionsText:  function (item) { return item.alias.peek()[item.alias.peek().length - 1]; },
-		            		optionsValue: function (item) { return item.uniqueId(); }">
-		            		</select>
-		            		<a class="tooltip" style="float:right">
-		            			?
-		            			<span>
-		            				<img class="callout" src="static/img/callout.gif" />
-							        <strong data-bind="text: alias"></strong><br />
-		            				<!--span data-bind="html: hint"></span-->
-		            				<span data-bind="text: $.toJSON(filters().alias())"></span>
-								</span> 
-							</a>
-						  </div>
-			            <!-- /ko -->
-		            	<!-- ko if: editAliasMode -->
-			        		<input data-bind="
-			        			value: alias, 
-			        			event: { blur: exitEditMode, 
-			        					 dblclick: exitEditMode }" 
-			        		type="text" />
-			            <!-- /ko -->
+		            	<!-- /ko -->
 		            <!-- /ko -->
 		            <!-- ko if: $data.array -->
 	    	        	...
