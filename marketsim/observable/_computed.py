@@ -124,7 +124,7 @@ class profit_and_loss(object):
     
     def __init__(self, trader):
         self.trader = trader
-        self._alias = ["Trader's balance"]
+        self._alias = ["Trader's", "Balance"]
         
     _types = [meta.function((), float)]
     
@@ -143,7 +143,7 @@ class mid_price(object):
     
     def __init__(self, orderbook):
         self.orderbook = orderbook
-        self._alias = ["Asset's mid-price"]
+        self._alias = ["Asset's", "Mid-price"]
         
     _types = [meta.function((), float)]
     
@@ -199,7 +199,7 @@ class volume_traded(object):
     
     def __init__(self, trader):
         self.trader = trader
-        self._alias = ["Trader's position"]
+        self._alias = ["Trader's", "Position"]
         
     _types = [meta.function((), float)]
     
@@ -224,7 +224,7 @@ class side_price(object):
     def __init__(self, orderbook, side):
         self.orderbook = orderbook
         self.side = side
-        self._alias = ['Order book side price']
+        self._alias = ["Asset's", "Side price"]
         
     _types = [meta.function((), float)]
     
