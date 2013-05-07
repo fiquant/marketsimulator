@@ -79,7 +79,7 @@ def mapped(locs):
     locs['typ'] = demangleIfFunction(locs['typ'])
     return locs
 
-def wrapper(name, docstring, params, register=True):
+def wrapper(name, docstring, params, register=True, category="Basic"):
     def process(tmpl, sep=", "):
         return sep.join([tmpl % mapped(locals()) for (name, ini, typ) in params])
     
@@ -90,6 +90,6 @@ def wrapper(name, docstring, params, register=True):
     dict_= process("self.__dict__[\'%(name)s\'] = %(name)s", "; ")
     props= process("\'%(name)s\' : %(typ)s")
     call = process("self.%(name)s")
-    reg = "@registry.expose(['"+name+"'])" if register else ""
+    reg = "@registry.expose(['"+category+"', '"+name+"'])" if register else ""
     
     return template % locals()

@@ -122,7 +122,7 @@ def LiquidityProviderSideEx(orderBook,
                                                   SafeSidePrice(orderBook, side, defaultValue), 
                                                   priceDistr)))
     
-    r._alias = ['LiquidityProviderSideEx']
+    r._alias = ["Generic", 'LiquidityProviderSide']
     
     return r
 
@@ -235,7 +235,7 @@ def LiquidityProviderEx    (orderBook,
             create(Side.Buy)
         ])
     
-    r._alias = ['LiquidityProviderEx']
+    r._alias = ["Generic", 'LiquidityProvider']
     
     return r
 

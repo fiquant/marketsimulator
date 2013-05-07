@@ -59,7 +59,7 @@ exec wrapper("tradeIfProfitable",
               ('estimator',  'virtualWithUnitVolume', 'IStrategy -> IStrategy')], register=False)
 
         
-@registry.expose(['TradeIfProfitable'])
+@registry.expose(['Adaptive', 'TradeIfProfitable'])
 class TradeIfProfitable(tradeIfProfitable):
     """ Strategy that estimates efficiency of original *strategy* 
     (normally as derivative of "cleared" balance for its clone sending unit volume orders)
@@ -171,4 +171,4 @@ exec wrapper("chooseTheBest",
                  """,
              [('strategies',  '[FundamentalValue()]',   'meta.listOf(IStrategy)'),
               ('efficiency',  'efficiencyTrend',        'ISingleAssetTrader -> ISingleAssetTrader'),
-              ('estimator',   'virtualWithUnitVolume',  'IStrategy -> IStrategy')])
+              ('estimator',   'virtualWithUnitVolume',  'IStrategy -> IStrategy')], category="Adaptive")
