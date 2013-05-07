@@ -32,6 +32,19 @@
 	</script> -->	
 </head>
 <body>
+	<script type="text/html" id="renderAliasPart">
+		<ul data-bind="foreach: $data">
+			<li><a href="#">
+				<span data-bind="html: $data.key + (Object.size($data.value) ? east : '')">					
+				</span></a>
+				<!-- ko template: { 
+					name: 'renderAliasPart', 
+					data: mapDictionaryToArray($data.value) }
+				--><!-- /ko -->
+			</li>
+		</ul>
+	</script>
+	
 	<script type="text/html" id="renderField">
         <tr data-bind="css: { even: ko.computed(function() {
         							$data.context($context);
@@ -82,24 +95,17 @@
 				              </td>
   	            			  <td>
   	            			  	<table>
-  	            			  		<!-- tr>
+  	            			  		<tr>
   	            			  			<td>
 											<ul id="css3menu1" class="topmenu">
 												<li class="topmenu"><a href="#" ><span>&#9654;</span></a>
-												<ul>
-													<li class="subfirst"><a href="#"><span>Item 1 0</span></a>
-													<ul>
-														<li class="sublast"><a href="#"><span>Item 1 0 0fffffffffffffffffffffffffffffffffff</span></a>
-														<ul>
-															<li class="sublast"><a href="#">Item 1 0 0 0</a></li>
-														</ul></li>
-													</ul></li>
-													<li><a href="#">Item 1 1</a></li>
-													<li class="sublast"><a href="#">Item 1 2</a></li>
-												</ul></li>
+												<!-- ko template: { 
+													name: 'renderAliasPart', 
+													data: mapDictionaryToArray($data._optionsMap()) }
+												--><!-- /ko --></li>
 											</ul>	
   	            			  			</td>
-  	            			  		</tr -->
+  	            			  		</tr>
   	            			  		<tr>
   	            			  			<td>
 						            		<a class="tooltip" style="float:right;">

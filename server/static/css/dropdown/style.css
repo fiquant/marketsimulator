@@ -57,7 +57,7 @@ ul#css3menu1 > li {
 	margin: 0 0 0 0px;
 }
 ul#css3menu1 ul > li {
-	margin: 6px 0 0;
+	margin: 0px 0 0;
 }
 ul#css3menu1 a:active, ul#css3menu1 a:focus {
 	outline-style: none;
@@ -67,9 +67,10 @@ ul#css3menu1 a {
 	vertical-align: middle;
 	text-align: left;
 	text-decoration: none;
+	font: 12px "Trebuchet MS";
 	color: #666;
 	cursor: pointer;
-	padding: 2px 2px;
+	padding: 8px 20px;
 	background-color: ;background-repeat: repeat;
 	border-width: 0;
 	border-style: solid;
@@ -102,6 +103,8 @@ ul#css3menu1 li.topmenu > a {
 	border-radius: 0px;
 	-moz-border-radius: 0px;
 	-webkit-border-radius: 0px;
+	font: bold 12px "Trebuchet MS";
+	padding: 2px 2px;
 	color: #E7E5E5;
 	text-decoration: none;
 	text-shadow: 0 1px 1px #000000;
@@ -115,18 +118,4 @@ ul#css3menu1 li.topmenu:hover > a, ul#css3menu1 li.topmenu a.pressed {
 	color: #444444;
 	text-decoration: none;
 	text-shadow: 0 1px 0 #FFFFFF;
-}
-ul#css3menu1 li.subfirst > a {
-	border-radius: 0px 0px 0 0;
-	-moz-border-radius: 0px 0px 0 0;
-	-webkit-border-radius: 0px;
-	-webkit-border-bottom-right-radius: 0;
-	-webkit-border-bottom-left-radius: 0;
-}
-ul#css3menu1 li.sublast > a {
-	border-radius: 0 0 0px 0px;
-	-moz-border-radius: 0 0 0px 0px;
-	-webkit-border-radius: 0;
-	-webkit-border-bottom-right-radius: 0px;
-	-webkit-border-bottom-left-radius: 0px;
 }
