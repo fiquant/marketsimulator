@@ -54,21 +54,22 @@ def createSimulation(name='All'):
         
         def register(annotated_objects):
             for obj, alias in annotated_objects:
-                obj._alias = alias
+                if alias is not None:
+                    obj._alias = alias
                 myRegistry.insert(obj)
                 
         register([
                   (signal.RandomWalk(), ["Random walk"]),
-                  (strategy.Signal(signal.RandomWalk()), ["Signal"]),
+                  (strategy.Signal(signal.RandomWalk()), ["Basic", "Signal"]),
                   (remote_A, ["Remote asset A"]),
-                  (twoaverages, ["TwoAveragesEx"]),
-                  (trendfollower, ["TrendFollowerEx"]),
-                  (fundamentalvalue, ["FundamentalValueEx"]),
-                  (meanreversion, ["MeanReversionEx"]),
-                  (dependency, ["Dependency"]),
-                  (dependency_ex, ["DependencyEx"]),
-                  (lp_sell, ["LiquidityProviderSideEx"]),
-                  (lp, ["LiquidityProviderEx"])
+                  (twoaverages, None),
+                  (trendfollower, None),
+                  (fundamentalvalue, None),
+                  (meanreversion, None),
+                  (dependency, ["Basic", "Dependency"]),
+                  (dependency_ex, None),
+                  (lp_sell, None),
+                  (lp, None)
         ])
         
         myRegistry.pushAllReferences()

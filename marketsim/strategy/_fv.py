@@ -99,7 +99,7 @@ def FundamentalValueEx(orderBook,
                 eventGen    = scheduler.Timer(creationIntervalDistr), 
                 sideFunc    = FundamentalValueSide(orderBook, fundamentalValue))
     
-    r._alias = ["FundamentalValueEx"]
+    r._alias = ["Generic", "FundamentalValue"]
     
     return r
 
@@ -156,7 +156,7 @@ def MeanReversionEx   (orderBook,
                 eventGen    = scheduler.Timer(creationIntervalDistr), 
                 sideFunc    = FundamentalValueSide(orderBook, avg))
     
-    r._alias = ["MeanReversionEx"]
+    r._alias = ["Generic", "MeanReversion"]
     
     return r
         
@@ -226,6 +226,6 @@ def DependencyEx      (orderBook,
                 eventGen    = SignalEvent(priceToDependOn), 
                 sideFunc    = FundamentalValueSide(orderBook, SignalValue(priceToDependOn)))
     
-    r._alias = ["DependencyEx"]
+    r._alias = ["Generic", "Dependency"]
     
     return r

@@ -121,7 +121,7 @@ def SignalEx(signal,
                 orderFactory = orderFactory, 
                 eventGen     = SignalEvent(signal))  
     
-    r._alias = ['SignalEx']
+    r._alias = ["Generic", 'Signal']
     
     return r
 
@@ -204,7 +204,7 @@ def TwoAveragesEx(orderBook,
                                      observable.Fold(price, average2)),
                                  threshold))
     
-    r._alias = ['TwoAveragesEx']
+    r._alias = ["Generic", 'TwoAverages']
     
     return r
 
@@ -272,7 +272,7 @@ def TrendFollowerEx(orderBook,
                 eventGen    = scheduler.Timer(creationIntervalDistr),
                 sideFunc    = SignalSide(trend, threshold))
     
-    r._alias = ['TrendFollowerEx']
+    r._alias = ["Generic", 'TrendFollower']
     
     return r
     
