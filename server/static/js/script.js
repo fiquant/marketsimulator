@@ -152,6 +152,22 @@ function AppViewModel() {
 		return candidates;
 	}
 	
+	self.getCandidateAliases = function (constraint) {
+		var candidates = self.getCandidates(constraint);
+		var mapping = {};
+		foreach(candidates, function (instance) {
+			var alias = instance.alias.peek();
+			var current = mapping;
+			for (var i in alias) {
+				if (current[alias[i]] == undefined) {
+					current[alias[i]] = {}
+				}
+				current = current[alias[i]];
+			}
+		})
+		return mapping;
+	}
+	
 	self.filteredViewEx = function(startsWith) {
 		var result = [];
 		self.id2obj.foreach(function (x){
