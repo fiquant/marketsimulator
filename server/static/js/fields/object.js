@@ -245,8 +245,9 @@ function ObjectValue(s, constraint, root, expandReference) {
 		return self.filters().alias();
 	})
 	
-	self.__alias.subscribe(function (value) {
-		if (value != null && (value) != $.toJSON(self.alias()) && self.alias() != undefined) {
+	self.switchTo = function (newAlias) {
+		var value = $.toJSON(newAlias);
+		if (value != $.toJSON(self.alias())) {
 			console.log($.toJSON(self.alias()) + ' -> '  + value);
 			var id = root.alias2id[value][0];
 			
@@ -263,6 +264,12 @@ function ObjectValue(s, constraint, root, expandReference) {
 				self.updateOptions();
 				_storage(freshly_created);
 			}
+		}
+	}
+	
+	self.__alias.subscribe(function (value) {
+		if (value != null && self.alias() != undefined) {
+			self.switchTo($.parseJSON(value));
 		}
 	})
 	
