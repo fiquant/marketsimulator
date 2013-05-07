@@ -5,11 +5,15 @@
  *  @param {int} idx -- index of the current filter
  *  @param {ObjectValue} base -- reference to the object value containing this filter
  */
-function Filter(parentOptions, aliaspart, idx, base) {
+function Filter(optionsMap, aliaspart, idx, base) {
 	var self = this;
 	
 	if (typeof(aliaspart) != 'string'){
 		console.log('incorrect alias part type');
+	}
+	
+	if (optionsMap == undefined) {
+		console.log("optionsMap should be defined")
 	}
 	
 	self.alive = ko.observable(true);
@@ -30,19 +34,10 @@ function Filter(parentOptions, aliaspart, idx, base) {
 	
 	self.editMode = ko.observable(false);
 	
-	var availableParts = {};
-	self.availableParts = [];
-	
-	foreach(parentOptions(), function (instance) {
-		var part = instance.alias.peek()[idx];
-		if (typeof(part) != 'string'){
-			console.log('incorrect alias part type');
-		}
-		if (availableParts[part] == undefined) {
-			availableParts[part] = true;
-			self.availableParts.push(part);
-		}
-	})
+	self.availablePartsEx = [];
+	for (var key in optionsMap) {
+		self.availablePartsEx.push(key);
+	}
 	
 	/**
 	 *  Available choices for the child 
@@ -51,9 +46,10 @@ function Filter(parentOptions, aliaspart, idx, base) {
 		if (!self.alive.peek()) {
 			return [];
 		} else {
-			return filter(parentOptions.peek(), function (instance) {
-				return instance.alias.peek()[idx] == self.aliaspart();
-			});
+			if (optionsMap[self.aliaspart()] == undefined) {
+				console.log('incorrent optionsMap');
+			}
+			return optionsMap[self.aliaspart()];
 		}
 	})
 	
@@ -66,19 +62,25 @@ function Filter(parentOptions, aliaspart, idx, base) {
 			self._child().dispose();
 		}
 		
-		if (self._options().length == 0) {
-			console.log('there cannot be empty options');
+		if (self._options() == {}) {
 			return null;			
 		}
+		var first = undefined;
+		if (self.hasChanged()) {
+			for (var k in self._options()) {
+				first = k;
+				break;
+			}
+		}
 		var next_choice = (self.hasChanged() 
-							? 	self._options()[0].alias.peek()[idx + 1] 
+							? 	first 
 							: 	base.alias.peek()[idx + 1]);
 							
 		if (next_choice == undefined) {
 			return null;
 		}
 							
-		return new Filter(self._options, next_choice, idx + 1, base);
+		return new Filter(self._options(), next_choice, idx + 1, base);
 	})
 	
 	self.dispose = function () {
@@ -220,25 +222,23 @@ function ObjectValue(s, constraint, root, expandReference) {
 	}
 	
 	/**
-	 *  Array of objects representing available options for the field 
-	 */
-	self._options = ko.observable([]);
+	 *  Prefix tree of aliases suitable for this field 
+	 */	
+	self._optionsMap = ko.observable({});
 	
 	/**
 	 *  Forces to recalculate options 
 	 */
 	self.updateOptions = function () {
-		var candidates = root.getCandidates(constraint);
-		if (!equals(candidates, self._options(), function (instA, instB) {
-			return instA.uniqueId() == instB.uniqueId();
-		})) {
-			self._options(candidates);
+		var c = root.getCandidateAliases(constraint);
+		if ($.toJSON(c) != $.toJSON(self._optionsMap.peek())) {
+			self._optionsMap(c);
 		}
 	}
 	
 	self.filters = ko.computed(function () {
 		self.updateOptions();
-		return new Filter(self._options, _storage().alias.peek()[0], 0, self);
+		return new Filter(self._optionsMap(), _storage().alias.peek()[0], 0, self);
 	})
 	
 	self.__alias = ko.computed(function () {
@@ -269,13 +269,13 @@ function ObjectValue(s, constraint, root, expandReference) {
 	self.exitEditMode = function () {
 		var newAlias = self.filters().editedAlias();
 		var oldAlias = self.filters().alias();
-		self.editAliasMode(false);
 		if (newAlias != oldAlias) {
 			self.filters().dispose();		
 			_storage().alias($.parseJSON(newAlias));
 			self.updateOptions();
-			self._options.valueHasMutated();
+			self._optionsMap.valueHasMutated();
 		}
+		self.editAliasMode(false);
 	}
 	
 
@@ -286,31 +286,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 		return root.alias2id[$.toJSON(self.alias())][0];
 	})
 	
-	
-	/**
-	 *	Id of the alias chosen at the moment
-	 */
-	self._currentOption = ko.computed ({
-		read: function () { 
-			return primaryId(); 
-		},
-		write: function (id) {
-			if (id != undefined && id != self.pointee().uniqueId()) {
-				var source = root.getObj(id);
-				// if alias id has changed, let's create a new instance for the chosen alias
-				var freshly_created = !self.toplevel && (
-					source.isReference() || _storage().fields().length == 0)
-					? 	source 
-					: 	source.clone();
-					
-				console.log(self.pointee().uniqueId() + ' --> ' + freshly_created.uniqueId() + " @ " + id);
-				// and set it as current object
-				self.updateOptions();
-				_storage(freshly_created);
-			}
-		}	
-	});
-	
+		
 	/**
 	 *	List of fields to be rendered in expanded view 
 	 */

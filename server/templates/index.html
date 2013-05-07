@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="static/css/v-nav.css" />
     <link rel="stylesheet" type="text/css" href="static/css/cssmenu.css" />
     <link rel="stylesheet" type="text/css" href="static/css/tooltip.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/dropdown/style.css" />
 	<script type='text/javascript' src='static/_external/knockout-2.2.1.debug.js'></script>
 	<script type='text/javascript' src='static/_external/jquery-1.9.0.min.js'></script>
     <script type="text/javascript" src="static/_external/jquery.json-2.3.min.js"></script>
@@ -71,7 +72,7 @@
 				            				<select data-bind="
 				            					event: 	{ mouseover: $parent.updateOptions, 
 				            							  dblclick: $parent.enterEditMode }, 
-				            					options: availableParts, 
+				            					options: availablePartsEx, 
 				            					value: aliaspart">
 				            					
 				            				</select>
@@ -80,14 +81,38 @@
 				            	</table>
 				              </td>
   	            			  <td>
-				            		<a class="tooltip" style="float:right;">
-				            			?
-				            			<span>
-				            				<img class="callout" src="static/img/callout.gif" />
-									        <strong data-bind="text: alias"></strong><br />
-				            				<span data-bind="html: hint"></span>
-										</span> 
-									</a>
+  	            			  	<table>
+  	            			  		<!-- tr>
+  	            			  			<td>
+											<ul id="css3menu1" class="topmenu">
+												<li class="topmenu"><a href="#" ><span>&#9654;</span></a>
+												<ul>
+													<li class="subfirst"><a href="#"><span>Item 1 0</span></a>
+													<ul>
+														<li class="sublast"><a href="#"><span>Item 1 0 0fffffffffffffffffffffffffffffffffff</span></a>
+														<ul>
+															<li class="sublast"><a href="#">Item 1 0 0 0</a></li>
+														</ul></li>
+													</ul></li>
+													<li><a href="#">Item 1 1</a></li>
+													<li class="sublast"><a href="#">Item 1 2</a></li>
+												</ul></li>
+											</ul>	
+  	            			  			</td>
+  	            			  		</tr -->
+  	            			  		<tr>
+  	            			  			<td>
+						            		<a class="tooltip" style="float:right;">
+						            			?
+						            			<span>
+						            				<img class="callout" src="static/img/callout.gif" />
+											        <strong data-bind="text: alias"></strong><br />
+						            				<span data-bind="html: hint"></span>
+												</span> 
+											</a>
+  	            			  			</td>
+  	            			  		</tr>
+  	            			  	</table>
 	            			  </td>
 				           </tr>
 		            	</table>
@@ -336,6 +361,7 @@
 
 	<div data-bind="template: { name: 'current' }">
 	</div>
+	
 	
 	<script type='text/javascript'>
 		ko.applyBindings(viewmodel);
