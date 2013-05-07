@@ -33,13 +33,22 @@
 </head>
 <body>
 	<script type="text/html" id="renderAliasPart">
-		<ul data-bind="foreach: $data">
-			<li><a href="#">
-				<span data-bind="html: $data.key + (Object.size($data.value) ? east : '')">					
+		<ul data-bind="foreach: options">
+			<li><a data-bind="click: function () {
+					if (Object.size($data.value) == 0) { 
+						$parent.base.switchTo($parent.prefix.concat([$data.key]))
+					} 
+				}" href="#">
+				<span data-bind="
+					html: $data.key + (Object.size($data.value) ? east : '')">					
 				</span></a>
 				<!-- ko template: { 
+					if: Object.size($data.value),
 					name: 'renderAliasPart', 
-					data: mapDictionaryToArray($data.value) }
+					data: { options : mapDictionaryToArray($data.value), 
+						    base    : $parent.base,
+						    prefix  : $parent.prefix.concat([$data.key]) }
+				    }
 				--><!-- /ko -->
 			</li>
 		</ul>
@@ -101,7 +110,10 @@
 												<li class="topmenu"><a href="#" ><span>&#9654;</span></a>
 												<!-- ko template: { 
 													name: 'renderAliasPart', 
-													data: mapDictionaryToArray($data._optionsMap()) }
+													data: { options : mapDictionaryToArray($data._optionsMap()),
+														    base: $data, 
+														    prefix: [] } 
+												    }
 												--><!-- /ko --></li>
 											</ul>	
   	            			  			</td>
