@@ -54,6 +54,36 @@
 		</ul>
 	</script>
 	
+	<script type="text/html" id="contextMenu">
+		<td>
+			<ul id="css3menu1" class="topmenu" style="float:right;">
+			<li class="topmenu">
+				<a href="#" ><span>&#9654;</span></a>
+			<!-- ko template: {
+				name: 'renderAliasPart',
+				data: { options : mapDictionaryToArray($data._optionsMap()),
+				base: $data,
+				prefix: [] }
+			}-->
+			<!-- /ko -->
+			</li>
+			</ul>
+		</td>
+	</script>
+	
+	<script type="text/html" id="renderTooltip">
+		<td>
+    		<a class="tooltip" style="float:right;">
+    			?
+    			<span>
+    				<img class="callout" src="static/img/callout.gif" />
+			        <strong data-bind="text: alias"></strong><br />
+    				<span data-bind="html: hint"></span>
+				</span> 
+			</a>
+		</td>
+	</script>
+	
 	<script type="text/html" id="renderField">
         <tr data-bind="css: { even: ko.computed(function() {
         							$data.context($context);
@@ -104,31 +134,19 @@
 				              </td>
   	            			  <td>
   	            			  	<table>
-  	            			  		<tr>
-  	            			  			<td>
-											<ul id="css3menu1" class="topmenu">
-												<li class="topmenu"><a href="#" ><span>&#9654;</span></a>
-												<!-- ko template: { 
-													name: 'renderAliasPart', 
-													data: { options : mapDictionaryToArray($data._optionsMap()),
-														    base: $data, 
-														    prefix: [] } 
-												    }
-												--><!-- /ko --></li>
-											</ul>	
-  	            			  			</td>
+  	            			  		<tr data-bind="if: alias().length > 1">
+  	            			  			<!-- ko template: { name: 'contextMenu' } -->
+  	            			  			<!-- /ko -->
   	            			  		</tr>
-  	            			  		<tr>
-  	            			  			<td>
-						            		<a class="tooltip" style="float:right;">
-						            			?
-						            			<span>
-						            				<img class="callout" src="static/img/callout.gif" />
-											        <strong data-bind="text: alias"></strong><br />
-						            				<span data-bind="html: hint"></span>
-												</span> 
-											</a>
-  	            			  			</td>
+  	            			  		<tr data-bind="if: alias().length > 1">
+  	            			  			<!-- ko template: { name: 'renderTooltip' } -->
+  	            			  			<!-- /ko -->
+  	            			  		</tr>
+  	            			  		<tr data-bind="if: alias().length == 1">
+  	            			  			<!-- ko template: { name: 'contextMenu' } -->
+  	            			  			<!-- /ko -->
+  	            			  			<!-- ko template: { name: 'renderTooltip' } -->
+  	            			  			<!-- /ko -->
   	            			  		</tr>
   	            			  	</table>
 	            			  </td>
