@@ -12,6 +12,7 @@ def Complete(graph, world, books):
     
     price_graph = graph("Price")
     book_A = books['Asset A']
+    proxy_A = books['Proxy A']
      
     assetPrice = observable.Price(book_A)
     price_graph.addTimeSeries([assetPrice, observable.AskPrice(book_A), observable.BidPrice(book_A)])

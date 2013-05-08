@@ -103,7 +103,9 @@ class WithExpiryFactory(object):
     def __init__(self, expirationDistr=mathutils.constant(10), orderFactory = LimitFactory):
         self.expirationDistr = expirationDistr
         self.orderFactory = orderFactory
-        self._scheduler = scheduler.current()
+        
+    def activate(self, world):
+        self._scheduler = world
         
     _types = [LimitOrderFactorySignature]
         

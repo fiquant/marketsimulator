@@ -8,6 +8,9 @@ def Dependency(graph, world, books):
 
     book_A = books['Asset A']
     book_B = books['Asset B']
+    
+    proxy_A = books['Proxy A']
+    proxy_B = books['Proxy B']
 
     price_graph = graph("Price")
      
@@ -32,8 +35,8 @@ def Dependency(graph, world, books):
     dep_AB = trader.SASM(book_A, strategy.Dependency(book_B, factor=2), "A dependent on B")
     dep_BA = trader.SASM(book_B, strategy.Dependency(book_A, factor=.5), "B dependent on A")
 
-    dep_AB_ex = trader.SASM(book_A, strategy.DependencyEx(book_A, book_B, factor=2), "A dependent on B ex")
-    dep_BA_ex = trader.SASM(book_B, strategy.DependencyEx(book_B, book_A, factor=.5), "B dependent on A ex")
+    dep_AB_ex = trader.SASM(book_A, strategy.DependencyEx(proxy_A, book_B, factor=2), "A dependent on B ex")
+    dep_BA_ex = trader.SASM(book_B, strategy.DependencyEx(proxy_B, book_A, factor=.5), "B dependent on A ex")
     
     eff_graph = graph("efficiency")
     eff_graph += [observable.Efficiency(dep_AB),

@@ -11,6 +11,7 @@ const = mathutils.constant
 def TrendFollower(graph, world, books):
 
     book_A = books['Asset A']
+    proxy_A = books['Proxy A']
 
     price_graph = graph("Price")
      
@@ -45,7 +46,7 @@ def TrendFollower(graph, world, books):
                                  label="trendfollower")
 
     trend_follower_ex = trader.SASM(book_A, 
-                                    strategy.TrendFollowerEx(book_A,
+                                    strategy.TrendFollowerEx(proxy_A,
                                        average=mathutils.ewma(alpha),
                                        volumeDistr = const(V)),
                                     label="trendfollower_ex")

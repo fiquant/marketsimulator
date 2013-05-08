@@ -11,6 +11,7 @@ const = mathutils.constant
 def Signal(graph, world, books):
 
     book_A = books['Asset A']
+    proxy_A = books['Proxy A']
 
     price_graph = graph("Price")
      

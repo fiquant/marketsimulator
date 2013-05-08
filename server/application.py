@@ -38,19 +38,28 @@ def createSimulation(name='All'):
         myRegistry.insert(Side.Buy)    
         book_A = orderbook.Local(tickSize=0.01, label="Asset A")
         book_B = orderbook.Local(tickSize=0.01, label="Asset B")
+        
+        proxy_A = orderbook.Proxy()
+        proxy_A._alias = ["Proxy A"]
+        myRegistry.insert(proxy_A)
+        
+        proxy_B = orderbook.Proxy()
+        proxy_B._alias = ["Proxy B"]
+        myRegistry.insert(proxy_B)
+        
         myRegistry.insert(book_A)
         remote_A = orderbook.Remote(book_A,
                                     remote.TwoWayLink(
                                         remote.Link(mathutils.rnd.expovariate(1)),
                                         remote.Link(mathutils.rnd.expovariate(1))))
-        twoaverages = strategy.TwoAveragesEx(book_A)
-        trendfollower = strategy.TrendFollowerEx(book_A)
-        fundamentalvalue = strategy.FundamentalValueEx(book_A)
-        meanreversion = strategy.MeanReversionEx(book_A)
+        twoaverages = strategy.TwoAveragesEx(proxy_A)
+        trendfollower = strategy.TrendFollowerEx(proxy_A)
+        fundamentalvalue = strategy.FundamentalValueEx(proxy_A)
+        meanreversion = strategy.MeanReversionEx(proxy_A)
         dependency = strategy.Dependency(book_B)
-        dependency_ex = strategy.DependencyEx(book_A, book_B)
-        lp_sell = strategy.LiquidityProviderSideEx(book_A)
-        lp = strategy.LiquidityProviderEx(book_A)
+        dependency_ex = strategy.DependencyEx(proxy_A, book_B)
+        lp_sell = strategy.LiquidityProviderSideEx(proxy_A)
+        lp = strategy.LiquidityProviderEx(proxy_A)
         
         def register(annotated_objects):
             for obj, alias in annotated_objects:
@@ -306,6 +315,8 @@ def update():
     save_current_workspace()
     
     if 'limitTime' in parsed:
+        w.registry.resolveVariables()
+        w.registry.activateObj(w.registry.get(w.root), w.world)
         limitTime = parsed['limitTime']
         timeout = parsed["timeout"]
         run(w.world, timeout, limitTime)

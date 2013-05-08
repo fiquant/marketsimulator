@@ -11,6 +11,7 @@ const = mathutils.constant
 def TwoAverages(graph, world, books):
 
     book_A = books['Asset A']
+    proxy_A = books['Proxy A']
 
     price_graph = graph("Price")
      
@@ -31,8 +32,8 @@ def TwoAverages(graph, world, books):
     avg_plus = trader.SASM(book_A, strategy.TwoAverages(average1 = slow, average2 = fast), 'avg+')
     avg_minus = trader.SASM(book_A, strategy.TwoAverages(average1 = fast, average2 = slow), 'avg-')
 
-    avg_ex_plus = trader.SASM(book_A, strategy.TwoAveragesEx(book_A, average1 = slow, average2 = fast), 'avg_ex+')
-    avg_ex_minus = trader.SASM(book_A, strategy.TwoAveragesEx(book_A, average1 = fast, average2 = slow), 'avg_ex-')
+    avg_ex_plus = trader.SASM(book_A, strategy.TwoAveragesEx(proxy_A, average1 = slow, average2 = fast), 'avg_ex+')
+    avg_ex_minus = trader.SASM(book_A, strategy.TwoAveragesEx(proxy_A, average1 = fast, average2 = slow), 'avg_ex-')
     
     price_graph += [assetPrice,
                     avg(assetPrice, 0.015),

@@ -22,14 +22,18 @@ class IndicatorBase(types.IObservable):
         self.eventSources = eventSources
         self._dataSource = dataSource
         self.on_changed = Event()
-            
-        self(None)
+        self._activated = False
+    
+    def activate(self, _):
+        if not self._activated:
+            self()
+            self._activated = True
         
     _properties = { 'dataSource'   : meta.function((), float),
                     'eventSources' : meta.listOf(Event) }
     
     # this event is called when currentValue updates        
-    def __call__(self, _):
+    def __call__(self, _ = None):
         # calculate current value
         self._current = self._dataSource()
         if self._current is not None: # this should be removed into a separate filter

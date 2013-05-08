@@ -363,9 +363,9 @@ class Registry(object):
             for x in obj:
                 self.bindVariables(x, variables)
         else:
-            alias = self._findAlias(obj)[-1]
-            if alias in variables:
-                obj.bind(variables[alias])
+            ctor = getCtor(obj)
+            if ctor in variables:
+                obj.bind(variables[ctor])
             else:
                 propnames = properties(obj)
                 if propnames is None:
@@ -373,6 +373,26 @@ class Registry(object):
                     
                 for propname in propnames.iterkeys():
                     self.bindVariables(getattr(obj, propname), variables)
+
+    def activateObj(self, obj, world):        
+        typ = type(obj)
+        if typ is int or typ is float or typ is bool or typ is str:
+            return 
+        
+        if typ is list:
+            for x in obj:
+                self.activateObj(x, world)
+        else:
+            propnames = properties(obj)
+            if propnames is None:
+                propnames = {}
+                
+            for propname in propnames.iterkeys():
+                self.activateObj(getattr(obj, propname), world)
+
+            if 'activate' in dir(obj):
+                obj.activate(world)
+
 
     def ofType(self, prefix):
         return [k for (k,v) in self._id2obj.iteritems() if getCtor(v).startswith(prefix)]
@@ -400,7 +420,7 @@ class Registry(object):
     
     def resolveVariables(self):
         for trader in self.valuesOfType("marketsim.trader."):
-            variables = { "$(OrderBook)", trader.orderBook }
+            variables = { "marketsim.orderbook._proxy.Proxy" : trader.orderBook }
             self.bindVariables(trader, variables)
     
     def _dumpPropertyConstraint(self, constraint):
