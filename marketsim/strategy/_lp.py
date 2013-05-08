@@ -91,7 +91,7 @@ class SafeSidePrice(object):
         self.orderBook = orderBook
         self.side = side
         self.defaultValue = defaultValue
-        self._alias = ['Safe order queue price']
+        self._alias = ["Asset's", 'Safe order queue price']
         
     _properties = { 'orderBook'     : IOrderBook, 
                     'side'          : Side, 
