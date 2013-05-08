@@ -1,62 +1,76 @@
-from marketsim import registry
+from marketsim import registry, types, Event
 
-@registry.expose('$(OrderBook)')
-class Proxy(object):
+@registry.expose(['$(OrderBook)'])
+class Proxy(types.IOrderBook):
     
     def __init__(self):
         self._impl = None
+        self.on_price_changed = Event()
         
     _properties = {}
         
     def bind(self, impl):
-        if self._impl and impl:
+        if not self._impl or not impl:
+            if self._impl: 
+                self._impl.on_price_changed -= self.on_price_changed
+            self._impl = impl
+            if self._impl:
+                self._impl.on_price_changed += self.on_price_changed
+        else:
             assert self._impl == impl
-        self._impl = impl
-    
-    @property    
-    def impl(self):
-        assert self._impl
-        return self._impl
-
-    @property
-    def on_price_changed(self):
-        return self.impl.on_price_changed
-        
+            
     def reset(self):
-        self.impl.reset()
+        if self._impl:
+            self._impl.reset()
         
     def queue(self, side):
-        return self.impl.queue(side)
+        assert self._impl
+        return self._impl.queue(side)
     
     def __str__(self):
-        return self.impl.__str__()
+        return 'Proxy for ' + (self._impl.__str__() if self._impl else '')
 
     def __repr__(self):
-        return self.impl.__repr__()
+        return self.__str__()
     
     def process(self, order):
-        self.impl.process(order)
+        assert self._impl
+        self._impl.process(order)
         
     @property
     def bids(self):
-        return self.impl.bids
+        assert self._impl
+        return self._impl.bids
     
     @property
     def asks(self):
-        return self.impl.asks
+        assert self._impl
+        return self._impl.asks
     
     @property 
     def price(self):
-        return self.impl.price
+        assert self._impl
+        return self._impl.price
     
     @property
     def spread(self):
-        return self.impl.spread
+        assert self._impl
+        return self._impl.spread
     
     @property
     def tickSize(self):
-        return self.impl.tickSize
+        assert self._impl
+        return self._impl.tickSize
     
     @tickSize.setter
     def tickSize(self, value):
-        self.tickSize = value
+        assert self._impl
+        self._impl.tickSize = value
+
+    def evaluateOrderPrice(self, side, volume):
+        assert self._impl
+        return self._impl.evaluateOrderPrice(side, volume)
+
+    def evaluateOrderPriceAsync(self, side, volume, callback):
+        assert self._impl
+        self._impl.evaluateOrderPriceAsync(side, volume, callback)

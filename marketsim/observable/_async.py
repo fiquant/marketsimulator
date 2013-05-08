@@ -1,4 +1,4 @@
-from marketsim import Side, getLabel, Event, meta, types, Method
+from marketsim import Side, getLabel, Event, meta, types, Method, scheduler
 
 def sign(x):
     return 1 if x > 0 else -1 if x < 0 else 0
@@ -19,9 +19,14 @@ class Efficiency(types.IObservable):
         self.attributes = {}
         
         self._trader.on_traded += self._update
-            
-        self._update(None)
+        
         self.reset()
+        self._activated = False
+        
+    def activate(self, _):
+        if not self._activated:
+            self._update()
+            self._activated = True
 
     def _callback_impl(self, sign, (price, volume_unmatched)): 
         if volume_unmatched == 0: 
@@ -30,7 +35,7 @@ class Efficiency(types.IObservable):
         else: # don't know what to do for the moment
             self._current = None
 
-    def _update_impl(self, _):
+    def _update_impl(self, _ = None):
     
         side = Side.Buy if self._trader.amount < 0 else Side.Sell 
         self._trader.book.evaluateOrderPriceAsync(side, 
