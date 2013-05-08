@@ -352,7 +352,27 @@ class Registry(object):
                 propnames = {}
                 
             for propname in propnames.iterkeys():
-                self.assureAllReferencedAreRegistred(getattr(obj, propname))        
+                self.assureAllReferencedAreRegistred(getattr(obj, propname))
+                
+    def bindVariables(self, obj, variables):        
+        typ = type(obj)
+        if typ is int or typ is float or typ is bool or typ is str:
+            return 
+        
+        if typ is list:
+            for x in obj:
+                self.bindVariables(x, variables)
+        else:
+            alias = self._findAlias(obj)[-1]
+            if alias in variables:
+                obj.bind(variables[alias])
+            else:
+                propnames = properties(obj)
+                if propnames is None:
+                    propnames = {}
+                    
+                for propname in propnames.iterkeys():
+                    self.bindVariables(getattr(obj, propname), variables)
 
     def ofType(self, prefix):
         return [k for (k,v) in self._id2obj.iteritems() if getCtor(v).startswith(prefix)]
@@ -377,6 +397,11 @@ class Registry(object):
     @property
     def graphs(self):
         return self.ofType("marketsim.js.Graph")
+    
+    def resolveVariables(self):
+        for trader in self.valuesOfType("marketsim.trader."):
+            variables = { "$(OrderBook)", trader.orderBook }
+            self.bindVariables(trader, variables)
     
     def _dumpPropertyConstraint(self, constraint):
         if constraint == marketsim.Side:
