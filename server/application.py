@@ -39,27 +39,19 @@ def createSimulation(name='All'):
         book_A = orderbook.Local(tickSize=0.01, label="Asset A")
         book_B = orderbook.Local(tickSize=0.01, label="Asset B")
         
-        proxy_A = orderbook.Proxy()
-        proxy_A._alias = ["Proxy A"]
-        myRegistry.insert(proxy_A)
-        
-        proxy_B = orderbook.Proxy()
-        proxy_B._alias = ["Proxy B"]
-        myRegistry.insert(proxy_B)
-        
         myRegistry.insert(book_A)
         remote_A = orderbook.Remote(book_A,
                                     remote.TwoWayLink(
                                         remote.Link(mathutils.rnd.expovariate(1)),
                                         remote.Link(mathutils.rnd.expovariate(1))))
-        twoaverages = strategy.TwoAveragesEx(proxy_A)
-        trendfollower = strategy.TrendFollowerEx(proxy_A)
-        fundamentalvalue = strategy.FundamentalValueEx(proxy_A)
-        meanreversion = strategy.MeanReversionEx(proxy_A)
+        twoaverages = strategy.TwoAveragesEx()
+        trendfollower = strategy.TrendFollowerEx()
+        fundamentalvalue = strategy.FundamentalValueEx()
+        meanreversion = strategy.MeanReversionEx()
         dependency = strategy.Dependency(book_B)
-        dependency_ex = strategy.DependencyEx(proxy_A, book_B)
-        lp_sell = strategy.LiquidityProviderSideEx(proxy_A)
-        lp = strategy.LiquidityProviderEx(proxy_A)
+        dependency_ex = strategy.DependencyEx(book_B)
+        lp_sell = strategy.LiquidityProviderSideEx()
+        lp = strategy.LiquidityProviderEx()
         
         def register(annotated_objects):
             for obj, alias in annotated_objects:

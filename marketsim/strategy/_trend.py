@@ -1,5 +1,5 @@
 from marketsim.types import *
-from marketsim import Event, observable, scheduler, order, mathutils, types, meta, registry, signal, Method
+from marketsim import orderbook, Event, observable, scheduler, order, mathutils, types, meta, registry, signal, Method
 from _basic import TwoSides, Strategy, Generic
 from _wrap import wrapper
 
@@ -185,14 +185,14 @@ exec wrapper("TwoAverages",
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)', '() -> Volume')])
 
-def TwoAveragesEx(orderBook,
-                  average1 = mathutils.ewma(alpha = 0.15), 
+def TwoAveragesEx(average1 = mathutils.ewma(alpha = 0.15), 
                   average2 = mathutils.ewma(alpha = 0.015), 
                   threshold             = 0, 
                   orderFactory          = order.MarketFactory, 
                   creationIntervalDistr = mathutils.rnd.expovariate(1.), 
                   volumeDistr           = mathutils.rnd.expovariate(1.)):
     
+    orderBook = orderbook.Proxy()
     price = observable.Price(orderBook)
     
     r = Generic(orderFactory= orderFactory, 
@@ -257,13 +257,13 @@ exec wrapper('TrendFollower',
               ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
               ('volumeDistr',            'mathutils.rnd.expovariate(1.)', '() -> Volume')])
 
-def TrendFollowerEx(orderBook, 
-                    average                 = mathutils.ewma(alpha = 0.15), 
+def TrendFollowerEx(average                 = mathutils.ewma(alpha = 0.15), 
                     threshold               = 0., 
                     orderFactory            = order.MarketFactory, 
                     creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
                     volumeDistr             = mathutils.rnd.expovariate(1.)):
     
+    orderBook = orderbook.Proxy()
     trend = observable.Fold(observable.Price(orderBook), 
                             observable.derivative(average))
     

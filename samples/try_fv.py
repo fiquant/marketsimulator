@@ -9,7 +9,6 @@ from common import run
 def FundamentalValue(graph, world, books):
 
     book_A = books['Asset A']
-    proxy_A = books['Proxy A']
      
     price_graph = graph("Price")
     assetPrice = observable.Price(book_A)
@@ -30,7 +29,7 @@ def FundamentalValue(graph, world, books):
                          "fv_200")
 
     fv_ex = trader.SASM(book_A, 
-                         strategy.FundamentalValueEx(proxy_A,
+                         strategy.FundamentalValueEx(
                             fundamentalValue = mathutils.constant(200),
                             volumeDistr = mathutils.constant(1)), 
                          "fv_ex_200")

@@ -395,10 +395,14 @@ class Registry(object):
 
 
     def ofType(self, prefix):
-        return [k for (k,v) in self._id2obj.iteritems() if getCtor(v).startswith(prefix)]
+        return [k for (k,v) in self._id2obj.iteritems()\
+                 if (getCtor(v).startswith(prefix)\
+                      and getCtor(v).find('.Proxy') == -1)]
     
     def valuesOfType(self, prefix):
-        return [v for v in self._id2obj.itervalues() if getCtor(v).startswith(prefix)]
+        return [v for v in self._id2obj.itervalues()\
+                 if getCtor(v).startswith(prefix)\
+                  and getCtor(v).find('.Proxy') == -1]
     
     @property
     def traders(self):

@@ -11,7 +11,6 @@ const = mathutils.constant
 def MeanReversion(graph, world, books):
 
     book_A = books['Asset A']
-    proxy_A = books['Proxy A']
 
     price_graph = graph("Price")
      
@@ -46,7 +45,7 @@ def MeanReversion(graph, world, books):
                                  label="meanreversion")
     
     mean_reversion_ex=trader.SASM(book_A, 
-                                 strategy.MeanReversionEx(proxy_A,
+                                 strategy.MeanReversionEx(
                                     average=mathutils.ewma(alpha),
                                     volumeDistr = const(V)),
                                  label="meanreversion_ex")

@@ -3,6 +3,9 @@
  * @param {string} typename
  */
 function isReferenceType(typename) {
+	if (typename.indexOf(".Proxy") > 0) {
+		return false;
+	}
 	return (typename.indexOf("marketsim.orderbook.") == 0 ||
 			typename.indexOf("marketsim.scheduler.Scheduler") == 0 ||
 			typename.indexOf("marketsim.js.Graph") == 0 ||
@@ -204,7 +207,11 @@ function createInstance(id, src, root) {
 	var fields = map(dict2array(src[1]), function (x) { 
 		return new Property(x.key, treatAny(x.value, myTypeinfo[1][x.key], root)); 
 	});
-	var created = new Instance(id, ctor, fields, myTypeinfo[0], src[2], root);
+	var alias = src[2];
+	if (ctor == OrderBookProxyType) {
+		alias = ["$(OrderBook)"];
+	}
+	var created = new Instance(id, ctor, fields, myTypeinfo[0], alias, root);
 	if (ctor == "marketsim.js.TimeSerie") {
 		created = makeTimeSerie(created, root.response().ts_changes);
 	} else if (ctor == "marketsim.js.Graph") {
