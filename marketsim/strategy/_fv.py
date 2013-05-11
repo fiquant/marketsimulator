@@ -88,8 +88,7 @@ class FundamentalValueSide(object):
                   and book.bids.best.price > fv else\
                None
 
-def FundamentalValueEx(orderBook, 
-                       fundamentalValue      = mathutils.constant(100.),
+def FundamentalValueEx(fundamentalValue      = mathutils.constant(100.),
                        orderFactory          = order.MarketFactory, 
                        volumeDistr           = mathutils.rnd.expovariate(1.), 
                        creationIntervalDistr = mathutils.rnd.expovariate(1.)):
@@ -97,7 +96,7 @@ def FundamentalValueEx(orderBook,
     r = Generic(orderFactory= orderFactory, 
                 volumeFunc  = volumeDistr, 
                 eventGen    = scheduler.Timer(creationIntervalDistr), 
-                sideFunc    = FundamentalValueSide(orderBook, fundamentalValue))
+                sideFunc    = FundamentalValueSide(orderbook.Proxy(), fundamentalValue))
     
     r._alias = ["Generic", "FundamentalValue"]
     
@@ -143,12 +142,12 @@ exec wrapper("MeanReversion",
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)',    '() -> Volume'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')])
 
-def MeanReversionEx   (orderBook, 
-                       average               = mathutils.ewma(alpha = 0.15),
+def MeanReversionEx   (average               = mathutils.ewma(alpha = 0.15),
                        orderFactory          = order.MarketFactory, 
                        volumeDistr           = mathutils.rnd.expovariate(1.), 
                        creationIntervalDistr = mathutils.rnd.expovariate(1.)):
 
+    orderBook = orderbook.Proxy()
     avg = observable.Fold(observable.Price(orderBook), average)
     
     r = Generic(orderFactory= orderFactory, 
@@ -213,12 +212,12 @@ exec wrapper("Dependency",
               ('volumeDistr',   'mathutils.rnd.expovariate(.1)',    '() -> Volume')], register=False)
         
 
-def DependencyEx      (orderBook, 
-                       bookToDependOn,
+def DependencyEx      (bookToDependOn,
                        factor                = mathutils.constant(1.),
                        orderFactory          = order.MarketFactory, 
                        volumeDistr           = mathutils.rnd.expovariate(1.)):
 
+    orderBook = orderbook.Proxy()
     priceToDependOn = observable.Price(bookToDependOn) 
     
     r = Generic(orderFactory= orderFactory, 

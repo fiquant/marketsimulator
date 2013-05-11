@@ -9,7 +9,6 @@ from common import run
 def Canceller(graph, world, books):
 
     book_A = books['Asset A']
-    proxy_A = books['Proxy A']
 
     price_graph = graph("Price")
      
@@ -23,7 +22,6 @@ def Canceller(graph, world, books):
     
     lp_ex = trader.SASM(book_A, 
                      strategy.LiquidityProviderEx(
-                        proxy_A, 
                         orderFactory=order.WithExpiryFactory(
                                 expirationDistr=mathutils.constant(1))),
                      "LiquidityProviderEx-")

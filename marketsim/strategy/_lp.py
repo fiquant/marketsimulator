@@ -1,7 +1,7 @@
 import random
 from _basic import OneSide, Strategy, Generic
 from _wrap import merge, wrapper
-from marketsim import order, scheduler, mathutils, types, registry, Method, meta
+from marketsim import order, orderbook, scheduler, mathutils, types, registry, Method, meta
 from marketsim.types import *
 
 class _LiquidityProviderSide_Impl(OneSide):
@@ -106,14 +106,14 @@ class SafeSidePrice(object):
                self.defaultValue
         
 
-def LiquidityProviderSideEx(orderBook, 
-                            side                    = Side.Sell, 
+def LiquidityProviderSideEx(side                    = Side.Sell, 
                             orderFactory            = order.LimitFactory, 
                             defaultValue            = 100., 
                             creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
                             priceDistr              = mathutils.rnd.lognormvariate(0., .1), 
                             volumeDistr             = mathutils.rnd.expovariate(1.)):
        
+    orderBook = orderbook.Proxy()
     r = Generic(eventGen    = scheduler.Timer(creationIntervalDistr),
                 volumeFunc  = volumeDistr, 
                 sideFunc    = ConstantSide(side),
@@ -214,16 +214,16 @@ class _StrategyArray_Impl(Strategy):
     
 exec wrapper('StrategyArray', "", [('strategies', '[LiquidityProvider()]', 'meta.listOf(IStrategy)')])
 
-def LiquidityProviderEx    (orderBook, 
-                            orderFactory            = order.LimitFactory, 
+def LiquidityProviderEx    (orderFactory            = order.LimitFactory, 
                             defaultValue            = 100., 
                             creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
                             priceDistr              = mathutils.rnd.lognormvariate(0., .1), 
                             volumeDistr             = mathutils.rnd.expovariate(1.)):
 
+    orderBook = orderbook.Proxy()
+
     def create(side):
-        return LiquidityProviderSideEx(orderBook, 
-                                       side, 
+        return LiquidityProviderSideEx(side, 
                                        orderFactory, 
                                        defaultValue, 
                                        creationIntervalDistr, 

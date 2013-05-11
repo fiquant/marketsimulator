@@ -7,9 +7,7 @@ def run(name, constructor):
     with scheduler.create() as world:
         
         books = { 'Asset A' : orderbook.Local(tickSize=0.01, label="A"),
-                  'Asset B' : orderbook.Local(tickSize=0.01, label="B"),
-                  'Proxy A' : orderbook.Proxy(),
-                  'Proxy B' : orderbook.Proxy() }
+                  'Asset B' : orderbook.Local(tickSize=0.01, label="B") }
         
         traders, graphs = constructor(veusz.Graph, world, books)
         
