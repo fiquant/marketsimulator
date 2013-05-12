@@ -1,24 +1,12 @@
 from marketsim import registry, types, Event
 
-@registry.expose(['$(OrderBook)'])
-class Proxy(types.IOrderBook):
+class Base(types.IOrderBook):
     
     def __init__(self):
-        self._impl = None
         self.on_price_changed = Event()
         
     _properties = {}
         
-    def bind(self, impl):
-        if not self._impl or not impl:
-            if self._impl: 
-                self._impl.on_price_changed -= self.on_price_changed
-            self._impl = impl
-            if self._impl:
-                self._impl.on_price_changed += self.on_price_changed
-        else:
-            assert self._impl == impl
-            
     def reset(self):
         if self._impl:
             self._impl.reset()
@@ -74,3 +62,35 @@ class Proxy(types.IOrderBook):
     def evaluateOrderPriceAsync(self, side, volume, callback):
         assert self._impl
         self._impl.evaluateOrderPriceAsync(side, volume, callback)
+
+@registry.expose(['$(OrderBook)'])
+class Proxy(Base):
+    
+    def __init__(self):
+        Base.__init__(self)
+        self._impl = None
+        
+    _properties = {}
+        
+    def bind(self, impl):
+        if not self._impl or not impl:
+            if self._impl: 
+                self._impl.on_price_changed -= self.on_price_changed
+            self._impl = impl
+            if self._impl:
+                self._impl.on_price_changed += self.on_price_changed
+        else:
+            assert self._impl == impl
+
+class OfTrader(Base):
+    
+    def __init__(self, trader):
+        Base.__init__(self)
+        self.trader = trader
+        self._alias = ['OfTrader']
+        
+    _properties = { 'trader': types.ISingleAssetTrader }
+    
+    @property
+    def _impl(self):
+        return self.trader.orderBook

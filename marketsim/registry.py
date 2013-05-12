@@ -5,7 +5,7 @@ import marketsim
 
 from functools import reduce
 
-from marketsim import Side, meta, types, js, utils
+from marketsim import Side, meta, types, js, utils, on_property_changed
 
 startup = []    
 
@@ -223,6 +223,7 @@ class Registry(object):
         
         setattr(obj, propname, value)
         
+        """
         #notifing all referencees that the object has changed
         visited = set()
         def notify(o):
@@ -233,6 +234,7 @@ class Registry(object):
                     notify(r)
         
         notify(obj)
+        """
         
     def _convert(self, dst_properties, k, v):
         
@@ -365,7 +367,7 @@ class Registry(object):
         else:
             ctor = getCtor(obj)
             if ctor in variables:
-                obj.bind(variables[ctor])
+                obj.bind(variables[ctor]) 
             else:
                 propnames = properties(obj)
                 if propnames is None:
@@ -397,12 +399,12 @@ class Registry(object):
     def ofType(self, prefix):
         return [k for (k,v) in self._id2obj.iteritems()\
                  if (getCtor(v).startswith(prefix)\
-                      and getCtor(v).find('.Proxy') == -1)]
+                      and getCtor(v).find('._proxy.') == -1)]
     
     def valuesOfType(self, prefix):
         return [v for v in self._id2obj.itervalues()\
                  if getCtor(v).startswith(prefix)\
-                  and getCtor(v).find('.Proxy') == -1]
+                  and getCtor(v).find('._proxy.') == -1]
     
     @property
     def traders(self):
@@ -424,7 +426,8 @@ class Registry(object):
     
     def resolveVariables(self):
         for trader in self.valuesOfType("marketsim.trader."):
-            variables = { "marketsim.orderbook._proxy.Proxy" : trader.orderBook }
+            variables = { "marketsim.orderbook._proxy.Proxy" : trader.orderBook,
+                          "marketsim.trader._proxy.SASM_Proxy" : trader }
             self.bindVariables(trader, variables)
     
     def _dumpPropertyConstraint(self, constraint):
