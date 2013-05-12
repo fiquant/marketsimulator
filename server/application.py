@@ -70,7 +70,8 @@ def createSimulation(name='All'):
                   (dependency, ["Basic", "Dependency"]),
                   (dependency_ex, None),
                   (lp_sell, None),
-                  (lp, None)
+                  (lp, None),
+                  (orderbook.OfTrader(trader.SASM(book_A)), None)
         ])
         
         myRegistry.pushAllReferences()

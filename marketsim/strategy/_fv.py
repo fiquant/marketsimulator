@@ -1,4 +1,4 @@
-from marketsim import (scheduler, observable, cached_property, types, meta,
+from marketsim import (scheduler, observable, cached_property, types, meta, trader,
                        Side, registry, orderbook, Method, order, mathutils)
 
 from _basic import Strategy, Generic
@@ -217,7 +217,7 @@ def DependencyEx      (bookToDependOn,
                        orderFactory          = order.MarketFactory, 
                        volumeDistr           = mathutils.rnd.expovariate(1.)):
 
-    orderBook = orderbook.Proxy()
+    orderBook = orderbook.OfTrader(trader.SASM_Proxy())
     priceToDependOn = observable.Price(bookToDependOn) 
     
     r = Generic(orderFactory= orderFactory, 

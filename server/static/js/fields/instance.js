@@ -3,7 +3,7 @@
  * @param {string} typename
  */
 function isReferenceType(typename) {
-	if (typename.indexOf(".Proxy") > 0) {
+	if (typename.indexOf("._proxy.") > 0) {
 		return false;
 	}
 	return (typename.indexOf("marketsim.orderbook.") == 0 ||
