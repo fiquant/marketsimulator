@@ -45,7 +45,7 @@ Event._types = [Event]
 """ Appends *callback* into collections of listeners for 
     a change of property named *propname* of object *obj*
 """
-def on_property_changed(obj, propname, callback):
+def OnPropertyChanged(obj, propname, callback):
     if '_on_property_changed' not in dir(obj):
         obj._on_property_changed = {}
         
@@ -53,6 +53,20 @@ def on_property_changed(obj, propname, callback):
         obj._on_property_changed[propname] = Event()
         
     obj._on_property_changed[propname] += callback
+    
+def NotifyPropertyChanged(obj, propname, value):
+    if '_on_property_changed' in dir(obj):
+        if propname in obj._on_property_changed:
+            obj._on_property_changed[propname](value)
+
+def SetAttr(obj, propname, value):
+    setattr(obj, propname, value)
+    NotifyPropertyChanged(obj, propname, value)
+    
+def AllPropertiesChanged(obj):
+    if '_on_property_changed' in dir(obj):
+        for propname, event in obj._on_property_changed.iteritems():
+            event(getattr(obj, propname))
 
 class Bind(object):
     

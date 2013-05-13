@@ -1,4 +1,4 @@
-from marketsim import registry, types, Event
+from marketsim import registry, types, Event, trader, OnPropertyChanged, Method
 
 class Base(types.IOrderBook):
     
@@ -6,10 +6,6 @@ class Base(types.IOrderBook):
         self.on_price_changed = Event()
         
     _properties = {}
-        
-    def reset(self):
-        if self._impl:
-            self._impl.reset()
         
     def queue(self, side):
         assert self._impl
@@ -84,10 +80,21 @@ class Proxy(Base):
 
 class OfTrader(Base):
     
-    def __init__(self, trader):
+    def __init__(self, aTrader = None):
+        if aTrader is None:
+            aTrader = trader.SASM_Proxy()
+        self._alias = ["$(TraderAsset)"] if type(aTrader) == trader.SASM_Proxy else ['OfTrader']
         Base.__init__(self)
-        self.trader = trader
-        self._alias = ['OfTrader']
+        self.trader = aTrader
+        
+    """
+        self.orderBook = aTrader.orderBook
+        OnPropertyChanged(self.trader, 'orderBook', Method(self, '_onBookChanged'))
+        
+    def _onBookChanged(self, newval):
+        print "OfTrader order book changed: " + repr(self.orderBook) + ' --> ' + repr(newval)
+        self.orderBook = newval
+    """
         
     _properties = { 'trader': types.ISingleAssetTrader }
     

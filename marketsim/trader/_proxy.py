@@ -35,10 +35,6 @@ class SASM_Proxy(object):
         assert self._impl
         self._impl.stop()
         
-    def reset(self):   
-        assert self._impl
-        self._impl.reset()
-        
     _properties = {}
     
     _types = [types.ISingleAssetTrader]
@@ -95,8 +91,7 @@ class SASM_Proxy(object):
     
     @property
     def orderBook(self):
-        assert self._impl
-        return self._impl.orderBook
+        return self._impl.orderBook if self._impl else None
     
     @orderBook.setter
     def orderBook(self, newvalue):

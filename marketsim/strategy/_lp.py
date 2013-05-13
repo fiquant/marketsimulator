@@ -113,7 +113,7 @@ def LiquidityProviderSideEx(side                    = Side.Sell,
                             priceDistr              = mathutils.rnd.lognormvariate(0., .1), 
                             volumeDistr             = mathutils.rnd.expovariate(1.)):
        
-    orderBook = orderbook.Proxy()
+    orderBook = orderbook.OfTrader()
     r = Generic(eventGen    = scheduler.Timer(creationIntervalDistr),
                 volumeFunc  = volumeDistr, 
                 sideFunc    = ConstantSide(side),
@@ -220,7 +220,7 @@ def LiquidityProviderEx    (orderFactory            = order.LimitFactory,
                             priceDistr              = mathutils.rnd.lognormvariate(0., .1), 
                             volumeDistr             = mathutils.rnd.expovariate(1.)):
 
-    orderBook = orderbook.Proxy()
+    orderBook = orderbook.OfTrader()
 
     def create(side):
         return LiquidityProviderSideEx(side, 
