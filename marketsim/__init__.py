@@ -1,46 +1,4 @@
-class Event(object):
-    """ Multicast event
-    
-    Keeps a set of callable listeners 
-    """
-
-    def __init__(self):
-        self._listeners = set()
-        
-    def reset(self):
-        pass
-        
-    def __iadd__(self, listener):
-        """ Adds 'listener' to the listeners set
-        """
-        self._listeners.add(listener)
-        return self
-    
-    def __isub__(self, listener):
-        self._listeners.remove(listener)
-        return self
-        
-    def advise(self, listener):
-        """ Adds *listener* to the listeners set
-        """
-        self += listener
-
-    def unadvise(self, listener):
-        """ Removes *listener* from the listeners set
-        """
-        self -= listener
-        
-    def __call__(self, *args):
-        """ Calls all listeners passing *args to them
-        """
-        for x in self._listeners:
-            x(*args)
-    
-    @property    
-    def fire(self):
-        return self
-            
-Event._types = [Event]
+from event import Event
 
 """ Appends *callback* into collections of listeners for 
     a change of property named *propname* of object *obj*
@@ -52,21 +10,19 @@ def OnPropertyChanged(obj, propname, callback):
     if propname not in obj._on_property_changed:
         obj._on_property_changed[propname] = Event()
         
+        if '_new_property_changed_listener_added' in dir(obj):
+            obj._new_property_changed_listener_added(propname)
+        
     obj._on_property_changed[propname] += callback
     
 def NotifyPropertyChanged(obj, propname, value):
     if '_on_property_changed' in dir(obj):
-        if propname in obj._on_property_changed:
-            obj._on_property_changed[propname](value)
+        if propname in obj._on_property_changed or '*' in obj._on_property_changed:
+            obj._on_property_changed[propname](propname, value)
 
 def SetAttr(obj, propname, value):
     setattr(obj, propname, value)
     NotifyPropertyChanged(obj, propname, value)
-    
-def AllPropertiesChanged(obj):
-    if '_on_property_changed' in dir(obj):
-        for propname, event in obj._on_property_changed.iteritems():
-            event(getattr(obj, propname))
 
 class Bind(object):
     

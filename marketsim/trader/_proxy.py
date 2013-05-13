@@ -21,6 +21,9 @@ class SASM_Proxy(object):
                 self._impl.on_traded += self.on_traded
         else:
             assert self._impl == impl
+            
+    def _new_property_changed_listener_added(self, propname):
+        pass
         
     @property
     def running(self):
