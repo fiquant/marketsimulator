@@ -1,4 +1,4 @@
-from marketsim import registry, types, Event, trader, OnPropertyChanged, Method
+from marketsim import registry, types, Event, trader, prop, Method
 
 class Base(types.IOrderBook):
     
