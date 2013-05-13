@@ -5,7 +5,7 @@ import marketsim
 
 from functools import reduce
 
-from marketsim import Side, meta, types, js, utils, on_property_changed
+from marketsim import Side, meta, types, js, utils, SetAttr
 
 startup = []    
 
@@ -221,7 +221,7 @@ class Registry(object):
         value = self._convert(props, propname, value)
         # except: 
         
-        setattr(obj, propname, value)
+        SetAttr(obj, propname, value)
         
         """
         #notifing all referencees that the object has changed

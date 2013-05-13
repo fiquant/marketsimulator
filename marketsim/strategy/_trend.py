@@ -192,7 +192,7 @@ def TwoAveragesEx(average1 = mathutils.ewma(alpha = 0.15),
                   creationIntervalDistr = mathutils.rnd.expovariate(1.), 
                   volumeDistr           = mathutils.rnd.expovariate(1.)):
     
-    orderBook = orderbook.Proxy()
+    orderBook = orderbook.OfTrader()
     price = observable.Price(orderBook)
     
     r = Generic(orderFactory= orderFactory, 
@@ -263,7 +263,7 @@ def TrendFollowerEx(average                 = mathutils.ewma(alpha = 0.15),
                     creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
                     volumeDistr             = mathutils.rnd.expovariate(1.)):
     
-    orderBook = orderbook.Proxy()
+    orderBook = orderbook.OfTrader()
     trend = observable.Fold(observable.Price(orderBook), 
                             observable.derivative(average))
     
