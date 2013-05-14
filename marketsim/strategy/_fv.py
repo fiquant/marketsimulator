@@ -1,5 +1,5 @@
 from marketsim import (scheduler, observable, cached_property, types, meta, trader,
-                       Side, registry, orderbook, Method, order, mathutils)
+                       Side, registry, orderbook, bind, order, mathutils)
 
 from _basic import Strategy, Generic
 from _trend import SignalBase, SignalValue, SignalEvent
@@ -111,7 +111,7 @@ class _MeanReversion_Impl(FundamentalValueBase):
         self._eventGen = scheduler.Timer(params.creationIntervalDistr)
         avg = observable.Fold(observable.Price(trader.book), params.average)
         self._fundamentalValue = avg
-        self._volume = Method(params, 'volumeDistr')  
+        self._volume = bind.Method(params, 'volumeDistr')  
         
         FundamentalValueBase.__init__(self, trader)
 

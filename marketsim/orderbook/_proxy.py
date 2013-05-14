@@ -1,4 +1,4 @@
-from marketsim import registry, types, Event, trader, prop, Method
+from marketsim import registry, types, Event, trader, prop, bind
 
 class Base(types.IOrderBook):
     

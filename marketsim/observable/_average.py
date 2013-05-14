@@ -1,4 +1,4 @@
-from marketsim import getLabel, mathutils, scheduler, meta, types, Method
+from marketsim import getLabel, mathutils, scheduler, meta, types, bind
 
 from _computed import OnEveryDt
         
@@ -9,10 +9,10 @@ class derivative(types.IUpdatableValue):
     
     def __init__(self, source):
         self.source = source
-        self.update = Method(self.source, 'update')
-        self.at = Method(self.source, 'derivativeAt')
-        self.derivativeAt = Method(self, 'at')  # temporary hack 
-        self.reset = Method(self.source, 'reset')
+        self.update = bind.Method(self.source, 'update')
+        self.at = bind.Method(self.source, 'derivativeAt')
+        self.derivativeAt = bind.Method(self, 'at')  # temporary hack 
+        self.reset = bind.Method(self.source, 'reset')
         self.label = "d(" + source.label + ")"
         
     _properties = { "source" : types.IUpdatableValue }
@@ -35,7 +35,7 @@ class Fold(object):
         self._acc = folder
         self.label = getLabel(folder) + "(" + getLabel(source) + ")"
         self._source = source
-        self._update = Method(self, '_update_impl')
+        self._update = bind.Method(self, '_update_impl')
         self._source.on_changed += self._update
             
     _properties = { 'source' : types.IObservable,

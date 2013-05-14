@@ -1,4 +1,4 @@
-from marketsim import scheduler, meta, types, Method
+from marketsim import scheduler, meta, types, bind
 
 class TimeSerie(object):
     """ Listens to an observable and accumulates its values with time stamps
@@ -8,7 +8,7 @@ class TimeSerie(object):
         self.label = label
         self._sched = scheduler.current()
         self._source = source
-        self._wakeUp = Method(self, '_wakeUp_impl')
+        self._wakeUp = bind.Method(self, '_wakeUp_impl')
         self._source.advise(self._wakeUp)
         self.reset()
         

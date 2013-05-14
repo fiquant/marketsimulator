@@ -1,4 +1,4 @@
-from marketsim import Event, Side, registry, Construct
+from marketsim import Event, Side, registry, bind
 from marketsim.types import *
 
 class VirtualMarket(object):
@@ -33,6 +33,6 @@ class VirtualMarket(object):
 @registry.expose(alias=['VirtualMarket'])
 @sig(args=(Side,), rv=function((Volume,), IOrder))
 def VirtualMarketFactory(side):
-    return Construct(VirtualMarket, side)
+    return bind.Construct(VirtualMarket, side)
     
 VirtualMarketFactory.__doc__ = VirtualMarket.__doc__
