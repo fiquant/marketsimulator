@@ -1,5 +1,5 @@
 from _base import Base
-from marketsim import registry, Construct, mathutils, meta
+from marketsim import registry, bind, mathutils, meta
 from marketsim.types import *
 
 class Limit(Base):
@@ -84,7 +84,7 @@ class Limit(Base):
 @registry.expose(alias=['Limit'])
 @sig(args=(Side,), rv=function((Price, Volume,), IOrder))
 def LimitFactory(side):
-    return Construct(Limit, side)
+    return bind.Construct(Limit, side)
 
 LimitFactory.__doc__ = Limit.__doc__ 
 

@@ -1,4 +1,4 @@
-from marketsim import scheduler, Method
+from marketsim import scheduler, bind
 from colorsys import hsv_to_rgb
 from subprocess import Popen
 import random

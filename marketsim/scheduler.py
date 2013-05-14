@@ -1,5 +1,5 @@
 import heapq, threading
-from marketsim import Event, Method, meta
+from marketsim import Event, bind, meta
 
 """ Module for managing discrete event simulation. 
 """
@@ -154,7 +154,7 @@ class Timer(Event):
 
     def __init__(self, intervalFunc, scheduler=None):
         Event.__init__(self)
-        self._wakeUp = Method(self, '_wakeUp_impl')
+        self._wakeUp = bind.Method(self, '_wakeUp_impl')
         self._cancelled = False
         self._scheduler = scheduler if scheduler else current()
         assert self._scheduler is not None

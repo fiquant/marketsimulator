@@ -1,4 +1,4 @@
-from marketsim import Side, registry, meta, types, Construct
+from marketsim import Side, registry, meta, types, bind
 from _base import Base
 from _limit import LimitFactory
 from _cancel import Cancel
@@ -39,6 +39,6 @@ class AlwaysBest(Base):
 @registry.expose(alias=['AlwaysBest'])
 @sig(args=(Side,), rv=function((Price,), IOrder))
 def AlwaysBestFactory(side):
-    return Construct(AlwaysBest, side)
+    return bind.Construct(AlwaysBest, side)
          
 AlwaysBestFactory.__doc__ = AlwaysBest.__doc__

@@ -1,4 +1,4 @@
-from marketsim import trader, order, scheduler, observable, order, registry, types, meta, Method, mathutils
+from marketsim import trader, order, scheduler, observable, order, registry, types, meta, bind, mathutils
 from copy import copy
 from marketsim.types import *
 
@@ -21,7 +21,7 @@ class _tradeIfProfitable_Impl(Strategy):
                                                          
         self._efficiency = params.efficiency(self._estimator)
         
-        self._efficiency.on_changed += Method(self, '_wakeUp_impl')
+        self._efficiency.on_changed += bind.Method(self, '_wakeUp_impl')
         
         Strategy.__init__(self, aTrader)
         
@@ -129,7 +129,7 @@ class _chooseTheBest_Impl(Strategy):
         
         self._eventGen = scheduler.Timer(intervalFunc=mathutils.constant(1))
         
-        self._chooseTheBest = Method(self, '_chooseTheBest_impl')
+        self._chooseTheBest = bind.Method(self, '_chooseTheBest_impl')
         self._eventGen.advise(self._chooseTheBest)
         self._current = None
             

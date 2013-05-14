@@ -1,4 +1,4 @@
-from marketsim import Event, Method, Side
+from marketsim import Event, bind, Side
 
 class Base(object):
     """ Base class for traders.
@@ -16,8 +16,8 @@ class Base(object):
         # event to be fired when a trader's is traded
         self.on_traded = Event()
         self._running = False
-        self.charge = Method(self, '_charge_impl')
-        self._onOrderMatched = Method(self, '_onOrderMatched_impl')
+        self.charge = bind.Method(self, '_charge_impl')
+        self._onOrderMatched = bind.Method(self, '_onOrderMatched_impl')
         self.reset()
         
     @property

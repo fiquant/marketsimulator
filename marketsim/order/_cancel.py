@@ -1,4 +1,4 @@
-from marketsim import Event, scheduler, registry, mathutils, types, meta, Method, Construct, Side
+from marketsim import Event, scheduler, registry, mathutils, types, meta, bind, Side
 from _base import Base
 from _limit import LimitFactory
 
@@ -60,7 +60,7 @@ class LimitMarket(Base):
 @registry.expose(alias=['LimitMarket'])
 @meta.sig(args=(Side,), rv=meta.function((types.Price,), types.IOrder))
 def LimitMarketFactory(side):
-    return Construct(LimitMarket, side)
+    return bind.Construct(LimitMarket, side)
 
 LimitMarketFactory.__doc__ = LimitMarket.__doc__
 
@@ -83,7 +83,7 @@ class WithExpiry(Base):
     def processIn(self, orderBook):
         orderBook.process(self._order)
         self._scheduler.scheduleAfter(self._delay, 
-                                      Method(orderBook, 'process', Cancel(self._order)))
+                                      bind.Method(orderBook, 'process', Cancel(self._order)))
         
     @property 
     def volume(self):
@@ -116,4 +116,4 @@ class WithExpiryFactory(object):
         return WithExpiry(self.orderFactory(side)(price, volume), self.expirationDistr(), self._scheduler)
     
     def __call__(self, side):
-        return Method(self, 'create', side)
+        return bind.Method(self, 'create', side)

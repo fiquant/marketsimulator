@@ -1,4 +1,4 @@
-from marketsim import Side, getLabel, Event, meta, types, Method, scheduler
+from marketsim import Side, getLabel, Event, meta, types, bind, scheduler
 
 def sign(x):
     return 1 if x > 0 else -1 if x < 0 else 0
@@ -13,7 +13,7 @@ class Efficiency(types.IObservable):
     def __init__(self, trader):
         
         self._trader = trader
-        self._update = Method(self, '_update_impl')
+        self._update = bind.Method(self, '_update_impl')
         
         self.on_changed = Event()
         self.attributes = {}
@@ -40,7 +40,7 @@ class Efficiency(types.IObservable):
         side = Side.Buy if self._trader.amount < 0 else Side.Sell 
         self._trader.book.evaluateOrderPriceAsync(side, 
                                                   abs(self._trader.amount), 
-                                                  Method(self, '_callback_impl', -sign(self._trader.amount)))
+                                                  bind.Method(self, '_callback_impl', -sign(self._trader.amount)))
     
         
     @property

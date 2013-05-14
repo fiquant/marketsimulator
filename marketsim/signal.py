@@ -1,5 +1,5 @@
 import random
-from marketsim import Method, Event, meta, types, mathutils
+from marketsim import bind, Event, meta, types, mathutils
 from marketsim.scheduler import Timer
 
 class RandomWalk(types.IObservable):
@@ -33,7 +33,7 @@ class RandomWalk(types.IObservable):
         self.deltaDistr = deltaDistr
         self.intervalDistr = intervalDistr
         self.on_changed = Event()
-        wakeUp = Method(self, '_wakeUp_impl')
+        wakeUp = bind.Method(self, '_wakeUp_impl')
             
         if '_timer' in dir(self):
             self._timer.unadvise(wakeUp)

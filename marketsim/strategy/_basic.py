@@ -1,4 +1,4 @@
-from marketsim import types, Method, Event, mathutils, registry, order, scheduler, Side, meta
+from marketsim import types, bind, Event, mathutils, registry, order, scheduler, Side, meta
 from marketsim.types import *
 
 from _wrap import wrapper
@@ -30,7 +30,7 @@ class TwoSides(Strategy):
         orderFunc - function to calculate order parameters: Trader -> None | (side,*orderParams) 
         """        
         Strategy.__init__(self, trader)
-        self._wakeUp = Method(self, '_wakeUp_impl')
+        self._wakeUp = bind.Method(self, '_wakeUp_impl')
         
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
@@ -70,7 +70,7 @@ class _Generic_Impl(Strategy):
         self._sideFunc = params.sideFunc
         self._volumeFunc = params.volumeFunc
         self._orderFactory = params.orderFactory
-        self._wakeUp = Method(self, '_wakeUp_impl')
+        self._wakeUp = bind.Method(self, '_wakeUp_impl')
         
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
@@ -136,7 +136,7 @@ class OneSide(Strategy):
         orderFunc - function to calculate order parameters: Trader -> *orderParams 
         """     
         Strategy.__init__(self, trader)   
-        self._wakeUp = Method(self, '_wakeUp_impl')
+        self._wakeUp = bind.Method(self, '_wakeUp_impl')
     
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
