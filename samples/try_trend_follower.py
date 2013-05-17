@@ -2,7 +2,7 @@ import sys
 sys.path.append(r'..')
 
 from marketsim import (signal, strategy, trader, orderbook, order,
-                       scheduler, observable, veusz, mathutils)
+                       timeserie, scheduler, observable, veusz, mathutils)
 
 from common import run
 
@@ -13,10 +13,28 @@ def TrendFollower(graph, world, books):
     book_A = books['Asset A']
 
     price_graph = graph("Price")
+    eff_graph = graph("efficiency")
+    amount_graph = graph("amount")
      
-    assetPrice = observable.Price(book_A)
+    def trader_ts():
+        thisTrader = trader.SASM_Proxy()
+        return { observable.VolumeTraded(thisTrader) : amount_graph, 
+                 observable.Efficiency(thisTrader)   : eff_graph }
     
-    avg = observable.avg
+    def orderbook_ts():
+        thisBook = orderbook.Proxy()
+        askPrice = observable.AskPrice(thisBook)
+        bidPrice = observable.BidPrice(thisBook)
+        assetPrice = observable.Price(thisBook)
+        avg = observable.avg
+        return [timeserie.ToRecord(askPrice, price_graph),
+                timeserie.ToRecord(bidPrice, price_graph),
+                timeserie.ToRecord(assetPrice, price_graph), 
+                timeserie.ToRecord(avg(assetPrice, alpha=0.15), price_graph),
+                timeserie.ToRecord(avg(assetPrice, alpha=0.65), price_graph),
+                timeserie.ToRecord(avg(assetPrice, alpha=0.015), price_graph)]
+       
+    book_A.timeseries = orderbook_ts()
     
     V = 1
     
@@ -25,7 +43,8 @@ def TrendFollower(graph, world, books):
                             volumeDistr=const(V*3), 
                             orderFactoryT=order.WithExpiryFactory(
                                 expirationDistr=const(100))),
-                       label="liquidity")
+                       label="liquidity", 
+                       timeseries = trader_ts())
     
     linear_signal = signal.RandomWalk(initialValue=200, 
                                       deltaDistr=const(-1), 
@@ -34,7 +53,10 @@ def TrendFollower(graph, world, books):
     signal_trader = trader.SASM(book_A, 
                                 strategy.Signal(linear_signal, 
                                                 volumeDistr = const(V)), 
-                                "signal")
+                                "signal", 
+                                timeseries = trader_ts())
+    
+    signal_trader.addTimeSerie(linear_signal, amount_graph)
     
     alpha = 0.065
     
@@ -42,28 +64,17 @@ def TrendFollower(graph, world, books):
                                  strategy.TrendFollower(
                                     average=mathutils.ewma(alpha),
                                     volumeDistr = const(V)),
-                                 label="trendfollower")
+                                 label="trendfollower", 
+                                 timeseries = trader_ts())
 
     trend_follower_ex = trader.SASM(book_A, 
                                     strategy.TrendFollowerEx(
                                        average=mathutils.ewma(alpha),
                                        volumeDistr = const(V)),
-                                    label="trendfollower_ex")
-    
-    price_graph += [assetPrice,
-                    avg(assetPrice, alpha),
-                    linear_signal,
-                    observable.VolumeTraded(signal_trader), 
-                    observable.VolumeTraded(trend_follower),
-                    observable.VolumeTraded(trend_follower_ex)]
-    
-    eff_graph = graph("efficiency")
-    eff_graph += [observable.Efficiency(trend_follower),
-                  observable.PnL(trend_follower)]
-    eff_graph += [observable.Efficiency(trend_follower_ex),
-                  observable.PnL(trend_follower_ex)]
-    
-    return [lp_A, signal_trader, trend_follower, trend_follower_ex], [price_graph, eff_graph]
+                                    label="trendfollower_ex", 
+                                    timeseries = trader_ts())
+        
+    return [lp_A, signal_trader, trend_follower, trend_follower_ex], [price_graph, eff_graph, amount_graph]
 
 if __name__ == '__main__':
     run("trend_follower", TrendFollower)

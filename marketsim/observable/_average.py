@@ -33,10 +33,12 @@ class Fold(object):
         """
         self._scheduler = scheduler.current()
         self._acc = folder
-        self.label = getLabel(folder) + "(" + getLabel(source) + ")"
         self._source = source
         self._update = bind.Method(self, '_update_impl')
         self._source.on_changed += self._update
+        
+    def activate(self, world): # TODO: we should subscribe to acc and source changed events
+         self.label = getLabel(self._acc) + "(" + getLabel(self._source) + ")"
             
     _properties = { 'source' : types.IObservable,
                     'folder' : types.IUpdatableValue }

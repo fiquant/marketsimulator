@@ -1,6 +1,6 @@
 from _queue import Queue
 from _base import BookBase
-from marketsim import Side, registry
+from marketsim import Side, registry, timeserie
 
 class Bids(Queue):
     """ Queue of limit orders buy
@@ -29,11 +29,11 @@ class Asks(Queue):
 
     side = Side.Sell
 
-class Local(BookBase):
+class Local(BookBase, timeserie.Holder):
     """ Order book for a single asset in a market.
     Maintains two order queues for orders of different sides
     """
-    def __init__(self, tickSize=1, label="",
+    def __init__(self, tickSize=1, label="", timeseries = [],
                  marketOrderFee = None, # optional function (order, book)-> price to calculate fee for a market order
                  limitOrderFee = None,
                  cancelOrderFee = None):
@@ -43,6 +43,7 @@ class Local(BookBase):
                           Bids(tickSize, self), 
                           Asks(tickSize, self), 
                           label)
+        timeserie.Holder.__init__(self, timeseries)
         
         self._tickSize = tickSize
         self._marketOrderFee = marketOrderFee

@@ -31,6 +31,11 @@ class IOrder(object):
 
 IOrder._types = [IOrder]
 
+class IGraph(object):
+    pass
+
+IGraph._types =  [IGraph]
+
 class IUpdatableValue(object):    
     """
     Class implementing UpdatableValue concept should obey the following interface

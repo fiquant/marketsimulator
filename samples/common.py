@@ -16,14 +16,10 @@ def run(name, constructor):
         r.insert(s)
         r.pushAllReferences()
         r.resolveVariables()
-        r.activateObj(s, world)
+        r.activateObj(s, world, set())
         
         for t in traders: t.run()
         
         world.workTill(500)
         
         veusz.render(name, graphs)
-
-def simulation(f):
-    a = f
-    return f

@@ -338,15 +338,21 @@ class Registry(object):
         
         return "#" +  str(Id)
 
-    def assureAllReferencedAreRegistred(self, obj):
+    def assureAllReferencedAreRegistred(self, obj, visited):
+        
         typ = type(obj)
         if typ is int or typ is float or typ is bool or typ is str:
             return 
         
         if typ is list:
             for x in obj:
-                self.assureAllReferencedAreRegistred(x)
+                self.assureAllReferencedAreRegistred(x, visited)
         else:
+            if obj in visited:
+                return
+            
+            visited.add(obj)
+            
             self.insert(obj)
             
             propnames = properties(obj)
@@ -354,17 +360,22 @@ class Registry(object):
                 propnames = {}
                 
             for propname in propnames.iterkeys():
-                self.assureAllReferencedAreRegistred(getattr(obj, propname))
+                self.assureAllReferencedAreRegistred(getattr(obj, propname), visited)
                 
-    def bindVariables(self, obj, variables):        
+    def bindVariables(self, obj, variables, visited):        
         typ = type(obj)
         if typ is int or typ is float or typ is bool or typ is str:
             return 
         
         if typ is list:
             for x in obj:
-                self.bindVariables(x, variables)
+                self.bindVariables(x, variables, visited)
         else:
+            if obj in visited:
+                return
+            
+            visited.add(obj)
+            
             ctor = getCtor(obj)
             if ctor in variables:
                 obj.bind(variables[ctor]) 
@@ -374,23 +385,28 @@ class Registry(object):
                     propnames = {}
                     
                 for propname in propnames.iterkeys():
-                    self.bindVariables(getattr(obj, propname), variables)
+                    self.bindVariables(getattr(obj, propname), variables, visited)
 
-    def activateObj(self, obj, world):        
+    def activateObj(self, obj, world, visited):        
         typ = type(obj)
         if typ is int or typ is float or typ is bool or typ is str:
             return 
         
         if typ is list:
             for x in obj:
-                self.activateObj(x, world)
+                self.activateObj(x, world, visited)
         else:
+            if obj in visited:
+                return
+            
+            visited.add(obj)
+            
             propnames = properties(obj)
             if propnames is None:
                 propnames = {}
                 
             for propname in propnames.iterkeys():
-                self.activateObj(getattr(obj, propname), world)
+                self.activateObj(getattr(obj, propname), world, visited)
 
             if 'activate' in dir(obj):
                 obj.activate(world)
@@ -425,10 +441,15 @@ class Registry(object):
         return self.ofType("marketsim.js.Graph")
     
     def resolveVariables(self):
+        visited = set()
         for trader in self.valuesOfType("marketsim.trader."):
-            variables = { "marketsim.orderbook._proxy.Proxy" : trader.orderBook,
-                          "marketsim.trader._proxy.SASM_Proxy" : trader }
-            self.bindVariables(trader, variables)
+            variables = { "marketsim.trader._proxy.SASM_Proxy" : trader }
+            self.bindVariables(trader, variables, visited)
+        visited = set()
+        for orderbook in self.valuesOfType("marketsim.orderbook."):
+            variables = {"marketsim.orderbook._proxy.Proxy" : orderbook}
+            self.bindVariables(orderbook, variables, visited)
+                          
     
     def _dumpPropertyConstraint(self, constraint):
         if constraint == marketsim.Side:
@@ -501,9 +522,10 @@ class Registry(object):
         return [ctor, props, alias]
     
     def pushAllReferences(self):
+        visited = set()
         root = list(self._id2obj.itervalues())                        
         for obj in root: # getting initial set of the dictionary keys
-            self.assureAllReferencedAreRegistred(obj)
+            self.assureAllReferencedAreRegistred(obj, visited)
             
     def tojsonall(self):
 
