@@ -50,7 +50,7 @@ class TimeSerie(object):
     def drop(self): # later a more sophisticated protocol would be introduced
         self._data = []
         
-class Graph(object):
+class Graph(types.IGraph):
     """ Generic 2D graph to be rendered by means of javascript libraries
     """
     

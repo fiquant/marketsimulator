@@ -1,12 +1,13 @@
-from marketsim import Event, bind, Side
+from marketsim import Event, bind, Side, types, meta, timeserie
 
-class Base(object):
+class Base(timeserie.Holder):
     """ Base class for traders.
     Responsible for bookkeeping P&L of the trader and 
     maintaining on_order_sent and on_traded events
     """
 
-    def __init__(self, PnL = 0):
+    def __init__(self, PnL = 0, timeseries = []):
+        timeserie.Holder.__init__(self, timeseries)
         # P&L is the minus sum of money spent for the trades done
         # if a trader sells P&L increases
         # if a trader buys P&L falls
@@ -35,7 +36,7 @@ class Base(object):
     def reset(self):   
         self._PnL = 0 
         
-    _properties = {'PnL' : float}
+    _properties = {'PnL'        : float }
     
     @property
     def PnL(self):

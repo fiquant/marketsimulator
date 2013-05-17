@@ -10,8 +10,8 @@ class SingleAsset(Base, types.ISingleAssetTrader):
     negative otherwise
     """
 
-    def __init__(self, strategy=None, label=None, strategies=[], amount = 0, PnL=0):
-        Base.__init__(self, PnL)
+    def __init__(self, strategy=None, label=None, strategies=[], amount = 0, PnL=0, timeseries = []):
+        Base.__init__(self, PnL, timeseries)
         self._amount = amount
         self._strategies = []
         self._label = label if label else getLabel(self)

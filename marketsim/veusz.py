@@ -1,4 +1,4 @@
-from marketsim import scheduler, bind
+from marketsim import scheduler, bind, types
 from colorsys import hsv_to_rgb
 from subprocess import Popen
 import random
@@ -73,47 +73,62 @@ class CSV(object):
     """ Represents a time serie to be written into a file 
     """
     
-    def __init__(self, directory, filename, source, label, attributes={}):
+    def __init__(self, directory, source, attributes={}):
         """ Initializes time serie writer
         filename - name of a file to write to 
         source - indicator with values to be saved
         label - time serie label
         """
-        self._fullname = directory + filename
-        self._filename = filename
-        self._file = OutputStream(self._fullname)
-        self._label = label
         self._sched = scheduler.current()
         
         self._source = source
+        self._directory = directory
+        self._file = None
+        self._custom_attr = attributes
         
         source.advise(self)
         
-        self._attributes = {
-            'xData' : "Time"+label,
-            'yData' : label,
-            'marker': 'none',
-            r'PlotLine/steps': u'left',
-            r'PlotLine/color': u'#' + randColor(),
-            'key' : label,
-            }
-        
-        for k,v in attributes.iteritems():
-            self._attributes[k] = v
-            
         self.reset()
+        
+    def _init(self):
+        if self._file is None:
+            label = self._source.label
+            filename = (label+'.csv').replace('\\','_')
+            self._fullname = self._directory + filename
+            self._filename = filename
+            self._file = OutputStream(self._fullname)
+            self._label = label
+            self._attributes = {
+                'xData' : "Time"+label,
+                'yData' : label,
+                'marker': 'none',
+                r'PlotLine/steps': u'left',
+                r'PlotLine/color': u'#' + randColor(),
+                'key' : label,
+                }
+            for k,v in self._custom_attr.iteritems():
+                self._attributes[k] = v                
+            
+            self.reset()
+            
+            
+        
+    def dispose(self):
+        self._source.unadvise(self)
         
         
     def __call__(self, _):
         """ Called when the source has chaged
         """
+        self._init()
         x = self._source.value
         if x is not None: # for the moment we don't know what to do with breaks in data
             self._file.write(str(self._sched.currentTime) + ',' + str(x) + ',\n')
             
     def reset(self):
-        self._file.reset()
-        self._file.write('Time'+self._label+','+self._label+',\n')
+        if self._file is not None:
+            self._file.reset()
+            self._file.write('Time'+self._label+','+self._label+',\n')
         
             
     @property
@@ -125,6 +140,7 @@ class CSV(object):
     def exportToVsz(self, f):
         """ Exports time serie to Vsz file
         """
+        self._init()
         self._file.flush()
         f.write(graphDataHeader.format(self._filename, self._label))
         for k,v in self._attributes.iteritems():
@@ -157,7 +173,7 @@ def translateAttributes(src):
         res[r'PlotLine/steps'] = 'off'
     return res
         
-class Graph(object):
+class Graph(types.IGraph):
     """ Represents a single Veusz graph
     """
     
@@ -171,7 +187,7 @@ class Graph(object):
     def series(self):
         return self._datas
     
-    _properties = { "series" : None }
+    _properties = { }
         
     def addTimeSerie(self, source, attributes = {}):
         """ Adds a time serie to the graph
@@ -179,12 +195,13 @@ class Graph(object):
         and have a value property 
         attributes -- veusz specific attributes that will be applied for this time serie  
         """
-        label = source.label
         attr = translateAttributes(source.attributes)
         for k,v in attributes.iteritems():
             attr[k] = v
-        filename = (label+'.csv').replace('\\','_')
-        self._datas.append(CSV(myDir(), filename, source, label, attr))
+        self._datas.append(CSV(myDir(), source, attr))
+        
+    def removeTimeSerie(self, source):
+        self._datas = [x for x in self._datas if x._source is not source]
         
     def addTimeSeries(self, series):
         for x in series:

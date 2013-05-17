@@ -2,7 +2,7 @@ import sys
 sys.path.append(r'..')
 
 from marketsim import (signal, strategy, trader, orderbook, order,
-                       scheduler, observable, veusz, mathutils)
+                       timeserie, scheduler, observable, veusz, mathutils)
 
 from common import run
 
@@ -13,10 +13,23 @@ def MeanReversion(graph, world, books):
     book_A = books['Asset A']
 
     price_graph = graph("Price")
+    eff_graph = graph("efficiency")
+    amount_graph = graph("amount")
      
-    assetPrice = observable.Price(book_A)
+    def trader_ts():
+        thisTrader = trader.SASM_Proxy()
+        return { observable.VolumeTraded(thisTrader) : amount_graph, 
+                 observable.Efficiency(thisTrader)   : eff_graph }
     
-    avg = observable.avg
+    def orderbook_ts():
+        assetPrice = observable.AskPrice(orderbook.Proxy())
+        avg = observable.avg
+        return [timeserie.ToRecord(assetPrice, price_graph), 
+                timeserie.ToRecord(avg(assetPrice, alpha=0.15), price_graph),
+                timeserie.ToRecord(avg(assetPrice, alpha=0.65), price_graph),
+                timeserie.ToRecord(avg(assetPrice, alpha=0.015), price_graph)]
+       
+    book_A.timeseries = orderbook_ts()
     
     V = 1
     
@@ -25,7 +38,8 @@ def MeanReversion(graph, world, books):
                             volumeDistr=const(V*20), 
                             orderFactoryT=order.WithExpiryFactory(
                                 expirationDistr=const(10))),
-                       label="liquidity")
+                       label="liquidity", 
+                       timeseries = trader_ts())
     
     linear_signal = signal.RandomWalk(initialValue=200, 
                                       deltaDistr=const(-1), 
@@ -34,7 +48,10 @@ def MeanReversion(graph, world, books):
     signal_trader = trader.SASM(book_A, 
                                 strategy.Signal(linear_signal, 
                                                 volumeDistr = const(V*3)), 
-                                "signal")
+                                "signal", 
+                                timeseries = trader_ts())
+    
+    signal_trader.addTimeSerie(linear_signal, amount_graph)
     
     alpha = 0.015
     
@@ -42,27 +59,17 @@ def MeanReversion(graph, world, books):
                                  strategy.MeanReversion(
                                     average=mathutils.ewma(alpha),
                                     volumeDistr = const(V)),
-                                 label="meanreversion")
+                                 label="meanreversion", 
+                                 timeseries = trader_ts())
     
     mean_reversion_ex=trader.SASM(book_A, 
                                  strategy.MeanReversionEx(
                                     average=mathutils.ewma(alpha),
                                     volumeDistr = const(V)),
-                                 label="meanreversion_ex")
+                                 label="meanreversion_ex", 
+                                 timeseries = trader_ts())
     
-    price_graph += [assetPrice,
-                    avg(assetPrice, alpha),
-                    linear_signal,
-                    observable.VolumeTraded(signal_trader), 
-                    observable.VolumeTraded(mean_reversion),
-                    observable.VolumeTraded(mean_reversion_ex)]
-    
-    eff_graph = graph("efficiency")
-    eff_graph += [observable.Efficiency(mean_reversion),
-                  observable.Efficiency(mean_reversion_ex),
-                  observable.Efficiency(signal_trader)]
-    
-    return [lp_A, signal_trader, mean_reversion, mean_reversion_ex], [price_graph, eff_graph]
+    return [lp_A, signal_trader, mean_reversion, mean_reversion_ex], [price_graph, eff_graph, amount_graph]
 
 if __name__ == '__main__':
     run("mean_reversion", MeanReversion)

@@ -2,7 +2,7 @@ import sys
 sys.path.append(r'..')
 
 from marketsim import (strategy, trader, orderbook, order, mathutils,
-                       scheduler, observable, veusz, registry)
+                       scheduler, observable, veusz, registry, timeserie)
 
 from common import run 
 
@@ -11,10 +11,23 @@ def Noise(graph, world, books):
     book_A = books['Asset A']
 
     price_graph = graph("Price")
+    eff_graph = graph("efficiency")
+    amount_graph = graph("amount")
      
-    assetPrice = observable.Price(book_A)
+    def trader_ts():
+        thisTrader = trader.SASM_Proxy()
+        return { observable.VolumeTraded(thisTrader) : amount_graph, 
+                 observable.Efficiency(thisTrader)   : eff_graph }
     
-    avg = observable.avg
+    def orderbook_ts():
+        assetPrice = observable.AskPrice(orderbook.Proxy())
+        avg = observable.avg
+        return [timeserie.ToRecord(assetPrice, price_graph), 
+                timeserie.ToRecord(avg(assetPrice, alpha=0.15), price_graph),
+                timeserie.ToRecord(avg(assetPrice, alpha=0.65), price_graph),
+                timeserie.ToRecord(avg(assetPrice, alpha=0.015), price_graph)]
+       
+    book_A.timeseries = orderbook_ts()
     
     
     lp_A = trader.SASM(book_A, 
@@ -22,21 +35,16 @@ def Noise(graph, world, books):
                             volumeDistr=mathutils.constant(2),
                             orderFactoryT=order.WithExpiryFactory(
                                 expirationDistr=mathutils.constant(10))), 
-                       "liquidity")
+                       "liquidity", 
+                       timeseries = trader_ts())
     
-    noise_trader = trader.SASM(book_A, strategy.Noise(), "noise")
-    noise_ex_trader = trader.SASM(book_A, strategy.NoiseEx(), "noise_ex")
+    noise_trader = trader.SASM(book_A, strategy.Noise(), "noise", 
+                               timeseries = trader_ts())
     
-    price_graph += [assetPrice,
-                    avg(assetPrice)]
-    
-    eff_graph = graph("efficiency")
-    eff_graph += [observable.Efficiency(noise_trader),
-                  observable.PnL(noise_trader)]
-    eff_graph += [observable.Efficiency(noise_ex_trader),
-                  observable.PnL(noise_ex_trader)]
-    
-    return [lp_A, noise_trader, noise_ex_trader], [price_graph, eff_graph]
+    noise_ex_trader = trader.SASM(book_A, strategy.NoiseEx(), "noise_ex", 
+                                  timeseries = trader_ts())
+        
+    return [lp_A, noise_trader, noise_ex_trader], [price_graph, eff_graph, amount_graph]
 
 
 if __name__ == '__main__':    
