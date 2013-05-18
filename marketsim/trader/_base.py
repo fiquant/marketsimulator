@@ -21,6 +21,9 @@ class Base(timeserie.Holder):
         self._onOrderMatched = bind.Method(self, '_onOrderMatched_impl')
         self.reset()
         
+    def bindingContext(self):
+        return { '$(Trader)' : self }
+        
     @property
     def running(self):
         return self._running

@@ -92,7 +92,7 @@ def createSimulation(name='All'):
         myRegistry.insert(world)
         
         root = myRegistry.insert(registry.createSimulation(myRegistry))
-        
+
         if name != 'All':
             current_dir = current_user_dir()
             ensure_dir_ex(current_dir)
@@ -307,7 +307,7 @@ def update():
     save_current_workspace()
     
     if 'limitTime' in parsed:
-        w.registry.resolveVariables()
+        w.registry.bindVariables(w.registry.get(w.root))
         w.registry.activateObj(w.registry.get(w.root), w.world, set())
         limitTime = parsed['limitTime']
         timeout = parsed["timeout"]

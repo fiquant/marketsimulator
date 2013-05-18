@@ -12,11 +12,11 @@ def run(name, constructor):
         traders, graphs = constructor(veusz.Graph, world, books)
         
         r = registry.create()
-        s = registry.Simulation(traders, list(books.itervalues()), graphs)
-        r.insert(s)
+        root = registry.Simulation(traders, list(books.itervalues()), graphs)
+        r.insert(root)
         r.pushAllReferences()
-        r.resolveVariables()
-        r.activateObj(s, world, set())
+        r.bindVariables(root)
+        r.activateObj(root, world, set())
         
         for t in traders: t.run()
         
