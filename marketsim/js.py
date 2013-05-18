@@ -4,14 +4,17 @@ class TimeSerie(object):
     """ Listens to an observable and accumulates its values with time stamps
     """
     
-    def __init__(self, source, label=""):
-        self.label = label
-        self._sched = scheduler.current()
+    def __init__(self, source):
         self._source = source
+        self._sched = scheduler.current()
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
         self._source.advise(self._wakeUp)
         self.reset()
         
+    @property
+    def label(self):
+        return self._source.label
+    
     def _wakeUp_impl(self, _):
         """ Called when the source has changed
         """
@@ -63,8 +66,10 @@ class Graph(types.IGraph):
         source should be a source of events (so to have advise method) 
         and have a value property 
         """
-        label = source.label
-        self.series.append(TimeSerie(source, label))
+        self.series.append(TimeSerie(source))
+        
+    def removeTimeSerie(self, source):
+        series = [x for x in self.series if x.source is not source]
         
     _properties = {"series": meta.listOf(TimeSerie) }
     

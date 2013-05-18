@@ -308,7 +308,7 @@ def update():
     
     if 'limitTime' in parsed:
         w.registry.resolveVariables()
-        w.registry.activateObj(w.registry.get(w.root), w.world)
+        w.registry.activateObj(w.registry.get(w.root), w.world, set())
         limitTime = parsed['limitTime']
         timeout = parsed["timeout"]
         run(w.world, timeout, limitTime)
