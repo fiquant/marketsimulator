@@ -362,10 +362,13 @@ class Registry(object):
             for propname in propnames.iterkeys():
                 self.assureAllReferencedAreRegistred(getattr(obj, propname), visited)
                 
-    def bindVariables(self, obj, variables, visited):        
+    def bindVariables(self, obj, variables = {}, visited = None):        
         typ = type(obj)
         if typ is int or typ is float or typ is bool or typ is str:
             return 
+        
+        if visited is None:
+            visited = set()
         
         if typ is list:
             for x in obj:
@@ -376,16 +379,23 @@ class Registry(object):
             
             visited.add(obj)
             
-            ctor = getCtor(obj)
-            if ctor in variables:
-                obj.bind(variables[ctor]) 
-            else:
-                propnames = properties(obj)
-                if propnames is None:
-                    propnames = {}
-                    
-                for propname in propnames.iterkeys():
-                    self.bindVariables(getattr(obj, propname), variables, visited)
+            propnames = properties(obj)
+            if propnames is None:
+                propnames = {}
+                
+            if 'bindingContext' in dir(obj):
+                childVariables = variables.copy()
+                for (k, v) in obj.bindingContext().iteritems():
+                    childVariables[k] = v
+            else: 
+                childVariables = variables
+                
+            for propname in propnames.iterkeys():
+                if propname[0] != '_':
+                    self.bindVariables(getattr(obj, propname), childVariables, visited)
+                
+            if 'bind' in dir(obj):
+                obj.bind(variables)
 
     def activateObj(self, obj, world, visited):        
         typ = type(obj)
@@ -406,7 +416,8 @@ class Registry(object):
                 propnames = {}
                 
             for propname in propnames.iterkeys():
-                self.activateObj(getattr(obj, propname), world, visited)
+                if propname[0] != '_':
+                    self.activateObj(getattr(obj, propname), world, visited)
 
             if 'activate' in dir(obj):
                 obj.activate(world)
@@ -439,18 +450,7 @@ class Registry(object):
     @property
     def graphs(self):
         return self.ofType("marketsim.js.Graph")
-    
-    def resolveVariables(self):
-        visited = set()
-        for trader in self.valuesOfType("marketsim.trader."):
-            variables = { "marketsim.trader._proxy.SASM_Proxy" : trader }
-            self.bindVariables(trader, variables, visited)
-        visited = set()
-        for orderbook in self.valuesOfType("marketsim.orderbook."):
-            variables = {"marketsim.orderbook._proxy.Proxy" : orderbook}
-            self.bindVariables(orderbook, variables, visited)
-                          
-    
+        
     def _dumpPropertyConstraint(self, constraint):
         if constraint == marketsim.Side:
             return "marketsim.Side" # TODO: generic procedure to treat modules 

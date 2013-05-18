@@ -10,7 +10,8 @@ class SASM_Proxy(object):
         self.on_traded = Event()
         self._alias = ["$(Trader)"]
         
-    def bind(self, impl):
+    def bind(self, variables):
+        impl = variables['$(Trader)']
         if not self._impl or not impl:
             if self._impl: 
                 self._impl.on_order_sent -= self.on_order_sent

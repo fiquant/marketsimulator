@@ -57,22 +57,22 @@ class Graph(types.IGraph):
     """ Generic 2D graph to be rendered by means of javascript libraries
     """
     
-    def __init__(self, label="", series=None):
+    def __init__(self, label="", _series=None):
         self.label = label
-        self.series = series if series else []
+        self._series = _series if _series else []
         
     def addTimeSerie(self, source):
         """ Adds a time serie to the graph
         source should be a source of events (so to have advise method) 
         and have a value property 
         """
-        self.series.append(TimeSerie(source))
+        self._series.append(TimeSerie(source))
         
     def removeTimeSerie(self, source):
-        series = [x for x in self.series if x.source is not source]
+        series = [x for x in self._series if x.source is not source]
         
-    _properties = {"series": meta.listOf(TimeSerie) }
-    
+    _properties = {"_series": meta.listOf(TimeSerie) }
+
     @property
     def _alias(self):
         return [self.label]
