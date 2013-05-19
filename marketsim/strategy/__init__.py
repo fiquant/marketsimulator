@@ -12,7 +12,8 @@ from _lp import (LiquidityProviderSide, LiquidityProviderSide2, LiquidityProvide
 from _misc import Noise, NoiseEx
 from _arbitrage import Arbitrage
 from _fv import (FundamentalValue, MeanReversion, Dependency, 
-                 FundamentalValueEx, MeanReversionEx, DependencyEx)
+                 FundamentalValueEx, MeanReversionEx, DependencyEx,
+                 FundamentalValue2 )
 
 from _trend import (Signal, TwoAverages, TrendFollower, SignalSide, 
                     SignalEx, TwoAveragesEx, TrendFollowerEx,
