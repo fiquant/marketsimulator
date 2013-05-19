@@ -163,6 +163,56 @@ def FundamentalValueEx(fundamentalValue      = mathutils.constant(100.),
     
     return r
 
+class _MeanReversion2_Impl(FundamentalValueBase2):
+
+    @property
+    def _orderFactoryT(self):
+        return self.orderFactory
+    
+    @property
+    def _eventGen(self): 
+        return scheduler.Timer(self.creationIntervalDistr, self._scheduler)
+    
+    def bind(self, context):
+        FundamentalValueBase2.bind(self, context)
+        self._fundamentalValue = observable.Fold(observable.Price(self._trader.book), 
+                                                 self.average, 
+                                                 self._scheduler)
+        
+    @property
+    def _volume(self): 
+        return bind.Method(self, 'volumeDistr')  
+
+exec wrapper2("MeanReversion2",
+             """ Mean reversion strategy believes that asset price should return to its average value.
+                 It estimates this average using some functional and 
+                 if the current asset price is lower than the average
+                 it buys the asset and if the price is higher it sells the asset. 
+             
+                 It has following parameters: 
+                 
+                 |orderFactory| 
+                     order factory function (default: order.Market.T)
+                 
+                 |creationIntervalDistr| 
+                     defines intervals of time between order creation 
+                     (default: exponential distribution with |lambda| = 1)
+                 
+                 |average| 
+                     functional used to calculate the average 
+                     (default: exponentially weighted moving average with |alpha| = 0.15)
+                     
+                 |volumeDistr| 
+                     defines volumes of orders to create 
+                     (default: exponential distribution with |lambda| = 1)
+             """,
+             [('orderFactory',          'order.MarketFactory',              'Side -> Volume -> IOrder'),
+              ('average',               'mathutils.ewma(alpha = 0.15)',     'IUpdatableValue'),
+              ('volumeDistr',           'mathutils.rnd.expovariate(1.)',    '() -> Volume'),
+              ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')])
+
+
+
 class _MeanReversion_Impl(FundamentalValueBase):
 
     def __init__(self,trader,params):
