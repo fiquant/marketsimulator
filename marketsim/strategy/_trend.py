@@ -133,14 +133,14 @@ class _TwoAverages_Impl(SignalBase):
     
     def __init__(self, trader, params):
         
-        self._eventGen = scheduler.Timer(params.creationIntervalDistr)
+        self._eventGen = scheduler.Timer(params.creationIntervalDistr, params.world)
         self._volume = bind.Method(params, 'volumeDistr')
         self._threshold = params.threshold
         self._orderFactoryT = params.orderFactory
         
         price = observable.Price(trader.orderBook)
-        self._average1 = observable.Fold(price, params.average1)
-        self._average2 = observable.Fold(price, params.average2)
+        self._average1 = observable.Fold(price, params.average1, params.world)
+        self._average2 = observable.Fold(price, params.average2, params.world)
         
         SignalBase.__init__(self, trader)
         
@@ -213,13 +213,14 @@ class _TrendFollower_Impl(SignalBase):
     
     def __init__(self, trader, params):
         
-        self._eventGen = scheduler.Timer(params.creationIntervalDistr)
+        self._eventGen = scheduler.Timer(params.creationIntervalDistr, params.world)
         self._volume = bind.Method(params, 'volumeDistr')
         self._threshold = params.threshold
         self._orderFactoryT = params.orderFactory
         
         trend = observable.Fold(observable.Price(trader.orderBook), 
-                                observable.derivative(params.average))
+                                observable.derivative(params.average), 
+                                params.world)
         self._signalFunc = trend
         
         SignalBase.__init__(self, trader)

@@ -33,7 +33,7 @@ class _FundamentalValue_Impl(FundamentalValueBase):
         self._params = params
         self._orderFactoryT = params.orderFactory
         self._fundamentalValue = params.fundamentalValue  
-        self._eventGen = scheduler.Timer(self._params.creationIntervalDistr)
+        self._eventGen = scheduler.Timer(self._params.creationIntervalDistr, params.world)
         
         FundamentalValueBase.__init__(self, trader)
         
@@ -108,8 +108,8 @@ class _MeanReversion_Impl(FundamentalValueBase):
     def __init__(self,trader,params):
 
         self._orderFactoryT = params.orderFactory
-        self._eventGen = scheduler.Timer(params.creationIntervalDistr)
-        avg = observable.Fold(observable.Price(trader.book), params.average)
+        self._eventGen = scheduler.Timer(params.creationIntervalDistr, params.world)
+        avg = observable.Fold(observable.Price(trader.book), params.average, params.world)
         self._fundamentalValue = avg
         self._volume = bind.Method(params, 'volumeDistr')  
         

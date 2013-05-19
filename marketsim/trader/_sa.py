@@ -63,19 +63,11 @@ class SingleAsset(Base, types.ISingleAssetTrader):
         for s in to_add:
             self.addStrategy(s)
             
-    def run(self):
-        Base.run(self)
-        for strategy in self._strategies:
-            strategy.runAt(self)
-            
     def removeStrategy(self, strategy):
-        if not self.running:
-            strategy.stopRunning()
+        strategy.dispose()
         self._strategies.remove(strategy)
     
     def addStrategy(self, strategy):
-        if self.running:
-            strategy.runAt(self)
         self._strategies.append(strategy)        
 
     def _onOrderMatched_impl(self, order, other, (price, volume)):
