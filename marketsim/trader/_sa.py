@@ -28,11 +28,6 @@ class SingleAsset(Base, types.ISingleAssetTrader):
         Base.reset(self)
         self._amount = 0
         
-    def stop(self):
-        Base.stop(self) 
-        for strategy in self._strategies:
-            strategy.stopRunning() 
-        
     _properties = {'amount'     : float, 
                    'strategies' : meta.listOf(types.IStrategy)}
     
@@ -62,6 +57,9 @@ class SingleAsset(Base, types.ISingleAssetTrader):
             self.removeStrategy(s)
         for s in to_add:
             self.addStrategy(s)
+            
+    def dispose(self):
+        self.strategies = []
             
     def removeStrategy(self, strategy):
         strategy.dispose()

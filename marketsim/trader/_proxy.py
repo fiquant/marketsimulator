@@ -25,20 +25,7 @@ class SASM_Proxy(object):
             
     def _new_property_changed_listener_added(self, propname):
         pass
-        
-    @property
-    def running(self):
-        assert self._impl
-        return self._impl.running
-    
-    def run(self):
-        assert self._impl
-        self._impl.run()
-    
-    def stop(self):
-        assert self._impl
-        self._impl.stop()
-        
+                
     _properties = {}
     
     _types = [types.ISingleAssetTrader]

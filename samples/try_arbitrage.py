@@ -44,8 +44,6 @@ with scheduler.create() as world:
     t_A = trader.SASM(remote_A, strategy.LiquidityProvider())
     t_B = trader.SASM(remote_B, strategy.LiquidityProvider())
     
-    for t in [t_A, t_B, arbitrager]: t.run()
-    
     world.workTill(500)
     
     veusz.render("arbitrage", [price_graph, spread_graph, cross_graph])
