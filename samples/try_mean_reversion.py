@@ -62,6 +62,13 @@ def MeanReversion(graph, world, books):
                                  label="meanreversion", 
                                  timeseries = trader_ts())
     
+    mean_reversion2 = trader.SASM(book_A, 
+                                 strategy.MeanReversion2(
+                                    average=mathutils.ewma(alpha),
+                                    volumeDistr = const(V)),
+                                 label="meanreversion2", 
+                                 timeseries = trader_ts())
+    
     mean_reversion_ex=trader.SASM(book_A, 
                                  strategy.MeanReversionEx(
                                     average=mathutils.ewma(alpha),
@@ -69,7 +76,7 @@ def MeanReversion(graph, world, books):
                                  label="meanreversion_ex", 
                                  timeseries = trader_ts())
     
-    return [lp_A, signal_trader, mean_reversion, mean_reversion_ex], [price_graph, eff_graph, amount_graph]
+    return [lp_A, signal_trader, mean_reversion, mean_reversion2, mean_reversion_ex], [price_graph, eff_graph, amount_graph]
 
 if __name__ == '__main__':
     run("mean_reversion", MeanReversion)
