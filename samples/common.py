@@ -17,8 +17,6 @@ def run(name, constructor):
         r.pushAllReferences()
         r.bindVariables(root, { 'world' : world })
         
-        for t in traders: t.run()
-        
         world.workTill(500)
         
         veusz.render(name, graphs)

@@ -16,26 +16,13 @@ class Base(timeserie.Holder):
         self.on_order_sent = Event()
         # event to be fired when a trader's is traded
         self.on_traded = Event()
-        self._running = False
         self.charge = bind.Method(self, '_charge_impl')
         self._onOrderMatched = bind.Method(self, '_onOrderMatched_impl')
         self.reset()
         
     def bindingContext(self):
         return { '$(Trader)' : self }
-        
-    @property
-    def running(self):
-        return self._running
-    
-    def run(self):
-        assert not self._running
-        self._running = True
-    
-    def stop(self):
-        assert self._running
-        self._running = False
-        
+                
     def reset(self):   
         self._PnL = 0 
         

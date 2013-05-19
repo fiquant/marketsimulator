@@ -611,17 +611,13 @@ class Simulation(object):
     def traders(self, newtraders):
         
         for oldtrader in set(self._traders) - set(newtraders):
-            oldtrader.stop()
-        for newtrader in set(newtraders) - set(self._traders):
-            newtrader.run()
+            oldtrader.dispose()
             
         self._traders = newtraders
 
 def createSimulation(instance):
     instance.pushAllReferences()
     traders = instance.valuesOfType("marketsim.trader.")
-    for trader in traders:
-        trader.run()
     orderbooks = instance.valuesOfType("marketsim.orderbook.")
     graphs = instance.valuesOfType("marketsim.js.Graph")
     return Simulation(traders, orderbooks, graphs)
