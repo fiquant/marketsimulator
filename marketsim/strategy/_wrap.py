@@ -52,18 +52,10 @@ class %(name)s(object):
         
         return %(name)s(%(withrv)s)
         
-    def runAt(self, trader):
-        assert self._impl == None, "a strategy can be bound to only one trader"
-        self._trader = trader
+    def bind(self, context):
+        self._trader = context["$(Trader)"]
+        self.world = context['world']
         self._respawn()
-        return self
-        
-    def stopRunning(self):
-        assert self._impl, "a strategy must be running"
-        self.dispose()
-        self._impl = None
-        self._trader = None
-    
 """
 
 def demangleIfFunction(s):

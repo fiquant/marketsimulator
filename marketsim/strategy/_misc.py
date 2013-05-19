@@ -8,7 +8,7 @@ class _Noise_Impl(TwoSides):
     def __init__( self, trader, params):
         self._params = params
         self._orderFactoryT = params.orderFactoryT
-        self._eventGen = scheduler.Timer(params.creationIntervalDistr)
+        self._eventGen = scheduler.Timer(params.creationIntervalDistr, params.world)
     
         TwoSides.__init__(self, trader)
         

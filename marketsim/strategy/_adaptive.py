@@ -15,9 +15,7 @@ class _tradeIfProfitable_Impl(Strategy):
     def __init__(self, aTrader, params):
         
         self._strategy = params.strategy.With()
-        self._strategy.runAt(aTrader)
         self._estimator = trader.SASM(aTrader.orderBook, label = "estimator_"+aTrader.label)
-        self._estimator_strategy = params.estimator(params.strategy).runAt(self._estimator) 
                                                          
         self._efficiency = params.efficiency(self._estimator)
         
@@ -119,11 +117,9 @@ class _chooseTheBest_Impl(Strategy):
     def __init__(self, aTrader, params):
         
         def _createInstance(sp):
-            strategy = sp.runAt(aTrader)
             estimator = trader.SASM(aTrader.orderBook, label = "estimator_"+aTrader.label)
-            estimator_strategy = params.estimator(sp).runAt(estimator)
             efficiency = params.efficiency(estimator)
-            return (strategy, estimator, estimator_strategy, efficiency)
+            return (sp, estimator, estimator_strategy, efficiency)
         
         self._strategies = [_createInstance(sp) for sp in params.strategies]
         

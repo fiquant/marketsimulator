@@ -10,7 +10,7 @@ class _LiquidityProviderSide_Impl(OneSide):
         self._params = params
         self._orderFactory = params.orderFactoryT(params.side)
         self._queue = trader.book.queue(params.side)
-        self._eventGen = scheduler.Timer(params.creationIntervalDistr)
+        self._eventGen = scheduler.Timer(params.creationIntervalDistr, params.world)
         
         OneSide.__init__(self, trader)
         
@@ -190,8 +190,6 @@ class _StrategyArray_Impl(Strategy):
     def __init__(self, trader, params):
         Strategy.__init__(self, trader)
         self.strategies = params.strategies
-        for s in self.strategies:
-            s.runAt(trader)
             
     def reset(self):
         for s in self.strategies:
@@ -275,7 +273,7 @@ class _Canceller_Impl(object):
         self.wakeUp = bind.Method(self, '_wakeUp_impl')
         
         self._book = trader.book
-        self._eventGen = scheduler.Timer(params.cancellationIntervalDistr)
+        self._eventGen = scheduler.Timer(params.cancellationIntervalDistr, params.world)
         self._eventGen += self.wakeUp
         
     def dispose(self):

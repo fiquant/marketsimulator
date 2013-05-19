@@ -28,10 +28,10 @@ class Fold(object):
     creates a observable for a moving average with |alpha| = 0.15 of mid-price of asset *book_A*     
     """
     
-    def __init__(self, source, folder):
+    def __init__(self, source, folder, sched = None):
         """ Initializes folder with source of values and accumulator object        
         """
-        self._scheduler = scheduler.current()
+        self._scheduler = sched if sched is not None else scheduler.current()
         self._acc = folder
         self._source = source
         self._update = bind.Method(self, '_update_impl')
