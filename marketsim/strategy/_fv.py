@@ -269,6 +269,56 @@ def MeanReversionEx   (average               = mathutils.ewma(alpha = 0.15),
     r._alias = ["Generic", "MeanReversion"]
     
     return r
+
+class _Dependency2_Impl(FundamentalValueBase2):
+
+    def bind(self, context):    
+        self._priceToDependOn = observable.Price(self.bookToDependOn) 
+        FundamentalValueBase2.bind(self, context)
+        self._orderFactoryT = self.orderFactory
+
+    def _fundamentalValue(self):
+        return self._priceToDependOn.value * self.factor
+    
+    def _volume(self, side):
+        oppositeQueue = self._trader.book.queue(side.opposite)
+        # should we send limit and cancel orders here?
+        oppositeVolume = oppositeQueue.volumeWithPriceBetterThan(self._fundamentalValue())
+        # we want to trade orders only with a good price
+        return min(oppositeVolume, self.volumeDistr())
+    
+    @property
+    def _eventGen(self):
+        return self._priceToDependOn        
+
+exec wrapper2("Dependency2", 
+             """ Dependent price strategy believes that the fair price of an asset *A* 
+                 is completely correlated with price of another asset *B* and the following relation 
+                 should be held: *PriceA* = *kPriceB*, where *k* is some factor. 
+                 It may be considered as a variety of a fundamental value strategy 
+                 with the exception that it is invoked every the time price of another
+                 asset *B* changes. 
+             
+                 It has following parameters: 
+                 
+                 |orderFactory| 
+                     order factory function (default: order.Market.T)
+                 
+                 |bookToDependOn| 
+                     reference to order book for another asset used to evaluate fair price of our asset
+                 
+                 |factor| 
+                     multiplier to obtain fair asset price from the reference asset price
+                     
+                 |volumeDistr| 
+                     defines volumes of orders to create 
+                     (default: exponential distribution with |lambda| = 1)
+             """,
+             [('bookToDependOn','None',                             'IOrderBook'),
+              ('orderFactory',  'order.MarketFactory',              'Side -> Volume -> IOrder'),
+              ('factor',        '1.',                               'positive'),
+              ('volumeDistr',   'mathutils.rnd.expovariate(.1)',    '() -> Volume')], register=False)
+
         
 class _Dependency_Impl(FundamentalValueBase):
     
