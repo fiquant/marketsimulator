@@ -37,7 +37,7 @@ class Fold(object):
         self._update = bind.Method(self, '_update_impl')
         self._source.on_changed += self._update
         
-    def activate(self, world): # TODO: we should subscribe to acc and source changed events
+    def bind(self, context): # TODO: we should subscribe to acc and source changed events
          self.label = getLabel(self._acc) + "(" + getLabel(self._source) + ")"
             
     _properties = { 'source' : types.IObservable,

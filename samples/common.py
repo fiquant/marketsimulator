@@ -15,8 +15,7 @@ def run(name, constructor):
         root = registry.Simulation(traders, list(books.itervalues()), graphs)
         r.insert(root)
         r.pushAllReferences()
-        r.bindVariables(root)
-        r.activateObj(root, world, set())
+        r.bindVariables(root, { 'world' : world })
         
         for t in traders: t.run()
         

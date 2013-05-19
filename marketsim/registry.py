@@ -395,33 +395,9 @@ class Registry(object):
                     self.bindVariables(getattr(obj, propname), childVariables, visited)
                 
             if 'bind' in dir(obj):
-                obj.bind(variables)
-
-    def activateObj(self, obj, world, visited):        
-        typ = type(obj)
-        if typ is int or typ is float or typ is bool or typ is str:
-            return 
-        
-        if typ is list:
-            for x in obj:
-                self.activateObj(x, world, visited)
-        else:
-            if obj in visited:
-                return
-            
-            visited.add(obj)
-            
-            propnames = properties(obj)
-            if propnames is None:
-                propnames = {}
-                
-            for propname in propnames.iterkeys():
-                if propname[0] != '_':
-                    self.activateObj(getattr(obj, propname), world, visited)
-
-            if 'activate' in dir(obj):
-                obj.activate(world)
-
+                if '_bound' not in dir(obj):
+                    obj.bind(variables)
+                    obj._bound = True
 
     def ofType(self, prefix):
         return [k for (k,v) in self._id2obj.iteritems()\

@@ -20,16 +20,13 @@ class IndicatorBase(types.IObservable):
         self.eventSources = eventSources
         self._dataSource = dataSource
         self.on_changed = Event()
-        self._activated = False
     
     @property    
     def label(self):
         return self._dataSource.label
     
-    def activate(self, _):
-        if not self._activated:
-            self()
-            self._activated = True
+    def bind(self, context):
+        self()
         
     _properties = { 'dataSource'   : meta.function((), float),
                     'eventSources' : meta.listOf(Event) }
@@ -196,7 +193,7 @@ class OnSideBestChanged(Event):
         self.orderbook = orderbook
         self.side = side
         
-    def activate(self, world): # TODO: we should subscribe to orderbook and side changed events
+    def bind(self, context): # TODO: we should subscribe to orderbook and side changed events
         self.orderbook.queue(self.side).on_best_changed += self.fire
         
     _properties = { 'orderbook' : types.IOrderBook, 

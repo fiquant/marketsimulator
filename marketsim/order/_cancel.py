@@ -104,8 +104,8 @@ class WithExpiryFactory(object):
         self.expirationDistr = expirationDistr
         self.orderFactory = orderFactory
         
-    def activate(self, world):
-        self._scheduler = world
+    def bind(self, context):
+        self._scheduler = context["world"]
         
     _types = [LimitOrderFactorySignature]
         
