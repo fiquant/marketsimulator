@@ -335,6 +335,66 @@ def TwoAveragesEx(average1 = mathutils.ewma(alpha = 0.15),
     
     return r
 
+class _TrendFollower2_Impl(SignalBase2):
+
+    @property
+    def _eventGen(self): 
+        return scheduler.Timer(self.creationIntervalDistr, self._scheduler)
+    
+    @property
+    def _volume(self):
+        return bind.Method(self, 'volumeDistr')
+    
+    @property
+    def _threshold(self):
+        return self.threshold
+    
+    @property
+    def _orderFactoryT(self):
+        return self.orderFactory
+        
+    def bind(self, context):
+        SignalBase2.bind(self, context)
+        self._signalFunc = observable.Fold(observable.Price(self._trader.orderBook), 
+                                           observable.derivative(self.average), 
+                                           self._scheduler)
+
+exec wrapper2('TrendFollower2', 
+             """ Trend follower can be considered as a sort of a signal strategy 
+                 where the *signal* is a trend of the asset. 
+                 Under trend we understand the first derivative of some moving average of asset prices. 
+                 If the derivative is positive, the trader buys; if negative - it sells.
+                 Since moving average is a continuously changing signal, we check its
+                 derivative at random moments of time given by *creationIntervalDistr*. 
+                 
+                 It has following parameters:
+                
+                 |average| 
+                     moving average functional. By default, we use exponentially weighted
+                     moving average with |alpha| = 0.15.
+                     
+                 |orderFactory| 
+                     order factory function (default: order.Market.T)
+                     
+                 |threshold| 
+                     threshold when the trader starts to act (default: 0.)
+                     
+                 |creationIntervalDistr|
+                     defines intervals of time between order creation
+                     (default: exponential distribution with |lambda| = 1)
+                     
+                 |volumeDistr| 
+                     defines volumes of orders to create 
+                     (default: exponential distribution with |lambda| = 1)
+             """,
+             [('average',                'mathutils.ewma(alpha = 0.15)',  'IUpdatableValue'),
+              ('threshold',              '0.',                            'non_negative'), 
+              ('orderFactory',           'order.MarketFactory',           'Side -> Volume -> IOrder'),
+              ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
+              ('volumeDistr',            'mathutils.rnd.expovariate(1.)', '() -> Volume')])
+
+
+
 class _TrendFollower_Impl(SignalBase):
     
     def __init__(self, trader, params):
