@@ -21,12 +21,9 @@ class Efficiency(types.IObservable):
         self._trader.on_traded += self._update
         
         self.reset()
-        self._activated = False
         
-    def activate(self, _):
-        if not self._activated:
-            self._update()
-            self._activated = True
+    def bind(self, context):
+        self._update()
 
     def _callback_impl(self, sign, (price, volume_unmatched)): 
         if volume_unmatched == 0: 

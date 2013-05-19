@@ -98,7 +98,8 @@ function Graph(source, root) {
 				'source' : ts,
 				'data' : ts.getData.peek(), 
 				'label' : ts.alias.peek(), 
-				'name': ts.alias.peek() 
+				'name': ts.alias.peek(),
+				'step' : true 
 			} : {};
 		});		
 	})

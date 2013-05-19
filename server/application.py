@@ -307,8 +307,7 @@ def update():
     save_current_workspace()
     
     if 'limitTime' in parsed:
-        w.registry.bindVariables(w.registry.get(w.root))
-        w.registry.activateObj(w.registry.get(w.root), w.world, set())
+        w.registry.bindVariables(w.registry.get(w.root),  { "world" : w.world })
         limitTime = parsed['limitTime']
         timeout = parsed["timeout"]
         run(w.world, timeout, limitTime)
