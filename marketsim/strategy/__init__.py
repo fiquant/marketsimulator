@@ -5,8 +5,8 @@ from marketsim import order, mathutils, Side, observable, registry
 
 import _misc, _arbitrage, _fv, _trend, _lp, _adaptive
 
-from _lp import (LiquidityProviderSide, LiquidityProviderSideEx, 
-                 LiquidityProvider, LiquidityProviderEx, 
+from _lp import (LiquidityProviderSide, LiquidityProviderSide2, LiquidityProviderSideEx, 
+                 LiquidityProvider, LiquidityProvider2, LiquidityProviderEx, 
                  Canceller, StrategyArray)
 
 from _misc import Noise, NoiseEx

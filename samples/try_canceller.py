@@ -29,6 +29,14 @@ def Canceller(graph, world, books):
                      strategy.LiquidityProviderSide(side = Side.Sell),
                      "LiquidityProvider-", timeseries = trader_ts())
     
+    lp2 = trader.SASM(book_A, 
+                     strategy.LiquidityProviderSide2(side = Side.Buy),
+                     "LiquidityProviderSide2", timeseries = trader_ts())
+
+    LP2 = trader.SASM(book_A, 
+                     strategy.LiquidityProvider2(),
+                     "LiquidityProvider2", timeseries = trader_ts())
+    
     lp_ex = trader.SASM(book_A, 
                      strategy.LiquidityProviderEx(
                         orderFactory=order.WithExpiryFactory(
@@ -54,13 +62,14 @@ def Canceller(graph, world, books):
                                 expirationDistr=mathutils.constant(10))),
                        "LiquidityProviderWithExpiry", 
                        timeseries = trader_ts())
+
     
     fv_trader = trader.SASM(book_A, 
                             strategy.FundamentalValue(fundamentalValue = mathutils.constant(1000)), 
                             "fv_1000",
                             timeseries = trader_ts())
     
-    return [lp_A, lp, lp_C, lp_B, lp_ex, fv_trader], [price_graph, amount_graph]
+    return [lp_A, lp2, LP2, lp, lp_C, lp_B, lp_ex, fv_trader], [price_graph, amount_graph]
 
 if __name__ == '__main__':    
     run("canceller", Canceller)
