@@ -186,6 +186,73 @@ def SignalEx(signal,
     return r
 
 registry.startup.append(lambda instance: instance.insert(SignalEx(signal.RandomWalk())))
+
+class _TwoAverages2_Impl(SignalBase2):
+
+    @property
+    def _eventGen(self):
+        return scheduler.Timer(self.creationIntervalDistr, self._scheduler)
+    
+    @property
+    def _volume(self):
+        return bind.Method(self, 'volumeDistr')
+    
+    @property
+    def _threshold(self): 
+        return self.threshold
+    
+    @property
+    def _orderFactoryT(self): 
+        return self.orderFactory
+        
+    def bind(self, context):
+        SignalBase2.bind(self, context)
+        price = observable.Price(self._trader.orderBook)
+        self._average1 = observable.Fold(price, self.average1, self._scheduler)
+        self._average2 = observable.Fold(price, self.average2, self._scheduler)
+        
+    def _signalFunc(self):
+        avg1 = self._average1.value
+        avg2 = self._average2.value
+        return avg1 - avg2 if avg1 is not None and avg2 is not None else None 
+
+exec wrapper2("TwoAverages2", 
+             """ Two averages strategy compares two averages of price of the same asset but
+                 with different parameters ('slow' and 'fast' averages) and when 
+                 the first is greater than the second one it buys, 
+                 when the first is lower than the second one it sells
+                 
+                 It has following parameters:
+
+                 |average1| 
+                      functional used to obtain the first average
+                      (defaut: expenentially weighted moving average with |alpha| = 0.15)
+                      
+                 |average2| 
+                      functional used to obtain the second average
+                      (defaut: expenentially weighted moving average with |alpha| = 0.015)
+                      
+                 |orderFactory| 
+                     order factory function (default: order.Market.T)
+                     
+                 |threshold| 
+                     threshold when the trader starts to act (default: 0.)
+                     
+                 |volumeDistr| 
+                     defines volumes of orders to create 
+                     (default: exponential distribution with |lambda| = 1)
+
+                 |creationIntervalDistr| 
+                     defines intervals of time between order creation 
+                     (default: exponential distribution with |lambda| = 1)                     
+             """,
+             [('average1',              'mathutils.ewma(alpha = 0.15)',  'IUpdatableValue'),
+              ('average2',              'mathutils.ewma(alpha = 0.015)', 'IUpdatableValue'),
+              ('threshold',             '0.',                            'non_negative'), 
+              ('orderFactory',          'order.MarketFactory',           'Side -> Volume -> IOrder'),
+              ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
+              ('volumeDistr',           'mathutils.rnd.expovariate(1.)', '() -> Volume')])
+
   
 
 class _TwoAverages_Impl(SignalBase):

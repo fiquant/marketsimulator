@@ -37,7 +37,7 @@ def TwoAverages(graph, world, books):
     book_A.timeseries = orderbook_ts()
     
     lp_A = trader.SASM(book_A, 
-                       strategy.LiquidityProvider(volumeDistr=const(8)),
+                       strategy.LiquidityProvider(volumeDistr=const(10)),
                        "liquidity", 
                        timeseries = trader_ts())
     
@@ -66,6 +66,18 @@ def TwoAverages(graph, world, books):
                             'avg-', 
                             timeseries = trader_ts())
 
+    avg_plus2 = trader.SASM(book_A, 
+                           strategy.TwoAverages2(average1 = slow, 
+                                                average2 = fast), 
+                           'avg2+', 
+                           timeseries = trader_ts())
+    
+    avg_minus2 = trader.SASM(book_A, 
+                            strategy.TwoAverages2(average1 = fast, 
+                                                 average2 = slow), 
+                            'avg2-', 
+                            timeseries = trader_ts())
+
     avg_ex_plus = trader.SASM(book_A, 
                               strategy.TwoAveragesEx(average1 = slow, 
                                                      average2 = fast), 
@@ -78,7 +90,7 @@ def TwoAverages(graph, world, books):
                                'avg_ex-', 
                                timeseries = trader_ts())
         
-    return [lp_A, signal_trader, avg_plus, avg_minus, avg_ex_plus, avg_ex_minus], [price_graph, eff_graph, amount_graph]
+    return [lp_A, signal_trader, avg_plus, avg_minus, avg_plus2, avg_minus2, avg_ex_plus, avg_ex_minus], [price_graph, eff_graph, amount_graph]
 
 if __name__ == '__main__':
     run("two_averages", TwoAverages)
