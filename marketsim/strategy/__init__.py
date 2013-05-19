@@ -13,7 +13,7 @@ from _misc import Noise, NoiseEx
 from _arbitrage import Arbitrage
 from _fv import (FundamentalValue, MeanReversion, Dependency, 
                  FundamentalValueEx, MeanReversionEx, DependencyEx,
-                 FundamentalValue2, MeanReversion2 )
+                 FundamentalValue2, MeanReversion2, Dependency2)
 
 from _trend import (Signal, TwoAverages, TrendFollower, SignalSide, 
                     SignalEx, TwoAveragesEx, TrendFollowerEx,
