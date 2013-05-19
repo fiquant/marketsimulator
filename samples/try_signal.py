@@ -49,6 +49,11 @@ def Signal(graph, world, books):
                                 strategy.Signal(linear_signal), 
                                 "signal", 
                                 timeseries = trader_ts())
+
+    signal_trader2 = trader.SASM(book_A, 
+                                strategy.Signal2(linear_signal), 
+                                "signal2", 
+                                timeseries = trader_ts())
     
     signal_trader.addTimeSerie(linear_signal, amount_graph)
     
@@ -57,7 +62,7 @@ def Signal(graph, world, books):
                                    "signal_ex", 
                                    timeseries = trader_ts())
         
-    return [lp_A, signal_trader, signal_ex_trader], [price_graph, eff_graph, amount_graph]
+    return [lp_A, signal_trader, signal_trader2, signal_ex_trader], [price_graph, eff_graph, amount_graph]
 
 if __name__ == '__main__':
     run("signal_trader", Signal)

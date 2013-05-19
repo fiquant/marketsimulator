@@ -55,6 +55,44 @@ class TwoSides(Strategy):
             # send order to the order book
             self._trader.send(order)
 
+class TwoSides2(Strategy):    
+    
+    def __init__(self):                
+        """ Runs generic two side strategy 
+        trader - single asset single market trader
+        orderFactoryT - function to create orders: side -> *orderParams -> Order
+        eventGen - event generator to be listened - we'll use its advise method to subscribe to
+        orderFunc - function to calculate order parameters: Trader -> None | (side,*orderParams) 
+        """        
+        Strategy.__init__(self, None)
+        self._wakeUp = bind.Method(self, '_wakeUp_impl')
+        
+    def bind(self, context):
+        self._trader = context['$(Trader)']
+        self._scheduler = context['world']    
+        # start listening calls from eventGen
+        self._eventGen.advise(self._wakeUp)
+        
+    def reset(self):
+        self._eventGen.schedule()
+        
+    def dispose(self):
+        self._eventGen.unadvise(self._wakeUp)
+
+    def _wakeUp_impl(self, signal):
+        if self._suspended:
+            return
+        # determine side and parameters of an order to create
+        res = self._orderFunc()
+        if res <> None:
+            (side, params) = res
+            # create order given side and parameters
+            order = self._orderFactoryT(side)(*params)
+            if type(order.side) == int:
+                a = 12
+            # send order to the order book
+            self._trader.send(order)
+
 class _Generic_Impl(Strategy):    
     
     def __init__(self, trader, params):                
