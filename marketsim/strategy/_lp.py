@@ -1,5 +1,5 @@
 import random
-from _basic import OneSide, OneSide2, Strategy, Generic
+from _basic import OneSide, OneSide2, Strategy, Generic, Generic2
 from _wrap import merge, wrapper, wrapper2
 from marketsim import order, orderbook, scheduler, mathutils, types, registry, bind, meta
 from marketsim.types import *
@@ -166,6 +166,26 @@ class SafeSidePrice(object):
         return queue.best.price if not queue.empty else\
                queue.lastPrice if queue.lastPrice is not None else\
                self.defaultValue
+
+def LiquidityProviderSideEx2(side                    = Side.Sell, 
+                            orderFactory            = order.LimitFactory, 
+                            defaultValue            = 100., 
+                            creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
+                            priceDistr              = mathutils.rnd.lognormvariate(0., .1), 
+                            volumeDistr             = mathutils.rnd.expovariate(1.)):
+       
+    orderBook = orderbook.OfTrader()
+    r = Generic2(eventGen    = scheduler.Timer(creationIntervalDistr),
+                volumeFunc  = volumeDistr, 
+                sideFunc    = ConstantSide(side),
+                orderFactory= order.AdaptLimit(orderFactory,
+                                               mathutils.product( 
+                                                  SafeSidePrice(orderBook, side, defaultValue), 
+                                                  priceDistr)))
+    
+    r._alias = ["Generic", 'LiquidityProviderSide2']
+    
+    return r
         
 
 def LiquidityProviderSideEx(side                    = Side.Sell, 
@@ -316,6 +336,35 @@ exec wrapper('LiquidityProvider',
              ('volumeDistr',            'mathutils.rnd.expovariate(.1)',        '() -> Volume')])
 
 
+class _StrategyArray2_Impl(Strategy):
+    
+    def __init__(self):
+        Strategy.__init__(self, None)
+            
+    def bind(self, context):
+        self._trader = context['$(Trader)']
+
+    def reset(self):
+        for s in self.strategies:
+            s.reset()
+    
+    def dispose(self):
+        for s in self.strategies:
+            s.dispose()
+
+    def suspend(self, flag):
+        Strategy.suspend(self, flag)
+        for s in self.strategies:
+            s.suspend(flag)
+
+    @property
+    def suspended(self):
+        for s in self.strategies:
+            assert s.suspended == self._suspended
+        return Strategy.suspended(self)
+    
+exec wrapper2('StrategyArray2', "", [('strategies', '[LiquidityProvider2()]', 'meta.listOf(IStrategy)')])
+
 class _StrategyArray_Impl(Strategy):
     
     def __init__(self, trader, params):
@@ -342,6 +391,31 @@ class _StrategyArray_Impl(Strategy):
         return Strategy.suspended(self)
     
 exec wrapper('StrategyArray', "", [('strategies', '[LiquidityProvider()]', 'meta.listOf(IStrategy)')])
+
+def LiquidityProviderEx2   (orderFactory            = order.LimitFactory, 
+                            defaultValue            = 100., 
+                            creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
+                            priceDistr              = mathutils.rnd.lognormvariate(0., .1), 
+                            volumeDistr             = mathutils.rnd.expovariate(1.)):
+
+    orderBook = orderbook.OfTrader()
+
+    def create(side):
+        return LiquidityProviderSideEx2(side, 
+                                       orderFactory, 
+                                       defaultValue, 
+                                       creationIntervalDistr, 
+                                       priceDistr, 
+                                       volumeDistr)
+
+    r = StrategyArray2([
+            create(Side.Sell),
+            create(Side.Buy)
+        ])
+    
+    r._alias = ["Generic", 'LiquidityProvider2']
+    
+    return r
 
 def LiquidityProviderEx    (orderFactory            = order.LimitFactory, 
                             defaultValue            = 100., 

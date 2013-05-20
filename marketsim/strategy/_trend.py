@@ -1,7 +1,7 @@
 from marketsim.types import *
 from marketsim import (orderbook, Event, observable, scheduler, order, mathutils, types, meta, 
                        registry, signal, bind)
-from _basic import TwoSides, TwoSides2, Strategy, Generic
+from _basic import TwoSides, TwoSides2, Strategy, Generic, Generic2
 from _wrap import wrapper, wrapper2
 
 class SignalBase2(TwoSides2):
@@ -185,6 +185,20 @@ def SignalEx(signal,
     
     return r
 
+def SignalEx2(signal, 
+             threshold      = 0, 
+             orderFactory   = order.MarketFactory, 
+             volumeDistr    = mathutils.rnd.expovariate(1.)):
+    
+    r = Generic2(sideFunc     = SignalSide(SignalValue(signal), threshold),
+                volumeFunc   = volumeDistr, 
+                orderFactory = orderFactory, 
+                eventGen     = SignalEvent(signal))  
+    
+    r._alias = ["Generic", 'Signal2']
+    
+    return r
+
 registry.startup.append(lambda instance: instance.insert(SignalEx(signal.RandomWalk())))
 
 class _TwoAverages2_Impl(SignalBase2):
@@ -335,6 +349,29 @@ def TwoAveragesEx(average1 = mathutils.ewma(alpha = 0.15),
     
     return r
 
+def TwoAveragesEx2(average1 = mathutils.ewma(alpha = 0.15), 
+                  average2 = mathutils.ewma(alpha = 0.015), 
+                  threshold             = 0, 
+                  orderFactory          = order.MarketFactory, 
+                  creationIntervalDistr = mathutils.rnd.expovariate(1.), 
+                  volumeDistr           = mathutils.rnd.expovariate(1.)):
+    
+    orderBook = orderbook.OfTrader()
+    price = observable.Price(orderBook)
+    
+    r = Generic2(orderFactory= orderFactory, 
+                volumeFunc  = volumeDistr,
+                eventGen    = scheduler.Timer(creationIntervalDistr),
+                sideFunc    = SignalSide(
+                                 mathutils.sub(
+                                     observable.Fold(price, average1),
+                                     observable.Fold(price, average2)),
+                                 threshold))
+    
+    r._alias = ["Generic", 'TwoAverages2']
+    
+    return r
+
 class _TrendFollower2_Impl(SignalBase2):
 
     @property
@@ -461,6 +498,26 @@ def TrendFollowerEx(average                 = mathutils.ewma(alpha = 0.15),
                 sideFunc    = SignalSide(trend, threshold))
     
     r._alias = ["Generic", 'TrendFollower']
+    
+    return r
+    
+
+def TrendFollowerEx2(average                 = mathutils.ewma(alpha = 0.15), 
+                    threshold               = 0., 
+                    orderFactory            = order.MarketFactory, 
+                    creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
+                    volumeDistr             = mathutils.rnd.expovariate(1.)):
+    
+    orderBook = orderbook.OfTrader()
+    trend = observable.Fold(observable.Price(orderBook), 
+                            observable.derivative(average))
+    
+    r = Generic2(orderFactory= orderFactory, 
+                volumeFunc  = volumeDistr,
+                eventGen    = scheduler.Timer(creationIntervalDistr),
+                sideFunc    = SignalSide(trend, threshold))
+    
+    r._alias = ["Generic", 'TrendFollower2']
     
     return r
     
