@@ -90,7 +90,19 @@ def TwoAverages(graph, world, books):
                                'avg_ex-', 
                                timeseries = trader_ts())
         
-    return [lp_A, signal_trader, avg_plus, avg_minus, avg_plus2, avg_minus2, avg_ex_plus, avg_ex_minus], [price_graph, eff_graph, amount_graph]
+    avg_ex_plus2 = trader.SASM(book_A, 
+                              strategy.TwoAveragesEx2(average1 = slow, 
+                                                     average2 = fast), 
+                              'avg_ex+ 2', 
+                              timeseries = trader_ts())
+    
+    avg_ex_minus2 = trader.SASM(book_A, 
+                               strategy.TwoAveragesEx2(average1 = fast, 
+                                                      average2 = slow), 
+                               'avg_ex- 2', 
+                               timeseries = trader_ts())
+        
+    return [lp_A, signal_trader, avg_plus, avg_minus, avg_plus2, avg_minus2, avg_ex_plus, avg_ex_minus, avg_ex_plus2, avg_ex_minus2], [price_graph, eff_graph, amount_graph]
 
 if __name__ == '__main__':
     run("two_averages", TwoAverages)

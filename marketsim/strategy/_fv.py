@@ -1,7 +1,7 @@
 from marketsim import (scheduler, observable, cached_property, types, meta, trader,
                        Side, registry, orderbook, bind, order, mathutils)
 
-from _basic import Strategy, Generic
+from _basic import Strategy, Generic, Generic2
 from _trend import SignalBase, SignalBase2, SignalValue, SignalEvent
 from _wrap import wrapper, wrapper2
 
@@ -163,6 +163,21 @@ def FundamentalValueEx(fundamentalValue      = mathutils.constant(100.),
     
     return r
 
+def FundamentalValueEx2(fundamentalValue      = mathutils.constant(100.),
+                       orderFactory          = order.MarketFactory, 
+                       volumeDistr           = mathutils.rnd.expovariate(1.), 
+                       creationIntervalDistr = mathutils.rnd.expovariate(1.)):
+    
+    orderBook = orderbook.OfTrader()
+    r = Generic2(orderFactory= orderFactory, 
+                volumeFunc  = volumeDistr, 
+                eventGen    = scheduler.Timer(creationIntervalDistr), 
+                sideFunc    = FundamentalValueSide(orderBook, fundamentalValue))
+    
+    r._alias = ["Generic", "FundamentalValue2"]
+    
+    return r
+
 class _MeanReversion2_Impl(FundamentalValueBase2):
 
     @property
@@ -267,6 +282,23 @@ def MeanReversionEx   (average               = mathutils.ewma(alpha = 0.15),
                 sideFunc    = FundamentalValueSide(orderBook, avg))
     
     r._alias = ["Generic", "MeanReversion"]
+    
+    return r
+
+def MeanReversionEx2  (average               = mathutils.ewma(alpha = 0.15),
+                       orderFactory          = order.MarketFactory, 
+                       volumeDistr           = mathutils.rnd.expovariate(1.), 
+                       creationIntervalDistr = mathutils.rnd.expovariate(1.)):
+
+    orderBook = orderbook.OfTrader()
+    avg = observable.Fold(observable.Price(orderBook), average)
+    
+    r = Generic2(orderFactory= orderFactory, 
+                volumeFunc  = volumeDistr, 
+                eventGen    = scheduler.Timer(creationIntervalDistr), 
+                sideFunc    = FundamentalValueSide(orderBook, avg))
+    
+    r._alias = ["Generic", "MeanReversion2"]
     
     return r
 
@@ -387,5 +419,22 @@ def DependencyEx      (bookToDependOn,
                 sideFunc    = FundamentalValueSide(orderBook, SignalValue(priceToDependOn)))
     
     r._alias = ["Generic", "Dependency"]
+    
+    return r
+
+def DependencyEx2     (bookToDependOn,
+                       factor                = mathutils.constant(1.),
+                       orderFactory          = order.MarketFactory, 
+                       volumeDistr           = mathutils.rnd.expovariate(1.)):
+
+    orderBook = orderbook.OfTrader()
+    priceToDependOn = observable.Price(bookToDependOn) 
+    
+    r = Generic2(orderFactory= orderFactory, 
+                volumeFunc  = volumeDistr, 
+                eventGen    = SignalEvent(priceToDependOn), 
+                sideFunc    = FundamentalValueSide(orderBook, SignalValue(priceToDependOn)))
+    
+    r._alias = ["Generic", "Dependency2"]
     
     return r
