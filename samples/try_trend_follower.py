@@ -67,13 +67,6 @@ def TrendFollower(graph, world, books):
                                  label="trendfollower", 
                                  timeseries = trader_ts())
 
-    trend_follower2 = trader.SASM(book_A, 
-                                 strategy.TrendFollower2(
-                                    average=mathutils.ewma(alpha),
-                                    volumeDistr = const(V)),
-                                 label="trendfollower2", 
-                                 timeseries = trader_ts())
-
     trend_follower_ex = trader.SASM(book_A, 
                                     strategy.TrendFollowerEx(
                                        average=mathutils.ewma(alpha),
@@ -81,14 +74,7 @@ def TrendFollower(graph, world, books):
                                     label="trendfollower_ex", 
                                     timeseries = trader_ts())
         
-    trend_follower_ex2 = trader.SASM(book_A, 
-                                    strategy.TrendFollowerEx2(
-                                       average=mathutils.ewma(alpha),
-                                       volumeDistr = const(V)),
-                                    label="trendfollower_ex 2", 
-                                    timeseries = trader_ts())
-        
-    return [lp_A, signal_trader, trend_follower, trend_follower2, trend_follower_ex, trend_follower_ex2], [price_graph, eff_graph, amount_graph]
+    return [lp_A, signal_trader, trend_follower, trend_follower_ex], [price_graph, eff_graph, amount_graph]
 
 if __name__ == '__main__':
     run("trend_follower", TrendFollower)

@@ -1,9 +1,10 @@
-from marketsim import trader, order, orderbook, scheduler, observable, order, registry, types, meta, bind, mathutils
+from marketsim import (trader, order, orderbook, scheduler, observable, order, 
+                       registry, types, meta, bind, mathutils)
 from copy import copy
 from marketsim.types import *
 
 from _basic import Strategy
-from _wrap import wrapper2, wrapper
+from _wrap import wrapper2
 from _fv import FundamentalValue
 
 class _tradeIfProfitable_Impl(Strategy):

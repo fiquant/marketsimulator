@@ -1,25 +1,11 @@
 from marketsim.types import *
 from marketsim import (orderbook, Event, observable, scheduler, order, mathutils, types, meta, 
                        registry, signal, bind)
-from _basic import TwoSides, TwoSides2, Strategy, Generic, Generic2
-from _wrap import wrapper, wrapper2
-
-class SignalBase2(TwoSides2):
-    
-    def _orderFunc(self):
-        threshold = self._threshold
-        value = self._signalFunc()
-        side = Side.Buy  if value > threshold else\
-               Side.Sell if value < -threshold else\
-               None
-        return (side, (self._volume(side),)) if side else None
-
+from _basic import TwoSides, Strategy, Generic
+from _wrap import wrapper2
 
 class SignalBase(TwoSides):
     
-    def __init__(self, trader):
-        TwoSides.__init__(self, trader)
-        
     def _orderFunc(self):
         threshold = self._threshold
         value = self._signalFunc()
@@ -28,7 +14,8 @@ class SignalBase(TwoSides):
                None
         return (side, (self._volume(side),)) if side else None
 
-class _Signal2_Impl(SignalBase2):
+
+class _Signal_Impl(SignalBase):
 
     @property
     def _eventGen(self):    
@@ -50,7 +37,7 @@ class _Signal2_Impl(SignalBase2):
     def _volume(self):
         return bind.Method(self, 'volumeDistr')
 
-exec wrapper2("Signal2", 
+exec wrapper2("Signal", 
              """ Signal strategy listens to some discrete signal
                  and when the signal becomes more than some threshold the strategy starts to buy. 
                  When the signal gets lower than -threshold the strategy starts to sell. 
@@ -75,42 +62,6 @@ exec wrapper2("Signal2",
               ('orderFactory',  'order.MarketFactory',          'Side -> Volume -> IOrder'),
               ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')], register=False)
 
-
-class _Signal_Impl(SignalBase):
-    
-    def __init__(self, trader, params):
-        self._eventGen = params.signal
-        self._threshold = params.threshold
-        self._orderFactoryT = params.orderFactory
-        self._signalFunc = params.signal
-        self._volume = bind.Method(params, 'volumeDistr')
-        
-        SignalBase.__init__(self, trader)
-
-exec wrapper("Signal", 
-             """ Signal strategy listens to some discrete signal
-                 and when the signal becomes more than some threshold the strategy starts to buy. 
-                 When the signal gets lower than -threshold the strategy starts to sell. 
-                 
-                 It has following parameters:
-
-                 |signal| 
-                      signal to be listened to
-                      
-                 |orderFactory| 
-                     order factory function (default: order.Market.T)
-                     
-                 |threshold| 
-                     threshold when the trader starts to act (default: 0.7)
-                     
-                 |volumeDistr| 
-                     defines volumes of orders to create 
-                     (default: exponential distribution with |lambda| = 1)
-             """,
-             [('signal',        'None',                         'IObservable'),  
-              ('threshold',     '0.7',                          'non_negative'),
-              ('orderFactory',  'order.MarketFactory',          'Side -> Volume -> IOrder'),
-              ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')], register=False)
 
 class SignalSide(object):
     """ Function determining side of a trade given a signal value.
@@ -185,23 +136,9 @@ def SignalEx(signal,
     
     return r
 
-def SignalEx2(signal, 
-             threshold      = 0, 
-             orderFactory   = order.MarketFactory, 
-             volumeDistr    = mathutils.rnd.expovariate(1.)):
-    
-    r = Generic2(sideFunc     = SignalSide(SignalValue(signal), threshold),
-                volumeFunc   = volumeDistr, 
-                orderFactory = orderFactory, 
-                eventGen     = SignalEvent(signal))  
-    
-    r._alias = ["Generic", 'Signal2']
-    
-    return r
-
 registry.startup.append(lambda instance: instance.insert(SignalEx(signal.RandomWalk())))
 
-class _TwoAverages2_Impl(SignalBase2):
+class _TwoAverages_Impl(SignalBase):
 
     @property
     def _eventGen(self):
@@ -220,7 +157,7 @@ class _TwoAverages2_Impl(SignalBase2):
         return self.orderFactory
         
     def bind(self, context):
-        SignalBase2.bind(self, context)
+        SignalBase.bind(self, context)
         price = observable.Price(self._trader.orderBook)
         self._average1 = observable.Fold(price, self.average1, self._scheduler)
         self._average2 = observable.Fold(price, self.average2, self._scheduler)
@@ -230,7 +167,7 @@ class _TwoAverages2_Impl(SignalBase2):
         avg2 = self._average2.value
         return avg1 - avg2 if avg1 is not None and avg2 is not None else None 
 
-exec wrapper2("TwoAverages2", 
+exec wrapper2("TwoAverages", 
              """ Two averages strategy compares two averages of price of the same asset but
                  with different parameters ('slow' and 'fast' averages) and when 
                  the first is greater than the second one it buys, 
@@ -268,64 +205,6 @@ exec wrapper2("TwoAverages2",
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)', '() -> Volume')])
 
   
-
-class _TwoAverages_Impl(SignalBase):
-    
-    def __init__(self, trader, params):
-        
-        self._eventGen = scheduler.Timer(params.creationIntervalDistr, params.world)
-        self._volume = bind.Method(params, 'volumeDistr')
-        self._threshold = params.threshold
-        self._orderFactoryT = params.orderFactory
-        
-        price = observable.Price(trader.orderBook)
-        self._average1 = observable.Fold(price, params.average1, params.world)
-        self._average2 = observable.Fold(price, params.average2, params.world)
-        
-        SignalBase.__init__(self, trader)
-        
-    def _signalFunc(self):
-        avg1 = self._average1.value
-        avg2 = self._average2.value
-        return avg1 - avg2 if avg1 is not None and avg2 is not None else None 
-
-exec wrapper("TwoAverages", 
-             """ Two averages strategy compares two averages of price of the same asset but
-                 with different parameters ('slow' and 'fast' averages) and when 
-                 the first is greater than the second one it buys, 
-                 when the first is lower than the second one it sells
-                 
-                 It has following parameters:
-
-                 |average1| 
-                      functional used to obtain the first average
-                      (defaut: expenentially weighted moving average with |alpha| = 0.15)
-                      
-                 |average2| 
-                      functional used to obtain the second average
-                      (defaut: expenentially weighted moving average with |alpha| = 0.015)
-                      
-                 |orderFactory| 
-                     order factory function (default: order.Market.T)
-                     
-                 |threshold| 
-                     threshold when the trader starts to act (default: 0.)
-                     
-                 |volumeDistr| 
-                     defines volumes of orders to create 
-                     (default: exponential distribution with |lambda| = 1)
-
-                 |creationIntervalDistr| 
-                     defines intervals of time between order creation 
-                     (default: exponential distribution with |lambda| = 1)                     
-             """,
-             [('average1',              'mathutils.ewma(alpha = 0.15)',  'IUpdatableValue'),
-              ('average2',              'mathutils.ewma(alpha = 0.015)', 'IUpdatableValue'),
-              ('threshold',             '0.',                            'non_negative'), 
-              ('orderFactory',          'order.MarketFactory',           'Side -> Volume -> IOrder'),
-              ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
-              ('volumeDistr',           'mathutils.rnd.expovariate(1.)', '() -> Volume')])
-
 def TwoAveragesEx(average1 = mathutils.ewma(alpha = 0.15), 
                   average2 = mathutils.ewma(alpha = 0.015), 
                   threshold             = 0, 
@@ -349,30 +228,7 @@ def TwoAveragesEx(average1 = mathutils.ewma(alpha = 0.15),
     
     return r
 
-def TwoAveragesEx2(average1 = mathutils.ewma(alpha = 0.15), 
-                  average2 = mathutils.ewma(alpha = 0.015), 
-                  threshold             = 0, 
-                  orderFactory          = order.MarketFactory, 
-                  creationIntervalDistr = mathutils.rnd.expovariate(1.), 
-                  volumeDistr           = mathutils.rnd.expovariate(1.)):
-    
-    orderBook = orderbook.OfTrader()
-    price = observable.Price(orderBook)
-    
-    r = Generic2(orderFactory= orderFactory, 
-                volumeFunc  = volumeDistr,
-                eventGen    = scheduler.Timer(creationIntervalDistr),
-                sideFunc    = SignalSide(
-                                 mathutils.sub(
-                                     observable.Fold(price, average1),
-                                     observable.Fold(price, average2)),
-                                 threshold))
-    
-    r._alias = ["Generic", 'TwoAverages2']
-    
-    return r
-
-class _TrendFollower2_Impl(SignalBase2):
+class _TrendFollower_Impl(SignalBase):
 
     @property
     def _eventGen(self): 
@@ -391,64 +247,12 @@ class _TrendFollower2_Impl(SignalBase2):
         return self.orderFactory
         
     def bind(self, context):
-        SignalBase2.bind(self, context)
+        SignalBase.bind(self, context)
         self._signalFunc = observable.Fold(observable.Price(self._trader.orderBook), 
                                            observable.derivative(self.average), 
                                            self._scheduler)
 
-exec wrapper2('TrendFollower2', 
-             """ Trend follower can be considered as a sort of a signal strategy 
-                 where the *signal* is a trend of the asset. 
-                 Under trend we understand the first derivative of some moving average of asset prices. 
-                 If the derivative is positive, the trader buys; if negative - it sells.
-                 Since moving average is a continuously changing signal, we check its
-                 derivative at random moments of time given by *creationIntervalDistr*. 
-                 
-                 It has following parameters:
-                
-                 |average| 
-                     moving average functional. By default, we use exponentially weighted
-                     moving average with |alpha| = 0.15.
-                     
-                 |orderFactory| 
-                     order factory function (default: order.Market.T)
-                     
-                 |threshold| 
-                     threshold when the trader starts to act (default: 0.)
-                     
-                 |creationIntervalDistr|
-                     defines intervals of time between order creation
-                     (default: exponential distribution with |lambda| = 1)
-                     
-                 |volumeDistr| 
-                     defines volumes of orders to create 
-                     (default: exponential distribution with |lambda| = 1)
-             """,
-             [('average',                'mathutils.ewma(alpha = 0.15)',  'IUpdatableValue'),
-              ('threshold',              '0.',                            'non_negative'), 
-              ('orderFactory',           'order.MarketFactory',           'Side -> Volume -> IOrder'),
-              ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
-              ('volumeDistr',            'mathutils.rnd.expovariate(1.)', '() -> Volume')])
-
-
-
-class _TrendFollower_Impl(SignalBase):
-    
-    def __init__(self, trader, params):
-        
-        self._eventGen = scheduler.Timer(params.creationIntervalDistr, params.world)
-        self._volume = bind.Method(params, 'volumeDistr')
-        self._threshold = params.threshold
-        self._orderFactoryT = params.orderFactory
-        
-        trend = observable.Fold(observable.Price(trader.orderBook), 
-                                observable.derivative(params.average), 
-                                params.world)
-        self._signalFunc = trend
-        
-        SignalBase.__init__(self, trader)
-
-exec wrapper('TrendFollower', 
+exec wrapper2('TrendFollower', 
              """ Trend follower can be considered as a sort of a signal strategy 
                  where the *signal* is a trend of the asset. 
                  Under trend we understand the first derivative of some moving average of asset prices. 
@@ -498,26 +302,6 @@ def TrendFollowerEx(average                 = mathutils.ewma(alpha = 0.15),
                 sideFunc    = SignalSide(trend, threshold))
     
     r._alias = ["Generic", 'TrendFollower']
-    
-    return r
-    
-
-def TrendFollowerEx2(average                 = mathutils.ewma(alpha = 0.15), 
-                    threshold               = 0., 
-                    orderFactory            = order.MarketFactory, 
-                    creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
-                    volumeDistr             = mathutils.rnd.expovariate(1.)):
-    
-    orderBook = orderbook.OfTrader()
-    trend = observable.Fold(observable.Price(orderBook), 
-                            observable.derivative(average))
-    
-    r = Generic2(orderFactory= orderFactory, 
-                volumeFunc  = volumeDistr,
-                eventGen    = scheduler.Timer(creationIntervalDistr),
-                sideFunc    = SignalSide(trend, threshold))
-    
-    r._alias = ["Generic", 'TrendFollower2']
     
     return r
     

@@ -44,13 +44,6 @@ def FundamentalValue(graph, world, books):
                      "fv_200", 
                      timeseries = trader_ts())
 
-    fv2 = trader.SASM(book_A, 
-                     strategy.FundamentalValue2(
-                        fundamentalValue = mathutils.constant(200),
-                        volumeDistr = mathutils.constant(1)), 
-                     "fv2_200", 
-                     timeseries = trader_ts())
-
     fv_ex = trader.SASM(book_A, 
                          strategy.FundamentalValueEx(
                             fundamentalValue = mathutils.constant(200),
@@ -58,14 +51,7 @@ def FundamentalValue(graph, world, books):
                          "fv_ex_200", 
                          timeseries = trader_ts())
         
-    fv_ex2 = trader.SASM(book_A, 
-                         strategy.FundamentalValueEx2(
-                            fundamentalValue = mathutils.constant(200),
-                            volumeDistr = mathutils.constant(1)), 
-                         "fv_ex2_200", 
-                         timeseries = trader_ts())
-        
-    return [lp_A, fv, fv2, fv_ex, fv_ex2], [price_graph, eff_graph, amount_graph]
+    return [lp_A, fv, fv_ex], [price_graph, eff_graph, amount_graph]
 
 if __name__ == '__main__':    
     run("fv_200_trader", FundamentalValue)
