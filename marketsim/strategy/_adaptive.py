@@ -10,20 +10,23 @@ class _tradeIfProfitable_Impl(Strategy):
 
     def _wakeUp_impl(self, _):
         if not self.suspended:
-            self.suspend(self._efficiency.value < 0)
+            self._strategy.suspend(self._efficiency.value < 0)
 
     def __init__(self):
         Strategy.__init__(self, None)
         
     def bind(self, context):
-        myTrader = context['$(Trader)']
+        myTrader = context.trader
         self._estimator_strategy = self.estimator(self.strategy)
         self._estimator = trader.SASM(orderbook.OfTrader(myTrader),
                                       self._estimator_strategy, 
                                       label = "estimator_"+myTrader.label)
-        self._estimator.bind(context)
+        context.bind(self._estimator)
+        
         self._strategy = self.strategy
         self._efficiency = self.efficiency(self._estimator)
+        
+        context.bind(self._efficiency)
         
         self._efficiency.on_changed += bind.Method(self, '_wakeUp_impl')
         
@@ -35,10 +38,6 @@ class _tradeIfProfitable_Impl(Strategy):
         Strategy.suspend(self, s)
         self._strategy.suspend(s)
         self._estimator_strategy.suspend(s)
-        
-    @property
-    def suspended(self):
-        return self._strategy.suspended
 
 @registry.expose(alias=["trader's efficiency trend"])
 @sig(args=(ISingleAssetTrader,), rv=ISingleAssetTrader)

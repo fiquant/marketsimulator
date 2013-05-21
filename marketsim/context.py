@@ -4,7 +4,7 @@ class Binder(object):
     
     def __init__(self, context = None, visited = None):
         self.__dict__['_visited'] = visited if visited else set()
-        self.__dict__['_context'] = context if context else {}
+        self.__dict__['_context'] = context.copy() if context else {}
         
     def __setattr__(self, item, value):
         self.__dict__['_context'][item] = value
