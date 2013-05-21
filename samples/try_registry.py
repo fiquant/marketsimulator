@@ -113,7 +113,8 @@ def Complete(graph, world, books):
 #                best,
 #                tf, tf_0_15, tf_0_015, 
                 meanreversion, avg_plus, avg_minus, v_fv200,
-                virtual_160, virtual_170, virtual_180, virtual_190
+                virtual_160, virtual_170, virtual_180, 
+                virtual_190
                ]
 
     return (traders + [t_A], [price_graph, eff_graph, amount_graph])
