@@ -139,10 +139,14 @@ def SignalEx(signal,
 registry.startup.append(lambda instance: instance.insert(SignalEx(signal.RandomWalk())))
 
 class _TwoAverages_Impl(SignalBase):
-
-    @property
-    def _eventGen(self):
-        return scheduler.Timer(self.creationIntervalDistr, self._scheduler)
+    
+    def __init__(self):
+        self._eventGen = scheduler.Timer(self.creationIntervalDistr)
+        SignalBase.__init__(self)
+        
+    def bind(self, context):
+        context.bind(self._eventGen)
+        SignalBase.bind(self, context)
     
     @property
     def _volume(self):
@@ -230,9 +234,14 @@ def TwoAveragesEx(average1 = mathutils.ewma(alpha = 0.15),
 
 class _TrendFollower_Impl(SignalBase):
 
-    @property
-    def _eventGen(self): 
-        return scheduler.Timer(self.creationIntervalDistr, self._scheduler)
+    def __init__(self):
+        self._eventGen = scheduler.Timer(self.creationIntervalDistr)
+        SignalBase.__init__(self)
+        
+    def bind(self, context):
+        context.bind(self._eventGen)
+        SignalBase.bind(self, context)
+    
     
     @property
     def _volume(self):

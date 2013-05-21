@@ -43,6 +43,9 @@ class RandomWalk(types.IObservable):
         
         self.reset()
         
+    def bind(self, context):
+        context.bind(self._timer)
+        
     _properties = { 'initialValue' : float, 
                     'deltaDistr'   : meta.function((), float), 
                     'intervalDistr': meta.function((), float)}
