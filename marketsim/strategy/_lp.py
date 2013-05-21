@@ -6,14 +6,18 @@ from marketsim.types import *
 
 class _LiquidityProviderSide_Impl(OneSide):
     
+    def __init__(self):
+        self._eventGen = scheduler.Timer(self.creationIntervalDistr)
+        OneSide.__init__(self)
+        
+    def bind(self, context):
+        context.bind(self._eventGen)
+        OneSide.bind(self, context)
+    
     @property
     def _orderFactory(self):
         return self.orderFactoryT(self.side)
     
-    @property
-    def _eventGen(self):
-        return scheduler.Timer(self.creationIntervalDistr, self._scheduler)
-        
     def _orderFunc(self):
         queue = self._trader.book.queue(self.side)
         currentPrice = queue.best.price if not queue.empty else\
@@ -283,14 +287,15 @@ class _Canceller_Impl(object):
         # orders created by trader
         self._elements = []
         self.wakeUp = bind.Method(self, '_wakeUp_impl')
+        self._eventGen = scheduler.Timer(self.cancellationIntervalDistr)
     
     def bind(self, context):
         trader = context.trader
         # start listening its orders sent
         trader.on_order_sent += bind.Method(self, 'process')
         self._book = orderbook.OfTrader(trader)
-        self._eventGen = scheduler.Timer(self.cancellationIntervalDistr, context.world)
         self._eventGen += self.wakeUp
+        context.bind(self._eventGen)
         
     def dispose(self):
         self._eventGen -= self.wakeUp

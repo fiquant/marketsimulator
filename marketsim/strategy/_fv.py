@@ -25,6 +25,14 @@ class FundamentalValueBase(SignalBase):
                None
 
 class _FundamentalValue_Impl(FundamentalValueBase):
+    
+    def __init__(self):
+        self._eventGen = scheduler.Timer(self.creationIntervalDistr)
+        FundamentalValueBase.__init__(self)
+        
+    def bind(self, context):
+        context.bind(self._eventGen)
+        FundamentalValueBase.bind(self, context)
 
     @property
     def _orderFactoryT(self):
@@ -33,10 +41,6 @@ class _FundamentalValue_Impl(FundamentalValueBase):
     @property
     def _fundamentalValue(self):
         return self.fundamentalValue  
-    
-    @property
-    def _eventGen(self):
-        return scheduler.Timer(self.creationIntervalDistr, self._scheduler)
         
     def _volume(self, side):
         return self.volumeDistr()
@@ -104,16 +108,17 @@ def FundamentalValueEx(fundamentalValue      = mathutils.constant(100.),
     return r
 
 class _MeanReversion_Impl(FundamentalValueBase):
+    
+    def __init__(self):
+        self._eventGen = scheduler.Timer(self.creationIntervalDistr)
+        FundamentalValueBase.__init__(self)
 
     @property
     def _orderFactoryT(self):
         return self.orderFactory
     
-    @property
-    def _eventGen(self): 
-        return scheduler.Timer(self.creationIntervalDistr, self._scheduler)
-    
     def bind(self, context):
+        context.bind(self._eventGen)
         FundamentalValueBase.bind(self, context)
         self._fundamentalValue = observable.Fold(observable.Price(self._trader.book), 
                                                  self.average, 
@@ -152,23 +157,6 @@ exec wrapper2("MeanReversion",
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')])
 
 
-
-def MeanReversionEx   (average               = mathutils.ewma(alpha = 0.15),
-                       orderFactory          = order.MarketFactory, 
-                       volumeDistr           = mathutils.rnd.expovariate(1.), 
-                       creationIntervalDistr = mathutils.rnd.expovariate(1.)):
-
-    orderBook = orderbook.OfTrader()
-    avg = observable.Fold(observable.Price(orderBook), average)
-    
-    r = Generic(orderFactory= orderFactory, 
-                volumeFunc  = volumeDistr, 
-                eventGen    = scheduler.Timer(creationIntervalDistr), 
-                sideFunc    = FundamentalValueSide(orderBook, avg))
-    
-    r._alias = ["Generic", "MeanReversion"]
-    
-    return r
 
 def MeanReversionEx   (average               = mathutils.ewma(alpha = 0.15),
                        orderFactory          = order.MarketFactory, 

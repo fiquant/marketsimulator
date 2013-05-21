@@ -152,13 +152,14 @@ class Timer(Event):
             intervals of time between moments when subscribed listeners are to be called  
     """
 
-    def __init__(self, intervalFunc, scheduler=None):
+    def __init__(self, intervalFunc):
         Event.__init__(self)
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
-        self._cancelled = False
-        self._scheduler = scheduler if scheduler else current()
-        assert self._scheduler is not None
         self.intervalFunc = intervalFunc
+        self._cancelled = False
+        
+    def bind(self, context):
+        self._scheduler = context.world
         self.schedule()
         
     _properties = { 'intervalFunc' : meta.function((), float) }

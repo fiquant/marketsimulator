@@ -122,10 +122,13 @@ class _chooseTheBest_Impl(Strategy):
         
         self._chooseTheBest = bind.Method(self, '_chooseTheBest_impl')
         Strategy.__init__(self, None)
+        self._eventGen = scheduler.Timer(mathutils.constant(10))
         
     def bind(self, context):
         myTrader = context.trader
         sched = context.world
+        
+        context.bind(self._eventGen)
         
         def _createInstance(sp):
             estimator_strategy = self.estimator(sp)
@@ -138,8 +141,6 @@ class _chooseTheBest_Impl(Strategy):
             return (sp, estimator, estimator_strategy, efficiency)
         
         self._strategies = [_createInstance(sp) for sp in self.strategies]
-        
-        self._eventGen = scheduler.Timer(mathutils.constant(10), sched)
         
         self._chooseTheBest = bind.Method(self, '_chooseTheBest_impl')
         self._eventGen.advise(self._chooseTheBest)

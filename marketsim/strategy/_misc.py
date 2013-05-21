@@ -4,14 +4,18 @@ from _wrap import wrapper2
 from marketsim.types import *
 
 class _Noise_Impl(TwoSides):
+    
+    def __init__(self):
+        self._eventGen = scheduler.Timer(self.creationIntervalDistr)
+        TwoSides.__init__(self)
+        
+    def bind(self, context):
+        context.bind(self._eventGen)
+        TwoSides.bind(self, context)
         
     @property
     def _orderFactoryT(self):
         return self.orderFactoryT
-    
-    @property
-    def _eventGen(self):
-        return scheduler.Timer(self.creationIntervalDistr, self._scheduler)
         
     def _orderFunc(self):
         conv = types.Side.byId
