@@ -142,9 +142,12 @@ class _TwoAverages_Impl(SignalBase):
     
     def __init__(self):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr)
+        price = observable.Price(orderbook.OfTrader())
+        self._average1 = observable.Fold(price, self.average1)
+        self._average2 = observable.Fold(price, self.average2)
         SignalBase.__init__(self)
         
-    _internals = ['_eventGen']
+    _internals = ['_eventGen', '_average1', '_average2']
         
     @property
     def _volume(self):
@@ -157,12 +160,6 @@ class _TwoAverages_Impl(SignalBase):
     @property
     def _orderFactoryT(self): 
         return self.orderFactory
-        
-    def bind(self, context):
-        SignalBase.bind(self, context)
-        price = observable.Price(self._trader.orderBook)
-        self._average1 = observable.Fold(price, self.average1, self._scheduler)
-        self._average2 = observable.Fold(price, self.average2, self._scheduler)
         
     def _signalFunc(self):
         avg1 = self._average1.value
@@ -234,9 +231,11 @@ class _TrendFollower_Impl(SignalBase):
 
     def __init__(self):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr)
+        self._signalFunc = observable.Fold(observable.Price(orderbook.OfTrader()), 
+                                           observable.derivative(self.average))
         SignalBase.__init__(self)
         
-    _internals = ['_eventGen']
+    _internals = ['_eventGen', '_signalFunc']
         
     @property
     def _volume(self):
@@ -250,12 +249,6 @@ class _TrendFollower_Impl(SignalBase):
     def _orderFactoryT(self):
         return self.orderFactory
         
-    def bind(self, context):
-        SignalBase.bind(self, context)
-        self._signalFunc = observable.Fold(observable.Price(self._trader.orderBook), 
-                                           observable.derivative(self.average), 
-                                           self._scheduler)
-
 exec wrapper2('TrendFollower', 
              """ Trend follower can be considered as a sort of a signal strategy 
                  where the *signal* is a trend of the asset. 

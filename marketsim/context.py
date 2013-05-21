@@ -20,7 +20,10 @@ class Binder(object):
         if typ is int or typ is float or typ is bool or typ is str:
             return 
         
-        if typ is list:
+        if typ is set:
+            for x in obj:
+                self.bind(x)
+        elif typ is list:
             for x in obj:
                 self.bind(x)
         else:

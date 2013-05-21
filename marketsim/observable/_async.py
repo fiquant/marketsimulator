@@ -22,9 +22,8 @@ class Efficiency(types.IObservable):
         
         self.reset()
         
-    def bind(self, context):
-        self._update()
-
+    _internals = ['on_changed']
+        
     def _callback_impl(self, sign, (price, volume_unmatched)): 
         if volume_unmatched == 0: 
             self._current = self._trader.PnL - sign*price

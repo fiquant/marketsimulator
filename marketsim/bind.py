@@ -15,6 +15,8 @@ class Method(object):
         self.methodname = methodname 
         self.args = args
         
+    _internals = ['methodname', 'args']
+        
     def __call__(self, *args):
         return getattr(self.obj, self.methodname)(*(self.args + args))
 

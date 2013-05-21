@@ -9,6 +9,8 @@ class Event(object):
         
     def reset(self):
         pass
+    
+    _internals = ['_listeners']
         
     def __iadd__(self, listener):
         """ Adds 'listener' to the listeners set
