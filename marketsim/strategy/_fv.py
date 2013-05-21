@@ -109,21 +109,17 @@ class _MeanReversion_Impl(FundamentalValueBase):
     
     def __init__(self):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr)
+        myBook = orderbook.OfTrader()
+        self._fundamentalValue = observable.Fold(observable.Price(myBook), 
+                                                 self.average)
         FundamentalValueBase.__init__(self)
 
     @property
     def _orderFactoryT(self):
         return self.orderFactory
 
-    _internals = ['_eventGen']
-        
+    _internals = ['_eventGen', '_fundamentalValue']
     
-    def bind(self, context):
-        FundamentalValueBase.bind(self, context)
-        self._fundamentalValue = observable.Fold(observable.Price(self._trader.book), 
-                                                 self.average, 
-                                                 self._scheduler)
-        
     @property
     def _volume(self): 
         return bind.Method(self, 'volumeDistr')  

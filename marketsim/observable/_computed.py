@@ -25,9 +25,6 @@ class IndicatorBase(types.IObservable):
     def label(self):
         return self._dataSource.label
     
-    def bind(self, context):
-        self()
-        
     _properties = { 'dataSource'   : meta.function((), float),
                     'eventSources' : meta.listOf(Event) }
     
