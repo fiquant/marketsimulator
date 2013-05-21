@@ -34,6 +34,32 @@ def properties(obj):
     
     return rv            
                 
+def internals(obj):
+    
+    cls = type(obj)
+    rv = set()
+    assert inspect.isclass(cls), "only classes may have properties - functions are considered as literals"
+    bases = inspect.getmro(cls)
+    
+    for base in reversed(bases):
+        if '_internals' in dir(base):
+            for x in base._internals:
+                rv.add(x)
+                
+    return rv            
+
+
+def properties(obj):
+    cls = type(obj)
+    rv = properties_t(cls)
+    
+    if '_properties' in dir(obj):
+        if obj._properties:
+            for k,v in obj._properties.iteritems():
+                rv[k] = v 
+    
+    return rv            
+                
 def getCtor(obj): 
     if '_constructAs' in dir(obj):
         ctor = obj._constructAs
