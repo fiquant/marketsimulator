@@ -117,22 +117,32 @@ class _chooseTheBest_Impl(Strategy):
                 if efficiency.value != best:
                     self._current = strategy
         
-    def __init__(self, aTrader, params):
+    def __init__(self):
+        
+        self._chooseTheBest = bind.Method(self, '_chooseTheBest_impl')
+        Strategy.__init__(self, None)
+        
+    def bind(self, context):
+        myTrader = context.trader
+        sched = context.world
         
         def _createInstance(sp):
-            estimator = trader.SASM(aTrader.orderBook, label = "estimator_"+aTrader.label)
-            efficiency = params.efficiency(estimator)
+            estimator_strategy = self.estimator(sp)
+            estimator = trader.SASM(orderbook.OfTrader(myTrader),estimator_strategy)
+            context.bind(estimator)
+            
+            efficiency = self.efficiency(estimator)
+            context.bind(efficiency)
+            
             return (sp, estimator, estimator_strategy, efficiency)
         
-        self._strategies = [_createInstance(sp) for sp in params.strategies]
+        self._strategies = [_createInstance(sp) for sp in self.strategies]
         
-        self._eventGen = scheduler.Timer(intervalFunc=mathutils.constant(1))
+        self._eventGen = scheduler.Timer(mathutils.constant(10), sched)
         
         self._chooseTheBest = bind.Method(self, '_chooseTheBest_impl')
         self._eventGen.advise(self._chooseTheBest)
         self._current = None
-            
-        Strategy.__init__(self, aTrader)
 
     def dispose(self):
         self._eventGen.unadvise(self._chooseTheBest)
@@ -147,11 +157,7 @@ class _chooseTheBest_Impl(Strategy):
         for (_, _, estimator_strategy, _) in self._strategies:
             estimator_strategy.suspend(s)
             
-    @property
-    def suspended(self):
-        return not self._current or self._current.suspended
-
-exec wrapper("chooseTheBest",
+exec wrapper2("chooseTheBest",
              """ A composite strategy initialized with an array of strategies. 
                  In some moments of time the most effective strategy 
                  is chosen and made running; other strategies are suspended.
