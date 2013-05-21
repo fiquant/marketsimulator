@@ -105,7 +105,7 @@ class WithExpiryFactory(object):
         self.orderFactory = orderFactory
         
     def bind(self, context):
-        self._scheduler = context["world"]
+        self._scheduler = context.world
         
     _types = [LimitOrderFactorySignature]
         

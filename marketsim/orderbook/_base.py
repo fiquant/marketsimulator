@@ -19,8 +19,8 @@ class BookBase(types.IOrderBook):
         self._asks.on_best_changed += self.on_price_changed
         self.reset()
         
-    def bindingContext(self):
-        return { '$(OrderBook)' : self }
+    def updateContext(self, context):
+        context.orderbook = self
         
     def reset(self):
         self._bids.reset()

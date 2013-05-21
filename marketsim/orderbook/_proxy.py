@@ -68,8 +68,8 @@ class Proxy(Base):
         
     _properties = {}
         
-    def bind(self, variables):
-        impl = variables['$(OrderBook)']
+    def bind(self, context):
+        impl = context.orderbook
         if not self._impl or not impl:
             if self._impl: 
                 self._impl.on_price_changed -= self.on_price_changed

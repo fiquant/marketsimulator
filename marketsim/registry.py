@@ -7,7 +7,7 @@ from functools import reduce
 
 from marketsim import Side, meta, types, js, utils, prop
 
-startup = []    
+startup = []   
 
 def properties_t(cls):
     
@@ -362,43 +362,6 @@ class Registry(object):
             for propname in propnames.iterkeys():
                 self.assureAllReferencedAreRegistred(getattr(obj, propname), visited)
                 
-    def bindVariables(self, obj, variables = {}, visited = None):        
-        typ = type(obj)
-        if typ is int or typ is float or typ is bool or typ is str:
-            return 
-        
-        if visited is None:
-            visited = set()
-        
-        if typ is list:
-            for x in obj:
-                self.bindVariables(x, variables, visited)
-        else:
-            if obj in visited:
-                return
-            
-            visited.add(obj)
-            
-            propnames = properties(obj)
-            if propnames is None:
-                propnames = {}
-                
-            if 'bindingContext' in dir(obj):
-                childVariables = variables.copy()
-                for (k, v) in obj.bindingContext().iteritems():
-                    childVariables[k] = v
-            else: 
-                childVariables = variables
-                
-            for propname in propnames.iterkeys():
-                if propname[0] != '_':
-                    self.bindVariables(getattr(obj, propname), childVariables, visited)
-                
-            if 'bind' in dir(obj):
-                if '_bound' not in dir(obj):
-                    obj.bind(variables)
-                    obj._bound = True
-
     def ofType(self, prefix):
         return [k for (k,v) in self._id2obj.iteritems()\
                  if (getCtor(v).startswith(prefix)\

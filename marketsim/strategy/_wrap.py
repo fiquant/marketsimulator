@@ -53,8 +53,8 @@ class %(name)s(object):
         return %(name)s(%(withrv)s)
         
     def bind(self, context):
-        self._trader = context["$(Trader)"]
-        self.world = context['world']
+        self._trader = context.trader
+        self.world = context.world
         self._respawn()
 """
 

@@ -3,7 +3,7 @@ import sys, os, json, time, cPickle as pickle, weakref
 sys.path.append(r'..')
 sys.setrecursionlimit(10000)
 
-from marketsim import (strategy, orderbook, trader, order, js, signal, remote,
+from marketsim import (strategy, orderbook, trader, order, js, signal, remote, context,
                        scheduler, observable, veusz, mathutils, registry, translations)
 
 from marketsim.types import Side
@@ -307,7 +307,7 @@ def update():
     save_current_workspace()
     
     if 'limitTime' in parsed:
-        w.registry.bindVariables(w.registry.get(w.root),  { "world" : w.world })
+        context.Binder({ "world" : w.world }).bind(w.registry.get(w.root))
         limitTime = parsed['limitTime']
         timeout = parsed["timeout"]
         run(w.world, timeout, limitTime)

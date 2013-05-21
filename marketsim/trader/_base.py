@@ -20,8 +20,8 @@ class Base(timeserie.Holder):
         self._onOrderMatched = bind.Method(self, '_onOrderMatched_impl')
         self.reset()
         
-    def bindingContext(self):
-        return { '$(Trader)' : self }
+    def updateContext(self, context):
+        context.trader = self
                 
     def reset(self):   
         self._PnL = 0 

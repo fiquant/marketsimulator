@@ -1,9 +1,9 @@
-from marketsim import trader, order, scheduler, observable, order, registry, types, meta, bind, mathutils
+from marketsim import trader, order, orderbook, scheduler, observable, order, registry, types, meta, bind, mathutils
 from copy import copy
 from marketsim.types import *
 
 from _basic import Strategy
-from _wrap import wrapper
+from _wrap import wrapper2, wrapper
 from _fv import FundamentalValue
 
 class _tradeIfProfitable_Impl(Strategy):
@@ -12,16 +12,20 @@ class _tradeIfProfitable_Impl(Strategy):
         if not self.suspended:
             self.suspend(self._efficiency.value < 0)
 
-    def __init__(self, aTrader, params):
+    def __init__(self):
+        Strategy.__init__(self, None)
         
-        self._strategy = params.strategy.With()
-        self._estimator = trader.SASM(aTrader.orderBook, label = "estimator_"+aTrader.label)
-                                                         
-        self._efficiency = params.efficiency(self._estimator)
+    def bind(self, context):
+        myTrader = context['$(Trader)']
+        self._estimator_strategy = self.estimator(self.strategy)
+        self._estimator = trader.SASM(orderbook.OfTrader(myTrader),
+                                      self._estimator_strategy, 
+                                      label = "estimator_"+myTrader.label)
+        self._estimator.bind(context)
+        self._strategy = self.strategy
+        self._efficiency = self.efficiency(self._estimator)
         
         self._efficiency.on_changed += bind.Method(self, '_wakeUp_impl')
-        
-        Strategy.__init__(self, aTrader)
         
     def dispose(self):
         self._strategy.dispose()
@@ -50,7 +54,7 @@ def virtualWithUnitVolume(strategy):
     """
     return strategy.With(volumeDistr=mathutils.constant(1), orderFactory=order.VirtualMarketFactory)    
 
-exec wrapper("tradeIfProfitable", 
+exec wrapper2("tradeIfProfitable", 
              "",
              [('strategy',   'FundamentalValue()',    'IStrategy'), 
               ('efficiency', 'efficiencyTrend',       'ISingleAssetTrader -> ISingleAssetTrader'),

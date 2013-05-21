@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'..')
 
-from marketsim import orderbook, scheduler, veusz, registry
+from marketsim import orderbook, scheduler, veusz, registry, context
 
 def run(name, constructor):
     with scheduler.create() as world:
@@ -15,7 +15,7 @@ def run(name, constructor):
         root = registry.Simulation(traders, list(books.itervalues()), graphs)
         r.insert(root)
         r.pushAllReferences()
-        r.bindVariables(root, { 'world' : world })
+        context.Binder({'world' : world }).bind(root)
         
         world.workTill(500)
         
