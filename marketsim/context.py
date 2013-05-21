@@ -1,4 +1,4 @@
-from marketsim.registry import properties
+from marketsim.registry import properties, internals
 
 class Binder(object):
     
@@ -42,6 +42,9 @@ class Binder(object):
             for propname in propnames.iterkeys():
                 if propname[0] != '_':
                     childContext.bind(getattr(obj, propname))
+                
+            for propname in internals(obj):
+                childContext.bind(getattr(obj, propname))
                 
             if 'bind' in dir(obj):
                 if '_bound' not in dir(obj):

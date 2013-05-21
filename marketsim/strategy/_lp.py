@@ -10,10 +10,8 @@ class _LiquidityProviderSide_Impl(OneSide):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr)
         OneSide.__init__(self)
         
-    def bind(self, context):
-        context.bind(self._eventGen)
-        OneSide.bind(self, context)
-    
+    _internals = ['_eventGen']
+        
     @property
     def _orderFactory(self):
         return self.orderFactoryT(self.side)
@@ -148,9 +146,8 @@ class _LiquidityProvider_Impl(Strategy):
         self._sell = LiquidityProviderSide(**sp)
         self._buy = LiquidityProviderSide(**bp)
 
-    def bind(self, context):
-        context.bind(self._sell)
-        context.bind(self._buy)
+    _internals = ['_sell', '_buy']
+        
         
     def reset(self):
         self._sell.reset()
@@ -289,13 +286,14 @@ class _Canceller_Impl(object):
         self.wakeUp = bind.Method(self, '_wakeUp_impl')
         self._eventGen = scheduler.Timer(self.cancellationIntervalDistr)
     
+    _internals = ['_eventGen']
+        
     def bind(self, context):
         trader = context.trader
         # start listening its orders sent
         trader.on_order_sent += bind.Method(self, 'process')
         self._book = orderbook.OfTrader(trader)
         self._eventGen += self.wakeUp
-        context.bind(self._eventGen)
         
     def dispose(self):
         self._eventGen -= self.wakeUp

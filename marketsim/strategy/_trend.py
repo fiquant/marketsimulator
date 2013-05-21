@@ -144,10 +144,8 @@ class _TwoAverages_Impl(SignalBase):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr)
         SignalBase.__init__(self)
         
-    def bind(self, context):
-        context.bind(self._eventGen)
-        SignalBase.bind(self, context)
-    
+    _internals = ['_eventGen']
+        
     @property
     def _volume(self):
         return bind.Method(self, 'volumeDistr')
@@ -238,11 +236,8 @@ class _TrendFollower_Impl(SignalBase):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr)
         SignalBase.__init__(self)
         
-    def bind(self, context):
-        context.bind(self._eventGen)
-        SignalBase.bind(self, context)
-    
-    
+    _internals = ['_eventGen']
+        
     @property
     def _volume(self):
         return bind.Method(self, 'volumeDistr')

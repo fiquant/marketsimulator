@@ -9,9 +9,7 @@ class _Noise_Impl(TwoSides):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr)
         TwoSides.__init__(self)
         
-    def bind(self, context):
-        context.bind(self._eventGen)
-        TwoSides.bind(self, context)
+    _internals = ['_eventGen']
         
     @property
     def _orderFactoryT(self):
