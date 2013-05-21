@@ -1,10 +1,10 @@
 import random
-from _basic import OneSide, OneSide2, Strategy, Generic, Generic2
+from _basic import OneSide, Strategy, Generic
 from _wrap import merge, wrapper, wrapper2
 from marketsim import order, orderbook, scheduler, mathutils, types, registry, bind, meta
 from marketsim.types import *
 
-class _LiquidityProviderSide2_Impl(OneSide2):
+class _LiquidityProviderSide_Impl(OneSide):
     
     @property
     def _orderFactory(self):
@@ -24,71 +24,10 @@ class _LiquidityProviderSide2_Impl(OneSide2):
         return (price, volume)
     
     def dispose(self):
-        OneSide2.dispose(self)
-        self._eventGen.cancel()
-
-exec wrapper2("LiquidityProviderSide2",
-             """ Liquidity provider for one side has followng parameters:
-
-                 |side|
-                     side of orders to create (default: Side.Sell)
-                     
-                 |orderFactory| 
-                     order factory function (default: order.Limit.T)
-                     
-                 |initialValue| 
-                     initial price which is taken if orderBook is empty (default: 100)
-                     
-                 |creationIntervalDistr|
-                     defines intervals of time between order creation 
-                     (default: exponential distribution with |lambda| = 1)
-                     
-                 |priceDistr|
-                     defines multipliers for current asset price when price of
-                     order to create is calculated (default: log normal distribution with 
-                     |mu| = 0 and |sigma| = 0.1)
-                     
-                 |volumeDistr| 
-                     defines volumes of orders to create 
-                     (default: exponential distribution with |lambda| = 1)
-
-                 It wakes up in moments of time given by *creationIntervalDistr*, checks
-                 the last best price of orders in the corresponding queue, takes *initialValue*
-                 if it is empty, multiplies it by a value taken from *priceDistr* to obtain price
-                 of the order to create, calculates order volume using *volumeDistr*, creates
-                 an order via *orderFactoryT(side)* and tells the trader to send it.
-             """,
-             [('side',                  'Side.Sell',                            'Side'),
-              ('orderFactoryT',         'order.LimitFactory',                   'Side -> (Price, Volume) -> IOrder'),
-              ('defaultValue',          '100',                                  'Price'),
-              ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
-              ('priceDistr',            'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
-              ('volumeDistr',           'mathutils.rnd.expovariate(1.)',        '() -> Volume')])
-
-
-class _LiquidityProviderSide_Impl(OneSide):
-
-    def __init__(self, trader, params):
-        self._params = params
-        self._orderFactory = params.orderFactoryT(params.side)
-        self._queue = trader.book.queue(params.side)
-        self._eventGen = scheduler.Timer(params.creationIntervalDistr, params.world)
-        
-        OneSide.__init__(self, trader)
-        
-    def _orderFunc(self):
-        currentPrice = self._queue.best.price if not self._queue.empty else\
-                       self._queue.lastPrice if self._queue.lastPrice is not None else\
-                       self._params.defaultValue
-        price = currentPrice * self._params.priceDistr()
-        volume = int(self._params.volumeDistr())
-        return (price, volume)
-    
-    def dispose(self):
         OneSide.dispose(self)
         self._eventGen.cancel()
-        
-exec wrapper("LiquidityProviderSide",
+
+exec wrapper2("LiquidityProviderSide",
              """ Liquidity provider for one side has followng parameters:
 
                  |side|
@@ -125,12 +64,13 @@ exec wrapper("LiquidityProviderSide",
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
               ('priceDistr',            'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)',        '() -> Volume')])
+
 
 class ConstantSide(object):
     """ Constant function always returning given *side*. 
     
     Note: We need it since our type system doesn't support for the moment generic
-    Constant: 'a -> 'a
+    Constant: () -> 'a
     """
     
     def __init__(self, side = Side.Sell):
@@ -167,27 +107,6 @@ class SafeSidePrice(object):
                queue.lastPrice if queue.lastPrice is not None else\
                self.defaultValue
 
-def LiquidityProviderSideEx2(side                    = Side.Sell, 
-                            orderFactory            = order.LimitFactory, 
-                            defaultValue            = 100., 
-                            creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
-                            priceDistr              = mathutils.rnd.lognormvariate(0., .1), 
-                            volumeDistr             = mathutils.rnd.expovariate(1.)):
-       
-    orderBook = orderbook.OfTrader()
-    r = Generic2(eventGen    = scheduler.Timer(creationIntervalDistr),
-                volumeFunc  = volumeDistr, 
-                sideFunc    = ConstantSide(side),
-                orderFactory= order.AdaptLimit(orderFactory,
-                                               mathutils.product( 
-                                                  SafeSidePrice(orderBook, side, defaultValue), 
-                                                  priceDistr)))
-    
-    r._alias = ["Generic", 'LiquidityProviderSide2']
-    
-    return r
-        
-
 def LiquidityProviderSideEx(side                    = Side.Sell, 
                             orderFactory            = order.LimitFactory, 
                             defaultValue            = 100., 
@@ -207,6 +126,7 @@ def LiquidityProviderSideEx(side                    = Side.Sell,
     r._alias = ["Generic", 'LiquidityProviderSide']
     
     return r
+        
 
 def merge_dict(d, **kwargs):
     ret = d.copy()
@@ -215,14 +135,14 @@ def merge_dict(d, **kwargs):
     return ret
 
 
-class _LiquidityProvider2_Impl(Strategy):
+class _LiquidityProvider_Impl(Strategy):
     def __init__(self):
         Strategy.__init__(self, None)
         props = { k : getattr(self, k) for k in self._properties.iterkeys() }
         sp = merge_dict(props, side=Side.Sell)
         bp = merge_dict(props, side=Side.Buy) 
-        self._sell = LiquidityProviderSide2(**props)
-        self._buy = LiquidityProviderSide2(**props)
+        self._sell = LiquidityProviderSide(**sp)
+        self._buy = LiquidityProviderSide(**bp)
 
     def bind(self, context):
         context.bind(self._sell)
@@ -247,7 +167,7 @@ class _LiquidityProvider2_Impl(Strategy):
         self._sell.dispose()
         self._buy.dispose()
 
-exec wrapper2('LiquidityProvider2',
+exec wrapper2('LiquidityProvider',
              """ Liquidity provider is a combination of two LiquidityProviderSide traders 
                  with the same parameters but different trading sides. 
                  
@@ -278,66 +198,7 @@ exec wrapper2('LiquidityProvider2',
              ('priceDistr',             'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
              ('volumeDistr',            'mathutils.rnd.expovariate(.1)',        '() -> Volume')])
 
-class _LiquidityProvider_Impl(Strategy):
-    def __init__(self, trader, params):
-        Strategy.__init__(self, trader)
-        sp = merge(params, side=Side.Sell)
-        bp = merge(params, side=Side.Buy) 
-        self._sell = _LiquidityProviderSide_Impl(trader, sp)
-        self._buy = _LiquidityProviderSide_Impl(trader, bp)
-        
-    def reset(self):
-        self._sell.reset()
-        self._buy.reset()
-    
-    def suspend(self, s):
-        Strategy.suspend(self, s)
-        self._sell.suspend(s)
-        self._buy.suspend(s)
-        
-    @property
-    def suspended(self):
-        assert self._sell.suspended == self._suspended
-        assert self._buy.suspended == self._suspended
-        return Strategy.suspended(self)
-    
-    def dispose(self):
-        self._sell.dispose()
-        self._buy.dispose()
-
-exec wrapper('LiquidityProvider',
-             """ Liquidity provider is a combination of two LiquidityProviderSide traders 
-                 with the same parameters but different trading sides. 
-                 
-                 It has followng parameters:
-
-                 |orderFactory| 
-                     order factory function (default: order.Limit.T)
-                     
-                 |initialValue| 
-                     initial price which is taken if orderBook is empty (default: 100)
-                     
-                 |creationIntervalDistr|
-                     defines intervals of time between order creation 
-                     (default: exponential distribution with |lambda| = 1)
-                     
-                 |priceDistr|
-                     defines multipliers for current asset price when price of
-                     order to create is calculated (default: log normal distribution with 
-                     |mu| = 0 and |sigma| = 0.1)
-                     
-                 |volumeDistr| 
-                     defines volumes of orders to create 
-                     (default: exponential distribution with |lambda| = 1)
-            """,  
-            [('orderFactoryT',          'order.LimitFactory',                   'Side -> (Price, Volume) -> IOrder'),
-             ('defaultValue',           '100',                                  'Price'),
-             ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
-             ('priceDistr',             'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
-             ('volumeDistr',            'mathutils.rnd.expovariate(.1)',        '() -> Volume')])
-
-
-class _StrategyArray2_Impl(Strategy):
+class _StrategyArray_Impl(Strategy):
     
     def __init__(self):
         Strategy.__init__(self, None)
@@ -364,59 +225,7 @@ class _StrategyArray2_Impl(Strategy):
             assert s.suspended == self._suspended
         return Strategy.suspended(self)
     
-exec wrapper2('StrategyArray2', "", [('strategies', '[LiquidityProvider2()]', 'meta.listOf(IStrategy)')])
-
-class _StrategyArray_Impl(Strategy):
-    
-    def __init__(self, trader, params):
-        Strategy.__init__(self, trader)
-        self.strategies = params.strategies
-            
-    def reset(self):
-        for s in self.strategies:
-            s.reset()
-    
-    def dispose(self):
-        for s in self.strategies:
-            s.dispose()
-
-    def suspend(self, flag):
-        Strategy.suspend(self, flag)
-        for s in self.strategies:
-            s.suspend(flag)
-
-    @property
-    def suspended(self):
-        for s in self.strategies:
-            assert s.suspended == self._suspended
-        return Strategy.suspended(self)
-    
-exec wrapper('StrategyArray', "", [('strategies', '[LiquidityProvider()]', 'meta.listOf(IStrategy)')])
-
-def LiquidityProviderEx2   (orderFactory            = order.LimitFactory, 
-                            defaultValue            = 100., 
-                            creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
-                            priceDistr              = mathutils.rnd.lognormvariate(0., .1), 
-                            volumeDistr             = mathutils.rnd.expovariate(1.)):
-
-    orderBook = orderbook.OfTrader()
-
-    def create(side):
-        return LiquidityProviderSideEx2(side, 
-                                       orderFactory, 
-                                       defaultValue, 
-                                       creationIntervalDistr, 
-                                       priceDistr, 
-                                       volumeDistr)
-
-    r = StrategyArray2([
-            create(Side.Sell),
-            create(Side.Buy)
-        ])
-    
-    r._alias = ["Generic", 'LiquidityProvider2']
-    
-    return r
+exec wrapper2('StrategyArray', "", [('strategies', '[LiquidityProvider()]', 'meta.listOf(IStrategy)')])
 
 def LiquidityProviderEx    (orderFactory            = order.LimitFactory, 
                             defaultValue            = 100., 
@@ -469,17 +278,18 @@ class _Canceller_Impl(object):
                 self._book.process(order.Cancel(e))
                 return
 
-    def __init__(self, trader, params):
+    def __init__(self):
 
         # orders created by trader
         self._elements = []
-
+        self.wakeUp = bind.Method(self, '_wakeUp_impl')
+    
+    def bind(self, context):
+        trader = context.trader
         # start listening its orders sent
         trader.on_order_sent += bind.Method(self, 'process')
-        self.wakeUp = bind.Method(self, '_wakeUp_impl')
-        
-        self._book = trader.book
-        self._eventGen = scheduler.Timer(params.cancellationIntervalDistr, params.world)
+        self._book = orderbook.OfTrader(trader)
+        self._eventGen = scheduler.Timer(self.cancellationIntervalDistr, context.world)
         self._eventGen += self.wakeUp
         
     def dispose(self):
@@ -493,6 +303,6 @@ class _Canceller_Impl(object):
         """
         self._elements.append(order)
 
-exec wrapper("Canceller",
+exec wrapper2("Canceller",
              "",
              [('cancellationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')])

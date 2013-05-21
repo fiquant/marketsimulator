@@ -41,16 +41,10 @@ def Noise(graph, world, books):
     noise_trader = trader.SASM(book_A, strategy.Noise(), "noise", 
                                timeseries = trader_ts())
     
-    noise_trader2 = trader.SASM(book_A, strategy.Noise2(), "noise2", 
-                               timeseries = trader_ts())
-    
     noise_ex_trader = trader.SASM(book_A, strategy.NoiseEx(), "noise_ex", 
                                   timeseries = trader_ts())
         
-    noise_ex_trader2 = trader.SASM(book_A, strategy.NoiseEx2(), "noise_ex2", 
-                                  timeseries = trader_ts())
-        
-    return [lp_A, noise_trader, noise_trader2, noise_ex_trader, noise_ex_trader2], [price_graph, eff_graph, amount_graph]
+    return [lp_A, noise_trader, noise_ex_trader], [price_graph, eff_graph, amount_graph]
 
 
 if __name__ == '__main__':    
