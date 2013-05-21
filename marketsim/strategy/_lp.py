@@ -223,9 +223,10 @@ class _LiquidityProvider2_Impl(Strategy):
         bp = merge_dict(props, side=Side.Buy) 
         self._sell = LiquidityProviderSide2(**props)
         self._buy = LiquidityProviderSide2(**props)
-        
-    _properties = { '_sell' : types.IStrategy,
-                    '_buy'  : types.IStrategy }
+
+    def bind(self, context):
+        context.bind(self._sell)
+        context.bind(self._buy)
         
     def reset(self):
         self._sell.reset()
@@ -342,7 +343,7 @@ class _StrategyArray2_Impl(Strategy):
         Strategy.__init__(self, None)
             
     def bind(self, context):
-        self._trader = context['$(Trader)']
+        self._trader = context.trader
 
     def reset(self):
         for s in self.strategies:

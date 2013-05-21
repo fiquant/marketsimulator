@@ -68,8 +68,8 @@ class TwoSides2(Strategy):
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
         
     def bind(self, context):
-        self._trader = context['$(Trader)']
-        self._scheduler = context['world']    
+        self._trader = context.trader
+        self._scheduler = context.world    
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
         
@@ -113,8 +113,8 @@ class _Generic2_Impl(Strategy):
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
         
     def bind(self, context):
-        self._trader = context['$(Trader)']
-        self._scheduler = context['world']    
+        self._trader = context.trader
+        self._scheduler = context.world 
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
 
@@ -290,8 +290,8 @@ class OneSide2(Strategy):
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
 
     def bind(self, context):
-        self._trader = context['$(Trader)']
-        self._scheduler = context['world']    
+        self._trader = context.trader
+        self._scheduler = context.world    
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
         
