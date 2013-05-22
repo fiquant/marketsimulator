@@ -17,7 +17,7 @@ def merge_dict(d, **kwargs):
 
 class _LiquidityProvider_Impl(Strategy):
     def __init__(self):
-        Strategy.__init__(self, None)
+        Strategy.__init__(self)
         props = { k : getattr(self, k) for k in self._properties.iterkeys() }
         sp = merge_dict(props, side=Side.Sell)
         bp = merge_dict(props, side=Side.Buy) 

@@ -16,19 +16,7 @@ class _TwoAverages_Impl(SignalBase):
         self._average2 = observable.Fold(price, self.average2)
         SignalBase.__init__(self)
         
-    _internals = ['_eventGen', '_average1', '_average2']
-        
-    @property
-    def _volume(self):
-        return bind.Method(self, 'volumeDistr')
-    
-    @property
-    def _threshold(self): 
-        return self.threshold
-    
-    @property
-    def _orderFactoryT(self): 
-        return self.orderFactory
+    _internals = ['_average1', '_average2']
         
     def _signalFunc(self):
         avg1 = self._average1.value

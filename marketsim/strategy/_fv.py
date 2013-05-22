@@ -10,7 +10,7 @@ from marketsim.types import *
 class FundamentalValueBase(SignalBase):
 
     @property
-    def _threshold(self):
+    def threshold(self):
         return 0.
     
     def _signalFunc(self):
@@ -30,18 +30,9 @@ class _FundamentalValue_Impl(FundamentalValueBase):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr)
         FundamentalValueBase.__init__(self)
         
-    _internals = ['_eventGen']
-        
-    @property
-    def _orderFactoryT(self):
-        return self.orderFactory
-    
     @property
     def _fundamentalValue(self):
         return self.fundamentalValue  
-        
-    def _volume(self, side):
-        return self.volumeDistr()
 
 exec  wrapper2("FundamentalValue", 
              """ Fundamental value strategy believes that an asset should have some specific price 

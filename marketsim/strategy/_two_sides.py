@@ -10,11 +10,13 @@ class TwoSides(Strategy):
         eventGen - event generator to be listened - we'll use its advise method to subscribe to
         orderFunc - function to calculate order parameters: Trader -> None | (side,*orderParams) 
         """        
-        Strategy.__init__(self, None)
+        Strategy.__init__(self)
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
-        
+
+    _internals = ['_eventGen']
+
     def reset(self):
         self._eventGen.schedule()
         
@@ -29,7 +31,7 @@ class TwoSides(Strategy):
         if res <> None:
             (side, params) = res
             # create order given side and parameters
-            order = self._orderFactoryT(side)(*params)
+            order = self.orderFactory(side)(*params)
             # send order to the order book
             self._trader.send(order)
 

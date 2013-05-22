@@ -18,15 +18,7 @@ class _MeanReversion_Impl(FundamentalValueBase):
                                                  self.average)
         FundamentalValueBase.__init__(self)
 
-    @property
-    def _orderFactoryT(self):
-        return self.orderFactory
-
-    _internals = ['_eventGen', '_fundamentalValue']
-    
-    @property
-    def _volume(self): 
-        return bind.Method(self, 'volumeDistr')  
+    _internals = ['_fundamentalValue']
 
 exec wrapper2("MeanReversion",
              """ Mean reversion strategy believes that asset price should return to its average value.

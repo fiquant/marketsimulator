@@ -14,20 +14,8 @@ class _TrendFollower_Impl(SignalBase):
                                            observable.derivative(self.average))
         SignalBase.__init__(self)
         
-    _internals = ['_eventGen', '_signalFunc']
-        
-    @property
-    def _volume(self):
-        return bind.Method(self, 'volumeDistr')
-    
-    @property
-    def _threshold(self):
-        return self.threshold
-    
-    @property
-    def _orderFactoryT(self):
-        return self.orderFactory
-        
+    _internals = ['_signalFunc']
+                
 exec wrapper2('TrendFollower', 
              """ Trend follower can be considered as a sort of a signal strategy 
                  where the *signal* is a trend of the asset. 
