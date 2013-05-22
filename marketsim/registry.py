@@ -33,6 +33,9 @@ def properties(obj):
                 rv[k] = v 
     
     return rv            
+
+def children_to_visit(obj):
+    return obj._children_to_visit if '_children_to_visit' in dir(obj) else []
                 
 def internals(obj):
     

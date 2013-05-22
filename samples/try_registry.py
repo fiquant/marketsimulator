@@ -102,17 +102,21 @@ def Complete(graph, world, books):
     virtual_190 = fv_virtual(190.)
     
     best = trader.SASM(book_A,
-                       strategy.chooseTheBest([s_fv(160.),
+                       strategy.chooseTheBest([
+                                               s_fv(160.),
                                                s_fv(170.),
                                                s_fv(180.),
-                                               s_fv(190.), ]),
+                                               s_fv(190.), 
+                                               ]),
                        "best", 
                        timeseries = trader_ts())
     
-    traders = [trader_150, trader_200, trader_200_1, trader_200_2,
+    traders = [
+               trader_150, trader_200, trader_200_1, trader_200_2,
                 best,
 #                tf, tf_0_15, tf_0_015, 
-                meanreversion, avg_plus, avg_minus, v_fv200,
+                meanreversion, avg_plus, avg_minus, 
+                v_fv200,
                 virtual_160, virtual_170, virtual_180, 
                 virtual_190
                ]
