@@ -3,7 +3,7 @@ from marketsim import (scheduler, observable, cached_property, types, meta, trad
 
 from _basic import Strategy
 from _generic import Generic
-from _trend import SignalBase, SignalValue, SignalEvent
+from _signal import SignalBase, SignalValue, SignalEvent
 from _wrap import wrapper2
 
 from marketsim.types import *
