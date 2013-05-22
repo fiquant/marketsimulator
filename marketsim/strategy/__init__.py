@@ -3,8 +3,9 @@ from marketsim import order, mathutils, Side, observable, registry
 
 #from _wrap import Params, currentframe
 
-from _lp import (LiquidityProviderSide, LiquidityProviderSideEx, 
-                 LiquidityProvider, LiquidityProviderEx, 
+from _lp_side import (LiquidityProviderSide, LiquidityProviderSideEx)
+ 
+from _lp import (LiquidityProvider, LiquidityProviderEx, 
                  Canceller, StrategyArray)
 
 from _noise import Noise, NoiseEx
