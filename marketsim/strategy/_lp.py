@@ -2,6 +2,7 @@ import random
 from _basic import Strategy
 from _one_side import OneSide
 from _generic import Generic
+from _array import StrategyArray
 from _wrap import merge, wrapper, wrapper2
 from _lp_side import LiquidityProviderSide, LiquidityProviderSideEx
 from marketsim import order, orderbook, scheduler, mathutils, types, registry, bind, meta, trader
@@ -76,31 +77,6 @@ exec wrapper2('LiquidityProvider',
              ('priceDistr',             'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
              ('volumeDistr',            'mathutils.rnd.expovariate(.1)',        '() -> Volume')])
 
-class _StrategyArray_Impl(Strategy):
-    
-    def __init__(self):
-        Strategy.__init__(self, None)
-            
-    def reset(self):
-        for s in self.strategies:
-            s.reset()
-    
-    def dispose(self):
-        for s in self.strategies:
-            s.dispose()
-
-    def suspend(self, flag):
-        Strategy.suspend(self, flag)
-        for s in self.strategies:
-            s.suspend(flag)
-
-    @property
-    def suspended(self):
-        for s in self.strategies:
-            assert s.suspended == self._suspended
-        return Strategy.suspended(self)
-    
-exec wrapper2('StrategyArray', "", [('strategies', '[LiquidityProvider()]', 'meta.listOf(IStrategy)')])
 
 def LiquidityProviderEx    (orderFactory            = order.LimitFactory, 
                             defaultValue            = 100., 
