@@ -20,8 +20,9 @@ from _fv import (FundamentalValue, MeanReversion, Dependency,
 
 from _signal import Signal, SignalEx, SignalSide 
 
-from _trend import (TwoAverages, TrendFollower,  
-                    TwoAveragesEx, TrendFollowerEx)
+from _two_averages import TwoAverages, TwoAveragesEx
+
+from _trend import (TrendFollower, TrendFollowerEx)
 
 from _adaptive import (tradeIfProfitable, TradeIfProfitable, 
                        chooseTheBest, virtualWithUnitVolume, efficiencyTrend)
