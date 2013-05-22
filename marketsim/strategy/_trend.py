@@ -1,7 +1,10 @@
 from marketsim.types import *
 from marketsim import (orderbook, Event, observable, scheduler, order, mathutils, types, meta, 
                        registry, signal, bind)
-from _basic import TwoSides, Strategy, Generic
+from _basic import Strategy
+from _generic import Generic
+from _two_sides import TwoSides
+
 from _wrap import wrapper2
 
 class SignalBase(TwoSides):

@@ -1,5 +1,7 @@
 from marketsim import scheduler, order, mathutils, types, registry   
-from _basic import TwoSides, Strategy, Generic, randomSide
+from _basic import Strategy
+from _two_sides import TwoSides
+from _generic import Generic, randomSide
 from _wrap import wrapper2
 from marketsim.types import *
 

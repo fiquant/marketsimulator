@@ -1,5 +1,7 @@
 import random
-from _basic import OneSide, Strategy, Generic
+from _basic import Strategy
+from _one_side import OneSide
+from _generic import Generic
 from _wrap import merge, wrapper, wrapper2
 from marketsim import order, orderbook, scheduler, mathutils, types, registry, bind, meta, trader
 from marketsim.types import *

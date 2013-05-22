@@ -1,7 +1,8 @@
 from marketsim import (scheduler, observable, cached_property, types, meta, trader,
                        Side, registry, orderbook, bind, order, mathutils)
 
-from _basic import Strategy, Generic
+from _basic import Strategy
+from _generic import Generic
 from _trend import SignalBase, SignalValue, SignalEvent
 from _wrap import wrapper2
 
