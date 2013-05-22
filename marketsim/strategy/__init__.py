@@ -7,8 +7,9 @@ from _lp_side import (LiquidityProviderSide, LiquidityProviderSideEx)
 
 from _array import StrategyArray
  
-from _lp import (LiquidityProvider, LiquidityProviderEx, 
-                 Canceller)
+from _lp import (LiquidityProvider, LiquidityProviderEx)
+
+from _canceller import Canceller
 
 from _noise import Noise, NoiseEx
 
