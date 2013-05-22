@@ -15,22 +15,19 @@ class _tradeIfProfitable_Impl(Strategy):
 
     def __init__(self):
         Strategy.__init__(self, None)
-        
-    def bind(self, context):
-        myTrader = context.trader
         self._estimator_strategy = self.estimator(self.strategy)
-        self._estimator = trader.SASM(orderbook.OfTrader(myTrader),
-                                      self._estimator_strategy, 
-                                      label = "estimator_"+myTrader.label)
-        context.bind(self._estimator)
-        
+        self._estimator = trader.SASM(orderbook.OfTrader(trader.SASM_ParentProxy()),
+                                      self._estimator_strategy)
+
         self._strategy = self.strategy
         self._efficiency = self.efficiency(self._estimator)
-        
-        context.bind(self._efficiency)
-        
         self._efficiency.on_changed += bind.Method(self, '_wakeUp_impl')
         
+    _internals = ['_estimator', '_efficiency']
+        
+    def updateContext(self, context):
+        context.parentTrader = context.trader
+                
     def dispose(self):
         self._strategy.dispose()
         self._estimator_strategy.dispose()
@@ -112,31 +109,26 @@ class _chooseTheBest_Impl(Strategy):
                     best = efficiency.value                   
             if best < 0:
                 best = 0
+            print 'dBest =', best
             self._current = None
             for (strategy, _, _, efficiency) in self._strategies:
                 strategy.suspend(efficiency.value != best)
                 if efficiency.value != best:
                     self._current = strategy
         
+    def updateContext(self, context):
+        context.parentTrader = context.trader
+                
     def __init__(self):
         
         self._chooseTheBest = bind.Method(self, '_chooseTheBest_impl')
         Strategy.__init__(self, None)
         self._eventGen = scheduler.Timer(mathutils.constant(10))
-        
-    def bind(self, context):
-        myTrader = context.trader
-        sched = context.world
-        
-        context.bind(self._eventGen)
-        
+
         def _createInstance(sp):
             estimator_strategy = self.estimator(sp)
-            estimator = trader.SASM(orderbook.OfTrader(myTrader),estimator_strategy)
-            context.bind(estimator)
-            
+            estimator = trader.SASM(orderbook.OfTrader(trader.SASM_ParentProxy()),estimator_strategy)
             efficiency = self.efficiency(estimator)
-            context.bind(efficiency)
             
             return (sp, estimator, estimator_strategy, efficiency)
         
@@ -145,7 +137,15 @@ class _chooseTheBest_Impl(Strategy):
         self._chooseTheBest = bind.Method(self, '_chooseTheBest_impl')
         self._eventGen.advise(self._chooseTheBest)
         self._current = None
-
+        
+    _internals = ['_eventGen']
+        
+    @property
+    def _children_to_visit(self):
+        for (_, estimator, _, efficiency) in self._strategies:
+            yield estimator
+            yield efficiency
+        
     def dispose(self):
         self._eventGen.unadvise(self._chooseTheBest)
         for (strategy, _, estimator_strategy, _) in self._strategies:

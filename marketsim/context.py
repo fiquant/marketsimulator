@@ -1,4 +1,4 @@
-from marketsim.registry import properties, internals
+from marketsim.registry import properties, internals, children_to_visit
 
 class Binder(object):
     
@@ -48,6 +48,9 @@ class Binder(object):
                 
             for propname in internals(obj):
                 childContext.bind(getattr(obj, propname))
+                
+            for child in children_to_visit(obj):
+                childContext.bind(child)
                 
             if 'bind' in dir(obj):
                 if '_bound' not in dir(obj):

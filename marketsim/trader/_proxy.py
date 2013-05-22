@@ -10,8 +10,7 @@ class SASM_Proxy(object):
         self.on_traded = Event()
         self._alias = ["$(Trader)"]
         
-    def bind(self, context):
-        impl = context.trader
+    def _bind(self, impl):
         if not self._impl or not impl:
             if self._impl: 
                 self._impl.on_order_sent -= self.on_order_sent
@@ -22,6 +21,9 @@ class SASM_Proxy(object):
                 self._impl.on_traded += self.on_traded
         else:
             assert self._impl == impl
+
+    def bind(self, context):
+        self._bind(context.trader)
             
     def _new_property_changed_listener_added(self, propname):
         pass
@@ -88,3 +90,8 @@ class SASM_Proxy(object):
     def orderBook(self, newvalue):
         assert self._impl
         self._impl.orderBook = newvalue
+
+class SASM_ParentProxy(SASM_Proxy):
+    
+    def bind(self, context):
+        self._bind(context.parentTrader)
