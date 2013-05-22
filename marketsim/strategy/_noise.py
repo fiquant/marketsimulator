@@ -37,6 +37,7 @@ exec wrapper2("Noise",
               ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> Volume'),
               ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')])
 
+@registry.expose(["Generic", "Noise"], args = ())
 def NoiseEx     (orderFactory           = order.MarketFactory,
                  sideDistr              = randomSide, 
                  volumeDistr            = mathutils.rnd.expovariate(1.), 
@@ -47,10 +48,5 @@ def NoiseEx     (orderFactory           = order.MarketFactory,
                 sideFunc     = sideDistr, 
                 volumeFunc   = volumeDistr)
     
-    r._alias = ["Generic", "Noise"]
-    
     return r
-
-registry.startup.append(lambda instance: instance.insert(NoiseEx()))
-                        
     

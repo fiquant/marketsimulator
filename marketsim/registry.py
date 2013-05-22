@@ -569,18 +569,18 @@ class Registry(object):
             
         return rv
 
-def expose(alias, constructor=None):
+def expose(alias, constructor=None, args = None):
     def inner(f):
-        if inspect.isfunction(f):
-            f._constructAs = constructor if constructor else f.__module__ + "." + f.__name__
-            f._alias = alias
-            startup.append(lambda instance: instance.insert(f))
-        if inspect.isclass(f):
+        if inspect.isclass(f) or args is not None:
             def inner(instance):
-                obj = f()
+                obj = f() if args is None else f(*args)
                 obj._alias = alias
                 instance.insert(obj)
             startup.append(inner)
+        elif inspect.isfunction(f):
+            f._constructAs = constructor if constructor else f.__module__ + "." + f.__name__
+            f._alias = alias
+            startup.append(lambda instance: instance.insert(f))
         return f
     return inner
 

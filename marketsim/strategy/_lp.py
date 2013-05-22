@@ -78,6 +78,7 @@ exec wrapper2('LiquidityProvider',
              ('volumeDistr',            'mathutils.rnd.expovariate(.1)',        '() -> Volume')])
 
 
+@registry.expose(["Generic", 'LiquidityProvider'], args = ())
 def LiquidityProviderEx    (orderFactory            = order.LimitFactory, 
                             defaultValue            = 100., 
                             creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
@@ -98,8 +99,6 @@ def LiquidityProviderEx    (orderFactory            = order.LimitFactory,
             create(Side.Sell),
             create(Side.Buy)
         ])
-    
-    r._alias = ["Generic", 'LiquidityProvider']
     
     return r
 

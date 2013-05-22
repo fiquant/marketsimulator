@@ -1,7 +1,7 @@
 import random
-from marketsim import bind, Event, meta, types, mathutils
-from marketsim.scheduler import Timer
+from marketsim import bind, Event, meta, types, mathutils, registry, scheduler
 
+@registry.expose(['Random walk'])
 class RandomWalk(types.IObservable):
     """ A discrete signal with user-defined increments.
     
@@ -38,7 +38,7 @@ class RandomWalk(types.IObservable):
         if '_timer' in dir(self):
             self._timer.unadvise(wakeUp)
 
-        self._timer = Timer(self.intervalDistr)
+        self._timer = scheduler.Timer(self.intervalDistr)
         self._timer.advise(wakeUp)
         
         self.reset()

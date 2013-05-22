@@ -81,12 +81,12 @@ class Proxy(Base):
 
 class OfTrader(Base):
     
-    def __init__(self, aTrader = None):
-        if aTrader is None:
-            aTrader = trader.SASM_Proxy()
-        self._alias = ["$(TraderAsset)"] if type(aTrader) == trader.SASM_Proxy else ['OfTrader']
+    def __init__(self, Trader = None):
+        if Trader is None:
+            Trader = trader.SASM_Proxy()
+        self._alias = ["$(TraderAsset)"] if type(Trader) == trader.SASM_Proxy else ['OfTrader']
         Base.__init__(self)
-        self.trader = aTrader
+        self.Trader = Trader
         
     """
         self.orderBook = aTrader.orderBook
@@ -97,8 +97,8 @@ class OfTrader(Base):
         self.orderBook = newval
     """
         
-    _properties = { 'trader': types.ISingleAssetTrader }
+    _properties = { 'Trader': types.ISingleAssetTrader }
     
     @property
     def _impl(self):
-        return self.trader.orderBook
+        return self.Trader.orderBook

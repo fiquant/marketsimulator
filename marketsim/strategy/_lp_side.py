@@ -108,6 +108,7 @@ class SafeSidePrice(object):
                queue.lastPrice if queue.lastPrice is not None else\
                self.defaultValue
 
+@registry.expose(["Generic", 'LiquidityProviderSide'], args = ())
 def LiquidityProviderSideEx(side                    = Side.Sell, 
                             orderFactory            = order.LimitFactory, 
                             defaultValue            = 100., 
@@ -123,7 +124,5 @@ def LiquidityProviderSideEx(side                    = Side.Sell,
                                                mathutils.product( 
                                                   SafeSidePrice(orderBook, side, defaultValue), 
                                                   priceDistr)))
-    
-    r._alias = ["Generic", 'LiquidityProviderSide']
     
     return r

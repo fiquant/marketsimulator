@@ -49,7 +49,7 @@ exec wrapper2("MeanReversion",
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')])
 
 
-
+@registry.expose(["Generic", "MeanReversion"], args = ())
 def MeanReversionEx   (average               = mathutils.ewma(alpha = 0.15),
                        orderFactory          = order.MarketFactory, 
                        volumeDistr           = mathutils.rnd.expovariate(1.), 
@@ -62,8 +62,6 @@ def MeanReversionEx   (average               = mathutils.ewma(alpha = 0.15),
                 volumeFunc  = volumeDistr, 
                 eventGen    = scheduler.Timer(creationIntervalDistr), 
                 sideFunc    = FundamentalValueSide(orderBook, avg))
-    
-    r._alias = ["Generic", "MeanReversion"]
     
     return r
 

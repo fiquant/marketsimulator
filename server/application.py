@@ -44,14 +44,8 @@ def createSimulation(name='All'):
                                     remote.TwoWayLink(
                                         remote.Link(mathutils.rnd.expovariate(1)),
                                         remote.Link(mathutils.rnd.expovariate(1))))
-        twoaverages = strategy.TwoAveragesEx()
-        trendfollower = strategy.TrendFollowerEx()
-        fundamentalvalue = strategy.FundamentalValueEx()
-        meanreversion = strategy.MeanReversionEx()
         dependency = strategy.Dependency(book_B)
         dependency_ex = strategy.DependencyEx(book_B)
-        lp_sell = strategy.LiquidityProviderSideEx()
-        lp = strategy.LiquidityProviderEx()
         
         def register(annotated_objects):
             for obj, alias in annotated_objects:
@@ -60,17 +54,9 @@ def createSimulation(name='All'):
                 myRegistry.insert(obj)
                 
         register([
-                  (signal.RandomWalk(), ["Random walk"]),
-                  (strategy.Signal(signal.RandomWalk()), ["Basic", "Signal"]),
                   (remote_A, ["Remote asset A"]),
-                  (twoaverages, None),
-                  (trendfollower, None),
-                  (fundamentalvalue, None),
-                  (meanreversion, None),
                   (dependency, ["Basic", "Dependency"]),
                   (dependency_ex, None),
-                  (lp_sell, None),
-                  (lp, None),
         ])
         
         myRegistry.pushAllReferences()
