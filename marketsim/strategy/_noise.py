@@ -11,12 +11,6 @@ class _Noise_Impl(TwoSides):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr)
         TwoSides.__init__(self)
         
-    _internals = ['_eventGen']
-        
-    @property
-    def _orderFactoryT(self):
-        return self.orderFactoryT
-        
     def _orderFunc(self):
         conv = types.Side.byId
         return (types.Side.byId(self.sideDistr()), (int(self.volumeDistr()),)) 
@@ -38,7 +32,7 @@ exec wrapper2("Noise",
                      side of orders to create 
                      (default: discrete uniform distribution P(Sell)=P(Buy)=.5)
              """,
-             [("orderFactoryT",         "order.MarketFactory",          'Side -> Volume -> IOrder'),
+             [("orderFactory",          "order.MarketFactory",          'Side -> Volume -> IOrder'),
               ("sideDistr",             "mathutils.rnd.randint(0,1)",   "() -> int"), # in fact it should be () -> Side
               ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> Volume'),
               ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')])

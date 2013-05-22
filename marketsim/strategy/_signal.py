@@ -9,13 +9,16 @@ from _wrap import wrapper2
 class SignalBase(TwoSides):
     
     def _orderFunc(self):
-        threshold = self._threshold
+        threshold = self.threshold
         value = self._signalFunc()
         side = Side.Buy  if value > threshold else\
                Side.Sell if value < -threshold else\
                None
         return (side, (self._volume(side),)) if side else None
 
+    
+    def _volume(self, side):
+        return self.volumeDistr()
 
 class _Signal_Impl(SignalBase):
 
@@ -24,21 +27,9 @@ class _Signal_Impl(SignalBase):
         return self.signal
     
     @property
-    def _threshold(self):
-        return self.threshold
-    
-    @property 
-    def _orderFactoryT(self): 
-        return self.orderFactory
-
-    @property
     def _signalFunc(self): 
         return self.signal
     
-    @property
-    def _volume(self):
-        return bind.Method(self, 'volumeDistr')
-
 exec wrapper2("Signal", 
              """ Signal strategy listens to some discrete signal
                  and when the signal becomes more than some threshold the strategy starts to buy. 

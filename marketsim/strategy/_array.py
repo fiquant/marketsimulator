@@ -6,9 +6,6 @@ from _lp_side import LiquidityProviderSide
 
 class _StrategyArray_Impl(Strategy):
     
-    def __init__(self):
-        Strategy.__init__(self, None)
-            
     def reset(self):
         for s in self.strategies:
             s.reset()

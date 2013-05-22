@@ -11,8 +11,6 @@ class _LiquidityProviderSide_Impl(OneSide):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr)
         OneSide.__init__(self)
         
-    _internals = ['_eventGen']
-        
     @property
     def _orderFactory(self):
         return self.orderFactoryT(self.side)

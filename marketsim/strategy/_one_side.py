@@ -12,13 +12,15 @@ class OneSide(Strategy):
         eventGen - event generator to be listened - we'll use its advise method to subscribe to
         orderFunc - function to calculate order parameters: Trader -> *orderParams 
         """     
-        Strategy.__init__(self, None)   
+        Strategy.__init__(self)   
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
 
     def reset(self):
         self._eventGen.schedule()
+        
+    _internals = ['_eventGen']
         
     def dispose(self):
         self._eventGen.unadvise(self._wakeUp)

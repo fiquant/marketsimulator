@@ -19,43 +19,27 @@ class _Generic_Impl(Strategy):
         params.volumeFunc -- function '() -> Volume' calculating volume of order to create
         params.orderFactory -- function 'Side -> Volume -> IOrder' instantiating orders
         """        
-        Strategy.__init__(self, None)
+        Strategy.__init__(self)
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
         # start listening calls from eventGen
-        self._eventGen.advise(self._wakeUp)
-        
-    @property
-    def _eventGen(self):
-        return self.eventGen
-    
-    @property
-    def _sideFunc(self):
-        return self.sideFunc
-    
-    @property
-    def _volumeFunc(self):
-        return self.volumeFunc
-    
-    @property
-    def _orderFactory(self):
-        return self.orderFactory
+        self.eventGen.advise(self._wakeUp)
         
     def reset(self):
-        self._eventGen.schedule()
+        self.eventGen.schedule()
         
     def dispose(self):
-        self._eventGen.unadvise(self._wakeUp)
+        self.eventGen.unadvise(self._wakeUp)
 
     def _wakeUp_impl(self, _):
         if self._suspended:
             return
         # determine side and parameters of an order to create
-        side = self._sideFunc()
+        side = self.sideFunc()
         if side <> None:
-            volume = int(self._volumeFunc())
+            volume = int(self.volumeFunc())
             if volume > 0:
                 # create order given side and parameters
-                order = self._orderFactory(side)(volume)
+                order = self.orderFactory(side)(volume)
                 # send order to the order book
                 self._trader.send(order)
 
