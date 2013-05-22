@@ -1,6 +1,6 @@
 from marketsim import (trader, order, orderbook, scheduler, observable, order, 
                        registry, types, meta, bind, mathutils)
-from copy import copy
+
 from marketsim.types import *
 
 from _basic import Strategy
