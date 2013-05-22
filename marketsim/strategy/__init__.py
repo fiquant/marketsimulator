@@ -22,4 +22,4 @@ from _trend import (Signal, TwoAverages, TrendFollower, SignalSide,
 from _adaptive import (tradeIfProfitable, TradeIfProfitable, 
                        chooseTheBest, virtualWithUnitVolume, efficiencyTrend)
 
-from _basic import Generic
+from _generic import Generic
