@@ -16,6 +16,10 @@ class Strategy(types.IStrategy):
     def suspend(self, s=True):
         self._suspended = s
         
+    def bind(self, context):
+        self._trader = context.trader
+        self._scheduler = context.world    
+        
     @property
     def trader(self):
         return self._trader
@@ -31,10 +35,6 @@ class TwoSides(Strategy):
         """        
         Strategy.__init__(self, None)
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
-        
-    def bind(self, context):
-        self._trader = context.trader
-        self._scheduler = context.world    
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
         
@@ -76,13 +76,9 @@ class _Generic_Impl(Strategy):
         """        
         Strategy.__init__(self, None)
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
-        
-    def bind(self, context):
-        self._trader = context.trader
-        self._scheduler = context.world 
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
-
+        
     @property
     def _eventGen(self):
         return self.eventGen
@@ -156,13 +152,9 @@ class OneSide(Strategy):
         """     
         Strategy.__init__(self, None)   
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
-
-    def bind(self, context):
-        self._trader = context.trader
-        self._scheduler = context.world    
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
-        
+
     def reset(self):
         self._eventGen.schedule()
         

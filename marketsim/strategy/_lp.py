@@ -1,7 +1,7 @@
 import random
 from _basic import OneSide, Strategy, Generic
 from _wrap import merge, wrapper, wrapper2
-from marketsim import order, orderbook, scheduler, mathutils, types, registry, bind, meta
+from marketsim import order, orderbook, scheduler, mathutils, types, registry, bind, meta, trader
 from marketsim.types import *
 
 class _LiquidityProviderSide_Impl(OneSide):
@@ -204,9 +204,6 @@ class _StrategyArray_Impl(Strategy):
     def __init__(self):
         Strategy.__init__(self, None)
             
-    def bind(self, context):
-        self._trader = context.trader
-
     def reset(self):
         for s in self.strategies:
             s.reset()
@@ -285,15 +282,13 @@ class _Canceller_Impl(object):
         self._elements = []
         self.wakeUp = bind.Method(self, '_wakeUp_impl')
         self._eventGen = scheduler.Timer(self.cancellationIntervalDistr)
+        myTrader = trader.SASM_Proxy()
+        # start listening its orders sent
+        myTrader.on_order_sent += bind.Method(self, 'process')
+        self._book = orderbook.OfTrader(myTrader)
+        self._eventGen += self.wakeUp
     
     _internals = ['_eventGen']
-        
-    def bind(self, context):
-        trader = context.trader
-        # start listening its orders sent
-        trader.on_order_sent += bind.Method(self, 'process')
-        self._book = orderbook.OfTrader(trader)
-        self._eventGen += self.wakeUp
         
     def dispose(self):
         self._eventGen -= self.wakeUp

@@ -172,11 +172,11 @@ def MeanReversionEx   (average               = mathutils.ewma(alpha = 0.15),
     return r
 
 class _Dependency_Impl(FundamentalValueBase):
-
-    def bind(self, context):    
+    
+    def __init__(self):
         self._priceToDependOn = observable.Price(self.bookToDependOn) 
-        FundamentalValueBase.bind(self, context)
         self._orderFactoryT = self.orderFactory
+        FundamentalValueBase.__init__(self)
 
     def _fundamentalValue(self):
         return self._priceToDependOn.value * self.factor
