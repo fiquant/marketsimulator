@@ -61,6 +61,7 @@ exec wrapper2("TwoAverages",
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)', '() -> Volume')])
 
   
+@registry.expose(["Generic", 'TwoAverages'], args = ())
 def TwoAveragesEx(average1 = mathutils.ewma(alpha = 0.15), 
                   average2 = mathutils.ewma(alpha = 0.015), 
                   threshold             = 0, 
@@ -79,7 +80,5 @@ def TwoAveragesEx(average1 = mathutils.ewma(alpha = 0.15),
                                      observable.Fold(price, average1),
                                      observable.Fold(price, average2)),
                                  threshold))
-    
-    r._alias = ["Generic", 'TwoAverages']
-    
+
     return r

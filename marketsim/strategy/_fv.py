@@ -81,6 +81,7 @@ class FundamentalValueSide(object):
                   and book.bids.best.price > fv else\
                None
 
+@registry.expose(["Generic", "FundamentalValue"], args = ())
 def FundamentalValueEx(fundamentalValue      = mathutils.constant(100.),
                        orderFactory          = order.MarketFactory, 
                        volumeDistr           = mathutils.rnd.expovariate(1.), 
@@ -91,8 +92,6 @@ def FundamentalValueEx(fundamentalValue      = mathutils.constant(100.),
                 volumeFunc  = volumeDistr, 
                 eventGen    = scheduler.Timer(creationIntervalDistr), 
                 sideFunc    = FundamentalValueSide(orderBook, fundamentalValue))
-    
-    r._alias = ["Generic", "FundamentalValue"]
     
     return r
 

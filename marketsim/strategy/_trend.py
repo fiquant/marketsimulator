@@ -50,6 +50,7 @@ exec wrapper2('TrendFollower',
               ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
               ('volumeDistr',            'mathutils.rnd.expovariate(1.)', '() -> Volume')])
 
+@registry.expose(["Generic", 'TrendFollower'], args = ())
 def TrendFollowerEx(average                 = mathutils.ewma(alpha = 0.15), 
                     threshold               = 0., 
                     orderFactory            = order.MarketFactory, 
@@ -64,8 +65,6 @@ def TrendFollowerEx(average                 = mathutils.ewma(alpha = 0.15),
                 volumeFunc  = volumeDistr,
                 eventGen    = scheduler.Timer(creationIntervalDistr),
                 sideFunc    = SignalSide(trend, threshold))
-    
-    r._alias = ["Generic", 'TrendFollower']
     
     return r
     

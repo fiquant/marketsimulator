@@ -1,6 +1,6 @@
 from marketsim.types import *
 from marketsim import (Event, order, mathutils, types, meta, 
-                       registry, signal, bind)
+                       registry, signal, bind, signal)
 from _generic import Generic
 from _two_sides import TwoSides
 
@@ -38,7 +38,7 @@ exec wrapper2("Signal",
                  It has following parameters:
 
                  |signal| 
-                      signal to be listened to
+                      signal to be listened to (default: RandomWalk)
                       
                  |orderFactory| 
                      order factory function (default: order.Market.T)
@@ -50,10 +50,10 @@ exec wrapper2("Signal",
                      defines volumes of orders to create 
                      (default: exponential distribution with |lambda| = 1)
              """,
-             [('signal',        'None',                         'IObservable'),  
+             [('signal',        'signal.RandomWalk()',          'IObservable'),  
               ('threshold',     '0.7',                          'non_negative'),
               ('orderFactory',  'order.MarketFactory',          'Side -> Volume -> IOrder'),
-              ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')], register=False)
+              ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')])
 
 
 class SignalSide(object):
@@ -114,8 +114,8 @@ class SignalEvent(Event):
         
     _properties = { 'signal' : types.IObservable }
         
-
-def SignalEx(signal, 
+@registry.expose(["Generic", 'Signal'], args = ())
+def SignalEx(signal         = signal.RandomWalk(), 
              threshold      = 0, 
              orderFactory   = order.MarketFactory, 
              volumeDistr    = mathutils.rnd.expovariate(1.)):
@@ -125,8 +125,4 @@ def SignalEx(signal,
                 orderFactory = orderFactory, 
                 eventGen     = SignalEvent(signal))  
     
-    r._alias = ["Generic", 'Signal']
-    
     return r
-
-registry.startup.append(lambda instance: instance.insert(SignalEx(signal.RandomWalk())))
