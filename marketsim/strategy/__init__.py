@@ -17,8 +17,9 @@ from _arbitrage import Arbitrage
 
 from _mean_reversion import MeanReversion, MeanReversionEx 
 
-from _fv import (FundamentalValue, Dependency, 
-                 FundamentalValueEx, DependencyEx)
+from _dependency import Dependency, DependencyEx
+
+from _fv import (FundamentalValue, FundamentalValueEx)
 
 from _signal import Signal, SignalEx, SignalSide 
 
@@ -26,7 +27,8 @@ from _two_averages import TwoAverages, TwoAveragesEx
 
 from _trend import (TrendFollower, TrendFollowerEx)
 
-from _adaptive import (tradeIfProfitable, TradeIfProfitable, 
-                       chooseTheBest, virtualWithUnitVolume, efficiencyTrend)
+from _trade_if_profitable import tradeIfProfitable, TradeIfProfitable
+
+from _choose_best import chooseTheBest
 
 from _generic import Generic
