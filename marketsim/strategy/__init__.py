@@ -15,8 +15,10 @@ from _noise import Noise, NoiseEx
 
 from _arbitrage import Arbitrage
 
-from _fv import (FundamentalValue, MeanReversion, Dependency, 
-                 FundamentalValueEx, MeanReversionEx, DependencyEx)
+from _mean_reversion import MeanReversion, MeanReversionEx 
+
+from _fv import (FundamentalValue, Dependency, 
+                 FundamentalValueEx, DependencyEx)
 
 from _signal import Signal, SignalEx, SignalSide 
 
