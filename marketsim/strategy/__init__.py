@@ -3,13 +3,11 @@ from marketsim import order, mathutils, Side, observable, registry
 
 #from _wrap import Params, currentframe
 
-import _misc, _arbitrage, _fv, _trend, _lp, _adaptive
-
 from _lp import (LiquidityProviderSide, LiquidityProviderSideEx, 
                  LiquidityProvider, LiquidityProviderEx, 
                  Canceller, StrategyArray)
 
-from _misc import Noise, NoiseEx
+from _noise import Noise, NoiseEx
 
 from _arbitrage import Arbitrage
 
