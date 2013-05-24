@@ -94,6 +94,7 @@ def createSimulation(name='All'):
         myRegistry.insert(world)
         
         root = myRegistry.insert(registry.createSimulation(myRegistry))
+        context.Binder({ "world" : world }).bind(myRegistry.get(root))
 
         if name != 'All':
             current_dir = current_user_dir()
@@ -304,12 +305,12 @@ def update():
         for (Id, field, value) in parsed['updates']:
             w.registry.setAttr(Id, field, value)
             
+    context.Binder({ "world" : w.world }).bind(w.registry.get(w.root))
     save_state_before_changes(w.registry) 
 
     save_current_workspace()
     
     if 'limitTime' in parsed:
-        context.Binder({ "world" : w.world }).bind(w.registry.get(w.root))
         limitTime = parsed['limitTime']
         timeout = parsed["timeout"]
         run(w.world, timeout, limitTime)

@@ -66,9 +66,13 @@ class Graph(types.IGraph):
     def __init__(self, label="", series=None):
         self.label = label
         self.series = series if series else []
+        self._pending = []
         
     def bind(self, context):
         self.world = context.world
+        for p in self._pending:
+            self.addTimeSerie(p)
+        self._pending = []
         
     def has(self, source):
         for s in self.series: 
@@ -81,10 +85,12 @@ class Graph(types.IGraph):
         source should be a source of events (so to have advise method) 
         and have a value property 
         """
-        if not self.has(source):
-            ts = TimeSerie(source)
-            self.series.append(ts)
-            if "world" in dir(self):
+        if "world" not in dir(self):
+            self._pending.append(source)
+        else:
+            if not self.has(source):
+                ts = TimeSerie(source)
+                self.series.append(ts)
                 ts.bind(self)
             
         
