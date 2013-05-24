@@ -8,8 +8,11 @@ class TimeSerie(object):
         self._source = source
         self._sched = scheduler.current()
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
-        self._source.advise(self._wakeUp)
         self.reset()
+        
+    def bind(self, context):
+        self._sched = context.world
+        self._source.advise(self._wakeUp)
         
     @property
     def label(self):

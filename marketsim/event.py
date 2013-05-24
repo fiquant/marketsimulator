@@ -43,3 +43,32 @@ class Event(object):
         return self
             
 Event._types = [Event]
+
+class Subscription(object):
+    
+    def __init__(self, field, listener):
+        self._field = field 
+        self._listener = listener
+        
+    _internals = ['_field']
+        
+    def bind(self, context):
+        self._field += self._listener
+        
+    def dispose(self):
+        self._field -= self._listener
+        
+    def reset(self):
+        self._field.reset()
+        
+def subscribe(target, fieldname, eventsource, listener):
+    
+    setattr(target, fieldname, eventsource)
+    
+    subscription = Subscription(getattr(target, fieldname), listener)
+    
+    if '_subscriptions' not in dir(target):
+        target._subscriptions = []
+        
+    target._subscriptions.append(subscription)
+        

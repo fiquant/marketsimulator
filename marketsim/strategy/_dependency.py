@@ -1,4 +1,4 @@
-from marketsim import (scheduler, observable, types, meta, 
+from marketsim import (scheduler, observable, types, meta,  
                        Side, registry, orderbook, bind, order, mathutils)
 
 from _generic import Generic
