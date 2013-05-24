@@ -6,13 +6,13 @@ from marketsim import (strategy, trader, orderbook, order, mathutils, Side,
 
 from common import run 
 
-def Canceller(graph, world, books):
+def Canceller(ctx):
 
-    book_A = books['Asset A']
+    book_A = ctx.books['Asset A']
 
-    price_graph = graph("Price")
+    price_graph = ctx.graph("Price")
      
-    amount_graph = graph("amount")
+    amount_graph = ctx.graph("amount")
     
     def trader_ts():
         return {observable.VolumeTraded(trader.SASM_Proxy()) : amount_graph }

@@ -8,13 +8,13 @@ from common import run
 
 const = mathutils.constant
 
-def Signal(graph, world, books):
+def Signal(ctx):
 
-    book_A = books['Asset A']
+    book_A = ctx.books['Asset A']
 
-    price_graph = graph("Price")
-    eff_graph = graph("efficiency")
-    amount_graph = graph("amount")
+    price_graph = ctx.graph("Price")
+    eff_graph = ctx.graph("efficiency")
+    amount_graph = ctx.graph("amount")
      
     def trader_ts():
         thisTrader = trader.SASM_Proxy()
