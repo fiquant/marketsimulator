@@ -64,10 +64,6 @@ class Binder(object):
             
             self.log(">>> " + str(type(obj)))
             
-            propnames = properties(obj)
-            if propnames is None:
-                propnames = {}                
-            
             if 'updateContext' in dir(obj):
                 childContext = self.clone()
                 obj.updateContext(childContext)
@@ -77,6 +73,10 @@ class Binder(object):
             if '_subscriptions' in dir(obj):
                 childContext.bind(obj._subscriptions)
                 
+            propnames = properties(obj)
+            if propnames is None:
+                propnames = {}                
+            
             for propname in propnames.iterkeys():
                 if propname[0] != '_':
                     self.log(propname)
