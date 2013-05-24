@@ -4,8 +4,8 @@ class TimeSerie(object):
     """ Listens to an observable and accumulates its values with time stamps
     """
     
-    def __init__(self, source):
-        self._source = source
+    def __init__(self, _source):
+        self._source = _source
         self._sched = scheduler.current()
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
         self.reset()
@@ -13,6 +13,9 @@ class TimeSerie(object):
     def bind(self, context):
         self._sched = context.world
         self._source.advise(self._wakeUp)
+        
+    def dispose(self):
+        self._source.unadvise(self._wakeUp)
         
     @property
     def label(self):
@@ -47,7 +50,7 @@ class TimeSerie(object):
         self._source = value
         self._source.advise(self._wakeUp)
         
-    _properties = { "source" : types.IObservable }
+    _properties = { "_source" : types.IObservable }
     
     @property    
     def data(self):
@@ -60,21 +63,35 @@ class Graph(types.IGraph):
     """ Generic 2D graph to be rendered by means of javascript libraries
     """
     
-    def __init__(self, label="", _series=None):
+    def __init__(self, label="", series=None):
         self.label = label
-        self._series = _series if _series else []
+        self.series = series if series else []
+        
+    def bind(self, context):
+        self.world = context.world
+        
+    def has(self, source):
+        for s in self.series: 
+            if s._source is source:
+                return True
+        return False
         
     def addTimeSerie(self, source):
         """ Adds a time serie to the graph
         source should be a source of events (so to have advise method) 
         and have a value property 
         """
-        self._series.append(TimeSerie(source))
+        if not self.has(source):
+            ts = TimeSerie(source)
+            self.series.append(ts)
+            if "world" in dir(self):
+                ts.bind(self)
+            
         
     def removeTimeSerie(self, source):
-        series = [x for x in self._series if x.source is not source]
+        self.series = [x for x in self.series if x.source is not source]
         
-    _properties = {"_series": meta.listOf(TimeSerie) }
+    _properties = {"series": meta.listOf(TimeSerie) }
 
     @property
     def _alias(self):

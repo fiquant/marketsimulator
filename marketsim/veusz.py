@@ -135,8 +135,6 @@ class CSV(object):
     def source(self):
         return self._source
     
-    _properties = { "source" : None }
-        
     def exportToVsz(self, f):
         """ Exports time serie to Vsz file
         """
@@ -187,7 +185,7 @@ class Graph(types.IGraph):
     def series(self):
         return self._datas
     
-    _properties = { }
+    _internals = ['_datas']
         
     def addTimeSerie(self, source, attributes = {}):
         """ Adds a time serie to the graph
