@@ -6,13 +6,13 @@ from marketsim import (strategy, trader, orderbook, order, mathutils,
 
 from common import run 
 
-def Noise(graph, world, books):
+def Noise(ctx):
 
-    book_A = books['Asset A']
+    book_A = ctx.books['Asset A']
 
-    price_graph = graph("Price")
-    eff_graph = graph("efficiency")
-    amount_graph = graph("amount")
+    price_graph = ctx.graph("Price")
+    eff_graph = ctx.graph("efficiency")
+    amount_graph = ctx.graph("amount")
      
     def trader_ts():
         thisTrader = trader.SASM_Proxy()

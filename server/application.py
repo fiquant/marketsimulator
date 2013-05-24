@@ -28,6 +28,20 @@ predefined = {"Default"             : samples.Complete,
               "Mean Reversion"      : samples.MeanReversion,
               "Canceller"           : samples.Canceller  }
 
+class Context(object):
+    
+    def __init__(self, world):
+        
+        self.world = world 
+        self.book_A = orderbook.Local(tickSize=0.01, label="A")
+        self.book_B = orderbook.Local(tickSize=0.01, label="B")
+        
+        self.books = { 'Asset A' : self.book_A ,
+                       'Asset B' : self.book_B  }
+        
+        self.graph = js.Graph
+        
+
 def createSimulation(name='All'):
     
     with scheduler.create() as world:
@@ -36,10 +50,12 @@ def createSimulation(name='All'):
     
         myRegistry.insert(Side.Sell)
         myRegistry.insert(Side.Buy)    
-        book_A = orderbook.Local(tickSize=0.01, label="Asset A")
-        book_B = orderbook.Local(tickSize=0.01, label="Asset B")
+        ctx = Context(world)
+        book_A = ctx.book_A
+        book_B = ctx.book_B
         
         myRegistry.insert(book_A)
+        myRegistry.insert(book_B)
         remote_A = orderbook.Remote(book_A,
                                     remote.TwoWayLink(
                                         remote.Link(mathutils.rnd.expovariate(1)),
@@ -64,7 +80,7 @@ def createSimulation(name='All'):
         def process(name):
             constructor = predefined[name]
         
-            traders, graphs = constructor(js.Graph, world, myRegistry.orderBooksByName)
+            traders, graphs = constructor(ctx)
         
             for t in traders + graphs:
                 myRegistry.insert(t)

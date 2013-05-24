@@ -8,13 +8,13 @@ from common import run
 
 const = mathutils.constant
 
-def MeanReversion(graph, world, books):
+def MeanReversion(ctx):
 
-    book_A = books['Asset A']
+    book_A = ctx.books['Asset A']
 
-    price_graph = graph("Price")
-    eff_graph = graph("efficiency")
-    amount_graph = graph("amount")
+    price_graph = ctx.graph("Price")
+    eff_graph = ctx.graph("efficiency")
+    amount_graph = ctx.graph("amount")
      
     def trader_ts():
         thisTrader = trader.SASM_Proxy()

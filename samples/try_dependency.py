@@ -4,14 +4,14 @@ sys.path.append(r'..')
 from marketsim import strategy, orderbook, trader, scheduler, observable, veusz, mathutils, timeserie
 from common import run
 
-def Dependency(graph, world, books):
+def Dependency(ctx):
 
-    book_A = books['Asset A']
-    book_B = books['Asset B']
+    book_A = ctx.books['Asset A']
+    book_B = ctx.books['Asset B']
     
-    price_graph = graph("Price")
-    eff_graph = graph("efficiency")
-    amount_graph = graph("amount")
+    price_graph = ctx.graph("Price")
+    eff_graph = ctx.graph("efficiency")
+    amount_graph = ctx.graph("amount")
      
     def trader_ts():
         thisTrader = trader.SASM_Proxy()
@@ -45,22 +45,24 @@ def Dependency(graph, world, books):
                          "A dependent on B", 
                          timeseries = trader_ts())
     
-    dep_BA = trader.SASM(book_B, 
-                         strategy.Dependency(book_A, factor=.5), 
-                         "B dependent on A", 
-                         timeseries = trader_ts())
-
-    dep_AB_ex = trader.SASM(book_A, 
-                            strategy.DependencyEx(book_B, factor=2), 
-                            "A dependent on B ex", 
-                            timeseries = trader_ts())
+#    dep_BA = trader.SASM(book_B, 
+#                         strategy.Dependency(book_A, factor=.5), 
+#                         "B dependent on A", 
+#                         timeseries = trader_ts())
+#
+#    dep_AB_ex = trader.SASM(book_A, 
+#                            strategy.DependencyEx(book_B, factor=2), 
+#                            "A dependent on B ex", 
+#                            timeseries = trader_ts())
+#    
+#    dep_BA_ex = trader.SASM(book_B, 
+#                            strategy.DependencyEx(book_A, factor=.5), 
+#                            "B dependent on A ex", 
+#                            timeseries = trader_ts())
     
-    dep_BA_ex = trader.SASM(book_B, 
-                            strategy.DependencyEx(book_A, factor=.5), 
-                            "B dependent on A ex", 
-                            timeseries = trader_ts())
-    
-    return [t_A, t_B, dep_AB, dep_BA, dep_AB_ex, dep_BA_ex], [price_graph, amount_graph, eff_graph]
+    return [t_A, t_B, dep_AB, 
+#            dep_BA, dep_AB_ex, dep_BA_ex
+            ], [price_graph, amount_graph, eff_graph]
 
 if __name__ == '__main__':    
     run("dependency", Dependency)
