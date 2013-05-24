@@ -14,8 +14,11 @@ class OneSide(Strategy):
         """     
         Strategy.__init__(self)   
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
+        
+    def bind(self, context):
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
+        Strategy.bind(self, context)
 
     def reset(self):
         self._eventGen.schedule()

@@ -1,6 +1,6 @@
 from marketsim.registry import properties, internals, children_to_visit
 
-debug = True
+debug = False
 
 class Binder(object):
     
@@ -73,6 +73,9 @@ class Binder(object):
                 obj.updateContext(childContext)
             else:
                 childContext = self
+                
+            if '_subscriptions' in dir(obj):
+                childContext.bind(obj._subscriptions)
                 
             for propname in propnames.iterkeys():
                 if propname[0] != '_':

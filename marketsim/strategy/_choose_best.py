@@ -43,9 +43,12 @@ class _chooseTheBest_Impl(Strategy):
         self._strategies = [_createInstance(sp) for sp in self.strategies]
         
         self._chooseTheBest = bind.Method(self, '_chooseTheBest_impl')
-        self._eventGen.advise(self._chooseTheBest)
         self._current = None
-        
+    
+    def bind(self, context):    
+        self._eventGen.advise(self._chooseTheBest)
+        Strategy.bind(self, context)
+
     _internals = ['_eventGen']
         
     @property
