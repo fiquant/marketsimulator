@@ -17,11 +17,12 @@ class Holder(object):
         if type(timeseries) is dict: 
             timeseries = [ToRecord(k,v) for k,v in timeseries.iteritems()]
         self._timeseries = timeseries
-        
-    def bind(self, context):
         for x in self._timeseries:
             x.graph.addTimeSerie(x.source)
-
+        
+    def bind(self, context):
+        pass
+    
     @property
     def timeseries(self):
         return self._timeseries
