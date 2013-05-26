@@ -10,66 +10,35 @@ const = mathutils.constant
 
 def MeanReversion(ctx):
 
-    book_A = ctx.books['Asset A']
-
-    price_graph = ctx.graph("Price")
-    eff_graph = ctx.graph("efficiency")
-    amount_graph = ctx.graph("amount")
-     
-    def trader_ts():
-        thisTrader = trader.SASM_Proxy()
-        return { observable.VolumeTraded(thisTrader) : amount_graph, 
-                 observable.Efficiency(thisTrader)   : eff_graph }
-    
-    def orderbook_ts():
-        assetPrice = observable.AskPrice(orderbook.Proxy())
-        avg = observable.avg
-        return [timeserie.ToRecord(assetPrice, price_graph), 
-                timeserie.ToRecord(avg(assetPrice, alpha=0.15), price_graph),
-                timeserie.ToRecord(avg(assetPrice, alpha=0.65), price_graph),
-                timeserie.ToRecord(avg(assetPrice, alpha=0.015), price_graph)]
-       
-    book_A.timeseries = orderbook_ts()
-    
+    alpha = 0.15
     V = 1
-    
-    lp_A = trader.SASM(book_A, 
+    linear_signal = signal.RandomWalk(initialValue=200, 
+                                      deltaDistr=const(-1), 
+                                      label="200-t")
+
+    return [
+        ctx.makeTrader_A( 
                        strategy.LiquidityProvider(
                             volumeDistr=const(V*20), 
                             orderFactoryT=order.WithExpiryFactory(
                                 expirationDistr=const(10))),
-                       label="liquidity", 
-                       timeseries = trader_ts())
+                       label="liquidity"),
     
-    linear_signal = signal.RandomWalk(initialValue=200, 
-                                      deltaDistr=const(-1), 
-                                      label="200-t")
+        ctx.makeTrader_A(strategy.Signal(linear_signal, 
+                                         volumeDistr = const(V*3)), 
+                         "signal", 
+                         [(linear_signal, ctx.amount_graph)]),
     
-    signal_trader = trader.SASM(book_A, 
-                                strategy.Signal(linear_signal, 
-                                                volumeDistr = const(V*3)), 
-                                "signal", 
-                                timeseries = trader_ts())
+        ctx.makeTrader_A(strategy.MeanReversion(
+                                average=mathutils.ewma(alpha),
+                                volumeDistr = const(V)),
+                         label="meanreversion"),
     
-    signal_trader.addTimeSerie(linear_signal, amount_graph)
-    
-    alpha = 0.015
-    
-    mean_reversion = trader.SASM(book_A, 
-                                 strategy.MeanReversion(
-                                    average=mathutils.ewma(alpha),
-                                    volumeDistr = const(V)),
-                                 label="meanreversion", 
-                                 timeseries = trader_ts())
-    
-    mean_reversion_ex=trader.SASM(book_A, 
-                                 strategy.MeanReversionEx(
-                                    average=mathutils.ewma(alpha),
-                                    volumeDistr = const(V)),
-                                 label="meanreversion_ex", 
-                                 timeseries = trader_ts())
-    
-    return [lp_A, signal_trader, mean_reversion, mean_reversion_ex], [price_graph, eff_graph, amount_graph]
+        ctx.makeTrader_A(strategy.MeanReversionEx(
+                                average=mathutils.ewma(alpha),
+                                volumeDistr = const(V)),
+                         label="meanreversion_ex")
+    ]    
 
 if __name__ == '__main__':
     run("mean_reversion", MeanReversion)

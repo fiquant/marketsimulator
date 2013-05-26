@@ -8,43 +8,17 @@ from common import run
 
 def Noise(ctx):
 
-    book_A = ctx.books['Asset A']
-
-    price_graph = ctx.graph("Price")
-    eff_graph = ctx.graph("efficiency")
-    amount_graph = ctx.graph("amount")
-     
-    def trader_ts():
-        thisTrader = trader.SASM_Proxy()
-        return { observable.VolumeTraded(thisTrader) : amount_graph, 
-                 observable.Efficiency(thisTrader)   : eff_graph }
-    
-    def orderbook_ts():
-        assetPrice = observable.AskPrice(orderbook.Proxy())
-        avg = observable.avg
-        return [timeserie.ToRecord(assetPrice, price_graph), 
-                timeserie.ToRecord(avg(assetPrice, alpha=0.15), price_graph),
-                timeserie.ToRecord(avg(assetPrice, alpha=0.65), price_graph),
-                timeserie.ToRecord(avg(assetPrice, alpha=0.015), price_graph)]
-       
-    book_A.timeseries = orderbook_ts()
-    
-    
-    lp_A = trader.SASM(book_A, 
-                       strategy.LiquidityProvider(
-                            volumeDistr=mathutils.constant(2),
-                            orderFactoryT=order.WithExpiryFactory(
-                                expirationDistr=mathutils.constant(10))), 
-                       "liquidity", 
-                       timeseries = trader_ts())
-    
-    noise_trader = trader.SASM(book_A, strategy.Noise(), "noise", 
-                               timeseries = trader_ts())
-    
-    noise_ex_trader = trader.SASM(book_A, strategy.NoiseEx(), "noise_ex", 
-                                  timeseries = trader_ts())
+    return [
+        ctx.makeTrader_A(strategy.LiquidityProvider(
+                                volumeDistr=mathutils.constant(2),
+                                orderFactoryT=order.WithExpiryFactory(
+                                    expirationDistr=mathutils.constant(10))), 
+                         "liquidity"),
         
-    return [lp_A, noise_trader, noise_ex_trader], [price_graph, eff_graph, amount_graph]
+        ctx.makeTrader_A(strategy.Noise(), "noise"),
+        
+        ctx.makeTrader_A(strategy.NoiseEx(), "noise_ex")
+    ]
 
 
 if __name__ == '__main__':    
