@@ -13,6 +13,14 @@ class TimeSerie(object):
     def bind(self, context):
         self._sched = context.world
         self._source.advise(self._wakeUp)
+    
+    @property    
+    def _alias(self):
+        return [self._source.label]  if '__alias' not in dir(self) else self.__alias
+    
+    @_alias.setter
+    def _alias(self, value):
+        self.__alias = value      
         
     def dispose(self):
         self._source.unadvise(self._wakeUp)
@@ -48,10 +56,11 @@ class TimeSerie(object):
     def source(self, value):
         self._source.unadvise(self._wakeUp)
         self._source = value
+        self._alias = self._source.label        
         self._source.advise(self._wakeUp)
         
     _properties = { "_source" : types.IObservable }
-    
+        
     @property    
     def data(self):
         return self._data

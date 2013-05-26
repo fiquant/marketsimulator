@@ -6,64 +6,29 @@ from common import run
 
 def Dependency(ctx):
 
-    book_A = ctx.books['Asset A']
-    book_B = ctx.books['Asset B']
-    
-    price_graph = ctx.graph("Price")
-    eff_graph = ctx.graph("efficiency")
-    amount_graph = ctx.graph("amount")
-     
-    def trader_ts():
-        thisTrader = trader.SASM_Proxy()
-        return { observable.VolumeTraded(thisTrader) : amount_graph, 
-                 observable.Efficiency(thisTrader)   : eff_graph }
-    
-    def orderbook_ts():
-        assetPrice = observable.AskPrice(orderbook.Proxy())
-        avg = observable.avg
-        return [timeserie.ToRecord(assetPrice, price_graph), 
-                timeserie.ToRecord(avg(assetPrice, alpha=0.15), price_graph),
-                timeserie.ToRecord(avg(assetPrice, alpha=0.65), price_graph),
-                timeserie.ToRecord(avg(assetPrice, alpha=0.015), price_graph)]
-       
-    book_A.timeseries = orderbook_ts()
-    book_B.timeseries = orderbook_ts()
-    
     liqVol = mathutils.product(mathutils.rnd.expovariate(.1), mathutils.constant(2))
-    t_A = trader.SASM(book_A, 
-                      strategy.LiquidityProvider(defaultValue=50., volumeDistr=liqVol), 
-                      "LiquidityProvider_A", 
-                      timeseries = trader_ts())
     
-    t_B = trader.SASM(book_B, 
-                      strategy.LiquidityProvider(defaultValue=150., volumeDistr=liqVol), 
-                      "LiquidityProvider_B", 
-                      timeseries = trader_ts())
+    return [
+        ctx.makeTrader_A( 
+            strategy.LiquidityProvider(defaultValue=50., volumeDistr=liqVol), 
+            "LiquidityProvider_A"),
     
-    dep_AB = trader.SASM(book_A, 
-                         strategy.Dependency(book_B, factor=2), 
-                         "A dependent on B", 
-                         timeseries = trader_ts())
+        ctx.makeTrader_B( 
+            strategy.LiquidityProvider(defaultValue=150., volumeDistr=liqVol), 
+            "LiquidityProvider_B"),
     
-    dep_BA = trader.SASM(book_B, 
-                         strategy.Dependency(book_A, factor=.5), 
-                         "B dependent on A", 
-                         timeseries = trader_ts())
+        ctx.makeTrader_A(strategy.Dependency(ctx.book_B, factor=2), 
+                         "A dependent on B"),
+    
+        ctx.makeTrader_B(strategy.Dependency(ctx.book_A, factor=.5), 
+                         "B dependent on A"),
 
-    dep_AB_ex = trader.SASM(book_A, 
-                            strategy.DependencyEx(book_B, factor=2), 
-                            "A dependent on B ex", 
-                            timeseries = trader_ts())
+        ctx.makeTrader_A(strategy.DependencyEx(ctx.book_B, factor=2), 
+                         "A dependent on B ex"),
     
-    dep_BA_ex = trader.SASM(book_B, 
-                            strategy.DependencyEx(book_A, factor=.5), 
-                            "B dependent on A ex", 
-                            timeseries = trader_ts())
-    
-    return [t_A, t_B, 
-            dep_AB, dep_BA, 
-            dep_AB_ex, dep_BA_ex
-            ], [price_graph, amount_graph, eff_graph]
+        ctx.makeTrader_B(strategy.DependencyEx(ctx.book_A, factor=.5), 
+                         "B dependent on A ex")
+    ]    
 
 if __name__ == '__main__':    
     run("dependency", Dependency)

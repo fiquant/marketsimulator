@@ -10,54 +10,21 @@ const = mathutils.constant
 
 def Signal(ctx):
 
-    book_A = ctx.books['Asset A']
-
-    price_graph = ctx.graph("Price")
-    eff_graph = ctx.graph("efficiency")
-    amount_graph = ctx.graph("amount")
-     
-    def trader_ts():
-        thisTrader = trader.SASM_Proxy()
-        return { observable.VolumeTraded(thisTrader) : amount_graph, 
-                 observable.Efficiency(thisTrader)   : eff_graph }
-    
-    def orderbook_ts():
-        thisBook = orderbook.Proxy()
-        askPrice = observable.AskPrice(thisBook)
-        bidPrice = observable.BidPrice(thisBook)
-        assetPrice = observable.Price(thisBook)
-        avg = observable.avg
-        return [timeserie.ToRecord(askPrice, price_graph),
-                timeserie.ToRecord(bidPrice, price_graph),
-                timeserie.ToRecord(assetPrice, price_graph), 
-                timeserie.ToRecord(avg(assetPrice, alpha=0.15), price_graph),
-                timeserie.ToRecord(avg(assetPrice, alpha=0.65), price_graph),
-                timeserie.ToRecord(avg(assetPrice, alpha=0.015), price_graph)]
-       
-    book_A.timeseries = orderbook_ts()
-    
-    lp_A = trader.SASM(book_A, 
-                       strategy.LiquidityProvider(volumeDistr=const(2)),
-                       "liquidity", 
-                       timeseries = trader_ts())
-    
     linear_signal = signal.RandomWalk(initialValue=20, 
                                       deltaDistr=const(-.1), 
                                       label="20-0.1t")
-    
-    signal_trader = trader.SASM(book_A, 
-                                strategy.Signal(linear_signal), 
-                                "signal", 
-                                timeseries = trader_ts())
 
-    signal_trader.addTimeSerie(linear_signal, amount_graph)
-    
-    signal_ex_trader = trader.SASM(book_A, 
-                                   strategy.SignalEx(linear_signal), 
-                                   "signal_ex", 
-                                   timeseries = trader_ts())
+    return [
+        ctx.makeTrader_A(strategy.LiquidityProvider(volumeDistr=const(2)),
+                         "liquidity"),
         
-    return [lp_A, signal_trader, signal_ex_trader], [price_graph, eff_graph, amount_graph]
+        ctx.makeTrader_A(strategy.Signal(linear_signal), 
+                         "signal", 
+                         [(linear_signal, ctx.amount_graph)]),
+    
+        ctx.makeTrader_A(strategy.SignalEx(linear_signal), 
+                         "signal_ex")
+    ]    
 
 if __name__ == '__main__':
     run("signal_trader", Signal)
