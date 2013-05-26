@@ -173,9 +173,6 @@ class Registry(object):
             del old._referencedBy
         obj._id = Id
         obj._referencedBy = set()
-        obj._alias = self._findAlias(obj)
-        if type(obj._alias) != list:
-            a = 12
         self._id2obj[Id] = obj
         return obj._id
     
@@ -476,6 +473,9 @@ class Registry(object):
         else:
             cls = obj.__class__
             ctor = cls.__module__ + "." + cls.__name__
+            
+        if '_alias' not in dir(obj):
+            obj._alias = self._findAlias(obj)
             
         alias = obj._alias
             
