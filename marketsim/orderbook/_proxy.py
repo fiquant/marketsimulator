@@ -74,15 +74,9 @@ class Proxy(Base):
     _properties = {}
         
     def bind(self, context):
-        impl = context.orderbook
-        if not self._impl or not impl:
-            if self._impl: 
-                self._impl.on_price_changed -= self.on_price_changed
-            self._impl = impl
-            if self._impl:
-                self._impl.on_price_changed += self.on_price_changed
-        else:
-            assert self._impl == impl
+        assert self._impl is None
+        self._impl = context.orderbook
+        self._impl.on_price_changed += self.on_price_changed
 
 class OfTrader(Base):
     

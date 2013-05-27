@@ -1,3 +1,5 @@
+import inspect
+
 from marketsim.registry import properties, internals, children_to_visit
 
 debug = False
@@ -91,7 +93,9 @@ class Binder(object):
                 
             if 'bind' in dir(obj):
                 if '_bound' not in dir(obj):
-                    obj.bind(self)
+                    for base in inspect.getmro(type(obj)):
+                        if 'bind' in dir(base):
+                            base.bind(obj, self)
                     obj._bound = True
                     
             self.log("<<< " + str(type(obj)))

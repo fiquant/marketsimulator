@@ -25,7 +25,7 @@ def TwoAverages(ctx):
                                          volumeDistr=const(3)), 
                         "signal", 
                         [(linear_signal, ctx.amount_graph)]),
-
+            
         ctx.makeTrader_A(strategy.TwoAverages(average1 = slow, 
                                               average2 = fast), 
                         'avg+'),
