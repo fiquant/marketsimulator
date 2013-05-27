@@ -6,8 +6,7 @@ debug = False
 
 class Binder(object):
     
-    def __init__(self, context = None, visited = None, indent = 0):
-        self.__dict__['_visited'] = visited if visited else set()
+    def __init__(self, context = None, indent = 0):
         self.__dict__['_context'] = context.copy() if context else {}
         self.__dict__['_indent'] = indent
         self.log = self._log_debug if debug else self._log_empty
@@ -19,7 +18,7 @@ class Binder(object):
         return self.__dict__['_context'][item]
     
     def clone(self):
-        return Binder(self.__dict__['_context'], self.__dict__['_visited'], self.indent)
+        return Binder(self.__dict__['_context'], self.indent)
     
     @property
     def indent(self):
@@ -55,12 +54,10 @@ class Binder(object):
                 self.bind(x)
             self.log(']')
         else:
-            if obj in self.__dict__['_visited']:
+            if '_bound' in dir(obj):
                 self.log('*')
                 self.dec()
                 return
-            
-            self.__dict__['_visited'].add(obj)
             
             self.inc()
             
@@ -106,14 +103,14 @@ class Binder(object):
         
 class Resetter(object):
     
-    def __init__(self, visited = None, indent = 0):
-        self.__dict__['_visited'] = visited if visited else set()
+    _generation = 0
+    
+    def __init__(self, indent = 0):
+        self._generation = Resetter._generation
+        Resetter._generation += 1
         self.__dict__['_indent'] = indent
         self.log = self._log_debug if debug else self._log_empty
         
-    def clone(self):
-        return Resetter(self.__dict__['_visited'], self.indent)
-    
     @property
     def indent(self):
         return self.__dict__['_indent']
@@ -131,6 +128,9 @@ class Resetter(object):
         pass
     
     def apply(self, obj): 
+        if obj is None:
+            return  # TODO: understand why it can be
+        
         typ = type(obj)
         if typ is int or typ is float or typ is bool or typ is str:
             return 
@@ -148,12 +148,12 @@ class Resetter(object):
                 self.apply(x)
             self.log(']')
         else:
-            if obj in self.__dict__['_visited']:
+            if '_reset_generation' in dir(obj) and obj._reset_generation == self._generation:
                 self.log('*')
                 self.dec()
                 return
             
-            self.__dict__['_visited'].add(obj)
+            obj._reset_generation = self._generation
             
             self.inc()
             

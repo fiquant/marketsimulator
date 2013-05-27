@@ -42,7 +42,7 @@ class Context(object):
     def makeTrader_B(self, strategy, label, additional_ts = []):
         return self.makeTrader(self.book_B, strategy, label, additional_ts)
     
-runTwoTimes = False
+runTwoTimes = True
     
 def run(name, constructor):
     with scheduler.create() as world:
