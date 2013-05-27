@@ -25,7 +25,6 @@ class _tradeIfProfitable_Impl(Strategy):
     # TODO: traverse all base classes in method resolution order and call 'bind' if defined
     def bind(self, context):
         self._efficiency.on_changed += bind.Method(self, '_wakeUp_impl')
-        Strategy.bind(self, context)
         
     _internals = ['_estimator', '_efficiency']
         

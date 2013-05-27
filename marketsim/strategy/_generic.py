@@ -25,7 +25,6 @@ class _Generic_Impl(Strategy):
     def bind(self, context):
         # start listening calls from eventGen
         self.eventGen.advise(self._wakeUp)
-        Strategy.bind(self, context)
         
     def reset(self):
         self.eventGen.schedule()

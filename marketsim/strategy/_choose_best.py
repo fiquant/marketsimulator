@@ -47,7 +47,6 @@ class _chooseTheBest_Impl(Strategy):
     
     def bind(self, context):    
         self._eventGen.advise(self._chooseTheBest) 
-        Strategy.bind(self, context)
 
     _internals = ['_eventGen']
         

@@ -18,7 +18,6 @@ class OneSide(Strategy):
     def bind(self, context):
         # start listening calls from eventGen
         self._eventGen.advise(self._wakeUp)
-        Strategy.bind(self, context)
 
     def reset(self):
         self._eventGen.schedule()

@@ -1,6 +1,6 @@
 from marketsim import types, Event
 
-class SASM_Proxy(object):
+class SASM_ProxyBase(object):
     
     def __init__(self):
         
@@ -11,20 +11,11 @@ class SASM_Proxy(object):
         self._alias = ["$(Trader)"]
         
     def _bind(self, impl):
-        if not self._impl or not impl:
-            if self._impl: 
-                self._impl.on_order_sent -= self.on_order_sent
-                self._impl.on_traded -= self.on_traded
-            self._impl = impl
-            if self._impl:
-                self._impl.on_order_sent += self.on_order_sent
-                self._impl.on_traded += self.on_traded
-        else:
-            assert self._impl == impl
+        assert self._impl is  None
+        self._impl = impl
+        self._impl.on_order_sent += self.on_order_sent
+        self._impl.on_traded += self.on_traded
 
-    def bind(self, context):
-        self._bind(context.trader)
-            
     def _new_property_changed_listener_added(self, propname):
         pass
                 
@@ -91,7 +82,12 @@ class SASM_Proxy(object):
         assert self._impl
         self._impl.orderBook = newvalue
 
-class SASM_ParentProxy(SASM_Proxy):
+class SASM_Proxy(SASM_ProxyBase):
+
+    def bind(self, context):
+        self._bind(context.trader)
+            
+class SASM_ParentProxy(SASM_ProxyBase):
     
     def bind(self, context):
         self._bind(context.parentTrader)
