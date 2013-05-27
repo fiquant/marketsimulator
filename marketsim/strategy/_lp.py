@@ -27,10 +27,6 @@ class _LiquidityProvider_Impl(Strategy):
     _internals = ['_sell', '_buy']
         
         
-    def reset(self):
-        self._sell.reset()
-        self._buy.reset()
-    
     def suspend(self, s):
         Strategy.suspend(self, s)
         self._sell.suspend(s)

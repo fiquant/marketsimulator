@@ -25,7 +25,6 @@ class SingleAsset(Base, types.ISingleAssetTrader):
             self.addStrategy(strategy)
             
     def reset(self):
-        Base.reset(self)
         self._amount = 0
         
     _properties = {'amount'     : float, 

@@ -13,9 +13,6 @@ class %(name)s(object):
     def __init__(self, %(init)s):
         self.__dict__ = { %(dict_)s }
         
-    def reset(self):
-        pass
-        
     @property
     def label(self):
         return repr(self)

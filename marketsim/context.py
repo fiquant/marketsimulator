@@ -103,3 +103,90 @@ class Binder(object):
             self.dec()
 
         self.dec()
+        
+class Resetter(object):
+    
+    def __init__(self, visited = None, indent = 0):
+        self.__dict__['_visited'] = visited if visited else set()
+        self.__dict__['_indent'] = indent
+        self.log = self._log_debug if debug else self._log_empty
+        
+    def clone(self):
+        return Resetter(self.__dict__['_visited'], self.indent)
+    
+    @property
+    def indent(self):
+        return self.__dict__['_indent']
+    
+    def inc(self):
+        self.__dict__['_indent'] += 1
+        
+    def dec(self):
+        self.__dict__['_indent'] -= 1
+        
+    def _log_debug(self, s):
+        print "  " * self.indent, s
+        
+    def _log_empty(self, s):
+        pass
+    
+    def apply(self, obj): 
+        typ = type(obj)
+        if typ is int or typ is float or typ is bool or typ is str:
+            return 
+        
+        self.inc()
+        
+        if typ is set:
+            self.log('{')
+            for x in obj:
+                self.apply(x)
+            self.log('}')
+        elif typ is list:
+            self.log('[')
+            for x in obj:
+                self.apply(x)
+            self.log(']')
+        else:
+            if obj in self.__dict__['_visited']:
+                self.log('*')
+                self.dec()
+                return
+            
+            self.__dict__['_visited'].add(obj)
+            
+            self.inc()
+            
+            self.log(">>> " + str(type(obj)))
+            
+            childContext = self
+            
+            if '_subscriptions' in dir(obj):
+                childContext.apply(obj._subscriptions)
+                
+            propnames = properties(obj)
+            if propnames is None:
+                propnames = {}                
+            
+            for propname in propnames.iterkeys():
+                if propname[0] != '_':
+                    self.log(propname)
+                    childContext.apply(getattr(obj, propname))
+                
+            for propname in internals(obj):
+                self.log(propname)
+                childContext.apply(getattr(obj, propname))
+                
+            for child in children_to_visit(obj):
+                childContext.apply(child)
+                
+            if 'reset' in dir(obj):
+                for base in inspect.getmro(type(obj)):
+                    if 'reset' in dir(base):
+                        base.reset(obj)
+                    
+            self.log("<<< " + str(type(obj)))
+            
+            self.dec()
+
+        self.dec()        

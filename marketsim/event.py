@@ -7,9 +7,6 @@ class Event(object):
     def __init__(self):
         self._listeners = set()
         
-    def reset(self):
-        pass
-    
 #    _internals = ['_listeners']
         
     def __iadd__(self, listener):
@@ -57,10 +54,7 @@ class Subscription(object):
         
     def dispose(self):
         self._event -= self._listener
-        
-    def reset(self):
-        self._event.reset()
-        
+                
 def subscribe(event, listener, target = None):
     
     subscription = Subscription(event, listener)
