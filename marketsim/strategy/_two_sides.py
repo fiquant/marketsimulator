@@ -1,4 +1,4 @@
-from marketsim import bind
+from marketsim import bind, event
 from _basic import Strategy
 
 class TwoSides(Strategy):    
@@ -12,13 +12,8 @@ class TwoSides(Strategy):
         """        
         Strategy.__init__(self)
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
+        event.subscribe(self._eventGen, self._wakeUp, self)
         
-    def bind(self, context):
-        # start listening calls from eventGen
-        self._eventGen.advise(self._wakeUp)
-
-    _internals = ['_eventGen']
-
     def reset(self):
         self._eventGen.schedule()
         

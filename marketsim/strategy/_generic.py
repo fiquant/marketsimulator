@@ -1,4 +1,4 @@
-from marketsim import registry, meta, bind, types, Side, mathutils, order, Event
+from marketsim import registry, meta, bind, types, Side, mathutils, order, Event, event
 from marketsim.types import *
 
 from _basic import Strategy
@@ -21,10 +21,7 @@ class _Generic_Impl(Strategy):
         """        
         Strategy.__init__(self)
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
-        
-    def bind(self, context):
-        # start listening calls from eventGen
-        self.eventGen.advise(self._wakeUp)
+        event.subscribe(self.eventGen, self._wakeUp, self)
         
     def reset(self):
         self.eventGen.schedule()

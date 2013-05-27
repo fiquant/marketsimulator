@@ -1,4 +1,4 @@
-from marketsim import bind
+from marketsim import bind, event
 
 from _basic import Strategy
 
@@ -12,17 +12,12 @@ class OneSide(Strategy):
         eventGen - event generator to be listened - we'll use its advise method to subscribe to
         orderFunc - function to calculate order parameters: Trader -> *orderParams 
         """     
-        Strategy.__init__(self)   
+        Strategy.__init__(self)  
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
+        event.subscribe(self._eventGen, self._wakeUp, self) 
         
-    def bind(self, context):
-        # start listening calls from eventGen
-        self._eventGen.advise(self._wakeUp)
-
     def reset(self):
         self._eventGen.schedule()
-        
-    _internals = ['_eventGen']
         
     def dispose(self):
         self._eventGen.unadvise(self._wakeUp)

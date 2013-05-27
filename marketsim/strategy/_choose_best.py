@@ -1,5 +1,5 @@
 from marketsim import (trader, order, orderbook, scheduler, observable, order, 
-                       registry, types, meta, bind, mathutils)
+                       registry, types, meta, bind, mathutils, event)
 from marketsim.types import *
 
 from _basic import Strategy
@@ -44,12 +44,8 @@ class _chooseTheBest_Impl(Strategy):
         
         self._chooseTheBest = bind.Method(self, '_chooseTheBest_impl')
         self._current = None
+        event.subscribe(self._eventGen, self._chooseTheBest, self)
     
-    def bind(self, context):    
-        self._eventGen.advise(self._chooseTheBest) 
-
-    _internals = ['_eventGen']
-        
     @property
     def _children_to_visit(self):
         for (_, estimator, _, efficiency) in self._strategies:
