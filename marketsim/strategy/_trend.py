@@ -9,7 +9,7 @@ from _wrap import wrapper2
 class _TrendFollower_Impl(SignalBase):
 
     def __init__(self):
-        self._eventGen = scheduler.Timer(self.creationIntervalDistr)
+        self._eventGen = scheduler.Timer(self.creationIntervalDistr) # TODO: dependency tracking
         self._signalFunc = observable.Fold(observable.Price(orderbook.OfTrader()), 
                                            observable.derivative(self.average))
         SignalBase.__init__(self)

@@ -20,7 +20,12 @@ class Base(types.IOrderBook):
     def process(self, order):
         assert self._impl
         self._impl.process(order)
-        
+    
+    @property
+    def label(self):
+        assert self._impl
+        return self._impl.label    
+            
     @property
     def bids(self):
         assert self._impl

@@ -15,12 +15,12 @@ class _tradeIfProfitable_Impl(Strategy):
 
     def __init__(self):
         Strategy.__init__(self)
-        self._estimator_strategy = self.estimator(self.strategy)
+        self._estimator_strategy = self.estimator(self.strategy) # TODO: dependency tracking
         self._estimator = trader.SASM(orderbook.OfTrader(trader.SASM_ParentProxy()),
                                       self._estimator_strategy)
 
         self._strategy = self.strategy
-        self._efficiency = self.efficiency(self._estimator)
+        self._efficiency = self.efficiency(self._estimator) # TODO: dependency tracking
         
     # TODO: traverse all base classes in method resolution order and call 'bind' if defined
     def bind(self, context):

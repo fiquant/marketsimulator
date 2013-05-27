@@ -13,7 +13,10 @@ class derivative(types.IUpdatableValue):
         self.at = bind.Method(self.source, 'derivativeAt')
         self.derivativeAt = bind.Method(self, 'at')  # temporary hack 
         self.reset = bind.Method(self.source, 'reset')
-        self.label = "d(" + source.label + ")"
+        
+    @property
+    def label(self):
+        return "d(" + self.source.label + ")"
         
     _properties = { "source" : types.IUpdatableValue }
     
@@ -38,7 +41,10 @@ class Fold(object):
         
     def bind(self, context): # TODO: we should subscribe to acc and source changed events
         self._scheduler = context.world
-        self.label = getLabel(self._acc) + "(" + getLabel(self._source) + ")"
+        
+    @property
+    def label(self):
+        return getLabel(self._acc) + "(" + getLabel(self._source) + ")"
             
     _properties = { 'source' : types.IObservable,
                     'folder' : types.IUpdatableValue }
