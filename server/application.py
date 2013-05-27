@@ -318,7 +318,8 @@ def reset():
     w = current_user_workspace()
     save_state_before_changes(w.registry)
     with w.world: 
-        w.registry.reset()
+        w.world._reset()
+        context.Resetter().apply(w.registry.get(w.root))
     save_current_workspace()
     return changes(w)
 

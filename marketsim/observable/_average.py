@@ -72,9 +72,6 @@ class Fold(object):
         self._source = value
         self._source.on_changed += self._update
             
-    def reset(self):
-        self._acc.reset()
-                
     @property
     def value(self):
         """ Returns value from the accumulator corresponding to the current time

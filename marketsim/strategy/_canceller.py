@@ -44,9 +44,6 @@ class _Canceller_Impl(object):
     def dispose(self):
         self._eventGen -= self.wakeUp
         
-    def reset(self):
-        self._eventGen.schedule()
-
     def process(self, order):
         """ Puts 'order' to future cancellation list
         """

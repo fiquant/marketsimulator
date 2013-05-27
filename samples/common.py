@@ -42,6 +42,8 @@ class Context(object):
     def makeTrader_B(self, strategy, label, additional_ts = []):
         return self.makeTrader(self.book_B, strategy, label, additional_ts)
     
+runTwoTimes = False
+    
 def run(name, constructor):
     with scheduler.create() as world:
         
@@ -77,3 +79,10 @@ def run(name, constructor):
         world.workTill(500)
         
         veusz.render(name, graphs)
+        
+        world._reset()
+        context.Resetter().apply(root)
+
+        if runTwoTimes:
+            world.workTill(500)
+            veusz.render(name, graphs)

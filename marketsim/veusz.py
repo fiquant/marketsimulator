@@ -1,6 +1,6 @@
 from marketsim import scheduler, bind, types
 from colorsys import hsv_to_rgb
-from subprocess import Popen
+import subprocess 
 import random
 import os
 import errno
@@ -51,7 +51,7 @@ class OutputStream(object):
         
     def reset(self):
         if self._file: 
-            self._file.close(self)
+            self._file.close()
         self._file = file(self._filename, 'w')
     
     def __getstate__(self):
@@ -227,7 +227,7 @@ def run(name):
         veusz_exe = 'veusz'
     else:
         veusz_exe = os.environ['VEUSZ_EXE']
-    Popen(veusz_exe + ' ' + os.path.abspath(myDir()+name+".vsz"), shell=True)
+    subprocess.call(veusz_exe + ' ' + os.path.abspath(myDir()+name+".vsz"), shell=True)
         
 
 def render(name, graphs):

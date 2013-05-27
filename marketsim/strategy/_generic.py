@@ -23,9 +23,6 @@ class _Generic_Impl(Strategy):
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
         event.subscribe(self.eventGen, self._wakeUp, self)
         
-    def reset(self):
-        self.eventGen.schedule()
-        
     def dispose(self):
         self.eventGen.unadvise(self._wakeUp)
 

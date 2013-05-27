@@ -57,10 +57,6 @@ class IndicatorBase(types.IObservable):
     
     def reset(self):
         self._current = None
-        if 'reset' in dir(self._dataSource):
-            self._dataSource.reset()
-        for es in self._eventSources:
-            es.reset()
             
     def schedule(self):
         self.reset()
@@ -71,6 +67,14 @@ class IndicatorBase(types.IObservable):
         self.on_changed += listener
         
     def unadvise(self, listener):
+        self.on_changed -= listener
+        
+    def __iadd__(self, listener):
+        """ Subscribes 'listener' to value change event
+        """
+        self.on_changed += listener
+        
+    def __isub__(self, listener):
         self.on_changed -= listener
         
     @property
