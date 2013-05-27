@@ -1,5 +1,5 @@
 import random
-from marketsim import bind, trader, scheduler, orderbook, mathutils, meta, registry, types
+from marketsim import bind, trader, scheduler, orderbook, mathutils, meta, registry, types, event
 from marketsim.types import *
 from _wrap import wrapper2
 
@@ -39,9 +39,7 @@ class _Canceller_Impl(object):
         # start listening its orders sent
         myTrader.on_order_sent += bind.Method(self, 'process')
         self._book = orderbook.OfTrader(myTrader)
-        self._eventGen += self.wakeUp
-    
-    _internals = ['_eventGen']
+        event.subscribe(self._eventGen, self.wakeUp, self)
         
     def dispose(self):
         self._eventGen -= self.wakeUp

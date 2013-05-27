@@ -1,5 +1,5 @@
 from marketsim import (trader, order, orderbook, scheduler, observable, order, 
-                       registry, types, meta, bind, mathutils)
+                       registry, types, meta, bind, mathutils, event)
 
 from marketsim.types import *
 
@@ -22,9 +22,7 @@ class _tradeIfProfitable_Impl(Strategy):
         self._strategy = self.strategy
         self._efficiency = self.efficiency(self._estimator) # TODO: dependency tracking
         
-    # TODO: traverse all base classes in method resolution order and call 'bind' if defined
-    def bind(self, context):
-        self._efficiency.on_changed += bind.Method(self, '_wakeUp_impl')
+        event.subscribe(self._efficiency.on_changed, bind.Method(self, '_wakeUp_impl'))
         
     _internals = ['_estimator', '_efficiency']
         
