@@ -47,15 +47,21 @@ class Remote(BookBase):
     
     def __init__(self, orderbook, link):
         
-        BookBase.__init__(self, 
+        BookBase.__init__(self, # TODO: dependency tracking
                           Queue(orderbook.bids, self, link.down), 
                           Queue(orderbook.asks, self, link.down), 
                           orderbook.label)
         
-        self._upLink = link.up
-        self._downLink = link.down
         self.link = link
         self._book = orderbook
+        
+    @property
+    def _upLink(self):
+        return self.link.up
+    
+    @property
+    def _downLink(self):
+        return self.link.down
         
     @property
     def orderbook(self):

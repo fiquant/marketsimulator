@@ -30,7 +30,7 @@ class _chooseTheBest_Impl(Strategy):
     def __init__(self):
         
         self._chooseTheBest = bind.Method(self, '_chooseTheBest_impl')
-        Strategy.__init__(self)
+        Strategy.__init__(self) # TODO: eventGen should be a parameter
         self._eventGen = scheduler.Timer(mathutils.constant(10))
 
         def _createInstance(sp):
@@ -46,7 +46,7 @@ class _chooseTheBest_Impl(Strategy):
         self._current = None
     
     def bind(self, context):    
-        self._eventGen.advise(self._chooseTheBest)
+        self._eventGen.advise(self._chooseTheBest) 
         Strategy.bind(self, context)
 
     _internals = ['_eventGen']

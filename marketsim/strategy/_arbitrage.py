@@ -4,6 +4,8 @@ from blist import sorteddict
 from _basic import Strategy
 from _wrap import wrapper
 
+# NB! obsolete for the moment
+
 class _Arbitrage_Impl(Strategy):
 
     def __init__(self, trader, params):
