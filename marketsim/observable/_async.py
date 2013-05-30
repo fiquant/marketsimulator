@@ -22,6 +22,10 @@ class Efficiency(types.IObservable):
         
         self.reset()
         
+    @property
+    def digits(self):
+        return self._trader.orderBook._digitsToShow
+    
     _internals = ['on_changed']
         
     def _callback_impl(self, sign, (price, volume_unmatched)): 

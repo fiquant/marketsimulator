@@ -374,7 +374,9 @@ class Registry(object):
             if propnames is None:
                 propnames = {}
                 
-            for propname in propnames.iterkeys():
+            for propname, ptype in propnames.iteritems():
+                if ptype is int or ptype is float or ptype is str:
+                    continue
                 self.assureAllReferencedAreRegistred(getattr(obj, propname), visited)
                 
     def ofType(self, prefix):
