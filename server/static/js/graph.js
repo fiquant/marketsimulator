@@ -94,12 +94,17 @@ function Graph(source, root) {
 		var dummy = root.updategraph();
 		console.log("asFlotr for " + self.alias());
 		return map(self.series(), function (ts) {
+			var smooth = ts.lookupField("_smooth").impl().serialized() == 1;
 			return ts.visible() ? { 
 				'source' : ts,
 				'data' : ts.getData.peek(), 
 				'label' : ts.alias.peek(), 
 				'name': ts.alias.peek(),
-				'step' : ts.lookupField("_smooth").impl().serialized() == 0 
+				'step' : !smooth,
+				'type' : smooth ? "spline" : "line", 
+				'tooltip' : {
+					'valueDecimals': ts.lookupField('_digits').impl().serialized()
+				}
 			} : {};
 		});		
 	})

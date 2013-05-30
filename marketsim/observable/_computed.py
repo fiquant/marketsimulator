@@ -46,6 +46,10 @@ class IndicatorBase(types.IObservable):
         self._eventSources = value
         for es in self._eventSources:
             es.advise(self)
+            
+    @property
+    def digits(self):
+        return self._dataSource.digits if 'digits' in dir(self._dataSource) else 4
     
     @property
     def dataSource(self):
@@ -98,6 +102,10 @@ class rough_balance(object):
     
     def __call__(self):
         return self.trader.PnL + self.trader.amount*self.trader.book.price if self.trader.book.price else 0
+   
+    @property
+    def digits(self):
+        return self.trader.orderBook._digitsToShow
     
     @property
     def label(self):
@@ -137,7 +145,10 @@ class profit_and_loss(object):
     def label(self):
         return "P&L_{" + getLabel(self.trader) + "}"
     
-    _types = [meta.function((), float)]
+    @property
+    def digits(self):
+        return self.trader.orderBook._digitsToShow
+    
     
     def __call__(self):
         return self.trader.PnL
@@ -160,6 +171,10 @@ class mid_price(object):
     
     def __call__(self):
         return self.orderbook.price
+
+    @property
+    def digits(self):
+        return self.orderbook._digitsToShow
     
     @property
     def label(self):
@@ -238,6 +253,10 @@ class volume_traded(object):
         return self.trader.amount
     
     @property
+    def digits(self):
+        return 0
+    
+    @property
     def label(self):
         return "Amount_{" + getLabel(self.trader) + "}"
     
@@ -265,6 +284,10 @@ class side_price(object):
     def __call__(self):
         queue = self.orderbook.queue(self.side)
         return queue.best.price if not queue.empty else None
+    
+    @property
+    def digits(self):
+        return self.orderbook._digitsToShow
     
     @property
     def label(self):

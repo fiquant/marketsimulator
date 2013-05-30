@@ -33,7 +33,7 @@ class Local(BookBase, timeserie.Holder):
     """ Order book for a single asset in a market.
     Maintains two order queues for orders of different sides
     """
-    def __init__(self, tickSize=1, label="", timeseries = [],
+    def __init__(self, tickSize=1, _digitsToShow = None, label="", timeseries = [],
                  marketOrderFee = None, # optional function (order, book)-> price to calculate fee for a market order
                  limitOrderFee = None,
                  cancelOrderFee = None):
@@ -45,12 +45,23 @@ class Local(BookBase, timeserie.Holder):
                           label)
         timeserie.Holder.__init__(self, timeseries)
         
+        self._digitsToShow = _digitsToShow
+        
+        if self._digitsToShow is None:
+            nDigits = 0
+            d = 1.
+            while tickSize * d < 1:
+                nDigits += 1
+                d *= 10
+            self._digitsToShow = nDigits
+        
         self._tickSize = tickSize
         self._marketOrderFee = marketOrderFee
         self._limitOrderFee = limitOrderFee
         self._cancelOrderFee = cancelOrderFee
 
-    _properties = {'tickSize' : float}
+    _properties = {'tickSize' : float, 
+                   '_digitsToShow' : int }
 
     @property
     def tickSize(self):

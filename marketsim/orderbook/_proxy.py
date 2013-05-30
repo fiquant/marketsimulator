@@ -63,6 +63,11 @@ class Base(types.IOrderBook):
     def evaluateOrderPriceAsync(self, side, volume, callback):
         assert self._impl
         self._impl.evaluateOrderPriceAsync(side, volume, callback)
+        
+    @property
+    def _digitsToShow(self):
+        assert self._impl
+        return self._impl._digitsToShow
 
 @registry.expose(['$(OrderBook)'])
 class Proxy(Base):

@@ -14,6 +14,10 @@ class TimeSerie(object):
     def bind(self, context):
         self._sched = context.world
         self._source.advise(self._wakeUp)
+        
+    @property
+    def _digits(self):
+        return self._source.digits if 'digits' in dir(self._source) else 4 
     
     @property    
     def _alias(self):
@@ -61,7 +65,8 @@ class TimeSerie(object):
         self._source.advise(self._wakeUp)
         
     _properties = { "_source" : types.IObservable, 
-                    "_smooth" : int }
+                    "_smooth" : int, 
+                    "_digits" : int }
         
     @property    
     def data(self):
