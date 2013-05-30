@@ -91,9 +91,11 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	self._generateNewAlias = function () {
 		if (self.isReference()) {
 			for (var i = 0; true; i++) {
-				var s = self.alias() + '.' + i;
-				if (root.alias2id[$.toJSON(s)] == undefined) {
-					return s;
+				var copy = self.alias().slice();
+				var idx = copy.length - 1;
+				copy[idx] = copy[idx].concat('.' + i);
+				if (root.alias2id[$.toJSON(copy)] == undefined) {
+					return copy;
 				}
 			}
 		} else {
