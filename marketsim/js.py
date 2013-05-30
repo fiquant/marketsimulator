@@ -8,6 +8,7 @@ class TimeSerie(object):
         self._source = _source
         self._sched = scheduler.current()
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
+        self._smooth =  1 if 'smooth' in _source.attributes and _source.attributes['smooth'] else 0
         self.reset()
         
     def bind(self, context):
@@ -59,7 +60,8 @@ class TimeSerie(object):
         self._alias = self._source.label        
         self._source.advise(self._wakeUp)
         
-    _properties = { "_source" : types.IObservable }
+    _properties = { "_source" : types.IObservable, 
+                    "_smooth" : int }
         
     @property    
     def data(self):
@@ -67,7 +69,7 @@ class TimeSerie(object):
     
     def drop(self): # later a more sophisticated protocol would be introduced
         self._data = []
-        
+
 class Graph(types.IGraph):
     """ Generic 2D graph to be rendered by means of javascript libraries
     """
