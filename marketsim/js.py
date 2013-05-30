@@ -37,11 +37,16 @@ class TimeSerie(object):
     def _wakeUp_impl(self, _):
         """ Called when the source has changed
         """
+        def appendex(target, (x,y)):
+            if target != [] and target[-1][1] == y:
+                return
+            target.append((x,y))
+                
         x = self._source.value
         if x is not None: # for the moment we don't know what to do with breaks in data
-            self._data.append((self._sched.currentTime, x))
+            appendex(self._data, (self._sched.currentTime, x))
             # we should also filter out constant segmemnts
-            self._changes.append((self._sched.currentTime, x))
+            appendex(self._changes, (self._sched.currentTime, x))
                 
     def reset(self):
         self._data = []
