@@ -84,7 +84,7 @@ function Graph(source, root) {
 	 *	Returns an array of TimeSerie instances held by the graph 
 	 */
 	self.series = ko.computed(function () {
-		var timeseries = source.fields()[0].impl().elements();
+		var timeseries = source.lookupField("series").impl().elements();
 		return map(timeseries, function (timeserie) {
 			return root.id2obj.lookup(timeserie.impl().pointee().uniqueId());
 		});
@@ -99,7 +99,7 @@ function Graph(source, root) {
 				'data' : ts.getData.peek(), 
 				'label' : ts.alias.peek(), 
 				'name': ts.alias.peek(),
-				'step' : true 
+				'step' : ts.lookupField("_smooth").impl().serialized() == 0 
 			} : {};
 		});		
 	})

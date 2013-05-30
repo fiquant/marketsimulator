@@ -582,7 +582,7 @@ class Simulation(object):
     
     _properties = { 'traders'    : meta.listOf(types.ISingleAssetTrader),
                     'orderbooks' : meta.listOf(types.IOrderBook),
-                    'graphs'     : meta.listOf(js.Graph) }
+                    'graphs'     : meta.listOf(types.IGraph) }
     
     @property
     def traders(self):
