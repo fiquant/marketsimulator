@@ -101,7 +101,8 @@ function Graph(source, root) {
 				'label' : ts.alias.peek(), 
 				'name': ts.alias.peek(),
 				'step' : !smooth,
-				'type' : smooth ? "spline" : "line", 
+				'type' : smooth ? "spline" : "line",
+				'digits':  ts.lookupField('_digits').impl().serialized(),
 				'tooltip' : {
 					'valueDecimals': ts.lookupField('_digits').impl().serialized()
 				}
@@ -168,9 +169,34 @@ ko.bindingHandlers.highstocks = {
         		type: 'line',
         		animation: false
         	},
+	        tooltip: {
+	            shared: true,
+	            useHTML: true,
+	            formatter: function () {
+			        var s = '<b>t = '+ this.x.toFixed(2) +'</b><table>';
+			
+			        $.each(this.points, function(i, point) {
+			        	
+			            s += '<tr><td style="color: '+point.series.color+'">'+ point.series.name 
+			            +'</td><td style="text-align: right"><b> '+
+			                point.y.toFixed(point.series.tooltipOptions.valueDecimals) + '</b></td></tr>';
+			         });
+			         
+			         s += "</table>"
+			
+			        return s;
+	            }
+	        },
         	series: data,
 		    rangeSelector: {
 		    	enabled: false
+		    },
+		    navigator : {
+		        xAxis: {        
+		            labels: {
+		                format: '{value}'
+		            }
+		        },
 		    },	        
 	        xAxis: {        
 	            labels: {
