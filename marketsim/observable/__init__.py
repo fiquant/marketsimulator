@@ -1,4 +1,4 @@
-from _computed import InstEfficiency, PnL, Price, CrossSpread, PriceAtVolume,\
+from _computed import InstEfficiency, PnL, Price, CrossSpread, PriceAtVolume, VolumeLevels,\
                         VolumeTraded, BestPrice, BidPrice, AskPrice, OnEveryDt
                         
 from _average import EWMA, dEWMA, derivative, Fold, avg, trend

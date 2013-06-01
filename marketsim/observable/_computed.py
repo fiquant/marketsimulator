@@ -322,6 +322,38 @@ class price_at_volume(object):
     _properties = { 'orderbook' : types.IOrderBook, 
                     'side'      : types.Side, 
                     'volumeAt'  : float }
+
+class volume_levels(object):
+    
+    def __init__(self, orderbook, side, volumeDelta, volumeCount):
+        self.orderbook = orderbook
+        self.side = side
+        self.volumeDelta = volumeDelta
+        self.volumeCount = volumeCount
+        self._alias = ["Asset's", "Volume levels"]
+    
+    @property    
+    def volumes(self):
+        return [self.volumeDelta * i for i in range(self.volumeCount)]
+        
+    _types = [meta.function((), meta.listOf(float))]
+    
+    def __call__(self):
+        queue = self.orderbook.queue(self.side)
+        return [price for (volume, price) in queue.getVolumePrices(self.volumes)]
+    
+    @property
+    def digits(self):
+        return self.orderbook._digitsToShow
+    
+    @property
+    def label(self):
+        return "VolumeLevels("+self.orderbook.queue(self.side).label+")" 
+    
+    _properties = { 'orderbook'     : types.IOrderBook, 
+                    'side'          : types.Side, 
+                    'volumeDelta'   : float,
+                    'volumeCount'   : int  }
     
     
 
@@ -362,5 +394,12 @@ def PriceAtVolume(interval, orderbook, side, volume):
 
     return IndicatorBase([scheduler.Timer(mathutils.constant(interval))],
                          price_at_volume(orderbook, side, volume), 
-                         {'smooth':True})
+                         {'smooth':True, 'fillBelow' : side == Side.Buy, 'fillAbove' : side == Side.Sell})
+
+def VolumeLevels(interval, orderbook, side, volumeDelta, volumeCount):
+
+    return IndicatorBase([scheduler.Timer(mathutils.constant(interval))],
+                         volume_levels(orderbook, side, volumeDelta, volumeCount), 
+                         {'smooth':True, 'volumeLevels' : True, 
+                          'fillBelow' : side == Side.Buy, 'fillAbove' : side == Side.Sell})
     

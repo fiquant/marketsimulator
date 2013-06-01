@@ -1,4 +1,4 @@
-from marketsim import scheduler, bind, types
+from marketsim import scheduler, bind, types, Event
 from colorsys import hsv_to_rgb
 import subprocess 
 import random
@@ -171,7 +171,39 @@ def translateAttributes(src):
     res = {}
     if 'smooth' in src and src['smooth']:
         res[r'PlotLine/steps'] = 'off'
+    if 'fillBelow' in src and src['fillBelow']:
+        res['FillBelow/color'] =  u'#55aaff'
+        res['FillBelow/hide'] = False
+        res['FillBelow/transparency'] = 90
+    if 'fillAbove' in src and src['fillAbove']:
+        res['FillAbove/color'] =  u'#aaff7f'
+        res['FillAbove/hide'] = False
+        res['FillAbove/transparency'] = 90
+        
     return res
+
+class VolumeLevelChanged(Event):
+    
+    def __init__(self, source, idx):
+        Event.__init__(self)
+        self._source = source
+        self._idx = idx
+        self.update = bind.Method(self, '_update')
+        self._source.advise(self.update)
+        
+    def _update(self, _):
+        self.fire(self)
+        
+    @property
+    def value(self):
+        return self._source.value[self._idx]
+        
+    @property
+    def label(self):
+        return self._source.label + '{' + str(self._source.dataSource.volumes[self._idx]) + '}' 
+        
+    
+    
         
 class Graph(types.IGraph):
     """ Represents a single Veusz graph
@@ -198,7 +230,16 @@ class Graph(types.IGraph):
         attr = translateAttributes(source.attributes)
         for k,v in attributes.iteritems():
             attr[k] = v
-        self._datas.append(CSV(myDir(), source, attr))
+        if 'volumeLevels' in source.attributes:
+            self.processVolumeLevels(source, attr)    
+        else:    
+            self._datas.append(CSV(myDir(), source, attr))
+            
+    def processVolumeLevels(self, source, attr):
+        volumes = source.dataSource.volumes
+        for i in range(len(volumes)):
+            proxy = VolumeLevelChanged(source, len(volumes) - i - 1)
+            self._datas.append(CSV(myDir(), proxy, attr))
         
     def removeTimeSerie(self, source):
         self._datas = [x for x in self._datas if x._source is not source]

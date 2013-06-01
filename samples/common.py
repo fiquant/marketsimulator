@@ -17,10 +17,18 @@ class Context(object):
         self.eff_graph = self.graph("efficiency")
         self.amount_graph = self.graph("amount")
         
-        self.graphs = [self.price_graph, self.eff_graph, self.amount_graph]
+        self.graphs = [
+                       self.price_graph, 
+                       self.eff_graph, 
+                       self.amount_graph
+                       ]
          
         self.books = { 'Asset A' : self.book_A ,
                        'Asset B' : self.book_B  }
+
+        self.book_A.volumes_graph = self.graph("Volume levels A")
+        self.book_B.volumes_graph = self.graph("Volume levels B")
+
         
     def makeTrader(self, book, strategy, label, additional_ts = []):
         def trader_ts():
@@ -62,14 +70,6 @@ def run(name, constructor):
             assetPrice = observable.Price(thisBook)
             avg = observable.avg
             return [
-#                    timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Sell, 10), ctx.price_graph),
-#                    timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Buy, 10), ctx.price_graph),
-#                    timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Sell, 20), ctx.price_graph),
-#                    timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Buy, 20), ctx.price_graph),
-#                    timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Sell, 30), ctx.price_graph),
-#                    timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Buy, 30), ctx.price_graph),
-#                    timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Sell, 40), ctx.price_graph),
-#                    timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Buy, 40), ctx.price_graph),
                     timeserie.ToRecord(askPrice, ctx.price_graph),
                     timeserie.ToRecord(bidPrice, ctx.price_graph),
                     timeserie.ToRecord(assetPrice, ctx.price_graph), 
@@ -78,7 +78,24 @@ def run(name, constructor):
                     timeserie.ToRecord(avg(assetPrice, alpha=0.015), ctx.price_graph)]
 
         for b in books:
-            b.timeseries = orderbook_ts()
+            thisBook = orderbook.Proxy()
+            ts = orderbook_ts()
+            ts.append(timeserie.ToRecord(
+                                                   observable.VolumeLevels(1, 
+                                                                           thisBook, 
+                                                                           Side.Sell, 
+                                                                           30, 
+                                                                           10), 
+                                                   b.volumes_graph))
+            ts.append(timeserie.ToRecord(
+                                                   observable.VolumeLevels(1, 
+                                                                           thisBook, 
+                                                                           Side.Buy, 
+                                                                           30, 
+                                                                           10), 
+                                                   b.volumes_graph))
+            b.timeseries = ts
+            graphs.append(b.volumes_graph)
         
         r = registry.create()
         root = registry.Simulation(traders, list(ctx.books.itervalues()), graphs)
