@@ -181,6 +181,29 @@ class Queue(object):
             else:
                 break
         return (price, volume)
+    
+    def getVolumePrices(self, volumes):
+        deltas = [volumes[0]] + [volumes[i] - volumes[i-1] for i in range(1, len(volumes))]
+        i = 0
+        lastPrice = None
+        for x in self.sorted:
+            v = x.volume
+            lastPrice = x.price
+            while i < len(deltas) and v > 0:
+                if v > deltas[i]:
+                    yield (volumes[i], x.price)
+                    v -= deltas[i]
+                    i += 1
+                else:
+                    deltas[i] -= v
+                    break
+            if i == len(deltas):
+                return
+        while i < len(deltas):
+            yield (volumes[i], lastPrice)
+            i += 1
+        
+        
         
         
 

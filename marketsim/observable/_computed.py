@@ -32,8 +32,7 @@ class IndicatorBase(types.IObservable):
     def __call__(self, _ = None):
         # calculate current value
         self._current = self._dataSource()
-        if self._current is not None: # this should be removed into a separate filter
-            self.on_changed.fire(self) 
+        self.on_changed.fire(self) 
     
     @property
     def eventSources(self):
@@ -296,6 +295,35 @@ class side_price(object):
     _properties = { 'orderbook' : types.IOrderBook, 
                     'side'      : types.Side }
     
+class price_at_volume(object):
+
+    def __init__(self, orderbook, side, volumeAt):
+        self.orderbook = orderbook
+        self.side = side
+        self.volumeAt = volumeAt
+        self._alias = ["Asset's", "Price at Volume"]
+        
+    _types = [meta.function((), float)]
+    
+    def __call__(self):
+        queue = self.orderbook.queue(self.side)
+        for (volume, price) in queue.getVolumePrices([self.volumeAt]):
+            return price
+        return None
+    
+    @property
+    def digits(self):
+        return self.orderbook._digitsToShow
+    
+    @property
+    def label(self):
+        return "PriceAtVolume_{"+str(self.volumeAt)+"}("+self.orderbook.queue(self.side).label+")" 
+    
+    _properties = { 'orderbook' : types.IOrderBook, 
+                    'side'      : types.Side, 
+                    'volumeAt'  : float }
+    
+    
 
 def BestPrice(book, side, label):
     """ Creates an indicator bound to the price of the best order in a queue
@@ -329,3 +357,10 @@ def OnEveryDt(interval, source):
     return IndicatorBase([scheduler.Timer(mathutils.constant(interval))],
                          source, 
                          {'smooth':True})
+
+def PriceAtVolume(interval, orderbook, side, volume):
+
+    return IndicatorBase([scheduler.Timer(mathutils.constant(interval))],
+                         price_at_volume(orderbook, side, volume), 
+                         {'smooth':True})
+    

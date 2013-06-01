@@ -53,6 +53,7 @@ class ewma(types.IUpdatableValue):
     def update(self, time, value):
         """ Adds point (time, value) to calculate the average
         """
-        self._avg = self.at(time) if self._avg is not None else value
-        self._lastValue = value
-        self._lastTime = time
+        if value is not None:
+            self._avg = self.at(time) if self._avg is not None else value
+            self._lastValue = value
+            self._lastTime = time
