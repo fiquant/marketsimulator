@@ -68,6 +68,11 @@ class Base(types.IOrderBook):
     def _digitsToShow(self):
         assert self._impl
         return self._impl._digitsToShow
+    
+    def getVolumePrices(self, side, volumes):
+        assert self._impl
+        return self._impl.queue(side).getVolumePrices(volumes)
+
 
 @registry.expose(['$(OrderBook)'])
 class Proxy(Base):

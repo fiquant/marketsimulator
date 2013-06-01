@@ -124,6 +124,8 @@ class CSV(object):
         x = self._source.value
         if x is not None: # for the moment we don't know what to do with breaks in data
             self._file.write(str(self._sched.currentTime) + ',' + str(x) + ',\n')
+        else:
+            self._file.write('nan,\n')
             
     def reset(self):
         if self._file is not None:

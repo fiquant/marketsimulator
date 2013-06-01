@@ -43,10 +43,9 @@ class TimeSerie(object):
             target.append((x,y))
                 
         x = self._source.value
-        if x is not None: # for the moment we don't know what to do with breaks in data
-            appendex(self._data, (self._sched.currentTime, x))
-            # we should also filter out constant segmemnts
-            appendex(self._changes, (self._sched.currentTime, x))
+        appendex(self._data, (self._sched.currentTime, x))
+        # we should also filter out constant segmemnts
+        appendex(self._changes, (self._sched.currentTime, x))
                 
     def reset(self):
         self._data = []

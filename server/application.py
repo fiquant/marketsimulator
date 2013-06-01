@@ -113,7 +113,16 @@ def createSimulation(name='All'):
                 bidPrice = observable.BidPrice(thisBook)
                 assetPrice = observable.Price(thisBook)
                 avg = observable.avg
-                return [timeserie.ToRecord(askPrice, ctx.price_graph),
+                return [
+                        timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Sell, 10), ctx.price_graph),
+                        timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Buy, 10), ctx.price_graph),
+                        timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Sell, 20), ctx.price_graph),
+                        timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Buy, 20), ctx.price_graph),
+                        timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Sell, 30), ctx.price_graph),
+                        timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Buy, 30), ctx.price_graph),
+                        timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Sell, 40), ctx.price_graph),
+                        timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Buy, 40), ctx.price_graph),
+                        timeserie.ToRecord(askPrice, ctx.price_graph),
                         timeserie.ToRecord(bidPrice, ctx.price_graph),
                         timeserie.ToRecord(assetPrice, ctx.price_graph), 
                         timeserie.ToRecord(avg(assetPrice, alpha=0.15), ctx.price_graph),
