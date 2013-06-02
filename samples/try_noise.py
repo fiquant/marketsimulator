@@ -7,6 +7,8 @@ from marketsim import (strategy, trader, orderbook, order, mathutils,
 from common import run 
 
 def Noise(ctx):
+    
+    ctx.volumeStep = 10
 
     return [
         ctx.makeTrader_A(strategy.LiquidityProvider(

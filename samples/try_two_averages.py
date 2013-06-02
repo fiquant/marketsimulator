@@ -10,6 +10,8 @@ const = mathutils.constant
 
 def TwoAverages(ctx):
 
+    ctx.volumeStep = 30
+
     slow = mathutils.ewma(alpha = 0.015)
     fast = mathutils.ewma(alpha = 0.15)
 

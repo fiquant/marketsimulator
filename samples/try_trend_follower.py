@@ -12,7 +12,8 @@ def TrendFollower(ctx):
 
     V = 1
     alpha = 0.065
-    
+    ctx.volumeStep = 30
+
     linear_signal = signal.RandomWalk(initialValue=200, 
                                       deltaDistr=const(-1), 
                                       label="200-t")

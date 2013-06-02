@@ -10,6 +10,8 @@ const = mathutils.constant
 
 def Complete(ctx):
     
+    ctx.volumeStep = 100
+
     c_200 = const(200.)
     
     fv_200_12 = strategy.FundamentalValue(fundamentalValue=c_200, volumeDistr=const(12))

@@ -10,6 +10,8 @@ const = mathutils.constant
 
 def MeanReversion(ctx):
 
+    ctx.volumeStep = 40
+
     alpha = 0.15
     V = 1
     linear_signal = signal.RandomWalk(initialValue=200, 

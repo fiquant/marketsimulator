@@ -8,6 +8,8 @@ def Dependency(ctx):
 
     liqVol = mathutils.product(mathutils.rnd.expovariate(.1), mathutils.constant(2))
     
+    ctx.volumeStep = 70
+
     return [
         ctx.makeTrader_A( 
             strategy.LiquidityProvider(defaultValue=50., volumeDistr=liqVol), 

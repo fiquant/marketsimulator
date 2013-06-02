@@ -8,6 +8,8 @@ from common import run
 
 def Canceller(ctx):
 
+    ctx.volumeStep = 15
+
     return [
         ctx.makeTrader_A(strategy.LiquidityProviderSide(side = Side.Sell),
                          "LiquidityProvider-"),

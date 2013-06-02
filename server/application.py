@@ -114,23 +114,36 @@ def createSimulation(name='All'):
                 assetPrice = observable.Price(thisBook)
                 avg = observable.avg
                 return [
-                        timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Sell, 10), ctx.price_graph),
-                        timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Buy, 10), ctx.price_graph),
-                        timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Sell, 20), ctx.price_graph),
-                        timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Buy, 20), ctx.price_graph),
-                        timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Sell, 30), ctx.price_graph),
-                        timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Buy, 30), ctx.price_graph),
-                        timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Sell, 40), ctx.price_graph),
-                        timeserie.ToRecord(observable.PriceAtVolume(1, thisBook, Side.Buy, 40), ctx.price_graph),
                         timeserie.ToRecord(askPrice, ctx.price_graph),
                         timeserie.ToRecord(bidPrice, ctx.price_graph),
                         timeserie.ToRecord(assetPrice, ctx.price_graph), 
                         timeserie.ToRecord(avg(assetPrice, alpha=0.15), ctx.price_graph),
                         timeserie.ToRecord(avg(assetPrice, alpha=0.65), ctx.price_graph),
-                        timeserie.ToRecord(avg(assetPrice, alpha=0.015), ctx.price_graph)]
+                        timeserie.ToRecord(avg(assetPrice, alpha=0.015), ctx.price_graph)
+                        ]
+                
+            volumeStep = ctx.volumeStep if 'volumeStep' in dir(ctx) else 30
     
             for b in books:
-                b.timeseries = orderbook_ts()
+                b.volumes_graph = js.Graph("Volume levels " + b.label)
+                thisBook = orderbook.Proxy()
+                ts = orderbook_ts()
+                ts.append(timeserie.ToRecord(
+                               observable.VolumeLevels(1, 
+                                                       thisBook, 
+                                                       Side.Sell, 
+                                                       volumeStep, 
+                                                       10), 
+                               b.volumes_graph))
+                ts.append(timeserie.ToRecord(
+                               observable.VolumeLevels(1, 
+                                                       thisBook, 
+                                                       Side.Buy, 
+                                                       volumeStep, 
+                                                       10), 
+                               b.volumes_graph))
+                b.timeseries = ts
+                graphs.append(b.volumes_graph)
         
             for t in traders + list(ctx.books.itervalues()) + graphs:
                 myRegistry.insert(t)
@@ -160,7 +173,7 @@ def createSimulation(name='All'):
     
 def _timeseries(myRegistry):
     return [(k, v) for (k, v) in myRegistry._id2obj.iteritems()\
-                     if type(v) == js.TimeSerie]
+                     if isinstance(v, js.ITimeSerie) ]
 
 def save_state_before_changes(myRegistry):
     myRegistry.save_state_before_changes()

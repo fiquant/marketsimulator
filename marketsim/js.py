@@ -1,6 +1,12 @@
 from marketsim import scheduler, meta, types, bind
 
-class TimeSerie(object):
+class ITimeSerie(object):
+    
+    pass
+
+ITimeSerie._types = [ITimeSerie]
+
+class TimeSerie(ITimeSerie):
     """ Listens to an observable and accumulates its values with time stamps
     """
     
@@ -78,6 +84,22 @@ class TimeSerie(object):
     
     def drop(self): # later a more sophisticated protocol would be introduced
         self._data = []
+        
+class VolumeLevels(TimeSerie):
+
+    def __init__(self, _source):
+        TimeSerie.__init__(self, _source)
+        
+    @property
+    def _volumes(self):
+        return self._source.dataSource.volumes
+    
+    @property
+    def _isBuy(self):
+        return 1 if self._source.dataSource.side == types.Side.Buy else 0 
+
+    _properties = { "_volumes" : meta.listOf(float), 
+                    '_isBuy'    : int }
 
 class Graph(types.IGraph):
     """ Generic 2D graph to be rendered by means of javascript libraries
@@ -109,7 +131,10 @@ class Graph(types.IGraph):
             self._pending.append(source)
         else:
             if not self.has(source):
-                ts = TimeSerie(source)
+                if 'volumeLevels' in source.attributes:
+                    ts = VolumeLevels(source)
+                else:
+                    ts = TimeSerie(source)
                 self.series.append(ts)
                 ts.bind(self)
             
@@ -117,7 +142,7 @@ class Graph(types.IGraph):
     def removeTimeSerie(self, source):
         self.series = [x for x in self.series if x.source is not source]
         
-    _properties = {"series": meta.listOf(TimeSerie) }
+    _properties = {"series": meta.listOf(ITimeSerie) }
 
     @property
     def _alias(self):

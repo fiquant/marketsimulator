@@ -26,9 +26,6 @@ class Context(object):
         self.books = { 'Asset A' : self.book_A ,
                        'Asset B' : self.book_B  }
 
-        self.book_A.volumes_graph = self.graph("Volume levels A")
-        self.book_B.volumes_graph = self.graph("Volume levels B")
-
         
     def makeTrader(self, book, strategy, label, additional_ts = []):
         def trader_ts():
@@ -78,22 +75,23 @@ def run(name, constructor):
                     timeserie.ToRecord(avg(assetPrice, alpha=0.015), ctx.price_graph)]
 
         for b in books:
+            b.volumes_graph = veusz.Graph("Volume levels " + b.label)
             thisBook = orderbook.Proxy()
             ts = orderbook_ts()
             ts.append(timeserie.ToRecord(
-                                                   observable.VolumeLevels(1, 
-                                                                           thisBook, 
-                                                                           Side.Sell, 
-                                                                           30, 
-                                                                           10), 
-                                                   b.volumes_graph))
+                           observable.VolumeLevels(1, 
+                                                   thisBook, 
+                                                   Side.Sell, 
+                                                   30, 
+                                                   10), 
+                           b.volumes_graph))
             ts.append(timeserie.ToRecord(
-                                                   observable.VolumeLevels(1, 
-                                                                           thisBook, 
-                                                                           Side.Buy, 
-                                                                           30, 
-                                                                           10), 
-                                                   b.volumes_graph))
+                           observable.VolumeLevels(1, 
+                                                   thisBook, 
+                                                   Side.Buy, 
+                                                   30, 
+                                                   10), 
+                           b.volumes_graph))
             b.timeseries = ts
             graphs.append(b.volumes_graph)
         
