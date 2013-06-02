@@ -19,6 +19,7 @@ function TimeSerie(source, initialData) {
 	 */
 	self.appendData = function (dataDelta) {
 		self._data(self._data().concat(dataDelta));
+		self._data.valueHasMutated();
 	}
 
 	/**
@@ -62,10 +63,68 @@ function TimeSerie(source, initialData) {
 		return self._data().length == 0;
 	});
 	
+	self.asFlotr = function () {
+		var ts = self;
+		var smooth = ts.lookupField("_smooth").impl().serialized() == 1;
+		return ts.visible() ? [{ 
+			'source' : ts,
+			'data' : ts.getData.peek(), 
+			'label' : ts.alias.peek(), 
+			'name': ts.alias.peek(),
+			'volumes' : ts.volumes ? ts.volumes() : undefined,
+			'step' : !smooth,
+			'type' : smooth ? "spline" : "line",
+			'digits':  ts.lookupField('_digits').impl().serialized(),
+			'tooltip' : {
+				'valueDecimals': ts.lookupField('_digits').impl().serialized()
+			}
+		}] : [];
+	}
+	
 	return self;
 }
 
 var makeTimeSerie = TimeSerie;
+
+function makeVolumeLevels(source, initialData) {
+	var self = makeTimeSerie(source, initialData);
+	
+	self.volumes = function () {
+		var vs = self.lookupField("_volumes").impl();
+		return map(vs.elements(), function (property) {
+			return property.impl().serialized();
+		})
+	}
+
+	self.asFlotr = function () {
+		var ts = self;
+		if (!ts.visible()) {
+			return [];
+		} else {
+			var res = [];
+			var vs = self.volumes();
+			for (var i = 1; i < vs.length; i++) {
+				var side_buy = self.lookupField("_isBuy").impl().serialized();
+				var rgb = hsvToRgb(side_buy ? 90 : 180, 50, 100 - i / vs.length * 100);
+				var c = "#"+(rgb[0]).toString(16)+(rgb[1]).toString(16)+(rgb[2]).toString(16);
+				res.push({
+					'data' : map(ts.getData.peek(), function (x) {
+								return [x[0], x[1][i-1], x[1][i]];
+ 							 }),
+					'name' : ts.alias.peek() + ': ' + vs[i-1] + ' - ' + vs[i],
+					'color' : c,
+					'type' : 'areasplinerange', 
+					'tooltip' : {
+						'valueDecimals': ts.lookupField('_digits').impl().serialized()
+					}
+				});
+			}
+			return res;
+		}
+	}
+	
+	return self;
+}
 
 function firstChild(e) {
     for (var j=0; j<e.childNodes.length; j++) {
@@ -93,20 +152,8 @@ function Graph(source, root) {
 	self.asFlotr = ko.computed(function () {
 		var dummy = root.updategraph();
 		console.log("asFlotr for " + self.alias());
-		return map(self.series(), function (ts) {
-			var smooth = ts.lookupField("_smooth").impl().serialized() == 1;
-			return ts.visible() ? { 
-				'source' : ts,
-				'data' : ts.getData.peek(), 
-				'label' : ts.alias.peek(), 
-				'name': ts.alias.peek(),
-				'step' : !smooth,
-				'type' : smooth ? "spline" : "line",
-				'digits':  ts.lookupField('_digits').impl().serialized(),
-				'tooltip' : {
-					'valueDecimals': ts.lookupField('_digits').impl().serialized()
-				}
-			} : {};
+		return collect(self.series(), function (ts) {
+			return ts.asFlotr();
 		});		
 	})
 	
@@ -162,7 +209,7 @@ ko.bindingHandlers.highstocks = {
     update:function (element, valueAccessor, allBindingsAccessor, viewModel) {
     	
 		var data = ko.utils.unwrapObservable(valueAccessor());
-
+		
         new Highcharts.StockChart({
         	chart: {
         		renderTo: element.id,

@@ -7,6 +7,8 @@ from marketsim import (strategy, trader, orderbook, order, timeserie,
 from common import run 
 
 def FundamentalValue(ctx):
+    
+    ctx.volumeStep = 30
 
     return [
         ctx.makeTrader_A( 

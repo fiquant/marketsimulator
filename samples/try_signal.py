@@ -10,6 +10,8 @@ const = mathutils.constant
 
 def Signal(ctx):
 
+    ctx.volumeStep = 30
+
     linear_signal = signal.RandomWalk(initialValue=20, 
                                       deltaDistr=const(-.1), 
                                       label="20-0.1t")

@@ -336,7 +336,7 @@ class volume_levels(object):
     def volumes(self):
         return [self.volumeDelta * i for i in range(self.volumeCount)]
         
-    _types = [meta.function((), meta.listOf(float))]
+    _types = [meta.function((), float)] # should be () -> meta.listOf(float)
     
     def __call__(self):
         queue = self.orderbook.queue(self.side)
