@@ -19,7 +19,7 @@ function isReferenceType(typename) {
  * 			(python constructor, [(field_name, (field_value, field_constraint))], static_type, alias)
  * @param {AppViewModel} root -- reference to the root viewmodel
  */
-function Instance(id, constructor, fields, typeinfo, alias, root) {
+function Instance(id, constructor, fields, castsTo, alias, root) {
 	var self = this;
 
 	/**
@@ -35,7 +35,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 	/**
 	 *	'Static' type of the field (should be removed and calculated from constructor) 
 	 */
-	self.typeinfo = function () { return typeinfo; }
+	self.castsTo = function () { return castsTo; }
 	
 	/**
 	 *	Array of fields. 
@@ -115,7 +115,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 			return new Instance(id, 
 								constructor, 
 								fields_cloned, 
-								typeinfo, 
+								castsTo, 
 								self._generateNewAlias(), 
 								root);
 		});
@@ -214,7 +214,7 @@ function createInstance(id, src, root) {
 	if (ctor == OrderBookProxyType) {
 		alias = ["$(OrderBook)"];
 	}
-	var created = new Instance(id, ctor, fields, myTypeinfo.types, alias, root);
+	var created = new Instance(id, ctor, fields, myTypeinfo.castsTo, alias, root);
 	if (ctor == "marketsim.js.TimeSerie") {
 		created = makeTimeSerie(created, root.response().ts_changes);
 	} else if (ctor == "marketsim.js.VolumeLevels") {

@@ -473,15 +473,11 @@ class Registry(object):
                             } 
                             for p in properties(obj)}
     
-                if '_types' in dir(obj):
-                    assert len(obj._types) == 1
-                    typ = self._dumpPropertyConstraint(obj._types[0])
-                else:
-                    typ = ctor
+                castsTo = map(self._dumpPropertyConstraint, obj._types) if '_types' in dir(obj) else [ctor]
                     
-                types[ctor] = { "types"      : typ, 
-                                "properties" : props, 
-                                "description": utils.rst2html(trim(obj.__doc__)) }
+                types[ctor] = { "castsTo"      : castsTo, 
+                                "properties"   : props, 
+                                "description"  : utils.rst2html(trim(obj.__doc__)) }
             
         return types
     
