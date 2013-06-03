@@ -1,5 +1,11 @@
 from event import Event
 
+class flags(object):
+    
+    @staticmethod
+    def hidden(d):
+        d['hidden'] = True
+
 def getLabel(x):
     """ Returns a printable label for *x*
     We try to access *'label'* field of the object 

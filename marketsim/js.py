@@ -1,4 +1,4 @@
-from marketsim import scheduler, meta, types, bind
+from marketsim import scheduler, meta, types, bind, flags
 
 class ITimeSerie(object):
     
@@ -142,7 +142,7 @@ class Graph(types.IGraph):
     def removeTimeSerie(self, source):
         self.series = [x for x in self.series if x.source is not source]
         
-    _properties = {"series": meta.listOf(ITimeSerie) }
+    _properties = {"series": (meta.listOf(ITimeSerie), flags.hidden) }
 
     @property
     def _alias(self):

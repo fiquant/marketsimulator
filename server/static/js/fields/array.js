@@ -112,7 +112,7 @@ function ArrayValue(fieldFactories) {
 function createArrayValue(s) {
 	return new ArrayValue(map(s, function (x) {
 						return function (self) {
-							return new Property("", x, false, self);
+							return new Property("", x, false, false, self);
 						}
 				}));
 }

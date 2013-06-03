@@ -207,7 +207,8 @@ function createInstance(id, src, root) {
 	var ctor = src[0];
 	var myTypeinfo = typeinfo[ctor];
 	var fields = map(dict2array(src[1]), function (x) { 
-		return new Property(x.key, treatAny(x.value, myTypeinfo.properties[x.key].type, root)); 
+		var descriptor = myTypeinfo.properties[x.key];
+		return new Property(x.key, treatAny(x.value, descriptor.type, root), descriptor.hidden); 
 	});
 	var alias = src[2];
 	if (ctor == OrderBookProxyType) {

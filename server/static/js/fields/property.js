@@ -5,7 +5,7 @@
  * @param {ObjectValue|ArrayValue|ScalarValue} value -- concrete implementation of the field
  * @param {bool} toplevel -- is this field top-level? (it will be rendered initially as collapsed)
  */
-function Property(name, value, toplevel, parentArray) {
+function Property(name, value, hidden, toplevel, parentArray) {
 	var self = this;
 	self.scalar = value.scalar;
 	self.array  = value.array;
@@ -19,8 +19,8 @@ function Property(name, value, toplevel, parentArray) {
 	self.name = ko.observable(name); 
 	
 	self.visible = ko.computed(function () {
-		return self.name()[0] != '_';
-	})
+		return !hidden && self.name()[0] != '_';
+	});
 	
 	/**
 	 * Concrete implementation of the field 
@@ -188,7 +188,7 @@ function Property(name, value, toplevel, parentArray) {
 	 *  Clones the property 
 	 */
 	self.clone = function (newParentArray) {
-		return new Property(self.name(), value.clone(), toplevel, newParentArray);
+		return new Property(self.name(), value.clone(), hidden, toplevel, newParentArray);
 	}
 	
 	/**
