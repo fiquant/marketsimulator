@@ -7,32 +7,37 @@ from functools import reduce
 
 from marketsim import Side, meta, types, js, utils, prop
 
-startup = []   
+startup = []
+
+def _checkPropertiesAreUnique(props, cls):
+    
+    s = {}
+    
+    for k, v in props:   
+        if k in s and s[k] != v:
+            print k, ' is not unique in ', props, ' at ', cls
+            assert k not in s
+        s[k] = v
+        
+    return props
+            
 
 def properties_t(cls):
     
-    rv = {}
+    rv = []
     assert inspect.isclass(cls), "only classes may have properties - functions are considered as literals"
     bases = inspect.getmro(cls)
     
     for base in reversed(bases):
         if '_properties' in dir(base):
             for k,v in base._properties.iteritems():
-                rv[k] = v
+                rv.append((k, v))
                 
-    return rv            
+    return _checkPropertiesAreUnique(rv, cls)            
 
 
 def properties(obj):
-    cls = type(obj)
-    rv = properties_t(cls)
-    
-    if '_properties' in dir(obj):
-        if obj._properties:
-            for k,v in obj._properties.iteritems():
-                rv[k] = v 
-    
-    return rv            
+    return properties_t(type(obj))
 
 def children_to_visit(obj):
     return obj._children_to_visit if '_children_to_visit' in dir(obj) else []
@@ -177,7 +182,7 @@ class Registry(object):
         self._id2savedfields = {}
         for k,v in self._id2obj.iteritems():
             fields = {}
-            for pname in (properties(v) or []):
+            for pname, _ in (properties(v) or []):
                 x = getattr(v, pname)
                 if type(x) == int or type(x) == float or type(x) == str:
                     # we'd better to check here also that this field is "mutable"
@@ -190,7 +195,7 @@ class Registry(object):
         for k,v in self._id2obj.iteritems():
             if k in self._id2savedfields:
                 saved = self._id2savedfields[k]
-                for pname in properties(v):
+                for pname, _ in properties(v):
                     x = getattr(v, pname)
                     if type(x) == int or type(x) == float or type(x) == str:
                         # we'd better to check here also that this field is "mutable"
@@ -269,8 +274,10 @@ class Registry(object):
                     v[i] = lookup(id)
                 # we should check that all elements meet the constraint
             return v
-                
-        typeinfo = dst_properties[k]
+        
+        for name, ty in dst_properties:
+            if name == k:        
+                typeinfo = ty
         
         if '_casts_to' in dir(v):
             if not v._casts_to(typeinfo):
@@ -372,9 +379,9 @@ class Registry(object):
             
             propnames = properties(obj)
             if propnames is None:
-                propnames = {}
+                propnames = []
                 
-            for propname, ptype in propnames.iteritems():
+            for propname, ptype in propnames:
                 if ptype is int or ptype is float or ptype is str:
                     continue
                 self.assureAllReferencedAreRegistred(getattr(obj, propname), visited)
@@ -439,7 +446,7 @@ class Registry(object):
 
                 propnames = properties(obj)
                 props     = dict([(k, self._dumpPropertyConstraint(v)) \
-                                                   for k,v in propnames.iteritems()])\
+                                                   for k,v in propnames])\
                              if propnames is not None else None
     
                 if '_types' in dir(obj):
@@ -472,7 +479,7 @@ class Registry(object):
             
         propnames = properties(obj)
         props     = {k : self._dumpPropertyValue(v, getattr(obj, k), obj) \
-                                           for k,v in propnames.iteritems()}\
+                                           for k,v in propnames}\
                      if propnames is not None else None
                                  
         if props is None:
@@ -526,7 +533,7 @@ class Registry(object):
             
         propnames = properties(obj)
         props     = dict([(k, (v, self._dumpPropertyValue(v, getattr(obj, k), obj))) \
-                                                for k,v in propnames.iteritems()])\
+                                                for k,v in propnames])\
                      if propnames is not None else None
         
         return [ctor, props] if props is not None else [ctor]
