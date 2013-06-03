@@ -15,6 +15,7 @@ class TimeSerie(ITimeSerie):
         self._sched = scheduler.current()
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
         self._smooth =  1 if 'smooth' in _source.attributes and _source.attributes['smooth'] else 0
+        self._lastPoint = None
         self.reset()
         
     def bind(self, context):
@@ -45,7 +46,12 @@ class TimeSerie(ITimeSerie):
         """
         def appendex(target, (x,y)):
             if target != [] and target[-1][1] == y:
+                if self._smooth:
+                    self._lastPoint = (x,y)
                 return
+            if self._lastPoint:
+                target.append(self._lastPoint)
+                self._lastPoint = None
             target.append((x,y))
                 
         x = self._source.value
