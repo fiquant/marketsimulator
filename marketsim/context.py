@@ -73,10 +73,7 @@ class Binder(object):
                 childContext.bind(obj._subscriptions)
                 
             propnames = properties(obj)
-            if propnames is None:
-                propnames = {}                
-            
-            for propname in propnames.iterkeys():
+            for propname, _ in propnames:
                 if propname[0] != '_':
                     self.log(propname)
                     childContext.bind(getattr(obj, propname))
@@ -164,11 +161,8 @@ class Resetter(object):
             if '_subscriptions' in dir(obj):
                 childContext.apply(obj._subscriptions)
                 
-            propnames = properties(obj)
-            if propnames is None:
-                propnames = {}                
-            
-            for propname in propnames.iterkeys():
+            propnames = properties(obj)            
+            for propname, _ in propnames:
                 if propname[0] != '_':
                     self.log(propname)
                     childContext.apply(getattr(obj, propname))
