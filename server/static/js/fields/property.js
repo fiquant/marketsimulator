@@ -5,7 +5,7 @@
  * @param {ObjectValue|ArrayValue|ScalarValue} value -- concrete implementation of the field
  * @param {bool} toplevel -- is this field top-level? (it will be rendered initially as collapsed)
  */
-function Property(name, value, hidden, toplevel, parentArray) {
+function Property(name, value, flags, toplevel, parentArray) {
 	var self = this;
 	self.scalar = value.scalar;
 	self.array  = value.array;
@@ -19,7 +19,7 @@ function Property(name, value, hidden, toplevel, parentArray) {
 	self.name = ko.observable(name); 
 	
 	self.visible = ko.computed(function () {
-		return !hidden && self.name()[0] != '_';
+		return !flags.hidden && self.name()[0] != '_';
 	});
 	
 	/**
@@ -124,7 +124,7 @@ function Property(name, value, hidden, toplevel, parentArray) {
 	/**
 	 *  Returns true if the field is expanded at the moment 
 	 */
-	self.isExpanded = ko.observable(self.expandable() && (!self.object || self.impl().expandedByDefault));
+	self.isExpanded = ko.observable(self.expandable() && (!flags.collapsed));
 	
 	self.expandable.subscribe(function (value) {
 		self.isExpanded(value);
@@ -188,7 +188,7 @@ function Property(name, value, hidden, toplevel, parentArray) {
 	 *  Clones the property 
 	 */
 	self.clone = function (newParentArray) {
-		return new Property(self.name(), value.clone(), hidden, toplevel, newParentArray);
+		return new Property(self.name(), value.clone(), flags, toplevel, newParentArray);
 	}
 	
 	/**

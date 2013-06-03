@@ -1,4 +1,4 @@
-from marketsim import types, meta
+from marketsim import types, meta, flags
 
 class ToRecord(object):  # TODO: should the source be split into dataSource and eventSource?
     
@@ -41,4 +41,4 @@ class Holder(object):
         graph.addTimeSerie(source)
         self._timeseries.append(ToRecord(source, graph))
         
-    _properties = {'timeseries' : meta.listOf(ToRecord) }
+    _properties = {'timeseries' : (meta.listOf(ToRecord), flags.collapsed) }
