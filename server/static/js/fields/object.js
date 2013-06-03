@@ -175,7 +175,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 		
 	self.hint = ko.computed(function () {
 		var myTypeinfo = typeinfo[_storage().constructor()];
-		return myTypeinfo ? myTypeinfo[2] : "";
+		return myTypeinfo ? myTypeinfo.description : "";
 	});
 
 	/**

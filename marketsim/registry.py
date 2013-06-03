@@ -35,8 +35,12 @@ def properties_t(cls):
     
     for base in reversed(bases):
         if '_properties' in dir(base):
-            for k,v in base._properties.iteritems():
-                rv.append(property_descriptor(k, v))
+            props = base._properties
+            if type(props) is dict:
+                for k,v in props.iteritems():
+                    rv.append(property_descriptor(k, v))
+            if type(props) is list:
+                rv.extend(map(lambda p: property_descriptor(*p), props))
                 
     return _checkPropertiesAreUnique(rv, cls)            
 
@@ -445,8 +449,9 @@ class Registry(object):
                 
             if ctor not in types:
 
-                props     = dict([(p.name, self._dumpPropertyConstraint(p.type)) \
-                                                   for p in properties(obj)])
+                props = { p.name : 
+                            {'type': self._dumpPropertyConstraint(p.type) } 
+                            for p in properties(obj)}
     
                 if '_types' in dir(obj):
                     assert len(obj._types) == 1
@@ -454,7 +459,9 @@ class Registry(object):
                 else:
                     typ = ctor
                     
-                types[ctor] = (typ, props, utils.rst2html(trim(obj.__doc__)))
+                types[ctor] = { "types"      : typ, 
+                                "properties" : props, 
+                                "description": utils.rst2html(trim(obj.__doc__)) }
             
         return types
     
