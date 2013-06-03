@@ -145,8 +145,9 @@ function AppViewModel() {
 			var myId = x.uniqueId();
 
 			if (x.isPrimary.peek()) {
-				var typeinfo = $.toJSON(x.typeinfo());
-				if (typeinfo == jsc) {
+				if (any(x.castsTo(), function (typeinfo) {
+					return $.toJSON(typeinfo) == jsc;
+				})) {
 					candidates.push(x);
 				}
 			}
