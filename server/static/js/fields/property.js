@@ -18,6 +18,10 @@ function Property(name, value, toplevel, parentArray) {
 	 */
 	self.name = ko.observable(name); 
 	
+	self.visible = ko.computed(function () {
+		return self.name()[0] != '_';
+	})
+	
 	/**
 	 * Concrete implementation of the field 
 	 */

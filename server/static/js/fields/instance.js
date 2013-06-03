@@ -128,7 +128,7 @@ function Instance(id, constructor, fields, typeinfo, alias, root) {
 		return [self.constructor(), 
 				dictOf(map(self.fields(), function (field) {
 					return field.serialized(); })), 
-				[self.alias()]];
+				self.alias()];
 	}
 	
 	/**
