@@ -45,9 +45,9 @@ class RandomWalk(types.IObservable):
         
     _internals = ['_timer']
         
-    _properties = { 'initialValue' : float, 
-                    'deltaDistr'   : meta.function((), float), 
-                    'intervalDistr': meta.function((), float)}
+    _properties = [ ('initialValue' , float), 
+                    ('deltaDistr'   , meta.function((), float)), 
+                    ('intervalDistr', meta.function((), float)) ]
         
     def reset(self):
         self.value = self.initialValue

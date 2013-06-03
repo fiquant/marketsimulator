@@ -211,7 +211,7 @@ def collectTypeInfo():
         typeinfo = myRegistry.getTypeInfo()
         with open(filename, 'w') as f:
             f.write('var typeinfo = ');
-            json.dump(typeinfo, f)
+            json.dump(typeinfo, f, indent=4, separators=(',', ': '))
         
 def generateTranslations():
     filename = os.path.join('static', '_generated', 'translations', 'en.js')

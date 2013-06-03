@@ -207,13 +207,13 @@ function createInstance(id, src, root) {
 	var ctor = src[0];
 	var myTypeinfo = typeinfo[ctor];
 	var fields = map(dict2array(src[1]), function (x) { 
-		return new Property(x.key, treatAny(x.value, myTypeinfo[1][x.key], root)); 
+		return new Property(x.key, treatAny(x.value, myTypeinfo.properties[x.key].type, root)); 
 	});
 	var alias = src[2];
 	if (ctor == OrderBookProxyType) {
 		alias = ["$(OrderBook)"];
 	}
-	var created = new Instance(id, ctor, fields, myTypeinfo[0], alias, root);
+	var created = new Instance(id, ctor, fields, myTypeinfo.types, alias, root);
 	if (ctor == "marketsim.js.TimeSerie") {
 		created = makeTimeSerie(created, root.response().ts_changes);
 	} else if (ctor == "marketsim.js.VolumeLevels") {
