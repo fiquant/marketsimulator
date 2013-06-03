@@ -179,7 +179,7 @@
         <tr class="error" data-bind="if: errorMessage().length">
         	<td colspan="3" data-bind="text: errorMessage"></td>
         </tr>
-        <tr data-bind="if: expandedView().length">
+        <tr data-bind="if: expandedView().length && visible">
         	<td>&nbsp; &nbsp; &nbsp; &nbsp; </td>
         	<td colspan="2">
         		<table data-bind="withProperties: { elements: expandedView }">

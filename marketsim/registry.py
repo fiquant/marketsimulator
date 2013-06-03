@@ -9,10 +9,19 @@ from marketsim import Side, meta, types, js, utils, prop
 
 startup = []
 
-class property_descriptor(collections.namedtuple("property_descriptor", ["name", "type"])):
+class property_descriptor(collections.namedtuple("property_descriptor", ["name", "type", "hidden"])):
     
     pass
 
+def pack_property(n, t, *args):
+    d = { 
+            'name' : n, 
+            'type' : t, 
+            'hidden' : False 
+        }
+    for a in args:
+        a(d)
+    return property_descriptor(**d)
 
 def _checkPropertiesAreUnique(props, cls):
     
@@ -38,9 +47,10 @@ def properties_t(cls):
             props = base._properties
             if type(props) is dict:
                 for k,v in props.iteritems():
-                    rv.append(property_descriptor(k, v))
+                    args = (k,v) if type(v) != tuple else (k,) + v
+                    rv.append(pack_property(*args))
             if type(props) is list:
-                rv.extend(map(lambda p: property_descriptor(*p), props))
+                rv.extend(map(lambda p: pack_property(*p), props))
                 
     return _checkPropertiesAreUnique(rv, cls)            
 
@@ -450,7 +460,8 @@ class Registry(object):
             if ctor not in types:
 
                 props = { p.name : 
-                            {'type': self._dumpPropertyConstraint(p.type) } 
+                            {'type': self._dumpPropertyConstraint(p.type), 
+                             'hidden' : p.hidden } 
                             for p in properties(obj)}
     
                 if '_types' in dir(obj):
