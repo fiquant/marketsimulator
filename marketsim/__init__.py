@@ -5,6 +5,10 @@ class flags(object):
     @staticmethod
     def hidden(d):
         d['hidden'] = True
+        
+    @staticmethod
+    def collapsed(d):
+        d["collapsed"] = True
 
 def getLabel(x):
     """ Returns a printable label for *x*

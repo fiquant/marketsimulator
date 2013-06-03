@@ -9,7 +9,12 @@ from marketsim import Side, meta, types, js, utils, prop
 
 startup = []
 
-class property_descriptor(collections.namedtuple("property_descriptor", ["name", "type", "hidden"])):
+class property_descriptor(collections.namedtuple("property_descriptor", 
+                                                 ["name", 
+                                                  "type", 
+                                                  "hidden", 
+                                                  "collapsed"
+                                                  ])):
     
     pass
 
@@ -17,7 +22,8 @@ def pack_property(n, t, *args):
     d = { 
             'name' : n, 
             'type' : t, 
-            'hidden' : False 
+            'hidden' : False, 
+            'collapsed' : False
         }
     for a in args:
         a(d)
@@ -460,8 +466,11 @@ class Registry(object):
             if ctor not in types:
 
                 props = { p.name : 
-                            {'type': self._dumpPropertyConstraint(p.type), 
-                             'hidden' : p.hidden } 
+                            {
+                                'type'     : self._dumpPropertyConstraint(p.type), 
+                                'hidden'   : p.hidden,
+                                'collapsed': p.collapsed,
+                            } 
                             for p in properties(obj)}
     
                 if '_types' in dir(obj):
