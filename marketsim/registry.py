@@ -1,4 +1,4 @@
-import weakref, inspect, sys
+import weakref, inspect, sys, collections
 
 
 import marketsim
@@ -9,15 +9,20 @@ from marketsim import Side, meta, types, js, utils, prop
 
 startup = []
 
+class property_descriptor(collections.namedtuple("property_descriptor", ["name", "type"])):
+    
+    pass
+
+
 def _checkPropertiesAreUnique(props, cls):
     
     s = {}
     
-    for k, v in props:   
-        if k in s and s[k] != v:
-            print k, ' is not unique in ', props, ' at ', cls
-            assert k not in s
-        s[k] = v
+    for p in props:   
+        if p.name in s and s[p.name] != p.type:
+            print p.name, ' is not unique in ', props, ' at ', cls
+            assert p.name not in s
+        s[p.name] = p.type
         
     return props
             
@@ -31,7 +36,7 @@ def properties_t(cls):
     for base in reversed(bases):
         if '_properties' in dir(base):
             for k,v in base._properties.iteritems():
-                rv.append((k, v))
+                rv.append(property_descriptor(k, v))
                 
     return _checkPropertiesAreUnique(rv, cls)            
 
@@ -182,11 +187,11 @@ class Registry(object):
         self._id2savedfields = {}
         for k,v in self._id2obj.iteritems():
             fields = {}
-            for pname, _ in (properties(v) or []):
-                x = getattr(v, pname)
+            for p in properties(v):
+                x = getattr(v, p.name)
                 if type(x) == int or type(x) == float or type(x) == str:
                     # we'd better to check here also that this field is "mutable"
-                    fields[pname] = x
+                    fields[p.name] = x
             if fields != {}:
                 self._id2savedfields[k] = fields
                 
@@ -195,12 +200,12 @@ class Registry(object):
         for k,v in self._id2obj.iteritems():
             if k in self._id2savedfields:
                 saved = self._id2savedfields[k]
-                for pname, _ in properties(v):
-                    x = getattr(v, pname)
+                for p in properties(v):
+                    x = getattr(v, p.name)
                     if type(x) == int or type(x) == float or type(x) == str:
                         # we'd better to check here also that this field is "mutable"
-                        if x != saved[pname]:
-                            changes.append((k, pname, x))
+                        if x != saved[p.name]:
+                            changes.append((k, p.name, x))
         return changes
         
     
@@ -275,9 +280,9 @@ class Registry(object):
                 # we should check that all elements meet the constraint
             return v
         
-        for name, ty in dst_properties:
-            if name == k:        
-                typeinfo = ty
+        for p in dst_properties:
+            if p.name == k:        
+                typeinfo = p.type
         
         if '_casts_to' in dir(v):
             if not v._casts_to(typeinfo):
@@ -377,14 +382,10 @@ class Registry(object):
             
             self.insert(obj)
             
-            propnames = properties(obj)
-            if propnames is None:
-                propnames = []
-                
-            for propname, ptype in propnames:
-                if ptype is int or ptype is float or ptype is str:
+            for p in properties(obj):
+                if p.type is int or p.type is float or p.type is str:
                     continue
-                self.assureAllReferencedAreRegistred(getattr(obj, propname), visited)
+                self.assureAllReferencedAreRegistred(getattr(obj, p.name), visited)
                 
     def ofType(self, prefix):
         return [k for (k,v) in self._id2obj.iteritems()\
@@ -444,19 +445,14 @@ class Registry(object):
                 
             if ctor not in types:
 
-                propnames = properties(obj)
-                props     = dict([(k, self._dumpPropertyConstraint(v)) \
-                                                   for k,v in propnames])\
-                             if propnames is not None else None
+                props     = dict([(p.name, self._dumpPropertyConstraint(p.type)) \
+                                                   for p in properties(obj)])
     
                 if '_types' in dir(obj):
                     assert len(obj._types) == 1
                     typ = self._dumpPropertyConstraint(obj._types[0])
                 else:
                     typ = ctor
-                    
-                if props is None:
-                    props = {}
                     
                 types[ctor] = (typ, props, utils.rst2html(trim(obj.__doc__)))
             
@@ -477,10 +473,8 @@ class Registry(object):
             
         alias = obj._alias
             
-        propnames = properties(obj)
-        props     = {k : self._dumpPropertyValue(v, getattr(obj, k), obj) \
-                                           for k,v in propnames}\
-                     if propnames is not None else None
+        props     = {p.name : self._dumpPropertyValue(p.type, getattr(obj, p.name), obj) \
+                                           for p in properties(obj)}
                                  
         if props is None:
             props = {}
@@ -531,12 +525,10 @@ class Registry(object):
 
         ctor = getCtor(obj)
             
-        propnames = properties(obj)
-        props     = dict([(k, (v, self._dumpPropertyValue(v, getattr(obj, k), obj))) \
-                                                for k,v in propnames])\
-                     if propnames is not None else None
+        props     = dict([(p.name, (p.type, self._dumpPropertyValue(p.type, getattr(obj, p.name), obj))) \
+                                                for p in properties(obj)])
         
-        return [ctor, props] if props is not None else [ctor]
+        return [ctor, props]
                 
     def dumpall(self):
         rv = {}
