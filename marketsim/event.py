@@ -1,3 +1,5 @@
+from marketsim import bind
+
 class Event(object):
     """ Multicast event
     
@@ -6,6 +8,7 @@ class Event(object):
 
     def __init__(self):
         self._listeners = set()
+        self.fire = bind.Method(self, '_fire_impl')
         
 #    _internals = ['_listeners']
         
@@ -29,15 +32,11 @@ class Event(object):
         """
         self -= listener
         
-    def __call__(self, *args):
+    def _fire_impl(self, *args):
         """ Calls all listeners passing *args to them
         """
         for x in self._listeners:
             x(*args)
-    
-    @property    
-    def fire(self):
-        return self
             
 Event._types = [Event]
 

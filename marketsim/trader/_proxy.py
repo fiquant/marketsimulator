@@ -13,8 +13,8 @@ class SASM_ProxyBase(object):
     def _bind(self, impl):
         assert self._impl is  None
         self._impl = impl
-        self._impl.on_order_sent += self.on_order_sent
-        self._impl.on_traded += self.on_traded
+        self._impl.on_order_sent += self.on_order_sent.fire
+        self._impl.on_traded += self.on_traded.fire
 
     def _new_property_changed_listener_added(self, propname):
         pass
