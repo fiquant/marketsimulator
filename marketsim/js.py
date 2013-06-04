@@ -20,7 +20,7 @@ class TimeSerie(ITimeSerie):
         
     def bind(self, context):
         self._sched = context.world
-        self._source.advise(self._wakeUp)
+        self._source += self._wakeUp
         
     @property
     def _digits(self):
@@ -35,7 +35,7 @@ class TimeSerie(ITimeSerie):
         self.__alias = value      
         
     def dispose(self):
-        self._source.unadvise(self._wakeUp)
+        self._source -= self._wakeUp
         
     @property
     def label(self):
@@ -75,10 +75,10 @@ class TimeSerie(ITimeSerie):
     
     @source.setter
     def source(self, value):
-        self._source.unadvise(self._wakeUp)
+        self._source -= self._wakeUp
         self._source = value
         self._alias = self._source.label        
-        self._source.advise(self._wakeUp)
+        self._source += self._wakeUp
         
     _properties = { "_source" : types.IObservable, 
                     "_smooth" : int, 

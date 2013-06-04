@@ -36,10 +36,10 @@ class RandomWalk(types.IObservable):
         wakeUp = bind.Method(self, '_wakeUp_impl')
             
         if '_timer' in dir(self):
-            self._timer.unadvise(wakeUp)
+            self._timer -= wakeUp
 
         self._timer = scheduler.Timer(self.intervalDistr)
-        self._timer.advise(wakeUp)
+        self._timer += wakeUp
         
         self.reset()
         

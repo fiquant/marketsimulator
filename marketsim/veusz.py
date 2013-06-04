@@ -86,7 +86,7 @@ class CSV(object):
         self._file = None
         self._custom_attr = attributes
         
-        source.advise(self)
+        source += self
         
         self.reset()
         
@@ -114,7 +114,7 @@ class CSV(object):
             
         
     def dispose(self):
-        self._source.unadvise(self)
+        self._source -= self
         
         
     def __call__(self, _):
@@ -189,7 +189,7 @@ class VolumeLevelChanged(Event):
         self._source = source
         self._idx = idx
         self.update = bind.Method(self, '_update')
-        self._source.advise(self.update)
+        self._source += self.update
         
     def _update(self, _):
         self.fire(self)

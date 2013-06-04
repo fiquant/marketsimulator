@@ -24,7 +24,7 @@ class _Generic_Impl(Strategy):
         event.subscribe(self.eventGen, self._wakeUp, self)
         
     def dispose(self):
-        self.eventGen.unadvise(self._wakeUp)
+        self.eventGen -= self._wakeUp
 
     def _wakeUp_impl(self, _):
         if self._suspended:
