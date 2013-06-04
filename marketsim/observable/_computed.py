@@ -20,14 +20,6 @@ class IndicatorBase(types.IObservable):
         self.eventSources = eventSources
         self._dataSource = dataSource
         
-    @property
-    def _alias(self):
-        return self.__alias if '__alias' in dir(self) else ['Indicator', self.label]
-    
-    @_alias.setter
-    def _alias(self, value):
-        self.__alias = value 
-    
     @property    
     def label(self):
         return self._dataSource.label

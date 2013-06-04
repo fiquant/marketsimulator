@@ -1,5 +1,17 @@
 from event import Event
 
+class Alias(object):
+    
+    @property
+    def _alias(self):
+        return self.__alias if '__alias' in dir(self) else self._initialAlias
+    
+    @_alias.setter
+    def _alias(self, value):
+        self.__alias = value 
+    
+    
+
 class flags(object):
     
     @staticmethod

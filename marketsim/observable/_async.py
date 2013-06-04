@@ -19,6 +19,7 @@ class Efficiency(types.IObservable):
         self.attributes = {}
         
         self._trader.on_traded += self._update
+        self._alias = ["Trader's", "Efficiency"]
         
         self.reset()
         
