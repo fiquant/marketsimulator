@@ -70,7 +70,23 @@ def internals(obj):
             for x in base._internals:
                 rv.add(x)
                 
-    return rv      
+    return rv
+
+def types(obj):
+
+    bases = inspect.getmro(type(obj))
+    
+    rv = set([] if '_types' not in dir(obj) else obj._types)
+    
+    for base in reversed(bases):
+        if not base is object:
+            if '_types' in dir(base):
+                for x in base._types:
+                    rv.add(x)
+            rv.add(base)
+            
+    return list(rv)
+
 
 def is_object(obj):      
 

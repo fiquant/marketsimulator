@@ -240,7 +240,7 @@ class Registry(object):
             assert v._casts_to(typeinfo)
             return v
         
-        if '_types' in dir(v) and typeinfo in v._types:
+        if typeinfo in rtti.types(v):
             return v
         
        
@@ -403,7 +403,7 @@ class Registry(object):
                             } 
                             for p in rtti.properties(obj)}
     
-                castsTo = map(self._dumpPropertyConstraint, obj._types) if '_types' in dir(obj) else [ctor]
+                castsTo = map(self._dumpPropertyConstraint, rtti.types(obj))
                     
                 types[ctor] = { "castsTo"      : castsTo, 
                                 "properties"   : props, 
