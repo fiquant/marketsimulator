@@ -42,10 +42,10 @@ class IndicatorBase(types.IObservable):
     @eventSources.setter
     def eventSources(self, value):
         for es in self._eventSources:
-            es.unadvise(self.fire)
+            es -= self.fire
         self._eventSources = value
         for es in self._eventSources:
-            es.advise(self.fire)
+            es += self.fire
             
     @property
     def digits(self):

@@ -53,7 +53,7 @@ class _chooseTheBest_Impl(Strategy):
             yield efficiency
         
     def dispose(self):
-        self._eventGen.unadvise(self._chooseTheBest)
+        self._eventGen -= self._chooseTheBest
         for (strategy, _, estimator_strategy, _) in self._strategies:
             strategy.dispose()
             estimator_strategy.dispose()

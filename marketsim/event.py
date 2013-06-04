@@ -22,16 +22,6 @@ class Event(object):
         self._listeners.remove(listener)
         return self
         
-    def advise(self, listener):
-        """ Adds *listener* to the listeners set
-        """
-        self += listener
-
-    def unadvise(self, listener):
-        """ Removes *listener* from the listeners set
-        """
-        self -= listener
-        
     def _fire_impl(self, *args):
         """ Calls all listeners passing *args to them
         """

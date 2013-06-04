@@ -17,7 +17,7 @@ class OneSide(Strategy):
         event.subscribe(self._eventGen, self._wakeUp, self) 
         
     def dispose(self):
-        self._eventGen.unadvise(self._wakeUp)
+        self._eventGen -= self._wakeUp
 
     def _wakeUp_impl(self, signal):
         if self._suspended:
