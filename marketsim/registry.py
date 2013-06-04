@@ -1,68 +1,14 @@
-import weakref, inspect, sys, collections
+import weakref, inspect, sys
 
 
 import marketsim
 
 from functools import reduce
 
-from marketsim import Side, meta, types, js, utils, prop
+from marketsim import rtti, Side, meta, types, js, utils, prop
 
 startup = []
 
-class property_descriptor(collections.namedtuple("property_descriptor", 
-                                                 ["name", 
-                                                  "type", 
-                                                  "hidden", 
-                                                  "collapsed"
-                                                  ])):
-    
-    pass
-
-def pack_property(n, t, *args):
-    d = { 
-            'name' : n, 
-            'type' : t, 
-            'hidden' : False, 
-            'collapsed' : False
-        }
-    for a in args:
-        a(d)
-    return property_descriptor(**d)
-
-def _checkPropertiesAreUnique(props, cls):
-    
-    s = {}
-    
-    for p in props:   
-        if p.name in s and s[p.name] != p.type:
-            print p.name, ' is not unique in ', props, ' at ', cls
-            assert p.name not in s
-        s[p.name] = p.type
-        
-    return props
-            
-
-def properties_t(cls):
-    
-    rv = []
-    assert inspect.isclass(cls), "only classes may have properties - functions are considered as literals"
-    bases = inspect.getmro(cls)
-    
-    for base in reversed(bases):
-        if '_properties' in dir(base):
-            props = base._properties
-            if type(props) is dict:
-                for k,v in props.iteritems():
-                    args = (k,v) if type(v) != tuple else (k,) + v
-                    rv.append(pack_property(*args))
-            if type(props) is list:
-                rv.extend(map(lambda p: pack_property(*p), props))
-                
-    return _checkPropertiesAreUnique(rv, cls)            
-
-
-def properties(obj):
-    return properties_t(type(obj))
 
 def children_to_visit(obj):
     return obj._children_to_visit if '_children_to_visit' in dir(obj) else []
@@ -207,7 +153,7 @@ class Registry(object):
         self._id2savedfields = {}
         for k,v in self._id2obj.iteritems():
             fields = {}
-            for p in properties(v):
+            for p in rtti.properties(v):
                 x = getattr(v, p.name)
                 if type(x) == int or type(x) == float or type(x) == str:
                     # we'd better to check here also that this field is "mutable"
@@ -220,7 +166,7 @@ class Registry(object):
         for k,v in self._id2obj.iteritems():
             if k in self._id2savedfields:
                 saved = self._id2savedfields[k]
-                for p in properties(v):
+                for p in rtti.properties(v):
                     x = getattr(v, p.name)
                     if type(x) == int or type(x) == float or type(x) == str:
                         # we'd better to check here also that this field is "mutable"
@@ -261,7 +207,7 @@ class Registry(object):
             obj._alias = value
             return
         
-        props = properties(obj)
+        props = rtti.properties(obj)
         # try:
         value = self._convert(props, propname, value)
         # except: 
@@ -341,7 +287,7 @@ class Registry(object):
         elif ctorname == 'marketsim.Side._BuySide':
             obj = Side.Buy
         elif inspect.isclass(ctor):
-            dst_properties = properties_t(ctor)
+            dst_properties = rtti.properties_t(ctor)
             converted = dict()
             for k,v in props.iteritems():
                 converted[k] = self._convert(dst_properties, k, v)
@@ -402,7 +348,7 @@ class Registry(object):
             
             self.insert(obj)
             
-            for p in properties(obj):
+            for p in rtti.properties(obj):
                 if p.type is int or p.type is float or p.type is str:
                     continue
                 self.assureAllReferencedAreRegistred(getattr(obj, p.name), visited)
@@ -471,7 +417,7 @@ class Registry(object):
                                 'hidden'   : p.hidden or p.name[0] == '_',
                                 'collapsed': p.collapsed,
                             } 
-                            for p in properties(obj)}
+                            for p in rtti.properties(obj)}
     
                 castsTo = map(self._dumpPropertyConstraint, obj._types) if '_types' in dir(obj) else [ctor]
                     
@@ -497,7 +443,7 @@ class Registry(object):
         alias = obj._alias
             
         props     = {p.name : self._dumpPropertyValue(p.type, getattr(obj, p.name), obj) \
-                                           for p in properties(obj)}
+                                           for p in rtti.properties(obj)}
                                  
         if props is None:
             props = {}
@@ -549,7 +495,7 @@ class Registry(object):
         ctor = getCtor(obj)
             
         props     = dict([(p.name, (p.type, self._dumpPropertyValue(p.type, getattr(obj, p.name), obj))) \
-                                                for p in properties(obj)])
+                                                for p in rtti.properties(obj)])
         
         return [ctor, props]
                 

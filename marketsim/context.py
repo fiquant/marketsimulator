@@ -1,6 +1,7 @@
 import inspect
 
-from marketsim.registry import properties, internals, children_to_visit
+from marketsim import rtti
+from marketsim.registry import internals, children_to_visit
 
 debug = False
 
@@ -72,7 +73,7 @@ class Binder(object):
             if '_subscriptions' in dir(obj):
                 childContext.bind(obj._subscriptions)
                 
-            for p in properties(obj):
+            for p in rtti.properties(obj):
                 if p.name[0] != '_':
                     self.log(p.name)
                     childContext.bind(getattr(obj, p.name))
@@ -160,7 +161,7 @@ class Resetter(object):
             if '_subscriptions' in dir(obj):
                 childContext.apply(obj._subscriptions)
                 
-            for p in properties(obj):
+            for p in rtti.properties(obj):
                 if p.name[0] != '_':
                     self.log(p.name)
                     childContext.apply(getattr(obj, p.name))
