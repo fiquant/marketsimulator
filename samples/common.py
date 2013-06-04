@@ -99,14 +99,14 @@ def run(name, constructor):
         root = registry.Simulation(traders, list(ctx.books.itervalues()), graphs)
         r.insert(root)
         r.pushAllReferences()
-        context.Binder({'world' : world }).bind(root)
+        context.bind(root, {'world' : world })
         
         world.workTill(500)
         
         veusz.render(name, graphs)
         
         world._reset()
-        context.Resetter().apply(root)
+        context.reset(root)
 
         if runTwoTimes:
             world.workTill(500)

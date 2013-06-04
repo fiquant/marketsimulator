@@ -54,3 +54,42 @@ def properties_t(cls):
 
 def properties(obj):
     return properties_t(type(obj))
+
+def children_to_visit(obj):
+    return obj._children_to_visit if '_children_to_visit' in dir(obj) else []
+                
+def internals(obj):
+    
+    cls = type(obj)
+    rv = set()
+    assert inspect.isclass(cls), "only classes may have properties - functions are considered as literals"
+    bases = inspect.getmro(cls)
+    
+    for base in reversed(bases):
+        if '_internals' in dir(base):
+            for x in base._internals:
+                rv.add(x)
+                
+    return rv      
+
+def is_object(obj):      
+
+    typ = type(obj)
+    return not (typ is int or typ is float or typ is bool or typ is str)
+
+def children(obj, logger):
+    
+    if '_subscriptions' in dir(obj):
+        yield obj._subscriptions
+        
+    for p in properties(obj):
+        if p.name[0] != '_':
+            logger(p.name)
+            yield getattr(obj, p.name)
+        
+    for propname in internals(obj):
+        logger(propname)
+        yield getattr(obj, propname)
+        
+    for child in children_to_visit(obj):
+        yield child

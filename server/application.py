@@ -157,7 +157,7 @@ def createSimulation(name='All'):
         myRegistry.insert(world)
         
         root = myRegistry.insert(registry.createSimulation(myRegistry))
-        context.Binder({ "world" : world }).bind(myRegistry.get(root))
+        context.bind(myRegistry.get(root), { "world" : world })
 
         if name != 'All':
             current_dir = current_user_dir()
@@ -341,7 +341,7 @@ def reset():
     save_state_before_changes(w.registry)
     with w.world: 
         w.world._reset()
-        context.Resetter().apply(w.registry.get(w.root))
+        context.reset(w.registry.get(w.root))
     save_current_workspace()
     return changes(w)
 
@@ -369,7 +369,7 @@ def update():
         for (Id, field, value) in parsed['updates']:
             w.registry.setAttr(Id, field, value)
             
-    context.Binder({ "world" : w.world }).bind(w.registry.get(w.root))
+    context.bind(w.registry.get(w.root), { "world" : w.world })
     save_state_before_changes(w.registry) 
 
     save_current_workspace()
