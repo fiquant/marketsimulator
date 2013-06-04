@@ -76,3 +76,6 @@ class Efficiency(types.IObservable):
         """ Returns current value
         """
         return self._current
+    
+    def __call__(self):
+        return self._current

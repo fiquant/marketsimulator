@@ -19,7 +19,7 @@ function Property(name, value, flags, toplevel, parentArray) {
 	self.name = ko.observable(name); 
 	
 	self.visible = ko.computed(function () {
-		return !flags.hidden && self.name()[0] != '_';
+		return !flags.hidden;
 	});
 	
 	/**
