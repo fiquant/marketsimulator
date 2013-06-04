@@ -97,8 +97,6 @@ class %(name)s(_%(name)s_Impl):
         %(dict_)s
         _%(name)s_Impl.__init__(self)
 
-    _types = [types.IStrategy]
-        
     _properties = { %(props)s }
 
     def With(self, %(withini)s):

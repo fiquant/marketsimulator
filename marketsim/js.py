@@ -4,8 +4,6 @@ class ITimeSerie(object):
     
     pass
 
-ITimeSerie._types = [ITimeSerie]
-
 class TimeSerie(ITimeSerie):
     """ Listens to an observable and accumulates its values with time stamps
     """

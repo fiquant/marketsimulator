@@ -10,32 +10,22 @@ TimeInterval = float #non_negative
 class IOrderBook(object):
     pass
 
-IOrderBook._types = [IOrderBook]
-
 class IStrategy(object):
     pass
-
-IStrategy._types = [IStrategy]
 
 class ISingleAssetTrader(object):
     pass
 
-ISingleAssetTrader._types = [ISingleAssetTrader]
-
 class IObservable(Event):
     pass
 
-IObservable._types = [IObservable, function((), float), Event]
+IObservable._types = [function((), float)]
 
 class IOrder(object):
     pass
 
-IOrder._types = [IOrder]
-
 class IGraph(object):
     pass
-
-IGraph._types =  [IGraph]
 
 class IUpdatableValue(object):    
     """
@@ -47,5 +37,3 @@ class IUpdatableValue(object):
     def update(self, time, value)# Adds point (time, value) to calculate the average
     """
     pass
-
-IUpdatableValue._types = [IUpdatableValue]

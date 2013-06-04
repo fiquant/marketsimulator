@@ -28,8 +28,6 @@ class Event(object):
         for x in self._listeners:
             x(*args)
             
-Event._types = [Event]
-
 class Subscription(object):
     
     def __init__(self, event, listener):
