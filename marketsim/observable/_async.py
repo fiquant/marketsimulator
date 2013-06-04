@@ -12,10 +12,10 @@ class Efficiency(types.IObservable):
     
     def __init__(self, trader):
         
+        super(Efficiency, self).__init__()
         self._trader = trader
         self._update = bind.Method(self, '_update_impl')
         
-        self.on_changed = Event()
         self.attributes = {}
         
         self._trader.on_traded += self._update
@@ -26,12 +26,10 @@ class Efficiency(types.IObservable):
     def digits(self):
         return self._trader.orderBook._digitsToShow
     
-    _internals = ['on_changed']
-        
     def _callback_impl(self, sign, (price, volume_unmatched)): 
         if volume_unmatched == 0: 
             self._current = self._trader.PnL - sign*price
-            self.on_changed.fire(self)
+            self.fire(self)
         else: # don't know what to do for the moment
             self._current = None
 
@@ -65,11 +63,6 @@ class Efficiency(types.IObservable):
         """ Returns indicator label
         """
         return "Efficiency_{"+getLabel(self._trader)+"}"
-        
-    def advise(self, listener):
-        """ Subscribes 'listener' to value change event
-        """
-        self.on_changed += listener
         
     @property
     def value(self):

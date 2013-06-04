@@ -22,7 +22,7 @@ class ISingleAssetTrader(object):
 
 ISingleAssetTrader._types = [ISingleAssetTrader]
 
-class IObservable(object):
+class IObservable(Event):
     pass
 
 IObservable._types = [IObservable, function((), float), Event]

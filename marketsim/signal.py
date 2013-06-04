@@ -19,20 +19,20 @@ class RandomWalk(types.IObservable):
     """
     def _wakeUp_impl(self, _):
         self.value += self.deltaDistr()
-        self.on_changed.fire(self)
+        self.fire(self)
 
     def __init__(self,
                  initialValue=0,
                  deltaDistr=mathutils.rnd.normalvariate(0.,1.),
                  intervalDistr=mathutils.rnd.expovariate(1.),
                  label=None):
+        super(RandomWalk, self).__init__()
         self.label = label if label is not None else "#"+str(id(self))
         
         self.initialValue = initialValue
         self.attributes = {"smooth":True}
         self.deltaDistr = deltaDistr
         self.intervalDistr = intervalDistr
-        self.on_changed = Event()
         wakeUp = bind.Method(self, '_wakeUp_impl')
             
         if '_timer' in dir(self):
@@ -54,22 +54,6 @@ class RandomWalk(types.IObservable):
         
     def schedule(self):
         self._timer.schedule()
-
-    def advise(self, listener):
-        """ Subscribes 'listener' to value changed events 
-        """
-        self.on_changed += listener
-        
-    def unadvise(self, listener):
-        self.on_changed -= listener
-
-    def __iadd__(self, listener):
-        """ Subscribes 'listener' to value changed events 
-        """
-        self.on_changed += listener
-        
-    def __isub__(self, listener):
-        self.on_changed -= listener
 
     def __call__(self):
         return self.value
