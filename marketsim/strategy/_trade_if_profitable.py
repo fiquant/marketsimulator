@@ -22,7 +22,7 @@ class _tradeIfProfitable_Impl(Strategy):
         self._strategy = self.strategy
         self._efficiency = self.efficiency(self._estimator) # TODO: dependency tracking
         
-        event.subscribe(self._efficiency.on_changed, bind.Method(self, '_wakeUp_impl'))
+        event.subscribe(self._efficiency, bind.Method(self, '_wakeUp_impl'))
         
     _internals = ['_estimator', '_efficiency']
         

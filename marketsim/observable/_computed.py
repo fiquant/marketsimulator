@@ -14,13 +14,11 @@ class IndicatorBase(types.IObservable):
         attributes -- a dictionary of attributes to be associated with the indicator
         """
         
-        
-        self.fire = bind.Method(self, '_fire_impl')
+        super(IndicatorBase, self).__init__()
         self.attributes = attributes
         self._eventSources = []
         self.eventSources = eventSources
         self._dataSource = dataSource
-        self.on_changed = Event()
         
     @property
     def _alias(self):
@@ -36,12 +34,6 @@ class IndicatorBase(types.IObservable):
     
     _properties = [ ('dataSource'  , meta.function((), float)),
                     ('eventSources' , meta.listOf(Event)) ]
-    
-    # this event is called when currentValue updates        
-    def _fire_impl(self, _ = None):
-        # calculate current value
-        self._current = self._dataSource()
-        self.on_changed.fire(self) 
     
     @property
     def eventSources(self):
@@ -67,36 +59,17 @@ class IndicatorBase(types.IObservable):
     def dataSource(self, value):
         self._dataSource = value
     
-    def reset(self):
-        self._current = None
-            
     def schedule(self):
         self.reset()
                 
-    def advise(self, listener):
-        """ Subscribes 'listener' to value change event
-        """
-        self.on_changed += listener
-        
-    def unadvise(self, listener):
-        self.on_changed -= listener
-        
-    def __iadd__(self, listener):
-        """ Subscribes 'listener' to value change event
-        """
-        self.on_changed += listener
-        
-    def __isub__(self, listener):
-        self.on_changed -= listener
-        
     @property
     def value(self):
         """ Returns current value
         """
-        return self._current
+        return self._dataSource()
     
     def __call__(self):
-        return self._current
+        return self._dataSource()
 
 class rough_balance(object):
     """ Approximation for trader's cleared balance. :: 

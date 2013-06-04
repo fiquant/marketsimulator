@@ -37,7 +37,7 @@ class Fold(object):
         self._acc = folder
         self._source = source
         self._update = bind.Method(self, '_update_impl')
-        self._source.on_changed += self._update
+        self._source += self._update
         
     def bind(self, context): # TODO: we should subscribe to acc and source changed events
         self._scheduler = context.world
@@ -68,9 +68,9 @@ class Fold(object):
     
     @source.setter
     def source(self, value):
-        self._source.on_changed -= self._update
+        self._source -= self._update
         self._source = value
-        self._source.on_changed += self._update
+        self._source += self._update
             
     @property
     def value(self):
