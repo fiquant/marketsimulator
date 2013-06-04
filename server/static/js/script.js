@@ -125,6 +125,24 @@ function Ids2Objs() {
 	}
 }
 
+function types_equal(a, b) {
+	if (typeof(a) == "string" && typeof(b) == "string") {
+		return a == b;
+	} 
+	if (a.rv &&  b.rv && a.args.length == b.args.length) {
+		for (var i in a.args) {
+			if (!types_equal(a.args[i], b.args[i])) {
+				return false
+			}
+		}
+		return types_equal(a.rv, b.rv);
+	}
+	if (a.elementType && b.elementType) {
+		return types_equal(a.elementType, b.elementType);
+	}
+	return false;
+}
+
 function AppViewModel() {
 	var self = this;
 	self.updategraph = ko.observable(false);
@@ -144,14 +162,17 @@ function AppViewModel() {
 		self.id2obj.foreach(function (x) {
 			var myId = x.uniqueId();
 
-			if (x.isPrimary.peek()) {
+			if (x.isPrimary.peek() || true) {
 				if (any(x.castsTo(), function (typeinfo) {
-					return $.toJSON(typeinfo) == jsc;
+					return types_equal(typeinfo, constraint);
 				})) {
 					candidates.push(x);
 				}
 			}
 		});
+		if (candidates.length == 0) {
+			console.log("empty candidates for " + jsc);
+		}
 		return candidates;
 	}
 	
