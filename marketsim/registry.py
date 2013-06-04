@@ -10,22 +10,6 @@ from marketsim import rtti, Side, meta, types, js, utils, prop
 startup = []
 
 
-def children_to_visit(obj):
-    return obj._children_to_visit if '_children_to_visit' in dir(obj) else []
-                
-def internals(obj):
-    
-    cls = type(obj)
-    rv = set()
-    assert inspect.isclass(cls), "only classes may have properties - functions are considered as literals"
-    bases = inspect.getmro(cls)
-    
-    for base in reversed(bases):
-        if '_internals' in dir(base):
-            for x in base._internals:
-                rv.add(x)
-                
-    return rv            
 
 
 def getCtor(obj): 
