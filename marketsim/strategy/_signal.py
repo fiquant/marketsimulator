@@ -80,25 +80,6 @@ class SignalSide(object):
                None
         return side
     
-class SignalEvent(Event):
-    """ Represents event about signal value change
-    
-        Note: we need it since current type system doesn't allow to cast IObservable to Event
-    """
-    
-    def __init__(self, signal):
-        Event.__init__(self)
-        self.signal = signal
-        self.signal.advise(self)
-        
-    def schedule(self):
-        self.signal.schedule()
-        
-    def dispose(self):
-        self.signal.unadvise(self)
-        
-    _properties = { 'signal' : types.IObservable }
-        
 @registry.expose(["Generic", 'Signal'], args = ())
 def SignalEx(signal         = signal.RandomWalk(), 
              threshold      = 0, 
@@ -108,6 +89,6 @@ def SignalEx(signal         = signal.RandomWalk(),
     r = Generic(sideFunc     = SignalSide(signal, threshold),
                 volumeFunc   = volumeDistr, 
                 orderFactory = orderFactory, 
-                eventGen     = SignalEvent(signal))  
+                eventGen     = signal)  
     
     return r

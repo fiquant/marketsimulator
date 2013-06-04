@@ -85,7 +85,7 @@ class Proxy(Base):
     def bind(self, context):
         assert self._impl is None
         self._impl = context.orderbook
-        self._impl.on_price_changed += self.on_price_changed
+        self._impl.on_price_changed += self.on_price_changed.fire
 
 class OfTrader(Base):
     

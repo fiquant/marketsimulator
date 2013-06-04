@@ -2,7 +2,7 @@ from marketsim import (scheduler, observable, types, meta,
                        Side, registry, orderbook, bind, order, mathutils)
 
 from _generic import Generic
-from _signal import SignalBase, SignalEvent
+from _signal import SignalBase
 from _wrap import wrapper2
 
 from marketsim.types import *
