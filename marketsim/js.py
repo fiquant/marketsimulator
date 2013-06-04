@@ -54,7 +54,7 @@ class TimeSerie(ITimeSerie):
                 self._lastPoint = None
             target.append((x,y))
                 
-        x = self._source.value
+        x = self._source()
         appendex(self._data, (self._sched.currentTime, x))
         # we should also filter out constant segmemnts
         appendex(self._changes, (self._sched.currentTime, x))

@@ -121,7 +121,7 @@ class CSV(object):
         """ Called when the source has chaged
         """
         self._init()
-        x = self._source.value
+        x = self._source()
         if x is not None: # for the moment we don't know what to do with breaks in data
             self._file.write(str(self._sched.currentTime) + ',' + str(x) + ',\n')
         else:
@@ -194,9 +194,8 @@ class VolumeLevelChanged(Event):
     def _update(self, _):
         self.fire(self)
         
-    @property
-    def value(self):
-        return self._source.value[self._idx]
+    def __call__(self):
+        return self._source()[self._idx]
         
     @property
     def label(self):
