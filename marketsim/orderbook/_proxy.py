@@ -22,11 +22,6 @@ class Base(types.IOrderBook):
         self._impl.process(order)
     
     @property
-    def label(self):
-        assert self._impl
-        return self._impl.label    
-            
-    @property
     def bids(self):
         assert self._impl
         return self._impl.bids
@@ -83,6 +78,10 @@ class Proxy(Base):
         
     _properties = {}
         
+    @property
+    def label(self):
+        return self._impl.label if self._impl else '$(OrderBook)'    
+            
     def bind(self, context):
         assert self._impl is None
         self._impl = context.orderbook
@@ -96,6 +95,11 @@ class OfTrader(Base):
         self._alias = ["$(TraderAsset)"] if type(Trader) == trader.SASM_Proxy else ['OfTrader']
         Base.__init__(self)
         self.Trader = Trader
+
+    @property
+    def label(self):
+        return self._impl.label if self._impl else self._alias[0]
+            
         
     """
         self.orderBook = aTrader.orderBook

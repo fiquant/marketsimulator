@@ -468,7 +468,7 @@ class Registry(object):
                 props = { p.name : 
                             {
                                 'type'     : self._dumpPropertyConstraint(p.type), 
-                                'hidden'   : p.hidden,
+                                'hidden'   : p.hidden or p.name[0] == '_',
                                 'collapsed': p.collapsed,
                             } 
                             for p in properties(obj)}

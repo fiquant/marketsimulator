@@ -1,4 +1,4 @@
-from marketsim import Event, getLabel, Side, scheduler, types, meta, mathutils, registry
+from marketsim import bind, Event, getLabel, Side, scheduler, types, meta, mathutils, registry
 
 class IndicatorBase(types.IObservable):
     """ Observable that stores some scalar value and knows how to update it
@@ -15,21 +15,30 @@ class IndicatorBase(types.IObservable):
         """
         
         
+        self.fire = bind.Method(self, '_fire_impl')
         self.attributes = attributes
         self._eventSources = []
         self.eventSources = eventSources
         self._dataSource = dataSource
         self.on_changed = Event()
+        
+    @property
+    def _alias(self):
+        return self.__alias if '__alias' in dir(self) else ['Indicator', self.label]
+    
+    @_alias.setter
+    def _alias(self, value):
+        self.__alias = value 
     
     @property    
     def label(self):
         return self._dataSource.label
     
-    _properties = { 'dataSource'   : meta.function((), float),
-                    'eventSources' : meta.listOf(Event) }
+    _properties = [ ('dataSource'  , meta.function((), float)),
+                    ('eventSources' , meta.listOf(Event)) ]
     
     # this event is called when currentValue updates        
-    def __call__(self, _ = None):
+    def _fire_impl(self, _ = None):
         # calculate current value
         self._current = self._dataSource()
         self.on_changed.fire(self) 
@@ -41,10 +50,10 @@ class IndicatorBase(types.IObservable):
     @eventSources.setter
     def eventSources(self, value):
         for es in self._eventSources:
-            es.unadvise(self)
+            es.unadvise(self.fire)
         self._eventSources = value
         for es in self._eventSources:
-            es.advise(self)
+            es.advise(self.fire)
             
     @property
     def digits(self):
@@ -84,6 +93,9 @@ class IndicatorBase(types.IObservable):
     def value(self):
         """ Returns current value
         """
+        return self._current
+    
+    def __call__(self):
         return self._current
 
 class rough_balance(object):

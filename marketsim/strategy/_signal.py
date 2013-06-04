@@ -80,21 +80,6 @@ class SignalSide(object):
                None
         return side
     
-class SignalValue(object):
-    """ Returns signal value
-    
-        Note: we need it since current type system doesn't allow to cast IObservable to () -> float
-    """
-    
-    def __init__(self, signal):
-        self.signal = signal
-        
-    _properties = { 'signal' : types.IObservable }
-    _types = [meta.function((), float)]
-        
-    def __call__(self):
-        return self.signal.value
-
 class SignalEvent(Event):
     """ Represents event about signal value change
     
@@ -120,7 +105,7 @@ def SignalEx(signal         = signal.RandomWalk(),
              orderFactory   = order.MarketFactory, 
              volumeDistr    = mathutils.rnd.expovariate(1.)):
     
-    r = Generic(sideFunc     = SignalSide(SignalValue(signal), threshold),
+    r = Generic(sideFunc     = SignalSide(signal, threshold),
                 volumeFunc   = volumeDistr, 
                 orderFactory = orderFactory, 
                 eventGen     = SignalEvent(signal))  
