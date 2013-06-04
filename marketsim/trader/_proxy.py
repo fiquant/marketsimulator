@@ -1,6 +1,6 @@
 from marketsim import types, Event
 
-class SASM_ProxyBase(object):
+class SASM_ProxyBase(types.ISingleAssetTrader):
     
     def __init__(self):
         
@@ -20,8 +20,6 @@ class SASM_ProxyBase(object):
         pass
                 
     _properties = {}
-    
-    _types = [types.ISingleAssetTrader]
     
     @property
     def PnL(self):
