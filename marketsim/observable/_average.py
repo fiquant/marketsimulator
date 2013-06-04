@@ -52,7 +52,7 @@ class Fold(object):
     _types = [meta.function((), float)]
     
     def _update_impl(self, _):
-        self._acc.update(self._scheduler.currentTime, self._source.value)
+        self._acc.update(self._scheduler.currentTime, self._source())
         
     @property
     def folder(self):
@@ -72,16 +72,10 @@ class Fold(object):
         self._source = value
         self._source += self._update
             
-    @property
-    def value(self):
-        """ Returns value from the accumulator corresponding to the current time
-        """
-        return self._acc.at(self._scheduler.currentTime)
-    
     def __call__(self):
         """ Returns value from the accumulator corresponding to the current time
         """
-        return self.value
+        return self._acc.at(self._scheduler.currentTime)
     
 def EWMA(source, alpha=0.15):
     """ Creates a folder with exponential weighted moving average as accumulator

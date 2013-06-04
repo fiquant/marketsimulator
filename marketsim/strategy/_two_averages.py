@@ -19,8 +19,8 @@ class _TwoAverages_Impl(SignalBase):
     _internals = ['_average1', '_average2']
         
     def _signalFunc(self):
-        avg1 = self._average1.value
-        avg2 = self._average2.value
+        avg1 = self._average1()
+        avg2 = self._average2()
         return avg1 - avg2 if avg1 is not None and avg2 is not None else None 
 
 exec wrapper2("TwoAverages", 

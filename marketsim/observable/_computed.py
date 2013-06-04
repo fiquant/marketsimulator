@@ -62,13 +62,9 @@ class IndicatorBase(types.IObservable):
     def schedule(self):
         self.reset()
                 
-    @property
-    def value(self):
+    def __call__(self):
         """ Returns current value
         """
-        return self._dataSource()
-    
-    def __call__(self):
         return self._dataSource()
 
 class rough_balance(object):

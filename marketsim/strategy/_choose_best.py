@@ -14,14 +14,14 @@ class _chooseTheBest_Impl(Strategy):
         if not self.suspended:
             best = -10e38
             for (_, _, _, efficiency) in self._strategies:
-                if efficiency.value > best:
-                    best = efficiency.value                   
+                if efficiency() > best:
+                    best = efficiency()                  
             if best < 0:
                 best = 0
             self._current = None
             for (strategy, _, _, efficiency) in self._strategies:
-                strategy.suspend(efficiency.value != best)
-                if efficiency.value != best:
+                strategy.suspend(efficiency() != best)
+                if efficiency() != best:
                     self._current = strategy
         
     def updateContext(self, context):

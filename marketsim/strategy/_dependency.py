@@ -17,8 +17,8 @@ class _Dependency_Impl(FundamentalValueBase):
         FundamentalValueBase.__init__(self)
 
     def _fundamentalValue(self):
-        return self._priceToDependOn.value * self.factor \
-            if self._priceToDependOn.value is not None else None
+        return self._priceToDependOn() * self.factor \
+            if self._priceToDependOn() is not None else None
     
     def _volume(self, side):
         oppositeQueue = self._trader.book.queue(side.opposite)

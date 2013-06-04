@@ -64,11 +64,5 @@ class Efficiency(types.IObservable):
         """
         return "Efficiency_{"+getLabel(self._trader)+"}"
         
-    @property
-    def value(self):
-        """ Returns current value
-        """
-        return self._current
-    
     def __call__(self):
         return self._current

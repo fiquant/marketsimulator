@@ -11,7 +11,7 @@ class _tradeIfProfitable_Impl(Strategy):
 
     def _wakeUp_impl(self, _):
         if not self.suspended:
-            self._strategy.suspend(self._efficiency.value < 0)
+            self._strategy.suspend(self._efficiency() < 0)
 
     def __init__(self):
         Strategy.__init__(self)
