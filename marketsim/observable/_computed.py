@@ -1,4 +1,4 @@
-from marketsim import bind, Event, getLabel, Side, scheduler, types, meta, mathutils, registry
+from marketsim import bind, Event, getLabel, Side, scheduler, types, meta, mathutils, registry, trader
 
 class IndicatorBase(types.IObservable):
     """ Observable that stores some scalar value and knows how to update it
@@ -235,12 +235,15 @@ class volume_traded(object):
     _properties = { 'trader' : types.ISingleAssetTrader }
 
     
-def VolumeTraded(trader):
+def VolumeTraded(aTrader = None):
     """ Returns an indicator bound to trader's position 
     """
+    if aTrader is None:
+        aTrader = trader.SASM_Proxy()
+        
     return IndicatorBase(\
-        [OnTraded(trader)], 
-        volume_traded(trader))
+        [OnTraded(aTrader)], 
+        volume_traded(aTrader))
     
 class side_price(object):
     """ Returns *orderbook* *side* price 

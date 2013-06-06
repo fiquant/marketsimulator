@@ -31,8 +31,7 @@ def TrendFollower(ctx):
                                              volumeDistr = const(V*4)), 
                             "signal", 
                             [
-                             (linear_signal, ctx.amount_graph),
-                             (observable.avg(observable.Price(ctx.book_A), alpha), demo)
+                             (linear_signal, ctx.amount_graph)
                             ]),
     
             ctx.makeTrader_A(strategy.TrendFollower(
@@ -40,14 +39,15 @@ def TrendFollower(ctx):
                                     volumeDistr = const(V)),
                              "trendfollower", 
                             [
-                             (observable.VolumeTraded(trader.SASM_Proxy()), demo)
+                             (observable.VolumeTraded(), demo),
+                             (observable.avg(observable.Price(orderbook.OfTrader()), alpha), demo)
                             ]),
             ctx.makeTrader_A(strategy.TrendFollowerEx(
                                        average=mathutils.ewma(alpha),
                                        volumeDistr = const(V)),
                              "trendfollower_ex", 
                             [
-                             (observable.VolumeTraded(trader.SASM_Proxy()), demo)
+                             (observable.VolumeTraded(), demo)
                             ])
     ]
     
