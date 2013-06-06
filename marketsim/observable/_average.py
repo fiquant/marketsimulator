@@ -1,4 +1,4 @@
-from marketsim import getLabel, mathutils, scheduler, meta, types, bind
+from marketsim import getLabel, mathutils, scheduler, meta, types, bind, event
 
 from _computed import OnEveryDt
         

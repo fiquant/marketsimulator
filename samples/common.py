@@ -72,7 +72,8 @@ def run(name, constructor):
                     timeserie.ToRecord(assetPrice, ctx.price_graph), 
                     timeserie.ToRecord(avg(assetPrice, alpha=0.15), ctx.price_graph),
                     timeserie.ToRecord(avg(assetPrice, alpha=0.65), ctx.price_graph),
-                    timeserie.ToRecord(avg(assetPrice, alpha=0.015), ctx.price_graph)]
+                    timeserie.ToRecord(avg(assetPrice, alpha=0.015), ctx.price_graph)
+                    ]
 
         for b in books:
             b.volumes_graph = veusz.Graph("Volume levels " + b.label)
@@ -103,11 +104,13 @@ def run(name, constructor):
         
         world.workTill(500)
         
-        veusz.render(name, graphs)
+        non_empty_graphs = [g for g in graphs if len(g._datas)]
+        
+        veusz.render(name, non_empty_graphs)
         
         world._reset()
         context.reset(root)
 
         if runTwoTimes:
             world.workTill(500)
-            veusz.render(name, graphs)
+            veusz.render(name, non_empty_graphs)

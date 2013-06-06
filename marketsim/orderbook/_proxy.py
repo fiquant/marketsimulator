@@ -96,6 +96,9 @@ class OfTrader(Base):
         Base.__init__(self)
         self.Trader = Trader
 
+    def bind(self, context): # it is ugly hack; proper dependency tracking should be introduced
+        context.trader.orderBook.on_price_changed += self.on_price_changed.fire
+        
     @property
     def label(self):
         return self._impl.label if self._impl else self._alias[0]
