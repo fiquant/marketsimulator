@@ -25,6 +25,11 @@ class Context(object):
          
         self.books = { 'Asset A' : self.book_A ,
                        'Asset B' : self.book_B  }
+        
+    def addGraph(self, name):
+        graph = self.graph(name)
+        self.graphs.append(graph)
+        return graph
 
         
     def makeTrader(self, book, strategy, label, additional_ts = []):
