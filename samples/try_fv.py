@@ -32,7 +32,7 @@ def FundamentalValue(ctx):
     return [
         ctx.makeTrader_A( 
             strategy.LiquidityProvider(
-                 volumeDistr=mathutils.constant(5),
+                 volumeDistr=mathutils.constant(6),
                  orderFactoryT=order.WithExpiryFactory(
                      expirationDistr=mathutils.constant(10))),
             "liquidity"),
@@ -40,6 +40,7 @@ def FundamentalValue(ctx):
         ctx.makeTrader_A( 
             strategy.FundamentalValue(
                fundamentalValue = mathutils.constant(fv),
+               creationIntervalDistr = mathutils.constant(1.),
                volumeDistr = mathutils.constant(1)), 
             "fv_200", 
             myVolume() + myPrice() + [(observable.OnEveryDt(10, Constant(fv)), demo)]),
@@ -47,6 +48,7 @@ def FundamentalValue(ctx):
         ctx.makeTrader_A(
             strategy.FundamentalValueEx(
                fundamentalValue = mathutils.constant(fv),
+               creationIntervalDistr = mathutils.constant(1.),
                volumeDistr = mathutils.constant(1)), 
             "fv_ex_200", 
             myVolume())

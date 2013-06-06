@@ -36,22 +36,30 @@ def TwoAverages(ctx):
                         [(linear_signal, ctx.amount_graph)]),
             
         ctx.makeTrader_A(strategy.TwoAverages(average1 = slow(), 
-                                              average2 = fast()), 
+                                              average2 = fast(),
+                                              creationIntervalDistr = mathutils.constant(1.),
+                                              volumeDistr           = mathutils.constant(1.)), 
                         'avg+', 
                         myAverage(alpha_slow) + myAverage(alpha_fast) + myVolume()),
 
         ctx.makeTrader_A(strategy.TwoAverages(average1 = fast(), 
-                                              average2 = slow()), 
+                                              average2 = slow(),
+                                              creationIntervalDistr = mathutils.constant(1.),
+                                              volumeDistr           = mathutils.constant(1.)), 
                          'avg-',
                          myVolume()),
 
         ctx.makeTrader_A(strategy.TwoAveragesEx(average1 = slow(), 
-                                                average2 = fast()), 
+                                                average2 = fast(),
+                                                creationIntervalDistr = mathutils.constant(1.),
+                                                volumeDistr           = mathutils.constant(1.)), 
                          'avg_ex+',
                          myVolume()),
 
         ctx.makeTrader_A(strategy.TwoAveragesEx(average1 = fast(), 
-                                                average2 = slow()), 
+                                                average2 = slow(),
+                                                creationIntervalDistr = mathutils.constant(1.),
+                                                volumeDistr           = mathutils.constant(1.)), 
                          'avg_ex-',
                          myVolume())
     ]

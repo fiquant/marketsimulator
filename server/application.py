@@ -51,6 +51,11 @@ class Context(object):
                        'Asset B' : self.book_B, 
                        'Remote A' : self.remote_A  }
         
+    def addGraph(self, name):
+        graph = self.graph(name)
+        self.graphs.append(graph)
+        return graph
+            
     def makeTrader(self, book, strategy, label, additional_ts = []):
         def trader_ts():
             thisTrader = trader.SASM_Proxy()

@@ -11,9 +11,8 @@ class SignalBase(TwoSides):
     def _orderFunc(self):
         threshold = self.threshold
         value = self._signalFunc()
-        side = Side.Buy  if value > threshold else\
-               Side.Sell if value < -threshold else\
-               None
+        side =  None if (value is None or abs(value) <= self.threshold) \
+                else (Side.Buy if value > 0 else Side.Sell)
         return (side, (self._volume(side),)) if side else None
 
     
@@ -72,17 +71,19 @@ class SignalSide(object):
                     'threshold' : float }
     
     _types = [meta.function((), Side)]
+    
+    def bind(self, context):
+        self.scheduler = context.world
         
     def __call__(self):
         value = self.source()
-        side = Side.Buy  if value > self.threshold else\
-               Side.Sell if value < -self.threshold else\
-               None
+        side =  None if (value is None or abs(value) <= self.threshold) \
+                else (Side.Buy if value > 0 else Side.Sell)
         return side
     
 @registry.expose(["Generic", 'Signal'], args = ())
 def SignalEx(signal         = signal.RandomWalk(), 
-             threshold      = 0, 
+             threshold      = 0., 
              orderFactory   = order.MarketFactory, 
              volumeDistr    = mathutils.rnd.expovariate(1.)):
     

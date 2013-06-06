@@ -30,19 +30,21 @@ def TrendFollower(ctx):
                              label="liquidity"),
     
             ctx.makeTrader_A(strategy.Signal(linear_signal, 
-                                             volumeDistr = const(V*4)), 
+                                             volumeDistr = const(V*2)), 
                             "signal", 
                             [
                              (linear_signal, ctx.amount_graph)
                             ]),
     
             ctx.makeTrader_A(strategy.TrendFollower(
+                                    creationIntervalDistr = mathutils.constant(1.),
                                     average=mathutils.ewma(alpha),
                                     volumeDistr = const(V)),
                              "trendfollower", 
                              myVolume() + myAverage(alpha)),
             
             ctx.makeTrader_A(strategy.TrendFollowerEx(
+                                       creationIntervalDistr = mathutils.constant(1.),
                                        average=mathutils.ewma(alpha),
                                        volumeDistr = const(V)),
                              "trendfollower_ex",
