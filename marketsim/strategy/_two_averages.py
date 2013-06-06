@@ -62,12 +62,15 @@ exec wrapper2("TwoAverages",
 
   
 @registry.expose(["Generic", 'TwoAverages'], args = ())
-def TwoAveragesEx(average1 = mathutils.ewma(alpha = 0.15), 
-                  average2 = mathutils.ewma(alpha = 0.015), 
+def TwoAveragesEx(average1 = None, #mathutils.ewma(alpha = 0.15), 
+                  average2 = None, #mathutils.ewma(alpha = 0.015), 
                   threshold             = 0, 
                   orderFactory          = order.MarketFactory, 
                   creationIntervalDistr = mathutils.rnd.expovariate(1.), 
                   volumeDistr           = mathutils.rnd.expovariate(1.)):
+    
+    if average1 is None: average1 = mathutils.ewma(alpha = 0.15)
+    if average2 is None: average2 = mathutils.ewma(alpha = 0.015)
     
     orderBook = orderbook.OfTrader()
     price = observable.Price(orderBook)
