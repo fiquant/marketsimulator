@@ -72,9 +72,6 @@ class SignalSide(object):
     
     _types = [meta.function((), Side)]
     
-    def bind(self, context):
-        self.scheduler = context.world
-        
     def __call__(self):
         value = self.source()
         side =  None if (value is None or abs(value) <= self.threshold) \

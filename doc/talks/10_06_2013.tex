@@ -246,6 +246,69 @@ class Generic(Strategy):
 %------------------------------------------------
 
 \begin{frame}
+\frametitle{Signal strategy}
+Signal strategy listens to some discrete signal and when the signal becomes more than some threshold it starts to buy. When the signal gets lower than -threshold the strategy starts to sell.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{signal.png}
+\caption{Signal trader sample run (signal=20-t/10)}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Trend follower strategy}
+Trend follower is an instance of a signal strategy with signal equal to the first derivative of a moving average of the asset's price (i.e trend).
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{trendfollower.png}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Two averages strategy}
+Two averages is an instance of a signal strategy with signal equal to the difference between two moving averages of the asset's price (i.e trend).
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{twoaverages.png}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Fundamental value strategy}
+Fundamental value strategy is an instance of a signal strategy with signal equal to the difference between the asset's price and some fundamental value.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{fundamentalvalue.png}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Mean reversion strategy}
+Mean reversion strategy is an instance of a fundamental value strategy with fundamental value equal to some moving average of the asset's price.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{meanreversion.png}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Liquidity provider}
+Liquidity provider sends limit-like orders with a price equal to the current asset's price multiplied by some randomly chosen factor 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{liquidityprovider.png}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
 \frametitle{Bullet Points}
 \begin{itemize}
 \item Lorem ipsum dolor sit amet, consectetur adipiscing elit
