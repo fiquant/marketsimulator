@@ -12,11 +12,16 @@ def MeanReversion(ctx):
 
     ctx.volumeStep = 40
 
-    alpha = 0.15
+    alpha = 0.015
     V = 1
     linear_signal = signal.RandomWalk(initialValue=200, 
                                       deltaDistr=const(-1), 
                                       label="200-t")
+
+    demo = ctx.addGraph('demo')
+    myVolume = lambda: [(observable.VolumeTraded(), demo)]
+    myAverage = lambda: [(observable.avg(observable.Price(orderbook.OfTrader()), alpha), demo)]
+    myPrice = lambda: [(observable.Price(orderbook.OfTrader()), demo)]
 
     return [
         ctx.makeTrader_A( 
@@ -34,12 +39,14 @@ def MeanReversion(ctx):
         ctx.makeTrader_A(strategy.MeanReversion(
                                 average=mathutils.ewma(alpha),
                                 volumeDistr = const(V)),
-                         label="meanreversion"),
+                         "meanreversion", 
+                         myVolume() + myAverage() + myPrice()),
     
         ctx.makeTrader_A(strategy.MeanReversionEx(
                                 average=mathutils.ewma(alpha),
                                 volumeDistr = const(V)),
-                         label="meanreversion_ex")
+                         "meanreversion_ex", 
+                         myVolume())
     ]    
 
 if __name__ == '__main__':
