@@ -48,7 +48,7 @@ class ewma(types.IUpdatableValue):
         if self._avg is None:
             return None
         dt = t - self._lastTime
-        return -(self._lastValue - self._avg)*math.log(1 - self.alpha)*(1 - self.alpha)**dt
+        return  -(self._lastValue - self._avg)*math.log(1 - self.alpha)*(1 - self.alpha)**dt
         
     def update(self, time, value):
         """ Adds point (time, value) to calculate the average

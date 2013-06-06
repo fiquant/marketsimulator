@@ -10,11 +10,14 @@ class _TrendFollower_Impl(SignalBase):
 
     def __init__(self):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr) # TODO: dependency tracking
-        self._signalFunc = observable.Fold(observable.Price(orderbook.OfTrader()), 
+        self._signalFunc_ = observable.Fold(observable.Price(orderbook.OfTrader()), 
                                            observable.derivative(self.average))
         SignalBase.__init__(self)
         
-    _internals = ['_signalFunc']
+    def _signalFunc(self):
+        return self._signalFunc_()
+        
+    _internals = ['_signalFunc_']
                 
 exec wrapper2('TrendFollower', 
              """ Trend follower can be considered as a sort of a signal strategy 
@@ -51,11 +54,14 @@ exec wrapper2('TrendFollower',
               ('volumeDistr',            'mathutils.rnd.expovariate(1.)', '() -> Volume')])
 
 @registry.expose(["Generic", 'TrendFollower'], args = ())
-def TrendFollowerEx(average                 = mathutils.ewma(alpha = 0.15), 
+def TrendFollowerEx(average                 = None, #mathutils.ewma(alpha = 0.15), 
                     threshold               = 0., 
                     orderFactory            = order.MarketFactory, 
                     creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
                     volumeDistr             = mathutils.rnd.expovariate(1.)):
+    
+    if average is None:
+        average = mathutils.ewma(alpha = 0.15)
     
     orderBook = orderbook.OfTrader()
     trend = observable.Fold(observable.Price(orderBook), 

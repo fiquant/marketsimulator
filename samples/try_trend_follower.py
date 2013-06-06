@@ -11,7 +11,7 @@ const = mathutils.constant
 def TrendFollower(ctx):
 
     V = 1
-    alpha = 0.065
+    alpha = 0.15
     ctx.volumeStep = 30
 
     linear_signal = signal.RandomWalk(initialValue=200, 
@@ -19,15 +19,14 @@ def TrendFollower(ctx):
                                       label="200-t")
     
     return [
-            ctx.makeTrader_A( 
-                             strategy.LiquidityProvider(
-                                volumeDistr=const(V*4), 
+            ctx.makeTrader_A(strategy.LiquidityProvider(
+                                volumeDistr=const(V*8), 
                                 orderFactoryT=order.WithExpiryFactory(
                                     expirationDistr=const(100))),
                              label="liquidity"),
     
             ctx.makeTrader_A(strategy.Signal(linear_signal, 
-                                             volumeDistr = const(V)), 
+                                             volumeDistr = const(V*4)), 
                             "signal", 
                             [(linear_signal, ctx.amount_graph)]),
     
@@ -35,7 +34,6 @@ def TrendFollower(ctx):
                                     average=mathutils.ewma(alpha),
                                     volumeDistr = const(V)),
                              label="trendfollower"),
-
             ctx.makeTrader_A(strategy.TrendFollowerEx(
                                        average=mathutils.ewma(alpha),
                                        volumeDistr = const(V)),
