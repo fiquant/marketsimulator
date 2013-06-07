@@ -310,7 +310,7 @@ Liquidity provider sends limit-like orders with a price equal to the current ass
 
 \begin{frame}
 \frametitle{Trade-if-profitable strategy}
-Suspends or resumes an underlying strategy basing on its performance backtesting. By default, first derivative of a moving average of 'cleared' trader's balance is used to evaluate the efficiency.
+Suspends or resumes an underlying strategy basing on its performance backtesting. By default, first derivative of a moving average of 'cleared' trader's balance (trader's balance if its position was cleared) is used to evaluate the efficiency.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=1\linewidth]{tradeifprofitable.png}
@@ -320,139 +320,85 @@ Suspends or resumes an underlying strategy basing on its performance backtesting
 
 \begin{frame}
 \frametitle{Choose-the-best strategy}
-Backtests aggregated strategies and allows to work only to one that has the best performance. By default, first derivative of a moving average of 'cleared' trader's balance is used to evaluate the efficiency.
+Backtests aggregated strategies and allows to run only to that one who has the best performance. By default, first derivative of a moving average of 'cleared' trader's balance is used to evaluate the efficiency.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=1\linewidth]{choosethebest.png}
 \end{figure}
 \end{frame}
 %------------------------------------------------
-
+\subsection{Observables}
 \begin{frame}
-\frametitle{Bullet Points}
+\frametitle{Observable}
+Traders and order books provide basic accessors to their current state but don't collect any statistics. It order to do it in an interoperable way a notion of observable value was introduced: it allows to read its current value and notifies listeners about its change.
 \begin{itemize}
-\item Lorem ipsum dolor sit amet, consectetur adipiscing elit
-\item Aliquam blandit faucibus nisi, sit amet dapibus enim tempus eu
-\item Nulla commodo, erat quis gravida posuere, elit lacus lobortis est, quis porttitor odio mauris at libero
-\item Nam cursus est eget velit posuere pellentesque
-\item Vestibulum faucibus velit a augue condimentum quis convallis nulla gravida
+    \item Primitive observables on
+    \begin{itemize}
+      \item traders: position, balance, market value of the portfolio, 'cleared' balance etc.
+      \item order books: ask/mid/bid price, last trade price, price at volume, volume of orders with price better than given etc.
+    \end{itemize}
+    \item \texttt{OnEveryDt(dt, dataSource)} evaluates \texttt{dataSource} every \texttt{dt} moments of time. Often used with \texttt{Fold(observable, accumulator)} where \texttt{accumulator} may be a moving average or another statistics collector.
 \end{itemize}
+History of an observable can be stored in a \texttt{TimeSerie} and rendered later on a graph.
+\end{frame}
+%------------------------------------------------
+
+\subsection{Using Veusz}
+\begin{frame}
+\frametitle{Using Veusz}
+When developing a new strategy it is reasonable to test it using scripts and visualize results by Veusz
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{using_veusz_code.png}
+\end{figure}
 \end{frame}
 
 %------------------------------------------------
+\begin{frame}
+\frametitle{Rendering graphs by Veusz}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{veusz_graph.png}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\subsection{Web interface}
+\begin{frame}
+\frametitle{Web interface}
+Web interface allows to compose a market to simulate from existing objects and set up their parameters
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{js-help.png}
+\end{figure}
+\end{frame}
 
 \begin{frame}
-\frametitle{Blocks of Highlighted Text}
-\begin{block}{Block 1}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
-\end{block}
-
-\begin{block}{Block 2}
-Pellentesque sed tellus purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum quis magna at risus dictum tempor eu vitae velit.
-\end{block}
-
-\begin{block}{Block 3}
-Suspendisse tincidunt sagittis gravida. Curabitur condimentum, enim sed venenatis rutrum, ipsum neque consectetur orci, sed blandit justo nisi ac lacus.
-\end{block}
+\frametitle{Time series}
+Timeseries field of a trader or an order book instructs what data should be collected and rendered on graphs
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{js-timeserie.png}
+\end{figure}
 \end{frame}
-
-%------------------------------------------------
 
 \begin{frame}
-\frametitle{Multiple Columns}
-\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
-
-\column{.45\textwidth} % Left column and width
-\textbf{Heading}
-\begin{enumerate}
-\item Statement
-\item Explanation
-\item Example
-\end{enumerate}
-
-\column{.5\textwidth} % Right column and width
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
-
-\end{columns}
+\frametitle{Rendering results}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{js-graph.png}
+\end{figure}
 \end{frame}
-
-%------------------------------------------------
-\section{Second Section}
-%------------------------------------------------
 
 \begin{frame}
-\frametitle{Table}
-\begin{table}
-\begin{tabular}{l l l}
-\toprule
-\textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
-\midrule
-Treatment 1 & 0.0003262 & 0.562 \\
-Treatment 2 & 0.0015681 & 0.910 \\
-Treatment 3 & 0.0009271 & 0.296 \\
-\bottomrule
-\end{tabular}
-\caption{Table caption}
-\end{table}
+\frametitle{Node aliases}
+\begin{figure}[htbp]
+Object tree nodes can be assigned aliases that can be used later to refer to the sub-tree (explicit by-value or by-reference cloning semantics is to be implemented)
+\centering
+\includegraphics[width=1\linewidth]{js-alias.png}
+\end{figure}
 \end{frame}
-
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{Theorem}
-\begin{theorem}[Mass--energy equivalence]
-$E = mc^2$
-\end{theorem}
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
-\frametitle{Verbatim}
-\begin{example}[Theorem Slide Code]
-\begin{verbatim}
-\begin{frame}
-\frametitle{Theorem}
-\begin{theorem}[Mass--energy equivalence]
-$E = mc^2$
-\end{theorem}
-\end{frame}\end{verbatim}
-\end{example}
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{Figure}
-Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
-%\begin{figure}
-%\includegraphics[width=0.8\linewidth]{test}
-%\end{figure}
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
-\frametitle{Citation}
-An example of the \verb|\cite| command to cite within the presentation:\\~
-
-This statement requires citation \cite{p1}.
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{References}
-\footnotesize{
-\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
-\bibitem[Smith, 2012]{p1} John Smith (2012)
-\newblock Title of the publication
-\newblock \emph{Journal Name} 12(3), 45 -- 678.
-\end{thebibliography}
-}
-\end{frame}
-
-%------------------------------------------------
 
 \begin{frame}
 \Huge{\centerline{The End}}
