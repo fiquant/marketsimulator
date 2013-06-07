@@ -343,7 +343,7 @@ History of an observable can be stored in a \texttt{TimeSerie} and rendered late
 \end{frame}
 %------------------------------------------------
 
-\subsection{Using Veusz}
+\section{Using Veusz}
 \begin{frame}
 \frametitle{Using Veusz}
 When developing a new strategy it is reasonable to test it using scripts and visualize results by Veusz
@@ -364,7 +364,7 @@ When developing a new strategy it is reasonable to test it using scripts and vis
 
 %------------------------------------------------
 
-\subsection{Web interface}
+\section{Web interface}
 \begin{frame}
 \frametitle{Web interface}
 Web interface allows to compose a market to simulate from existing objects and set up their parameters
@@ -399,6 +399,25 @@ Object tree nodes can be assigned aliases that can be used later to refer to the
 \includegraphics[width=1\linewidth]{js-alias.png}
 \end{figure}
 \end{frame}
+
+\begin{frame}
+\frametitle{Workspaces}
+\begin{figure}[htbp]
+Every user (identified by browser cookies) may switch between multiple workspaces. Workspaces can be forked, removed or created from a set of predefined ones. 
+\centering
+\includegraphics[width=1\linewidth]{js-fork.png}
+\end{figure}
+\end{frame}
+
+\section{Implementation details}
+\begin{frame}
+\frametitle{Describing python classes for Web-interface}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{metainfo.png}
+\end{figure}
+\end{frame}
+
 
 \begin{frame}
 \Huge{\centerline{The End}}
