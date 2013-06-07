@@ -26,7 +26,9 @@ predefined = {"Default"             : samples.Complete,
               "Trend Follower"      : samples.TrendFollower,
               "Two Averages"        : samples.TwoAverages,
               "Mean Reversion"      : samples.MeanReversion,
-              "Canceller"           : samples.Canceller  }
+              "Canceller"           : samples.Canceller,
+              "Trade-If-Profitable" : samples.TradeIfProfitable,
+              "Choose-The-Best"     : samples.ChooseTheBest }
 
 class Context(object):
     

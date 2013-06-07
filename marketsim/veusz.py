@@ -140,6 +140,7 @@ class CSV(object):
     def exportToVsz(self, f):
         """ Exports time serie to Vsz file
         """
+        self(None)
         self._init()
         self._file.flush()
         f.write(graphDataHeader.format(self._filename, self._label))

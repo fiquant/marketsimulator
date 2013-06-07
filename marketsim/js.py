@@ -39,6 +39,12 @@ class TimeSerie(ITimeSerie):
     def label(self):
         return self._source.label
     
+    def _pushLastPoint(self):
+        if self._lastPoint:
+            self._data.append(self._lastPoint)
+            self._changes.append(self._lastPoint)
+            self._lastPoint = None
+    
     def _wakeUp_impl(self, _):
         """ Called when the source has changed
         """
@@ -47,9 +53,7 @@ class TimeSerie(ITimeSerie):
                 if self._smooth:
                     self._lastPoint = (x,y)
                 return
-            if self._lastPoint:
-                target.append(self._lastPoint)
-                self._lastPoint = None
+            self._pushLastPoint()
             target.append((x,y))
                 
         x = self._source()
@@ -65,6 +69,8 @@ class TimeSerie(ITimeSerie):
         self._changes = []        
     
     def get_changes(self):
+        self._wakeUp_impl(None)
+        self._pushLastPoint()
         return self._changes    
     
     @property
