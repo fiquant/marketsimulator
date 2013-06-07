@@ -13,16 +13,22 @@ class _chooseTheBest_Impl(Strategy):
     def _chooseTheBest_impl(self,_):
         if not self.suspended:
             best = -10e38
+            idx = -1
+            i = 0
             for (_, _, _, efficiency) in self._strategies:
                 if efficiency() > best:
-                    best = efficiency()                  
+                    best = efficiency()
+                    idx = i
+                i += 1                  
             if best < 0:
                 best = 0
             self._current = None
+            i = 0
             for (strategy, _, _, efficiency) in self._strategies:
-                strategy.suspend(efficiency() != best)
-                if efficiency() != best:
+                strategy.suspend(i != idx)
+                if i != idx:
                     self._current = strategy
+                i += 1
         
     def updateContext(self, context):
         context.parentTrader = context.trader
@@ -31,7 +37,7 @@ class _chooseTheBest_Impl(Strategy):
         
         self._chooseTheBest = bind.Method(self, '_chooseTheBest_impl')
         Strategy.__init__(self) # TODO: eventGen should be a parameter
-        self._eventGen = scheduler.Timer(mathutils.constant(10))
+        self._eventGen = scheduler.Timer(mathutils.constant(1))
 
         def _createInstance(sp):
             estimator_strategy = self.estimator(sp)

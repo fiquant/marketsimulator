@@ -22,7 +22,7 @@ class _tradeIfProfitable_Impl(Strategy):
         self._strategy = self.strategy
         self._efficiency = self.efficiency(self._estimator) # TODO: dependency tracking
         
-        event.subscribe(self._efficiency, bind.Method(self, '_wakeUp_impl'))
+        event.subscribe(self._efficiency, bind.Method(self, '_wakeUp_impl'), self)
         
     _internals = ['_estimator', '_efficiency']
         
@@ -43,7 +43,7 @@ class _tradeIfProfitable_Impl(Strategy):
 def efficiencyTrend(trader):
     """ Returns derivative of a *trader*'s "cleared" balance
     """
-    return observable.trend(observable.Efficiency(trader))
+    return observable.trend(observable.Efficiency(trader), alpha=0.065)
 
 @registry.expose(alias=['Virtual market orders with unit volume'])
 @sig(args=(IStrategy,), rv=IStrategy)

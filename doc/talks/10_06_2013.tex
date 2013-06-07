@@ -300,10 +300,30 @@ Mean reversion strategy is an instance of a fundamental value strategy with fund
 
 \begin{frame}
 \frametitle{Liquidity provider}
-Liquidity provider sends limit-like orders with a price equal to the current asset's price multiplied by some randomly chosen factor 
+Liquidity provider sends limit-like orders with a price equal to the current asset's price multiplied by some randomly chosen factor
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=1\linewidth]{liquidityprovider.png}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Trade-if-profitable strategy}
+Suspends or resumes an underlying strategy basing on its performance backtesting. By default, first derivative of a moving average of 'cleared' trader's balance is used to evaluate the efficiency.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{tradeifprofitable.png}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Choose-the-best strategy}
+Backtests aggregated strategies and allows to work only to one that has the best performance. By default, first derivative of a moving average of 'cleared' trader's balance is used to evaluate the efficiency.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{choosethebest.png}
 \end{figure}
 \end{frame}
 %------------------------------------------------
