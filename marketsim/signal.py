@@ -17,6 +17,11 @@ class RandomWalk(types.IObservable):
             defines intervals between signal updates
             (default: exponential distribution with |lambda| = 1)
     """
+    _properties = { 'initialValue' : float, 
+                    'deltaDistr'   : meta.function((), float), 
+                    'intervalDistr': meta.function((), float) }
+        
+
     def _wakeUp_impl(self, _):
         self.value += self.deltaDistr()
         self.fire(self)
@@ -44,10 +49,6 @@ class RandomWalk(types.IObservable):
         self.reset()
         
     _internals = ['_timer']
-        
-    _properties = [ ('initialValue' , float), 
-                    ('deltaDistr'   , meta.function((), float)), 
-                    ('intervalDistr', meta.function((), float)) ]
         
     def reset(self):
         self.value = self.initialValue
