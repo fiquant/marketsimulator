@@ -216,7 +216,7 @@ Single asset traders
   \item notify listeners about trades done and orders sent
 \end{itemize}
 Single asset traders operate on a single or multiple markets.
-If a trader holds a portfolio composed of multiple assets it should aggregate an array of single asset traders.
+Multiple asset traders are about to be added.
 \end{frame}
 
 %------------------------------------------------
@@ -409,15 +409,55 @@ Every user (identified by browser cookies) may switch between multiple workspace
 \end{figure}
 \end{frame}
 
-\section{Implementation details}
+\section{Exposing Python classes to Web-interface}
 \begin{frame}
-\frametitle{Describing python classes for Web-interface}
+\frametitle{Exposing Python classes to Web-interface}
+\begin{itemize}
+  \item displayable label for the class ('Random Walk')
+  \item docstring in rst format 
+  \item property names and static constraints on types of their values
+\end{itemize}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=1\linewidth]{metainfo.png}
 \end{figure}
 \end{frame}
 
+\begin{frame}
+\frametitle{Type system}
+\begin{itemize}
+  \item Primitive types: int, float, string
+  \item Numeric constraints: \texttt{less\_than(2*math.pi, non\_negative)}
+  \item User-defined classes. If a property constraint is type B then any object of type D can be used as its value provided that D derives from B.
+  \item Array types: \texttt{meta.listOf(types.IStrategy)}
+  \item Functional types: \texttt{meta.function((Side, Price, Volume), IOrder)}
+\end{itemize}
+Possible improvements: 
+\begin{itemize}
+  \item \texttt{meta.function((a1, ..., aN), rettype)} could be used where \texttt{meta.function((a1, ..., aN, b1, ..., bM), rettype)} is expected
+  \item \texttt{meta.function((..., B, ...), rettype)} could be used where \texttt{meta.function((..., D, ...), rettype)} is expected if D casts to B
+  \item \texttt{meta.function(args, D)} could be used where \texttt{meta.function(args, B)} is expected if D casts to B
+\end{itemize}
+\end{frame}
+
+\section{Future developments}
+\begin{frame}
+\frametitle{Future developments}
+C++ version:
+\begin{enumerate}
+  \item Implement core functionality (scheduler, order books, basic orders and traders) in C++ (already done) and provide extension points to allow to a user create strategies and meta orders in Python (or use existing ones)
+  \item Given object tree describing a simulation model, generate on the fly C++ code as instantiations of template classes corresponding to classes in Python version
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{C++ version}
+Flexible as Python version and has performance comparable to a C hand-written version. The main problem: simulation configuring is not intuitive, so let's do the configuration automatically by a code generator.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{c++sample.png}
+\end{figure}
+\end{frame}
 
 \begin{frame}
 \Huge{\centerline{The End}}
