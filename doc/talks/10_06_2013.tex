@@ -141,6 +141,15 @@ Chair of Quantitative Finance, \'{E}cole Centrale Paris \\ % Your institution fo
 \end{frame}
 
 \section{Simulator components}
+
+\begin{frame}
+\frametitle{Simulator components}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{objects.png}
+\end{figure}
+\end{frame}
+
 \subsection{Scheduler} 
 \begin{frame}
 \frametitle{Scheduler}
@@ -339,12 +348,12 @@ Backtests aggregated strategies and allows to run only to that one who has the b
 \subsection{Observables}
 \begin{frame}
 \frametitle{Observable}
-Traders and order books provide basic accessors to their current state but don't collect any statistics. It order to do it in an interoperable way a notion of observable value was introduced: it allows to read its current value and notifies listeners about its change.
+Traders and order books provide basic accessors to their current state but don't collect any statistics. In order to do it in an interoperable way a notion of observable value was introduced: it allows to read its current value and notifies listeners about its change.
 \begin{itemize}
     \item Primitive observables on
     \begin{itemize}
       \item traders: position, balance, market value of the portfolio, 'cleared' balance etc.
-      \item order books: ask/mid/bid price, last trade price, price at volume, volume of orders with price better than given etc.
+      \item order books: ask/mid/bid price, last trade price, price at volume, volume of orders with price better than given one etc.
     \end{itemize}
     \item \texttt{OnEveryDt(dt, dataSource)} evaluates \texttt{dataSource} every \texttt{dt} moments of time. Often used with \texttt{Fold(observable, accumulator)} where \texttt{accumulator} may be a moving average or another statistics collector.
 \end{itemize}
@@ -469,7 +478,66 @@ Flexible as Python version and has performance comparable to a C hand-written ve
 \end{frame}
 
 \begin{frame}
-\Huge{\centerline{The End}}
+\frametitle{Python version/Web interface}
+\begin{itemize}
+  \item Automatic dependency tracking in Python code (observables/computed observables from KnockoutJs)
+  \item Notion of variables in the Web interface to label common object graph subtrees
+  \item Model graph representation in Web interface (???)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Model graph representation in Web interface}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{graph.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Simulation components (by Karol Podkanski)}
+\begin{itemize}
+    \item Strategies
+    \begin{itemize}
+      \item \textbf{Relative strength index (RSI).} Buy/sell when stock is oversold/overbought according to the index
+      \item \textbf{Stop-loss strategy.} Applied to any strategy in order to limit losses if they reach a certain threshold
+      \item \textbf{Multi-armed bandit.} Evaluate an array of strategies and assign them scores based on their efficiency. A strategy is then chosen randomly, with a distribution based on the scores.
+      \item Other meta-strategies (???)
+      \item \textbf{Pairs trading.} A dependence between two assets is assumed (for example, correlation). A trade is initiated when a function of the two assets (for example: weighted average) deviates from it's mean value.
+    \end{itemize}
+    \item Volume management
+    \item Enter/exit time management  (currently random or constant)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Simulation components (by Karol Podkanski)}
+\begin{itemize}
+    \item Observables (Indicators):
+    \begin{itemize}
+      \item Volatility
+      \item Volume
+      \item Performance
+      \item Relative strength index
+      \item Technical analysis
+      \begin{itemize}
+        \item Trendline: support and resistance
+        \item New High/Low
+        \item Channels
+        \item Double Top/Bottom
+        \item Head and Shoulders
+      \end{itemize}
+    \end{itemize}
+    \item Add position constraints to traders:
+        \begin{itemize}
+            \item traders have to allocate their limited resources
+            \item certain assets cannot be shorted
+        \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\Huge{\centerline{Thank you!}}
 \end{frame}
 
 %----------------------------------------------------------------------------------------
