@@ -217,7 +217,7 @@ function createInstance(id, src, root) {
 	var created = new Instance(id, ctor, fields, myTypeinfo.castsTo, alias, root);
 	if (ctor == "marketsim.timeserie.ToRecord") {
 		created = makeTimeSerie(created, root.response().ts_changes);
-	} else if (ctor == "marketsim.js.VolumeLevels") {
+	} else if (ctor == "marketsim.timeserie.VolumeLevels") {
 		created = makeVolumeLevels(created, root.response().ts_changes);
 	} else if (ctor == "marketsim.js.Graph") {
 		created = makeGraph(created, root);

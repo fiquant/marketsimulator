@@ -91,6 +91,22 @@ class ToRecord(types.ITimeSerie):  # TODO: should the source be split into dataS
     def drop(self): # later a more sophisticated protocol would be introduced
         self._data = []
 
+class VolumeLevels(ToRecord):
+
+    def __init__(self, source, graph, _digits = 4, _smooth = False, _volumes = [], _isBuy = 0):
+        ToRecord.__init__(self, source, graph, _digits, _smooth)
+        
+    @property
+    def _volumes(self):
+        return self._source.dataSource.volumes
+    
+    @property
+    def _isBuy(self):
+        return 1 if self._source.dataSource.side == types.Side.Buy else 0 
+
+    _properties = { "_volumes" : meta.listOf(float), 
+                    '_isBuy'   : int }
+
 
 class Holder(object):
     

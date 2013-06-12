@@ -135,20 +135,20 @@ def createSimulation(name='All'):
                 b.volumes_graph = js.Graph("Volume levels " + b.label)
                 thisBook = orderbook.Proxy()
                 ts = orderbook_ts()
-#                ts.append(timeserie.ToRecord(
-#                               observable.VolumeLevels(1, 
-#                                                       thisBook, 
-#                                                       Side.Sell, 
-#                                                       volumeStep, 
-#                                                       10), 
-#                               b.volumes_graph))
-#                ts.append(timeserie.ToRecord(
-#                               observable.VolumeLevels(1, 
-#                                                       thisBook, 
-#                                                       Side.Buy, 
-#                                                       volumeStep, 
-#                                                       10), 
-#                               b.volumes_graph))
+                ts.append(timeserie.VolumeLevels(
+                               observable.VolumeLevels(1, 
+                                                       thisBook, 
+                                                       Side.Sell, 
+                                                       volumeStep, 
+                                                       10), 
+                               b.volumes_graph))
+                ts.append(timeserie.VolumeLevels(
+                               observable.VolumeLevels(1, 
+                                                       thisBook, 
+                                                       Side.Buy, 
+                                                       volumeStep, 
+                                                       10), 
+                               b.volumes_graph))
                 b.timeseries = ts
                 graphs.append(b.volumes_graph)
         
