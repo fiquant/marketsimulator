@@ -143,10 +143,29 @@ function Graph(source, root) {
 	 *	Returns an array of TimeSerie instances held by the graph 
 	 */
 	self.series = ko.computed(function () {
-		var timeseries = source.lookupField("series").impl().elements();
+		var series = [];
+		var root_obj = root.root();
+		if (root_obj == ""){
+			return series;
+		}
+		function process(fieldName) {
+			foreach(root_obj.lookupField(fieldName).impl().elements(), function (trader) {
+				foreach(trader.impl().pointee().lookupField("timeseries").impl().elements(), 
+				function (timeserie) {
+					var graph_id = timeserie.impl().pointee().lookupField('graph').impl().pointee().uniqueId();
+					if (graph_id  == self.uniqueId()) {
+						series.push(timeserie.impl().pointee());
+					}
+				})
+			})
+		}
+		process('traders');
+		process('orderbooks');
+		/*var timeseries = source.lookupField("series").impl().elements();
 		return map(timeseries, function (timeserie) {
 			return root.id2obj.lookup(timeserie.impl().pointee().uniqueId());
-		});
+		});*/
+		return series;
 	});
 		
 	self.asFlotr = ko.computed(function () {

@@ -27,6 +27,9 @@ class IOrder(object):
 class IGraph(object):
     pass
 
+class ITimeSerie(object):
+    pass
+
 class IUpdatableValue(object):    
     """
     Class implementing UpdatableValue concept should obey the following interface

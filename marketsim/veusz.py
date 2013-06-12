@@ -53,6 +53,10 @@ class OutputStream(object):
         if self._file: 
             self._file.close()
         self._file = file(self._filename, 'w')
+        
+    def __enter__(self):
+        self.reset()
+        return self
     
     def __getstate__(self):
         return {'_filename': self._filename}
@@ -67,7 +71,10 @@ class OutputStream(object):
  
     def flush(self):
         self._file.flush()
-        os.fsync(self._file)       
+        os.fsync(self._file)     
+        
+    def __exit__(self, type, value, traceback):
+        self.flush()  
    
 class CSV(object):
     """ Represents a time serie to be written into a file 
@@ -79,60 +86,10 @@ class CSV(object):
         source - indicator with values to be saved
         label - time serie label
         """
-        self._sched = scheduler.current()
-        
         self._source = source
         self._directory = directory
-        self._file = None
         self._custom_attr = attributes
         
-        source += self
-        
-        self.reset()
-        
-    def _init(self):
-        if self._file is None:
-            label = self._source.label
-            filename = (label+'.csv').replace('\\','_')
-            self._fullname = self._directory + filename
-            self._filename = filename
-            self._file = OutputStream(self._fullname)
-            self._label = label
-            self._attributes = {
-                'xData' : "Time"+label,
-                'yData' : label,
-                'marker': 'none',
-                r'PlotLine/steps': u'left',
-                r'PlotLine/color': u'#' + randColor(),
-                'key' : label,
-                }
-            for k,v in self._custom_attr.iteritems():
-                self._attributes[k] = v                
-            
-            self.reset()
-            
-            
-        
-    def dispose(self):
-        self._source -= self
-        
-        
-    def __call__(self, _):
-        """ Called when the source has chaged
-        """
-        self._init()
-        x = self._source()
-        if x is not None: # for the moment we don't know what to do with breaks in data
-            self._file.write(str(self._sched.currentTime) + ',' + str(x) + ',\n')
-        else:
-            self._file.write('nan,\n')
-            
-    def reset(self):
-        if self._file is not None:
-            self._file.reset()
-            self._file.write('Time'+self._label+','+self._label+',\n')
-        
-            
     @property
     def source(self):
         return self._source
@@ -140,11 +97,34 @@ class CSV(object):
     def exportToVsz(self, f):
         """ Exports time serie to Vsz file
         """
-        self(None)
-        self._init()
-        self._file.flush()
-        f.write(graphDataHeader.format(self._filename, self._label))
-        for k,v in self._attributes.iteritems():
+        label = self._source.label
+        filename = (label+'.csv').replace('\\','_')
+        fullname = self._directory + filename
+
+        attributes = {
+            'xData' : "Time"+label,
+            'yData' : label,
+            'marker': 'none',
+            r'PlotLine/steps': u'left',
+            r'PlotLine/color': u'#' + randColor(),
+            'key' : label,
+            }
+        for k,v in self._custom_attr.iteritems():
+            attributes[k] = v                
+
+        with OutputStream(fullname) as csv:
+    
+            csv.write('Time'+label+','+label+',\n')
+    
+            for (t,x) in self._source.data:
+                if x is not None: 
+                    csv.write(str(t) + ',' + str(x) + ',\n')
+                else:
+                    csv.write('nan,\n')
+            
+        
+        f.write(graphDataHeader.format(filename, label))
+        for k,v in attributes.iteritems():
             f.write("Set('{0}', {1})\n".format(k,repr(v)))
         f.write("To('..')\n")
   
