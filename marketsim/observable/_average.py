@@ -37,7 +37,7 @@ class Fold(object):
         self._acc = folder
         self._source = source
         self._update = bind.Method(self, '_update_impl')
-        self._source += self._update
+        self._event = event.subscribe(self._source, self._update, self)
         
     def bind(self, context): # TODO: we should subscribe to acc and source changed events
         self._scheduler = context.world
@@ -68,9 +68,8 @@ class Fold(object):
     
     @source.setter
     def source(self, value):
-        self._source -= self._update
         self._source = value
-        self._source += self._update
+        self._event.switchTo(self._source)
             
     def __call__(self):
         """ Returns value from the accumulator corresponding to the current time
