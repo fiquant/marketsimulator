@@ -163,24 +163,19 @@ def translateAttributes(src):
         
     return res
 
-class VolumeLevelChanged(Event):
+class VolumeLevelProxy(object):
     
     def __init__(self, source, idx):
-        Event.__init__(self)
         self._source = source
         self._idx = idx
-        self.update = bind.Method(self, '_update')
-        self._source += self.update
         
-    def _update(self, _):
-        self.fire(self)
-        
-    def __call__(self):
-        return self._source()[self._idx]
+    @property
+    def data(self):
+        return [(t, x[self._idx]) for (t,x) in self._source.data]
         
     @property
     def label(self):
-        return self._source.label + '{' + str(self._source.dataSource.volumes[self._idx]) + '}' 
+        return self._source.label + '{' + str(self._source.source.dataSource.volumes[self._idx]) + '}' 
         
     
     
@@ -216,9 +211,9 @@ class Graph(types.IGraph):
             self._datas.append(CSV(myDir(), source, attr))
             
     def processVolumeLevels(self, source, attr):
-        volumes = source.dataSource.volumes
+        volumes = source.source.dataSource.volumes
         for i in range(len(volumes)):
-            proxy = VolumeLevelChanged(source, len(volumes) - i - 1)
+            proxy = VolumeLevelProxy(source, len(volumes) - i - 1)
             self._datas.append(CSV(myDir(), proxy, attr))
         
     def removeTimeSerie(self, source):

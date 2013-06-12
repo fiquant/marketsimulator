@@ -109,7 +109,9 @@ function makeVolumeLevels(source, initialData) {
 				var c = "#"+(rgb[0]).toString(16)+(rgb[1]).toString(16)+(rgb[2]).toString(16);
 				res.push({
 					'data' : map(ts.getData.peek(), function (x) {
-								return [x[0], x[1][i-1], x[1][i]];
+								var low = x[1][i-1];
+								var high = x[1][i];
+								return (low != null && high != null) ? [x[0], low, high] : [x[0], null, null];
  							 }),
 					'name' : ts.alias.peek() + ': ' + vs[i-1] + ' - ' + vs[i],
 					'color' : c,

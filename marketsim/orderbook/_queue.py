@@ -199,8 +199,11 @@ class Queue(object):
                     break
             if i == len(deltas):
                 return
-        while i < len(deltas):
+        if i < len(deltas):
             yield (volumes[i], lastPrice)
+            i += 1
+        while i < len(deltas):
+            yield (volumes[i], None)
             i += 1
         
         
