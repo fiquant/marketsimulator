@@ -1,4 +1,4 @@
-from marketsim import scheduler, meta, types, bind, flags, event, context
+from marketsim import scheduler, meta, types, bind, flags
 
 class ITimeSerie(object):
     
@@ -14,14 +14,11 @@ class TimeSerie(ITimeSerie):
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
         self._smooth =  1 if 'smooth' in _source.attributes and _source.attributes['smooth'] else 0
         self._lastPoint = None
-        self._event = event.subscribe(self._source, self._wakeUp, self)
         self.reset()
-        
-    def updateContext(self, _):
-        pass
         
     def bind(self, context):
         self._sched = context.world
+        self._source += self._wakeUp
         
     @property
     def _digits(self):
@@ -34,6 +31,9 @@ class TimeSerie(ITimeSerie):
     @_alias.setter
     def _alias(self, value):
         self.__alias = value      
+        
+    def dispose(self):
+        self._source -= self._wakeUp
         
     @property
     def label(self):
@@ -79,9 +79,10 @@ class TimeSerie(ITimeSerie):
     
     @source.setter
     def source(self, value):
+        self._source -= self._wakeUp
         self._source = value
         self._alias = self._source.label        
-        self._event.switchTo(self._source)
+        self._source += self._wakeUp
         
     _properties = { "_source" : types.IObservable, 
                     "_smooth" : int, 
@@ -119,10 +120,10 @@ class Graph(types.IGraph):
         self.series = series if series else []
         self._pending = []
         
-    def bind(self, ctx):
-        self.world = ctx.world
+    def bind(self, context):
+        self.world = context.world
         for p in self._pending:
-            self.addTimeSerie(p, ctx)
+            self.addTimeSerie(p)
         self._pending = []
         
     def has(self, source):
@@ -131,7 +132,7 @@ class Graph(types.IGraph):
                 return True
         return False
         
-    def addTimeSerie(self, source, ctx = None):
+    def addTimeSerie(self, source):
         """ Adds a time serie to the graph
         source should be a source of events (so to have advise method) 
         and have a value property 
@@ -145,10 +146,7 @@ class Graph(types.IGraph):
                 else:
                     ts = TimeSerie(source)
                 self.series.append(ts)
-                if ctx:
-                    ctx.apply(ts)
-                else:
-                    context.bind(ts, { 'world' : self.world })
+                ts.bind(self)
             
         
     def removeTimeSerie(self, source):

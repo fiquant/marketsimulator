@@ -41,6 +41,9 @@ class _Canceller_Impl(object):
         self._book = orderbook.OfTrader(myTrader)
         event.subscribe(self._eventGen, self.wakeUp, self)
         
+    def dispose(self):
+        self._eventGen -= self.wakeUp
+        
     def process(self, order):
         """ Puts 'order' to future cancellation list
         """

@@ -86,7 +86,7 @@ class CSV(object):
         self._file = None
         self._custom_attr = attributes
         
-        event.subscribe(self._source, self, self)
+        source += self
         
         self.reset()
         
@@ -109,8 +109,13 @@ class CSV(object):
             for k,v in self._custom_attr.iteritems():
                 self._attributes[k] = v                
             
-            self.reset()            
+            self.reset()
             
+            
+        
+    def dispose(self):
+        self._source -= self
+        
         
     def __call__(self, _):
         """ Called when the source has chaged
