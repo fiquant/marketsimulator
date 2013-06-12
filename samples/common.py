@@ -83,22 +83,26 @@ def run(name, constructor):
             b.volumes_graph = veusz.Graph("Volume levels " + b.label)
             thisBook = orderbook.Proxy()
             ts = orderbook_ts()
-            ts.append(timeserie.ToRecord(
-                           observable.VolumeLevels(1, 
-                                                   thisBook, 
-                                                   Side.Sell, 
-                                                   30, 
-                                                   10), 
-                           b.volumes_graph))
-            ts.append(timeserie.ToRecord(
-                           observable.VolumeLevels(1, 
-                                                   thisBook, 
-                                                   Side.Buy, 
-                                                   30, 
-                                                   10), 
-                           b.volumes_graph))
+#            ts.append(timeserie.ToRecord(
+#                           observable.VolumeLevels(1, 
+#                                                   thisBook, 
+#                                                   Side.Sell, 
+#                                                   30, 
+#                                                   10), 
+#                           b.volumes_graph))
+#            ts.append(timeserie.ToRecord(
+#                           observable.VolumeLevels(1, 
+#                                                   thisBook, 
+#                                                   Side.Buy, 
+#                                                   30, 
+#                                                   10), 
+#                           b.volumes_graph))
             b.timeseries = ts
             graphs.append(b.volumes_graph)
+            
+        for t in traders + books:
+            for ts in t.timeseries:
+                ts.graph.addTimeSerie(ts)
         
         r = registry.create()
         root = registry.Simulation(traders, list(ctx.books.itervalues()), graphs)

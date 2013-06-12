@@ -1,10 +1,12 @@
-from marketsim import types, Event
+from marketsim import types, Event, timeserie
 
-class BookBase(types.IOrderBook):
+class BookBase(types.IOrderBook, timeserie.Holder):
 
-    def __init__(self, bids, asks, label=""):
+    def __init__(self, bids, asks, label="", timeseries = []):
         """ Initializes empty order book with given tick size
         """
+        timeserie.Holder.__init__(self, timeseries)
+        
         self._bids = bids
         self._asks = asks
         # queues indexed by their side

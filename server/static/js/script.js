@@ -525,6 +525,7 @@ function AppViewModel() {
 			for (var i in value) {
 				if (!value[i].empty()) {
 					t = i;
+					break;
 				}
 			}
 			self.currentGraph(t);

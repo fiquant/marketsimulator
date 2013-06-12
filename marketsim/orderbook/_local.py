@@ -29,7 +29,7 @@ class Asks(Queue):
 
     side = Side.Sell
 
-class Local(BookBase, timeserie.Holder):
+class Local(BookBase):
     """ Order book for a single asset in a market.
     Maintains two order queues for orders of different sides
     """
@@ -42,8 +42,7 @@ class Local(BookBase, timeserie.Holder):
         BookBase.__init__(self, 
                           Bids(tickSize, self), 
                           Asks(tickSize, self), 
-                          label)
-        timeserie.Holder.__init__(self, timeseries)
+                          label, timeseries)
         
         self._digitsToShow = _digitsToShow
         

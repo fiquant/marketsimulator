@@ -215,7 +215,7 @@ function createInstance(id, src, root) {
 		alias = ["$(OrderBook)"];
 	}
 	var created = new Instance(id, ctor, fields, myTypeinfo.castsTo, alias, root);
-	if (ctor == "marketsim.js.TimeSerie") {
+	if (ctor == "marketsim.timeserie.ToRecord") {
 		created = makeTimeSerie(created, root.response().ts_changes);
 	} else if (ctor == "marketsim.js.VolumeLevels") {
 		created = makeVolumeLevels(created, root.response().ts_changes);

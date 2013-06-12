@@ -1,10 +1,6 @@
 from marketsim import scheduler, meta, types, bind, flags
 
-class ITimeSerie(object):
-    
-    pass
-
-class TimeSerie(ITimeSerie):
+class TimeSerie(types.ITimeSerie):
     """ Listens to an observable and accumulates its values with time stamps
     """
     
@@ -152,7 +148,7 @@ class Graph(types.IGraph):
     def removeTimeSerie(self, source):
         self.series = [x for x in self.series if x.source is not source]
         
-    _properties = {"series": (meta.listOf(ITimeSerie), flags.hidden) }
+    _properties = {"series": (meta.listOf(types.ITimeSerie), flags.hidden) }
 
     @property
     def _alias(self):

@@ -1,14 +1,95 @@
-from marketsim import types, meta, flags
+from marketsim import types, meta, flags, event, bind
 
-class ToRecord(object):  # TODO: should the source be split into dataSource and eventSource?
+class ToRecord(types.ITimeSerie):  # TODO: should the source be split into dataSource and eventSource?
     
-    def __init__(self, source, graph):
-        self.source = source
+    def __init__(self, source, graph, _digits = 4, _smooth = False):
+        self._source = source
         self.graph = graph
+        self._wakeUp = bind.Method(self, '_wakeUp_impl')
+        self.attributes = source.attributes
+        self._smooth =  1 if 'smooth' in source.attributes and source.attributes['smooth'] else 0
+        self._lastPoint = None
+        self._event = event.subscribe(source, self._wakeUp, self)
+        self.reset()
         
-    _properties = { 'source' : types.IObservable, 
-                    'graph'  : types.IGraph }
+    _properties = { 
+                    'source' : types.IObservable, 
+                    'graph'  : types.IGraph,
+                    '_digits': int,
+                    "_smooth": int, 
+                  }
+        
 
+    def bind(self, context):
+        self._sched = context.world
+        
+    @property
+    def _digits(self):
+        return self._source.digits if 'digits' in dir(self.source) else 4 
+    
+    @property    
+    def _alias(self):
+        return [self._source.label]  if '__alias' not in dir(self) else self.__alias
+    
+    @_alias.setter
+    def _alias(self, value):
+        self.__alias = value      
+        
+    @property
+    def label(self):
+        return self.source.label
+    
+    def _pushLastPoint(self):
+        if self._lastPoint:
+            self._data.append(self._lastPoint)
+            self._changes.append(self._lastPoint)
+            self._lastPoint = None
+    
+    def _wakeUp_impl(self, _):
+        """ Called when the source has changed
+        """
+        def appendex(target, (x,y)):
+            if target != [] and target[-1][1] == y:
+                if self._smooth:
+                    self._lastPoint = (x,y)
+                return
+            self._pushLastPoint()
+            target.append((x,y))
+                
+        x = self._source()
+        appendex(self._data, (self._sched.currentTime, x))
+        # we should also filter out constant segmemnts
+        appendex(self._changes, (self._sched.currentTime, x))
+                
+    def reset(self):
+        self._data = []
+        self._changes = []
+
+    def save_state_before_changes(self):
+        self._changes = []        
+    
+    def get_changes(self):
+        self._wakeUp_impl(None)
+        self._pushLastPoint()
+        return self._changes    
+    
+    @property
+    def source(self):
+        return self._source
+    
+    @source.setter
+    def source(self, value):
+        self._source -= self._wakeUp
+        self._source = value
+        self.__alias = self._source.label        
+        self._source += self._wakeUp
+        
+    @property    
+    def data(self):
+        return self._data
+    
+    def drop(self): # later a more sophisticated protocol would be introduced
+        self._data = []
 
 
 class Holder(object):
@@ -17,28 +98,17 @@ class Holder(object):
         if type(timeseries) is dict: 
             timeseries = [ToRecord(k,v) for k,v in timeseries.iteritems()]
         self._timeseries = timeseries
-        for x in self._timeseries:
-            x.graph.addTimeSerie(x.source)
         
-    def bind(self, context):
-        pass
-    
     @property
     def timeseries(self):
         return self._timeseries
     
     @timeseries.setter
     def timeseries(self, value):
-        old = set(self._timeseries)
-        new = set(value)
-        for x in old - new:
-            x.graph.removeTimeSerie(x.source)
-        for x in new - old:
-            x.graph.addTimeSerie(x.source)
         self._timeseries = value
         
     def addTimeSerie(self, source, graph):
-        graph.addTimeSerie(source)
-        self._timeseries.append(ToRecord(source, graph))
+        ts = ToRecord(source, graph)
+        self._timeseries.append(ts)
         
     _properties = {'timeseries' : (meta.listOf(ToRecord), flags.collapsed) }

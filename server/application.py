@@ -4,7 +4,7 @@ sys.path.append(r'..')
 sys.setrecursionlimit(10000)
 
 from marketsim import (strategy, orderbook, trader, order, js, signal, remote, context, timeserie,
-                       scheduler, observable, veusz, mathutils, registry, translations)
+                       scheduler, observable, veusz, mathutils, registry, translations, types)
 
 from marketsim.types import Side
 
@@ -135,20 +135,20 @@ def createSimulation(name='All'):
                 b.volumes_graph = js.Graph("Volume levels " + b.label)
                 thisBook = orderbook.Proxy()
                 ts = orderbook_ts()
-                ts.append(timeserie.ToRecord(
-                               observable.VolumeLevels(1, 
-                                                       thisBook, 
-                                                       Side.Sell, 
-                                                       volumeStep, 
-                                                       10), 
-                               b.volumes_graph))
-                ts.append(timeserie.ToRecord(
-                               observable.VolumeLevels(1, 
-                                                       thisBook, 
-                                                       Side.Buy, 
-                                                       volumeStep, 
-                                                       10), 
-                               b.volumes_graph))
+#                ts.append(timeserie.ToRecord(
+#                               observable.VolumeLevels(1, 
+#                                                       thisBook, 
+#                                                       Side.Sell, 
+#                                                       volumeStep, 
+#                                                       10), 
+#                               b.volumes_graph))
+#                ts.append(timeserie.ToRecord(
+#                               observable.VolumeLevels(1, 
+#                                                       thisBook, 
+#                                                       Side.Buy, 
+#                                                       volumeStep, 
+#                                                       10), 
+#                               b.volumes_graph))
                 b.timeseries = ts
                 graphs.append(b.volumes_graph)
         
@@ -180,7 +180,7 @@ def createSimulation(name='All'):
     
 def _timeseries(myRegistry):
     return [(k, v) for (k, v) in myRegistry._id2obj.iteritems()\
-                     if isinstance(v, js.ITimeSerie) ]
+                     if isinstance(v, types.ITimeSerie) ]
 
 def save_state_before_changes(myRegistry):
     myRegistry.save_state_before_changes()
