@@ -533,9 +533,6 @@ class Simulation(object):
         self._traders = traders
         self.orderbooks = orderbooks
         self.graphs = graphs
-        
-    def updateContext(self, _):
-        pass
     
     _properties = { 'traders'    : meta.listOf(types.ISingleAssetTrader),
                     'orderbooks' : meta.listOf(types.IOrderBook),

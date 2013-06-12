@@ -23,6 +23,9 @@ class _Generic_Impl(Strategy):
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
         event.subscribe(self.eventGen, self._wakeUp, self)
         
+    def dispose(self):
+        self.eventGen -= self._wakeUp
+
     def _wakeUp_impl(self, _):
         if self._suspended:
             return

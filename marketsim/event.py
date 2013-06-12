@@ -33,33 +33,14 @@ class Subscription(object):
     def __init__(self, event, listener):
         self._event = event 
         self._listener = listener
-        self._subscribed = False # in fact it is _bound but its cleaning is not yet supported at dispose
         
     _internals = ['_event']
-    
-    def switchTo(self, newEvent):
-        self._event -= self._listener
-        self._event = newEvent
-        self._event += self._listener
         
     def bind(self, context):
         self._event += self._listener
-        self._subscribed = True
         
     def dispose(self):
-        if self._subscribed:
-            self._event -= self._listener
-            self._subscribed = False
-
-def dispose(obj):
-    if '_subscriptions' in dir(obj):
-        for x in obj._subscriptions:
-            x.dispose()
-    if '_children_to_visit' in dir(obj):
-        for child in obj._children_to_visit:
-            if 'dispose' in dir(child):
-                child.dispose()
-            
+        self._event -= self._listener
                 
 def subscribe(event, listener, target = None):
     
@@ -70,10 +51,4 @@ def subscribe(event, listener, target = None):
             target._subscriptions = []
             
         target._subscriptions.append(subscription)
-        
-        if 'dispose' not in dir(target):
-            target.dispose = bind.Callable(dispose, target)
-            
-    return subscription
-            
         

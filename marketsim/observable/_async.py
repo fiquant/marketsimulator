@@ -1,4 +1,4 @@
-from marketsim import Side, getLabel, Event, meta, types, bind, scheduler, event
+from marketsim import Side, getLabel, Event, meta, types, bind, scheduler
 
 def sign(x):
     return 1 if x > 0 else -1 if x < 0 else 0
@@ -18,7 +18,7 @@ class Efficiency(types.IObservable):
         
         self.attributes = {}
         
-        self._event = event.subscribe(self._trader.on_traded, self._update, self)
+        self._trader.on_traded += self._update
         self._alias = ["Trader's", "Efficiency"]
         
         self.reset()
@@ -48,8 +48,9 @@ class Efficiency(types.IObservable):
     
     @trader.setter
     def trader(self, value):
+        self._trader.on_traded -= self._update
         self._trader = value    
-        self._event.switchTo(self._trader.on_traded)
+        self._trader.on_traded += self._update
             
 
     _properties = { 'trader' : types.ISingleAssetTrader }
