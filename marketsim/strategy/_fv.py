@@ -16,6 +16,10 @@ class FundamentalValueBase(SignalBase):
     def _signalFunc(self):
         book = self._trader.book
         fv = self._fundamentalValue()
+
+        # Quick fix: sometimes fv returns a None value
+        if fv is None:
+            return None
         
         # if current price is defined, compare it with the fundamental value and define the side
         return +1 if not book.asks.empty\
@@ -75,11 +79,17 @@ class FundamentalValueSide(object):
     def __call__(self):
         fv = self.fundamentalValue()
         book = self.orderBook
-        return Side.Buy if not book.asks.empty\
-                  and book.asks.best.price < fv else\
-               Side.Sell if not book.bids.empty\
-                  and book.bids.best.price > fv else\
-               None
+        
+        # Quick fix: sometimes fv returns a None value
+        if fv is None:
+            side = None
+        else:
+            side = Side.Buy if not book.asks.empty\
+                    and book.asks.best.price < fv else\
+                    Side.Sell if not book.bids.empty\
+                    and book.bids.best.price > fv else\
+                    None
+        return side
 
 @registry.expose(["Generic", "FundamentalValue"], args = ())
 def FundamentalValueEx(fundamentalValue      = mathutils.constant(100.),
