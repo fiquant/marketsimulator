@@ -63,7 +63,7 @@ def Complete(ctx):
             fv_virtual(180.),
             fv_virtual(190.),
     
-            ctx.makeTrader_A(strategy.chooseTheBest([
+            ctx.makeTrader_A(strategy.ChooseTheBest([
                                                s_fv(160.),
                                                s_fv(170.),
                                                s_fv(180.),

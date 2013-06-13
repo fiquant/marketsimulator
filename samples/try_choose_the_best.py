@@ -41,7 +41,7 @@ def ChooseTheBest(ctx):
             fv_virtual(250.),
             fv_virtual(300.),
     
-            ctx.makeTrader_A(strategy.chooseTheBest([
+            ctx.makeTrader_A(strategy.ChooseTheBest([
                                                s_fv(100.),
                                                s_fv(150.), 
                                                s_fv(200.), 
