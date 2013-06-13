@@ -14,9 +14,6 @@ class TwoSides(Strategy):
         self._wakeUp = bind.Method(self, '_wakeUp_impl')
         event.subscribe(self._eventGen, self._wakeUp, self)
         
-    def dispose(self):
-        self._eventGen -= self._wakeUp
-
     def _wakeUp_impl(self, signal):
         if self._suspended:
             return

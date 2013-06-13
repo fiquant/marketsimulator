@@ -1,5 +1,5 @@
 import random
-from marketsim import bind, Event, meta, types, mathutils, registry, scheduler
+from marketsim import bind, Event, meta, types, mathutils, registry, scheduler, event
 
 @registry.expose(['Random walk'])
 class RandomWalk(types.IObservable):
@@ -40,11 +40,8 @@ class RandomWalk(types.IObservable):
         self.intervalDistr = intervalDistr
         wakeUp = bind.Method(self, '_wakeUp_impl')
             
-        if '_timer' in dir(self):
-            self._timer -= wakeUp
-
         self._timer = scheduler.Timer(self.intervalDistr)
-        self._timer += wakeUp
+        event.subscribe(self._timer, wakeUp, self)
         
         self.reset()
         
