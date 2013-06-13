@@ -49,7 +49,6 @@ class side_price(object):
     def __init__(self, orderbook, side):
         self.orderbook = orderbook
         self.side = side
-        self._alias = ["Asset's", "Side price"]
         
     _types = [meta.function((), float)]
     
@@ -61,12 +60,27 @@ class side_price(object):
     def digits(self):
         return self.orderbook._digitsToShow
     
+    _properties = { 'orderbook' : types.IOrderBook  }
+    
+class ask_price(side_price):
+    
+    def __init__(self, orderbook):
+        side_price.__init__(self, orderbook, Side.Sell)
+        self._alias = ["Asset's", "Ask price"]
+
     @property
     def label(self):
-        return "Price("+self.orderbook.queue(self.side).label+")" 
+        return "Ask_{"+self.orderbook.label+"}" 
     
-    _properties = { 'orderbook' : types.IOrderBook, 
-                    'side'      : types.Side }
+class bid_price(side_price):
+    
+    def __init__(self, orderbook):
+        side_price.__init__(self, orderbook, Side.Buy)
+        self._alias = ["Asset's", "Bid price"]
+
+    @property
+    def label(self):
+        return "Bid_{"+self.orderbook.label+"}" 
     
 class price_at_volume(object):
 
@@ -141,6 +155,28 @@ class OnPriceChanged(Event):
         
     _properties = { 'orderbook' : types.IOrderBook }
 
+class OnAskChanged(Event):
+    """ Event that is fired once mid-price in the *orderbook* has changed
+    """
+    
+    def __init__(self, orderbook):
+        Event.__init__(self)
+        self.orderbook = orderbook
+        event.subscribe(self.orderbook.on_ask_changed, self.fire, self)
+        
+    _properties = { 'orderbook' : types.IOrderBook }
+
+class OnBidChanged(Event):
+    """ Event that is fired once mid-price in the *orderbook* has changed
+    """
+    
+    def __init__(self, orderbook):
+        Event.__init__(self)
+        self.orderbook = orderbook
+        event.subscribe(self.orderbook.on_bid_changed, self.fire, self)
+        
+    _properties = { 'orderbook' : types.IOrderBook }
+
 class OnSideBestChanged(Event):
     """ Event that is fired once a *side* price in the *orderbook* has changed
     """
@@ -175,27 +211,18 @@ def CrossSpread(book_A, book_B):
     return IndicatorBase(\
          event.Array([asks_changed, bids_changed]), 
          cross_spread(book_A, book_B))
-
-def BestPrice(book, side, label):
-    """ Creates an indicator bound to the price of the best order in a queue
-    book - asset order book
-    side - side of the queue
-    label - label prefix
-    """
-    
-    return IndicatorBase(OnSideBestChanged(book, side), side_price(book, side))
     
 def BidPrice(book):
     """ Creates an indicator bound to the bid price of the asset
     book - asset order book
     """
-    return BestPrice(book, Side.Buy, "BidPrice ")
+    return IndicatorBase(OnBidChanged(book), bid_price(book)) 
 
 def AskPrice(book):
     """ Creates an indicator bound to the ask price of the asset
     book - asset order book
     """
-    return BestPrice(book, Side.Sell, "AskPrice ")
+    return IndicatorBase(OnAskChanged(book), ask_price(book)) 
 
 def PriceAtVolume(interval, orderbook, side, volume):
 
