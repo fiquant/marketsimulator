@@ -53,7 +53,7 @@ class _multiarmedBandit_Impl(Strategy):
         
         self._strategies = [_createInstance(sp) for sp in self.strategies]
         
-        self._chooseTheBest = bind.Method(self, '_choose_impl')
+        self._choose = bind.Method(self, '_choose_impl')
         self._current = None
         event.subscribe(self._eventGen, self._choose, self)
     
