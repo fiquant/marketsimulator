@@ -1,4 +1,5 @@
-from marketsim import bind, Event, getLabel, Side, scheduler, types, meta, mathutils, registry, trader
+from marketsim import (bind, event, Event, getLabel, Side, scheduler, 
+                       types, meta, mathutils, registry, trader)
 
 class IndicatorBase(types.IObservable):
     """ Observable that stores some scalar value and knows how to update it
@@ -6,7 +7,7 @@ class IndicatorBase(types.IObservable):
     * **Source of data** -- function that provides data
     * **Events when to act** -- events when to act
     """
-    def __init__(self, eventSources, dataSource, attributes = {}):
+    def __init__(self, eventSource, dataSource, attributes = {}):
         """ Initializes indicator
         eventSources -- sequence of events to be subscribed to 
         dataSource -- function to be called in order to obtain the value
@@ -16,8 +17,7 @@ class IndicatorBase(types.IObservable):
         
         super(IndicatorBase, self).__init__()
         self.attributes = attributes
-        self._eventSources = []
-        self.eventSources = eventSources
+        self._subscription = event.subscribe(eventSource, self.fire, self)
         self._dataSource = dataSource
         
     @property    
@@ -25,20 +25,16 @@ class IndicatorBase(types.IObservable):
         return self._dataSource.label
     
     _properties = [ ('dataSource'  , meta.function((), float)),
-                    ('eventSources' , meta.listOf(Event)) ]
+                    ('eventSource' , Event) ]
     
     @property
-    def eventSources(self):
-        return self._eventSources
+    def eventSource(self):
+        return self._subscription.event
     
-    @eventSources.setter
-    def eventSources(self, value):
-        for es in self._eventSources:
-            es -= self.fire
-        self._eventSources = value
-        for es in self._eventSources:
-            es += self.fire
-            
+    @eventSource.setter
+    def eventSource(self, value):
+        self._subscription.event = value 
+        
     @property
     def digits(self):
         return self._dataSource.digits if 'digits' in dir(self._dataSource) else 4
@@ -93,7 +89,7 @@ class OnTraded(Event):
     def __init__(self, trader):
         Event.__init__(self)
         self.trader = trader
-        self.trader.on_traded += self.fire
+        event.subscribe(self.trader.on_traded, self.fire, self)
         
     _properties = { 'trader' : types.ISingleAssetTrader }
     
@@ -102,7 +98,7 @@ def InstEfficiency(trader):
     """ Creates an indicator bound to rough estimation of a trader's balance if cleared
     """
     
-    return IndicatorBase([OnTraded(trader)], 
+    return IndicatorBase(OnTraded(trader), 
                          rough_balance(trader))
 
 class profit_and_loss(object):
@@ -129,7 +125,7 @@ class profit_and_loss(object):
     
 def PnL(trader):
     
-    return IndicatorBase([OnTraded(trader)], profit_and_loss(trader))
+    return IndicatorBase(OnTraded(trader), profit_and_loss(trader))
 
 class mid_price(object):
     """ Returns middle price in the given *orderbook*
@@ -161,7 +157,7 @@ class OnPriceChanged(Event):
     def __init__(self, orderbook):
         Event.__init__(self)
         self.orderbook = orderbook
-        self.orderbook.on_price_changed += self.fire
+        event.subscribe(self.orderbook.on_price_changed, self.fire, self)
         
     _properties = { 'orderbook' : types.IOrderBook }
     
@@ -169,7 +165,7 @@ def Price(book):
     """ Creates an indicator bound to the middle price of an asset
     """   
     return IndicatorBase(\
-        [OnPriceChanged(book)], 
+        OnPriceChanged(book), 
         mid_price(book))
     
 class OnSideBestChanged(Event):
@@ -207,8 +203,10 @@ def CrossSpread(book_A, book_B):
     """
     asks = book_A.asks
     bids = book_B.bids
+    asks_changed = OnSideBestChanged(book_A, Side.Sell)
+    bids_changed = OnSideBestChanged(book_B, Side.Buy)
     return IndicatorBase(\
-        [asks.on_best_changed, bids.on_best_changed], 
+         event.Array([asks_changed, bids_changed]), 
          cross_spread(book_A, book_B))
 
 class volume_traded(object):
@@ -242,7 +240,7 @@ def VolumeTraded(aTrader = None):
         aTrader = trader.SASM_Proxy()
         
     return IndicatorBase(\
-        [OnTraded(aTrader)], 
+        OnTraded(aTrader), 
         volume_traded(aTrader))
     
 class side_price(object):
@@ -341,7 +339,7 @@ def BestPrice(book, side, label):
     """
     
     return IndicatorBase(\
-        [OnSideBestChanged(book, side)], 
+        OnSideBestChanged(book, side), 
         side_price(book, side))
     
 def BidPrice(book):
@@ -362,19 +360,19 @@ def OnEveryDt(interval, source):
     source - function to obtain indicator value
     """
     
-    return IndicatorBase([scheduler.Timer(mathutils.constant(interval))],
+    return IndicatorBase(scheduler.Timer(mathutils.constant(interval)),
                          source, 
                          {'smooth':True})
 
 def PriceAtVolume(interval, orderbook, side, volume):
 
-    return IndicatorBase([scheduler.Timer(mathutils.constant(interval))],
+    return IndicatorBase(scheduler.Timer(mathutils.constant(interval)),
                          price_at_volume(orderbook, side, volume), 
                          {'smooth':True, 'fillBelow' : side == Side.Buy, 'fillAbove' : side == Side.Sell})
 
 def VolumeLevels(interval, orderbook, side, volumeDelta, volumeCount):
 
-    return IndicatorBase([scheduler.Timer(mathutils.constant(interval))],
+    return IndicatorBase(scheduler.Timer(mathutils.constant(interval)),
                          volume_levels(orderbook, side, volumeDelta, volumeCount), 
                          {'smooth':True, 'volumeLevels' : True, 
                           'fillBelow' : side == Side.Buy, 'fillAbove' : side == Side.Sell})
