@@ -54,16 +54,12 @@ class _ChooseTheBest_Impl(Strategy):
     
     @property
     def _children_to_visit(self):
-        for (_, estimator, _, efficiency) in self._strategies:
+        for (strategy, estimator, estimator_strategy, efficiency) in self._strategies:
             yield estimator
+            yield strategy
             yield efficiency
+            yield estimator_strategy
         
-    def dispose(self):
-        self._eventGen -= self._chooseTheBest
-        for (strategy, _, estimator_strategy, _) in self._strategies:
-            strategy.dispose()
-            estimator_strategy.dispose()
-            
     def suspend(self, s=True):
         Strategy.suspend(self, s)
         if self._current:

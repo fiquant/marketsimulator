@@ -29,10 +29,6 @@ class _tradeIfProfitable_Impl(Strategy):
     def updateContext(self, context):
         context.parentTrader = context.trader
                 
-    def dispose(self):
-        self._strategy.dispose()
-        self._estimator_strategy.dispose()
-        
     def suspend(self, s=True):
         Strategy.suspend(self, s)
         self._strategy.suspend(s)
