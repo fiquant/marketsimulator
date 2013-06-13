@@ -4,9 +4,9 @@ from _sa import SingleAsset
 
 class SingleAssetMultipleMarket(SingleAsset):
     
-    def __init__(self, orderBooks, strategy=None, label=None, strategies=[], timeseries=[]):
+    def __init__(self, orderBooks, strategy, label=None, timeseries=[]):
         self._orderBooks = orderBooks
-        SingleAsset.__init__(self, strategy, label, strategies, timeseries = timeseries)
+        SingleAsset.__init__(self, strategy, label, timeseries = timeseries)
         
     _properties = { 'orderBooks' : meta.listOf(types.IOrderBook) }
         

@@ -36,9 +36,9 @@ class _Canceller_Impl(object):
         self.wakeUp = bind.Method(self, '_wakeUp_impl')
         self._eventGen = scheduler.Timer(self.cancellationIntervalDistr)
         myTrader = trader.SASM_Proxy()
-        # start listening its orders sent
-        myTrader.on_order_sent += bind.Method(self, 'process')
         self._book = orderbook.OfTrader(myTrader)
+        # start listening its orders sent
+        event.subscribe(myTrader.on_order_sent, bind.Method(self, 'process'), self)
         event.subscribe(self._eventGen, self.wakeUp, self)
         
     def process(self, order):

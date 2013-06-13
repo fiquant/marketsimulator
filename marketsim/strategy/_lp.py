@@ -2,7 +2,7 @@ import random
 from _basic import Strategy
 from _one_side import OneSide
 from _generic import Generic
-from _array import StrategyArray
+from _array import Array
 from _wrap import merge, wrapper, wrapper2
 from _lp_side import LiquidityProviderSide, LiquidityProviderSideEx
 from marketsim import order, orderbook, scheduler, mathutils, types, registry, bind, meta, trader
@@ -91,7 +91,7 @@ def LiquidityProviderEx    (orderFactory            = order.LimitFactory,
                                        priceDistr, 
                                        volumeDistr)
 
-    r = StrategyArray([
+    r = Array([
             create(Side.Sell),
             create(Side.Buy)
         ])

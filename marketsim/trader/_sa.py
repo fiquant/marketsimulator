@@ -10,25 +10,19 @@ class SingleAsset(Base, types.ISingleAssetTrader):
     negative otherwise
     """
 
-    def __init__(self, strategy=None, label=None, strategies=[], amount = 0, PnL=0, timeseries = []):
+    def __init__(self, strategy, label=None, amount = 0, PnL=0, timeseries = []):
         Base.__init__(self, PnL, timeseries)
         self._amount = amount
-        self._strategies = []
+        self.strategy = strategy
         self._label = label if label else getLabel(self)
         self.label = self._label
         self._alias = [self._label]
-        
-        if strategy is not None:
-            strategies = strategies + [strategy]
-
-        for strategy in strategies:
-            self.addStrategy(strategy)
-            
+             
     def reset(self):
         self._amount = 0
         
     _properties = {'amount'     : float, 
-                   'strategies' : meta.listOf(types.IStrategy)}
+                   'strategy'   : types.IStrategy}
     
     @property
     def amount(self):
@@ -42,31 +36,6 @@ class SingleAsset(Base, types.ISingleAssetTrader):
     def amount(self, value):
         self._amount = value
         
-    @property 
-    def strategies(self):
-        return self._strategies
-    
-    @strategies.setter
-    def strategies(self, value):
-        old = set(self._strategies)
-        new = set(value)
-        to_delete = old - new
-        to_add = new - old
-        for s in to_delete:
-            self.removeStrategy(s)
-        for s in to_add:
-            self.addStrategy(s)
-            
-    def dispose(self):
-        self.strategies = []
-            
-    def removeStrategy(self, strategy):
-        strategy.dispose()
-        self._strategies.remove(strategy)
-    
-    def addStrategy(self, strategy):
-        self._strategies.append(strategy)        
-
     def _onOrderMatched_impl(self, order, other, (price, volume)):
         """ Called when a trader's 'order' is traded against 'other' order 
         at given 'price' and 'volume'

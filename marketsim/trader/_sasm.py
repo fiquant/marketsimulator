@@ -20,9 +20,9 @@ class SingleAssetSingleMarket(SingleAsset):
             current trader balance (number of money units that it owns)
     """
     
-    def __init__(self, orderBook, strategy=None, label=None, strategies=[], amount=0, PnL=0, timeseries = []):
+    def __init__(self, orderBook, strategy, label=None, amount=0, PnL=0, timeseries = []):
         self._orderBook = orderBook
-        SingleAsset.__init__(self, strategy, label, strategies, amount, PnL, timeseries)
+        SingleAsset.__init__(self, strategy, label, amount, PnL, timeseries)
         
     _properties = {'orderBook' : types.IOrderBook}
             
