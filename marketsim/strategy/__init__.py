@@ -29,6 +29,8 @@ from _trend import (TrendFollower, TrendFollowerEx)
 
 from _trade_if_profitable import tradeIfProfitable, TradeIfProfitable
 
-from _choose_best import chooseTheBest
+from _choose_best import ChooseTheBest
+
+from _multiarmed_bandit import MultiarmedBandit
 
 from _generic import Generic

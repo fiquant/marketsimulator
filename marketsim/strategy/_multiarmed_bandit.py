@@ -10,7 +10,7 @@ import numpy, random, bisect
 
 from _trade_if_profitable import efficiencyTrend, virtualWithUnitVolume
 
-class _multiarmedBandit_Impl(Strategy):
+class _MultiarmedBandit_Impl(Strategy):
     
     def _choose_impl(self,_):
         if not self.suspended:
@@ -76,7 +76,7 @@ class _multiarmedBandit_Impl(Strategy):
         for (_, _, estimator_strategy, _) in self._strategies:
             estimator_strategy.suspend(s)
             
-exec wrapper2("multiarmedBandit",
+exec wrapper2("MultiarmedBandit",
              """ A composite strategy initialized with an array of strategies. 
                  In some moments of time the most effective strategy 
                  is chosen and made running; other strategies are suspended.
