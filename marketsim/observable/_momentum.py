@@ -44,10 +44,21 @@ class TwoPointFold(types.IObservable):
 def upMovement(previous, current):
     return max(0., current - previous)
 
-@registry.expose(alias=["delta+"])
+@registry.expose(alias=["delta-"])
 @meta.sig((float, float), float)
 def downMovement(previous, current):
     return max(0., previous - current)
+
+class _rsi_sub(sub):
+    
+    def __init__(self, lhs, rhs, orderbook):
+        sub.__init__(self, lhs, rhs)
+        self._orderbook = orderbook
+        
+    @property
+    def label(self):
+        return 'RSI_{' + self._orderbook.label + '}'
+        
 
 def RSI(orderbook, timeframe, alpha):
     
@@ -62,11 +73,7 @@ def RSI(orderbook, timeframe, alpha):
     
     rs = div(ups_ma, downs_ma)
     
-    ret = sub(constant(100.), div(constant(100.), sum(constant(1.), rs)))
-    
-    ret.label = 'RSI'
-    
-    return ret
+    return _rsi_sub(constant(100.), div(constant(100.), sum(constant(1.), rs)), orderbook)
     
     
     
