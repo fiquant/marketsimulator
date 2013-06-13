@@ -79,10 +79,9 @@ class ToRecord(types.ITimeSerie):  # TODO: should the source be split into dataS
     
     @source.setter
     def source(self, value):
-        self._source -= self._wakeUp
         self._source = value
         self.__alias = self._source.label        
-        self._source += self._wakeUp
+        self._event.switchTo(self._source)
         
     @property    
     def data(self):
