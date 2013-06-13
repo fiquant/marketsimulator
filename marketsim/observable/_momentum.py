@@ -1,7 +1,7 @@
 from marketsim import event, bind, scheduler, meta, types, Event
 from marketsim.mathutils import *
 
-from _computed import Price
+from _orderbook import Price
 from _average import Fold
 
 class TwoPointFold(types.IObservable):
