@@ -51,19 +51,20 @@ def downMovement(previous, current):
 
 class _rsi_sub(sub):
     
-    def __init__(self, lhs, rhs, orderbook):
+    def __init__(self, lhs, rhs, orderbook, timeframe):
         sub.__init__(self, lhs, rhs)
         self._orderbook = orderbook
+        self._timeframe = timeframe
         
     @property
     def label(self):
-        return 'RSI_{' + self._orderbook.label + '}'
+        return 'RSI_{' + self._orderbook.label + '}^{'+str(self._timeframe)+'}'
         
 
 def RSI(orderbook, timeframe, alpha):
     
     price = Price(orderbook)
-    timer = scheduler.Timer(constant(timeframe))
+    timer = scheduler.Timer(constant(timeframe)) if timeframe > 0 else price
     
     ups = TwoPointFold(timer, price, upMovement)
     downs = TwoPointFold(timer, price, downMovement)
@@ -73,7 +74,7 @@ def RSI(orderbook, timeframe, alpha):
     
     rs = div(ups_ma, downs_ma)
     
-    return _rsi_sub(constant(100.), div(constant(100.), sum(constant(1.), rs)), orderbook)
+    return _rsi_sub(constant(100.), div(constant(100.), sum(constant(1.), rs)), orderbook, timeframe)
     
     
     

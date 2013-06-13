@@ -119,13 +119,11 @@ def createSimulation(name='All'):
                 askPrice = observable.AskPrice(thisBook)
                 bidPrice = observable.BidPrice(thisBook)
                 assetPrice = observable.Price(thisBook)
-                rsi = observable.RSI(thisBook, 5., 1./14)
                 avg = observable.avg
                 return [
                         timeserie.ToRecord(askPrice, ctx.price_graph),
                         timeserie.ToRecord(bidPrice, ctx.price_graph),
                         timeserie.ToRecord(assetPrice, ctx.price_graph), 
-                        timeserie.ToRecord(observable.OnEveryDt(1, rsi), ctx.price_graph),
                         timeserie.ToRecord(avg(assetPrice, alpha=0.15), ctx.price_graph),
                         timeserie.ToRecord(avg(assetPrice, alpha=0.65), ctx.price_graph),
                         timeserie.ToRecord(avg(assetPrice, alpha=0.015), ctx.price_graph)
@@ -153,6 +151,19 @@ def createSimulation(name='All'):
                                b.volumes_graph))
                 b.timeseries = ts
                 graphs.append(b.volumes_graph)
+                
+                b.rsi_graph = js.Graph("RSI " + b.label)
+                ts.append(timeserie.ToRecord(observable.Price(thisBook), b.rsi_graph))
+                for timeframe in [0., 1., 5., 10.]:
+                    ts.append(
+                        timeserie.ToRecord(
+                            observable.OnEveryDt(1, 
+                                observable.RSI(thisBook, 
+                                               timeframe, 
+                                               1./14)), 
+                            b.rsi_graph))
+                graphs.append(b.rsi_graph)
+
         
             for t in traders + list(ctx.books.itervalues()) + graphs:
                 myRegistry.insert(t)
