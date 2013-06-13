@@ -94,4 +94,3 @@ def avg(source, alpha=0.15):
 
 def trend(source, alpha=0.015):
     return OnEveryDt(1, dEWMA(source, alpha))
-
