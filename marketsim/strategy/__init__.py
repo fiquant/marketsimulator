@@ -5,7 +5,7 @@ from marketsim import order, mathutils, Side, observable, registry
 
 from _lp_side import (LiquidityProviderSide, LiquidityProviderSideEx)
 
-from _array import StrategyArray
+from _array import Array
  
 from _lp import (LiquidityProvider, LiquidityProviderEx)
 

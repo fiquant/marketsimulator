@@ -22,10 +22,10 @@ def Canceller(ctx):
         ctx.makeTrader_A(strategy.LiquidityProviderSide(side = Side.Buy),
                          "LiquidityProviderBuy"),
     
-        ctx.makeTrader_A(   [
+        ctx.makeTrader_A(   strategy.Array([
                                 strategy.LiquidityProviderSide(side = Side.Sell),
                                 strategy.Canceller()
-                            ],
+                            ]),
                            label = "LiquidityProviderWithCanceller"),
         
         ctx.makeTrader_A(  strategy.LiquidityProviderSide(

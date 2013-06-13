@@ -4,7 +4,7 @@ from _basic import Strategy
 from _wrap import wrapper2
 from _lp_side import LiquidityProviderSide
 
-class _StrategyArray_Impl(Strategy):
+class _Array_Impl(Strategy):
     
     def dispose(self):
         for s in self.strategies:
@@ -21,4 +21,4 @@ class _StrategyArray_Impl(Strategy):
             assert s.suspended == self._suspended
         return Strategy.suspended(self)
     
-exec wrapper2('StrategyArray', "", [('strategies', '[LiquidityProviderSide()]', 'meta.listOf(types.IStrategy)')])
+exec wrapper2('Array', "", [('strategies', '[LiquidityProviderSide()]', 'meta.listOf(types.IStrategy)')])
