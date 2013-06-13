@@ -4,3 +4,5 @@ from _computed import InstEfficiency, PnL, Price, CrossSpread, PriceAtVolume, Vo
 from _average import EWMA, dEWMA, derivative, Fold, avg, trend
 
 from _async import Efficiency
+
+from _momentum import RSI
