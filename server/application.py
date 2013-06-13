@@ -28,7 +28,8 @@ predefined = {"Default"             : samples.Complete,
               "Mean Reversion"      : samples.MeanReversion,
               "Canceller"           : samples.Canceller,
               "Trade-If-Profitable" : samples.TradeIfProfitable,
-              "Choose-The-Best"     : samples.ChooseTheBest }
+              "Choose-The-Best"     : samples.ChooseTheBest,
+              "Multiarmed Bandit"   : samples.MultiarmedBandit }
 
 class Context(object):
     

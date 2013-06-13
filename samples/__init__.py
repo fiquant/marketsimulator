@@ -9,3 +9,4 @@ from try_mean_reversion import MeanReversion
 from try_canceller import Canceller
 from try_if_profitable import TradeIfProfitable
 from try_choose_the_best import ChooseTheBest
+from try_multiarmed_bandit import MultiarmedBandit
