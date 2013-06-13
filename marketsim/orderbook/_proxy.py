@@ -4,6 +4,8 @@ class Base(types.IOrderBook):
     
     def __init__(self):
         self.on_price_changed = Event()
+        self.on_ask_changed = Event()
+        self.on_bid_changed = Event()
         
     _properties = {}
         
@@ -86,6 +88,8 @@ class Proxy(Base):
         assert self._impl is None
         self._impl = context.orderbook
         self._impl.on_price_changed += self.on_price_changed.fire
+        self._impl.on_ask_changed += self.on_ask_changed.fire
+        self._impl.on_bid_changed += self.on_bid_changed.fire
 
 class OfTrader(Base):
     
@@ -98,6 +102,8 @@ class OfTrader(Base):
 
     def bind(self, context): # it is ugly hack; proper dependency tracking should be introduced
         context.trader.orderBook.on_price_changed += self.on_price_changed.fire
+        context.trader.orderBook.on_ask_changed += self.on_ask_changed.fire
+        context.trader.orderBook.on_bid_changed += self.on_bid_changed.fire
         
     @property
     def label(self):

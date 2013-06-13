@@ -1,4 +1,4 @@
-from marketsim import types, Event, timeserie
+from marketsim import types, Event, timeserie, event
 
 class BookBase(types.IOrderBook, timeserie.Holder):
 
@@ -17,8 +17,15 @@ class BookBase(types.IOrderBook, timeserie.Holder):
         if label != "":
             self._alias = [label]
         self.on_price_changed = Event()
-        self._bids.on_best_changed += self.on_price_changed.fire
-        self._asks.on_best_changed += self.on_price_changed.fire
+        self.on_ask_changed = Event()
+        self.on_bid_changed = Event()
+        
+        event.subscribe(self._bids.on_best_changed, self.on_ask_changed.fire, self)
+        event.subscribe(self._asks.on_best_changed, self.on_bid_changed.fire, self)
+        
+        event.subscribe(self.on_bid_changed, self.on_price_changed.fire, self)
+        event.subscribe(self.on_ask_changed, self.on_price_changed.fire, self)
+        
         self.reset()
         
     def updateContext(self, context):
