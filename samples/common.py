@@ -1,8 +1,8 @@
-import sys
+import sys, itertools
 sys.path.append(r'..')
 
 from marketsim import (orderbook, observable, timeserie, scheduler, veusz, registry, 
-                       context, trader, orderbook, Side)
+                       context, trader, orderbook, Side, remote)
 
 class Context(object):
     
@@ -11,6 +11,12 @@ class Context(object):
         self.world = world 
         self.book_A = orderbook.Local(tickSize=0.01, label="A")
         self.book_B = orderbook.Local(tickSize=0.01, label="B")
+
+        self.link_A = remote.TwoWayLink(remote.Link(), remote.Link())
+        self.link_B = remote.TwoWayLink(remote.Link(), remote.Link())
+
+        self.remote_A = orderbook.Remote(self.book_A, self.link_A)
+        self.remote_B = orderbook.Remote(self.book_B, self.link_B)
     
         self.graph = veusz.Graph
         self.price_graph = self.graph("Price")
@@ -24,7 +30,9 @@ class Context(object):
                        ]
          
         self.books = { 'Asset A' : self.book_A ,
-                       'Asset B' : self.book_B  }
+                       'Asset B' : self.book_B , 
+                       'Remote A': self.remote_A,
+                       'Remote B': self.remote_B }
         
     def addGraph(self, name):
         graph = self.graph(name)
@@ -37,14 +45,27 @@ class Context(object):
             return { observable.VolumeTraded(thisTrader) : self.amount_graph, 
                      observable.Efficiency(thisTrader)   : self.eff_graph }
         
-        t = trader.SASM(book, strategies = strategy, label = label, timeseries = trader_ts())\
-            if type(strategy) == list\
-            else trader.SASM(book, strategy, label, timeseries = trader_ts())
-            
+        t = trader.SASM(book, strategy, label = label, timeseries = trader_ts())
+                    
         for (ts, graph) in additional_ts:
             t.addTimeSerie(ts, graph)
             
         return t
+    
+    def makeMultiAssetTrader(self, books, strategy, label, additional_ts = []):
+#        def trader_ts():
+#            thisTrader = trader.SAMM_Proxy()
+#            return { observable.VolumeTraded(thisTrader) : self.amount_graph, 
+#                     observable.Efficiency(thisTrader)   : self.eff_graph }
+        
+        t = trader.SAMM(books, strategy, label = label)
+                    
+        for (ts, graph) in additional_ts:
+            t.addTimeSerie(ts, graph)
+            
+        return t
+    
+    
         
     def makeTrader_A(self, strategy, label, additional_ts = []):
         return self.makeTrader(self.book_A, strategy, label, additional_ts)
@@ -60,7 +81,9 @@ def run(name, constructor):
         ctx = Context(world)
         traders = constructor(ctx)
         
-        books = list(set([t.orderBook for t in traders]))        
+        books = list(set(itertools.chain(*[t.orderBooks for t in traders]))) 
+        
+        books = filter(lambda b: type(b) is orderbook.Local, books)       
         
         graphs = ctx.graphs
         

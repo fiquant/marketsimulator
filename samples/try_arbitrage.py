@@ -1,6 +1,31 @@
 import sys
 sys.path.append(r'..')
 
+from marketsim import strategy, orderbook, trader, scheduler, observable, veusz, mathutils, timeserie
+from common import run
+
+def Arbitrage(ctx):
+
+    liqVol = mathutils.product(mathutils.rnd.expovariate(.1), mathutils.constant(2))
+    
+    ctx.volumeStep = 70
+
+    return [
+        ctx.makeTrader_A( 
+            strategy.LiquidityProvider(defaultValue=50., volumeDistr=liqVol), 
+            "LiquidityProvider_A"),
+    
+        ctx.makeTrader_B( 
+            strategy.LiquidityProvider(defaultValue=150., volumeDistr=liqVol), 
+            "LiquidityProvider_B"),
+            
+        ctx.makeMultiAssetTrader([ctx.remote_A, ctx.remote_B], strategy.Arbitrage(), "Arbitrager")
+    ]    
+
+if __name__ == '__main__':    
+    run("arbitrage", Arbitrage)
+    
+"""
 from marketsim import trader, strategy, orderbook, remote, scheduler, observable, veusz
 
 with scheduler.create() as world:
@@ -47,3 +72,4 @@ with scheduler.create() as world:
     world.workTill(500)
     
     veusz.render("arbitrage", [price_graph, spread_graph, cross_graph])
+"""
