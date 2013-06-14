@@ -8,9 +8,7 @@ from marketsim import (strategy, orderbook, trader, order, js, signal, remote, c
 
 from marketsim.types import Side
 
-import samples
-
-from samples.common import Context, orderBooksToRender
+from marketsim.samples.common import Context, orderBooksToRender, simulations
 
 const = mathutils.constant
 
@@ -20,20 +18,7 @@ app.secret_key = 'A0Zr98j/8769876IUOYOHOA0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 inmemory = {}
 
 
-predefined = {"Default"             : samples.Complete,
-              "Fundamental Value"   : samples.FundamentalValue,
-              "Dependency"          : samples.Dependency,
-              "Noise"               : samples.Noise,
-              "Signal 20-0.1t"      : samples.Signal,
-              "Trend Follower"      : samples.TrendFollower,
-              "Two Averages"        : samples.TwoAverages,
-              "Mean Reversion"      : samples.MeanReversion,
-              "Canceller"           : samples.Canceller,
-              "Trade-If-Profitable" : samples.TradeIfProfitable,
-              "Choose-The-Best"     : samples.ChooseTheBest,
-              "Multiarmed Bandit"   : samples.MultiarmedBandit,
-              "Arbitrage"           : samples.Arbitrage }
-
+predefined = simulations
 
 def createSimulation(name='All'):
     
