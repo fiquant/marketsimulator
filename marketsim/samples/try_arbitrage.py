@@ -1,5 +1,5 @@
 import sys
-sys.path.append(r'..')
+sys.path.append(r'../..')
 
 from marketsim import strategy, orderbook, trader, scheduler, observable, veusz, mathutils, timeserie
 from common import expose

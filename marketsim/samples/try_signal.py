@@ -1,5 +1,5 @@
 import sys
-sys.path.append(r'..')
+sys.path.append(r'../..')
 
 from marketsim import (signal, strategy, observable, mathutils)
 from common import expose
