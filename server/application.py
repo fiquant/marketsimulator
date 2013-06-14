@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, current_app
-import sys, os, json, time, cPickle as pickle, weakref
+import sys, os, json, time, cPickle as pickle, weakref, itertools
 sys.path.append(r'..')
 sys.setrecursionlimit(10000)
 
@@ -9,6 +9,8 @@ from marketsim import (strategy, orderbook, trader, order, js, signal, remote, c
 from marketsim.types import Side
 
 import samples
+
+from samples.common import Context, orderBooksToRender
 
 const = mathutils.constant
 
@@ -29,57 +31,9 @@ predefined = {"Default"             : samples.Complete,
               "Canceller"           : samples.Canceller,
               "Trade-If-Profitable" : samples.TradeIfProfitable,
               "Choose-The-Best"     : samples.ChooseTheBest,
-              "Multiarmed Bandit"   : samples.MultiarmedBandit }
+              "Multiarmed Bandit"   : samples.MultiarmedBandit,
+              "Arbitrage"           : samples.Arbitrage }
 
-class Context(object):
-    
-    def __init__(self, world):
-        
-        self.world = world 
-        self.book_A = orderbook.Local(tickSize=0.01, label="A")
-        self.book_B = orderbook.Local(tickSize=0.01, label="B")
-        self.remote_A = orderbook.Remote(self.book_A,
-                                    remote.TwoWayLink(
-                                        remote.Link(mathutils.rnd.expovariate(1)),
-                                        remote.Link(mathutils.rnd.expovariate(1))))
-    
-        self.graph = js.Graph
-        self.price_graph = self.graph("Price")
-        self.eff_graph = self.graph("efficiency")
-        self.amount_graph = self.graph("amount")
-        
-        self.graphs = [self.price_graph, self.eff_graph, self.amount_graph]
-         
-        self.books = { 'Asset A' : self.book_A ,
-                       'Asset B' : self.book_B, 
-                       'Remote A' : self.remote_A  }
-        
-    def addGraph(self, name):
-        graph = self.graph(name)
-        self.graphs.append(graph)
-        return graph
-            
-    def makeTrader(self, book, strategy, label, additional_ts = []):
-        def trader_ts():
-            thisTrader = trader.SASM_Proxy()
-            return { observable.VolumeTraded(thisTrader) : self.amount_graph, 
-                     observable.Efficiency(thisTrader)   : self.eff_graph }
-        
-        t = trader.SASM(book, strategies = strategy, label = label, timeseries = trader_ts())\
-            if type(strategy) == list\
-            else trader.SASM(book, strategy, label, timeseries = trader_ts())
-            
-        for (ts, graph) in additional_ts:
-            t.addTimeSerie(ts, graph)
-            
-        return t
-        
-    def makeTrader_A(self, strategy, label, additional_ts = []):
-        return self.makeTrader(self.book_A, strategy, label, additional_ts)
-    
-    def makeTrader_B(self, strategy, label, additional_ts = []):
-        return self.makeTrader(self.book_B, strategy, label, additional_ts)
-    
 
 def createSimulation(name='All'):
     
@@ -89,7 +43,7 @@ def createSimulation(name='All'):
     
         myRegistry.insert(Side.Sell)
         myRegistry.insert(Side.Buy)    
-        ctx = Context(world)
+        ctx = Context(world, js.Graph)
         dependency = strategy.Dependency(ctx.book_B)
         dependency_ex = strategy.DependencyEx(ctx.book_B)
         
@@ -111,62 +65,9 @@ def createSimulation(name='All'):
         
             traders = constructor(ctx)
 
-            books = list(set([t.orderBook for t in traders]))        
-            
-            graphs = ctx.graphs
-            
-            def orderbook_ts():
-                thisBook = orderbook.Proxy()
-                askPrice = observable.AskPrice(thisBook)
-                bidPrice = observable.BidPrice(thisBook)
-                assetPrice = observable.Price(thisBook)
-                avg = observable.avg
-                return [
-                        timeserie.ToRecord(askPrice, ctx.price_graph),
-                        timeserie.ToRecord(bidPrice, ctx.price_graph),
-                        timeserie.ToRecord(assetPrice, ctx.price_graph), 
-                        timeserie.ToRecord(avg(assetPrice, alpha=0.15), ctx.price_graph),
-                        timeserie.ToRecord(avg(assetPrice, alpha=0.65), ctx.price_graph),
-                        timeserie.ToRecord(avg(assetPrice, alpha=0.015), ctx.price_graph)
-                        ]
-                
-            volumeStep = ctx.volumeStep if 'volumeStep' in dir(ctx) else 30
-    
-            for b in books:
-                b.volumes_graph = js.Graph("Volume levels " + b.label)
-                thisBook = orderbook.Proxy()
-                ts = orderbook_ts()
-                ts.append(timeserie.VolumeLevels(
-                               observable.VolumeLevels(1, 
-                                                       thisBook, 
-                                                       Side.Sell, 
-                                                       volumeStep, 
-                                                       10), 
-                               b.volumes_graph))
-                ts.append(timeserie.VolumeLevels(
-                               observable.VolumeLevels(1, 
-                                                       thisBook, 
-                                                       Side.Buy, 
-                                                       volumeStep, 
-                                                       10), 
-                               b.volumes_graph))
-                b.timeseries = ts
-                graphs.append(b.volumes_graph)
-                
-                b.rsi_graph = js.Graph("RSI " + b.label)
-                ts.append(timeserie.ToRecord(observable.Price(thisBook), b.rsi_graph))
-                for timeframe in [0., 1., 5., 10.]:
-                    ts.append(
-                        timeserie.ToRecord(
-                            observable.OnEveryDt(1, 
-                                observable.RSI(thisBook, 
-                                               timeframe, 
-                                               1./14)), 
-                            b.rsi_graph))
-                graphs.append(b.rsi_graph)
-
+            books = orderBooksToRender(ctx, traders)
         
-            for t in traders + list(ctx.books.itervalues()) + graphs:
+            for t in traders + list(ctx.books.itervalues()) + ctx.graphs:
                 myRegistry.insert(t)
                 
         if name != 'All':
