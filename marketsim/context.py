@@ -61,10 +61,14 @@ class Base(object):
                     
                 for child in rtti.children(obj, self.log):
                     self.apply(child)
-                    
+                
+                methods_visited = set()    
                 for base in reversed(inspect.getmro(type(obj))):
                     if self._method in dir(base):
-                        self.do(getattr(base, self._method), obj)
+                        method = getattr(base, self._method) 
+                        if method not in methods_visited:
+                            self.do(method, obj)
+                            methods_visited.add(method)
                     
                 self.exit(obj)
                         
