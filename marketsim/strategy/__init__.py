@@ -15,7 +15,7 @@ from _noise import Noise, NoiseEx
 
 from _arbitrage import Arbitrage
 
-from _mean_reversion import MeanReversion, MeanReversionEx 
+from _mean_reversion import MeanReversion, MeanReversionEx, RSIEx
 
 from _dependency import Dependency, DependencyEx
 
