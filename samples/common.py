@@ -6,7 +6,7 @@ from marketsim import (orderbook, observable, timeserie, scheduler, veusz, regis
 
 class Context(object):
     
-    def __init__(self, world):
+    def __init__(self, world, graph_renderer):
         
         self.world = world 
         self.book_A = orderbook.Local(tickSize=0.01, label="A")
@@ -18,7 +18,7 @@ class Context(object):
         self.remote_A = orderbook.Remote(self.book_A, self.link_A)
         self.remote_B = orderbook.Remote(self.book_B, self.link_B)
     
-        self.graph = veusz.Graph
+        self.graph = graph_renderer
         self.price_graph = self.graph("Price")
         self.eff_graph = self.graph("efficiency")
         self.amount_graph = self.graph("amount")
@@ -73,14 +73,7 @@ class Context(object):
     def makeTrader_B(self, strategy, label, additional_ts = []):
         return self.makeTrader(self.book_B, strategy, label, additional_ts)
     
-runTwoTimes = True
-    
-def run(name, constructor):
-    with scheduler.create() as world:
-        
-        ctx = Context(world)
-        traders = constructor(ctx)
-        
+def orderBooksToRender(ctx, traders):
         books = list(set(itertools.chain(*[t.orderBooks for t in traders]))) 
         
         books = filter(lambda b: type(b) is orderbook.Local, books)       
@@ -103,7 +96,7 @@ def run(name, constructor):
                     ]
 
         for b in books:
-            b.volumes_graph = veusz.Graph("Volume levels " + b.label)
+            b.volumes_graph = ctx.addGraph("Volume levels " + b.label)
             thisBook = orderbook.Proxy()
             ts = orderbook_ts()
             ts.append(timeserie.VolumeLevels(
@@ -121,9 +114,8 @@ def run(name, constructor):
                                                    10), 
                            b.volumes_graph))
             b.timeseries = ts
-            graphs.append(b.volumes_graph)
             
-            b.rsi_graph = veusz.Graph("RSI " + b.label)
+            b.rsi_graph = ctx.addGraph("RSI " + b.label)
             ts.append(timeserie.ToRecord(observable.Price(thisBook), b.rsi_graph))
             for timeframe in [0., 1., 5., 10.]:
                 ts.append(
@@ -133,21 +125,32 @@ def run(name, constructor):
                                            timeframe, 
                                            1./14)), 
                         b.rsi_graph))
-            graphs.append(b.rsi_graph)
-
+            
+        return books
+    
+runTwoTimes = True
+    
+def run(name, constructor):
+    with scheduler.create() as world:
+        
+        ctx = Context(world, veusz.Graph)
+        traders = constructor(ctx)
+        
+        books = orderBooksToRender(ctx, traders)
+        
         for t in traders + books:
             for ts in t.timeseries:
                 ts.graph.addTimeSerie(ts)
         
         r = registry.create()
-        root = registry.Simulation(traders, list(ctx.books.itervalues()), graphs)
+        root = registry.Simulation(traders, list(ctx.books.itervalues()), ctx.graphs)
         r.insert(root)
         r.pushAllReferences()
         context.bind(root, {'world' : world })
         
         world.workTill(500)
         
-        non_empty_graphs = [g for g in graphs if len(g._datas)]
+        non_empty_graphs = [g for g in ctx.graphs if len(g._datas)]
         
         veusz.render(name, non_empty_graphs)
         

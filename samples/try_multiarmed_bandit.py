@@ -46,7 +46,7 @@ def MultiarmedBandit(ctx):
             fv_virtual(250.),
             fv_virtual(300.),
             
-            ctx.makeTrader_A(strategy.chooseTheBest( s_fv_list(fv_list) ),
+            ctx.makeTrader_A(strategy.ChooseTheBest( s_fv_list(fv_list) ),
                             "best"),
     
             ctx.makeTrader_A(strategy.MultiarmedBandit( s_fv_list(fv_list) ),
