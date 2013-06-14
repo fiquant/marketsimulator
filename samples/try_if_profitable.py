@@ -4,10 +4,11 @@ sys.path.append(r'..')
 from marketsim import (signal, strategy, trader, orderbook, 
                        timeserie, scheduler, observable, veusz, mathutils)
 
-from common import run
-
 const = mathutils.constant
 
+from common import expose
+
+@expose("Trade-If-Profitable", __name__)
 def TradeIfProfitable(ctx):
 
     ctx.volumeStep = 30
@@ -64,6 +65,3 @@ def TradeIfProfitable(ctx):
                          'avg- opt',
                          myVolume()),
     ]
-
-if __name__ == '__main__':
-    run("trade_if_profitable", TradeIfProfitable)

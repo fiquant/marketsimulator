@@ -4,10 +4,11 @@ sys.path.append(r'..')
 from marketsim import (signal, strategy, trader, orderbook, 
                        timeserie, scheduler, observable, veusz, mathutils)
 
-from common import run
-
 const = mathutils.constant
 
+from common import expose
+
+@expose("Two Averages", __name__)
 def TwoAverages(ctx):
 
     ctx.volumeStep = 30
@@ -63,6 +64,3 @@ def TwoAverages(ctx):
                          'avg_ex-',
                          myVolume())
     ]
-
-if __name__ == '__main__':
-    run("two_averages", TwoAverages)

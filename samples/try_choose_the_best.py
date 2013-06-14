@@ -4,10 +4,10 @@ sys.path.append(r'..')
 from marketsim import (strategy, orderbook, trader, order, 
                        timeserie, scheduler, observable, veusz, mathutils)
 
-from common import run
-
 const = mathutils.constant
+from common import expose
 
+@expose("Choose-The-Best", __name__)
 def ChooseTheBest(ctx):
     
     ctx.volumeStep = 100
@@ -50,6 +50,3 @@ def ChooseTheBest(ctx):
                                                ]),
                              "best")
     ]     
-
-if __name__ == '__main__':
-    run('choose_the_best', ChooseTheBest)

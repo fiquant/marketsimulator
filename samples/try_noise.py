@@ -3,8 +3,9 @@ sys.path.append(r'..')
 
 from marketsim import strategy, mathutils, order
 
-from common import run 
+from common import expose
 
+@expose("Noise", __name__)
 def Noise(ctx):
     
     ctx.volumeStep = 10
@@ -20,7 +21,3 @@ def Noise(ctx):
         
         ctx.makeTrader_A(strategy.NoiseEx(), "noise_ex")
     ]
-
-
-if __name__ == '__main__':    
-    run("noise_trader", Noise)

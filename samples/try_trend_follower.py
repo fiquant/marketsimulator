@@ -4,10 +4,11 @@ sys.path.append(r'..')
 from marketsim import (signal, strategy, trader, orderbook, order,
                        timeserie, scheduler, observable, veusz, mathutils)
 
-from common import run
-
 const = mathutils.constant
 
+from common import expose
+
+@expose("Trend Follower", __name__)
 def TrendFollower(ctx):
 
     V = 1
@@ -50,7 +51,3 @@ def TrendFollower(ctx):
                              "trendfollower_ex",
                              myVolume())
     ]
-    
-
-if __name__ == '__main__':
-    run("trend_follower", TrendFollower)
