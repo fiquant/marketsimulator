@@ -176,6 +176,6 @@ exec wrapper2("MultiarmedBandit",
                  
                  """,
              [('strategies',  '[FundamentalValue()]',   'meta.listOf(IStrategy)'),
-              ('weight',     'TrackRecordWeight',   'IStrategyWeight'),
+              ('weight',      'TrackRecordWeight',      'StrategyWeight'),
               ('efficiency',  'efficiencyTrend',        'ISingleAssetTrader -> ISingleAssetTrader'),
               ('estimator',   'virtualWithUnitVolume',  'IStrategy -> IStrategy')], category="Adaptive")
