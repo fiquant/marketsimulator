@@ -63,7 +63,8 @@ class Base(object):
                     self.apply(child)
                     
                 for base in reversed(inspect.getmro(type(obj))):
-                    self.do(base, obj)
+                    if self._method in dir(base):
+                        self.do(getattr(base, self._method), obj)
                     
                 self.exit(obj)
                         
@@ -105,10 +106,11 @@ class Binder(Base):
     def exit(self, obj):
         if 'updateContext' in dir(obj):
             self.__dict__['_context'].pop()
+            
+    _method = 'bind'
      
-    def do(self, base, obj):       
-        if 'bind' in dir(base):
-            base.bind(obj, self)
+    def do(self, method, obj):       
+        method(obj, self)
 
         
 def bind(obj, context = None): 
@@ -132,9 +134,10 @@ class Resetter(Base):
             obj._reset_generation = self._generation
             return True
         
-    def do(self, base, obj):       
-        if 'reset' in dir(base):
-            base.reset(obj)
+    _method = 'reset'
+        
+    def do(self, method, obj):       
+        method(obj)
                 
 def reset(obj):
     
