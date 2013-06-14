@@ -177,22 +177,6 @@ class OnBidChanged(Event):
         
     _properties = { 'orderbook' : types.IOrderBook }
 
-class OnSideBestChanged(Event):
-    """ Event that is fired once a *side* price in the *orderbook* has changed
-    """
-    
-    def __init__(self, orderbook, side):
-        Event.__init__(self)
-        self.orderbook = orderbook
-        self.side = side
-        
-    def bind(self, context): # TODO: we should subscribe to orderbook and side changed events
-        self.orderbook.queue(self.side).on_best_changed += self.fire
-        
-    _properties = { 'orderbook' : types.IOrderBook, 
-                    'side'      : types.Side }
-    
- 
 ### -------------------------------------------------------------------   Observables
     
 def Price(book):
@@ -206,8 +190,8 @@ def CrossSpread(book_A, book_B):
     """
     asks = book_A.asks
     bids = book_B.bids
-    asks_changed = OnSideBestChanged(book_A, Side.Sell)
-    bids_changed = OnSideBestChanged(book_B, Side.Buy)
+    asks_changed = OnAskChanged(book_A)
+    bids_changed = OnBidChanged(book_B)
     return IndicatorBase(\
          event.Array([asks_changed, bids_changed]), 
          cross_spread(book_A, book_B))

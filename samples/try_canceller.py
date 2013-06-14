@@ -14,6 +14,10 @@ def Canceller(ctx):
         ctx.makeTrader_A(strategy.LiquidityProviderSide(side = Side.Sell),
                          "LiquidityProvider-"),
         
+        ctx.makeTrader_A(strategy.Noise(
+                             orderFactory = order.AlwaysBestFactory()),
+                         "noise"),
+        
         ctx.makeTrader_A(strategy.LiquidityProviderEx(
                             orderFactory=order.WithExpiryFactory(
                                     expirationDistr=mathutils.constant(1))),

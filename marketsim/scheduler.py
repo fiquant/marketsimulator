@@ -102,6 +102,7 @@ class Scheduler(object):
         if (self._elements <> [] and self._elements[0][0][0] < limitTime):
             ((actionTime,_), eh) = heapq.heappop(self._elements)
             self._currentTime = actionTime
+            print 't = ', actionTime
             eh()
             return True
         else:
