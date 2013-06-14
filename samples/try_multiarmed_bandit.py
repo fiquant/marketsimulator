@@ -23,6 +23,11 @@ def MultiarmedBandit(ctx):
 
     def fv_virtual(fv):
         return ctx.makeTrader_A(s_fv(fv), "v" + str(fv))
+    
+    def s_fv_list( fv_list = [100]):
+        return [ s_fv(fv) for fv in fv_list]
+        
+    fv_list = [100, 150, 200, 250, 300]
 
     return [
             ctx.makeTrader_A( 
@@ -41,23 +46,11 @@ def MultiarmedBandit(ctx):
             fv_virtual(250.),
             fv_virtual(300.),
             
-            ctx.makeTrader_A(strategy.ChooseTheBest([
-                                   s_fv(100.),
-                                   s_fv(150.), 
-                                   s_fv(200.), 
-                                   s_fv(250.), 
-                                   s_fv(300.), 
-                                   ]),
-                 "best"),
+            ctx.makeTrader_A(strategy.chooseTheBest( s_fv_list(fv_list) ),
+                            "best"),
     
-            ctx.makeTrader_A(strategy.MultiarmedBandit([
-                                               s_fv(100.),
-                                               s_fv(150.), 
-                                               s_fv(200.), 
-                                               s_fv(250.), 
-                                               s_fv(300.), 
-                                               ]),
-                             "bandit")
+            ctx.makeTrader_A(strategy.MultiarmedBandit( s_fv_list(fv_list) ),
+                             "bandit (TrackRecord)")
     ]     
 
 if __name__ == '__main__':
