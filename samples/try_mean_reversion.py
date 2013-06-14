@@ -4,10 +4,11 @@ sys.path.append(r'..')
 from marketsim import (signal, strategy, trader, orderbook, order,
                        timeserie, scheduler, observable, veusz, mathutils)
 
-from common import run
-
 const = mathutils.constant
 
+from common import expose
+
+@expose("Mean Reversion", __name__)
 def MeanReversion(ctx):
 
     ctx.volumeStep = 40
@@ -50,6 +51,3 @@ def MeanReversion(ctx):
                          "meanreversion_ex", 
                          myVolume())
     ]    
-
-if __name__ == '__main__':
-    run("mean_reversion", MeanReversion)

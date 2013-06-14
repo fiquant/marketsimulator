@@ -4,6 +4,18 @@ sys.path.append(r'..')
 from marketsim import (orderbook, observable, timeserie, scheduler, veusz, registry, 
                        context, trader, orderbook, Side, remote)
 
+simulations = {}
+
+def expose(label, module):
+    def inner(f):
+        if module == '__main__':
+            run(label, f)
+        else:
+            simulations[label] = f
+        return f
+    return inner
+    
+
 class Context(object):
     
     def __init__(self, world, graph_renderer):

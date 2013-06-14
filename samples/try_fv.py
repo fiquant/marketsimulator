@@ -4,7 +4,6 @@ sys.path.append(r'..')
 from marketsim import (strategy, trader, orderbook, order, timeserie,
                        scheduler, types, observable, veusz, mathutils)
 
-from common import run 
 
 class Constant(object):
     
@@ -20,6 +19,9 @@ class Constant(object):
     
     _properties = { 'value' : float }
 
+from common import expose
+
+@expose("Fundamental value", __name__)
 def FundamentalValue(ctx):
     
     ctx.volumeStep = 30
@@ -54,6 +56,3 @@ def FundamentalValue(ctx):
             myVolume())
     ]
 
-if __name__ == '__main__':    
-    run("fv_200_trader", FundamentalValue)
-        

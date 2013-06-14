@@ -2,8 +2,9 @@ import sys
 sys.path.append(r'..')
 
 from marketsim import (signal, strategy, observable, mathutils)
-from common import run
+from common import expose
 
+@expose("Signal", __name__)
 def Signal(ctx):
 
     const = mathutils.constant
@@ -19,6 +20,3 @@ def Signal(ctx):
     
         ctx.makeTrader_A(strategy.SignalEx(linear_signal), "signal_ex")
     ]    
-
-if __name__ == '__main__':
-    run("signal_trader", Signal)

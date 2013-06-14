@@ -4,10 +4,11 @@ sys.path.append(r'..')
 from marketsim import (strategy, orderbook, trader, order, 
                        timeserie, scheduler, observable, veusz, mathutils)
 
-from common import run
-
 const = mathutils.constant
 
+from common import expose
+
+@expose("MultiArmed Bandit", __name__)
 def MultiarmedBandit(ctx):
     
     ctx.volumeStep = 100
@@ -52,6 +53,3 @@ def MultiarmedBandit(ctx):
             ctx.makeTrader_A(strategy.MultiarmedBandit( s_fv_list(fv_list) ),
                              "bandit (TrackRecord)")
     ]     
-
-if __name__ == '__main__':
-    run('multiarmed_bandit', MultiarmedBandit)

@@ -2,8 +2,9 @@ import sys, pickle
 sys.path.append(r'..')
 
 from marketsim import strategy, orderbook, trader, scheduler, observable, veusz, mathutils, timeserie
-from common import run
+from common import expose
 
+@expose("Dependency", __name__)
 def Dependency(ctx):
 
     liqVol = mathutils.product(mathutils.rnd.expovariate(.1), mathutils.constant(2))
@@ -31,6 +32,3 @@ def Dependency(ctx):
         ctx.makeTrader_B(strategy.DependencyEx(ctx.book_A, factor=.5), 
                          "B dependent on A ex")
     ]    
-
-if __name__ == '__main__':    
-    run("dependency", Dependency)

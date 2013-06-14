@@ -245,13 +245,14 @@ def run(name):
         veusz_exe = 'veusz'
     else:
         veusz_exe = os.environ['VEUSZ_EXE']
-    subprocess.call(veusz_exe + ' ' + os.path.abspath(myDir()+name+".vsz"), shell=True)
+    subprocess.call(veusz_exe + ' ' + os.path.abspath(os.path.join(myDir(), name+".vsz")), shell=True)
         
 
 def render(name, graphs):
     """ Draws a sequence of graphs into a Veusz workspace and launches veusz
     """
-    with open(myDir() + name+".vsz", "w") as f:
+    name = name.replace(' ', '-')
+    with open(os.path.join(myDir(), name+".vsz"), "w") as f:
         idx = 0
         for g in graphs:
             g.exportTo(f, idx)

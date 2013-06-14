@@ -4,8 +4,9 @@ sys.path.append(r'..')
 from marketsim import (strategy, trader, orderbook, order, mathutils, Side,
                        scheduler, observable, veusz, registry, timeserie)
 
-from common import run 
+from common import expose
 
+@expose("Canceller", __name__)
 def Canceller(ctx):
 
     ctx.volumeStep = 15
@@ -41,7 +42,4 @@ def Canceller(ctx):
         ctx.makeTrader_A(   strategy.FundamentalValue(
                                 fundamentalValue = mathutils.constant(1000)), 
                             "fv_1000")
-]
-    
-if __name__ == '__main__':    
-    run("canceller", Canceller)
+        ]
