@@ -2,35 +2,34 @@ from marketsim import order, Side, scheduler, types
 from blist import sorteddict
 
 from _basic import Strategy
-from _wrap import wrapper
+from _wrap import wrapper2
 
 # NB! obsolete for the moment
 
 class _Arbitrage_Impl(Strategy):
 
-    def __init__(self, trader, params):
+    def __init__(self):
         """ Initializes trader by order books for the asset from different markets
         """
-        Strategy.__init__(self, trader)
-        
-        sched = scheduler.current() 
-        
-        books = trader.orderBooks
+        Strategy.__init__(self)
         
         # order queues ordered by their best asks and bids
         # something like std::map<Ticks, OrderQueue>[2]
-        bests = [sorteddict(), sorteddict()]
-        oldBests = {}
+        self._bests = [sorteddict(), sorteddict()]
+        self._oldBests = {}
+        
+    def bind(self, context):
+        self._books = self._trader.orderBooks
         
         def onBestChanged(side):
             """ Returns a function to be called when best order in a queue changed
             """
             
             # ordered set of queues on my side
-            myQueues = bests[side.id]
+            myQueues = self._bests[side.id]
             oppositeSide = side.opposite
             # ordered set of queues on the opposite side
-            oppositeQueues = bests[oppositeSide.id]
+            oppositeQueues = self._bests[oppositeSide.id]
             
             def inner(myQueue):
                 """Called when in some queue a new best order appeared"""
@@ -42,9 +41,9 @@ class _Arbitrage_Impl(Strategy):
                 
                 # since the price of the best order changed,
                 # we remove its queue from the set of all queues
-                if myQueue in oldBests:
+                if myQueue in self._oldBests:
                     try:
-                        p = oldBests[myQueue]
+                        p = self._oldBests[myQueue]
                         myQueues.pop(p)
                     except Exception:    
                         pass # very strange things...
@@ -52,11 +51,11 @@ class _Arbitrage_Impl(Strategy):
                 # if the queue becomes empty 
                 if bestOrder == None:
                     # just remove it from the set of all queues
-                    if myQueue in oldBests:
-                        oldBests.pop(myQueue)
+                    if myQueue in self._oldBests:
+                        self._oldBests.pop(myQueue)
                 else:
                     # otherwise, update correspondance queue -> signedPrice -> queue
-                    oldBests[myQueue] = bestOrder.signedPrice
+                    self._oldBests[myQueue] = bestOrder.signedPrice
                     myQueues[bestOrder.signedPrice] = myQueue
                 
                     # if there are opposite queues    
@@ -84,25 +83,25 @@ class _Arbitrage_Impl(Strategy):
                             # but cancel them immediately in order to avoid storing these limit orders in the book
                             # this logic is implemented by LimitMarketOrder
                             
-                            sched.scheduleAfter(0, lambda: \
-                                trader.send(myQueue.book, 
+                            self._scheduler.scheduleAfter(0, lambda: \
+                                self._trader.send(myQueue.book, 
                                           order.LimitMarket(oppositeSide, myPrice, volumeToTrade)))
                             
-                            sched.scheduleAfter(0, lambda: \
-                                trader.send(oppositeQueue.book,
+                            self._scheduler.scheduleAfter(0, lambda: \
+                                self._trader.send(oppositeQueue.book,
                                           order.LimitMarket(side, oppositePrice, volumeToTrade)))
     
-            return lambda queue: sched.scheduleAfter(0, lambda: inner(queue))
+            return lambda queue: self._scheduler.scheduleAfter(0, lambda: inner(queue))
                         
         def regSide(side):
-            for book in books:
+            for book in self._books:
                 queue = book.queue(side) 
                 queue.on_best_changed += onBestChanged(side)
                 if not queue.empty:
-                    bests[side.id][queue.best.signedPrice] = queue
-                    oldBests[queue] = queue.best.signedPrice
+                    self._bests[side.id][queue.best.signedPrice] = queue
+                    self._oldBests[queue] = queue.best.signedPrice
                     
         regSide(Side.Buy)
         regSide(Side.Sell)
 
-exec wrapper("Arbitrage", "", [('sched', 'None', 'None')], register=False)
+exec wrapper2("Arbitrage", "", [], register=False)

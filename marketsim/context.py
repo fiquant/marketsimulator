@@ -62,7 +62,7 @@ class Base(object):
                 for child in rtti.children(obj, self.log):
                     self.apply(child)
                     
-                for base in inspect.getmro(type(obj)):
+                for base in reversed(inspect.getmro(type(obj))):
                     self.do(base, obj)
                     
                 self.exit(obj)

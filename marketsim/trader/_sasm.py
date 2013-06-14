@@ -34,6 +34,10 @@ class SingleAssetSingleMarket(SingleAsset):
     def orderBook(self):
         return self._orderBook
     
+    @property
+    def orderBooks(self):
+        return [self._orderBook]
+    
     @orderBook.setter
     def orderBook(self, newvalue):
         self._orderBook = newvalue
