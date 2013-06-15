@@ -54,6 +54,7 @@ class Remote(BookBase):
         
         self.link = link
         self._book = orderbook
+        self._digitsToShow = self._book._digitsToShow
         
     @property
     def _upLink(self):
@@ -87,7 +88,6 @@ class Remote(BookBase):
         order.remote = remote
         remote.on_matched += bind.Method(self, '_send_to_downlink', order)
         return remote       
-        
         
     def processMarketOrder(self, order):
         self._upLink.send(bind.Method(self._book, 'processMarketOrder', self._remote(order)))

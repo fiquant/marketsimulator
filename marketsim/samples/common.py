@@ -36,11 +36,13 @@ class Context(object):
         self.price_graph = self.graph("Price")
         self.eff_graph = self.graph("efficiency")
         self.amount_graph = self.graph("amount")
+        self.balance_graph = self.graph('balance')
         
         self.graphs = [
                        self.price_graph, 
                        self.eff_graph, 
-                       self.amount_graph
+                       self.amount_graph,
+                       self.balance_graph
                        ]
          
         self.books = { 'Asset A' : self.book_A ,
@@ -57,7 +59,9 @@ class Context(object):
         def trader_ts():
             thisTrader = trader.SASM_Proxy()
             return { observable.VolumeTraded(thisTrader) : self.amount_graph, 
-                     observable.Efficiency(thisTrader)   : self.eff_graph }
+                     observable.Efficiency(thisTrader)   : self.eff_graph,
+                     #observable.PnL(thisTrader)          : self.balance_graph 
+                   }
         
         t = trader.SASM(book, strategy, label = label, timeseries = trader_ts())
                     
@@ -67,12 +71,15 @@ class Context(object):
         return t
     
     def makeMultiAssetTrader(self, books, aStrategy, label, additional_ts = []):
-#        def trader_ts():
-#            thisTrader = trader.SAMM_Proxy()
-#            return { observable.VolumeTraded(thisTrader) : self.amount_graph, 
-#                     observable.Efficiency(thisTrader)   : self.eff_graph }
+        def trader_ts():
+            thisTrader = trader.MultiProxy()
+            return { 
+#                        observable.VolumeTraded(thisTrader) : self.amount_graph, 
+#                        observable.Efficiency(thisTrader)   : self.eff_graph,
+                       # observable.PnL(thisTrader)          : self.balance_graph 
+                   }
         traders = [self.makeTrader(b, strategy.Empty(), label + "_" + b.label) for b in books]
-        t = trader.MultiAsset(traders, aStrategy, label = label)
+        t = trader.MultiAsset(traders, aStrategy, label = label, timeseries = trader_ts())
                     
         for (ts, graph) in additional_ts:
             t.addTimeSerie(ts, graph)

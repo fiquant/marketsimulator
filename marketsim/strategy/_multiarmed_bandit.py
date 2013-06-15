@@ -1,4 +1,4 @@
-from marketsim import (trader, order, orderbook, scheduler, observable, order, 
+from marketsim import (trader, order, orderbook, scheduler, observable, order,
                        registry, types, meta, bind, mathutils, event)
 from marketsim.types import *
 
@@ -12,7 +12,7 @@ from _trade_if_profitable import efficiencyTrend, virtualWithUnitVolume
 
 class _MultiarmedBandit_Impl(Strategy):
     
-    def _choose_impl(self,_):
+    def _choose_impl(self, _):
         if not self.suspended:
             
             # suspend current strategy
@@ -42,12 +42,12 @@ class _MultiarmedBandit_Impl(Strategy):
                 
     def __init__(self):
 
-        Strategy.__init__(self) # TODO: eventGen should be a parameter
+        Strategy.__init__(self)  # TODO: eventGen should be a parameter
         self._eventGen = scheduler.Timer(mathutils.constant(1))
 
         def _createInstance(sp):
             estimator_strategy = self.estimator(sp)
-            estimator = trader.SASM(orderbook.OfTrader(trader.SASM_ParentProxy()),estimator_strategy)
+            estimator = trader.SASM(orderbook.OfTrader(trader.SASM_ParentProxy()), estimator_strategy)
             efficiency = self.efficiency(estimator)
             
             return (sp, estimator, estimator_strategy, efficiency)
@@ -55,7 +55,7 @@ class _MultiarmedBandit_Impl(Strategy):
         self._strategies = [_createInstance(sp) for sp in self.strategies]
         
         self._choose = bind.Method(self, '_choose_impl')
-        self._strategyWeights = self.weight( self._strategies )
+        self._strategyWeights = self.weight(self._strategies)
         self._current = None
         # what is the data source for weight update?
         event.subscribe(self._eventGen, self._choose, self)
@@ -90,10 +90,10 @@ class StrategyWeight(object):
         return self.update()
     
     def zeros(self):
-        return [ 0 for _ in xrange(0,len(self._strategies))]
+        return [ 0 for _ in xrange(0, len(self._strategies))]
     
     def ones(self):
-        return [ 1 for _ in xrange(0,len(self._strategies))]
+        return [ 1 for _ in xrange(0, len(self._strategies))]
     
     def update(self):
         self._weights = self.getWeights()
@@ -104,7 +104,7 @@ class EfficiencyStrategyWeight(StrategyWeight):
         StrategyWeight.__init__(self, strategies)
         
     def getWeights(self):
-        return [ max( s[3](), 0) for s in self._strategies]
+        return [ max(s[3](), 0) for s in self._strategies]
     
 class EfficiencyAlpha(EfficiencyStrategyWeight):
     
@@ -115,7 +115,7 @@ class EfficiencyAlpha(EfficiencyStrategyWeight):
     def getWeights(self):
         old = self._weights
         new = super(EfficiencyAlpha, self).getWeights()
-        return [ self.alpha*x + (1-self.alpha)*y for x,y in zip(old, new)]
+        return [ self.alpha * x + (1 - self.alpha) * y for x, y in zip(old, new)]
     
 class TrackRecordWeight(EfficiencyStrategyWeight):
     
@@ -124,7 +124,7 @@ class TrackRecordWeight(EfficiencyStrategyWeight):
         
     def getWeights(self):
         new = super(TrackRecordWeight, self).getWeights()
-        return [ x + (y>0) for x,y in zip(self._weights, new)]
+        return [ x + (y > 0) for x, y in zip(self._weights, new)]
     
 class ChooseTheBestWeight(EfficiencyStrategyWeight):
     
@@ -175,7 +175,7 @@ exec wrapper2("MultiarmedBandit",
                         function creating phantom strategy used for efficiency estimation
                  
                  """,
-             [('strategies',  '[FundamentalValue()]',   'meta.listOf(ISingleAssetStrategy)'),
-              ('weight',      'TrackRecordWeight',      'StrategyWeight'),
-              ('efficiency',  'efficiencyTrend',        'ISingleAssetTrader -> ISingleAssetTrader'),
-              ('estimator',   'virtualWithUnitVolume',  'ISingleAssetStrategy -> ISingleAssetStrategy')], category="Adaptive")
+             [('strategies', '[FundamentalValue()]', 'meta.listOf(ISingleAssetStrategy)'),
+              ('weight', 'TrackRecordWeight', 'StrategyWeight'),
+              ('efficiency', 'efficiencyTrend', 'ISingleAssetTrader -> ISingleAssetTrader'),
+              ('estimator', 'virtualWithUnitVolume', 'ISingleAssetStrategy -> ISingleAssetStrategy')], category="Adaptive")

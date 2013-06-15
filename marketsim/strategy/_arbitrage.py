@@ -1,17 +1,17 @@
 from marketsim import order, Side, scheduler, types, event, bind
 from blist import sorteddict
 
-from _basic import Strategy
+from _basic import MultiAssetStrategy
 from _wrap import wrapper2
 
 # NB! obsolete for the moment
 
-class _Arbitrage_Impl(Strategy):
+class _Arbitrage_Impl(MultiAssetStrategy):
 
     def __init__(self):
         """ Initializes trader by order books for the asset from different markets
         """
-        Strategy.__init__(self)
+        MultiAssetStrategy.__init__(self)
         
         # order queues ordered by their best asks and bids
         # something like std::map<Ticks, OrderQueue>[2]
