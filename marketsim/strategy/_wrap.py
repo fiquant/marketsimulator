@@ -17,7 +17,7 @@ class %(name)s(object):
         self._impl = None
         self._trader = None
         
-    _types = [types.IStrategy]
+    _types = [types.ISingleAssetStrategy]
         
     _properties = { %(props)s }
 

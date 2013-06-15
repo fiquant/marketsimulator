@@ -175,7 +175,7 @@ exec wrapper2("MultiarmedBandit",
                         function creating phantom strategy used for efficiency estimation
                  
                  """,
-             [('strategies',  '[FundamentalValue()]',   'meta.listOf(IStrategy)'),
+             [('strategies',  '[FundamentalValue()]',   'meta.listOf(ISingleAssetStrategy)'),
               ('weight',      'TrackRecordWeight',      'StrategyWeight'),
               ('efficiency',  'efficiencyTrend',        'ISingleAssetTrader -> ISingleAssetTrader'),
-              ('estimator',   'virtualWithUnitVolume',  'IStrategy -> IStrategy')], category="Adaptive")
+              ('estimator',   'virtualWithUnitVolume',  'ISingleAssetStrategy -> ISingleAssetStrategy')], category="Adaptive")

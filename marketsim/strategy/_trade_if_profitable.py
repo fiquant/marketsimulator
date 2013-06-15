@@ -42,7 +42,7 @@ def efficiencyTrend(trader):
     return observable.trend(observable.Efficiency(trader), alpha=0.065)
 
 @registry.expose(alias=['Virtual market orders with unit volume'])
-@sig(args=(IStrategy,), rv=IStrategy)
+@sig(args=(ISingleAssetStrategy,), rv=ISingleAssetStrategy)
 def virtualWithUnitVolume(strategy):
     """ Creates for a *strategy* a clone with same parameters but sending virtual market orders of unit volume
     """
@@ -50,9 +50,9 @@ def virtualWithUnitVolume(strategy):
 
 exec wrapper2("tradeIfProfitable", 
              "",
-             [('strategy',   'FundamentalValue()',    'IStrategy'), 
+             [('strategy',   'FundamentalValue()',    'ISingleAssetStrategy'), 
               ('efficiency', 'efficiencyTrend',       'ISingleAssetTrader -> ISingleAssetTrader'),
-              ('estimator',  'virtualWithUnitVolume', 'IStrategy -> IStrategy')], register=False)
+              ('estimator',  'virtualWithUnitVolume', 'ISingleAssetStrategy -> ISingleAssetStrategy')], register=False)
 
         
 @registry.expose(['Adaptive', 'TradeIfProfitable'])

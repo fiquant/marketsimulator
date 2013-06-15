@@ -2,7 +2,7 @@ import sys, itertools
 sys.path.append(r'..')
 
 from marketsim import (orderbook, observable, timeserie, scheduler, veusz, registry, 
-                       context, trader, orderbook, Side, remote)
+                       context, trader, orderbook, Side, remote, mathutils, strategy)
 
 simulations = {}
 
@@ -23,9 +23,11 @@ class Context(object):
         self.world = world 
         self.book_A = orderbook.Local(tickSize=0.01, label="A")
         self.book_B = orderbook.Local(tickSize=0.01, label="B")
+        
+        delay = mathutils.constant(1.07)
 
-        self.link_A = remote.TwoWayLink(remote.Link(), remote.Link())
-        self.link_B = remote.TwoWayLink(remote.Link(), remote.Link())
+        self.link_A = remote.TwoWayLink(remote.Link(delay), remote.Link(delay))
+        self.link_B = remote.TwoWayLink(remote.Link(delay), remote.Link(delay))
 
         self.remote_A = orderbook.Remote(self.book_A, self.link_A)
         self.remote_B = orderbook.Remote(self.book_B, self.link_B)
@@ -64,13 +66,13 @@ class Context(object):
             
         return t
     
-    def makeMultiAssetTrader(self, books, strategy, label, additional_ts = []):
+    def makeMultiAssetTrader(self, books, aStrategy, label, additional_ts = []):
 #        def trader_ts():
 #            thisTrader = trader.SAMM_Proxy()
 #            return { observable.VolumeTraded(thisTrader) : self.amount_graph, 
 #                     observable.Efficiency(thisTrader)   : self.eff_graph }
-        
-        t = trader.SAMM(books, strategy, label = label)
+        traders = [self.makeTrader(b, strategy.Empty(), label + "_" + b.label) for b in books]
+        t = trader.MultiAsset(traders, aStrategy, label = label)
                     
         for (ts, graph) in additional_ts:
             t.addTimeSerie(ts, graph)

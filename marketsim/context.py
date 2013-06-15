@@ -33,6 +33,9 @@ class Base(object):
         pass
 
     def apply(self, obj): 
+        
+        assert obj is not None
+        
         typ = type(obj)
         if typ is int or typ is float or typ is bool or typ is str:
             return 

@@ -21,4 +21,4 @@ class _Array_Impl(Strategy):
             assert s.suspended == self._suspended
         return Strategy.suspended(self)
     
-exec wrapper2('Array', "", [('strategies', '[LiquidityProviderSide()]', 'meta.listOf(types.IStrategy)')])
+exec wrapper2('Array', "", [('strategies', '[LiquidityProviderSide()]', 'meta.listOf(types.ISingleAssetStrategy)')])
