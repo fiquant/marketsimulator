@@ -93,7 +93,7 @@ exec wrapper2("MultiarmedBandit",
                  Parameters: 
                  
                      |weight|
-                         weighing scheme for choosing strategies
+                         weighting scheme for choosing strategies
                 
                      |strategies| 
                         original strategies that can be suspended
