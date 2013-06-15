@@ -1,6 +1,7 @@
 class Base(object):
-    def __init__(self, strategies):
-        self._strategies = strategies
+
+    def bind(self, context):
+        self._strategies = context.strategies
         self._weights = self.zeros()
         
     def __call__(self):
@@ -17,16 +18,13 @@ class Base(object):
         return self._weights
        
 class Efficiency(Base):
-    def __init__(self, strategies):
-        Base.__init__(self, strategies)
         
     def getWeights(self):
         return [ max(s[3](), 0) for s in self._strategies]
     
 class EfficiencyAlpha(Efficiency):
     
-    def __init__(self, strategies, alpha=0.5):
-        Efficiency.__init__(self, strategies)
+    def __init__(self, alpha=0.5):
         self.alpha = alpha
 
     def getWeights(self):
@@ -36,17 +34,11 @@ class EfficiencyAlpha(Efficiency):
     
 class TrackRecord(Efficiency):
     
-    def __init__(self, strategies):
-        Efficiency.__init__(self, strategies)
-        
     def getWeights(self):
         new = super(TrackRecord, self).getWeights()
         return [ x + (y > 0) for x, y in zip(self._weights, new)]
     
 class ChooseTheBest(Efficiency):
-    
-    def __init__(self, strategies):
-        Efficiency.__init__(self, strategies)
     
     def getWeights(self):
         w = super(ChooseTheBest, self).getWeights()
@@ -62,8 +54,7 @@ class ChooseTheBest(Efficiency):
     
 class Uniform(Base):
     
-    def __init__(self, strategies):
-        Base.__init__(self, strategies)
+    def bind(self, context):
         self._weights = self.ones()
     
     def getWeights(self):
