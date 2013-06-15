@@ -1,3 +1,5 @@
+from marketsim import types, registry
+
 class Base(object):
 
     def bind(self, context):
@@ -16,28 +18,34 @@ class Base(object):
     def update(self):
         self._weights = self.getWeights()
         return self._weights
-       
+
+@registry.expose(['Efficiency'])       
 class Efficiency(Base):
         
     def getWeights(self):
         return [ max(s[3](), 0) for s in self._strategies]
     
+@registry.expose(['Efficiency alpha'])       
 class EfficiencyAlpha(Efficiency):
     
     def __init__(self, alpha=0.5):
         self.alpha = alpha
+        
+    _properties = { 'alpha' : types.less_than(1., types.non_negative) }
 
     def getWeights(self):
         old = self._weights
         new = super(EfficiencyAlpha, self).getWeights()
         return [ self.alpha * x + (1 - self.alpha) * y for x, y in zip(old, new)]
     
+@registry.expose(['Track record'])       
 class TrackRecord(Efficiency):
     
     def getWeights(self):
         new = super(TrackRecord, self).getWeights()
         return [ x + (y > 0) for x, y in zip(self._weights, new)]
     
+@registry.expose(['Choose the best'])       
 class ChooseTheBest(Efficiency):
     
     def getWeights(self):
@@ -52,6 +60,7 @@ class ChooseTheBest(Efficiency):
         
         return weights
     
+@registry.expose(['Uniform'])       
 class Uniform(Base):
     
     def bind(self, context):
