@@ -1,6 +1,6 @@
 from marketsim import types, registry
 
-class Strategy(types.ISingleAssetStrategy):
+class Base(object):
     
     def __init__(self):
         self._suspended = False
@@ -19,6 +19,16 @@ class Strategy(types.ISingleAssetStrategy):
     @property
     def trader(self):
         return self._trader
+
+class Strategy(Base, types.ISingleAssetStrategy):
+    
+    def __init__(self):
+        Base.__init__(self)
+
+class MultiAssetStrategy(Base, types.IMultiAssetStrategy):
+    
+    def __init__(self):
+        Base.__init__(self)
 
 @registry.expose(['Empty']) 
 class Empty(Strategy):

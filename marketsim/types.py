@@ -16,7 +16,7 @@ class IStrategy(object):
 class ISingleAssetStrategy(IStrategy):
     pass
 
-class IMultipleAssetStrategy(IStrategy):
+class IMultiAssetStrategy(IStrategy):
     pass
 
 class ITrader(object):

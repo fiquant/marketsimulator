@@ -536,7 +536,7 @@ class Simulation(object):
         self.orderbooks = orderbooks
         self.graphs = graphs
     
-    _properties = { 'traders'    : meta.listOf(types.ISingleAssetTrader),
+    _properties = { 'traders'    : meta.listOf(types.ITrader),
                     'orderbooks' : meta.listOf(types.IOrderBook),
                     'graphs'     : meta.listOf(types.IGraph) }
     

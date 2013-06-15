@@ -50,7 +50,7 @@ class profit_and_loss(object):
     def __call__(self):
         return self.trader.PnL
     
-    _properties = { 'trader' : types.ISingleAssetTrader }
+    _properties = { 'trader' : types.ITrader }
     
 class volume_traded(object):
     """ Returns trader's position (i.e. number of assets traded)

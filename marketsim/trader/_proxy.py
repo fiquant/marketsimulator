@@ -1,14 +1,17 @@
 from marketsim import types, Event
 
-class SASM_ProxyBase(types.ISingleAssetTrader):
-    
+# TODO: inheritance like:
+#        Proxy -> ITraderOpt
+#        SingleAsset -> ITrader -> ITraderOpt
+
+class Base(object):
+
     def __init__(self):
         
         self._impl = None
         
         self.on_order_sent = Event()
         self.on_traded = Event()
-        self._alias = ["$(Trader)"]
         
     def _bind(self, impl):
         assert self._impl is  None
@@ -31,10 +34,6 @@ class SASM_ProxyBase(types.ISingleAssetTrader):
         assert self._impl
         self._impl.PnL = value
         
-    def send(self, order):
-        assert self._impl
-        self._impl.send(order)
-        
     @property
     def label(self):
         assert self._impl
@@ -45,6 +44,22 @@ class SASM_ProxyBase(types.ISingleAssetTrader):
         assert self._impl
         self._impl.label = value
 
+    @property 
+    def strategy(self):
+        assert self._impl
+        return self._impl.strategy
+    
+    @strategy.setter
+    def strategy(self, value):
+        assert self._impl
+        self._impl.strategy = value
+        
+class SASM_ProxyBase(Base, types.ISingleAssetTrader):
+    
+    def __init__(self):
+        Base.__init__(self)
+        self._alias = ["$(Trader)"]
+
     @property
     def amount(self):
         assert self._impl
@@ -54,18 +69,7 @@ class SASM_ProxyBase(types.ISingleAssetTrader):
     def amount(self, value):
         assert self._impl
         self._impl.amount = value
-        
-    @property 
-    def strategies(self):
-        assert self._impl
-        return self._impl.strategies
-    
-    @strategies.setter
-    def strategies(self, value):
-        assert self._impl
-        self._impl.strategies = value
-        
-            
+                    
     @property
     def book(self): # obsolete
         assert self._impl
@@ -79,6 +83,25 @@ class SASM_ProxyBase(types.ISingleAssetTrader):
     def orderBook(self, newvalue):
         assert self._impl
         self._impl.orderBook = newvalue
+        
+class MultiProxy(Base, types.ITrader):
+    
+    def __init__(self):
+        Base.__init__(self)
+        self._alias = ['$(MultiTrader)']
+        
+    def bind(self, context):
+        self._bind(context.trader)
+
+    @property
+    def traders(self):
+        assert self._impl
+        return self._impl.traders
+    
+    @traders.setter
+    def traders(self, value):
+        assert self._impl
+        self.traders = value
 
 class SASM_Proxy(SASM_ProxyBase):
 
