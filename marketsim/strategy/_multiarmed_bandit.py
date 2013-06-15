@@ -41,6 +41,7 @@ class _MultiarmedBandit_Impl(Strategy):
         
     def updateContext(self, context):
         context.parentTrader = context.trader
+        context.strategies = self._strategies
                 
     def __init__(self):
 
@@ -57,7 +58,7 @@ class _MultiarmedBandit_Impl(Strategy):
         self._strategies = [_createInstance(sp) for sp in self.strategies]
         
         self._choose = bind.Method(self, '_choose_impl')
-        self._strategyWeights = self.weight(self._strategies)
+        self._strategyWeights = self.weight
         self._current = None
         # what is the data source for weight update?
         event.subscribe(self._eventGen, self._choose, self)
@@ -65,7 +66,7 @@ class _MultiarmedBandit_Impl(Strategy):
         # suspend all strategies
         for (s, _, _, _) in self._strategies:
             s.suspend(True)
-
+            
     
     @property
     def _children_to_visit(self):
@@ -105,6 +106,6 @@ exec wrapper2("MultiarmedBandit",
                  
                  """,
              [('strategies', '[FundamentalValue()]',  'meta.listOf(ISingleAssetStrategy)'),
-              ('weight',     'weight.TrackRecord',    'weight.Base'),
+              ('weight',     'weight.TrackRecord()',  'weight.Base'),
               ('efficiency', 'efficiencyTrend',       'ISingleAssetTrader -> ISingleAssetTrader'),
               ('estimator',  'virtualWithUnitVolume', 'ISingleAssetStrategy -> ISingleAssetStrategy')], category="Adaptive")
