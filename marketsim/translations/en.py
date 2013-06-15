@@ -12,6 +12,7 @@ greeks = {
 property_names = {
     'eventGen'    : "Action trigger",
     'volumeFunc'    : "Volume",
+    'weight'        : "Weight function",
     'sideFunc'      : "Side",
     'High'         : 'Upper bound',
     'Low'         : 'Lower bound',
