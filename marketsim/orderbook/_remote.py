@@ -98,8 +98,11 @@ class Remote(BookBase):
     def cancelOrder(self, order):
         self._upLink.send(bind.Method(self._book, 'cancelOrder', order.remote))
         
+    def _sendToDownLink(self, callback, x):
+        self._downLink.send(bind.Callable(callback, x))
+        
     def evaluateOrderPriceAsync(self, side, volume, callback):
         self._upLink.send(
             bind.Method(self._book, 'evaluateOrderPriceAsync', side, volume, 
-                bind.Method(self._downLink, 'send', bind.Callable(callback, x))))
+                bind.Method(self, '_sendToDownLink', callback)))
         

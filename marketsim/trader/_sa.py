@@ -22,7 +22,7 @@ class SingleAsset(Base, types.ISingleAssetTrader):
         self._amount = 0
         
     _properties = {'amount'     : float, 
-                   'strategy'   : types.IStrategy}
+                   'strategy'   : types.ISingleAssetStrategy}
     
     @property
     def amount(self):

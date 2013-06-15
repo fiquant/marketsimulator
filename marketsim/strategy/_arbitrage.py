@@ -77,8 +77,8 @@ class _Arbitrage_Impl(Strategy):
                     # this logic is implemented by LimitMarketOrder
                     
                     self._scheduler.scheduleAfter(0, 
-                        bind.Method(self._trader, 
-                                    'send', 
+                        bind.Method(self, 
+                                    '_send', 
                                     myQueue.book, 
                                     order.LimitMarket(oppositeSide, 
                                                       myPrice, 
@@ -86,19 +86,25 @@ class _Arbitrage_Impl(Strategy):
                                     ))
                     
                     self._scheduler.scheduleAfter(0, 
-                        bind.Method(self._trader, 
-                                    'send', 
+                        bind.Method(self, 
+                                    '_send', 
                                     oppositeQueue.book, 
                                     order.LimitMarket(side, 
                                                       oppositePrice, 
                                                       volumeToTrade)                                    
                                     ))
                     
+    def _send(self, orderbook, order):
+        for t in self._traders:
+            if t.orderBook == orderbook:
+                t.send(order)
+                    
     def _schedule(self, side, queue):
         self._scheduler.scheduleAfter(0, bind.Method(self, 'inner', queue, side))
     
     def bind(self, context):
-        self._books = self._trader.orderBooks        
+        self._traders = [t for t in self._trader.traders]
+        self._books = [t.orderBook for t in self._trader.traders]        
                         
         def regSide(side):
             for book in self._books:

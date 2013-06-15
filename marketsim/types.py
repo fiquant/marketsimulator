@@ -13,7 +13,16 @@ class IOrderBook(object):
 class IStrategy(object):
     pass
 
-class ISingleAssetTrader(object):
+class ISingleAssetStrategy(IStrategy):
+    pass
+
+class IMultipleAssetStrategy(IStrategy):
+    pass
+
+class ITrader(object):
+    pass
+
+class ISingleAssetTrader(ITrader):
     pass
 
 class IObservable(Event):
