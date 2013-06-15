@@ -25,10 +25,10 @@ def MultiarmedBandit(ctx):
     def fv_virtual(fv):
         return ctx.makeTrader_A(s_fv(fv), "v" + str(fv))
     
-    def s_fv_list( fv_list = [100]):
-        return [ s_fv(fv) for fv in fv_list]
-        
     fv_list = [100, 150, 200, 250, 300]
+
+    def s_fv_list( fv_list = fv_list ):
+        return [ s_fv(fv) for fv in fv_list]
 
     return [
             ctx.makeTrader_A( 
@@ -40,16 +40,26 @@ def MultiarmedBandit(ctx):
             
     
             ctx.makeTrader_A(fv_200_12, "t200"),    
-    
-            fv_virtual(100.),
-            fv_virtual(150.),
-            fv_virtual(200.),
-            fv_virtual(250.),
-            fv_virtual(300.),
             
-            ctx.makeTrader_A(strategy.ChooseTheBest( s_fv_list(fv_list) ),
-                            "best"),
+            ctx.makeTrader_A(strategy.ChooseTheBest(s_fv_list()), "best"),
     
-            ctx.makeTrader_A(strategy.MultiarmedBandit( s_fv_list(fv_list) ),
-                             "bandit (TrackRecord)")
-    ]     
+            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list(), 
+                                                       strategy.weight.TrackRecord),
+                             "TrackRecord"),
+    
+            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list(), 
+                                                       strategy.weight.EfficiencyAlpha),
+                             "EfficiencyAlpha"),
+    
+            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list(), 
+                                                       strategy.weight.Efficiency),
+                             "Efficiency"),
+    
+            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list(), 
+                                                       strategy.weight.ChooseTheBest),
+                             "ChooseTheBest"),
+    
+            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list(), 
+                                                       strategy.weight.Uniform),
+                             "Uniform"),
+    ] + map(fv_virtual, fv_list)     
