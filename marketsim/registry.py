@@ -317,7 +317,7 @@ class Registry(object):
 
     def assureAllReferencedAreRegistred(self, obj, visited):
 
-        assert obj is not None
+        #assert obj is not None
         
         typ = type(obj)
         if typ is int or typ is float or typ is bool or typ is str:

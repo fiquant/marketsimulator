@@ -74,4 +74,7 @@ class OfTrader(Base):
     
     @property
     def _impl(self):
-        return self.Trader.orderBook
+        try:
+            return self.Trader.orderBook
+        except AttributeError:
+            return None

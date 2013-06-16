@@ -14,7 +14,7 @@ class SingleAsset(Base, types.ISingleAssetTrader):
         Base.__init__(self, PnL, timeseries)
         self._amount = amount
         self.strategy = strategy
-        self._label = label if label else getLabel(self)
+        self._label = label
         self.label = self._label
         self._alias = [self._label]
              
