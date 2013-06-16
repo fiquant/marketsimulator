@@ -36,6 +36,10 @@ class MultiAsset(Base, types.ITrader):
         return [t.orderBook for t in self._traders]
         
     @property
+    def _digitsToShow(self):
+        return max([t._digitsToShow for t in self._traders])
+
+    @property
     def PnL(self):
         return sum([t.PnL for t in self._traders])
 
