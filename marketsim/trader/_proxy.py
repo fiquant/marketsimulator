@@ -20,7 +20,7 @@ class Base(object):
         self._impl.on_traded += self.on_traded.fire
         
     def __getattr__(self, name):
-        if self._impl:
+        if name[0:2] != "__" and self._impl:
             return getattr(self._impl, name)
         else:
             raise AttributeError

@@ -8,7 +8,7 @@ const = mathutils.constant
 
 from common import expose
 
-@expose("MultiArmed Bandit", __name__)
+@expose("Multiarmed Bandit", __name__)
 def MultiarmedBandit(ctx):
     
     ctx.volumeStep = 100
