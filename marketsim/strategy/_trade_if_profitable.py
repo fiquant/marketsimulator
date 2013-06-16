@@ -23,9 +23,14 @@ class _tradeIfProfitable_Impl(Strategy):
         self._efficiency = self.efficiency(self._estimator) # TODO: dependency tracking
         
         event.subscribe(self._efficiency, bind.Method(self, '_wakeUp_impl'), self)
-        
-    _internals = ['_estimator', '_efficiency']
-        
+
+    @property
+    def _children_to_visit(self):
+        yield self._estimator
+        yield self._strategy
+        yield self._efficiency
+        yield self._estimator_strategy
+         
     def updateContext(self, context):
         context.parentTrader = context.trader
                 

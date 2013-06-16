@@ -36,6 +36,9 @@ class Base(object):
         
         assert obj is not None
         
+        if '_processing' in dir(obj):
+            print "recursion!"
+        
         typ = type(obj)
         if typ is int or typ is float or typ is bool or typ is str:
             return 
@@ -59,6 +62,8 @@ class Base(object):
                 self.inc()
                 
                 self.log(">>> " + str(type(obj)))
+                
+                obj._processing = True
 
                 self.enter(obj)
                     
@@ -74,6 +79,8 @@ class Base(object):
                             methods_visited.add(method)
                     
                 self.exit(obj)
+                
+                del obj._processing
                         
                 self.log("<<< " + str(type(obj)))
                 
@@ -122,7 +129,7 @@ class Binder(Base):
         
 def bind(obj, context = None): 
     
-    Binder(context).apply(obj)
+    (context if type(context) is Binder else Binder(context)).apply(obj)
 
         
 class Resetter(Base):

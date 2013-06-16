@@ -84,7 +84,9 @@ class OnTraded(Event):
     def __init__(self, trader):
         Event.__init__(self)
         self.trader = trader
-        event.subscribe(self.trader.on_traded, self.fire, self)
+        
+    def bind(self, ctx):
+        event.subscribe(self.trader.on_traded, self.fire, self, ctx)
         
     _properties = { 'trader' : types.ISingleAssetTrader }
     

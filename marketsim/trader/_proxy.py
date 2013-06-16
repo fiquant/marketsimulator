@@ -1,4 +1,4 @@
-from marketsim import types, Event
+from marketsim import types, Event, context
 
 # TODO: inheritance like:
 #        Proxy -> ITraderOpt
@@ -10,14 +10,9 @@ class Base(object):
         
         self._impl = None
         
-        self.on_order_sent = Event()
-        self.on_traded = Event()
-        
     def _bind(self, impl):
         assert self._impl is  None
         self._impl = impl
-        self._impl.on_order_sent += self.on_order_sent.fire
-        self._impl.on_traded += self.on_traded.fire
         
     def __getattr__(self, name):
         if name[0:2] != "__" and self._impl:
@@ -47,10 +42,11 @@ class MultiProxy(Base, types.ITrader):
 
 class SASM_Proxy(SASM_ProxyBase):
 
-    def bind(self, context):
-        self._bind(context.trader)
+    def bind(self, ctx):
+        self._bind(ctx.trader)
             
 class SASM_ParentProxy(SASM_ProxyBase):
     
-    def bind(self, context):
-        self._bind(context.parentTrader)
+    def bind(self, ctx):
+        self._bind(ctx.parentTrader)
+        
