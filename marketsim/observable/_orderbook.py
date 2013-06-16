@@ -1,4 +1,4 @@
-from marketsim import meta, Event, types, Side, event, scheduler, mathutils, getLabel
+from marketsim import meta, Event, types, context, Side, event, scheduler, mathutils, getLabel
 
 from _computed import IndicatorBase
 
@@ -155,11 +155,8 @@ class OnPriceChanged(Event):
     def updateContext(self, _):
         pass
         
-    def bind(self, _):
-        try:
-            event.subscribe(self.orderbook.on_price_changed, self.fire, self, True)
-        except AttributeError:
-            pass
+    def bind(self, ctx):
+        event.subscribe(self.orderbook.on_price_changed, self.fire, self, ctx)
         
     _properties = { 'orderbook' : types.IOrderBook }
 
@@ -171,8 +168,8 @@ class OnAskChanged(Event):
         Event.__init__(self)
         self.orderbook = orderbook
         
-    def bind(self, _):
-        event.subscribe(self.orderbook.on_ask_changed, self.fire, self, True)
+    def bind(self, ctx):
+        event.subscribe(self.orderbook.on_ask_changed, self.fire, self, ctx)
         
     _properties = { 'orderbook' : types.IOrderBook }
 
@@ -184,8 +181,8 @@ class OnBidChanged(Event):
         Event.__init__(self)
         self.orderbook = orderbook
         
-    def bind(self, _):
-        event.subscribe(self.orderbook.on_bid_changed, self.fire, self, True)
+    def bind(self, ctx):
+        event.subscribe(self.orderbook.on_bid_changed, self.fire, self, ctx)
         
     _properties = { 'orderbook' : types.IOrderBook }
 

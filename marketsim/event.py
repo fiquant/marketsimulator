@@ -99,7 +99,7 @@ def dispose(obj):
                 child.dispose()
             
                 
-def subscribe(event, listener, target = None, runNow = False):
+def subscribe(event, listener, target = None, ctx = None):
     
     subscription = Subscription(event, listener)
     
@@ -112,8 +112,8 @@ def subscribe(event, listener, target = None, runNow = False):
         if 'dispose' not in dir(target):
             target.dispose = bind.Callable(dispose, target)
             
-    if runNow:
-        context.bind(subscription, None)
+    if ctx is not None:
+        context.bind(subscription, ctx)
             
     return subscription
             

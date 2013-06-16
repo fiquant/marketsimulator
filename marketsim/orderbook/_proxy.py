@@ -1,4 +1,4 @@
-from marketsim import registry, types, Event, trader, prop, bind
+from marketsim import registry, types, Event, trader, prop, bind, context
 
 class Base(types.IOrderBook):
     
@@ -30,9 +30,9 @@ class Proxy(Base):
     def label(self):
         return self._impl.label if self._impl else '$(OrderBook)'    
             
-    def bind(self, context):
+    def bind(self, ctx):
         assert self._impl is None
-        self._impl = context.orderbook
+        self._impl = ctx.orderbook
 
 class OfTrader(Base):
     

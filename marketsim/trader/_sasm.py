@@ -25,6 +25,8 @@ class SingleAssetSingleMarket(SingleAsset):
         SingleAsset.__init__(self, strategy, label, amount, PnL, timeseries)
         
     _properties = {'orderBook' : types.IOrderBook}
+    
+    _internals = ['_orderBook']
             
     @property
     def book(self): # obsolete
