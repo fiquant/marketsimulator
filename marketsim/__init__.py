@@ -25,9 +25,8 @@ class flags(object):
 def getLabel(x):
     """ Returns a printable label for *x*
     We try to access *'label'* field of the object 
-    If it doesn't exists, we return the object id string
     """
-    return x.label if 'label' in dir(x) else "#"+str(id(x))
+    return x.label
                     
 ## {{{ http://code.activestate.com/recipes/576563/ (r1)
 def cached_property(f):
