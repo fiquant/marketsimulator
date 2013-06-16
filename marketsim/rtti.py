@@ -95,9 +95,6 @@ def is_object(obj):
 
 def children(obj, logger):
     
-    if '_subscriptions' in dir(obj):
-        yield obj._subscriptions
-        
     for p in properties(obj):
         if p.name[0] != '_':
             logger(p.name)
@@ -109,3 +106,7 @@ def children(obj, logger):
         
     for child in children_to_visit(obj):
         yield child
+
+    if '_subscriptions' in dir(obj):
+        yield obj._subscriptions
+        

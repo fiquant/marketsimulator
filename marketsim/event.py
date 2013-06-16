@@ -1,4 +1,4 @@
-from marketsim import bind, meta
+from marketsim import bind, meta, context
 
 class Event(object):
     """ Multicast event
@@ -99,7 +99,7 @@ def dispose(obj):
                 child.dispose()
             
                 
-def subscribe(event, listener, target = None):
+def subscribe(event, listener, target = None, runNow = False):
     
     subscription = Subscription(event, listener)
     
@@ -111,6 +111,9 @@ def subscribe(event, listener, target = None):
         
         if 'dispose' not in dir(target):
             target.dispose = bind.Callable(dispose, target)
+            
+    if runNow:
+        context.bind(subscription, None)
             
     return subscription
             

@@ -151,7 +151,15 @@ class OnPriceChanged(Event):
     def __init__(self, orderbook):
         Event.__init__(self)
         self.orderbook = orderbook
-        event.subscribe(self.orderbook.on_price_changed, self.fire, self)
+        
+    def updateContext(self, _):
+        pass
+        
+    def bind(self, _):
+        try:
+            event.subscribe(self.orderbook.on_price_changed, self.fire, self, True)
+        except AttributeError:
+            pass
         
     _properties = { 'orderbook' : types.IOrderBook }
 
@@ -162,7 +170,9 @@ class OnAskChanged(Event):
     def __init__(self, orderbook):
         Event.__init__(self)
         self.orderbook = orderbook
-        event.subscribe(self.orderbook.on_ask_changed, self.fire, self)
+        
+    def bind(self, _):
+        event.subscribe(self.orderbook.on_ask_changed, self.fire, self, True)
         
     _properties = { 'orderbook' : types.IOrderBook }
 
@@ -173,7 +183,9 @@ class OnBidChanged(Event):
     def __init__(self, orderbook):
         Event.__init__(self)
         self.orderbook = orderbook
-        event.subscribe(self.orderbook.on_bid_changed, self.fire, self)
+        
+    def bind(self, _):
+        event.subscribe(self.orderbook.on_bid_changed, self.fire, self, True)
         
     _properties = { 'orderbook' : types.IOrderBook }
 
