@@ -60,7 +60,7 @@ class Context(object):
             thisTrader = trader.SASM_Proxy()
             return { observable.VolumeTraded(thisTrader) : self.amount_graph, 
                      observable.Efficiency(thisTrader)   : self.eff_graph,
-                     #observable.PnL(thisTrader)          : self.balance_graph 
+                     observable.PnL(thisTrader)          : self.balance_graph 
                    }
         
         t = trader.SASM(book, strategy, label = label, timeseries = trader_ts())
@@ -76,7 +76,7 @@ class Context(object):
             return { 
 #                        observable.VolumeTraded(thisTrader) : self.amount_graph, 
 #                        observable.Efficiency(thisTrader)   : self.eff_graph,
-                       # observable.PnL(thisTrader)          : self.balance_graph 
+                         observable.PnL(thisTrader)          : self.balance_graph 
                    }
         traders = [self.makeTrader(b, strategy.Empty(), label + "_" + b.label) for b in books]
         t = trader.MultiAsset(traders, aStrategy, label = label, timeseries = trader_ts())

@@ -44,7 +44,7 @@ class profit_and_loss(object):
     
     @property
     def digits(self):
-        return self.trader.orderBook._digitsToShow
+        return self.trader._digitsToShow
     
     
     def __call__(self):
