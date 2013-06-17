@@ -5,21 +5,7 @@ from marketsim import (strategy, trader, orderbook, order, timeserie,
                        scheduler, types, observable, veusz, mathutils)
 
 
-class Constant(object):
-    
-    def __init__(self, value):
-        self.value = value
-        
-    @property
-    def label(self):
-        return "C=" + str(self.value)
-    
-    def __call__(self):
-        return self.value
-    
-    _properties = { 'value' : float }
-
-from common import expose
+from common import expose, Constant
 
 @expose("Fundamental value", __name__)
 def FundamentalValue(ctx):

@@ -85,6 +85,7 @@ class ToRecord(types.ITimeSerie):  # TODO: should the source be split into dataS
         
     @property    
     def data(self):
+        self._pushLastPoint()
         return self._data
     
     def drop(self): # later a more sophisticated protocol would be introduced
