@@ -181,3 +181,20 @@ def run(name, constructor):
         if runTwoTimes:
             world.workTill(500)
             veusz.render(name, non_empty_graphs)
+
+class constant(object):
+    
+    def __init__(self, value):
+        self.value = value
+        
+    @property
+    def label(self):
+        return "C=" + str(self.value)
+    
+    def __call__(self):
+        return self.value
+    
+    _properties = { 'value' : float }
+
+def Constant(c, demo):
+    return [(observable.OnEveryDt(10, constant(c)), demo)]
