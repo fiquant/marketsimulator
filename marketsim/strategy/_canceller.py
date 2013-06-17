@@ -35,7 +35,7 @@ class _Canceller_Impl(object):
         self._elements = []
         self.wakeUp = bind.Method(self, '_wakeUp_impl')
         self._eventGen = scheduler.Timer(self.cancellationIntervalDistr)
-        self._myTrader = trader.SASM_Proxy()
+        self._myTrader = trader.SingleProxy()
         self._book = orderbook.OfTrader(self._myTrader)
         
     _internals = ['_myTrader']

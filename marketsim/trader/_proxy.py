@@ -25,7 +25,7 @@ class Base(object):
                 
     _properties = {}
         
-class SASM_ProxyBase(Base, types.ISingleAssetTrader):
+class SingleProxyBase(Base, types.ISingleAssetTrader):
     
     def __init__(self):
         Base.__init__(self)
@@ -40,12 +40,12 @@ class MultiProxy(Base, types.ITrader):
     def bind(self, context):
         self._bind(context.trader)
 
-class SASM_Proxy(SASM_ProxyBase):
+class SingleProxy(SingleProxyBase):
 
     def bind(self, ctx):
         self._bind(ctx.trader)
             
-class SASM_ParentProxy(SASM_ProxyBase):
+class ParentProxy(SingleProxyBase):
     
     def bind(self, ctx):
         self._bind(ctx.parentTrader)

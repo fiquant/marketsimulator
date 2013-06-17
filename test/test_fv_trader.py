@@ -13,7 +13,7 @@ with scheduler.create() as world:
     book.asks.on_best_changed += ask_history.append
     book.bids.on_best_changed += bid_history.append
     
-    trader = trader.SASM(book, 
+    trader = trader.SingleAsset(book, 
                          strategy.FundamentalValue(volumeDistr=(lambda:10), 
                                                    creationIntervalDistr=(lambda:1)))
     

@@ -7,7 +7,7 @@ with scheduler.create() as world:
     
     book = orderbook.Local()
     
-    trader = trader.SASM(book, 
+    trader = trader.SingleAsset(book, 
                          strategy.TrendFollower(creationIntervalDistr=lambda: 1, 
                                                 volumeDistr=lambda: 1))
     

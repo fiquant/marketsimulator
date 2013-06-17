@@ -38,8 +38,8 @@ class OfTrader(Base):
     
     def __init__(self, Trader = None):
         if Trader is None:
-            Trader = trader.SASM_Proxy()
-        self._alias = ["$(TraderAsset)"] if type(Trader) == trader.SASM_Proxy else ['OfTrader']
+            Trader = trader.SingleProxy()
+        self._alias = ["$(TraderAsset)"] if type(Trader) == trader.SingleProxy else ['OfTrader']
         Base.__init__(self)
         self.Trader = Trader
 

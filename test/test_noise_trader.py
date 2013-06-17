@@ -13,7 +13,7 @@ with scheduler.create() as world:
         counter[0] = 1 - counter[0]
         return Side.byId(counter[0])
     
-    trader = trader.SASM(book, 
+    trader = trader.SingleAsset(book, 
                          strategy.Noise(sideDistr=side, 
                                         volumeDistr=(lambda:10), 
                                         creationIntervalDistr=(lambda:1)))

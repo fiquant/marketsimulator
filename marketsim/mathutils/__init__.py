@@ -27,6 +27,10 @@ class constant(object):
     def __call__(self, *args, **kwargs):
         return self.value
     
+    @property
+    def label(self):
+        return "C=" + str(self.value)
+    
     def __repr__(self):
         return "constant("+repr(self.value)+")"
 

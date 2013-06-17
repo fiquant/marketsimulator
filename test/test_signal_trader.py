@@ -9,7 +9,7 @@ with scheduler.create() as world:
     
     signal = signal.RandomWalk(initialValue=-2, deltaDistr=(lambda: 1), intervalDistr=(lambda:1))
     
-    t = trader.SASM(book, strategy.Signal(signal, volumeDistr=(lambda:10)))
+    t = trader.SingleAsset(book, strategy.Signal(signal, volumeDistr=(lambda:10)))
     
     book.process(order.Limit.Sell(110,10))
     book.process(order.Limit.Sell(120,10))
