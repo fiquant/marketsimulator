@@ -7,7 +7,7 @@ from marketsim import strategy, order, orderbook, trader
 book_A = orderbook.Local()
 book_B = orderbook.Local()
 
-trader = trader.SASM(book_A, 
+trader = trader.SingleAsset(book_A, 
                      strategy.Dependency(book_B, 
                                          factor=0.5, 
                                          volumeDistr = lambda: 10))

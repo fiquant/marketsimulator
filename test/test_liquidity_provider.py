@@ -23,7 +23,7 @@ with scheduler.create() as world:
                                volumeDistr=(lambda: 10),
                                defaultValue=128)
     
-    trader = trader.SASM(book, strategy = st)
+    trader = trader.SingleAsset(book, strategy = st)
     
     st = trader._strategies[0]
     

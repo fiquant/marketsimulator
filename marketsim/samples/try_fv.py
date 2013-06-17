@@ -31,7 +31,7 @@ def FundamentalValue(ctx):
                creationIntervalDistr = mathutils.constant(1.),
                volumeDistr = mathutils.constant(1)), 
             "fv_200", 
-            myVolume() + myPrice() + [(observable.OnEveryDt(10, Constant(fv)), demo)]),
+            myVolume() + myPrice() + Constant(fv, demo)),
 
         ctx.makeTrader_A(
             strategy.FundamentalValueEx(

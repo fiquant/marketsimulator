@@ -42,6 +42,8 @@ class profit_and_loss(object):
     def label(self):
         return "P&L_{" + getLabel(self.trader) + "}"
     
+    _types = [meta.function((), float)]
+    
     @property
     def digits(self):
         return self.trader._digitsToShow
@@ -88,7 +90,7 @@ class OnTraded(Event):
     def bind(self, ctx):
         event.subscribe(self.trader.on_traded, self.fire, self, ctx)
         
-    _properties = { 'trader' : types.ISingleAssetTrader }
+    _properties = { 'trader' : types.ITrader }
     
 
 #### ------------------------------------------------------- Observables
@@ -107,7 +109,7 @@ def VolumeTraded(aTrader = None):
     """ Returns an indicator bound to trader's position 
     """
     if aTrader is None:
-        aTrader = trader.SASM_Proxy()
+        aTrader = trader.SingleProxy()
         
     return IndicatorBase(\
         OnTraded(aTrader), 

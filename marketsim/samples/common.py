@@ -57,13 +57,13 @@ class Context(object):
             
     def makeTrader(self, book, strategy, label, additional_ts = []):
         def trader_ts():
-            thisTrader = trader.SASM_Proxy()
+            thisTrader = trader.SingleProxy()
             return { observable.VolumeTraded(thisTrader) : self.amount_graph, 
                      observable.Efficiency(thisTrader)   : self.eff_graph,
                      observable.PnL(thisTrader)          : self.balance_graph 
                    }
         
-        t = trader.SASM(book, strategy, label = label, timeseries = trader_ts())
+        t = trader.SingleAsset(book, strategy, label = label, timeseries = trader_ts())
                     
         for (ts, graph) in additional_ts:
             t.addTimeSerie(ts, graph)
@@ -182,19 +182,5 @@ def run(name, constructor):
             world.workTill(500)
             veusz.render(name, non_empty_graphs)
 
-class constant(object):
-    
-    def __init__(self, value):
-        self.value = value
-        
-    @property
-    def label(self):
-        return "C=" + str(self.value)
-    
-    def __call__(self):
-        return self.value
-    
-    _properties = { 'value' : float }
-
 def Constant(c, demo):
-    return [(observable.OnEveryDt(10, constant(c)), demo)]
+    return [(observable.OnEveryDt(10, mathutils.constant(c)), demo)]

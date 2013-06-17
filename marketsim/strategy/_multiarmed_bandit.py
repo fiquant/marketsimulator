@@ -50,7 +50,7 @@ class _MultiarmedBandit_Impl(Strategy):
 
         def _createInstance(sp):
             estimator_strategy = self.estimator(sp)
-            estimator = trader.SASM(orderbook.OfTrader(trader.SASM_ParentProxy()), estimator_strategy)
+            estimator = trader.SingleAsset(orderbook.OfTrader(trader.ParentProxy()), estimator_strategy)
             efficiency = self.efficiency(estimator)
             
             return (sp, estimator, estimator_strategy, efficiency)
