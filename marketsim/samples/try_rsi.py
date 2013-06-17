@@ -40,11 +40,19 @@ def RSI(ctx):
         ctx.makeTrader_A(strategy.Signal(linear_signal), "signal", 
                          [(linear_signal, ctx.amount_graph)]),
     
+        ctx.makeTrader_A(strategy.RSIbis(alpha = alpha,
+                                         timeframe = 0,
+                                         threshold=threshold, 
+                                         volumeDistr=one, 
+                                         creationIntervalDistr=one),
+                         "rsi_bis",
+                         myVolume() + myRsiBis()), 
+            
         ctx.makeTrader_A(strategy.RSIEx(alpha = alpha,
                                         threshold=threshold, 
                                         volumeDistr=one, 
                                         creationIntervalDistr=one), 
-                         "rsi_ex", (myVolume() + myRsi() + myRsiBis() + 
+                         "rsi_ex", (myVolume() + myRsi() + 
                                     Constant(threshold, demo) + 
                                     Constant(100-threshold, demo)))
     ]    

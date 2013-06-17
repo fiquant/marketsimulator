@@ -1,6 +1,7 @@
 from marketsim import meta, types, order, mathutils, observable, Side, scheduler, orderbook, registry
 
 from _generic import Generic
+from _signal import SignalSide
 
 class RelativeStrengthIndexSide(object):
     
@@ -44,3 +45,21 @@ def RSIEx    (         alpha                 = 1./14,
                 sideFunc    = RelativeStrengthIndexSide(orderBook, rsi, threshold))
     
     return r
+
+def RSIbis (timeframe               = 0., 
+            threshold               = 30,
+            alpha                   = 1./14,
+            orderFactory            = order.MarketFactory, 
+            volumeDistr             = mathutils.rnd.expovariate(1.), 
+            creationIntervalDistr   = mathutils.rnd.expovariate(1.)):
+    
+    thisBook = orderbook.OfTrader()
+    
+    rsi = observable.RSI(thisBook, timeframe, alpha)
+    
+    return Generic(orderFactory = orderFactory, 
+                   volumeFunc   = volumeDistr, 
+                   eventGen     = scheduler.Timer(creationIntervalDistr),
+                   sideFunc     = SignalSide(mathutils.sub(mathutils.constant(50), 
+                                                           rsi), 
+                                             50-threshold))
