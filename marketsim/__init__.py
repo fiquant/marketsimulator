@@ -27,6 +27,36 @@ def getLabel(x):
     We try to access *'label'* field of the object 
     """
     return x.label
+
+class Reference(object):
+
+    def __init__(self, name):
+        self._impl = None
+        self.name = name
+        
+    def bind(self, ctx):
+        assert self._impl is  None
+        self._impl = getattr(ctx, self.name)
+        
+    def __getattr__(self, name):
+        if name[0:2] != "__" and self._impl:
+            return getattr(self._impl, name)
+        else:
+            raise AttributeError
+        
+    def __iadd__(self, other):
+        self._impl += other
+        return self
+    
+    def __isub__(self, other):
+        self._impl -= other
+        return self
+    
+    def __call__(self, *args, **kwargs):
+        return self._impl(*args, **kwargs)
+    
+    _properties = { 'name' : str }
+
                     
 ## {{{ http://code.activestate.com/recipes/576563/ (r1)
 def cached_property(f):

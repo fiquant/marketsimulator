@@ -1,5 +1,6 @@
 from marketsim.types import *
-from marketsim import meta, types, order, mathutils, observable, scheduler, orderbook, registry
+from marketsim import (meta, types, order, Reference, 
+                       mathutils, observable, scheduler, orderbook, registry)
 
 from _generic import Generic
 from _signal import SignalSide
@@ -49,6 +50,12 @@ def RSIEx    (         alpha                 = 1./14,
     
     return r
 
+def vars(obj, vs):
+    if '_variables' not in dir(obj):
+        obj._variables = {}
+    obj._variables.update(vs)
+    return obj
+
 @registry.expose(["Generic", "RSIbis"], args=())
 def RSIbis (timeframe               = 0., 
             threshold               = 30,
@@ -59,11 +66,10 @@ def RSIbis (timeframe               = 0.,
     
     thisBook = orderbook.OfTrader()
     
-    rsi = observable.RSI(thisBook, timeframe, alpha)
-    
-    return Generic(orderFactory = orderFactory, 
-                   volumeFunc   = volumeDistr, 
-                   eventGen     = scheduler.Timer(creationIntervalDistr),
-                   sideFunc     = SignalSide(mathutils.sub(mathutils.constant(50), 
-                                                           rsi), 
-                                             50-threshold))
+    return vars(Generic(orderFactory = orderFactory, 
+                        volumeFunc   = volumeDistr, 
+                        eventGen     = scheduler.Timer(creationIntervalDistr),
+                        sideFunc     = SignalSide(mathutils.sub(mathutils.constant(50), 
+                                                                Reference('rsi')), 
+                                                  50-threshold)), 
+                { 'rsi' : observable.RSI(thisBook, timeframe, alpha) })

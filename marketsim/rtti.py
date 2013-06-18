@@ -95,6 +95,11 @@ def is_object(obj):
 
 def children(obj, logger):
     
+    if '_variables' in dir(obj):
+        for name, value in obj._variables.iteritems():
+            logger('$(' + name + ')')
+            yield value
+    
     for propname in internals(obj):
         logger(propname)
         yield getattr(obj, propname)
