@@ -113,9 +113,22 @@ class Binder(Base):
             return False
      
     def enter(self, obj):   
-        if 'updateContext' in dir(obj):
+        def push():
             self.__dict__['_context'].append(dict(self.__dict__['_context'][-1]))
+        def hasContext():
+            return 'updateContext' in dir(obj)
+        def hasVariables():
+            return '_variables' in dir(obj)
+
+        if hasContext() or hasVariables():
+            push()
+
+        if hasContext():
             obj.updateContext(self)
+            
+        if hasVariables():
+            for name, value in obj._variables.iteritems():
+                self.context[name] = value
             
     def exit(self, obj):
         if 'updateContext' in dir(obj):
