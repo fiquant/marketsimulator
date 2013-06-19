@@ -411,7 +411,8 @@ class Registry(object):
             if props is None:
                 props = {}
                 
-            definitions = { k: impl(v) for k,v in getattr(obj, '_definitions', {}).iteritems()}
+            definitions = { k: self._dumpPropertyValue("", v, obj)\
+                                    for k,v in getattr(obj, '_definitions', {}).iteritems()}
             
             return [ctor, props, alias, definitions]
         

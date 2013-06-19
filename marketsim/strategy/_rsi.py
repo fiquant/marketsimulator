@@ -70,6 +70,6 @@ def RSIbis (timeframe               = 0.,
                         volumeFunc   = volumeDistr, 
                         eventGen     = scheduler.Timer(creationIntervalDistr),
                         sideFunc     = SignalSide(mathutils.sub(mathutils.constant(50), 
-                                                                observable.RSI(thisBook, timeframe, alpha)), 
+                                                                Reference("rsi")), 
                                                   50-threshold)), 
                 { 'rsi' : observable.RSI(thisBook, timeframe, alpha) })

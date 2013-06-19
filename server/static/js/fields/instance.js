@@ -214,6 +214,12 @@ function createInstance(id, src, root) {
 	if (ctor == OrderBookProxyType) {
 		alias = ["$(OrderBook)"];
 	}
+	if (Object.size(src[3]) > 0) {
+		var defs = new Property('definitions', 
+								createDictionaryValue(src[3], root), 
+								{hidden: false, collapsed: false});
+		fields.push(defs);
+	}	
 	var created = new Instance(id, ctor, fields, myTypeinfo.castsTo, alias, root);
 	if (ctor == "marketsim.timeserie.ToRecord") {
 		created = makeTimeSerie(created, root.response().ts_changes);

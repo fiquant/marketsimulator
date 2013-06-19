@@ -1,11 +1,11 @@
 /**
- * Field of array type 
- * @param {list<ArrayValue -> Field>} s -- array of field factories (of scalar, array or object type)
+ * Field of dictionary type 
  */
 
-function ArrayValue(fieldFactories) {
+function DictionaryValue(fieldFactories) {
 	var self = this;
 	self.array = function () { return true; }
+	self.dictionary = function () { return true; }
 	
 	var fields = map(fieldFactories, function (factory) {
 		return factory(self);
@@ -109,10 +109,14 @@ function ArrayValue(fieldFactories) {
 	})
 }
 
-function createArrayValue(s) {
-	return new ArrayValue(map(s, function (x) {
+function createDictionaryValue(s, root) {
+	return new DictionaryValue(map(dict2array(s), function (x) {
 						return function (self) {
-							return new Property("", x, {hidden : false, collapsed: true}, false, self);
+							return new Property(x.key, 
+								treatAny(x.value, "", root), 
+								{hidden : false, collapsed: false}, 
+								false, 
+								self);
 						}
 				}));
 }
