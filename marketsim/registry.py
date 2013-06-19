@@ -390,29 +390,32 @@ class Registry(object):
         return types
     
     def tojson(self, Id):
-        obj = self._id2obj.get(Id)
-        if obj is None:
-            return None
-        if '_constructAs' in dir(obj):
-            ctor = obj._constructAs
-        else:
-            cls = obj.__class__
-            ctor = cls.__module__ + "." + cls.__name__
-            
-        if '_alias' not in dir(obj):
-            obj._alias = self._findAlias(obj)
-            
-        alias = obj._alias
-            
-        props     = {p.name : self._dumpPropertyValue(p.type, getattr(obj, p.name), obj) \
-                                           for p in rtti.properties(obj)}
-                                 
-        if props is None:
-            props = {}
-            
-        definitions = getattr(obj, '_ddefinitions', {})
         
-        return [ctor, props, alias, definitions]
+        def impl(obj):
+            if obj is None:
+                return None
+            if '_constructAs' in dir(obj):
+                ctor = obj._constructAs
+            else:
+                cls = obj.__class__
+                ctor = cls.__module__ + "." + cls.__name__
+                
+            if '_alias' not in dir(obj):
+                obj._alias = self._findAlias(obj)
+                
+            alias = obj._alias
+                
+            props     = {p.name : self._dumpPropertyValue(p.type, getattr(obj, p.name), obj) \
+                                               for p in rtti.properties(obj)}
+                                     
+            if props is None:
+                props = {}
+                
+            definitions = { k: impl(v) for k,v in getattr(obj, '_definitions', {}).iteritems()}
+            
+            return [ctor, props, alias, definitions]
+        
+        return impl(self._id2obj.get(Id))
     
     def pushAllReferences(self):
         visited = set()
