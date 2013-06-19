@@ -232,7 +232,7 @@ def get_all():
         "currentTime" : w.world.currentTime,
         "ts_changes" : dict([(k, v.data) for (k, v) in _timeseries(w.registry)])
     }
-    return json.dumps(result)
+    return json.dumps(result, sort_keys=True, indent=4, separators=(',', ': '))
 
 def changes(w):
     result = {
@@ -240,7 +240,7 @@ def changes(w):
         "changes" : w.registry.get_changes(),
         "ts_changes" : get_ts_changes(w.registry)
     }
-    return json.dumps(result)
+    return json.dumps(result, sort_keys=True, indent=4, separators=(',', ': '))
 
 @app.route('/reset', methods=['POST', 'GET'])
 def reset():
