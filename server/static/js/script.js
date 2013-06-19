@@ -165,7 +165,8 @@ function AppViewModel() {
 			if (x.isPrimary.peek() || true) {
 				if (any(x.castsTo(), function (typeinfo) {
 					return types_equal(typeinfo, constraint);
-				}) || x.constructor() == "marketsim.Reference") {
+				}) || x.constructor() == "marketsim.Reference" 
+				|| constraint == "") {
 					candidates.push(x);
 				}
 			}
