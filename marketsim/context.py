@@ -117,17 +117,17 @@ class Binder(Base):
             self.__dict__['_context'].append(dict(self.__dict__['_context'][-1]))
         def hasContext():
             return 'updateContext' in dir(obj)
-        def hasVariables():
-            return '_variables' in dir(obj)
+        def hasDefinitions():
+            return '_definitions' in dir(obj)
 
-        if hasContext() or hasVariables():
+        if hasContext() or hasDefinitions():
             push()
 
         if hasContext():
             obj.updateContext(self)
             
-        if hasVariables():
-            for name, value in obj._variables.iteritems():
+        if hasDefinitions():
+            for name, value in obj._definitions.iteritems():
                 self.context[name] = value
             
     def exit(self, obj):
@@ -169,3 +169,29 @@ class Resetter(Base):
 def reset(obj):
     
     Resetter().apply(obj)
+    
+def assureAllReferencedAreRegistred(reg, obj, visited):
+
+    #assert obj is not None
+    
+    typ = type(obj)
+    if typ is int or typ is float or typ is bool or typ is str:
+        return 
+    
+    if typ is list:
+        for x in obj:
+            assureAllReferencedAreRegistred(reg, x, visited)
+    else:
+        if obj in visited:
+            return
+        
+        visited.add(obj)
+        
+        reg.insert(obj)
+        
+        for p in rtti.properties(obj):
+            if p.type is int or p.type is float or p.type is str:
+                continue
+            assureAllReferencedAreRegistred(reg, getattr(obj, p.name), visited)
+            
+    

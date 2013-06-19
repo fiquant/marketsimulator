@@ -50,10 +50,10 @@ def RSIEx    (         alpha                 = 1./14,
     
     return r
 
-def vars(obj, vs):
-    if '_variables' not in dir(obj):
-        obj._variables = {}
-    obj._variables.update(vs)
+def defs(obj, vs):
+    if '_definitions' not in dir(obj):
+        obj._definitions = {}
+    obj._definitions.update(vs)
     return obj
 
 @registry.expose(["Generic", "RSIbis"], args=())
@@ -66,10 +66,10 @@ def RSIbis (timeframe               = 0.,
     
     thisBook = orderbook.OfTrader()
     
-    return vars(Generic(orderFactory = orderFactory, 
+    return defs(Generic(orderFactory = orderFactory, 
                         volumeFunc   = volumeDistr, 
                         eventGen     = scheduler.Timer(creationIntervalDistr),
                         sideFunc     = SignalSide(mathutils.sub(mathutils.constant(50), 
-                                                                Reference('rsi')), 
+                                                                observable.RSI(thisBook, timeframe, alpha)), 
                                                   50-threshold)), 
                 { 'rsi' : observable.RSI(thisBook, timeframe, alpha) })

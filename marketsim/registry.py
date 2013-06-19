@@ -5,7 +5,7 @@ import marketsim
 
 from functools import reduce
 
-from marketsim import rtti, Side, meta, types, js, utils, prop
+from marketsim import rtti, Side, meta, types, js, utils, prop, context
 
 startup = []
 
@@ -315,30 +315,6 @@ class Registry(object):
         
         return "#" +  str(Id)
 
-    def assureAllReferencedAreRegistred(self, obj, visited):
-
-        #assert obj is not None
-        
-        typ = type(obj)
-        if typ is int or typ is float or typ is bool or typ is str:
-            return 
-        
-        if typ is list:
-            for x in obj:
-                self.assureAllReferencedAreRegistred(x, visited)
-        else:
-            if obj in visited:
-                return
-            
-            visited.add(obj)
-            
-            self.insert(obj)
-            
-            for p in rtti.properties(obj):
-                if p.type is int or p.type is float or p.type is str:
-                    continue
-                self.assureAllReferencedAreRegistred(getattr(obj, p.name), visited)
-                
     def ofType(self, prefix):
         return [k for (k,v) in self._id2obj.iteritems()\
                  if (getCtor(v).startswith(prefix)\
@@ -433,14 +409,16 @@ class Registry(object):
                                  
         if props is None:
             props = {}
+            
+        definitions = getattr(obj, '_ddefinitions', {})
         
-        return [ctor, props, alias]
+        return [ctor, props, alias, definitions]
     
     def pushAllReferences(self):
         visited = set()
         root = list(self._id2obj.itervalues())                        
         for obj in root: # getting initial set of the dictionary keys
-            self.assureAllReferencedAreRegistred(obj, visited)
+            context.assureAllReferencedAreRegistred(self, obj, visited)
             
     def tojsonall(self):
 
