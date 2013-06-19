@@ -4,6 +4,9 @@ from marketsim import rtti
 
 debug = False
 
+def primitive(typ):
+    return typ is int or typ is float or typ is bool or typ is str
+
 class Base(object):
     
     def __init__(self, indent = 0):
@@ -31,6 +34,9 @@ class Base(object):
     
     def exit(self, obj):
         pass
+    
+    def children(self, obj):
+        return rtti.children(obj, self.log)
 
     def apply(self, obj): 
         
@@ -40,7 +46,7 @@ class Base(object):
             print "recursion!"
         
         typ = type(obj)
-        if typ is int or typ is float or typ is bool or typ is str:
+        if primitive(typ):
             return 
         
         self.inc()
@@ -67,7 +73,7 @@ class Base(object):
 
                 self.enter(obj)
                     
-                for child in rtti.children(obj, self.log):
+                for child in self.children(obj):
                     self.apply(child)
                 
                 methods_visited = set()    
@@ -170,28 +176,31 @@ def reset(obj):
     
     Resetter().apply(obj)
     
-def assureAllReferencedAreRegistred(reg, obj, visited):
-
-    #assert obj is not None
+class Inserter(Base):
     
-    typ = type(obj)
-    if typ is int or typ is float or typ is bool or typ is str:
-        return 
+    def __init__(self, reg, visited):
+        Base.__init__(self)
+        self.reg = reg
+        self.visited = visited
+        
+    def mark_visited(self, obj):
+        if obj in self.visited:
+            return False
+        self.visited.add(obj)
+        return True
     
-    if typ is list:
-        for x in obj:
-            assureAllReferencedAreRegistred(reg, x, visited)
-    else:
-        if obj in visited:
-            return
-        
-        visited.add(obj)
-        
-        reg.insert(obj)
-        
+    _method = ""
+    
+    def children(self, obj):
         for p in rtti.properties(obj):
-            if p.type is int or p.type is float or p.type is str:
-                continue
-            assureAllReferencedAreRegistred(reg, getattr(obj, p.name), visited)
-            
+            if not primitive(p.type):
+                yield getattr(obj, p.name)
+        
+        for v in getattr(obj, '_definitions', {}).itervalues():
+            yield v
     
+    def enter(self, obj):
+        self.reg.insert(obj)
+    
+def assureAllReferencedAreRegistred(reg, obj, visited):
+    Inserter(reg, visited).apply(obj)
