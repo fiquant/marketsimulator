@@ -84,29 +84,16 @@ class ConstantSide(object):
     def __call__(self):
         return self.side
     
-class SafeSidePrice(object):
-    """ Returns the best price of the given by *orderBook* and *side* order queue, 
-        if there is no orders in the queue returns the price of the last trade and
-        if there were no trades returns *defaultValue*.
-    """
+from _signal import NotNoneFloat
+from marketsim.observable._orderbook import side_price, last_side_price
+               
+def SafeSidePrice(orderBook, side, defaultValue):
     
-    def __init__(self, orderBook, side, defaultValue):
-        self.orderBook = orderBook
-        self.side = side
-        self.defaultValue = defaultValue
-        self._alias = ["Asset's", 'Safe order queue price']
-        
-    _properties = { 'orderBook'     : IOrderBook, 
-                    'side'          : Side, 
-                    'defaultValue'  : float }
-    
-    _types = [meta.function((), Price)]
-        
-    def __call__(self):
-        queue = self.orderBook.queue(self.side)
-        return queue.best.price if not queue.empty else\
-               queue.lastPrice if queue.lastPrice is not None else\
-               self.defaultValue
+    return NotNoneFloat(
+                side_price(orderBook, side), 
+                NotNoneFloat(
+                    last_side_price(orderBook, side), 
+                    mathutils.constant(defaultValue)))
 
 @registry.expose(["Generic", 'LiquidityProviderSide'], args = ())
 def LiquidityProviderSideEx(side                    = Side.Sell, 
