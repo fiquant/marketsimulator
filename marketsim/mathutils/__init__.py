@@ -34,6 +34,25 @@ class constant(object):
     def __repr__(self):
         return "constant("+repr(self.value)+")"
 
+@registry.expose(['Arithmetic', 'negate'])
+class negate(object):
+    """ Function returning product of the operands
+    """
+    
+    def __init__(self, arg=constant(1.)):
+        self.arg = arg
+        
+    _properties = { "arg" : types.function((), float) }
+    
+    _types = [types.function((), float)]
+    
+    def __call__(self, *args, **kwargs):
+        x = self.arg()
+        return -x if x is not None else None
+    
+    def __repr__(self):
+        return "-" + repr(self.arg)
+
 @registry.expose(['Arithmetic', '*'])
 class product(object):
     """ Function returning product of the operands
@@ -54,7 +73,7 @@ class product(object):
         return lhs * rhs if lhs is not None and rhs is not None else None
     
     def __repr__(self):
-        return repr(self.RightHandSide)+ "*" + repr(self.RightHandSide)
+        return repr(self.LeftHandSide)+ "*" + repr(self.RightHandSide)
 
 @registry.expose(['Arithmetic', '+'])    
 class sum(object):
@@ -76,7 +95,7 @@ class sum(object):
         return lhs + rhs if lhs is not None and rhs is not None else None
     
     def __repr__(self):
-        return repr(self.RightHandSide)+ "+" + repr(self.RightHandSide)
+        return repr(self.LeftHandSide)+ "+" + repr(self.RightHandSide)
 
 @registry.expose(['Arithmetic', '/'])
 class div(object):
@@ -98,7 +117,7 @@ class div(object):
         return lhs / rhs if lhs is not None and rhs is not None and rhs != 0 else None
     
     def __repr__(self):
-        return repr(self.RightHandSide)+ "/" + repr(self.RightHandSide)
+        return repr(self.LeftHandSide)+ "/" + repr(self.RightHandSide)
 
 @registry.expose(['Arithmetic', '-'])    
 class sub(object):
@@ -120,6 +139,6 @@ class sub(object):
         return lhs - rhs if lhs is not None and rhs is not None else None
     
     def __repr__(self):
-        return repr(self.RightHandSide)+ "-" + repr(self.RightHandSide)
+        return repr(self.LeftHandSide)+ "-" + repr(self.RightHandSide)
 
     
