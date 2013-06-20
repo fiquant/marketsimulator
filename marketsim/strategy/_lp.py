@@ -5,7 +5,8 @@ from _generic import Generic
 from _array import Array
 from _wrap import merge, wrapper, wrapper2
 from _lp_side import LiquidityProviderSide, LiquidityProviderSideEx
-from marketsim import order, orderbook, scheduler, mathutils, types, registry, bind, meta, trader
+from marketsim import (order, orderbook, scheduler, mathutils, defs, _,
+                       types, registry, bind, meta, trader)
 from marketsim.types import *
 
 def merge_dict(d, **kwargs):
@@ -85,16 +86,19 @@ def LiquidityProviderEx    (orderFactory            = order.LimitFactory,
 
     def create(side):
         return LiquidityProviderSideEx(side, 
-                                       orderFactory, 
+                                       _.orderFactory, 
                                        defaultValue, 
-                                       creationIntervalDistr, 
-                                       priceDistr, 
-                                       volumeDistr)
+                                       _.creationInterval, 
+                                       _.price, 
+                                       _.volume)
 
-    r = Array([
+    return defs(
+        Array([
             create(Side.Sell),
             create(Side.Buy)
-        ])
-    
-    return r
+        ]), 
+        { 'creationInterval': creationIntervalDistr, 
+          'volume'          : volumeDistr, 
+          'price'           : priceDistr, 
+          'orderFactory'    : orderFactory })
 

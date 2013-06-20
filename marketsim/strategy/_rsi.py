@@ -1,5 +1,5 @@
 from marketsim.types import *
-from marketsim import (meta, types, order, Reference, defs, 
+from marketsim import (meta, types, order, _, defs, 
                        mathutils, observable, scheduler, orderbook, registry)
 
 from _generic import Generic
@@ -64,6 +64,6 @@ def RSIbis (timeframe               = 0.,
                         volumeFunc   = volumeDistr, 
                         eventGen     = scheduler.Timer(creationIntervalDistr),
                         sideFunc     = SignalSide(mathutils.sub(mathutils.constant(50), 
-                                                                Reference("rsi")), 
+                                                                _.rsi), 
                                                   50-threshold)), 
                 { 'rsi' : observable.RSI(thisBook, timeframe, alpha) })

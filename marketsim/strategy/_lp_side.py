@@ -2,7 +2,8 @@ import random
 from _one_side import OneSide
 from _generic import Generic
 from _wrap import wrapper2
-from marketsim import order, orderbook, scheduler, mathutils, types, registry, meta
+from marketsim import (order, orderbook, scheduler, mathutils, 
+                       types, registry, meta, defs, _)
 from marketsim.types import *
 
 class _LiquidityProviderSide_Impl(OneSide):
@@ -89,11 +90,13 @@ from marketsim.observable._orderbook import side_price, last_side_price
                
 def SafeSidePrice(orderBook, side, defaultValue):
     
-    return NotNoneFloat(
-                side_price(orderBook, side), 
+    return defs(
+        NotNoneFloat(
+                side_price(_.orderBook, side), 
                 NotNoneFloat(
-                    last_side_price(orderBook, side), 
-                    mathutils.constant(defaultValue)))
+                    last_side_price(_.orderBook, side), 
+                    mathutils.constant(defaultValue))),
+        { 'orderBook': orderBook })
 
 @registry.expose(["Generic", 'LiquidityProviderSide'], args = ())
 def LiquidityProviderSideEx(side                    = Side.Sell, 

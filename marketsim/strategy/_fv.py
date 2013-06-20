@@ -1,4 +1,4 @@
-from marketsim import (scheduler, observable, types, meta, defs, Reference,
+from marketsim import (scheduler, observable, types, meta, defs, _,
                        Side, registry, orderbook, bind, order, mathutils)
 
 from _generic import Generic
@@ -73,19 +73,21 @@ def FundamentalValueSide(orderBook, fundamentalValue):
     return defs(
             ConditionSide(
                 less_float(
-                    Reference('fv'), 
+                    _.fv, 
                     bid_price(
-                        Reference('orderBook'))),
+                        _.orderBook)),
                 ConstantSide(Side.Sell), 
                 ConditionSide(
                     less_float(
                         ask_price(
-                            Reference('orderBook')),
-                        Reference('fv')), 
+                            _.orderBook),
+                        _.fv), 
                     ConstantSide(Side.Buy), 
                     none_side())),
-            {'fv' : fundamentalValue, 
-             'orderBook' : orderBook })
+            {
+             'fv'        : fundamentalValue, 
+             'orderBook' : orderBook 
+            })
 
 @registry.expose(["Generic", "FundamentalValue"], args = ())
 def FundamentalValueEx(fundamentalValue      = mathutils.constant(100.),

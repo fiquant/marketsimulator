@@ -1,5 +1,5 @@
 from marketsim.types import *
-from marketsim import (Event, order, mathutils, types, meta, defs, Reference, 
+from marketsim import (Event, order, mathutils, types, meta, defs, _, 
                        registry, signal, bind, signal)
 from _generic import Generic
 from _two_sides import TwoSides
@@ -124,16 +124,15 @@ def SignalSide(source, threshold = 0):
     
     return defs(ConditionSide(
                     less_float(
-                        Reference('threshold'), 
-                        Reference('source')), 
+                        _.threshold, 
+                        _.source), 
                     ConstantSide(Side.Buy), 
                         ConditionSide(
                             less_float(
-                                Reference('source'), 
-                                mathutils.negate(
-                                    Reference('threshold'))), 
-                        ConstantSide(Side.Sell), 
-                        none_side())), 
+                                _.source, 
+                                mathutils.negate(_.threshold)), 
+                            ConstantSide(Side.Sell), 
+                            none_side())), 
                 { 'source'    : source, 
                   'threshold' : mathutils.constant(threshold) })
     
@@ -144,10 +143,8 @@ def SignalEx(signal         = signal.RandomWalk(),
              volumeDistr    = mathutils.rnd.expovariate(1.)):
     
     return defs(
-        Generic(sideFunc     = SignalSide(Reference("signal"), threshold),
+        Generic(sideFunc     = SignalSide(_.signal, threshold),
                 volumeFunc   = volumeDistr, 
                 orderFactory = orderFactory, 
-                eventGen     = Reference('signal')),
+                eventGen     = _.signal),
         {"signal" : signal })  
-    
-    return r
