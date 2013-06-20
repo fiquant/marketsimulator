@@ -1,4 +1,4 @@
-from marketsim import (scheduler, observable, types, meta,
+from marketsim import (scheduler, observable, types, meta, defs, Reference,
                        Side, registry, orderbook, bind, order, mathutils)
 
 from _generic import Generic
@@ -64,32 +64,28 @@ exec  wrapper2("FundamentalValue",
                ('volumeDistr',          'mathutils.rnd.expovariate(1.)','() -> Volume'),
                ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> TimeInterval')])
 
-class FundamentalValueSide(object):
+from _lp_side import ConstantSide
+from _signal import ConditionSide, less_float, none_side
+from marketsim.observable._orderbook import ask_price, bid_price
     
-    def __init__(self, orderBook, fundamentalValue):
-        self.orderBook = orderBook
-        self.fundamentalValue = fundamentalValue
-        self._alias = ["FundamentalValueSide"]
-        
-    _properties = { 'fundamentalValue'    : meta.function((), Price),
-                    'orderBook'           : types.IOrderBook }
+def FundamentalValueSide(orderBook, fundamentalValue):
     
-    _types = [meta.function((), Side)]
-        
-    def __call__(self):
-        fv = self.fundamentalValue()
-        book = self.orderBook
-        
-        # Quick fix: sometimes fv returns a None value
-        if fv is None:
-            side = None
-        else:
-            side = Side.Buy if not book.asks.empty\
-                    and book.asks.best.price < fv else\
-                    Side.Sell if not book.bids.empty\
-                    and book.bids.best.price > fv else\
-                    None
-        return side
+    return defs(
+            ConditionSide(
+                less_float(
+                    Reference('fv'), 
+                    bid_price(
+                        Reference('orderBook'))),
+                ConstantSide(Side.Sell), 
+                ConditionSide(
+                    less_float(
+                        ask_price(
+                            Reference('orderBook')),
+                        Reference('fv')), 
+                    ConstantSide(Side.Buy), 
+                    none_side())),
+            {'fv' : fundamentalValue, 
+             'orderBook' : orderBook })
 
 @registry.expose(["Generic", "FundamentalValue"], args = ())
 def FundamentalValueEx(fundamentalValue      = mathutils.constant(100.),
