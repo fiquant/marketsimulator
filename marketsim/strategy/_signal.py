@@ -54,22 +54,48 @@ exec wrapper2("Signal",
               ('orderFactory',  'order.MarketFactory',          'Side -> Volume -> IOrder'),
               ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')])
 
-class ConditionSide(object):
+class Condition_Impl(object):
     
     def __init__(self, cond, ifpart, elsepart):
         self.cond = cond
         self.ifpart = ifpart
         self.elsepart = elsepart
         
-    _types = [meta.function((), Side)]
-        
-    _properties = [('cond', meta.function((), bool)), 
-                   ('ifpart', meta.function((), Side)), 
-                   ('elsepart', meta.function((), Side))]
-        
     def __call__(self):
         c = self.cond()
         return None if c is None else self.ifpart() if c else self.elsepart()
+
+condition_tmpl = """
+class Condition%(T)s(Condition_Impl):
+
+    def __init__(self, cond, ifpart, elsepart):
+        Condition_Impl.__init__(self, cond, ifpart, elsepart)
+        self._alias = ['Condition[%(T)s]']
+        
+    _types = [meta.function((), %(T)s)]
+        
+    _properties = [('cond', meta.function((), bool)), 
+                   ('ifpart', meta.function((), %(T)s)), 
+                   ('elsepart', meta.function((), %(T)s))]
+"""  
+
+for t in ['Side', 'float']:
+    exec condition_tmpl % { 'T' : t }   
+    
+class NotNoneFloat(object):
+    
+    def __init__(self, source, ifnone):
+        self.source = source
+        self.ifnone = ifnone
+        
+    _types = [meta.function((), float)]
+    
+    _properties = { 'source' : meta.function((), float), 
+                    'ifnone' : meta.function((), float) }
+        
+    def __call__(self):
+        v = self.source()
+        return v if v is not None else self.ifnone()
     
 class less_float(object):
     
@@ -117,9 +143,11 @@ def SignalEx(signal         = signal.RandomWalk(),
              orderFactory   = order.MarketFactory, 
              volumeDistr    = mathutils.rnd.expovariate(1.)):
     
-    r = Generic(sideFunc     = SignalSide(signal, threshold),
+    return defs(
+        Generic(sideFunc     = SignalSide(Reference("signal"), threshold),
                 volumeFunc   = volumeDistr, 
                 orderFactory = orderFactory, 
-                eventGen     = signal)  
+                eventGen     = Reference('signal')),
+        {"signal" : signal })  
     
     return r

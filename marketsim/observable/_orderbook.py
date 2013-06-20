@@ -62,6 +62,26 @@ class side_price(object):
     
     _properties = { 'orderbook' : types.IOrderBook  }
     
+class last_side_price(object):
+    """ Returns *orderbook* last trade *side* price 
+    """
+    
+    def __init__(self, orderbook, side):
+        self.orderbook = orderbook
+        self.side = side
+        
+    _types = [meta.function((), float)]
+    
+    def __call__(self):
+        queue = self.orderbook.queue(self.side)
+        return queue.lastPrice
+    
+    @property
+    def digits(self):
+        return self.orderbook._digitsToShow
+    
+    _properties = { 'orderbook' : types.IOrderBook  }
+    
 class ask_price(side_price):
     
     def __init__(self, orderbook):

@@ -1,4 +1,4 @@
-from marketsim import (scheduler, observable, types, meta,  
+from marketsim import (scheduler, observable, types, meta, defs, Reference,
                        Side, registry, orderbook, bind, order, mathutils)
 
 from _generic import Generic
@@ -66,12 +66,13 @@ def DependencyEx      (bookToDependOn,
                        volumeDistr           = mathutils.rnd.expovariate(1.)):
 
     orderBook = orderbook.OfTrader()
-    priceToDependOn = observable.Price(bookToDependOn) 
-    
-    r = Generic(orderFactory= orderFactory, 
+
+    r = defs(
+        Generic(orderFactory= orderFactory, 
                 volumeFunc  = volumeDistr, 
-                eventGen    = priceToDependOn, 
-                sideFunc    = FundamentalValueSide(orderBook, priceToDependOn))
+                eventGen    = Reference('dependee'), 
+                sideFunc    = FundamentalValueSide(orderBook, Reference('dependee'))),
+        { 'dependee' : observable.Price(bookToDependOn) })
     
     r._alias = ["Generic", "Dependency"]
     
