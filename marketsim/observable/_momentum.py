@@ -1,4 +1,4 @@
-from marketsim import event, bind, scheduler, meta, types, Event
+from marketsim import event, bind, scheduler, meta, types, Event, defs, Reference
 from marketsim.mathutils import *
 
 from _orderbook import Price
@@ -63,18 +63,27 @@ class _rsi_sub(sub):
 
 def RSI(orderbook, timeframe, alpha):
     
-    price = Price(orderbook)
-    timer = scheduler.Timer(constant(timeframe)) if timeframe > 0 else price
-    
-    ups = TwoPointFold(timer, price, upMovement)
-    downs = TwoPointFold(timer, price, downMovement)
-    
-    ups_ma = Fold(ups, ewma(alpha))
-    downs_ma = Fold(downs, ewma(alpha))
-    
-    rs = div(ups_ma, downs_ma)
-    
-    return _rsi_sub(constant(100.), div(constant(100.), sum(constant(1.), rs)), orderbook, timeframe)
+    return defs(_rsi_sub(
+                    constant(100.), 
+                    div(
+                        constant(100.), 
+                        sum(
+                            constant(1.), 
+                            Reference('rs'))), 
+                    orderbook, 
+                    timeframe), 
+                { 'rs' : div(Fold(TwoPointFold(Reference('timer'), 
+                                               Reference('price'), 
+                                               upMovement), 
+                                  ewma(alpha)), 
+                             Fold(TwoPointFold(Reference('timer'), 
+                                               Reference('price'), 
+                                               downMovement), 
+                                  ewma(alpha))), 
+                  'price' : Price(orderbook),
+                  'timer' : scheduler.Timer(constant(timeframe)) \
+                                if timeframe > 0 else\
+                             Reference("price") })
     
     
     
