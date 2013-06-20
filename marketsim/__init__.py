@@ -57,6 +57,12 @@ class Reference(object):
     
     _properties = { 'name' : str }
 
+def defs(obj, vs):
+    if '_definitions' not in dir(obj):
+        obj._definitions = {}
+    obj._definitions.update(vs)
+    return obj
+
                     
 ## {{{ http://code.activestate.com/recipes/576563/ (r1)
 def cached_property(f):

@@ -1,5 +1,5 @@
 from marketsim.types import *
-from marketsim import (Event, order, mathutils, types, meta, 
+from marketsim import (Event, order, mathutils, types, meta, defs, Reference, 
                        registry, signal, bind, signal)
 from _generic import Generic
 from _two_sides import TwoSides
@@ -54,29 +54,62 @@ exec wrapper2("Signal",
               ('orderFactory',  'order.MarketFactory',          'Side -> Volume -> IOrder'),
               ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')])
 
-
-class SignalSide(object):
-    """ Function determining side of a trade given a signal value.
-        If signal value is greater than *threshold*, returns *Side.Buy*
-        If signal value is lower than *-threshold*, returns *Side.Sell*
-        Otherwise returns *None*
-    """
+class ConditionSide(object):
     
-    def __init__(self, source, threshold = 0):
-        self.source = source
-        self.threshold = threshold
-        self._alias = ["SignalSide"]
+    def __init__(self, cond, ifpart, elsepart):
+        self.cond = cond
+        self.ifpart = ifpart
+        self.elsepart = elsepart
         
-    _properties = { 'source'    : meta.function((), float),
-                    'threshold' : float }
+    _types = [meta.function((), Side)]
+        
+    _properties = [('cond', meta.function((), bool)), 
+                   ('ifpart', meta.function((), Side)), 
+                   ('elsepart', meta.function((), Side))]
+        
+    def __call__(self):
+        c = self.cond()
+        return None if c is None else self.ifpart() if c else self.elsepart()
+    
+class less_float(object):
+    
+    def __init__(self, lhs, rhs):
+        self.lhs = lhs
+        self.rhs = rhs
+        
+    _types = [meta.function((), bool)]
+    
+    _properties = [('lhs', meta.function((), float)), 
+                   ('rhs', meta.function((), float))]
+    
+    def __call__(self):
+        return self.lhs() < self.rhs()
+    
+class none_side(object):
+    
+    def __call__(self):
+        return None
     
     _types = [meta.function((), Side)]
     
-    def __call__(self):
-        value = self.source()
-        side =  None if (value is None or abs(value) <= self.threshold) \
-                else (Side.Buy if value > 0 else Side.Sell)
-        return side
+from _lp_side import ConstantSide
+    
+def SignalSide(source, threshold = 0):
+    
+    return defs(ConditionSide(
+                    less_float(
+                        Reference('threshold'), 
+                        Reference('source')), 
+                    ConstantSide(Side.Buy), 
+                        ConditionSide(
+                            less_float(
+                                Reference('source'), 
+                                mathutils.negate(
+                                    Reference('threshold'))), 
+                        ConstantSide(Side.Sell), 
+                        none_side())), 
+                { 'source'    : source, 
+                  'threshold' : mathutils.constant(threshold) })
     
 @registry.expose(["Generic", 'Signal'], args = ())
 def SignalEx(signal         = signal.RandomWalk(), 

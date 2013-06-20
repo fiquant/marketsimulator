@@ -1,5 +1,5 @@
 from marketsim.types import *
-from marketsim import (meta, types, order, Reference, 
+from marketsim import (meta, types, order, Reference, defs, 
                        mathutils, observable, scheduler, orderbook, registry)
 
 from _generic import Generic
@@ -49,12 +49,6 @@ def RSIEx    (         alpha                 = 1./14,
                 sideFunc    = RelativeStrengthIndexSide(orderBook, rsi, threshold))
     
     return r
-
-def defs(obj, vs):
-    if '_definitions' not in dir(obj):
-        obj._definitions = {}
-    obj._definitions.update(vs)
-    return obj
 
 @registry.expose(["Generic", "RSIbis"], args=())
 def RSIbis (timeframe               = 0., 
