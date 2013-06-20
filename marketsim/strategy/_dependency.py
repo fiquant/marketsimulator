@@ -1,4 +1,4 @@
-from marketsim import (scheduler, observable, types, meta, defs, Reference,
+from marketsim import (scheduler, observable, types, meta, defs, _,
                        Side, registry, orderbook, bind, order, mathutils)
 
 from _generic import Generic
@@ -70,8 +70,8 @@ def DependencyEx      (bookToDependOn,
     r = defs(
         Generic(orderFactory= orderFactory, 
                 volumeFunc  = volumeDistr, 
-                eventGen    = Reference('dependee'), 
-                sideFunc    = FundamentalValueSide(orderBook, Reference('dependee'))),
+                eventGen    = _.dependee, 
+                sideFunc    = FundamentalValueSide(orderBook, _.dependee)),
         { 'dependee' : observable.Price(bookToDependOn) })
     
     r._alias = ["Generic", "Dependency"]

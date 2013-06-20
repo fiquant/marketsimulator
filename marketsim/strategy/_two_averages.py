@@ -1,6 +1,6 @@
 from marketsim.types import *
 from marketsim import (orderbook, observable, scheduler, order, mathutils, types, meta, 
-                       registry, bind)
+                       registry, bind, defs, _)
 
 from _generic import Generic
 from _signal import SignalBase, SignalSide
@@ -72,16 +72,13 @@ def TwoAveragesEx(average1 = None, #mathutils.ewma(alpha = 0.15),
     if average1 is None: average1 = mathutils.ewma(alpha = 0.15)
     if average2 is None: average2 = mathutils.ewma(alpha = 0.015)
     
-    orderBook = orderbook.OfTrader()
-    price = observable.Price(orderBook)
-    
-    r = Generic(orderFactory= orderFactory, 
+    return defs(
+        Generic(orderFactory= orderFactory, 
                 volumeFunc  = volumeDistr,
                 eventGen    = scheduler.Timer(creationIntervalDistr),
                 sideFunc    = SignalSide(
                                  mathutils.sub(
-                                     observable.Fold(price, average1),
-                                     observable.Fold(price, average2)),
-                                 threshold))
-
-    return r
+                                     observable.Fold(_.price, average1),
+                                     observable.Fold(_.price, average2)),
+                                 threshold)), 
+        { 'price' : observable.Price(orderbook.OfTrader()) })

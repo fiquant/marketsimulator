@@ -63,7 +63,16 @@ def defs(obj, vs):
     obj._definitions.update(vs)
     return obj
 
-                    
+class RefFactory(object):
+    
+    def __getattr__(self, name):
+        if name[0:2] != "__":
+            return Reference(name)
+        else:
+            raise AttributeError
+    
+_ =  RefFactory()
+                        
 ## {{{ http://code.activestate.com/recipes/576563/ (r1)
 def cached_property(f):
     """returns a cached property that is calculated by function f"""
