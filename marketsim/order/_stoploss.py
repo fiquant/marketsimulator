@@ -10,8 +10,11 @@ class StopLoss(Base):
     def __init__(self, side, volume):
         
         Base.__init__(self, side, volume)
-        
+
+        # TODO: allow the user to choose his own MarketFactory
+        # this might require introducing a uniform OrderFactory interface
         self._orderFactory = MarketFactory
+        # TODO: make maxLoss a parameter
         self._maxLoss = 0.1
         self._current = None
         self._orderPrice = None
@@ -42,6 +45,7 @@ class StopLoss(Base):
         self._stopSubscription.bind(None) 
 
     def _onPriceChanged_impl(self, _):
+        # TODO: if a trader sends too many stoploss orders, the amount of listeners to price changes grows very quickly...
         if self._price is not None and self._price() is not None:
             if (self._side == Side.Sell and  (1+self._maxLoss) * self._orderPrice < self._price() ) \
                 or (self.side == Side.Buy and (1-self._maxLoss) * self._orderPrice > self._price() ):
