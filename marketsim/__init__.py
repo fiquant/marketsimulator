@@ -1,4 +1,5 @@
 from event import Event
+from bind import Method
 
 class Alias(object):
     
@@ -63,15 +64,31 @@ def defs(obj, vs):
     obj._definitions.update(vs)
     return obj
 
-class RefFactory(object):
+class Binder(object):
+    
+    def __init__(self, target, args):
+        self.target = target
+        self.args = args
+        
+    def __getattr__(self, name):
+        if name[0:2] != "__":
+            return bind.Method(self.target, name, *self.args)
+        else:
+            raise AttributeError
+    
+
+class Underscore(object):
     
     def __getattr__(self, name):
         if name[0:2] != "__":
             return Reference(name)
         else:
             raise AttributeError
+        
+    def __call__(self, target, *args):
+        return Binder(target, args)
     
-_ =  RefFactory()
+_ =  Underscore()
                         
 ## {{{ http://code.activestate.com/recipes/576563/ (r1)
 def cached_property(f):
