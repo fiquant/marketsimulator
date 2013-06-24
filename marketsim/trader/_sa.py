@@ -51,13 +51,13 @@ class SingleAsset(Base, types.ISingleAssetTrader):
     def amount(self, value):
         self._amount = value
         
-    def _onOrderMatched_impl(self, order, other, (price, volume)):
+    def _onOrderMatched(self, order, other, (price, volume)):
         """ Called when a trader's 'order' is traded against 'other' order 
         at given 'price' and 'volume'
         Trader's amount and P&L is updated and listeners are notified about the trade   
         """
         self._amount += volume if order.side == Side.Buy else -volume
-        Base._onOrderMatched_impl(self, order, other, (price, volume))
+        Base._onOrderMatched(self, order, other, (price, volume))
     
     @property
     def book(self): # obsolete

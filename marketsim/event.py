@@ -1,4 +1,6 @@
 from marketsim import bind, meta, context
+            
+from blist import sorteddict
 
 class Event(object):
     """ Multicast event
@@ -28,37 +30,87 @@ class Event(object):
         for x in list(self._listeners):
             x(*args)
             
-from blist import sorteddict
+class negate(object):
+    
+    def __call__(self, value):
+        return -value
 
 class Conditional(Event):
     
     def __init__(self, getter):
         Event.__init__(self)
         self._getter = getter
-        self._less = sorteddict()
+        self._greater = sorteddict()
+        self._less = sorteddict(negate())
     
     def __iadd__(self, listener):
-        if '_lessThan' in dir(listener):
+        if '_greaterThan' in dir(listener):
+            bound = listener._greaterThan()
+            if bound not in self._greater:
+                self._greater[bound] = []
+            self._greater[bound].append(listener)
+            return self
+        elif '_lessThan' in dir(listener):
             bound = listener._lessThan()
             if bound not in self._less:
                 self._less[bound] = []
             self._less[bound].append(listener)
+            return self
         else:
-            Event.__iadd__(self, listener)
+            return Event.__iadd__(self, listener)
             
     def __isub__(self, listener):
-        if '_lessThan' in dir(listener):
+        if '_greaterThan' in dir(listener):
+            bound = listener._greaterThan()
+            self._greater[bound].remove(listener)
+            return self
+        elif '_lessThan' in dir(listener):
             bound = listener._lessThan()
             self._less[bound].remove(listener)
+            return self
         else:
-            Event.__isub__(self, listener)
+            return Event.__isub__(self, listener)
             
     def _fire_impl(self, *args):
-        bound = self._getter(*args)
-        for listener in self._less:
-            if listener._lessThan() < bound:
-                listener(*args)
+        current = self._getter() # *args
+        if current is not None:
+            for bound, handlers in self._greater.iteritems():
+                if bound < current:
+                    for handler in handlers:
+                        handler(*args)
+            for bound, handlers in self._less.iteritems():
+                if bound > current:
+                    for handler in handlers:
+                        handler(*args)
         Event._fire_impl(self, *args)
+        
+class GreaterThan(object):
+    
+    def __init__(self, bound, target):
+        self.bound = bound
+        self.target = target
+        
+    _internals = ['target']
+        
+    def _greaterThan(self):
+        return self.bound
+    
+    def __call__(self, *args):
+        self.target(*args)
+                
+class LessThan(object):
+    
+    def __init__(self, bound, target):
+        self.bound = bound
+        self.target = target
+        
+    _internals = ['target']
+        
+    def _lessThan(self):
+        return self.bound
+    
+    def __call__(self, *args):
+        self.target(*args)
                 
             
 
