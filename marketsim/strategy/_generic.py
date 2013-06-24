@@ -1,4 +1,4 @@
-from marketsim import registry, meta, bind, types, Side, mathutils, order, Event, event
+from marketsim import registry, meta, _, types, Side, mathutils, order, Event, event
 from marketsim.types import *
 
 from _basic import Strategy
@@ -20,10 +20,9 @@ class _Generic_Impl(Strategy):
         params.orderFactory -- function 'Side -> Volume -> IOrder' instantiating orders
         """        
         Strategy.__init__(self)
-        self._wakeUp = bind.Method(self, '_wakeUp_impl')
-        event.subscribe(self.eventGen, self._wakeUp, self)
+        event.subscribe(self.eventGen, _(self)._wakeUp, self)
         
-    def _wakeUp_impl(self, _):
+    def _wakeUp(self, _):
         if self._suspended:
             return
         # determine side and parameters of an order to create

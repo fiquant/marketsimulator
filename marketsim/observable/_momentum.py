@@ -12,7 +12,7 @@ class TwoPointFold(types.IObservable):
         self.dataSource = dataSource
         self._eventSource = eventSource
         self.folder = folder
-        self._event = event.subscribe(eventSource, bind.Method(self, '_wakeup'), self)
+        self._event = event.subscribe(eventSource, _(self)._wakeup, self)
         self._previous = None
         self._value = None
         

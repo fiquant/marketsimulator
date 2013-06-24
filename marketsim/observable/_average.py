@@ -1,4 +1,4 @@
-from marketsim import getLabel, mathutils, scheduler, meta, types, bind, event
+from marketsim import getLabel, mathutils, scheduler, meta, types, bind, event, _
 
 from _computed import OnEveryDt
         
@@ -9,10 +9,10 @@ class derivative(types.IUpdatableValue):
     
     def __init__(self, source):
         self.source = source
-        self.update = bind.Method(self.source, 'update')
-        self.at = bind.Method(self.source, 'derivativeAt')
-        self.derivativeAt = bind.Method(self, 'at')  # temporary hack 
-        self.reset = bind.Method(self.source, 'reset')
+        self.update = _(self.source).update
+        self.at = _(self.source).derivativeAt
+        self.derivativeAt = _(self.source).at  # temporary hack 
+        self.reset = _(self.source).reset
         
     @property
     def label(self):
@@ -36,8 +36,7 @@ class Fold(object):
         """
         self._acc = folder
         self._source = source
-        self._update = bind.Method(self, '_update_impl')
-        self._event = event.subscribe(self._source, self._update, self)
+        self._event = event.subscribe(self._source, _(self)._update, self)
         
     def bind(self, context): # TODO: we should subscribe to acc and source changed events
         self._scheduler = context.world
@@ -51,7 +50,7 @@ class Fold(object):
     
     _types = [meta.function((), float)]
     
-    def _update_impl(self, _):
+    def _update(self, _):
         self._acc.update(self._scheduler.currentTime, self._source())
         
     @property

@@ -1,5 +1,5 @@
 from marketsim import (trader, order, orderbook, scheduler, observable, order,
-                       registry, types, meta, bind, mathutils, event)
+                       registry, types, meta, _, mathutils, event)
 from marketsim.types import *
 
 from _basic import Strategy
@@ -14,7 +14,7 @@ from _trade_if_profitable import efficiencyTrend, virtualWithUnitVolume
 
 class _MultiarmedBandit_Impl(Strategy):
     
-    def _choose_impl(self, _):
+    def _choose(self, _):
         if not self.suspended:
             
             # suspend current strategy
@@ -57,14 +57,13 @@ class _MultiarmedBandit_Impl(Strategy):
         
         self._strategies = [_createInstance(sp) for sp in self.strategies]
         
-        self._choose = bind.Method(self, '_choose_impl')
         self._strategyWeights = self.weight
         self._current = None
         # what is the data source for weight update?
-        event.subscribe(self._eventGen, self._choose, self)
+        event.subscribe(self._eventGen, _(self)._choose, self)
         
         # suspend all strategies
-        for (s, _, _, _) in self._strategies:
+        for (s, d, d, d) in self._strategies:
             s.suspend(True)
             
     

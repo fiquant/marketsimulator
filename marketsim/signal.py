@@ -1,5 +1,5 @@
 import random
-from marketsim import bind, Event, meta, types, mathutils, registry, scheduler, event
+from marketsim import _, Event, meta, types, mathutils, registry, scheduler, event
 
 @registry.expose(['Random walk'])
 class RandomWalk(types.IObservable):
@@ -22,7 +22,7 @@ class RandomWalk(types.IObservable):
                     'intervalDistr': meta.function((), float) }
         
 
-    def _wakeUp_impl(self, _):
+    def _wakeUp(self, _):
         self.value += self.deltaDistr()
         self.fire(self)
 
@@ -38,10 +38,9 @@ class RandomWalk(types.IObservable):
         self.attributes = {"smooth":True}
         self.deltaDistr = deltaDistr
         self.intervalDistr = intervalDistr
-        wakeUp = bind.Method(self, '_wakeUp_impl')
             
         self._timer = scheduler.Timer(self.intervalDistr)
-        event.subscribe(self._timer, wakeUp, self)
+        event.subscribe(self._timer, _(self)._wakeUp, self)
         
         self.reset()
         

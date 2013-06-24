@@ -1,15 +1,14 @@
-from marketsim import types, meta, flags, event, bind
+from marketsim import types, meta, flags, event, _
 
 class ToRecord(types.ITimeSerie):  # TODO: should the source be split into dataSource and eventSource?
     
     def __init__(self, source, graph, _digits = 4, _smooth = False):
         self._source = source
         self.graph = graph
-        self._wakeUp = bind.Method(self, '_wakeUp_impl')
         self.attributes = source.attributes
         self._smooth =  1 if 'smooth' in source.attributes and source.attributes['smooth'] else 0
         self._lastPoint = None
-        self._event = event.subscribe(source, self._wakeUp, self)
+        self._event = event.subscribe(source, _(self)._wakeUp, self)
         self.reset()
         
     _properties = { 
@@ -45,7 +44,7 @@ class ToRecord(types.ITimeSerie):  # TODO: should the source be split into dataS
             self._changes.append(self._lastPoint)
             self._lastPoint = None
     
-    def _wakeUp_impl(self, _):
+    def _wakeUp(self, _):
         """ Called when the source has changed
         """
         def appendex(target, (x,y)):

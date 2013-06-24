@@ -1,4 +1,4 @@
-from marketsim import bind, event
+from marketsim import _, event
 from _basic import Strategy
 
 class TwoSides(Strategy):    
@@ -11,10 +11,9 @@ class TwoSides(Strategy):
         orderFunc - function to calculate order parameters: Trader -> None | (side,*orderParams) 
         """        
         Strategy.__init__(self)
-        self._wakeUp = bind.Method(self, '_wakeUp_impl')
-        event.subscribe(self._eventGen, self._wakeUp, self)
+        event.subscribe(self._eventGen, _(self)._wakeUp, self)
         
-    def _wakeUp_impl(self, signal):
+    def _wakeUp(self, signal):
         if self._suspended:
             return
         # determine side and parameters of an order to create

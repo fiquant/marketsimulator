@@ -1,4 +1,4 @@
-from marketsim import Side, registry, meta, types, bind, event
+from marketsim import Side, registry, meta, types, bind, event, _
 from _base import Base
 from _limit import LimitFactory
 from _cancel import Cancel
@@ -13,8 +13,8 @@ class AlwaysBest(Base):
         self._factory = orderFactoryT(side)
         self._current = None
         
-    def _onOrderMatched(self, my, other, pv):
-        self.onMatchedWith(other, pv)
+    def onOrderMatched(self, my, other, pv):
+        Base.onMatchedWith(self, other, pv)
         if self._volume == 0:
             self._subscription.dispose()
             del self._subscription 
@@ -31,18 +31,16 @@ class AlwaysBest(Base):
                 self._current = self._factory(price, self.volume)
                 self._orderSubscription = \
                     event.subscribe(self._current.on_matched, 
-                                    bind.Method(self, '_onOrderMatched'),
-                                    self)
-                self._orderSubscription.bind(None)
+                                    _(self).onOrderMatched,
+                                    self, {})
                 queue.book.process(self._current)
         
     def processIn(self, book):
         self._onBestOrderChanged(book.queue(self.side))
         self._subscription = event.subscribe(
                                 book.queue(self.side).on_best_changed,
-                                bind.Method(self, '_onBestOrderChanged'),
-                                self)
-        self._subscription.bind(None)
+                                _(self)._onBestOrderChanged,
+                                self, {})
 
 @registry.expose(['AlwaysBest'])
 class AlwaysBestFactory(object):

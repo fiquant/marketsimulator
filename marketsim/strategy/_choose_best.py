@@ -1,5 +1,5 @@
 from marketsim import (trader, order, orderbook, scheduler, observable, order, 
-                       registry, types, meta, bind, mathutils, event)
+                       registry, types, meta, _, mathutils, event)
 from marketsim.types import *
 
 from _basic import Strategy
@@ -10,7 +10,7 @@ from _trade_if_profitable import efficiencyTrend, virtualWithUnitVolume
 
 class _ChooseTheBest_Impl(Strategy):
     
-    def _chooseTheBest_impl(self,_):
+    def _chooseTheBest(self,_):
         if not self.suspended:
             best = -10e38
             idx = -1
@@ -35,7 +35,6 @@ class _ChooseTheBest_Impl(Strategy):
                 
     def __init__(self):
         
-        self._chooseTheBest = bind.Method(self, '_chooseTheBest_impl')
         Strategy.__init__(self) # TODO: eventGen should be a parameter
         self._eventGen = scheduler.Timer(mathutils.constant(1))
 
@@ -48,9 +47,8 @@ class _ChooseTheBest_Impl(Strategy):
         
         self._strategies = [_createInstance(sp) for sp in self.strategies]
         
-        self._chooseTheBest = bind.Method(self, '_chooseTheBest_impl')
         self._current = None
-        event.subscribe(self._eventGen, self._chooseTheBest, self)
+        event.subscribe(self._eventGen, _(self)._chooseTheBest, self)
     
     @property
     def _children_to_visit(self):
