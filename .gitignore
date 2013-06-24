@@ -2,3 +2,4 @@
 .pydevproject
 *.pyc
 server/static/_generated/*
+marketsim/samples/_output

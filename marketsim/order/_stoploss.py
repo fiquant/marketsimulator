@@ -7,7 +7,7 @@ from marketsim.types import *
 
 class StopLoss(Base):
     
-    def __init__(self, side, volume):
+    def __init__(self, maxLoss, factory, side, volume):
         
         Base.__init__(self, side, volume)
 
@@ -16,23 +16,24 @@ class StopLoss(Base):
         self._orderFactory = MarketFactory
         # TODO: make maxLoss a parameter
         
-        self._orderFactory = MarketFactory
-        self._maxLoss = 0.1
+        self._orderFactory = factory
+        self._maxLoss = maxLoss
         self._current = None
         self._orderPrice = None
         self._totalVolume = volume
         self._price = None
         self._onMatchedWith = bind.Method(self, '_onMatchedWith_impl')
         self._onPriceChanged = bind.Method(self, '_onPriceChanged_impl')
-        self._onStopLossMatched = bind.Method(self, 'onStopLossMatched_impl')
+        self._onStopLossMatched = bind.Method(self, '_onStopLossMatched_impl')
         
         
         
     def processIn(self, book):
         self._book = book
         self._current = self._orderFactory(self._side)(self._volume)
-        self._orderSubscription = event.subscribe(self._current.on_matched, self._onMatchedWith, self)
-        self._orderSubscription.bind(None)
+        self._orderSubscription = event.subscribe(self._current.on_matched, 
+                                                  self._onMatchedWith, 
+                                                  self, {})
         self._book.processMarketOrder(self._current)
         self._price = observable.Price(self._book)   
         
@@ -53,24 +54,34 @@ class StopLoss(Base):
                 or (self.side == Side.Buy and (1-self._maxLoss) * self._orderPrice > self._price() ):
                 # the stoploss is activated
                 self._stopSubscription.dispose()
-                # print "stoploss: ", self._current.side, self._orderPrice, self._price()
                 
                 # the order now changes sides
                 self._side = self._side.opposite
                 self._stopLossOrder = MarketFactory(self._side)(self._totalVolume)
-                self._book.processMarketOrder(self._stopLossOrder)
                 
-                self._stopLossMatch = event.subscribe(self._stopLossOrder.on_matched, self._onStopLossMatched, self)
-                self._stopLossMatch.bind(None)
+                self._stopLossMatch = event.subscribe(self._stopLossOrder.on_matched, 
+                                                      self._onStopLossMatched, 
+                                                      self, {})
+                self._book.processMarketOrder(self._stopLossOrder)
             
     def _onStopLossMatched_impl(self, order, other, (price, volume)):
         self._stopLossMatch.dispose()
+        #print "stoploss: ", self._current.side, self._orderPrice, self._price()
         self.onMatchedWith(other, (price, volume))
     
+MarketOrderFactorySignature = function(args=(Side,), rv=function((Volume,), IOrder))
 
-
-
-@registry.expose(alias = ['StopLoss'])
-@sig(args=(Side,), rv=function((Volume,), IOrder))
-def StopLossFactory(side):
-    return bind.Construct(StopLoss, side)
+@registry.expose(['StopLoss'])
+class StopLossFactory(object):
+    
+    def __init__(self, maxLoss = 0.1, orderFactory = MarketFactory):
+        self.maxLoss = maxLoss
+        self.orderFactory = orderFactory
+        
+    _types = [MarketOrderFactorySignature]
+        
+    _properties = {'maxLoss'  : float,
+                   'orderFactory' : MarketOrderFactorySignature}
+    
+    def __call__(self, side):
+        return bind.Construct(StopLoss, self.maxLoss, self.orderFactory, side)

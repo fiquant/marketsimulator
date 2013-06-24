@@ -25,8 +25,42 @@ class Event(object):
     def _fire_impl(self, *args):
         """ Calls all listeners passing *args to them
         """
-        for x in self._listeners:
+        for x in list(self._listeners):
             x(*args)
+            
+from blist import sorteddict
+
+class Conditional(Event):
+    
+    def __init__(self, getter):
+        Event.__init__(self)
+        self._getter = getter
+        self._less = sorteddict()
+    
+    def __iadd__(self, listener):
+        if '_lessThan' in dir(listener):
+            bound = listener._lessThan()
+            if bound not in self._less:
+                self._less[bound] = []
+            self._less[bound].append(listener)
+        else:
+            Event.__iadd__(self, listener)
+            
+    def __isub__(self, listener):
+        if '_lessThan' in dir(listener):
+            bound = listener._lessThan()
+            self._less[bound].remove(listener)
+        else:
+            Event.__isub__(self, listener)
+            
+    def _fire_impl(self, *args):
+        bound = self._getter(*args)
+        for listener in self._less:
+            if listener._lessThan() < bound:
+                listener(*args)
+        Event._fire_impl(self, *args)
+                
+            
 
 class Array(Event):
     
