@@ -1,4 +1,4 @@
-from marketsim import registry, bind, observable, event, meta
+from marketsim import registry, bind, observable, event, meta, _
 from _market import MarketFactory
 
 from _base import Base
@@ -17,32 +17,27 @@ class StopLoss(Base):
         self._orderPrice = None
         self._totalVolume = volume
         self._price = None
-        self._onMatchedWith = bind.Method(self, '_onMatchedWith_impl')
-        self._onPriceChanged = bind.Method(self, '_onPriceChanged_impl')
-        self._onStopLossMatched = bind.Method(self, '_onStopLossMatched_impl')
-        
-        
         
     def processIn(self, book):
         self._book = book
         self._current = self._orderFactory(self._side)(self._volume)
         self._orderSubscription = event.subscribe(self._current.on_matched, 
-                                                  self._onMatchedWith, 
+                                                  _(self).onMatchedWith, 
                                                   self, {})
         self._book.processMarketOrder(self._current)
         self._price = observable.Price(self._book)   
         
-    def _onMatchedWith_impl(self, order, other, (price, volume)):
+    def onMatchedWith(self, order, other, (price, volume)):
         self._orderSubscription.dispose()
-        self.onMatchedWith(other, (price, volume))
+        Base.onMatchedWith(self, other, (price, volume))
         self._orderPrice = price
         self._stopSubscription = event.subscribe(
                                 self._book.on_price_changed,
-                                self._onPriceChanged,
+                                _(self)._onPriceChanged,
                                 self)
         self._stopSubscription.bind(None) 
 
-    def _onPriceChanged_impl(self, _):
+    def _onPriceChanged(self, dummy):
         if self._price is not None and self._price() is not None:
             if (self._side == Side.Sell and  (1+self._maxLoss) * self._orderPrice < self._price() ) \
                 or (self.side == Side.Buy and (1-self._maxLoss) * self._orderPrice > self._price() ):
@@ -54,14 +49,14 @@ class StopLoss(Base):
                 self._stopLossOrder = MarketFactory(self._side)(self._totalVolume)
                 
                 self._stopLossMatch = event.subscribe(self._stopLossOrder.on_matched, 
-                                                      self._onStopLossMatched, 
+                                                      _(self)._onStopLossMatched, 
                                                       self, {})
                 self._book.processMarketOrder(self._stopLossOrder)
             
-    def _onStopLossMatched_impl(self, order, other, (price, volume)):
+    def _onStopLossMatched(self, order, other, (price, volume)):
         self._stopLossMatch.dispose()
         #print "stoploss: ", self._current.side, self._orderPrice, self._price()
-        self.onMatchedWith(other, (price, volume))
+        Base.onMatchedWith(self, other, (price, volume))
     
 MarketOrderFactorySignature = function(args=(Side,), rv=function((Volume,), IOrder))
 
