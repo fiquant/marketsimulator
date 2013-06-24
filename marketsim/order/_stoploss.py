@@ -15,6 +15,8 @@ class StopLoss(Base):
         # this might require introducing a uniform OrderFactory interface
         self._orderFactory = MarketFactory
         # TODO: make maxLoss a parameter
+        
+        self._orderFactory = MarketFactory
         self._maxLoss = 0.1
         self._current = None
         self._orderPrice = None
