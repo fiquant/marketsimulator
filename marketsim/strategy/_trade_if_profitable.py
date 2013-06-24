@@ -1,5 +1,5 @@
 from marketsim import (trader, order, orderbook, scheduler, observable, order, 
-                       registry, types, meta, bind, mathutils, event)
+                       registry, types, meta, _, mathutils, event)
 
 from marketsim.types import *
 
@@ -9,7 +9,7 @@ from _fv import FundamentalValue
 
 class _tradeIfProfitable_Impl(Strategy):
 
-    def _wakeUp_impl(self, _):
+    def _wakeUp(self, _):
         if not self.suspended:
             self._strategy.suspend(self._efficiency() < 0)
 
@@ -22,7 +22,7 @@ class _tradeIfProfitable_Impl(Strategy):
         self._strategy = self.strategy
         self._efficiency = self.efficiency(self._estimator) # TODO: dependency tracking
         
-        event.subscribe(self._efficiency, bind.Method(self, '_wakeUp_impl'), self)
+        event.subscribe(self._efficiency, _(self)._wakeUp, self)
 
     @property
     def _children_to_visit(self):

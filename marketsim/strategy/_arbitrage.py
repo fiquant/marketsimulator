@@ -1,4 +1,4 @@
-from marketsim import order, Side, scheduler, types, event, bind
+from marketsim import order, Side, scheduler, types, event, _
 from blist import sorteddict
 
 from _basic import MultiAssetStrategy
@@ -77,22 +77,20 @@ class _Arbitrage_Impl(MultiAssetStrategy):
                     # this logic is implemented by LimitMarketOrder
                     
                     self._scheduler.scheduleAfter(0, 
-                        bind.Method(self, 
-                                    '_send', 
-                                    myQueue.book, 
-                                    order.LimitMarket(oppositeSide, 
-                                                      myPrice, 
-                                                      volumeToTrade)                                    
-                                    ))
+                        _(self, 
+                          myQueue.book, 
+                          order.LimitMarket(oppositeSide, 
+                                            myPrice, 
+                                            volumeToTrade)                                    
+                          )._send)
                     
                     self._scheduler.scheduleAfter(0, 
-                        bind.Method(self, 
-                                    '_send', 
-                                    oppositeQueue.book, 
-                                    order.LimitMarket(side, 
-                                                      oppositePrice, 
-                                                      volumeToTrade)                                    
-                                    ))
+                        _(self, 
+                          oppositeQueue.book, 
+                          order.LimitMarket(side, 
+                                            oppositePrice, 
+                                            volumeToTrade)                                    
+                          )._send)
                     
     def _send(self, orderbook, order):
         for t in self._traders:
@@ -100,7 +98,7 @@ class _Arbitrage_Impl(MultiAssetStrategy):
                 t.send(order)
                     
     def _schedule(self, side, queue):
-        self._scheduler.scheduleAfter(0, bind.Method(self, 'inner', queue, side))
+        self._scheduler.scheduleAfter(0, _(self, queue, side).inner)
     
     def bind(self, context):
         self._traders = [t for t in self._trader.traders]
@@ -110,8 +108,8 @@ class _Arbitrage_Impl(MultiAssetStrategy):
             for book in self._books:
                 queue = book.queue(side) 
                 event.subscribe(queue.on_best_changed, 
-                                bind.Method(self, '_schedule', side), 
-                                self).bind(None)
+                                _(self, side)._schedule, 
+                                self, {})
                 if not queue.empty:
                     self._bests[side.id][queue.best.signedPrice] = queue
                     self._oldBests[queue] = queue.best.signedPrice

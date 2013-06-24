@@ -1,4 +1,4 @@
-from marketsim import Side, getLabel, Event, meta, types, bind, scheduler, event
+from marketsim import Side, getLabel, Event, meta, types, bind, scheduler, event, _
 
 def sign(x):
     return 1 if x > 0 else -1 if x < 0 else 0
@@ -14,7 +14,6 @@ class Efficiency(types.IObservable):
         
         super(Efficiency, self).__init__()
         self._trader = trader
-        self._update = bind.Method(self, '_update_impl')
         
         self.attributes = {}
         
@@ -23,25 +22,25 @@ class Efficiency(types.IObservable):
         self.reset()
 
     def bind(self, ctx):
-        self._event = event.subscribe(self._trader.on_traded, self._update, self, ctx)
+        self._event = event.subscribe(self._trader.on_traded, _(self)._update, self, ctx)
         
     @property
     def digits(self):
         return self._trader.orderBook._digitsToShow
     
-    def _callback_impl(self, sign, (price, volume_unmatched)): 
+    def _callback(self, sign, (price, volume_unmatched)): 
         if volume_unmatched == 0: 
             self._current = self._trader.PnL - sign*price
             self.fire(self)
         else: # don't know what to do for the moment
             self._current = None
 
-    def _update_impl(self, _ = None):
+    def _update(self, dummy = None):
     
         side = Side.Buy if self._trader.amount < 0 else Side.Sell 
         self._trader.book.evaluateOrderPriceAsync(side, 
                                                   abs(self._trader.amount), 
-                                                  bind.Method(self, '_callback_impl', -sign(self._trader.amount)))
+                                                  _(self, -sign(self._trader.amount))._callback)
     
         
     @property

@@ -1,5 +1,5 @@
 import random
-from marketsim import order, bind, trader, scheduler, orderbook, mathutils, meta, registry, types, event
+from marketsim import order, _, trader, scheduler, orderbook, mathutils, meta, registry, types, event
 from marketsim.types import *
 from _wrap import wrapper2
 
@@ -10,7 +10,7 @@ class _Canceller_Impl(object):
     def choiceFunc(self, N):
         return random.randint(0, N-1)
 
-    def _wakeUp_impl(self, _):
+    def _wakeUp(self, _):
         # if we have orders to cancel
         while self._elements <> []:
             # choose an order
@@ -33,7 +33,6 @@ class _Canceller_Impl(object):
 
         # orders created by trader
         self._elements = []
-        self.wakeUp = bind.Method(self, '_wakeUp_impl')
         self._eventGen = scheduler.Timer(self.cancellationIntervalDistr)
         self._myTrader = trader.SingleProxy()
         self._book = orderbook.OfTrader(self._myTrader)
@@ -41,8 +40,8 @@ class _Canceller_Impl(object):
     _internals = ['_myTrader']
 
     def bind(self, ctx):
-        event.subscribe(self._myTrader.on_order_sent, bind.Method(self, 'process'), self, ctx)
-        event.subscribe(self._eventGen, self.wakeUp, self, ctx)
+        event.subscribe(self._myTrader.on_order_sent, _(self).process, self, ctx)
+        event.subscribe(self._eventGen, _(self)._wakeUp, self, ctx)
         
     def process(self, order):
         """ Puts 'order' to future cancellation list

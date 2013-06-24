@@ -1,4 +1,4 @@
-from marketsim import Event, bind, Side, types, meta, timeserie
+from marketsim import Event, _, Side, types, meta, timeserie
 
 class Base(timeserie.Holder):
     """ Base class for traders.
@@ -16,8 +16,6 @@ class Base(timeserie.Holder):
         self.on_order_sent = Event()
         # event to be fired when a trader's is traded
         self.on_traded = Event()
-        self.charge = bind.Method(self, '_charge_impl')
-        self._onOrderMatched = bind.Method(self, '_onOrderMatched_impl')
         self.reset()
         
     def updateContext(self, context):
@@ -36,10 +34,10 @@ class Base(timeserie.Holder):
     def PnL(self, value):
         self._PnL = value
         
-    def _charge_impl(self, price):
+    def _charge(self, price):
         self._PnL -= price
 
-    def _onOrderMatched_impl(self, order, other, (price, volume)):
+    def _onOrderMatched(self, order, other, (price, volume)):
         """ Called when a trader's 'order' is traded against 'other' order 
         at given 'price' and 'volume'
         Trader's P&L is updated and listeners are notified about the trade   
@@ -54,8 +52,8 @@ class Base(timeserie.Holder):
         before sending it to the order book
         Returns the order itself 
         """
-        order.on_matched += self._onOrderMatched
-        order.on_charged += self.charge
+        order.on_matched += _(self)._onOrderMatched
+        order.on_charged += _(self)._charge
         return order
 
     def send(self, book, order):

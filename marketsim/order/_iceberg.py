@@ -2,7 +2,7 @@ from _base import Base
 from _cancel import Cancel
 from _limit import LimitFactory
 
-from marketsim import meta, types, registry, bind
+from marketsim import meta, types, registry, bind, event, _
 
 class Volume(object):
     """ Auxiliary class to hold market order initialization parameters 
@@ -55,6 +55,7 @@ class Iceberg(Base):
         self._volumeLimit = volumeLimit
         self._orderFactory = orderFactory
         self._current = None
+        self._subscription = None
         self._side = None
         
     @property
@@ -110,12 +111,16 @@ class Iceberg(Base):
             self._current = self._orderFactory(*self._args.packed)
             self._side = self._current.side
             # start listening events about order matching
-            self._current.on_matched += bind.Method(self, '_onMatchedWith')
+            self._subscription = event.subscribe(self._current.on_matched, 
+                                                 _(self)._onMatchedWith, 
+                                                 self, {})
             # and send the order to the order book    
             self._book.process(self._current)
         else:
             # now we have nothing to trade
             self._current = None
+            if self._subscription:
+                self._subscription.dispose()
 
     def processIn(self, book):
         """ Called when an order book tries to determine 
