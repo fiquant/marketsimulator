@@ -1,6 +1,6 @@
 import random
 from _one_side import OneSide
-from _generic import Periodic
+from _periodic import Periodic
 from _wrap import wrapper2
 from marketsim import (order, orderbook, scheduler, mathutils, 
                        types, registry, meta, defs, _)

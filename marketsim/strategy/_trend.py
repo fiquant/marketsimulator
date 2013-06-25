@@ -1,7 +1,7 @@
 from marketsim.types import *
 from marketsim import (orderbook, observable, scheduler, order, mathutils, types, meta, 
                        registry, signal, bind)
-from _generic import Periodic
+from _periodic import Periodic
 from _signal import SignalBase, SignalSide
 
 from _wrap import wrapper2

@@ -1,7 +1,7 @@
 from marketsim.types import *
 from marketsim import (Event, order, mathutils, types, meta, defs, _, 
                        registry, signal, bind, signal)
-from _generic import Periodic
+from _periodic import Periodic
 from _two_sides import TwoSides
 
 from _wrap import wrapper2

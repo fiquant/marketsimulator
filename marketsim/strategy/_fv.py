@@ -1,7 +1,7 @@
 from marketsim import (scheduler, observable, types, meta, defs, _,
                        Side, registry, orderbook, bind, order, mathutils)
 
-from _generic import Periodic
+from _periodic import Periodic
 from _signal import SignalBase
 from _wrap import wrapper2
 

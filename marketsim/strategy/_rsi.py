@@ -2,7 +2,7 @@ from marketsim.types import *
 from marketsim import (meta, types, order, _, defs, 
                        mathutils, observable, scheduler, orderbook, registry)
 
-from _generic import Periodic
+from _periodic import Periodic
 from _signal import SignalSide
 
 @registry.expose(["RelativeStrengthIndexSide"])
