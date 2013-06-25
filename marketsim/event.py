@@ -72,16 +72,17 @@ class Conditional(Event):
             return Event.__isub__(self, listener)
             
     def _fire_impl(self, *args):
-        current = self._getter() # *args
-        if current is not None:
-            for bound, handlers in self._greater.iteritems():
-                if bound < current:
-                    for handler in handlers:
-                        handler(*args)
-            for bound, handlers in self._less.iteritems():
-                if bound > current:
-                    for handler in handlers:
-                        handler(*args)
+        if len(self._less) or len(self._greater):
+            current = self._getter() # *args
+            if current is not None:
+                for bound, handlers in self._greater.iteritems():
+                    if bound < current:
+                        for handler in handlers:
+                            handler(*args)
+                for bound, handlers in self._less.iteritems():
+                    if bound > current:
+                        for handler in handlers:
+                            handler(*args)
         Event._fire_impl(self, *args)
         
 class GreaterThan(object):

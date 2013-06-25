@@ -1,5 +1,34 @@
 from marketsim import types, Event, event, timeserie, event, observable
 
+class ObservableBase(types.IObservable):
+    
+    def __init__(self, book):
+        types.IObservable.__init__(self)
+        self.book = book
+        
+    @property
+    def digits(self):
+        return self.book._digitsToShow
+    
+    @property
+    def label(self):
+        return self._labelprefix + "_{" + self.book.label + "}"
+        
+class MidPrice(ObservableBase):
+    
+    def __call__(self):
+        return self.book.price
+    
+class AskPrice(ObservableBase):
+    
+    def __call__(self):
+        return self.book.ask_price
+
+class BidPrice(ObservableBase):
+    
+    def __call__(self):
+        return self.book.bid_price
+
 class BookBase(types.IOrderBook, timeserie.Holder):
 
     def __init__(self, bids, asks, label="", timeseries = []):
@@ -25,6 +54,16 @@ class BookBase(types.IOrderBook, timeserie.Holder):
         
         event.subscribe(self.on_bid_changed, self.on_price_changed.fire, self)
         event.subscribe(self.on_ask_changed, self.on_price_changed.fire, self)
+        
+        self.askPrice = AskPrice(self)
+        self.bidPrice = BidPrice(self)
+        self.midPrice = MidPrice(self)
+        
+        event.subscribe(self._bids.on_best_changed, self.askPrice.fire, self)
+        event.subscribe(self._asks.on_best_changed, self.bidPrice.fire, self)
+        
+        event.subscribe(self.askPrice, self.midPrice.fire, self)
+        event.subscribe(self.bidPrice, self.midPrice.fire, self)
         
         self.reset()
         
@@ -80,6 +119,14 @@ class BookBase(types.IOrderBook, timeserie.Holder):
         """
         return None if self.asks.empty or self.bids.empty \
                     else (self.asks.best.price + self.bids.best.price) / 2.0
+                    
+    @property
+    def ask_price(self):
+        return None if self.asks.empty else self.asks.best.price
+                    
+    @property
+    def bid_price(self):
+        return None if self.bids.empty else self.bids.best.price
                     
     @property
     def spread(self):

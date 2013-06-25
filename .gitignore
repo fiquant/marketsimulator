@@ -3,3 +3,4 @@
 *.pyc
 server/static/_generated/*
 marketsim/samples/_output
+server/_saved/

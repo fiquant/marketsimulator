@@ -68,7 +68,7 @@ class ToRecord(types.ITimeSerie):  # TODO: should the source be split into dataS
         self._changes = []        
     
     def get_changes(self):
-        self._wakeUp_impl(None)
+        self._wakeUp(None)
         self._pushLastPoint()
         return self._changes    
     
