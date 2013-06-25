@@ -52,17 +52,20 @@ class BookBase(types.IOrderBook, timeserie.Holder):
         if label != "":
             self._alias = [label]
 
-        self.askPrice = AskPrice(self)
-        self.bidPrice = BidPrice(self)
         self.midPrice = MidPrice(self)
-        
-        event.subscribe(self._bids.on_best_changed, self.askPrice.fire, self)
-        event.subscribe(self._asks.on_best_changed, self.bidPrice.fire, self)
         
         event.subscribe(self.askPrice, self.midPrice.fire, self)
         event.subscribe(self.bidPrice, self.midPrice.fire, self)
         
         self.reset()
+        
+    @property
+    def askPrice(self):
+        return self._asks.bestPrice
+        
+    @property
+    def bidPrice(self):
+        return self._bids.bestPrice
         
     _internals = ['_asks', '_bids']
         

@@ -1,7 +1,24 @@
 import heapq
 import math
 
-from marketsim import Event, _
+from marketsim import Event, _, types
+
+class BestPrice(types.Observable):
+    
+    def __init__(self, queue):
+        types.Observable.__init__(self)
+        self.queue = queue
+        
+    @property
+    def digits(self):
+        return self.queue.book._digitsToShow
+    
+    @property
+    def label(self):
+        return self.queue.label
+        
+    def __call__(self):
+        return None if self.queue.empty else self.queue.best.price 
 
 
 class Queue(object):
@@ -17,9 +34,9 @@ class Queue(object):
         """
         self._tickSize = tickSize   # tick size
         self._book = book           # book the queue belongs to if any
-        self.on_best_changed = Event()  # event to be called when the best order changes
         self.on_order_cancelled = Event() # event (orderQueue, cancelledOrder) to be called when an order is cancelled 
         self.reset()
+        self.bestPrice = BestPrice(self)
         
     def reset(self):
         self._elements = []         # pairs ((signedTicks, arrivalSeqNo), order) kept in a heap
@@ -46,7 +63,7 @@ class Queue(object):
             self._lastBest = bestpv
             if bestpv != None:
                 self._lastPrice = bestpv[0]
-            self._scheduler.async(_(self.on_best_changed, self).fire)
+            self._scheduler.async(_(self.bestPrice, self).fire)
             
     @property
     def lastPrice(self):

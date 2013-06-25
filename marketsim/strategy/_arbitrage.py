@@ -105,7 +105,7 @@ class _Arbitrage_Impl(MultiAssetStrategy):
         def regSide(side):
             for book in self._books:
                 queue = book.queue(side) 
-                event.subscribe(queue.on_best_changed, 
+                event.subscribe(queue.bestPrice, 
                                 _(self, side)._schedule, 
                                 self, {})
                 if not queue.empty:
