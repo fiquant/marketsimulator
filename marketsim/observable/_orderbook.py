@@ -206,6 +206,17 @@ class OnBidChanged(Event):
         
     _properties = { 'orderbook' : types.IOrderBook }
 
+"""
+class Proxy(types.IObservable):
+    
+    def __init__(self, orderbook):
+        self.orderbook = orderbook
+
+    _properties = { 'orderbook' : types.IOrderBook }
+        
+    def bind(self, context):
+"""        
+
 ### -------------------------------------------------------------------   Observables
     
 def Price(book):

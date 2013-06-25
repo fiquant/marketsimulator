@@ -1,9 +1,9 @@
 from marketsim import types, Event, event, timeserie, event, observable
 
-class ObservableBase(types.IObservable):
+class ObservableBase(types.Observable):
     
     def __init__(self, book):
-        types.IObservable.__init__(self)
+        types.Observable.__init__(self)
         self.book = book
         
     @property

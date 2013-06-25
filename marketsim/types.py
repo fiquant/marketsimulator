@@ -25,11 +25,14 @@ class ITrader(object):
 class ISingleAssetTrader(ITrader):
     pass
 
-class IObservable(event.Conditional):
-    def __init__(self):
-        event.Conditional.__init__(self, self)
+class IObservable(event.IEvent):
+    pass
 
 IObservable._types = [function((), float)]
+
+class Observable(IObservable, event.Conditional):
+    def __init__(self):
+        event.Conditional.__init__(self, self)
 
 class IOrder(object):
     pass

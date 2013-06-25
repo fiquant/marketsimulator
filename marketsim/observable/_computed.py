@@ -1,7 +1,7 @@
 from marketsim import (bind, event, Event, getLabel, Side, scheduler, 
                        types, meta, mathutils, registry, trader)
 
-class IndicatorBase(types.IObservable):
+class IndicatorBase(types.Observable):
     """ Observable that stores some scalar value and knows how to update it
     
     * **Source of data** -- function that provides data

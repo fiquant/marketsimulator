@@ -2,7 +2,10 @@ from marketsim import bind, meta, context
             
 from blist import sorteddict
 
-class Event(object):
+class IEvent(object):
+    pass
+
+class Event(IEvent):
     """ Multicast event
     
     Keeps a set of callable listeners 

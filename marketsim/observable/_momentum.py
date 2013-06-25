@@ -4,10 +4,10 @@ from marketsim.mathutils import *
 from _orderbook import Price
 from _average import Fold
 
-class TwoPointFold(types.IObservable):
+class TwoPointFold(types.Observable):
     
     def __init__(self, eventSource, dataSource, folder):
-        types.IObservable.__init__(self)
+        types.Observable.__init__(self)
         
         self.dataSource = dataSource
         self._eventSource = eventSource
