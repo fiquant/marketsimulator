@@ -33,18 +33,12 @@ class Event(IEvent):
         for x in list(self._listeners):
             x(*args)
             
-class negate(object):
-    
-    def __call__(self, value):
-        return -value
-
 class Conditional(Event):
     
-    def __init__(self, getter):
+    def __init__(self):
         Event.__init__(self)
-        self._getter = getter
         self._greater = sorteddict()
-        self._less = sorteddict(negate())
+        self._less = sorteddict()
     
     def __iadd__(self, listener):
         if '_greaterThan' in dir(listener):
@@ -55,9 +49,9 @@ class Conditional(Event):
             return self
         elif '_lessThan' in dir(listener):
             bound = listener._lessThan()
-            if bound not in self._less:
-                self._less[bound] = []
-            self._less[bound].append(listener)
+            if -bound not in self._less:
+                self._less[-bound] = []
+            self._less[-bound].append(listener)
             return self
         else:
             return Event.__iadd__(self, listener)
@@ -69,21 +63,21 @@ class Conditional(Event):
             return self
         elif '_lessThan' in dir(listener):
             bound = listener._lessThan()
-            self._less[bound].remove(listener)
+            self._less[-bound].remove(listener)
             return self
         else:
             return Event.__isub__(self, listener)
             
     def _fire_impl(self, *args):
         if len(self._less) or len(self._greater):
-            current = self._getter() # *args
+            current = self() 
             if current is not None:
                 for bound, handlers in self._greater.iteritems():
                     if bound < current:
                         for handler in handlers:
                             handler(*args)
                 for bound, handlers in self._less.iteritems():
-                    if bound > current:
+                    if -bound > current:
                         for handler in handlers:
                             handler(*args)
         Event._fire_impl(self, *args)

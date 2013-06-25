@@ -55,6 +55,31 @@ class IndicatorBase(types.Observable):
         """
         return self._dataSource()
 
+class Proxy(types.IObservable):
+    
+    def __iadd__(self, listener):
+        self._impl.__iadd__(listener)
+        return self
+        
+    def __isub__(self, listener):
+        self._impl.__isub__(listener)
+        return self
+    
+    def __call__(self):
+        return self._impl.__call__()
+    
+    @property
+    def _digitsToShow(self):
+        return self._impl._digitsToShow
+    
+    @property
+    def label(self):
+        return self._impl.label
+    
+    @property
+    def attributes(self):
+        return {}
+
 
 def OnEveryDt(interval, source):
     """ Creates an indicator that is updated regularly

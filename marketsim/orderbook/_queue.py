@@ -1,7 +1,7 @@
 import heapq
 import math
 
-from marketsim import Event
+from marketsim import Event, _
 
 
 class Queue(object):
@@ -26,6 +26,9 @@ class Queue(object):
         self._counter = 0           # arrival order counter
         self._lastBest = None       # pair (bestPrice, bestVolume)
         self._lastPrice = None      # last valid price
+        
+    def bind(self, ctx):
+        self._scheduler = ctx.world
 
     @property
     def book(self):
@@ -43,7 +46,7 @@ class Queue(object):
             self._lastBest = bestpv
             if bestpv != None:
                 self._lastPrice = bestpv[0]
-            self.on_best_changed.fire(self)
+            self._scheduler.async(_(self.on_best_changed, self).fire)
             
     @property
     def lastPrice(self):
@@ -85,7 +88,7 @@ class Queue(object):
         order.cancel()
         self._makeValid()
         self.notifyIfBestChanged()
-        self.on_order_cancelled.fire(self, order)
+        self._scheduler.async(_(self.on_order_cancelled, self, order).fire)
 
     def _makeValid(self):
         """ Ensures that the queue is either empty or has a valid order on top

@@ -206,37 +206,15 @@ class OnBidChanged(Event):
         
     _properties = { 'orderbook' : types.IOrderBook }
 
+import _computed
 
-class Proxy(types.IObservable):
+class Proxy(_computed.Proxy):
     
     def __init__(self, orderbook):
         self.orderbook = orderbook
         self._alias = ["Asset's", self.__class__.__name__ ]
 
     _properties = { 'orderbook' : types.IOrderBook }
-
-    def __iadd__(self, listener):
-        self._impl.__iadd__(listener)
-        return self
-        
-    def __isub__(self, listener):
-        self._impl.__isub__(listener)
-        return self
-    
-    def __call__(self):
-        return self._impl.__call__()
-    
-    @property
-    def _digitsToShow(self):
-        return self._impl._digitsToShow
-    
-    @property
-    def label(self):
-        return self._impl.label
-    
-    @property
-    def attributes(self):
-        return {}
     
 class Price(Proxy):
     
@@ -259,18 +237,7 @@ class BidPrice(Proxy):
         
 
 ### -------------------------------------------------------------------   Observables
-    
-def CrossSpread(book_A, book_B):
-    """ Returns indicator bound to difference between ask of book_A and bid of book_B
-    """
-    asks = book_A.asks
-    bids = book_B.bids
-    asks_changed = OnAskChanged(book_A)
-    bids_changed = OnBidChanged(book_B)
-    return IndicatorBase(\
-         event.Array([asks_changed, bids_changed]), 
-         cross_spread(book_A, book_B))
-    
+        
 def PriceAtVolume(interval, orderbook, side, volume):
 
     return IndicatorBase(scheduler.Timer(mathutils.constant(interval)),

@@ -53,7 +53,7 @@ class StopLoss(Base):
         self._stopLossMatch = event.subscribe(self._stopLossOrder.on_matched, 
                                               _(self)._onStopLossMatched, 
                                               self, {})
-        self._scheduler.scheduleAfter(0, _(self._book, self._stopLossOrder).processMarketOrder)
+        self._book.processMarketOrder(self._stopLossOrder)
                 
             
     def _onStopLossMatched(self, order, other, (price, volume)):

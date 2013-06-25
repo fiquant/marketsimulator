@@ -64,6 +64,8 @@ class BookBase(types.IOrderBook, timeserie.Holder):
         
         self.reset()
         
+    _internals = ['_asks', '_bids']
+        
     def updateContext(self, context):
         context.orderbook = self
         

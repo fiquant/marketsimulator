@@ -31,8 +31,7 @@ class IObservable(event.IEvent):
 IObservable._types = [function((), float)]
 
 class Observable(IObservable, event.Conditional):
-    def __init__(self):
-        event.Conditional.__init__(self, self)
+    pass
 
 class IOrder(object):
     pass

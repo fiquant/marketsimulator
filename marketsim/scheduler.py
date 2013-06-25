@@ -98,6 +98,9 @@ class Scheduler(object):
         """
         self.schedule(self.currentTime + dt, handler)
         
+    def async(self, handler):
+        self.schedule(self.currentTime, handler)
+        
     def step(self, limitTime):
         if (self._elements <> [] and self._elements[0][0][0] < limitTime):
             ((actionTime,_), eh) = heapq.heappop(self._elements)
