@@ -16,15 +16,21 @@ class ObservableBase(types.Observable):
         
 class MidPrice(ObservableBase):
     
+    _labelprefix = 'Price'
+    
     def __call__(self):
         return self.book.price
     
 class AskPrice(ObservableBase):
     
+    _labelprefix = 'Ask'
+    
     def __call__(self):
         return self.book.ask_price
 
 class BidPrice(ObservableBase):
+    
+    _labelprefix = 'Bid'
     
     def __call__(self):
         return self.book.bid_price
@@ -45,16 +51,7 @@ class BookBase(types.IOrderBook, timeserie.Holder):
         self.label = label
         if label != "":
             self._alias = [label]
-        self.on_price_changed = event.Conditional(observable._orderbook.mid_price(self))
-        self.on_ask_changed = event.Conditional(observable._orderbook.ask_price(self))
-        self.on_bid_changed = event.Conditional(observable._orderbook.bid_price(self))
-        
-        event.subscribe(self._bids.on_best_changed, self.on_ask_changed.fire, self)
-        event.subscribe(self._asks.on_best_changed, self.on_bid_changed.fire, self)
-        
-        event.subscribe(self.on_bid_changed, self.on_price_changed.fire, self)
-        event.subscribe(self.on_ask_changed, self.on_price_changed.fire, self)
-        
+
         self.askPrice = AskPrice(self)
         self.bidPrice = BidPrice(self)
         self.midPrice = MidPrice(self)

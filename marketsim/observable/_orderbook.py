@@ -206,25 +206,60 @@ class OnBidChanged(Event):
         
     _properties = { 'orderbook' : types.IOrderBook }
 
-"""
+
 class Proxy(types.IObservable):
     
     def __init__(self, orderbook):
         self.orderbook = orderbook
+        self._alias = ["Asset's", self.__class__.__name__ ]
 
     _properties = { 'orderbook' : types.IOrderBook }
+
+    def __iadd__(self, listener):
+        self._impl.__iadd__(listener)
+        return self
         
-    def bind(self, context):
-"""        
+    def __isub__(self, listener):
+        self._impl.__isub__(listener)
+        return self
+    
+    def __call__(self):
+        return self._impl.__call__()
+    
+    @property
+    def _digitsToShow(self):
+        return self._impl._digitsToShow
+    
+    @property
+    def label(self):
+        return self._impl.label
+    
+    @property
+    def attributes(self):
+        return {}
+    
+class Price(Proxy):
+    
+    @property
+    def _impl(self):
+        return self.orderbook.midPrice
+
+class AskPrice(Proxy):
+    
+    @property
+    def _impl(self):
+        return self.orderbook.askPrice
+
+class BidPrice(Proxy):
+    
+    @property
+    def _impl(self):
+        return self.orderbook.bidPrice
+
+        
 
 ### -------------------------------------------------------------------   Observables
     
-def Price(book):
-    """ Creates an indicator bound to the middle price of an asset
-    """   
-    return IndicatorBase(OnPriceChanged(book), mid_price(book))
-    
-   
 def CrossSpread(book_A, book_B):
     """ Returns indicator bound to difference between ask of book_A and bid of book_B
     """
@@ -236,18 +271,6 @@ def CrossSpread(book_A, book_B):
          event.Array([asks_changed, bids_changed]), 
          cross_spread(book_A, book_B))
     
-def BidPrice(book):
-    """ Creates an indicator bound to the bid price of the asset
-    book - asset order book
-    """
-    return IndicatorBase(OnBidChanged(book), bid_price(book)) 
-
-def AskPrice(book):
-    """ Creates an indicator bound to the ask price of the asset
-    book - asset order book
-    """
-    return IndicatorBase(OnAskChanged(book), ask_price(book)) 
-
 def PriceAtVolume(interval, orderbook, side, volume):
 
     return IndicatorBase(scheduler.Timer(mathutils.constant(interval)),
