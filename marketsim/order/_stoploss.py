@@ -31,16 +31,20 @@ class StopLoss(Base):
         self._orderSubscription.dispose()
         Base.onMatchedWith(self, other, (price, volume))
         self._orderPrice = price
+        handler = event.GreaterThan((1+self._maxLoss) * self._orderPrice, _(self)._onPriceChanged)\
+                    if self._side == Side.Sell else\
+                  event.LessThan((1-self._maxLoss) * self._orderPrice, _(self)._onPriceChanged)
+                    
         self._stopSubscription = event.subscribe(
                                 self._book.on_price_changed,
-                                _(self)._onPriceChanged,
+                                handler,
                                 self)
         self._stopSubscription.bind(None) 
 
     def _onPriceChanged(self, dummy):
         if self._price is not None and self._price() is not None:
-            if (self._side == Side.Sell and  (1+self._maxLoss) * self._orderPrice < self._price() ) \
-                or (self.side == Side.Buy and (1-self._maxLoss) * self._orderPrice > self._price() ):
+#            if (self._side == Side.Sell and  (1+self._maxLoss) * self._orderPrice < self._price() ) \
+#                or (self.side == Side.Buy and (1-self._maxLoss) * self._orderPrice > self._price() ):
                 # the stoploss is activated
                 self._stopSubscription.dispose()
                 

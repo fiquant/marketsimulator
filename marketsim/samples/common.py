@@ -1,7 +1,7 @@
 import sys, itertools
 sys.path.append(r'..')
 
-from marketsim import (orderbook, observable, timeserie, scheduler, veusz, registry, 
+from marketsim import (orderbook, observable, timeserie, scheduler, veusz, registry, event,
                        context, trader, orderbook, Side, remote, mathutils, strategy)
 
 simulations = {}

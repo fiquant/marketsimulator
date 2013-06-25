@@ -1,4 +1,4 @@
-from marketsim import types, Event, timeserie, event
+from marketsim import types, Event, event, timeserie, event, observable
 
 class BookBase(types.IOrderBook, timeserie.Holder):
 
@@ -16,9 +16,9 @@ class BookBase(types.IOrderBook, timeserie.Holder):
         self.label = label
         if label != "":
             self._alias = [label]
-        self.on_price_changed = Event()
-        self.on_ask_changed = Event()
-        self.on_bid_changed = Event()
+        self.on_price_changed = event.Conditional(observable._orderbook.mid_price(self))
+        self.on_ask_changed = event.Conditional(observable._orderbook.ask_price(self))
+        self.on_bid_changed = event.Conditional(observable._orderbook.bid_price(self))
         
         event.subscribe(self._bids.on_best_changed, self.on_ask_changed.fire, self)
         event.subscribe(self._asks.on_best_changed, self.on_bid_changed.fire, self)
