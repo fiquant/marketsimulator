@@ -37,4 +37,4 @@ from _choose_best import ChooseTheBest
 
 from _multiarmed_bandit import MultiarmedBandit
 
-from _generic import Generic
+from _generic import Periodic

@@ -2,7 +2,7 @@ from marketsim.types import *
 from marketsim import (orderbook, observable, scheduler, order, mathutils, types, meta, 
                        registry, bind, defs, _)
 
-from _generic import Generic
+from _generic import Periodic
 from _signal import SignalBase, SignalSide
 
 from _wrap import wrapper2
@@ -61,7 +61,7 @@ exec wrapper2("TwoAverages",
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)', '() -> Volume')])
 
   
-@registry.expose(["Generic", 'TwoAverages'], args = ())
+@registry.expose(["Periodic", 'TwoAverages'], args = ())
 def TwoAveragesEx(average1 = None, #mathutils.ewma(alpha = 0.15), 
                   average2 = None, #mathutils.ewma(alpha = 0.015), 
                   threshold             = 0, 
@@ -73,12 +73,12 @@ def TwoAveragesEx(average1 = None, #mathutils.ewma(alpha = 0.15),
     if average2 is None: average2 = mathutils.ewma(alpha = 0.015)
     
     return defs(
-        Generic(orderFactory= orderFactory, 
-                volumeFunc  = volumeDistr,
-                eventGen    = scheduler.Timer(creationIntervalDistr),
-                sideFunc    = SignalSide(
-                                 mathutils.sub(
+        Periodic(orderFactory= orderFactory, 
+                 volumeFunc  = volumeDistr,
+                 eventGen    = scheduler.Timer(creationIntervalDistr),
+                 sideFunc    = SignalSide(
+                                  mathutils.sub(
                                      observable.Fold(_.price, average1),
                                      observable.Fold(_.price, average2)),
-                                 threshold)), 
+                                  threshold)), 
         { 'price' : observable.Price(orderbook.OfTrader()) })

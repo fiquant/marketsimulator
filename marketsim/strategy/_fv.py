@@ -1,7 +1,7 @@
 from marketsim import (scheduler, observable, types, meta, defs, _,
                        Side, registry, orderbook, bind, order, mathutils)
 
-from _generic import Generic
+from _generic import Periodic
 from _signal import SignalBase
 from _wrap import wrapper2
 
@@ -89,17 +89,17 @@ def FundamentalValueSide(orderBook, fundamentalValue):
              'orderBook' : orderBook 
             })
 
-@registry.expose(["Generic", "FundamentalValue"], args = ())
+@registry.expose(["Periodic", "FundamentalValue"], args = ())
 def FundamentalValueEx(fundamentalValue      = mathutils.constant(100.),
                        orderFactory          = order.MarketFactory, 
                        volumeDistr           = mathutils.rnd.expovariate(1.), 
                        creationIntervalDistr = mathutils.rnd.expovariate(1.)):
     
     orderBook = orderbook.OfTrader()
-    r = Generic(orderFactory= orderFactory, 
-                volumeFunc  = volumeDistr, 
-                eventGen    = scheduler.Timer(creationIntervalDistr), 
-                sideFunc    = FundamentalValueSide(orderBook, fundamentalValue))
+    r = Periodic(orderFactory= orderFactory, 
+                 volumeFunc  = volumeDistr, 
+                 eventGen    = scheduler.Timer(creationIntervalDistr), 
+                 sideFunc    = FundamentalValueSide(orderBook, fundamentalValue))
     
     return r
 

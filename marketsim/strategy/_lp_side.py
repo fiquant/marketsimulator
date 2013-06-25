@@ -1,6 +1,6 @@
 import random
 from _one_side import OneSide
-from _generic import Generic
+from _generic import Periodic
 from _wrap import wrapper2
 from marketsim import (order, orderbook, scheduler, mathutils, 
                        types, registry, meta, defs, _)
@@ -98,7 +98,7 @@ def SafeSidePrice(orderBook, side, defaultValue):
                     mathutils.constant(defaultValue))),
         { 'orderBook': orderBook })
 
-@registry.expose(["Generic", 'LiquidityProviderSide'], args = ())
+@registry.expose(["Periodic", 'LiquidityProviderSide'], args = ())
 def LiquidityProviderSideEx(side                    = Side.Sell, 
                             orderFactory            = order.LimitFactory, 
                             defaultValue            = 100., 
@@ -107,11 +107,11 @@ def LiquidityProviderSideEx(side                    = Side.Sell,
                             volumeDistr             = mathutils.rnd.expovariate(1.)):
        
     orderBook = orderbook.OfTrader()
-    r = Generic(eventGen    = scheduler.Timer(creationIntervalDistr),
-                volumeFunc  = volumeDistr, 
-                sideFunc    = ConstantSide(side),
-                orderFactory= order.AdaptLimit(orderFactory,
-                                               mathutils.product( 
+    r = Periodic(eventGen    = scheduler.Timer(creationIntervalDistr),
+                 volumeFunc  = volumeDistr, 
+                 sideFunc    = ConstantSide(side),
+                 orderFactory= order.AdaptLimit(orderFactory,
+                                                mathutils.product( 
                                                   SafeSidePrice(orderBook, side, defaultValue), 
                                                   priceDistr)))
     

@@ -1,7 +1,7 @@
 from marketsim.types import *
 from marketsim import (Event, order, mathutils, types, meta, defs, _, 
                        registry, signal, bind, signal)
-from _generic import Generic
+from _generic import Periodic
 from _two_sides import TwoSides
 
 from _wrap import wrapper2
@@ -136,15 +136,15 @@ def SignalSide(source, threshold = 0):
                 { 'source'    : source, 
                   'threshold' : mathutils.constant(threshold) })
     
-@registry.expose(["Generic", 'Signal'], args = ())
+@registry.expose(["Periodic", 'Signal'], args = ())
 def SignalEx(signal         = signal.RandomWalk(), 
              threshold      = 0., 
              orderFactory   = order.MarketFactory, 
              volumeDistr    = mathutils.rnd.expovariate(1.)):
     
     return defs(
-        Generic(sideFunc     = SignalSide(_.signal, threshold),
-                volumeFunc   = volumeDistr, 
-                orderFactory = orderFactory, 
-                eventGen     = _.signal),
+        Periodic(sideFunc     = SignalSide(_.signal, threshold),
+                 volumeFunc   = volumeDistr, 
+                 orderFactory = orderFactory, 
+                 eventGen     = _.signal),
         {"signal" : signal })  

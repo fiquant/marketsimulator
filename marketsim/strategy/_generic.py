@@ -9,10 +9,10 @@ from _wrap import wrapper2
 def randomSide():
     return types.Side.byId(mathutils.rnd.randint(0,1)())
 
-class _Generic_Impl(Strategy):    
+class _Periodic_Impl(Strategy):    
     
     def __init__(self):                
-        """ Runs generic two side strategy 
+        """ Runs generic periodic two side strategy 
         trader - single asset single market trader
         params.eventGen -- event that initiates strategy work
         params.sideFunc -- function '() -> Side option' that calculates side of order to create
@@ -35,8 +35,8 @@ class _Generic_Impl(Strategy):
                 # send order to the order book
                 self._trader.send(order)
 
-exec  wrapper2("Generic", 
-             """ Generic strategy that wakes up on events given by *eventGen*, 
+exec  wrapper2("Periodic", 
+             """ Generic periodic strategy that wakes up on events given by *eventGen*, 
                  chooses side of order to create using *sideFunc* and its volume by *volumeFunc*,
                  creates an order via *orderFactory* and sends the order to the market using its trader
              

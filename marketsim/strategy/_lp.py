@@ -1,7 +1,7 @@
 import random
 from _basic import Strategy
 from _one_side import OneSide
-from _generic import Generic
+from _generic import Periodic
 from _array import Array
 from _wrap import merge, wrapper, wrapper2
 from _lp_side import LiquidityProviderSide, LiquidityProviderSideEx
@@ -75,7 +75,7 @@ exec wrapper2('LiquidityProvider',
              ('volumeDistr',            'mathutils.rnd.expovariate(.1)',        '() -> Volume')])
 
 
-@registry.expose(["Generic", 'LiquidityProvider'], args = ())
+@registry.expose(["Periodic", 'LiquidityProvider'], args = ())
 def LiquidityProviderEx    (orderFactory            = order.LimitFactory, 
                             defaultValue            = 100., 
                             creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
