@@ -1,5 +1,5 @@
 import heapq, threading
-from marketsim import Event, _, meta
+from marketsim import types, Event, _, meta
 
 """ Module for managing discrete event simulation. 
 """
@@ -165,7 +165,7 @@ class Timer(Event):
         self._scheduler = context.world
         self.schedule()
         
-    _properties = { 'intervalFunc' : meta.function((), float) }
+    _properties = { 'intervalFunc' : types.IFloatFunction }
         
     def schedule(self):
         self._scheduler.scheduleAfter(self.intervalFunc(), _(self)._wakeUp)

@@ -42,6 +42,14 @@ class IGraph(object):
 class ITimeSerie(object):
     pass
 
+class IScalarFunction(object):
+    pass
+
+class IFloatFunction(IScalarFunction):
+    pass
+
+IFloatFunction._types = [function((), float)]
+
 class IUpdatableValue(object):    
     """
     Class implementing UpdatableValue concept should obey the following interface

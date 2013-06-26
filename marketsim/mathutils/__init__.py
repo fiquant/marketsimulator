@@ -1,10 +1,26 @@
 from _average import ewma
 from _rsi import rsi
 import rnd
-from marketsim import types, registry
+from marketsim import meta, types, registry
+
+from marketsim.types import IFloatFunction
+
+class FloatFunction(IFloatFunction):
+    
+    def __add__(self, other):
+        return sum(self, other)
+    
+    def __sub__(self, other):
+        return sub(self, other)
+    
+    def __mul__(self, other):
+        return product(self, other)
+    
+    def __div__(self, other):
+        return div(self, other)
 
 @registry.expose(['Constant'])
-class constant(object):
+class constant(FloatFunction):
     """ Constant function returning **value**.
     """
     
@@ -12,16 +28,15 @@ class constant(object):
         self.value = value
         
     _properties = {'value' : float}
-    _types = [types.function(args=(), rv=float)]
     
     def _casts_to(self, dst):
-        if type(dst) is types.function:
+        if type(dst) is meta.function:
             rv = dst.rv
             return rv is float or\
-                (type(rv) is types.greater_or_equal and rv._bound <= self.value) or\
-                (type(rv) is types.greater_than and rv._bound < self.value) or\
-                (type(rv) is types.less_or_equal and rv._bound >= self.value) or\
-                (type(rv) is types.less_than and rv._bound > self.value)
+                (type(rv) is meta.greater_or_equal and rv._bound <= self.value) or\
+                (type(rv) is meta.greater_than and rv._bound < self.value) or\
+                (type(rv) is meta.less_or_equal and rv._bound >= self.value) or\
+                (type(rv) is meta.less_than and rv._bound > self.value)
         return False 
         
     def __call__(self, *args, **kwargs):
@@ -35,16 +50,14 @@ class constant(object):
         return "constant("+repr(self.value)+")"
 
 @registry.expose(['Arithmetic', 'negate'])
-class negate(object):
+class negate(FloatFunction):
     """ Function returning product of the operands
     """
     
     def __init__(self, arg=constant(1.)):
         self.arg = arg
         
-    _properties = { "arg" : types.function((), float) }
-    
-    _types = [types.function((), float)]
+    _properties = { "arg" : IFloatFunction }
     
     def __call__(self, *args, **kwargs):
         x = self.arg()
@@ -53,8 +66,22 @@ class negate(object):
     def __repr__(self):
         return "-" + repr(self.arg)
 
+@registry.expose(['Arithmetic', 'identity'])
+class identity(FloatFunction):
+    
+    def __init__(self, arg=constant(1.)):
+        self.arg = arg
+        
+    _properties = { "arg" : IFloatFunction }
+    
+    def __call__(self, *args, **kwargs):
+        return self.arg()
+    
+    def __repr__(self):
+        return "id(" + repr(self.arg) + ")"
+
 @registry.expose(['Arithmetic', '*'])
-class product(object):
+class product(FloatFunction):
     """ Function returning product of the operands
     """
     
@@ -62,10 +89,8 @@ class product(object):
         self.LeftHandSide = LeftHandSide
         self.RightHandSide = RightHandSide
         
-    _properties = { "LeftHandSide" : types.function((), float), 
-                    "RightHandSide" : types.function((), float) }
-    
-    _types = [types.function((), float)]
+    _properties = { "LeftHandSide" : IFloatFunction, 
+                    "RightHandSide" : IFloatFunction }
     
     def __call__(self, *args, **kwargs):
         lhs = self.LeftHandSide()
@@ -76,7 +101,7 @@ class product(object):
         return repr(self.LeftHandSide)+ "*" + repr(self.RightHandSide)
 
 @registry.expose(['Arithmetic', '+'])    
-class sum(object):
+class sum(FloatFunction):
     """ Function returning sum of the operands
     """
     
@@ -84,10 +109,8 @@ class sum(object):
         self.LeftHandSide = LeftHandSide
         self.RightHandSide = RightHandSide
         
-    _properties = { "LeftHandSide" : types.function((), float), 
-                    "RightHandSide" : types.function((), float) }
-    
-    _types = [types.function((), float)]
+    _properties = { "LeftHandSide" : IFloatFunction, 
+                    "RightHandSide" : IFloatFunction }
     
     def __call__(self, *args, **kwargs):
         lhs = self.LeftHandSide()
@@ -98,7 +121,7 @@ class sum(object):
         return repr(self.LeftHandSide)+ "+" + repr(self.RightHandSide)
 
 @registry.expose(['Arithmetic', '/'])
-class div(object):
+class div(FloatFunction):
     """ Function returning division of the operands
     """
     
@@ -106,10 +129,8 @@ class div(object):
         self.LeftHandSide = LeftHandSide
         self.RightHandSide = RightHandSide
         
-    _properties = { "LeftHandSide" : types.function((), float), 
-                    "RightHandSide" : types.function((), float) }
-    
-    _types = [types.function((), float)]
+    _properties = { "LeftHandSide" : IFloatFunction, 
+                    "RightHandSide" : IFloatFunction }
     
     def __call__(self, *args, **kwargs):
         lhs = self.LeftHandSide()
@@ -120,7 +141,7 @@ class div(object):
         return repr(self.LeftHandSide)+ "/" + repr(self.RightHandSide)
 
 @registry.expose(['Arithmetic', '-'])    
-class sub(object):
+class sub(FloatFunction):
     """ Function substructing the right operand from the left one
     """
     
@@ -128,10 +149,8 @@ class sub(object):
         self.LeftHandSide = LeftHandSide
         self.RightHandSide = RightHandSide
         
-    _properties = { "LeftHandSide" : types.function((), float), 
-                    "RightHandSide" : types.function((), float) }
-    
-    _types = [types.function((), float)]
+    _properties = { "LeftHandSide" : IFloatFunction, 
+                    "RightHandSide" : IFloatFunction }
     
     def __call__(self, *args, **kwargs):
         lhs = self.LeftHandSide()

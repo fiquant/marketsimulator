@@ -38,7 +38,7 @@ class AlwaysBest(Base):
     def processIn(self, book):
         self._onBestOrderChanged(book.queue(self.side))
         self._subscription = event.subscribe(
-                                book.queue(self.side).on_best_changed,
+                                book.queue(self.side).bestPrice,
                                 _(self)._onBestOrderChanged,
                                 self, {})
 

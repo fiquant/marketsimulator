@@ -4,7 +4,7 @@ from _computed import IndicatorBase
 
 ### ------------------------------------------------  data accessors
 
-class mid_price(object):
+class mid_price(mathutils.FloatFunction):
     """ Returns middle price in the given *orderbook*
     """
     
@@ -12,8 +12,6 @@ class mid_price(object):
         self.orderbook = orderbook
         self._alias = ["Asset's", "Mid-price"]
         
-    _types = [meta.function((), float)]
-    
     def __call__(self):
         return self.orderbook.price
 
@@ -27,7 +25,7 @@ class mid_price(object):
     
     _properties = { 'orderbook' : types.IOrderBook }
 
-class cross_spread(object):
+class cross_spread(mathutils.FloatFunction):
     
     def __init__(self, book_A, book_B):
         self.book_A = book_A
@@ -42,15 +40,13 @@ class cross_spread(object):
     def label(self):
         return "Price("+self.book_A.asks.label+") - Price("+self.book_B.bids.label+")"
 
-class side_price(object):
+class side_price(mathutils.FloatFunction):
     """ Returns *orderbook* *side* price 
     """
     
     def __init__(self, orderbook, side):
         self.orderbook = orderbook
         self.side = side
-        
-    _types = [meta.function((), float)]
     
     def __call__(self):
         queue = self.orderbook.queue(self.side)
@@ -62,7 +58,7 @@ class side_price(object):
     
     _properties = { 'orderbook' : types.IOrderBook  }
     
-class last_side_price(object):
+class last_side_price(mathutils.FloatFunction):
     """ Returns *orderbook* last trade *side* price 
     """
     
@@ -70,8 +66,6 @@ class last_side_price(object):
         self.orderbook = orderbook
         self.side = side
         
-    _types = [meta.function((), float)]
-    
     def __call__(self):
         queue = self.orderbook.queue(self.side)
         return queue.lastPrice
@@ -102,15 +96,13 @@ class bid_price(side_price):
     def label(self):
         return "Bid_{"+self.orderbook.label+"}" 
     
-class price_at_volume(object):
+class price_at_volume(mathutils.FloatFunction):
 
     def __init__(self, orderbook, side, volumeAt):
         self.orderbook = orderbook
         self.side = side
         self.volumeAt = volumeAt
         self._alias = ["Asset's", "Price at Volume"]
-        
-    _types = [meta.function((), float)]
     
     def __call__(self):
         queue = self.orderbook.queue(self.side)
