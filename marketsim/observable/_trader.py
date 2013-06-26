@@ -4,7 +4,7 @@ from _computed import IndicatorBase
 
 #### ------------------------------------------------------- Accessors
 
-class rough_balance(mathutils.FloatFunction):
+class rough_balance(mathutils.Function[float]):
     """ Approximation for trader's cleared balance. :: 
     
         Rb(trader) = Balance(trader) + VolumeTraded(trader)*MidPrice(Asset(trader))
@@ -28,7 +28,7 @@ class rough_balance(mathutils.FloatFunction):
     
     _properties = { 'trader' : types.ISingleAssetTrader }
 
-class profit_and_loss(mathutils.FloatFunction):
+class profit_and_loss(mathutils.Function[float]):
     """ Returns balance of the given *trader*
     """
     
@@ -50,7 +50,7 @@ class profit_and_loss(mathutils.FloatFunction):
     
     _properties = { 'trader' : types.ITrader }
     
-class volume_traded(mathutils.FloatFunction):
+class volume_traded(mathutils.Function[float]):
     """ Returns trader's position (i.e. number of assets traded)
     """
     

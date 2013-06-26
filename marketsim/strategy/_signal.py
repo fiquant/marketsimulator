@@ -82,20 +82,20 @@ class Condition%(T)s(Condition_Impl):
 for t in ['Side', 'float']:
     exec condition_tmpl % { 'T' : t }   
     
-class NotNoneFloat(mathutils.FloatFunction):
+class NotNoneFloat(mathutils.Function[float]):
     
     def __init__(self, source, ifnone):
         self.source = source
         self.ifnone = ifnone
     
-    _properties = { 'source' : types.IFloatFunction, 
-                    'ifnone' : types.IFloatFunction}
+    _properties = { 'source' : types.IFunction[float], 
+                    'ifnone' : types.IFunction[float]}
         
     def __call__(self):
         v = self.source()
         return v if v is not None else self.ifnone()
     
-class less_float(mathutils.FloatFunction):
+class less_float(mathutils.Function[float]):
     
     def __init__(self, lhs, rhs):
         self.lhs = lhs
@@ -103,8 +103,8 @@ class less_float(mathutils.FloatFunction):
         
     _types = [meta.function((), bool)]
     
-    _properties = [('lhs', types.IFloatFunction), 
-                   ('rhs', types.IFloatFunction)]
+    _properties = [('lhs', types.IFunction[float]), 
+                   ('rhs', types.IFunction[float])]
     
     def __call__(self):
         return self.lhs() < self.rhs()

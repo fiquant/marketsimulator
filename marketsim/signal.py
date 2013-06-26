@@ -18,8 +18,8 @@ class RandomWalk(types.Observable):
             (default: exponential distribution with |lambda| = 1)
     """
     _properties = { 'initialValue' : float, 
-                    'deltaDistr'   : types.IFloatFunction, 
-                    'intervalDistr': types.IFloatFunction }
+                    'deltaDistr'   : types.IFunction[float], 
+                    'intervalDistr': types.IFunction[float] }
         
 
     def _wakeUp(self, _):

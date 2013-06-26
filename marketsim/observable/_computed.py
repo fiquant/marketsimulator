@@ -24,7 +24,7 @@ class IndicatorBase(types.Observable):
     def label(self):
         return self._dataSource.label
     
-    _properties = [ ('dataSource'  , types.IFloatFunction),
+    _properties = [ ('dataSource'  , types.IFunction[float]),
                     ('eventSource' , Event) ]
     
     @property

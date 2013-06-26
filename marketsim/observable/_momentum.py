@@ -33,7 +33,7 @@ class TwoPointFold(types.Observable):
         self._event.switchTo(value)
         
     _properties = { 'eventSource' : Event, 
-                    'dataSource'  : types.IFloatFunction,
+                    'dataSource'  : types.IFunction[float],
                     'folder'      : meta.function((float,float), float) }
         
     def __call__(self):

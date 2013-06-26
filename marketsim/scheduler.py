@@ -165,7 +165,7 @@ class Timer(Event):
         self._scheduler = context.world
         self.schedule()
         
-    _properties = { 'intervalFunc' : types.IFloatFunction }
+    _properties = { 'intervalFunc' : types.IFunction[float] }
         
     def schedule(self):
         self._scheduler.scheduleAfter(self.intervalFunc(), _(self)._wakeUp)

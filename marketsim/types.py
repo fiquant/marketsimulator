@@ -25,10 +25,18 @@ class ITrader(object):
 class ISingleAssetTrader(ITrader):
     pass
 
-class IObservable(event.IEvent):
+class IScalarFunction(object):
     pass
 
-IObservable._types = [function((), float)]
+class IFloatFunction(IScalarFunction):
+    pass
+
+IFloatFunction._types = [function((), float)]
+
+IFunction = { float : IFloatFunction }
+
+class IObservable(event.IEvent, IFunction[float]):
+    pass
 
 class Observable(IObservable, event.Conditional):
     pass
@@ -41,14 +49,6 @@ class IGraph(object):
 
 class ITimeSerie(object):
     pass
-
-class IScalarFunction(object):
-    pass
-
-class IFloatFunction(IScalarFunction):
-    pass
-
-IFloatFunction._types = [function((), float)]
 
 class IUpdatableValue(object):    
     """

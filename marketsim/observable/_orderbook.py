@@ -4,7 +4,7 @@ from _computed import IndicatorBase
 
 ### ------------------------------------------------  data accessors
 
-class mid_price(mathutils.FloatFunction):
+class mid_price(mathutils.Function[float]):
     """ Returns middle price in the given *orderbook*
     """
     
@@ -25,7 +25,7 @@ class mid_price(mathutils.FloatFunction):
     
     _properties = { 'orderbook' : types.IOrderBook }
 
-class cross_spread(mathutils.FloatFunction):
+class cross_spread(mathutils.Function[float]):
     
     def __init__(self, book_A, book_B):
         self.book_A = book_A
@@ -40,7 +40,7 @@ class cross_spread(mathutils.FloatFunction):
     def label(self):
         return "Price("+self.book_A.asks.label+") - Price("+self.book_B.bids.label+")"
 
-class side_price(mathutils.FloatFunction):
+class side_price(mathutils.Function[float]):
     """ Returns *orderbook* *side* price 
     """
     
@@ -58,7 +58,7 @@ class side_price(mathutils.FloatFunction):
     
     _properties = { 'orderbook' : types.IOrderBook  }
     
-class last_side_price(mathutils.FloatFunction):
+class last_side_price(mathutils.Function[float]):
     """ Returns *orderbook* last trade *side* price 
     """
     
@@ -96,7 +96,7 @@ class bid_price(side_price):
     def label(self):
         return "Bid_{"+self.orderbook.label+"}" 
     
-class price_at_volume(mathutils.FloatFunction):
+class price_at_volume(mathutils.Function[float]):
 
     def __init__(self, orderbook, side, volumeAt):
         self.orderbook = orderbook
@@ -122,7 +122,7 @@ class price_at_volume(mathutils.FloatFunction):
                     'side'      : types.Side, 
                     'volumeAt'  : float }
 
-class volume_levels(mathutils.FloatFunction): # should be () -> meta.listOf(float)
+class volume_levels(mathutils.Function[float]): # should be () -> meta.listOf(float)
     
     def __init__(self, orderbook, side, volumeDelta, volumeCount):
         self.orderbook = orderbook

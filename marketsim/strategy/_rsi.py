@@ -14,7 +14,7 @@ class RelativeStrengthIndexSide(object):
                                                                mathutils.rsi(1./14))
         self.threshold = threshold
         
-    _properties = { 'rsi'       : types.IFloatFunction,
+    _properties = { 'rsi'       : types.IFunction[float],
                     'orderBook' : types.IOrderBook,
                     'threshold' : float }
     

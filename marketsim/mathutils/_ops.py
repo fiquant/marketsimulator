@@ -1,8 +1,8 @@
 from marketsim import meta, types, registry
 
-from marketsim.types import IFloatFunction
+from marketsim.types import IFunction
 
-class FloatFunction(IFloatFunction):
+class FloatFunction(IFunction[float]):
     
     def __add__(self, other):
         return sum(self, other)
@@ -25,7 +25,7 @@ Function = { float : FloatFunction,
              int   : IntFunction }
 
 @registry.expose(['Constant'])
-class constant(FloatFunction):
+class constant(Function[float]):
     """ Constant function returning **value**.
     """
     
@@ -55,14 +55,14 @@ class constant(FloatFunction):
         return "constant("+repr(self.value)+")"
 
 @registry.expose(['Arithmetic', 'negate'])
-class negate(FloatFunction):
+class negate(Function[float]):
     """ Function returning product of the operands
     """
     
     def __init__(self, arg=constant(1.)):
         self.arg = arg
         
-    _properties = { "arg" : IFloatFunction }
+    _properties = { "arg" : IFunction[float] }
     
     def __call__(self, *args, **kwargs):
         x = self.arg()
@@ -72,12 +72,12 @@ class negate(FloatFunction):
         return "-" + repr(self.arg)
 
 @registry.expose(['Arithmetic', 'identity'])
-class identity(FloatFunction):
+class identity(Function[float]):
     
     def __init__(self, arg=constant(1.)):
         self.arg = arg
         
-    _properties = { "arg" : IFloatFunction }
+    _properties = { "arg" : IFunction[float] }
     
     def __call__(self, *args, **kwargs):
         return self.arg()
@@ -86,7 +86,7 @@ class identity(FloatFunction):
         return "id(" + repr(self.arg) + ")"
 
 @registry.expose(['Arithmetic', '*'])
-class product(FloatFunction):
+class product(Function[float]):
     """ Function returning product of the operands
     """
     
@@ -94,8 +94,8 @@ class product(FloatFunction):
         self.LeftHandSide = LeftHandSide
         self.RightHandSide = RightHandSide
         
-    _properties = { "LeftHandSide" : IFloatFunction, 
-                    "RightHandSide" : IFloatFunction }
+    _properties = { "LeftHandSide" : IFunction[float], 
+                    "RightHandSide" : IFunction[float] }
     
     def __call__(self, *args, **kwargs):
         lhs = self.LeftHandSide()
@@ -106,7 +106,7 @@ class product(FloatFunction):
         return repr(self.LeftHandSide)+ "*" + repr(self.RightHandSide)
 
 @registry.expose(['Arithmetic', '+'])    
-class sum(FloatFunction):
+class sum(Function[float]):
     """ Function returning sum of the operands
     """
     
@@ -114,8 +114,8 @@ class sum(FloatFunction):
         self.LeftHandSide = LeftHandSide
         self.RightHandSide = RightHandSide
         
-    _properties = { "LeftHandSide" : IFloatFunction, 
-                    "RightHandSide" : IFloatFunction }
+    _properties = { "LeftHandSide" : IFunction[float], 
+                    "RightHandSide" : IFunction[float] }
     
     def __call__(self, *args, **kwargs):
         lhs = self.LeftHandSide()
@@ -126,7 +126,7 @@ class sum(FloatFunction):
         return repr(self.LeftHandSide)+ "+" + repr(self.RightHandSide)
 
 @registry.expose(['Arithmetic', '/'])
-class div(FloatFunction):
+class div(Function[float]):
     """ Function returning division of the operands
     """
     
@@ -134,8 +134,8 @@ class div(FloatFunction):
         self.LeftHandSide = LeftHandSide
         self.RightHandSide = RightHandSide
         
-    _properties = { "LeftHandSide" : IFloatFunction, 
-                    "RightHandSide" : IFloatFunction }
+    _properties = { "LeftHandSide" : IFunction[float], 
+                    "RightHandSide" : IFunction[float] }
     
     def __call__(self, *args, **kwargs):
         lhs = self.LeftHandSide()
@@ -146,7 +146,7 @@ class div(FloatFunction):
         return repr(self.LeftHandSide)+ "/" + repr(self.RightHandSide)
 
 @registry.expose(['Arithmetic', '-'])    
-class sub(FloatFunction):
+class sub(Function[float]):
     """ Function substructing the right operand from the left one
     """
     
@@ -154,8 +154,8 @@ class sub(FloatFunction):
         self.LeftHandSide = LeftHandSide
         self.RightHandSide = RightHandSide
         
-    _properties = { "LeftHandSide" : IFloatFunction, 
-                    "RightHandSide" : IFloatFunction }
+    _properties = { "LeftHandSide" : IFunction[float], 
+                    "RightHandSide" : IFunction[float] }
     
     def __call__(self, *args, **kwargs):
         lhs = self.LeftHandSide()
