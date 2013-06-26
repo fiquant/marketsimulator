@@ -10,30 +10,16 @@ class _DesiredPosition_Impl(Strategy):
         event.subscribe(self.desiredPosition, _(self)._wakeUp, self)
         
     def _wakeUp(self, dummy):
-        desired = int(self.desiredPosition())
-        actual = self._trader.amount
-        gap = desired - actual
-        side = Side.Buy if gap > 0 else (Side.Sell if gap < 0 else None)
-        if side is not None:
-            order = self.orderFactory(side)(abs(gap))
-            self._trader.send(order)
-            
-            
-print  wrapper2("DesiredPosition", 
-             """ Generic strategy that tries to keep trader's position equal to *desiredPosition*, 
-             
-                 Parameters:
-                 
-                     |orderFactory|
-                         order factory function (default: order.Limit.T)
-                         
-                     |desiredPosition|
-                         Observable telling desired position for the trader
-                         
-             """,
-              [('orderFactory',         'order.MarketFactory',                  'Side -> Volume -> IOrder'),
-               ('desiredPosition',      'None',                                 'types.IObservable')], 
-               register=False)
+        desired = self.desiredPosition()
+        if desired is not None:
+            desired = int(desired)
+            actual = self._trader.amount
+            gap = desired - actual
+            side = Side.Buy if gap > 0 else (Side.Sell if gap < 0 else None)
+            if side is not None:
+                order = self.orderFactory(side)(abs(gap))
+                self._trader.send(order)
+                        
 exec  wrapper2("DesiredPosition", 
              """ Generic strategy that tries to keep trader's position equal to *desiredPosition*, 
              
