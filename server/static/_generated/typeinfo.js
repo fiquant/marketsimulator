@@ -1,14 +1,14 @@
 var typeinfo = {
     "marketsim.observable._momentum._rsi_label": {
         "castsTo": [
-            "marketsim.mathutils._ops.identity",
-            "marketsim.mathutils._ops.FloatFunction",
-            "marketsim.observable._momentum._rsi_label",
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
+            "marketsim.mathutils._ops.FloatFunction",
+            "marketsim.mathutils._ops.identity",
+            "marketsim.observable._momentum._rsi_label",
+            "marketsim.types.IFloatFunction",
             "marketsim.types.IScalarFunction"
         ],
         "properties": {
@@ -22,7 +22,6 @@ var typeinfo = {
     },
     "marketsim.order._cancel.WithExpiryFactory": {
         "castsTo": [
-            "marketsim.order._cancel.WithExpiryFactory",
             {
                 "rv": {
                     "rv": "marketsim.types.IOrder",
@@ -34,7 +33,8 @@ var typeinfo = {
                 "args": [
                     "marketsim.Side.Tag"
                 ]
-            }
+            },
+            "marketsim.order._cancel.WithExpiryFactory"
         ],
         "properties": {
             "expirationDistr": {
@@ -67,25 +67,25 @@ var typeinfo = {
     "marketsim.trader._proxy.SingleProxy": {
         "castsTo": [
             "marketsim.trader._proxy.Base",
+            "marketsim.trader._proxy.SingleProxy",
             "marketsim.trader._proxy.SingleProxyBase",
             "marketsim.types.ISingleAssetTrader",
-            "marketsim.types.ITrader",
-            "marketsim.trader._proxy.SingleProxy"
+            "marketsim.types.ITrader"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.observable._orderbook.bid_price": {
         "castsTo": [
-            "marketsim.observable._orderbook.bid_price",
-            "marketsim.mathutils._ops.FloatFunction",
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
-            "marketsim.observable._orderbook.side_price"
+            "marketsim.mathutils._ops.FloatFunction",
+            "marketsim.observable._orderbook.bid_price",
+            "marketsim.observable._orderbook.side_price",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "orderbook": {
@@ -98,14 +98,14 @@ var typeinfo = {
     },
     "marketsim.strategy.TrendFollower": {
         "castsTo": [
-            "marketsim.types.ISingleAssetStrategy",
-            "marketsim.types.IStrategy",
-            "marketsim.strategy._basic.Strategy",
-            "marketsim.strategy._trend._TrendFollower_Impl",
             "marketsim.strategy._basic.Base",
-            "marketsim.strategy._trend.TrendFollower",
+            "marketsim.strategy._basic.Strategy",
             "marketsim.strategy._signal.SignalBase",
-            "marketsim.strategy._two_sides.TwoSides"
+            "marketsim.strategy._trend.TrendFollower",
+            "marketsim.strategy._trend._TrendFollower_Impl",
+            "marketsim.strategy._two_sides.TwoSides",
+            "marketsim.types.ISingleAssetStrategy",
+            "marketsim.types.IStrategy"
         ],
         "properties": {
             "threshold": {
@@ -154,18 +154,18 @@ var typeinfo = {
     },
     "marketsim.observable._momentum.TwoPointFold": {
         "castsTo": [
-            "marketsim.event.IEvent",
-            "marketsim.observable._momentum.TwoPointFold",
-            "marketsim.types.Observable",
-            "marketsim.types.IObservable",
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
             "marketsim.event.Conditional",
-            "marketsim.event.Event"
+            "marketsim.event.Event",
+            "marketsim.event.IEvent",
+            "marketsim.observable._momentum.TwoPointFold",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IObservable",
+            "marketsim.types.IScalarFunction",
+            "marketsim.types.Observable"
         ],
         "properties": {
             "folder": {
@@ -194,14 +194,14 @@ var typeinfo = {
     },
     "marketsim.mathutils.rnd.lognormvariate": {
         "castsTo": [
-            "marketsim.mathutils.rnd.lognormvariate",
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
-            "marketsim.mathutils._ops.FloatFunction"
+            "marketsim.mathutils._ops.FloatFunction",
+            "marketsim.mathutils.rnd.lognormvariate",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "Mu": {
@@ -219,17 +219,17 @@ var typeinfo = {
     },
     "marketsim.strategy.weight.TrackRecord": {
         "castsTo": [
-            "marketsim.strategy.weight.TrackRecord",
+            "marketsim.strategy.weight.Base",
             "marketsim.strategy.weight.Efficiency",
-            "marketsim.strategy.weight.Base"
+            "marketsim.strategy.weight.TrackRecord"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.trader._ma.MultiAsset": {
         "castsTo": [
-            "marketsim.trader._base.Base",
             "marketsim.timeserie.Holder",
+            "marketsim.trader._base.Base",
             "marketsim.trader._ma.MultiAsset",
             "marketsim.types.ITrader"
         ],
@@ -263,9 +263,9 @@ var typeinfo = {
     },
     "marketsim.timeserie.VolumeLevels": {
         "castsTo": [
-            "marketsim.types.ITimeSerie",
+            "marketsim.timeserie.ToRecord",
             "marketsim.timeserie.VolumeLevels",
-            "marketsim.timeserie.ToRecord"
+            "marketsim.types.ITimeSerie"
         ],
         "properties": {
             "graph": {
@@ -305,24 +305,24 @@ var typeinfo = {
     },
     "marketsim.strategy._signal.none_side": {
         "castsTo": [
-            "marketsim.strategy._signal.none_side",
             {
                 "rv": "marketsim.Side.Tag",
                 "args": []
-            }
+            },
+            "marketsim.strategy._signal.none_side"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.strategy.TradeIfProfitable": {
         "castsTo": [
-            "marketsim.types.ISingleAssetStrategy",
-            "marketsim.types.IStrategy",
-            "marketsim.strategy._trade_if_profitable.TradeIfProfitable",
-            "marketsim.strategy._trade_if_profitable.tradeIfProfitable",
-            "marketsim.strategy._trade_if_profitable._tradeIfProfitable_Impl",
+            "marketsim.strategy._basic.Base",
             "marketsim.strategy._basic.Strategy",
-            "marketsim.strategy._basic.Base"
+            "marketsim.strategy._trade_if_profitable.TradeIfProfitable",
+            "marketsim.strategy._trade_if_profitable._tradeIfProfitable_Impl",
+            "marketsim.strategy._trade_if_profitable.tradeIfProfitable",
+            "marketsim.types.ISingleAssetStrategy",
+            "marketsim.types.IStrategy"
         ],
         "properties": {
             "efficiency": {
@@ -355,12 +355,12 @@ var typeinfo = {
     },
     "marketsim.strategy.ChooseTheBest": {
         "castsTo": [
+            "marketsim.strategy._basic.Base",
+            "marketsim.strategy._basic.Strategy",
+            "marketsim.strategy._choose_best.ChooseTheBest",
             "marketsim.strategy._choose_best._ChooseTheBest_Impl",
             "marketsim.types.ISingleAssetStrategy",
-            "marketsim.types.IStrategy",
-            "marketsim.strategy._basic.Strategy",
-            "marketsim.strategy._basic.Base",
-            "marketsim.strategy._choose_best.ChooseTheBest"
+            "marketsim.types.IStrategy"
         ],
         "properties": {
             "strategies": {
@@ -395,7 +395,6 @@ var typeinfo = {
     },
     "marketsim.order._limit.AdaptLimit": {
         "castsTo": [
-            "marketsim.order._limit.AdaptLimit",
             {
                 "rv": {
                     "rv": "marketsim.types.IOrder",
@@ -406,7 +405,8 @@ var typeinfo = {
                 "args": [
                     "marketsim.Side.Tag"
                 ]
-            }
+            },
+            "marketsim.order._limit.AdaptLimit"
         ],
         "properties": {
             "priceFunc": {
@@ -438,9 +438,9 @@ var typeinfo = {
     },
     "marketsim.observable._trader.OnTraded": {
         "castsTo": [
+            "marketsim.event.Event",
             "marketsim.event.IEvent",
-            "marketsim.observable._trader.OnTraded",
-            "marketsim.event.Event"
+            "marketsim.observable._trader.OnTraded"
         ],
         "properties": {
             "trader": {
@@ -453,14 +453,14 @@ var typeinfo = {
     },
     "marketsim.observable._trader.volume_traded": {
         "castsTo": [
-            "marketsim.observable._trader.volume_traded",
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
-            "marketsim.mathutils._ops.FloatFunction"
+            "marketsim.mathutils._ops.FloatFunction",
+            "marketsim.observable._trader.volume_traded",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "trader": {
@@ -473,8 +473,8 @@ var typeinfo = {
     },
     "marketsim.trader._proxy.MultiProxy": {
         "castsTo": [
-            "marketsim.trader._proxy.MultiProxy",
             "marketsim.trader._proxy.Base",
+            "marketsim.trader._proxy.MultiProxy",
             "marketsim.types.ITrader"
         ],
         "properties": {},
@@ -482,14 +482,14 @@ var typeinfo = {
     },
     "marketsim.mathutils.rnd.paretovariate": {
         "castsTo": [
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
+            "marketsim.mathutils._ops.FloatFunction",
             "marketsim.mathutils.rnd.paretovariate",
-            "marketsim.mathutils._ops.FloatFunction"
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "Alpha": {
@@ -502,13 +502,13 @@ var typeinfo = {
     },
     "marketsim.strategy.LiquidityProviderSide": {
         "castsTo": [
-            "marketsim.types.ISingleAssetStrategy",
-            "marketsim.types.IStrategy",
+            "marketsim.strategy._basic.Base",
+            "marketsim.strategy._basic.Strategy",
+            "marketsim.strategy._lp_side.LiquidityProviderSide",
             "marketsim.strategy._lp_side._LiquidityProviderSide_Impl",
             "marketsim.strategy._one_side.OneSide",
-            "marketsim.strategy._lp_side.LiquidityProviderSide",
-            "marketsim.strategy._basic.Strategy",
-            "marketsim.strategy._basic.Base"
+            "marketsim.types.ISingleAssetStrategy",
+            "marketsim.types.IStrategy"
         ],
         "properties": {
             "priceDistr": {
@@ -566,15 +566,15 @@ var typeinfo = {
     },
     "marketsim.strategy.Dependency": {
         "castsTo": [
-            "marketsim.types.ISingleAssetStrategy",
-            "marketsim.types.IStrategy",
-            "marketsim.strategy._basic.Strategy",
             "marketsim.strategy._basic.Base",
+            "marketsim.strategy._basic.Strategy",
             "marketsim.strategy._dependency.Dependency",
             "marketsim.strategy._dependency._Dependency_Impl",
             "marketsim.strategy._fv.FundamentalValueBase",
             "marketsim.strategy._signal.SignalBase",
-            "marketsim.strategy._two_sides.TwoSides"
+            "marketsim.strategy._two_sides.TwoSides",
+            "marketsim.types.ISingleAssetStrategy",
+            "marketsim.types.IStrategy"
         ],
         "properties": {
             "volumeDistr": {
@@ -615,12 +615,12 @@ var typeinfo = {
     },
     "marketsim.strategy.LiquidityProvider": {
         "castsTo": [
-            "marketsim.types.ISingleAssetStrategy",
-            "marketsim.types.IStrategy",
-            "marketsim.strategy._basic.Strategy",
-            "marketsim.strategy._lp._LiquidityProvider_Impl",
             "marketsim.strategy._basic.Base",
-            "marketsim.strategy._lp.LiquidityProvider"
+            "marketsim.strategy._basic.Strategy",
+            "marketsim.strategy._lp.LiquidityProvider",
+            "marketsim.strategy._lp._LiquidityProvider_Impl",
+            "marketsim.types.ISingleAssetStrategy",
+            "marketsim.types.IStrategy"
         ],
         "properties": {
             "priceDistr": {
@@ -677,13 +677,13 @@ var typeinfo = {
                 "rv": "__builtin__.bool",
                 "args": []
             },
-            "marketsim.mathutils._ops.FloatFunction",
-            "marketsim.strategy._signal.less_float",
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
+            "marketsim.mathutils._ops.FloatFunction",
+            "marketsim.strategy._signal.less_float",
+            "marketsim.types.IFloatFunction",
             "marketsim.types.IScalarFunction"
         ],
         "properties": {
@@ -702,14 +702,14 @@ var typeinfo = {
     },
     "marketsim.observable._orderbook.side_price": {
         "castsTo": [
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
+            "marketsim.mathutils._ops.FloatFunction",
             "marketsim.observable._orderbook.side_price",
-            "marketsim.mathutils._ops.FloatFunction"
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "orderbook": {
@@ -722,13 +722,13 @@ var typeinfo = {
     },
     "marketsim.strategy.Noise": {
         "castsTo": [
-            "marketsim.strategy._noise._Noise_Impl",
-            "marketsim.types.ISingleAssetStrategy",
-            "marketsim.types.IStrategy",
-            "marketsim.strategy._basic.Strategy",
             "marketsim.strategy._basic.Base",
+            "marketsim.strategy._basic.Strategy",
+            "marketsim.strategy._noise.Noise",
+            "marketsim.strategy._noise._Noise_Impl",
             "marketsim.strategy._two_sides.TwoSides",
-            "marketsim.strategy._noise.Noise"
+            "marketsim.types.ISingleAssetStrategy",
+            "marketsim.types.IStrategy"
         ],
         "properties": {
             "sideDistr": {
@@ -775,23 +775,23 @@ var typeinfo = {
     },
     "marketsim.strategy.weight.ChooseTheBest": {
         "castsTo": [
-            "marketsim.strategy.weight.Efficiency",
             "marketsim.strategy.weight.Base",
-            "marketsim.strategy.weight.ChooseTheBest"
+            "marketsim.strategy.weight.ChooseTheBest",
+            "marketsim.strategy.weight.Efficiency"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.observable._orderbook.volume_levels": {
         "castsTo": [
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
+            "marketsim.mathutils._ops.FloatFunction",
             "marketsim.observable._orderbook.volume_levels",
-            "marketsim.mathutils._ops.FloatFunction"
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "volumeCount": {
@@ -819,8 +819,8 @@ var typeinfo = {
     },
     "marketsim.Side._SellSide": {
         "castsTo": [
-            "marketsim.Side._SellSide",
-            "marketsim.Side.Tag"
+            "marketsim.Side.Tag",
+            "marketsim.Side._SellSide"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n<p>Tag class representing the sell side</p>\n</div>\n"
@@ -862,18 +862,18 @@ var typeinfo = {
     },
     "marketsim.observable._computed.IndicatorBase": {
         "castsTo": [
-            "marketsim.event.IEvent",
-            "marketsim.observable._computed.IndicatorBase",
-            "marketsim.types.Observable",
-            "marketsim.types.IObservable",
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
             "marketsim.event.Conditional",
-            "marketsim.event.Event"
+            "marketsim.event.Event",
+            "marketsim.event.IEvent",
+            "marketsim.observable._computed.IndicatorBase",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IObservable",
+            "marketsim.types.IScalarFunction",
+            "marketsim.types.Observable"
         ],
         "properties": {
             "eventSource": {
@@ -891,12 +891,12 @@ var typeinfo = {
     },
     "marketsim.strategy._signal.ConditionSide": {
         "castsTo": [
-            "marketsim.strategy._signal.ConditionSide",
-            "marketsim.strategy._signal.Condition_Impl",
             {
                 "rv": "marketsim.Side.Tag",
                 "args": []
-            }
+            },
+            "marketsim.strategy._signal.ConditionSide",
+            "marketsim.strategy._signal.Condition_Impl"
         ],
         "properties": {
             "ifpart": {
@@ -941,17 +941,17 @@ var typeinfo = {
     },
     "marketsim.observable._orderbook.Price": {
         "castsTo": [
-            "marketsim.event.IEvent",
-            "marketsim.observable._computed.Proxy",
-            "marketsim.types.IObservable",
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
+            "marketsim.event.IEvent",
+            "marketsim.observable._computed.Proxy",
+            "marketsim.observable._orderbook.Price",
             "marketsim.observable._orderbook.Proxy",
-            "marketsim.observable._orderbook.Price"
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IObservable",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "orderbook": {
@@ -964,14 +964,14 @@ var typeinfo = {
     },
     "marketsim.strategy.Signal": {
         "castsTo": [
-            "marketsim.types.ISingleAssetStrategy",
-            "marketsim.types.IStrategy",
-            "marketsim.strategy._basic.Strategy",
             "marketsim.strategy._basic.Base",
+            "marketsim.strategy._basic.Strategy",
             "marketsim.strategy._signal.Signal",
-            "marketsim.strategy._signal._Signal_Impl",
             "marketsim.strategy._signal.SignalBase",
-            "marketsim.strategy._two_sides.TwoSides"
+            "marketsim.strategy._signal._Signal_Impl",
+            "marketsim.strategy._two_sides.TwoSides",
+            "marketsim.types.ISingleAssetStrategy",
+            "marketsim.types.IStrategy"
         ],
         "properties": {
             "threshold": {
@@ -1012,23 +1012,23 @@ var typeinfo = {
     },
     "marketsim.orderbook._proxy.Proxy": {
         "castsTo": [
-            "marketsim.types.IOrderBook",
+            "marketsim.orderbook._proxy.Base",
             "marketsim.orderbook._proxy.Proxy",
-            "marketsim.orderbook._proxy.Base"
+            "marketsim.types.IOrderBook"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.mathutils._ops.product": {
         "castsTo": [
-            "marketsim.mathutils._ops.product",
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
-            "marketsim.mathutils._ops.FloatFunction"
+            "marketsim.mathutils._ops.FloatFunction",
+            "marketsim.mathutils._ops.product",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "LeftHandSide": {
@@ -1063,15 +1063,15 @@ var typeinfo = {
     },
     "marketsim.observable._orderbook.ask_price": {
         "castsTo": [
-            "marketsim.mathutils._ops.FloatFunction",
-            "marketsim.observable._orderbook.ask_price",
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
-            "marketsim.observable._orderbook.side_price"
+            "marketsim.mathutils._ops.FloatFunction",
+            "marketsim.observable._orderbook.ask_price",
+            "marketsim.observable._orderbook.side_price",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "orderbook": {
@@ -1084,15 +1084,15 @@ var typeinfo = {
     },
     "marketsim.strategy.MeanReversion": {
         "castsTo": [
-            "marketsim.types.ISingleAssetStrategy",
-            "marketsim.types.IStrategy",
-            "marketsim.strategy._basic.Strategy",
             "marketsim.strategy._basic.Base",
+            "marketsim.strategy._basic.Strategy",
+            "marketsim.strategy._fv.FundamentalValueBase",
             "marketsim.strategy._mean_reversion.MeanReversion",
             "marketsim.strategy._mean_reversion._MeanReversion_Impl",
-            "marketsim.strategy._fv.FundamentalValueBase",
             "marketsim.strategy._signal.SignalBase",
-            "marketsim.strategy._two_sides.TwoSides"
+            "marketsim.strategy._two_sides.TwoSides",
+            "marketsim.types.ISingleAssetStrategy",
+            "marketsim.types.IStrategy"
         ],
         "properties": {
             "average": {
@@ -1136,14 +1136,14 @@ var typeinfo = {
     },
     "marketsim.mathutils.rnd.weibullvariate": {
         "castsTo": [
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
+            "marketsim.mathutils._ops.FloatFunction",
             "marketsim.mathutils.rnd.weibullvariate",
-            "marketsim.mathutils._ops.FloatFunction"
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "Alpha": {
@@ -1161,14 +1161,14 @@ var typeinfo = {
     },
     "marketsim.observable._orderbook.last_side_price": {
         "castsTo": [
-            "marketsim.observable._orderbook.last_side_price",
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
-            "marketsim.mathutils._ops.FloatFunction"
+            "marketsim.mathutils._ops.FloatFunction",
+            "marketsim.observable._orderbook.last_side_price",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "orderbook": {
@@ -1181,8 +1181,8 @@ var typeinfo = {
     },
     "marketsim.mathutils._average.ewma": {
         "castsTo": [
-            "marketsim.types.IUpdatableValue",
-            "marketsim.mathutils._average.ewma"
+            "marketsim.mathutils._average.ewma",
+            "marketsim.types.IUpdatableValue"
         ],
         "properties": {
             "alpha": {
@@ -1213,8 +1213,8 @@ var typeinfo = {
     },
     "marketsim.observable._average.derivative": {
         "castsTo": [
-            "marketsim.types.IUpdatableValue",
-            "marketsim.observable._average.derivative"
+            "marketsim.observable._average.derivative",
+            "marketsim.types.IUpdatableValue"
         ],
         "properties": {
             "source": {
@@ -1227,14 +1227,14 @@ var typeinfo = {
     },
     "marketsim.strategy.TwoAverages": {
         "castsTo": [
-            "marketsim.types.ISingleAssetStrategy",
-            "marketsim.types.IStrategy",
-            "marketsim.strategy._basic.Strategy",
             "marketsim.strategy._basic.Base",
+            "marketsim.strategy._basic.Strategy",
+            "marketsim.strategy._signal.SignalBase",
             "marketsim.strategy._two_averages.TwoAverages",
             "marketsim.strategy._two_averages._TwoAverages_Impl",
-            "marketsim.strategy._signal.SignalBase",
-            "marketsim.strategy._two_sides.TwoSides"
+            "marketsim.strategy._two_sides.TwoSides",
+            "marketsim.types.ISingleAssetStrategy",
+            "marketsim.types.IStrategy"
         ],
         "properties": {
             "volumeDistr": {
@@ -1288,11 +1288,11 @@ var typeinfo = {
     },
     "marketsim.trader._sa.SingleAsset": {
         "castsTo": [
-            "marketsim.trader._base.Base",
             "marketsim.timeserie.Holder",
+            "marketsim.trader._base.Base",
+            "marketsim.trader._sa.SingleAsset",
             "marketsim.types.ISingleAssetTrader",
-            "marketsim.types.ITrader",
-            "marketsim.trader._sa.SingleAsset"
+            "marketsim.types.ITrader"
         ],
         "properties": {
             "amount": {
@@ -1327,14 +1327,14 @@ var typeinfo = {
     },
     "marketsim.mathutils.rnd.normalvariate": {
         "castsTo": [
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
             "marketsim.mathutils._ops.FloatFunction",
-            "marketsim.mathutils.rnd.normalvariate"
+            "marketsim.mathutils.rnd.normalvariate",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "Mu": {
@@ -1352,20 +1352,20 @@ var typeinfo = {
     },
     "marketsim.strategy._periodic.randomSide": {
         "castsTo": [
-            "__builtin__.function",
             {
                 "rv": "marketsim.Side.Tag",
                 "args": []
-            }
+            },
+            "__builtin__.function"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.orderbook._proxy.OfTrader": {
         "castsTo": [
+            "marketsim.orderbook._proxy.Base",
             "marketsim.orderbook._proxy.OfTrader",
-            "marketsim.types.IOrderBook",
-            "marketsim.orderbook._proxy.Base"
+            "marketsim.types.IOrderBook"
         ],
         "properties": {
             "Trader": {
@@ -1378,14 +1378,14 @@ var typeinfo = {
     },
     "marketsim.mathutils.rnd.betavariate": {
         "castsTo": [
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
+            "marketsim.mathutils._ops.FloatFunction",
             "marketsim.mathutils.rnd.betavariate",
-            "marketsim.mathutils._ops.FloatFunction"
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "Alpha": {
@@ -1403,17 +1403,17 @@ var typeinfo = {
     },
     "marketsim.observable._orderbook.BidPrice": {
         "castsTo": [
-            "marketsim.event.IEvent",
-            "marketsim.observable._computed.Proxy",
-            "marketsim.observable._orderbook.BidPrice",
-            "marketsim.types.IObservable",
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
-            "marketsim.observable._orderbook.Proxy"
+            "marketsim.event.IEvent",
+            "marketsim.observable._computed.Proxy",
+            "marketsim.observable._orderbook.BidPrice",
+            "marketsim.observable._orderbook.Proxy",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IObservable",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "orderbook": {
@@ -1426,14 +1426,14 @@ var typeinfo = {
     },
     "marketsim.mathutils._ops.sub": {
         "castsTo": [
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
+            "marketsim.mathutils._ops.FloatFunction",
             "marketsim.mathutils._ops.sub",
-            "marketsim.mathutils._ops.FloatFunction"
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "LeftHandSide": {
@@ -1451,14 +1451,14 @@ var typeinfo = {
     },
     "marketsim.strategy._signal.NotNoneFloat": {
         "castsTo": [
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
             "marketsim.mathutils._ops.FloatFunction",
-            "marketsim.strategy._signal.NotNoneFloat"
+            "marketsim.strategy._signal.NotNoneFloat",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "source": {
@@ -1476,14 +1476,14 @@ var typeinfo = {
     },
     "marketsim.mathutils._ops.sum": {
         "castsTo": [
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
             "marketsim.mathutils._ops.FloatFunction",
-            "marketsim.mathutils._ops.sum"
+            "marketsim.mathutils._ops.sum",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "LeftHandSide": {
@@ -1514,11 +1514,11 @@ var typeinfo = {
     },
     "marketsim.strategy._rsi.RelativeStrengthIndexSide": {
         "castsTo": [
-            "marketsim.strategy._rsi.RelativeStrengthIndexSide",
             {
                 "rv": "marketsim.Side.Tag",
                 "args": []
-            }
+            },
+            "marketsim.strategy._rsi.RelativeStrengthIndexSide"
         ],
         "properties": {
             "threshold": {
@@ -1580,14 +1580,14 @@ var typeinfo = {
     },
     "marketsim.mathutils._ops.negate": {
         "castsTo": [
-            "marketsim.mathutils._ops.negate",
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
-            "marketsim.mathutils._ops.FloatFunction"
+            "marketsim.mathutils._ops.FloatFunction",
+            "marketsim.mathutils._ops.negate",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "arg": {
@@ -1600,18 +1600,18 @@ var typeinfo = {
     },
     "marketsim.signal.RandomWalk": {
         "castsTo": [
-            "marketsim.event.IEvent",
-            "marketsim.signal.RandomWalk",
-            "marketsim.types.Observable",
-            "marketsim.types.IObservable",
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
             "marketsim.event.Conditional",
-            "marketsim.event.Event"
+            "marketsim.event.Event",
+            "marketsim.event.IEvent",
+            "marketsim.signal.RandomWalk",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IObservable",
+            "marketsim.types.IScalarFunction",
+            "marketsim.types.Observable"
         ],
         "properties": {
             "deltaDistr": {
@@ -1634,12 +1634,12 @@ var typeinfo = {
     },
     "marketsim.strategy.MultiarmedBandit": {
         "castsTo": [
-            "marketsim.types.ISingleAssetStrategy",
-            "marketsim.types.IStrategy",
-            "marketsim.strategy._basic.Strategy",
             "marketsim.strategy._basic.Base",
+            "marketsim.strategy._basic.Strategy",
             "marketsim.strategy._multiarmed_bandit.MultiarmedBandit",
-            "marketsim.strategy._multiarmed_bandit._MultiarmedBandit_Impl"
+            "marketsim.strategy._multiarmed_bandit._MultiarmedBandit_Impl",
+            "marketsim.types.ISingleAssetStrategy",
+            "marketsim.types.IStrategy"
         ],
         "properties": {
             "strategies": {
@@ -1679,14 +1679,14 @@ var typeinfo = {
     },
     "marketsim.mathutils._ops.div": {
         "castsTo": [
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
+            "marketsim.mathutils._ops.FloatFunction",
             "marketsim.mathutils._ops.div",
-            "marketsim.mathutils._ops.FloatFunction"
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "LeftHandSide": {
@@ -1704,14 +1704,14 @@ var typeinfo = {
     },
     "marketsim.mathutils._ops.identity": {
         "castsTo": [
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
+            "marketsim.mathutils._ops.FloatFunction",
             "marketsim.mathutils._ops.identity",
-            "marketsim.mathutils._ops.FloatFunction"
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "arg": {
@@ -1724,7 +1724,6 @@ var typeinfo = {
     },
     "marketsim.order._cancel.LimitMarketFactory": {
         "castsTo": [
-            "__builtin__.function",
             {
                 "rv": {
                     "rv": "marketsim.types.IOrder",
@@ -1735,7 +1734,8 @@ var typeinfo = {
                 "args": [
                     "marketsim.Side"
                 ]
-            }
+            },
+            "__builtin__.function"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n<p>This a combination of a limit order and a cancel order sent immediately\nIt works as a market order in sense that it is not put into the order queue\nbut can be matched (as a limit order)\nonly if there are orders with suitable price in the queue</p>\n</div>\n"
@@ -1758,12 +1758,12 @@ var typeinfo = {
     },
     "marketsim.strategy.Periodic": {
         "castsTo": [
-            "marketsim.types.ISingleAssetStrategy",
-            "marketsim.types.IStrategy",
-            "marketsim.strategy._periodic._Periodic_Impl",
-            "marketsim.strategy._basic.Strategy",
             "marketsim.strategy._basic.Base",
-            "marketsim.strategy._periodic.Periodic"
+            "marketsim.strategy._basic.Strategy",
+            "marketsim.strategy._periodic.Periodic",
+            "marketsim.strategy._periodic._Periodic_Impl",
+            "marketsim.types.ISingleAssetStrategy",
+            "marketsim.types.IStrategy"
         ],
         "properties": {
             "sideFunc": {
@@ -1807,29 +1807,29 @@ var typeinfo = {
     },
     "marketsim.strategy._basic.Empty": {
         "castsTo": [
+            "marketsim.strategy._basic.Base",
+            "marketsim.strategy._basic.Empty",
             "marketsim.strategy._basic.Strategy",
             "marketsim.types.ISingleAssetStrategy",
-            "marketsim.types.IStrategy",
-            "marketsim.strategy._basic.Base",
-            "marketsim.strategy._basic.Empty"
+            "marketsim.types.IStrategy"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.observable._async.Efficiency": {
         "castsTo": [
-            "marketsim.event.IEvent",
-            "marketsim.types.Observable",
-            "marketsim.types.IObservable",
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
             "marketsim.event.Conditional",
+            "marketsim.event.Event",
+            "marketsim.event.IEvent",
             "marketsim.observable._async.Efficiency",
-            "marketsim.event.Event"
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IObservable",
+            "marketsim.types.IScalarFunction",
+            "marketsim.types.Observable"
         ],
         "properties": {
             "trader": {
@@ -1842,14 +1842,14 @@ var typeinfo = {
     },
     "marketsim.mathutils.rnd.vonmisesvariate": {
         "castsTo": [
-            "marketsim.mathutils.rnd.vonmisesvariate",
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
-            "marketsim.mathutils._ops.FloatFunction"
+            "marketsim.mathutils._ops.FloatFunction",
+            "marketsim.mathutils.rnd.vonmisesvariate",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "Mu": {
@@ -1867,14 +1867,14 @@ var typeinfo = {
     },
     "marketsim.observable._average.Fold": {
         "castsTo": [
-            "marketsim.observable._average.Fold",
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
-            "marketsim.mathutils._ops.FloatFunction"
+            "marketsim.mathutils._ops.FloatFunction",
+            "marketsim.observable._average.Fold",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "source": {
@@ -1905,18 +1905,18 @@ var typeinfo = {
     },
     "marketsim.Side._BuySide": {
         "castsTo": [
-            "marketsim.Side._BuySide",
-            "marketsim.Side.Tag"
+            "marketsim.Side.Tag",
+            "marketsim.Side._BuySide"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.orderbook._local.Local": {
         "castsTo": [
+            "marketsim.orderbook._base.BookBase",
             "marketsim.orderbook._local.Local",
             "marketsim.timeserie.Holder",
-            "marketsim.types.IOrderBook",
-            "marketsim.orderbook._base.BookBase"
+            "marketsim.types.IOrderBook"
         ],
         "properties": {
             "_digitsToShow": {
@@ -1941,26 +1941,26 @@ var typeinfo = {
     },
     "marketsim.strategy.Arbitrage": {
         "castsTo": [
-            "marketsim.types.IStrategy",
-            "marketsim.strategy._basic.MultiAssetStrategy",
-            "marketsim.strategy._basic.Base",
             "marketsim.strategy._arbitrage.Arbitrage",
             "marketsim.strategy._arbitrage._Arbitrage_Impl",
-            "marketsim.types.IMultiAssetStrategy"
+            "marketsim.strategy._basic.Base",
+            "marketsim.strategy._basic.MultiAssetStrategy",
+            "marketsim.types.IMultiAssetStrategy",
+            "marketsim.types.IStrategy"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.mathutils.rnd.triangular": {
         "castsTo": [
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
             "marketsim.mathutils._ops.FloatFunction",
-            "marketsim.mathutils.rnd.triangular"
+            "marketsim.mathutils.rnd.triangular",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "High": {
@@ -2001,25 +2001,25 @@ var typeinfo = {
     },
     "marketsim.mathutils.rnd.randint": {
         "castsTo": [
-            "__builtin__.instance",
             {
                 "rv": "_parseInt",
                 "args": []
-            }
+            },
+            "__builtin__.instance"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n<p>Return a random integer <em>N</em> such that <em>a</em> &lt;= <em>N</em> &lt;= <em>b</em>.</p>\n</div>\n"
     },
     "marketsim.mathutils.rnd.gammavariate": {
         "castsTo": [
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
+            "marketsim.mathutils._ops.FloatFunction",
             "marketsim.mathutils.rnd.gammavariate",
-            "marketsim.mathutils._ops.FloatFunction"
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "Alpha": {
@@ -2045,14 +2045,14 @@ var typeinfo = {
     },
     "marketsim.mathutils.rnd.uniform": {
         "castsTo": [
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
             "marketsim.mathutils._ops.FloatFunction",
-            "marketsim.mathutils.rnd.uniform"
+            "marketsim.mathutils.rnd.uniform",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "High": {
@@ -2120,7 +2120,6 @@ var typeinfo = {
     },
     "marketsim.order._iceberg.IcebergFactory": {
         "castsTo": [
-            "marketsim.order._iceberg.IcebergFactory",
             {
                 "rv": {
                     "rv": "marketsim.types.IOrder",
@@ -2132,7 +2131,8 @@ var typeinfo = {
                 "args": [
                     "marketsim.Side.Tag"
                 ]
-            }
+            },
+            "marketsim.order._iceberg.IcebergFactory"
         ],
         "properties": {
             "volumeLimit": {
@@ -2161,14 +2161,14 @@ var typeinfo = {
     },
     "marketsim.observable._trader.profit_and_loss": {
         "castsTo": [
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
             "marketsim.mathutils._ops.FloatFunction",
-            "marketsim.observable._trader.profit_and_loss"
+            "marketsim.observable._trader.profit_and_loss",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "trader": {
@@ -2181,23 +2181,23 @@ var typeinfo = {
     },
     "marketsim.observable._momentum.upMovement": {
         "castsTo": [
-            "__builtin__.function",
             {
                 "rv": "_parseFloat",
                 "args": [
                     "_parseFloat",
                     "_parseFloat"
                 ]
-            }
+            },
+            "__builtin__.function"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.scheduler.Timer": {
         "castsTo": [
+            "marketsim.event.Event",
             "marketsim.event.IEvent",
-            "marketsim.scheduler.Timer",
-            "marketsim.event.Event"
+            "marketsim.scheduler.Timer"
         ],
         "properties": {
             "intervalFunc": {
@@ -2210,14 +2210,14 @@ var typeinfo = {
     },
     "marketsim.observable._momentum.downMovement": {
         "castsTo": [
-            "__builtin__.function",
             {
                 "rv": "_parseFloat",
                 "args": [
                     "_parseFloat",
                     "_parseFloat"
                 ]
-            }
+            },
+            "__builtin__.function"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
@@ -2242,10 +2242,10 @@ var typeinfo = {
     },
     "marketsim.orderbook._remote.Remote": {
         "castsTo": [
+            "marketsim.orderbook._base.BookBase",
             "marketsim.orderbook._remote.Remote",
             "marketsim.timeserie.Holder",
-            "marketsim.types.IOrderBook",
-            "marketsim.orderbook._base.BookBase"
+            "marketsim.types.IOrderBook"
         ],
         "properties": {
             "link": {
@@ -2270,9 +2270,9 @@ var typeinfo = {
     },
     "marketsim.strategy.weight.EfficiencyAlpha": {
         "castsTo": [
-            "marketsim.strategy.weight.EfficiencyAlpha",
+            "marketsim.strategy.weight.Base",
             "marketsim.strategy.weight.Efficiency",
-            "marketsim.strategy.weight.Base"
+            "marketsim.strategy.weight.EfficiencyAlpha"
         ],
         "properties": {
             "alpha": {
@@ -2285,15 +2285,15 @@ var typeinfo = {
     },
     "marketsim.strategy.FundamentalValue": {
         "castsTo": [
-            "marketsim.types.ISingleAssetStrategy",
-            "marketsim.types.IStrategy",
-            "marketsim.strategy._basic.Strategy",
             "marketsim.strategy._basic.Base",
+            "marketsim.strategy._basic.Strategy",
             "marketsim.strategy._fv.FundamentalValue",
-            "marketsim.strategy._fv._FundamentalValue_Impl",
             "marketsim.strategy._fv.FundamentalValueBase",
+            "marketsim.strategy._fv._FundamentalValue_Impl",
             "marketsim.strategy._signal.SignalBase",
-            "marketsim.strategy._two_sides.TwoSides"
+            "marketsim.strategy._two_sides.TwoSides",
+            "marketsim.types.ISingleAssetStrategy",
+            "marketsim.types.IStrategy"
         ],
         "properties": {
             "creationIntervalDistr": {
@@ -2340,11 +2340,11 @@ var typeinfo = {
     },
     "marketsim.strategy._lp_side.ConstantSide": {
         "castsTo": [
-            "marketsim.strategy._lp_side.ConstantSide",
             {
                 "rv": "marketsim.Side.Tag",
                 "args": []
-            }
+            },
+            "marketsim.strategy._lp_side.ConstantSide"
         ],
         "properties": {
             "side": {
@@ -2357,8 +2357,8 @@ var typeinfo = {
     },
     "marketsim.timeserie.ToRecord": {
         "castsTo": [
-            "marketsim.types.ITimeSerie",
-            "marketsim.timeserie.ToRecord"
+            "marketsim.timeserie.ToRecord",
+            "marketsim.types.ITimeSerie"
         ],
         "properties": {
             "source": {
@@ -2386,14 +2386,14 @@ var typeinfo = {
     },
     "marketsim.mathutils._ops.constant": {
         "castsTo": [
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
+            "marketsim.mathutils._ops.FloatFunction",
             "marketsim.mathutils._ops.constant",
-            "marketsim.mathutils._ops.FloatFunction"
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "value": {
@@ -2406,20 +2406,20 @@ var typeinfo = {
     },
     "marketsim.strategy.weight.Efficiency": {
         "castsTo": [
-            "marketsim.strategy.weight.Efficiency",
-            "marketsim.strategy.weight.Base"
+            "marketsim.strategy.weight.Base",
+            "marketsim.strategy.weight.Efficiency"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.strategy.Array": {
         "castsTo": [
-            "marketsim.types.ISingleAssetStrategy",
-            "marketsim.types.IStrategy",
-            "marketsim.strategy._basic.Strategy",
-            "marketsim.strategy._basic.Base",
             "marketsim.strategy._array.Array",
-            "marketsim.strategy._array._Array_Impl"
+            "marketsim.strategy._array._Array_Impl",
+            "marketsim.strategy._basic.Base",
+            "marketsim.strategy._basic.Strategy",
+            "marketsim.types.ISingleAssetStrategy",
+            "marketsim.types.IStrategy"
         ],
         "properties": {
             "strategies": {
@@ -2434,7 +2434,6 @@ var typeinfo = {
     },
     "marketsim.order._limit.LimitFactory": {
         "castsTo": [
-            "__builtin__.function",
             {
                 "rv": {
                     "rv": "marketsim.types.IOrder",
@@ -2446,15 +2445,16 @@ var typeinfo = {
                 "args": [
                     "marketsim.Side.Tag"
                 ]
-            }
+            },
+            "__builtin__.function"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n<p>Limit order of the given <em>side</em>, <em>price</em> and <em>volume</em></p>\n</div>\n"
     },
     "marketsim.mathutils._rsi.rsi": {
         "castsTo": [
-            "marketsim.types.IUpdatableValue",
-            "marketsim.mathutils._rsi.rsi"
+            "marketsim.mathutils._rsi.rsi",
+            "marketsim.types.IUpdatableValue"
         ],
         "properties": {
             "alpha": {
@@ -2467,14 +2467,14 @@ var typeinfo = {
     },
     "marketsim.mathutils.rnd.expovariate": {
         "castsTo": [
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
+            "marketsim.mathutils._ops.FloatFunction",
             "marketsim.mathutils.rnd.expovariate",
-            "marketsim.mathutils._ops.FloatFunction"
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "Lambda": {
@@ -2487,17 +2487,17 @@ var typeinfo = {
     },
     "marketsim.observable._orderbook.AskPrice": {
         "castsTo": [
-            "marketsim.event.IEvent",
-            "marketsim.observable._computed.Proxy",
-            "marketsim.observable._orderbook.AskPrice",
-            "marketsim.types.IObservable",
-            "marketsim.types.IFloatFunction",
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IScalarFunction",
-            "marketsim.observable._orderbook.Proxy"
+            "marketsim.event.IEvent",
+            "marketsim.observable._computed.Proxy",
+            "marketsim.observable._orderbook.AskPrice",
+            "marketsim.observable._orderbook.Proxy",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IObservable",
+            "marketsim.types.IScalarFunction"
         ],
         "properties": {
             "orderbook": {
