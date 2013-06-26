@@ -19,6 +19,8 @@ class FloatFunction(IFloatFunction):
 class IntFunction():
     pass
 
+IntFunction._types = [types.function((), int)]
+
 Function = { float : FloatFunction, 
              int   : IntFunction }
 

@@ -122,7 +122,7 @@ class price_at_volume(mathutils.FloatFunction):
                     'side'      : types.Side, 
                     'volumeAt'  : float }
 
-class volume_levels(object):
+class volume_levels(mathutils.FloatFunction): # should be () -> meta.listOf(float)
     
     def __init__(self, orderbook, side, volumeDelta, volumeCount):
         self.orderbook = orderbook
@@ -135,8 +135,6 @@ class volume_levels(object):
     def volumes(self):
         return [self.volumeDelta * i for i in range(self.volumeCount)]
         
-    _types = [meta.function((), float)] # should be () -> meta.listOf(float)
-    
     def __call__(self):
         queue = self.orderbook.queue(self.side)
         return [price for (volume, price) in queue.getVolumePrices(self.volumes)]
