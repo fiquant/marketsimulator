@@ -63,7 +63,6 @@ def RSIbis (timeframe               = 0.,
     return defs(Periodic(orderFactory = orderFactory, 
                          volumeFunc   = volumeDistr, 
                          eventGen     = scheduler.Timer(creationIntervalDistr),
-                         sideFunc     = SignalSide(mathutils.sub(mathutils.constant(50), 
-                                                                 _.rsi), 
+                         sideFunc     = SignalSide(mathutils.constant(50) - _.rsi, 
                                                    50-threshold)), 
                 { 'rsi' : observable.RSI(thisBook, timeframe, alpha) })

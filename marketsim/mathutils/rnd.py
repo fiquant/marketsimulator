@@ -3,10 +3,11 @@ import math
 import inspect
 from marketsim import registry
 from marketsim.types import *
+from _ops import Function
 
 template = """
 @registry.expose(['Random', '%(alias)s'])
-class %(name)s(object):
+class %(name)s(Function[%(rvtype)s]):
     \"\"\" %(docstring)s
     \"\"\"    
 
@@ -18,7 +19,6 @@ class %(name)s(object):
         return repr(self)
         
     _properties = { %(props)s }
-    _types = [function((), %(rvtype)s)]
     
     def _casts_to(self, dst):
         return %(name)s._types[0]._casts_to(dst)
