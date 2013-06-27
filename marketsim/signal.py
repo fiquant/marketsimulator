@@ -2,7 +2,7 @@ import random
 from marketsim import _, Event, meta, types, mathutils, registry, scheduler, event
 
 @registry.expose(['Random walk'])
-class RandomWalk(types.IObservable):
+class RandomWalk(types.Observable):
     """ A discrete signal with user-defined increments.
     
         Parameters:
@@ -18,8 +18,8 @@ class RandomWalk(types.IObservable):
             (default: exponential distribution with |lambda| = 1)
     """
     _properties = { 'initialValue' : float, 
-                    'deltaDistr'   : meta.function((), float), 
-                    'intervalDistr': meta.function((), float) }
+                    'deltaDistr'   : types.IFunction[float], 
+                    'intervalDistr': types.IFunction[float] }
         
 
     def _wakeUp(self, _):

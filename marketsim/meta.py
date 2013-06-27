@@ -44,3 +44,4 @@ def sig(args, rv):
         f._casts_to = f._types[0]._casts_to
         return f
     return inner
+

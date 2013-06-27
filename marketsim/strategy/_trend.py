@@ -1,7 +1,7 @@
 from marketsim.types import *
 from marketsim import (orderbook, observable, scheduler, order, mathutils, types, meta, 
                        registry, signal, bind)
-from _generic import Generic
+from _periodic import Periodic
 from _signal import SignalBase, SignalSide
 
 from _wrap import wrapper2
@@ -53,7 +53,7 @@ exec wrapper2('TrendFollower',
               ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
               ('volumeDistr',            'mathutils.rnd.expovariate(1.)', '() -> Volume')])
 
-@registry.expose(["Generic", 'TrendFollower'], args = ())
+@registry.expose(["Periodic", 'TrendFollower'], args = ())
 def TrendFollowerEx(average                 = None, #mathutils.ewma(alpha = 0.15), 
                     threshold               = 0., 
                     orderFactory            = order.MarketFactory, 
@@ -67,10 +67,8 @@ def TrendFollowerEx(average                 = None, #mathutils.ewma(alpha = 0.15
     trend = observable.Fold(observable.Price(orderBook), 
                             observable.derivative(average))
     
-    r = Generic(orderFactory= orderFactory, 
-                volumeFunc  = volumeDistr,
-                eventGen    = scheduler.Timer(creationIntervalDistr),
-                sideFunc    = SignalSide(trend, threshold))
-    
-    return r
+    return Periodic(orderFactory= orderFactory, 
+                    volumeFunc  = volumeDistr,
+                    eventGen    = scheduler.Timer(creationIntervalDistr),
+                    sideFunc    = SignalSide(trend, threshold))
     

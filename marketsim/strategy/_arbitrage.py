@@ -76,21 +76,19 @@ class _Arbitrage_Impl(MultiAssetStrategy):
                     # but cancel them immediately in order to avoid storing these limit orders in the book
                     # this logic is implemented by LimitMarketOrder
                     
-                    self._scheduler.scheduleAfter(0, 
-                        _(self, 
-                          myQueue.book, 
-                          order.LimitMarket(oppositeSide, 
-                                            myPrice, 
-                                            volumeToTrade)                                    
-                          )._send)
+                    self._send( 
+                        myQueue.book, 
+                        order.LimitMarket(oppositeSide, 
+                                          myPrice, 
+                                          volumeToTrade)                                    
+                    )
                     
-                    self._scheduler.scheduleAfter(0, 
-                        _(self, 
-                          oppositeQueue.book, 
-                          order.LimitMarket(side, 
-                                            oppositePrice, 
-                                            volumeToTrade)                                    
-                          )._send)
+                    self._send( 
+                        oppositeQueue.book, 
+                        order.LimitMarket(side, 
+                                          oppositePrice, 
+                                          volumeToTrade)                                    
+                    )
                     
     def _send(self, orderbook, order):
         for t in self._traders:
@@ -98,7 +96,7 @@ class _Arbitrage_Impl(MultiAssetStrategy):
                 t.send(order)
                     
     def _schedule(self, side, queue):
-        self._scheduler.scheduleAfter(0, _(self, queue, side).inner)
+        self.inner(queue, side)
     
     def bind(self, context):
         self._traders = [t for t in self._trader.traders]
@@ -107,7 +105,7 @@ class _Arbitrage_Impl(MultiAssetStrategy):
         def regSide(side):
             for book in self._books:
                 queue = book.queue(side) 
-                event.subscribe(queue.on_best_changed, 
+                event.subscribe(queue.bestPrice, 
                                 _(self, side)._schedule, 
                                 self, {})
                 if not queue.empty:

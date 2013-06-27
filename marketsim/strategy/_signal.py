@@ -1,7 +1,7 @@
 from marketsim.types import *
 from marketsim import (Event, order, mathutils, types, meta, defs, _, 
                        registry, signal, bind, signal)
-from _generic import Generic
+from _periodic import Periodic
 from _two_sides import TwoSides
 
 from _wrap import wrapper2
@@ -82,22 +82,20 @@ class Condition%(T)s(Condition_Impl):
 for t in ['Side', 'float']:
     exec condition_tmpl % { 'T' : t }   
     
-class NotNoneFloat(object):
+class NotNoneFloat(mathutils.Function[float]):
     
     def __init__(self, source, ifnone):
         self.source = source
         self.ifnone = ifnone
-        
-    _types = [meta.function((), float)]
     
-    _properties = { 'source' : meta.function((), float), 
-                    'ifnone' : meta.function((), float) }
+    _properties = { 'source' : types.IFunction[float], 
+                    'ifnone' : types.IFunction[float]}
         
     def __call__(self):
         v = self.source()
         return v if v is not None else self.ifnone()
     
-class less_float(object):
+class less_float(mathutils.Function[float]):
     
     def __init__(self, lhs, rhs):
         self.lhs = lhs
@@ -105,8 +103,8 @@ class less_float(object):
         
     _types = [meta.function((), bool)]
     
-    _properties = [('lhs', meta.function((), float)), 
-                   ('rhs', meta.function((), float))]
+    _properties = [('lhs', types.IFunction[float]), 
+                   ('rhs', types.IFunction[float])]
     
     def __call__(self):
         return self.lhs() < self.rhs()
@@ -136,15 +134,15 @@ def SignalSide(source, threshold = 0):
                 { 'source'    : source, 
                   'threshold' : mathutils.constant(threshold) })
     
-@registry.expose(["Generic", 'Signal'], args = ())
+@registry.expose(["Periodic", 'Signal'], args = ())
 def SignalEx(signal         = signal.RandomWalk(), 
              threshold      = 0., 
              orderFactory   = order.MarketFactory, 
              volumeDistr    = mathutils.rnd.expovariate(1.)):
     
     return defs(
-        Generic(sideFunc     = SignalSide(_.signal, threshold),
-                volumeFunc   = volumeDistr, 
-                orderFactory = orderFactory, 
-                eventGen     = _.signal),
+        Periodic(sideFunc     = SignalSide(_.signal, threshold),
+                 volumeFunc   = volumeDistr, 
+                 orderFactory = orderFactory, 
+                 eventGen     = _.signal),
         {"signal" : signal })  

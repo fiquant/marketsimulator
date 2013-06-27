@@ -1,5 +1,40 @@
 from marketsim import types, Event, event, timeserie, event, observable
 
+class ObservableBase(types.Observable):
+    
+    def __init__(self, book):
+        types.Observable.__init__(self)
+        self.book = book
+        
+    @property
+    def digits(self):
+        return self.book._digitsToShow
+    
+    @property
+    def label(self):
+        return self._labelprefix + "_{" + self.book.label + "}"
+        
+class MidPrice(ObservableBase):
+    
+    _labelprefix = 'Price'
+    
+    def __call__(self):
+        return self.book.price
+    
+class AskPrice(ObservableBase):
+    
+    _labelprefix = 'Ask'
+    
+    def __call__(self):
+        return self.book.ask_price
+
+class BidPrice(ObservableBase):
+    
+    _labelprefix = 'Bid'
+    
+    def __call__(self):
+        return self.book.bid_price
+
 class BookBase(types.IOrderBook, timeserie.Holder):
 
     def __init__(self, bids, asks, label="", timeseries = []):
@@ -16,17 +51,23 @@ class BookBase(types.IOrderBook, timeserie.Holder):
         self.label = label
         if label != "":
             self._alias = [label]
-        self.on_price_changed = event.Conditional(observable._orderbook.mid_price(self))
-        self.on_ask_changed = event.Conditional(observable._orderbook.ask_price(self))
-        self.on_bid_changed = event.Conditional(observable._orderbook.bid_price(self))
+
+        self.midPrice = MidPrice(self)
         
-        event.subscribe(self._bids.on_best_changed, self.on_ask_changed.fire, self)
-        event.subscribe(self._asks.on_best_changed, self.on_bid_changed.fire, self)
-        
-        event.subscribe(self.on_bid_changed, self.on_price_changed.fire, self)
-        event.subscribe(self.on_ask_changed, self.on_price_changed.fire, self)
+        event.subscribe(self.askPrice, self.midPrice.fire, self)
+        event.subscribe(self.bidPrice, self.midPrice.fire, self)
         
         self.reset()
+        
+    @property
+    def askPrice(self):
+        return self._asks.bestPrice
+        
+    @property
+    def bidPrice(self):
+        return self._bids.bestPrice
+        
+    _internals = ['_asks', '_bids']
         
     def updateContext(self, context):
         context.orderbook = self
@@ -80,6 +121,14 @@ class BookBase(types.IOrderBook, timeserie.Holder):
         """
         return None if self.asks.empty or self.bids.empty \
                     else (self.asks.best.price + self.bids.best.price) / 2.0
+                    
+    @property
+    def ask_price(self):
+        return None if self.asks.empty else self.asks.best.price
+                    
+    @property
+    def bid_price(self):
+        return None if self.bids.empty else self.bids.best.price
                     
     @property
     def spread(self):

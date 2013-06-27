@@ -21,7 +21,7 @@ class derivative(types.IUpdatableValue):
     _properties = { "source" : types.IUpdatableValue }
     
     
-class Fold(object):
+class Fold(mathutils.Function[float]):
     """ Aggregates (folds) time-dependent data from *source* using given functional  *folder* (e.g. moving average)
     
     For example ::
@@ -47,8 +47,6 @@ class Fold(object):
             
     _properties = { 'source' : types.IObservable,
                     'folder' : types.IUpdatableValue }
-    
-    _types = [meta.function((), float)]
     
     def _update(self, _):
         self._acc.update(self._scheduler.currentTime, self._source())

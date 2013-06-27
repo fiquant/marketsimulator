@@ -1,7 +1,7 @@
 from marketsim import (scheduler, observable, types, meta, defs, _,
                        Side, registry, orderbook, bind, order, mathutils)
 
-from _generic import Generic
+from _periodic import Periodic
 from _signal import SignalBase
 from _wrap import wrapper2
 from _fv import FundamentalValueBase, FundamentalValueSide
@@ -68,12 +68,12 @@ def DependencyEx      (bookToDependOn,
     orderBook = orderbook.OfTrader()
 
     r = defs(
-        Generic(orderFactory= orderFactory, 
-                volumeFunc  = volumeDistr, 
-                eventGen    = _.dependee, 
-                sideFunc    = FundamentalValueSide(orderBook, _.dependee)),
+        Periodic(orderFactory= orderFactory, 
+                 volumeFunc  = volumeDistr, 
+                 eventGen    = _.dependee, 
+                 sideFunc    = FundamentalValueSide(orderBook, _.dependee)),
         { 'dependee' : observable.Price(bookToDependOn) })
     
-    r._alias = ["Generic", "Dependency"]
+    r._alias = ["Periodic", "Dependency"]
     
     return r

@@ -1,5 +1,5 @@
 import heapq, threading
-from marketsim import Event, _, meta
+from marketsim import types, Event, _, meta
 
 """ Module for managing discrete event simulation. 
 """
@@ -98,6 +98,9 @@ class Scheduler(object):
         """
         self.schedule(self.currentTime + dt, handler)
         
+    def async(self, handler):
+        self.schedule(self.currentTime, handler)
+        
     def step(self, limitTime):
         if (self._elements <> [] and self._elements[0][0][0] < limitTime):
             ((actionTime,_), eh) = heapq.heappop(self._elements)
@@ -162,7 +165,7 @@ class Timer(Event):
         self._scheduler = context.world
         self.schedule()
         
-    _properties = { 'intervalFunc' : meta.function((), float) }
+    _properties = { 'intervalFunc' : types.IFunction[float] }
         
     def schedule(self):
         self._scheduler.scheduleAfter(self.intervalFunc(), _(self)._wakeUp)

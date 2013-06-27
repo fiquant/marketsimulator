@@ -1,7 +1,7 @@
 from marketsim import (bind, event, Event, getLabel, Side, scheduler, 
                        types, meta, mathutils, registry, trader)
 
-class IndicatorBase(types.IObservable):
+class IndicatorBase(types.Observable):
     """ Observable that stores some scalar value and knows how to update it
     
     * **Source of data** -- function that provides data
@@ -24,7 +24,7 @@ class IndicatorBase(types.IObservable):
     def label(self):
         return self._dataSource.label
     
-    _properties = [ ('dataSource'  , meta.function((), float)),
+    _properties = [ ('dataSource'  , types.IFunction[float]),
                     ('eventSource' , Event) ]
     
     @property
@@ -54,6 +54,31 @@ class IndicatorBase(types.IObservable):
         """ Returns current value
         """
         return self._dataSource()
+
+class Proxy(types.IObservable):
+    
+    def __iadd__(self, listener):
+        self._impl.__iadd__(listener)
+        return self
+        
+    def __isub__(self, listener):
+        self._impl.__isub__(listener)
+        return self
+    
+    def __call__(self):
+        return self._impl.__call__()
+    
+    @property
+    def _digitsToShow(self):
+        return self._impl._digitsToShow
+    
+    @property
+    def label(self):
+        return self._impl.label
+    
+    @property
+    def attributes(self):
+        return {}
 
 
 def OnEveryDt(interval, source):

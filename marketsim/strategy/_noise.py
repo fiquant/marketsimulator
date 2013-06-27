@@ -1,7 +1,7 @@
 from marketsim import scheduler, order, mathutils, types, registry   
 from _basic import Strategy
 from _two_sides import TwoSides
-from _generic import Generic, randomSide
+from _periodic import Periodic, randomSide
 from _wrap import wrapper2
 from marketsim.types import *
 
@@ -37,16 +37,16 @@ exec wrapper2("Noise",
               ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> Volume'),
               ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')])
 
-@registry.expose(["Generic", "Noise"], args = ())
+@registry.expose(["Periodic", "Noise"], args = ())
 def NoiseEx     (orderFactory           = order.MarketFactory,
                  sideDistr              = randomSide, 
                  volumeDistr            = mathutils.rnd.expovariate(1.), 
                  creationIntervalDistr  = mathutils.rnd.expovariate(1.)):
     
-    r = Generic(orderFactory = orderFactory, 
-                eventGen     = scheduler.Timer(creationIntervalDistr), 
-                sideFunc     = sideDistr, 
-                volumeFunc   = volumeDistr)
+    r = Periodic(orderFactory = orderFactory, 
+                 eventGen     = scheduler.Timer(creationIntervalDistr), 
+                 sideFunc     = sideDistr, 
+                 volumeFunc   = volumeDistr)
     
     return r
     

@@ -4,7 +4,7 @@ from _computed import IndicatorBase
 
 ### ------------------------------------------------  data accessors
 
-class mid_price(object):
+class mid_price(mathutils.Function[float]):
     """ Returns middle price in the given *orderbook*
     """
     
@@ -12,8 +12,6 @@ class mid_price(object):
         self.orderbook = orderbook
         self._alias = ["Asset's", "Mid-price"]
         
-    _types = [meta.function((), float)]
-    
     def __call__(self):
         return self.orderbook.price
 
@@ -27,7 +25,7 @@ class mid_price(object):
     
     _properties = { 'orderbook' : types.IOrderBook }
 
-class cross_spread(object):
+class cross_spread(mathutils.Function[float]):
     
     def __init__(self, book_A, book_B):
         self.book_A = book_A
@@ -42,15 +40,13 @@ class cross_spread(object):
     def label(self):
         return "Price("+self.book_A.asks.label+") - Price("+self.book_B.bids.label+")"
 
-class side_price(object):
+class side_price(mathutils.Function[float]):
     """ Returns *orderbook* *side* price 
     """
     
     def __init__(self, orderbook, side):
         self.orderbook = orderbook
         self.side = side
-        
-    _types = [meta.function((), float)]
     
     def __call__(self):
         queue = self.orderbook.queue(self.side)
@@ -62,7 +58,7 @@ class side_price(object):
     
     _properties = { 'orderbook' : types.IOrderBook  }
     
-class last_side_price(object):
+class last_side_price(mathutils.Function[float]):
     """ Returns *orderbook* last trade *side* price 
     """
     
@@ -70,8 +66,6 @@ class last_side_price(object):
         self.orderbook = orderbook
         self.side = side
         
-    _types = [meta.function((), float)]
-    
     def __call__(self):
         queue = self.orderbook.queue(self.side)
         return queue.lastPrice
@@ -102,15 +96,13 @@ class bid_price(side_price):
     def label(self):
         return "Bid_{"+self.orderbook.label+"}" 
     
-class price_at_volume(object):
+class price_at_volume(mathutils.Function[float]):
 
     def __init__(self, orderbook, side, volumeAt):
         self.orderbook = orderbook
         self.side = side
         self.volumeAt = volumeAt
         self._alias = ["Asset's", "Price at Volume"]
-        
-    _types = [meta.function((), float)]
     
     def __call__(self):
         queue = self.orderbook.queue(self.side)
@@ -130,7 +122,7 @@ class price_at_volume(object):
                     'side'      : types.Side, 
                     'volumeAt'  : float }
 
-class volume_levels(object):
+class volume_levels(mathutils.Function[float]): # should be () -> meta.listOf(float)
     
     def __init__(self, orderbook, side, volumeDelta, volumeCount):
         self.orderbook = orderbook
@@ -143,8 +135,6 @@ class volume_levels(object):
     def volumes(self):
         return [self.volumeDelta * i for i in range(self.volumeCount)]
         
-    _types = [meta.function((), float)] # should be () -> meta.listOf(float)
-    
     def __call__(self):
         queue = self.orderbook.queue(self.side)
         return [price for (volume, price) in queue.getVolumePrices(self.volumes)]
@@ -206,37 +196,38 @@ class OnBidChanged(Event):
         
     _properties = { 'orderbook' : types.IOrderBook }
 
+import _computed
+
+class Proxy(_computed.Proxy):
+    
+    def __init__(self, orderbook):
+        self.orderbook = orderbook
+        self._alias = ["Asset's", self.__class__.__name__ ]
+
+    _properties = { 'orderbook' : types.IOrderBook }
+    
+class Price(Proxy):
+    
+    @property
+    def _impl(self):
+        return self.orderbook.midPrice
+
+class AskPrice(Proxy):
+    
+    @property
+    def _impl(self):
+        return self.orderbook.askPrice
+
+class BidPrice(Proxy):
+    
+    @property
+    def _impl(self):
+        return self.orderbook.bidPrice
+
+        
+
 ### -------------------------------------------------------------------   Observables
-    
-def Price(book):
-    """ Creates an indicator bound to the middle price of an asset
-    """   
-    return IndicatorBase(OnPriceChanged(book), mid_price(book))
-    
-   
-def CrossSpread(book_A, book_B):
-    """ Returns indicator bound to difference between ask of book_A and bid of book_B
-    """
-    asks = book_A.asks
-    bids = book_B.bids
-    asks_changed = OnAskChanged(book_A)
-    bids_changed = OnBidChanged(book_B)
-    return IndicatorBase(\
-         event.Array([asks_changed, bids_changed]), 
-         cross_spread(book_A, book_B))
-    
-def BidPrice(book):
-    """ Creates an indicator bound to the bid price of the asset
-    book - asset order book
-    """
-    return IndicatorBase(OnBidChanged(book), bid_price(book)) 
-
-def AskPrice(book):
-    """ Creates an indicator bound to the ask price of the asset
-    book - asset order book
-    """
-    return IndicatorBase(OnAskChanged(book), ask_price(book)) 
-
+        
 def PriceAtVolume(interval, orderbook, side, volume):
 
     return IndicatorBase(scheduler.Timer(mathutils.constant(interval)),

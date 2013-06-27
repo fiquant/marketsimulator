@@ -1,7 +1,24 @@
 import heapq
 import math
 
-from marketsim import Event
+from marketsim import Event, _, types
+
+class BestPrice(types.Observable):
+    
+    def __init__(self, queue):
+        types.Observable.__init__(self)
+        self.queue = queue
+        
+    @property
+    def digits(self):
+        return self.queue.book._digitsToShow
+    
+    @property
+    def label(self):
+        return self.queue.label
+        
+    def __call__(self):
+        return None if self.queue.empty else self.queue.best.price 
 
 
 class Queue(object):
@@ -17,15 +34,18 @@ class Queue(object):
         """
         self._tickSize = tickSize   # tick size
         self._book = book           # book the queue belongs to if any
-        self.on_best_changed = Event()  # event to be called when the best order changes
         self.on_order_cancelled = Event() # event (orderQueue, cancelledOrder) to be called when an order is cancelled 
         self.reset()
+        self.bestPrice = BestPrice(self)
         
     def reset(self):
         self._elements = []         # pairs ((signedTicks, arrivalSeqNo), order) kept in a heap
         self._counter = 0           # arrival order counter
         self._lastBest = None       # pair (bestPrice, bestVolume)
         self._lastPrice = None      # last valid price
+        
+    def bind(self, ctx):
+        self._scheduler = ctx.world
 
     @property
     def book(self):
@@ -43,7 +63,7 @@ class Queue(object):
             self._lastBest = bestpv
             if bestpv != None:
                 self._lastPrice = bestpv[0]
-            self.on_best_changed.fire(self)
+            self._scheduler.async(_(self.bestPrice, self).fire)
             
     @property
     def lastPrice(self):
@@ -85,7 +105,7 @@ class Queue(object):
         order.cancel()
         self._makeValid()
         self.notifyIfBestChanged()
-        self.on_order_cancelled.fire(self, order)
+        self._scheduler.async(_(self.on_order_cancelled, self, order).fire)
 
     def _makeValid(self):
         """ Ensures that the queue is either empty or has a valid order on top

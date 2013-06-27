@@ -22,7 +22,7 @@ class Limit(Base):
         dst._price = self._price
 
     def __str__(self):
-        return type(self).__name__ + "("+self.side+", Price=" + str(self.price) + ", volume=" + str(self.volume) + ", P&L="+str(self.PnL)+")"
+        return type(self).__name__ + "("+str(self.side)+", Price=" + str(self.price) + ", volume=" + str(self.volume) + ", P&L="+str(self.PnL)+")"
 
     def processIn(self, orderBook):
         """ Order book calls this method to ask the order 

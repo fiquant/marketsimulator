@@ -129,7 +129,7 @@ def generateTranslations():
             r = {}
             r.update(translations.en.property_names)
             r.update(translations.en.greeks)
-            json.dump(r, f)
+            json.dump(r, f, f, indent=4, separators=(',', ': '))
         
 collectTypeInfo()
 generateTranslations()

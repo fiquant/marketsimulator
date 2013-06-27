@@ -1,7 +1,7 @@
 from marketsim.Side import Tag as Side
 from marketsim.constraints import *
 from marketsim.meta import *
-from marketsim import Event
+from marketsim import event
 
 Price = float #non_negative
 Volume = float #non_negative
@@ -25,10 +25,21 @@ class ITrader(object):
 class ISingleAssetTrader(ITrader):
     pass
 
-class IObservable(Event):
+class IScalarFunction(object):
     pass
 
-IObservable._types = [function((), float)]
+class IFloatFunction(IScalarFunction):
+    pass
+
+IFloatFunction._types = [function((), float)]
+
+IFunction = { float : IFloatFunction }
+
+class IObservable(event.IEvent, IFunction[float]):
+    pass
+
+class Observable(IObservable, event.Conditional):
+    pass
 
 class IOrder(object):
     pass

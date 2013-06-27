@@ -383,7 +383,7 @@ class Registry(object):
     
                 castsTo = map(self._dumpPropertyConstraint, rtti.types(obj))
                     
-                types[ctor] = { "castsTo"      : castsTo, 
+                types[ctor] = { "castsTo"      : sorted(castsTo), 
                                 "properties"   : props, 
                                 "description"  : utils.rst2html(trim(obj.__doc__)) }
             

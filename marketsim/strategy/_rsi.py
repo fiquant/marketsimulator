@@ -2,7 +2,7 @@ from marketsim.types import *
 from marketsim import (meta, types, order, _, defs, 
                        mathutils, observable, scheduler, orderbook, registry)
 
-from _generic import Generic
+from _periodic import Periodic
 from _signal import SignalSide
 
 @registry.expose(["RelativeStrengthIndexSide"])
@@ -14,7 +14,7 @@ class RelativeStrengthIndexSide(object):
                                                                mathutils.rsi(1./14))
         self.threshold = threshold
         
-    _properties = { 'rsi'       : meta.function((), float),
+    _properties = { 'rsi'       : types.IFunction[float],
                     'orderBook' : types.IOrderBook,
                     'threshold' : float }
     
@@ -32,7 +32,7 @@ class RelativeStrengthIndexSide(object):
                   and rsi > (100 - self.threshold) else\
                None
 
-@registry.expose(["Generic", "RSI"], args=())
+@registry.expose(["Periodic", "RSI"], args=())
 def RSIEx    (         alpha                 = 1./14,
                        threshold             = 30,
                        orderFactory          = order.MarketFactory, 
@@ -43,14 +43,14 @@ def RSIEx    (         alpha                 = 1./14,
 
     rsi = observable.Fold(observable.Price(orderBook), mathutils.rsi(alpha))
     
-    r = Generic(orderFactory= orderFactory, 
-                volumeFunc  = volumeDistr, 
-                eventGen    = scheduler.Timer(creationIntervalDistr), 
-                sideFunc    = RelativeStrengthIndexSide(orderBook, rsi, threshold))
+    r = Periodic(orderFactory= orderFactory, 
+                 volumeFunc  = volumeDistr, 
+                 eventGen    = scheduler.Timer(creationIntervalDistr), 
+                 sideFunc    = RelativeStrengthIndexSide(orderBook, rsi, threshold))
     
     return r
 
-@registry.expose(["Generic", "RSIbis"], args=())
+@registry.expose(["Periodic", "RSIbis"], args=())
 def RSIbis (timeframe               = 0., 
             threshold               = 30,
             alpha                   = 1./14,
@@ -60,10 +60,9 @@ def RSIbis (timeframe               = 0.,
     
     thisBook = orderbook.OfTrader()
     
-    return defs(Generic(orderFactory = orderFactory, 
-                        volumeFunc   = volumeDistr, 
-                        eventGen     = scheduler.Timer(creationIntervalDistr),
-                        sideFunc     = SignalSide(mathutils.sub(mathutils.constant(50), 
-                                                                _.rsi), 
-                                                  50-threshold)), 
+    return defs(Periodic(orderFactory = orderFactory, 
+                         volumeFunc   = volumeDistr, 
+                         eventGen     = scheduler.Timer(creationIntervalDistr),
+                         sideFunc     = SignalSide(mathutils.constant(50) - _.rsi, 
+                                                   50-threshold)), 
                 { 'rsi' : observable.RSI(thisBook, timeframe, alpha) })

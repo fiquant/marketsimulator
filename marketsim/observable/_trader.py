@@ -1,10 +1,10 @@
-from marketsim import meta, Event, types, event, getLabel, trader
+from marketsim import meta, Event, types, event, getLabel, trader, mathutils
 
 from _computed import IndicatorBase
 
 #### ------------------------------------------------------- Accessors
 
-class rough_balance(object):
+class rough_balance(mathutils.Function[float]):
     """ Approximation for trader's cleared balance. :: 
     
         Rb(trader) = Balance(trader) + VolumeTraded(trader)*MidPrice(Asset(trader))
@@ -15,8 +15,6 @@ class rough_balance(object):
     def __init__(self, trader):
         self.trader = trader
         
-    _types = [meta.function((), float)]
-    
     def __call__(self):
         return self.trader.PnL + self.trader.amount*self.trader.book.price if self.trader.book.price else 0
    
@@ -30,7 +28,7 @@ class rough_balance(object):
     
     _properties = { 'trader' : types.ISingleAssetTrader }
 
-class profit_and_loss(object):
+class profit_and_loss(mathutils.Function[float]):
     """ Returns balance of the given *trader*
     """
     
@@ -42,8 +40,6 @@ class profit_and_loss(object):
     def label(self):
         return "P&L_{" + getLabel(self.trader) + "}"
     
-    _types = [meta.function((), float)]
-    
     @property
     def digits(self):
         return self.trader._digitsToShow
@@ -54,15 +50,13 @@ class profit_and_loss(object):
     
     _properties = { 'trader' : types.ITrader }
     
-class volume_traded(object):
+class volume_traded(mathutils.Function[float]):
     """ Returns trader's position (i.e. number of assets traded)
     """
     
     def __init__(self, trader):
         self.trader = trader
         self._alias = ["Trader's", "Position"]
-        
-    _types = [meta.function((), float)]
     
     def __call__(self):
         return self.trader.amount

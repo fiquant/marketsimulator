@@ -4,10 +4,10 @@ from marketsim.mathutils import *
 from _orderbook import Price
 from _average import Fold
 
-class TwoPointFold(types.IObservable):
+class TwoPointFold(types.Observable):
     
     def __init__(self, eventSource, dataSource, folder):
-        types.IObservable.__init__(self)
+        types.Observable.__init__(self)
         
         self.dataSource = dataSource
         self._eventSource = eventSource
@@ -33,7 +33,7 @@ class TwoPointFold(types.IObservable):
         self._event.switchTo(value)
         
     _properties = { 'eventSource' : Event, 
-                    'dataSource'  : meta.function((), float),
+                    'dataSource'  : types.IFunction[float],
                     'folder'      : meta.function((float,float), float) }
         
     def __call__(self):
@@ -49,37 +49,26 @@ def upMovement(previous, current):
 def downMovement(previous, current):
     return max(0., previous - current)
 
-class _rsi_sub(sub):
+class _rsi_label(identity):
     
-    def __init__(self, lhs, rhs, orderbook, timeframe):
-        sub.__init__(self, lhs, rhs)
+    def __init__(self, target, orderbook, timeframe):
+        identity.__init__(self, target)
         self._orderbook = orderbook
         self._timeframe = timeframe
-        
-    @property
+    
+    @property    
     def label(self):
         return 'RSI_{' + self._orderbook.label + '}^{'+str(self._timeframe)+'}'
-        
+    
 
 def RSI(orderbook, timeframe, alpha):
     
-    return defs(_rsi_sub(
-                    constant(100.), 
-                    div(
-                        constant(100.), 
-                        sum(
-                            constant(1.), 
-                            _.rs)), 
+    return defs(_rsi_label(
+                    constant(100.) - (constant(100.) / (constant(1.) + _.rs)), 
                     orderbook, 
                     timeframe), 
-                { 'rs' : div(Fold(TwoPointFold(_.timer, 
-                                               _.price, 
-                                               upMovement), 
-                                  ewma(alpha)), 
-                             Fold(TwoPointFold(_.timer, 
-                                               _.price, 
-                                               downMovement), 
-                                  ewma(alpha))), 
+                { 'rs' : (Fold(TwoPointFold(_.timer, _.price, upMovement), ewma(alpha)) / 
+                          Fold(TwoPointFold(_.timer, _.price, downMovement), ewma(alpha))), 
                   'price' : Price(orderbook),
                   'timer' : scheduler.Timer(constant(timeframe)) \
                                 if timeframe > 0 else\
