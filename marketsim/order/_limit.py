@@ -115,4 +115,5 @@ class AdaptLimit(object):
         
     def __call__(self, side):
         price = self.priceFunc()
+        price = self.priceFunc()
         return AdaptLimit_SidePriceBound(self.orderFactory, side, price)

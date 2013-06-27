@@ -44,6 +44,33 @@ Function = { float : FloatFunction,
              bool  : BoolFunction,
              Side  : SideFunction }
 
+class _NotNone_Impl(object):
+    
+    def __init__(self, source, ifnone):
+        self.source = source
+        self.ifnone = ifnone
+    
+    def __call__(self):
+        v = self.source()
+        return v if v is not None else self.ifnone()
+
+class NotNoneFloat(_NotNone_Impl, Function[float]):
+    
+    _properties = { 'source' : types.IFunction[float], 
+                    'ifnone' : types.IFunction[float]}
+
+NotNone = {}
+
+NotNone[float] = NotNoneFloat        
+    
+class _BinaryOp_Base(object):
+
+    def __init__(self, lhs, rhs):
+        self.lhs = lhs
+        self.rhs = rhs
+
+#---------------------------------------------- Condition 
+        
 class Condition_Impl(object):
     
     def __init__(self, cond, ifpart, elsepart):
@@ -75,30 +102,43 @@ Condition = {}
 
 for t in ['Side', 'float']:
     exec condition_tmpl % { 'T' : t }   
-    
-class NotNoneFloat(Function[float]):
-    
-    def __init__(self, source, ifnone):
-        self.source = source
-        self.ifnone = ifnone
-    
-    _properties = { 'source' : types.IFunction[float], 
-                    'ifnone' : types.IFunction[float]}
-        
-    def __call__(self):
-        v = self.source()
-        return v if v is not None else self.ifnone()
-    
-class _BinaryOp_Base(object):
 
-    def __init__(self, lhs, rhs):
-        self.lhs = lhs
-        self.rhs = rhs
-        
 class _Conditional_Base(_BinaryOp_Base, Function[bool]):
     
     def __getitem__(self, (ifpart, elsepart)):
         return Condition[self.BranchType](self, ifpart, elsepart)
+
+# ---------------------------------------------------- Equal
+
+class _Equal_Impl(_Conditional_Base):
+    
+    def __call__(self):
+        return self.lhs() == self.rhs()
+
+_equal_tmpl = """        
+class Equal_%(T)s(_Equal_Impl):
+
+    BranchType = %(T)s
+    
+    _properties = [('lhs', types.IFunction[%(T)s]), 
+                   ('rhs', types.IFunction[%(T)s])]
+
+Equal[%(T)s] = Equal_%(T)s
+"""
+
+Equal = {}
+
+for T in ["float"]:
+    exec _equal_tmpl % { 'T' : T }
+
+def equal(lhs, rhs):
+    if 'T' in dir(lhs):
+        if 'T' in dir(rhs):
+            assert lhs.T == rhs.T
+        return Equal[lhs.T](lhs, rhs)
+    if 'T' in dir(rhs):
+        return Equal[rhs.T](lhs, rhs)
+    raise "Cannot inference T for equal(" + repr(lhs) + ',' + repr(rhs) + ')'
         
 # ---------------------------------------------------- Greater
 
@@ -172,7 +212,7 @@ class _None_Impl(object):
         return None
 
 _none_tmpl = """
-class _None_Side(_None_Impl, Function[%(T)s]):
+class _None_%(T)s(_None_Impl, Function[%(T)s]):
     pass
     
 _None[%(T)s] = _None_%(T)s
@@ -180,7 +220,7 @@ _None[%(T)s] = _None_%(T)s
 
 _None = {}
 
-for T in ["Side"]:
+for T in ["Side", "float"]:
     exec _none_tmpl % { 'T' : T }
     
 # ---------------------------------------------------- Constant
