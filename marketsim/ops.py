@@ -19,6 +19,9 @@ class FloatFunction(types.IFunction[float]):
     def __lt__(self, other):
         return less(self, other)
     
+    def __gt__(self, other):
+        return greater(self, other)
+    
 class IntFunction(object):
     T = int
     
@@ -81,13 +84,47 @@ class NotNoneFloat(Function[float]):
     def __call__(self):
         v = self.source()
         return v if v is not None else self.ifnone()
-
-class _Less_Impl(Function[bool]):
     
+class _BinaryOp_Base(object):
+
     def __init__(self, lhs, rhs):
         self.lhs = lhs
         self.rhs = rhs
         
+# ---------------------------------------------------- Greater
+
+class _Greater_Impl(_BinaryOp_Base, Function[bool]):
+    
+    def __call__(self):
+        return self.lhs() > self.rhs()
+
+_greater_tmpl = """        
+class Greater_%(T)s(_Greater_Impl):
+    
+    _properties = [('lhs', types.IFunction[%(T)s]), 
+                   ('rhs', types.IFunction[%(T)s])]
+
+Greater[%(T)s] = Greater_%(T)s
+"""
+
+Greater = {}
+
+for T in ["float"]:
+    exec _greater_tmpl % { 'T' : T }
+
+def greater(lhs, rhs):
+    if 'T' in dir(lhs):
+        if 'T' in dir(rhs):
+            assert lhs.T == rhs.T
+        return Greater[lhs.T](lhs, rhs)
+    if 'T' in dir(rhs):
+        return Greater[rhs.T](lhs, rhs)
+    raise "Cannot inference T for greater(" + repr(lhs) + ',' + repr(rhs) + ')'
+    
+# ---------------------------------------------------- Less
+
+class _Less_Impl(_BinaryOp_Base, Function[bool]):
+    
     def __call__(self):
         return self.lhs() < self.rhs()
 

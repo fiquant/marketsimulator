@@ -70,10 +70,7 @@ def FundamentalValueSide(orderBook, fundamentalValue):
     
     return defs(
             ops.ConditionSide(
-                ops.less(
-                    _.fv, 
-                    bid_price(
-                        _.orderBook)),
+                bid_price(_.orderBook) > _.fv,
                 ops.constant(Side.Sell), 
                 ops.ConditionSide(
                     ask_price(_.orderBook) < _.fv, 
