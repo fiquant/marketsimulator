@@ -2,6 +2,8 @@ from marketsim import meta, Side, types, registry
 
 class FloatFunction(types.IFunction[float]):
     
+    T = float
+    
     def __add__(self, other):
         return Sum(self, other)
     
@@ -14,36 +16,31 @@ class FloatFunction(types.IFunction[float]):
     def __div__(self, other):
         return Div(self, other)
     
-class IntFunction():
-    pass
+    def __lt__(self, other):
+        return less(self, other)
+    
+class IntFunction(object):
+    T = int
+    
 
-class SideFunction():
-    pass
+class BoolFunction(object):
+    T = bool
+    
+
+class SideFunction(object):
+    T = Side
+    
+    
 
 IntFunction._types = [types.function((), int)]
+BoolFunction._types = [types.function((), bool)]
 SideFunction._types = [types.function((), Side)]
 
 Function = { float : FloatFunction, 
              int   : IntFunction, 
+             bool  : BoolFunction,
              Side  : SideFunction }
 
-class ConstantSide(object):
-    """ Constant function always returning given *side*. 
-    
-    Note: We need it since our type system doesn't support for the moment generic
-    Constant: () -> 'a
-    """
-    
-    def __init__(self, side = Side.Sell):
-        self.side = side
-        self._alias = ['Constant side']
-        
-    _properties = { 'side' : Side }
-    _types = [ meta.function((), Side) ]
-        
-    def __call__(self):
-        return self.side
-    
 class Condition_Impl(object):
     
     def __init__(self, cond, ifpart, elsepart):
@@ -84,20 +81,38 @@ class NotNoneFloat(Function[float]):
     def __call__(self):
         v = self.source()
         return v if v is not None else self.ifnone()
-    
-class less_float(Function[float]):
+
+class _Less_Impl(Function[bool]):
     
     def __init__(self, lhs, rhs):
         self.lhs = lhs
         self.rhs = rhs
         
-    _types = [meta.function((), bool)]
-    
-    _properties = [('lhs', types.IFunction[float]), 
-                   ('rhs', types.IFunction[float])]
-    
     def __call__(self):
         return self.lhs() < self.rhs()
+
+_less_tmpl = """        
+class Less_%(T)s(_Less_Impl):
+    
+    _properties = [('lhs', types.IFunction[%(T)s]), 
+                   ('rhs', types.IFunction[%(T)s])]
+
+Less[%(T)s] = Less_%(T)s
+"""
+
+Less = {}
+
+for T in ["float"]:
+    exec _less_tmpl % { 'T' : T }
+
+def less(lhs, rhs):
+    if 'T' in dir(lhs):
+        if 'T' in dir(rhs):
+            assert lhs.T == rhs.T
+        return Less[lhs.T](lhs, rhs)
+    if 'T' in dir(rhs):
+        return Less[rhs.T](lhs, rhs)
+    raise "Cannot inference T for less(" + repr(lhs) + ',' + repr(rhs) + ')'
     
 # ---------------------------------------------------- Constant
 
