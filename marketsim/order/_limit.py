@@ -1,5 +1,5 @@
 from _base import Base
-from marketsim import registry, bind, mathutils, meta
+from marketsim import registry, bind, ops, meta
 from marketsim.types import *
 
 class Limit(Base):
@@ -104,7 +104,7 @@ class AdaptLimit(object):
     User should provide *priceFunc* calculating price of order to create
     """
     
-    def __init__(self, orderFactory = LimitFactory, priceFunc = mathutils.constant(100)):
+    def __init__(self, orderFactory = LimitFactory, priceFunc = ops.constant(100)):
         self.orderFactory = orderFactory
         self.priceFunc = priceFunc
         

@@ -1,4 +1,4 @@
-from marketsim import Event, scheduler, registry, mathutils, types, meta, bind, Side, _
+from marketsim import Event, scheduler, registry, ops, types, meta, bind, Side, _
 from _base import Base
 from _limit import LimitFactory
 
@@ -100,7 +100,7 @@ class WithExpiryFactory(object):
     """ Limit-like order which is cancelled after given *delay*
     """
     
-    def __init__(self, expirationDistr=mathutils.constant(10), orderFactory = LimitFactory):
+    def __init__(self, expirationDistr=ops.constant(10), orderFactory = LimitFactory):
         self.expirationDistr = expirationDistr
         self.orderFactory = orderFactory
         

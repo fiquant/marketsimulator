@@ -1,5 +1,5 @@
 from marketsim import (trader, order, orderbook, scheduler, observable, order, 
-                       registry, types, meta, _, mathutils, event)
+                       registry, types, meta, _, ops, event)
 
 from marketsim.types import *
 
@@ -51,7 +51,7 @@ def efficiencyTrend(trader):
 def virtualWithUnitVolume(strategy):
     """ Creates for a *strategy* a clone with same parameters but sending virtual market orders of unit volume
     """
-    return strategy.With(volumeDistr=mathutils.constant(1), orderFactory=order.VirtualMarketFactory)    
+    return strategy.With(volumeDistr=ops.constant(1), orderFactory=order.VirtualMarketFactory)    
 
 exec wrapper2("tradeIfProfitable", 
              "",

@@ -2,7 +2,7 @@ import sys, itertools
 sys.path.append(r'..')
 
 from marketsim import (orderbook, observable, timeserie, scheduler, veusz, registry, event,
-                       context, trader, orderbook, Side, remote, mathutils, strategy)
+                       context, trader, orderbook, Side, remote, ops, strategy)
 
 simulations = {}
 
@@ -24,7 +24,7 @@ class Context(object):
         self.book_A = orderbook.Local(tickSize=0.01, label="A")
         self.book_B = orderbook.Local(tickSize=0.01, label="B")
         
-        delay = mathutils.constant(1.07)
+        delay = ops.constant(1.07)
 
         self.link_A = remote.TwoWayLink(remote.Link(delay), remote.Link(delay))
         self.link_B = remote.TwoWayLink(remote.Link(delay), remote.Link(delay))
@@ -183,4 +183,4 @@ def run(name, constructor):
             veusz.render(name, non_empty_graphs)
 
 def Constant(c, demo):
-    return [(observable.OnEveryDt(10, mathutils.constant(c)), demo)]
+    return [(observable.OnEveryDt(10, ops.constant(c)), demo)]

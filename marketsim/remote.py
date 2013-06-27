@@ -1,5 +1,5 @@
 import random
-from marketsim import scheduler, meta, mathutils
+from marketsim import scheduler, meta, mathutils, ops
 
 class Link(object):
     """ Represents latency in information propagation from one agent to another one 
@@ -13,7 +13,7 @@ class Link(object):
             when it will appear at the destination point
     """
     
-    def __init__(self, latency=mathutils.constant(0.001)):
+    def __init__(self, latency=ops.constant(0.001)):
         """ Initializes the link with a latency function
         """
         self._scheduler = scheduler.current() 

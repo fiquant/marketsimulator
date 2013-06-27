@@ -1,13 +1,13 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import strategy, orderbook, trader, scheduler, observable, veusz, mathutils, timeserie
+from marketsim import strategy, orderbook, trader, scheduler, observable, veusz, ops, mathutils, timeserie
 from common import expose
 
 @expose("Arbitrage", __name__)
 def Arbitrage(ctx):
 
-    liqVol = mathutils.rnd.expovariate(.1) * mathutils.constant(2)
+    liqVol = mathutils.rnd.expovariate(.1) * ops.constant(2)
     
     ctx.volumeStep = 70
 

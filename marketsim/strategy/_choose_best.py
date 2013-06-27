@@ -1,5 +1,5 @@
 from marketsim import (trader, order, orderbook, scheduler, observable, order, 
-                       registry, types, meta, _, mathutils, event)
+                       registry, types, meta, _, ops, event)
 from marketsim.types import *
 
 from _basic import Strategy
@@ -36,7 +36,7 @@ class _ChooseTheBest_Impl(Strategy):
     def __init__(self):
         
         Strategy.__init__(self) # TODO: eventGen should be a parameter
-        self._eventGen = scheduler.Timer(mathutils.constant(1))
+        self._eventGen = scheduler.Timer(ops.constant(1))
 
         def _createInstance(sp):
             estimator_strategy = self.estimator(sp)

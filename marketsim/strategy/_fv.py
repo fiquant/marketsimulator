@@ -60,7 +60,7 @@ exec  wrapper2("FundamentalValue",
                      (default: exponential distribution with |lambda| = 1)
              """,
               [('orderFactory',         'order.MarketFactory',          'Side -> Volume -> IOrder'),
-               ('fundamentalValue',     'mathutils.constant(100)',      '() -> Price'),
+               ('fundamentalValue',     'ops.constant(100)',      '() -> Price'),
                ('volumeDistr',          'mathutils.rnd.expovariate(1.)','() -> Volume'),
                ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> TimeInterval')])
 
@@ -88,7 +88,7 @@ def FundamentalValueSide(orderBook, fundamentalValue):
             })
 
 @registry.expose(["Periodic", "FundamentalValue"], args = ())
-def FundamentalValueEx(fundamentalValue      = mathutils.constant(100.),
+def FundamentalValueEx(fundamentalValue      = ops.constant(100.),
                        orderFactory          = order.MarketFactory, 
                        volumeDistr           = mathutils.rnd.expovariate(1.), 
                        creationIntervalDistr = mathutils.rnd.expovariate(1.)):

@@ -1,5 +1,5 @@
 from marketsim import (bind, event, Event, getLabel, Side, scheduler, 
-                       types, meta, mathutils, registry, trader)
+                       types, meta, mathutils, ops, registry, trader)
 
 class IndicatorBase(types.Observable):
     """ Observable that stores some scalar value and knows how to update it
@@ -87,7 +87,7 @@ def OnEveryDt(interval, source):
     source - function to obtain indicator value
     """
     
-    return IndicatorBase(scheduler.Timer(mathutils.constant(interval)),
+    return IndicatorBase(scheduler.Timer(ops.constant(interval)),
                          source, 
                          {'smooth':True})
 

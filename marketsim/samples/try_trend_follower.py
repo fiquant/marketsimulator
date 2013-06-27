@@ -1,10 +1,10 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (signal, strategy, trader, orderbook, order,
+from marketsim import (signal, strategy, trader, orderbook, order, ops,
                        timeserie, scheduler, observable, veusz, mathutils)
 
-const = mathutils.constant
+const = ops.constant
 
 from common import expose
 
@@ -38,14 +38,14 @@ def TrendFollower(ctx):
                             ]),
     
             ctx.makeTrader_A(strategy.TrendFollower(
-                                    creationIntervalDistr = mathutils.constant(1.),
+                                    creationIntervalDistr = const(1.),
                                     average=mathutils.ewma(alpha),
                                     volumeDistr = const(V)),
                              "trendfollower", 
                              myVolume() + myAverage(alpha)),
             
             ctx.makeTrader_A(strategy.TrendFollowerEx(
-                                       creationIntervalDistr = mathutils.constant(1.),
+                                       creationIntervalDistr = const(1.),
                                        average=mathutils.ewma(alpha),
                                        volumeDistr = const(V)),
                              "trendfollower_ex",

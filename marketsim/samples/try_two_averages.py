@@ -1,10 +1,10 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (signal, strategy, trader, orderbook, 
+from marketsim import (signal, strategy, trader, orderbook, ops,
                        timeserie, scheduler, observable, veusz, mathutils)
 
-const = mathutils.constant
+const = ops.constant
 
 from common import expose
 
@@ -38,29 +38,29 @@ def TwoAverages(ctx):
             
         ctx.makeTrader_A(strategy.TwoAverages(average1 = slow(), 
                                               average2 = fast(),
-                                              creationIntervalDistr = mathutils.constant(1.),
-                                              volumeDistr           = mathutils.constant(1.)), 
+                                              creationIntervalDistr = const(1.),
+                                              volumeDistr           = const(1.)), 
                         'avg+', 
                         myAverage(alpha_slow) + myAverage(alpha_fast) + myVolume()),
 
         ctx.makeTrader_A(strategy.TwoAverages(average1 = fast(), 
                                               average2 = slow(),
-                                              creationIntervalDistr = mathutils.constant(1.),
-                                              volumeDistr           = mathutils.constant(1.)), 
+                                              creationIntervalDistr = const(1.),
+                                              volumeDistr           = const(1.)), 
                          'avg-',
                          myVolume()),
 
         ctx.makeTrader_A(strategy.TwoAveragesEx(average1 = slow(), 
                                                 average2 = fast(),
-                                                creationIntervalDistr = mathutils.constant(1.),
-                                                volumeDistr           = mathutils.constant(1.)), 
+                                                creationIntervalDistr = const(1.),
+                                                volumeDistr           = const(1.)), 
                          'avg_ex+',
                          myVolume()),
 
         ctx.makeTrader_A(strategy.TwoAveragesEx(average1 = fast(), 
                                                 average2 = slow(),
-                                                creationIntervalDistr = mathutils.constant(1.),
-                                                volumeDistr           = mathutils.constant(1.)), 
+                                                creationIntervalDistr = const(1.),
+                                                volumeDistr           = const(1.)), 
                          'avg_ex-',
                          myVolume())
     ]

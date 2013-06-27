@@ -1,10 +1,10 @@
-from marketsim import meta, Event, types, event, getLabel, trader, mathutils
+from marketsim import meta, Event, types, event, getLabel, trader, mathutils, ops
 
 from _computed import IndicatorBase
 
 #### ------------------------------------------------------- Accessors
 
-class rough_balance(mathutils.Function[float]):
+class rough_balance(ops.Function[float]):
     """ Approximation for trader's cleared balance. :: 
     
         Rb(trader) = Balance(trader) + VolumeTraded(trader)*MidPrice(Asset(trader))
@@ -28,7 +28,7 @@ class rough_balance(mathutils.Function[float]):
     
     _properties = { 'trader' : types.ISingleAssetTrader }
 
-class profit_and_loss(mathutils.Function[float]):
+class profit_and_loss(ops.Function[float]):
     """ Returns balance of the given *trader*
     """
     
@@ -50,7 +50,7 @@ class profit_and_loss(mathutils.Function[float]):
     
     _properties = { 'trader' : types.ITrader }
     
-class volume_traded(mathutils.Function[float]):
+class volume_traded(ops.Function[float]):
     """ Returns trader's position (i.e. number of assets traded)
     """
     

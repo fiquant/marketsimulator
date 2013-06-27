@@ -2,7 +2,7 @@ import random
 from _one_side import OneSide
 from _periodic import Periodic
 from _wrap import wrapper2
-from marketsim import (order, orderbook, scheduler, mathutils, 
+from marketsim import (order, orderbook, scheduler, mathutils, ops,
                        types, registry, meta, defs, _)
 from marketsim.types import *
 
@@ -78,7 +78,7 @@ def SafeSidePrice(orderBook, side, defaultValue):
                 side_price(_.orderBook, side), 
                 ops.NotNoneFloat(
                     last_side_price(_.orderBook, side), 
-                    mathutils.constant(defaultValue))),
+                    ops.constant(defaultValue))),
         { 'orderBook': orderBook })
 
 @registry.expose(["Periodic", 'LiquidityProviderSide'], args = ())

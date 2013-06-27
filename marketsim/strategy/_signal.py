@@ -1,5 +1,5 @@
 from marketsim.types import *
-from marketsim import (Event, order, mathutils, types, meta, defs, _, 
+from marketsim import (Event, order, mathutils, types, meta, defs, _, ops,
                        registry, signal, bind, signal, ops)
 from _periodic import Periodic
 from _two_sides import TwoSides
@@ -65,7 +65,7 @@ def SignalSide(source, threshold = 0):
                         ops.ConditionSide(
                             ops.less_float(
                                 _.source, 
-                                mathutils.negate(_.threshold)), 
+                                ops.negate(_.threshold)), 
                             ops.ConstantSide(Side.Sell), 
                             ops.none_side())), 
                 { 'source'    : source, 

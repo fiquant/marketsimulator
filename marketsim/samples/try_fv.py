@@ -2,7 +2,7 @@ import sys
 sys.path.append(r'../..')
 
 from marketsim import (strategy, trader, orderbook, order, timeserie,
-                       scheduler, types, observable, veusz, mathutils)
+                       scheduler, types, observable, veusz, ops)
 
 
 from common import expose, Constant
@@ -20,24 +20,24 @@ def FundamentalValue(ctx):
     return [
         ctx.makeTrader_A( 
             strategy.LiquidityProvider(
-                 volumeDistr=mathutils.constant(6),
+                 volumeDistr=ops.constant(6),
                  orderFactoryT=order.WithExpiryFactory(
-                     expirationDistr=mathutils.constant(10))),
+                     expirationDistr=ops.constant(10))),
             "liquidity"),
     
         ctx.makeTrader_A( 
             strategy.FundamentalValue(
-               fundamentalValue = mathutils.constant(fv),
-               creationIntervalDistr = mathutils.constant(1.),
-               volumeDistr = mathutils.constant(1)), 
+               fundamentalValue = ops.constant(fv),
+               creationIntervalDistr = ops.constant(1.),
+               volumeDistr = ops.constant(1)), 
             "fv_200", 
             myVolume() + myPrice() + Constant(fv, demo)),
 
         ctx.makeTrader_A(
             strategy.FundamentalValueEx(
-               fundamentalValue = mathutils.constant(fv),
-               creationIntervalDistr = mathutils.constant(1.),
-               volumeDistr = mathutils.constant(1)), 
+               fundamentalValue = ops.constant(fv),
+               creationIntervalDistr = ops.constant(1.),
+               volumeDistr = ops.constant(1)), 
             "fv_ex_200", 
             myVolume())
     ]

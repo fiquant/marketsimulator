@@ -1,5 +1,4 @@
-from marketsim import event, bind, scheduler, meta, types, Event, defs, _
-from marketsim.mathutils import *
+from marketsim import event, bind, scheduler, meta, types, Event, defs, _, ops, registry, mathutils
 
 from _orderbook import Price
 from _average import Fold
@@ -49,10 +48,10 @@ def upMovement(previous, current):
 def downMovement(previous, current):
     return max(0., previous - current)
 
-class _rsi_label(identity):
+class _rsi_label(ops.identity):
     
     def __init__(self, target, orderbook, timeframe):
-        identity.__init__(self, target)
+        ops.identity.__init__(self, target)
         self._orderbook = orderbook
         self._timeframe = timeframe
     
@@ -64,13 +63,13 @@ class _rsi_label(identity):
 def RSI(orderbook, timeframe, alpha):
     
     return defs(_rsi_label(
-                    constant(100.) - (constant(100.) / (constant(1.) + _.rs)), 
+                    ops.constant(100.) - (ops.constant(100.) / (ops.constant(1.) + _.rs)), 
                     orderbook, 
                     timeframe), 
-                { 'rs' : (Fold(TwoPointFold(_.timer, _.price, upMovement), ewma(alpha)) / 
-                          Fold(TwoPointFold(_.timer, _.price, downMovement), ewma(alpha))), 
+                { 'rs' : (Fold(TwoPointFold(_.timer, _.price, upMovement), mathutils.ewma(alpha)) / 
+                          Fold(TwoPointFold(_.timer, _.price, downMovement), mathutils.ewma(alpha))), 
                   'price' : Price(orderbook),
-                  'timer' : scheduler.Timer(constant(timeframe)) \
+                  'timer' : scheduler.Timer(ops.constant(timeframe)) \
                                 if timeframe > 0 else\
                              _.price })
     
