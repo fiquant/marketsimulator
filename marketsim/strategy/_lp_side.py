@@ -68,32 +68,15 @@ exec wrapper2("LiquidityProviderSide",
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)',        '() -> Volume')])
 
 
-class ConstantSide(object):
-    """ Constant function always returning given *side*. 
-    
-    Note: We need it since our type system doesn't support for the moment generic
-    Constant: () -> 'a
-    """
-    
-    def __init__(self, side = Side.Sell):
-        self.side = side
-        self._alias = ['Constant side']
-        
-    _properties = { 'side' : Side }
-    _types = [ meta.function((), Side) ]
-        
-    def __call__(self):
-        return self.side
-    
-from _signal import NotNoneFloat
 from marketsim.observable._orderbook import side_price, last_side_price
+from marketsim import ops
                
 def SafeSidePrice(orderBook, side, defaultValue):
     
     return defs(
-        NotNoneFloat(
+        ops.NotNoneFloat(
                 side_price(_.orderBook, side), 
-                NotNoneFloat(
+                ops.NotNoneFloat(
                     last_side_price(_.orderBook, side), 
                     mathutils.constant(defaultValue))),
         { 'orderBook': orderBook })
@@ -109,7 +92,7 @@ def LiquidityProviderSideEx(side                    = Side.Sell,
     orderBook = orderbook.OfTrader()
     r = Periodic(eventGen    = scheduler.Timer(creationIntervalDistr),
                  volumeFunc  = volumeDistr, 
-                 sideFunc    = ConstantSide(side),
+                 sideFunc    = ops.ConstantSide(side),
                  orderFactory= order.AdaptLimit(
                                     orderFactory,
                                     SafeSidePrice(orderBook, side, defaultValue) * priceDistr))

@@ -3,7 +3,7 @@ from _basic import Strategy
 from _one_side import OneSide
 from _periodic import Periodic
 from _array import Array
-from _wrap import merge, wrapper, wrapper2
+from _wrap import merge, wrapper2
 from _lp_side import LiquidityProviderSide, LiquidityProviderSideEx
 from marketsim import (order, orderbook, scheduler, mathutils, defs, _,
                        types, registry, bind, meta, trader)

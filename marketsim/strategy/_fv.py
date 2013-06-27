@@ -1,4 +1,4 @@
-from marketsim import (scheduler, observable, types, meta, defs, _,
+from marketsim import (scheduler, observable, types, meta, defs, _, ops,
                        Side, registry, orderbook, bind, order, mathutils)
 
 from _periodic import Periodic
@@ -64,26 +64,24 @@ exec  wrapper2("FundamentalValue",
                ('volumeDistr',          'mathutils.rnd.expovariate(1.)','() -> Volume'),
                ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> TimeInterval')])
 
-from _lp_side import ConstantSide
-from _signal import ConditionSide, less_float, none_side
 from marketsim.observable._orderbook import ask_price, bid_price
     
 def FundamentalValueSide(orderBook, fundamentalValue):
     
     return defs(
-            ConditionSide(
-                less_float(
+            ops.ConditionSide(
+                ops.less_float(
                     _.fv, 
                     bid_price(
                         _.orderBook)),
-                ConstantSide(Side.Sell), 
-                ConditionSide(
-                    less_float(
+                ops.ConstantSide(Side.Sell), 
+                ops.ConditionSide(
+                    ops.less_float(
                         ask_price(
                             _.orderBook),
                         _.fv), 
-                    ConstantSide(Side.Buy), 
-                    none_side())),
+                    ops.ConstantSide(Side.Buy), 
+                    ops.none_side())),
             {
              'fv'        : fundamentalValue, 
              'orderBook' : orderBook 
