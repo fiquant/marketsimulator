@@ -68,14 +68,13 @@ from marketsim.observable._orderbook import ask_price, bid_price
     
 def FundamentalValueSide(orderBook, fundamentalValue):
     
-    return defs(
-            ops.ConditionSide(
-                bid_price(_.orderBook) > _.fv,
-                ops.constant(Side.Sell), 
-                ops.ConditionSide(
-                    ask_price(_.orderBook) < _.fv, 
-                    ops.constant(Side.Buy), 
-                    ops._None[Side]())),
+    return defs((bid_price(_.orderBook) > _.fv)[
+                    ops.constant(Side.Sell), 
+                    (ask_price(_.orderBook) < _.fv)[
+                        ops.constant(Side.Buy), 
+                        ops._None[Side]()
+                    ]                
+                ], 
             {
              'fv'        : fundamentalValue, 
              'orderBook' : orderBook 

@@ -67,7 +67,11 @@ class Condition%(T)s(Condition_Impl):
     _properties = [('cond', meta.function((), bool)), 
                    ('ifpart', meta.function((), %(T)s)), 
                    ('elsepart', meta.function((), %(T)s))]
+                   
+Condition[%(T)s] = Condition%(T)s
 """  
+
+Condition = {}
 
 for t in ['Side', 'float']:
     exec condition_tmpl % { 'T' : t }   
@@ -91,15 +95,22 @@ class _BinaryOp_Base(object):
         self.lhs = lhs
         self.rhs = rhs
         
+class _Conditional_Base(_BinaryOp_Base, Function[bool]):
+    
+    def __getitem__(self, (ifpart, elsepart)):
+        return Condition[self.BranchType](self, ifpart, elsepart)
+        
 # ---------------------------------------------------- Greater
 
-class _Greater_Impl(_BinaryOp_Base, Function[bool]):
+class _Greater_Impl(_Conditional_Base):
     
     def __call__(self):
         return self.lhs() > self.rhs()
 
 _greater_tmpl = """        
 class Greater_%(T)s(_Greater_Impl):
+
+    BranchType = %(T)s
     
     _properties = [('lhs', types.IFunction[%(T)s]), 
                    ('rhs', types.IFunction[%(T)s])]
@@ -123,13 +134,15 @@ def greater(lhs, rhs):
     
 # ---------------------------------------------------- Less
 
-class _Less_Impl(_BinaryOp_Base, Function[bool]):
+class _Less_Impl(_Conditional_Base):
     
     def __call__(self):
         return self.lhs() < self.rhs()
 
 _less_tmpl = """        
 class Less_%(T)s(_Less_Impl):
+    
+    BranchType = %(T)s
     
     _properties = [('lhs', types.IFunction[%(T)s]), 
                    ('rhs', types.IFunction[%(T)s])]

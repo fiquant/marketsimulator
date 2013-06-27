@@ -57,17 +57,13 @@ exec wrapper2("Signal",
     
 def SignalSide(source, threshold = 0):
     
-    return defs(ops.ConditionSide(
-                    ops.Less[float](
-                        _.threshold, 
-                        _.source), 
+    return defs(ops.Less[float](_.threshold, _.source)[ 
                     ops.constant(Side.Buy), 
-                        ops.ConditionSide(
-                            ops.less(
-                                _.source, 
-                                ops.negate(_.threshold)), 
-                            ops.constant(Side.Sell), 
-                            ops._None[Side]())), 
+                    ops.less(_.source, ops.negate(_.threshold))[ 
+                        ops.constant(Side.Sell), 
+                        ops._None[Side]()
+                    ]
+                ], 
                 { 'source'    : source, 
                   'threshold' : ops.constant(threshold) })
     
