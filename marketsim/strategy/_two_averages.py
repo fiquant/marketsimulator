@@ -77,8 +77,7 @@ def TwoAveragesEx(average1 = None, #mathutils.ewma(alpha = 0.15),
                  volumeFunc  = volumeDistr,
                  eventGen    = scheduler.Timer(creationIntervalDistr),
                  sideFunc    = SignalSide(
-                                  mathutils.sub(
-                                     observable.Fold(_.price, average1),
-                                     observable.Fold(_.price, average2)),
+                                  (observable.Fold(_.price, average1) 
+                                   - observable.Fold(_.price, average2)),
                                   threshold)), 
         { 'price' : observable.Price(orderbook.OfTrader()) })

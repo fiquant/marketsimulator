@@ -69,7 +69,7 @@ def SignalSide(source, threshold = 0):
                             ops.ConstantSide(Side.Sell), 
                             ops.none_side())), 
                 { 'source'    : source, 
-                  'threshold' : mathutils.constant(threshold) })
+                  'threshold' : ops.constant(threshold) })
     
 @registry.expose(["Periodic", 'Signal'], args = ())
 def SignalEx(signal         = signal.RandomWalk(), 

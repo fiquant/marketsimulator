@@ -3,16 +3,16 @@ from marketsim import meta, Side, types, registry
 class FloatFunction(types.IFunction[float]):
     
     def __add__(self, other):
-        return sum(self, other)
+        return Sum(self, other)
     
     def __sub__(self, other):
-        return sub(self, other)
+        return Sub(self, other)
     
     def __mul__(self, other):
-        return product(self, other)
+        return Product(self, other)
     
     def __div__(self, other):
-        return div(self, other)
+        return Div(self, other)
     
 class IntFunction():
     pass
@@ -100,16 +100,10 @@ class none_side(object):
         return None
     
     _types = [meta.function((), Side)]
-    
-@registry.expose(['Constant'])
-class constant(Function[float]):
+
+class _Constant_Impl(object):
     """ Constant function returning **value**.
     """
-    
-    def __init__(self, value=100.):
-        self.value = value
-        
-    _properties = {'value' : float}
     
     def _casts_to(self, dst):
         if type(dst) is meta.function:
@@ -131,9 +125,31 @@ class constant(Function[float]):
     def __repr__(self):
         return "constant("+repr(self.value)+")"
 
+_constant_tmpl = """    
+@registry.expose(['Constant[%(T)s]'])
+class Constant_%(T)s(_Constant_Impl, Function[%(T)s]):
+    \""" Constant function returning **value**.
+    \"""
+    
+    def __init__(self, value=%(defvalue)s):
+        self.value = value
+        
+    _properties = {'value' : %(T)s}
+    
+Constant[%(T)s] = Constant_%(T)s
+"""
+
+Constant = {}
+for T,defvalue in {'float': '100.', 'int': '100'  }.iteritems():
+    exec _constant_tmpl % { 'T' : T, 'defvalue' : defvalue }
+
+def constant(x):
+    return Constant_float(x)    
+
+
 @registry.expose(['Arithmetic', 'negate'])
 class negate(Function[float]):
-    """ Function returning product of the operands
+    """ Function returning Product of the operands
     """
     
     def __init__(self, arg=constant(1.)):
@@ -163,7 +179,7 @@ class identity(Function[float]):
         return "id(" + repr(self.arg) + ")"
 
 @registry.expose(['Arithmetic', '*'])
-class product(Function[float]):
+class Product(Function[float]):
     """ Function returning product of the operands
     """
     
@@ -183,8 +199,8 @@ class product(Function[float]):
         return repr(self.LeftHandSide)+ "*" + repr(self.RightHandSide)
 
 @registry.expose(['Arithmetic', '+'])    
-class sum(Function[float]):
-    """ Function returning sum of the operands
+class Sum(Function[float]):
+    """ Function returning Sum of the operands
     """
     
     def __init__(self, LeftHandSide=constant(1), RightHandSide=constant(1)):
@@ -203,7 +219,7 @@ class sum(Function[float]):
         return repr(self.LeftHandSide)+ "+" + repr(self.RightHandSide)
 
 @registry.expose(['Arithmetic', '/'])
-class div(Function[float]):
+class Div(Function[float]):
     """ Function returning division of the operands
     """
     
@@ -223,7 +239,7 @@ class div(Function[float]):
         return repr(self.LeftHandSide)+ "/" + repr(self.RightHandSide)
 
 @registry.expose(['Arithmetic', '-'])    
-class sub(Function[float]):
+class Sub(Function[float]):
     """ Function substructing the right operand from the left one
     """
     
