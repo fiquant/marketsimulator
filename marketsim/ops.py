@@ -17,10 +17,15 @@ class FloatFunction(types.IFunction[float]):
 class IntFunction():
     pass
 
+class SideFunction():
+    pass
+
 IntFunction._types = [types.function((), int)]
+SideFunction._types = [types.function((), Side)]
 
 Function = { float : FloatFunction, 
-             int   : IntFunction }
+             int   : IntFunction, 
+             Side  : SideFunction }
 
 class ConstantSide(object):
     """ Constant function always returning given *side*. 
@@ -140,11 +145,17 @@ Constant[%(T)s] = Constant_%(T)s
 """
 
 Constant = {}
-for T,defvalue in {'float': '100.', 'int': '100'  }.iteritems():
+for T,defvalue in {'float'  : '100.', 
+                   'int'    : '100', 
+                   'Side'   : 'Side.Sell'  
+                  }.iteritems():
     exec _constant_tmpl % { 'T' : T, 'defvalue' : defvalue }
 
 def constant(x):
-    return Constant_float(x)    
+    return Constant_float(x) if type(x) is float\
+        else Constant_float(x) if type(x) is int\
+        else Constant_Side(x) if x is Side.Sell or x is Side.Buy\
+        else None    
 
 
 @registry.expose(['Arithmetic', 'negate'])

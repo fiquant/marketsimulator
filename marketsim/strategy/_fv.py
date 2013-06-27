@@ -74,13 +74,13 @@ def FundamentalValueSide(orderBook, fundamentalValue):
                     _.fv, 
                     bid_price(
                         _.orderBook)),
-                ops.ConstantSide(Side.Sell), 
+                ops.constant(Side.Sell), 
                 ops.ConditionSide(
                     ops.less_float(
                         ask_price(
                             _.orderBook),
                         _.fv), 
-                    ops.ConstantSide(Side.Buy), 
+                    ops.constant(Side.Buy), 
                     ops.none_side())),
             {
              'fv'        : fundamentalValue, 

@@ -61,12 +61,12 @@ def SignalSide(source, threshold = 0):
                     ops.less_float(
                         _.threshold, 
                         _.source), 
-                    ops.ConstantSide(Side.Buy), 
+                    ops.constant(Side.Buy), 
                         ops.ConditionSide(
                             ops.less_float(
                                 _.source, 
                                 ops.negate(_.threshold)), 
-                            ops.ConstantSide(Side.Sell), 
+                            ops.constant(Side.Sell), 
                             ops.none_side())), 
                 { 'source'    : source, 
                   'threshold' : ops.constant(threshold) })

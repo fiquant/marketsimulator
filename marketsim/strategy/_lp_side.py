@@ -92,7 +92,7 @@ def LiquidityProviderSideEx(side                    = Side.Sell,
     orderBook = orderbook.OfTrader()
     r = Periodic(eventGen    = scheduler.Timer(creationIntervalDistr),
                  volumeFunc  = volumeDistr, 
-                 sideFunc    = ops.ConstantSide(side),
+                 sideFunc    = ops.constant(side),
                  orderFactory= order.AdaptLimit(
                                     orderFactory,
                                     SafeSidePrice(orderBook, side, defaultValue) * priceDistr))

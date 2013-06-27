@@ -4,25 +4,24 @@ class Tag(object):
     def byId(x):
         return Buy if x else Sell  
 
-class _SellSide(object):
-    """ Tag class representing the sell side 
-    """
-    
-    id = 0
-    
-    _types = [Tag]
-    _alias = ['Sell']
-    
-    @property
-    def opposite(self):
-        return Buy
-    
     def __eq__(self, other):
         return isinstance(other, self.__class__)
     
     def __ne__(self, other):
         return not self.__eq__(other)
 
+class _SellSide(Tag):
+    """ Tag class representing the sell side 
+    """
+    
+    id = 0
+    
+    _alias = ['Sell']
+    
+    @property
+    def opposite(self):
+        return Buy
+    
     @staticmethod
     def better(x, y):
         """ Returns True iff signed price 'x' is more attractive than signed price 'y'
@@ -35,11 +34,10 @@ class _SellSide(object):
         """
         return +price
     
-class _BuySide(object):
+class _BuySide(Tag):
     
     id = 1
 
-    _types = [Tag]
     _alias = ['Buy']
     
     @property
@@ -57,12 +55,6 @@ class _BuySide(object):
         """ Makes price of something on buy side negative
         """
         return -price
-    
-    def __eq__(self, other):
-        return isinstance(other, self.__class__)
-    
-    def __ne__(self, other):
-        return not self.__eq__(other)
 
 
 Sell = _SellSide()
