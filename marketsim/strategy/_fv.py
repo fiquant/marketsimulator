@@ -81,7 +81,7 @@ def FundamentalValueSide(orderBook, fundamentalValue):
                             _.orderBook),
                         _.fv), 
                     ops.constant(Side.Buy), 
-                    ops.none_side())),
+                    ops._None[Side]())),
             {
              'fv'        : fundamentalValue, 
              'orderBook' : orderBook 

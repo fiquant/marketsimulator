@@ -99,12 +99,26 @@ class less_float(Function[float]):
     def __call__(self):
         return self.lhs() < self.rhs()
     
-class none_side(object):
+# ---------------------------------------------------- Constant
+
+class _None_Impl(object):
     
     def __call__(self):
         return None
+
+_none_tmpl = """
+class _None_Side(_None_Impl, Function[%(T)s]):
+    pass
     
-    _types = [meta.function((), Side)]
+_None[%(T)s] = _None_%(T)s
+"""
+
+_None = {}
+
+for T in ["Side"]:
+    exec _none_tmpl % { 'T' : T }
+    
+# ---------------------------------------------------- Constant
 
 class _Constant_Impl(object):
     """ Constant function returning **value**.

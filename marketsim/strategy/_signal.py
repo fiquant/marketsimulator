@@ -67,7 +67,7 @@ def SignalSide(source, threshold = 0):
                                 _.source, 
                                 ops.negate(_.threshold)), 
                             ops.constant(Side.Sell), 
-                            ops.none_side())), 
+                            ops._None[Side]())), 
                 { 'source'    : source, 
                   'threshold' : ops.constant(threshold) })
     
