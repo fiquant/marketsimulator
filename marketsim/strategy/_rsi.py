@@ -1,5 +1,5 @@
 from marketsim.types import *
-from marketsim import (meta, types, order, _, defs, 
+from marketsim import (meta, types, order, _, defs, ops,
                        mathutils, observable, scheduler, orderbook, registry)
 
 from _periodic import Periodic
@@ -63,6 +63,6 @@ def RSIbis (timeframe               = 0.,
     return defs(Periodic(orderFactory = orderFactory, 
                          volumeFunc   = volumeDistr, 
                          eventGen     = scheduler.Timer(creationIntervalDistr),
-                         sideFunc     = SignalSide(mathutils.constant(50) - _.rsi, 
+                         sideFunc     = SignalSide(ops.constant(50) - _.rsi, 
                                                    50-threshold)), 
                 { 'rsi' : observable.RSI(thisBook, timeframe, alpha) })

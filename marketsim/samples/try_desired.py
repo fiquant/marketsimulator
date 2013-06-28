@@ -1,13 +1,13 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (signal, strategy, orderbook, observable, mathutils)
+from marketsim import (signal, strategy, orderbook, observable, ops)
 from common import expose, Constant
 
 @expose("Desired position", __name__)
 def DesiredPosition(ctx):
 
-    const = mathutils.constant
+    const = ops.constant
     linear_signal = signal.RandomWalk(initialValue=20, 
                                       deltaDistr=const(-.1), 
                                       label="20-0.1t")

@@ -1,13 +1,12 @@
 import random
 import math
 import inspect
-from marketsim import registry
+from marketsim import registry, ops
 from marketsim.types import *
-from _ops import Function
 
 template = """
 @registry.expose(['Random', '%(alias)s'])
-class %(name)s(Function[%(rvtype)s]):
+class %(name)s(ops.Function[%(rvtype)s]):
     \"\"\" %(docstring)s
     \"\"\"    
 

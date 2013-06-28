@@ -1,4 +1,4 @@
-from marketsim import getLabel, mathutils, scheduler, meta, types, bind, event, _
+from marketsim import getLabel, ops, mathutils, scheduler, meta, types, bind, event, _
 
 from _computed import OnEveryDt
         
@@ -21,7 +21,7 @@ class derivative(types.IUpdatableValue):
     _properties = { "source" : types.IUpdatableValue }
     
     
-class Fold(mathutils.Function[float]):
+class Fold(ops.Function[float]):
     """ Aggregates (folds) time-dependent data from *source* using given functional  *folder* (e.g. moving average)
     
     For example ::

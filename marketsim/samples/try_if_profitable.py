@@ -2,9 +2,9 @@ import sys
 sys.path.append(r'../..')
 
 from marketsim import (signal, strategy, trader, orderbook, 
-                       timeserie, scheduler, observable, veusz, mathutils)
+                       timeserie, scheduler, observable, veusz, mathutils, ops)
 
-const = mathutils.constant
+const = ops.constant
 
 from common import expose
 
@@ -29,13 +29,13 @@ def TradeIfProfitable(ctx):
     
     avg_plus = strategy.TwoAverages(average1 = slow(), 
                                     average2 = fast(),
-                                    creationIntervalDistr = mathutils.constant(1.),
-                                    volumeDistr           = mathutils.constant(1.))
+                                    creationIntervalDistr = ops.constant(1.),
+                                    volumeDistr           = ops.constant(1.))
     
     avg_minus = strategy.TwoAverages(average1 = fast(), 
                                      average2 = slow(),
-                                     creationIntervalDistr = mathutils.constant(1.),
-                                     volumeDistr           = mathutils.constant(1.))
+                                     creationIntervalDistr = ops.constant(1.),
+                                     volumeDistr           = ops.constant(1.))
     
     avg_plus_opt = strategy.TradeIfProfitable(avg_plus)
     avg_minus_opt = strategy.TradeIfProfitable(avg_minus)

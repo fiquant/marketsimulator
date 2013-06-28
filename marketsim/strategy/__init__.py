@@ -1,5 +1,5 @@
 import random
-from marketsim import order, mathutils, Side, observable, registry
+from marketsim import order, Side, observable, registry
 
 #from _wrap import Params, currentframe
 

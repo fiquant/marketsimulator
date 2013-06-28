@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import strategy, mathutils, order
+from marketsim import strategy, mathutils, order, ops
 
 from common import expose
 
@@ -12,9 +12,9 @@ def Noise(ctx):
 
     return [
         ctx.makeTrader_A(strategy.LiquidityProvider(
-                                volumeDistr=mathutils.constant(2),
+                                volumeDistr=ops.constant(2),
                                 orderFactoryT=order.WithExpiryFactory(
-                                    expirationDistr=mathutils.constant(10))), 
+                                    expirationDistr=ops.constant(10))), 
                          "liquidity"),
         
         ctx.makeTrader_A(strategy.Noise(), "noise"),

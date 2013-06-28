@@ -1,10 +1,10 @@
-from marketsim import meta, Event, types, context, Side, event, scheduler, mathutils, getLabel
+from marketsim import meta, Event, types, context, Side, event, scheduler, mathutils, getLabel, ops
 
 from _computed import IndicatorBase
 
 ### ------------------------------------------------  data accessors
 
-class mid_price(mathutils.Function[float]):
+class mid_price(ops.Function[float]):
     """ Returns middle price in the given *orderbook*
     """
     
@@ -25,7 +25,7 @@ class mid_price(mathutils.Function[float]):
     
     _properties = { 'orderbook' : types.IOrderBook }
 
-class cross_spread(mathutils.Function[float]):
+class cross_spread(ops.Function[float]):
     
     def __init__(self, book_A, book_B):
         self.book_A = book_A
@@ -40,7 +40,7 @@ class cross_spread(mathutils.Function[float]):
     def label(self):
         return "Price("+self.book_A.asks.label+") - Price("+self.book_B.bids.label+")"
 
-class side_price(mathutils.Function[float]):
+class side_price(ops.Function[float]):
     """ Returns *orderbook* *side* price 
     """
     
@@ -58,7 +58,7 @@ class side_price(mathutils.Function[float]):
     
     _properties = { 'orderbook' : types.IOrderBook  }
     
-class last_side_price(mathutils.Function[float]):
+class last_side_price(ops.Function[float]):
     """ Returns *orderbook* last trade *side* price 
     """
     
@@ -96,7 +96,7 @@ class bid_price(side_price):
     def label(self):
         return "Bid_{"+self.orderbook.label+"}" 
     
-class price_at_volume(mathutils.Function[float]):
+class price_at_volume(ops.Function[float]):
 
     def __init__(self, orderbook, side, volumeAt):
         self.orderbook = orderbook
@@ -122,7 +122,7 @@ class price_at_volume(mathutils.Function[float]):
                     'side'      : types.Side, 
                     'volumeAt'  : float }
 
-class volume_levels(mathutils.Function[float]): # should be () -> meta.listOf(float)
+class volume_levels(ops.Function[float]): # should be () -> meta.listOf(float)
     
     def __init__(self, orderbook, side, volumeDelta, volumeCount):
         self.orderbook = orderbook
@@ -230,13 +230,13 @@ class BidPrice(Proxy):
         
 def PriceAtVolume(interval, orderbook, side, volume):
 
-    return IndicatorBase(scheduler.Timer(mathutils.constant(interval)),
+    return IndicatorBase(scheduler.Timer(ops.constant(interval)),
                          price_at_volume(orderbook, side, volume), 
                          {'smooth':True, 'fillBelow' : side == Side.Buy, 'fillAbove' : side == Side.Sell})
 
 def VolumeLevels(interval, orderbook, side, volumeDelta, volumeCount):
 
-    return IndicatorBase(scheduler.Timer(mathutils.constant(interval)),
+    return IndicatorBase(scheduler.Timer(ops.constant(interval)),
                          volume_levels(orderbook, side, volumeDelta, volumeCount), 
                          {'smooth':True, 'volumeLevels' : True, 
                           'fillBelow' : side == Side.Buy, 'fillAbove' : side == Side.Sell})

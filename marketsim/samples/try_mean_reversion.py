@@ -1,10 +1,10 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (signal, strategy, trader, orderbook, order,
+from marketsim import (signal, strategy, trader, orderbook, order, ops,
                        timeserie, scheduler, observable, veusz, mathutils)
 
-const = mathutils.constant
+const = ops.constant
 
 from common import expose
 
@@ -39,14 +39,14 @@ def MeanReversion(ctx):
     
         ctx.makeTrader_A(strategy.MeanReversion(
                                 average=mathutils.ewma(alpha),
-                                creationIntervalDistr = mathutils.constant(1.),
+                                creationIntervalDistr = ops.constant(1.),
                                 volumeDistr = const(V)),
                          "meanreversion", 
                          myVolume() + myAverage() + myPrice()),
     
         ctx.makeTrader_A(strategy.MeanReversionEx(
                                 average=mathutils.ewma(alpha),
-                                creationIntervalDistr = mathutils.constant(1.),
+                                creationIntervalDistr = ops.constant(1.),
                                 volumeDistr = const(V)),
                          "meanreversion_ex", 
                          myVolume())

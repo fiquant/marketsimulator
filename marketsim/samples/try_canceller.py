@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (strategy, trader, orderbook, order, mathutils, Side,
+from marketsim import (strategy, trader, orderbook, order, ops, Side,
                        scheduler, observable, veusz, registry, timeserie)
 
 from common import expose
@@ -17,7 +17,7 @@ def Canceller(ctx):
         
         ctx.makeTrader_A(strategy.LiquidityProviderEx(
                             orderFactory=order.WithExpiryFactory(
-                                    expirationDistr=mathutils.constant(1))),
+                                    expirationDistr=ops.constant(1))),
                          "LiquidityProviderEx-"),
         
         ctx.makeTrader_A(strategy.LiquidityProviderSide(side = Side.Buy),
@@ -32,10 +32,10 @@ def Canceller(ctx):
         ctx.makeTrader_A(  strategy.LiquidityProviderSide(
                                 side = Side.Sell,
                                 orderFactoryT=order.WithExpiryFactory(
-                                    expirationDistr=mathutils.constant(10))),
+                                    expirationDistr=ops.constant(10))),
                            "LiquidityProviderWithExpiry"),
         
         ctx.makeTrader_A(   strategy.FundamentalValue(
-                                fundamentalValue = mathutils.constant(1000)), 
+                                fundamentalValue = ops.constant(1000)), 
                             "fv_1000")
         ]

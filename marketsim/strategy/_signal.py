@@ -1,6 +1,6 @@
 from marketsim.types import *
-from marketsim import (Event, order, mathutils, types, meta, defs, _, 
-                       registry, signal, bind, signal)
+from marketsim import (Event, order, mathutils, types, meta, defs, _, ops,
+                       registry, signal, bind, signal, ops)
 from _periodic import Periodic
 from _two_sides import TwoSides
 
@@ -54,85 +54,18 @@ exec wrapper2("Signal",
               ('orderFactory',  'order.MarketFactory',          'Side -> Volume -> IOrder'),
               ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')])
 
-class Condition_Impl(object):
-    
-    def __init__(self, cond, ifpart, elsepart):
-        self.cond = cond
-        self.ifpart = ifpart
-        self.elsepart = elsepart
-        
-    def __call__(self):
-        c = self.cond()
-        return None if c is None else self.ifpart() if c else self.elsepart()
-
-condition_tmpl = """
-class Condition%(T)s(Condition_Impl):
-
-    def __init__(self, cond, ifpart, elsepart):
-        Condition_Impl.__init__(self, cond, ifpart, elsepart)
-        self._alias = ['Condition[%(T)s]']
-        
-    _types = [meta.function((), %(T)s)]
-        
-    _properties = [('cond', meta.function((), bool)), 
-                   ('ifpart', meta.function((), %(T)s)), 
-                   ('elsepart', meta.function((), %(T)s))]
-"""  
-
-for t in ['Side', 'float']:
-    exec condition_tmpl % { 'T' : t }   
-    
-class NotNoneFloat(mathutils.Function[float]):
-    
-    def __init__(self, source, ifnone):
-        self.source = source
-        self.ifnone = ifnone
-    
-    _properties = { 'source' : types.IFunction[float], 
-                    'ifnone' : types.IFunction[float]}
-        
-    def __call__(self):
-        v = self.source()
-        return v if v is not None else self.ifnone()
-    
-class less_float(mathutils.Function[float]):
-    
-    def __init__(self, lhs, rhs):
-        self.lhs = lhs
-        self.rhs = rhs
-        
-    _types = [meta.function((), bool)]
-    
-    _properties = [('lhs', types.IFunction[float]), 
-                   ('rhs', types.IFunction[float])]
-    
-    def __call__(self):
-        return self.lhs() < self.rhs()
-    
-class none_side(object):
-    
-    def __call__(self):
-        return None
-    
-    _types = [meta.function((), Side)]
-    
-from _lp_side import ConstantSide
     
 def SignalSide(source, threshold = 0):
     
-    return defs(ConditionSide(
-                    less_float(
-                        _.threshold, 
-                        _.source), 
-                    ConstantSide(Side.Buy), 
-                        ConditionSide(
-                            less_float(
-                                _.source, 
-                                mathutils.negate(_.threshold)), 
-                            ConstantSide(Side.Sell), 
-                            none_side())), 
+    return defs(ops.Less[float](_.threshold, _.source)[ 
+                    ops.constant(Side.Buy), 
+                    ops.less(_.source, ops.negate(_.threshold))[ 
+                        ops.constant(Side.Sell), 
+                        ops._None[Side]()
+                    ]
+                ], 
                 { 'source'    : source, 
-                  'threshold' : mathutils.constant(threshold) })
+                  'threshold' : ops.constant(threshold) })
     
 @registry.expose(["Periodic", 'Signal'], args = ())
 def SignalEx(signal         = signal.RandomWalk(), 

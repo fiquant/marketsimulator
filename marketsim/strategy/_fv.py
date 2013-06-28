@@ -1,4 +1,4 @@
-from marketsim import (scheduler, observable, types, meta, defs, _,
+from marketsim import (scheduler, observable, types, meta, defs, _, ops,
                        Side, registry, orderbook, bind, order, mathutils)
 
 from _periodic import Periodic
@@ -60,37 +60,28 @@ exec  wrapper2("FundamentalValue",
                      (default: exponential distribution with |lambda| = 1)
              """,
               [('orderFactory',         'order.MarketFactory',          'Side -> Volume -> IOrder'),
-               ('fundamentalValue',     'mathutils.constant(100)',      '() -> Price'),
+               ('fundamentalValue',     'ops.constant(100)',      '() -> Price'),
                ('volumeDistr',          'mathutils.rnd.expovariate(1.)','() -> Volume'),
                ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> TimeInterval')])
 
-from _lp_side import ConstantSide
-from _signal import ConditionSide, less_float, none_side
 from marketsim.observable._orderbook import ask_price, bid_price
     
 def FundamentalValueSide(orderBook, fundamentalValue):
     
-    return defs(
-            ConditionSide(
-                less_float(
-                    _.fv, 
-                    bid_price(
-                        _.orderBook)),
-                ConstantSide(Side.Sell), 
-                ConditionSide(
-                    less_float(
-                        ask_price(
-                            _.orderBook),
-                        _.fv), 
-                    ConstantSide(Side.Buy), 
-                    none_side())),
+    return defs((bid_price(_.orderBook) > _.fv)[
+                    ops.constant(Side.Sell), 
+                    (ask_price(_.orderBook) < _.fv)[
+                        ops.constant(Side.Buy), 
+                        ops._None[Side]()
+                    ]                
+                ], 
             {
              'fv'        : fundamentalValue, 
              'orderBook' : orderBook 
             })
 
 @registry.expose(["Periodic", "FundamentalValue"], args = ())
-def FundamentalValueEx(fundamentalValue      = mathutils.constant(100.),
+def FundamentalValueEx(fundamentalValue      = ops.constant(100.),
                        orderFactory          = order.MarketFactory, 
                        volumeDistr           = mathutils.rnd.expovariate(1.), 
                        creationIntervalDistr = mathutils.rnd.expovariate(1.)):

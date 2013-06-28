@@ -1,4 +1,4 @@
-from marketsim import (scheduler, observable, types, meta, defs, _,
+from marketsim import (scheduler, observable, types, meta, defs, _, ops,
                        Side, registry, orderbook, bind, order, mathutils)
 
 from _periodic import Periodic
@@ -61,7 +61,7 @@ exec wrapper2("Dependency",
 
         
 def DependencyEx      (bookToDependOn,
-                       factor                = mathutils.constant(1.),
+                       factor                = ops.constant(1.),
                        orderFactory          = order.MarketFactory, 
                        volumeDistr           = mathutils.rnd.expovariate(1.)):
 

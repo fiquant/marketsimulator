@@ -1,18 +1,18 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (signal, strategy, orderbook, observable, mathutils)
+from marketsim import (signal, strategy, orderbook, observable, mathutils, ops)
 from common import expose, Constant
 
 @expose("Relative strength index", __name__)
 def RSI(ctx):
 
-    const = mathutils.constant
+    const = ops.constant
     linear_signal = signal.RandomWalk(initialValue=20, 
                                       deltaDistr=const(-.1), 
                                       label="20-0.1t")
     
-    one = mathutils.constant(1)
+    one = const(1)
     
     rsi = observable.OnEveryDt(one.value, 
                          observable.Fold(
