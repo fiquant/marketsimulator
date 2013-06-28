@@ -1,4 +1,4 @@
-from _computed import OnEveryDt
+from _computed import OnEveryDt, MultiFold, UpdatableLookback, aggregate
                         
 from _average import EWMA, dEWMA, derivative, Fold, avg, trend
 
