@@ -22,6 +22,12 @@ class FloatFunction(types.IFunction[float]):
     def __gt__(self, other):
         return greater(self, other)
     
+    def __eq__(self, other):
+        return equal(self, other)
+    
+    def __ne__(self, other):
+        return notequal(self, other)
+    
 class IntFunction(object):
     T = int
     
@@ -44,25 +50,6 @@ Function = { float : FloatFunction,
              bool  : BoolFunction,
              Side  : SideFunction }
 
-class _NotNone_Impl(object):
-    
-    def __init__(self, source, ifnone):
-        self.source = source
-        self.ifnone = ifnone
-    
-    def __call__(self):
-        v = self.source()
-        return v if v is not None else self.ifnone()
-
-class NotNoneFloat(_NotNone_Impl, Function[float]):
-    
-    _properties = { 'source' : types.IFunction[float], 
-                    'ifnone' : types.IFunction[float]}
-
-NotNone = {}
-
-NotNone[float] = NotNoneFloat        
-    
 class _BinaryOp_Base(object):
 
     def __init__(self, lhs, rhs):
@@ -83,7 +70,7 @@ class Condition_Impl(object):
         return None if c is None else self.ifpart() if c else self.elsepart()
 
 condition_tmpl = """
-class Condition%(T)s(Condition_Impl):
+class Condition%(T)s(Condition_Impl, Function[%(T)s]):
 
     def __init__(self, cond, ifpart, elsepart):
         Condition_Impl.__init__(self, cond, ifpart, elsepart)
@@ -113,6 +100,8 @@ class _Conditional_Base(_BinaryOp_Base, Function[bool]):
 class _Equal_Impl(_Conditional_Base):
     
     def __call__(self):
+        lhs = self.lhs()
+        rhs = self.rhs()
         return self.lhs() == self.rhs()
 
 _equal_tmpl = """        
@@ -139,6 +128,38 @@ def equal(lhs, rhs):
     if 'T' in dir(rhs):
         return Equal[rhs.T](lhs, rhs)
     raise "Cannot inference T for equal(" + repr(lhs) + ',' + repr(rhs) + ')'
+        
+# ---------------------------------------------------- NotEqual
+
+class _NotEqual_Impl(_Conditional_Base):
+    
+    def __call__(self):
+        return self.lhs() != self.rhs()
+
+_notequal_tmpl = """        
+class NotEqual_%(T)s(_NotEqual_Impl):
+
+    BranchType = %(T)s
+    
+    _properties = [('lhs', types.IFunction[%(T)s]), 
+                   ('rhs', types.IFunction[%(T)s])]
+
+NotEqual[%(T)s] = NotEqual_%(T)s
+"""
+
+NotEqual = {}
+
+for T in ["float"]:
+    exec _notequal_tmpl % { 'T' : T }
+
+def notequal(lhs, rhs):
+    if 'T' in dir(lhs):
+        if 'T' in dir(rhs):
+            assert lhs.T == rhs.T
+        return NotEqual[lhs.T](lhs, rhs)
+    if 'T' in dir(rhs):
+        return NotEqual[rhs.T](lhs, rhs)
+    raise "Cannot inference T for notequal(" + repr(lhs) + ',' + repr(rhs) + ')'
         
 # ---------------------------------------------------- Greater
 

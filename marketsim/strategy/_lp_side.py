@@ -74,12 +74,18 @@ from marketsim import ops
 def SafeSidePrice(orderBook, side, defaultValue):
     
     return defs(
-        ops.NotNoneFloat(
-                side_price(_.orderBook, side), 
-                ops.NotNoneFloat(
-                    last_side_price(_.orderBook, side), 
-                    ops.constant(defaultValue))),
-        { 'orderBook': orderBook })
+        (ops._None[float]() == _.sidePrice)[
+            (ops._None[float]() == _.lastPrice)[
+                ops.constant(defaultValue),
+                _.lastPrice
+            ], 
+            _.sidePrice        
+        ],
+        { 
+          'orderBook': orderBook, 
+          'lastPrice': last_side_price(_.orderBook, side), 
+          'sidePrice': side_price(_.orderBook, side)
+        })
 
 @registry.expose(["Periodic", 'LiquidityProviderSide'], args = ())
 def LiquidityProviderSideEx(side                    = Side.Sell, 
