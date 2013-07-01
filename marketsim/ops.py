@@ -50,12 +50,24 @@ Function = { float : FloatFunction,
              bool  : BoolFunction,
              Side  : SideFunction }
 
-class _BinaryOp_Base(object):
+binary_base_tmpl = """
+class _BinaryOp_%(T)s(object):
 
     def __init__(self, lhs, rhs):
         self.lhs = lhs
         self.rhs = rhs
 
+    _properties = [('lhs', meta.function((), %(T)s)), 
+                   ('rhs', meta.function((), %(T)s))]
+                   
+BinaryOp[%(T)s] = _BinaryOp_%(T)s
+"""
+
+BinaryOp = {}
+
+for T in ['float']:
+    exec binary_base_tmpl % { 'T': T }
+    
 #---------------------------------------------- Condition 
         
 class Condition_Impl(object):
@@ -90,7 +102,7 @@ Condition = {}
 for t in ['Side', 'float']:
     exec condition_tmpl % { 'T' : t }   
 
-class _Conditional_Base(_BinaryOp_Base, Function[bool]):
+class _Conditional_Base(Function[bool]):
     
     def __getitem__(self, (ifpart, elsepart)):
         return Condition[self.BranchType](self, ifpart, elsepart)
@@ -105,12 +117,9 @@ class _Equal_Impl(_Conditional_Base):
         return self.lhs() == self.rhs()
 
 _equal_tmpl = """        
-class Equal_%(T)s(_Equal_Impl):
+class Equal_%(T)s(_BinaryOp_%(T)s, _Equal_Impl):
 
     BranchType = %(T)s
-    
-    _properties = [('lhs', types.IFunction[%(T)s]), 
-                   ('rhs', types.IFunction[%(T)s])]
 
 Equal[%(T)s] = Equal_%(T)s
 """
@@ -137,12 +146,9 @@ class _NotEqual_Impl(_Conditional_Base):
         return self.lhs() != self.rhs()
 
 _notequal_tmpl = """        
-class NotEqual_%(T)s(_NotEqual_Impl):
+class NotEqual_%(T)s(_BinaryOp_%(T)s, _NotEqual_Impl):
 
     BranchType = %(T)s
-    
-    _properties = [('lhs', types.IFunction[%(T)s]), 
-                   ('rhs', types.IFunction[%(T)s])]
 
 NotEqual[%(T)s] = NotEqual_%(T)s
 """
@@ -169,12 +175,9 @@ class _Greater_Impl(_Conditional_Base):
         return self.lhs() > self.rhs()
 
 _greater_tmpl = """        
-class Greater_%(T)s(_Greater_Impl):
+class Greater_%(T)s(_BinaryOp_%(T)s, _Greater_Impl):
 
     BranchType = %(T)s
-    
-    _properties = [('lhs', types.IFunction[%(T)s]), 
-                   ('rhs', types.IFunction[%(T)s])]
 
 Greater[%(T)s] = Greater_%(T)s
 """
@@ -201,12 +204,9 @@ class _Less_Impl(_Conditional_Base):
         return self.lhs() < self.rhs()
 
 _less_tmpl = """        
-class Less_%(T)s(_Less_Impl):
+class Less_%(T)s(_BinaryOp_%(T)s, _Less_Impl):
     
     BranchType = %(T)s
-    
-    _properties = [('lhs', types.IFunction[%(T)s]), 
-                   ('rhs', types.IFunction[%(T)s])]
 
 Less[%(T)s] = Less_%(T)s
 """
@@ -329,84 +329,55 @@ class identity(Function[float]):
     def __repr__(self):
         return "id(" + repr(self.arg) + ")"
 
-@registry.expose(['Arithmetic', '*'])
-class Product(Function[float]):
+@registry.expose(['Arithmetic', '*'], args = (constant(1.), constant(1.)))
+class Product(BinaryOp[float], Function[float]):
     """ Function returning product of the operands
     """
     
-    def __init__(self, LeftHandSide=constant(1.), RightHandSide=constant(1.)):
-        self.LeftHandSide = LeftHandSide
-        self.RightHandSide = RightHandSide
-        
-    _properties = { "LeftHandSide" : types.IFunction[float], 
-                    "RightHandSide" : types.IFunction[float] }
-    
     def __call__(self, *args, **kwargs):
-        lhs = self.LeftHandSide()
-        rhs = self.RightHandSide()
+        lhs = self.lhs()
+        rhs = self.rhs()
         return lhs * rhs if lhs is not None and rhs is not None else None
     
     def __repr__(self):
-        return repr(self.LeftHandSide)+ "*" + repr(self.RightHandSide)
+        return repr(self.lhs)+ "*" + repr(self.rhs)
 
-@registry.expose(['Arithmetic', '+'])    
-class Sum(Function[float]):
+@registry.expose(['Arithmetic', '+'], args = (constant(1.), constant(1.)))    
+class Sum(BinaryOp[float], Function[float]):
     """ Function returning Sum of the operands
     """
     
-    def __init__(self, LeftHandSide=constant(1), RightHandSide=constant(1)):
-        self.LeftHandSide = LeftHandSide
-        self.RightHandSide = RightHandSide
-        
-    _properties = { "LeftHandSide" : types.IFunction[float], 
-                    "RightHandSide" : types.IFunction[float] }
-    
     def __call__(self, *args, **kwargs):
-        lhs = self.LeftHandSide()
-        rhs = self.RightHandSide()
+        lhs = self.lhs()
+        rhs = self.rhs()
         return lhs + rhs if lhs is not None and rhs is not None else None
     
     def __repr__(self):
-        return repr(self.LeftHandSide)+ "+" + repr(self.RightHandSide)
+        return repr(self.lhs)+ "+" + repr(self.rhs)
 
-@registry.expose(['Arithmetic', '/'])
-class Div(Function[float]):
+@registry.expose(['Arithmetic', '/'], args = (constant(1.), constant(1.)))
+class Div(BinaryOp[float], Function[float]):
     """ Function returning division of the operands
     """
-    
-    def __init__(self, LeftHandSide=constant(1.), RightHandSide=constant(1.)):
-        self.LeftHandSide = LeftHandSide
-        self.RightHandSide = RightHandSide
-        
-    _properties = { "LeftHandSide" : types.IFunction[float], 
-                    "RightHandSide" : types.IFunction[float] }
-    
     def __call__(self, *args, **kwargs):
-        lhs = self.LeftHandSide()
-        rhs = self.RightHandSide()
+        lhs = self.lhs()
+        rhs = self.rhs()
         return lhs / rhs if lhs is not None and rhs is not None and rhs != 0 else None
     
     def __repr__(self):
-        return repr(self.LeftHandSide)+ "/" + repr(self.RightHandSide)
+        return repr(self.lhs)+ "/" + repr(self.rhs)
 
-@registry.expose(['Arithmetic', '-'])    
-class Sub(Function[float]):
+@registry.expose(['Arithmetic', '-'], args = (constant(1.), constant(1.)))    
+class Sub(BinaryOp[float], Function[float]):
     """ Function substructing the right operand from the left one
     """
     
-    def __init__(self, LeftHandSide=constant(1), RightHandSide=constant(1)):
-        self.LeftHandSide = LeftHandSide
-        self.RightHandSide = RightHandSide
-        
-    _properties = { "LeftHandSide" : types.IFunction[float], 
-                    "RightHandSide" : types.IFunction[float] }
-    
     def __call__(self, *args, **kwargs):
-        lhs = self.LeftHandSide()
-        rhs = self.RightHandSide()
+        lhs = self.lhs()
+        rhs = self.rhs()
         return lhs - rhs if lhs is not None and rhs is not None else None
     
     def __repr__(self):
-        return repr(self.LeftHandSide)+ "-" + repr(self.RightHandSide)
+        return repr(self.lhs)+ "-" + repr(self.rhs)
 
    
