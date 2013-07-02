@@ -1,32 +1,37 @@
 from marketsim import meta, Side, types, registry
 
+def convert(other):
+    if type(other) in [int, float]:
+        other = constant(other)
+    return other
+
 class FloatFunction(types.IFunction[float]):
     
     T = float
     
     def __add__(self, other):
-        return Sum(self, other)
+        return Sum(self, convert(other))
     
     def __sub__(self, other):
-        return Sub(self, other)
+        return Sub(self, convert(other))
     
     def __mul__(self, other):
-        return Product(self, other)
+        return Product(self, convert(other))
     
     def __div__(self, other):
-        return Div(self, other)
+        return Div(self, convert(other))
     
     def __lt__(self, other):
-        return less(self, other)
+        return less(self, convert(other))
     
     def __gt__(self, other):
-        return greater(self, other)
+        return greater(self, convert(other))
     
     def __eq__(self, other):
-        return equal(self, other)
+        return equal(self, convert(other))
     
     def __ne__(self, other):
-        return notequal(self, other)
+        return notequal(self, convert(other))
     
 class IntFunction(object):
     T = int

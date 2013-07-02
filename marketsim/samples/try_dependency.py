@@ -7,7 +7,7 @@ from common import expose
 @expose("Dependency", __name__)
 def Dependency(ctx):
 
-    liqVol = mathutils.rnd.expovariate(.1) * ops.constant(2)
+    liqVol = mathutils.rnd.expovariate(.1) * 2
     
     ctx.volumeStep = 70
 
