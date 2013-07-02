@@ -95,8 +95,15 @@ class MultiFold(ops.Function[float]):
     def __init__(self, sources, folder):
         """ Folding function for multiple sources
         """
+        # TODO: include possibility of multiple aggregating functions?
         self._acc = folder
+        if type(sources) is not list:
+            sources = [sources]
+
         self._sources = sources
+        for k in range(len(sources)):
+            if type(sources[k]) == type(self):
+                sources[k] = OnEveryDt(1, sources[k])
         self._events = [event.subscribe(source, _(self)._update, self) for source in self._sources]
 
     def bind(self, context):
@@ -104,7 +111,9 @@ class MultiFold(ops.Function[float]):
 
     @property
     def label(self):
-        l = self._acc.label + '(' + ' '.join([s.label for s in self._sources]) + ')'
+        l = '(' + ' '.join([s.label for s in self._sources]) + ')'
+        if hasattr(self._acc, "label"):
+            l = self._acc.label + l
         return l
 
     _properties = { 'source' : types.IObservable,
@@ -142,19 +151,35 @@ class UpdatableLookback(types.IUpdatableValue):
     """ Computed value based on one or more sources
     """
 
-    def __init__(self, f, window=1):
+    def __init__(self, f=(lambda x: x), window=1, name=None):
         import collections
         self.f = f
         self.history = collections.deque(maxlen=window)
         self.window = window
         # self.f_memory = {}
 
+        if name is None:
+            if hasattr(f, "__name__"):
+                self.name = f.__name__
+            else:
+                self.name = f.__class__
+        else:
+            self.name = name
+
     def value(self):
-        return self.f(self.history) if self.history else None
+        # quick fix, slices don't work with deque and are necessary for moving averages, etc.
+        # TODO: clean this up
+        if self.window > 1:
+            return self.f(list(self.history)) if self.history else None
+        elif hasattr(self.history, "__iter__"):
+            return self.f((self.history)) if self.history else None
+        else:
+            return self.f(self.history) if self.history else None
+
 
     @property
     def label(self):
-        return self.f.__name__
+        return self.name
 
     def addValue(self, value):
         if self.window > 1:
@@ -169,11 +194,14 @@ class UpdatableLookback(types.IUpdatableValue):
         return self.value()
 
     def update(self, time, value):
+        # TODO: history needs to take into account the time the value has been added
         if (value is not None and not hasattr(value, "__iter__")) or (len(value) > 1 and None not in value):
             self.addValue(value)
+        if hasattr(value, "__iter__") and len(value) == 1 and value != [None]:
+            self.addValue(value[0])
 
 
-def aggregate(observables, aggregator, window=1):
+def aggregate(observables, aggregator, window=1, name=None):
     """ helper function to aggregate observables
     example: maximum price of the asset over the last 20 days:
             aggregate( observable.Price(book), max, window = 20)
@@ -183,4 +211,4 @@ def aggregate(observables, aggregator, window=1):
     """
     return MultiFold(
             observables,
-            UpdatableLookback(aggregator, window))
+            UpdatableLookback(aggregator, window, name))
