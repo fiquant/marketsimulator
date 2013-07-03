@@ -35,6 +35,9 @@ IFloatFunction._types = [function((), float)]
 
 IFunction = { float : IFloatFunction }
 
+class IDifferentiable(object):
+    pass
+
 class IObservable(event.IEvent, IFunction[float]):
     pass
 

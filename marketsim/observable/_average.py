@@ -73,17 +73,13 @@ class Fold(ops.Function[float]):
         """
         return self._acc.at(self._scheduler.currentTime)
     
-def EWMA(source, alpha=0.15):
-    """ Creates a folder with exponential weighted moving average as accumulator
-    alpha - parameter for ewma
-    """
-    return Fold(source, mathutils.ewma(alpha))
+from _ewma import EWMA, Derivative
 
 def dEWMA(source, alpha=0.15):
     """ Creates a folder with derivative of exponential weighted moving average as accumulator
     alpha - parameter for ewma
     """
-    return Fold(source, derivative(mathutils.ewma(alpha)))
+    return Derivative(EWMA(source, alpha))
 
 def avg(source, alpha=0.15):
     return OnEveryDt(1, EWMA(source, alpha))
