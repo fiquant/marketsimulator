@@ -38,14 +38,14 @@ def MeanReversion(ctx):
                          [(linear_signal, ctx.amount_graph)]),
     
         ctx.makeTrader_A(strategy.MeanReversion(
-                                average=mathutils.ewma(alpha),
+                                ewma_alpha=(alpha),
                                 creationIntervalDistr = ops.constant(1.),
                                 volumeDistr = const(V)),
                          "meanreversion", 
                          myVolume() + myAverage() + myPrice()),
     
         ctx.makeTrader_A(strategy.MeanReversionEx(
-                                average=mathutils.ewma(alpha),
+                                ewma_alpha=(alpha),
                                 creationIntervalDistr = ops.constant(1.),
                                 volumeDistr = const(V)),
                          "meanreversion_ex", 

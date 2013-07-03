@@ -14,8 +14,8 @@ class _MeanReversion_Impl(FundamentalValueBase):
     def __init__(self):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr)
         myBook = orderbook.OfTrader()
-        self._fundamentalValue = observable.Fold(observable.Price(myBook), 
-                                                 self.average)
+        self._fundamentalValue = observable.EWMA(observable.Price(myBook), 
+                                                 self.ewma_alpha)
         FundamentalValueBase.__init__(self)
 
     _internals = ['_fundamentalValue']
@@ -35,28 +35,28 @@ exec wrapper2("MeanReversion",
                      defines intervals of time between order creation 
                      (default: exponential distribution with |lambda| = 1)
                  
-                 |average| 
-                     functional used to calculate the average 
-                     (default: exponentially weighted moving average with |alpha| = 0.15)
+                 |ewma_alpha| 
+                     |alpha| for exponentially weighted moving average 
+                     (default: 0.15)
                      
                  |volumeDistr| 
                      defines volumes of orders to create 
                      (default: exponential distribution with |lambda| = 1)
              """,
              [('orderFactory',          'order.MarketFactory',              'Side -> Volume -> IOrder'),
-              ('average',               'mathutils.ewma(alpha = 0.15)',     'IUpdatableValue'),
+              ('ewma_alpha',            '0.15',                             'non_negative'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)',    '() -> Volume'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')])
 
 
 @registry.expose(["Periodic", "MeanReversion"], args = ())
-def MeanReversionEx   (average               = mathutils.ewma(alpha = 0.15),
+def MeanReversionEx   (ewma_alpha            = 0.15,
                        orderFactory          = order.MarketFactory, 
                        volumeDistr           = mathutils.rnd.expovariate(1.), 
                        creationIntervalDistr = mathutils.rnd.expovariate(1.)):
 
     orderBook = orderbook.OfTrader()
-    avg = observable.Fold(observable.Price(orderBook), average)
+    avg = observable.EWMA(observable.Price(orderBook), ewma_alpha)
     
     r = Periodic(orderFactory= orderFactory, 
                  volumeFunc  = volumeDistr, 
