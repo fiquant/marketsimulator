@@ -13,11 +13,8 @@ def TradeIfProfitable(ctx):
 
     ctx.volumeStep = 30
     
-    alpha_slow = 0.015
-    alpha_fast = 0.15
-
-    slow = lambda: mathutils.ewma(alpha = alpha_slow)
-    fast = lambda: mathutils.ewma(alpha = alpha_fast)
+    slow_alpha = 0.015
+    fast_alpha = 0.15
 
     linear_signal = signal.RandomWalk(initialValue=200, 
                                       deltaDistr=const(-1), 
@@ -27,13 +24,13 @@ def TradeIfProfitable(ctx):
     myVolume = lambda: [(observable.VolumeTraded(), demo)]
     myAverage = lambda alpha: [(observable.avg(observable.Price(orderbook.OfTrader()), alpha), demo)]
     
-    avg_plus = strategy.TwoAverages(average1 = slow(), 
-                                    average2 = fast(),
+    avg_plus = strategy.TwoAverages(ewma_alpha1 = slow_alpha, 
+                                    ewma_alpha2 = fast_alpha,
                                     creationIntervalDistr = ops.constant(1.),
                                     volumeDistr           = ops.constant(1.))
     
-    avg_minus = strategy.TwoAverages(average1 = fast(), 
-                                     average2 = slow(),
+    avg_minus = strategy.TwoAverages(ewma_alpha2 = slow_alpha, 
+                                     ewma_alpha1 = fast_alpha,
                                      creationIntervalDistr = ops.constant(1.),
                                      volumeDistr           = ops.constant(1.))
     
@@ -51,7 +48,7 @@ def TradeIfProfitable(ctx):
             
         ctx.makeTrader_A(avg_plus, 
                         'avg+', 
-                        myAverage(alpha_slow) + myAverage(alpha_fast) + myVolume()),
+                        myAverage(slow_alpha) + myAverage(fast_alpha) + myVolume()),
 
         ctx.makeTrader_A(avg_minus, 
                          'avg-',

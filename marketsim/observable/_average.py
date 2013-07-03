@@ -1,7 +1,5 @@
 from marketsim import getLabel, ops, mathutils, scheduler, meta, types, bind, event, _
 
-from _computed import OnEveryDt
-        
 class derivative(types.IUpdatableValue):
     """ Derivative of some moving average like value. 
     Updated when underlying value is updated.
@@ -73,16 +71,3 @@ class Fold(ops.Function[float]):
         """
         return self._acc.at(self._scheduler.currentTime)
     
-from _ewma import EWMA, Derivative
-
-def dEWMA(source, alpha=0.15):
-    """ Creates a folder with derivative of exponential weighted moving average as accumulator
-    alpha - parameter for ewma
-    """
-    return Derivative(EWMA(source, alpha))
-
-def avg(source, alpha=0.15):
-    return OnEveryDt(1, EWMA(source, alpha))
-
-def trend(source, alpha=0.015):
-    return OnEveryDt(1, dEWMA(source, alpha))

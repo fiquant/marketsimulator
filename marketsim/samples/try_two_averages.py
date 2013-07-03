@@ -16,9 +16,6 @@ def TwoAverages(ctx):
     alpha_slow = 0.015
     alpha_fast = 0.15
 
-    slow = lambda: mathutils.ewma(alpha = alpha_slow)
-    fast = lambda: mathutils.ewma(alpha = alpha_fast)
-
     linear_signal = signal.RandomWalk(initialValue=200, 
                                       deltaDistr=const(-1), 
                                       label="200-t")

@@ -1,7 +1,7 @@
 from marketsim import event, bind, scheduler, meta, types, Event, defs, _, ops, registry, mathutils
 
 from _orderbook import Price
-from _average import Fold
+from _ewma import EWMA
 
 class TwoPointFold(types.Observable):
     
@@ -66,8 +66,8 @@ def RSI(orderbook, timeframe, alpha):
                     ops.constant(100.) - (ops.constant(100.) / (ops.constant(1.) + _.rs)), 
                     orderbook, 
                     timeframe), 
-                { 'rs' : (Fold(TwoPointFold(_.timer, _.price, upMovement), mathutils.ewma(alpha)) / 
-                          Fold(TwoPointFold(_.timer, _.price, downMovement), mathutils.ewma(alpha))), 
+                { 'rs' : (EWMA(TwoPointFold(_.timer, _.price, upMovement), alpha) / 
+                          EWMA(TwoPointFold(_.timer, _.price, downMovement), alpha)), 
                   'price' : Price(orderbook),
                   'timer' : scheduler.Timer(ops.constant(timeframe)) \
                                 if timeframe > 0 else\

@@ -46,13 +46,13 @@ def Complete(ctx):
             ctx.makeTrader_A(strategy.MeanReversion(volumeDistr=const(1.)),
                              "mr_0_15"),
     
-            ctx.makeTrader_A(strategy.TwoAverages(average1=mathutils.ewma(0.15),
-                                                  average2=mathutils.ewma(0.015),
+            ctx.makeTrader_A(strategy.TwoAverages(ewma_alpha1=0.15,
+                                                  ewma_alpha2=0.015,
                                                   volumeDistr=const(1.)),
                              label="avg+"),
 
-            ctx.makeTrader_A(strategy.TwoAverages(average1=mathutils.ewma(0.015),
-                                                  average2=mathutils.ewma(0.15),
+            ctx.makeTrader_A(strategy.TwoAverages(ewma_alpha2=0.15,
+                                                  ewma_alpha1=0.015,
                                                   volumeDistr=const(1.)),
                              label="avg-"),
     
