@@ -1,39 +1,39 @@
-from marketsim import event, bind, scheduler, meta, types, Event, defs, _, ops, registry, mathutils
+from marketsim import (event, bind, scheduler, meta, types, Event, 
+                       defs, _, ops, registry, mathutils)
 
 from _orderbook import Price
 from _ewma import EWMA
+from _computed import OnEveryDt
 
 class TwoPointFold(types.Observable):
     
-    def __init__(self, eventSource, dataSource, folder):
+    def __init__(self, source, folder):
         types.Observable.__init__(self)
         
-        self.dataSource = dataSource
-        self._eventSource = eventSource
+        self._source = source
         self.folder = folder
-        self._event = event.subscribe(eventSource, _(self)._wakeup, self)
+        self._event = event.subscribe(source, _(self)._wakeup, self)
         self._previous = None
         self._value = None
         
     def _wakeup(self, _):
-        current = self.dataSource()
+        current = self._source()
         if self._previous is not None and current is not None:
             self._value = self.folder(self._previous, current)
             self.fire(self)
         self._previous = current
         
     @property
-    def eventSource(self):
-        return self._eventSource
+    def source(self):
+        return self._source
     
-    @eventSource.setter
-    def eventSource(self, value):
-        self._eventSource = value
+    @source.setter
+    def source(self, value):
+        self._source = value
         self._event.switchTo(value)
         
-    _properties = { 'eventSource' : Event, 
-                    'dataSource'  : types.IFunction[float],
-                    'folder'      : meta.function((float,float), float) }
+    _properties = { 'source' : types.Observable, 
+                    'folder' : meta.function((float,float), float) }
         
     def __call__(self):
         return self._value
@@ -66,12 +66,12 @@ def RSI(orderbook, timeframe, alpha):
                     ops.constant(100.) - (ops.constant(100.) / (ops.constant(1.) + _.rs)), 
                     orderbook, 
                     timeframe), 
-                { 'rs' : (EWMA(TwoPointFold(_.timer, _.price, upMovement), alpha) / 
-                          EWMA(TwoPointFold(_.timer, _.price, downMovement), alpha)), 
+                { 'rs' : (EWMA(TwoPointFold(_.source, upMovement), alpha) / 
+                          EWMA(TwoPointFold(_.source, downMovement), alpha)), 
                   'price' : Price(orderbook),
-                  'timer' : scheduler.Timer(ops.constant(timeframe)) \
+                  'source': OnEveryDt(timeframe, _.price) \
                                 if timeframe > 0 else\
-                             _.price })
+                            _.price })
     
     
     
