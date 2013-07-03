@@ -28,7 +28,13 @@ class MA(fold.Last, types.IDifferentiable):
         return 'MA_{' + getLabel(self._source) + '}^{'+str(self.timeframe)+'}'
     
     def derivative(self):
-        return self._x - self._backX
+        return self.derivativeAt(self._scheduler.currentTime)
+    
+    def derivativeAt(self, t):
+        return\
+            self._x / t - (self._x * (t - self._t) + self._sum) / t / t\
+                if t < self.timeframe else\
+            self._x - self._backX
     
     def _remove(self, dS, t, x):
         self._sum -= dS
