@@ -1,6 +1,6 @@
 from _computed import OnEveryDt, MultiFold, UpdatableLookback, aggregate
                         
-from _average import EWMA, dEWMA, derivative, Fold, avg, trend
+from _average import EWMA, dEWMA, derivative, Fold, avg, trend, Derivative
 
 from _async import Efficiency
 

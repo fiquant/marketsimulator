@@ -10,8 +10,10 @@ class _TrendFollower_Impl(SignalBase):
 
     def __init__(self):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr) # TODO: dependency tracking
-        self._signalFunc_ = observable.Fold(observable.Price(orderbook.OfTrader()), 
-                                           observable.derivative(self.average))
+        self._signalFunc_ = observable.Derivative(
+                                observable.EWMA(
+                                    observable.Price(orderbook.OfTrader()),
+                                    self.ewma_alpha))
         SignalBase.__init__(self)
         
     def _signalFunc(self):
@@ -29,9 +31,9 @@ exec wrapper2('TrendFollower',
                  
                  It has following parameters:
                 
-                 |average| 
-                     moving average functional. By default, we use exponentially weighted
-                     moving average with |alpha| = 0.15.
+                 |ewma_alpha| 
+                     parameter |alpha| for exponentially weighted moving average
+                    (default: 0.15.)
                      
                  |orderFactory| 
                      order factory function (default: order.Market.T)
@@ -47,25 +49,24 @@ exec wrapper2('TrendFollower',
                      defines volumes of orders to create 
                      (default: exponential distribution with |lambda| = 1)
              """,
-             [('average',                'mathutils.ewma(alpha = 0.15)',  'IUpdatableValue'),
+             [('ewma_alpha',             '0.15',                          'non_negative'),
               ('threshold',              '0.',                            'non_negative'), 
               ('orderFactory',           'order.MarketFactory',           'Side -> Volume -> IOrder'),
               ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
               ('volumeDistr',            'mathutils.rnd.expovariate(1.)', '() -> Volume')])
 
 @registry.expose(["Periodic", 'TrendFollower'], args = ())
-def TrendFollowerEx(average                 = None, #mathutils.ewma(alpha = 0.15), 
+def TrendFollowerEx(ewma_alpha              = 0.15, 
                     threshold               = 0., 
                     orderFactory            = order.MarketFactory, 
                     creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
                     volumeDistr             = mathutils.rnd.expovariate(1.)):
     
-    if average is None:
-        average = mathutils.ewma(alpha = 0.15)
-    
     orderBook = orderbook.OfTrader()
-    trend = observable.Fold(observable.Price(orderBook), 
-                            observable.derivative(average))
+    trend = observable.Derivative(
+                observable.EWMA(
+                    observable.Price(orderBook),
+                    ewma_alpha))
     
     return Periodic(orderFactory= orderFactory, 
                     volumeFunc  = volumeDistr,
