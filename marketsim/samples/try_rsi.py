@@ -41,7 +41,7 @@ def RSI(ctx):
                          [(linear_signal, ctx.amount_graph)]),
     
         ctx.makeTrader_A(strategy.RSIbis(alpha = alpha,
-                                         timeframe = 0,
+                                         timeframe = 1,
                                          threshold=threshold, 
                                          volumeDistr=one, 
                                          creationIntervalDistr=one),

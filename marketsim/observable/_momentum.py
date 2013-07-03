@@ -4,6 +4,7 @@ from marketsim import (event, bind, scheduler, meta, types, Event,
 from _orderbook import Price
 from _ewma import EWMA
 from _computed import OnEveryDt
+from _deltalag import DeltaLag, UpMovements, DownMovements
 
 import fold
 
@@ -35,12 +36,10 @@ def RSI(orderbook, timeframe, alpha):
                     ops.constant(100.) - (ops.constant(100.) / (ops.constant(1.) + _.rs)), 
                     orderbook, 
                     timeframe), 
-                { 'rs' : (EWMA(UpMovement(_.source), alpha) / 
-                          EWMA(DownMovement(_.source), alpha)), 
+                { 'rs' : (EWMA(UpMovements(_.deltas), alpha) / 
+                          EWMA(DownMovements(_.deltas), alpha)), 
                   'price' : Price(orderbook),
-                  'source': OnEveryDt(timeframe, _.price) \
-                                if timeframe > 0 else\
-                            _.price })
+                  'deltas': DeltaLag(_.price, timeframe) })
     
     
     

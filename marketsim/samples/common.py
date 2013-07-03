@@ -140,8 +140,7 @@ def orderBooksToRender(ctx, traders):
             
             b.rsi_graph = ctx.addGraph("RSI " + b.label)
             ts.append(timeserie.ToRecord(observable.Price(thisBook), b.rsi_graph))
-            for timeframe in [0., 
-                              #0.001,
+            for timeframe in [#0.001,
                               #0.01,
                               0.1, 
                               #0.3, 
