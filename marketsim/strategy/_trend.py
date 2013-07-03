@@ -1,6 +1,6 @@
 from marketsim.types import *
 from marketsim import (orderbook, observable, scheduler, order, mathutils, types, meta, 
-                       registry, signal, bind)
+                       registry, signal, bind, ops)
 from _periodic import Periodic
 from _signal import SignalBase, SignalSide
 
@@ -10,7 +10,7 @@ class _TrendFollower_Impl(SignalBase):
 
     def __init__(self):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr) # TODO: dependency tracking
-        self._signalFunc_ = observable.Derivative(
+        self._signalFunc_ = ops.Derivative(
                                 observable.EWMA(
                                     observable.Price(orderbook.OfTrader()),
                                     self.ewma_alpha))
@@ -63,7 +63,7 @@ def TrendFollowerEx(ewma_alpha              = 0.15,
                     volumeDistr             = mathutils.rnd.expovariate(1.)):
     
     orderBook = orderbook.OfTrader()
-    trend = observable.Derivative(
+    trend = ops.Derivative(
                 observable.EWMA(
                     observable.Price(orderBook),
                     ewma_alpha))

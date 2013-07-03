@@ -385,4 +385,13 @@ class Sub(BinaryOp[float], Function[float]):
     def __repr__(self):
         return repr(self.lhs)+ "-" + repr(self.rhs)
 
+class Derivative(Function[float]):
+    
+    def __init__(self, source):
+        self.source = source
+        
+    _properties = { 'source' : types.IDifferentiable }
+        
+    def __call__(self):
+        return self.source.derivative()
    

@@ -1,57 +1,16 @@
 import math
-from marketsim import event, types, registry, ops, _, getLabel
+from marketsim import types, registry, ops
 
-class Fold(ops.Function[float]):
-    """ Aggregates (folds) time-dependent data from *source* using given 
-        functional  *folder* (e.g. moving average) defined in derived class
-    
-    For example ::
-    
-        price_avg = EWMA(Price(book_A), alpha = 0.15)
-        
-    creates a observable for a moving average with |alpha| = 0.15 of mid-price of asset *book_A*     
-    """
-    
-    def __init__(self, source):
-        """ Initializes folder with source of values and accumulator object        
-        """
-        self._source = source
-        self._event = event.subscribe(self._source, _(self)._update, self)
-        
-    def bind(self, context): # TODO: we should subscribe to acc and source changed events
-        self._scheduler = context.world
+import fold
 
-    @property
-    def label(self):
-        return self._getLabel() + "(" + getLabel(self._source) + ")"
-            
-    _properties = { 'source' : types.IObservable }
-    
-    def _update(self, _):
-        self.update(self._scheduler.currentTime, self._source())
-        
-    @property
-    def source(self):
-        return self._source
-    
-    @source.setter
-    def source(self, value):
-        self._source = value
-        self._event.switchTo(self._source)
-            
-    def __call__(self):
-        """ Returns value from the accumulator corresponding to the current time
-        """
-        return self.at(self._scheduler.currentTime)
-
-class EWMA(Fold, types.IDifferentiable):
+class EWMA(fold.Last, types.IDifferentiable):
     """ Exponentially weighted moving average
     """
     
     def __init__(self, source, alpha=0.15):
         """ Initializes EWMA with \alpha = alpha
         """
-        Fold.__init__(self, source)
+        fold.Last.__init__(self, source)
         self.alpha = alpha
         self.reset()
         
@@ -97,15 +56,6 @@ class EWMA(Fold, types.IDifferentiable):
             self._lastValue = value
             self._lastTime = time
 
-class Derivative(ops.Function[float]):
-    
-    def __init__(self, source):
-        self.source = source
-        
-    _properties = { 'source' : types.IDifferentiable }
-        
-    def __call__(self):
-        return self.source.derivative()
 
 from _computed import OnEveryDt
     
@@ -113,7 +63,7 @@ def dEWMA(source, alpha=0.15):
     """ Creates a folder with derivative of exponential weighted moving average as accumulator
     alpha - parameter for ewma
     """
-    return Derivative(EWMA(source, alpha))
+    return ops.Derivative(EWMA(source, alpha))
 
 def avg(source, alpha=0.15):
     return OnEveryDt(1, EWMA(source, alpha))
