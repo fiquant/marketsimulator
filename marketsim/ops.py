@@ -1,4 +1,4 @@
-from marketsim import meta, Side, types, registry
+from marketsim import meta, Side, types, registry, getLabel
 
 def convert(other):
     if type(other) in [int, float]:
@@ -391,6 +391,10 @@ class Derivative(Function[float]):
         self.source = source
         
     _properties = { 'source' : types.IDifferentiable }
+    
+    @property
+    def label(self):
+        return '\\frac{' + getLabel(self.source) + '}{dt}'
         
     def __call__(self):
         return self.source.derivative()

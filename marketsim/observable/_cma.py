@@ -20,7 +20,10 @@ class CMA(fold.Last, types.IDifferentiable):
         return 'CMA_{' + getLabel(self._source) + '}'
     
     def derivative(self):
-        return self._x
+        return self.derivativeAt(self._scheduler.currentTime)
+    
+    def derivativeAt(self, t):
+        return self._x / t - (self._x * (t - self._t) + self._sum) / t / t
     
     def update(self, t, x):
         if x is not None:
