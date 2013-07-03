@@ -5,6 +5,7 @@ from _average import Fold
 from _ewma import EWMA, dEWMA, avg, trend
 
 from _cma import CMA
+from _ma import MA
 
 from _async import Efficiency
 
