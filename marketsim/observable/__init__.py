@@ -4,6 +4,8 @@ from _average import Fold
 
 from _ewma import EWMA, dEWMA, avg, trend
 
+from _cma import CMA
+
 from _async import Efficiency
 
 from _momentum import RSI
