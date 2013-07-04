@@ -1,4 +1,4 @@
-from marketsim import meta, Side, types, registry, getLabel
+from marketsim import meta, Side, types, registry, getLabel, event, _
 
 def convert(other):
     if type(other) in [int, float]:
@@ -350,6 +350,23 @@ class Product(BinaryOp[float], Function[float]):
     
     def __repr__(self):
         return repr(self.lhs)+ "*" + repr(self.rhs)
+    
+class Sqr(types.Observable):
+    
+    def __init__(self, source):
+        self._source = source
+        types.Observable.__init__(self)
+        self._event = event.subscribe(source, _(self).fire, self)
+        
+    _properties = { 'source' : types.Observable }
+    
+    @property
+    def source(self):
+        return self._source
+    
+    def __call__(self):
+        r = self._source()
+        return r*r if r is not None else None
 
 @registry.expose(['Arithmetic', '+'], args = (constant(1.), constant(1.)))    
 class Sum(BinaryOp[float], Function[float]):

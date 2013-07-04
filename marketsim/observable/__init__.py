@@ -7,7 +7,7 @@ from _ewma import EWMA, dEWMA, avg, trend
 from _cma import CMA
 from _ma import MA
 
-from _stddev import StdDev
+from _stddev import StdDev, StdDevRolling
 
 from _async import Efficiency
 

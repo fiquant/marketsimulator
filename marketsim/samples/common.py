@@ -37,12 +37,16 @@ class Context(object):
         self.eff_graph = self.graph("efficiency")
         self.amount_graph = self.graph("amount")
         self.balance_graph = self.graph('balance')
+        self.bollinger_20_graph = self.graph('bollinger 20')
+        self.bollinger_100_graph = self.graph('bollinger 100')
         
         self.graphs = [
                        self.price_graph, 
                        self.eff_graph, 
                        self.amount_graph,
-                       self.balance_graph
+                       self.balance_graph, 
+                       self.bollinger_20_graph,
+                       self.bollinger_100_graph,
                        ]
          
         self.books = { 'Asset A' : self.book_A ,
@@ -109,17 +113,27 @@ def orderBooksToRender(ctx, traders):
             avg = observable.avg
             cma = observable.CMA(assetPrice)
             stddev = observable.StdDev(assetPrice)
+            ma100 = observable.MA(assetPrice, 100)
+            ma20 = observable.MA(assetPrice, 20)
+            stddev100 = observable.StdDevRolling(assetPrice, 100)
+            stddev20 = observable.StdDevRolling(assetPrice, 20)
             return [
                     timeserie.ToRecord(askPrice, ctx.price_graph),
                     timeserie.ToRecord(bidPrice, ctx.price_graph),
                     timeserie.ToRecord(assetPrice, ctx.price_graph), 
+                    
                     timeserie.ToRecord(observable.OnEveryDt(1, cma), ctx.price_graph), 
-                    #timeserie.ToRecord(observable.OnEveryDt(1, cma + stddev*2), ctx.price_graph), 
-                    #timeserie.ToRecord(observable.OnEveryDt(1, cma - stddev*2), ctx.price_graph), 
-                    #timeserie.ToRecord(observable.OnEveryDt(1, stddev), ctx.price_graph), 
-                    #timeserie.ToRecord(observable.OnEveryDt(1, ops.Derivative(observable.CMA(assetPrice))), ctx.price_graph), 
-                    timeserie.ToRecord(observable.OnEveryDt(1, observable.MA(assetPrice, 100)), ctx.price_graph), 
-                    #timeserie.ToRecord(observable.OnEveryDt(1, ops.Derivative(observable.MA(assetPrice, 100))), ctx.price_graph), 
+                    
+                    timeserie.ToRecord(assetPrice, ctx.bollinger_100_graph), 
+                    timeserie.ToRecord(observable.OnEveryDt(1, ma100), ctx.bollinger_100_graph), 
+                    timeserie.ToRecord(observable.OnEveryDt(1, ma100 + stddev100*2), ctx.bollinger_100_graph), 
+                    timeserie.ToRecord(observable.OnEveryDt(1, ma100 - stddev100*2), ctx.bollinger_100_graph), 
+                    
+                    timeserie.ToRecord(assetPrice, ctx.bollinger_20_graph), 
+                    timeserie.ToRecord(observable.OnEveryDt(1, ma20), ctx.bollinger_20_graph), 
+                    timeserie.ToRecord(observable.OnEveryDt(1, ma20 + stddev20*2), ctx.bollinger_20_graph), 
+                    timeserie.ToRecord(observable.OnEveryDt(1, ma20 - stddev20*2), ctx.bollinger_20_graph), 
+
                     timeserie.ToRecord(avg(assetPrice, alpha=0.15), ctx.price_graph),
                     timeserie.ToRecord(avg(assetPrice, alpha=0.65), ctx.price_graph),
                     timeserie.ToRecord(avg(assetPrice, alpha=0.015), ctx.price_graph)

@@ -55,7 +55,7 @@ class IndicatorBase(types.Observable):
         """
         return self._dataSource()
 
-class Proxy(types.IObservable):
+class Proxy(types.IObservable, ops.Function[float]):
     
     def __iadd__(self, listener):
         self._impl.__iadd__(listener)
