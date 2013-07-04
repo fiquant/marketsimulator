@@ -107,11 +107,16 @@ def orderBooksToRender(ctx, traders):
             bidPrice = observable.BidPrice(thisBook)
             assetPrice = observable.Price(thisBook)
             avg = observable.avg
+            cma = observable.CMA(assetPrice)
+            stddev = observable.StdDev(assetPrice)
             return [
                     timeserie.ToRecord(askPrice, ctx.price_graph),
                     timeserie.ToRecord(bidPrice, ctx.price_graph),
                     timeserie.ToRecord(assetPrice, ctx.price_graph), 
-                    timeserie.ToRecord(observable.OnEveryDt(1, observable.CMA(assetPrice)), ctx.price_graph), 
+                    timeserie.ToRecord(observable.OnEveryDt(1, cma), ctx.price_graph), 
+                    #timeserie.ToRecord(observable.OnEveryDt(1, cma + stddev*2), ctx.price_graph), 
+                    #timeserie.ToRecord(observable.OnEveryDt(1, cma - stddev*2), ctx.price_graph), 
+                    #timeserie.ToRecord(observable.OnEveryDt(1, stddev), ctx.price_graph), 
                     #timeserie.ToRecord(observable.OnEveryDt(1, ops.Derivative(observable.CMA(assetPrice))), ctx.price_graph), 
                     timeserie.ToRecord(observable.OnEveryDt(1, observable.MA(assetPrice, 100)), ctx.price_graph), 
                     #timeserie.ToRecord(observable.OnEveryDt(1, ops.Derivative(observable.MA(assetPrice, 100))), ctx.price_graph), 

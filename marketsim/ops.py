@@ -344,6 +344,10 @@ class Product(BinaryOp[float], Function[float]):
         rhs = self.rhs()
         return lhs * rhs if lhs is not None and rhs is not None else None
     
+    @property
+    def label(self):
+        return self.lhs.label + ' * ' + self.rhs.label
+    
     def __repr__(self):
         return repr(self.lhs)+ "*" + repr(self.rhs)
 
@@ -357,6 +361,10 @@ class Sum(BinaryOp[float], Function[float]):
         rhs = self.rhs()
         return lhs + rhs if lhs is not None and rhs is not None else None
     
+    @property
+    def label(self):
+        return self.lhs.label + ' + ' + self.rhs.label
+    
     def __repr__(self):
         return repr(self.lhs)+ "+" + repr(self.rhs)
 
@@ -368,6 +376,10 @@ class Div(BinaryOp[float], Function[float]):
         lhs = self.lhs()
         rhs = self.rhs()
         return lhs / rhs if lhs is not None and rhs is not None and rhs != 0 else None
+    
+    @property
+    def label(self):
+        return self.lhs.label + ' / ' + self.rhs.label
     
     def __repr__(self):
         return repr(self.lhs)+ "/" + repr(self.rhs)
@@ -381,6 +393,10 @@ class Sub(BinaryOp[float], Function[float]):
         lhs = self.lhs()
         rhs = self.rhs()
         return lhs - rhs if lhs is not None and rhs is not None else None
+    
+    @property
+    def label(self):
+        return self.lhs.label + ' - ' + self.rhs.label
     
     def __repr__(self):
         return repr(self.lhs)+ "-" + repr(self.rhs)
