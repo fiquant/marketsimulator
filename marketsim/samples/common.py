@@ -112,7 +112,9 @@ def orderBooksToRender(ctx, traders):
                     timeserie.ToRecord(bidPrice, ctx.price_graph),
                     timeserie.ToRecord(assetPrice, ctx.price_graph), 
                     timeserie.ToRecord(observable.OnEveryDt(1, observable.CMA(assetPrice)), ctx.price_graph), 
+                    timeserie.ToRecord(observable.OnEveryDt(1, ops.Derivative(observable.CMA(assetPrice))), ctx.price_graph), 
                     timeserie.ToRecord(observable.OnEveryDt(1, observable.MA(assetPrice, 100)), ctx.price_graph), 
+                    timeserie.ToRecord(observable.OnEveryDt(1, ops.Derivative(observable.MA(assetPrice, 100))), ctx.price_graph), 
                     timeserie.ToRecord(avg(assetPrice, alpha=0.15), ctx.price_graph),
                     timeserie.ToRecord(avg(assetPrice, alpha=0.65), ctx.price_graph),
                     timeserie.ToRecord(avg(assetPrice, alpha=0.015), ctx.price_graph)
@@ -140,7 +142,8 @@ def orderBooksToRender(ctx, traders):
             
             b.rsi_graph = ctx.addGraph("RSI " + b.label)
             ts.append(timeserie.ToRecord(observable.Price(thisBook), b.rsi_graph))
-            for timeframe in [#0.001,
+            for timeframe in [#0., 
+                              #0.001,
                               #0.01,
                               0.1, 
                               #0.3, 
