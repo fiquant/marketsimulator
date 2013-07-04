@@ -38,7 +38,7 @@ class MA(fold.Last, types.IDifferentiable):
         return\
             (self._x / T - (self._x * (t - self._t) + self._sum) / T / T\
                 if t - self._startT < self.timeframe else\
-             self._x - self._backX)\
+             (self._x - self._backX) / self.timeframe)\
         if T > 0 and self._x is not None else None
     
     def _remove(self, dS, t, x):

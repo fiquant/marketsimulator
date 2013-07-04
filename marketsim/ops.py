@@ -390,6 +390,10 @@ class Derivative(Function[float]):
     def __init__(self, source):
         self.source = source
         
+    @property
+    def attributes(self):
+        return {}
+        
     _properties = { 'source' : types.IDifferentiable }
     
     @property

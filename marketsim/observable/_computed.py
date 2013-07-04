@@ -1,4 +1,4 @@
-from marketsim import (bind, event, Event, getLabel, Side, scheduler, 
+from marketsim import (bind, event, Event, getLabel, Side, scheduler, ops,
                        types, meta, mathutils, ops, registry, trader, _)
 
 class IndicatorBase(types.Observable):
