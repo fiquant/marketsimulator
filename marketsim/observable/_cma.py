@@ -10,13 +10,13 @@ class CMA(fold.Last, types.IDifferentiable):
         
     def reset(self):
         self._x = None
-        self._sum = 0
         self._t = 0
         self._startT = 0
+        self._avg = 0
     
     def at(self, t):
         T = t - self._startT
-        return (self._sum + self._x * (t - self._t)) / T\
+        return self._avg + (self._x  - self._avg)* (t - self._t)  / T\
             if T > 0 and self._x is not None else None
     
     def _getLabel(self):
@@ -27,13 +27,14 @@ class CMA(fold.Last, types.IDifferentiable):
     
     def derivativeAt(self, t):
         T = t - self._startT
-        return self._x / T - (self._x * (t - self._t) + self._sum) / T / T\
+        d = self._x - self._avg if self._x is not None else None
+        return d / T - d * (t - self._t) / T / T\
             if T > 0 and self._x is not None else None
     
     def update(self, t, x):
         if x is not None:
-            if self._x is not None:
-                self._sum += self._x * (t - self._t)
+            if self._x is not None and t > self._startT:
+                self._avg += (self._x  - self._avg)* (t - self._t) / (t - self._startT)
             else:
                 self._startT = t
             self._t = t
