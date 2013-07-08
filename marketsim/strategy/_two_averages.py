@@ -54,8 +54,8 @@ exec wrapper2("TwoAverages",
                      defines intervals of time between order creation 
                      (default: exponential distribution with |lambda| = 1)                     
              """,
-             [('ewma_alpha1',           'non_negative',                  '0.15'),
-              ('ewma_alpha2',           'non_negative',                  '0.015'),
+             [('ewma_alpha1',           '0.15',                          'non_negative'),
+              ('ewma_alpha2',           '0.015',                         'non_negative'),
               ('threshold',             '0.',                            'non_negative'), 
               ('orderFactory',          'order.MarketFactory',           'Side -> Volume -> IOrder'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),

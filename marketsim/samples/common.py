@@ -2,7 +2,7 @@ import sys, itertools
 sys.path.append(r'..')
 
 from marketsim import (orderbook, observable, timeserie, scheduler, veusz, registry, event,
-                       context, trader, orderbook, Side, remote, ops, strategy)
+                       context, trader, orderbook, Side, remote, ops, signal, strategy)
 
 simulations = {}
 
@@ -40,6 +40,7 @@ class Context(object):
         self.bollinger_a015_graph = self.graph('bollinger alpha 0.15')
         self.bollinger_20_graph = self.graph('bollinger 20')
         self.bollinger_100_graph = self.graph('bollinger 100')
+        self.minmax_graph = self.graph('minmax')
         
         self.graphs = [
                        self.price_graph, 
@@ -49,6 +50,7 @@ class Context(object):
                        self.bollinger_20_graph,
                        self.bollinger_a015_graph,
                        self.bollinger_100_graph,
+                       self.minmax_graph
                        ]
          
         self.books = { 'Asset A' : self.book_A ,
@@ -121,6 +123,9 @@ def orderBooksToRender(ctx, traders):
             stddev20 = observable.StdDevRolling(assetPrice, 20)
             ewma015 = observable.EWMA(assetPrice, alpha=0.15)
             ewmsd = observable.StdDevEW(assetPrice, 0.15)
+            min = observable.Min(assetPrice, 100)
+            max = observable.Max(assetPrice, 100)
+            
             
             def bollinger(mean, stddev, graph):
                 return [
@@ -137,6 +142,10 @@ def orderBooksToRender(ctx, traders):
                 
                 timeserie.ToRecord(observable.OnEveryDt(1, cma), ctx.price_graph), 
                 
+                timeserie.ToRecord(assetPrice, ctx.minmax_graph),
+                timeserie.ToRecord(max, ctx.minmax_graph),
+                timeserie.ToRecord(min, ctx.minmax_graph),
+
                 timeserie.ToRecord(avg(assetPrice, alpha=0.15), ctx.price_graph),
                 timeserie.ToRecord(avg(assetPrice, alpha=0.65), ctx.price_graph),
                 timeserie.ToRecord(avg(assetPrice, alpha=0.015), ctx.price_graph)
@@ -218,7 +227,7 @@ def run(name, constructor):
         world._reset()
         context.reset(root)
 
-        if runTwoTimes:
+        if False and runTwoTimes:
             world.workTill(500)
             veusz.render(name, non_empty_graphs)
 

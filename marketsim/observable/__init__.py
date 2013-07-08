@@ -9,6 +9,8 @@ from _ma import MA
 
 from _stddev import StdDev, StdDevRolling, StdDevEW
 
+from _minmax import Min, Max
+
 from _async import Efficiency
 
 from _momentum import RSI

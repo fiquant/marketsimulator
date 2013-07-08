@@ -113,9 +113,9 @@ var typeinfo = {
                 "type": "combine(greater_or_equal(0.0), _parseFloat)",
                 "collapsed": false
             },
-            "average": {
+            "ewma_alpha": {
                 "hidden": false,
-                "type": "marketsim.types.IUpdatableValue",
+                "type": "combine(greater_or_equal(0.0), _parseFloat)",
                 "collapsed": false
             },
             "creationIntervalDistr": {
@@ -150,47 +150,7 @@ var typeinfo = {
                 "collapsed": false
             }
         },
-        "description": "<div class=\"document\">\n<p>Trend follower can be considered as a sort of a signal strategy\nwhere the <em>signal</em> is a trend of the asset.\nUnder trend we understand the first derivative of some moving average of asset prices.\nIf the derivative is positive, the trader buys; if negative - it sells.\nSince moving average is a continuously changing signal, we check its\nderivative at random moments of time given by <em>creationIntervalDistr</em>.</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Average</strong></dt>\n<dd>moving average functional. By default, we use exponentially weighted\nmoving average with \u03b1 = 0.15.</dd>\n<dt><strong>Order factory</strong></dt>\n<dd>order factory function (default: order.Market.T)</dd>\n<dt><strong>Threshold</strong></dt>\n<dd>threshold when the trader starts to act (default: 0.)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n</div>\n"
-    },
-    "marketsim.observable._momentum.TwoPointFold": {
-        "castsTo": [
-            {
-                "rv": "_parseFloat",
-                "args": []
-            },
-            "marketsim.event.Conditional",
-            "marketsim.event.Event",
-            "marketsim.event.IEvent",
-            "marketsim.observable._momentum.TwoPointFold",
-            "marketsim.types.IFloatFunction",
-            "marketsim.types.IObservable",
-            "marketsim.types.IScalarFunction",
-            "marketsim.types.Observable"
-        ],
-        "properties": {
-            "folder": {
-                "hidden": false,
-                "type": {
-                    "rv": "_parseFloat",
-                    "args": [
-                        "_parseFloat",
-                        "_parseFloat"
-                    ]
-                },
-                "collapsed": false
-            },
-            "eventSource": {
-                "hidden": false,
-                "type": "marketsim.event.Event",
-                "collapsed": false
-            },
-            "dataSource": {
-                "hidden": false,
-                "type": "marketsim.types.IFloatFunction",
-                "collapsed": false
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Trend follower can be considered as a sort of a signal strategy\nwhere the <em>signal</em> is a trend of the asset.\nUnder trend we understand the first derivative of some moving average of asset prices.\nIf the derivative is positive, the trader buys; if negative - it sells.\nSince moving average is a continuously changing signal, we check its\nderivative at random moments of time given by <em>creationIntervalDistr</em>.</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><a href=\"#id1\"><span class=\"problematic\" id=\"id2\">|ewma_alpha|</span></a></dt>\n<dd><blockquote class=\"first\">\nparameter \u03b1 for exponentially weighted moving average</blockquote>\n<div class=\"system-message\">\n<p class=\"system-message-title\">System Message: WARNING/2 (<tt class=\"docutils\">&lt;string&gt;</tt>, line 117)</p>\nBlock quote ends without a blank line; unexpected unindent.</div>\n<p class=\"last\">(default: 0.15.)</p>\n</dd>\n<dt><strong>Order factory</strong></dt>\n<dd>order factory function (default: order.Market.T)</dd>\n<dt><strong>Threshold</strong></dt>\n<dd>threshold when the trader starts to act (default: 0.)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n<div class=\"system-messages section\">\n<h1>Docutils System Messages</h1>\n<div class=\"system-message\" id=\"id1\">\n<p class=\"system-message-title\">System Message: ERROR/3 (<tt class=\"docutils\">&lt;string&gt;</tt>, line 117); <em><a href=\"#id2\">backlink</a></em></p>\nUndefined substitution referenced: &quot;ewma_alpha&quot;.</div>\n</div>\n</div>\n"
     },
     "marketsim.mathutils.rnd.lognormvariate": {
         "castsTo": [
@@ -224,41 +184,6 @@ var typeinfo = {
             "marketsim.strategy.weight.TrackRecord"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
-    },
-    "marketsim.trader._ma.MultiAsset": {
-        "castsTo": [
-            "marketsim.timeserie.Holder",
-            "marketsim.trader._base.Base",
-            "marketsim.trader._ma.MultiAsset",
-            "marketsim.types.ITrader"
-        ],
-        "properties": {
-            "traders": {
-                "hidden": false,
-                "type": {
-                    "elementType": "marketsim.types.ISingleAssetTrader"
-                },
-                "collapsed": false
-            },
-            "PnL": {
-                "hidden": false,
-                "type": "_parseFloat",
-                "collapsed": false
-            },
-            "timeseries": {
-                "hidden": false,
-                "type": {
-                    "elementType": "marketsim.timeserie.ToRecord"
-                },
-                "collapsed": true
-            },
-            "strategy": {
-                "hidden": false,
-                "type": "marketsim.types.IMultiAssetStrategy",
-                "collapsed": false
-            }
-        },
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.timeserie.VolumeLevels": {
@@ -313,6 +238,61 @@ var typeinfo = {
         ],
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.observable._minmax.Min": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.event.Event",
+            "marketsim.event.IEvent",
+            "marketsim.observable._minmax.Min",
+            "marketsim.observable.fold._last.Last",
+            "marketsim.ops.FloatFunction",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
+        ],
+        "properties": {
+            "source": {
+                "hidden": false,
+                "type": "marketsim.types.IObservable",
+                "collapsed": false
+            },
+            "timeframe": {
+                "hidden": false,
+                "type": "_parseFloat",
+                "collapsed": false
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.observable._ewma.EWMA": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.observable._ewma.EWMA",
+            "marketsim.observable.fold._last.Last",
+            "marketsim.ops.FloatFunction",
+            "marketsim.types.IDifferentiable",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
+        ],
+        "properties": {
+            "source": {
+                "hidden": false,
+                "type": "marketsim.types.IObservable",
+                "collapsed": false
+            },
+            "alpha": {
+                "hidden": false,
+                "type": "_parseFloat",
+                "collapsed": false
+            }
+        },
+        "description": "<div class=\"document\">\n<p>Exponentially weighted moving average</p>\n</div>\n"
     },
     "marketsim.strategy.TradeIfProfitable": {
         "castsTo": [
@@ -430,15 +410,6 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n<p>Returns trader's position (i.e. number of assets traded)</p>\n</div>\n"
-    },
-    "marketsim.trader._proxy.MultiProxy": {
-        "castsTo": [
-            "marketsim.trader._proxy.Base",
-            "marketsim.trader._proxy.MultiProxy",
-            "marketsim.types.ITrader"
-        ],
-        "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.mathutils.rnd.paretovariate": {
         "castsTo": [
@@ -875,6 +846,7 @@ var typeinfo = {
             "marketsim.observable._computed.Proxy",
             "marketsim.observable._orderbook.Price",
             "marketsim.observable._orderbook.Proxy",
+            "marketsim.ops.FloatFunction",
             "marketsim.types.IFloatFunction",
             "marketsim.types.IObservable",
             "marketsim.types.IScalarFunction"
@@ -936,6 +908,57 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Signal strategy listens to some discrete signal\nand when the signal becomes more than some threshold the strategy starts to buy.\nWhen the signal gets lower than -threshold the strategy starts to sell.</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Signal</strong></dt>\n<dd>signal to be listened to (default: RandomWalk)</dd>\n<dt><strong>Order factory</strong></dt>\n<dd>order factory function (default: order.Market.T)</dd>\n<dt><strong>Threshold</strong></dt>\n<dd>threshold when the trader starts to act (default: 0.7)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n</div>\n"
     },
+    "marketsim.observable._stddev.MovingVariance": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.observable._stddev.MovingVariance",
+            "marketsim.ops.FloatFunction",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
+        ],
+        "properties": {
+            "source": {
+                "hidden": false,
+                "type": "marketsim.types.Observable",
+                "collapsed": false
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.samples.try_desired.BuyLowSellHighVolume": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.event.Conditional",
+            "marketsim.event.Event",
+            "marketsim.event.IEvent",
+            "marketsim.observable._computed.IndicatorBase",
+            "marketsim.samples.try_desired.BuyLowSellHighVolume",
+            "marketsim.samples.try_desired.DesiredVolumeBase",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IObservable",
+            "marketsim.types.IScalarFunction",
+            "marketsim.types.Observable"
+        ],
+        "properties": {
+            "eventSource": {
+                "hidden": false,
+                "type": "marketsim.event.Event",
+                "collapsed": false
+            },
+            "dataSource": {
+                "hidden": false,
+                "type": "marketsim.types.IFloatFunction",
+                "collapsed": false
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.orderbook._proxy.Proxy": {
         "castsTo": [
             "marketsim.orderbook._proxy.Base",
@@ -996,9 +1019,9 @@ var typeinfo = {
             "marketsim.types.IStrategy"
         ],
         "properties": {
-            "average": {
+            "ewma_alpha": {
                 "hidden": false,
-                "type": "marketsim.types.IUpdatableValue",
+                "type": "combine(greater_or_equal(0.0), _parseFloat)",
                 "collapsed": false
             },
             "creationIntervalDistr": {
@@ -1033,7 +1056,7 @@ var typeinfo = {
                 "collapsed": false
             }
         },
-        "description": "<div class=\"document\">\n<p>Mean reversion strategy believes that asset price should return to its average value.\nIt estimates this average using some functional and\nif the current asset price is lower than the average\nit buys the asset and if the price is higher it sells the asset.</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Order factory</strong></dt>\n<dd>order factory function (default: order.Market.T)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Average</strong></dt>\n<dd>functional used to calculate the average\n(default: exponentially weighted moving average with \u03b1 = 0.15)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Mean reversion strategy believes that asset price should return to its average value.\nIt estimates this average using some functional and\nif the current asset price is lower than the average\nit buys the asset and if the price is higher it sells the asset.</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Order factory</strong></dt>\n<dd>order factory function (default: order.Market.T)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><a href=\"#id1\"><span class=\"problematic\" id=\"id2\">|ewma_alpha|</span></a></dt>\n<dd>\u03b1 for exponentially weighted moving average\n(default: 0.15)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n<div class=\"system-messages section\">\n<h1>Docutils System Messages</h1>\n<div class=\"system-message\" id=\"id1\">\n<p class=\"system-message-title\">System Message: ERROR/3 (<tt class=\"docutils\">&lt;string&gt;</tt>, line 122); <em><a href=\"#id2\">backlink</a></em></p>\nUndefined substitution referenced: &quot;ewma_alpha&quot;.</div>\n</div>\n</div>\n"
     },
     "marketsim.mathutils.rnd.weibullvariate": {
         "castsTo": [
@@ -1060,6 +1083,41 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Weibull distribution. \u03b1 is the scale parameter and \u03b2 is the shape parameter.</p>\n</div>\n"
     },
+    "marketsim.mathutils._average.ewma": {
+        "castsTo": [
+            "marketsim.mathutils._average.ewma",
+            "marketsim.types.IUpdatableValue"
+        ],
+        "properties": {
+            "alpha": {
+                "hidden": false,
+                "type": "_parseFloat",
+                "collapsed": false
+            }
+        },
+        "description": "<div class=\"document\">\n<p>Exponentially weighted moving average</p>\n</div>\n"
+    },
+    "marketsim.ops.Constant_float": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.ops.Constant_float",
+            "marketsim.ops.FloatFunction",
+            "marketsim.ops._Constant_Impl",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
+        ],
+        "properties": {
+            "value": {
+                "hidden": false,
+                "type": "_parseFloat",
+                "collapsed": false
+            }
+        },
+        "description": "<div class=\"document\">\n<p>Constant function returning <strong>value</strong>.</p>\n</div>\n"
+    },
     "marketsim.observable._orderbook.last_side_price": {
         "castsTo": [
             {
@@ -1080,19 +1138,30 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Returns <em>orderbook</em> last trade <em>side</em> price</p>\n</div>\n"
     },
-    "marketsim.mathutils._average.ewma": {
+    "marketsim.observable._deltalag.DownMovements": {
         "castsTo": [
-            "marketsim.mathutils._average.ewma",
-            "marketsim.types.IUpdatableValue"
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.event.Conditional",
+            "marketsim.event.Event",
+            "marketsim.event.IEvent",
+            "marketsim.observable._deltalag.Base",
+            "marketsim.observable._deltalag.DownMovements",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IObservable",
+            "marketsim.types.IScalarFunction",
+            "marketsim.types.Observable"
         ],
         "properties": {
-            "alpha": {
+            "source": {
                 "hidden": false,
-                "type": "_parseFloat",
+                "type": "marketsim.types.Observable",
                 "collapsed": false
             }
         },
-        "description": "<div class=\"document\">\n<p>Exponentially weighted moving average</p>\n</div>\n"
+        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.ops._None_Side": {
         "castsTo": [
@@ -1125,19 +1194,38 @@ var typeinfo = {
         "properties": {},
         "description": "<div class=\"document\">\n<p>Market order of given <em>side</em> and <em>volume</em></p>\n</div>\n"
     },
-    "marketsim.observable._average.derivative": {
+    "marketsim.strategy.DesiredPosition": {
         "castsTo": [
-            "marketsim.observable._average.derivative",
-            "marketsim.types.IUpdatableValue"
+            "marketsim.strategy._basic.Base",
+            "marketsim.strategy._basic.Strategy",
+            "marketsim.strategy._desired_position.DesiredPosition",
+            "marketsim.strategy._desired_position._DesiredPosition_Impl",
+            "marketsim.types.ISingleAssetStrategy",
+            "marketsim.types.IStrategy"
         ],
         "properties": {
-            "source": {
+            "desiredPosition": {
                 "hidden": false,
-                "type": "marketsim.types.IUpdatableValue",
+                "type": "marketsim.types.IObservable",
+                "collapsed": false
+            },
+            "orderFactory": {
+                "hidden": false,
+                "type": {
+                    "rv": {
+                        "rv": "marketsim.types.IOrder",
+                        "args": [
+                            "_parseFloat"
+                        ]
+                    },
+                    "args": [
+                        "marketsim.Side"
+                    ]
+                },
                 "collapsed": false
             }
         },
-        "description": "<div class=\"document\">\n<p>Derivative of some moving average like value.\nUpdated when underlying value is updated.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Generic strategy that tries to keep trader's position equal to <em>desiredPosition</em>,</p>\n<p>Parameters:</p>\n<blockquote>\n<dl class=\"docutils\">\n<dt><a href=\"#id1\"><span class=\"problematic\" id=\"id2\">|desiredPosition|</span></a></dt>\n<dd>Observable telling desired position for the trader</dd>\n<dt><strong>Order factory</strong></dt>\n<dd>order factory function (default: order.Limit.T)</dd>\n</dl>\n</blockquote>\n<div class=\"system-messages section\">\n<h1>Docutils System Messages</h1>\n<div class=\"system-message\" id=\"id1\">\n<p class=\"system-message-title\">System Message: ERROR/3 (<tt class=\"docutils\">&lt;string&gt;</tt>, line 111); <em><a href=\"#id2\">backlink</a></em></p>\nUndefined substitution referenced: &quot;desiredPosition&quot;.</div>\n</div>\n</div>\n"
     },
     "marketsim.ops.negate": {
         "castsTo": [
@@ -1203,6 +1291,16 @@ var typeinfo = {
             "marketsim.types.IStrategy"
         ],
         "properties": {
+            "ewma_alpha2": {
+                "hidden": false,
+                "type": "combine(greater_or_equal(0.0), _parseFloat)",
+                "collapsed": false
+            },
+            "ewma_alpha1": {
+                "hidden": false,
+                "type": "combine(greater_or_equal(0.0), _parseFloat)",
+                "collapsed": false
+            },
             "volumeDistr": {
                 "hidden": false,
                 "type": {
@@ -1219,19 +1317,9 @@ var typeinfo = {
                 },
                 "collapsed": false
             },
-            "average1": {
-                "hidden": false,
-                "type": "marketsim.types.IUpdatableValue",
-                "collapsed": false
-            },
             "threshold": {
                 "hidden": false,
                 "type": "combine(greater_or_equal(0.0), _parseFloat)",
-                "collapsed": false
-            },
-            "average2": {
-                "hidden": false,
-                "type": "marketsim.types.IUpdatableValue",
                 "collapsed": false
             },
             "orderFactory": {
@@ -1250,7 +1338,7 @@ var typeinfo = {
                 "collapsed": false
             }
         },
-        "description": "<div class=\"document\">\n<p>Two averages strategy compares two averages of price of the same asset but\nwith different parameters ('slow' and 'fast' averages) and when\nthe first is greater than the second one it buys,\nwhen the first is lower than the second one it sells</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Average 1</strong></dt>\n<dd>functional used to obtain the first average\n(defaut: expenentially weighted moving average with \u03b1 = 0.15)</dd>\n<dt><strong>Average 2</strong></dt>\n<dd>functional used to obtain the second average\n(defaut: expenentially weighted moving average with \u03b1 = 0.015)</dd>\n<dt><strong>Order factory</strong></dt>\n<dd>order factory function (default: order.Market.T)</dd>\n<dt><strong>Threshold</strong></dt>\n<dd>threshold when the trader starts to act (default: 0.)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Two averages strategy compares two averages of price of the same asset but\nwith different parameters ('slow' and 'fast' averages) and when\nthe first is greater than the second one it buys,\nwhen the first is lower than the second one it sells</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Average 1</strong></dt>\n<dd>functional used to obtain the first average\n(defaut: expenentially weighted moving average with \u03b1 = 0.15)</dd>\n<dt><a href=\"#id1\"><span class=\"problematic\" id=\"id2\">|ewma_alpha1|</span></a></dt>\n<dd>parameter \u03b1 for the first exponentially weighted moving average\n(default: 0.15.)</dd>\n<dt><a href=\"#id3\"><span class=\"problematic\" id=\"id4\">|ewma_alpha2|</span></a></dt>\n<dd>parameter \u03b1 for the second exponentially weighted moving average\n(default: 0.015.)</dd>\n<dt><strong>Threshold</strong></dt>\n<dd>threshold when the trader starts to act (default: 0.)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n<div class=\"system-messages section\">\n<h1>Docutils System Messages</h1>\n<div class=\"system-message\" id=\"id1\">\n<p class=\"system-message-title\">System Message: ERROR/3 (<tt class=\"docutils\">&lt;string&gt;</tt>, line 119); <em><a href=\"#id2\">backlink</a></em></p>\nUndefined substitution referenced: &quot;ewma_alpha1&quot;.</div>\n<div class=\"system-message\" id=\"id3\">\n<p class=\"system-message-title\">System Message: ERROR/3 (<tt class=\"docutils\">&lt;string&gt;</tt>, line 123); <em><a href=\"#id4\">backlink</a></em></p>\nUndefined substitution referenced: &quot;ewma_alpha2&quot;.</div>\n</div>\n</div>\n"
     },
     "marketsim.trader._sa.SingleAsset": {
         "castsTo": [
@@ -1386,6 +1474,7 @@ var typeinfo = {
             "marketsim.observable._computed.Proxy",
             "marketsim.observable._orderbook.BidPrice",
             "marketsim.observable._orderbook.Proxy",
+            "marketsim.ops.FloatFunction",
             "marketsim.types.IFloatFunction",
             "marketsim.types.IObservable",
             "marketsim.types.IScalarFunction"
@@ -1398,6 +1487,14 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.observable._computed.UpdatableLookback": {
+        "castsTo": [
+            "marketsim.observable._computed.UpdatableLookback",
+            "marketsim.types.IUpdatableValue"
+        ],
+        "properties": {},
+        "description": "<div class=\"document\">\n<p>Computed value based on one or more sources</p>\n</div>\n"
     },
     "marketsim.ops.Greater_float": {
         "castsTo": [
@@ -1426,6 +1523,33 @@ var typeinfo = {
                     "rv": "_parseFloat",
                     "args": []
                 },
+                "collapsed": false
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.observable._ma.MA": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.observable._ma.MA",
+            "marketsim.observable.fold._last.Last",
+            "marketsim.ops.FloatFunction",
+            "marketsim.types.IDifferentiable",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
+        ],
+        "properties": {
+            "source": {
+                "hidden": false,
+                "type": "marketsim.types.IObservable",
+                "collapsed": false
+            },
+            "timeframe": {
+                "hidden": false,
+                "type": "_parseFloat",
                 "collapsed": false
             }
         },
@@ -1870,6 +1994,31 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Observes trader's balance as if was cleared (trader's balance if its position was cleared).\nCan be None if there is not enough assets on the market to clear the position.\nThis observable is updated when trader position is changed\n(which is not fair since the asset price change influences on this parameter also)</p>\n</div>\n"
     },
+    "marketsim.mathutils.rnd.gammavariate": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.mathutils.rnd.gammavariate",
+            "marketsim.ops.FloatFunction",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
+        ],
+        "properties": {
+            "Alpha": {
+                "hidden": false,
+                "type": "combine(greater(0.0), _parseFloat)",
+                "collapsed": false
+            },
+            "Beta": {
+                "hidden": false,
+                "type": "combine(greater(0.0), _parseFloat)",
+                "collapsed": false
+            }
+        },
+        "description": "<div class=\"document\">\n<p>Gamma distribution. Conditions on the parameters are \u03b1 &gt; 0 and \u03b2 &gt; 0.</p>\n<p>The probability distribution function is:</p>\n<pre class=\"literal-block\">\n          x ** (alpha - 1) * math.exp(-x / beta)\npdf(x) =  --------------------------------------\n             math.gamma(alpha) * beta ** alpha\n</pre>\n</div>\n"
+    },
     "marketsim.mathutils.rnd.vonmisesvariate": {
         "castsTo": [
             {
@@ -1894,6 +2043,34 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n<p>\u03bc is the mean angle, expressed in radians between 0 and 2|pi|, and \u03ba is the concentration parameter, which must be greater than or equal to zero. If \u03ba is equal to zero, this distribution reduces to a uniform random angle over the range 0 to 2|pi|</p>\n</div>\n"
+    },
+    "marketsim.observable._minmax.Max": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.event.Event",
+            "marketsim.event.IEvent",
+            "marketsim.observable._minmax.Max",
+            "marketsim.observable.fold._last.Last",
+            "marketsim.ops.FloatFunction",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
+        ],
+        "properties": {
+            "source": {
+                "hidden": false,
+                "type": "marketsim.types.IObservable",
+                "collapsed": false
+            },
+            "timeframe": {
+                "hidden": false,
+                "type": "_parseFloat",
+                "collapsed": false
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.observable._average.Fold": {
         "castsTo": [
@@ -2001,37 +2178,49 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Order book for a single asset in a market.\nMaintains two order queues for orders of different sides</p>\n</div>\n"
     },
-    "marketsim.ops.Constant_float": {
+    "marketsim.observable._computed.MultiFold": {
         "castsTo": [
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.ops.Constant_float",
+            "marketsim.observable._computed.MultiFold",
             "marketsim.ops.FloatFunction",
-            "marketsim.ops._Constant_Impl",
             "marketsim.types.IFloatFunction",
             "marketsim.types.IScalarFunction"
         ],
         "properties": {
-            "value": {
+            "source": {
                 "hidden": false,
-                "type": "_parseFloat",
+                "type": "marketsim.types.IObservable",
+                "collapsed": false
+            },
+            "folder": {
+                "hidden": false,
+                "type": "marketsim.types.IUpdatableValue",
                 "collapsed": false
             }
         },
-        "description": "<div class=\"document\">\n<p>Constant function returning <strong>value</strong>.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.strategy.Arbitrage": {
+    "marketsim.ops.Derivative": {
         "castsTo": [
-            "marketsim.strategy._arbitrage.Arbitrage",
-            "marketsim.strategy._arbitrage._Arbitrage_Impl",
-            "marketsim.strategy._basic.Base",
-            "marketsim.strategy._basic.MultiAssetStrategy",
-            "marketsim.types.IMultiAssetStrategy",
-            "marketsim.types.IStrategy"
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.ops.Derivative",
+            "marketsim.ops.FloatFunction",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
         ],
-        "properties": {},
+        "properties": {
+            "source": {
+                "hidden": false,
+                "type": "marketsim.types.IDifferentiable",
+                "collapsed": false
+            }
+        },
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.mathutils.rnd.triangular": {
@@ -2124,30 +2313,25 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Constant function returning <strong>value</strong>.</p>\n</div>\n"
     },
-    "marketsim.mathutils.rnd.gammavariate": {
+    "marketsim.ops.sqrt": {
         "castsTo": [
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.mathutils.rnd.gammavariate",
             "marketsim.ops.FloatFunction",
+            "marketsim.ops.sqrt",
             "marketsim.types.IFloatFunction",
             "marketsim.types.IScalarFunction"
         ],
         "properties": {
-            "Alpha": {
+            "arg": {
                 "hidden": false,
-                "type": "combine(greater(0.0), _parseFloat)",
-                "collapsed": false
-            },
-            "Beta": {
-                "hidden": false,
-                "type": "combine(greater(0.0), _parseFloat)",
+                "type": "marketsim.types.IFloatFunction",
                 "collapsed": false
             }
         },
-        "description": "<div class=\"document\">\n<p>Gamma distribution. Conditions on the parameters are \u03b1 &gt; 0 and \u03b2 &gt; 0.</p>\n<p>The probability distribution function is:</p>\n<pre class=\"literal-block\">\n          x ** (alpha - 1) * math.exp(-x / beta)\npdf(x) =  --------------------------------------\n             math.gamma(alpha) * beta ** alpha\n</pre>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function returning square root of the operand</p>\n</div>\n"
     },
     "marketsim.js.Graph": {
         "castsTo": [
@@ -2181,6 +2365,28 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n<p>Return a random floating point number <em>N</em> such that <em>a</em> &lt;= <em>N</em> &lt;= <em>b</em> for <em>a</em> &lt;= <em>b</em> and <em>b</em> &lt;= <em>N</em> &lt;= <em>a</em> for <em>b</em> &lt; <em>a</em>.\nThe end-point value <em>b</em> may or may not be included in the range depending on floating-point rounding in the equation <em>a</em> + (<em>b</em>-<em>a</em>) * <em>random()</em>.</p>\n</div>\n"
+    },
+    "marketsim.observable._cma.CMA": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.observable._cma.CMA",
+            "marketsim.observable.fold._last.Last",
+            "marketsim.ops.FloatFunction",
+            "marketsim.types.IDifferentiable",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
+        ],
+        "properties": {
+            "source": {
+                "hidden": false,
+                "type": "marketsim.types.IObservable",
+                "collapsed": false
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.registry.Simulation": {
         "castsTo": [
@@ -2308,18 +2514,60 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Returns balance of the given <em>trader</em></p>\n</div>\n"
     },
-    "marketsim.observable._momentum.upMovement": {
+    "marketsim.observable._deltalag.DeltaLag": {
         "castsTo": [
             {
                 "rv": "_parseFloat",
-                "args": [
-                    "_parseFloat",
-                    "_parseFloat"
-                ]
+                "args": []
             },
-            "__builtin__.function"
+            "marketsim.event.Conditional",
+            "marketsim.event.Event",
+            "marketsim.event.IEvent",
+            "marketsim.observable._deltalag.DeltaLag",
+            "marketsim.observable.fold._last.Last",
+            "marketsim.ops.FloatFunction",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IObservable",
+            "marketsim.types.IScalarFunction",
+            "marketsim.types.Observable"
         ],
-        "properties": {},
+        "properties": {
+            "source": {
+                "hidden": false,
+                "type": "marketsim.types.IObservable",
+                "collapsed": false
+            },
+            "timeframe": {
+                "hidden": false,
+                "type": "_parseFloat",
+                "collapsed": false
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.observable._deltalag.UpMovements": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.event.Conditional",
+            "marketsim.event.Event",
+            "marketsim.event.IEvent",
+            "marketsim.observable._deltalag.Base",
+            "marketsim.observable._deltalag.UpMovements",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IObservable",
+            "marketsim.types.IScalarFunction",
+            "marketsim.types.Observable"
+        ],
+        "properties": {
+            "source": {
+                "hidden": false,
+                "type": "marketsim.types.Observable",
+                "collapsed": false
+            }
+        },
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.scheduler.Timer": {
@@ -2336,20 +2584,6 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n<p>Represents a repeating action.</p>\n<p>Parameters:</p>\n<dl class=\"docutils\">\n<dt><em>intervalFunc</em></dt>\n<dd>intervals of time between moments when subscribed listeners are to be called</dd>\n</dl>\n</div>\n"
-    },
-    "marketsim.observable._momentum.downMovement": {
-        "castsTo": [
-            {
-                "rv": "_parseFloat",
-                "args": [
-                    "_parseFloat",
-                    "_parseFloat"
-                ]
-            },
-            "__builtin__.function"
-        ],
-        "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.order._virtual.VirtualMarketFactory": {
         "castsTo": [
@@ -2528,6 +2762,31 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
+    "marketsim.observable._stddev.EWMV": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.observable._stddev.EWMV",
+            "marketsim.ops.FloatFunction",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IScalarFunction"
+        ],
+        "properties": {
+            "source": {
+                "hidden": false,
+                "type": "marketsim.types.IFloatFunction",
+                "collapsed": false
+            },
+            "alpha": {
+                "hidden": false,
+                "type": "_parseFloat",
+                "collapsed": false
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.strategy.weight.Efficiency": {
         "castsTo": [
             "marketsim.strategy.weight.Base",
@@ -2619,6 +2878,7 @@ var typeinfo = {
             "marketsim.observable._computed.Proxy",
             "marketsim.observable._orderbook.AskPrice",
             "marketsim.observable._orderbook.Proxy",
+            "marketsim.ops.FloatFunction",
             "marketsim.types.IFloatFunction",
             "marketsim.types.IObservable",
             "marketsim.types.IScalarFunction"

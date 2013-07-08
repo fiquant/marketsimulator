@@ -16,6 +16,10 @@ class Last(ops.Function[float]):
         """
         self._source = source
         self._event = event.subscribe(self._source, _(self)._update, self)
+    
+    @property
+    def attributes(self):
+        return {}
         
     def bind(self, context): 
         self._scheduler = context.world
