@@ -1,4 +1,4 @@
-from marketsim import types, Event, event, timeserie, event, observable
+from marketsim import types, Event, event, timeserie, event, observable, _
 
 class ObservableBase(types.Observable):
     
@@ -35,6 +35,8 @@ class BidPrice(ObservableBase):
     def __call__(self):
         return self.book.bid_price
 
+ORDER_PROCESSING_TIME = 1e-8
+
 class BookBase(types.IOrderBook, timeserie.Holder):
 
     def __init__(self, bids, asks, label="", timeseries = []):
@@ -59,6 +61,9 @@ class BookBase(types.IOrderBook, timeserie.Holder):
         
         self.reset()
         
+    def bind(self, ctx):
+        self._scheduler = ctx.world
+        
     @property
     def askPrice(self):
         return self._asks.bestPrice
@@ -75,7 +80,8 @@ class BookBase(types.IOrderBook, timeserie.Holder):
     def reset(self):
         self._bids.reset()
         self._asks.reset()
-        self._incomingOrders = None
+        self._incomingOrders = []
+        self._orderBeingProcessed = None
         
     def queue(self, side):
         """ Returns queue of the given side
@@ -88,19 +94,22 @@ class BookBase(types.IOrderBook, timeserie.Holder):
     def __repr__(self):
         return self.__str__()
     
+    def _step(self):
+        self._orderBeingProcessed.processIn(self)
+        self._orderBeingProcessed = None
+        if len(self._incomingOrders):
+            self._orderBeingProcessed = self._incomingOrders.pop(0) 
+            self._scheduler.scheduleAfter(ORDER_PROCESSING_TIME, _(self)._step)
+    
     def process(self, order):
         """ Processes an order by calling its processIn method
         """
-        if self._incomingOrders is None:
-            self._incomingOrders = []
-            order.processIn(self)
-            idx = 0
-            while idx < len(self._incomingOrders):
-                self._incomingOrders[idx].processIn(self)
-                idx += 1
-            self._incomingOrders = None
+        if self._orderBeingProcessed is None:
+            self._orderBeingProcessed = order
+            self._scheduler.scheduleAfter(ORDER_PROCESSING_TIME, _(self)._step)            
         else:
             self._incomingOrders.append(order)
+
             
     @property
     def bids(self):
