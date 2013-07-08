@@ -91,38 +91,48 @@ class MovingVariance(ops.Function[float]):
         
 def StdDevRolling(source, timeframe):
     return ops.sqrt(MovingVariance(source, timeframe))
+
+from _ewma import EWMA
         
-class EWMV(ops.Function[float]):
+class EWMV(fold.Last):
     
     def __init__(self, source, alpha):
-        self.source = source 
+        fold.Last.__init__(self, source)
         self.alpha = alpha
-        event.subscribe(scheduler.Timer(ops.constant(1)), _(self)._update, self)
+        self._mean = EWMA(source, alpha) # TODO: handle source and alpha change
         self.reset()
         
-    _properties = { 'source' : types.IFunction[float], 
-                    'alpha'  : float }
+    _properties = { 'alpha'  : float }
+    
+    _internals = ['_mean']
     
     def reset(self):
-        self._mean = None
         self._variance = None
+        self._lastTime = None
+        self._lastValue = None
     
     @property
     def label(self):
         return '\sigma^2_{' + getLabel(self.source) + '}^{'+ str(self.alpha) +'}'
         
-    def _update(self, dummy):
-        x = self.source()
+    def at(self, t):
+        x = self._lastValue
         if x is not None:
-            if self._mean is None:
-                self._mean = 0
+            if self._variance is None:
                 self._variance = 0
-            delta = x - self._mean
-            self._mean += self.alpha * delta
-            self._variance = (1 - self.alpha) * (self._variance + delta * delta * self.alpha)
-        
-    def __call__(self):
-        return 0 if self._variance is not None and self._variance < 0 else self._variance 
+                self._lastTime = t
+            mean = self._mean()
+            delta = x - mean
+            # NB! this formula is not verified!!!
+            alpha = (1 - (1 - self.alpha)**( t - self._lastTime))
+            return (1 - alpha) * (self._variance + delta * delta * alpha)
+            
+    def update(self, time, value):
+        self._mean.update(time, value)
+        if value is not None:
+            self._variance = self.at(time)
+            self._lastValue = value
+            self._lastTime = time
         
 def StdDevEW(source, alpha):    
     return ops.sqrt(EWMV(source, alpha))
