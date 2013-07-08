@@ -1,9 +1,9 @@
-from marketsim import ops, types, event, _, getLabel
+from marketsim import ops, types, event, _, getLabel, scheduler
 
 import fold
 import math
 
-class StdDev(fold.Last):
+class Variance(fold.Last):
     
     def __init__(self, source):
         fold.Last.__init__(self, source)
@@ -36,7 +36,7 @@ class StdDev(fold.Last):
             return None
     
     def _getLabel(self):
-        return 'StdDev_{' + getLabel(self._source) + '}'
+        return '\sigma^2_{' + getLabel(self._source) + '}'
         
     def update(self, t, x):
         if x is not None:
@@ -48,10 +48,13 @@ class StdDev(fold.Last):
                 self._startT = t
             self._t = t
             self._x = x
+            
+def StdDev(source):
+    return ops.sqrt(Variance(source))
         
 from _ma import MA
 
-class StdDevRolling(ops.Function[float]):
+class MovingVariance(ops.Function[float]):
     
     def __init__(self, source, timeframe):
         self.source = source
@@ -65,7 +68,7 @@ class StdDevRolling(ops.Function[float]):
     
     @property
     def label(self):
-        return 'StdDev_{' + getLabel(self.source) + '}^{'+str(self.timeframe)+'}'
+        return '\sigma^2_{' + getLabel(self.source) + '}^{'+str(self.timeframe)+'}'
 
     def bind(self, ctx):
         self._scheduler = ctx.world
@@ -79,9 +82,48 @@ class StdDevRolling(ops.Function[float]):
         if M2 is not None and t > self._mean.startT:
             var = M2 - M*M
             
-            if var < 1e-2:
+            if var < 0: # we have roundings errors
                 var = 0
                 
-            return math.sqrt(var) 
+            return var 
         else:
             return None
+        
+def StdDevRolling(source, timeframe):
+    return ops.sqrt(MovingVariance(source, timeframe))
+        
+class EWMV(ops.Function[float]):
+    
+    def __init__(self, source, alpha):
+        self.source = source 
+        self.alpha = alpha
+        event.subscribe(scheduler.Timer(ops.constant(1)), _(self)._update, self)
+        self.reset()
+        
+    _properties = { 'source' : types.IFunction[float], 
+                    'alpha'  : float }
+    
+    def reset(self):
+        self._mean = None
+        self._variance = None
+    
+    @property
+    def label(self):
+        return '\sigma^2_{' + getLabel(self.source) + '}^{'+ str(self.alpha) +'}'
+        
+    def _update(self, dummy):
+        x = self.source()
+        if x is not None:
+            if self._mean is None:
+                self._mean = 0
+                self._variance = 0
+            delta = x - self._mean
+            self._mean += self.alpha * delta
+            self._variance = (1 - self.alpha) * (self._variance + delta * delta * self.alpha)
+        
+    def __call__(self):
+        return 0 if self._variance is not None and self._variance < 0 else self._variance 
+        
+def StdDevEW(source, alpha):    
+    return ops.sqrt(EWMV(source, alpha))
+    

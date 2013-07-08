@@ -37,6 +37,7 @@ class Context(object):
         self.eff_graph = self.graph("efficiency")
         self.amount_graph = self.graph("amount")
         self.balance_graph = self.graph('balance')
+        self.bollinger_a015_graph = self.graph('bollinger alpha 0.15')
         self.bollinger_20_graph = self.graph('bollinger 20')
         self.bollinger_100_graph = self.graph('bollinger 100')
         
@@ -46,6 +47,7 @@ class Context(object):
                        self.amount_graph,
                        self.balance_graph, 
                        self.bollinger_20_graph,
+                       self.bollinger_a015_graph,
                        self.bollinger_100_graph,
                        ]
          
@@ -117,27 +119,31 @@ def orderBooksToRender(ctx, traders):
             ma20 = observable.MA(assetPrice, 20)
             stddev100 = observable.StdDevRolling(assetPrice, 100)
             stddev20 = observable.StdDevRolling(assetPrice, 20)
-            return [
-                    timeserie.ToRecord(askPrice, ctx.price_graph),
-                    timeserie.ToRecord(bidPrice, ctx.price_graph),
-                    timeserie.ToRecord(assetPrice, ctx.price_graph), 
-                    
-                    timeserie.ToRecord(observable.OnEveryDt(1, cma), ctx.price_graph), 
-                    
-                    timeserie.ToRecord(assetPrice, ctx.bollinger_100_graph), 
-                    timeserie.ToRecord(observable.OnEveryDt(1, ma100), ctx.bollinger_100_graph), 
-                    timeserie.ToRecord(observable.OnEveryDt(1, ma100 + stddev100*2), ctx.bollinger_100_graph), 
-                    timeserie.ToRecord(observable.OnEveryDt(1, ma100 - stddev100*2), ctx.bollinger_100_graph), 
-                    
-                    timeserie.ToRecord(assetPrice, ctx.bollinger_20_graph), 
-                    timeserie.ToRecord(observable.OnEveryDt(1, ma20), ctx.bollinger_20_graph), 
-                    timeserie.ToRecord(observable.OnEveryDt(1, ma20 + stddev20*2), ctx.bollinger_20_graph), 
-                    timeserie.ToRecord(observable.OnEveryDt(1, ma20 - stddev20*2), ctx.bollinger_20_graph), 
-
-                    timeserie.ToRecord(avg(assetPrice, alpha=0.15), ctx.price_graph),
-                    timeserie.ToRecord(avg(assetPrice, alpha=0.65), ctx.price_graph),
-                    timeserie.ToRecord(avg(assetPrice, alpha=0.015), ctx.price_graph)
-                    ]
+            ewma015 = observable.EWMA(assetPrice, alpha=0.15)
+            ewmsd = observable.StdDevEW(assetPrice, 0.15)
+            
+            def bollinger(mean, stddev, graph):
+                return [
+                    timeserie.ToRecord(assetPrice, graph), 
+                    timeserie.ToRecord(observable.OnEveryDt(1, mean), graph), 
+                    timeserie.ToRecord(observable.OnEveryDt(1, mean + stddev*2), graph), 
+                    timeserie.ToRecord(observable.OnEveryDt(1, mean - stddev*2), graph),
+                ] 
+            
+            return ([
+                timeserie.ToRecord(askPrice, ctx.price_graph),
+                timeserie.ToRecord(bidPrice, ctx.price_graph),
+                timeserie.ToRecord(assetPrice, ctx.price_graph), 
+                
+                timeserie.ToRecord(observable.OnEveryDt(1, cma), ctx.price_graph), 
+                
+                timeserie.ToRecord(avg(assetPrice, alpha=0.15), ctx.price_graph),
+                timeserie.ToRecord(avg(assetPrice, alpha=0.65), ctx.price_graph),
+                timeserie.ToRecord(avg(assetPrice, alpha=0.015), ctx.price_graph)
+            ] 
+            + bollinger(ma100, stddev100, ctx.bollinger_100_graph) 
+            + bollinger(ma20, stddev20, ctx.bollinger_20_graph)
+            + bollinger(ewma015, ewmsd, ctx.bollinger_a015_graph))
 
         for b in books:
             b.volumes_graph = ctx.addGraph("Volume levels " + b.label)

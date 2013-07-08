@@ -1,5 +1,7 @@
 from marketsim import meta, Side, types, registry, getLabel, event, _
 
+import math 
+
 def convert(other):
     if type(other) in [int, float]:
         other = constant(other)
@@ -319,6 +321,29 @@ class negate(Function[float]):
     
     def __repr__(self):
         return "-" + repr(self.arg)
+    
+@registry.expose(['Arithmetic', 'sqrt'])
+class sqrt(Function[float]):
+    """ Function returning square root of the operand
+    """
+    
+    def __init__(self, arg=constant(1.)):
+        self.arg = arg
+        
+    _properties = { "arg" : types.IFunction[float] }
+    
+    def __call__(self, *args, **kwargs):
+        x = self.arg()
+        return math.sqrt(x) if x is not None else None
+    
+    @property
+    def label(self):
+        return "\sqrt{" + self.arg.label + "}"
+    
+    def __repr__(self):
+        return "sqrt(" + repr(self.arg) + ")"
+
+
 
 @registry.expose(['Arithmetic', 'identity'])
 class identity(Function[float]):
