@@ -120,7 +120,7 @@ class CSV(object):
                 if x is not None: 
                     csv.write(str(t) + ',' + str(x) + ',\n')
                 else:
-                    csv.write('nan,\n')
+                    csv.write(str(t) + ',' + "nan" + ',\n')
             
         
         f.write(graphDataHeader.format(filename, label))
