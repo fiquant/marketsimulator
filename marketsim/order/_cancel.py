@@ -9,6 +9,7 @@ class Cancel(object):
         self._toCancel = orderToBeCancelled
         self.on_matched = Event() # just dummy event. never called
         self.on_charged = Event()
+        self.on_cancelled = Event()
         
     def charge(self, price):
         self.on_charge.fire(price)
