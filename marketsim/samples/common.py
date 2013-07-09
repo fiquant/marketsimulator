@@ -220,6 +220,8 @@ def run(name, constructor):
         traders.extend([
             ctx.makeMinorTrader(strategy.RSI_linear(k = const(0.07)), "RSI 0.07"), 
             ctx.makeMinorTrader(strategy.RSI_linear(k = const(-0.07)), "RSI -0.07"),
+            ctx.makeMinorTrader(strategy.Bollinger_linear(k = const(1)), "Bollinger 1.0"),
+            ctx.makeMinorTrader(strategy.Bollinger_linear(k = const(-1)), "Bollinger -1.0"),
         ])
         
         books = orderBooksToRender(ctx, traders)

@@ -21,6 +21,8 @@ from _mean_reversion import MeanReversion, MeanReversionEx
 
 from _rsi import RSIEx, RSIbis, RSI_linear
 
+from _bollinger import Bollinger_linear
+
 from _dependency import Dependency, DependencyEx
 
 from _fv import (FundamentalValue, FundamentalValueEx)
