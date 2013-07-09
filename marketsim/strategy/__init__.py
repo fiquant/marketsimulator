@@ -19,7 +19,7 @@ from _arbitrage import Arbitrage
 
 from _mean_reversion import MeanReversion, MeanReversionEx
 
-from _rsi import RSIEx, RSIbis
+from _rsi import RSIEx, RSIbis, RSI_linear
 
 from _dependency import Dependency, DependencyEx
 
