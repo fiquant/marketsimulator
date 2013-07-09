@@ -11,7 +11,7 @@ def Bollinger_linear(alpha                   = 0.15,
     
     return defs(DesiredPosition(
                         orderFactory = orderFactory, 
-                        desiredPosition = observable.OnEveryDt(1, 
+                        desiredPosition = observable.IndicatorBase(_.price, 
                                             ops.Sub(_.price, _.mean) / _.stddev * k)), 
                 { 'price' : observable.Price(thisBook),
                   'mean'  : observable.EWMA(_.price, alpha), 

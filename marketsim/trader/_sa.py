@@ -31,8 +31,9 @@ class SingleAsset(Base, types.ISingleAssetTrader):
              
     def reset(self):
         self._amount = 0
+        self.pendingVolume = 0
         
-    _properties = {'amount'     : float, 
+    _properties = {'amount'     : float,
                    'strategy'   : types.ISingleAssetStrategy,
                    'orderBook'  : types.IOrderBook }
     
@@ -56,8 +57,14 @@ class SingleAsset(Base, types.ISingleAssetTrader):
         at given 'price' and 'volume'
         Trader's amount and P&L is updated and listeners are notified about the trade   
         """
-        self._amount += volume if order.side == Side.Buy else -volume
+        dVolume = volume if order.side == Side.Buy else -volume
+        self._amount += dVolume
+        self.pendingVolume -= dVolume
         Base._onOrderMatched(self, order, other, (price, volume))
+        
+    def _onOrderCancelled(self, order):
+        dVolume = order.volume if order.side == Side.Buy else -order.volume
+        self.pendingVolume -= dVolume
     
     @property
     def book(self): # obsolete
@@ -80,4 +87,7 @@ class SingleAsset(Base, types.ISingleAssetTrader):
         self._orderBook = newvalue
         
     def send(self, order):
+        if 'volume' in dir(order):
+            dVolume = order.volume if order.side == Side.Buy else -order.volume
+            self.pendingVolume += dVolume
         Base.send(self, self._orderBook, order)

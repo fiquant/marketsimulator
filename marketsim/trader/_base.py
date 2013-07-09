@@ -53,6 +53,7 @@ class Base(timeserie.Holder):
         Returns the order itself 
         """
         order.on_matched += _(self)._onOrderMatched
+        order.on_cancelled += _(self)._onOrderCancelled
         order.on_charged += _(self)._charge
         return order
 
