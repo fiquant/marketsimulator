@@ -40,3 +40,9 @@ from _multiarmed_bandit import MultiarmedBandit
 from _periodic import Periodic
 
 from _desired_position import DesiredPosition
+
+# from _market_maker import MarketMaker
+#
+# from _dollar_avg import DollarAverage
+
+from _market_data import MarketData
