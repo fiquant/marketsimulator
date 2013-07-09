@@ -22,6 +22,7 @@ class Base(object):
         # remote book and virtual orders but it is ok
         self.on_matched = Event()
         self.on_charged = Event()
+        self.on_cancelled = Event()
         
     @property
     def side(self):
@@ -70,6 +71,7 @@ class Base(object):
         """ Marks order as cancelled. Notifies the order book about it
         """
         self._cancelled = True
+        self.on_cancelled.fire(self)
 
     #--------------------------------- these methods are to be called by order book
             

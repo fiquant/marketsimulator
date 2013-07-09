@@ -66,3 +66,18 @@ def RSIbis (timeframe               = 0.,
                          sideFunc     = SignalSide(ops.constant(50) - _.rsi, 
                                                    50-threshold)), 
                 { 'rsi' : observable.RSI(thisBook, timeframe, alpha) })
+    
+from _desired_position import DesiredPosition
+    
+@registry.expose(['Desired position', 'RSI linear'])
+def RSI_linear(timeframe               = 1., 
+               alpha                   = 1./14,
+               k                       = ops.constant(-0.04),
+               orderFactory            = order.MarketFactory):
+    
+    thisBook = orderbook.OfTrader()
+    
+    return defs(DesiredPosition(
+                        orderFactory = orderFactory, 
+                        desiredPosition = observable.OnEveryDt(1, (ops.constant(50) - _.rsi) * k)), 
+                { 'rsi' : observable.RSI(thisBook, timeframe, alpha) })

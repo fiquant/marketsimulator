@@ -13,7 +13,7 @@ class _DesiredPosition_Impl(Strategy):
         desired = self.desiredPosition()
         if desired is not None:
             desired = int(desired)
-            actual = self._trader.amount
+            actual = self._trader.amount + self._trader.pendingVolume
             gap = desired - actual
             side = Side.Buy if gap > 0 else (Side.Sell if gap < 0 else None)
             if side is not None:
@@ -32,6 +32,6 @@ exec  wrapper2("DesiredPosition",
                          order factory function (default: order.Limit.T)
                          
              """,
-              [('desiredPosition',      'None',                                 'types.IObservable'), 
-               ('orderFactory',         'order.MarketFactory',                  'Side -> Volume -> IOrder'),], 
+              [('desiredPosition',      'None',                'types.IObservable'), 
+               ('orderFactory',         'order.MarketFactory', 'Side -> Volume -> IOrder'),], 
                register=False)

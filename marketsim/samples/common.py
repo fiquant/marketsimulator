@@ -15,6 +15,7 @@ def expose(label, module):
         return f
     return inner
     
+const = ops.constant 
 
 class Context(object):
     
@@ -41,6 +42,8 @@ class Context(object):
         self.bollinger_20_graph = self.graph('bollinger 20')
         self.bollinger_100_graph = self.graph('bollinger 100')
         self.minmax_graph = self.graph('minmax')
+        self.minors_eff_graph = self.graph('minor traders efficiency')
+        self.minors_amount_graph = self.graph('minor traders position')
         
         self.graphs = [
                        self.price_graph, 
@@ -50,7 +53,9 @@ class Context(object):
                        self.bollinger_20_graph,
                        self.bollinger_a015_graph,
                        self.bollinger_100_graph,
-                       self.minmax_graph
+                       self.minmax_graph, 
+                       self.minors_eff_graph, 
+                       self.minors_amount_graph
                        ]
          
         self.books = { 'Asset A' : self.book_A ,
@@ -94,7 +99,13 @@ class Context(object):
             
         return t
     
-    
+    def makeMinorTrader(self, strategy, label):
+        def trader_ts():
+            thisTrader = trader.SingleProxy()
+            return { observable.Efficiency(thisTrader)   : self.minors_eff_graph, 
+                     observable.VolumeTraded(thisTrader) : self.minors_amount_graph    }
+        
+        return trader.SingleAsset(self.book_A, strategy, label = label, timeseries = trader_ts())
         
     def makeTrader_A(self, strategy, label, additional_ts = []):
         return self.makeTrader(self.book_A, strategy, label, additional_ts)
@@ -205,6 +216,13 @@ def run(name, constructor):
         
         ctx = Context(world, veusz.Graph)
         traders = constructor(ctx)
+        
+        traders.extend([
+            ctx.makeMinorTrader(strategy.RSI_linear(k = const(0.07)), "RSI 0.07"), 
+            ctx.makeMinorTrader(strategy.RSI_linear(k = const(-0.07)), "RSI -0.07"),
+            ctx.makeMinorTrader(strategy.Bollinger_linear(alpha=0.15, k = const(-0.5)), "Bollinger -0.5"),
+            ctx.makeMinorTrader(strategy.Bollinger_linear(alpha=0.15, k = const(+0.5)), "Bollinger +0.5"),
+        ])
         
         books = orderBooksToRender(ctx, traders)
         

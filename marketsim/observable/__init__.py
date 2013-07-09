@@ -1,4 +1,4 @@
-from _computed import OnEveryDt, MultiFold, UpdatableLookback, aggregate
+from _computed import OnEveryDt, MultiFold, UpdatableLookback, aggregate, IndicatorBase
                         
 from _average import Fold
 

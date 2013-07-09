@@ -18,7 +18,8 @@ class Market(Base):
         """ Order book calls this method to ask the order 
         how it should be processed in the order book (a la Visitor)
         """
-        orderBook.processMarketOrder(self)
+        if not orderBook.processMarketOrder(self):
+            self.cancel()
 
     def canBeMatched(self, other):
         """ Returns True iff this order can be matched with 'other'
