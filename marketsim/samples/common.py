@@ -136,7 +136,7 @@ def orderBooksToRender(ctx, traders):
             ewmsd = observable.StdDevEW(assetPrice, 0.15)
             min = observable.Min(assetPrice, 100)
             max = observable.Max(assetPrice, 100)
-            
+            candlesticks = observable.CandleSticks(assetPrice, 10)
             
             def bollinger(mean, stddev, graph):
                 return [
@@ -147,6 +147,7 @@ def orderBooksToRender(ctx, traders):
                 ] 
             
             return ([
+                timeserie.ToRecord(candlesticks, ctx.price_graph),
                 timeserie.ToRecord(askPrice, ctx.price_graph),
                 timeserie.ToRecord(bidPrice, ctx.price_graph),
                 timeserie.ToRecord(assetPrice, ctx.price_graph), 

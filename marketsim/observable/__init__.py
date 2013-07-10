@@ -19,3 +19,5 @@ from _orderbook import (Price, PriceAtVolume, VolumeLevels,
                         BidPrice, AskPrice)
 
 from _trader import  InstEfficiency, PnL, VolumeTraded
+
+from _candlestick import CandleSticks, CandleStick
