@@ -59,7 +59,8 @@ class ListProxy(object):
             elementConstraint = kwargs['elementConstraint']
             self.__dict__['_elements'] = elements
             self.__dict__['_elementConstraint'] = elementConstraint
-            self.__dict__['_properties'] = {str(i) : self._elementConstraint for i in range(len(self.__dict__['_elements']))}
+            self.__dict__['_properties'] = dict([(str(i), self._elementConstraint) \
+                                                 for i in range(len(self.__dict__['_elements']))])
         
     def __getattr__(self, s):
         try:
@@ -82,16 +83,6 @@ def _findType(ctorname):
     for k in qualified_name[1:]:
         ctor = getattr(ctor, k)
     return ctor
-
-class WeakSet(weakref.WeakSet):
-    
-    def __getstate__(self):
-        return {'elements': [x for x in self]}
-    
-    def __setstate__(self, state):
-        self.clear()
-        for x in state['elements']:
-            self.add(x)    
 
 class Registry(object):
     
@@ -335,9 +326,9 @@ class Registry(object):
     
     @property
     def orderBooksByName(self):
-        return {v._alias[-1] : v\
+        return dict([(v._alias[-1], v)\
                  for v in self._id2obj.itervalues() \
-                    if getCtor(v).startswith("marketsim.orderbook.") }
+                    if getCtor(v).startswith("marketsim.orderbook.") ])
     
     @property
     def graphs(self):
@@ -373,13 +364,13 @@ class Registry(object):
                 
             if ctor not in types:
 
-                props = { p.name : 
+                props = dict([( p.name, 
                             {
                                 'type'     : self._dumpPropertyConstraint(p.type), 
                                 'hidden'   : p.hidden or p.name[0] == '_',
                                 'collapsed': p.collapsed,
-                            } 
-                            for p in rtti.properties(obj)}
+                            }) 
+                            for p in rtti.properties(obj)])
     
                 castsTo = map(self._dumpPropertyConstraint, rtti.types(obj))
                     
@@ -405,14 +396,14 @@ class Registry(object):
                 
             alias = obj._alias
                 
-            props     = {p.name : self._dumpPropertyValue(p.type, getattr(obj, p.name), obj) \
-                                               for p in rtti.properties(obj)}
+            props     = dict([(p.name, self._dumpPropertyValue(p.type, getattr(obj, p.name), obj)) \
+                                               for p in rtti.properties(obj)])
                                      
             if props is None:
                 props = {}
                 
-            definitions = { k: self._dumpPropertyValue("", v, obj)\
-                                    for k,v in getattr(obj, '_definitions', {}).iteritems()}
+            definitions = dict([( k, self._dumpPropertyValue("", v, obj))\
+                                    for k,v in getattr(obj, '_definitions', {}).iteritems()])
             
             return [ctor, props, alias, definitions]
         
