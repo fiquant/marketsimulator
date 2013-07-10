@@ -267,7 +267,7 @@ def update():
     
     parsed = request_parsed()
 
-    metaToCreate = {int(Id) : (meta[0], meta[1], meta[2]) for (Id, meta) in parsed['created']}
+    metaToCreate = dict([(int(Id), (meta[0], meta[1], meta[2])) for (Id, meta) in parsed['created']])
 
     with w.world: 
         w.registry.createNewObjects(metaToCreate)
