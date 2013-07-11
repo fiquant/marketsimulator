@@ -3,3 +3,4 @@
 *.pyc
 marketsim/samples/_output
 server/_saved/
+.metadata/

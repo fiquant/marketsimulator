@@ -1674,6 +1674,24 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
+    "marketsim.remote.TwoWayLink": {
+        "castsTo": [
+            "marketsim.remote.TwoWayLink"
+        ],
+        "properties": {
+            "down": {
+                "hidden": false,
+                "type": "marketsim.remote.Link",
+                "collapsed": false
+            },
+            "up": {
+                "hidden": false,
+                "type": "marketsim.remote.Link",
+                "collapsed": false
+            }
+        },
+        "description": "<div class=\"document\">\n<p>Represents latency in information propagation between two agents\n(normally between a trader and a market).\nEnsures that sending packets via links preserves their order.\nHolds two one-way links in opposite directions.</p>\n<p>Parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>up</strong></dt>\n<dd>Forward link (normally from a trader to a market)</dd>\n<dt><strong>down</strong></dt>\n<dd>Backward link (normally from a market to a trader)</dd>\n</dl>\n</div>\n"
+    },
     "marketsim.ops.Sub": {
         "castsTo": [
             {
@@ -1970,6 +1988,35 @@ var typeinfo = {
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
+    "marketsim.observable._candlestick.CandleSticks": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.event.Conditional",
+            "marketsim.event.Event",
+            "marketsim.event.IEvent",
+            "marketsim.observable._candlestick.CandleSticks",
+            "marketsim.types.IFloatFunction",
+            "marketsim.types.IObservable",
+            "marketsim.types.IScalarFunction",
+            "marketsim.types.Observable"
+        ],
+        "properties": {
+            "source": {
+                "hidden": false,
+                "type": "marketsim.types.Observable",
+                "collapsed": false
+            },
+            "timeframe": {
+                "hidden": false,
+                "type": "_parseFloat",
+                "collapsed": false
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.observable._async.Efficiency": {
         "castsTo": [
             {
@@ -2253,23 +2300,12 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Return a random floating point number <em>N</em> such that <em>low</em> &lt;= <em>N</em> &lt;= <em>high</em> and with the specified <em>mode</em> between those bounds. The <em>low</em> and <em>high</em> bounds default to zero and one. The <em>mode</em> argument defaults to the midpoint between the bounds, giving a symmetric distribution.</p>\n</div>\n"
     },
-    "marketsim.remote.TwoWayLink": {
+    "marketsim.strategy._rsi.RSI_linear": {
         "castsTo": [
-            "marketsim.remote.TwoWayLink"
+            "__builtin__.function"
         ],
-        "properties": {
-            "down": {
-                "hidden": false,
-                "type": "marketsim.remote.Link",
-                "collapsed": false
-            },
-            "up": {
-                "hidden": false,
-                "type": "marketsim.remote.Link",
-                "collapsed": false
-            }
-        },
-        "description": "<div class=\"document\">\n<p>Represents latency in information propagation between two agents\n(normally between a trader and a market).\nEnsures that sending packets via links preserves their order.\nHolds two one-way links in opposite directions.</p>\n<p>Parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>up</strong></dt>\n<dd>Forward link (normally from a trader to a market)</dd>\n<dt><strong>down</strong></dt>\n<dd>Backward link (normally from a market to a trader)</dd>\n</dl>\n</div>\n"
+        "properties": {},
+        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.mathutils.rnd.randint": {
         "castsTo": [
@@ -2411,6 +2447,26 @@ var typeinfo = {
                 "hidden": false,
                 "type": {
                     "elementType": "marketsim.types.IOrderBook"
+                },
+                "collapsed": false
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.strategy.Array": {
+        "castsTo": [
+            "marketsim.strategy._array.Array",
+            "marketsim.strategy._array._Array_Impl",
+            "marketsim.strategy._basic.Base",
+            "marketsim.strategy._basic.Strategy",
+            "marketsim.types.ISingleAssetStrategy",
+            "marketsim.types.IStrategy"
+        ],
+        "properties": {
+            "strategies": {
+                "hidden": false,
+                "type": {
+                    "elementType": "marketsim.types.ISingleAssetStrategy"
                 },
                 "collapsed": false
             }
@@ -2769,6 +2825,7 @@ var typeinfo = {
                 "args": []
             },
             "marketsim.observable._stddev.EWMV",
+            "marketsim.observable.fold._last.Last",
             "marketsim.ops.FloatFunction",
             "marketsim.types.IFloatFunction",
             "marketsim.types.IScalarFunction"
@@ -2776,7 +2833,7 @@ var typeinfo = {
         "properties": {
             "source": {
                 "hidden": false,
-                "type": "marketsim.types.IFloatFunction",
+                "type": "marketsim.types.IObservable",
                 "collapsed": false
             },
             "alpha": {
@@ -2795,24 +2852,11 @@ var typeinfo = {
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.strategy.Array": {
+    "marketsim.strategy._bollinger.Bollinger_linear": {
         "castsTo": [
-            "marketsim.strategy._array.Array",
-            "marketsim.strategy._array._Array_Impl",
-            "marketsim.strategy._basic.Base",
-            "marketsim.strategy._basic.Strategy",
-            "marketsim.types.ISingleAssetStrategy",
-            "marketsim.types.IStrategy"
+            "__builtin__.function"
         ],
-        "properties": {
-            "strategies": {
-                "hidden": false,
-                "type": {
-                    "elementType": "marketsim.types.ISingleAssetStrategy"
-                },
-                "collapsed": false
-            }
-        },
+        "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.order._limit.LimitFactory": {
