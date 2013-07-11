@@ -34,7 +34,8 @@ class Queue(object):
         """
         self._tickSize = tickSize   # tick size
         self._book = book           # book the queue belongs to if any
-        self.on_order_cancelled = Event() # event (orderQueue, cancelledOrder) to be called when an order is cancelled 
+        self.on_order_cancelled = Event() # event (orderQueue, cancelledOrder) to be called when an order is cancelled
+        self.on_traded = Event() # event (price, volume) about a trade has been done 
         self.reset()
         self.bestPrice = BestPrice(self)
         
@@ -146,7 +147,7 @@ class Queue(object):
             (_, top) = self._elements[0]
             # match the incoming order with our best one
             # and if our best order becomes empty,
-            if not other.empty and top.matchWith(other):
+            if top.matchWith(other):
                 # remove it from the queue
                 self._makeValid()
             else:

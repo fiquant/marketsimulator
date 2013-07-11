@@ -17,6 +17,9 @@ def expose(label, module):
     
 const = ops.constant 
 
+def _print(ch):
+    print ch,
+
 class Context(object):
     
     def __init__(self, world, graph_renderer):
@@ -24,6 +27,9 @@ class Context(object):
         self.world = world 
         self.book_A = orderbook.Local(tickSize=0.01, label="A")
         self.book_B = orderbook.Local(tickSize=0.01, label="B")
+        
+        self.world.process(lambda: 10, lambda: _print('.'))
+        self.world.process(lambda: 100, lambda: _print('\n'))
         
         delay = ops.constant(1.07)
 

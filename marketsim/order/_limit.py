@@ -65,7 +65,6 @@ class Limit(Base):
         if other.canBeMatched(self):
             # volume to trade
             v = min(self.volume, other.volume)
-            assert v > 0
             # price to trade is my price
             # it means that incoming limit order is considered as a market order
             # and its price is not taken for the trade
