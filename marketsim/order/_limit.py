@@ -59,20 +59,20 @@ class Limit(Base):
         return not self.side.better(other.price, self.price)
 
     def matchWith(self, other):
-        """ Matches the order with another one
-        Returns True iff this order is completely matched
+        """ Matches the order with another one provided that it can be matched
+        returns (price, volume) of the trade done
         """
-        if other.canBeMatched(self):
-            # volume to trade
-            v = min(self.volume, other.volume)
-            # price to trade is my price
-            # it means that incoming limit order is considered as a market order
-            # and its price is not taken for the trade
-            p = self.price
-            # notify trade side about the it
-            self.onMatchedWith(other, (p,v))
-            other.onMatchedWith(self, (p,v))
-        return self.empty
+        # volume to trade
+        v = min(self.volume, other.volume)
+        # price to trade is my price
+        # it means that incoming limit order is considered as a market order
+        # and its price is not taken for the trade
+        p = self.price
+        pv = (p,v)
+        # notify trade side about the it
+        self.onMatchedWith(other, pv)
+        other.onMatchedWith(self, pv)
+        return pv
 
     @staticmethod
     def Buy(price, volume): return Limit(Side.Buy, price, volume)

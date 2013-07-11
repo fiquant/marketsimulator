@@ -19,6 +19,21 @@ class BestPrice(types.Observable):
         
     def __call__(self):
         return None if self.queue.empty else self.queue.best.price 
+    
+
+class LastTrade(types.Observable):
+    
+    def __init__(self):
+        types.Observable.__init__(self)
+        self._lastTrade = None
+        
+    def set(self, value):
+        self._lastTrade = value
+        self.fire(self)
+    
+    # return (price, volume) of the last trade or None    
+    def __call__(self):
+        return self._lastTrade
 
 
 class Queue(object):
@@ -35,7 +50,7 @@ class Queue(object):
         self._tickSize = tickSize   # tick size
         self._book = book           # book the queue belongs to if any
         self.on_order_cancelled = Event() # event (orderQueue, cancelledOrder) to be called when an order is cancelled
-        self.on_traded = Event() # event (price, volume) about a trade has been done 
+        self.lastTrade = LastTrade() 
         self.reset()
         self.bestPrice = BestPrice(self)
         
@@ -134,6 +149,18 @@ class Queue(object):
         Otherwise returns None 
         """
         return self._elements[0][1] if self._makeValid() else None
+    
+    def _match(self, top, other):
+        if other.canBeMatched(top):
+            pv = top.matchWith(other)
+            if pv[1]:
+                self.lastTrade.set(pv)
+            if top.empty:
+                # remove it from the queue
+                self._makeValid()
+                return True
+        return False
+            
 
     def matchWith(self, other):
         """ Matches an order against our order queue
@@ -147,11 +174,7 @@ class Queue(object):
             (_, top) = self._elements[0]
             # match the incoming order with our best one
             # and if our best order becomes empty,
-            if top.matchWith(other):
-                # remove it from the queue
-                self._makeValid()
-            else:
-                # our best order is not matched completely
+            if not self._match(top, other):
                 break
         self.notifyIfBestChanged()
         return other.empty
