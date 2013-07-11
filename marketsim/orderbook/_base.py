@@ -37,6 +37,8 @@ class BidPrice(ObservableBase):
 
 ORDER_PROCESSING_TIME = 1e-8
 
+from _queue import LastTrade
+
 class BookBase(types.IOrderBook, timeserie.Holder):
 
     def __init__(self, bids, asks, label="", timeseries = []):
@@ -58,6 +60,10 @@ class BookBase(types.IOrderBook, timeserie.Holder):
         
         event.subscribe(self.askPrice, self.midPrice.fire, self)
         event.subscribe(self.bidPrice, self.midPrice.fire, self)
+        
+        self.lastTrade = LastTrade()
+        event.subscribe(self._asks.lastTrade, _(self.lastTrade).set, self)
+        event.subscribe(self._bids.lastTrade, _(self.lastTrade).set, self)
         
         self.reset()
         

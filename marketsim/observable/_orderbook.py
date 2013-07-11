@@ -1,4 +1,4 @@
-from marketsim import meta, Event, types, context, Side, event, scheduler, mathutils, getLabel, ops
+from marketsim import meta, Event, types, context, Side, event, scheduler, mathutils, getLabel, ops, _
 
 from _computed import IndicatorBase
 
@@ -224,6 +224,34 @@ class BidPrice(Proxy):
     def _impl(self):
         return self.orderbook.bidPrice
 
+class LastTrade(Proxy):
+    
+    @property
+    def _impl(self):
+        return self.orderbook.lastTrade
+    
+class LastTradePrice(types.Observable):
+    
+    def __init__(self, orderbook):
+        types.Observable.__init__(self)
+        self.orderbook = orderbook
+        self._lastTrade = LastTrade(orderbook)
+        event.subscribe(self._lastTrade, _(self).fire, self)
+        
+    def __call__(self):
+        return self._lastTrade()[0]
+    
+    @property
+    def label(self):
+        return 'LastTradePrice_{' + self.orderbook.label + '}'
+    
+    @property
+    def _digitsToShow(self):
+        return self.orderbook._digitsToShow
+
+    @property
+    def attributes(self):
+        return {}
         
 
 ### -------------------------------------------------------------------   Observables

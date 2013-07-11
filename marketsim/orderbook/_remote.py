@@ -1,6 +1,6 @@
 from marketsim import event, registry, remote, types, bind, _
 from _base import BookBase
-from _queue import BestPrice
+from _queue import BestPrice, LastTrade
 
 class Queue(object):
     
@@ -10,6 +10,8 @@ class Queue(object):
         self._link = link
         queue.bestPrice += _(self)._onBestChanged
         self.bestPrice = BestPrice(self)
+        self.lastTrade = LastTrade()
+        queue.lastTrade += _(self)._onTraded
         self.reset()
         
     def reset(self):
@@ -27,6 +29,9 @@ class Queue(object):
     def _update(self, best):
         self._best = best
         self.bestPrice.fire(self)
+        
+    def _onTraded(self, value):
+        self._link.send(_(self.lastTrade, value).set)
 
     def _onBestChanged(self, queue):
         best = queue.best

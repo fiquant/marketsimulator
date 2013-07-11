@@ -29,7 +29,7 @@ class LastTrade(types.Observable):
         
     def set(self, value):
         self._lastTrade = value
-        self.fire(self)
+        self.fire(value)
     
     # return (price, volume) of the last trade or None    
     def __call__(self):
