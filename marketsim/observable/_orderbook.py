@@ -177,6 +177,30 @@ class QueueLastTradePrice(QueueLastTrade):
     def label(self):
         return 'LastTradePrice_{' + self.orderqueue.label + '}'
     
+class QueueLastTradeVolume(QueueLastTrade):
+    
+    def __call__(self):
+        return QueueLastTrade.__call__(self)[1]
+
+    @property
+    def label(self):
+        return 'LastTradeVolume_{' + self.orderqueue.label + '}'
+    
+from _ewma import EWMA
+
+def QueueWeightedPrice(orderqueue, alpha):
+    lastTradePrice  = QueueLastTradePrice(orderqueue)
+    lastTradeVolume = QueueLastTradeVolume(orderqueue)
+    pv = EWMA(lastTradePrice * lastTradeVolume, alpha)
+    w = EWMA(lastTradeVolume, alpha)
+    return pv / w
+    
+def AskWeightedPrice(book, alpha):
+    return QueueWeightedPrice(orderbook.Asks(book), alpha)
+    
+def BidWeightedPrice(book, alpha):
+    return QueueWeightedPrice(orderbook.Bids(book), alpha)
+    
 def AskLastTradePrice(book):
     return QueueLastTradePrice(orderbook.Asks(book))
     

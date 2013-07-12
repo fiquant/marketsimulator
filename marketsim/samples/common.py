@@ -131,6 +131,8 @@ def orderBooksToRender(ctx, traders):
             askPrice = observable.AskPrice(thisBook)
             bidPrice = observable.BidPrice(thisBook)
             assetPrice = observable.MidPrice(thisBook)
+            askWeightedPrice = observable.AskWeightedPrice(thisBook, 0.15)
+            bidWeightedPrice = observable.BidWeightedPrice(thisBook, 0.15)
             avg = observable.avg
             cma = observable.CMA(assetPrice)
             stddev = observable.StdDev(assetPrice)
@@ -160,6 +162,9 @@ def orderBooksToRender(ctx, traders):
                 timeserie.ToRecord(observable.LastTradePrice(thisBook), ctx.price_graph), 
                 timeserie.ToRecord(observable.AskLastTradePrice(thisBook), ctx.price_graph), 
                 timeserie.ToRecord(observable.BidLastTradePrice(thisBook), ctx.price_graph), 
+                
+                timeserie.ToRecord(observable.OnEveryDt(1, askWeightedPrice), ctx.price_graph), 
+                timeserie.ToRecord(observable.OnEveryDt(1, bidWeightedPrice), ctx.price_graph), 
                 
                 timeserie.ToRecord(observable.OnEveryDt(1, cma), ctx.price_graph), 
                 

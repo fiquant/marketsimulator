@@ -16,7 +16,7 @@ from _async import Efficiency
 from _momentum import RSI
 
 from _orderbook import (PriceAtVolume, VolumeLevels, QueuePrice, AskLastTradePrice, BidLastTradePrice,
-                        BidPrice, AskPrice, MidPrice, LastTradePrice)
+                        BidPrice, AskPrice, MidPrice, LastTradePrice, AskWeightedPrice, BidWeightedPrice)
 
 from _trader import  InstEfficiency, PnL, VolumeTraded
 
