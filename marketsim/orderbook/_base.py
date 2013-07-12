@@ -1,4 +1,4 @@
-from marketsim import types, Event, event, timeserie, event, observable, _
+from marketsim import types, Event, event, timeserie, event, _
 
 class ObservableBase(types.Observable):
     
@@ -21,20 +21,6 @@ class MidPrice(ObservableBase):
     def __call__(self):
         return self.book.price
     
-class AskPrice(ObservableBase):
-    
-    _labelprefix = 'Ask'
-    
-    def __call__(self):
-        return self.book.ask_price
-
-class BidPrice(ObservableBase):
-    
-    _labelprefix = 'Bid'
-    
-    def __call__(self):
-        return self.book.bid_price
-
 ORDER_PROCESSING_TIME = 1e-8
 
 from _queue import LastTrade
@@ -58,8 +44,8 @@ class BookBase(types.IOrderBook, timeserie.Holder):
 
         self.midPrice = MidPrice(self)
         
-        event.subscribe(self.askPrice, self.midPrice.fire, self)
-        event.subscribe(self.bidPrice, self.midPrice.fire, self)
+        event.subscribe(self.asks.bestPrice, self.midPrice.fire, self)
+        event.subscribe(self.bids.bestPrice, self.midPrice.fire, self)
         
         self.lastTrade = LastTrade()
         event.subscribe(self._asks.lastTrade, _(self.lastTrade).set, self)

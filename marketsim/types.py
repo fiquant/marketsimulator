@@ -10,6 +10,9 @@ TimeInterval = float #non_negative
 class IOrderBook(object):
     pass
 
+class IOrderQueue(object):
+    pass
+
 class IStrategy(object):
     pass
 

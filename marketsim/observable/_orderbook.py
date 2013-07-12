@@ -1,4 +1,5 @@
-from marketsim import meta, Event, types, context, Side, event, scheduler, mathutils, getLabel, ops, _
+from marketsim import (meta, Event, types, context, Side, event, scheduler, 
+                       mathutils, getLabel, ops, _, orderbook)
 
 from _computed import IndicatorBase
 
@@ -170,32 +171,6 @@ class OnPriceChanged(Event):
         
     _properties = { 'orderbook' : types.IOrderBook }
 
-class OnAskChanged(Event):
-    """ Event that is fired once mid-price in the *orderbook* has changed
-    """
-    
-    def __init__(self, orderbook):
-        Event.__init__(self)
-        self.orderbook = orderbook
-        
-    def bind(self, ctx):
-        event.subscribe(self.orderbook.on_ask_changed, self.fire, self, ctx)
-        
-    _properties = { 'orderbook' : types.IOrderBook }
-
-class OnBidChanged(Event):
-    """ Event that is fired once mid-price in the *orderbook* has changed
-    """
-    
-    def __init__(self, orderbook):
-        Event.__init__(self)
-        self.orderbook = orderbook
-        
-    def bind(self, ctx):
-        event.subscribe(self.orderbook.on_bid_changed, self.fire, self, ctx)
-        
-    _properties = { 'orderbook' : types.IOrderBook }
-
 import _computed
 
 class Proxy(_computed.Proxy):
@@ -212,17 +187,25 @@ class Price(Proxy):
     def _impl(self):
         return self.orderbook.midPrice
 
-class AskPrice(Proxy):
+class QueueProxy(_computed.Proxy):
     
-    @property
-    def _impl(self):
-        return self.orderbook.askPrice
+    def __init__(self, orderqueue):
+        self.orderqueue = orderqueue
+        self._alias = ["Queue's", self.__class__.__name__ ]
 
-class BidPrice(Proxy):
+    _properties = { 'orderqueue' : types.IOrderQueue }
+    
+class QueuePrice(QueueProxy):
     
     @property
     def _impl(self):
-        return self.orderbook.bidPrice
+        return self.orderqueue.bestPrice
+    
+def AskPrice(book):
+    return QueuePrice(orderbook.Asks(book))
+
+def BidPrice(book):
+    return QueuePrice(orderbook.Bids(book))
 
 class LastTrade(Proxy):
     
