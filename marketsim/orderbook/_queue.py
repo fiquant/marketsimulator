@@ -35,7 +35,6 @@ class LastTrade(types.Observable):
     def __call__(self):
         return self._lastTrade
 
-
 class Queue(object):
     """ Queue of limit orders at one side (Sell or Buy).
     It is implemented over a heap so has following comlexity for operations:
@@ -58,7 +57,6 @@ class Queue(object):
         self._elements = []         # pairs ((signedTicks, arrivalSeqNo), order) kept in a heap
         self._counter = 0           # arrival order counter
         self._lastBest = None       # pair (bestPrice, bestVolume)
-        self._lastPrice = None      # last valid price
         
     def bind(self, ctx):
         self._scheduler = ctx.world
@@ -77,13 +75,7 @@ class Queue(object):
             
         if bestpv != self._lastBest:
             self._lastBest = bestpv
-            if bestpv != None:
-                self._lastPrice = bestpv[0]
             self._scheduler.async(_(self.bestPrice, self).fire)
-            
-    @property
-    def lastPrice(self):
-        return self._lastPrice
             
     def __str__(self):
         return type(self).__name__ + "(" + str(self._elements) + ")"

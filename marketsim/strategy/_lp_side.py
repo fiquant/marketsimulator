@@ -3,14 +3,18 @@ from _one_side import OneSide
 from _periodic import Periodic
 from _wrap import wrapper2
 from marketsim import (order, orderbook, scheduler, mathutils, ops,
-                       types, registry, meta, defs, _)
+                       event, types, registry, meta, defs, _, observable)
 from marketsim.types import *
 
 class _LiquidityProviderSide_Impl(OneSide):
     
     def __init__(self):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr)
+        self._queue = orderbook.QueueProxy(orderbook.OfTrader(), self.side)
+        self._lastPrice = observable.QueueLastPrice(self._queue)
         OneSide.__init__(self)
+        
+    _internals = ["_lastPrice"]
         
     @property
     def _orderFactory(self):
@@ -19,7 +23,7 @@ class _LiquidityProviderSide_Impl(OneSide):
     def _orderFunc(self):
         queue = self._trader.book.queue(self.side)
         currentPrice = queue.best.price if not queue.empty else\
-                       queue.lastPrice if queue.lastPrice is not None else\
+                       self._lastPrice() if self._lastPrice() is not None else\
                        self.defaultValue
         price = currentPrice * self.priceDistr()
         volume = int(self.volumeDistr())
@@ -68,7 +72,6 @@ exec wrapper2("LiquidityProviderSide",
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)',        '() -> Volume')])
 
 
-from marketsim.observable._orderbook import side_price, last_side_price
 from marketsim import ops
                
 def SafeSidePrice(orderBook, side, defaultValue):
@@ -82,9 +85,9 @@ def SafeSidePrice(orderBook, side, defaultValue):
             _.sidePrice        
         ],
         { 
-          'orderBook': orderBook, 
-          'lastPrice': last_side_price(_.orderBook, side), 
-          'sidePrice': side_price(_.orderBook, side)
+          'lastPrice': observable.QueueLastPrice(_.queue), 
+          'sidePrice': observable.QueuePrice(_.queue), 
+          'queue'    : orderbook.QueueProxy(orderBook, side)
         })
 
 @registry.expose(["Periodic", 'LiquidityProviderSide'], args = ())

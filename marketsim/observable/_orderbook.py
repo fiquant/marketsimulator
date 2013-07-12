@@ -1,86 +1,7 @@
 from marketsim import (meta, Event, types, context, Side, event, scheduler, 
-                       mathutils, getLabel, ops, _, orderbook)
+                       mathutils, getLabel, ops, defs, _, orderbook)
 
 from _computed import IndicatorBase
-
-### ------------------------------------------------  data accessors
-
-class mid_price(ops.Function[float]):
-    """ Returns middle price in the given *orderbook*
-    """
-    
-    def __init__(self, orderbook):
-        self.orderbook = orderbook
-        self._alias = ["Asset's", "Mid-price"]
-        
-    def __call__(self):
-        return self.orderbook.price
-
-    @property
-    def digits(self):
-        return self.orderbook._digitsToShow
-    
-    @property
-    def label(self):
-        return "Price_{" + getLabel(self.orderbook) + "}"
-    
-    _properties = { 'orderbook' : types.IOrderBook }
-
-class side_price(ops.Function[float]):
-    """ Returns *orderbook* *side* price 
-    """
-    
-    def __init__(self, orderbook, side):
-        self.orderbook = orderbook
-        self.side = side
-    
-    def __call__(self):
-        queue = self.orderbook.queue(self.side)
-        return queue.best.price if not queue.empty else None
-    
-    @property
-    def digits(self):
-        return self.orderbook._digitsToShow
-    
-    _properties = { 'orderbook' : types.IOrderBook  }
-    
-class last_side_price(ops.Function[float]):
-    """ Returns *orderbook* last trade *side* price 
-    """
-    
-    def __init__(self, orderbook, side):
-        self.orderbook = orderbook
-        self.side = side
-        
-    def __call__(self):
-        queue = self.orderbook.queue(self.side)
-        return queue.lastPrice
-    
-    @property
-    def digits(self):
-        return self.orderbook._digitsToShow
-    
-    _properties = { 'orderbook' : types.IOrderBook  }
-    
-class ask_price(side_price):
-    
-    def __init__(self, orderbook):
-        side_price.__init__(self, orderbook, Side.Sell)
-        self._alias = ["Asset's", "Ask price"]
-
-    @property
-    def label(self):
-        return "Ask_{"+self.orderbook.label+"}" 
-    
-class bid_price(side_price):
-    
-    def __init__(self, orderbook):
-        side_price.__init__(self, orderbook, Side.Buy)
-        self._alias = ["Asset's", "Bid price"]
-
-    @property
-    def label(self):
-        return "Bid_{"+self.orderbook.label+"}" 
     
 class price_at_volume(ops.Function[float]):
 
@@ -162,6 +83,24 @@ class QueuePrice(QueueProxy):
     def _impl(self):
         return self.orderqueue.bestPrice
     
+class QueueLastPrice(types.Observable):
+    
+    def __init__(self, orderqueue):
+        types.Observable.__init__(self)
+        self._price = QueuePrice(orderqueue)
+        event.subscribe(self._price, _(self)._update, self)
+        self._lastPrice = None
+        
+    def __call__(self):
+        return self._lastPrice
+    
+    def _update(self, src):
+        p = self._price()
+        if p is not None:
+            self._lastPrice = p
+            self.fire(self)
+        
+    
 class QueueLastTrade(QueueProxy):
     
     @property
@@ -189,11 +128,10 @@ class QueueLastTradeVolume(QueueLastTrade):
 from _ewma import EWMA
 
 def QueueWeightedPrice(orderqueue, alpha):
-    lastTradePrice  = QueueLastTradePrice(orderqueue)
-    lastTradeVolume = QueueLastTradeVolume(orderqueue)
-    pv = EWMA(lastTradePrice * lastTradeVolume, alpha)
-    w = EWMA(lastTradeVolume, alpha)
-    return pv / w
+    price  = QueueLastTradePrice(_.orderqueue)
+    return defs(EWMA(price * _.volume, alpha) / EWMA(_.volume, alpha), 
+                { "volume"      : QueueLastTradeVolume(_.orderqueue) , 
+                  'orderqueue'  : orderqueue} )
     
 def AskWeightedPrice(book, alpha):
     return QueueWeightedPrice(orderbook.Asks(book), alpha)

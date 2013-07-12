@@ -64,13 +64,11 @@ exec  wrapper2("FundamentalValue",
                ('volumeDistr',          'mathutils.rnd.expovariate(1.)','() -> Volume'),
                ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> TimeInterval')])
 
-from marketsim.observable._orderbook import ask_price, bid_price
-    
 def FundamentalValueSide(orderBook, fundamentalValue):
     
-    return defs((bid_price(_.orderBook) > _.fv)[
+    return defs((observable.BidPrice(_.orderBook) > _.fv)[
                     ops.constant(Side.Sell), 
-                    (ask_price(_.orderBook) < _.fv)[
+                    (observable.AskPrice(_.orderBook) < _.fv)[
                         ops.constant(Side.Buy), 
                         ops._None[Side]()
                     ]                
