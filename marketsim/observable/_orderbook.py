@@ -138,24 +138,6 @@ class volume_levels(ops.Function[float]): # should be () -> meta.listOf(float)
                     'volumeDelta'   : float,
                     'volumeCount'   : int  }
 
-### -------------------------------------------------------------------   Events
-    
-class OnPriceChanged(Event):
-    """ Event that is fired once mid-price in the *orderbook* has changed
-    """
-    
-    def __init__(self, orderbook):
-        Event.__init__(self)
-        self.orderbook = orderbook
-        
-    def updateContext(self, _):
-        pass
-        
-    def bind(self, ctx):
-        event.subscribe(self.orderbook.on_price_changed, self.fire, self, ctx)
-        
-    _properties = { 'orderbook' : types.IOrderBook }
-
 import _computed
 
 class Proxy(_computed.Proxy):
@@ -180,6 +162,27 @@ class QueuePrice(QueueProxy):
     def _impl(self):
         return self.orderqueue.bestPrice
     
+class QueueLastTrade(QueueProxy):
+    
+    @property
+    def _impl(self):
+        return self.orderqueue.lastTrade
+    
+class QueueLastTradePrice(QueueLastTrade):
+    
+    def __call__(self):
+        return QueueLastTrade.__call__(self)[0]
+
+    @property
+    def label(self):
+        return 'LastTradePrice_{' + self.orderqueue.label + '}'
+    
+def AskLastTradePrice(book):
+    return QueueLastTradePrice(orderbook.Asks(book))
+    
+def BidLastTradePrice(book):
+    return QueueLastTradePrice(orderbook.Bids(book))
+    
 def AskPrice(book):
     return QueuePrice(orderbook.Asks(book))
 
@@ -195,28 +198,16 @@ class LastTrade(Proxy):
     def _impl(self):
         return self.orderbook.lastTrade
     
-class LastTradePrice(types.Observable):
+class LastTradePrice(LastTrade): 
+    # TODO: we'll need to say to typechecker that 
+    # it is Observable[Price] but not Observable[PriceVolume]
     
-    def __init__(self, orderbook):
-        types.Observable.__init__(self)
-        self.orderbook = orderbook
-        self._lastTrade = LastTrade(orderbook)
-        event.subscribe(self._lastTrade, _(self).fire, self)
-        
     def __call__(self):
-        return self._lastTrade()[0]
+        return LastTrade.__call__(self)[0]
     
     @property
     def label(self):
         return 'LastTradePrice_{' + self.orderbook.label + '}'
-    
-    @property
-    def _digitsToShow(self):
-        return self.orderbook._digitsToShow
-
-    @property
-    def attributes(self):
-        return {}
         
 
 ### -------------------------------------------------------------------   Observables
