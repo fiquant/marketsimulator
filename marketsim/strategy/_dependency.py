@@ -12,7 +12,7 @@ from marketsim.types import *
 class _Dependency_Impl(FundamentalValueBase):
     
     def __init__(self):
-        self._priceToDependOn = observable.Price(self.bookToDependOn) 
+        self._priceToDependOn = observable.MidPrice(self.bookToDependOn) 
         self._orderFactoryT = self.orderFactory
         FundamentalValueBase.__init__(self)
 
@@ -72,7 +72,7 @@ def DependencyEx      (bookToDependOn,
                  volumeFunc  = volumeDistr, 
                  eventGen    = _.dependee, 
                  sideFunc    = FundamentalValueSide(orderBook, _.dependee)),
-        { 'dependee' : observable.Price(bookToDependOn) })
+        { 'dependee' : observable.MidPrice(bookToDependOn) })
     
     r._alias = ["Periodic", "Dependency"]
     

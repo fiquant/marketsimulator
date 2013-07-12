@@ -14,7 +14,7 @@ class _MeanReversion_Impl(FundamentalValueBase):
     def __init__(self):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr)
         myBook = orderbook.OfTrader()
-        self._fundamentalValue = observable.EWMA(observable.Price(myBook), 
+        self._fundamentalValue = observable.EWMA(observable.MidPrice(myBook), 
                                                  self.ewma_alpha)
         FundamentalValueBase.__init__(self)
 
@@ -56,7 +56,7 @@ def MeanReversionEx   (ewma_alpha            = 0.15,
                        creationIntervalDistr = mathutils.rnd.expovariate(1.)):
 
     orderBook = orderbook.OfTrader()
-    avg = observable.EWMA(observable.Price(orderBook), ewma_alpha)
+    avg = observable.EWMA(observable.MidPrice(orderBook), ewma_alpha)
     
     r = Periodic(orderFactory= orderFactory, 
                  volumeFunc  = volumeDistr, 

@@ -204,7 +204,7 @@ class UpdatableLookback(types.IUpdatableValue):
 def aggregate(observables, aggregator, window=1, name=None):
     """ helper function to aggregate observables
     example: maximum price of the asset over the last 20 days:
-            aggregate( observable.Price(book), max, window = 20)
+            aggregate( observable.MidPrice(book), max, window = 20)
     example: bid-ask spread for a given asset:
             asks, bids = observable.AskPrice(book), observable.BidPrice(book)
             aggregate( [asks, bids], lambda (ask, bid): bid - ask )

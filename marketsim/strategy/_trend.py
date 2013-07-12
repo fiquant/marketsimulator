@@ -12,7 +12,7 @@ class _TrendFollower_Impl(SignalBase):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr) # TODO: dependency tracking
         self._signalFunc_ = ops.Derivative(
                                 observable.EWMA(
-                                    observable.Price(orderbook.OfTrader()),
+                                    observable.MidPrice(orderbook.OfTrader()),
                                     self.ewma_alpha))
         SignalBase.__init__(self)
         
@@ -65,7 +65,7 @@ def TrendFollowerEx(ewma_alpha              = 0.15,
     orderBook = orderbook.OfTrader()
     trend = ops.Derivative(
                 observable.EWMA(
-                    observable.Price(orderBook),
+                    observable.MidPrice(orderBook),
                     ewma_alpha))
     
     return Periodic(orderFactory= orderFactory, 

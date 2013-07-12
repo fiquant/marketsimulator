@@ -13,6 +13,6 @@ def Bollinger_linear(alpha                   = 0.15,
                         orderFactory = orderFactory, 
                         desiredPosition = observable.IndicatorBase(_.price, 
                                             ops.Sub(_.price, _.mean) / _.stddev * k)), 
-                { 'price' : observable.Price(thisBook),
+                { 'price' : observable.MidPrice(thisBook),
                   'mean'  : observable.EWMA(_.price, alpha), 
                   'stddev': observable.StdDevEW(_.price, alpha) })

@@ -1,7 +1,7 @@
 from marketsim import (event, bind, scheduler, meta, types, Event, 
                        defs, _, ops, registry, mathutils)
 
-from _orderbook import Price
+from _orderbook import MidPrice
 from _ewma import EWMA
 from _computed import OnEveryDt
 from _deltalag import DeltaLag, UpMovements, DownMovements
@@ -38,7 +38,7 @@ def RSI(orderbook, timeframe, alpha):
                     timeframe), 
                 { 'rs' : (EWMA(UpMovements(_.deltas), alpha) / 
                           EWMA(DownMovements(_.deltas), alpha)), 
-                  'price' : Price(orderbook),
+                  'price' : MidPrice(orderbook),
                   'deltas': DeltaLag(_.price, timeframe) })
     
     

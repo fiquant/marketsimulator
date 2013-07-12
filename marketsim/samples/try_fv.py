@@ -15,7 +15,7 @@ def FundamentalValue(ctx):
 
     demo = ctx.addGraph('demo')
     myVolume = lambda: [(observable.VolumeTraded(), demo)]
-    myPrice = lambda: [(observable.Price(orderbook.OfTrader()), demo)]
+    myPrice = lambda: [(observable.MidPrice(orderbook.OfTrader()), demo)]
 
     return [
         ctx.makeTrader_A( 

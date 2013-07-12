@@ -24,7 +24,7 @@ class Fold(ops.Function[float]):
     
     For example ::
     
-        price_avg = Fold(Price(book_A), ewma(alpha = 0.15))
+        price_avg = Fold(MidPrice(book_A), ewma(alpha = 0.15))
         
     creates a observable for a moving average with |alpha| = 0.15 of mid-price of asset *book_A*     
     """

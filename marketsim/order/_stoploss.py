@@ -25,8 +25,8 @@ class StopLoss(Base):
         self._orderSubscription = event.subscribe(self._current.on_matched, 
                                                   _(self).onMatchedWith, 
                                                   self, {})
+        self._price = observable.MidPrice(self._book)   
         self._book.processMarketOrder(self._current)
-        self._price = observable.Price(self._book)   
         
     def onMatchedWith(self, order, other, (price, volume)):
         self._orderSubscription.dispose()
@@ -36,11 +36,7 @@ class StopLoss(Base):
                     if self._side == Side.Sell else\
                   event.LessThan((1-self._maxLoss) * self._orderPrice, _(self)._onPriceChanged)
                     
-        self._stopSubscription = event.subscribe(
-                                self._book.midPrice,
-                                handler,
-                                self)
-        self._stopSubscription.bind(None) 
+        self._stopSubscription = event.subscribe(self._price, handler, self, {})
 
     def _onPriceChanged(self, dummy):
         # the stoploss is activated

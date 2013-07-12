@@ -21,8 +21,8 @@ def MeanReversion(ctx):
 
     demo = ctx.addGraph('demo')
     myVolume = lambda: [(observable.VolumeTraded(), demo)]
-    myAverage = lambda: [(observable.avg(observable.Price(orderbook.OfTrader()), alpha), demo)]
-    myPrice = lambda: [(observable.Price(orderbook.OfTrader()), demo)]
+    myAverage = lambda: [(observable.avg(observable.MidPrice(orderbook.OfTrader()), alpha), demo)]
+    myPrice = lambda: [(observable.MidPrice(orderbook.OfTrader()), demo)]
 
     return [
         ctx.makeTrader_A( 

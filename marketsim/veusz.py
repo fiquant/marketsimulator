@@ -98,7 +98,7 @@ class CSV(object):
         """ Exports time serie to Vsz file
         """
         label = self._source.label
-        filename = (label+'.csv').replace('\\','_').replace('*', '_')
+        filename = (label+'.csv').replace('\\','_').replace('*', '_').replace("/",'_')
         fullname = self._directory + filename
 
         attributes = {

@@ -11,7 +11,7 @@ class _TwoAverages_Impl(SignalBase):
     
     def __init__(self):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr)
-        price = observable.Price(orderbook.OfTrader())
+        price = observable.MidPrice(orderbook.OfTrader())
         self._average1 = observable.EWMA(price, self.ewma_alpha1)
         self._average2 = observable.EWMA(price, self.ewma_alpha2)
         SignalBase.__init__(self)
@@ -78,4 +78,4 @@ def TwoAveragesEx(ewma_alpha1           = 0.15,
                                   (observable.EWMA(_.price, ewma_alpha1) 
                                    - observable.EWMA(_.price, ewma_alpha2)),
                                   threshold)), 
-        { 'price' : observable.Price(orderbook.OfTrader()) })
+        { 'price' : observable.MidPrice(orderbook.OfTrader()) })

@@ -1,6 +1,6 @@
 from marketsim import meta, Side, types, registry, getLabel, event, _
 
-import math 
+import math, inspect 
 
 def convert(other):
     if type(other) in [int, float]:
@@ -12,16 +12,16 @@ class FloatFunction(types.IFunction[float]):
     T = float
     
     def __add__(self, other):
-        return Sum(self, convert(other))
+        return sum(self, convert(other))
     
     def __sub__(self, other):
-        return Sub(self, convert(other))
+        return sub(self, convert(other))
     
     def __mul__(self, other):
-        return Product(self, convert(other))
+        return product(self, convert(other))
     
     def __div__(self, other):
-        return Div(self, convert(other))
+        return div(self, convert(other))
     
     def __lt__(self, other):
         return less(self, convert(other))
@@ -66,7 +66,11 @@ class _BinaryOp_%(T)s(object):
 
     _properties = [('lhs', meta.function((), %(T)s)), 
                    ('rhs', meta.function((), %(T)s))]
-                   
+       
+    @property
+    def attributes(self):
+        return {}
+
 BinaryOp[%(T)s] = _BinaryOp_%(T)s
 """
 
@@ -272,7 +276,7 @@ class _Constant_Impl(object):
     
     @property
     def label(self):
-        return "C=" + str(self.value)
+        return str(self.value)
     
     def __repr__(self):
         return "constant("+repr(self.value)+")"
@@ -375,6 +379,21 @@ class Product(BinaryOp[float], Function[float]):
     
     def __repr__(self):
         return repr(self.lhs)+ "*" + repr(self.rhs)
+
+class ProductEvent(Product, types.Observable):
+    
+    def __init__(self, lhs, rhs):
+        Product.__init__(self, lhs, rhs)
+        types.Observable.__init__(self)
+        if types.IObservable in inspect.getmro(type(lhs)):
+            event.subscribe(lhs, _(self).fire, self)
+        if types.IObservable in inspect.getmro(type(rhs)):
+            event.subscribe(rhs, _(self).fire, self)
+            
+def product(lhs, rhs):
+    return ProductEvent(lhs, rhs)\
+                if types.IObservable in inspect.getmro(type(lhs)) + inspect.getmro(type(rhs)) else\
+           Product(lhs, rhs) 
     
 class Sqr(types.Observable):
     
@@ -409,6 +428,22 @@ class Sum(BinaryOp[float], Function[float]):
     
     def __repr__(self):
         return repr(self.lhs)+ "+" + repr(self.rhs)
+    
+class SumEvent(Sum, types.Observable):
+    
+    def __init__(self, lhs, rhs):
+        Sum.__init__(self, lhs, rhs)
+        types.Observable.__init__(self)
+        if types.IObservable in inspect.getmro(type(lhs)):
+            event.subscribe(lhs, _(self).fire, self)
+        if types.IObservable in inspect.getmro(type(rhs)):
+            event.subscribe(rhs, _(self).fire, self)
+            
+def sum(lhs, rhs):
+    return SumEvent(lhs, rhs)\
+                if types.IObservable in inspect.getmro(type(lhs)) + inspect.getmro(type(rhs)) else\
+           Sum(lhs, rhs) 
+         
 
 @registry.expose(['Arithmetic', '/'], args = (constant(1.), constant(1.)))
 class Div(BinaryOp[float], Function[float]):
@@ -421,10 +456,26 @@ class Div(BinaryOp[float], Function[float]):
     
     @property
     def label(self):
-        return self.lhs.label + ' / ' + self.rhs.label
+        return '\\frac{'+self.lhs.label+'}{'+self.rhs.label+'}'
     
     def __repr__(self):
         return repr(self.lhs)+ "/" + repr(self.rhs)
+    
+class DivEvent(Div, types.Observable):
+    
+    def __init__(self, lhs, rhs):
+        Div.__init__(self, lhs, rhs)
+        types.Observable.__init__(self)
+        if types.IObservable in inspect.getmro(type(lhs)):
+            event.subscribe(lhs, _(self).fire, self)
+        if types.IObservable in inspect.getmro(type(rhs)):
+            event.subscribe(rhs, _(self).fire, self)
+            
+def div(lhs, rhs):
+    return DivEvent(lhs, rhs)\
+                if types.IObservable in inspect.getmro(type(lhs)) + inspect.getmro(type(rhs)) else\
+           Div(lhs, rhs) 
+         
 
 @registry.expose(['Arithmetic', '-'], args = (constant(1.), constant(1.)))    
 class Sub(BinaryOp[float], Function[float]):
@@ -443,6 +494,21 @@ class Sub(BinaryOp[float], Function[float]):
     def __repr__(self):
         return repr(self.lhs)+ "-" + repr(self.rhs)
 
+class SubEvent(Sub, types.Observable):
+    
+    def __init__(self, lhs, rhs):
+        Sub.__init__(self, lhs, rhs)
+        types.Observable.__init__(self)
+        if types.IObservable in inspect.getmro(type(lhs)):
+            event.subscribe(lhs, _(self).fire, self)
+        if types.IObservable in inspect.getmro(type(rhs)):
+            event.subscribe(rhs, _(self).fire, self)
+            
+def sub(lhs, rhs):
+    return SubEvent(lhs, rhs)\
+                if types.IObservable in inspect.getmro(type(lhs)) + inspect.getmro(type(rhs)) else\
+           Sub(lhs, rhs) 
+
 class Derivative(Function[float]):
     
     def __init__(self, source):
@@ -456,7 +522,7 @@ class Derivative(Function[float]):
     
     @property
     def label(self):
-        return '\\frac{' + getLabel(self.source) + '}{dt}'
+        return '\\frac{d' + getLabel(self.source) + '}{dt}'
         
     def __call__(self):
         return self.source.derivative()

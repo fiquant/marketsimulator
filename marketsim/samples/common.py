@@ -130,7 +130,7 @@ def orderBooksToRender(ctx, traders):
             thisBook = orderbook.Proxy()
             askPrice = observable.AskPrice(thisBook)
             bidPrice = observable.BidPrice(thisBook)
-            assetPrice = observable.Price(thisBook)
+            assetPrice = observable.MidPrice(thisBook)
             avg = observable.avg
             cma = observable.CMA(assetPrice)
             stddev = observable.StdDev(assetPrice)
@@ -194,7 +194,7 @@ def orderBooksToRender(ctx, traders):
             b.timeseries = ts
             
             b.rsi_graph = ctx.addGraph("RSI " + b.label)
-            ts.append(timeserie.ToRecord(observable.Price(thisBook), b.rsi_graph))
+            ts.append(timeserie.ToRecord(observable.MidPrice(thisBook), b.rsi_graph))
             for timeframe in [#0., 
                               #0.001,
                               #0.01,

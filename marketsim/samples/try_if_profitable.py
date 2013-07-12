@@ -22,7 +22,7 @@ def TradeIfProfitable(ctx):
     
     demo = ctx.addGraph('demo')
     myVolume = lambda: [(observable.VolumeTraded(), demo)]
-    myAverage = lambda alpha: [(observable.avg(observable.Price(orderbook.OfTrader()), alpha), demo)]
+    myAverage = lambda alpha: [(observable.avg(observable.MidPrice(orderbook.OfTrader()), alpha), demo)]
     
     avg_plus = strategy.TwoAverages(ewma_alpha1 = slow_alpha, 
                                     ewma_alpha2 = fast_alpha,

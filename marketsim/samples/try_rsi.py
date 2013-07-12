@@ -16,7 +16,7 @@ def RSI(ctx):
     
     rsi = observable.OnEveryDt(one.value, 
                          observable.Fold(
-                            observable.Price(
+                            observable.MidPrice(
                                 orderbook.OfTrader()), 
                             mathutils.rsi()))
     

@@ -107,7 +107,7 @@ def DesiredPosition(ctx):
     # Values to observe
     asks = obs.BidPrice(book)
     bids = obs.AskPrice(book)
-    price = obs.Price(book)
+    price = obs.MidPrice(book)
 
 
     rsi_signal = BuyLowSellHighVolume(obs.RSI(book, 10, 1./14))

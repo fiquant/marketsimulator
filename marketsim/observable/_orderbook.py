@@ -26,21 +26,6 @@ class mid_price(ops.Function[float]):
     
     _properties = { 'orderbook' : types.IOrderBook }
 
-class cross_spread(ops.Function[float]):
-    
-    def __init__(self, book_A, book_B):
-        self.book_A = book_A
-        self.book_B = book_B
-        
-    def __call__(self):
-        asks = self.book_A.asks
-        bids = self.book_B.bids
-        return asks.best.price - bids.best.price if not asks.empty and not bids.empty else None
-    
-    @property
-    def label(self):
-        return "Price("+self.book_A.asks.label+") - Price("+self.book_B.bids.label+")"
-
 class side_price(ops.Function[float]):
     """ Returns *orderbook* *side* price 
     """
@@ -180,12 +165,6 @@ class Proxy(_computed.Proxy):
         self._alias = ["Asset's", self.__class__.__name__ ]
 
     _properties = { 'orderbook' : types.IOrderBook }
-    
-class Price(Proxy):
-    
-    @property
-    def _impl(self):
-        return self.orderbook.midPrice
 
 class QueueProxy(_computed.Proxy):
     
@@ -206,6 +185,9 @@ def AskPrice(book):
 
 def BidPrice(book):
     return QueuePrice(orderbook.Bids(book))
+
+def MidPrice(book):
+    return (AskPrice(book) + BidPrice(book)) / 2
 
 class LastTrade(Proxy):
     

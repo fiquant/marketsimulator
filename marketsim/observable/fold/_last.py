@@ -6,7 +6,7 @@ class Last(ops.Function[float]):
     
     For example ::
     
-        price_avg = EWMA(Price(book_A), alpha = 0.15)
+        price_avg = EWMA(MidPrice(book_A), alpha = 0.15)
         
     creates a observable for a moving average with |alpha| = 0.15 of mid-price of asset *book_A*     
     """

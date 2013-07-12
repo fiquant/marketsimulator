@@ -22,7 +22,7 @@ def TwoAverages(ctx):
     
     demo = ctx.addGraph('demo')
     myVolume = lambda: [(observable.VolumeTraded(), demo)]
-    myAverage = lambda alpha: [(observable.avg(observable.Price(orderbook.OfTrader()), alpha), demo)]
+    myAverage = lambda alpha: [(observable.avg(observable.MidPrice(orderbook.OfTrader()), alpha), demo)]
     
     return [
         ctx.makeTrader_A(strategy.LiquidityProvider(volumeDistr=const(10)),

@@ -10,7 +10,7 @@ class RelativeStrengthIndexSide(object):
     
     def __init__(self, orderBook=None, rsi=None, threshold=30):
         self.orderBook = orderBook if orderBook is not None else orderbook.OfTrader()
-        self.rsi = rsi if rsi is not None else observable.Fold(observable.Price(self.orderBook), 
+        self.rsi = rsi if rsi is not None else observable.Fold(observable.MidPrice(self.orderBook), 
                                                                mathutils.rsi(1./14))
         self.threshold = threshold
         
@@ -41,7 +41,7 @@ def RSIEx    (         alpha                 = 1./14,
 
     orderBook = orderbook.OfTrader()
 
-    rsi = observable.Fold(observable.Price(orderBook), mathutils.rsi(alpha))
+    rsi = observable.Fold(observable.MidPrice(orderBook), mathutils.rsi(alpha))
     
     r = Periodic(orderFactory= orderFactory, 
                  volumeFunc  = volumeDistr, 

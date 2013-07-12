@@ -1,26 +1,5 @@
 from marketsim import types, Event, event, timeserie, event, _
 
-class ObservableBase(types.Observable):
-    
-    def __init__(self, book):
-        types.Observable.__init__(self)
-        self.book = book
-        
-    @property
-    def digits(self):
-        return self.book._digitsToShow
-    
-    @property
-    def label(self):
-        return self._labelprefix + "_{" + self.book.label + "}"
-        
-class MidPrice(ObservableBase):
-    
-    _labelprefix = 'Price'
-    
-    def __call__(self):
-        return self.book.price
-    
 ORDER_PROCESSING_TIME = 1e-8
 
 from _queue import LastTrade
@@ -42,11 +21,6 @@ class BookBase(types.IOrderBook, timeserie.Holder):
         if label != "":
             self._alias = [label]
 
-        self.midPrice = MidPrice(self)
-        
-        event.subscribe(self.asks.bestPrice, self.midPrice.fire, self)
-        event.subscribe(self.bids.bestPrice, self.midPrice.fire, self)
-        
         self.lastTrade = LastTrade()
         event.subscribe(self._asks.lastTrade, _(self.lastTrade).set, self)
         event.subscribe(self._bids.lastTrade, _(self.lastTrade).set, self)
@@ -55,14 +29,6 @@ class BookBase(types.IOrderBook, timeserie.Holder):
         
     def bind(self, ctx):
         self._scheduler = ctx.world
-        
-    @property
-    def askPrice(self):
-        return self._asks.bestPrice
-        
-    @property
-    def bidPrice(self):
-        return self._bids.bestPrice
         
     _internals = ['_asks', '_bids']
         
@@ -114,27 +80,3 @@ class BookBase(types.IOrderBook, timeserie.Holder):
         """ Returns sell side order queue
         """
         return self._asks
-
-    @property 
-    def price(self):
-        """ Returns middle arithmetic price if buy and sell sides are not empty,
-        None otherwise 
-        """
-        return None if self.asks.empty or self.bids.empty \
-                    else (self.asks.best.price + self.bids.best.price) / 2.0
-                    
-    @property
-    def ask_price(self):
-        return None if self.asks.empty else self.asks.best.price
-                    
-    @property
-    def bid_price(self):
-        return None if self.bids.empty else self.bids.best.price
-                    
-    @property
-    def spread(self):
-        """ Returns spread between sell and buy side if they are not empty,
-        None otherwise
-        """
-        return None if self.asks.empty or self.bids.empty \
-                    else self.asks.best.price - self.bids.best.price
