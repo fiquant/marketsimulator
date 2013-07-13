@@ -51,17 +51,13 @@ class Base(object):
         
         self.inc()
         
-        if typ is set:
-            self.log('{')
-            for x in obj:
-                self.apply(x)
-            self.log('}')
-        elif typ is list:
+        try:
+            seq = iter(obj)
             self.log('[')
-            for x in obj:
+            for x in seq:
                 self.apply(x)
             self.log(']')
-        else:
+        except TypeError:  
             if not self.mark_visited(obj):
                 self.log('*')
             else:
@@ -164,7 +160,10 @@ class Resetter(Base):
         if '_reset_generation' in dir(obj) and obj._reset_generation == self._generation:
             return False
         else:
-            obj._reset_generation = self._generation
+            try:
+                obj._reset_generation = self._generation
+            except AttributeError:
+                pass
             return True
         
     _method = 'reset'

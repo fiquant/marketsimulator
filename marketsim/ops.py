@@ -362,6 +362,20 @@ class identity(Function[float]):
     
     def __repr__(self):
         return "id(" + repr(self.arg) + ")"
+    
+def create_function_or_observable(FuncType, ObsType):
+    def inner(lhs, rhs):
+        left = types.IObservable in inspect.getmro(type(lhs))
+        right = types.IObservable in inspect.getmro(type(lhs))
+        if left or right:
+            x = ObsType(lhs, rhs)
+            if left:
+                event.subscribe(lhs, _(x).fire, x)
+            if right:
+                event.subscribe(rhs, _(x).fire, x)
+            return x
+        return FuncType(lhs, rhs)
+    return inner
 
 @registry.expose(['Arithmetic', '*'], args = (constant(1.), constant(1.)))
 class Product(BinaryOp[float], Function[float]):
@@ -385,15 +399,8 @@ class ProductEvent(Product, types.Observable):
     def __init__(self, lhs, rhs):
         Product.__init__(self, lhs, rhs)
         types.Observable.__init__(self)
-        if types.IObservable in inspect.getmro(type(lhs)):
-            event.subscribe(lhs, _(self).fire, self)
-        if types.IObservable in inspect.getmro(type(rhs)):
-            event.subscribe(rhs, _(self).fire, self)
             
-def product(lhs, rhs):
-    return ProductEvent(lhs, rhs)\
-                if types.IObservable in inspect.getmro(type(lhs)) + inspect.getmro(type(rhs)) else\
-           Product(lhs, rhs) 
+product = create_function_or_observable(Product, ProductEvent)
     
 class Sqr(types.Observable):
     
@@ -434,15 +441,8 @@ class SumEvent(Sum, types.Observable):
     def __init__(self, lhs, rhs):
         Sum.__init__(self, lhs, rhs)
         types.Observable.__init__(self)
-        if types.IObservable in inspect.getmro(type(lhs)):
-            event.subscribe(lhs, _(self).fire, self)
-        if types.IObservable in inspect.getmro(type(rhs)):
-            event.subscribe(rhs, _(self).fire, self)
             
-def sum(lhs, rhs):
-    return SumEvent(lhs, rhs)\
-                if types.IObservable in inspect.getmro(type(lhs)) + inspect.getmro(type(rhs)) else\
-           Sum(lhs, rhs) 
+sum = create_function_or_observable(Sum, SumEvent)
          
 
 @registry.expose(['Arithmetic', '/'], args = (constant(1.), constant(1.)))
@@ -466,16 +466,8 @@ class DivEvent(Div, types.Observable):
     def __init__(self, lhs, rhs):
         Div.__init__(self, lhs, rhs)
         types.Observable.__init__(self)
-        if types.IObservable in inspect.getmro(type(lhs)):
-            event.subscribe(lhs, _(self).fire, self)
-        if types.IObservable in inspect.getmro(type(rhs)):
-            event.subscribe(rhs, _(self).fire, self)
             
-def div(lhs, rhs):
-    return DivEvent(lhs, rhs)\
-                if types.IObservable in inspect.getmro(type(lhs)) + inspect.getmro(type(rhs)) else\
-           Div(lhs, rhs) 
-         
+div = create_function_or_observable(Div, DivEvent)
 
 @registry.expose(['Arithmetic', '-'], args = (constant(1.), constant(1.)))    
 class Sub(BinaryOp[float], Function[float]):
@@ -499,15 +491,8 @@ class SubEvent(Sub, types.Observable):
     def __init__(self, lhs, rhs):
         Sub.__init__(self, lhs, rhs)
         types.Observable.__init__(self)
-        if types.IObservable in inspect.getmro(type(lhs)):
-            event.subscribe(lhs, _(self).fire, self)
-        if types.IObservable in inspect.getmro(type(rhs)):
-            event.subscribe(rhs, _(self).fire, self)
             
-def sub(lhs, rhs):
-    return SubEvent(lhs, rhs)\
-                if types.IObservable in inspect.getmro(type(lhs)) + inspect.getmro(type(rhs)) else\
-           Sub(lhs, rhs) 
+sub = create_function_or_observable(Sub, SubEvent)
 
 class Derivative(Function[float]):
     

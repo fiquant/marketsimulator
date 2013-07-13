@@ -8,16 +8,6 @@ from _deltalag import DeltaLag, UpMovements, DownMovements
 
 import fold
 
-class UpMovement(fold.TwoPoint):
-    
-    def compute(self, previous, current):
-        return max(0., current - previous)
-
-class DownMovement(fold.TwoPoint):
-    
-    def compute(self, previous, current):
-        return max(0., previous - current)
-
 class _rsi_label(ops.identity):
     
     def __init__(self, target, orderbook, timeframe):
