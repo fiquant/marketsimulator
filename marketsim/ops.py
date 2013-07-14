@@ -38,9 +38,7 @@ Function = types.Factory("Function", """(Function_impl, types.IFunction[%(T)s]):
     T = %(T)s
 """, globals())    
 
-binary_base_tmpl = """
-class _BinaryOp_%(T)s(object):
-
+BinaryOp = types.Factory("BinaryOp", """(object):
     def __init__(self, lhs, rhs):
         self.lhs = lhs
         self.rhs = rhs
@@ -51,14 +49,7 @@ class _BinaryOp_%(T)s(object):
     @property
     def attributes(self):
         return {}
-
-BinaryOp[%(T)s] = _BinaryOp_%(T)s
-"""
-
-BinaryOp = {}
-
-for T in ['float']:
-    exec binary_base_tmpl % { 'T': T }
+""", globals())
     
 #---------------------------------------------- Condition 
         
@@ -109,7 +100,7 @@ class _Equal_Impl(_Conditional_Base):
         return self.lhs() == self.rhs()
 
 _equal_tmpl = """        
-class Equal_%(T)s(_BinaryOp_%(T)s, _Equal_Impl):
+class Equal_%(T)s(BinaryOp[%(T)s], _Equal_Impl):
 
     BranchType = %(T)s
 
@@ -138,7 +129,7 @@ class _NotEqual_Impl(_Conditional_Base):
         return self.lhs() != self.rhs()
 
 _notequal_tmpl = """        
-class NotEqual_%(T)s(_BinaryOp_%(T)s, _NotEqual_Impl):
+class NotEqual_%(T)s(BinaryOp[%(T)s], _NotEqual_Impl):
 
     BranchType = %(T)s
 
@@ -167,7 +158,7 @@ class _Greater_Impl(_Conditional_Base):
         return self.lhs() > self.rhs()
 
 _greater_tmpl = """        
-class Greater_%(T)s(_BinaryOp_%(T)s, _Greater_Impl):
+class Greater_%(T)s(BinaryOp[%(T)s], _Greater_Impl):
 
     BranchType = %(T)s
 
@@ -196,7 +187,7 @@ class _Less_Impl(_Conditional_Base):
         return self.lhs() < self.rhs()
 
 _less_tmpl = """        
-class Less_%(T)s(_BinaryOp_%(T)s, _Less_Impl):
+class Less_%(T)s(BinaryOp[%(T)s], _Less_Impl):
     
     BranchType = %(T)s
 
