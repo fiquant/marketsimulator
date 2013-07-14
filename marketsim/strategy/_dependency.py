@@ -72,7 +72,7 @@ def DependencyEx      (bookToDependOn,
                  volumeFunc  = volumeDistr, 
                  eventGen    = _.dependee, 
                  sideFunc    = FundamentalValueSide(orderBook, _.dependee)),
-        { 'dependee' : observable.MidPrice(bookToDependOn) })
+        { 'dependee' : observable.MidPrice(bookToDependOn) * factor })
     
     r._alias = ["Periodic", "Dependency"]
     

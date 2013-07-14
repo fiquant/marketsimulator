@@ -3,6 +3,7 @@ from marketsim import Side
 from marketsim.constraints import *
 from marketsim.meta import *
 from marketsim import event
+from marketsim.event import IEvent
 
 Price = float #non_negative
 Volume = float #non_negative
@@ -58,7 +59,7 @@ IFunction = Factory('IFunction', """(object):
 class IDifferentiable(object):
     pass
 
-IObservable = Factory('IObservable', """(event.IEvent, IFunction[%(T)s]):""")
+IObservable = Factory('IObservable', """(IEvent, IFunction[%(T)s]):""")
 
 Observable = Factory('Observable', '''(IObservable[%(T)s], event.Conditional):''')
 

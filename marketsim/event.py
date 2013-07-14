@@ -12,7 +12,7 @@ class Event(IEvent):
     """
 
     def __init__(self):
-        self._listeners = set()
+        self._listeners = None
         self.fire = bind.Method(self, '_fire_impl')
         
 #    _internals = ['_listeners']
@@ -20,6 +20,8 @@ class Event(IEvent):
     def __iadd__(self, listener):
         """ Adds 'listener' to the listeners set
         """
+        if self._listeners is None:
+            self._listeners = set()
         self._listeners.add(listener)
         return self
     
@@ -30,8 +32,9 @@ class Event(IEvent):
     def _fire_impl(self, *args):
         """ Calls all listeners passing *args to them
         """
-        for x in list(self._listeners):
-            x(*args)
+        if self._listeners:
+            for x in list(self._listeners):
+                x(*args)
             
 class Conditional(Event):
     

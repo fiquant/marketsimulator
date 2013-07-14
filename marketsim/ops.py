@@ -11,16 +11,16 @@ def convert(other):
 class Function_impl(object):
     
     def __add__(self, other):
-        return sum(self, convert(other))
+        return Sum(self, convert(other))
     
     def __sub__(self, other):
-        return sub(self, convert(other))
+        return Sub(self, convert(other))
     
     def __mul__(self, other):
-        return product(self, convert(other))
+        return Product(self, convert(other))
     
     def __div__(self, other):
-        return div(self, convert(other))
+        return Div(self, convert(other))
     
     def __lt__(self, other):
         return less(self, convert(other))
@@ -36,12 +36,27 @@ class Function_impl(object):
 
 Function = types.Factory("Function", """(Function_impl, types.IFunction[%(T)s]):
     T = %(T)s
-""", globals())    
+""", globals())   
 
-BinaryOp = types.Factory("BinaryOp", """(object):
+class BinaryOp_Impl(object):
+    
     def __init__(self, lhs, rhs):
         self.lhs = lhs
-        self.rhs = rhs
+        self.rhs = rhs 
+        if types.IEvent in inspect.getmro(type(lhs)):
+            event.subscribe(lhs, _(self).fire, self)
+        if types.IEvent in inspect.getmro(type(rhs)):
+            event.subscribe(rhs, _(self).fire, self)
+            
+    def __call__(self):
+        lhs = self.lhs()
+        rhs = self.rhs()
+        return self._call(lhs, rhs) if lhs is not None and rhs is not None else None
+
+BinaryOp = types.Factory("BinaryOp", """(BinaryOp_Impl, Function[%(T)s], types.Observable[%(T)s]):
+    def __init__(self, lhs, rhs):
+        BinaryOp_Impl.__init__(self, lhs, rhs)
+        types.Observable[%(T)s].__init__(self)
 
     _properties = [('lhs', meta.function((), %(T)s)), 
                    ('rhs', meta.function((), %(T)s))]
@@ -125,8 +140,8 @@ def equal(lhs, rhs):
 
 class _NotEqual_Impl(_Conditional_Base):
     
-    def __call__(self):
-        return self.lhs() != self.rhs()
+    def _call(self, lhs, rhs):
+        return lhs != rhs
 
 _notequal_tmpl = """        
 class NotEqual_%(T)s(BinaryOp[%(T)s], _NotEqual_Impl):
@@ -154,8 +169,8 @@ def notequal(lhs, rhs):
 
 class _Greater_Impl(_Conditional_Base):
     
-    def __call__(self):
-        return self.lhs() > self.rhs()
+    def _call(self, lhs, rhs):
+        return lhs > rhs
 
 _greater_tmpl = """        
 class Greater_%(T)s(BinaryOp[%(T)s], _Greater_Impl):
@@ -183,8 +198,8 @@ def greater(lhs, rhs):
 
 class _Less_Impl(_Conditional_Base):
     
-    def __call__(self):
-        return self.lhs() < self.rhs()
+    def _call(self, lhs, rhs):
+        return lhs < rhs
 
 _less_tmpl = """        
 class Less_%(T)s(BinaryOp[%(T)s], _Less_Impl):
@@ -335,29 +350,16 @@ class identity(Function[float]):
     def __repr__(self):
         return "id(" + repr(self.arg) + ")"
     
-def create_function_or_observable(FuncType, ObsType):
-    def inner(lhs, rhs):
-        left = types.IObservable[float] in inspect.getmro(type(lhs))
-        right = types.IObservable[float] in inspect.getmro(type(lhs))
-        if left or right:
-            x = ObsType(lhs, rhs)
-            if left:
-                event.subscribe(lhs, _(x).fire, x)
-            if right:
-                event.subscribe(rhs, _(x).fire, x)
-            return x
-        return FuncType(lhs, rhs)
-    return inner
-
 @registry.expose(['Arithmetic', '*'], args = (constant(1.), constant(1.)))
-class Product(BinaryOp[float], Function[float]):
+class Product(BinaryOp[float]):
     """ Function returning product of the operands
     """
     
-    def __call__(self, *args, **kwargs):
-        lhs = self.lhs()
-        rhs = self.rhs()
-        return lhs * rhs if lhs is not None and rhs is not None else None
+    def __init__(self, lhs, rhs):
+        BinaryOp[float].__init__(self, lhs, rhs)
+    
+    def _call(self, lhs, rhs):
+        return lhs * rhs
     
     @property
     def label(self):
@@ -365,14 +367,6 @@ class Product(BinaryOp[float], Function[float]):
     
     def __repr__(self):
         return repr(self.lhs)+ "*" + repr(self.rhs)
-
-class ProductEvent(Product, types.Observable[float]):
-    
-    def __init__(self, lhs, rhs):
-        Product.__init__(self, lhs, rhs)
-        types.Observable[float].__init__(self)
-            
-product = create_function_or_observable(Product, ProductEvent)
     
 class Sqr(types.Observable[float]):
     
@@ -392,14 +386,15 @@ class Sqr(types.Observable[float]):
         return r*r if r is not None else None
 
 @registry.expose(['Arithmetic', '+'], args = (constant(1.), constant(1.)))    
-class Sum(BinaryOp[float], Function[float]):
+class Sum(BinaryOp[float]):
     """ Function returning Sum of the operands
     """
     
-    def __call__(self, *args, **kwargs):
-        lhs = self.lhs()
-        rhs = self.rhs()
-        return lhs + rhs if lhs is not None and rhs is not None else None
+    def __init__(self, lhs, rhs):
+        BinaryOp[float].__init__(self, lhs, rhs)
+    
+    def _call(self, lhs, rhs):
+        return lhs + rhs
     
     @property
     def label(self):
@@ -407,24 +402,17 @@ class Sum(BinaryOp[float], Function[float]):
     
     def __repr__(self):
         return repr(self.lhs)+ "+" + repr(self.rhs)
-    
-class SumEvent(Sum, types.Observable[float]):
-    
-    def __init__(self, lhs, rhs):
-        Sum.__init__(self, lhs, rhs)
-        types.Observable[float].__init__(self)
-            
-sum = create_function_or_observable(Sum, SumEvent)
          
 
 @registry.expose(['Arithmetic', '/'], args = (constant(1.), constant(1.)))
-class Div(BinaryOp[float], Function[float]):
+class Div(BinaryOp[float]):
     """ Function returning division of the operands
     """
-    def __call__(self, *args, **kwargs):
-        lhs = self.lhs()
-        rhs = self.rhs()
-        return lhs / rhs if lhs is not None and rhs is not None and rhs != 0 else None
+    def __init__(self, lhs, rhs):
+        BinaryOp[float].__init__(self, lhs, rhs)
+    
+    def _call(self, lhs, rhs):
+        return lhs / rhs if rhs != 0 else None
     
     @property
     def label(self):
@@ -432,24 +420,17 @@ class Div(BinaryOp[float], Function[float]):
     
     def __repr__(self):
         return repr(self.lhs)+ "/" + repr(self.rhs)
-    
-class DivEvent(Div, types.Observable[float]):
-    
-    def __init__(self, lhs, rhs):
-        Div.__init__(self, lhs, rhs)
-        types.Observable[float].__init__(self)
-            
-div = create_function_or_observable(Div, DivEvent)
 
 @registry.expose(['Arithmetic', '-'], args = (constant(1.), constant(1.)))    
-class Sub(BinaryOp[float], Function[float]):
+class Sub(BinaryOp[float]):
     """ Function substructing the right operand from the left one
     """
     
-    def __call__(self, *args, **kwargs):
-        lhs = self.lhs()
-        rhs = self.rhs()
-        return lhs - rhs if lhs is not None and rhs is not None else None
+    def __init__(self, lhs, rhs):
+        BinaryOp[float].__init__(self, lhs, rhs)
+    
+    def _call(self, lhs, rhs):
+        return lhs - rhs
     
     @property
     def label(self):
@@ -457,14 +438,6 @@ class Sub(BinaryOp[float], Function[float]):
     
     def __repr__(self):
         return repr(self.lhs)+ "-" + repr(self.rhs)
-
-class SubEvent(Sub, types.Observable[float]):
-    
-    def __init__(self, lhs, rhs):
-        Sub.__init__(self, lhs, rhs)
-        types.Observable[float].__init__(self)
-            
-sub = create_function_or_observable(Sub, SubEvent)
 
 class Derivative(Function[float]):
     
