@@ -49,7 +49,7 @@ exec wrapper2("Signal",
                      defines volumes of orders to create 
                      (default: exponential distribution with |lambda| = 1)
              """,
-             [('signal',        'signal.RandomWalk()',          'IObservable'),  
+             [('signal',        'signal.RandomWalk()',          'IObservable[float]'),  
               ('threshold',     '0.7',                          'non_negative'),
               ('orderFactory',  'order.MarketFactory',          'Side -> Volume -> IOrder'),
               ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')])

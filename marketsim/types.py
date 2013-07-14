@@ -51,10 +51,12 @@ class %(Name)s_%(T)s(object):
 class IDifferentiable(object):
     pass
 
-class IObservable(event.IEvent, IFunction[float]):
+IObservable = Factory('IObservable', """
+class %(Name)s_%(T)s(event.IEvent, IFunction[%(T)s]):
     pass
+""")
 
-class Observable(IObservable, event.Conditional):
+class Observable(IObservable[float], event.Conditional):
     pass
 
 class IOrder(object):

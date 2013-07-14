@@ -43,7 +43,7 @@ class Fold(ops.Function[float]):
     def label(self):
         return getLabel(self._acc) + "(" + getLabel(self._source) + ")"
             
-    _properties = { 'source' : types.IObservable,
+    _properties = { 'source' : types.IObservable[float],
                     'folder' : types.IUpdatableValue }
     
     def _update(self, _):

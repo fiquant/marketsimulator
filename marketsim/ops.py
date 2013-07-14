@@ -365,8 +365,8 @@ class identity(Function[float]):
     
 def create_function_or_observable(FuncType, ObsType):
     def inner(lhs, rhs):
-        left = types.IObservable in inspect.getmro(type(lhs))
-        right = types.IObservable in inspect.getmro(type(lhs))
+        left = types.IObservable[float] in inspect.getmro(type(lhs))
+        right = types.IObservable[float] in inspect.getmro(type(lhs))
         if left or right:
             x = ObsType(lhs, rhs)
             if left:

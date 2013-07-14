@@ -32,6 +32,6 @@ exec  wrapper2("DesiredPosition",
                          order factory function (default: order.Limit.T)
                          
              """,
-              [('desiredPosition',      'None',                'types.IObservable'), 
+              [('desiredPosition',      'None',                'types.IObservable[float]'), 
                ('orderFactory',         'order.MarketFactory', 'Side -> Volume -> IOrder'),], 
                register=False)

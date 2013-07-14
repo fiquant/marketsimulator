@@ -55,7 +55,7 @@ class IndicatorBase(types.Observable):
         """
         return self._dataSource()
 
-class Proxy(types.IObservable, ops.Function[float]):
+class Proxy(types.IObservable[float], ops.Function[float]):
     
     def __iadd__(self, listener):
         self._impl.__iadd__(listener)
@@ -116,7 +116,7 @@ class MultiFold(ops.Function[float]):
             l = self._acc.label + l
         return l
 
-    _properties = { 'source' : types.IObservable,
+    _properties = { 'source' : types.IObservable[float],
                     'folder' : types.IUpdatableValue }
 
     def _update(self, _):

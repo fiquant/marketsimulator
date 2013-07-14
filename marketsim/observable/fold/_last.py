@@ -28,7 +28,7 @@ class Last(ops.Function[float]):
     def label(self):
         return self._getLabel() + "(" + getLabel(self._source) + ")"
             
-    _properties = { 'source' : types.IObservable }
+    _properties = { 'source' : types.IObservable[float] }
     
     def _update(self, _):
         self.update(self._scheduler.currentTime, self._source())
