@@ -28,16 +28,26 @@ class ITrader(object):
 class ISingleAssetTrader(ITrader):
     pass
 
-class IScalarFunction(object):
-    pass
-
-class IFloatFunction(IScalarFunction):
-    pass
-
-IFloatFunction._types = [function((), float)]
-
-IFunction = { float : IFloatFunction }
-
+class Factory(object):
+    
+    def __init__(self, name, tmpl):
+        self._types = {}
+        self._name = name
+        self._tmpl = tmpl
+        
+    def __getitem__(self, key):
+        if key not in self._types:
+            T = key.__class__.__name__
+            exec self._tmpl % {'T': T, 'Name' : self._name} in globals()
+            self._types[key] = eval(self._name + '_' + T)
+        return self._types[key]
+    
+IFunction = Factory('IFunction', """
+class %(Name)s_%(T)s(object):
+    
+    _types = [function((), %(T)s)]
+""")
+        
 class IDifferentiable(object):
     pass
 
