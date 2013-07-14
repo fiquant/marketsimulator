@@ -83,10 +83,10 @@ class QueuePrice(QueueProxy):
     def _impl(self):
         return self.orderqueue.bestPrice
     
-class QueueLastPrice(types.Observable):
+class QueueLastPrice(types.Observable[float]):
     
     def __init__(self, orderqueue):
-        types.Observable.__init__(self)
+        types.Observable[float].__init__(self)
         self._price = QueuePrice(orderqueue)
         event.subscribe(self._price, _(self)._update, self)
         self._lastPrice = None

@@ -13,10 +13,10 @@ class CandleStick(collections.namedtuple("CandleStick", [
 from _cma import CMA
 from _stddev import StdDev
 
-class CandleSticks(types.Observable):
+class CandleSticks(types.Observable[float]):
     
     def __init__(self, source, timeframe = 1.):
-        types.Observable.__init__(self)
+        types.Observable[float].__init__(self)
         self._source = source
         self._event = event.subscribe(source, _(self)._update, self)
         event.subscribe(scheduler.Timer(ops.constant(timeframe)), _(self)._flush, self)
@@ -40,7 +40,7 @@ class CandleSticks(types.Observable):
         return {}
         
     _internals = ["_mean", '_stddev']
-    _properties = { "source"    : types.Observable, 
+    _properties = { "source"    : types.IObservable[float], 
                     "timeframe" : float }
     
     def reset(self):

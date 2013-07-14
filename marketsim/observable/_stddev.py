@@ -62,7 +62,7 @@ class MovingVariance(ops.Function[float]):
         self._mean = MA(source, timeframe)
         self._mean2 = MA(ops.Sqr(source), timeframe)
         
-    _properties = { 'source' : types.Observable }
+    _properties = { 'source' : types.IObservable[float] }
     
     _internals = ["_mean", '_mean2']
     

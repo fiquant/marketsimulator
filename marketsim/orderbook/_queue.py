@@ -3,10 +3,10 @@ import math
 
 from marketsim import Event, _, types
 
-class BestPrice(types.Observable):
+class BestPrice(types.Observable[float]):
     
     def __init__(self, queue):
-        types.Observable.__init__(self)
+        types.Observable[float].__init__(self)
         self.queue = queue
         
     @property
@@ -21,10 +21,10 @@ class BestPrice(types.Observable):
         return None if self.queue.empty else self.queue.best.price 
     
 
-class LastTrade(types.Observable):
+class LastTrade(types.Observable[float]):
     
     def __init__(self):
-        types.Observable.__init__(self)
+        types.Observable[float].__init__(self)
         self._lastTrade = None
         
     def set(self, value):

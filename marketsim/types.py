@@ -37,7 +37,7 @@ class Factory(object):
         
     def __getitem__(self, key):
         if key not in self._types:
-            T = key.__class__.__name__
+            T = key.__name__
             exec self._tmpl % {'T': T, 'Name' : self._name} in globals()
             self._types[key] = eval(self._name + '_' + T)
         return self._types[key]
@@ -56,8 +56,10 @@ class %(Name)s_%(T)s(event.IEvent, IFunction[%(T)s]):
     pass
 """)
 
-class Observable(IObservable[float], event.Conditional):
+Observable = Factory('Observable', '''
+class %(Name)s_%(T)s(IObservable[%(T)s], event.Conditional):
     pass
+''')
 
 class IOrder(object):
     pass

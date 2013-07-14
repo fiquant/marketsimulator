@@ -1,9 +1,9 @@
 from marketsim import types, event, _
 
-class TwoPoint(types.Observable):
+class TwoPoint(types.Observable[float]):
     
     def __init__(self, source):
-        types.Observable.__init__(self)
+        types.Observable[float].__init__(self)
         
         self._source = source
         self._event = event.subscribe(source, _(self)._wakeup, self)
@@ -26,7 +26,7 @@ class TwoPoint(types.Observable):
         self._source = value
         self._event.switchTo(value)
         
-    _properties = { 'source' : types.Observable }
+    _properties = { 'source' : types.IObservable[float] }
         
     def __call__(self):
         return self._value

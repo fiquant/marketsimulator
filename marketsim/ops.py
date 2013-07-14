@@ -394,22 +394,22 @@ class Product(BinaryOp[float], Function[float]):
     def __repr__(self):
         return repr(self.lhs)+ "*" + repr(self.rhs)
 
-class ProductEvent(Product, types.Observable):
+class ProductEvent(Product, types.Observable[float]):
     
     def __init__(self, lhs, rhs):
         Product.__init__(self, lhs, rhs)
-        types.Observable.__init__(self)
+        types.Observable[float].__init__(self)
             
 product = create_function_or_observable(Product, ProductEvent)
     
-class Sqr(types.Observable):
+class Sqr(types.Observable[float]):
     
     def __init__(self, source):
         self._source = source
-        types.Observable.__init__(self)
+        types.Observable[float].__init__(self)
         self._event = event.subscribe(source, _(self).fire, self)
         
-    _properties = { 'source' : types.Observable }
+    _properties = { 'source' : types.IObservable[float] }
     
     @property
     def source(self):
@@ -436,11 +436,11 @@ class Sum(BinaryOp[float], Function[float]):
     def __repr__(self):
         return repr(self.lhs)+ "+" + repr(self.rhs)
     
-class SumEvent(Sum, types.Observable):
+class SumEvent(Sum, types.Observable[float]):
     
     def __init__(self, lhs, rhs):
         Sum.__init__(self, lhs, rhs)
-        types.Observable.__init__(self)
+        types.Observable[float].__init__(self)
             
 sum = create_function_or_observable(Sum, SumEvent)
          
@@ -461,11 +461,11 @@ class Div(BinaryOp[float], Function[float]):
     def __repr__(self):
         return repr(self.lhs)+ "/" + repr(self.rhs)
     
-class DivEvent(Div, types.Observable):
+class DivEvent(Div, types.Observable[float]):
     
     def __init__(self, lhs, rhs):
         Div.__init__(self, lhs, rhs)
-        types.Observable.__init__(self)
+        types.Observable[float].__init__(self)
             
 div = create_function_or_observable(Div, DivEvent)
 
@@ -486,11 +486,11 @@ class Sub(BinaryOp[float], Function[float]):
     def __repr__(self):
         return repr(self.lhs)+ "-" + repr(self.rhs)
 
-class SubEvent(Sub, types.Observable):
+class SubEvent(Sub, types.Observable[float]):
     
     def __init__(self, lhs, rhs):
         Sub.__init__(self, lhs, rhs)
-        types.Observable.__init__(self)
+        types.Observable[float].__init__(self)
             
 sub = create_function_or_observable(Sub, SubEvent)
 
