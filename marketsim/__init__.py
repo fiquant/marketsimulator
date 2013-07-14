@@ -1,6 +1,6 @@
 from event import Event
 from bind import Method
-from Side import Tag as Side
+from side import Tag as Side
 
 class Alias(object):
     

@@ -1,4 +1,5 @@
-from marketsim.Side import Tag as Side
+import marketsim
+from marketsim import Side
 from marketsim.constraints import *
 from marketsim.meta import *
 from marketsim import event
@@ -30,36 +31,36 @@ class ISingleAssetTrader(ITrader):
 
 class Factory(object):
     
-    def __init__(self, name, tmpl):
+    def __init__(self, name, tmpl, g = None):
         self._types = {}
         self._name = name
         self._tmpl = tmpl
+        self._globals = globals() if g is None else g
         
     def __getitem__(self, key):
         if key not in self._types:
-            T = key.__name__
-            exec self._tmpl % {'T': T, 'Name' : self._name} in globals()
-            self._types[key] = eval(self._name + '_' + T)
+            #print key
+            M = key.__module__ + '.' if key.__module__ != '__builtin__' else ''
+            N = key.__name__
+            T = M + N
+            tmp= "class " + self._name + '_' + N + \
+                 self._tmpl % {'T': T, 'Name' : self._name} +\
+                 "pass"
+            #print tmp
+            exec tmp in self._globals
+            self._types[key] = eval(self._name + '_' + N, self._globals)
         return self._types[key]
     
-IFunction = Factory('IFunction', """
-class %(Name)s_%(T)s(object):
-    
+IFunction = Factory('IFunction', """(object):
     _types = [function((), %(T)s)]
 """)
         
 class IDifferentiable(object):
     pass
 
-IObservable = Factory('IObservable', """
-class %(Name)s_%(T)s(event.IEvent, IFunction[%(T)s]):
-    pass
-""")
+IObservable = Factory('IObservable', """(event.IEvent, IFunction[%(T)s]):""")
 
-Observable = Factory('Observable', '''
-class %(Name)s_%(T)s(IObservable[%(T)s], event.Conditional):
-    pass
-''')
+Observable = Factory('Observable', '''(IObservable[%(T)s], event.Conditional):''')
 
 class IOrder(object):
     pass

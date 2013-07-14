@@ -1,5 +1,5 @@
 from marketsim import meta, Side, types, registry, getLabel, event, _
-
+import marketsim
 import math, inspect 
 
 def convert(other):
@@ -7,9 +7,8 @@ def convert(other):
         other = constant(other)
     return other
 
-class FloatFunction(types.IFunction[float]):
-    
-    T = float
+
+class Function_impl(object):
     
     def __add__(self, other):
         return sum(self, convert(other))
@@ -34,28 +33,10 @@ class FloatFunction(types.IFunction[float]):
     
     def __ne__(self, other):
         return notequal(self, convert(other))
-    
-class IntFunction(object):
-    T = int
-    
 
-class BoolFunction(object):
-    T = bool
-    
-
-class SideFunction(object):
-    T = Side
-    
-    
-
-IntFunction._types = [types.function((), int)]
-BoolFunction._types = [types.function((), bool)]
-SideFunction._types = [types.function((), Side)]
-
-Function = { float : FloatFunction, 
-             int   : IntFunction, 
-             bool  : BoolFunction,
-             Side  : SideFunction }
+Function = types.Factory("Function", """(Function_impl, types.IFunction[%(T)s]):
+    T = %(T)s
+""", globals())    
 
 binary_base_tmpl = """
 class _BinaryOp_%(T)s(object):
