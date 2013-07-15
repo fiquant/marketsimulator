@@ -53,6 +53,13 @@ class BinaryOp_Impl(object):
         rhs = self.rhs()
         return self._call(lhs, rhs) if lhs is not None and rhs is not None else None
 
+    @property
+    def label(self):
+        return self.lhs.label + self.sign + self.rhs.label
+    
+    def __repr__(self):
+        return repr(self.lhs) + self.sign + repr(self.rhs)
+
 BinaryOp = types.Factory("BinaryOp", """(BinaryOp_Impl, Function[%(T)s], types.Observable[%(T)s]):
     def __init__(self, lhs, rhs):
         BinaryOp_Impl.__init__(self, lhs, rhs)
@@ -79,8 +86,7 @@ class Condition_Impl(object):
         c = self.cond()
         return None if c is None else self.ifpart() if c else self.elsepart()
 
-condition_tmpl = """
-class Condition%(T)s(Condition_Impl, Function[%(T)s]):
+Condition = types.Factory("Condition", """(Condition_Impl, Function[%(T)s]):
 
     def __init__(self, cond, ifpart, elsepart):
         Condition_Impl.__init__(self, cond, ifpart, elsepart)
@@ -91,14 +97,7 @@ class Condition%(T)s(Condition_Impl, Function[%(T)s]):
     _properties = [('cond', meta.function((), bool)), 
                    ('ifpart', meta.function((), %(T)s)), 
                    ('elsepart', meta.function((), %(T)s))]
-                   
-Condition[%(T)s] = Condition%(T)s
-"""  
-
-Condition = {}
-
-for t in ['Side', 'float']:
-    exec condition_tmpl % { 'T' : t }   
+""", globals())
 
 class _Conditional_Base(Function[bool]):
     
@@ -109,139 +108,85 @@ class _Conditional_Base(Function[bool]):
 
 class _Equal_Impl(_Conditional_Base):
     
-    def __call__(self):
-        lhs = self.lhs()
-        rhs = self.rhs()
-        return self.lhs() == self.rhs()
+    sign = "=="
+    
+    def _call(self):
+        return lhs == rhs
 
-_equal_tmpl = """        
-class Equal_%(T)s(BinaryOp[%(T)s], _Equal_Impl):
-
+Equal = types.Factory("Equal", """(BinaryOp[%(T)s], _Equal_Impl):
     BranchType = %(T)s
+""", globals())
 
-Equal[%(T)s] = Equal_%(T)s
-"""
-
-Equal = {}
-
-for T in ["float"]:
-    exec _equal_tmpl % { 'T' : T }
-
-def equal(lhs, rhs):
-    if 'T' in dir(lhs):
+def logic_op(T):
+    def inner(lhs, rhs):
+        if 'T' in dir(lhs):
+            if 'T' in dir(rhs):
+                assert lhs.T == rhs.T
+            return T[lhs.T](lhs, rhs)
         if 'T' in dir(rhs):
-            assert lhs.T == rhs.T
-        return Equal[lhs.T](lhs, rhs)
-    if 'T' in dir(rhs):
-        return Equal[rhs.T](lhs, rhs)
-    raise "Cannot inference T for equal(" + repr(lhs) + ',' + repr(rhs) + ')'
+            return T[rhs.T](lhs, rhs)
+        raise "Cannot inference T for " + repr(lhs) + ' ' + T.sign + ' ' + repr(rhs)
+    return inner
+
+equal = logic_op(Equal)
         
 # ---------------------------------------------------- NotEqual
 
 class _NotEqual_Impl(_Conditional_Base):
     
+    sign = "!="
+    
     def _call(self, lhs, rhs):
         return lhs != rhs
 
-_notequal_tmpl = """        
-class NotEqual_%(T)s(BinaryOp[%(T)s], _NotEqual_Impl):
-
+NotEqual = types.Factory("NotEqual", """(BinaryOp[%(T)s], _NotEqual_Impl):
     BranchType = %(T)s
+""", globals())
 
-NotEqual[%(T)s] = NotEqual_%(T)s
-"""
-
-NotEqual = {}
-
-for T in ["float"]:
-    exec _notequal_tmpl % { 'T' : T }
-
-def notequal(lhs, rhs):
-    if 'T' in dir(lhs):
-        if 'T' in dir(rhs):
-            assert lhs.T == rhs.T
-        return NotEqual[lhs.T](lhs, rhs)
-    if 'T' in dir(rhs):
-        return NotEqual[rhs.T](lhs, rhs)
-    raise "Cannot inference T for notequal(" + repr(lhs) + ',' + repr(rhs) + ')'
+notequal = logic_op(NotEqual)
         
 # ---------------------------------------------------- Greater
 
 class _Greater_Impl(_Conditional_Base):
     
+    sign = ">"
+    
     def _call(self, lhs, rhs):
         return lhs > rhs
 
-_greater_tmpl = """        
-class Greater_%(T)s(BinaryOp[%(T)s], _Greater_Impl):
-
+Greater = types.Factory("Greater", """(BinaryOp[%(T)s], _Greater_Impl):
     BranchType = %(T)s
+""", globals())
 
-Greater[%(T)s] = Greater_%(T)s
-"""
-
-Greater = {}
-
-for T in ["float"]:
-    exec _greater_tmpl % { 'T' : T }
-
-def greater(lhs, rhs):
-    if 'T' in dir(lhs):
-        if 'T' in dir(rhs):
-            assert lhs.T == rhs.T
-        return Greater[lhs.T](lhs, rhs)
-    if 'T' in dir(rhs):
-        return Greater[rhs.T](lhs, rhs)
-    raise "Cannot inference T for greater(" + repr(lhs) + ',' + repr(rhs) + ')'
+greater = logic_op(Greater)
     
 # ---------------------------------------------------- Less
 
 class _Less_Impl(_Conditional_Base):
     
+    sign = "<"
+    
     def _call(self, lhs, rhs):
         return lhs < rhs
 
-_less_tmpl = """        
-class Less_%(T)s(BinaryOp[%(T)s], _Less_Impl):
-    
+Less = types.Factory("Less", """(BinaryOp[%(T)s], _Less_Impl):
     BranchType = %(T)s
+""", globals())
 
-Less[%(T)s] = Less_%(T)s
-"""
-
-Less = {}
-
-for T in ["float"]:
-    exec _less_tmpl % { 'T' : T }
-
-def less(lhs, rhs):
-    if 'T' in dir(lhs):
-        if 'T' in dir(rhs):
-            assert lhs.T == rhs.T
-        return Less[lhs.T](lhs, rhs)
-    if 'T' in dir(rhs):
-        return Less[rhs.T](lhs, rhs)
-    raise "Cannot inference T for less(" + repr(lhs) + ',' + repr(rhs) + ')'
+less = logic_op(Less)
     
 # ---------------------------------------------------- Constant
+
+# NB! _None is a special case of Constant but we don't use the latter 
+# since we don't want to show Nones in the web-interface and in the object graph
 
 class _None_Impl(object):
     
     def __call__(self):
         return None
 
-_none_tmpl = """
-class _None_%(T)s(_None_Impl, Function[%(T)s]):
-    pass
-    
-_None[%(T)s] = _None_%(T)s
-"""
+_None = types.Factory('_None', """(_None_Impl, Function[%(T)s]):""", globals())
 
-_None = {}
-
-for T in ["Side", "float"]:
-    exec _none_tmpl % { 'T' : T }
-    
 # ---------------------------------------------------- Constant
 
 class _Constant_Impl(object):
@@ -267,32 +212,22 @@ class _Constant_Impl(object):
     
     def __repr__(self):
         return "constant("+repr(self.value)+")"
+    
+_defaults = { float: 100, Side : Side.Sell }
 
-_constant_tmpl = """    
-@registry.expose(['Constant[%(T)s]'])
-class Constant_%(T)s(_Constant_Impl, Function[%(T)s]):
+Constant = types.Factory('Constant', """(_Constant_Impl, Function[%(T)s]):
     \""" Constant function returning **value**.
     \"""
-    
-    def __init__(self, value=%(defvalue)s):
+    def __init__(self, value = _defaults[%(T)s]):
         self.value = value
-        
-    _properties = {'value' : %(T)s}
     
-Constant[%(T)s] = Constant_%(T)s
-"""
-
-Constant = {}
-for T,defvalue in {'float'  : '100.', 
-                   'int'    : '100', 
-                   'Side'   : 'Side.Sell'  
-                  }.iteritems():
-    exec _constant_tmpl % { 'T' : T, 'defvalue' : defvalue }
+    _properties = {'value' : %(T)s}
+""", globals())
 
 def constant(x):
-    return Constant_float(x) if type(x) is float\
-        else Constant_float(x) if type(x) is int\
-        else Constant_Side(x) if x is Side.Sell or x is Side.Buy\
+    return Constant[float](x) if type(x) is float\
+        else Constant[float](x) if type(x) is int\
+        else Constant[Side](x) if x is Side.Sell or x is Side.Buy\
         else None    
 
 
@@ -355,18 +290,13 @@ class Product(BinaryOp[float]):
     """ Function returning product of the operands
     """
     
+    sign = '*'
+    
     def __init__(self, lhs, rhs):
         BinaryOp[float].__init__(self, lhs, rhs)
     
     def _call(self, lhs, rhs):
         return lhs * rhs
-    
-    @property
-    def label(self):
-        return self.lhs.label + ' * ' + self.rhs.label
-    
-    def __repr__(self):
-        return repr(self.lhs)+ "*" + repr(self.rhs)
     
 class Sqr(types.Observable[float]):
     
@@ -395,14 +325,8 @@ class Sum(BinaryOp[float]):
     
     def _call(self, lhs, rhs):
         return lhs + rhs
-    
-    @property
-    def label(self):
-        return self.lhs.label + ' + ' + self.rhs.label
-    
-    def __repr__(self):
-        return repr(self.lhs)+ "+" + repr(self.rhs)
-         
+
+    sign = '+'         
 
 @registry.expose(['Arithmetic', '/'], args = (constant(1.), constant(1.)))
 class Div(BinaryOp[float]):
@@ -414,12 +338,11 @@ class Div(BinaryOp[float]):
     def _call(self, lhs, rhs):
         return lhs / rhs if rhs != 0 else None
     
+    sign = '/'
+    
     @property
     def label(self):
         return '\\frac{'+self.lhs.label+'}{'+self.rhs.label+'}'
-    
-    def __repr__(self):
-        return repr(self.lhs)+ "/" + repr(self.rhs)
 
 @registry.expose(['Arithmetic', '-'], args = (constant(1.), constant(1.)))    
 class Sub(BinaryOp[float]):
@@ -432,12 +355,7 @@ class Sub(BinaryOp[float]):
     def _call(self, lhs, rhs):
         return lhs - rhs
     
-    @property
-    def label(self):
-        return self.lhs.label + ' - ' + self.rhs.label
-    
-    def __repr__(self):
-        return repr(self.lhs)+ "-" + repr(self.rhs)
+    sign = '-'
 
 class Derivative(Function[float]):
     
