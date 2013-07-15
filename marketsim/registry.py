@@ -360,11 +360,25 @@ class Registry(object):
                 except exception.Constraint, err:
                     print err
                     print '    at ', repr(obj), '.', p.name
+
+    def getUsedTypes(self):
+        types = set()
+        usedTypes = set()
+        
+        for obj in self._id2obj.itervalues():
+            if type(obj) not in types:
+                types.add(type(obj))
+                for p in rtti.properties(obj):
+                    usedTypes.add(p.type)
                     
+        return usedTypes
+        
 
     def getTypeInfo(self):
-        types = {}
         self.pushAllReferences()
+        types = {}
+        usedTypes = self.getUsedTypes()
+        
         for obj in self._id2obj.itervalues():
             
             if '_constructAs' in dir(obj):
@@ -383,7 +397,8 @@ class Registry(object):
                             }) 
                             for p in rtti.properties(obj)])
     
-                castsTo = map(self._dumpPropertyConstraint, rtti.types(obj))
+                castsTo = map(self._dumpPropertyConstraint, 
+                              filter(lambda t: t in usedTypes, rtti.types(obj)))
                     
                 types[ctor] = { "castsTo"      : sorted(castsTo), 
                                 "properties"   : props, 
