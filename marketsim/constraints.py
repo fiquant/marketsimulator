@@ -1,7 +1,17 @@
 def tojs(t, x):
     return lambda c: "combine("+t+"(" + str(x._bound) + "), "+c(x._f)+")"
 
-class greater_than(object):
+from marketsim import meta
+
+class IConstraint(object):
+    
+    def check_constraint(self, x):
+        try:
+            self(x)
+        except ValueError, err:
+            raise meta.ConstraintException(self, x)
+
+class greater_than(IConstraint):
 
     def __init__(self, x, f = float):
         self._bound = x
@@ -24,7 +34,7 @@ class greater_than(object):
             raise ValueError, "should be greater than " + str(self._bound)
         return x
     
-class less_than(object):
+class less_than(IConstraint):
 
     def __init__(self, x, f = float):
         self._bound = x
@@ -48,7 +58,7 @@ class less_than(object):
             raise ValueError, "should be less than " + str(self._bound)
         return x
     
-class greater_or_equal(object):
+class greater_or_equal(IConstraint):
 
     def __init__(self, x, f = float):
         self._bound = x
@@ -71,7 +81,7 @@ class greater_or_equal(object):
             raise ValueError, "should be greater or equal to " + str(self._bound)
         return x
 
-class less_or_equal(object):
+class less_or_equal(IConstraint):
 
     def __init__(self, x, f = float):
         self._bound = x

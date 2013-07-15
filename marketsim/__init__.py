@@ -57,6 +57,9 @@ class Reference(object):
     def __call__(self, *args, **kwargs):
         return self._impl(*args, **kwargs)
     
+    def __repr__(self):
+        return "._" + self.name
+    
     _properties = { 'name' : str }
 
 def defs(obj, vs):

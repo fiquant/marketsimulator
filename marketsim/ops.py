@@ -85,6 +85,9 @@ class Condition_Impl(object):
     def __call__(self):
         c = self.cond()
         return None if c is None else self.ifpart() if c else self.elsepart()
+    
+    def __repr__(self):
+        return 'if ' + repr(self.cond) + ' then ' + repr(self.ifpart) + ' else ' + repr(self.elsepart)
 
 Condition = types.Factory("Condition", """(Condition_Impl, Function[%(T)s]):
 
@@ -102,7 +105,10 @@ Condition = types.Factory("Condition", """(Condition_Impl, Function[%(T)s]):
 class _Conditional_Base(Function[bool]):
     
     def __getitem__(self, (ifpart, elsepart)):
-        return Condition[self.BranchType](self, ifpart, elsepart)
+        T = getattr(ifpart, 'T', getattr(elsepart, 'T', None))
+        if T is None:
+            print "cannot infer expression type from ", ifpart, ' and ', elsepart
+        return Condition[T](self, ifpart, elsepart)
 
 # ---------------------------------------------------- Equal
 
@@ -184,6 +190,9 @@ class _None_Impl(object):
     
     def __call__(self):
         return None
+    
+    def __repr__(self):
+        return 'None'
 
 _None = types.Factory('_None', """(_None_Impl, Function[%(T)s]):""", globals())
 

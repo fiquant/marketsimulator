@@ -22,6 +22,12 @@ class _Periodic_Impl(Strategy):
         Strategy.__init__(self)
         event.subscribe(self.eventGen, _(self)._wakeUp, self)
         
+    def __repr__(self):
+        return ("Periodic(\n\t" + repr(self.orderFactory) + ",\n\t"
+                                + repr(self.eventGen) + ",\n\t"
+                                + repr(self.volumeFunc) + ",\n\t"
+                                + repr(self.sideFunc) + ")" )
+        
     def _wakeUp(self, _):
         if self._suspended:
             return

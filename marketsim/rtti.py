@@ -114,5 +114,31 @@ def children(obj, logger):
     if '_subscriptions' in dir(obj):
         yield obj._subscriptions
 
+import marketsim 
+
+def typecheck(constraint, obj):
+    """ Checks that *obj* meets *constraint* for an object field
+    """
+    if type(obj) is marketsim.Reference:
+        pass # 
+    elif constraint == marketsim.Side:
+         if obj not in [marketsim.Side.Sell, marketsim.Side.Buy]:
+             print obj, " doesn't meet constraint: ", constraint
+    elif constraint == None:
+        print "constraint shouldn't be None"
+    elif constraint == str:
+         if type(obj) != str:
+             print obj, " doesn't meet constraint: ", constraint
+    elif constraint == int:
+         if type(obj) != int:
+             print obj, " doesn't meet constraint: ", constraint
+    elif constraint == float:
+         if type(obj) not in [float, int]:
+             print obj, " doesn't meet constraint: ", constraint
+    elif 'check_constraint' in dir(constraint):
+        constraint.check_constraint(obj)
+    else:
+        if constraint not in types(obj):
+            print obj, " doesn't meet constraint: ", constraint
        
         
