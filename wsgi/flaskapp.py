@@ -116,6 +116,7 @@ def collectTypeInfo():
     if not os.path.exists(filename) or forceGenerate:
         _, _, myRegistry, _ = createSimulation('All')
         typeinfo = myRegistry.getTypeInfo()
+        myRegistry.typecheck()
         with open(filename, 'w') as f:
             f.write('var typeinfo = ');
             json.dump(typeinfo, f, indent=4, separators=(',', ': '))

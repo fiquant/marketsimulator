@@ -5,7 +5,7 @@ import marketsim
 
 from functools import reduce
 
-from marketsim import rtti, Side, meta, types, js, utils, prop, context
+from marketsim import exception, rtti, Side, meta, types, js, utils, prop, context
 
 startup = []
 
@@ -357,7 +357,7 @@ class Registry(object):
             for p in rtti.properties(obj):
                 try:
                     rtti.typecheck(p.type, getattr(obj, p.name))
-                except meta.ConstraintException, err:
+                except exception.Constraint, err:
                     print err
                     print '    at ', repr(obj), '.', p.name
                     

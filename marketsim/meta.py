@@ -12,16 +12,7 @@ def casts_to(src, dst):
         return src._casts_to(dst)
     return False
 
-class ConstraintException(Exception):
-    
-    def __init__(self, constraint, obj):
-        self.constraint = constraint
-        self.obj = obj
-        
-    def __str__(self):
-        return "Constraint " + repr(self.constraint) + " violated on " + repr(self.obj)
-    
-from marketsim import rtti
+from marketsim import rtti, exception
 
 class function(collections.namedtuple("function", ["args", "rv"])):
     
@@ -46,7 +37,7 @@ class function(collections.namedtuple("function", ["args", "rv"])):
         for e in rtti.types(x):
             if e == self:
                 return
-        raise ConstraintException(self, x)
+        raise exception.Constraint(self, x)
     
 class listOf(collections.namedtuple("listOf", ["elementType"])):
     
@@ -60,7 +51,7 @@ class listOf(collections.namedtuple("listOf", ["elementType"])):
             for e in x:
                 rtti.typecheck(self.elementType, e)
         else:
-            raise ConstraintException(self, x)
+            raise exception.Constraint(self, x)
     
 def sig(args, rv):
     def inner(f):

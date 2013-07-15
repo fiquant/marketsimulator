@@ -40,6 +40,10 @@ class Reference(object):
         assert self._impl is  None
         self._impl = getattr(ctx, self.name)
         
+    @property
+    def pointee(self):
+        return self._impl
+        
     def __getattr__(self, name):
         if name[0:2] != "__" and self._impl:
             return getattr(self._impl, name)

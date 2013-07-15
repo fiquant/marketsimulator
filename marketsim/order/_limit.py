@@ -111,6 +111,9 @@ class AdaptLimit(object):
                     'priceFunc'    : meta.function((), Price)}
     
     _types = [meta.function(args=(Side,), rv=function((Volume,), IOrder))]
+    
+    def __repr__(self):
+        return 'AdaptLimit(' + repr(self.orderFactory) + ', ' + repr(self.priceFunc) + ')'
         
     def __call__(self, side):
         price = self.priceFunc()

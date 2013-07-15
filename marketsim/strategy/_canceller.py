@@ -3,7 +3,7 @@ from marketsim import order, _, trader, scheduler, orderbook, mathutils, meta, r
 from marketsim.types import *
 from _wrap import wrapper2
 
-class _Canceller_Impl(object):
+class _Canceller_Impl(types.ISingleAssetStrategy):
     """ Randomly cancels created orders in specific moments of time    
     """
     

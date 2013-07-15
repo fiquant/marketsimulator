@@ -119,26 +119,30 @@ import marketsim
 def typecheck(constraint, obj):
     """ Checks that *obj* meets *constraint* for an object field
     """
+    def throw():
+        raise marketsim.exception.Constraint(constraint, obj)
+    
     if type(obj) is marketsim.Reference:
-        pass # 
+        if obj.pointee:
+            typecheck(constraint, obj.pointee)
     elif constraint == marketsim.Side:
          if obj not in [marketsim.Side.Sell, marketsim.Side.Buy]:
-             print obj, " doesn't meet constraint: ", constraint
+             throw()
     elif constraint == None:
-        print "constraint shouldn't be None"
+             throw()
     elif constraint == str:
          if type(obj) != str:
-             print obj, " doesn't meet constraint: ", constraint
+             throw()
     elif constraint == int:
          if type(obj) != int:
-             print obj, " doesn't meet constraint: ", constraint
+             throw()
     elif constraint == float:
          if type(obj) not in [float, int]:
-             print obj, " doesn't meet constraint: ", constraint
+             throw()
     elif 'check_constraint' in dir(constraint):
         constraint.check_constraint(obj)
     else:
         if constraint not in types(obj):
-            print obj, " doesn't meet constraint: ", constraint
+             throw()
        
         

@@ -1,7 +1,7 @@
 def tojs(t, x):
     return lambda c: "combine("+t+"(" + str(x._bound) + "), "+c(x._f)+")"
 
-from marketsim import meta
+from marketsim import exception
 
 class IConstraint(object):
     
@@ -9,7 +9,7 @@ class IConstraint(object):
         try:
             self(x)
         except ValueError, err:
-            raise meta.ConstraintException(self, x)
+            raise exception.Constraint(self, x)
 
 class greater_than(IConstraint):
 

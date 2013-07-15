@@ -84,7 +84,8 @@ class Condition_Impl(object):
         
     def __call__(self):
         c = self.cond()
-        return None if c is None else self.ifpart() if c else self.elsepart()
+        assert c is not None
+        return self.ifpart() if c else self.elsepart()
     
     def __repr__(self):
         return 'if ' + repr(self.cond) + ' then ' + repr(self.ifpart) + ' else ' + repr(self.elsepart)
@@ -104,6 +105,11 @@ Condition = types.Factory("Condition", """(Condition_Impl, Function[%(T)s]):
 
 class _Conditional_Base(Function[bool]):
     
+    def __call__(self):
+        lhs = self.lhs()
+        rhs = self.rhs()
+        return self._call(lhs, rhs)
+
     def __getitem__(self, (ifpart, elsepart)):
         T = getattr(ifpart, 'T', getattr(elsepart, 'T', None))
         if T is None:
@@ -116,10 +122,10 @@ class _Equal_Impl(_Conditional_Base):
     
     sign = "=="
     
-    def _call(self):
+    def _call(self, lhs, rhs):
         return lhs == rhs
 
-Equal = types.Factory("Equal", """(BinaryOp[%(T)s], _Equal_Impl):
+Equal = types.Factory("Equal", """(_Equal_Impl, BinaryOp[%(T)s]):
     BranchType = %(T)s
 """, globals())
 
@@ -145,7 +151,7 @@ class _NotEqual_Impl(_Conditional_Base):
     def _call(self, lhs, rhs):
         return lhs != rhs
 
-NotEqual = types.Factory("NotEqual", """(BinaryOp[%(T)s], _NotEqual_Impl):
+NotEqual = types.Factory("NotEqual", """(_NotEqual_Impl, BinaryOp[%(T)s]):
     BranchType = %(T)s
 """, globals())
 
@@ -160,7 +166,7 @@ class _Greater_Impl(_Conditional_Base):
     def _call(self, lhs, rhs):
         return lhs > rhs
 
-Greater = types.Factory("Greater", """(BinaryOp[%(T)s], _Greater_Impl):
+Greater = types.Factory("Greater", """(_Greater_Impl, BinaryOp[%(T)s]):
     BranchType = %(T)s
 """, globals())
 
@@ -175,7 +181,7 @@ class _Less_Impl(_Conditional_Base):
     def _call(self, lhs, rhs):
         return lhs < rhs
 
-Less = types.Factory("Less", """(BinaryOp[%(T)s], _Less_Impl):
+Less = types.Factory("Less", """(_Less_Impl, BinaryOp[%(T)s]):
     BranchType = %(T)s
 """, globals())
 
