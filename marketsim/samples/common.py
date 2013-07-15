@@ -251,6 +251,8 @@ def run(name, constructor):
         r.pushAllReferences()
         context.bind(root, {'world' : world })
         
+        r.typecheck()
+        
         world.workTill(500)
         
         non_empty_graphs = [g for g in ctx.graphs if len(g._datas)]

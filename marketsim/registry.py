@@ -350,6 +350,29 @@ class Registry(object):
         else:
             ctor = constraint.__module__ + "." + constraint.__name__
         return ctor
+    
+    def _typecheck(self, constraint, obj):
+        """ Checks that *obj* meets *constraint* for an object field
+        """
+        if constraint == Side:
+             if obj not in [Side.Sell, Side.Buy]:
+                 print obj, " doesn't meet constraint: ", constraint
+        if constraint == None:
+            print "constraint shouldn't be None"
+        if constraint == str:
+             if type(obj) != str:
+                 print obj, " doesn't meet constraint: ", constraint
+        if constraint == int:
+             if type(obj) != int:
+                 print obj, " doesn't meet constraint: ", constraint
+        if constraint == float:
+             if type(obj) not in [float, int]:
+                 print obj, " doesn't meet constraint: ", constraint
+        
+    def typecheck(self):
+        for obj in self._id2obj.itervalues():
+            for p in rtti.properties(obj):
+                self._typecheck(p.type, getattr(obj, p.name))
 
     def getTypeInfo(self):
         types = {}
