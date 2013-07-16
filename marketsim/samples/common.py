@@ -1,7 +1,7 @@
 import sys, itertools, pickle
 sys.path.append(r'..')
 
-from marketsim import (orderbook, observable, timeserie, scheduler, veusz, registry, event,
+from marketsim import (orderbook, observable, timeserie, scheduler, veusz, registry, event, config, 
                        context, trader, orderbook, Side, remote, ops, bind, signal, strategy)
 
 simulations = {}
@@ -29,8 +29,9 @@ class Context(object):
         self.book_A = orderbook.Local(tickSize=0.01, label="A")
         self.book_B = orderbook.Local(tickSize=0.01, label="B")
         
-        self.world.process(const(10), bind.Function(_print, '.'))
-        self.world.process(const(100), bind.Function(_print, '\n'))
+        if config.showTiming:
+            self.world.process(const(10), bind.Function(_print, '.'))
+            self.world.process(const(100), bind.Function(_print, '\n'))
         
         delay = ops.constant(1.07)
 
@@ -252,7 +253,7 @@ def run(name, constructor, only_veusz):
         r.pushAllReferences()
         context.bind(root, {'world' : world })
         
-        if not only_veusz:
+        if not only_veusz and config.checkConsistency:
             r.typecheck()
             try:
                 dumped = pickle.dumps(r)
@@ -261,7 +262,9 @@ def run(name, constructor, only_veusz):
                 print err
         
         stat = world.workTill(500)
-        print "\n", stat
+        
+        if config.showTiming:
+            print "\n", stat
         
         non_empty_graphs = [g for g in ctx.graphs if len(g._datas)]
         
@@ -270,7 +273,7 @@ def run(name, constructor, only_veusz):
         world._reset()
         context.reset(root)
 
-        if False and runTwoTimes:
+        if False and config.runTwoTimes:
             world.workTill(500)
             veusz.render(name, non_empty_graphs)
 

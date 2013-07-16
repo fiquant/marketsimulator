@@ -4,7 +4,7 @@ sys.path.append(r'..')
 sys.setrecursionlimit(10000)
 
 from marketsim import (strategy, orderbook, trader, order, js, signal, remote, context, timeserie,
-                       scheduler, observable, veusz, ops, registry, translations, types)
+                       scheduler, observable, veusz, ops, registry, translations, types, config)
 
 from marketsim.types import Side
 
@@ -13,7 +13,7 @@ from marketsim.samples.common import Context, orderBooksToRender, simulations
 const = ops.constant
 
 app = Flask(__name__)
-app.secret_key = 'A0Zr98j/8769876IUOYOHOA0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+app.secret_key = config.secret_key
 
 inmemory = {}
 
