@@ -10,7 +10,7 @@ class DesiredVolumeBase(obs.IndicatorBaseT[float]):
     def __init__(self, source):
         from marketsim import scheduler
         timer = scheduler.Timer(ops.constant(1))
-        IndicatorBase.__init__(self, timer, source, {'smooth': True})
+        obs.IndicatorBaseT[float].__init__(self, timer, source, {'smooth': True})
         self._position = 0
         self._currentAmount = None
         self._amount = obs.VolumeTraded()
