@@ -4,5 +4,6 @@
 marketsim/samples/_output
 server/_saved/
 .metadata/
+.idea/
 wsgi/_saved/*
 wsgi/_cache/*
