@@ -18,18 +18,50 @@ class _rsi_label(ops.identity):
     @property    
     def label(self):
         return 'RSI_{' + self._orderbook.label + '}^{'+str(self._timeframe)+'}'
-    
 
-def RSI(orderbook, timeframe, alpha):
+class RSI_Impl(object):
     
-    return defs(_rsi_label(
-                    ops.constant(100.) - (ops.constant(100.) / (ops.constant(1.) + _.rs)), 
-                    orderbook, 
-                    timeframe), 
-                { 'rs' : (EWMA(UpMovements(_.deltas), alpha) / 
-                          EWMA(DownMovements(_.deltas), alpha)), 
-                  'price' : MidPrice(orderbook),
-                  'deltas': DeltaLag(_.price, timeframe) })
+    def getDefinitions(self):
+        return { 
+            'rs' : (EWMA(UpMovements(_.deltas), self.alpha) / 
+                    EWMA(DownMovements(_.deltas), self.alpha)), 
+            'price' : MidPrice(self.orderbook),
+            'deltas': DeltaLag(_.price, self.timeframe) 
+        }
     
+    def getImpl(self):
+        return ops.constant(100.) - (ops.constant(100.) / (ops.constant(1.) + _.rs))    
     
+    @property    
+    def label(self):
+        return 'RSI_{{0}}^{{1}}'.format(self.orderbook.label, self.timeframe)
     
+class Base(ops.Function[float]):
+
+    def __init__(self):
+        self._definitions = self.getDefinitions()
+        self.impl = self.getImpl()
+        
+    _properties = {'impl' : types.IFunction[float] }
+        
+    def __call__(self):
+        return self.impl()
+        
+class RSI(Base, RSI_Impl):
+    
+    def __init__(self, orderbook, timeframe, alpha):
+        self.orderbook = orderbook
+        self.timeframe = timeframe
+        self.alpha = alpha
+        Base.__init__(self)
+
+tmpl = """
+class %(name)s(Base, %(name)s_Impl):
+    
+    def __init__(self, %(args)s):
+        %(ctor)s
+        Base.__init__(self)
+"""
+ 
+def wrap(name, fields):
+     pass
