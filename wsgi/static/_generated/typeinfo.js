@@ -139,7 +139,9 @@ var typeinfo = {
         "description": "<div class=\"document\">\n<p>Log normal distribution. If you take the natural logarithm of this distribution, you'll get a normal distribution with mean \u03bc and standard deviation \u03c3. \u03bc can have any value, and \u03c3 must be greater than zero.</p>\n</div>\n"
     },
     "marketsim.timeserie.VolumeLevels": {
-        "castsTo": [],
+        "castsTo": [
+            "marketsim.timeserie.ToRecord"
+        ],
         "properties": {
             "graph": {
                 "hidden": false,
@@ -2359,7 +2361,9 @@ var typeinfo = {
         "description": "<div class=\"document\">\n<p>Fundamental value strategy believes that an asset should have some specific price\n(<em>fundamental value</em>) and if the current asset price is lower than the fundamental value\nit starts to buy the asset and if the price is higher it starts to sell the asset.</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Order factory</strong></dt>\n<dd>order factory function (default: order.Market.T)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Fundamental value</strong></dt>\n<dd>defines fundamental value (default: constant 100)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n</div>\n"
     },
     "marketsim.timeserie.ToRecord": {
-        "castsTo": [],
+        "castsTo": [
+            "marketsim.timeserie.ToRecord"
+        ],
         "properties": {
             "source": {
                 "hidden": false,

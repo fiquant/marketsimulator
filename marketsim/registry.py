@@ -369,7 +369,8 @@ class Registry(object):
             if type(obj) not in types:
                 types.add(type(obj))
                 for p in rtti.properties(obj):
-                    usedTypes.add(p.type)
+                    for t in rtti.usedTypes(p.type):
+                        usedTypes.add(t)
                     
         return usedTypes
         

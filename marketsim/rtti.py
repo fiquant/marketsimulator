@@ -9,6 +9,15 @@ class property_descriptor(collections.namedtuple("property_descriptor",
     
     pass
 
+def usedTypes(T):
+    
+    ret = [T]
+    
+    if 'usedTypes' in dir(T):
+        ret += T.usedTypes()
+        
+    return ret
+
 def pack_property(n, t, *args):
     d = { 
             'name' : n, 
