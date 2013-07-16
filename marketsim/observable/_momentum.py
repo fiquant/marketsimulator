@@ -1,5 +1,5 @@
 from marketsim import (event, bind, scheduler, meta, types, Event, 
-                       defs, _, ops, registry, mathutils)
+                       defs, _, ops, registry, orderbook, mathutils)
 
 from _orderbook import MidPrice
 from _ewma import EWMA
@@ -8,24 +8,16 @@ from _deltalag import DeltaLag, UpMovements, DownMovements
 
 import fold
 
-class _rsi_label(ops.identity):
-    
-    def __init__(self, target, orderbook, timeframe):
-        ops.identity.__init__(self, target)
-        self._orderbook = orderbook
-        self._timeframe = timeframe
-    
-    @property    
-    def label(self):
-        return 'RSI_{' + self._orderbook.label + '}^{'+str(self._timeframe)+'}'
+import _wrap 
+from marketsim.types import *
 
-class RSI_Impl(object):
+class RSI(ops.Function[float]):
     
     def getDefinitions(self):
         return { 
             'rs' : (EWMA(UpMovements(_.deltas), self.alpha) / 
                     EWMA(DownMovements(_.deltas), self.alpha)), 
-            'price' : MidPrice(self.orderbook),
+            'price' : MidPrice(self.orderBook),
             'deltas': DeltaLag(_.price, self.timeframe) 
         }
     
@@ -34,34 +26,15 @@ class RSI_Impl(object):
     
     @property    
     def label(self):
-        return 'RSI_{{0}}^{{1}}'.format(self.orderbook.label, self.timeframe)
+        return 'RSI_{{0}}^{{1}}'.format(self.orderBook.label, self.timeframe)
     
-class Base(ops.Function[float]):
+_wrap.generate(RSI, ["Asset's", "Relative strength index"],
+    """ Relative strength index
+    """,               
+    [
+        ('orderBook', 'orderbook.OfTrader()',   'IOrderBook'),
+        ('timeframe', 1.,                       'non_negative'),
+        ('alpha',     0.15,                     'positive')
+    ], globals())
 
-    def __init__(self):
-        self._definitions = self.getDefinitions()
-        self.impl = self.getImpl()
-        
-    _properties = {'impl' : types.IFunction[float] }
-        
-    def __call__(self):
-        return self.impl()
-        
-class RSI(Base, RSI_Impl):
-    
-    def __init__(self, orderbook, timeframe, alpha):
-        self.orderbook = orderbook
-        self.timeframe = timeframe
-        self.alpha = alpha
-        Base.__init__(self)
 
-tmpl = """
-class %(name)s(Base, %(name)s_Impl):
-    
-    def __init__(self, %(args)s):
-        %(ctor)s
-        Base.__init__(self)
-"""
- 
-def wrap(name, fields):
-     pass

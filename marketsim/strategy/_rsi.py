@@ -51,7 +51,7 @@ def RSIEx    (         alpha                 = 1./14,
     return r
 
 @registry.expose(["Periodic", "RSIbis"], args=())
-def RSIbis (timeframe               = 0., 
+def RSIbis (timeframe               = 1., 
             threshold               = 30,
             alpha                   = 1./14,
             orderFactory            = order.MarketFactory, 

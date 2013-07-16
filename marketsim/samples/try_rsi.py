@@ -30,7 +30,7 @@ def RSI(ctx):
     
     myRsiBis = lambda: [(observable.OnEveryDt(1, 
                             observable.RSI(orderbook.OfTrader(), 
-                                           0, 
+                                           1, 
                                            alpha)), 
                          demo)]
     

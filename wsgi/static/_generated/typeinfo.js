@@ -1,19 +1,4 @@
 var typeinfo = {
-    "marketsim.observable._momentum._rsi_label": {
-        "castsTo": [
-            {
-                "rv": "_parseFloat",
-                "args": []
-            },
-            "marketsim.types.IFunction_float"
-        ],
-        "properties": {
-            "arg": {
-                "type": "marketsim.types.IFunction_float"
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
-    },
     "marketsim.order._cancel.WithExpiryFactory": {
         "castsTo": [
             {
@@ -508,37 +493,16 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.order._always_best.AlwaysBestFactory": {
+    "marketsim.orderbook._proxy.OfTrader": {
         "castsTo": [
-            {
-                "rv": {
-                    "rv": "marketsim.types.IOrder",
-                    "args": [
-                        "_parseFloat"
-                    ]
-                },
-                "args": [
-                    "marketsim.Side"
-                ]
-            }
+            "marketsim.types.IOrderBook"
         ],
         "properties": {
-            "orderFactory": {
-                "type": {
-                    "rv": {
-                        "rv": "marketsim.types.IOrder",
-                        "args": [
-                            "_parseFloat",
-                            "_parseFloat"
-                        ]
-                    },
-                    "args": [
-                        "marketsim.Side"
-                    ]
-                }
+            "Trader": {
+                "type": "marketsim.types.ISingleAssetTrader"
             }
         },
-        "description": "<div class=\"document\">\n<p>AlwaysBest is a virtual order that ensures that it has the best price in the order book.\nIt is implemented as a limit order which is cancelled\nonce the best price in the order queue has changed\nand is sent again to the order book\nwith a price one tick better than the best price in the book.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.orderbook._proxy.Queue": {
         "castsTo": [
@@ -957,16 +921,37 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Normal distribution. \u03bc is the mean, and \u03c3 is the standard deviation.</p>\n</div>\n"
     },
-    "marketsim.orderbook._proxy.OfTrader": {
+    "marketsim.order._always_best.AlwaysBestFactory": {
         "castsTo": [
-            "marketsim.types.IOrderBook"
+            {
+                "rv": {
+                    "rv": "marketsim.types.IOrder",
+                    "args": [
+                        "_parseFloat"
+                    ]
+                },
+                "args": [
+                    "marketsim.Side"
+                ]
+            }
         ],
         "properties": {
-            "Trader": {
-                "type": "marketsim.types.ISingleAssetTrader"
+            "orderFactory": {
+                "type": {
+                    "rv": {
+                        "rv": "marketsim.types.IOrder",
+                        "args": [
+                            "_parseFloat",
+                            "_parseFloat"
+                        ]
+                    },
+                    "args": [
+                        "marketsim.Side"
+                    ]
+                }
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>AlwaysBest is a virtual order that ensures that it has the best price in the order book.\nIt is implemented as a limit order which is cancelled\nonce the best price in the order queue has changed\nand is sent again to the order book\nwith a price one tick better than the best price in the book.</p>\n</div>\n"
     },
     "marketsim.mathutils.rnd.betavariate": {
         "castsTo": [
@@ -1570,6 +1555,11 @@ var typeinfo = {
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
+    "marketsim.strategy._bollinger.Bollinger_linear": {
+        "castsTo": [],
+        "properties": {},
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.mathutils.rnd.triangular": {
         "castsTo": [
             {
@@ -1758,19 +1748,6 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.strategy.Array": {
-        "castsTo": [
-            "marketsim.types.ISingleAssetStrategy"
-        ],
-        "properties": {
-            "strategies": {
-                "type": {
-                    "elementType": "marketsim.types.ISingleAssetStrategy"
-                }
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
-    },
     "marketsim.scheduler.Scheduler": {
         "castsTo": [],
         "properties": {
@@ -1904,6 +1881,30 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
+    "marketsim.observable._momentum.RSI_Generated": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.types.IFunction_float"
+        ],
+        "properties": {
+            "alpha": {
+                "type": "combine(greater(0.0), _parseFloat)"
+            },
+            "orderBook": {
+                "type": "marketsim.types.IOrderBook"
+            },
+            "impl": {
+                "type": "marketsim.types.IFunction_float"
+            },
+            "timeframe": {
+                "type": "combine(greater_or_equal(0.0), _parseFloat)"
+            }
+        },
+        "description": "<div class=\"document\">\n<p>Relative strength index</p>\n</div>\n"
+    },
     "marketsim.scheduler.Timer": {
         "castsTo": [
             "marketsim.event.Event"
@@ -2031,6 +2032,11 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Fundamental value strategy believes that an asset should have some specific price\n(<em>fundamental value</em>) and if the current asset price is lower than the fundamental value\nit starts to buy the asset and if the price is higher it starts to sell the asset.</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Order factory</strong></dt>\n<dd>order factory function (default: order.Market.T)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Fundamental value</strong></dt>\n<dd>defines fundamental value (default: constant 100)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n</div>\n"
     },
+    "marketsim.order._factory.LimitMarket": {
+        "castsTo": [],
+        "properties": {},
+        "description": "<div class=\"document\">\n<p>Creates an order with a signed volume.\nIf a price is provided, a Limit order is created.\nElse, a Market order is created instead.</p>\n<p>For example calling LimitMarket(volume = -1, price=10)\ncreates a Sell Limit order at a price of 10.</p>\n</div>\n"
+    },
     "marketsim.timeserie.ToRecord": {
         "castsTo": [
             "marketsim.timeserie.ToRecord"
@@ -2095,9 +2101,17 @@ var typeinfo = {
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.strategy._bollinger.Bollinger_linear": {
-        "castsTo": [],
-        "properties": {},
+    "marketsim.strategy.Array": {
+        "castsTo": [
+            "marketsim.types.ISingleAssetStrategy"
+        ],
+        "properties": {
+            "strategies": {
+                "type": {
+                    "elementType": "marketsim.types.ISingleAssetStrategy"
+                }
+            }
+        },
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.order._limit.LimitFactory": {
