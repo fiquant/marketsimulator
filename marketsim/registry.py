@@ -10,7 +10,8 @@ from marketsim import exception, rtti, Side, meta, types, js, utils, prop, conte
 startup = []
 
 
-
+def union(*dicts):
+    return dict(sum(map(lambda dct: list(dct.items()), dicts), []))
 
 def getCtor(obj): 
     if '_constructAs' in dir(obj):
@@ -393,11 +394,9 @@ class Registry(object):
                 if ctor not in types:
     
                     props = dict([( p.name, 
-                                {
-                                    'type'     : self._dumpPropertyConstraint(p.type), 
-                                    'hidden'   : p.hidden or p.name[0] == '_',
-                                    'collapsed': p.collapsed,
-                                }) 
+                                union({'type'      : self._dumpPropertyConstraint(p.type) },
+                                     ({'hidden'    : True} if p.isHidden else {}), 
+                                     ({'collapsed' : True} if p.collapsed else {}))) 
                                 for p in rtti.properties(obj)])
         
                     castsTo = map(self._dumpPropertyConstraint, 
