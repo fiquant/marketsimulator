@@ -50,3 +50,4 @@ from _dollar_avg import DollarAverage
 from _market_data import MarketData
 
 from _desired import Desired
+
