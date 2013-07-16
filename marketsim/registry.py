@@ -379,30 +379,32 @@ class Registry(object):
         types = {}
         usedTypes = self.getUsedTypes()
         
-        for obj in self._id2obj.itervalues():
-            
-            if '_constructAs' in dir(obj):
-                ctor = obj._constructAs
-            else:
-                cls = obj.__class__
-                ctor = cls.__module__ + "." + cls.__name__
+        with utils.rst.Cache():
+        
+            for obj in self._id2obj.itervalues():
                 
-            if ctor not in types:
-
-                props = dict([( p.name, 
-                            {
-                                'type'     : self._dumpPropertyConstraint(p.type), 
-                                'hidden'   : p.hidden or p.name[0] == '_',
-                                'collapsed': p.collapsed,
-                            }) 
-                            for p in rtti.properties(obj)])
-    
-                castsTo = map(self._dumpPropertyConstraint, 
-                              filter(lambda t: t in usedTypes, rtti.types(obj)))
+                if '_constructAs' in dir(obj):
+                    ctor = obj._constructAs
+                else:
+                    cls = obj.__class__
+                    ctor = cls.__module__ + "." + cls.__name__
                     
-                types[ctor] = { "castsTo"      : sorted(castsTo), 
-                                "properties"   : props, 
-                                "description"  : utils.rst2html(trim(obj.__doc__)) }
+                if ctor not in types:
+    
+                    props = dict([( p.name, 
+                                {
+                                    'type'     : self._dumpPropertyConstraint(p.type), 
+                                    'hidden'   : p.hidden or p.name[0] == '_',
+                                    'collapsed': p.collapsed,
+                                }) 
+                                for p in rtti.properties(obj)])
+        
+                    castsTo = map(self._dumpPropertyConstraint, 
+                                  filter(lambda t: t in usedTypes, rtti.types(obj)))
+                        
+                    types[ctor] = { "castsTo"      : sorted(castsTo), 
+                                    "properties"   : props, 
+                                    "description"  : utils.rst2html(trim(obj.__doc__)) }
             
         return types
     

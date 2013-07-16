@@ -53,6 +53,41 @@ from marketsim import translations
 xlat = reduce(lambda x,y: x + y,
               [".. |"+k+"| replace:: **" + v + "** \n" for (k,v) in translations.en.property_names.iteritems()])
 
+import cPickle as pickle, os
+
+filename = os.path.join("_cache", "rst.cache")
+
+if not os.path.exists("_cache"):
+    os.makedirs("_cache")
+
+cache = None
+
+
 from docutils.core import publish_parts
+
+class Cache(object):
+    
+    def __enter__(self):
+        self._cache = {}
+        
+        if os.path.exists(filename):
+            with open(filename, 'r') as input:
+                self._cache = pickle.load(input)
+        global cache
+        cache = self
+        
+    def __getitem__(self, rst):
+        if rst not in self._cache:
+            self._cache[rst] = publish_parts(xlat + greeks + rst,writer_name='html')['html_body']
+        return self._cache[rst]
+        
+    def __exit__(self, exc_type, exc_value, traceback):
+        with open(filename, 'w') as output:
+            pickle.dump(self._cache, output)
+        global cache
+        cache = None        
+    
 def rst2html(rst):
-    return publish_parts(xlat + greeks + rst,writer_name='html')['html_body']
+    return cache[rst]
+        
+
