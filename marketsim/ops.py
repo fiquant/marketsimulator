@@ -55,10 +55,10 @@ class BinaryOp_Impl(object):
 
     @property
     def label(self):
-        return self.lhs.label + self.sign + self.rhs.label
+        return '(' + self.lhs.label + self.sign + self.rhs.label + ')'
     
     def __repr__(self):
-        return repr(self.lhs) + self.sign + repr(self.rhs)
+        return '(' + repr(self.lhs) + self.sign + repr(self.rhs) + ')'
 
 BinaryOp = types.Factory("BinaryOp", """(BinaryOp_Impl, Function[%(T)s], types.Observable[%(T)s]):
     def __init__(self, lhs, rhs):

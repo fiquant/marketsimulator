@@ -1,40 +1,15 @@
 import heapq, threading, collections, time
 from marketsim import types, Event, _, meta
 
-stat = collections.namedtuple('stat', ['events_processed', 'events_rate', 'processing_time'])
+class stat(collections.namedtuple('stat', ['events_processed', 'events_rate', 'processing_time'])):
+    
+    def __repr__(self):
+        return str(self.events_processed) + ' events processed in ' + str(self.processing_time) + \
+             's with rate ' + str(self.events_rate) + ' event/s'
 
 """ Module for managing discrete event simulation. 
 """
 
-class _EventHandler(object):
-    """ Internal class appending to a user event handler ability to cancel the event
-    (this feature hasn't been used so far. do we really need it?) 
-    """
-    
-    def __init__(self, handler):
-        self._handler = handler
-        self._cancelled = False
-
-    def __call__(self):
-        """ If the events is not cancelled, launches its handler
-        """
-        if not self._cancelled:
-            self._handler()
-
-    def cancel(self):
-        """ Marks event as cancelled
-        """
-        self._cancelled = True
-
-    @property
-    def cancelled(self):
-        """ Returns True iff the event is cancelled
-        """
-        return self._cancelled
-
-    def __repr__(self):
-        return "("+repr(self._handler) + ("-> Cancelled" if self.cancelled else "") + ")"
-    
 # Scheduler singleton. Initialized once Scheduler instance is created
 _instance = None
 _lock = threading.Lock()
@@ -87,13 +62,11 @@ class Scheduler(object):
         Returns a function that can be called in order to cancel the event
         """
         assert actionTime >= self.currentTime
-        eh = _EventHandler(handler)
         # in order to keep the right order of events having same action time
         # we differentiate them by incrementing counter 
-        event = ((actionTime, self._counter), eh)
+        event = ((actionTime, self._counter), handler)
         self._counter += 1
         heapq.heappush(self._elements, event)
-        return eh.cancel
 
     def scheduleAfter(self, dt, handler):
         """ Schedules an event given by 'handler' to be launched after 'dt' from now

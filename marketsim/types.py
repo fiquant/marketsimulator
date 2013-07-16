@@ -30,6 +30,12 @@ class ITrader(object):
 class ISingleAssetTrader(ITrader):
     pass
 
+class ICandleStick(object):
+    pass
+
+class IVolumeLevels(object):
+    pass
+
 class Factory(object):
     
     def __init__(self, name, tmpl, g = None):
@@ -37,6 +43,10 @@ class Factory(object):
         self._name = name
         self._tmpl = tmpl
         self._globals = globals() if g is None else g
+        
+    def __setitem__(self, key, obj):
+        assert key not in self._types
+        self._types[key] = obj
         
     def __getitem__(self, key):
         if key not in self._types:
@@ -59,7 +69,12 @@ IFunction = Factory('IFunction', """(object):
 class IDifferentiable(object):
     pass
 
-IObservable = Factory('IObservable', """(IEvent, IFunction[%(T)s]):""")
+class IObservable_object(object):
+    pass
+
+IObservable = Factory('IObservable', """(IEvent, IFunction[%(T)s], IObservable_object):""")
+
+IObservable[object] = IObservable_object
 
 Observable = Factory('Observable', '''(IObservable[%(T)s], event.Conditional):''')
 

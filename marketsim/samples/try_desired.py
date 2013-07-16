@@ -1,12 +1,12 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (signal, strategy, orderbook, mathutils, Side, types, ops, defs, _)
+from marketsim import (signal, strategy, orderbook, mathutils, 
+                       Side, types, ops, defs, _)
 from marketsim import observable as obs
-from marketsim.observable._computed import IndicatorBase
 from common import expose, Constant
 
-class DesiredVolumeBase(IndicatorBase):
+class DesiredVolumeBase(obs.IndicatorBaseT[float]):
     def __init__(self, source):
         from marketsim import scheduler
         timer = scheduler.Timer(ops.constant(1))

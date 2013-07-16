@@ -1,5 +1,4 @@
-import collections
-import inspect
+import collections, inspect, itertools
 
 def casts_to(src, dst):
     if src == dst: return True
@@ -33,6 +32,9 @@ class function(collections.namedtuple("function", ["args", "rv"])):
             return { "args" : [convertToJs(x) for x in self.args], "rv" : convertToJs(self.rv) }
         return impl
     
+    def usedTypes(self):
+        return itertools.chain(*map(rtti.usedTypes, self.args + (self.rv,)))
+
     def check_constraint(self, x):
         for e in rtti.types(x):
             if e == self:
@@ -45,6 +47,9 @@ class listOf(collections.namedtuple("listOf", ["elementType"])):
         def impl(convertToJs):
             return { "elementType" : convertToJs(self.elementType) }
         return impl
+    
+    def usedTypes(self):
+        return rtti.usedTypes(self.elementType)
     
     def check_constraint(self, x):
         if type(x) is list:

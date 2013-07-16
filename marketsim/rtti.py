@@ -7,7 +7,18 @@ class property_descriptor(collections.namedtuple("property_descriptor",
                                                   "collapsed"
                                                   ])):
     
-    pass
+    @property
+    def isHidden(self):
+        return self.hidden or self.name[0] == '_'
+
+def usedTypes(T):
+    
+    ret = [T]
+    
+    if 'usedTypes' in dir(T):
+        ret += T.usedTypes()
+        
+    return ret
 
 def pack_property(n, t, *args):
     d = { 
