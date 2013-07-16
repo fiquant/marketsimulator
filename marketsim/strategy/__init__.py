@@ -1,5 +1,5 @@
 import random
-from marketsim import order, Side, observable, registry
+from marketsim import order, Side, observable, registry, config
 
 #from _wrap import Params, currentframe
 
@@ -43,11 +43,10 @@ from _periodic import Periodic
 
 from _desired_position import DesiredPosition
 
-from _market_maker import MarketMaker
-#
-from _dollar_avg import DollarAverage
-
-from _market_data import MarketData
+if config.usePandas:
+    #from _market_maker import MarketMaker
+    #from _dollar_avg import DollarAverage
+    from _market_data import MarketData
 
 from _desired import Desired
 

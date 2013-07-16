@@ -5,3 +5,6 @@ secret_key = 'A0Zr98j/8769876IUOYOHOA0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 runTwoTimes = False
 showTiming = True
 checkConsistency = True
+usePandas = True
+
+from config_user import *
