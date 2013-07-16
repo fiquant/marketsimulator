@@ -1,5 +1,7 @@
-import heapq, threading
+import heapq, threading, collections, time
 from marketsim import types, Event, _, meta
+
+stat = collections.namedtuple('stat', ['events_processed', 'events_rate', 'processing_time'])
 
 """ Module for managing discrete event simulation. 
 """
@@ -119,11 +121,18 @@ class Scheduler(object):
         if self._working:
             raise Exception("Scheduler is already working")
         
+        t0 = time.clock()
+        steps = 0
+        
         self._working = True
         while (self.step(limitTime)):
-            pass
+            steps += 1
         self._currentTime = limitTime
         self._working = False
+        
+        dt = time.clock() - t0
+        
+        return stat(steps, steps / dt, dt)
 
     def advance(self, dt):
         """ Makes the scheduler work 'dt' moments of time more

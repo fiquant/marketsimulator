@@ -260,7 +260,8 @@ def run(name, constructor, only_veusz):
             except Exception, err:
                 print err
         
-        world.workTill(500)
+        stat = world.workTill(500)
+        print "\n", stat
         
         non_empty_graphs = [g for g in ctx.graphs if len(g._datas)]
         
