@@ -33,7 +33,7 @@ exec wrapper2('TrendFollower',
                 
                  |ewma_alpha| 
                      parameter |alpha| for exponentially weighted moving average
-                    (default: 0.15.)
+                     (default: 0.15.)
                      
                  |orderFactory| 
                      order factory function (default: order.Market.T)

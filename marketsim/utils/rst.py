@@ -78,6 +78,7 @@ class Cache(object):
         
     def __getitem__(self, rst):
         if rst not in self._cache:
+            #print rst
             self._cache[rst] = publish_parts(xlat + greeks + rst,writer_name='html')['html_body']
         return self._cache[rst]
         
