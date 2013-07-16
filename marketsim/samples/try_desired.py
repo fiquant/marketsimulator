@@ -12,6 +12,10 @@ class DesiredVolumeBase(obs.IndicatorBaseT[float]):
         timer = scheduler.Timer(ops.constant(1))
         IndicatorBase.__init__(self, timer, source, {'smooth': True})
         self._position = 0
+        self._currentAmount = None
+        self._amount = obs.VolumeTraded()
+
+    _internals = ['_amount']
 
     @property
     def label(self):
@@ -81,20 +85,6 @@ class BuyLowSellHighVolume(DesiredVolumeBase):
             volume = 1
 
         return volume
-
-
-# class _observable_label(ops.identity):
-#
-#     def __init__(self, target, label, orderbook, timeframe):
-#         ops.identity.__init__(self, target)
-#         self._orderbook = orderbook
-#         self._timeframe = timeframe
-#         self._label = label
-#
-#     @property
-#     def label(self):
-#         return self._label + "_{" + self._orderbook.label + "}^{" + str(self._timeframe) + "}"
-
 
 
 @expose("Desired position", __name__, only_veusz=True)
