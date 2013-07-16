@@ -1,7 +1,9 @@
 from marketsim import (bind, event, Event, getLabel, Side, scheduler, ops,
                        types, meta, mathutils, ops, registry, trader, _)
 
-class IndicatorBase(types.Observable[float]):
+import marketsim
+
+class IndicatorBase_Impl(object):
     """ Observable that stores some scalar value and knows how to update it
     
     * **Source of data** -- function that provides data
@@ -15,7 +17,6 @@ class IndicatorBase(types.Observable[float]):
         attributes -- a dictionary of attributes to be associated with the indicator
         """
         
-        super(IndicatorBase, self).__init__()
         self.attributes = attributes
         self._subscription = event.subscribe(eventSource, self.fire, self)
         self._dataSource = dataSource
@@ -24,8 +25,7 @@ class IndicatorBase(types.Observable[float]):
     def label(self):
         return self._dataSource.label
     
-    _properties = [ ('dataSource'  , types.IFunction[float]),
-                    ('eventSource' , Event) ]
+    _properties = [ ('eventSource' , Event) ]
     
     @property
     def eventSource(self):
@@ -54,6 +54,17 @@ class IndicatorBase(types.Observable[float]):
         """ Returns current value
         """
         return self._dataSource()
+    
+IndicatorBaseT = types.Factory("IndicatorBaseT", """(IndicatorBase_Impl, types.Observable[%(T)s]):
+    def __init__(self, eventSource, dataSource, attributes = {}):
+        types.Observable[%(T)s].__init__(self)
+        IndicatorBase_Impl.__init__(self, eventSource, dataSource, attributes)
+
+    _properties = [ ('dataSource'  , types.IFunction[%(T)s]) ]
+""", globals())
+
+def IndicatorBase(eventSource, dataSource, attributes = {}):
+    return IndicatorBaseT[dataSource.T](eventSource, dataSource, attributes)
 
 class Proxy(types.IObservable[float], ops.Function[float]):
     

@@ -12,7 +12,7 @@ class ToRecord(types.ITimeSerie):  # TODO: should the source be split into dataS
         self.reset()
         
     _properties = { 
-                    'source' : types.IObservable[float], 
+                    'source' : types.IObservable[object], 
                     'graph'  : types.IGraph,
                     '_digits': int,
                     "_smooth": int, 

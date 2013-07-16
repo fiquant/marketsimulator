@@ -29,7 +29,7 @@ class price_at_volume(ops.Function[float]):
                     'side'      : types.Side, 
                     'volumeAt'  : float }
 
-class volume_levels(ops.Function[float]): # should be () -> meta.listOf(float)
+class volume_levels(ops.Function[types.IVolumeLevels]): # should be () -> meta.listOf(float)
     
     def __init__(self, orderbook, side, volumeDelta, volumeCount):
         self.orderbook = orderbook

@@ -155,7 +155,7 @@ var typeinfo = {
             },
             "source": {
                 "hidden": false,
-                "type": "marketsim.types.IObservable_float",
+                "type": "marketsim.types.IObservable_object",
                 "collapsed": false
             },
             "_isBuy": {
@@ -203,7 +203,8 @@ var typeinfo = {
             },
             "marketsim.event.Event",
             "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "source": {
@@ -579,11 +580,7 @@ var typeinfo = {
     },
     "marketsim.observable._orderbook.volume_levels": {
         "castsTo": [
-            {
-                "rv": "_parseFloat",
-                "args": []
-            },
-            "marketsim.types.IFunction_float"
+            "marketsim.types.IFunction_IVolumeLevels"
         ],
         "properties": {
             "volumeCount": {
@@ -661,30 +658,6 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.observable._computed.IndicatorBase": {
-        "castsTo": [
-            {
-                "rv": "_parseFloat",
-                "args": []
-            },
-            "marketsim.event.Event",
-            "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
-        ],
-        "properties": {
-            "eventSource": {
-                "hidden": false,
-                "type": "marketsim.event.Event",
-                "collapsed": false
-            },
-            "dataSource": {
-                "hidden": false,
-                "type": "marketsim.types.IFunction_float",
-                "collapsed": false
-            }
-        },
-        "description": "<div class=\"document\">\n<p>Observable that stores some scalar value and knows how to update it</p>\n<ul class=\"simple\">\n<li><strong>Source of data</strong> -- function that provides data</li>\n<li><strong>Events when to act</strong> -- events when to act</li>\n</ul>\n</div>\n"
-    },
     "marketsim.strategy._trade_if_profitable.virtualWithUnitVolume": {
         "castsTo": [
             {
@@ -722,7 +695,8 @@ var typeinfo = {
             },
             "marketsim.event.Event",
             "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "rhs": {
@@ -752,7 +726,8 @@ var typeinfo = {
             },
             "marketsim.event.Event",
             "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "rhs": {
@@ -934,7 +909,8 @@ var typeinfo = {
             },
             "marketsim.event.Event",
             "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "source": {
@@ -998,7 +974,8 @@ var typeinfo = {
             },
             "marketsim.event.Event",
             "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "rhs": {
@@ -1027,7 +1004,8 @@ var typeinfo = {
                 "args": []
             },
             "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "orderqueue": {
@@ -1197,7 +1175,8 @@ var typeinfo = {
             },
             "marketsim.event.Event",
             "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "rhs": {
@@ -1377,7 +1356,8 @@ var typeinfo = {
                 "args": []
             },
             "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "orderqueue": {
@@ -1396,7 +1376,8 @@ var typeinfo = {
             },
             "marketsim.event.Event",
             "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "rhs": {
@@ -1426,7 +1407,8 @@ var typeinfo = {
             },
             "marketsim.event.Event",
             "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "deltaDistr": {
@@ -1495,7 +1477,8 @@ var typeinfo = {
             },
             "marketsim.event.Event",
             "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "rhs": {
@@ -1603,13 +1586,8 @@ var typeinfo = {
     },
     "marketsim.observable._candlestick.CandleSticks": {
         "castsTo": [
-            {
-                "rv": "_parseFloat",
-                "args": []
-            },
             "marketsim.event.Event",
-            "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "source": {
@@ -1633,7 +1611,8 @@ var typeinfo = {
             },
             "marketsim.event.Event",
             "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "trader": {
@@ -1691,7 +1670,8 @@ var typeinfo = {
             },
             "marketsim.event.Event",
             "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "source": {
@@ -1741,7 +1721,8 @@ var typeinfo = {
             },
             "marketsim.event.Event",
             "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "rhs": {
@@ -1895,6 +1876,31 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Return a random floating point number <em>N</em> such that <em>low</em> &lt;= <em>N</em> &lt;= <em>high</em> and with the specified <em>mode</em> between those bounds. The <em>low</em> and <em>high</em> bounds default to zero and one. The <em>mode</em> argument defaults to the midpoint between the bounds, giving a symmetric distribution.</p>\n</div>\n"
     },
+    "marketsim.observable._computed.IndicatorBaseT_float": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.event.Event",
+            "marketsim.types.IFunction_float",
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
+        ],
+        "properties": {
+            "eventSource": {
+                "hidden": false,
+                "type": "marketsim.event.Event",
+                "collapsed": false
+            },
+            "dataSource": {
+                "hidden": false,
+                "type": "marketsim.types.IFunction_float",
+                "collapsed": false
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.observable._orderbook.QueueLastPrice": {
         "castsTo": [
             {
@@ -1903,7 +1909,8 @@ var typeinfo = {
             },
             "marketsim.event.Event",
             "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
@@ -2175,7 +2182,8 @@ var typeinfo = {
             },
             "marketsim.event.Event",
             "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "source": {
@@ -2199,12 +2207,33 @@ var typeinfo = {
             },
             "marketsim.event.Event",
             "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "source": {
                 "hidden": false,
                 "type": "marketsim.types.IObservable_float",
+                "collapsed": false
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.observable._computed.IndicatorBaseT_IVolumeLevels": {
+        "castsTo": [
+            "marketsim.event.Event",
+            "marketsim.types.IFunction_IVolumeLevels",
+            "marketsim.types.IObservable_object"
+        ],
+        "properties": {
+            "eventSource": {
+                "hidden": false,
+                "type": "marketsim.event.Event",
+                "collapsed": false
+            },
+            "dataSource": {
+                "hidden": false,
+                "type": "marketsim.types.IFunction_IVolumeLevels",
                 "collapsed": false
             }
         },
@@ -2367,7 +2396,7 @@ var typeinfo = {
         "properties": {
             "source": {
                 "hidden": false,
-                "type": "marketsim.types.IObservable_float",
+                "type": "marketsim.types.IObservable_object",
                 "collapsed": false
             },
             "_digits": {
@@ -2395,7 +2424,8 @@ var typeinfo = {
                 "args": []
             },
             "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "orderqueue": {
