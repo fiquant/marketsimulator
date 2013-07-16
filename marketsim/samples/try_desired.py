@@ -97,7 +97,7 @@ class BuyLowSellHighVolume(DesiredVolumeBase):
 
 
 
-@expose("Desired position", __name__)
+@expose("Desired position", __name__, only_veusz=True)
 def DesiredPosition(ctx):
 
     const = ops.constant

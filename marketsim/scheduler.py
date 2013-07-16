@@ -129,14 +129,17 @@ class Scheduler(object):
         """ Makes the scheduler work 'dt' moments of time more
         """
         self.workTill(self.currentTime + dt)
+        
+    def _process_impl(self, intervalFunc, handler):
+        handler()
+        self.scheduleAfter(intervalFunc(), 
+                           _(self, intervalFunc, handler)._process_impl)
 
     def process(self, intervalFunc, handler):
         """ 'intervalFunc' returns intervals of time between consequtive calls to handler
         """
-        def h():
-            handler()
-            self.scheduleAfter(intervalFunc(), h)
-        self.scheduleAfter(intervalFunc(), h)
+        self.scheduleAfter(intervalFunc(), 
+                           _(self, intervalFunc, handler)._process_impl)
         
 def create():
     return Scheduler()

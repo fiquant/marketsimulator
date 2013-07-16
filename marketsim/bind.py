@@ -7,6 +7,8 @@ class Callable(object):
     def __call__(self, *args):
         return self.callable(*(self.args + args))
 
+Function = Callable
+
 
 class Method(object):
     

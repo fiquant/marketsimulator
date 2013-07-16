@@ -1,17 +1,18 @@
-import sys, itertools
+import sys, itertools, pickle
 sys.path.append(r'..')
 
 from marketsim import (orderbook, observable, timeserie, scheduler, veusz, registry, event,
-                       context, trader, orderbook, Side, remote, ops, signal, strategy)
+                       context, trader, orderbook, Side, remote, ops, bind, signal, strategy)
 
 simulations = {}
 
-def expose(label, module):
+def expose(label, module, only_veusz=False):
     def inner(f):
         if module == '__main__':
-            run(label, f)
+            run(label, f, only_veusz)
         else:
-            simulations[label] = f
+            if not only_veusz:
+                simulations[label] = f
         return f
     return inner
     
@@ -28,8 +29,8 @@ class Context(object):
         self.book_A = orderbook.Local(tickSize=0.01, label="A")
         self.book_B = orderbook.Local(tickSize=0.01, label="B")
         
-        self.world.process(lambda: 10, lambda: _print('.'))
-        self.world.process(lambda: 100, lambda: _print('\n'))
+        self.world.process(const(10), bind.Function(_print, '.'))
+        self.world.process(const(100), bind.Function(_print, '\n'))
         
         delay = ops.constant(1.07)
 
@@ -226,7 +227,7 @@ def orderBooksToRender(ctx, traders):
     
 runTwoTimes = True
     
-def run(name, constructor):
+def run(name, constructor, only_veusz):
     with scheduler.create() as world:
         
         ctx = Context(world, veusz.Graph)
@@ -251,7 +252,13 @@ def run(name, constructor):
         r.pushAllReferences()
         context.bind(root, {'world' : world })
         
-        r.typecheck()
+        if not only_veusz:
+            r.typecheck()
+            try:
+                dumped = pickle.dumps(r)
+                pickle.loads(dumped)
+            except Exception, err:
+                print err
         
         world.workTill(500)
         

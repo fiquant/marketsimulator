@@ -789,30 +789,6 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.samples.try_desired.BuyLowSellHighVolume": {
-        "castsTo": [
-            {
-                "rv": "_parseFloat",
-                "args": []
-            },
-            "marketsim.event.Event",
-            "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float"
-        ],
-        "properties": {
-            "eventSource": {
-                "hidden": false,
-                "type": "marketsim.event.Event",
-                "collapsed": false
-            },
-            "dataSource": {
-                "hidden": false,
-                "type": "marketsim.types.IFunction_float",
-                "collapsed": false
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
-    },
     "marketsim.orderbook._proxy.Proxy": {
         "castsTo": [
             "marketsim.types.IOrderBook"
@@ -990,34 +966,6 @@ var typeinfo = {
         ],
         "properties": {},
         "description": "<div class=\"document\">\n<p>Market order of given <em>side</em> and <em>volume</em></p>\n</div>\n"
-    },
-    "marketsim.strategy.DesiredPosition": {
-        "castsTo": [
-            "marketsim.types.ISingleAssetStrategy"
-        ],
-        "properties": {
-            "desiredPosition": {
-                "hidden": false,
-                "type": "marketsim.types.IObservable_float",
-                "collapsed": false
-            },
-            "orderFactory": {
-                "hidden": false,
-                "type": {
-                    "rv": {
-                        "rv": "marketsim.types.IOrder",
-                        "args": [
-                            "_parseFloat"
-                        ]
-                    },
-                    "args": [
-                        "marketsim.Side"
-                    ]
-                },
-                "collapsed": false
-            }
-        },
-        "description": "<div class=\"document\">\n<p>Generic strategy that tries to keep trader's position equal to <em>desiredPosition</em>,</p>\n<p>Parameters:</p>\n<blockquote>\n<dl class=\"docutils\">\n<dt><a href=\"#id1\"><span class=\"problematic\" id=\"id2\">|desiredPosition|</span></a></dt>\n<dd>Observable telling desired position for the trader</dd>\n<dt><strong>Order factory</strong></dt>\n<dd>order factory function (default: order.Limit.T)</dd>\n</dl>\n</blockquote>\n<div class=\"system-messages section\">\n<h1>Docutils System Messages</h1>\n<div class=\"system-message\" id=\"id1\">\n<p class=\"system-message-title\">System Message: ERROR/3 (<tt class=\"docutils\">&lt;string&gt;</tt>, line 111); <em><a href=\"#id2\">backlink</a></em></p>\nUndefined substitution referenced: &quot;desiredPosition&quot;.</div>\n</div>\n</div>\n"
     },
     "marketsim.ops.negate": {
         "castsTo": [
@@ -1234,13 +1182,6 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n<p>Beta distribution. Conditions on the parameters are \u03b1 &gt; 0 and \u03b2 &gt; 0. Returned values range between 0 and 1.</p>\n</div>\n"
-    },
-    "marketsim.observable._computed.UpdatableLookback": {
-        "castsTo": [
-            "marketsim.types.IUpdatableValue"
-        ],
-        "properties": {},
-        "description": "<div class=\"document\">\n<p>Computed value based on one or more sources</p>\n</div>\n"
     },
     "marketsim.ops.Greater_float": {
         "castsTo": [
@@ -1897,28 +1838,6 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n<p>Order book for a single asset in a market.\nMaintains two order queues for orders of different sides</p>\n</div>\n"
-    },
-    "marketsim.observable._computed.MultiFold": {
-        "castsTo": [
-            {
-                "rv": "_parseFloat",
-                "args": []
-            },
-            "marketsim.types.IFunction_float"
-        ],
-        "properties": {
-            "source": {
-                "hidden": false,
-                "type": "marketsim.types.IObservable_float",
-                "collapsed": false
-            },
-            "folder": {
-                "hidden": false,
-                "type": "marketsim.types.IUpdatableValue",
-                "collapsed": false
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.ops.Derivative": {
         "castsTo": [
