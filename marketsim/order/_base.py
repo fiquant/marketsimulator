@@ -35,7 +35,7 @@ class Base(object):
         dst._cancelled = self._cancelled
 
     def __str__(self):
-        return type(self).__name__ + "("+self._side+", volume=" + str(self.volume) + ", P&L="+str(self.PnL)+")"
+        return type(self).__name__ + "("+str(self._side)+", volume=" + str(self.volume) + ", P&L="+str(self.PnL)+")"
 
     def __repr__(self):
         return self.__str__()
