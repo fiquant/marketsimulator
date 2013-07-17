@@ -180,7 +180,7 @@ class MidPrice(types.Observable[float]):
         }
         
     def getImpl(self):
-        return (AskPrice(self.orderBook) + BidPrice(self.orderBook)) / 2
+        return (AskPrice(_.book) + BidPrice(_.book)) / 2
     
     @property
     def label(self):

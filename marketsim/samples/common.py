@@ -130,9 +130,9 @@ def orderBooksToRender(ctx, traders):
         
         def orderbook_ts():
             thisBook = orderbook.Proxy()
+            assetPrice = observable.MidPrice(thisBook)
             askPrice = observable.AskPrice(thisBook)
             bidPrice = observable.BidPrice(thisBook)
-            assetPrice = observable.MidPrice(thisBook)
             askWeightedPrice = observable.AskWeightedPrice(thisBook, 0.15)
             bidWeightedPrice = observable.BidWeightedPrice(thisBook, 0.15)
             avg = observable.avg
@@ -157,30 +157,31 @@ def orderBooksToRender(ctx, traders):
                 ] 
             
             return ([
+                timeserie.ToRecord(assetPrice, ctx.price_graph), 
                 timeserie.ToRecord(candlesticks, ctx.price_graph),
                 timeserie.ToRecord(askPrice, ctx.price_graph),
                 timeserie.ToRecord(bidPrice, ctx.price_graph),
-                timeserie.ToRecord(assetPrice, ctx.price_graph), 
                 #timeserie.ToRecord(observable.LastTradePrice(thisBook), ctx.price_graph), 
                 timeserie.ToRecord(observable.AskLastTradePrice(thisBook), ctx.price_graph), 
                 timeserie.ToRecord(observable.BidLastTradePrice(thisBook), ctx.price_graph), 
-                
+                  
                 timeserie.ToRecord(observable.OnEveryDt(1, askWeightedPrice), ctx.price_graph), 
                 timeserie.ToRecord(observable.OnEveryDt(1, bidWeightedPrice), ctx.price_graph), 
-                
+                   
                 timeserie.ToRecord(observable.OnEveryDt(1, cma), ctx.price_graph), 
-                
+                 
                 timeserie.ToRecord(assetPrice, ctx.minmax_graph),
                 timeserie.ToRecord(max, ctx.minmax_graph),
                 timeserie.ToRecord(min, ctx.minmax_graph),
-
+ 
                 timeserie.ToRecord(avg(assetPrice, alpha=0.15), ctx.price_graph),
                 timeserie.ToRecord(avg(assetPrice, alpha=0.65), ctx.price_graph),
                 timeserie.ToRecord(avg(assetPrice, alpha=0.015), ctx.price_graph)
             ] 
             + bollinger(ma100, stddev100, ctx.bollinger_100_graph) 
             + bollinger(ma20, stddev20, ctx.bollinger_20_graph)
-            + bollinger(ewma015, ewmsd, ctx.bollinger_a015_graph))
+            + bollinger(ewma015, ewmsd, ctx.bollinger_a015_graph)
+            )
 
         for b in books:
             b.volumes_graph = ctx.addGraph("Volume levels " + b.label)
@@ -201,7 +202,7 @@ def orderBooksToRender(ctx, traders):
                                                    10), 
                            b.volumes_graph))
             b.timeseries = ts
-            
+             
             b.rsi_graph = ctx.addGraph("RSI " + b.label)
             ts.append(timeserie.ToRecord(observable.MidPrice(thisBook), b.rsi_graph))
             for timeframe in [#0., 
