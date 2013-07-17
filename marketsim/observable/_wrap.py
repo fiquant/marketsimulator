@@ -1,4 +1,4 @@
-from marketsim import ops, types, event, _
+from marketsim import ops, types, event, _, flags
 
 class Base(object):
 
@@ -11,7 +11,7 @@ class Base(object):
 
 class FunctionBase(Base):
 
-    _properties = {'impl' : types.IFunction[float] }
+    _properties = {'impl' : (types.IFunction[float], flags.collapsed) }
 
 class ObservableBase(Base):
 
@@ -19,7 +19,7 @@ class ObservableBase(Base):
         Base.__init__(self)
         event.subscribe(self.impl, _(self).fire, self)
         
-    _properties = {'impl' : types.IObservable[float] }
+    _properties = {'impl' : (types.IObservable[float], flags.collapsed) }
         
 tmpl = """
 %(reg)s
