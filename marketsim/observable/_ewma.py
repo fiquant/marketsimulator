@@ -20,7 +20,7 @@ class EWMA(fold.Last, types.IDifferentiable):
         self._lastTime = None
         
     def _getLabel(self):
-        return r"Avg_{"+str(self.alpha)+"}"
+        return r"Avg_{%s}" % self.alpha
     
     @property
     def jsLabel(self):

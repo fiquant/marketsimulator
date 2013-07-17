@@ -27,7 +27,7 @@ class Min(fold.Last, ops.Observable[float]):
         return x
          
     def _getLabel(self):
-        return 'Min_{' + getLabel(self._source) + '}^{'+str(self.timeframe)+'}'
+        return 'Min_{%s}' % self.timeframe
 
     def _remove(self, x):
         self._levels[x] -= 1
@@ -68,7 +68,7 @@ class Max(fold.Last, ops.Observable[float]):
         return x
          
     def _getLabel(self):
-        return 'Max_{' + getLabel(self._source) + '}^{'+str(self.timeframe)+'}'
+        return 'Max_{%s}' % self.timeframe
 
     def _remove(self, x):
         self._levels[-x] -= 1

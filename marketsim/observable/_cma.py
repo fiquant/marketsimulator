@@ -20,7 +20,7 @@ class CMA(fold.Last, types.IDifferentiable):
             if T > 0 and self._x is not None else None
     
     def _getLabel(self):
-        return 'CMA_{' + getLabel(self._source) + '}'
+        return 'CMA'
     
     def derivative(self):
         return self.derivativeAt(self._scheduler.currentTime)

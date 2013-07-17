@@ -36,7 +36,7 @@ class Variance(fold.Last):
             return None
     
     def _getLabel(self):
-        return '\sigma^2_{' + getLabel(self._source) + '}'
+        return '\sigma^2'
         
     def update(self, t, x):
         if x is not None:

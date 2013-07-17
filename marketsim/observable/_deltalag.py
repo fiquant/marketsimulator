@@ -21,7 +21,7 @@ class DeltaLag(fold.Last, ops.Observable[float]):
         return self._x - self._backX
     
     def _getLabel(self):
-        return 'DeltaLag_{' + getLabel(self._source) + '}^{'+str(self.timeframe)+'}'
+        return 'DeltaLag_{%s}' % self.timeframe
     
     def _remove(self, x):
         self._backX = x

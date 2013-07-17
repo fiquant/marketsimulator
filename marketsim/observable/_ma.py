@@ -28,7 +28,7 @@ class MA(fold.Last, types.IDifferentiable):
             if T > 0 and self._x is not None else None
     
     def _getLabel(self):
-        return 'MA_{' + getLabel(self._source) + '}^{'+str(self.timeframe)+'}'
+        return 'MA_{%s}' % self.timeframe
     
     def derivative(self):
         return self.derivativeAt(self._scheduler.currentTime)
