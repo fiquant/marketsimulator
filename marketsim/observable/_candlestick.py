@@ -13,10 +13,10 @@ class CandleStick(collections.namedtuple("CandleStick", [
 from _cma import CMA
 from _stddev import StdDev
 
-class CandleSticks(types.Observable[types.ICandleStick]):
+class CandleSticks(ops.Observable[types.ICandleStick]):
     
     def __init__(self, source, timeframe = 1.):
-        types.Observable[types.ICandleStick].__init__(self)
+        ops.Observable[types.ICandleStick].__init__(self)
         self._source = source
         self._event = event.subscribe(source, _(self)._update, self)
         event.subscribe(scheduler.Timer(ops.constant(timeframe)), _(self)._flush, self)

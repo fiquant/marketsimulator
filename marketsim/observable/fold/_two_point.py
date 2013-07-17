@@ -1,9 +1,9 @@
-from marketsim import types, event, _
+from marketsim import types, event, _, ops
 
-class TwoPoint(types.Observable[float]):
+class TwoPoint(ops.Observable[float]):
     
     def __init__(self, source):
-        types.Observable[float].__init__(self)
+        ops.Observable[float].__init__(self)
         
         self._source = source
         self._event = event.subscribe(source, _(self)._wakeup, self)

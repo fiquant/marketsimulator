@@ -2,11 +2,11 @@ from marketsim import ops, types, event, _, getLabel
 
 import fold
 
-class DeltaLag(fold.Last, types.Observable[float]):
+class DeltaLag(fold.Last, ops.Observable[float]):
     
     def __init__(self, source, timeframe):
         fold.Last.__init__(self, source)
-        types.Observable[float].__init__(self)
+        ops.Observable[float].__init__(self)
         
         self.timeframe = timeframe
         self.reset()
@@ -33,10 +33,10 @@ class DeltaLag(fold.Last, types.Observable[float]):
             self._x = x
             self.fire(self)
 
-class Base(types.Observable[float]):
+class Base(ops.Observable[float]):
     
     def __init__(self, source):
-        types.Observable[float].__init__(self)
+        ops.Observable[float].__init__(self)
         self._source = source
         self._event = event.subscribe(source, self.fire, self)
         

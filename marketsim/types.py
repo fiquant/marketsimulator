@@ -76,8 +76,6 @@ IObservable = Factory('IObservable', """(IEvent, IFunction[%(T)s], IObservable_o
 
 IObservable[object] = IObservable_object
 
-Observable = Factory('Observable', '''(IObservable[%(T)s], event.Conditional):''')
-
 class IOrder(object):
     pass
 

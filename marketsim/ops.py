@@ -38,6 +38,8 @@ Function = types.Factory("Function", """(Function_impl, types.IFunction[%(T)s]):
     T = %(T)s
 """, globals())   
 
+Observable = types.Factory('Observable', '''(types.IObservable[%(T)s], Function[%(T)s], event.Conditional):''', globals())
+
 class BinaryOp_Impl(object):
     
     def __init__(self, lhs, rhs):
@@ -60,10 +62,10 @@ class BinaryOp_Impl(object):
     def __repr__(self):
         return '(' + repr(self.lhs) + self.sign + repr(self.rhs) + ')'
 
-BinaryOp = types.Factory("BinaryOp", """(BinaryOp_Impl, Function[%(T)s], types.Observable[%(T)s]):
+BinaryOp = types.Factory("BinaryOp", """(BinaryOp_Impl, Observable[%(T)s]):
     def __init__(self, lhs, rhs):
         BinaryOp_Impl.__init__(self, lhs, rhs)
-        types.Observable[%(T)s].__init__(self)
+        Observable[%(T)s].__init__(self)
 
     _properties = [('lhs', meta.function((), %(T)s)), 
                    ('rhs', meta.function((), %(T)s))]
@@ -313,11 +315,11 @@ class Product(BinaryOp[float]):
     def _call(self, lhs, rhs):
         return lhs * rhs
     
-class Sqr(types.Observable[float]):
+class Sqr(Observable[float]):
     
     def __init__(self, source):
         self._source = source
-        types.Observable[float].__init__(self)
+        Observable[float].__init__(self)
         self._event = event.subscribe(source, _(self).fire, self)
         
     _properties = { 'source' : types.IObservable[float] }

@@ -1,8 +1,8 @@
 import random
-from marketsim import _, Event, meta, types, mathutils, registry, scheduler, event
+from marketsim import _, Event, meta, types, ops, mathutils, registry, scheduler, event
 
 @registry.expose(['Random walk'])
-class RandomWalk(types.Observable[float]):
+class RandomWalk(ops.Observable[float]):
     """ A discrete signal with user-defined increments.
     
         Parameters:

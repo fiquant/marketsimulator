@@ -1,12 +1,12 @@
 import heapq
 import math
 
-from marketsim import Event, _, types
+from marketsim import Event, _, types, ops
 
-class BestPrice(types.Observable[float]):
+class BestPrice(ops.Observable[float]):
     
     def __init__(self, queue):
-        types.Observable[float].__init__(self)
+        ops.Observable[float].__init__(self)
         self.queue = queue
         
     @property
@@ -21,10 +21,10 @@ class BestPrice(types.Observable[float]):
         return None if self.queue.empty else self.queue.best.price 
     
 
-class LastTrade(types.Observable[float]):
+class LastTrade(ops.Observable[float]):
     
     def __init__(self):
-        types.Observable[float].__init__(self)
+        ops.Observable[float].__init__(self)
         self._lastTrade = None
         
     def set(self, value):

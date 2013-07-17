@@ -55,9 +55,9 @@ class IndicatorBase_Impl(object):
         """
         return self._dataSource()
     
-IndicatorBaseT = types.Factory("IndicatorBaseT", """(IndicatorBase_Impl, types.Observable[%(T)s]):
+IndicatorBaseT = types.Factory("IndicatorBaseT", """(IndicatorBase_Impl, ops.Observable[%(T)s]):
     def __init__(self, eventSource, dataSource, attributes = {}):
-        types.Observable[%(T)s].__init__(self)
+        ops.Observable[%(T)s].__init__(self)
         IndicatorBase_Impl.__init__(self, eventSource, dataSource, attributes)
 
     _properties = [ ('dataSource'  , types.IFunction[%(T)s]) ]

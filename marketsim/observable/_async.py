@@ -1,9 +1,9 @@
-from marketsim import Side, getLabel, Event, meta, types, bind, scheduler, event, _
+from marketsim import Side, getLabel, Event, meta, types, bind, scheduler, event, _, ops
 
 def sign(x):
     return 1 if x > 0 else -1 if x < 0 else 0
 
-class Efficiency(types.Observable[float]):
+class Efficiency(ops.Observable[float]):
     """ Observes trader's balance as if was cleared (trader's balance if its position was cleared).
     Can be None if there is not enough assets on the market to clear the position.
     This observable is updated when trader position is changed 
