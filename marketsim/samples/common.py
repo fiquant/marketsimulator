@@ -43,6 +43,9 @@ class Context(object):
     
         self.graph = graph_renderer
         self.price_graph = self.graph("Price")
+        self.askbid_graph = self.graph("AskBid")
+        self.candles_graph = self.graph("Candles")
+        self.avgs_graph = self.graph("Averages")
         self.eff_graph = self.graph("efficiency")
         self.amount_graph = self.graph("amount")
         self.balance_graph = self.graph('balance')
@@ -55,6 +58,9 @@ class Context(object):
         
         self.graphs = [
                        self.price_graph, 
+                       self.askbid_graph,
+                       self.candles_graph,
+                       self.avgs_graph,
                        self.eff_graph, 
                        self.amount_graph,
                        self.balance_graph, 
@@ -158,25 +164,29 @@ def orderBooksToRender(ctx, traders):
             
             return ([
                 timeserie.ToRecord(assetPrice, ctx.price_graph), 
-                timeserie.ToRecord(candlesticks, ctx.price_graph),
                 timeserie.ToRecord(askPrice, ctx.price_graph),
                 timeserie.ToRecord(bidPrice, ctx.price_graph),
-                #timeserie.ToRecord(observable.LastTradePrice(thisBook), ctx.price_graph), 
-                timeserie.ToRecord(observable.AskLastTradePrice(thisBook), ctx.price_graph), 
-                timeserie.ToRecord(observable.BidLastTradePrice(thisBook), ctx.price_graph), 
-                  
-                timeserie.ToRecord(observable.OnEveryDt(1, askWeightedPrice), ctx.price_graph), 
-                timeserie.ToRecord(observable.OnEveryDt(1, bidWeightedPrice), ctx.price_graph), 
-                   
-                timeserie.ToRecord(observable.OnEveryDt(1, cma), ctx.price_graph), 
+
+                timeserie.ToRecord(observable.LastTradePrice(thisBook), ctx.askbid_graph), 
+                timeserie.ToRecord(observable.AskLastTradePrice(thisBook), ctx.askbid_graph), 
+                timeserie.ToRecord(observable.BidLastTradePrice(thisBook), ctx.askbid_graph), 
+                timeserie.ToRecord(observable.OnEveryDt(1, askWeightedPrice), ctx.askbid_graph), 
+                timeserie.ToRecord(observable.OnEveryDt(1, bidWeightedPrice), ctx.askbid_graph), 
+                
+                timeserie.ToRecord(assetPrice, ctx.candles_graph), 
+                timeserie.ToRecord(candlesticks, ctx.candles_graph),
+
+                timeserie.ToRecord(assetPrice, ctx.avgs_graph), 
+                timeserie.ToRecord(observable.OnEveryDt(1, cma), ctx.avgs_graph), 
+                timeserie.ToRecord(observable.OnEveryDt(1, ma20), ctx.avgs_graph), 
+                timeserie.ToRecord(observable.OnEveryDt(1, ma100), ctx.avgs_graph), 
+                timeserie.ToRecord(avg(assetPrice, alpha=0.15), ctx.avgs_graph),
+                timeserie.ToRecord(avg(assetPrice, alpha=0.65), ctx.avgs_graph),
+                timeserie.ToRecord(avg(assetPrice, alpha=0.015), ctx.avgs_graph),
                  
                 timeserie.ToRecord(assetPrice, ctx.minmax_graph),
                 timeserie.ToRecord(max, ctx.minmax_graph),
                 timeserie.ToRecord(min, ctx.minmax_graph),
- 
-                timeserie.ToRecord(avg(assetPrice, alpha=0.15), ctx.price_graph),
-                timeserie.ToRecord(avg(assetPrice, alpha=0.65), ctx.price_graph),
-                timeserie.ToRecord(avg(assetPrice, alpha=0.015), ctx.price_graph)
             ] 
             + bollinger(ma100, stddev100, ctx.bollinger_100_graph) 
             + bollinger(ma20, stddev20, ctx.bollinger_20_graph)

@@ -199,6 +199,10 @@ class LastTrade(Proxy):
     def _impl(self):
         return self.orderbook.lastTrade
     
+    @property
+    def attributes(self):
+        return { 'transparency' : 80 }
+    
 class LastTradePrice(LastTrade): 
     # TODO: we'll need to say to typechecker that 
     # it is Observable[Price] but not Observable[PriceVolume]

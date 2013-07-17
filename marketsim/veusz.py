@@ -162,6 +162,8 @@ def translateAttributes(src):
         res['FillAbove/color'] =  u'#aaff7f'
         res['FillAbove/hide'] = False
         res['FillAbove/transparency'] = 90
+    if 'transparency' in src:
+        res['PlotLine/transparency'] = src["transparency"]
         
     return res
 
