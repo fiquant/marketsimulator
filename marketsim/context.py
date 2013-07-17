@@ -7,6 +7,10 @@ debug = False
 def primitive(typ):
     return typ is int or typ is float or typ is bool or typ is str
 
+def is_iterable(obj):
+    t = type(obj)
+    return t is list or t is set
+    
 class Base(object):
     
     def __init__(self, indent = 0):
@@ -51,13 +55,12 @@ class Base(object):
         
         self.inc()
         
-        try:
-            seq = iter(obj)
+        if is_iterable(obj):
             self.log('[')
-            for x in seq:
+            for x in iter(obj):
                 self.apply(x)
             self.log(']')
-        except TypeError:  
+        else:  
             if not self.mark_visited(obj):
                 self.log('*')
             else:
@@ -113,27 +116,29 @@ class Binder(Base):
             return True
         else:
             return False
-     
+    
+    def hasContext(self, obj):
+        return 'updateContext' in dir(obj)
+    
+    def hasDefinitions(self, obj):
+        return '_definitions' in dir(obj)
+    
     def enter(self, obj):   
         def push():
             self.__dict__['_context'].append(dict(self.__dict__['_context'][-1]))
-        def hasContext():
-            return 'updateContext' in dir(obj)
-        def hasDefinitions():
-            return '_definitions' in dir(obj)
 
-        if hasContext() or hasDefinitions():
+        if self.hasContext(obj) or self.hasDefinitions(obj):
             push()
 
-        if hasContext():
+        if self.hasContext(obj):
             obj.updateContext(self)
             
-        if hasDefinitions():
+        if self.hasDefinitions(obj):
             for name, value in obj._definitions.iteritems():
                 self.context[name] = value
             
     def exit(self, obj):
-        if 'updateContext' in dir(obj):
+        if self.hasContext(obj) or self.hasDefinitions(obj):
             self.__dict__['_context'].pop()
             
     _method = 'bind'

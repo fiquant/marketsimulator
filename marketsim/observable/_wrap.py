@@ -33,6 +33,10 @@ class %(name)s_Generated(_wrap.%(kind)sBase, %(name)s):
         _wrap.%(kind)sBase.__init__(self)
         %(name)s_Impl.__init__(self)
         
+    def updateContext(self, ctx):
+        %(binds)s
+        pass
+        
     @property
     def attributes(self):
         return {}
@@ -64,6 +68,7 @@ def _generate(kind, cls, alias, docstring, fields, ctx):
     args = process("%(name)s = None")
     ctor = process("self._%(name)s = %(name)s if %(name)s is not None else %(ini)s", "; ")
     props= process("\'%(name)s\' : %(typ)s")
+    binds = process("ctx.%(name)s = self._%(name)s", "; ")
     pdefs = "".join([prop % locals() for (name, _,_) in fields])
     reg = "@registry.expose("+str(alias)+")"# if register else ""
     name = cls.__name__
