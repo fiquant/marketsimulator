@@ -8,3 +8,4 @@ server/_saved/
 wsgi/_saved/*
 wsgi/_cache/*
 marketsim/config_user.py
+marketsim/config_user.py

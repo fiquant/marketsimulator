@@ -144,9 +144,9 @@ class QueueWeightedPrice(ops.Function[float]):
     
     @property
     def label(self):
-        return 'WeightedPrice_{0}({1})'.format(_wrap.curly(self.alpha), self.orderqueue.label)
+        return 'WeightedPrice_{%g}(%s)' % (self.alpha, self.orderqueue.label)
     
-_wrap.generate(QueueWeightedPrice, ["OrderQueue's", "Trade weighted price"], 
+_wrap.function(QueueWeightedPrice, ["OrderQueue's", "Trade weighted price"], 
                """ Moving average of trade prices weighted by volumes of an order queue
                """, 
                [
@@ -172,8 +172,26 @@ def AskPrice(book):
 def BidPrice(book):
     return QueuePrice(orderbook.Bids(book))
 
-def MidPrice(book):
-    return (AskPrice(book) + BidPrice(book)) / 2
+class MidPrice(types.Observable[float]):
+    
+    def getDefinitions(self):
+        return {
+            'book' : self.orderBook
+        }
+        
+    def getImpl(self):
+        return (AskPrice(self.orderBook) + BidPrice(self.orderBook)) / 2
+    
+    @property
+    def label(self):
+        return "MidPrice(%s)" % self.orderBook.label
+
+_wrap.observable(MidPrice, ["Asset's", "MidPrice"], 
+               """ Arithmetic mean of ask and bid price of an asset
+               """, 
+               [
+                    ('orderBook', 'orderbook.Proxy()', 'types.IOrderBook')
+               ], globals())        
 
 class LastTrade(Proxy):
     
