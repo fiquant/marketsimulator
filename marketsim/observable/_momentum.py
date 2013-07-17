@@ -26,7 +26,7 @@ class RSI(ops.Function[float]):
     
     @property    
     def label(self):
-        return 'RSI_{{0}}^{{1}}'.format(self.orderBook.label, self.timeframe)
+        return 'RSI_{0}^{1}'.format(_wrap.curly(self.orderBook.label), _wrap.curly(self.timeframe))
     
 _wrap.generate(RSI, ["Asset's", "Relative strength index"],
     """ Relative strength index

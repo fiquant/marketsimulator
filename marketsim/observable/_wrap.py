@@ -57,3 +57,7 @@ def generate(cls, alias, docstring, fields, ctx):
     name = cls.__name__
     #print (tmpl + pdefs + trailer) % locals()
     exec (tmpl + pdefs + trailer) % locals() in ctx
+
+def curly(x):
+    return '{' + str(x) + '}'
+

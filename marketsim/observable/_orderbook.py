@@ -1,8 +1,11 @@
 from marketsim import (meta, Event, types, context, Side, event, scheduler, 
-                       mathutils, getLabel, ops, defs, _, orderbook)
+                       mathutils, getLabel, registry, ops, defs, _, orderbook)
 
 from _computed import IndicatorBase
     
+import _wrap 
+from marketsim.types import *
+
 class price_at_volume(ops.Function[float]):
 
     def __init__(self, orderbook, side, volumeAt):
@@ -127,11 +130,29 @@ class QueueLastTradeVolume(QueueLastTrade):
     
 from _ewma import EWMA
 
-def QueueWeightedPrice(orderqueue, alpha):
-    price  = QueueLastTradePrice(_.orderqueue)
-    return defs(EWMA(price * _.volume, alpha) / EWMA(_.volume, alpha), 
-                { "volume"      : QueueLastTradeVolume(_.orderqueue) , 
-                  'orderqueue'  : orderqueue} )
+class QueueWeightedPrice(ops.Function[float]):
+    
+    def getDefinitions(self):
+        return {
+            "volume"      : QueueLastTradeVolume(_.orderqueue) , 
+            'orderqueue'  : self.orderqueue
+        }
+        
+    def getImpl(self):
+        price  = QueueLastTradePrice(_.orderqueue)
+        return EWMA(price * _.volume, self.alpha) / EWMA(_.volume, self.alpha)
+    
+    @property
+    def label(self):
+        return 'WeightedPrice_{0}({1})'.format(_wrap.curly(self.alpha), self.orderqueue.label)
+    
+_wrap.generate(QueueWeightedPrice, ["OrderQueue's", "Trade weighted price"], 
+               """ Moving average of trade prices weighted by volumes of an order queue
+               """, 
+               [
+                    ('orderqueue', 'orderbook.Asks(orderbook.Proxy())', 'types.IOrderQueue'), 
+                    ('alpha'     , 0.15,                                'positive')
+               ], globals())
     
 def AskWeightedPrice(book, alpha):
     return QueueWeightedPrice(orderbook.Asks(book), alpha)
