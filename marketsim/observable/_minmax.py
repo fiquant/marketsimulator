@@ -36,7 +36,7 @@ class Min(fold.Last, ops.Observable[float]):
         self.fire(self)
     
     def update(self, t, x):
-        if x is not None and (self._x is None or x > self._x):
+        if x is not None and (self._x is None or x < self._x):
             if x not in self._levels:
                 self._levels[x] = 0
             self._levels[x] += 1 
@@ -77,7 +77,7 @@ class Max(fold.Last, ops.Observable[float]):
         self.fire(self)
     
     def update(self, t, x):
-        if x is not None and (self._x is None or x < self._x):
+        if x is not None and (self._x is None or x > self._x):
             if -x not in self._levels:
                 self._levels[-x] = 0
             self._levels[-x] += 1 
