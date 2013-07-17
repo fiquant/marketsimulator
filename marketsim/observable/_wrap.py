@@ -3,7 +3,8 @@ from marketsim import ops, types, event, _, flags
 class Base(object):
 
     def __init__(self):
-        self._definitions = self.getDefinitions()
+        if 'getDefinitions' in dir(self):
+            self._definitions = self.getDefinitions()
         self.impl = self.getImpl()
                 
     def __call__(self):
