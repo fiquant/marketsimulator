@@ -119,3 +119,7 @@ class Remote(BookBase):
             _(self._book, side, volume, _(self, callback)._sendToDownLink)
                 .evaluateOrderPriceAsync)
         
+    def evaluateVolumesForBudget(self, side, budget, callback):
+        self._upLink.send(
+            _(self._book, side, budget, _(self, callback)._sendToDownLink)
+                .evaluateVolumesForBudget)
