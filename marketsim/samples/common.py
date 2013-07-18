@@ -275,7 +275,7 @@ def run(name, constructor, only_veusz):
             o.on_matched += p("matched: ")
             o.on_cancelled += p("cancelled: ")
             
-            world.schedule(250, lambda: ctx.book_A.process(o))
+            world.schedule(250, lambda: ctx.remote_A.process(o))
         
         if not only_veusz and config.checkConsistency:
             r.typecheck()
