@@ -17,6 +17,11 @@ class _Arbitrage_Impl(MultiAssetStrategy):
         # something like std::map<Ticks, OrderQueue>[2]
         self._bests = [sorteddict(), sorteddict()]
         self._oldBests = {}
+        self._pending = set()
+        
+    def _onCancelled(self, order):
+        self._pending.remove(order)
+        #print len(self._pending)
         
     def inner(self, myQueue, side):
         """Called when in some queue a new best order appeared"""
@@ -76,19 +81,21 @@ class _Arbitrage_Impl(MultiAssetStrategy):
                     # but cancel them immediately in order to avoid storing these limit orders in the book
                     # this logic is implemented by LimitMarketOrder
                     
-                    self._send( 
-                        myQueue.book, 
-                        order.LimitMarket(oppositeSide, 
-                                          myPrice, 
-                                          volumeToTrade)                                    
-                    )
+                    def send(o):
+                        self._pending.add(o)
+                        
+                        o.on_cancelled += _(self)._onCancelled
+                             
+                        self._send(myQueue.book, o)
+                        
+                    send(order.LimitMarket(oppositeSide, 
+                                           myPrice, 
+                                           volumeToTrade))                               
                     
-                    self._send( 
-                        oppositeQueue.book, 
-                        order.LimitMarket(side, 
-                                          oppositePrice, 
-                                          volumeToTrade)                                    
-                    )
+                    
+                    send(order.LimitMarket(side, 
+                                           oppositePrice, 
+                                           volumeToTrade))                                    
                     
     def _send(self, orderbook, order):
         for t in self._traders:

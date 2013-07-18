@@ -39,6 +39,11 @@ class LimitMarket(Base):
         self._order = LimitFactory(side)(price, volume)
         # translate its events to our listeners
         self._order.on_matched += self.on_matched.fire
+        #self._order.on_cancelled += self.on_cancelled.fire
+        self._order.on_cancelled += _(self)._onCancelled
+        
+    def _onCancelled(self, order):
+        self.on_cancelled.fire(self)
         
     def processIn(self, orderBook):
         orderBook.process(self._order)
@@ -64,6 +69,24 @@ def LimitMarketFactory(side):
     return bind.Construct(LimitMarket, side)
 
 LimitMarketFactory.__doc__ = LimitMarket.__doc__
+
+class FixedBudget(object):
+    
+    def __init__(self, side, budget):
+        self.side = side
+        self.budget = budget
+        
+    def processIn(self, orderBook):
+        orderBook.evaluateVolumesForBudget(self.side, self.budget, 
+                                           _(self, orderBook)._onEvaluated)
+        
+    def _onEvaluated(self, orderBook, pvs):
+        self._ordersSent = 0
+        for p,v in pvs:
+            order = LimitMarket(self.side, p, v)
+            event.subscribe(order.on_matched, _(self)._onMatched, self, {}) 
+            orderBook.process(order)
+            self._ordersSent += 1
 
 class WithExpiry(Base):
     """ Limit-like order which is cancelled after given *delay*

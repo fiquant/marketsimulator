@@ -84,14 +84,22 @@ class Remote(BookBase):
         order.remote.copyTo(order)
         order.on_matched.fire(*args)
         
+    def _on_cancelled(self, order, *args):
+        order.remote.copyTo(order)
+        order.on_cancelled.fire(order)
+        
     def _send_to_downlink(self, order, *args):
         self._downLink.send(_(self, order, *args)._on_matched)
+
+    def _send_to_downlink_cancelled(self, order, *args):
+        self._downLink.send(_(self, order, *args)._on_cancelled)
 
     def _remote(self, order):
         remote = order.clone()
         assert 'remote' not in dir(order)
         order.remote = remote
         remote.on_matched += _(self, order)._send_to_downlink
+        remote.on_cancelled += _(self, order)._send_to_downlink_cancelled
         return remote       
         
     def processMarketOrder(self, order):

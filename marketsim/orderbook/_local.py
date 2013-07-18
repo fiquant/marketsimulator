@@ -85,10 +85,15 @@ class Local(BookBase):
             and having given 'volume' would be executed 
         """
         return self._queues[side.opposite.id].evaluateOrderPrice(volume)
-
+    
     def evaluateOrderPriceAsync(self, side, volume, callback):
         callback(self.evaluateOrderPrice(side, volume))
 
+    def evaluateVolumesForBudget(self, side, budget, callback):
+        res = list(self._queues[side.opposite.id].pvsForFixedBudget(budget))
+        callback(res)
+        
+        
     def processLimitOrder(self, order):
         """ Processes 'order' as limit order:
         If it is not matched completely, it stays at the order queue
