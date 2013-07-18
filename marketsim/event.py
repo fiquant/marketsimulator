@@ -75,11 +75,11 @@ class Conditional(Event):
         if len(self._less) or len(self._greater):
             current = self() 
             if current is not None:
-                for bound, handlers in self._greater.iteritems():
+                for bound, handlers in list(self._greater.iteritems()):
                     if bound < current:
                         for handler in handlers:
                             handler(*args)
-                for bound, handlers in self._less.iteritems():
+                for bound, handlers in list(self._less.iteritems()):
                     if -bound > current:
                         for handler in handlers:
                             handler(*args)

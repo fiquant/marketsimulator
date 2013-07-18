@@ -12,7 +12,7 @@ def Arbitrage(ctx):
     
     ctx.volumeStep = 70
     
-    factory = order.WithExpiryFactory(ops.constant(100))
+    factory = order.WithExpiryFactory(ops.constant(50))
 
     return [
         ctx.makeTrader_A( 

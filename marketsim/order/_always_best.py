@@ -24,6 +24,8 @@ class AlwaysBest(Base):
             if self._current is not None:
                 self._orderSubscription.dispose()
                 queue.book.process(Cancel(self._current))
+                self._subscription.dispose()
+                #print "cancelled"
             if not self.empty and not self.cancelled:
                 price = queue.best.price
                 tick = queue.book.tickSize
@@ -34,13 +36,18 @@ class AlwaysBest(Base):
                                     _(self).onOrderMatched,
                                     self, {})
                 queue.book.process(self._current)
+                #print self.side, price
+                handler = (event.GreaterThan \
+                                if self.side == Side.Buy else \
+                           event.LessThan)(price, (self)._onBestOrderChanged)
+                self._subscription = event.subscribe(
+                                        queue.bestPrice,
+                                        handler,
+                                        self, {})
+                #print "queued"
         
     def processIn(self, book):
         self._onBestOrderChanged(book.queue(self.side))
-        self._subscription = event.subscribe(
-                                book.queue(self.side).bestPrice,
-                                _(self)._onBestOrderChanged,
-                                self, {})
 
 @registry.expose(['AlwaysBest'])
 class AlwaysBestFactory(object):
