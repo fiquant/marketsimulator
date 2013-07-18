@@ -86,10 +86,17 @@ class FixedBudget(object):
         self._ordersSent = 0
         for p,v in pvs:
             order = LimitMarket(self.side, p, v)
-            event.subscribe(order.on_matched, self.on_matched.fire, self, {}) 
+            event.subscribe(order.on_matched, _(self)._onMatched, self, {}) 
             event.subscribe(order.on_cancelled, _(self)._onCancelled, self, {}) 
             orderBook.process(order)
             self._ordersSent += 1
+            
+    def __repr__(self):
+        return 'FixedBudget(%s,%s)' % (self.side, self.budget)
+            
+    def _onMatched(self, order, other, (p,v)):
+        self.budget -= p*v
+        self.on_matched.fire(self, other, (p,v))
             
     def _onCancelled(self, order):
         self._ordersSent -= 1
