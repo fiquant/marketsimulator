@@ -131,7 +131,13 @@ class Binder(Base):
             push()
 
         if self.hasContext(obj):
-            obj.updateContext(self)
+            methods_visited = set()    
+            for base in reversed(inspect.getmro(type(obj))):
+                if 'updateContext' in dir(base):
+                    method = getattr(base, 'updateContext') 
+                    if method not in methods_visited:
+                        obj.updateContext(self)
+                        methods_visited.add(method)
             
         if self.hasDefinitions(obj):
             for name, value in obj._definitions.iteritems():

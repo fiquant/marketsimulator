@@ -9,7 +9,7 @@ class Reference(object):
     def bind(self, ctx):
         assert self._impl is  None
         self._impl = getattr(ctx, self.name)
-        context.bind(self._impl, ctx)
+        #context.bind(self._impl, ctx)
         
     @property
     def pointee(self):

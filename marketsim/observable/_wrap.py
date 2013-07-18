@@ -33,10 +33,6 @@ class %(name)s_Generated(_wrap.%(kind)sBase, %(name)s):
         _wrap.%(kind)sBase.__init__(self)
         %(name)s_Impl.__init__(self)
         
-    def updateContext(self, ctx):
-        %(binds)s
-        pass
-        
     @property
     def attributes(self):
         return {}

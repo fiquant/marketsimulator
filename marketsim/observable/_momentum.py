@@ -20,7 +20,7 @@ class RSI(ops.Function[float]):
             'price' : MidPrice(self.orderBook),
             'deltas': DeltaLag(_.price, self.timeframe) 
         }
-    
+        
     def getImpl(self):
         return ops.constant(100.) - (ops.constant(100.) / (ops.constant(1.) + _.rs))    
     
