@@ -2,7 +2,7 @@ import sys, itertools, pickle
 sys.path.append(r'..')
 
 from marketsim import (orderbook, observable, timeserie, scheduler, veusz, registry, event, config, 
-                       context, trader, orderbook, Side, remote, ops, bind, signal, strategy)
+                       context, trader, orderbook, Side, remote, ops, bind, signal, strategy, order)
 
 simulations = {}
 
@@ -263,6 +263,19 @@ def run(name, constructor, only_veusz):
         r.insert(root)
         r.pushAllReferences()
         context.bind(root, {'world' : world })
+        
+        if False:
+            o = order.FixedBudget(Side.Buy, 10000)
+            
+            def p(l):
+                def inner(*args):
+                    print l,args
+                return inner
+                
+            o.on_matched += p("matched: ")
+            o.on_cancelled += p("cancelled: ")
+            
+            world.schedule(250, lambda: ctx.book_A.process(o))
         
         if not only_veusz and config.checkConsistency:
             r.typecheck()

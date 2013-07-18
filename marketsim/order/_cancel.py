@@ -1,4 +1,4 @@
-from marketsim import Event, scheduler, registry, ops, types, meta, bind, Side, _
+from marketsim import Event, scheduler, registry, ops, types, meta, bind, Side, _, event
 from _base import Base
 from _limit import LimitFactory
 
@@ -75,6 +75,8 @@ class FixedBudget(object):
     def __init__(self, side, budget):
         self.side = side
         self.budget = budget
+        self.on_matched = Event()
+        self.on_cancelled = Event()
         
     def processIn(self, orderBook):
         orderBook.evaluateVolumesForBudget(self.side, self.budget, 
@@ -84,9 +86,15 @@ class FixedBudget(object):
         self._ordersSent = 0
         for p,v in pvs:
             order = LimitMarket(self.side, p, v)
-            event.subscribe(order.on_matched, _(self)._onMatched, self, {}) 
+            event.subscribe(order.on_matched, self.on_matched.fire, self, {}) 
+            event.subscribe(order.on_cancelled, _(self)._onCancelled, self, {}) 
             orderBook.process(order)
             self._ordersSent += 1
+            
+    def _onCancelled(self, order):
+        self._ordersSent -= 1
+        if self._ordersSent == 0:
+            self.on_cancelled.fire(self)
 
 class WithExpiry(Base):
     """ Limit-like order which is cancelled after given *delay*
