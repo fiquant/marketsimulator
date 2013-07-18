@@ -242,10 +242,6 @@ class Queue(object):
             yield (volumes[i], None)
             i += 1
         
-        
-        
-        
-
     def withPricesBetterThan(self, limit, idx=0):
         """ Enumerates orders with price better than or equal to 'limit'
         """
@@ -262,3 +258,16 @@ class Queue(object):
         """ Returns total volume of orders having price better than or equal to 'limit'
         """
         return sum([x.volume for x in self.withPricesBetterThan(limit)])
+    
+    def pvsForFixedBudget(self, budget):
+        """ Returns (price, volume) for limit orders to be placed 
+            in order to buy or sell assets on total *price*
+        """
+        for p,v in self.sortedPVs:
+            pv = p*v
+            if pv < budget:
+                yield p,v
+                budget -= pv
+            else:
+                yield p, int(math.floor(budget / p))
+                return
