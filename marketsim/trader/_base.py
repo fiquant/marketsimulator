@@ -1,5 +1,7 @@
 from marketsim import Event, _, Side, types, meta, timeserie
 
+from _history import TraderHistory
+
 class Base(timeserie.Holder):
     """ Base class for traders.
     Responsible for bookkeeping P&L of the trader and 
@@ -16,13 +18,16 @@ class Base(timeserie.Holder):
         self.on_order_sent = Event()
         # event to be fired when a trader's is traded
         self.on_traded = Event()
+        self.log = TraderHistory()
         self.reset()
         
     def updateContext(self, context):
         context.trader = self
                 
     def reset(self):   
-        self._PnL = 0 
+        self._PnL = 0
+
+    _internals = ['log']
         
     _properties = {'PnL'        : float }
     
@@ -61,5 +66,7 @@ class Base(timeserie.Holder):
         """ Sends 'order' to 'book'
         After having the order sent notifies listeners about it 
         """
+        # order = self.log.matchWithOwn(order)
+        order = self.log(order)
         book.process(self._makeSubscribedTo(order))
         self.on_order_sent.fire(order)        
