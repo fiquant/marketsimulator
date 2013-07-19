@@ -18,8 +18,6 @@ class _MarketData_Impl(Strategy):
         end = datetime.strptime(self.end, '%d/%m/%Y')
 
         self.quotes = self.loadData(self.ticker, start, end)['Adj Close']
-        self.buyOrder = None
-        self.sellOrder = None
 
     def loadData(self, ticker, start, end):
         try:
@@ -32,18 +30,14 @@ class _MarketData_Impl(Strategy):
         return market_data
 
     def cancelPrevious(self):
-        if self.buyOrder is not None:
-            self._trader.send(order.Cancel(self.buyOrder))
-            self.buyOrder = None
-        if self.sellOrder is not None:
-            self._trader.send(order.Cancel(self.sellOrder))
-            self.sellOrder = None
+        for position in self.trader.log.pending:
+            self.trader.send(order.Cancel(position))
 
     def updatePosition(self, bid, ask):
-        self.buyOrder = order.LimitFactory(Side.Buy)(bid, self.volume)
-        self.sellOrder = order.LimitFactory(Side.Sell)(ask, self.volume)
-        self._trader.send(self.buyOrder)
-        self._trader.send(self.sellOrder)
+        buyOrder = order.LimitFactory(Side.Buy)(bid, self.volume)
+        sellOrder = order.LimitFactory(Side.Sell)(ask, self.volume)
+        self._trader.send(buyOrder)
+        self._trader.send(sellOrder)
 
     @property
     def time(self):
@@ -51,8 +45,9 @@ class _MarketData_Impl(Strategy):
 
     def _wakeUp(self, dummy):
         self.cancelPrevious()
-        myBid = self.quotes[self.time] - 0.1
-        myAsk = self.quotes[self.time] + 0.1
+        quote = self.quotes[self.time]
+        myBid = quote - 0.1
+        myAsk = quote + 0.1
         self.updatePosition(myBid, myAsk)
 
 
