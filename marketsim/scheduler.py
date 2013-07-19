@@ -1,4 +1,4 @@
-import heapq, threading, collections, time
+import heapq, threading, collections, time, sys
 from marketsim import types, Event, _, meta
 
 class stat(collections.namedtuple('stat', ['events_processed', 'events_rate', 'processing_time'])):

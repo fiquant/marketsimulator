@@ -193,6 +193,27 @@ _wrap.observable(MidPrice, ["Asset's", "MidPrice"],
                     ('orderBook', 'orderbook.Proxy()', 'types.IOrderBook')
                ], globals())        
 
+class Spread(ops.Observable[float]):
+    
+    def getDefinitions(self):
+        return {
+            'book' : self.orderBook
+        }
+        
+    def getImpl(self):
+        return AskPrice(_.book) - BidPrice(_.book)
+    
+    @property
+    def label(self):
+        return "Spread(%s)" % self.orderBook.label
+
+_wrap.observable(Spread, ["Asset's", "Spread"], 
+               """ Difference between ask and bid asset's price
+               """, 
+               [
+                    ('orderBook', 'orderbook.Proxy()', 'types.IOrderBook')
+               ], globals())        
+
 class LastTrade(Proxy):
     
     @property
