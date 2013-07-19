@@ -6,6 +6,7 @@ from _wrap import wrapper2
 from datetime import datetime
 from pandas.io.data import DataReader
 import pickle
+from marketsim.trader import TraderHistory, SingleProxy
 
 class _MarketData_Impl(Strategy):
 
@@ -18,6 +19,9 @@ class _MarketData_Impl(Strategy):
         end = datetime.strptime(self.end, '%d/%m/%Y')
 
         self.quotes = self.loadData(self.ticker, start, end)['Adj Close']
+        self.log = TraderHistory(SingleProxy())
+
+    _internals = ['log']
 
     def loadData(self, ticker, start, end):
         try:
@@ -30,12 +34,14 @@ class _MarketData_Impl(Strategy):
         return market_data
 
     def cancelPrevious(self):
-        for position in self.trader.log.pending:
+        for position in self.log.pending:
             self.trader.send(order.Cancel(position))
 
     def updatePosition(self, bid, ask):
         buyOrder = order.LimitFactory(Side.Buy)(bid, self.volume)
         sellOrder = order.LimitFactory(Side.Sell)(ask, self.volume)
+        self.log(buyOrder)
+        self.log(sellOrder)
         self._trader.send(buyOrder)
         self._trader.send(sellOrder)
 
