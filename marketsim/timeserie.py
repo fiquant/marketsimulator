@@ -48,6 +48,9 @@ class ToRecord(types.ITimeSerie):  # TODO: should the source be split into dataS
         """ Called when the source has changed
         """
         def appendex(target, (x,y)):
+            if y is None:
+                if target != [] and target[-1][1] != None:
+                    self._lastPoint = (x-1e-10, target[-1][1])
             if target != [] and target[-1][1] == y:
                 if self._smooth:
                     self._lastPoint = (x,y)
