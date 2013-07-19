@@ -10,24 +10,22 @@ class TraderHistory_Impl(object):
 
     def __init__(self, trader):
         self._trader = trader
-        event.subscribe(trader.on_order_sent, self, self)
         self.matched = OrderedDict()
         self.pending = OrderedDict()
         self.cancelled = OrderedDict()
+        self.allCancelled = Event()
         self.amount = 0
 
     def bind(self, context):
         self._scheduler = context.world
+        self._trader = context.trader
 
     def __call__(self, order):
         """ Track an order
         """
-        if order.__class__.__name__ != 'Cancel' and not order.empty:
+        if not isinstance(order, Cancel) and order.volume > 0:
             order.on_matched += _(self).onMatched
             order.on_cancelled += _(self).onCancelled
-
-            price = order.price if "price" in dir(order) else None
-            # print self._trader._label, "send", order.side, order.volume, price
             self.pending[order] = [State(self.time, 0, order.volume)]
 
         return order
@@ -91,6 +89,10 @@ class TraderHistory_Impl(object):
     def onCancelled(self, order):
         self.cancelled[order] = self.pending.pop(order)
         self.cancelled[order].append(State(self.time, 0, 0))
+
+        if not self.pending:
+            self.allCancelled.fire(True)
+
         
 def TraderHistory(trader):
     if 'log' not in dir(trader):
