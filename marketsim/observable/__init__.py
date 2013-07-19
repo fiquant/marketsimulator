@@ -24,3 +24,5 @@ from _orderbook import (PriceAtVolume, VolumeLevels,
 from _trader import  InstEfficiency, PnL, VolumeTraded
 
 from _candlestick import CandleSticks, CandleStick
+
+from _macd import MACD, signal as MACD_signal, histogram as MACD_histogram
