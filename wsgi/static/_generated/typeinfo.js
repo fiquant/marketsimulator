@@ -1,11 +1,10 @@
 var typeinfo = {
-    "marketsim.order._cancel.WithExpiryFactory": {
+    "marketsim.order._limit_market.LimitMarketFactory": {
         "castsTo": [
             {
                 "rv": {
                     "rv": "marketsim.types.IOrder",
                     "args": [
-                        "_parseFloat",
                         "_parseFloat"
                     ]
                 },
@@ -14,29 +13,8 @@ var typeinfo = {
                 ]
             }
         ],
-        "properties": {
-            "expirationDistr": {
-                "type": {
-                    "rv": "_parseFloat",
-                    "args": []
-                }
-            },
-            "orderFactory": {
-                "type": {
-                    "rv": {
-                        "rv": "marketsim.types.IOrder",
-                        "args": [
-                            "_parseFloat",
-                            "_parseFloat"
-                        ]
-                    },
-                    "args": [
-                        "marketsim.Side"
-                    ]
-                }
-            }
-        },
-        "description": "<div class=\"document\">\n<p>Limit-like order which is cancelled after given <em>delay</em></p>\n</div>\n"
+        "properties": {},
+        "description": "<div class=\"document\">\n<p>This a combination of a limit order and a cancel order sent immediately\nIt works as a market order in sense that it is not put into the order queue\nbut can be matched (as a limit order)\nonly if there are orders with suitable price in the queue</p>\n</div>\n"
     },
     "marketsim.trader._proxy.SingleProxy": {
         "castsTo": [
@@ -1313,23 +1291,6 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Function returning Sum of the operands</p>\n</div>\n"
     },
-    "marketsim.order._cancel.LimitMarketFactory": {
-        "castsTo": [
-            {
-                "rv": {
-                    "rv": "marketsim.types.IOrder",
-                    "args": [
-                        "_parseFloat"
-                    ]
-                },
-                "args": [
-                    "marketsim.Side"
-                ]
-            }
-        ],
-        "properties": {},
-        "description": "<div class=\"document\">\n<p>This a combination of a limit order and a cancel order sent immediately\nIt works as a market order in sense that it is not put into the order queue\nbut can be matched (as a limit order)\nonly if there are orders with suitable price in the queue</p>\n</div>\n"
-    },
     "marketsim.remote.Link": {
         "castsTo": [
             "marketsim.remote.Link"
@@ -2101,6 +2062,45 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n<p>Fundamental value strategy believes that an asset should have some specific price\n(<em>fundamental value</em>) and if the current asset price is lower than the fundamental value\nit starts to buy the asset and if the price is higher it starts to sell the asset.</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Order factory</strong></dt>\n<dd>order factory function (default: order.Market.T)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Fundamental value</strong></dt>\n<dd>defines fundamental value (default: constant 100)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n</div>\n"
+    },
+    "marketsim.order._with_expiry.WithExpiryFactory": {
+        "castsTo": [
+            {
+                "rv": {
+                    "rv": "marketsim.types.IOrder",
+                    "args": [
+                        "_parseFloat",
+                        "_parseFloat"
+                    ]
+                },
+                "args": [
+                    "marketsim.Side"
+                ]
+            }
+        ],
+        "properties": {
+            "expirationDistr": {
+                "type": {
+                    "rv": "_parseFloat",
+                    "args": []
+                }
+            },
+            "orderFactory": {
+                "type": {
+                    "rv": {
+                        "rv": "marketsim.types.IOrder",
+                        "args": [
+                            "_parseFloat",
+                            "_parseFloat"
+                        ]
+                    },
+                    "args": [
+                        "marketsim.Side"
+                    ]
+                }
+            }
+        },
+        "description": "<div class=\"document\">\n<p>Limit-like order which is cancelled after given <em>delay</em></p>\n</div>\n"
     },
     "marketsim.timeserie.ToRecord": {
         "castsTo": [

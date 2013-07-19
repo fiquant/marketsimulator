@@ -18,7 +18,6 @@ class Base(timeserie.Holder):
         self.on_order_sent = Event()
         # event to be fired when a trader's is traded
         self.on_traded = Event()
-        self.log = TraderHistory()
         self.reset()
         
     def updateContext(self, context):
@@ -27,8 +26,6 @@ class Base(timeserie.Holder):
     def reset(self):   
         self._PnL = 0
 
-    _internals = ['log']
-        
     _properties = {'PnL'        : float }
     
     @property
@@ -66,7 +63,5 @@ class Base(timeserie.Holder):
         """ Sends 'order' to 'book'
         After having the order sent notifies listeners about it 
         """
-        # order = self.log.matchWithOwn(order)
-        order = self.log(order)
         book.process(self._makeSubscribedTo(order))
         self.on_order_sent.fire(order)        

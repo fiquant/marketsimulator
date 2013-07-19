@@ -1,4 +1,4 @@
-from marketsim import Event, _, Side
+from marketsim import Event, _, Side, event
 from collections import OrderedDict, defaultdict, namedtuple
 from itertools import ifilter
 from operator import attrgetter
@@ -6,16 +6,17 @@ from marketsim.order import Cancel
 
 State = namedtuple('State', 'time price volume')
 
-class TraderHistory(object):
+class TraderHistory_Impl(object):
 
-    def __init__(self):
+    def __init__(self, trader):
+        self._trader = trader
+        event.subscribe(trader.on_order_sent, self, self)
         self.matched = OrderedDict()
         self.pending = OrderedDict()
         self.cancelled = OrderedDict()
         self.amount = 0
 
     def bind(self, context):
-        self._trader = context.trader
         self._scheduler = context.world
 
     def __call__(self, order):
@@ -90,3 +91,8 @@ class TraderHistory(object):
     def onCancelled(self, order):
         self.cancelled[order] = self.pending.pop(order)
         self.cancelled[order].append(State(self.time, 0, 0))
+        
+def TraderHistory(trader):
+    if 'log' not in dir(trader):
+        trader.log = TraderHistory_Impl(trader)
+    return trader.log
