@@ -90,3 +90,6 @@ class Base(object):
         self._PnL += volume * price
         #print "OrderMatched:", self, other, (price, volume)
         self.on_matched.fire(self, other, (price, volume))
+
+    def __hash__(self):
+        return id(self)
