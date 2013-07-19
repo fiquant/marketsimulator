@@ -9,6 +9,10 @@ class Base(object):
                 
     def __call__(self):
         return self.impl()
+    
+    @property
+    def label(self):
+        return self.impl.label
 
 class FunctionBase(Base):
 
@@ -24,7 +28,7 @@ class ObservableBase(Base):
         
 tmpl = """
 %(reg)s
-class %(name)s_Generated(_wrap.%(kind)sBase, %(name)s):
+class %(name)s_Generated(%(name)s, _wrap.%(kind)sBase):
     \"\"\" %(docstring)s
     \"\"\"    
     
