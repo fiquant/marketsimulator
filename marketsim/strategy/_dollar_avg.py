@@ -3,6 +3,7 @@ from marketsim.types import *
 from _basic import Strategy
 from _wrap import wrapper2
 from math import floor
+from marketsim.trader import TraderHistory, SingleProxy
 
 class _DollarAverage_Impl(Strategy):
 
@@ -13,15 +14,15 @@ class _DollarAverage_Impl(Strategy):
         self._eventGen = scheduler.Timer(self.creationIntervalDistr)
         event.subscribe(self._eventGen, _(self)._wakeUp, self)
         self.book = orderbook.OfTrader()
+        self.log = TraderHistory(SingleProxy())
+
         self.budget = 100
         self.profit_threshold = 0.01
         self.limit = 5
 
     def _wakeUp(self, dummy):
 
-        pending = self._trader.log.pending
-
-        if not pending:
+        if not self.log.pending:
 
             if self.profitable_to_sell:
                 side = Side.Sell
@@ -30,7 +31,7 @@ class _DollarAverage_Impl(Strategy):
                 side = Side.Buy
                 ask = self.book.queue(Side.Sell).bestPrice()
                 volume = self.budget / ask
-                if volume + self._trader.log.amount > self.limit:
+                if volume + self.log.amount > self.limit:
                     volume = 0
             else:
                 volume = 0
@@ -43,7 +44,7 @@ class _DollarAverage_Impl(Strategy):
     def profitable_to_sell(self):
 
         bid = self.book.queue(Side.Buy).bestPrice()
-        avg_price = self._trader.log.averagePrice
+        avg_price = self.log.averagePrice
         # print bid, avg_price
         profitable = avg_price and bid and bid > avg_price
         return profitable
@@ -51,7 +52,7 @@ class _DollarAverage_Impl(Strategy):
     @property
     def profitable_to_buy(self):
         ask = self.book.queue(Side.Sell).bestPrice()
-        avg_price = self._trader.log.averagePrice
+        avg_price = self.log.averagePrice
         return ask and (not avg_price or ask < avg_price)
 
 
