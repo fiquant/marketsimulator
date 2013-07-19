@@ -23,5 +23,5 @@ def Noise(ctx):
                              orderFactory = order.AlwaysBestFactory()),
                          "noise_best"),
         
-        ctx.makeTrader_A(strategy.NoiseEx(), "noise_ex")
+        ctx.makeTrader(ctx.remote_A, strategy.NoiseEx(), "noise_ex")
     ]

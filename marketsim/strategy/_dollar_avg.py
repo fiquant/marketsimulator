@@ -61,5 +61,5 @@ exec  wrapper2("DollarAverage",
              """ Generic Market Maker strategy
              """,
               [('orderFactory',         'order.MarketFactory',     'Side -> Volume -> IOrder'),
-               ('creationIntervalDistr', 'ops.constant(1)',        '() -> TimeInterval')],
+               ('creationIntervalDistr', 'ops.constant(0.7)',        '() -> TimeInterval')],
                register=False)

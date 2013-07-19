@@ -13,14 +13,16 @@ from _minmax import Min, Max
 
 from _async import Efficiency
 
-from _momentum import RSI
+from _rsi import RSI
 
 from _orderbook import (PriceAtVolume, VolumeLevels, 
                         QueuePrice, AskLastTradePrice, BidLastTradePrice,
                         QueueLastPrice,
-                        BidPrice, AskPrice, MidPrice, 
+                        BidPrice, AskPrice, MidPrice, Spread,
                         LastTradePrice, AskWeightedPrice, BidWeightedPrice)
 
 from _trader import  InstEfficiency, PnL, VolumeTraded
 
 from _candlestick import CandleSticks, CandleStick
+
+from _macd import MACD, signal as MACD_signal, histogram as MACD_histogram

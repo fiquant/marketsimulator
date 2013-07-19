@@ -1,13 +1,8 @@
-from marketsim import registry, meta, _, types, Side, mathutils, order, Event, event
+from marketsim import registry, meta, _, types, Side, mathutils, order, Event, event, ops
 from marketsim.types import *
 
 from _basic import Strategy
 from _wrap import wrapper2
-
-@registry.expose(alias = ['Random side'])
-@meta.sig(args=(), rv=Side)
-def randomSide():
-    return types.Side.byId(mathutils.rnd.randint(0,1)())
 
 class _Periodic_Impl(Strategy):    
     
@@ -65,4 +60,4 @@ exec  wrapper2("Periodic",
               [('orderFactory',         'order.MarketFactory',                  'Side -> Volume -> IOrder'),
                ('eventGen',             'None',                                 'Event'),
                ('volumeFunc',           'mathutils.rnd.expovariate(1.)',        '() -> Volume'),
-               ('sideFunc',             'randomSide',                           '() -> Side')], register=False)
+               ('sideFunc',             'ops.constant(Side.Sell)',              '() -> Side')], register=False)
