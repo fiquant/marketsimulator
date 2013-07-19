@@ -13,7 +13,7 @@ from _minmax import Min, Max
 
 from _async import Efficiency
 
-from _momentum import RSI
+from _rsi import RSI
 
 from _orderbook import (PriceAtVolume, VolumeLevels, 
                         QueuePrice, AskLastTradePrice, BidLastTradePrice,
