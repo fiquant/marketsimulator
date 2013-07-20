@@ -15,7 +15,8 @@ class Bollinger_linear(types.ISingleAssetStrategy):
     def getImpl(self):
         return DesiredPosition(
                         orderFactory = self.orderFactory, 
-                        desiredPosition = ops.Sub(_.price, _.mean) / _.stddev * self.k)
+                        desiredPosition = observable.IndicatorBase(_.price, 
+                                            ops.Sub(_.price, _.mean) / _.stddev * self.k))
         
 _wrap.strategy(Bollinger_linear, ['Desired position', 'Bollinger linear'], 
                """
