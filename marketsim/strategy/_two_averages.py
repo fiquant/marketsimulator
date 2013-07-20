@@ -61,21 +61,53 @@ exec wrapper2("TwoAverages",
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)', '() -> Volume')])
 
-  
-@registry.expose(["Periodic", 'TwoAverages'], args = ())
-def TwoAveragesEx(ewma_alpha1           = 0.15, 
-                  ewma_alpha2           = 0.015, 
-                  threshold             = 0, 
-                  orderFactory          = order.MarketFactory, 
-                  creationIntervalDistr = mathutils.rnd.expovariate(1.), 
-                  volumeDistr           = mathutils.rnd.expovariate(1.)):
+import _wrap
+
+class TwoAveragesEx(types.ISingleAssetStrategy):
+
+    def getDefinitions(self):
+        return { 'price' : observable.MidPrice(orderbook.OfTrader()) }
     
-    return defs(
-        Periodic(orderFactory= orderFactory, 
-                 volumeFunc  = volumeDistr,
-                 eventGen    = scheduler.Timer(creationIntervalDistr),
-                 sideFunc    = observable.side.Signal(
-                                  (observable.EWMA(_.price, ewma_alpha1) 
-                                   - observable.EWMA(_.price, ewma_alpha2)),
-                                  threshold)), 
-        { 'price' : observable.MidPrice(orderbook.OfTrader()) })
+    def getImpl(self):
+        return  Periodic(orderFactory= self.orderFactory, 
+                         volumeFunc  = self.volumeDistr,
+                         eventGen    = scheduler.Timer(self.creationIntervalDistr),
+                         sideFunc    = observable.side.Signal(
+                                          (observable.EWMA(_.price, self.ewma_alpha1) 
+                                           - observable.EWMA(_.price, self.ewma_alpha2)),
+                                          self.threshold))
+
+_wrap.strategy(TwoAveragesEx, ['Periodic', 'TwoAverages'], 
+             """ Two averages strategy compares two averages of price of the same asset but
+                 with different parameters ('slow' and 'fast' averages) and when 
+                 the first is greater than the second one it buys, 
+                 when the first is lower than the second one it sells
+                 
+                 It has following parameters:
+
+                 |ewma_alpha1| 
+                     parameter |alpha| for the first exponentially weighted moving average
+                     (default: 0.15.)
+                      
+                 |ewma_alpha2| 
+                     parameter |alpha| for the second exponentially weighted moving average
+                     (default: 0.015.)
+                      
+                 |threshold| 
+                     threshold when the trader starts to act (default: 0.)
+                     
+                 |volumeDistr| 
+                     defines volumes of orders to create 
+                     (default: exponential distribution with |lambda| = 1)
+
+                 |creationIntervalDistr| 
+                     defines intervals of time between order creation 
+                     (default: exponential distribution with |lambda| = 1)                     
+             """,
+             [('ewma_alpha1',           '0.15',                          'non_negative'),
+              ('ewma_alpha2',           '0.015',                         'non_negative'),
+              ('threshold',             '0.',                            'non_negative'), 
+              ('orderFactory',          'order.MarketFactory',           'Side -> Volume -> IOrder'),
+              ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
+              ('volumeDistr',           'mathutils.rnd.expovariate(1.)', '() -> Volume')], 
+               globals())
