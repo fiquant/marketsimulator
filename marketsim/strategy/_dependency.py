@@ -4,7 +4,7 @@ from marketsim import (scheduler, observable, types, meta, defs, _, ops,
 from _periodic import Periodic
 from _signal import SignalBase
 from _wrap import wrapper2
-from _fv import FundamentalValueBase, FundamentalValueSide
+from _fv import FundamentalValueBase
 
 from marketsim.types import *
 
@@ -71,7 +71,7 @@ def DependencyEx      (bookToDependOn,
         Periodic(orderFactory= orderFactory, 
                  volumeFunc  = volumeDistr, 
                  eventGen    = _.dependee, 
-                 sideFunc    = FundamentalValueSide(orderBook, _.dependee)),
+                 sideFunc    = observable.side.FundamentalValue(orderBook, _.dependee)),
         { 'dependee' : observable.MidPrice(bookToDependOn) * factor })
     
     r._alias = ["Periodic", "Dependency"]

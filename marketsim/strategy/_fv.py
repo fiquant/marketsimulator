@@ -64,20 +64,6 @@ exec  wrapper2("FundamentalValue",
                ('volumeDistr',          'mathutils.rnd.expovariate(1.)','() -> Volume'),
                ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> TimeInterval')])
 
-def FundamentalValueSide(orderBook, fundamentalValue):
-    
-    return defs((observable.BidPrice(_.orderBook) > _.fv)[
-                    ops.constant(Side.Sell), 
-                    (observable.AskPrice(_.orderBook) < _.fv)[
-                        ops.constant(Side.Buy), 
-                        ops._None[Side]()
-                    ]                
-                ], 
-            {
-             'fv'        : fundamentalValue, 
-             'orderBook' : orderBook 
-            })
-
 @registry.expose(["Periodic", "FundamentalValue"], args = ())
 def FundamentalValueEx(fundamentalValue      = ops.constant(100.),
                        orderFactory          = order.MarketFactory, 
@@ -88,7 +74,8 @@ def FundamentalValueEx(fundamentalValue      = ops.constant(100.),
     r = Periodic(orderFactory= orderFactory, 
                  volumeFunc  = volumeDistr, 
                  eventGen    = scheduler.Timer(creationIntervalDistr), 
-                 sideFunc    = FundamentalValueSide(orderBook, fundamentalValue))
+                 sideFunc    = observable.side.FundamentalValue(orderBook, 
+                                                                fundamentalValue))
     
     return r
 

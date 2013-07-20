@@ -4,7 +4,7 @@ from marketsim import (scheduler, observable, types, meta,
 from _periodic import Periodic
 from _signal import SignalBase
 from _wrap import wrapper2
-from _fv import FundamentalValueBase, FundamentalValueSide
+from _fv import FundamentalValueBase
 
 from marketsim.types import *
 
@@ -61,7 +61,7 @@ def MeanReversionEx   (ewma_alpha            = 0.15,
     r = Periodic(orderFactory= orderFactory, 
                  volumeFunc  = volumeDistr, 
                  eventGen    = scheduler.Timer(creationIntervalDistr), 
-                 sideFunc    = FundamentalValueSide(orderBook, avg))
+                 sideFunc    = observable.side.FundamentalValue(orderBook, avg))
     
     return r
 
