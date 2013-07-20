@@ -2,7 +2,7 @@ from marketsim.types import *
 from marketsim import (orderbook, observable, scheduler, order, mathutils, types, meta, 
                        registry, signal, bind, ops)
 from _periodic import Periodic
-from _signal import SignalBase, SignalSide
+from _signal import SignalBase
 
 from _wrap import wrapper2
 
@@ -71,5 +71,5 @@ def TrendFollowerEx(ewma_alpha              = 0.15,
     return Periodic(orderFactory= orderFactory, 
                     volumeFunc  = volumeDistr,
                     eventGen    = scheduler.Timer(creationIntervalDistr),
-                    sideFunc    = SignalSide(trend, threshold))
+                    sideFunc    = observable.side.Signal(trend, threshold))
     

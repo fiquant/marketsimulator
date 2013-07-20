@@ -1,6 +1,6 @@
 from marketsim.types import *
 from marketsim import (Event, order, mathutils, types, meta, defs, _, ops,
-                       registry, signal, bind, signal, ops)
+                       registry, signal, bind, signal, ops, observable)
 from _periodic import Periodic
 from _two_sides import TwoSides
 
@@ -55,18 +55,6 @@ exec wrapper2("Signal",
               ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')])
 
     
-def SignalSide(source, threshold = 0):
-    
-    return defs(ops.Less[float](_.threshold, _.source)[ 
-                    ops.constant(Side.Buy), 
-                    ops.less(_.source, ops.negate(_.threshold))[ 
-                        ops.constant(Side.Sell), 
-                        ops._None[Side]()
-                    ]
-                ], 
-                { 'source'    : source, 
-                  'threshold' : ops.constant(threshold) })
-    
 @registry.expose(["Periodic", 'Signal'], args = ())
 def SignalEx(signal         = signal.RandomWalk(), 
              threshold      = 0., 
@@ -74,7 +62,7 @@ def SignalEx(signal         = signal.RandomWalk(),
              volumeDistr    = mathutils.rnd.expovariate(1.)):
     
     return defs(
-        Periodic(sideFunc     = SignalSide(_.signal, threshold),
+        Periodic(sideFunc     = observable.side.Signal(_.signal, threshold),
                  volumeFunc   = volumeDistr, 
                  orderFactory = orderFactory, 
                  eventGen     = _.signal),

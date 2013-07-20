@@ -3,7 +3,7 @@ from marketsim import (orderbook, observable, scheduler, order, mathutils, types
                        registry, bind, defs, _)
 
 from _periodic import Periodic
-from _signal import SignalBase, SignalSide
+from _signal import SignalBase
 
 from _wrap import wrapper2
 
@@ -74,7 +74,7 @@ def TwoAveragesEx(ewma_alpha1           = 0.15,
         Periodic(orderFactory= orderFactory, 
                  volumeFunc  = volumeDistr,
                  eventGen    = scheduler.Timer(creationIntervalDistr),
-                 sideFunc    = SignalSide(
+                 sideFunc    = observable.side.Signal(
                                   (observable.EWMA(_.price, ewma_alpha1) 
                                    - observable.EWMA(_.price, ewma_alpha2)),
                                   threshold)), 

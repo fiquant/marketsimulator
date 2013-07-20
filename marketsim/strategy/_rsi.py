@@ -3,7 +3,6 @@ from marketsim import (meta, types, order, _, defs, ops,
                        mathutils, observable, scheduler, orderbook, registry)
 
 from _periodic import Periodic
-from _signal import SignalSide
 
 @registry.expose(["RelativeStrengthIndexSide"])
 class RelativeStrengthIndexSide(object):
@@ -63,8 +62,8 @@ def RSIbis (timeframe               = 1.,
     return defs(Periodic(orderFactory = orderFactory, 
                          volumeFunc   = volumeDistr, 
                          eventGen     = scheduler.Timer(creationIntervalDistr),
-                         sideFunc     = SignalSide(ops.constant(50) - _.rsi, 
-                                                   50-threshold)), 
+                         sideFunc     = observable.side.Signal(ops.constant(50) - _.rsi, 
+                                                               50-threshold)), 
                 { 'rsi' : observable.RSI(thisBook, timeframe, alpha) })
     
 from _desired_position import DesiredPosition
