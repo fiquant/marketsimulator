@@ -63,6 +63,8 @@ IndicatorBaseT = types.Factory("IndicatorBaseT", """(IndicatorBase_Impl, ops.Obs
     _properties = [ ('dataSource'  , types.IFunction[%(T)s]) ]
 """, globals())
 
+IndicatorBaseT[types.IVolumeLevels]
+
 def IndicatorBase(eventSource, dataSource, attributes = {}):
     return IndicatorBaseT[dataSource.T](eventSource, dataSource, attributes)
 

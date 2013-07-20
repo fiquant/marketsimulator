@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, current_app
-import sys, os, json, time, pickle, weakref, itertools
+import sys, os, json, time, cPickle as pickle, weakref, itertools
 sys.path.append(r'..')
 sys.setrecursionlimit(10000)
 

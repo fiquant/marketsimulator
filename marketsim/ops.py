@@ -105,7 +105,6 @@ Condition = types.Factory("Condition", """(Condition_Impl, Function[%(T)s]):
                    ('elsepart', meta.function((), %(T)s))]
 """, globals())
 
-Condition[Side]
 
 class _Conditional_Base(Function[bool]):
     
@@ -393,4 +392,11 @@ class Derivative(Function[float]):
         
     def __call__(self):
         return self.source.derivative()
-   
+
+Equal[float]   
+Condition[Side]
+Condition[float]
+_None[Side]
+_None[float]
+Less[float]
+Greater[float]
