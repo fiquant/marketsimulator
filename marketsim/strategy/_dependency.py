@@ -59,21 +59,48 @@ exec wrapper2("Dependency",
               ('factor',        '1.',                               'positive'),
               ('volumeDistr',   'mathutils.rnd.expovariate(.1)',    '() -> Volume')], register=False)
 
-        
-def DependencyEx      (bookToDependOn,
-                       factor                = ops.constant(1.),
-                       orderFactory          = order.MarketFactory, 
-                       volumeDistr           = mathutils.rnd.expovariate(1.)):
+import _wrap
 
-    orderBook = orderbook.OfTrader()
+class DependencyEx(types.ISingleAssetStrategy):
+    
+    def getDefinitions(self):
+        return { 'dependee' : observable.MidPrice(self.bookToDependOn) * self.factor }
 
-    r = defs(
-        Periodic(orderFactory= orderFactory, 
-                 volumeFunc  = volumeDistr, 
-                 eventGen    = _.dependee, 
-                 sideFunc    = observable.side.FundamentalValue(orderBook, _.dependee)),
-        { 'dependee' : observable.MidPrice(bookToDependOn) * factor })
-    
-    r._alias = ["Periodic", "Dependency"]
-    
-    return r
+    def getImpl(self):
+        orderBook = orderbook.OfTrader()
+        return Periodic(orderFactory= self.orderFactory, 
+                        volumeFunc  = self.volumeDistr, 
+                        eventGen    = _.dependee, 
+                        sideFunc    = observable.side.FundamentalValue(
+                                            orderBook, _.dependee))
+
+_wrap.strategy(DependencyEx, ['Periodic', 'Dependency'],
+         """ Dependent price strategy believes that the fair price of an asset *A* 
+             is completely correlated with price of another asset *B* and the following relation 
+             should be held: *PriceA* = *kPriceB*, where *k* is some factor. 
+             It may be considered as a variety of a fundamental value strategy 
+             with the exception that it is invoked every the time price of another
+             asset *B* changes. 
+         
+             It has following parameters: 
+             
+             |orderFactory| 
+                 order factory function (default: order.Market.T)
+             
+             |bookToDependOn| 
+                 reference to order book for another asset used to evaluate fair price of our asset
+             
+             |factor| 
+                 multiplier to obtain fair asset price from the reference asset price
+                 
+             |volumeDistr| 
+                 defines volumes of orders to create 
+                 (default: exponential distribution with |lambda| = 1)
+         """,
+         [
+          ('bookToDependOn','orderbook.OfTrader()',             'IOrderBook'),
+          ('orderFactory',  'order.MarketFactory',              'Side -> Volume -> IOrder'),
+          ('factor',        '1.',                               'float'),
+          ('volumeDistr',   'mathutils.rnd.expovariate(.1)',    '() -> Volume')
+          ], globals())
+                
