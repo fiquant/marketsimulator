@@ -47,7 +47,7 @@ class NoiseEx(types.ISingleAssetStrategy):
                         sideFunc     = observable.side.Random(), 
                         volumeFunc   = self.volumeDistr)
         
-_wrap.strategy(NoiseEx, ['Generic', 'Noise'], 
+_wrap.strategy(NoiseEx, ['Periodic', 'Noise'], 
                  """ Noise strategy is a quite dummy strategy that randomly creates an order 
                      and sends it to the order book. 
                      
