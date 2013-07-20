@@ -1,4 +1,4 @@
-from marketsim import scheduler, order, mathutils, types, registry, ops, meta
+from marketsim import scheduler, order, mathutils, types, registry, ops, meta, observable
 from _basic import Strategy
 from _two_sides import TwoSides
 from _periodic import Periodic
@@ -37,15 +37,6 @@ exec wrapper2("Noise",
               ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> Volume'),
               ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')])
 
-@registry.expose(alias = ['Random side'])
-@meta.sig(args=(), rv=Side)
-def RandomSide():
-    
-    return (mathutils.rnd.uniform(0.,1.) < 0.5)[ 
-                ops.constant(Side.Buy), 
-                ops.constant(Side.Sell)
-           ]
-
 @registry.expose(["Periodic", "Noise"], args = ())
 def NoiseEx     (orderFactory           = order.MarketFactory,
                  volumeDistr            = mathutils.rnd.expovariate(1.), 
@@ -53,7 +44,7 @@ def NoiseEx     (orderFactory           = order.MarketFactory,
     
     r = Periodic(orderFactory = orderFactory, 
                  eventGen     = scheduler.Timer(creationIntervalDistr), 
-                 sideFunc     = RandomSide(), 
+                 sideFunc     = observable.side.Random(), 
                  volumeFunc   = volumeDistr)
     
     return r

@@ -113,16 +113,6 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.strategy._periodic.randomSide": {
-        "castsTo": [
-            {
-                "rv": "marketsim.Side",
-                "args": []
-            }
-        ],
-        "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
-    },
     "marketsim.side_._SellSide": {
         "castsTo": [
             "marketsim.Side"
@@ -655,6 +645,37 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
+    "marketsim.observable._macd.histogram_Generated": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.types.IFunction_float"
+        ],
+        "properties": {
+            "slow": {
+                "type": "combine(greater(0.0), _parseFloat)"
+            },
+            "fast": {
+                "type": "combine(greater(0.0), _parseFloat)"
+            },
+            "source": {
+                "type": "marketsim.types.IObservable_float"
+            },
+            "timeframe": {
+                "type": "combine(greater(0.0), _parseFloat)"
+            },
+            "updateInterval": {
+                "type": "combine(greater(0.0), _parseFloat)"
+            },
+            "impl": {
+                "collapsed": true,
+                "type": "marketsim.types.IFunction_float"
+            }
+        },
+        "description": "<div class=\"document\">\n<p>Moving average convergence/divergence histogram</p>\n</div>\n"
+    },
     "marketsim.orderbook._proxy.Proxy": {
         "castsTo": [
             "marketsim.types.IOrderBook"
@@ -747,18 +768,17 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Weibull distribution. \u03b1 is the scale parameter and \u03b2 is the shape parameter.</p>\n</div>\n"
     },
-    "marketsim.mathutils._average.ewma": {
+    "marketsim.strategy._noise.RandomSide": {
         "castsTo": [
-            "marketsim.types.IUpdatableValue"
-        ],
-        "properties": {
-            "alpha": {
-                "type": "_parseFloat"
+            {
+                "rv": "marketsim.Side",
+                "args": []
             }
-        },
-        "description": "<div class=\"document\">\n<p>Exponentially weighted moving average</p>\n</div>\n"
+        ],
+        "properties": {},
+        "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.ops.Constant_float": {
+    "marketsim.ops.Derivative": {
         "castsTo": [
             {
                 "rv": "_parseFloat",
@@ -767,11 +787,11 @@ var typeinfo = {
             "marketsim.types.IFunction_float"
         ],
         "properties": {
-            "value": {
-                "type": "_parseFloat"
+            "source": {
+                "type": "marketsim.types.IDifferentiable"
             }
         },
-        "description": "<div class=\"document\">\n<p>Constant function returning <strong>value</strong>.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.ops.Constant_Tag": {
         "castsTo": [
@@ -787,30 +807,54 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Constant function returning <strong>value</strong>.</p>\n</div>\n"
     },
-    "marketsim.observable._deltalag.DownMovements": {
-        "castsTo": [
-            {
-                "rv": "_parseFloat",
-                "args": []
-            },
-            "marketsim.event.Event",
-            "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float",
-            "marketsim.types.IObservable_object"
-        ],
-        "properties": {
-            "source": {
-                "type": "marketsim.types.IObservable_float"
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
-    },
     "marketsim.side_._BuySide": {
         "castsTo": [
             "marketsim.Side"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.mathutils._average.ewma": {
+        "castsTo": [
+            "marketsim.types.IUpdatableValue"
+        ],
+        "properties": {
+            "alpha": {
+                "type": "_parseFloat"
+            }
+        },
+        "description": "<div class=\"document\">\n<p>Exponentially weighted moving average</p>\n</div>\n"
+    },
+    "marketsim.observable._macd.signal_Generated": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.types.IFunction_float"
+        ],
+        "properties": {
+            "slow": {
+                "type": "combine(greater(0.0), _parseFloat)"
+            },
+            "fast": {
+                "type": "combine(greater(0.0), _parseFloat)"
+            },
+            "source": {
+                "type": "marketsim.types.IObservable_float"
+            },
+            "timeframe": {
+                "type": "combine(greater(0.0), _parseFloat)"
+            },
+            "updateInterval": {
+                "type": "combine(greater(0.0), _parseFloat)"
+            },
+            "impl": {
+                "collapsed": true,
+                "type": "marketsim.types.IFunction_float"
+            }
+        },
+        "description": "<div class=\"document\">\n<p>Moving average convergence/divergence signal</p>\n</div>\n"
     },
     "marketsim.order._market.MarketFactory": {
         "castsTo": [
@@ -979,6 +1023,27 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Normal distribution. \u03bc is the mean, and \u03c3 is the standard deviation.</p>\n</div>\n"
     },
+    "marketsim.registry.Simulation": {
+        "castsTo": [],
+        "properties": {
+            "traders": {
+                "type": {
+                    "elementType": "marketsim.types.ITrader"
+                }
+            },
+            "graphs": {
+                "type": {
+                    "elementType": "marketsim.types.IGraph"
+                }
+            },
+            "orderbooks": {
+                "type": {
+                    "elementType": "marketsim.types.IOrderBook"
+                }
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.orderbook._proxy.OfTrader": {
         "castsTo": [
             "marketsim.types.IOrderBook"
@@ -1114,6 +1179,20 @@ var typeinfo = {
                 "type": "marketsim.types.IOrderBook"
             }
         },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.observable._orderbook.QueueLastPrice": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.event.Event",
+            "marketsim.types.IFunction_float",
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
+        ],
+        "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.order._stoploss.StopLossFactory": {
@@ -1496,6 +1575,28 @@ var typeinfo = {
         "properties": {},
         "description": "<div class=\"document\">\n<p>Returns derivative of a <em>trader</em>'s &quot;cleared&quot; balance</p>\n</div>\n"
     },
+    "marketsim.observable._orderbook.Spread_Generated": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.event.Event",
+            "marketsim.types.IFunction_float",
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
+        ],
+        "properties": {
+            "orderBook": {
+                "type": "marketsim.types.IOrderBook"
+            },
+            "impl": {
+                "collapsed": true,
+                "type": "marketsim.types.IObservable_float"
+            }
+        },
+        "description": "<div class=\"document\">\n<p>Difference between ask and bid asset's price</p>\n</div>\n"
+    },
     "marketsim.strategy.Signal": {
         "castsTo": [
             "marketsim.types.ISingleAssetStrategy"
@@ -1550,7 +1651,7 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Order book for a single asset in a market.\nMaintains two order queues for orders of different sides</p>\n</div>\n"
     },
-    "marketsim.ops.Derivative": {
+    "marketsim.ops.Constant_float": {
         "castsTo": [
             {
                 "rv": "_parseFloat",
@@ -1559,11 +1660,11 @@ var typeinfo = {
             "marketsim.types.IFunction_float"
         ],
         "properties": {
-            "source": {
-                "type": "marketsim.types.IDifferentiable"
+            "value": {
+                "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Constant function returning <strong>value</strong>.</p>\n</div>\n"
     },
     "marketsim.ops._None_Tag": {
         "castsTo": [
@@ -1617,19 +1718,30 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.observable._orderbook.QueueLastPrice": {
+    "marketsim.observable._macd.MACD_Generated": {
         "castsTo": [
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.event.Event",
-            "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float",
-            "marketsim.types.IObservable_object"
+            "marketsim.types.IFunction_float"
         ],
-        "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "properties": {
+            "source": {
+                "type": "marketsim.types.IObservable_float"
+            },
+            "slow": {
+                "type": "combine(greater(0.0), _parseFloat)"
+            },
+            "fast": {
+                "type": "combine(greater(0.0), _parseFloat)"
+            },
+            "impl": {
+                "collapsed": true,
+                "type": "marketsim.types.IFunction_float"
+            }
+        },
+        "description": "<div class=\"document\">\n<p>Moving average convergence/divergence</p>\n</div>\n"
     },
     "marketsim.strategy._rsi.RSI_linear": {
         "castsTo": [],
@@ -1742,26 +1854,30 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.registry.Simulation": {
-        "castsTo": [],
+    "marketsim.observable._rsi.RSI_Generated": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.types.IFunction_float"
+        ],
         "properties": {
-            "traders": {
-                "type": {
-                    "elementType": "marketsim.types.ITrader"
-                }
+            "alpha": {
+                "type": "combine(greater(0.0), _parseFloat)"
             },
-            "graphs": {
-                "type": {
-                    "elementType": "marketsim.types.IGraph"
-                }
+            "orderBook": {
+                "type": "marketsim.types.IOrderBook"
             },
-            "orderbooks": {
-                "type": {
-                    "elementType": "marketsim.types.IOrderBook"
-                }
+            "impl": {
+                "collapsed": true,
+                "type": "marketsim.types.IFunction_float"
+            },
+            "timeframe": {
+                "type": "combine(greater_or_equal(0.0), _parseFloat)"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Relative strength index</p>\n</div>\n"
     },
     "marketsim.strategy.Array": {
         "castsTo": [
@@ -1875,6 +1991,24 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
+    "marketsim.observable._deltalag.DownMovements": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.event.Event",
+            "marketsim.types.IFunction_float",
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
+        ],
+        "properties": {
+            "source": {
+                "type": "marketsim.types.IObservable_float"
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.observable._deltalag.UpMovements": {
         "castsTo": [
             {
@@ -1908,31 +2042,6 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n</div>\n"
-    },
-    "marketsim.observable._momentum.RSI_Generated": {
-        "castsTo": [
-            {
-                "rv": "_parseFloat",
-                "args": []
-            },
-            "marketsim.types.IFunction_float"
-        ],
-        "properties": {
-            "alpha": {
-                "type": "combine(greater(0.0), _parseFloat)"
-            },
-            "orderBook": {
-                "type": "marketsim.types.IOrderBook"
-            },
-            "impl": {
-                "collapsed": true,
-                "type": "marketsim.types.IFunction_float"
-            },
-            "timeframe": {
-                "type": "combine(greater_or_equal(0.0), _parseFloat)"
-            }
-        },
-        "description": "<div class=\"document\">\n<p>Relative strength index</p>\n</div>\n"
     },
     "marketsim.scheduler.Timer": {
         "castsTo": [

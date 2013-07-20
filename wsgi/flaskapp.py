@@ -225,6 +225,7 @@ def load():
 def get_all():
     w = current_user_workspace()
     files = os.listdir(current_user_dir())
+    w.registry.typecheck()
     result = {
         "simulations" : files,
         "name"  :   w.name,

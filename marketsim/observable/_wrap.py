@@ -1,3 +1,4 @@
+import marketsim
 from marketsim import ops, types, event, _, flags
 
 class Base(object):
@@ -14,27 +15,28 @@ class Base(object):
     def label(self):
         return self.impl.label
 
-class FunctionBase(Base):
+FunctionBase = types.Factory('FunctionBase', """(Base):
+    _properties = {'impl' : (types.IFunction[%(T)s], flags.collapsed) }
+""", globals())
 
-    _properties = {'impl' : (types.IFunction[float], flags.collapsed) }
-
-class ObservableBase(Base):
+ObservableBase = types.Factory('ObservableBase', """(Base):
 
     def __init__(self):
         Base.__init__(self)
         event.subscribe(self.impl, _(self).fire, self)
         
-    _properties = {'impl' : (types.IObservable[float], flags.collapsed) }
+    _properties = {'impl' : (types.IObservable[%(T)s], flags.collapsed) }
+""", globals())
         
 tmpl = """
 %(reg)s
-class %(name)s_Generated(%(name)s, _wrap.%(kind)sBase):
+class %(name)s_Generated(%(name)s, _wrap.%(kind)sBase[%(name)s.T]):
     \"\"\" %(docstring)s
     \"\"\"    
     
     def __init__(self, %(args)s):
         %(ctor)s
-        _wrap.%(kind)sBase.__init__(self)
+        _wrap.%(kind)sBase[%(name)s.T].__init__(self)
         %(name)s_Impl.__init__(self)
         
     @property
