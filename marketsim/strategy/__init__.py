@@ -5,33 +5,29 @@ from marketsim import order, Side, observable, registry, config
 
 from _basic import Empty
 
-from _lp_side import (LiquidityProviderSide, LiquidityProviderSideEx)
+from _lp_side import (LiquidityProviderSide)
 
 from _array import Array
  
-from _lp import (LiquidityProvider, LiquidityProviderEx)
+from _lp import (LiquidityProvider)
 
 from _canceller import Canceller
 
-from _noise import Noise, NoiseEx
+from _noise import Noise
 
 from _arbitrage import Arbitrage
 
-from _mean_reversion import MeanReversion, MeanReversionEx
+from _mean_reversion import MeanReversion
 
-from _rsi import RSIEx, RSIbis, RSI_linear
+from _dependency import Dependency
 
-from _bollinger import Bollinger_linear
+from _fv import (FundamentalValue)
 
-from _dependency import Dependency, DependencyEx
+from _signal import Signal
 
-from _fv import (FundamentalValue, FundamentalValueEx)
+from _two_averages import TwoAverages
 
-from _signal import Signal, SignalEx
-
-from _two_averages import TwoAverages, TwoAveragesEx
-
-from _trend import (TrendFollower, TrendFollowerEx)
+from _trend import (TrendFollower)
 
 from _trade_if_profitable import tradeIfProfitable, TradeIfProfitable
 

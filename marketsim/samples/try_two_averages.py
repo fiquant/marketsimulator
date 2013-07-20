@@ -46,18 +46,4 @@ def TwoAverages(ctx):
                                               volumeDistr           = const(1.)), 
                          'avg-',
                          myVolume()),
-
-        ctx.makeTrader_A(strategy.TwoAveragesEx(ewma_alpha1 = alpha_slow, 
-                                                ewma_alpha2 = alpha_fast,
-                                                creationIntervalDistr = const(1.),
-                                                volumeDistr           = const(1.)), 
-                         'avg_ex+',
-                         myVolume()),
-
-        ctx.makeTrader_A(strategy.TwoAveragesEx(ewma_alpha2 = alpha_slow, 
-                                                ewma_alpha1 = alpha_fast,
-                                                creationIntervalDistr = const(1.),
-                                                volumeDistr           = const(1.)), 
-                         'avg_ex-',
-                         myVolume())
     ]

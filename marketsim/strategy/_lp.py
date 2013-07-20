@@ -4,7 +4,7 @@ from _one_side import OneSide
 from _periodic import Periodic
 from _array import Array
 from _wrap import merge, wrapper2
-from _lp_side import LiquidityProviderSide, LiquidityProviderSideEx
+from _lp_side import LiquidityProviderSide
 from marketsim import (order, orderbook, scheduler, mathutils, defs, _,
                        types, registry, bind, meta, trader, ops)
 from marketsim.types import *
@@ -73,32 +73,4 @@ exec wrapper2('LiquidityProvider',
              ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
              ('priceDistr',             'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
              ('volumeDistr',            'mathutils.rnd.expovariate(.1)',        '() -> Volume')])
-
-
-@registry.expose(["Periodic", 'LiquidityProvider'], args = ())
-def LiquidityProviderEx    (orderFactory            = order.LimitFactory, 
-                            defaultValue            = 100., 
-                            creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
-                            priceDistr              = mathutils.rnd.lognormvariate(0., .1), 
-                            volumeDistr             = mathutils.rnd.expovariate(1.)):
-
-    orderBook = orderbook.OfTrader()
-
-    def create(side):
-        return LiquidityProviderSideEx(side, 
-                                       _.orderFactory, 
-                                       defaultValue, 
-                                       _.creationInterval, 
-                                       _.price, 
-                                       _.volume)
-
-    return defs(
-        Array([
-            create(Side.Sell),
-            create(Side.Buy)
-        ]), 
-        { 'creationInterval': creationIntervalDistr, 
-          'volume'          : volumeDistr, 
-          'price'           : priceDistr, 
-          'orderFactory'    : orderFactory })
 

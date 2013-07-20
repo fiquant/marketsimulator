@@ -147,7 +147,6 @@ var typeinfo = {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IDifferentiable",
             "marketsim.types.IFunction_float"
         ],
         "properties": {
@@ -670,43 +669,6 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Function returning division of the operands</p>\n</div>\n"
     },
-    "marketsim.strategy._noise.NoiseEx_Generated": {
-        "castsTo": [
-            "marketsim.types.ISingleAssetStrategy"
-        ],
-        "properties": {
-            "creationIntervalDistr": {
-                "type": {
-                    "rv": "_parseFloat",
-                    "args": []
-                }
-            },
-            "orderFactory": {
-                "type": {
-                    "rv": {
-                        "rv": "marketsim.types.IOrder",
-                        "args": [
-                            "_parseFloat"
-                        ]
-                    },
-                    "args": [
-                        "marketsim.Side"
-                    ]
-                }
-            },
-            "impl": {
-                "collapsed": true,
-                "type": "marketsim.types.ISingleAssetStrategy"
-            },
-            "volumeDistr": {
-                "type": {
-                    "rv": "_parseFloat",
-                    "args": []
-                }
-            }
-        },
-        "description": "<div class=\"document\">\n<p>Noise strategy is a quite dummy strategy that randomly creates an order\nand sends it to the order book.</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Order factory</strong></dt>\n<dd>order factory function (default: order.Market.T)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n</div>\n"
-    },
     "marketsim.observable.side.FundamentalValue_Generated": {
         "castsTo": [
             {
@@ -855,30 +817,13 @@ var typeinfo = {
         "description": "<div class=\"document\">\n<p>Weibull distribution. \u03b1 is the scale parameter and \u03b2 is the shape parameter.</p>\n</div>\n"
     },
     "marketsim.mathutils._average.ewma": {
-        "castsTo": [
-            "marketsim.types.IUpdatableValue"
-        ],
+        "castsTo": [],
         "properties": {
             "alpha": {
                 "type": "_parseFloat"
             }
         },
         "description": "<div class=\"document\">\n<p>Exponentially weighted moving average</p>\n</div>\n"
-    },
-    "marketsim.ops.Derivative": {
-        "castsTo": [
-            {
-                "rv": "_parseFloat",
-                "args": []
-            },
-            "marketsim.types.IFunction_float"
-        ],
-        "properties": {
-            "source": {
-                "type": "marketsim.types.IDifferentiable"
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.ops.Constant_Tag": {
         "castsTo": [
@@ -894,31 +839,6 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n<p>Constant function returning <strong>value</strong>.</p>\n</div>\n"
-    },
-    "marketsim.side_._BuySide": {
-        "castsTo": [
-            "marketsim.Side"
-        ],
-        "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
-    },
-    "marketsim.observable._deltalag.DownMovements": {
-        "castsTo": [
-            {
-                "rv": "_parseFloat",
-                "args": []
-            },
-            "marketsim.event.Event",
-            "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float",
-            "marketsim.types.IObservable_object"
-        ],
-        "properties": {
-            "source": {
-                "type": "marketsim.types.IObservable_float"
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.observable._macd.signal_Generated": {
         "castsTo": [
@@ -950,6 +870,31 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n<p>Moving average convergence/divergence signal</p>\n</div>\n"
+    },
+    "marketsim.observable._deltalag.DownMovements": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.event.Event",
+            "marketsim.types.IFunction_float",
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
+        ],
+        "properties": {
+            "source": {
+                "type": "marketsim.types.IObservable_float"
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.side_._BuySide": {
+        "castsTo": [
+            "marketsim.Side"
+        ],
+        "properties": {},
+        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.order._market.MarketFactory": {
         "castsTo": [
@@ -1214,7 +1159,6 @@ var typeinfo = {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IDifferentiable",
             "marketsim.types.IFunction_float"
         ],
         "properties": {
@@ -1256,40 +1200,6 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>A composite strategy initialized with an array of strategies.\nIn some moments of time the most effective strategy\nis chosen and made running; other strategies are suspended.</p>\n<p>Parameters:</p>\n<blockquote>\n<dl class=\"docutils\">\n<dt><strong>strategies</strong></dt>\n<dd>original strategies that can be suspended</dd>\n<dt><strong>Efficiency evaluation function</strong></dt>\n<dd>function estimating is the strategy efficient or not</dd>\n<dt><strong>Function creating a strategy used to estimate the original one</strong></dt>\n<dd>function creating phantom strategy used for efficiency estimation</dd>\n</dl>\n</blockquote>\n</div>\n"
     },
-    "marketsim.strategy._rsi.RelativeStrengthIndexSide": {
-        "castsTo": [
-            {
-                "rv": "marketsim.Side",
-                "args": []
-            }
-        ],
-        "properties": {
-            "threshold": {
-                "type": "_parseFloat"
-            },
-            "rsi": {
-                "type": "marketsim.types.IFunction_float"
-            },
-            "orderBook": {
-                "type": "marketsim.types.IOrderBook"
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
-    },
-    "marketsim.observable._orderbook.QueueLastPrice": {
-        "castsTo": [
-            {
-                "rv": "_parseFloat",
-                "args": []
-            },
-            "marketsim.event.Event",
-            "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float",
-            "marketsim.types.IObservable_object"
-        ],
-        "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
-    },
     "marketsim.order._stoploss.StopLossFactory": {
         "castsTo": [
             {
@@ -1323,20 +1233,6 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n</div>\n"
-    },
-    "marketsim.remote.TwoWayLink": {
-        "castsTo": [
-            "marketsim.remote.TwoWayLink"
-        ],
-        "properties": {
-            "down": {
-                "type": "marketsim.remote.Link"
-            },
-            "up": {
-                "type": "marketsim.remote.Link"
-            }
-        },
-        "description": "<div class=\"document\">\n<p>Represents latency in information propagation between two agents\n(normally between a trader and a market).\nEnsures that sending packets via links preserves their order.\nHolds two one-way links in opposite directions.</p>\n<p>Parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>up</strong></dt>\n<dd>Forward link (normally from a trader to a market)</dd>\n<dt><strong>down</strong></dt>\n<dd>Backward link (normally from a market to a trader)</dd>\n</dl>\n</div>\n"
     },
     "marketsim.observable._orderbook.QueueLastTradePrice": {
         "castsTo": [
@@ -1479,42 +1375,6 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Represents latency in information propagation from one agent to another one\n(normally between a trader and a market).\nEnsures that sending packets via a link preserves their order.</p>\n<p>Parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>latency</strong></dt>\n<dd>function called for each packet in order to determine\nwhen it will appear at the destination point</dd>\n</dl>\n</div>\n"
     },
-    "marketsim.strategy.Periodic": {
-        "castsTo": [
-            "marketsim.types.ISingleAssetStrategy"
-        ],
-        "properties": {
-            "sideFunc": {
-                "type": {
-                    "rv": "marketsim.Side",
-                    "args": []
-                }
-            },
-            "orderFactory": {
-                "type": {
-                    "rv": {
-                        "rv": "marketsim.types.IOrder",
-                        "args": [
-                            "_parseFloat"
-                        ]
-                    },
-                    "args": [
-                        "marketsim.Side"
-                    ]
-                }
-            },
-            "eventGen": {
-                "type": "marketsim.event.Event"
-            },
-            "volumeFunc": {
-                "type": {
-                    "rv": "_parseFloat",
-                    "args": []
-                }
-            }
-        },
-        "description": "<div class=\"document\">\n<p>Generic periodic strategy that wakes up on events given by <em>eventGen</em>,\nchooses side of order to create using <em>sideFunc</em> and its volume by <em>volumeFunc</em>,\ncreates an order via <em>orderFactory</em> and sends the order to the market using its trader</p>\n<p>Parameters:</p>\n<blockquote>\n<dl class=\"docutils\">\n<dt><strong>Order factory</strong></dt>\n<dd>order factory function (default: order.Limit.T)</dd>\n<dt><strong>Action trigger</strong></dt>\n<dd>Event source making the strategy to wake up</dd>\n<dt><strong>Volume</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Side</strong></dt>\n<dd>function choosing side of order to create (default: randomSide)</dd>\n</dl>\n</blockquote>\n</div>\n"
-    },
     "marketsim.strategy._basic.Empty": {
         "castsTo": [
             "marketsim.types.ISingleAssetStrategy"
@@ -1605,55 +1465,6 @@ var typeinfo = {
             },
             "timeframe": {
                 "type": "_parseFloat"
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
-    },
-    "marketsim.observable._average.Fold": {
-        "castsTo": [
-            {
-                "rv": "_parseFloat",
-                "args": []
-            },
-            "marketsim.types.IFunction_float"
-        ],
-        "properties": {
-            "source": {
-                "type": "marketsim.types.IObservable_float"
-            },
-            "folder": {
-                "type": "marketsim.types.IUpdatableValue"
-            }
-        },
-        "description": "<div class=\"document\">\n<p>Aggregates (folds) time-dependent data from <em>source</em> using given functional  <em>folder</em> (e.g. moving average)</p>\n<p>For example</p>\n<pre class=\"literal-block\">\nprice_avg = Fold(MidPrice(book_A), ewma(alpha = 0.15))\n</pre>\n<p>creates a observable for a moving average with \u03b1 = 0.15 of mid-price of asset <em>book_A</em></p>\n</div>\n"
-    },
-    "marketsim.ops.Equal_float": {
-        "castsTo": [
-            {
-                "rv": "__builtin__.bool",
-                "args": []
-            },
-            {
-                "rv": "_parseFloat",
-                "args": []
-            },
-            "marketsim.event.Event",
-            "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float",
-            "marketsim.types.IObservable_object"
-        ],
-        "properties": {
-            "rhs": {
-                "type": {
-                    "rv": "_parseFloat",
-                    "args": []
-                }
-            },
-            "lhs": {
-                "type": {
-                    "rv": "_parseFloat",
-                    "args": []
-                }
             }
         },
         "description": "<div class=\"document\">\n</div>\n"
@@ -1854,40 +1665,19 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Moving average convergence/divergence</p>\n</div>\n"
     },
-    "marketsim.strategy._rsi.RSI_linear": {
-        "castsTo": [],
-        "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
-    },
-    "marketsim.ops.Condition_float": {
+    "marketsim.remote.TwoWayLink": {
         "castsTo": [
-            {
-                "rv": "_parseFloat",
-                "args": []
-            },
-            "marketsim.types.IFunction_float"
+            "marketsim.remote.TwoWayLink"
         ],
         "properties": {
-            "ifpart": {
-                "type": {
-                    "rv": "_parseFloat",
-                    "args": []
-                }
+            "down": {
+                "type": "marketsim.remote.Link"
             },
-            "elsepart": {
-                "type": {
-                    "rv": "_parseFloat",
-                    "args": []
-                }
-            },
-            "cond": {
-                "type": {
-                    "rv": "__builtin__.bool",
-                    "args": []
-                }
+            "up": {
+                "type": "marketsim.remote.Link"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Represents latency in information propagation between two agents\n(normally between a trader and a market).\nEnsures that sending packets via links preserves their order.\nHolds two one-way links in opposite directions.</p>\n<p>Parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>up</strong></dt>\n<dd>Forward link (normally from a trader to a market)</dd>\n<dt><strong>down</strong></dt>\n<dd>Backward link (normally from a market to a trader)</dd>\n</dl>\n</div>\n"
     },
     "marketsim.mathutils.rnd.randint": {
         "castsTo": [
@@ -1905,43 +1695,6 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n<p>Return a random integer <em>N</em> such that <em>a</em> &lt;= <em>N</em> &lt;= <em>b</em>.</p>\n</div>\n"
-    },
-    "marketsim.strategy._signal.SignalEx_Generated": {
-        "castsTo": [
-            "marketsim.types.ISingleAssetStrategy"
-        ],
-        "properties": {
-            "threshold": {
-                "type": "combine(greater_or_equal(0.0), _parseFloat)"
-            },
-            "signal": {
-                "type": "marketsim.types.IObservable_float"
-            },
-            "orderFactory": {
-                "type": {
-                    "rv": {
-                        "rv": "marketsim.types.IOrder",
-                        "args": [
-                            "_parseFloat"
-                        ]
-                    },
-                    "args": [
-                        "marketsim.Side"
-                    ]
-                }
-            },
-            "impl": {
-                "collapsed": true,
-                "type": "marketsim.types.ISingleAssetStrategy"
-            },
-            "volumeDistr": {
-                "type": {
-                    "rv": "_parseFloat",
-                    "args": []
-                }
-            }
-        },
-        "description": "<div class=\"document\">\n<p>Signal strategy listens to some discrete signal\nand when the signal becomes more than some threshold the strategy starts to buy.\nWhen the signal gets lower than -threshold the strategy starts to sell.</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Signal</strong></dt>\n<dd>signal to be listened to (default: RandomWalk)</dd>\n<dt><strong>Order factory</strong></dt>\n<dd>order factory function (default: order.Market.T)</dd>\n<dt><strong>Threshold</strong></dt>\n<dd>threshold when the trader starts to act (default: 0.7)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n</div>\n"
     },
     "marketsim.mathutils.rnd.gammavariate": {
         "castsTo": [
@@ -1992,7 +1745,6 @@ var typeinfo = {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IDifferentiable",
             "marketsim.types.IFunction_float"
         ],
         "properties": {
@@ -2027,19 +1779,6 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Relative strength index</p>\n</div>\n"
     },
-    "marketsim.strategy.Array": {
-        "castsTo": [
-            "marketsim.types.ISingleAssetStrategy"
-        ],
-        "properties": {
-            "strategies": {
-                "type": {
-                    "elementType": "marketsim.types.ISingleAssetStrategy"
-                }
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
-    },
     "marketsim.scheduler.Scheduler": {
         "castsTo": [],
         "properties": {
@@ -2052,17 +1791,6 @@ var typeinfo = {
     "marketsim.strategy.weight.Uniform": {
         "castsTo": [
             "marketsim.strategy.weight.Base"
-        ],
-        "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
-    },
-    "marketsim.ops._None_float": {
-        "castsTo": [
-            {
-                "rv": "_parseFloat",
-                "args": []
-            },
-            "marketsim.types.IFunction_float"
         ],
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
@@ -2406,9 +2134,17 @@ var typeinfo = {
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.strategy._bollinger.Bollinger_linear": {
-        "castsTo": [],
-        "properties": {},
+    "marketsim.strategy.Array": {
+        "castsTo": [
+            "marketsim.types.ISingleAssetStrategy"
+        ],
+        "properties": {
+            "strategies": {
+                "type": {
+                    "elementType": "marketsim.types.ISingleAssetStrategy"
+                }
+            }
+        },
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.order._limit.LimitFactory": {
@@ -2430,9 +2166,7 @@ var typeinfo = {
         "description": "<div class=\"document\">\n<p>Limit order of the given <em>side</em>, <em>price</em> and <em>volume</em></p>\n</div>\n"
     },
     "marketsim.mathutils._rsi.rsi": {
-        "castsTo": [
-            "marketsim.types.IUpdatableValue"
-        ],
+        "castsTo": [],
         "properties": {
             "alpha": {
                 "type": "_parseFloat"

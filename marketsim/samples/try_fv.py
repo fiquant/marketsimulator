@@ -32,13 +32,5 @@ def FundamentalValue(ctx):
                volumeDistr = ops.constant(1)), 
             "fv_200", 
             myVolume() + myPrice() + Constant(fv, demo)),
-
-        ctx.makeTrader_A(
-            strategy.FundamentalValueEx(
-               fundamentalValue = ops.constant(fv),
-               creationIntervalDistr = ops.constant(1.),
-               volumeDistr = ops.constant(1)), 
-            "fv_ex_200", 
-            myVolume())
     ]
 

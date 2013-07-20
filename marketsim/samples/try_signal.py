@@ -19,13 +19,4 @@ def Signal(ctx):
                                          volumeDistr=const(1)), 
                          "signal", 
                          [(linear_signal, ctx.amount_graph)]),
-    
-        ctx.makeTrader_A(strategy.SignalEx(linear_signal, 
-                                           volumeDistr=const(1)), 
-                         "signal_ex"), 
-        
-        ctx.makeTrader_A(strategy.SignalEx(linear_signal, 
-                                           volumeDistr=const(1), 
-                                           orderFactory=order.StopLossFactory()), 
-                         "stoploss")
     ]    

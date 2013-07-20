@@ -30,7 +30,6 @@ def createSimulation(name='All'):
         myRegistry.insert(Side.Buy)    
         ctx = Context(world, js.Graph)
         dependency = strategy.Dependency(ctx.book_B)
-        dependency_ex = strategy.DependencyEx(ctx.book_B)
         
         def register(annotated_objects):
             for obj, alias in annotated_objects:
@@ -40,7 +39,6 @@ def createSimulation(name='All'):
                 
         register([
                   (dependency, ["Basic", "Dependency"]),
-                  (dependency_ex, None),
         ])
         
         myRegistry.pushAllReferences()

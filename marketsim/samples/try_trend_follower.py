@@ -43,11 +43,4 @@ def TrendFollower(ctx):
                                     volumeDistr = const(V)),
                              "trendfollower", 
                              myVolume() + myAverage(alpha)),
-            
-            ctx.makeTrader_A(strategy.TrendFollowerEx(
-                                       creationIntervalDistr = const(1.),
-                                       ewma_alpha = (alpha),
-                                       volumeDistr = const(V)),
-                             "trendfollower_ex",
-                             myVolume())
     ]

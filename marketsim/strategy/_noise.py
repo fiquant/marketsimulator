@@ -36,36 +36,3 @@ exec wrapper2("Noise",
               ("sideDistr",             "mathutils.rnd.randint(0,1)",   "() -> int"), # in fact it should be () -> Side
               ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> Volume'),
               ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')])
-
-import _wrap
-
-class NoiseEx(types.ISingleAssetStrategy):
-    
-    def getImpl(self):
-        return Periodic(orderFactory = self.orderFactory, 
-                        eventGen     = scheduler.Timer(self.creationIntervalDistr), 
-                        sideFunc     = observable.side.Random(), 
-                        volumeFunc   = self.volumeDistr)
-        
-_wrap.strategy(NoiseEx, ['Periodic', 'Noise'], 
-                 """ Noise strategy is a quite dummy strategy that randomly creates an order 
-                     and sends it to the order book. 
-                     
-                     It has following parameters:
-    
-                     |orderFactory| 
-                         order factory function (default: order.Market.T)
-    
-                     |creationIntervalDistr| 
-                         defines intervals of time between order creation 
-                         (default: exponential distribution with |lambda| = 1)
-                         
-                     |volumeDistr| 
-                         defines volumes of orders to create 
-                         (default: exponential distribution with |lambda| = 1)
-                 """,
-                 [
-                  ("orderFactory",          "order.MarketFactory",          'Side -> Volume -> IOrder'),
-                  ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> Volume'),
-                  ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')
-                 ], globals())
