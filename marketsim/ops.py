@@ -105,6 +105,8 @@ Condition = types.Factory("Condition", """(Condition_Impl, Function[%(T)s]):
                    ('elsepart', meta.function((), %(T)s))]
 """, globals())
 
+Condition[Side]
+
 class _Conditional_Base(Function[bool]):
     
     def __call__(self):

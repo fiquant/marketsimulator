@@ -1,5 +1,6 @@
 import sys, itertools, pickle
 sys.path.append(r'..')
+sys.setrecursionlimit(10000)
 
 from marketsim import (orderbook, observable, timeserie, scheduler, veusz, registry, event, config, 
                        context, trader, orderbook, Side, remote, ops, bind, signal, strategy, order)
@@ -284,16 +285,19 @@ def run(name, constructor, only_veusz):
             
             world.schedule(250, lambda: ctx.remote_A.process(o))
         
-        if not only_veusz and config.checkConsistency:
-            r.typecheck()
-            try:
-                dumped = pickle.dumps(r)
-                pickle.loads(dumped)
-            except Exception, err:
-                print err
-        
+        def checks():
+            if not only_veusz and config.checkConsistency:
+                r.typecheck()
+                try:
+                    dumped = pickle.dumps(r)
+                    pickle.loads(dumped)
+                except Exception, err:
+                    print err
+
+        checks()        
         stat = world.workTill(500)
-        
+        checks()        
+
         if config.showTiming:
             print "\n", stat
         

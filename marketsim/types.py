@@ -19,6 +19,7 @@ class IStrategy(object):
     pass
 
 class ISingleAssetStrategy(IStrategy):
+    T = type(None) # just to please wrap.generator
     pass
 
 class IMultiAssetStrategy(IStrategy):

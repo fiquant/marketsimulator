@@ -37,15 +37,35 @@ exec wrapper2("Noise",
               ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> Volume'),
               ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')])
 
-@registry.expose(["Periodic", "Noise"], args = ())
-def NoiseEx     (orderFactory           = order.MarketFactory,
-                 volumeDistr            = mathutils.rnd.expovariate(1.), 
-                 creationIntervalDistr  = mathutils.rnd.expovariate(1.)):
+import _wrap
+
+class NoiseEx(types.ISingleAssetStrategy):
     
-    r = Periodic(orderFactory = orderFactory, 
-                 eventGen     = scheduler.Timer(creationIntervalDistr), 
-                 sideFunc     = observable.side.Random(), 
-                 volumeFunc   = volumeDistr)
+    def getImpl(self):
+        return Periodic(orderFactory = self.orderFactory, 
+                        eventGen     = scheduler.Timer(self.creationIntervalDistr), 
+                        sideFunc     = observable.side.Random(), 
+                        volumeFunc   = self.volumeDistr)
+        
+_wrap.strategy(NoiseEx, ['Generic', 'Noise'], 
+                 """ Noise strategy is a quite dummy strategy that randomly creates an order 
+                     and sends it to the order book. 
+                     
+                     It has following parameters:
     
-    return r
+                     |orderFactory| 
+                         order factory function (default: order.Market.T)
     
+                     |creationIntervalDistr| 
+                         defines intervals of time between order creation 
+                         (default: exponential distribution with |lambda| = 1)
+                         
+                     |volumeDistr| 
+                         defines volumes of orders to create 
+                         (default: exponential distribution with |lambda| = 1)
+                 """,
+                 [
+                  ("orderFactory",          "order.MarketFactory",          'Side -> Volume -> IOrder'),
+                  ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> Volume'),
+                  ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')
+                 ], globals())

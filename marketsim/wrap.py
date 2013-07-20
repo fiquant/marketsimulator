@@ -47,9 +47,22 @@ trailer = """
 %(name)s = %(name)s_Generated
 """
 
+def demangleIfFunction(s):
+    head, sep, tail = s.partition('->')
+    if sep == '': return s
+    head = head.strip()
+    if head[0] != '(' and head[-1] != ')':
+        head = '(' + head + ',)'
+    rv = demangleIfFunction(tail)
+    return 'types.function(%(head)s, %(rv)s)' % locals() 
+    
+def mapped(locs):
+    locs['typ'] = demangleIfFunction(locs['typ'])
+    return locs
+
 def generate(kind, cls, alias, docstring, fields, ctx):
     def process(tmpl, sep=", "):
-        return sep.join([tmpl % locals() for (name, ini, typ) in fields])
+        return sep.join([tmpl % mapped(locals()) for (name, ini, typ) in fields])
     
     args = process("%(name)s = None")
     ctor = process("self._%(name)s = %(name)s if %(name)s is not None else %(ini)s", "; ")

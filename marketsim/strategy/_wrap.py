@@ -51,3 +51,24 @@ def wrapper2(name, docstring, params, register=True, category="Basic"):
     reg = "@registry.expose(['"+category+"', '"+name+"'])" if register else ""
     
     return template2 % locals()
+
+import marketsim
+from marketsim import wrap, ops, types, event, _, flags
+
+StrategyBase = types.Factory('StrategyBase', """(wrap.Base):
+    _properties = {'impl' : (types.ISingleAssetStrategy, flags.collapsed) }
+
+    def __init__(self):
+        wrap.Base.__init__(self)
+        
+    @property
+    def suspended(self):
+        return self.impl._suspended
+    
+    def suspend(self, s=True):
+        self.impl._suspended = s
+        
+""", globals())
+ 
+def strategy(cls, alias, docstring, fields, ctx):
+    wrap.generate("Strategy", cls, alias, docstring, fields, ctx)
