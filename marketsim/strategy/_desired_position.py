@@ -1,4 +1,4 @@
-from marketsim import event, _, Side, order, types
+from marketsim import event, _, Side, order, types, observable
 from marketsim.types import *
 from _basic import Strategy
 from _wrap import wrapper2
@@ -9,11 +9,15 @@ class _DesiredPosition_Impl(Strategy):
         Strategy.__init__(self)
         event.subscribe(self.desiredPosition, _(self)._wakeUp, self)
         
+    def bind(self, ctx):    
+        self._pendingVolume = observable.PendingVolume(ctx.trader)
+        self._tradedVolume = observable.VolumeTraded(ctx.trader)
+        
     def _wakeUp(self, dummy):
         desired = self.desiredPosition()
         if desired is not None:
             desired = int(desired)
-            actual = self._trader.amount + self._trader.pendingVolume
+            actual = self._tradedVolume() + self._pendingVolume()
             gap = desired - actual
             side = Side.Buy if gap > 0 else (Side.Sell if gap < 0 else None)
             if side is not None:

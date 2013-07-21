@@ -88,7 +88,9 @@ class Context(object):
     def makeTrader(self, book, strategy, label, additional_ts = []):
         def trader_ts():
             thisTrader = trader.SingleProxy()
-            return { observable.VolumeTraded(thisTrader) : self.amount_graph, 
+            return { 
+                     observable.VolumeTraded(thisTrader) : self.amount_graph, 
+                     observable.PendingVolume(thisTrader): self.amount_graph, 
                      observable.Efficiency(thisTrader)   : self.eff_graph,
                      observable.PnL(thisTrader)          : self.balance_graph 
                    }

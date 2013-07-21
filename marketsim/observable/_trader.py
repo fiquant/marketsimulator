@@ -1,4 +1,4 @@
-from marketsim import meta, Event, types, event, getLabel, trader, mathutils, ops
+from marketsim import meta, Side, Event, _, types, event, getLabel, trader, mathutils, ops
 
 from _computed import IndicatorBase
 
@@ -109,3 +109,44 @@ def VolumeTraded(aTrader = None):
         OnTraded(aTrader), 
         volume_traded(aTrader))
     
+class PendingVolume_Impl(ops.Observable[float]): # should be int
+    
+    def __init__(self, trader):
+        ops.Observable[float].__init__(self)
+        self.trader = trader
+        self._pendingVolume = 0
+        
+    @property
+    def label(self):
+        return "PendingVolume_{%s}" % self.trader.label
+        
+    def bind(self, ctx):
+        event.subscribe(self.trader.on_order_sent, _(self)._onOrderSent, self, ctx)
+        
+    _properties = { 'trader' : types.ITrader }
+        
+    def _onOrderSent(self, order):
+        if 'volume' in dir(order):
+            dVolume = order.volume if order.side == Side.Buy else -order.volume
+            self._pendingVolume += dVolume
+            order.on_matched += _(self)._onOrderMatched
+            order.on_cancelled += _(self)._onOrderCancelled
+            self.fire(self)
+        
+    def _onOrderMatched(self, order, other, (price, volume)):
+        dVolume = volume if order.side == Side.Buy else -volume
+        self._pendingVolume -= dVolume
+        self.fire(self)
+
+    def _onOrderCancelled(self, order):
+        dVolume = order.volume if order.side == Side.Buy else -order.volume
+        self._pendingVolume -= dVolume
+        self.fire(self)
+
+    def __call__(self):
+        return self._pendingVolume
+    
+def PendingVolume(trader):
+    if '_pendingVolume' not in dir(trader):
+        trader._pendingVolume = PendingVolume_Impl(trader)
+    return trader._pendingVolume

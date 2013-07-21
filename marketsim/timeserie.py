@@ -5,8 +5,8 @@ class ToRecord(types.ITimeSerie):  # TODO: should the source be split into dataS
     def __init__(self, source, graph, _digits = 4, _smooth = False):
         self._source = source
         self.graph = graph
-        self.attributes = source.attributes
-        self._smooth =  1 if 'smooth' in source.attributes and source.attributes['smooth'] else 0
+        self.attributes = getattr(source, 'attributes', {})
+        self._smooth =  1 if 'smooth' in self.attributes and self.attributes['smooth'] else 0
         self._lastPoint = None
         self._event = event.subscribe(source, _(self)._wakeUp, self)
         self.reset()
