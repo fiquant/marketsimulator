@@ -15,6 +15,10 @@ class IOrderBook(object):
 class IOrderQueue(object):
     pass
 
+class IOrderFactory(object):
+    # should provide method __call__(self) -> Order
+    pass 
+
 class IStrategy(object):
     pass
 

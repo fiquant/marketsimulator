@@ -11,5 +11,7 @@ from _always_best import AlwaysBest, AlwaysBestFactory
 from _iceberg import iceberg, Iceberg
 from _stoploss import StopLoss, StopLossFactory
 
+import factory
+
 # TODO: but do we really need to expose this name?
 from _base import Base
