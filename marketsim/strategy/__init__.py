@@ -25,7 +25,7 @@ from _bollinger import Bollinger_linear
 
 from _dependency import Dependency, DependencyEx
 
-from _fv import (FundamentalValue, FundamentalValueEx)
+from _fv import (FundamentalValue, FundamentalValueEx, FundamentalValue2Ex)
 
 from _signal import Signal, SignalEx, Signal2Ex
 

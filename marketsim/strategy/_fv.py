@@ -1,7 +1,7 @@
 from marketsim import (scheduler, observable, types, meta, defs, _, ops,
                        Side, registry, orderbook, bind, order, mathutils)
 
-from _periodic import Periodic
+from _periodic import Periodic, Generic
 from _signal import SignalBase
 from _wrap import wrapper2
 
@@ -101,5 +101,41 @@ _wrap.strategy(FundamentalValueEx, ['Periodic', 'Fundamental Value'],
                ('orderFactory',         'order.MarketFactory',          'Side -> Volume -> IOrder'),
                ('fundamentalValue',     'ops.constant(100)',            '() -> Price'),
                ('volumeDistr',          'mathutils.rnd.expovariate(1.)','() -> Volume'),
+               ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> TimeInterval')
+            ], globals())
+
+class FundamentalValue2Ex(types.ISingleAssetStrategy):
+    
+    def getDefinitions(self):
+        return { 
+            'side' : observable.side.FundamentalValue(
+                                        orderbook.OfTrader(), 
+                                        self.fundamentalValue)
+        }
+
+    def getImpl(self):
+        return Generic(self.orderFactory(_.side),
+                       scheduler.Timer(self.creationIntervalDistr))
+
+_wrap.strategy(FundamentalValue2Ex, ['Periodic', 'Fundamental Value2'], 
+             """ Fundamental value strategy believes that an asset should have some specific price 
+                 (*fundamental value*) and if the current asset price is lower than the fundamental value 
+                 it starts to buy the asset and if the price is higher it starts to sell the asset. 
+             
+                 It has following parameters: 
+                 
+                 |orderFactory| 
+                     order factory function (default: order.Market.T)
+                 
+                 |creationIntervalDistr| 
+                     defines intervals of time between order creation 
+                     (default: exponential distribution with |lambda| = 1)
+                 
+                 |fundamentalValue| 
+                     defines fundamental value (default: constant 100)
+             """,
+            [
+               ('orderFactory',         'order.factory.Side_Market()',  'ISide_IOrderFactory'),
+               ('fundamentalValue',     'ops.constant(100)',            '() -> Price'),
                ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> TimeInterval')
             ], globals())
