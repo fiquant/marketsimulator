@@ -1,4 +1,4 @@
-from marketsim import event, _, Side, order, types, mathutils, scheduler, ops, Event
+from marketsim import event, _, Side, order, types, mathutils, scheduler, ops
 from marketsim.types import *
 from _basic import Strategy
 from _wrap import wrapper2
@@ -6,8 +6,6 @@ from _wrap import wrapper2
 from datetime import datetime
 from pandas.io.data import DataReader
 import pickle
-from marketsim.trader import TraderHistory, SingleProxy
-from marketsim.order import Cancel
 
 class _MarketData_Impl(Strategy):
 
@@ -18,22 +16,8 @@ class _MarketData_Impl(Strategy):
 
         start = datetime.strptime(self.start, '%d/%m/%Y')
         end = datetime.strptime(self.end, '%d/%m/%Y')
+
         self.quotes = self.loadData(self.ticker, start, end)['Adj Close']
-
-        self.log = TraderHistory(SingleProxy())
-        self.waitingForCancel = False
-
-    _internals = ['log']
-
-    def _wakeUp(self, dummy):
-        for position in self.log.pending:
-            self._trader.send(Cancel(position))
-
-        quote = self.quotes[self._scheduler.currentTime]
-        buyOrder = order.LimitFactory(Side.Buy)(quote - 5, self.volume)
-        sellOrder = order.LimitFactory(Side.Sell)(quote + 5, self.volume)
-        self._trader.send(self.log(buyOrder))
-        self._trader.send(self.log(sellOrder))
 
     def loadData(self, ticker, start, end):
         try:
@@ -44,6 +28,27 @@ class _MarketData_Impl(Strategy):
             print "Downloading " + ticker + " data"
             market_data = DataReader(ticker,  "yahoo", start, end)
         return market_data
+
+    def cancelPrevious(self):
+        for position in self.trader.log.pending:
+            self.trader.send(order.Cancel(position))
+
+    def updatePosition(self, bid, ask):
+        buyOrder = order.LimitFactory(Side.Buy)(bid, self.volume)
+        sellOrder = order.LimitFactory(Side.Sell)(ask, self.volume)
+        self._trader.send(buyOrder)
+        self._trader.send(sellOrder)
+
+    @property
+    def time(self):
+        return self._scheduler.currentTime
+
+    def _wakeUp(self, dummy):
+        self.cancelPrevious()
+        quote = self.quotes[self.time]
+        myBid = quote - 0.1
+        myAsk = quote + 0.1
+        self.updatePosition(myBid, myAsk)
 
 
 exec  wrapper2("MarketData",

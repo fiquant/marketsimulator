@@ -1,2 +1,1 @@
 #checkConsistency = False
-useMinorTraders = False

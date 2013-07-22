@@ -14,4 +14,3 @@ from try_multiarmed_bandit import MultiarmedBandit
 from try_rsi import RSI
 from try_desired import DesiredPosition
 from try_market_data import MarketData
-from try_dollar_avg import DollarAverage
