@@ -29,7 +29,7 @@ class _Periodic_Impl(Strategy):
             return
         # determine side and parameters of an order to create
         side = self.sideFunc()
-        if side <> None:
+        if side is not None:
             volume = int(self.volumeFunc())
             if volume > 0:
                 # create order given side and parameters
