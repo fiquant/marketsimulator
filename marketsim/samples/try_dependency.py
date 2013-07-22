@@ -33,5 +33,11 @@ def Dependency(ctx):
                          "A dependent on B ex"),
     
         ctx.makeTrader_B(strategy.DependencyEx(ctx.book_A, factor=.5), 
-                         "B dependent on A ex")
+                         "B dependent on A ex"), 
+
+        ctx.makeTrader_A(strategy.Dependency2Ex(ctx.book_B, factor=2), 
+                         "A dependent on B ex2"),
+    
+        ctx.makeTrader_B(strategy.Dependency2Ex(ctx.book_A, factor=.5), 
+                         "B dependent on A ex2"), 
     ]    
