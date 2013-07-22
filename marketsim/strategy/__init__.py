@@ -29,7 +29,7 @@ from _fv import (FundamentalValue, FundamentalValueEx)
 
 from _signal import Signal, SignalEx, Signal2Ex
 
-from _two_averages import TwoAverages, TwoAveragesEx
+from _two_averages import TwoAverages, TwoAveragesEx, TwoAverages2Ex
 
 from _trend import (TrendFollower, TrendFollowerEx, TrendFollower2Ex)
 

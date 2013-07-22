@@ -2,7 +2,7 @@ from marketsim.types import *
 from marketsim import (orderbook, observable, scheduler, order, mathutils, types, meta, 
                        registry, bind, defs, _)
 
-from _periodic import Periodic
+from _periodic import Periodic, Generic
 from _signal import SignalBase
 
 from _wrap import wrapper2
@@ -110,4 +110,51 @@ _wrap.strategy(TwoAveragesEx, ['Periodic', 'TwoAverages'],
               ('orderFactory',          'order.MarketFactory',           'Side -> Volume -> IOrder'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)', '() -> Volume')], 
+               globals())
+
+class TwoAverages2Ex(types.ISingleAssetStrategy):
+
+    def getDefinitions(self):
+        return { 
+            'price' : observable.MidPrice(orderbook.OfTrader()),
+            'side' :  observable.side.Signal(
+                          (observable.EWMA(_.price, self.ewma_alpha1) 
+                           - observable.EWMA(_.price, self.ewma_alpha2)),
+                          self.threshold)
+        }
+    
+    def getImpl(self):
+        return  Generic(self.orderFactory(_.side),
+                        scheduler.Timer(self.creationIntervalDistr))
+
+_wrap.strategy(TwoAverages2Ex, ['Periodic', 'TwoAverages2'], 
+             """ Two averages strategy compares two averages of price of the same asset but
+                 with different parameters ('slow' and 'fast' averages) and when 
+                 the first is greater than the second one it buys, 
+                 when the first is lower than the second one it sells
+                 
+                 It has following parameters:
+
+                 |ewma_alpha1| 
+                     parameter |alpha| for the first exponentially weighted moving average
+                     (default: 0.15.)
+                      
+                 |ewma_alpha2| 
+                     parameter |alpha| for the second exponentially weighted moving average
+                     (default: 0.015.)
+                      
+                 |threshold| 
+                     threshold when the trader starts to act (default: 0.)
+                     
+                 |creationIntervalDistr| 
+                     defines intervals of time between order creation 
+                     (default: exponential distribution with |lambda| = 1)                     
+             """,
+             [
+              ('ewma_alpha1',           '0.15',                          'non_negative'),
+              ('ewma_alpha2',           '0.015',                         'non_negative'),
+              ('threshold',             '0.',                            'non_negative'), 
+              ('orderFactory',          'order.factory.Side_Market()',   'ISide_IOrderFactory'),
+              ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
+             ], 
                globals())
