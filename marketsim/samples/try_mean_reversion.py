@@ -49,5 +49,12 @@ def MeanReversion(ctx):
                                 creationIntervalDistr = ops.constant(1.),
                                 volumeDistr = const(V)),
                          "meanreversion_ex", 
-                         myVolume())
+                         myVolume()),
+     
+        ctx.makeTrader_A(strategy.MeanReversion2Ex(
+                                ewma_alpha=(alpha),
+                                creationIntervalDistr = ops.constant(1.),
+                                orderFactory=order.factory.Side_Market(const(V))),
+                         "meanreversion2_ex", 
+                         myVolume()),
     ]    
