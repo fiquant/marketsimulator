@@ -87,8 +87,9 @@ class TraderHistory_Impl(object):
             self.matched[order] = self.pending.pop(order)
 
     def onCancelled(self, order):
-        self.cancelled[order] = self.pending.pop(order)
-        self.cancelled[order].append(State(self.time, 0, 0))
+        if order in self.pending:
+            self.cancelled[order] = self.pending.pop(order)
+            self.cancelled[order].append(State(self.time, 0, 0))
 
         if not self.pending:
             self.allCancelled.fire(True)
