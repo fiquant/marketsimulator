@@ -1,7 +1,8 @@
-from marketsim import event, _, Side, order, types, observable
+from marketsim import event, _, Side, order, types, observable, trader, registry, signal
 from marketsim.types import *
 from _basic import Strategy
 from _wrap import wrapper2
+from _periodic import Generic
 
 class _DesiredPosition_Impl(Strategy):
     
@@ -39,3 +40,27 @@ exec  wrapper2("DesiredPosition",
               [('desiredPosition',      'None',                'types.IObservable[float]'), 
                ('orderFactory',         'order.MarketFactory', 'Side -> Volume -> IOrder'),], 
                register=False)
+
+class DesiredPosition2(types.ISingleAssetStrategy):
+    
+    def getDefinitions(self):
+        pending = observable.PendingVolume(trader.SingleProxy())
+        actual = observable.VolumeTraded(trader.SingleProxy())
+        
+        return {
+            'signedVolume' : self.desiredPosition - pending - actual
+        }
+    
+    def getImpl(self):
+        return Generic(self.orderFactory(_.signedVolume), self.desiredPosition)
+
+import _wrap
+    
+_wrap.strategy(DesiredPosition2, ['Desired position', 'Base'],
+         """ 
+         """,
+          [
+           ('desiredPosition',      'signal.RandomWalk()',                 'types.IObservable[float]'), 
+           ('orderFactory',         'order.factory.SignedVolume_Market()', 'ISignedVolume_IOrderFactory')
+          ], globals())
+                

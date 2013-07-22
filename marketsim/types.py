@@ -27,6 +27,10 @@ class ISide_IOrderFactory(object):
     # Side -> IOrderFactory
     pass
 
+class ISignedVolume_IOrderFactory(object):
+    # SignedVolume -> IOrderFactory
+    pass
+
 class IStrategy(object):
     pass
 
