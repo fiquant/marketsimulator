@@ -5,12 +5,11 @@ from marketsim import (signal, strategy, orderbook, mathutils,
                        Side, types, ops, defs, _)
 from marketsim import observable as obs
 from common import expose, Constant
-from random import randint
 
 class DesiredVolumeBase(obs.IndicatorBaseT[float]):
     def __init__(self, source):
         from marketsim import scheduler
-        timer = scheduler.Timer(ops.constant(1.3))
+        timer = scheduler.Timer(ops.constant(1))
         obs.IndicatorBaseT[float].__init__(self, timer, source, {'smooth': True})
         self._position = 0
         self._currentAmount = None
@@ -27,27 +26,15 @@ class DesiredVolumeBase(obs.IndicatorBaseT[float]):
         return self._dataSource()
 
     def __call__(self):
-        self._position = self.getVolume()
+        volume = self.getVolume() if self._dataSource is not None else None
+        self.updatePosition(volume, self.val)
         return self._position
 
     def getVolume(self):
         return 0
 
-
-class Switcher(DesiredVolumeBase):
-    def __init__(self, source):
-        DesiredVolumeBase.__init__(self, source)
-        self._trend = obs.trend(source)
-
-        self._lastBuy = 0
-        self._lastSell = 200
-
-    _internals = ['_trend']
-
-    def getVolume(self):
-        return self._amount() + randint(-1, 1)
-
-
+    def updatePosition(self, volume, val):
+        self._position = volume if volume is not None else self._position
 
 class BuyLowSellHighVolume(DesiredVolumeBase):
 
@@ -91,7 +78,7 @@ class BuyLowSellHighVolume(DesiredVolumeBase):
             return False
 
     def getVolume(self):
-        volume = 0
+        volume = None
         if self.breakHI:
             volume = -1
         elif self.breakLO:
@@ -185,15 +172,8 @@ def DesiredPosition(ctx):
 
 
     return [
-        ctx.makeTrader_A(strategy.LiquidityProvider(volumeDistr=const(10)), "liquidity"),
-
-        # ctx.makeTrader_A(strategy.MarketData(), "marketdata"),
-
-        # ctx.makeTrader_A(strategy.DesiredPosition(rsi_signal), "desired_position",
-        #                  [(rsi_signal, ctx.amount_graph)] + charts),
-        #
-        # ctx.makeTrader_A(strategy.Desired(Switcher(price)), "switcher"),
-        # ctx.makeTrader_A(strategy.DollarAverage(), "DollarAvg"),
-        #
-        # ctx.makeTrader_A(strategy.HighFrequency(), "HF")
+        ctx.makeTrader_A(strategy.LiquidityProvider(volumeDistr=const(4)), "liquidity"),
+        
+        ctx.makeTrader_A(strategy.DesiredPosition(rsi_signal), "desired_position",
+                         [(rsi_signal, ctx.amount_graph)] + charts)
     ]    
