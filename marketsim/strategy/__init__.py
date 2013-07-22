@@ -31,7 +31,7 @@ from _signal import Signal, SignalEx, Signal2Ex
 
 from _two_averages import TwoAverages, TwoAveragesEx
 
-from _trend import (TrendFollower, TrendFollowerEx)
+from _trend import (TrendFollower, TrendFollowerEx, TrendFollower2Ex)
 
 from _trade_if_profitable import tradeIfProfitable, TradeIfProfitable
 

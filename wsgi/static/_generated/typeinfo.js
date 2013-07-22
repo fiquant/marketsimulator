@@ -36,15 +36,18 @@ var typeinfo = {
                     "args": []
                 }
             },
-            "side": {
-                "type": "marketsim.Side"
-            },
             "impl": {
                 "collapsed": true,
                 "type": "marketsim.types.ISingleAssetStrategy"
+            },
+            "side": {
+                "type": "marketsim.Side"
+            },
+            "orderFactory": {
+                "type": "marketsim.types.ISidePrice_IOrderFactory"
             }
         },
-        "description": "<div class=\"document\">\n<p>Liquidity provider for one side has followng parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Side</strong></dt>\n<dd>side of orders to create (default: Side.Sell)</dd>\n<dt><strong>Initial value</strong></dt>\n<dd>initial price which is taken if orderBook is empty (default: 100)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Price of orders to create as multiplier to the current price</strong></dt>\n<dd>defines multipliers for current asset price when price of\norder to create is calculated (default: log normal distribution with\n\u03bc = 0 and \u03c3 = 0.1)</dd>\n</dl>\n<p>It wakes up in moments of time given by <em>creationIntervalDistr</em>, checks\nthe last best price of orders in the corresponding queue, takes <em>initialValue</em>\nif it is empty, multiplies it by a value taken from <em>priceDistr</em> to obtain price\nof the order to create, creates an order using Limit order factory by default\nand tells the trader to send it.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Liquidity provider for one side has followng parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Side</strong></dt>\n<dd>side of orders to create (default: Side.Sell)</dd>\n<dt><strong>Order factory</strong></dt>\n<dd>function (SideFunc,PriceFunc) -&gt; IOrderFactory</dd>\n<dt><strong>Initial order price</strong></dt>\n<dd>initial price which is taken if orderBook is empty (default: 100)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Price of orders to create as multiplier to the current price</strong></dt>\n<dd>defines multipliers for current asset price when price of\norder to create is calculated (default: log normal distribution with\n\u03bc = 0 and \u03c3 = 0.1)</dd>\n</dl>\n<p>It wakes up in moments of time given by <em>creationIntervalDistr</em>, checks\nthe last best price of orders in the corresponding queue, takes <em>initialValue</em>\nif it is empty, multiplies it by a value taken from <em>priceDistr</em> to obtain price\nof the order to create, creates an order using Limit order factory by default\nand tells the trader to send it.</p>\n</div>\n"
     },
     "marketsim.trader._proxy.SingleProxy": {
         "castsTo": [
@@ -226,6 +229,27 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n<p>Exponentially weighted moving average</p>\n</div>\n"
+    },
+    "marketsim.strategy._noise.Noise2Ex_Generated": {
+        "castsTo": [
+            "marketsim.types.ISingleAssetStrategy"
+        ],
+        "properties": {
+            "creationIntervalDistr": {
+                "type": {
+                    "rv": "_parseFloat",
+                    "args": []
+                }
+            },
+            "orderFactory": {
+                "type": "marketsim.types.ISide_IOrderFactory"
+            },
+            "impl": {
+                "collapsed": true,
+                "type": "marketsim.types.ISingleAssetStrategy"
+            }
+        },
+        "description": "<div class=\"document\">\n<p>Noise strategy is a quite dummy strategy that randomly creates an order\nand sends it to the order book.</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Order factory</strong></dt>\n<dd>order factory function (default: order.Market.T)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n</div>\n"
     },
     "marketsim.strategy.TradeIfProfitable": {
         "castsTo": [
@@ -1301,22 +1325,27 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Return a random floating point number <em>N</em> such that <em>low</em> &lt;= <em>N</em> &lt;= <em>high</em> and with the specified <em>mode</em> between those bounds. The <em>low</em> and <em>high</em> bounds default to zero and one. The <em>mode</em> argument defaults to the midpoint between the bounds, giving a symmetric distribution.</p>\n</div>\n"
     },
-    "marketsim.observable._orderbook.QueueLastTradeVolume": {
+    "marketsim.observable._orderbook.Spread_Generated": {
         "castsTo": [
             {
                 "rv": "_parseFloat",
                 "args": []
             },
+            "marketsim.event.Event",
             "marketsim.types.IFunction_float",
             "marketsim.types.IObservable_float",
             "marketsim.types.IObservable_object"
         ],
         "properties": {
-            "orderqueue": {
-                "type": "marketsim.types.IOrderQueue"
+            "orderBook": {
+                "type": "marketsim.types.IOrderBook"
+            },
+            "impl": {
+                "collapsed": true,
+                "type": "marketsim.types.IObservable_float"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Difference between ask and bid asset's price</p>\n</div>\n"
     },
     "marketsim.strategy.TwoAverages": {
         "castsTo": [
@@ -1611,6 +1640,15 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
+    "marketsim.scheduler.Scheduler": {
+        "castsTo": [],
+        "properties": {
+            "currentTime": {
+                "type": "_parseFloat"
+            }
+        },
+        "description": "<div class=\"document\">\n<p>Keeps a set of events to be launched in the future</p>\n</div>\n"
+    },
     "marketsim.observable._orderbook.QueueLastTradePrice": {
         "castsTo": [
             {
@@ -1627,6 +1665,27 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.strategy._signal.Signal2Ex_Generated": {
+        "castsTo": [
+            "marketsim.types.ISingleAssetStrategy"
+        ],
+        "properties": {
+            "threshold": {
+                "type": "combine(greater_or_equal(0.0), _parseFloat)"
+            },
+            "signal": {
+                "type": "marketsim.types.IObservable_float"
+            },
+            "orderFactory": {
+                "type": "marketsim.types.ISide_IOrderFactory"
+            },
+            "impl": {
+                "collapsed": true,
+                "type": "marketsim.types.ISingleAssetStrategy"
+            }
+        },
+        "description": "<div class=\"document\">\n<p>Signal strategy listens to some discrete signal\nand when the signal becomes more than some threshold the strategy starts to buy.\nWhen the signal gets lower than -threshold the strategy starts to sell.</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Signal</strong></dt>\n<dd>signal to be listened to (default: RandomWalk)</dd>\n<dt><strong>Order factory</strong></dt>\n<dd>order factory function (default: order.Market.T)</dd>\n<dt><strong>Threshold</strong></dt>\n<dd>threshold when the trader starts to act (default: 0.7)</dd>\n</dl>\n</div>\n"
     },
     "marketsim.strategy._lp.LiquidityProviderEx_Generated": {
         "castsTo": [
@@ -1874,6 +1933,23 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
+    "marketsim.observable._orderbook.QueueLastTradeVolume": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.types.IFunction_float",
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
+        ],
+        "properties": {
+            "orderqueue": {
+                "type": "marketsim.types.IOrderQueue"
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.observable._async.Efficiency": {
         "castsTo": [
             {
@@ -2040,6 +2116,17 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
+    "marketsim.order.factory.SidePrice_Limit": {
+        "castsTo": [
+            "marketsim.types.ISidePrice_IOrderFactory"
+        ],
+        "properties": {
+            "volume": {
+                "type": "marketsim.types.IFunction_float"
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.strategy._trade_if_profitable.efficiencyTrend": {
         "castsTo": [
             {
@@ -2052,27 +2139,48 @@ var typeinfo = {
         "properties": {},
         "description": "<div class=\"document\">\n<p>Returns derivative of a <em>trader</em>'s &quot;cleared&quot; balance</p>\n</div>\n"
     },
-    "marketsim.observable._orderbook.Spread_Generated": {
+    "marketsim.strategy._trend.TrendFollowerEx_Generated": {
         "castsTo": [
-            {
-                "rv": "_parseFloat",
-                "args": []
-            },
-            "marketsim.event.Event",
-            "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float",
-            "marketsim.types.IObservable_object"
+            "marketsim.types.ISingleAssetStrategy"
         ],
         "properties": {
-            "orderBook": {
-                "type": "marketsim.types.IOrderBook"
+            "volumeDistr": {
+                "type": {
+                    "rv": "_parseFloat",
+                    "args": []
+                }
+            },
+            "ewma_alpha": {
+                "type": "combine(greater_or_equal(0.0), _parseFloat)"
+            },
+            "creationIntervalDistr": {
+                "type": {
+                    "rv": "_parseFloat",
+                    "args": []
+                }
             },
             "impl": {
                 "collapsed": true,
-                "type": "marketsim.types.IObservable_float"
+                "type": "marketsim.types.ISingleAssetStrategy"
+            },
+            "threshold": {
+                "type": "combine(greater_or_equal(0.0), _parseFloat)"
+            },
+            "orderFactory": {
+                "type": {
+                    "rv": {
+                        "rv": "marketsim.types.IOrder",
+                        "args": [
+                            "_parseFloat"
+                        ]
+                    },
+                    "args": [
+                        "marketsim.Side"
+                    ]
+                }
             }
         },
-        "description": "<div class=\"document\">\n<p>Difference between ask and bid asset's price</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Trend follower can be considered as a sort of a signal strategy\nwhere the <em>signal</em> is a trend of the asset.\nUnder trend we understand the first derivative of some moving average of asset prices.\nIf the derivative is positive, the trader buys; if negative - it sells.\nSince moving average is a continuously changing signal, we check its\nderivative at random moments of time given by <em>creationIntervalDistr</em>.</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>&amp;alpha; for moving average</strong></dt>\n<dd>parameter \u03b1 for exponentially weighted moving average\n(default: 0.15.)</dd>\n<dt><strong>Order factory</strong></dt>\n<dd>order factory function (default: order.Market.T)</dd>\n<dt><strong>Threshold</strong></dt>\n<dd>threshold when the trader starts to act (default: 0.)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n</div>\n"
     },
     "marketsim.strategy.Signal": {
         "castsTo": [
@@ -2524,27 +2632,41 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Relative strength index</p>\n</div>\n"
     },
-    "marketsim.strategy.Array": {
+    "marketsim.strategy._lp.LiquidityProvider2Ex_Generated": {
         "castsTo": [
             "marketsim.types.ISingleAssetStrategy"
         ],
         "properties": {
-            "strategies": {
+            "priceDistr": {
                 "type": {
-                    "elementType": "marketsim.types.ISingleAssetStrategy"
+                    "rv": "_parseFloat",
+                    "args": []
                 }
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
-    },
-    "marketsim.scheduler.Scheduler": {
-        "castsTo": [],
-        "properties": {
-            "currentTime": {
+            },
+            "defaultValue": {
                 "type": "_parseFloat"
+            },
+            "volumeDistr": {
+                "type": {
+                    "rv": "_parseFloat",
+                    "args": []
+                }
+            },
+            "creationIntervalDistr": {
+                "type": {
+                    "rv": "_parseFloat",
+                    "args": []
+                }
+            },
+            "impl": {
+                "collapsed": true,
+                "type": "marketsim.types.ISingleAssetStrategy"
+            },
+            "orderFactory": {
+                "type": "marketsim.types.ISidePrice_IOrderFactory"
             }
         },
-        "description": "<div class=\"document\">\n<p>Keeps a set of events to be launched in the future</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Liquidity provider is a combination of two LiquidityProviderSide traders\nwith the same parameters but different trading sides.</p>\n<p>It has followng parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Order factory</strong></dt>\n<dd>(Side,Price) -&gt; IOrderFactory</dd>\n<dt><strong>Initial value</strong></dt>\n<dd>initial price which is taken if orderBook is empty (default: 100)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Price of orders to create as multiplier to the current price</strong></dt>\n<dd>defines multipliers for current asset price when price of\norder to create is calculated (default: log normal distribution with\n\u03bc = 0 and \u03c3 = 0.1)</dd>\n</dl>\n</div>\n"
     },
     "marketsim.strategy.weight.Uniform": {
         "castsTo": [
@@ -2917,48 +3039,29 @@ var typeinfo = {
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.strategy._trend.TrendFollowerEx_Generated": {
+    "marketsim.order.factory.Side_Market": {
+        "castsTo": [
+            "marketsim.types.ISide_IOrderFactory"
+        ],
+        "properties": {
+            "volume": {
+                "type": "marketsim.types.IFunction_float"
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.strategy.Array": {
         "castsTo": [
             "marketsim.types.ISingleAssetStrategy"
         ],
         "properties": {
-            "volumeDistr": {
+            "strategies": {
                 "type": {
-                    "rv": "_parseFloat",
-                    "args": []
-                }
-            },
-            "ewma_alpha": {
-                "type": "combine(greater_or_equal(0.0), _parseFloat)"
-            },
-            "creationIntervalDistr": {
-                "type": {
-                    "rv": "_parseFloat",
-                    "args": []
-                }
-            },
-            "impl": {
-                "collapsed": true,
-                "type": "marketsim.types.ISingleAssetStrategy"
-            },
-            "threshold": {
-                "type": "combine(greater_or_equal(0.0), _parseFloat)"
-            },
-            "orderFactory": {
-                "type": {
-                    "rv": {
-                        "rv": "marketsim.types.IOrder",
-                        "args": [
-                            "_parseFloat"
-                        ]
-                    },
-                    "args": [
-                        "marketsim.Side"
-                    ]
+                    "elementType": "marketsim.types.ISingleAssetStrategy"
                 }
             }
         },
-        "description": "<div class=\"document\">\n<p>Trend follower can be considered as a sort of a signal strategy\nwhere the <em>signal</em> is a trend of the asset.\nUnder trend we understand the first derivative of some moving average of asset prices.\nIf the derivative is positive, the trader buys; if negative - it sells.\nSince moving average is a continuously changing signal, we check its\nderivative at random moments of time given by <em>creationIntervalDistr</em>.</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>&amp;alpha; for moving average</strong></dt>\n<dd>parameter \u03b1 for exponentially weighted moving average\n(default: 0.15.)</dd>\n<dt><strong>Order factory</strong></dt>\n<dd>order factory function (default: order.Market.T)</dd>\n<dt><strong>Threshold</strong></dt>\n<dd>threshold when the trader starts to act (default: 0.)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n</div>\n"
+        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.order._limit.LimitFactory": {
         "castsTo": [
