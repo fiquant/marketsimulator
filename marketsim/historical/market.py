@@ -3,7 +3,7 @@ import pickle
 from datetime import datetime
 import os
 
-data_dir = "../historical/data"
+data_dir = os.path.join(os.pardir, "historical", "data")
 date_format = "%Y-%m-%d"
 fn_sep = "_"  # filename separator
 
@@ -21,7 +21,7 @@ def load(ticker, start, end):
         print "NOT FOUND. DOWNLOADING..."
         data = DataReader(ticker,  "yahoo", start, end)
         print "DOWNLOAD COMPLETE"
-        output = open(data_dir + "/" + create_name(ticker, start, end), "wb")
+        output = open(os.path.join(data_dir, create_name(ticker, start, end)), "wb")
         pickle.dump(data, output)
 
     return data
@@ -33,7 +33,7 @@ def load_local(ticker, start, end):
         t, s, e = parse_name(file)
         if t == ticker and s <= start and end <= e:
             print("FOUND")
-            market_data = pickle.load(open(data_dir + "/" + file))
+            market_data = pickle.load(open(os.path.join(data_dir, file)))
             market_data = market_data[to_str(start):to_str(end)]
             return market_data
     return None
