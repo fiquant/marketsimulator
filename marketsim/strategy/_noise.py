@@ -1,7 +1,7 @@
-from marketsim import scheduler, order, mathutils, types, registry, ops, meta, observable
+from marketsim import scheduler, order, _, mathutils, types, registry, ops, meta, observable
 from _basic import Strategy
 from _two_sides import TwoSides
-from _periodic import Periodic
+from _periodic import Periodic, Generic
 from _wrap import wrapper2
 from marketsim.types import *
 
@@ -67,5 +67,32 @@ _wrap.strategy(NoiseEx, ['Periodic', 'Noise'],
                  [
                   ("orderFactory",          "order.MarketFactory",          'Side -> Volume -> IOrder'),
                   ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> Volume'),
+                  ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')
+                 ], globals())
+
+class Noise2Ex(types.ISingleAssetStrategy):
+    
+    def getDefinitions(self):
+        return { 'side' : observable.side.Random() }
+    
+    def getImpl(self):
+        return Generic(eventGen = scheduler.Timer(self.creationIntervalDistr), 
+                       orderFactory = self.orderFactory(_.side))
+        
+_wrap.strategy(Noise2Ex, ['Periodic', 'Noise2'], 
+                 """ Noise strategy is a quite dummy strategy that randomly creates an order 
+                     and sends it to the order book. 
+                     
+                     It has following parameters:
+    
+                     |orderFactory| 
+                         order factory function (default: order.Market.T)
+    
+                     |creationIntervalDistr| 
+                         defines intervals of time between order creation 
+                         (default: exponential distribution with |lambda| = 1)
+                 """,
+                 [
+                  ("orderFactory",          "order.factory.Side_Market()",  'ISide_IOrderFactory'),
                   ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')
                  ], globals())

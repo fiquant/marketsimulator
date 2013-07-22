@@ -13,7 +13,7 @@ from _lp import (LiquidityProvider, LiquidityProviderEx, LiquidityProvider2Ex)
 
 from _canceller import Canceller
 
-from _noise import Noise, NoiseEx
+from _noise import Noise, NoiseEx, Noise2Ex
 
 from _arbitrage import Arbitrage
 

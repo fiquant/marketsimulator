@@ -23,6 +23,10 @@ class ISidePrice_IOrderFactory(object):
     # (Side,Price) -> IOrderFactory
     pass
 
+class ISide_IOrderFactory(object):
+    # Side -> IOrderFactory
+    pass
+
 class IStrategy(object):
     pass
 

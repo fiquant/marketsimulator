@@ -34,6 +34,19 @@ class Market(types.IOrderFactory):
             return None
         return MarketOrder(side, volume)
     
+class Side_Market(types.ISide_IOrderFactory):
+    
+    def __init__(self, 
+                 volume = ops.constant(1.)):
+        self.volume = volume
+        
+    _properties = { 
+        'volume'    : types.IFunction[float]
+    }
+        
+    def __call__(self, side):
+        return Market(side, self.volume)
+    
 class Limit(types.IOrderFactory):
     
     def __init__(self, 
