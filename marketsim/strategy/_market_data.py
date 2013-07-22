@@ -3,9 +3,8 @@ from marketsim.types import *
 from _basic import Strategy
 from _wrap import wrapper2
 
-from datetime import datetime
-from pandas.io.data import DataReader
-import pickle
+import marketsim.historical.market as data
+
 from marketsim.trader import TraderHistory, SingleProxy
 from marketsim.order import Cancel
 
@@ -16,9 +15,7 @@ class _MarketData_Impl(Strategy):
         self._eventGen = scheduler.Timer(ops.constant(1))
         event.subscribe(self._eventGen, _(self)._wakeUp, self)
 
-        start = datetime.strptime(self.start, '%d/%m/%Y')
-        end = datetime.strptime(self.end, '%d/%m/%Y')
-        self.quotes = self.loadData(self.ticker, start, end)['Adj Close']
+        self.quotes = data.load(self.ticker, self.start, self.end)['Adj Close']
 
         self.log = TraderHistory(SingleProxy())
         self.waitingForCancel = False
@@ -35,15 +32,10 @@ class _MarketData_Impl(Strategy):
         self._trader.send(self.log(buyOrder))
         self._trader.send(self.log(sellOrder))
 
-    def loadData(self, ticker, start, end):
-        try:
-            # TODO: check if the start/end dates are covered by the data
-            path = "../strategy/"
-            market_data = pickle.load(open(path+ticker+".p", "rb"))
-        except IOError:
-            print "Downloading " + ticker + " data"
-            market_data = DataReader(ticker,  "yahoo", start, end)
-        return market_data
+
+
+
+
 
 
 exec  wrapper2("MarketData",
@@ -59,15 +51,15 @@ exec  wrapper2("MarketData",
                 Ticker of the asset
 
              |start|
-                Start date in DD/MM/YYYY format
+                Start date in DD-MM-YYYY format
 
              |end|
-                End date in DD/MM/YYYY format
+                End date in DD-MM-YYYY format
 
              |volume|
                 Volume of Buy/Sell orders. Should be large compared to the volumes of other traders.
              """,
               [ ('ticker', '"^GSPC"',  'str'),
-                ('start', '"1/1/2000"', 'str'),
-                ('end', '"1/1/2008"', 'str'),
+                ('start', '"2001-1-1"', 'str'),
+                ('end', '"2010-1-1"', 'str'),
                   ('volume', '1000', 'Volume')], register=False)
