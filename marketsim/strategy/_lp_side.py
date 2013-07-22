@@ -164,13 +164,13 @@ class LiquidityProviderSide2Ex(types.ISingleAssetStrategy):
 _wrap.strategy(LiquidityProviderSide2Ex, ['Generic', 'LiquidityProviderSide2'],
              """ Liquidity provider for one side has followng parameters:
              
-                 |orderFactory|
-                     function (SideFunc,PriceFunc) -> IOrderFactory
-
                  |side|
                      side of orders to create (default: Side.Sell)
                      
-                 |initialValue| 
+                 |orderFactory|
+                     function (SideFunc,PriceFunc) -> IOrderFactory
+
+                 |defaultValue| 
                      initial price which is taken if orderBook is empty (default: 100)
                      
                  |creationIntervalDistr|
@@ -189,8 +189,8 @@ _wrap.strategy(LiquidityProviderSide2Ex, ['Generic', 'LiquidityProviderSide2'],
                  and tells the trader to send it.
              """,
              [
-              ('orderFactory',          'order.factory.SidePrice_Limit()',      'ISidePrice_IOrderFactory'),
               ('side',                  'Side.Sell',                            'Side'),
+              ('orderFactory',          'order.factory.SidePrice_Limit()',      'ISidePrice_IOrderFactory'),
               ('defaultValue',          '100',                                  'Price'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
               ('priceDistr',            'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),

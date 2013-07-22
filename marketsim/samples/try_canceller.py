@@ -20,12 +20,14 @@ def Canceller(ctx):
                                     expirationDistr=ops.constant(1))),
                          "LiquidityProviderEx-"),
         
+        ctx.makeTrader_A(strategy.LiquidityProvider2Ex(), "LiquidityProvider2"),
+        
         ctx.makeTrader_A(strategy.LiquidityProviderSide2Ex(
                             side = Side.Sell, 
                             orderFactory = order.factory.SidePrice_Limit(
                                                 volume = mathutils.rnd.expovariate(1.))),
                          "LiquidityProvider2Ex-"),
-        
+         
         ctx.makeTrader_A(strategy.LiquidityProviderSide(side = Side.Buy),
                          "LiquidityProviderBuy"),
     

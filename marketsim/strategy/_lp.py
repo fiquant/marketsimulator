@@ -4,7 +4,8 @@ from _one_side import OneSide
 from _periodic import Periodic
 from _array import Array
 from _wrap import merge, wrapper2
-from _lp_side import LiquidityProviderSide, LiquidityProviderSideEx
+from _lp_side import (LiquidityProviderSide, LiquidityProviderSideEx, 
+                      LiquidityProviderSide2Ex)
 from marketsim import (order, orderbook, scheduler, mathutils, defs, _,
                        types, registry, bind, meta, trader, ops)
 from marketsim.types import *
@@ -128,6 +129,57 @@ _wrap.strategy(LiquidityProviderEx, ['Periodic', 'LiquidityProvider'],
                          (default: exponential distribution with |lambda| = 1)
                 """,  
                 [('orderFactory',           'order.LimitFactory',                   'Side -> (Price, Volume) -> IOrder'),
+                 ('defaultValue',           '100',                                  'Price'),
+                 ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
+                 ('priceDistr',             'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
+                 ('volumeDistr',            'mathutils.rnd.expovariate(.1)',        '() -> Volume')],
+               globals())
+
+class LiquidityProvider2Ex(types.ISingleAssetStrategy):
+    
+    def getDefinitions(self):
+        return { 
+                'creationInterval': self.creationIntervalDistr, 
+                'price'           : self.priceDistr, 
+            }
+        
+    def getImpl(self):
+        orderBook = orderbook.OfTrader()
+    
+        def create(side):
+            return LiquidityProviderSide2Ex(side = side, 
+                                            orderFactory = self.orderFactory, 
+                                            defaultValue = self.defaultValue, 
+                                            creationIntervalDistr = _.creationInterval, 
+                                            priceDistr = _.price)
+    
+        return Array([
+                create(Side.Sell),
+                create(Side.Buy)
+            ]) 
+
+_wrap.strategy(LiquidityProvider2Ex, ['Periodic', 'LiquidityProvider2'],
+                 """ Liquidity provider is a combination of two LiquidityProviderSide traders 
+                     with the same parameters but different trading sides. 
+                     
+                     It has followng parameters:
+    
+                     |orderFactory| 
+                         (Side,Price) -> IOrderFactory
+                         
+                     |initialValue| 
+                         initial price which is taken if orderBook is empty (default: 100)
+                         
+                     |creationIntervalDistr|
+                         defines intervals of time between order creation 
+                         (default: exponential distribution with |lambda| = 1)
+                         
+                     |priceDistr|
+                         defines multipliers for current asset price when price of
+                         order to create is calculated (default: log normal distribution with 
+                         |mu| = 0 and |sigma| = 0.1)
+                """,  
+                [('orderFactory',           'order.factory.SidePrice_Limit()',      'ISidePrice_IOrderFactory'),
                  ('defaultValue',           '100',                                  'Price'),
                  ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
                  ('priceDistr',             'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),

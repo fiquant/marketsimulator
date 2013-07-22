@@ -9,7 +9,7 @@ from _lp_side import (LiquidityProviderSide, LiquidityProviderSideEx, LiquidityP
 
 from _array import Array
  
-from _lp import (LiquidityProvider, LiquidityProviderEx)
+from _lp import (LiquidityProvider, LiquidityProviderEx, LiquidityProvider2Ex)
 
 from _canceller import Canceller
 
