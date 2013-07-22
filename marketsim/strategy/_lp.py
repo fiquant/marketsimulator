@@ -74,31 +74,62 @@ exec wrapper2('LiquidityProvider',
              ('priceDistr',             'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
              ('volumeDistr',            'mathutils.rnd.expovariate(.1)',        '() -> Volume')])
 
+import _wrap
 
-@registry.expose(["Periodic", 'LiquidityProvider'], args = ())
-def LiquidityProviderEx    (orderFactory            = order.LimitFactory, 
-                            defaultValue            = 100., 
-                            creationIntervalDistr   = mathutils.rnd.expovariate(1.), 
-                            priceDistr              = mathutils.rnd.lognormvariate(0., .1), 
-                            volumeDistr             = mathutils.rnd.expovariate(1.)):
+class LiquidityProviderEx(types.ISingleAssetStrategy):
+    
+    def getDefinitions(self):
+        return { 
+                'creationInterval': self.creationIntervalDistr, 
+                'volume'          : self.volumeDistr, 
+                'price'           : self.priceDistr, 
+                'orderFactory'    : self.orderFactory 
+            }
+        
+    def getImpl(self):
+        orderBook = orderbook.OfTrader()
+    
+        def create(side):
+            return LiquidityProviderSideEx(side, 
+                                           _.orderFactory, 
+                                           self.defaultValue, 
+                                           _.creationInterval, 
+                                           _.price, 
+                                           _.volume)
+    
+        return Array([
+                create(Side.Sell),
+                create(Side.Buy)
+            ]) 
 
-    orderBook = orderbook.OfTrader()
-
-    def create(side):
-        return LiquidityProviderSideEx(side, 
-                                       _.orderFactory, 
-                                       defaultValue, 
-                                       _.creationInterval, 
-                                       _.price, 
-                                       _.volume)
-
-    return defs(
-        Array([
-            create(Side.Sell),
-            create(Side.Buy)
-        ]), 
-        { 'creationInterval': creationIntervalDistr, 
-          'volume'          : volumeDistr, 
-          'price'           : priceDistr, 
-          'orderFactory'    : orderFactory })
-
+_wrap.strategy(LiquidityProviderEx, ['Periodic', 'LiquidityProvider'],
+                 """ Liquidity provider is a combination of two LiquidityProviderSide traders 
+                     with the same parameters but different trading sides. 
+                     
+                     It has followng parameters:
+    
+                     |orderFactory| 
+                         order factory function (default: order.Limit.T)
+                         
+                     |initialValue| 
+                         initial price which is taken if orderBook is empty (default: 100)
+                         
+                     |creationIntervalDistr|
+                         defines intervals of time between order creation 
+                         (default: exponential distribution with |lambda| = 1)
+                         
+                     |priceDistr|
+                         defines multipliers for current asset price when price of
+                         order to create is calculated (default: log normal distribution with 
+                         |mu| = 0 and |sigma| = 0.1)
+                         
+                     |volumeDistr| 
+                         defines volumes of orders to create 
+                         (default: exponential distribution with |lambda| = 1)
+                """,  
+                [('orderFactory',           'order.LimitFactory',                   'Side -> (Price, Volume) -> IOrder'),
+                 ('defaultValue',           '100',                                  'Price'),
+                 ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
+                 ('priceDistr',             'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
+                 ('volumeDistr',            'mathutils.rnd.expovariate(.1)',        '() -> Volume')],
+               globals())
