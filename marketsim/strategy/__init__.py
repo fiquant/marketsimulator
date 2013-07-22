@@ -27,7 +27,7 @@ from _dependency import Dependency, DependencyEx
 
 from _fv import (FundamentalValue, FundamentalValueEx)
 
-from _signal import Signal, SignalEx
+from _signal import Signal, SignalEx, Signal2Ex
 
 from _two_averages import TwoAverages, TwoAveragesEx
 

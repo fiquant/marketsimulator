@@ -24,6 +24,10 @@ def Signal(ctx):
                                            volumeDistr=const(1)), 
                          "signal_ex"), 
         
+        ctx.makeTrader_A(strategy.Signal2Ex(linear_signal, 
+                                            order.factory.Side_Market(const(1))), 
+                         "signal2_ex"), 
+        
         ctx.makeTrader_A(strategy.SignalEx(linear_signal, 
                                            volumeDistr=const(1), 
                                            orderFactory=order.StopLossFactory()), 
