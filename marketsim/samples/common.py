@@ -90,7 +90,7 @@ class Context(object):
             thisTrader = trader.SingleProxy()
             return { 
                      observable.VolumeTraded(thisTrader) : self.amount_graph, 
-                     observable.PendingVolume(thisTrader): self.amount_graph, 
+                     #observable.PendingVolume(thisTrader): self.amount_graph, 
                      observable.Efficiency(thisTrader)   : self.eff_graph,
                      observable.PnL(thisTrader)          : self.balance_graph 
                    }

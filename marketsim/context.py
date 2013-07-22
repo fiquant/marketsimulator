@@ -1,10 +1,18 @@
 import inspect
+try:
+    import numpy
+    has_numpy = True
+except:
+    has_numpy = False
 
 from marketsim import rtti
 
 debug = False
 
 def primitive(typ):
+    if has_numpy:
+        if typ is numpy.float64:
+            return True
     return typ is int or typ is float or typ is bool or typ is str
 
 def is_iterable(obj):
