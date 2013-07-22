@@ -63,14 +63,14 @@ exec  wrapper2("Periodic",
                ('volumeFunc',           'mathutils.rnd.expovariate(1.)',        '() -> Volume'),
                ('sideFunc',             'ops.constant(Side.Sell)',              '() -> Side')], register=False)
 
-class _Periodic2_Impl(Strategy):    
+class _Generic_Impl(Strategy):    
      
     def __init__(self):                
         Strategy.__init__(self)
         event.subscribe(self.eventGen, _(self)._wakeUp, self)
          
     def __repr__(self):
-        return "Periodic(%s, %s)" % (self.eventGen, self.orderFactory)
+        return "Generic(%s, %s)" % (self.eventGen, self.orderFactory)
          
     def _wakeUp(self, _):
         if self._suspended:
@@ -81,8 +81,8 @@ class _Periodic2_Impl(Strategy):
         if order is not None:
             self._trader.send(order)
  
-exec  wrapper2("Periodic2", 
-             """ Generic periodic strategy that wakes up on events given by *eventGen*, 
+exec  wrapper2("Generic", 
+             """ Generic strategy that wakes up on events given by *eventGen*, 
                  creates an order via *orderFactory* and sends the order to the market using its trader
               
                  Parameters:
@@ -94,5 +94,5 @@ exec  wrapper2("Periodic2",
                          Event source making the strategy to wake up
                           
              """,
-              [('orderFactory',         'order.factory.Market',                 'types.IOrderFactory'),
-               ('eventGen',             'scheduler.Timer(ops.constant(1.))',    'Event')], register=False)
+              [('orderFactory',         'order.factory.Market()',               'types.IOrderFactory'),
+               ('eventGen',             'scheduler.Timer(ops.constant(1.))',    'Event')])

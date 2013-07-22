@@ -1,6 +1,6 @@
 import random
 from _one_side import OneSide
-from _periodic import Periodic
+from _periodic import Periodic, Generic
 from _wrap import wrapper2
 from marketsim import (order, orderbook, scheduler, mathutils, ops,
                        event, types, registry, meta, defs, _, observable)
@@ -145,3 +145,54 @@ _wrap.strategy(LiquidityProviderSideEx, ['Periodic', 'LiquidityProviderSide'],
               ('priceDistr',            'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)',        '() -> Volume')],
                globals())
+
+class LiquidityProviderSide2Ex(types.ISingleAssetStrategy):
+    
+    def getDefinitions(self):
+        return {
+            'priceFunc' : SafeSidePrice(orderbook.OfTrader(), 
+                                        self.side, self.defaultValue) \
+                                    * self.priceDistr, 
+            'sideFunc' : ops.constant(self.side)
+        }
+    
+    def getImpl(self):
+        orderBook = orderbook.OfTrader()
+        return Generic(eventGen    = scheduler.Timer(self.creationIntervalDistr),
+                       orderFactory= self.orderFactory(_.sideFunc, _.priceFunc))
+
+_wrap.strategy(LiquidityProviderSide2Ex, ['Generic', 'LiquidityProviderSide2'],
+             """ Liquidity provider for one side has followng parameters:
+             
+                 |orderFactory|
+                     function (SideFunc,PriceFunc) -> IOrderFactory
+
+                 |side|
+                     side of orders to create (default: Side.Sell)
+                     
+                 |initialValue| 
+                     initial price which is taken if orderBook is empty (default: 100)
+                     
+                 |creationIntervalDistr|
+                     defines intervals of time between order creation 
+                     (default: exponential distribution with |lambda| = 1)
+                     
+                 |priceDistr|
+                     defines multipliers for current asset price when price of
+                     order to create is calculated (default: log normal distribution with 
+                     |mu| = 0 and |sigma| = 0.1)
+
+                 It wakes up in moments of time given by *creationIntervalDistr*, checks
+                 the last best price of orders in the corresponding queue, takes *initialValue*
+                 if it is empty, multiplies it by a value taken from *priceDistr* to obtain price
+                 of the order to create, creates an order using Limit order factory by default
+                 and tells the trader to send it.
+             """,
+             [
+              ('orderFactory',          'order.factory.SidePrice_Limit()',      'ISidePrice_IOrderFactory'),
+              ('side',                  'Side.Sell',                            'Side'),
+              ('defaultValue',          '100',                                  'Price'),
+              ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
+              ('priceDistr',            'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
+             ],
+             globals())

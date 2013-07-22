@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (strategy, trader, orderbook, order, ops, Side,
+from marketsim import (strategy, trader, orderbook, order, ops, Side, mathutils,
                        scheduler, observable, veusz, registry, timeserie)
 
 from common import expose
@@ -19,6 +19,12 @@ def Canceller(ctx):
                             orderFactory=order.WithExpiryFactory(
                                     expirationDistr=ops.constant(1))),
                          "LiquidityProviderEx-"),
+        
+        ctx.makeTrader_A(strategy.LiquidityProviderSide2Ex(
+                            side = Side.Sell, 
+                            orderFactory = order.factory.SidePrice_Limit(
+                                                volume = mathutils.rnd.expovariate(1.))),
+                         "LiquidityProvider2Ex-"),
         
         ctx.makeTrader_A(strategy.LiquidityProviderSide(side = Side.Buy),
                          "LiquidityProviderBuy"),

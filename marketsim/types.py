@@ -19,6 +19,10 @@ class IOrderFactory(object):
     # should provide method __call__(self) -> Order
     pass 
 
+class ISidePrice_IOrderFactory(object):
+    # (Side,Price) -> IOrderFactory
+    pass
+
 class IStrategy(object):
     pass
 
