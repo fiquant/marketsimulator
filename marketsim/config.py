@@ -6,5 +6,6 @@ runTwoTimes = False
 showTiming = True
 checkConsistency = True
 usePandas = True
+useMinorTraders = True
 
 from config_user import *
