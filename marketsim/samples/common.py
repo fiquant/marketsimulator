@@ -255,7 +255,7 @@ def run(name, constructor, only_veusz):
         ctx = Context(world, veusz.Graph)
         traders = constructor(ctx)
 
-        if useMinorTraders:
+        if config.useMinorTraders:
             traders.extend([
                 ctx.makeMinorTrader(strategy.RSI_linear(k = const(0.07)), "RSI 0.07"),
                 ctx.makeMinorTrader(strategy.RSI_linear(k = const(-0.07)), "RSI -0.07"),
