@@ -26,6 +26,9 @@ class _MarketData_Impl(Strategy):
         for position in self.log.pending:
             self._trader.send(Cancel(position))
 
+        if self._scheduler.currentTime > 100:
+            return
+
         quote = self.quotes[self._scheduler.currentTime]
         buyOrder = order.LimitFactory(Side.Buy)(quote - 5, self.volume)
         sellOrder = order.LimitFactory(Side.Sell)(quote + 5, self.volume)

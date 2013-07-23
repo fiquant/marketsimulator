@@ -49,4 +49,4 @@ exec  wrapper2("MarketMaker",
              |volume|
                 Volume of Buy/Sell orders. Should be large compared to the volumes of other traders.
              """,
-              [ ('volume', '1', 'Volume') ], register=False)
+              [ ('volume', '20', 'Volume') ], register=False)
