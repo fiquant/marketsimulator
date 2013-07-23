@@ -260,6 +260,8 @@ def run(name, constructor, only_veusz):
             ctx.makeMinorTrader(strategy.RSI_linear(k = const(-0.07)), "RSI -0.07"),
             ctx.makeMinorTrader(strategy.Bollinger_linear(alpha=0.15, k = const(-0.5)), "Bollinger -0.5"),
             ctx.makeMinorTrader(strategy.Bollinger_linear(alpha=0.15, k = const(+0.5)), "Bollinger +0.5"),
+            ctx.makeMinorTrader(strategy.Bollinger2_linear(alpha=0.15, k = const(+0.5)), "Bollinger 2 +0.5"),
+            ctx.makeMinorTrader(strategy.Bollinger2_linear(alpha=0.15, k = const(-0.5)), "Bollinger 2 -0.5"),
         ])
         
         books = orderBooksToRender(ctx, traders)

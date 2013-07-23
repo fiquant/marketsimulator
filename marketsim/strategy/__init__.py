@@ -21,7 +21,7 @@ from _mean_reversion import MeanReversion, MeanReversionEx, MeanReversion2Ex
 
 from _rsi import RSIEx, RSIbis, RSI_linear
 
-from _bollinger import Bollinger_linear
+from _bollinger import Bollinger_linear, Bollinger2_linear
 
 from _dependency import Dependency, DependencyEx, Dependency2Ex
 
@@ -41,7 +41,7 @@ from _multiarmed_bandit import MultiarmedBandit
 
 from _periodic import Periodic
 
-from _desired_position import DesiredPosition
+from _desired_position import DesiredPosition 
 
 if config.usePandas:
     #from _market_maker import MarketMaker

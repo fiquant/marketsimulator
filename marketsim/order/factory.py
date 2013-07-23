@@ -4,7 +4,7 @@ from _market import Market as MarketOrder
 from _limit import Limit as LimitOrder
 
 def correct_volume(x):
-    return None if x is None or x < 1 else int(x)
+    return None if x is None or abs(x) < 1 else int(x)
     
 def correct_price(x):
     return x
@@ -50,11 +50,11 @@ class MarketSigned(Market_Base):
     }
         
     def get(self):
-        volume = correct_volume(self.volume())
-        if volume is None:
+        signedVolume = correct_volume(self.signedVolume())
+        if signedVolume is None:
             return None
-        side = Side.Buy if volume > 0 else Side.Sell
-        return (side, volume)
+        side = Side.Buy if signedVolume > 0 else Side.Sell
+        return (side, abs(signedVolume))
 
 class SignedVolume_Market(types.ISignedVolume_IOrderFactory):
     

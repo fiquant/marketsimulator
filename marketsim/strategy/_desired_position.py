@@ -1,4 +1,4 @@
-from marketsim import event, _, Side, order, types, observable, trader, registry, signal
+from marketsim import event, _, Side, order, types, observable, trader, registry, signal, ops
 from marketsim.types import *
 from _basic import Strategy
 from _wrap import wrapper2
@@ -9,10 +9,10 @@ class _DesiredPosition_Impl(Strategy):
     def __init__(self):
         Strategy.__init__(self)
         event.subscribe(self.desiredPosition, _(self)._wakeUp, self)
+        self._tradedVolume = observable.VolumeTraded()
         self._pendingVolume = observable.PendingVolume()
         
-    def bind(self, ctx):    
-        self._tradedVolume = observable.VolumeTraded(ctx.trader)
+    _internals = ['_tradedVolume', '_pendingVolume']
         
     def _wakeUp(self, dummy):
         desired = self.desiredPosition()
@@ -44,11 +44,11 @@ exec  wrapper2("DesiredPosition",
 class DesiredPosition2(types.ISingleAssetStrategy):
     
     def getDefinitions(self):
-        pending = observable.PendingVolume(trader.SingleProxy())
-        actual = observable.VolumeTraded(trader.SingleProxy())
+        pending = observable.PendingVolume()
+        actual = observable.VolumeTraded()
         
         return {
-            'signedVolume' : self.desiredPosition - pending - actual
+            'signedVolume' : self.desiredPosition - actual - pending
         }
     
     def getImpl(self):
