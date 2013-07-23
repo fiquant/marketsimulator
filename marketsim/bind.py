@@ -31,3 +31,21 @@ class Construct(object):
         
     def __call__(self, *args):
         return self.class_(*(self.args + args))
+
+class Event(object):
+    
+    def __init__(self, target, propname):
+        self.target = target
+        self.propname = propname
+        
+    def __iadd__(self, listener):
+        x = getattr(self.target, self.propname) 
+        x += listener
+        return self
+    
+    def __isub__(self, listener):
+        x = getattr(self.target, self.propname) 
+        x -= listener
+        return self
+    
+    

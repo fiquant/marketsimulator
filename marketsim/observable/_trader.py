@@ -154,7 +154,24 @@ class PendingVolume_Impl(Base, ops.Observable[float]): # should be int
     def __call__(self):
         return self._pendingVolume
     
-def PendingVolume(trader):
-    if '_pendingVolume' not in dir(trader):
-        trader._pendingVolume = PendingVolume_Impl(trader)
-    return trader._pendingVolume
+import marketsim
+import _computed
+
+class Proxy(_computed.Proxy):
+    
+    def __init__(self, trader = None):
+        if trader is None:
+            trader = marketsim.trader.SingleProxy()
+        self.trader = trader
+        self._alias = ["Trader's", self.__class__.__name__ ]
+
+    _properties = { 'trader' : types.ISingleAssetTrader }
+
+    
+class PendingVolume(Proxy):
+
+    @property
+    def _impl(self):
+        if '_pendingVolume' not in dir(self.trader):
+            self.trader._pendingVolume = PendingVolume_Impl(self.trader)
+        return self.trader._pendingVolume

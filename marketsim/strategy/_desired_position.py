@@ -9,9 +9,9 @@ class _DesiredPosition_Impl(Strategy):
     def __init__(self):
         Strategy.__init__(self)
         event.subscribe(self.desiredPosition, _(self)._wakeUp, self)
+        self._pendingVolume = observable.PendingVolume()
         
     def bind(self, ctx):    
-        self._pendingVolume = observable.PendingVolume(ctx.trader)
         self._tradedVolume = observable.VolumeTraded(ctx.trader)
         
     def _wakeUp(self, dummy):
