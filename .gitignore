@@ -10,3 +10,5 @@ wsgi/_cache/*
 marketsim/config_user.py
 
 marketsim/historical/data/*
+
+marketsim/config_user.py
