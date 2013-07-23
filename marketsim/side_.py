@@ -2,7 +2,11 @@ class Tag(object):
 
     @staticmethod
     def byId(x):
-        return Buy if x else Sell  
+        return Buy if x else Sell
+
+    @staticmethod
+    def byVolume(volume):
+        return Buy if volume > 0 else Sell
 
     def __eq__(self, other):
         return isinstance(other, self.__class__)
@@ -36,6 +40,12 @@ class _SellSide(Tag):
         """ Leaves price of something on sell side positive
         """
         return +price
+
+    @staticmethod
+    def makeVolumeSigned(volume):
+        """ Makes volume of sell side assets negative
+        """
+        return -volume
     
 class _BuySide(Tag):
     
@@ -58,6 +68,12 @@ class _BuySide(Tag):
         """ Makes price of something on buy side negative
         """
         return -price
+
+    @staticmethod
+    def makeVolumeSigned(volume):
+        """ Makes volume of buy side assets positive
+        """
+        return volume
 
 
 Sell = _SellSide()
