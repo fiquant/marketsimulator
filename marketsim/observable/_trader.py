@@ -1,6 +1,7 @@
-from marketsim import meta, Side, Event, _, types, event, getLabel, trader, mathutils, ops
+from marketsim import meta, Side, Event, _, types, event, getLabel, mathutils, ops
 
 from _computed import IndicatorBase
+from marketsim.trader._proxy import SingleProxy
 
 #### ------------------------------------------------------- Accessors
 
@@ -103,7 +104,7 @@ def VolumeTraded(aTrader = None):
     """ Returns an indicator bound to trader's position 
     """
     if aTrader is None:
-        aTrader = trader.SingleProxy()
+        aTrader = SingleProxy()
         
     return IndicatorBase(\
         OnTraded(aTrader), 
@@ -151,14 +152,13 @@ class PendingVolume_Impl(Base, ops.Observable[float]): # should be int
     def __call__(self):
         return self._pendingVolume
     
-import marketsim
 import _computed
 
 class Proxy(_computed.Proxy):
     
     def __init__(self, trader = None):
         if trader is None:
-            trader = marketsim.trader.SingleProxy()
+            trader = SingleProxy()
         self.trader = trader
         self._alias = ["Trader's", self.__class__.__name__ ]
 

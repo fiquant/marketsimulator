@@ -4,11 +4,14 @@ from itertools import ifilter
 from operator import attrgetter
 from marketsim.order import Cancel
 
+from marketsim.observable._trader import Base, Proxy
+
 State = namedtuple('State', 'time price volume')
 
-class TraderHistory_Impl(object):
+class TraderHistory_Impl(Base):
 
     def __init__(self, trader):
+        Base.__init__(self, trader)
         self._trader = trader
         self.matched = OrderedDict()
         self.pending = OrderedDict()
@@ -20,16 +23,11 @@ class TraderHistory_Impl(object):
         self._scheduler = context.world
         self._trader = context.trader
 
-    def __call__(self, order):
-        """ Track an order
-        """
-        if not isinstance(order, Cancel) and order.volume > 0:
-            order.on_matched += _(self).onMatched
-            order.on_cancelled += _(self).onCancelled
+    def _onOrderSent(self, order):
+        Base._onOrderSent(self, order)
+        if 'volume' in dir(order):
             self.pending[order] = [State(self.time, 0, order.volume)]
-
-        return order
-
+        
     @property
     def time(self):
         return self._scheduler.currentTime
@@ -68,7 +66,7 @@ class TraderHistory_Impl(object):
         price = self.position_pnl / self.amount if self.amount else None
         return price
 
-    def onMatched(self, order, other, (price, volume)):
+    def _onOrderMatched(self, order, other, (price, volume)):
         if volume <= 0:
             return
 
@@ -85,7 +83,7 @@ class TraderHistory_Impl(object):
         if order.empty:
             self.matched[order] = self.pending.pop(order)
 
-    def onCancelled(self, order):
+    def _onOrderCancelled(self, order):
         if order in self.pending:
             self.cancelled[order] = self.pending.pop(order)
             self.cancelled[order].append(State(self.time, 0, 0))
@@ -94,7 +92,18 @@ class TraderHistory_Impl(object):
             self.allCancelled.fire(True)
 
         
-def TraderHistory(trader):
-    if 'log' not in dir(trader):
-        trader.log = TraderHistory_Impl(trader)
-    return trader.log
+class TraderHistory(Proxy):
+    
+    @property
+    def _impl(self):
+        if 'log' not in dir(self.trader):
+            self.trader.log = TraderHistory_Impl(self.trader)
+        return self.trader.log
+    
+    @property
+    def pending(self):
+        return self._impl.pending
+    
+    @property
+    def amount(self):
+        return self._impl.amount    

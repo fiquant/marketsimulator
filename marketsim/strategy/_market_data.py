@@ -32,8 +32,8 @@ class _MarketData_Impl(Strategy):
         quote = self.quotes[self._scheduler.currentTime]
         buyOrder = order.LimitFactory(Side.Buy)(quote - 5, self.volume)
         sellOrder = order.LimitFactory(Side.Sell)(quote + 5, self.volume)
-        self._trader.send(self.log(buyOrder))
-        self._trader.send(self.log(sellOrder))
+        self._trader.send(buyOrder)
+        self._trader.send(sellOrder)
 
 
 

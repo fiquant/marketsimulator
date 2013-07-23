@@ -1,5 +1,5 @@
 from marketsim import (bind, event, Event, getLabel, Side, scheduler, ops,
-                       types, meta, mathutils, ops, registry, trader, _)
+                       types, meta, mathutils, ops, registry,  _)
 
 import marketsim
 
@@ -68,6 +68,10 @@ IndicatorBaseT[types.IVolumeLevels]
 def IndicatorBase(eventSource, dataSource, attributes = {}):
     return IndicatorBaseT[dataSource.T](eventSource, dataSource, attributes)
 
+def aux(name):
+    return name[0:2] == "__" or name == '_processing'
+
+
 class Proxy(types.IObservable[float], ops.Function[float]):
     
     def __iadd__(self, listener):
@@ -80,6 +84,7 @@ class Proxy(types.IObservable[float], ops.Function[float]):
     
     def __call__(self):
         return self._impl.__call__()
+    
     
     @property
     def _digitsToShow(self):
