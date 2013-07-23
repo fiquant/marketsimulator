@@ -254,13 +254,14 @@ def run(name, constructor, only_veusz):
         
         ctx = Context(world, veusz.Graph)
         traders = constructor(ctx)
-        
-        traders.extend([
-            ctx.makeMinorTrader(strategy.RSI_linear(k = const(0.07)), "RSI 0.07"), 
-            ctx.makeMinorTrader(strategy.RSI_linear(k = const(-0.07)), "RSI -0.07"),
-            ctx.makeMinorTrader(strategy.Bollinger_linear(alpha=0.15, k = const(-0.5)), "Bollinger -0.5"),
-            ctx.makeMinorTrader(strategy.Bollinger_linear(alpha=0.15, k = const(+0.5)), "Bollinger +0.5"),
-        ])
+
+        if useMinorTraders:
+            traders.extend([
+                ctx.makeMinorTrader(strategy.RSI_linear(k = const(0.07)), "RSI 0.07"),
+                ctx.makeMinorTrader(strategy.RSI_linear(k = const(-0.07)), "RSI -0.07"),
+                ctx.makeMinorTrader(strategy.Bollinger_linear(alpha=0.15, k = const(-0.5)), "Bollinger -0.5"),
+                ctx.makeMinorTrader(strategy.Bollinger_linear(alpha=0.15, k = const(+0.5)), "Bollinger +0.5"),
+            ])
         
         books = orderBooksToRender(ctx, traders)
         
