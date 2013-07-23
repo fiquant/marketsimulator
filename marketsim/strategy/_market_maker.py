@@ -14,18 +14,17 @@ class _MarketMaker_Impl(Strategy):
         event.subscribe(self._eventGen, _(self)._wakeUp, self)
 
         self.book = orderbook.OfTrader()
-        self.bids = observable.BidPrice(self.book)
-        self.asks = observable.AskPrice(self.book)
+        self.midprice = observable.MidPrice(self.book)
         self.log = TraderHistory(SingleProxy())
         self.prev_mid = None
 
-    _internals = ['book', 'bids', 'asks', 'log']
+    _internals = ['book', 'log', 'midprice']
 
     def _wakeUp(self, dummy):
         for position in self.log.pending:
                 self._trader.send(Cancel(position))
 
-        mid = self.mid()
+        mid = self.midprice()
 
         if mid is not None:
             bid = mid+1-(self.log.amount/self.volume)
@@ -34,14 +33,6 @@ class _MarketMaker_Impl(Strategy):
             sellOrder = order.LimitFactory(Side.Sell)(ask, self.volume)
             self._trader.send(self.log(buyOrder))
             self._trader.send(self.log(sellOrder))
-
-    def mid(self):
-        curBid, curAsk = self.bids(), self.asks()
-        if curBid and curAsk:
-            mid = (curAsk + curBid)/2
-        else:
-            mid = None
-        return mid
 
 exec  wrapper2("MarketMaker",
              """
