@@ -45,6 +45,10 @@ class Base(object):
         """ Volume to trade
         """
         return self._volume
+
+    @property
+    def signedVolume(self):
+        return self._side.makeVolumeSigned(self._volume)
     
     @property 
     def PnL(self):

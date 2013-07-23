@@ -137,18 +137,15 @@ class PendingVolume_Impl(Base, ops.Observable[float]): # should be int
     def _onOrderSent(self, order):
         Base._onOrderSent(self, order)
         if 'volume' in dir(order):
-            dVolume = order.volume if order.side == Side.Buy else -order.volume
-            self._pendingVolume += dVolume
+            self._pendingVolume += order.volumeSigned
             self.fire(self)
         
     def _onOrderMatched(self, order, other, (price, volume)):
-        dVolume = volume if order.side == Side.Buy else -volume
-        self._pendingVolume -= dVolume
+        self._pendingVolume -= order.volumeSigned
         self.fire(self)
 
     def _onOrderCancelled(self, order):
-        dVolume = order.volume if order.side == Side.Buy else -order.volume
-        self._pendingVolume -= dVolume
+        self._pendingVolume -= order.volumeSigned
         self.fire(self)
 
     def __call__(self):
