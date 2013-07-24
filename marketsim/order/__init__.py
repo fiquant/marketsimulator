@@ -10,6 +10,7 @@ from _virtual import VirtualMarket, VirtualMarketFactory
 from _always_best import AlwaysBest, AlwaysBestFactory         
 from _iceberg import iceberg, Iceberg
 from _stoploss import StopLoss, StopLossFactory
+from _mutable import Mutable
 
 import factory
 
