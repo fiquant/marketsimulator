@@ -37,7 +37,7 @@ _wrap.strategy(MarketMaker2, ['Market maker'],
              |volume|
                 Volume of Buy/Sell orders. Should be large compared to the volumes of other traders.
              """,
-              [ ('volume', '20', 'Volume') ], globals())
+              [ ('volume', '20.', 'Volume') ], globals())
 
 class _MarketMaker_Impl(Strategy):
 
@@ -73,4 +73,4 @@ exec  wrapper2("MarketMaker",
              |volume|
                 Volume of Buy/Sell orders. Should be large compared to the volumes of other traders.
              """,
-              [ ('volume', '20', 'Volume') ], register=False)
+              [ ('volume', '20.', 'Volume') ], register=False)
