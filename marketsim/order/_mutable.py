@@ -18,8 +18,10 @@ class Mutable(object):
     def processIn(self, orderBook):
         self.orderBook = orderBook 
         self._order = None
-        self._event = event.subscribe(self.source, _(self)._update, self, {})
+        self.source += _(self)._update
         self._update(None)
+        
+    _internals = ["source"]
         
     def _dispose(self):
         if self._order is not None:
@@ -100,7 +102,7 @@ class Mutable(object):
         """ Marks order as cancelled. Notifies the order book about it
         """
         self._dispose()
-        self._event.dispose()
+        self.source -= _(self)._update
         self.on_cancelled.fire(self)
 
     def __hash__(self):

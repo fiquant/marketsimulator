@@ -1,4 +1,4 @@
-from marketsim import event, _, Side, order, types, mathutils, scheduler, ops, Event
+from marketsim import event, _, Side, order, types, mathutils, scheduler, ops, Event, registry
 from marketsim.types import *
 from _basic import Strategy
 from _wrap import wrapper2
@@ -67,29 +67,40 @@ class Combine_SidePriceVolume(Event): # it should be ops.Observable[(Side,Price,
         'price': types.IFunction[float],
         'volume':types.IFunction[float],
     }
-    
-class _MarketData2_Impl(Strategy):
-    
-    def __init__(self):
-        Strategy.__init__(self)
-        quotes = Quote(self.ticker, self.start, self.end)
-        self._ask = Combine_SidePriceVolume(ops.constant(Side.Sell), 
-                                            quotes + self.delta, 
-                                            ops.constant(self.volume))
-        self._bid = Combine_SidePriceVolume(ops.constant(Side.Buy), 
-                                            quotes - self.delta, 
-                                            ops.constant(self.volume))
-    
-    _internals = ['_ask', '_bid']    
-    
+
+class _SingleOrder_Impl(Strategy):
+
     def bind(self, ctx):
-        self._scheduler.async(_(self)._createOrders)
+        self._scheduler.async(_(self)._wakeUp)
+
+    def _wakeUp(self):
+        self._trader.send(self.order)
         
-    def _createOrders(self):
-        self._trader.send(order.Mutable(self._ask))
-        self._trader.send(order.Mutable(self._bid))
+exec wrapper2("SingleOrder", 
+              """
+              """, 
+              [
+                ('order', 'None', 'object')
+              ], register = False)
+
+from _array import Array
+import _wrap
+
+class MarketData2(types.ISingleAssetStrategy):
     
-exec  wrapper2("MarketData2",
+    def getImpl(self):
+        quotes = Quote(self.ticker, self.start, self.end) # TODO: should be in definitions
+        return Array([
+                SingleOrder(
+                    order.Mutable(
+                        Combine_SidePriceVolume(
+                            ops.constant(side), 
+                            ops.constant(sign*self.delta) + quotes, 
+                            ops.constant(self.volume))))\
+                    for side, sign in {Side.Buy : -1, Side.Sell : 1}.iteritems()
+            ])
+            
+_wrap.strategy(MarketData2, ['Market data'],
              """ A Strategy that allows to drive the asset price based on historical market data
              by creating large volume orders for the given price.
 
@@ -117,7 +128,8 @@ exec  wrapper2("MarketData2",
                 ('start', '"2001-1-1"', 'str'),
                 ('end', '"2010-1-1"', 'str'),
                 ('delta', '1', 'positive'),
-                  ('volume', '1000', 'Volume')], register=False)
+                  ('volume', '1000', 'Volume')], globals())
+    
 
 class _MarketData_Impl(Strategy):
 
