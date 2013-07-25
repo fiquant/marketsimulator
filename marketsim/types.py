@@ -78,11 +78,6 @@ IFunction = Factory('IFunction', """(object):
 class IOrder(object):
     pass
 
-# object that can create orders given concrete parameters 
-# normally this is order classes themselves
-# T is a tuple with order parameters types
-IOrderFactory = Factory('IOrderFactory', """(object):""")
-
 class IOrderBook(object):
     pass
 

@@ -1,4 +1,5 @@
 from marketsim import _, event, Event, types
+from marketsim.types import *
 
 from _cancel import Cancel
 
@@ -114,8 +115,8 @@ class Base(types.IOrder):
 class SidePriceVolume(Base):
     
     _properties = { 
-        'source' : types.IObservable[types.SidePriceVolume],
-        'factory': types.IOrderFactory[types.SidePriceVolume] 
+        'source' : IObservable[SidePriceVolume],
+        'factory': IFunction[IOrder, SidePriceVolume] 
     }
     
 import factory

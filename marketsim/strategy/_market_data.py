@@ -86,7 +86,7 @@ exec wrapper2("SingleOrder",
               """
               """, 
               [
-                ('order', 'None', 'types.IOrder')
+                ('order', 'order.Limit(Side.Buy, 100, 1)', 'types.IOrder')
               ], register = False)
 
 from _array import Array

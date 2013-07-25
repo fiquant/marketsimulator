@@ -80,7 +80,7 @@ class Limit(Base):
     @staticmethod
     def Sell(price, volume): return Limit(Side.Sell, price, volume)
     
-class LimitOrderFactory(types.IOrderFactory[types.SidePriceVolume]):
+class LimitOrderFactory(types.IFunction[types.IOrder, types.SidePriceVolume]):
     
     def __call__(self, side, price, volume):
         return Limit(side, price, volume) 
