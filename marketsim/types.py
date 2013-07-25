@@ -9,53 +9,6 @@ Price = float #non_negative
 Volume = float #non_negative
 TimeInterval = float #non_negative
 
-class IOrderBook(object):
-    pass
-
-class IOrderQueue(object):
-    pass
-
-class IOrderFactory(object):
-    # should provide method __call__(self) -> Order
-    pass 
-
-class ISidePrice_IOrderFactory(object):
-    # (Side,Price) -> IOrderFactory
-    pass
-
-class ISide_IOrderFactory(object):
-    # Side -> IOrderFactory
-    pass
-
-class ISignedVolume_IOrderFactory(object):
-    # SignedVolume -> IOrderFactory
-    pass
-
-class SidePriceVolume(object):
-    pass
-
-class IStrategy(object):
-    pass
-
-class ISingleAssetStrategy(IStrategy):
-    T = type(None) # just to please wrap.generator
-    pass
-
-class IMultiAssetStrategy(IStrategy):
-    pass
-
-class ITrader(object):
-    pass
-
-class ISingleAssetTrader(ITrader):
-    pass
-
-class ICandleStick(object):
-    pass
-
-class IVolumeLevels(object):
-    pass
-
 class Factory(object):
     
     def __init__(self, name, tmpl, g = None):
@@ -81,6 +34,59 @@ class Factory(object):
             exec tmp in self._globals
             self._types[key] = eval(self._name + '_' + N, self._globals)
         return self._types[key]
+
+class SidePriceVolume(object):
+    pass
+
+# object that can create orders given concrete parameters 
+# normally this is order classes themselves
+# T is a tuple with order parameters types
+IOrder = Factory('IOrder', """(object):""")
+
+class IOrderBook(object):
+    pass
+
+class IOrderQueue(object):
+    pass
+
+class IOrderFactory(object):
+    # should provide method __call__(self) -> Order
+    pass 
+
+class ISidePrice_IOrderFactory(object):
+    # (Side,Price) -> IOrderFactory
+    pass
+
+class ISide_IOrderFactory(object):
+    # Side -> IOrderFactory
+    pass
+
+class ISignedVolume_IOrderFactory(object):
+    # SignedVolume -> IOrderFactory
+    pass
+
+class IStrategy(object):
+    pass
+
+class ISingleAssetStrategy(IStrategy):
+    T = type(None) # just to please wrap.generator
+    pass
+
+class IMultiAssetStrategy(IStrategy):
+    pass
+
+class ITrader(object):
+    pass
+
+class ISingleAssetTrader(ITrader):
+    pass
+
+class ICandleStick(object):
+    pass
+
+class IVolumeLevels(object):
+    pass
+
     
 IFunction = Factory('IFunction', """(object):
     _types = [function((), %(T)s)]
@@ -95,9 +101,6 @@ class IObservable_object(object):
 IObservable = Factory('IObservable', """(IEvent, IFunction[%(T)s], IObservable_object):""")
 
 IObservable[object] = IObservable_object
-
-class IOrder(object):
-    pass
 
 class IGraph(object):
     pass
