@@ -190,7 +190,7 @@ _wrap.strategy(LiquidityProviderSide2Ex, ['Generic', 'LiquidityProviderSide2'],
              """,
              [
               ('side',                  'Side.Sell',                            'Side'),
-              ('orderFactory',          'order.factory.SidePrice_Limit()',      'ISidePrice_IOrderGenerator'),
+              ('orderFactory',          'order.factory.SidePrice_Limit()',      'SidePrice -> IOrderGenerator'),
               ('defaultValue',          '100',                                  'Price'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
               ('priceDistr',            'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),

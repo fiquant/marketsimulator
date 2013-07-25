@@ -179,7 +179,7 @@ _wrap.strategy(LiquidityProvider2Ex, ['Periodic', 'LiquidityProvider2'],
                          order to create is calculated (default: log normal distribution with 
                          |mu| = 0 and |sigma| = 0.1)
                 """,  
-                [('orderFactory',           'order.factory.SidePrice_Limit()',      'ISidePrice_IOrderGenerator'),
+                [('orderFactory',           'order.factory.SidePrice_Limit()',      'SidePrice -> IOrderGenerator'),
                  ('defaultValue',           '100',                                  'Price'),
                  ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
                  ('priceDistr',             'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),

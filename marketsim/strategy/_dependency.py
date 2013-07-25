@@ -137,7 +137,7 @@ _wrap.strategy(Dependency2Ex, ['Periodic', 'Dependency2'],
          """,
          [
           ('bookToDependOn','orderbook.OfTrader()',             'IOrderBook'),
-          ('orderFactory',  'order.factory.Side_Market()',      'ISide_IOrderGenerator'),
+          ('orderFactory',  'order.factory.Side_Market()',      'Side -> IOrderGenerator'),
           ('factor',        '1.',                               'float'),
           ], globals())
                 

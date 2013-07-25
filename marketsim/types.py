@@ -47,9 +47,12 @@ class Factory(object):
                     N += '_' + n
                     if R != "": R += ','
                     R += t
+                if len(key) == 2:
+                    R += ","
             tmp= "class " + self._name + '_' + N + \
                  self._tmpl % {'T': T, 'R' : R, 'Name' : self._name} +\
                  "pass"
+            #print tmp
             exec tmp in self._globals
             self._types[key] = eval(self._name + '_' + N, self._globals)
         return self._types[key]
@@ -65,8 +68,12 @@ class SidePrice(object):
 
 
 IFunction = Factory('IFunction', """(object):
-    _types = [function((), %(T)s)]
+    _types = [function((%(R)s), %(T)s)]
 """)
+
+# Construct = Factory('Construct', """(bind.Construct):
+#     _types = [function((), %(T)s)]
+# """)
         
 class IOrder(object):
     pass
@@ -80,18 +87,6 @@ class IOrderBook(object):
     pass
 
 class IOrderQueue(object):
-    pass
-
-class ISidePrice_IOrderGenerator(IFunction[IOrderGenerator, SidePrice]):
-    # (Side,Price) -> IOrderGenerator
-    pass
-
-class ISide_IOrderGenerator(IFunction[IOrderGenerator, Side]):
-    # Side -> IOrderGenerator
-    pass
-
-class ISignedVolume_IOrderGenerator(IFunction[IOrderGenerator, SignedVolume]):
-    # SignedVolume -> IOrderGenerator
     pass
 
 class IStrategy(object):

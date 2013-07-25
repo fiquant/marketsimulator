@@ -61,6 +61,6 @@ _wrap.strategy(DesiredPosition2, ['Desired position', 'Base'],
          """,
           [
            ('desiredPosition',      'signal.RandomWalk()',                 'types.IObservable[float]'), 
-           ('orderFactory',         'order.factory.SignedVolume_Market()', 'ISignedVolume_IOrderGenerator')
+           ('orderFactory',         'order.factory.SignedVolume_Market()', 'SignedVolume -> IOrderGenerator')
           ], globals())
                 

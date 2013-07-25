@@ -154,7 +154,7 @@ _wrap.strategy(TwoAverages2Ex, ['Periodic', 'TwoAverages2'],
               ('ewma_alpha1',           '0.15',                          'non_negative'),
               ('ewma_alpha2',           '0.015',                         'non_negative'),
               ('threshold',             '0.',                            'non_negative'), 
-              ('orderFactory',          'order.factory.Side_Market()',   'ISide_IOrderGenerator'),
+              ('orderFactory',          'order.factory.Side_Market()',   'Side -> IOrderGenerator'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
              ], 
                globals())

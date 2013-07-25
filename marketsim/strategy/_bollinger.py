@@ -46,5 +46,5 @@ _wrap.strategy(Bollinger2_linear, ['Desired position', 'Bollinger2 linear'],
                [
                   ('alpha',        '0.15',                'non_negative'), 
                   ('k',            'ops.constant(+0.5)',  'IFunction[float]'), 
-                  ('orderFactory', 'order.factory.SignedVolume_Market()', 'ISignedVolume_IOrderGenerator')
+                  ('orderFactory', 'order.factory.SignedVolume_Market()', 'SignedVolume -> IOrderGenerator')
                ], globals())

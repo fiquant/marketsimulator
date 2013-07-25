@@ -1,4 +1,5 @@
 from marketsim import types, Side, ops
+from marketsim.types import *
 
 from _market import Market as MarketOrder
 from _limit import Limit as LimitOrder, LimitOrderFactory
@@ -56,12 +57,12 @@ class MarketSigned(Market_Base):
         side = Side.Buy if signedVolume > 0 else Side.Sell
         return (side, abs(signedVolume))
 
-class SignedVolume_Market(types.ISignedVolume_IOrderGenerator):
+class SignedVolume_Market(IFunction[IOrderGenerator, SignedVolume]):
     
     def __call__(self, signedVolume):
         return MarketSigned(signedVolume)
     
-class Side_Market(types.ISide_IOrderGenerator):
+class Side_Market(IFunction[IOrderGenerator, Side]):
     
     def __init__(self, 
                  volume = ops.constant(1.)):
@@ -106,7 +107,7 @@ limit = {}
 
 limit[types.SidePriceVolume] = LimitOrderFactory()   
     
-class SidePrice_Limit(types.ISidePrice_IOrderGenerator):
+class SidePrice_Limit(IFunction[IOrderGenerator, SidePrice]):
     
     def __init__(self, volume = ops.constant(1.)):
         self.volume = volume
