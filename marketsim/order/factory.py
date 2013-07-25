@@ -1,7 +1,7 @@
 from marketsim import types, Side, ops
 
 from _market import Market as MarketOrder
-from _limit import Limit as LimitOrder
+from _limit import Limit as LimitOrder, LimitOrderFactory
 
 def correct_volume(x):
     return None if x is None or abs(x) < 1 else int(x)
@@ -104,7 +104,7 @@ class Limit(types.IOrderGenerator):
     
 limit = {}
 
-limit[types.SidePriceVolume] = LimitOrder   
+limit[types.SidePriceVolume] = LimitOrderFactory()   
     
 class SidePrice_Limit(types.ISidePrice_IOrderGenerator):
     

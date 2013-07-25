@@ -1,6 +1,6 @@
-from marketsim import Event
+from marketsim import Event, types
 
-class Base(object):
+class Base(types.IOrder):
     """ Base class for market and limit orders.
     Responsible for:
     - tracking order's volume

@@ -9,6 +9,11 @@ Price = float #non_negative
 Volume = float #non_negative
 TimeInterval = float #non_negative
 
+class IOrderGenerator(object):
+    # should provide method __call__(self) -> Order
+    pass 
+
+
 class Factory(object):
     
     def __init__(self, name, tmpl, g = None):
@@ -24,13 +29,27 @@ class Factory(object):
     def __getitem__(self, key):
         if key not in self._types:
             #print key
-            M = key.__module__ + '.' if key.__module__ != '__builtin__' else ''
-            N = key.__name__
-            T = M + N
+            def correct(key):
+                if key.__name__ in self._globals:
+                    M = ""
+                else:
+                    M = key.__module__ + '.' if key.__module__ not in ['__builtin__'] else ''
+                N = key.__name__
+                return M + N, N
+            if type(key) is not tuple:
+                T,N = correct(key)
+                R = ""
+            else:
+                T,N = correct(key[0])
+                R = ""
+                for e in key[1:]:
+                    t, n = correct(e)
+                    N += '_' + n
+                    if R != "": R += ','
+                    R += t
             tmp= "class " + self._name + '_' + N + \
-                 self._tmpl % {'T': T, 'Name' : self._name} +\
+                 self._tmpl % {'T': T, 'R' : R, 'Name' : self._name} +\
                  "pass"
-            #print tmp
             exec tmp in self._globals
             self._types[key] = eval(self._name + '_' + N, self._globals)
         return self._types[key]
@@ -38,6 +57,17 @@ class Factory(object):
 class SidePriceVolume(object):
     pass
 
+class SignedVolume(object):
+    pass
+
+class SidePrice(object):
+    pass
+
+
+IFunction = Factory('IFunction', """(object):
+    _types = [function((), %(T)s)]
+""")
+        
 class IOrder(object):
     pass
 
@@ -52,19 +82,15 @@ class IOrderBook(object):
 class IOrderQueue(object):
     pass
 
-class IOrderGenerator(object):
-    # should provide method __call__(self) -> Order
-    pass 
-
-class ISidePrice_IOrderGenerator(object):
+class ISidePrice_IOrderGenerator(IFunction[IOrderGenerator, SidePrice]):
     # (Side,Price) -> IOrderGenerator
     pass
 
-class ISide_IOrderGenerator(object):
+class ISide_IOrderGenerator(IFunction[IOrderGenerator, Side]):
     # Side -> IOrderGenerator
     pass
 
-class ISignedVolume_IOrderGenerator(object):
+class ISignedVolume_IOrderGenerator(IFunction[IOrderGenerator, SignedVolume]):
     # SignedVolume -> IOrderGenerator
     pass
 
@@ -91,10 +117,6 @@ class IVolumeLevels(object):
     pass
 
     
-IFunction = Factory('IFunction', """(object):
-    _types = [function((), %(T)s)]
-""")
-        
 class IDifferentiable(object):
     pass
 

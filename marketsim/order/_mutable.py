@@ -4,12 +4,13 @@ from _cancel import Cancel
 
 from _limit import Limit
 
-class Base(object):
+class Base(types.IOrder):
     """ Meta order with mutable parameters
         User should provide an observable that generates new parameters for the order
     """
     
     def __init__(self, source, factory):
+        self._order = None
         self.source = source
         self.factory = factory
         self.on_matched = Event()
@@ -18,7 +19,6 @@ class Base(object):
         
     def processIn(self, orderBook):
         self.orderBook = orderBook 
-        self._order = None
         self.source += _(self)._update
         self._update(None)
         
@@ -47,7 +47,11 @@ class Base(object):
         return self._order.side
         
     def __str__(self):
-        return type(self).__name__ + "("+str(self.side)+", volume=" + str(self.volume) + ", P&L="+str(self.PnL)+")"
+        if self._order is not None:
+            return type(self).__name__ + "("+str(self.side)+", volume=" + str(self.volume) \
+                    + ", P&L="+str(self.PnL)+")"
+        else:
+            return "MutableOrder"
 
     def __repr__(self):
         return self.__str__()

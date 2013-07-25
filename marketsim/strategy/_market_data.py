@@ -80,7 +80,7 @@ exec wrapper2("SingleOrder",
               """
               """, 
               [
-                ('order', 'None', 'object')
+                ('order', 'None', 'types.IOrder')
               ], register = False)
 
 from _array import Array
@@ -103,24 +103,24 @@ class MarketData2(types.ISingleAssetStrategy):
 _wrap.strategy(MarketData2, ['Market data'],
              """ A Strategy that allows to drive the asset price based on historical market data
              by creating large volume orders for the given price.
-
+ 
              Every time step of 1 in the simulation corresponds to a 1 day in the market data.
-
+ 
              At each time step the previous Limit Buy/Sell orders are cancelled and new ones
              are created based on the next price of the market data.
-
+ 
              |ticker|
                 Ticker of the asset
-
+ 
              |start|
                 Start date in DD-MM-YYYY format
-
+ 
              |end|
                 End date in DD-MM-YYYY format
-
+ 
              |delta|
                 Price difference between orders placed and underlying quotes
-
+ 
              |volume|
                 Volume of Buy/Sell orders. Should be large compared to the volumes of other traders.
              """,

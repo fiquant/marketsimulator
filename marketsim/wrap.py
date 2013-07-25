@@ -69,7 +69,7 @@ def generate(kind, cls, alias, docstring, fields, ctx):
     props= process("\'%(name)s\' : %(typ)s")
     binds = process("ctx.%(name)s = self._%(name)s", "; ")
     pdefs = "".join([prop % locals() for (name, _,_) in fields])
-    reg = "@registry.expose("+str(alias)+")"# if register else ""
+    reg = "@registry.expose("+str(alias)+")" if alias is not None else ""
     name = cls.__name__
     #print (tmpl + pdefs + trailer) % locals()
     exec (tmpl + pdefs + trailer) % locals() in ctx
