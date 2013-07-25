@@ -111,7 +111,7 @@ class SidePriceVolume(Base):
     
     _properties = { 
         'source' : types.IObservable[types.SidePriceVolume],
-        'factory': types.IOrder[types.SidePriceVolume] 
+        'factory': types.IOrderFactory[types.SidePriceVolume] 
     }
     
 import factory

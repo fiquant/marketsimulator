@@ -12,7 +12,7 @@ def correct_price(x):
 def correct_side(x):
     return x
 
-class Market_Base(types.IOrderFactory):
+class Market_Base(types.IOrderGenerator):
     
     def __call__(self):
         params = self.get()
@@ -56,12 +56,12 @@ class MarketSigned(Market_Base):
         side = Side.Buy if signedVolume > 0 else Side.Sell
         return (side, abs(signedVolume))
 
-class SignedVolume_Market(types.ISignedVolume_IOrderFactory):
+class SignedVolume_Market(types.ISignedVolume_IOrderGenerator):
     
     def __call__(self, signedVolume):
         return MarketSigned(signedVolume)
     
-class Side_Market(types.ISide_IOrderFactory):
+class Side_Market(types.ISide_IOrderGenerator):
     
     def __init__(self, 
                  volume = ops.constant(1.)):
@@ -74,7 +74,7 @@ class Side_Market(types.ISide_IOrderFactory):
     def __call__(self, side):
         return Market(side, self.volume)
     
-class Limit(types.IOrderFactory):
+class Limit(types.IOrderGenerator):
     
     def __init__(self, 
                  side = ops.constant(Side.Sell), 
@@ -106,7 +106,7 @@ limit = {}
 
 limit[types.SidePriceVolume] = LimitOrder   
     
-class SidePrice_Limit(types.ISidePrice_IOrderFactory):
+class SidePrice_Limit(types.ISidePrice_IOrderGenerator):
     
     def __init__(self, volume = ops.constant(1.)):
         self.volume = volume

@@ -135,7 +135,7 @@ _wrap.strategy(FundamentalValue2Ex, ['Periodic', 'Fundamental Value2'],
                      defines fundamental value (default: constant 100)
              """,
             [
-               ('orderFactory',         'order.factory.Side_Market()',  'ISide_IOrderFactory'),
+               ('orderFactory',         'order.factory.Side_Market()',  'ISide_IOrderGenerator'),
                ('fundamentalValue',     'ops.constant(100)',            '() -> Price'),
                ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> TimeInterval')
             ], globals())

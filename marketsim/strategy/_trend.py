@@ -156,7 +156,7 @@ _wrap.strategy(TrendFollower2Ex, ['Periodic', 'TrendFollower2'],
                  [
                   ('ewma_alpha',             '0.15',                          'non_negative'),
                   ('threshold',              '0.',                            'non_negative'), 
-                  ('orderFactory',           'order.factory.Side_Market()',   'ISide_IOrderFactory'),
+                  ('orderFactory',           'order.factory.Side_Market()',   'ISide_IOrderGenerator'),
                   ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
                  ], globals())
 

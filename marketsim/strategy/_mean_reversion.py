@@ -120,7 +120,7 @@ _wrap.strategy(MeanReversion2Ex, ['Periodic', 'Mean reversion2'],
                      |alpha| for exponentially weighted moving average 
                      (default: 0.15)
              """,
-             [('orderFactory',          'order.factory.Side_Market()',      'ISide_IOrderFactory'),
+             [('orderFactory',          'order.factory.Side_Market()',      'ISide_IOrderGenerator'),
               ('ewma_alpha',            '0.15',                             'non_negative'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')], 
                globals())

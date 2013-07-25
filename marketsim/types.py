@@ -38,10 +38,13 @@ class Factory(object):
 class SidePriceVolume(object):
     pass
 
+class IOrder(object):
+    pass
+
 # object that can create orders given concrete parameters 
 # normally this is order classes themselves
 # T is a tuple with order parameters types
-IOrder = Factory('IOrder', """(object):""")
+IOrderFactory = Factory('IOrderFactory', """(object):""")
 
 class IOrderBook(object):
     pass
@@ -49,20 +52,20 @@ class IOrderBook(object):
 class IOrderQueue(object):
     pass
 
-class IOrderFactory(object):
+class IOrderGenerator(object):
     # should provide method __call__(self) -> Order
     pass 
 
-class ISidePrice_IOrderFactory(object):
-    # (Side,Price) -> IOrderFactory
+class ISidePrice_IOrderGenerator(object):
+    # (Side,Price) -> IOrderGenerator
     pass
 
-class ISide_IOrderFactory(object):
-    # Side -> IOrderFactory
+class ISide_IOrderGenerator(object):
+    # Side -> IOrderGenerator
     pass
 
-class ISignedVolume_IOrderFactory(object):
-    # SignedVolume -> IOrderFactory
+class ISignedVolume_IOrderGenerator(object):
+    # SignedVolume -> IOrderGenerator
     pass
 
 class IStrategy(object):

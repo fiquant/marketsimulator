@@ -168,7 +168,7 @@ _wrap.strategy(LiquidityProviderSide2Ex, ['Generic', 'LiquidityProviderSide2'],
                      side of orders to create (default: Side.Sell)
                      
                  |orderFactory|
-                     function (SideFunc,PriceFunc) -> IOrderFactory
+                     function (SideFunc,PriceFunc) -> IOrderGenerator
 
                  |defaultValue| 
                      initial price which is taken if orderBook is empty (default: 100)
@@ -190,7 +190,7 @@ _wrap.strategy(LiquidityProviderSide2Ex, ['Generic', 'LiquidityProviderSide2'],
              """,
              [
               ('side',                  'Side.Sell',                            'Side'),
-              ('orderFactory',          'order.factory.SidePrice_Limit()',      'ISidePrice_IOrderFactory'),
+              ('orderFactory',          'order.factory.SidePrice_Limit()',      'ISidePrice_IOrderGenerator'),
               ('defaultValue',          '100',                                  'Price'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
               ('priceDistr',            'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),

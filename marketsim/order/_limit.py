@@ -2,7 +2,7 @@ from _base import Base
 from marketsim import registry, bind, ops, meta, types
 from marketsim.types import *
 
-class Limit(Base, types.IOrder[types.SidePriceVolume]):
+class Limit(Base, types.IOrderFactory[types.SidePriceVolume]):
     """ Limit order of the given *side*, *price* and *volume*
     """
 

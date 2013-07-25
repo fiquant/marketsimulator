@@ -149,6 +149,6 @@ _wrap.strategy(RSI2_linear, ['Desired position', 'RSI2 linear'],
                   ('alpha',                 '1./14',                         'non_negative'), 
                   ('k',                     'ops.constant(-0.04)',           'IFunction[float]'), 
                   ('timeframe',             '1.',                            'non_negative'), 
-                  ('orderFactory', 'order.factory.SignedVolume_Market()', 'ISignedVolume_IOrderFactory')
+                  ('orderFactory', 'order.factory.SignedVolume_Market()', 'ISignedVolume_IOrderGenerator')
                ], globals())
     

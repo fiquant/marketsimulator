@@ -122,6 +122,6 @@ _wrap.strategy(Signal2Ex, ['Periodic', 'Signal2'],
              """,
              [
               ('signal',        'marketsim.signal.RandomWalk()','IObservable[float]'),  
-              ('orderFactory',  'order.factory.Side_Market()',  'ISide_IOrderFactory'),
+              ('orderFactory',  'order.factory.Side_Market()',  'ISide_IOrderGenerator'),
               ('threshold',     '0.7',                          'non_negative'),
              ], globals())

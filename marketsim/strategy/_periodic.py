@@ -94,5 +94,5 @@ exec  wrapper2("Generic",
                          Event source making the strategy to wake up
                           
              """,
-              [('orderFactory',         'order.factory.Market()',               'types.IOrderFactory'),
+              [('orderFactory',         'order.factory.Market()',               'types.IOrderGenerator'),
                ('eventGen',             'scheduler.Timer(ops.constant(1.))',    'Event')])
