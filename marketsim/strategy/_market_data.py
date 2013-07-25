@@ -15,7 +15,7 @@ class Quote(ops.Observable[float]):
         self.ticker = ticker
         self.start = start
         self.end = end
-        self._quotes = data.load(self.ticker, self.start, self.end)['Adj Close']
+        self._quotes = None
         self._current = None
         event.subscribe(scheduler.Timer(ops.constant(1)), _(self)._wakeUp, self)
         
@@ -24,12 +24,18 @@ class Quote(ops.Observable[float]):
         'start' : str,
         'end'   : str,
     }
+    
+    @property
+    def quotes(self):
+        if self._quotes is None:
+            self._quotes = data.load(self.ticker, self.start, self.end)['Adj Close']
+        return self._quotes    
         
     def bind(self, ctx):
         self._scheduler = ctx.world
 
     def _wakeUp(self, dummy):
-        self._current = self._quotes[self._scheduler.currentTime]
+        self._current = self.quotes[self._scheduler.currentTime]
         self.fire(self)
         
     def __call__(self):
