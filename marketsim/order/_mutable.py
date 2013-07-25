@@ -1,16 +1,17 @@
-from marketsim import _, event, Event
+from marketsim import _, event, Event, types
 
 from _cancel import Cancel
 
 from _limit import Limit
 
-class Mutable(object):
+class Base(object):
     """ Meta order with mutable parameters
         User should provide an observable that generates new parameters for the order
     """
     
-    def __init__(self, source):
+    def __init__(self, source, factory):
         self.source = source
+        self.factory = factory
         self.on_matched = Event()
         self.on_charged = Event()
         self.on_cancelled = Event()
@@ -20,8 +21,6 @@ class Mutable(object):
         self._order = None
         self.source += _(self)._update
         self._update(None)
-        
-    _internals = ["source"]
         
     def _dispose(self):
         if self._order is not None:
@@ -34,7 +33,7 @@ class Mutable(object):
         self._dispose()
         params = self.source()
         if params is not None:
-            self._order = Limit(*params)
+            self._order = self.factory(*params)
             self._onMatched = event.subscribe(self._order.on_matched, 
                                               self.on_matched.fire, self, {}) 
             self._onCancelled = event.subscribe(self._order.on_cancelled, 
@@ -107,3 +106,16 @@ class Mutable(object):
 
     def __hash__(self):
         return id(self)
+    
+class SidePriceVolume(Base):
+    
+    _properties = { 'source' : types.IObservable[types.SidePriceVolume] }
+    
+import factory
+    
+def Mutable(source, f = factory.limit):
+    
+    if source.T == types.SidePriceVolume:
+        return SidePriceVolume(source, f[source.T])
+    
+    return None

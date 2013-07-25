@@ -31,6 +31,9 @@ class ISignedVolume_IOrderFactory(object):
     # SignedVolume -> IOrderFactory
     pass
 
+class SidePriceVolume(object):
+    pass
+
 class IStrategy(object):
     pass
 

@@ -100,7 +100,11 @@ class Limit(types.IOrderFactory):
         volume = correct_volume(self.volume())
         if volume is None:
             return None
-        return LimitOrder(side, price, volume)   
+        return LimitOrder(side, price, volume)
+    
+limit = {}
+
+limit[types.SidePriceVolume] = LimitOrder   
     
 class SidePrice_Limit(types.ISidePrice_IOrderFactory):
     

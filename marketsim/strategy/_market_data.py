@@ -35,10 +35,10 @@ class Quote(ops.Observable[float]):
     def __call__(self):
         return self._current
 
-class Combine_SidePriceVolume(Event): # it should be ops.Observable[(Side,Price,Volume)]
+class Combine_SidePriceVolume(ops.Observable[types.SidePriceVolume]): 
     
     def __init__(self, side, price, volume):
-        Event.__init__(self)
+        ops.Observable[types.SidePriceVolume].__init__(self)
         self.side = side 
         self.price = price 
         self.volume = volume
