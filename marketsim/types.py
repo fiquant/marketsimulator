@@ -1,5 +1,5 @@
 import marketsim
-from marketsim import Side
+from marketsim import Side, bind
 from marketsim.constraints import *
 from marketsim.meta import *
 from marketsim import event
@@ -71,9 +71,7 @@ IFunction = Factory('IFunction', """(object):
     _types = [function((%(R)s), %(T)s)]
 """)
 
-# Construct = Factory('Construct', """(bind.Construct):
-#     _types = [function((), %(T)s)]
-# """)
+Construct = Factory('Construct', """(bind.Construct, IFunction[%(T)s, %(R)s]):""")
         
 class IOrder(object):
     pass

@@ -105,7 +105,7 @@ class Limit(types.IOrderGenerator):
     
 limit = {}
 
-limit[types.SidePriceVolume] = LimitOrderFactory()   
+limit[types.SidePriceVolume] = Construct[IOrder, SidePriceVolume](Limit)   
     
 class SidePrice_Limit(IFunction[IOrderGenerator, SidePrice]):
     
