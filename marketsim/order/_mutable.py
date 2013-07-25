@@ -112,18 +112,15 @@ class Base(types.IOrder):
     def __hash__(self):
         return id(self)
     
-class SidePriceVolume(Base):
-    
+Impl = types.Factory("Impl", """(Base):
     _properties = { 
-        'source' : IObservable[SidePriceVolume],
-        'factory': IFunction[IOrder, SidePriceVolume] 
+        'source' : IObservable[%(T)s],
+        'factory': IFunction[IOrder, %(T)s] 
     }
+""", globals())
     
 import factory
     
 def Mutable(source, f = factory.limit):
     
-    if source.T == types.SidePriceVolume:
-        return SidePriceVolume(source, f[source.T])
-    
-    return None
+    return Impl[source.T](source, f[source.T])
