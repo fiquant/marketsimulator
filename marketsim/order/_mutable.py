@@ -123,4 +123,4 @@ import factory
     
 def Mutable(source, f = factory.limit):
     
-    return Impl[source.T](source, Construct[IOrder, source.T](Limit))
+    return Impl[source.T](source, f[source.T])

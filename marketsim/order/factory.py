@@ -116,3 +116,17 @@ class SidePrice_Limit(IFunction[IOrderGenerator, SidePrice]):
     
     def __call__(self, side, price):
         return Limit(side, price, self.volume)
+    
+class Side_Limit(IFunction[IOrderGenerator, Side]):
+    
+    def __init__(self, price = ops.constant(100.), volume = ops.constant(1.)):
+        self.price = price
+        self.volume = volume
+        
+    _properties = { 
+        'price'  : types.IFunction[float],
+        'volume' : types.IFunction[float] 
+    }
+    
+    def __call__(self, side):
+        return Limit(side, self.price, self.volume)    
