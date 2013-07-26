@@ -171,3 +171,39 @@ class Side_FixedBudget(IFunction[IOrderGenerator, Side]):
     def __call__(self, side):
         return FixedBudget(side, self.budget)
     
+from _always_best import AlwaysBest as AlwaysBestOrder
+
+class AlwaysBestLimit(types.IOrderGenerator):
+    
+    def __init__(self, 
+                 side = ops.constant(Side.Sell), 
+                 volume = ops.constant(1.)):
+        self.side = side
+        self.volume = volume
+        
+    _properties = { 
+        'side'      : types.IFunction[Side],
+        'volume'    : types.IFunction[float],
+    }
+        
+    def __call__(self):
+        side = correct_side(self.side())
+        if side is None:
+            return None
+        volume = correct_volume(self.volume())
+        if volume is None:
+            return None
+        return AlwaysBestOrder(side, volume)
+
+class Side_AlwaysBestLimit(IFunction[IOrderGenerator, Side]):
+    
+    def __init__(self, volume = ops.constant(1.)):
+        self.volume = volume
+        
+    _properties = { 
+        'volume' : types.IFunction[float],
+    }
+    
+    def __call__(self, side):
+        return AlwaysBestLimit(side, self.volume)
+    

@@ -7,7 +7,7 @@ from _limit_market import LimitMarket, LimitMarketFactory
 from _with_expiry import WithExpiry, WithExpiryFactory
 from _fixed_budget import  FixedBudget
 from _virtual import VirtualMarket, VirtualMarketFactory
-from _always_best import AlwaysBest, AlwaysBestFactory         
+from _always_best import AlwaysBest        
 from _iceberg import iceberg, Iceberg
 from _stoploss import StopLoss, StopLossFactory
 from _mutable import Mutable
