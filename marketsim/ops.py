@@ -270,23 +270,43 @@ class negate(Function[float]):
 class sqrt(Function[float]):
     """ Function returning square root of the operand
     """
-    
+
     def __init__(self, arg=constant(1.)):
         self.arg = arg
-        
+
     _properties = { "arg" : types.IFunction[float] }
-    
+
     def __call__(self, *args, **kwargs):
         x = self.arg()
         return math.sqrt(x) if x is not None else None
-    
+
     @property
     def label(self):
         return "\sqrt{" + self.arg.label + "}"
-    
+
     def __repr__(self):
         return "sqrt(" + repr(self.arg) + ")"
 
+
+class Sqrt(Observable[float]):
+    def __init__(self, source):
+        self._source = source
+        Observable[float].__init__(self)
+        self._event = event.subscribe(source, _(self).fire, self)
+
+    _properties = {'source': types.IObservable[float]}
+
+    @property
+    def source(self):
+        return self._source
+
+    @property
+    def label(self):
+        return "\Sqrt{" + self._source.label + "}"
+
+    def __call__(self):
+        r = self._source()
+        return math.sqrt(r) if r is not None else None
 
 
 @registry.expose(['Arithmetic', 'identity'])
