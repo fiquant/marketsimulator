@@ -27,6 +27,12 @@ def Signal(ctx):
                                                 volume = const(1)
                                             )), 
                          "signallimit"), 
+
+        ctx.makeTrader_A(strategy.Signal2Ex(linear_signal, 
+                                            order.factory.Side_FixedBudget(
+                                                budget = const(1450), 
+                                            )), 
+                         "signalfixedbudget"), 
         
         ctx.makeTrader_A(strategy.SignalEx(linear_signal, 
                                            volumeDistr=const(1), 

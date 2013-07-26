@@ -2,12 +2,14 @@ from marketsim import types, Side, ops
 from marketsim.types import *
 
 from _market import Market as MarketOrder
-from _limit import Limit as LimitOrder, LimitOrderFactory
 
 def correct_volume(x):
     return None if x is None or abs(x) < 1 else int(x)
     
 def correct_price(x):
+    return x
+    
+def correct_budget(x):
     return x
     
 def correct_side(x):
@@ -74,6 +76,8 @@ class Side_Market(IFunction[IOrderGenerator, Side]):
         
     def __call__(self, side):
         return Market(side, self.volume)
+
+from _limit import Limit as LimitOrder, LimitOrderFactory
     
 class Limit(types.IOrderGenerator):
     
@@ -129,4 +133,41 @@ class Side_Limit(IFunction[IOrderGenerator, Side]):
     }
     
     def __call__(self, side):
-        return Limit(side, self.price, self.volume)    
+        return Limit(side, self.price, self.volume)
+    
+from _fixed_budget import FixedBudget as FixedBudgetOrder
+
+class FixedBudget(types.IOrderGenerator):
+    
+    def __init__(self, 
+                 side = ops.constant(Side.Sell), 
+                 budget = ops.constant(200.)):
+        self.side = side
+        self.budget = budget
+        
+    _properties = { 
+        'side'      : types.IFunction[Side],
+        'budget'    : types.IFunction[float],
+    }
+        
+    def __call__(self):
+        side = correct_side(self.side())
+        if side is None:
+            return None
+        budget = correct_budget(self.budget())
+        if budget is None:
+            return None
+        return FixedBudgetOrder(side, budget)
+
+class Side_FixedBudget(IFunction[IOrderGenerator, Side]):
+    
+    def __init__(self, budget = ops.constant(200.)):
+        self.budget = budget
+        
+    _properties = { 
+        'budget' : types.IFunction[float],
+    }
+    
+    def __call__(self, side):
+        return FixedBudget(side, self.budget)
+    

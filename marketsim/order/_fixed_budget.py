@@ -9,6 +9,7 @@ class FixedBudget(object):
         self.budget = budget
         self.on_matched = Event()
         self.on_cancelled = Event()
+        self.on_charged = Event()
         
     def processIn(self, orderBook):
         orderBook.evaluateVolumesForBudget(self.side, self.budget, 
@@ -20,6 +21,7 @@ class FixedBudget(object):
             order = LimitMarket(self.side, p, v)
             event.subscribe(order.on_matched, _(self)._onMatched, self, {}) 
             event.subscribe(order.on_cancelled, _(self)._onCancelled, self, {}) 
+            event.subscribe(order.on_charged, self.on_charged.fire, self, {}) 
             orderBook.process(order)
             self._ordersSent += 1
             
