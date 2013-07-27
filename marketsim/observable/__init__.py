@@ -29,4 +29,6 @@ from _macd import MACD, signal as MACD_signal, histogram as MACD_histogram
 
 from _rolling import RollingLogReturns, RollingVolatility, RollingAvg
 
+from _minmax_eps import MinEpsilon, MaxEpsilon
+
 import side
