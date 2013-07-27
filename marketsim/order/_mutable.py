@@ -10,10 +10,9 @@ class Base(types.IOrder):
         User should provide an observable that generates new parameters for the order
     """
     
-    def __init__(self, source, factory):
+    def __init__(self, source):
         self._order = None
         self.source = source
-        self.factory = factory
         self.on_matched = Event()
         self.on_charged = Event()
         self.on_cancelled = Event()
@@ -34,7 +33,7 @@ class Base(types.IOrder):
         self._dispose()
         params = self.source()
         if params is not None:
-            self._order = self.factory(*params)
+            self._order = Limit(*params)
             self._onMatched = event.subscribe(self._order.on_matched, 
                                               self.on_matched.fire, self, {}) 
             self._onCancelled = event.subscribe(self._order.on_cancelled, 
@@ -115,12 +114,9 @@ class Base(types.IOrder):
 Impl = types.Factory("Impl", """(Base):
     _properties = { 
         'source' : IObservable[%(T)s],
-        'factory': IFunction[IOrder, %(T)s] 
     }
 """, globals())
     
-import factory
+def Mutable(source):
     
-def Mutable(source, f = factory.limit):
-    
-    return Impl[source.T](source, f[source.T])
+    return Impl[source.T](source)

@@ -1,7 +1,8 @@
-from marketsim import Side, registry, meta, types, bind, event, _, ops, observable, orderbook
+from marketsim import combine, Side, registry, meta, types, bind, event, _, ops, observable, orderbook
 from _base import Base
 from _limit import LimitFactory, Limit
 from _cancel import Cancel
+from _mutable import Mutable
 from marketsim.types import *
 
 def AlwaysBest2(side, volume):
@@ -13,7 +14,12 @@ def AlwaysBest2(side, volume):
     price = observable.MaxEpsilon(midPrice, tickSize)\
                 if side == Side.Sell else\
             observable.MinEpsilon(midPrice, tickSize)
-            
+
+    return Mutable(
+                combine.SidePriceVolume(
+                    ops.constant(side), 
+                    price, 
+                    ops.constant(volume)))
     
 
 class AlwaysBest(Base):

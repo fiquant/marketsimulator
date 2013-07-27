@@ -8,6 +8,7 @@ class Base(ops.Observable[float]):
         ops.Observable[float].__init__(self)
         self.source = source
         self.epsilon = epsilon
+        self.value = None
         
     _properties = { 'source' : types.IObservable[float], 
                     'epsilon': types.IFunction[float] }
