@@ -1,8 +1,49 @@
-from marketsim import Side, registry, meta, types, bind, event, _
+from marketsim import Side, registry, meta, types, bind, event, _, ops
 from _base import Base
 from _limit import LimitFactory, Limit
 from _cancel import Cancel
 from marketsim.types import *
+
+class MaxEpsilon(ops.Observable[float]):
+    """ Observable that fires if underlying source value becomes greater previous maximum plus some epsilon
+    """
+    
+    def __init__(self, source, epsilon):
+        ops.Observable[float].__init__(self)
+        self.source = source
+        self.epsilon = epsilon
+        
+    _properties = { 'source' : types.IObservable[float], 
+                    'epsilon': types.IFunction[float] }
+        
+    def _subscribe(self):
+        self.value = self.source()
+        self._handler = _(self)._fire
+        if self.value is not None:
+            self._handler = event.GreaterThan(self.value + self.epsilon(), self._handler)
+        self.source += self._handler
+        
+    def bind(self, ctx):
+        self._subscribe()
+        
+    def __call__(self):
+        return self.value
+        
+    def _fire(self, dummy):
+        if self.source() is not None:
+            self.source -= self._handler
+            self._subscribe()
+            self.fire(dummy)
+        
+    @property
+    def label(self):
+        return "Max^{" + self.source.label + "}_{\epsilon}"
+    
+    @property
+    def attributes(self):
+        return {}
+        
+        
 
 class AlwaysBest(Base):
     """ AlwaysBest is a virtual order that ensures that it has the best price in the order book. 

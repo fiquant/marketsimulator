@@ -71,6 +71,18 @@ class Proxy(_computed.Proxy):
         self._alias = ["Asset's", self.__class__.__name__ ]
 
     _properties = { 'orderbook' : types.IOrderBook }
+    
+class TickSize(types.IFunction[float]):
+    
+    def __init__(self, orderbook):
+        self.orderbook = orderbook
+
+    _properties = { 'orderbook' : types.IOrderBook }
+    
+    def __call__(self):
+        return self.orderbook.tickSize
+    
+    
 
 class QueueProxy(_computed.Proxy):
     

@@ -15,7 +15,7 @@ from _async import Efficiency
 
 from _rsi import RSI
 
-from _orderbook import (PriceAtVolume, VolumeLevels, 
+from _orderbook import (PriceAtVolume, VolumeLevels, TickSize,
                         QueuePrice, AskLastTradePrice, BidLastTradePrice,
                         QueueLastPrice,
                         BidPrice, AskPrice, MidPrice, Spread,
