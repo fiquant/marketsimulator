@@ -1,9 +1,20 @@
-from marketsim import Side, registry, meta, types, bind, event, _, ops
+from marketsim import Side, registry, meta, types, bind, event, _, ops, observable, orderbook
 from _base import Base
 from _limit import LimitFactory, Limit
 from _cancel import Cancel
 from marketsim.types import *
 
+def AlwaysBest2(side, volume):
+    
+    book = orderbook.OfTrader()
+    tickSize = observable.TickSize(book)
+    midPrice = observable.MidPrice(book)
+    
+    price = observable.MaxEpsilon(midPrice, tickSize)\
+                if side == Side.Sell else\
+            observable.MinEpsilon(midPrice, tickSize)
+            
+    
 
 class AlwaysBest(Base):
     """ AlwaysBest is a virtual order that ensures that it has the best price in the order book. 

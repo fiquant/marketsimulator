@@ -1,5 +1,5 @@
 from marketsim import (trader, orderbook, event, _, Side, order, types, mathutils, 
-                       scheduler, ops, Event, observable, registry)
+                       scheduler, ops, Event, observable, registry, combine)
 
 from marketsim.types import *
 from _basic import Strategy
@@ -8,7 +8,7 @@ from _wrap import wrapper2
 from marketsim.trader import TraderHistory, SingleProxy
 from marketsim.order import Cancel
 
-from _market_data import Combine_SidePriceVolume, SingleOrder
+from _single_order import SingleOrder
 from _array import Array
 import _wrap
 
@@ -21,7 +21,7 @@ class MarketMaker2(types.ISingleAssetStrategy):
         return Array([
                 SingleOrder(
                     order.Mutable(
-                        Combine_SidePriceVolume(
+                        combine.SidePriceVolume(
                             ops.constant(side),
                             observable.OnEveryDt(
                                 0.9,

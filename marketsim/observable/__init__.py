@@ -31,4 +31,6 @@ from _rolling import RollingLogReturns, RollingVolatility, RollingAvg
 
 from _minmax_eps import MinEpsilon, MaxEpsilon
 
+from _quote import Quote
+
 import side
