@@ -132,7 +132,7 @@ class Context(object):
     def makeTrader_B(self, strategy, label, additional_ts = []):
         return self.makeTrader(self.book_B, strategy, label, additional_ts)
 
-from marketsim.order._always_best import MaxEpsilon
+from marketsim.order._always_best import MaxEpsilon, MinEpsilon
     
 def orderBooksToRender(ctx, traders):
         books = list(set(itertools.chain(*[t.orderBooks for t in traders]))) 
@@ -161,6 +161,7 @@ def orderBooksToRender(ctx, traders):
             max = observable.Max(assetPrice, 100)
             candlesticks = observable.CandleSticks(assetPrice, 10)
             smax = MaxEpsilon(assetPrice, observable.TickSize(thisBook))
+            smin = MinEpsilon(assetPrice, observable.TickSize(thisBook))
             
             def bollinger(mean, stddev, graph):
                 return [
@@ -199,8 +200,9 @@ def orderBooksToRender(ctx, traders):
 
                 timeserie.ToRecord(assetPrice, ctx.minmax_graph),
                 timeserie.ToRecord(max, ctx.minmax_graph),
-                timeserie.ToRecord(smax, ctx.minmax_graph),
                 timeserie.ToRecord(min, ctx.minmax_graph),
+                timeserie.ToRecord(smax, ctx.minmax_graph),
+                timeserie.ToRecord(smin, ctx.minmax_graph),
             ] 
             + bollinger(ma100, stddev100, ctx.bollinger_100_graph) 
             + bollinger(ma20, stddev20, ctx.bollinger_20_graph)
