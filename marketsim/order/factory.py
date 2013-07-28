@@ -1,4 +1,4 @@
-from marketsim import types, Side, ops, context
+from marketsim import types, Side, ops, context, combine
 from marketsim.types import *
 
 from _market import Market as MarketOrder
@@ -21,43 +21,15 @@ class Market_Base(types.IOrderGenerator):
         params = self.get()
         return MarketOrder(*params) if params is not None else None
 
-class Market(Market_Base):
+class Market(Market_Base, combine.SideVolume):
     
-    def __init__(self, 
-                 side = ops.constant(Side.Sell),  
-                 volume = ops.constant(1.)):
-        self.side = side
-        self.volume = volume
-        
-    _properties = { 
-        'side'      : types.IFunction[Side],
-        'volume'    : types.IFunction[float]
-    }
-        
     def get(self):
-        side = correct_side(self.side())
-        if side is None:
-            return None
-        volume = correct_volume(self.volume())
-        if volume is None:
-            return None
-        return (side, volume)
+        return combine.SideVolume.__call__(self)
     
-class MarketSigned(Market_Base):
+class MarketSigned(Market_Base, combine.SignedVolume):
     
-    def __init__(self, signedVolume = ops.constant(1.)):
-        self.signedVolume = signedVolume
-
-    _properties = { 
-        'signedVolume'    : types.IFunction[float]
-    }
-        
     def get(self):
-        signedVolume = correct_volume(self.signedVolume())
-        if signedVolume is None:
-            return None
-        side = Side.Buy if signedVolume > 0 else Side.Sell
-        return (side, abs(signedVolume))
+        return combine.SignedVolume.__call__(self)
 
 class SignedVolume_Market(IFunction[IOrderGenerator, SignedVolume]):
     
