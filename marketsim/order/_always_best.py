@@ -1,4 +1,5 @@
-from marketsim import combine, Side, registry, meta, types, bind, event, _, ops, observable, orderbook
+from marketsim import (context, combine, Side, registry, meta, types, bind, 
+                       event, _, ops, observable, orderbook)
 from _base import Base
 from _limit import LimitFactory, Limit
 from _cancel import Cancel
@@ -21,6 +22,30 @@ def AlwaysBest2(side, volume):
                     ops.constant(side), 
                     price, 
                     ops.constant(volume)))
+    
+class Factory(types.IOrderGenerator, combine.SideVolume):
+    
+    def bind(self, ctx):
+        self._ctx = ctx.context.copy()
+        
+    def __call__(self):
+        params = combine.SideVolume.__call__(self)
+        order = AlwaysBest2(*params) if params is not None else None
+        if order is not None:
+            context.bind(order, self._ctx)
+        return order
+
+class Side_Factory(IFunction[IOrderGenerator, Side]):
+    
+    def __init__(self, volume = ops.constant(1.)):
+        self.volume = volume
+        
+    _properties = { 
+        'volume' : types.IFunction[float],
+    }
+    
+    def __call__(self, side):
+        return Factory(side, self.volume)
     
 
 class AlwaysBest(Base):

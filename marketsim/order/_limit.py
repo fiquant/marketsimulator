@@ -1,5 +1,5 @@
 from _base import Base
-from marketsim import registry, bind, ops, meta, types
+from marketsim import combine, registry, bind, ops, meta, types
 from marketsim.types import *
 
 class Limit(Base):
@@ -79,6 +79,37 @@ class Limit(Base):
      
     @staticmethod
     def Sell(price, volume): return Limit(Side.Sell, price, volume)
+
+class Factory(types.IOrderGenerator, combine.SidePriceVolume):
+    
+    def __call__(self):
+        params = combine.SidePriceVolume.__call__(self)
+        return Limit(*params) if params is not None else None
+    
+class SidePrice_Factory(IFunction[IOrderGenerator, SidePrice]):
+    
+    def __init__(self, volume = ops.constant(1.)):
+        self.volume = volume
+        
+    _properties = { 'volume' : types.IFunction[float] }
+    
+    def __call__(self, side, price):
+        return Factory(side, price, self.volume)
+    
+class Side_Factory(IFunction[IOrderGenerator, Side]):
+    
+    def __init__(self, price = ops.constant(100.), volume = ops.constant(1.)):
+        self.price = price
+        self.volume = volume
+        
+    _properties = { 
+        'price'  : types.IFunction[float],
+        'volume' : types.IFunction[float] 
+    }
+    
+    def __call__(self, side):
+        return Factory(side, self.price, self.volume)
+
     
 class LimitOrderFactory(types.IFunction[types.IOrder, types.SidePriceVolume]):
     
