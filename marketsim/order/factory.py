@@ -1,4 +1,4 @@
-from marketsim import types, Side, ops
+from marketsim import types, Side, ops, context
 from marketsim.types import *
 
 from _market import Market as MarketOrder
@@ -171,7 +171,7 @@ class Side_FixedBudget(IFunction[IOrderGenerator, Side]):
     def __call__(self, side):
         return FixedBudget(side, self.budget)
     
-from _always_best import AlwaysBest as AlwaysBestOrder
+from _always_best import AlwaysBest2 as AlwaysBestOrder
 
 class AlwaysBestLimit(types.IOrderGenerator):
     
@@ -185,6 +185,9 @@ class AlwaysBestLimit(types.IOrderGenerator):
         'side'      : types.IFunction[Side],
         'volume'    : types.IFunction[float],
     }
+    
+    def bind(self, ctx):
+        self._ctx = ctx.context.copy()
         
     def __call__(self):
         side = correct_side(self.side())
@@ -193,7 +196,9 @@ class AlwaysBestLimit(types.IOrderGenerator):
         volume = correct_volume(self.volume())
         if volume is None:
             return None
-        return AlwaysBestOrder(side, volume)
+        order = AlwaysBestOrder(side, volume)
+        context.bind(order, self._ctx)
+        return order
 
 class Side_AlwaysBestLimit(IFunction[IOrderGenerator, Side]):
     

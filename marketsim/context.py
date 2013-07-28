@@ -1,4 +1,5 @@
 import inspect
+from marketsim import bind as _
 try:
     import numpy
     has_numpy = True
@@ -23,7 +24,7 @@ class Base(object):
     
     def __init__(self, indent = 0):
         self.__dict__['_indent'] = indent
-        self.log = self._log_debug if debug else self._log_empty
+        self.log = _.Method(self, '_log_debug') if debug else _.Method(self, '_log_empty')
         
     @property
     def indent(self):
@@ -105,8 +106,15 @@ class Base(object):
 class Binder(Base):
     
     def __init__(self, context = None, indent = 0):
-        self.__dict__['_context'] = [context.copy()] if context else [{}]
+        self.__dict__['_context'] = [e.copy() for e in context]\
+                                        if type(context) is list else\
+                                    [context.copy()]\
+                                        if context else\
+                                    [{}]
         Base.__init__(self, indent)
+        
+    def clone(self):
+        return Binder(self.__dict__['_context'])
         
     @property
     def context(self):
@@ -116,7 +124,10 @@ class Binder(Base):
         self.context[item] = value
         
     def __getattr__(self, item):
-        return self.context[item]
+        if item[0:2] != '__':
+            return self.context[item]
+        else:
+            raise AttributeError
     
     def mark_visited(self, obj):
         if '_bound' not in dir(obj):

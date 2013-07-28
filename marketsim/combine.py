@@ -28,7 +28,7 @@ class SidePriceVolume(ops.Observable[types.SidePriceVolume]):
         return (side, price, volume)
                     
     _properties = {
-        'side' : types.IFunction[Side],
-        'price': types.IFunction[float],
-        'volume':types.IFunction[float],
+        'side'     : types.IFunction[Side],
+        'price'    : types.IFunction[float],
+        'volume'   : types.IFunction[float],
     }

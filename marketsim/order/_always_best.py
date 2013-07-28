@@ -9,11 +9,12 @@ def AlwaysBest2(side, volume):
     
     book = orderbook.OfTrader()
     tickSize = observable.TickSize(book)
-    midPrice = observable.MidPrice(book)
+    askPrice = observable.AskPrice(book)
+    bidPrice = observable.BidPrice(book)
     
-    price = observable.MaxEpsilon(midPrice, tickSize)\
+    price = observable.MinEpsilon(askPrice, tickSize)\
                 if side == Side.Sell else\
-            observable.MinEpsilon(midPrice, tickSize)
+            observable.MaxEpsilon(bidPrice, tickSize)
 
     return Mutable(
                 combine.SidePriceVolume(
