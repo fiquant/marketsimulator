@@ -69,6 +69,9 @@ class SignedVolume(object):
 class SidePrice(object):
     pass
 
+class SideBudget(object):
+    pass
+
 
 IFunction = Factory('IFunction', """(object):
     _types = [function((%(R)s), %(T)s)]

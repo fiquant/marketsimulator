@@ -51,33 +51,11 @@ class Side_Market(IFunction[IOrderGenerator, Side]):
 
 from _limit import Limit as LimitOrder, LimitOrderFactory
     
-class Limit(types.IOrderGenerator):
+class Limit(types.IOrderGenerator, combine.SidePriceVolume):
     
-    def __init__(self, 
-                 side = ops.constant(Side.Sell), 
-                 price = ops.constant(100.), 
-                 volume = ops.constant(1.)):
-        self.side = side
-        self.price = price
-        self.volume = volume
-        
-    _properties = { 
-        'side'      : types.IFunction[Side],
-        'price'     : types.IFunction[float],
-        'volume'    : types.IFunction[float],
-    }
-        
     def __call__(self):
-        side = correct_side(self.side())
-        if side is None:
-            return None
-        price = correct_price(self.price())
-        if price is None:
-            return None
-        volume = correct_volume(self.volume())
-        if volume is None:
-            return None
-        return LimitOrder(side, price, volume)
+        params = combine.SidePriceVolume.__call__(self)
+        return LimitOrder(*params) if params is not None else None
     
 limit = {}
 
@@ -109,27 +87,11 @@ class Side_Limit(IFunction[IOrderGenerator, Side]):
     
 from _fixed_budget import FixedBudget as FixedBudgetOrder
 
-class FixedBudget(types.IOrderGenerator):
+class FixedBudget(types.IOrderGenerator, combine.SideBudget):
     
-    def __init__(self, 
-                 side = ops.constant(Side.Sell), 
-                 budget = ops.constant(200.)):
-        self.side = side
-        self.budget = budget
-        
-    _properties = { 
-        'side'      : types.IFunction[Side],
-        'budget'    : types.IFunction[float],
-    }
-        
     def __call__(self):
-        side = correct_side(self.side())
-        if side is None:
-            return None
-        budget = correct_budget(self.budget())
-        if budget is None:
-            return None
-        return FixedBudgetOrder(side, budget)
+        params = combine.SideBudget.__call__(self)
+        return FixedBudgetOrder(*params) if params is not None else None
 
 class Side_FixedBudget(IFunction[IOrderGenerator, Side]):
     

@@ -77,13 +77,13 @@ class SidePriceVolume(ops.Observable[types.SidePriceVolume]):
             event.subscribe(volume, _(self).fire, self)
             
     def __call__(self):
-        side = self.side()
+        side = correct_side(self.side())
         if side is None:
             return None
-        price = self.price()
+        price = correct_price(self.price())
         if price is None:
             return None
-        volume = self.volume()
+        volume = correct_volume(self.volume())
         if volume is None:
             return None
         
@@ -94,3 +94,32 @@ class SidePriceVolume(ops.Observable[types.SidePriceVolume]):
         'price'    : types.IFunction[float],
         'volume'   : types.IFunction[float],
     }
+
+class SideBudget(ops.Observable[types.SideBudget]): 
+    
+    def __init__(self, 
+                 side = ops.constant(Side.Sell), 
+                 budget = ops.constant(200.)):
+        ops.Observable[types.SideBudget].__init__(self)
+        self.side = side 
+        self.budget = budget
+        if isinstance(side, Event):
+            event.subscribe(side, _(self).fire, self)
+        if isinstance(budget, Event):
+            event.subscribe(budget, _(self).fire, self)
+            
+    def __call__(self):
+        side = correct_side(self.side())
+        if side is None:
+            return None
+        budget = correct_budget(self.budget())
+        if budget is None:
+            return None
+        
+        return (side, budget)
+                    
+    _properties = {
+        'side'     : types.IFunction[Side],
+        'budget'   : types.IFunction[float],
+    }
+
