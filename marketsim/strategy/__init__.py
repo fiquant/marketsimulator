@@ -13,7 +13,7 @@ from _lp import (LiquidityProvider, LiquidityProviderEx, LiquidityProvider2Ex)
 
 from _canceller import Canceller
 
-from _noise import Noise, NoiseEx, Noise2Ex
+from _noise import Noise, NoiseEx
 
 from _arbitrage import Arbitrage
 
@@ -39,7 +39,7 @@ from _choose_best import ChooseTheBest
 
 from _multiarmed_bandit import MultiarmedBandit
 
-from _periodic import Periodic
+from _periodic import Periodic, Generic
 
 from _desired_position import DesiredPosition 
 

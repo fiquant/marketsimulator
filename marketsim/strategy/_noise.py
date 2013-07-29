@@ -41,20 +41,18 @@ import _wrap, side
 
 class NoiseEx(types.ISingleAssetStrategy):
     
+    def getDefinitions(self):
+        return { 'side' : side.Random() }
+    
     def getImpl(self):
-        return Periodic(orderFactory = self.orderFactory, 
-                        eventGen     = scheduler.Timer(self.creationIntervalDistr), 
-                        sideFunc     = side.Random(), 
-                        volumeFunc   = self.volumeDistr)
+        return Generic(eventGen = scheduler.Timer(self.creationIntervalDistr), 
+                       orderFactory = order.factory.Market(_.side, self.volumeDistr))
         
 _wrap.strategy(NoiseEx, ['Periodic', 'Noise'], 
                  """ Noise strategy is a quite dummy strategy that randomly creates an order 
                      and sends it to the order book. 
                      
                      It has following parameters:
-    
-                     |orderFactory| 
-                         order factory function (default: order.Market.T)
     
                      |creationIntervalDistr| 
                          defines intervals of time between order creation 
@@ -65,34 +63,6 @@ _wrap.strategy(NoiseEx, ['Periodic', 'Noise'],
                          (default: exponential distribution with |lambda| = 1)
                  """,
                  [
-                  ("orderFactory",          "order.MarketFactory",          'Side -> Volume -> IOrder'),
                   ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> Volume'),
-                  ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')
-                 ], globals())
-
-class Noise2Ex(types.ISingleAssetStrategy):
-    
-    def getDefinitions(self):
-        return { 'side' : side.Random() }
-    
-    def getImpl(self):
-        return Generic(eventGen = scheduler.Timer(self.creationIntervalDistr), 
-                       orderFactory = self.orderFactory(_.side))
-        
-_wrap.strategy(Noise2Ex, ['Periodic', 'Noise2'], 
-                 """ Noise strategy is a quite dummy strategy that randomly creates an order 
-                     and sends it to the order book. 
-                     
-                     It has following parameters:
-    
-                     |orderFactory| 
-                         order factory function (default: order.Market.T)
-    
-                     |creationIntervalDistr| 
-                         defines intervals of time between order creation 
-                         (default: exponential distribution with |lambda| = 1)
-                 """,
-                 [
-                  ("orderFactory",          "order.factory.Side_Market()",  'Side -> IOrderGenerator'),
                   ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')
                  ], globals())

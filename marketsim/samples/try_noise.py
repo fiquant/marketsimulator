@@ -18,8 +18,6 @@ def Noise(ctx):
                          "liquidity"),
         
         ctx.makeTrader_A(strategy.Noise(), "noise"),
-        
-        ctx.makeTrader(ctx.remote_A, strategy.Noise2Ex(), "noise2_ex"),
          
         ctx.makeTrader(ctx.remote_A, strategy.NoiseEx(), "noise_ex")
     ]

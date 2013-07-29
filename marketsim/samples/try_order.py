@@ -34,8 +34,10 @@ def Signal(ctx):
                                             )), 
                          "signalfixedbudget"), 
         
-        ctx.makeTrader_A(strategy.Noise2Ex(order.factory.Side_AlwaysBestLimit(), 
-                                           const(20)), 
+        ctx.makeTrader_A(strategy.Generic(
+                            order.factory.AlwaysBestLimit(
+                                side = strategy.side.Random(),
+                                volume = const(20))), 
                          "noise_alwaysbest"), 
         
         ctx.makeTrader_A(strategy.SignalEx(linear_signal, 
