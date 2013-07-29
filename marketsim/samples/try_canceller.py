@@ -15,18 +15,8 @@ def Canceller(ctx):
         ctx.makeTrader_A(strategy.LiquidityProviderSide(side = Side.Sell),
                          "LiquidityProvider-"),
         
-        ctx.makeTrader_A(strategy.LiquidityProviderEx(
-                            orderFactory=order.WithExpiryFactory(
-                                    expirationDistr=ops.constant(1))),
+        ctx.makeTrader_A(strategy.LiquidityProviderEx(),
                          "LiquidityProviderEx-"),
-        
-        ctx.makeTrader_A(strategy.LiquidityProvider2Ex(), "LiquidityProvider2"),
-        
-        ctx.makeTrader_A(strategy.LiquidityProviderSide2Ex(
-                            side = Side.Sell, 
-                            orderFactory = order.factory.SidePrice_Limit(
-                                                volume = mathutils.rnd.expovariate(1.))),
-                         "LiquidityProvider2Ex-"),
          
         ctx.makeTrader_A(strategy.LiquidityProviderSide(side = Side.Buy),
                          "LiquidityProviderBuy"),
