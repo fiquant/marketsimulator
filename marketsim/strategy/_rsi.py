@@ -103,20 +103,17 @@ _wrap.strategy(RSIEx, ['Periodic', 'RSI ex'],
                ], globals())
 
     
-from _desired_position import DesiredPosition, DesiredPosition2
-
+import signed_volume
+    
 class RSI_linear(types.ISingleAssetStrategy):
 
-    def getDefinitions(self):
-        return { 'rsi' : observable.RSI(orderbook.OfTrader(), 
-                                        self.timeframe, 
-                                        self.alpha) }
-    
     def getImpl(self):
-        return DesiredPosition(
-                    orderFactory = self.orderFactory, 
-                    desiredPosition = observable.OnEveryDt(1, 
-                                            (ops.constant(50) - _.rsi) * self.k))
+        return Generic(
+                    order.factory.MarketSigned(
+                        signed_volume.RSI_linear(
+                                        self.alpha, 
+                                        self.k, 
+                                        self.timeframe)))
 
 _wrap.strategy(RSI_linear, ['Desired position', 'RSI linear'], 
                """
@@ -125,29 +122,5 @@ _wrap.strategy(RSI_linear, ['Desired position', 'RSI linear'],
                   ('alpha',                 '1./14',                         'non_negative'), 
                   ('k',                     'ops.constant(-0.04)',           'IFunction[float]'), 
                   ('timeframe',             '1.',                            'non_negative'), 
-                  ('orderFactory',          'order.MarketFactory',           'Side -> Volume -> IOrder'),
-               ], globals())
-    
-class RSI2_linear(types.ISingleAssetStrategy):
-
-    def getDefinitions(self):
-        return { 'rsi' : observable.RSI(orderbook.OfTrader(), 
-                                        self.timeframe, 
-                                        self.alpha) }
-    
-    def getImpl(self):
-        return DesiredPosition2(
-                    orderFactory = self.orderFactory, 
-                    desiredPosition = observable.OnEveryDt(1, 
-                                            (ops.constant(50) - _.rsi) * self.k))
-
-_wrap.strategy(RSI2_linear, ['Desired position', 'RSI2 linear'], 
-               """
-               """, 
-               [
-                  ('alpha',                 '1./14',                         'non_negative'), 
-                  ('k',                     'ops.constant(-0.04)',           'IFunction[float]'), 
-                  ('timeframe',             '1.',                            'non_negative'), 
-                  ('orderFactory', 'order.factory.SignedVolume_Market()', 'SignedVolume -> IOrderGenerator')
                ], globals())
     
