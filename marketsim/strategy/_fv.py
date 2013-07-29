@@ -68,11 +68,14 @@ import _wrap, side
 
 class FundamentalValueEx(types.ISingleAssetStrategy):
 
+    def getDefinitions(self):
+        return { 
+            'side' : side.FundamentalValue(orderbook.OfTrader(), self.fundamentalValue)
+        }
+
     def getImpl(self):
-        return Periodic(orderFactory= self.orderFactory, 
-                        volumeFunc  = self.volumeDistr, 
-                        eventGen    = scheduler.Timer(self.creationIntervalDistr), 
-                        sideFunc    = side.FundamentalValue(orderbook.OfTrader(), self.fundamentalValue))
+        return Generic(order.factory.Market(_.side, self.volumeDistr),
+                       scheduler.Timer(self.creationIntervalDistr))
 
 _wrap.strategy(FundamentalValueEx, ['Periodic', 'Fundamental Value'], 
              """ Fundamental value strategy believes that an asset should have some specific price 
@@ -80,9 +83,6 @@ _wrap.strategy(FundamentalValueEx, ['Periodic', 'Fundamental Value'],
                  it starts to buy the asset and if the price is higher it starts to sell the asset. 
              
                  It has following parameters: 
-                 
-                 |orderFactory| 
-                     order factory function (default: order.Market.T)
                  
                  |creationIntervalDistr| 
                      defines intervals of time between order creation 
@@ -96,42 +96,7 @@ _wrap.strategy(FundamentalValueEx, ['Periodic', 'Fundamental Value'],
                      (default: exponential distribution with |lambda| = 1)
              """,
             [
-               ('orderFactory',         'order.MarketFactory',          'Side -> Volume -> IOrder'),
                ('fundamentalValue',     'ops.constant(100)',            '() -> Price'),
                ('volumeDistr',          'mathutils.rnd.expovariate(1.)','() -> Volume'),
-               ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> TimeInterval')
-            ], globals())
-
-class FundamentalValue2Ex(types.ISingleAssetStrategy):
-    
-    def getDefinitions(self):
-        return { 
-            'side' : side.FundamentalValue(orderbook.OfTrader(), self.fundamentalValue)
-        }
-
-    def getImpl(self):
-        return Generic(self.orderFactory(_.side),
-                       scheduler.Timer(self.creationIntervalDistr))
-
-_wrap.strategy(FundamentalValue2Ex, ['Periodic', 'Fundamental Value2'], 
-             """ Fundamental value strategy believes that an asset should have some specific price 
-                 (*fundamental value*) and if the current asset price is lower than the fundamental value 
-                 it starts to buy the asset and if the price is higher it starts to sell the asset. 
-             
-                 It has following parameters: 
-                 
-                 |orderFactory| 
-                     order factory function (default: order.Market.T)
-                 
-                 |creationIntervalDistr| 
-                     defines intervals of time between order creation 
-                     (default: exponential distribution with |lambda| = 1)
-                 
-                 |fundamentalValue| 
-                     defines fundamental value (default: constant 100)
-             """,
-            [
-               ('orderFactory',         'order.factory.Side_Market()',  'Side -> IOrderGenerator'),
-               ('fundamentalValue',     'ops.constant(100)',            '() -> Price'),
                ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> TimeInterval')
             ], globals())
