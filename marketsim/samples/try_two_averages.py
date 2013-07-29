@@ -47,30 +47,19 @@ def TwoAverages(ctx):
                          'avg-',
                          myVolume()),
 
-        ctx.makeTrader_A(strategy.TwoAveragesEx(ewma_alpha1 = alpha_slow, 
-                                                ewma_alpha2 = alpha_fast,
-                                                creationIntervalDistr = const(1.),
-                                                volumeDistr           = const(1.)), 
+        ctx.makeTrader_A(strategy.Generic(
+                            order.factory.Market(
+                                side = strategy.side.TwoAverages(alpha_slow, alpha_fast),
+                                volume = const(1.)),
+                            scheduler.Timer(const(1.))),
                          'avg_ex+',
                          myVolume()),
 
-        ctx.makeTrader_A(strategy.TwoAveragesEx(ewma_alpha2 = alpha_slow, 
-                                                ewma_alpha1 = alpha_fast,
-                                                creationIntervalDistr = const(1.),
-                                                volumeDistr           = const(1.)), 
+        ctx.makeTrader_A(strategy.Generic(
+                            order.factory.Market(
+                                side = strategy.side.TwoAverages(alpha_fast, alpha_slow),
+                                volume = const(1.)),
+                            scheduler.Timer(const(1.))),
                          'avg_ex-',
-                         myVolume()),
-        ctx.makeTrader_A(strategy.TwoAverages2Ex(ewma_alpha1 = alpha_slow, 
-                                                ewma_alpha2 = alpha_fast,
-                                                creationIntervalDistr = const(1.),
-                                                orderFactory = order.factory.Side_Market(const(1.))), 
-                         'avg_ex2+',
-                         myVolume()),
-
-        ctx.makeTrader_A(strategy.TwoAverages2Ex(ewma_alpha2 = alpha_slow, 
-                                                ewma_alpha1 = alpha_fast,
-                                                creationIntervalDistr = const(1.),
-                                                orderFactory = order.factory.Side_Market(const(1.))), 
-                         'avg_ex2-',
                          myVolume()),
     ]
