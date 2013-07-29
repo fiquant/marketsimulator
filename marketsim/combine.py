@@ -12,18 +12,12 @@ def correct_budget(x):
 def correct_side(x):
     return x
 
-class SideVolume(ops.Observable[types.SideVolume]): 
+tmpl = """
+class %(input)s(ops.Observable[types.%(output)s]): 
     
-    def __init__(self, 
-                 side = ops.constant(Side.Sell), 
-                 volume = ops.constant(1.)):
-        ops.Observable[types.SideVolume].__init__(self)
-        self.side = side 
-        self.volume = volume
-        if isinstance(side, Event):
-            event.subscribe(side, _(self).fire, self)
-        if isinstance(volume, Event):
-            event.subscribe(volume, _(self).fire, self)
+    def __init__(self, %(ini)s):
+        ops.Observable[types.%(output)s].__init__(self)
+        %(assign)s
             
     def __call__(self):
         side = correct_side(self.side())
@@ -34,6 +28,45 @@ class SideVolume(ops.Observable[types.SideVolume]):
             return None
         
         return (side, volume)
+                    
+    _properties = {
+        'side'     : types.IFunction[Side],
+        'volume'   : types.IFunction[float],
+    }
+"""
+
+def generate(kind, cls, alias, docstring, fields, ctx):
+    def process(tmpl, sep=", "):
+        return sep.join([tmpl % mapped(locals()) for (name, ini, typ) in fields])
+    
+    args = process("%(name)s = None")
+    ctor = process("self._%(name)s = %(name)s if %(name)s is not None else %(ini)s", "; ")
+    props= process("\'%(name)s\' : %(typ)s")
+    binds = process("ctx.%(name)s = self._%(name)s", "; ")
+    pdefs = "".join([prop % locals() for (name, _,_) in fields])
+    reg = "@registry.expose("+str(alias)+")" if alias is not None else ""
+    name = cls.__name__
+    #print (tmpl + pdefs + trailer) % locals()
+    exec (tmpl + pdefs + trailer) % locals() in ctx
+
+def subscribe_if_observable(source, target, ctx):
+    if isinstance(source, Event):
+        event.subscribe(source, target, ctx)
+
+class SideVolume(ops.Observable[types.SideVolume]): 
+    
+    def __init__(self, 
+                 side = ops.constant(Side.Sell), 
+                 volume = ops.constant(1.)):
+        ops.Observable[types.SideVolume].__init__(self)
+        self.side = side; subscribe_if_observable(side, _(self).fire, self); self.volume = volume; subscribe_if_observable(volume, _(self).fire, self)
+            
+    def __call__(self):
+        ret = True
+        
+        side = correct_side(self.side());ret = side is not None;volume = correct_volume(self.volume()) if ret else None;ret = volume is not None
+        
+        return (side, volume) if ret else None
                     
     _properties = {
         'side'     : types.IFunction[Side],
