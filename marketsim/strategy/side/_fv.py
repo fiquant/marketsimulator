@@ -18,7 +18,7 @@ _wrap.function(FundamentalValue, ['Fundamental value side'],
                      if *fundamentalValue* < ask price then buys
                  """, 
                  [
-                    ('orderBook',       'orderbook.OfTrader()','types.IOrderBook'),
                     ('fundamentalValue','ops.constant(200.)',  'types.IFunction[float]'),
+                    ('orderBook',       'orderbook.OfTrader()','types.IOrderBook'),
                  ], globals())    
 

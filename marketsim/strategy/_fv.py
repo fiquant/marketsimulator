@@ -70,7 +70,7 @@ class FundamentalValueEx(types.ISingleAssetStrategy):
 
     def getDefinitions(self):
         return { 
-            'side' : side.FundamentalValue(orderbook.OfTrader(), self.fundamentalValue)
+            'side' : side.FundamentalValue(self.fundamentalValue)
         }
 
     def getImpl(self):

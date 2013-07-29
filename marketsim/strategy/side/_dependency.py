@@ -7,8 +7,7 @@ from _fv import FundamentalValue
 class Dependency(ops.Observable[Side]):
 
     def getImpl(self):    
-        return FundamentalValue(self.orderBook, 
-                                observable.MidPrice(self.bookToDependOn) * self.factor)
+        return FundamentalValue(observable.MidPrice(self.bookToDependOn) * self.factor, self.orderBook)
     
 _wrap.function(Dependency, ['Dependency side'], 
          """ Dependent price strategy believes that the fair price of an asset *A* 

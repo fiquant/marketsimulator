@@ -8,7 +8,7 @@ class MeanReversion(ops.Observable[Side]):
     
     def getImpl(self):
         avg = observable.EWMA(observable.MidPrice(self.orderBook), self.ewma_alpha)
-        return FundamentalValue(self.orderBook, avg)
+        return FundamentalValue(avg, self.orderBook)
     
 _wrap.function(MeanReversion, ['MeanReversion side'], 
              """ Mean reversion strategy believes that asset price should return to its average value.

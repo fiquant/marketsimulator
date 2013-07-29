@@ -36,7 +36,7 @@ def FundamentalValue(ctx):
         ctx.makeTrader_A(
              strategy.Generic(
                 order.factory.Market(
-                    side = strategy.side.FundamentalValue(orderbook.OfTrader(), ops.constant(fv)),
+                    side = strategy.side.FundamentalValue(ops.constant(fv)),
                     volume = ops.constant(1.)), 
                 scheduler.Timer(ops.constant(1.))),
             "fv_ex_200", 
