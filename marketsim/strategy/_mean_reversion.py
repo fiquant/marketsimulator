@@ -53,13 +53,11 @@ import _wrap, side
 class MeanReversionEx(types.ISingleAssetStrategy):
 
     def getImpl(self):
-        orderBook = orderbook.OfTrader()
-        avg = observable.EWMA(observable.MidPrice(orderBook), self.ewma_alpha)
 
-        return Periodic(orderFactory= self.orderFactory, 
-                        volumeFunc  = self.volumeDistr, 
-                        eventGen    = scheduler.Timer(self.creationIntervalDistr), 
-                        sideFunc    = side.MeanReversion(self.ewma_alpha))
+        return Generic(order.factory.Market(
+                            side.MeanReversion(self.ewma_alpha), 
+                            self.volumeDistr), 
+                       scheduler.Timer(self.creationIntervalDistr))
 
 _wrap.strategy(MeanReversionEx, ['Periodic', 'Mean reversion'], 
              """ Mean reversion strategy believes that asset price should return to its average value.
@@ -68,9 +66,6 @@ _wrap.strategy(MeanReversionEx, ['Periodic', 'Mean reversion'],
                  it buys the asset and if the price is higher it sells the asset. 
              
                  It has following parameters: 
-                 
-                 |orderFactory| 
-                     order factory function (default: order.Market.T)
                  
                  |creationIntervalDistr| 
                      defines intervals of time between order creation 
@@ -84,40 +79,8 @@ _wrap.strategy(MeanReversionEx, ['Periodic', 'Mean reversion'],
                      defines volumes of orders to create 
                      (default: exponential distribution with |lambda| = 1)
              """,
-             [('orderFactory',          'order.MarketFactory',              'Side -> Volume -> IOrder'),
+             [
               ('ewma_alpha',            '0.15',                             'non_negative'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)',    '() -> Volume'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')], 
                globals())
-
-class MeanReversion2Ex(types.ISingleAssetStrategy):
-    
-    def getImpl(self):
-
-        return Generic(self.orderFactory(side.MeanReversion(self.ewma_alpha)), 
-                       scheduler.Timer(self.creationIntervalDistr))
-
-_wrap.strategy(MeanReversion2Ex, ['Periodic', 'Mean reversion2'], 
-             """ Mean reversion strategy believes that asset price should return to its average value.
-                 It estimates this average using some functional and 
-                 if the current asset price is lower than the average
-                 it buys the asset and if the price is higher it sells the asset. 
-             
-                 It has following parameters: 
-                 
-                 |orderFactory| 
-                     order factory function (default: order.Market.T)
-                 
-                 |creationIntervalDistr| 
-                     defines intervals of time between order creation 
-                     (default: exponential distribution with |lambda| = 1)
-                 
-                 |ewma_alpha| 
-                     |alpha| for exponentially weighted moving average 
-                     (default: 0.15)
-             """,
-             [('orderFactory',          'order.factory.Side_Market()',      'Side -> IOrderGenerator'),
-              ('ewma_alpha',            '0.15',                             'non_negative'),
-              ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')], 
-               globals())
-

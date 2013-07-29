@@ -17,7 +17,7 @@ from _noise import Noise, NoiseEx
 
 from _arbitrage import Arbitrage
 
-from _mean_reversion import MeanReversion, MeanReversionEx, MeanReversion2Ex
+from _mean_reversion import MeanReversion, MeanReversionEx
 
 from _rsi import RSIEx, RSIbis, RSI_linear, RSI2_linear
 

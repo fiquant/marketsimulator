@@ -44,17 +44,12 @@ def MeanReversion(ctx):
                          "meanreversion", 
                          myVolume() + myAverage() + myPrice()),
      
-        ctx.makeTrader_A(strategy.MeanReversionEx(
-                                ewma_alpha=(alpha),
-                                creationIntervalDistr = ops.constant(1.),
-                                volumeDistr = const(V)),
-                         "meanreversion_ex", 
-                         myVolume()),
-     
-        ctx.makeTrader_A(strategy.MeanReversion2Ex(
-                                ewma_alpha=(alpha),
-                                creationIntervalDistr = ops.constant(1.),
-                                orderFactory=order.factory.Side_Market(const(V))),
-                         "meanreversion2_ex", 
-                         myVolume()),
+        ctx.makeTrader_A(
+                strategy.Generic(
+                    order.factory.Market(
+                        side = strategy.side.MeanReversion(alpha),
+                        volume = const(V)),
+                    scheduler.Timer(const(1.))),
+                     "meanreversion_ex", 
+                     myVolume()),
     ]    
