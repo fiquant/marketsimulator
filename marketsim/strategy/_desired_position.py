@@ -41,18 +41,13 @@ exec  wrapper2("DesiredPosition",
                ('orderFactory',         'order.MarketFactory', 'Side -> Volume -> IOrder'),], 
                register=False)
 
+import signed_volume
+
 class DesiredPosition2(types.ISingleAssetStrategy):
     
-    def getDefinitions(self):
-        pending = observable.PendingVolume()
-        actual = observable.VolumeTraded()
-        
-        return {
-            'signedVolume' : self.desiredPosition - actual - pending
-        }
-    
     def getImpl(self):
-        return Generic(self.orderFactory(_.signedVolume), self.desiredPosition)
+        return Generic(self.orderFactory(signed_volume.DesiredPosition(self.desiredPosition)), 
+                       self.desiredPosition)
 
 import _wrap
     
