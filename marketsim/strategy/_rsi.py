@@ -2,7 +2,7 @@ from marketsim.types import *
 from marketsim import (meta, types, order, _, defs, ops,
                        mathutils, observable, scheduler, orderbook, registry)
 
-from _periodic import Periodic
+from _periodic import Periodic, Generic
 
 @registry.expose(["RelativeStrengthIndexSide"])
 class RelativeStrengthIndexSide(object):
@@ -59,12 +59,12 @@ class RSIbis(types.ISingleAssetStrategy):
                                         self.alpha) }
     
     def getImpl(self):
-        return Periodic(orderFactory = self.orderFactory, 
-                        volumeFunc   = self.volumeDistr, 
-                        eventGen     = scheduler.Timer(self.creationIntervalDistr),
-                        sideFunc     = side.Signal(
-                                                ops.constant(50) - _.rsi, 
-                                                50-self.threshold))
+        return Generic(
+                  order.factory.Market(
+                     side = side.Signal(ops.constant(50) - _.rsi, 
+                                        50-self.threshold), 
+                     volume = self.volumeDistr), 
+                  scheduler.Timer(self.creationIntervalDistr))
         
 _wrap.strategy(RSIbis, ['Periodic', 'RSI bis'], 
                """
@@ -73,7 +73,6 @@ _wrap.strategy(RSIbis, ['Periodic', 'RSI bis'],
                   ('alpha',                 '1./14',                         'non_negative'), 
                   ('timeframe',             '1.',                            'non_negative'), 
                   ('threshold',             '30.',                           'non_negative'), 
-                  ('orderFactory',          'order.MarketFactory',           'Side -> Volume -> IOrder'),
                   ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
                   ('volumeDistr',           'mathutils.rnd.expovariate(1.)', '() -> Volume')
                ], globals())
