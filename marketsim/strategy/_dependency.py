@@ -67,15 +67,14 @@ import _wrap
 class DependencyEx(types.ISingleAssetStrategy):
     
     def getDefinitions(self):
-        return { 'dependee' : observable.MidPrice(self.bookToDependOn) * self.factor }
+        return { 'dependee' : observable.MidPrice(self.bookToDependOn) }
 
     def getImpl(self):
         orderBook = orderbook.OfTrader()
         return Periodic(orderFactory= self.orderFactory, 
                         volumeFunc  = self.volumeDistr, 
                         eventGen    = _.dependee, 
-                        sideFunc    = side.FundamentalValue(
-                                            orderBook, _.dependee))
+                        sideFunc    = side.Dependency(self.bookToDependOn, self.factor))
 
 _wrap.strategy(DependencyEx, ['Periodic', 'Dependency'],
          """ Dependent price strategy believes that the fair price of an asset *A* 
@@ -112,8 +111,8 @@ class Dependency2Ex(types.ISingleAssetStrategy):
     def getDefinitions(self):
         orderBook = orderbook.OfTrader()
         return { 
-            'dependee' : observable.MidPrice(self.bookToDependOn) * self.factor,
-            'side' :     side.FundamentalValue(orderBook, _.dependee)
+            'dependee' : observable.MidPrice(self.bookToDependOn),
+            'side' :     side.Dependency(self.bookToDependOn, self.factor)
         }
 
     def getImpl(self):
