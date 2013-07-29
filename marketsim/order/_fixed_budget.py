@@ -43,15 +43,3 @@ class Factory(types.IOrderGenerator, combine.SideBudget):
     def __call__(self):
         params = combine.SideBudget.__call__(self)
         return FixedBudget(*params) if params is not None else None
-
-class Side_Factory(IFunction[IOrderGenerator, Side]):
-    
-    def __init__(self, budget = ops.constant(200.)):
-        self.budget = budget
-        
-    _properties = { 
-        'budget' : types.IFunction[float],
-    }
-    
-    def __call__(self, side):
-        return Factory(side, self.budget)

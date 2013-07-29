@@ -40,22 +40,4 @@ exec  wrapper2("DesiredPosition",
               [('desiredPosition',      'None',                'types.IObservable[float]'), 
                ('orderFactory',         'order.MarketFactory', 'Side -> Volume -> IOrder'),], 
                register=False)
-
-import signed_volume
-
-class DesiredPosition2(types.ISingleAssetStrategy):
-    
-    def getImpl(self):
-        return Generic(self.orderFactory(signed_volume.DesiredPosition(self.desiredPosition)), 
-                       self.desiredPosition)
-
-import _wrap
-    
-_wrap.strategy(DesiredPosition2, ['Desired position', 'Base'],
-         """ 
-         """,
-          [
-           ('desiredPosition',      'signal.RandomWalk()',                 'types.IObservable[float]'), 
-           ('orderFactory',         'order.factory.SignedVolume_Market()', 'SignedVolume -> IOrderGenerator')
-          ], globals())
                 

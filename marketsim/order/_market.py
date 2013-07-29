@@ -50,25 +50,6 @@ class FactorySigned(Factory_Base, combine.SignedVolume):
     
     def get(self):
         return combine.SignedVolume.__call__(self)
-
-class SignedVolume_Factory(IFunction[IOrderGenerator, SignedVolume]):
-    
-    def __call__(self, signedVolume):
-        return FactorySigned(signedVolume)
-    
-class Side_Factory(IFunction[IOrderGenerator, Side]):
-    
-    def __init__(self, 
-                 volume = ops.constant(1.)):
-        self.volume = volume
-        
-    _properties = { 
-        'volume'    : types.IFunction[float]
-    }
-        
-    def __call__(self, side):
-        return Factory(side, self.volume)
-
         
 @registry.expose(alias=['Market'])
 @sig(args=(Side,), rv=function((Volume,), IOrder))

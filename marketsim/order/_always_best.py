@@ -35,19 +35,6 @@ class Factory(types.IOrderGenerator, combine.SideVolume):
             context.bind(order, self._ctx)
         return order
 
-class Side_Factory(IFunction[IOrderGenerator, Side]):
-    
-    def __init__(self, volume = ops.constant(1.)):
-        self.volume = volume
-        
-    _properties = { 
-        'volume' : types.IFunction[float],
-    }
-    
-    def __call__(self, side):
-        return Factory(side, self.volume)
-    
-
 class AlwaysBest(Base):
     """ AlwaysBest is a virtual order that ensures that it has the best price in the order book. 
     It is implemented as a limit order which is cancelled 
