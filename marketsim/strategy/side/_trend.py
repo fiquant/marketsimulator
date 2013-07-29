@@ -7,12 +7,10 @@ from _signal import Signal
 class TrendFollower(ops.Observable[Side]):
     
     def getDefinitions(self):
-        orderBook = orderbook.OfTrader()
-        
         return { 
                  'trend' : ops.Derivative(
                                 observable.EWMA(
-                                    observable.MidPrice(orderBook), 
+                                    observable.MidPrice(self.orderBook), 
                                     self.ewma_alpha))
             }
     
@@ -39,4 +37,5 @@ _wrap.function(TrendFollower, ['TrendFollower side'],
                  [
                   ('ewma_alpha',             '0.15',                          'non_negative'),
                   ('threshold',              '0.',                            'non_negative'), 
+                  ('orderBook',               'orderbook.OfTrader()',         'types.IOrderBook'),
                  ], globals())

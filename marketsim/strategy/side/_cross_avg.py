@@ -8,13 +8,13 @@ class TwoAverages(ops.Observable[Side]):
     
     def getDefinitions(self):
         return { 
-            'price' : observable.MidPrice(orderbook.OfTrader()),
+            'price' : observable.MidPrice(self.orderBook),
         }
     
     def getImpl(self):
         return Signal((observable.EWMA(_.price, self.ewma_alpha1) 
-                       - observable.EWMA(_.price, self.ewma_alpha2)),
-                      self.threshold)
+                     - observable.EWMA(_.price, self.ewma_alpha2)),
+                     self.threshold)
     
 _wrap.function(TwoAverages, ['TwoAverages side'], 
              """ Two averages is a signal that compares two averages of price of the same asset but
@@ -39,5 +39,6 @@ _wrap.function(TwoAverages, ['TwoAverages side'],
               ('ewma_alpha1',           '0.15',                          'non_negative'),
               ('ewma_alpha2',           '0.015',                         'non_negative'),
               ('threshold',             '0.',                            'non_negative'), 
+              ('orderBook',             'orderbook.OfTrader()',          'types.IOrderBook'),
              ], 
                globals())

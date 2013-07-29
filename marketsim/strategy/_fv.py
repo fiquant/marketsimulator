@@ -72,9 +72,7 @@ class FundamentalValueEx(types.ISingleAssetStrategy):
         return Periodic(orderFactory= self.orderFactory, 
                         volumeFunc  = self.volumeDistr, 
                         eventGen    = scheduler.Timer(self.creationIntervalDistr), 
-                        sideFunc    = side.FundamentalValue(
-                                            orderbook.OfTrader(), 
-                                            self.fundamentalValue))
+                        sideFunc    = side.FundamentalValue(orderbook.OfTrader(), self.fundamentalValue))
 
 _wrap.strategy(FundamentalValueEx, ['Periodic', 'Fundamental Value'], 
              """ Fundamental value strategy believes that an asset should have some specific price 
@@ -108,9 +106,7 @@ class FundamentalValue2Ex(types.ISingleAssetStrategy):
     
     def getDefinitions(self):
         return { 
-            'side' : observable.side.FundamentalValue(
-                                        orderbook.OfTrader(), 
-                                        self.fundamentalValue)
+            'side' : side.FundamentalValue(orderbook.OfTrader(), self.fundamentalValue)
         }
 
     def getImpl(self):
