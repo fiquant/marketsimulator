@@ -114,17 +114,8 @@ _wrap.strategy(TwoAveragesEx, ['Periodic', 'TwoAverages'],
 
 class TwoAverages2Ex(types.ISingleAssetStrategy):
 
-    def getDefinitions(self):
-        return { 
-            'price' : observable.MidPrice(orderbook.OfTrader()),
-            'side' :  side.Signal(
-                          (observable.EWMA(_.price, self.ewma_alpha1) 
-                           - observable.EWMA(_.price, self.ewma_alpha2)),
-                          self.threshold)
-        }
-    
     def getImpl(self):
-        return  Generic(self.orderFactory(_.side),
+        return  Generic(self.orderFactory(side.TwoAverages(self.ewma_alpha1, self.ewma_alpha2, self.threshold)),
                         scheduler.Timer(self.creationIntervalDistr))
 
 _wrap.strategy(TwoAverages2Ex, ['Periodic', 'TwoAverages2'], 
