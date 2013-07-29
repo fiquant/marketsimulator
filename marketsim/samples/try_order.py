@@ -1,11 +1,11 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (signal, strategy, observable, ops, order)
+from marketsim import (signal, strategy, observable, ops, order, scheduler)
 from common import expose
 
 @expose("Various Orders", __name__)
-def Signal(ctx):
+def Orders(ctx):
 
     const = ops.constant
     linear_signal = signal.RandomWalk(initialValue=20, 
@@ -17,31 +17,29 @@ def Signal(ctx):
     return [
         ctx.makeTrader_A(strategy.LiquidityProvider(volumeDistr=const(5)), "liquidity"),
         
-        ctx.makeTrader_A(strategy.Signal2Ex(linear_signal, 
-                                            order.factory.Side_Market(const(1))), 
+        ctx.makeTrader_A(strategy.Generic(
+                            order.factory.Market(
+                                side = strategy.side.Signal(linear_signal), 
+                                volume = const(1))), 
                          "signalmarket"), 
-        
-        ctx.makeTrader_A(strategy.Signal2Ex(linear_signal, 
-                                            order.factory.Side_Limit(
-                                                price = midPrice, 
-                                                volume = const(1)
-                                            )), 
-                         "signallimit"), 
 
-        ctx.makeTrader_A(strategy.Signal2Ex(linear_signal, 
-                                            order.factory.Side_FixedBudget(
-                                                budget = const(1450), 
-                                            )), 
+        ctx.makeTrader_A(strategy.Generic(
+                            order.factory.Limit(
+                                side = strategy.side.Signal(linear_signal), 
+                                price = midPrice, 
+                                volume = const(1))), 
+                         "signallimit"), 
+ 
+        ctx.makeTrader_A(strategy.Generic(
+                            order.factory.FixedBudget(
+                                side = strategy.side.Signal(linear_signal), 
+                                budget = const(450))), 
                          "signalfixedbudget"), 
-        
+         
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.AlwaysBestLimit(
                                 side = strategy.side.Random(),
-                                volume = const(20))), 
+                                volume = const(1)),
+                            scheduler.Timer(const(100))), 
                          "noise_alwaysbest"), 
-        
-        ctx.makeTrader_A(strategy.SignalEx(linear_signal, 
-                                           volumeDistr=const(1), 
-                                           orderFactory=order.StopLossFactory()), 
-                         "stoploss")
     ]    

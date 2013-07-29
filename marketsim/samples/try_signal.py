@@ -20,16 +20,9 @@ def Signal(ctx):
                          "signal", 
                          [(linear_signal, ctx.amount_graph)]),
     
-        ctx.makeTrader_A(strategy.SignalEx(linear_signal, 
-                                           volumeDistr=const(1)), 
+        ctx.makeTrader_A(strategy.Generic(
+                            order.factory.Market(
+                                side = strategy.side.Signal(linear_signal), 
+                                volume = const(1))), 
                          "signal_ex"), 
-        
-        ctx.makeTrader_A(strategy.Signal2Ex(linear_signal, 
-                                            order.factory.Side_Market(const(1))), 
-                         "signal2_ex"), 
-        
-        ctx.makeTrader_A(strategy.SignalEx(linear_signal, 
-                                           volumeDistr=const(1), 
-                                           orderFactory=order.StopLossFactory()), 
-                         "stoploss")
     ]    
