@@ -49,7 +49,7 @@ def RSIEx    (         alpha                 = 1./14,
     
     return r
 
-import _wrap
+import _wrap, side
 
 class RSIbis(types.ISingleAssetStrategy):
 
@@ -62,7 +62,7 @@ class RSIbis(types.ISingleAssetStrategy):
         return Periodic(orderFactory = self.orderFactory, 
                         volumeFunc   = self.volumeDistr, 
                         eventGen     = scheduler.Timer(self.creationIntervalDistr),
-                        sideFunc     = observable.side.Signal(
+                        sideFunc     = side.Signal(
                                                 ops.constant(50) - _.rsi, 
                                                 50-self.threshold))
         

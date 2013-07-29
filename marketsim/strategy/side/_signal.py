@@ -1,6 +1,6 @@
 from marketsim import (Side, registry, meta, ops, _, types, signal)
 
-from .. import _wrap
+import _wrap
     
 class Signal(ops.Observable[Side]):
     

@@ -64,7 +64,7 @@ exec  wrapper2("FundamentalValue",
                ('volumeDistr',          'mathutils.rnd.expovariate(1.)','() -> Volume'),
                ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> TimeInterval')])
 
-import _wrap
+import _wrap, side
 
 class FundamentalValueEx(types.ISingleAssetStrategy):
 
@@ -72,7 +72,7 @@ class FundamentalValueEx(types.ISingleAssetStrategy):
         return Periodic(orderFactory= self.orderFactory, 
                         volumeFunc  = self.volumeDistr, 
                         eventGen    = scheduler.Timer(self.creationIntervalDistr), 
-                        sideFunc    = observable.side.FundamentalValue(
+                        sideFunc    = side.FundamentalValue(
                                             orderbook.OfTrader(), 
                                             self.fundamentalValue))
 

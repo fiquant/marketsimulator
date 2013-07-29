@@ -1,6 +1,6 @@
 from marketsim import (Side, registry, meta, mathutils, ops, types)
 
-from .. import _wrap
+import _wrap
     
 class Random(ops.Function[Side]):
     

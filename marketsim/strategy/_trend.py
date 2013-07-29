@@ -55,7 +55,7 @@ exec wrapper2('TrendFollower',
               ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
               ('volumeDistr',            'mathutils.rnd.expovariate(1.)', '() -> Volume')])
 
-import _wrap
+import _wrap, side
 
 class TrendFollowerEx(types.ISingleAssetStrategy):
     
@@ -73,7 +73,7 @@ class TrendFollowerEx(types.ISingleAssetStrategy):
         return Periodic(orderFactory= self.orderFactory, 
                         volumeFunc  = self.volumeDistr,
                         eventGen    = scheduler.Timer(self.creationIntervalDistr),
-                        sideFunc    = observable.side.Signal(_.trend, self.threshold))
+                        sideFunc    = side.Signal(_.trend, self.threshold))
 
 _wrap.strategy(TrendFollowerEx, ['Periodic', 'TrendFollower'], 
                  """ Trend follower can be considered as a sort of a signal strategy 
@@ -122,7 +122,7 @@ class TrendFollower2Ex(types.ISingleAssetStrategy):
                                     observable.MidPrice(orderBook),
                                     self.ewma_alpha)), 
                 
-                 'side' : observable.side.Signal(_.trend, self.threshold)
+                 'side' : side.Signal(_.trend, self.threshold)
             }
     
     def getImpl(self):

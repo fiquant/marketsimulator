@@ -48,7 +48,7 @@ exec wrapper2("MeanReversion",
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)',    '() -> Volume'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')])
 
-import _wrap
+import _wrap, side
 
 class MeanReversionEx(types.ISingleAssetStrategy):
 
@@ -59,7 +59,7 @@ class MeanReversionEx(types.ISingleAssetStrategy):
         return Periodic(orderFactory= self.orderFactory, 
                         volumeFunc  = self.volumeDistr, 
                         eventGen    = scheduler.Timer(self.creationIntervalDistr), 
-                        sideFunc    = observable.side.FundamentalValue(orderBook, avg))
+                        sideFunc    = side.FundamentalValue(orderBook, avg))
 
 _wrap.strategy(MeanReversionEx, ['Periodic', 'Mean reversion'], 
              """ Mean reversion strategy believes that asset price should return to its average value.
@@ -95,7 +95,7 @@ class MeanReversion2Ex(types.ISingleAssetStrategy):
     def getDefinitions(self):
         orderBook = orderbook.OfTrader()
         avg = observable.EWMA(observable.MidPrice(orderBook), self.ewma_alpha)
-        return { 'side' : observable.side.FundamentalValue(orderBook, avg) }
+        return { 'side' : side.FundamentalValue(orderBook, avg) }
 
     def getImpl(self):
 

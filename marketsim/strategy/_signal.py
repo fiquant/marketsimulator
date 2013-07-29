@@ -55,12 +55,12 @@ exec wrapper2("Signal",
               ('orderFactory',  'order.MarketFactory',          'Side -> Volume -> IOrder'),
               ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')])
 
-import _wrap
+import _wrap, side
 
 class SignalEx(types.ISingleAssetStrategy):
     
     def getImpl(self):
-        return Periodic(sideFunc     = observable.side.Signal(_.signal, self.threshold),
+        return Periodic(sideFunc     = side.Signal(_.signal, self.threshold),
                         volumeFunc   = self.volumeDistr, 
                         orderFactory = self.orderFactory, 
                         eventGen     = _.signal)
@@ -101,7 +101,7 @@ class Signal2Ex(types.ISingleAssetStrategy):
     def getDefinitions(self):
         return {
             "signal" : self.signal, 
-            "side"   : observable.side.Signal(self.signal, self.threshold) 
+            "side"   : side.Signal(self.signal, self.threshold) 
         }
 
 _wrap.strategy(Signal2Ex, ['Periodic', 'Signal2'], 

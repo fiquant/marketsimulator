@@ -37,14 +37,14 @@ exec wrapper2("Noise",
               ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> Volume'),
               ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')])
 
-import _wrap
+import _wrap, side
 
 class NoiseEx(types.ISingleAssetStrategy):
     
     def getImpl(self):
         return Periodic(orderFactory = self.orderFactory, 
                         eventGen     = scheduler.Timer(self.creationIntervalDistr), 
-                        sideFunc     = observable.side.Random(), 
+                        sideFunc     = side.Random(), 
                         volumeFunc   = self.volumeDistr)
         
 _wrap.strategy(NoiseEx, ['Periodic', 'Noise'], 
@@ -73,7 +73,7 @@ _wrap.strategy(NoiseEx, ['Periodic', 'Noise'],
 class Noise2Ex(types.ISingleAssetStrategy):
     
     def getDefinitions(self):
-        return { 'side' : observable.side.Random() }
+        return { 'side' : side.Random() }
     
     def getImpl(self):
         return Generic(eventGen = scheduler.Timer(self.creationIntervalDistr), 

@@ -1,15 +1,13 @@
-from marketsim import (Side, registry, meta, orderbook, ops, _, types)
+from marketsim import (Side, registry, meta, observable, orderbook, ops, _, types)
 
-from .. import _wrap
-    
-from .._orderbook import AskPrice, BidPrice
+import _wrap
 
 class FundamentalValue(ops.Observable[Side]):
     
     def getImpl(self):
-        return  (BidPrice(_.orderBook) > _.fv)[
+        return  (observable.BidPrice(_.orderBook) > _.fv)[
                     ops.constant(Side.Sell), 
-                    (AskPrice(_.orderBook) < _.fv)[
+                    (observable.AskPrice(_.orderBook) < _.fv)[
                         ops.constant(Side.Buy), 
                         ops._None[Side]()
                     ]                

@@ -6,6 +6,9 @@ from _signal import SignalBase
 from _wrap import wrapper2
 from _fv import FundamentalValueBase
 
+
+import side
+
 from marketsim.types import *
 
 
@@ -71,7 +74,7 @@ class DependencyEx(types.ISingleAssetStrategy):
         return Periodic(orderFactory= self.orderFactory, 
                         volumeFunc  = self.volumeDistr, 
                         eventGen    = _.dependee, 
-                        sideFunc    = observable.side.FundamentalValue(
+                        sideFunc    = side.FundamentalValue(
                                             orderBook, _.dependee))
 
 _wrap.strategy(DependencyEx, ['Periodic', 'Dependency'],
@@ -110,7 +113,7 @@ class Dependency2Ex(types.ISingleAssetStrategy):
         orderBook = orderbook.OfTrader()
         return { 
             'dependee' : observable.MidPrice(self.bookToDependOn) * self.factor,
-            'side' :  observable.side.FundamentalValue(orderBook, _.dependee)
+            'side' :     side.FundamentalValue(orderBook, _.dependee)
         }
 
     def getImpl(self):

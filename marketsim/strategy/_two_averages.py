@@ -61,7 +61,7 @@ exec wrapper2("TwoAverages",
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)', '() -> Volume')])
 
-import _wrap
+import _wrap, side
 
 class TwoAveragesEx(types.ISingleAssetStrategy):
 
@@ -72,7 +72,7 @@ class TwoAveragesEx(types.ISingleAssetStrategy):
         return  Periodic(orderFactory= self.orderFactory, 
                          volumeFunc  = self.volumeDistr,
                          eventGen    = scheduler.Timer(self.creationIntervalDistr),
-                         sideFunc    = observable.side.Signal(
+                         sideFunc    = side.Signal(
                                           (observable.EWMA(_.price, self.ewma_alpha1) 
                                            - observable.EWMA(_.price, self.ewma_alpha2)),
                                           self.threshold))
@@ -117,7 +117,7 @@ class TwoAverages2Ex(types.ISingleAssetStrategy):
     def getDefinitions(self):
         return { 
             'price' : observable.MidPrice(orderbook.OfTrader()),
-            'side' :  observable.side.Signal(
+            'side' :  side.Signal(
                           (observable.EWMA(_.price, self.ewma_alpha1) 
                            - observable.EWMA(_.price, self.ewma_alpha2)),
                           self.threshold)
