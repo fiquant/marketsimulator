@@ -44,17 +44,11 @@ def TrendFollower(ctx):
                              "trendfollower", 
                              myVolume() + myAverage(alpha)),
             
-            ctx.makeTrader_A(strategy.TrendFollowerEx(
-                                       creationIntervalDistr = const(1.),
-                                       ewma_alpha = (alpha),
-                                       volumeDistr = const(V)),
+            ctx.makeTrader_A(strategy.Generic(
+                                order.factory.Market(
+                                    side = strategy.side.TrendFollower(alpha), 
+                                    volume = const(V)),
+                                scheduler.Timer(const(1.))),
                              "trendfollower_ex",
                              myVolume()), 
-            
-            ctx.makeTrader_A(strategy.TrendFollower2Ex(
-                                       creationIntervalDistr = const(1.),
-                                       ewma_alpha = (alpha),
-                                       orderFactory = order.factory.Side_Market(const(V))),
-                             "trendfollower2_ex",
-                             myVolume())
     ]
