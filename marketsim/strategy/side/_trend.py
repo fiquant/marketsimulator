@@ -1,8 +1,7 @@
-from marketsim import (Side, registry, meta, ops, _, orderbook, types)
+from marketsim import (Side, observable, registry, meta, ops, _, orderbook, types)
+from marketsim.types import *
 
-from .. import _wrap
-from .._ewma import EWMA
-from .._orderbook import MidPrice
+import _wrap
 from _signal import Signal
     
 class TrendFollower(ops.Observable[Side]):
@@ -11,7 +10,10 @@ class TrendFollower(ops.Observable[Side]):
         orderBook = orderbook.OfTrader()
         
         return { 
-                 'trend' : ops.Derivative(EWMA(MidPrice(orderBook), self.ewma_alpha))
+                 'trend' : ops.Derivative(
+                                observable.EWMA(
+                                    observable.MidPrice(orderBook), 
+                                    self.ewma_alpha))
             }
     
     def getImpl(self):

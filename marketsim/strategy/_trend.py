@@ -113,20 +113,8 @@ _wrap.strategy(TrendFollowerEx, ['Periodic', 'TrendFollower'],
 
 class TrendFollower2Ex(types.ISingleAssetStrategy):
     
-    def getDefinitions(self):
-        orderBook = orderbook.OfTrader()
-        
-        return { 
-                 'trend' : ops.Derivative(
-                                observable.EWMA(
-                                    observable.MidPrice(orderBook),
-                                    self.ewma_alpha)), 
-                
-                 'side' : side.Signal(_.trend, self.threshold)
-            }
-    
     def getImpl(self):
-        return Generic( self.orderFactory(_.side), 
+        return Generic( self.orderFactory(side.TrendFollower(self.ewma_alpha, self.threshold)), 
                         scheduler.Timer(self.creationIntervalDistr))
 
 _wrap.strategy(TrendFollower2Ex, ['Periodic', 'TrendFollower2'], 
