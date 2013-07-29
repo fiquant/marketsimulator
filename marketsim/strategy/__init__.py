@@ -23,7 +23,7 @@ from _rsi import RSIEx, RSIbis, RSI_linear, RSI2_linear
 
 from _bollinger import Bollinger_linear, Bollinger2_linear
 
-from _dependency import Dependency, DependencyEx, Dependency2Ex
+from _dependency import Dependency, DependencyEx
 
 from _fv import (FundamentalValue, FundamentalValueEx)
 

@@ -67,14 +67,14 @@ import _wrap
 class DependencyEx(types.ISingleAssetStrategy):
     
     def getDefinitions(self):
-        return { 'dependee' : observable.MidPrice(self.bookToDependOn) }
+        orderBook = orderbook.OfTrader()
+        return { 
+            'dependee' : observable.MidPrice(self.bookToDependOn),
+            'side' :     side.Dependency(self.bookToDependOn, self.factor)
+        }
 
     def getImpl(self):
-        orderBook = orderbook.OfTrader()
-        return Periodic(orderFactory= self.orderFactory, 
-                        volumeFunc  = self.volumeDistr, 
-                        eventGen    = _.dependee, 
-                        sideFunc    = side.Dependency(self.bookToDependOn, self.factor))
+        return Generic(order.factory.Market(_.side, self.volumeDistr),  _.dependee)
 
 _wrap.strategy(DependencyEx, ['Periodic', 'Dependency'],
          """ Dependent price strategy believes that the fair price of an asset *A* 
@@ -85,9 +85,6 @@ _wrap.strategy(DependencyEx, ['Periodic', 'Dependency'],
              asset *B* changes. 
          
              It has following parameters: 
-             
-             |orderFactory| 
-                 order factory function (default: order.Market.T)
              
              |bookToDependOn| 
                  reference to order book for another asset used to evaluate fair price of our asset
@@ -101,45 +98,6 @@ _wrap.strategy(DependencyEx, ['Periodic', 'Dependency'],
          """,
          [
           ('bookToDependOn','orderbook.OfTrader()',             'IOrderBook'),
-          ('orderFactory',  'order.MarketFactory',              'Side -> Volume -> IOrder'),
           ('factor',        '1.',                               'float'),
           ('volumeDistr',   'mathutils.rnd.expovariate(.1)',    '() -> Volume')
           ], globals())
-                
-class Dependency2Ex(types.ISingleAssetStrategy):
-    
-    def getDefinitions(self):
-        orderBook = orderbook.OfTrader()
-        return { 
-            'dependee' : observable.MidPrice(self.bookToDependOn),
-            'side' :     side.Dependency(self.bookToDependOn, self.factor)
-        }
-
-    def getImpl(self):
-        return Generic(self.orderFactory(_.side),  _.dependee)
-
-_wrap.strategy(Dependency2Ex, ['Periodic', 'Dependency2'],
-         """ Dependent price strategy believes that the fair price of an asset *A* 
-             is completely correlated with price of another asset *B* and the following relation 
-             should be held: *PriceA* = *kPriceB*, where *k* is some factor. 
-             It may be considered as a variety of a fundamental value strategy 
-             with the exception that it is invoked every the time price of another
-             asset *B* changes. 
-         
-             It has following parameters: 
-             
-             |orderFactory| 
-                 order factory function (default: order.Market.T)
-             
-             |bookToDependOn| 
-                 reference to order book for another asset used to evaluate fair price of our asset
-             
-             |factor| 
-                 multiplier to obtain fair asset price from the reference asset price
-         """,
-         [
-          ('bookToDependOn','orderbook.OfTrader()',             'IOrderBook'),
-          ('orderFactory',  'order.factory.Side_Market()',      'Side -> IOrderGenerator'),
-          ('factor',        '1.',                               'float'),
-          ], globals())
-                
