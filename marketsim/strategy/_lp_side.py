@@ -74,38 +74,16 @@ exec wrapper2("LiquidityProviderSide",
 
 from marketsim import ops
                
-def SafeSidePrice(orderBook, side, defaultValue):
-    
-    return defs(
-        (ops._None[float]() == _.sidePrice)[
-            (ops._None[float]() == _.lastPrice)[
-                ops.constant(defaultValue),
-                _.lastPrice
-            ], 
-            _.sidePrice        
-        ],
-        { 
-          'lastPrice': observable.QueueLastPrice(_.queue), 
-          'sidePrice': observable.QueuePrice(_.queue), 
-          'queue'    : orderbook.QueueProxy(orderBook, side)
-        })
-
-import _wrap
+import _wrap, price
 
 class LiquidityProviderSideEx(types.ISingleAssetStrategy):
     
-    def getDefinitions(self):
-        return {
-            'priceFunc' : SafeSidePrice(orderbook.OfTrader(), 
-                                        self.side, self.defaultValue) \
-                                    * self.priceDistr, 
-        }
-    
     def getImpl(self):
-        orderBook = orderbook.OfTrader()
         return Generic(order.factory.Limit(
                             side = ops.constant(self.side),
-                            price = _.priceFunc, 
+                            price = price.LiquidityProvider(self.side, 
+                                                            self.initialValue, 
+                                                            self.priceDistr), 
                             volume = self.volumeDistr), 
                        scheduler.Timer(self.creationIntervalDistr))
 
@@ -138,7 +116,7 @@ _wrap.strategy(LiquidityProviderSideEx, ['Periodic', 'LiquidityProviderSide'],
                  an order via *orderFactoryT(side)* and tells the trader to send it.
              """,
              [('side',                  'Side.Sell',                            'Side'),
-              ('defaultValue',          '100',                                  'Price'),
+              ('initialValue',          '100',                                  'Price'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
               ('priceDistr',            'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)',        '() -> Volume')],
