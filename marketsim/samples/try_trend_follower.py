@@ -24,7 +24,7 @@ def TrendFollower(ctx):
     myAverage = lambda alpha: [(observable.avg(observable.MidPrice(orderbook.OfTrader()), alpha), demo)]
     
     return [
-            ctx.makeTrader_A(strategy.LiquidityProvider(
+            ctx.makeTrader_A(strategy.v0.LiquidityProvider(
                                 volumeDistr=const(V*8), 
                                 orderFactoryT=order.WithExpiryFactory(
                                     expirationDistr=const(100))),
@@ -37,7 +37,7 @@ def TrendFollower(ctx):
                              (linear_signal, ctx.amount_graph)
                             ]),
     
-            ctx.makeTrader_A(strategy.TrendFollower(
+            ctx.makeTrader_A(strategy.v0.TrendFollower(
                                     creationIntervalDistr = const(1.),
                                     ewma_alpha = (alpha),
                                     volumeDistr = const(V)),

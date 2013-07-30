@@ -5,7 +5,6 @@ from marketsim.types import *
 
 from _basic import Strategy
 from _wrap import wrapper2
-from _fv import FundamentalValue
 
 class _tradeIfProfitable_Impl(Strategy):
 
@@ -53,9 +52,11 @@ def virtualWithUnitVolume(strategy):
     """
     return strategy.With(volumeDistr=ops.constant(1), orderFactory=order.VirtualMarketFactory)    
 
+import v0
+
 exec wrapper2("tradeIfProfitable", 
              "",
-             [('strategy',   'FundamentalValue()',    'ISingleAssetStrategy'), 
+             [('strategy',   'v0.FundamentalValue()', 'ISingleAssetStrategy'), 
               ('efficiency', 'efficiencyTrend',       'ISingleAssetTrader -> ISingleAssetTrader'),
               ('estimator',  'virtualWithUnitVolume', 'ISingleAssetStrategy -> ISingleAssetStrategy')], register=False)
 
@@ -77,7 +78,7 @@ class TradeIfProfitable(tradeIfProfitable):
             function creating phantom strategy used for efficiency estimation
     """
     
-    def __init__(self, strategy = FundamentalValue(), 
+    def __init__(self, strategy = v0.FundamentalValue(), 
                  efficiency=efficiencyTrend, 
                  estimator=virtualWithUnitVolume, 
                  **kwargs):

@@ -4,7 +4,7 @@ from marketsim.types import *
 
 from _basic import Strategy
 from _wrap import wrapper2
-from _fv import FundamentalValue
+import v0
 
 import weight
 
@@ -104,7 +104,7 @@ exec wrapper2("MultiarmedBandit",
                         function creating phantom strategy used for efficiency estimation
                  
                  """,
-             [('strategies', '[FundamentalValue()]',  'meta.listOf(ISingleAssetStrategy)'),
+             [('strategies', '[v0.FundamentalValue()]',  'meta.listOf(ISingleAssetStrategy)'),
               ('weight',     'weight.TrackRecord()',  'weight.Base'),
               ('efficiency', 'efficiencyTrend',       'ISingleAssetTrader -> ISingleAssetTrader'),
               ('estimator',  'virtualWithUnitVolume', 'ISingleAssetStrategy -> ISingleAssetStrategy')], category="Adaptive")

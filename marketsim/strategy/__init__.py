@@ -5,33 +5,33 @@ from marketsim import order, Side, observable, registry, config
 
 from _basic import Empty
 
-from _lp_side import (LiquidityProviderSide, LiquidityProviderSideEx)
+from _lp_side import LiquidityProviderSide
 
 from _array import Array
  
-from _lp import (LiquidityProvider, LiquidityProviderEx)
+from _lp import LiquidityProvider
 
 from _canceller import Canceller
 
-from _noise import Noise, NoiseEx
+from _noise import Noise
 
 from _arbitrage import Arbitrage
 
-from _mean_reversion import MeanReversion, MeanReversionEx
+from _mean_reversion import MeanReversion
 
-from _rsi import RSIEx, RSIbis, RSI_linear
+from _rsi import RSIbis, RSI_linear
 
 from _bollinger import Bollinger_linear
 
-from _dependency import Dependency, DependencyEx
+from _dependency import Dependency
 
-from _fv import (FundamentalValue, FundamentalValueEx)
+from _fv import FundamentalValue
 
-from _signal import Signal, SignalEx
+from _signal import Signal
 
-from _two_averages import TwoAverages, TwoAveragesEx
+from _two_averages import TwoAverages
 
-from _trend import (TrendFollower, TrendFollowerEx)
+from _trend import TrendFollower
 
 from _trade_if_profitable import tradeIfProfitable, TradeIfProfitable
 
@@ -39,7 +39,7 @@ from _choose_best import ChooseTheBest
 
 from _multiarmed_bandit import MultiarmedBandit
 
-from _periodic import Periodic, Generic
+from _periodic import Generic
 
 from _desired_position import DesiredPosition 
 
@@ -52,3 +52,4 @@ from _market_maker import MarketMaker, MarketMaker2
 
 from _desired import Desired
 
+import v0

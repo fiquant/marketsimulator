@@ -15,7 +15,7 @@ def Complete(ctx):
 
     c_200 = const(200.)
     
-    fv_200_12 = strategy.FundamentalValue(fundamentalValue=c_200, volumeDistr=const(12))
+    fv_200_12 = strategy.v0.FundamentalValue(fundamentalValue=c_200, volumeDistr=const(12))
 
     fv_200 = fv_200_12.With(volumeDistr=const(1.))
      
@@ -28,7 +28,7 @@ def Complete(ctx):
     
     return [
             ctx.makeTrader_A( 
-                      strategy.LiquidityProvider(
+                      strategy.v0.LiquidityProvider(
                             volumeDistr=const(70.), 
                             orderFactoryT=order.WithExpiryFactory(
                                 expirationDistr=const(10))), 

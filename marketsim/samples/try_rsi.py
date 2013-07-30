@@ -48,7 +48,7 @@ def RSI(ctx):
                          "rsi_bis",
                          myVolume() + myRsiBis()), 
             
-        ctx.makeTrader_A(strategy.RSIEx(alpha = alpha,
+        ctx.makeTrader_A(strategy.v0.RSIEx(alpha = alpha,
                                         threshold=threshold, 
                                         volumeDistr=one, 
                                         creationIntervalDistr=one), 

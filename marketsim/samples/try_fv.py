@@ -19,14 +19,14 @@ def FundamentalValue(ctx):
 
     return [
         ctx.makeTrader_A( 
-            strategy.LiquidityProvider(
+            strategy.v0.LiquidityProvider(
                  volumeDistr=ops.constant(6),
                  orderFactoryT=order.WithExpiryFactory(
                      expirationDistr=ops.constant(10))),
             "liquidity"),
     
         ctx.makeTrader_A( 
-            strategy.FundamentalValue(
+            strategy.v0.FundamentalValue(
                fundamentalValue = ops.constant(fv),
                creationIntervalDistr = ops.constant(1.),
                volumeDistr = ops.constant(1)), 

@@ -1,27 +1,45 @@
 import random
-from _periodic import Generic
+from _one_side import OneSide
+from _wrap import wrapper2
 from marketsim import (parts, order, orderbook, scheduler, mathutils, ops,
                        event, types, registry, meta, defs, _, observable)
 from marketsim.types import *
-               
-import _wrap
 
-class LiquidityProviderSide(types.ISingleAssetStrategy):
+class _LiquidityProviderSide_Impl(OneSide):
     
-    def getImpl(self):
-        return Generic(order.factory.Limit(
-                            side = ops.constant(self.side),
-                            price = parts.price.LiquidityProvider(self.side, 
-                                                                  self.initialValue, 
-                                                                  self.priceDistr), 
-                            volume = self.volumeDistr), 
-                       scheduler.Timer(self.creationIntervalDistr))
+    def __init__(self):
+        self._eventGen = scheduler.Timer(self.creationIntervalDistr)
+        self._queue = orderbook.QueueProxy(orderbook.OfTrader(), self.side)
+        self._lastPrice = observable.QueueLastPrice(self._queue)
+        OneSide.__init__(self)
+        
+    _internals = ["_lastPrice"]
+        
+    @property
+    def _orderFactory(self):
+        return self.orderFactoryT(self.side)
+    
+    def _orderFunc(self):
+        queue = self._trader.book.queue(self.side)
+        currentPrice = queue.best.price if not queue.empty else\
+                       self._lastPrice() if self._lastPrice() is not None else\
+                       self.defaultValue
+        price = currentPrice * self.priceDistr()
+        volume = int(self.volumeDistr())
+        return (price, volume)
+    
+    def dispose(self):
+        OneSide.dispose(self)
+        self._eventGen.cancel()
 
-_wrap.strategy(LiquidityProviderSide, ['Periodic', 'LiquidityProviderSide'],
+exec wrapper2("LiquidityProviderSide",
              """ Liquidity provider for one side has followng parameters:
 
                  |side|
                      side of orders to create (default: Side.Sell)
+                     
+                 |orderFactory| 
+                     order factory function (default: order.Limit.T)
                      
                  |initialValue| 
                      initial price which is taken if orderBook is empty (default: 100)
@@ -46,8 +64,8 @@ _wrap.strategy(LiquidityProviderSide, ['Periodic', 'LiquidityProviderSide'],
                  an order via *orderFactoryT(side)* and tells the trader to send it.
              """,
              [('side',                  'Side.Sell',                            'Side'),
-              ('initialValue',          '100',                                  'Price'),
+              ('orderFactoryT',         'order.LimitFactory',                   'Side -> (Price, Volume) -> IOrder'),
+              ('defaultValue',          '100',                                  'Price'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
               ('priceDistr',            'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
-              ('volumeDistr',           'mathutils.rnd.expovariate(1.)',        '() -> Volume')],
-               globals())
+              ('volumeDistr',           'mathutils.rnd.expovariate(1.)',        '() -> Volume')])

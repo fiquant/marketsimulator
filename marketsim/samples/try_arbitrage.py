@@ -16,13 +16,13 @@ def Arbitrage(ctx):
 
     return [
         ctx.makeTrader_A( 
-            strategy.LiquidityProvider(defaultValue=50.,
+            strategy.v0.LiquidityProvider(defaultValue=50.,
                                        orderFactoryT=factory, 
                                        volumeDistr=liqVol), 
             "LiquidityProvider_A"),
     
         ctx.makeTrader_B( 
-            strategy.LiquidityProvider(defaultValue=150., 
+            strategy.v0.LiquidityProvider(defaultValue=150., 
                                        orderFactoryT=factory, 
                                        volumeDistr=liqVol), 
             "LiquidityProvider_B"),

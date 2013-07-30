@@ -1,26 +1,33 @@
 from marketsim import (parts, scheduler, observable, types, meta, _,
                        Side, registry, orderbook, bind, order, mathutils)
 
-from _periodic import Generic
+from _wrap import wrapper2
+from _fv import FundamentalValueBase
+
 from marketsim.types import *
-import _wrap
 
-class MeanReversion(types.ISingleAssetStrategy):
 
-    def getImpl(self):
+class _MeanReversion_Impl(FundamentalValueBase):
+    
+    def __init__(self):
+        self._eventGen = scheduler.Timer(self.creationIntervalDistr)
+        myBook = orderbook.OfTrader()
+        self._fundamentalValue = observable.EWMA(observable.MidPrice(myBook), 
+                                                 self.ewma_alpha)
+        FundamentalValueBase.__init__(self)
 
-        return Generic(order.factory.Market(
-                            parts.side.MeanReversion(self.ewma_alpha), 
-                            self.volumeDistr), 
-                       scheduler.Timer(self.creationIntervalDistr))
+    _internals = ['_fundamentalValue']
 
-_wrap.strategy(MeanReversion, ['Periodic', 'Mean reversion'], 
+exec wrapper2("MeanReversion",
              """ Mean reversion strategy believes that asset price should return to its average value.
                  It estimates this average using some functional and 
                  if the current asset price is lower than the average
                  it buys the asset and if the price is higher it sells the asset. 
              
                  It has following parameters: 
+                 
+                 |orderFactory| 
+                     order factory function (default: order.Market.T)
                  
                  |creationIntervalDistr| 
                      defines intervals of time between order creation 
@@ -34,8 +41,7 @@ _wrap.strategy(MeanReversion, ['Periodic', 'Mean reversion'],
                      defines volumes of orders to create 
                      (default: exponential distribution with |lambda| = 1)
              """,
-             [
+             [('orderFactory',          'order.MarketFactory',              'Side -> Volume -> IOrder'),
               ('ewma_alpha',            '0.15',                             'non_negative'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)',    '() -> Volume'),
-              ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')], 
-               globals())
+              ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')])

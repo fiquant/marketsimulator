@@ -1,5 +1,5 @@
 from marketsim import _, event
-from _basic import Strategy
+from .._basic import Strategy
 
 class TwoSides(Strategy):    
     

@@ -24,12 +24,12 @@ def TradeIfProfitable(ctx):
     myVolume = lambda: [(observable.VolumeTraded(), demo)]
     myAverage = lambda alpha: [(observable.avg(observable.MidPrice(orderbook.OfTrader()), alpha), demo)]
     
-    avg_plus = strategy.TwoAverages(ewma_alpha1 = slow_alpha, 
+    avg_plus = strategy.v0.TwoAverages(ewma_alpha1 = slow_alpha, 
                                     ewma_alpha2 = fast_alpha,
                                     creationIntervalDistr = ops.constant(1.),
                                     volumeDistr           = ops.constant(1.))
     
-    avg_minus = strategy.TwoAverages(ewma_alpha2 = slow_alpha, 
+    avg_minus = strategy.v0.TwoAverages(ewma_alpha2 = slow_alpha, 
                                      ewma_alpha1 = fast_alpha,
                                      creationIntervalDistr = ops.constant(1.),
                                      volumeDistr           = ops.constant(1.))
@@ -38,10 +38,10 @@ def TradeIfProfitable(ctx):
     avg_minus_opt = strategy.TradeIfProfitable(avg_minus)
 
     return [
-        ctx.makeTrader_A(strategy.LiquidityProvider(volumeDistr=const(45)),
+        ctx.makeTrader_A(strategy.v0.LiquidityProvider(volumeDistr=const(45)),
                          "liquidity"),
 
-        ctx.makeTrader_A(strategy.Signal(linear_signal,
+        ctx.makeTrader_A(strategy.v0.Signal(linear_signal,
                                          volumeDistr=const(20)), 
                         "signal", 
                         [(linear_signal, ctx.amount_graph)]),
