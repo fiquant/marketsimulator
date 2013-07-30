@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (signal, strategy, trader, orderbook, order, ops,
+from marketsim import (parts, signal, strategy, trader, orderbook, order, ops,
                        timeserie, scheduler, observable, veusz, mathutils)
 
 const = ops.constant
@@ -47,7 +47,7 @@ def MeanReversion(ctx):
         ctx.makeTrader_A(
                 strategy.Generic(
                     order.factory.Market(
-                        side = strategy.side.MeanReversion(alpha),
+                        side = parts.side.MeanReversion(alpha),
                         volume = const(V)),
                     scheduler.Timer(const(1.))),
                      "meanreversion_ex", 

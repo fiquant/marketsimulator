@@ -1,13 +1,10 @@
-from marketsim import (scheduler, observable, types, meta, defs, _, ops,
+from marketsim import (parts, scheduler, observable, types, meta, defs, _, ops,
                        Side, registry, orderbook, bind, order, mathutils)
 
 from _periodic import Periodic, Generic
 from _signal import SignalBase
 from _wrap import wrapper2
 from _fv import FundamentalValueBase
-
-
-import side
 
 from marketsim.types import *
 
@@ -70,7 +67,7 @@ class DependencyEx(types.ISingleAssetStrategy):
         orderBook = orderbook.OfTrader()
         return { 
             'dependee' : observable.MidPrice(self.bookToDependOn),
-            'side' :     side.Dependency(self.bookToDependOn, self.factor)
+            'side' :     parts.side.Dependency(self.bookToDependOn, self.factor)
         }
 
     def getImpl(self):

@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (signal, strategy, observable, ops, order, scheduler)
+from marketsim import (parts, signal, strategy, observable, ops, order, scheduler)
 from common import expose
 
 @expose("Various Orders", __name__)
@@ -19,26 +19,26 @@ def Orders(ctx):
         
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.Market(
-                                side = strategy.side.Signal(linear_signal), 
+                                side = parts.side.Signal(linear_signal), 
                                 volume = const(1))), 
                          "signalmarket"), 
 
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.Limit(
-                                side = strategy.side.Signal(linear_signal), 
+                                side = parts.side.Signal(linear_signal), 
                                 price = midPrice, 
                                 volume = const(1))), 
                          "signallimit"), 
  
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.FixedBudget(
-                                side = strategy.side.Signal(linear_signal), 
+                                side = parts.side.Signal(linear_signal), 
                                 budget = const(450))), 
                          "signalfixedbudget"), 
          
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.AlwaysBestLimit(
-                                side = strategy.side.Random(),
+                                side = parts.side.Random(),
                                 volume = const(1)),
                             scheduler.Timer(const(100))), 
                          "noise_alwaysbest"), 

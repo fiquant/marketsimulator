@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (signal, strategy, observable, ops, order)
+from marketsim import (parts, signal, strategy, observable, ops, order)
 from common import expose
 
 @expose("Signal", __name__)
@@ -22,7 +22,7 @@ def Signal(ctx):
     
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.Market(
-                                side = strategy.side.Signal(linear_signal), 
+                                side = parts.side.Signal(linear_signal), 
                                 volume = const(1))), 
                          "signal_ex"), 
     ]    

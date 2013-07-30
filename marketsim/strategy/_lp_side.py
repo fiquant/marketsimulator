@@ -2,7 +2,7 @@ import random
 from _one_side import OneSide
 from _periodic import Periodic, Generic
 from _wrap import wrapper2
-from marketsim import (order, orderbook, scheduler, mathutils, ops,
+from marketsim import (parts, order, orderbook, scheduler, mathutils, ops,
                        event, types, registry, meta, defs, _, observable)
 from marketsim.types import *
 
@@ -74,16 +74,16 @@ exec wrapper2("LiquidityProviderSide",
 
 from marketsim import ops
                
-import _wrap, price
+import _wrap
 
 class LiquidityProviderSideEx(types.ISingleAssetStrategy):
     
     def getImpl(self):
         return Generic(order.factory.Limit(
                             side = ops.constant(self.side),
-                            price = price.LiquidityProvider(self.side, 
-                                                            self.initialValue, 
-                                                            self.priceDistr), 
+                            price = parts.price.LiquidityProvider(self.side, 
+                                                                  self.initialValue, 
+                                                                  self.priceDistr), 
                             volume = self.volumeDistr), 
                        scheduler.Timer(self.creationIntervalDistr))
 

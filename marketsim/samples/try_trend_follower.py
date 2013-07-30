@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (signal, strategy, trader, orderbook, order, ops,
+from marketsim import (parts, signal, strategy, trader, orderbook, order, ops,
                        timeserie, scheduler, observable, veusz, mathutils)
 
 const = ops.constant
@@ -46,7 +46,7 @@ def TrendFollower(ctx):
             
             ctx.makeTrader_A(strategy.Generic(
                                 order.factory.Market(
-                                    side = strategy.side.TrendFollower(alpha), 
+                                    side = parts.side.TrendFollower(alpha), 
                                     volume = const(V)),
                                 scheduler.Timer(const(1.))),
                              "trendfollower_ex",

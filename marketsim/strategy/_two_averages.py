@@ -1,6 +1,6 @@
 from marketsim.types import *
 from marketsim import (orderbook, observable, scheduler, order, mathutils, types, meta, 
-                       registry, bind, defs, _)
+                       registry, bind, defs, _, parts)
 
 from _periodic import Periodic, Generic
 from _signal import SignalBase
@@ -61,13 +61,13 @@ exec wrapper2("TwoAverages",
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)', '() -> Volume')])
 
-import _wrap, side
+import _wrap
 
 class TwoAveragesEx(types.ISingleAssetStrategy):
 
     def getImpl(self):
         return  Generic(order.factory.Market(
-                            side.TwoAverages(self.ewma_alpha1, self.ewma_alpha2, self.threshold),
+                            parts.side.TwoAverages(self.ewma_alpha1, self.ewma_alpha2, self.threshold),
                             self.volumeDistr),
                         scheduler.Timer(self.creationIntervalDistr))
 

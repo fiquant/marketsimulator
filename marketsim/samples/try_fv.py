@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (strategy, trader, orderbook, order, timeserie,
+from marketsim import (parts, strategy, trader, orderbook, order, timeserie,
                        scheduler, types, observable, veusz, ops)
 
 
@@ -36,7 +36,7 @@ def FundamentalValue(ctx):
         ctx.makeTrader_A(
              strategy.Generic(
                 order.factory.Market(
-                    side = strategy.side.FundamentalValue(ops.constant(fv)),
+                    side = parts.side.FundamentalValue(ops.constant(fv)),
                     volume = ops.constant(1.)), 
                 scheduler.Timer(ops.constant(1.))),
             "fv_ex_200", 

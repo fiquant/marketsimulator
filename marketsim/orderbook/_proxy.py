@@ -1,4 +1,6 @@
-from marketsim import registry, types, Event, trader, prop, bind, context, Side
+from marketsim import registry, types, Event, prop, bind, context, Side
+
+from marketsim.trader._proxy import SingleProxy
 
 class Base(types.IOrderBook):
     
@@ -71,8 +73,8 @@ class OfTrader(Base):
     
     def __init__(self, Trader = None):
         if Trader is None:
-            Trader = trader.SingleProxy()
-        self._alias = ["$(TraderAsset)"] if type(Trader) == trader.SingleProxy else ['OfTrader']
+            Trader = SingleProxy()
+        self._alias = ["$(TraderAsset)"] if type(Trader) == SingleProxy else ['OfTrader']
         Base.__init__(self)
         self.Trader = Trader
 

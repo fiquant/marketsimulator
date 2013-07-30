@@ -1,6 +1,6 @@
 import marketsim
 from marketsim.types import *
-from marketsim import (Event, order, mathutils, types, meta, defs, _, ops,
+from marketsim import (parts, Event, order, mathutils, types, meta, defs, _, ops,
                        registry, signal, bind, signal, ops, observable)
 from _periodic import Periodic, Generic
 from _two_sides import TwoSides
@@ -55,7 +55,7 @@ exec wrapper2("Signal",
               ('orderFactory',  'order.MarketFactory',          'Side -> Volume -> IOrder'),
               ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')])
 
-import _wrap, side
+import _wrap
 
 class SignalEx(types.ISingleAssetStrategy):
     
@@ -65,7 +65,7 @@ class SignalEx(types.ISingleAssetStrategy):
     def getDefinitions(self):
         return {
             "signal" : self.signal, 
-            "side"   : side.Signal(self.signal, self.threshold) 
+            "side"   : parts.side.Signal(self.signal, self.threshold) 
         }
 
 _wrap.strategy(SignalEx, ['Periodic', 'Signal'], 

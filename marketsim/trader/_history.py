@@ -2,7 +2,7 @@ from marketsim import Event, _, Side, event
 from collections import OrderedDict, defaultdict, namedtuple
 from itertools import ifilter
 from operator import attrgetter
-from marketsim.order import Cancel
+#from marketsim.order import Cancel # it is a quick fix in order to avoid ImportError
 
 from marketsim.observable._trader import Base, Proxy
 

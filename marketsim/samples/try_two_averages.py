@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (signal, strategy, trader, orderbook, ops, order,
+from marketsim import (parts, signal, strategy, trader, orderbook, ops, order,
                        timeserie, scheduler, observable, veusz, mathutils)
 
 const = ops.constant
@@ -49,7 +49,7 @@ def TwoAverages(ctx):
 
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.Market(
-                                side = strategy.side.TwoAverages(alpha_slow, alpha_fast),
+                                side = parts.side.TwoAverages(alpha_slow, alpha_fast),
                                 volume = const(1.)),
                             scheduler.Timer(const(1.))),
                          'avg_ex+',
@@ -57,7 +57,7 @@ def TwoAverages(ctx):
 
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.Market(
-                                side = strategy.side.TwoAverages(alpha_fast, alpha_slow),
+                                side = parts.side.TwoAverages(alpha_fast, alpha_slow),
                                 volume = const(1.)),
                             scheduler.Timer(const(1.))),
                          'avg_ex-',

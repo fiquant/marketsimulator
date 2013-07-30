@@ -1,7 +1,7 @@
 import sys, pickle
 sys.path.append(r'../..')
 
-from marketsim import (strategy, orderbook, trader, scheduler, observable, 
+from marketsim import (parts, strategy, orderbook, trader, scheduler, observable, 
                        veusz, ops, mathutils, timeserie, order)
 from common import expose
 
@@ -32,12 +32,12 @@ def Dependency(ctx):
         ctx.makeTrader_A(
             strategy.Generic(
                 order.factory.Market(
-                    side = strategy.side.Dependency(ctx.book_B, factor=2.))),
+                    parts.side.Dependency(ctx.book_B, factor=2.))),
              "A dependent on B ex"),
     
         ctx.makeTrader_B(
             strategy.Generic(
                 order.factory.Market(
-                    side = strategy.side.Dependency(ctx.book_A, factor=.5))),
+                    parts.side.Dependency(ctx.book_A, factor=.5))),
              "B dependent on A ex"),
     ]    

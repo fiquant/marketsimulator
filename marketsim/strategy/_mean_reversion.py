@@ -1,4 +1,4 @@
-from marketsim import (scheduler, observable, types, meta, _,
+from marketsim import (parts, scheduler, observable, types, meta, _,
                        Side, registry, orderbook, bind, order, mathutils)
 
 from _periodic import Periodic, Generic
@@ -48,14 +48,14 @@ exec wrapper2("MeanReversion",
               ('volumeDistr',           'mathutils.rnd.expovariate(1.)',    '() -> Volume'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')])
 
-import _wrap, side
+import _wrap
 
 class MeanReversionEx(types.ISingleAssetStrategy):
 
     def getImpl(self):
 
         return Generic(order.factory.Market(
-                            side.MeanReversion(self.ewma_alpha), 
+                            parts.side.MeanReversion(self.ewma_alpha), 
                             self.volumeDistr), 
                        scheduler.Timer(self.creationIntervalDistr))
 

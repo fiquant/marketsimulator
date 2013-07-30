@@ -1,4 +1,4 @@
-from marketsim import (scheduler, observable, types, meta, defs, _, ops,
+from marketsim import (parts, scheduler, observable, types, meta, defs, _, ops,
                        Side, registry, orderbook, bind, order, mathutils)
 
 from _periodic import Periodic, Generic
@@ -64,13 +64,13 @@ exec  wrapper2("FundamentalValue",
                ('volumeDistr',          'mathutils.rnd.expovariate(1.)','() -> Volume'),
                ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> TimeInterval')])
 
-import _wrap, side
+import _wrap
 
 class FundamentalValueEx(types.ISingleAssetStrategy):
 
     def getDefinitions(self):
         return { 
-            'side' : side.FundamentalValue(self.fundamentalValue)
+            'side' : parts.side.FundamentalValue(self.fundamentalValue)
         }
 
     def getImpl(self):

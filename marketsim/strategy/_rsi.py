@@ -1,5 +1,5 @@
 from marketsim.types import *
-from marketsim import (meta, types, order, _, defs, ops,
+from marketsim import (parts, meta, types, order, _, defs, ops,
                        mathutils, observable, scheduler, orderbook, registry)
 
 from _periodic import Periodic, Generic
@@ -49,7 +49,7 @@ def RSIEx    (         alpha                 = 1./14,
     
     return r
 
-import _wrap, side
+import _wrap
 
 class RSIbis(types.ISingleAssetStrategy):
 
@@ -61,8 +61,8 @@ class RSIbis(types.ISingleAssetStrategy):
     def getImpl(self):
         return Generic(
                   order.factory.Market(
-                     side = side.Signal(ops.constant(50) - _.rsi, 
-                                        50-self.threshold), 
+                     side = parts.side.Signal(ops.constant(50) - _.rsi, 
+                                              50-self.threshold), 
                      volume = self.volumeDistr), 
                   scheduler.Timer(self.creationIntervalDistr))
         
@@ -103,17 +103,14 @@ _wrap.strategy(RSIEx, ['Periodic', 'RSI ex'],
                ], globals())
 
     
-import signed_volume
-    
 class RSI_linear(types.ISingleAssetStrategy):
 
     def getImpl(self):
         return Generic(
                     order.factory.MarketSigned(
-                        signed_volume.RSI_linear(
-                                        self.alpha, 
-                                        self.k, 
-                                        self.timeframe)))
+                        parts.signed_volume.RSI_linear(self.alpha, 
+                                                       self.k, 
+                                                       self.timeframe)))
 
 _wrap.strategy(RSI_linear, ['Desired position', 'RSI linear'], 
                """

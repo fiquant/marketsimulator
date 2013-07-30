@@ -1,5 +1,5 @@
 from marketsim.types import *
-from marketsim import (orderbook, observable, scheduler, order, mathutils, types, meta, 
+from marketsim import (parts, orderbook, observable, scheduler, order, mathutils, types, meta, 
                        registry, signal, bind, ops, _)
 from _periodic import Periodic, Generic
 from _signal import SignalBase
@@ -55,13 +55,13 @@ exec wrapper2('TrendFollower',
               ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
               ('volumeDistr',            'mathutils.rnd.expovariate(1.)', '() -> Volume')])
 
-import _wrap, side
+import _wrap
 
 class TrendFollowerEx(types.ISingleAssetStrategy):
     
     def getImpl(self):
         return Generic( order.factory.Market(
-                            side.TrendFollower(self.ewma_alpha, self.threshold), 
+                            parts.side.TrendFollower(self.ewma_alpha, self.threshold), 
                             self.volumeDistr), 
                         scheduler.Timer(self.creationIntervalDistr))
 

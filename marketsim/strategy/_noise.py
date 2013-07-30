@@ -1,4 +1,4 @@
-from marketsim import scheduler, order, _, mathutils, types, registry, ops, meta, observable
+from marketsim import parts, scheduler, order, _, mathutils, types, registry, ops, meta, observable
 from _basic import Strategy
 from _two_sides import TwoSides
 from _periodic import Periodic, Generic
@@ -37,12 +37,12 @@ exec wrapper2("Noise",
               ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> Volume'),
               ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')])
 
-import _wrap, side
+import _wrap
 
 class NoiseEx(types.ISingleAssetStrategy):
     
     def getDefinitions(self):
-        return { 'side' : side.Random() }
+        return { 'side' : parts.side.Random() }
     
     def getImpl(self):
         return Generic(eventGen = scheduler.Timer(self.creationIntervalDistr), 
