@@ -1,3 +1,5 @@
+from marketsim import config
+
 from _lp_side import (LiquidityProviderSide)
  
 from _lp import (LiquidityProvider)
@@ -16,4 +18,9 @@ from _signal import Signal
 
 from _two_averages import TwoAverages
 
-from _trend import (TrendFollower)
+from _trend import TrendFollower
+
+if config.usePandas:
+    from _market_data import MarketData
+
+from _market_maker import MarketMaker

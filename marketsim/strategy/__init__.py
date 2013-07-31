@@ -46,9 +46,9 @@ from _desired_position import DesiredPosition
 if config.usePandas:
     #from _market_maker import MarketMaker
     #from _dollar_avg import DollarAverage
-    from _market_data import MarketData, MarketData2
+    from _market_data import MarketData
 
-from _market_maker import MarketMaker, MarketMaker2
+from _market_maker import MarketMaker
 
 from _desired import Desired
 
