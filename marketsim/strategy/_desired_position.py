@@ -2,7 +2,6 @@ from marketsim import event, _, Side, order, types, observable, trader, registry
 from marketsim.types import *
 from _basic import Strategy
 from _wrap import wrapper2
-from _periodic import Generic
 
 class _DesiredPosition_Impl(Strategy):
     

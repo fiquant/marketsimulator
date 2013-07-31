@@ -2,7 +2,7 @@ from marketsim.types import *
 from marketsim import (orderbook, observable, scheduler, order, mathutils, types, meta, 
                        registry, bind, defs, _, parts)
 
-from _periodic import Generic
+from _generic import Generic
 import _wrap
 
 class TwoAverages(types.ISingleAssetStrategy):

@@ -2,7 +2,7 @@ from marketsim.types import *
 from marketsim import (parts, orderbook, observable, scheduler, order, mathutils, types, meta, 
                        registry, signal, bind, ops, _)
 import _wrap
-from _periodic import Generic
+from _generic import Generic
 
 class TrendFollower(types.ISingleAssetStrategy):
     

@@ -1,5 +1,5 @@
 from marketsim import parts, scheduler, order, _, mathutils, types, registry, ops, meta, observable
-from _periodic import Generic
+from _generic import Generic
 from marketsim.types import *
 
 import _wrap

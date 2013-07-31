@@ -1,5 +1,5 @@
 import random
-from _periodic import Generic
+from _generic import Generic
 from marketsim import (parts, order, orderbook, scheduler, mathutils, ops,
                        event, types, registry, meta, defs, _, observable)
 from marketsim.types import *

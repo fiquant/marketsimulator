@@ -1,7 +1,7 @@
 from marketsim import parts, _, defs, ops, order, orderbook, observable, registry, types
 from marketsim.types import *
 
-from _periodic import Generic 
+from _generic import Generic 
 
 import _wrap
 
