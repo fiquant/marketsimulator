@@ -1,10 +1,9 @@
-import random
-from _array import Array
+from .._array import Array
 from _lp_side import LiquidityProviderSide
 from marketsim import (order, orderbook, scheduler, mathutils, defs, _,
                        types, registry, bind, meta, trader, ops)
 from marketsim.types import *
-import _wrap
+from .. import _wrap
 
 class LiquidityProvider(types.ISingleAssetStrategy):
     

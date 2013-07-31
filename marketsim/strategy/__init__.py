@@ -5,11 +5,7 @@ from marketsim import order, Side, observable, registry, config
 
 from _basic import Empty
 
-from _lp_side import LiquidityProviderSide
-
 from _array import Array
- 
-from _lp import LiquidityProvider
 
 from _canceller import Canceller
 
@@ -21,6 +17,7 @@ from _bollinger import Bollinger_linear
 
 from adaptive import *
 from side import *
+from price import *
 
 from _generic import Generic
 
