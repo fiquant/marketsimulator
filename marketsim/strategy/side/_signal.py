@@ -2,8 +2,8 @@ import marketsim
 from marketsim.types import *
 from marketsim import (parts, Event, order, mathutils, types, meta, defs, _, ops,
                        registry, signal, bind, signal, ops, observable)
-from _generic import Generic
-import _wrap
+from .._generic import Generic
+from .. import _wrap
 
 class Signal(types.ISingleAssetStrategy):
     

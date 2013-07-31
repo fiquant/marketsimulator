@@ -1,9 +1,9 @@
 from marketsim import (parts, scheduler, observable, types, meta, _,
                        Side, registry, orderbook, bind, order, mathutils)
 
-from _generic import Generic
+from .._generic import Generic
 from marketsim.types import *
-import _wrap
+from .. import _wrap
 
 class MeanReversion(types.ISingleAssetStrategy):
 

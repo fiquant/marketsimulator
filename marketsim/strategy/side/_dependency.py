@@ -1,10 +1,10 @@
 from marketsim import (parts, scheduler, observable, types, meta, defs, _, ops,
                        Side, registry, orderbook, bind, order, mathutils)
 
-from _generic import Generic
+from .._generic import Generic
 from marketsim.types import *
 
-import _wrap
+from .. import _wrap
 
 class Dependency(types.ISingleAssetStrategy):
     
