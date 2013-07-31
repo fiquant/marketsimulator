@@ -2,9 +2,8 @@ from marketsim.types import *
 from marketsim import (parts, meta, types, order, _, defs, ops,
                        mathutils, observable, scheduler, orderbook, registry)
 
-from _generic import Generic
-
-import _wrap
+from .. import _wrap
+from .._generic import Generic
 
 class RSI_linear(types.ISingleAssetStrategy):
 

@@ -1,8 +1,7 @@
 from marketsim import meta, types, registry
 
-from _basic import Strategy
+from _basic import Strategy, Empty
 from _wrap import wrapper2
-from _lp_side import LiquidityProviderSide
 
 class _Array_Impl(Strategy):
     
@@ -21,4 +20,4 @@ class _Array_Impl(Strategy):
             assert s.suspended == self._suspended
         return Strategy.suspended(self)
     
-exec wrapper2('Array', "", [('strategies', '[LiquidityProviderSide()]', 'meta.listOf(types.ISingleAssetStrategy)')])
+exec wrapper2('Array', "", [('strategies', '[Empty()]', 'meta.listOf(types.ISingleAssetStrategy)')])

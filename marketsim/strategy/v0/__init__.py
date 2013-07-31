@@ -20,6 +20,10 @@ from _two_averages import TwoAverages
 
 from _trend import TrendFollower
 
+from _desired_position import DesiredPosition
+
+from _desired import Desired
+
 if config.usePandas:
     from _market_data import MarketData
 

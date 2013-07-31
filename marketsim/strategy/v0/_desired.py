@@ -1,8 +1,8 @@
 from marketsim import event, _, Side, types
 from marketsim.order import LimitMarket
 from marketsim.types import *
-from _basic import Strategy
-from _wrap import wrapper2
+from .._basic import Strategy
+from .._wrap import wrapper2
 
 class _Desired_Impl(Strategy):
 

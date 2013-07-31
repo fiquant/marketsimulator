@@ -11,17 +11,13 @@ from _canceller import Canceller
 
 from _arbitrage import Arbitrage
 
-from _rsi import RSI_linear
-
-from _bollinger import Bollinger_linear
 
 from adaptive import *
 from side import *
 from price import *
+from position import *
 
 from _generic import Generic
-
-from _desired_position import DesiredPosition 
 
 if config.usePandas:
     #from _market_maker import MarketMaker
@@ -29,7 +25,5 @@ if config.usePandas:
     from _market_data import MarketData
 
 from _market_maker import MarketMaker
-
-from _desired import Desired
 
 import v0

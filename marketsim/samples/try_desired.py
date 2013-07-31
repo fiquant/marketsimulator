@@ -174,6 +174,6 @@ def DesiredPosition(ctx):
     return [
         ctx.makeTrader_A(strategy.LiquidityProvider(volumeDistr=const(4)), "liquidity"),
         
-        ctx.makeTrader_A(strategy.DesiredPosition(rsi_signal), "desired_position",
+        ctx.makeTrader_A(strategy.v0.DesiredPosition(rsi_signal), "desired_position",
                          [(rsi_signal, ctx.amount_graph)] + charts)
     ]    
