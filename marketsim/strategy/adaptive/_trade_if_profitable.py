@@ -3,8 +3,10 @@ from marketsim import (trader, order, orderbook, scheduler, observable, order,
 
 from marketsim.types import *
 
-from _basic import Strategy
-from _wrap import wrapper2
+from .._basic import Strategy
+from .._wrap import wrapper2
+
+from .. import v0
 
 class _tradeIfProfitable_Impl(Strategy):
 
@@ -51,8 +53,6 @@ def virtualWithUnitVolume(strategy):
     """ Creates for a *strategy* a clone with same parameters but sending virtual market orders of unit volume
     """
     return strategy.With(volumeDistr=ops.constant(1), orderFactory=order.VirtualMarketFactory)    
-
-import v0
 
 exec wrapper2("tradeIfProfitable", 
              "",

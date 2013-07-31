@@ -2,10 +2,10 @@ from marketsim import (trader, order, orderbook, scheduler, observable, order,
                        registry, types, meta, _, ops, event)
 from marketsim.types import *
 
-from _basic import Strategy
-from _wrap import wrapper2
+from .._basic import Strategy
+from .._wrap import wrapper2
 
-import v0
+from .. import v0
 from _trade_if_profitable import efficiencyTrend, virtualWithUnitVolume
 
 class _ChooseTheBest_Impl(Strategy):

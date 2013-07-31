@@ -33,11 +33,7 @@ from _two_averages import TwoAverages
 
 from _trend import TrendFollower
 
-from _trade_if_profitable import tradeIfProfitable, TradeIfProfitable
-
-from _choose_best import ChooseTheBest
-
-from _multiarmed_bandit import MultiarmedBandit
+from adaptive import *
 
 from _generic import Generic
 
