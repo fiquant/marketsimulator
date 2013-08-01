@@ -60,7 +60,16 @@ class Factory(object):
 class SidePriceVolume(object):
     pass
 
+class SidePriceVolumeExpiry(object):
+    pass
+
+class SidePriceVolumeLotSize(object):
+    pass
+
 class SideVolume(object):
+    pass
+
+class SideVolumeMaxLoss(object):
     pass
 
 class SignedVolume(object):

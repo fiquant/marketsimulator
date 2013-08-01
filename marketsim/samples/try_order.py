@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (parts, signal, strategy, observable, ops, order, scheduler)
+from marketsim import (mathutils, parts, signal, strategy, observable, ops, order, scheduler)
 from common import expose
 
 @expose("Various Orders", __name__)
@@ -24,11 +24,44 @@ def Orders(ctx):
                          "signalmarket"), 
 
         ctx.makeTrader_A(strategy.Generic(
+                            order.factory.StopLoss(
+                                side = parts.side.Signal(linear_signal), 
+                                volume = const(1),
+                                maxloss = const(0.1))), 
+                         "signalstoploss"), 
+
+        ctx.makeTrader_A(strategy.Generic(
                             order.factory.Limit(
                                 side = parts.side.Signal(linear_signal), 
                                 price = midPrice, 
                                 volume = const(1))), 
                          "signallimit"), 
+ 
+        ctx.makeTrader_A(strategy.Generic(
+                            order.factory.Limit(
+                                side = parts.side.Random(), 
+                                price = midPrice + mathutils.rnd.uniform(-5, +5), 
+                                volume = const(1)),
+                            scheduler.Timer(const(1))), 
+                         "noiselimitmarket"), 
+ 
+        ctx.makeTrader_A(strategy.Generic(
+                            order.factory.LimitWithExpiry(
+                                side = parts.side.Random(), 
+                                price = midPrice + mathutils.rnd.uniform(-5, +5), 
+                                volume = const(1),
+                                expiry = const(100)),
+                            scheduler.Timer(const(1))), 
+                         "noiselimitexpiry"), 
+ 
+        ctx.makeTrader_A(strategy.Generic(
+                            order.factory.IcebergLimit(
+                                side = parts.side.Random(), 
+                                price = midPrice + mathutils.rnd.uniform(-5, +5), 
+                                volume = const(100),
+                                lotsize = const(1)),
+                            scheduler.Timer(const(100))), 
+                         "noiseiceberglimit"), 
  
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.FixedBudget(

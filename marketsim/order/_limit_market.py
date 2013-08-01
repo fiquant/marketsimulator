@@ -1,4 +1,4 @@
-from marketsim import meta, types, _, registry, bind, Side
+from marketsim import combine, meta, types, _, registry, bind, Side
 
 from _limit import LimitFactory
 from _cancel import Cancel
@@ -44,6 +44,13 @@ class LimitMarket(Base):
     
     @staticmethod
     def Sell(price, volume): return LimitMarket(Limit.Sell, price, volume)
+
+class Factory(types.IOrderGenerator, combine.SidePriceVolume):
+    
+    def __call__(self):
+        params = combine.SidePriceVolume.__call__(self)
+        return LimitMarket(*params) if params is not None else None
+
     
 @registry.expose(alias=['LimitMarket'])
 @meta.sig(args=(Side,), rv=meta.function((types.Price,), types.IOrder))

@@ -1,4 +1,4 @@
-from marketsim import registry, bind, observable, event, meta, _
+from marketsim import combine, registry, bind, observable, event, meta, _
 from _market import MarketFactory
 
 from _base import Base
@@ -56,6 +56,20 @@ class StopLoss(Base):
         self._stopLossMatch.dispose()
         #print "stoploss: ", self._current.side, self._orderPrice, self._price()
         Base.onMatchedWith(self, other, (price, volume))
+
+class Factory(IOrderGenerator, combine.SideVolumeMaxLoss):
+    
+    def bind(self, ctx):
+        self._scheduler = ctx.world
+        
+    def __call__(self):
+        params = combine.SideVolumeMaxLoss.__call__(self)
+        if params is not None:
+            (side, volume, maxloss) = params
+            order = StopLoss(self._scheduler, maxloss, MarketFactory, side, volume)
+            return order
+        return None
+
     
 MarketOrderFactorySignature = function(args=(Side,), rv=function((Volume,), IOrder))
 

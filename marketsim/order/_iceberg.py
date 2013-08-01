@@ -2,7 +2,7 @@ from _base import Base
 from _cancel import Cancel
 from _limit import LimitFactory
 
-from marketsim import meta, types, registry, bind, event, _
+from marketsim import meta, types, registry, bind, event, _, combine
 
 class Volume(object):
     """ Auxiliary class to hold market order initialization parameters 
@@ -128,6 +128,20 @@ class Iceberg(Base):
         """
         self._book = book
         self._tryToResend()
+        
+class FactoryLimit(types.IOrderGenerator, combine.SidePriceVolumeLotSize):
+    
+    def bind(self, ctx):
+        self._scheduler = ctx.world
+        
+    def __call__(self):
+        params = combine.SidePriceVolumeLotSize.__call__(self)
+        if params is not None:
+            (side, price, volume, lotsize) = params
+            order = Iceberg(lotsize, LimitFactory(side), price, volume)
+            return order
+        return None
+
 
 def iceberg(volumeLimit, orderFactory):
     """ Returns a function to create iceberg orders with 
