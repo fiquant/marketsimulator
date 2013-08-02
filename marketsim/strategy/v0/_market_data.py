@@ -1,11 +1,10 @@
 from marketsim import (observable, combine, event, _, Side, order, types, mathutils, 
-                       scheduler, ops, Event, registry)
+                       scheduler, ops, Event, registry, request)
 from marketsim.types import *
 from .._basic import Strategy
 from _wrap import wrapper2
 
 from marketsim.trader import TraderHistory, SingleProxy
-from marketsim.order import Cancel
 
 import marketsim.historical.market as data
 
@@ -25,7 +24,7 @@ class _MarketData_Impl(Strategy):
 
     def _wakeUp(self, dummy):
         for position in self.log.pending:
-            self._trader.send(Cancel(position))
+            self._trader.send(request.Cancel(position))
 
         quote = self.quotes[self._scheduler.currentTime]
         buyOrder = order.LimitFactory(Side.Buy)(quote - 5, self.volume)

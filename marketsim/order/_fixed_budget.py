@@ -3,7 +3,7 @@ from marketsim.types import *
 
 from _limit_market import LimitMarket
 
-class FixedBudget(object):
+class FixedBudget(types.IOrder):
     
     def __init__(self, side, budget):
         self.side = side

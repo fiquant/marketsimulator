@@ -1,8 +1,7 @@
-from marketsim import Event, _, Side, event
+from marketsim import Event, _, Side, event, request
 from collections import OrderedDict, defaultdict, namedtuple
 from itertools import ifilter
 from operator import attrgetter
-#from marketsim.order import Cancel # it is a quick fix in order to avoid ImportError
 
 from marketsim.observable._trader import Base, Proxy
 
@@ -41,7 +40,7 @@ class TraderHistory_Impl(Base):
 
     def matchWithOwn(self, order):
         # TODO: Treat the case when an order might not be cancelled in time
-        if order.__class__.__name__ != 'Cancel' and order.volume:
+        if isinstance(order, types.IOrder) and order.volume:
             side = order.side
             select = lambda x: x.side == side.opposite \
                 and hasattr(x, "price") \
@@ -51,12 +50,12 @@ class TraderHistory_Impl(Base):
 
             for other in orders:
                 if other.volume <= order.volume:
-                    self._trader.send(Cancel(other))
+                    self._trader.send(request.Cancel(other))
                     order._volume -= other.volume
                 elif order.volume > 0:
                     new = other.clone()
                     new._volume -= order.volume
-                    self._trader.send(Cancel(other))
+                    self._trader.send(request.Cancel(other))
                     order = new
 
         return order

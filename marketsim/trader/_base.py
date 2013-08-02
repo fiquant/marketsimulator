@@ -63,5 +63,6 @@ class Base(timeserie.Holder):
         """ Sends 'order' to 'book'
         After having the order sent notifies listeners about it 
         """
-        book.process(self._makeSubscribedTo(order))
+        if isinstance(order, types.IOrder):
+            book.process(self._makeSubscribedTo(order))
         self.on_order_sent.fire(order)        

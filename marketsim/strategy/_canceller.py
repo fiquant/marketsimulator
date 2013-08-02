@@ -1,5 +1,5 @@
 import random
-from marketsim import order, _, trader, scheduler, orderbook, mathutils, meta, registry, types, event
+from marketsim import request, order, _, trader, scheduler, orderbook, mathutils, meta, registry, types, event
 from marketsim.types import *
 from _wrap import wrapper2
 
@@ -26,7 +26,7 @@ class _Canceller_Impl(types.ISingleAssetStrategy):
                 self._elements.pop()
             else:
                 # if order is valid, cancel it
-                self._book.process(order.Cancel(e))
+                self._book.process(request.Cancel(e))
                 return
 
     def __init__(self):

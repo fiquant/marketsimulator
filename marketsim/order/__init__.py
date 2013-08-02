@@ -2,7 +2,6 @@ from marketsim import Side, Event
 
 from _market import Market, MarketFactory
 from _limit import Limit, LimitFactory, AdaptLimit
-from _cancel import Cancel
 from _limit_market import LimitMarket, LimitMarketFactory
 from _with_expiry import WithExpiry, WithExpiryFactory
 from _fixed_budget import  FixedBudget

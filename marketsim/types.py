@@ -91,6 +91,9 @@ Construct = Factory('Construct', """(bind.Construct, IFunction[%(T)s, %(R)s]):""
 class IOrder(object):
     pass
 
+class IRequest(object):
+    pass
+
 class IOrderBook(object):
     pass
 

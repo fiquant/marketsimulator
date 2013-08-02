@@ -1,4 +1,4 @@
-from marketsim import (trader, orderbook, event, _, Side, order, types, mathutils, 
+from marketsim import (request, trader, orderbook, event, _, Side, order, types, mathutils, 
                        scheduler, ops, Event, observable, registry, combine)
 
 from marketsim.types import *
@@ -6,7 +6,6 @@ from .._basic import Strategy
 from _wrap import wrapper2
 
 from marketsim.trader import TraderHistory, SingleProxy
-from marketsim.order import Cancel
 
 
 class _MarketMaker_Impl(Strategy):
@@ -25,7 +24,7 @@ class _MarketMaker_Impl(Strategy):
 
     def _wakeUp(self, dummy):
         for position in self.log.pending:
-                self._trader.send(Cancel(position))
+                self._trader.send(request.Cancel(position))
 
         mid = self.midprice()
 
