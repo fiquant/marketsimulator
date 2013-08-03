@@ -3,22 +3,26 @@ from marketsim.types import *
 
 from _limit import Limit
 
-class Base(types.IOrder):
-    """ Meta order with mutable parameters
-        User should provide an observable that generates new parameters for the order
+class FloatingPrice(types.IOrder):
+    """ Meta order controlling price of the underlying order
+        When price changes it cancels underlying order and resends it with changed price
+        For the moment we work only on limit orders but this mecanism might be extented to any persistent order
     """
     
-    def __init__(self, source):
+    def __init__(self, side, price, volume):
         self._order = None
-        self.source = source
+        self._price = price
+        self._side = side
+        self._volume = volume
         self.on_matched = Event()
         self.on_charged = Event()
         self.on_cancelled = Event()
         
     def processIn(self, orderBook):
         self.orderBook = orderBook 
-        self.source += _(self)._update
-        self._update(None)
+        self._price += _(self)._update
+        self._create(self._side, self._volume)
+        self.orderBook.process(self._order)
         
     def _dispose(self):
         if self._order is not None:
@@ -26,18 +30,21 @@ class Base(types.IOrder):
             self._onCancelled.dispose()
             self._onCharged.dispose()
             self.orderBook.process(request.Cancel(self._order))
+            
+    def _create(self, side, volume):
+        price = self._price()
+        self._order = Limit(side, price, volume)
+        self._onMatched = event.subscribe(self._order.on_matched, 
+                                          self.on_matched.fire, self, {}) 
+        self._onCancelled = event.subscribe(self._order.on_cancelled, 
+                                          self.on_cancelled.fire, self, {})
+        self._onCharged = event.subscribe(self._order.on_charged, 
+                                          self.on_charged.fire, self, {})
         
     def _update(self, dummy):
-        self._dispose()
-        params = self.source()
-        if params is not None:
-            self._order = Limit(*params)
-            self._onMatched = event.subscribe(self._order.on_matched, 
-                                              self.on_matched.fire, self, {}) 
-            self._onCancelled = event.subscribe(self._order.on_cancelled, 
-                                              self.on_cancelled.fire, self, {})
-            self._onCharged = event.subscribe(self._order.on_charged, 
-                                              self.on_charged.fire, self, {})
+        self._dispose() # we should resend the order only when the previous is cancelled
+        self._create(self.side, self.volume)
+        if self._order is not None:
             self.orderBook.process(self._order)
             
     @property
@@ -96,25 +103,16 @@ class Base(types.IOrder):
     def cancelled(self):
         """ Is order cancelled
         """
-        return self._order.cancelled
+        return getattr(self, '_cancelled', False)
     
 
     def cancel(self):
         """ Marks order as cancelled. Notifies the order book about it
         """
         self._dispose()
-        self.source -= _(self)._update
+        self._price -= _(self)._update
+        self._cancelled = True
         self.on_cancelled.fire(self)
 
     def __hash__(self):
         return id(self)
-    
-Impl = types.Factory("Impl", """(Base):
-    _properties = { 
-        'source' : IObservable[%(T)s],
-    }
-""", globals())
-    
-def Mutable(source):
-    
-    return Impl[source.T](source)

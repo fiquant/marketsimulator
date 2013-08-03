@@ -3,7 +3,7 @@ from marketsim import (context, combine, Side, registry, meta, types, bind,
 from _base import Base
 from _limit import LimitFactory, Limit
 from _cancel import Cancel
-from _mutable import Mutable
+from _floating_price import FloatingPrice
 from marketsim.types import *
 
 def AlwaysBest2(side, volume):
@@ -17,11 +17,7 @@ def AlwaysBest2(side, volume):
                 if side == Side.Sell else\
             observable.MaxEpsilon(bidPrice, tickSize)
 
-    return Mutable(
-                combine.SidePriceVolume(
-                    ops.constant(side), 
-                    price, 
-                    ops.constant(volume)))
+    return FloatingPrice(side, price, volume)
     
 class Factory(types.IPersistentOrderGenerator, combine.SideVolume):
     
