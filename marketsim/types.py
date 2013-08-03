@@ -13,6 +13,10 @@ class IOrderGenerator(object):
     # should provide method __call__(self) -> Order
     pass 
 
+# creates orders that can be cancelled
+class IPersistentOrderGenerator(IOrderGenerator):
+    pass
+
 
 class Factory(object):
     

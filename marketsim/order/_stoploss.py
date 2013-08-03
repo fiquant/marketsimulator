@@ -57,7 +57,7 @@ class StopLoss(Base):
         #print "stoploss: ", self._current.side, self._orderPrice, self._price()
         Base.onMatchedWith(self, other, (price, volume))
 
-class Factory(IOrderGenerator, combine.SideVolumeMaxLoss):
+class Factory(IOrderGenerator, combine.SideVolumeMaxLoss): # in fact it is IPersistentOrderGenerator
     
     def bind(self, ctx):
         self._scheduler = ctx.world

@@ -23,7 +23,7 @@ def AlwaysBest2(side, volume):
                     price, 
                     ops.constant(volume)))
     
-class Factory(types.IOrderGenerator, combine.SideVolume):
+class Factory(types.IPersistentOrderGenerator, combine.SideVolume):
     
     def bind(self, ctx):
         self._ctx = ctx.context.copy()

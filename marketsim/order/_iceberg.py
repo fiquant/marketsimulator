@@ -129,7 +129,7 @@ class Iceberg(Base):
         self._book = book
         self._tryToResend()
         
-class FactoryLimit(types.IOrderGenerator, combine.SidePriceVolumeLotSize):
+class FactoryLimit(types.IPersistentOrderGenerator, combine.SidePriceVolumeLotSize):
     
     def bind(self, ctx):
         self._scheduler = ctx.world
