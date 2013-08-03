@@ -74,6 +74,6 @@ def Orders(ctx):
                             order.factory.AlwaysBestLimit(
                                 side = parts.side.Random(),
                                 volume = const(1)),
-                            scheduler.Timer(const(100))), 
+                            scheduler.Timer(const(1))), 
                          "noise_alwaysbest"), 
     ]    
