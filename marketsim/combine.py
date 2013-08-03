@@ -53,25 +53,72 @@ def subscribe_if_observable(source, target, ctx):
     if isinstance(source, Event):
         event.subscribe(source, target, ctx)
 
-class SideVolume(ops.Observable[types.SideVolume]): 
+class SideBase(object): 
+    
+    def __init__(self, side):
+        self.side = side
+        if isinstance(side, Event):
+            event.subscribe(side, _(self).fire, self)
+            
+    def __call__(self):
+        side = self.side()
+        if side is None:
+            return None
+        
+        return side
+                    
+    _properties = {
+        'side'   : types.IFunction[Side],
+    }
+        
+class VolumeBase(object): 
+    
+    def __init__(self, volume):
+        self.volume = volume
+        if isinstance(volume, Event):
+            event.subscribe(volume, _(self).fire, self)
+            
+    def __call__(self):
+        volume = self.volume()
+        if volume is None:
+            return None
+        
+        return volume
+                    
+    _properties = {
+        'volume'   : types.IFunction[float],
+    }
+
+VolumeBase_ = VolumeBase
+
+class VolumeBase(VolumeBase_):
+    
+    def __call__(self):
+        x = VolumeBase_.__call__(self)
+        return None if x is None or abs(x) < 1 else int(x)
+
+
+class SideVolume(ops.Observable[types.SideVolume], SideBase, VolumeBase): 
     
     def __init__(self, 
                  side = ops.constant(Side.Sell), 
                  volume = ops.constant(1.)):
         ops.Observable[types.SideVolume].__init__(self)
-        self.side = side; subscribe_if_observable(side, _(self).fire, self); self.volume = volume; subscribe_if_observable(volume, _(self).fire, self)
+        SideBase.__init__(self, side)
+        VolumeBase.__init__(self, volume)
             
     def __call__(self):
-        ret = True
+        side = SideBase.__call__(self)
         
-        side = correct_side(self.side());ret = side is not None;volume = correct_volume(self.volume()) if ret else None;ret = volume is not None
+        if side is None:
+            return None
         
-        return (side, volume) if ret else None
-                    
-    _properties = {
-        'side'     : types.IFunction[Side],
-        'volume'   : types.IFunction[float],
-    }
+        volume = VolumeBase.__call__(self)
+        
+        if volume is None:
+            return None
+        
+        return (side, volume) 
 
 class SignedVolume(ops.Observable[types.SideVolume]): 
     
