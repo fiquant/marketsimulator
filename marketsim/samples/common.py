@@ -132,6 +132,9 @@ class Context(object):
     def makeTrader_A(self, strategy, label, additional_ts = []):
         return self.makeTrader(self.book_A, strategy, label, additional_ts)
     
+    def makeTrader_rA(self, strategy, label, additional_ts = []):
+        return self.makeTrader(self.remote_A, strategy, label, additional_ts)
+    
     def makeTrader_B(self, strategy, label, additional_ts = []):
         return self.makeTrader(self.book_B, strategy, label, additional_ts)
 

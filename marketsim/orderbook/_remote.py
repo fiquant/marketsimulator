@@ -68,6 +68,10 @@ class Remote(BookBase):
     @property
     def _downLink(self):
         return self.link.down
+    
+    @property
+    def tickSize(self):
+        return self.orderbook.tickSize
         
     @property
     def orderbook(self):
