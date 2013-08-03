@@ -1,5 +1,7 @@
 from marketsim import combine, meta, types, _, registry, ops
 
+import _limit
+
 from _limit import Limit, LimitFactory
 from _cancel import Cancel
 from _base import Base
@@ -33,19 +35,26 @@ class WithExpiry(Base):
     def PnL(self):
         return self._order.PnL
 
-class FactoryLimit(types.IOrderGenerator, combine.SidePriceVolumeExpiry):
+class Factory(types.IOrderGenerator):
     
+    def __init__(self, expiry , inner = _limit.Factory):
+        self.expiry = expiry
+        self.inner = inner
+        
+    _properties = {
+        'expiry': types.IFunction[float],
+        'inner' : types.IOrderGenerator,  # types.IPersistentOrderGenerator
+    }
+
     def bind(self, ctx):
         self._scheduler = ctx.world
         
     def __call__(self):
-        params = combine.SidePriceVolumeExpiry.__call__(self)
-        if params is not None:
-            (side, price, volume, expiry) = params
-            order = Limit(side, price, volume)
-            order = WithExpiry(order, expiry, self._scheduler)
-            return order
-        return None
+        expiry = self.expiry()
+        order = self.inner()
+        return WithExpiry(order, expiry, self._scheduler) \
+                  if order is not None and expiry is not None else \
+               None
 
 LimitOrderFactorySignature = meta.function((types.Side,), meta.function((types.Price, types.Volume), types.IOrder))
 

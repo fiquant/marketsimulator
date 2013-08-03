@@ -12,7 +12,7 @@ from _limit_market import Factory           as LimitMarket
 
 from _stoploss import Factory               as StopLoss
 
-from _with_expiry import FactoryLimit       as LimitWithExpiry
+from _with_expiry import (Factory           as WithExpiry)
 
 from _iceberg import FactoryLimit           as IcebergLimit
 

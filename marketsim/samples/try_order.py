@@ -46,11 +46,12 @@ def Orders(ctx):
                          "noiselimitmarket"), 
  
         ctx.makeTrader_A(strategy.Generic(
-                            order.factory.LimitWithExpiry(
-                                side = parts.side.Random(), 
-                                price = midPrice + mathutils.rnd.uniform(-5, +5), 
-                                volume = const(1),
-                                expiry = const(100)),
+                            order.factory.WithExpiry(
+                                const(100), 
+                                order.factory.Limit(
+                                    side = parts.side.Random(), 
+                                    price = midPrice + mathutils.rnd.uniform(-5, +5), 
+                                    volume = const(1))),
                             scheduler.Timer(const(1))), 
                          "noiselimitexpiry"), 
  
