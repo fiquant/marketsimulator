@@ -62,9 +62,6 @@ class Base(timeserie.Holder):
         before sending it to the order book
         Returns the order itself 
         """
-        order.on_matched += _(self)._onOrderMatched
-        order.on_cancelled += _(self)._onOrderCancelled
-        order.on_charged += _(self)._charge
         order.owner = self
         return order
 

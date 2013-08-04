@@ -1,8 +1,7 @@
 from _base import Base
-from _cancel import Cancel
 from _limit import LimitFactory
 
-from marketsim import meta, types, registry, bind, event, _, combine
+from marketsim import request, meta, types, registry, bind, event, _, combine
 
 class Volume(object):
     """ Auxiliary class to hold market order initialization parameters 
@@ -58,6 +57,18 @@ class Iceberg(Base):
         self._subscription = None
         self._side = None
         
+    def _onOrderMatched(self, order, other, (price, volume)):
+        self.owner._onOrderMatched(self, other, (price, volume))
+        if self._current.empty:
+            self._PnL += self._current.PnL
+            self._tryToResend()
+        
+    def _onOrderCancelled(self, order):
+        self.owner._onOrderCancelled(self)
+    
+    def _onOrderCharged(self, price):
+        self.owner._onOrderCharged(price)    
+        
     @property
     def side(self):
         return self._side
@@ -67,23 +78,13 @@ class Iceberg(Base):
         assert self._args.hasPrice
         return self._args._price
 
-    def _onMatchedWith(self, myOrder, other, pv):
-        """ Called when real order has been matched
-        We notify our listeners about the trade
-        and if it is matched completely try to resend a new order
-        """
-        self.on_matched.fire(self, other, pv)
-        if self._current.empty:
-            self._PnL += self._current.PnL
-            self._tryToResend()
-
     def cancel(self):
         """ If we are asked to be cancelled, we mark ourselves as cancelled 
         and the make the real order also cancelled 
         """
         Base.cancel(self)
         if self._current:
-            self._book.process(Cancel(self._current))
+            self._book.process(request.Cancel(self._current))
 
     @property
     def PnL(self):
@@ -98,7 +99,7 @@ class Iceberg(Base):
         return self._volume + (self._current.volume if self._current else 0)
 
     def _tryToResend(self):
-        """ Tries to send a real order to the order book
+        """ Tries to send a real order to the order bookCaC
         """
         # if we have something to trade
         if self._volume > 0: 
@@ -109,18 +110,13 @@ class Iceberg(Base):
             self._volume -= v
             # create a real order
             self._current = self._orderFactory(*self._args.packed)
+            self._current.owner = self
             self._side = self._current.side
-            # start listening events about order matching
-            self._subscription = event.subscribe(self._current.on_matched, 
-                                                 _(self)._onMatchedWith, 
-                                                 self, {})
             # and send the order to the order book    
             self._book.process(self._current)
         else:
             # now we have nothing to trade
             self._current = None
-            if self._subscription:
-                self._subscription.dispose()
 
     def processIn(self, book):
         """ Called when an order book tries to determine 

@@ -62,6 +62,8 @@ class BookBase(types.IOrderBook, timeserie.Holder):
     def process(self, order):
         """ Processes an order by calling its processIn method
         """
+        if isinstance(order, types.IOrder):
+            assert order.owner is not None
         if self._orderBeingProcessed is None:
             self._orderBeingProcessed = order
             self._scheduler.scheduleAfter(ORDER_PROCESSING_TIME, _(self)._step)            

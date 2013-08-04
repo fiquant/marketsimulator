@@ -10,20 +10,14 @@ class Base(types.IOrder):
     TBD: split into Cancelable, HavingVolume base classes
     """
 
-    def __init__(self, side, volume):
+    def __init__(self, side, volume, owner = None):
         """ Initializes order by volume to trade
         """
         self._volume = volume
         self._side = side
         self._cancelled = False
         self._PnL = 0
-        # TODO: these events should be replaces by a reference to the trader
-        # but in that case we'll have to introduce proxy classes for
-        # remote book and virtual orders but it is ok
-        self.on_matched = Event()
-        self.on_charged = Event()
-        self.on_cancelled = Event()
-        self._owner = None
+        self._owner = owner
         
     @property
     def owner(self):
@@ -31,7 +25,8 @@ class Base(types.IOrder):
     
     @owner.setter
     def owner(self, value):
-        self._owner
+        assert self._owner is None or self._owner == value
+        self._owner = value
         
     @property
     def side(self):
@@ -84,12 +79,12 @@ class Base(types.IOrder):
         """ Marks order as cancelled. Notifies the order book about it
         """
         self._cancelled = True
-        self.on_cancelled.fire(self)
+        self.owner._onOrderCancelled(self)
 
     #--------------------------------- these methods are to be called by order book
             
     def charge(self, price): 
-        self.on_charged.fire(price)
+        self.owner._onOrderCharged(price)
 
     def onMatchedWith(self, other, (price,volume)):
         """ Called when the order is matched with another order
@@ -102,7 +97,7 @@ class Base(types.IOrder):
         self._volume -= volume
         self._PnL += volume * price
         #print "OrderMatched:", self, other, (price, volume)
-        self.on_matched.fire(self, other, (price, volume))
+        self.owner._onOrderMatched(self, other, (price, volume))
 
     def __hash__(self):
         return id(self)

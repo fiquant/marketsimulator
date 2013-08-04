@@ -1,7 +1,6 @@
-from marketsim import combine, meta, types, _, registry, bind, Side
+from marketsim import request, combine, meta, types, _, registry, bind, Side
 
 from _limit import LimitFactory
-from _cancel import Cancel
 from _base import Base
 
 
@@ -19,17 +18,20 @@ class LimitMarket(Base):
         Base.__init__(self, side, volume)
         # we create a limit order
         self._order = LimitFactory(side)(price, volume)
-        # translate its events to our listeners
-        self._order.on_matched += self.on_matched.fire
-        #self._order.on_cancelled += self.on_cancelled.fire
-        self._order.on_cancelled += _(self)._onCancelled
+        self._order.owner = self
         
-    def _onCancelled(self, order):
-        self.on_cancelled.fire(self)
+    def _onOrderMatched(self, order, other, (price, volume)):
+        self.owner._onOrderMatched(order, other, (price, volume))
+        
+    def _onOrderCancelled(self, order):
+        self.owner._onOrderCancelled(order)
+    
+    def _onOrderCharged(self, price):
+        self.owner._onOrderCharged(price)    
         
     def processIn(self, orderBook):
         orderBook.process(self._order)
-        orderBook.process(Cancel(self._order))
+        orderBook.process(request.Cancel(self._order))
         
     @property 
     def volume(self):

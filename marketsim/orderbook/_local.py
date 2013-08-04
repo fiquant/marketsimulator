@@ -98,6 +98,8 @@ class Local(BookBase):
         """ Processes 'order' as limit order:
         If it is not matched completely, it stays at the order queue
         """
+        assert order.owner is not None
+        
         if self._limitOrderFee:
             order.charge(self._limitOrderFee(order, self))
             
@@ -108,6 +110,8 @@ class Local(BookBase):
         """ Processes 'order' as market order:
         Iff it is not matched completely, returns False
         """
+        assert order.owner is not None
+        
         if self._marketOrderFee:
             order.charge(self._marketOrderFee(order, self))
             

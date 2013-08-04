@@ -17,11 +17,6 @@ class _Arbitrage_Impl(MultiAssetStrategy):
         # something like std::map<Ticks, OrderQueue>[2]
         self._bests = [sorteddict(), sorteddict()]
         self._oldBests = {}
-        self._pending = set()
-        
-    def _onCancelled(self, order):
-        self._pending.remove(order)
-        #print len(self._pending)
         
     def inner(self, myQueue, side):
         """Called when in some queue a new best order appeared"""
@@ -82,10 +77,6 @@ class _Arbitrage_Impl(MultiAssetStrategy):
                     # this logic is implemented by LimitMarketOrder
                     
                     def send(o):
-                        self._pending.add(o)
-                        
-                        o.on_cancelled += _(self)._onCancelled
-                             
                         self._send(myQueue.book, o)
                         
                     send(order.LimitMarket(oppositeSide, 

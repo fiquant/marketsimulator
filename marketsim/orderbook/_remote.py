@@ -84,34 +84,37 @@ class Remote(BookBase):
     _properties = { 'link'      : remote.TwoWayLink,
                     'orderbook' : types.IOrderBook }
         
-    def _on_matched(self, order, *args):
+    def _on_matched(self, order, other, (price, volume)):
         order.remote.copyTo(order)
-        order.on_matched.fire(*args)
+        order.owner._onOrderMatched(order, other, (price, volume))
         
-    def _on_cancelled(self, order, *args):
+    def _on_cancelled(self, order):
         order.remote.copyTo(order)
-        order.on_cancelled.fire(order)
+        order.owner._onOrderCancelled(order)
         
-    def _send_to_downlink(self, order, *args):
-        self._downLink.send(_(self, order, *args)._on_matched)
-
-    def _send_to_downlink_cancelled(self, order, *args):
-        self._downLink.send(_(self, order, *args)._on_cancelled)
-
+    def _onOrderMatched(self, order, other, (price, volume)):
+        self._downLink.send(_(self, order, other, (price, volume))._on_matched)
+        
+    def _onOrderCancelled(self, order):
+        self._downLink.send(_(self, order)._on_cancelled)
+    
+    def _onOrderCharged(self, price):
+        self.owner._onOrderCharged(price)    
+        
     def _remote(self, order):
         remote = order.clone()
         assert 'remote' not in dir(order)
         order.remote = remote
-        remote.on_matched += _(self, order)._send_to_downlink
-        remote.on_cancelled += _(self, order)._send_to_downlink_cancelled
+        remote.remote = order
+        remote.owner = self
         return remote       
     
     def process(self, order):
         if isinstance(order, types.IOrder):
             BookBase.process(self, order)
         else:
-            if 'callback' in dir(order):
-                order.callback = _(self, order.callback)._sendToDownLink
+            #if 'callback' in dir(order):
+            #    order.callback = _(self, order.callback)._sendToDownLink
             self._upLink.send(_(self._book, order).process) 
         
     def processMarketOrder(self, order):

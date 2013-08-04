@@ -1,9 +1,8 @@
-from marketsim import combine, meta, types, _, registry, ops
+from marketsim import request, combine, meta, types, _, registry, ops
 
 import _limit
 
 from _limit import Limit, LimitFactory
-from _cancel import Cancel
 from _base import Base
 
 class WithExpiry(Base):
@@ -18,14 +17,22 @@ class WithExpiry(Base):
         self._delay = delay
         # we create a limit order
         self._order = order
-        # translate its events to our listeners
-        self._order.on_matched += self.on_matched.fire
+        order.owner = self
         self._scheduler = sched
+        
+    def _onOrderMatched(self, order, other, (price, volume)):
+        self.owner._onOrderMatched(order, other, (price, volume))
+        
+    def _onOrderCancelled(self, order):
+        self.owner._onOrderCancelled(order)
+    
+    def _onOrderCharged(self, price):
+        self.owner._onOrderCharged(price)    
         
     def processIn(self, orderBook):
         orderBook.process(self._order)
         self._scheduler.scheduleAfter(self._delay, 
-                                      _(orderBook, Cancel(self._order)).process)
+                                      _(orderBook, request.Cancel(self._order)).process)
         
     @property 
     def volume(self):

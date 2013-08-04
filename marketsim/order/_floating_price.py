@@ -14,9 +14,16 @@ class FloatingPrice(types.IOrder):
         self._price = price
         self._side = side
         self._volume = volume
-        self.on_matched = Event()
-        self.on_charged = Event()
-        self.on_cancelled = Event()
+
+    def _onOrderMatched(self, order, other, (price, volume)):
+        self.owner._onOrderMatched(self, other, (price, volume))
+        
+    def _onOrderCancelled(self, order):
+        self.owner._onOrderCancelled(self)
+    
+    def _onOrderCharged(self, price):
+        self.owner._onOrderCharged(price)    
+        
         
     def processIn(self, orderBook):
         self.orderBook = orderBook 
@@ -28,9 +35,6 @@ class FloatingPrice(types.IOrder):
     def _dispose(self):
         if self._order is not None:
             self._volume = self.volume
-            self._onMatched.dispose()
-            self._onCancelled.dispose()
-            self._onCharged.dispose()
             self.orderBook.process(request.Cancel(self._order))
             self._order = None
             
@@ -39,12 +43,7 @@ class FloatingPrice(types.IOrder):
         #print price, self._volume
         if price is not None and self._volume > 0:
             self._order = Limit(self._side, price, self._volume)
-            self._onMatched = event.subscribe(self._order.on_matched, 
-                                              self.on_matched.fire, self, {}) 
-            self._onCancelled = event.subscribe(self._order.on_cancelled, 
-                                              self.on_cancelled.fire, self, {})
-            self._onCharged = event.subscribe(self._order.on_charged, 
-                                              self.on_charged.fire, self, {})
+            self._order.owner = self
         
     def _update(self, dummy):
         self._dispose() # we should resend the order only when the previous is cancelled
@@ -118,7 +117,7 @@ class FloatingPrice(types.IOrder):
         self._dispose()
         self._price -= _(self)._update
         self._cancelled = True
-        self.on_cancelled.fire(self)
+        self._onOrderCancelled(self)
 
     def __hash__(self):
         return id(self)

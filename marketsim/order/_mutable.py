@@ -11,20 +11,23 @@ class Base(types.IOrder):
     def __init__(self, source):
         self._order = None
         self.source = source
-        self.on_matched = Event()
-        self.on_charged = Event()
-        self.on_cancelled = Event()
         
     def processIn(self, orderBook):
         self.orderBook = orderBook 
         self.source += _(self)._update
         self._update(None)
         
+    def _onOrderMatched(self, order, other, (price, volume)):
+        self.owner._onOrderMatched(order, other, (price, volume))
+        
+    def _onOrderCancelled(self, order):
+        self.owner._onOrderCancelled(order)
+    
+    def _onOrderCharged(self, price):
+        self.owner._onOrderCharged(price)    
+        
     def _dispose(self):
         if self._order is not None:
-            self._onMatched.dispose()
-            self._onCancelled.dispose()
-            self._onCharged.dispose()
             self.orderBook.process(request.Cancel(self._order))
         
     def _update(self, dummy):
@@ -32,12 +35,7 @@ class Base(types.IOrder):
         params = self.source()
         if params is not None:
             self._order = Limit(*params)
-            self._onMatched = event.subscribe(self._order.on_matched, 
-                                              self.on_matched.fire, self, {}) 
-            self._onCancelled = event.subscribe(self._order.on_cancelled, 
-                                              self.on_cancelled.fire, self, {})
-            self._onCharged = event.subscribe(self._order.on_charged, 
-                                              self.on_charged.fire, self, {})
+            self._order.owner = self
             self.orderBook.process(self._order)
             
     @property

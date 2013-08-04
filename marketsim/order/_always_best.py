@@ -1,8 +1,7 @@
-from marketsim import (context, combine, Side, registry, meta, types, bind, 
+from marketsim import (request, context, combine, Side, registry, meta, types, bind, 
                        event, _, ops, observable, orderbook)
 from _base import Base
 from _limit import LimitFactory, Limit
-from _cancel import Cancel
 from _floating_price import FloatingPrice
 from marketsim.types import *
 
@@ -44,17 +43,20 @@ class AlwaysBest(Base):
         Base.__init__(self, side, volume)
         self._current = None
         
-    def onOrderMatched(self, my, other, pv):
-        Base.onMatchedWith(self, other, pv)
-        if self._volume == 0:
-            self._subscription.dispose()
-            del self._subscription 
+    def _onOrderMatched(self, order, other, (price, volume)):
+        self.owner._onOrderMatched(self, other, (price, volume))
+        
+    def _onOrderCancelled(self, order):
+        self.owner._onOrderCancelled(self)
     
+    def _onOrderCharged(self, price):
+        self.owner._onOrderCharged(price)    
+        
     def _onBestOrderChanged(self, queue):
         if not queue.empty and queue.best != self._current:
             if self._current is not None:
                 self._orderSubscription.dispose()
-                queue.book.process(Cancel(self._current))
+                queue.book.process(request.Cancel(self._current))
                 self._subscription.dispose()
                 #print "cancelled"
             if not self.empty and not self.cancelled:
@@ -62,10 +64,7 @@ class AlwaysBest(Base):
                 tick = queue.book.tickSize
                 price += tick if self.side == Side.Buy else -tick
                 self._current = Limit(self.side, price, self.volume)
-                self._orderSubscription = \
-                    event.subscribe(self._current.on_matched, 
-                                    _(self).onOrderMatched,
-                                    self, {})
+                self._current.owner = self
                 queue.book.process(self._current)
                 #print self.side, price
                 handler = (event.GreaterThan \
