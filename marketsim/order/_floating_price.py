@@ -27,15 +27,18 @@ class FloatingPrice(types.IOrder):
         
     def _dispose(self):
         if self._order is not None:
+            self._volume = self.volume
             self._onMatched.dispose()
             self._onCancelled.dispose()
             self._onCharged.dispose()
             self.orderBook.process(request.Cancel(self._order))
+            self._order = None
             
     def _create(self, side, volume):
         price = self._price()
-        if price is not None:
-            self._order = Limit(side, price, volume)
+        print price, self._volume
+        if price is not None and self._volume > 0:
+            self._order = Limit(self._side, price, self._volume)
             self._onMatched = event.subscribe(self._order.on_matched, 
                                               self.on_matched.fire, self, {}) 
             self._onCancelled = event.subscribe(self._order.on_cancelled, 
@@ -46,6 +49,7 @@ class FloatingPrice(types.IOrder):
     def _update(self, dummy):
         self._dispose() # we should resend the order only when the previous is cancelled
         self._create(self.side, self.volume)
+        print 'new price'
         if self._order is not None:
             self.orderBook.process(self._order)
             
