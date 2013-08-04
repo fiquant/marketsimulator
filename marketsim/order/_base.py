@@ -23,6 +23,15 @@ class Base(types.IOrder):
         self.on_matched = Event()
         self.on_charged = Event()
         self.on_cancelled = Event()
+        self._owner = None
+        
+    @property
+    def owner(self):
+        return self._owner
+    
+    @owner.setter
+    def owner(self, value):
+        self._owner
         
     @property
     def side(self):

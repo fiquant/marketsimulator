@@ -116,13 +116,10 @@ class Base(object):
         self.trader = trader
         
     def bind(self, ctx):
-        event.subscribe(self.trader.on_order_sent, _(self)._onOrderSent, self, ctx)
+        event.subscribe(self.trader.on_order_matched, _(self)._onOrderMatched, self, ctx)
+        event.subscribe(self.trader.on_order_cancelled, _(self)._onOrderCancelled, self, ctx)
         
     _properties = { 'trader' : types.ITrader }
-        
-    def _onOrderSent(self, order):
-        order.on_matched += _(self)._onOrderMatched
-        order.on_cancelled += _(self)._onOrderCancelled
             
 class PendingVolume_Impl(Base, ops.Observable[float]): # should be int
     
@@ -141,11 +138,11 @@ class PendingVolume_Impl(Base, ops.Observable[float]): # should be int
             self._pendingVolume += order.volumeSigned
             self.fire(self)
         
-    def _onOrderMatched(self, order, other, (price, volume)):
+    def _onOrderMatched(self, t, order, other, (price, volume)):
         self._pendingVolume -= order.volumeSigned
         self.fire(self)
 
-    def _onOrderCancelled(self, order):
+    def _onOrderCancelled(self, t, order):
         self._pendingVolume -= order.volumeSigned
         self.fire(self)
 

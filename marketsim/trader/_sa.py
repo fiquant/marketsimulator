@@ -61,7 +61,7 @@ class SingleAsset(Base, types.ISingleAssetTrader):
         Base._onOrderMatched(self, order, other, (price, volume))
         
     def _onOrderCancelled(self, order):
-        pass
+        Base._onOrderCancelled(self, order)
     
     @property
     def book(self): # obsolete

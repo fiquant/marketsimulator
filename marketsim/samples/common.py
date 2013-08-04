@@ -286,20 +286,7 @@ def run(name, constructor, only_veusz):
         r.insert(root)
         r.pushAllReferences()
         context.bind(root, {'world' : world })
-        
-        if False:
-            o = order.FixedBudget(Side.Buy, 10000)
-            
-            def p(l):
-                def inner(*args):
-                    print l,args
-                return inner
-                
-            o.on_matched += p("matched: ")
-            o.on_cancelled += p("cancelled: ")
-            
-            world.schedule(250, _(ctx.remote_A, o).process)
-            
+                    
         if False:
             req = request.EvalMarketOrder(Side.Sell, 500, _print)
             world.schedule(10, _(ctx.remote_A, req).process)
