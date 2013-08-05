@@ -1,17 +1,18 @@
 from marketsim import request, _, event, Event, types
 from marketsim.types import *
 
-from _base import MetaBase
 from _limit import Limit
 
-class FloatingPrice(MetaBase):
+import _meta
+
+class FloatingPrice(_meta.Base):
     """ Meta order controlling price of the underlying order
         When price changes it cancels underlying order and resends it with changed price
         For the moment we work only on limit orders but this mecanism might be extented to any persistent order
     """
     
     def __init__(self, side, price, volume):
-        MetaBase.__init__(self, side, volume)
+        _meta.Base.__init__(self, side, volume)
         self._order = None
         self._price = price
 

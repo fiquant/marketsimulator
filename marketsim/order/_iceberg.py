@@ -1,6 +1,5 @@
-from _base import MetaBase
 from _limit import LimitFactory
-
+import _meta
 from marketsim import request, meta, types, registry, bind, event, _, combine
 
 class Volume(object):
@@ -36,7 +35,7 @@ def unpack(args):
     """
     return PriceVolume(*args) if len(args) == 2 else Volume(*args)
 
-class Iceberg(MetaBase):
+class Iceberg(_meta.Base):
     """ Virtual order that implements iceberg strategy:
     First it sends an order for a small potion of its volume to a book and
     once it is filled resends a new order 
@@ -50,7 +49,7 @@ class Iceberg(MetaBase):
         """
         self._args = unpack(args)
         # we pretend that we are an order initially having given volume
-        MetaBase.__init__(self, None, self._args._volume)
+        _meta.Base.__init__(self, None, self._args._volume)
         self._volumeLimit = volumeLimit
         self._orderFactory = orderFactory
         self._current = None
@@ -58,7 +57,7 @@ class Iceberg(MetaBase):
         self._side = None
         
     def _onOrderMatched(self, order, other, (price, volume)):
-        MetaBase._onOrderMatched(self, order, other, (price, volume))
+        _meta.Base._onOrderMatched(self, order, other, (price, volume))
         if self._current.empty:
             self._PnL += self._current.PnL
             self._tryToResend()

@@ -1,15 +1,15 @@
 from marketsim import combine, registry, bind, observable, event, meta, _
 from _market import MarketFactory
 
-from _base import MetaBase
 from marketsim.types import *
 
+import _meta
 
-class StopLoss(MetaBase):
+class StopLoss(_meta.Base):
     
     def __init__(self, scheduler, maxLoss, factory, side, volume):
         
-        MetaBase.__init__(self, side, volume)
+        _meta.Base.__init__(self, side, volume)
         
         self._scheduler = scheduler
         self._orderFactory = factory

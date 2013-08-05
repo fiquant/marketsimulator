@@ -1,10 +1,10 @@
 from marketsim import request, combine, meta, types, _, registry, bind, Side
 
 from _limit import LimitFactory
-from _base import MetaBase
 
+import _meta
 
-class LimitMarket(MetaBase):
+class LimitMarket(_meta.Base):
     """ This a combination of a limit order and a cancel order sent immediately
     It works as a market order in sense that it is not put into the order queue 
     but can be matched (as a limit order) 
@@ -15,7 +15,7 @@ class LimitMarket(MetaBase):
         """ Initializes order with 'price' and 'volume'
         'limitOrderFactory' tells how to create limit orders
         """
-        MetaBase.__init__(self, side, volume)
+        _meta.Base.__init__(self, side, volume)
         # we create a limit order
         self._order = LimitFactory(side)(price, volume)
         self._order.owner = self

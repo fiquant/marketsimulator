@@ -102,16 +102,3 @@ class Base(types.IOrder):
 
     def __hash__(self):
         return id(self)
-    
-class MetaBase(Base):
-    
-    def _onOrderMatched(self, order, other, (price, volume)):
-        self.owner._onOrderMatched(self, other, (price, volume))
-        
-    def _onOrderCancelled(self, order):
-        pass
-    
-    def _onOrderCharged(self, price):
-        self.owner._onOrderCharged(price)    
-        
-    

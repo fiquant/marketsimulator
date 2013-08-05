@@ -1,9 +1,9 @@
 from marketsim import (request, context, combine, Side, registry, meta, types, bind, 
                        event, _, ops, observable, orderbook)
-from _base import MetaBase
 from _limit import LimitFactory, Limit
 from _floating_price import FloatingPrice
 from marketsim.types import *
+import _meta
 
 def AlwaysBest2(side, volume):
     
@@ -30,7 +30,7 @@ class Factory(types.IPersistentOrderGenerator, combine.SideVolume):
             context.bind(order, self._ctx)
         return order
 
-class AlwaysBest(MetaBase):
+class AlwaysBest(_meta.Base):
     """ AlwaysBest is a virtual order that ensures that it has the best price in the order book. 
     It is implemented as a limit order which is cancelled 
     once the best price in the order queue has changed 
@@ -40,7 +40,7 @@ class AlwaysBest(MetaBase):
     
     def __init__(self, side, volume):
         
-        Base.__init__(self, side, volume)
+        _meta.Base.__init__(self, side, volume)
         self._current = None
         
     def _onBestOrderChanged(self, queue):
