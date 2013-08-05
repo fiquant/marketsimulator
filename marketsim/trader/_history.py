@@ -65,7 +65,7 @@ class TraderHistory_Impl(Base):
         price = self.position_pnl / self.amount if self.amount else None
         return price
 
-    def _onOrderMatched(self, order, price, volume):
+    def onOrderMatched(self, order, price, volume):
         if volume <= 0:
             return
 
@@ -82,7 +82,7 @@ class TraderHistory_Impl(Base):
         if order.empty:
             self.matched[order] = self.pending.pop(order)
 
-    def _onOrderDisposed(self, order):
+    def onOrderDisposed(self, order):
         if order in self.pending:
             self.cancelled[order] = self.pending.pop(order)
             self.cancelled[order].append(State(self.time, 0, 0))

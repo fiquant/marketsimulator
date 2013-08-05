@@ -20,8 +20,8 @@ class WithExpiry(_meta.Base):
         order.owner = self
         self._scheduler = sched
         
-    def _onOrderDisposed(self, order):
-        self.owner._onOrderDisposed(self)
+    def onOrderDisposed(self, order):
+        self.owner.onOrderDisposed(self)
     
     def processIn(self, orderBook):
         orderBook.process(self._order)

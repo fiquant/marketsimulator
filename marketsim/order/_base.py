@@ -80,12 +80,12 @@ class Base(types.IOrder):
         """
         if not self._cancelled:
             self._cancelled = True
-            self.owner._onOrderDisposed(self)
+            self.owner.onOrderDisposed(self)
 
     #--------------------------------- these methods are to be called by order book
             
     def charge(self, price): 
-        self.owner._onOrderCharged(price)
+        self.owner.onOrderCharged(price)
 
     def onMatchedWith(self, price, volume):
         """ Called when the order is matched with another order
@@ -97,7 +97,7 @@ class Base(types.IOrder):
         self._volume -= volume
         self._PnL += volume * price
         #print "OrderMatched:", self, other, (price, volume)
-        self.owner._onOrderMatched(self, price, volume)
+        self.owner.onOrderMatched(self, price, volume)
 
     def __hash__(self):
         return id(self)

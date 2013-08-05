@@ -79,13 +79,13 @@ class FloatingPrice(_meta.Base):
         self._price -= self._update
         self._cancelled = True
         if self._order is None:
-            self._onOrderDisposed(None)
+            self.onOrderDisposed(None)
         else:
             self._dispose()
 
-    def _onOrderDisposed(self, order):
+    def onOrderDisposed(self, order):
         if self._cancelled:
-            self.owner._onOrderDisposed(self)
+            self.owner.onOrderDisposed(self)
     
     def __hash__(self):
         return id(self)

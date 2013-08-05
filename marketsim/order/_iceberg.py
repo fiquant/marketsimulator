@@ -56,8 +56,8 @@ class Iceberg(_meta.Base):
         self._subscription = None
         self._side = None
         
-    def _onOrderMatched(self, order, price, volume):
-        _meta.Base._onOrderMatched(self, order, price, volume)
+    def onOrderMatched(self, order, price, volume):
+        _meta.Base.onOrderMatched(self, order, price, volume)
         if self._current.empty:
             self._PnL += self._current.PnL
             self._tryToResend()
@@ -71,9 +71,9 @@ class Iceberg(_meta.Base):
         assert self._args.hasPrice
         return self._args._price
 
-    def _onOrderDisposed(self, order):
+    def onOrderDisposed(self, order):
         if self._cancelled:
-            self.owner._onOrderDisposed(self)
+            self.owner.onOrderDisposed(self)
 
     def cancel(self):
         """ If we are asked to be cancelled, we mark ourselves as cancelled 
@@ -83,7 +83,7 @@ class Iceberg(_meta.Base):
         if self._current is not None:
             self._book.process(request.Cancel(self._current))
         else:
-            self._onOrderDisposed(None)
+            self.onOrderDisposed(None)
 
     @property
     def PnL(self):

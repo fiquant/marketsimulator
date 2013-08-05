@@ -2,13 +2,13 @@ import _base
 
 class Base(_base.Base):
     
-    def _onOrderMatched(self, order, price, volume):
-        self.owner._onOrderMatched(self, price, volume)
+    def onOrderMatched(self, order, price, volume):
+        self.owner.onOrderMatched(self, price, volume)
         
-    def _onOrderDisposed(self, order):
+    def onOrderDisposed(self, order):
         pass
     
-    def _onOrderCharged(self, price):
-        self.owner._onOrderCharged(price)    
+    def onOrderCharged(self, price):
+        self.owner.onOrderCharged(price)    
         
     

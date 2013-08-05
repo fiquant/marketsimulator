@@ -9,17 +9,17 @@ class FixedBudget(types.IOrder):
         self.side = side
         self.budget = budget
 
-    def _onOrderMatched(self, order, price, volume):
+    def onOrderMatched(self, order, price, volume):
         self.budget -= price*volume
-        self.owner._onOrderMatched(self, price, volume)
+        self.owner.onOrderMatched(self, price, volume)
         
-    def _onOrderDisposed(self, order):
+    def onOrderDisposed(self, order):
         self._ordersSent -= 1
         if self._ordersSent == 0:
-            self.owner._onOrderDisposed(self)
+            self.owner.onOrderDisposed(self)
     
-    def _onOrderCharged(self, price):
-        self.owner._onOrderCharged(price)    
+    def onOrderCharged(self, price):
+        self.owner.onOrderCharged(price)    
         
         
     def processIn(self, orderBook):

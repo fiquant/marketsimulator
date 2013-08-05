@@ -86,20 +86,20 @@ class Remote(BookBase):
         
     def _on_matched(self, order, price, volume):
         order.remote.copyTo(order)
-        order.owner._onOrderMatched(order, price, volume)
+        order.owner.onOrderMatched(order, price, volume)
         
     def _on_order_disposed(self, order):
         order.remote.copyTo(order)
-        order.owner._onOrderDisposed(order)
+        order.owner.onOrderDisposed(order)
         
-    def _onOrderMatched(self, order, price, volume):
+    def onOrderMatched(self, order, price, volume):
         self._downLink.send(_(self, order, price, volume)._on_matched)
         
-    def _onOrderDisposed(self, order):
+    def onOrderDisposed(self, order):
         self._downLink.send(_(self, order)._on_order_disposed)
     
-    def _onOrderCharged(self, price):
-        self.owner._onOrderCharged(price)    
+    def onOrderCharged(self, price):
+        self.owner.onOrderCharged(price)    
         
     def _remote(self, order):
         remote = order.clone()

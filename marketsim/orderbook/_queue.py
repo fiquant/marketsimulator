@@ -48,7 +48,6 @@ class Queue(object):
         """
         self._tickSize = tickSize   # tick size
         self._book = book           # book the queue belongs to if any
-        self.on_order_cancelled = Event() # event (orderQueue, cancelledOrder) to be called when an order is cancelled
         self.lastTrade = LastTrade() 
         self.reset()
         self.bestPrice = BestPrice(self)
@@ -107,13 +106,11 @@ class Queue(object):
         
     def cancelOrder(self, order):
         """ To be called when 'order' is marked as cancelled 
-        Notifies 'on_order_cancelled' event listeners.
         May fire 'on_best_changed' event
         """
         order.cancel()
         self._makeValid()
         self.notifyIfBestChanged()
-        self._scheduler.async(_(self.on_order_cancelled, self, order).fire)
 
     def _makeValid(self):
         """ Ensures that the queue is either empty or has a valid order on top

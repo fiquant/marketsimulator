@@ -27,7 +27,7 @@ class StopLoss(_meta.Base):
         self._price = observable.MidPrice(self._book)   
         self._book.processMarketOrder(self._current)
         
-    def _onOrderMatched(self, order, price, volume):
+    def onOrderMatched(self, order, price, volume):
         if order is not self._stopLossOrder:
             self._orderPrice = price
             handler = event.GreaterThan((1+self._maxLoss) * self._orderPrice, _(self)._onPriceChanged)\
@@ -35,11 +35,11 @@ class StopLoss(_meta.Base):
                       event.LessThan((1-self._maxLoss) * self._orderPrice, _(self)._onPriceChanged)
                         
             self._stopSubscription = event.subscribe(self._price, handler, self, {})
-        self.owner._onOrderMatched(self, price, volume)
+        self.owner.onOrderMatched(self, price, volume)
         
     def cancel(self):
         self._cancelled = True
-        self.owner._onOrderDisposed(self)
+        self.owner.onOrderDisposed(self)
         
     def _onPriceChanged(self, dummy):
         # the stoploss is activated
