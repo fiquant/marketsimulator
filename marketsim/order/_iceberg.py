@@ -56,8 +56,8 @@ class Iceberg(_meta.Base):
         self._subscription = None
         self._side = None
         
-    def _onOrderMatched(self, order, other, (price, volume)):
-        _meta.Base._onOrderMatched(self, order, other, (price, volume))
+    def _onOrderMatched(self, order, price, volume):
+        _meta.Base._onOrderMatched(self, order, price, volume)
         if self._current.empty:
             self._PnL += self._current.PnL
             self._tryToResend()

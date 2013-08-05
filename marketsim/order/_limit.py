@@ -70,8 +70,8 @@ class Limit(Base):
         p = self.price
         pv = (p,v)
         # notify trade side about the it
-        self.onMatchedWith(other, pv)
-        other.onMatchedWith(self, pv)
+        self.onMatchedWith(p,v)
+        other.onMatchedWith(p,v)
         return pv
 
     @staticmethod

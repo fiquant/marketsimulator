@@ -17,11 +17,11 @@ class Base(types.IOrder):
         self.source += _(self)._update
         self._update(None)
         
-    def _onOrderMatched(self, order, other, (price, volume)):
-        self.owner._onOrderMatched(order, other, (price, volume))
+    def _onOrderMatched(self, order, price, volume):
+        self.owner._onOrderMatched(self, price, volume)
         
     def _onOrderDisposed(self, order):
-        self.owner._onOrderDisposed(order)
+        self.owner._onOrderDisposed(self)
     
     def _onOrderCharged(self, price):
         self.owner._onOrderCharged(price)    

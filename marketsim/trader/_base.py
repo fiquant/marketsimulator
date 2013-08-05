@@ -19,7 +19,7 @@ class Base(timeserie.Holder):
         # event to be fired when an order issued by the trader has been matched
         self.on_order_matched = Event()
         # event to be fired when an order issued by the trader has been cancelled
-        self.on_order_cancelled = Event()
+        self.on_order_disposed = Event()
         # event to be fired when a trader's is traded; to be removed
         self.on_traded = Event()
         self.reset()
@@ -43,7 +43,7 @@ class Base(timeserie.Holder):
     def _charge(self, price):
         self._PnL -= price
 
-    def _onOrderMatched(self, order, other, (price, volume)):
+    def _onOrderMatched(self, order, price, volume):
         """ Called when a trader's 'order' is traded against 'other' order 
         at given 'price' and 'volume'
         Trader's P&L is updated and listeners are notified about the trade   
@@ -51,11 +51,11 @@ class Base(timeserie.Holder):
         pv = price * volume
         self._PnL += pv if order.side == Side.Sell else -pv
         
-        self.on_order_matched.fire(self, order, other, (price, volume))
+        self.on_order_matched.fire(self, order, price, volume)
         self.on_traded.fire(self)
         
     def _onOrderDisposed(self, order):
-        self.on_order_cancelled.fire(self, order)
+        self.on_order_disposed.fire(self, order)
 
     def _makeSubscribedTo(self, order):
         """ Makes trader subscribed to 'order' on_matched event

@@ -78,7 +78,7 @@ class Base(types.IOrder):
     def cancel(self):
         """ Marks order as cancelled. Notifies the order book about it
         """
-        if getattr(self, '_cancelled', False) is False:
+        if not self._cancelled:
             self._cancelled = True
             self.owner._onOrderDisposed(self)
 
@@ -87,9 +87,8 @@ class Base(types.IOrder):
     def charge(self, price): 
         self.owner._onOrderCharged(price)
 
-    def onMatchedWith(self, other, (price,volume)):
+    def onMatchedWith(self, price, volume):
         """ Called when the order is matched with another order
-        other - other order
         price - price at which the match was done
         volume - volume of the match.
         In this method we correct order volume and P&L 
@@ -98,7 +97,7 @@ class Base(types.IOrder):
         self._volume -= volume
         self._PnL += volume * price
         #print "OrderMatched:", self, other, (price, volume)
-        self.owner._onOrderMatched(self, other, (price, volume))
+        self.owner._onOrderMatched(self, price, volume)
 
     def __hash__(self):
         return id(self)

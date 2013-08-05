@@ -24,8 +24,6 @@ class Market(Base):
     def canBeMatched(self, other):
         """ Returns True iff this order can be matched with 'other'
         """
-        if other.side != self.side.opposite:
-            a = 12
         assert other.side == self.side.opposite
         return True
     

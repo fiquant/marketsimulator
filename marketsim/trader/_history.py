@@ -65,7 +65,7 @@ class TraderHistory_Impl(Base):
         price = self.position_pnl / self.amount if self.amount else None
         return price
 
-    def _onOrderMatched(self, order, other, (price, volume)):
+    def _onOrderMatched(self, order, price, volume):
         if volume <= 0:
             return
 

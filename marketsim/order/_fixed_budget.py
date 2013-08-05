@@ -9,9 +9,9 @@ class FixedBudget(types.IOrder):
         self.side = side
         self.budget = budget
 
-    def _onOrderMatched(self, order, other, (price, volume)):
+    def _onOrderMatched(self, order, price, volume):
         self.budget -= price*volume
-        self.owner._onOrderMatched(self, other, (price, volume))
+        self.owner._onOrderMatched(self, price, volume)
         
     def _onOrderDisposed(self, order):
         self._ordersSent -= 1
