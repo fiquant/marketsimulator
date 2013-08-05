@@ -50,8 +50,7 @@ class FloatingPrice(_meta.Base):
 
     def __str__(self):
         if self._order is not None:
-            return type(self).__name__ + "("+str(self.side)+", volume=" + str(self.volume) \
-                    + ", P&L="+str(self.PnL)+")"
+            return type(self).__name__ + "("+str(self.side)+", volume=" + str(self.volume) + ")"
         else:
             return "MutableOrder"
 

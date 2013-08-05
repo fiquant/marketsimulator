@@ -31,10 +31,6 @@ class LimitMarket(_meta.Base):
     def volume(self):
         return self._order.volume 
     
-    @property
-    def PnL(self):
-        return self._order.PnL
-    
     @staticmethod
     def Buy(price, volume): return LimitMarket(Limit.Buy, price, volume)
     

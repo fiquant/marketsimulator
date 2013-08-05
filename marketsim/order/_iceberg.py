@@ -59,7 +59,6 @@ class Iceberg(_meta.Base):
     def onOrderMatched(self, order, price, volume):
         _meta.Base.onOrderMatched(self, order, price, volume)
         if self._current.empty:
-            self._PnL += self._current.PnL
             self._tryToResend()
         
     @property
@@ -84,12 +83,6 @@ class Iceberg(_meta.Base):
             self._book.process(request.Cancel(self._current))
         else:
             self.onOrderDisposed(None)
-
-    @property
-    def PnL(self):
-        """ Returns P&L. It sum of P&L of traded orders and P&L of the order being traded
-        """
-        return self._PnL + (self._current.PnL if self._current else 0)
 
     @property
     def volume(self):

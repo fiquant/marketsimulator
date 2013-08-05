@@ -31,10 +31,6 @@ class WithExpiry(_meta.Base):
     @property 
     def volume(self):
         return self._order.volume 
-    
-    @property
-    def PnL(self):
-        return self._order.PnL
 
 class Factory(types.IOrderGenerator):
     

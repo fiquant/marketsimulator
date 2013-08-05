@@ -44,8 +44,7 @@ class Base(types.IOrder):
         
     def __str__(self):
         if self._order is not None:
-            return type(self).__name__ + "("+str(self.side)+", volume=" + str(self.volume) \
-                    + ", P&L="+str(self.PnL)+")"
+            return type(self).__name__ + "("+str(self.side)+", volume=" + str(self.volume)  + ")"
         else:
             return "MutableOrder"
 
@@ -76,14 +75,6 @@ class Base(types.IOrder):
     def signedVolume(self):
         return self._order.signedVolume
     
-    @property 
-    def PnL(self):
-        """ P&L of the order. 
-        positive, if it is a sell side order
-        negative, if it is a buy side order
-        """
-        return self._order.PnL
-
     @property
     def empty(self):
         """ Volume is empty iff its volume is 0
