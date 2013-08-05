@@ -73,7 +73,7 @@ def Orders(ctx):
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.AlwaysBestLimit(
                                 side = parts.side.Random(),
-                                volume = const(100)),
-                            scheduler.Timer(const(1))), 
+                                volume = const(10)),
+                            scheduler.Timer(const(100))), 
                          "noise_alwaysbest"), 
     ]    

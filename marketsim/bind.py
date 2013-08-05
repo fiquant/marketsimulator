@@ -17,6 +17,19 @@ class Method(object):
         self.methodname = methodname 
         self.args = args
         
+    def __eq__(self, other):
+        if self.obj != other.obj:
+            return False
+        if self.methodname != other.methodname:
+            return False
+        if len(self.args) != len(other.args):
+            return False
+        for i in range(len(self.args)):
+            if self.args[i] != other.args[i]:
+                return False
+        return True
+        
+        
     _internals = ['methodname', 'args']
         
     def __call__(self, *args):

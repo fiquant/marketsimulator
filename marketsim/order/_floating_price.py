@@ -15,31 +15,36 @@ class FloatingPrice(_meta.Base):
         _meta.Base.__init__(self, side, volume)
         self._order = None
         self._price = price
+        self._update = _(self)._update_impl
+        
+    _internals = ['_price']
 
     def processIn(self, orderBook):
         self.orderBook = orderBook 
-        self._price += _(self)._update
+        self._price += self._update
         self._create(self._side, self._volume)
         if self._order is not None:
             self.orderBook.process(self._order)
         
     def _dispose(self):
         if self._order is not None:
-            self._volume = self.volume
+            self._volume = self._order.volume
             self.orderBook.process(request.Cancel(self._order))
             self._order = None
             
     def _create(self, side, volume):
-        price = self._price()
-        #print price, self._volume
-        if price is not None and self._volume > 0:
-            self._order = Limit(self._side, price, self._volume)
-            self._order.owner = self
+        if volume == 0:
+            self.cancel()
+        else:
+            price = self._price()
+            if price is not None:
+                #print side, price, volume
+                self._order = Limit(side, price, volume)
+                self._order.owner = self
         
-    def _update(self, dummy):
+    def _update_impl(self, dummy):
         self._dispose() # we should resend the order only when the previous is cancelled
-        self._create(self.side, self.volume)
-        #print 'new price'
+        self._create(self.side, self._volume)
         if self._order is not None:
             self.orderBook.process(self._order)
 
@@ -71,7 +76,7 @@ class FloatingPrice(_meta.Base):
     def cancel(self):
         """ Marks order as cancelled. Notifies the order book about it
         """
-        self._price -= _(self)._update
+        self._price -= self._update
         self._cancelled = True
         if self._order is None:
             self._onOrderCancelled(None)
