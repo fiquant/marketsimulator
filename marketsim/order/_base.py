@@ -84,8 +84,9 @@ class Base(types.IOrder):
         and notify order listener about the match
         """
         self._volume -= volume
-        #print "OrderMatched:", self, other, (price, volume)
         self.owner.onOrderMatched(self, price, volume)
+        if self.empty:
+            self.cancel()
 
     def __hash__(self):
         return id(self)
