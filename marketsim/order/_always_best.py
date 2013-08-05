@@ -1,6 +1,6 @@
 from marketsim import (request, context, combine, Side, registry, meta, types, bind, 
                        event, _, ops, observable, orderbook)
-from _base import Base
+from _base import MetaBase
 from _limit import LimitFactory, Limit
 from _floating_price import FloatingPrice
 from marketsim.types import *
@@ -30,7 +30,7 @@ class Factory(types.IPersistentOrderGenerator, combine.SideVolume):
             context.bind(order, self._ctx)
         return order
 
-class AlwaysBest(Base):
+class AlwaysBest(MetaBase):
     """ AlwaysBest is a virtual order that ensures that it has the best price in the order book. 
     It is implemented as a limit order which is cancelled 
     once the best price in the order queue has changed 
@@ -43,19 +43,9 @@ class AlwaysBest(Base):
         Base.__init__(self, side, volume)
         self._current = None
         
-    def _onOrderMatched(self, order, other, (price, volume)):
-        self.owner._onOrderMatched(self, other, (price, volume))
-        
-    def _onOrderCancelled(self, order):
-        self.owner._onOrderCancelled(self)
-    
-    def _onOrderCharged(self, price):
-        self.owner._onOrderCharged(price)    
-        
     def _onBestOrderChanged(self, queue):
         if not queue.empty and queue.best != self._current:
             if self._current is not None:
-                self._orderSubscription.dispose()
                 queue.book.process(request.Cancel(self._current))
                 self._subscription.dispose()
                 #print "cancelled"

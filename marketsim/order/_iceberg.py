@@ -1,4 +1,4 @@
-from _base import Base
+from _base import MetaBase
 from _limit import LimitFactory
 
 from marketsim import request, meta, types, registry, bind, event, _, combine
@@ -36,7 +36,7 @@ def unpack(args):
     """
     return PriceVolume(*args) if len(args) == 2 else Volume(*args)
 
-class Iceberg(Base):
+class Iceberg(MetaBase):
     """ Virtual order that implements iceberg strategy:
     First it sends an order for a small potion of its volume to a book and
     once it is filled resends a new order 
@@ -50,7 +50,7 @@ class Iceberg(Base):
         """
         self._args = unpack(args)
         # we pretend that we are an order initially having given volume
-        Base.__init__(self, None, self._args._volume)
+        MetaBase.__init__(self, None, self._args._volume)
         self._volumeLimit = volumeLimit
         self._orderFactory = orderFactory
         self._current = None
@@ -58,16 +58,10 @@ class Iceberg(Base):
         self._side = None
         
     def _onOrderMatched(self, order, other, (price, volume)):
-        self.owner._onOrderMatched(self, other, (price, volume))
+        MetaBase._onOrderMatched(self, order, other, (price, volume))
         if self._current.empty:
             self._PnL += self._current.PnL
             self._tryToResend()
-        
-    def _onOrderCancelled(self, order):
-        self.owner._onOrderCancelled(self)
-    
-    def _onOrderCharged(self, price):
-        self.owner._onOrderCharged(price)    
         
     @property
     def side(self):
@@ -78,13 +72,19 @@ class Iceberg(Base):
         assert self._args.hasPrice
         return self._args._price
 
+    def _onOrderCancelled(self, order):
+        if self._cancelled:
+            self.owner._onOrderCancelled(self)
+
     def cancel(self):
         """ If we are asked to be cancelled, we mark ourselves as cancelled 
         and the make the real order also cancelled 
         """
-        Base.cancel(self)
-        if self._current:
+        self._cancelled = True
+        if self._current is not None:
             self._book.process(request.Cancel(self._current))
+        else:
+            self._onOrderCancelled(None)
 
     @property
     def PnL(self):

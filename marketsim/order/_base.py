@@ -78,8 +78,9 @@ class Base(types.IOrder):
     def cancel(self):
         """ Marks order as cancelled. Notifies the order book about it
         """
-        self._cancelled = True
-        self.owner._onOrderCancelled(self)
+        if getattr(self, '_cancelled', False) is False:
+            self._cancelled = True
+            self.owner._onOrderCancelled(self)
 
     #--------------------------------- these methods are to be called by order book
             
@@ -101,3 +102,16 @@ class Base(types.IOrder):
 
     def __hash__(self):
         return id(self)
+    
+class MetaBase(Base):
+    
+    def _onOrderMatched(self, order, other, (price, volume)):
+        self.owner._onOrderMatched(self, other, (price, volume))
+        
+    def _onOrderCancelled(self, order):
+        pass
+    
+    def _onOrderCharged(self, price):
+        self.owner._onOrderCharged(price)    
+        
+    

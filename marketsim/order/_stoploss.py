@@ -1,15 +1,15 @@
 from marketsim import combine, registry, bind, observable, event, meta, _
 from _market import MarketFactory
 
-from _base import Base
+from _base import MetaBase
 from marketsim.types import *
 
 
-class StopLoss(Base):
+class StopLoss(MetaBase):
     
     def __init__(self, scheduler, maxLoss, factory, side, volume):
         
-        Base.__init__(self, side, volume)
+        MetaBase.__init__(self, side, volume)
         
         self._scheduler = scheduler
         self._orderFactory = factory
@@ -37,11 +37,9 @@ class StopLoss(Base):
             self._stopSubscription = event.subscribe(self._price, handler, self, {})
         self.owner._onOrderMatched(self, other, (price, volume))
         
-    def _onOrderCancelled(self, order):
+    def cancel(self):
+        self._cancelled = True
         self.owner._onOrderCancelled(self)
-    
-    def _onOrderCharged(self, price):
-        self.owner._onOrderCharged(price)    
         
     def _onPriceChanged(self, dummy):
         # the stoploss is activated
