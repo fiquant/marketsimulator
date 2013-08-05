@@ -82,7 +82,7 @@ class TraderHistory_Impl(Base):
         if order.empty:
             self.matched[order] = self.pending.pop(order)
 
-    def _onOrderCancelled(self, order):
+    def _onOrderDisposed(self, order):
         if order in self.pending:
             self.cancelled[order] = self.pending.pop(order)
             self.cancelled[order].append(State(self.time, 0, 0))

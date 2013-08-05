@@ -60,9 +60,6 @@ class SingleAsset(Base, types.ISingleAssetTrader):
         self._amount += dVolume
         Base._onOrderMatched(self, order, other, (price, volume))
         
-    def _onOrderCancelled(self, order):
-        Base._onOrderCancelled(self, order)
-    
     @property
     def book(self): # obsolete
         return self._orderBook

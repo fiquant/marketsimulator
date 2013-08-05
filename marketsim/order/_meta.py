@@ -5,7 +5,7 @@ class Base(_base.Base):
     def _onOrderMatched(self, order, other, (price, volume)):
         self.owner._onOrderMatched(self, other, (price, volume))
         
-    def _onOrderCancelled(self, order):
+    def _onOrderDisposed(self, order):
         pass
     
     def _onOrderCharged(self, price):

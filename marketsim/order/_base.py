@@ -80,7 +80,7 @@ class Base(types.IOrder):
         """
         if getattr(self, '_cancelled', False) is False:
             self._cancelled = True
-            self.owner._onOrderCancelled(self)
+            self.owner._onOrderDisposed(self)
 
     #--------------------------------- these methods are to be called by order book
             

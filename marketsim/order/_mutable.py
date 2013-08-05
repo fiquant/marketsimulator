@@ -20,8 +20,8 @@ class Base(types.IOrder):
     def _onOrderMatched(self, order, other, (price, volume)):
         self.owner._onOrderMatched(order, other, (price, volume))
         
-    def _onOrderCancelled(self, order):
-        self.owner._onOrderCancelled(order)
+    def _onOrderDisposed(self, order):
+        self.owner._onOrderDisposed(order)
     
     def _onOrderCharged(self, price):
         self.owner._onOrderCharged(price)    
@@ -102,7 +102,6 @@ class Base(types.IOrder):
         """
         self._dispose()
         self.source -= _(self)._update
-        self.on_cancelled.fire(self)
 
     def __hash__(self):
         return id(self)

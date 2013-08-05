@@ -13,10 +13,10 @@ class FixedBudget(types.IOrder):
         self.budget -= price*volume
         self.owner._onOrderMatched(self, other, (price, volume))
         
-    def _onOrderCancelled(self, order):
+    def _onOrderDisposed(self, order):
         self._ordersSent -= 1
         if self._ordersSent == 0:
-            self.owner._onOrderCancelled(self)
+            self.owner._onOrderDisposed(self)
     
     def _onOrderCharged(self, price):
         self.owner._onOrderCharged(price)    

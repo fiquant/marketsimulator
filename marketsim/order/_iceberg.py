@@ -71,9 +71,9 @@ class Iceberg(_meta.Base):
         assert self._args.hasPrice
         return self._args._price
 
-    def _onOrderCancelled(self, order):
+    def _onOrderDisposed(self, order):
         if self._cancelled:
-            self.owner._onOrderCancelled(self)
+            self.owner._onOrderDisposed(self)
 
     def cancel(self):
         """ If we are asked to be cancelled, we mark ourselves as cancelled 
@@ -83,7 +83,7 @@ class Iceberg(_meta.Base):
         if self._current is not None:
             self._book.process(request.Cancel(self._current))
         else:
-            self._onOrderCancelled(None)
+            self._onOrderDisposed(None)
 
     @property
     def PnL(self):

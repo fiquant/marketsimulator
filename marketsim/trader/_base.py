@@ -54,7 +54,7 @@ class Base(timeserie.Holder):
         self.on_order_matched.fire(self, order, other, (price, volume))
         self.on_traded.fire(self)
         
-    def _onOrderCancelled(self, order):
+    def _onOrderDisposed(self, order):
         self.on_order_cancelled.fire(self, order)
 
     def _makeSubscribedTo(self, order):

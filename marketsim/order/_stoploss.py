@@ -39,7 +39,7 @@ class StopLoss(_meta.Base):
         
     def cancel(self):
         self._cancelled = True
-        self.owner._onOrderCancelled(self)
+        self.owner._onOrderDisposed(self)
         
     def _onPriceChanged(self, dummy):
         # the stoploss is activated

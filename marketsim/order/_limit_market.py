@@ -20,8 +20,8 @@ class LimitMarket(_meta.Base):
         self._order = LimitFactory(side)(price, volume)
         self._order.owner = self
         
-    def _onOrderCancelled(self, order):
-        self.owner._onOrderCancelled(self)
+    def _onOrderDisposed(self, order):
+        self.owner._onOrderDisposed(self)
         
     def processIn(self, orderBook):
         orderBook.process(self._order)
