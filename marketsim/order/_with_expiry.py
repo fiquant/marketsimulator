@@ -13,21 +13,21 @@ class WithExpiry(OwnsSingleOrder):
         """ Initializes order with 'price' and 'volume'
         'limitOrderFactory' tells how to create limit orders
         """
-        order = orderGenerator()
-        if order is not None:
-            OwnsSingleOrder.__init__(self, order.side, order.volumeUnmatched, None, order.volumeFilled)
-            self._delay = delay
-            self._order_ = order
-            # we create a limit order
-            self._scheduler = sched
+        self._orderGenerator = orderGenerator
+        self._delay = delay
+        # we create a limit order
+        self._scheduler = sched
         
     def onOrderDisposed(self, order):
         self.owner.onOrderDisposed(self)
     
     def processIn(self, orderBook):
-        if hasattr(self, '_order_'):
+        order = self._orderGenerator()
+        if order is not None:
+            # this initialization should be done in processIn
+            OwnsSingleOrder.__init__(self, order.side, order.volumeUnmatched, None, order.volumeFilled)
             self.orderBook = orderBook
-            self.send(self._order_)
+            self.send(order)
             self._scheduler.scheduleAfter(self._delay, 
                                           _(orderBook, request.Cancel(self.order)).process)
 

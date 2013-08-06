@@ -137,7 +137,8 @@ class Cancellable(object):
 class Default(types.IOrder):
 
     def __init__(self, owner = None):
-        self._owner = owner
+    	if not hasattr(self, 'owner'):
+        	self._owner = owner
         
     @property
     def owner(self):
