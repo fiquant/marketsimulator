@@ -34,14 +34,11 @@ class FloatingPrice(_meta.Base, _base.HasPrice):
         self.price = self._priceGenerator()
         if self.price is not None:
             #print side, price, volume
-            self._order = Limit(self.side, self.price, self.volumeUnmatched)
-            self._order.owner = self
+            self._order = self.send(Limit(self.side, self.price, self.volumeUnmatched))
         
     def _update(self, dummy):
         self._dispose() 
         self._create()
-        if self._order is not None:
-            self.orderBook.process(self._order)
 
     def __str__(self):
         if self._order is not None:

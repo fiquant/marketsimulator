@@ -71,7 +71,7 @@ class Iceberg(_meta.Base):
         """
         self._cancelled = True
         if self._current is not None:
-            self._book.process(request.Cancel(self._current))
+            self.orderBook.process(request.Cancel(self._current))
         else:
             self.onOrderDisposed(None)
 
@@ -84,11 +84,8 @@ class Iceberg(_meta.Base):
             v = min(self._lotSize, self._volumeUnmatched)
             self._args._volume = v
             # create a real order
-            self._current = self._orderFactory(*self._args.packed)
-            self._current.owner = self
+            self._current = self.send(self._orderFactory(*self._args.packed))
             self._side = self._current.side
-            # and send the order to the order book    
-            self._book.process(self._current)
         else:
             # now we have nothing to trade
             self._current = None
@@ -97,7 +94,7 @@ class Iceberg(_meta.Base):
         """ Called when an order book tries to determine 
         how the order should be processed 
         """
-        self._book = book
+        self.orderBook = book
         self._tryToResend()
         
 class FactoryLimit(types.IPersistentOrderGenerator, combine.SidePriceVolumeLotSize):

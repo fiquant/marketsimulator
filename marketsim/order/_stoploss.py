@@ -20,35 +20,26 @@ class StopLoss(_meta.Base):
         self._price = None
         
     def processIn(self, book):
-        self._book = book
-        self._current = self._orderFactory(self._side)(self._volumeUnmatched)
-        self._current.owner = self
-        self._price = observable.MidPrice(self._book)   
-        self._book.processMarketOrder(self._current)
+        self.orderBook = book
+        self._obsPrice = observable.AskPrice(book) if self.side == Side.Buy else observable.BidPrice(book)   
+        self._current = self.send(self._orderFactory(self._side)(self._volumeUnmatched))
         
     def onOrderMatched(self, order, price, volume):
         if order is not self._stopLossOrder:
-            self._orderPrice = price
-            self.onMatchedWith(price, volume)
-            handler = event.GreaterThan((1+self._maxLoss) * self._orderPrice, _(self)._onPriceChanged)\
-                        if self._side == Side.Sell else\
-                      event.LessThan((1-self._maxLoss) * self._orderPrice, _(self)._onPriceChanged)
-                        
-            self._stopSubscription = event.subscribe(self._price, handler, self, {})
+            if volume > 0:
+                handler = event.GreaterThan((1+self._maxLoss) * price, _(self)._onPriceChanged)\
+                            if self._side == Side.Sell else\
+                          event.LessThan((1-self._maxLoss) * price, _(self)._onPriceChanged)
+                            
+                self._stopSubscription = event.subscribe(self._obsPrice, handler, self, {})
+                self.onMatchedWith(price, +volume)
         else:
             self.onMatchedWith(price, -volume)
-        
-    def cancel(self):
-        self._cancelled = True
-        self.owner.onOrderDisposed(self)
         
     def _onPriceChanged(self, dummy):
         # the stoploss is activated
         self._stopSubscription.dispose()
-        
-        self._stopLossOrder = MarketFactory(self._side.opposite)(self._volumeFilled)
-        self._stopLossOrder.owner = self
-        self._book.processMarketOrder(self._stopLossOrder)
+        self._stopLossOrder = self.send(MarketFactory(self._side.opposite)(self._volumeFilled))
                 
 
 class Factory(IOrderGenerator, combine.SideVolumeMaxLoss): # in fact it is IPersistentOrderGenerator
