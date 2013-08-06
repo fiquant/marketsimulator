@@ -53,6 +53,38 @@ class HasVolume(object):
 		if self.empty:
 			self.cancel()
 			
+class HasPrice(object):
+	
+	def __init__(self, price):
+		self._price = price
+		
+	def copyTo(self, dst):
+		dst._price = self._price
+		
+	@property
+	def signedPrice(self):
+		""" Returns "signed" price of the order:
+		positive if the order is on sell side
+		negative if the order is on buy side 
+		"""
+		return self.side.makePriceSigned(self._price)
+
+	@property
+	def price(self):
+		""" Limit price of the order
+		"""
+		return self._price
+	
+	@price.setter
+	def price(self, value):
+		""" When an order is put into an oredr book, 
+		its price might be corrected with respect to order tick size
+		this function is used to notify the order about the new corrected price
+		"""
+		self._price = value
+
+		
+			
 class HasSide(object):
 	
 	def __init__(self, side):

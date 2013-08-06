@@ -1,8 +1,8 @@
-from _base import Base
+from _base import *
 from marketsim import combine, registry, bind, ops, meta, types
 from marketsim.types import *
 
-class Limit(Base):
+class Limit(Default, HasSide, HasPrice, HasVolume, Cancellable):
     """ Limit order of the given *side*, *price* and *volume*
     """
 
@@ -11,46 +11,32 @@ class Limit(Base):
         price is a limit price on which order can be traded
         if there are no suitable orders, the limit order remains in the order book
         """
-        Base.__init__(self, side, volume, owner, volumeFilled)
-        self._price = price
+        HasSide.__init__(self, side)
+        HasVolume.__init__(self, volume, volumeFilled)
+        Cancellable.__init__(self)
+        Default.__init__(self, owner)
+        HasPrice.__init__(self, price)
+        
+    def copyTo(self, dst):
+        HasSide.copyTo(self, dst)
+        HasVolume.copyTo(self, dst)
+        Cancellable.copyTo(self, dst)
+        HasPrice.copyTo(self, dst)
+        
+    def __str__(self):
+        return "%s_%s%s@%s" % (type(self).__name__, 
+                               HasSide.__str__(self), 
+                               HasVolume.__str__(self), 
+                               HasPrice.__str__(self))
         
     def clone(self):
         return Limit(self.side, self.price, self.volumeUnmatched, self.owner, self.volumeFilled)
         
-    def copyTo(self, dst):
-        Base.copyTo(self, dst)
-        dst._price = self._price
-
-    def __str__(self):
-        return Base.__str() + '@' + str(self._price)
-
     def processIn(self, orderBook):
         """ Order book calls this method to ask the order 
         how it should be processed in the order book (a la Visitor)
         """
         orderBook.processLimitOrder(self)
-
-    @property
-    def signedPrice(self):
-        """ Returns "signed" price of the order:
-        positive if the order is on sell side
-        negative if the order is on buy side 
-        """
-        return self.side.makePriceSigned(self._price)
-
-    @property
-    def price(self):
-        """ Limit price of the order
-        """
-        return self._price
-    
-    @price.setter
-    def price(self, value):
-        """ When an order is put into an oredr book, 
-        its price might be corrected with respect to order tick size
-        this function is used to notify the order about the new corrected price
-        """
-        self._price = value
 
     def canBeMatched(self, other):
         """ Returns True iff this order can matched with 'other'
