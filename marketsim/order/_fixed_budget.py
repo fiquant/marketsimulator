@@ -3,24 +3,24 @@ from marketsim.types import *
 
 from _limit_market import LimitMarket
 
-class FixedBudget(types.IOrder):
+from _base import *
+
+class FixedBudget(Default, HasSide, HasVolume, Cancellable):
     
     def __init__(self, side, budget):
-        self.side = side
+        HasSide.__init__(self, side)
+        HasVolume.__init__(self, None)
+        Cancellable.__init__(self)
         self.budget = budget
 
     def onOrderMatched(self, order, price, volume):
         self.budget -= price*volume
-        self.owner.onOrderMatched(self, price, volume)
+        self.onMatchedWith(price, volume)
         
     def onOrderDisposed(self, order):
         self._ordersSent -= 1
         if self._ordersSent == 0:
-            self.owner.onOrderDisposed(self)
-    
-    def onOrderCharged(self, price):
-        self.owner.onOrderCharged(price)    
-        
+            self.cancel()
         
     def processIn(self, orderBook):
         orderBook.process(
@@ -30,6 +30,7 @@ class FixedBudget(types.IOrder):
         
     def _onEvaluated(self, orderBook, pvs):
         self._ordersSent = 0
+        self._volumeUnmatched = sum([v for p,v in pvs])
         for p,v in pvs:
             order = LimitMarket(self.side, p, v)
             order.owner = self
