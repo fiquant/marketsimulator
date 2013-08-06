@@ -1,15 +1,26 @@
 from marketsim import combine, ops, registry, meta, types, bind
 from marketsim.types import *
-from _base import Base
+from _base import *
 
-class Market(Base):
+class Market(Default, HasSide, HasVolume, Cancellable):
     """ Market order of given *side* and *volume*
     """
 
     def __init__(self, side, volume, owner = None, volumeFilled = 0):
         """ Initializes order with volume to trade
         """
-        Base.__init__(self, side, volume, owner, volumeFilled)
+        HasSide.__init__(self, side)
+        HasVolume.__init__(self, volume, volumeFilled)
+        Cancellable.__init__(self)
+        Default.__init__(self, owner)
+        
+    def copyTo(self, dst):
+        HasSide.copyTo(self, dst)
+        HasVolume.copyTo(self, dst)
+        Cancellable.copyTo(self, dst)
+        
+    def __str__(self):
+        return "%s_%s%s" % (type(self).__name__, HasSide.__str__(self), HasVolume.__str__(self))
         
     def clone(self):
         return Market(self.side, self.volumeUnmatched, self.owner, self.volumeFilled)

@@ -66,7 +66,7 @@ class HasSide(object):
 		dst._side = self._side
 		
 	def __str__(self):
-		return str(side)
+		return str(self._side)
 	
 class Cancellable(object):
 	
