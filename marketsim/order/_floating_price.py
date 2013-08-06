@@ -3,16 +3,18 @@ from marketsim.types import *
 
 from _limit import Limit
 
-from _meta import *
+import _meta
+import _base
 
-class FloatingPrice(Base): 
+class FloatingPrice(_meta.Base, _base.HasPrice): 
     """ Meta order controlling price of the underlying order
         When price changes it cancels underlying order and resends it with changed price
         For the moment we work only on limit orders but this mecanism might be extented to any persistent order
     """
     
     def __init__(self, side, price, volume, owner = None):
-        Base.__init__(self, side, volume, owner)
+        _meta.Base.__init__(self, side, volume, owner)
+        self.price = None
         self._order = None
         self._priceGenerator = price
         event.subscribe(self._priceGenerator, _(self)._update, self)
