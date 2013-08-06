@@ -1,5 +1,5 @@
 from _limit import LimitFactory
-import _meta
+from _meta import OwnsSingleOrder
 from marketsim import request, meta, types, registry, bind, event, _, combine
 
 class Volume(object):
@@ -35,7 +35,7 @@ def unpack(args):
     """
     return PriceVolume(*args) if len(args) == 2 else Volume(*args)
 
-class Iceberg(_meta.Base):
+class Iceberg(OwnsSingleOrder):
     """ Virtual order that implements iceberg strategy:
     First it sends an order for a small potion of its volume to a book and
     once it is filled resends a new order 
@@ -49,46 +49,31 @@ class Iceberg(_meta.Base):
         """
         self._args = unpack(args)
         # we pretend that we are an order initially having given volume
-        _meta.Base.__init__(self, None, self._args._volume)
+        OwnsSingleOrder.__init__(self, None, self._args._volume, None)
         self._lotSize = lotSize
         self._orderFactory = orderFactory
-        self._current = None
         self._subscription = None
         self._side = None
         
     def onOrderMatched(self, order, price, volume):
-        self.onMatchedWith(price, volume)
-        if self._current.empty:
+        OwnsSingleOrder.onOrderMatched(self, order, price, volume)
+        if order.empty:
             self._tryToResend()
-
-    def onOrderDisposed(self, order):
-        if self._cancelled:
-            self.owner.onOrderDisposed(self)
-
-    def cancel(self):
-        """ If we are asked to be cancelled, we mark ourselves as cancelled 
-        and the make the real order also cancelled 
-        """
-        self._cancelled = True
-        if self._current is not None:
-            self.orderBook.process(request.Cancel(self._current))
-        else:
-            self.onOrderDisposed(None)
 
     def _tryToResend(self):
         """ Tries to send a real order to the order bookCaC
         """
         # if we have something to trade
-        if self._volumeUnmatched > 0: 
+        if self.volumeUnmatched > 0: 
             # define volume to trade
-            v = min(self._lotSize, self._volumeUnmatched)
+            v = min(self._lotSize, self.volumeUnmatched)
             self._args._volume = v
             # create a real order
-            self._current = self.send(self._orderFactory(*self._args.packed))
-            self._side = self._current.side
+            self.send(self._orderFactory(*self._args.packed))
+            self._side = self.order.side
         else:
             # now we have nothing to trade
-            self._current = None
+            self.order = None
 
     def processIn(self, book):
         """ Called when an order book tries to determine 

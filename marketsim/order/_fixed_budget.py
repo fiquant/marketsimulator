@@ -13,7 +13,7 @@ class FixedBudget(Base):
 
     def onOrderMatched(self, order, price, volume):
         self.budget -= price*volume
-        self.onMatchedWith(price, volume)
+        Base.onOrderMatched(self, order, price, volume)
         
     def onOrderDisposed(self, order):
         self._ordersSent -= 1

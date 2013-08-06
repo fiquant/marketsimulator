@@ -3,9 +3,9 @@ from marketsim import request, combine, meta, types, _, registry, ops
 import _limit
 
 from _limit import Limit, LimitFactory
-import _meta
+from _meta import OwnsSingleOrder
 
-class WithExpiry(_meta.Base):
+class WithExpiry(OwnsSingleOrder):
     """ Limit-like order which is cancelled after given *delay*
     """
     
@@ -13,28 +13,20 @@ class WithExpiry(_meta.Base):
         """ Initializes order with 'price' and 'volume'
         'limitOrderFactory' tells how to create limit orders
         """
-        _meta.Base.__init__(self, order.side, order.volumeUnmatched, None, order.volumeFilled)
+        OwnsSingleOrder.__init__(self, order.side, order.volumeUnmatched, None, order.volumeFilled)
         self._delay = delay
+        self._order_ = order
         # we create a limit order
-        self._order = order
-        order.owner = self
         self._scheduler = sched
         
     def onOrderDisposed(self, order):
         self.owner.onOrderDisposed(self)
     
     def processIn(self, orderBook):
-        orderBook.process(self._order)
+        self.orderBook = orderBook
+        self.send(self._order_)
         self._scheduler.scheduleAfter(self._delay, 
-                                      _(orderBook, request.Cancel(self._order)).process)
-        
-    @property 
-    def volumeUnmatched(self):
-        return self._order.volumeUnmatched
-    
-    @property
-    def volumeFilled(self):
-        return self._order.volumeFilled 
+                                      _(orderBook, request.Cancel(self.order)).process)
 
 class Factory(types.IOrderGenerator):
     
