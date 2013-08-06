@@ -1,6 +1,116 @@
 from marketsim import Event, types
 
-class Base(types.IOrder):
+class HasVolume(object):
+
+	def __init__(self, volume, volumeFilled = 0):
+		self._volumeUnmatched = volume
+		self._volumeFilled = 0
+				
+	def copyTo(self, dst):
+		dst._volumeUnmatched = self._volumeUnmatched
+		dst._volumeFilled = self._volumeFilled
+		
+	def __str__(self):
+		return "[%d/%d]" % (self._volumeUnmatched, self.volumeTotal)
+
+	def __repr__(self):
+		return self.__str__()
+
+	@property
+	def volumeTotal(self):
+		return self.volumeFilled + self.volumeUnmatched
+	
+	@property
+	def volumeFilled(self):
+		return self._volumeFilled
+
+	@property
+	def volumeUnmatched(self):
+		""" Volume to trade
+		"""
+		return self._volumeUnmatched
+
+	@property
+	def signedVolumeUnmatched(self):
+		return self.side.makeVolumeSigned(self._volumeUnmatched)
+		
+	@property
+	def empty(self):
+		""" Volume is empty iff its volume is 0
+		"""
+		return self.volumeUnmatched == 0
+
+	def onMatchedWith(self, price, volume):
+		""" Called when the order is matched with another order
+		price - price at which the match was done
+		volume - volume of the match.
+		In this method we correct order volume and P&L 
+		and notify order listener about the match
+		"""
+		self._volumeUnmatched -= volume
+		self._volumeFilled += volume
+		self.owner.onOrderMatched(self, price, volume)
+		if self.empty:
+			self.cancel()
+			
+class HasSide(object):
+	
+	def __init__(self, side):
+		self._side = side
+		
+	@property
+	def side(self):
+		return self._side
+	
+	def copyTo(self, dst):
+		dst._side = self._side
+		
+	def __str__(self):
+		return str(side)
+	
+class Cancellable(object):
+	
+	def __init__(self):
+		self._cancelled = False
+
+	@property
+	def cancelled(self):
+		""" Is order cancelled
+		"""
+		return self._cancelled
+	
+
+	def cancel(self):
+		""" Marks order as cancelled. 
+		"""
+		if not self._cancelled:
+			self._cancelled = True
+			self.owner.onOrderDisposed(self)
+			
+	def copyTo(self, dst):
+		dst._cancelled = self._cancelled
+
+class Default(types.IOrder):
+
+    def __init__(self, owner = None):
+        self._owner = owner
+        
+    @property
+    def owner(self):
+        return self._owner
+    
+    @owner.setter
+    def owner(self, value):
+        self._owner = value
+            
+    def charge(self, price): 
+        self.owner.onOrderCharged(price)
+
+    def __hash__(self):
+        return id(self)
+
+
+class Base(Default, HasSide, HasVolume, Cancellable):
     """ Base class for market and limit orders.
     Responsible for:
     - tracking order's volume
@@ -12,91 +122,18 @@ class Base(types.IOrder):
     def __init__(self, side, volume, owner = None, volumeFilled = 0):
         """ Initializes order by volume to trade
         """
-        self._volumeUnmatched = volume
-        self._volumeFilled = 0
-        self._side = side
-        self._cancelled = False
-        self._owner = owner
-        
-    @property
-    def owner(self):
-        return self._owner
-    
-    @owner.setter
-    def owner(self, value):
-        self._owner = value
-        
-    @property
-    def side(self):
-        return self._side
+        HasSide.__init__(self, side)
+        HasVolume.__init__(self, volume, volumeFilled)
+        Cancellable.__init__(self)
+        Default.__init__(self, owner)
         
     def copyTo(self, dst):
-        dst._volumeUnmatched = self._volumeUnmatched
-        dst._volumeFilled = self._volumeFilled
-        dst._side = self._side
-        dst._cancelled = self._cancelled
+    	HasSide.copyTo(self, dst)
+    	HasVolume.copyTo(self, dst)
+        Cancellable.copyTo(self, dst)
         
     def __str__(self):
-        return "%s_%s[%d/%d]" % (type(self).__name__, self._side, self._volumeUnmatched, self.volumeTotal)
+        return "%s_%s[%s]" % (type(self).__name__, HasSide.__str__(self), HasVolume.__str__(self))
 
     def __repr__(self):
         return self.__str__()
-
-    @property
-    def volumeTotal(self):
-        return self.volumeFilled + self.volumeUnmatched
-    
-    @property
-    def volumeFilled(self):
-        return self._volumeFilled
-
-    @property
-    def volumeUnmatched(self):
-        """ Volume to trade
-        """
-        return self._volumeUnmatched
-
-    @property
-    def signedVolumeUnmatched(self):
-        return self._side.makeVolumeSigned(self._volume)
-    
-    @property
-    def empty(self):
-        """ Volume is empty iff its volume is 0
-        """
-        return self.volumeUnmatched == 0
-
-    @property
-    def cancelled(self):
-        """ Is order cancelled
-        """
-        return self._cancelled
-    
-
-    def cancel(self):
-        """ Marks order as cancelled. Notifies the order book about it
-        """
-        if not self._cancelled:
-            self._cancelled = True
-            self.owner.onOrderDisposed(self)
-
-    #--------------------------------- these methods are to be called by order book
-            
-    def charge(self, price): 
-        self.owner.onOrderCharged(price)
-
-    def onMatchedWith(self, price, volume):
-        """ Called when the order is matched with another order
-        price - price at which the match was done
-        volume - volume of the match.
-        In this method we correct order volume and P&L 
-        and notify order listener about the match
-        """
-        self._volumeUnmatched -= volume
-        self._volumeFilled += volume
-        self.owner.onOrderMatched(self, price, volume)
-        if self.empty:
-            self.cancel()
-
-    def __hash__(self):
-        return id(self)

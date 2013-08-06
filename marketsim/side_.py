@@ -15,7 +15,7 @@ class Tag(object):
         return not self.__eq__(other)
     
     def __repr__(self):
-        return self.__class__.__name__
+        return self._alias[0]
 
 class _SellSide(Tag):
     """ Tag class representing the sell side 
