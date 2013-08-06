@@ -72,7 +72,7 @@ class TraderHistory_Impl(Base):
         self.pending[order].append(State(self.time, price, volume))
 
         previous = self.amount
-        self.amount += order.signedVolume
+        self.amount += order.signedVolumeUnmatched
         # check if the position passed 0
         if previous*self.amount <= 0:
             self.position_pnl = self.amount*price

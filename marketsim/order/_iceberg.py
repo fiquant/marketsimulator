@@ -41,16 +41,16 @@ class Iceberg(_meta.Base):
     once it is filled resends a new order 
     """
 
-    def __init__(self, volumeLimit, orderFactory, *args):
+    def __init__(self, lotSize, orderFactory, *args):
         """ Initializes iceberg order
-        volumeLimit -- maximal volume for order that can be sent
+        lotSize -- maximal volume for order that can be sent
         orderFactory -- factory to create real orders: *args -> Order
         *args -- parameters to be passed to real orders
         """
         self._args = unpack(args)
         # we pretend that we are an order initially having given volume
         _meta.Base.__init__(self, None, self._args._volume)
-        self._volumeLimit = volumeLimit
+        self._lotSize = lotSize
         self._orderFactory = orderFactory
         self._current = None
         self._subscription = None
@@ -85,21 +85,21 @@ class Iceberg(_meta.Base):
             self.onOrderDisposed(None)
 
     @property
-    def volume(self):
+    def volumeUnmatched(self):
         """ Returns volume left to trade. 
         """
-        return self._volume + (self._current.volume if self._current else 0)
+        return self._volumeUnmatched + (self._current.volumeUnmatched if self._current else 0)
 
     def _tryToResend(self):
         """ Tries to send a real order to the order bookCaC
         """
         # if we have something to trade
-        if self._volume > 0: 
+        if self._volumeUnmatched > 0: 
             # define volume to trade
-            v = min(self._volumeLimit, self._volume)
+            v = min(self._lotSize, self._volumeUnmatched)
             self._args._volume = v
             # diminish our volume to trade
-            self._volume -= v
+            self._volumeUnmatched -= v
             # create a real order
             self._current = self._orderFactory(*self._args.packed)
             self._current.owner = self
@@ -131,12 +131,12 @@ class FactoryLimit(types.IPersistentOrderGenerator, combine.SidePriceVolumeLotSi
         return None
 
 
-def iceberg(volumeLimit, orderFactory):
+def iceberg(lotSize, orderFactory):
     """ Returns a function to create iceberg orders with 
-    given volumeLimit and orderFactory to create real orders
+    given lotSize and orderFactory to create real orders
     """
     def inner(*args):
-        return Iceberg(volumeLimit, orderFactory, *args)
+        return Iceberg(lotSize, orderFactory, *args)
     return inner
 
 LimitOrderFactorySignature = meta.function((types.Side,), meta.function((types.Price, types.Volume), types.IOrder))
@@ -148,14 +148,14 @@ class IcebergFactory(object):
     once it is filled resends a new order 
     """
     
-    def __init__(self, volumeLimit = 10, orderFactory = LimitFactory):
-        self.volumeLimit = volumeLimit
+    def __init__(self, lotSize = 10, orderFactory = LimitFactory):
+        self.lotSize = lotSize
         self.orderFactory = orderFactory
         
     _types = [LimitOrderFactorySignature]
         
-    _properties = {'volumeLimit'  : int,
+    _properties = {'lotSize'  : int,
                    'orderFactory' : LimitOrderFactorySignature}
     
     def __call__(self, side):
-        return bind.Construct(Iceberg, self.volumeLimit, self.orderFactory(side))
+        return bind.Construct(Iceberg, self.lotSize, self.orderFactory(side))

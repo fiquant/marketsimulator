@@ -9,10 +9,11 @@ class Base(types.IOrder):
     TBD: split into Cancelable, HavingVolume base classes
     """
 
-    def __init__(self, side, volume, owner = None):
+    def __init__(self, side, volume, owner = None, volumeFilled = 0):
         """ Initializes order by volume to trade
         """
-        self._volume = volume
+        self._volumeUnmatched = volume
+        self._volumeFilled = 0
         self._side = side
         self._cancelled = False
         self._owner = owner
@@ -23,7 +24,6 @@ class Base(types.IOrder):
     
     @owner.setter
     def owner(self, value):
-        assert self._owner is None or self._owner == value
         self._owner = value
         
     @property
@@ -31,31 +31,40 @@ class Base(types.IOrder):
         return self._side
         
     def copyTo(self, dst):
-        dst._volume = self._volume
+        dst._volumeUnmatched = self._volumeUnmatched
+        dst._volumeFilled = self._volumeFilled
         dst._side = self._side
         dst._cancelled = self._cancelled
-
+        
     def __str__(self):
-        return type(self).__name__ + "("+str(self._side)+", " + str(self.volume) +")"
+        return "%s_%s[%d/%d]" % (type(self).__name__, self._side, self._volumeUnmatched, self.volumeTotal)
 
     def __repr__(self):
         return self.__str__()
 
     @property
-    def volume(self):
-        """ Volume to trade
-        """
-        return self._volume
+    def volumeTotal(self):
+        return self.volumeFilled + self.volumeUnmatched
+    
+    @property
+    def volumeFilled(self):
+        return self._volumeFilled
 
     @property
-    def signedVolume(self):
+    def volumeUnmatched(self):
+        """ Volume to trade
+        """
+        return self._volumeUnmatched
+
+    @property
+    def signedVolumeUnmatched(self):
         return self._side.makeVolumeSigned(self._volume)
     
     @property
     def empty(self):
         """ Volume is empty iff its volume is 0
         """
-        return self.volume == 0
+        return self.volumeUnmatched == 0
 
     @property
     def cancelled(self):
@@ -83,7 +92,8 @@ class Base(types.IOrder):
         In this method we correct order volume and P&L 
         and notify order listener about the match
         """
-        self._volume -= volume
+        self._volumeUnmatched -= volume
+        self._volumeFilled += volume
         self.owner.onOrderMatched(self, price, volume)
         if self.empty:
             self.cancel()

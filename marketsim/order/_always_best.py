@@ -38,10 +38,11 @@ class AlwaysBest(_meta.Base):
     with a price one tick better than the best price in the book.
     """
     
-    def __init__(self, side, volume):
+    def __init__(self, side, volume, owner = None):
         
-        _meta.Base.__init__(self, side, volume)
+        _meta.Base.__init__(self, side, volume, owner)
         self._current = None
+        
         
     def _onBestOrderChanged(self, queue):
         if not queue.empty and queue.best != self._current:
@@ -53,7 +54,7 @@ class AlwaysBest(_meta.Base):
                 price = queue.best.price
                 tick = queue.book.tickSize
                 price += tick if self.side == Side.Buy else -tick
-                self._current = Limit(self.side, price, self.volume)
+                self._current = Limit(self.side, price, self.volumeUnmatched)
                 self._current.owner = self
                 queue.book.process(self._current)
                 #print self.side, price

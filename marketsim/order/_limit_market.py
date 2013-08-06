@@ -11,11 +11,11 @@ class LimitMarket(_meta.Base):
     only if there are orders with suitable price in the queue
     """
     
-    def __init__(self, side, price, volume):
+    def __init__(self, side, price, volume, owner = None):
         """ Initializes order with 'price' and 'volume'
         'limitOrderFactory' tells how to create limit orders
         """
-        _meta.Base.__init__(self, side, volume)
+        _meta.Base.__init__(self, side, volume, owner)
         # we create a limit order
         self._order = LimitFactory(side)(price, volume)
         self._order.owner = self
@@ -28,8 +28,8 @@ class LimitMarket(_meta.Base):
         orderBook.process(request.Cancel(self._order))
         
     @property 
-    def volume(self):
-        return self._order.volume 
+    def volumeUnmatched(self):
+        return self._order.volumeUnmatched 
     
     @staticmethod
     def Buy(price, volume): return LimitMarket(Limit.Buy, price, volume)

@@ -68,7 +68,7 @@ class _Arbitrage_Impl(MultiAssetStrategy):
                 # is there some sense to trade                    
                 if not side.better(oppositePrice, myPrice):
                     
-                    volumeToTrade = min(bestOrder.volume, oppositeQueue.best.volume)
+                    volumeToTrade = min(bestOrder.volumeUnmatched, oppositeQueue.best.volumeUnmatched)
 
                     # make two complimentary trades
                     # for these trades we create limit orders 

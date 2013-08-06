@@ -6,23 +6,23 @@ class Limit(Base):
     """ Limit order of the given *side*, *price* and *volume*
     """
 
-    def __init__(self, side, price, volume):
+    def __init__(self, side, price, volume, owner = None, volumeFilled = 0):
         """ Initializes order with price and volume
         price is a limit price on which order can be traded
         if there are no suitable orders, the limit order remains in the order book
         """
-        Base.__init__(self, side, volume)
+        Base.__init__(self, side, volume, owner, volumeFilled)
         self._price = price
         
     def clone(self):
-        return Limit(self.side, self.price, self.volume)
+        return Limit(self.side, self.price, self.volumeUnmatched, self.owner, self.volumeFilled)
         
     def copyTo(self, dst):
         Base.copyTo(self, dst)
         dst._price = self._price
 
     def __str__(self):
-        return type(self).__name__ + "("+str(self.side)+", Price=" + str(self.price) + ", volume=" + str(self.volume) + ")"
+        return Base.__str() + '@' + str(self._price)
 
     def processIn(self, orderBook):
         """ Order book calls this method to ask the order 
@@ -63,7 +63,7 @@ class Limit(Base):
         returns (price, volume) of the trade done
         """
         # volume to trade
-        v = min(self.volume, other.volume)
+        v = min(self.volumeUnmatched, other.volumeUnmatched)
         # price to trade is my price
         # it means that incoming limit order is considered as a market order
         # and its price is not taken for the trade

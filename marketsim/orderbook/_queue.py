@@ -70,7 +70,7 @@ class Queue(object):
         """Notifies order queue listeners if the best order has changed
         """
         best = self.best
-        bestpv = None if best is None else (best.price, best.volume)
+        bestpv = None if best is None else (best.price, best.volumeUnmatched)
             
         if bestpv != self._lastBest:
             self._lastBest = bestpv
@@ -191,11 +191,11 @@ class Queue(object):
         for x in self.sorted:
             if not x.cancelled and not x.empty:
                 if x.price == lastPV[0]:
-                    lastPV = (x.price, lastPV[1] + x.volume)
+                    lastPV = (x.price, lastPV[1] + x.volumeUnmatched)
                 else: 
                     if lastPV[0] is not None:
                         yield lastPV
-                    lastPV = (x.price, x.volume)
+                    lastPV = (x.price, x.volumeUnmatched)
         if lastPV[0] is not None:
             yield lastPV
             
@@ -208,7 +208,7 @@ class Queue(object):
         price = 0
         for x in self.sorted:
             if volume > 0:
-                v = min(volume, x.volume)
+                v = min(volume, x.volumeUnmatched)
                 price += x.price * v
                 volume -= v
             else:
@@ -220,7 +220,7 @@ class Queue(object):
         i = 0
         lastPrice = None
         for x in self.sorted:
-            v = x.volume
+            v = x.volumeUnmatched
             lastPrice = x.price
             while i < len(deltas) and v > 0:
                 if v > deltas[i]:
@@ -254,7 +254,7 @@ class Queue(object):
     def volumeWithPriceBetterThan(self, limit):
         """ Returns total volume of orders having price better than or equal to 'limit'
         """
-        return sum([x.volume for x in self.withPricesBetterThan(limit)])
+        return sum([x.volumeUnmatched for x in self.withPricesBetterThan(limit)])
     
     def pvsForFixedBudget(self, budget):
         """ Returns (price, volume) for limit orders to be placed 

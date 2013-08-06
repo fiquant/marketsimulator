@@ -13,7 +13,7 @@ class WithExpiry(_meta.Base):
         """ Initializes order with 'price' and 'volume'
         'limitOrderFactory' tells how to create limit orders
         """
-        _meta.Base.__init__(self, order.side, order.volume)
+        _meta.Base.__init__(self, order.side, order.volumeUnmatched, None, order.volumeFilled)
         self._delay = delay
         # we create a limit order
         self._order = order
@@ -29,8 +29,12 @@ class WithExpiry(_meta.Base):
                                       _(orderBook, request.Cancel(self._order)).process)
         
     @property 
-    def volume(self):
-        return self._order.volume 
+    def volumeUnmatched(self):
+        return self._order.volumeUnmatched
+    
+    @property
+    def volumeFilled(self):
+        return self._order.volumeFilled 
 
 class Factory(types.IOrderGenerator):
     

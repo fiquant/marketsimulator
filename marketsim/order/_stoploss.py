@@ -16,13 +16,12 @@ class StopLoss(_meta.Base):
         self._maxLoss = maxLoss
         self._current = None
         self._orderPrice = None
-        self._totalVolume = volume
         self._stopLossOrder = None
         self._price = None
         
     def processIn(self, book):
         self._book = book
-        self._current = self._orderFactory(self._side)(self._volume)
+        self._current = self._orderFactory(self._side)(self._volumeUnmatched)
         self._current.owner = self
         self._price = observable.MidPrice(self._book)   
         self._book.processMarketOrder(self._current)
@@ -30,11 +29,17 @@ class StopLoss(_meta.Base):
     def onOrderMatched(self, order, price, volume):
         if order is not self._stopLossOrder:
             self._orderPrice = price
+            self._volumeFilled = order.volumeFilled
+            self._volumeUnmatched = order.volumeUnmatched
             handler = event.GreaterThan((1+self._maxLoss) * self._orderPrice, _(self)._onPriceChanged)\
                         if self._side == Side.Sell else\
                       event.LessThan((1-self._maxLoss) * self._orderPrice, _(self)._onPriceChanged)
                         
             self._stopSubscription = event.subscribe(self._price, handler, self, {})
+        else:
+            self._volumeFilled -= volume
+            self._volumeUnmatched += volume
+            
         self.owner.onOrderMatched(self, price, volume)
         
     def cancel(self):
@@ -47,7 +52,7 @@ class StopLoss(_meta.Base):
         
         # the order now changes sides
         self._side = self._side.opposite
-        self._stopLossOrder = MarketFactory(self._side)(self._totalVolume)
+        self._stopLossOrder = MarketFactory(self._side)(self._volumeFilled)
         self._stopLossOrder.owner = self
         self._book.processMarketOrder(self._stopLossOrder)
                 

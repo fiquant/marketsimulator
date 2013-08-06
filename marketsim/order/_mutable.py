@@ -44,7 +44,7 @@ class Base(types.IOrder):
         
     def __str__(self):
         if self._order is not None:
-            return type(self).__name__ + "("+str(self.side)+", volume=" + str(self.volume)  + ")"
+            return "%s_%s[%d/%d]" % (type(self).__name__, self._side, self._volumeUnmatched, self.volumeTotal)
         else:
             return "MutableOrder"
 
@@ -64,16 +64,24 @@ class Base(types.IOrder):
         """ Limit price of the order
         """
         return self._order.price
+    
+    @property
+    def volumeTotal(self):
+        return self.volumeFilled + self.volumeUnmatched
 
     @property
-    def volume(self):
+    def volumeFilled(self):
+        return self._order.volumeFilled
+
+    @property
+    def volumeUnmatched(self):
         """ Volume to trade
         """
-        return self._order.volume
+        return self._order.volumeUnmatched
 
     @property
-    def signedVolume(self):
-        return self._order.signedVolume
+    def signedVolumeUnmatched(self):
+        return self._order.signedVolumeUnmatched
     
     @property
     def empty(self):
