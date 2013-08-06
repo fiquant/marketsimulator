@@ -57,18 +57,9 @@ class Iceberg(_meta.Base):
         self._side = None
         
     def onOrderMatched(self, order, price, volume):
-        _meta.Base.onOrderMatched(self, order, price, volume)
+        self.onMatchedWith(price, volume)
         if self._current.empty:
             self._tryToResend()
-        
-    @property
-    def side(self):
-        return self._side
-
-    @property
-    def price(self):  # NB! defined only for limit orders
-        assert self._args.hasPrice
-        return self._args._price
 
     def onOrderDisposed(self, order):
         if self._cancelled:
@@ -84,12 +75,6 @@ class Iceberg(_meta.Base):
         else:
             self.onOrderDisposed(None)
 
-    @property
-    def volumeUnmatched(self):
-        """ Returns volume left to trade. 
-        """
-        return self._volumeUnmatched + (self._current.volumeUnmatched if self._current else 0)
-
     def _tryToResend(self):
         """ Tries to send a real order to the order bookCaC
         """
@@ -98,8 +83,6 @@ class Iceberg(_meta.Base):
             # define volume to trade
             v = min(self._lotSize, self._volumeUnmatched)
             self._args._volume = v
-            # diminish our volume to trade
-            self._volumeUnmatched -= v
             # create a real order
             self._current = self._orderFactory(*self._args.packed)
             self._current.owner = self
