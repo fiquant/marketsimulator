@@ -11,4 +11,23 @@ class Base(_base.Base):
     def onOrderCharged(self, price):
         self.owner.onOrderCharged(price)    
         
+class HasPriceProxied(object):
+    
+    @property
+    def signedPrice(self):
+        """ Returns "signed" price of the order:
+        positive if the order is on sell side
+        negative if the order is on buy side 
+        """
+        return self._order.signedPrice
+
+    @property
+    def price(self):
+        """ Limit price of the order
+        """
+        return self._order.price
+    
+
+    
+        
     

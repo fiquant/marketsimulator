@@ -1,17 +1,9 @@
 from marketsim import Event, types
 
-class HasVolume(object):
+class HasVolumeBase(object):
 
-	def __init__(self, volume, volumeFilled = 0):
-		self._volumeUnmatched = volume
-		self._volumeFilled = 0
-				
-	def copyTo(self, dst):
-		dst._volumeUnmatched = self._volumeUnmatched
-		dst._volumeFilled = self._volumeFilled
-		
 	def __str__(self):
-		return "[%d/%d]" % (self._volumeUnmatched, self.volumeTotal)
+		return "[%d/%d]" % (self.volumeUnmatched, self.volumeTotal)
 
 	def __repr__(self):
 		return self.__str__()
@@ -19,20 +11,10 @@ class HasVolume(object):
 	@property
 	def volumeTotal(self):
 		return self.volumeFilled + self.volumeUnmatched
-	
-	@property
-	def volumeFilled(self):
-		return self._volumeFilled
-
-	@property
-	def volumeUnmatched(self):
-		""" Volume to trade
-		"""
-		return self._volumeUnmatched
 
 	@property
 	def signedVolumeUnmatched(self):
-		return self.side.makeVolumeSigned(self._volumeUnmatched)
+		return self.side.makeVolumeSigned(self.volumeUnmatched)
 		
 	@property
 	def empty(self):
@@ -47,11 +29,41 @@ class HasVolume(object):
 		In this method we correct order volume and P&L 
 		and notify order listener about the match
 		"""
-		self._volumeUnmatched -= volume
-		self._volumeFilled += volume
 		self.owner.onOrderMatched(self, price, volume)
 		if self.empty:
 			self.cancel()
+	
+
+class HasVolume(HasVolumeBase):
+
+	def __init__(self, volume, volumeFilled = 0):
+		self._volumeUnmatched = volume
+		self._volumeFilled = 0
+				
+	def copyTo(self, dst):
+		dst._volumeUnmatched = self._volumeUnmatched
+		dst._volumeFilled = self._volumeFilled
+		
+	@property
+	def volumeFilled(self):
+		return self._volumeFilled
+
+	@property
+	def volumeUnmatched(self):
+		""" Volume to trade
+		"""
+		return self._volumeUnmatched
+
+	def onMatchedWith(self, price, volume):
+		""" Called when the order is matched with another order
+		price - price at which the match was done
+		volume - volume of the match.
+		In this method we correct order volume and P&L 
+		and notify order listener about the match
+		"""
+		self._volumeUnmatched -= volume
+		self._volumeFilled += volume
+		HasVolumeBase.onMatchedWith(self, price, volume)
 			
 class HasPrice(object):
 	
