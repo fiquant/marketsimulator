@@ -96,6 +96,18 @@ class Side_Factory(IFunction[IOrderGenerator, Side]):
     def __call__(self, side):
         return Factory(side, self.price, self.volume)
 
+class PriceVolume_Factory(IFunction[IOrderGenerator, PriceVolume]):
+    
+    def __init__(self, side = ops.constant(Side.Sell)):
+        self.side = side
+        
+    _properties = { 
+        'side'   : types.IFunction[Side]
+     }
+    
+    def __call__(self, price, volume):
+        return Factory(self.side, price, volume)
+
     
 class LimitOrderFactory(types.IFunction[types.IOrder, types.SidePriceVolume]):
     

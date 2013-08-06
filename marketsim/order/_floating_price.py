@@ -1,7 +1,7 @@
-from marketsim import request, _, event, Event, types
+from marketsim import request, _, event, Event, types, ops
 from marketsim.types import *
 
-from _limit import Limit
+from _limit import Limit, PriceVolume_Factory
 
 import _meta
 import _base
@@ -12,22 +12,21 @@ class FloatingPrice(_meta.OwnsSingleOrder, _base.HasPrice):
         For the moment we work only on limit orders but this mecanism might be extented to any persistent order
     """
     
-    def __init__(self, side, price, volume, owner = None):
-        _meta.OwnsSingleOrder.__init__(self, side, volume, owner)
+    def __init__(self, pricevolume_factory, price, volume, owner = None):
+        _meta.OwnsSingleOrder.__init__(self, pricevolume_factory.side(), volume, owner)
         self.price = None
-        self._priceGenerator = price
-        event.subscribe(self._priceGenerator, _(self)._update, self)
+        self._orderGenerator = pricevolume_factory(price, _(self)._volumeToTrade)
+        event.subscribe(price, _(self)._update, self)
         
-    _internals = ['_priceGenerator']
-
+    def _volumeToTrade(self):
+        return self.volumeUnmatched
+ 
     def processIn(self, orderBook):
         self.orderBook = orderBook 
         self._update(None)
         
     def _create(self):
-        self.price = self._priceGenerator()
-        if self.price is not None:
-            self.send(Limit(self.side, self.price, self.volumeUnmatched))
+        self.send(self._orderGenerator())
         
     def _update(self, dummy):
         self._dispose() 

@@ -73,6 +73,9 @@ class SidePriceVolumeLotSize(object):
 class SideVolume(object):
     pass
 
+class PriceVolume(object):
+    pass
+
 class SideVolumeMaxLoss(object):
     pass
 
