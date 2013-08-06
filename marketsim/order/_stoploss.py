@@ -29,18 +29,14 @@ class StopLoss(_meta.Base):
     def onOrderMatched(self, order, price, volume):
         if order is not self._stopLossOrder:
             self._orderPrice = price
-            self._volumeFilled = order.volumeFilled
-            self._volumeUnmatched = order.volumeUnmatched
+            self.onMatchedWith(price, volume)
             handler = event.GreaterThan((1+self._maxLoss) * self._orderPrice, _(self)._onPriceChanged)\
                         if self._side == Side.Sell else\
                       event.LessThan((1-self._maxLoss) * self._orderPrice, _(self)._onPriceChanged)
                         
             self._stopSubscription = event.subscribe(self._price, handler, self, {})
         else:
-            self._volumeFilled -= volume
-            self._volumeUnmatched += volume
-            
-        self.owner.onOrderMatched(self, price, volume)
+            self.onMatchedWith(price, -volume)
         
     def cancel(self):
         self._cancelled = True
@@ -50,9 +46,7 @@ class StopLoss(_meta.Base):
         # the stoploss is activated
         self._stopSubscription.dispose()
         
-        # the order now changes sides
-        self._side = self._side.opposite
-        self._stopLossOrder = MarketFactory(self._side)(self._volumeFilled)
+        self._stopLossOrder = MarketFactory(self._side.opposite)(self._volumeFilled)
         self._stopLossOrder.owner = self
         self._book.processMarketOrder(self._stopLossOrder)
                 
