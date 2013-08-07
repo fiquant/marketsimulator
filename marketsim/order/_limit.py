@@ -29,6 +29,13 @@ class Limit(Default, HasSide, HasPrice, HasVolume, Cancellable):
                                HasVolume.__str__(self), 
                                HasPrice.__str__(self))
         
+    def With(self, side = None, price = None, volume = None):
+        def opt(a,b):
+            return a if b is None else b
+        return Limit(opt(self.side, side),
+                     opt(self.price, price),
+                     opt(self.volumeUnmatched, volume))
+        
     def clone(self):
         return Limit(self.side, self.price, self.volumeUnmatched, self.owner, self.volumeFilled)
         

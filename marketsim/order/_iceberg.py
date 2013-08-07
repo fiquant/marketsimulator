@@ -1,4 +1,4 @@
-from _limit import Factory, Volume_Factory
+import _limit 
 from _base import HasPrice
 from _meta import OwnsSingleOrder
 from marketsim import ops, request, meta, types, registry, bind, event, _, combine
@@ -9,31 +9,28 @@ class Iceberg(OwnsSingleOrder, HasPrice):
     once it is filled resends a new order 
     """
 
-    def __init__(self, lotSize, factory, volume):
+    def __init__(self, lotSize, protoorder):
         """ Initializes iceberg order
         lotSize -- maximal volume for order that can be sent
         orderFactory -- factory to create real orders: *args -> Order
         *args -- parameters to be passed to real orders
         """
-        HasPrice.__init__(self, factory.price())
+        HasPrice.__init__(self, protoorder.price)
         # we pretend that we are an order initially having given volume
-        OwnsSingleOrder.__init__(self, factory.side(), volume, None)
+        OwnsSingleOrder.__init__(self, protoorder.side, protoorder.volumeUnmatched, None)
+        self._proto = protoorder
         self._lotSize = lotSize
         self._subscription = None
-        self._orderGenerator = factory(_(self).getVolumeToTrade)
                 
     def onOrderMatched(self, order, price, volume):
         OwnsSingleOrder.onOrderMatched(self, order, price, volume)
-        if order.empty:
+        if order.empty and not self.empty:
             self._tryToResend()
             
-    def getVolumeToTrade(self):
-        return min(self._lotSize, self.volumeUnmatched) 
-
     def _tryToResend(self):
         """ Tries to send a real order to the order book
         """
-        self.send(self._orderGenerator())
+        self.send(self._proto.With(volume = min(self._lotSize, self.volumeUnmatched)))
 
     def processIn(self, book):
         """ Called when an order book tries to determine 
@@ -42,17 +39,24 @@ class Iceberg(OwnsSingleOrder, HasPrice):
         self.orderBook = book
         self._tryToResend()
         
-class FactoryLimit(types.IPersistentOrderGenerator, combine.SidePriceVolumeLotSize):
+class Factory(types.IOrderGenerator):
     
-    def bind(self, ctx):
-        self._scheduler = ctx.world
+    def __init__(self, 
+                 lotSize = ops.constant(1), 
+                 factory = _limit.Factory()):
+        self.lotSize = lotSize
+        self.factory = factory
         
+    _properties = {
+        'lotSize' : types.IFunction[float],
+        'factory' : types.IOrderGenerator
+    }
+    
     def __call__(self):
-        params = combine.SidePriceVolumeLotSize.__call__(self)
-        if params is not None:
-            (side, price, volume, lotsize) = params
-            factory = Volume_Factory(ops.constant(side), 
-                                     ops.constant(price))            
-            order = Iceberg(lotsize, factory, volume)
-            return order
-        return None
+        lotSize = self.lotSize()
+        if lotSize is None:
+            return None
+        proto = self.factory()
+        if proto is None:
+            return None
+        return Iceberg(lotSize, proto)

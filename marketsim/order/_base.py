@@ -5,9 +5,6 @@ class HasVolumeBase(object):
 	def __str__(self):
 		return "[%d/%d]" % (self.volumeUnmatched, self.volumeTotal)
 
-	def __repr__(self):
-		return self.__str__()
-
 	@property
 	def volumeTotal(self):
 		return self.volumeFilled + self.volumeUnmatched
@@ -86,6 +83,9 @@ class HasPrice(object):
 		""" Limit price of the order
 		"""
 		return self._price
+	
+	def __str__(self):
+		return str(self._price)
 	
 	@price.setter
 	def price(self, value):
@@ -179,6 +179,3 @@ class Base(Default, HasSide, HasVolume, Cancellable):
         
     def __str__(self):
         return "%s_%s[%s]" % (type(self).__name__, HasSide.__str__(self), HasVolume.__str__(self))
-
-    def __repr__(self):
-        return self.__str__()

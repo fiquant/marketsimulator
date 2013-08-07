@@ -36,21 +36,21 @@ def Orders(ctx):
                                 side = parts.side.Signal(linear_signal), 
                                 volume = const(1))), 
                          "signalmarket"), 
- 
+  
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.StopLoss(
                                 side = parts.side.Signal(linear_signal), 
                                 volume = const(1),
                                 maxloss = const(0.1))), 
                          "signalstoploss"), 
- 
+  
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.Limit(
                                 side = parts.side.Signal(linear_signal), 
                                 price = midPrice, 
                                 volume = const(1))), 
                          "signallimit"), 
-  
+   
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.Limit(
                                 side = InterlacingSide(), 
@@ -58,7 +58,7 @@ def Orders(ctx):
                                 volume = const(1)),
                             scheduler.Timer(const(1))), 
                          "noiselimitmarket"), 
-  
+   
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.WithExpiry(
                                 const(100), 
@@ -70,11 +70,12 @@ def Orders(ctx):
                          "noiselimitexpiry"), 
   
         ctx.makeTrader_A(strategy.Generic(
-                            order.factory.IcebergLimit(
-                                side = InterlacingSide(),
-                                price = midPrice, 
-                                volume = const(10),
-                                lotsize = const(1)),
+                            order.factory.Iceberg(
+                                const(1),
+                                order.factory.Limit(
+                                    side = InterlacingSide(),
+                                    price = midPrice, 
+                                    volume = const(10))),
                             scheduler.Timer(const(10))), 
                          "noiseiceberglimit"), 
   
@@ -83,14 +84,14 @@ def Orders(ctx):
                                 side = parts.side.Signal(linear_signal), 
                                 budget = const(450))), 
                          "signalfixedbudget"), 
-           
+            
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.AlwaysBestLimit(
                                 side = InterlacingSide(),
                                 volume = const(10)),
                             scheduler.Timer(const(10))), 
                          "noise_alwaysbest"), 
-
+ 
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.WithExpiry(
                                 ops.constant(0.1),
