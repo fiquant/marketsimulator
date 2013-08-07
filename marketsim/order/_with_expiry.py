@@ -33,7 +33,7 @@ class WithExpiry(OwnsSingleOrder):
 
 class Factory(types.IOrderGenerator):
     
-    def __init__(self, expiry , inner = _limit.Factory):
+    def __init__(self, expiry , inner = _limit.Factory()):
         self.expiry = expiry
         self.inner = inner
         

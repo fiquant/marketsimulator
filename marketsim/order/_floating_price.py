@@ -25,10 +25,7 @@ class FloatingPrice(_meta.OwnsSingleOrder, _base.HasPrice):
         self.orderBook = orderBook 
         self._update(None)
         
-    def _create(self):
-        self.send(self._orderGenerator())
-        
     def _update(self, dummy):
         self._dispose() 
-        self._create()
+        self.send(self._orderGenerator())
 

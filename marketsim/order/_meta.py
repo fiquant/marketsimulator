@@ -12,6 +12,8 @@ class Base(_base.Base):
         self._book = book
         
     def send(self, order):
+        if not hasattr(self, '_book'):
+            return None
         if order is not None:
             order.owner = self
             self._book.process(order)

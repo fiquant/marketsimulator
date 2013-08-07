@@ -25,7 +25,7 @@ def AlwaysBest2(pricevolume_factory, volume):
             observable.MaxEpsilon(bidPrice, tickSize)
 
     return FloatingPrice(pricevolume_factory, price, volume)
-    
+
 class Factory(types.IPersistentOrderGenerator, combine.SideVolume):
     
     def bind(self, ctx):

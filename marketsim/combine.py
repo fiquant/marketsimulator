@@ -144,7 +144,10 @@ class SignedVolume(ops.Observable[types.SideVolume]):
 
 class SidePriceVolume(ops.Observable[types.SidePriceVolume]): 
     
-    def __init__(self, side, price, volume):
+    def __init__(self, 
+                 side = ops.constant(Side.Sell), 
+                 price = ops.constant(100), 
+                 volume = ops.constant(1)):
         ops.Observable[types.SidePriceVolume].__init__(self)
         self.side = side 
         self.price = price 
