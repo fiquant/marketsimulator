@@ -53,8 +53,8 @@ def Orders(ctx):
   
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.Limit(
-                                side = parts.side.Random(), 
-                                price = midPrice + mathutils.rnd.uniform(-5, +5), 
+                                side = InterlacingSide(), 
+                                price = midPrice, 
                                 volume = const(1)),
                             scheduler.Timer(const(1))), 
                          "noiselimitmarket"), 
@@ -63,19 +63,19 @@ def Orders(ctx):
                             order.factory.WithExpiry(
                                 const(100), 
                                 order.factory.Limit(
-                                    side = parts.side.Random(), 
-                                    price = midPrice + mathutils.rnd.uniform(-5, +5), 
+                                    side = InterlacingSide(), 
+                                    price = midPrice, 
                                     volume = const(1))),
                             scheduler.Timer(const(1))), 
                          "noiselimitexpiry"), 
   
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.IcebergLimit(
-                                side = parts.side.Random(), 
-                                price = midPrice + mathutils.rnd.uniform(-5, +5), 
-                                volume = const(100),
+                                side = InterlacingSide(),
+                                price = midPrice, 
+                                volume = const(10),
                                 lotsize = const(1)),
-                            scheduler.Timer(const(100))), 
+                            scheduler.Timer(const(10))), 
                          "noiseiceberglimit"), 
   
         ctx.makeTrader_A(strategy.Generic(
