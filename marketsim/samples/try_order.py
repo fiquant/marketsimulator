@@ -115,7 +115,7 @@ def Orders(ctx):
  
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.WithExpiry(
-                                ops.constant(0.1),
+                                ops.constant(10),
                                 order.factory.AlwaysBest(
                                     order._iceberg.Price_Factory(
                                         const(1),

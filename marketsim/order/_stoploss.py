@@ -9,8 +9,9 @@ class StopLoss(_meta.Base):
     
     def __init__(self, scheduler, maxLoss, factory, side, volume):
         
-        _meta.Base.__init__(self, side, volume)
+        _meta.Base.__init__(self, volume)
         
+        self.side = side
         self._scheduler = scheduler
         self._orderFactory = factory
         self._maxLoss = maxLoss
@@ -22,13 +23,13 @@ class StopLoss(_meta.Base):
     def processIn(self, book):
         self.orderBook = book
         self._obsPrice = observable.AskPrice(book) if self.side == Side.Buy else observable.BidPrice(book)   
-        self._current = self.send(self._orderFactory(self._side)(self._volumeUnmatched))
+        self._current = self.send(self._orderFactory(self.side)(self.volumeUnmatched))
         
     def onOrderMatched(self, order, price, volume):
         if order is not self._stopLossOrder:
             if volume > 0:
                 handler = event.GreaterThan((1+self._maxLoss) * price, _(self)._onPriceChanged)\
-                            if self._side == Side.Sell else\
+                            if self.side == Side.Sell else\
                           event.LessThan((1-self._maxLoss) * price, _(self)._onPriceChanged)
                             
                 self._stopSubscription = event.subscribe(self._obsPrice, handler, self, {})
@@ -39,7 +40,7 @@ class StopLoss(_meta.Base):
     def _onPriceChanged(self, dummy):
         # the stoploss is activated
         self._stopSubscription.dispose()
-        self._stopLossOrder = self.send(MarketFactory(self._side.opposite)(self._volumeFilled))
+        self._stopLossOrder = self.send(MarketFactory(self.side.opposite)(self.volumeFilled))
                 
 
 class Factory(IOrderGenerator, combine.SideVolumeMaxLoss): # in fact it is IPersistentOrderGenerator

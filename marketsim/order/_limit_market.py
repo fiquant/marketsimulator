@@ -15,7 +15,8 @@ class LimitMarket(_meta.Base):
         """ Initializes order with 'price' and 'volume'
         'limitOrderFactory' tells how to create limit orders
         """
-        _meta.Base.__init__(self, side, volume, owner)
+        _meta.Base.__init__(self, volume, owner)
+        self.side = side
         # we create a limit order
         self._order = LimitFactory(side)(price, volume)
         self._order.owner = self

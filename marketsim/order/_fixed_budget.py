@@ -8,7 +8,8 @@ from _meta import *
 class FixedBudget(Base):
     
     def __init__(self, side, budget):
-        Base.__init__(self, side, None)
+        Base.__init__(self, None)
+        self.side = side
         self.budget = budget
 
     def onOrderMatched(self, order, price, volume):

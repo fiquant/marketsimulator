@@ -30,15 +30,28 @@ class Base(_base.Base):
             
 class OwnsSingleOrder(Base):
     
-    def __init__(self, side, volume, owner = None, volumeFilled = 0):
-        Base.__init__(self, side, volume, owner, volumeFilled)
+    def __init__(self, proto):
+        Base.__init__(self, proto.volumeUnmatched)
         self._order = None
+        self._proto = proto
+        
+    @property
+    def side(self):
+        return self._proto.side
+    
+    @property
+    def price(self): # NB! defined only if proto order has price
+        return self._proto.price 
+        
+    @property
+    def proto(self):
+        return self._proto
     
     def __str__(self):
         if self._order is not None:
-            Base.__str__()
+            Base.__str__(self)
         else:
-            return type(self).__class__.__name__
+            return self.__class__.__name__
 
     def __repr__(self):
         return self.__str__()

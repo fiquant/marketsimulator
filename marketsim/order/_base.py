@@ -155,7 +155,7 @@ class Default(types.IOrder):
         return id(self)
 
 
-class Base(Default, HasSide, HasVolume, Cancellable):
+class Base(Default, HasVolume, Cancellable):
     """ Base class for market and limit orders.
     Responsible for:
     - tracking order's volume
@@ -164,18 +164,16 @@ class Base(Default, HasSide, HasVolume, Cancellable):
     TBD: split into Cancelable, HavingVolume base classes
     """
 
-    def __init__(self, side, volume, owner = None, volumeFilled = 0):
+    def __init__(self, volume, owner = None, volumeFilled = 0):
         """ Initializes order by volume to trade
         """
-        HasSide.__init__(self, side)
         HasVolume.__init__(self, volume, volumeFilled)
         Cancellable.__init__(self)
         Default.__init__(self, owner)
         
     def copyTo(self, dst):
-    	HasSide.copyTo(self, dst)
     	HasVolume.copyTo(self, dst)
         Cancellable.copyTo(self, dst)
         
     def __str__(self):
-        return "%s_%s[%s]" % (type(self).__name__, HasSide.__str__(self), HasVolume.__str__(self))
+        return "%s_%s[%s]" % (type(self).__name__, str(self.side), HasVolume.__str__(self))
