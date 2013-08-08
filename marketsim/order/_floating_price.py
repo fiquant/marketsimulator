@@ -1,10 +1,7 @@
-from marketsim import request, _, event, Event, types, ops
+from marketsim import context, request, _, event, Event, types, ops
 from marketsim.types import *
 
-from _limit import Limit, PriceVolume_Factory
-
-import _meta
-import _base
+import _meta, _base, _limit
 
 class FloatingPrice(_meta.OwnsSingleOrder): 
     """ Meta order controlling price of the underlying order
@@ -15,16 +12,47 @@ class FloatingPrice(_meta.OwnsSingleOrder):
     def __init__(self, proto, price):
         _meta.OwnsSingleOrder.__init__(self, proto)
         self._priceFunc = price
-        event.subscribe(price, _(self)._update, self)
+        event.subscribe(price, _(self)._update, self, {})
         
     def With(self, **kwargs):
         return FloatingPrice(self.proto.With(**kwargs), self._priceFunc)
+    
+    def cancel(self):
+        _meta.OwnsSingleOrder.cancel(self)
         
     def processIn(self, orderBook):
         self.orderBook = orderBook 
         self._update(None)
         
     def _update(self, dummy):
-        self._dispose() 
-        self.send(self.proto.With(price = self._priceFunc(), volume = self.volumeUnmatched))
+        if self.owner and not self.cancelled:
+            self._dispose() 
+            price = self._priceFunc()
+            if price is not None:
+                self.send(self.proto.With(price = price, 
+                                          volume = self.volumeUnmatched))
+            else:
+                self.send(None)
 
+class Factory(types.IPersistentOrderGenerator):
+    
+    def __init__(self, 
+                 price = ops.constant(100), 
+                 factory = _limit.Price_Factory()):
+        self.price = price 
+        self.factory = factory
+        
+    _properties = { # IPersistentOrderFactory[Price]
+        'price'   : types.IObservable[float],
+        'factory' : types.IFunction[IOrderGenerator, float] 
+    }
+    
+    def bind(self, ctx):
+        self._ctx = ctx.context.copy()
+        
+    def __call__(self):
+        proto = self.factory.create(price = self.price())
+        if proto is not None:
+            order = FloatingPrice(proto, self.price)
+            context.bind(order, self._ctx)
+        return order

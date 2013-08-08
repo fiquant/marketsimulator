@@ -12,8 +12,6 @@ class Base(_base.Base):
         self._book = book
         
     def send(self, order):
-        if not hasattr(self, '_book'):
-            return None
         if order is not None:
             order.owner = self
             self._book.process(order)
@@ -47,17 +45,14 @@ class OwnsSingleOrder(Base):
     def proto(self):
         return self._proto
     
-    def __str__(self):
-        if self._order is not None:
-            Base.__str__(self)
-        else:
-            return self.__class__.__name__
-
     def __repr__(self):
         return self.__str__()
     
     def send(self, order):
         self._order = Base.send(self, order)
+        
+    def __str__(self):
+        return Base.__str__(self) + '(' + str(self._proto) + ')'
         
     @property
     def order(self):

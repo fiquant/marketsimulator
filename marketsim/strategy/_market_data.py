@@ -1,22 +1,54 @@
 from marketsim import (observable, combine, event, _, Side, order, types, mathutils, 
                        scheduler, ops, Event, registry)
 from marketsim.types import *
-from _single_order import SingleOrder
+from _single_order import SingleOrder2
 
 from _array import Array
 import _wrap
+
+const = ops.constant
+
+class Async(ops.Observable[float]):
+    
+    def __init__(self, source):
+        ops.Observable[float].__init__(self)
+        self.source = source
+        self._value = source()
+        event.subscribe(source, _(self)._clean, self)
+        
+    _properties = {
+        'source' : types.IObservable[float]
+    }
+    
+    def bind(self, ctx):
+        self._scheduler = ctx.world
+    
+    def _clean(self, dummy):
+        self._setup(None)
+        self._scheduler.async(_(self, self.source())._setup)
+        
+    def _setup(self, x):
+        self._value = x
+        self.fire(self)
+    
+    def __call__(self):
+        return self._value
+    
+    
 
 class MarketData(types.ISingleAssetStrategy):
     
     def getImpl(self):
         quotes = observable.Quote(self.ticker, self.start, self.end) # TODO: should be in definitions
         return Array([
-                SingleOrder(
-                    order.Mutable(
-                        combine.SidePriceVolume(
-                            ops.constant(side), 
-                            ops.constant(sign*self.delta) + quotes, 
-                            ops.constant(self.volume))))\
+                SingleOrder2(
+                    order.factory.Iceberg(
+                        const(self.volume),
+                        order.factory.FloatingPrice(
+                            Async(ops.constant(sign*self.delta) + quotes),
+                            order._limit.Price_Factory(
+                                side = const(side),
+                                volume = const(self.volume * 1000000)))))\
                     for side, sign in {Side.Buy : -1, Side.Sell : 1}.iteritems()
             ])
             

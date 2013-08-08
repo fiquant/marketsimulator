@@ -25,6 +25,7 @@ def AlwaysBest2(order):
 
     return FloatingPrice(order, price)
 
+# unfortunately we cannot use _floating_price.Factory since price function depends on the order side 
 class Factory(types.IPersistentOrderGenerator):
     
     def __init__(self, factory = _limit.Price_Factory()):

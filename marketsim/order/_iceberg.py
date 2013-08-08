@@ -21,10 +21,10 @@ class Iceberg(OwnsSingleOrder):
     def With(self, **kwargs):
         return Iceberg(self._lotSize, self.proto.With(**kwargs))
                 
-    def onOrderCancelled(self, order):
+    def onOrderDisposed(self, order):
         if not self.cancelled:
             self._tryToResend()
-        OwnsSingleOrder.onOrderCancelled(self, order)
+        OwnsSingleOrder.onOrderDisposed(self, order)
             
     def _tryToResend(self):
         """ Tries to send a real order to the order book

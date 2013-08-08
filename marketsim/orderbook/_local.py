@@ -99,7 +99,7 @@ class Local(BookBase):
         If it is not matched completely, it stays at the order queue
         """
         assert order.owner is not None
-        
+
         if self._limitOrderFee:
             order.charge(self._limitOrderFee(order, self))
             
