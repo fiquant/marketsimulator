@@ -18,4 +18,4 @@ from _iceberg import Factory                as Iceberg
 
 from _fixed_budget import (Factory          as FixedBudget)
 
-from _always_best import  (Factory          as AlwaysBestLimit) 
+from _always_best import  (Factory          as AlwaysBest) 

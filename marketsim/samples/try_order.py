@@ -86,18 +86,20 @@ def Orders(ctx):
                          "signalfixedbudget"), 
             
         ctx.makeTrader_A(strategy.Generic(
-                            order.factory.AlwaysBestLimit(
-                                side = InterlacingSide(),
-                                volume = const(10)),
+                            order.factory.AlwaysBest(
+                                order._limit.Price_Factory(
+                                    side = InterlacingSide(),
+                                    volume = const(10))),
                             scheduler.Timer(const(10))), 
                          "noise_alwaysbest"), 
  
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.WithExpiry(
                                 ops.constant(0.1),
-                                order.factory.AlwaysBestLimit(
-                                    side = InterlacingSide(),
-                                    volume = const(10))),
+                                order.factory.AlwaysBest(
+                                    order._limit.Price_Factory(
+                                        side = InterlacingSide(),
+                                        volume = const(10)))),
                             scheduler.Timer(const(10))), 
                          "noise_alwaysbestexpiry"), 
     ]    

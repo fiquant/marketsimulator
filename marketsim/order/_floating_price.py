@@ -12,20 +12,18 @@ class FloatingPrice(_meta.OwnsSingleOrder, _base.HasPrice):
         For the moment we work only on limit orders but this mecanism might be extented to any persistent order
     """
     
-    def __init__(self, pricevolume_factory, price, volume, owner = None):
-        _meta.OwnsSingleOrder.__init__(self, pricevolume_factory.side(), volume, owner)
-        self.price = None
-        self._orderGenerator = pricevolume_factory(price, _(self)._volumeToTrade)
+    def __init__(self, proto, price):
+        _meta.OwnsSingleOrder.__init__(self, proto.side, proto.volumeUnmatched)
+        _base.HasPrice.__init__(self, proto.price)
+        self._proto = proto
+        self._priceFunc = price
         event.subscribe(price, _(self)._update, self)
         
-    def _volumeToTrade(self):
-        return self.volumeUnmatched
- 
     def processIn(self, orderBook):
         self.orderBook = orderBook 
         self._update(None)
         
     def _update(self, dummy):
         self._dispose() 
-        self.send(self._orderGenerator())
+        self.send(self._proto.With(price = self._priceFunc(), volume = self.volumeUnmatched))
 

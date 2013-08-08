@@ -1,12 +1,11 @@
 from marketsim import (request, context, combine, Side, registry, meta, types, bind, 
                        event, _, ops, observable, orderbook)
-from _limit import LimitFactory, Limit
-from _limit import PriceVolume_Factory
+import _limit 
 from _floating_price import FloatingPrice
 from marketsim.types import *
 import _meta
 
-def AlwaysBest2(pricevolume_factory, volume):
+def AlwaysBest2(order):
     """ AlwaysBest is a virtual order that ensures that it has the best price in the order book. 
     It is implemented as a limit order which is cancelled 
     once the best price in the order queue has changed 
@@ -14,7 +13,7 @@ def AlwaysBest2(pricevolume_factory, volume):
     with a price one tick better than the best price in the book.
     """
 
-    side = pricevolume_factory.side
+    side = order.side
     book = orderbook.OfTrader()
     tickSize = observable.TickSize(book)
     askPrice = observable.AskPrice(book)
@@ -24,18 +23,23 @@ def AlwaysBest2(pricevolume_factory, volume):
                 if side == Side.Sell else\
             observable.MaxEpsilon(bidPrice, tickSize)
 
-    return FloatingPrice(pricevolume_factory, price, volume)
+    return FloatingPrice(order, price)
 
-class Factory(types.IPersistentOrderGenerator, combine.SideVolume):
+class Factory(types.IPersistentOrderGenerator):
+    
+    def __init__(self, factory = _limit.Price_Factory()):
+        self.factory = factory
+        
+    _properties = { # IPersistentOrderFactory[Price]
+        'factory' : types.IFunction[IOrderGenerator, float] 
+    }
     
     def bind(self, ctx):
         self._ctx = ctx.context.copy()
         
     def __call__(self):
-        params = combine.SideVolume.__call__(self)
-        if params is None:
-            return None
-        pricevolume_factory = PriceVolume_Factory(ops.constant(params[0]))
-        order = AlwaysBest2(pricevolume_factory, params[1])
-        context.bind(order, self._ctx)
+        proto = self.factory.create(price = 0)
+        if proto is not None:
+            order = AlwaysBest2(proto)
+            context.bind(order, self._ctx)
         return order
