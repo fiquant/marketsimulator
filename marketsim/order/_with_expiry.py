@@ -39,7 +39,7 @@ class Factory(types.IOrderGenerator):
         
     _properties = {
         'expiry': types.IFunction[float],
-        'inner' : types.IPersistentOrderGenerator,  
+        'inner' : types.IOrderGenerator,  
     }
 
     def bind(self, ctx):

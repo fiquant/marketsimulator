@@ -29,7 +29,7 @@ def Orders(ctx):
     midPrice = observable.MidPrice(ctx.book_A)
 
     return [
-        ctx.makeTrader_A(strategy.LiquidityProvider(volumeDistr=const(5)), "liquidity"),
+        ctx.makeTrader_A(strategy.LiquidityProvider(volumeDistr=const(25)), "liquidity"),
         
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.Market(
@@ -86,6 +86,26 @@ def Orders(ctx):
                          "signalfixedbudget"), 
             
         ctx.makeTrader_A(strategy.Generic(
+                            order.factory.Iceberg(
+                                const(1),
+                                order.factory.AlwaysBest(
+                                    order._limit.Price_Factory(
+                                        side = InterlacingSide(),
+                                        volume = const(10)))),
+                            scheduler.Timer(const(10))), 
+                         "icebergalwaysbest"), 
+  
+        ctx.makeTrader_A(strategy.Generic(
+                                order.factory.AlwaysBest(
+                                    order._iceberg.Price_Factory(
+                                        const(1),
+                                        order._limit.Price_Factory(
+                                            side = InterlacingSide(),
+                                            volume = const(10)))),
+                            scheduler.Timer(const(10))), 
+                         "alwaysbesticeberg"), 
+  
+        ctx.makeTrader_A(strategy.Generic(
                             order.factory.AlwaysBest(
                                 order._limit.Price_Factory(
                                     side = InterlacingSide(),
@@ -93,6 +113,30 @@ def Orders(ctx):
                             scheduler.Timer(const(10))), 
                          "noise_alwaysbest"), 
  
+        ctx.makeTrader_A(strategy.Generic(
+                            order.factory.WithExpiry(
+                                ops.constant(0.1),
+                                order.factory.AlwaysBest(
+                                    order._iceberg.Price_Factory(
+                                        const(1),
+                                        order._limit.Price_Factory(
+                                            side = InterlacingSide(),
+                                            volume = const(10))))),
+                            scheduler.Timer(const(10))), 
+                         "alwaysbesticebergwithexpiry"), 
+  
+        ctx.makeTrader_A(strategy.Generic(
+                            order.factory.WithExpiry(
+                                ops.constant(0.1),
+                                order.factory.Iceberg(
+                                    const(1),
+                                    order.factory.AlwaysBest(
+                                        order._limit.Price_Factory(
+                                            side = InterlacingSide(),
+                                            volume = const(10))))),
+                            scheduler.Timer(const(10))), 
+                         "icebergalwaysbest"), 
+  
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.WithExpiry(
                                 ops.constant(0.1),

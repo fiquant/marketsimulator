@@ -21,11 +21,14 @@ class Iceberg(OwnsSingleOrder, HasPrice):
         self._proto = protoorder
         self._lotSize = lotSize
         self._subscription = None
+        
+    def With(self, **kwargs):
+        return Iceberg(self._lotSize, self._proto.With(**kwargs))
                 
-    def onOrderMatched(self, order, price, volume):
-        OwnsSingleOrder.onOrderMatched(self, order, price, volume)
-        if order.empty and not self.empty:
+    def onOrderCancelled(self, order):
+        if not self.cancelled:
             self._tryToResend()
+        OwnsSingleOrder.onOrderCancelled(self, order)
             
     def _tryToResend(self):
         """ Tries to send a real order to the order book
@@ -57,6 +60,30 @@ class Factory(types.IOrderGenerator):
         if lotSize is None:
             return None
         proto = self.factory()
+        if proto is None:
+            return None
+        return Iceberg(lotSize, proto)
+    
+class Price_Factory(types.IFunction[types.IOrderGenerator, float]):
+    
+    def __init__(self, 
+                 lotSize = ops.constant(1), 
+                 factory = _limit.Price_Factory()):
+        self.lotSize = lotSize
+        self.factory = factory
+        
+    _properties = {
+        'lotSize' : types.IFunction[float],
+        'factory' : types.IFunction[types.IOrderGenerator, float]
+    }
+    
+    # it should implement also __call__ but later we will fix it
+    
+    def create(self, price):
+        lotSize = self.lotSize()
+        if lotSize is None:
+            return None
+        proto = self.factory.create(price)
         if proto is None:
             return None
         return Iceberg(lotSize, proto)

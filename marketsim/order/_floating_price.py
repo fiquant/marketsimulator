@@ -19,6 +19,9 @@ class FloatingPrice(_meta.OwnsSingleOrder, _base.HasPrice):
         self._priceFunc = price
         event.subscribe(price, _(self)._update, self)
         
+    def With(self, **kwargs):
+        return FloatingPrice(self._proto.With(**kwargs), self._priceFunc)
+        
     def processIn(self, orderBook):
         self.orderBook = orderBook 
         self._update(None)
