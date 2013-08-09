@@ -3,26 +3,31 @@ from marketsim import (trader, orderbook, event, _, Side, order, types, mathutil
 
 from marketsim.types import *
 
-from _single_order import SingleOrder
+from _single_order import SingleOrder2
+from _market_data import Async
 from _array import Array
 import _wrap
+
+const = ops.constant
 
 class MarketMaker(types.ISingleAssetStrategy):
     
     def getImpl(self):
         midPrice = observable.MidPrice(orderbook.OfTrader())
         volumeTraded = observable.VolumeTraded(trader.SingleProxy())
-        
+
         return Array([
-                SingleOrder(
-                    order.Mutable(
-                        combine.SidePriceVolume(
-                            ops.constant(side),
-                            observable.OnEveryDt(
-                                0.9,
-                                midPrice - sign - volumeTraded / self.volume
-                            ),
-                            ops.constant(self.volume))))\
+                SingleOrder2(
+                    order.factory.Iceberg(
+                        const(self.volume),
+                        order.factory.FloatingPrice(
+                            Async(observable.OnEveryDt(
+                                    0.9,
+                                    midPrice - sign - volumeTraded / self.volume
+                            )),
+                            order._limit.Price_Factory(
+                                side = const(side),
+                                volume = const(self.volume * 1000000)))))\
                     for side, sign in {Side.Buy : -1, Side.Sell : 1}.iteritems()
             ])
 

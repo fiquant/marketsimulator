@@ -13,7 +13,7 @@ class Async(ops.Observable[float]):
     def __init__(self, source):
         ops.Observable[float].__init__(self)
         self.source = source
-        self._value = source()
+        self._value = None
         event.subscribe(source, _(self)._clean, self)
         
     _properties = {
