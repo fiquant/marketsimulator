@@ -74,19 +74,19 @@ class _Arbitrage_Impl(MultiAssetStrategy):
                     # for these trades we create limit orders 
                     # since price may change before orders will be processed
                     # but cancel them immediately in order to avoid storing these limit orders in the book
-                    # this logic is implemented by LimitMarketOrder
+                    # this logic is implemented by ImmediateOrCancelOrder
                     
                     def send(o):
                         self._send(myQueue.book, o)
                         
-                    send(order.LimitMarket(oppositeSide, 
-                                           myPrice, 
-                                           volumeToTrade))                               
+                    send(order.ImmediateOrCancel(oppositeSide, 
+                                                 myPrice, 
+                                                 volumeToTrade))                               
                     
                     
-                    send(order.LimitMarket(side, 
-                                           oppositePrice, 
-                                           volumeToTrade))                                    
+                    send(order.ImmediateOrCancel(side, 
+                                                 oppositePrice, 
+                                                 volumeToTrade))                                    
                     
     def _send(self, orderbook, order):
         for t in self._traders:

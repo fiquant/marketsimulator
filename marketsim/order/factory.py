@@ -8,7 +8,7 @@ from _limit import  (Factory                as Limit,
                      Side_Factory           as Side_Limit, 
                      SidePrice_Factory      as SidePrice_Limit)
 
-from _limit_market import Factory           as LimitMarket
+from _ioc import Factory                    as ImmediateOrCancel
 
 from _stoploss import Factory               as StopLoss
 
@@ -18,6 +18,6 @@ from _iceberg import Factory                as Iceberg
 
 from _fixed_budget import (Factory          as FixedBudget)
 
-from _always_best import  (Factory          as AlwaysBest) 
+from _peg import  (Factory                  as Peg) 
 
 from _floating_price import Factory         as FloatingPrice

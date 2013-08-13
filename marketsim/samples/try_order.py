@@ -88,62 +88,62 @@ def Orders(ctx):
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.Iceberg(
                                 const(1),
-                                order.factory.AlwaysBest(
+                                order.factory.Peg(
                                     order._limit.Price_Factory(
                                         side = InterlacingSide(),
                                         volume = const(10)))),
                             scheduler.Timer(const(10))), 
-                         "icebergalwaysbest"), 
+                         "icebergpeg"), 
   
         ctx.makeTrader_A(strategy.Generic(
-                                order.factory.AlwaysBest(
+                                order.factory.Peg(
                                     order._iceberg.Price_Factory(
                                         const(1),
                                         order._limit.Price_Factory(
                                             side = InterlacingSide(),
                                             volume = const(10)))),
                             scheduler.Timer(const(10))), 
-                         "alwaysbesticeberg"), 
+                         "pegiceberg"), 
   
         ctx.makeTrader_A(strategy.Generic(
-                            order.factory.AlwaysBest(
+                            order.factory.Peg(
                                 order._limit.Price_Factory(
                                     side = InterlacingSide(),
                                     volume = const(10))),
                             scheduler.Timer(const(10))), 
-                         "noise_alwaysbest"), 
+                         "noise_peg"), 
  
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.WithExpiry(
                                 ops.constant(10),
-                                order.factory.AlwaysBest(
+                                order.factory.Peg(
                                     order._iceberg.Price_Factory(
                                         const(1),
                                         order._limit.Price_Factory(
                                             side = InterlacingSide(),
                                             volume = const(10))))),
                             scheduler.Timer(const(10))), 
-                         "alwaysbesticebergwithexpiry"), 
+                         "pegicebergwithexpiry"), 
   
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.WithExpiry(
                                 ops.constant(0.1),
                                 order.factory.Iceberg(
                                     const(1),
-                                    order.factory.AlwaysBest(
+                                    order.factory.Peg(
                                         order._limit.Price_Factory(
                                             side = InterlacingSide(),
                                             volume = const(10))))),
                             scheduler.Timer(const(10))), 
-                         "icebergalwaysbest"), 
+                         "icebergpeg"), 
   
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.WithExpiry(
                                 ops.constant(0.1),
-                                order.factory.AlwaysBest(
+                                order.factory.Peg(
                                     order._limit.Price_Factory(
                                         side = InterlacingSide(),
                                         volume = const(10)))),
                             scheduler.Timer(const(10))), 
-                         "noise_alwaysbestexpiry"), 
+                         "noise_pegexpiry"), 
     ]    

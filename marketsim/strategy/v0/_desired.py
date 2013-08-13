@@ -1,5 +1,5 @@
 from marketsim import event, _, Side, types
-from marketsim.order import LimitMarket
+from marketsim.order import ImmediateOrCancel
 from marketsim.types import *
 from .._basic import Strategy
 from .._wrap import wrapper2
@@ -12,7 +12,7 @@ class _Desired_Impl(Strategy):
 
     def _wakeUp(self, dummy):
         gap = self.desiredPosition() - self._trader.actual
-        order = LimitMarket(gap)
+        order = ImmediateOrCancel(gap)
         self._trader.send(order)
 
 exec  wrapper2("Desired",

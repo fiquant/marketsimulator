@@ -5,8 +5,8 @@ from _floating_price import FloatingPrice
 from marketsim.types import *
 import _meta
 
-def AlwaysBest2(order):
-    """ AlwaysBest is a virtual order that ensures that it has the best price in the order book. 
+def Peg(order):
+    """ Peg is a virtual order that ensures that it has the best price in the order book. 
     It is implemented as a limit order which is cancelled 
     once the best price in the order queue has changed 
     and is sent again to the order book 
@@ -41,6 +41,6 @@ class Factory(types.IPersistentOrderGenerator):
     def __call__(self):
         proto = self.factory.create(price = 0)
         if proto is not None:
-            order = AlwaysBest2(proto)
+            order = Peg(proto)
             context.bind(order, self._ctx)
         return order

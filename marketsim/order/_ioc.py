@@ -4,7 +4,7 @@ from _limit import LimitFactory
 
 import _meta
 
-class LimitMarket(_meta.Base):
+class ImmediateOrCancel(_meta.Base):
     """ This a combination of a limit order and a cancel order sent immediately
     It works as a market order in sense that it is not put into the order queue 
     but can be matched (as a limit order) 
@@ -33,22 +33,22 @@ class LimitMarket(_meta.Base):
         return self._order.volumeUnmatched 
     
     @staticmethod
-    def Buy(price, volume): return LimitMarket(Limit.Buy, price, volume)
+    def Buy(price, volume): return ImmediateOrCancel(Limit.Buy, price, volume)
     
     @staticmethod
-    def Sell(price, volume): return LimitMarket(Limit.Sell, price, volume)
+    def Sell(price, volume): return ImmediateOrCancel(Limit.Sell, price, volume)
 
 class Factory(types.IOrderGenerator, combine.SidePriceVolume):
     
     def __call__(self):
         params = combine.SidePriceVolume.__call__(self)
-        return LimitMarket(*params) if params is not None else None
+        return ImmediateOrCancel(*params) if params is not None else None
 
     
-@registry.expose(alias=['LimitMarket'])
+@registry.expose(alias=['ImmediateOrCancel'])
 @meta.sig(args=(Side,), rv=meta.function((types.Price,), types.IOrder))
-def LimitMarketFactory(side):
-    return bind.Construct(LimitMarket, side)
+def ImmediateOrCancelFactory(side):
+    return bind.Construct(ImmediateOrCancel, side)
 
-LimitMarketFactory.__doc__ = LimitMarket.__doc__
+ImmediateOrCancelFactory.__doc__ = ImmediateOrCancel.__doc__
 

@@ -2,13 +2,12 @@ from marketsim import Side, Event
 
 from _market import Market, MarketFactory
 from _limit import Limit, LimitFactory, AdaptLimit
-from _limit_market import LimitMarket, LimitMarketFactory
+from _ioc import ImmediateOrCancel, ImmediateOrCancelFactory
 from _with_expiry import WithExpiry, WithExpiryFactory
 from _fixed_budget import  FixedBudget
 from _virtual import VirtualMarket, VirtualMarketFactory
-from _always_best import AlwaysBest2 as AlwaysBest       
+from _peg import Peg 
 from _stoploss import StopLoss, StopLossFactory
-from _mutable import Mutable
 
 import factory
 

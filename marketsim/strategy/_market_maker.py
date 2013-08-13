@@ -18,7 +18,7 @@ class MarketMaker(types.ISingleAssetStrategy):
         return Array([
                 SingleOrder2(
                     order.factory.Iceberg(
-                        ops.constant(1),
+                        ops.constant(10),
                         order.factory.FloatingPrice(
                             BreaksAtChanges(
                                 observable.OnEveryDt(
