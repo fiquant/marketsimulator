@@ -308,6 +308,98 @@ class Sqrt(Observable[float]):
         r = self._source()
         return math.sqrt(r) if r is not None else None
 
+class Log(Observable[float]):
+    def __init__(self, source):
+        self._source = source
+        Observable[float].__init__(self)
+        self._event = event.subscribe(source, _(self).fire, self)
+
+    _properties = {'source': types.IObservable[float]}
+
+    @property
+    def source(self):
+        return self._source
+
+    @property
+    def label(self):
+        return "ln" + self._source.label + ""
+
+    def __call__(self):
+        r = self._source()
+        return math.log(r) if r is not None and r > 0 else None
+
+class Exp(Observable[float]):
+    def __init__(self, source):
+        self._source = source
+        Observable[float].__init__(self)
+        self._event = event.subscribe(source, _(self).fire, self)
+
+    _properties = {'source': types.IObservable[float]}
+
+    @property
+    def source(self):
+        return self._source
+
+    @property
+    def label(self):
+        return "e^{" + self._source.label + "}"
+
+    def __call__(self):
+        r = self._source()
+        return math.exp(r) if r is not None else None
+
+class Atan(Observable[float]):
+    def __init__(self, source):
+        self._source = source
+        Observable[float].__init__(self)
+        self._event = event.subscribe(source, _(self).fire, self)
+
+    _properties = {'source': types.IObservable[float]}
+
+    @property
+    def source(self):
+        return self._source
+
+    @property
+    def label(self):
+        return "atan(" + self._source.label + ")"
+
+    def __call__(self):
+        r = self._source()
+        return math.atan(r) if r is not None else None
+
+class Pow(Observable[float]):
+    def __init__(self, base, power):
+        self._base = base
+        self._power = power
+        Observable[float].__init__(self)
+        if isinstance(base, types.IEvent):
+            event.subscribe(base, _(self).fire, self)
+        if isinstance(power, types.IEvent):
+            event.subscribe(power, _(self).fire, self)
+
+    _properties = {
+        'base' : types.IFunction[float], 
+        'power': types.IFunction[float], 
+    }
+
+    @property
+    def base(self):
+        return self._base
+
+    @property
+    def power(self):
+        return self._power
+
+    @property
+    def label(self):
+        return self._base.label + "^{" + self._power.label + "}"
+
+    def __call__(self):
+        b = self._base()
+        p = self._power()
+        return math.pow(b,p) if b is not None and p is not None else None
+
 
 @registry.expose(['Arithmetic', 'identity'])
 class identity(Function[float]):

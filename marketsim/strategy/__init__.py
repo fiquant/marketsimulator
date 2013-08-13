@@ -11,6 +11,8 @@ from _canceller import Canceller
 
 from _arbitrage import Arbitrage
 
+from _single_order import SingleOrder2
+
 
 from adaptive import *
 from side import *

@@ -11,9 +11,5 @@ def MarketData(ctx):
 
         ctx.makeTrader_A(strategy.MarketData(), "marketdata2"),
 
-         ctx.makeTrader_A(strategy.v0.MarketMaker(), "marketmaker"),
-  
-#        ctx.makeTrader_A(strategy.MarketMaker(), "marketmaker2"),
-   
         ctx.makeTrader_A(strategy.Noise(), "noise")
     ]

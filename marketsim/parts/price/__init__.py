@@ -1,1 +1,1 @@
-from _lp import LiquidityProvider
+from _lp import LiquidityProvider, SafeSidePrice

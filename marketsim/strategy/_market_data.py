@@ -8,7 +8,7 @@ import _wrap
 
 const = ops.constant
 
-class Async(ops.Observable[float]):
+class BreaksAtChanges(ops.Observable[float]):
     
     def __init__(self, source):
         ops.Observable[float].__init__(self)
@@ -45,7 +45,7 @@ class MarketData(types.ISingleAssetStrategy):
                     order.factory.Iceberg(
                         const(self.volume),
                         order.factory.FloatingPrice(
-                            Async(ops.constant(sign*self.delta) + quotes),
+                            BreaksAtChanges(ops.constant(sign*self.delta) + quotes),
                             order._limit.Price_Factory(
                                 side = const(side),
                                 volume = const(self.volume * 1000000)))))\

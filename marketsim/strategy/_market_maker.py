@@ -1,10 +1,10 @@
 from marketsim import (trader, orderbook, event, _, Side, order, types, mathutils, 
-                       scheduler, ops, Event, observable, registry, combine)
+                       scheduler, ops, Event, observable, registry, combine, parts)
 
 from marketsim.types import *
 
 from _single_order import SingleOrder2
-from _market_data import Async
+from _market_data import BreaksAtChanges
 from _array import Array
 import _wrap
 
@@ -13,17 +13,18 @@ const = ops.constant
 class MarketMaker(types.ISingleAssetStrategy):
     
     def getImpl(self):
-        midPrice = observable.MidPrice(orderbook.OfTrader())
         volumeTraded = observable.VolumeTraded(trader.SingleProxy())
 
         return Array([
                 SingleOrder2(
                     order.factory.Iceberg(
-                        const(self.volume),
+                        ops.constant(1),
                         order.factory.FloatingPrice(
-                            Async(observable.OnEveryDt(
+                            BreaksAtChanges(
+                                observable.OnEveryDt(
                                     0.9,
-                                    midPrice - sign - volumeTraded / self.volume
+                                    parts.price.SafeSidePrice(orderbook.OfTrader(), side, 100 + sign)\
+                                        / ops.Exp(ops.Atan(volumeTraded) / 1000)
                             )),
                             order._limit.Price_Factory(
                                 side = const(side),
