@@ -21,8 +21,7 @@ class FloatingPrice(_meta.OwnsSingleOrder):
     def cancel(self):
         _meta.OwnsSingleOrder.cancel(self)
         
-    def processIn(self, orderBook):
-        self.orderBook = orderBook 
+    def startProcessing(self):
         self._update(None)
         
     def _update(self, dummy):

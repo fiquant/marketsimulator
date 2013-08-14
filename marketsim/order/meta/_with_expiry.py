@@ -18,11 +18,11 @@ class WithExpiry(_meta.OwnsSingleOrder):
     def onOrderDisposed(self, order):
         self.owner.onOrderDisposed(self)
     
-    def processIn(self, orderBook):
-        self.orderBook = orderBook
+    def startProcessing(self):
         self.send(self.proto)
         self.world.scheduleAfter(self._delay, 
-                                 _(orderBook, request.Cancel(self.proto)).process)
+                                 _(self.orderBook, 
+                                   request.Cancel(self.proto)).process)
 
 class Factory(types.IOrderGenerator):
     

@@ -13,9 +13,10 @@ class StopLoss(_meta.Base):
         self._maxloss = maxloss
         self._stopLossOrder = None
         
-    def processIn(self, book):
-        self.orderBook = book
-        self._obsPrice = observable.AskPrice(book) if self.side == Side.Buy else observable.BidPrice(book)   
+    def startProcessing(self):
+        self._obsPrice = observable.AskPrice(self.orderBook) \
+                            if self.side == Side.Buy else \
+                         observable.BidPrice(self.orderBook)   
         self.send(self._proto)
         
     def onOrderMatched(self, order, price, volume):

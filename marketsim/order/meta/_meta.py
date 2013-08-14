@@ -3,6 +3,10 @@ from .. import _base
 
 class Base(_base.Base):
     
+    def processIn(self, orderBook):
+        self.orderBook = orderBook
+        self.startProcessing()
+    
     @property
     def orderBook(self):
         return self._book

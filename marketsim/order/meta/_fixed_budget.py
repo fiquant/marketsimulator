@@ -22,14 +22,13 @@ class FixedBudget(Base):
         if self._ordersSent == 0:
             self.cancel()
         
-    def processIn(self, orderBook):
-        self.orderBook = orderBook
-        orderBook.process(
-                    request.EvalVolumesForBudget(
+    def startProcessing(self):
+        self.orderBook.process(
+                   request.EvalVolumesForBudget(
                                 self.side, self.budget, 
-                                _(self, orderBook)._onEvaluated))
+                                _(self)._onEvaluated))
         
-    def _onEvaluated(self, orderBook, pvs):
+    def _onEvaluated(self, pvs):
         self._ordersSent = 0
         self._volumeUnmatched = sum([v for p,v in pvs])
         for p,v in pvs:

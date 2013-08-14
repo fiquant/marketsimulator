@@ -30,11 +30,10 @@ class Iceberg(_meta.OwnsSingleOrder):
         """
         self.send(self.proto.With(volume = min(self._lotSize, self.volumeUnmatched)))
 
-    def processIn(self, book):
+    def startProcessing(self):
         """ Called when an order book tries to determine 
         how the order should be processed 
         """
-        self.orderBook = book
         self._tryToResend()
         
 class Factory(types.IOrderGenerator):
