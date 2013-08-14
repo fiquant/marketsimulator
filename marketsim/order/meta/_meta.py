@@ -15,6 +15,10 @@ class Base(_base.Base):
         self._ctx = ctx.context.copy()
         
     @property
+    def world(self):
+        return self._ctx['world']
+        
+    @property
     def active(self):
         return hasattr(self, '_book') and not self.cancelled
         

@@ -7,12 +7,11 @@ import _meta
 
 class StopLoss(_meta.Base):
     
-    def __init__(self, scheduler, maxLoss, factory, side, volume):
+    def __init__(self, maxLoss, factory, side, volume):
         
         _meta.Base.__init__(self, volume)
         
         self.side = side
-        self._scheduler = scheduler
         self._orderFactory = factory
         self._maxLoss = maxLoss
         self._current = None
@@ -32,7 +31,7 @@ class StopLoss(_meta.Base):
                             if self.side == Side.Sell else\
                           event.LessThan((1-self._maxLoss) * price, _(self)._onPriceChanged)
                             
-                self._stopSubscription = event.subscribe(self._obsPrice, handler, self, {})
+                self._stopSubscription = event.subscribe(self._obsPrice, handler, self, self._ctx)
                 self.onMatchedWith(price, +volume)
         else:
             self.onMatchedWith(price, -volume)
@@ -45,15 +44,11 @@ class StopLoss(_meta.Base):
 
 class Factory(IOrderGenerator, combine.SideVolumeMaxLoss): # in fact it is IPersistentOrderGenerator
     
-    def bind(self, ctx):
-        self._ctx = ctx.context.copy()
-        self._scheduler = ctx.world
-        
     def __call__(self):
         params = combine.SideVolumeMaxLoss.__call__(self)
         if params is not None:
             (side, volume, maxloss) = params
-            return StopLoss(self._scheduler, maxloss, MarketFactory, side, volume)
+            return StopLoss(maxloss, MarketFactory, side, volume)
         return None
 
     

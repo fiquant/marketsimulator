@@ -8,14 +8,12 @@ class WithExpiry(_meta.OwnsSingleOrder):
     """ Limit-like order which is cancelled after given *delay*
     """
     
-    def __init__(self, proto, delay, sched):
+    def __init__(self, proto, delay):
         """ Initializes order with 'price' and 'volume'
         'limitOrderFactory' tells how to create limit orders
         """
         _meta.OwnsSingleOrder.__init__(self, proto)
         self._delay = delay
-        # we create a limit order
-        self._scheduler = sched
         
     def onOrderDisposed(self, order):
         self.owner.onOrderDisposed(self)
@@ -23,8 +21,8 @@ class WithExpiry(_meta.OwnsSingleOrder):
     def processIn(self, orderBook):
         self.orderBook = orderBook
         self.send(self.proto)
-        self._scheduler.scheduleAfter(self._delay, 
-                                      _(orderBook, request.Cancel(self.proto)).process)
+        self.world.scheduleAfter(self._delay, 
+                                 _(orderBook, request.Cancel(self.proto)).process)
 
 class Factory(types.IOrderGenerator):
     
@@ -37,15 +35,10 @@ class Factory(types.IOrderGenerator):
         'inner' : types.IOrderGenerator,  
     }
 
-    def bind(self, ctx):
-        self._ctx = ctx.context.copy()
-        self._scheduler = ctx.world
-        
-        
     def __call__(self):
         expiry = self.expiry()
         proto = self.inner()
-        return WithExpiry(proto, expiry, self._scheduler) \
+        return WithExpiry(proto, expiry) \
             if expiry is not None and proto is not None else None 
 
 LimitOrderFactorySignature = meta.function((types.Side,), meta.function((types.Price, types.Volume), types.IOrder))
@@ -58,18 +51,13 @@ class WithExpiryFactory(object):
     def __init__(self, expirationDistr=ops.constant(10)):
         self.expirationDistr = expirationDistr
         
-    def bind(self, ctx):
-        self._ctx = ctx.context.copy()
-        self._scheduler = ctx.world
-        
     _types = [LimitOrderFactorySignature]
         
     _properties = {'expirationDistr'  : meta.function((), types.TimeInterval)}
     
     def create(self, side, price, volume):
         return WithExpiry(_limit.Limit(side, price, volume), 
-                          self.expirationDistr(), 
-                          self._scheduler)
+                          self.expirationDistr())
     
     def __call__(self, side):
         return _(self, side).create
