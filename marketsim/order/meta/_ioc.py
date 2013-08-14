@@ -1,54 +1,41 @@
 from marketsim import request, combine, meta, types, _, registry, bind, Side
 
-from .._limit import LimitFactory
+from .. import _limit 
 
 import _meta
 
-class ImmediateOrCancel(_meta.Base):
+class ImmediateOrCancel(_meta.OwnsSingleOrder):
     """ This a combination of a limit order and a cancel order sent immediately
     It works as a market order in sense that it is not put into the order queue 
     but can be matched (as a limit order) 
     only if there are orders with suitable price in the queue
     """
     
-    def __init__(self, side, price, volume, owner = None):
+    def __init__(self, proto):
         """ Initializes order with 'price' and 'volume'
         'limitOrderFactory' tells how to create limit orders
         """
-        _meta.Base.__init__(self, volume, owner)
-        self.side = side
-        # we create a limit order
-        self._order = LimitFactory(side)(price, volume)
-        self._order.owner = self
+        _meta.OwnsSingleOrder.__init__(self, proto)
         
     def onOrderDisposed(self, order):
         self.owner.onOrderDisposed(self)
         
     def processIn(self, orderBook):
-        orderBook.process(self._order)
-        orderBook.process(request.Cancel(self._order))
+        self.orderBook = orderBook
+        self.send(self.proto)
+        self.orderBook.process(request.Cancel(self.proto))
+    
+Order = ImmediateOrCancel
+
+class Factory(types.IOrderGenerator):
+    
+    def __init__(self, inner = _limit.Factory()):
+        self.inner = inner
         
-    @property 
-    def volumeUnmatched(self):
-        return self._order.volumeUnmatched 
-    
-    @staticmethod
-    def Buy(price, volume): return ImmediateOrCancel(Limit.Buy, price, volume)
-    
-    @staticmethod
-    def Sell(price, volume): return ImmediateOrCancel(Limit.Sell, price, volume)
+    _properties = {
+        'inner'  : types.IOrderGenerator,  
+    }
 
-class Factory(types.IOrderGenerator, combine.SidePriceVolume):
-    
     def __call__(self):
-        params = combine.SidePriceVolume.__call__(self)
-        return ImmediateOrCancel(*params) if params is not None else None
-
-    
-@registry.expose(alias=['ImmediateOrCancel'])
-@meta.sig(args=(Side,), rv=meta.function((types.Price,), types.IOrder))
-def ImmediateOrCancelFactory(side):
-    return bind.Construct(ImmediateOrCancel, side)
-
-ImmediateOrCancelFactory.__doc__ = ImmediateOrCancel.__doc__
-
+        proto = self.inner()
+        return Order(proto) if proto is not None else None 

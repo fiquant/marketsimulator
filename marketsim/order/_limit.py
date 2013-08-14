@@ -72,6 +72,8 @@ class Limit(Default, HasSide, HasPrice, HasVolume, Cancellable):
      
     @staticmethod
     def Sell(price, volume): return Limit(Side.Sell, price, volume)
+    
+Order = Limit
 
 class Factory(types.IPersistentOrderGenerator, combine.SidePriceVolume):
     

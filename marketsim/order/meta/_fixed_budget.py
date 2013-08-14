@@ -1,7 +1,8 @@
 from marketsim import request, context, event, _, Event, combine, ops, types
 from marketsim.types import *
 
-from _ioc import ImmediateOrCancel
+import _ioc
+from .. import  _limit
 
 from _meta import *
 
@@ -32,7 +33,7 @@ class FixedBudget(Base):
         self._ordersSent = 0
         self._volumeUnmatched = sum([v for p,v in pvs])
         for p,v in pvs:
-            self.send(ImmediateOrCancel(self.side, p, v))
+            self.send(_ioc.Order(_limit.Order(self.side, p, v)))
             self._ordersSent += 1
             
     def __repr__(self):

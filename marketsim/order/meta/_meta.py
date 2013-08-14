@@ -1,4 +1,4 @@
-from marketsim import request, context
+from marketsim import types, request, context
 from .. import _base
 
 class Base(_base.Base):
@@ -24,7 +24,8 @@ class Base(_base.Base):
         
     def send(self, order):
         if order is not None:
-            order.owner = self
+            if isinstance(order, types.IOrder):
+                order.owner = self
             context.bind(order, self._ctx)
             self._book.process(order)
         return order
