@@ -1,4 +1,4 @@
-from marketsim import combine, registry, bind, observable, event, meta, _
+from marketsim import combine, registry, context, bind, observable, event, meta, _
 from _market import MarketFactory
 
 from marketsim.types import *
@@ -46,14 +46,14 @@ class StopLoss(_meta.Base):
 class Factory(IOrderGenerator, combine.SideVolumeMaxLoss): # in fact it is IPersistentOrderGenerator
     
     def bind(self, ctx):
+        self._ctx = ctx.context.copy()
         self._scheduler = ctx.world
         
     def __call__(self):
         params = combine.SideVolumeMaxLoss.__call__(self)
         if params is not None:
             (side, volume, maxloss) = params
-            order = StopLoss(self._scheduler, maxloss, MarketFactory, side, volume)
-            return order
+            return StopLoss(self._scheduler, maxloss, MarketFactory, side, volume)
         return None
 
     

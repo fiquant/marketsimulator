@@ -1,4 +1,4 @@
-from marketsim import request, combine, meta, types, _, registry, ops
+from marketsim import request, combine, meta, types, _, registry, ops, context
 
 import _limit
 
@@ -39,13 +39,15 @@ class Factory(types.IOrderGenerator):
     }
 
     def bind(self, ctx):
+        self._ctx = ctx.context.copy()
         self._scheduler = ctx.world
+        
         
     def __call__(self):
         expiry = self.expiry()
         proto = self.inner()
         return WithExpiry(proto, expiry, self._scheduler) \
-            if expiry is not None and proto is not None else None
+            if expiry is not None and proto is not None else None 
 
 LimitOrderFactorySignature = meta.function((types.Side,), meta.function((types.Price, types.Volume), types.IOrder))
 
@@ -57,8 +59,9 @@ class WithExpiryFactory(object):
     def __init__(self, expirationDistr=ops.constant(10)):
         self.expirationDistr = expirationDistr
         
-    def bind(self, context):
-        self._scheduler = context.world
+    def bind(self, ctx):
+        self._ctx = ctx.context.copy()
+        self._scheduler = ctx.world
         
     _types = [LimitOrderFactorySignature]
         

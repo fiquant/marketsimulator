@@ -1,4 +1,4 @@
-from marketsim import request, event, _, Event, combine, ops, types
+from marketsim import request, context, event, _, Event, combine, ops, types
 from marketsim.types import *
 
 from _ioc import ImmediateOrCancel
@@ -41,6 +41,9 @@ class FixedBudget(Base):
 
 class Factory(types.IOrderGenerator, combine.SideBudget):
     
+    def bind(self, ctx):
+        self._ctx = ctx.context.copy()
+        
     def __call__(self):
         params = combine.SideBudget.__call__(self)
         return FixedBudget(*params) if params is not None else None

@@ -1,4 +1,4 @@
-from marketsim import request
+from marketsim import request, context
 import _base
 
 class Base(_base.Base):
@@ -11,9 +11,17 @@ class Base(_base.Base):
     def orderBook(self, book):
         self._book = book
         
+    def bind(self, ctx):
+        self._ctx = ctx.context.copy()
+        
+    @property
+    def active(self):
+        return hasattr(self, '_book') and not self.cancelled
+        
     def send(self, order):
         if order is not None:
             order.owner = self
+            context.bind(order, self._ctx)
             self._book.process(order)
         return order
     

@@ -1,7 +1,7 @@
 import _limit 
 from _base import HasPrice
 from _meta import OwnsSingleOrder
-from marketsim import ops, request, meta, types, registry, bind, event, _, combine
+from marketsim import context, ops, request, meta, types, registry, bind, event, _, combine
 
 class Iceberg(OwnsSingleOrder):
     """ Virtual order that implements iceberg strategy:
@@ -51,6 +51,9 @@ class Factory(types.IOrderGenerator):
         'factory' : types.IOrderGenerator
     }
     
+    def bind(self, ctx):
+        self._ctx = ctx.context.copy()
+        
     def __call__(self):
         lotSize = self.lotSize()
         if lotSize is None:
@@ -58,7 +61,8 @@ class Factory(types.IOrderGenerator):
         proto = self.factory()
         if proto is None:
             return None
-        return Iceberg(lotSize, proto)
+        order = Iceberg(lotSize, proto)
+        return order
     
 class Price_Factory(types.IFunction[types.IOrderGenerator, float]):
     
@@ -73,6 +77,9 @@ class Price_Factory(types.IFunction[types.IOrderGenerator, float]):
         'factory' : types.IFunction[types.IOrderGenerator, float]
     }
     
+    def bind(self, ctx):
+        self._ctx = ctx.context.copy()
+        
     # it should implement also __call__ but later we will fix it
     
     def create(self, price):
@@ -80,6 +87,4 @@ class Price_Factory(types.IFunction[types.IOrderGenerator, float]):
         if lotSize is None:
             return None
         proto = self.factory.create(price)
-        if proto is None:
-            return None
-        return Iceberg(lotSize, proto)
+        return Iceberg(lotSize, proto) if proto is not None else None

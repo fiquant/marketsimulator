@@ -12,7 +12,7 @@ class FloatingPrice(_meta.OwnsSingleOrder):
     def __init__(self, proto, price):
         _meta.OwnsSingleOrder.__init__(self, proto)
         self._priceFunc = price
-        event.subscribe(price, _(self)._update, self, {})
+        event.subscribe(price, _(self)._update, self)
         
     def With(self, **kwargs):
         return FloatingPrice(self.proto.With(**kwargs), self._priceFunc)
@@ -25,7 +25,7 @@ class FloatingPrice(_meta.OwnsSingleOrder):
         self._update(None)
         
     def _update(self, dummy):
-        if self.owner and not self.cancelled:
+        if self.active:
             self._dispose() 
             price = self._priceFunc()
             if price is not None:
@@ -52,7 +52,4 @@ class Factory(types.IPersistentOrderGenerator):
         
     def __call__(self):
         proto = self.factory.create(price = self.price())
-        if proto is not None:
-            order = FloatingPrice(proto, self.price)
-            context.bind(order, self._ctx)
-        return order
+        return FloatingPrice(proto, self.price) if proto is not None else None

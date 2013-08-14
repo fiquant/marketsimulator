@@ -1,4 +1,4 @@
-from marketsim import Event, _, Side, types, meta, timeserie
+from marketsim import Event, _, Side, types, meta, timeserie, context
 
 from _history import TraderHistory
 
@@ -26,6 +26,9 @@ class Base(timeserie.Holder):
         
     def updateContext(self, context):
         context.trader = self
+        
+    def bind(self, ctx):
+        self._ctx = ctx.context.copy()
                 
     def reset(self):   
         self._PnL = 0
@@ -69,6 +72,8 @@ class Base(timeserie.Holder):
         """ Sends 'order' to 'book'
         After having the order sent notifies listeners about it 
         """
+        context.bind(order, self._ctx)
         if isinstance(order, types.IOrder):
-            book.process(self._makeSubscribedTo(order))
+            order = self._makeSubscribedTo(order)
+        book.process(order)
         self.on_order_sent.fire(order)        

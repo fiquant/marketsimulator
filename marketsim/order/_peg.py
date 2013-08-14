@@ -40,7 +40,4 @@ class Factory(types.IPersistentOrderGenerator):
         
     def __call__(self):
         proto = self.factory.create(price = 0)
-        if proto is not None:
-            order = Peg(proto)
-            context.bind(order, self._ctx)
-        return order
+        return Peg(proto) if proto is not None else None
