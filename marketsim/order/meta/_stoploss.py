@@ -1,35 +1,29 @@
-from marketsim import combine, registry, context, bind, observable, event, meta, _
-from .._market import MarketFactory
-
-from marketsim.types import *
-
+from marketsim import Side, types, combine, registry, context, bind, observable, event, meta, _
+from .. import _market 
 import _meta
 
 class StopLoss(_meta.Base):
     
-    def __init__(self, maxLoss, factory, side, volume):
+    def __init__(self, proto, maxloss):
         
-        _meta.Base.__init__(self, volume)
+        _meta.Base.__init__(self, proto.volumeUnmatched)
         
-        self.side = side
-        self._orderFactory = factory
-        self._maxLoss = maxLoss
-        self._current = None
-        self._orderPrice = None
+        self.side = proto.side
+        self._proto = proto
+        self._maxloss = maxloss
         self._stopLossOrder = None
-        self._price = None
         
     def processIn(self, book):
         self.orderBook = book
         self._obsPrice = observable.AskPrice(book) if self.side == Side.Buy else observable.BidPrice(book)   
-        self._current = self.send(self._orderFactory(self.side)(self.volumeUnmatched))
+        self.send(self._proto)
         
     def onOrderMatched(self, order, price, volume):
         if order is not self._stopLossOrder:
             if volume > 0:
-                handler = event.GreaterThan((1+self._maxLoss) * price, _(self)._onPriceChanged)\
+                handler = event.GreaterThan((1+self._maxloss) * price, _(self)._onPriceChanged)\
                             if self.side == Side.Sell else\
-                          event.LessThan((1-self._maxLoss) * price, _(self)._onPriceChanged)
+                          event.LessThan((1-self._maxloss) * price, _(self)._onPriceChanged)
                             
                 self._stopSubscription = event.subscribe(self._obsPrice, handler, self, self._ctx)
                 self.onMatchedWith(price, +volume)
@@ -39,35 +33,23 @@ class StopLoss(_meta.Base):
     def _onPriceChanged(self, dummy):
         # the stoploss is activated
         self._stopSubscription.dispose()
-        self._stopLossOrder = self.send(MarketFactory(self.side.opposite)(self.volumeFilled))
+        self._stopLossOrder = self.send(_market.Order(self.side.opposite, 
+                                                      self.volumeFilled))
                 
 
-class Factory(IOrderGenerator, combine.SideVolumeMaxLoss): # in fact it is IPersistentOrderGenerator
+class Factory(types.IOrderGenerator): # in fact it is IPersistentOrderGenerator
     
+    def __init__(self, maxloss, inner = _market.Factory()):
+        self.maxloss = maxloss
+        self.inner = inner
+        
+    _properties = {
+        'maxloss': types.IFunction[float],
+        'inner'  : types.IOrderGenerator,  
+    }
+
     def __call__(self):
-        params = combine.SideVolumeMaxLoss.__call__(self)
-        if params is not None:
-            (side, volume, maxloss) = params
-            return StopLoss(maxloss, MarketFactory, side, volume)
-        return None
-
-    
-MarketOrderFactorySignature = function(args=(Side,), rv=function((Volume,), IOrder))
-
-@registry.expose(['StopLoss'])
-class StopLossFactory(object):
-    
-    def __init__(self, maxLoss = 0.1, orderFactory = MarketFactory):
-        self.maxLoss = maxLoss
-        self.orderFactory = orderFactory
-        
-    def bind(self, ctx):
-        self.scheduler = ctx.world
-        
-    _types = [MarketOrderFactorySignature]
-        
-    _properties = {'maxLoss'  : float,
-                   'orderFactory' : MarketOrderFactorySignature}
-    
-    def __call__(self, side):
-        return bind.Construct(StopLoss, self.scheduler, self.maxLoss, self.orderFactory, side)
+        maxloss = self.maxloss()
+        proto = self.inner()
+        return StopLoss(proto, maxloss) \
+            if maxloss is not None and proto is not None else None 

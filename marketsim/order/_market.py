@@ -14,6 +14,12 @@ class Market(Default, HasSide, HasVolume, Cancellable):
         Cancellable.__init__(self)
         Default.__init__(self, owner)
         
+    def With(self, side = None, volume = None):
+        def opt(a,b):
+            return a if b is None else b
+        return Market(opt(self.side, side),
+                      opt(self.volumeUnmatched, volume))
+
     def copyTo(self, dst):
         HasSide.copyTo(self, dst)
         HasVolume.copyTo(self, dst)
@@ -42,6 +48,8 @@ class Market(Default, HasSide, HasVolume, Cancellable):
     
     @staticmethod
     def Sell(volume): return Market(Side.Sell, volume)
+    
+Order = Market
 
 class Factory_Base(types.IOrderGenerator):
     
