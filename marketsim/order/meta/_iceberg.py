@@ -1,9 +1,8 @@
-import _limit 
-from _base import HasPrice
-from _meta import OwnsSingleOrder
+from .. import _limit 
+import _meta 
 from marketsim import context, ops, request, meta, types, registry, bind, event, _, combine
 
-class Iceberg(OwnsSingleOrder):
+class Iceberg(_meta.OwnsSingleOrder):
     """ Virtual order that implements iceberg strategy:
     First it sends an order for a small potion of its volume to a book and
     once it is filled resends a new order 
@@ -15,7 +14,7 @@ class Iceberg(OwnsSingleOrder):
         orderFactory -- factory to create real orders: *args -> Order
         *args -- parameters to be passed to real orders
         """
-        OwnsSingleOrder.__init__(self, proto)
+        _meta.OwnsSingleOrder.__init__(self, proto)
         self._lotSize = lotSize
         
     def With(self, **kwargs):
@@ -24,7 +23,7 @@ class Iceberg(OwnsSingleOrder):
     def onOrderDisposed(self, order):
         if not self.cancelled:
             self._tryToResend()
-        OwnsSingleOrder.onOrderDisposed(self, order)
+        _meta.OwnsSingleOrder.onOrderDisposed(self, order)
             
     def _tryToResend(self):
         """ Tries to send a real order to the order book

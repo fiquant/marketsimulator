@@ -1,5 +1,5 @@
 from marketsim import request, context
-import _base
+from .. import _base
 
 class Base(_base.Base):
     

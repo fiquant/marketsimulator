@@ -1,9 +1,9 @@
 from marketsim import (request, context, combine, Side, registry, meta, types, bind, 
                        event, _, ops, observable, orderbook)
-import _limit 
+from .. import _limit 
 from _floating_price import FloatingPrice
 from marketsim.types import *
-import _meta
+
 
 def Peg(order):
     """ Peg is a virtual order that ensures that it has the best price in the order book. 

@@ -1,6 +1,6 @@
 from marketsim import request, combine, meta, types, _, registry, bind, Side
 
-from _limit import LimitFactory
+from .._limit import LimitFactory
 
 import _meta
 

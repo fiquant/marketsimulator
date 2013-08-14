@@ -1,7 +1,8 @@
 from marketsim import context, request, _, event, Event, types, ops
 from marketsim.types import *
 
-import _meta, _base, _limit
+import _meta
+from .. import _limit
 
 class FloatingPrice(_meta.OwnsSingleOrder): 
     """ Meta order controlling price of the underlying order

@@ -1,11 +1,10 @@
 from marketsim import request, combine, meta, types, _, registry, ops, context
 
-import _limit
+from .. import _limit
 
-from _limit import Limit, LimitFactory
-from _meta import OwnsSingleOrder
+import _meta 
 
-class WithExpiry(OwnsSingleOrder):
+class WithExpiry(_meta.OwnsSingleOrder):
     """ Limit-like order which is cancelled after given *delay*
     """
     
@@ -13,7 +12,7 @@ class WithExpiry(OwnsSingleOrder):
         """ Initializes order with 'price' and 'volume'
         'limitOrderFactory' tells how to create limit orders
         """
-        OwnsSingleOrder.__init__(self, proto)
+        _meta.OwnsSingleOrder.__init__(self, proto)
         self._delay = delay
         # we create a limit order
         self._scheduler = sched
@@ -68,7 +67,7 @@ class WithExpiryFactory(object):
     _properties = {'expirationDistr'  : meta.function((), types.TimeInterval)}
     
     def create(self, side, price, volume):
-        return WithExpiry(Limit(side, price, volume), 
+        return WithExpiry(_limit.Limit(side, price, volume), 
                           self.expirationDistr(), 
                           self._scheduler)
     

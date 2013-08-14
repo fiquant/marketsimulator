@@ -1,5 +1,5 @@
 from marketsim import combine, registry, context, bind, observable, event, meta, _
-from _market import MarketFactory
+from .._market import MarketFactory
 
 from marketsim.types import *
 

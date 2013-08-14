@@ -1,23 +1,11 @@
 from marketsim import types, Side, ops, context, combine
 from marketsim.types import *
 
+from meta.factory import *
+
 from _market import (Factory                as Market, 
                      FactorySigned          as MarketSigned) 
 
 from _limit import  (Factory                as Limit, 
                      Side_Factory           as Side_Limit, 
                      SidePrice_Factory      as SidePrice_Limit)
-
-from _ioc import Factory                    as ImmediateOrCancel
-
-from _stoploss import Factory               as StopLoss
-
-from _with_expiry import (Factory           as WithExpiry)
-
-from _iceberg import Factory                as Iceberg
-
-from _fixed_budget import (Factory          as FixedBudget)
-
-from _peg import  (Factory                  as Peg) 
-
-from _floating_price import Factory         as FloatingPrice

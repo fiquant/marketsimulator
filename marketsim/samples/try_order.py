@@ -97,7 +97,7 @@ def Orders(ctx):
    
         ctx.makeTrader_A(strategy.Generic(
                                 order.factory.Peg(
-                                    order._iceberg.Price_Factory(
+                                    order.meta._iceberg.Price_Factory(
                                         const(1),
                                         order._limit.Price_Factory(
                                             side = InterlacingSide(),
@@ -117,7 +117,7 @@ def Orders(ctx):
                             order.factory.WithExpiry(
                                 ops.constant(10),
                                 order.factory.Peg(
-                                    order._iceberg.Price_Factory(
+                                    order.meta._iceberg.Price_Factory(
                                         const(1),
                                         order._limit.Price_Factory(
                                             side = InterlacingSide(),
