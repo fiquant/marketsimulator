@@ -1,4 +1,7 @@
-from marketsim import request, Side, getLabel, Event, meta, types, bind, scheduler, event, _, ops
+from marketsim import orderbook, request, Side, getLabel, Event, meta, types, bind, scheduler, event, _, ops
+
+from _orderbook import LastTrade
+from _trader import OnTraded
 
 def sign(x):
     return 1 if x > 0 else -1 if x < 0 else 0
@@ -20,9 +23,8 @@ class Efficiency(ops.Observable[float]):
         self._alias = ["Trader's", "Efficiency"]
         
         self.reset()
-
-    def bind(self, ctx):
-        self._event = event.subscribe(self._trader.on_traded, _(self)._update, self, ctx)
+        event.subscribe(LastTrade(orderbook.OfTrader()), _(self)._update, self)
+        event.subscribe(OnTraded(), _(self)._update, self)
         
     @property
     def digits(self):
@@ -51,7 +53,7 @@ class Efficiency(ops.Observable[float]):
     @trader.setter
     def trader(self, value):
         self._trader = value    
-        self._event.switchTo(self._trader.on_traded)
+        #self._event.switchTo(self._trader.on_traded)
             
 
     _properties = { 'trader' : types.ISingleAssetTrader }
