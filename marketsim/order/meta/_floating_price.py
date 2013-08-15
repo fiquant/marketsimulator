@@ -47,9 +47,6 @@ class Factory(types.IPersistentOrderGenerator):
         'factory' : types.IFunction[IOrderGenerator, float] 
     }
     
-    def bind(self, ctx):
-        self._ctx = ctx.context.copy()
-        
     def __call__(self):
         proto = self.factory.create(price = self.price())
         return FloatingPrice(proto, self.price) if proto is not None else None

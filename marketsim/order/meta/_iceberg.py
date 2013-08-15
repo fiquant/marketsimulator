@@ -49,9 +49,6 @@ class Factory(types.IOrderGenerator):
         'factory' : types.IOrderGenerator
     }
     
-    def bind(self, ctx):
-        self._ctx = ctx.context.copy()
-        
     def __call__(self):
         lotSize = self.lotSize()
         if lotSize is None:
@@ -74,12 +71,7 @@ class Price_Factory(types.IFunction[types.IOrderGenerator, float]):
         'lotSize' : types.IFunction[float],
         'factory' : types.IFunction[types.IOrderGenerator, float]
     }
-    
-    def bind(self, ctx):
-        self._ctx = ctx.context.copy()
         
-    # it should implement also __call__ but later we will fix it
-    
     def create(self, price):
         lotSize = self.lotSize()
         if lotSize is None:
