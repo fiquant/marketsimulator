@@ -26,6 +26,7 @@ class Base(timeserie.Holder):
         
     def updateContext(self, context):
         context.trader = self
+        context.orderProcessor = self
         
     def bind(self, ctx):
         self._ctx = ctx.context.copy()

@@ -22,7 +22,7 @@ class _DesiredPosition_Impl(Strategy):
             side = Side.Buy if gap > 0 else (Side.Sell if gap < 0 else None)
             if side is not None:
                 order = self.orderFactory(side)(abs(gap))
-                self._trader.send(order)
+                self.send(order)
                         
 exec  wrapper2("DesiredPosition", 
              """ Generic strategy that tries to keep trader's position equal to *desiredPosition*, 

@@ -35,7 +35,7 @@ class _Periodic_Impl(Strategy):
                 # create order given side and parameters
                 order = self.orderFactory(side)(volume)
                 # send order to the order book
-                self._trader.send(order)
+                self.send(order)
 
 exec  wrapper2("Periodic", 
              """ Generic periodic strategy that wakes up on events given by *eventGen*, 

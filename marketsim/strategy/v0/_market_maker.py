@@ -33,8 +33,8 @@ class _MarketMaker_Impl(Strategy):
             ask = mid-1-(self.log.amount/self.volume)
             buyOrder = order.LimitFactory(Side.Buy)(bid, self.volume)
             sellOrder = order.LimitFactory(Side.Sell)(ask, self.volume)
-            self._trader.send(buyOrder)
-            self._trader.send(sellOrder)
+            self.send(buyOrder)
+            self.send(sellOrder)
 
 exec  wrapper2("MarketMaker",
              """

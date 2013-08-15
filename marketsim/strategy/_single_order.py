@@ -9,7 +9,7 @@ class _SingleOrder_Impl(Strategy):
         self._scheduler.async(_(self)._wakeUp)
 
     def _wakeUp(self):
-        self._trader.send(self.order)
+        self.send(self.order)
         
 exec wrapper2("SingleOrder", 
               """
