@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (signal, strategy, trader, orderbook, 
+from marketsim import (order, parts, signal, strategy, trader, orderbook, 
                        timeserie, scheduler, observable, veusz, mathutils, ops)
 
 const = ops.constant
@@ -24,18 +24,16 @@ def TradeIfProfitable(ctx):
     myVolume = lambda: [(observable.VolumeTraded(), demo)]
     myAverage = lambda alpha: [(observable.avg(observable.MidPrice(orderbook.OfTrader()), alpha), demo)]
     
-    avg_plus = strategy.v0.TwoAverages(ewma_alpha1 = slow_alpha, 
-                                    ewma_alpha2 = fast_alpha,
-                                    creationIntervalDistr = ops.constant(1.),
-                                    volumeDistr           = ops.constant(1.))
+    def cross(alpha1, alpha2):
+        return strategy.Generic(
+                    order.factory.Market(
+                        side = parts.side.TwoAverages(alpha1, alpha2),
+                        volume = const(1.)),
+                    scheduler.Timer(const(1.)))
     
-    avg_minus = strategy.v0.TwoAverages(ewma_alpha2 = slow_alpha, 
-                                     ewma_alpha1 = fast_alpha,
-                                     creationIntervalDistr = ops.constant(1.),
-                                     volumeDistr           = ops.constant(1.))
     
-    avg_plus_opt = strategy.TradeIfProfitable(avg_plus)
-    avg_minus_opt = strategy.TradeIfProfitable(avg_minus)
+    avg_plus_opt = strategy.TradeIfProfitable(cross(slow_alpha, fast_alpha))
+    avg_minus_opt = strategy.TradeIfProfitable(cross(fast_alpha, slow_alpha))
 
     return [
         ctx.makeTrader_A(strategy.v0.LiquidityProvider(volumeDistr=const(45)),
@@ -46,11 +44,11 @@ def TradeIfProfitable(ctx):
                         "signal", 
                         [(linear_signal, ctx.amount_graph)]),
             
-        ctx.makeTrader_A(avg_plus, 
+        ctx.makeTrader_A(cross(slow_alpha, fast_alpha), 
                         'avg+', 
                         myAverage(slow_alpha) + myAverage(fast_alpha) + myVolume()),
-
-        ctx.makeTrader_A(avg_minus, 
+ 
+        ctx.makeTrader_A(cross(fast_alpha, slow_alpha), 
                          'avg-',
                          myVolume()),
 

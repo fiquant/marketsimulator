@@ -20,7 +20,7 @@ class _LiquidityProviderSide_Impl(OneSide):
         return self.orderFactoryT(self.side)
     
     def _orderFunc(self):
-        queue = self._trader.book.queue(self.side)
+        queue = self._trader.orderBook.queue(self.side)
         currentPrice = queue.best.price if not queue.empty else\
                        self._lastPrice() if self._lastPrice() is not None else\
                        self.defaultValue

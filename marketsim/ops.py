@@ -28,6 +28,9 @@ class Function_impl(object):
     def __gt__(self, other):
         return greater(self, convert(other))
     
+    def __ge__(self, other):
+        return greater_equal(self, convert(other))
+    
     def __eq__(self, other):
         return equal(self, convert(other))
     
@@ -174,6 +177,21 @@ Greater = types.Factory("Greater", """(_Greater_Impl, BinaryOp[%(T)s]):
 """, globals())
 
 greater = logic_op(Greater)
+    
+# ---------------------------------------------------- GreaterEqual
+
+class _GreaterEqual_Impl(_Conditional_Base):
+    
+    sign = ">="
+    
+    def _call(self, lhs, rhs):
+        return lhs >= rhs
+
+GreaterEqual = types.Factory("GreaterEqual", """(_GreaterEqual_Impl, BinaryOp[%(T)s]):
+    BranchType = %(T)s
+""", globals())
+
+greater_equal = logic_op(GreaterEqual)
     
 # ---------------------------------------------------- Less
 

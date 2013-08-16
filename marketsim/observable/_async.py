@@ -23,8 +23,8 @@ class Efficiency(ops.Observable[float]):
         self._alias = ["Trader's", "Efficiency"]
         
         self.reset()
-        event.subscribe(LastTrade(orderbook.OfTrader()), _(self)._update, self)
-        event.subscribe(OnTraded(), _(self)._update, self)
+        event.subscribe(LastTrade(orderbook.OfTrader(trader)), _(self)._update, self)
+        event.subscribe(OnTraded(trader), _(self)._update, self)
         
     @property
     def digits(self):
@@ -38,9 +38,8 @@ class Efficiency(ops.Observable[float]):
             self._current = None
 
     def _update(self, dummy = None):
-    
         side = Side.Buy if self._trader.amount < 0 else Side.Sell 
-        self._trader.book.process(
+        self._trader.orderBook.process(
                         request.EvalMarketOrder(side, 
                                                 abs(self._trader.amount), 
                                                 _(self, -sign(self._trader.amount))._callback))
@@ -56,7 +55,7 @@ class Efficiency(ops.Observable[float]):
         #self._event.switchTo(self._trader.on_traded)
             
 
-    _properties = { 'trader' : types.ISingleAssetTrader }
+    _properties = { 'trader' : types.IAccount }
     
         
     def reset(self):

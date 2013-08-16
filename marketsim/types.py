@@ -111,7 +111,12 @@ class IMultiAssetStrategy(IStrategy):
 class ITrader(object):
     pass
 
-class ISingleAssetTrader(ITrader):
+class IAccount(object):
+    # PnL
+    # amount
+    pass
+
+class ISingleAssetTrader(ITrader, IAccount):
     pass
 
 class ICandleStick(object):

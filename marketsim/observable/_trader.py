@@ -27,7 +27,7 @@ class rough_balance(ops.Function[float]):
     def label(self):
         return "InstEfficiency_{" + getLabel(self.trader) + "}"
     
-    _properties = { 'trader' : types.ISingleAssetTrader }
+    _properties = { 'trader' : types.IAccount }
 
 class profit_and_loss(ops.Function[float]):
     """ Returns balance of the given *trader*
@@ -49,7 +49,7 @@ class profit_and_loss(ops.Function[float]):
     def __call__(self):
         return self.trader.PnL
     
-    _properties = { 'trader' : types.ITrader }
+    _properties = { 'trader' : types.IAccount }
     
 class volume_traded(ops.Function[float]):
     """ Returns trader's position (i.e. number of assets traded)
@@ -70,7 +70,7 @@ class volume_traded(ops.Function[float]):
     def label(self):
         return "Amount_{" + getLabel(self.trader) + "}"
     
-    _properties = { 'trader' : types.ISingleAssetTrader }
+    _properties = { 'trader' : types.IAccount }
 
 #### ------------------------------------------------------- Events
 
@@ -119,7 +119,7 @@ class Base(object):
         event.subscribe(self.trader.on_order_matched, _(self).onOrderMatched, self, ctx)
         event.subscribe(self.trader.on_order_disposed, _(self).onOrderDisposed, self, ctx)
         
-    _properties = { 'trader' : types.ITrader }
+    _properties = { 'trader' : types.IAccount }
             
 class PendingVolume_Impl(Base, ops.Observable[float]): # should be int
     
@@ -159,7 +159,7 @@ class Proxy(_computed.Proxy):
         self.trader = trader
         self._alias = ["Trader's", self.__class__.__name__ ]
 
-    _properties = { 'trader' : types.ISingleAssetTrader }
+    _properties = { 'trader' : types.IAccount }
 
     
 class PendingVolume(Proxy):

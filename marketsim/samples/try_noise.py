@@ -19,10 +19,5 @@ def Noise(ctx):
         
         #ctx.makeTrader_A(strategy.v0.Noise(), "noise"),
          
-        ctx.makeTrader_A(
-            strategy.Suspendable(
-                strategy.Estimator(
-                    strategy.Noise()), 
-                Interlacing(timeframe = 50)), 
-            "noise_ex")
+        ctx.makeTrader_A(strategy.Noise(), "noise_ex"),
     ]

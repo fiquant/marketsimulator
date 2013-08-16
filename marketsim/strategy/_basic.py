@@ -18,6 +18,10 @@ class Base(object):
         self._scheduler = context.world
         
     @property
+    def orderProcessor(self):
+        return self._orderProcessor
+        
+    @property
     def trader(self):
         return self._trader
 
@@ -27,7 +31,7 @@ class Strategy(Base, types.ISingleAssetStrategy):
         Base.__init__(self)
 
     def send(self, order):
-        self._orderProcessor.send(order)    
+        self.orderProcessor.send(order)    
         
 
 class MultiAssetStrategy(Base, types.IMultiAssetStrategy):
