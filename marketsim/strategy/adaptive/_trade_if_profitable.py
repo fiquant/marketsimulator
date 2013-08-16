@@ -1,5 +1,5 @@
 from marketsim import (trader, order, orderbook, scheduler, observable, order, 
-                       registry, types, meta, _, ops, event)
+                       request, registry, types, meta, _, ops, event)
 
 from marketsim.types import *
 
@@ -7,6 +7,69 @@ from .._basic import Strategy
 from .._wrap import wrapper2
 
 from .. import v0
+from ..side import FundamentalValue
+
+class Mediator(Strategy):
+
+    def updateContext(self, ctx):
+        ctx.orderProcessor_1 = ctx.orderProcessor
+        ctx.orderProcessor = self
+        
+    def bind(self, ctx):
+        self._orderProcessor = ctx.orderProcessor_1
+        
+
+class _Estimator_Impl(Mediator):
+    
+    def __init__(self):
+        Mediator.__init__(self)
+        self._balance = 0
+        self._position = 0
+        
+    @property
+    def amount(self):
+        return self._position
+    
+    @property
+    def PnL(self):
+        return self._balance
+        
+    def send(self, order):
+        Strategy.send(self, 
+                      request.EvalMarketOrder(
+                                order.side, 
+                                order.volumeUnmatched, 
+                                _(self, 
+                                  order.side, 
+                                  order.volumeUnmatched)._update))
+        Strategy.send(self, order)
+        
+        
+    def _update(self, side, volume, (price, volumeUnmatched)):
+        matched = volume - volumeUnmatched
+        self._position += -matched if side == Side.Sell else matched
+        self._balance += price if side == Side.Sell else -price
+
+exec wrapper2("Estimator", 
+             "",
+             [('inner',   'FundamentalValue()', 'ISingleAssetStrategy')], register=False)
+
+class Suspendable(Strategy):
+    
+    def __init__(self):
+        Strategy.__init__(self)
+        self._suspended = False
+        
+    @property
+    def suspended(self):
+        return self._suspended
+    
+    def suspend(self, flag = True):
+        self._suspended = flag
+        
+    def send(self, order):
+        if not self._suspended:
+            Strategy.send(self, order)
 
 class _tradeIfProfitable_Impl(Strategy):
 

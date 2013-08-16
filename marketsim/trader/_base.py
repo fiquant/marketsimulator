@@ -77,4 +77,5 @@ class Base(timeserie.Holder):
         if isinstance(order, types.IOrder):
             order = self._makeSubscribedTo(order)
         book.process(order)
-        self.on_order_sent.fire(order)        
+        if isinstance(order, types.IOrder):
+            self.on_order_sent.fire(order)        

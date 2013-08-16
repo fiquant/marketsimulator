@@ -1,4 +1,4 @@
-from _trade_if_profitable import tradeIfProfitable, TradeIfProfitable
+from _trade_if_profitable import tradeIfProfitable, TradeIfProfitable, Estimator
 
 from _choose_best import ChooseTheBest
 
