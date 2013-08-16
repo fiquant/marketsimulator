@@ -3,7 +3,7 @@ sys.path.append(r'../..')
 
 from marketsim import strategy, mathutils, order, ops
 
-from common import expose
+from common import expose, Interlacing
 
 @expose("Noise", __name__)
 def Noise(ctx):
@@ -19,5 +19,10 @@ def Noise(ctx):
         
         #ctx.makeTrader_A(strategy.v0.Noise(), "noise"),
          
-        ctx.makeTrader_A(strategy.Estimator(strategy.Noise()), "noise_ex")
+        ctx.makeTrader_A(
+            strategy.Suspendable(
+                strategy.Estimator(
+                    strategy.Noise()), 
+                Interlacing(timeframe = 50)), 
+            "noise_ex")
     ]

@@ -2,21 +2,7 @@ import sys
 sys.path.append(r'../..')
 
 from marketsim import (Side, mathutils, parts, signal, strategy, observable, ops, order, scheduler)
-from common import expose
-
-class InterlacingSide(ops.Function[Side]):
-    
-    def __init__(self, phase = 1, timeframe = 10):
-        self.timeframe = timeframe
-        self.phase = phase
-    
-    def bind(self, ctx):
-        self._scheduler = ctx.world
-        
-    def __call__(self):
-        return Side.Buy \
-                 if int(self._scheduler.currentTime / self.timeframe) % 2 == self.phase else \
-               Side.Sell 
+from common import expose, InterlacingSide
 
 @expose("Various Orders", __name__)
 def Orders(ctx):

@@ -231,7 +231,7 @@ class _Constant_Impl(object):
     def __repr__(self):
         return "constant("+repr(self.value)+")"
     
-_defaults = { float: 100, Side : Side.Sell }
+_defaults = { float: 100, Side : Side.Sell, bool : True }
 
 Constant = types.Factory('Constant', """(_Constant_Impl, Function[%(T)s]):
     \""" Constant function returning **value**.
@@ -245,7 +245,8 @@ Constant = types.Factory('Constant', """(_Constant_Impl, Function[%(T)s]):
 def constant(x):
     return Constant[float](x) if type(x) is float\
         else Constant[float](x) if type(x) is int\
-        else Constant[Side](x) if x is Side.Sell or x is Side.Buy\
+        else Constant[Side](x) if x in [Side.Sell, Side.Buy]\
+        else Constant[bool](x) if type(x) is bool\
         else None    
 
 

@@ -52,24 +52,29 @@ class _Estimator_Impl(Mediator):
 
 exec wrapper2("Estimator", 
              "",
-             [('inner',   'FundamentalValue()', 'ISingleAssetStrategy')], register=False)
+             [
+              ('inner',   'FundamentalValue()', 'ISingleAssetStrategy')
+             ], register=False)
 
-class Suspendable(Strategy):
+class _Suspendable_Impl(Mediator):
     
     def __init__(self):
-        Strategy.__init__(self)
-        self._suspended = False
+        Mediator.__init__(self)
         
     @property
     def suspended(self):
-        return self._suspended
+        return not self.predicate()
     
-    def suspend(self, flag = True):
-        self._suspended = flag
-        
     def send(self, order):
-        if not self._suspended:
+        if self.predicate():
             Strategy.send(self, order)
+
+exec wrapper2("Suspendable", 
+             "",
+             [
+              ('inner',     'FundamentalValue()', 'ISingleAssetStrategy'),
+              ('predicate', 'ops.constant(True)', 'IFunction[bool]')
+             ], register=False)
 
 class _tradeIfProfitable_Impl(Strategy):
 

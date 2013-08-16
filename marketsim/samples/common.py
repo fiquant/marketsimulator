@@ -320,3 +320,25 @@ def run(name, constructor, only_veusz):
 
 def Constant(c, demo):
     return [(observable.OnEveryDt(10, ops.constant(c)), demo)]
+
+class Interlacing(ops.Function[bool]):
+
+    def __init__(self, phase = 1, timeframe = 10):
+        self.timeframe = timeframe
+        self.phase = phase
+    
+    def bind(self, ctx):
+        self._scheduler = ctx.world
+        
+    def __call__(self):
+        return int(self._scheduler.currentTime / self.timeframe) % 2 == self.phase
+
+class InterlacingSide(ops.Function[Side]):
+    
+    def __init__(self, phase = 1, timeframe = 10):
+        self._impl = Interlacing(phase, timeframe)
+        
+    _internals = ['_impl']
+        
+    def __call__(self):
+        return Side.Buy if self._impl() else Side.Sell 
