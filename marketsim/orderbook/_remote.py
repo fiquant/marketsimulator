@@ -101,6 +101,14 @@ class Remote(BookBase):
         remote.on_matched += _(self, order)._send_to_downlink
         remote.on_cancelled += _(self, order)._send_to_downlink_cancelled
         return remote       
+    
+    def process(self, order):
+        if isinstance(order, types.IOrder):
+            BookBase.process(self, order)
+        else:
+            if 'callback' in dir(order):
+                order.callback = _(self, order.callback)._sendToDownLink
+            self._upLink.send(_(self._book, order).process) 
         
     def processMarketOrder(self, order):
         self._upLink.send(_(self._book, self._remote(order)).processMarketOrder)
