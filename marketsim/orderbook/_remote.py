@@ -115,19 +115,6 @@ class Remote(BookBase):
         
     def processLimitOrder(self, order):
         self._upLink.send(_(self._book, self._remote(order)).processLimitOrder)
-
-    def cancelOrder(self, order):
-        self._upLink.send(_(self._book, order.remote).cancelOrder)
         
     def _sendToDownLink(self, callback, x):
         self._downLink.send(bind.Callable(callback, x))
-        
-    def evaluateOrderPriceAsync(self, side, volume, callback):
-        self._upLink.send(
-            _(self._book, side, volume, _(self, callback)._sendToDownLink)
-                .evaluateOrderPriceAsync)
-        
-    def evaluateVolumesForBudget(self, side, budget, callback):
-        self._upLink.send(
-            _(self._book, side, budget, _(self, callback)._sendToDownLink)
-                .evaluateVolumesForBudget)

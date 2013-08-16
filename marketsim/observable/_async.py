@@ -1,4 +1,4 @@
-from marketsim import Side, getLabel, Event, meta, types, bind, scheduler, event, _, ops
+from marketsim import request, Side, getLabel, Event, meta, types, bind, scheduler, event, _, ops
 
 def sign(x):
     return 1 if x > 0 else -1 if x < 0 else 0
@@ -38,9 +38,10 @@ class Efficiency(ops.Observable[float]):
     def _update(self, dummy = None):
     
         side = Side.Buy if self._trader.amount < 0 else Side.Sell 
-        self._trader.book.evaluateOrderPriceAsync(side, 
-                                                  abs(self._trader.amount), 
-                                                  _(self, -sign(self._trader.amount))._callback)
+        self._trader.book.process(
+                        request.EvalMarketOrder(side, 
+                                                abs(self._trader.amount), 
+                                                _(self, -sign(self._trader.amount))._callback))
     
         
     @property

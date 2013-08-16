@@ -284,7 +284,7 @@ def run(name, constructor, only_veusz):
         r.pushAllReferences()
         context.bind(root, {'world' : world })
         
-        if True:
+        if False:
             o = order.FixedBudget(Side.Buy, 10000)
             
             def p(l):
@@ -297,7 +297,7 @@ def run(name, constructor, only_veusz):
             
             world.schedule(250, _(ctx.remote_A, o).process)
             
-        if True:
+        if False:
             req = request.EvalMarketOrder(Side.Sell, 500, _print)
             world.schedule(10, _(ctx.remote_A, req).process)
         

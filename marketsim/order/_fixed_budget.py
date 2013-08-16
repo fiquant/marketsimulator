@@ -1,4 +1,4 @@
-from marketsim import event, _, Event, combine, ops, types
+from marketsim import request, event, _, Event, combine, ops, types
 from marketsim.types import *
 
 from _limit_market import LimitMarket
@@ -13,8 +13,10 @@ class FixedBudget(types.IOrder):
         self.on_charged = Event()
         
     def processIn(self, orderBook):
-        orderBook.evaluateVolumesForBudget(self.side, self.budget, 
-                                           _(self, orderBook)._onEvaluated)
+        orderBook.process(
+                    request.EvalVolumesForBudget(
+                                self.side, self.budget, 
+                                _(self, orderBook)._onEvaluated))
         
     def _onEvaluated(self, orderBook, pvs):
         self._ordersSent = 0
