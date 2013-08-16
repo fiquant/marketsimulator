@@ -95,10 +95,14 @@ exec wrapper2("Suspendable",
 
 class TradeIfProfitable(types.ISingleAssetStrategy):
     
+    def getDefinitions(self):
+        return {
+            'estimator' : Estimator(self.inner)
+        }
+    
     def getImpl(self):
-        estimator = Estimator(self.inner)
-        efficiency = observable.trend(observable.Efficiency(estimator), alpha=0.065)
-        return Suspendable(estimator, efficiency >= 0)
+        efficiency = observable.trend(observable.Efficiency(_.estimator), alpha=0.065)
+        return Suspendable(_.estimator, efficiency >= 0)
     
 from .. import _wrap
 
