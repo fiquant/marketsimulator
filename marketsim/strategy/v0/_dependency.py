@@ -18,7 +18,7 @@ class _Dependency_Impl(FundamentalValueBase):
             if self._priceToDependOn() is not None else None
     
     def _volume(self, side):
-        oppositeQueue = self._trader.book.queue(side.opposite)
+        oppositeQueue = self._trader.orderBook.queue(side.opposite)
         # should we send limit and cancel orders here?
         oppositeVolume = oppositeQueue.volumeWithPriceBetterThan(self._fundamentalValue())
         # we want to trade orders only with a good price

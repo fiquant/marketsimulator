@@ -79,14 +79,18 @@ class _Arbitrage_Impl(MultiAssetStrategy):
                     def send(o):
                         self._send(myQueue.book, o)
                         
-                    send(order.ImmediateOrCancel(oppositeSide, 
+                    send(order.ImmediateOrCancel(
+                                        order.Limit(
+                                                 oppositeSide, 
                                                  myPrice, 
-                                                 volumeToTrade))                               
+                                                 volumeToTrade)))                               
                     
                     
-                    send(order.ImmediateOrCancel(side, 
+                    send(order.ImmediateOrCancel(
+                                        order.Limit(
+                                                 side, 
                                                  oppositePrice, 
-                                                 volumeToTrade))                                    
+                                                 volumeToTrade)))                                    
                     
     def _send(self, orderbook, order):
         for t in self._traders:

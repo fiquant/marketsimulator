@@ -106,15 +106,8 @@ class Context(object):
         return t
     
     def makeMultiAssetTrader(self, books, aStrategy, label, additional_ts = []):
-        def trader_ts():
-            thisTrader = trader.MultiProxy()
-            return { 
-#                        observable.VolumeTraded(thisTrader) : self.amount_graph, 
-#                        observable.Efficiency(thisTrader)   : self.eff_graph,
-                         observable.PnL(thisTrader)          : self.balance_graph 
-                   }
         traders = [self.makeTrader(b, strategy.Empty(), label + "_" + b.label) for b in books]
-        t = trader.MultiAsset(traders, aStrategy, label = label, timeseries = trader_ts())
+        t = trader.MultiAsset(traders, aStrategy, label = label)
                     
         for (ts, graph) in additional_ts:
             t.addTimeSerie(ts, graph)

@@ -13,7 +13,7 @@ class FundamentalValueBase(SignalBase):
         return 0.
     
     def _signalFunc(self):
-        book = self._trader.book
+        book = self._trader.orderBook
         fv = self._fundamentalValue()
 
         # Quick fix: sometimes fv returns a None value
