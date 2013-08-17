@@ -23,5 +23,5 @@ class TwoSides(Strategy):
             # create order given side and parameters
             order = self.orderFactory(side)(*params)
             # send order to the order book
-            self.send(order)
+            self._send(order)
 

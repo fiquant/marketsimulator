@@ -29,11 +29,9 @@ class Strategy(Base, types.ISingleAssetStrategy):
     
     def __init__(self):
         Base.__init__(self)
-        self.order_created = Event()
 
-    def send(self, order):
+    def _send(self, order):
         self.orderProcessor.send(order)
-        #self.order_created.fire(self, order)    
         
 
 class MultiAssetStrategy(Base, types.IMultiAssetStrategy):

@@ -23,5 +23,5 @@ class OneSide(Strategy):
         # create an order with given parameters
         order = self._orderFactory(*params)
         # send the order to the order book
-        self.send(order)
+        self._send(order)
 

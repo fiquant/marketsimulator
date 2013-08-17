@@ -29,8 +29,8 @@ class _MarketData_Impl(Strategy):
         quote = self.quotes[self._scheduler.currentTime]
         buyOrder = order.LimitFactory(Side.Buy)(quote - 5, self.volume)
         sellOrder = order.LimitFactory(Side.Sell)(quote + 5, self.volume)
-        self.send(buyOrder)
-        self.send(sellOrder)
+        self._send(buyOrder)
+        self._send(sellOrder)
 
 exec  wrapper2("MarketData",
              """ A Strategy that allows to drive the asset price based on historical market data

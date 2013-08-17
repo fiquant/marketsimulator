@@ -21,7 +21,7 @@ class _Generic_Impl(Strategy):
         order = self.orderFactory()
         # send order to the order book
         if order is not None:
-            self.send(order)
+            self._send(order)
  
 exec  wrapper2("Generic", 
              """ Generic strategy that wakes up on events given by *eventGen*, 

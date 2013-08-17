@@ -13,7 +13,7 @@ class _Desired_Impl(Strategy):
     def _wakeUp(self, dummy):
         gap = self.desiredPosition() - self._trader.actual
         order = ImmediateOrCancel(gap)
-        self.send(order)
+        self._send(order)
 
 exec  wrapper2("Desired",
              """ Generic strategy that tries to keep trader's position equal to *desiredPosition*,

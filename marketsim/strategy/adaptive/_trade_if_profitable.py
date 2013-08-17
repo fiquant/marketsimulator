@@ -51,14 +51,14 @@ class _Estimator_Impl(Mediator, types.IAccount):
         return self._balance
         
     def send(self, order):
-        Strategy.send(self, 
+        self._send(self, 
                       request.EvalMarketOrder(
                                 order.side, 
                                 order.volumeUnmatched, 
                                 _(self, 
                                   order.side, 
                                   order.volumeUnmatched)._update))
-        Strategy.send(self, order)
+        self._send(self, order)
         
         
     def _update(self, side, volume, (price, volumeUnmatched)):
@@ -84,7 +84,7 @@ class _Suspendable_Impl(Mediator):
     
     def send(self, order):
         if self.predicate():
-            Strategy.send(self, order)
+            self._send(self, order)
 
 exec wrapper2("Suspendable", 
              "",
