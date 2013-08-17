@@ -9,35 +9,10 @@ from .._wrap import wrapper2
 from .. import v0
 from ..side import FundamentalValue
 
-class Mediator(Strategy):
-
-    def updateContext(self, ctx):
-        self._orderProcessor_1 = ctx.orderProcessor
-        ctx.orderProcessor = self
-        
-    def bind(self, ctx):
-        self._orderProcessor = self._orderProcessor_1
-        del self._orderProcessor_1
-        
-    @property
-    def orderProcessor(self):
-        return getattr(self, '_orderProcessor_1', 
-                       getattr(self, '_orderProcessor', None))
-        
-    @property
-    def orderBook(self):
-        return self.orderProcessor.orderBook
-    
-    @property
-    def orderBooks(self):
-        return self.orderProcessor.orderBooks
-
-        
-
-class _Estimator_Impl(Mediator, types.IAccount):
+class _Estimator_Impl(Strategy, types.IAccount):
     
     def __init__(self):
-        Mediator.__init__(self)
+        Strategy.__init__(self)
         self._balance = 0
         self._position = 0
         self.on_traded = Event()
@@ -55,7 +30,7 @@ class _Estimator_Impl(Mediator, types.IAccount):
         pass
         
     def send(self, order):
-        self.orderBook.process(
+        self.trader.orderBook.process(
                     request.EvalMarketOrder(
                                 order.side, 
                                 order.volumeUnmatched, 
@@ -76,10 +51,10 @@ exec wrapper2("Estimator",
               ('inner',   'FundamentalValue()', 'ISingleAssetStrategy')
              ], register=False)
 
-class _Suspendable_Impl(Mediator):
+class _Suspendable_Impl(Strategy):
     
     def __init__(self):
-        Mediator.__init__(self)
+        Strategy.__init__(self)
         event.subscribe(self.inner.on_order_created, _(self).send, self)
         
     @property
@@ -87,7 +62,6 @@ class _Suspendable_Impl(Mediator):
         return not self.predicate()
     
     def send(self, order):
-        print self.predicate()
         if self.predicate():
             self._send(order)
 
