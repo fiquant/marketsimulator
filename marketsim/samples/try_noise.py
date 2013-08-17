@@ -17,7 +17,7 @@ def Noise(ctx):
                                     expirationDistr=ops.constant(10))), 
                          "liquidity"),
         
-        #ctx.makeTrader_A(strategy.v0.Noise(), "noise"),
+        ctx.makeTrader_A(strategy.v0.Noise(), "noise"),
          
         ctx.makeTrader_A(strategy.Noise(), "noise_ex"),
     ]

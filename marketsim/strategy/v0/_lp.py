@@ -4,7 +4,7 @@ from _one_side import OneSide
 from .._array import Array
 from _wrap import merge, wrapper2
 from _lp_side import (LiquidityProviderSide)
-from marketsim import (order, orderbook, scheduler, mathutils, defs, _,
+from marketsim import (event, order, orderbook, scheduler, mathutils, defs, _,
                        types, registry, bind, meta, trader, ops)
 from marketsim.types import *
 
@@ -23,6 +23,9 @@ class _LiquidityProvider_Impl(Strategy):
         bp = merge_dict(props, side=Side.Buy) 
         self._sell = LiquidityProviderSide(**sp)
         self._buy = LiquidityProviderSide(**bp)
+        event.subscribe(self._sell.on_order_created, _(self)._send, self)
+        event.subscribe(self._buy.on_order_created, _(self)._send, self)
+        
 
     _internals = ['_sell', '_buy']
         

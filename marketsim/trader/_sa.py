@@ -1,4 +1,4 @@
-from marketsim import types, meta, getLabel, Side
+from marketsim import event, _, types, meta, getLabel, Side
 
 from _base import Base
 
@@ -24,10 +24,20 @@ class SingleAsset(Base, types.ISingleAssetTrader):
         Base.__init__(self, PnL, timeseries)
         self._orderBook = orderBook
         self._amount = amount
-        self.strategy = strategy
+        self._strategy = strategy
+        self._subscription = event.subscribe(strategy.on_order_created, _(self).send, self)
         self._label = label
         self.label = self._label
         self._alias = [self._label]
+        
+    @property
+    def strategy(self):
+        return self._strategy
+    
+    @strategy.setter
+    def strategy(self, value):
+        self._subscription.switchTo(value.on_order_created)
+        self._strategy = value
              
     def reset(self):
         self._amount = 0

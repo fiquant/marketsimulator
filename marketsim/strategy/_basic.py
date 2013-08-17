@@ -29,15 +29,17 @@ class Strategy(Base, types.ISingleAssetStrategy):
     
     def __init__(self):
         Base.__init__(self)
+        self.on_order_created = Event()
 
     def _send(self, order):
-        self.orderProcessor.send(order)
+        self.on_order_created.fire(order)
         
 
 class MultiAssetStrategy(Base, types.IMultiAssetStrategy):
     
     def __init__(self):
         Base.__init__(self)
+        self.on_order_created = Event()
 
 @registry.expose(['Empty']) 
 class Empty(Strategy):

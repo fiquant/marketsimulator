@@ -41,6 +41,7 @@ class _Estimator_Impl(Mediator, types.IAccount):
         self._balance = 0
         self._position = 0
         self.on_traded = Event()
+        event.subscribe(self.inner.on_order_created, _(self).send, self)
         
     @property
     def amount(self):
@@ -49,16 +50,18 @@ class _Estimator_Impl(Mediator, types.IAccount):
     @property
     def PnL(self):
         return self._balance
+    
+    def bind(self, ctx):
+        pass
         
     def send(self, order):
-        self._send(self, 
-                      request.EvalMarketOrder(
+        self.orderBook.process(
+                    request.EvalMarketOrder(
                                 order.side, 
                                 order.volumeUnmatched, 
                                 _(self, 
                                   order.side, 
                                   order.volumeUnmatched)._update))
-        self._send(self, order)
         
         
     def _update(self, side, volume, (price, volumeUnmatched)):
@@ -77,14 +80,16 @@ class _Suspendable_Impl(Mediator):
     
     def __init__(self):
         Mediator.__init__(self)
+        event.subscribe(self.inner.on_order_created, _(self).send, self)
         
     @property
     def suspended(self):
         return not self.predicate()
     
     def send(self, order):
+        print self.predicate()
         if self.predicate():
-            self._send(self, order)
+            self._send(order)
 
 exec wrapper2("Suspendable", 
              "",
@@ -95,14 +100,10 @@ exec wrapper2("Suspendable",
 
 class TradeIfProfitable(types.ISingleAssetStrategy):
     
-    def getDefinitions(self):
-        return {
-            'estimator' : Estimator(self.inner)
-        }
-    
     def getImpl(self):
-        efficiency = observable.trend(observable.Efficiency(_.estimator), alpha=0.065)
-        return Suspendable(_.estimator, efficiency >= 0)
+        estimator = Estimator(self.inner)
+        efficiency = observable.trend(observable.Efficiency(estimator), alpha=0.065)
+        return Suspendable(self.inner, efficiency >= 0)
     
 from .. import _wrap
 

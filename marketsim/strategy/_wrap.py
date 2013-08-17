@@ -53,13 +53,18 @@ def wrapper2(name, docstring, params, register=True, category="Basic"):
     return template2 % locals()
 
 import marketsim
-from marketsim import wrap, ops, types, event, _, flags
+from marketsim import Event, wrap, ops, types, event, _, flags
 
 StrategyBase = types.Factory('StrategyBase', """(wrap.Base):
     _properties = {'impl' : (types.ISingleAssetStrategy, flags.collapsed) }
 
     def __init__(self):
         wrap.Base.__init__(self)
+        self.on_order_created = Event()
+        event.subscribe(self.impl.on_order_created, _(self)._send, self)
+        
+    def _send(self, order):
+        self.on_order_created.fire(order)
         
     @property
     def suspended(self):
