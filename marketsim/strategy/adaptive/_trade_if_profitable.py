@@ -26,10 +26,7 @@ class _Estimator_Impl(Strategy, types.IAccount):
     def PnL(self):
         return self._balance
     
-    def bind(self, ctx):
-        pass
-        
-    def send(self, order):
+    def send(self, order, source):
         self.trader.orderBook.process(
                     request.EvalMarketOrder(
                                 order.side, 
@@ -61,7 +58,7 @@ class _Suspendable_Impl(Strategy):
     def suspended(self):
         return not self.predicate()
     
-    def send(self, order):
+    def send(self, order, source):
         if self.predicate():
             self._send(order)
 
@@ -88,6 +85,39 @@ _wrap.strategy(TradeIfProfitable, ['Adaptive', 'Trade-if-profitable'],
               ('inner', 'FundamentalValue()', 'ISingleAssetStrategy'),
              ], 
              globals())
+
+@sig(args=(IAccount,), rv=IFunction[float])
+def unitWeight(trader):
+    return ops.constant(1.)
+
+class _RandomSelect_Impl(Strategy):
+    
+    def __init__(self):
+        Strategy.__init__(self)
+        for s in self.strategies:
+            event.subscribe(s.on_order_created, _(self).onOrderCreated, self)
+
+
+
+exec wrapper2("RandomSelect", 
+             "",
+             [
+              ('strategies',   '[]',         'listOf(ISingleAssetStrategy)'),
+              ('weightfunc',   'unitWeight', 'IAccount -> IFunction[float]')
+             ], register=False)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @registry.expose(alias=["trader's efficiency trend"])
 @sig(args=(ISingleAssetTrader,), rv=ISingleAssetTrader)

@@ -87,5 +87,5 @@ class SingleAsset(Base, types.ISingleAssetTrader):
     def orderBook(self, newvalue):
         self._orderBook = newvalue
         
-    def send(self, order):
+    def send(self, order, unused = None):
         Base.send(self, self._orderBook, order)

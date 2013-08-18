@@ -26,8 +26,8 @@ class Strategy(Base, types.ISingleAssetStrategy):
         Base.__init__(self)
         self.on_order_created = Event()
 
-    def _send(self, order):
-        self.on_order_created.fire(order)
+    def _send(self, order, unused = None):
+        self.on_order_created.fire(order, self)
 
     @property
     def orderBook(self):

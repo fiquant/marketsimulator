@@ -33,7 +33,11 @@ class Method(object):
     _internals = ['methodname', 'args']
         
     def __call__(self, *args):
-        return getattr(self.obj, self.methodname)(*(self.args + args))
+        try:
+            return getattr(self.obj, self.methodname)(*(self.args + args))
+        except TypeError:
+            print "%s.%s%s failed" % (self.obj, self.methodname, self.args + args)
+            raise
 
 
 class Construct(object):

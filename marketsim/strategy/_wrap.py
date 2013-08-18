@@ -63,8 +63,8 @@ StrategyBase = types.Factory('StrategyBase', """(wrap.Base):
         self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
         
-    def _send(self, order):
-        self.on_order_created.fire(order)
+    def _send(self, order, source):
+        self.on_order_created.fire(order, source)
         
     @property
     def suspended(self):
