@@ -69,11 +69,19 @@ exec wrapper2("Suspendable",
               ('predicate', 'ops.constant(True)', 'IFunction[bool]')
              ], register=False)
 
+@sig(args=(IAccount,), rv=IFunction[float])
+def efficiencyTrend2(trader):
+    if not hasattr(trader, '_efficiencytrend'):
+        trader._efficiencytrend = \
+            observable.trend(observable.Efficiency(trader), alpha=0.065)
+
+    return trader._efficiencytrend
+
 class TradeIfProfitable(types.ISingleAssetStrategy):
     
     def getImpl(self):
         estimator = Estimator(self.inner)
-        efficiency = observable.trend(observable.Efficiency(estimator), alpha=0.065)
+        efficiency = self.evaluator(estimator)
         return Suspendable(self.inner, efficiency >= 0)
     
 from .. import _wrap
@@ -83,6 +91,7 @@ _wrap.strategy(TradeIfProfitable, ['Adaptive', 'Trade-if-profitable'],
              """,
              [
               ('inner', 'FundamentalValue()', 'ISingleAssetStrategy'),
+              ('evaluator', 'efficiencyTrend2', 'IAccount -> IFunction[float]')
              ], 
              globals())
 

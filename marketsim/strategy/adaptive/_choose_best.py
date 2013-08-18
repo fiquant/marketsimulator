@@ -8,6 +8,11 @@ from .._wrap import wrapper2
 from .. import v0
 from _trade_if_profitable import efficiencyTrend, virtualWithUnitVolume
 
+from _trade_if_profitable import efficiencyTrend2, Estimator
+
+
+
+
 class _ChooseTheBest_Impl(Strategy):
     
     def _chooseTheBest(self,_):
