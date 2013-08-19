@@ -51,6 +51,18 @@ def efficiency(trader):
 def noCorrection(weights):
     return weights
 
+@meta.sig(args=types.listOf(float), rv=types.listOf(float))
+def chooseTheBest(weights):
+    mw = max(weights)
+    # index of the strategy with the highest (positive) efficiency
+    max_idx = weights.index(mw)
+    weights = [0] * len(weights)
+    
+    if mw > 0:
+        weights[max_idx] = 1
+    
+    return weights
+
     
 @registry.expose(['Efficiency alpha'])       
 class EfficiencyAlpha(Efficiency):

@@ -79,8 +79,8 @@ exec wrapper2("MultiarmedBandit2",
              [
               ('strategies',  '[v0.FundamentalValue()]','meta.listOf(ISingleAssetStrategy)'),
               ('weight',     'weight.TrackRecord()',  'weight.Base'),
-              ('evaluator',   'weight.efficiency',             'IAccount -> IFunction[float]'),
-              ('weightCorrection', 'weight.noCorrection', 'listOf(float) -> listOf(float)')
+              ('evaluator',   'weight.efficiencyTrend',             'IAccount -> IFunction[float]'),
+              ('weightCorrection', 'weight.chooseTheBest', 'listOf(float) -> listOf(float)')
              ], category="Adaptive")
 
 
