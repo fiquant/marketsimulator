@@ -17,7 +17,7 @@ class _ChooseTheBest_Impl(Strategy):
         self._estimators = []
         for s in self.strategies:
             event.subscribe(s.on_order_created, _(self).send, self)
-            e = self.evaluator(Estimator(s))
+            e = self.evaluator(s)
             e._origin = s
             self._estimators.append(e)
         event.subscribe(scheduler.Timer(ops.constant(1.)), _(self)._wakeUp, self)
