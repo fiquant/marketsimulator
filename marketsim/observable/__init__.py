@@ -17,7 +17,7 @@ from _rsi import RSI
 
 from _orderbook import (PriceAtVolume, VolumeLevels, TickSize,
                         QueuePrice, AskLastTradePrice, BidLastTradePrice,
-                        QueueLastPrice,
+                        QueueLastPrice, AskLastPrice, BidLastPrice,
                         BidPrice, AskPrice, MidPrice, Spread,
                         LastTradePrice, AskWeightedPrice, BidWeightedPrice)
 
@@ -32,3 +32,5 @@ from _rolling import RollingLogReturns, RollingVolatility, RollingAvg
 from _minmax_eps import MinEpsilon, MaxEpsilon
 
 from _quote import Quote
+
+from _store import DataStore
