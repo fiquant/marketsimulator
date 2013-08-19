@@ -125,7 +125,8 @@ class QueueLastTrade(QueueProxy):
 class QueueLastTradePrice(QueueLastTrade):
     
     def __call__(self):
-        return QueueLastTrade.__call__(self)[0]
+        trade = QueueLastTrade.__call__(self)
+        return trade[0] if trade is not None else None
 
     @property
     def label(self):
@@ -177,6 +178,12 @@ def AskLastTradePrice(book):
     
 def BidLastTradePrice(book):
     return QueueLastTradePrice(orderbook.Bids(book))
+
+def AskLastPrice(book):
+    return QueueLastPrice(orderbook.Asks(book))
+
+def BidLastPrice(book):
+    return QueueLastPrice(orderbook.Bids(book))
     
 def AskPrice(book):
     return QueuePrice(orderbook.Asks(book))
@@ -241,7 +248,8 @@ class LastTradePrice(LastTrade):
     # it is Observable[Price] but not Observable[PriceVolume]
     
     def __call__(self):
-        return LastTrade.__call__(self)[0]
+        trade = LastTrade.__call__(self)
+        return trade[0] if trade is not None else None
     
     @property
     def label(self):
