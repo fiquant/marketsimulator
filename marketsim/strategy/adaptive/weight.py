@@ -47,6 +47,10 @@ def efficiency(trader):
     return cachedattr(trader, '_efficiencyNormalized', 
                       lambda: normalized(_trade_if_profitable.efficiency(trader)))
 
+@meta.sig(args=types.listOf(float), rv=types.listOf(float))
+def noCorrection(weights):
+    return weights
+
     
 @registry.expose(['Efficiency alpha'])       
 class EfficiencyAlpha(Efficiency):

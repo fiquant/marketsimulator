@@ -29,7 +29,11 @@ class LastTrade(ops.Observable[float]):
         
     def set(self, value):
         self._lastTrade = value
-        self.fire(value)
+        self.fire(self)
+        
+    def _retranslate(self, source):
+        self.set(source())
+        
     
     # return (price, volume) of the last trade or None    
     def __call__(self):

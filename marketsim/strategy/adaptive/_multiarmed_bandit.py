@@ -41,7 +41,9 @@ class _MultiarmedBandit2_Impl(Strategy):
         # random weighted selection from the set of efficient strategies
         choices = [s._origin for s in self._estimators]
         def opt(x): return 0 if x is None else x
-        cumdist = list(numpy.cumsum([opt(e()) for e in self._estimators]))
+        weights = [opt(e()) for e in self._estimators]
+        weights = self.weightCorrection(weights)
+        cumdist = list(numpy.cumsum(weights))
         
         if cumdist[-1] > 0:
             x = random.random() * cumdist[-1]
@@ -78,6 +80,7 @@ exec wrapper2("MultiarmedBandit2",
               ('strategies',  '[v0.FundamentalValue()]','meta.listOf(ISingleAssetStrategy)'),
               ('weight',     'weight.TrackRecord()',  'weight.Base'),
               ('evaluator',   'weight.efficiency',             'IAccount -> IFunction[float]'),
+              ('weightCorrection', 'weight.noCorrection', 'listOf(float) -> listOf(float)')
              ], category="Adaptive")
 
 
