@@ -63,7 +63,7 @@ class ObservableHistory(fold.Last, ops.Observable[float]):
         return self._data.__getitem__(key)
     
     def _getLabel(self):
-        return "Rolling"
+        return self.source.label
     
 class RollingApply(ObservableHistory):
     def __init__(self, source, window, func = pd.Series.mean):
@@ -84,3 +84,10 @@ class RollingApply(ObservableHistory):
     def at(self, t):
         self.update(t, None)
         return ObservableHistory.at(self, t)
+
+    @property
+    def label(self):
+        return self._func.__name__ + "{%s}" % self.source.label
+
+    def _getLabel(self):
+        return self.label
