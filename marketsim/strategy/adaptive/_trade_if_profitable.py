@@ -69,13 +69,22 @@ exec wrapper2("Suspendable",
               ('predicate', 'ops.constant(True)', 'IFunction[bool]')
              ], register=False)
 
+def cachedattr(obj, name, setter):
+    if not hasattr(obj, name):
+        setattr(obj, name, setter())
+        
+    return getattr(obj, name)
+
+
+@sig(args=(IAccount,), rv=IFunction[float])
+def efficiency(trader):
+    return cachedattr(trader, '_efficiency', 
+                      lambda: observable.Efficiency(Estimator(trader)))
+
 @sig(args=(IAccount,), rv=IFunction[float])
 def efficiencyTrend2(trader):
-    if not hasattr(trader, '_efficiencytrend'):
-        trader._efficiencytrend = \
-            observable.trend(observable.Efficiency(Estimator(trader)), alpha=0.065)
-
-    return trader._efficiencytrend
+    return cachedattr(trader, '_efficiencytrend', 
+                      lambda: observable.trend(efficiency(trader), alpha=0.065))
 
 class TradeIfProfitable(types.ISingleAssetStrategy):
     
