@@ -52,10 +52,6 @@ class _MultiarmedBandit2_Impl(Strategy):
             # none of the strategies is efficient, therefore we prefer not to trade
             self._current = None
 
-@sig(args=(IAccount,), rv=IFunction[float])
-def unitWeight(trader):
-    return ops.constant(1.)
-
 exec wrapper2("MultiarmedBandit2",
              """ A composite strategy initialized with an array of strategies. 
                  In some moments of time the most effective strategy 
@@ -81,7 +77,7 @@ exec wrapper2("MultiarmedBandit2",
              [
               ('strategies',  '[v0.FundamentalValue()]','meta.listOf(ISingleAssetStrategy)'),
               ('weight',     'weight.TrackRecord()',  'weight.Base'),
-              ('evaluator',   'unitWeight',             'IAccount -> IFunction[float]'),
+              ('evaluator',   'weight.efficiency',             'IAccount -> IFunction[float]'),
              ], category="Adaptive")
 
 

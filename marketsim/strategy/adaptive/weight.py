@@ -1,4 +1,4 @@
-from marketsim import types, registry
+from marketsim import meta, types, registry, ops, observable
 
 class Base(object):
 
@@ -24,6 +24,21 @@ class Efficiency(Base):
         
     def getWeights(self):
         return [ max(s[3](), 0) for s in self._strategies]
+    
+from _trade_if_profitable import efficiencyTrend2
+
+@meta.sig(args=(types.IAccount,), rv=types.IFunction[float])
+def efficiency(trader):
+    if not hasattr(trader, '_efficiencyNormalized'):
+        trader._efficiencyNormalized = \
+            ops.Atan(
+                ops.Pow(
+                    ops.constant(1.002), 
+                    efficiencyTrend2(trader)))
+
+    return trader._efficiencyNormalized
+
+
     
 @registry.expose(['Efficiency alpha'])       
 class EfficiencyAlpha(Efficiency):
@@ -68,3 +83,8 @@ class Uniform(Base):
     
     def getWeights(self):
         return self._weights
+
+@meta.sig(args=(types.IAccount,), rv=types.IFunction[float])
+def unit(trader):
+    return ops.constant(1.)
+
