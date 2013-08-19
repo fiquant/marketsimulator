@@ -11,6 +11,79 @@ import weight
 import numpy, random, bisect
 
 from _trade_if_profitable import efficiencyTrend, virtualWithUnitVolume
+from _trade_if_profitable import efficiencyTrend2, Estimator
+
+
+class _MultiarmedBandit2_Impl(Strategy):
+    
+    def __init__(self):
+        Strategy.__init__(self)
+        self._current = None
+        self._estimators = []
+        for s in self.strategies:
+            event.subscribe(s.on_order_created, _(self).send, self)
+            e = self.evaluator(s)
+            e._origin = s
+            self._estimators.append(e)
+        event.subscribe(scheduler.Timer(ops.constant(1.)), _(self)._wakeUp, self)
+            
+    _internals = ['_estimators']
+
+    def updateContext(self, context):
+        context.parentTrader = context.trader
+        context.strategies = self.strategies
+
+    def send(self, order, origin):
+        if origin == self._current:
+            self._send(order)
+            
+    def _wakeUp(self, _):
+        # random weighted selection from the set of efficient strategies
+        choices = [s._origin for s in self._estimators]
+        def opt(x): return 0 if x is None else x
+        cumdist = list(numpy.cumsum([opt(e()) for e in self._estimators]))
+        
+        if cumdist[-1] > 0:
+            x = random.random() * cumdist[-1]
+            chosen = choices[bisect.bisect(cumdist, x)]
+            # activate the chose strategy
+            self._current = chosen
+        else:
+            # none of the strategies is efficient, therefore we prefer not to trade
+            self._current = None
+
+@sig(args=(IAccount,), rv=IFunction[float])
+def unitWeight(trader):
+    return ops.constant(1.)
+
+exec wrapper2("MultiarmedBandit2",
+             """ A composite strategy initialized with an array of strategies. 
+                 In some moments of time the most effective strategy 
+                 is chosen and made running; other strategies are suspended.
+                 The choice is made randomly among the strategies that have
+                 a positive efficiency trend, weighted by the efficiency value.
+                 
+                 Parameters: 
+                 
+                     |weight|
+                         weighting scheme for choosing strategies
+                
+                     |strategies| 
+                        original strategies that can be suspended
+                     
+                     |efficiency| 
+                         function estimating is the strategy efficient or not
+                     
+                     |estimator| 
+                        function creating phantom strategy used for efficiency estimation
+                 
+                 """,
+             [
+              ('strategies',  '[v0.FundamentalValue()]','meta.listOf(ISingleAssetStrategy)'),
+              ('weight',     'weight.TrackRecord()',  'weight.Base'),
+              ('evaluator',   'unitWeight',             'IAccount -> IFunction[float]'),
+             ], category="Adaptive")
+
 
 class _MultiarmedBandit_Impl(Strategy):
     

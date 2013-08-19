@@ -73,15 +73,14 @@ exec wrapper2("Suspendable",
 def efficiencyTrend2(trader):
     if not hasattr(trader, '_efficiencytrend'):
         trader._efficiencytrend = \
-            observable.trend(observable.Efficiency(trader), alpha=0.065)
+            observable.trend(observable.Efficiency(Estimator(trader)), alpha=0.065)
 
     return trader._efficiencytrend
 
 class TradeIfProfitable(types.ISingleAssetStrategy):
     
     def getImpl(self):
-        estimator = Estimator(self.inner)
-        efficiency = self.evaluator(estimator)
+        efficiency = self.evaluator(self.inner)
         return Suspendable(self.inner, efficiency >= 0)
     
 from .. import _wrap
@@ -94,39 +93,6 @@ _wrap.strategy(TradeIfProfitable, ['Adaptive', 'Trade-if-profitable'],
               ('evaluator', 'efficiencyTrend2', 'IAccount -> IFunction[float]')
              ], 
              globals())
-
-@sig(args=(IAccount,), rv=IFunction[float])
-def unitWeight(trader):
-    return ops.constant(1.)
-
-class _RandomSelect_Impl(Strategy):
-    
-    def __init__(self):
-        Strategy.__init__(self)
-        for s in self.strategies:
-            event.subscribe(s.on_order_created, _(self).onOrderCreated, self)
-
-
-
-exec wrapper2("RandomSelect", 
-             "",
-             [
-              ('strategies',   '[]',         'listOf(ISingleAssetStrategy)'),
-              ('weightfunc',   'unitWeight', 'IAccount -> IFunction[float]')
-             ], register=False)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @registry.expose(alias=["trader's efficiency trend"])
 @sig(args=(ISingleAssetTrader,), rv=ISingleAssetTrader)
