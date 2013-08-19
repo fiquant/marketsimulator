@@ -22,8 +22,8 @@ class BookBase(types.IOrderBook, timeserie.Holder):
             self._alias = [label]
 
         self.lastTrade = LastTrade()
-        event.subscribe(self._asks.lastTrade, _(self.lastTrade).set, self)
-        event.subscribe(self._bids.lastTrade, _(self.lastTrade).set, self)
+        event.subscribe(self._asks.lastTrade, _(self.lastTrade)._retranslate, self)
+        event.subscribe(self._bids.lastTrade, _(self.lastTrade)._retranslate, self)
         
         self.reset()
         
