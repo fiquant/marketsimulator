@@ -1,5 +1,6 @@
 import heapq, threading, collections, time, sys
 from marketsim import types, Event, _, meta
+import datetime
 
 class stat(collections.namedtuple('stat', ['events_processed', 'events_rate', 'processing_time'])):
     
@@ -18,8 +19,9 @@ class Scheduler(object):
     """ Keeps a set of events to be launched in the future
     """
 
-    def __init__(self, currentTime = 0):
-        self._reset()
+    def __init__(self, currentTime=0.0, startTime=None, timeScale='seconds'):
+        self._reset(currentTime, startTime)
+        self._timeScale = timeScale
 
     def __enter__(self):
         global _instance
@@ -34,11 +36,12 @@ class Scheduler(object):
         _instance = None
         _lock.release()
         
-    def _reset(self):
+    def _reset(self, currentTime=0.0, startTime=None):
         """ Resets scheduler to the initial state: empty event set and T=0
         """
         self._elements = []
-        self._currentTime = 0.
+        self._currentTime = currentTime
+        self._startTime = datetime.datetime.now() if startTime is None else startTime
         self._counter = 0
         self._working = False
 
@@ -47,9 +50,27 @@ class Scheduler(object):
 
     @property
     def currentTime(self):
-        """ Current simulation time        
+        """ Current simulation time (abstract time units)
         """
         return self._currentTime
+
+    @property
+    def startTime(self):
+        """ DateTime object containing the time of the beginning of the simulation
+        """
+        return self._startTime
+
+    def timeToOffset(self, abstractTime, timescale='seconds'):
+        """ converts an abstract simulation time to a datetime.timedelta object
+        """
+        return datetime.timedelta(**{timescale: abstractTime})
+
+    @property
+    def now(self):
+        """ Returns a datetime object containing the "real world" time
+        """
+        return self._startTime + self.timeToOffset(self._currentTime, self._timeScale)
+
     
     @property
     def label(self):
