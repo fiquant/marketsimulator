@@ -11,7 +11,7 @@ import weight
 import numpy, random, bisect
 
 from _trade_if_profitable import efficiencyTrend, virtualWithUnitVolume
-from _trade_if_profitable import efficiencyTrend2, Estimator
+from _trade_if_profitable import efficiencyTrend2
 
 
 class _MultiarmedBandit2_Impl(Strategy):

@@ -6,7 +6,9 @@ from .._basic import Strategy
 from .._wrap import wrapper2
 
 from .. import v0
-from _trade_if_profitable import efficiencyTrend2, Estimator
+from _trade_if_profitable import efficiencyTrend2
+
+from _virtual_market import VirtualMarket
 
 
 class _ChooseTheBest_Impl(Strategy):
