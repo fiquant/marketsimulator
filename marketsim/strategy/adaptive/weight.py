@@ -86,11 +86,13 @@ class Score(ops.Function[float]):
         
     def __call__(self):
         return self._score
+    
+from _account import Account
 
 @meta.sig(args=(types.ISingleAssetStrategy,), rv=types.IFunction[float])
 def score(strategy):
     return cachedattr(strategy, '_score', 
-                      lambda: Score(_trade_if_profitable.Account(strategy)))
+                      lambda: Score(Account(strategy)))
 
 @registry.expose(['Efficiency alpha'])       
 class EfficiencyAlpha(Efficiency):
