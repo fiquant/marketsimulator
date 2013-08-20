@@ -1,4 +1,4 @@
-from marketsim import meta, types, registry, ops, observable
+from marketsim import event, _, meta, types, registry, ops, observable
 
 class Base(object):
 
@@ -36,19 +36,23 @@ def cachedattr(obj, name, setter):
         
     return getattr(obj, name)
 
-@meta.sig(args=(types.IAccount,), rv=types.IFunction[float])
-def efficiencyTrend(trader):
-    return cachedattr(trader, '_efficiencyTrendNormalized', 
-                      lambda: normalized(_trade_if_profitable.efficiencyTrend2(trader)))
+@meta.sig(args=(types.ISingleAssetStrategy,), rv=types.IFunction[float])
+def efficiencyTrend(strategy):
+    return cachedattr(strategy, '_efficiencyTrendNormalized', 
+                      lambda: normalized(
+                                _trade_if_profitable.efficiencyTrend2(
+                                    _trade_if_profitable.Estimator(strategy))))
 
 
-@meta.sig(args=(types.IAccount,), rv=types.IFunction[float])
-def efficiency(trader):
-    return cachedattr(trader, '_efficiencyNormalized', 
-                      lambda: normalized(_trade_if_profitable.efficiency(trader)))
+@meta.sig(args=(types.ISingleAssetStrategy,), rv=types.IFunction[float])
+def efficiency(strategy):
+    return cachedattr(strategy, '_efficiencyNormalized', 
+                      lambda: normalized(
+                                _trade_if_profitable.efficiency(
+                                    _trade_if_profitable.Estimator(strategy))))
 
 @meta.sig(args=types.listOf(float), rv=types.listOf(float))
-def noCorrection(weights):
+def no(weights):
     return weights
 
 @meta.sig(args=types.listOf(float), rv=types.listOf(float))
@@ -63,7 +67,31 @@ def chooseTheBest(weights):
     
     return weights
 
+class Score(ops.Function[float]):
     
+    def __init__(self, trader):
+        self._efficiency = observable.Efficiency(trader)
+        event.subscribe(
+                observable.OnEveryDt(1, self._efficiency),
+                 _(self)._update, self)
+        self._score = 1
+        self._last = 0
+        
+    def _update(self, dummy):
+        e = self._efficiency()
+        if e is not None:
+            delta = e - self._last
+            if delta > 0: self._score += 1
+            if delta < 0 and self._score > 1: self._score -= 1
+        
+    def __call__(self):
+        return self._score
+
+@meta.sig(args=(types.ISingleAssetStrategy,), rv=types.IFunction[float])
+def score(strategy):
+    return cachedattr(strategy, '_score', 
+                      lambda: Score(_trade_if_profitable.Account(strategy)))
+
 @registry.expose(['Efficiency alpha'])       
 class EfficiencyAlpha(Efficiency):
     

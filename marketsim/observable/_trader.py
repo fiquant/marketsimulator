@@ -87,6 +87,19 @@ class OnTraded(Event):
         
     _properties = { 'trader' : types.ITrader }
     
+class OnOrderMatched(Event):
+    """ Multicast event that is fired once a trade is done by *trader*
+    """
+
+    def __init__(self, trader = None):
+        Event.__init__(self)
+        self.trader = trader if trader else SingleProxy()
+        
+    def bind(self, ctx):
+        event.subscribe(self.trader.on_order_matched, self.fire, self, ctx)
+        
+    _properties = { 'trader' : types.ITrader }
+    
 
 #### ------------------------------------------------------- Observables
     
