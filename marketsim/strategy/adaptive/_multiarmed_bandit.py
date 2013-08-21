@@ -7,7 +7,7 @@ from .._wrap import wrapper2
 from .. import v0
 
 import weight
-from _virtual_market import VirtualMarket
+from _virtual_market import virtualMarket
 
 import numpy, random, bisect
 
@@ -19,7 +19,7 @@ class _MultiarmedBandit2_Impl(Strategy):
         self._estimators = []
         for s in self.strategies:
             event.subscribe(s.on_order_created, _(self).send, self)
-            e = self.evaluator(VirtualMarket(s))
+            e = self.normalizer(self.weight(self.account(s)))
             e._origin = s
             self._estimators.append(e)
         event.subscribe(scheduler.Timer(ops.constant(1.)), _(self)._wakeUp, self)
@@ -39,7 +39,7 @@ class _MultiarmedBandit2_Impl(Strategy):
         choices = [s._origin for s in self._estimators]
         def opt(x): return 0 if x is None else x
         weights = [opt(e()) for e in self._estimators]
-        weights = self.weightCorrection(weights)
+        weights = self.corrector(weights)
         cumdist = list(numpy.cumsum(weights))
         
         if cumdist[-1] > 0:
@@ -75,6 +75,8 @@ exec wrapper2("MultiarmedBandit2",
                  """,
              [
               ('strategies',  '[v0.FundamentalValue()]','meta.listOf(ISingleAssetStrategy)'),
-              ('evaluator',   'weight.score',     'IAccount -> IFunction[float]'),
-              ('weightCorrection', 'weight.no', 'listOf(float) -> listOf(float)')
+              ('account',     'virtualMarket',          'types.ISingleAssetStrategy -> types.IAccount'),
+              ('weight',      'weight.efficiencyTrend', 'types.IAccount -> types.IFunction[float]'),
+              ('normalizer',  'weight.atanpow',         'types.IFunction[float] -> types.IFunction[float]'),
+              ('corrector',   'weight.identity',        '(listOf(float),) -> listOf(float)')
              ], category="Adaptive")

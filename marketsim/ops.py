@@ -433,6 +433,19 @@ class identity(Function[float]):
     
     def __repr__(self):
         return "id(" + repr(self.arg) + ")"
+
+@registry.expose(['Arithmetic', 'Max'], args = (constant(1.), constant(1.)))
+class Max(BinaryOp[float]):
+    """ Function max of the operands
+    """
+    
+    sign = ' max '
+    
+    def __init__(self, lhs, rhs):
+        BinaryOp[float].__init__(self, lhs, rhs)
+    
+    def _call(self, lhs, rhs):
+        return lhs if lhs > rhs else rhs
     
 @registry.expose(['Arithmetic', '*'], args = (constant(1.), constant(1.)))
 class Product(BinaryOp[float]):

@@ -28,14 +28,11 @@ def myDir():
 def randColor():
     """ Returns a color randomly chosen from HSV space
     """
-    h = 0.8
+    h = 0.3
     v = 0.85
     s = 0.9
 
     while True:
-        h += 2 / (1+math.sqrt(5))
-        h = h - 1 if h > 1 else h
-        #v = 1-v
         
         def toHex(x):
             return hex(int(x*255))[2:]
@@ -43,6 +40,10 @@ def randColor():
         r, g, b = hsv_to_rgb(h, s, v)
         
         yield toHex(r) + toHex(g) + toHex(b)
+
+        h += 2 / (1+math.sqrt(5))
+        h = h - 1 if h > 1 else h
+        #v = 1-v
 
 graphDataHeader = """
 ImportFileCSV('{0}', linked=True)

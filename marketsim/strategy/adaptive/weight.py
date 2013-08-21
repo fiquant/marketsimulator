@@ -2,8 +2,19 @@ from marketsim import event, _, meta, types, registry, ops, observable
 from _virtual_market import VirtualMarket
 from _account import Account
 
-def normalized(f, base = 1.002):
+@meta.sig(args=(types.IFunction[float],), rv=types.IFunction[float])
+def atanpow(f, base = 1.002):
     return ops.Atan(ops.Pow(ops.constant(base), f))
+
+@meta.sig(args=(types.IFunction[float],), rv=types.IFunction[float])
+def clamp0(f):
+    return ops.Max(f, ops.constant(0)) + 1
+
+def identity(x):
+    return x
+
+Ts = [float, meta.listOf(float), types.IFunction[float]]
+identity._types = [meta.function((t,), t) for t in Ts]
 
 def cachedattr(obj, name, setter):
     if not hasattr(obj, name):
@@ -19,23 +30,9 @@ def efficiency(trader):
 @meta.sig(args=(types.IAccount,), rv=types.IFunction[float])
 def efficiencyTrend(trader):
     return cachedattr(trader, '_efficiencyTrend', 
-                      lambda: observable.trend(efficiency(trader), alpha=0.065))
+                      lambda: observable.trend(efficiency(trader), alpha=0.015))
 
-@meta.sig(args=(types.IAccount,), rv=types.IFunction[float])
-def efficiencyNorm(trader):
-    return cachedattr(trader, '_efficiencyNorm', 
-                      lambda: normalized(efficiency(trader)))
-
-@meta.sig(args=(types.IAccount,), rv=types.IFunction[float])
-def efficiencyTrendNorm(trader):
-    return cachedattr(trader, '_efficiencyTrendNorm', 
-                      lambda: normalized(efficiencyTrend(trader)))
-
-@meta.sig(args=types.listOf(float), rv=types.listOf(float))
-def no(weights):
-    return weights
-
-@meta.sig(args=types.listOf(float), rv=types.listOf(float))
+@meta.sig(args=(types.listOf(float),), rv=types.listOf(float))
 def chooseTheBest(weights):
     mw = max(weights)
     # index of the strategy with the highest (positive) efficiency

@@ -1,60 +1,107 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (strategy, orderbook, trader, order, 
-                       timeserie, scheduler, observable, veusz, ops)
+from marketsim import (order, parts, signal, strategy, trader, orderbook, 
+                       timeserie, scheduler, observable, veusz, mathutils, ops)
 
 const = ops.constant
 
 from common import expose
 
-@expose("Multiarmed Bandit", __name__)
+@expose("Multiarmed-Bandit", __name__)
 def MultiarmedBandit(ctx):
+
+    ctx.volumeStep = 30
+        
+    demo = ctx.addGraph('demo')
+    myVolume = lambda: [(observable.VolumeTraded(), demo)]
+    myAverage = lambda alpha: [(observable.avg(observable.MidPrice(orderbook.OfTrader()), alpha), demo)]
     
-    ctx.volumeStep = 100
-
-    c_200 = const(200.)
+    def fv(x):
+        return strategy.Generic(
+                    order.factory.Market(
+                        side = parts.side.FundamentalValue(ops.constant(x)),
+                        volume = const(1.)),
+                    scheduler.Timer(const(1.)))
+        
+    xs = range(100, 300, 50) + range(160, 190, 10)
+    def strategies():
+        return map(fv, xs)
     
-    fv_200_12 = strategy.v0.FundamentalValue(fundamentalValue=c_200, volumeDistr=const(12))
-
-    fv_200 = fv_200_12.With(volumeDistr=const(1.), creationIntervalDistr=const(1.))
-     
-    def s_fv(fv):
-        return fv_200.With(fundamentalValue=const(fv))
-
-    def fv_virtual(fv):
-        return ctx.makeTrader_A(s_fv(fv), "v" + str(fv))
-    
-    fv_list = [100, 150, 200, 250, 300]
-
-    def s_fv_list( fv_list = fv_list ):
-        return [ s_fv(fv) for fv in fv_list]
-
+    def fv_traders():
+        return [ctx.makeTrader_A(fv(x), "fv" + str(x), myVolume()) for x in xs]
+        
     return [
-            ctx.makeTrader_A( 
-                      strategy.v0.LiquidityProvider(
-                            volumeDistr=const(70.), 
-                            orderFactoryT=order.WithExpiryFactory(
-                                expirationDistr=const(10))), 
-                      "liquidity"), 
+        ctx.makeTrader_A(strategy.v0.LiquidityProvider(volumeDistr=const(45)),
+                         "liquidity"),
             
-    
-            ctx.makeTrader_A(fv_200_12, "t200"),    
-            
-            ctx.makeTrader_A(strategy.ChooseTheBest(s_fv_list()), "best"),
-    
-            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list()),
-                             "TrackRecord"),
-    
-            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list()),
-                             "EfficiencyAlpha"),
-    
-            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list()),
-                             "Efficiency"),
-    
-            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list()),
-                             "ChooseTheBest"),
-    
-            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list()),
-                             "Uniform"),
-    ] + map(fv_virtual, fv_list)     
+        ctx.makeTrader_A(        
+                strategy.Generic(
+                    order.factory.Market(
+                        side = parts.side.FundamentalValue(ops.constant(200)),
+                        volume = const(12.)),
+                    scheduler.Timer(const(1.))),
+                'fv 12-200'), 
+
+        ctx.makeTrader_A(strategy.MultiarmedBandit(
+                                    strategies(), 
+                                    strategy.adaptive.virtualMarket,
+                                    strategy.adaptive.weight.efficiencyTrend), 
+                         'virt trend',
+                         myVolume()),
+
+        ctx.makeTrader_A(strategy.MultiarmedBandit(
+                                    strategies(), 
+                                    strategy.adaptive.account,
+                                    strategy.adaptive.weight.efficiencyTrend), 
+                         'real trend',
+                         myVolume()),
+
+        ctx.makeTrader_A(strategy.MultiarmedBandit(
+                                    strategies(), 
+                                    strategy.adaptive.virtualMarket,
+                                    strategy.adaptive.weight.efficiency), 
+                         'virt efficiency',
+                         myVolume()),
+
+        ctx.makeTrader_A(strategy.MultiarmedBandit(
+                                    strategies(), 
+                                    strategy.adaptive.account,
+                                    strategy.adaptive.weight.efficiency), 
+                         'real efficiency',
+                         myVolume()),
+
+        ctx.makeTrader_A(strategy.MultiarmedBandit(
+                                    strategies(), 
+                                    strategy.adaptive.virtualMarket,
+                                    strategy.adaptive.weight.score, 
+                                    strategy.adaptive.weight.identity), 
+                         'virt score',
+                         myVolume()),
+
+        ctx.makeTrader_A(strategy.MultiarmedBandit(
+                                    strategies(), 
+                                    strategy.adaptive.account,
+                                    strategy.adaptive.weight.score, 
+                                    strategy.adaptive.weight.identity), 
+                         'real score',
+                         myVolume()),
+
+        ctx.makeTrader_A(strategy.MultiarmedBandit(
+                                    strategies(), 
+                                    strategy.adaptive.virtualMarket,
+                                    strategy.adaptive.weight.efficiencyTrend, 
+                                    strategy.adaptive.weight.identity, 
+                                    strategy.adaptive.weight.chooseTheBest), 
+                         'virt best',
+                         myVolume()),
+
+        ctx.makeTrader_A(strategy.MultiarmedBandit(
+                                    strategies(), 
+                                    strategy.adaptive.account,
+                                    strategy.adaptive.weight.unit,
+                                    strategy.adaptive.weight.identity), 
+                         'uniform',
+                         myVolume()),
+
+    ] + fv_traders()
