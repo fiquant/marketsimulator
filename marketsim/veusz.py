@@ -4,6 +4,7 @@ import subprocess
 import random
 import os
 import errno
+import math
 import __main__
 
 
@@ -27,16 +28,21 @@ def myDir():
 def randColor():
     """ Returns a color randomly chosen from HSV space
     """
-    h = random.uniform(0., 1.) 
-    s = random.uniform(0.2, .8)
-    v = random.uniform(0.3, .8)
-    
-    def toHex(x):
-        return hex(int(x*255))[2:]
+    h = 0.8
+    v = 0.85
+    s = 0.9
 
-    r, g, b = hsv_to_rgb(h, s, v)
+    while True:
+        h += 2 / (1+math.sqrt(5))
+        h = h - 1 if h > 1 else h
+        #v = 1-v
+        
+        def toHex(x):
+            return hex(int(x*255))[2:]
     
-    return toHex(r) + toHex(g) + toHex(b)
+        r, g, b = hsv_to_rgb(h, s, v)
+        
+        yield toHex(r) + toHex(g) + toHex(b)
 
 graphDataHeader = """
 ImportFileCSV('{0}', linked=True)
@@ -94,7 +100,7 @@ class CSV(object):
     def source(self):
         return self._source
     
-    def exportToVsz(self, f):
+    def exportToVsz(self, f, colors):
         """ Exports time serie to Vsz file
         """
         label = self._source.label
@@ -106,7 +112,7 @@ class CSV(object):
             'yData' : label,
             'marker': 'none',
             r'PlotLine/steps': u'left',
-            r'PlotLine/color': u'#' + randColor(),
+            r'PlotLine/color': u'#' + colors.next(),
             'key' : label,
             }
         for k,v in self._custom_attr.iteritems():
@@ -235,9 +241,11 @@ class Graph(types.IGraph):
         """ Exports graph to some Vsz file
         """
         f.write(graphHeader.format(self._name))
+        
+        colors = randColor()
 
         for ts in self._datas:
-            ts.exportToVsz(f)
+            ts.exportToVsz(f, colors)
             
         f.write(graphTrailer.format(self._name, idx))
         
