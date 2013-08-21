@@ -6,10 +6,9 @@ from .._basic import Strategy
 from .._wrap import wrapper2
 
 from .. import v0
-from _trade_if_profitable import efficiencyTrend2
 
 from _virtual_market import VirtualMarket
-
+import weight
 
 class _ChooseTheBest_Impl(Strategy):
     
@@ -19,7 +18,7 @@ class _ChooseTheBest_Impl(Strategy):
         self._estimators = []
         for s in self.strategies:
             event.subscribe(s.on_order_created, _(self).send, self)
-            e = self.evaluator(s)
+            e = self.evaluator(VirtualMarket(s))
             e._origin = s
             self._estimators.append(e)
         event.subscribe(scheduler.Timer(ops.constant(1.)), _(self)._wakeUp, self)
@@ -54,5 +53,5 @@ exec wrapper2("ChooseTheBest",
                  """,
              [
               ('strategies',  '[v0.FundamentalValue()]','meta.listOf(ISingleAssetStrategy)'),
-              ('evaluator',   'efficiencyTrend2',        'IAccount -> IFunction[float]'),
+              ('evaluator',   'weight.efficiencyTrend', 'IAccount -> IFunction[float]'),
              ], category="Adaptive")

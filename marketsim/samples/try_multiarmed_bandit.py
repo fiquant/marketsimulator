@@ -43,23 +43,18 @@ def MultiarmedBandit(ctx):
             
             ctx.makeTrader_A(strategy.ChooseTheBest(s_fv_list()), "best"),
     
-            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list(), 
-                                                       strategy.weight.TrackRecord()),
+            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list()),
                              "TrackRecord"),
     
-            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list(), 
-                                                       strategy.weight.EfficiencyAlpha()),
+            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list()),
                              "EfficiencyAlpha"),
     
-            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list(), 
-                                                       strategy.weight.Efficiency()),
+            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list()),
                              "Efficiency"),
     
-            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list(), 
-                                                       strategy.weight.ChooseTheBest()),
+            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list()),
                              "ChooseTheBest"),
     
-            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list(), 
-                                                       strategy.weight.Uniform()),
+            ctx.makeTrader_A(strategy.MultiarmedBandit(s_fv_list()),
                              "Uniform"),
     ] + map(fv_virtual, fv_list)     

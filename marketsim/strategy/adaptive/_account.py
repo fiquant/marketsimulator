@@ -33,7 +33,6 @@ class _Account_Impl(types.IAccount):
     @property
     def PnL(self):
         return self._balance
-        
     
     def onOrderCreated(self, order, source):
         order._strategy = source
@@ -43,4 +42,3 @@ exec wrapper2("Account",
              [
               ('inner',     'FundamentalValue()', 'types.ISingleAssetStrategy'),
              ], register=False)
-
