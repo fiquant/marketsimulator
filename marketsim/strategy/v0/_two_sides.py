@@ -14,8 +14,6 @@ class TwoSides(Strategy):
         event.subscribe(self._eventGen, _(self)._wakeUp, self)
         
     def _wakeUp(self, signal):
-        if self._suspended:
-            return
         # determine side and parameters of an order to create
         res = self._orderFunc()
         if res <> None:

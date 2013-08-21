@@ -65,14 +65,6 @@ StrategyBase = types.Factory('StrategyBase', """(wrap.Base):
         
     def _send(self, order, source):
         self.on_order_created.fire(order, source)
-        
-    @property
-    def suspended(self):
-        return self.impl._suspended
-    
-    def suspend(self, s=True):
-        self.impl._suspended = s
-        
 """, globals())
  
 def strategy(cls, alias, docstring, fields, ctx):

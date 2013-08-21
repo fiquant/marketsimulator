@@ -25,8 +25,6 @@ class _Periodic_Impl(Strategy):
                                 + repr(self.sideFunc) + ")" )
         
     def _wakeUp(self, _):
-        if self._suspended:
-            return
         # determine side and parameters of an order to create
         side = self.sideFunc()
         if side <> None:

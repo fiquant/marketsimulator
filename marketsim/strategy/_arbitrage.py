@@ -21,9 +21,6 @@ class _Arbitrage_Impl(MultiAssetStrategy):
     def inner(self, myQueue, side):
         """Called when in some queue a new best order appeared"""
         
-        if self._suspended:
-            return
-        
         # ordered set of queues on my side
         myQueues = self._bests[side.id]
         oppositeSide = side.opposite

@@ -15,8 +15,6 @@ class _Generic_Impl(Strategy):
         return "Generic(%s, %s)" % (self.eventGen, self.orderFactory)
          
     def _wakeUp(self, _):
-        if self._suspended:
-            return
         # determine side and parameters of an order to create
         order = self.orderFactory()
         # send order to the order book

@@ -29,18 +29,6 @@ class _LiquidityProvider_Impl(Strategy):
 
     _internals = ['_sell', '_buy']
         
-        
-    def suspend(self, s):
-        Strategy.suspend(self, s)
-        self._sell.suspend(s)
-        self._buy.suspend(s)
-        
-    @property
-    def suspended(self):
-        assert self._sell.suspended == self._suspended
-        assert self._buy.suspended == self._suspended
-        return Strategy.suspended(self)
-    
     def dispose(self):
         self._sell.dispose()
         self._buy.dispose()

@@ -16,8 +16,6 @@ class OneSide(Strategy):
         event.subscribe(self._eventGen, _(self)._wakeUp, self) 
         
     def _wakeUp(self, signal):
-        if self._suspended:
-            return
         # determine parameters of an order to create
         params = self._orderFunc()
         # create an order with given parameters
