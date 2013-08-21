@@ -1,13 +1,12 @@
 from marketsim import (trader, order, orderbook, scheduler, observable, order, 
                        registry, types, meta, _, ops, event, scheduler)
-from marketsim.types import *
 
 from .._basic import Strategy
 from .._wrap import wrapper2
 
 from .. import v0
 
-from _virtual_market import VirtualMarket
+from _virtual_market import virtualMarket
 import weight
 
 class _ChooseTheBest_Impl(Strategy):
@@ -18,7 +17,7 @@ class _ChooseTheBest_Impl(Strategy):
         self._estimators = []
         for s in self.strategies:
             event.subscribe(s.on_order_created, _(self).send, self)
-            e = self.evaluator(VirtualMarket(s))
+            e = self.performance(self.account(s))
             e._origin = s
             self._estimators.append(e)
         event.subscribe(scheduler.Timer(ops.constant(1.)), _(self)._wakeUp, self)
@@ -52,6 +51,7 @@ exec wrapper2("ChooseTheBest",
                          function estimating is the strategy efficient or not
                  """,
              [
-              ('strategies',  '[v0.FundamentalValue()]','meta.listOf(ISingleAssetStrategy)'),
-              ('evaluator',   'weight.efficiencyTrend', 'IAccount -> IFunction[float]'),
+              ('strategies',  '[v0.FundamentalValue()]',  'meta.listOf(types.ISingleAssetStrategy)'),
+              ('account',     'virtualMarket',            'types.ISingleAssetStrategy -> types.IAccount'),
+              ('performance', 'weight.efficiencyTrend',   'types.IAccount -> types.IFunction[float]'),
              ], category="Adaptive")

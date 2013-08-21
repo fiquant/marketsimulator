@@ -1,52 +1,65 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (strategy, orderbook, trader, order, 
-                       timeserie, scheduler, observable, veusz, ops)
+from marketsim import (order, parts, signal, strategy, trader, orderbook, 
+                       timeserie, scheduler, observable, veusz, mathutils, ops)
 
 const = ops.constant
+
 from common import expose
 
 @expose("Choose-The-Best", __name__)
 def ChooseTheBest(ctx):
+
+    ctx.volumeStep = 30
     
-    ctx.volumeStep = 100
+    slow_alpha = 0.015
+    fast_alpha = 0.15
 
-    c_200 = const(200.)
+    linear_signal = signal.RandomWalk(initialValue=200, 
+                                      deltaDistr=const(-1), 
+                                      label="200-t")
     
-    fv_200_12 = strategy.v0.FundamentalValue(fundamentalValue=c_200, volumeDistr=const(12))
-
-    fv_200 = fv_200_12.With(volumeDistr=const(1.), creationIntervalDistr=const(1.))
-     
-    def s_fv(fv):
-        return fv_200.With(fundamentalValue=const(fv))
-
-    def fv_virtual(fv):
-        return ctx.makeTrader_A(s_fv(fv), "v" + str(fv))
-
+    demo = ctx.addGraph('demo')
+    myVolume = lambda: [(observable.VolumeTraded(), demo)]
+    myAverage = lambda alpha: [(observable.avg(observable.MidPrice(orderbook.OfTrader()), alpha), demo)]
+    
+    def cross(alpha1, alpha2):
+        return strategy.Generic(
+                    order.factory.Market(
+                        side = parts.side.TwoAverages(alpha1, alpha2),
+                        volume = const(1.)),
+                    scheduler.Timer(const(1.)))
+        
+    def strategies():
+        return [cross(slow_alpha, fast_alpha), cross(fast_alpha, slow_alpha)]
+        
     return [
-            ctx.makeTrader_A( 
-                      strategy.v0.LiquidityProvider(
-                            volumeDistr=const(70.), 
-                            orderFactoryT=order.WithExpiryFactory(
-                                expirationDistr=const(10))), 
-                      "liquidity"), 
+        ctx.makeTrader_A(strategy.v0.LiquidityProvider(volumeDistr=const(45)),
+                         "liquidity"),
+
+        ctx.makeTrader_A(strategy.v0.Signal(linear_signal,
+                                         volumeDistr=const(20)), 
+                        "signal", 
+                        [(linear_signal, ctx.amount_graph)]),
             
-    
-            ctx.makeTrader_A(fv_200_12, "t200"),    
-    
-            fv_virtual(100.),
-            fv_virtual(150.),
-            fv_virtual(200.),
-            fv_virtual(250.),
-            fv_virtual(300.),
-    
-            ctx.makeTrader_A(strategy.ChooseTheBest([
-                                               s_fv(100.),
-                                               s_fv(150.), 
-                                               s_fv(200.), 
-                                               s_fv(250.), 
-                                               s_fv(300.), 
-                                               ]),
-                             "best")
-    ]     
+        ctx.makeTrader_A(cross(slow_alpha, fast_alpha), 
+                        'avg+', 
+                        myAverage(slow_alpha) + myAverage(fast_alpha) + myVolume()),
+ 
+        ctx.makeTrader_A(cross(fast_alpha, slow_alpha), 
+                         'avg-',
+                         myVolume()),
+
+        ctx.makeTrader_A(strategy.ChooseTheBest(
+                                    strategies(), 
+                                    strategy.adaptive.virtualMarket), 
+                         'best virt',
+                         myVolume()),
+
+        ctx.makeTrader_A(strategy.ChooseTheBest(
+                                    strategies(), 
+                                    strategy.adaptive.account), 
+                         'best real',
+                         myVolume()),
+    ]
