@@ -46,3 +46,7 @@ exec wrapper2("VirtualMarket",
              [
               ('inner',   'FundamentalValue()', 'types.ISingleAssetStrategy')
              ], register=False)
+
+@meta.sig((types.ISingleAssetStrategy,), types.IAccount)
+def virtualMarket(strategy):
+    return VirtualMarket(strategy)

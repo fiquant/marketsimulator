@@ -32,8 +32,11 @@ def TradeIfProfitable(ctx):
                     scheduler.Timer(const(1.)))
     
     
-    avg_plus_opt = strategy.TradeIfProfitable(cross(slow_alpha, fast_alpha))
-    avg_minus_opt = strategy.TradeIfProfitable(cross(fast_alpha, slow_alpha))
+    avg_plus_virt = strategy.TradeIfProfitable(cross(slow_alpha, fast_alpha), strategy.adaptive.virtualMarket)
+    avg_minus_virt = strategy.TradeIfProfitable(cross(fast_alpha, slow_alpha), strategy.adaptive.virtualMarket)
+
+    avg_plus_real = strategy.TradeIfProfitable(cross(slow_alpha, fast_alpha), strategy.adaptive.account)
+    avg_minus_real = strategy.TradeIfProfitable(cross(fast_alpha, slow_alpha), strategy.adaptive.account)
 
     return [
         ctx.makeTrader_A(strategy.v0.LiquidityProvider(volumeDistr=const(45)),
@@ -52,11 +55,19 @@ def TradeIfProfitable(ctx):
                          'avg-',
                          myVolume()),
 
-        ctx.makeTrader_A(avg_plus_opt, 
-                         'avg+ opt',
+        ctx.makeTrader_A(avg_plus_virt, 
+                         'avg+ virt',
                          myVolume()),
 
-        ctx.makeTrader_A(avg_minus_opt, 
-                         'avg- opt',
+        ctx.makeTrader_A(avg_minus_virt, 
+                         'avg- virt',
+                         myVolume()),
+
+        ctx.makeTrader_A(avg_plus_real, 
+                         'avg+ real',
+                         myVolume()),
+
+        ctx.makeTrader_A(avg_minus_real, 
+                         'avg- real',
                          myVolume()),
     ]

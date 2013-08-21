@@ -42,3 +42,8 @@ exec wrapper2("Account",
              [
               ('inner',     'FundamentalValue()', 'types.ISingleAssetStrategy'),
              ], register=False)
+
+
+@meta.sig((types.ISingleAssetStrategy,), types.IAccount)
+def account(strategy):
+    return Account(strategy)
