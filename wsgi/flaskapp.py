@@ -29,8 +29,8 @@ def createSimulation(name='All'):
         myRegistry.insert(Side.Sell)
         myRegistry.insert(Side.Buy)    
         ctx = Context(world, js.Graph)
-        dependency = strategy.Dependency(ctx.book_B)
-        dependency_ex = strategy.DependencyEx(ctx.book_B)
+        dependency = strategy.v0.Dependency(ctx.book_B)
+        dependency_ex = strategy.Dependency(ctx.book_B)
         
         def register(annotated_objects):
             for obj, alias in annotated_objects:
@@ -115,11 +115,13 @@ def collectTypeInfo():
     ensure_dir(filename)
     if not os.path.exists(filename) or forceGenerate:
         _, _, myRegistry, _ = createSimulation('All')
-        typeinfo = myRegistry.getTypeInfo()
+        typeinfo, interfaces = myRegistry.getTypeInfo()
         myRegistry.typecheck()
         with open(filename, 'w') as f:
             f.write('var typeinfo = ');
             json.dump(typeinfo, f, indent=4, separators=(',', ': '))
+            f.write('\nvar interfaces = ');
+            json.dump(interfaces, f, indent=4, separators=(',', ': '))
         
 def generateTranslations():
     filename = os.path.join('static', '_generated', 'translations', 'en.js')

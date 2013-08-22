@@ -22,11 +22,13 @@ def cachedattr(obj, name, setter):
         
     return getattr(obj, name)
 
+@registry.expose(alias=['Efficiency'])
 @meta.sig(args=(types.IAccount,), rv=types.IFunction[float])
 def efficiency(trader):
     return cachedattr(trader, '_efficiency', 
                       lambda: observable.Efficiency(trader))
 
+@registry.expose(alias=['Efficiency trend'])
 @meta.sig(args=(types.IAccount,), rv=types.IFunction[float])
 def efficiencyTrend(trader):
     return cachedattr(trader, '_efficiencyTrend', 
@@ -67,11 +69,13 @@ class Score(ops.Function[float]):
     def __call__(self):
         return self._score
 
+@registry.expose(alias=['Score'])
 @meta.sig(args=(types.IAccount,), rv=types.IFunction[float])
 def score(trader):
     return cachedattr(trader, '_score', 
                       lambda: Score(trader))
 
+@registry.expose(alias=['Uniform'])
 @meta.sig(args=(types.IAccount,), rv=types.IFunction[float])
 def unit(trader):
     return ops.constant(1.)

@@ -365,14 +365,14 @@ class Registry(object):
 
     def getUsedTypes(self):
         types = set()
-        usedTypes = set()
+        usedTypes = {}
         
         for obj in self._id2obj.itervalues():
             if type(obj) not in types:
                 types.add(type(obj))
                 for p in rtti.properties(obj):
                     for t in rtti.usedTypes(p.type):
-                        usedTypes.add(t)
+                        usedTypes[t] = set()
                     
         return usedTypes
         
@@ -399,15 +399,23 @@ class Registry(object):
                                      ({'hidden'    : True} if p.isHidden else {}), 
                                      ({'collapsed' : True} if p.collapsed else {}))) 
                                 for p in rtti.properties(obj)])
+                    
+                    castsTo = filter(lambda t: t in usedTypes, rtti.types(obj))
+                    
+                    for t in castsTo:
+                        usedTypes[t].add(ctor)
         
-                    castsTo = map(self._dumpPropertyConstraint, 
-                                  filter(lambda t: t in usedTypes, rtti.types(obj)))
+                    castsTo = map(self._dumpPropertyConstraint, castsTo)
                         
                     types[ctor] = { "castsTo"      : sorted(castsTo), 
                                     "properties"   : props, 
                                     "description"  : utils.rst2html(trim(obj.__doc__)) }
-            
-        return types
+        
+        usedTypes = [(self._dumpPropertyConstraint(key), list(value)) \
+                        for key, value in usedTypes.iteritems()\
+                            if len(value) > 0]
+                    
+        return types, usedTypes
     
     def tojson(self, Id):
         
