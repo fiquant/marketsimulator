@@ -13,13 +13,13 @@ startup = []
 def union(*dicts):
     return dict(sum(map(lambda dct: list(dct.items()), dicts), []))
 
+def getCtorT(cls):
+    return getattr(cls, 
+                   '_constructAs', 
+                   cls.__module__ + "." + cls.__name__) 
+
 def getCtor(obj): 
-    if '_constructAs' in dir(obj):
-        ctor = obj._constructAs
-    else:
-        cls = obj.__class__
-        ctor = cls.__module__ + "." + cls.__name__
-    return ctor
+    return getCtorT(obj.__class__)
 
 def getObjRef(value):
     if type(value) in [str, unicode] and len(value) > 1:
@@ -346,11 +346,7 @@ class Registry(object):
             return "_parseFloat"
         if 'toJS' in dir(constraint):
             return constraint.toJS()(self._dumpPropertyConstraint)
-        if '_constructAs' in dir(constraint):
-            ctor = constraint._constructAs
-        else:
-            ctor = constraint.__module__ + "." + constraint.__name__
-        return ctor
+        return getCtorT(constraint)
     
         
     def typecheck(self):
@@ -386,11 +382,7 @@ class Registry(object):
         
             for obj in self._id2obj.itervalues():
                 
-                if '_constructAs' in dir(obj):
-                    ctor = obj._constructAs
-                else:
-                    cls = obj.__class__
-                    ctor = cls.__module__ + "." + cls.__name__
+                ctor = getCtor(obj)
                     
                 if ctor not in types:
     
@@ -417,16 +409,37 @@ class Registry(object):
                     
         return types, usedTypes
     
+    def getObjectsForAliases(self):
+        """ Creates mapping: typename -> (alias -> listOf(id))
+        """
+
+        typesToAliasesToObjects = {}
+        
+        for (k_id, obj) in self._id2obj.iteritems(): 
+            
+            ctor = getCtor(obj)
+            
+            if ctor not in typesToAliasesToObjects:
+                typesToAliasesToObjects[ctor] = {}
+                
+            aliasToIds = typesToAliasesToObjects[ctor]
+            
+            alias = "|".join(obj._alias)
+            
+            if alias not in aliasToIds:
+                aliasToIds[alias] = []
+            
+            aliasToIds[alias].append(k_id)
+            
+        return typesToAliasesToObjects
+        
+    
     def tojson(self, Id):
         
         def impl(obj):
             if obj is None:
                 return None
-            if '_constructAs' in dir(obj):
-                ctor = obj._constructAs
-            else:
-                cls = obj.__class__
-                ctor = cls.__module__ + "." + cls.__name__
+            ctor = getCtor(obj)
                 
             if '_alias' not in dir(obj):
                 obj._alias = self._findAlias(obj)

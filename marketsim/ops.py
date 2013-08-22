@@ -109,6 +109,9 @@ Condition = types.Factory("Condition", """(Condition_Impl, Function[%(T)s]):
 """, globals())
 
 
+Condition[Side]
+Condition[float]
+
 class _Conditional_Base(Function[bool]):
     
     def __call__(self):
@@ -147,7 +150,8 @@ def logic_op(T):
     return inner
 
 equal = logic_op(Equal)
-        
+
+Equal[float]   
 # ---------------------------------------------------- NotEqual
 
 class _NotEqual_Impl(_Conditional_Base):
@@ -162,7 +166,8 @@ NotEqual = types.Factory("NotEqual", """(_NotEqual_Impl, BinaryOp[%(T)s]):
 """, globals())
 
 notequal = logic_op(NotEqual)
-        
+
+NotEqual[float]        
 # ---------------------------------------------------- Greater
 
 class _Greater_Impl(_Conditional_Base):
@@ -178,6 +183,7 @@ Greater = types.Factory("Greater", """(_Greater_Impl, BinaryOp[%(T)s]):
 
 greater = logic_op(Greater)
     
+Greater[float]
 # ---------------------------------------------------- GreaterEqual
 
 class _GreaterEqual_Impl(_Conditional_Base):
@@ -193,6 +199,7 @@ GreaterEqual = types.Factory("GreaterEqual", """(_GreaterEqual_Impl, BinaryOp[%(
 
 greater_equal = logic_op(GreaterEqual)
     
+GreaterEqual[float]
 # ---------------------------------------------------- Less
 
 class _Less_Impl(_Conditional_Base):
@@ -208,6 +215,7 @@ Less = types.Factory("Less", """(_Less_Impl, BinaryOp[%(T)s]):
 
 less = logic_op(Less)
     
+Less[float]
 # ---------------------------------------------------- Constant
 
 # NB! _None is a special case of Constant but we don't use the latter 
@@ -222,6 +230,9 @@ class _None_Impl(object):
         return 'None'
 
 _None = types.Factory('_None', """(_None_Impl, Function[%(T)s]):""", globals())
+
+_None[Side]
+_None[float]
 
 # ---------------------------------------------------- Constant
 
@@ -537,10 +548,3 @@ class Derivative(Function[float]):
     def __call__(self):
         return self.source.derivative()
 
-Equal[float]   
-Condition[Side]
-Condition[float]
-_None[Side]
-_None[float]
-Less[float]
-Greater[float]

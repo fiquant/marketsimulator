@@ -233,6 +233,7 @@ def get_all():
         "name"  :   w.name,
         "root"  :   w.root,
         "objects" : w.registry.tojsonall(),
+        "type2alias2id" : w.registry.getObjectsForAliases(),
         "currentTime" : w.world.currentTime,
         "ts_changes" : dict([(k, v.data) for (k, v) in _timeseries(w.registry)])
     }
