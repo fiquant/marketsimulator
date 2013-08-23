@@ -181,6 +181,39 @@ function AppViewModel() {
 		return candidates;
 	}
 	
+	self.primaryIdByAlias = function (constraint, alias) {
+		var jsc = $.toJSON(constraint);
+		var types = interfaces[jsc];
+		
+		if (alias == $.toJSON(["Reference"])) {
+			return -1;
+		}
+		
+		if (constraint == "") {
+			for (var t in self.type2alias2id) {
+				if (self.type2alias2id[t][alias] != undefined) {
+					return self.type2alias2id[t][alias][0];
+				}
+			}
+			console.log("Cannot find an object for alias " + alias + " and constraint " + constraint);
+			return;		
+		}
+
+		var t = findFirst(types, function (t) {
+			return self.type2alias2id[t][alias] != undefined;
+		})		
+		
+		if (t) {
+			return self.type2alias2id[t][alias][0];
+		}
+		
+		console.log("Cannot find an object for alias " + alias + " and constraint " + constraint);
+
+		var t = findFirst(types, function (t) {
+			return self.type2alias2id[t][alias] != undefined;
+		})		
+	}
+	
 	self.getCandidateAliases = function (constraint) {
 		
 		var jsc = $.toJSON(constraint);
@@ -282,7 +315,6 @@ function AppViewModel() {
 			}
 		}
 	
-		self.alias2id = {};
 		self.type2alias2id = {}
 		
 		for (var t in response.type2alias2id) {

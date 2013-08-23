@@ -248,7 +248,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 		var value = $.toJSON(newAlias);
 		if (value != $.toJSON(self.alias())) {
 			console.log($.toJSON(self.alias()) + ' -> '  + value);
-			var id = root.alias2id[value][0];
+			var id = root.primaryIdByAlias(constraint, value);
 			
 			if (id != undefined && id != self.pointee().uniqueId()) {
 				var source = root.getObj(id);
@@ -289,7 +289,7 @@ function ObjectValue(s, constraint, root, expandReference) {
 	 *	Returns Id of the primary object having the same alias as ours 
 	 */
 	var primaryId = ko.computed(function () {
-		return root.alias2id[$.toJSON(self.alias())][0];
+		return root.primaryIdByAlias(constraint, $.toJSON(self.alias()));
 	})
 	
 		

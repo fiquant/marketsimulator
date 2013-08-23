@@ -48,10 +48,11 @@ function Instance(id, constructor, fields, castsTo, alias, root) {
 	self.alias_back = ko.observable(alias);
 	
 	var strAlias = $.toJSON(alias);
-	if (root.alias2id[strAlias] == undefined) {
-		root.alias2id[strAlias] = [];
+	
+	var aliases = root.type2alias2id[constructor];
+	if (aliases[strAlias] && aliases[strAlias].indexOf(id) < 0) {
+		aliases[strAlias].push(id);
 	}
-	root.alias2id[strAlias].push(id);
 	
 	self._initial_alias = ko.observable($.toJSON(alias));
 	
@@ -69,13 +70,14 @@ function Instance(id, constructor, fields, castsTo, alias, root) {
 			var strOld = $.toJSON(self.alias_back());
 			
 			if (strNew != strOld) {
-				var oldids = root.alias2id[strOld];
+				var oldids = aliases[strOld];
 				oldids.splice(oldids.indexOf(id), 1);
 				
-				if (root.alias2id[strNew] == undefined) {
-					root.alias2id[strNew] = [];
+				if (aliases[strNew] == undefined) {
+					aliases[strNew] = [];
 				}
-				root.alias2id[strNew].push(id);
+				aliases[strNew].push(id);
+				
 				self.alias_back(newvalue);
 			}
 		}
@@ -94,7 +96,7 @@ function Instance(id, constructor, fields, castsTo, alias, root) {
 				var copy = self.alias().slice();
 				var idx = copy.length - 1;
 				copy[idx] = copy[idx].concat('.' + i);
-				if (root.alias2id[$.toJSON(copy)] == undefined) {
+				if (aliases[$.toJSON(copy)] == undefined) {
 					return copy;
 				}
 			}
@@ -135,7 +137,7 @@ function Instance(id, constructor, fields, castsTo, alias, root) {
 	 * 	Returns true iff this instance is primary with respect to the alias 
 	 */
 	self.isPrimary = ko.computed(function () {
-		return root.alias2id[$.toJSON(self.alias())][0] == self.uniqueId();
+		return aliases[$.toJSON(self.alias())][0] == self.uniqueId();
 	});
 	
 	/**
