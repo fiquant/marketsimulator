@@ -2,7 +2,7 @@ from marketsim import event, registry, remote, types, bind, _
 from _base import BookBase
 from _queue import BestPrice, LastTrade
 
-class Queue(object):
+class Queue(types.IOrderQueue):
     
     def __init__(self, queue, book, link):
         self._queue = queue

@@ -186,23 +186,38 @@ function AppViewModel() {
 		var jsc = $.toJSON(constraint);
 		var types = interfaces[jsc];
 		
-		if (types == undefined) {
+		if (types == undefined && constraint != "") {
 			console.log("Empty types for " + jsc);
 		}
 		
-		var candidates = self.getCandidates(constraint);
-		var mapping = {};
-		foreach(candidates, function (instance) {
-			var alias = instance.alias.peek();
-			var current = mapping;
-			for (var i in alias) {
-				if (current[alias[i]] == undefined) {
-					current[alias[i]] = {}
+		var alias_tree = {}
+		
+		function buildAliasTree(t) {
+			for (var alias in self.type2alias2id[t]) {
+				var current = alias_tree;
+				var array = $.parseJSON(alias);
+				for (var i in array) {
+					if (current[array[i]] == undefined) {
+						current[array[i]] = {}
+					}
+					current = current[array[i]];
 				}
-				current = current[alias[i]];
 			}
-		})
-		return mapping;
+		}
+		
+		if (types) {
+			foreach (types, function (t) {
+				buildAliasTree(t);
+			})
+		} else if (constraint == "") {
+			for (var t in self.type2alias2id) {
+				buildAliasTree(t);
+			}
+		}
+		
+		alias_tree['Reference'] = {}
+		
+		return alias_tree;
 	}
 	
 	self.filteredViewEx = function(startsWith) {

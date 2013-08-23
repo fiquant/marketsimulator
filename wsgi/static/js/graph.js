@@ -172,7 +172,6 @@ function Graph(source, root) {
 		
 	self.asFlotr = ko.computed(function () {
 		var dummy = root.updategraph();
-		console.log("asFlotr for " + self.alias());
 		return collect(self.series(), function (ts) {
 			return ts.asFlotr();
 		});		
