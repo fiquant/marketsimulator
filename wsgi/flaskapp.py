@@ -116,6 +116,9 @@ def collectTypeInfo():
     if not os.path.exists(filename) or forceGenerate:
         _, _, myRegistry, _ = createSimulation('All')
         typeinfo, interfaces = myRegistry.getTypeInfo()
+        interfaces = [(myRegistry._dumpPropertyConstraint(key), list(value)) \
+                        for key, value in interfaces.iteritems()]
+                    
         myRegistry.typecheck()
         with open(filename, 'w') as f:
             f.write('var typeinfo = ');

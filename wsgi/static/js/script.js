@@ -8,6 +8,10 @@ function alldata() {
    return $.parseJSON(z.responseText);
 }
 
+var dst = {}
+for (var x in interfaces) { dst[$.toJSON(interfaces[x][0])] = interfaces[x][1]; }
+interfaces = dst;
+
 var createFromPossibilites = $.parseJSON($.ajax({
 	     url: 'common',
 	     dataType: 'json',
@@ -178,6 +182,14 @@ function AppViewModel() {
 	}
 	
 	self.getCandidateAliases = function (constraint) {
+		
+		var jsc = $.toJSON(constraint);
+		var types = interfaces[jsc];
+		
+		if (types == undefined) {
+			console.log("Empty types for " + jsc);
+		}
+		
 		var candidates = self.getCandidates(constraint);
 		var mapping = {};
 		foreach(candidates, function (instance) {
@@ -256,7 +268,16 @@ function AppViewModel() {
 		}
 	
 		self.alias2id = {};
+		self.type2alias2id = {}
 		
+		for (var t in response.type2alias2id) {
+			self.type2alias2id[t] = {}
+			for (var a in response.type2alias2id[t]) {
+				alias = a.split('|');
+				self.type2alias2id[t][$.toJSON(alias)] = response.type2alias2id[t][a]; 
+			}
+		}
+				
 		self.currentTime(response.currentTime);
 		
 		//----------- building new objects

@@ -44,6 +44,7 @@ exec wrapper2("Account",
              ], register=False)
 
 
+@registry.expose(alias=['actually traded'])
 @meta.sig((types.ISingleAssetStrategy,), types.IAccount)
 def account(strategy):
     return Account(strategy)

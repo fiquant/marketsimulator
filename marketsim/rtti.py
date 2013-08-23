@@ -20,6 +20,15 @@ def usedTypes(T):
         
     return ret
 
+def usedConstraints(T):
+
+    ret = [T]
+    
+    if 'usedConstraints' in dir(T):
+        ret += T.usedConstraints()
+        
+    return ret
+
 def pack_property(n, t, *args):
     d = { 
             'name' : n, 

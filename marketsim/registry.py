@@ -5,7 +5,8 @@ import marketsim
 
 from functools import reduce
 
-from marketsim import exception, rtti, Side, meta, types, js, utils, prop, context
+from marketsim import (constraints, config, exception, rtti, Side, 
+                       meta, types, js, utils, prop, context)
 
 startup = []
 
@@ -19,7 +20,9 @@ def getCtorT(cls):
                    cls.__module__ + "." + cls.__name__) 
 
 def getCtor(obj): 
-    return getCtorT(obj.__class__)
+    if inspect.isfunction(obj):
+        return getCtorT(obj)
+    return getCtorT(obj.__class__) 
 
 def getObjRef(value):
     if type(value) in [str, unicode] and len(value) > 1:
@@ -361,22 +364,25 @@ class Registry(object):
 
     def getUsedTypes(self):
         types = set()
-        usedTypes = {}
+        usedTypes = set()
+        constraints = {}
         
         for obj in self._id2obj.itervalues():
             if type(obj) not in types:
                 types.add(type(obj))
                 for p in rtti.properties(obj):
                     for t in rtti.usedTypes(p.type):
-                        usedTypes[t] = set()
+                        usedTypes.add(t)
+                    for t in rtti.usedConstraints(p.type):
+                        constraints[t] = set()
                     
-        return usedTypes
+        return usedTypes, constraints
         
 
     def getTypeInfo(self):
         self.pushAllReferences()
         types = {}
-        usedTypes = self.getUsedTypes()
+        usedTypes, constraints = self.getUsedTypes()
         
         with utils.rst.Cache():
         
@@ -395,7 +401,7 @@ class Registry(object):
                     castsTo = filter(lambda t: t in usedTypes, rtti.types(obj))
                     
                     for t in castsTo:
-                        usedTypes[t].add(ctor)
+                        constraints[t].add(ctor)
         
                     castsTo = map(self._dumpPropertyConstraint, castsTo)
                         
@@ -403,17 +409,32 @@ class Registry(object):
                                     "properties"   : props, 
                                     "description"  : utils.rst2html(trim(obj.__doc__)) }
         
-        usedTypes = [(self._dumpPropertyConstraint(key), list(value)) \
-                        for key, value in usedTypes.iteritems()\
-                            if len(value) > 0]
-                    
-        return types, usedTypes
+        for constraint, matching_types in constraints.iteritems():
+            if self.objectConstraint(constraint):
+                if len(matching_types) == 0:
+                    print "No types matching to constraint ", constraint
+        
+        return types, constraints
+
+    def objectConstraint(self, constraint):
+        if constraint in [str, int, float, bool]:
+            return False
+        
+        if type(constraint) in [meta.listOf]:
+            return False
+        
+        if isinstance(constraint, constraints.IConstraint):
+            return False
+        
+        return True
+        
     
     def getObjectsForAliases(self):
         """ Creates mapping: typename -> (alias -> listOf(id))
         """
 
         typesToAliasesToObjects = {}
+        processedTypes = set()
         
         for (k_id, obj) in self._id2obj.iteritems(): 
             

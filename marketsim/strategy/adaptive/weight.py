@@ -2,10 +2,12 @@ from marketsim import event, _, meta, types, registry, ops, observable
 from _virtual_market import VirtualMarket
 from _account import Account
 
+@registry.expose(alias=['AtanPow'])
 @meta.sig(args=(types.IFunction[float],), rv=types.IFunction[float])
 def atanpow(f, base = 1.002):
     return ops.Atan(ops.Pow(ops.constant(base), f))
 
+@registry.expose(alias=['Clamp0'])
 @meta.sig(args=(types.IFunction[float],), rv=types.IFunction[float])
 def clamp0(f):
     return ops.Max(f, ops.constant(0)) + 1
@@ -15,6 +17,8 @@ def identity(x):
 
 Ts = [float, meta.listOf(float), types.IFunction[float]]
 identity._types = [meta.function((t,), t) for t in Ts]
+
+registry.expose(alias=['identity'])(identity)
 
 def cachedattr(obj, name, setter):
     if not hasattr(obj, name):
@@ -34,6 +38,7 @@ def efficiencyTrend(trader):
     return cachedattr(trader, '_efficiencyTrend', 
                       lambda: observable.trend(efficiency(trader), alpha=0.015))
 
+@registry.expose(alias=['chooseTheBest '])
 @meta.sig(args=(types.listOf(float),), rv=types.listOf(float))
 def chooseTheBest(weights):
     mw = max(weights)

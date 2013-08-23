@@ -1,4 +1,16 @@
 var typeinfo = {
+    "marketsim.strategy.adaptive._virtual_market.virtualMarket": {
+        "castsTo": [
+            {
+                "rv": "marketsim.types.IAccount",
+                "args": [
+                    "marketsim.types.ISingleAssetStrategy"
+                ]
+            }
+        ],
+        "properties": {},
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.strategy.v0._mean_reversion.MeanReversion": {
         "castsTo": [
             "marketsim.types.ISingleAssetStrategy"
@@ -76,18 +88,16 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.strategy._canceller.Canceller": {
+    "marketsim.strategy.adaptive.weight.efficiency": {
         "castsTo": [
-            "marketsim.types.ISingleAssetStrategy"
-        ],
-        "properties": {
-            "cancellationIntervalDistr": {
-                "type": {
-                    "rv": "_parseFloat",
-                    "args": []
-                }
+            {
+                "rv": "marketsim.types.IFunction_float",
+                "args": [
+                    "marketsim.types.IAccount"
+                ]
             }
-        },
+        ],
+        "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.mathutils.rnd.lognormvariate": {
@@ -124,34 +134,41 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.strategy.adaptive._choose_best.ChooseTheBest": {
+    "marketsim.strategy.price._lp_side.LiquidityProviderSide_Generated": {
         "castsTo": [
             "marketsim.types.ISingleAssetStrategy"
         ],
         "properties": {
-            "strategies": {
+            "initialValue": {
+                "type": "_parseFloat"
+            },
+            "priceDistr": {
                 "type": {
-                    "elementType": "marketsim.types.ISingleAssetStrategy"
+                    "rv": "_parseFloat",
+                    "args": []
                 }
             },
-            "account": {
+            "volumeDistr": {
                 "type": {
-                    "rv": "marketsim.types.IAccount",
-                    "args": [
-                        "marketsim.types.ISingleAssetStrategy"
-                    ]
+                    "rv": "_parseFloat",
+                    "args": []
                 }
             },
-            "performance": {
+            "creationIntervalDistr": {
                 "type": {
-                    "rv": "marketsim.types.IFunction_float",
-                    "args": [
-                        "marketsim.types.IAccount"
-                    ]
+                    "rv": "_parseFloat",
+                    "args": []
                 }
+            },
+            "side": {
+                "type": "marketsim.Side"
+            },
+            "impl": {
+                "collapsed": true,
+                "type": "marketsim.types.ISingleAssetStrategy"
             }
         },
-        "description": "<div class=\"document\">\n<p>A composite strategy initialized with an array of strategies.\nIn some moments of time the most effective strategy\nis chosen and made running; other strategies are suspended.</p>\n<p>Parameters:</p>\n<blockquote>\n<dl class=\"docutils\">\n<dt><strong>strategies</strong></dt>\n<dd>original strategies that can be suspended</dd>\n<dt><strong>Efficiency evaluation function</strong></dt>\n<dd>function estimating is the strategy efficient or not</dd>\n</dl>\n</blockquote>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Liquidity provider for one side has followng parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Side</strong></dt>\n<dd>side of orders to create (default: Side.Sell)</dd>\n<dt><strong>Initial value</strong></dt>\n<dd>initial price which is taken if orderBook is empty (default: 100)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Price of orders to create as multiplier to the current price</strong></dt>\n<dd>defines multipliers for current asset price when price of\norder to create is calculated (default: log normal distribution with\n\u03bc = 0 and \u03c3 = 0.1)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n<p>It wakes up in moments of time given by <em>creationIntervalDistr</em>, checks\nthe last best price of orders in the corresponding queue, takes <em>initialValue</em>\nif it is empty, multiplies it by a value taken from <em>priceDistr</em> to obtain price\nof the order to create, calculates order volume using <em>volumeDistr</em>, creates\nan order via <em>orderFactoryT(side)</em> and tells the trader to send it.</p>\n</div>\n"
     },
     "marketsim.timeserie.VolumeLevels": {
         "castsTo": [
@@ -439,6 +456,30 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Two averages strategy compares two averages of price of the same asset but\nwith different parameters ('slow' and 'fast' averages) and when\nthe first is greater than the second one it buys,\nwhen the first is lower than the second one it sells</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Average 1</strong></dt>\n<dd>functional used to obtain the first average\n(defaut: expenentially weighted moving average with \u03b1 = 0.15)</dd>\n<dt><strong>&amp;alpha; for moving average 1</strong></dt>\n<dd>parameter \u03b1 for the first exponentially weighted moving average\n(default: 0.15.)</dd>\n<dt><strong>&amp;alpha; for moving average 2</strong></dt>\n<dd>parameter \u03b1 for the second exponentially weighted moving average\n(default: 0.015.)</dd>\n<dt><strong>Threshold</strong></dt>\n<dd>threshold when the trader starts to act (default: 0.)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n</div>\n"
     },
+    "marketsim.strategy.adaptive._account.account": {
+        "castsTo": [
+            {
+                "rv": "marketsim.types.IAccount",
+                "args": [
+                    "marketsim.types.ISingleAssetStrategy"
+                ]
+            }
+        ],
+        "properties": {},
+        "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.strategy.adaptive.weight.atanpow": {
+        "castsTo": [
+            {
+                "rv": "marketsim.types.IFunction_float",
+                "args": [
+                    "marketsim.types.IFunction_float"
+                ]
+            }
+        ],
+        "properties": {},
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.strategy.adaptive._virtual_market.VirtualMarket": {
         "castsTo": [
             "marketsim.types.IAccount"
@@ -715,6 +756,20 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n<p>Function max of the operands</p>\n</div>\n"
+    },
+    "marketsim.strategy._canceller.Canceller": {
+        "castsTo": [
+            "marketsim.types.ISingleAssetStrategy"
+        ],
+        "properties": {
+            "cancellationIntervalDistr": {
+                "type": {
+                    "rv": "_parseFloat",
+                    "args": []
+                }
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.observable._stddev.MovingVariance": {
         "castsTo": [
@@ -1108,29 +1163,17 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Dependent price strategy believes that the fair price of an asset <em>A</em>\nis completely correlated with price of another asset <em>B</em> and the following relation\nshould be held: <em>PriceA</em> = <em>kPriceB</em>, where <em>k</em> is some factor.\nIt may be considered as a variety of a fundamental value strategy\nwith the exception that it is invoked every the time price of another\nasset <em>B</em> changes.</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Asset to depend on</strong></dt>\n<dd>reference to order book for another asset used to evaluate fair price of our asset</dd>\n<dt><strong>Factor</strong></dt>\n<dd>multiplier to obtain fair asset price from the reference asset price</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n</div>\n"
     },
-    "marketsim.side_._BuySide": {
-        "castsTo": [
-            "marketsim.Side"
-        ],
-        "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
-    },
-    "__builtin__.function": {
+    "marketsim.strategy.adaptive.weight.unit": {
         "castsTo": [
             {
-                "rv": {
-                    "rv": "marketsim.types.IOrder",
-                    "args": [
-                        "_parseFloat"
-                    ]
-                },
+                "rv": "marketsim.types.IFunction_float",
                 "args": [
-                    "marketsim.Side"
+                    "marketsim.types.IAccount"
                 ]
             }
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n<p>Market order of given <em>side</em> and <em>volume</em></p>\n</div>\n"
+        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.parts.side._fv.FundamentalValue_Generated": {
         "castsTo": [
@@ -1197,6 +1240,23 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n<p>Moving average convergence/divergence signal</p>\n</div>\n"
+    },
+    "marketsim.order._market.MarketFactory": {
+        "castsTo": [
+            {
+                "rv": {
+                    "rv": "marketsim.types.IOrder",
+                    "args": [
+                        "_parseFloat"
+                    ]
+                },
+                "args": [
+                    "marketsim.Side"
+                ]
+            }
+        ],
+        "properties": {},
+        "description": "<div class=\"document\">\n<p>Market order of given <em>side</em> and <em>volume</em></p>\n</div>\n"
     },
     "marketsim.ops.negate": {
         "castsTo": [
@@ -1294,22 +1354,34 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.observable._orderbook.QueueLastTradeVolume": {
+    "marketsim.side_._BuySide": {
+        "castsTo": [
+            "marketsim.Side"
+        ],
+        "properties": {},
+        "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.observable._orderbook.Spread_Generated": {
         "castsTo": [
             {
                 "rv": "_parseFloat",
                 "args": []
             },
+            "marketsim.event.Event",
             "marketsim.types.IFunction_float",
             "marketsim.types.IObservable_float",
             "marketsim.types.IObservable_object"
         ],
         "properties": {
-            "orderqueue": {
-                "type": "marketsim.types.IOrderQueue"
+            "orderBook": {
+                "type": "marketsim.types.IOrderBook"
+            },
+            "impl": {
+                "collapsed": true,
+                "type": "marketsim.types.IObservable_float"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Difference between ask and bid asset's price</p>\n</div>\n"
     },
     "marketsim.strategy.v0._fv.FundamentalValue": {
         "castsTo": [
@@ -1412,6 +1484,22 @@ var typeinfo = {
                 "type": "marketsim.types.IObservable_float"
             }
         },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.strategy.adaptive.weight.chooseTheBest": {
+        "castsTo": [
+            {
+                "rv": {
+                    "elementType": "_parseFloat"
+                },
+                "args": [
+                    {
+                        "elementType": "_parseFloat"
+                    }
+                ]
+            }
+        ],
+        "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.registry.Simulation": {
@@ -1609,6 +1697,18 @@ var typeinfo = {
                 "type": "marketsim.types.IOrderQueue"
             }
         },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.strategy.adaptive.weight.clamp0": {
+        "castsTo": [
+            {
+                "rv": "marketsim.types.IFunction_float",
+                "args": [
+                    "marketsim.types.IFunction_float"
+                ]
+            }
+        ],
+        "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.ops.Sub": {
@@ -2055,41 +2155,34 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Aggregates (folds) time-dependent data from <em>source</em> using given functional  <em>folder</em> (e.g. moving average)</p>\n<p>For example</p>\n<pre class=\"literal-block\">\nprice_avg = Fold(MidPrice(book_A), ewma(alpha = 0.15))\n</pre>\n<p>creates a observable for a moving average with \u03b1 = 0.15 of mid-price of asset <em>book_A</em></p>\n</div>\n"
     },
-    "marketsim.strategy.price._lp_side.LiquidityProviderSide_Generated": {
+    "marketsim.strategy.adaptive._choose_best.ChooseTheBest": {
         "castsTo": [
             "marketsim.types.ISingleAssetStrategy"
         ],
         "properties": {
-            "initialValue": {
-                "type": "_parseFloat"
-            },
-            "priceDistr": {
+            "strategies": {
                 "type": {
-                    "rv": "_parseFloat",
-                    "args": []
+                    "elementType": "marketsim.types.ISingleAssetStrategy"
                 }
             },
-            "volumeDistr": {
+            "account": {
                 "type": {
-                    "rv": "_parseFloat",
-                    "args": []
+                    "rv": "marketsim.types.IAccount",
+                    "args": [
+                        "marketsim.types.ISingleAssetStrategy"
+                    ]
                 }
             },
-            "creationIntervalDistr": {
+            "performance": {
                 "type": {
-                    "rv": "_parseFloat",
-                    "args": []
+                    "rv": "marketsim.types.IFunction_float",
+                    "args": [
+                        "marketsim.types.IAccount"
+                    ]
                 }
-            },
-            "side": {
-                "type": "marketsim.Side"
-            },
-            "impl": {
-                "collapsed": true,
-                "type": "marketsim.types.ISingleAssetStrategy"
             }
         },
-        "description": "<div class=\"document\">\n<p>Liquidity provider for one side has followng parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Side</strong></dt>\n<dd>side of orders to create (default: Side.Sell)</dd>\n<dt><strong>Initial value</strong></dt>\n<dd>initial price which is taken if orderBook is empty (default: 100)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Price of orders to create as multiplier to the current price</strong></dt>\n<dd>defines multipliers for current asset price when price of\norder to create is calculated (default: log normal distribution with\n\u03bc = 0 and \u03c3 = 0.1)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n<p>It wakes up in moments of time given by <em>creationIntervalDistr</em>, checks\nthe last best price of orders in the corresponding queue, takes <em>initialValue</em>\nif it is empty, multiplies it by a value taken from <em>priceDistr</em> to obtain price\nof the order to create, calculates order volume using <em>volumeDistr</em>, creates\nan order via <em>orderFactoryT(side)</em> and tells the trader to send it.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>A composite strategy initialized with an array of strategies.\nIn some moments of time the most effective strategy\nis chosen and made running; other strategies are suspended.</p>\n<p>Parameters:</p>\n<blockquote>\n<dl class=\"docutils\">\n<dt><strong>strategies</strong></dt>\n<dd>original strategies that can be suspended</dd>\n<dt><strong>Efficiency evaluation function</strong></dt>\n<dd>function estimating is the strategy efficient or not</dd>\n</dl>\n</blockquote>\n</div>\n"
     },
     "marketsim.strategy.adaptive._trade_if_profitable.TradeIfProfitable_Generated": {
         "castsTo": [
@@ -2161,27 +2254,22 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.observable._orderbook.Spread_Generated": {
+    "marketsim.observable._orderbook.QueueLastTradeVolume": {
         "castsTo": [
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.event.Event",
             "marketsim.types.IFunction_float",
             "marketsim.types.IObservable_float",
             "marketsim.types.IObservable_object"
         ],
         "properties": {
-            "orderBook": {
-                "type": "marketsim.types.IOrderBook"
-            },
-            "impl": {
-                "collapsed": true,
-                "type": "marketsim.types.IObservable_float"
+            "orderqueue": {
+                "type": "marketsim.types.IOrderQueue"
             }
         },
-        "description": "<div class=\"document\">\n<p>Difference between ask and bid asset's price</p>\n</div>\n"
+        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.ops.Div": {
         "castsTo": [
@@ -2790,6 +2878,22 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Liquidity provider is a combination of two LiquidityProviderSide traders\nwith the same parameters but different trading sides.</p>\n<p>It has followng parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>Initial value</strong></dt>\n<dd>initial price which is taken if orderBook is empty (default: 100)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Price of orders to create as multiplier to the current price</strong></dt>\n<dd>defines multipliers for current asset price when price of\norder to create is calculated (default: log normal distribution with\n\u03bc = 0 and \u03c3 = 0.1)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n</div>\n"
     },
+    "marketsim.parts.side._random.Random_Generated": {
+        "castsTo": [
+            {
+                "rv": "marketsim.Side",
+                "args": []
+            },
+            "marketsim.types.IFunction_Tag"
+        ],
+        "properties": {
+            "impl": {
+                "collapsed": true,
+                "type": "marketsim.types.IFunction_Tag"
+            }
+        },
+        "description": "<div class=\"document\">\n<p>Chooses Sell or Buy side with equal probability</p>\n</div>\n"
+    },
     "marketsim.scheduler.Timer": {
         "castsTo": [
             "marketsim.event.Event"
@@ -2800,6 +2904,23 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n<p>Represents a repeating action.</p>\n<p>Parameters:</p>\n<dl class=\"docutils\">\n<dt><em>intervalFunc</em></dt>\n<dd>intervals of time between moments when subscribed listeners are to be called</dd>\n</dl>\n</div>\n"
+    },
+    "marketsim.order._virtual.VirtualMarketFactory": {
+        "castsTo": [
+            {
+                "rv": {
+                    "rv": "marketsim.types.IOrder",
+                    "args": [
+                        "_parseFloat"
+                    ]
+                },
+                "args": [
+                    "marketsim.Side"
+                ]
+            }
+        ],
+        "properties": {},
+        "description": "<div class=\"document\">\n<p>Used to evaluates price at which a market order of given volume would be executed\nSince this query might be computationally expensive and done asynchronously,\nwe wrap function OrderQueue.evaluateOrderPrice by this class.\nThe result will returned in on_matched event with empty 'other' field\nTBD: we make use of on_matched machinery since that is supported in RemoteBook\nbut i'm not sure that it is a good design decision.</p>\n</div>\n"
     },
     "marketsim.ops.Condition_Tag": {
         "castsTo": [
@@ -2852,6 +2973,28 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n<p>Moving average of trade prices weighted by volumes of an order queue</p>\n</div>\n"
+    },
+    "marketsim.strategy.adaptive.weight.identity": {
+        "castsTo": [
+            {
+                "rv": {
+                    "elementType": "_parseFloat"
+                },
+                "args": [
+                    {
+                        "elementType": "_parseFloat"
+                    }
+                ]
+            },
+            {
+                "rv": "marketsim.types.IFunction_float",
+                "args": [
+                    "marketsim.types.IFunction_float"
+                ]
+            }
+        ],
+        "properties": {},
+        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.parts.signed_volume._desired_position.DesiredPosition_Generated": {
         "castsTo": [
@@ -2953,6 +3096,18 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
+    "marketsim.strategy.adaptive.weight.score": {
+        "castsTo": [
+            {
+                "rv": "marketsim.types.IFunction_float",
+                "args": [
+                    "marketsim.types.IAccount"
+                ]
+            }
+        ],
+        "properties": {},
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.strategy.v0._trend.TrendFollower": {
         "castsTo": [
             "marketsim.types.ISingleAssetStrategy"
@@ -3043,6 +3198,24 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
+    "marketsim.order._limit.LimitFactory": {
+        "castsTo": [
+            {
+                "rv": {
+                    "rv": "marketsim.types.IOrder",
+                    "args": [
+                        "_parseFloat",
+                        "_parseFloat"
+                    ]
+                },
+                "args": [
+                    "marketsim.Side"
+                ]
+            }
+        ],
+        "properties": {},
+        "description": "<div class=\"document\">\n<p>Limit order of the given <em>side</em>, <em>price</em> and <em>volume</em></p>\n</div>\n"
+    },
     "marketsim.mathutils._rsi.rsi": {
         "castsTo": [
             "marketsim.types.IUpdatableValue"
@@ -3054,21 +3227,17 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Relative strength index</p>\n</div>\n"
     },
-    "marketsim.parts.side._random.Random_Generated": {
+    "marketsim.strategy.adaptive.weight.efficiencyTrend": {
         "castsTo": [
             {
-                "rv": "marketsim.Side",
-                "args": []
-            },
-            "marketsim.types.IFunction_Tag"
-        ],
-        "properties": {
-            "impl": {
-                "collapsed": true,
-                "type": "marketsim.types.IFunction_Tag"
+                "rv": "marketsim.types.IFunction_float",
+                "args": [
+                    "marketsim.types.IAccount"
+                ]
             }
-        },
-        "description": "<div class=\"document\">\n<p>Chooses Sell or Buy side with equal probability</p>\n</div>\n"
+        ],
+        "properties": {},
+        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.mathutils.rnd.expovariate": {
         "castsTo": [
@@ -3131,10 +3300,88 @@ var typeinfo = {
 }
 var interfaces = [
     [
-        "marketsim.types.IGraph",
+        "_parseInt",
+        []
+    ],
+    [
+        {
+            "rv": "_parseInt",
+            "args": []
+        },
         [
-            "marketsim.js.Graph"
+            "marketsim.mathutils.rnd.randint"
         ]
+    ],
+    [
+        "marketsim.types.IUpdatableValue",
+        [
+            "marketsim.mathutils._average.ewma",
+            "marketsim.mathutils._rsi.rsi"
+        ]
+    ],
+    [
+        {
+            "rv": {
+                "elementType": "_parseFloat"
+            },
+            "args": [
+                {
+                    "elementType": "_parseFloat"
+                }
+            ]
+        },
+        [
+            "marketsim.strategy.adaptive.weight.identity",
+            "marketsim.strategy.adaptive.weight.chooseTheBest"
+        ]
+    ],
+    [
+        "marketsim.types.IDifferentiable",
+        [
+            "marketsim.observable._ma.MA",
+            "marketsim.observable._cma.CMA",
+            "marketsim.observable._ewma.EWMA"
+        ]
+    ],
+    [
+        {
+            "elementType": "_parseFloat"
+        },
+        []
+    ],
+    [
+        "combine(greater(0.0), _parseFloat)",
+        []
+    ],
+    [
+        "marketsim.types.IAccount",
+        [
+            "marketsim.strategy.adaptive._virtual_market.VirtualMarket",
+            "marketsim.trader._proxy.SingleProxy",
+            "marketsim.trader._sa.SingleAsset",
+            "marketsim.strategy.adaptive._account.Account"
+        ]
+    ],
+    [
+        "marketsim.types.IFunction_Tag",
+        [
+            "marketsim.parts.side._signal.Signal_Generated",
+            "marketsim.ops.Constant_Tag",
+            "marketsim.ops._None_Tag",
+            "marketsim.parts.side._fv.FundamentalValue_Generated",
+            "marketsim.parts.side._cross_avg.TwoAverages_Generated",
+            "marketsim.parts.side._trend.TrendFollower_Generated",
+            "marketsim.parts.side._dependency.Dependency_Generated",
+            "marketsim.parts.side._mean_reversion.MeanReversion_Generated",
+            "marketsim.parts.side._random.Random_Generated",
+            "marketsim.ops.Condition_Tag"
+        ]
+    ],
+    [
+        {
+            "elementType": "marketsim.types.ITrader"
+        },
+        []
     ],
     [
         "marketsim.event.Event",
@@ -3183,128 +3430,29 @@ var interfaces = [
         ]
     ],
     [
+        "marketsim.types.ITrader",
+        [
+            "marketsim.trader._proxy.SingleProxy",
+            "marketsim.trader._sa.SingleAsset"
+        ]
+    ],
+    [
         {
-            "rv": "marketsim.Side",
-            "args": []
+            "elementType": "marketsim.types.ISingleAssetStrategy"
+        },
+        []
+    ],
+    [
+        {
+            "rv": "marketsim.types.IFunction_float",
+            "args": [
+                "marketsim.types.IFunction_float"
+            ]
         },
         [
-            "marketsim.parts.side._signal.Signal_Generated",
-            "marketsim.ops.Constant_Tag",
-            "marketsim.ops._None_Tag",
-            "marketsim.parts.side._fv.FundamentalValue_Generated",
-            "marketsim.parts.side._cross_avg.TwoAverages_Generated",
-            "marketsim.parts.side._trend.TrendFollower_Generated",
-            "marketsim.parts.side._dependency.Dependency_Generated",
-            "marketsim.strategy.v0._rsi.RelativeStrengthIndexSide",
-            "marketsim.parts.side._mean_reversion.MeanReversion_Generated",
-            "marketsim.parts.side._random.Random_Generated",
-            "marketsim.ops.Condition_Tag"
-        ]
-    ],
-    [
-        "marketsim.types.IFunction_float",
-        [
-            "marketsim.observable._minmax.Min",
-            "marketsim.observable._macd.MACD_Generated",
-            "marketsim.ops.Condition_float",
-            "marketsim.ops.Greater_float",
-            "marketsim.observable._ma.MA",
-            "marketsim.ops.identity",
-            "marketsim.mathutils.rnd.gammavariate",
-            "marketsim.ops.Product",
-            "marketsim.ops.Max",
-            "marketsim.mathutils.rnd.uniform",
-            "marketsim.observable._cma.CMA",
-            "marketsim.observable._stddev.MovingVariance",
-            "marketsim.ops.GreaterEqual_float",
-            "marketsim.observable._rsi.RSI_Generated",
-            "marketsim.observable._average.Fold",
-            "marketsim.parts.signed_volume._bollinger.Bollinger_linear_Generated",
-            "marketsim.observable._orderbook.QueueLastTradePrice",
-            "marketsim.mathutils.rnd.lognormvariate",
-            "marketsim.ops._None_float",
-            "marketsim.observable._computed.IndicatorBaseT_float",
-            "marketsim.ops.Sub",
-            "marketsim.observable._trader.profit_and_loss",
-            "marketsim.observable._deltalag.DeltaLag",
-            "marketsim.signal.RandomWalk",
-            "marketsim.observable._macd.histogram_Generated",
-            "marketsim.parts.price._lp.LiquidityProvider_Generated",
-            "marketsim.observable._ewma.EWMA",
-            "marketsim.ops.Sum",
-            "marketsim.observable._deltalag.UpMovements",
-            "marketsim.observable._orderbook.LastTradePrice",
-            "marketsim.mathutils.rnd.weibullvariate",
-            "marketsim.observable._trader.PendingVolume",
-            "marketsim.ops.Derivative",
-            "marketsim.parts.signed_volume._rsi.RSI_linear_Generated",
-            "marketsim.observable._orderbook.QueueWeightedPrice_Generated",
-            "marketsim.ops.sqrt",
-            "marketsim.mathutils.rnd.vonmisesvariate",
-            "marketsim.observable._trader.volume_traded",
-            "marketsim.observable._deltalag.DownMovements",
-            "marketsim.observable._macd.signal_Generated",
-            "marketsim.mathutils.rnd.paretovariate",
-            "marketsim.parts.signed_volume._desired_position.DesiredPosition_Generated",
-            "marketsim.ops.Exp",
-            "marketsim.observable._minmax.Max",
-            "marketsim.ops.negate",
-            "marketsim.ops.Equal_float",
-            "marketsim.observable._quote.Quote",
-            "marketsim.observable._async.Efficiency",
-            "marketsim.ops.Less_float",
-            "marketsim.observable._orderbook.QueuePrice",
-            "marketsim.observable._orderbook.Spread_Generated",
-            "marketsim.observable._orderbook.QueueLastTradeVolume",
-            "marketsim.ops.Div",
-            "marketsim.observable._orderbook.QueueLastPrice",
-            "marketsim.observable._stddev.EWMV",
-            "marketsim.mathutils.rnd.normalvariate",
-            "marketsim.observable._orderbook.MidPrice_Generated",
-            "marketsim.ops.Atan",
-            "marketsim.ops.Constant_float",
-            "marketsim.strategy._market_data.BreaksAtChanges",
-            "marketsim.mathutils.rnd.expovariate",
-            "marketsim.mathutils.rnd.triangular",
-            "marketsim.mathutils.rnd.betavariate"
-        ]
-    ],
-    [
-        "marketsim.types.IFunction_IVolumeLevels",
-        [
-            "marketsim.observable._computed.IndicatorBaseT_IVolumeLevels",
-            "marketsim.observable._orderbook.volume_levels"
-        ]
-    ],
-    [
-        "marketsim.types.IFunction_Tag",
-        [
-            "marketsim.parts.side._signal.Signal_Generated",
-            "marketsim.ops.Constant_Tag",
-            "marketsim.ops._None_Tag",
-            "marketsim.parts.side._fv.FundamentalValue_Generated",
-            "marketsim.parts.side._cross_avg.TwoAverages_Generated",
-            "marketsim.parts.side._trend.TrendFollower_Generated",
-            "marketsim.parts.side._dependency.Dependency_Generated",
-            "marketsim.parts.side._mean_reversion.MeanReversion_Generated",
-            "marketsim.parts.side._random.Random_Generated",
-            "marketsim.ops.Condition_Tag"
-        ]
-    ],
-    [
-        "marketsim.types.IFunction_IOrderGenerator_float",
-        [
-            "marketsim.order._limit.Price_Factory"
-        ]
-    ],
-    [
-        "marketsim.types.IOrderGenerator",
-        [
-            "marketsim.order.meta._floating_price.Factory",
-            "marketsim.order._market.Factory",
-            "marketsim.order._market.FactorySigned",
-            "marketsim.order.meta._iceberg.Factory",
-            "marketsim.order._limit.Factory"
+            "marketsim.strategy.adaptive.weight.clamp0",
+            "marketsim.strategy.adaptive.weight.identity",
+            "marketsim.strategy.adaptive.weight.atanpow"
         ]
     ],
     [
@@ -3343,92 +3491,6 @@ var interfaces = [
             "marketsim.observable._computed.IndicatorBaseT_float",
             "marketsim.observable._orderbook.MidPrice_Generated",
             "marketsim.ops.Atan"
-        ]
-    ],
-    [
-        {
-            "rv": "__builtin__.bool",
-            "args": []
-        },
-        [
-            "marketsim.ops.Equal_float",
-            "marketsim.ops.Less_float",
-            "marketsim.ops.GreaterEqual_float",
-            "marketsim.ops.Greater_float"
-        ]
-    ],
-    [
-        {
-            "rv": {
-                "rv": "marketsim.types.IOrder",
-                "args": [
-                    "_parseFloat"
-                ]
-            },
-            "args": [
-                "marketsim.Side"
-            ]
-        },
-        [
-            "__builtin__.function",
-            "marketsim.order._limit.AdaptLimit"
-        ]
-    ],
-    [
-        "marketsim.remote.Link",
-        [
-            "marketsim.remote.Link"
-        ]
-    ],
-    [
-        "marketsim.types.IOrderQueue",
-        [
-            "marketsim.orderbook._proxy.Queue"
-        ]
-    ],
-    [
-        "marketsim.types.IUpdatableValue",
-        [
-            "marketsim.mathutils._average.ewma",
-            "marketsim.mathutils._rsi.rsi"
-        ]
-    ],
-    [
-        "marketsim.Side",
-        [
-            "marketsim.side_._SellSide",
-            "marketsim.side_._BuySide"
-        ]
-    ],
-    [
-        "marketsim.types.IDifferentiable",
-        [
-            "marketsim.observable._ma.MA",
-            "marketsim.observable._cma.CMA",
-            "marketsim.observable._ewma.EWMA"
-        ]
-    ],
-    [
-        "marketsim.types.IAccount",
-        [
-            "marketsim.strategy.adaptive._virtual_market.VirtualMarket",
-            "marketsim.trader._proxy.SingleProxy",
-            "marketsim.trader._sa.SingleAsset",
-            "marketsim.strategy.adaptive._account.Account"
-        ]
-    ],
-    [
-        "marketsim.types.ITrader",
-        [
-            "marketsim.trader._proxy.SingleProxy",
-            "marketsim.trader._sa.SingleAsset"
-        ]
-    ],
-    [
-        "marketsim.timeserie.ToRecord",
-        [
-            "marketsim.timeserie.ToRecord",
-            "marketsim.timeserie.VolumeLevels"
         ]
     ],
     [
@@ -3481,9 +3543,219 @@ var interfaces = [
         ]
     ],
     [
-        "marketsim.remote.TwoWayLink",
+        "marketsim.types.IFunction_IVolumeLevels",
         [
-            "marketsim.remote.TwoWayLink"
+            "marketsim.observable._computed.IndicatorBaseT_IVolumeLevels",
+            "marketsim.observable._orderbook.volume_levels"
+        ]
+    ],
+    [
+        "marketsim.types.ISingleAssetTrader",
+        [
+            "marketsim.trader._proxy.SingleProxy",
+            "marketsim.trader._sa.SingleAsset"
+        ]
+    ],
+    [
+        {
+            "elementType": "marketsim.types.IGraph"
+        },
+        []
+    ],
+    [
+        "marketsim.types.ISingleAssetStrategy",
+        [
+            "marketsim.strategy.v0._mean_reversion.MeanReversion",
+            "marketsim.strategy.adaptive._suspendable.Suspendable",
+            "marketsim.strategy._array.Array",
+            "marketsim.strategy.position._bollinger.Bollinger_linear_Generated",
+            "marketsim.strategy.v0._lp.LiquidityProvider",
+            "marketsim.strategy.v0._signal.Signal",
+            "marketsim.strategy.side._rsi.RSIbis_Generated",
+            "marketsim.strategy._canceller.Canceller",
+            "marketsim.strategy.v0._noise.Noise",
+            "marketsim.strategy._single_order.SingleOrder2",
+            "marketsim.strategy.price._lp_side.LiquidityProviderSide_Generated",
+            "marketsim.strategy.side._mean_reversion.MeanReversion_Generated",
+            "marketsim.strategy.v0._lp_side.LiquidityProviderSide",
+            "marketsim.strategy.side._signal.Signal_Generated",
+            "marketsim.strategy.position._rsi.RSI_linear_Generated",
+            "marketsim.strategy._market_data.MarketData_Generated",
+            "marketsim.strategy._market_maker.MarketMaker_Generated",
+            "marketsim.strategy.v0._periodic.Periodic",
+            "marketsim.strategy.v0._rsi.RSIEx_Generated",
+            "marketsim.strategy.side._trend.TrendFollower_Generated",
+            "marketsim.strategy._basic.Empty",
+            "marketsim.strategy.v0._dependency.Dependency",
+            "marketsim.strategy.adaptive._multiarmed_bandit.MultiarmedBandit2",
+            "marketsim.strategy.side._dependency.Dependency_Generated",
+            "marketsim.strategy.side._two_averages.TwoAverages_Generated",
+            "marketsim.strategy.price._lp.LiquidityProvider_Generated",
+            "marketsim.strategy._generic.Generic",
+            "marketsim.strategy.v0._two_averages.TwoAverages",
+            "marketsim.strategy.side._noise.Noise_Generated",
+            "marketsim.strategy.adaptive._choose_best.ChooseTheBest",
+            "marketsim.strategy.adaptive._trade_if_profitable.TradeIfProfitable_Generated",
+            "marketsim.strategy.v0._trend.TrendFollower",
+            "marketsim.strategy.v0._fv.FundamentalValue",
+            "marketsim.strategy.side._fv.FundamentalValue_Generated"
+        ]
+    ],
+    [
+        {
+            "rv": "__builtin__.bool",
+            "args": []
+        },
+        [
+            "marketsim.ops.Equal_float",
+            "marketsim.ops.Less_float",
+            "marketsim.ops.GreaterEqual_float",
+            "marketsim.ops.Greater_float"
+        ]
+    ],
+    [
+        {
+            "rv": "marketsim.types.IAccount",
+            "args": [
+                "marketsim.types.ISingleAssetStrategy"
+            ]
+        },
+        [
+            "marketsim.strategy.adaptive._virtual_market.virtualMarket",
+            "marketsim.strategy.adaptive._account.account"
+        ]
+    ],
+    [
+        "_parseFloat",
+        []
+    ],
+    [
+        "marketsim.types.IFunction_IOrderGenerator_float",
+        [
+            "marketsim.order._limit.Price_Factory"
+        ]
+    ],
+    [
+        "marketsim.types.IGraph",
+        [
+            "marketsim.js.Graph"
+        ]
+    ],
+    [
+        {
+            "elementType": "marketsim.types.IOrderBook"
+        },
+        []
+    ],
+    [
+        {
+            "rv": "marketsim.Side",
+            "args": []
+        },
+        [
+            "marketsim.parts.side._signal.Signal_Generated",
+            "marketsim.ops.Constant_Tag",
+            "marketsim.ops._None_Tag",
+            "marketsim.parts.side._fv.FundamentalValue_Generated",
+            "marketsim.parts.side._cross_avg.TwoAverages_Generated",
+            "marketsim.parts.side._trend.TrendFollower_Generated",
+            "marketsim.parts.side._dependency.Dependency_Generated",
+            "marketsim.strategy.v0._rsi.RelativeStrengthIndexSide",
+            "marketsim.parts.side._mean_reversion.MeanReversion_Generated",
+            "marketsim.parts.side._random.Random_Generated",
+            "marketsim.ops.Condition_Tag"
+        ]
+    ],
+    [
+        "combine(less(6.28318530718), combine(greater_or_equal(0.0), _parseFloat))",
+        []
+    ],
+    [
+        {
+            "rv": {
+                "rv": "marketsim.types.IOrder",
+                "args": [
+                    "_parseFloat",
+                    "_parseFloat"
+                ]
+            },
+            "args": [
+                "marketsim.Side"
+            ]
+        },
+        [
+            "marketsim.order.meta._with_expiry.WithExpiryFactory",
+            "marketsim.order._limit.LimitFactory"
+        ]
+    ],
+    [
+        "marketsim.Side",
+        [
+            "marketsim.side_._SellSide",
+            "marketsim.side_._BuySide"
+        ]
+    ],
+    [
+        "marketsim.types.IOrderBook",
+        [
+            "marketsim.orderbook._proxy.Proxy",
+            "marketsim.orderbook._remote.Remote",
+            "marketsim.orderbook._local.Local",
+            "marketsim.orderbook._proxy.OfTrader"
+        ]
+    ],
+    [
+        "marketsim.remote.Link",
+        [
+            "marketsim.remote.Link"
+        ]
+    ],
+    [
+        "combine(greater_or_equal(0.0), _parseFloat)",
+        []
+    ],
+    [
+        {
+            "elementType": "marketsim.timeserie.ToRecord"
+        },
+        []
+    ],
+    [
+        "marketsim.timeserie.ToRecord",
+        [
+            "marketsim.timeserie.ToRecord",
+            "marketsim.timeserie.VolumeLevels"
+        ]
+    ],
+    [
+        "identity",
+        []
+    ],
+    [
+        {
+            "rv": {
+                "rv": "marketsim.types.IOrder",
+                "args": [
+                    "_parseFloat"
+                ]
+            },
+            "args": [
+                "marketsim.Side"
+            ]
+        },
+        [
+            "marketsim.order._market.MarketFactory",
+            "marketsim.order._virtual.VirtualMarketFactory",
+            "marketsim.order._limit.AdaptLimit"
+        ]
+    ],
+    [
+        "marketsim.types.IFunction_bool",
+        [
+            "marketsim.ops.Equal_float",
+            "marketsim.ops.Less_float",
+            "marketsim.ops.GreaterEqual_float",
+            "marketsim.ops.Greater_float"
         ]
     ],
     [
@@ -3558,93 +3830,107 @@ var interfaces = [
         ]
     ],
     [
-        "marketsim.types.ISingleAssetTrader",
-        [
-            "marketsim.trader._proxy.SingleProxy",
-            "marketsim.trader._sa.SingleAsset"
-        ]
-    ],
-    [
         {
-            "rv": {
-                "rv": "marketsim.types.IOrder",
-                "args": [
-                    "_parseFloat",
-                    "_parseFloat"
-                ]
-            },
+            "rv": "marketsim.types.IFunction_float",
             "args": [
-                "marketsim.Side"
+                "marketsim.types.IAccount"
             ]
         },
         [
-            "marketsim.order.meta._with_expiry.WithExpiryFactory"
+            "marketsim.strategy.adaptive.weight.efficiency",
+            "marketsim.strategy.adaptive.weight.efficiencyTrend",
+            "marketsim.strategy.adaptive.weight.unit",
+            "marketsim.strategy.adaptive.weight.score"
         ]
     ],
     [
-        "marketsim.types.ISingleAssetStrategy",
+        "marketsim.types.IOrderQueue",
         [
-            "marketsim.strategy.v0._mean_reversion.MeanReversion",
-            "marketsim.strategy.adaptive._suspendable.Suspendable",
-            "marketsim.strategy._array.Array",
-            "marketsim.strategy.position._bollinger.Bollinger_linear_Generated",
-            "marketsim.strategy.v0._lp.LiquidityProvider",
-            "marketsim.strategy.v0._signal.Signal",
-            "marketsim.strategy.side._rsi.RSIbis_Generated",
-            "marketsim.strategy._canceller.Canceller",
-            "marketsim.strategy.v0._noise.Noise",
-            "marketsim.strategy._single_order.SingleOrder2",
-            "marketsim.strategy.price._lp_side.LiquidityProviderSide_Generated",
-            "marketsim.strategy.side._mean_reversion.MeanReversion_Generated",
-            "marketsim.strategy.v0._lp_side.LiquidityProviderSide",
-            "marketsim.strategy.side._signal.Signal_Generated",
-            "marketsim.strategy.position._rsi.RSI_linear_Generated",
-            "marketsim.strategy._market_data.MarketData_Generated",
-            "marketsim.strategy._market_maker.MarketMaker_Generated",
-            "marketsim.strategy.v0._periodic.Periodic",
-            "marketsim.strategy.v0._rsi.RSIEx_Generated",
-            "marketsim.strategy.side._trend.TrendFollower_Generated",
-            "marketsim.strategy._basic.Empty",
-            "marketsim.strategy.v0._dependency.Dependency",
-            "marketsim.strategy.adaptive._multiarmed_bandit.MultiarmedBandit2",
-            "marketsim.strategy.side._dependency.Dependency_Generated",
-            "marketsim.strategy.side._two_averages.TwoAverages_Generated",
-            "marketsim.strategy.price._lp.LiquidityProvider_Generated",
-            "marketsim.strategy._generic.Generic",
-            "marketsim.strategy.v0._two_averages.TwoAverages",
-            "marketsim.strategy.side._noise.Noise_Generated",
-            "marketsim.strategy.adaptive._choose_best.ChooseTheBest",
-            "marketsim.strategy.adaptive._trade_if_profitable.TradeIfProfitable_Generated",
-            "marketsim.strategy.v0._trend.TrendFollower",
-            "marketsim.strategy.v0._fv.FundamentalValue",
-            "marketsim.strategy.side._fv.FundamentalValue_Generated"
+            "marketsim.orderbook._proxy.Queue"
         ]
     ],
     [
-        "marketsim.types.IFunction_bool",
+        "marketsim.remote.TwoWayLink",
         [
-            "marketsim.ops.Equal_float",
-            "marketsim.ops.Less_float",
+            "marketsim.remote.TwoWayLink"
+        ]
+    ],
+    [
+        "marketsim.types.IOrderGenerator",
+        [
+            "marketsim.order.meta._floating_price.Factory",
+            "marketsim.order._market.Factory",
+            "marketsim.order._market.FactorySigned",
+            "marketsim.order.meta._iceberg.Factory",
+            "marketsim.order._limit.Factory"
+        ]
+    ],
+    [
+        "marketsim.types.IFunction_float",
+        [
+            "marketsim.observable._minmax.Min",
+            "marketsim.observable._macd.MACD_Generated",
+            "marketsim.ops.Condition_float",
+            "marketsim.ops.Greater_float",
+            "marketsim.observable._ma.MA",
+            "marketsim.ops.identity",
+            "marketsim.mathutils.rnd.gammavariate",
+            "marketsim.ops.Product",
+            "marketsim.ops.Max",
+            "marketsim.mathutils.rnd.uniform",
+            "marketsim.observable._cma.CMA",
+            "marketsim.observable._stddev.MovingVariance",
             "marketsim.ops.GreaterEqual_float",
-            "marketsim.ops.Greater_float"
-        ]
-    ],
-    [
-        {
-            "rv": "_parseInt",
-            "args": []
-        },
-        [
-            "marketsim.mathutils.rnd.randint"
-        ]
-    ],
-    [
-        "marketsim.types.IOrderBook",
-        [
-            "marketsim.orderbook._proxy.Proxy",
-            "marketsim.orderbook._remote.Remote",
-            "marketsim.orderbook._local.Local",
-            "marketsim.orderbook._proxy.OfTrader"
+            "marketsim.observable._rsi.RSI_Generated",
+            "marketsim.observable._average.Fold",
+            "marketsim.parts.signed_volume._bollinger.Bollinger_linear_Generated",
+            "marketsim.observable._orderbook.QueueLastTradePrice",
+            "marketsim.mathutils.rnd.lognormvariate",
+            "marketsim.ops._None_float",
+            "marketsim.observable._computed.IndicatorBaseT_float",
+            "marketsim.ops.Sub",
+            "marketsim.observable._trader.profit_and_loss",
+            "marketsim.observable._deltalag.DeltaLag",
+            "marketsim.signal.RandomWalk",
+            "marketsim.observable._macd.histogram_Generated",
+            "marketsim.parts.price._lp.LiquidityProvider_Generated",
+            "marketsim.observable._ewma.EWMA",
+            "marketsim.ops.Sum",
+            "marketsim.observable._deltalag.UpMovements",
+            "marketsim.observable._orderbook.LastTradePrice",
+            "marketsim.mathutils.rnd.weibullvariate",
+            "marketsim.observable._trader.PendingVolume",
+            "marketsim.ops.Derivative",
+            "marketsim.parts.signed_volume._rsi.RSI_linear_Generated",
+            "marketsim.observable._orderbook.QueueWeightedPrice_Generated",
+            "marketsim.ops.sqrt",
+            "marketsim.mathutils.rnd.vonmisesvariate",
+            "marketsim.observable._trader.volume_traded",
+            "marketsim.observable._deltalag.DownMovements",
+            "marketsim.observable._macd.signal_Generated",
+            "marketsim.mathutils.rnd.paretovariate",
+            "marketsim.parts.signed_volume._desired_position.DesiredPosition_Generated",
+            "marketsim.ops.Exp",
+            "marketsim.observable._minmax.Max",
+            "marketsim.ops.negate",
+            "marketsim.ops.Equal_float",
+            "marketsim.observable._quote.Quote",
+            "marketsim.observable._async.Efficiency",
+            "marketsim.ops.Less_float",
+            "marketsim.observable._orderbook.QueuePrice",
+            "marketsim.observable._orderbook.Spread_Generated",
+            "marketsim.observable._orderbook.QueueLastTradeVolume",
+            "marketsim.ops.Div",
+            "marketsim.observable._orderbook.QueueLastPrice",
+            "marketsim.observable._stddev.EWMV",
+            "marketsim.mathutils.rnd.normalvariate",
+            "marketsim.observable._orderbook.MidPrice_Generated",
+            "marketsim.ops.Atan",
+            "marketsim.ops.Constant_float",
+            "marketsim.strategy._market_data.BreaksAtChanges",
+            "marketsim.mathutils.rnd.expovariate",
+            "marketsim.mathutils.rnd.triangular",
+            "marketsim.mathutils.rnd.betavariate"
         ]
     ]
 ]

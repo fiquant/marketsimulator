@@ -27,6 +27,24 @@ class function(collections.namedtuple("function", ["args", "rv"])):
             return casts_to(self.rv, dst.rv)
         return False
     
+    def __hash__(self):
+        h = hash(self.rv)
+        for a in self.args:
+            h ^= hash(a)
+        return h
+    
+    def __eq__(self, other):
+        if type(other) is not function:
+            return False
+        if not (self.rv == other.rv):
+            return False
+        if len(self.args) != len(other.args):
+            return False
+        for x,y in zip(self.args, other.args):
+            if not (x == y):
+                return False
+        return True
+    
     def toJS(self):
         def impl(convertToJs):
             return { "args" : [convertToJs(x) for x in self.args], "rv" : convertToJs(self.rv) }
@@ -50,6 +68,9 @@ class listOf(collections.namedtuple("listOf", ["elementType"])):
     
     def usedTypes(self):
         return rtti.usedTypes(self.elementType)
+    
+    def usedConstraints(self):
+        return rtti.usedConstraints(self.elementType)
     
     def check_constraint(self, x):
         if type(x) is list:
