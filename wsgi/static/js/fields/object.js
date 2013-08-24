@@ -169,14 +169,25 @@ function ObjectValue(s, constraint, root, expandReference) {
 	/**
 	 *	List of fields to be rendered in expanded view 
 	 */
-	self.expanded = ko.computed(function() {
-		return (self.pointee().isReference() && !self._expandReference()) ? [] : self.pointee().fields();
+	self.expanded = ko.computed({
+		read: function() {
+				return ((self.pointee().isReference() && !self._expandReference()) 
+						? [] : self.pointee().fields());
+				},
+		deferEvaluation : true
 	});
 	
-	self.rowsWithChildren = ko.computed(function () {
-		return 1 + reduce(self.expanded(), function (acc, field) {
-			return acc + field.rowsWithChildren();
-		})
+	self.expandedLength = ko.computed(function() {
+		return (self.pointee().isReference() && !self._expandReference()) ? [] : self.pointee().fieldCount();
+	});
+	
+	self.rowsWithChildren = ko.computed({
+		read: function () {
+				return 1 + reduce(self.expanded(), function (acc, field) {
+					return acc + field.rowsWithChildren();
+				})
+			},
+		deferEvaluation : true
 	})
 	
 	/**

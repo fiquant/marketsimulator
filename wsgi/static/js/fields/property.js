@@ -118,7 +118,7 @@ function Property(name, value, flags, toplevel, parentArray) {
 	 *  Returns true iff the fiels can be expanded 
 	 */
 	self.expandable = ko.computed(function () {
-		return !self.scalar && self.impl().expanded().length;
+		return !self.scalar && self.impl().expandedLength();
 	});
 	
 	/**

@@ -229,20 +229,19 @@ class Registry(object):
             if p.name == k:        
                 typeinfo = p.type
         
-        if '_casts_to' in dir(v):
-            if not v._casts_to(typeinfo):
-                a = 1
-            assert v._casts_to(typeinfo)
-            return v
-        
         if typeinfo in rtti.types(v):
             return v
-        
        
         if inspect.isclass(typeinfo) and issubclass(type(v), typeinfo):
             # we just checked that our object is a subclass for the constraint
             return v# so we may leave it
         
+        if '_casts_to' in dir(v):
+            if not v._casts_to(typeinfo):
+                a = 1
+            assert v._casts_to(typeinfo)
+            return v
+
         if typeinfo is not None: # consider it as a converter
             return typeinfo(v)
         

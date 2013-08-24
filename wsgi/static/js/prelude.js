@@ -205,7 +205,7 @@ function isnan(x) {
 }
 
 //an observable that retrieves its value when first bound
-ko.onDemandObservable = function(callback, target) {
+ko.lazyObservable = function(callback, target) {
     var _value = ko.observable();  //private observable
 
     var result = ko.dependentObservable({

@@ -37,10 +37,26 @@ function Instance(id, constructor, fields, castsTo, alias, root) {
 	 */
 	self.castsTo = function () { return castsTo; }
 	
+	self.setupFields = function () { 
+		self.fields(
+			map(fields, 
+				function (f) {
+					try { 
+						return f();
+						} catch (err) {
+							var a = 12;
+						} 
+				})) 
+	}
+	
+	self.fieldCount = function () {
+		return fields.length;
+	}
+	
 	/**
 	 *	Array of fields. 
 	 */
-	self.fields = ko.observableArray(fields);
+	self.fields = ko.lazyObservable(self.setupFields, self);
 	
 	/**
 	 *	Stores alias for the instance. Private.
@@ -110,16 +126,20 @@ function Instance(id, constructor, fields, castsTo, alias, root) {
 	 */
 	self.clone = function () {
 		var fields_cloned = map(self.fields(), function (field) { 
-								return field.clone(); 
+								return function () {
+									return field.clone(); 
+								}
 						});
 						
 		return root.createObj(function (id) {
-			return new Instance(id, 
+			var obj = new Instance(id, 
 								constructor, 
 								fields_cloned, 
 								castsTo, 
 								self._generateNewAlias(), 
 								root);
+		    obj.fields(); // just touching
+		    return obj;
 		});
 	}
 	
@@ -155,11 +175,17 @@ function Instance(id, constructor, fields, castsTo, alias, root) {
 	 *	Returns true iff some fields have changed 
 	 */
 	self.hasChanged = ko.computed(function () {
+		if (self.fields.loaded.peek() != true) {
+			return false;
+		}
 		return any(self.fields(), function (field) { 
 			return field.hasChanged(); }) || self._aliasChanged();
 	});
 	
 	self.hasChangedWithChildren = ko.computed(function () {
+		if (self.fields.loaded.peek() != true) {
+			return false;
+		}
 		return any(self.fields(), function (field) { 
 			return field.hasChangedWithChildren(); }) || self._aliasChanged();
 	})
@@ -168,11 +194,18 @@ function Instance(id, constructor, fields, castsTo, alias, root) {
 	 *	Returns list of tuples (instance_id, field_name, new_value) of modified fields
 	 */
 	self.changedFields = function() {
-		return map_opt(self.fields(), function (f) {
-			return (f.hasChanged()
-					?	[self.uniqueId()].concat(f.serialized())
-					:   undefined);
-		}).concat(self._aliasChanged() ? [[self.uniqueId(), "_alias", self.alias()]] : []);
+		var fields = [];
+		if (self.fields.loaded.peek() == true) {
+			fields =  map_opt(self.fields(), function (f) {
+						return (f.hasChanged()
+								?	[self.uniqueId()].concat(f.serialized())
+								:   undefined);
+					  });
+		}
+		if (self._aliasChanged()) {
+			fields.push([self.uniqueId(), "_alias", self.alias()]);
+		}
+		return fields;
 	};	
 	
 	/**
@@ -188,6 +221,9 @@ function Instance(id, constructor, fields, castsTo, alias, root) {
 	 * 	Returns true if there are any errors in the fields 
 	 */
 	self.hasError = ko.computed(function () {
+		if (self.fields.loaded.peek() != true) {
+			return false;
+		}
 		return any(self.fields(), function (field) { 
 			return field.hasError(); 
 		});
@@ -198,9 +234,11 @@ function Instance(id, constructor, fields, castsTo, alias, root) {
 	 */
 	self.dropHistory = function () {
 		self._initial_alias($.toJSON(self.alias()));
-		foreach(self.fields(), function (f) { 
-			f.dropHistory(); 
-		});
+		if (self.fields.loaded.peek() == true) {
+			foreach(self.fields(), function (f) { 
+				f.dropHistory(); 
+			});
+		}
 	}
 
 }
@@ -209,18 +247,24 @@ function createInstance(id, src, root) {
 	var ctor = src[0];
 	var myTypeinfo = typeinfo[ctor];
 	var fields = map(dict2array(src[1]), function (x) { 
-		var descriptor = myTypeinfo.properties[x.key];
-		return new Property(x.key, treatAny(x.value, descriptor.type, root), descriptor); 
-	});
+		return function () {
+			var descriptor = myTypeinfo.properties[x.key];
+			return new Property(x.key, 
+				treatAny(x.value, descriptor.type, root), 
+				descriptor);
+		}
+	}) 
+	
 	var alias = src[2];
 	if (ctor == OrderBookProxyType) {
 		alias = ["$(OrderBook)"];
 	}
 	if (Object.size(src[3]) > 0) {
-		var defs = new Property('definitions', 
+		fields.push(function () {
+			return new Property('definitions', 
 								createDictionaryValue(src[3], root), 
 								{hidden: false, collapsed: false});
-		fields.push(defs);
+		})
 	}	
 	var created = new Instance(id, ctor, fields, myTypeinfo.castsTo, alias, root);
 	if (ctor == "marketsim.timeserie.ToRecord") {

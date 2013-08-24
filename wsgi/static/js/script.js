@@ -336,13 +336,6 @@ function AppViewModel() {
 				id2obj[i] = self.getObj(i);
 			}
 			
-			for (var i in id2obj) {
-				foreach (id2obj[i].fields(), function (f) {
-					if (f.impl().object) {
-						f.impl().updateOptions();
-					}
-				});
-			}
 		}
 		self.root(self.id2obj.lookup(self.response.peek().root));
 		

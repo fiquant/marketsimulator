@@ -1,3 +1,5 @@
+from marketsim import context
+
 class Base(object):
 
     def __init__(self):
@@ -7,6 +9,17 @@ class Base(object):
                 
     def __call__(self):
         return self.impl()
+    
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        if 'getDefinitions' in dir(self):
+            self.impl._definitions = self.getDefinitions()
+        ctx = getattr(self, '_ctx', None)
+        if ctx:
+            context.bind(self.impl, ctx)
     
     @property
     def label(self):
@@ -64,7 +77,9 @@ def generate(kind, cls, alias, docstring, fields, ctx):
     def process(tmpl, sep=", "):
         return sep.join([tmpl % mapped(locals()) for (name, ini, typ) in fields])
     
-    args = process("%(name)s = None")
+    args = process("%(name)s = None") 
+    if len(fields): args += ","
+    args += "impl = None"
     ctor = process("self._%(name)s = %(name)s if %(name)s is not None else %(ini)s", "; ")
     props= process("\'%(name)s\' : %(typ)s")
     binds = process("ctx.%(name)s = self._%(name)s", "; ")

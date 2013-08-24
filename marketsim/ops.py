@@ -1,4 +1,4 @@
-from marketsim import meta, Side, types, registry, getLabel, event, _
+from marketsim import meta, constraints, Side, types, registry, getLabel, event, _
 import marketsim
 import math, inspect 
 
@@ -244,10 +244,10 @@ class _Constant_Impl(object):
         if type(dst) is meta.function:
             rv = dst.rv
             return rv is float or\
-                (type(rv) is meta.greater_or_equal and rv._bound <= self.value) or\
-                (type(rv) is meta.greater_than and rv._bound < self.value) or\
-                (type(rv) is meta.less_or_equal and rv._bound >= self.value) or\
-                (type(rv) is meta.less_than and rv._bound > self.value)
+                (type(rv) is constraints.greater_or_equal and rv._bound <= self.value) or\
+                (type(rv) is constraints.greater_than and rv._bound < self.value) or\
+                (type(rv) is constraints.less_or_equal and rv._bound >= self.value) or\
+                (type(rv) is constraints.less_than and rv._bound > self.value)
         return False 
         
     def __call__(self, *args, **kwargs):
