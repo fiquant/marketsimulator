@@ -136,6 +136,9 @@ class _Equal_Impl(_Conditional_Base):
 
 Equal = types.Factory("Equal", """(_Equal_Impl, BinaryOp[%(T)s]):
     BranchType = %(T)s
+    def __init__(self, lhs, rhs):
+        BinaryOp[%(T)s].__init__(self, lhs, rhs)
+        self._alias = ['Logic', '==']
 """, globals())
 
 def logic_op(T):
@@ -163,6 +166,9 @@ class _NotEqual_Impl(_Conditional_Base):
 
 NotEqual = types.Factory("NotEqual", """(_NotEqual_Impl, BinaryOp[%(T)s]):
     BranchType = %(T)s
+    def __init__(self, lhs, rhs):
+        BinaryOp[%(T)s].__init__(self, lhs, rhs)
+        self._alias = ['Logic', '!=']
 """, globals())
 
 notequal = logic_op(NotEqual)
@@ -179,6 +185,9 @@ class _Greater_Impl(_Conditional_Base):
 
 Greater = types.Factory("Greater", """(_Greater_Impl, BinaryOp[%(T)s]):
     BranchType = %(T)s
+    def __init__(self, lhs, rhs):
+        BinaryOp[%(T)s].__init__(self, lhs, rhs)
+        self._alias = ['Logic', '>']
 """, globals())
 
 greater = logic_op(Greater)
@@ -195,6 +204,9 @@ class _GreaterEqual_Impl(_Conditional_Base):
 
 GreaterEqual = types.Factory("GreaterEqual", """(_GreaterEqual_Impl, BinaryOp[%(T)s]):
     BranchType = %(T)s
+    def __init__(self, lhs, rhs):
+        BinaryOp[%(T)s].__init__(self, lhs, rhs)
+        self._alias = ['Logic', '>=']
 """, globals())
 
 greater_equal = logic_op(GreaterEqual)
@@ -211,11 +223,33 @@ class _Less_Impl(_Conditional_Base):
 
 Less = types.Factory("Less", """(_Less_Impl, BinaryOp[%(T)s]):
     BranchType = %(T)s
+    def __init__(self, lhs, rhs):
+        BinaryOp[%(T)s].__init__(self, lhs, rhs)
+        self._alias = ['Logic', '<']
 """, globals())
 
 less = logic_op(Less)
     
 Less[float]
+# ---------------------------------------------------- LessEqual
+
+class _LessEqual_Impl(_Conditional_Base):
+    
+    sign = "<="
+    
+    def _call(self, lhs, rhs):
+        return lhs <= rhs
+
+LessEqual = types.Factory("LessEqual", """(_LessEqual_Impl, BinaryOp[%(T)s]):
+    BranchType = %(T)s
+    def __init__(self, lhs, rhs):
+        BinaryOp[%(T)s].__init__(self, lhs, rhs)
+        self._alias = ['Logic', '<=']
+""", globals())
+
+less_equal = logic_op(LessEqual)
+    
+LessEqual[float]
 # ---------------------------------------------------- Constant
 
 # NB! _None is a special case of Constant but we don't use the latter 
