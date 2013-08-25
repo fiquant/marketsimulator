@@ -561,7 +561,11 @@ def expose(alias, constructor=None, args = None):
     def inner(f):
         if inspect.isclass(f) or args is not None:
             def inner(instance):
-                obj = f() if args is None else f(*args)
+                try:
+                    obj = f() if args is None else f(*args)
+                except Exception, err:
+                    print "Exposing ", f, "failed: ", err
+                    
                 obj._alias = alias
                 instance.insert(obj)
             startup.append(inner)

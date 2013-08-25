@@ -330,35 +330,15 @@ class negate(Function[float]):
     def __repr__(self):
         return "-" + repr(self.arg)
     
-@registry.expose(['Arithmetic', 'sqrt'])
-class sqrt(Function[float]):
-    """ Function returning square root of the operand
-    """
-
-    def __init__(self, arg=constant(1.)):
-        self.arg = arg
-
-    _properties = { "arg" : types.IFunction[float] }
-
-    def __call__(self, *args, **kwargs):
-        x = self.arg()
-        return math.sqrt(x) if x is not None else None
-
-    @property
-    def label(self):
-        return "\sqrt{" + self.arg.label + "}"
-
-    def __repr__(self):
-        return "sqrt(" + repr(self.arg) + ")"
-
-
+@registry.expose(['Pow/Log', 'sqrt'])
 class Sqrt(Observable[float]):
-    def __init__(self, source):
+    def __init__(self, source = constant(1.)):
         self._source = source
         Observable[float].__init__(self)
-        self._event = event.subscribe(source, _(self).fire, self)
+        if isinstance(source, types.IEvent):
+            event.subscribe(source, _(self).fire, self)
 
-    _properties = {'source': types.IObservable[float]}
+    _properties = {'source': types.IFunction[float]}
 
     @property
     def source(self):
@@ -366,19 +346,26 @@ class Sqrt(Observable[float]):
 
     @property
     def label(self):
-        return "\Sqrt{" + self._source.label + "}"
+        return "\sqrt{" + self._source.label + "}"
+
+    def __repr__(self):
+        return "sqrt(" + repr(self.arg) + ")"
 
     def __call__(self):
         r = self._source()
         return math.sqrt(r) if r is not None else None
+    
+sqrt = Sqrt
 
+@registry.expose(['Pow/Log', 'ln'])
 class Log(Observable[float]):
-    def __init__(self, source):
+    def __init__(self, source = constant(1.)):
         self._source = source
         Observable[float].__init__(self)
-        self._event = event.subscribe(source, _(self).fire, self)
+        if isinstance(source, types.IEvent):
+            event.subscribe(source, _(self).fire, self)
 
-    _properties = {'source': types.IObservable[float]}
+    _properties = {'source': types.IFunction[float]}
 
     @property
     def source(self):
@@ -392,13 +379,15 @@ class Log(Observable[float]):
         r = self._source()
         return math.log(r) if r is not None and r > 0 else None
 
+@registry.expose(['Pow/Log', 'exp'])
 class Exp(Observable[float]):
-    def __init__(self, source):
+    def __init__(self, source = constant(1.)):
         self._source = source
         Observable[float].__init__(self)
-        self._event = event.subscribe(source, _(self).fire, self)
+        if isinstance(source, types.IEvent):
+            event.subscribe(source, _(self).fire, self)
 
-    _properties = {'source': types.IObservable[float]}
+    _properties = {'source': types.IFunction[float]}
 
     @property
     def source(self):
@@ -413,12 +402,13 @@ class Exp(Observable[float]):
         return math.exp(r) if r is not None else None
 
 class Atan(Observable[float]):
-    def __init__(self, source):
+    def __init__(self, source = constant(0.)):
         self._source = source
         Observable[float].__init__(self)
-        self._event = event.subscribe(source, _(self).fire, self)
+        if isinstance(source, types.IEvent):
+            event.subscribe(source, _(self).fire, self)
 
-    _properties = {'source': types.IObservable[float]}
+    _properties = {'source': types.IFunction[float]}
 
     @property
     def source(self):
@@ -432,8 +422,9 @@ class Atan(Observable[float]):
         r = self._source()
         return math.atan(r) if r is not None else None
 
+@registry.expose(['Pow/Log', 'pow'])
 class Pow(Observable[float]):
-    def __init__(self, base, power):
+    def __init__(self, base = constant(1.), power = constant(1.)):
         self._base = base
         self._power = power
         Observable[float].__init__(self)
@@ -505,14 +496,16 @@ class Product(BinaryOp[float]):
     def _call(self, lhs, rhs):
         return lhs * rhs
     
+@registry.expose(['Pow/Log', 'sqr'])
 class Sqr(Observable[float]):
     
-    def __init__(self, source):
+    def __init__(self, source = constant(1.)):
         self._source = source
         Observable[float].__init__(self)
-        self._event = event.subscribe(source, _(self).fire, self)
+        if isinstance(source, types.IEvent):
+            event.subscribe(source, _(self).fire, self)
         
-    _properties = { 'source' : types.IObservable[float] }
+    _properties = { 'source' : types.IFunction[float] }
     
     @property
     def source(self):
