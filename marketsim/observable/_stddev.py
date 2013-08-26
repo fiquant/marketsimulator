@@ -1,11 +1,12 @@
-from marketsim import ops, types, event, _, getLabel, scheduler
+from marketsim import ops, types, event, _, getLabel, scheduler, registry
 
 import fold
 import math
 
+@registry.expose(alias = ['Statistics', 'Variance', 'Cumulative'])
 class Variance(fold.Last):
     
-    def __init__(self, source):
+    def __init__(self, source = ops.constant(1.)):
         fold.Last.__init__(self, source)
         self.reset()
         
@@ -49,14 +50,17 @@ class Variance(fold.Last):
             self._t = t
             self._x = x
             
+@registry.expose(alias = ['Statistics', 'StdDev', 'Cumulative'], 
+                 args = (ops.constant(1.),))
 def StdDev(source):
     return ops.sqrt(Variance(source))
         
 from _ma import MA
 
+@registry.expose(alias = ['Statistics', 'Variance', 'Moving'])
 class MovingVariance(ops.Function[float]):
     
-    def __init__(self, source, timeframe):
+    def __init__(self, source = ops.constant(1.), timeframe = 10):
         self.source = source
         self.timeframe = timeframe
         self._mean = MA(source, timeframe)
@@ -89,14 +93,17 @@ class MovingVariance(ops.Function[float]):
         else:
             return None
         
+@registry.expose(alias = ['Statistics', 'StdDev', 'Moving'], 
+                 args = (ops.constant(1.),10))
 def StdDevRolling(source, timeframe):
     return ops.sqrt(MovingVariance(source, timeframe))
 
 from _ewma import EWMA
         
+@registry.expose(alias = ['Statistics', 'Variance', 'Exponentially weighted'])
 class EWMV(fold.Last):
     
-    def __init__(self, source, alpha):
+    def __init__(self, source = ops.constant(1.), alpha = 0.15):
         fold.Last.__init__(self, source)
         self.alpha = alpha
         self._mean = EWMA(source, alpha) # TODO: handle source and alpha change
@@ -134,6 +141,8 @@ class EWMV(fold.Last):
             self._lastValue = value
             self._lastTime = time
         
+@registry.expose(alias = ['Statistics', 'StdDev', 'Exponentially weighted'], 
+                 args = (ops.constant(1.),0.15))
 def StdDevEW(source, alpha):    
     return ops.sqrt(EWMV(source, alpha))
     

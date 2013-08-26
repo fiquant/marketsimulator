@@ -2,7 +2,7 @@ from marketsim import ops, types, event, _, getLabel, registry
 
 import fold
 
-@registry.expose(alias = ['Statistics', 'Average', 'Simple'])
+@registry.expose(alias = ['Statistics', 'Average', 'Moving'])
 class MA(fold.Last, types.IDifferentiable):
     
     def __init__(self, source = ops.constant(1.), timeframe = 10):
