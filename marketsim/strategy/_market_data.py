@@ -8,9 +8,10 @@ import _wrap
 
 const = ops.constant
 
+@registry.expose(alias = ['_details', "BreaksAtChanges"])
 class BreaksAtChanges(ops.Observable[float]):
     
-    def __init__(self, source):
+    def __init__(self, source = ops.constant(1.)):
         ops.Observable[float].__init__(self)
         self.source = source
         self._value = None

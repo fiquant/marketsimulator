@@ -11,7 +11,7 @@ class DesiredPosition(ops.Observable[float]): # ops.Observable[SignedVolume]
         
         return self.desiredPosition - actual - pending
     
-_wrap.function(DesiredPosition, ['DesiredPosition'], 
+_wrap.function(DesiredPosition, ['parts', 'signed volume', 'DesiredPosition'], 
              """ """,
              [
               ('desiredPosition',       'signal.RandomWalk()',          'types.IFunction[float]'),

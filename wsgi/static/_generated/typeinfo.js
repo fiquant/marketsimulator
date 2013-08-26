@@ -61,16 +61,22 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.trader._proxy.SingleProxy": {
+    "marketsim.observable.fold._last.Last": {
         "castsTo": [
-            "marketsim.types.IAccount",
-            "marketsim.types.ISingleAssetTrader",
-            "marketsim.types.ITrader"
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.types.IFunction_float"
         ],
-        "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "properties": {
+            "source": {
+                "type": "marketsim.types.IObservable_float"
+            }
+        },
+        "description": "<div class=\"document\">\n<dl class=\"docutils\">\n<dt>Aggregates (folds) time-dependent data from <em>source</em> using given</dt>\n<dd>functional  <em>folder</em> (e.g. moving average) defined in derived class</dd>\n</dl>\n<p>For example</p>\n<pre class=\"literal-block\">\nprice_avg = EWMA(MidPrice(book_A), alpha = 0.15)\n</pre>\n<p>creates a observable for a moving average with \u03b1 = 0.15 of mid-price of asset <em>book_A</em></p>\n</div>\n"
     },
-    "marketsim.strategy._market_data.BreaksAtChanges": {
+    "marketsim.observable.fold._two_point.TwoPoint": {
         "castsTo": [
             {
                 "rv": "_parseFloat",
@@ -87,6 +93,33 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.trader._proxy.SingleProxy": {
+        "castsTo": [
+            "marketsim.types.IAccount",
+            "marketsim.types.ISingleAssetTrader",
+            "marketsim.types.ITrader"
+        ],
+        "properties": {},
+        "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.observable._average.Fold": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.types.IFunction_float"
+        ],
+        "properties": {
+            "source": {
+                "type": "marketsim.types.IObservable_float"
+            },
+            "folder": {
+                "type": "marketsim.types.IUpdatableValue"
+            }
+        },
+        "description": "<div class=\"document\">\n<p>Aggregates (folds) time-dependent data from <em>source</em> using given functional  <em>folder</em> (e.g. moving average)</p>\n<p>For example</p>\n<pre class=\"literal-block\">\nprice_avg = Fold(MidPrice(book_A), ewma(alpha = 0.15))\n</pre>\n<p>creates a observable for a moving average with \u03b1 = 0.15 of mid-price of asset <em>book_A</em></p>\n</div>\n"
     },
     "marketsim.strategy._canceller.Canceller": {
         "castsTo": [
@@ -1090,23 +1123,16 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Trend follower can be considered as a sort of a signal strategy\nwhere the <em>signal</em> is a trend of the asset.\nUnder trend we understand the first derivative of some moving average of asset prices.\nIf the derivative is positive, the trader buys; if negative - it sells.\nSince moving average is a continuously changing signal, we check its\nderivative at random moments of time given by <em>creationIntervalDistr</em>.</p>\n<p>It has following parameters:</p>\n<dl class=\"docutils\">\n<dt><strong>&amp;alpha; for moving average</strong></dt>\n<dd>parameter \u03b1 for exponentially weighted moving average\n(default: 0.15.)</dd>\n<dt><strong>Threshold</strong></dt>\n<dd>threshold when the trader starts to act (default: 0.)</dd>\n<dt><strong>Time intervals between two order creations</strong></dt>\n<dd>defines intervals of time between order creation\n(default: exponential distribution with \u03bb = 1)</dd>\n<dt><strong>Volume of orders to create</strong></dt>\n<dd>defines volumes of orders to create\n(default: exponential distribution with \u03bb = 1)</dd>\n</dl>\n</div>\n"
     },
-    "marketsim.observable._deltalag.DownMovements": {
+    "marketsim.mathutils._average.ewma": {
         "castsTo": [
-            {
-                "rv": "_parseFloat",
-                "args": []
-            },
-            "marketsim.event.Event",
-            "marketsim.types.IFunction_float",
-            "marketsim.types.IObservable_float",
-            "marketsim.types.IObservable_object"
+            "marketsim.types.IUpdatableValue"
         ],
         "properties": {
-            "source": {
-                "type": "marketsim.types.IObservable_float"
+            "alpha": {
+                "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Exponentially weighted moving average</p>\n</div>\n"
     },
     "marketsim.ops.Derivative": {
         "castsTo": [
@@ -1199,16 +1225,23 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>If <em>fundamentalValue</em> &gt; bid price then sells,\nif <em>fundamentalValue</em> &lt; ask price then buys</p>\n</div>\n"
     },
-    "marketsim.mathutils._average.ewma": {
+    "marketsim.observable._deltalag.DownMovements": {
         "castsTo": [
-            "marketsim.types.IUpdatableValue"
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.event.Event",
+            "marketsim.types.IFunction_float",
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
-            "alpha": {
-                "type": "_parseFloat"
+            "source": {
+                "type": "marketsim.types.IObservable_float"
             }
         },
-        "description": "<div class=\"document\">\n<p>Exponentially weighted moving average</p>\n</div>\n"
+        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.observable._macd.signal_Generated": {
         "castsTo": [
@@ -2176,23 +2209,23 @@ var typeinfo = {
         "properties": {},
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.observable._average.Fold": {
+    "marketsim.strategy._market_data.BreaksAtChanges": {
         "castsTo": [
             {
                 "rv": "_parseFloat",
                 "args": []
             },
-            "marketsim.types.IFunction_float"
+            "marketsim.event.Event",
+            "marketsim.types.IFunction_float",
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
         ],
         "properties": {
             "source": {
                 "type": "marketsim.types.IObservable_float"
-            },
-            "folder": {
-                "type": "marketsim.types.IUpdatableValue"
             }
         },
-        "description": "<div class=\"document\">\n<p>Aggregates (folds) time-dependent data from <em>source</em> using given functional  <em>folder</em> (e.g. moving average)</p>\n<p>For example</p>\n<pre class=\"literal-block\">\nprice_avg = Fold(MidPrice(book_A), ewma(alpha = 0.15))\n</pre>\n<p>creates a observable for a moving average with \u03b1 = 0.15 of mid-price of asset <em>book_A</em></p>\n</div>\n"
+        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.strategy.adaptive._choose_best.ChooseTheBest": {
         "castsTo": [
@@ -3582,6 +3615,7 @@ var interfaces = [
             "marketsim.observable._minmax.Min",
             "marketsim.ops.Product",
             "marketsim.ops.Max",
+            "marketsim.observable.fold._two_point.TwoPoint",
             "marketsim.ops.Exp",
             "marketsim.parts.signed_volume._bollinger.Bollinger_linear_Generated",
             "marketsim.observable._computed.IndicatorBaseT_float",
@@ -3650,6 +3684,12 @@ var interfaces = [
         ]
     ],
     [
+        {
+            "elementType": "marketsim.types.IOrderBook"
+        },
+        []
+    ],
+    [
         "marketsim.types.IGraph",
         [
             "marketsim.js.Graph"
@@ -3668,6 +3708,7 @@ var interfaces = [
             "marketsim.observable._minmax.Min",
             "marketsim.ops.Product",
             "marketsim.ops.Max",
+            "marketsim.observable.fold._two_point.TwoPoint",
             "marketsim.ops.Exp",
             "marketsim.parts.signed_volume._bollinger.Bollinger_linear_Generated",
             "marketsim.observable._orderbook.QueueLastTradePrice",
@@ -3729,6 +3770,7 @@ var interfaces = [
             "marketsim.observable._minmax.Min",
             "marketsim.ops.Product",
             "marketsim.ops.Max",
+            "marketsim.observable.fold._two_point.TwoPoint",
             "marketsim.ops.Exp",
             "marketsim.parts.signed_volume._bollinger.Bollinger_linear_Generated",
             "marketsim.observable._orderbook.QueueLastTradePrice",
@@ -3849,20 +3891,23 @@ var interfaces = [
             "marketsim.ops.Greater_float",
             "marketsim.observable._minmax.Min",
             "marketsim.observable._ma.MA",
+            "marketsim.observable.fold._last.Last",
             "marketsim.ops.identity",
             "marketsim.ops.Product",
             "marketsim.ops.Max",
+            "marketsim.observable.fold._two_point.TwoPoint",
             "marketsim.mathutils.rnd.uniform",
             "marketsim.observable._cma.CMA",
             "marketsim.observable._stddev.MovingVariance",
             "marketsim.ops.Exp",
             "marketsim.observable._rsi.RSI_Generated",
-            "marketsim.observable._average.Fold",
+            "marketsim.strategy._market_data.BreaksAtChanges",
             "marketsim.parts.signed_volume._bollinger.Bollinger_linear_Generated",
             "marketsim.ops.Condition_float",
             "marketsim.observable._orderbook.QueueLastTradePrice",
             "marketsim.mathutils.rnd.lognormvariate",
             "marketsim.observable._macd.MACD_Generated",
+            "marketsim.observable._average.Fold",
             "marketsim.observable._computed.IndicatorBaseT_float",
             "marketsim.ops.Sub",
             "marketsim.observable._trader.profit_and_loss",
@@ -3911,7 +3956,6 @@ var interfaces = [
             "marketsim.observable._orderbook.MidPrice_Generated",
             "marketsim.ops.Atan",
             "marketsim.ops.Constant_float",
-            "marketsim.strategy._market_data.BreaksAtChanges",
             "marketsim.mathutils.rnd.expovariate",
             "marketsim.mathutils.rnd.triangular",
             "marketsim.mathutils.rnd.betavariate"
@@ -3932,6 +3976,10 @@ var interfaces = [
             "marketsim.order.meta._iceberg.Factory",
             "marketsim.order._limit.Factory"
         ]
+    ],
+    [
+        "combine(less(6.28318530718), combine(greater_or_equal(0.0), _parseFloat))",
+        []
     ],
     [
         "marketsim.types.IFunction_IOrderGenerator_float",
@@ -3993,20 +4041,23 @@ var interfaces = [
             "marketsim.ops.Greater_float",
             "marketsim.observable._minmax.Min",
             "marketsim.observable._ma.MA",
+            "marketsim.observable.fold._last.Last",
             "marketsim.ops.identity",
             "marketsim.ops.Product",
             "marketsim.ops.Max",
+            "marketsim.observable.fold._two_point.TwoPoint",
             "marketsim.mathutils.rnd.uniform",
             "marketsim.observable._cma.CMA",
             "marketsim.observable._stddev.MovingVariance",
             "marketsim.ops.Exp",
             "marketsim.observable._rsi.RSI_Generated",
-            "marketsim.observable._average.Fold",
+            "marketsim.strategy._market_data.BreaksAtChanges",
             "marketsim.parts.signed_volume._bollinger.Bollinger_linear_Generated",
             "marketsim.ops.Condition_float",
             "marketsim.observable._orderbook.QueueLastTradePrice",
             "marketsim.mathutils.rnd.lognormvariate",
             "marketsim.observable._macd.MACD_Generated",
+            "marketsim.observable._average.Fold",
             "marketsim.observable._computed.IndicatorBaseT_float",
             "marketsim.ops.Sub",
             "marketsim.observable._trader.profit_and_loss",
@@ -4055,7 +4106,6 @@ var interfaces = [
             "marketsim.observable._orderbook.MidPrice_Generated",
             "marketsim.ops.Atan",
             "marketsim.ops.Constant_float",
-            "marketsim.strategy._market_data.BreaksAtChanges",
             "marketsim.mathutils.rnd.expovariate",
             "marketsim.mathutils.rnd.triangular",
             "marketsim.mathutils.rnd.betavariate"
@@ -4084,12 +4134,6 @@ var interfaces = [
         ]
     ],
     [
-        {
-            "elementType": "marketsim.types.IOrderBook"
-        },
-        []
-    ],
-    [
         "marketsim.timeserie.ToRecord",
         [
             "marketsim.timeserie.ToRecord",
@@ -4098,6 +4142,10 @@ var interfaces = [
     ],
     [
         "_parseFloat",
+        []
+    ],
+    [
+        "identity",
         []
     ],
     [
@@ -4111,14 +4159,6 @@ var interfaces = [
             "marketsim.strategy.adaptive._virtual_market.virtualMarket",
             "marketsim.strategy.adaptive._account.account"
         ]
-    ],
-    [
-        "identity",
-        []
-    ],
-    [
-        "combine(less(6.28318530718), combine(greater_or_equal(0.0), _parseFloat))",
-        []
     ],
     [
         {

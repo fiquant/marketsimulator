@@ -16,7 +16,7 @@ class RSI_linear(ops.Observable[float]): # ops.Observable[SignedVolume]
                                    (ops.constant(50) - _.rsi) * self.k), 
                                self.trader)
     
-_wrap.function(RSI_linear, ['RSI_linear'], 
+_wrap.function(RSI_linear, ['parts', 'signed volume', 'RSI linear'], 
              """ """,
                [
                   ('alpha',                 '1./14',                         'non_negative'), 

@@ -1,8 +1,9 @@
-from marketsim import types, event, _, ops
+from marketsim import types, event, _, ops, registry
 
+@registry.expose(alias = ['_details', 'fold', 'two point'])
 class TwoPoint(ops.Observable[float]):
     
-    def __init__(self, source):
+    def __init__(self, source = ops.constant(1.)):
         ops.Observable[float].__init__(self)
         
         self._source = source

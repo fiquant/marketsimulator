@@ -1,4 +1,4 @@
-from marketsim import ops, types, event, _, getLabel
+from marketsim import ops, types, event, _, getLabel, registry
 
 import fold
 
@@ -10,6 +10,7 @@ class DeltaLag(fold.Last, ops.Observable[float]):
         
         self.timeframe = timeframe
         self.reset()
+        self._alias = ['_details', 'DeltaLag']
         
     _properties = { 'timeframe' : float }
         
@@ -35,7 +36,7 @@ class DeltaLag(fold.Last, ops.Observable[float]):
 
 class Base(ops.Observable[float]):
     
-    def __init__(self, source):
+    def __init__(self, source = ops.constant(1.)):
         ops.Observable[float].__init__(self)
         self._source = source
         self._event = event.subscribe(source, self.fire, self)
@@ -50,12 +51,16 @@ class Base(ops.Observable[float]):
     def source(self, value):
         self._source = value
         self._event.switchTo(value)
-    
+        
+# TODO: impl = ops.Max(ops.constant(0.), source)
+
+@registry.expose(alias = ['_details', 'movements', "up"])    
 class UpMovements(Base):
     
     def __call__(self):
         return max(0, self.source())
         
+@registry.expose(alias = ['_details', 'movements', "down"])    
 class DownMovements(Base):
     
     def __call__(self):

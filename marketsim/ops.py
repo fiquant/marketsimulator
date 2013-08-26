@@ -112,8 +112,8 @@ Condition = types.Factory("Condition", """(Condition_Impl, Function[%(T)s]):
 Condition[Side]
 Condition[float]
 
-Condition[Side].classAlias = ["Condition[Side]"]
-Condition[float].classAlias = ["Condition[float]"]
+Condition[Side].classAlias = ['Basic',"Condition[Side]"]
+Condition[float].classAlias = ['Basic',"Condition[float]"]
 
 class _Conditional_Base(Function[bool]):
     
@@ -268,7 +268,7 @@ class _None_Impl(object):
 
 _None = types.Factory('_None', """(_None_Impl, Function[%(T)s]):
     def __init__(self):
-        self._alias = ['None']
+        self._alias = ['Basic', 'None']
 """, globals())
 
 _None[Side]
@@ -307,7 +307,7 @@ Constant = types.Factory('Constant', """(_Constant_Impl, Function[%(T)s], types.
     \"""
     def __init__(self, value = _defaults[%(T)s]):
         self.value = value
-        self._alias = ['Constant']
+        self._alias = ['Basic', 'Constant']
         
     def __iadd__(self, listener): 
         return self
@@ -414,6 +414,7 @@ class Exp(Observable[float]):
         r = self._source()
         return math.exp(r) if r is not None else None
 
+@registry.expose(['Trigonometric', 'atan'])
 class Atan(Observable[float]):
     def __init__(self, source = constant(0.)):
         self._source = source
@@ -469,7 +470,7 @@ class Pow(Observable[float]):
         return math.pow(b,p) if b is not None and p is not None else None
 
 
-@registry.expose(['Arithmetic', 'identity'])
+@registry.expose(['Basic', 'Identity'])
 class identity(Function[float]):
     
     def __init__(self, arg=constant(1.)):
@@ -483,7 +484,7 @@ class identity(Function[float]):
     def __repr__(self):
         return "id(" + repr(self.arg) + ")"
 
-@registry.expose(['Arithmetic', 'Max'], args = (constant(1.), constant(1.)))
+@registry.expose(['Basic', 'Max'], args = (constant(1.), constant(1.)))
 class Max(BinaryOp[float]):
     """ Function max of the operands
     """
@@ -574,6 +575,7 @@ class Derivative(Function[float]):
     
     def __init__(self, source):
         self.source = source
+        self._alias = ['Basic', 'Derivative']
         
     @property
     def attributes(self):

@@ -35,6 +35,7 @@ class Fold(ops.Function[float]):
         self._acc = folder
         self._source = source
         self._event = event.subscribe(self._source, _(self)._update, self)
+        self._alias = ['_details', 'fold', 'old']
         
     def bind(self, context): # TODO: we should subscribe to acc and source changed events
         self._scheduler = context.world

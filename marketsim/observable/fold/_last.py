@@ -1,5 +1,6 @@
-from marketsim import event, types, ops, _, getLabel
+from marketsim import event, types, ops, _, getLabel, registry
 
+@registry.expose(alias = ['_details', 'fold', 'last'])
 class Last(ops.Function[float]):
     """ Aggregates (folds) time-dependent data from *source* using given 
         functional  *folder* (e.g. moving average) defined in derived class
@@ -11,7 +12,7 @@ class Last(ops.Function[float]):
     creates a observable for a moving average with |alpha| = 0.15 of mid-price of asset *book_A*     
     """
     
-    def __init__(self, source):
+    def __init__(self, source = ops.constant(1.)):
         """ Initializes folder with source of values and accumulator object        
         """
         self._source = source

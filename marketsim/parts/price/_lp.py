@@ -25,7 +25,7 @@ class LiquidityProvider(ops.Observable[float]): # ops.Observable[Price]
                              self.side, 
                              self.initialValue) * self.priceDistr
                                         
-_wrap.function(LiquidityProvider, ['LiquidityProvider side'], 
+_wrap.function(LiquidityProvider, ['parts', 'price', 'LiquidityProvider side'], 
              """ Liquidity provider for one side has followng parameters:
 
                  |side|

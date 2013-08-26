@@ -17,7 +17,7 @@ class Bollinger_linear(ops.Observable[float]): # ops.Observable[SignedVolume]
                         _.price, ops.Sub(_.price, _.mean) / _.stddev * self.k),
                     self.trader)
     
-_wrap.function(Bollinger_linear, ['Bollinger_linear'], 
+_wrap.function(Bollinger_linear, ['parts', 'signed volume', 'Bollinger_linear'], 
              """ """,
                [
                   ('alpha',                 '0.15',                          'non_negative'), 

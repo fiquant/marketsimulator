@@ -20,6 +20,7 @@ class IndicatorBase_Impl(object):
         self.attributes = attributes
         self._subscription = event.subscribe(eventSource, self.fire, self)
         self._dataSource = dataSource
+        self._alias = ['_details', 'indicator base']
         
     @property    
     def label(self):
