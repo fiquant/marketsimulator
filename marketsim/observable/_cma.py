@@ -1,10 +1,11 @@
-from marketsim import ops, types, event, _, getLabel
+from marketsim import registry, ops, types, event, _, getLabel
 
 import fold
 
+@registry.expose(alias = ['Statistics', 'Average', 'Cumulative'])
 class CMA(fold.Last, types.IDifferentiable):
     
-    def __init__(self, source):
+    def __init__(self, source = ops.constant(1.)):
         fold.Last.__init__(self, source)
         self.reset()
         

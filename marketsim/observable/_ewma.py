@@ -1,13 +1,14 @@
 import math
-from marketsim import types, registry, ops
+from marketsim import types, registry, ops, registry
 
 import fold
 
+@registry.expose(alias = ['Statistics', 'Average', 'Exponentially weighted'])
 class EWMA(fold.Last, types.IDifferentiable):
     """ Exponentially weighted moving average
     """
     
-    def __init__(self, source, alpha=0.15):
+    def __init__(self, source = ops.constant(1.), alpha=0.15):
         """ Initializes EWMA with \alpha = alpha
         """
         fold.Last.__init__(self, source)

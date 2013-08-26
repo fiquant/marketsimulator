@@ -11,7 +11,7 @@ from _stddev import StdDev, StdDevRolling, StdDevEW
 
 from _minmax import Min, Max
 
-from _async import Efficiency
+from _efficiency import Efficiency
 
 from _rsi import RSI
 

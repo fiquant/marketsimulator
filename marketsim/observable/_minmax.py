@@ -1,11 +1,12 @@
-from marketsim import ops, types, event, _, getLabel, Event
+from marketsim import ops, types, event, _, getLabel, Event, registry
 
 import fold
 import blist
 
+@registry.expose(alias = ['Statistics', 'Minimum', 'Moving'])
 class Min(fold.Last, ops.Observable[float]):
     
-    def __init__(self, source, timeframe):
+    def __init__(self, source = ops.constant(1.), timeframe = 10.):
         fold.Last.__init__(self, source)
         ops.Observable[float].__init__(self)
         self.timeframe = timeframe
@@ -44,9 +45,10 @@ class Min(fold.Last, ops.Observable[float]):
         self._x = x
         self.fire(self)
         
+@registry.expose(alias = ['Statistics', 'Maximum', 'Moving'])
 class Max(fold.Last, ops.Observable[float]):
     
-    def __init__(self, source, timeframe):
+    def __init__(self, source = ops.constant(1.), timeframe = 10.):
         fold.Last.__init__(self, source)
         ops.Observable[float].__init__(self)
         self.timeframe = timeframe

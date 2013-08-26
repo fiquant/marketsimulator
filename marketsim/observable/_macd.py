@@ -15,7 +15,7 @@ class MACD(ops.Function[float]):
     def label(self):
         return 'MACD_{%s}^{%s}(%s)' % (self.fast, self.slow, self.source.label)
     
-_wrap.function(MACD, ['MACD', 'MACD'], 
+_wrap.function(MACD, ['Statistics', 'MACD', 'Convergence/Divergence'], 
                """ Moving average convergence/divergence
                """, 
                [
@@ -40,7 +40,7 @@ class signal(ops.Function[float]):
                                                     self.slow, 
                                                     self.source.label)
     
-_wrap.function(signal, ['MACD', 'Signal'], 
+_wrap.function(signal, ['Statistics', 'MACD', 'Signal'], 
                """ Moving average convergence/divergence signal
                """, 
                [
@@ -71,7 +71,7 @@ class histogram(ops.Function[float]):
                                                        self.slow, 
                                                        self.source.label)
     
-_wrap.function(histogram, ['MACD', 'Histogram'], 
+_wrap.function(histogram, ['Statistics', 'MACD', 'Histogram'], 
                """ Moving average convergence/divergence histogram
                """, 
                [

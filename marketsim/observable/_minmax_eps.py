@@ -1,10 +1,10 @@
-from marketsim import types, event, _, ops
+from marketsim import types, event, _, ops, registry
 
 class Base(ops.Observable[float]):
     """ Observable that fires if underlying source value becomes greater previous maximum plus some epsilon
     """
     
-    def __init__(self, source, epsilon):
+    def __init__(self, source = ops.constant(1.), epsilon = ops.constant(0.1)):
         ops.Observable[float].__init__(self)
         self.source = source
         self.epsilon = epsilon
@@ -41,6 +41,7 @@ class Base(ops.Observable[float]):
         return {}
 
 
+@registry.expose(alias = ['Statistics', 'Maximum', 'Stepped'])
 class MaxEpsilon(Base):
     """ Observable that fires if underlying source value becomes greater previous maximum plus some epsilon
     """
@@ -48,6 +49,7 @@ class MaxEpsilon(Base):
     _predicate = event.GreaterThan
     _label = "Max"
         
+@registry.expose(alias = ['Statistics', 'Minimum', 'Stepped'])
 class MinEpsilon(Base):
     """ Observable that fires if underlying source value becomes less than previous minimum minus some epsilon
     """

@@ -1,10 +1,11 @@
-from marketsim import ops, types, event, _, getLabel
+from marketsim import ops, types, event, _, getLabel, registry
 
 import fold
 
+@registry.expose(alias = ['Statistics', 'Average', 'Simple'])
 class MA(fold.Last, types.IDifferentiable):
     
-    def __init__(self, source, timeframe):
+    def __init__(self, source = ops.constant(1.), timeframe = 10):
         fold.Last.__init__(self, source)
         self.timeframe = timeframe
         self.reset()

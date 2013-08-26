@@ -302,12 +302,18 @@ class _Constant_Impl(object):
     
 _defaults = { float: 100, Side : Side.Sell, bool : True }
 
-Constant = types.Factory('Constant', """(_Constant_Impl, Function[%(T)s]):
+Constant = types.Factory('Constant', """(_Constant_Impl, Function[%(T)s], types.IObservable[%(T)s]):
     \""" Constant function returning **value**.
     \"""
     def __init__(self, value = _defaults[%(T)s]):
         self.value = value
         self._alias = ['Constant']
+        
+    def __iadd__(self, listener): 
+        return self
+        
+    def __isub__(self, listener): 
+        return self
     
     _properties = {'value' : %(T)s}
 """, globals())

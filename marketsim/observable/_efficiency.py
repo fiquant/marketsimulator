@@ -1,4 +1,7 @@
-from marketsim import orderbook, request, Side, getLabel, Event, meta, types, bind, scheduler, event, _, ops
+from marketsim import (registry, orderbook, request, Side, getLabel, Event, 
+                       meta, types, bind, scheduler, event, _, ops)
+
+import marketsim
 
 from _orderbook import LastTrade
 from _trader import OnTraded
@@ -6,6 +9,7 @@ from _trader import OnTraded
 def sign(x):
     return 1 if x > 0 else -1 if x < 0 else 0
 
+@registry.expose(alias = ["Trader's", "Efficiency"])
 class Efficiency(ops.Observable[float]):
     """ Observes trader's balance as if was cleared (trader's balance if its position was cleared).
     Can be None if there is not enough assets on the market to clear the position.
@@ -13,14 +17,13 @@ class Efficiency(ops.Observable[float]):
     (which is not fair since the asset price change influences on this parameter also)
     """
     
-    def __init__(self, trader):
+    def __init__(self, trader = None):
         
         super(Efficiency, self).__init__()
-        self._trader = trader
+        
+        self._trader = trader if trader else marketsim.trader.SingleProxy()
         
         self.attributes = {}
-        
-        self._alias = ["Trader's", "Efficiency"]
         
         self.reset()
         event.subscribe(LastTrade(orderbook.OfTrader(trader)), _(self)._update, self)
