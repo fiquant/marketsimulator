@@ -99,7 +99,7 @@ Condition = types.Factory("Condition", """(Condition_Impl, Function[%(T)s]):
 
     def __init__(self, cond, ifpart, elsepart):
         Condition_Impl.__init__(self, cond, ifpart, elsepart)
-        self._alias = ['Condition[%(T)s]']
+        self._alias = self.classAlias
         
     _types = [meta.function((), %(T)s)]
         
@@ -111,6 +111,9 @@ Condition = types.Factory("Condition", """(Condition_Impl, Function[%(T)s]):
 
 Condition[Side]
 Condition[float]
+
+Condition[Side].classAlias = ["Condition[Side]"]
+Condition[float].classAlias = ["Condition[float]"]
 
 class _Conditional_Base(Function[bool]):
     
@@ -263,7 +266,10 @@ class _None_Impl(object):
     def __repr__(self):
         return 'None'
 
-_None = types.Factory('_None', """(_None_Impl, Function[%(T)s]):""", globals())
+_None = types.Factory('_None', """(_None_Impl, Function[%(T)s]):
+    def __init__(self):
+        self._alias = ['None']
+""", globals())
 
 _None[Side]
 _None[float]
@@ -301,6 +307,7 @@ Constant = types.Factory('Constant', """(_Constant_Impl, Function[%(T)s]):
     \"""
     def __init__(self, value = _defaults[%(T)s]):
         self.value = value
+        self._alias = ['Constant']
     
     _properties = {'value' : %(T)s}
 """, globals())
