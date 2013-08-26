@@ -1,8 +1,9 @@
-from marketsim import historical, ops, scheduler, event, _
+from marketsim import historical, ops, scheduler, event, _, registry
 
+@registry.expose(alias = ["Asset's", "Quote"])
 class Quote(ops.Observable[float]):
     
-    def __init__(self, ticker, start, end):
+    def __init__(self, ticker = "^GSPC", start = "2001-1-1", end = "2010-1-1"):
         ops.Observable[float].__init__(self)
         self.ticker = ticker
         self.start = start

@@ -8,12 +8,11 @@ from marketsim.types import *
 
 class price_at_volume(ops.Function[float]):
 
-    def __init__(self, orderbook, side, volumeAt):
-        self.orderbook = orderbook
+    def __init__(self, orderbook = None, side = Side.Sell, volumeAt = 100):
+        self.orderbook = orderbook if orderbook else marketsim.orderbook.Proxy()
         self.side = side
         self.volumeAt = volumeAt
-        self._alias = ["Asset's", "Price at Volume"]
-    
+            
     def __call__(self):
         queue = self.orderbook.queue(self.side)
         for (volume, price) in queue.getVolumePrices([self.volumeAt]):
@@ -32,14 +31,21 @@ class price_at_volume(ops.Function[float]):
                     'side'      : types.Side, 
                     'volumeAt'  : float }
 
-class volume_levels(ops.Function[types.IVolumeLevels]): # should be () -> meta.listOf(float)
+registry.expose(alias = ["Asset's", "Ask", "Price at volume"], args = (None, Side.Sell))(price_at_volume)
+registry.expose(alias = ["Asset's", "Bid", "Price at volume"], args = (None, Side.Buy))(price_at_volume)
+
+class volume_levels(ops.Function[types.IVolumeLevels]): 
     
-    def __init__(self, orderbook, side, volumeDelta, volumeCount):
-        self.orderbook = orderbook
+    def __init__(self, 
+                 orderbook = None, 
+                 side = Side.Sell, 
+                 volumeDelta = 30, 
+                 volumeCount = 10):
+        
+        self.orderbook = orderbook if orderbook else marketsim.orderbook.Proxy()
         self.side = side
         self.volumeDelta = volumeDelta
         self.volumeCount = volumeCount
-        self._alias = ["Asset's", "Volume levels"]
     
     @property    
     def volumes(self):
@@ -62,6 +68,9 @@ class volume_levels(ops.Function[types.IVolumeLevels]): # should be () -> meta.l
                     'volumeDelta'   : float,
                     'volumeCount'   : int  }
 
+registry.expose(alias = ["Asset's", "Ask", "Volume levels"], args = (None, Side.Sell))(volume_levels)
+registry.expose(alias = ["Asset's", "Bid", "Volume levels"], args = (None, Side.Buy))(volume_levels)
+
 import _computed
 
 class Proxy(_computed.Proxy):
@@ -71,11 +80,12 @@ class Proxy(_computed.Proxy):
         self._alias = ["Asset's", self.__class__.__name__ ]
 
     _properties = { 'orderbook' : types.IOrderBook }
-    
+ 
+@registry.expose(alias = ["Asset's", "Tick size"])   
 class TickSize(types.IFunction[float]):
     
-    def __init__(self, orderbook):
-        self.orderbook = orderbook
+    def __init__(self, orderbook = None):
+        self.orderbook = orderbook if orderbook else marketsim.orderbook.Proxy()
 
     _properties = { 'orderbook' : types.IOrderBook }
     
@@ -166,28 +176,37 @@ _wrap.function(QueueWeightedPrice, ["OrderQueue's", "Trade weighted price"],
                     ('orderqueue', 'orderbook.Asks(orderbook.Proxy())', 'types.IOrderQueue'), 
                     ('alpha'     , 0.15,                                'positive')
                ], globals())
-    
-def AskWeightedPrice(book, alpha):
+   
+ 
+@registry.expose(alias = ["Asset's", "Ask", "Weighted trade price"], args = (None, 0.15))
+def AskWeightedPrice(book = None, alpha = 0.15):
     return QueueWeightedPrice(orderbook.Asks(book), alpha)
     
+@registry.expose(alias = ["Asset's", "Bid", "Weighted trade price"], args = (None, 0.15))
 def BidWeightedPrice(book, alpha):
     return QueueWeightedPrice(orderbook.Bids(book), alpha)
     
+@registry.expose(alias = ["Asset's", "Ask", "Last trade price"], args = (None,))
 def AskLastTradePrice(book):
     return QueueLastTradePrice(orderbook.Asks(book))
     
+@registry.expose(alias = ["Asset's", "Bid", "Last trade price"], args = (None,))
 def BidLastTradePrice(book):
     return QueueLastTradePrice(orderbook.Bids(book))
 
+@registry.expose(alias = ["Asset's", "Ask", "Last price"], args = (None,))
 def AskLastPrice(book):
     return QueueLastPrice(orderbook.Asks(book))
 
+@registry.expose(alias = ["Asset's", "Bid", "Last price"], args = (None,))
 def BidLastPrice(book):
     return QueueLastPrice(orderbook.Bids(book))
     
+@registry.expose(alias = ["Asset's", "Ask", "Price"], args = (None,))
 def AskPrice(book):
     return QueuePrice(orderbook.Asks(book))
 
+@registry.expose(alias = ["Asset's", "Bid", "Price"], args = (None,))
 def BidPrice(book):
     return QueuePrice(orderbook.Bids(book))
 
