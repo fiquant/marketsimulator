@@ -67,7 +67,7 @@ class FactorySigned(Factory_Base, combine.SignedVolume):
     def get(self):
         return combine.SignedVolume.__call__(self)
     
-@sig((Side,), IOrderGenerator)
+@sig((IFunction[Side],), IOrderGenerator)
 class Side_Factory(combine.Volume):
     
     def __call__(self, side):

@@ -40,7 +40,7 @@ _wrap.strategy(TrendFollower, ['Periodic', 'TrendFollower'],
                          (default: exponential distribution with |lambda| = 1)
                  """,
                  [
-                  ("orderFactory",           "order.factory.side.Market()",  'Side -> IOrderGenerator'),             
+                  ("orderFactory",  "order.factory.side.Market()",  'IFunction[Side] -> IOrderGenerator'),             
                   ('ewma_alpha',             '0.15',                          'non_negative'),
                   ('threshold',              '0.',                            'non_negative'), 
                   ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),

@@ -25,6 +25,6 @@ _wrap.strategy(Noise, ['Periodic', 'Noise'],
                          (default: exponential distribution with |lambda| = 1)
                  """,
                  [
-                  ("orderFactory",          "order.factory.side.Market()",  'Side -> IOrderGenerator'),             
+                  ("orderFactory",  "order.factory.side.Market()",  'IFunction[Side] -> IOrderGenerator'),             
                   ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval'),
                  ], globals())

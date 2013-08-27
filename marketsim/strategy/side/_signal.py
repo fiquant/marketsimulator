@@ -38,7 +38,7 @@ _wrap.strategy(Signal, ['Periodic', 'Signal'],
                      (default: exponential distribution with |lambda| = 1)
              """,
              [
-              ("orderFactory",  "order.factory.side.Market()",  'Side -> IOrderGenerator'),             
+              ("orderFactory",  "order.factory.side.Market()",  'IFunction[Side] -> IOrderGenerator'),             
               ('signal',        'marketsim.signal.RandomWalk()','IObservable[float]'),  
               ('threshold',     '0.7',                          'non_negative'),
              ], globals())

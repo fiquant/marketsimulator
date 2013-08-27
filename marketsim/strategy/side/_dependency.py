@@ -41,7 +41,7 @@ _wrap.strategy(Dependency, ['Periodic', 'Dependency'],
                  (default: exponential distribution with |lambda| = 1)
          """,
          [
-          ("orderFactory",  "order.factory.side.Market()",  'Side -> IOrderGenerator'),             
+          ("orderFactory",  "order.factory.side.Market()",  'IFunction[Side] -> IOrderGenerator'),             
           ('bookToDependOn','orderbook.OfTrader()',             'IOrderBook'),
           ('factor',        '1.',                               'float'),
           ], globals())

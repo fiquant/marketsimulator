@@ -23,7 +23,7 @@ _wrap.strategy(RSIbis, ['Periodic', 'RSI bis'],
                """
                """, 
                [
-                  ("orderFactory",          "order.factory.side.Market()",   'Side -> IOrderGenerator'),             
+                  ("orderFactory",  "order.factory.side.Market()",  'IFunction[Side] -> IOrderGenerator'),             
                   ('alpha',                 '1./14',                         'non_negative'), 
                   ('timeframe',             '1.',                            'non_negative'), 
                   ('threshold',             '30.',                           'non_negative'), 
