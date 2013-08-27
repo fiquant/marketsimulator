@@ -2,7 +2,6 @@ from marketsim import Side, Event
 
 from _market import Market, MarketFactory
 from _limit import Limit, LimitFactory, AdaptLimit
-from _virtual import VirtualMarket, VirtualMarketFactory
 
 from meta import *
 
