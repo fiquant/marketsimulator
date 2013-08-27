@@ -1,5 +1,5 @@
 from marketsim import request, combine, meta, types, _, registry, bind, Side
-
+from marketsim.types import *
 from .. import _limit 
 
 import _meta
@@ -27,15 +27,30 @@ class ImmediateOrCancel(_meta.OwnsSingleOrder):
     
 Order = ImmediateOrCancel
 
-class Factory(types.IOrderGenerator):
+class Factory(IOrderGenerator):
     
     def __init__(self, inner = _limit.Factory()):
         self.inner = inner
         
     _properties = {
-        'inner'  : types.IOrderGenerator,  
+        'inner'  : IOrderGenerator,  
     }
 
     def __call__(self):
         proto = self.inner()
         return Order(proto) if proto is not None else None 
+
+@registry.expose(['ImmediateOrCancel'])    
+@meta.sig((IFunction[Side],), IOrderGenerator)
+class Side_Factory(object):
+    
+    def __init__(self, 
+                 factory = _limit.Side_Factory()):
+        self.factory = factory
+        
+    _properties = {
+        'factory' : meta.function((IFunction[Side],), IOrderGenerator)
+    }
+    
+    def __call__(self, side):
+        return Factory(self.factory(side))

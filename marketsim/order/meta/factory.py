@@ -1,4 +1,5 @@
-from _ioc import Factory                    as ImmediateOrCancel
+from _ioc import (Factory                   as ImmediateOrCancel,
+                  Side_Factory              as Side_ImmediateOrCancel)
 
 from _stoploss import Factory               as StopLoss
 

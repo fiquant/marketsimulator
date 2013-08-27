@@ -37,6 +37,12 @@ def Orders(ctx):
                             linear_signal), 
                          "signaliceberg"), 
   
+        ctx.makeTrader_A(strategy.Signal(
+                            order.factory.side.ImmediateOrCancel(
+                                order.factory.side.Limit(const(120), const(1))),
+                            linear_signal), 
+                         "signalioc"), 
+  
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.StopLoss(
                                 const(0.1),
