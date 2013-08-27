@@ -5,6 +5,7 @@ from meta.factory import *
 
 from _market import (Factory                as Market, 
                      FactorySigned          as MarketSigned,
+                     SignedVolume_Factory   as SignedVolume_Market,
                      Side_Factory           as Side_Market) 
 
 from _limit import  (Factory                as Limit, 
@@ -16,3 +17,6 @@ class side:
     
 class sideprice:
     Limit = SidePrice_Limit
+    
+class signedvolume:
+    Market = SignedVolume_Market

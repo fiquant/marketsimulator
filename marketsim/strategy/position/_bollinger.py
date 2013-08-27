@@ -8,13 +8,14 @@ class Bollinger_linear(types.ISingleAssetStrategy):
 
     def getImpl(self):
         return Generic(
-                    order.factory.MarketSigned(
+                    self.orderFactory(
                         parts.signed_volume.Bollinger_linear(self.alpha, self.k)))
         
 _wrap.strategy(Bollinger_linear, ['Desired position', 'Bollinger linear'], 
                """
                """, 
                [
+                  ('orderFactory', 'order.factory.signedvolume.Market()', 'IFunction[SignedVolume] -> IOrderGenerator'),
                   ('alpha',        '0.15',                'non_negative'), 
                   ('k',            'ops.constant(+0.5)',  'IFunction[float]'), 
                ], globals())
