@@ -18,6 +18,7 @@ class side:
     Limit = Side_Limit
     FixedBudget = Side_FixedBudget
     FloatingPrice = Side_FloatingPrice
+    Iceberg = Side_Iceberg
     
 class sideprice:
     Limit = SidePrice_Limit

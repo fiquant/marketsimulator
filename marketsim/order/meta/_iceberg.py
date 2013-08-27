@@ -2,6 +2,8 @@ from .. import _limit
 import _meta 
 from marketsim import context, ops, request, meta, types, registry, bind, event, _, combine
 
+from marketsim.types import *
+
 class Iceberg(_meta.OwnsSingleOrder):
     """ Virtual order that implements iceberg strategy:
     First it sends an order for a small potion of its volume to a book and
@@ -36,7 +38,7 @@ class Iceberg(_meta.OwnsSingleOrder):
         """
         self._tryToResend()
         
-class Factory(types.IOrderGenerator):
+class Factory(IOrderGenerator):
     
     def __init__(self, 
                  lotSize = ops.constant(1), 
@@ -45,8 +47,8 @@ class Factory(types.IOrderGenerator):
         self.factory = factory
         
     _properties = {
-        'lotSize' : types.IFunction[float],
-        'factory' : types.IOrderGenerator
+        'lotSize' : IFunction[float],
+        'factory' : IOrderGenerator
     }
     
     def __call__(self):
@@ -58,8 +60,26 @@ class Factory(types.IOrderGenerator):
             return None
         order = Iceberg(lotSize, proto)
         return order
+
+@registry.expose(['Iceberg'])    
+@sig((IFunction[Side],), IOrderGenerator)
+class Side_Factory(object):
     
-class Price_Factory(types.IFunction[types.IOrderGenerator, float]):
+    def __init__(self, 
+                 lotSize = ops.constant(1), 
+                 factory = _limit.Side_Factory()):
+        self.lotSize = lotSize
+        self.factory = factory
+        
+    _properties = {
+        'lotSize' : IFunction[float],
+        'factory' : meta.function((IFunction[Side],), IOrderGenerator)
+    }
+    
+    def __call__(self, side):
+        return Factory(self.lotSize, self.factory(side))
+    
+class Price_Factory(IFunction[IOrderGenerator, float]):
     
     def __init__(self, 
                  lotSize = ops.constant(1), 
@@ -68,8 +88,8 @@ class Price_Factory(types.IFunction[types.IOrderGenerator, float]):
         self.factory = factory
         
     _properties = {
-        'lotSize' : types.IFunction[float],
-        'factory' : types.IFunction[types.IOrderGenerator, float]
+        'lotSize' : IFunction[float],
+        'factory' : IFunction[IOrderGenerator, float]
     }
         
     def create(self, price):

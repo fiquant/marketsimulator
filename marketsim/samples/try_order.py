@@ -31,6 +31,12 @@ def Orders(ctx):
                             linear_signal), 
                          "signalfloating"), 
   
+        ctx.makeTrader_A(strategy.Signal(
+                            order.factory.side.Iceberg(const(1),
+                                order.factory.side.Limit(const(110), const(3))),
+                            linear_signal), 
+                         "signaliceberg"), 
+  
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.StopLoss(
                                 const(0.1),
