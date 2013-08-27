@@ -10,15 +10,20 @@ from _market import (Factory                as Market,
 
 from _limit import  (Factory                as Limit, 
                      Side_Factory           as Side_Limit, 
-                     SidePrice_Factory      as SidePrice_Limit)
+                     SidePrice_Factory      as SidePrice_Limit, 
+                     Side_Price_Factory     as Side_Price_Limit)
 
 class side:
     Market = Side_Market
     Limit = Side_Limit
     FixedBudget = Side_FixedBudget
+    FloatingPrice = Side_FloatingPrice
     
 class sideprice:
     Limit = SidePrice_Limit
+    
+class side_price:
+    Limit = Side_Price_Limit
     
 class signedvolume:
     Market = SignedVolume_Market

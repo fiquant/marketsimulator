@@ -11,4 +11,5 @@ from _fixed_budget import (Factory          as FixedBudget,
 
 from _peg import  (Factory                  as Peg) 
 
-from _floating_price import Factory         as FloatingPrice
+from _floating_price import (Factory        as FloatingPrice,
+                             Side_Factory   as Side_FloatingPrice)

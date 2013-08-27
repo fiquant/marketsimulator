@@ -25,6 +25,12 @@ def Orders(ctx):
                             linear_signal), 
                          "signalmarket"), 
   
+        ctx.makeTrader_A(strategy.Signal(
+                            order.factory.side.FloatingPrice(const(100),
+                                order.factory.side_price.Limit(const(1))),
+                            linear_signal), 
+                         "signalfloating"), 
+  
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.StopLoss(
                                 const(0.1),

@@ -1,4 +1,4 @@
-from marketsim import context, request, _, event, Event, types, ops
+from marketsim import registry, context, request, _, event, Event, types, ops
 from marketsim.types import *
 
 import _meta
@@ -50,3 +50,22 @@ class Factory(types.IPersistentOrderGenerator):
     def __call__(self):
         proto = self.factory.create(price = self.price())
         return FloatingPrice(proto, self.price) if proto is not None else None
+
+@registry.expose(['Floating price'])
+@sig((IFunction[Side],), IOrderGenerator)
+class Side_Factory(object):
+    
+    def __init__(self, 
+                 price = ops.constant(100), 
+                 factory = _limit.Side_Price_Factory()):
+        self.price = price 
+        self.factory = factory
+        
+    _properties = { # IPersistentOrderFactory[Price]
+        'price'   : IObservable[float],
+        'factory' : IFunction[IFunction[IOrderGenerator, float], IFunction[Side]] 
+    }
+    
+    def __call__(self, side):
+        return Factory(self.price, self.factory(side))
+    

@@ -102,10 +102,30 @@ class Price_Factory(IFunction[IOrderGenerator, float]):
      }
     
     def create(self, price):
-        return Limit(self.side(), price, self.volume())
+        side = self.side()
+        if side is None: 
+            return None
+        volume = self.volume()
+        if volume is None: 
+            return None
+        return Limit(side, price, volume)
     
     def __call__(self, price):
         return Factory(self.side, price, self.volume)
+    
+@registry.expose(['Limit'])    
+class Side_Price_Factory(IFunction[IFunction[IOrderGenerator, float], IFunction[Side]]):
+    
+    def __init__(self, 
+                 volume = ops.constant(1.)):
+        self.volume = volume
+        
+    _properties = { 
+        'volume' : types.IFunction[float],
+     }
+    
+    def __call__(self, side):
+        return Price_Factory(side, self.volume)
     
 @registry.expose(['Limit'])    
 @sig((IFunction[Side],), IOrderGenerator)
