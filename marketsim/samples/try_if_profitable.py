@@ -25,11 +25,10 @@ def TradeIfProfitable(ctx):
     myAverage = lambda alpha: [(observable.avg(observable.MidPrice(orderbook.OfTrader()), alpha), demo)]
     
     def cross(alpha1, alpha2):
-        return strategy.Generic(
-                    order.factory.Market(
-                        side = parts.side.TwoAverages(alpha1, alpha2),
-                        volume = const(1.)),
-                    scheduler.Timer(const(1.)))
+        return strategy.TwoAverages(
+                    order.factory.side.Market(volume = const(1.)),
+                    alpha1, alpha2, 
+                    creationIntervalDistr = const(1.))
     
     
     avg_plus_virt = strategy.TradeIfProfitable(cross(slow_alpha, fast_alpha), strategy.adaptive.virtualMarket)
@@ -42,8 +41,9 @@ def TradeIfProfitable(ctx):
         ctx.makeTrader_A(strategy.v0.LiquidityProvider(volumeDistr=const(45)),
                          "liquidity"),
 
-        ctx.makeTrader_A(strategy.v0.Signal(linear_signal,
-                                         volumeDistr=const(20)), 
+        ctx.makeTrader_A(strategy.Signal(
+                                    order.factory.side.Market(volume = const(20)),
+                                    linear_signal), 
                         "signal", 
                         [(linear_signal, ctx.amount_graph)]),
             

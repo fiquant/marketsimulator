@@ -7,10 +7,12 @@ from .._generic import Generic
 class TrendFollower(types.ISingleAssetStrategy):
     
     def getImpl(self):
-        return Generic( order.factory.Market(
-                            parts.side.TrendFollower(self.ewma_alpha, self.threshold), 
-                            self.volumeDistr), 
-                        scheduler.Timer(self.creationIntervalDistr))
+        return Generic( 
+                    self.orderFactory(
+                            parts.side.TrendFollower(
+                                            self.ewma_alpha, 
+                                            self.threshold)),
+                    scheduler.Timer(self.creationIntervalDistr))
 
 _wrap.strategy(TrendFollower, ['Periodic', 'TrendFollower'], 
                  """ Trend follower can be considered as a sort of a signal strategy 
@@ -38,9 +40,8 @@ _wrap.strategy(TrendFollower, ['Periodic', 'TrendFollower'],
                          (default: exponential distribution with |lambda| = 1)
                  """,
                  [
+                  ("orderFactory",           "order.factory.side.Market()",  'Side -> IOrderGenerator'),             
                   ('ewma_alpha',             '0.15',                          'non_negative'),
                   ('threshold',              '0.',                            'non_negative'), 
-                  ('orderFactory',           'order.MarketFactory',           'Side -> Volume -> IOrder'),
                   ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
-                  ('volumeDistr',            'mathutils.rnd.expovariate(1.)', '() -> Volume')
                  ], globals())

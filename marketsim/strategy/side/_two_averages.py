@@ -8,9 +8,11 @@ from .._generic import Generic
 class TwoAverages(types.ISingleAssetStrategy):
 
     def getImpl(self):
-        return  Generic(order.factory.Market(
-                            parts.side.TwoAverages(self.ewma_alpha1, self.ewma_alpha2, self.threshold),
-                            self.volumeDistr),
+        return  Generic(self.orderFactory(
+                            parts.side.TwoAverages(
+                                            self.ewma_alpha1, 
+                                            self.ewma_alpha2, 
+                                            self.threshold)),
                         scheduler.Timer(self.creationIntervalDistr))
 
 _wrap.strategy(TwoAverages, ['Periodic', 'TwoAverages'], 
@@ -40,9 +42,11 @@ _wrap.strategy(TwoAverages, ['Periodic', 'TwoAverages'],
                      defines intervals of time between order creation 
                      (default: exponential distribution with |lambda| = 1)                     
              """,
-             [('ewma_alpha1',           '0.15',                          'non_negative'),
+             [
+              ("orderFactory",           "order.factory.side.Market()",  'Side -> IOrderGenerator'),             
+              ('ewma_alpha1',           '0.15',                          'non_negative'),
               ('ewma_alpha2',           '0.015',                         'non_negative'),
               ('threshold',             '0.',                            'non_negative'), 
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
-              ('volumeDistr',           'mathutils.rnd.expovariate(1.)', '() -> Volume')], 
+             ], 
                globals())

@@ -66,6 +66,12 @@ class FactorySigned(Factory_Base, combine.SignedVolume):
     
     def get(self):
         return combine.SignedVolume.__call__(self)
+    
+@sig((Side,), IOrderGenerator)
+class Side_Factory(combine.Volume):
+    
+    def __call__(self, side):
+        return Factory(side, self.volume)
         
 @registry.expose(alias=['Market'])
 @sig(args=(Side,), rv=function((Volume,), IOrder))

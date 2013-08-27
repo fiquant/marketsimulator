@@ -30,8 +30,8 @@ def TrendFollower(ctx):
                                     expirationDistr=const(100))),
                              label="liquidity"),
     
-            ctx.makeTrader_A(strategy.Signal(linear_signal, 
-                                             volumeDistr = const(V*2)), 
+            ctx.makeTrader_A(strategy.Signal(order.factory.side.Market(const(V*2)),
+                                             linear_signal), 
                             "signal", 
                             [
                              (linear_signal, ctx.amount_graph)
@@ -44,11 +44,10 @@ def TrendFollower(ctx):
                              "trendfollower", 
                              myVolume() + myAverage(alpha)),
             
-            ctx.makeTrader_A(strategy.Generic(
-                                order.factory.Market(
-                                    side = parts.side.TrendFollower(alpha), 
-                                    volume = const(V)),
-                                scheduler.Timer(const(1.))),
+            ctx.makeTrader_A(strategy.TrendFollower(
+                                order.factory.side.Market(volume = const(V)),
+                                alpha, 
+                                creationIntervalDistr = const(1.)),
                              "trendfollower_ex",
                              myVolume()), 
     ]

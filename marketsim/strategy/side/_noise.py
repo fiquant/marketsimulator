@@ -6,12 +6,9 @@ from .. import _wrap
 
 class Noise(types.ISingleAssetStrategy):
     
-    def getDefinitions(self):
-        return { 'side' : parts.side.Random() }
-    
     def getImpl(self):
-        return Generic(eventGen = scheduler.Timer(self.creationIntervalDistr), 
-                       orderFactory = order.factory.Market(_.side, self.volumeDistr))
+        return Generic(self.orderFactory(parts.side.Random()), 
+                       scheduler.Timer(self.creationIntervalDistr))
         
 _wrap.strategy(Noise, ['Periodic', 'Noise'], 
                  """ Noise strategy is a quite dummy strategy that randomly creates an order 
@@ -28,6 +25,6 @@ _wrap.strategy(Noise, ['Periodic', 'Noise'],
                          (default: exponential distribution with |lambda| = 1)
                  """,
                  [
-                  ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> Volume'),
-                  ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')
+                  ("orderFactory",          "order.factory.side.Market()",  'Side -> IOrderGenerator'),             
+                  ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval'),
                  ], globals())

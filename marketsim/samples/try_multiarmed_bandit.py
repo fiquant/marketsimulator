@@ -18,12 +18,11 @@ def MultiarmedBandit(ctx):
     myAverage = lambda alpha: [(observable.avg(observable.MidPrice(orderbook.OfTrader()), alpha), demo)]
     
     def fv(x):
-        return strategy.Generic(
-                    order.factory.Market(
-                        side = parts.side.FundamentalValue(ops.constant(x)),
-                        volume = const(1.)),
-                    scheduler.Timer(const(1.)))
-        
+        return  strategy.FundamentalValue(
+                    order.factory.side.Market(volume = const(1.)),
+                    fundamentalValue = const(x),
+                    creationIntervalDistr = const(1.))
+                                        
     xs = range(100, 300, 50) + range(160, 190, 10)
     def strategies():
         return map(fv, xs)
@@ -36,11 +35,10 @@ def MultiarmedBandit(ctx):
                          "liquidity"),
             
         ctx.makeTrader_A(        
-                strategy.Generic(
-                    order.factory.Market(
-                        side = parts.side.FundamentalValue(ops.constant(200)),
-                        volume = const(12.)),
-                    scheduler.Timer(const(1.))),
+                strategy.FundamentalValue(
+                    order.factory.side.Market(volume = const(12.)),
+                    fundamentalValue = const(200),
+                    creationIntervalDistr = const(1.)),
                 'fv 12-200'), 
 
         ctx.makeTrader_A(strategy.MultiarmedBandit(

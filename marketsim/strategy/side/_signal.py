@@ -8,12 +8,16 @@ from .. import _wrap
 class Signal(types.ISingleAssetStrategy):
     
     def getImpl(self):
-        return Generic(order.factory.Market(_.side, self.volumeDistr), _.signal)
+        return Generic(
+                    self.orderFactory(
+                            parts.side.Signal(
+                                        _.signal, 
+                                        self.threshold)), 
+                    _.signal)
         
     def getDefinitions(self):
         return {
-            "signal" : self.signal, 
-            "side"   : parts.side.Signal(self.signal, self.threshold) 
+            "signal" : self.signal
         }
 
 _wrap.strategy(Signal, ['Periodic', 'Signal'], 
@@ -33,6 +37,8 @@ _wrap.strategy(Signal, ['Periodic', 'Signal'],
                      defines volumes of orders to create 
                      (default: exponential distribution with |lambda| = 1)
              """,
-             [('signal',        'marketsim.signal.RandomWalk()','IObservable[float]'),  
+             [
+              ("orderFactory",  "order.factory.side.Market()",  'Side -> IOrderGenerator'),             
+              ('signal',        'marketsim.signal.RandomWalk()','IObservable[float]'),  
               ('threshold',     '0.7',                          'non_negative'),
-              ('volumeDistr',   'mathutils.rnd.expovariate(1.)','() -> Volume')], globals())
+             ], globals())

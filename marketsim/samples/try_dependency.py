@@ -23,21 +23,17 @@ def Dependency(ctx):
                                        volumeDistr=liqVol), 
             "LiquidityProvider_B"),
     
-        ctx.makeTrader_A(strategy.v0.Dependency(ctx.book_B, factor=2), 
-                         "A dependent on B"),
-    
-        ctx.makeTrader_B(strategy.v0.Dependency(ctx.book_A, factor=.5), 
-                         "B dependent on A"),
-
         ctx.makeTrader_A(
-            strategy.Generic(
-                order.factory.Market(
-                    parts.side.Dependency(ctx.book_B, factor=2.))),
-             "A dependent on B ex"),
+            strategy.Dependency(
+                order.factory.side.Market(),
+                ctx.book_B, 
+                factor=2.),
+            "A dependent on B ex"),
     
         ctx.makeTrader_B(
-            strategy.Generic(
-                order.factory.Market(
-                    parts.side.Dependency(ctx.book_A, factor=.5))),
-             "B dependent on A ex"),
+            strategy.Dependency(
+                order.factory.side.Market(),
+                ctx.book_A, 
+                factor=.5),
+            "B dependent on A ex"),
     ]    

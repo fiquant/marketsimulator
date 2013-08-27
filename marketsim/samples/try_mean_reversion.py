@@ -32,8 +32,9 @@ def MeanReversion(ctx):
                                 expirationDistr=const(10))),
                        label="liquidity"),
     
-        ctx.makeTrader_A(strategy.Signal(linear_signal, 
-                                         volumeDistr = const(V*3)), 
+        ctx.makeTrader_A(strategy.Signal(
+                                order.factory.side.Market(volume = const(V*3)),
+                                linear_signal), 
                          "signal", 
                          [(linear_signal, ctx.amount_graph)]),
      
@@ -45,11 +46,10 @@ def MeanReversion(ctx):
                          myVolume() + myAverage() + myPrice()),
      
         ctx.makeTrader_A(
-                strategy.Generic(
-                    order.factory.Market(
-                        side = parts.side.MeanReversion(alpha),
-                        volume = const(V)),
-                    scheduler.Timer(const(1.))),
-                     "meanreversion_ex", 
-                     myVolume()),
+                strategy.MeanReversion(
+                    order.factory.side.Market(volume = const(V)),
+                    alpha,
+                    creationIntervalDistr = const(1.)),
+                 "meanreversion_ex", 
+                 myVolume()),
     ]    

@@ -73,7 +73,7 @@ class SideBase(object):
         
 class VolumeBase(object): 
     
-    def __init__(self, volume):
+    def __init__(self, volume = ops.constant(1)):
         self.volume = volume
         if isinstance(volume, Event):
             event.subscribe(volume, _(self).fire, self)
@@ -96,6 +96,8 @@ class VolumeBase(VolumeBase_):
     def __call__(self):
         x = VolumeBase_.__call__(self)
         return None if x is None or abs(x) < 1 else int(x)
+    
+Volume = VolumeBase
 
 
 class SideVolume(ops.Observable[types.SideVolume], SideBase, VolumeBase): 

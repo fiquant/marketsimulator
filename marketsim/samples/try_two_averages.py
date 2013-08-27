@@ -28,8 +28,8 @@ def TwoAverages(ctx):
         ctx.makeTrader_A(strategy.LiquidityProvider(volumeDistr=const(10)),
                          "liquidity"),
 
-        ctx.makeTrader_A(strategy.Signal(linear_signal,
-                                         volumeDistr=const(3)), 
+        ctx.makeTrader_A(strategy.Signal(order.factory.side.Market(volume = const(3)),
+                                         linear_signal), 
                         "signal", 
                         [(linear_signal, ctx.amount_graph)]),
             
@@ -47,19 +47,19 @@ def TwoAverages(ctx):
                          'avg-',
                          myVolume()),
 
-        ctx.makeTrader_A(strategy.Generic(
-                            order.factory.Market(
-                                side = parts.side.TwoAverages(alpha_slow, alpha_fast),
-                                volume = const(1.)),
-                            scheduler.Timer(const(1.))),
+        ctx.makeTrader_A(strategy.TwoAverages(
+                            order.factory.side.Market(volume = const(1.)),
+                            alpha_slow, 
+                            alpha_fast,
+                            creationIntervalDistr = const(1.)),
                          'avg_ex+',
                          myVolume()),
 
-        ctx.makeTrader_A(strategy.Generic(
-                            order.factory.Market(
-                                side = parts.side.TwoAverages(alpha_fast, alpha_slow),
-                                volume = const(1.)),
-                            scheduler.Timer(const(1.))),
+        ctx.makeTrader_A(strategy.TwoAverages(
+                            order.factory.side.Market(volume = const(1.)),
+                            alpha_fast, 
+                            alpha_slow,
+                            creationIntervalDistr = const(1.)),
                          'avg_ex-',
                          myVolume()),
     ]

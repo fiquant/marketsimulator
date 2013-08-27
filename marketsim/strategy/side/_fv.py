@@ -8,14 +8,12 @@ from .. import _wrap
 
 class FundamentalValue(types.ISingleAssetStrategy):
 
-    def getDefinitions(self):
-        return { 
-            'side' : parts.side.FundamentalValue(self.fundamentalValue)
-        }
-
     def getImpl(self):
-        return Generic(order.factory.Market(_.side, self.volumeDistr),
-                       scheduler.Timer(self.creationIntervalDistr))
+        return Generic(
+                    self.orderFactory(
+                        parts.side.FundamentalValue(self.fundamentalValue)),
+                    scheduler.Timer(
+                        self.creationIntervalDistr))
 
 _wrap.strategy(FundamentalValue, ['Periodic', 'Fundamental Value'], 
              """ Fundamental value strategy believes that an asset should have some specific price 
@@ -36,7 +34,7 @@ _wrap.strategy(FundamentalValue, ['Periodic', 'Fundamental Value'],
                      (default: exponential distribution with |lambda| = 1)
              """,
             [
+               ("orderFactory",         "order.factory.side.Market()",  'Side -> IOrderGenerator'),             
                ('fundamentalValue',     'ops.constant(100)',            '() -> Price'),
-               ('volumeDistr',          'mathutils.rnd.expovariate(1.)','() -> Volume'),
                ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> TimeInterval')
             ], globals())

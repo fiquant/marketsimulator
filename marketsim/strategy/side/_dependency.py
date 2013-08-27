@@ -12,11 +12,13 @@ class Dependency(types.ISingleAssetStrategy):
         orderBook = orderbook.OfTrader()
         return { 
             'dependee' : observable.MidPrice(self.bookToDependOn),
-            'side' :     parts.side.Dependency(self.bookToDependOn, self.factor)
         }
 
     def getImpl(self):
-        return Generic(order.factory.Market(_.side, self.volumeDistr),  _.dependee)
+        return Generic(
+                    self.orderFactory(
+                            parts.side.Dependency(self.bookToDependOn, self.factor)),
+                    _.dependee)
 
 _wrap.strategy(Dependency, ['Periodic', 'Dependency'],
          """ Dependent price strategy believes that the fair price of an asset *A* 
@@ -39,7 +41,7 @@ _wrap.strategy(Dependency, ['Periodic', 'Dependency'],
                  (default: exponential distribution with |lambda| = 1)
          """,
          [
+          ("orderFactory",  "order.factory.side.Market()",  'Side -> IOrderGenerator'),             
           ('bookToDependOn','orderbook.OfTrader()',             'IOrderBook'),
           ('factor',        '1.',                               'float'),
-          ('volumeDistr',   'mathutils.rnd.expovariate(.1)',    '() -> Volume')
           ], globals())

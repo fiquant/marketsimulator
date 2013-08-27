@@ -343,13 +343,16 @@ class negate(Function[float]):
     def __repr__(self):
         return "-" + repr(self.arg)
     
+def subscribe_if_event(source, target):
+    if isinstance(source, types.IEvent):
+        event.subscribe(source, _(target).fire, target)
+    
 @registry.expose(['Pow/Log', 'sqrt'])
 class Sqrt(Observable[float]):
     def __init__(self, source = constant(1.)):
         self._source = source
         Observable[float].__init__(self)
-        if isinstance(source, types.IEvent):
-            event.subscribe(source, _(self).fire, self)
+        subscribe_if_event(source, self)        
 
     _properties = {'source': types.IFunction[float]}
 

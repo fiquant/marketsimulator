@@ -17,10 +17,9 @@ def Orders(ctx):
     return [
         ctx.makeTrader_A(strategy.LiquidityProvider(volumeDistr=const(25)), "liquidity"),
         
-        ctx.makeTrader_A(strategy.Generic(
-                            order.factory.Market(
-                                side = parts.side.Signal(linear_signal), 
-                                volume = const(1))), 
+        ctx.makeTrader_A(strategy.Signal(
+                            order.factory.side.Market(volume = const(1)),
+                            linear_signal), 
                          "signalmarket"), 
   
         ctx.makeTrader_A(strategy.Generic(

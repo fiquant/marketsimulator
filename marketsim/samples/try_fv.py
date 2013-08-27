@@ -34,11 +34,10 @@ def FundamentalValue(ctx):
             myVolume() + myPrice() + Constant(fv, demo)),
 
         ctx.makeTrader_A(
-             strategy.Generic(
-                order.factory.Market(
-                    side = parts.side.FundamentalValue(ops.constant(fv)),
-                    volume = ops.constant(1.)), 
-                scheduler.Timer(ops.constant(1.))),
+             strategy.FundamentalValue(
+                order.factory.side.Market(volume = ops.constant(1.)), 
+                fundamentalValue = ops.constant(fv),
+                creationIntervalDistr = ops.constant(1.)),
             "fv_ex_200", 
             myVolume()),
     ]

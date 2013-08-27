@@ -9,9 +9,8 @@ class MeanReversion(types.ISingleAssetStrategy):
 
     def getImpl(self):
 
-        return Generic(order.factory.Market(
-                            parts.side.MeanReversion(self.ewma_alpha), 
-                            self.volumeDistr), 
+        return Generic(self.orderFactory(
+                            parts.side.MeanReversion(self.ewma_alpha)), 
                        scheduler.Timer(self.creationIntervalDistr))
 
 _wrap.strategy(MeanReversion, ['Periodic', 'Mean reversion'], 
@@ -35,7 +34,7 @@ _wrap.strategy(MeanReversion, ['Periodic', 'Mean reversion'],
                      (default: exponential distribution with |lambda| = 1)
              """,
              [
+              ("orderFactory",          "order.factory.side.Market()",      'Side -> IOrderGenerator'),             
               ('ewma_alpha',            '0.15',                             'non_negative'),
-              ('volumeDistr',           'mathutils.rnd.expovariate(1.)',    '() -> Volume'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')], 
                globals())

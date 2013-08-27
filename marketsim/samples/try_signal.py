@@ -20,9 +20,8 @@ def Signal(ctx):
                          "signal", 
                          [(linear_signal, ctx.amount_graph)]),
     
-        ctx.makeTrader_A(strategy.Generic(
-                            order.factory.Market(
-                                side = parts.side.Signal(linear_signal), 
-                                volume = const(1))), 
+        ctx.makeTrader_A(strategy.Signal(
+                            order.factory.side.Market(volume = const(1)),
+                            linear_signal),
                          "signal_ex"), 
     ]    
