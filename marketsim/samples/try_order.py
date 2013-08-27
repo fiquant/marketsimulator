@@ -33,11 +33,11 @@ def Orders(ctx):
                                     volume = const(1)))), 
                          "signalstoploss"), 
    
-        ctx.makeTrader_A(strategy.Generic(
-                            order.factory.Limit(
-                                side = parts.side.Signal(linear_signal), 
+        ctx.makeTrader_A(strategy.Signal(
+                            order.factory.side.Limit(
                                 price = midPrice, 
-                                volume = const(1))), 
+                                volume = const(1)),
+                            linear_signal), 
                          "signallimit"), 
     
         ctx.makeTrader_A(strategy.Generic(

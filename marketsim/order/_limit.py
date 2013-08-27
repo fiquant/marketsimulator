@@ -81,6 +81,7 @@ class Factory(types.IPersistentOrderGenerator, combine.SidePriceVolume):
         params = combine.SidePriceVolume.__call__(self)
         return Limit(*params) if params is not None else None
     
+@registry.expose(['Limit'])    
 @sig((IFunction[Side],IFunction[float]), IOrderGenerator)
 class SidePrice_Factory(combine.Volume):
     
@@ -106,7 +107,9 @@ class Price_Factory(IFunction[IOrderGenerator, float]):
     def __call__(self, price):
         return Factory(self.side, price, self.volume)
     
-class Side_Factory(IFunction[IOrderGenerator, Side]):
+@registry.expose(['Limit'])    
+@sig((IFunction[Side],), IOrderGenerator)
+class Side_Factory(object):
     
     def __init__(self, price = ops.constant(100.), volume = ops.constant(1.)):
         self.price = price

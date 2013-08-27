@@ -70,6 +70,25 @@ class SideBase(object):
     _properties = {
         'side'   : types.IFunction[Side],
     }
+    
+class PriceBase(object): 
+    
+    def __init__(self, price = ops.constant(100)):
+        self.price = price
+        if isinstance(price, Event):
+            event.subscribe(price, _(self).fire, self)
+            
+    def __call__(self):
+        price = self.price()
+        if price is None:
+            return None
+        
+        return price
+                    
+    _properties = {
+        'price'   : types.IFunction[float],
+    }
+    
         
 class VolumeBase(object): 
     

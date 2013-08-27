@@ -30,7 +30,7 @@ def createSimulation(name='All'):
         myRegistry.insert(Side.Buy)    
         ctx = Context(world, js.Graph)
         dependency = strategy.v0.Dependency(ctx.book_B)
-        dependency_ex = strategy.Dependency(ctx.book_B)
+        dependency_ex = strategy.Dependency(order.factory.side.Market(), ctx.book_B)
         
         def register(annotated_objects):
             for obj, alias in annotated_objects:
