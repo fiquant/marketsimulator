@@ -24,13 +24,17 @@ def myDir():
     ensure_dir(d)
     return d + r"/"
 
-
+startColors = ['#2f7ed8', '#8bbc21', '#910000', '#1aadce', '#0d233a', '#492970',
+               '#f28f43', '#77a1e5', '#c42525', '#a6c96a']
 def randColor():
     """ Returns a color randomly chosen from HSV space
     """
     h = 0.3
     v = 0.85
     s = 0.9
+    
+    for c in startColors:
+        yield c
 
     while True:
         
@@ -39,7 +43,7 @@ def randColor():
     
         r, g, b = hsv_to_rgb(h, s, v)
         
-        yield toHex(r) + toHex(g) + toHex(b)
+        yield u'#' + toHex(r) + toHex(g) + toHex(b)
 
         h += 2 / (1+math.sqrt(5))
         h = h - 1 if h > 1 else h
@@ -113,7 +117,7 @@ class CSV(object):
             'yData' : label,
             'marker': 'none',
             r'PlotLine/steps': u'left',
-            r'PlotLine/color': u'#' + colors.next(),
+            r'PlotLine/color': colors.next(),
             'key' : label,
             }
         for k,v in self._custom_attr.iteritems():
