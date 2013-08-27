@@ -6,7 +6,8 @@ from _with_expiry import (Factory           as WithExpiry)
 
 from _iceberg import Factory                as Iceberg
 
-from _fixed_budget import (Factory          as FixedBudget)
+from _fixed_budget import (Factory          as FixedBudget, 
+                           Side_Factory     as Side_FixedBudget)
 
 from _peg import  (Factory                  as Peg) 
 

@@ -15,6 +15,7 @@ from _limit import  (Factory                as Limit,
 class side:
     Market = Side_Market
     Limit = Side_Limit
+    FixedBudget = Side_FixedBudget
     
 class sideprice:
     Limit = SidePrice_Limit

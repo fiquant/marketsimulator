@@ -68,10 +68,9 @@ def Orders(ctx):
                             scheduler.Timer(const(10))), 
                          "noiseiceberglimit"), 
    
-        ctx.makeTrader_A(strategy.Generic(
-                            order.factory.FixedBudget(
-                                side = parts.side.Signal(linear_signal), 
-                                budget = const(450))), 
+        ctx.makeTrader_A(strategy.Signal(
+                            order.factory.side.FixedBudget(budget = const(450)),
+                            linear_signal), 
                          "signalfixedbudget"), 
              
         ctx.makeTrader_A(strategy.Generic(

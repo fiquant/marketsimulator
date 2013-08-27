@@ -1,4 +1,4 @@
-from marketsim import request, context, event, _, Event, combine, ops, types
+from marketsim import registry, request, context, event, _, Event, combine, ops, types
 from marketsim.types import *
 
 import _ioc
@@ -39,6 +39,7 @@ class FixedBudget(Base):
         return 'FixedBudget(%s,%s)' % (self.side, self.budget)
             
 
+@registry.expose(['FixedBudget'])    
 class Factory(types.IOrderGenerator, combine.SideBudget):
     
     def bind(self, ctx):
@@ -47,3 +48,17 @@ class Factory(types.IOrderGenerator, combine.SideBudget):
     def __call__(self):
         params = combine.SideBudget.__call__(self)
         return FixedBudget(*params) if params is not None else None
+
+@registry.expose(['FixedBudget'])    
+@sig((IFunction[Side],), IOrderGenerator)
+class Side_Factory(object):
+    
+    def __init__(self, budget = ops.constant(200.)):
+        self.budget = budget
+        
+    _properties = { 
+        'budget'  : types.IFunction[float],
+    }
+    
+    def __call__(self, side):
+        return Factory(side, self.budget)
