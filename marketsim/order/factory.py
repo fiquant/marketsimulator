@@ -13,3 +13,6 @@ from _limit import  (Factory                as Limit,
 
 class side:
     Market = Side_Market
+    
+class sideprice:
+    Limit = SidePrice_Limit

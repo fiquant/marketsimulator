@@ -9,12 +9,11 @@ from .. import _wrap
 class LiquidityProviderSide(types.ISingleAssetStrategy):
     
     def getImpl(self):
-        return Generic(order.factory.Limit(
-                            side = ops.constant(self.side),
-                            price = parts.price.LiquidityProvider(self.side, 
-                                                                  self.initialValue, 
-                                                                  self.priceDistr), 
-                            volume = self.volumeDistr), 
+        return Generic(self.orderFactory(
+                            ops.constant(self.side),
+                            parts.price.LiquidityProvider(self.side, 
+                                                          self.initialValue, 
+                                                          self.priceDistr)), 
                        scheduler.Timer(self.creationIntervalDistr))
 
 _wrap.strategy(LiquidityProviderSide, ['Periodic', 'LiquidityProviderSide'],
@@ -45,9 +44,11 @@ _wrap.strategy(LiquidityProviderSide, ['Periodic', 'LiquidityProviderSide'],
                  of the order to create, calculates order volume using *volumeDistr*, creates
                  an order via *orderFactoryT(side)* and tells the trader to send it.
              """,
-             [('side',                  'Side.Sell',                            'Side'),
+             [
+              ('orderFactory',          'order.factory.sideprice.Limit()',      '(IFunction[Side], IFunction[float]) -> IOrderGenerator'),
+              ('side',                  'Side.Sell',                            'Side'),
               ('initialValue',          '100',                                  'Price'),
               ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
               ('priceDistr',            'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
-              ('volumeDistr',           'mathutils.rnd.expovariate(1.)',        '() -> Volume')],
-               globals())
+             ],
+             globals())

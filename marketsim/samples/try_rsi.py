@@ -35,7 +35,10 @@ def RSI(ctx):
                          demo)]
     
     return [
-        ctx.makeTrader_A(strategy.LiquidityProvider(volumeDistr=const(4)), "liquidity"),
+        ctx.makeTrader_A(
+                strategy.LiquidityProvider(
+                        order.factory.sideprice.Limit(volume=const(4))),
+                "liquidity"),
         
         ctx.makeTrader_A(strategy.Signal(order.factory.side.Market(), 
                                          linear_signal), 

@@ -10,7 +10,6 @@ class LiquidityProvider(types.ISingleAssetStrategy):
     def getDefinitions(self):
         return { 
                 'creationInterval': self.creationIntervalDistr, 
-                'volume'          : self.volumeDistr, 
                 'price'           : self.priceDistr, 
             }
         
@@ -18,11 +17,11 @@ class LiquidityProvider(types.ISingleAssetStrategy):
         orderBook = orderbook.OfTrader()
     
         def create(side):
-            return LiquidityProviderSide(  side, 
+            return LiquidityProviderSide(  self.orderFactory,
+                                           side, 
                                            self.defaultValue, 
                                            _.creationInterval, 
-                                           _.price, 
-                                           _.volume)
+                                           _.price)
     
         return Array([
                 create(Side.Sell),
@@ -52,8 +51,9 @@ _wrap.strategy(LiquidityProvider, ['Periodic', 'LiquidityProvider'],
                          (default: exponential distribution with |lambda| = 1)
                 """,  
                 [
+                 ('orderFactory',          'order.factory.sideprice.Limit()',      '(IFunction[Side], IFunction[float]) -> IOrderGenerator'),
                  ('defaultValue',           '100',                                  'Price'),
                  ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
                  ('priceDistr',             'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
-                 ('volumeDistr',            'mathutils.rnd.expovariate(.1)',        '() -> Volume')],
+                ],
                globals())

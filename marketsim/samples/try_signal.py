@@ -13,7 +13,10 @@ def Signal(ctx):
                                       label="20-0.1t")
 
     return [
-        ctx.makeTrader_A(strategy.LiquidityProvider(volumeDistr=const(5)), "liquidity"),
+        ctx.makeTrader_A(
+            strategy.LiquidityProvider(
+                order.factory.sideprice.Limit(volume=const(5))),
+            "liquidity"),
         
         ctx.makeTrader_A(strategy.v0.Signal(linear_signal, 
                                          volumeDistr=const(1)), 

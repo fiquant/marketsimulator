@@ -15,7 +15,10 @@ def Orders(ctx):
     midPrice = observable.MidPrice(ctx.book_A)
 
     return [
-        ctx.makeTrader_A(strategy.LiquidityProvider(volumeDistr=const(25)), "liquidity"),
+        ctx.makeTrader_A(
+                    strategy.LiquidityProvider(
+                        order.factory.sideprice.Limit(volume=const(25))), 
+                    "liquidity"),
         
         ctx.makeTrader_A(strategy.Signal(
                             order.factory.side.Market(volume = const(1)),

@@ -25,8 +25,10 @@ def TwoAverages(ctx):
     myAverage = lambda alpha: [(observable.avg(observable.MidPrice(orderbook.OfTrader()), alpha), demo)]
     
     return [
-        ctx.makeTrader_A(strategy.LiquidityProvider(volumeDistr=const(10)),
-                         "liquidity"),
+        ctx.makeTrader_A(
+                strategy.LiquidityProvider(
+                    order.factory.sideprice.Limit(volume=const(10))),
+                "liquidity"),
 
         ctx.makeTrader_A(strategy.Signal(order.factory.side.Market(volume = const(3)),
                                          linear_signal), 
