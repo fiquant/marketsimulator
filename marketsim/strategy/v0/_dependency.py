@@ -1,4 +1,4 @@
-from marketsim import (parts, scheduler, observable, types, meta, defs, _, ops,
+from marketsim import (parts, observable, types, meta, defs, _, ops,
                        Side, registry, orderbook, bind, order, mathutils)
 
 from _wrap import wrapper2

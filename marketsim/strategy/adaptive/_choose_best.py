@@ -1,5 +1,5 @@
-from marketsim import (trader, order, orderbook, scheduler, observable, order, 
-                       registry, types, meta, _, ops, event, scheduler)
+from marketsim import (trader, order, orderbook, observable, order, 
+                       registry, types, meta, _, ops, event)
 
 from .._basic import Strategy
 from .._wrap import wrapper2
@@ -20,7 +20,7 @@ class _ChooseTheBest_Impl(Strategy):
             e = self.performance(self.account(s))
             e._origin = s
             self._estimators.append(e)
-        event.subscribe(scheduler.Timer(ops.constant(1.)), _(self)._wakeUp, self)
+        event.subscribe(event.Every(ops.constant(1.)), _(self)._wakeUp, self)
             
     _internals = ['_estimators']
 

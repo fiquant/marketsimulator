@@ -1,6 +1,6 @@
 from marketsim.types import *
-from marketsim import (orderbook, observable, scheduler, order, mathutils, types, meta, 
-                       registry, bind, defs, _, parts)
+from marketsim import (orderbook, observable, order, mathutils, types, meta, 
+                       registry, bind, defs, _, event,parts)
 
 from _signal import SignalBase
 
@@ -9,7 +9,7 @@ from _wrap import wrapper2
 class _TwoAverages_Impl(SignalBase):
     
     def __init__(self):
-        self._eventGen = scheduler.Timer(self.creationIntervalDistr)
+        self._eventGen = event.Every(self.creationIntervalDistr)
         price = observable.MidPrice(orderbook.OfTrader())
         self._average1 = observable.EWMA(price, self.ewma_alpha1)
         self._average2 = observable.EWMA(price, self.ewma_alpha2)

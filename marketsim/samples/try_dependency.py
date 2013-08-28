@@ -1,7 +1,7 @@
 import sys, pickle
 sys.path.append(r'../..')
 
-from marketsim import (parts, strategy, orderbook, trader, scheduler, observable, 
+from marketsim import (parts, strategy, orderbook, trader, observable, 
                        veusz, ops, mathutils, timeserie, order)
 from common import expose
 

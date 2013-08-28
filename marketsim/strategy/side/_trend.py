@@ -1,6 +1,6 @@
 from marketsim.types import *
-from marketsim import (parts, orderbook, observable, scheduler, order, mathutils, types, meta, 
-                       registry, signal, bind, ops, _)
+from marketsim import (parts, orderbook, observable, order, mathutils, types, meta, 
+                       event,registry, signal, bind, ops, _)
 from .. import _wrap
 from .._generic import Generic
 
@@ -12,7 +12,7 @@ class TrendFollower(types.ISingleAssetStrategy):
                             parts.side.TrendFollower(
                                             self.ewma_alpha, 
                                             self.threshold)),
-                    scheduler.Timer(self.creationIntervalDistr))
+                    event.Every(self.creationIntervalDistr))
 
 _wrap.strategy(TrendFollower, ['Periodic', 'TrendFollower'], 
                  """ Trend follower can be considered as a sort of a signal strategy 

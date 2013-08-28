@@ -1,4 +1,4 @@
-from marketsim import (meta, types, context, Side, event, scheduler, 
+from marketsim import (meta, types, context, Side, event,  
                        mathutils, getLabel, registry, ops, defs, _, orderbook)
 
 from _computed import IndicatorBase
@@ -279,13 +279,13 @@ class LastTradePrice(LastTrade):
         
 def PriceAtVolume(interval, orderbook, side, volume):
 
-    return IndicatorBase(scheduler.Timer(ops.constant(interval)),
+    return IndicatorBase(event.Every(ops.constant(interval)),
                          price_at_volume(orderbook, side, volume), 
                          {'smooth':True, 'fillBelow' : side == Side.Buy, 'fillAbove' : side == Side.Sell})
 
 def VolumeLevels(interval, orderbook, side, volumeDelta, volumeCount):
 
-    return IndicatorBase(scheduler.Timer(ops.constant(interval)),
+    return IndicatorBase(event.Every(ops.constant(interval)),
                          volume_levels(orderbook, side, volumeDelta, volumeCount), 
                          {'smooth':True, 'volumeLevels' : True, 
                           'fillBelow' : side == Side.Buy, 'fillAbove' : side == Side.Sell})

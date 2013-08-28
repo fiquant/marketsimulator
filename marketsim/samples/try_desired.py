@@ -2,14 +2,13 @@ import sys
 sys.path.append(r'../..')
 
 from marketsim import (signal, strategy, orderbook, mathutils, 
-                       Side, types, ops, defs, _)
+                       Side, types, ops, defs, _, event)
 from marketsim import observable as obs
 from common import expose, Constant
 
 class DesiredVolumeBase(obs.IndicatorBaseT[float]):
     def __init__(self, source):
-        from marketsim import scheduler
-        timer = scheduler.Timer(ops.constant(1))
+        timer = event.Every(ops.constant(1))
         obs.IndicatorBaseT[float].__init__(self, timer, source, {'smooth': True})
         self._position = 0
         self._currentAmount = None
@@ -172,7 +171,7 @@ def DesiredPosition(ctx):
 
 
     return [
-        ctx.makeTrader_A(strategy.LiquidityProvider(volumeDistr=const(4)), "liquidity"),
+        ctx.makeTrader_A(strategy.v0.LiquidityProvider(volumeDistr=const(4)), "liquidity"),
         
         ctx.makeTrader_A(strategy.v0.DesiredPosition(rsi_signal), "desired_position",
                          [(rsi_signal, ctx.amount_graph)] + charts)

@@ -1,4 +1,4 @@
-from marketsim import historical, ops, scheduler, event, _, registry
+from marketsim import historical, ops, event, _, registry
 
 @registry.expose(alias = ["Asset's", "Quote"])
 class Quote(ops.Observable[float]):
@@ -10,7 +10,7 @@ class Quote(ops.Observable[float]):
         self.end = end
         self._quotes = None
         self._current = None
-        event.subscribe(scheduler.Timer(ops.constant(1)), _(self)._wakeUp, self)
+        event.subscribe(event.Every(ops.constant(1)), _(self)._wakeUp, self)
         
     _properties = {
         'ticker': str,

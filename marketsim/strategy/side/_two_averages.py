@@ -1,6 +1,6 @@
 from marketsim.types import *
-from marketsim import (orderbook, observable, scheduler, order, mathutils, types, meta, 
-                       registry, bind, defs, _, parts)
+from marketsim import (orderbook, observable, order, mathutils, types, meta, 
+                       registry, bind, defs, _, event,parts)
 
 from .. import _wrap
 from .._generic import Generic
@@ -13,7 +13,7 @@ class TwoAverages(types.ISingleAssetStrategy):
                                             self.ewma_alpha1, 
                                             self.ewma_alpha2, 
                                             self.threshold)),
-                        scheduler.Timer(self.creationIntervalDistr))
+                        event.Every(self.creationIntervalDistr))
 
 _wrap.strategy(TwoAverages, ['Periodic', 'TwoAverages'], 
              """ Two averages strategy compares two averages of price of the same asset but

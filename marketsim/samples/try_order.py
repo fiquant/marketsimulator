@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (Side, mathutils, parts, signal, strategy, observable, ops, order, scheduler)
+from marketsim import (Side, mathutils, parts, signal, strategy, observable, ops, order, event)
 from common import expose, InterlacingSide
 
 @expose("Various Orders", __name__)
@@ -69,7 +69,7 @@ def Orders(ctx):
                                 side = InterlacingSide(), 
                                 price = midPrice, 
                                 volume = const(1)),
-                            scheduler.Timer(const(1))), 
+                            event.Every(const(1))), 
                          "noiselimitmarket"), 
     
         ctx.makeTrader_A(strategy.Generic(
@@ -79,7 +79,7 @@ def Orders(ctx):
                                     side = InterlacingSide(), 
                                     price = midPrice, 
                                     volume = const(1))),
-                            scheduler.Timer(const(1))), 
+                            event.Every(const(1))), 
                          "noiselimitexpiry"), 
    
         ctx.makeTrader_A(strategy.Generic(
@@ -89,7 +89,7 @@ def Orders(ctx):
                                     side = InterlacingSide(),
                                     price = midPrice, 
                                     volume = const(10))),
-                            scheduler.Timer(const(10))), 
+                            event.Every(const(10))), 
                          "noiseiceberglimit"), 
    
         ctx.makeTrader_A(strategy.Signal(
@@ -104,7 +104,7 @@ def Orders(ctx):
                                     order._limit.Price_Factory(
                                         side = InterlacingSide(),
                                         volume = const(10)))),
-                            scheduler.Timer(const(10))), 
+                            event.Every(const(10))), 
                          "icebergpeg"), 
    
         ctx.makeTrader_A(strategy.Generic(
@@ -114,7 +114,7 @@ def Orders(ctx):
                                         order._limit.Price_Factory(
                                             side = InterlacingSide(),
                                             volume = const(10)))),
-                            scheduler.Timer(const(10))), 
+                            event.Every(const(10))), 
                          "pegiceberg"), 
    
         ctx.makeTrader_A(strategy.Generic(
@@ -122,7 +122,7 @@ def Orders(ctx):
                                 order._limit.Price_Factory(
                                     side = InterlacingSide(),
                                     volume = const(10))),
-                            scheduler.Timer(const(10))), 
+                            event.Every(const(10))), 
                          "noise_peg"), 
   
         ctx.makeTrader_A(strategy.Generic(
@@ -134,7 +134,7 @@ def Orders(ctx):
                                         order._limit.Price_Factory(
                                             side = InterlacingSide(),
                                             volume = const(10))))),
-                            scheduler.Timer(const(10))), 
+                            event.Every(const(10))), 
                          "pegicebergwithexpiry"), 
    
         ctx.makeTrader_A(strategy.Generic(
@@ -146,7 +146,7 @@ def Orders(ctx):
                                         order._limit.Price_Factory(
                                             side = InterlacingSide(),
                                             volume = const(10))))),
-                            scheduler.Timer(const(10))), 
+                            event.Every(const(10))), 
                          "icebergpeg"), 
    
         ctx.makeTrader_A(strategy.Generic(
@@ -156,6 +156,6 @@ def Orders(ctx):
                                     order._limit.Price_Factory(
                                         side = InterlacingSide(),
                                         volume = const(10)))),
-                            scheduler.Timer(const(10))), 
+                            event.Every(const(10))), 
                          "noise_pegexpiry"), 
     ]    

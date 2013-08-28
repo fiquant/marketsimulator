@@ -4,7 +4,7 @@ from _one_side import OneSide
 from .._array import Array
 from _wrap import merge, wrapper2
 from _lp_side import (LiquidityProviderSide)
-from marketsim import (event, order, orderbook, scheduler, mathutils, defs, _,
+from marketsim import (event, order, orderbook, mathutils, defs, _,
                        types, registry, bind, meta, trader, ops)
 from marketsim.types import *
 

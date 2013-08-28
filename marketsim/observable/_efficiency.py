@@ -1,5 +1,5 @@
 from marketsim import (registry, orderbook, request, Side, getLabel, 
-                       meta, types, bind, scheduler, event, _, ops)
+                       meta, types, bind, event, _, ops)
 
 import marketsim
 

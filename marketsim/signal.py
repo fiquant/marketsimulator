@@ -1,5 +1,5 @@
 import random
-from marketsim import _,  meta, types, ops, mathutils, registry, scheduler, event
+from marketsim import _,  meta, types, ops, mathutils, registry, event
 
 @registry.expose(['Random walk'])
 class RandomWalk(ops.Observable[float]):
@@ -39,7 +39,7 @@ class RandomWalk(ops.Observable[float]):
         self.deltaDistr = deltaDistr
         self.intervalDistr = intervalDistr
             
-        self._timer = scheduler.Timer(self.intervalDistr)
+        self._timer = event.Every(self.intervalDistr)
         event.subscribe(self._timer, _(self)._wakeUp, self)
         
         self.reset()

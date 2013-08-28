@@ -1,6 +1,6 @@
 from marketsim.types import *
-from marketsim import (parts, orderbook, observable, scheduler, order, mathutils, types, meta, 
-                       registry, signal, bind, ops, _)
+from marketsim import (parts, orderbook, observable, order, mathutils, types, meta, 
+                       event,registry, signal, bind, ops, _)
 from _signal import SignalBase
 
 from _wrap import wrapper2
@@ -8,7 +8,7 @@ from _wrap import wrapper2
 class _TrendFollower_Impl(SignalBase):
 
     def __init__(self):
-        self._eventGen = scheduler.Timer(self.creationIntervalDistr) # TODO: dependency tracking
+        self._eventGen = event.Every(self.creationIntervalDistr) # TODO: dependency tracking
         self._signalFunc_ = ops.Derivative(
                                 observable.EWMA(
                                     observable.MidPrice(orderbook.OfTrader()),

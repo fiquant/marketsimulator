@@ -1,4 +1,4 @@
-from marketsim import scheduler, meta, types, bind, flags
+from marketsim import meta, types, bind, flags
 
 class Graph(types.IGraph):
     """ Generic 2D graph to be rendered by means of javascript libraries

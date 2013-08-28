@@ -1,6 +1,6 @@
 from marketsim.types import *
-from marketsim import (parts, meta, types, order, _, defs, ops,
-                       mathutils, observable, scheduler, orderbook, registry)
+from marketsim import (event,parts, meta, types, order, _, defs, ops,
+                       mathutils, observable, orderbook, registry)
 from _periodic import Periodic
 from .. import _wrap
 
@@ -44,7 +44,7 @@ def RSIEx    (         alpha                 = 1./14,
     
     r = Periodic(orderFactory= orderFactory, 
                  volumeFunc  = volumeDistr, 
-                 eventGen    = scheduler.Timer(creationIntervalDistr), 
+                 eventGen    = event.Every(creationIntervalDistr), 
                  sideFunc    = RelativeStrengthIndexSide(orderBook, rsi, threshold))
     
     return r
@@ -58,7 +58,7 @@ class RSIEx(types.ISingleAssetStrategy):
     def getImpl(self):
         return  Periodic(orderFactory= self.orderFactory, 
                          volumeFunc  = self.volumeDistr, 
-                         eventGen    = scheduler.Timer(self.creationIntervalDistr), 
+                         eventGen    = event.Every(self.creationIntervalDistr), 
                          sideFunc    = RelativeStrengthIndexSide(orderbook.OfTrader(), 
                                                                  _.rsi, 
                                                                  self.threshold))

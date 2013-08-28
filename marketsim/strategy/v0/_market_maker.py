@@ -1,5 +1,5 @@
 from marketsim import (request, trader, orderbook, event, _, Side, order, types, mathutils, 
-                       scheduler, ops, observable, registry, combine)
+                       ops, observable, registry, combine)
 
 from marketsim.types import *
 from .._basic import Strategy
@@ -12,7 +12,7 @@ class _MarketMaker_Impl(Strategy):
 
     def __init__(self):
         Strategy.__init__(self)
-        self._eventGen = scheduler.Timer(ops.constant(0.9))
+        self._eventGen = event.Every(ops.constant(0.9))
         event.subscribe(self._eventGen, _(self)._wakeUp, self)
 
         self.book = orderbook.OfTrader()

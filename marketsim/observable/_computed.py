@@ -1,4 +1,4 @@
-from marketsim import (bind, event, getLabel, Side, scheduler, ops,
+from marketsim import (bind, event, getLabel, Side, ops,
                        types, meta, mathutils, ops, registry,  _)
 
 import marketsim
@@ -106,7 +106,7 @@ def OnEveryDt(interval, source):
     source - function to obtain indicator value
     """
     
-    return IndicatorBase(scheduler.Timer(ops.constant(interval)),
+    return IndicatorBase(event.Every(ops.constant(interval)),
                          source, 
                          {'smooth':True})
 

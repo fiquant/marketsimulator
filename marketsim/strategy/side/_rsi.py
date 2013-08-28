@@ -1,6 +1,6 @@
 from marketsim.types import *
-from marketsim import (parts, meta, types, order, _, defs, ops,
-                       mathutils, observable, scheduler, orderbook, registry)
+from marketsim import (event,parts, meta, types, order, _, defs, ops,
+                       mathutils, observable, orderbook, registry)
 
 from .. import _wrap
 from .._generic import Generic
@@ -17,7 +17,7 @@ class RSIbis(types.ISingleAssetStrategy):
                   self.orderFactory(
                             parts.side.Signal(ops.constant(50) - _.rsi, 
                                               50-self.threshold)), 
-                  scheduler.Timer(self.creationIntervalDistr))
+                  event.Every(self.creationIntervalDistr))
         
 _wrap.strategy(RSIbis, ['Periodic', 'RSI bis'], 
                """

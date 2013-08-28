@@ -1,4 +1,4 @@
-from marketsim import (parts, scheduler, observable, types, meta, _,
+from marketsim import (event,parts, observable, types, meta, _,
                        Side, registry, orderbook, bind, order, mathutils)
 
 from .._generic import Generic
@@ -11,7 +11,7 @@ class MeanReversion(types.ISingleAssetStrategy):
 
         return Generic(self.orderFactory(
                             parts.side.MeanReversion(self.ewma_alpha)), 
-                       scheduler.Timer(self.creationIntervalDistr))
+                       event.Every(self.creationIntervalDistr))
 
 _wrap.strategy(MeanReversion, ['Periodic', 'Mean reversion'], 
              """ Mean reversion strategy believes that asset price should return to its average value.

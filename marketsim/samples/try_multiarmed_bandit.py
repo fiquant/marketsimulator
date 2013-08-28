@@ -2,7 +2,7 @@ import sys
 sys.path.append(r'../..')
 
 from marketsim import (order, parts, signal, strategy, trader, orderbook, 
-                       timeserie, scheduler, observable, veusz, mathutils, ops)
+                       timeserie,  observable, veusz, mathutils, ops)
 
 const = ops.constant
 

@@ -1,4 +1,4 @@
-from marketsim import (parts, scheduler, observable, types, meta, _,
+from marketsim import (event,parts, observable, types, meta, _,
                        Side, registry, orderbook, bind, order, mathutils)
 
 from _wrap import wrapper2
@@ -10,7 +10,7 @@ from marketsim.types import *
 class _MeanReversion_Impl(FundamentalValueBase):
     
     def __init__(self):
-        self._eventGen = scheduler.Timer(self.creationIntervalDistr)
+        self._eventGen = event.Every(self.creationIntervalDistr)
         myBook = orderbook.OfTrader()
         self._fundamentalValue = observable.EWMA(observable.MidPrice(myBook), 
                                                  self.ewma_alpha)

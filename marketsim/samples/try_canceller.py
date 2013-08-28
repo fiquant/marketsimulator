@@ -2,7 +2,7 @@ import sys
 sys.path.append(r'../..')
 
 from marketsim import (strategy, trader, orderbook, order, ops, Side, mathutils,
-                       scheduler, observable, veusz, registry, timeserie)
+                       observable, veusz, registry, timeserie)
 
 from common import expose
 

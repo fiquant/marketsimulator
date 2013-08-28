@@ -1,4 +1,4 @@
-from marketsim import (parts, scheduler, observable, types, meta, defs, _, ops,
+from marketsim import (parts, event, observable, types, meta, defs, _, ops,
                        Side, registry, orderbook, bind, order, mathutils)
 
 from .._generic import Generic
@@ -12,7 +12,7 @@ class FundamentalValue(types.ISingleAssetStrategy):
         return Generic(
                     self.orderFactory(
                         parts.side.FundamentalValue(self.fundamentalValue)),
-                    scheduler.Timer(
+                    event.Every(
                         self.creationIntervalDistr))
 
 _wrap.strategy(FundamentalValue, ['Periodic', 'Fundamental Value'], 

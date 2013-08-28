@@ -1,4 +1,4 @@
-from marketsim import (trader, order, orderbook, scheduler, observable, order,
+from marketsim import (trader, order, orderbook, observable, order,
                        registry, types, meta, _, ops, event)
 from marketsim.types import *
 
@@ -22,7 +22,7 @@ class _MultiarmedBandit2_Impl(Strategy):
             e = self.normalizer(self.weight(self.account(s)))
             e._origin = s
             self._estimators.append(e)
-        event.subscribe(scheduler.Timer(ops.constant(1.)), _(self)._wakeUp, self)
+        event.subscribe(event.Every(ops.constant(1.)), _(self)._wakeUp, self)
             
     _internals = ['_estimators']
 

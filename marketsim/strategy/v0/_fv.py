@@ -1,4 +1,4 @@
-from marketsim import (parts, scheduler, observable, types, meta, defs, _, ops,
+from marketsim import (parts, observable, types, meta, defs, _, ops, event,
                        Side, registry, orderbook, bind, order, mathutils)
 
 from _signal import SignalBase
@@ -30,7 +30,7 @@ class FundamentalValueBase(SignalBase):
 class _FundamentalValue_Impl(FundamentalValueBase):
     
     def __init__(self):
-        self._eventGen = scheduler.Timer(self.creationIntervalDistr)
+        self._eventGen = event.Every(self.creationIntervalDistr)
         FundamentalValueBase.__init__(self)
         
     @property

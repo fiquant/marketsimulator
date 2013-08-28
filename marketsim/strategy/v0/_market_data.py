@@ -1,5 +1,5 @@
 from marketsim import (observable, combine, event, _, Side, order, types, mathutils, 
-                       scheduler, ops, registry, request)
+                       ops, registry, request)
 from marketsim.types import *
 from .._basic import Strategy
 from _wrap import wrapper2
@@ -12,7 +12,7 @@ class _MarketData_Impl(Strategy):
 
     def __init__(self):
         Strategy.__init__(self)
-        self._eventGen = scheduler.Timer(ops.constant(1))
+        self._eventGen = event.Every(ops.constant(1))
         event.subscribe(self._eventGen, _(self)._wakeUp, self)
 
         self.quotes = data.load(self.ticker, self.start, self.end)['Adj Close']

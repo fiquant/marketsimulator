@@ -1,14 +1,14 @@
 import random
 from _one_side import OneSide
 from _wrap import wrapper2
-from marketsim import (parts, order, orderbook, scheduler, mathutils, ops,
+from marketsim import (parts, order, orderbook, mathutils, ops,
                        event, types, registry, meta, defs, _, observable)
 from marketsim.types import *
 
 class _LiquidityProviderSide_Impl(OneSide):
     
     def __init__(self):
-        self._eventGen = scheduler.Timer(self.creationIntervalDistr)
+        self._eventGen = event.Every(self.creationIntervalDistr)
         self._queue = orderbook.QueueProxy(orderbook.OfTrader(), self.side)
         self._lastPrice = observable.QueueLastPrice(self._queue)
         OneSide.__init__(self)

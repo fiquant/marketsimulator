@@ -1,6 +1,6 @@
 import random
 from .._generic import Generic
-from marketsim import (parts, order, orderbook, scheduler, mathutils, ops,
+from marketsim import (parts, order, orderbook, mathutils, ops,
                        event, types, registry, meta, defs, _, observable)
 from marketsim.types import *
                
@@ -14,7 +14,7 @@ class LiquidityProviderSide(types.ISingleAssetStrategy):
                             parts.price.LiquidityProvider(self.side, 
                                                           self.initialValue, 
                                                           self.priceDistr)), 
-                       scheduler.Timer(self.creationIntervalDistr))
+                       event.Every(self.creationIntervalDistr))
 
 _wrap.strategy(LiquidityProviderSide, ['Periodic', 'LiquidityProviderSide'],
              """ Liquidity provider for one side has followng parameters:

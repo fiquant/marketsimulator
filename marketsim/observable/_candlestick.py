@@ -1,6 +1,6 @@
 import collections
 
-from marketsim import types, _, event, scheduler, ops, context
+from marketsim import types, _, event, ops, context
 
 class CandleStick(collections.namedtuple("CandleStick", [
                                                      "open", "close",
@@ -19,7 +19,7 @@ class CandleSticks(ops.Observable[types.ICandleStick]):
         ops.Observable[types.ICandleStick].__init__(self)
         self._source = source
         self._event = event.subscribe(source, _(self)._update, self)
-        event.subscribe(scheduler.Timer(ops.constant(timeframe)), _(self)._flush, self)
+        event.subscribe(event.Every(ops.constant(timeframe)), _(self)._flush, self)
         self.timeframe = timeframe
         self.reset()
         self._mean = CMA(source)

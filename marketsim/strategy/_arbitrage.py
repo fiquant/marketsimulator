@@ -1,4 +1,4 @@
-from marketsim import order, Side, scheduler, types, event, _
+from marketsim import order, Side, types, event, _
 from blist import sorteddict
 
 from _basic import MultiAssetStrategy

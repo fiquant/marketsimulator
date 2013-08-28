@@ -1,5 +1,5 @@
 from marketsim import (registry, meta, _, types, Side, mathutils, order, 
-                       event, ops, scheduler)
+                       event, ops)
 from marketsim.types import *
 
 from .._basic import Strategy

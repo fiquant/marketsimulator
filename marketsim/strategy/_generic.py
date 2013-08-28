@@ -1,5 +1,5 @@
 from marketsim import (registry, meta, _, types, Side, mathutils, order, 
-                       event, ops, scheduler)
+                       event, ops)
 from marketsim.types import *
 
 from _basic import Strategy
@@ -35,4 +35,4 @@ exec  wrapper2("Generic",
                           
              """,
               [('orderFactory',         'order.factory.Market()',               'types.IOrderGenerator'),
-               ('eventGen',             'scheduler.Timer(ops.constant(1.))',    'IEvent')])
+               ('eventGen',             'event.Every(ops.constant(1.))',    'IEvent')])

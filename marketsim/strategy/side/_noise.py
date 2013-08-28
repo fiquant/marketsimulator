@@ -1,4 +1,4 @@
-from marketsim import parts, scheduler, order, _, mathutils, types, registry, ops, meta, observable
+from marketsim import event,parts, order, _, mathutils, types, registry, ops, meta, observable
 from .._generic import Generic
 from marketsim.types import *
 
@@ -8,7 +8,7 @@ class Noise(types.ISingleAssetStrategy):
     
     def getImpl(self):
         return Generic(self.orderFactory(parts.side.Random()), 
-                       scheduler.Timer(self.creationIntervalDistr))
+                       event.Every(self.creationIntervalDistr))
         
 _wrap.strategy(Noise, ['Periodic', 'Noise'], 
                  """ Noise strategy is a quite dummy strategy that randomly creates an order 

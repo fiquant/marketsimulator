@@ -1,6 +1,6 @@
 from .._array import Array
 from _lp_side import LiquidityProviderSide
-from marketsim import (order, orderbook, scheduler, mathutils, defs, _,
+from marketsim import (order, orderbook, mathutils, defs, _,
                        types, registry, bind, meta, trader, ops)
 from marketsim.types import *
 from .. import _wrap

@@ -1,4 +1,4 @@
-from marketsim import scheduler, bind, types, observable
+from marketsim import bind, types, observable
 from colorsys import hsv_to_rgb
 import subprocess 
 import random

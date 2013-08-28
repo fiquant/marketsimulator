@@ -152,5 +152,3 @@ def current():
 
 """ Global object representing simulation clock.
 """
-
-Timer = event.Every

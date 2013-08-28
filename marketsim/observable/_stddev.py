@@ -1,4 +1,4 @@
-from marketsim import ops, types, event, _, getLabel, scheduler, registry
+from marketsim import ops, types, event, _, getLabel,  registry
 
 import fold
 import math

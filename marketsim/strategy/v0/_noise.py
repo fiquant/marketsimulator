@@ -1,4 +1,4 @@
-from marketsim import parts, scheduler, order, _, mathutils, types, registry, ops, meta, observable
+from marketsim import event, parts, order, _, mathutils, types, registry, ops, meta, observable
 from _two_sides import TwoSides
 from _wrap import wrapper2
 from marketsim.types import *
@@ -6,7 +6,7 @@ from marketsim.types import *
 class _Noise_Impl(TwoSides):
     
     def __init__(self):
-        self._eventGen = scheduler.Timer(self.creationIntervalDistr)
+        self._eventGen = event.Every(self.creationIntervalDistr)
         TwoSides.__init__(self)
         
     def _orderFunc(self):
