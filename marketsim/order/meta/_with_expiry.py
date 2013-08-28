@@ -1,6 +1,7 @@
 from marketsim import request, combine, meta, types, _, registry, ops, context
 
 from .. import _limit
+from marketsim.types import *
 
 import _meta 
 
@@ -40,6 +41,24 @@ class Factory(types.IOrderGenerator):
         proto = self.inner()
         return WithExpiry(proto, expiry) \
             if expiry is not None and proto is not None else None 
+
+@registry.expose(['WithExpiry'])    
+@meta.sig((IFunction[Side],), IOrderGenerator)
+class Side_Factory(object):
+    
+    def __init__(self, 
+                 expiry = ops.constant(10), 
+                 factory = _limit.Side_Factory()):
+        self.expiry = expiry
+        self.factory = factory
+        
+    _properties = {
+        'expiry'  : types.IFunction[float],
+        'factory' : meta.function((IFunction[Side],), IOrderGenerator)
+    }
+    
+    def __call__(self, side):
+        return Factory(self.expiry, self.factory(side))
 
 LimitOrderFactorySignature = meta.function((types.Side,), meta.function((types.Price, types.Volume), types.IOrder))
 

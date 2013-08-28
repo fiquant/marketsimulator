@@ -22,6 +22,7 @@ class side:
     ImmediateOrCancel = Side_ImmediateOrCancel
     Peg = Side_Peg
     StopLoss = Side_StopLoss
+    WithExpiry = Side_WithExpiry
     
 class sideprice:
     Limit = SidePrice_Limit
