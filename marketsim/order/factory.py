@@ -21,6 +21,7 @@ class side:
     Iceberg = Side_Iceberg
     ImmediateOrCancel = Side_ImmediateOrCancel
     Peg = Side_Peg
+    StopLoss = Side_StopLoss
     
 class sideprice:
     Limit = SidePrice_Limit

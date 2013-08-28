@@ -1,6 +1,8 @@
-from marketsim import Side, types, combine, registry, context, bind, observable, event, meta, _
+from marketsim import ops, Side, types, combine, registry, context, bind, observable, event, meta, _
 from .. import _market 
 import _meta
+
+from marketsim.types import *
 
 class StopLoss(_meta.Base):
     
@@ -54,3 +56,21 @@ class Factory(types.IOrderGenerator): # in fact it is IPersistentOrderGenerator
         proto = self.inner()
         return StopLoss(proto, maxloss) \
             if maxloss is not None and proto is not None else None 
+
+@registry.expose(['Stoploss'])    
+@sig((IFunction[Side],), IOrderGenerator)
+class Side_Factory(object):
+    
+    def __init__(self, 
+                 maxloss = ops.constant(0.1), 
+                 factory = _market.Side_Factory()):
+        self.maxloss = maxloss
+        self.factory = factory
+        
+    _properties = {
+        'maxloss':  IFunction[float],
+        'factory' : meta.function((IFunction[Side],), IOrderGenerator)
+    }
+    
+    def __call__(self, side):
+        return Factory(self.maxloss, self.factory(side))

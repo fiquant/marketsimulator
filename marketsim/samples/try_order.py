@@ -49,12 +49,12 @@ def Orders(ctx):
                             linear_signal), 
                          "signalpeg"), 
   
-        ctx.makeTrader_A(strategy.Generic(
-                            order.factory.StopLoss(
+        ctx.makeTrader_A(strategy.Signal(
+                            order.factory.side.StopLoss(
                                 const(0.1),
-                                order.factory.Market(
-                                    side = parts.side.Signal(linear_signal), 
-                                    volume = const(1)))), 
+                                order.factory.side.Market(
+                                    volume = const(1))),
+                            linear_signal), 
                          "signalstoploss"), 
    
         ctx.makeTrader_A(strategy.Signal(
