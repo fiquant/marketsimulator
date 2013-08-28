@@ -1,4 +1,4 @@
-from marketsim import registry, context, request, _, event, Event, types, ops
+from marketsim import registry, context, request, _, event, types, ops
 from marketsim.types import *
 
 import _meta

@@ -1,5 +1,5 @@
 import random
-from marketsim import Event, request, order, _, trader, scheduler, orderbook, mathutils, meta, registry, types, event
+from marketsim import event, request, order, _, trader, scheduler, orderbook, mathutils, meta, registry, types, event
 from marketsim.types import *
 from _wrap import wrapper2
 
@@ -36,7 +36,7 @@ class _Canceller_Impl(types.ISingleAssetStrategy):
         self._eventGen = scheduler.Timer(self.cancellationIntervalDistr)
         self._myTrader = trader.SingleProxy()
         self._book = orderbook.OfTrader(self._myTrader)
-        self.on_order_created = Event()
+        self.on_order_created = event.Event()
         
     _internals = ['_myTrader']
 

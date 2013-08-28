@@ -1,4 +1,4 @@
-from marketsim import (event, bind, scheduler, meta, types, Event, 
+from marketsim import (event, bind, scheduler, meta, types, 
                        defs, _, ops, registry, orderbook, mathutils)
 
 from _orderbook import MidPrice

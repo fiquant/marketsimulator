@@ -1,5 +1,5 @@
 from marketsim import (request, trader, orderbook, event, _, Side, order, types, mathutils, 
-                       scheduler, ops, Event, observable, registry, combine)
+                       scheduler, ops, observable, registry, combine)
 
 from marketsim.types import *
 from .._basic import Strategy

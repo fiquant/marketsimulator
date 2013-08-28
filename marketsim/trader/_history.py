@@ -1,4 +1,4 @@
-from marketsim import Event, _, Side, event, request
+from marketsim import event, _, Side, event, request
 from collections import OrderedDict, defaultdict, namedtuple
 from itertools import ifilter
 from operator import attrgetter
@@ -15,7 +15,7 @@ class TraderHistory_Impl(Base):
         self.matched = OrderedDict()
         self.pending = OrderedDict()
         self.cancelled = OrderedDict()
-        self.allCancelled = Event()
+        self.allCancelled = event.Event()
         self.amount = 0
 
     def bind(self, context):

@@ -1,4 +1,4 @@
-from marketsim import types, Event, event, timeserie, event, _
+from marketsim import types, event, timeserie, event, _
 
 ORDER_PROCESSING_TIME = 1e-8
 

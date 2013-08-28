@@ -1,4 +1,4 @@
-from marketsim import types, Event, context
+from marketsim import types, context
 
 # TODO: inheritance like:
 #        Proxy -> ITraderOpt

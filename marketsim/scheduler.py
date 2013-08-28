@@ -1,5 +1,5 @@
 import heapq, threading, collections, time, sys
-from marketsim import types, Event, _, meta
+from marketsim import types,  _, meta, event
 import datetime
 
 class stat(collections.namedtuple('stat', ['events_processed', 'events_rate', 'processing_time'])):
@@ -153,37 +153,4 @@ def current():
 """ Global object representing simulation clock.
 """
 
-class Timer(Event):
-    """ Represents a repeating action. 
-    
-        Parameters:
-        
-        *intervalFunc*
-            intervals of time between moments when subscribed listeners are to be called  
-    """
-
-    def __init__(self, intervalFunc):
-        Event.__init__(self)
-        self.intervalFunc = intervalFunc
-        self._cancelled = False
-        
-    def bind(self, context):
-        self._scheduler = context.world
-        self.schedule()
-        
-    _properties = { 'intervalFunc' : types.IFunction[float] }
-        
-    def schedule(self):
-        self._scheduler.scheduleAfter(self.intervalFunc(), _(self)._wakeUp)
-        
-    def reset(self):
-        self.schedule()
-        
-    def _wakeUp(self):
-        if not self._cancelled:
-            self.fire(self)
-            self.schedule()
-
-    def cancel(self):
-        self._cancelled = True
-
+Timer = event.Every

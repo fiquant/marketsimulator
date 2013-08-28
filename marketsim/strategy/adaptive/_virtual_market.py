@@ -1,4 +1,4 @@
-from marketsim import (orderbook, Event, Side, request, registry, types, meta, _, ops, event)
+from marketsim import (orderbook, event, Side, request, registry, types, meta, _, ops, event)
 
 from .._basic import Strategy, Base
 from .._wrap import wrapper2
@@ -11,7 +11,7 @@ class _VirtualMarket_Impl(types.IAccount):
     def __init__(self):
         self._balance = 0
         self._position = 0
-        self.on_traded = Event()
+        self.on_traded = event.Event()
         self.orderBook = orderbook.OfTrader()
         event.subscribe(self.inner.on_order_created, _(self).onOrderCreated, self)
         

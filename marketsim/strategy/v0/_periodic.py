@@ -1,5 +1,5 @@
 from marketsim import (registry, meta, _, types, Side, mathutils, order, 
-                       Event, event, ops, scheduler)
+                       event, ops, scheduler)
 from marketsim.types import *
 
 from .._basic import Strategy
@@ -57,6 +57,6 @@ exec  wrapper2("Periodic",
                          
              """,
               [('orderFactory',         'order.MarketFactory',                  'Side -> Volume -> IOrder'),
-               ('eventGen',             'None',                                 'Event'),
+               ('eventGen',             'None',                                 'IEvent'),
                ('volumeFunc',           'mathutils.rnd.expovariate(1.)',        '() -> Volume'),
                ('sideFunc',             'ops.constant(Side.Sell)',              '() -> Side')], register=False)

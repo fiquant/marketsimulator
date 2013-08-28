@@ -1,4 +1,4 @@
-from marketsim import Event, _, Side, types, meta, timeserie, context
+from marketsim import event, _, Side, types, meta, timeserie, context
 
 from _history import TraderHistory
 
@@ -15,13 +15,13 @@ class Base(timeserie.Holder):
         # if a trader buys P&L falls
         self._PnL = PnL
         # event to be fired when an order has been sent
-        self.on_order_sent = Event()
+        self.on_order_sent = event.Event()
         # event to be fired when an order issued by the trader has been matched
-        self.on_order_matched = Event()
+        self.on_order_matched = event.Event()
         # event to be fired when an order issued by the trader has been cancelled
-        self.on_order_disposed = Event()
+        self.on_order_disposed = event.Event()
         # event to be fired when a trader's is traded; to be removed
-        self.on_traded = Event()
+        self.on_traded = event.Event()
         self.reset()
         
     def updateContext(self, context):

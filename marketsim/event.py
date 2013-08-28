@@ -1,11 +1,8 @@
-from marketsim import bind, meta, context
+from marketsim import bind, meta, context, types, _
             
 from blist import sorteddict
 
-class IEvent(object):
-    pass
-
-class Event(IEvent):
+class Event(types.IEvent):
     """ Multicast event
     
     Keeps a set of callable listeners 
@@ -204,4 +201,37 @@ def subscribe(event, listener, target = None, ctx = None):
             
     return subscription
             
+class Every(Event):
+    """ Represents a repeating action. 
+    
+        Parameters:
         
+        *intervalFunc*
+            intervals of time between moments when subscribed listeners are to be called  
+    """
+
+    def __init__(self, intervalFunc):
+        Event.__init__(self)
+        self.intervalFunc = intervalFunc
+        self._cancelled = False
+        
+    def bind(self, context):
+        self._scheduler = context.world
+        self.schedule()
+        
+    _properties = { 'intervalFunc' : types.IFunction[float] }
+        
+    def schedule(self):
+        self._scheduler.scheduleAfter(self.intervalFunc(), _(self)._wakeUp)
+        
+    def reset(self):
+        self.schedule()
+        
+    def _wakeUp(self):
+        if not self._cancelled:
+            self.fire(self)
+            self.schedule()
+
+    def cancel(self):
+        self._cancelled = True
+ 

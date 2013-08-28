@@ -1,4 +1,4 @@
-from marketsim import registry, types, Event, prop, bind, context, Side
+from marketsim import registry, types, prop, bind, context, Side
 
 from marketsim.trader._proxy import SingleProxy
 

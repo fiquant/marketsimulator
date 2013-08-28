@@ -2,12 +2,13 @@ import marketsim
 from marketsim import Side, bind
 from marketsim.constraints import *
 from marketsim.meta import *
-from marketsim import event
-from marketsim.event import IEvent
 
 Price = float #non_negative
 Volume = float #non_negative
 TimeInterval = float #non_negative
+
+class IEvent(object):
+    pass
 
 class IOrderGenerator(object):
     # should provide method __call__(self) -> Order

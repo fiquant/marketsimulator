@@ -1,4 +1,4 @@
-from marketsim import ops, types, event, _, getLabel, Event, registry
+from marketsim import ops, types, event, _, getLabel, registry
 
 import fold
 import blist

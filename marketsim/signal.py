@@ -1,5 +1,5 @@
 import random
-from marketsim import _, Event, meta, types, ops, mathutils, registry, scheduler, event
+from marketsim import _,  meta, types, ops, mathutils, registry, scheduler, event
 
 @registry.expose(['Random walk'])
 class RandomWalk(ops.Observable[float]):

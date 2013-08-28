@@ -1,7 +1,7 @@
 import heapq
 import math
 
-from marketsim import Event, _, types, ops
+from marketsim import  _, types, ops
 
 class BestPrice(ops.Observable[float]):
     

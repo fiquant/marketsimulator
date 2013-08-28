@@ -1,4 +1,4 @@
-from marketsim import registry, request, context, event, _, Event, combine, ops, types
+from marketsim import registry, request, context, event, _, combine, ops, types
 from marketsim.types import *
 
 import _ioc

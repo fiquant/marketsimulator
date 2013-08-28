@@ -1,4 +1,4 @@
-from marketsim import meta, Side, Event, _, types, event, getLabel, mathutils, ops
+from marketsim import meta, Side, event, _, types, event, getLabel, mathutils, ops
 
 from _computed import IndicatorBase
 from marketsim.trader._proxy import SingleProxy
@@ -74,12 +74,12 @@ class volume_traded(ops.Function[float]):
 
 #### ------------------------------------------------------- Events
 
-class OnTraded(Event):
+class OnTraded(event.Event):
     """ Multicast event that is fired once a trade is done by *trader*
     """
 
     def __init__(self, trader = None):
-        Event.__init__(self)
+        event.Event.__init__(self)
         self.trader = trader if trader else SingleProxy()
         
     def bind(self, ctx):
@@ -87,12 +87,12 @@ class OnTraded(Event):
         
     _properties = { 'trader' : types.ITrader }
     
-class OnOrderMatched(Event):
+class OnOrderMatched(event.Event):
     """ Multicast event that is fired once a trade is done by *trader*
     """
 
     def __init__(self, trader = None):
-        Event.__init__(self)
+        event.Event.__init__(self)
         self.trader = trader if trader else SingleProxy()
         
     def bind(self, ctx):

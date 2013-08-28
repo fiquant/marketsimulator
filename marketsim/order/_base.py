@@ -1,4 +1,4 @@
-from marketsim import Event, types
+from marketsim import types
 
 class HasVolumeBase(object):
 

@@ -1,4 +1,4 @@
-from marketsim import (bind, event, Event, getLabel, Side, scheduler, ops,
+from marketsim import (bind, event, getLabel, Side, scheduler, ops,
                        types, meta, mathutils, ops, registry,  _)
 
 import marketsim
@@ -26,7 +26,7 @@ class IndicatorBase_Impl(object):
     def label(self):
         return self._dataSource.label
     
-    _properties = [ ('eventSource' , Event) ]
+    _properties = [ ('eventSource' , types.IEvent) ]
     
     @property
     def eventSource(self):

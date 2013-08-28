@@ -1,4 +1,4 @@
-from marketsim import Side, Event
+from marketsim import Side
 
 from _market import Market, MarketFactory
 from _limit import Limit, LimitFactory, AdaptLimit

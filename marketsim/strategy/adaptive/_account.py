@@ -1,4 +1,4 @@
-from marketsim import (trader, Side, Event, order, orderbook, scheduler, observable, order, 
+from marketsim import (trader, Side, event, order, orderbook, scheduler, observable, order, 
                        request, registry, types, meta, _, ops, event)
 
 from .._basic import Strategy
@@ -12,7 +12,7 @@ class _Account_Impl(types.IAccount):
     def __init__(self):
         event.subscribe(self.inner.on_order_created, _(self).onOrderCreated, self)
         event.subscribe(observable.OnOrderMatched(), _(self)._onOrderMatched, self)
-        self.on_traded = Event()
+        self.on_traded = event.Event()
         self.orderBook = orderbook.OfTrader()
         self._balance = 0
         self._position = 0

@@ -1,4 +1,4 @@
-from marketsim import (meta, Event, types, context, Side, event, scheduler, 
+from marketsim import (meta, types, context, Side, event, scheduler, 
                        mathutils, getLabel, registry, ops, defs, _, orderbook)
 
 from _computed import IndicatorBase

@@ -1,4 +1,4 @@
-from marketsim import types, registry, Event
+from marketsim import types, registry, event
 
 class Base(object):
     
@@ -14,7 +14,7 @@ class Strategy(Base, types.ISingleAssetStrategy):
     
     def __init__(self):
         Base.__init__(self)
-        self.on_order_created = Event()
+        self.on_order_created = event.Event()
 
     def _send(self, order, unused = None):
         self.on_order_created.fire(order, self)
@@ -29,7 +29,7 @@ class MultiAssetStrategy(Base, types.IMultiAssetStrategy):
     
     def __init__(self):
         Base.__init__(self)
-        self.on_order_created = Event()
+        self.on_order_created = event.Event()
 
 @registry.expose(['Empty']) 
 class Empty(Strategy):

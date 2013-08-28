@@ -1,4 +1,4 @@
-from marketsim import ops, types, event, Side, _, Event
+from marketsim import ops, types, event, Side, _
 
 def correct_volume(x):
     return None if x is None or abs(x) < 1 else int(x)
@@ -49,16 +49,15 @@ def correct_side(x):
 #     #print (tmpl + pdefs + trailer) % locals()
 #     exec (tmpl + pdefs + trailer) % locals() in ctx
 
-def subscribe_if_observable(source, target, ctx):
-    if isinstance(source, Event):
-        event.subscribe(source, target, ctx)
+def subscribe_if_observable(source, target):
+    if isinstance(source, types.IEvent):
+        event.subscribe(source, _(target).fire, target)
 
 class SideBase(object): 
     
     def __init__(self, side):
         self.side = side
-        if isinstance(side, Event):
-            event.subscribe(side, _(self).fire, self)
+        subscribe_if_observable(side, self)
             
     def __call__(self):
         side = self.side()
@@ -75,8 +74,7 @@ class PriceBase(object):
     
     def __init__(self, price = ops.constant(100)):
         self.price = price
-        if isinstance(price, Event):
-            event.subscribe(price, _(self).fire, self)
+        subscribe_if_observable(price, self)
             
     def __call__(self):
         price = self.price()
@@ -94,8 +92,7 @@ class VolumeBase(object):
     
     def __init__(self, volume = ops.constant(1)):
         self.volume = volume
-        if isinstance(volume, Event):
-            event.subscribe(volume, _(self).fire, self)
+        subscribe_if_observable(volume, self)
             
     def __call__(self):
         volume = self.volume()
@@ -147,8 +144,7 @@ class SignedVolume(ops.Observable[types.SideVolume]):
                  signedVolume = ops.constant(1.)):
         ops.Observable[types.SideVolume].__init__(self)
         self.signedVolume = signedVolume
-        if isinstance(signedVolume, Event):
-            event.subscribe(signedVolume, _(self).fire, self)
+        subscribe_if_observable(signedVolume, self)
             
     
             
@@ -173,12 +169,9 @@ class SidePriceVolume(ops.Observable[types.SidePriceVolume]):
         self.side = side 
         self.price = price 
         self.volume = volume
-        if isinstance(side, Event):
-            event.subscribe(side, _(self).fire, self)
-        if isinstance(price, Event):
-            event.subscribe(price, _(self).fire, self)
-        if isinstance(volume, Event):
-            event.subscribe(volume, _(self).fire, self)
+        subscribe_if_observable(side, self)
+        subscribe_if_observable(price, self)
+        subscribe_if_observable(volume, self)
             
     def __call__(self):
         side = correct_side(self.side())
@@ -208,10 +201,8 @@ class SideBudget(ops.Observable[types.SideBudget]):
         ops.Observable[types.SideBudget].__init__(self)
         self.side = side 
         self.budget = budget
-        if isinstance(side, Event):
-            event.subscribe(side, _(self).fire, self)
-        if isinstance(budget, Event):
-            event.subscribe(budget, _(self).fire, self)
+        subscribe_if_observable(side, self)
+        subscribe_if_observable(budget, self)
             
     def __call__(self):
         side = correct_side(self.side())

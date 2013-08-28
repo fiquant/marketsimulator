@@ -1,4 +1,4 @@
-from marketsim import Event
+from marketsim import event
 
 """ Appends *callback* into collections of listeners for 
     a change of property named *propname* of object *obj*
@@ -8,7 +8,7 @@ def OnChanged(obj, propname, callback):
         obj._on_property_changed = {}
         
     if propname not in obj._on_property_changed:
-        obj._on_property_changed[propname] = Event()
+        obj._on_property_changed[propname] = event.Event()
         
         if '_new_property_changed_listener_added' in dir(obj):
             obj._new_property_changed_listener_added(propname)
