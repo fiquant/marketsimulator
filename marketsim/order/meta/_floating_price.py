@@ -48,7 +48,7 @@ class Factory(types.IPersistentOrderGenerator):
     }
     
     def __call__(self):
-        proto = self.factory(ops.constant(self.price()))()
+        proto = self.factory(ops.constant(0))()
         return FloatingPrice(proto, self.price) if proto is not None else None
 
 @registry.expose(['Floating price'])
