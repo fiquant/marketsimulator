@@ -100,62 +100,31 @@ def Orders(ctx):
                          "icebergpeg"), 
    
         ctx.makeTrader_A(strategy.Signal(
-                            event.Every(ops.constant(1.)),
+                            event.Every(ops.constant(10.)),
                             order.factory.side.Peg(
                                 order.factory.side_price.Iceberg(const(1),
                                     order.factory.side_price.Limit(const(3)))),
                             Interlacing()), 
                          "pegiceberg"), 
-  
-#         ctx.makeTrader_A(strategy.Generic(
-#                                 order.factory.Peg(
-#                                     order.meta._iceberg.Price_Factory(
-#                                         const(1),
-#                                         order._limit.Price_Factory(
-#                                             side = InterlacingSide(),
-#                                             volume = const(10)))),
-#                             event.Every(const(10))), 
-#                          "pegiceberg"), 
-#    
-#         ctx.makeTrader_A(strategy.Generic(
-#                             order.factory.Peg(
-#                                 order._limit.Price_Factory(
-#                                     side = InterlacingSide(),
-#                                     volume = const(10))),
-#                             event.Every(const(10))), 
-#                          "noise_peg"), 
-#   
-#         ctx.makeTrader_A(strategy.Generic(
-#                             order.factory.WithExpiry(
-#                                 ops.constant(10),
-#                                 order.factory.Peg(
-#                                     order.meta._iceberg.Price_Factory(
-#                                         const(1),
-#                                         order._limit.Price_Factory(
-#                                             side = InterlacingSide(),
-#                                             volume = const(10))))),
-#                             event.Every(const(10))), 
-#                          "pegicebergwithexpiry"), 
-#    
-#         ctx.makeTrader_A(strategy.Generic(
-#                             order.factory.WithExpiry(
-#                                 ops.constant(0.1),
-#                                 order.factory.Iceberg(
-#                                     const(1),
-#                                     order.factory.Peg(
-#                                         order._limit.Price_Factory(
-#                                             side = InterlacingSide(),
-#                                             volume = const(10))))),
-#                             event.Every(const(10))), 
-#                          "icebergpeg"), 
-#    
-#         ctx.makeTrader_A(strategy.Generic(
-#                             order.factory.WithExpiry(
-#                                 ops.constant(0.1),
-#                                 order.factory.Peg(
-#                                     order._limit.Price_Factory(
-#                                         side = InterlacingSide(),
-#                                         volume = const(10)))),
-#                             event.Every(const(10))), 
-#                          "noise_pegexpiry"), 
+
+        ctx.makeTrader_A(strategy.Signal(
+                            event.Every(ops.constant(3.)),
+                            order.factory.side.WithExpiry(
+                                ops.constant(3.),
+                                order.factory.side.Peg(
+                                    order.factory.side_price.Iceberg(const(1),
+                                        order.factory.side_price.Limit(const(3))))),
+                            Interlacing()), 
+                         "peg iceberg expiry"), 
+
+        ctx.makeTrader_A(strategy.Signal(
+                            event.Every(ops.constant(10.)),
+                            order.factory.side.WithExpiry(
+                                ops.constant(10.),
+                                order.factory.side.Iceberg(
+                                    const(1),
+                                    order.factory.side.Peg(
+                                        order.factory.side_price.Limit(const(1))))),
+                            Interlacing()), 
+                         "iceberg peg expiry"), 
     ]    
