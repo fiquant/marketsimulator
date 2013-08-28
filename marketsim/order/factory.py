@@ -20,6 +20,7 @@ class side:
     FloatingPrice = Side_FloatingPrice
     Iceberg = Side_Iceberg
     ImmediateOrCancel = Side_ImmediateOrCancel
+    Peg = Side_Peg
     
 class sideprice:
     Limit = SidePrice_Limit

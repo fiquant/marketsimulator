@@ -79,7 +79,7 @@ class Side_Factory(object):
     def __call__(self, side):
         return Factory(self.lotSize, self.factory(side))
     
-class Price_Factory(IFunction[IOrderGenerator, float]):
+class Price_Factory(IFunction[IOrderGenerator, IFunction[float]]):
     
     def __init__(self, 
                  lotSize = ops.constant(1), 
@@ -89,12 +89,8 @@ class Price_Factory(IFunction[IOrderGenerator, float]):
         
     _properties = {
         'lotSize' : IFunction[float],
-        'factory' : IFunction[IOrderGenerator, float]
+        'factory' : IFunction[IOrderGenerator, IFunction[float]]
     }
-        
-    def create(self, price):
-        lotSize = self.lotSize()
-        if lotSize is None:
-            return None
-        proto = self.factory.create(price)
-        return Iceberg(lotSize, proto) if proto is not None else None
+    
+    def __call__(self, price):
+        return Factory(self.lotSize, self.factory(price))

@@ -43,6 +43,12 @@ def Orders(ctx):
                             linear_signal), 
                          "signalioc"), 
   
+        ctx.makeTrader_A(strategy.Signal(
+                            order.factory.side.Peg(
+                                order.factory.side_price.Limit(const(1))),
+                            linear_signal), 
+                         "signalpeg"), 
+  
         ctx.makeTrader_A(strategy.Generic(
                             order.factory.StopLoss(
                                 const(0.1),

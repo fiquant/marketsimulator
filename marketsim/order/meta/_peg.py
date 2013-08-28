@@ -32,12 +32,30 @@ class Factory(types.IPersistentOrderGenerator):
         self.factory = factory
         
     _properties = { # IPersistentOrderFactory[Price]
-        'factory' : types.IFunction[IOrderGenerator, float] 
+        'factory' : IFunction[IOrderGenerator, IFunction[float]]
     }
     
     def bind(self, ctx):
         self._ctx = ctx.context.copy()
         
     def __call__(self):
-        proto = self.factory.create(price = 0)
+        proto = self.factory(ops.constant(0))()
         return Peg(proto) if proto is not None else None
+
+@registry.expose(['Peg'])
+@sig((IFunction[Side],), IOrderGenerator)
+class Side_Factory(object):
+    
+    def __init__(self, 
+                 factory = _limit.Side_Price_Factory()):
+        self.factory = factory
+        
+    _properties = { # IPersistentOrderFactory[Price]
+        'factory' : IFunction[IFunction[IOrderGenerator, 
+                                        IFunction[float]], 
+                              IFunction[Side]] 
+    }
+    
+    def __call__(self, side):
+        return Factory(self.factory(side))
+    

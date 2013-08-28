@@ -44,11 +44,11 @@ class Factory(types.IPersistentOrderGenerator):
         
     _properties = { # IPersistentOrderFactory[Price]
         'price'   : types.IObservable[float],
-        'factory' : types.IFunction[IOrderGenerator, float] 
+        'factory' : types.IFunction[IOrderGenerator, IFunction[float]] 
     }
     
     def __call__(self):
-        proto = self.factory.create(price = self.price())
+        proto = self.factory(ops.constant(self.price()))()
         return FloatingPrice(proto, self.price) if proto is not None else None
 
 @registry.expose(['Floating price'])
@@ -63,7 +63,9 @@ class Side_Factory(object):
         
     _properties = { # IPersistentOrderFactory[Price]
         'price'   : IObservable[float],
-        'factory' : IFunction[IFunction[IOrderGenerator, float], IFunction[Side]] 
+        'factory' : IFunction[IFunction[IOrderGenerator, 
+                                        IFunction[float]], 
+                              IFunction[Side]] 
     }
     
     def __call__(self, side):
