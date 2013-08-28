@@ -35,6 +35,6 @@ _wrap.strategy(Signal, ['Periodic', 'Signal'],
              [
               ('eventGen',  'event.Every(mathutils.rnd.expovariate(1.))', 'IEvent'),
               ("orderFactory",  "order.factory.side.Market()",  'IFunction[Side] -> IOrderGenerator'),             
-              ('signal',        'marketsim.signal.RandomWalk()','IObservable[float]'),  
+              ('signal',        'marketsim.signal.RandomWalk()','IFunction[float]'),  
               ('threshold',     '0.7',                          'non_negative'),
              ], globals())

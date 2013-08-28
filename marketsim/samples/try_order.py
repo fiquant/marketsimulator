@@ -2,7 +2,7 @@ import sys
 sys.path.append(r'../..')
 
 from marketsim import (Side, mathutils, parts, signal, strategy, observable, ops, order, event)
-from common import expose, InterlacingSide
+from common import expose, Interlacing, InterlacingSide
 
 @expose("Various Orders", __name__)
 def Orders(ctx):
@@ -49,12 +49,12 @@ def Orders(ctx):
                          "signalioc"), 
   
         ctx.makeTrader_A(strategy.Signal(
-                            event.Every(ops.constant(1.)),
+                            event.Every(ops.constant(10.)),
                             order.factory.side.Peg(
                                 order.factory.side_price.Limit(const(1))),
                             linear_signal), 
                          "signalpeg"), 
-  
+   
         ctx.makeTrader_A(strategy.Signal(
                             event.Every(ops.constant(1.)),
                             order.factory.side.StopLoss(
@@ -65,106 +65,97 @@ def Orders(ctx):
                          "signalstoploss"), 
    
         ctx.makeTrader_A(strategy.Signal(
-                            event.Every(ops.constant(1.)),
+                            event.Every(ops.constant(10.)),
                             order.factory.side.Limit(
                                 price = midPrice, 
                                 volume = const(1)),
                             linear_signal), 
                          "signallimit"), 
     
-        ctx.makeTrader_A(strategy.Generic(
-                            order.factory.Limit(
-                                side = InterlacingSide(), 
-                                price = midPrice, 
+        ctx.makeTrader_A(strategy.Signal(
+                            event.Every(const(10)),
+                            order.factory.side.Limit(
+                                price = const(120), 
                                 volume = const(1)),
-                            event.Every(const(1))), 
+                            Interlacing()),
                          "noiselimitmarket"), 
     
-        ctx.makeTrader_A(strategy.Generic(
-                            order.factory.WithExpiry(
-                                const(100), 
-                                order.factory.Limit(
-                                    side = InterlacingSide(), 
-                                    price = midPrice, 
+        ctx.makeTrader_A(strategy.Signal(
+                            event.Every(const(10)),
+                            order.factory.side.WithExpiry(
+                                const(10),
+                                order.factory.side.Limit(
+                                    price = const(120), 
                                     volume = const(1))),
-                            event.Every(const(1))), 
+                            Interlacing()),
                          "noiselimitexpiry"), 
    
-        ctx.makeTrader_A(strategy.Generic(
-                            order.factory.Iceberg(
+        ctx.makeTrader_A(strategy.Signal(
+                            event.Every(ops.constant(10.)),
+                            order.factory.side.Iceberg(
                                 const(1),
-                                order.factory.Limit(
-                                    side = InterlacingSide(),
-                                    price = midPrice, 
-                                    volume = const(10))),
-                            event.Every(const(10))), 
-                         "noiseiceberglimit"), 
+                                order.factory.side.Peg(
+                                    order.factory.side_price.Limit(const(1)))),
+                            Interlacing()), 
+                         "icebergpeg"), 
    
         ctx.makeTrader_A(strategy.Signal(
                             event.Every(ops.constant(1.)),
-                            order.factory.side.FixedBudget(budget = const(450)),
-                            linear_signal), 
-                         "signalfixedbudget"), 
-             
-        ctx.makeTrader_A(strategy.Generic(
-                            order.factory.Iceberg(
-                                const(1),
-                                order.factory.Peg(
-                                    order._limit.Price_Factory(
-                                        side = InterlacingSide(),
-                                        volume = const(10)))),
-                            event.Every(const(10))), 
-                         "icebergpeg"), 
-   
-        ctx.makeTrader_A(strategy.Generic(
-                                order.factory.Peg(
-                                    order.meta._iceberg.Price_Factory(
-                                        const(1),
-                                        order._limit.Price_Factory(
-                                            side = InterlacingSide(),
-                                            volume = const(10)))),
-                            event.Every(const(10))), 
+                            order.factory.side.Peg(
+                                order.factory.side_price.Iceberg(const(1),
+                                    order.factory.side_price.Limit(const(3)))),
+                            Interlacing()), 
                          "pegiceberg"), 
-   
-        ctx.makeTrader_A(strategy.Generic(
-                            order.factory.Peg(
-                                order._limit.Price_Factory(
-                                    side = InterlacingSide(),
-                                    volume = const(10))),
-                            event.Every(const(10))), 
-                         "noise_peg"), 
   
-        ctx.makeTrader_A(strategy.Generic(
-                            order.factory.WithExpiry(
-                                ops.constant(10),
-                                order.factory.Peg(
-                                    order.meta._iceberg.Price_Factory(
-                                        const(1),
-                                        order._limit.Price_Factory(
-                                            side = InterlacingSide(),
-                                            volume = const(10))))),
-                            event.Every(const(10))), 
-                         "pegicebergwithexpiry"), 
-   
-        ctx.makeTrader_A(strategy.Generic(
-                            order.factory.WithExpiry(
-                                ops.constant(0.1),
-                                order.factory.Iceberg(
-                                    const(1),
-                                    order.factory.Peg(
-                                        order._limit.Price_Factory(
-                                            side = InterlacingSide(),
-                                            volume = const(10))))),
-                            event.Every(const(10))), 
-                         "icebergpeg"), 
-   
-        ctx.makeTrader_A(strategy.Generic(
-                            order.factory.WithExpiry(
-                                ops.constant(0.1),
-                                order.factory.Peg(
-                                    order._limit.Price_Factory(
-                                        side = InterlacingSide(),
-                                        volume = const(10)))),
-                            event.Every(const(10))), 
-                         "noise_pegexpiry"), 
+#         ctx.makeTrader_A(strategy.Generic(
+#                                 order.factory.Peg(
+#                                     order.meta._iceberg.Price_Factory(
+#                                         const(1),
+#                                         order._limit.Price_Factory(
+#                                             side = InterlacingSide(),
+#                                             volume = const(10)))),
+#                             event.Every(const(10))), 
+#                          "pegiceberg"), 
+#    
+#         ctx.makeTrader_A(strategy.Generic(
+#                             order.factory.Peg(
+#                                 order._limit.Price_Factory(
+#                                     side = InterlacingSide(),
+#                                     volume = const(10))),
+#                             event.Every(const(10))), 
+#                          "noise_peg"), 
+#   
+#         ctx.makeTrader_A(strategy.Generic(
+#                             order.factory.WithExpiry(
+#                                 ops.constant(10),
+#                                 order.factory.Peg(
+#                                     order.meta._iceberg.Price_Factory(
+#                                         const(1),
+#                                         order._limit.Price_Factory(
+#                                             side = InterlacingSide(),
+#                                             volume = const(10))))),
+#                             event.Every(const(10))), 
+#                          "pegicebergwithexpiry"), 
+#    
+#         ctx.makeTrader_A(strategy.Generic(
+#                             order.factory.WithExpiry(
+#                                 ops.constant(0.1),
+#                                 order.factory.Iceberg(
+#                                     const(1),
+#                                     order.factory.Peg(
+#                                         order._limit.Price_Factory(
+#                                             side = InterlacingSide(),
+#                                             volume = const(10))))),
+#                             event.Every(const(10))), 
+#                          "icebergpeg"), 
+#    
+#         ctx.makeTrader_A(strategy.Generic(
+#                             order.factory.WithExpiry(
+#                                 ops.constant(0.1),
+#                                 order.factory.Peg(
+#                                     order._limit.Price_Factory(
+#                                         side = InterlacingSide(),
+#                                         volume = const(10)))),
+#                             event.Every(const(10))), 
+#                          "noise_pegexpiry"), 
     ]    

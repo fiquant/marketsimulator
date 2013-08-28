@@ -29,6 +29,7 @@ class sideprice:
     
 class side_price:
     Limit = Side_Price_Limit
+    Iceberg = Side_Price_Iceberg
     
 class signedvolume:
     Market = SignedVolume_Market
