@@ -39,19 +39,23 @@ def Complete(ctx):
             ctx.makeTrader_A(fv_200, "t200_1"),
             ctx.makeTrader_A(fv_200.With(), "t200_2"),
     
-            ctx.makeTrader_A(strategy.FundamentalValue(order.factory.side.Market(const(1.)),
+            ctx.makeTrader_A(strategy.FundamentalValue(event.Every(ops.constant(1.)),
+                                                       order.factory.side.Market(const(1.)),
                                                        fundamentalValue=const(150.)),
                              "t150"),
             
-            ctx.makeTrader_A(strategy.MeanReversion(order.factory.side.Market(const(1.))),
+            ctx.makeTrader_A(strategy.MeanReversion(event.Every(ops.constant(1.)),
+                                                    order.factory.side.Market(const(1.))),
                              "mr_0_15"),
     
-            ctx.makeTrader_A(strategy.TwoAverages(order.factory.side.Market(const(1.)),
+            ctx.makeTrader_A(strategy.TwoAverages(event.Every(ops.constant(1.)),
+                                                  order.factory.side.Market(const(1.)),
                                                   ewma_alpha1=0.15,
                                                   ewma_alpha2=0.015),
                              label="avg+"),
 
-            ctx.makeTrader_A(strategy.TwoAverages(order.factory.side.Market(const(1.)),
+            ctx.makeTrader_A(strategy.TwoAverages(event.Every(ops.constant(1.)),
+                                                  order.factory.side.Market(const(1.)),
                                                   ewma_alpha2=0.15,
                                                   ewma_alpha1=0.015),
                              label="avg-"),

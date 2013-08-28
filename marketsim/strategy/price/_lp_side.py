@@ -14,7 +14,7 @@ class LiquidityProviderSide(types.ISingleAssetStrategy):
                             parts.price.LiquidityProvider(self.side, 
                                                           self.initialValue, 
                                                           self.priceDistr)), 
-                       event.Every(self.creationIntervalDistr))
+                       self.eventGen)
 
 _wrap.strategy(LiquidityProviderSide, ['Periodic', 'LiquidityProviderSide'],
              """ Liquidity provider for one side has followng parameters:
@@ -45,10 +45,10 @@ _wrap.strategy(LiquidityProviderSide, ['Periodic', 'LiquidityProviderSide'],
                  an order via *orderFactoryT(side)* and tells the trader to send it.
              """,
              [
+              ('eventGen',  'event.Every(mathutils.rnd.expovariate(1.))', 'IEvent'),
               ('orderFactory',          'order.factory.sideprice.Limit()',      '(IFunction[Side], IFunction[float]) -> IOrderGenerator'),
               ('side',                  'Side.Sell',                            'Side'),
               ('initialValue',          '100',                                  'Price'),
-              ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
               ('priceDistr',            'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
              ],
              globals())

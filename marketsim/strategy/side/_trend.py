@@ -12,7 +12,7 @@ class TrendFollower(types.ISingleAssetStrategy):
                             parts.side.TrendFollower(
                                             self.ewma_alpha, 
                                             self.threshold)),
-                    event.Every(self.creationIntervalDistr))
+                    self.eventGen)
 
 _wrap.strategy(TrendFollower, ['Periodic', 'TrendFollower'], 
                  """ Trend follower can be considered as a sort of a signal strategy 
@@ -40,8 +40,8 @@ _wrap.strategy(TrendFollower, ['Periodic', 'TrendFollower'],
                          (default: exponential distribution with |lambda| = 1)
                  """,
                  [
+                  ('eventGen',  'event.Every(mathutils.rnd.expovariate(1.))', 'IEvent'),
                   ("orderFactory",  "order.factory.side.Market()",  'IFunction[Side] -> IOrderGenerator'),             
                   ('ewma_alpha',             '0.15',                          'non_negative'),
-                  ('threshold',              '0.',                            'non_negative'), 
-                  ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
+                  ('threshold',              '0.',                            'non_negative'),
                  ], globals())

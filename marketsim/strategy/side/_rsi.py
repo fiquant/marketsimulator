@@ -17,15 +17,15 @@ class RSIbis(types.ISingleAssetStrategy):
                   self.orderFactory(
                             parts.side.Signal(ops.constant(50) - _.rsi, 
                                               50-self.threshold)), 
-                  event.Every(self.creationIntervalDistr))
+                  self.eventGen)
         
 _wrap.strategy(RSIbis, ['Periodic', 'RSI bis'], 
                """
                """, 
                [
+                  ('eventGen',  'event.Every(mathutils.rnd.expovariate(1.))', 'IEvent'),
                   ("orderFactory",  "order.factory.side.Market()",  'IFunction[Side] -> IOrderGenerator'),             
                   ('alpha',                 '1./14',                         'non_negative'), 
                   ('timeframe',             '1.',                            'non_negative'), 
-                  ('threshold',             '30.',                           'non_negative'), 
-                  ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
+                  ('threshold',             '30.',                           'non_negative'),
                ], globals())

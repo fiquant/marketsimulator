@@ -1,7 +1,7 @@
 from .._array import Array
 from _lp_side import LiquidityProviderSide
 from marketsim import (order, orderbook, mathutils, defs, _,
-                       types, registry, bind, meta, trader, ops)
+                       event, types, registry, bind, meta, trader, ops)
 from marketsim.types import *
 from .. import _wrap
 
@@ -9,7 +9,7 @@ class LiquidityProvider(types.ISingleAssetStrategy):
     
     def getDefinitions(self):
         return { 
-                'creationInterval': self.creationIntervalDistr, 
+                'eventGen'        : self.eventGen, 
                 'price'           : self.priceDistr, 
             }
         
@@ -17,10 +17,10 @@ class LiquidityProvider(types.ISingleAssetStrategy):
         orderBook = orderbook.OfTrader()
     
         def create(side):
-            return LiquidityProviderSide(  self.orderFactory,
+            return LiquidityProviderSide(  _.eventGen,
+                                           self.orderFactory,
                                            side, 
-                                           self.defaultValue, 
-                                           _.creationInterval, 
+                                           self.defaultValue,
                                            _.price)
     
         return Array([
@@ -51,9 +51,9 @@ _wrap.strategy(LiquidityProvider, ['Periodic', 'LiquidityProvider'],
                          (default: exponential distribution with |lambda| = 1)
                 """,  
                 [
+                 ('eventGen',  'event.Every(mathutils.rnd.expovariate(1.))', 'IEvent'),
                  ('orderFactory',          'order.factory.sideprice.Limit()',      '(IFunction[Side], IFunction[float]) -> IOrderGenerator'),
                  ('defaultValue',           '100',                                  'Price'),
-                 ('creationIntervalDistr',  'mathutils.rnd.expovariate(1.)',        '() -> TimeInterval'),
                  ('priceDistr',             'mathutils.rnd.lognormvariate(0., .1)', '() -> float'),
                 ],
                globals())

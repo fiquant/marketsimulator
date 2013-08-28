@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (order, signal, strategy, orderbook, observable, mathutils, ops)
+from marketsim import (event, order, signal, strategy, orderbook, observable, mathutils, ops)
 from common import expose, Constant
 
 @expose("Relative strength index", __name__)
@@ -37,19 +37,21 @@ def RSI(ctx):
     return [
         ctx.makeTrader_A(
                 strategy.LiquidityProvider(
+                        event.Every(ops.constant(1.)),
                         order.factory.sideprice.Limit(volume=const(4))),
                 "liquidity"),
         
-        ctx.makeTrader_A(strategy.Signal(order.factory.side.Market(), 
+        ctx.makeTrader_A(strategy.Signal(event.Every(ops.constant(1.)),
+                                         order.factory.side.Market(), 
                                          linear_signal), 
                          "signal", 
                          [(linear_signal, ctx.amount_graph)]),
     
-        ctx.makeTrader_A(strategy.RSIbis(order.factory.side.Market(one),
+        ctx.makeTrader_A(strategy.RSIbis(event.Every(ops.constant(1.)),
+                                         order.factory.side.Market(one),
                                          alpha = alpha,
                                          timeframe = 1,
-                                         threshold=threshold, 
-                                         creationIntervalDistr=one),
+                                         threshold=threshold),
                          "rsi_bis",
                          myVolume() + myRsiBis()), 
             

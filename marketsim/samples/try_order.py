@@ -17,39 +17,46 @@ def Orders(ctx):
     return [
         ctx.makeTrader_A(
                     strategy.LiquidityProvider(
-                        order.factory.sideprice.Limit(volume=const(25))), 
+                        event.Every(ops.constant(1.)),
+                        order.factory.sideprice.Limit(volume=const(35))), 
                     "liquidity"),
         
         ctx.makeTrader_A(strategy.Signal(
+                            event.Every(ops.constant(1.)),
                             order.factory.side.Market(volume = const(1)),
                             linear_signal), 
                          "signalmarket"), 
   
         ctx.makeTrader_A(strategy.Signal(
+                            event.Every(ops.constant(1.)),
                             order.factory.side.FloatingPrice(const(100),
                                 order.factory.side_price.Limit(const(1))),
                             linear_signal), 
                          "signalfloating"), 
   
         ctx.makeTrader_A(strategy.Signal(
+                            event.Every(ops.constant(1.)),
                             order.factory.side.Iceberg(const(1),
                                 order.factory.side.Limit(const(110), const(3))),
                             linear_signal), 
                          "signaliceberg"), 
   
         ctx.makeTrader_A(strategy.Signal(
+                            event.Every(ops.constant(1.)),
                             order.factory.side.ImmediateOrCancel(
                                 order.factory.side.Limit(const(120), const(1))),
                             linear_signal), 
                          "signalioc"), 
   
         ctx.makeTrader_A(strategy.Signal(
+                            event.Every(ops.constant(1.)),
                             order.factory.side.Peg(
                                 order.factory.side_price.Limit(const(1))),
                             linear_signal), 
                          "signalpeg"), 
   
         ctx.makeTrader_A(strategy.Signal(
+                            event.Every(ops.constant(1.)),
                             order.factory.side.StopLoss(
                                 const(0.1),
                                 order.factory.side.Market(
@@ -58,6 +65,7 @@ def Orders(ctx):
                          "signalstoploss"), 
    
         ctx.makeTrader_A(strategy.Signal(
+                            event.Every(ops.constant(1.)),
                             order.factory.side.Limit(
                                 price = midPrice, 
                                 volume = const(1)),
@@ -93,6 +101,7 @@ def Orders(ctx):
                          "noiseiceberglimit"), 
    
         ctx.makeTrader_A(strategy.Signal(
+                            event.Every(ops.constant(1.)),
                             order.factory.side.FixedBudget(budget = const(450)),
                             linear_signal), 
                          "signalfixedbudget"), 

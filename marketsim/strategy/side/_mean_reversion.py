@@ -11,7 +11,7 @@ class MeanReversion(types.ISingleAssetStrategy):
 
         return Generic(self.orderFactory(
                             parts.side.MeanReversion(self.ewma_alpha)), 
-                       event.Every(self.creationIntervalDistr))
+                       self.eventGen)
 
 _wrap.strategy(MeanReversion, ['Periodic', 'Mean reversion'], 
              """ Mean reversion strategy believes that asset price should return to its average value.
@@ -34,7 +34,8 @@ _wrap.strategy(MeanReversion, ['Periodic', 'Mean reversion'],
                      (default: exponential distribution with |lambda| = 1)
              """,
              [
+              ('eventGen',  'event.Every(mathutils.rnd.expovariate(1.))', 'IEvent'),
               ("orderFactory",  "order.factory.side.Market()",  'IFunction[Side] -> IOrderGenerator'),             
               ('ewma_alpha',            '0.15',                             'non_negative'),
-              ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)',    '() -> TimeInterval')], 
-               globals())
+             ], 
+             globals())

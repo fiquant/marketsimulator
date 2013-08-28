@@ -13,7 +13,7 @@ class TwoAverages(types.ISingleAssetStrategy):
                                             self.ewma_alpha1, 
                                             self.ewma_alpha2, 
                                             self.threshold)),
-                        event.Every(self.creationIntervalDistr))
+                        self.eventGen)
 
 _wrap.strategy(TwoAverages, ['Periodic', 'TwoAverages'], 
              """ Two averages strategy compares two averages of price of the same asset but
@@ -43,10 +43,10 @@ _wrap.strategy(TwoAverages, ['Periodic', 'TwoAverages'],
                      (default: exponential distribution with |lambda| = 1)                     
              """,
              [
+              ('eventGen',  'event.Every(mathutils.rnd.expovariate(1.))', 'IEvent'),
               ("orderFactory",  "order.factory.side.Market()",  'IFunction[Side] -> IOrderGenerator'),             
               ('ewma_alpha1',           '0.15',                          'non_negative'),
               ('ewma_alpha2',           '0.015',                         'non_negative'),
-              ('threshold',             '0.',                            'non_negative'), 
-              ('creationIntervalDistr', 'mathutils.rnd.expovariate(1.)', '() -> TimeInterval'),
+              ('threshold',             '0.',                            'non_negative'),
              ], 
                globals())

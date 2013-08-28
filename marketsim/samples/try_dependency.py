@@ -1,7 +1,7 @@
 import sys, pickle
 sys.path.append(r'../..')
 
-from marketsim import (parts, strategy, orderbook, trader, observable, 
+from marketsim import (event, parts, strategy, orderbook, trader, observable, 
                        veusz, ops, mathutils, timeserie, order)
 from common import expose
 
@@ -14,17 +14,20 @@ def Dependency(ctx):
 
     return [
         ctx.makeTrader_A( 
-            strategy.LiquidityProvider(order.factory.sideprice.Limit(volume = liqVol),
+            strategy.LiquidityProvider(event.Every(ops.constant(1.)),
+                                       order.factory.sideprice.Limit(volume = liqVol),
                                        defaultValue=50.), 
             "LiquidityProvider_A"),
     
         ctx.makeTrader_B( 
-            strategy.LiquidityProvider(order.factory.sideprice.Limit(volume = liqVol),
+            strategy.LiquidityProvider(event.Every(ops.constant(1.)),
+                                       order.factory.sideprice.Limit(volume = liqVol),
                                        defaultValue=150.), 
             "LiquidityProvider_B"),
     
         ctx.makeTrader_A(
             strategy.Dependency(
+                event.Every(ops.constant(1.)),
                 order.factory.side.Market(),
                 ctx.book_B, 
                 factor=2.),
@@ -32,6 +35,7 @@ def Dependency(ctx):
     
         ctx.makeTrader_B(
             strategy.Dependency(
+                event.Every(ops.constant(1.)),
                 order.factory.side.Market(),
                 ctx.book_A, 
                 factor=.5),

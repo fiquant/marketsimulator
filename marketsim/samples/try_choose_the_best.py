@@ -2,7 +2,7 @@ import sys
 sys.path.append(r'../..')
 
 from marketsim import (order, parts, signal, strategy, trader, orderbook, 
-                       timeserie, observable, veusz, mathutils, ops)
+                       event, timeserie, observable, veusz, mathutils, ops)
 
 const = ops.constant
 
@@ -26,9 +26,9 @@ def ChooseTheBest(ctx):
     
     def cross(alpha1, alpha2):
         return strategy.TwoAverages(
+                    event.Every(const(1.)),
                     order.factory.side.Market(volume = const(1.)),
-                    alpha1, alpha2,
-                    creationIntervalDistr = const(1.))
+                    alpha1, alpha2)
         
     def strategies():
         return [cross(slow_alpha, fast_alpha), cross(fast_alpha, slow_alpha)]
@@ -37,7 +37,8 @@ def ChooseTheBest(ctx):
         ctx.makeTrader_A(strategy.v0.LiquidityProvider(volumeDistr=const(45)),
                          "liquidity"),
 
-        ctx.makeTrader_A(strategy.Signal(order.factory.side.Market(volume = const(20)),
+        ctx.makeTrader_A(strategy.Signal(event.Every(const(1.)),
+                                         order.factory.side.Market(volume = const(20)),
                                          linear_signal), 
                         "signal", 
                         [(linear_signal, ctx.amount_graph)]),

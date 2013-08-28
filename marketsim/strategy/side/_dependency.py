@@ -1,4 +1,4 @@
-from marketsim import (parts, observable, types, meta, defs, _, ops,
+from marketsim import (event, parts, observable, types, meta, defs, _, ops,
                        Side, registry, orderbook, bind, order, mathutils)
 
 from .._generic import Generic
@@ -8,17 +8,11 @@ from .. import _wrap
 
 class Dependency(types.ISingleAssetStrategy):
     
-    def getDefinitions(self):
-        orderBook = orderbook.OfTrader()
-        return { 
-            'dependee' : observable.MidPrice(self.bookToDependOn),
-        }
-
     def getImpl(self):
         return Generic(
                     self.orderFactory(
                             parts.side.Dependency(self.bookToDependOn, self.factor)),
-                    _.dependee)
+                    self.eventGen)
 
 _wrap.strategy(Dependency, ['Periodic', 'Dependency'],
          """ Dependent price strategy believes that the fair price of an asset *A* 
@@ -41,6 +35,7 @@ _wrap.strategy(Dependency, ['Periodic', 'Dependency'],
                  (default: exponential distribution with |lambda| = 1)
          """,
          [
+         ('eventGen',  'event.Every(mathutils.rnd.expovariate(1.))', 'IEvent'),
           ("orderFactory",  "order.factory.side.Market()",  'IFunction[Side] -> IOrderGenerator'),             
           ('bookToDependOn','orderbook.OfTrader()',             'IOrderBook'),
           ('factor',        '1.',                               'float'),

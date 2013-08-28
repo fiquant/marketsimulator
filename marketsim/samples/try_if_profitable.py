@@ -2,7 +2,7 @@ import sys
 sys.path.append(r'../..')
 
 from marketsim import (order, parts, signal, strategy, trader, orderbook, 
-                       timeserie, observable, veusz, mathutils, ops)
+                       event, timeserie, observable, veusz, mathutils, ops)
 
 const = ops.constant
 
@@ -26,9 +26,9 @@ def TradeIfProfitable(ctx):
     
     def cross(alpha1, alpha2):
         return strategy.TwoAverages(
+                    event.Every(ops.constant(1.)),
                     order.factory.side.Market(volume = const(1.)),
-                    alpha1, alpha2, 
-                    creationIntervalDistr = const(1.))
+                    alpha1, alpha2)
     
     
     avg_plus_virt = strategy.TradeIfProfitable(cross(slow_alpha, fast_alpha), strategy.adaptive.virtualMarket)
@@ -42,6 +42,7 @@ def TradeIfProfitable(ctx):
                          "liquidity"),
 
         ctx.makeTrader_A(strategy.Signal(
+                                    event.Every(ops.constant(1.)),
                                     order.factory.side.Market(volume = const(20)),
                                     linear_signal), 
                         "signal", 

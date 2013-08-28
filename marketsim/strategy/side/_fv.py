@@ -12,8 +12,7 @@ class FundamentalValue(types.ISingleAssetStrategy):
         return Generic(
                     self.orderFactory(
                         parts.side.FundamentalValue(self.fundamentalValue)),
-                    event.Every(
-                        self.creationIntervalDistr))
+                    self.eventGen)
 
 _wrap.strategy(FundamentalValue, ['Periodic', 'Fundamental Value'], 
              """ Fundamental value strategy believes that an asset should have some specific price 
@@ -34,7 +33,7 @@ _wrap.strategy(FundamentalValue, ['Periodic', 'Fundamental Value'],
                      (default: exponential distribution with |lambda| = 1)
              """,
             [
+               ('eventGen',  'event.Every(mathutils.rnd.expovariate(1.))', 'IEvent'),
                ("orderFactory",  "order.factory.side.Market()",  'IFunction[Side] -> IOrderGenerator'),             
                ('fundamentalValue',     'ops.constant(100)',            '() -> Price'),
-               ('creationIntervalDistr','mathutils.rnd.expovariate(1.)','() -> TimeInterval')
             ], globals())

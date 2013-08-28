@@ -1,7 +1,7 @@
 import marketsim
 from marketsim.types import *
 from marketsim import (parts, order, mathutils, types, meta, defs, _, ops,
-                       registry, signal, bind, signal, ops, observable)
+                       event, registry, signal, bind, signal, ops, observable)
 from .._generic import Generic
 from .. import _wrap
 
@@ -11,14 +11,9 @@ class Signal(types.ISingleAssetStrategy):
         return Generic(
                     self.orderFactory(
                             parts.side.Signal(
-                                        _.signal, 
+                                        self.signal, 
                                         self.threshold)), 
-                    _.signal)
-        
-    def getDefinitions(self):
-        return {
-            "signal" : self.signal
-        }
+                    self.eventGen)
 
 _wrap.strategy(Signal, ['Periodic', 'Signal'], 
              """ Signal strategy listens to some discrete signal
@@ -38,6 +33,7 @@ _wrap.strategy(Signal, ['Periodic', 'Signal'],
                      (default: exponential distribution with |lambda| = 1)
              """,
              [
+              ('eventGen',  'event.Every(mathutils.rnd.expovariate(1.))', 'IEvent'),
               ("orderFactory",  "order.factory.side.Market()",  'IFunction[Side] -> IOrderGenerator'),             
               ('signal',        'marketsim.signal.RandomWalk()','IObservable[float]'),  
               ('threshold',     '0.7',                          'non_negative'),

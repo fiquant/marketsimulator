@@ -2,7 +2,7 @@ import sys
 sys.path.append(r'../..')
 
 from marketsim import (parts, signal, strategy, trader, orderbook, order, ops,
-                       timeserie, observable, veusz, mathutils)
+                       event, timeserie, observable, veusz, mathutils)
 
 const = ops.constant
 
@@ -30,7 +30,8 @@ def TrendFollower(ctx):
                                     expirationDistr=const(100))),
                              label="liquidity"),
     
-            ctx.makeTrader_A(strategy.Signal(order.factory.side.Market(const(V*2)),
+            ctx.makeTrader_A(strategy.Signal(event.Every(ops.constant(1.)),
+                                             order.factory.side.Market(const(V*2)),
                                              linear_signal), 
                             "signal", 
                             [
@@ -45,9 +46,9 @@ def TrendFollower(ctx):
                              myVolume() + myAverage(alpha)),
             
             ctx.makeTrader_A(strategy.TrendFollower(
+                                event.Every(ops.constant(1.)),
                                 order.factory.side.Market(volume = const(V)),
-                                alpha, 
-                                creationIntervalDistr = const(1.)),
+                                alpha),
                              "trendfollower_ex",
                              myVolume()), 
     ]

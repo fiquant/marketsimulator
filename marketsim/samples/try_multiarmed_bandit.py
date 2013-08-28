@@ -2,7 +2,7 @@ import sys
 sys.path.append(r'../..')
 
 from marketsim import (order, parts, signal, strategy, trader, orderbook, 
-                       timeserie,  observable, veusz, mathutils, ops)
+                       event, timeserie,  observable, veusz, mathutils, ops)
 
 const = ops.constant
 
@@ -19,9 +19,9 @@ def MultiarmedBandit(ctx):
     
     def fv(x):
         return  strategy.FundamentalValue(
+                    event.Every(ops.constant(1.)),
                     order.factory.side.Market(volume = const(1.)),
-                    fundamentalValue = const(x),
-                    creationIntervalDistr = const(1.))
+                    fundamentalValue = const(x))
                                         
     xs = range(100, 300, 50) + range(160, 190, 10)
     def strategies():
@@ -36,9 +36,9 @@ def MultiarmedBandit(ctx):
             
         ctx.makeTrader_A(        
                 strategy.FundamentalValue(
+                    event.Every(ops.constant(1.)),
                     order.factory.side.Market(volume = const(12.)),
-                    fundamentalValue = const(200),
-                    creationIntervalDistr = const(1.)),
+                    fundamentalValue = const(200)),
                 'fv 12-200'), 
 
         ctx.makeTrader_A(strategy.MultiarmedBandit(

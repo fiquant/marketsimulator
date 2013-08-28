@@ -8,7 +8,7 @@ class Noise(types.ISingleAssetStrategy):
     
     def getImpl(self):
         return Generic(self.orderFactory(parts.side.Random()), 
-                       event.Every(self.creationIntervalDistr))
+                       self.eventGen)
         
 _wrap.strategy(Noise, ['Periodic', 'Noise'], 
                  """ Noise strategy is a quite dummy strategy that randomly creates an order 
@@ -25,6 +25,6 @@ _wrap.strategy(Noise, ['Periodic', 'Noise'],
                          (default: exponential distribution with |lambda| = 1)
                  """,
                  [
-                  ("orderFactory",  "order.factory.side.Market()",  'IFunction[Side] -> IOrderGenerator'),             
-                  ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval'),
+                  ('eventGen',  'event.Every(mathutils.rnd.expovariate(1.))', 'IEvent'),
+                  ("orderFactory",  "order.factory.side.Market()",  'IFunction[Side] -> IOrderGenerator'),
                  ], globals())

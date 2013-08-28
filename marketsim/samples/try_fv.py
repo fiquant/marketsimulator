@@ -2,7 +2,7 @@ import sys
 sys.path.append(r'../..')
 
 from marketsim import (parts, strategy, trader, orderbook, order, timeserie,
-                       types, observable, veusz, ops)
+                       event, types, observable, veusz, ops)
 
 
 from common import expose, Constant
@@ -35,9 +35,9 @@ def FundamentalValue(ctx):
 
         ctx.makeTrader_A(
              strategy.FundamentalValue(
+                event.Every(ops.constant(1.)),
                 order.factory.side.Market(volume = ops.constant(1.)), 
-                fundamentalValue = ops.constant(fv),
-                creationIntervalDistr = ops.constant(1.)),
+                ops.constant(fv)),
             "fv_ex_200", 
             myVolume()),
     ]

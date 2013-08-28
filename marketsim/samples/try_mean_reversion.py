@@ -2,7 +2,7 @@ import sys
 sys.path.append(r'../..')
 
 from marketsim import (parts, signal, strategy, trader, orderbook, order, ops,
-                       timeserie,  observable, veusz, mathutils)
+                       event, timeserie,  observable, veusz, mathutils)
 
 const = ops.constant
 
@@ -33,6 +33,7 @@ def MeanReversion(ctx):
                        label="liquidity"),
     
         ctx.makeTrader_A(strategy.Signal(
+                                event.Every(ops.constant(1.)),
                                 order.factory.side.Market(volume = const(V*3)),
                                 linear_signal), 
                          "signal", 
@@ -47,9 +48,9 @@ def MeanReversion(ctx):
      
         ctx.makeTrader_A(
                 strategy.MeanReversion(
+                    event.Every(ops.constant(1.)),
                     order.factory.side.Market(volume = const(V)),
-                    alpha,
-                    creationIntervalDistr = const(1.)),
+                    alpha),
                  "meanreversion_ex", 
                  myVolume()),
     ]    
