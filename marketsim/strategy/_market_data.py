@@ -1,7 +1,7 @@
 from marketsim import (observable, combine, event, _, Side, order, types, mathutils, 
                        ops, registry)
 from marketsim.types import *
-from _single_order import SingleOrder2
+from _generic import Generic
 
 from _array import Array
 import _wrap
@@ -42,14 +42,15 @@ class MarketData(types.ISingleAssetStrategy):
     def getImpl(self):
         quotes = observable.Quote(self.ticker, self.start, self.end) # TODO: should be in definitions
         return Array([
-                SingleOrder2(
+                Generic(
                     order.factory.Iceberg(
                         const(self.volume),
                         order.factory.FloatingPrice(
                             BreaksAtChanges(ops.constant(sign*self.delta) + quotes),
                             order._limit.Price_Factory(
                                 side = const(side),
-                                volume = const(self.volume * 1000000)))))\
+                                volume = const(self.volume * 1000000)))),
+                    event.After(ops.constant(0)))\
                     for side, sign in {Side.Buy : -1, Side.Sell : 1}.iteritems()
             ])
             

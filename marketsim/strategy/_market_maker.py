@@ -3,7 +3,7 @@ from marketsim import (trader, orderbook, event, _, Side, order, types, mathutil
 
 from marketsim.types import *
 
-from _single_order import SingleOrder2
+from _generic import Generic
 from _market_data import BreaksAtChanges
 from _array import Array
 import _wrap
@@ -16,7 +16,7 @@ class MarketMaker(types.ISingleAssetStrategy):
         volumeTraded = observable.VolumeTraded(trader.SingleProxy())
 
         return Array([
-                SingleOrder2(
+                Generic(
                     order.factory.Iceberg(
                         ops.constant(10),
                         order.factory.FloatingPrice(
@@ -28,7 +28,8 @@ class MarketMaker(types.ISingleAssetStrategy):
                             )),
                             order._limit.Price_Factory(
                                 side = const(side),
-                                volume = const(self.volume * 1000000)))))\
+                                volume = const(self.volume * 1000000)))),
+                event.After(ops.constant(0)))\
                     for side, sign in {Side.Buy : -1, Side.Sell : 1}.iteritems()
             ])
 

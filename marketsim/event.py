@@ -235,3 +235,29 @@ class Every(Event):
     def cancel(self):
         self._cancelled = True
  
+class After(Event):
+
+    def __init__(self, intervalFunc):
+        Event.__init__(self)
+        self.intervalFunc = intervalFunc
+        self._cancelled = False
+        
+    def bind(self, context):
+        self._scheduler = context.world
+        self.schedule()
+        
+    _properties = { 'intervalFunc' : types.IFunction[float] }
+        
+    def schedule(self):
+        self._scheduler.scheduleAfter(self.intervalFunc(), _(self)._wakeUp)
+        
+    def reset(self):
+        self.schedule()
+        
+    def _wakeUp(self):
+        if not self._cancelled:
+            self.fire(self)
+
+    def cancel(self):
+        self._cancelled = True
+ 
