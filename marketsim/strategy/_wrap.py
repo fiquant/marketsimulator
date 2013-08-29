@@ -64,7 +64,7 @@ StrategyBase = types.Factory('StrategyBase', """(wrap.Base):
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
         
     def _send(self, order, source):
-        self.on_order_created.fire(order, source)
+        self.on_order_created.fire(order, self)
 """, globals())
  
 def strategy(cls, alias, docstring, fields, ctx):
