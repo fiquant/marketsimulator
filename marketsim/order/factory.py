@@ -28,6 +28,7 @@ class sideprice:
     Limit = SidePrice_Limit
     Iceberg = SidePrice_Iceberg
     WithExpiry = SidePrice_WithExpiry
+    StopLoss = SidePrice_StopLoss
     
 class side_price:
     Limit = Side_Price_Limit

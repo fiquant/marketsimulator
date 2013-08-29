@@ -2,7 +2,8 @@ from _ioc import (Factory                   as ImmediateOrCancel,
                   Side_Factory              as Side_ImmediateOrCancel)
 
 from _stoploss import (Factory              as StopLoss,
-                       Side_Factory         as Side_StopLoss)
+                       Side_Factory         as Side_StopLoss,
+                       SidePrice_Factory    as SidePrice_StopLoss)
 
 from _with_expiry import (Factory           as WithExpiry,
                           Side_Factory      as Side_WithExpiry, 

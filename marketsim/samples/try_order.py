@@ -23,6 +23,13 @@ def Orders(ctx):
         
         ctx.makeTrader_A(
                     strategy.LiquidityProvider(
+                        event.Every(ops.constant(100.)),
+                        order.factory.sideprice.StopLoss(const(0.1),
+                            order.factory.sideprice.Limit(volume=const(5)))), 
+                    "liquidity stoploss"),
+        
+        ctx.makeTrader_A(
+                    strategy.LiquidityProvider(
                         event.Every(ops.constant(10.)),
                         order.factory.sideprice.Iceberg(const(1),
                             order.factory.sideprice.Limit(volume=const(5)))), 
@@ -42,6 +49,15 @@ def Orders(ctx):
                             order.factory.sideprice.Iceberg(const(1),
                                 order.factory.sideprice.Limit(volume=const(15))))), 
                     "liquidity iceberg expiry"),
+        
+#         ctx.makeTrader_A(
+#                     strategy.LiquidityProvider(
+#                         event.Every(ops.constant(100.)),
+#                         order.factory.sideprice.StopLoss(const(0.1),
+#                             order.factory.sideprice.WithExpiry(const(5),
+#                                 order.factory.sideprice.Iceberg(const(1),
+#                                     order.factory.sideprice.Limit(volume=const(15)))))), 
+#                     "liquidity iceberg expiry stoploss"),
         
         ctx.makeTrader_A(strategy.Signal(
                             event.Every(ops.constant(1.)),
