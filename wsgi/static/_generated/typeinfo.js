@@ -1177,6 +1177,33 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
+    "marketsim.ops.Min": {
+        "castsTo": [
+            {
+                "rv": "_parseFloat",
+                "args": []
+            },
+            "marketsim.types.IEvent",
+            "marketsim.types.IFunction_float",
+            "marketsim.types.IObservable_float",
+            "marketsim.types.IObservable_object"
+        ],
+        "properties": {
+            "rhs": {
+                "type": {
+                    "rv": "_parseFloat",
+                    "args": []
+                }
+            },
+            "lhs": {
+                "type": {
+                    "rv": "_parseFloat",
+                    "args": []
+                }
+            }
+        },
+        "description": "<div class=\"document\">\n<p>Function min of the operands</p>\n</div>\n"
+    },
     "marketsim.strategy.v0._periodic.Periodic": {
         "castsTo": [
             "marketsim.types.ISingleAssetStrategy"
@@ -3849,6 +3876,17 @@ var interfaces = [
         ]
     ],
     [
+        {
+            "rv": "marketsim.types.IOrderGenerator",
+            "args": [
+                "marketsim.types.IFunction_SignedVolume"
+            ]
+        },
+        [
+            "marketsim.order._market.SignedVolume_Factory"
+        ]
+    ],
+    [
         "marketsim.types.IOrderGenerator",
         [
             "marketsim.order.meta._fixed_budget.Factory",
@@ -3875,20 +3913,17 @@ var interfaces = [
         ]
     ],
     [
-        "marketsim.types.IFunction_IOrderGenerator_IFunction_float",
+        "marketsim.types.IFunction_IVolumeLevels",
         [
-            "marketsim.order._limit.Price_Factory"
+            "marketsim.observable._computed.IndicatorBaseT_IVolumeLevels",
+            "marketsim.observable._orderbook.volume_levels"
         ]
     ],
     [
-        {
-            "rv": "marketsim.types.IOrderGenerator",
-            "args": [
-                "marketsim.types.IFunction_SignedVolume"
-            ]
-        },
+        "marketsim.types.ISingleAssetTrader",
         [
-            "marketsim.order._market.SignedVolume_Factory"
+            "marketsim.trader._proxy.SingleProxy",
+            "marketsim.trader._sa.SingleAsset"
         ]
     ],
     [
@@ -3902,6 +3937,12 @@ var interfaces = [
             "marketsim.strategy.adaptive.weight.clamp0",
             "marketsim.strategy.adaptive.weight.identity",
             "marketsim.strategy.adaptive.weight.atanpow"
+        ]
+    ],
+    [
+        "marketsim.remote.Link",
+        [
+            "marketsim.remote.Link"
         ]
     ],
     [
@@ -3942,10 +3983,82 @@ var interfaces = [
         ]
     ],
     [
-        "marketsim.types.IFunction_IFunction_IOrderGenerator_IFunction_float_IFunction_Tag",
+        {
+            "rv": "marketsim.types.IOrderGenerator",
+            "args": [
+                "marketsim.types.IFunction_Tag"
+            ]
+        },
         [
-            "marketsim.order._limit.Side_Price_Factory",
-            "marketsim.order.meta._iceberg.Side_Price_Factory"
+            "marketsim.order.meta._ioc.Side_Factory",
+            "marketsim.order.meta._stoploss.Side_Factory",
+            "marketsim.order._limit.Side_Factory",
+            "marketsim.order.meta._with_expiry.Side_Factory",
+            "marketsim.order.meta._fixed_budget.Side_Factory",
+            "marketsim.order.meta._peg.Side_Factory",
+            "marketsim.order.meta._iceberg.Side_Factory",
+            "marketsim.order.meta._floating_price.Side_Factory",
+            "marketsim.order._market.Side_Factory"
+        ]
+    ],
+    [
+        "marketsim.types.IObservable_object",
+        [
+            "marketsim.observable._orderbook.QueueLastPrice",
+            "marketsim.observable._computed.IndicatorBaseT_IVolumeLevels",
+            "marketsim.observable._minmax.Min",
+            "marketsim.ops.Product",
+            "marketsim.ops.Max",
+            "marketsim.observable.fold._two_point.TwoPoint",
+            "marketsim.ops.Exp",
+            "marketsim.parts.signed_volume._bollinger.Bollinger_linear_Generated",
+            "marketsim.observable._orderbook.QueueLastTradePrice",
+            "marketsim.observable._computed.IndicatorBaseT_float",
+            "marketsim.ops.Sub",
+            "marketsim.observable._deltalag.DeltaLag",
+            "marketsim.order._limit.Factory",
+            "marketsim.signal.RandomWalk",
+            "marketsim.ops.Sqrt",
+            "marketsim.ops.Sum",
+            "marketsim.observable._deltalag.UpMovements",
+            "marketsim.observable._orderbook.LastTradePrice",
+            "marketsim.ops.Min",
+            "marketsim.ops.Log",
+            "marketsim.observable._trader.PendingVolume",
+            "marketsim.observable._minmax.Max",
+            "marketsim.parts.signed_volume._rsi.RSI_linear_Generated",
+            "marketsim.ops.Sqr",
+            "marketsim.ops.Constant_Tag",
+            "marketsim.observable._minmax_eps.MinEpsilon",
+            "marketsim.parts.price._lp.LiquidityProvider_Generated",
+            "marketsim.parts.side._fv.FundamentalValue_Generated",
+            "marketsim.observable._deltalag.DownMovements",
+            "marketsim.ops.Greater_float",
+            "marketsim.parts.signed_volume._desired_position.DesiredPosition_Generated",
+            "marketsim.parts.side._trend.TrendFollower_Generated",
+            "marketsim.observable._efficiency.Efficiency",
+            "marketsim.observable._minmax_eps.MaxEpsilon",
+            "marketsim.strategy._market_data.BreaksAtChanges",
+            "marketsim.ops.Equal_float",
+            "marketsim.observable._quote.Quote",
+            "marketsim.parts.side._signal.Signal_Generated",
+            "marketsim.ops.Less_float",
+            "marketsim.order.meta._fixed_budget.Factory",
+            "marketsim.observable._orderbook.QueuePrice",
+            "marketsim.observable._orderbook.Spread_Generated",
+            "marketsim.parts.side._cross_avg.TwoAverages_Generated",
+            "marketsim.ops.Pow",
+            "marketsim.observable._orderbook.QueueLastTradeVolume",
+            "marketsim.ops.Div",
+            "marketsim.ops.GreaterEqual_float",
+            "marketsim.parts.side._dependency.Dependency_Generated",
+            "marketsim.observable._orderbook.MidPrice_Generated",
+            "marketsim.ops.Atan",
+            "marketsim.ops.Constant_float",
+            "marketsim.parts.side._mean_reversion.MeanReversion_Generated",
+            "marketsim.order._market.Factory",
+            "marketsim.observable._candlestick.CandleSticks",
+            "marketsim.order._market.FactorySigned"
         ]
     ],
     [
@@ -3953,13 +4066,6 @@ var interfaces = [
         [
             "marketsim.side_._SellSide",
             "marketsim.side_._BuySide"
-        ]
-    ],
-    [
-        "marketsim.types.ISingleAssetTrader",
-        [
-            "marketsim.trader._proxy.SingleProxy",
-            "marketsim.trader._sa.SingleAsset"
         ]
     ],
     [
@@ -3994,6 +4100,12 @@ var interfaces = [
             "marketsim.order.meta._with_expiry.WithExpiryFactory",
             "marketsim.order._limit.LimitFactory"
         ]
+    ],
+    [
+        {
+            "elementType": "marketsim.timeserie.ToRecord"
+        },
+        []
     ],
     [
         "marketsim.types.ISingleAssetStrategy",
@@ -4049,25 +4161,6 @@ var interfaces = [
     ],
     [
         {
-            "rv": "marketsim.types.IOrderGenerator",
-            "args": [
-                "marketsim.types.IFunction_Tag"
-            ]
-        },
-        [
-            "marketsim.order.meta._ioc.Side_Factory",
-            "marketsim.order.meta._stoploss.Side_Factory",
-            "marketsim.order._limit.Side_Factory",
-            "marketsim.order.meta._with_expiry.Side_Factory",
-            "marketsim.order.meta._fixed_budget.Side_Factory",
-            "marketsim.order.meta._peg.Side_Factory",
-            "marketsim.order.meta._iceberg.Side_Factory",
-            "marketsim.order.meta._floating_price.Side_Factory",
-            "marketsim.order._market.Side_Factory"
-        ]
-    ],
-    [
-        {
             "rv": "marketsim.types.IAccount",
             "args": [
                 "marketsim.types.ISingleAssetStrategy"
@@ -4083,10 +4176,9 @@ var interfaces = [
         []
     ],
     [
-        "marketsim.types.IFunction_IVolumeLevels",
+        "marketsim.remote.TwoWayLink",
         [
-            "marketsim.observable._computed.IndicatorBaseT_IVolumeLevels",
-            "marketsim.observable._orderbook.volume_levels"
+            "marketsim.remote.TwoWayLink"
         ]
     ],
     [
@@ -4107,6 +4199,7 @@ var interfaces = [
             "marketsim.ops.Sum",
             "marketsim.observable._deltalag.UpMovements",
             "marketsim.observable._orderbook.LastTradePrice",
+            "marketsim.ops.Min",
             "marketsim.ops.Log",
             "marketsim.observable._trader.PendingVolume",
             "marketsim.observable._minmax.Max",
@@ -4151,16 +4244,26 @@ var interfaces = [
         ]
     ],
     [
-        "marketsim.remote.Link",
+        {
+            "rv": "marketsim.types.IOrderGenerator",
+            "args": [
+                "marketsim.types.IFunction_Tag",
+                "marketsim.types.IFunction_float"
+            ]
+        },
         [
-            "marketsim.remote.Link"
+            "marketsim.order.meta._stoploss.SidePrice_Factory",
+            "marketsim.order._limit.SidePrice_Factory",
+            "marketsim.order.meta._with_expiry.SidePrice_Factory",
+            "marketsim.order.meta._iceberg.SidePrice_Factory"
         ]
     ],
     [
-        {
-            "elementType": "marketsim.timeserie.ToRecord"
-        },
-        []
+        "marketsim.timeserie.ToRecord",
+        [
+            "marketsim.timeserie.ToRecord",
+            "marketsim.timeserie.VolumeLevels"
+        ]
     ],
     [
         {
@@ -4174,21 +4277,6 @@ var interfaces = [
             "marketsim.strategy.adaptive.weight.efficiencyTrend",
             "marketsim.strategy.adaptive.weight.unit",
             "marketsim.strategy.adaptive.weight.score"
-        ]
-    ],
-    [
-        {
-            "rv": "marketsim.types.IOrderGenerator",
-            "args": [
-                "marketsim.types.IFunction_Tag",
-                "marketsim.types.IFunction_float"
-            ]
-        },
-        [
-            "marketsim.order.meta._stoploss.SidePrice_Factory",
-            "marketsim.order._limit.SidePrice_Factory",
-            "marketsim.order.meta._with_expiry.SidePrice_Factory",
-            "marketsim.order.meta._iceberg.SidePrice_Factory"
         ]
     ],
     [
@@ -4224,65 +4312,6 @@ var interfaces = [
         ]
     ],
     [
-        "marketsim.types.IObservable_object",
-        [
-            "marketsim.observable._orderbook.QueueLastPrice",
-            "marketsim.observable._minmax.Min",
-            "marketsim.ops.Product",
-            "marketsim.ops.Max",
-            "marketsim.observable.fold._two_point.TwoPoint",
-            "marketsim.ops.Exp",
-            "marketsim.parts.signed_volume._bollinger.Bollinger_linear_Generated",
-            "marketsim.observable._orderbook.QueueLastTradePrice",
-            "marketsim.observable._computed.IndicatorBaseT_float",
-            "marketsim.ops.Sub",
-            "marketsim.observable._deltalag.DeltaLag",
-            "marketsim.order._limit.Factory",
-            "marketsim.signal.RandomWalk",
-            "marketsim.ops.Sqrt",
-            "marketsim.ops.Sum",
-            "marketsim.observable._deltalag.UpMovements",
-            "marketsim.observable._orderbook.LastTradePrice",
-            "marketsim.observable._computed.IndicatorBaseT_IVolumeLevels",
-            "marketsim.ops.Log",
-            "marketsim.observable._trader.PendingVolume",
-            "marketsim.observable._minmax.Max",
-            "marketsim.parts.signed_volume._rsi.RSI_linear_Generated",
-            "marketsim.ops.Sqr",
-            "marketsim.ops.Constant_Tag",
-            "marketsim.observable._minmax_eps.MinEpsilon",
-            "marketsim.parts.price._lp.LiquidityProvider_Generated",
-            "marketsim.parts.side._fv.FundamentalValue_Generated",
-            "marketsim.observable._deltalag.DownMovements",
-            "marketsim.ops.Greater_float",
-            "marketsim.parts.signed_volume._desired_position.DesiredPosition_Generated",
-            "marketsim.parts.side._trend.TrendFollower_Generated",
-            "marketsim.observable._efficiency.Efficiency",
-            "marketsim.observable._minmax_eps.MaxEpsilon",
-            "marketsim.strategy._market_data.BreaksAtChanges",
-            "marketsim.ops.Equal_float",
-            "marketsim.observable._quote.Quote",
-            "marketsim.parts.side._signal.Signal_Generated",
-            "marketsim.ops.Less_float",
-            "marketsim.order.meta._fixed_budget.Factory",
-            "marketsim.observable._orderbook.QueuePrice",
-            "marketsim.observable._orderbook.Spread_Generated",
-            "marketsim.parts.side._cross_avg.TwoAverages_Generated",
-            "marketsim.ops.Pow",
-            "marketsim.observable._orderbook.QueueLastTradeVolume",
-            "marketsim.ops.Div",
-            "marketsim.ops.GreaterEqual_float",
-            "marketsim.parts.side._dependency.Dependency_Generated",
-            "marketsim.observable._orderbook.MidPrice_Generated",
-            "marketsim.ops.Atan",
-            "marketsim.ops.Constant_float",
-            "marketsim.parts.side._mean_reversion.MeanReversion_Generated",
-            "marketsim.order._market.Factory",
-            "marketsim.observable._candlestick.CandleSticks",
-            "marketsim.order._market.FactorySigned"
-        ]
-    ],
-    [
         {
             "elementType": "marketsim.types.ISingleAssetStrategy"
         },
@@ -4300,6 +4329,7 @@ var interfaces = [
         "marketsim.types.IEvent",
         [
             "marketsim.observable._orderbook.QueueLastPrice",
+            "marketsim.observable._computed.IndicatorBaseT_IVolumeLevels",
             "marketsim.observable._minmax.Min",
             "marketsim.ops.Product",
             "marketsim.ops.Max",
@@ -4317,7 +4347,7 @@ var interfaces = [
             "marketsim.ops.Sum",
             "marketsim.observable._deltalag.UpMovements",
             "marketsim.observable._orderbook.LastTradePrice",
-            "marketsim.observable._computed.IndicatorBaseT_IVolumeLevels",
+            "marketsim.ops.Min",
             "marketsim.event.After",
             "marketsim.ops.Log",
             "marketsim.observable._trader.PendingVolume",
@@ -4359,10 +4389,6 @@ var interfaces = [
         ]
     ],
     [
-        "combine(less(6.28318530718), combine(greater_or_equal(0.0), _parseFloat))",
-        []
-    ],
-    [
         "marketsim.types.IFunction_float",
         [
             "marketsim.observable._orderbook.TickSize",
@@ -4399,6 +4425,7 @@ var interfaces = [
             "marketsim.ops.Sum",
             "marketsim.observable._deltalag.UpMovements",
             "marketsim.observable._orderbook.LastTradePrice",
+            "marketsim.ops.Min",
             "marketsim.mathutils.rnd.weibullvariate",
             "marketsim.ops._None_float",
             "marketsim.ops.Log",
@@ -4441,12 +4468,6 @@ var interfaces = [
         ]
     ],
     [
-        "marketsim.remote.TwoWayLink",
-        [
-            "marketsim.remote.TwoWayLink"
-        ]
-    ],
-    [
         {
             "rv": "_parseFloat",
             "args": []
@@ -4486,6 +4507,7 @@ var interfaces = [
             "marketsim.ops.Sum",
             "marketsim.observable._deltalag.UpMovements",
             "marketsim.observable._orderbook.LastTradePrice",
+            "marketsim.ops.Min",
             "marketsim.mathutils.rnd.weibullvariate",
             "marketsim.ops._None_float",
             "marketsim.ops.Log",
@@ -4535,6 +4557,12 @@ var interfaces = [
         ]
     ],
     [
+        "marketsim.types.IFunction_IOrderGenerator_IFunction_float",
+        [
+            "marketsim.order._limit.Price_Factory"
+        ]
+    ],
+    [
         "marketsim.types.IOrderQueue",
         [
             "marketsim.orderbook._proxy.Queue"
@@ -4545,10 +4573,14 @@ var interfaces = [
         []
     ],
     [
-        "marketsim.timeserie.ToRecord",
+        "marketsim.types.IFunction_IFunction_IOrderGenerator_IFunction_float_IFunction_Tag",
         [
-            "marketsim.timeserie.ToRecord",
-            "marketsim.timeserie.VolumeLevels"
+            "marketsim.order._limit.Side_Price_Factory",
+            "marketsim.order.meta._iceberg.Side_Price_Factory"
         ]
+    ],
+    [
+        "combine(less(6.28318530718), combine(greater_or_equal(0.0), _parseFloat))",
+        []
     ]
 ]

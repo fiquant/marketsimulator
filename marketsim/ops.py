@@ -500,6 +500,19 @@ class Max(BinaryOp[float]):
     def _call(self, lhs, rhs):
         return lhs if lhs > rhs else rhs
     
+@registry.expose(['Basic', 'Min'], args = (constant(1.), constant(1.)))
+class Min(BinaryOp[float]):
+    """ Function min of the operands
+    """
+    
+    sign = ' min '
+    
+    def __init__(self, lhs, rhs):
+        BinaryOp[float].__init__(self, lhs, rhs)
+    
+    def _call(self, lhs, rhs):
+        return lhs if lhs < rhs else rhs
+    
 @registry.expose(['Arithmetic', '*'], args = (constant(1.), constant(1.)))
 class Product(BinaryOp[float]):
     """ Function returning product of the operands

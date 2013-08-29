@@ -181,7 +181,7 @@ def orderBooksToRender(ctx, traders):
                 timeserie.ToRecord(observable.OnEveryDt(1, askWeightedPrice), ctx.askbid_graph), 
                 timeserie.ToRecord(observable.OnEveryDt(1, bidWeightedPrice), ctx.askbid_graph), 
                 
-                timeserie.ToRecord(assetPrice, ctx.candles_graph), 
+                #timeserie.ToRecord(assetPrice, ctx.candles_graph), 
                 timeserie.ToRecord(candlesticks, ctx.candles_graph),
 
                 timeserie.ToRecord(assetPrice, ctx.avgs_graph), 

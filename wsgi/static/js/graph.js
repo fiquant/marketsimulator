@@ -66,14 +66,29 @@ function TimeSerie(source, initialData) {
 	self.asFlotr = function () {
 		var ts = self;
 		var smooth = ts.lookupField("_smooth").impl().serialized() == 1;
+		if (ts.visible()) {
+			var data = ts.getData.peek();
+			var type = smooth ? "spline" : "line";
+			if (ts.alias.peek()[0].substring(0,7) == "Candles") {
+				data = map(data, function (x) {
+					if (x[1]) {
+						return [x[0], x[1][0], x[1][2], x[1][3], x[1][1]];
+					} else {
+						return [x[0], null, null, null, null, null];
+					}
+				})
+				type = "candlestick";
+			}
+			
+		}
 		return ts.visible() ? [{ 
 			'source' : ts,
-			'data' : ts.getData.peek(), 
+			'data' : data, 
 			'label' : ts.alias.peek(), 
 			'name': ts.alias.peek(),
 			'volumes' : ts.volumes ? ts.volumes() : undefined,
 			'step' : !smooth,
-			'type' : smooth ? "spline" : "line",
+			'type' : type,
 			'digits':  ts.lookupField('_digits').impl().serialized(),
 			'tooltip' : {
 				'valueDecimals': ts.lookupField('_digits').impl().serialized()
