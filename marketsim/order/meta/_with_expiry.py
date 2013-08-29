@@ -60,6 +60,26 @@ class Side_Factory(object):
     def __call__(self, side):
         return Factory(self.expiry, self.factory(side))
 
+@registry.expose(['WithExpiry'])    
+@sig((IFunction[Side],IFunction[float]), IOrderGenerator)
+class SidePrice_Factory(object):
+    
+    def __init__(self, 
+                 expiry = ops.constant(10), 
+                 factory = _limit.SidePrice_Factory()):
+        self.expiry = expiry
+        self.factory = factory
+        
+    _properties = {
+        'expiry'  : types.IFunction[float],
+        'factory' : function((IFunction[Side],IFunction[float]), IOrderGenerator)
+    }
+    
+    def __call__(self, side, price):
+        return Factory(self.expiry, self.factory(side, price))
+
+
+
 LimitOrderFactorySignature = meta.function((types.Side,), meta.function((types.Price, types.Volume), types.IOrder))
 
 @registry.expose(['WithExpiry'])
