@@ -9,7 +9,8 @@ from _with_expiry import (Factory           as WithExpiry,
 
 from _iceberg import (Factory               as Iceberg,
                       Side_Factory          as Side_Iceberg, 
-                      Side_Price_Factory    as Side_Price_Iceberg)
+                      Side_Price_Factory    as Side_Price_Iceberg,
+                      SidePrice_Factory     as SidePrice_Iceberg)
 
 from _fixed_budget import (Factory          as FixedBudget, 
                            Side_Factory     as Side_FixedBudget)

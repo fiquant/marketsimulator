@@ -62,6 +62,24 @@ class Factory(IOrderGenerator):
         return order
 
 @registry.expose(['Iceberg'])    
+@sig((IFunction[Side],IFunction[float]), IOrderGenerator)
+class SidePrice_Factory(object):
+    
+    def __init__(self, 
+                 lotSize = ops.constant(1), 
+                 factory = _limit.SidePrice_Factory()):
+        self.lotSize = lotSize
+        self.factory = factory
+        
+    _properties = {
+        'lotSize' : IFunction[float],
+        'factory' : function((IFunction[Side],IFunction[float]), IOrderGenerator)
+    }
+    
+    def __call__(self, side, price):
+        return Factory(self.lotSize, self.factory(side, price))
+
+@registry.expose(['Iceberg'])    
 @sig((IFunction[Side],), IOrderGenerator)
 class Side_Factory(object):
     

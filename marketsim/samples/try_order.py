@@ -21,6 +21,13 @@ def Orders(ctx):
                         order.factory.sideprice.Limit(volume=const(35))), 
                     "liquidity"),
         
+        ctx.makeTrader_A(
+                    strategy.LiquidityProvider(
+                        event.Every(ops.constant(10.)),
+                        order.factory.sideprice.Iceberg(const(1),
+                            order.factory.sideprice.Limit(volume=const(5)))), 
+                    "liquidity iceberg"),
+        
         ctx.makeTrader_A(strategy.Signal(
                             event.Every(ops.constant(1.)),
                             order.factory.side.Market(volume = const(1)),
