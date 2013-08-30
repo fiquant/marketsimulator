@@ -27,3 +27,5 @@ if config.usePandas:
 from _market_maker import MarketMaker
 
 import v0
+
+from _plotter import Plotter, TrendNew, TrendNew_

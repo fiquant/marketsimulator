@@ -28,3 +28,5 @@ if config.usePandas:
     from _market_data import MarketData
 
 from _market_maker import MarketMaker
+
+from new_ import *
