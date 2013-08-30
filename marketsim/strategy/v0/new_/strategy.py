@@ -92,16 +92,17 @@ class OrderbookStrategy(StrategyBase):
     def handle_data(self, caller):
         # TODO: unsubscribe from all events except the trade review
         if self.running:
-            #d = {'A': self.series_A(), 'B': self.series_B()}
-            #frame = pd.DataFrame(d)
-            # frame.fillna(inplace=True, method='ffill')
-            #frame = frame.resample('1S', fill_method='ffill')
+            d = {'A': self.series_A(), 'B': self.series_B()}
+            frame = pd.DataFrame(d)
+            frame.fillna(inplace=True, method='ffill')
+            frame = frame.resample('1S', fill_method='ffill')
+            print frame
             #frame.plot()
             #plt.subplot(211)
-            self.series_A().plot(title="Asset A", linestyle="steps")
-            self.series_B().plot(title="Asset B", linestyle="steps")
+            #self.series_A().plot(title="Asset A", linestyle="steps")
+            #self.series_B().plot(title="Asset B", linestyle="steps")
             #plt.subplot()
-            plt.show()
+            #plt.show()
 
 
     def set_book(self, book):
