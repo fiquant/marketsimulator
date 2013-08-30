@@ -45,7 +45,7 @@ class Base(timeserie.Holder):
         self._PnL = value
         
     def _charge(self, price):
-        self._PnL -= price
+        self.PnL -= price
 
     def onOrderMatched(self, order, price, volume):
         """ Called when a trader's 'order' is traded against 'other' order 
@@ -53,7 +53,7 @@ class Base(timeserie.Holder):
         Trader's P&L is updated and listeners are notified about the trade   
         """
         pv = price * volume
-        self._PnL += pv if order.side == Side.Sell else -pv
+        self.PnL += pv if order.side == Side.Sell else -pv
         
         self.on_order_matched.fire(self, order, price, volume)
         self.on_traded.fire(self)

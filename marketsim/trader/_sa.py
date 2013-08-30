@@ -67,7 +67,7 @@ class SingleAsset(Base, types.ISingleAssetTrader):
         Trader's amount and P&L is updated and listeners are notified about the trade   
         """
         dVolume = volume if order.side == Side.Buy else -volume
-        self._amount += dVolume
+        self.amount += dVolume
         Base.onOrderMatched(self, order, price, volume)
         
 
