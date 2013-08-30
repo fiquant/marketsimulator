@@ -33,4 +33,8 @@ from _minmax_eps import MinEpsilon, MaxEpsilon
 
 from _quote import Quote
 
-from _store import DataStore
+from pandasutils import DataStore, ObservableHistory, RollingApply
+
+from _dict import ObservableDict, BufferedSeries
+
+from _portfolio import PortfolioValue
