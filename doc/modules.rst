@@ -102,7 +102,7 @@ Bollinger bands
 	Bollinger_Lo(x) ::= Mean(x) - 2*StdDev(x)
 
 
-Order book functions/observables
+Order book functions and observables
 --------------------------------
 
 - TickSize(orderbook)
@@ -131,7 +131,7 @@ Spread
 
     Spread(orderbook) ::= Asks(orderbook) - Bids(orderbook)
 
-Trader functions/observables
+Trader functions and observables
 -------------------------------------
 
 - Position(trader)
