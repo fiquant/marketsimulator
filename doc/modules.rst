@@ -148,8 +148,8 @@ Side for fundamental value strategy
 
 .. code-block::
 
-    FundamentalValueSide(orderbook, fv) ::= BestPrice(Asks(orderbook)) < fv ? Side.Sell : 
-                                            BestPrice(Bids(orderbook)) > fv ? Side.Buy :
+    FundamentalValueSide(orderbook, fv) ::= BestPrice(Asks(orderbook)) < fv ? Side.Buy : 
+                                            BestPrice(Bids(orderbook)) > fv ? Side.Sell :
                                             None
 
 Side for mean reverting strategy
@@ -157,3 +157,25 @@ Side for mean reverting strategy
 .. code-block::
 
     MeanReverting(orderbook, alpha) ::= FundamentalValueSide(orderbook, EWMA(MidPrice(orderbook), alpha))
+
+Signed volume for a desired position strategy
+
+.. code-block::
+
+    DesiredPositionVolume(x, trader) ::= x - (Position(trader) + PendingVolume(trader))
+    
+Signed volume for a RSI strategy
+
+.. code-block::
+
+    RSI_Volume(trader, alpha, k, lag) ::= 
+        price = MidPrice(Orderbook(trader)) in 
+        DesiredPositionVolume(k * (50 - RSI(price, lag, alpha)), trader)
+        
+Signed volume for Bollinger band strategy
+
+.. code-block::
+
+    BollingerVolume(trader, alpha, k) ::= 
+        price = MidPrice(Orderbook(trader)) in 
+        DesiredPositionVolume((price - EWMA(price, alpha)) / StdDevEW(price, alpha) * k, trader)
