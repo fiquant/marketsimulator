@@ -105,3 +105,55 @@ Trader functions/observables
 
     Efficiency(trader) ::= Balance(trader) + CumulativePrice(Orderbook(trader), Position(trader))
     EfficiencyTrend(trader, alpha) ::= Derivative(EWMA(Efficiency(trader), alpha))
+
+Strategy parts
+--------------
+
+Price for a liquidity provider
+
+.. code-block::
+    
+    NotNone(x, default) ::= x == None ? default : x
+    LiquidityProviderPrice(orderqueue, priceDistr, defaultValue) ::=
+        priceDistr * (NotNone(BestPrice(orderqueue), 
+                         NotNone(LastTradePrice(orderqueue), 
+                             defaultValue))
+                             
+Side for a noise strategy
+
+.. code-block::
+
+    NoiseSide() ::= uniform(0,1) > 0.5 ? Side.Sell : Side.Buy
+    
+    
+Side for a signal value strategy
+
+.. code-block::
+
+    SignalSide(x, threshold) ::= x > threshold ? Side.Buy : -x > threshold ? Side.Sell : None 
+    
+Side for a trend follower
+
+.. code-block::
+
+    TrendFollowerSide(price, alpha) ::= SignalSide(Derivative(EWMA(price, alpha)), 0)
+    
+Side for crossing averages strategy
+
+.. code-block::
+
+    TwoAveragesSide(price, alpha1, alpha2) ::= SignalSide(EWMA(price, alpha1) - EWMA(price, alpha2), 0)
+
+Side for fundamental value strategy
+
+.. code-block::
+
+    FundamentalValueSide(orderbook, fv) ::= BestPrice(Asks(orderbook)) < fv ? Side.Sell : 
+                                            BestPrice(Bids(orderbook)) > fv ? Side.Buy :
+                                            None
+
+Side for mean reverting strategy
+
+.. code-block::
+
+    MeanReverting(orderbook, alpha) ::= FundamentalValueSide(orderbook, EWMA(MidPrice(orderbook), alpha))
