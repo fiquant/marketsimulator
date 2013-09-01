@@ -6,10 +6,15 @@ Normally they return None if one of the operands is None
 - Identity function
 - Arithmetic operations (+,-,*,/,%)
 - Comparisons (<, <=, >, >=, ==, !=)
-- Conditional branching (if(condition).then(trueBranch).else(falseBranch))
+- Conditional branching (condition ? trueBranch : falseBranch)
 - Math module functions (Exp, Pow, Log, Atan etc.)
 - Random distrubutions (uniform, lognormvariate, expovariate etc.)
 - Derivative of a differentiable function
+
+Max(x,y) ::= x > y ? x : y
+Min(x,y) ::= x < y ? x : y
+Sqr(x) ::= x*x
+
 
 Statistics:
 - average: cumulative (CMA), moving (MA), exponentially weighted (EWMA)
@@ -20,14 +25,10 @@ Variances could be implemented as Var(x) ::= Mean(Sqr(x)) - Sqr(Mean(x)) but it 
 
 StdDev(x) ::= Sqrt(Variance(x))
 
-
-Max(x,y) ::= if(x > y).then(x).else(y)
-Min(x,y) ::= if(x < y).then(x).else(y)
-
-- DeltaLag(x, dt) ::= x(t) - x(t - dt)
-- UpMovements(x, dt) ::= max(0, DeltaLag(x, dt))
-- DownMovements(x, dt) ::= max(0, -DeltaLag(x, dt))
-- RSI(x, dt, alpha) ::= 100 - 100 / (1 + EWMA(UpMovements(x,dt), alpha)/EWMA(DownMovements(x,dt), alpha))
+Relative strength index
+	UpMovements(x, dt) ::= max(0, x - Lagged(x, dt))
+	DownMovements(x, dt) ::= max(0, Lagged(x, dt) - x)
+	RSI(x, dt, alpha) ::= 100 - 100 / (1 + EWMA(UpMovements(x,dt), alpha)/EWMA(DownMovements(x,dt), alpha))
 
 - Moving average convergence/divergence
 	MACD(x, slow, fast) ::= EWMA(x, 2./(fast+1)) - EWMA(x, 2./(slow+1))
