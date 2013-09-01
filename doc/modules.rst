@@ -13,6 +13,7 @@ Normally they return None if one of the operands is None
 - Derivative of a differentiable function
 - Quotes: downloads external historical data
 - Lagged: returns function values with some lag
+- CurrentTime: current model time
 
 .. code-block::
 
@@ -64,3 +65,31 @@ Bollinger bands
 	Bollinger_Lo(x) ::= Mean(x) - 2*StdDev(x)
 
 
+Order book functions/observables
+--------------------------------
+
+- TickSize(orderbook)
+- Asks(orderbook)/Bids(orderbook): return asks or bids queue of the orderbook
+- BestPrice(orderqueue): current price
+- LastTradePrice(orderqueue): price of the last trade
+- LastTradeVolume(orderqueue): volume of the last trade
+- PriceAtVolume(orderqueue, volume): price of order at the given depth
+- CumulativePrice(volume): sum of the best order prices with volume less than given
+
+Price of last trades weighted by their volumes
+
+.. code-block::
+
+    WeightedPrice(Q, alpha) ::= EWMA(LastTradePrice(Q)*LastTradeVolume(Q), alpha) / EWMA(LastTradeVolume(Q), alpha)
+    
+Mid-price
+
+.. code-block::
+
+    MidPrice(orderbook) ::= (BestPrice(Asks(orderbook)) + BestPrice(Bids(orderbook))) / 2
+    
+Spread
+
+.. code-block::
+
+    Spread(orderbook) ::= Asks(orderbook) - Bids(orderbook)
