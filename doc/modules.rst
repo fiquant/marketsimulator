@@ -1,3 +1,40 @@
+**Table of Contents**
+
+
+.. contents::
+    :local:
+    :depth: 1
+    :backlinks: none
+    
+Compound modules are shown in notation of a special domain specific language (to be developed)
+
+.. code-block::
+
+	MACD(x, slow, fast) ::= EWMA(x, 2./(fast+1)) - EWMA(x, 2./(slow+1))
+
+Currently they are implemented using a Python subset:
+
+.. code-block:: python
+
+	class MACD(ops.Function[float]):
+	    
+	    def getImpl(self):
+	        return EWMA(self.source, 2./(self.fast+1)) - EWMA(self.source, 2./(self.slow+1))
+	    
+	    @property
+	    def label(self):
+	        return 'MACD_{%s}^{%s}(%s)' % (self.fast, self.slow, self.source.label)
+	    
+	_wrap.function(MACD, ['Statistics', 'MACD', 'Convergence/Divergence'], 
+	               """ Moving average convergence/divergence
+	               """, 
+	               [
+	                    ('source', 'MidPrice()', 'types.IObservable[float]'), 
+	                    ('fast',   '12',         'types.positive'),
+	                    ('slow',   '26',         'types.positive'),
+	               ], globals())    
+
+
 Basic modules
 --------------
 
