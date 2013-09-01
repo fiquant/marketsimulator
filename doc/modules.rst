@@ -93,3 +93,15 @@ Spread
 .. code-block::
 
     Spread(orderbook) ::= Asks(orderbook) - Bids(orderbook)
+
+Trader functions/observables
+-------------------------------------
+
+- Position(trader)
+- Balance(trader)
+- PendingVolume(trader): cumulative volume of orders sent by the trader but haven't been matched
+
+.. code-block::
+
+    Efficiency(trader) ::= Balance(trader) + CumulativePrice(Orderbook(trader), Position(trader))
+    EfficiencyTrend(trader, alpha) ::= Derivative(EWMA(Efficiency(trader), alpha))
