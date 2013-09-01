@@ -12,3 +12,4 @@ marketsim/config_user.py
 marketsim/historical/data/*
 
 marketsim/config_user.py
+historical/data/^GSPC_2001-01-01_2010-01-01
