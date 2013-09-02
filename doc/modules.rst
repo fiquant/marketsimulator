@@ -40,17 +40,17 @@ Basic modules
 
 Normally they return None if one of the operands is None
 
-- Constant[T]/None[T] functions
-- Identity function
+- ``Constant[T]``/``None[T]`` functions
+- ``Identity`` function
 - Arithmetic operations (+,-,*,/,%)
 - Comparisons (<, <=, >, >=, ==, !=)
-- Conditional branching (condition ? trueBranch : falseBranch)
-- Math module functions (Exp, Pow, Log, Atan etc.)
-- Random distrubutions (uniform, lognormvariate, expovariate etc.)
-- Derivative of a differentiable function
-- Quotes: downloads external historical data
-- Lagged: returns function values with some lag
-- CurrentTime: current model time
+- Conditional branching (``condition ? trueBranch : falseBranch``)
+- Math module functions (``Exp``, ``Pow``, ``Log``, ``Atan`` etc.)
+- Random distrubutions (``uniform``, ``lognormvariate``, ``expovariate`` etc.)
+- ``Derivative`` of a differentiable function
+- ``Quotes``: downloads external historical data
+- ``Lagged``: returns function values with some lag
+- ``CurrentTime``: current model time
 
 .. code-block::
 
@@ -62,7 +62,7 @@ Normally they return None if one of the operands is None
 Statistics
 ----------
 
-- average (Mean): cumulative (CMA), moving (MA), exponentially weighted (EWMA)
+- average (Mean): cumulative (``CMA``), moving (``MA``), exponentially weighted (``EWMA``)
 - variance (Variance): cumulative, moving, exponentially weighted
 - moving minimum/maximum
 
@@ -105,13 +105,13 @@ Bollinger bands
 Order book functions and observables
 --------------------------------
 
-- TickSize(orderbook)
-- Asks(orderbook)/Bids(orderbook): return asks or bids queue of the orderbook
-- BestPrice(orderqueue): current price
-- LastTradePrice(orderqueue): price of the last trade
-- LastTradeVolume(orderqueue): volume of the last trade
-- PriceAtVolume(orderqueue, volume): price of order at the given depth
-- CumulativePrice(volume): sum of the best order prices with volume less than given
+- ``TickSize(orderbook)``
+- ``Asks(orderbook)``/``Bids(orderbook)``: return asks or bids queue of the ``orderbook``
+- ``BestPrice(orderqueue)``: current price at the ``orderqueue``
+- ``LastTradePrice(orderqueue)``: price of the last trade
+- ``LastTradeVolume(orderqueue)``: volume of the last trade
+- ``PriceAtVolume(orderqueue, volume)``: price of order at the given depth
+- ``CumulativePrice(volume)``: sum of the best order prices with total volume less than ``volume``
 
 Price of last trades weighted by their volumes
 
@@ -134,9 +134,9 @@ Spread
 Trader functions and observables
 -------------------------------------
 
-- Position(trader)
-- Balance(trader)
-- PendingVolume(trader): cumulative volume of orders sent by the trader but haven't been matched
+- ``Position(trader)``
+- ``Balance(trader)``
+- ``PendingVolume(trader)``: cumulative volume of orders sent by the ``trader`` but haven't been matched
 
 .. code-block::
 
@@ -222,21 +222,32 @@ Order factories
 
 Base orders:
 
-- Market order 
-- Limit order 
+- ``Market`` order 
+- ``Limit`` order 
 
 Meta orders:
 
-- Iceberg(lotSize, orderFactory) creates an order using orderFactory and sends it consequetively splitting on portions of lotSize
-- FloatingPrice(priceFunc, orderFactory) creates an order with price controlled by priceFunc
-- Peg(orderFactory) creates an order that tries to keep its price the best. Implemented via FloatingPrice and Maximum/Minimum
-- ImmediateOrCancel(orderFactory) creates a (limit-like) order with a cancellation request
-- WithExpiry(expiry, orderFactory) creates limit-like orders that are cancelled after expiry
-- StopLoss(maxLoss, orderFactory) sends an order and if losses from keeping its position are too high liquidates it
+- ``Iceberg(lotSize, orderFactory)`` creates an order using ``orderFactory`` and sends it consequetively splitting on portions of ``lotSize``
+- ``FloatingPrice(priceFunc, orderFactory)`` creates an order with price controlled by priceFunc
+- ``Peg(orderFactory)`` creates an order that tries to keep its price the best. Implemented via ``FloatingPrice`` and ``Maximum``/``Minimum``
+- ``ImmediateOrCancel(orderFactory)`` creates a (limit-like) order with an immediate cancellation request
+- ``WithExpiry(expiry, orderFactory)`` creates limit-like orders that are cancelled after ``expiry``
+- ``StopLoss(maxLoss, orderFactory)`` sends an order and if losses from keeping its position are higher than ``maxLoss`` liquidates it
+
+It should be noted that meta orders can be combined in quite wide range. For example, 
+
+.. code-block:: python
+
+    order.factory.side.WithExpiry(expiry = const(10.),
+        factory = order.factory.side.Iceberg(lotSize = const(1),
+            factory = order.factory.side.Peg(
+                factory = order.factory.side_price.Limit(volume = const(10))))),
+
+creates limit orders with volume 10, price is taken as the best price (Peg order), sends them in portions of ``lotSize = 1`` and cancels them after ``expiry = 10`` units of time.
 	
 Strategies
 ----------
 
-- Generic(eventGen, orderFactory) wakes up at moments of time given by eventGen	and asks orderFactory to create an order
-- Array(strategies) aggregates an array of strategies
-- Suspendable(strategy, predicate) passes orders issued by strategy only if predicate is true
+- ``Generic(eventGen, orderFactory)`` wakes up at moments of time given by ``eventGen``	and asks ``orderFactory`` to create an order
+- ``Array(strategies)`` aggregates an array of strategies
+- ``Suspendable(strategy, predicate)`` passes orders issued by ``strategy`` only if ``predicate`` is true
