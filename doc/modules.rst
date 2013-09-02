@@ -196,7 +196,13 @@ Side for mean reverting strategy
 
 .. code-block:: haskell
 
-    MeanReverting(orderbook, alpha) ::= FundamentalValueSide(orderbook, EWMA(MidPrice(orderbook), alpha))
+    MeanRevertingSide(orderbook, alpha) ::= FundamentalValueSide(orderbook, EWMA(MidPrice(orderbook), alpha))
+
+Side for dependency trading strategy
+
+.. code-block:: haskell
+
+    DependencySide(orderbook, otherOrderbook) ::= FundamentalValueSide(orderbook, MidPrice(otherOrderbook))
 
 Signed volume for a desired position strategy
 
@@ -252,5 +258,16 @@ Strategies
 ----------
 
 - ``Generic(eventGen, orderFactory)`` wakes up at moments of time given by ``eventGen``	and asks ``orderFactory`` to create an order
+
+Crossing averages strategy that sends market orders with exponentially distributed volume sizes in even intervals of time could be written as:
+
+.. code-block:: haskell
+
+    Generic(event.Every(constant(1.)),
+            order.factory.Market(
+                side = parts.side.TwoAverages(MidPrice(orderbook.OfTrader()), alpha1, alpha2),
+                volume = rnd.Expovariate(1.)
+           ))
+
 - ``Array(strategies)`` aggregates an array of strategies
 - ``Suspendable(strategy, predicate)`` passes orders issued by ``strategy`` only if ``predicate`` is true
