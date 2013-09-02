@@ -15,14 +15,15 @@ def create_exchange(books=[]):
     exchange.update(assets_with_books)
     return exchange
 
+def multi_level(ctx, max_delta = 5):
+    return [ctx.makeTrader_A(strategy.MarketData(delta=k, volume = k*k),
+                             "m{0}".format(k)) for k in xrange(max_delta)]
 
 @expose("Two Markets", __name__, only_veusz=True)
 def TwoMarkets(ctx):
     exchange = create_exchange(books=[ctx.book_A, ctx.book_B])
 
     return [
-
-        ctx.makeTrader_A(strategy.MarketData(), "marketdataA"),
 
         ctx.makeTrader_B(strategy.MarketData(), "marketdataB"),
 
@@ -31,4 +32,4 @@ def TwoMarkets(ctx):
         ctx.makeTrader_B(strategy.Noise(), "noiseB"),
 
         trader.Trader(exchange, strategy.v0.OrderbookStrategy())
-    ]
+    ] + multi_level(ctx, 2)
