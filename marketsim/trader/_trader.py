@@ -3,22 +3,22 @@ from marketsim import event, _, Side, types, meta, timeserie, context, ops
 from marketsim import asset, exchange
 
 from _sa import SingleAsset
+from _base import Base
 
 class Trader(SingleAsset):
     def __init__(self, exchange, strategy=None):
 
-        self.asset, self.book = exchange.items()[0]  # take first book for now
+        self.book = exchange.books()[0]  # take first book for now
         SingleAsset.__init__(self, self.book, strategy)
         self.exchange = exchange
         self.set_strategy(self._strategy)  # hack
 
-        self._cash = asset.CashBase("cash")  # Main cash asset
-        self.main_account = self._cash  # default cash account to charge
-        self.portfolio = asset.portfolio.Portfolio()
-        self.portfolio[self.asset] = 1
-        self.portfolio[self._cash] = 0 # TODO: change to take into account more complex positions
-        self.assetB = exchange.keys()[1]
-        self.portfolio[self.assetB] = 1
+        self.main_account = asset.CashBase("cash")  # default cash account to charge
+        self.portfolio = asset.portfolio.PortfolioBase()
+
+        for stock in exchange.assets():
+            self.portfolio[stock] = 1
+        self.portfolio[self.main_account] = 0
 
         print self.portfolio
 
@@ -28,7 +28,6 @@ class Trader(SingleAsset):
 
     @PnL.setter
     def PnL(self, value):
-        print self.portfolio
         self.portfolio[self.main_account] = value
 
     @property
@@ -37,19 +36,25 @@ class Trader(SingleAsset):
         positive if trader has bought more assets than sold them
         negative otherwise
         """
-        return self.portfolio[self.asset]
+        # TODO: remove since positions/amounts are managed by the portfolio class
+        return -1
+        #return self.portfolio[self.asset]
 
     @amount.setter
     def amount(self, value):
-        self.portfolio[self.asset] = value
+        # TODO: remove since positions/amounts are managed by the portfolio class
+        pass
+        #self.portfolio[self.asset] = value
 
     def onOrderMatched(self, order, price, volume):
         """ Called when a trader's 'order' is traded against 'other' order
         at given 'price' and 'volume'
         Trader's amount and P&L is updated and listeners are notified about the trade
         """
+        print "matched", order.asset, price, volume
         dVolume = volume if order.side == Side.Buy else -volume
         self.portfolio[order.asset] += dVolume
+        # print self.portfolio
         super(Trader, self).onOrderMatched(order, price, volume)
 
     def set_strategy(self, s):
@@ -62,14 +67,15 @@ class Trader(SingleAsset):
 
     @property
     def orderBooks(self):
-        print "called books"
+        # TODO: convert to assets
         return [self.book]
 
-    def send(self, order, _):
-        # TODO: include asset in order so that the exchange knows which orderbook to process in
-        print "sending", order
-        order.asset = self.asset
-        SingleAsset.send(self, order)
+    def send(self, order, asset=None):
+        if not hasattr(order, 'asset'):
+            order.asset = self.asset  # for compatibility with previous implementation
+        # print "sending", order, "to", self.exchange[order.asset]
+
+        Base.send(self, self.exchange[order.asset], order)
 
     def review_trade(self, trade, sender, callback):
         # TODO: Trader should derive from Reviewer class and its review_trade method
