@@ -1,11 +1,23 @@
 from marketsim import event, ops
 from marketsim.observable import LastTradePrice, BufferedSeries, PortfolioValue, OnEveryDt, IndicatorBase
 
+import matplotlib.pyplot as plt
+
+from marketsim.order import Market, Side
+
 class StrategyBase(object):
     def __init__(self, label="Base"):
         self._running = True
         self._label = label
         self.on_order_created = event.Event()
+        self.data = {}
+
+    def store(self, observed, label=None, freq=None):
+        if freq:
+            observed = OnEveryDt(freq, observed)
+        label = observed.label if label is None else label
+        setattr(self, label, BufferedSeries(observed))
+        self._internals.append(label)
 
     def bind(self, context):
         # this is actually not necessary in this implementation
@@ -59,11 +71,12 @@ class StrategyBase(object):
         return self.trader.book
 
     parent = property(get_parent, set_parent)
+    _internals = []
 
+from marketsim.orderbook._queue import AskLevels, BidLevels
 
-import marketsim
-import pandas as pd
-import matplotlib.pyplot as plt
+from itertools import izip_longest
+
 class OrderbookStrategy(StrategyBase):
     # TODO: Should a strategy have its own portfolio?
     def __init__(self):
@@ -72,45 +85,41 @@ class OrderbookStrategy(StrategyBase):
     def _subscribe(self):
         """ We finalize events that depend on bind
         """
+        print "subscribing"
         super(OrderbookStrategy, self)._subscribe()
-        self._event = event.Every(ops.constant(20.0))
+
+        self._event = event.Every(ops.constant(2.0))
         event.subscribe(self._event, self.handle_data, self)
 
-        book_A = self.parent.exchange.values()[0]
-        self.series_A = BufferedSeries(LastTradePrice(book_A))
+        book_A, book_B = self.parent.exchange.books()
+        self.asset_A, self.asset_B = self.parent.exchange.assets()
 
-        book_B = self.parent.exchange.values()[1]
-        self.series_B = BufferedSeries(LastTradePrice(book_B))
+        self.store(LastTradePrice(book_A), label="series_A", freq=1)
+        self.store(LastTradePrice(book_B), label="series_B", freq=1)
+        self.store(PortfolioValue(self.trader), label="portfolio_value", freq=1)
 
-        portfolio_value = PortfolioValue(self.trader)
-        # value = IndicatorBase(self.parent.on_order_matched, portfolio_value)
-        value = OnEveryDt(1, portfolio_value)
-        self.value_series = BufferedSeries(value)
+        self.ask_levels = AskLevels(book_A)
+        self.bid_levels = BidLevels(book_A)
+        self._internals.append('ask_levels')
+        self._internals.append('bid_levels')
 
+        event.subscribe(book_A.asks.changed, self.qchange, self)
 
 
     def handle_data(self, caller):
-        # TODO: unsubscribe from all events except the trade review
         if self.running:
-            d = {'A': self.series_A(), 'B': self.series_B()}
-            frame = pd.DataFrame(d)
-            frame.fillna(inplace=True, method='ffill')
-            frame = frame.resample('1S', fill_method='ffill')
-            print frame
-            #frame.plot()
-            #plt.subplot(211)
-            #self.series_A().plot(title="Asset A", linestyle="steps")
-            #self.series_B().plot(title="Asset B", linestyle="steps")
-            #plt.subplot()
-            #plt.show()
+            pass
+
+    def qchange(self, caller):
+        #print "orderbook"
+
+        # print self._scheduler.currentTime
+
+        levels = izip_longest(self.bid_levels(), self.ask_levels(), fillvalue=(0, 0))
+
+        print "orderbook"
+        for bid, ask in levels:
+            print "{0[0]:6.2f}{0[1]:6d}\t{1[0]:6.2f}{1[1]:6d}".format(bid, ask)
 
 
-    def set_book(self, book):
-        self._book = book
 
-    def get_book(self):
-        return self._book
-
-    book = property(get_book, set_book)
-
-    _internals = ['value_series', 'series_A', 'series_B']
