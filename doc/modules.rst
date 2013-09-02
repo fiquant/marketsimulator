@@ -259,7 +259,7 @@ Strategies
 
 - ``Generic(eventGen, orderFactory)`` wakes up at moments of time given by ``eventGen``	and asks ``orderFactory`` to create an order
 
-Crossing averages strategy that sends market orders with exponentially distributed volume sizes in even intervals of time could be written as:
+A crossing averages strategy that sends market orders with exponentially distributed volume sizes in even intervals of time could be written as:
 
 .. code-block:: haskell
 
@@ -271,3 +271,13 @@ Crossing averages strategy that sends market orders with exponentially distribut
 
 - ``Array(strategies)`` aggregates an array of strategies
 - ``Suspendable(strategy, predicate)`` passes orders issued by ``strategy`` only if ``predicate`` is true
+
+In order to estimate trade impact of a strategy there are two classes:
+- ``VirtualMarket`` for every order sent by the strategy it tries to estimate at what price it would be executed
+- ``ActuallyTraded`` tracks actual trades done on orders issued by the strategy
+
+A strategy that wraps another ``strategy`` and passes its orders only if it is considered as "effective" can be implemented in the following way:
+
+.. code-block:: haskell
+
+    Suspendable(strategy, Derivative(EWMA(Efficiency(VirtualMarket(strategy))), alpha) >= 0)
