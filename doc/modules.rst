@@ -216,3 +216,29 @@ Signed volume for Bollinger band strategy
     BollingerVolume(trader, alpha, k) ::= 
         price = MidPrice(Orderbook(trader)) in 
         DesiredPositionVolume((price - EWMA(price, alpha)) / StdDevEW(price, alpha) * k, trader)
+
+Order factories
+---------------
+
+Base orders:
+- Market order 
+- Limit order 
+
+Meta orders:
+- Iceberg(lotSize, orderFactory) creates an order using orderFactory and sends it
+  consequetively splitting on portions of lotSize
+- FloatingPrice(priceFunc, orderFactory) creates an order with price controlled by priceFunc
+- Peg(orderFactory) creates an order that tries to keep its price the best.
+					Implemented via FloatingPrice and Maximum/Minimum
+- ImmediateOrCancel(orderFactory) creates a (limit-like) order with a cancellation request
+- WithExpiry(expiry, orderFactory) creates limit-like orders that are cancelled after expiry
+- StopLoss(maxLoss, orderFactory) sends an order and if losses from keeping its
+	position are too high liquidates it
+	
+Strategies
+----------
+
+- Generic(eventGen, orderFactory) wakes up at moments of time given by eventGen
+	and asks orderFactory to create an order
+- Array(strategies) aggregates an array of strategies
+- Suspendable(strategy, predicate) passes orders issued by strategy only if predicate is true
