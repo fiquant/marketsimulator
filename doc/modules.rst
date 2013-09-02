@@ -281,3 +281,54 @@ A strategy that wraps another ``strategy`` and passes its orders only if it is c
 .. code-block:: haskell
 
     Suspendable(strategy, Derivative(EWMA(Efficiency(VirtualMarket(strategy))), alpha) >= 0)
+
+A strategy that provide liquidity using historical data serves as a good example of composing strategies, meta order factories and observables
+
+.. code-block:: python
+
+	class MarketData(types.ISingleAssetStrategy):
+	    
+	    def getImpl(self):
+	        quotes = observable.Quote(self.ticker, self.start, self.end) 
+	        return Array([
+	                Generic(
+	                    order.factory.Iceberg(
+	                        ops.constant(self.volume),
+	                        order.factory.FloatingPrice(
+	                            ops.constant(sign*self.delta) + quotes,
+	                            order.factory.price.Limit(
+	                                side = const(side),
+	                                volume = const(self.volume * 1000000)))),
+	                    event.After(ops.constant(0)))\
+	                    for side, sign in {Side.Buy : -1, Side.Sell : 1}.iteritems()
+	            ])
+	            
+	_wrap.strategy(MarketData, ['Market data'],
+	             """ A Strategy that allows to drive the asset price based on historical market data
+	             by creating large volume orders for the given price.
+	 
+	             Every time step of 1 in the simulation corresponds to a 1 day in the market data.
+	 
+	             At each time step the previous Limit Buy/Sell orders are cancelled and new ones
+	             are created based on the next price of the market data.
+	 
+	             |ticker|
+	                Ticker of the asset
+	 
+	             |start|
+	                Start date in DD-MM-YYYY format
+	 
+	             |end|
+	                End date in DD-MM-YYYY format
+	 
+	             |delta|
+	                Price difference between orders placed and underlying quotes
+	 
+	             |volume|
+	                Volume of Buy/Sell orders. Should be large compared to the volumes of other traders.
+	             """,
+	              [ ('ticker','"^GSPC"',  'str'),
+	                ('start', '"2001-1-1"', 'str'),
+	                ('end',   '"2010-1-1"', 'str'),
+	                ('delta', '1', 'positive'),
+	                ('volume','1000', 'Volume')], globals())
