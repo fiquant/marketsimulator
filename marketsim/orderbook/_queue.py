@@ -47,14 +47,14 @@ class QueueLevels(ops.Function[types.IVolumeLevels]):
     """ Level2 Queue
     """
     # TODO: correct type signature
-    def __init__(self, orderbook, side, max_depth=None):
+    def __init__(self, orderbook, side, depth=None):
         orderbook = orderbook if orderbook else marketsim.orderbook.Proxy()
         self.orderqueue = orderbook.queue(side)
         self.side = side
-        self.max_depth = max_depth
+        self.depth = depth
 
     def __call__(self):
-        return iter(islice(self.orderqueue.sortedPVs, 0, self.max_depth))
+        return iter(islice(self.orderqueue.sortedPVs, 0, self.depth))
 
     @property
     def label(self):
@@ -63,12 +63,12 @@ class QueueLevels(ops.Function[types.IVolumeLevels]):
     def __str__(self):
         return "\n".join(["{0[0]:5.2f}{0[1]:5d}".format(pv) for pv in self()])
 
-def AskLevels(orderbook, max_depth=None):
-    return QueueLevels(orderbook, Side.Sell, max_depth)
+def AskLevels(orderbook, depth=None):
+    return QueueLevels(orderbook, Side.Sell, depth)
 
 
-def BidLevels(orderbook, max_depth=None):
-    return QueueLevels(orderbook, Side.Buy, max_depth)
+def BidLevels(orderbook, depth=None):
+    return QueueLevels(orderbook, Side.Buy, depth)
 
 class Queue(types.IOrderQueue):
     """ Queue of limit orders at one side (Sell or Buy).
