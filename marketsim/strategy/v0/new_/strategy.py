@@ -74,8 +74,12 @@ class StrategyBase(object):
     _internals = []
 
 from marketsim.orderbook._queue import AskLevels, BidLevels
+from marketsim.observable import OLS
 
 from itertools import izip_longest
+
+import statsmodels.api as sm
+import numpy as np
 
 class OrderbookStrategy(StrategyBase):
     # TODO: Should a strategy have its own portfolio?
@@ -88,7 +92,7 @@ class OrderbookStrategy(StrategyBase):
         print "subscribing"
         super(OrderbookStrategy, self)._subscribe()
 
-        self._event = event.Every(ops.constant(2.0))
+        self._event = event.Every(ops.constant(1.0))
         event.subscribe(self._event, self.handle_data, self)
 
         book_A, book_B = self.parent.exchange.books()
@@ -98,17 +102,16 @@ class OrderbookStrategy(StrategyBase):
         self.store(LastTradePrice(book_B), label="series_B", freq=1)
         self.store(PortfolioValue(self.trader), label="portfolio_value", freq=1)
 
-        self.ask_levels = AskLevels(book_A)
-        self.bid_levels = BidLevels(book_A)
+        self.ask_levels = AskLevels(book_A, depth=5)
+        self.bid_levels = BidLevels(book_A, depth=5)
         self._internals.append('ask_levels')
         self._internals.append('bid_levels')
 
-        event.subscribe(book_A.asks.changed, self.qchange, self)
-
+        # event.subscribe(book_A.asks.changed, self.qchange, self)
 
     def handle_data(self, caller):
         if self.running:
-            pass
+            print OLS(self.series_A(), window=20)
 
     def qchange(self, caller):
         #print "orderbook"
