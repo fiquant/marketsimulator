@@ -1,7 +1,9 @@
 import heapq
 import math
 
-from marketsim import  _, types, ops
+from marketsim import  _, types, ops, event
+from marketsim.order import Side
+import marketsim
 
 class BestPrice(ops.Observable[float]):
     
@@ -39,9 +41,38 @@ class LastTrade(ops.Observable[float]):
     def __call__(self):
         return self._lastTrade
 
+from itertools import islice
+
+class QueueLevels(ops.Function[types.IVolumeLevels]):
+    """ Level2 Queue
+    """
+    # TODO: correct type signature
+    def __init__(self, orderbook, side, max_depth=None):
+        orderbook = orderbook if orderbook else marketsim.orderbook.Proxy()
+        self.orderqueue = orderbook.queue(side)
+        self.side = side
+        self.max_depth = max_depth
+
+    def __call__(self):
+        return iter(islice(self.orderqueue.sortedPVs, 0, self.max_depth))
+
+    @property
+    def label(self):
+        return self.orderqueue.label
+
+    def __str__(self):
+        return "\n".join(["{0[0]:5.2f}{0[1]:5d}".format(pv) for pv in self()])
+
+def AskLevels(orderbook, max_depth=None):
+    return QueueLevels(orderbook, Side.Sell, max_depth)
+
+
+def BidLevels(orderbook, max_depth=None):
+    return QueueLevels(orderbook, Side.Buy, max_depth)
+
 class Queue(types.IOrderQueue):
     """ Queue of limit orders at one side (Sell or Buy).
-    It is implemented over a heap so has following comlexity for operations:
+    It is implemented over a heap so has following complexity for operations:
     - pushing order: O(logN)
     - accessing to the best order: O(1)
     - popping the best order: O(logN)
@@ -55,6 +86,8 @@ class Queue(types.IOrderQueue):
         self.lastTrade = LastTrade() 
         self.reset()
         self.bestPrice = BestPrice(self)
+
+        self.changed = event.Event()
         
     def reset(self):
         self._elements = []         # pairs ((signedTicks, arrivalSeqNo), order) kept in a heap
@@ -79,6 +112,11 @@ class Queue(types.IOrderQueue):
         if bestpv != self._lastBest:
             self._lastBest = bestpv
             self._scheduler.async(_(self.bestPrice, self).fire)
+
+    def notifyIfChanged(self):
+        """ Notifies order queue listeners if the queue has changed
+        """
+        self._scheduler.async(_(self.changed, self).fire)
             
     def __str__(self):
         return type(self).__name__ + "(" + str(self._elements) + ")"
@@ -107,6 +145,7 @@ class Queue(types.IOrderQueue):
         self._counter += 1
         # notify listeners if the best order changed
         self.notifyIfBestChanged()
+        self.notifyIfChanged()
         
     def cancelOrder(self, order):
         """ To be called when 'order' is marked as cancelled 
@@ -115,6 +154,7 @@ class Queue(types.IOrderQueue):
         order.cancel()
         self._makeValid()
         self.notifyIfBestChanged()
+        self.notifyIfChanged()
 
     def _makeValid(self):
         """ Ensures that the queue is either empty or has a valid order on top
