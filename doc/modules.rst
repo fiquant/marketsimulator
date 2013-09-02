@@ -8,7 +8,7 @@
     
 Compound modules are shown in notation of a special domain specific language (to be developed)
 
-.. code-block::
+.. code-block:: haskell
 
 	MACD(x, slow, fast) ::= EWMA(x, 2./(fast+1)) - EWMA(x, 2./(slow+1))
 
@@ -44,7 +44,7 @@ Normally they return None if one of the operands is None
 - ``Identity`` function
 - Arithmetic operations (+,-,*,/,%)
 - Comparisons (<, <=, >, >=, ==, !=)
-- Conditional branching (``condition ? trueBranch : falseBranch``)
+- Conditional branching (``if condition then trueBranch else falseBranch``)
 - Math module functions (``Exp``, ``Pow``, ``Log``, ``Atan`` etc.)
 - Random distrubutions (``uniform``, ``lognormvariate``, ``expovariate`` etc.)
 - ``Derivative`` of a differentiable function
@@ -52,10 +52,10 @@ Normally they return None if one of the operands is None
 - ``Lagged``: returns function values with some lag
 - ``CurrentTime``: current model time
 
-.. code-block::
+.. code-block:: haskell
 
-	Max(x,y) ::= x > y ? x : y
-	Min(x,y) ::= x < y ? x : y
+	Max(x,y) ::= if x > y then x else y
+	Min(x,y) ::= if x < y then x else y
 	Sqr(x) ::= x*x
 
 
@@ -68,19 +68,19 @@ Statistics
 
 Variances could be implemented via Mean but it looses precision 
 
-.. code-block::
+.. code-block:: haskell
 
 	Var(x) ::= Mean(Sqr(x)) - Sqr(Mean(x)) 
 
 Standard deviation 
 
-.. code-block::
+.. code-block:: haskell
 
 	StdDev(x) ::= Sqrt(Variance(x))
 
 Relative strength index
 
-.. code-block::
+.. code-block:: haskell
 
 	Ups(x, dt, alpha) ::= EWMA(max(0, x - Lagged(x, dt)), alpha)
 	Downs(x, dt, alpha) ::= EWMA(max(0, Lagged(x, dt) - x), alpha)
@@ -88,7 +88,7 @@ Relative strength index
 
 Moving average convergence/divergence
 
-.. code-block::
+.. code-block:: haskell
 
 	MACD(x, slow, fast) ::= EWMA(x, 2./(fast+1)) - EWMA(x, 2./(slow+1))
 	MACD_signal(x, slow, fast, timeframe) ::= EWMA(MACD(x, slow, fast), 2/(timeframe+1))
@@ -96,7 +96,7 @@ Moving average convergence/divergence
 
 Bollinger bands
 
-.. code-block::
+.. code-block:: haskell
 
 	Bollinger_Hi(x) ::= Mean(x) + 2*StdDev(x)
 	Bollinger_Lo(x) ::= Mean(x) - 2*StdDev(x)
@@ -115,19 +115,20 @@ Order book functions and observables
 
 Price of last trades weighted by their volumes
 
-.. code-block::
+.. code-block:: haskell
 
-    WeightedPrice(Q, alpha) ::= EWMA(LastTradePrice(Q)*LastTradeVolume(Q), alpha) / EWMA(LastTradeVolume(Q), alpha)
+    WeightedPrice(queue, alpha) ::= EWMA(LastTradePrice(queue)*LastTradeVolume(queue), alpha) / 
+                                    EWMA(LastTradeVolume(queue), alpha)
     
 Mid-price
 
-.. code-block::
+.. code-block:: haskell
 
     MidPrice(orderbook) ::= (BestPrice(Asks(orderbook)) + BestPrice(Bids(orderbook))) / 2
     
 Spread
 
-.. code-block::
+.. code-block:: haskell
 
     Spread(orderbook) ::= Asks(orderbook) - Bids(orderbook)
 
@@ -138,7 +139,7 @@ Trader functions and observables
 - ``Balance(trader)``
 - ``PendingVolume(trader)``: cumulative volume of orders sent by the ``trader`` but haven't been matched
 
-.. code-block::
+.. code-block:: haskell
 
     Efficiency(trader) ::= Balance(trader) + CumulativePrice(Orderbook(trader), Position(trader))
     EfficiencyTrend(trader, alpha) ::= Derivative(EWMA(Efficiency(trader), alpha))
@@ -148,9 +149,9 @@ Strategy parts
 
 Price for a liquidity provider
 
-.. code-block::
+.. code-block:: haskell
     
-    NotNone(x, default) ::= x == None ? default : x
+    NotNone(x, defaultValue) ::= if x == None then defaultValue else x
     LiquidityProviderPrice(orderqueue, priceDistr, defaultValue) ::=
         priceDistr * (NotNone(BestPrice(orderqueue), 
                          NotNone(LastTradePrice(orderqueue), 
@@ -158,52 +159,54 @@ Price for a liquidity provider
                              
 Side for a noise strategy
 
-.. code-block::
+.. code-block:: haskell
 
-    NoiseSide() ::= uniform(0,1) > 0.5 ? Side.Sell : Side.Buy
+    NoiseSide() ::= if uniform(0,1) > 0.5 then Side.Sell else Side.Buy
     
     
 Side for a signal value strategy
 
-.. code-block::
+.. code-block:: haskell
 
-    SignalSide(x, threshold) ::= x > threshold ? Side.Buy : -x > threshold ? Side.Sell : None 
+    SignalSide(x, threshold) ::= if  x > threshold then Side.Buy else 
+                                 if -x > threshold then Side.Sell else
+                                    None 
     
 Side for a trend follower
 
-.. code-block::
+.. code-block:: haskell
 
     TrendFollowerSide(price, alpha) ::= SignalSide(Derivative(EWMA(price, alpha)), 0)
     
 Side for crossing averages strategy
 
-.. code-block::
+.. code-block:: haskell
 
     TwoAveragesSide(price, alpha1, alpha2) ::= SignalSide(EWMA(price, alpha1) - EWMA(price, alpha2), 0)
 
 Side for fundamental value strategy
 
-.. code-block::
+.. code-block:: haskell
 
-    FundamentalValueSide(orderbook, fv) ::= BestPrice(Asks(orderbook)) < fv ? Side.Buy : 
-                                            BestPrice(Bids(orderbook)) > fv ? Side.Sell :
-                                            None
+    FundamentalValueSide(orderbook, fv) ::= if BestPrice(Asks(orderbook)) < fv then Side.Buy else 
+                                            if BestPrice(Bids(orderbook)) > fv then Side.Sell else
+                                               Nothing
 
 Side for mean reverting strategy
 
-.. code-block::
+.. code-block:: haskell
 
     MeanReverting(orderbook, alpha) ::= FundamentalValueSide(orderbook, EWMA(MidPrice(orderbook), alpha))
 
 Signed volume for a desired position strategy
 
-.. code-block::
+.. code-block:: haskell
 
     DesiredPositionVolume(x, trader) ::= x - (Position(trader) + PendingVolume(trader))
     
 Signed volume for a RSI strategy
 
-.. code-block::
+.. code-block:: haskell
 
     RSI_Volume(trader, alpha, k, lag) ::= 
         price = MidPrice(Orderbook(trader)) in 
@@ -211,7 +214,7 @@ Signed volume for a RSI strategy
         
 Signed volume for Bollinger band strategy
 
-.. code-block::
+.. code-block:: haskell
 
     BollingerVolume(trader, alpha, k) ::= 
         price = MidPrice(Orderbook(trader)) in 
@@ -236,12 +239,12 @@ Meta orders:
 
 It should be noted that meta orders can be combined in quite wide range. For example, 
 
-.. code-block:: python
+.. code-block:: haskell
 
-    order.factory.side.WithExpiry(expiry = const(10.),
-        factory = order.factory.side.Iceberg(lotSize = const(1),
-            factory = order.factory.side.Peg(
-                factory = order.factory.side_price.Limit(volume = const(10))))),
+    WithExpiry(expiry = const(10.),
+        factory = Iceberg(lotSize = const(1),
+            factory = Peg(
+                factory = Limit(volume = const(10))))),
 
 creates limit orders with volume 10, price is taken as the best price (Peg order), sends them in portions of ``lotSize = 1`` and cancels them after ``expiry = 10`` units of time.
 	
