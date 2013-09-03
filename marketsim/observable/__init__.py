@@ -19,7 +19,8 @@ from _orderbook import (PriceAtVolume, VolumeLevels, TickSize,
                         QueuePrice, AskLastTradePrice, BidLastTradePrice,
                         QueueLastPrice, AskLastPrice, BidLastPrice,
                         BidPrice, AskPrice, MidPrice, Spread,
-                        LastTradePrice, AskWeightedPrice, BidWeightedPrice)
+                        LastTradePrice, LastTradeVolume,
+                        AskWeightedPrice, BidWeightedPrice)
 
 from _trader import  InstEfficiency, PnL, VolumeTraded, PendingVolume, OnOrderMatched
 

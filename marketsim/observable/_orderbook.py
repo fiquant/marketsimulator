@@ -273,6 +273,15 @@ class LastTradePrice(LastTrade):
     @property
     def label(self):
         return 'LastTradePrice_{' + self.orderbook.label + '}'
+
+class LastTradeVolume(LastTrade):
+    def __call__(self):
+        trade = LastTrade.__call__(self)
+        return trade[1] if trade is not None else None
+
+    @property
+    def label(self):
+        return 'LastTradeVolume_{' + self.orderbook.label + '}'
         
 
 ### -------------------------------------------------------------------   Observables
