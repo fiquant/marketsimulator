@@ -31,5 +31,6 @@ def TwoMarkets(ctx):
 
         ctx.makeTrader_B(strategy.Noise(), "noiseB"),
 
-        trader.Trader(exchange, strategy.v0.OrderbookStrategy())
+        # trader.Trader(exchange, strategy.v0.OrderbookStrategy()),
+        trader.Trader(exchange, strategy.v0.TrendFollow())
     ] + multi_level(ctx, 2)

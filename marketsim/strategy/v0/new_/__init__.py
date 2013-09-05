@@ -1,1 +1,1 @@
-from strategy import OrderbookStrategy
+from strategy import OrderbookStrategy, TrendFollow

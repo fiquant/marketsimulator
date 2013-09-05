@@ -51,10 +51,11 @@ class Trader(SingleAsset):
         at given 'price' and 'volume'
         Trader's amount and P&L is updated and listeners are notified about the trade
         """
-        print "matched", order.asset, price, volume
+        # print "matched", order.asset, price, volume
         dVolume = volume if order.side == Side.Buy else -volume
         self.portfolio[order.asset] += dVolume
-        # print self.portfolio
+        #if volume==0:
+        #    print self.portfolio
         super(Trader, self).onOrderMatched(order, price, volume)
 
     def set_strategy(self, s):
@@ -71,8 +72,7 @@ class Trader(SingleAsset):
         return [self.book]
 
     def send(self, order, asset=None):
-        if not hasattr(order, 'asset'):
-            order.asset = self.asset  # for compatibility with previous implementation
+        order.asset = asset
         # print "sending", order, "to", self.exchange[order.asset]
 
         Base.send(self, self.exchange[order.asset], order)
