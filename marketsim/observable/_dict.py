@@ -12,10 +12,14 @@ class ObservableDict(OrderedDict):
         self._scheduler = context.world
 
     def update(self, dummy):
-        self[self._scheduler.now] = self._source()
+        value = self._source()
+        if value is not None:
+            self[self._scheduler.now] = self._source()
+
 
 
 import pandas as pd
+
 class BufferedSeries(ObservableDict):
     def __init__(self, source):
         super(BufferedSeries, self).__init__(source)
@@ -27,3 +31,5 @@ class BufferedSeries(ObservableDict):
                 pd.TimeSeries(self.values(), self.keys()))
             self.clear()
         return self._data
+
+
