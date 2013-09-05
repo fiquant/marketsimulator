@@ -31,6 +31,9 @@ class Market(Default, HasSide, HasVolume, Cancellable):
     def clone(self):
         return Market(self.side, self.volumeUnmatched, self.owner, self.volumeFilled)
 
+    def cloneOpposite(self):
+        return Market(self.side.opposite, self.volumeUnmatched, self.owner, self.volumeFilled)
+
     def processIn(self, orderBook):
         """ Order book calls this method to ask the order 
         how it should be processed in the order book (a la Visitor)

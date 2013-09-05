@@ -38,7 +38,10 @@ class Limit(Default, HasSide, HasPrice, HasVolume, Cancellable):
         
     def clone(self):
         return Limit(self.side, self.price, self.volumeUnmatched, self.owner, self.volumeFilled)
-        
+
+    def cloneOpposite(self):
+        return Limit(self.side.opposite, self.price, self.volumeUnmatched, self.owner, self.volumeFilled)
+
     def processIn(self, orderBook):
         """ Order book calls this method to ask the order 
         how it should be processed in the order book (a la Visitor)
