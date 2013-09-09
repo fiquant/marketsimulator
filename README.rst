@@ -3,6 +3,11 @@ FiQuant Market Microstructure Simulator
 
 The project simulates a generic agent based	market model. The aim is to explore intimately, by simulation, the process of price formation and the market microstructure.
 
+.. contents::
+    :local:
+    :depth: 1
+    :backlinks: none
+
 Installation
 ------------
 
@@ -43,3 +48,23 @@ After having downloaded simulator and having installed all packages needed ``VEU
   >
   
 .. image:: doc/Figures/veusz-dependency.png
+
+Running a Web-server with online interface
+------------------------------------------
+
+``wsgi/flaskapp.py`` launches the Web server at default port 80:
+
+.. code-block :: bash
+
+  > cd wsgi
+  > python flaskapp.py
+   * Running on http://127.0.0.1:80/
+   
+After that you may open ``localhost`` page in your Web browser:
+
+.. image:: doc/Figures/web-traders.png
+
+Press **Run** button to launch the simulation:
+
+.. image:: doc/Figures/web-volume-levels.png
+
