@@ -28,13 +28,18 @@ Normally all these packages can be downloaded and installed using ``pip`` (http:
 Offline usage with Veusz
 ------------------------
 
-After having downloaded simulator and having installed all packages needed you may run sample simulations from ``marketsim/samples`` directory:
-
-*Note!* ``VEUSZ_EXE`` environment variable should be assigned to the path to the Veusz executable.
+After having downloaded simulator and having installed all packages needed ``VEUSZ_EXE`` environment variable should be assigned to the path to the Veusz executable. Afterwards, sample simulations may be launched: 
 
 .. code-block :: bash
 
-  cd marketsim/samples
-  python try_arbitrage.py
+  > cd marketsim/samples
+  > python try_dependency.py
+  . . . . . . . . . 
+  . . . . . . . . . . 
+  . . . . . . . . . . 
+  . . . . . . . . . . 
+  . . . . . . . . . . 
+  75509 events processed in 18.849016855s with rate 4005.99143079 event/s
+  >
   
-  
+.. image:: doc/Figures/veusz-dependency.png
