@@ -56,7 +56,7 @@ import marketsim
 from marketsim import event, wrap, ops, types, event, _, flags
 
 StrategyBase = types.Factory('StrategyBase', """(wrap.Base):
-    _properties = {'impl' : (types.ISingleAssetStrategy, flags.collapsed) }
+    _internals = ['impl']
 
     def __init__(self):
         wrap.Base.__init__(self)

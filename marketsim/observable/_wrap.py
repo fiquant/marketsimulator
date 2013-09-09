@@ -11,7 +11,8 @@ ObservableBase = types.Factory('ObservableBase', """(wrap.Base):
         wrap.Base.__init__(self)
         event.subscribe(self.impl, _(self).fire, self)
         
-    _properties = {'impl' : (types.IObservable[%(T)s], flags.collapsed) }
+    #_properties = {'impl' : (types.IObservable[%(T)s], flags.collapsed) }
+    _internals = ['impl']
 """, globals())
         
  
