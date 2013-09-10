@@ -1,17 +1,18 @@
+Installation
+============
+
 For the moment the simulator has two user interfaces:
 
-- Web. A user runs a simulation server and uses a web interface to set up model parameters and run the simulation.
-- Veusz. A user edits script files describing a simulation, run a simulator and the results are rendered using Veusz software (in principle, it quite easy to plug in another means of visualization).
+- **Web**. A user runs a simulation server and uses a web interface to set up model parameters and run the simulation.
+- **Veusz**. A user edits script files describing a simulation, run a simulator and the results are rendered using Veusz software (in principle, it quite easy to plug in another means of visualization).
 
 The first approach is easier for new users while the latter one gives more control over simulation.
 
 .. contents::
     :local:
-    :depth: 1
+    :depth: 2
     :backlinks: none
 
-Installation
-============
 
 Steps common for Veusz and Web interfaces
 -----------------------------------------
@@ -44,7 +45,7 @@ In order to run the web server you need ``Flask`` package installed: http://flas
    
 After that you may open ``localhost`` page in your Web browser:
 
-.. image:: doc/Figures/web/traders.png
+.. image:: Figures/web/traders.png
 
 Press **Run** button to launch the simulation:
 
