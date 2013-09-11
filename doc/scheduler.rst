@@ -1,83 +1,102 @@
 Discrete event simulation components
 ====================================
 
-Main class for every discrete event simulation system is a scheduler
-that maintains a set of actions to fulfill in future and launches them
-according their action times: from older ones to newer. Normally
-schedulers are implemented as some kind of a heap data structure in
-order to perform frequent operations very fast. Classical heap allows
-inserts into at O(logN), extracting the best element at O(logN) and
-accessing to the best element at O(1).
+.. contents::
+    :local:
+    :depth: 2
+    :backlinks: none
+
+The main class for every discrete event simulation system is a scheduler that maintains a set of actions to fulfill in future and launches them according their action times: from the older ones to newer. The scheduler in the simulator is implemented as a heap data structure in order to perform frequent operations very fast. A classical heap allows inserts into at O(logN), extracting the best element at O(logN) and accessing to the best element at O(1). A bucket-based implementation may be introduced in order to improve performance provided that the distribution of event times is known beforehand.
 
 Scheduler
 ---------
 
-Scheduler class provides following interface:
+``Scheduler`` class provides following interface:
 
-::
+.. code-block :: python
 
     class Scheduler(object):
-        def reset(self)
+    
+        # cleans up event queue and resets simulation time to 0 
+        def reset(self)         
+        
+        @property
         def currentTime(self)
+        
+        # schedules an event given by 'handler' to be launched at 'actionTime'
         def schedule(self, actionTime, handler)
-        def scheduleAfter(self, dt, handler)
+        
+        # schedules an event given by 'handler' to be launched after 'dt' from now
+        def scheduleAfter(self, dt, handler):
+            self.schedule(self.currentTime + dt, handler)
+        
+        # runs 'handler' asynchronously
+        def async(self, handler): 
+            self.scheduleAfter(0, handler)
+            
+        # Launches all events with action time in range [currentTime, limitTime)
+        # in order of their action time and arrival order
+        # Postcondition: currentTime == limitTime and not exists e: actionTime(e) < limitTime
         def workTill(self, limitTime)
+        
+        # Makes the scheduler work 'dt' moments of time more
         def advance(self, dt)
+            self.workTill(self.currentTime + dt)
 
-In order to schedule an event a user should use or methods passing there
-an event handler which should be given as a callable object (a function,
-a method, lambda expression or a object exposing method). These
-functions return a callable object which can be called in order to
-cancel the scheduled event.
+In order to schedule an event a user should use ``schedule`` or ``scheduleAfter`` methods passing there an event handler which should be given as a callable object (a function, a method, a lambda expression or a object exposing ``__call__`` method). 
 
-Methods and advance model time calling event handlers in order of their
-action times. If two events have same action time it is garanteed that
-the event scheduled first will be executed first. These methods must not
-be called from an event handler. In such a case an exception will be
-issued.
+Methods ``workTill`` and ``advance`` advance model time calling event handlers in order of their action times. If two events have same action time it is garanteed that the event scheduled first will be executed first. These methods must not be called from an event handler. In such a case an exception will be issued.
 
-Since a scheduler is supposed to be single for non-parallel simulations,
-for convenient use from other parts of the library static class is
-introduced which grants access to , and methods of the unique scheduler.
-This scheduler should be initialized by creating an instance of class in
-client code ( method) and it gives right to manage simulation by calling
-and methods.
+Components willing to have an access to the scheduler should acquire a reference to it at binding time:
 
-Timer
------
+.. code-block:: python
 
-It is a convenience class designed to represent some repeating action.
-It has following interface:
+    def bind(self, ctx):
+        self._scheduler = ctx.world
 
-::
+Convenience classes
+-------------------
 
-    class Timer(object):
-        def __init__(self, intervalFunc):
-            self.on_timer = Event()
-            ...
-        def advise(self, listener):
-            self.on_timer += listener
+There are several classes granting convenient access to the scheduler and thus removing need for explicit binding against ``ctx.world``.
 
-It is initialized by a function defining interval of time to the next
-event invocation. Event handler to be invoked should be passed to method
-(there can be multiple listeners).
+Current simulation time
+~~~~~~~~~~~~~~~~~~~~~~~
 
-For example, sample path a Poisson process with :math:`\lambda`\ =1 can
+.. |lambda| unicode:: U+003BB .. GREEK SMALL LETTER LAMDA
+
+For example, 
+
+.. code-block:: python  
+    
+    (observable.CurrentTime() < 200)[Side.Sell, Side.Buy]
+
+returns ``Side.Sell`` if simulation time is less than 200 and ``Side.Buy`` otherwise
+
+Generating events on regular basis
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+``event.Every`` represents some repeating action. It is initialized by a function defining interval of time to the next event invocation. 
+
+For example, sample path for a Poisson process with |lambda| =1 can
 be obtained in the following way:
 
-::
+.. code-block:: python
 
-    import random
-    from marketsim.scheduler import Timer, world
-
-    def F(timer):
-        print world.currentTime
+    from marketsim import mathutils, event, observable, _, ops
+    
+    class CurrentTimePrinter(object):
+    
+        def __init__(self):
+            self._currentTime = observable.CurrentTime()
+            event.subscribe(event.Every(mathutils.rnd.expovariate(1.)), 
+                            _(self)._print, self)
+            
+        _internals = ['_currentTime']
         
-    Timer(lambda: random.expovariate(1.)).advise(F)
+        def _print(self, _):
+            print self._currentTime()
 
-    world.advance(20)
-
-will print
+when added to a simulation will print
 
 ::
 
@@ -88,9 +107,7 @@ will print
     6.30719707516
     8.48277712333
 
-Note that is designed to be an event source and for previous example
-there is a more convenient shortcut:
+Generating a single event
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-::
-
-    world.process(lambda: random.expovariate(1.), F)
+``event.At`` generates a single event at some time at future.
