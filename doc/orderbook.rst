@@ -1,19 +1,32 @@
-Order book and order queue
+
+Market representation
 ==========================
 
-Order book represents a single asset traded in some market. Same asset traded in different markets would have been represented by different order books. An order book stores unfulfilled limit orders sent for this asset in two order queues, one for each trade sides (Asks for sell orders and Bids for buy orders).
+.. contents::
+    :local:
+    :depth: 2
+    :backlinks: none
 
-Order queues are organized in a way to extract quickly the best order and to place a new order inside. In order to achieve this a heap based implementation is used. (A bucket based implementation might be also used).
+Order book
+    Order book represents a single asset traded in some market. Same asset traded in different markets would have been represented by different order books. An order book stores unfulfilled limit orders sent for this asset in two order queues, one for each trade sides (Asks for sell orders and Bids for buy orders).
 
-Order books support a notion of a tick size: all limit orders stored in the book should have prices that are multipliers of the chosen tick size. If an order has a limit price not divisible by the tick size it is rounded to the closest 'weaker' tick ('floored' for buy orders and 'ceiled' for sell orders).
+Order queue
+    Order queues are organized in a way to extract quickly the best order and to place a new order inside. In order to achieve this a heap based implementation is used. (A bucket based implementation might be also used).
 
-Market orders are processed by an order book in the following way: if there are unfulfilled limit orders at the opposite trade side, the market order is matched against them till either it is fulfilled or there are no more unfilled limit orders. Price for the trade is taken as the limit order limit price. Limit orders are matched in order of their price (ascending for sell orders and descending for buy orders). If two orders have the same price, it is garanteed that the elder order will be matched first.
+Ticks
+    Order books support a notion of a tick size: all limit orders stored in the book should have prices that are multipliers of the chosen tick size. If an order has a limit price not divisible by the tick size it is rounded to the closest 'weaker' tick ('floored' for buy orders and 'ceiled' for sell orders). In future all prices will be stored as integers in ticks.
 
-Limit orders firstly processed exactly as market orders. If a limit order is not filled completely it is stored in a corresponding order queue.
+Market order
+    Market orders are processed by an order book in the following way: if there are unfulfilled limit orders at the opposite trade side, the market order is matched against them till either it is fulfilled or there are no more unfilled limit orders. Price for the trade is taken as the limit order limit price. Limit orders are matched in order of their price (ascending for sell orders and descending for buy orders). If two orders have the same price, it is garanteed that the elder order will be matched first.
 
-Orders and requests are processed by an order book in serialized way. It implies that, for example, if a meta order sends another order it is garanteed that the latter will be processed only after the meta order is completely processed. ``ORDER_PROCESSING_TIME`` defines how much time every order or request should be processed (in future, it might be replaced by a function)
+Limit order
+    Limit orders firstly processed exactly as market orders. If a limit order is not filled completely it is stored in a corresponding order queue.
 
-There is a notion of transaction costs: if a user wants to define functions computing transaction fees for market, limit and cancel orders she should pass functions of form ``(anOrder, orderBook) --> Price`` to the order book constructor.  If ``Price`` is negative, the trader gains some money on this transaction. If the functions are given,  once an order is processed by an order book, method ``order.charge(price)`` is called. The default implementation for the method delegates it to ``trader.charge(price)`` where ``trader`` is a trader associated with the ``order``. 
+Order processing time
+    Orders and requests are processed by an order book in serialized way. It implies that, for example, if a meta order sends another order it is garanteed that the latter will be processed only after the meta order is completely processed. ``ORDER_PROCESSING_TIME`` defines how much time every order or request should be processed (in future, it might be replaced by a function)
+
+Transaction costs
+    There is a notion of transaction costs: if a user wants to define functions computing transaction fees for market, limit and cancel orders she should pass functions of form ``(anOrder, orderBook) --> Price`` to the order book constructor.  If ``Price`` is negative, the trader gains some money on this transaction. If the functions are given,  once an order is processed by an order book, method ``order.charge(price)`` is called. The default implementation for the method delegates it to ``trader.charge(price)`` where ``trader`` is a trader associated with the ``order``. 
 
 
 Order book
@@ -107,7 +120,9 @@ Remote order book
 -----------------
 
 Remote order book (``orderbook.Remote`` class) represents an order book for a remote trader. Remoteness means that there is some delay between moment when an order is sent to a market and the moment when the order is received by the market so it models latency in telecommunication networks. A remote book constructor accepts a reference to an actual order book (or to another remote order book) and a reference to a two-way communication channel. 
+
 Class ``remote.TwoWayLink`` implements a two-way telecommunication channel having different latency functions in each direction (to market and from market). It also ensures that messages are delivired to the recipient in the order they were sent. 
+
 Queues in a remote book are instances of ``orderbook._remote.Queue`` class. This class is connected to the real order queue and listens ``bestPrice`` events thus keeping information about the best order in the queue up-to-date. 
 When a remote order book receives an order, it is cloned and sent to the actual order book via a communication link. The remote order book gets subscribed to the clone order's events via downside link. It leads to that in some moments of time the state of the original order and its clone are not synchronised (and this is normal).
 
