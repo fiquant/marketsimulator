@@ -14,6 +14,10 @@ The project simulates a generic agent based	market model. The aim is to explore 
 
 * `History <doc/history.rst>`_
 
+* `Components <doc/talks/objects.png>`_
+
+  * `Scheduler <doc/scheduler.rst>`_
+
 * `Rationale for module design <doc/rationale.rst>`_
   
 * `Simple and compound modules <doc/modules.rst>`_
