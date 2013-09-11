@@ -1,9 +1,25 @@
+Order book and order queue
+==========================
+
+Order book represents a single asset traded in some market. Same asset traded in different markets would have been represented by different order books. An order book stores unfulfilled limit orders sent for this asset in two order queues, one for each trade sides (Asks for sell orders and Bids for buy orders).
+
+Order queues are organized in a way to extract quickly the best order and to place a new order inside. In order to achieve this a heap based implementation is used. (A bucket based implementation might be also used).
+
+Order books support a notion of a tick size: all limit orders stored in the book should have prices that are multipliers of the chosen tick size. If an order has a limit price not divisible by the tick size it is rounded to the closest 'weaker' tick ('floored' for buy orders and 'ceiled' for sell orders).
+
+Market orders are processed by an order book in the following way: if there are unfulfilled limit orders at the opposite trade side, the market order is matched against them till either it is fulfilled or there are no more unfilled limit orders. Price for the trade is taken as the limit order limit price. Limit orders are matched in order of their price (ascending for sell orders and descending for buy orders). If two orders have the same price, it is garanteed that the elder order will be matched first.
+
+Limit orders firstly processed exactly as market orders. If a limit order is not filled completely it is stored in a corresponding order queue.
+
+Orders and requests are processed by an order book in serialized way. It implies that, for example, if a meta order sends another order it is garanteed that the latter will be processed only after the meta order is completely processed. ``ORDER_PROCESSING_TIME`` defines how much time every order or request should be processed (in future, it might be replaced by a function)
+
+There is a notion of transaction costs: if a user wants to define functions computing transaction fees for market, limit and cancel orders she should pass functions of form ``(anOrder, orderBook) --> Price`` to the order book constructor.  If ``Price`` is negative, the trader gains some money on this transaction. If the functions are given,  once an order is processed by an order book, method ``order.charge(price)`` is called. The default implementation for the method delegates it to ``trader.charge(price)`` where ``trader`` is a trader associated with the ``order``. 
+
+
 Order book
 ----------
 
-For the moment, there are two kinds of order books: local and remote
-ones. Local order books execute methods immediately but remote onces try
-to simulate some delay between a trader and a market by means of message
+For the moment, there are two kinds of order books: local and remote ones. Local order books execute their methods immediately but remote onces try to simulate some delay between a trader and a market by means of message
 passing (so they are asynchronous by their nature). These books try to
 have the same interface in order that traders cannot tell the difference
 between them.
