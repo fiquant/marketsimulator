@@ -16,7 +16,9 @@ The project simulates a generic agent based	market model. The aim is to explore 
 
 * `Components <doc/talks/objects.png>`_
 
-  * `Scheduler <doc/scheduler.rst>`_
+  * `Discrete event simulation <doc/scheduler.rst>`_
+  
+  * `Market representation <doc/orderbook.rst>`_
 
 * `Rationale for module design <doc/rationale.rst>`_
   
