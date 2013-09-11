@@ -1,3 +1,8 @@
+.. image:: doc/Figures/logo/logo_centrale_paris.png
+
+.. image:: doc/Figures/logo/devise_centrale_paris.gif
+
+
 FiQuant Market Microstructure Simulator
 =======================================
 
