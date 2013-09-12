@@ -130,7 +130,7 @@ Spread
 
 .. code-block:: haskell
 
-    Spread(orderbook) ::= Asks(orderbook) - Bids(orderbook)
+    Spread(orderbook) ::= BestPrice(Asks(orderbook)) - BestPrice(Bids(orderbook))
 
 Trader functions and observables
 -------------------------------------
