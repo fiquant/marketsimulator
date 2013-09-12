@@ -17,6 +17,8 @@ The project simulates a generic agent based	market model. The aim is to explore 
 * `Components <doc/talks/objects.png>`_
 
   * `Events <doc/event.rst>`_
+  
+  * `Functions and observables <doc/observable.rst>`_
 
   * `Discrete event simulation <doc/scheduler.rst>`_
   
