@@ -7,11 +7,24 @@ Many statistical packages (like `pandas <http://pandas.pydata.org/>`_ and `ta-li
 
 In some cases (moving average, moving average etc) it is possible to introduce an incremental version that make every update in constant time and thus works much faster.  
 
-- average (Mean): cumulative (``CMA``), moving (``MA``), exponentially weighted (``EWMA``)
+.. contents::
+    :local:
+    :depth: 1
+    :backlinks: none
+
+Moving average
+--------------
+ 
+- cumulative: ``CMA``
+- simple moving: ``MA(timeframe)``
+- exponentially weighted: ``EWMA(alpha)``
 
 .. image:: Figures/web/averages.png
 
-Having defined moving average we may introduce moving average convergence/divergence, its signal and histogram
+Moving average convergence/divergence
+-------------------------------------
+
+Having defined moving average we may introduce `moving average convergence/divergence <http://en.wikipedia.org/wiki/MACD>`_, its signal and histogram
 
 .. code-block:: haskell
 
@@ -21,7 +34,12 @@ Having defined moving average we may introduce moving average convergence/diverg
 
 .. image:: Figures/web/macd.png
 
-- variance (Variance): cumulative, moving, exponentially weighted
+Moving variance
+---------------
+
+- cumulative: ``Variance``
+- moving: ``MovingVariance(timeframe)``
+- exponentially weighted: ``EWMV(alpha)``
 
 Variances could be implemented via Mean but it looses precision so they are implemented as simple modules 
 
@@ -30,12 +48,18 @@ Variances could be implemented via Mean but it looses precision so they are impl
 	Var(x) ::= Mean(Sqr(x)) - Sqr(Mean(x)) 
 
 Standard deviation 
+------------------
 
 .. code-block:: haskell
 
 	StdDev(x) ::= Sqrt(Variance(x))
+	StdDevRolling(x, timeframe) ::= Sqrt(MovingVariance(x, timeframe))
+	StdDevEW(x, alpha) ::= Sqrt(EWMV(x, alpha))
 
-Having moving averages and variances it is possible to find bollinger bands:
+Bollinger bands
+---------------
+
+Having moving averages and variances it is possible to find `bollinger bands <http://en.wikipedia.org/wiki/Bollinger_Bands>`_:
 
 .. code-block:: haskell
 
@@ -44,14 +68,26 @@ Having moving averages and variances it is possible to find bollinger bands:
 
 .. image:: Figures/web/bollinger_bands.png
 
-- moving minimum/maximum
-
 Relative strength index
+-----------------------
+
+An observable returning values of a function with some lag (``Lagged``) allows easily implement `relative strength index <http://en.wikipedia.org/wiki/Relative_strength_index>`_: 
 
 .. code-block:: haskell
 
-	Ups(x, dt, alpha) ::= EWMA(max(0, x - Lagged(x, dt)), alpha)
-	Downs(x, dt, alpha) ::= EWMA(max(0, Lagged(x, dt) - x), alpha)
+	Ups(x, dt, alpha) ::= EWMA(max(0, x - Lagged(x, dt)), alpha) --- moving average of positive movements
+	Downs(x, dt, alpha) ::= EWMA(max(0, Lagged(x, dt) - x), alpha) --- moving average of negative movements
 	RSI(x, dt, alpha) ::= 100 - 100 / (1 + Ups(x,dt,alpha)/Downs(x,dt,alpha))
+
+.. image:: Figures/web/rsi.png
+
+Moving minimum and maximum
+--------------------------
+
+.. image:: Figures/web/minmax.png
+
+
+
+
 
 
