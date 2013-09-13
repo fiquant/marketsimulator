@@ -168,6 +168,8 @@ def orderBooksToRender(ctx, traders):
                     timeserie.ToRecord(observable.OnEveryDt(1, mean + stddev*2), graph), 
                     timeserie.ToRecord(observable.OnEveryDt(1, mean - stddev*2), graph),
                 ] 
+                
+            scaled = (assetPrice - 100) / 10
             
             return ([
                 timeserie.ToRecord(assetPrice, ctx.price_graph), 
@@ -192,7 +194,9 @@ def orderBooksToRender(ctx, traders):
                 timeserie.ToRecord(avg(assetPrice, alpha=0.65), ctx.avgs_graph),
                 timeserie.ToRecord(avg(assetPrice, alpha=0.015), ctx.avgs_graph),
                  
-                timeserie.ToRecord(assetPrice, ctx.macd_graph), 
+                timeserie.ToRecord(scaled, ctx.macd_graph), 
+                timeserie.ToRecord(avg(scaled, alpha=2./13), ctx.macd_graph),
+                timeserie.ToRecord(avg(scaled, alpha=2./27), ctx.macd_graph),
                 timeserie.ToRecord(observable.OnEveryDt(1, observable.MACD(assetPrice)), ctx.macd_graph), 
                 timeserie.ToRecord(observable.OnEveryDt(1, observable.MACD_signal(assetPrice)), ctx.macd_graph), 
                 timeserie.ToRecord(observable.OnEveryDt(1, observable.MACD_histogram(assetPrice)), ctx.macd_graph), 
