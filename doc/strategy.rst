@@ -1,6 +1,11 @@
 Simple strategies
 =================
 
+.. contents::
+    :local:
+    :depth: 2
+    :backlinks: none
+    
 ``Generic(eventGen, orderFactory)`` wakes up at moments of time given by ``eventGen`` and asks ``orderFactory`` to create an order
 
 For example, a crossing averages strategy that sends market orders with exponentially distributed volume sizes in even intervals of time could be written as:
@@ -10,9 +15,8 @@ For example, a crossing averages strategy that sends market orders with exponent
     strategy.Generic(event.Every(constant(1.)),
             order.factory.Market(
                 side = parts.side.TwoAverages(
-                					MidPrice(orderbook.OfTrader()), 
-                					alpha1, 
-                					alpha2),
+                                    MidPrice(orderbook.OfTrader()), 
+                                    alpha1, alpha2),
                 volume = rnd.Expovariate(1.)
            ))
 
@@ -22,6 +26,8 @@ Usually they accept parameters defining strategy logic and an order factory in a
 
 Noise strategy
 --------------
+
+Noise strategy wakes up at moments of time given by ``eventGen`` and chooses randomly trade side. 
 
 .. code-block:: haskell
 
