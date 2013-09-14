@@ -24,7 +24,15 @@ The project simulates a generic agent based	market model. The aim is to explore 
 
   * `Discrete event simulation <doc/scheduler.rst>`_
   
+  * `Orders, order factories and requests <doc/order.rst>`_
+  
+  * `Meta orders <doc/metaorder.rst>`_
+  
   * `Market representation <doc/orderbook.rst>`_
+
+  * `Simple strategies <doc/strategy.rst>`_
+
+  * `Adaptive strategies <doc/adaptive.rst>`_
 
 * `Rationale for module design <doc/rationale.rst>`_
   
