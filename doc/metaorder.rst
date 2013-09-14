@@ -1,6 +1,11 @@
 Meta orders 
 ===========
 
+.. contents::
+    :local:
+    :depth: 2
+    :backlinks: none
+    
 Meta orders look like normal orders from trader's point of view (so they can be easily interchanged with limit and market orders) but from order book's point of view it is a sequence of elementary orders and requests. This behaviour is achieved by overriding ``processIn`` method.
 
 It should be noted that border between a strategy and a meta order is quite blur: some strategies can be implemented as meta orders and vice versa.
@@ -14,9 +19,6 @@ Meta orders can be combined in quite wide range. For example,
             order.factory.side.Peg(
                 order.factory.side_price.Limit(ops.constant(10)))
                 
-creates limit orders of volume 10 split into lots of size 1 with price set to the best price of the order queue. These orders are cancelled after 10 units of time.
-
-
 creates limit orders with volume 10, price is taken as the best price (Peg order), sends them in portions of ``lotSize = 1`` and cancels them after ``expiry = 10`` units of time.
 
 
@@ -60,12 +62,12 @@ Stoploss order
 --------------
 
 This order is initialised by an underlying order and a maximal acceptable loss factor.
-It keeps track of position and balance change induced by trades of the underlying order and if losses from keeping the position goes above certain limit (given by maximum loss factor), the meta order clears its position.
+It keeps track of position and balance change induced by trades of the underlying order and if losses from keeping the position exceed certain limit (given by maximum loss factor), the meta order clears its position.
 
 Fixed budget order
 ------------------
 
-It acts like a market order but the volume is implicitly given by a budget available for trades. Internally first it sends ``request.EvalVolumesForBudget`` in order to estimate volumes and prices of orders to sent and then sends a sequence of ``order.ImmediateOrCancel`` to be sure that budget not greater than given is used.
+It acts like a market order but the volume is implicitly given by a budget available for trades. Internally first it sends ``request.EvalVolumesForBudget`` in order to estimate volumes and prices of orders to sent and then sends a sequence of ``order.ImmediateOrCancel`` to be sure that cumulative price of trades to be done won't exceed the given budget.
 
 .. code-block:: python
 
