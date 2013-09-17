@@ -45,3 +45,34 @@ Suspends an aggregated strategy if its effiency is estimated negatively. By defa
 .. image:: Figures/web/tradeifprofitable.png
 
 
+Choose-the-best strategy
+------------------------
+
+This strategy aggregates an array of strategies and estimates their efficiencies. At some moments of time it chooses a strategy with the best performance and suspends others. 
+
+
+.. image:: Figures/web/choosethebest.png
+
+
+Multiarmed bandit strategy
+--------------------------
+
+This strategy stores a weight for each aggregated strategy and regularly updates it. Then it normilizes somehow the weights in order to choose randomly a strategy. Choose-the-best strategy can be considered as a particular case of the multiarmed bandit where the weight is equal performance estimation of a strategy and normalization changes weight of the best strategy to 1 and weights of other strategies are set to 0. 
+
+Multiarmed bandit has following parameters:
+
+- ``strategies`` -- array of strategies to aggregate
+
+- ``account`` -- function that creates an account tracking strategy's trades (``adaptive.VirtualMarket`` or ``adaptive.ActuallyTraded``)
+
+- ``weight`` -- function calculating unnormalized weight of a strategy (like in trade-if-profitable or choose-the-best strategies)
+
+- ``normalizer`` -- function that transforms unnormalized weight (for example, to suit a certain range)
+
+- ``corrector`` -- function that takes an array of weights and makes their sum equal to 1
+
+In the following figures position and efficiency of multiarmed bandit strategies with different combination of these parameters are shown
+
+.. image:: Figures/web/multiarmed-amount.png
+
+.. image:: Figures/web/multiarmed-efficiency.png
