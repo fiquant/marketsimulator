@@ -8,7 +8,7 @@
 FiQuant Market Microstructure Simulator
 =======================================
 
-The project simulates a generic agent based	market model. The aim is to explore intimately, by simulation, the process of price formation and the market microstructure. It was developed at `Chair of Quantitative Finance <http://fiquant.mas.ecp.fr/>`_ of `École Centrale Paris <http://www.ecp.fr/>`_
+The project simulates a generic agent based	market model. The aim is to explore intimately, by simulation, the process of price formation and the market microstructure. It is developed at `Chair of Quantitative Finance <http://fiquant.mas.ecp.fr/>`_ of `École Centrale Paris <http://www.ecp.fr/>`_
 
 * `Installation notes <doc/install.rst>`_
 
@@ -16,9 +16,7 @@ The project simulates a generic agent based	market model. The aim is to explore 
 
 * `Components <doc/talks/objects.png>`_
 
-  * `Events <doc/event.rst>`_
-  
-  * `Functions and observables <doc/observable.rst>`_
+  * `Events, functions and observables <doc/observable.rst>`_
 
   * `Statistics <doc/statistics.rst>`_
 
