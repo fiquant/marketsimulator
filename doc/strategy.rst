@@ -6,7 +6,7 @@ Simple strategies
     :depth: 2
     :backlinks: none
     
-``Generic(eventGen, orderFactory)`` wakes up at moments of time given by ``eventGen`` and asks ``orderFactory`` to create an order
+``Generic(eventGen, orderFactory)`` wakes up at moments of time given by ``eventGen`` and asks ``orderFactory`` to create an order.
 
 For example, a crossing averages strategy that sends market orders with exponentially distributed volume sizes in even intervals of time could be written as:
 
@@ -20,38 +20,37 @@ For example, a crossing averages strategy that sends market orders with exponent
                 volume = rnd.Expovariate(1.)
            ))
 
-There are also handy specialisations of the generic strategy.
-
-Usually they accept parameters defining strategy logic and an order factory in a curried form.
+There are also handy specialisations of this generic strategy. Usually they accept parameters defining strategy logic and an order factory in a curried form.
 
 Liquidity provider strategy
 ---------------------------
 
-Liquidity provider strategy is an array of two strategy providing liquidity for each side of trade over the asset. Every liquidity provider side wakes up at moments of time given by ``eventGen`` calculates base price of the asset (it is taken as price of the best order in the queue, if none, price of the last trade is taken, if none we take some default value). Then an order with price equal to the base price is multiplied by a value taken from ``priceDistr`` and volume is taken from ``volumeDistr`` is created.
+Liquidity provider strategy is an array of two strategies providing liquidity for each side of trade over the asset. Every liquidity provider side wakes up at moments of time given by ``eventGen``, calculates a base price of the asset (it is taken as price of the best order in the queue, if none, price of the last trade is taken, if none we take some default value). Then an order with price equal to the base price is multiplied by a value taken from ``priceDistr`` and volume is taken from ``volumeDistr`` is created.
   
 .. code-block:: haskell
     
-    NotNone(x, defaultValue) ::= if x == None then defaultValue else x
+    NotNone(x, defaultValue) ::= 
+        if x == None then defaultValue else x
+        
     price.LiquidityProviderSide(orderqueue, priceDistr, defaultValue) ::=
         priceDistr * (NotNone(BestPrice(orderqueue), 
                          NotNone(LastTradePrice(orderqueue), 
                              defaultValue))
   
-    strategy.LiquidityProviderSide(eventGen, orderFactory, 
-    	side, priceDistr, defaultValue) ::=
-    		orderbook = orderbook.OfTrader() in
-    		strategy.Generic(eventGen, 
-    						 orderFactory(ops.constant(side), 
-    						 			  price.LiquidityProviderSide(
-    						 			  	orderbook.queue(side),
-    						 			    priceDistr, 
-    						 			    defaultValue)))
+    strategy.LiquidityProviderSide(eventGen, orderFactory, side, priceDistr, defaultValue) ::=
+            orderbook = orderbook.OfTrader() in
+            strategy.Generic(eventGen, 
+                             orderFactory(ops.constant(side), 
+                                          price.LiquidityProviderSide(
+                                            orderbook.queue(side),
+                                            priceDistr, 
+                                            defaultValue)))
     						 			    
-	strategy.LiquidityProvider(eventGen, orderFactory, priceDistr, defaultValue) ::=
-		strategy.Array([
-			strategy.LiquidityProviderSide(eventGen, orderFactory, Side.Sell, priceDistr, defaultValue),
-			strategy.LiquidityProviderSide(eventGen, orderFactory, Side.Buy,  priceDistr, defaultValue),
-		])    						 			    
+    strategy.LiquidityProvider(eventGen, orderFactory, priceDistr, defaultValue) ::=
+    	strategy.Array([
+    		strategy.LiquidityProviderSide(eventGen, orderFactory, Side.Sell, priceDistr, defaultValue),
+    		strategy.LiquidityProviderSide(eventGen, orderFactory, Side.Buy,  priceDistr, defaultValue),
+    	])    						 			    
 		
 Noise strategy
 --------------
@@ -60,10 +59,11 @@ Noise strategy wakes up at moments of time given by ``eventGen`` and chooses ran
 
 .. code-block:: haskell
 
-    side.Random() ::= if uniform(0,1) > 0.5 then Side.Sell else Side.Buy
+    side.Random() ::= 
+        if uniform(0,1) > 0.5 then Side.Sell else Side.Buy
     
     strategy.Noise(eventGen, orderFactory) ::= 
-    	Generic(eventGen, orderFactory(side.Random()))
+    	strategy.Generic(eventGen, orderFactory(side.Random()))
     
 Signal strategy
 ---------------
@@ -72,23 +72,26 @@ Signal strategy listens to some discrete ``signal`` and when the signal becomes 
 
 .. code-block:: haskell
 
-    side.Signal(x, threshold) ::= if  x > threshold then Side.Buy else 
-                                  if -x > threshold then Side.Sell else
-                                     None 
-	
-	strategy.Signal(eventGen, orderFactory, signal, threshold) ::= 
-		strategy.Generic(eventGen, orderFactory(side.Signal(signal, threshold)))
+    side.Signal(x, threshold) ::= 
+        if  x > threshold then Side.Buy else 
+        if -x > threshold then Side.Sell else
+        None 
+    
+    strategy.Signal(eventGen, orderFactory, signal, threshold) ::= 
+    	strategy.Generic(eventGen, orderFactory(
+    	    side.Signal(signal, threshold)))
 												
 .. image:: Figures/web/signal.png
 
 Trend follower
 --------------
 
-Trend follower can be considered as a sort of a signal strategy where the ``signal`` is a trend of the asset. Under trend we understand the first derivative of some moving average of asset prices. If the derivative is positive, the trader buys; if the derivative is negative, it sells. Since moving average is a continuously changing signal, we check its derivative moments of time given by ``eventGen``.  
+Trend follower can be considered as a sort of a signal strategy where the ``signal`` is a trend of the asset's price. Under trend we understand the first derivative of some moving average. If the derivative is positive, the trader buys; if the derivative is negative, it sells. Since a moving average is a continuously changing signal, we check its derivative at moments of time given by ``eventGen``.  
 
 .. code-block:: haskell
 
-    side.TrendFollower(price, alpha) ::= side.Signal(Derivative(EWMA(price, alpha)), 0)
+    side.TrendFollower(price, alpha) ::= 
+        side.Signal(Derivative(EWMA(price, alpha)), 0)
     
     strategy.TrendFollower(eventGen, orderFactory, alpha) ::= 
     	strategy.Generic(eventGen, orderFactory(
@@ -99,12 +102,12 @@ Trend follower can be considered as a sort of a signal strategy where the ``sign
 Crossing averages strategy
 --------------------------
 
-Crossing averages strategy can be considered as a sort of a signal strategy where the ``signal`` is difference between two moving averages of the asset's price. 
+Crossing averages strategy can be considered as a sort of a signal strategy where the ``signal`` is a difference between two moving averages of the asset's price. 
 
 .. code-block:: haskell
 
-    side.TwoAverages(price, alpha1, alpha2) ::= side.Signal(EWMA(price, alpha1) - 
-    														EWMA(price, alpha2), 0)
+    side.TwoAverages(price, alpha1, alpha2) ::= 
+        side.Signal(EWMA(price, alpha1) - EWMA(price, alpha2), 0)
 
 	strategy.TwoAverages(eventGen, orderFactory, alpha1, alpha2) ::= 
 		strategy.Generic(eventGen, orderFactory(
@@ -119,9 +122,10 @@ Fundamental value strategy believes that an asset should cost some specific pric
 
 .. code-block:: haskell
 
-    side.FundamentalValue(orderbook, fv) ::= if BestPrice(Asks(orderbook)) < fv then Side.Buy else 
-                                             if BestPrice(Bids(orderbook)) > fv then Side.Sell else
-                                             Nothing
+    side.FundamentalValue(orderbook, fv) ::= 
+        if BestPrice(Asks(orderbook)) < fv then Side.Buy else 
+        if BestPrice(Bids(orderbook)) > fv then Side.Sell else
+        None
                                              
     strategy.FundamentalValue(eventGen, orderFactory, fv) ::= 
 		strategy.Generic(eventGen, orderFactory(
@@ -136,12 +140,12 @@ Mean reverting strategy is a kind of a fundamental value strategy with ``fundame
 
 .. code-block:: haskell
 
-    side.MeanReverting(orderbook, alpha) ::= side.FundamentalValue(orderbook, 
-    											EWMA(MidPrice(orderbook), alpha))
+    side.MeanReverting(orderbook, alpha) ::= 
+        side.FundamentalValue(orderbook, EWMA(MidPrice(orderbook), alpha))
     											
-  	strategy.MeanReverting(eventGen, orderFactory, alpha) ::=
-  		strategy.Generic(eventGen, orderFactory, 
-  			side.MeanReverting(orderbook.OfTrader(), alpha))
+    strategy.MeanReverting(eventGen, orderFactory, alpha) ::=
+        strategy.Generic(eventGen, orderFactory, 
+            side.MeanReverting(orderbook.OfTrader(), alpha))
 
 .. image:: Figures/web/meanreversion.png
 
@@ -164,7 +168,7 @@ Dependent price strategy believes that the fair price of an asset ``A`` is compl
 Desired position strategies
 ---------------------------
 
-These strategies keep track of the trader's position (actual position + pending orders volume) and if ``desiredVolume`` changes and create orders in order to cover the gap between current and desired positions.
+These strategies keep track of the trader's position (actual position + pending orders volume) and if ``desiredVolume`` changes it creates orders in order to cover the gap between the current and the desired position.
 
 .. code-block:: haskell
 
@@ -174,17 +178,17 @@ These strategies keep track of the trader's position (actual position + pending 
 Bollinger bands strategy
 ------------------------
 
-Bollinger band strategy believes that a trader should take a position equal to deviation of the current asset price from its average divided on its standard deviation (and scaled by some ``factor``).
+Bollinger band strategy believes that a trader should take a position equal to the difference between the current asset price and its average divided on its standard deviation (and scaled by some ``factor``).
 
 .. code-block:: haskell
 
-	signed_volume.BollingerBands(alpha, k) ::= 
-		trader = thisTrader(),
-		price  = MidPrice(orderbook.OfTrader(trader)),
-		mean   = EWMA(price, alpha), 
-		stddev = StdDevEW(price, alpha) in 
-		
-		signed_volume.DesiredPosition(trader, (price - mean) / stddev * k)
+    signed_volume.BollingerBands(alpha, k) ::= 
+        trader = thisTrader(),
+        price  = MidPrice(orderbook.OfTrader(trader)),
+        mean   = EWMA(price, alpha), 
+        stddev = StdDevEW(price, alpha) in 
+        
+        signed_volume.DesiredPosition(trader, (price - mean) / stddev * k)
 		
 Relative Strength Index strategy
 --------------------------------
@@ -193,25 +197,25 @@ Relative Strength Index strategy believes that a trader should take a position e
 
 .. code-block:: haskell
 
-	signed_volume.RSI(alpha, k, timeframe) ::=
-		rsi = RSI(orderbook.OfTrader(), timeframe, alpha) in 
-		signed_volume.DesiredPosition(thisTrader(), OnEveryDt(1, 
-			(50 - rsi) * k))
+    signed_volume.RSI(alpha, k, timeframe) ::=
+        trader = thisTrader()
+        rsi = RSI(orderbook.OfTrader(trader), timeframe, alpha) in 
+        signed_volume.DesiredPosition(trader, OnEveryDt(1, (50 - rsi) * k))
 
 Market data strategy
 --------------------
 
 This strategy allows to drive the asset price based on historical market data by creating large volume orders for the given price.  Every time step of 1 in the simulation corresponds to a 1 day in the market data. At each time step the previous Limit Buy/Sell orders are cancelled and new ones are created based on the next price of the market data.
 
-It is implemented as a strategy that wakes up once and create a composition of iceberg and floating price orders. The floating price is equal to the current quote plus/minus some delta and iceberg order breaks into small lots an 'infinite' limit order.
+It is implemented as a strategy that wakes up once and create a composition of iceberg and floating price orders. The floating price is equal to the current quote plus/minus some delta and the iceberg order breaks an 'infinite' limit order into small lots.
 
 .. code-block:: python 
 
-class MarketData(types.ISingleAssetStrategy):
-    
-    def getImpl(self):
-        quotes = observable.Quote(self.ticker, self.start, self.end) # TODO: should be in definitions
-        return strategy.Array([
+    class MarketData(types.ISingleAssetStrategy):
+        
+        def getImpl(self):
+            quotes = observable.Quote(self.ticker, self.start, self.end) # TODO: should be in definitions
+            return strategy.Array([
                 strategy.Generic(
                     order.factory.Iceberg(
                         const(self.volume),
@@ -222,5 +226,5 @@ class MarketData(types.ISingleAssetStrategy):
                                 volume = const(self.volume * 1000000)))),
                     event.After(ops.constant(0)))\
                     for side, sign in {Side.Buy : -1, Side.Sell : 1}.iteritems()
-            ])
+                ])
 
