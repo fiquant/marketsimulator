@@ -6,7 +6,7 @@ Discrete event simulation components
     :depth: 2
     :backlinks: none
 
-The main class for every discrete event simulation system is a scheduler that maintains a set of actions to fulfill in future and launches them according their action times: from the older ones to newer. The scheduler in the simulator is implemented as a heap data structure in order to perform frequent operations very fast. A classical heap allows inserts into at O(logN), extracting the best element at O(logN) and accessing to the best element at O(1). A bucket-based implementation may be introduced in order to improve performance provided that the distribution of event times is known beforehand.
+The main class for every discrete event simulation system is a scheduler that maintains a set of actions to fulfill in future and launches them according their action times: from the older ones to newer ones. The scheduler in the simulator is implemented as a heap data structure in order to perform frequent operations very fast. A classical heap allows inserts into at O(logN), extracting the best element at O(logN) and accessing to the best element at O(1). A bucket-based implementation may be introduced in order to improve performance provided that the distribution of event times should be known beforehand.
 
 Scheduler
 ---------
@@ -43,7 +43,7 @@ Scheduler
         def advance(self, dt)
             self.workTill(self.currentTime + dt)
 
-In order to schedule an event a user should use ``schedule`` or ``scheduleAfter`` methods passing there an event handler which should be given as a callable object (a function, a method, a lambda expression or a object exposing ``__call__`` method). 
+In order to schedule an event a user should use ``schedule`` or ``scheduleAfter`` methods passing there an event handler which should be given as a callable object (a function, a method, a lambda expression or an object exposing ``__call__`` method). 
 
 Methods ``workTill`` and ``advance`` advance model time calling event handlers in order of their action times. If two events have same action time it is garanteed that the event scheduled first will be executed first. These methods must not be called from an event handler. In such a case an exception will be issued.
 
@@ -110,4 +110,4 @@ when added to a simulation will print
 Generating a single event
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``event.At`` generates a single event at some time at future.
+``event.After`` generates a single event at some time in the future.
