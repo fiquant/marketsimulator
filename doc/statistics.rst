@@ -1,11 +1,11 @@
 Statistics
 ==========
 
-Statistical functions operate on paths of function values and in general case it requires storing the function history and recalculating statistics each time. Every recalculation has at least O(M) time complexity where M is number of points involved and thus is quite time consuming. 
+Statistical functions operate on paths of function values and in general case it requires storing the function history and recalculating statistics each time. Every recalculation has at least O(M) time complexity where M is number of points involved and thus it is quite time consuming. 
 
 Many statistical packages (like `pandas <http://pandas.pydata.org/>`_ and `ta-lib <http://ta-lib.org/>`_) provide a lot of useful functions that work on time series and in order to facilate interoperability with these libraries the market simulator provide handful adapters. 
 
-In some cases (moving average, moving average etc) it is possible to introduce an incremental version that make every update in constant time and thus works much faster.  
+In some cases (moving average, moving variance etc) it is possible to introduce an incremental version that make every update in constant time and thus works much faster.  
 
 .. contents::
     :local:
