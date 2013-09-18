@@ -22,8 +22,9 @@ Market and limit orders
 -------------------------
 
 Market and limit orders (and some meta orders) derive from a common base class that provides some basic functionality: 
+
 - matched/unmatched volume management
-- storing cancellation flag
+- storing a cancellation flag
 - keeping a reference to the order's owner  
 
 It has following interface:
@@ -61,7 +62,7 @@ It has following interface:
 		
 Classes ``order.Market`` and ``order.Limit`` derive from this class and define method ``processIn(orderbook)`` which defines how the order should be processed in an orderbook. 
 
-When the order is matched against another order it calls ``onMatchedWith`` method of ``owner`` passing volume and price at which the trade was done.
+When the order is matched against another order it calls ``onMatchedWith`` method of the ``owner`` passing volume and price at which the trade was done.
 
 If an order is cancelled or gets completely matched ``onOrderDisposed`` method of the ``owner`` is called. 
 
@@ -83,7 +84,7 @@ Limit order defines also accessors to its price:
 Order factories
 ---------------
 
-Usually a user in the simulator specify a kind of orders to create by choosing appropriate *order factory*.
+Components in the simulator creating orders (strategies, meta orders) are parametrized by *order factories*.
 
 Order factories are initialized by functions calculating parameters of order to create. For example,
 
@@ -92,8 +93,8 @@ Order factories are initialized by functions calculating parameters of order to 
     class order.factory.Market(types.IOrderFactory):
 	
         def __init__(self, side, volume):
-            self.side = side
-            self.volume = volume
+            self.side = side		# () -> Side
+            self.volume = volume	# () -> Volume
         	
         _properties = {
             'side'   : IFunction[Side],
@@ -129,7 +130,7 @@ If some parameters of an order to create depend on other parameters, a special f
             return order.Market(signedvolume > 0 ? Side.Buy : Side.Sell, 
                                 abs(signedvolume))
 
-Sometimes order factories are constructed in several stages: for example, some parameters of the factory are defined by a trading strategy and the rest is defined by user.
+Sometimes order factories are constructed in several steps: for example, some parameters of a factory are defined by a trading strategy and the rest is defined by user.
 
 In order to support these use cases order factories have also a curried form. For example, ``order.factory.volume.Market`` has type ``(() -> Volume) -> IOrderGenerator`` and ``order.factory.side_price.Limit`` has type ``(() -> Side) -> (() -> Price) -> IOrderGenerator``.
 
