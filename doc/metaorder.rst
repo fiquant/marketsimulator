@@ -27,11 +27,30 @@ Iceberg order
 
 Iceberg order is initialized by an underlying order and a lot size. It sends consequently pieces of the underlying order of size equal or less to the lot size thus maximum lot size volume is visible at the market at any moment.
 
+.. code-block:: python
+
+    class Iceberg(_meta.OwnsSingleOrder):
+
+        def __init__(self, lotSize, proto):
+            _meta.OwnsSingleOrder.__init__(self, proto)
+            self._lotSize = lotSize
+            
+        def onOrderDisposed(self, order):
+            if not self.cancelled:
+                self._tryToResend()
+            _meta.OwnsSingleOrder.onOrderDisposed(self, order)
+                
+        def _tryToResend(self):
+            self.send(self.proto.With(volume = min(self._lotSize, self.volumeUnmatched)))
+    
+        def startProcessing(self):
+            self._tryToResend()
+
 
 Immediate-or-Cancel (IoC) order 
 -------------------------------
 
-This order sends the underlying order to the market and immediately sends a cancel request for it. It allows to combine market and limit order behaviour: the order is either executed immediately at price equal or better than given one either it is cancelled (and consequently never stored in the order queue).
+This order sends an underlying order to the market and immediately sends a cancel request for it. It allows to combine market and limit order behaviour: the order is either executed immediately at price equal or better than given one either it is cancelled (and consequently never stored in the order queue).
 
 .. code-block :: python 
 
@@ -67,7 +86,7 @@ It keeps track of position and balance change induced by trades of the underlyin
 Fixed budget order
 ------------------
 
-It acts like a market order but the volume is implicitly given by a budget available for trades. Internally first it sends ``request.EvalVolumesForBudget`` in order to estimate volumes and prices of orders to sent and then sends a sequence of ``order.ImmediateOrCancel`` to be sure that cumulative price of trades to be done won't exceed the given budget.
+It acts like a market order but the volume is implicitly given by a budget available for trades. Internally first it sends ``request.EvalVolumesForBudget`` to estimate volumes and prices of orders to sent and then sends a sequence of ``order.ImmediateOrCancel`` to be sure that cumulative price of trades to be done won't exceed the given budget.
 
 .. code-block:: python
 
@@ -104,23 +123,17 @@ Floating price order
 	                self.send(None)
 
 
-This order is initialized by an order having a price and an observable that generate new prices. When the observable value changes the order is cancelled and a new order with new price is created and sent to the order book.
+This order is initialized by an order having a price and an observable that generates new prices. When the observable value changes the order is cancelled and a new order with new price is created and sent to the order book.
 
 Peg order
 ---------
 
-A peg order is a case of the floating price order with price better at one tick than the best price of the order queue. It implies that if several peg orders are sent to the same order queue they start to race until being matched against the counterparty orders.
+A peg order is a particular case of the floating price order with the price better at one tick than the best price of the order queue. It implies that if several peg orders are sent to the same order queue they start to race until being matched against the counterparty orders.
 
 .. code-block:: python 
 	
 	def Peg(order):
-	    """ Peg is a virtual order that ensures that it has the best price in the order book. 
-	    It is implemented as a limit order which is cancelled 
-	    once the best price in the order queue has changed 
-	    and is sent again to the order book 
-	    with a price one tick better than the best price in the book.
-	    """
-	
+
 	    side = order.side
 	    book = orderbook.OfTrader()
 	    tickSize = observable.TickSize(book)
