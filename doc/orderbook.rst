@@ -1,4 +1,3 @@
-
 Market representation
 ==========================
 
@@ -32,7 +31,7 @@ Transaction costs
 Order book
 ----------
 
-For the moment, there are two kinds of order books: local and remote ones. Local order books execute their methods immediately but remote onces try to simulate some delay between a trader and a market by means of message passing (so they are asynchronous by their nature). These books try to have the same interface in order that traders couldn't tell the difference between them.
+For the moment, there are two kinds of order books: local and remote ones. Local order books execute their methods immediately but remote ones try to simulate some delay between a trader and a market by means of message passing (so they are asynchronous by their nature). These books try to have the same interface in order that traders couldn't tell the difference between them.
 
 The base class for the order books is:
 
