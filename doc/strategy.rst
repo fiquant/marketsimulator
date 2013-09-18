@@ -25,7 +25,7 @@ There are also handy specialisations of this generic strategy. Usually they acce
 Liquidity provider strategy
 ---------------------------
 
-Liquidity provider strategy is an array of two strategies providing liquidity for each side of trade over the asset. Every liquidity provider side wakes up at moments of time given by ``eventGen``, calculates a base price of the asset (it is taken as price of the best order in the queue, if none, price of the last trade is taken, if none we take some default value). Then an order with price equal to the base price is multiplied by a value taken from ``priceDistr`` and volume is taken from ``volumeDistr`` is created.
+Liquidity provider strategy (``strategy.LiquidityProvider`` class) is an array of two strategies providing liquidity for each side of trade over the asset (``strategy.LiquidityProviderSide``). Every ``strategy.LiquidityProviderSide`` wakes up at moments of time given by ``eventGen``, calculates a base price of the asset (it is taken as price of the best order in the queue, if none, price of the last trade is taken, if none we take some default value). Then an order with price equal to the base price multiplied by a value taken from ``priceDistr`` and volume taken from ``volumeDistr`` is created.
   
 .. code-block:: haskell
     
@@ -205,7 +205,7 @@ Relative Strength Index strategy believes that a trader should take a position e
 Market data strategy
 --------------------
 
-This strategy allows to drive the asset price based on historical market data by creating large volume orders for the given price.  Every time step of 1 in the simulation corresponds to a 1 day in the market data. At each time step the previous Limit Buy/Sell orders are cancelled and new ones are created based on the next price of the market data.
+This strategy allows to drive the asset price based on historical market data by creating large volume orders for the given price.  Every time step of 1 time unit in the simulation corresponds to a 1 day in the market data. At each time step the previous Limit Buy/Sell orders are cancelled and new ones are created based on the next price of the market data.
 
 It is implemented as a strategy that wakes up once and create a composition of iceberg and floating price orders. The floating price is equal to the current quote plus/minus some delta and the iceberg order breaks an 'infinite' limit order into small lots.
 
