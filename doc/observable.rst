@@ -9,7 +9,7 @@ Events, functions and observables
 Events
 ------
 
-**Events** in the simultator are conceptually close to events in C# or ``boost::signal`` in C++. Number of listeners can be subscribed for event notification using += operator and unsubscribed with -= operator. A listener should be a callable object that accepts a single argument - the source of the event (it allows not to store an event source in the listener and also use a single listener for several event sources at the same time). 
+**Events** in the simultator are conceptually close to events in C# or ``boost::signal`` in C++. Number of listeners can be subscribed for event notification using ``+=`` operator and unsubscribed with ``-=`` operator. A listener should be a callable object that accepts a single argument - the source of the event (it allows not to store an event source in the listener and also use a single listener for several event sources at the same time). 
 
 Event subscription
 ------------------
@@ -73,13 +73,11 @@ Basic observables
 
 - ``Constant[T]`` / ``None[T]`` represent typed constant value or ``None`` value
 
-- ``Identity[T]`` function (note: its signature is ``T -> T`` and partial function application is to be explained)
-
 - Arithmetic operations (``Sum``, ``Sub``, ``Product``, ``Div``, ``Mod``). If both arguments of the operation are observable the operation fires events about its value change and thus becomes an event itself. Functions overload operations ``+``, ``-``, ``*``, ``-``, ``%`` so they construct respective objects.  For example, 
   
   .. code-block :: python 
     
-    (observable.AskPrice(orderbook) + observable.BidPrice()) / 2
+    (observable.AskPrice(orderbook) + observable.BidPrice(orderbook)) / 2
     
   creates an observable that notifies about every change of the mid-price.
 
