@@ -1,3 +1,5 @@
+from gen import rnd
+
 from bind import Method
 from side_ import Tag as Side
 from reference import Reference 
