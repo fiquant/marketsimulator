@@ -3,25 +3,6 @@ import sys, os
 import types
 from types import *
 
-"""
-class Member(object):
-    
-    def __init__(self, module, name):
-        self.module = module
-        self.name = name
-
-class Module(object):
-    
-    def __init__(self, name):
-        self.name = name
-        
-    def __getattr__(self, member):
-        return Member(self.name, member)
-    
-random = Module('random')
-"""
-
-
 template = """
 @registry.expose(['Random', '%(alias)s'])
 class %(name)s(ops.Function[%(rvtype)s]):
@@ -53,6 +34,40 @@ class %(name)s(ops.Function[%(rvtype)s]):
         return rv[:-1] + ")"
 """
 
+class RandomImpl:
+    
+    def __init__(self, cls, alias, rvtype=float):
+ 
+        self.alias = alias
+        self.rvtype = rvtype.__name__
+        self.name = cls.__name__
+        self.docstring = cls.__doc__
+        self.fields = []
+        
+        for n in dir(cls):
+            if n[0:2] != '__':
+                v = getattr(cls, n)
+                constraint = getattr(v, "constraint", None)
+                if constraint is not None:
+                    self.fields.append((n, v.defvalue, constraint))
+                else:
+                    if type(v) in [float, int]:
+                        self.fields.append((n, v, type(v).__name__))
+                    else:
+                        assert False, "unsupported type"
+ 
+    def __call__(self):
+        def process(tmpl, sep = ", "):
+            return sep.join([tmpl % locals() for (name, ini, typ) in self.fields])
+        
+        self.init = process("%(name)s = %(ini)s")
+        self.assign = process("self.%(name)s = %(typ)s(%(name)s)", nl + 2*tab)
+        self.dict_= process("\'%(name)s\' : %(name)s")
+        self.props= process("\'%(name)s\' : %(typ)s")
+        self.call = process("self.%(name)s")
+        
+        return template % self.__dict__
+
 template_meta = """
 class %(name)s(object):
     \"\"\" %(docstring)s
@@ -83,18 +98,6 @@ class %(name)s(object):
 tab = "    "
 nl = "\n"
 comma = ","
-
-def generate_impl(name, alias, docstring, fields, rvtype='float'):
-    def process(tmpl, sep = ", "):
-        return sep.join([tmpl % locals() for (name, ini, typ) in fields])
-    
-    init = process("%(name)s = %(ini)s")
-    assign = process("self.%(name)s = %(typ)s(%(name)s)", nl + 2*tab)
-    dict_= process("\'%(name)s\' : %(name)s")
-    props= process("\'%(name)s\' : %(typ)s")
-    call = process("self.%(name)s")
-    
-    return template % locals()
 
 def generate_meta(name, alias, docstring, fields, rvtype='float'):
     def process(tmpl, sep = ","):
@@ -128,7 +131,7 @@ def importedrandom(alias, t = float):
                     else:
                         assert False, "unsupported type"
         
-        defs.append(generate_impl(name, alias, docstring, fields, t.__name__))
+        defs.append(RandomImpl(cls, alias, t)())
         #print generate_meta(name, alias, docstring, fields, t.__name__)
         exec generate_meta(name, alias, docstring, fields, t.__name__) in globals()
         return globals()[name]
