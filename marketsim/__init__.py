@@ -1,4 +1,4 @@
-from gen import rnd
+import gen 
 
 from bind import Method
 from side_ import Tag as Side

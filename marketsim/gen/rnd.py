@@ -233,14 +233,10 @@ class weibullvariate:
     
     Alpha = positive(1.) 
     Beta = positive(1.)
-    
-source = os.path.join(__file__)    
-target = os.path.join(os.path.dirname(__file__), "..", "mathutils", "rnd.py")
 
-
-if not os.path.exists(target) or os.path.getmtime(source) > os.path.getmtime(target):
+import chk_ts
     
-    with open(target, "w") as out:
-        for d in defs:
-            out.write(d)
-            out.write('\n')
+with open(chk_ts.target('rnd'), "w") as out:
+    for d in defs:
+        out.write(d)
+        out.write('\n')
