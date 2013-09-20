@@ -1,5 +1,8 @@
 import sys, os
 
+import types
+from types import *
+
 """
 class Member(object):
     
@@ -18,28 +21,6 @@ class Module(object):
 random = Module('random')
 """
 
-class Positive(object):
-    
-    def __init__(self, defvalue):
-        self.defvalue = defvalue
-        
-    @property
-    def constraint(self):
-        return "types.positive"
-
-class NonNegative(object):
-    
-    def __init__(self, defvalue):
-        self.defvalue = defvalue
-        
-    @property
-    def constraint(self):
-        return "types.non_negative"
-    
-        
-positive = Positive
-non_negative = NonNegative
-
 
 template = """
 @registry.expose(['Random', '%(alias)s'])
@@ -48,13 +29,15 @@ class %(name)s(ops.Function[%(rvtype)s]):
     \"\"\"    
 
     def __init__(self, %(init)s):
-        self.__dict__ = { %(dict_)s }
+        %(assign)s
         
     @property
     def label(self):
         return repr(self)
         
-    _properties = { %(props)s }
+    _properties = { 
+        %(props)s 
+    }
     
     def _casts_to(self, dst):
         return %(name)s._types[0]._casts_to(dst)
@@ -70,16 +53,59 @@ class %(name)s(ops.Function[%(rvtype)s]):
         return rv[:-1] + ")"
 """
 
-def wrapper(name, alias, docstring, fields, rvtype='float'):
-    def process(tmpl):
-        return ",".join([tmpl % locals() for (name, ini, typ) in fields])
+template_meta = """
+class %(name)s(object):
+    \"\"\" %(docstring)s
+    \"\"\"    
+
+    def __init__(self, %(init)s):
+        %(assign)s
+        
+    @property
+    def label(self):
+        return repr(self)
+        
+    _properties = { 
+        %(props)s 
+    }
+    
+    def _casts_to(self, dst):
+        return %(name)s._types[0]._casts_to(dst)
+    
+    def __repr__(self):
+        rv = "%(name)s"
+        rv += "("
+        for k in %(name)s._properties:
+            rv += (k + "=" + str(self.__dict__[k]) + ",")
+        return rv[:-1] + ")"
+"""
+
+tab = "    "
+nl = "\n"
+comma = ","
+
+def generate_impl(name, alias, docstring, fields, rvtype='float'):
+    def process(tmpl, sep = ", "):
+        return sep.join([tmpl % locals() for (name, ini, typ) in fields])
     
     init = process("%(name)s = %(ini)s")
+    assign = process("self.%(name)s = %(typ)s(%(name)s)", nl + 2*tab)
     dict_= process("\'%(name)s\' : %(name)s")
     props= process("\'%(name)s\' : %(typ)s")
     call = process("self.%(name)s")
     
     return template % locals()
+
+def generate_meta(name, alias, docstring, fields, rvtype='float'):
+    def process(tmpl, sep = ","):
+        return sep.join([tmpl % locals() for (name, ini, typ) in fields])
+    
+    init = process("%(name)s = %(ini)s")
+    assign = process("self.%(name)s = %(typ)s(%(name)s)", nl + 2*tab)
+    props= process("\'%(name)s\' : %(typ)s", comma + nl + 2*tab)
+    call = process("self.%(name)s")
+    
+    return template_meta % locals()
 
 defs = ["from marketsim import registry, types, ops", "import random"]
 
@@ -101,8 +127,11 @@ def importedrandom(alias, t = float):
                         fields.append((n, v, type(v).__name__))
                     else:
                         assert False, "unsupported type"
-                
-        defs.append(wrapper(name, alias, docstring, fields, t.__name__))
+        
+        defs.append(generate_impl(name, alias, docstring, fields, t.__name__))
+        #print generate_meta(name, alias, docstring, fields, t.__name__)
+        exec generate_meta(name, alias, docstring, fields, t.__name__) in globals()
+        return globals()[name]
     
     return inner
 
@@ -113,6 +142,8 @@ class betavariate:
     
     Alpha = positive(1.)
     Beta = positive(1.)
+    
+#print betavariate(2., 1.)
     
 @importedrandom("Exponential distribution")
 class expovariate:
@@ -205,6 +236,7 @@ class weibullvariate:
     
 source = os.path.join(__file__)    
 target = os.path.join(os.path.dirname(__file__), "..", "mathutils", "rnd.py")
+
 
 if not os.path.exists(target) or os.path.getmtime(source) > os.path.getmtime(target):
     
