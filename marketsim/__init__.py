@@ -1,5 +1,7 @@
 import gen 
 
+from gen import cached_property
+
 from bind import Method
 from side_ import Tag as Side
 from reference import Reference 
@@ -65,18 +67,3 @@ class Underscore(object):
     
 _ =  Underscore()
                         
-## {{{ http://code.activestate.com/recipes/576563/ (r1)
-def cached_property(f):
-    """returns a cached property that is calculated by function f"""
-    def get(self):
-        try:
-            return self._property_cache[f]
-        except AttributeError:
-            self._property_cache = {}
-            x = self._property_cache[f] = f(self)
-            return x
-        except KeyError:
-            x = self._property_cache[f] = f(self)
-            return x
-        
-    return property(get)

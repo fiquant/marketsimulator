@@ -3,6 +3,8 @@ import sys, os
 import types
 from types import *
 
+from templet import stringfunction
+
 template = """
 @registry.expose(['Random', '%(alias)s'])
 class %(name)s(ops.Function[%(rvtype)s]):
@@ -25,13 +27,11 @@ class %(name)s(ops.Function[%(rvtype)s]):
     
     def __call__(self, *args, **kwargs):
         return random.%(name)s(%(call)s)
-    
+"""
+
+repr_tmpl = """
     def __repr__(self):
-        rv = "%(name)s"
-        rv += "("
-        for k in %(name)s._properties:
-            rv += (k + "=" + str(self.__dict__[k]) + ",")
-        return rv[:-1] + ")"
+        return "%(name)s(%(reprfields)s)"
 """
 
 class RandomImpl:
@@ -55,18 +55,28 @@ class RandomImpl:
                         self.fields.append((n, v, type(v).__name__))
                     else:
                         assert False, "unsupported type"
- 
+
+        self.init = self.joinfields("%(name)s = %(ini)s")
+        self.assign = self.joinfields("self.%(name)s = %(typ)s(%(name)s)", nl + 2*tab)
+        self.dict_= self.joinfields("\'%(name)s\' : %(name)s")
+        self.props= self.joinfields("\'%(name)s\' : %(typ)s")
+        self.call = self.joinfields("self.%(name)s")
+        
+        
+    @cached_property
+    def repr(self):
+        self.reprfields = self.joinfields("%(name)s = \" + str(self.%(name)s) + \"")
+        return repr_tmpl % self
+
+        
+    def joinfields(self, tmpl, sep = ", "):
+        return sep.join([tmpl % locals() for (name, ini, typ) in self.fields])
+
+    def __getitem__(self, key):
+        return getattr(self, key)
+        
     def __call__(self):
-        def process(tmpl, sep = ", "):
-            return sep.join([tmpl % locals() for (name, ini, typ) in self.fields])
-        
-        self.init = process("%(name)s = %(ini)s")
-        self.assign = process("self.%(name)s = %(typ)s(%(name)s)", nl + 2*tab)
-        self.dict_= process("\'%(name)s\' : %(name)s")
-        self.props= process("\'%(name)s\' : %(typ)s")
-        self.call = process("self.%(name)s")
-        
-        return template % self.__dict__
+        return template % self + self.repr
 
 template_meta = """
 class %(name)s(object):
@@ -98,6 +108,7 @@ class %(name)s(object):
 tab = "    "
 nl = "\n"
 comma = ","
+slash = "\\"
 
 def generate_meta(name, alias, docstring, fields, rvtype='float'):
     def process(tmpl, sep = ","):

@@ -24,13 +24,9 @@ class betavariate(ops.Function[float]):
     
     def __call__(self, *args, **kwargs):
         return random.betavariate(self.Alpha, self.Beta)
-    
+
     def __repr__(self):
-        rv = "betavariate"
-        rv += "("
-        for k in betavariate._properties:
-            rv += (k + "=" + str(self.__dict__[k]) + ",")
-        return rv[:-1] + ")"
+        return "betavariate(Alpha = " + str(self.Alpha) + ", Beta = " + str(self.Beta) + ")"
 
 
 @registry.expose(['Random', 'Exponential distribution'])
@@ -55,13 +51,9 @@ class expovariate(ops.Function[float]):
     
     def __call__(self, *args, **kwargs):
         return random.expovariate(self.Lambda)
-    
+
     def __repr__(self):
-        rv = "expovariate"
-        rv += "("
-        for k in expovariate._properties:
-            rv += (k + "=" + str(self.__dict__[k]) + ",")
-        return rv[:-1] + ")"
+        return "expovariate(Lambda = " + str(self.Lambda) + ")"
 
 
 @registry.expose(['Random', 'Uniform integer distribution'])
@@ -86,13 +78,9 @@ class randint(ops.Function[int]):
     
     def __call__(self, *args, **kwargs):
         return random.randint(self.High, self.Low)
-    
+
     def __repr__(self):
-        rv = "randint"
-        rv += "("
-        for k in randint._properties:
-            rv += (k + "=" + str(self.__dict__[k]) + ",")
-        return rv[:-1] + ")"
+        return "randint(High = " + str(self.High) + ", Low = " + str(self.Low) + ")"
 
 
 @registry.expose(['Random', 'Uniform distribution'])
@@ -120,13 +108,9 @@ class uniform(ops.Function[float]):
     
     def __call__(self, *args, **kwargs):
         return random.uniform(self.High, self.Low)
-    
+
     def __repr__(self):
-        rv = "uniform"
-        rv += "("
-        for k in uniform._properties:
-            rv += (k + "=" + str(self.__dict__[k]) + ",")
-        return rv[:-1] + ")"
+        return "uniform(High = " + str(self.High) + ", Low = " + str(self.Low) + ")"
 
 
 @registry.expose(['Random', 'Triangular distribution'])
@@ -156,13 +140,9 @@ class triangular(ops.Function[float]):
     
     def __call__(self, *args, **kwargs):
         return random.triangular(self.High, self.Low, self.Mode)
-    
+
     def __repr__(self):
-        rv = "triangular"
-        rv += "("
-        for k in triangular._properties:
-            rv += (k + "=" + str(self.__dict__[k]) + ",")
-        return rv[:-1] + ")"
+        return "triangular(High = " + str(self.High) + ", Low = " + str(self.Low) + ", Mode = " + str(self.Mode) + ")"
 
 
 @registry.expose(['Random', 'Gamma distribution'])
@@ -193,13 +173,9 @@ class gammavariate(ops.Function[float]):
     
     def __call__(self, *args, **kwargs):
         return random.gammavariate(self.Alpha, self.Beta)
-    
+
     def __repr__(self):
-        rv = "gammavariate"
-        rv += "("
-        for k in gammavariate._properties:
-            rv += (k + "=" + str(self.__dict__[k]) + ",")
-        return rv[:-1] + ")"
+        return "gammavariate(Alpha = " + str(self.Alpha) + ", Beta = " + str(self.Beta) + ")"
 
 
 @registry.expose(['Random', 'Log normal distribution'])
@@ -227,13 +203,9 @@ class lognormvariate(ops.Function[float]):
     
     def __call__(self, *args, **kwargs):
         return random.lognormvariate(self.Mu, self.Sigma)
-    
+
     def __repr__(self):
-        rv = "lognormvariate"
-        rv += "("
-        for k in lognormvariate._properties:
-            rv += (k + "=" + str(self.__dict__[k]) + ",")
-        return rv[:-1] + ")"
+        return "lognormvariate(Mu = " + str(self.Mu) + ", Sigma = " + str(self.Sigma) + ")"
 
 
 @registry.expose(['Random', 'Normal distribution'])
@@ -258,13 +230,9 @@ class normalvariate(ops.Function[float]):
     
     def __call__(self, *args, **kwargs):
         return random.normalvariate(self.Mu, self.Sigma)
-    
+
     def __repr__(self):
-        rv = "normalvariate"
-        rv += "("
-        for k in normalvariate._properties:
-            rv += (k + "=" + str(self.__dict__[k]) + ",")
-        return rv[:-1] + ")"
+        return "normalvariate(Mu = " + str(self.Mu) + ", Sigma = " + str(self.Sigma) + ")"
 
 
 @registry.expose(['Random', 'Von Mises distribution'])
@@ -292,13 +260,9 @@ class vonmisesvariate(ops.Function[float]):
     
     def __call__(self, *args, **kwargs):
         return random.vonmisesvariate(self.Kappa, self.Mu)
-    
+
     def __repr__(self):
-        rv = "vonmisesvariate"
-        rv += "("
-        for k in vonmisesvariate._properties:
-            rv += (k + "=" + str(self.__dict__[k]) + ",")
-        return rv[:-1] + ")"
+        return "vonmisesvariate(Kappa = " + str(self.Kappa) + ", Mu = " + str(self.Mu) + ")"
 
 
 @registry.expose(['Random', 'Pareto distribution'])
@@ -322,13 +286,9 @@ class paretovariate(ops.Function[float]):
     
     def __call__(self, *args, **kwargs):
         return random.paretovariate(self.Alpha)
-    
+
     def __repr__(self):
-        rv = "paretovariate"
-        rv += "("
-        for k in paretovariate._properties:
-            rv += (k + "=" + str(self.__dict__[k]) + ",")
-        return rv[:-1] + ")"
+        return "paretovariate(Alpha = " + str(self.Alpha) + ")"
 
 
 @registry.expose(['Random', 'Weibull distribution'])
@@ -353,11 +313,7 @@ class weibullvariate(ops.Function[float]):
     
     def __call__(self, *args, **kwargs):
         return random.weibullvariate(self.Alpha, self.Beta)
-    
+
     def __repr__(self):
-        rv = "weibullvariate"
-        rv += "("
-        for k in weibullvariate._properties:
-            rv += (k + "=" + str(self.__dict__[k]) + ",")
-        return rv[:-1] + ")"
+        return "weibullvariate(Alpha = " + str(self.Alpha) + ", Beta = " + str(self.Beta) + ")"
 
