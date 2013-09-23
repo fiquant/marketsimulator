@@ -321,7 +321,7 @@ class weibullvariate:
 
 import chk_ts
     
-with open(chk_ts.target('rnd'), "w") as out:
+with chk_ts.write_to('rnd') as out:
     for d in defs:
         out.write(d)
         out.write('\n')

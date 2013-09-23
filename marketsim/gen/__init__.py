@@ -5,7 +5,7 @@ from types import cached_property
 import chk_ts
     
 if chk_ts.gen_needed():
-    print " -> Regenerating...",
+    print " -> Regenerating..."
     
     import rnd
     

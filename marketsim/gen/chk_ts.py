@@ -1,11 +1,19 @@
 import os, sys
 import targets
 
-sourcedir   = os.path.dirname(__file__)
-rootdir     = os.path.normpath(os.path.join(sourcedir, ".."))
+sourcedir   = os.path.abspath(os.path.dirname(__file__))
+rootdir     = os.path.abspath(os.path.normpath(os.path.join(sourcedir, "..")))
 
 def target(t):
     return os.path.join(rootdir, *getattr(targets, t))
+
+def rel(f):
+    return os.path.relpath(f, rootdir)
+
+def write_to(t):
+    filename = target(t)
+    print "\t", rel(filename)
+    return open(filename, "w")
 
 def gen_needed():
     missing_targets = []
@@ -31,11 +39,11 @@ def gen_needed():
     if missing_targets != []:
         print "Missing targets:"
         for t in missing_targets:
-            print "\t", t
+            print "\t", rel(t)
             
     if changed_sources != []:
         print "Changed sources:"
         for t in changed_sources:
-            print "\t", t
+            print "\t", rel(t)
     
     return missing_targets != [] or changed_sources != []        
