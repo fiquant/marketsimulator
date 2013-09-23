@@ -4,35 +4,7 @@ import types
 from types import *
 
 from templet import stringfunction
-
-template = """
-@registry.expose(['Random', '%(alias)s'])
-class %(name)s(ops.Function[%(rvtype)s]):
-    \"\"\" %(docstring)s
-    \"\"\"    
-
-    def __init__(self, %(init)s):
-        %(assign)s
-        
-    @property
-    def label(self):
-        return repr(self)
-        
-    _properties = { 
-        %(props)s 
-    }
-    
-    def _casts_to(self, dst):
-        return %(name)s._types[0]._casts_to(dst)
-    
-    def __call__(self, *args, **kwargs):
-        return random.%(name)s(%(call)s)
-"""
-
-repr_tmpl = """
-    def __repr__(self):
-        return "%(name)s(%(reprfields)s)"
-"""
+from werkzeug.utils import cached_property
 
 class RandomImpl:
     
@@ -56,27 +28,130 @@ class RandomImpl:
                     else:
                         assert False, "unsupported type"
 
-        self.init = self.joinfields("%(name)s = %(ini)s")
-        self.assign = self.joinfields("self.%(name)s = %(typ)s(%(name)s)", nl + 2*tab)
-        self.dict_= self.joinfields("\'%(name)s\' : %(name)s")
-        self.props= self.joinfields("\'%(name)s\' : %(typ)s")
-        self.call = self.joinfields("self.%(name)s")
+    @cached_property
+    @stringfunction
+    def header(self):
+        """
+        @registry.expose(['Random', '${self.alias}'])
+        class ${self.name}(ops.Function[${self.rvtype}]):
+        """
+
+    @cached_property
+    @stringfunction
+    def doc(self):
+        """
+        ${{}}
+            \"\"\" ${self.docstring}
+            \"\"\"    
+        """
+        
+    @cached_property
+    def initfields(self):
+        return self.joinfields("%(name)s = %(ini)s")
+    
+    @cached_property
+    def assignfields(self):
+        return self.joinfields("self.%(name)s = %(typ)s(%(name)s)", nl + 2*tab)
+        
+    @cached_property
+    @stringfunction
+    def init(self):
+        """
+        ${{}}
+
+            def __init__(self, ${self.initfields}):
+                ${self.assignfields}
+        """
+      
+    @cached_property
+    @stringfunction
+    def label(self):
+        """
+        ${{}}
+
+            @property
+            def label(self):
+                return repr(self)
+        """
+      
+        
+    @cached_property
+    def propfields(self):
+        return self.joinfields("\'%(name)s\' : %(typ)s", comma + nl + 2*tab)
+        
+    @cached_property
+    @stringfunction
+    def properties(self):
+        """
+        ${{}}
+
+            _properties = { 
+                ${self.propfields}
+            }
+        """
+
+    @cached_property
+    @stringfunction
+    def casts_to(self):
+        """
+        ${{}}
+
+            def _casts_to(self, dst):
+                return ${self.name}._types[0]._casts_to(dst)
+        """
+
+        
+    @cached_property
+    def callfields(self):
+        return self.joinfields("self.%(name)s")
+    
+    @cached_property
+    @stringfunction
+    def call(self):
+        """
+        ${{}}
+
+            def __call__(self, *args, **kwargs):
+                return random.${self.name}(${self.callfields})
+        """
         
         
     @cached_property
-    def repr(self):
-        self.reprfields = self.joinfields("%(name)s = \" + str(self.%(name)s) + \"")
-        return repr_tmpl % self
+    def reprfields(self):
+        return self.joinfields("%(name)s = \" + str(self.%(name)s) + \"")
 
+    @cached_property
+    @stringfunction
+    def repr(self):
+        """
+        ${{}}
+        
+            def __repr__(self):
+                return "${self.name}(${self.reprfields})"
+        """
         
     def joinfields(self, tmpl, sep = ", "):
         return sep.join([tmpl % locals() for (name, ini, typ) in self.fields])
 
     def __getitem__(self, key):
         return getattr(self, key)
+    
+    @property
+    def members(self):
+        return """
+            header
+            doc
+            init
+            label
+            properties
+            call
+            casts_to
+            repr
+        """
         
     def __call__(self):
-        return template % self + self.repr
+        return "".join(map(lambda name: getattr(self, name), 
+                           self.members.split()))
 
 template_meta = """
 class %(name)s(object):
