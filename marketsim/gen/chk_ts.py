@@ -10,10 +10,13 @@ def target(t):
 def rel(f):
     return os.path.relpath(f, rootdir)
 
-def write_to(t):
+def write(t, strings):
     filename = target(t)
     print "\t", rel(filename)
-    return open(filename, "w")
+    with open(filename, "w") as out:
+        for d in strings:
+            out.write(d)
+            out.write('\n')    
 
 def gen_needed():
     missing_targets = []

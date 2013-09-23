@@ -279,7 +279,4 @@ class weibullvariate:
 
 import chk_ts
     
-with chk_ts.write_to('rnd') as out:
-    for d in defs:
-        out.write(d)
-        out.write('\n')
+chk_ts.write('rnd', defs)
