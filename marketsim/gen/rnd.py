@@ -6,8 +6,8 @@ from types import *
 from templet import stringfunction
 from werkzeug.utils import cached_property
 
-class RandomImpl:
-    
+class Base(object):
+
     def __init__(self, cls, alias, rvtype=float):
  
         self.alias = alias
@@ -28,15 +28,6 @@ class RandomImpl:
                     else:
                         assert False, "unsupported type"
 
-    @cached_property
-    @stringfunction
-    def header(self):
-        """
-        @registry.expose(['Random', '${self.alias}'])
-        class ${self.name}(ops.Function[${self.rvtype}]):
-        """
-
-    @cached_property
     @stringfunction
     def doc(self):
         """
@@ -53,7 +44,6 @@ class RandomImpl:
     def assignfields(self):
         return self.joinfields("self.%(name)s = %(typ)s(%(name)s)", nl + 2*tab)
         
-    @cached_property
     @stringfunction
     def init(self):
         """
@@ -63,7 +53,6 @@ class RandomImpl:
                 ${self.assignfields}
         """
       
-    @cached_property
     @stringfunction
     def label(self):
         """
@@ -79,7 +68,6 @@ class RandomImpl:
     def propfields(self):
         return self.joinfields("\'%(name)s\' : %(typ)s", comma + nl + 2*tab)
         
-    @cached_property
     @stringfunction
     def properties(self):
         """
@@ -91,36 +79,9 @@ class RandomImpl:
         """
 
     @cached_property
-    @stringfunction
-    def casts_to(self):
-        """
-        ${{}}
-
-            def _casts_to(self, dst):
-                return ${self.name}._types[0]._casts_to(dst)
-        """
-
-        
-    @cached_property
-    def callfields(self):
-        return self.joinfields("self.%(name)s")
-    
-    @cached_property
-    @stringfunction
-    def call(self):
-        """
-        ${{}}
-
-            def __call__(self, *args, **kwargs):
-                return random.${self.name}(${self.callfields})
-        """
-        
-        
-    @cached_property
     def reprfields(self):
         return self.joinfields("%(name)s = \" + str(self.%(name)s) + \"")
 
-    @cached_property
     @stringfunction
     def repr(self):
         """
@@ -136,7 +97,6 @@ class RandomImpl:
     def __getitem__(self, key):
         return getattr(self, key)
     
-    @property
     def members(self):
         return """
             header
@@ -144,14 +104,50 @@ class RandomImpl:
             init
             label
             properties
-            call
-            casts_to
             repr
         """
         
     def __call__(self):
-        return "".join(map(lambda name: getattr(self, name), 
-                           self.members.split()))
+        return "".join(map(lambda name: getattr(self, name)(), 
+                           self.members().split()))
+
+class RandomImpl(Base):
+    
+    @stringfunction
+    def header(self):
+        """
+        @registry.expose(['Random', '${self.alias}'])
+        class ${self.name}(ops.Function[${self.rvtype}]):
+        """
+
+    @stringfunction
+    def casts_to(self):
+        """
+        ${{}}
+
+            def _casts_to(self, dst):
+                return ${self.name}._types[0]._casts_to(dst)
+        """
+
+        
+    @cached_property
+    def callfields(self):
+        return self.joinfields("self.%(name)s")
+    
+    @stringfunction
+    def call(self):
+        """
+        ${{}}
+
+            def __call__(self, *args, **kwargs):
+                return random.${self.name}(${self.callfields})
+        """
+            
+    def members(self):
+        return Base.members(self) + """
+            call
+            casts_to
+        """ 
 
 template_meta = """
 class %(name)s(object):

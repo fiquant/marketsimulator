@@ -19,14 +19,14 @@ class betavariate(ops.Function[float]):
         'Beta' : types.positive
     }
 
+    def __repr__(self):
+        return "betavariate(Alpha = " + str(self.Alpha) + ", Beta = " + str(self.Beta) + ")"
+
     def __call__(self, *args, **kwargs):
         return random.betavariate(self.Alpha, self.Beta)
 
     def _casts_to(self, dst):
         return betavariate._types[0]._casts_to(dst)
-
-    def __repr__(self):
-        return "betavariate(Alpha = " + str(self.Alpha) + ", Beta = " + str(self.Beta) + ")"
 
 @registry.expose(['Random', 'Exponential distribution'])
 class expovariate(ops.Function[float]):
@@ -45,14 +45,14 @@ class expovariate(ops.Function[float]):
         'Lambda' : types.positive
     }
 
+    def __repr__(self):
+        return "expovariate(Lambda = " + str(self.Lambda) + ")"
+
     def __call__(self, *args, **kwargs):
         return random.expovariate(self.Lambda)
 
     def _casts_to(self, dst):
         return expovariate._types[0]._casts_to(dst)
-
-    def __repr__(self):
-        return "expovariate(Lambda = " + str(self.Lambda) + ")"
 
 @registry.expose(['Random', 'Uniform integer distribution'])
 class randint(ops.Function[int]):
@@ -72,14 +72,14 @@ class randint(ops.Function[int]):
         'Low' : int
     }
 
+    def __repr__(self):
+        return "randint(High = " + str(self.High) + ", Low = " + str(self.Low) + ")"
+
     def __call__(self, *args, **kwargs):
         return random.randint(self.High, self.Low)
 
     def _casts_to(self, dst):
         return randint._types[0]._casts_to(dst)
-
-    def __repr__(self):
-        return "randint(High = " + str(self.High) + ", Low = " + str(self.Low) + ")"
 
 @registry.expose(['Random', 'Uniform distribution'])
 class uniform(ops.Function[float]):
@@ -102,14 +102,14 @@ class uniform(ops.Function[float]):
         'Low' : float
     }
 
+    def __repr__(self):
+        return "uniform(High = " + str(self.High) + ", Low = " + str(self.Low) + ")"
+
     def __call__(self, *args, **kwargs):
         return random.uniform(self.High, self.Low)
 
     def _casts_to(self, dst):
         return uniform._types[0]._casts_to(dst)
-
-    def __repr__(self):
-        return "uniform(High = " + str(self.High) + ", Low = " + str(self.Low) + ")"
 
 @registry.expose(['Random', 'Triangular distribution'])
 class triangular(ops.Function[float]):
@@ -135,14 +135,14 @@ class triangular(ops.Function[float]):
         'Mode' : float
     }
 
+    def __repr__(self):
+        return "triangular(High = " + str(self.High) + ", Low = " + str(self.Low) + ", Mode = " + str(self.Mode) + ")"
+
     def __call__(self, *args, **kwargs):
         return random.triangular(self.High, self.Low, self.Mode)
 
     def _casts_to(self, dst):
         return triangular._types[0]._casts_to(dst)
-
-    def __repr__(self):
-        return "triangular(High = " + str(self.High) + ", Low = " + str(self.Low) + ", Mode = " + str(self.Mode) + ")"
 
 @registry.expose(['Random', 'Gamma distribution'])
 class gammavariate(ops.Function[float]):
@@ -168,14 +168,14 @@ class gammavariate(ops.Function[float]):
         'Beta' : types.positive
     }
 
+    def __repr__(self):
+        return "gammavariate(Alpha = " + str(self.Alpha) + ", Beta = " + str(self.Beta) + ")"
+
     def __call__(self, *args, **kwargs):
         return random.gammavariate(self.Alpha, self.Beta)
 
     def _casts_to(self, dst):
         return gammavariate._types[0]._casts_to(dst)
-
-    def __repr__(self):
-        return "gammavariate(Alpha = " + str(self.Alpha) + ", Beta = " + str(self.Beta) + ")"
 
 @registry.expose(['Random', 'Log normal distribution'])
 class lognormvariate(ops.Function[float]):
@@ -198,14 +198,14 @@ class lognormvariate(ops.Function[float]):
         'Sigma' : types.positive
     }
 
+    def __repr__(self):
+        return "lognormvariate(Mu = " + str(self.Mu) + ", Sigma = " + str(self.Sigma) + ")"
+
     def __call__(self, *args, **kwargs):
         return random.lognormvariate(self.Mu, self.Sigma)
 
     def _casts_to(self, dst):
         return lognormvariate._types[0]._casts_to(dst)
-
-    def __repr__(self):
-        return "lognormvariate(Mu = " + str(self.Mu) + ", Sigma = " + str(self.Sigma) + ")"
 
 @registry.expose(['Random', 'Normal distribution'])
 class normalvariate(ops.Function[float]):
@@ -225,14 +225,14 @@ class normalvariate(ops.Function[float]):
         'Sigma' : types.positive
     }
 
+    def __repr__(self):
+        return "normalvariate(Mu = " + str(self.Mu) + ", Sigma = " + str(self.Sigma) + ")"
+
     def __call__(self, *args, **kwargs):
         return random.normalvariate(self.Mu, self.Sigma)
 
     def _casts_to(self, dst):
         return normalvariate._types[0]._casts_to(dst)
-
-    def __repr__(self):
-        return "normalvariate(Mu = " + str(self.Mu) + ", Sigma = " + str(self.Sigma) + ")"
 
 @registry.expose(['Random', 'Von Mises distribution'])
 class vonmisesvariate(ops.Function[float]):
@@ -255,14 +255,14 @@ class vonmisesvariate(ops.Function[float]):
         'Mu' : float
     }
 
+    def __repr__(self):
+        return "vonmisesvariate(Kappa = " + str(self.Kappa) + ", Mu = " + str(self.Mu) + ")"
+
     def __call__(self, *args, **kwargs):
         return random.vonmisesvariate(self.Kappa, self.Mu)
 
     def _casts_to(self, dst):
         return vonmisesvariate._types[0]._casts_to(dst)
-
-    def __repr__(self):
-        return "vonmisesvariate(Kappa = " + str(self.Kappa) + ", Mu = " + str(self.Mu) + ")"
 
 @registry.expose(['Random', 'Pareto distribution'])
 class paretovariate(ops.Function[float]):
@@ -280,14 +280,14 @@ class paretovariate(ops.Function[float]):
         'Alpha' : types.positive
     }
 
+    def __repr__(self):
+        return "paretovariate(Alpha = " + str(self.Alpha) + ")"
+
     def __call__(self, *args, **kwargs):
         return random.paretovariate(self.Alpha)
 
     def _casts_to(self, dst):
         return paretovariate._types[0]._casts_to(dst)
-
-    def __repr__(self):
-        return "paretovariate(Alpha = " + str(self.Alpha) + ")"
 
 @registry.expose(['Random', 'Weibull distribution'])
 class weibullvariate(ops.Function[float]):
@@ -307,12 +307,12 @@ class weibullvariate(ops.Function[float]):
         'Beta' : types.positive
     }
 
+    def __repr__(self):
+        return "weibullvariate(Alpha = " + str(self.Alpha) + ", Beta = " + str(self.Beta) + ")"
+
     def __call__(self, *args, **kwargs):
         return random.weibullvariate(self.Alpha, self.Beta)
 
     def _casts_to(self, dst):
         return weibullvariate._types[0]._casts_to(dst)
-
-    def __repr__(self):
-        return "weibullvariate(Alpha = " + str(self.Alpha) + ", Beta = " + str(self.Beta) + ")"
 
