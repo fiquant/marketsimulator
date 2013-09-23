@@ -16,7 +16,18 @@ def write(t, strings):
     with open(filename, "w") as out:
         for d in strings:
             out.write(d)
-            out.write('\n')    
+            out.write('\n')
+
+def generate_if_needed():            
+    if gen_needed():
+        print " -> Regenerating..."
+        
+        for key in dir(targets):
+            if key[0:2] != '__':
+                module = getattr(targets, key)
+                m = __import__('marketsim.gen.'+key, globals(), locals(), ['defs'], -1)
+                write(key, m.defs)    
+        print "done."
 
 def gen_needed():
     missing_targets = []

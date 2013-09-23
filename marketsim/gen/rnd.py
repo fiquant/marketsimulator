@@ -276,7 +276,3 @@ class weibullvariate:
     
     Alpha = positive(1.) 
     Beta = positive(1.)
-
-import chk_ts
-    
-chk_ts.write('rnd', defs)
