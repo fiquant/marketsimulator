@@ -42,7 +42,7 @@ class Base(object):
     
     @cached_property
     def assignfields(self):
-        return self.joinfields("self.%(name)s = %(typ)s(%(name)s)", nl + 2*tab)
+        return self.joinfields("self.%(name)s = %(name)s", nl + 2*tab)
         
     @stringfunction
     def init(self):
@@ -149,74 +149,32 @@ class RandomImpl(Base):
             casts_to
         """ 
 
-template_meta = """
-class %(name)s(object):
-    \"\"\" %(docstring)s
-    \"\"\"    
-
-    def __init__(self, %(init)s):
-        %(assign)s
-        
-    @property
-    def label(self):
-        return repr(self)
-        
-    _properties = { 
-        %(props)s 
-    }
-    
-    def _casts_to(self, dst):
-        return %(name)s._types[0]._casts_to(dst)
-    
-    def __repr__(self):
-        rv = "%(name)s"
-        rv += "("
-        for k in %(name)s._properties:
-            rv += (k + "=" + str(self.__dict__[k]) + ",")
-        return rv[:-1] + ")"
-"""
-
 tab = "    "
 nl = "\n"
 comma = ","
 slash = "\\"
 
-def generate_meta(name, alias, docstring, fields, rvtype='float'):
-    def process(tmpl, sep = ","):
-        return sep.join([tmpl % locals() for (name, ini, typ) in fields])
+class RandomMeta(Base):
     
-    init = process("%(name)s = %(ini)s")
-    assign = process("self.%(name)s = %(typ)s(%(name)s)", nl + 2*tab)
-    props= process("\'%(name)s\' : %(typ)s", comma + nl + 2*tab)
-    call = process("self.%(name)s")
+    @cached_property
+    def assignfields(self):
+        return self.joinfields("self.%(name)s = %(typ)s(%(name)s)", nl + 2*tab)
+
+    @stringfunction
+    def header(self):
+        """
+        class ${self.name}(object):
+        """
     
-    return template_meta % locals()
 
 defs = ["from marketsim import registry, types, ops", "import random"]
 
 def importedrandom(alias, t = float):
     
     def inner(cls):
-        name = cls.__name__
-        docstring = cls.__doc__
-        fields = []
-        
-        for n in dir(cls):
-            if n[0:2] != '__':
-                v = getattr(cls, n)
-                constraint = getattr(v, "constraint", None)
-                if constraint is not None:
-                    fields.append((n, v.defvalue, constraint))
-                else:
-                    if type(v) in [float, int]:
-                        fields.append((n, v, type(v).__name__))
-                    else:
-                        assert False, "unsupported type"
-        
         defs.append(RandomImpl(cls, alias, t)())
-        #print generate_meta(name, alias, docstring, fields, t.__name__)
-        exec generate_meta(name, alias, docstring, fields, t.__name__) in globals()
-        return globals()[name]
+        exec RandomMeta(cls, alias, t)() in globals()
+        return globals()[cls.__name__]
     
     return inner
 

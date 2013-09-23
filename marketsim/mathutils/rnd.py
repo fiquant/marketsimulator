@@ -7,8 +7,8 @@ class betavariate(ops.Function[float]):
     """    
 
     def __init__(self, Alpha = 1.0, Beta = 1.0):
-        self.Alpha = types.positive(Alpha)
-        self.Beta = types.positive(Beta)
+        self.Alpha = Alpha
+        self.Beta = Beta
 
     @property
     def label(self):
@@ -35,7 +35,7 @@ class expovariate(ops.Function[float]):
     """    
 
     def __init__(self, Lambda = 1.0):
-        self.Lambda = types.positive(Lambda)
+        self.Lambda = Lambda
 
     @property
     def label(self):
@@ -60,8 +60,8 @@ class randint(ops.Function[int]):
     """    
 
     def __init__(self, High = 10, Low = -10):
-        self.High = int(High)
-        self.Low = int(Low)
+        self.High = High
+        self.Low = Low
 
     @property
     def label(self):
@@ -90,8 +90,8 @@ class uniform(ops.Function[float]):
     """    
 
     def __init__(self, High = 10.0, Low = -10.0):
-        self.High = float(High)
-        self.Low = float(Low)
+        self.High = High
+        self.Low = Low
 
     @property
     def label(self):
@@ -121,9 +121,9 @@ class triangular(ops.Function[float]):
     """    
 
     def __init__(self, High = 1.0, Low = 0.0, Mode = 0.5):
-        self.High = float(High)
-        self.Low = float(Low)
-        self.Mode = float(Mode)
+        self.High = High
+        self.Low = Low
+        self.Mode = Mode
 
     @property
     def label(self):
@@ -156,8 +156,8 @@ class gammavariate(ops.Function[float]):
     """    
 
     def __init__(self, Alpha = 1.0, Beta = 1.0):
-        self.Alpha = types.positive(Alpha)
-        self.Beta = types.positive(Beta)
+        self.Alpha = Alpha
+        self.Beta = Beta
 
     @property
     def label(self):
@@ -186,8 +186,8 @@ class lognormvariate(ops.Function[float]):
     """    
 
     def __init__(self, Mu = 0.0, Sigma = 1.0):
-        self.Mu = float(Mu)
-        self.Sigma = types.positive(Sigma)
+        self.Mu = Mu
+        self.Sigma = Sigma
 
     @property
     def label(self):
@@ -213,8 +213,8 @@ class normalvariate(ops.Function[float]):
     """    
 
     def __init__(self, Mu = 0.0, Sigma = 1.0):
-        self.Mu = float(Mu)
-        self.Sigma = types.positive(Sigma)
+        self.Mu = Mu
+        self.Sigma = Sigma
 
     @property
     def label(self):
@@ -243,8 +243,8 @@ class vonmisesvariate(ops.Function[float]):
     """    
 
     def __init__(self, Kappa = 0.0, Mu = 0.0):
-        self.Kappa = types.non_negative(Kappa)
-        self.Mu = float(Mu)
+        self.Kappa = Kappa
+        self.Mu = Mu
 
     @property
     def label(self):
@@ -270,7 +270,7 @@ class paretovariate(ops.Function[float]):
     """    
 
     def __init__(self, Alpha = 1.0):
-        self.Alpha = types.positive(Alpha)
+        self.Alpha = Alpha
 
     @property
     def label(self):
@@ -295,8 +295,8 @@ class weibullvariate(ops.Function[float]):
     """    
 
     def __init__(self, Alpha = 1.0, Beta = 1.0):
-        self.Alpha = types.positive(Alpha)
-        self.Beta = types.positive(Beta)
+        self.Alpha = Alpha
+        self.Beta = Beta
 
     @property
     def label(self):
