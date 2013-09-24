@@ -1,3 +1,4 @@
+import ops
 
 class Positive(object):
     
@@ -25,6 +26,25 @@ class NonNegative(object):
         
 positive = Positive
 non_negative = NonNegative
+
+IFunction = {}
+
+class IFunction_float(object):
+    
+    def __init__(self, defvalue = None):
+        if defvalue is None:
+            self.defvalue = ops.Constant[float]()
+        else:
+            self.defvalue = defvalue 
+        
+    @property
+    def constraint(self):
+        return "types.IFunction[float]"
+    
+    def __repr__(self):
+        return "types.IFunction[float](%s)" % self.defvalue
+    
+IFunction[float] = IFunction_float
 
 ## {{{ http://code.activestate.com/recipes/576563/ (r1)
 def cached_property(f):

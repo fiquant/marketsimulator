@@ -7,6 +7,11 @@ from base import *
 
 class Gen(Base):
     
+    def __init__(self, cls, category, impl):
+        Base.__init__(self, cls)
+        self.category = category
+        self.impl = impl
+    
     @stringfunction
     def header(self):
         """
@@ -21,7 +26,7 @@ class Gen(Base):
     
     @cached_property
     def nullablefields(self):
-        return self.joinfields("%(name)s = self.%(name)s(); if %(name)s is None: return None", nl + 2*tabs)
+        return self.joinfields("%(name)s = self.%(name)s()\n        if %(name)s is None: return None", nl + 2*tab)
     
     @stringfunction
     def call(self):
@@ -37,3 +42,14 @@ class Gen(Base):
         return Base.members(self) + """
             call
         """ 
+
+defs = ["from marketsim import registry, types, ops", "import math"]
+
+def imported(category, impl):
+    
+    def inner(cls):
+        defs.append(Gen(cls, category, impl)())
+        #exec Meta(cls)() in globals()
+        #return globals()[cls.__name__]
+    
+    return inner
