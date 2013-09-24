@@ -11,15 +11,19 @@ def convert(other):
 class Function_impl(object):
     
     def __add__(self, other):
+        from _arithmetic import Sum
         return Sum(self, convert(other))
     
     def __sub__(self, other):
+        from _arithmetic import Sub
         return Sub(self, convert(other))
     
     def __mul__(self, other):
+        from _arithmetic import Product
         return Product(self, convert(other))
     
     def __div__(self, other):
+        from _arithmetic import Div
         return Div(self, convert(other))
     
     def __lt__(self, other):
@@ -513,19 +517,6 @@ class Min(BinaryOp[float]):
     def _call(self, lhs, rhs):
         return lhs if lhs < rhs else rhs
     
-@registry.expose(['Arithmetic', '*'], args = (constant(1.), constant(1.)))
-class Product(BinaryOp[float]):
-    """ Function returning product of the operands
-    """
-    
-    sign = '*'
-    
-    def __init__(self, lhs, rhs):
-        BinaryOp[float].__init__(self, lhs, rhs)
-    
-    def _call(self, lhs, rhs):
-        return lhs * rhs
-    
 @registry.expose(['Pow/Log', 'sqr'])
 class Sqr(Observable[float]):
     
@@ -545,64 +536,4 @@ class Sqr(Observable[float]):
         r = self._source()
         return r*r if r is not None else None
 
-@registry.expose(['Arithmetic', '+'], args = (constant(1.), constant(1.)))    
-class Sum(BinaryOp[float]):
-    """ Function returning Sum of the operands
-    """
-    
-    def __init__(self, lhs, rhs):
-        BinaryOp[float].__init__(self, lhs, rhs)
-    
-    def _call(self, lhs, rhs):
-        return lhs + rhs
-
-    sign = '+'         
-
-@registry.expose(['Arithmetic', '/'], args = (constant(1.), constant(1.)))
-class Div(BinaryOp[float]):
-    """ Function returning division of the operands
-    """
-    def __init__(self, lhs, rhs):
-        BinaryOp[float].__init__(self, lhs, rhs)
-    
-    def _call(self, lhs, rhs):
-        return lhs / rhs if rhs != 0 else None
-    
-    sign = '/'
-    
-    @property
-    def label(self):
-        return '\\frac{'+self.lhs.label+'}{'+self.rhs.label+'}'
-
-@registry.expose(['Arithmetic', '-'], args = (constant(1.), constant(1.)))    
-class Sub(BinaryOp[float]):
-    """ Function substructing the right operand from the left one
-    """
-    
-    def __init__(self, lhs, rhs):
-        BinaryOp[float].__init__(self, lhs, rhs)
-    
-    def _call(self, lhs, rhs):
-        return lhs - rhs
-    
-    sign = '-'
-
-class Derivative(Function[float]):
-    
-    def __init__(self, source):
-        self.source = source
-        self._alias = ['Basic', 'Derivative']
-        
-    @property
-    def attributes(self):
-        return {}
-        
-    _properties = { 'source' : types.IDifferentiable }
-    
-    @property
-    def label(self):
-        return '\\frac{d' + getLabel(self.source) + '}{dt}'
-        
-    def __call__(self):
-        return self.source.derivative()
 
