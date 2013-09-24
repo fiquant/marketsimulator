@@ -1,22 +1,10 @@
-import sys, os
-
-import types
 from types import *
 
-from _impl.random import *
+from _impl import random 
 
-defs = ["from marketsim import registry, types, ops", "import random"]
+defs = random.defs
 
-def importedrandom(alias, t = float):
-    
-    def inner(cls):
-        defs.append(RandomImpl(cls, alias, t)())
-        exec RandomMeta(cls, alias, t)() in globals()
-        return globals()[cls.__name__]
-    
-    return inner
-
-@importedrandom("Beta distribution")
+@random.imported("Beta distribution")
 class betavariate:
     """ Beta distribution. Conditions on the parameters are |alpha| > 0 and |beta| > 0.
         Returned values range between 0 and 1."""
@@ -26,21 +14,21 @@ class betavariate:
     
 #print betavariate(2., 1.)
     
-@importedrandom("Exponential distribution")
+@random.imported("Exponential distribution")
 class expovariate:
     """ Exponential distribution. |lambda| is 1.0 divided by the desired mean. 
         It should be greater zero. Returned values range from 0 to positive infinity"""
     
     Lambda = positive(1.)
 
-@importedrandom("Uniform integer distribution", int)
+@random.imported("Uniform integer distribution", int)
 class randint:
     "Return a random integer *N* such that *a* <= *N* <= *b*."
     
     Low = -10 
     High = +10
 
-@importedrandom("Uniform distribution")
+@random.imported("Uniform distribution")
 class uniform:
     """ Return a random floating point number *N* such that 
             *a* <= *N* <= *b* for *a* <= *b* and *b* <= *N* <= *a* for *b* < *a*.
@@ -50,7 +38,7 @@ class uniform:
     Low = -10. 
     High = +10.
 
-@importedrandom("Triangular distribution")
+@random.imported("Triangular distribution")
 class triangular:
     """ Return a random floating point number *N* such that *low* <= *N* <= *high* and 
         with the specified *mode* between those bounds.
@@ -62,7 +50,7 @@ class triangular:
     High = 1.
     Mode = 0.5
 
-@importedrandom("Gamma distribution")
+@random.imported("Gamma distribution")
 class gammavariate:
     r"""Gamma distribution. Conditions on the parameters are |alpha| > 0 and |beta| > 0.
     
@@ -75,7 +63,7 @@ class gammavariate:
     Alpha = positive(1.) 
     Beta = positive(1.)
 
-@importedrandom("Log normal distribution")
+@random.imported("Log normal distribution")
 class lognormvariate:
     """ Log normal distribution.
         If you take the natural logarithm of this distribution, 
@@ -85,14 +73,14 @@ class lognormvariate:
     Mu = 0. 
     Sigma = positive(1.)
 
-@importedrandom("Normal distribution")
+@random.imported("Normal distribution")
 class normalvariate:
     "Normal distribution. |mu| is the mean, and |sigma| is the standard deviation."
     
     Mu = 0. 
     Sigma = positive(1.)
 
-@importedrandom("Von Mises distribution")
+@random.imported("Von Mises distribution")
 class vonmisesvariate:
     """ |mu| is the mean angle, expressed in radians between 0 and 2|pi|, 
         and |kappa| is the concentration parameter, which must be greater than or equal to zero. 
@@ -102,13 +90,13 @@ class vonmisesvariate:
     Mu = 0. 
     Kappa = non_negative(0.)
 
-@importedrandom("Pareto distribution")
+@random.imported("Pareto distribution")
 class paretovariate:
     "Pareto distribution. |alpha| is the shape parameter."
     
     Alpha = positive(1.)
 
-@importedrandom("Weibull distribution")
+@random.imported("Weibull distribution")
 class weibullvariate:
     "Weibull distribution. |alpha| is the scale parameter and |beta| is the shape parameter."
     
