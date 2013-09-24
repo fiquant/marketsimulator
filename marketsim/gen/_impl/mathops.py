@@ -7,10 +7,20 @@ from base import *
 
 class Gen(Base):
     
-    def __init__(self, cls, category, impl):
+    def __init__(self, cls, category, impl, label):
         Base.__init__(self, cls)
         self.category = category
         self.impl = impl
+        self._label = label
+        
+    @stringfunction
+    def repr(self):
+        """
+        ${{}}
+            
+            def __repr__(self):
+                return "${self._label}" % self.__dict__
+        """
     
     @stringfunction
     def header(self):
@@ -19,6 +29,23 @@ class Gen(Base):
         class ${self.name}(ops.Observable[float]):
         """
 
+    @stringfunction
+    def init(self):
+        """
+        ${{}}
+
+            def __init__(self, ${self.initfields}):
+                Observable[float].__init__(self)
+                ${self.assignfields}
+        """
+
+    @cached_property
+    def assignfields(self):
+        return self.joinfields("""
+        self.%(name)s = %(name)s
+        if isinstance(%(name)s, types.IEvent):
+            event.subscribe(self.%(name)s, self.fire, self)""", 
+            nl + 2*tab)
         
     @cached_property
     def callfields(self):
@@ -45,10 +72,10 @@ class Gen(Base):
 
 defs = ["from marketsim import registry, types, ops", "import math"]
 
-def imported(category, impl):
+def imported(category, impl, label):
     
     def inner(cls):
-        defs.append(Gen(cls, category, impl)())
+        defs.append(Gen(cls, category, impl, label)())
         #exec Meta(cls)() in globals()
         #return globals()[cls.__name__]
     

@@ -1,2 +1,2 @@
 rnd = "mathutils", "rnd.py"
-#mathops = "mathops.py",
+mathops = "ops", "_math.py"
