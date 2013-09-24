@@ -9,10 +9,8 @@ slash = "\\"
 
 class Base(object):
 
-    def __init__(self, cls, alias, rvtype=float):
+    def __init__(self, cls):
  
-        self.alias = alias
-        self.rvtype = rvtype.__name__
         self.name = cls.__name__
         self.docstring = cls.__doc__
         self.fields = []
@@ -111,3 +109,16 @@ class Base(object):
     def __call__(self):
         return "".join(map(lambda name: getattr(self, name)(), 
                            self.members().split()))
+
+
+class Meta(Base):
+    
+    @cached_property
+    def assignfields(self):
+        return self.joinfields("self.%(name)s = %(typ)s(%(name)s)", nl + 2*tab)
+
+    @stringfunction
+    def header(self):
+        """
+        class ${self.name}(object):
+        """

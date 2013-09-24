@@ -7,6 +7,11 @@ from base import *
 
 class Gen(Base):
     
+    def __init__(self, cls, alias, rvtype=float):
+        Base.__init__(self, cls)
+        self.alias = alias
+        self.rvtype = rvtype.__name__
+            
     @stringfunction
     def header(self):
         """
@@ -43,25 +48,13 @@ class Gen(Base):
             casts_to
         """ 
 
-class Meta(Base):
-    
-    @cached_property
-    def assignfields(self):
-        return self.joinfields("self.%(name)s = %(typ)s(%(name)s)", nl + 2*tab)
-
-    @stringfunction
-    def header(self):
-        """
-        class ${self.name}(object):
-        """
-
 defs = ["from marketsim import registry, types, ops", "import random"]
 
 def imported(alias, t = float):
     
     def inner(cls):
         defs.append(Gen(cls, alias, t)())
-        exec Meta(cls, alias, t)() in globals()
+        exec Meta(cls)() in globals()
         return globals()[cls.__name__]
     
     return inner
