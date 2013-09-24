@@ -13,6 +13,8 @@ class Gen(Base):
         self.impl = impl
         self._label = label
         
+        self.fields = [(f[0], f[1].getName()[1], f[2]) for f in self.fields]
+        
     @stringfunction
     def repr(self):
         """
@@ -26,7 +28,7 @@ class Gen(Base):
     def header(self):
         """
         @registry.expose(['${self.category}', '${self.name}'])
-        class ${self.name}(ops.Observable[float]):
+        class ${self.name}(Observable[float]):
         """
 
     @stringfunction
@@ -70,7 +72,9 @@ class Gen(Base):
             call
         """ 
 
-defs = ["from marketsim import registry, types, ops", "import math"]
+defs = ["from marketsim import registry, types, event", 
+        "import math", 
+        "from _all import Observable, Constant"]
 
 def imported(category, impl, label):
     

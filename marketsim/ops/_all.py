@@ -399,28 +399,6 @@ class Log(Observable[float]):
         r = self._source()
         return math.log(r) if r is not None and r > 0 else None
 
-@registry.expose(['Pow/Log', 'exp'])
-class Exp(Observable[float]):
-    def __init__(self, source = constant(1.)):
-        self._source = source
-        Observable[float].__init__(self)
-        if isinstance(source, types.IEvent):
-            event.subscribe(source, _(self).fire, self)
-
-    _properties = {'source': types.IFunction[float]}
-
-    @property
-    def source(self):
-        return self._source
-
-    @property
-    def label(self):
-        return "e^{" + self._source.label + "}"
-
-    def __call__(self):
-        r = self._source()
-        return math.exp(r) if r is not None else None
-
 @registry.expose(['Trigonometric', 'atan'])
 class Atan(Observable[float]):
     def __init__(self, source = constant(0.)):
