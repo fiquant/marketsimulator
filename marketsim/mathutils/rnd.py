@@ -23,6 +23,7 @@ class betavariate(ops.Function[float]):
     def __repr__(self):
         return "betavariate(Alpha = " + str(self.Alpha) + ", Beta = " + str(self.Beta) + ")"
 
+
     def __call__(self, *args, **kwargs):
         return random.betavariate(self.Alpha, self.Beta)
 
@@ -49,6 +50,7 @@ class expovariate(ops.Function[float]):
 
     def __repr__(self):
         return "expovariate(Lambda = " + str(self.Lambda) + ")"
+
 
     def __call__(self, *args, **kwargs):
         return random.expovariate(self.Lambda)
@@ -77,6 +79,7 @@ class randint(ops.Function[int]):
 
     def __repr__(self):
         return "randint(High = " + str(self.High) + ", Low = " + str(self.Low) + ")"
+
 
     def __call__(self, *args, **kwargs):
         return random.randint(self.High, self.Low)
@@ -108,6 +111,7 @@ class uniform(ops.Function[float]):
 
     def __repr__(self):
         return "uniform(High = " + str(self.High) + ", Low = " + str(self.Low) + ")"
+
 
     def __call__(self, *args, **kwargs):
         return random.uniform(self.High, self.Low)
@@ -143,6 +147,7 @@ class triangular(ops.Function[float]):
     def __repr__(self):
         return "triangular(High = " + str(self.High) + ", Low = " + str(self.Low) + ", Mode = " + str(self.Mode) + ")"
 
+
     def __call__(self, *args, **kwargs):
         return random.triangular(self.High, self.Low, self.Mode)
 
@@ -177,6 +182,7 @@ class gammavariate(ops.Function[float]):
     def __repr__(self):
         return "gammavariate(Alpha = " + str(self.Alpha) + ", Beta = " + str(self.Beta) + ")"
 
+
     def __call__(self, *args, **kwargs):
         return random.gammavariate(self.Alpha, self.Beta)
 
@@ -208,6 +214,7 @@ class lognormvariate(ops.Function[float]):
     def __repr__(self):
         return "lognormvariate(Mu = " + str(self.Mu) + ", Sigma = " + str(self.Sigma) + ")"
 
+
     def __call__(self, *args, **kwargs):
         return random.lognormvariate(self.Mu, self.Sigma)
 
@@ -235,6 +242,7 @@ class normalvariate(ops.Function[float]):
 
     def __repr__(self):
         return "normalvariate(Mu = " + str(self.Mu) + ", Sigma = " + str(self.Sigma) + ")"
+
 
     def __call__(self, *args, **kwargs):
         return random.normalvariate(self.Mu, self.Sigma)
@@ -267,6 +275,7 @@ class vonmisesvariate(ops.Function[float]):
     def __repr__(self):
         return "vonmisesvariate(Kappa = " + str(self.Kappa) + ", Mu = " + str(self.Mu) + ")"
 
+
     def __call__(self, *args, **kwargs):
         return random.vonmisesvariate(self.Kappa, self.Mu)
 
@@ -292,6 +301,7 @@ class paretovariate(ops.Function[float]):
 
     def __repr__(self):
         return "paretovariate(Alpha = " + str(self.Alpha) + ")"
+
 
     def __call__(self, *args, **kwargs):
         return random.paretovariate(self.Alpha)
@@ -320,6 +330,7 @@ class weibullvariate(ops.Function[float]):
 
     def __repr__(self):
         return "weibullvariate(Alpha = " + str(self.Alpha) + ", Beta = " + str(self.Beta) + ")"
+
 
     def __call__(self, *args, **kwargs):
         return random.weibullvariate(self.Alpha, self.Beta)

@@ -17,11 +17,9 @@ class Gen(Base):
         return n, v.defvalue.getName()[1], constraint
         
     @stringfunction
-    def repr(self):
+    def reprbody(self):
         """
         ${{}}
-            
-            def __repr__(self):
                 return "${self._label}" % self.__dict__
         """
     

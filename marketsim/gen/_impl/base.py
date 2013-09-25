@@ -125,6 +125,13 @@ class Base(object):
     @cached_property
     def reprfields(self):
         return self.joinfields("%(name)s = \" + str(self.%(name)s) + \"")
+    
+    @stringfunction
+    def reprbody(self):
+        """
+        ${{}}
+                return "${self.name}(${self.reprfields})"
+        """
 
     @stringfunction
     def repr(self):
@@ -132,8 +139,8 @@ class Base(object):
         ${{}}
         
             def __repr__(self):
-                return "${self.name}(${self.reprfields})"
-        """
+        ${self.reprbody()}
+        """ 
         
     def joinfields(self, tmpl, sep = ", "):
         return sep.join([tmpl % locals() for (name, ini, typ) in self.fields])
