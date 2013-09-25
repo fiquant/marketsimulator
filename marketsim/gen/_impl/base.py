@@ -50,9 +50,7 @@ class Base(object):
         """
         @registry.expose(['${self.category}', '${self.alias}'])"""
 
-    @property
-    def baseclass(self):
-        return "object"
+    baseclass = "object"
 
     @stringfunction
     def header(self):
@@ -73,9 +71,7 @@ class Base(object):
     def initfields(self):
         return self.joinfields("%(name)s = %(ini)s")
     
-    @property
-    def assignfield(self):
-        return "self.%(name)s = %(name)s"
+    assignfield = "self.%(name)s = %(name)s"
     
     @cached_property
     def assignfields(self):
@@ -177,8 +173,7 @@ class Base(object):
     def __getitem__(self, key):
         return getattr(self, key)
     
-    def members(self):
-        return """
+    members = """
             header
             doc
             init
@@ -189,7 +184,7 @@ class Base(object):
         
     def __call__(self):
         return "".join(map(lambda name: getattr(self, name)(), 
-                           self.members().split()))
+                           self.members.split()))
 
 
 class Meta(Base):
@@ -197,6 +192,4 @@ class Meta(Base):
     def registration(self):
         return ""
     
-    @property
-    def assignfield(self):
-        return "self.%(name)s = %(typ)s(%(name)s)"
+    assignfield = "self.%(name)s = %(typ)s(%(name)s)"

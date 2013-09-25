@@ -21,9 +21,7 @@ class Gen(Base):
     def baseclass(self):
         "ops.Function[${self.rvtype}]"
         
-    @property
-    def category(self):
-        return "Random"
+    category = "Random"
             
     @stringfunction
     def casts_to(self):
@@ -39,12 +37,9 @@ class Gen(Base):
     def callfields(self):
         return self.joinfields("self.%(name)s")
     
-    @property
-    def implmodule(self):
-        return "random"
+    implmodule = "random"
     
-    def members(self):
-        return Base.members(self) + """
+    members = Base.members + """
             call
             casts_to
         """ 

@@ -23,23 +23,17 @@ class Gen(Base):
                 return "${self._label}" % self.__dict__
         """
     
-    @property
-    def baseclass(self):
-        return "Observable[float]"
+    baseclass = "Observable[float]"
 
     def initbody(self):
         return 2*tab + "Observable[float].__init__(self)" + Base.initbody(self)
     
-    @property
-    def assignfield(self):
-        return """
+    assignfield = """
         self.%(name)s = %(name)s
         if isinstance(%(name)s, types.IEvent):
             event.subscribe(self.%(name)s, self.fire, self)"""
             
-    @property
-    def implmodule(self):
-        return "math"
+    implmodule = "math"
     
     @property
     def implfunction(self):
@@ -57,8 +51,7 @@ class Gen(Base):
         ${Base.callbody(self)}
         """
             
-    def members(self):
-        return Base.members(self) + """
+    members = Base.members + """
             call
         """ 
 
