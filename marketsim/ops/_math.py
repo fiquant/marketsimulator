@@ -20,14 +20,17 @@ class Exp(Observable[float]):
     _properties = { 
         'x' : types.IFunction[float]
     }
-    
+
     def __repr__(self):
         return "e^{%(x)s}" % self.__dict__
+
 
     def __call__(self, *args, **kwargs):
         x = self.x()
         if x is None: return None
         return math.exp(x)
+
+
 
 @registry.expose(['Log/Pow', 'Log'])
 class Log(Observable[float]):
@@ -49,14 +52,17 @@ class Log(Observable[float]):
     _properties = { 
         'x' : types.IFunction[float]
     }
-    
+
     def __repr__(self):
         return "log(%(x)s)" % self.__dict__
+
 
     def __call__(self, *args, **kwargs):
         x = self.x()
         if x is None: return None
         return math.log(x)
+
+
 
 @registry.expose(['Log/Pow', 'Pow'])
 class Pow(Observable[float]):
@@ -87,9 +93,10 @@ class Pow(Observable[float]):
         'base' : types.IFunction[float],
         'power' : types.IFunction[float]
     }
-    
+
     def __repr__(self):
         return "%(base)s^{%(power)s}" % self.__dict__
+
 
     def __call__(self, *args, **kwargs):
         base = self.base()
@@ -97,6 +104,8 @@ class Pow(Observable[float]):
         power = self.power()
         if power is None: return None
         return math.pow(base, power)
+
+
 
 @registry.expose(['Trigonometric', 'Atan'])
 class Atan(Observable[float]):
@@ -117,12 +126,15 @@ class Atan(Observable[float]):
     _properties = { 
         'x' : types.IFunction[float]
     }
-    
+
     def __repr__(self):
         return "atan(%(x)s)" % self.__dict__
+
 
     def __call__(self, *args, **kwargs):
         x = self.x()
         if x is None: return None
         return math.atan(x)
+
+
 

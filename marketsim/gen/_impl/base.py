@@ -142,6 +142,35 @@ class Base(object):
         ${self.reprbody()}
         """ 
         
+    @cached_property
+    def callfields(self):
+        return self.joinfields("%(name)s")
+    
+    @property
+    def implmodule(self):
+        assert False, "Not implemented"
+        
+    @property
+    def implfunction(self):
+        return self.name
+    
+    @stringfunction
+    def callbody(self):
+        """
+        ${{}}
+                return ${self.implmodule}.${self.implfunction}(${self.callfields})
+        """
+        
+    
+    @stringfunction
+    def call(self):
+        """
+        ${{}}
+
+            def __call__(self, *args, **kwargs):
+        ${self.callbody()}
+        """
+        
     def joinfields(self, tmpl, sep = ", "):
         return sep.join([tmpl % locals() for (name, ini, typ) in self.fields])
 

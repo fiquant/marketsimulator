@@ -39,15 +39,10 @@ class Gen(Base):
     def callfields(self):
         return self.joinfields("self.%(name)s")
     
-    @stringfunction
-    def call(self):
-        """
-        ${{}}
-
-            def __call__(self, *args, **kwargs):
-                return random.${self.name}(${self.callfields})
-        """
-            
+    @property
+    def implmodule(self):
+        return "random"
+    
     def members(self):
         return Base.members(self) + """
             call

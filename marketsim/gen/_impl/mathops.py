@@ -36,23 +36,25 @@ class Gen(Base):
         self.%(name)s = %(name)s
         if isinstance(%(name)s, types.IEvent):
             event.subscribe(self.%(name)s, self.fire, self)"""
-
-    @cached_property
-    def callfields(self):
-        return self.joinfields("%(name)s")
+            
+    @property
+    def implmodule(self):
+        return "math"
     
+    @property
+    def implfunction(self):
+        return self.impl
+
     @cached_property
     def nullablefields(self):
         return self.joinfields("%(name)s = self.%(name)s()\n        if %(name)s is None: return None", nl + 2*tab)
     
     @stringfunction
-    def call(self):
+    def callbody(self):
         """
         ${{}}
-
-            def __call__(self, *args, **kwargs):
                 ${self.nullablefields}
-                return math.${self.impl}(${self.callfields})
+        ${Base.callbody(self)}
         """
             
     def members(self):

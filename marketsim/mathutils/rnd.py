@@ -27,6 +27,7 @@ class betavariate(ops.Function[float]):
     def __call__(self, *args, **kwargs):
         return random.betavariate(self.Alpha, self.Beta)
 
+
     def _casts_to(self, dst):
         return betavariate._types[0]._casts_to(dst)
 
@@ -54,6 +55,7 @@ class expovariate(ops.Function[float]):
 
     def __call__(self, *args, **kwargs):
         return random.expovariate(self.Lambda)
+
 
     def _casts_to(self, dst):
         return expovariate._types[0]._casts_to(dst)
@@ -83,6 +85,7 @@ class randint(ops.Function[int]):
 
     def __call__(self, *args, **kwargs):
         return random.randint(self.High, self.Low)
+
 
     def _casts_to(self, dst):
         return randint._types[0]._casts_to(dst)
@@ -115,6 +118,7 @@ class uniform(ops.Function[float]):
 
     def __call__(self, *args, **kwargs):
         return random.uniform(self.High, self.Low)
+
 
     def _casts_to(self, dst):
         return uniform._types[0]._casts_to(dst)
@@ -151,6 +155,7 @@ class triangular(ops.Function[float]):
     def __call__(self, *args, **kwargs):
         return random.triangular(self.High, self.Low, self.Mode)
 
+
     def _casts_to(self, dst):
         return triangular._types[0]._casts_to(dst)
 
@@ -186,6 +191,7 @@ class gammavariate(ops.Function[float]):
     def __call__(self, *args, **kwargs):
         return random.gammavariate(self.Alpha, self.Beta)
 
+
     def _casts_to(self, dst):
         return gammavariate._types[0]._casts_to(dst)
 
@@ -218,6 +224,7 @@ class lognormvariate(ops.Function[float]):
     def __call__(self, *args, **kwargs):
         return random.lognormvariate(self.Mu, self.Sigma)
 
+
     def _casts_to(self, dst):
         return lognormvariate._types[0]._casts_to(dst)
 
@@ -246,6 +253,7 @@ class normalvariate(ops.Function[float]):
 
     def __call__(self, *args, **kwargs):
         return random.normalvariate(self.Mu, self.Sigma)
+
 
     def _casts_to(self, dst):
         return normalvariate._types[0]._casts_to(dst)
@@ -279,6 +287,7 @@ class vonmisesvariate(ops.Function[float]):
     def __call__(self, *args, **kwargs):
         return random.vonmisesvariate(self.Kappa, self.Mu)
 
+
     def _casts_to(self, dst):
         return vonmisesvariate._types[0]._casts_to(dst)
 
@@ -305,6 +314,7 @@ class paretovariate(ops.Function[float]):
 
     def __call__(self, *args, **kwargs):
         return random.paretovariate(self.Alpha)
+
 
     def _casts_to(self, dst):
         return paretovariate._types[0]._casts_to(dst)
@@ -334,6 +344,7 @@ class weibullvariate(ops.Function[float]):
 
     def __call__(self, *args, **kwargs):
         return random.weibullvariate(self.Alpha, self.Beta)
+
 
     def _casts_to(self, dst):
         return weibullvariate._types[0]._casts_to(dst)
