@@ -10,22 +10,36 @@ slash = "\\"
 class Base(object):
 
     def __init__(self, cls):
- 
-        self.name = cls.__name__
-        self.docstring = cls.__doc__
-        self.fields = []
+        self.cls = cls 
         
-        for n in dir(cls):
-            if n[0:2] != '__':
-                v = getattr(cls, n)
-                constraint = getattr(v, "constraint", None)
-                if constraint is not None:
-                    self.fields.append((n, v.defvalue, constraint))
-                else:
-                    if type(v) in [float, int]:
-                        self.fields.append((n, v, type(v).__name__))
-                    else:
-                        assert False, "unsupported type"
+    @cached_property
+    def name(self): 
+        return self.cls.__name__
+        
+    @cached_property
+    def docstring(self):
+        return self.cls.__doc__
+    
+    def makeFieldGeneric(self, n, v, constraint):
+        return n, v.defvalue, constraint
+    
+    def makeFieldPrimitive(self, n, v):
+        return n, v, type(v).__name__
+    
+    def convertField(self, n):
+        v = getattr(self.cls, n)
+        constraint = getattr(v, "constraint", None)
+        if constraint is not None:
+            return self.makeFieldGeneric(n, v, constraint)
+        else:
+            if type(v) in [float, int]:
+                return self.makeFieldPrimitive(n, v)
+            else:
+                assert False, "unsupported type"
+                        
+    @cached_property
+    def fields(self):
+        return [self.convertField(n) for n in dir(self.cls) if n[0:2] != '__']
 
     @stringfunction
     def doc(self):

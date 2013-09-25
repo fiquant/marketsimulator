@@ -13,7 +13,8 @@ class Gen(Base):
         self.impl = impl
         self._label = label
         
-        self.fields = [(f[0], f[1].getName()[1], f[2]) for f in self.fields]
+    def makeFieldGeneric(self, n, v, constraint):
+        return n, v.defvalue.getName()[1], constraint
         
     @stringfunction
     def repr(self):
