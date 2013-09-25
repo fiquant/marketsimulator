@@ -25,12 +25,9 @@ class Gen(Base):
                 return "${self._label}" % self.__dict__
         """
     
-    @stringfunction
-    def header(self):
-        """
-        @registry.expose(['${self.category}', '${self.name}'])
-        class ${self.name}(Observable[float]):
-        """
+    @property
+    def baseclass(self):
+        return "Observable[float]"
 
     def initbody(self):
         return 2*tab + "Observable[float].__init__(self)" + Base.initbody(self)

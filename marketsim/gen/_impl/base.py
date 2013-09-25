@@ -40,6 +40,26 @@ class Base(object):
     @cached_property
     def fields(self):
         return [self.convertField(n) for n in dir(self.cls) if n[0:2] != '__']
+    
+    @property
+    def alias(self):
+        return self.name
+
+    @stringfunction
+    def registration(self):
+        """
+        @registry.expose(['${self.category}', '${self.alias}'])"""
+
+    @property
+    def baseclass(self):
+        return "object"
+
+    @stringfunction
+    def header(self):
+        """
+        ${self.registration()}
+        class ${self.name}(${self.baseclass}):
+        """
 
     @stringfunction
     def doc(self):
@@ -133,6 +153,9 @@ class Base(object):
 
 
 class Meta(Base):
+    
+    def registration(self):
+        return ""
     
     @cached_property
     def assignfields(self):

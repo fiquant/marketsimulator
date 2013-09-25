@@ -9,16 +9,22 @@ class Gen(Base):
     
     def __init__(self, cls, alias, rvtype=float):
         Base.__init__(self, cls)
-        self.alias = alias
+        self._alias = alias
         self.rvtype = rvtype.__name__
-            
+        
+    @property
+    def alias(self):
+        return self._alias
+        
+    @property
     @stringfunction
-    def header(self):
-        """
-        @registry.expose(['Random', '${self.alias}'])
-        class ${self.name}(ops.Function[${self.rvtype}]):
-        """
-
+    def baseclass(self):
+        "ops.Function[${self.rvtype}]"
+        
+    @property
+    def category(self):
+        return "Random"
+            
     @stringfunction
     def casts_to(self):
         """
