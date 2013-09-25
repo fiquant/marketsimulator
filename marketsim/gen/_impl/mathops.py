@@ -1,6 +1,6 @@
 from templet import stringfunction
 from werkzeug.utils import cached_property
-from .. import types
+from .. import types, ops
 from types import *
 
 from base import *
@@ -15,6 +15,10 @@ class Gen(Base):
         
     def makeFieldGeneric(self, n, v, constraint):
         return n, v.defvalue.getName()[1], constraint
+    
+    def makeFieldPrimitive(self, n, v):
+        v = types.IFunction[float](ops.Constant[float](v))
+        return self.makeFieldGeneric(n, v, v.constraint)
         
     @stringfunction
     def reprbody(self):
@@ -63,7 +67,7 @@ def imported(category, impl, label):
     
     def inner(cls):
         defs.append(Gen(cls, category, impl, label)())
-        #exec Meta(cls)() in globals()
-        #return globals()[cls.__name__]
+        exec Meta(cls)() in globals()
+        return globals()[cls.__name__]
     
     return inner

@@ -9,14 +9,16 @@ defs = mathops.defs
 class Exp:
     """ Return e**x """
     
-    x = IFunction[float](ops.Constant[float](1.))
+    x = 1.
+    
+print Exp()
     
 @mathops.imported("Log/Pow", "log", "log(%(x)s)")
 class Log:
     """ return the natural logarithm of x (to base e).
     """
     
-    x = IFunction[float](ops.Constant[float](1.))
+    x = 1.
     
 @mathops.imported("Log/Pow", "pow", "%(base)s^{%(power)s}")
 class Pow:
@@ -27,12 +29,12 @@ class Pow:
     If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then 
     ``pow(x, y)`` is undefined, and raises ``ValueError``. """
     
-    base = IFunction[float](ops.Constant[float](1.))
-    power = IFunction[float](ops.Constant[float](1.))
+    base = 1.
+    power = 1.
     
 @mathops.imported("Trigonometric", "atan", "atan(%(x)s)")
 class Atan:
     """ Return the arc tangent of x, in radians. """
     
-    x = IFunction[float](ops.Constant[float](0.))
+    x = 0.
     
