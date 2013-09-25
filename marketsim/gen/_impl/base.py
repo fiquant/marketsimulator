@@ -73,9 +73,13 @@ class Base(object):
     def initfields(self):
         return self.joinfields("%(name)s = %(ini)s")
     
+    @property
+    def assignfield(self):
+        return "self.%(name)s = %(name)s"
+    
     @cached_property
     def assignfields(self):
-        return self.joinfields("self.%(name)s = %(name)s", nl + 2*tab)
+        return self.joinfields(self.assignfield, nl + 2*tab)
     
     @stringfunction
     def initbody(self):
@@ -157,12 +161,6 @@ class Meta(Base):
     def registration(self):
         return ""
     
-    @cached_property
-    def assignfields(self):
-        return self.joinfields("self.%(name)s = %(typ)s(%(name)s)", nl + 2*tab)
-
-    @stringfunction
-    def header(self):
-        """
-        class ${self.name}(object):
-        """
+    @property
+    def assignfield(self):
+        return "self.%(name)s = %(typ)s(%(name)s)"

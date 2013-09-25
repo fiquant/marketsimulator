@@ -31,15 +31,14 @@ class Gen(Base):
 
     def initbody(self):
         return 2*tab + "Observable[float].__init__(self)" + Base.initbody(self)
-
-    @cached_property
-    def assignfields(self):
-        return self.joinfields("""
+    
+    @property
+    def assignfield(self):
+        return """
         self.%(name)s = %(name)s
         if isinstance(%(name)s, types.IEvent):
-            event.subscribe(self.%(name)s, self.fire, self)""", 
-            nl + 2*tab)
-        
+            event.subscribe(self.%(name)s, self.fire, self)"""
+
     @cached_property
     def callfields(self):
         return self.joinfields("%(name)s")
