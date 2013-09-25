@@ -56,6 +56,13 @@ class Base(object):
     @cached_property
     def assignfields(self):
         return self.joinfields("self.%(name)s = %(name)s", nl + 2*tab)
+    
+    @stringfunction
+    def initbody(self):
+        """
+        ${{}}
+                ${self.assignfields}
+        """
         
     @stringfunction
     def init(self):
@@ -63,8 +70,8 @@ class Base(object):
         ${{}}
 
             def __init__(self, ${self.initfields}):
-                ${self.assignfields}
-        """
+        ${self.initbody()}
+        """ 
       
     @stringfunction
     def label(self):

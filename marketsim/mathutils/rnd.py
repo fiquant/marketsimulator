@@ -10,6 +10,7 @@ class betavariate(ops.Function[float]):
         self.Alpha = Alpha
         self.Beta = Beta
 
+
     @property
     def label(self):
         return repr(self)
@@ -37,6 +38,7 @@ class expovariate(ops.Function[float]):
     def __init__(self, Lambda = 1.0):
         self.Lambda = Lambda
 
+
     @property
     def label(self):
         return repr(self)
@@ -62,6 +64,7 @@ class randint(ops.Function[int]):
     def __init__(self, High = 10, Low = -10):
         self.High = High
         self.Low = Low
+
 
     @property
     def label(self):
@@ -92,6 +95,7 @@ class uniform(ops.Function[float]):
     def __init__(self, High = 10.0, Low = -10.0):
         self.High = High
         self.Low = Low
+
 
     @property
     def label(self):
@@ -124,6 +128,7 @@ class triangular(ops.Function[float]):
         self.High = High
         self.Low = Low
         self.Mode = Mode
+
 
     @property
     def label(self):
@@ -159,6 +164,7 @@ class gammavariate(ops.Function[float]):
         self.Alpha = Alpha
         self.Beta = Beta
 
+
     @property
     def label(self):
         return repr(self)
@@ -189,6 +195,7 @@ class lognormvariate(ops.Function[float]):
         self.Mu = Mu
         self.Sigma = Sigma
 
+
     @property
     def label(self):
         return repr(self)
@@ -215,6 +222,7 @@ class normalvariate(ops.Function[float]):
     def __init__(self, Mu = 0.0, Sigma = 1.0):
         self.Mu = Mu
         self.Sigma = Sigma
+
 
     @property
     def label(self):
@@ -246,6 +254,7 @@ class vonmisesvariate(ops.Function[float]):
         self.Kappa = Kappa
         self.Mu = Mu
 
+
     @property
     def label(self):
         return repr(self)
@@ -272,6 +281,7 @@ class paretovariate(ops.Function[float]):
     def __init__(self, Alpha = 1.0):
         self.Alpha = Alpha
 
+
     @property
     def label(self):
         return repr(self)
@@ -297,6 +307,7 @@ class weibullvariate(ops.Function[float]):
     def __init__(self, Alpha = 1.0, Beta = 1.0):
         self.Alpha = Alpha
         self.Beta = Beta
+
 
     @property
     def label(self):

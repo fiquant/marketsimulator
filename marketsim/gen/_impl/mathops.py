@@ -32,15 +32,8 @@ class Gen(Base):
         class ${self.name}(Observable[float]):
         """
 
-    @stringfunction
-    def init(self):
-        """
-        ${{}}
-
-            def __init__(self, ${self.initfields}):
-                Observable[float].__init__(self)
-                ${self.assignfields}
-        """
+    def initbody(self):
+        return 2*tab + "Observable[float].__init__(self)" + Base.initbody(self)
 
     @cached_property
     def assignfields(self):
