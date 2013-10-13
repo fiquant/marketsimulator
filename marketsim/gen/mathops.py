@@ -11,7 +11,7 @@ class Exp:
     
     x = 1.
     
-print Exp()
+#print Exp()
     
 @mathops.imported("Log/Pow", "log", "log(%(x)s)")
 class Log:

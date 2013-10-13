@@ -7,10 +7,29 @@ nl = "\n"
 comma = ","
 slash = "\\"
 
+dummy_t = """
+def dummy(self): 
+   \"\"\"%(doc)s\"\"\"
+   pass
+"""
+
 class Base(object):
 
     def __init__(self, cls):
         self.cls = cls 
+
+    def __getattr__(self, name_t):
+        if name_t[-2:] == "_t":
+            name = name_t[:-2]
+            if hasattr(self, name):
+                tmpl = getattr(self, name)
+                exec dummy_t % { 'doc' : tmpl }
+                try:
+                    return stringfunction(dummy)(self)
+                except AttributeError, exc:
+                    print "caught: ", exc.message
+        else:
+            raise AttributeError(name_t)
         
     @cached_property
     def name(self): 
@@ -45,17 +64,15 @@ class Base(object):
     def alias(self):
         return self.name
 
-    @stringfunction
-    def registration(self):
-        """
-        @registry.expose(['${self.category}', '${self.alias}'])"""
+    registration = """
+        @registry.expose(['${self.category_t}', '${self.alias_t}'])"""
 
     baseclass = "object"
 
     @stringfunction
     def header(self):
         """
-        ${self.registration()}
+        ${self.registration_t}
         class ${self.name}(${self.baseclass}):
         """
 
@@ -189,7 +206,6 @@ class Base(object):
 
 class Meta(Base):
     
-    def registration(self):
-        return ""
+    registration = ""
     
     assignfield = "self.%(name)s = %(typ)s(%(name)s)"
