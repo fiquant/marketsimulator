@@ -12,6 +12,10 @@ class Gen(Base):
         self.category = category
         self.impl = impl
         self._label = label
+
+    @property
+    def implmodule(self):
+        return "math"
         
     def makeFieldGeneric(self, n, v, constraint):
         return n, v.defvalue.getName()[1], constraint
@@ -20,18 +24,19 @@ class Gen(Base):
         v = types.IFunction[float](ops.Constant[float](v))
         return self.makeFieldGeneric(n, v, v.constraint)
         
-    @stringfunction
-    def reprbody(self):
-        """
+    reprbody_t = """
         ${{}}
                 return "${self._label}" % self.__dict__
         """
     
     baseclass = "Observable[float]"
 
-    def initbody(self):
-        return 2*tab + "Observable[float].__init__(self)" + Base.initbody(self)
-    
+    initbody_t = """
+        ${{}}
+                Observable[float].__init__(self)
+                ${self.expand(Base.initbody_t)}
+        """
+
     assignfield = """
         self.%(name)s = %(name)s
         if isinstance(%(name)s, types.IEvent):
@@ -46,18 +51,17 @@ class Gen(Base):
     @cached_property
     def nullablefields(self):
         return self.joinfields("%(name)s = self.%(name)s()\n        if %(name)s is None: return None", nl + 2*tab)
-    
-    @stringfunction
-    def callbody(self):
-        """
+
+    callbody_t = """
         ${{}}
                 ${self.nullablefields}
-        ${Base.callbody(self)}
+        ${self.expand(Base.callbody_t)}
         """
-            
+
     members = Base.members + """
-            call
-        """ 
+        call
+    """
+            
 
 defs = ["from marketsim import registry, types, event", 
         "import math", 

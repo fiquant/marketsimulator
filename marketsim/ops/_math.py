@@ -7,10 +7,12 @@ class Exp(Observable[float]):
     """    
 
     def __init__(self, x = Constant[float](1.0)):
-        Observable[float].__init__(self)        
+        Observable[float].__init__(self)
+                
         self.x = x
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
+
 
 
     @property
@@ -39,10 +41,12 @@ class Log(Observable[float]):
     """    
 
     def __init__(self, x = Constant[float](1.0)):
-        Observable[float].__init__(self)        
+        Observable[float].__init__(self)
+                
         self.x = x
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
+
 
 
     @property
@@ -75,7 +79,8 @@ class Pow(Observable[float]):
     """    
 
     def __init__(self, base = Constant[float](1.0), power = Constant[float](1.0)):
-        Observable[float].__init__(self)        
+        Observable[float].__init__(self)
+                
         self.base = base
         if isinstance(base, types.IEvent):
             event.subscribe(self.base, self.fire, self)
@@ -83,6 +88,7 @@ class Pow(Observable[float]):
         self.power = power
         if isinstance(power, types.IEvent):
             event.subscribe(self.power, self.fire, self)
+
 
 
     @property
@@ -113,10 +119,12 @@ class Atan(Observable[float]):
     """    
 
     def __init__(self, x = Constant[float](0.0)):
-        Observable[float].__init__(self)        
+        Observable[float].__init__(self)
+                
         self.x = x
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
+
 
 
     @property

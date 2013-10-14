@@ -15,17 +15,12 @@ class Gen(Base):
     @property
     def alias(self):
         return self._alias
-        
-    @property
-    @stringfunction
-    def baseclass(self):
-        "ops.Function[${self.rvtype}]"
+
+    baseclass_t = "ops.Function[${self.rvtype}]"
         
     category = "Random"
-            
-    @stringfunction
-    def casts_to(self):
-        """
+
+    casts_to_t = """
         ${{}}
 
             def _casts_to(self, dst):

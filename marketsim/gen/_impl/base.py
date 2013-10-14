@@ -13,22 +13,27 @@ def dummy(self):
    pass
 """
 
+def screen_escapes(s):
+    return s.replace('\"\"\"', '\\\"\\\"\\\"')
+
 class Base(object):
 
     def __init__(self, cls):
-        self.cls = cls 
+        self.cls = cls
 
-    def __getattr__(self, name_t):
-        if name_t[-2:] == "_t":
-            name = name_t[:-2]
-            if hasattr(self, name):
-                tmpl = getattr(self, name).replace('\"\"\"', '\\\"\\\"\\\"')
-                func = (dummy_t % { '__body__' : tmpl })
-                exec func
-                try:
-                    return stringfunction(dummy)(self)
-                except AttributeError, exc:
-                    print "caught: ", exc.message
+    def expand(self, template):
+        tmpl = screen_escapes(template)
+        func = (dummy_t % { '__body__' : tmpl })
+        exec func
+        try:
+            return stringfunction(dummy)(self)
+        except AttributeError, exc:
+            print "caught: ", exc.message
+
+    def __getattr__(self, name):
+        name_t = name + "_t"
+        if hasattr(self, name_t):
+            return self.expand(getattr(self, name_t))
         else:
             raise AttributeError(name_t)
         
@@ -65,17 +70,17 @@ class Base(object):
     def alias(self):
         return self.name
 
-    registration = """
-        @registry.expose(['${self.category_t}', '${self.alias_t}'])"""
+    registration_t = """
+        @registry.expose(['${self.category}', '${self.alias}'])"""
 
-    baseclass = "object"
+    baseclass_t = "object"
 
-    header = """
-        ${self.registration_t}
+    header_t = """
+        ${self.registration}
         class ${self.name}(${self.baseclass}):
         """
 
-    doc = """
+    doc_t = """
         ${{}}
             \"\"\" ${self.docstring}
             \"\"\"    
@@ -91,25 +96,19 @@ class Base(object):
     def assignfields(self):
         return self.joinfields(self.assignfield, nl + 2*tab)
     
-    @stringfunction
-    def initbody(self):
-        """
+    initbody_t = """
         ${{}}
                 ${self.assignfields}
         """
         
-    @stringfunction
-    def init(self):
-        """
+    init_t = """
         ${{}}
 
             def __init__(self, ${self.initfields}):
-        ${self.initbody()}
+        ${self.initbody}
         """ 
       
-    @stringfunction
-    def label(self):
-        """
+    label_t = """
         ${{}}
 
             @property
@@ -122,9 +121,7 @@ class Base(object):
     def propfields(self):
         return self.joinfields("\'%(name)s\' : %(typ)s", comma + nl + 2*tab)
         
-    @stringfunction
-    def properties(self):
-        """
+    properties_t = """
         ${{}}
 
             _properties = { 
@@ -136,20 +133,16 @@ class Base(object):
     def reprfields(self):
         return self.joinfields("%(name)s = \" + str(self.%(name)s) + \"")
     
-    @stringfunction
-    def reprbody(self):
-        """
+    reprbody_t = """
         ${{}}
                 return "${self.name}(${self.reprfields})"
         """
 
-    @stringfunction
-    def repr(self):
-        """
+    repr_t = """
         ${{}}
         
             def __repr__(self):
-        ${self.reprbody()}
+        ${self.reprbody}
         """ 
         
     @cached_property
@@ -164,21 +157,16 @@ class Base(object):
     def implfunction(self):
         return self.name
     
-    @stringfunction
-    def callbody(self):
-        """
+    callbody_t = """
         ${{}}
                 return ${self.implmodule}.${self.implfunction}(${self.callfields})
         """
-        
-    
-    @stringfunction
-    def call(self):
-        """
+
+    call_t = """
         ${{}}
 
             def __call__(self, *args, **kwargs):
-        ${self.callbody()}
+        ${self.callbody}
         """
         
     def joinfields(self, tmpl, sep = ", "):
@@ -188,6 +176,8 @@ class Base(object):
         return getattr(self, key)
     
     members = """
+            header
+            doc
             init
             label
             properties
@@ -195,13 +185,11 @@ class Base(object):
         """
         
     def __call__(self):
-        print self.doc_t
-        return self.header_t + self.doc_t + "".join(map(lambda name: getattr(self, name)(),
-                                           self.members.split()))
+        return "".join(map(lambda name: getattr(self, name), self.members.split()))
 
 
 class Meta(Base):
     
-    registration = ""
+    registration_t = ""
     
     assignfield = "self.%(name)s = %(typ)s(%(name)s)"
