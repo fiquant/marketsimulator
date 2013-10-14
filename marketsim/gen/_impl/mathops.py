@@ -13,10 +13,6 @@ class Gen(Base):
         self.impl = impl
         self._label = label
 
-    @property
-    def implmodule(self):
-        return "math"
-        
     def makeFieldGeneric(self, n, v, constraint):
         return n, v.defvalue.getName()[1], constraint
     
@@ -42,7 +38,7 @@ class Gen(Base):
         if isinstance(%(name)s, types.IEvent):
             event.subscribe(self.%(name)s, self.fire, self)"""
             
-    implmodule = "math"
+    implmodule_t = "math"
     
     @property
     def implfunction(self):

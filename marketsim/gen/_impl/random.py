@@ -32,7 +32,7 @@ class Gen(Base):
     def callfields(self):
         return self.joinfields("self.%(name)s")
     
-    implmodule = "random"
+    implmodule_t = "random"
     
     members = Base.members + """
             call

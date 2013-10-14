@@ -150,10 +150,6 @@ class Base(object):
         return self.joinfields("%(name)s")
     
     @property
-    def implmodule(self):
-        assert False, "Not implemented"
-        
-    @property
     def implfunction(self):
         return self.name
     
