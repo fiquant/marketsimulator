@@ -9,7 +9,7 @@ slash = "\\"
 
 dummy_t = """
 def dummy(self): 
-   \"\"\"%(doc)s\"\"\"
+   \"\"\"%(__body__)s\"\"\"
    pass
 """
 
@@ -22,8 +22,9 @@ class Base(object):
         if name_t[-2:] == "_t":
             name = name_t[:-2]
             if hasattr(self, name):
-                tmpl = getattr(self, name)
-                exec dummy_t % { 'doc' : tmpl }
+                tmpl = getattr(self, name).replace('\"\"\"', '\\\"\\\"\\\"')
+                func = (dummy_t % { '__body__' : tmpl })
+                exec func
                 try:
                     return stringfunction(dummy)(self)
                 except AttributeError, exc:
@@ -69,16 +70,12 @@ class Base(object):
 
     baseclass = "object"
 
-    @stringfunction
-    def header(self):
-        """
+    header = """
         ${self.registration_t}
         class ${self.name}(${self.baseclass}):
         """
 
-    @stringfunction
-    def doc(self):
-        """
+    doc = """
         ${{}}
             \"\"\" ${self.docstring}
             \"\"\"    
@@ -191,8 +188,6 @@ class Base(object):
         return getattr(self, key)
     
     members = """
-            header
-            doc
             init
             label
             properties
@@ -200,8 +195,9 @@ class Base(object):
         """
         
     def __call__(self):
-        return "".join(map(lambda name: getattr(self, name)(), 
-                           self.members.split()))
+        print self.doc_t
+        return self.header_t + self.doc_t + "".join(map(lambda name: getattr(self, name)(),
+                                           self.members.split()))
 
 
 class Meta(Base):
