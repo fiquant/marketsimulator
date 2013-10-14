@@ -10,16 +10,20 @@ class Exp:
     """ Return e**x """
     
     x = 1.
-    
-#print Exp()
-    
+
 @mathops.imported("Log/Pow", "log", "log(%(x)s)")
 class Log:
     """ return the natural logarithm of x (to base e).
     """
     
     x = 1.
-    
+
+@mathops.imported("Log/Pow", "sqrt", "\sqrt{%(x)s}")
+class Sqrt:
+    """ Return the square root of x. """
+
+    x = 1.
+
 @mathops.imported("Log/Pow", "pow", "%(base)s^{%(power)s}")
 class Pow:
     u""" Return *x* raised to the power *y*. 

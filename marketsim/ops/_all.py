@@ -350,32 +350,6 @@ class negate(Function[float]):
 def subscribe_if_event(source, target):
     if isinstance(source, types.IEvent):
         event.subscribe(source, _(target).fire, target)
-    
-@registry.expose(['Pow/Log', 'sqrt'])
-class Sqrt(Observable[float]):
-    def __init__(self, source = constant(1.)):
-        self._source = source
-        Observable[float].__init__(self)
-        subscribe_if_event(source, self)        
-
-    _properties = {'source': types.IFunction[float]}
-
-    @property
-    def source(self):
-        return self._source
-
-    @property
-    def label(self):
-        return "\sqrt{" + self._source.label + "}"
-
-    def __repr__(self):
-        return "sqrt(" + repr(self.arg) + ")"
-
-    def __call__(self):
-        r = self._source()
-        return math.sqrt(r) if r is not None else None
-    
-sqrt = Sqrt
 
 @registry.expose(['Basic', 'Identity'])
 class identity(Function[float]):

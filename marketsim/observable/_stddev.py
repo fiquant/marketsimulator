@@ -53,7 +53,7 @@ class Variance(fold.Last):
 @registry.expose(alias = ['Statistics', 'StdDev', 'Cumulative'], 
                  args = (ops.constant(1.),))
 def StdDev(source):
-    return ops.sqrt(Variance(source))
+    return ops.Sqrt(Variance(source))
         
 from _ma import MA
 
@@ -73,6 +73,9 @@ class MovingVariance(ops.Function[float]):
     @property
     def label(self):
         return '\sigma^2_{' + getLabel(self.source) + '}^{'+str(self.timeframe)+'}'
+
+    def __repr__(self):
+        return  self.label
 
     def bind(self, ctx):
         self._scheduler = ctx.world
@@ -96,7 +99,7 @@ class MovingVariance(ops.Function[float]):
 @registry.expose(alias = ['Statistics', 'StdDev', 'Moving'], 
                  args = (ops.constant(1.),10))
 def StdDevRolling(source, timeframe):
-    return ops.sqrt(MovingVariance(source, timeframe))
+    return ops.Sqrt(MovingVariance(source, timeframe))
 
 from _ewma import EWMA
         
@@ -121,6 +124,9 @@ class EWMV(fold.Last):
     @property
     def label(self):
         return '\sigma^2_{' + getLabel(self.source) + '}^{'+ str(self.alpha) +'}'
+
+    def __repr__(self):
+        return  self.label
         
     def at(self, t):
         x = self._lastValue
@@ -144,5 +150,5 @@ class EWMV(fold.Last):
 @registry.expose(alias = ['Statistics', 'StdDev', 'Exponentially weighted'], 
                  args = (ops.constant(1.),0.15))
 def StdDevEW(source, alpha):    
-    return ops.sqrt(EWMV(source, alpha))
+    return ops.Sqrt(EWMV(source, alpha))
     
