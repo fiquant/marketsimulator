@@ -352,62 +352,17 @@ def subscribe_if_event(source, target):
         event.subscribe(source, _(target).fire, target)
 
 @registry.expose(['Basic', 'Identity'])
-class identity(Function[float]):
-    
-    def __init__(self, arg=constant(1.)):
-        self.arg = arg
-        
-    _properties = { "arg" : types.IFunction[float] }
-    
-    def __call__(self, *args, **kwargs):
-        return self.arg()
-    
-    def __repr__(self):
-        return "id(" + repr(self.arg) + ")"
+def identity(x = constant(1.)):
+    return  x
 
-@registry.expose(['Basic', 'Max'], args = (constant(1.), constant(1.)))
-class Max(BinaryOp[float]):
-    """ Function max of the operands
-    """
-    
-    sign = ' max '
-    
-    def __init__(self, lhs, rhs):
-        BinaryOp[float].__init__(self, lhs, rhs)
-    
-    def _call(self, lhs, rhs):
-        return lhs if lhs > rhs else rhs
-    
-@registry.expose(['Basic', 'Min'], args = (constant(1.), constant(1.)))
-class Min(BinaryOp[float]):
-    """ Function min of the operands
-    """
-    
-    sign = ' min '
-    
-    def __init__(self, lhs, rhs):
-        BinaryOp[float].__init__(self, lhs, rhs)
-    
-    def _call(self, lhs, rhs):
-        return lhs if lhs < rhs else rhs
-    
+@registry.expose(['Basic', 'Max'])
+def Max(x = constant(1.), y = constant(1.)):
+    return (x > y)[x, y]
+
+@registry.expose(['Basic', 'Min'])
+def Min(x = constant(1.), y = constant(1.)):
+    return (x < y)[x, y]
+
 @registry.expose(['Pow/Log', 'sqr'])
-class Sqr(Observable[float]):
-    
-    def __init__(self, source = constant(1.)):
-        self._source = source
-        Observable[float].__init__(self)
-        if isinstance(source, types.IEvent):
-            event.subscribe(source, _(self).fire, self)
-        
-    _properties = { 'source' : types.IFunction[float] }
-    
-    @property
-    def source(self):
-        return self._source
-    
-    def __call__(self):
-        r = self._source()
-        return r*r if r is not None else None
-
-
+def Sqr(x = constant(1.)):
+    return x * x

@@ -1,5 +1,6 @@
 import os, sys
 import targets
+import subprocess
 
 sourcedir   = os.path.abspath(os.path.dirname(__file__))
 rootdir     = os.path.abspath(os.path.normpath(os.path.join(sourcedir, "..")))
@@ -27,6 +28,15 @@ def generate_if_needed():
                 module = getattr(targets, key)
                 m = __import__('marketsim.gen.'+key, globals(), locals(), ['defs'], -1)
                 write(key, m.defs)    
+        print "done." 
+
+        print "Running scala generator..."
+
+        olddir = os.getcwd()
+        os.chdir(os.path.dirname(__file__))
+        subprocess.call("sbt run", shell=True)
+        os.chdir(olddir)
+
         print "done."
 
 def gen_needed():

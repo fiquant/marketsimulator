@@ -1,5 +1,3 @@
-import ops
-
 class Positive(object):
     
     def __init__(self, defvalue):
@@ -33,9 +31,14 @@ class IFunction_float(object):
     
     def __init__(self, defvalue = None):
         if defvalue is None:
+            import ops
             self.defvalue = ops.Constant[float]()
         else:
-            self.defvalue = defvalue 
+            self.defvalue = defvalue
+
+    def __mul__(self, other):
+        import ops
+        return ops.Product(self, other)
         
     @property
     def constraint(self):
