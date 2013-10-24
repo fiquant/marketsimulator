@@ -19,3 +19,4 @@ marketsim/gen/project/
 marketsim/gen/target/
 *.iml
 .scala_dependencies
+marketsim/gen/.timestamp

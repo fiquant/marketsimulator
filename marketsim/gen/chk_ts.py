@@ -2,6 +2,8 @@ import os, sys
 import targets
 import subprocess
 
+timestamp_filename = ".timestamp"
+
 sourcedir   = os.path.abspath(os.path.dirname(__file__))
 rootdir     = os.path.abspath(os.path.normpath(os.path.join(sourcedir, "..")))
 
@@ -20,6 +22,10 @@ def write(t, strings):
             out.write('\n')
 
 def generate_if_needed():            
+
+    olddir = os.getcwd()
+    os.chdir(os.path.dirname(__file__))
+
     if gen_needed():
         print " -> Regenerating..."
         
@@ -28,46 +34,45 @@ def generate_if_needed():
                 module = getattr(targets, key)
                 m = __import__('marketsim.gen.'+key, globals(), locals(), ['defs'], -1)
                 write(key, m.defs)    
-        print "done." 
+        print "done."
 
         print "Running scala generator..."
 
-        olddir = os.getcwd()
-        os.chdir(os.path.dirname(__file__))
         subprocess.call("sbt run", shell=True)
-        os.chdir(olddir)
 
         print "done."
 
+        open(timestamp_filename, "w")
+
+    os.chdir(olddir)
+
 def gen_needed():
-    missing_targets = []
-    changed_sources = []
+
+    exts = ['.py', '.scala']
+
+    timestamp = 0
+
+    if os.path.exists(timestamp_filename):
+        timestamp = os.path.getmtime(timestamp_filename)
+
+    changed_files = []
+
+    def process_files(_, dirname, fs):
+        if dirname == ".":
+            for f in [".idea", "project", "target"]:
+                fs.remove(f)
+        for f in fs:
+            if os.path.splitext(f)[1] in exts:
+                full = os.path.join(dirname, f)
+                if os.path.getmtime(full) > timestamp:
+                    changed_files.append(full)
+        print dirname
+
+    os.path.walk(".", process_files, None)
     
-    oldest_target_ts = sys.maxint
-        
-    for t in dir(targets):
-        if t[0:2] != "__":
-            trg = target(t)
-            if not os.path.exists(trg):
-                missing_targets.append(trg)
-            else:
-                oldest_target_ts = min(oldest_target_ts, os.path.getmtime(trg))
-    
-    for root, _, files in os.walk(sourcedir):
-        for f in files:
-            if os.path.splitext(f)[1] == ".py":
-                fullpath = os.path.join(root, f)
-                if os.path.getmtime(fullpath) > oldest_target_ts:
-                    changed_sources.append(fullpath)
-    
-    if missing_targets != []:
-        print "Missing targets:"
-        for t in missing_targets:
-            print "\t", rel(t)
-            
-    if changed_sources != []:
-        print "Changed sources:"
-        for t in changed_sources:
-            print "\t", rel(t)
-    
-    return missing_targets != [] or changed_sources != []        
+    if changed_files:
+        print "Changed files:"
+        for f in changed_files:
+            print "\t", f
+
+    return  len(changed_files) > 0
