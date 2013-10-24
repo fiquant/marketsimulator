@@ -17,3 +17,5 @@ marketsim/samples/output
 wsgi/output
 marketsim/gen/project/
 marketsim/gen/target/
+*.iml
+.scala_dependencies
