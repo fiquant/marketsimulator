@@ -48,7 +48,7 @@ def generate_if_needed():
 
 def gen_needed():
 
-    exts = ['.py', '.scala']
+    exts = ['.py', '.scala', '.in']
 
     timestamp = 0
 

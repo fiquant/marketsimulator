@@ -20,3 +20,4 @@ marketsim/gen/target/
 *.iml
 .scala_dependencies
 marketsim/gen/.timestamp
+marketsim/gen/pygen.iml
