@@ -27,25 +27,27 @@ object PrettyPrinter {
         case n => tabs(n - 1) + tab
     }
 
-    def tabify(n : Int, s : String) = List(tabs(n) + s)
+    def apply(e : Expr, n : Int = 0) : List[String] = {
 
-    def braces(n : Int, name : String, e : Expr) =
-        tabify(n, name)  :::
-            apply(e, n + 1)
+        def tabify(s : String) = List(tabs(n) + s)
 
-    def braces(n : Int, name : String, e1 : Expr, e2 : Expr) =
-        tabify(n, name)  :::
-            apply(e1, n + 1)   :::
-            apply(e2, n + 1)
+        def unary(name : String, e : Expr) =
+            tabify(name)  ::: apply(e, n + 1)
 
-    def apply(e : Expr, n : Int = 0) : List[String] = e match {
-        case Var(s) => tabify(n, s)
-        case Const(x) => tabify(n, x.toString)
-        case Neg(x) => braces(n,"Neg", x)
-        case Add(x,y) => braces(n,"Add", x, y)
-        case Sub(x,y) => braces(n,"Sub", x, y)
-        case Mul(x,y) => braces(n,"Mul", x, y)
-        case Div(x,y) => braces(n,"Div", x, y)
+        def binary(name : String, e1 : Expr, e2 : Expr) =
+            tabify(name)  :::
+                apply(e1, n + 1)   :::
+                apply(e2, n + 1)
+
+        e match {
+            case Var(s)   => tabify(s)
+            case Const(x) => tabify(x.toString)
+            case Neg(x)   => unary ("Neg", x)
+            case Add(x,y) => binary("Add", x, y)
+            case Sub(x,y) => binary("Sub", x, y)
+            case Mul(x,y) => binary("Mul", x, y)
+            case Div(x,y) => binary("Div", x, y)
+        }
     }
 
 }
