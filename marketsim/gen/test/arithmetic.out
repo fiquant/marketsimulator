@@ -1,0 +1,19 @@
+1 + (-6*z) ->
+         Add
+            1.0
+            Mul
+               -6.0
+               z
+
+
+-t/p -a*l ->
+         Sub
+            Div
+               Neg
+                  t
+               p
+            Mul
+               a
+               l
+
+

@@ -1,2 +1,0 @@
-1 + (-6*z) -> [1.11] parsed: Add(Const(1.0),Mul(Const(-6.0),Var(z)))
--t/p -a*l -> [1.10] parsed: Sub(Div(Neg(Var(t)),Var(p)),Mul(Var(a),Var(l)))
