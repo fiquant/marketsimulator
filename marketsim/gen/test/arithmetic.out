@@ -1,19 +1,26 @@
 1 + (-6*z) ->
-         Add
-            1.0
-            Mul
-               -6.0
-               z
+Add:
+- Const:
+| - 1.0
+- Mul:
+| - Const:
+| | - -6.0
+| - Var:
+| | - z
 
 
 -t/p -a*l ->
-         Sub
-            Div
-               Neg
-                  t
-               p
-            Mul
-               a
-               l
+Sub:
+- Div:
+| - Neg:
+| | - Var:
+| | | - t
+| - Var:
+| | - p
+- Mul:
+| - Var:
+| | - a
+| - Var:
+| | - l
 
 
