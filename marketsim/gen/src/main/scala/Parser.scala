@@ -13,6 +13,7 @@ case class Mul(x: Expr, y: Expr) extends Expr
 case class Div(x: Expr, y: Expr) extends Expr
 case class Neg(x: Expr) extends Expr
 case class IfThenElse(cond : BooleanExpr, x : Expr, y : Expr) extends Expr
+case class FunCall(name : String, args : List[Expr]) extends Expr
 
 sealed abstract class BooleanExpr
 case class Less         (x : Expr, y : Expr) extends BooleanExpr
@@ -80,9 +81,14 @@ object Parser extends JavaTokenParsers
     }
     lazy val term : Parser[Expr] = (
                 floatingPointNumber ^^ { s => Const(s.toDouble) }
+            |   funcall
             |   ident ^^ { Var }
             |   "(" ~> expr <~ ")"
             |   "-" ~> term ^^ { Neg })
+
+    lazy val funcall : Parser[Expr] = ident ~ ("(" ~> repsep(expr, ",") <~ ")") ^^ {
+        case name ~ list => FunCall(name, list)
+    }
 
     def apply(input: String): Option[Expr] = parseAll(expr, input) match {
         case Success(result, _) => Some(result)

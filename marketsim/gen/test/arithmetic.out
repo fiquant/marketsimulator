@@ -73,3 +73,21 @@ Add:
 | | | - k
 
 
+a(12, b(p, a + 8)) ->
+FunCall:
+- a
+- List:
+| - Const:
+| | - 12.0
+| - FunCall:
+| | - b
+| | - List:
+| | | - Var:
+| | | | - p
+| | | - Add:
+| | | | - Var:
+| | | | | - a
+| | | | - Const:
+| | | | | - 8.0
+
+
