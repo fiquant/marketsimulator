@@ -60,23 +60,22 @@ object Parser extends JavaTokenParsers
         }
     }
 
-    def boolean_term = (expr ~ logic_op ~ expr ^^ {
-        case (x ~ op ~ y) => op(x, y)
-    }
-    | "not" ~> boolean ^^ { Not }
-    | "(" ~> boolean <~ ")" )
+    def boolean_term = (expr ~ logic_op ~ expr ^^ { case (x ~ op ~ y) => op(x, y) }
+                        | "not" ~> boolean ^^ { Not }
+                        | "(" ~> boolean <~ ")" )
 
-    def arithmetic = factor ~ rep(("+" | "-") ~ factor) ^^ {
+    def addsub_op = "+" ^^ { _ => Add } | "-" ^^ { _ => Sub }
+    def muldiv_op = "*" ^^ { _ => Mul } | "/" ^^ { _ => Div }
+
+    def arithmetic = factor ~ rep(addsub_op ~ factor) ^^ {
         case op ~ list => list.foldLeft(op) {
-            case (x, "+" ~ y) => Add(x, y)
-            case (x, "-" ~ y) => Sub(x, y)
+            case (x, op ~ y) => op(x, y)
         }
     }
 
-    def factor = term ~ rep(("*" | "/") ~ term) ^^ {
+    def factor = term ~ rep(muldiv_op ~ term) ^^ {
         case op ~ list => list.foldLeft(op) {
-            case (x, "*" ~ y) => Mul(x, y)
-            case (x, "/" ~ y) => Div(x, y)
+            case (x, op ~ y) => op(x, y)
         }
     }
     def term : Parser[Expr] = constant | variable | "(" ~> expr <~ ")" | negate
