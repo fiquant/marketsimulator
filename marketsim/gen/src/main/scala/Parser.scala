@@ -15,16 +15,16 @@ case class Neg(x: Expr) extends Expr
 case class IfThenElse(cond : BooleanExpr, x : Expr, y : Expr) extends Expr
 
 sealed abstract class BooleanExpr
-case class Less(x : Expr, y : Expr) extends BooleanExpr
-case class LessEqual(x : Expr, y : Expr) extends BooleanExpr
-case class Greater(x : Expr, y : Expr) extends BooleanExpr
-case class GreaterEqual(x : Expr, y : Expr) extends BooleanExpr
-case class Equal(x : Expr, y : Expr) extends BooleanExpr
-case class NotEqual(x : Expr, y : Expr) extends BooleanExpr
+case class Less         (x : Expr, y : Expr) extends BooleanExpr
+case class LessEqual    (x : Expr, y : Expr) extends BooleanExpr
+case class Greater      (x : Expr, y : Expr) extends BooleanExpr
+case class GreaterEqual (x : Expr, y : Expr) extends BooleanExpr
+case class Equal        (x : Expr, y : Expr) extends BooleanExpr
+case class NotEqual     (x : Expr, y : Expr) extends BooleanExpr
 
-case class Or(x : BooleanExpr, y : BooleanExpr) extends BooleanExpr
-case class And(x : BooleanExpr, y : BooleanExpr) extends BooleanExpr
-case class Not(x : BooleanExpr) extends BooleanExpr
+case class Or   (x : BooleanExpr, y : BooleanExpr) extends BooleanExpr
+case class And  (x : BooleanExpr, y : BooleanExpr) extends BooleanExpr
+case class Not  (x : BooleanExpr) extends BooleanExpr
 
 
 case class Memoize[A,B](f: A => B) extends (A => B) {
@@ -34,19 +34,19 @@ case class Memoize[A,B](f: A => B) extends (A => B) {
 
 object Parser extends JavaTokenParsers
 {
-    def expr : Parser[Expr] = conditional | arithmetic
+    lazy val expr : Parser[Expr] = conditional | arithmetic
 
-    def conditional : Parser[Expr] = ("if" ~> boolean) ~ ("then" ~> expr) ~ ("else" ~> expr) ^^ {
+    lazy val conditional : Parser[Expr] = ("if" ~> boolean) ~ ("then" ~> expr) ~ ("else" ~> expr) ^^ {
         case (cond ~ x ~ y) => IfThenElse(cond, x, y)
     }
 
-    def boolean : Parser[BooleanExpr] = boolean_factor ~ rep("or" ~ boolean_factor) ^^ {
+    lazy val boolean : Parser[BooleanExpr] = boolean_factor ~ rep("or" ~ boolean_factor) ^^ {
         case op ~ list => list.foldLeft(op) {
             case (x, "or" ~ y) => Or(x, y)
         }
     }
 
-    def logic_op = (
+    lazy val logic_op = (
                 "<>" ^^ { _ => NotEqual }
             |   "<=" ^^ { _ => LessEqual }
             |   "<"  ^^ { _ => Less }
@@ -54,34 +54,35 @@ object Parser extends JavaTokenParsers
             |   ">"  ^^ { _ => Greater }
             |   "="  ^^ { _ => Equal })
 
-    def boolean_factor = boolean_term ~ rep("and" ~ boolean_term) ^^ {
+    lazy val boolean_factor = boolean_term ~ rep("and" ~ boolean_term) ^^ {
         case op ~ list => list.foldLeft(op) {
             case (x, "and" ~ y) => And(x, y)
         }
     }
 
-    def boolean_term = (expr ~ logic_op ~ expr ^^ { case (x ~ op ~ y) => op(x, y) }
+    lazy val boolean_term = (expr ~ logic_op ~ expr ^^ { case (x ~ op ~ y) => op(x, y) }
                         | "not" ~> boolean ^^ { Not }
                         | "(" ~> boolean <~ ")" )
 
-    def addsub_op = "+" ^^ { _ => Add } | "-" ^^ { _ => Sub }
-    def muldiv_op = "*" ^^ { _ => Mul } | "/" ^^ { _ => Div }
+    lazy val addsub_op = "+" ^^ { _ => Add } | "-" ^^ { _ => Sub }
+    lazy val muldiv_op = "*" ^^ { _ => Mul } | "/" ^^ { _ => Div }
 
-    def arithmetic = factor ~ rep(addsub_op ~ factor) ^^ {
+    lazy val arithmetic = factor ~ rep(addsub_op ~ factor) ^^ {
         case op ~ list => list.foldLeft(op) {
             case (x, op ~ y) => op(x, y)
         }
     }
 
-    def factor = term ~ rep(muldiv_op ~ term) ^^ {
+    lazy val factor = term ~ rep(muldiv_op ~ term) ^^ {
         case op ~ list => list.foldLeft(op) {
             case (x, op ~ y) => op(x, y)
         }
     }
-    def term : Parser[Expr] = constant | variable | "(" ~> expr <~ ")" | negate
-    def negate = "-" ~> term ^^ { s => Neg(s) }
-    def variable = ident ^^ { s => Var(s) }
-    def constant = floatingPointNumber ^^ { s => Const(s.toDouble) }
+    lazy val term : Parser[Expr] = (
+                floatingPointNumber ^^ { s => Const(s.toDouble) }
+            |   ident ^^ { Var }
+            |   "(" ~> expr <~ ")"
+            |   "-" ~> term ^^ { Neg })
 
     def apply(input: String): Option[Expr] = parseAll(expr, input) match {
         case Success(result, _) => Some(result)
