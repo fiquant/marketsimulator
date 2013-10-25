@@ -24,3 +24,52 @@ Sub:
 | | - l
 
 
+p + (if a + 12 < 9 then n - 2 else if j*u <> 7 or (j >= 0) and not o = i then 8 + j else k) ->
+Add:
+- Var:
+| - p
+- IfThenElse:
+| - Less:
+| | - Add:
+| | | - Var:
+| | | | - a
+| | | - Const:
+| | | | - 12.0
+| | - Const:
+| | | - 9.0
+| - Sub:
+| | - Var:
+| | | - n
+| | - Const:
+| | | - 2.0
+| - IfThenElse:
+| | - Or:
+| | | - NotEqual:
+| | | | - Mul:
+| | | | | - Var:
+| | | | | | - j
+| | | | | - Var:
+| | | | | | - u
+| | | | - Const:
+| | | | | - 7.0
+| | | - And:
+| | | | - GreaterEqual:
+| | | | | - Var:
+| | | | | | - j
+| | | | | - Const:
+| | | | | | - 0.0
+| | | | - Not:
+| | | | | - Equal:
+| | | | | | - Var:
+| | | | | | | - o
+| | | | | | - Var:
+| | | | | | | - i
+| | - Add:
+| | | - Const:
+| | | | - 8.0
+| | | - Var:
+| | | | - j
+| | - Var:
+| | | - k
+
+
