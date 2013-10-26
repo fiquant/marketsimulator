@@ -6,8 +6,8 @@ object ExprTest {
 
     def main(args: Array[String]) {
 
-        for (input <- managed(io.Source.fromFile("test/arithmetic.in"));
-             output <- managed(new PrintWriter("test/arithmetic.out")))
+        for (input <- managed(io.Source.fromFile("test/expressions.in"));
+             output <- managed(new PrintWriter("test/expressions.out")))
         {
             for (line <- input.getLines) {
                 output.println(s"$line ->")

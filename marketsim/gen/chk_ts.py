@@ -66,7 +66,6 @@ def gen_needed():
                 full = os.path.join(dirname, f)
                 if os.path.getmtime(full) > timestamp:
                     changed_files.append(full)
-        print dirname
 
     os.path.walk(".", process_files, None)
     
