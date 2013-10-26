@@ -1,8 +1,5 @@
-import java.io.PrintWriter
 import scala.collection.mutable
 import scala.util.parsing.combinator._
-import resource._
-import sext._
 
 sealed abstract class Expr
 case class Const(value: Double) extends Expr
@@ -37,7 +34,7 @@ object Parser extends JavaTokenParsers
 {
     lazy val expr : Parser[Expr] = conditional | arithmetic
 
-    lazy val conditional : Parser[Expr] = ("if" ~> boolean) ~ ("then" ~> expr) ~ ("else" ~> expr) ^^ {
+    lazy val conditional = ("if" ~> boolean) ~ ("then" ~> expr) ~ ("else" ~> expr) ^^ {
         case (cond ~ x ~ y) => IfThenElse(cond, x, y)
     }
 
@@ -86,28 +83,8 @@ object Parser extends JavaTokenParsers
             |   "(" ~> expr <~ ")"
             |   "-" ~> term ^^ { Neg })
 
-    lazy val funcall : Parser[Expr] = ident ~ ("(" ~> repsep(expr, ",") <~ ")") ^^ {
+    lazy val funcall = ident ~ ("(" ~> repsep(expr, ",") <~ ")") ^^ {
         case name ~ list => FunCall(name, list)
-    }
-
-    def apply(input: String): Option[Expr] = parseAll(expr, input) match {
-        case Success(result, _) => Some(result)
-        case NoSuccess(_, _) => None
-    }
-
-    def main(args: Array[String]) {
-
-        for (input <- managed(io.Source.fromFile("test/arithmetic.in"));
-             output <- managed(new PrintWriter("test/arithmetic.out")))
-        {
-            for (line <- input.getLines) {
-                output.println(s"$line ->")
-                output.println(parseAll(expr, line) match {
-                    case Success(result, _) =>  s"${result.treeString}\n\n"
-                    case x => x.toString
-                })
-            }
-        }
     }
 }
 
