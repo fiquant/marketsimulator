@@ -94,17 +94,15 @@ object Parser extends JavaTokenParsers
         case (annotations ~ name ~ ty ~ initializer) => Parameter(name, ty, initializer, annotations)
     }
 
-    private def stripComment(s : String) = s stripPrefix "/*" stripSuffix "*/" stripMargin '*'
-
-    lazy val fundef  = opt(comment) ~ rep(annotation) ~ ("def" ~> ident) ~ ("(" ~> repsep(parameter, ",") <~ ")") ~ opt("=" ~> expr) ^^ {
-        case (docstring ~ annotations ~ name ~ parameters ~ body) => FunDef(name, parameters, body, docstring map stripComment, annotations)
+    lazy val function  = opt(comment) ~ rep(annotation) ~ ("def" ~> ident) ~ ("(" ~> repsep(parameter, ",") <~ ")") ~ opt("=" ~> expr) ^^ {
+        case (docstring ~ annotations ~ name ~ parameters ~ body) => FunDef(name, parameters, body, docstring, annotations)
     }
 
-    lazy val definitions = rep(fundef)
+    lazy val definitions = rep(function)
 
-    lazy val comment = "/\\*(?:.|[\\n\\r])*?\\*/".r
+    lazy val comment = "/\\*(?:.|[\\n\\r])*?\\*/".r ^^ { _ stripPrefix "/*" stripSuffix "*/" stripMargin '*' }
 
-    lazy val string = stringLiteral ^^ { s => s stripPrefix "\"" stripSuffix "\"" }
+    lazy val string = stringLiteral ^^ { _ stripPrefix "\"" stripSuffix "\"" }
 
     lazy val annotation = ("@" ~> ident) ~ ("(" ~> repsep(string, ",") <~ ")") ^^ {
         case (name ~ parameters) => Annotation(name, parameters)
