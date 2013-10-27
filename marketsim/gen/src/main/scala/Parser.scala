@@ -1,6 +1,9 @@
 import scala.collection.mutable
 import scala.util.parsing.combinator._
 
+case class Parameter(name : String, ty : Option[String], initializer: Option[Expr], docstring : Option[String])
+case class FunDef(name : String, parameters : List[Parameter], body : Option[Expr], docstring : Option[String])
+
 sealed abstract class Expr
 case class Const(value: Double) extends Expr
 case class Var(s : String) extends Expr
@@ -23,7 +26,6 @@ case class NotEqual     (x : Expr, y : Expr) extends BooleanExpr
 case class Or   (x : BooleanExpr, y : BooleanExpr) extends BooleanExpr
 case class And  (x : BooleanExpr, y : BooleanExpr) extends BooleanExpr
 case class Not  (x : BooleanExpr) extends BooleanExpr
-
 
 case class Memoize[A,B](f: A => B) extends (A => B) {
     private val cache = mutable.Map.empty[A, B]
@@ -66,13 +68,13 @@ object Parser extends JavaTokenParsers
     lazy val muldiv_op = "*" ^^ { _ => Mul } | "/" ^^ { _ => Div }
 
     lazy val arithmetic = factor ~ rep(addsub_op ~ factor) ^^ {
-        case op ~ list => list.foldLeft(op) {
+        case start ~ list => list.foldLeft(start) {
             case (x, op ~ y) => op(x, y)
         }
     }
 
     lazy val factor = term ~ rep(muldiv_op ~ term) ^^ {
-        case op ~ list => list.foldLeft(op) {
+        case start ~ list => list.foldLeft(start) {
             case (x, op ~ y) => op(x, y)
         }
     }
@@ -86,5 +88,17 @@ object Parser extends JavaTokenParsers
     lazy val funcall = ident ~ ("(" ~> repsep(expr, ",") <~ ")") ^^ {
         case name ~ list => FunCall(name, list)
     }
+
+    lazy val parameter = opt("[" ~> stringLiteral <~ "]") ~ ident ~ opt(":" ~> ident) ~ opt("=" ~> expr) ^^ {
+        case (docstring ~ name ~ ty ~ initializer) => Parameter(name, ty, initializer, docstring)
+    }
+
+    private def stripComment(s : String) = s stripPrefix "/*" stripSuffix "*/" stripMargin '*'
+
+    lazy val fundef  = opt(comment) ~ ("def" ~> ident) ~ ("(" ~> repsep(parameter, ",") <~ ")") ~ opt("=" ~> expr) ^^ {
+        case (docstring ~ name ~ parameters ~ body) => FunDef(name, parameters, body, docstring map stripComment)
+    }
+
+    lazy val comment = "/\\*(?:.|[\\n\\r])*?\\*/".r
 }
 
