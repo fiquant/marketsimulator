@@ -1,9 +1,21 @@
 import scala.collection.mutable
 import scala.util.parsing.combinator._
 
-case class Parameter(name : String, ty : Option[String], initializer: Option[Expr], annotations : List[Annotation])
-case class Annotation(name : String, parameters : List[String])
-case class FunDef(name : String, parameters : List[Parameter], body : Option[Expr], docstring : Option[String], annotations : List[Annotation])
+case class Parameter(name        : String,
+                     ty          : Option[String],
+                     initializer : Option[Expr],
+                     annotations : List[Annotation])
+
+case class QualifiedName(names   : List[String])
+
+case class Annotation(name       : QualifiedName,
+                      parameters : List[String])
+
+case class FunDef(name           : String,
+                  parameters     : List[Parameter],
+                  body           : Option[Expr],
+                  docstring      : Option[String],
+                  annotations    : List[Annotation])
 
 sealed abstract class Expr
 case class Const(value: Double) extends Expr
@@ -14,7 +26,7 @@ case class Mul(x: Expr, y: Expr) extends Expr
 case class Div(x: Expr, y: Expr) extends Expr
 case class Neg(x: Expr) extends Expr
 case class IfThenElse(cond : BooleanExpr, x : Expr, y : Expr) extends Expr
-case class FunCall(name : String, args : List[Expr]) extends Expr
+case class FunCall(name : QualifiedName, args : List[Expr]) extends Expr
 
 sealed abstract class BooleanExpr
 case class Less         (x : Expr, y : Expr) extends BooleanExpr
@@ -86,7 +98,7 @@ object Parser extends JavaTokenParsers
             |   "(" ~> expr <~ ")"
             |   "-" ~> term ^^ { Neg })
 
-    lazy val funcall = ident ~ ("(" ~> repsep(expr, ",") <~ ")") ^^ {
+    lazy val funcall = qualified_name ~ ("(" ~> repsep(expr, ",") <~ ")") ^^ {
         case name ~ list => FunCall(name, list)
     }
 
@@ -104,7 +116,9 @@ object Parser extends JavaTokenParsers
 
     lazy val string = stringLiteral ^^ { _ stripPrefix "\"" stripSuffix "\"" }
 
-    lazy val annotation = ("@" ~> ident) ~ ("(" ~> repsep(string, ",") <~ ")") ^^ {
+    lazy val qualified_name = rep1sep(ident, ".") ^^ { QualifiedName }
+
+    lazy val annotation = ("@" ~> qualified_name) ~ ("(" ~> repsep(string, ",") <~ ")") ^^ {
         case (name ~ parameters) => Annotation(name, parameters)
     }
 }
