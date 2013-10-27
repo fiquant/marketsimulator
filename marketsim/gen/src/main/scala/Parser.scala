@@ -1,8 +1,9 @@
 import scala.collection.mutable
 import scala.util.parsing.combinator._
 
-case class Parameter(name : String, ty : Option[String], initializer: Option[Expr], docstring : Option[String])
-case class FunDef(name : String, parameters : List[Parameter], body : Option[Expr], docstring : Option[String])
+case class Parameter(name : String, ty : Option[String], initializer: Option[Expr], annotations : List[Annotation])
+case class Annotation(name : String, parameters : List[String])
+case class FunDef(name : String, parameters : List[Parameter], body : Option[Expr], docstring : Option[String], annotations : List[Annotation])
 
 sealed abstract class Expr
 case class Const(value: Double) extends Expr
@@ -89,16 +90,24 @@ object Parser extends JavaTokenParsers
         case name ~ list => FunCall(name, list)
     }
 
-    lazy val parameter = opt("[" ~> stringLiteral <~ "]") ~ ident ~ opt(":" ~> ident) ~ opt("=" ~> expr) ^^ {
-        case (docstring ~ name ~ ty ~ initializer) => Parameter(name, ty, initializer, docstring)
+    lazy val parameter = rep(annotation) ~ ident ~ opt(":" ~> ident) ~ opt("=" ~> expr) ^^ {
+        case (annotations ~ name ~ ty ~ initializer) => Parameter(name, ty, initializer, annotations)
     }
 
     private def stripComment(s : String) = s stripPrefix "/*" stripSuffix "*/" stripMargin '*'
 
-    lazy val fundef  = opt(comment) ~ ("def" ~> ident) ~ ("(" ~> repsep(parameter, ",") <~ ")") ~ opt("=" ~> expr) ^^ {
-        case (docstring ~ name ~ parameters ~ body) => FunDef(name, parameters, body, docstring map stripComment)
+    lazy val fundef  = opt(comment) ~ rep(annotation) ~ ("def" ~> ident) ~ ("(" ~> repsep(parameter, ",") <~ ")") ~ opt("=" ~> expr) ^^ {
+        case (docstring ~ annotations ~ name ~ parameters ~ body) => FunDef(name, parameters, body, docstring map stripComment, annotations)
     }
 
+    lazy val definitions = rep(fundef)
+
     lazy val comment = "/\\*(?:.|[\\n\\r])*?\\*/".r
+
+    lazy val string = stringLiteral ^^ { s => s stripPrefix "\"" stripSuffix "\"" }
+
+    lazy val annotation = ("@" ~> ident) ~ ("(" ~> repsep(string, ",") <~ ")") ^^ {
+        case (name ~ parameters) => Annotation(name, parameters)
+    }
 }
 

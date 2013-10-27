@@ -21,13 +21,22 @@ object ExprTest {
                 """
                   | /**  Minimum
                   | */
-                  | def min(["X"] x : float = 0,
-                  |         ["Y"] y : float = 0) =
+                  | @ann("p1", "p2")
+                  | @ann2("p")
+                  | def min(@doc("X") x : float = 0,
+                  |         @doc("Y") y : float = 0) =
                   |
                   |     if x < y then x else y
-                """.stripMargin
+                  |
+                  |/**  Maximum
+                  | */
+                  | def max(@doc("X") x : float = 0,
+                  |         @doc("Y") y : float = 0) =
+                  |
+                  |     if x > y then x else y
+                  |                """.stripMargin
 
-            println(Parser.parseAll(Parser.fundef, fd))
+            println(Parser.parseAll(Parser.definitions, fd))
         }
     }
 
