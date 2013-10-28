@@ -7,7 +7,7 @@ object ExprTest {
     def main(args: Array[String]) {
 
         for (input <- managed(io.Source.fromFile("test/expressions.in"));
-             output <- managed(new PrintWriter("test/expressions.out")))
+             output <- managed(new PrintWriter("test/expressions.raw")))
         {
             for (line <- input.getLines()) {
                 output.println(s"$line ->")
