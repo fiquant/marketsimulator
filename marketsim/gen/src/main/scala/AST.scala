@@ -14,13 +14,16 @@ case class FunDef(name           : String,
                   docstring      : Option[String],
                   annotations    : List[Annotation])
 
+sealed class BinOpSymbol
+case class Add() extends BinOpSymbol
+case class Sub() extends BinOpSymbol
+case class Mul() extends BinOpSymbol
+case class Div() extends BinOpSymbol
+
 sealed abstract class Expr
 case class Const(value: Double) extends Expr
 case class Var(s : String) extends Expr
-case class Add(x: Expr, y: Expr) extends Expr
-case class Sub(x: Expr, y: Expr) extends Expr
-case class Mul(x: Expr, y: Expr) extends Expr
-case class Div(x: Expr, y: Expr) extends Expr
+case class BinOp(symbol : BinOpSymbol, x: Expr, y: Expr) extends Expr
 case class Neg(x: Expr) extends Expr
 case class IfThenElse(cond : BooleanExpr, x : Expr, y : Expr) extends Expr
 case class FunCall(name : QualifiedName, args : List[Expr]) extends Expr

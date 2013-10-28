@@ -38,18 +38,18 @@ object Parser extends JavaTokenParsers
                         | "not" ~> boolean ^^ { Not }
                         | "(" ~> boolean <~ ")" )
 
-    lazy val addsub_op = "+" ^^ { _ => Add } | "-" ^^ { _ => Sub }
-    lazy val muldiv_op = "*" ^^ { _ => Mul } | "/" ^^ { _ => Div }
+    lazy val addsub_op = "+" ^^ { _ => Add() } | "-" ^^ { _ => Sub() }
+    lazy val muldiv_op = "*" ^^ { _ => Mul() } | "/" ^^ { _ => Div() }
 
     lazy val arithmetic = factor ~ rep(addsub_op ~ factor) ^^ {
         case start ~ list => list.foldLeft(start) {
-            case (x, op ~ y) => op(x, y)
+            case (x, op ~ y) => BinOp(op, x, y)
         }
     }
 
     lazy val factor = term ~ rep(muldiv_op ~ term) ^^ {
         case start ~ list => list.foldLeft(start) {
-            case (x, op ~ y) => op(x, y)
+            case (x, op ~ y) => BinOp(op, x, y)
         }
     }
     lazy val term : Parser[Expr] = (

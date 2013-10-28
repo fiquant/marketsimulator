@@ -1,8 +1,10 @@
 1 + (-6*z) ->
-Add:
+BinOp:
+- Add
 - Const:
 | - 1.0
-- Mul:
+- BinOp:
+| - Mul
 | - Const:
 | | - -6.0
 | - Var:
@@ -10,14 +12,17 @@ Add:
 
 
 -t/p -a*l ->
-Sub:
-- Div:
+BinOp:
+- Sub
+- BinOp:
+| - Div
 | - Neg:
 | | - Var:
 | | | - t
 | - Var:
 | | - p
-- Mul:
+- BinOp:
+| - Mul
 | - Var:
 | | - a
 | - Var:
@@ -25,19 +30,22 @@ Sub:
 
 
 p + (if a + 12 < 9 then n - 2 else if j*u <> 7 or (j >= 0) and not o = i then 8 + j else k) ->
-Add:
+BinOp:
+- Add
 - Var:
 | - p
 - IfThenElse:
 | - Less:
-| | - Add:
+| | - BinOp:
+| | | - Add
 | | | - Var:
 | | | | - a
 | | | - Const:
 | | | | - 12.0
 | | - Const:
 | | | - 9.0
-| - Sub:
+| - BinOp:
+| | - Sub
 | | - Var:
 | | | - n
 | | - Const:
@@ -45,7 +53,8 @@ Add:
 | - IfThenElse:
 | | - Or:
 | | | - NotEqual:
-| | | | - Mul:
+| | | | - BinOp:
+| | | | | - Mul
 | | | | | - Var:
 | | | | | | - j
 | | | | | - Var:
@@ -64,7 +73,8 @@ Add:
 | | | | | | | - o
 | | | | | | - Var:
 | | | | | | | - i
-| | - Add:
+| | - BinOp:
+| | | - Add
 | | | - Const:
 | | | | - 8.0
 | | | - Var:
@@ -88,7 +98,8 @@ FunCall:
 | | - List:
 | | | - Var:
 | | | | - p
-| | | - Add:
+| | | - BinOp:
+| | | | - Add
 | | | | - Var:
 | | | | | - a
 | | | | - Const:
