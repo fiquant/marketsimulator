@@ -16,14 +16,14 @@ object PrettyPrinter {
         case IfThenElse(_,_,_) => 3
     }
 
-    def symbol(s : BinOpSymbol) = s match {
+    def apply(s : BinOpSymbol) = s match {
         case Mul() => "*"
         case Div() => "/"
         case Add() => "+"
         case Sub() => "-"
     }
 
-    def symbol(s : CondSymbol) = s match {
+    def apply(s : CondSymbol) = s match {
         case Less() => "<"
         case LessEqual() => "<="
         case Greater() => ">"
@@ -54,9 +54,27 @@ object PrettyPrinter {
         case Const(x) => x.toString
         case Var(x) => x
         case Neg(x) => s"-${wrap(x, e)}"
-        case BinOp(s, x,y) => s"${wrap(x, e)} ${symbol(s)} ${wrap(y, e, true)}"
-        case IfThenElse(_,x,y) => s"if xxx then ${wrap(x, e)} else ${wrap(y, e)}"
+        case BinOp(s, x,y) => s"${wrap(x, e)}${apply(s)}${wrap(y, e, true)}"
+        case IfThenElse(c,x,y) => s"if ${apply(c)} then ${wrap(x, e)} else ${wrap(y, e)}"
         case FunCall(name, args) => s"${apply(name.names, ".")}(${apply(args, ",")})"
+    }
+
+    def wrap(x : BooleanExpr, e : And) = x match {
+        case y : Or => s"(${apply(y)})"
+        case y => apply(y)
+    }
+
+    def wrap(x : BooleanExpr, e : Not) = x match {
+        case Condition(_,_,_) => apply(x)
+        case _ => s"(${apply(x)})"
+    }
+
+
+    def apply(e : BooleanExpr) : String = e match {
+        case Condition(s, x, y) => s"${apply(x)}${apply(s)}${apply(y)}"
+        case Or(x, y) => s"${apply(x)} or ${apply(y)}"
+        case a @ And(x, y) => s"${wrap(x, a)} and ${wrap(y, a)}"
+        case a @ Not(x) =>  s"not ${wrap(x, a)}"
     }
 
 }
