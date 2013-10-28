@@ -28,13 +28,16 @@ case class Neg(x: Expr) extends Expr
 case class IfThenElse(cond : BooleanExpr, x : Expr, y : Expr) extends Expr
 case class FunCall(name : QualifiedName, args : List[Expr]) extends Expr
 
+sealed class CondSymbol
+case class Less() extends CondSymbol
+case class LessEqual() extends CondSymbol
+case class Greater() extends CondSymbol
+case class GreaterEqual() extends CondSymbol
+case class Equal() extends CondSymbol
+case class NotEqual() extends CondSymbol
+
 sealed abstract class BooleanExpr
-case class Less         (x : Expr, y : Expr) extends BooleanExpr
-case class LessEqual    (x : Expr, y : Expr) extends BooleanExpr
-case class Greater      (x : Expr, y : Expr) extends BooleanExpr
-case class GreaterEqual (x : Expr, y : Expr) extends BooleanExpr
-case class Equal        (x : Expr, y : Expr) extends BooleanExpr
-case class NotEqual     (x : Expr, y : Expr) extends BooleanExpr
+case class Condition(symbol : CondSymbol, x : Expr, y : Expr) extends BooleanExpr
 
 case class Or   (x : BooleanExpr, y : BooleanExpr) extends BooleanExpr
 case class And  (x : BooleanExpr, y : BooleanExpr) extends BooleanExpr

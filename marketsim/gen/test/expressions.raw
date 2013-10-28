@@ -35,7 +35,8 @@ BinOp:
 - Var:
 | - p
 - IfThenElse:
-| - Less:
+| - Condition:
+| | - Less
 | | - BinOp:
 | | | - Add
 | | | - Var:
@@ -52,7 +53,8 @@ BinOp:
 | | | - 2.0
 | - IfThenElse:
 | | - Or:
-| | | - NotEqual:
+| | | - Condition:
+| | | | - NotEqual
 | | | | - BinOp:
 | | | | | - Mul
 | | | | | - Var:
@@ -62,13 +64,15 @@ BinOp:
 | | | | - Const:
 | | | | | - 7.0
 | | | - And:
-| | | | - GreaterEqual:
+| | | | - Condition:
+| | | | | - GreaterEqual
 | | | | | - Var:
 | | | | | | - j
 | | | | | - Const:
 | | | | | | - 0.0
 | | | | - Not:
-| | | | | - Equal:
+| | | | | - Condition:
+| | | | | | - Equal
 | | | | | | - Var:
 | | | | | | | - o
 | | | | | | - Var:

@@ -21,12 +21,12 @@ object Parser extends JavaTokenParsers
     }
 
     lazy val logic_op = (
-                "<>" ^^ { _ => NotEqual }
-            |   "<=" ^^ { _ => LessEqual }
-            |   "<"  ^^ { _ => Less }
-            |   ">=" ^^ { _ => GreaterEqual }
-            |   ">"  ^^ { _ => Greater }
-            |   "="  ^^ { _ => Equal })
+                "<>" ^^ { _ => NotEqual() }
+            |   "<=" ^^ { _ => LessEqual() }
+            |   "<"  ^^ { _ => Less() }
+            |   ">=" ^^ { _ => GreaterEqual() }
+            |   ">"  ^^ { _ => Greater() }
+            |   "="  ^^ { _ => Equal() })
 
     lazy val boolean_factor = boolean_term ~ rep("and" ~ boolean_term) ^^ {
         case op ~ list => list.foldLeft(op) {
@@ -34,7 +34,7 @@ object Parser extends JavaTokenParsers
         }
     }
 
-    lazy val boolean_term = (expr ~ logic_op ~ expr ^^ { case (x ~ op ~ y) => op(x, y) }
+    lazy val boolean_term = (expr ~ logic_op ~ expr ^^ { case (x ~ op ~ y) => Condition(op, x, y) }
                         | "not" ~> boolean ^^ { Not }
                         | "(" ~> boolean <~ ")" )
 
