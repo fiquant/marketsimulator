@@ -19,6 +19,6 @@ p + (if xxx then n - 2.0 else if xxx then 8.0 + j else k)
 
 
 a(12, b(p, a + 8)) ->
-QualifiedName(List(a))(List(Const(12.0), FunCall(QualifiedName(List(b)),List(Var(p), BinOp(Add(),Var(a),Const(8.0))))))
+a(12.0,b(p,a + 8.0))
 
 

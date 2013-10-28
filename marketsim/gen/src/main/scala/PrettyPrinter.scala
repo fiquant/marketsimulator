@@ -38,13 +38,25 @@ object PrettyPrinter {
     def wrap(x : Expr, e : Expr, rhs : Boolean = false) =
         if (need_brackets(x,e,rhs)) s"(${apply(x)})" else apply(x)
 
+    def apply[T](x : T) : String = x match {
+        case s : String => s
+        case e : Expr => apply(e)
+    }
+
+
+    def apply[T](lst : List[T], sep : String = ",") : String = lst match {
+        case Nil => ""
+        case hd :: Nil => s"${apply(hd)}"
+        case hd :: tl => s"${apply(hd)}$sep${apply(tl, sep)}"
+    }
+
     def apply(e : Expr) : String = e match {
         case Const(x) => x.toString
         case Var(x) => x
         case Neg(x) => s"-${wrap(x, e)}"
         case BinOp(s, x,y) => s"${wrap(x, e)} ${symbol(s)} ${wrap(y, e, true)}"
         case IfThenElse(_,x,y) => s"if xxx then ${wrap(x, e)} else ${wrap(y, e)}"
-        case FunCall(name, args) => s"$name($args)"
+        case FunCall(name, args) => s"${apply(name.names, ".")}(${apply(args, ",")})"
     }
 
 }
