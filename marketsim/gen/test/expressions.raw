@@ -1,4 +1,4 @@
-1 + (-6*z) ->
+1 + -6*z ->
 BinOp:
 - Add
 - Const:
@@ -27,6 +27,40 @@ BinOp:
 | | - a
 | - Var:
 | | - l
+
+
+1 + 3 - (a + b) ->
+BinOp:
+- Sub
+- BinOp:
+| - Add
+| - Const:
+| | - 1.0
+| - Const:
+| | - 3.0
+- BinOp:
+| - Add
+| - Var:
+| | - a
+| - Var:
+| | - b
+
+
+a*v / (a*p) ->
+BinOp:
+- Div
+- BinOp:
+| - Mul
+| - Var:
+| | - a
+| - Var:
+| | - v
+- BinOp:
+| - Mul
+| - Var:
+| | - a
+| - Var:
+| | - p
 
 
 p + (if a + 12 < 9 then n - 2 else if j*u <> 7 or (j >= 0) and not o = i then 8 + j else k) ->

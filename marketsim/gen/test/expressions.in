@@ -1,4 +1,6 @@
-1 + (-6*z)
+1 + -6*z
 -t/p -a*l
+1 + 3 - (a + b)
+a*v / (a*p)
 p + (if a + 12 < 9 then n - 2 else if j*u <> 7 or (j >= 0) and not o = i then 8 + j else k)
 a(12, b(p, a + 8))
