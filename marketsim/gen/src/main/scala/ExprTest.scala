@@ -2,7 +2,7 @@ import java.io.PrintWriter
 import resource._
 import sext._
 
-object ExprTest {
+object ExprTest extends Parser {
 
     def main(args: Array[String]) {
 
@@ -13,12 +13,12 @@ object ExprTest {
             for (line <- input.getLines()) {
                 raw_output.println(s"$line ->")
                 pp_output.println(s"$line ->")
-                val (raw, pp) = Parser.parseAll(Parser.expr, line) match {
-                    case Parser.Success(result : Expr, _) => {
+                val (raw, pp) = parseAll(expr, line) match {
+                    case Success(result : Expr, _) => {
                         val asTree = result.treeString
                         val pp = PrettyPrinter(result)
-                        Parser.parseAll(Parser.expr, line) match {
-                            case Parser.Success(result2 : Expr, _) => {
+                        parseAll(expr, line) match {
+                            case Success(result2 : Expr, _) => {
                                 if (result != result2) {
                                     println(s"input: $line")
                                     println(s"parsed: $result")
@@ -54,7 +54,7 @@ object ExprTest {
                   |     if x > y then x else y
                   |                """.stripMargin
 
-            println(Parser.parseAll(Parser.definitions, fd))
+            println(parseAll(definitions, fd))
         }
     }
 
