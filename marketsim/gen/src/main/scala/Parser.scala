@@ -67,13 +67,34 @@ object Parser extends JavaTokenParsers
         case (annotations ~ name ~ ty ~ initializer) => Parameter(name, ty, initializer, annotations)
     }
 
-    lazy val function  = opt(comment) ~ rep(annotation) ~ ("def" ~> ident) ~ ("(" ~> repsep(parameter, ",") <~ ")") ~ opt("=" ~> expr) ^^ {
+    lazy val function  = opt(docstring) ~ rep(annotation) ~ ("def" ~> ident) ~ ("(" ~> repsep(parameter, ",") <~ ")") ~ opt("=" ~> expr) ^^ {
         case (docstring ~ annotations ~ name ~ parameters ~ body) => FunDef(name, parameters, body, docstring, annotations)
     }
 
     lazy val definitions = rep(function)
 
-    lazy val comment = "/\\*(?:.|[\\n\\r])*?\\*/".r ^^ { _ stripPrefix "/*" stripSuffix "*/" stripMargin '*' }
+    private def strip(s : String) = {
+        def not_whitespace(ch : Char) = !ch.isWhitespace
+        val begin = s.indexWhere(not_whitespace)
+        val end = s.lastIndexWhere(not_whitespace)
+        if (begin > 0 && end > 0) s.substring(begin, end+1) else ""
+    }
+
+    lazy val comment = "/\\*(?:.|[\\n\\r])*?\\*/".r ^^ {
+        _ stripPrefix "/*" stripSuffix "*/" stripMargin '*'
+    }
+
+    lazy val docstring = comment ^^ { comment => {
+            val idx = comment.indexOf("\r\n")
+            if (idx > 0) {
+                val brief = strip(comment.substring(0, idx))
+                val detailed = comment.substring(idx + 2)
+                DocString(brief, detailed)
+            } else {
+                DocString(comment, "")
+            }
+        }
+    }
 
     lazy val string = stringLiteral ^^ { _ stripPrefix "\"" stripSuffix "\"" }
 

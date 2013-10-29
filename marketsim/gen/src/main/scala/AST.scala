@@ -8,10 +8,12 @@ case class QualifiedName(names   : List[String])
 case class Annotation(name       : QualifiedName,
                       parameters : List[String])
 
+case class DocString(brief : String, detailed : String)
+
 case class FunDef(name           : String,
                   parameters     : List[Parameter],
                   body           : Option[Expr],
-                  docstring      : Option[String],
+                  docstring      : Option[DocString],
                   annotations    : List[Annotation])
 
 sealed class BinOpSymbol
