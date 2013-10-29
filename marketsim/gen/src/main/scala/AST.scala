@@ -16,7 +16,7 @@ case class FunDef(name           : String,
                   docstring      : Option[DocString],
                   annotations    : List[Annotation])
 
-sealed class BinOpSymbol
+sealed abstract class BinOpSymbol
 case class Add() extends BinOpSymbol
 case class Sub() extends BinOpSymbol
 case class Mul() extends BinOpSymbol
@@ -30,7 +30,7 @@ case class Neg(x: Expr) extends Expr
 case class IfThenElse(cond : BooleanExpr, x : Expr, y : Expr) extends Expr
 case class FunCall(name : QualifiedName, args : List[Expr]) extends Expr
 
-sealed class CondSymbol
+sealed abstract class CondSymbol
 case class Less() extends CondSymbol
 case class LessEqual() extends CondSymbol
 case class Greater() extends CondSymbol

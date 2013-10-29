@@ -4,7 +4,7 @@ import sext._
 
 object ExprTest extends Parser {
 
-    def main(args: Array[String]) {
+    def run() {
 
         for (input <- managed(io.Source.fromFile("test/expressions.in"));
              raw_output <- managed(new PrintWriter("test/expressions.raw"));
