@@ -7,17 +7,31 @@ object ExprTest {
     def main(args: Array[String]) {
 
         for (input <- managed(io.Source.fromFile("test/expressions.in"));
-             output <- managed(new PrintWriter("test/expressions.raw"));
+             raw_output <- managed(new PrintWriter("test/expressions.raw"));
              pp_output <- managed(new PrintWriter("test/expressions.pp")))
         {
             for (line <- input.getLines()) {
-                output.println(s"$line ->")
+                raw_output.println(s"$line ->")
                 pp_output.println(s"$line ->")
                 val (raw, pp) = Parser.parseAll(Parser.expr, line) match {
-                    case Parser.Success(result : Expr, _) =>  (s"${result.treeString}\n\n", s"${PrettyPrinter(result)}\n\n")
+                    case Parser.Success(result : Expr, _) => {
+                        val asTree = result.treeString
+                        val pp = PrettyPrinter(result)
+                        Parser.parseAll(Parser.expr, line) match {
+                            case Parser.Success(result2 : Expr, _) => {
+                                if (result != result2) {
+                                    println(s"input: $line")
+                                    println(s"parsed: $result")
+                                    println(s"re-parsed: $result2")
+                                }
+                            }
+                            case x => println(x)
+                        }
+                        (s"$asTree\n\n", s"$pp\n\n")
+                    }
                     case x => (x.toString, x.toString)
                 }
-                output.println(raw)
+                raw_output.println(raw)
                 pp_output.println(pp)
             }
 
