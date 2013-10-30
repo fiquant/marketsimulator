@@ -1,123 +1,106 @@
 case class Parameter(name        : String,
                      ty          : Option[String],
                      initializer : Option[Expr],
-                     annotations : List[Annotation]) {
-    override def toString = annotations.mkString(" ") + s" $name : $ty = $initializer"
+                     annotations : List[Annotation])
+{
+    override def toString = (annotations.map({ _ + " "}).mkString("")
+                                + name
+                                + (if (ty.nonEmpty) " : " + ty.get else "")
+                                + (if (initializer.nonEmpty) " = " + initializer.get else ""))
 }
 
-case class QualifiedName(names   : List[String]) {
+case class QualifiedName(names   : List[String])
+{
     override def toString = names.mkString(".")
 }
 
 case class Annotation(name       : QualifiedName,
-                      parameters : List[String]) {
-    override def toString = s"@$name(${parameters.mkString(" ")})"
+                      parameters : List[String])
+{
+    override def toString = "@" + name + "(" + parameters.map({ "\"" + _ + "\""}).mkString(", ") + ")"
 }
 
 case class DocString(brief : String, detailed : String)
+{
+    override def toString = "/** " + brief + detailed.lines.map({ "\r\n *" + _ }).mkString("") + "\r\n */\r\n"
+}
 
 case class FunDef(name           : String,
                   parameters     : List[Parameter],
                   body           : Option[Expr],
                   docstring      : Option[DocString],
-                  annotations    : List[Annotation]) {
-    override def toString = annotations.mkString("\r\n") + s"$name(${parameters.mkString(",")}})"
+                  annotations    : List[Annotation])
+{
+    val crlf = "\r\n"
+
+    override def toString = ((if (docstring.nonEmpty) docstring.get else "")
+                                + annotations.map({_ + crlf}).mkString("")
+                                + "def " + name
+                                + "(" + parameters.mkString(", ") + ")"
+                                + (if (body.nonEmpty) " = " + body.get else ""))
 }
 
-sealed abstract class BinOpSymbol
-case class Add() extends BinOpSymbol {
-    override val toString = "+"
-}
-case class Sub() extends BinOpSymbol {
-    override val toString = "-"
-}
-case class Mul() extends BinOpSymbol {
-    override val toString = "*"
-}
-case class Div() extends BinOpSymbol {
-    override val toString = "/"
+case class Definitions(definitions : List[FunDef]) {
+    override def toString = definitions.map({_ + "\r\n\r\n"}).mkString("")
+
 }
 
-sealed abstract class Expr {
+sealed abstract class BinOpSymbol(symbol : String, p : Int) {
+    override val toString = symbol
+    val priority = p
+}
+case class Add() extends BinOpSymbol("+", 2)
+case class Sub() extends BinOpSymbol("-", 2)
+case class Mul() extends BinOpSymbol("*", 1)
+case class Div() extends BinOpSymbol("/", 1)
 
-    def priority(e : Expr) = e match {
-        case Const(_) => 0
-        case Var(_) => 0
-        case Neg(_) => 0
-        case FunCall(_, _) => 0
+sealed abstract class Expr(p : Int) {
 
-        case BinOp(Mul(), _, _) => 1
-        case BinOp(Div(), _, _) => 1
+    val priority  = p
 
-        case BinOp(Add(), _, _) => 2
-        case BinOp(Sub(), _, _) => 2
+    def need_brackets(x : Expr, rhs : Boolean = false) =
+        x.priority > priority || x.priority == priority && rhs
 
-        case IfThenElse(_,_,_) => 3
-    }
-
-    def need_brackets(x : Expr, e : Expr, rhs : Boolean = false) =
-        priority(x) > priority(e) || (priority(x) == priority(e) && rhs)
-
-    def wrap_if_needed(x : Expr, e : Expr, rhs : Boolean = false) =
-        if (need_brackets(x,e,rhs)) parens(x.toString) else x.toString
+    def wrap_if_needed(x : Expr, rhs : Boolean = false) =
+        if (need_brackets(x,rhs)) parens(x.toString) else x.toString
 
     def parens(x : String) = "(" + x + ")"
 }
 
-case class Const(value: Double) extends Expr {
+case class Const(value: Double) extends Expr(0) {
     override val toString = value.toString
 }
-case class Var(s : String) extends Expr {
+case class Var(s : String) extends Expr(0) {
     override val toString = s
 }
-case class BinOp(symbol : BinOpSymbol, x: Expr, y: Expr) extends Expr {
-    override def toString = wrap_if_needed(x, this) + symbol + wrap_if_needed(y, this, rhs = true)
+case class BinOp(symbol : BinOpSymbol, x: Expr, y: Expr) extends Expr(symbol.priority) {
+    override def toString = wrap_if_needed(x) + symbol + wrap_if_needed(y, rhs = true)
 }
 
-case class Neg(x: Expr) extends Expr {
-    override def toString = "-" + wrap_if_needed(x, this)
+case class Neg(x: Expr) extends Expr(0) {
+    override def toString = "-" + wrap_if_needed(x)
 }
 
-case class IfThenElse(cond : BooleanExpr, x : Expr, y : Expr) extends Expr {
-    override def toString = s"if $cond then ${wrap_if_needed(x, this)} else ${wrap_if_needed(y, this)}"
+case class IfThenElse(cond : BooleanExpr, x : Expr, y : Expr) extends Expr(3) {
+    override def toString = s"if $cond then ${wrap_if_needed(x)} else ${wrap_if_needed(y)}"
 }
-case class FunCall(name : QualifiedName, args : List[Expr]) extends Expr {
+case class FunCall(name : QualifiedName, args : List[Expr]) extends Expr(0) {
     override def toString = name.toString + parens(args.map(_.toString).mkString(","))
 }
 
-sealed abstract class CondSymbol
-
-case class Less() extends CondSymbol {
-    override val toString = "<"
-}
-case class LessEqual() extends CondSymbol {
-    override val toString = "<="
-}
-case class Greater() extends CondSymbol {
-    override val toString = ">"
-}
-case class GreaterEqual() extends CondSymbol {
-    override val toString = ">="
-}
-case class Equal() extends CondSymbol {
-    override val toString = "="
-}
-case class NotEqual() extends CondSymbol {
-    override val toString = "<>"
+sealed abstract class CondSymbol(symbol : String) {
+    override val toString = symbol
 }
 
-sealed abstract class BooleanExpr {
-    def wrap_if_needed(x : BooleanExpr, e : And) = x match {
-        case y : Or => "(" + y + ")"
-        case y => y.toString
-    }
+case class Less() extends CondSymbol("<")
+case class LessEqual() extends CondSymbol("<=")
+case class Greater() extends CondSymbol(">")
+case class GreaterEqual() extends CondSymbol(">=")
+case class Equal() extends CondSymbol("=")
+case class NotEqual() extends CondSymbol("<>")
 
-    def wrap_if_needed(x : BooleanExpr, e : Not) = x match {
-        case Condition(_,_,_) => x.toString
-        case _ => "(" + x + ")"
-    }
+sealed abstract class BooleanExpr
 
-}
 case class Condition(symbol : CondSymbol, x : Expr, y : Expr) extends BooleanExpr {
     override def toString = x.toString + symbol + y
 }
@@ -126,10 +109,22 @@ case class Or   (x : BooleanExpr, y : BooleanExpr) extends BooleanExpr {
     override def toString = x + " or " + y
 }
 
-case class And  (x : BooleanExpr, y : BooleanExpr) extends BooleanExpr {
-    override def toString = wrap_if_needed(x, this) + " and " + wrap_if_needed(y, this)
+case class And  (x : BooleanExpr, y : BooleanExpr) extends BooleanExpr
+{
+    override def toString = wrap_if_needed(x) + " and " + wrap_if_needed(y)
+
+    def wrap_if_needed(x : BooleanExpr) = x match {
+        case y : Or => "(" + y + ")"
+        case y => y.toString
+    }
 }
 
-case class Not  (x : BooleanExpr) extends BooleanExpr {
-    override def toString = "not " +  wrap_if_needed(x, this)
+case class Not  (x : BooleanExpr) extends BooleanExpr
+{
+    override def toString = "not " +  wrap_if_needed(x)
+
+    def wrap_if_needed(x : BooleanExpr) = x match {
+        case Condition(_,_,_) => x.toString
+        case _ => "(" + x + ")"
+    }
 }

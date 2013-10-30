@@ -4,40 +4,41 @@
  * Returned values range between 0 and 1.
  */
 @python.random
-def betavariate(Alpha : Float = 1., Beta : Float = 1.)
+def betavariate(Alpha : Float = 1.0, Beta : Float = 1.0)
  ->
-List:
-- FunDef:
-| - betavariate
-| - List:
-| | - Parameter:
-| | | - Alpha
-| | | - Some:
-| | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 1.0
-| | | - List:
-| | - Parameter:
-| | | - Beta
-| | | - Some:
-| | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 1.0
-| | | - List:
-| - None
-| - Some:
-| | - DocString:
-| | | - Beta distribution
-| | | - 
-| | | |  Conditions on the parameters are |alpha| > 0 and |beta| > 0.
-| | | |  Returned values range between 0 and 1.
-| | | |  
-| - List:
-| | - Annotation:
-| | | - QualifiedName:
+Definitions:
+- List:
+| - FunDef:
+| | - betavariate
+| | - List:
+| | | - Parameter:
+| | | | - Alpha
+| | | | - Some:
+| | | | | - Float
+| | | | - Some:
+| | | | | - Const:
+| | | | | | - 1.0
 | | | | - List:
-| | | | | - python
-| | | | | - random
-| | | - List:
+| | | - Parameter:
+| | | | - Beta
+| | | | - Some:
+| | | | | - Float
+| | | | - Some:
+| | | | | - Const:
+| | | | | | - 1.0
+| | | | - List:
+| | - None
+| | - Some:
+| | | - DocString:
+| | | | - Beta distribution
+| | | | - 
+| | | | |  Conditions on the parameters are |alpha| > 0 and |beta| > 0.
+| | | | |  Returned values range between 0 and 1.
+| | | | |  
+| | - List:
+| | | - Annotation:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - python
+| | | | | | - random
+| | | | - List:
