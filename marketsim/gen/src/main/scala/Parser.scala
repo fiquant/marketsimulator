@@ -6,7 +6,7 @@ case class Memoize[A,B](f: A => B) extends (A => B) {
     def apply(x: A) = cache getOrElseUpdate (x, f(x))
 } */
 
-class Parser() extends JavaTokenParsers with PackratParsers
+class Parser() extends AST with JavaTokenParsers with PackratParsers
 {
     lazy val expr : Parser[Expr] = conditional | arithmetic
 
