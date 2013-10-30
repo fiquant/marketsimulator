@@ -86,14 +86,30 @@ class Parser() extends AST with JavaTokenParsers with PackratParsers
         _ stripPrefix "/*" stripSuffix "*/" stripMargin '*'
     }
 
+    private def strip_empty_tail(lst : List[String]) : List[String] = lst match {
+        case Nil => Nil
+        case hd :: Nil => {
+            val s = strip(hd)
+            if (s == "") Nil else s :: Nil
+        }
+        case hd :: tl => hd :: strip_empty_tail(tl)
+    }
+
+    private def strip_empty_lines(lst : List[String]) : List[String] = lst match {
+        case Nil => Nil
+        case hd :: tl => {
+            val s = strip(hd)
+            if (s == "") strip_empty_lines(tl) else s :: strip_empty_tail(tl)
+        }
+    }
+
     lazy val docstring = comment ^^ { comment => {
-            val idx = comment.indexOf("\r\n")
-            if (idx > 0) {
-                val brief = strip(comment.substring(0, idx))
-                val detailed = comment.substring(idx + 2)
-                DocString(brief, detailed)
-            } else {
-                DocString(comment, "")
+            val lines = comment.lines.toList
+            if (lines.isEmpty) {
+                DocString("", "")
+            }  else {
+                val hd :: tl = strip_empty_lines(lines)
+                DocString(hd, tl.mkString(crlf))
             }
         }
     }
