@@ -16,13 +16,13 @@ object Runner extends Parser {
             raw_output.println(s"$in ->")
             pp_output.println(s"$in ->")
 
-            val raw = parseAll(definitions, in) match {
-                case Success(result, _) => result.treeString
-                case x => x.toString
+            val (raw, pp) = parseAll(definitions, in) match {
+                case Success(result, _) => (result.treeString, PrettyPrinter(result))
+                case x => (x.toString, x.toString)
             }
 
             raw_output.println(raw)
-            //pp_output.println(pp)
+            pp_output.println(pp)
         }
     }
 

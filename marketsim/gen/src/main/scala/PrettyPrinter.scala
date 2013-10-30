@@ -16,6 +16,8 @@ object PrettyPrinter {
         case IfThenElse(_,_,_) => 3
     }
 
+    val crlf = "\r\n"
+
     def apply(s : BinOpSymbol) = s match {
         case Mul() => "*"
         case Div() => "/"
@@ -38,17 +40,7 @@ object PrettyPrinter {
     def wrap_if_needed(x : Expr, e : Expr, rhs : Boolean = false) =
         if (need_brackets(x,e,rhs)) parens(apply(x)) else apply(x)
 
-    def apply[T](x : T) : String = x match {
-        case s : String => s
-        case e : Expr => apply(e)
-    }
-
-
-    def apply[T](lst : List[T], sep : String = ",") : String = lst match {
-        case Nil => ""
-        case hd :: Nil => apply(hd)
-        case hd :: tl => apply(hd) + sep + apply(tl, sep)
-    }
+    def apply(x : QualifiedName) : String = x.names.mkString(".")
 
     def apply(e : Expr) : String = e match {
         case Const(x) => x.toString
@@ -56,7 +48,7 @@ object PrettyPrinter {
         case Neg(x) => "-" + wrap_if_needed(x, e)
         case BinOp(s, x,y) => wrap_if_needed(x, e) + apply(s) + wrap_if_needed(y, e, rhs = true)
         case IfThenElse(c,x,y) => s"if ${apply(c)} then ${wrap_if_needed(x, e)} else ${wrap_if_needed(y, e)}"
-        case FunCall(name, args) => apply(name.names, ".") + parens(apply(args, ","))
+        case FunCall(name, args) => apply(name) + parens(args.map(apply).mkString(","))
     }
 
     def parens(x : String) = "(" + x + ")"
@@ -78,7 +70,11 @@ object PrettyPrinter {
         case a @ Not(x) =>  "not " +  wrap_if_needed(x, a)
     }
 
-    //def apply(x : Annotation) = x.name + parens(apply(x.parameters))
+    def apply(x : Annotation) : String = "@" + apply(x.name) + parens(x.parameters.mkString(" "))
 
-    //def apply(x : Parameter) =
+    def apply(x : Parameter) : String = x.annotations.map(apply).mkString(" ") + s" ${x.name} : ${x.ty}"
+
+    def apply(x : FunDef) : String = x.annotations.map(apply).mkString(crlf) + x.name + parens(x.parameters.map(apply).mkString(","))
+
+    def apply(x : List[FunDef]) : String = x.map(apply).mkString(crlf)
 }

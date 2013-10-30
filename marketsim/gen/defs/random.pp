@@ -6,3 +6,4 @@
 @python.random
 def betavariate(Alpha : Float = 1., Beta : Float = 1.)
  ->
+@python.random()betavariate( Alpha : Some(Float), Beta : Some(Float))
