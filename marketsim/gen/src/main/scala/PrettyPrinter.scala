@@ -35,8 +35,8 @@ object PrettyPrinter {
     def need_brackets(x : Expr, e : Expr, rhs : Boolean = false) =
         priority(x) > priority(e) || (priority(x) == priority(e) && rhs)
 
-    def wrap(x : Expr, e : Expr, rhs : Boolean = false) =
-        if (need_brackets(x,e,rhs)) s"(${apply(x)})" else apply(x)
+    def wrap_if_needed(x : Expr, e : Expr, rhs : Boolean = false) =
+        if (need_brackets(x,e,rhs)) parens(apply(x)) else apply(x)
 
     def apply[T](x : T) : String = x match {
         case s : String => s
@@ -46,35 +46,39 @@ object PrettyPrinter {
 
     def apply[T](lst : List[T], sep : String = ",") : String = lst match {
         case Nil => ""
-        case hd :: Nil => s"${apply(hd)}"
-        case hd :: tl => s"${apply(hd)}$sep${apply(tl, sep)}"
+        case hd :: Nil => apply(hd)
+        case hd :: tl => apply(hd) + sep + apply(tl, sep)
     }
 
     def apply(e : Expr) : String = e match {
         case Const(x) => x.toString
         case Var(x) => x
-        case Neg(x) => s"-${wrap(x, e)}"
-        case BinOp(s, x,y) => s"${wrap(x, e)}${apply(s)}${wrap(y, e, true)}"
-        case IfThenElse(c,x,y) => s"if ${apply(c)} then ${wrap(x, e)} else ${wrap(y, e)}"
-        case FunCall(name, args) => s"${apply(name.names, ".")}(${apply(args, ",")})"
+        case Neg(x) => "-" + wrap_if_needed(x, e)
+        case BinOp(s, x,y) => wrap_if_needed(x, e) + apply(s) + wrap_if_needed(y, e, rhs = true)
+        case IfThenElse(c,x,y) => s"if ${apply(c)} then ${wrap_if_needed(x, e)} else ${wrap_if_needed(y, e)}"
+        case FunCall(name, args) => apply(name.names, ".") + parens(apply(args, ","))
     }
 
-    def wrap(x : BooleanExpr, e : And) = x match {
-        case y : Or => s"(${apply(y)})"
+    def parens(x : String) = "(" + x + ")"
+
+    def wrap_if_needed(x : BooleanExpr, e : And) = x match {
+        case y : Or => "(" + apply(y) + ")"
         case y => apply(y)
     }
 
-    def wrap(x : BooleanExpr, e : Not) = x match {
+    def wrap_if_needed(x : BooleanExpr, e : Not) = x match {
         case Condition(_,_,_) => apply(x)
-        case _ => s"(${apply(x)})"
+        case _ => parens(apply(x))
     }
-
 
     def apply(e : BooleanExpr) : String = e match {
-        case Condition(s, x, y) => s"${apply(x)}${apply(s)}${apply(y)}"
-        case Or(x, y) => s"${apply(x)} or ${apply(y)}"
-        case a @ And(x, y) => s"${wrap(x, a)} and ${wrap(y, a)}"
-        case a @ Not(x) =>  s"not ${wrap(x, a)}"
+        case Condition(s, x, y) => apply(x) + apply(s) + apply(y)
+        case Or(x, y) => apply(x) + " or " + apply(y)
+        case a @ And(x, y) => wrap_if_needed(x, a) + " and " + wrap_if_needed(y, a)
+        case a @ Not(x) =>  "not " +  wrap_if_needed(x, a)
     }
 
+    //def apply(x : Annotation) = x.name + parens(apply(x.parameters))
+
+    //def apply(x : Parameter) =
 }
