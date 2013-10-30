@@ -16,7 +16,7 @@ object ExprTest extends Parser {
                 val (raw, pp) = parseAll(expr, line) match {
                     case Success(result : Expr, _) => {
                         val asTree = result.treeString
-                        val pp = PrettyPrinter(result)
+                        val pp = result.toString
                         parseAll(expr, line) match {
                             case Success(result2 : Expr, _) => {
                                 if (result != result2) {

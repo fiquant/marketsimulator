@@ -17,7 +17,7 @@ object Runner extends Parser {
             pp_output.println(s"$in ->")
 
             val (raw, pp) = parseAll(definitions, in) match {
-                case Success(result, _) => (result.treeString, PrettyPrinter(result))
+                case Success(result , _) => (result.treeString, result.toString)
                 case x => (x.toString, x.toString)
             }
 
