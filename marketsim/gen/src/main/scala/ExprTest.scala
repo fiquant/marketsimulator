@@ -1,6 +1,7 @@
 import java.io.PrintWriter
 import resource._
 import sext._
+import AST._
 
 object ExprTest extends Parser {
 

@@ -1,4 +1,4 @@
-class AST {
+package object AST {
 
     val crlf = "\r\n"
 
@@ -42,11 +42,30 @@ class AST {
                 + "def " + name
                 + "(" + parameters.mkString(", ") + ")"
                 + (if (body.nonEmpty) " = " + body.get else ""))
+
+        def python = {
+            if (annotations.exists({ _.name.toString == "python.random" }))
+            {
+                val float_parameters = parameters.map({
+                    case Parameter(n, Some("Float"), Some(Const(d)), _) => PyGen.ParameterFloat(n, d)
+                })
+
+                val (label, comment) = docstring match {
+                    case Some(DocString(brief, detailed)) => (brief, detailed)
+                    case _ => ("","")
+                }
+
+                Some(PyGen.ImportRandom(name, float_parameters, label, comment))
+            } else {
+                None
+            }
+        }
     }
 
     case class Definitions(definitions : List[FunDef]) {
         override def toString = definitions.map({_ + crlf + crlf}).mkString("")
 
+        def python = definitions.map({ _.python })
     }
 
     sealed abstract class BinOpSymbol(symbol : String, p : Int) {
@@ -118,8 +137,8 @@ class AST {
         override def toString = wrap_if_needed(x) + " and " + wrap_if_needed(y)
 
         def wrap_if_needed(x : BooleanExpr) = x match {
-            case y : Or => "(" + y + ")"
-            case y => y.toString
+            case z : Or => "(" + z + ")"
+            case z => z.toString
         }
     }
 
