@@ -33,7 +33,8 @@ object Runner extends Parser {
                         case x => println(x)
                     }
                     val python = result.python
-                    (result.treeString, pp, python.treeString)
+                    val randoms = PyGen.getRandoms(python)
+                    (result.treeString, pp, randoms.treeString)
                 }
                 case x => (x.toString, x.toString, x.toString)
             }
