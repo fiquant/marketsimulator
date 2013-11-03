@@ -1,15 +1,4 @@
 List:
-- ImportMathops:
-| - Exp
-| - Log/Pow
-| - exp
-| - Some:
-| | - e^{%(x)s}
-| - List:
-| | - Tuple2:
-| | | - x
-| | | - 1.0
-| - 
 - ImportRandom:
 | - betavariate
 | - List:

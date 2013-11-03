@@ -50,7 +50,9 @@ object Runner extends Parser {
 
         ExprTest.run()
 
-        val python_definitions = getPythonDefinitions("defs/random.sc")
+        val files = "random" :: "mathops" :: Nil
+
+        val python_definitions = files.flatMap({ file => getPythonDefinitions(s"defs/$file.sc") })
 
         for (py_output <- managed(new PrintWriter("defs/random.py")))
         {

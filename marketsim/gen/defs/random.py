@@ -1,31 +1,4 @@
 
-@registry.expose(['Log/Pow', 'Exp'])
-class Exp(Observable[float]):
-    """ 
-    """ 
-    def __init__(self, x = 1.0):
-        Observable[float].__init__(self)
-        self.x = x
-        if isinstance(x, types.IEvent):
-            event.subscribe(self.x, self.fire, self)
-
-    @property
-    def label(self):
-        return repr(self)
-
-    _properties = {
-        'x' : float
-    }
-
-    def __repr__(self):
-        return "Some(e^{%(x)s})" % self.__dict__
-
-    def __call__(self, *args, **kwargs):
-        x = self.x()
-        if x is None: return None
-        return math.exp(self.x)
-
-
 @registry.expose(['Random', 'Beta distribution'])
 class betavariate(ops.Function[float]):
     """ 
@@ -322,4 +295,31 @@ class weibullvariate(ops.Function[float]):
 
     def _casts_to(self, dst):
         return weibullvariate._types[0]._casts_to(dst)
+
+
+@registry.expose(['Log/Pow', 'Exp'])
+class Exp(Observable[float]):
+    """ 
+    """ 
+    def __init__(self, x = 1.0):
+        Observable[float].__init__(self)
+        self.x = x
+        if isinstance(x, types.IEvent):
+            event.subscribe(self.x, self.fire, self)
+
+    @property
+    def label(self):
+        return repr(self)
+
+    _properties = {
+        'x' : float
+    }
+
+    def __repr__(self):
+        return "Some(e^{%(x)s})" % self.__dict__
+
+    def __call__(self, *args, **kwargs):
+        x = self.x()
+        if x is None: return None
+        return math.exp(self.x)
 

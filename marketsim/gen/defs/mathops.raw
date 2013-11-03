@@ -1,0 +1,34 @@
+/** Exponent of x
+  *
+  */
+@python.mathops("Log/Pow", "exp", "e^{%(x)s}")
+def Exp(x : Float = 1.0)
+ ->
+Definitions:
+- List:
+| - FunDef:
+| | - Exp
+| | - List:
+| | | - Parameter:
+| | | | - x
+| | | | - Some:
+| | | | | - Float
+| | | | - Some:
+| | | | | - Const:
+| | | | | | - 1.0
+| | | | - List:
+| | - None
+| | - Some:
+| | | - DocString:
+| | | | - Exponent of x
+| | | | - 
+| | - List:
+| | | - Annotation:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - python
+| | | | | | - mathops
+| | | | - List:
+| | | | | - Log/Pow
+| | | | | - exp
+| | | | | - e^{%(x)s}

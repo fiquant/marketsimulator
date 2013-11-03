@@ -1,10 +1,3 @@
-/** Exponent of x
-  *
-  */
-@python.mathops("Log/Pow", "exp", "e^{%(x)s}")
-def Exp(x : Float = 1.0)
-
-
 /** Beta distribution
  *
  * Conditions on the parameters are |alpha| > 0 and |beta| > 0.
@@ -97,11 +90,6 @@ def weibullvariate(Alpha : Float = 1.0, Beta : Float = 1.0)
 
 
  ->
-/** Exponent of x
- */
-@python.mathops("Log/Pow", "exp", "e^{%(x)s}")
-def Exp(x : Float = 1.0)
-
 /** Beta distribution
  *
  * Conditions on the parameters are |alpha| > 0 and |beta| > 0.
