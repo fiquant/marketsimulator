@@ -105,17 +105,17 @@ List:
 | - Some:
 | | - e^{%(x)s}
 | - List:
-| | - ParameterOfMathops:
+| | - Tuple2:
 | | | - x
 | | | - 1.0
 | - 
 - ImportRandom:
 | - betavariate
 | - List:
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - Alpha
 | | | - 1.0
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - Beta
 | | | - 1.0
 | - Beta distribution
@@ -125,7 +125,7 @@ List:
 - ImportRandom:
 | - expovariate
 | - List:
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - Lambda
 | | | - 1.0
 | - Exponential distribution
@@ -135,10 +135,10 @@ List:
 - ImportRandom:
 | - uniform
 | - List:
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - Low
 | | | - -10.0
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - High
 | | | - 10.0
 | - Uniform distribution
@@ -150,13 +150,13 @@ List:
 - ImportRandom:
 | - triangular
 | - List:
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - Low
 | | | - 0.0
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - High
 | | | - 1.0
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - Mode
 | | | - 0.5
 | - Triangular distribution
@@ -169,10 +169,10 @@ List:
 - ImportRandom:
 | - gammavariate
 | - List:
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - Alpha
 | | | - 1.0
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - Beta
 | | | - 1.0
 | - Gamma distribution
@@ -187,10 +187,10 @@ List:
 - ImportRandom:
 | - lognormvariate
 | - List:
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - Mu
 | | | - 0.0
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - Sigma
 | | | - 1.0
 | - Log normal distribution
@@ -201,10 +201,10 @@ List:
 - ImportRandom:
 | - normalvariate
 | - List:
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - Mu
 | | | - 0.0
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - Sigma
 | | | - 1.0
 | - Normal distribution
@@ -213,10 +213,10 @@ List:
 - ImportRandom:
 | - vonmisesvariate
 | - List:
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - Mu
 | | | - 0.0
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - Kappa
 | | | - 0.0
 | - Von Mises distribution
@@ -228,7 +228,7 @@ List:
 - ImportRandom:
 | - paretovariate
 | - List:
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - Alpha
 | | | - 1.0
 | - Pareto distribution
@@ -237,10 +237,10 @@ List:
 - ImportRandom:
 | - weibullvariate
 | - List:
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - Alpha
 | | | - 1.0
-| | - ParameterOfRandom:
+| | - Tuple2:
 | | | - Beta
 | | | - 1.0
 | - Weibull distribution

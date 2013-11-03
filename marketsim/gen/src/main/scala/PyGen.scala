@@ -58,7 +58,7 @@ package object PyGen {
         |""".stripMargin
 
         def label = s"""
-        |${tab}@property
+        |$tab@property
         |${tab}def label(self):
         |$tab${tab}return repr(self)
         |""".stripMargin
@@ -66,7 +66,7 @@ package object PyGen {
         def properties = s"""
         |${tab}_properties = {
         |${tab}${tab}$property_fields
-        |${tab}}
+        |$tab}
         |""".stripMargin
 
         def repr_body = s"""$tab${tab}return "$name($repr_fields)" """
@@ -90,13 +90,14 @@ package object PyGen {
     }
 
     case class ImportRandom(name        : String,
-                            parameters  : List[ParameterOfRandom],
+                            params      : List[(String, Double)],
                             alias       : String,
                             docstring   : String) extends Printer()
     {
         val rv_type = "float"
         override def base_class = s"ops.Function[$rv_type]"
         override val category = "Random"
+        val parameters = params.map({ p => ParameterOfRandom(p._1,p._2) })
 
         type Parameter = ParameterOfRandom
 
@@ -132,12 +133,13 @@ package object PyGen {
                              category    : String,
                              override val impl_function : String,
                              label_tmpl  : Option[String],
-                             parameters  : List[ParameterOfMathops],
+                             params      : List[(String, Double)],
                              docstring   : String) extends Printer()
     {
         type Parameter = ParameterOfMathops
         val impl_module = "math"
         val alias = name
+        val parameters = params.map({ p => ParameterOfMathops(p._1,p._2) })
 
         override def repr_body = s"""$tab${tab}return "$label_tmpl" % self.__dict__"""
 

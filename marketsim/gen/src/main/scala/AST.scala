@@ -44,11 +44,8 @@ package object AST {
                 + (if (body.nonEmpty) " = " + body.get else ""))
 
         def python = {
-            lazy val parameters_of_random = parameters.map({
-                case Parameter(n, Some("Float"), Some(Const(d)), _) => PyGen.ParameterOfRandom(n, d)
-            })
-            lazy val parameters_of_mathops = parameters.map({
-                case Parameter(n, Some("Float"), Some(Const(d)), _) => PyGen.ParameterOfMathops(n, d)
+            lazy val parameters_float = parameters.map({
+                case Parameter(n, Some("Float"), Some(Const(d)), _) => (n, d)
             })
 
             lazy val (label, comment) = docstring match {
@@ -57,10 +54,10 @@ package object AST {
             }
 
             annotations.find({ _.name.toString == "python.random" }) match {
-                case Some(_) => Some(PyGen.ImportRandom(name, parameters_of_random, label, comment))
+                case Some(_) => Some(PyGen.ImportRandom(name, parameters_float, label, comment))
                 case None => annotations.find({ _.name.toString == "python.mathops" }) match {
                     case Some(Annotation(_, category :: impl :: label_tmpl :: Nil)) => {
-                        Some(PyGen.ImportMathops(name, category, impl, Some(label_tmpl), parameters_of_mathops, comment))
+                        Some(PyGen.ImportMathops(name, category, impl, Some(label_tmpl), parameters_float, comment))
                     }
                     case _ => None
                 }
