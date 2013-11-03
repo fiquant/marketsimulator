@@ -44,20 +44,26 @@ package object AST {
                 + (if (body.nonEmpty) " = " + body.get else ""))
 
         def python = {
-            if (annotations.exists({ _.name.toString == "python.random" }))
-            {
-                val float_parameters = parameters.map({
-                    case Parameter(n, Some("Float"), Some(Const(d)), _) => PyGen.ParameterFloat(n, d)
-                })
+            lazy val parameters_of_random = parameters.map({
+                case Parameter(n, Some("Float"), Some(Const(d)), _) => PyGen.ParameterOfRandom(n, d)
+            })
+            lazy val parameters_of_mathops = parameters.map({
+                case Parameter(n, Some("Float"), Some(Const(d)), _) => PyGen.ParameterOfMathops(n, d)
+            })
 
-                val (label, comment) = docstring match {
-                    case Some(DocString(brief, detailed)) => (brief, detailed)
-                    case _ => ("","")
+            lazy val (label, comment) = docstring match {
+                case Some(DocString(brief, detailed)) => (brief, detailed)
+                case _ => ("","")
+            }
+
+            annotations.find({ _.name.toString == "python.random" }) match {
+                case Some(_) => Some(PyGen.ImportRandom(name, parameters_of_random, label, comment))
+                case None => annotations.find({ _.name.toString == "python.mathops" }) match {
+                    case Some(Annotation(_, category :: impl :: label_tmpl :: Nil)) => {
+                        Some(PyGen.ImportMathops(name, category, impl, Some(label_tmpl), parameters_of_mathops, comment))
+                    }
+                    case _ => None
                 }
-
-                Some(PyGen.ImportRandom(name, float_parameters, label, comment))
-            } else {
-                None
             }
         }
     }

@@ -16,7 +16,7 @@ package object PyGen {
         def call = s"self.$name"
     }
 
-    case class ParameterFloat(name : String, initializer : Double) extends ParameterBase
+    case class ParameterOfRandom(name : String, initializer : Double) extends ParameterBase
     {
         val ty = "float"
         val s_initializer = initializer.toString
@@ -90,7 +90,7 @@ package object PyGen {
     }
 
     case class ImportRandom(name        : String,
-                            parameters  : List[ParameterFloat],
+                            parameters  : List[ParameterOfRandom],
                             alias       : String,
                             docstring   : String) extends Printer()
     {
@@ -98,7 +98,7 @@ package object PyGen {
         override def base_class = s"ops.Function[$rv_type]"
         override val category = "Random"
 
-        type Parameter = ParameterFloat
+        type Parameter = ParameterOfRandom
 
         def casts_to = s"""
         |${tab}def _casts_to(self, dst):
@@ -110,5 +110,46 @@ package object PyGen {
         override def toString = super.toString + s"""$call$casts_to"""
     }
 
-    def getRandoms(lst : List[Option[ImportRandom]])  = lst.flatMap({ s => s })
+    def getRandoms(lst : List[Option[Printer]])  = lst.flatMap({
+        case s @ Some(_) => s
+        case _ => None
+    })
+
+    case class ParameterOfMathops(name : String, initializer : Double) extends ParameterBase
+    {
+        val ty = "float"
+        val s_initializer = initializer.toString
+
+        override def assign = s"""self.$name = $name
+        |$tab${tab}if isinstance($name, types.IEvent):
+        |$tab${tab}${tab}event.subscribe(self.$name, self.fire, self)""".stripMargin
+
+        def nullable = s"""$name = self.$name()
+                |$tab${tab}if $name is None: return None""".stripMargin
+    }
+
+    case class ImportMathops(name        : String,
+                             category    : String,
+                             override val impl_function : String,
+                             label_tmpl  : Option[String],
+                             parameters  : List[ParameterOfMathops],
+                             docstring   : String) extends Printer()
+    {
+        type Parameter = ParameterOfMathops
+        val impl_module = "math"
+        val alias = name
+
+        override def repr_body = s"""$tab${tab}return "$label_tmpl" % self.__dict__"""
+
+        override val base_class = "Observable[float]"
+
+        override def init_body = s"""$tab${tab}Observable[float].__init__(self)
+        |${super.init_body}""".stripMargin
+
+        def nullable_fields = join_fields({ _.nullable}, crlf + tab + tab)
+
+        override def call_body = s"$tab$tab$nullable_fields" + crlf + super.call_body
+
+        override def toString = super.toString + s"""$call"""
+    }
 }

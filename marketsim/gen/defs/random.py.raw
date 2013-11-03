@@ -1,3 +1,10 @@
+/** Exponent of x
+  *
+  */
+@python.mathops("Log/Pow", "exp", "e^{%(x)s}")
+def Exp(x : Float = 1.0)
+
+
 /** Beta distribution
  *
  * Conditions on the parameters are |alpha| > 0 and |beta| > 0.
@@ -91,13 +98,24 @@ def weibullvariate(Alpha : Float = 1.0, Beta : Float = 1.0)
 
  ->
 List:
+- ImportMathops:
+| - Exp
+| - Log/Pow
+| - exp
+| - Some:
+| | - e^{%(x)s}
+| - List:
+| | - ParameterOfMathops:
+| | | - x
+| | | - 1.0
+| - 
 - ImportRandom:
 | - betavariate
 | - List:
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - Alpha
 | | | - 1.0
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - Beta
 | | | - 1.0
 | - Beta distribution
@@ -107,7 +125,7 @@ List:
 - ImportRandom:
 | - expovariate
 | - List:
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - Lambda
 | | | - 1.0
 | - Exponential distribution
@@ -117,10 +135,10 @@ List:
 - ImportRandom:
 | - uniform
 | - List:
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - Low
 | | | - -10.0
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - High
 | | | - 10.0
 | - Uniform distribution
@@ -132,13 +150,13 @@ List:
 - ImportRandom:
 | - triangular
 | - List:
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - Low
 | | | - 0.0
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - High
 | | | - 1.0
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - Mode
 | | | - 0.5
 | - Triangular distribution
@@ -151,10 +169,10 @@ List:
 - ImportRandom:
 | - gammavariate
 | - List:
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - Alpha
 | | | - 1.0
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - Beta
 | | | - 1.0
 | - Gamma distribution
@@ -169,10 +187,10 @@ List:
 - ImportRandom:
 | - lognormvariate
 | - List:
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - Mu
 | | | - 0.0
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - Sigma
 | | | - 1.0
 | - Log normal distribution
@@ -183,10 +201,10 @@ List:
 - ImportRandom:
 | - normalvariate
 | - List:
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - Mu
 | | | - 0.0
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - Sigma
 | | | - 1.0
 | - Normal distribution
@@ -195,10 +213,10 @@ List:
 - ImportRandom:
 | - vonmisesvariate
 | - List:
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - Mu
 | | | - 0.0
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - Kappa
 | | | - 0.0
 | - Von Mises distribution
@@ -210,7 +228,7 @@ List:
 - ImportRandom:
 | - paretovariate
 | - List:
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - Alpha
 | | | - 1.0
 | - Pareto distribution
@@ -219,10 +237,10 @@ List:
 - ImportRandom:
 | - weibullvariate
 | - List:
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - Alpha
 | | | - 1.0
-| | - ParameterFloat:
+| | - ParameterOfRandom:
 | | | - Beta
 | | | - 1.0
 | - Weibull distribution
