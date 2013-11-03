@@ -4,23 +4,21 @@ import resource._
 import sext._
 
 object Runner extends Parser {
-
-    def main(args: Array[String]) {
-
-        ExprTest.run()
-
-        for (input <- managed(io.Source.fromFile("defs/random.sc"));
-             raw_output <- managed(new PrintWriter("defs/random.raw"));
-             pp_output <- managed(new PrintWriter("defs/random.pp"));
-             raw_py_output <- managed(new PrintWriter("defs/random.py.raw"));
-             py_output <- managed(new PrintWriter("defs/random.py")))
+    
+    def getPythonDefinitions(path : String) : List[PyGen.Printer] = 
+    {
+        var ret : List[PyGen.Printer] = Nil
+        
+        for (input <- managed(io.Source.fromFile(path));
+             raw_output <- managed(new PrintWriter(path.replace(".sc", ".raw")));
+             pp_output <- managed(new PrintWriter(path.replace(".sc", ".pp")));
+             raw_py_output <- managed(new PrintWriter(path.replace(".sc", ".py.raw"))))
         {
             val in = input.mkString
             raw_output.println(s"$in ->")
             pp_output.println(s"$in ->")
-            raw_py_output.println(s"$in ->")
 
-            val (raw, pp, raw_py, py) = parseAll(definitions, in) match {
+            val (raw, pp, raw_py, python_definitions) = parseAll(definitions, in) match {
                 case Success(result , _) => {
                     val pp = result.toString
                     parseAll(definitions, pp) match {
@@ -35,15 +33,28 @@ object Runner extends Parser {
                     }
                     val python = result.python
                     val randoms = PyGen.getRandoms(python)
-                    (result.treeString, pp, randoms.treeString, randoms.mkString("\r\n"))
+                    (result.treeString, pp, randoms.treeString, randoms)
                 }
-                case x => (x.toString, x.toString, x.toString, x.toString)
+                case x => (x.toString, x.toString, x.toString, List())
             }
 
             raw_output.println(raw)
             pp_output.println(pp)
             raw_py_output.println(raw_py)
-            py_output.println(py)
+            ret = python_definitions
+        }
+        ret
+    }
+
+    def main(args: Array[String]) {
+
+        ExprTest.run()
+
+        val python_definitions = getPythonDefinitions("defs/random.sc")
+
+        for (py_output <- managed(new PrintWriter("defs/random.py")))
+        {
+            py_output.println(python_definitions.mkString("\r\n"))
         }
     }
 
