@@ -29,6 +29,7 @@ package object PyGen {
         def alias       : String
         def category    : String
         def parameters  : List[Parameter]
+        val filename    : String
 
         def registration = s"@registry.expose(['$category', '$alias'])"
         def base_class = "object"
@@ -85,6 +86,8 @@ package object PyGen {
         |$call_body
         |""".stripMargin
 
+        def prologue : String
+
         override def toString = s"""$header$doc$init$label$properties$repr"""
 
     }
@@ -98,6 +101,7 @@ package object PyGen {
         override def base_class = s"ops.Function[$rv_type]"
         override val category = "Random"
         val parameters = params.map({ p => ParameterOfRandom(p._1,p._2) })
+        val filename = "defs/rnd.py"
 
         type Parameter = ParameterOfRandom
 
@@ -107,6 +111,12 @@ package object PyGen {
         |""".stripMargin
 
         val impl_module = "random"
+
+        val prologue =
+            """
+              |from marketsim import registry, types, ops
+              |import random
+            """.stripMargin
 
         override def toString = super.toString + s"""$call$casts_to"""
     }
@@ -140,6 +150,7 @@ package object PyGen {
         val impl_module = "math"
         val alias = name
         val parameters = params.map({ p => ParameterOfMathops(p._1,p._2) })
+        val filename = "defs/mathops.py"
 
         override def repr_body = s"""$tab${tab}return "$label_tmpl" % self.__dict__"""
 
@@ -153,5 +164,12 @@ package object PyGen {
         override def call_body = s"$tab$tab$nullable_fields" + crlf + super.call_body
 
         override def toString = super.toString + s"""$call"""
+
+        val prologue =
+            """
+              |from marketsim import registry, types, event
+              |import math
+              |from _all import Observable, Constant
+            """.stripMargin
     }
 }

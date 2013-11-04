@@ -54,9 +54,13 @@ object Runner extends Parser {
 
         val python_definitions = files.flatMap({ file => getPythonDefinitions(s"defs/$file.sc") })
 
-        for (py_output <- managed(new PrintWriter("defs/random.py")))
+        for ((filename, definitions) <- python_definitions.groupBy({ _.filename }))
         {
-            py_output.println(python_definitions.mkString("\r\n"))
+            for (py_output <- managed(new PrintWriter(filename)))
+            {
+                py_output.print(definitions.head.prologue)
+                py_output.println(definitions.mkString("\r\n"))
+            }
         }
     }
 
