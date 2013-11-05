@@ -50,7 +50,7 @@ object ExprTest extends Parser {
                   |/**  Maximum
                   | */
                   | def max(@doc("X") x : () = 0,
-                  |         @doc("Y") y : float = 0) =
+                  |         @doc("Y") y : float => () => (float) = 0) =
                   |
                   |     if x > y then x else y
                   |                """.stripMargin
