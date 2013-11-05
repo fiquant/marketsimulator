@@ -2,24 +2,12 @@ List:
 - ImportRandom:
 | - betavariate
 | - List:
-| | - Parameter:
+| | - ParameterOfRandom:
 | | | - Alpha
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 1.0
-| | | - List:
-| | - Parameter:
+| | | - 1.0
+| | - ParameterOfRandom:
 | | | - Beta
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 1.0
-| | | - List:
+| | | - 1.0
 | - Beta distribution
 | - 
 | |  Conditions on the parameters are |alpha| > 0 and |beta| > 0.
@@ -27,15 +15,9 @@ List:
 - ImportRandom:
 | - expovariate
 | - List:
-| | - Parameter:
+| | - ParameterOfRandom:
 | | | - Lambda
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 1.0
-| | | - List:
+| | | - 1.0
 | - Exponential distribution
 | - 
 | |  |lambda| is 1.0 divided by the desired mean.
@@ -43,24 +25,12 @@ List:
 - ImportRandom:
 | - uniform
 | - List:
-| | - Parameter:
+| | - ParameterOfRandom:
 | | | - Low
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - -10.0
-| | | - List:
-| | - Parameter:
+| | | - -10.0
+| | - ParameterOfRandom:
 | | | - High
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 10.0
-| | | - List:
+| | | - 10.0
 | - Uniform distribution
 | - 
 | |  Return a random floating point number *N* such that
@@ -70,33 +40,15 @@ List:
 - ImportRandom:
 | - triangular
 | - List:
-| | - Parameter:
+| | - ParameterOfRandom:
 | | | - Low
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 0.0
-| | | - List:
-| | - Parameter:
+| | | - 0.0
+| | - ParameterOfRandom:
 | | | - High
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 1.0
-| | | - List:
-| | - Parameter:
+| | | - 1.0
+| | - ParameterOfRandom:
 | | | - Mode
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 0.5
-| | | - List:
+| | | - 0.5
 | - Triangular distribution
 | - 
 | |  Return a random floating point number *N* such that *low* <= *N* <= *high* and
@@ -107,24 +59,12 @@ List:
 - ImportRandom:
 | - gammavariate
 | - List:
-| | - Parameter:
+| | - ParameterOfRandom:
 | | | - Alpha
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 1.0
-| | | - List:
-| | - Parameter:
+| | | - 1.0
+| | - ParameterOfRandom:
 | | | - Beta
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 1.0
-| | | - List:
+| | | - 1.0
 | - Gamma distribution
 | - 
 | |   Conditions on the parameters are |alpha| > 0 and |beta| > 0.
@@ -137,24 +77,12 @@ List:
 - ImportRandom:
 | - lognormvariate
 | - List:
-| | - Parameter:
+| | - ParameterOfRandom:
 | | | - Mu
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 0.0
-| | | - List:
-| | - Parameter:
+| | | - 0.0
+| | - ParameterOfRandom:
 | | | - Sigma
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 1.0
-| | | - List:
+| | | - 1.0
 | - Log normal distribution
 | - 
 | |  If you take the natural logarithm of this distribution,
@@ -163,48 +91,24 @@ List:
 - ImportRandom:
 | - normalvariate
 | - List:
-| | - Parameter:
+| | - ParameterOfRandom:
 | | | - Mu
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 0.0
-| | | - List:
-| | - Parameter:
+| | | - 0.0
+| | - ParameterOfRandom:
 | | | - Sigma
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 1.0
-| | | - List:
+| | | - 1.0
 | - Normal distribution
 | - 
 | |   |mu| is the mean, and |sigma| is the standard deviation.
 - ImportRandom:
 | - vonmisesvariate
 | - List:
-| | - Parameter:
+| | - ParameterOfRandom:
 | | | - Mu
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 0.0
-| | | - List:
-| | - Parameter:
+| | | - 0.0
+| | - ParameterOfRandom:
 | | | - Kappa
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 0.0
-| | | - List:
+| | | - 0.0
 | - Von Mises distribution
 | - 
 | |   |mu| is the mean angle, expressed in radians between 0 and 2|pi|,
@@ -214,39 +118,21 @@ List:
 - ImportRandom:
 | - paretovariate
 | - List:
-| | - Parameter:
+| | - ParameterOfRandom:
 | | | - Alpha
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 1.0
-| | | - List:
+| | | - 1.0
 | - Pareto distribution
 | - 
 | |   |alpha| is the shape parameter.
 - ImportRandom:
 | - weibullvariate
 | - List:
-| | - Parameter:
+| | - ParameterOfRandom:
 | | | - Alpha
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 1.0
-| | | - List:
-| | - Parameter:
+| | | - 1.0
+| | - ParameterOfRandom:
 | | | - Beta
-| | | - Some:
-| | | | - SimpleType:
-| | | | | - Float
-| | | - Some:
-| | | | - Const:
-| | | | | - 1.0
-| | | - List:
+| | | - 1.0
 | - Weibull distribution
 | - 
 | |   |alpha| is the scale parameter and |beta| is the shape parameter

@@ -95,14 +95,13 @@ package object PyGen {
     }
 
     case class ImportRandom(name        : String,
-                            params      : List[AST.Parameter],
+                            parameters  : List[ParameterOfRandom],
                             alias       : String,
                             docstring   : String) extends Printer()
     {
         val rv_type = "float"
         override def base_class = s"ops.Function[$rv_type]"
         override val category = "Random"
-        val parameters = params map { ParameterConverter(_).random }
         val filename = "defs/rnd.py"
 
         type Parameter = ParameterOfRandom
@@ -140,13 +139,12 @@ package object PyGen {
                              category    : String,
                              override val impl_function : String,
                              label_tmpl  : Option[String],
-                             params      : List[AST.Parameter],
+                             parameters  : List[ParameterOfMathops],
                              docstring   : String) extends Printer()
     {
         type Parameter = ParameterOfMathops
         val impl_module = "math"
         val alias = name
-        val parameters = params map { ParameterConverter(_).mathops }
         val filename = "defs/mathops.py"
 
         override def repr_body = s"""$tab${tab}return "$label_tmpl" % self.__dict__"""
@@ -204,10 +202,10 @@ package object PyGen {
 
         def create = {
             f.annotations.find({ _.name.toString == "python.random" }) match {
-                case Some(_) => Some(ImportRandom(f.name, f.parameters, label, comment))
+                case Some(_) => Some(ImportRandom(f.name, f.parameters map { ParameterConverter(_).random }, label, comment))
                 case None => f.annotations.find({ _.name.toString == "python.mathops" }) match {
                     case Some(AST.Annotation(_, category :: impl :: label_tmpl :: Nil)) => {
-                        Some(ImportMathops(f.name, category, impl, Some(label_tmpl), f.parameters, comment))
+                        Some(ImportMathops(f.name, category, impl, Some(label_tmpl), f.parameters map { ParameterConverter(_).mathops }, comment))
                     }
                     case _ => None
                 }
