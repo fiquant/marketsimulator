@@ -65,7 +65,9 @@ class Parser() extends JavaTokenParsers with PackratParsers
         case name ~ list => FunCall(name, list)
     } withFailureMessage "funcall expected"
 
-    lazy val parameter = rep(annotation) ~ ident ~ opt(":" ~> ident) ~ opt("=" ~> expr) ^^ {
+    lazy val typ = ident ^^ { SimpleType }
+
+    lazy val parameter = rep(annotation) ~ ident ~ opt(":" ~> typ) ~ opt("=" ~> expr) ^^ {
         case (annotations ~ name ~ ty ~ initializer) => Parameter(name, ty, initializer, annotations)
     } withFailureMessage "parameter expected"
 

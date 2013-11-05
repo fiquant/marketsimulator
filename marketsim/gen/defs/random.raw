@@ -98,7 +98,8 @@ Definitions:
 | | | - Parameter:
 | | | | - Alpha
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 1.0
@@ -106,7 +107,8 @@ Definitions:
 | | | - Parameter:
 | | | | - Beta
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 1.0
@@ -131,7 +133,8 @@ Definitions:
 | | | - Parameter:
 | | | | - Lambda
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 1.0
@@ -156,7 +159,8 @@ Definitions:
 | | | - Parameter:
 | | | | - Low
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - -10.0
@@ -164,7 +168,8 @@ Definitions:
 | | | - Parameter:
 | | | | - High
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 10.0
@@ -191,7 +196,8 @@ Definitions:
 | | | - Parameter:
 | | | | - Low
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 0.0
@@ -199,7 +205,8 @@ Definitions:
 | | | - Parameter:
 | | | | - High
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 1.0
@@ -207,7 +214,8 @@ Definitions:
 | | | - Parameter:
 | | | | - Mode
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 0.5
@@ -235,7 +243,8 @@ Definitions:
 | | | - Parameter:
 | | | | - Alpha
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 1.0
@@ -243,7 +252,8 @@ Definitions:
 | | | - Parameter:
 | | | | - Beta
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 1.0
@@ -273,7 +283,8 @@ Definitions:
 | | | - Parameter:
 | | | | - Mu
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 0.0
@@ -281,7 +292,8 @@ Definitions:
 | | | - Parameter:
 | | | | - Sigma
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 1.0
@@ -307,7 +319,8 @@ Definitions:
 | | | - Parameter:
 | | | | - Mu
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 0.0
@@ -315,7 +328,8 @@ Definitions:
 | | | - Parameter:
 | | | | - Sigma
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 1.0
@@ -339,7 +353,8 @@ Definitions:
 | | | - Parameter:
 | | | | - Mu
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 0.0
@@ -347,7 +362,8 @@ Definitions:
 | | | - Parameter:
 | | | | - Kappa
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 0.0
@@ -374,7 +390,8 @@ Definitions:
 | | | - Parameter:
 | | | | - Alpha
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 1.0
@@ -398,7 +415,8 @@ Definitions:
 | | | - Parameter:
 | | | | - Alpha
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 1.0
@@ -406,7 +424,8 @@ Definitions:
 | | | - Parameter:
 | | | | - Beta
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 1.0

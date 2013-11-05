@@ -2,8 +2,15 @@ package object AST {
 
     val crlf = "\r\n"
 
+    abstract class Type
+
+    case class SimpleType(name : String) extends Type
+    {
+        override def toString = name
+    }
+
     case class Parameter(name        : String,
-                         ty          : Option[String],
+                         ty          : Option[Type],
                          initializer : Option[Expr],
                          annotations : List[Annotation])
     {
@@ -45,7 +52,7 @@ package object AST {
 
         def python = {
             lazy val parameters_float = parameters.map({
-                case Parameter(n, Some("Float"), Some(Const(d)), _) => (n, d)
+                case Parameter(n, Some(SimpleType("Float")), Some(Const(d)), _) => (n, d)
             })
 
             lazy val (label, comment) = docstring match {

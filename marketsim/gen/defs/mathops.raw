@@ -41,7 +41,8 @@ Definitions:
 | | | - Parameter:
 | | | | - x
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 1.0
@@ -67,7 +68,8 @@ Definitions:
 | | | - Parameter:
 | | | | - x
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 1.0
@@ -93,7 +95,8 @@ Definitions:
 | | | - Parameter:
 | | | | - x
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 1.0
@@ -119,7 +122,8 @@ Definitions:
 | | | - Parameter:
 | | | | - base
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 1.0
@@ -127,7 +131,8 @@ Definitions:
 | | | - Parameter:
 | | | | - power
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 1.0
@@ -158,7 +163,8 @@ Definitions:
 | | | - Parameter:
 | | | | - x
 | | | | - Some:
-| | | | | - Float
+| | | | | - SimpleType:
+| | | | | | - Float
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 0.0
