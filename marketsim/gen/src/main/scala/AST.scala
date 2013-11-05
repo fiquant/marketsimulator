@@ -9,6 +9,23 @@ package object AST {
         override def toString = name
     }
 
+    case object UnitType extends Type
+    {
+        override def toString = "()"
+    }
+
+    case class TupleType(types : List[Type]) extends Type
+    {
+        assert(types.length > 1) // SimpleType or UnitType should be used in this case
+        // we don't want to differentiate 1-tuple and SimpleType
+        override def toString = "(" + types.mkString(",") + ")"
+    }
+
+    case class FunctionType(arg_type : Type, ret_type : Type) extends Type
+    {
+        override def toString = s"$arg_type => $ret_type"
+    }
+
     case class Parameter(name        : String,
                          ty          : Option[Type],
                          initializer : Option[Expr],

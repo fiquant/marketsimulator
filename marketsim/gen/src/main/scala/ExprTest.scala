@@ -42,14 +42,14 @@ object ExprTest extends Parser {
                   | */
                   | @ann("p1", "p2")
                   | @ann2("p")
-                  | def min(@doc("X") x : float = 0,
-                  |         @doc("Y") y : float = 0) =
+                  | def min(@doc("X") x : (float,float) = 0,
+                  |         @doc("Y") y : (float) = 0) =
                   |
                   |     if x < y then x else y
                   |
                   |/**  Maximum
                   | */
-                  | def max(@doc("X") x : float = 0,
+                  | def max(@doc("X") x : () = 0,
                   |         @doc("Y") y : float = 0) =
                   |
                   |     if x > y then x else y
