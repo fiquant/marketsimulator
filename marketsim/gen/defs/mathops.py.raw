@@ -6,9 +6,15 @@ List:
 | - Some:
 | | - e^{%(x)s}
 | - List:
-| | - Tuple2:
+| | - Parameter:
 | | | - x
-| | | - 1.0
+| | | - Some:
+| | | | - SimpleType:
+| | | | | - Float
+| | | - Some:
+| | | | - Const:
+| | | | | - 1.0
+| | | - List:
 | - 
 - ImportMathops:
 | - Log
@@ -17,9 +23,15 @@ List:
 | - Some:
 | | - log(%(x)s)
 | - List:
-| | - Tuple2:
+| | - Parameter:
 | | | - x
-| | | - 1.0
+| | | - Some:
+| | | | - SimpleType:
+| | | | | - Float
+| | | - Some:
+| | | | - Const:
+| | | | | - 1.0
+| | | - List:
 | - 
 - ImportMathops:
 | - Sqrt
@@ -28,9 +40,15 @@ List:
 | - Some:
 | | - \\sqrt{%(x)s}
 | - List:
-| | - Tuple2:
+| | - Parameter:
 | | | - x
-| | | - 1.0
+| | | - Some:
+| | | | - SimpleType:
+| | | | | - Float
+| | | - Some:
+| | | | - Const:
+| | | | | - 1.0
+| | | - List:
 | - 
 - ImportMathops:
 | - Pow
@@ -39,12 +57,24 @@ List:
 | - Some:
 | | - %(base)s^{%(power)s}
 | - List:
-| | - Tuple2:
+| | - Parameter:
 | | | - base
-| | | - 1.0
-| | - Tuple2:
+| | | - Some:
+| | | | - SimpleType:
+| | | | | - Float
+| | | - Some:
+| | | | - Const:
+| | | | | - 1.0
+| | | - List:
+| | - Parameter:
 | | | - power
-| | | - 1.0
+| | | - Some:
+| | | | - SimpleType:
+| | | | | - Float
+| | | - Some:
+| | | | - Const:
+| | | | | - 1.0
+| | | - List:
 | - 
 | |  Exceptional cases follow Annex F of the C99 standard as far as possible.
 | |  In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,
@@ -58,7 +88,13 @@ List:
 | - Some:
 | | - atan(%(x)s)
 | - List:
-| | - Tuple2:
+| | - Parameter:
 | | | - x
-| | | - 0.0
+| | | - Some:
+| | | | - SimpleType:
+| | | | | - Float
+| | | - Some:
+| | | | - Const:
+| | | | | - 0.0
+| | | - List:
 | - 

@@ -1,3 +1,5 @@
+import sun.security.provider.ParameterCache
+
 package object PyGen {
 
     val crlf = "\r\n"
@@ -93,14 +95,14 @@ package object PyGen {
     }
 
     case class ImportRandom(name        : String,
-                            params      : List[(String, Double)],
+                            params      : List[AST.Parameter],
                             alias       : String,
                             docstring   : String) extends Printer()
     {
         val rv_type = "float"
         override def base_class = s"ops.Function[$rv_type]"
         override val category = "Random"
-        val parameters = params.map({ p => ParameterOfRandom(p._1,p._2) })
+        val parameters = params map { ParameterConverter(_).random }
         val filename = "defs/rnd.py"
 
         type Parameter = ParameterOfRandom
@@ -121,11 +123,6 @@ package object PyGen {
         override def toString = super.toString + s"""$call$casts_to"""
     }
 
-    def getRandoms(lst : List[Option[Printer]])  = lst.flatMap({
-        case s @ Some(_) => s
-        case _ => None
-    })
-
     case class ParameterOfMathops(name : String, initializer : Double) extends ParameterBase
     {
         val ty = "float"
@@ -143,13 +140,13 @@ package object PyGen {
                              category    : String,
                              override val impl_function : String,
                              label_tmpl  : Option[String],
-                             params      : List[(String, Double)],
+                             params      : List[AST.Parameter],
                              docstring   : String) extends Printer()
     {
         type Parameter = ParameterOfMathops
         val impl_module = "math"
         val alias = name
-        val parameters = params.map({ p => ParameterOfMathops(p._1,p._2) })
+        val parameters = params map { ParameterConverter(_).mathops }
         val filename = "defs/mathops.py"
 
         override def repr_body = s"""$tab${tab}return "$label_tmpl" % self.__dict__"""
@@ -171,5 +168,50 @@ package object PyGen {
               |import math
               |from _all import Observable, Constant
             """.stripMargin
+    }
+
+    case class ParameterConverter(p : AST.Parameter)
+    {
+        def assertTypeIsFloat() = p.ty match {
+            case None => throw new Exception("functions imported from mathops should have explicitly specified types")
+            case Some(AST.SimpleType("Float")) => ()
+            case _ => throw new Exception("functions imported from mathops should have Float type")
+        }
+
+        def getFloatInitializer = p.initializer match {
+            case None => throw new Exception("initializer for parameter should be specified")
+            case Some(AST.Const(d)) => d
+            case _ => throw new Exception("functions imported from mathops may have only float parameters")
+        }
+
+        def mathops = {
+            assertTypeIsFloat()
+            ParameterOfMathops(p.name, getFloatInitializer)
+        }
+
+        def random = {
+            assertTypeIsFloat()
+            ParameterOfRandom(p.name, getFloatInitializer)
+        }
+    }
+
+    case class FunctionConverter(f : AST.FunDef)
+    {
+        lazy val (label, comment) = f.docstring match {
+            case Some(AST.DocString(brief, detailed)) => (brief, detailed)
+            case _ => ("","")
+        }
+
+        def create = {
+            f.annotations.find({ _.name.toString == "python.random" }) match {
+                case Some(_) => Some(ImportRandom(f.name, f.parameters, label, comment))
+                case None => f.annotations.find({ _.name.toString == "python.mathops" }) match {
+                    case Some(AST.Annotation(_, category :: impl :: label_tmpl :: Nil)) => {
+                        Some(ImportMathops(f.name, category, impl, Some(label_tmpl), f.parameters, comment))
+                    }
+                    case _ => None
+                }
+            }
+        }
     }
 }

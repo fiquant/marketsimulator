@@ -28,9 +28,12 @@ object Runner extends Parser {
                              }
                              case x => println(x)
                          }
-                         val python = result.python
-                         val randoms = PyGen.getRandoms(python)
-                         (result.treeString, pp, randoms.treeString, randoms)
+                         val python = result.
+                                 definitions.
+                                 map({ PyGen.FunctionConverter(_).create }).
+                                 flatMap({ x => x })
+
+                         (result.treeString, pp, python.treeString, python)
                      }
                      case x => (x.toString, x.toString, x.toString, List())
                  }

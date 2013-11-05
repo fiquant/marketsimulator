@@ -66,33 +66,10 @@ package object AST {
                 + "def " + name
                 + "(" + parameters.mkString(", ") + ")"
                 + (if (body.nonEmpty) " = " + body.get else ""))
-
-        def python = {
-            lazy val parameters_float = parameters.map({
-                case Parameter(n, Some(SimpleType("Float")), Some(Const(d)), _) => (n, d)
-            })
-
-            lazy val (label, comment) = docstring match {
-                case Some(DocString(brief, detailed)) => (brief, detailed)
-                case _ => ("","")
-            }
-
-            annotations.find({ _.name.toString == "python.random" }) match {
-                case Some(_) => Some(PyGen.ImportRandom(name, parameters_float, label, comment))
-                case None => annotations.find({ _.name.toString == "python.mathops" }) match {
-                    case Some(Annotation(_, category :: impl :: label_tmpl :: Nil)) => {
-                        Some(PyGen.ImportMathops(name, category, impl, Some(label_tmpl), parameters_float, comment))
-                    }
-                    case _ => None
-                }
-            }
-        }
     }
 
     case class Definitions(definitions : List[FunDef]) {
         override def toString = definitions.map({_ + crlf + crlf}).mkString("")
-
-        def python = definitions.map({ _.python })
     }
 
     sealed abstract class BinOpSymbol(symbol : String, p : Int) {
