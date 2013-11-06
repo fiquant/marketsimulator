@@ -1,3 +1,4 @@
+import generator.python.fromAST
 import java.io.PrintWriter
 import resource._
 import sext._
@@ -28,10 +29,7 @@ object Runner extends Parser {
                              }
                              case x => println(x)
                          }
-                         val python = result.
-                                 definitions.
-                                 map({ PyGen.FunctionConverter(_).create }).
-                                 flatMap({ x => x })
+                         val python = fromAST(result)
 
                          (result.treeString, pp, python.treeString, python)
                      }
