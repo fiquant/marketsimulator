@@ -11,83 +11,89 @@ class Parser() extends JavaTokenParsers with PackratParsers
     lazy val expr : Parser[Expr] = conditional | arithmetic
 
     lazy val conditional = ("if" ~> boolean) ~ ("then" ~> expr) ~ ("else" ~> expr) ^^ {
-        case (cond ~ x ~ y) => IfThenElse(cond, x, y)
+        case (cond ~ x ~ y) => new IfThenElse(cond, x, y) with PP.IfThenElse
     } withFailureMessage "conditional expected"
 
     lazy val boolean : Parser[BooleanExpr] = boolean_factor ~ rep("or" ~ boolean_factor) ^^ {
         case op ~ list => list.foldLeft(op) {
-            case (x, "or" ~ y) => Or(x, y)
+            case (x, "or" ~ y) => new Or(x, y) with PP.Or
         }
     } withFailureMessage "boolean expected"
 
     lazy val logic_op = (
-                "<>" ^^ { _ => NotEqual() }
-            |   "<=" ^^ { _ => LessEqual() }
-            |   "<"  ^^ { _ => Less() }
-            |   ">=" ^^ { _ => GreaterEqual() }
-            |   ">"  ^^ { _ => Greater() }
-            |   "="  ^^ { _ => Equal() }) withFailureMessage "comparison symbol expected"
+                "<>" ^^ { _ => new NotEqual() with PP.NotEqual }
+            |   "<=" ^^ { _ => new LessEqual() with PP.LessEqual }
+            |   "<"  ^^ { _ => new Less() with PP.Less }
+            |   ">=" ^^ { _ => new GreaterEqual() with PP.GreaterEqual }
+            |   ">"  ^^ { _ => new Greater() with PP.Greater }
+            |   "="  ^^ { _ => new Equal() with PP.Equal }
+            ) withFailureMessage "comparison symbol expected"
 
 
     lazy val boolean_factor = boolean_term ~ rep("and" ~ boolean_term) ^^ {
         case op ~ list => list.foldLeft(op) {
-            case (x, "and" ~ y) => And(x, y)
+            case (x, "and" ~ y) => new And(x, y) with PP.And
         }
     } withFailureMessage "boolean_factor expected"
 
-    lazy val boolean_term = (expr ~ logic_op ~ expr ^^ { case (x ~ op ~ y) => Condition(op, x, y) }
-                        | "not" ~> boolean ^^ { Not }
+    lazy val boolean_term = (expr ~ logic_op ~ expr ^^ { case (x ~ op ~ y) => new Condition(op, x, y) with PP.Condition }
+                        | "not" ~> boolean ^^ { new Not(_) with PP.Not }
                         | "(" ~> boolean <~ ")" ) withFailureMessage "boolean_term expected"
 
-    lazy val addsub_op = ("+" ^^ { _ => Add() } | "-" ^^ { _ => Sub() }) withFailureMessage "+ or - expected"
-    lazy val muldiv_op = ("*" ^^ { _ => Mul() } | "/" ^^ { _ => Div() }) withFailureMessage "* or / expected"
+    lazy val addsub_op = ("+" ^^ { _ => new Add() with PP.Add }
+                        | "-" ^^ { _ => new Sub() with PP.Sub }
+                        ) withFailureMessage "+ or - expected"
+
+    lazy val muldiv_op = ("*" ^^ { _ => new Mul() with PP.Mul }
+                        | "/" ^^ { _ => new Div() with PP.Div}
+                        ) withFailureMessage "* or / expected"
 
     lazy val arithmetic = factor ~ rep(addsub_op ~ factor) ^^ {
         case start ~ list => list.foldLeft(start) {
-            case (x, op ~ y) => BinOp(op, x, y)
+            case (x, op ~ y) => new BinOp(op, x, y) with PP.BinOp
         }
     } withFailureMessage "arithmetic expected"
 
     lazy val factor = term ~ rep(muldiv_op ~ term) ^^ {
         case start ~ list => list.foldLeft(start) {
-            case (x, op ~ y) => BinOp(op, x, y)
+            case (x, op ~ y) => new BinOp(op, x, y) with PP.BinOp
         }
     } withFailureMessage "factor expected"
 
     lazy val term : Parser[Expr] = (
-                floatingPointNumber ^^ { s => Const(s.toDouble) }
+                floatingPointNumber ^^ { s => new Const(s.toDouble) with PP.Const }
             |   funcall
-            |   ident ^^ { Var }
+            |   ident ^^ { new Var(_) with PP.Var }
             |   "(" ~> expr <~ ")"
-            |   "-" ~> term ^^ { Neg }) withFailureMessage "term expected"
+            |   "-" ~> term ^^ { new Neg(_) with PP.Neg }) withFailureMessage "term expected"
 
     lazy val funcall = qualified_name ~ ("(" ~> repsep(expr, ",") <~ ")") ^^ {
-        case name ~ list => FunCall(name, list)
+        case name ~ list => new FunCall(name, list) with PP.FunCall
     } withFailureMessage "funcall expected"
 
     lazy val typ : Parser[Type] = (
               typ2 ~ "=>" ~ typ ^^ {
-                  case (x ~ "=>" ~  y) => FunctionType(x, y)
+                  case (x ~ "=>" ~  y) => new FunctionType(x, y) with PP.FunctionType
               }
             | typ2) withFailureMessage "type expected"
 
     lazy val typ2 = (
             "(" ~> repsep(typ, ",") <~ ")" ^^ {
-                case Nil => UnitType
+                case Nil => new UnitType() with PP.UnitType
                 case x :: Nil => x
-                case x => TupleType(x)
+                case x => new TupleType(x) with PP.TupleType
             }
-            | ident ^^ { SimpleType }) withFailureMessage "tuple or simple type expected"
+            | ident ^^ { new SimpleType(_) with PP.SimpleType }) withFailureMessage "tuple or simple type expected"
 
     lazy val parameter = rep(annotation) ~ ident ~ opt(":" ~> typ) ~ opt("=" ~> expr) ^^ {
-        case (annotations ~ name ~ ty ~ initializer) => Parameter(name, ty, initializer, annotations)
+        case (annotations ~ name ~ ty ~ initializer) => new Parameter(name, ty, initializer, annotations) with PP.Parameter
     } withFailureMessage "parameter expected"
 
     lazy val function  = opt(docstring) ~ rep(annotation) ~ ("def" ~> ident) ~ ("(" ~> repsep(parameter, ",") <~ ")") ~ opt("=" ~> expr) ^^ {
-        case (doc ~ annotations ~ name ~ parameters ~ body) => FunDef(name, parameters, body, doc, annotations)
+        case (doc ~ annotations ~ name ~ parameters ~ body) => new FunDef(name, parameters, body, doc, annotations) with PP.FunDef
     } withFailureMessage "function expected"
 
-    lazy val definitions = rep(function) ^^ { Definitions }
+    lazy val definitions = rep(function) ^^ { new Definitions(_) with PP.Definitions }
 
     private def strip(s : String) = {
         def not_whitespace(ch : Char) = !ch.isWhitespace
@@ -120,20 +126,20 @@ class Parser() extends JavaTokenParsers with PackratParsers
     lazy val docstring = comment ^^ { comment => {
             val lines = comment.lines.toList
             if (lines.isEmpty) {
-                DocString("", "")
+                new DocString("", "") with PP.DocString
             }  else {
                 val hd :: tl = strip_empty_lines(lines)
-                DocString(hd, tl.mkString(crlf))
+                new DocString(hd, tl.mkString(crlf)) with PP.DocString
             }
         }
     }
 
     lazy val string = stringLiteral ^^ { _ stripPrefix "\"" stripSuffix "\"" }
 
-    lazy val qualified_name = rep1sep(ident, ".") ^^ { QualifiedName }
+    lazy val qualified_name = rep1sep(ident, ".") ^^ { new QualifiedName(_) with PP.QualifiedName }
 
     lazy val annotation = ("@" ~> qualified_name) ~ opt("(" ~> repsep(string, ",") <~ ")") ^^ {
-        case (name ~ parameters) => Annotation(name, parameters.getOrElse(List()))
+        case (name ~ parameters) => new Annotation(name, parameters.getOrElse(List())) with PP.Annotation
     }
 }
 
