@@ -2,7 +2,9 @@ package object AST {
 
     val crlf = "\r\n"
 
-    abstract class Type
+    sealed abstract class Type {
+        override def toString : String = PrettyPrinter.instance(this)
+    }
 
     case class SimpleType(name : String) extends Type
     case class UnitType() extends Type

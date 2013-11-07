@@ -3,26 +3,6 @@ package object PP {
 
     val crlf = "\r\n"
 
-    trait SimpleType extends AST.SimpleType
-    {
-        override def toString = name
-    }
-
-    trait UnitType extends AST.UnitType
-    {
-        override def toString = "()"
-    }
-
-    trait TupleType extends AST.TupleType
-    {
-        override def toString = "(" + types.mkString(",") + ")"
-    }
-
-    trait FunctionType extends AST.FunctionType
-    {
-        override def toString = s"$arg_type => $ret_type"
-    }
-
     trait Parameter extends AST.Parameter
     {
         override def toString = (annotations.map({ _ + " "}).mkString("")

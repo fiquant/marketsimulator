@@ -71,17 +71,17 @@ class Parser() extends JavaTokenParsers with PackratParsers
 
     lazy val typ : Parser[Type] = (
               typ2 ~ "=>" ~ typ ^^ {
-                  case (x ~ "=>" ~  y) => new FunctionType(x, y) with PP.FunctionType
+                  case (x ~ "=>" ~  y) => FunctionType(x, y)
               }
             | typ2) withFailureMessage "type expected"
 
     lazy val typ2 = (
             "(" ~> repsep(typ, ",") <~ ")" ^^ {
-                case Nil => new UnitType() with PP.UnitType
+                case Nil => UnitType()
                 case x :: Nil => x
-                case x => new TupleType(x) with PP.TupleType
+                case x => TupleType(x)
             }
-            | ident ^^ { new SimpleType(_) with PP.SimpleType }) withFailureMessage "tuple or simple type expected"
+            | ident ^^ SimpleType) withFailureMessage "tuple or simple type expected"
 
     lazy val parameter = rep(annotation) ~ ident ~ opt(":" ~> typ) ~ opt("=" ~> expr) ^^ {
         case (annotations ~ name ~ ty ~ initializer) => new Parameter(name, ty, initializer, annotations) with PP.Parameter

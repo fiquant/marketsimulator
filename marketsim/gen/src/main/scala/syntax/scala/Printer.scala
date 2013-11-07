@@ -12,6 +12,13 @@ class Printer() extends PrettyPrinter.Base {
     def pars(s : Any, condition : Boolean = true) =
         if (condition) "(" + s + ")" else s.toString
 
+    def apply(x : AST.Type) = x match {
+        case AST.SimpleType(x) => x
+        case AST.UnitType() => "()"
+        case AST.TupleType(lst) => pars(lst.mkString(","))
+        case AST.FunctionType(args, ret) => s"$args => $ret"
+    }
+
     def apply(e : AST.BooleanExpr) = e match {
         case AST.Or(x, y) => x + " or " + y
         case AST.And(x, y) =>
