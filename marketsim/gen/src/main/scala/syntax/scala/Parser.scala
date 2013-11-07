@@ -18,7 +18,7 @@ class Parser() extends JavaTokenParsers with PackratParsers
 
     lazy val boolean : Parser[BooleanExpr] = boolean_factor ~ rep("or" ~ boolean_factor) ^^ {
         case op ~ list => list.foldLeft(op) {
-            case (x, "or" ~ y) => new Or(x, y) with PP.Or
+            case (x, "or" ~ y) => Or(x, y)
         }
     } withFailureMessage "boolean expected"
 
@@ -34,12 +34,12 @@ class Parser() extends JavaTokenParsers with PackratParsers
 
     lazy val boolean_factor = boolean_term ~ rep("and" ~ boolean_term) ^^ {
         case op ~ list => list.foldLeft(op) {
-            case (x, "and" ~ y) => new And(x, y) with PP.And
+            case (x, "and" ~ y) => And(x, y)
         }
     } withFailureMessage "boolean_factor expected"
 
-    lazy val boolean_term = (expr ~ logic_op ~ expr ^^ { case (x ~ op ~ y) => new Condition(op, x, y) with PP.Condition }
-                        | "not" ~> boolean ^^ { new Not(_) with PP.Not }
+    lazy val boolean_term = (expr ~ logic_op ~ expr ^^ { case (x ~ op ~ y) => Condition(op, x, y) }
+                        | "not" ~> boolean ^^ Not
                         | "(" ~> boolean <~ ")" ) withFailureMessage "boolean_term expected"
 
     lazy val addsub_op = ("+" ^^ { _ => new Add() with PP.Add }

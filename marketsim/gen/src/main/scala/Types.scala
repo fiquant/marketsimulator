@@ -1,7 +1,7 @@
 package object Types
 {
     sealed abstract class Type {
-        override def toString : String = PrettyPrinter.print(this)
+        override def toString : String = PrettyPrinter.instance(this)
     }
     case class `Float`() extends Type
     case class Unit() extends Type

@@ -123,33 +123,4 @@ package object PP {
     trait GreaterEqual extends AST.GreaterEqual with CondSymbol { val symbol = ">=" }
     trait Equal extends AST.Equal with CondSymbol { val symbol = "=" }
     trait NotEqual extends AST.NotEqual with CondSymbol { val symbol = "<>" }
-
-    trait Condition extends AST.Condition {
-        override def toString = x.toString + symbol + y
-    }
-
-    trait Or extends AST.Or {
-        override def toString = x + " or " + y
-    }
-
-    trait And extends AST.And
-    {
-        override def toString = wrap_if_needed(x) + " and " + wrap_if_needed(y)
-
-        def wrap_if_needed(x : AST.BooleanExpr) = x match {
-            case z : AST.Or => "(" + z + ")"
-            case z => z.toString
-        }
-    }
-
-    trait Not extends AST.Not
-    {
-        override def toString = "not " +  wrap_if_needed(x)
-
-        def wrap_if_needed(x : AST.BooleanExpr) = x match {
-            case AST.Condition(_,_,_) => x.toString
-            case _ => "(" + x + ")"
-        }
-    }
-
 }

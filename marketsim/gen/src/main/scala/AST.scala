@@ -66,7 +66,9 @@ package object AST {
     case class Equal() extends CondSymbol()
     case class NotEqual() extends CondSymbol()
 
-    sealed abstract class BooleanExpr
+    sealed abstract class BooleanExpr {
+        override def toString : String = PrettyPrinter.instance(this)
+    }
 
     case class Condition(symbol : CondSymbol, x : Expr, y : Expr) extends BooleanExpr
 
