@@ -48,6 +48,10 @@ object Runner extends Parser {
 
         val parsed = files.flatMap({ file => parse(s"defs/$file.sc") })
 
+        val names = Names.create(parsed)
+
+        println(names)
+
         val python_definitions =fromAST(parsed)
 
         for ((filename, definitions) <- python_definitions.groupBy({ _.filename }))
