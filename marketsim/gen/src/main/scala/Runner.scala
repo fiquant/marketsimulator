@@ -54,7 +54,9 @@ object Runner extends Parser {
 
         val names = Names.create(parsed)
 
-        println(names)
+        for (output <- managed(new PrintWriter(".output/names.pp"))) {
+            output.println(names)
+        }
 
         val python_definitions =fromAST(parsed)
 
