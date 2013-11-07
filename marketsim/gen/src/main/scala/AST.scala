@@ -57,7 +57,9 @@ package object AST {
     case class IfThenElse(cond : BooleanExpr, x : Expr, y : Expr) extends Expr(3)
     case class FunCall(name : QualifiedName, args : List[Expr]) extends Expr(0)
 
-    abstract class CondSymbol()
+    sealed abstract class CondSymbol() {
+        override def toString : String = PrettyPrinter.instance(this)
+    }
 
     case class Less() extends CondSymbol()
     case class LessEqual() extends CondSymbol()

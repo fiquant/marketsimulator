@@ -25,4 +25,13 @@ class Printer() extends PrettyPrinter.Base {
         case AST.Condition(c, x, y) => x.toString + c + y
     }
 
+    def apply(c : AST.CondSymbol) = c match {
+        case AST.Less() => "<"
+        case AST.LessEqual() => "<="
+        case AST.Greater() => ">"
+        case AST.GreaterEqual() => ">="
+        case AST.Equal() => "="
+        case AST.NotEqual() => "<>"
+    }
+
 }

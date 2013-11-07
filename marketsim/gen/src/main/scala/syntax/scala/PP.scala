@@ -111,16 +111,4 @@ package object PP {
     trait FunCall extends AST.FunCall with Expr {
         override def toString = name.toString + parens(args.map(_.toString).mkString(","))
     }
-
-    trait CondSymbol extends AST.CondSymbol {
-        def symbol : String
-        override def toString = symbol
-    }
-
-    trait Less extends AST.Less with CondSymbol { val symbol = "<" }
-    trait LessEqual extends AST.LessEqual with CondSymbol { val symbol = "<=" }
-    trait Greater extends AST.Greater with CondSymbol { val symbol = ">" }
-    trait GreaterEqual extends AST.GreaterEqual with CondSymbol { val symbol = ">=" }
-    trait Equal extends AST.Equal with CondSymbol { val symbol = "=" }
-    trait NotEqual extends AST.NotEqual with CondSymbol { val symbol = "<>" }
 }

@@ -4,6 +4,7 @@ package object PrettyPrinter
     {
         def apply(x : Types.Type) : String
         def apply(x : AST.BooleanExpr) : String
+        def apply(x : AST.CondSymbol) : String
     }
 
     var instance : Base = null

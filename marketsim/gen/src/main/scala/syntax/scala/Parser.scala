@@ -23,12 +23,12 @@ class Parser() extends JavaTokenParsers with PackratParsers
     } withFailureMessage "boolean expected"
 
     lazy val logic_op = (
-                "<>" ^^ { _ => new NotEqual() with PP.NotEqual }
-            |   "<=" ^^ { _ => new LessEqual() with PP.LessEqual }
-            |   "<"  ^^ { _ => new Less() with PP.Less }
-            |   ">=" ^^ { _ => new GreaterEqual() with PP.GreaterEqual }
-            |   ">"  ^^ { _ => new Greater() with PP.Greater }
-            |   "="  ^^ { _ => new Equal() with PP.Equal }
+                "<>" ^^^ NotEqual()
+            |   "<=" ^^^ LessEqual()
+            |   "<"  ^^^ Less()
+            |   ">=" ^^^ GreaterEqual()
+            |   ">"  ^^^ Greater()
+            |   "="  ^^^ Equal()
             ) withFailureMessage "comparison symbol expected"
 
 
