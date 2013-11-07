@@ -1,4 +1,3 @@
-import syntax.scala.TypedPP
 
 package object PP {
 

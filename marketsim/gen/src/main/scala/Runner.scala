@@ -3,7 +3,7 @@ import java.io.PrintWriter
 import resource._
 import sext._
 
-object Runner extends Parser {
+object Runner extends syntax.scala.Parser {
 
     def parse(path : String) : Option[AST.Definitions] = {
 
@@ -45,6 +45,8 @@ object Runner extends Parser {
     }
 
     def main(args: Array[String]) {
+
+        PrettyPrinter.instance = new syntax.scala.Printer()
 
         ExprTest.run()
 

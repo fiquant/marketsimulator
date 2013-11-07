@@ -3,7 +3,7 @@ import resource._
 import sext._
 import AST._
 
-object ExprTest extends Parser {
+object ExprTest extends syntax.scala.Parser {
 
     def run() {
 

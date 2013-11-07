@@ -1,3 +1,5 @@
+package syntax.scala
+
 import scala.util.parsing.combinator._
 import AST._
 /*
