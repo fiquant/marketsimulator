@@ -52,4 +52,6 @@ object fromAST {
         p.definitions.flatMap({ fromAST(_).create })
     }
 
+    def apply(p : List[AST.Definitions]) : List[Printer] = p.flatMap(apply)
+
 }
