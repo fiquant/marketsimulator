@@ -51,6 +51,7 @@ package object PP {
                 + annotations.map({_ + crlf}).mkString("")
                 + "def " + name
                 + "(" + parameters.mkString(", ") + ")"
+                + (if (ret_type.nonEmpty) " : " + ret_type.get else "")
                 + (if (body.nonEmpty) " = " + body.get else ""))
     }
 

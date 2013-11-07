@@ -4,7 +4,7 @@
  * Returned values range between 0 and 1.
  */
 @python.random
-def betavariate(Alpha : Float = 1.0, Beta : Float = 1.0)
+def betavariate(Alpha : Float = 1.0, Beta : Float = 1.0) : Float
 
 /** Exponential distribution
  *
@@ -12,7 +12,7 @@ def betavariate(Alpha : Float = 1.0, Beta : Float = 1.0)
  * It should be greater zero. Returned values range from 0 to positive infinity
  */
 @python.random
-def expovariate(Lambda : Float = 1.0)
+def expovariate(Lambda : Float = 1.0) : Float
 
 /** Uniform distribution
  *
@@ -22,7 +22,7 @@ def expovariate(Lambda : Float = 1.0)
  * floating-point rounding in the equation *a* + (*b*-*a*) * *random()*.
  */
 @python.random
-def uniform(Low : Float = -10.0, High : Float = 10.0)
+def uniform(Low : Float = -10.0, High : Float = 10.0) : Float
 
 /** Triangular distribution
   *
@@ -33,7 +33,7 @@ def uniform(Low : Float = -10.0, High : Float = 10.0)
   *       giving a symmetric distribution.
   */
 @python.random
-def triangular(Low : Float = 0.0, High : Float = 1.0, Mode : Float = 0.5)
+def triangular(Low : Float = 0.0, High : Float = 1.0, Mode : Float = 0.5) : Float
 
 /** Gamma distribution
  *
@@ -46,7 +46,7 @@ def triangular(Low : Float = 0.0, High : Float = 1.0, Mode : Float = 0.5)
  *                  math.gamma(alpha) * beta ** alpha
  */
 @python.random
-def gammavariate(Alpha : Float = 1.0, Beta : Float = 1.0)
+def gammavariate(Alpha : Float = 1.0, Beta : Float = 1.0) : Float
 
 /** Log normal distribution
  *
@@ -55,14 +55,14 @@ def gammavariate(Alpha : Float = 1.0, Beta : Float = 1.0)
  *  |mu| can have any value, and |sigma| must be greater than zero.
  */
 @python.random
-def lognormvariate(Mu : Float = 0.0, Sigma : Float = 1.0)
+def lognormvariate(Mu : Float = 0.0, Sigma : Float = 1.0) : Float
 
 /** Normal distribution
  *
  *  |mu| is the mean, and |sigma| is the standard deviation.
  */
 @python.random
-def normalvariate(Mu : Float = 0.0, Sigma : Float = 1.0)
+def normalvariate(Mu : Float = 0.0, Sigma : Float = 1.0) : Float
 
 /** Von Mises distribution
  *
@@ -72,20 +72,20 @@ def normalvariate(Mu : Float = 0.0, Sigma : Float = 1.0)
  *      to a uniform random angle over the range 0 to 2|pi|
  */
 @python.random
-def vonmisesvariate(Mu : Float = 0.0, Kappa : Float = 0.0)
+def vonmisesvariate(Mu : Float = 0.0, Kappa : Float = 0.0) : Float
 
 /** Pareto distribution
  *
  *  |alpha| is the shape parameter.
  */
 @python.random
-def paretovariate(Alpha : Float = 1.0)
+def paretovariate(Alpha : Float = 1.0) : Float
 
 /** Weibull distribution
  *
  *  |alpha| is the scale parameter and |beta| is the shape parameter
  */
 @python.random
-def weibullvariate(Alpha : Float = 1.0, Beta : Float = 1.0)
+def weibullvariate(Alpha : Float = 1.0, Beta : Float = 1.0) : Float
 
 

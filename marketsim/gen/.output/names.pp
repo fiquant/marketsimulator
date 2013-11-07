@@ -9,23 +9,23 @@ gammavariate -> /** Gamma distribution
  *                  math.gamma(alpha) * beta ** alpha
  */
 @python.random()
-def gammavariate(Alpha : Float = 1.0, Beta : Float = 1.0)
+def gammavariate(Alpha : Float = 1.0, Beta : Float = 1.0) : Float
 normalvariate -> /** Normal distribution
  *
  *  |mu| is the mean, and |sigma| is the standard deviation.
  */
 @python.random()
-def normalvariate(Mu : Float = 0.0, Sigma : Float = 1.0)
+def normalvariate(Mu : Float = 0.0, Sigma : Float = 1.0) : Float
 paretovariate -> /** Pareto distribution
  *
  *  |alpha| is the shape parameter.
  */
 @python.random()
-def paretovariate(Alpha : Float = 1.0)
+def paretovariate(Alpha : Float = 1.0) : Float
 Atan -> /** Arc tangent of x, in radians.
  */
 @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
-def Atan(x : Float = 0.0)
+def Atan(x : Float = 0.0) : Float
 triangular -> /** Triangular distribution
  *
  * Return a random floating point number *N* such that *low* <= *N* <= *high* and
@@ -35,7 +35,7 @@ triangular -> /** Triangular distribution
  *       giving a symmetric distribution.
  */
 @python.random()
-def triangular(Low : Float = 0.0, High : Float = 1.0, Mode : Float = 0.5)
+def triangular(Low : Float = 0.0, High : Float = 1.0, Mode : Float = 0.5) : Float
 vonmisesvariate -> /** Von Mises distribution
  *
  *  |mu| is the mean angle, expressed in radians between 0 and 2|pi|,
@@ -44,7 +44,7 @@ vonmisesvariate -> /** Von Mises distribution
  *      to a uniform random angle over the range 0 to 2|pi|
  */
 @python.random()
-def vonmisesvariate(Mu : Float = 0.0, Kappa : Float = 0.0)
+def vonmisesvariate(Mu : Float = 0.0, Kappa : Float = 0.0) : Float
 uniform -> /** Uniform distribution
  *
  * Return a random floating point number *N* such that
@@ -53,32 +53,32 @@ uniform -> /** Uniform distribution
  * floating-point rounding in the equation *a* + (*b*-*a*) * *random()*.
  */
 @python.random()
-def uniform(Low : Float = -10.0, High : Float = 10.0)
+def uniform(Low : Float = -10.0, High : Float = 10.0) : Float
 Sqrt -> /** Square root of x
  */
 @python.mathops("Log/Pow", "sqrt", "\\sqrt{%(x)s}")
-def Sqrt(x : Float = 1.0)
+def Sqrt(x : Float = 1.0) : Float
 Exp -> /** Exponent of x
  */
 @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
-def Exp(x : Float = 1.0)
+def Exp(x : Float = 1.0) : Float
 Log -> /** Natural logarithm of x (to base e)
  */
 @python.mathops("Log/Pow", "log", "log(%(x)s)")
-def Log(x : Float = 1.0)
+def Log(x : Float = 1.0) : Float
 weibullvariate -> /** Weibull distribution
  *
  *  |alpha| is the scale parameter and |beta| is the shape parameter
  */
 @python.random()
-def weibullvariate(Alpha : Float = 1.0, Beta : Float = 1.0)
+def weibullvariate(Alpha : Float = 1.0, Beta : Float = 1.0) : Float
 expovariate -> /** Exponential distribution
  *
  * |lambda| is 1.0 divided by the desired mean.
  * It should be greater zero. Returned values range from 0 to positive infinity
  */
 @python.random()
-def expovariate(Lambda : Float = 1.0)
+def expovariate(Lambda : Float = 1.0) : Float
 lognormvariate -> /** Log normal distribution
  *
  * If you take the natural logarithm of this distribution,
@@ -86,14 +86,14 @@ lognormvariate -> /** Log normal distribution
  *  |mu| can have any value, and |sigma| must be greater than zero.
  */
 @python.random()
-def lognormvariate(Mu : Float = 0.0, Sigma : Float = 1.0)
+def lognormvariate(Mu : Float = 0.0, Sigma : Float = 1.0) : Float
 betavariate -> /** Beta distribution
  *
  * Conditions on the parameters are |alpha| > 0 and |beta| > 0.
  * Returned values range between 0 and 1.
  */
 @python.random()
-def betavariate(Alpha : Float = 1.0, Beta : Float = 1.0)
+def betavariate(Alpha : Float = 1.0, Beta : Float = 1.0) : Float
 Pow -> /** Return *x* raised to the power *y*.
  *
  * Exceptional cases follow Annex F of the C99 standard as far as possible.
@@ -103,4 +103,4 @@ Pow -> /** Return *x* raised to the power *y*.
  * ``pow(x, y)`` is undefined, and raises ``ValueError``.
  */
 @python.mathops("Log/Pow", "pow", "%(base)s^{%(power)s}")
-def Pow(base : Float = 1.0, power : Float = 1.0)
+def Pow(base : Float = 1.0, power : Float = 1.0) : Float
