@@ -75,13 +75,16 @@ class Printer() extends PrettyPrinter.Base {
         case AST.Div() => "/"
     }
 
+    def prefixedIfSome[A](p : Option[A], prefix : String = "") =
+        if (p.nonEmpty) prefix + p.get else ""
+
     def apply(p : AST.Parameter) =
     {
         import p._
         (annotations.map({ _ + " "}).mkString("")
             + name
-            + (if (ty.nonEmpty) " : " + ty.get else "")
-            + (if (initializer.nonEmpty) " = " + initializer.get else ""))
+            + prefixedIfSome(ty, " : ")
+            + prefixedIfSome(initializer, " = "))
     }
 
     def apply(p : AST.QualifiedName) = p.names.mkString(".")
@@ -95,13 +98,15 @@ class Printer() extends PrettyPrinter.Base {
                 + " */" + crlf)
 
 
-    def apply(p : AST.FunDef) =
-        ((if (p.docstring.nonEmpty) p.docstring.get else "")
-                + p.annotations.map({_ + crlf}).mkString("")
-                + "def " + p.name
-                + "(" + p.parameters.mkString(", ") + ")"
-                + (if (p.ret_type.nonEmpty) " : " + p.ret_type.get else "")
-                + (if (p.body.nonEmpty) " = " + p.body.get else ""))
+    def apply(p : AST.FunDef) = {
+        import p._
+        (prefixedIfSome(docstring)
+                + annotations.map({_ + crlf}).mkString("")
+                + "def " + name
+                + "(" + parameters.mkString(", ") + ")"
+                + prefixedIfSome(ret_type, " : ")
+                + prefixedIfSome(body, " = "))
+    }
 
     def apply(p : AST.Definitions) = p.definitions.map({_ + crlf + crlf}).mkString("")
 }

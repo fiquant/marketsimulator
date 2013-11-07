@@ -2,11 +2,6 @@ package syntax.scala
 
 import scala.util.parsing.combinator._
 import AST._
-/*
-case class Memoize[A,B](f: A => B) extends (A => B) {
-    private val cache = mutable.Map.empty[A, B]
-    def apply(x: A) = cache getOrElseUpdate (x, f(x))
-} */
 
 class Parser() extends JavaTokenParsers with PackratParsers
 {

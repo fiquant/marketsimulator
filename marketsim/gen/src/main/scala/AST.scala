@@ -12,7 +12,6 @@ package object AST {
     case class TupleType    (types : List[Type])                extends Type
     {
         assert(types.length > 1) // SimpleType or UnitType should be used in this case
-        // we don't want to differentiate 1-tuple and SimpleType
     }
 
 
