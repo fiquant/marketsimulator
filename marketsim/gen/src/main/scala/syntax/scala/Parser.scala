@@ -84,7 +84,7 @@ class Parser() extends JavaTokenParsers with PackratParsers
             | ident ^^ SimpleType) withFailureMessage "tuple or simple type expected"
 
     lazy val parameter = rep(annotation) ~ ident ~ opt(":" ~> typ) ~ opt("=" ~> expr) ^^ {
-        case (annotations ~ name ~ ty ~ initializer) => new Parameter(name, ty, initializer, annotations) with PP.Parameter
+        case (annotations ~ name ~ ty ~ initializer) => Parameter(name, ty, initializer, annotations)
     } withFailureMessage "parameter expected"
 
     lazy val function  = (opt(docstring)
@@ -93,10 +93,10 @@ class Parser() extends JavaTokenParsers with PackratParsers
                         ~ ("(" ~> repsep(parameter, ",") <~ ")")
                         ~ opt(":" ~> typ)
                         ~ opt("=" ~> expr)) ^^ {
-        case (doc ~ annotations ~ name ~ parameters ~ t ~ body) => new FunDef(name, parameters, body, t, doc, annotations) with PP.FunDef
+        case (doc ~ annotations ~ name ~ parameters ~ t ~ body) => FunDef(name, parameters, body, t, doc, annotations)
     } withFailureMessage "function expected"
 
-    lazy val definitions = rep(function) ^^ { new Definitions(_) with PP.Definitions }
+    lazy val definitions = rep(function) ^^ Definitions
 
     private def strip(s : String) = {
         def not_whitespace(ch : Char) = !ch.isWhitespace
@@ -129,20 +129,20 @@ class Parser() extends JavaTokenParsers with PackratParsers
     lazy val docstring = comment ^^ { comment => {
             val lines = comment.lines.toList
             if (lines.isEmpty) {
-                new DocString("", "") with PP.DocString
+                DocString("", "")
             }  else {
                 val hd :: tl = strip_empty_lines(lines)
-                new DocString(hd, tl.mkString(crlf)) with PP.DocString
+                DocString(hd, tl.mkString(crlf))
             }
         }
     }
 
     lazy val string = stringLiteral ^^ { _ stripPrefix "\"" stripSuffix "\"" }
 
-    lazy val qualified_name = rep1sep(ident, ".") ^^ { new QualifiedName(_) with PP.QualifiedName }
+    lazy val qualified_name = rep1sep(ident, ".") ^^ QualifiedName
 
     lazy val annotation = ("@" ~> qualified_name) ~ opt("(" ~> repsep(string, ",") <~ ")") ^^ {
-        case (name ~ parameters) => new Annotation(name, parameters.getOrElse(List())) with PP.Annotation
+        case (name ~ parameters) => Annotation(name, parameters.getOrElse(List()))
     }
 }
 

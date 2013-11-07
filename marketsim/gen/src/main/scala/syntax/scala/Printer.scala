@@ -2,6 +2,8 @@ package syntax.scala
 
 class Printer() extends PrettyPrinter.Base {
 
+    val crlf = "\r\n"
+
     def apply(x : Types.Base) = x match {
         case _ : Types.`Float` => "Float"
         case _ : Types.Unit => "()"
@@ -73,4 +75,33 @@ class Printer() extends PrettyPrinter.Base {
         case AST.Div() => "/"
     }
 
+    def apply(p : AST.Parameter) =
+    {
+        import p._
+        (annotations.map({ _ + " "}).mkString("")
+            + name
+            + (if (ty.nonEmpty) " : " + ty.get else "")
+            + (if (initializer.nonEmpty) " = " + initializer.get else ""))
+    }
+
+    def apply(p : AST.QualifiedName) = p.names.mkString(".")
+
+    def apply(p : AST.Annotation) =
+        "@" + p.name + "(" + p.parameters.map({ "\"" + _ + "\""}).mkString(", ") + ")"
+
+    def apply(p : AST.DocString) =
+        ("/** " + p.brief
+                + p.detailed.lines.map({ crlf + " *" + _ }).mkString("") + crlf
+                + " */" + crlf)
+
+
+    def apply(p : AST.FunDef) =
+        ((if (p.docstring.nonEmpty) p.docstring.get else "")
+                + p.annotations.map({_ + crlf}).mkString("")
+                + "def " + p.name
+                + "(" + p.parameters.mkString(", ") + ")"
+                + (if (p.ret_type.nonEmpty) " : " + p.ret_type.get else "")
+                + (if (p.body.nonEmpty) " = " + p.body.get else ""))
+
+    def apply(p : AST.Definitions) = p.definitions.map({_ + crlf + crlf}).mkString("")
 }

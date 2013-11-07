@@ -20,13 +20,24 @@ package object AST {
                          ty          : Option[Type],
                          initializer : Option[Expr],
                          annotations : List[Annotation])
+    {
+        override def toString : String = PrettyPrinter.instance(this)
+    }
 
-    case class QualifiedName(names   : List[String])
+    case class QualifiedName(names   : List[String]){
+        override def toString : String = PrettyPrinter.instance(this)
+    }
 
     case class Annotation(name       : QualifiedName,
                           parameters : List[String])
+    {
+        override def toString : String = PrettyPrinter.instance(this)
+    }
 
     case class DocString(brief : String, detailed : String)
+    {
+        override def toString : String = PrettyPrinter.instance(this)
+    }
 
     case class FunDef(name           : String,
                       parameters     : List[Parameter],
@@ -34,8 +45,14 @@ package object AST {
                       ret_type       : Option[Type],
                       docstring      : Option[DocString],
                       annotations    : List[Annotation])
+    {
+        override def toString : String = PrettyPrinter.instance(this)
+    }
 
     case class Definitions(definitions : List[FunDef])
+    {
+        override def toString : String = PrettyPrinter.instance(this)
+    }
 
     sealed abstract class BinOpSymbol {
         override def toString : String = PrettyPrinter.instance(this)
