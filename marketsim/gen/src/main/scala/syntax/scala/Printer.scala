@@ -1,14 +1,12 @@
 package syntax.scala
 
-import Types._
-
 class Printer() extends PrettyPrinter.Base {
 
-    def apply(x : Type) = x match {
-        case _ : `Float` => "Float"
-        case _ : Unit => "()"
-        case Tuple(lst) => pars(lst.mkString(","))
-        case Function(args, ret) => s"$args => $ret"
+    def apply(x : Types.Base) = x match {
+        case _ : Types.`Float` => "Float"
+        case _ : Types.Unit => "()"
+        case Types.Tuple(lst) => pars(lst.mkString(","))
+        case Types.Function(args, ret) => s"$args => $ret"
     }
 
     def pars(s : Any, condition : Boolean = true) =

@@ -1,4 +1,4 @@
-case class TypeTable(types : Map[String, Types.Type]) {
+case class TypeTable(types : Map[String, Types.Base]) {
 
     override def toString = types mkString "\r\n"
 }
@@ -7,7 +7,7 @@ object TypeTable
 {
     def create(n : NameTable) : TypeTable =
     {
-        val ret = n.names.foldLeft(Map[String, Types.Type]())({
+        val ret = n.names.foldLeft(Map[String, Types.Base]())({
             case (acc, (name, definition)) =>
                 if (acc.contains(name)) {
                     throw new Exception(s"Function $name is already typed")

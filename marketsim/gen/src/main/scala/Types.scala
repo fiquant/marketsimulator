@@ -1,14 +1,14 @@
 package object Types
 {
-    sealed abstract class Type {
+    sealed abstract class Base {
         override def toString : String = PrettyPrinter.instance(this)
     }
-    case class `Float`() extends Type
-    case class Unit() extends Type
-    case class Tuple(elems : List[Type]) extends Type
-    case class Function(args : Type, ret : Type) extends Type
+    case class `Float`() extends Base
+    case class Unit() extends Base
+    case class Tuple(elems : List[Base]) extends Base
+    case class Function(args : Base, ret : Base) extends Base
 
-    def fromAST(t : AST.Type) : Type = t match {
+    def fromAST(t : AST.Type) : Base = t match {
         case AST.SimpleType("Float") => `Float`()
         case AST.SimpleType(name) => throw new Exception(s"Unknown type $name")
         case AST.UnitType() => Unit()
