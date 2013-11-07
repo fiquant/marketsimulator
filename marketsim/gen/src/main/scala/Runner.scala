@@ -5,10 +5,13 @@ import sext._
 
 object Runner extends Parser {
 
-    def parse(path : String) : Option[AST.Definitions] =
-        (managed(io.Source.fromFile(path)) and
-         managed(new PrintWriter(path.replace(".sc", ".raw"))) and
-         managed(new PrintWriter(path.replace(".sc", ".pp"))) map {
+    def parse(path : String) : Option[AST.Definitions] = {
+
+        def printerFor(ext : String) = new PrintWriter(path.replace(".sc", ext).replace("defs", ".output"))
+
+        (managed(io.Source fromFile path) and
+         managed(printerFor(".raw")) and
+         managed(printerFor(".pp")) map {
 
             case ((input, raw_output), pp_output) => Nil
                 val in = input.mkString
@@ -39,6 +42,7 @@ object Runner extends Parser {
                         None
                 }
         }).opt.get
+    }
 
     def main(args: Array[String]) {
 
