@@ -1,0 +1,15 @@
+gammavariate -> Float
+normalvariate -> Float
+paretovariate -> Float
+Atan -> Float
+triangular -> Float
+vonmisesvariate -> Float
+uniform -> Float
+Sqrt -> Float
+Exp -> Float
+Log -> Float
+weibullvariate -> Float
+expovariate -> Float
+lognormvariate -> Float
+betavariate -> Float
+Pow -> Float

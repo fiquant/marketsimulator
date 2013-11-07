@@ -58,6 +58,12 @@ object Runner extends Parser {
             output.println(names)
         }
 
+        val types = TypeTable.create(names)
+
+        for (output <- managed(new PrintWriter(".output/types.pp"))) {
+            output.println(types)
+        }
+
         val python_definitions =fromAST(parsed)
 
         for ((filename, definitions) <- python_definitions.groupBy({ _.filename }))
