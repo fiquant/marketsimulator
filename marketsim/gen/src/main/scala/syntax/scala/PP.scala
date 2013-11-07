@@ -1,3 +1,5 @@
+import syntax.scala.TypedPP
+
 package object PP {
 
     val crlf = "\r\n"
