@@ -35,49 +35,46 @@ package object AST {
 
     case class Definitions(definitions : List[FunDef])
 
-    abstract class BinOpSymbol(p : Int) {
-        val priority = p
+    sealed abstract class BinOpSymbol {
+        override def toString : String = PrettyPrinter.instance(this)
     }
-    case class Add() extends BinOpSymbol(2)
-    case class Sub() extends BinOpSymbol(2)
-    case class Mul() extends BinOpSymbol(1)
-    case class Div() extends BinOpSymbol(1)
+    case class Add() extends BinOpSymbol
+    case class Sub() extends BinOpSymbol
+    case class Mul() extends BinOpSymbol
+    case class Div() extends BinOpSymbol
 
-    abstract class Expr(p : Int) {
-        val priority  = p
-    }
-
-    case class Const(value: Double) extends Expr(0)
-    case class Var(s : String) extends Expr(0)
-
-    case class BinOp(symbol : BinOpSymbol, x: Expr, y: Expr) extends Expr(symbol.priority)
-
-    case class Neg(x: Expr) extends Expr(0)
-
-    case class IfThenElse(cond : BooleanExpr, x : Expr, y : Expr) extends Expr(3)
-    case class FunCall(name : QualifiedName, args : List[Expr]) extends Expr(0)
-
-    sealed abstract class CondSymbol() {
+    sealed abstract class Expr {
         override def toString : String = PrettyPrinter.instance(this)
     }
 
-    case class Less() extends CondSymbol()
-    case class LessEqual() extends CondSymbol()
-    case class Greater() extends CondSymbol()
-    case class GreaterEqual() extends CondSymbol()
-    case class Equal() extends CondSymbol()
-    case class NotEqual() extends CondSymbol()
+    case class Const(value: Double) extends Expr
+    case class Var(s : String) extends Expr
+
+    case class BinOp(symbol : BinOpSymbol, x: Expr, y: Expr) extends Expr
+
+    case class Neg(x: Expr) extends Expr
+
+    case class IfThenElse(cond : BooleanExpr, x : Expr, y : Expr) extends Expr
+    case class FunCall(name : QualifiedName, args : List[Expr]) extends Expr
+
+    sealed abstract class CondSymbol {
+        override def toString : String = PrettyPrinter.instance(this)
+    }
+
+    case class Less() extends CondSymbol
+    case class LessEqual() extends CondSymbol
+    case class Greater() extends CondSymbol
+    case class GreaterEqual() extends CondSymbol
+    case class Equal() extends CondSymbol
+    case class NotEqual() extends CondSymbol
 
     sealed abstract class BooleanExpr {
         override def toString : String = PrettyPrinter.instance(this)
     }
 
     case class Condition(symbol : CondSymbol, x : Expr, y : Expr) extends BooleanExpr
-
     case class Or   (x : BooleanExpr, y : BooleanExpr) extends BooleanExpr
-
     case class And  (x : BooleanExpr, y : BooleanExpr) extends BooleanExpr
-
     case class Not  (x : BooleanExpr) extends BooleanExpr
 }
 

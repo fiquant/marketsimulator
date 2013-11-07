@@ -13,7 +13,7 @@ class Parser() extends JavaTokenParsers with PackratParsers
     lazy val expr : Parser[Expr] = conditional | arithmetic
 
     lazy val conditional = ("if" ~> boolean) ~ ("then" ~> expr) ~ ("else" ~> expr) ^^ {
-        case (cond ~ x ~ y) => new IfThenElse(cond, x, y) with PP.IfThenElse
+        case (cond ~ x ~ y) => IfThenElse(cond, x, y)
     } withFailureMessage "conditional expected"
 
     lazy val boolean : Parser[BooleanExpr] = boolean_factor ~ rep("or" ~ boolean_factor) ^^ {
@@ -42,35 +42,31 @@ class Parser() extends JavaTokenParsers with PackratParsers
                         | "not" ~> boolean ^^ Not
                         | "(" ~> boolean <~ ")" ) withFailureMessage "boolean_term expected"
 
-    lazy val addsub_op = ("+" ^^ { _ => new Add() with PP.Add }
-                        | "-" ^^ { _ => new Sub() with PP.Sub }
-                        ) withFailureMessage "+ or - expected"
+    lazy val addsub_op = ("+" ^^^ Add() | "-" ^^^ Sub()) withFailureMessage "+ or - expected"
 
-    lazy val muldiv_op = ("*" ^^ { _ => new Mul() with PP.Mul }
-                        | "/" ^^ { _ => new Div() with PP.Div}
-                        ) withFailureMessage "* or / expected"
+    lazy val muldiv_op = ("*" ^^^ Mul() | "/" ^^^ Div()) withFailureMessage "* or / expected"
 
     lazy val arithmetic = factor ~ rep(addsub_op ~ factor) ^^ {
         case start ~ list => list.foldLeft(start) {
-            case (x, op ~ y) => new BinOp(op, x, y) with PP.BinOp
+            case (x, op ~ y) => BinOp(op, x, y)
         }
     } withFailureMessage "arithmetic expected"
 
     lazy val factor = term ~ rep(muldiv_op ~ term) ^^ {
         case start ~ list => list.foldLeft(start) {
-            case (x, op ~ y) => new BinOp(op, x, y) with PP.BinOp
+            case (x, op ~ y) => BinOp(op, x, y)
         }
     } withFailureMessage "factor expected"
 
     lazy val term : Parser[Expr] = (
-                floatingPointNumber ^^ { s => new Const(s.toDouble) with PP.Const }
+                floatingPointNumber ^^ { s => Const(s.toDouble) }
             |   funcall
-            |   ident ^^ { new Var(_) with PP.Var }
+            |   ident ^^ Var
             |   "(" ~> expr <~ ")"
-            |   "-" ~> term ^^ { new Neg(_) with PP.Neg }) withFailureMessage "term expected"
+            |   "-" ~> term ^^ Neg) withFailureMessage "term expected"
 
     lazy val funcall = qualified_name ~ ("(" ~> repsep(expr, ",") <~ ")") ^^ {
-        case name ~ list => new FunCall(name, list) with PP.FunCall
+        case name ~ list => FunCall(name, list)
     } withFailureMessage "funcall expected"
 
     lazy val typ : Parser[Type] = (
