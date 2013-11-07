@@ -31,6 +31,7 @@ package object AST {
     case class FunDef(name           : String,
                       parameters     : List[Parameter],
                       body           : Option[Expr],
+                      ret_type       : Option[Type],
                       docstring      : Option[DocString],
                       annotations    : List[Annotation])
 

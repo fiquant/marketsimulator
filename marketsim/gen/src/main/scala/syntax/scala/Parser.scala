@@ -89,8 +89,13 @@ class Parser() extends JavaTokenParsers with PackratParsers
         case (annotations ~ name ~ ty ~ initializer) => new Parameter(name, ty, initializer, annotations) with PP.Parameter
     } withFailureMessage "parameter expected"
 
-    lazy val function  = opt(docstring) ~ rep(annotation) ~ ("def" ~> ident) ~ ("(" ~> repsep(parameter, ",") <~ ")") ~ opt("=" ~> expr) ^^ {
-        case (doc ~ annotations ~ name ~ parameters ~ body) => new FunDef(name, parameters, body, doc, annotations) with PP.FunDef
+    lazy val function  = (opt(docstring)
+                        ~ rep(annotation)
+                        ~ ("def" ~> ident)
+                        ~ ("(" ~> repsep(parameter, ",") <~ ")")
+                        ~ opt(":" ~> typ)
+                        ~ opt("=" ~> expr)) ^^ {
+        case (doc ~ annotations ~ name ~ parameters ~ t ~ body) => new FunDef(name, parameters, body, t, doc, annotations) with PP.FunDef
     } withFailureMessage "function expected"
 
     lazy val definitions = rep(function) ^^ { new Definitions(_) with PP.Definitions }

@@ -48,6 +48,7 @@ Definitions:
 | | | | | | - 1.0
 | | | | - List:
 | | - None
+| | - None
 | | - Some:
 | | | - DocString:
 | | | | - Exponent of x
@@ -75,6 +76,7 @@ Definitions:
 | | | | | | - 1.0
 | | | | - List:
 | | - None
+| | - None
 | | - Some:
 | | | - DocString:
 | | | | - Natural logarithm of x (to base e)
@@ -101,6 +103,7 @@ Definitions:
 | | | | | - Const:
 | | | | | | - 1.0
 | | | | - List:
+| | - None
 | | - None
 | | - Some:
 | | | - DocString:
@@ -138,6 +141,7 @@ Definitions:
 | | | | | | - 1.0
 | | | | - List:
 | | - None
+| | - None
 | | - Some:
 | | | - DocString:
 | | | | - Return *x* raised to the power *y*.
@@ -169,6 +173,7 @@ Definitions:
 | | | | | - Const:
 | | | | | | - 0.0
 | | | | - List:
+| | - None
 | | - None
 | | - Some:
 | | | - DocString:

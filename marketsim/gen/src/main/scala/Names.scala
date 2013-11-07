@@ -2,6 +2,12 @@ case class Names(names : Map[String, AST.FunDef]) {
 
     override def toString = names mkString "\r\n"
 
+    def getFunDef(name : AST.QualifiedName) : AST.FunDef = {
+        names get name.toString match {
+            case Some(x) => x
+            case None => throw new Exception(s"Cannot find name $name")
+        }
+    }
 }
 
 object Names {
