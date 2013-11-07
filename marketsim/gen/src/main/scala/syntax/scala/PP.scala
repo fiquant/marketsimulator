@@ -47,7 +47,8 @@ package object PP {
 
     trait FunDef extends AST.FunDef
     {
-        override def toString = ((if (docstring.nonEmpty) docstring.get else "")
+        override def toString = (
+                (if (docstring.nonEmpty) docstring.get else "")
                 + annotations.map({_ + crlf}).mkString("")
                 + "def " + name
                 + "(" + parameters.mkString(", ") + ")"

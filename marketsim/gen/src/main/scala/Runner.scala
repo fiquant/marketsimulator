@@ -52,7 +52,7 @@ object Runner extends Parser {
 
         val parsed = files.flatMap({ file => parse(s"defs/$file.sc") })
 
-        val names = Names.create(parsed)
+        val names = NameTable.create(parsed)
 
         for (output <- managed(new PrintWriter(".output/names.pp"))) {
             output.println(names)

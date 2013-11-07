@@ -1,4 +1,4 @@
-case class Names(names : Map[String, AST.FunDef]) {
+case class NameTable(names : Map[String, AST.FunDef]) {
 
     override def toString = names mkString "\r\n"
 
@@ -10,9 +10,9 @@ case class Names(names : Map[String, AST.FunDef]) {
     }
 }
 
-object Names {
+object NameTable {
 
-    def create(p : List[AST.Definitions]) : Names =
+    def create(p : List[AST.Definitions]) : NameTable =
     {
         val grouped = p flatMap { _.definitions groupBy { _.name } }
 
@@ -24,7 +24,7 @@ object Names {
                 None
         }).toMap
 
-        Names(res)
+        NameTable(res)
     }
 
 }
