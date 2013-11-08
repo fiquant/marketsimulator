@@ -7,6 +7,7 @@ from marketsim import (parts, strategy, trader, orderbook, order, timeserie,
 
 from common import expose, Constant
 
+#noinspection PyArgumentList
 @expose("Fundamental value", __name__)
 def FundamentalValue(ctx):
     

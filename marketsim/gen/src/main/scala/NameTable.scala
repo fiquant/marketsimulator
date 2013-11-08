@@ -1,18 +1,18 @@
-case class NameTable(names : Map[String, AST.FunDef]) {
+package object NameTable {
 
-    override def toString = names mkString "\r\n"
+    case class Impl(names : Map[String, AST.FunDef]) {
 
-    def getFunDef(name : AST.QualifiedName) : AST.FunDef = {
-        names get name.toString match {
-            case Some(x) => x
-            case None => throw new Exception(s"Cannot find name $name")
+        override def toString = names mkString "\r\n"
+
+        def getFunDef(name : AST.QualifiedName) : AST.FunDef = {
+            names get name.toString match {
+                case Some(x) => x
+                case None => throw new Exception(s"Cannot find name $name")
+            }
         }
     }
-}
 
-object NameTable {
-
-    def create(p : List[AST.Definitions]) : NameTable =
+    def create(p : List[AST.Definitions])  =
     {
         val grouped = p flatMap { _.definitions groupBy { _.name } }
 
@@ -24,7 +24,7 @@ object NameTable {
                 None
         }).toMap
 
-        NameTable(res)
+        Impl(res)
     }
 
 }

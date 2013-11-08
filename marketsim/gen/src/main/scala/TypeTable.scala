@@ -1,11 +1,11 @@
-case class TypeTable(types : Map[String, Types.Base]) {
-
-    override def toString = types mkString "\r\n"
-}
-
-object TypeTable
+package object TypeTable
 {
-    def create(n : NameTable) : TypeTable =
+    case class Impl(types : Map[String, Types.Base]) {
+
+        override def toString = types mkString "\r\n"
+    }
+
+    def create(n : NameTable.Impl) : Impl =
     {
         val ret = n.names.foldLeft(Map[String, Types.Base]())({
             case (acc, (name, definition)) =>
@@ -20,6 +20,6 @@ object TypeTable
         })
 
 
-         TypeTable(ret)
+         Impl(ret)
     }
 }
