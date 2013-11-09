@@ -5,8 +5,8 @@ class Printer() extends PrettyPrinter.Base {
     val crlf = "\r\n"
 
     def apply(x : Types.Base) = x match {
-        case _ : Types.`Float` => "Float"
-        case _ : Types.Unit => "()"
+        case Types.`Float` => "Float"
+        case Types.Unit => "()"
         case Types.Tuple(lst) => pars(lst.mkString(","))
         case Types.Function(args, ret) => s"$args => $ret"
     }
@@ -16,7 +16,7 @@ class Printer() extends PrettyPrinter.Base {
 
     def apply(x : AST.Type) = x match {
         case AST.SimpleType(x) => x
-        case AST.UnitType() => "()"
+        case AST.UnitType => "()"
         case AST.TupleType(lst) => pars(lst.mkString(","))
         case AST.FunctionType(args, ret) => s"$args => $ret"
     }
@@ -33,12 +33,12 @@ class Printer() extends PrettyPrinter.Base {
     }
 
     def apply(c : AST.CondSymbol) = c match {
-        case AST.Less() => "<"
-        case AST.LessEqual() => "<="
-        case AST.Greater() => ">"
-        case AST.GreaterEqual() => ">="
-        case AST.Equal() => "="
-        case AST.NotEqual() => "<>"
+        case AST.Less => "<"
+        case AST.LessEqual => "<="
+        case AST.Greater => ">"
+        case AST.GreaterEqual => ">="
+        case AST.Equal => "="
+        case AST.NotEqual => "<>"
     }
 
     def priority(e : AST.Expr) = e match {
@@ -46,10 +46,10 @@ class Printer() extends PrettyPrinter.Base {
         case _ : AST.Var => 0
         case _ : AST.Neg => 0
         case _ : AST.FunCall => 0
-        case AST.BinOp(AST.Mul(), _, _) => 1
-        case AST.BinOp(AST.Div(), _, _) => 1
-        case AST.BinOp(AST.Add(), _, _) => 2
-        case AST.BinOp(AST.Sub(), _, _) => 2
+        case AST.BinOp(AST.Mul, _, _) => 1
+        case AST.BinOp(AST.Div, _, _) => 1
+        case AST.BinOp(AST.Add, _, _) => 2
+        case AST.BinOp(AST.Sub, _, _) => 2
         case _ : AST.IfThenElse => 3
     }
 
@@ -69,10 +69,10 @@ class Printer() extends PrettyPrinter.Base {
     }
 
     def apply(s : AST.BinOpSymbol) = s match {
-        case AST.Add() => "+"
-        case AST.Sub() => "-"
-        case AST.Mul() => "*"
-        case AST.Div() => "/"
+        case AST.Add => "+"
+        case AST.Sub => "-"
+        case AST.Mul => "*"
+        case AST.Div => "/"
     }
 
     def prefixedIfSome[A](p : Option[A], prefix : String = "") =

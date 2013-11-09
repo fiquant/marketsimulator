@@ -7,7 +7,7 @@ package object AST {
     }
 
     case class SimpleType   (name : String)                     extends Type
-    case class UnitType     ()                                  extends Type
+    case object UnitType                                        extends Type
     case class FunctionType (arg_type : Type, ret_type : Type)  extends Type
     case class TupleType    (types : List[Type])                extends Type
     {
@@ -56,10 +56,10 @@ package object AST {
     sealed abstract class BinOpSymbol {
         override def toString = PrettyPrinter.instance(this)
     }
-    case class Add() extends BinOpSymbol
-    case class Sub() extends BinOpSymbol
-    case class Mul() extends BinOpSymbol
-    case class Div() extends BinOpSymbol
+    case object Add extends BinOpSymbol
+    case object Sub extends BinOpSymbol
+    case object Mul extends BinOpSymbol
+    case object Div extends BinOpSymbol
 
     sealed abstract class Expr {
         override def toString = PrettyPrinter.instance(this)
@@ -76,12 +76,12 @@ package object AST {
         override def toString = PrettyPrinter.instance(this)
     }
 
-    case class Less()           extends CondSymbol
-    case class LessEqual()      extends CondSymbol
-    case class Greater()        extends CondSymbol
-    case class GreaterEqual()   extends CondSymbol
-    case class Equal()          extends CondSymbol
-    case class NotEqual()       extends CondSymbol
+    case object Less           extends CondSymbol
+    case object LessEqual      extends CondSymbol
+    case object Greater        extends CondSymbol
+    case object GreaterEqual   extends CondSymbol
+    case object Equal          extends CondSymbol
+    case object NotEqual       extends CondSymbol
 
     sealed abstract class BooleanExpr {
         override def toString = PrettyPrinter.instance(this)

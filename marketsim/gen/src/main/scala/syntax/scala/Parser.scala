@@ -18,12 +18,12 @@ class Parser() extends JavaTokenParsers with PackratParsers
     } withFailureMessage "boolean expected"
 
     lazy val logic_op = (
-                "<>" ^^^ NotEqual()
-            |   "<=" ^^^ LessEqual()
-            |   "<"  ^^^ Less()
-            |   ">=" ^^^ GreaterEqual()
-            |   ">"  ^^^ Greater()
-            |   "="  ^^^ Equal()
+                "<>" ^^^ NotEqual
+            |   "<=" ^^^ LessEqual
+            |   "<"  ^^^ Less
+            |   ">=" ^^^ GreaterEqual
+            |   ">"  ^^^ Greater
+            |   "="  ^^^ Equal
             ) withFailureMessage "comparison symbol expected"
 
 
@@ -37,9 +37,9 @@ class Parser() extends JavaTokenParsers with PackratParsers
                         | "not" ~> boolean ^^ Not
                         | "(" ~> boolean <~ ")" ) withFailureMessage "boolean_term expected"
 
-    lazy val addsub_op = ("+" ^^^ Add() | "-" ^^^ Sub()) withFailureMessage "+ or - expected"
+    lazy val addsub_op = ("+" ^^^ Add | "-" ^^^ Sub) withFailureMessage "+ or - expected"
 
-    lazy val muldiv_op = ("*" ^^^ Mul() | "/" ^^^ Div()) withFailureMessage "* or / expected"
+    lazy val muldiv_op = ("*" ^^^ Mul | "/" ^^^ Div) withFailureMessage "* or / expected"
 
     lazy val arithmetic = factor ~ rep(addsub_op ~ factor) ^^ {
         case start ~ list => list.foldLeft(start) {
@@ -72,7 +72,7 @@ class Parser() extends JavaTokenParsers with PackratParsers
 
     lazy val typ2 = (
             "(" ~> repsep(typ, ",") <~ ")" ^^ {
-                case Nil => UnitType()
+                case Nil => UnitType
                 case x :: Nil => x
                 case x => TupleType(x)
             }
