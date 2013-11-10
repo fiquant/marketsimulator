@@ -8,7 +8,8 @@ class Printer() extends PrettyPrinter.Base {
         case Types.`Float` => "Float"
         case Types.Unit => "()"
         case Types.Tuple(lst) => pars(lst.mkString(","))
-        case Types.Function(args, ret) => s"$args => $ret"
+        case Types.Function(args, ret) =>
+            (if (args.length == 1) args(0) else args.mkString("(", ",", ")")) + s" => $ret"
     }
 
     def pars(s : Any, condition : Boolean = true) =
