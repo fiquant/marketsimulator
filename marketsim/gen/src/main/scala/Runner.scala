@@ -60,7 +60,7 @@ object Runner extends syntax.scala.Parser {
             output.println(names)
         }
 
-        val types = TypeTable.create(names)
+        val types = Typer(names).get
 
         for (output <- managed(new PrintWriter(".output/types.pp"))) {
             output.println(types)

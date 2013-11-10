@@ -1,34 +1,10 @@
-package object TypeTable
-{
-    case class Impl(types : Map[String, Types.Function]) {
+case class TypeTable(types : Map[String, Types.Function]) {
 
-        override def toString = types mkString "\r\n"
+    override def toString = types mkString "\r\n"
 
-        def lookup(name : AST.QualifiedName) =
-            types.get(name.toString) match {
-                case Some(t) => t
-                case _ => throw new Exception(s"cannot lookup type for $name")
-            }
-    }
-
-    def create(n : NameTable.Impl) : Impl =
-    {
-        val ret = n.names.foldLeft(Map[String, Types.Function]())({
-            case (acc, (name, definition)) =>
-                if (acc.contains(name)) {
-                    throw new Exception(s"Function $name is already typed")
-                } else {
-                    acc.updated(name, definition.ret_type match {
-                        case Some(t) => {
-                            val arg_types = definition.parameters map { _.ty.get } map Types.fromAST
-                            Types.Function(arg_types, Types.fromAST(t))
-                        }
-                        case None => throw new Exception(s"Return type for function $name should be given explicitly")
-                    })
-                }
-        })
-
-
-         Impl(ret)
-    }
+    def lookup(name : AST.QualifiedName) =
+        types.get(name.toString) match {
+            case Some(t) => t
+            case _ => throw new Exception(s"cannot lookup type for $name")
+        }
 }

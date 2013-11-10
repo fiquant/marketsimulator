@@ -1,4 +1,4 @@
-class TypeChecker(globals : TypeTable.Impl, locals : Map[String, Types.Base])
+case class TypeChecker(globals : TypeTable, locals : Map[String, Types.Base])
 {
     private def floatRank(e : AST.Expr) = apply(e) match {
         case Types.`Float` => 0
