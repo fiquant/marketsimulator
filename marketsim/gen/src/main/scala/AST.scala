@@ -6,10 +6,10 @@ package object AST {
         override def toString = PrettyPrinter.instance(this)
     }
 
-    case class SimpleType   (name : String)                     extends Type
-    case object UnitType                                        extends Type
-    case class FunctionType (arg_type : Type, ret_type : Type)  extends Type
-    case class TupleType    (types : List[Type])                extends Type
+    case class SimpleType   (name : String)                          extends Type
+    case object UnitType                                             extends Type
+    case class FunctionType (arg_type : List[Type], ret_type : Type) extends Type
+    case class TupleType    (types : List[Type])                     extends Type
     {
         assert(types.length > 1) // SimpleType or UnitType should be used in this case
     }
