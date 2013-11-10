@@ -8,6 +8,8 @@ package object Types
     case class Tuple(elems : List[Base]) extends Base
     case class Function(args : Base, ret : Base) extends Base
 
+    val FloatFunc = Function(Unit, `Float`)
+
     def fromAST(t : AST.Type) : Base = t match {
         case AST.SimpleType("Float") => `Float`
         case AST.SimpleType(name) => throw new Exception(s"Unknown type $name")
