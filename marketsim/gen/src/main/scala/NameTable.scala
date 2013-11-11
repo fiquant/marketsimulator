@@ -4,8 +4,10 @@ package object NameTable {
 
         override def toString = names mkString "\r\n"
 
-        def getFunDef(name : AST.QualifiedName) : AST.FunDef = {
-            names get name.toString match {
+        def getFunDef(name : AST.QualifiedName) : AST.FunDef = getFunDef(name.toString)
+
+        def getFunDef(name : String) : AST.FunDef = {
+            names get name match {
                 case Some(x) => x
                 case None => throw new Exception(s"Cannot find name $name")
             }

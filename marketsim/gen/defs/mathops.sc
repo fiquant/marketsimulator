@@ -16,7 +16,7 @@ def Log(x = const(1.0)) : Float
  *
  */
 @python.mathops("Log/Pow", "sqrt", "\\sqrt{%(x)s}")
-def Sqrt(x = 1.0) : Float
+def Sqrt(x = const(1.0)) : Float
 
 /** Return *x* raised to the power *y*.
   *
@@ -27,10 +27,10 @@ def Sqrt(x = 1.0) : Float
   * ``pow(x, y)`` is undefined, and raises ``ValueError``.
   */
 @python.mathops("Log/Pow", "pow", "%(base)s^{%(power)s}")
-def Pow(base = 1.0, power = 1.0) : Float
+def Pow(base = const(1.0), power = const(1.0)) : Float
 
 /** Arc tangent of x, in radians.
  *
  */
 @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
-def Atan(x = 0.0) : Float
+def Atan(x = const(0.0)) : Float

@@ -1,4 +1,4 @@
-case class TypeChecker(globals : TypeTable, locals : Map[String, Types.Base])
+case class TypeChecker(lookupFunction : AST.QualifiedName => Types.Function, locals : Map[String, Types.Base])
 {
     private def floatRank(e : AST.Expr) = apply(e) match {
         case Types.`Float` => 0
@@ -32,6 +32,7 @@ case class TypeChecker(globals : TypeTable, locals : Map[String, Types.Base])
 
         case AST.FunCall(name, args) =>
             // TODO: type check for the arguments
-            Types.Function(List(Types.Unit), globals.lookup(name).ret)
+            val fun_type = lookupFunction(name)
+            Types.Function(List(Types.Unit), fun_type.ret)
     }
 }
