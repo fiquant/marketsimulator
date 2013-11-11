@@ -1,14 +1,16 @@
+def const(x = 1.0) : Float
+
 /** Exponent of x
   *
   */
 @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
-def Exp(x = 1.0) : Float
+def Exp(x = const(1.0)) : Float
 
 /** Natural logarithm of x (to base e)
  *
  */
 @python.mathops("Log/Pow", "log", "log(%(x)s)")
-def Log(x = 1.0) : Float
+def Log(x = const(1.0)) : Float
 
 /** Square root of x
  *
@@ -33,15 +35,17 @@ def Pow(base = 1.0, power = 1.0) : Float
 @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
 def Atan(x = 0.0) : Float
  ->
+def const(x = 1.0) : Float
+
 /** Exponent of x
  */
 @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
-def Exp(x = 1.0) : Float
+def Exp(x = const(1.0)) : Float
 
 /** Natural logarithm of x (to base e)
  */
 @python.mathops("Log/Pow", "log", "log(%(x)s)")
-def Log(x = 1.0) : Float
+def Log(x = const(1.0)) : Float
 
 /** Square root of x
  */

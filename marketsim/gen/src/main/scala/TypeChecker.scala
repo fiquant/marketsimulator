@@ -32,6 +32,6 @@ case class TypeChecker(globals : TypeTable, locals : Map[String, Types.Base])
 
         case AST.FunCall(name, args) =>
             // TODO: type check for the arguments
-            globals.lookup(name)
+            Types.Function(List(Types.Unit), globals.lookup(name).ret)
     }
 }

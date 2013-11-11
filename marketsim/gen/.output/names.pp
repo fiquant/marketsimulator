@@ -58,14 +58,15 @@ Sqrt -> /** Square root of x
  */
 @python.mathops("Log/Pow", "sqrt", "\\sqrt{%(x)s}")
 def Sqrt(x = 1.0) : Float
+const -> def const(x = 1.0) : Float
 Exp -> /** Exponent of x
  */
 @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
-def Exp(x = 1.0) : Float
+def Exp(x = const(1.0)) : Float
 Log -> /** Natural logarithm of x (to base e)
  */
 @python.mathops("Log/Pow", "log", "log(%(x)s)")
-def Log(x = 1.0) : Float
+def Log(x = const(1.0)) : Float
 weibullvariate -> /** Weibull distribution
  *
  *  |alpha| is the scale parameter and |beta| is the shape parameter

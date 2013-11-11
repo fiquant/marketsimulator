@@ -1,14 +1,16 @@
+def const(x = 1.0) : Float
+
 /** Exponent of x
   *
   */
 @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
-def Exp(x = 1.0) : Float
+def Exp(x = const(1.0)) : Float
 
 /** Natural logarithm of x (to base e)
  *
  */
 @python.mathops("Log/Pow", "log", "log(%(x)s)")
-def Log(x = 1.0) : Float
+def Log(x = const(1.0)) : Float
 
 /** Square root of x
  *
@@ -36,7 +38,7 @@ def Atan(x = 0.0) : Float
 Definitions:
 - List:
 | - FunDef:
-| | - Exp
+| | - const
 | | - List:
 | | | - Parameter:
 | | | | - x
@@ -44,6 +46,27 @@ Definitions:
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 1.0
+| | | | - List:
+| | - None
+| | - Some:
+| | | - SimpleType:
+| | | | - Float
+| | - None
+| | - List:
+| - FunDef:
+| | - Exp
+| | - List:
+| | | - Parameter:
+| | | | - x
+| | | | - None
+| | | | - Some:
+| | | | | - FunCall:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - const
+| | | | | | - List:
+| | | | | | | - Const:
+| | | | | | | | - 1.0
 | | | | - List:
 | | - None
 | | - Some:
@@ -70,8 +93,13 @@ Definitions:
 | | | | - x
 | | | | - None
 | | | | - Some:
-| | | | | - Const:
-| | | | | | - 1.0
+| | | | | - FunCall:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - const
+| | | | | | - List:
+| | | | | | | - Const:
+| | | | | | | | - 1.0
 | | | | - List:
 | | - None
 | | - Some:

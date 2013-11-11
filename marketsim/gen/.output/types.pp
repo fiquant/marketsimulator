@@ -6,8 +6,9 @@ triangular -> (Float,Float,Float) => Float
 vonmisesvariate -> (Float,Float) => Float
 uniform -> (Float,Float) => Float
 Sqrt -> Float => Float
-Exp -> Float => Float
-Log -> Float => Float
+const -> Float => Float
+Exp -> () => Float => Float
+Log -> () => Float => Float
 weibullvariate -> (Float,Float) => Float
 expovariate -> Float => Float
 lognormvariate -> (Float,Float) => Float
