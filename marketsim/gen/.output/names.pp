@@ -10,6 +10,7 @@ gammavariate -> /** Gamma distribution
  */
 @python.random()
 def gammavariate(Alpha = 1.0, Beta = 1.0) : Float
+sqr -> def sqr(x = const()) = x*x
 normalvariate -> /** Normal distribution
  *
  *  |mu| is the mean, and |sigma| is the standard deviation.
@@ -27,6 +28,7 @@ Atan -> /** Arc tangent of x, in radians.
 @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
 def Atan(x = const(0.0)) : Float
 A -> def A(x = B()) : Float
+min -> def min(x = const(), y = const()) = if x<y then x else y
 triangular -> /** Triangular distribution
  *
  * Return a random floating point number *N* such that *low* <= *N* <= *high* and
@@ -60,6 +62,7 @@ Sqrt -> /** Square root of x
 @python.mathops("Log/Pow", "sqrt", "\\sqrt{%(x)s}")
 def Sqrt(x = const(1.0)) : Float
 const -> def const(x = 1.0) : Float
+max -> def max(x = const(), y = const()) = if x>y then x else y
 Exp -> /** Exponent of x
  */
 @python.mathops("Log/Pow", "exp", "e^{%(x)s}")

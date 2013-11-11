@@ -2,6 +2,10 @@ def A(x = B()) : Float
 def C(x = A()) : Float
 def B(x = const(), y = if 3 > x + 2 then x else x*2) : Float
 
+def min(x = const(), y = const()) = if x < y then x else y
+def max(x = const(), y = const()) = if x > y then x else y
+def sqr(x = const()) = x*x
+
  ->
 Definitions:
 - List:
@@ -84,5 +88,104 @@ Definitions:
 | | - Some:
 | | | - SimpleType:
 | | | | - Float
+| | - None
+| | - List:
+| - FunDef:
+| | - min
+| | - List:
+| | | - Parameter:
+| | | | - x
+| | | | - None
+| | | | - Some:
+| | | | | - FunCall:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - const
+| | | | | | - List:
+| | | | - List:
+| | | - Parameter:
+| | | | - y
+| | | | - None
+| | | | - Some:
+| | | | | - FunCall:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - const
+| | | | | | - List:
+| | | | - List:
+| | - Some:
+| | | - IfThenElse:
+| | | | - Condition:
+| | | | | - Less
+| | | | | - Var:
+| | | | | | - x
+| | | | | - Var:
+| | | | | | - y
+| | | | - Var:
+| | | | | - x
+| | | | - Var:
+| | | | | - y
+| | - None
+| | - None
+| | - List:
+| - FunDef:
+| | - max
+| | - List:
+| | | - Parameter:
+| | | | - x
+| | | | - None
+| | | | - Some:
+| | | | | - FunCall:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - const
+| | | | | | - List:
+| | | | - List:
+| | | - Parameter:
+| | | | - y
+| | | | - None
+| | | | - Some:
+| | | | | - FunCall:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - const
+| | | | | | - List:
+| | | | - List:
+| | - Some:
+| | | - IfThenElse:
+| | | | - Condition:
+| | | | | - Greater
+| | | | | - Var:
+| | | | | | - x
+| | | | | - Var:
+| | | | | | - y
+| | | | - Var:
+| | | | | - x
+| | | | - Var:
+| | | | | - y
+| | - None
+| | - None
+| | - List:
+| - FunDef:
+| | - sqr
+| | - List:
+| | | - Parameter:
+| | | | - x
+| | | | - None
+| | | | - Some:
+| | | | | - FunCall:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - const
+| | | | | | - List:
+| | | | - List:
+| | - Some:
+| | | - BinOp:
+| | | | - Mul
+| | | | - Var:
+| | | | | - x
+| | | | - Var:
+| | | | | - x
+| | - None
 | | - None
 | | - List:
