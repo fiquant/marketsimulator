@@ -9,32 +9,39 @@ case class Typer(n : NameTable.Impl)
         globals.types.getOrElse(name,
             update(name, n getFunDef name))
 
-    def get(name : AST.QualifiedName) : Types.Function = get(name.toString)
+    def get(name : AST.QualifiedName) : Typed.Function = get(name.toString)
 
-    def update(name : String, definition : AST.FunDef) : Types.Function =
+    def update(name : String, definition : AST.FunDef) : Typed.Function =
     {
-        def typeOf(p: AST.Parameter, locals: List[(String, Types.Base)]): Types.Base = {
+        def toTyped(p: AST.Parameter, inferType : AST.Expr => Types.Base): Typed.Parameter = {
             p.initializer match {
                 case Some(e) =>
-                    val ini_type = TypeChecker(get, locals.toMap)(e)
+                    val ini_type = inferType(e)
                     if (p.ty.nonEmpty) {
                         val decl_type = Types.fromAST(p.ty.get)
                         if (decl_type != ini_type) {
                             throw new Exception(s"In function ${definition.name} inferred type $ini_type "
                                     + s"doesn't match to the declared type $decl_type")
                         } // TODO: support casts
-                        decl_type
+                        Typed.Parameter(p.name, decl_type, None)
                     } else {
-                        ini_type
+                        Typed.Parameter(p.name, ini_type, None)
                     }
                 case None =>
                     if (p.ty.nonEmpty)
-                        Types.fromAST(p.ty.get)
+                        Typed.Parameter(p.name, Types.fromAST(p.ty.get), None)
                     else
                         throw new Exception(s"parameter ${p.name} of function ${definition.name} has undefined type")
             }
         }
-        val emptyLocals = List[(String, Types.Base)]()
+        def findParam(locals : List[Typed.Parameter], n : String) = locals.find({ _.name == n }) match {
+            case Some(p) => p
+            case None => throw new Exception(s"Cannot lookup parameter $n in function $name")
+        }
+        def inferType(locals : List[Typed.Parameter])(e : AST.Expr) =
+            TypeChecker(get, findParam(locals, _))(e)
+
+        val emptyLocals = List[Typed.Parameter]()
         globals.types get name match {
             case Some(ty) => ty
             case None =>
@@ -45,9 +52,9 @@ case class Typer(n : NameTable.Impl)
                     (locals, p) =>
                         if (locals contains p.name)
                             throw new Exception(s"In function ${definition.name} duplicate parameter ${p.name}")
-                        locals :+ (p.name, typeOf(p, locals))
+                        locals :+ toTyped(p, inferType(locals))
                 }
-                val body_type = definition.body map { TypeChecker(get, locals.toMap)(_) } map {
+                val body_type = definition.body map inferType(locals)  map {
                     case Types.Function(_, rt) => rt
                     case x => throw new Exception("don't know for the moment what to do with expr of type " + x)
                 }
@@ -66,8 +73,8 @@ case class Typer(n : NameTable.Impl)
                         if (body_type.nonEmpty) body_type.get else
                             throw new Exception(s"Return type for function $name should be given explicitly")
                 }
-                val ty = Types.Function(locals map {_._2}, ret_type)
                 grey_set.pop()
+                val ty = Typed.Function(name, locals, ret_type)
                 globals = globals.updated(name,ty)
                 ty
         }

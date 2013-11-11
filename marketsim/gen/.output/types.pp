@@ -1,22 +1,22 @@
-gammavariate -> (Float,Float) => Float
-sqr -> () => Float => Float
-normalvariate -> (Float,Float) => Float
-paretovariate -> Float => Float
-Atan -> () => Float => Float
-A -> () => Float => Float
-min -> (() => Float,() => Float) => Float
-triangular -> (Float,Float,Float) => Float
-vonmisesvariate -> (Float,Float) => Float
-uniform -> (Float,Float) => Float
-Sqrt -> () => Float => Float
-const -> Float => Float
-max -> (() => Float,() => Float) => Float
-Exp -> () => Float => Float
-Log -> () => Float => Float
-weibullvariate -> (Float,Float) => Float
-B -> (() => Float,() => Float) => Float
-C -> () => Float => Float
-expovariate -> Float => Float
-lognormvariate -> (Float,Float) => Float
-betavariate -> (Float,Float) => Float
-Pow -> (() => Float,() => Float) => Float
+gammavariate -> Function(gammavariate,List(Parameter(Alpha,Float,None), Parameter(Beta,Float,None)),Float)
+sqr -> Function(sqr,List(Parameter(x,() => Float,None)),Float)
+normalvariate -> Function(normalvariate,List(Parameter(Mu,Float,None), Parameter(Sigma,Float,None)),Float)
+paretovariate -> Function(paretovariate,List(Parameter(Alpha,Float,None)),Float)
+Atan -> Function(Atan,List(Parameter(x,() => Float,None)),Float)
+A -> Function(A,List(Parameter(x,() => Float,None)),Float)
+min -> Function(min,List(Parameter(x,() => Float,None), Parameter(y,() => Float,None)),Float)
+triangular -> Function(triangular,List(Parameter(Low,Float,None), Parameter(High,Float,None), Parameter(Mode,Float,None)),Float)
+vonmisesvariate -> Function(vonmisesvariate,List(Parameter(Mu,Float,None), Parameter(Kappa,Float,None)),Float)
+uniform -> Function(uniform,List(Parameter(Low,Float,None), Parameter(High,Float,None)),Float)
+Sqrt -> Function(Sqrt,List(Parameter(x,() => Float,None)),Float)
+const -> Function(const,List(Parameter(x,Float,None)),Float)
+max -> Function(max,List(Parameter(x,() => Float,None), Parameter(y,() => Float,None)),Float)
+Exp -> Function(Exp,List(Parameter(x,() => Float,None)),Float)
+Log -> Function(Log,List(Parameter(x,() => Float,None)),Float)
+weibullvariate -> Function(weibullvariate,List(Parameter(Alpha,Float,None), Parameter(Beta,Float,None)),Float)
+B -> Function(B,List(Parameter(x,() => Float,None), Parameter(y,() => Float,None)),Float)
+C -> Function(C,List(Parameter(x,() => Float,None)),Float)
+expovariate -> Function(expovariate,List(Parameter(Lambda,Float,None)),Float)
+lognormvariate -> Function(lognormvariate,List(Parameter(Mu,Float,None), Parameter(Sigma,Float,None)),Float)
+betavariate -> Function(betavariate,List(Parameter(Alpha,Float,None), Parameter(Beta,Float,None)),Float)
+Pow -> Function(Pow,List(Parameter(base,() => Float,None), Parameter(power,() => Float,None)),Float)
