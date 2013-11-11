@@ -66,15 +66,15 @@ object Runner extends syntax.scala.Parser {
             output.println(types)
         }
 
-        val python_definitions =fromAST(parsed)
-
-        for ((filename, definitions) <- python_definitions.groupBy({ _.filename }))
-        {
-            managed(new PrintWriter(filename)) map { py_output =>
-                py_output.print(definitions.head.prologue)
-                py_output.println(definitions.mkString("\r\n"))
-            }
-        }
+//        val python_definitions =fromAST(parsed)
+//
+//        for ((filename, definitions) <- python_definitions.groupBy({ _.filename }))
+//        {
+//            managed(new PrintWriter(filename)) map { py_output =>
+//                py_output.print(definitions.head.prologue)
+//                py_output.println(definitions.mkString("\r\n"))
+//            }
+//        }
     }
 
 }
