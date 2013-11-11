@@ -8,7 +8,7 @@ package object Types
     case class Tuple(elems : List[Base]) extends Base
     case class Function(args : List[Base], ret : Base) extends Base
 
-    val FloatFunc = Function(Nil, `Float`)
+    val FloatFunc = Function(List(Unit), `Float`)
 
     def fromAST(t : AST.Type) : Base = t match {
         case AST.SimpleType("Float") => `Float`

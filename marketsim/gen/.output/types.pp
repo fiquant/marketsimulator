@@ -11,7 +11,7 @@ const -> Float => Float
 Exp -> () => Float => Float
 Log -> () => Float => Float
 weibullvariate -> (Float,Float) => Float
-B -> () => Float => Float
+B -> (() => Float,() => Float) => Float
 C -> () => Float => Float
 expovariate -> Float => Float
 lognormvariate -> (Float,Float) => Float

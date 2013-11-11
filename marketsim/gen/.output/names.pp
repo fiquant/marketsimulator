@@ -74,7 +74,7 @@ weibullvariate -> /** Weibull distribution
  */
 @python.random()
 def weibullvariate(Alpha = 1.0, Beta = 1.0) : Float
-B -> def B(x = const()) : Float
+B -> def B(x = const(), y = if 3.0>x+2.0 then x else x*2.0) : Float
 C -> def C(x = A()) : Float
 expovariate -> /** Exponential distribution
  *

@@ -1,6 +1,6 @@
 def A(x = B()) : Float
 def C(x = A()) : Float
-def B(x = const()) : Float
+def B(x = const(), y = if 3 > x + 2 then x else x*2) : Float
 
  ->
 Definitions:
@@ -55,6 +55,30 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - const
 | | | | | | - List:
+| | | | - List:
+| | | - Parameter:
+| | | | - y
+| | | | - None
+| | | | - Some:
+| | | | | - IfThenElse:
+| | | | | | - Condition:
+| | | | | | | - Greater
+| | | | | | | - Const:
+| | | | | | | | - 3.0
+| | | | | | | - BinOp:
+| | | | | | | | - Add
+| | | | | | | | - Var:
+| | | | | | | | | - x
+| | | | | | | | - Const:
+| | | | | | | | | - 2.0
+| | | | | | - Var:
+| | | | | | | - x
+| | | | | | - BinOp:
+| | | | | | | - Mul
+| | | | | | | - Var:
+| | | | | | | | - x
+| | | | | | | - Const:
+| | | | | | | | - 2.0
 | | | | - List:
 | | - None
 | | - Some:
