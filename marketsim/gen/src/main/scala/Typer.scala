@@ -1,6 +1,7 @@
 case class Typer(n : NameTable.Impl)
 {
     var globals = TypeTable()
+    val grey_set = scala.collection.mutable.Stack[String]()
 
     n.names.foreach({ case (name, definition) => update(name, definition) })
 
@@ -10,11 +11,13 @@ case class Typer(n : NameTable.Impl)
 
     def get(name : AST.QualifiedName) : Types.Function = get(name.toString)
 
-
     def update(name : String, definition : AST.FunDef) : Types.Function = {
         globals.types get name match {
             case Some(ty) => ty
             case None =>
+                if (grey_set contains name)
+                    throw new Exception("Cycle detected in function definitions: " + grey_set.mkString("->"))
+                grey_set.push(name)
                 val ty = definition.ret_type match {
                     case Some(t) => {
                         val arg_types = definition.parameters.foldLeft(List[(String, Types.Base)]()) {
@@ -45,6 +48,7 @@ case class Typer(n : NameTable.Impl)
                     }
                     case None => throw new Exception(s"Return type for function $name should be given explicitly")
                 }
+                grey_set.pop()
                 globals = globals.updated(name,ty)
                 ty
         }

@@ -26,6 +26,7 @@ Atan -> /** Arc tangent of x, in radians.
  */
 @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
 def Atan(x = const(0.0)) : Float
+A -> def A(x = B()) : Float
 triangular -> /** Triangular distribution
  *
  * Return a random floating point number *N* such that *low* <= *N* <= *high* and
@@ -73,6 +74,8 @@ weibullvariate -> /** Weibull distribution
  */
 @python.random()
 def weibullvariate(Alpha = 1.0, Beta = 1.0) : Float
+B -> def B(x = const()) : Float
+C -> def C(x = A()) : Float
 expovariate -> /** Exponential distribution
  *
  * |lambda| is 1.0 divided by the desired mean.

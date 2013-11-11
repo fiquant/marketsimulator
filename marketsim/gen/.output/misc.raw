@@ -1,0 +1,64 @@
+def A(x = B()) : Float
+def C(x = A()) : Float
+def B(x = const()) : Float
+
+ ->
+Definitions:
+- List:
+| - FunDef:
+| | - A
+| | - List:
+| | | - Parameter:
+| | | | - x
+| | | | - None
+| | | | - Some:
+| | | | | - FunCall:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - B
+| | | | | | - List:
+| | | | - List:
+| | - None
+| | - Some:
+| | | - SimpleType:
+| | | | - Float
+| | - None
+| | - List:
+| - FunDef:
+| | - C
+| | - List:
+| | | - Parameter:
+| | | | - x
+| | | | - None
+| | | | - Some:
+| | | | | - FunCall:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - A
+| | | | | | - List:
+| | | | - List:
+| | - None
+| | - Some:
+| | | - SimpleType:
+| | | | - Float
+| | - None
+| | - List:
+| - FunDef:
+| | - B
+| | - List:
+| | | - Parameter:
+| | | | - x
+| | | | - None
+| | | | - Some:
+| | | | | - FunCall:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - const
+| | | | | | - List:
+| | | | - List:
+| | - None
+| | - Some:
+| | | - SimpleType:
+| | | | - Float
+| | - None
+| | - List:
