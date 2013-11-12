@@ -55,11 +55,32 @@ class Printer() extends PrettyPrinter.Base {
         case _ : AST.IfThenElse => 3
     }
 
-    def need_brackets(x : AST.Expr, e : AST.Expr, rhs : Boolean = false) =
+    def priority(e : Typed.Expr) = e match {
+        case _ : Typed.FloatConst => 0
+        case _ : Typed.ParamRef => 0
+        case _ : Typed.Neg => 0
+        case _ : Typed.FunctionCall => 0
+        case Typed.BinOp(_,AST.Mul, _, _) => 1
+        case Typed.BinOp(_,AST.Div, _, _) => 1
+        case Typed.BinOp(_,AST.Add, _, _) => 2
+        case Typed.BinOp(_,AST.Sub, _, _) => 2
+        case _ : Typed.IfThenElse => 3
+    }
+
+    def need_brackets(x : AST.Expr, e : AST.Expr, rhs : Boolean) =
         priority(x) > priority(e) || priority(x) == priority(e) && rhs
 
-    def wrap(x : AST.Expr, e : AST.Expr, rhs : Boolean = false) =
+    def need_brackets(x : Typed.Expr, e : Typed.Expr, rhs : Boolean) =
+        priority(x) > priority(e) || priority(x) == priority(e) && rhs
+
+    def wrap(x : AST.Expr, e : AST.Expr, rhs : Boolean) =
         pars(x, need_brackets(x, e, rhs))
+
+    def wrap(x : Typed.Expr, e : Typed.Expr, rhs : Boolean) =
+        pars(x, need_brackets(x, e, rhs))
+
+    def wrap(x : AST.Expr, e : AST.Expr) : String = wrap(x, e, rhs = false)
+    def wrap(x : Typed.Expr, e : Typed.Expr) : String = wrap(x, e, rhs = false)
 
     def apply(e : AST.Expr) = e match {
         case AST.BinOp(symbol, x, y) => wrap(x, e) + symbol + wrap(y, e, rhs = true)
@@ -68,6 +89,15 @@ class Printer() extends PrettyPrinter.Base {
         case AST.FunCall(name, args) => name + pars(args.mkString(","))
         case AST.Const(x) => x.toString
         case AST.Var(s) => s
+    }
+
+    def apply(e : Typed.Expr) = e match {
+        case Typed.BinOp(_, symbol, x, y) => wrap(x, e) + symbol + wrap(y, e, rhs = true)
+        case Typed.Neg(_, x) => "-" + wrap(x, e)
+        case Typed.IfThenElse(_, cond, x, y) => s"if $cond then ${wrap(x,e)} else ${wrap(y,e)}"
+        case Typed.FunctionCall(name, args) => name + pars(args.mkString(","))
+        case Typed.FloatConst(x) => x.toString
+        case Typed.ParamRef(s) => s.name
     }
 
     def apply(s : AST.BinOpSymbol) = s match {
@@ -87,6 +117,14 @@ class Printer() extends PrettyPrinter.Base {
             + name
             + prefixedIfSome(ty, " : ")
             + prefixedIfSome(initializer, " = "))
+    }
+
+    def apply(p : Typed.Parameter) =
+    {
+        import p._
+        (name
+         + " : " + ty
+         + prefixedIfSome(initializer, " = "))
     }
 
     def apply(p : AST.QualifiedName) = p.names.mkString(".")
@@ -110,5 +148,16 @@ class Printer() extends PrettyPrinter.Base {
                 + prefixedIfSome(body, " = "))
     }
 
+    def apply(p : Typed.Function) = {
+        import p._
+        (crlf + "def " + name
+                + params.mkString("(", ",", ")")
+                + " : " + ty //+ crlf + "\t"
+                )
+
+    }
+
     def apply(p : AST.Definitions) = p.definitions.map({_ + crlf + crlf}).mkString("")
+
+    def apply(p : Typed.BooleanExpr) = ""
 }

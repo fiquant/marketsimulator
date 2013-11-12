@@ -20,6 +20,12 @@ package object PrettyPrinter
         def apply(p : AST.FunDef) : String
         def apply(p : AST.Definitions) : String
 
+        def apply(p : Typed.Expr) : String
+        def apply(p : Typed.Parameter) : String
+        def apply(p : Typed.Function) : String
+        def apply(p : Typed.BooleanExpr) : String
+
+
         def apply(p : Printable): String = p match {
             case x : Types.Base     => apply(x)
             case x : AST.Type       => apply(x)
@@ -34,6 +40,11 @@ package object PrettyPrinter
             case x : AST.DocString      => apply(x)
             case x : AST.FunDef         => apply(x)
             case x : AST.Definitions    => apply(x)
+
+            case x : Typed.BooleanExpr  => apply(x)
+            case x : Typed.Expr         => apply(x)
+            case x : Typed.Parameter    => apply(x)
+            case x : Typed.Function     => apply(x)
         }
     }
 

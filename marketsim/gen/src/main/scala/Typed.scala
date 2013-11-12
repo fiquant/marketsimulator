@@ -1,9 +1,10 @@
 package object Typed
 {
-    abstract class Expr(val ty : Types.Base)
-
     import AST.BinOpSymbol
     import AST.CondSymbol
+    import PrettyPrinter.Printable
+
+    abstract class Expr(val ty : Types.Base) extends Printable
 
     case class Neg(t: Types.Base, x : Expr) extends Expr(t)
     case class BinOp(t : Types.Base, op : BinOpSymbol, x : Expr, y : Expr) extends Expr(t)
@@ -12,9 +13,9 @@ package object Typed
     case class ParamRef(p : Parameter) extends Expr(p.ty)
     case class FunctionCall(target : Function, arguments : List[(Parameter, Expr)]) extends Expr(target.ty)
 
-    case class Parameter(name : String, ty : Types.Base, initializer : Option[Expr])
+    case class Parameter(name : String, ty : Types.Base, initializer : Option[Expr]) extends Printable
 
-    case class Function(name : String, params : List[Parameter], ty : Types.Base)
+    case class Function(name : String, params : List[Parameter], ty : Types.Base) extends Printable
 
     class BooleanExpr extends Expr(Types.BooleanFunc)
 

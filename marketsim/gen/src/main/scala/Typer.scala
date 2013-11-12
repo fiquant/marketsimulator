@@ -6,12 +6,13 @@ case class Typer(n : NameTable.Impl)
     def all =
         try {
             n.names.foreach({ case (name, definition) => update(name, definition) })
+            globals
         } catch {
             case e : Exception =>
                 println("An error occurred during typing:")
                 println(e.getMessage)
+                globals
         }
-        globals
 
     def get(name : String) =
         globals.types.getOrElse(name,
