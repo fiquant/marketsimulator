@@ -22,7 +22,7 @@ case class TypeChecker(lookupFunction : AST.QualifiedName => Typed.Function,
         case AST.Or(x, y) => Typed.Or(toTyped(x), toTyped(y))
         case AST.Not(x) => Typed.Not(toTyped(x))
         case AST.Condition(symbol, x, y) =>
-            if (unifyFloat(x,y) == Types.FloatFunc)
+            if (unifyFloat(x,y) != Types.FloatFunc)
                 throw new Exception(s"Arguments of boolean expression $e must be casted to () => Float")
             Typed.Condition(symbol, toTyped(x), toTyped(y))
     }

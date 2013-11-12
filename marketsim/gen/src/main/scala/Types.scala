@@ -7,8 +7,9 @@ package object Types
     case class Tuple(elems : List[Base]) extends Base
     case class Function(args : List[Base], ret : Base) extends Base
 
-    val FloatFunc = Function(List(Unit), `Float`)
-    val BooleanFunc = Function(List(Unit), `Boolean`)
+    def nullaryFunction(ret_type : Base) = Function(List(Unit), ret_type)
+    val FloatFunc = nullaryFunction(`Float`)
+    val BooleanFunc = nullaryFunction(`Boolean`)
 
     def fromAST(t : AST.Type) : Base = t match {
         case AST.SimpleType("Float") => `Float`

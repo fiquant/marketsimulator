@@ -35,7 +35,7 @@ case class Typer(n : NameTable.Impl)
                                 } // TODO: support casts
                                 Typed.Parameter(p.name, decl_type, Some(initializer))
                             } else {
-                                Typed.Parameter(p.name, Types.Function(List(Types.Unit), initializer.ty), Some(initializer))
+                                Typed.Parameter(p.name, initializer.ty, Some(initializer))
                             }
                         case None =>
                             if (p.ty.nonEmpty)
@@ -70,8 +70,8 @@ case class Typer(n : NameTable.Impl)
                     }
                     val body_type = definition.body map inferType(locals)  map { _.ty match {
                         case Types.Function(_, rt) => rt
-                        case x => throw new Exception(s"don't know for the moment what to do with expr of type $x\r\n" +
-                                "Locals are: " + locals)
+                        case x => throw new Exception(s"don't know for the moment what to do with expr of type '$x'\r\n" +
+                                "Locals are: " + locals.mkString("[", ", ", "]"))
                     }
                     }
 

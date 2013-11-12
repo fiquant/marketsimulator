@@ -95,7 +95,7 @@ class Printer() extends PrettyPrinter.Base {
         case Typed.BinOp(_, symbol, x, y) => wrap(x, e) + symbol + wrap(y, e, rhs = true)
         case Typed.Neg(_, x) => "-" + wrap(x, e)
         case Typed.IfThenElse(_, cond, x, y) => s"if $cond then ${wrap(x,e)} else ${wrap(y,e)}"
-        case Typed.FunctionCall(name, args) => name + pars(args.mkString(","))
+        case Typed.FunctionCall(f, args) => f.name + args.map({ _._2 }).mkString("(",",",")")
         case Typed.FloatConst(x) => x.toString
         case Typed.ParamRef(s) => s.name
     }
@@ -151,7 +151,7 @@ class Printer() extends PrettyPrinter.Base {
     def apply(p : Typed.Function) = {
         import p._
         (crlf + "def " + name
-                + params.mkString("(", ",", ")")
+                + params.mkString("(", ", ", ")")
                 + " : " + ty //+ crlf + "\t"
                 )
 
