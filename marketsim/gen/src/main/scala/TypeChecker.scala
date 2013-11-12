@@ -17,18 +17,34 @@ case class TypeChecker(lookupFunction : AST.QualifiedName => Typed.Function,
         case AST.Condition(_, x, y) => unifyFloat(x, y)
     }
 
+    def toTyped(e : AST.BooleanExpr) : Typed.BooleanExpr = e match {
+        case AST.And(x, y) => Typed.And(toTyped(x), toTyped(y))
+        case AST.Or(x, y) => Typed.Or(toTyped(x), toTyped(y))
+        case AST.Not(x) => Typed.Not(toTyped(x))
+        case AST.Condition(symbol, x, y) =>
+            if (unifyFloat(x,y) == Types.FloatFunc)
+                throw new Exception(s"Arguments of boolean expression $e must be casted to () => Float")
+            Typed.Condition(symbol, toTyped(x), toTyped(y))
+    }
+
     def toTyped(e : AST.Expr) : Typed.Expr = e match {
-        case AST.BinOp(c, x, y) => Typed.BinOp(unifyFloat(x, y), c, toTyped(x), toTyped(y))
-        case AST.IfThenElse(cond, x, y) => Typed.IfThenElse(unifyFloat(x, y), toTyped(x), toTyped(y))
+        case AST.BinOp(c, x, y) =>
+            Typed.BinOp(unifyFloat(x, y), c, toTyped(x), toTyped(y))
+
+        case AST.IfThenElse(cond, x, y) =>
+            Typed.IfThenElse(unifyFloat(x, y), toTyped(cond), toTyped(x), toTyped(y))
+
         case AST.Const(d) => Typed.FloatConst(d)
         case AST.Var(name) => Typed.ParamRef(lookupVar(name))
+
         case AST.FunCall(name, args) =>
             val fun_type = lookupFunction(name)
             val actual_args = args zip fun_type.params map {
                 case (actual, declared) =>
                     val typed = toTyped(actual)
                     if (typed.ty != declared.ty) // TODO: support type casts and conversions
-                        throw new Exception(s"Function $name is called with wrong argument $declared: $typed")
+                        throw new Exception(s"Function '$name' is called with wrong argument of"+
+                                            s" type '${typed.ty}' when type '${declared.ty}' is expected")
                     (declared, typed)
             }
             Typed.FunctionCall(fun_type, actual_args)

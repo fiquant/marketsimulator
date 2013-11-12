@@ -6,6 +6,7 @@ class Printer() extends PrettyPrinter.Base {
 
     def apply(x : Types.Base) = x match {
         case Types.`Float` => "Float"
+        case Types.`Boolean` => "Boolean"
         case Types.Unit => "()"
         case Types.Tuple(lst) => pars(lst.mkString(","))
         case Types.Function(args, ret) =>
