@@ -1,8 +1,6 @@
 package object Types
 {
-    sealed abstract class Base {
-        override def toString : String = PrettyPrinter.instance(this)
-    }
+    sealed abstract class Base extends PrettyPrinter.Printable
     case object `Float` extends Base
     case object Unit extends Base
     case class Tuple(elems : List[Base]) extends Base

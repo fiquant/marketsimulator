@@ -19,6 +19,7 @@ case class TypeChecker(lookupFunction : AST.QualifiedName => Typed.Function,
 
     def toTyped(e : AST.Expr) : Typed.Expr = e match {
         case AST.BinOp(c, x, y) => Typed.BinOp(unifyFloat(x, y), c, toTyped(x), toTyped(y))
+        case AST.IfThenElse(cond, x, y) => Typed.IfThenElse(unifyFloat(x, y), toTyped(x), toTyped(y))
         case AST.Const(d) => Typed.FloatConst(d)
         case AST.Var(name) => Typed.ParamRef(lookupVar(name))
         case AST.FunCall(name, args) =>
