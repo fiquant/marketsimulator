@@ -47,6 +47,7 @@ object Runner extends syntax.scala.Parser {
     def main(args: Array[String]) {
 
         PrettyPrinter.instance = new syntax.scala.Printer()
+        println(generator.python.PyGen.Annotations)
 
         ExprTest.run()
 
@@ -66,7 +67,6 @@ object Runner extends syntax.scala.Parser {
             output.println(types)
         }
 
-        println(generator.python.PyGen.Annotations)
 //        val python_definitions =fromAST(parsed)
 //
 //        for ((filename, definitions) <- python_definitions.groupBy({ _.filename }))

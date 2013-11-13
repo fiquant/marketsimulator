@@ -12,13 +12,16 @@ package object Typed
     case class ParamRef(p : Parameter) extends Expr(p.ty)
     case class FunctionCall(target : Function, arguments : List[(Parameter, Expr)]) extends Expr(Types.nullaryFunction(target.ret_type))
 
+    case class Annotation(target : AnnotationHandler, parameters : List[String]) extends Printable
+
     case class Parameter(name : String, ty : Types.Base, initializer : Option[Expr]) extends Printable
 
     case class Function(name        : String,
                         parameters  : List[Parameter],
                         ret_type    : Types.Base,
                         body        : Option[Expr],
-                        docstring   : Option[DocString]) extends Printable
+                        docstring   : Option[DocString],
+                        annotations : List[Annotation]) extends Printable
 
     class BooleanExpr extends Expr(Types.BooleanFunc)
 
@@ -26,4 +29,27 @@ package object Typed
     case class And(x : BooleanExpr, y : BooleanExpr) extends BooleanExpr
     case class Not(x : BooleanExpr) extends BooleanExpr
     case class Condition(symbol : CondSymbol, x : Expr, y : Expr) extends BooleanExpr
+
+    trait AnnotationHandler
+    {
+        def apply(f : Function) : Unit
+        val name : String
+    }
+
+    object Annotations
+    {
+        var registry = Map[String, AnnotationHandler]()
+
+        def register(handler : AnnotationHandler){
+            registry = registry.updated(handler.name, handler)
+        }
+
+        def lookup(name : String) = registry.get(name) match {
+            case Some(handler) => handler
+            case None => throw new Exception(s"Cannot find annotation handler $name")
+        }
+
+        override def toString = registry.toString
+    }
+
 }

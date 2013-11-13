@@ -1,34 +1,22 @@
 package generator.python
 
+import Typed.AnnotationHandler
+
 package object PyGen {
 
     val crlf = "\r\n"
     val tab = "    "
     val comma = ","
 
-    trait AnnotationHandler
-    {
-        def apply(f : Typed.Function) : Unit
-    }
-
     object Annotations
     {
-        private var registry = Map[String, AnnotationHandler]()
+        import Typed.Annotations._
 
-        def register(name : String, handler : AnnotationHandler){
-            registry = registry.updated(name, handler)
-        }
-
-        def lookup(name : String) = registry.get(name) match {
-            case Some(handler) => handler
-            case None => throw new Exception(s"Cannot find annotation handler $name")
-        }
-
-        override def toString = registry.toString
+        override def toString = registry.toString()
 
         // TODO: non-intrusive registration
-        register("python.random", ImportRandom)
-        register("python.mathops", ImportMathops)
+        register(ImportRandom)
+        register(ImportMathops)
     }
 
     abstract class ParameterBase {
@@ -195,10 +183,12 @@ package object PyGen {
     object ImportRandom extends AnnotationHandler
     {
         def apply(f : Typed.Function) = ()
+        val name = "python.random"
     }
 
     object ImportMathops extends AnnotationHandler
     {
         def apply(f : Typed.Function) = ()
+        val name = "python.mathops"
     }
 }

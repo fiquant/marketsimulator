@@ -51,4 +51,6 @@ case class TypeChecker(lookupFunction : AST.QualifiedName => Typed.Function,
             }
             Typed.FunctionCall(fun_type, actual_args)
     }
+
+
 }

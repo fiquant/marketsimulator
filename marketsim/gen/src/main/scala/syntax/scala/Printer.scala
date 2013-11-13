@@ -146,6 +146,9 @@ class Printer() extends PrettyPrinter.Base {
     def apply(p : AST.Annotation) =
         "@" + p.name + "(" + p.parameters.map({ "\"" + _ + "\""}).mkString(", ") + ")"
 
+    def apply(p : Typed.Annotation) =
+        "@" + p.target.name + "(" + p.parameters.map({ "\"" + _ + "\""}).mkString(", ") + ")"
+
     def apply(p : AST.DocString) =
         ("/** " + p.brief
                 + p.detailed.lines.map({ crlf + " *" + _ }).mkString("") + crlf
@@ -165,12 +168,12 @@ class Printer() extends PrettyPrinter.Base {
     def apply(p : Typed.Function) = {
         import p._
         (crlf + prefixedIfSome(docstring)
+                + annotations.map({_ + crlf}).mkString("")
                 + "def " + name
                 + parameters.mkString("(", ", ", ")")
                 + " : " + ret_type
                 + prefixedIfSome(body, crlf + tab + " = ")
                 )
-
     }
 
     def apply(p : AST.Definitions) = p.definitions.map({_ + crlf + crlf}).mkString("")

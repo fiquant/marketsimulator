@@ -25,6 +25,7 @@ package object PrettyPrinter
         def apply(p : Typed.Function) : String
         def apply(p : Typed.BooleanExpr) : String
 
+        def apply(p : Typed.Annotation) : String
 
         def apply(p : Printable): String = p match {
             case x : Types.Base     => apply(x)
@@ -45,6 +46,8 @@ package object PrettyPrinter
             case x : Typed.Expr         => apply(x)
             case x : Typed.Parameter    => apply(x)
             case x : Typed.Function     => apply(x)
+
+            case x : Typed.Annotation   => apply(x)
         }
     }
 

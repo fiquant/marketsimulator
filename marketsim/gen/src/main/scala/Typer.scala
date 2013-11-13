@@ -48,6 +48,9 @@ case class Typer(n : NameTable.Impl)
                         throw new Exception(s"When typing parameter '${p.name}'\r\n" + e.getMessage)
                 }
             }
+            def toTypedAnnotation(a : AST.Annotation)  =
+                Typed.Annotation(Typed.Annotations.lookup(a.name.toString), a.parameters)
+
             def findParam(locals : List[Typed.Parameter], n : String) = locals.find({ _.name == n }) match {
                 case Some(p) => p
                 case None => throw new Exception(s"Cannot lookup parameter $n")
@@ -91,7 +94,8 @@ case class Typer(n : NameTable.Impl)
                                 throw new Exception(s"Return type for should be given explicitly")
                     }
                     grey_set.pop()
-                    val ty = Typed.Function(name, locals, ret_type, body, definition.docstring)
+                    val ty = Typed.Function(name, locals, ret_type, body,
+                        definition.docstring, definition.annotations map toTypedAnnotation)
                     globals = globals.updated(name,ty)
                     ty
             }

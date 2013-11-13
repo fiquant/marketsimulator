@@ -9,6 +9,7 @@ gammavariate ->
  *     pdf(x) =  --------------------------------------
  *                  math.gamma(alpha) * beta ** alpha
  */
+@python.random()
 def gammavariate(Alpha : Float = 1.0, Beta : Float = 1.0) : Float
 sqr -> 
 def sqr(x : () => Float = const()) : Float
@@ -18,16 +19,19 @@ normalvariate ->
  *
  *  |mu| is the mean, and |sigma| is the standard deviation.
  */
+@python.random()
 def normalvariate(Mu : Float = 0.0, Sigma : Float = 1.0) : Float
 paretovariate -> 
 /** Pareto distribution
  *
  *  |alpha| is the shape parameter.
  */
+@python.random()
 def paretovariate(Alpha : Float = 1.0) : Float
 Atan -> 
 /** Arc tangent of x, in radians.
  */
+@python.mathops("Trigonometric", "atan", "atan(%(x)s)")
 def Atan(x : () => Float = const(0.0)) : Float
 A -> 
 def A(x : () => Float = B()) : Float
@@ -43,6 +47,7 @@ triangular ->
  *       The *mode* argument defaults to the midpoint between the bounds,
  *       giving a symmetric distribution.
  */
+@python.random()
 def triangular(Low : Float = 0.0, High : Float = 1.0, Mode : Float = 0.5) : Float
 vonmisesvariate -> 
 /** Von Mises distribution
@@ -52,6 +57,7 @@ vonmisesvariate ->
  *      If |kappa| is equal to zero, this distribution reduces
  *      to a uniform random angle over the range 0 to 2|pi|
  */
+@python.random()
 def vonmisesvariate(Mu : Float = 0.0, Kappa : Float = 0.0) : Float
 uniform -> 
 /** Uniform distribution
@@ -61,10 +67,12 @@ uniform ->
  * The end-point value *b* may or may not be included in the range depending on
  * floating-point rounding in the equation *a* + (*b*-*a*) * *random()*.
  */
+@python.random()
 def uniform(Low : Float = -10.0, High : Float = 10.0) : Float
 Sqrt -> 
 /** Square root of x
  */
+@python.mathops("Log/Pow", "sqrt", "\\sqrt{%(x)s}")
 def Sqrt(x : () => Float = const(1.0)) : Float
 const -> 
 def const(x : Float = 1.0) : Float
@@ -74,16 +82,19 @@ def max(x : () => Float = const(), y : () => Float = const()) : Float
 Exp -> 
 /** Exponent of x
  */
+@python.mathops("Log/Pow", "exp", "e^{%(x)s}")
 def Exp(x : () => Float = const(1.0)) : Float
 Log -> 
 /** Natural logarithm of x (to base e)
  */
+@python.mathops("Log/Pow", "log", "log(%(x)s)")
 def Log(x : () => Float = const(1.0)) : Float
 weibullvariate -> 
 /** Weibull distribution
  *
  *  |alpha| is the scale parameter and |beta| is the shape parameter
  */
+@python.random()
 def weibullvariate(Alpha : Float = 1.0, Beta : Float = 1.0) : Float
 B -> 
 def B(x : () => Float = const(), y : () => Float = if 3.0>x+2.0 then x else x*2.0) : Float
@@ -95,6 +106,7 @@ expovariate ->
  * |lambda| is 1.0 divided by the desired mean.
  * It should be greater zero. Returned values range from 0 to positive infinity
  */
+@python.random()
 def expovariate(Lambda : Float = 1.0) : Float
 lognormvariate -> 
 /** Log normal distribution
@@ -103,6 +115,7 @@ lognormvariate ->
  *  you'll get a normal distribution with mean |mu| and standard deviation |sigma|.
  *  |mu| can have any value, and |sigma| must be greater than zero.
  */
+@python.random()
 def lognormvariate(Mu : Float = 0.0, Sigma : Float = 1.0) : Float
 betavariate -> 
 /** Beta distribution
@@ -110,6 +123,7 @@ betavariate ->
  * Conditions on the parameters are |alpha| > 0 and |beta| > 0.
  * Returned values range between 0 and 1.
  */
+@python.random()
 def betavariate(Alpha : Float = 1.0, Beta : Float = 1.0) : Float
 Pow -> 
 /** Return *x* raised to the power *y*.
@@ -120,4 +134,5 @@ Pow ->
  * If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
  * ``pow(x, y)`` is undefined, and raises ``ValueError``.
  */
+@python.mathops("Log/Pow", "pow", "%(base)s^{%(power)s}")
 def Pow(base : () => Float = const(1.0), power : () => Float = const(1.0)) : Float
