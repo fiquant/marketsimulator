@@ -3,6 +3,9 @@ package syntax.scala
 class Printer() extends PrettyPrinter.Base {
 
     val crlf = "\r\n"
+    val tab = "\t"
+
+    // TODO: introduce for AST and Typed classes common traits and implement pretty printers through them
 
     def apply(x : Types.Base) = x match {
         case Types.`Float` => "Float"
@@ -32,6 +35,17 @@ class Printer() extends PrettyPrinter.Base {
             def wrap(z : AST.BooleanExpr) = pars(z, !z.isInstanceOf[AST.Condition])
             "not " + wrap(x)
         case AST.Condition(c, x, y) => x.toString + c + y
+    }
+
+    def apply(e : Typed.BooleanExpr) = e match {
+        case Typed.Or(x, y) => x + " or " + y
+        case Typed.And(x, y) =>
+            def wrap(z : Typed.BooleanExpr) = pars(z, z.isInstanceOf[AST.Or])
+            wrap(x) + " and " + wrap(y)
+        case Typed.Not(x) =>
+            def wrap(z : Typed.BooleanExpr) = pars(z, !z.isInstanceOf[AST.Condition])
+            "not " + wrap(x)
+        case Typed.Condition(c, x, y) => x.toString + c + y
     }
 
     def apply(c : AST.CondSymbol) = c match {
@@ -152,12 +166,11 @@ class Printer() extends PrettyPrinter.Base {
         import p._
         (crlf + "def " + name
                 + params.mkString("(", ", ", ")")
-                + " : " + ty //+ crlf + "\t"
+                + " : " + ty
+                + prefixedIfSome(body, crlf + tab + " = ")
                 )
 
     }
 
     def apply(p : AST.Definitions) = p.definitions.map({_ + crlf + crlf}).mkString("")
-
-    def apply(p : Typed.BooleanExpr) = ""
 }

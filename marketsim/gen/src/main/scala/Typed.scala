@@ -15,7 +15,7 @@ package object Typed
 
     case class Parameter(name : String, ty : Types.Base, initializer : Option[Expr]) extends Printable
 
-    case class Function(name : String, params : List[Parameter], ty : Types.Base) extends Printable
+    case class Function(name : String, params : List[Parameter], ty : Types.Base, body : Option[Expr]) extends Printable
 
     class BooleanExpr extends Expr(Types.BooleanFunc)
 

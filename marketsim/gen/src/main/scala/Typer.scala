@@ -68,7 +68,8 @@ case class Typer(n : NameTable.Impl)
                                 throw new Exception(s"Duplicate parameter ${p.name}")
                             locals :+ toTyped(p, inferType(locals))
                     }
-                    val body_type = definition.body map inferType(locals)  map { _.ty match {
+                    val body = definition.body map inferType(locals)
+                    val body_type = body map { _.ty match {
                         case Types.Function(_, rt) => rt
                         case x => throw new Exception(s"don't know for the moment what to do with expr of type '$x'\r\n" +
                                 "Locals are: " + locals.mkString("[", ", ", "]"))
@@ -90,7 +91,7 @@ case class Typer(n : NameTable.Impl)
                                 throw new Exception(s"Return type for should be given explicitly")
                     }
                     grey_set.pop()
-                    val ty = Typed.Function(name, locals, ret_type)
+                    val ty = Typed.Function(name, locals, ret_type, body)
                     globals = globals.updated(name,ty)
                     ty
             }

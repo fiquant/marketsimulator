@@ -2,6 +2,7 @@ gammavariate ->
 def gammavariate(Alpha : Float = 1.0, Beta : Float = 1.0) : Float
 sqr -> 
 def sqr(x : () => Float = const()) : Float
+	 = x*x
 normalvariate -> 
 def normalvariate(Mu : Float = 0.0, Sigma : Float = 1.0) : Float
 paretovariate -> 
@@ -12,6 +13,7 @@ A ->
 def A(x : () => Float = B()) : Float
 min -> 
 def min(x : () => Float = const(), y : () => Float = const()) : Float
+	 = if x<y then x else y
 triangular -> 
 def triangular(Low : Float = 0.0, High : Float = 1.0, Mode : Float = 0.5) : Float
 vonmisesvariate -> 
@@ -24,6 +26,7 @@ const ->
 def const(x : Float = 1.0) : Float
 max -> 
 def max(x : () => Float = const(), y : () => Float = const()) : Float
+	 = if x>y then x else y
 Exp -> 
 def Exp(x : () => Float = const(1.0)) : Float
 Log -> 
@@ -31,7 +34,7 @@ def Log(x : () => Float = const(1.0)) : Float
 weibullvariate -> 
 def weibullvariate(Alpha : Float = 1.0, Beta : Float = 1.0) : Float
 B -> 
-def B(x : () => Float = const(), y : () => Float = if  then x else x*2.0) : Float
+def B(x : () => Float = const(), y : () => Float = if 3.0>x+2.0 then x else x*2.0) : Float
 C -> 
 def C(x : () => Float = A()) : Float
 expovariate -> 
