@@ -31,6 +31,8 @@ case class TypeChecker(lookupFunction : AST.QualifiedName => Typed.Function,
         case AST.BinOp(c, x, y) =>
             Typed.BinOp(unifyFloat(x, y), c, toTyped(x), toTyped(y))
 
+        case AST.Neg(x) => Typed.Neg(unifyFloat(x), toTyped(x))
+
         case AST.IfThenElse(cond, x, y) =>
             Typed.IfThenElse(unifyFloat(x, y), toTyped(cond), toTyped(x), toTyped(y))
 
@@ -39,7 +41,7 @@ case class TypeChecker(lookupFunction : AST.QualifiedName => Typed.Function,
 
         case AST.FunCall(name, args) =>
             val fun_type = lookupFunction(name)
-            val actual_args = args zip fun_type.params map {
+            val actual_args = args zip fun_type.parameters map {
                 case (actual, declared) =>
                     val typed = toTyped(actual)
                     if (typed.ty != declared.ty) // TODO: support type casts and conversions
@@ -64,6 +66,6 @@ case class TypeChecker(lookupFunction : AST.QualifiedName => Typed.Function,
         case AST.FunCall(name, args) =>
             // TODO: type check for the arguments
             val fun_type = lookupFunction(name)
-            Types.Function(List(Types.Unit), fun_type.ty)
+            Types.Function(List(Types.Unit), fun_type.ret_type)
     }
 }

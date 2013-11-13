@@ -40,10 +40,10 @@ class Printer() extends PrettyPrinter.Base {
     def apply(e : Typed.BooleanExpr) = e match {
         case Typed.Or(x, y) => x + " or " + y
         case Typed.And(x, y) =>
-            def wrap(z : Typed.BooleanExpr) = pars(z, z.isInstanceOf[AST.Or])
+            def wrap(z : Typed.BooleanExpr) = pars(z, z.isInstanceOf[Typed.Or])
             wrap(x) + " and " + wrap(y)
         case Typed.Not(x) =>
-            def wrap(z : Typed.BooleanExpr) = pars(z, !z.isInstanceOf[AST.Condition])
+            def wrap(z : Typed.BooleanExpr) = pars(z, !z.isInstanceOf[Typed.Condition])
             "not " + wrap(x)
         case Typed.Condition(c, x, y) => x.toString + c + y
     }
@@ -164,9 +164,10 @@ class Printer() extends PrettyPrinter.Base {
 
     def apply(p : Typed.Function) = {
         import p._
-        (crlf + "def " + name
-                + params.mkString("(", ", ", ")")
-                + " : " + ty
+        (crlf + prefixedIfSome(docstring)
+                + "def " + name
+                + parameters.mkString("(", ", ", ")")
+                + " : " + ret_type
                 + prefixedIfSome(body, crlf + tab + " = ")
                 )
 
