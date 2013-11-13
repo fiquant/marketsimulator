@@ -66,6 +66,7 @@ object Runner extends syntax.scala.Parser {
             output.println(types)
         }
 
+        println(generator.python.PyGen.Annotations)
 //        val python_definitions =fromAST(parsed)
 //
 //        for ((filename, definitions) <- python_definitions.groupBy({ _.filename }))
