@@ -53,7 +53,7 @@ case class Typer(n : NameTable.Impl)
                 case None => throw new Exception(s"Cannot lookup parameter $n")
             }
             def inferType(locals : List[Typed.Parameter])(e : AST.Expr) =
-                TypeChecker(get, findParam(locals, _)).toTyped(e)
+                TypeChecker(get, findParam(locals, _))(e)
 
             val emptyLocals = List[Typed.Parameter]()
             globals.types get name match {
