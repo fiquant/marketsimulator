@@ -31,10 +31,11 @@ package object PyGen {
         def call = s"self.$name"
     }
 
-    case class ParameterOfRandom(name : String, initializer : Double) extends ParameterBase
+    case class ParameterOfRandom(p : Typed.Parameter) extends ParameterBase
     {
+        val name = p.name
         val ty = "float"
-        val s_initializer = initializer.toString
+        val s_initializer = p.initializer.toString
     }
 
     abstract class Printer() {
@@ -182,13 +183,18 @@ package object PyGen {
 
     object ImportRandom extends AnnotationHandler
     {
-        def apply(f : Typed.Function) = ()
+        def apply(f : Typed.Function) = {
+            val params = f.parameters map ParameterOfRandom
+            val x = new ImportRandom(f.name, params, f.docstring.get.brief, f.docstring.get.detailed)
+            (x.toString, x.filename, x.prologue.split("\r\n").toList)
+        }
+
         val name = "python.random"
     }
 
     object ImportMathops extends AnnotationHandler
     {
-        def apply(f : Typed.Function) = ()
+        def apply(f : Typed.Function) = ("","",Nil)
         val name = "python.mathops"
     }
 }

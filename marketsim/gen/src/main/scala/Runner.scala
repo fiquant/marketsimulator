@@ -1,4 +1,3 @@
-import generator.python.fromAST
 import java.io.PrintWriter
 import resource._
 import sext._
@@ -61,10 +60,10 @@ object Runner extends syntax.scala.Parser {
             output.println(names)
         }
 
-        val types = Typer(names).all
+        val typed = Typer(names).all
 
-        for (output <- managed(new PrintWriter(".output/types.pp"))) {
-            output.println(types)
+        for (output <- managed(new PrintWriter(".output/typed.pp"))) {
+            output.println(typed)
         }
 
 //        val python_definitions =fromAST(parsed)
