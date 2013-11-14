@@ -1,6 +1,6 @@
 package object Typed
 {
-    import AST.{BinOpSymbol, CondSymbol, DocString}
+    import AST.{BinOpSymbol, CondSymbol, DocString, QualifiedName}
     import PrettyPrinter.Printable
 
     abstract class Expr(val ty : Types.Base) extends Printable
@@ -16,12 +16,16 @@ package object Typed
 
     case class Parameter(name : String, ty : Types.Base, initializer : Option[Expr]) extends Printable
 
-    case class Function(name        : String,
+    case class Function(parent      : Package,
+                        name        : String,
                         parameters  : List[Parameter],
                         ret_type    : Types.Base,
                         body        : Option[Expr],
                         docstring   : Option[DocString],
                         annotations : List[Annotation]) extends Printable
+    {
+        parent.insert(this)
+    }
 
     class BooleanExpr extends Expr(Types.BooleanFunc)
 
@@ -29,6 +33,28 @@ package object Typed
     case class And(x : BooleanExpr, y : BooleanExpr) extends BooleanExpr
     case class Not(x : BooleanExpr) extends BooleanExpr
     case class Condition(symbol : CondSymbol, x : Expr, y : Expr) extends BooleanExpr
+
+    class Package(val name : String, parent : Option[Package] = None)
+    {
+        var functions = Map[String, Function]()
+        var packages = Map[String, Package]()
+
+        if (parent.nonEmpty)
+            parent.get.insert(this)
+
+        val qualifiedName : QualifiedName =
+            if (parent.isEmpty) QualifiedName(Nil) else parent.get.qualifiedName ++ name
+
+        def insert(f : Function) {
+            functions = functions.updated(f.name, f)
+        }
+
+        def insert(p : Package) {
+            packages = packages.updated(p.name, p)
+        }
+    }
+
+    val globals = new Package("_root_")
 
     trait AnnotationHandler
     {

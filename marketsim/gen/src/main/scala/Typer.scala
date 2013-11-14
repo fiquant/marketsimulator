@@ -94,7 +94,7 @@ case class Typer(n : NameTable.Impl)
                                 throw new Exception(s"Return type for should be given explicitly")
                     }
                     grey_set.pop()
-                    val ty = Typed.Function(name, locals, ret_type, body,
+                    val ty = Typed.Function(Typed.globals, name, locals, ret_type, body,
                         definition.docstring, definition.annotations map toTypedAnnotation)
                     globals = globals.updated(name,ty)
                     ty

@@ -21,6 +21,9 @@ package object AST {
                          annotations : List[Annotation]) extends Printable
 
     case class QualifiedName(names   : List[String]) extends Printable
+    {
+        def ++(s : String) = QualifiedName(names :+ s)
+    }
 
     case class Annotation(name       : QualifiedName,
                           parameters : List[String]) extends Printable
