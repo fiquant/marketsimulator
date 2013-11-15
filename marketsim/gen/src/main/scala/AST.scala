@@ -2,12 +2,12 @@ package object AST {
 
     trait Printable
     {
-        self : syntax.scala.PP.Printable =>
+        self : syntax.scala.Printer.Printable =>
 
         override def toString = toScala
     }
     
-    import syntax.scala.PP.{ast => pp}
+    import syntax.scala.Printer.{ast => pp}
 
     sealed abstract class Type
 

@@ -1,20 +1,22 @@
 package object Typed
 {
     import AST.{BinOpSymbol, CondSymbol, DocString, QualifiedName}
-    import PrettyPrinter.Printable
+    import syntax.scala.Printer.{typed => pp}
 
-    abstract class Expr(val ty : Types.Base) extends Printable
+    abstract class Expr(val ty : Types.Base)
 
-    case class Neg(t: Types.Base, x : Expr) extends Expr(t)
-    case class BinOp(t : Types.Base, op : BinOpSymbol, x : Expr, y : Expr) extends Expr(t)
-    case class IfThenElse(t : Types.Base, cond : BooleanExpr, x : Expr, y : Expr) extends Expr(t)
-    case class FloatConst(x : Double) extends Expr(Types.`Float`)
-    case class ParamRef(p : Parameter) extends Expr(p.ty)
-    case class FunctionCall(target : Function, arguments : List[(Parameter, Expr)]) extends Expr(Types.nullaryFunction(target.ret_type))
+    abstract class ArithExpr(override val ty : Types.Base) extends Expr(ty) with pp.Expr
 
-    case class Annotation(target : AnnotationHandler, parameters : List[String]) extends Printable
+    case class Neg(t: Types.Base, x : ArithExpr) extends ArithExpr(t) with pp.Neg with AST.Printable
+    case class BinOp(t : Types.Base, op : BinOpSymbol, x : ArithExpr, y : ArithExpr) extends ArithExpr(t) with pp.BinOp with AST.Printable
+    case class IfThenElse(t : Types.Base, cond : BooleanExpr, x : ArithExpr, y : ArithExpr) extends ArithExpr(t) with pp.IfThenElse with AST.Printable
+    case class FloatConst(x : Double) extends ArithExpr(Types.`Float`) with pp.FloatConst with AST.Printable
+    case class ParamRef(p : Parameter) extends ArithExpr(p.ty) with pp.ParamRef with AST.Printable
+    case class FunctionCall(target : Function, arguments : List[(Parameter, ArithExpr)]) extends ArithExpr(Types.nullaryFunction(target.ret_type)) with pp.FunCall with AST.Printable
 
-    case class Parameter(name : String, ty : Types.Base, initializer : Option[Expr]) extends Printable
+    case class Annotation(target : AnnotationHandler, parameters : List[String]) extends pp.Annotation with AST.Printable
+
+    case class Parameter(name : String, ty : Types.Base, initializer : Option[Expr]) extends pp.Parameter with AST.Printable
 
     case class Function(parent      : Package,
                         name        : String,
@@ -22,17 +24,17 @@ package object Typed
                         ret_type    : Types.Base,
                         body        : Option[Expr],
                         docstring   : Option[DocString],
-                        annotations : List[Annotation]) extends Printable
+                        annotations : List[Annotation]) extends pp.Function with AST.Printable
     {
         parent.insert(this)
     }
 
-    class BooleanExpr extends Expr(Types.BooleanFunc)
+    abstract class BooleanExpr extends Expr(Types.BooleanFunc)
 
-    case class Or(x : BooleanExpr, y : BooleanExpr) extends BooleanExpr
-    case class And(x : BooleanExpr, y : BooleanExpr) extends BooleanExpr
-    case class Not(x : BooleanExpr) extends BooleanExpr
-    case class Condition(symbol : CondSymbol, x : Expr, y : Expr) extends BooleanExpr
+    case class Or(x : BooleanExpr, y : BooleanExpr) extends BooleanExpr with pp.Or with AST.Printable
+    case class And(x : BooleanExpr, y : BooleanExpr) extends BooleanExpr with pp.And with AST.Printable
+    case class Not(x : BooleanExpr) extends BooleanExpr with pp.Not with AST.Printable
+    case class Condition(symbol : CondSymbol, x : Expr, y : Expr) extends BooleanExpr with pp.Condition with AST.Printable
 
     class Package(val name : String, parent : Option[Package] = None)
     {

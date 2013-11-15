@@ -1,7 +1,7 @@
 package object Types
 {
     import AST.Printable
-    import syntax.scala.PP.{types => pp}
+    import syntax.scala.Printer.{types => pp}
 
     sealed abstract class Base
     case object `Float` extends Base with pp.`Float` with Printable

@@ -27,7 +27,7 @@ case class TypeChecker(lookupFunction : AST.QualifiedName => Typed.Function,
             Typed.Condition(symbol, apply(x), apply(y))
     }
 
-    def apply(e : AST.Expr) : Typed.Expr = e match {
+    def apply(e : AST.Expr) : Typed.ArithExpr = e match {
         case AST.BinOp(c, x, y) =>
             Typed.BinOp(unifyFloat(x, y), c, apply(x), apply(y))
 

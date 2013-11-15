@@ -1,86 +1,6 @@
 package syntax.scala
 
-class Printer() extends PrettyPrinter.Base {
-
-    val crlf = "\r\n"
-    val tab = "\t"
-
-    // TODO: introduce for AST and Typed classes common traits and implement pretty printers through them
-
-    def pars(s : Any, condition : Boolean = true) =
-        if (condition) "(" + s + ")" else s.toString
-
-    def apply(e : Typed.BooleanExpr) = e match {
-        case Typed.Or(x, y) => x + " or " + y
-        case Typed.And(x, y) =>
-            def wrap(z : Typed.BooleanExpr) = pars(z, z.isInstanceOf[Typed.Or])
-            wrap(x) + " and " + wrap(y)
-        case Typed.Not(x) =>
-            def wrap(z : Typed.BooleanExpr) = pars(z, !z.isInstanceOf[Typed.Condition])
-            "not " + wrap(x)
-        case Typed.Condition(c, x, y) => x.toString + c + y
-    }
-
-    def priority(e : Typed.Expr) = e match {
-        case _ : Typed.FloatConst => 0
-        case _ : Typed.ParamRef => 0
-        case _ : Typed.Neg => 0
-        case _ : Typed.FunctionCall => 0
-        case Typed.BinOp(_,AST.Mul, _, _) => 1
-        case Typed.BinOp(_,AST.Div, _, _) => 1
-        case Typed.BinOp(_,AST.Add, _, _) => 2
-        case Typed.BinOp(_,AST.Sub, _, _) => 2
-        case _ : Typed.IfThenElse => 3
-    }
-
-    def need_brackets(x : Typed.Expr, e : Typed.Expr, rhs : Boolean) =
-        priority(x) > priority(e) || priority(x) == priority(e) && rhs
-
-    def wrap(x : Typed.Expr, e : Typed.Expr, rhs : Boolean) =
-        pars(x, need_brackets(x, e, rhs))
-
-    def wrap(x : Typed.Expr, e : Typed.Expr) : String = wrap(x, e, rhs = false)
-
-
-    def apply(e : Typed.Expr) = e match {
-        case Typed.BinOp(_, symbol, x, y) => wrap(x, e) + symbol + wrap(y, e, rhs = true)
-        case Typed.Neg(_, x) => "-" + wrap(x, e)
-        case Typed.IfThenElse(_, cond, x, y) => s"if $cond then ${wrap(x,e)} else ${wrap(y,e)}"
-        case Typed.FunctionCall(f, args) => f.name + args.map({ _._2 }).mkString("(",",",")")
-        case Typed.FloatConst(x) => x.toString
-        case Typed.ParamRef(s) => s.name
-    }
-
-
-    def prefixedIfSome[A](p : Option[A], prefix : String = "") =
-        if (p.nonEmpty) prefix + p.get else ""
-
-    def apply(p : Typed.Parameter) =
-    {
-        import p._
-        (name
-         + " : " + ty
-         + prefixedIfSome(initializer, " = "))
-    }
-
-    def apply(p : Typed.Annotation) =
-        "@" + p.target.name + "(" + p.parameters.map({ "\"" + _ + "\""}).mkString(", ") + ")"
-
-    def apply(p : Typed.Function) = {
-        import p._
-        (crlf + prefixedIfSome(docstring)
-                + annotations.map({_ + crlf}).mkString("")
-                + "def " + name
-                + parameters.mkString("(", ", ", ")")
-                + " : " + ret_type
-                + prefixedIfSome(body, crlf + tab + " = ")
-                )
-    }
-
-    def apply(p : AST.Definitions) = p.definitions.map({_ + crlf + crlf}).mkString("")
-}
-
-package object PP
+package object Printer
 {
     val crlf = "\r\n"
     val tab = "\t"
@@ -210,7 +130,7 @@ package object PP
 
         trait Or extends Printable {
             self: AST.Or =>
-            def toScala = x + " or " + y
+            def toScala = s"$x or $y"
         }
 
         trait And extends Printable {
@@ -289,6 +209,98 @@ package object PP
         trait Function extends Printable {
             self: Types.Function =>
             def toScala = (if (args.length == 1) args(0) else args.mkString("(", ",", ")")) + s" => $ret"
+        }
+    }
+
+    object typed {
+
+        trait Parameter extends Printable {
+            self: Typed.Parameter =>
+
+            def toScala =
+                (name
+                    + " : " + ty
+                    + prefixedIfSome(initializer, " = "))
+
+        }
+
+        trait Annotation extends Printable {
+            self: Typed.Annotation =>
+
+            def toScala = "@" + target.name + "(" + parameters.map({ "\"" + _ + "\""}).mkString(", ") + ")"
+        }
+
+        trait Function extends Printable {
+            self: Typed.Function =>
+
+            def toScala =
+                (crlf + prefixedIfSome(docstring)
+                        + annotations.map({_ + crlf}).mkString("")
+                        + "def " + name
+                        + parameters.mkString("(", ", ", ")")
+                        + " : " + ret_type
+                        + prefixedIfSome(body, crlf + tab + " = ")
+                        )
+        }
+
+        trait Or extends Printable {
+            self: Typed.Or =>
+            def toScala = s"$x or $y"
+        }
+
+        trait And extends Printable {
+            self: Typed.And =>
+            def wrap(z : Typed.BooleanExpr) = pars(z, z.isInstanceOf[Typed.Or])
+            def toScala = wrap(x) + " and " + wrap(y)
+        }
+
+        trait Not extends Printable {
+            self: Typed.Not =>
+            def wrap(z : Typed.BooleanExpr) = pars(z, !z.isInstanceOf[Typed.Condition])
+            def toScala = "not " + wrap(x)
+        }
+
+        trait Condition extends Printable {
+            self: Typed.Condition =>
+            def toScala = x.toString + symbol + y
+        }
+
+        type Expr = ast.Expr
+
+        trait BinOp extends Expr {
+            self: Typed.BinOp =>
+            def toScala = wrap(x) + op + wrap(y, rhs = true)
+            val priority = op.priority
+        }
+
+        trait Neg extends Expr {
+            self: Typed.Neg =>
+            def toScala = "-" + wrap(x)
+            val priority = 0
+        }
+
+        trait IfThenElse extends Expr {
+            self: Typed.IfThenElse =>
+            def toScala = s"if $cond then ${wrap(x)} else ${wrap(y)}"
+            val priority = 3
+        }
+
+        trait FloatConst extends Expr {
+            self: Typed.FloatConst =>
+            def toScala = x.toString
+            val priority = 0
+        }
+
+        trait ParamRef extends Expr {
+            self: Typed.ParamRef =>
+            def toScala = p.name
+            val priority = 0
+        }
+
+        trait FunCall extends Expr {
+            self: Typed.FunctionCall =>
+            def toScala = target.name + arguments.map({ _._2 }).mkString("(",",",")")
+            val priority = 0
         }
     }
 }

@@ -45,7 +45,6 @@ object Runner extends syntax.scala.Parser {
 
     def main(args: Array[String]) {
 
-        PrettyPrinter.instance = new syntax.scala.Printer()
         println(generator.python.PyGen.Annotations)
 
         ExprTest.run()
