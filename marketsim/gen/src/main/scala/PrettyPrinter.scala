@@ -6,8 +6,6 @@ package object PrettyPrinter
 
     abstract class Base
     {
-        def apply(x : Types.Base) : String
-
         def apply(p : Typed.Expr) : String
         def apply(p : Typed.Parameter) : String
         def apply(p : Typed.Function) : String
@@ -16,7 +14,6 @@ package object PrettyPrinter
         def apply(p : Typed.Annotation) : String
 
         def apply(p : Printable): String = p match {
-            case x : Types.Base     => apply(x)
 
             case x : Typed.BooleanExpr  => apply(x)
             case x : Typed.Expr         => apply(x)

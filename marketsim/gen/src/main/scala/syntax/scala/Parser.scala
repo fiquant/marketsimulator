@@ -132,7 +132,7 @@ class Parser() extends JavaTokenParsers with PackratParsers
                 DocString("", "")
             }  else {
                 val hd :: tl = strip_empty_lines(lines)
-                DocString(hd, tl.mkString(crlf))
+                DocString(hd, tl.mkString("\r\n"))
             }
         }
     }
