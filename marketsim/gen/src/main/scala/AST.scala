@@ -59,7 +59,7 @@ package object AST {
     case class IfThenElse(cond : BooleanExpr, x : Expr, y : Expr)   extends Expr with pp.IfThenElse with Printable
     case class FunCall   (name : QualifiedName, args : List[Expr])  extends Expr with pp.FunCall with Printable
 
-    sealed abstract class CondSymbol
+    sealed abstract class CondSymbol extends pp.CondSymbol
 
     case object Less           extends CondSymbol with pp.Less with Printable
     case object LessEqual      extends CondSymbol with pp.LessEqual with Printable
@@ -68,7 +68,7 @@ package object AST {
     case object Equal          extends CondSymbol with pp.Equal with Printable
     case object NotEqual       extends CondSymbol with pp.NotEqual with Printable
 
-    sealed abstract class BooleanExpr
+    sealed abstract class BooleanExpr extends pp.BooleanExpr
 
     case class Condition(symbol : CondSymbol, x : Expr, y : Expr)   extends BooleanExpr with pp.Condition with Printable
     case class Or       (x : BooleanExpr, y : BooleanExpr)          extends BooleanExpr with pp.Or with Printable

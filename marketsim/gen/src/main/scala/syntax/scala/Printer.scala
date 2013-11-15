@@ -15,7 +15,96 @@ package object Printer
     def prefixedIfSome[A](p : Option[A], prefix : String = "") =
         if (p.nonEmpty) prefix + p.get else ""
 
+    object base {
+        trait Expr extends Printable {
+            val priority : Int
+
+            def wrap(x : Expr, rhs : Boolean = false) =
+                pars(x, need_brackets(x, rhs))
+
+            def need_brackets(x : Expr, rhs : Boolean) =
+                x.priority > priority || x.priority == priority && rhs
+        }
+
+        trait BinOpSymbol extends Printable {
+            val priority : Int
+        }
+
+        trait Add extends BinOpSymbol {
+            def toScala = "+"
+            val priority = 2
+        }
+        trait Sub extends BinOpSymbol {
+            def toScala = "-"
+            val priority = 2
+        }
+        trait Mul extends BinOpSymbol {
+            def toScala = "*"
+            val priority = 1
+        }
+        trait Div extends BinOpSymbol {
+            def toScala = "/"
+            val priority = 1
+        }
+
+        trait BinOp[T <: Expr] extends Expr {
+            val x, y : T
+            val symbol : BinOpSymbol
+            def toScala = wrap(x) + symbol + wrap(y, rhs = true)
+            val priority = symbol.priority
+        }
+
+        trait Neg[T <: Expr] extends Expr {
+            val x : T
+            def toScala = "-" + wrap(x)
+            val priority = 0
+        }
+
+        trait CondSymbol
+
+        trait IfThenElse[T <: Expr, U <: BooleanExpr] extends Expr {
+            val x, y : T
+            val cond : U
+            def toScala = s"if $cond then ${wrap(x)} else ${wrap(y)}"
+            val priority = 3
+        }
+
+        trait BooleanExpr
+
+        trait Or[T <: BooleanExpr] extends BooleanExpr with Printable {
+            val x, y : T
+            def toScala = s"$x or $y"
+        }
+
+        trait And[T <: BooleanExpr] extends BooleanExpr with Printable {
+            val x, y : T
+            def wrap(z : T) = pars(z, z.isInstanceOf[Or[T]])
+            def toScala = wrap(x) + " and " + wrap(y)
+        }
+
+        trait Not[T <: BooleanExpr, U <: Expr] extends BooleanExpr with Printable {
+            val x : T
+            def wrap(z : T) = pars(z, !z.isInstanceOf[Condition[U]])
+            def toScala = "not " + wrap(x)
+        }
+
+        trait Condition[T <: Expr] extends BooleanExpr with Printable {
+            val x, y : Expr
+            val symbol : CondSymbol
+            def toScala = x.toString + symbol + y
+        }
+    }
+
     object ast {
+
+        type Expr = base.Expr
+        type BooleanExpr = base.BooleanExpr
+        type CondSymbol = base.CondSymbol
+        type BinOpSymbol = base.BinOpSymbol
+        type Add = base.Add
+        type Sub = base.Sub
+        type Mul = base.Mul
+        type Div = base.Div
 
         trait Definitions extends Printable {
             self: AST.Definitions =>
@@ -61,37 +150,6 @@ package object Printer
                         + prefixedIfSome(initializer, " = "))
         }
 
-        trait BinOpSymbol extends Printable {
-            val priority : Int
-        }
-
-        trait Add extends BinOpSymbol {
-            def toScala = "+"
-            val priority = 2
-        }
-        trait Sub extends BinOpSymbol {
-            def toScala = "-"
-            val priority = 2
-        }
-        trait Mul extends BinOpSymbol {
-            def toScala = "*"
-            val priority = 1
-        }
-        trait Div extends BinOpSymbol {
-            def toScala = "/"
-            val priority = 1
-        }
-
-        trait Expr extends Printable {
-            val priority : Int
-
-            def wrap(x : Expr, rhs : Boolean = false) =
-                pars(x, need_brackets(x, rhs))
-
-            def need_brackets(x : Expr, rhs : Boolean) =
-                x.priority > priority || x.priority == priority && rhs
-        }
-
         trait Const extends Expr {
             self: AST.Const =>
             def toScala = value.toString
@@ -110,45 +168,13 @@ package object Printer
             val priority = 0
         }
 
-        trait BinOp extends Expr {
-            self: AST.BinOp =>
-            def toScala = wrap(x) + symbol + wrap(y, rhs = true)
-            val priority = symbol.priority
-        }
-
-        trait Neg extends Expr {
-            self: AST.Neg =>
-            def toScala = "-" + wrap(x)
-            val priority = 0
-        }
-
-        trait IfThenElse extends Expr {
-            self: AST.IfThenElse =>
-            def toScala = s"if $cond then ${wrap(x)} else ${wrap(y)}"
-            val priority = 3
-        }
-
-        trait Or extends Printable {
-            self: AST.Or =>
-            def toScala = s"$x or $y"
-        }
-
-        trait And extends Printable {
-            self: AST.And =>
-            def wrap(z : AST.BooleanExpr) = pars(z, z.isInstanceOf[AST.Or])
-            def toScala = wrap(x) + " and " + wrap(y)
-        }
-
-        trait Not extends Printable {
-            self: AST.Not =>
-            def wrap(z : AST.BooleanExpr) = pars(z, !z.isInstanceOf[AST.Condition])
-            def toScala = "not " + wrap(x)
-        }
-
-        trait Condition extends Printable {
-            self: AST.Condition =>
-            def toScala = x.toString + symbol + y
-        }
+        type BinOp = base.BinOp[AST.Expr]
+        type Neg = base.Neg[AST.Expr]
+        type IfThenElse = base.IfThenElse[AST.Expr, AST.BooleanExpr]
+        type And = base.And[AST.BooleanExpr]
+        type Or = base.Or[AST.BooleanExpr]
+        type Not = base.Not[AST.BooleanExpr, AST.Expr]
+        type Condition = base.Condition[AST.Expr]
 
         trait Less extends Printable {
             def toScala = "<"
@@ -243,47 +269,18 @@ package object Printer
                         )
         }
 
-        trait Or extends Printable {
-            self: Typed.Or =>
-            def toScala = s"$x or $y"
-        }
-
-        trait And extends Printable {
-            self: Typed.And =>
-            def wrap(z : Typed.BooleanExpr) = pars(z, z.isInstanceOf[Typed.Or])
-            def toScala = wrap(x) + " and " + wrap(y)
-        }
-
-        trait Not extends Printable {
-            self: Typed.Not =>
-            def wrap(z : Typed.BooleanExpr) = pars(z, !z.isInstanceOf[Typed.Condition])
-            def toScala = "not " + wrap(x)
-        }
-
-        trait Condition extends Printable {
-            self: Typed.Condition =>
-            def toScala = x.toString + symbol + y
-        }
 
         type Expr = ast.Expr
+        type BooleanExpr = ast.BooleanExpr
 
-        trait BinOp extends Expr {
-            self: Typed.BinOp =>
-            def toScala = wrap(x) + op + wrap(y, rhs = true)
-            val priority = op.priority
-        }
+        type BinOp = base.BinOp[Typed.ArithExpr]
+        type Neg = base.Neg[Typed.ArithExpr]
 
-        trait Neg extends Expr {
-            self: Typed.Neg =>
-            def toScala = "-" + wrap(x)
-            val priority = 0
-        }
-
-        trait IfThenElse extends Expr {
-            self: Typed.IfThenElse =>
-            def toScala = s"if $cond then ${wrap(x)} else ${wrap(y)}"
-            val priority = 3
-        }
+        type IfThenElse = base.IfThenElse[Typed.ArithExpr, Typed.BooleanExpr]
+        type And = base.And[Typed.BooleanExpr]
+        type Or = base.Or[Typed.BooleanExpr]
+        type Not = base.Not[Typed.BooleanExpr, Typed.ArithExpr]
+        type Condition = base.Condition[Typed.ArithExpr]
 
         trait FloatConst extends Expr {
             self: Typed.FloatConst =>
