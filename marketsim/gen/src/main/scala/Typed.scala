@@ -5,16 +5,27 @@ package object Typed
     import AST.Printable
     
 
-    abstract class Expr(val ty : Types.Base)
+    abstract class Expr {
+        def ty : Types.Base
+    }
 
-    abstract class ArithExpr(override val ty : Types.Base) extends Expr(ty) with pp.Expr
+    abstract class ArithExpr extends Expr with pp.Expr
 
-    case class Neg(t: Types.Base, x : ArithExpr) extends ArithExpr(t) with pp.Neg with Printable
-    case class BinOp(t : Types.Base, symbol : BinOpSymbol, x : ArithExpr, y : ArithExpr) extends ArithExpr(t) with pp.BinOp with Printable
-    case class IfThenElse(t : Types.Base, cond : BooleanExpr, x : ArithExpr, y : ArithExpr) extends ArithExpr(t) with pp.IfThenElse with Printable
-    case class FloatConst(x : Double) extends ArithExpr(Types.`Float`) with pp.FloatConst with Printable
-    case class ParamRef(p : Parameter) extends ArithExpr(p.ty) with pp.ParamRef with Printable
-    case class FunctionCall(target : Function, arguments : List[(Parameter, ArithExpr)]) extends ArithExpr(Types.nullaryFunction(target.ret_type)) with pp.FunCall with Printable
+    case class Neg(ty: Types.Base, x : ArithExpr) extends ArithExpr with pp.Neg with Printable
+    case class BinOp(ty : Types.Base, symbol : BinOpSymbol, x : ArithExpr, y : ArithExpr) extends ArithExpr with pp.BinOp with Printable
+    case class IfThenElse(ty : Types.Base, cond : BooleanExpr, x : ArithExpr, y : ArithExpr) extends ArithExpr with pp.IfThenElse with Printable
+
+    case class FloatConst(x : Double) extends ArithExpr with pp.FloatConst with Printable {
+        val ty = Types.`Float`
+    }
+
+    case class ParamRef(p : Parameter) extends ArithExpr with pp.ParamRef with Printable {
+        def ty = p.ty
+    }
+
+    case class FunctionCall(target : Function, arguments : List[(Parameter, ArithExpr)]) extends ArithExpr with pp.FunCall with Printable {
+        def ty = Types.nullaryFunction(target.ret_type)
+    }
 
     case class Annotation(target : AnnotationHandler, parameters : List[String]) extends pp.Annotation with Printable
 
@@ -31,7 +42,9 @@ package object Typed
         parent.insert(this)
     }
 
-    abstract class BooleanExpr extends Expr(Types.BooleanFunc) with pp.BooleanExpr
+    abstract class BooleanExpr extends Expr with pp.BooleanExpr {
+        val ty = Types.BooleanFunc
+    }
 
     case class Or(x : BooleanExpr, y : BooleanExpr) extends BooleanExpr with pp.Or with Printable
     case class And(x : BooleanExpr, y : BooleanExpr) extends BooleanExpr with pp.And with Printable
