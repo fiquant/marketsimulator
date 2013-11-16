@@ -9,14 +9,14 @@ package object AST {
     
     import syntax.scala.Printer.{ast => pp}
 
-    sealed abstract class Type
+    sealed abstract class Type extends pp.TypeBase
 
     case class SimpleType   (name : String)                          extends Type with pp.SimpleType with Printable
     case object UnitType                                             extends Type with pp.UnitType with Printable
-    case class FunctionType (arg_type : List[Type], ret_type : Type) extends Type with pp.FunctionType with Printable
-    case class TupleType    (types : List[Type])                     extends Type with pp.TupleType with Printable
+    case class FunctionType (args : List[Type], ret : Type) extends Type with pp.FunctionType with Printable
+    case class TupleType    (elems : List[Type])                     extends Type with pp.TupleType with Printable
     {
-        assert(types.length > 1) // SimpleType or UnitType should be used in this case
+        assert(elems.length > 1) // SimpleType or UnitType should be used in this case
     }
 
 

@@ -26,26 +26,19 @@ package object Printer
                 x.priority > priority || x.priority == priority && rhs
         }
 
+        trait Priority_0 { val priority = 0 }
+        trait Priority_1 { val priority = 1 }
+        trait Priority_2 { val priority = 2 }
+        trait Priority_3 { val priority = 3 }
+
         trait BinOpSymbol extends Printable {
             val priority : Int
         }
 
-        trait Add extends BinOpSymbol {
-            def toScala = "+"
-            val priority = 2
-        }
-        trait Sub extends BinOpSymbol {
-            def toScala = "-"
-            val priority = 2
-        }
-        trait Mul extends BinOpSymbol {
-            def toScala = "*"
-            val priority = 1
-        }
-        trait Div extends BinOpSymbol {
-            def toScala = "/"
-            val priority = 1
-        }
+        trait Add extends BinOpSymbol with Priority_2 { def toScala = "+"   }
+        trait Sub extends BinOpSymbol with Priority_2 { def toScala = "-"   }
+        trait Mul extends BinOpSymbol with Priority_1 { def toScala = "*"   }
+        trait Div extends BinOpSymbol with Priority_1 { def toScala = "/"   }
 
         trait BinOp[T <: Expr] extends Expr {
             val x, y : T
@@ -54,19 +47,17 @@ package object Printer
             val priority = symbol.priority
         }
 
-        trait Neg[T <: Expr] extends Expr {
+        trait Neg[T <: Expr] extends Expr with Priority_0 {
             val x : T
             def toScala = "-" + wrap(x)
-            val priority = 0
         }
 
         trait CondSymbol
 
-        trait IfThenElse[T <: Expr, U <: BooleanExpr] extends Expr {
+        trait IfThenElse[T <: Expr, U <: BooleanExpr] extends Expr with Priority_3 {
             val x, y : T
             val cond : U
             def toScala = s"if $cond then ${wrap(x)} else ${wrap(y)}"
-            val priority = 3
         }
 
         trait BooleanExpr
@@ -151,6 +142,23 @@ package object Printer
                         + printRetType
                         + printBody)
         }
+
+        trait TypeBase
+
+        trait UnitType extends Printable {
+            def toScala = "()"
+        }
+
+        trait TupleType extends Printable {
+            val elems : List[TypeBase]
+            def toScala = pars(elems.mkString(","))
+        }
+
+        trait FunctionType extends Printable {
+            val args : List[TypeBase]
+            val ret : TypeBase
+            def toScala = (if (args.length == 1) args(0) else args.mkString("(", ",", ")")) + s" => $ret"
+        }
     }
 
     object ast {
@@ -185,22 +193,21 @@ package object Printer
             def printInitializer = prefixedIfSome(initializer, " = ")
         }
 
-        trait Const extends Expr {
+        import base.Priority_0
+
+        trait Const extends Expr with Priority_0 {
             self: AST.Const =>
             def toScala = value.toString
-            val priority = 0
         }
 
-        trait Var extends Expr {
+        trait Var extends Expr with Priority_0 {
             self: AST.Var =>
             def toScala = s
-            val priority = 0
         }
 
-        trait FunCall extends Expr {
+        trait FunCall extends Expr with Priority_0 {
             self: AST.FunCall =>
             def toScala = name + pars(args.mkString(","))
-            val priority = 0
         }
 
         type BinOp = base.BinOp[AST.Expr]
@@ -211,66 +218,34 @@ package object Printer
         type Not = base.Not[AST.BooleanExpr, AST.Expr]
         type Condition = base.Condition[AST.Expr]
 
-        trait Less extends Printable {
-            def toScala = "<"
-        }
-        trait LessEqual extends Printable {
-            def toScala = "<="
-        }
-        trait Greater extends Printable {
-            def toScala = ">"
-        }
-        trait GreaterEqual extends Printable {
-            def toScala = ">="
-        }
-        trait Equal extends Printable {
-            def toScala = "="
-        }
-        trait NotEqual extends Printable {
-            def toScala = "<>"
-        }
+        trait Less extends Printable        {   def toScala = "<"   }
+        trait LessEqual extends Printable   {   def toScala = "<="  }
+        trait Greater extends Printable     {   def toScala = ">"   }
+        trait GreaterEqual extends Printable{   def toScala = ">="  }
+        trait Equal extends Printable       {   def toScala = "="   }
+        trait NotEqual extends Printable    {   def toScala = "<>"  }
 
         trait SimpleType extends Printable {
             self: AST.SimpleType =>
             def toScala = name
         }
 
-        trait UnitType extends Printable {
-            def toScala = "()"
-        }
-
-        trait TupleType extends Printable {
-            self: AST.TupleType =>
-            def toScala = pars(types.mkString(","))
-        }
-
-        trait FunctionType extends Printable {
-            self: AST.FunctionType =>
-            def toScala = s"$arg_type => $ret_type"
-        }
+        type UnitType = base.UnitType
+        type TypeBase = base.TypeBase
+        type TupleType = base.TupleType
+        type FunctionType = base.FunctionType
     }
 
     object types {
 
-        trait Unit extends ast.UnitType
+        type Base = base.TypeBase
+        type Unit = base.UnitType
 
-        trait `Float` extends Printable {
-            def toScala = "Float"
-        }
+        trait `Float` extends Printable {  def toScala = "Float"   }
+        trait `Boolean` extends Printable {def toScala = "Boolean" }
 
-        trait `Boolean` extends Printable {
-            def toScala = "Boolean"
-        }
-
-        trait Tuple extends Printable {
-            self: Types.Tuple =>
-            def toScala = pars(elems.mkString(","))
-        }
-
-        trait Function extends Printable {
-            self: Types.Function =>
-            def toScala = (if (args.length == 1) args(0) else args.mkString("(", ",", ")")) + s" => $ret"
-        }
+        type Tuple = base.TupleType
+        type Function = base.FunctionType
     }
 
     object typed {
@@ -306,22 +281,21 @@ package object Printer
         type Not = base.Not[Typed.BooleanExpr, Typed.ArithExpr]
         type Condition = base.Condition[Typed.ArithExpr]
 
-        trait FloatConst extends Expr {
+        import base.Priority_0
+
+        trait FloatConst extends Expr with Priority_0 {
             self: Typed.FloatConst =>
             def toScala = x.toString
-            val priority = 0
         }
 
-        trait ParamRef extends Expr {
+        trait ParamRef extends Expr with Priority_0 {
             self: Typed.ParamRef =>
             def toScala = p.name
-            val priority = 0
         }
 
-        trait FunCall extends Expr {
+        trait FunCall extends Expr with Priority_0 {
             self: Typed.FunctionCall =>
             def toScala = target.name + arguments.map({ _._2 }).mkString("(",",",")")
-            val priority = 0
         }
     }
 }

@@ -3,7 +3,7 @@ package object Types
     import AST.Printable
     import syntax.scala.Printer.{types => pp}
 
-    sealed abstract class Base
+    sealed abstract class Base extends pp.Base
     case object `Float` extends Base with pp.`Float` with Printable
     case object `Boolean` extends Base with pp.`Boolean` with Printable
     case object Unit extends Base with pp.Unit with Printable
