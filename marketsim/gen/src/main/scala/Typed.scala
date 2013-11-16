@@ -3,7 +3,15 @@ package object Typed
     import AST.{BinOpSymbol, CondSymbol, DocString, QualifiedName}
     import syntax.scala.Printer.{typed => pp}
     import AST.Printable
-    
+
+    private def floatRank(e: Expr) = e.ty match {
+        case Types.`Float` => 0
+        case Types.FloatFunc => 1
+        case t => throw new Exception(s"has wrong type $t")
+    }
+
+    private def unifyFloat(xs : Expr*) =
+        if ((xs map floatRank).sum > 0) Types.FloatFunc else Types.`Float`
 
     abstract class Expr {
         def ty : Types.Base
@@ -11,9 +19,20 @@ package object Typed
 
     abstract class ArithExpr extends Expr with pp.Expr
 
-    case class Neg(ty: Types.Base, x : ArithExpr) extends ArithExpr with pp.Neg with Printable
-    case class BinOp(ty : Types.Base, symbol : BinOpSymbol, x : ArithExpr, y : ArithExpr) extends ArithExpr with pp.BinOp with Printable
-    case class IfThenElse(ty : Types.Base, cond : BooleanExpr, x : ArithExpr, y : ArithExpr) extends ArithExpr with pp.IfThenElse with Printable
+    case class Neg(x : ArithExpr) extends ArithExpr with pp.Neg with Printable
+    {
+        def ty = unifyFloat(x)
+    }
+
+    case class BinOp(symbol : BinOpSymbol, x : ArithExpr, y : ArithExpr) extends ArithExpr with pp.BinOp with Printable
+    {
+        def ty = unifyFloat(x,y)
+    }
+
+    case class IfThenElse(cond : BooleanExpr, x : ArithExpr, y : ArithExpr) extends ArithExpr with pp.IfThenElse with Printable
+    {
+        def ty = unifyFloat(x,y)
+    }
 
     case class FloatConst(x : Double) extends ArithExpr with pp.FloatConst with Printable {
         val ty = Types.`Float`
@@ -49,7 +68,15 @@ package object Typed
     case class Or(x : BooleanExpr, y : BooleanExpr) extends BooleanExpr with pp.Or with Printable
     case class And(x : BooleanExpr, y : BooleanExpr) extends BooleanExpr with pp.And with Printable
     case class Not(x : BooleanExpr) extends BooleanExpr with pp.Not with Printable
+
     case class Condition(symbol : CondSymbol, x : ArithExpr, y : ArithExpr) extends BooleanExpr with pp.Condition with Printable
+    {
+        override val ty = {
+            if (unifyFloat(x,y) != Types.FloatFunc)
+                throw new Exception(s"Arguments of boolean expression must be casted to () => Float")
+            Types.BooleanFunc
+        }
+    }
 
     class Package(val name : String, parent : Option[Package] = None)
     {
