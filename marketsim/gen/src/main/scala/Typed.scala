@@ -4,51 +4,65 @@ package object Typed
     import syntax.scala.Printer.{typed => pp}
     import AST.Printable
 
-    private def floatRank(e: Expr) = e.ty match {
-        case Types.`Float` => 0
-        case Types.FloatFunc => 1
-        case t => throw new Exception(s"has wrong type $t")
-    }
-
-    private def unifyFloat(xs : Expr*) =
-        if ((xs map floatRank).sum > 0) Types.FloatFunc else Types.`Float`
-
     abstract class Expr {
         def ty : Types.Base
     }
 
-    abstract class ArithExpr extends Expr with pp.Expr
+    abstract class ArithExpr
+            extends Expr
+            with    pp.Expr
 
-    case class Neg(x : ArithExpr) extends ArithExpr with pp.Neg with Printable
-    {
-        def ty = unifyFloat(x)
-    }
+    case class Neg(x : ArithExpr)
+            extends ArithExpr
+            with    pp.Neg
+            with    Printable
+            with    TypeInference.Neg
 
-    case class BinOp(symbol : BinOpSymbol, x : ArithExpr, y : ArithExpr) extends ArithExpr with pp.BinOp with Printable
-    {
-        def ty = unifyFloat(x,y)
-    }
+    case class BinOp(symbol : BinOpSymbol,
+                     x      : ArithExpr,
+                     y      : ArithExpr)
+            extends ArithExpr
+            with    pp.BinOp
+            with    Printable
+            with    TypeInference.BinOp
 
-    case class IfThenElse(cond : BooleanExpr, x : ArithExpr, y : ArithExpr) extends ArithExpr with pp.IfThenElse with Printable
-    {
-        def ty = unifyFloat(x,y)
-    }
+    case class IfThenElse(cond  : BooleanExpr,
+                          x     : ArithExpr,
+                          y     : ArithExpr)
+            extends ArithExpr
+            with    pp.IfThenElse
+            with    Printable
+            with    TypeInference.IfThenElse
 
-    case class FloatConst(x : Double) extends ArithExpr with pp.FloatConst with Printable {
-        val ty = Types.`Float`
-    }
+    case class FloatConst(x : Double)
+            extends ArithExpr
+            with    pp.FloatConst
+            with    Printable
+            with    TypeInference.FloatConst
 
-    case class ParamRef(p : Parameter) extends ArithExpr with pp.ParamRef with Printable {
-        def ty = p.ty
-    }
+    case class ParamRef(p : Parameter)
+            extends ArithExpr
+            with    pp.ParamRef
+            with    Printable
+            with    TypeInference.ParamRef
 
-    case class FunctionCall(target : Function, arguments : List[(Parameter, ArithExpr)]) extends ArithExpr with pp.FunCall with Printable {
-        def ty = Types.nullaryFunction(target.ret_type)
-    }
+    case class FunctionCall(target      : Function,
+                            arguments   : List[(Parameter, ArithExpr)])
+            extends ArithExpr
+            with    pp.FunCall
+            with    Printable
+            with    TypeInference.FunctionCall
 
-    case class Annotation(target : AnnotationHandler, parameters : List[String]) extends pp.Annotation with Printable
+    case class Annotation(target    : AnnotationHandler,
+                          parameters: List[String])
+            extends pp.Annotation
+            with    Printable
 
-    case class Parameter(name : String, ty : Types.Base, initializer : Option[Expr]) extends pp.Parameter with Printable
+    case class Parameter(name        : String,
+                         ty          : Types.Base,
+                         initializer : Option[Expr])
+            extends pp.Parameter
+            with    Printable
 
     case class Function(parent      : Package,
                         name        : String,
@@ -56,27 +70,42 @@ package object Typed
                         ret_type    : Types.Base,
                         body        : Option[Expr],
                         docstring   : Option[DocString],
-                        annotations : List[Annotation]) extends pp.Function with Printable
+                        annotations : List[Annotation])
+            extends pp.Function
+            with    Printable
     {
         parent.insert(this)
     }
 
-    abstract class BooleanExpr extends Expr with pp.BooleanExpr {
-        val ty = Types.BooleanFunc
-    }
+    abstract class BooleanExpr
+            extends Expr
+            with    pp.BooleanExpr
+            with    TypeInference.BooleanExpr
 
-    case class Or(x : BooleanExpr, y : BooleanExpr) extends BooleanExpr with pp.Or with Printable
-    case class And(x : BooleanExpr, y : BooleanExpr) extends BooleanExpr with pp.And with Printable
-    case class Not(x : BooleanExpr) extends BooleanExpr with pp.Not with Printable
+    case class Or(x : BooleanExpr,
+                  y : BooleanExpr)
+            extends BooleanExpr
+            with    pp.Or
+            with    Printable
 
-    case class Condition(symbol : CondSymbol, x : ArithExpr, y : ArithExpr) extends BooleanExpr with pp.Condition with Printable
-    {
-        override val ty = {
-            if (unifyFloat(x,y) != Types.FloatFunc)
-                throw new Exception(s"Arguments of boolean expression must be casted to () => Float")
-            Types.BooleanFunc
-        }
-    }
+    case class And(x : BooleanExpr,
+                   y : BooleanExpr)
+            extends BooleanExpr
+            with    pp.And
+            with    Printable
+
+    case class Not(x : BooleanExpr)
+            extends BooleanExpr
+            with    pp.Not
+            with    Printable
+
+    case class Condition(symbol : CondSymbol,
+                         x      : ArithExpr,
+                         y      : ArithExpr)
+            extends BooleanExpr
+            with    pp.Condition
+            with    Printable
+            with    TypeInference.Condition
 
     class Package(val name : String, parent : Option[Package] = None)
     {
@@ -123,3 +152,4 @@ package object Typed
     }
 
 }
+
