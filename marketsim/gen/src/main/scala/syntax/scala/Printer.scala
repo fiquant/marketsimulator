@@ -93,6 +93,64 @@ package object Printer
             val symbol : CondSymbol
             def toScala = x.toString + symbol + y
         }
+
+        trait Definition
+
+        trait Definitions[T <: Definition] extends Printable {
+            val definitions: List[T]
+            def toScala = definitions.map({_ + crlf}).mkString("")
+        }
+
+        trait DocString extends Printable {
+            val brief, detailed : String
+            def toScala =
+                ("/** " + brief
+                        + detailed.lines.map({ crlf + " *" + _ }).mkString("") + crlf
+                        + " */" + crlf)
+
+        }
+
+        trait QualifiedName extends Printable {
+            val names : List[String]
+            def toScala = names.mkString(".")
+        }
+
+        trait Annotation extends Printable {
+            def getName : String
+            val parameters : List[String]
+            def toScala =
+                "@" + getName + "(" + parameters.map({ "\"" + _ + "\""}).mkString(", ") + ")"
+        }
+
+        trait Parameter extends Printable {
+            val annotations : List[Annotation]
+            val name : String
+            def printType : String
+            def printInitializer : String
+            
+            def toScala =
+                (annotations.map({ _ + " "}).mkString("")
+                        + name
+                        + printType
+                        + printInitializer)
+        }
+
+        trait Function extends Printable with Definition {
+            val docstring : Option[DocString]
+            val annotations : List[Annotation]
+            val name : String
+            val parameters : List[Parameter]
+            def printRetType : String
+            def printBody : String
+
+            def toScala =
+                (crlf   + prefixedIfSome(docstring)
+                        + annotations.map({_ + crlf}).mkString("")
+                        + "def " + name
+                        + parameters.mkString("(", ", ", ")")
+                        + printRetType
+                        + printBody)
+        }
     }
 
     object ast {
@@ -105,49 +163,26 @@ package object Printer
         type Sub = base.Sub
         type Mul = base.Mul
         type Div = base.Div
+        type Definition = base.Definition
+        type Definitions = base.Definitions[AST.FunDef]
+        type DocString = base.DocString
+        type QualifiedName = base.QualifiedName
 
-        trait Definitions extends Printable {
-            self: AST.Definitions =>
-            def toScala = definitions.map({_ + crlf + crlf}).mkString("")
-        }
-        trait Function extends Printable {
-            self: AST.FunDef =>
-            def toScala =
-                (prefixedIfSome(docstring)
-                        + annotations.map({_ + crlf}).mkString("")
-                        + "def " + name
-                        + "(" + parameters.mkString(", ") + ")"
-                        + prefixedIfSome(ret_type, " : ")
-                        + prefixedIfSome(body, " = "))
-        }
-
-        trait DocString extends Printable {
-            self: AST.DocString =>
-            def toScala =
-                ("/** " + brief
-                        + detailed.lines.map({ crlf + " *" + _ }).mkString("") + crlf
-                        + " */" + crlf)
-
-        }
-
-        trait Annotation extends Printable {
+        trait Annotation extends base.Annotation {
             self: AST.Annotation =>
-            def toScala =
-                "@" + name + "(" + parameters.map({ "\"" + _ + "\""}).mkString(", ") + ")"
+            def getName  = name.toString
         }
 
-        trait QualifiedName extends Printable {
-            self: AST.QualifiedName =>
-            def toScala = names.mkString(".")
+        trait Function extends base.Function {
+            self: AST.FunDef =>
+            def printRetType = prefixedIfSome(ret_type, " : ")
+            def printBody = prefixedIfSome(body, " = ")
         }
 
-        trait Parameter extends Printable {
+        trait Parameter extends base.Parameter {
             self: AST.Parameter =>
-            def toScala =
-                (annotations.map({ _ + " "}).mkString("")
-                        + name
-                        + prefixedIfSome(ty, " : ")
-                        + prefixedIfSome(initializer, " = "))
+            def printType = prefixedIfSome(ty, " : ")
+            def printInitializer = prefixedIfSome(initializer, " = ")
         }
 
         trait Const extends Expr {
@@ -240,33 +275,22 @@ package object Printer
 
     object typed {
 
-        trait Parameter extends Printable {
+        trait Parameter extends base.Parameter {
             self: Typed.Parameter =>
-
-            def toScala =
-                (name
-                    + " : " + ty
-                    + prefixedIfSome(initializer, " = "))
-
+            val annotations : List[Annotation] = Nil
+            def printType = " : " + ty
+            def printInitializer = prefixedIfSome(initializer, " = ")
         }
 
-        trait Annotation extends Printable {
+        trait Annotation extends base.Annotation {
             self: Typed.Annotation =>
-
-            def toScala = "@" + target.name + "(" + parameters.map({ "\"" + _ + "\""}).mkString(", ") + ")"
+            def getName = target.name
         }
 
-        trait Function extends Printable {
+        trait Function extends base.Function {
             self: Typed.Function =>
-
-            def toScala =
-                (crlf + prefixedIfSome(docstring)
-                        + annotations.map({_ + crlf}).mkString("")
-                        + "def " + name
-                        + parameters.mkString("(", ", ", ")")
-                        + " : " + ret_type
-                        + prefixedIfSome(body, crlf + tab + " = ")
-                        )
+            def printRetType = " : " + ret_type
+            def printBody = prefixedIfSome(body, crlf + tab + " = ")
         }
 
 

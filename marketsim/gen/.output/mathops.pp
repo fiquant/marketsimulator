@@ -35,6 +35,7 @@ def Pow(base = const(1.0), power = const(1.0)) : Float
 @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
 def Atan(x = const(0.0)) : Float
  ->
+
 def const(x = 1.0) : Float
 
 /** Exponent of x
@@ -67,5 +68,4 @@ def Pow(base = const(1.0), power = const(1.0)) : Float
  */
 @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
 def Atan(x = const(0.0)) : Float
-
 

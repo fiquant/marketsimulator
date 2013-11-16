@@ -90,6 +90,7 @@ def weibullvariate(Alpha = 1.0, Beta = 1.0) : Float
 
 
  ->
+
 /** Beta distribution
  *
  * Conditions on the parameters are |alpha| > 0 and |beta| > 0.
@@ -179,5 +180,4 @@ def paretovariate(Alpha = 1.0) : Float
  */
 @python.random()
 def weibullvariate(Alpha = 1.0, Beta = 1.0) : Float
-
 

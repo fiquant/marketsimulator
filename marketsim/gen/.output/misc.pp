@@ -7,6 +7,7 @@ def max(x = const(), y = const()) = if x > y then x else y
 def sqr(x = const()) = x*x
 
  ->
+
 def A(x = B()) : Float
 
 def C(x = A()) : Float
@@ -18,5 +19,4 @@ def min(x = const(), y = const()) = if x<y then x else y
 def max(x = const(), y = const()) = if x>y then x else y
 
 def sqr(x = const()) = x*x
-
 
