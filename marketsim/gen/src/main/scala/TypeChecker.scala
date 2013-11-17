@@ -1,5 +1,4 @@
-case class TypeChecker(lookupFunction : AST.QualifiedName => Typed.Function,
-                       lookupVar: String => Typed.Parameter)
+case class TypeChecker(ctx : TypingExprCtx)
 {
     def apply(e : AST.BooleanExpr) : Typed.BooleanExpr = e match {
         case AST.And(x, y) => Typed.And(apply(x), apply(y))
@@ -19,10 +18,10 @@ case class TypeChecker(lookupFunction : AST.QualifiedName => Typed.Function,
             Typed.IfThenElse(apply(cond), apply(x), apply(y))
 
         case AST.Const(d) => Typed.FloatConst(d)
-        case AST.Var(name) => Typed.ParamRef(lookupVar(name))
+        case AST.Var(name) => Typed.ParamRef(ctx.lookupVar(name))
 
         case AST.FunCall(name, args) =>
-            val fun_type = lookupFunction(name)
+            val fun_type = ctx.lookupFunction(name)
             val actual_args = args zip fun_type.parameters map {
                 case (actual, declared) =>
                     val typed = apply(actual)
@@ -35,4 +34,13 @@ case class TypeChecker(lookupFunction : AST.QualifiedName => Typed.Function,
     }
 
 
+}
+
+
+
+
+trait TypingExprCtx
+{
+    def lookupFunction(name : AST.QualifiedName) : Typed.Function
+    def lookupVar(name : String) : Typed.Parameter
 }
