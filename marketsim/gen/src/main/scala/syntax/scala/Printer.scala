@@ -172,7 +172,7 @@ package object Printer
         type Mul = base.Mul
         type Div = base.Div
         type Definition = base.Definition
-        type Definitions = base.Definitions[AST.FunDef]
+        type Definitions = base.Definitions[AST.Definition]
         type DocString = base.DocString
         type QualifiedName = base.QualifiedName
 

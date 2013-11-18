@@ -1,7 +1,7 @@
 case class Typer(n : NameTable.Impl)
 {
     val globals = TypeTable()
-    var visited = new {
+    val visited = new {
         var grey_set = List[String]()
 
         def enter(name : String)(f : => Typed.Function) =
@@ -23,7 +23,7 @@ case class Typer(n : NameTable.Impl)
 
     def all =
         try {
-            n.names.foreach({ case (name, definition) => get(name) })
+            n.functions.foreach({ case (name, definition) => get(name) })
             globals
         } catch {
             case e : Exception =>

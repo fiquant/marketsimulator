@@ -4,15 +4,12 @@ case class TypeTable() {
 
     override def toString = types mkString "\r\n"
 
-    def update(f : Typed.Function) =
-        types = types updated (f.name, f)
-
     def getOrElseUpdate(name : String, default : => Typed.Function) =
         types get name match {
             case Some(f) => f
             case None =>
                 val f = default
-                update(f)
+                types = types updated (f.name, f)
                 f
         }
 

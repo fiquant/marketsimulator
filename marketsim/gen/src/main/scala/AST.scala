@@ -35,14 +35,16 @@ package object AST {
 
     case class DocString(brief : String, detailed : String) extends pp.DocString with Printable
 
+    abstract sealed class Definition extends pp.Definition
+
     case class FunDef(name           : String,
                       parameters     : List[Parameter],
                       body           : Option[Expr],
                       ret_type       : Option[Type],
                       docstring      : Option[DocString],
-                      annotations    : List[Annotation]) extends pp.Function with Printable
+                      annotations    : List[Annotation]) extends Definition with pp.Function with Printable
 
-    case class Definitions(definitions : List[FunDef]) extends pp.Definitions with Printable
+    case class Definitions(definitions : List[Definition]) extends pp.Definitions with Printable
 
     sealed abstract class BinOpSymbol extends pp.BinOpSymbol
     case object Add extends BinOpSymbol with pp.Add with Printable
