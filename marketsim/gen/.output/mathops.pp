@@ -1,3 +1,5 @@
+package mathops
+
 def const(x = 1.0) : Float
 
 /** Exponent of x
@@ -5,6 +7,12 @@ def const(x = 1.0) : Float
   */
 @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
 def Exp(x = const(1.0)) : Float
+
+package internal {
+    package ppp {
+
+    }
+}
 
 /** Natural logarithm of x (to base e)
  *
@@ -36,12 +44,17 @@ def Pow(base = const(1.0), power = const(1.0)) : Float
 def Atan(x = const(0.0)) : Float
  ->
 
+package mathops {
 def const(x = 1.0) : Float
 
 /** Exponent of x
  */
 @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
 def Exp(x = const(1.0)) : Float
+
+package internal {
+package ppp {}
+}
 
 /** Natural logarithm of x (to base e)
  */
@@ -68,4 +81,5 @@ def Pow(base = const(1.0), power = const(1.0)) : Float
  */
 @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
 def Atan(x = const(0.0)) : Float
+}
 

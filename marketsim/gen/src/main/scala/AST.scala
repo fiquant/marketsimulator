@@ -37,6 +37,9 @@ package object AST {
 
     abstract sealed class Definition extends pp.Definition
 
+    case class PackageDef(name      : QualifiedName,
+                          members   : Definitions) extends Definition with pp.Package with Printable
+
     case class FunDef(name           : String,
                       parameters     : List[Parameter],
                       body           : Option[Expr],

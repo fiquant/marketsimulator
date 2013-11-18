@@ -96,7 +96,15 @@ class Parser() extends JavaTokenParsers with PackratParsers
         case (doc ~ annotations ~ name ~ parameters ~ t ~ body) => FunDef(name, parameters, body, t, doc, annotations)
     } withFailureMessage "function expected"
 
-    lazy val definitions = rep(function) ^^ Definitions
+    lazy val package_body = ("{" ~> definitions <~ "}") | definitions
+
+    lazy val `package` = "package" ~> qualified_name ~ package_body ^^ {
+        case name ~ members => PackageDef(name, members)
+    }
+
+    lazy val definition = function | `package`
+
+    lazy val definitions : Parser[AST.Definitions] = rep(definition) ^^ Definitions
 
     private def strip(s : String) = {
         def not_whitespace(ch : Char) = !ch.isWhitespace

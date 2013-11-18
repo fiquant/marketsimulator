@@ -1,3 +1,5 @@
+package mathops
+
 def const(x = 1.0) : Float
 
 /** Exponent of x
@@ -5,6 +7,12 @@ def const(x = 1.0) : Float
   */
 @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
 def Exp(x = const(1.0)) : Float
+
+package internal {
+    package ppp {
+
+    }
+}
 
 /** Natural logarithm of x (to base e)
  *
@@ -37,201 +45,219 @@ def Atan(x = const(0.0)) : Float
  ->
 Definitions:
 - List:
-| - FunDef:
-| | - const
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - None
-| | | | - Some:
-| | | | | - Const:
-| | | | | | - 1.0
-| | | | - List:
-| | - None
-| | - Some:
-| | | - SimpleType:
-| | | | - Float
-| | - None
-| | - List:
-| - FunDef:
-| | - Exp
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - None
-| | | | - Some:
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - const
-| | | | | | - List:
-| | | | | | | - Const:
-| | | | | | | | - 1.0
-| | | | - List:
-| | - None
-| | - Some:
-| | | - SimpleType:
-| | | | - Float
-| | - Some:
-| | | - DocString:
-| | | | - Exponent of x
-| | | | - 
-| | - List:
-| | | - Annotation:
-| | | | - QualifiedName:
+| - PackageDef:
+| | - QualifiedName:
+| | | - List:
+| | | | - mathops
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - const
 | | | | | - List:
-| | | | | | - python
-| | | | | | - mathops
-| | | | - List:
-| | | | | - Log/Pow
-| | | | | - exp
-| | | | | - e^{%(x)s}
-| - FunDef:
-| | - Log
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - None
-| | | | - Some:
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 1.0
 | | | | | | | - List:
-| | | | | | | | - const
-| | | | | | - List:
-| | | | | | | - Const:
-| | | | | | | | - 1.0
-| | | | - List:
-| | - None
-| | - Some:
-| | | - SimpleType:
-| | | | - Float
-| | - Some:
-| | | - DocString:
-| | | | - Natural logarithm of x (to base e)
-| | | | - 
-| | - List:
-| | | - Annotation:
-| | | | - QualifiedName:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - Float
+| | | | | - None
 | | | | | - List:
-| | | | | | - python
-| | | | | | - mathops
-| | | | - List:
-| | | | | - Log/Pow
-| | | | | - log
-| | | | | - log(%(x)s)
-| - FunDef:
-| | - Sqrt
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - None
-| | | | - Some:
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - const
-| | | | | | - List:
-| | | | | | | - Const:
-| | | | | | | | - 1.0
-| | | | - List:
-| | - None
-| | - Some:
-| | | - SimpleType:
-| | | | - Float
-| | - Some:
-| | | - DocString:
-| | | | - Square root of x
-| | | | - 
-| | - List:
-| | | - Annotation:
-| | | | - QualifiedName:
+| | | | - FunDef:
+| | | | | - Exp
 | | | | | - List:
-| | | | | | - python
-| | | | | | - mathops
-| | | | - List:
-| | | | | - Log/Pow
-| | | | | - sqrt
-| | | | | - \\sqrt{%(x)s}
-| - FunDef:
-| | - Pow
-| | - List:
-| | | - Parameter:
-| | | | - base
-| | | | - None
-| | | | - Some:
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 1.0
 | | | | | | | - List:
-| | | | | | | | - const
-| | | | | | - List:
-| | | | | | | - Const:
-| | | | | | | | - 1.0
-| | | | - List:
-| | | - Parameter:
-| | | | - power
-| | | | - None
-| | | | - Some:
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - const
-| | | | | | - List:
-| | | | | | | - Const:
-| | | | | | | | - 1.0
-| | | | - List:
-| | - None
-| | - Some:
-| | | - SimpleType:
-| | | | - Float
-| | - Some:
-| | | - DocString:
-| | | | - Return *x* raised to the power *y*.
-| | | | - 
-| | | | |  Exceptional cases follow Annex F of the C99 standard as far as possible.
-| | | | |  In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,
-| | | | |  even when *x* is a zero or a NaN.
-| | | | |  If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
-| | | | |  ``pow(x, y)`` is undefined, and raises ``ValueError``.
-| | - List:
-| | | - Annotation:
-| | | | - QualifiedName:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - Float
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Exponent of x
+| | | | | | | - 
 | | | | | - List:
-| | | | | | - python
-| | | | | | - mathops
-| | | | - List:
-| | | | | - Log/Pow
-| | | | | - pow
-| | | | | - %(base)s^{%(power)s}
-| - FunDef:
-| | - Atan
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - None
-| | | | - Some:
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - mathops
 | | | | | | | - List:
-| | | | | | | | - const
+| | | | | | | | - Log/Pow
+| | | | | | | | - exp
+| | | | | | | | - e^{%(x)s}
+| | | | - PackageDef:
+| | | | | - QualifiedName:
 | | | | | | - List:
-| | | | | | | - Const:
-| | | | | | | | - 0.0
-| | | | - List:
-| | - None
-| | - Some:
-| | | - SimpleType:
-| | | | - Float
-| | - Some:
-| | | - DocString:
-| | | | - Arc tangent of x, in radians.
-| | | | - 
-| | - List:
-| | | - Annotation:
-| | | | - QualifiedName:
+| | | | | | | - internal
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - PackageDef:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - ppp
+| | | | | | | | - Definitions:
+| | | | | | | | | - List:
+| | | | - FunDef:
+| | | | | - Log
 | | | | | - List:
-| | | | | | - python
-| | | | | | - mathops
-| | | | - List:
-| | | | | - Trigonometric
-| | | | | - atan
-| | | | | - atan(%(x)s)
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - Float
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Natural logarithm of x (to base e)
+| | | | | | | - 
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - mathops
+| | | | | | | - List:
+| | | | | | | | - Log/Pow
+| | | | | | | | - log
+| | | | | | | | - log(%(x)s)
+| | | | - FunDef:
+| | | | | - Sqrt
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - Float
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Square root of x
+| | | | | | | - 
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - mathops
+| | | | | | | - List:
+| | | | | | | | - Log/Pow
+| | | | | | | | - sqrt
+| | | | | | | | - \\sqrt{%(x)s}
+| | | | - FunDef:
+| | | | | - Pow
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - base
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - power
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - Float
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Return *x* raised to the power *y*.
+| | | | | | | - 
+| | | | | | | |  Exceptional cases follow Annex F of the C99 standard as far as possible.
+| | | | | | | |  In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,
+| | | | | | | |  even when *x* is a zero or a NaN.
+| | | | | | | |  If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
+| | | | | | | |  ``pow(x, y)`` is undefined, and raises ``ValueError``.
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - mathops
+| | | | | | | - List:
+| | | | | | | | - Log/Pow
+| | | | | | | | - pow
+| | | | | | | | - %(base)s^{%(power)s}
+| | | | - FunDef:
+| | | | | - Atan
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 0.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - Float
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Arc tangent of x, in radians.
+| | | | | | | - 
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - mathops
+| | | | | | | - List:
+| | | | | | | | - Trigonometric
+| | | | | | | | - atan
+| | | | | | | | - atan(%(x)s)

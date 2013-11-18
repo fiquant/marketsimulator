@@ -87,7 +87,7 @@ package object Printer
 
         trait Definition
 
-        trait Definitions[T <: Definition] extends Printable {
+        trait Definitions[+T <: Definition] extends Printable {
             val definitions: List[T]
             def toScala = definitions.map({_ + crlf}).mkString("")
         }
@@ -124,6 +124,16 @@ package object Printer
                         + name
                         + printType
                         + printInitializer)
+        }
+
+        trait Package[+T <: Definition] extends Printable with Definition {
+            val name : AST.QualifiedName
+            val members : Definitions[T]
+
+            def toScala = (
+                    crlf + "package " + name + " {"
+                    + members
+                    + "}")
         }
 
         trait Function extends Printable with Definition {
@@ -175,6 +185,7 @@ package object Printer
         type Definitions = base.Definitions[AST.Definition]
         type DocString = base.DocString
         type QualifiedName = base.QualifiedName
+        type Package = base.Package[Definition]
 
         trait Annotation extends base.Annotation {
             self: AST.Annotation =>
