@@ -4,6 +4,14 @@ case class TypeTable(types : Map[String, Typed.Function] = Map.empty) {
 
     def updated(f : Typed.Function) = TypeTable(types updated (f.name, f))
 
+    def getOrElseUpdated(name : String, default : => Typed.Function) =
+        types get name match {
+            case Some(f) => (f,this)
+            case None =>
+                val f = default
+                (f, updated(f))
+        }
+
     def contains(name : String) = types contains name
 
     def lookup(name : AST.QualifiedName) =

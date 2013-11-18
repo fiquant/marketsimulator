@@ -5,7 +5,7 @@ case class Typer(n : NameTable.Impl)
 
     def all =
         try {
-            n.names.foreach({ case (name, definition) => update(definition) })
+            n.names.foreach({ case (name, definition) => get(name) })
             globals
         } catch {
             case e : Exception =>
@@ -14,33 +14,30 @@ case class Typer(n : NameTable.Impl)
                 globals
         }
 
-    def get(name : String) =
-        globals.types.getOrElse(name,
-            update(n getFunDef name))
+    def get(name : String) = {
+        val (f, g) = globals.getOrElseUpdated(name, {
+            val definition = n getFunDef name
+
+            try {
+                // checking that there are no recursive calls
+                if (grey_set contains definition.name)
+                    throw new Exception("Cycle detected in function definitions: " + grey_set.mkString("->"))
+                grey_set.push(definition.name)
+
+                val ty = toTyped(definition)
+
+                grey_set.pop()
+                ty
+            } catch {
+                case ex : Exception =>
+                    throw new Exception(s"\r\nWhen typing function '${definition.name}':\r\n" + ex.getMessage)
+            }
+        })
+        globals = g
+        f
+    }
 
     def get(name : AST.QualifiedName) : Typed.Function = get(name.toString)
-
-    def update(definition : AST.FunDef) : Typed.Function =
-        try {
-            globals.types get definition.name match {
-                case Some(ty) => ty
-                case None =>
-
-                    // checking that there are no recursive calls
-                    if (grey_set contains definition.name)
-                        throw new Exception("Cycle detected in function definitions: " + grey_set.mkString("->"))
-                    grey_set.push(definition.name)
-
-                    val ty = toTyped(definition)
-                    globals = globals.updated(ty)
-                    grey_set.pop()
-                    ty
-            }
-        } catch {
-            case ex : Exception =>
-                throw new Exception(s"\r\nWhen typing function '${definition.name}':\r\n" + ex.getMessage)
-        }
-
 
     def toTyped(definition: AST.FunDef): Typed.Function = {
         def inferType(locals: List[Typed.Parameter])(e: AST.Expr) = {
