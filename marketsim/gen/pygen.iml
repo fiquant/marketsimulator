@@ -5,6 +5,7 @@
       <configuration>
         <option name="compilerLibraryLevel" value="Project" />
         <option name="compilerLibraryName" value="SBT: scala-compiler:2.10.2" />
+        <option name="compilerOptions" value="-feature -language:reflectiveCalls" />
       </configuration>
     </facet>
   </component>

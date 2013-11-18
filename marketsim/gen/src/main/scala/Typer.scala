@@ -1,7 +1,25 @@
 case class Typer(n : NameTable.Impl)
 {
-    var globals = TypeTable()
-    val grey_set = scala.collection.mutable.Stack[String]()
+    val globals = TypeTable()
+    var visited = new {
+        var grey_set = List[String]()
+
+        def enter(name : String)(f : => Typed.Function) =
+        {
+            // checking that there are no recursive calls
+            if (grey_set contains name)
+                throw new Exception("Cycle detected in function definitions: " + grey_set.mkString("->"))
+
+            grey_set = name :: grey_set
+
+            val ty = f
+
+            grey_set = grey_set.tail
+            ty
+        }
+    }
+
+
 
     def all =
         try {
@@ -15,26 +33,16 @@ case class Typer(n : NameTable.Impl)
         }
 
     def get(name : String) = {
-        val (f, g) = globals.getOrElseUpdated(name, {
+        globals.getOrElseUpdate(name, {
             val definition = n getFunDef name
 
             try {
-                // checking that there are no recursive calls
-                if (grey_set contains definition.name)
-                    throw new Exception("Cycle detected in function definitions: " + grey_set.mkString("->"))
-                grey_set.push(definition.name)
-
-                val ty = toTyped(definition)
-
-                grey_set.pop()
-                ty
+                visited.enter(definition.name) { toTyped(definition) }
             } catch {
                 case ex : Exception =>
                     throw new Exception(s"\r\nWhen typing function '${definition.name}':\r\n" + ex.getMessage)
             }
         })
-        globals = g
-        f
     }
 
     def get(name : AST.QualifiedName) : Typed.Function = get(name.toString)

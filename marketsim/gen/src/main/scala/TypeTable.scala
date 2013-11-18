@@ -1,15 +1,19 @@
-case class TypeTable(types : Map[String, Typed.Function] = Map.empty) {
+case class TypeTable() {
+
+    var types : Map[String, Typed.Function] = Map.empty
 
     override def toString = types mkString "\r\n"
 
-    def updated(f : Typed.Function) = TypeTable(types updated (f.name, f))
+    def update(f : Typed.Function) =
+        types = types updated (f.name, f)
 
-    def getOrElseUpdated(name : String, default : => Typed.Function) =
+    def getOrElseUpdate(name : String, default : => Typed.Function) =
         types get name match {
-            case Some(f) => (f,this)
+            case Some(f) => f
             case None =>
                 val f = default
-                (f, updated(f))
+                update(f)
+                f
         }
 
     def contains(name : String) = types contains name
