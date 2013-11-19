@@ -1,4 +1,4 @@
-case class Typer(n : NameTable.Impl)
+case class Typer(n : NameTable.Scope)
 {
     val globals = TypeTable()
     val visited = new {

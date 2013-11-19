@@ -53,12 +53,12 @@ object Runner extends syntax.scala.Parser {
 
         val parsed = files.flatMap({ file => parse(s"defs/$file.sc") })
 
-//        val names = NameTable.create(parsed)
-//
-//        for (output <- managed(new PrintWriter(".output/names.pp"))) {
-//            output.println(names)
-//        }
-//
+        val names = NameTable.create(parsed)
+
+        for (output <- managed(new PrintWriter(".output/names.pp"))) {
+            output.println(names)
+        }
+
 //        val typed = Typer(names).all
 //
 //        for (output <- managed(new PrintWriter(".output/typed.pp"))) {
