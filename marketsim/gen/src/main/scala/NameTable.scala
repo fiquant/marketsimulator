@@ -1,6 +1,14 @@
 package object NameTable {
 
-    case class Impl(functions : Map[String, AST.FunDef]) {
+    class Impl {
+
+        var functions = Map[String, AST.FunDef]()
+
+        def add(f : AST.FunDef) {
+            if (functions contains f.name)
+                throw new Exception(s"Duplicate definition for ${f.name}:\r\n" + functions(f.name) + "\r\n" + f)
+            functions = functions updated (f.name, f)
+        }
 
         override def toString = functions mkString "\r\n"
 
@@ -16,17 +24,13 @@ package object NameTable {
 
     def create(p : List[AST.Definitions])  =
     {
-        val grouped = p flatMap { _.definitions groupBy { case x : AST.FunDef => x.name } }
+        val impl = new Impl
 
-        val res = (grouped flatMap {
-            case (name, d :: Nil) => Some(name -> d.asInstanceOf[AST.FunDef])
-            case (name, lst) =>
-                println(s"Duplicate definitions for $name:")
-                println(lst.mkString("\r\n"))
-                None
-        }).toMap
+        p foreach {
+            case f : AST.FunDef => impl.add(f)
+        }
 
-        Impl(res)
+        impl
     }
 
 }
