@@ -57,11 +57,7 @@ object Runner extends syntax.scala.Parser {
 
         val names = buildNames(parsed)
 
-        val typed = Typer(names)
-
-        for (output <- managed(new PrintWriter(".output/typed.pp"))) {
-            output.println(typed)
-        }
+        val typed = buildTyped(names)
 
 //        val python_definitions =fromAST(parsed)
 //
@@ -74,6 +70,21 @@ object Runner extends syntax.scala.Parser {
 //        }
     }
 
+
+    def buildTyped(names: NameTable.Scope) {
+        val typed = Typer(names)
+
+        for (output <- managed(new PrintWriter(".output/typed.sc"))) {
+            output.println(typed)
+        }
+
+        val typed_2 = Typer(NameTable.create(List(parse(".output/typed.sc").get)))
+
+        if (typed.treeString != typed_2.treeString)
+            throw new Exception("re-parsed typed representation differs from the original one")
+
+        typed
+    }
 
     def buildNames(parsed: List[AST.Definitions]) =
     {

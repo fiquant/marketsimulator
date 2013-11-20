@@ -99,7 +99,7 @@ object Typer
                 body_type match {
                     case Some(b) if b != ret_type =>
                         throw new Exception(s"Inferred return type"
-                                + s" $b doesn't match to declared return type $ret_type")
+                                + s" '$b' doesn't match to declared return type '$ret_type'")
                     case _ =>
                 }
                 ret_type
@@ -121,8 +121,8 @@ object Typer
                     if (p.ty.nonEmpty) {
                         val decl_type = Types.fromAST(p.ty.get)
                         if (decl_type != initializer.ty) {
-                            throw new Exception(s"Inferred type of $initializer "
-                                    + s"doesn't match to the declared type $decl_type")
+                            throw new Exception(s"Inferred type of '$initializer': '${initializer.ty}' "
+                                    + s"doesn't match to the declared type '$decl_type'")
                         } // TODO: support casts
                         Typed.Parameter(p.name, decl_type, Some(initializer))
                     } else {

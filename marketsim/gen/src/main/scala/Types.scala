@@ -10,7 +10,7 @@ package object Types
     case class Tuple(elems : List[Base]) extends Base with pp.Tuple with Printable
     case class Function(args : List[Base], ret : Base) extends Base with pp.Function with Printable
 
-    def nullaryFunction(ret_type : Base) = Function(List(Unit), ret_type)
+    def nullaryFunction(ret_type : Base) = Function(List(), ret_type)
     val FloatFunc = nullaryFunction(`Float`)
     val BooleanFunc = nullaryFunction(`Boolean`)
 
