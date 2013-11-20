@@ -1,6 +1,5 @@
-case class Typer(n : NameTable.Scope)
+case class Typer(source : NameTable.Scope, target : Typed.Package)
 {
-    val globals = TypeTable()
     val visited = new {
         var grey_set = List[String]()
 
@@ -21,20 +20,19 @@ case class Typer(n : NameTable.Scope)
 
 
 
-    def all =
-        try {
-            n.functions.foreach({ case (name, definition) => get(name) })
-            globals
-        } catch {
-            case e : Exception =>
-                println("An error occurred during typing:")
-                println(e.getMessage)
-                globals
-        }
+    try {
+        source.functions.foreach({ case (name, definition) => get(name) })
+
+        source.packages foreach { case (name, subpackage) => Typer(subpackage, target.packages(name)) }
+    } catch {
+        case e : Exception =>
+            println("An error occurred during typing:")
+            println(e.getMessage)
+    }
 
     def get(name : String) = {
-        globals.getOrElseUpdate(name, {
-            val definition = n getFunDef name
+        target.getOrElseUpdateFunction(name, {
+            val definition = source getFunDef name
 
             try {
                 visited.enter(definition.name) { toTyped(definition) }

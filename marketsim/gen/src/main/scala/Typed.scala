@@ -127,6 +127,15 @@ package object Typed
         override def toString = s"\r\npackage $name {" + // TODO: unify with NameTable.Scope
                 (packages.values mkString "\r\n") +
                 (functions.values mkString "\r\n") + "\r\n}"
+
+        def getOrElseUpdateFunction(name : String, default : => Typed.Function) =
+            functions get name match {
+                case Some(f) => f
+                case None =>
+                    val f = default
+                    functions = functions updated (f.name, f)
+                    f
+            }
     }
 
     class SubPackage(n : String, parent : Package) extends Package(n)
