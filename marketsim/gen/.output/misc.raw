@@ -6,6 +6,9 @@ def min(x = const(), y = const()) = if x < y then x else y
 def max(x = const(), y = const()) = if x > y then x else y
 def sqr(x = const()) = x*x
 
+def const(x = 1.0) : Float
+
+
  ->
 Definitions:
 - List:
@@ -187,5 +190,21 @@ Definitions:
 | | | | - Var:
 | | | | | - x
 | | - None
+| | - None
+| | - List:
+| - FunDef:
+| | - const
+| | - List:
+| | | - Parameter:
+| | | | - x
+| | | | - None
+| | | | - Some:
+| | | | | - Const:
+| | | | | | - 1.0
+| | | | - List:
+| | - None
+| | - Some:
+| | | - SimpleType:
+| | | | - Float
 | | - None
 | | - List:

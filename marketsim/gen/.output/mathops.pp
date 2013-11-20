@@ -1,7 +1,5 @@
 package mathops
 
-def const(x = 1.0) : Float
-
 /** Exponent of x
   *
   */
@@ -45,8 +43,6 @@ def Atan(x = const(0.0)) : Float
  ->
 
 package mathops {
-def const(x = 1.0) : Float
-
 /** Exponent of x
  */
 @python.mathops("Log/Pow", "exp", "e^{%(x)s}")

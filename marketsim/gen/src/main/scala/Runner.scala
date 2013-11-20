@@ -59,9 +59,7 @@ object Runner extends syntax.scala.Parser {
             output.println(names)
         }
 
-        val typed = names.asTopLevelTyped
-
-        //Typer(names, typed)
+        val typed = Typer(names)
 
         for (output <- managed(new PrintWriter(".output/typed.pp"))) {
             output.println(typed)

@@ -4,6 +4,8 @@ package object NameTable {
 
         var functions = Map[String, AST.FunDef]()
         var packages = Map[String, Scope]()
+        var parent : Option[Scope] = None
+        var typed : Option[Typed.Package] = None
 
         def add(f : AST.FunDef) {
             check_name_is_unique(f.name, f)
@@ -22,6 +24,7 @@ package object NameTable {
                 case (x, y) =>
                     x.check_name_is_unique(y.name, y)
                     x.packages = x.packages updated (y.name, y)
+                    y.parent = Some(x)
                     y
             }
             create(p.members, target)
@@ -40,15 +43,32 @@ package object NameTable {
             }
         }
 
+        def lookupFunction(name : List[String]) : Option[(Scope, AST.FunDef)] = {
+            name match {
+                case Nil => throw new Exception("Qualified name cannot be empty")
+                case x :: Nil =>
+                    functions get x match {
+                        case Some(f) => Some((this, f))
+                        case None => parent flatMap { _ lookupFunction name }
+                    }
+                case x :: tl =>
+                    packages get x map { _ lookupFunction tl } match {
+                        case None => parent flatMap { _ lookupFunction name }
+                        case y => y.get
+                    }
+            }
+        }
+
         private def toTyped(target : Typed.Package) : Typed.Package =
         {
+            typed = Some(target)
             packages.values foreach {
                 p => p.toTyped(target.createChild(p.name))
             }
             target
         }
 
-        def asTopLevelTyped = toTyped(new Typed.Package())
+        def typePackages = toTyped(new Typed.Package())
     }
 
     def create(p : AST.Definitions, impl : Scope) : Unit =

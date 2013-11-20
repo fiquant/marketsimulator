@@ -109,8 +109,6 @@ def Atan(x = const(0.0)) : Float
 @python.mathops("Log/Pow", "sqrt", "\\sqrt{%(x)s}")
 def Sqrt(x = const(1.0)) : Float
 
-def const(x = 1.0) : Float
-
 /** Exponent of x
  */
 @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
@@ -137,6 +135,8 @@ def sqr(x = const()) = x*x
 def A(x = B()) : Float
 
 def min(x = const(), y = const()) = if x<y then x else y
+
+def const(x = 1.0) : Float
 
 def max(x = const(), y = const()) = if x>y then x else y
 

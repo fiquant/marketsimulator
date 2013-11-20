@@ -1,7 +1,5 @@
 package mathops
 
-def const(x = 1.0) : Float
-
 /** Exponent of x
   *
   */
@@ -51,22 +49,6 @@ Definitions:
 | | | | - mathops
 | | - Definitions:
 | | | - List:
-| | | | - FunDef:
-| | | | | - const
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - x
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - Const:
-| | | | | | | | | - 1.0
-| | | | | | | - List:
-| | | | | - None
-| | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - Float
-| | | | | - None
-| | | | | - List:
 | | | | - FunDef:
 | | | | | - Exp
 | | | | | - List:

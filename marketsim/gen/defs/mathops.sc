@@ -1,7 +1,5 @@
 package mathops
 
-def const(x = 1.0) : Float
-
 /** Exponent of x
   *
   */

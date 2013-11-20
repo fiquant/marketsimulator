@@ -1,4 +1,4 @@
-case class Typer(source : NameTable.Scope, target : Typed.Package)
+object Typer
 {
     val visited = new {
         var grey_set = List[String]()
@@ -18,24 +18,10 @@ case class Typer(source : NameTable.Scope, target : Typed.Package)
         }
     }
 
-
-
-    try {
-        source.functions.foreach({ case (name, definition) => get(name) })
-
-        source.packages foreach { case (name, subpackage) => Typer(subpackage, target.packages(name)) }
-    } catch {
-        case e : Exception =>
-            println("An error occurred during typing:")
-            println(e.getMessage)
-    }
-
-    def get(name : String) = {
-        target.getOrElseUpdateFunction(name, {
-            val definition = source getFunDef name
-
+    def getTyped(source : NameTable.Scope, definition : AST.FunDef) = {
+        source.typed.get.getOrElseUpdateFunction(definition.name, {
             try {
-                visited.enter(definition.name) { toTyped(definition) }
+                visited.enter(definition.name) { toTyped(definition, lookup(source) _ ) }
             } catch {
                 case ex : Exception =>
                     throw new Exception(s"\r\nWhen typing function '${definition.name}':\r\n" + ex.getMessage)
@@ -43,12 +29,36 @@ case class Typer(source : NameTable.Scope, target : Typed.Package)
         })
     }
 
-    def get(name : AST.QualifiedName) : Typed.Function = get(name.toString)
+    def lookup(source : NameTable.Scope)(name : AST.QualifiedName) : Typed.Function =
+        source.lookupFunction(name.names) match {
+            case Some((scope, definition)) => getTyped(scope, definition)
+            case None => throw new Exception(s"cannot find name $name")
+        }
 
-    def toTyped(definition: AST.FunDef): Typed.Function = {
+    def process(source : NameTable.Scope)
+    {
+        try {
+            source.functions foreach { case (name, definition) => getTyped(source, definition) }
+            source.packages  foreach { case (name, subpackage) => process(subpackage) }
+        } catch {
+            case e : Exception =>
+                println("An error occurred during typing:")
+                println(e.getMessage)
+        }
+    }
+
+    def apply(source : NameTable.Scope) =
+    {
+        source.typePackages
+        process(source)
+        source.typed.get
+    }
+
+
+    def toTyped(definition: AST.FunDef, lookup : AST.QualifiedName => Typed.Function): Typed.Function = {
         def inferType(locals: List[Typed.Parameter])(e: AST.Expr) = {
             val ctx = new TypingExprCtx {
-                def lookupFunction(name: AST.QualifiedName) = get(name)
+                def lookupFunction(name: AST.QualifiedName) = lookup(name)
 
                 def lookupVar(name: String) = locals.find({
                     _.name == name
@@ -67,7 +77,7 @@ case class Typer(source : NameTable.Scope, target : Typed.Package)
             (locals, p) =>
                 if (locals contains p.name)
                     throw new Exception(s"Duplicate parameter ${p.name}")
-                locals :+ toTyped(p, inferType(locals))
+                locals :+ toTyped(p, inferType(locals) _)
         }
 
         // getting a typed representation for function body if any

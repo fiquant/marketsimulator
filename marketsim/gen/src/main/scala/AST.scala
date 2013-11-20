@@ -28,6 +28,9 @@ package object AST {
     case class QualifiedName(names   : List[String]) extends pp.QualifiedName with Printable
     {
         def ++(s : String) = QualifiedName(names :+ s)
+        def head = names.head
+        def tail = QualifiedName(names.tail)
+        def simple = names.length == 1
     }
 
     case class Annotation(name       : QualifiedName,
