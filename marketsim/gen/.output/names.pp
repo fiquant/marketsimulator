@@ -1,7 +1,6 @@
 
-package _root_ {
-package mathutils {
-package rnd {
+package mathutils { 
+package rnd { 
 /** Gamma distribution
  *
  *  Conditions on the parameters are |alpha| > 0 and |beta| > 0.
@@ -90,14 +89,14 @@ def lognormvariate(Mu = 0.0, Sigma = 1.0) : Float
  * Returned values range between 0 and 1.
  */
 @python.random()
-def betavariate(Alpha = 1.0, Beta = 1.0) : Float
-}
+def betavariate(Alpha = 1.0, Beta = 1.0) : Float 
+} 
 }
 
-package mathops {
-package internal {
-package ppp {
-}
+package mathops { 
+package internal { 
+package ppp {  
+} 
 }
 /** Arc tangent of x, in radians.
  */
@@ -128,13 +127,13 @@ def Log(x = const(1.0)) : Float
  * ``pow(x, y)`` is undefined, and raises ``ValueError``.
  */
 @python.mathops("Log/Pow", "pow", "%(base)s^{%(power)s}")
-def Pow(base = const(1.0), power = const(1.0)) : Float
+def Pow(base = const(1.0), power = const(1.0)) : Float 
 }
 def sqr(x = const()) = x*x
 
 def A(x = B()) : Float
 
-def min(x = const(), y = const()) = if x<y then x else y
+def min(x = mathops.Exp(), y = const()) = if x<y then x else y
 
 def const(x = 1.0) : Float
 
@@ -143,4 +142,3 @@ def max(x = const(), y = const()) = if x>y then x else y
 def B(x = const(), y = if 3.0>x+2.0 then x else x*2.0) : Float
 
 def C(x = A()) : Float
-}

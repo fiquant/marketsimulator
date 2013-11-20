@@ -107,12 +107,14 @@ package object Typed
             with    Printable
             with    TypeInference.Condition
 
-    class Package(val name : String = "_root_")
+    class Package
     {
         var functions = Map[String, Function]()
         var packages = Map[String, SubPackage]()
 
-        def qualifiedName : QualifiedName = QualifiedName(name :: Nil)
+        def qualifiedName : List[String] = Nil
+
+        def qualifyName(x : String) = x
 
         def insert(f : Function) {
             functions = functions.updated(f.name, f)
@@ -124,9 +126,9 @@ package object Typed
             p
         }
 
-        override def toString = s"\r\npackage $name {" + // TODO: unify with NameTable.Scope
+        override def toString =
                 (packages.values mkString "\r\n") +
-                (functions.values mkString "\r\n") + "\r\n}"
+                (functions.values mkString "\r\n")
 
         def getOrElseUpdateFunction(name : String, default : => Typed.Function) =
             functions get name match {
@@ -138,12 +140,15 @@ package object Typed
             }
     }
 
-    class SubPackage(n : String, parent : Package) extends Package(n)
+    class SubPackage(val name : String, parent : Package) extends Package
     {
-        override def qualifiedName = parent.qualifiedName ++ n
-    }
+        override def qualifiedName = parent.qualifiedName :+ name
 
-    val globals = new Package("_root_")
+        override def qualifyName(x : String) = (qualifiedName mkString ".") + "." + x
+
+        override def toString = s"\r\npackage $name {" + // TODO: unify with NameTable.Scope
+                super.toString +  "\r\n}"
+    }
 
     trait AnnotationHandler
     {

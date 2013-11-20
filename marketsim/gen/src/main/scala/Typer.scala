@@ -1,6 +1,6 @@
 object Typer
 {
-    val visited = new {
+    private val visited = new {
         var grey_set = List[String]()
 
         def enter(name : String)(f : => Typed.Function) =
@@ -18,10 +18,10 @@ object Typer
         }
     }
 
-    def getTyped(source : NameTable.Scope, definition : AST.FunDef) = {
+    private def getTyped(source : NameTable.Scope, definition : AST.FunDef) = {
         source.typed.get.getOrElseUpdateFunction(definition.name, {
             try {
-                visited.enter(definition.name) { toTyped(definition, lookup(source) _ ) }
+                visited.enter(definition.name) { toTyped(definition, source.typed.get, lookup(source) _ ) }
             } catch {
                 case ex : Exception =>
                     throw new Exception(s"\r\nWhen typing function '${definition.name}':\r\n" + ex.getMessage)
@@ -29,13 +29,13 @@ object Typer
         })
     }
 
-    def lookup(source : NameTable.Scope)(name : AST.QualifiedName) : Typed.Function =
+    private def lookup(source : NameTable.Scope)(name : AST.QualifiedName) : Typed.Function =
         source.lookupFunction(name.names) match {
             case Some((scope, definition)) => getTyped(scope, definition)
             case None => throw new Exception(s"cannot find name $name")
         }
 
-    def process(source : NameTable.Scope)
+    private def process(source : NameTable.Scope)
     {
         try {
             source.functions foreach { case (name, definition) => getTyped(source, definition) }
@@ -55,7 +55,10 @@ object Typer
     }
 
 
-    def toTyped(definition: AST.FunDef, lookup : AST.QualifiedName => Typed.Function): Typed.Function = {
+    private def toTyped(definition  : AST.FunDef,
+                        target      : Typed.Package,
+                        lookup      : AST.QualifiedName => Typed.Function): Typed.Function =
+    {
         def inferType(locals: List[Typed.Parameter])(e: AST.Expr) = {
             val ctx = new TypingExprCtx {
                 def lookupFunction(name: AST.QualifiedName) = lookup(name)
@@ -106,12 +109,11 @@ object Typer
                     if (x.nonEmpty) x.get else throw fail_msg
                 deref(body_type, new Exception(s"Return type for should be given explicitly"))
         }
-        val ty = Typed.Function(Typed.globals, definition.name, locals, ret_type, body,
+        Typed.Function(target, definition.name, locals, ret_type, body,
             definition.docstring, definition.annotations map toTyped)
-        ty
     }
 
-    def toTyped(p: AST.Parameter, inferType : AST.Expr => Typed.Expr)= {
+    private def toTyped(p: AST.Parameter, inferType : AST.Expr => Typed.Expr)= {
         try {
             p.initializer match {
                 case Some(e) =>
@@ -138,6 +140,6 @@ object Typer
         }
     }
 
-    def toTyped(a : AST.Annotation)  =
+    private def toTyped(a : AST.Annotation)  =
         Typed.Annotation(Typed.Annotations.lookup(a.name.toString), a.parameters)
 }

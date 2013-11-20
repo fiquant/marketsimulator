@@ -306,7 +306,7 @@ package object Printer
 
         trait FunCall extends Expr with Priority_0 {
             self: Typed.FunctionCall =>
-            def toScala = target.name + arguments.map({ _._2 }).mkString("(",",",")")
+            def toScala = target.parent.qualifyName(target.name) + arguments.map({ _._2 }).mkString("(",",",")")
         }
     }
 }

@@ -1,5 +1,4 @@
 
-package _root_ {
 package mathutils {
 package rnd {
 /** Gamma distribution
@@ -135,7 +134,7 @@ def sqr(x : () => Float = const()) : Float
 
 def A(x : () => Float = B()) : Float
 
-def min(x : () => Float = const(), y : () => Float = const()) : Float
+def min(x : () => Float = mathops.Exp(), y : () => Float = const()) : Float
 	 = if x<y then x else y
 
 def const(x : Float = 1.0) : Float
@@ -146,4 +145,3 @@ def max(x : () => Float = const(), y : () => Float = const()) : Float
 def B(x : () => Float = const(), y : () => Float = if 3.0>x+2.0 then x else x*2.0) : Float
 
 def C(x : () => Float = A()) : Float
-}

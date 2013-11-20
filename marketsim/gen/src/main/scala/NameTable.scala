@@ -30,9 +30,11 @@ package object NameTable {
             create(p.members, target)
         }
 
-        override def toString = s"\r\npackage $name {" +
-                (packages.values mkString "\r\n") +
-                (functions.values mkString "\r\n") + "\r\n}"
+        private def content =
+            (packages.values mkString "\r\n") +
+            (functions.values mkString "\r\n")
+
+        override def toString = if (name == "_root_") content else s"\r\npackage $name { $content \r\n}"
 
         def getFunDef(name : AST.QualifiedName) : AST.FunDef = getFunDef(name.toString)
 
