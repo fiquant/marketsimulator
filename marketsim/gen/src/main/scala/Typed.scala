@@ -107,24 +107,27 @@ package object Typed
             with    Printable
             with    TypeInference.Condition
 
-    class Package(val name : String, parent : Option[Package] = None)
+    class Package(val name : String)
     {
         var functions = Map[String, Function]()
-        var packages = Map[String, Package]()
+        var packages = Map[String, SubPackage]()
 
-        if (parent.nonEmpty)
-            parent.get.insert(this)
-
-        val qualifiedName : QualifiedName =
-            if (parent.isEmpty) QualifiedName(Nil) else parent.get.qualifiedName ++ name
+        def qualifiedName : QualifiedName = QualifiedName(name :: Nil)
 
         def insert(f : Function) {
             functions = functions.updated(f.name, f)
         }
 
-        def insert(p : Package) {
+        def createChild(n : String) = {
+            val p = new SubPackage(n, this)
             packages = packages.updated(p.name, p)
+            p
         }
+    }
+
+    class SubPackage(n : String, parent : Package) extends Package(n)
+    {
+        override def qualifiedName = parent.qualifiedName ++ n
     }
 
     val globals = new Package("_root_")
