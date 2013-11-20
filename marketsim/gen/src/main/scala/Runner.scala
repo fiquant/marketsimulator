@@ -43,6 +43,8 @@ object Runner extends syntax.scala.Parser {
         }).opt.get
     }
 
+
+
     def main(args: Array[String]) {
 
         println(generator.python.PyGen.Annotations)
@@ -53,11 +55,7 @@ object Runner extends syntax.scala.Parser {
 
         val parsed = files.flatMap({ file => parse(s"defs/$file.sc") })
 
-        val names = NameTable.create(parsed)
-
-        for (output <- managed(new PrintWriter(".output/names.pp"))) {
-            output.println(names)
-        }
+        val names = buildNames(parsed)
 
         val typed = Typer(names)
 
@@ -76,4 +74,20 @@ object Runner extends syntax.scala.Parser {
 //        }
     }
 
+
+    def buildNames(parsed: List[AST.Definitions]) =
+    {
+        val names = NameTable.create(parsed)
+
+        for (output <- managed(new PrintWriter(".output/names.sc"))) {
+            output.println(names)
+        }
+
+        val names_2 = NameTable.create(List(parse(".output/names.sc").get))
+
+        if (names_2 != names)
+            throw new Exception("re-parsed names differ from original ones.")
+
+        names
+    }
 }

@@ -12,6 +12,8 @@ package object NameTable {
             functions = functions updated (f.name, f)
         }
 
+        override def equals(o : Any) = true
+
         private def check_name_is_unique(name : String, e : Any) {
             if (functions contains name)
                 throw new Exception(s"Duplicate definition for $name:\r\n" + functions(name) + "\r\n" + e)

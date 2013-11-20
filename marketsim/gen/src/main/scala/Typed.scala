@@ -126,6 +126,11 @@ package object Typed
             p
         }
 
+        override def equals(o : Any) = o match {
+            case that : Package => functions.equals(that.functions) && packages.equals(that.packages)
+            case _ => false
+        }
+
         override def toString =
                 (packages.values mkString "\r\n") +
                 (functions.values mkString "\r\n")
@@ -145,6 +150,11 @@ package object Typed
         override def qualifiedName = parent.qualifiedName :+ name
 
         override def qualifyName(x : String) = (qualifiedName mkString ".") + "." + x
+
+        override def equals(o : Any) = o match {
+            case that : SubPackage => super.equals(o) && name == that.name
+            case _ => false
+        }
 
         override def toString = s"\r\npackage $name {" + // TODO: unify with NameTable.Scope
                 super.toString +  "\r\n}"
