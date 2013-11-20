@@ -39,6 +39,16 @@ package object NameTable {
                 case None => throw new Exception(s"Cannot find name $name")
             }
         }
+
+        private def toTyped(target : Typed.Package) : Typed.Package =
+        {
+            packages.values foreach {
+                p => p.toTyped(target.createChild(p.name))
+            }
+            target
+        }
+
+        def asTopLevelTyped = toTyped(new Typed.Package())
     }
 
     def create(p : AST.Definitions, impl : Scope) : Unit =

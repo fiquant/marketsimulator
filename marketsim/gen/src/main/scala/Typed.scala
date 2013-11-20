@@ -107,7 +107,7 @@ package object Typed
             with    Printable
             with    TypeInference.Condition
 
-    class Package(val name : String)
+    class Package(val name : String = "_root_")
     {
         var functions = Map[String, Function]()
         var packages = Map[String, SubPackage]()
@@ -123,6 +123,10 @@ package object Typed
             packages = packages.updated(p.name, p)
             p
         }
+
+        override def toString = s"\r\npackage $name {" + // TODO: unify with NameTable.Scope
+                (packages.values mkString "\r\n") +
+                (functions.values mkString "\r\n") + "\r\n}"
     }
 
     class SubPackage(n : String, parent : Package) extends Package(n)

@@ -59,11 +59,13 @@ object Runner extends syntax.scala.Parser {
             output.println(names)
         }
 
+        val typed = names.asTopLevelTyped
+
 //        val typed = Typer(names).all
 //
-//        for (output <- managed(new PrintWriter(".output/typed.pp"))) {
-//            output.println(typed)
-//        }
+        for (output <- managed(new PrintWriter(".output/typed.pp"))) {
+            output.println(typed)
+        }
 
 //        val python_definitions =fromAST(parsed)
 //
