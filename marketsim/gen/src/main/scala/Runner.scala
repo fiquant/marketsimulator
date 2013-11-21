@@ -14,8 +14,6 @@ object Runner extends syntax.scala.Parser {
 
             case ((input, raw_output), pp_output) => Nil
                 val in = input.mkString
-                raw_output.println(s"$in ->")
-                pp_output.println(s"$in ->")
 
                 parseAll(definitions, in) match {
                     case Success(result, _) => {
