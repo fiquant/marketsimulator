@@ -10,11 +10,10 @@ def betavariate(Alpha = 1.0, Beta = 1.0) : Float
 
 /** Exponential distribution
  *
- * |lambda| is 1.0 divided by the desired mean.
- * It should be greater zero. Returned values range from 0 to positive infinity
+ *  Returned values range from 0 to positive infinity
  */
 @python.random
-def expovariate(Lambda = 1.0) : Float
+def expovariate(/** |lambda| is 1.0 divided by the desired mean. It should be greater zero.*/ Lambda = 1.0) : Float
 
 /** Uniform distribution
  *
@@ -144,7 +143,8 @@ Definitions:
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 1.0
-| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | -  |lambda| is 1.0 divided by the desired mean. It should be greater zero.
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -153,8 +153,7 @@ Definitions:
 | | | | | | - DocString:
 | | | | | | | - Exponential distribution
 | | | | | | | - 
-| | | | | | | |  |lambda| is 1.0 divided by the desired mean.
-| | | | | | | |  It should be greater zero. Returned values range from 0 to positive infinity
+| | | | | | | |   Returned values range from 0 to positive infinity
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:

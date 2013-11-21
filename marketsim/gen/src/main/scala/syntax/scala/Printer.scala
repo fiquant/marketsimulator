@@ -12,8 +12,8 @@ package object Printer
     def pars(s : Any, condition : Boolean = true) =
         if (condition) "(" + s + ")" else s.toString
 
-    def prefixedIfSome[A](p : Option[A], prefix : String = "") =
-        if (p.nonEmpty) prefix + p.get else ""
+    def prefixedIfSome[A](p : Option[A], prefix : String = "", postfix : String = "") =
+        if (p.nonEmpty) prefix + p.get + postfix else ""
 
     object base {
         trait Expr extends Printable {
@@ -120,7 +120,7 @@ package object Printer
             def printInitializer : String
             
             def toScala =
-                (prefixedIfSome(comment)
+                (prefixedIfSome(comment, "/**", "*/")
                         + name
                         + printType
                         + printInitializer)

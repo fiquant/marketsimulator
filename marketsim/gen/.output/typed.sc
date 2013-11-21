@@ -68,11 +68,10 @@ def weibullvariate(Alpha : Float = 1.0, Beta : Float = 1.0) : Float
 
 /** Exponential distribution
  *
- * |lambda| is 1.0 divided by the desired mean.
- * It should be greater zero. Returned values range from 0 to positive infinity
+ *  Returned values range from 0 to positive infinity
  */
 @python.random()
-def expovariate(Lambda : Float = 1.0) : Float
+def expovariate(/** |lambda| is 1.0 divided by the desired mean. It should be greater zero.*/Lambda : Float = 1.0) : Float
 
 /** Log normal distribution
  *
