@@ -42,15 +42,15 @@ object ExprTest extends syntax.scala.Parser {
                   | */
                   | @ann("p1", "p2")
                   | @ann2("p")
-                  | def min(@doc("X") x : (float,float) = 0,
-                  |         @doc("Y") y : (float) = 0) =
+                  | def min(/* X */ x : (float,float) = 0,
+                  |         /* Y */ y : (float) = 0) =
                   |
                   |     if x < y then x else y
                   |
                   |/**  Maximum
                   | */
-                  | def max(@doc("X") x : () = 0,
-                  |         @doc("Y") y : float => () => (float) = 0) =
+                  | def max(/* X */ x : () = 0,
+                  |         /* Y */ y : float => () => (float) = 0) =
                   |
                   |     if x > y then x else y
                   |                """.stripMargin

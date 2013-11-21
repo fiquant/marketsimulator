@@ -114,13 +114,13 @@ package object Printer
         }
 
         trait Parameter extends Printable {
-            val annotations : List[Annotation]
+            val comment : Option[String]
             val name : String
             def printType : String
             def printInitializer : String
             
             def toScala =
-                (annotations.map({ _ + " "}).mkString("")
+                (prefixedIfSome(comment)
                         + name
                         + printType
                         + printInitializer)
@@ -263,7 +263,6 @@ package object Printer
 
         trait Parameter extends base.Parameter {
             self: Typed.Parameter =>
-            val annotations : List[Annotation] = Nil
             def printType = " : " + ty
             def printInitializer = prefixedIfSome(initializer, " = ")
         }

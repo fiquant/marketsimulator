@@ -124,13 +124,13 @@ object Typer
                             throw new Exception(s"Inferred type of '$initializer': '${initializer.ty}' "
                                     + s"doesn't match to the declared type '$decl_type'")
                         } // TODO: support casts
-                        Typed.Parameter(p.name, decl_type, Some(initializer))
+                        Typed.Parameter(p.name, decl_type, Some(initializer), p.comment)
                     } else {
-                        Typed.Parameter(p.name, initializer.ty, Some(initializer))
+                        Typed.Parameter(p.name, initializer.ty, Some(initializer), p.comment)
                     }
                 case None =>
                     if (p.ty.nonEmpty)
-                        Typed.Parameter(p.name, Types.fromAST(p.ty.get), None)
+                        Typed.Parameter(p.name, Types.fromAST(p.ty.get), None, p.comment)
                     else
                         throw new Exception(s"parameter ${p.name} has undefined type")
             }

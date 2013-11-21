@@ -24,7 +24,7 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - B
 | | | | | | - List:
-| | | | - List:
+| | | | - None
 | | - None
 | | - Some:
 | | | - SimpleType:
@@ -43,7 +43,7 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - A
 | | | | | | - List:
-| | | | - List:
+| | | | - None
 | | - None
 | | - Some:
 | | | - SimpleType:
@@ -62,7 +62,7 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - const
 | | | | | | - List:
-| | | | - List:
+| | | | - None
 | | | - Parameter:
 | | | | - y
 | | | | - None
@@ -86,7 +86,7 @@ Definitions:
 | | | | | | | | - x
 | | | | | | | - Const:
 | | | | | | | | - 2.0
-| | | | - List:
+| | | | - None
 | | - None
 | | - Some:
 | | | - SimpleType:
@@ -106,7 +106,7 @@ Definitions:
 | | | | | | | | - mathops
 | | | | | | | | - Exp
 | | | | | | - List:
-| | | | - List:
+| | | | - None
 | | | - Parameter:
 | | | | - y
 | | | | - None
@@ -116,7 +116,7 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - const
 | | | | | | - List:
-| | | | - List:
+| | | | - None
 | | - Some:
 | | | - IfThenElse:
 | | | | - Condition:
@@ -144,7 +144,7 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - const
 | | | | | | - List:
-| | | | - List:
+| | | | - None
 | | | - Parameter:
 | | | | - y
 | | | | - None
@@ -154,7 +154,7 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - const
 | | | | | | - List:
-| | | | - List:
+| | | | - None
 | | - Some:
 | | | - IfThenElse:
 | | | | - Condition:
@@ -182,7 +182,7 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - const
 | | | | | | - List:
-| | | | - List:
+| | | | - None
 | | - Some:
 | | | - BinOp:
 | | | | - Mul
@@ -202,7 +202,7 @@ Definitions:
 | | | | - Some:
 | | | | | - Const:
 | | | | | | - 1.0
-| | | | - List:
+| | | | - None
 | | - None
 | | - Some:
 | | | - SimpleType:

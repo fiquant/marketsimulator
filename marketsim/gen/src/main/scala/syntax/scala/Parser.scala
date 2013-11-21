@@ -83,8 +83,8 @@ class Parser() extends JavaTokenParsers with PackratParsers
             }
             | ident ^^ SimpleType) withFailureMessage "tuple or simple type expected"
 
-    lazy val parameter = rep(annotation) ~ ident ~ opt(":" ~> typ) ~ opt("=" ~> expr) ^^ {
-        case (annotations ~ name ~ ty ~ initializer) => Parameter(name, ty, initializer, annotations)
+    lazy val parameter = opt(comment) ~ ident ~ opt(":" ~> typ) ~ opt("=" ~> expr) ^^ {
+        case (c ~ name ~ ty ~ initializer) => Parameter(name, ty, initializer, c)
     } withFailureMessage "parameter expected"
 
     lazy val function  = (opt(docstring)
