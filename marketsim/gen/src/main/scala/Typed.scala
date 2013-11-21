@@ -121,7 +121,7 @@ package object Typed
 
     }
 
-    class Package
+    class Package extends pp.TopLevelPackage with Printable
     {
         var functions = Map[String, Function]()
         var packages = Map[String, SubPackage]()
@@ -145,10 +145,6 @@ package object Typed
             case _ => false
         }
 
-        override def toString =
-                (packages.values mkString "\r\n") +
-                (functions.values mkString "\r\n")
-
         def getOrElseUpdateFunction(name : String, default : => Typed.Function) =
             functions get name match {
                 case Some(f) => f
@@ -159,7 +155,7 @@ package object Typed
             }
     }
 
-    class SubPackage(val name : String, parent : Package) extends Package
+    class SubPackage(val name : String, parent : Package) extends Package with pp.SubPackage with Printable
     {
         override def qualifiedName = parent.qualifiedName :+ name
 
@@ -169,9 +165,6 @@ package object Typed
             case that : SubPackage => super.equals(o) && name == that.name
             case _ => false
         }
-
-        override def toString = s"\r\npackage $name {" + // TODO: unify with NameTable.Scope
-                super.toString +  "\r\n}"
     }
 
     trait AnnotationHandler

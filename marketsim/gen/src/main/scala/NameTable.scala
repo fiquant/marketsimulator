@@ -1,6 +1,9 @@
+import syntax.scala.Printer.{typed => pp}
+import AST.Printable
+
 object NameTable {
 
-    class Scope(val name : String = "_root_") {
+    class Scope(val name : String = "_root_") extends pp.Scope with Printable {
 
         var functions = Map[String, AST.FunDef]()
         var packages = Map[String, Scope]()
@@ -31,12 +34,6 @@ object NameTable {
             }
             create(p.members, target)
         }
-
-        private def content =
-            (packages.values mkString "\r\n") +
-            (functions.values mkString "\r\n")
-
-        override def toString = if (name == "_root_") content else s"\r\npackage $name { $content \r\n}"
 
         def getFunDef(name : AST.QualifiedName) : AST.FunDef = getFunDef(name.toString)
 

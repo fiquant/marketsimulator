@@ -329,6 +329,30 @@ package object Printer
             self: Typed.FunctionCall =>
             def toScala = target.parent.qualifyName(target.name) + arguments.map({ _._2 }).mkString("(",",",")")
         }
+
+        trait TopLevelPackage extends Printable {
+            def packages : Map[String, Any]
+            def functions : Map[String, Any]
+            def content =
+                (packages.values mkString crlf) +
+                (functions.values mkString crlf)
+            def wrapped(name : String) =
+                crlf + s"package $name {" +
+                    indent.enter() { content } +
+                crlf + "}"
+            def toScala = content
+        }
+
+        trait SubPackage extends TopLevelPackage  {
+            def name : String
+            override def toScala = wrapped(name)
+        }
+
+        trait Scope extends TopLevelPackage {
+            def name : String
+            override def toScala = if (name == "_root_") content else wrapped(name)
+        }
+
     }
 }
 
