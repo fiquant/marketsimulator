@@ -12,17 +12,19 @@ package rnd {
  *                  math.gamma(alpha) * beta ** alpha
  */
 @python.random()
-def gammavariate(Alpha : Float = 1.0, Beta : Float = 1.0) : Float
+def gammavariate(Alpha : Float = 1.0,
+                 Beta : Float = 1.0) : Float
 
 /** Normal distribution
  */
 @python.random()
-def normalvariate(/** |mu| is the mean */Mu : Float = 0.0, /** |sigma| is the standard deviation */Sigma : Float = 1.0) : Float
+def normalvariate(/** |mu| is the mean */ Mu : Float = 0.0,
+                  /** |sigma| is the standard deviation */ Sigma : Float = 1.0) : Float
 
 /** Pareto distribution
  */
 @python.random()
-def paretovariate(/** |alpha| is the shape parameter*/Alpha : Float = 1.0) : Float
+def paretovariate(/** |alpha| is the shape parameter*/ Alpha : Float = 1.0) : Float
 
 /** Triangular distribution
  *
@@ -33,14 +35,17 @@ def paretovariate(/** |alpha| is the shape parameter*/Alpha : Float = 1.0) : Flo
  *       giving a symmetric distribution.
  */
 @python.random()
-def triangular(Low : Float = 0.0, High : Float = 1.0, Mode : Float = 0.5) : Float
+def triangular(Low : Float = 0.0,
+               High : Float = 1.0,
+               Mode : Float = 0.5) : Float
 
 /** Von Mises distribution
  */
 @python.random()
-def vonmisesvariate(/** |mu| is the mean angle, expressed in radians between 0 and 2|pi|*/Mu : Float = 0.0, /** |kappa| is the concentration parameter, which must be greater than or equal to zero.
+def vonmisesvariate(/** |mu| is the mean angle, expressed in radians between 0 and 2|pi|*/ Mu : Float = 0.0,
+                    /** |kappa| is the concentration parameter, which must be greater than or equal to zero.
       If |kappa| is equal to zero, this distribution reduces
-      to a uniform random angle over the range 0 to 2|pi| */Kappa : Float = 0.0) : Float
+      to a uniform random angle over the range 0 to 2|pi| */ Kappa : Float = 0.0) : Float
 
 /** Uniform distribution
  *
@@ -50,19 +55,21 @@ def vonmisesvariate(/** |mu| is the mean angle, expressed in radians between 0 a
  * floating-point rounding in the equation *a* + (*b*-*a*) * *random()*.
  */
 @python.random()
-def uniform(Low : Float = -10.0, High : Float = 10.0) : Float
+def uniform(Low : Float = -10.0,
+            High : Float = 10.0) : Float
 
 /** Weibull distribution
  */
 @python.random()
-def weibullvariate(/** |alpha| is the scale parameter */Alpha : Float = 1.0, /** |beta| is the shape parameter  */Beta : Float = 1.0) : Float
+def weibullvariate(/** |alpha| is the scale parameter */ Alpha : Float = 1.0,
+                   /** |beta| is the shape parameter  */ Beta : Float = 1.0) : Float
 
 /** Exponential distribution
  *
  *  Returned values range from 0 to positive infinity
  */
 @python.random()
-def expovariate(/** |lambda| is 1.0 divided by the desired mean. It should be greater zero.*/Lambda : Float = 1.0) : Float
+def expovariate(/** |lambda| is 1.0 divided by the desired mean. It should be greater zero.*/ Lambda : Float = 1.0) : Float
 
 /** Log normal distribution
  *
@@ -71,7 +78,8 @@ def expovariate(/** |lambda| is 1.0 divided by the desired mean. It should be gr
  *  |mu| can have any value, and |sigma| must be greater than zero.
  */
 @python.random()
-def lognormvariate(Mu : Float = 0.0, Sigma : Float = 1.0) : Float
+def lognormvariate(Mu : Float = 0.0,
+                   Sigma : Float = 1.0) : Float
 
 /** Beta distribution
  *
@@ -79,7 +87,8 @@ def lognormvariate(Mu : Float = 0.0, Sigma : Float = 1.0) : Float
  * Returned values range between 0 and 1.
  */
 @python.random()
-def betavariate(Alpha : Float = 1.0, Beta : Float = 1.0) : Float
+def betavariate(Alpha : Float = 1.0,
+                Beta : Float = 1.0) : Float
 }
 }
 
@@ -117,20 +126,24 @@ def Log(x : () => Float = const(1.0)) : Float
  * ``pow(x, y)`` is undefined, and raises ``ValueError``.
  */
 @python.mathops("Log/Pow", "pow", "%(base)s^{%(power)s}")
-def Pow(base : () => Float = const(1.0), power : () => Float = const(1.0)) : Float
+def Pow(base : () => Float = const(1.0),
+        power : () => Float = const(1.0)) : Float
 }
 
 def sqr(x : () => Float = const()) : Float = x*x
 
 def A(x : () => Float = B()) : Float
 
-def min(x : () => Float = mathops.Exp(), y : () => Float = const()) : Float = if x<y then x else y
+def min(x : () => Float = mathops.Exp(),
+        y : () => Float = const()) : Float = if x<y then x else y
 
 def const(x : Float = 1.0) : Float
 
-def max(x : () => Float = const(), y : () => Float = const()) : Float = if x>y then x else y
+def max(x : () => Float = const(),
+        y : () => Float = const()) : Float = if x>y then x else y
 
-def B(x : () => Float = const(), y : () => Float = if 3.0>x+2.0 then x else x*2.0) : Float
+def B(x : () => Float = const(),
+      y : () => Float = if 3.0>x+2.0 then x else x*2.0) : Float
 
 def C(x : () => Float = A()) : Float
 

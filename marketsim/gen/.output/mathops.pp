@@ -28,7 +28,8 @@ def Sqrt(x = const(1.0)) : Float
  * ``pow(x, y)`` is undefined, and raises ``ValueError``.
  */
 @python.mathops("Log/Pow", "pow", "%(base)s^{%(power)s}")
-def Pow(base = const(1.0), power = const(1.0)) : Float
+def Pow(base = const(1.0),
+        power = const(1.0)) : Float
 
 /** Arc tangent of x, in radians.
  */

@@ -120,7 +120,7 @@ package object Printer
             def printInitializer : String
             
             def toScala =
-                (prefixedIfSome(comment, "/**", "*/")
+                (prefixedIfSome(comment, "/**", "*/ ")
                         + name
                         + printType
                         + printInitializer)
@@ -144,13 +144,15 @@ package object Printer
             def printRetType : String
             def printBody : String
 
-            def toScala =
+            def toScala = {
+                val indent = " " * ("def " + name + "(").length
                 (crlf   + prefixedIfSome(docstring)
                         + annotations.map({_ + crlf}).mkString("")
                         + "def " + name
-                        + parameters.mkString("(", ", ", ")")
+                        + parameters.mkString("(", "," + crlf + indent, ")")
                         + printRetType
                         + printBody)
+            }
         }
 
         trait TypeBase
