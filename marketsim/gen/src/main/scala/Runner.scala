@@ -70,6 +70,22 @@ object Runner extends syntax.scala.Parser {
 //        }
     }
 
+    def buildNames(parsed: List[AST.Definitions]) =
+    {
+        val names = NameTable.apply(parsed)
+
+        for (output <- managed(new PrintWriter(".output/names.sc"))) {
+            output.println(names)
+        }
+
+        val names_2 = NameTable(parse(".output/names.sc").get :: Nil)
+
+        if (names_2 != names)
+            throw new Exception("re-parsed names differ from original ones.")
+
+        names
+    }
+
 
     def buildTyped(names: NameTable.Scope)  = {
         val typed = Typer(names)
@@ -78,27 +94,11 @@ object Runner extends syntax.scala.Parser {
             output.println(typed)
         }
 
-        val typed_2 = Typer(NameTable.create(List(parse(".output/typed.sc").get)))
+        val typed_2 = Typer(NameTable(parse(".output/typed.sc").get :: Nil))
 
         if (typed != typed_2)
             throw new Exception("re-parsed typed representation differs from the original one")
 
         typed
-    }
-
-    def buildNames(parsed: List[AST.Definitions]) =
-    {
-        val names = NameTable.create(parsed)
-
-        for (output <- managed(new PrintWriter(".output/names.sc"))) {
-            output.println(names)
-        }
-
-        val names_2 = NameTable.create(List(parse(".output/names.sc").get))
-
-        if (names_2 != names)
-            throw new Exception("re-parsed names differ from original ones.")
-
-        names
     }
 }

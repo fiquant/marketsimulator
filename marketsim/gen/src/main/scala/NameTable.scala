@@ -1,4 +1,4 @@
-package object NameTable {
+object NameTable {
 
     class Scope(val name : String = "_root_") {
 
@@ -75,13 +75,13 @@ package object NameTable {
         def typePackages = toTyped(new Typed.Package())
     }
 
-    def create(p : AST.Definitions, impl : Scope) : Unit =
+    private def create(p : AST.Definitions, impl : Scope) : Unit =
         p.definitions foreach {
             case fun_def : AST.FunDef => impl.add(fun_def)
             case package_def : AST.PackageDef => impl.add(package_def)
         }
 
-    def create(p : List[AST.Definitions], impl : Scope = new Scope) : Scope =
+    def apply(p : List[AST.Definitions], impl : Scope = new Scope) : Scope =
     {
         p foreach { create(_, impl) }
 
