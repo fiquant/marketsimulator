@@ -64,19 +64,6 @@ package object Typed
             extends pp.Parameter
             with    Printable
 
-    case class Function(parent      : Package,
-                        name        : String,
-                        parameters  : List[Parameter],
-                        ret_type    : Types.Base,
-                        body        : Option[Expr],
-                        docstring   : Option[DocString],
-                        annotations : List[Annotation])
-            extends pp.Function
-            with    Printable
-    {
-        parent.insert(this)
-    }
-
     abstract class BooleanExpr
             extends Expr
             with    pp.BooleanExpr
@@ -106,6 +93,32 @@ package object Typed
             with    pp.Condition
             with    Printable
             with    TypeInference.Condition
+
+    case class Function(parent      : Package,
+                        name        : String,
+                        parameters  : List[Parameter],
+                        ret_type    : Types.Base,
+                        body        : Option[Expr],
+                        docstring   : Option[DocString],
+                        annotations : List[Annotation])
+            extends pp.Function
+            with    Printable
+    {
+        parent.insert(this)
+
+        override def equals(o : Any) = o match {
+            case that : Function =>
+                parent.qualifiedName == that.parent.qualifiedName &&
+                name                 == that.name &&
+                parameters           == that.parameters &&
+                ret_type             == that.ret_type &&
+                body                 == that.body &&
+                docstring            == that.docstring &&
+                annotations          == that.annotations
+            case _ => false
+        }
+
+    }
 
     class Package
     {

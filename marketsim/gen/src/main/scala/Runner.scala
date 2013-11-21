@@ -71,7 +71,7 @@ object Runner extends syntax.scala.Parser {
     }
 
 
-    def buildTyped(names: NameTable.Scope) {
+    def buildTyped(names: NameTable.Scope)  = {
         val typed = Typer(names)
 
         for (output <- managed(new PrintWriter(".output/typed.sc"))) {
@@ -80,7 +80,7 @@ object Runner extends syntax.scala.Parser {
 
         val typed_2 = Typer(NameTable.create(List(parse(".output/typed.sc").get)))
 
-        if (typed.treeString != typed_2.treeString)
+        if (typed != typed_2)
             throw new Exception("re-parsed typed representation differs from the original one")
 
         typed
