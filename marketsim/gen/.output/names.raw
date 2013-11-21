@@ -60,14 +60,16 @@ Definitions:
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - Const:
 | | | | | | | | | | | | - 0.0
-| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | -  |mu| is the mean 
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - Sigma
 | | | | | | | | | | - None
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - Const:
 | | | | | | | | | | | | - 1.0
-| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | -  |sigma| is the standard deviation 
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
@@ -76,7 +78,6 @@ Definitions:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Normal distribution
 | | | | | | | | | | - 
-| | | | | | | | | | |   |mu| is the mean, and |sigma| is the standard deviation.
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
@@ -93,7 +94,8 @@ Definitions:
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - Const:
 | | | | | | | | | | | | - 1.0
-| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | -  |alpha| is the shape parameter
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
@@ -102,7 +104,6 @@ Definitions:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Pareto distribution
 | | | | | | | | | | - 
-| | | | | | | | | | |   |alpha| is the shape parameter.
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
@@ -163,14 +164,18 @@ Definitions:
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - Const:
 | | | | | | | | | | | | - 0.0
-| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | -  |mu| is the mean angle, expressed in radians between 0 and 2|pi|
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - Kappa
 | | | | | | | | | | - None
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - Const:
 | | | | | | | | | | | | - 0.0
-| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | -  |kappa| is the concentration parameter, which must be greater than or equal to zero.
+| | | | | | | | | | | |       If |kappa| is equal to zero, this distribution reduces
+| | | | | | | | | | | |       to a uniform random angle over the range 0 to 2|pi| 
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
@@ -179,10 +184,6 @@ Definitions:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Von Mises distribution
 | | | | | | | | | | - 
-| | | | | | | | | | |   |mu| is the mean angle, expressed in radians between 0 and 2|pi|,
-| | | | | | | | | | |       and |kappa| is the concentration parameter, which must be greater than or equal to zero.
-| | | | | | | | | | |       If |kappa| is equal to zero, this distribution reduces
-| | | | | | | | | | |       to a uniform random angle over the range 0 to 2|pi|
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
@@ -235,14 +236,16 @@ Definitions:
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - Const:
 | | | | | | | | | | | | - 1.0
-| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | -  |alpha| is the scale parameter 
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - Beta
 | | | | | | | | | | - None
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - Const:
 | | | | | | | | | | | | - 1.0
-| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | -  |beta| is the shape parameter  
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
@@ -251,7 +254,6 @@ Definitions:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Weibull distribution
 | | | | | | | | | | - 
-| | | | | | | | | | |   |alpha| is the scale parameter and |beta| is the shape parameter
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:

@@ -15,18 +15,14 @@ package rnd {
 def gammavariate(Alpha = 1.0, Beta = 1.0) : Float
 
 /** Normal distribution
- *
- *  |mu| is the mean, and |sigma| is the standard deviation.
  */
 @python.random()
-def normalvariate(Mu = 0.0, Sigma = 1.0) : Float
+def normalvariate(/** |mu| is the mean */Mu = 0.0, /** |sigma| is the standard deviation */Sigma = 1.0) : Float
 
 /** Pareto distribution
- *
- *  |alpha| is the shape parameter.
  */
 @python.random()
-def paretovariate(Alpha = 1.0) : Float
+def paretovariate(/** |alpha| is the shape parameter*/Alpha = 1.0) : Float
 
 /** Triangular distribution
  *
@@ -40,14 +36,11 @@ def paretovariate(Alpha = 1.0) : Float
 def triangular(Low = 0.0, High = 1.0, Mode = 0.5) : Float
 
 /** Von Mises distribution
- *
- *  |mu| is the mean angle, expressed in radians between 0 and 2|pi|,
- *      and |kappa| is the concentration parameter, which must be greater than or equal to zero.
- *      If |kappa| is equal to zero, this distribution reduces
- *      to a uniform random angle over the range 0 to 2|pi|
  */
 @python.random()
-def vonmisesvariate(Mu = 0.0, Kappa = 0.0) : Float
+def vonmisesvariate(/** |mu| is the mean angle, expressed in radians between 0 and 2|pi|*/Mu = 0.0, /** |kappa| is the concentration parameter, which must be greater than or equal to zero.
+      If |kappa| is equal to zero, this distribution reduces
+      to a uniform random angle over the range 0 to 2|pi| */Kappa = 0.0) : Float
 
 /** Uniform distribution
  *
@@ -60,11 +53,9 @@ def vonmisesvariate(Mu = 0.0, Kappa = 0.0) : Float
 def uniform(Low = -10.0, High = 10.0) : Float
 
 /** Weibull distribution
- *
- *  |alpha| is the scale parameter and |beta| is the shape parameter
  */
 @python.random()
-def weibullvariate(Alpha = 1.0, Beta = 1.0) : Float
+def weibullvariate(/** |alpha| is the scale parameter */Alpha = 1.0, /** |beta| is the shape parameter  */Beta = 1.0) : Float
 
 /** Exponential distribution
  *
