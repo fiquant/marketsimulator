@@ -2,9 +2,29 @@ package syntax.scala
 
 package object Printer
 {
-    val crlf = "\r\n"
     val tab = "\t"
-    
+
+    val indent = new {
+        var x : Int = 0
+        var spaces = Map[Int, String]()
+
+        def get = {
+            if (!(spaces contains x)) {
+                spaces = spaces updated (x, " " * x)
+            }
+            spaces(x)
+        }
+
+        def enter(increment : Int = 4)(f : => Any) = {
+            x += increment
+            val e = f.toString
+            x -= increment
+            e
+        }
+    }
+
+    def crlf = "\r\n" + indent.get
+
     trait Printable {
         def toScala : String
     }
@@ -89,7 +109,7 @@ package object Printer
 
         trait Definitions[+T <: Definition] extends Printable {
             val definitions: List[T]
-            def toScala = definitions.map({_ + crlf}).mkString("")
+            def toScala = definitions.mkString(crlf)
         }
 
         trait DocString extends Printable {
@@ -132,8 +152,8 @@ package object Printer
 
             def toScala = (
                     crlf + "package " + name + " {"
-                    + members
-                    + "}")
+                    + indent.enter() { members }
+                    + crlf + "}")
         }
 
         trait Function extends Printable with Definition {
@@ -145,11 +165,11 @@ package object Printer
             def printBody : String
 
             def toScala = {
-                val indent = " " * ("def " + name + "(").length
                 (crlf   + prefixedIfSome(docstring)
                         + annotations.map({_ + crlf}).mkString("")
                         + "def " + name
-                        + parameters.mkString("(", "," + crlf + indent, ")")
+                        + indent.enter(("def " + name).length + 1){
+                                parameters.mkString("(", "," + crlf, ")") }
                         + printRetType
                         + printBody)
             }

@@ -15,4 +15,3 @@ def max(x = const(),
 def sqr(x = const()) = x*x
 
 def const(x = 1.0) : Float
-
