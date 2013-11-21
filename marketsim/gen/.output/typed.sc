@@ -18,7 +18,7 @@ package mathutils {
         /** Normal distribution
          */
         @python.random()
-        def normalvariate(/** |mu| is the mean */ Mu : Float = 0.0,
+        def normalvariate(/** |mu| is the mean                  */ Mu : Float = 0.0,
                           /** |sigma| is the standard deviation */ Sigma : Float = 1.0) : Float
         
         /** Pareto distribution
@@ -45,7 +45,7 @@ package mathutils {
         def vonmisesvariate(/** |mu| is the mean angle, expressed in radians between 0 and 2|pi|*/ Mu : Float = 0.0,
                             /** |kappa| is the concentration parameter, which must be greater than or equal to zero.
                               *      If |kappa| is equal to zero, this distribution reduces
-                              *      to a uniform random angle over the range 0 to 2|pi| */ Kappa : Float = 0.0) : Float
+                              *      to a uniform random angle over the range 0 to 2|pi|        */ Kappa : Float = 0.0) : Float
         
         /** Uniform distribution
          *

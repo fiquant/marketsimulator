@@ -61,7 +61,7 @@ def lognormvariate(Mu = 0.0, Sigma = 1.0) : Float
 /** Normal distribution
  */
 @python.random
-def normalvariate(/** |mu| is the mean */                   Mu    = 0.0,
+def normalvariate(/** |mu| is the mean                  */  Mu    = 0.0,
                   /** |sigma| is the standard deviation */  Sigma = 1.0) : Float
 
 /** Von Mises distribution
@@ -70,7 +70,7 @@ def normalvariate(/** |mu| is the mean */                   Mu    = 0.0,
 def vonmisesvariate(/** |mu| is the mean angle, expressed in radians between 0 and 2|pi|*/ Mu = 0.0,
                     /** |kappa| is the concentration parameter, which must be greater than or equal to zero.
                       *      If |kappa| is equal to zero, this distribution reduces
-                      *      to a uniform random angle over the range 0 to 2|pi| */        Kappa = 0.0) : Float
+                      *      to a uniform random angle over the range 0 to 2|pi|        */ Kappa = 0.0) : Float
 
 /** Pareto distribution
  */
