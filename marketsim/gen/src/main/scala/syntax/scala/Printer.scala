@@ -4,26 +4,7 @@ package object Printer
 {
     val tab = "\t"
 
-    val indent = new {
-        var x : Int = 0
-        var spaces = Map[Int, String]()
-
-        def get = at(x)
-
-        def at(i : Int) = {
-            if (!(spaces contains i)) {
-                spaces = spaces updated (i, " " * i)
-            }
-            spaces(i)
-        }
-
-        def enter(increment : Int = 4)(f : => Any) = {
-            x += increment
-            val e = f.toString
-            x -= increment
-            e
-        }
-    }
+    val indent = new predef.Indent()
 
     def crlf = "\r\n" + indent.get
 
@@ -34,7 +15,7 @@ package object Printer
     def pars(s : Any, condition : Boolean = true) =
         if (condition) "(" + s + ")" else s.toString
 
-    def prefixedIfSome[A](p : Option[A], prefix : String = "", postfix : String = "") =
+    def ifSome[A](p : Option[A], prefix : String = "", postfix : String = "") =
         if (p.nonEmpty) prefix + p.get + postfix else ""
 
     object base {
@@ -169,7 +150,7 @@ package object Printer
             def printBody : String
 
             def toScala = {
-                (crlf   + prefixedIfSome(docstring)
+                (crlf   + ifSome(docstring)
                         + annotations.map({_ + crlf}).mkString("")
                         + "def " + name
                         + indent.enter(("def " + name).length + 1){
@@ -220,14 +201,14 @@ package object Printer
 
         trait Function extends base.Function {
             self: AST.FunDef =>
-            def printRetType = prefixedIfSome(ret_type, " : ")
-            def printBody = prefixedIfSome(body, " = ")
+            def printRetType = ifSome(ret_type, " : ")
+            def printBody = ifSome(body, " = ")
         }
 
         trait Parameter extends base.Parameter {
             self: AST.Parameter =>
-            def printType = prefixedIfSome(ty, " : ")
-            def printInitializer = prefixedIfSome(initializer, " = ")
+            def printType = ifSome(ty, " : ")
+            def printInitializer = ifSome(initializer, " = ")
         }
 
         import base.Priority_0
@@ -290,7 +271,7 @@ package object Printer
         trait Parameter extends base.Parameter {
             self: Typed.Parameter =>
             def printType = " : " + ty
-            def printInitializer = prefixedIfSome(initializer, " = ")
+            def printInitializer = ifSome(initializer, " = ")
         }
 
         trait Annotation extends base.Annotation {
@@ -301,7 +282,7 @@ package object Printer
         trait Function extends base.Function {
             self: Typed.Function =>
             def printRetType = " : " + ret_type
-            def printBody = prefixedIfSome(body, crlf + tab + " = ")
+            def printBody = ifSome(body, crlf + tab + " = ")
         }
 
 
