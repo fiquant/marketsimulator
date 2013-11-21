@@ -2,6 +2,7 @@ package syntax.scala
 
 import scala.util.parsing.combinator._
 import AST._
+import syntax.scala.Printer.indent
 
 class Parser() extends JavaTokenParsers with PackratParsers
 {
@@ -83,7 +84,7 @@ class Parser() extends JavaTokenParsers with PackratParsers
             }
             | ident ^^ SimpleType) withFailureMessage "tuple or simple type expected"
 
-    lazy val parameter = opt(comment) ~ ident ~ opt(":" ~> typ) ~ opt("=" ~> expr) ^^ {
+    lazy val parameter = comment_lst ~ ident ~ opt(":" ~> typ) ~ opt("=" ~> expr) ^^ {
         case (c ~ name ~ ty ~ initializer) => Parameter(name, ty, initializer, c)
     } withFailureMessage "parameter expected"
 
@@ -115,6 +116,11 @@ class Parser() extends JavaTokenParsers with PackratParsers
 
     lazy val comment = "/\\*(?:.|[\\n\\r])*?\\*/".r ^^ {
         _ stripPrefix "/*" stripSuffix "*/" stripMargin '*'
+    }
+
+    lazy val comment_lst = opt(comment) ^^ {
+        case Some(s) => s.lines.toList
+        case None => Nil
     }
 
     private def strip_empty_tail(lst : List[String]) : List[String] = lst match {

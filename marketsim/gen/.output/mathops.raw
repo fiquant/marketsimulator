@@ -20,7 +20,7 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
-| | | | | | | - None
+| | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -65,7 +65,7 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
-| | | | | | | - None
+| | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -98,7 +98,7 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
-| | | | | | | - None
+| | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -131,7 +131,7 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
-| | | | | | | - None
+| | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - power
 | | | | | | | - None
@@ -143,7 +143,7 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
-| | | | | | | - None
+| | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -181,7 +181,7 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 0.0
-| | | | | | | - None
+| | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:

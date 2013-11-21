@@ -23,7 +23,7 @@ package object AST {
     case class Parameter(name        : String,
                          ty          : Option[Type],
                          initializer : Option[Expr],
-                         comment     : Option[String]) extends pp.Parameter with Printable
+                         comment     : List[String]) extends pp.Parameter with Printable
 
     case class QualifiedName(names   : List[String]) extends pp.QualifiedName with Printable
     {

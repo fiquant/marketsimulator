@@ -16,14 +16,14 @@ Definitions:
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 1.0
-| | | | | | | - None
+| | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - Beta
 | | | | | | | - None
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 1.0
-| | | | | | | - None
+| | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -50,7 +50,7 @@ Definitions:
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 1.0
-| | | | | | | - Some:
+| | | | | | | - List:
 | | | | | | | | -  |lambda| is 1.0 divided by the desired mean. It should be greater zero.
 | | | | | - None
 | | | | | - Some:
@@ -77,14 +77,14 @@ Definitions:
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - -10.0
-| | | | | | | - None
+| | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - High
 | | | | | | | - None
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 10.0
-| | | | | | | - None
+| | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -113,21 +113,21 @@ Definitions:
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 0.0
-| | | | | | | - None
+| | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - High
 | | | | | | | - None
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 1.0
-| | | | | | | - None
+| | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - Mode
 | | | | | | | - None
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 0.5
-| | | | | | | - None
+| | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -157,14 +157,14 @@ Definitions:
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 1.0
-| | | | | | | - None
+| | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - Beta
 | | | | | | | - None
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 1.0
-| | | | | | | - None
+| | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -196,14 +196,14 @@ Definitions:
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 0.0
-| | | | | | | - None
+| | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - Sigma
 | | | | | | | - None
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 1.0
-| | | | | | | - None
+| | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -231,7 +231,7 @@ Definitions:
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 0.0
-| | | | | | | - Some:
+| | | | | | | - List:
 | | | | | | | | -  |mu| is the mean 
 | | | | | | - Parameter:
 | | | | | | | - Sigma
@@ -239,7 +239,7 @@ Definitions:
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 1.0
-| | | | | | | - Some:
+| | | | | | | - List:
 | | | | | | | | -  |sigma| is the standard deviation 
 | | | | | - None
 | | | | | - Some:
@@ -265,7 +265,7 @@ Definitions:
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 0.0
-| | | | | | | - Some:
+| | | | | | | - List:
 | | | | | | | | -  |mu| is the mean angle, expressed in radians between 0 and 2|pi|
 | | | | | | - Parameter:
 | | | | | | | - Kappa
@@ -273,10 +273,10 @@ Definitions:
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 0.0
-| | | | | | | - Some:
+| | | | | | | - List:
 | | | | | | | | -  |kappa| is the concentration parameter, which must be greater than or equal to zero.
-| | | | | | | | |       If |kappa| is equal to zero, this distribution reduces
-| | | | | | | | |       to a uniform random angle over the range 0 to 2|pi| 
+| | | | | | | | -       If |kappa| is equal to zero, this distribution reduces
+| | | | | | | | -       to a uniform random angle over the range 0 to 2|pi| 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -301,7 +301,7 @@ Definitions:
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 1.0
-| | | | | | | - Some:
+| | | | | | | - List:
 | | | | | | | | -  |alpha| is the shape parameter
 | | | | | - None
 | | | | | - Some:
@@ -327,7 +327,7 @@ Definitions:
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 1.0
-| | | | | | | - Some:
+| | | | | | | - List:
 | | | | | | | | -  |alpha| is the scale parameter 
 | | | | | | - Parameter:
 | | | | | | | - Beta
@@ -335,7 +335,7 @@ Definitions:
 | | | | | | | - Some:
 | | | | | | | | - Const:
 | | | | | | | | | - 1.0
-| | | | | | | - Some:
+| | | | | | | - List:
 | | | | | | | | -  |beta| is the shape parameter  
 | | | | | - None
 | | | | | - Some:

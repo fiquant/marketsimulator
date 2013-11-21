@@ -61,7 +61,7 @@ package object Typed
     case class Parameter(name        : String,
                          ty          : Types.Base,
                          initializer : Option[Expr],
-                         comment     : Option[String])
+                         comment     : List[String])
             extends pp.Parameter
             with    Printable
 

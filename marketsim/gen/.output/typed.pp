@@ -44,8 +44,8 @@ package mathutils {
         @python.random()
         def vonmisesvariate(/** |mu| is the mean angle, expressed in radians between 0 and 2|pi|*/ Mu : Float = 0.0,
                             /** |kappa| is the concentration parameter, which must be greater than or equal to zero.
-      If |kappa| is equal to zero, this distribution reduces
-      to a uniform random angle over the range 0 to 2|pi| */ Kappa : Float = 0.0) : Float
+                              *      If |kappa| is equal to zero, this distribution reduces
+                              *      to a uniform random angle over the range 0 to 2|pi| */ Kappa : Float = 0.0) : Float
         
         /** Uniform distribution
          *
