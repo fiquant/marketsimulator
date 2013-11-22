@@ -1,10 +1,11 @@
 package generator.python
 
+
 object mathops extends Typed.AnnotationHandler
 {
-    import PyGen.{tab, crlf}
+    import base.{tab, crlf}
 
-    case class ParameterOfMathops(name : String, initializer : Double) extends PyGen.ParameterBase
+/*    case class ParameterOfMathops(name : String, initializer : Double) extends PyGen.ParameterBase
     {
         val ty = "float"
         val s_initializer = initializer.toString
@@ -48,7 +49,7 @@ object mathops extends Typed.AnnotationHandler
               |import math
               |from _all import Observable, Constant
             """.stripMargin
-    }
+    } */
 
     def apply(f : Typed.Function) = ("","",Nil)
     val name = "python.mathops"

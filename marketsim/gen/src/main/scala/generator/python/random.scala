@@ -2,19 +2,14 @@ package generator.python
 
 object random extends gen.PythonGenerator
 {
-    import PyGen.tab
+    import base.tab
 
-    case class ParameterOfRandom(p : Typed.Parameter) extends PyGen.ParameterBase
-    {
-        val name = p.name
-        val ty = "float"
-        val s_initializer = p.initializer.toString
-    }
+    case class ParameterOfRandom(p : Typed.Parameter) extends base.ParameterBase
 
     case class ImportRandom(name        : String,
                             parameters  : List[ParameterOfRandom],
                             alias       : String,
-                            docstring   : String) extends PyGen.Printer()
+                            docstring   : String) extends base.Printer()
     {
         val rv_type = "float"
         override def base_class = s"ops.Function[$rv_type]"

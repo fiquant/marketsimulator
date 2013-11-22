@@ -3,7 +3,7 @@ package generator.python
 import Typed.AnnotationHandler
 import java.io.PrintWriter
 
-package object PyGen {
+package object base {
 
     val crlf = "\r\n"
     val tab = "    "
@@ -21,9 +21,12 @@ package object PyGen {
     }
 
     abstract class ParameterBase {
-        def name            : String
-        def s_initializer   : String
-        def ty              : String
+
+        val p : Typed.Parameter
+
+        def name = p.name
+        def ty = "float"
+        def s_initializer = p.initializer.toString
 
         def init = s"$name = $s_initializer"
         def assign = s"self.$name = $name"
@@ -44,7 +47,7 @@ package object PyGen {
         def registration = s"@registry.expose(['$category', '$alias'])"
         def base_class = "object"
 
-        def join_fields(p : Parameter => String, sep : String = ", ") = parameters.map(p).mkString(sep)
+        def join_fields(p : Parameter => String, sep : String = ", ") = parameters map p mkString sep
 
         def init_fields = join_fields({ _.init })
         def assign_fields = join_fields({ _.assign }, crlf + tab + tab)

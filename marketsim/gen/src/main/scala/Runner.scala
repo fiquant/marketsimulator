@@ -45,7 +45,7 @@ object Runner extends syntax.scala.Parser {
 
     def main(args: Array[String]) {
 
-        println(generator.python.PyGen.Annotations)
+        println(generator.python.base.Annotations)
 
         ExprTest.run()
 
