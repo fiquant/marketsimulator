@@ -1,6 +1,7 @@
 package generator.python
 
 import Typed.AnnotationHandler
+import java.io.PrintWriter
 
 package object PyGen {
 
@@ -181,18 +182,21 @@ package object PyGen {
             """.stripMargin
     }
 
-    object ImportRandom extends AnnotationHandler
+    object ImportRandom extends gen.PythonGenerator
     {
-        def apply(f : Typed.Function) = {
+        def apply(/** arguments of the annotation */ args  : List[String])
+                 (/** function to process         */ f     : Typed.Function) =
+        {
             val params = f.parameters map ParameterOfRandom
             val x = new ImportRandom(f.name, params, f.docstring.get.brief, f.docstring.get.detailed)
-            (x.toString, x.filename, x.prologue.split("\r\n").toList)
+
+            x.prologue + x
         }
 
         val name = "python.random"
     }
 
-    object ImportMathops extends AnnotationHandler
+    object ImportMathops extends Typed.AnnotationHandler
     {
         def apply(f : Typed.Function) = ("","",Nil)
         val name = "python.mathops"

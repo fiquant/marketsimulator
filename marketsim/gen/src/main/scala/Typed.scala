@@ -169,7 +169,6 @@ package object Typed
 
     trait AnnotationHandler
     {
-        def apply(f : Function) : (String, String, List[String])
         val name : String
     }
 
