@@ -47,54 +47,44 @@ package object base {
         def join_fields(p : Parameter => String, sep : String = ", ") = parameters map p mkString sep
 
         def init_fields = join_fields({ _.init })
-        def assign_fields = join_fields({ _.assign }, crlf + tab + tab)
-        def property_fields = join_fields({ _.property }, comma + crlf + tab + tab)
+        def assign_fields = join_fields({ _.assign }, crlf)
+        def property_fields = join_fields({ _.property }, comma + crlf)
         def repr_fields = join_fields({ _.repr })
         def call_fields = join_fields({ _.call })
 
         def impl_function = name
 
-        def header = s"""
-        |$registration
-        |class $name($base_class):
-        |""".stripMargin
+        def header = "" | registration |
+            s"class $name($base_class):" | nl
 
         def doc = s"""$tab\"\"\" ${docstring.replaceAll(crlf, crlf+tab)}$crlf$tab\"\"\" """
 
-        def init_body = s"""$tab$tab$assign_fields"""
+        def init_body = assign_fields
 
-        def init = s"""
-        |${tab}def __init__(self, $init_fields):
-        |$init_body
-        |""".stripMargin
+        def init = indent { s"def __init__(self, $init_fields):" |> init_body | nl }
 
-        def label = s"""
-        |$tab@property
-        |${tab}def label(self):
-        |$tab${tab}return repr(self)
-        |""".stripMargin
+        def label = indent {
+            "@property" |
+            "def label(self):" |>
+                "return repr(self)" |
+            nl
+        }
 
-        def properties = s"""
-        |${tab}_properties = {
-        |${tab}${tab}$property_fields
-        |$tab}
-        |""".stripMargin
+        def properties = indent {
+            "_properties = {" |> property_fields | "}" | nl
+        }
 
-        def repr_body = s"""$tab${tab}return "$name($repr_fields)" """
+        def repr_body = s"""return "$name($repr_fields)" """
 
-        def repr = s"""
-        |${tab}def __repr__(self):
-        |$repr_body
-        |""".stripMargin
+        def repr = indent { "def __repr__(self):" |> repr_body | nl }
 
         def impl_module : String
 
-        def call_body = s"""$tab${tab}return $impl_module.$impl_function($call_fields)"""
+        def call_body = s"""return $impl_module.$impl_function($call_fields)"""
 
-        def call = s"""
-        |${tab}def __call__(self, *args, **kwargs):
-        |$call_body
-        |""".stripMargin
+        def call = indent {
+            "def __call__(self, *args, **kwargs):" |> call_body | nl
+        }
 
         def prologue : String
 

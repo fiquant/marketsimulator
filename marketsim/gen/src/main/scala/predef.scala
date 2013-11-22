@@ -35,6 +35,7 @@ package object predef {
 
         def | (t : => String) = new LazyString(s + crlf + t)
         def | (t : => NewLine) = s + "\r\n"
+        def |> (t : => Any) = new LazyString(s + indent(t))
 
         override def toString = s
     }

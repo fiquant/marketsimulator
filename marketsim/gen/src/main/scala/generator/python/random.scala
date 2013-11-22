@@ -18,7 +18,7 @@ object random extends gen.PythonGenerator
         type Parameter = random.Parameter
 
         def casts_to = indent {
-            "def _casts_to(self, dst):" + indent {
+            "def _casts_to(self, dst):" |> {
                 s"return $name._types[0]._casts_to(dst)"
             }
         }
