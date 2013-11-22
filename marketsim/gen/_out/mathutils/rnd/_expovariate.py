@@ -1,7 +1,6 @@
-
 from marketsim import registry, types, ops
 import random
-            
+
 @registry.expose(['Random', 'Exponential distribution'])
 class expovariate(ops.Function[float]):
     """ 

@@ -1,7 +1,6 @@
-
 from marketsim import registry, types, ops
 import random
-            
+
 @registry.expose(['Random', 'Von Mises distribution'])
 class vonmisesvariate(ops.Function[float]):
     """ 

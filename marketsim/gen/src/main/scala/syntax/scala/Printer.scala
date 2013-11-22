@@ -1,12 +1,10 @@
 package syntax.scala
 
+import predef._
+
 package object Printer
 {
     val tab = "\t"
-
-    val indent = new predef.Indent()
-
-    def crlf = "\r\n" + indent.get
 
     trait Printable {
         def toScala : String

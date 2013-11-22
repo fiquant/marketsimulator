@@ -1,15 +1,10 @@
 package generator.python
-
-import Typed.AnnotationHandler
-import java.io.PrintWriter
+import predef._
 
 package object base {
 
     val tab = "    "
     val comma = ","
-
-    val indent = new predef.Indent
-    def crlf = "\r\n" + indent.get
 
     object Annotations
     {

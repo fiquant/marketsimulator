@@ -1,9 +1,8 @@
 package generator.python
+import predef._
 
 object random extends gen.PythonGenerator
 {
-    import base.{tab, indent, crlf}
-
     case class Parameter(p : Typed.Parameter) extends base.Parameter
 
     case class ImportRandom(name        : String,
@@ -27,10 +26,8 @@ object random extends gen.PythonGenerator
         val impl_module = "random"
 
         val prologue =
-            """
-              |from marketsim import registry, types, ops
-              |import random
-            """.stripMargin
+            "from marketsim import registry, types, ops" |
+            "import random" | nl
 
         override def toString = super.toString + s"""$call$casts_to"""
     }
@@ -41,7 +38,7 @@ object random extends gen.PythonGenerator
         val params = f.parameters map Parameter
         val x = new ImportRandom(f.name, params, f.docstring.get.brief, f.docstring.get.detailed)
 
-        x.prologue + x
+        x.prologue.toString + x
     }
 
     val name = "python.random"

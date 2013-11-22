@@ -8,4 +8,4 @@ libraryDependencies += "com.jsuereth" % "scala-arm_2.10" % "1.3"
 
 libraryDependencies += "com.github.nikita-volkov" % "sext" % "0.2.3"
 
-scalacOptions in ThisBuild ++= Seq("-feature", "-language:reflectiveCalls")
+scalacOptions in ThisBuild ++= Seq("-feature", "-language:reflectiveCalls", "-language:implicitConversions")

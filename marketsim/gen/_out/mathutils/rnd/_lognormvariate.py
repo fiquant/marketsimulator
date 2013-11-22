@@ -1,7 +1,6 @@
-
 from marketsim import registry, types, ops
 import random
-            
+
 @registry.expose(['Random', 'Log normal distribution'])
 class lognormvariate(ops.Function[float]):
     """ 

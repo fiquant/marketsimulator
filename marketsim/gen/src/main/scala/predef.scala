@@ -1,4 +1,4 @@
-package predef {
+package object predef {
 
     class Indent() {
         var x : Int = 0
@@ -23,5 +23,23 @@ package predef {
         def apply(f : => Any) : String = apply()("\r\n" + get + f)
     }
 
+    val indent = new Indent()
+
+    def crlf = "\r\n" + indent.get
+
+    class NewLine
+
+    val nl = new NewLine
+
+    class LazyString(s : => String) {
+
+        def | (t : => String) = new LazyString(s + crlf + t)
+        def | (t : => NewLine) = s + "\r\n"
+
+        override def toString = s
+    }
+
+    implicit def toLazy(s : String) = new LazyString(s)
+    implicit def fromLazy(s : LazyString) = s.toString
 }
 
