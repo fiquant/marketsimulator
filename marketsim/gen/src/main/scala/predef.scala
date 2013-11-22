@@ -28,13 +28,16 @@ package object predef {
     def crlf = "\r\n" + indent.get
 
     class NewLine
+    class Stop
 
     val nl = new NewLine
+    val stop = new Stop
 
     class LazyString(s : => String) {
 
         def | (t : => String) = new LazyString(s + crlf + t)
-        def | (t : => NewLine) = s + "\r\n"
+        def | (t : NewLine) = s + "\r\n"
+        def | (t : Stop) = s
         def |> (t : => Any) = new LazyString(s + indent(t))
 
         override def toString = s

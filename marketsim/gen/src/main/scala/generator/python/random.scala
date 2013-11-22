@@ -5,15 +5,15 @@ object random extends gen.PythonGenerator
 {
     case class Parameter(p : Typed.Parameter) extends base.Parameter
 
-    case class ImportRandom(name        : String,
-                            parameters  : List[Parameter],
-                            alias       : String,
-                            docstring   : List[String]) extends base.Printer()
+    case class Import(f : Typed.Function) extends base.Printer()
     {
+        val name = f.name
+        val parameters = f.parameters map Parameter
+        val alias = f.docstring.get.brief
+        val docstring = f.docstring.get.detailed
         val rv_type = "float"
         override def base_class = s"ops.Function[$rv_type]"
         override val category = "Random"
-        val filename = "defs/rnd.py"
 
         type Parameter = random.Parameter
 
@@ -26,7 +26,7 @@ object random extends gen.PythonGenerator
 
         val prologue =
             "from marketsim import registry, types, ops" |
-            "import random" | nl
+            "import random" | stop
 
         override def body = super.body | call | casts_to | nl
     }
@@ -34,10 +34,7 @@ object random extends gen.PythonGenerator
     def apply(/** arguments of the annotation */ args  : List[String])
              (/** function to process         */ f     : Typed.Function) =
     {
-        val params = f.parameters map Parameter
-        val x = new ImportRandom(f.name, params, f.docstring.get.brief, f.docstring.get.detailed)
-
-        x.prologue.toString + x
+        Import(f).toString
     }
 
     val name = "python.random"

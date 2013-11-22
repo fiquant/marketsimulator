@@ -39,7 +39,6 @@ package object base {
         def alias       : String
         def category    : String
         def parameters  : List[Parameter]
-        val filename    : String
 
         def registration = s"@registry.expose(['$category', '$alias'])"
         def base_class = "object"
@@ -85,7 +84,7 @@ package object base {
 
         def body = doc | init | label | properties | repr | nl
 
-        override def toString = header |> body | nl
+        override def toString = prologue | header |> body | nl
     }
 
 }
