@@ -16,7 +16,7 @@ package object PyGen {
         override def toString = registry.toString()
 
         // TODO: non-intrusive registration
-        register(ImportRandom)
+        register(generator.python.random)
         register(ImportMathops)
     }
 
@@ -30,13 +30,6 @@ package object PyGen {
         def property = s"\'$name\' : $ty"
         def repr = s"""$name = \"+repr(self.$name)+\" """
         def call = s"self.$name"
-    }
-
-    case class ParameterOfRandom(p : Typed.Parameter) extends ParameterBase
-    {
-        val name = p.name
-        val ty = "float"
-        val s_initializer = p.initializer.toString
     }
 
     abstract class Printer() {
@@ -108,34 +101,6 @@ package object PyGen {
         override def toString = s"""$header$doc$init$label$properties$repr"""
     }
 
-    case class ImportRandom(name        : String,
-                            parameters  : List[ParameterOfRandom],
-                            alias       : String,
-                            docstring   : String) extends Printer()
-    {
-        val rv_type = "float"
-        override def base_class = s"ops.Function[$rv_type]"
-        override val category = "Random"
-        val filename = "defs/rnd.py"
-
-        type Parameter = ParameterOfRandom
-
-        def casts_to = s"""
-        |${tab}def _casts_to(self, dst):
-        |$tab${tab}return $name._types[0]._casts_to(dst)
-        |""".stripMargin
-
-        val impl_module = "random"
-
-        val prologue =
-            """
-              |from marketsim import registry, types, ops
-              |import random
-            """.stripMargin
-
-        override def toString = super.toString + s"""$call$casts_to"""
-    }
-
     case class ParameterOfMathops(name : String, initializer : Double) extends ParameterBase
     {
         val ty = "float"
@@ -180,20 +145,6 @@ package object PyGen {
               |import math
               |from _all import Observable, Constant
             """.stripMargin
-    }
-
-    object ImportRandom extends gen.PythonGenerator
-    {
-        def apply(/** arguments of the annotation */ args  : List[String])
-                 (/** function to process         */ f     : Typed.Function) =
-        {
-            val params = f.parameters map ParameterOfRandom
-            val x = new ImportRandom(f.name, params, f.docstring.get.brief, f.docstring.get.detailed)
-
-            x.prologue + x
-        }
-
-        val name = "python.random"
     }
 
     object ImportMathops extends Typed.AnnotationHandler
