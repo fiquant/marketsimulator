@@ -36,7 +36,7 @@ package object AST {
     case class Annotation(name       : QualifiedName,
                           parameters : List[String]) extends pp.Annotation with Printable
 
-    case class DocString(brief : String, detailed : String) extends pp.DocString with Printable
+    case class DocString(brief : String, detailed : List[String]) extends pp.DocString with Printable
 
     abstract sealed class Definition extends pp.Definition
 

@@ -3,6 +3,7 @@ import random
 
 @registry.expose(['Random', 'Gamma distribution'])
 class gammavariate(ops.Function[float]):
+
     """ 
       Conditions on the parameters are |alpha| > 0 and |beta| > 0.
     
@@ -28,8 +29,11 @@ class gammavariate(ops.Function[float]):
     def __repr__(self):
         return "gammavariate(Alpha = "+repr(self.Alpha)+" , Beta = "+repr(self.Beta)+" )" 
 
+
     def __call__(self, *args, **kwargs):
         return random.gammavariate(self.Alpha, self.Beta)
 
     def _casts_to(self, dst):
         return gammavariate._types[0]._casts_to(dst)
+
+

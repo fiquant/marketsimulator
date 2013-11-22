@@ -3,6 +3,7 @@ import random
 
 @registry.expose(['Random', 'Uniform distribution'])
 class uniform(ops.Function[float]):
+
     """ 
      Return a random floating point number *N* such that
      *a* <= *N* <= *b* for *a* <= *b* and *b* <= *N* <= *a* for *b* < *a*.
@@ -25,8 +26,11 @@ class uniform(ops.Function[float]):
     def __repr__(self):
         return "uniform(Low = "+repr(self.Low)+" , High = "+repr(self.High)+" )" 
 
+
     def __call__(self, *args, **kwargs):
         return random.uniform(self.Low, self.High)
 
     def _casts_to(self, dst):
         return uniform._types[0]._casts_to(dst)
+
+

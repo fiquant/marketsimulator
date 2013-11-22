@@ -35,7 +35,7 @@ package object base {
     abstract class Printer() {
         type Parameter <: base.Parameter
         def name        : String
-        def docstring   : String
+        def docstring   : List[String]
         def alias       : String
         def category    : String
         def parameters  : List[Parameter]
@@ -57,38 +57,35 @@ package object base {
         def header = "" | registration |
             s"class $name($base_class):" | nl
 
-        def doc = s"""$tab\"\"\" ${docstring.replaceAll(crlf, crlf+tab)}$crlf$tab\"\"\" """
+        def doc = s"""\"\"\" ${docstring.mkString(crlf)}$crlf\"\"\" """
 
         def init_body = assign_fields
 
-        def init = indent { s"def __init__(self, $init_fields):" |> init_body | nl }
+        def init = s"def __init__(self, $init_fields):" |> init_body | nl
 
-        def label = indent {
+        def label =
             "@property" |
             "def label(self):" |>
                 "return repr(self)" |
             nl
-        }
 
-        def properties = indent {
-            "_properties = {" |> property_fields | "}" | nl
-        }
+        def properties = "_properties = {" |> property_fields | "}" | nl
 
         def repr_body = s"""return "$name($repr_fields)" """
 
-        def repr = indent { "def __repr__(self):" |> repr_body | nl }
+        def repr = "def __repr__(self):" |> repr_body | nl
 
         def impl_module : String
 
         def call_body = s"""return $impl_module.$impl_function($call_fields)"""
 
-        def call = indent {
-            "def __call__(self, *args, **kwargs):" |> call_body | nl
-        }
+        def call = "def __call__(self, *args, **kwargs):" |> call_body | nl
 
         def prologue : String
 
-        override def toString = s"""$header$doc$init$label$properties$repr"""
+        def body = doc | init | label | properties | repr | nl
+
+        override def toString = header |> body | nl
     }
 
 }

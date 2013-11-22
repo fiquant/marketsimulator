@@ -94,10 +94,11 @@ package object Printer
         }
 
         trait DocString extends Printable {
-            val brief, detailed : String
+            val brief    : String
+            val detailed : List[String]
             def toScala =
                 ("/** " + brief
-                        + detailed.lines.map({ crlf + " *" + _ }).mkString("") + crlf
+                        + detailed.map({ crlf + " *" + _ }).mkString("") + crlf
                         + " */" + crlf)
 
         }

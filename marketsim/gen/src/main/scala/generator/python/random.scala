@@ -8,7 +8,7 @@ object random extends gen.PythonGenerator
     case class ImportRandom(name        : String,
                             parameters  : List[Parameter],
                             alias       : String,
-                            docstring   : String) extends base.Printer()
+                            docstring   : List[String]) extends base.Printer()
     {
         val rv_type = "float"
         override def base_class = s"ops.Function[$rv_type]"
@@ -17,11 +17,10 @@ object random extends gen.PythonGenerator
 
         type Parameter = random.Parameter
 
-        def casts_to = indent {
+        def casts_to =
             "def _casts_to(self, dst):" |> {
                 s"return $name._types[0]._casts_to(dst)"
             }
-        }
 
         val impl_module = "random"
 
@@ -29,7 +28,7 @@ object random extends gen.PythonGenerator
             "from marketsim import registry, types, ops" |
             "import random" | nl
 
-        override def toString = super.toString + s"""$call$casts_to"""
+        override def body = super.body | call | casts_to | nl
     }
 
     def apply(/** arguments of the annotation */ args  : List[String])

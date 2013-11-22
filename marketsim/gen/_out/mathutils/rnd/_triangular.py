@@ -3,6 +3,7 @@ import random
 
 @registry.expose(['Random', 'Triangular distribution'])
 class triangular(ops.Function[float]):
+
     """ 
      Return a random floating point number *N* such that *low* <= *N* <= *high* and
            with the specified *mode* between those bounds.
@@ -28,8 +29,11 @@ class triangular(ops.Function[float]):
     def __repr__(self):
         return "triangular(Low = "+repr(self.Low)+" , High = "+repr(self.High)+" , Mode = "+repr(self.Mode)+" )" 
 
+
     def __call__(self, *args, **kwargs):
         return random.triangular(self.Low, self.High, self.Mode)
 
     def _casts_to(self, dst):
         return triangular._types[0]._casts_to(dst)
+
+

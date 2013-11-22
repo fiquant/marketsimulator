@@ -94,21 +94,25 @@ package mathutils {
 
 package mathops {
     /** Arc tangent of x, in radians.
+     *
      */
     @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
     def Atan(x = const(0.0)) : Float
     
     /** Square root of x
+     *
      */
     @python.mathops("Log/Pow", "sqrt", "\\sqrt{%(x)s}")
     def Sqrt(x = const(1.0)) : Float
     
     /** Exponent of x
+     *
      */
     @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
     def Exp(x = const(1.0)) : Float
     
     /** Natural logarithm of x (to base e)
+     *
      */
     @python.mathops("Log/Pow", "log", "log(%(x)s)")
     def Log(x = const(1.0)) : Float

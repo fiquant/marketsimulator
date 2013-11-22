@@ -3,8 +3,6 @@ package generator.python
 
 object mathops extends Typed.AnnotationHandler
 {
-    import base.{tab, crlf}
-
 /*    case class ParameterOfMathops(name : String, initializer : Double) extends PyGen.ParameterBase
     {
         val ty = "float"

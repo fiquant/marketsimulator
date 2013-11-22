@@ -2,7 +2,6 @@ package syntax.scala
 
 import scala.util.parsing.combinator._
 import AST._
-import syntax.scala.Printer.indent
 
 class Parser() extends JavaTokenParsers with PackratParsers
 {
@@ -143,10 +142,10 @@ class Parser() extends JavaTokenParsers with PackratParsers
     lazy val docstring = comment ^^ { comment => {
             val lines = comment.lines.toList
             if (lines.isEmpty) {
-                DocString("", "")
+                DocString("", Nil)
             }  else {
                 val hd :: tl = strip_empty_lines(lines)
-                DocString(hd, tl.mkString("\r\n"))
+                DocString(hd, tl)
             }
         }
     }
