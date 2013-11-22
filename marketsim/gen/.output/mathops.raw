@@ -39,18 +39,6 @@ Definitions:
 | | | | | | | | - Log/Pow
 | | | | | | | | - exp
 | | | | | | | | - e^{%(x)s}
-| | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - internal
-| | | | | - Definitions:
-| | | | | | - List:
-| | | | | | | - PackageDef:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - ppp
-| | | | | | | | - Definitions:
-| | | | | | | | | - List:
 | | | | - FunDef:
 | | | | | - Log
 | | | | | - List:

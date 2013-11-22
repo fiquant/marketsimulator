@@ -93,10 +93,6 @@ package mathutils {
 }
 
 package mathops {
-    package internal {
-        package ppp {
-        }
-    }
     /** Arc tangent of x, in radians.
      */
     @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
@@ -129,19 +125,21 @@ package mathops {
     def Pow(base = const(1.0),
             power = const(1.0)) : Float
 }
-def sqr(x = const()) = x*x
 
-def A(x = B()) : Float
-
+package thrash {
+    def A(x = B()) : Float
+    
+    def C(x = A()) : Float
+    
+    def B(x = const(),
+          y = if 3.0>x+2.0 then x else x*2.0) : Float
+}
 def min(x = mathops.Exp(),
         y = const()) = if x<y then x else y
-
-def const(x = 1.0) : Float
 
 def max(x = const(),
         y = const()) = if x>y then x else y
 
-def B(x = const(),
-      y = if 3.0>x+2.0 then x else x*2.0) : Float
+def sqr(x = const()) = x*x
 
-def C(x = A()) : Float
+def const(x = 1.0) : Float

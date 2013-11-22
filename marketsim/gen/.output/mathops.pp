@@ -5,11 +5,6 @@ package mathops {
     @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
     def Exp(x = const(1.0)) : Float
     
-    package internal {
-        package ppp {
-        }
-    }
-    
     /** Natural logarithm of x (to base e)
      */
     @python.mathops("Log/Pow", "log", "log(%(x)s)")

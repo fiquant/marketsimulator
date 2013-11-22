@@ -57,6 +57,20 @@ object Runner extends syntax.scala.Parser {
 
         val typed = buildTyped(names)
 
+        generator.python.gen.apply(typed, "../_generated")
+
+        def process(p : Typed.Package) {
+            p.packages.values foreach { process(_) }
+
+            p.functions.values foreach {
+                f => f.annotations foreach {
+                    a => println(a.target(f))
+                }
+            }
+        }
+
+        process(typed)
+
 //        val python_definitions =fromAST(parsed)
 //
 //        for ((filename, definitions) <- python_definitions.groupBy({ _.filename }))

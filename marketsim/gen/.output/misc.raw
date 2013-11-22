@@ -1,87 +1,6 @@
 Definitions:
 - List:
 | - FunDef:
-| | - A
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - None
-| | | | - Some:
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - B
-| | | | | | - List:
-| | | | - List:
-| | - None
-| | - Some:
-| | | - SimpleType:
-| | | | - Float
-| | - None
-| | - List:
-| - FunDef:
-| | - C
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - None
-| | | | - Some:
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - A
-| | | | | | - List:
-| | | | - List:
-| | - None
-| | - Some:
-| | | - SimpleType:
-| | | | - Float
-| | - None
-| | - List:
-| - FunDef:
-| | - B
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - None
-| | | | - Some:
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - const
-| | | | | | - List:
-| | | | - List:
-| | | - Parameter:
-| | | | - y
-| | | | - None
-| | | | - Some:
-| | | | | - IfThenElse:
-| | | | | | - Condition:
-| | | | | | | - Greater
-| | | | | | | - Const:
-| | | | | | | | - 3.0
-| | | | | | | - BinOp:
-| | | | | | | | - Add
-| | | | | | | | - Var:
-| | | | | | | | | - x
-| | | | | | | | - Const:
-| | | | | | | | | - 2.0
-| | | | | | - Var:
-| | | | | | | - x
-| | | | | | - BinOp:
-| | | | | | | - Mul
-| | | | | | | - Var:
-| | | | | | | | - x
-| | | | | | | - Const:
-| | | | | | | | - 2.0
-| | | | - List:
-| | - None
-| | - Some:
-| | | - SimpleType:
-| | | | - Float
-| | - None
-| | - List:
-| - FunDef:
 | | - min
 | | - List:
 | | | - Parameter:
@@ -197,3 +116,90 @@ Definitions:
 | | | | - Float
 | | - None
 | | - List:
+| - PackageDef:
+| | - QualifiedName:
+| | | - List:
+| | | | - thrash
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - A
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - B
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - Float
+| | | | | - None
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - C
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - A
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - Float
+| | | | | - None
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - B
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - y
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - IfThenElse:
+| | | | | | | | | - Condition:
+| | | | | | | | | | - Greater
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 3.0
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Add
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - x
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 2.0
+| | | | | | | | | - Var:
+| | | | | | | | | | - x
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Mul
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - x
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 2.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - Float
+| | | | | - None
+| | | | | - List:
