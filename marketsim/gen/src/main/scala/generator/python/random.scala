@@ -2,12 +2,12 @@ package generator.python
 
 object random extends gen.PythonGenerator
 {
-    import base.tab
+    import base.{tab, indent, crlf}
 
-    case class ParameterOfRandom(p : Typed.Parameter) extends base.ParameterBase
+    case class Parameter(p : Typed.Parameter) extends base.Parameter
 
     case class ImportRandom(name        : String,
-                            parameters  : List[ParameterOfRandom],
+                            parameters  : List[Parameter],
                             alias       : String,
                             docstring   : String) extends base.Printer()
     {
@@ -16,12 +16,13 @@ object random extends gen.PythonGenerator
         override val category = "Random"
         val filename = "defs/rnd.py"
 
-        type Parameter = ParameterOfRandom
+        type Parameter = random.Parameter
 
-        def casts_to = s"""
-        |${tab}def _casts_to(self, dst):
-        |$tab${tab}return $name._types[0]._casts_to(dst)
-        |""".stripMargin
+        def casts_to = indent {
+            "def _casts_to(self, dst):" + indent {
+                s"return $name._types[0]._casts_to(dst)"
+            }
+        }
 
         val impl_module = "random"
 
@@ -37,7 +38,7 @@ object random extends gen.PythonGenerator
     def apply(/** arguments of the annotation */ args  : List[String])
              (/** function to process         */ f     : Typed.Function) =
     {
-        val params = f.parameters map ParameterOfRandom
+        val params = f.parameters map Parameter
         val x = new ImportRandom(f.name, params, f.docstring.get.brief, f.docstring.get.detailed)
 
         x.prologue + x

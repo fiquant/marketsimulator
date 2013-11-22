@@ -137,7 +137,7 @@ package object Printer
 
             def toScala = (
                     crlf + "package " + name + " {"
-                    + indent.enter() { members }
+                    + indent() { members }
                     + crlf + "}")
         }
 
@@ -153,7 +153,7 @@ package object Printer
                 (crlf   + ifSome(docstring)
                         + annotations.map({_ + crlf}).mkString("")
                         + "def " + name
-                        + indent.enter(("def " + name).length + 1){
+                        + indent(("def " + name).length + 1){
                                 parameters.mkString("(", "," + crlf, ")") }
                         + printRetType
                         + printBody)
@@ -323,7 +323,7 @@ package object Printer
                 (functions.values mkString crlf)
             def wrapped(name : String) =
                 crlf + s"package $name {" +
-                    indent.enter() { content } +
+                    indent() { content } +
                 crlf + "}"
             def toScala = content
         }

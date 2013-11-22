@@ -57,7 +57,7 @@ object Runner extends syntax.scala.Parser {
 
         val typed = buildTyped(names)
 
-        generator.python.gen.apply(typed, "../_generated")
+        generator.python.gen.apply(typed, "_out")
 
 
 //        val python_definitions =fromAST(parsed)

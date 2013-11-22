@@ -5,9 +5,11 @@ import java.io.PrintWriter
 
 package object base {
 
-    val crlf = "\r\n"
     val tab = "    "
     val comma = ","
+
+    val indent = new predef.Indent
+    def crlf = "\r\n" + indent.get
 
     object Annotations
     {
@@ -20,7 +22,7 @@ package object base {
         register(mathops)
     }
 
-    abstract class ParameterBase {
+    abstract class Parameter {
 
         val p : Typed.Parameter
 
@@ -36,7 +38,7 @@ package object base {
     }
 
     abstract class Printer() {
-        type Parameter <: ParameterBase
+        type Parameter <: base.Parameter
         def name        : String
         def docstring   : String
         def alias       : String
