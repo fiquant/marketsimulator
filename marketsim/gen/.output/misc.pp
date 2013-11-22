@@ -10,10 +10,14 @@ def sqr(x = const()) = x*x
 def const(x = 1.0) : Float
 
 package thrash {
-    def A(x = B()) : Float
+    def A(x = in1.in2.B()) : Float
     
-    def C(x = A()) : Float
-    
-    def B(x = const(),
-          y = if 3.0>x+2.0 then x else x*2.0) : Float
+    package in1 {
+        def C(x = A()) : Float
+        
+        package in2 {
+            def B(x = const(),
+                  y = if 3.0>x+2.0 then x else x*2.0) : Float
+        }
+    }
 }

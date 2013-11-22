@@ -6,8 +6,12 @@ def const(x = 1.0) : Float
 
 package thrash
 
-def A(x = B()) : Float
+def A(x = in1.in2.B()) : Float
+
+package in1
 def C(x = A()) : Float
+
+package in2
 def B(x = const(), y = if 3 > x + 2 then x else x*2) : Float
 
 
