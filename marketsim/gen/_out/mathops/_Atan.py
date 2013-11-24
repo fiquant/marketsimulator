@@ -19,7 +19,7 @@ class Atan(Observable[float]):
         return repr(self)
 
     _properties = {
-        'x' : float
+        'x' : types.IFunction[float]
     }
 
     def __repr__(self):
@@ -28,7 +28,7 @@ class Atan(Observable[float]):
 
     def __call__(self, *args, **kwargs):
         x = self.x()
-            if x is None: return None
+        if x is None: return None
         return math.atan(self.x)
 
 

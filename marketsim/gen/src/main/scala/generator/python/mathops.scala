@@ -12,8 +12,8 @@ object mathops extends gen.PythonGenerator
             stop
 
         def nullable =
-            s"$name = self.$name()" |>
-                s"if $name is None: return None" | stop
+            s"$name = self.$name()" |
+            s"if $name is None: return None" | stop
     }
 
     case class Import(args : List[String], f : Typed.Function) extends base.Printer()

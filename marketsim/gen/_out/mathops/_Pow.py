@@ -27,8 +27,8 @@ class Pow(Observable[float]):
         return repr(self)
 
     _properties = {
-        'base' : float,
-        'power' : float
+        'base' : types.IFunction[float],
+        'power' : types.IFunction[float]
     }
 
     def __repr__(self):
@@ -37,9 +37,9 @@ class Pow(Observable[float]):
 
     def __call__(self, *args, **kwargs):
         base = self.base()
-            if base is None: return None
+        if base is None: return None
         power = self.power()
-            if power is None: return None
+        if power is None: return None
         return math.pow(self.base, self.power)
 
 

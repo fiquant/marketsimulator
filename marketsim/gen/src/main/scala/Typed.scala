@@ -2,7 +2,7 @@ package object Typed
 {
     import AST.{BinOpSymbol, CondSymbol, DocString, QualifiedName}
     import syntax.scala.Printer.{typed => pp}
-    import AST.Printable
+    import AST.ScPrintable
 
     abstract class Expr {
         def ty : Types.Base
@@ -15,7 +15,7 @@ package object Typed
     case class Neg(x : ArithExpr)
             extends ArithExpr
             with    pp.Neg
-            with    Printable
+            with    ScPrintable
             with    TypeInference.Neg
 
     case class BinOp(symbol : BinOpSymbol,
@@ -23,7 +23,7 @@ package object Typed
                      y      : ArithExpr)
             extends ArithExpr
             with    pp.BinOp
-            with    Printable
+            with    ScPrintable
             with    TypeInference.BinOp
 
     case class IfThenElse(cond  : BooleanExpr,
@@ -31,39 +31,39 @@ package object Typed
                           y     : ArithExpr)
             extends ArithExpr
             with    pp.IfThenElse
-            with    Printable
+            with    ScPrintable
             with    TypeInference.IfThenElse
 
     case class FloatConst(x : Double)
             extends ArithExpr
             with    pp.FloatConst
-            with    Printable
+            with    ScPrintable
             with    TypeInference.FloatConst
 
     case class ParamRef(p : Parameter)
             extends ArithExpr
             with    pp.ParamRef
-            with    Printable
+            with    ScPrintable
             with    TypeInference.ParamRef
 
     case class FunctionCall(target      : Function,
                             arguments   : List[(Parameter, ArithExpr)])
             extends ArithExpr
             with    pp.FunCall
-            with    Printable
+            with    ScPrintable
             with    TypeInference.FunctionCall
 
     case class Annotation(target    : AnnotationHandler,
                           parameters: List[String])
             extends pp.Annotation
-            with    Printable
+            with    ScPrintable
 
     case class Parameter(name        : String,
                          ty          : Types.Base,
                          initializer : Option[Expr],
                          comment     : List[String])
             extends pp.Parameter
-            with    Printable
+            with    ScPrintable
 
     abstract class BooleanExpr
             extends Expr
@@ -74,25 +74,25 @@ package object Typed
                   y : BooleanExpr)
             extends BooleanExpr
             with    pp.Or
-            with    Printable
+            with    ScPrintable
 
     case class And(x : BooleanExpr,
                    y : BooleanExpr)
             extends BooleanExpr
             with    pp.And
-            with    Printable
+            with    ScPrintable
 
     case class Not(x : BooleanExpr)
             extends BooleanExpr
             with    pp.Not
-            with    Printable
+            with    ScPrintable
 
     case class Condition(symbol : CondSymbol,
                          x      : ArithExpr,
                          y      : ArithExpr)
             extends BooleanExpr
             with    pp.Condition
-            with    Printable
+            with    ScPrintable
             with    TypeInference.Condition
 
     case class Function(parent      : Package,
@@ -103,7 +103,7 @@ package object Typed
                         docstring   : Option[DocString],
                         annotations : List[Annotation])
             extends pp.Function
-            with    Printable
+            with    ScPrintable
     {
         parent.insert(this)
 
@@ -121,7 +121,7 @@ package object Typed
 
     }
 
-    class Package extends pp.TopLevelPackage with Printable
+    class Package extends pp.TopLevelPackage with ScPrintable
     {
         var functions = Map[String, Function]()
         var packages = Map[String, SubPackage]()
@@ -155,7 +155,7 @@ package object Typed
             }
     }
 
-    class SubPackage(val name : String, parent : Package) extends Package with pp.SubPackage with Printable
+    class SubPackage(val name : String, parent : Package) extends Package with pp.SubPackage with ScPrintable
     {
         override def qualifiedName = parent.qualifiedName :+ name
 

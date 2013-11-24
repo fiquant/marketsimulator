@@ -22,7 +22,7 @@ package object base {
         val p : Typed.Parameter
 
         def name = p.name
-        def ty = "float"
+        def ty = p.ty.asPython
         def s_initializer = p.initializer.toString
 
         def init = s"$name = $s_initializer"
@@ -86,5 +86,6 @@ package object base {
 
         override def toString = prologue | header |> body | nl
     }
+
 
 }

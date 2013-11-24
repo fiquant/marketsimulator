@@ -1,9 +1,9 @@
 import syntax.scala.Printer.{typed => pp}
-import AST.Printable
+import AST.ScPrintable
 
 object NameTable {
 
-    class Scope(val name : String = "_root_") extends pp.Scope with Printable {
+    class Scope(val name : String = "_root_") extends pp.Scope with ScPrintable {
 
         var functions = Map[String, AST.FunDef]()
         var packages = Map[String, Scope]()
