@@ -32,19 +32,17 @@ package object base {
         def call = s"self.$name"
     }
 
-    class Def(name : => String, args : => String, body : => Any) extends AST.PyPrintable
-    {
-        def toPython = {
-            val a = if (args == "") "" else ", " + args
-            s"def $name(self$a):" |> body | nl
-        }
+    def Def(name : => String, args : => String, body : => Any) = {
+        val a = if (args == "") "" else ", " + args
+        s"def $name(self$a):" |> body | nl
     }
 
-    object Def {
-        def apply(name : => String, args : => String, body : => Any) = new Def(name, args, body)
-    }
+    def Prop(name : => String, body : => Any) =
+        "@property" |
+        s"def $name(self):" |>
+            body |
+        nl
 
-    implicit def def2str(d : Def) = d.toString
 
     abstract class Printer() {
         type Parameter <: base.Parameter
@@ -76,11 +74,7 @@ package object base {
 
         def init = Def("__init__", init_fields, init_body)
 
-        def label =
-            "@property" |
-            "def label(self):" |>
-                "return repr(self)" |
-            nl
+        def label = Prop("label", "return repr(self)")
 
         def properties = "_properties = {" |> property_fields | "}" | nl
 

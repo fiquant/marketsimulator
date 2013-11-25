@@ -3,7 +3,7 @@ import predef._
 
 object random extends gen.PythonGenerator
 {
-    import base.{Def}
+    import base.Def
 
     case class Parameter(p : Typed.Parameter) extends base.Parameter
 
