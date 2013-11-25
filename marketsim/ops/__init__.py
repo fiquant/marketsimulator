@@ -1,8 +1,7 @@
 from _all import (_None, Function, Observable, constant, 
                   negate, 
                   Less, Greater, LessEqual, GreaterEqual, Equal, NotEqual,
-                  less, greater, less_equal, greater_equal, equal, notequal,
-                  Sqr)
+                  less, greater, less_equal, greater_equal, equal, notequal)
 
 from _derivative import Derivative
 

@@ -3,6 +3,8 @@ from marketsim import ops, types, event, _, getLabel,  registry
 import fold
 import math
 
+from _misc import Sqr
+
 @registry.expose(alias = ['Statistics', 'Variance', 'Cumulative'])
 class Variance(fold.Last):
     
@@ -64,7 +66,7 @@ class MovingVariance(ops.Function[float]):
         self.source = source
         self.timeframe = timeframe
         self._mean = MA(source, timeframe)
-        self._mean2 = MA(ops.Sqr(source), timeframe)
+        self._mean2 = MA(Sqr(source), timeframe)
         
     _properties = { 'source' : types.IObservable[float] }
     

@@ -364,6 +364,4 @@ def Max(x = constant(1.), y = constant(1.)):
 def Min(x = constant(1.), y = constant(1.)):
     return (x < y)[x, y]
 
-@registry.expose(['Pow/Log', 'sqr'])
-def Sqr(x = constant(1.)):
-    return x * x
+
