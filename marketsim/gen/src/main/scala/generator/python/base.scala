@@ -23,7 +23,7 @@ package object base {
 
         def name = p.name
         def ty = p.ty.asPython
-        def s_initializer = if (p.initializer.nonEmpty) " = " + p.initializer.get else ""
+        def s_initializer = if (p.initializer.nonEmpty) " = " + p.initializer.get.asPython else ""
 
         def init = s"$name $s_initializer"
         def assign = s"self.$name = $name"

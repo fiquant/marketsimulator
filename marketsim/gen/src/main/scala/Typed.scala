@@ -13,12 +13,12 @@ package object Typed
             extends Expr
             with    sc.Expr
             with    py.Expr
+            with    ScPyPrintable
 
     case class Neg(x : ArithExpr)
             extends ArithExpr
             with    sc.Neg
             with    py.Neg
-            with    ScPyPrintable
             with    TypeInference.Neg
 
     case class BinOp(symbol : BinOpSymbol,
@@ -27,7 +27,6 @@ package object Typed
             extends ArithExpr
             with    sc.BinOp
             with    py.BinOp
-            with    ScPyPrintable
             with    TypeInference.BinOp
 
     case class IfThenElse(cond  : BooleanExpr,
@@ -36,21 +35,18 @@ package object Typed
             extends ArithExpr
             with    sc.IfThenElse
             with    py.IfThenElse
-            with    ScPyPrintable
             with    TypeInference.IfThenElse
 
     case class FloatConst(x : Double)
             extends ArithExpr
             with    sc.FloatConst
             with    py.FloatConst
-            with    ScPyPrintable
             with    TypeInference.FloatConst
 
     case class ParamRef(p : Parameter)
             extends ArithExpr
             with    sc.ParamRef
             with    py.ParamRef
-            with    ScPyPrintable
             with    TypeInference.ParamRef
 
     case class FunctionCall(target      : Function,
@@ -58,7 +54,6 @@ package object Typed
             extends ArithExpr
             with    sc.FunCall
             with    py.FunCall
-            with    ScPyPrintable
             with    TypeInference.FunctionCall
 
     case class Annotation(target    : AnnotationHandler,

@@ -58,6 +58,10 @@ object Printer {
     trait Neg extends pp.Neg[Typed.ArithExpr] with PrintablePort
 
     trait IfThenElse extends pp.IfThenElse[Typed.ArithExpr, Typed.BooleanExpr] with PrintablePort
+    {
+        override def toPython = s"($cond)[${wrap(x)}, ${wrap(y)}]"
+    }
+
     trait And extends pp.And[Typed.BooleanExpr] with PrintablePort
     trait Or extends pp.Or[Typed.BooleanExpr] with PrintablePort
     trait Not extends pp.Not[Typed.BooleanExpr, Typed.ArithExpr] with PrintablePort
