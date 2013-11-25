@@ -33,3 +33,4 @@ class lognormvariate(ops.Function[float]):
         return lognormvariate._types[0]._casts_to(dst)
 
 
+

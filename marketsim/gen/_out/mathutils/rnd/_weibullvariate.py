@@ -30,3 +30,4 @@ class weibullvariate(ops.Function[float]):
         return weibullvariate._types[0]._casts_to(dst)
 
 
+

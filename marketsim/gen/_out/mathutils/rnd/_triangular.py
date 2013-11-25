@@ -37,3 +37,4 @@ class triangular(ops.Function[float]):
         return triangular._types[0]._casts_to(dst)
 
 
+

@@ -3,6 +3,8 @@ import predef._
 
 object random extends gen.PythonGenerator
 {
+    import base.{Def}
+
     case class Parameter(p : Typed.Parameter) extends base.Parameter
 
     case class Import(f : Typed.Function) extends base.Printer()
@@ -17,10 +19,7 @@ object random extends gen.PythonGenerator
 
         type Parameter = random.Parameter
 
-        def casts_to =
-            "def _casts_to(self, dst):" |> {
-                s"return $name._types[0]._casts_to(dst)"
-            }
+        def casts_to = Def("_casts_to", "dst", s"return $name._types[0]._casts_to(dst)")
 
         val impl_module = "random"
 

@@ -28,3 +28,4 @@ class paretovariate(ops.Function[float]):
         return paretovariate._types[0]._casts_to(dst)
 
 
+
