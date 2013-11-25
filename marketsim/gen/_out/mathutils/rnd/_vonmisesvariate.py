@@ -6,7 +6,7 @@ class vonmisesvariate(ops.Function[float]):
 
     """ 
     """ 
-    def __init__(self, Mu = Some(0.0), Kappa = Some(0.0)):
+    def __init__(self, Mu  = 0.0, Kappa  = 0.0):
         self.Mu = Mu
         self.Kappa = Kappa
 

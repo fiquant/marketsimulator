@@ -1,5 +1,11 @@
 package object predef {
 
+    def pars(s : Any, condition : Boolean = true) =
+        if (condition) "(" + s + ")" else s.toString
+
+    def ifSome[A](p : Option[A], prefix : String = "", postfix : String = "") =
+        if (p.nonEmpty) prefix + p.get + postfix else ""
+
     class Indent() {
         var x : Int = 0
         var spaces = Map[Int, String]()

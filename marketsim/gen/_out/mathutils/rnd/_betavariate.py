@@ -8,7 +8,7 @@ class betavariate(ops.Function[float]):
      Conditions on the parameters are |alpha| > 0 and |beta| > 0.
      Returned values range between 0 and 1.
     """ 
-    def __init__(self, Alpha = Some(1.0), Beta = Some(1.0)):
+    def __init__(self, Alpha  = 1.0, Beta  = 1.0):
         self.Alpha = Alpha
         self.Beta = Beta
 

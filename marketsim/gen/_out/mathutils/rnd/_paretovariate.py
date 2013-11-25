@@ -6,7 +6,7 @@ class paretovariate(ops.Function[float]):
 
     """ 
     """ 
-    def __init__(self, Alpha = Some(1.0)):
+    def __init__(self, Alpha  = 1.0):
         self.Alpha = Alpha
 
     @property

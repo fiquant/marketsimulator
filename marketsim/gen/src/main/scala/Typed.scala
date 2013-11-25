@@ -1,8 +1,9 @@
 package object Typed
 {
     import AST.{BinOpSymbol, CondSymbol, DocString, QualifiedName}
-    import syntax.scala.Printer.{typed => pp}
-    import AST.ScPrintable
+    import syntax.scala.Printer.{typed => sc}
+    import generator.python.{Printer => py}
+    import AST.{ScPrintable, ScPyPrintable}
 
     abstract class Expr {
         def ty : Types.Base
@@ -10,88 +11,95 @@ package object Typed
 
     abstract class ArithExpr
             extends Expr
-            with    pp.Expr
+            with    sc.Expr
+            with    py.Expr
 
     case class Neg(x : ArithExpr)
             extends ArithExpr
-            with    pp.Neg
-            with    ScPrintable
+            with    sc.Neg
+            with    py.Neg
+            with    ScPyPrintable
             with    TypeInference.Neg
 
     case class BinOp(symbol : BinOpSymbol,
                      x      : ArithExpr,
                      y      : ArithExpr)
             extends ArithExpr
-            with    pp.BinOp
-            with    ScPrintable
+            with    sc.BinOp
+            with    py.BinOp
+            with    ScPyPrintable
             with    TypeInference.BinOp
 
     case class IfThenElse(cond  : BooleanExpr,
                           x     : ArithExpr,
                           y     : ArithExpr)
             extends ArithExpr
-            with    pp.IfThenElse
-            with    ScPrintable
+            with    sc.IfThenElse
+            with    py.IfThenElse
+            with    ScPyPrintable
             with    TypeInference.IfThenElse
 
     case class FloatConst(x : Double)
             extends ArithExpr
-            with    pp.FloatConst
-            with    ScPrintable
+            with    sc.FloatConst
+            with    py.FloatConst
+            with    ScPyPrintable
             with    TypeInference.FloatConst
 
     case class ParamRef(p : Parameter)
             extends ArithExpr
-            with    pp.ParamRef
-            with    ScPrintable
+            with    sc.ParamRef
+            with    py.ParamRef
+            with    ScPyPrintable
             with    TypeInference.ParamRef
 
     case class FunctionCall(target      : Function,
                             arguments   : List[(Parameter, ArithExpr)])
             extends ArithExpr
-            with    pp.FunCall
-            with    ScPrintable
+            with    sc.FunCall
+            with    py.FunCall
+            with    ScPyPrintable
             with    TypeInference.FunctionCall
 
     case class Annotation(target    : AnnotationHandler,
                           parameters: List[String])
-            extends pp.Annotation
+            extends sc.Annotation
             with    ScPrintable
 
     case class Parameter(name        : String,
                          ty          : Types.Base,
-                         initializer : Option[Expr],
+                         initializer : Option[ArithExpr],
                          comment     : List[String])
-            extends pp.Parameter
+            extends sc.Parameter
             with    ScPrintable
 
     abstract class BooleanExpr
             extends Expr
-            with    pp.BooleanExpr
+            with    sc.BooleanExpr
             with    TypeInference.BooleanExpr
 
     case class Or(x : BooleanExpr,
                   y : BooleanExpr)
             extends BooleanExpr
-            with    pp.Or
+            with    sc.Or
             with    ScPrintable
 
     case class And(x : BooleanExpr,
                    y : BooleanExpr)
             extends BooleanExpr
-            with    pp.And
+            with    sc.And
             with    ScPrintable
 
     case class Not(x : BooleanExpr)
             extends BooleanExpr
-            with    pp.Not
+            with    sc.Not
             with    ScPrintable
 
     case class Condition(symbol : CondSymbol,
                          x      : ArithExpr,
                          y      : ArithExpr)
             extends BooleanExpr
-            with    pp.Condition
+            with    sc.Condition
             with    ScPrintable
             with    TypeInference.Condition
 
@@ -102,7 +110,7 @@ package object Typed
                         body        : Option[Expr],
                         docstring   : Option[DocString],
                         annotations : List[Annotation])
-            extends pp.Function
+            extends sc.Function
             with    ScPrintable
     {
         parent.insert(this)
@@ -121,7 +129,7 @@ package object Typed
 
     }
 
-    class Package extends pp.TopLevelPackage with ScPrintable
+    class Package extends sc.TopLevelPackage with ScPrintable
     {
         var functions = Map[String, Function]()
         var packages = Map[String, SubPackage]()
@@ -155,7 +163,7 @@ package object Typed
             }
     }
 
-    class SubPackage(val name : String, parent : Package) extends Package with pp.SubPackage with ScPrintable
+    class SubPackage(val name : String, parent : Package) extends Package with sc.SubPackage with ScPrintable
     {
         override def qualifiedName = parent.qualifiedName :+ name
 

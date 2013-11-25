@@ -43,4 +43,41 @@ object Printer {
 
     }
 
+    import syntax.scala.Printer.{base => pp}
+
+    trait PrintablePort extends Printable
+    {
+        def toScala : String
+        override def toPython = toScala
+    }
+
+    trait Expr extends pp.Expr with PrintablePort
+    trait BooleanExpr extends pp.BooleanExpr with PrintablePort
+
+    trait BinOp extends pp.BinOp[Typed.ArithExpr] with PrintablePort
+    trait Neg extends pp.Neg[Typed.ArithExpr] with PrintablePort
+
+    trait IfThenElse extends pp.IfThenElse[Typed.ArithExpr, Typed.BooleanExpr] with PrintablePort
+    trait And extends pp.And[Typed.BooleanExpr] with PrintablePort
+    trait Or extends pp.Or[Typed.BooleanExpr] with PrintablePort
+    trait Not extends pp.Not[Typed.BooleanExpr, Typed.ArithExpr] with PrintablePort
+    trait Condition extends pp.Condition[Typed.ArithExpr] with PrintablePort
+
+    type Priority_0 = pp.Priority_0
+
+    trait FloatConst extends Expr with Priority_0 {
+        self: Typed.FloatConst =>
+        override def toPython = x.toString
+    }
+
+    trait ParamRef extends Expr with Priority_0 {
+        self: Typed.ParamRef =>
+        override def toPython = p.name
+    }
+
+    trait FunCall extends Expr with Priority_0 {
+        self: Typed.FunctionCall =>
+        override def toPython = target.parent.qualifyName(target.name) + arguments.map({ _._2 }).mkString("(",",",")")
+    }
+
 }

@@ -9,7 +9,7 @@ class lognormvariate(ops.Function[float]):
       you'll get a normal distribution with mean |mu| and standard deviation |sigma|.
       |mu| can have any value, and |sigma| must be greater than zero.
     """ 
-    def __init__(self, Mu = Some(0.0), Sigma = Some(1.0)):
+    def __init__(self, Mu  = 0.0, Sigma  = 1.0):
         self.Mu = Mu
         self.Sigma = Sigma
 

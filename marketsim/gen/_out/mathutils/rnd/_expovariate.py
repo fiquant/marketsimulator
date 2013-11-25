@@ -7,7 +7,7 @@ class expovariate(ops.Function[float]):
     """ 
       Returned values range from 0 to positive infinity
     """ 
-    def __init__(self, Lambda = Some(1.0)):
+    def __init__(self, Lambda  = 1.0):
         self.Lambda = Lambda
 
     @property

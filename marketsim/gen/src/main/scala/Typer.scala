@@ -113,7 +113,7 @@ object Typer
             definition.docstring, definition.annotations map toTyped)
     }
 
-    private def toTyped(p: AST.Parameter, inferType : AST.Expr => Typed.Expr)= {
+    private def toTyped(p: AST.Parameter, inferType : AST.Expr => Typed.ArithExpr)= {
         try {
             p.initializer match {
                 case Some(e) =>

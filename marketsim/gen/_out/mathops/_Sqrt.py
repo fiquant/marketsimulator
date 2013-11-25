@@ -8,7 +8,7 @@ class Sqrt(Observable[float]):
 
     """ 
     """ 
-    def __init__(self, x = Some(const(1.0))):
+    def __init__(self, x  = const(1.0)):
         Observable[float].__init__(self)
         self.x = x
         if isinstance(x, types.IEvent):

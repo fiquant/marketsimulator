@@ -23,9 +23,9 @@ package object base {
 
         def name = p.name
         def ty = p.ty.asPython
-        def s_initializer = p.initializer.toString
+        def s_initializer = if (p.initializer.nonEmpty) " = " + p.initializer.get else ""
 
-        def init = s"$name = $s_initializer"
+        def init = s"$name $s_initializer"
         def assign = s"self.$name = $name"
         def property = s"\'$name\' : $ty"
         def repr = s"""$name = \"+repr(self.$name)+\" """

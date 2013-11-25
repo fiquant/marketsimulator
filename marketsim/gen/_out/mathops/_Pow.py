@@ -13,7 +13,7 @@ class Pow(Observable[float]):
      If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
      ``pow(x, y)`` is undefined, and raises ``ValueError``.
     """ 
-    def __init__(self, base = Some(const(1.0)), power = Some(const(1.0))):
+    def __init__(self, base  = const(1.0), power  = const(1.0)):
         Observable[float].__init__(self)
         self.base = base
         if isinstance(base, types.IEvent):

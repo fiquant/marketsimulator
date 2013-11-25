@@ -10,12 +10,6 @@ package object Printer
         def toScala : String
     }
 
-    def pars(s : Any, condition : Boolean = true) =
-        if (condition) "(" + s + ")" else s.toString
-
-    def ifSome[A](p : Option[A], prefix : String = "", postfix : String = "") =
-        if (p.nonEmpty) prefix + p.get + postfix else ""
-
     object base {
         trait Expr extends Printable {
             val priority : Int
@@ -285,8 +279,8 @@ package object Printer
         }
 
 
-        type Expr = ast.Expr
-        type BooleanExpr = ast.BooleanExpr
+        type Expr = base.Expr
+        type BooleanExpr = base.BooleanExpr
 
         type BinOp = base.BinOp[Typed.ArithExpr]
         type Neg = base.Neg[Typed.ArithExpr]

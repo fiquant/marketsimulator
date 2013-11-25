@@ -6,7 +6,7 @@ class normalvariate(ops.Function[float]):
 
     """ 
     """ 
-    def __init__(self, Mu = Some(0.0), Sigma = Some(1.0)):
+    def __init__(self, Mu  = 0.0, Sigma  = 1.0):
         self.Mu = Mu
         self.Sigma = Sigma
 

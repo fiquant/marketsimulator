@@ -10,7 +10,7 @@ class uniform(ops.Function[float]):
      The end-point value *b* may or may not be included in the range depending on
      floating-point rounding in the equation *a* + (*b*-*a*) * *random()*.
     """ 
-    def __init__(self, Low = Some(-10.0), High = Some(10.0)):
+    def __init__(self, Low  = -10.0, High  = 10.0):
         self.Low = Low
         self.High = High
 
