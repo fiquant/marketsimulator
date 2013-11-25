@@ -102,7 +102,7 @@ package object Typed
                         name        : String,
                         parameters  : List[Parameter],
                         ret_type    : Types.Base,
-                        body        : Option[Expr],
+                        body        : Option[ArithExpr],
                         docstring   : Option[DocString],
                         annotations : List[Annotation])
             extends sc.Function

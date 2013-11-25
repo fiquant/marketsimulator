@@ -76,7 +76,7 @@ object Printer {
 
     trait ParamRef extends Expr with Priority_0 {
         self: Typed.ParamRef =>
-        override def toPython = p.name
+        override def toPython = "self." + p.name
     }
 
     trait FunCall extends Expr with Priority_0 {

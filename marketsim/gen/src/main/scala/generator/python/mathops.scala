@@ -19,7 +19,7 @@ object mathops extends gen.PythonGenerator
 
     }
 
-    case class Import(args : List[String], f : Typed.Function) extends base.Printer()
+    case class Import(args : List[String], f : Typed.Function) extends base.Intrinsic
     {
         if (args.length != 3)
             throw new Exception(s"Annotation python.mathops should have 3 arguments in" +
@@ -53,7 +53,7 @@ object mathops extends gen.PythonGenerator
         val imports =
             "from marketsim import registry, types, event" |
             "import math" |
-            "from marketsim.ops._all import Observable, const" | stop
+            "from marketsim.ops._all import Observable, constant" | stop
     }
 
     def apply(/** arguments of the annotation */ args  : List[String])

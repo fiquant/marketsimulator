@@ -421,7 +421,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 0.0
@@ -459,7 +459,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
@@ -497,7 +497,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
@@ -535,7 +535,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
@@ -573,7 +573,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
@@ -589,7 +589,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
@@ -618,6 +618,49 @@ Definitions:
 | | | | | | | | - Log/Pow
 | | | | | | | | - pow
 | | | | | | | | - %(base)s^{%(power)s}
+| - PackageDef:
+| | - QualifiedName:
+| | | - List:
+| | | | - observable
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Sqr
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - Some:
+| | | | | | | | - FunctionType:
+| | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - Float
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - BinOp:
+| | | | | | | - Mul
+| | | | | | | - Var:
+| | | | | | | | - x
+| | | | | | | - Var:
+| | | | | | | | - x
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - Float
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - Pow/Log
+| | | | | | | | - {%s}^2
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
@@ -650,7 +693,7 @@ Definitions:
 | | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Parameter:
@@ -738,7 +781,7 @@ Definitions:
 | | | | | - None
 | | | | | - List:
 | - FunDef:
-| | - const
+| | - constant
 | | - List:
 | | | - Parameter:
 | | | | - x
@@ -784,7 +827,7 @@ Definitions:
 | | | | | - FunCall:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
-| | | | | | | | - const
+| | | | | | | | - constant
 | | | | | | - List:
 | | | | - List:
 | | - Some:
@@ -818,7 +861,7 @@ Definitions:
 | | | | | - FunCall:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
-| | | | | | | | - const
+| | | | | | | | - constant
 | | | | | | - List:
 | | | | - List:
 | | | - Parameter:
@@ -832,7 +875,7 @@ Definitions:
 | | | | | - FunCall:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
-| | | | | | | | - const
+| | | | | | | | - constant
 | | | | | | - List:
 | | | | - List:
 | | - Some:
@@ -847,35 +890,6 @@ Definitions:
 | | | | | - x
 | | | | - Var:
 | | | | | - y
-| | - Some:
-| | | - SimpleType:
-| | | | - Float
-| | - None
-| | - List:
-| - FunDef:
-| | - sqr
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - Some:
-| | | | | - FunctionType:
-| | | | | | - List:
-| | | | | | - SimpleType:
-| | | | | | | - Float
-| | | | - Some:
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - const
-| | | | | | - List:
-| | | | - List:
-| | - Some:
-| | | - BinOp:
-| | | | - Mul
-| | | | - Var:
-| | | | | - x
-| | | | - Var:
-| | | | | - x
 | | - Some:
 | | | - SimpleType:
 | | | | - Float

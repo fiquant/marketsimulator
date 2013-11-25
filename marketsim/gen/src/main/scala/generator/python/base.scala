@@ -17,6 +17,7 @@ package object base {
         // TODO: non-intrusive registration
         register(random)
         register(mathops)
+        register(observable)
     }
 
     abstract class Class extends PyPrintable
@@ -97,14 +98,17 @@ package object base {
 
         def repr = Def("__repr__", "", repr_body)
 
-        def impl_module : String
-
-        def call_body = s"""return $impl_module.$impl_function($call_fields)"""
-
+        def call_body : Any
         def call = Def("__call__", "*args, **kwargs", call_body)
 
         def body = doc | init | label | properties | repr | nl
     }
 
+    abstract class Intrinsic extends Printer
+    {
+        def impl_module : String
+
+        def call_body = s"""return $impl_module.$impl_function($call_fields)"""
+    }
 
 }

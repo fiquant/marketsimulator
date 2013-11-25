@@ -322,7 +322,7 @@ Constant = types.Factory('Constant', """(_Constant_Impl, Function[%(T)s], types.
     _properties = {'value' : %(T)s}
 """, globals())
 
-def constant(x):
+def constant(x = 1.):
     return Constant[float](x) if type(x) is float\
         else Constant[float](x) if type(x) is int\
         else Constant[Side](x) if x in [Side.Sell, Side.Buy]\

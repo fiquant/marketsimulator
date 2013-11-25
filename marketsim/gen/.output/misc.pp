@@ -1,13 +1,16 @@
 
 def min(x = mathops.Exp(),
-        y = const()) = if x<y then x else y
+        y = constant()) = if x<y then x else y
 
-def max(x = const(),
-        y = const()) = if x>y then x else y
+def max(x = constant(),
+        y = constant()) = if x>y then x else y
 
-def sqr(x = const()) = x*x
+package observable {
+    @python.observable("Pow/Log", "{%s}^2")
+    def Sqr(x = constant()) = x*x
+}
 
-def const(x = 1.0) : Float
+def constant(x = 1.0) : Float
 
 package thrash {
     def A(x = in1.in2.B()) : Float
@@ -16,7 +19,7 @@ package thrash {
         def C(x = A()) : Float
         
         package in2 {
-            def B(x = const(),
+            def B(x = constant(),
                   y = if 3.0>x+2.0 then x else x*2.0) : Float
         }
     }

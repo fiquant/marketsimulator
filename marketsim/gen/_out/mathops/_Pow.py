@@ -1,6 +1,6 @@
 from marketsim import registry, types, event
 import math
-from marketsim.ops._all import Observable, const
+from marketsim.ops._all import Observable, constant
 
 @registry.expose(['Log/Pow', 'Pow'])
 class Pow(Observable[float]):
@@ -13,10 +13,10 @@ class Pow(Observable[float]):
     """ 
     def __init__(self, base = None, power = None):
         Observable[float].__init__(self)
-        self.base = base if base is not None else const(1.0)
+        self.base = base if base is not None else constant(1.0)
         if isinstance(base, types.IEvent):
             event.subscribe(self.base, self.fire, self)
-        self.power = power if power is not None else const(1.0)
+        self.power = power if power is not None else constant(1.0)
         if isinstance(power, types.IEvent):
             event.subscribe(self.power, self.fire, self)
 

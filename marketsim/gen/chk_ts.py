@@ -15,6 +15,7 @@ def generate_if_needed():
     if gen_needed():
         print "Running scala generator..."
 
+        #subprocess.call("sbt clean", shell=True)
         subprocess.call("sbt run", shell=True)
 
         print "done."
@@ -25,7 +26,7 @@ def generate_if_needed():
 
 def gen_needed():
 
-    exts = ['.py', '.scala', '.in']
+    exts = ['.py', '.scala','.sc']
 
     timestamp = 0
 

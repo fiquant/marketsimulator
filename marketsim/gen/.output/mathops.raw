@@ -16,7 +16,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
@@ -50,7 +50,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
@@ -84,7 +84,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
@@ -118,7 +118,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
@@ -130,7 +130,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
@@ -169,7 +169,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 0.0

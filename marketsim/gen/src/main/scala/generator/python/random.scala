@@ -7,7 +7,7 @@ object random extends gen.PythonGenerator
 
     case class Parameter(p : Typed.Parameter) extends base.Parameter
 
-    case class Import(f : Typed.Function) extends base.Printer()
+    case class Import(f : Typed.Function) extends base.Intrinsic
     {
         val name = f.name
         val parameters = f.parameters map Parameter

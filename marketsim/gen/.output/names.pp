@@ -97,25 +97,25 @@ package mathops {
      *
      */
     @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
-    def Atan(x = const(0.0)) : Float
+    def Atan(x = constant(0.0)) : Float
     
     /** Square root of x
      *
      */
     @python.mathops("Log/Pow", "sqrt", "\\sqrt{%(x)s}")
-    def Sqrt(x = const(1.0)) : Float
+    def Sqrt(x = constant(1.0)) : Float
     
     /** Exponent of x
      *
      */
     @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
-    def Exp(x = const(1.0)) : Float
+    def Exp(x = constant(1.0)) : Float
     
     /** Natural logarithm of x (to base e)
      *
      */
     @python.mathops("Log/Pow", "log", "log(%(x)s)")
-    def Log(x = const(1.0)) : Float
+    def Log(x = constant(1.0)) : Float
     
     /** Return *x* raised to the power *y*.
      *
@@ -126,14 +126,19 @@ package mathops {
      * ``pow(x, y)`` is undefined, and raises ``ValueError``.
      */
     @python.mathops("Log/Pow", "pow", "%(base)s^{%(power)s}")
-    def Pow(base = const(1.0),
-            power = const(1.0)) : Float
+    def Pow(base = constant(1.0),
+            power = constant(1.0)) : Float
+}
+
+package observable {
+    @python.observable("Pow/Log", "{%s}^2")
+    def Sqr(x = constant()) = x*x
 }
 
 package thrash {
     package in1 {
         package in2 {
-            def B(x = const(),
+            def B(x = constant(),
                   y = if 3.0>x+2.0 then x else x*2.0) : Float
         }
         
@@ -144,11 +149,9 @@ package thrash {
 }
 
 def min(x = mathops.Exp(),
-        y = const()) = if x<y then x else y
+        y = constant()) = if x<y then x else y
 
-def max(x = const(),
-        y = const()) = if x>y then x else y
+def max(x = constant(),
+        y = constant()) = if x>y then x else y
 
-def sqr(x = const()) = x*x
-
-def const(x = 1.0) : Float
+def constant(x = 1.0) : Float

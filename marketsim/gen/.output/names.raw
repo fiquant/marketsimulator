@@ -379,7 +379,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 0.0
@@ -413,7 +413,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
@@ -447,7 +447,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
@@ -481,7 +481,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
@@ -515,7 +515,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
@@ -527,7 +527,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 1.0
@@ -559,6 +559,43 @@ Definitions:
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
+| | | | - observable
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Sqr
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - BinOp:
+| | | | | | | - Mul
+| | | | | | | - Var:
+| | | | | | | | - x
+| | | | | | | - Var:
+| | | | | | | | - x
+| | | | | - None
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - Pow/Log
+| | | | | | | | - {%s}^2
+| - PackageDef:
+| | - QualifiedName:
+| | | - List:
 | | | | - thrash
 | | - Definitions:
 | | | - List:
@@ -584,7 +621,7 @@ Definitions:
 | | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Parameter:
@@ -678,7 +715,7 @@ Definitions:
 | | | | | - FunCall:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
-| | | | | | | | - const
+| | | | | | | | - constant
 | | | | | | - List:
 | | | | - List:
 | | - Some:
@@ -706,7 +743,7 @@ Definitions:
 | | | | | - FunCall:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
-| | | | | | | | - const
+| | | | | | | | - constant
 | | | | | | - List:
 | | | | - List:
 | | | - Parameter:
@@ -716,7 +753,7 @@ Definitions:
 | | | | | - FunCall:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
-| | | | | | | | - const
+| | | | | | | | - constant
 | | | | | | - List:
 | | | | - List:
 | | - Some:
@@ -735,30 +772,7 @@ Definitions:
 | | - None
 | | - List:
 | - FunDef:
-| | - sqr
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - None
-| | | | - Some:
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - const
-| | | | | | - List:
-| | | | - List:
-| | - Some:
-| | | - BinOp:
-| | | | - Mul
-| | | | - Var:
-| | | | | - x
-| | | | - Var:
-| | | | | - x
-| | - None
-| | - None
-| | - List:
-| - FunDef:
-| | - const
+| | - constant
 | | - List:
 | | | - Parameter:
 | | | | - x

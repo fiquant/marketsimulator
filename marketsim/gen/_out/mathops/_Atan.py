@@ -1,6 +1,6 @@
 from marketsim import registry, types, event
 import math
-from marketsim.ops._all import Observable, const
+from marketsim.ops._all import Observable, constant
 
 @registry.expose(['Trigonometric', 'Atan'])
 class Atan(Observable[float]):
@@ -8,7 +8,7 @@ class Atan(Observable[float]):
     """ 
     def __init__(self, x = None):
         Observable[float].__init__(self)
-        self.x = x if x is not None else const(0.0)
+        self.x = x if x is not None else constant(0.0)
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
 
