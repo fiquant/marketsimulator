@@ -1,4 +1,6 @@
 package generator.python
+
+import AST.PyPrintable
 import predef._
 
 package object base {
@@ -15,6 +17,17 @@ package object base {
         // TODO: non-intrusive registration
         register(random)
         register(mathops)
+    }
+
+    abstract class Class extends PyPrintable
+    {
+        def name : String
+        def body : Any
+        def registration :  Any
+        def imports : String
+        def base_class : String  = "object"
+
+        def toPython = imports | nl | registration.toString | s"class $name($base_class):" |> body | nl
     }
 
     abstract class Parameter {
@@ -44,7 +57,7 @@ package object base {
         nl
 
 
-    abstract class Printer() {
+    abstract class Printer extends Class {
         type Parameter <: base.Parameter
         def name        : String
         def docstring   : List[String]
@@ -53,7 +66,6 @@ package object base {
         def parameters  : List[Parameter]
 
         def registration = s"@registry.expose(['$category', '$alias'])"
-        def base_class = "object"
 
         def join_fields(p : Parameter => String, sep : String = ", ") = parameters map p mkString sep
 
@@ -64,9 +76,6 @@ package object base {
         def call_fields = join_fields({ _.call })
 
         def impl_function = name
-
-        def header = "" | registration |
-            s"class $name($base_class):" | nl
 
         def doc = s"""\"\"\" ${docstring.mkString(crlf)}$crlf\"\"\" """
 
@@ -88,11 +97,7 @@ package object base {
 
         def call = Def("__call__", "*args, **kwargs", call_body)
 
-        def prologue : String
-
         def body = doc | init | label | properties | repr | nl
-
-        override def toString = prologue | header |> body | nl
     }
 
 

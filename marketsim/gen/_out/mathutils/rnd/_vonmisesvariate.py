@@ -3,7 +3,6 @@ import random
 
 @registry.expose(['Random', 'Von Mises distribution'])
 class vonmisesvariate(ops.Function[float]):
-
     """ 
     """ 
     def __init__(self, Mu  = 0.0, Kappa  = 0.0):

@@ -3,7 +3,6 @@ import random
 
 @registry.expose(['Random', 'Pareto distribution'])
 class paretovariate(ops.Function[float]):
-
     """ 
     """ 
     def __init__(self, Alpha  = 1.0):

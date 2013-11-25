@@ -2,10 +2,8 @@ from marketsim import registry, types, event
 import math
 from _all import Observable, Constant
 
-
 @registry.expose(['Log/Pow', 'Pow'])
 class Pow(Observable[float]):
-
     """ 
      Exceptional cases follow Annex F of the C99 standard as far as possible.
      In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,

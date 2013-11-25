@@ -3,7 +3,6 @@ import random
 
 @registry.expose(['Random', 'Uniform distribution'])
 class uniform(ops.Function[float]):
-
     """ 
      Return a random floating point number *N* such that
      *a* <= *N* <= *b* for *a* <= *b* and *b* <= *N* <= *a* for *b* < *a*.

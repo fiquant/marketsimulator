@@ -2,10 +2,8 @@ from marketsim import registry, types, event
 import math
 from _all import Observable, Constant
 
-
 @registry.expose(['Trigonometric', 'Atan'])
 class Atan(Observable[float]):
-
     """ 
     """ 
     def __init__(self, x  = const(0.0)):

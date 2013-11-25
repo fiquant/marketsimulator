@@ -3,7 +3,6 @@ import random
 
 @registry.expose(['Random', 'Exponential distribution'])
 class expovariate(ops.Function[float]):
-
     """ 
       Returned values range from 0 to positive infinity
     """ 

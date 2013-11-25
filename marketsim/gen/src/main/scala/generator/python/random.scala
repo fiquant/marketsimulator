@@ -23,7 +23,7 @@ object random extends gen.PythonGenerator
 
         val impl_module = "random"
 
-        val prologue =
+        val imports =
             "from marketsim import registry, types, ops" |
             "import random" | stop
 

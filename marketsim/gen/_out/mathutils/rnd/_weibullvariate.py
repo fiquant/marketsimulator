@@ -3,7 +3,6 @@ import random
 
 @registry.expose(['Random', 'Weibull distribution'])
 class weibullvariate(ops.Function[float]):
-
     """ 
     """ 
     def __init__(self, Alpha  = 1.0, Beta  = 1.0):

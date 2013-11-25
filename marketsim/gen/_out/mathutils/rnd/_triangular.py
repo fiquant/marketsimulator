@@ -3,7 +3,6 @@ import random
 
 @registry.expose(['Random', 'Triangular distribution'])
 class triangular(ops.Function[float]):
-
     """ 
      Return a random floating point number *N* such that *low* <= *N* <= *high* and
            with the specified *mode* between those bounds.

@@ -47,10 +47,10 @@ object mathops extends gen.PythonGenerator
         override def body = super.body | call | stop
 
 
-        val prologue =
+        val imports =
             "from marketsim import registry, types, event" |
             "import math" |
-            "from _all import Observable, Constant" | nl
+            "from _all import Observable, Constant" | stop
     }
 
     def apply(/** arguments of the annotation */ args  : List[String])

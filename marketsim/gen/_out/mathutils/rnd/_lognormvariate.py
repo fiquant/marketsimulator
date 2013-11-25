@@ -3,7 +3,6 @@ import random
 
 @registry.expose(['Random', 'Log normal distribution'])
 class lognormvariate(ops.Function[float]):
-
     """ 
      If you take the natural logarithm of this distribution,
       you'll get a normal distribution with mean |mu| and standard deviation |sigma|.
