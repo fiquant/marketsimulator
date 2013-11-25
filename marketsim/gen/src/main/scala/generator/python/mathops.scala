@@ -14,6 +14,9 @@ object mathops extends gen.PythonGenerator
         def nullable =
             s"$name = self.$name()" |
             s"if $name is None: return None" | stop
+
+        override def call = s"self.$name()"
+
     }
 
     case class Import(args : List[String], f : Typed.Function) extends base.Printer()
@@ -50,7 +53,7 @@ object mathops extends gen.PythonGenerator
         val imports =
             "from marketsim import registry, types, event" |
             "import math" |
-            "from _all import Observable, Constant" | stop
+            "from marketsim.ops._all import Observable, const" | stop
     }
 
     def apply(/** arguments of the annotation */ args  : List[String])

@@ -1,6 +1,6 @@
 from marketsim import registry, types, event
 import math
-from _all import Observable, Constant
+from marketsim.ops._all import Observable, const
 
 @registry.expose(['Log/Pow', 'Log'])
 class Log(Observable[float]):
@@ -27,6 +27,6 @@ class Log(Observable[float]):
     def __call__(self, *args, **kwargs):
         x = self.x()
         if x is None: return None
-        return math.log(self.x)
+        return math.log(self.x())
 
 

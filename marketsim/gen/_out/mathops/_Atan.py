@@ -1,6 +1,6 @@
 from marketsim import registry, types, event
 import math
-from _all import Observable, Constant
+from marketsim.ops._all import Observable, const
 
 @registry.expose(['Trigonometric', 'Atan'])
 class Atan(Observable[float]):
@@ -27,6 +27,6 @@ class Atan(Observable[float]):
     def __call__(self, *args, **kwargs):
         x = self.x()
         if x is None: return None
-        return math.atan(self.x)
+        return math.atan(self.x())
 
 

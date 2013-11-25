@@ -329,6 +329,7 @@ def constant(x):
         else Constant[bool](x) if type(x) is bool\
         else None    
 
+const = constant
 
 @registry.expose(['Arithmetic', 'negate'])
 class negate(Function[float]):

@@ -1,6 +1,6 @@
 from marketsim import registry, types, event
 import math
-from _all import Observable, Constant
+from marketsim.ops._all import Observable, const
 
 @registry.expose(['Log/Pow', 'Sqrt'])
 class Sqrt(Observable[float]):
@@ -27,6 +27,6 @@ class Sqrt(Observable[float]):
     def __call__(self, *args, **kwargs):
         x = self.x()
         if x is None: return None
-        return math.sqrt(self.x)
+        return math.sqrt(self.x())
 
 

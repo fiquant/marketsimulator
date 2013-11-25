@@ -7,35 +7,12 @@ timestamp_filename = ".timestamp"
 sourcedir   = os.path.abspath(os.path.dirname(__file__))
 rootdir     = os.path.abspath(os.path.normpath(os.path.join(sourcedir, "..")))
 
-def target(t):
-    return os.path.join(rootdir, *getattr(targets, t))
-
-def rel(f):
-    return os.path.relpath(f, rootdir)
-
-def write(t, strings):
-    filename = target(t)
-    print "\t", rel(filename)
-    with open(filename, "w") as out:
-        for d in strings:
-            out.write(d)
-            out.write('\n')
-
-def generate_if_needed():            
+def generate_if_needed():
 
     olddir = os.getcwd()
     os.chdir(os.path.dirname(__file__))
 
     if gen_needed():
-        print " -> Regenerating..."
-        
-        for key in dir(targets):
-            if key[0:2] != '__':
-                module = getattr(targets, key)
-                m = __import__('marketsim.gen.'+key, globals(), locals(), ['defs'], -1)
-                write(key, m.defs)    
-        print "done."
-
         print "Running scala generator..."
 
         subprocess.call("sbt run", shell=True)

@@ -8,4 +8,4 @@ from _derivative import Derivative
 
 from _arithmetic import Sub, Sum, Div, Product
 
-from _math import Exp, Atan, Pow, Log, Sqrt
+from marketsim.gen._out.mathops import *

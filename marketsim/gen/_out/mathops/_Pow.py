@@ -1,6 +1,6 @@
 from marketsim import registry, types, event
 import math
-from _all import Observable, Constant
+from marketsim.ops._all import Observable, const
 
 @registry.expose(['Log/Pow', 'Pow'])
 class Pow(Observable[float]):
@@ -38,6 +38,6 @@ class Pow(Observable[float]):
         if base is None: return None
         power = self.power()
         if power is None: return None
-        return math.pow(self.base, self.power)
+        return math.pow(self.base(), self.power())
 
 
