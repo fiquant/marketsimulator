@@ -10,8 +10,8 @@ class _Noise_Impl(TwoSides):
         TwoSides.__init__(self)
         
     def _orderFunc(self):
-        conv = types.Side.byId
-        return (types.Side.byId(self.sideDistr()), (int(self.volumeDistr()),)) 
+        side = Side.Sell if self.sideDistr() > 0.5 else Side.Buy
+        return (side, (int(self.volumeDistr()),))
 
 exec wrapper2("Noise", 
              """ Noise strategy is a quite dummy strategy that randomly creates an order 
@@ -31,6 +31,6 @@ exec wrapper2("Noise",
                      (default: discrete uniform distribution P(Sell)=P(Buy)=.5)
              """,
              [("orderFactory",          "order.MarketFactory",          'Side -> Volume -> IOrder'),
-              ("sideDistr",             "mathutils.rnd.randint(0,1)",   "() -> int"), # in fact it should be () -> Side
+              ("sideDistr",             "mathutils.rnd.uniform(0,1)",  "() -> float"),
               ("volumeDistr",           "mathutils.rnd.expovariate(1.)",'() -> Volume'),
               ("creationIntervalDistr", "mathutils.rnd.expovariate(1.)",'() -> TimeInterval')])
