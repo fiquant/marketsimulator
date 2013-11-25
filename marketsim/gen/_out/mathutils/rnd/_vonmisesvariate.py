@@ -5,9 +5,9 @@ import random
 class vonmisesvariate(ops.Function[float]):
     """ 
     """ 
-    def __init__(self, Mu  = 0.0, Kappa  = 0.0):
-        self.Mu = Mu
-        self.Kappa = Kappa
+    def __init__(self, Mu = None, Kappa = None):
+        self.Mu = Mu if Mu is not None else 0.0
+        self.Kappa = Kappa if Kappa is not None else 0.0
 
     @property
     def label(self):

@@ -6,9 +6,9 @@ from marketsim.ops._all import Observable, const
 class Atan(Observable[float]):
     """ 
     """ 
-    def __init__(self, x  = const(0.0)):
+    def __init__(self, x = None):
         Observable[float].__init__(self)
-        self.x = x
+        self.x = x if x is not None else const(0.0)
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
 

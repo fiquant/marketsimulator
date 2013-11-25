@@ -5,8 +5,8 @@ import random
 class paretovariate(ops.Function[float]):
     """ 
     """ 
-    def __init__(self, Alpha  = 1.0):
-        self.Alpha = Alpha
+    def __init__(self, Alpha = None):
+        self.Alpha = Alpha if Alpha is not None else 1.0
 
     @property
     def label(self):

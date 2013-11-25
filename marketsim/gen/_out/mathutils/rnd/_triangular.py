@@ -10,10 +10,10 @@ class triangular(ops.Function[float]):
            The *mode* argument defaults to the midpoint between the bounds,
            giving a symmetric distribution.
     """ 
-    def __init__(self, Low  = 0.0, High  = 1.0, Mode  = 0.5):
-        self.Low = Low
-        self.High = High
-        self.Mode = Mode
+    def __init__(self, Low = None, High = None, Mode = None):
+        self.Low = Low if Low is not None else 0.0
+        self.High = High if High is not None else 1.0
+        self.Mode = Mode if Mode is not None else 0.5
 
     @property
     def label(self):

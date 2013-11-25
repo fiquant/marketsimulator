@@ -36,10 +36,16 @@ package object base {
 
         def name = p.name
         def ty = p.ty.asPython
-        def s_initializer = if (p.initializer.nonEmpty) " = " + p.initializer.get.asPython else ""
+        def s_initializer = if (p.initializer.nonEmpty) "= None" else ""
 
         def init = s"$name $s_initializer"
-        def assign = s"self.$name = $name"
+        def assign = {
+            s"self.$name = $name" +
+                    (p.initializer match {
+                        case Some(x) => s" if $name is not None else " + x.asPython
+                        case None => ""})
+        }
+
         def property = s"\'$name\' : $ty"
         def repr = s"""$name = \"+repr(self.$name)+\" """
         def call = s"self.$name"

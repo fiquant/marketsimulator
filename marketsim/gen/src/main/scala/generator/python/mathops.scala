@@ -6,7 +6,7 @@ object mathops extends gen.PythonGenerator
     case class Parameter(p : Typed.Parameter) extends base.Parameter
     {
         override def assign =
-            s"self.$name = $name" |
+            super.assign |
             s"if isinstance($name, types.IEvent):" |>
                 s"event.subscribe(self.$name, self.fire, self)" |
             stop

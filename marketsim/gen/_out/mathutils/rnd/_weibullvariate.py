@@ -5,9 +5,9 @@ import random
 class weibullvariate(ops.Function[float]):
     """ 
     """ 
-    def __init__(self, Alpha  = 1.0, Beta  = 1.0):
-        self.Alpha = Alpha
-        self.Beta = Beta
+    def __init__(self, Alpha = None, Beta = None):
+        self.Alpha = Alpha if Alpha is not None else 1.0
+        self.Beta = Beta if Beta is not None else 1.0
 
     @property
     def label(self):
