@@ -56,7 +56,7 @@ object mathops extends gen.PythonGenerator
     def apply(/** arguments of the annotation */ args  : List[String])
              (/** function to process         */ f     : Typed.Function) =
     {
-        Import(args, f).toString
+        new Import(args, f)
     }
 
     val name = "python.mathops"

@@ -33,7 +33,7 @@ object random extends gen.PythonGenerator
     def apply(/** arguments of the annotation */ args  : List[String])
              (/** function to process         */ f     : Typed.Function) =
     {
-        Import(f).toString
+        new Import(f)
     }
 
     val name = "python.random"
