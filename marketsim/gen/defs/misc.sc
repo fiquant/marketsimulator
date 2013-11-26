@@ -1,10 +1,13 @@
-def min(x = mathops.Exp(), y = constant()) = if x < y then x else y
-def max(x = constant(), y = constant()) = if x > y then x else y
-
 package observable
 {
-    @python.observable("Pow/Log", "{%s}^2")
+    @python.observable("Pow/Log", "{%x}^2")
     def Sqr(x = constant()) = x*x
+
+    @python.observable("Basic", "min{%x, %y}")
+    def Min(x = constant(), y = constant()) = if x < y then x else y
+
+    @python.observable("Basic", "max{%x, %y}")
+    def Max(x = constant(), y = constant()) = if x > y then x else y
 }
 
 def constant(x = 1.0) : Float

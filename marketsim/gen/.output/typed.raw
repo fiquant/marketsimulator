@@ -660,7 +660,119 @@ Definitions:
 | | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - Pow/Log
-| | | | | | | | - {%s}^2
+| | | | | | | | - {%x}^2
+| | | | - FunDef:
+| | | | | - Min
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - Some:
+| | | | | | | | - FunctionType:
+| | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - Float
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - y
+| | | | | | | - Some:
+| | | | | | | | - FunctionType:
+| | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - Float
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - IfThenElse:
+| | | | | | | - Condition:
+| | | | | | | | - Less
+| | | | | | | | - Var:
+| | | | | | | | | - x
+| | | | | | | | - Var:
+| | | | | | | | | - y
+| | | | | | | - Var:
+| | | | | | | | - x
+| | | | | | | - Var:
+| | | | | | | | - y
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - Float
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - Basic
+| | | | | | | | - min{%x, %y}
+| | | | - FunDef:
+| | | | | - Max
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - Some:
+| | | | | | | | - FunctionType:
+| | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - Float
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - y
+| | | | | | | - Some:
+| | | | | | | | - FunctionType:
+| | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - Float
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - IfThenElse:
+| | | | | | | - Condition:
+| | | | | | | | - Greater
+| | | | | | | | - Var:
+| | | | | | | | | - x
+| | | | | | | | - Var:
+| | | | | | | | | - y
+| | | | | | | - Var:
+| | | | | | | | - x
+| | | | | | | - Var:
+| | | | | | | | - y
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - Float
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - Basic
+| | | | | | | | - max{%x, %y}
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
@@ -793,103 +905,6 @@ Definitions:
 | | | | | | - 1.0
 | | | | - List:
 | | - None
-| | - Some:
-| | | - SimpleType:
-| | | | - Float
-| | - None
-| | - List:
-| - FunDef:
-| | - min
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - Some:
-| | | | | - FunctionType:
-| | | | | | - List:
-| | | | | | - SimpleType:
-| | | | | | | - Float
-| | | | - Some:
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - mathops
-| | | | | | | | - Exp
-| | | | | | - List:
-| | | | - List:
-| | | - Parameter:
-| | | | - y
-| | | | - Some:
-| | | | | - FunctionType:
-| | | | | | - List:
-| | | | | | - SimpleType:
-| | | | | | | - Float
-| | | | - Some:
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - constant
-| | | | | | - List:
-| | | | - List:
-| | - Some:
-| | | - IfThenElse:
-| | | | - Condition:
-| | | | | - Less
-| | | | | - Var:
-| | | | | | - x
-| | | | | - Var:
-| | | | | | - y
-| | | | - Var:
-| | | | | - x
-| | | | - Var:
-| | | | | - y
-| | - Some:
-| | | - SimpleType:
-| | | | - Float
-| | - None
-| | - List:
-| - FunDef:
-| | - max
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - Some:
-| | | | | - FunctionType:
-| | | | | | - List:
-| | | | | | - SimpleType:
-| | | | | | | - Float
-| | | | - Some:
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - constant
-| | | | | | - List:
-| | | | - List:
-| | | - Parameter:
-| | | | - y
-| | | | - Some:
-| | | | | - FunctionType:
-| | | | | | - List:
-| | | | | | - SimpleType:
-| | | | | | | - Float
-| | | | - Some:
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - constant
-| | | | | | - List:
-| | | | - List:
-| | - Some:
-| | | - IfThenElse:
-| | | | - Condition:
-| | | | | - Greater
-| | | | | - Var:
-| | | | | | - x
-| | | | | - Var:
-| | | | | | - y
-| | | | - Var:
-| | | | | - x
-| | | | - Var:
-| | | | | - y
 | | - Some:
 | | | - SimpleType:
 | | | | - Float

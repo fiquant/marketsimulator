@@ -1,1 +1,1 @@
-from marketsim.gen._out.observable import Sqr
+from marketsim.gen._out.observable import Sqr, Min, Max

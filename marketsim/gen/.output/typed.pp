@@ -131,8 +131,16 @@ package mathops {
 }
 
 package observable {
-    @python.observable("Pow/Log", "{%s}^2")
+    @python.observable("Pow/Log", "{%x}^2")
     def Sqr(x : () => Float = constant()) : Float = x*x
+    
+    @python.observable("Basic", "min{%x, %y}")
+    def Min(x : () => Float = constant(),
+            y : () => Float = constant()) : Float = if x<y then x else y
+    
+    @python.observable("Basic", "max{%x, %y}")
+    def Max(x : () => Float = constant(),
+            y : () => Float = constant()) : Float = if x>y then x else y
 }
 
 package thrash {
@@ -149,9 +157,3 @@ package thrash {
 }
 
 def constant(x : Float = 1.0) : Float
-
-def min(x : () => Float = mathops.Exp(),
-        y : () => Float = constant()) : Float = if x<y then x else y
-
-def max(x : () => Float = constant(),
-        y : () => Float = constant()) : Float = if x>y then x else y

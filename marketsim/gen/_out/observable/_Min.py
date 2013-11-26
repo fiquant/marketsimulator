@@ -1,13 +1,14 @@
 from marketsim import context, event, ops, registry, types, _
 from marketsim.ops import constant
 
-@registry.expose(['Pow/Log', 'Sqr'])
-class Sqr(ops.Observable[float]):
+@registry.expose(['Basic', 'Min'])
+class Min(ops.Observable[float]):
     """ 
     """ 
-    def __init__(self, x = None):
+    def __init__(self, x = None, y = None):
         ops.Observable[float].__init__(self)
         self.x = x if x is not None else constant()
+        self.y = y if y is not None else constant()
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
 
@@ -16,11 +17,12 @@ class Sqr(ops.Observable[float]):
         return repr(self)
 
     _properties = {
-        'x' : types.IFunction[float]
+        'x' : types.IFunction[float],
+        'y' : types.IFunction[float]
     }
 
     def __repr__(self):
-        return "{%x}^2" % self.__dict__
+        return "min{%x, %y}" % self.__dict__
 
 
     _internals = ['impl']
@@ -30,7 +32,7 @@ class Sqr(ops.Observable[float]):
         return {}
 
     def getImpl(self):
-        return self.x*self.x
+        return (self.x<self.y)[self.x, self.y]
 
     def bind(self, ctx):
         self._ctx = ctx.clone()

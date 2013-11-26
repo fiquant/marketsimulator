@@ -356,12 +356,3 @@ def subscribe_if_event(source, target):
 def identity(x = constant(1.)):
     return  x
 
-@registry.expose(['Basic', 'Max'])
-def Max(x = constant(1.), y = constant(1.)):
-    return (x > y)[x, y]
-
-@registry.expose(['Basic', 'Min'])
-def Min(x = constant(1.), y = constant(1.)):
-    return (x < y)[x, y]
-
-
