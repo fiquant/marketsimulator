@@ -4,6 +4,12 @@ package object Types
     import syntax.scala.Printer.{types => sc}
     import generator.python.Printer.{types => py}
 
+    // TODO:
+    //  Declaration     type P
+    //  Typedef         type A = B
+    //  Inheritance     type C : A, B
+    //  Generics        type G[T] : F[T]
+
     sealed abstract class Base
             extends sc.Base
             with    py.Base
@@ -33,6 +39,19 @@ package object Types
             extends Base
             with    sc.Function
             with    py.Function
+
+    abstract class UserDefined
+            extends Base
+            with    sc.UserDefined
+            with    py.UserDefined
+    {
+        val name : String
+        val scope : Typed.Package
+    }
+
+    case class Interface(name : String, scope : Typed.Package, bases : List[Base]) extends UserDefined
+
+    case class Declaration[T <: UserDefined](t : T)
 
     def nullaryFunction(ret_type : Base) = Function(List(), ret_type)
     val FloatFunc = nullaryFunction(`Float`)

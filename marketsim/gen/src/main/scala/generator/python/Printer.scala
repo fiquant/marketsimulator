@@ -2,6 +2,8 @@ package generator.python
 
 object Printer {
 
+    import syntax.scala.Printer.{base => pp, types => st}
+
     trait Printable {
         def toPython : String
     }
@@ -41,9 +43,8 @@ object Printer {
         trait `Float`    extends Printable {  def toPython = "float"  }
         trait `Boolean`  extends Printable {  def toPython = "bool"   }
 
+        trait UserDefined extends st.UserDefined with PrintablePort
     }
-
-    import syntax.scala.Printer.{base => pp}
 
     trait PrintablePort extends Printable
     {

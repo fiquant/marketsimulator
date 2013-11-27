@@ -257,6 +257,13 @@ package object Printer
 
         type Tuple = base.TupleType
         type Function = base.FunctionType
+
+        trait UserDefined extends Printable {
+            val name : String
+            val scope : Typed.Package
+
+            def toScala = scope qualifyName name
+        }
     }
 
     object typed {
