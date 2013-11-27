@@ -144,6 +144,14 @@ package observable {
 }
 
 package thrash {
+    package types {
+        type T
+        
+        type R : T
+        
+        type U : T, R
+    }
+    
     package in1 {
         package in2 {
             def B(x = constant(),

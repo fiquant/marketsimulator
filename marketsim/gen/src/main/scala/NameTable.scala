@@ -16,6 +16,11 @@ object NameTable {
             functions = functions updated (f.name, f)
         }
 
+        def add(t : AST.TypeDeclaration) {
+            check_name_is_unique(t.name, t)
+            types = types updated (t.name, t)
+        }
+
         override def equals(o : Any) = true
 
         private def check_name_is_unique(name : String, e : Any) {
@@ -76,6 +81,7 @@ object NameTable {
     private def create(p : AST.Definitions, impl : Scope) : Unit =
         p.definitions foreach {
             case fun_def : AST.FunDef => impl.add(fun_def)
+            case type_def : AST.TypeDeclaration => impl.add(type_def)
             case package_def : AST.PackageDef => impl.add(package_def)
         }
 

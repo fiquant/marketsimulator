@@ -694,6 +694,27 @@ Definitions:
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
+| | | | | | | - types
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - TypeDeclaration:
+| | | | | | | | - T
+| | | | | | | | - List:
+| | | | | | | - TypeDeclaration:
+| | | | | | | | - R
+| | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - T
+| | | | | | | - TypeDeclaration:
+| | | | | | | | - U
+| | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - T
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - R
+| | | | - PackageDef:
+| | | | | - QualifiedName:
+| | | | | | - List:
 | | | | | | | - in1
 | | | | | - Definitions:
 | | | | | | - List:

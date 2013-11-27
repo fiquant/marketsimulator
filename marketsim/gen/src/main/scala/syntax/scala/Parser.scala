@@ -96,13 +96,19 @@ class Parser() extends JavaTokenParsers with PackratParsers
         case (doc ~ annotations ~ name ~ parameters ~ t ~ body) => FunDef(name, parameters, body, t, doc, annotations)
     } withFailureMessage "function expected"
 
+    lazy val type_bases = ":" ~> repsep(typ, ",")
+
+    lazy val type_declaration = "type" ~> ident ~ opt(type_bases) ^^ {
+        case (name ~ bases) => TypeDeclaration(name, bases match { case None => Nil case Some(x) => x })
+    }
+
     lazy val package_body = ("{" ~> definitions <~ "}") | definitions
 
     lazy val `package` = "package" ~> qualified_name ~ package_body ^^ {
         case name ~ members => PackageDef(name, members)
     }
 
-    lazy val definition = function | `package`
+    lazy val definition = type_declaration | function | `package`
 
     lazy val definitions : Parser[AST.Definitions] = rep(definition) ^^ Definitions
 

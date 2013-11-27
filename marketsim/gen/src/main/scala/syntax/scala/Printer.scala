@@ -134,6 +134,14 @@ package object Printer
                     + crlf + "}")
         }
 
+        trait TypeDeclaration extends Printable with Definition
+        {
+            val name : String
+            val bases : List[Any]
+
+            def toScala = crlf + "type " + name + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
+        }
+
         trait Function extends Printable with Definition {
             val docstring : Option[DocString]
             val annotations : List[Annotation]
@@ -186,6 +194,7 @@ package object Printer
         type DocString = base.DocString
         type QualifiedName = base.QualifiedName
         type Package = base.Package[Definition]
+        type TypeDeclaration = base.TypeDeclaration
 
         trait Annotation extends base.Annotation {
             self: AST.Annotation =>

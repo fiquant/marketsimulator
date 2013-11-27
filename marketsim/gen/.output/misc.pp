@@ -15,6 +15,14 @@ package observable {
 def constant(x = 1.0) : Float
 
 package thrash {
+    package types {
+        type T
+        
+        type R : T
+        
+        type U : T, R
+    }
+    
     def A(x = in1.in2.B()) : Float
     
     package in1 {

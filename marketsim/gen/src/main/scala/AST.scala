@@ -62,12 +62,6 @@ package object AST {
                          comment     : List[String]) extends pp.Parameter with ScPrintable
 
     case class QualifiedName(names   : List[String]) extends pp.QualifiedName with ScPrintable
-    {
-        def ++(s : String) = QualifiedName(names :+ s)
-        def head = names.head
-        def tail = QualifiedName(names.tail)
-        def simple = names.length == 1
-    }
 
     case class Annotation(name       : QualifiedName,
                           parameters : List[String]) extends pp.Annotation with ScPrintable
@@ -85,6 +79,11 @@ package object AST {
                       ret_type       : Option[Type],
                       docstring      : Option[DocString],
                       annotations    : List[Annotation]) extends Definition with pp.Function with ScPrintable
+
+    case class TypeDeclaration(name : String, bases : List[Type])
+            extends Definition
+            with    pp.TypeDeclaration
+            with    ScPrintable
 
     case class Definitions(definitions : List[Definition]) extends pp.Definitions with ScPrintable
 

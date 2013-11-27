@@ -21,7 +21,7 @@ object Typer
     private def getTyped(source : NameTable.Scope, definition : AST.FunDef) = {
         source.typed.get.getOrElseUpdateFunction(definition.name, {
             try {
-                visited.enter(definition.name) { toTyped(definition, source.typed.get, lookup(source) _ ) }
+                visited.enter(definition.name) { toTyped(definition, source.typed.get, lookup(source) ) }
             } catch {
                 case ex : Exception =>
                     throw new Exception(s"\r\nWhen typing function '${definition.name}':\r\n" + ex.getMessage)

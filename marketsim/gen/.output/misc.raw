@@ -151,6 +151,27 @@ Definitions:
 | | | | - thrash
 | | - Definitions:
 | | | - List:
+| | | | - PackageDef:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - types
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - TypeDeclaration:
+| | | | | | | | - T
+| | | | | | | | - List:
+| | | | | | | - TypeDeclaration:
+| | | | | | | | - R
+| | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - T
+| | | | | | | - TypeDeclaration:
+| | | | | | | | - U
+| | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - T
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - R
 | | | | - FunDef:
 | | | | | - A
 | | | | | - List:

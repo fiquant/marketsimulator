@@ -144,6 +144,9 @@ package observable {
 }
 
 package thrash {
+    package types {
+    }
+    
     package in1 {
         package in2 {
             def B(x : () => Float = constant(),
