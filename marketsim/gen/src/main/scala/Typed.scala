@@ -124,10 +124,16 @@ package object Typed
 
     }
 
+
+    case class TypeDeclaration(ty : Types.UserDefined)
+            extends sc.TypeDeclaration
+            with    ScPrintable
+
     class Package extends sc.TopLevelPackage with ScPrintable
     {
         var functions = Map[String, Function]()
         var packages = Map[String, SubPackage]()
+        var types = Map[String, TypeDeclaration]()
 
         def qualifiedName : List[String] = Nil
 

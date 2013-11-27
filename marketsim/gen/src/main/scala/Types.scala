@@ -51,8 +51,6 @@ package object Types
 
     case class Interface(name : String, scope : Typed.Package, bases : List[Base]) extends UserDefined
 
-    case class Declaration[T <: UserDefined](t : T)
-
     def nullaryFunction(ret_type : Base) = Function(List(), ret_type)
     val FloatFunc = nullaryFunction(`Float`)
     val BooleanFunc = nullaryFunction(`Boolean`)

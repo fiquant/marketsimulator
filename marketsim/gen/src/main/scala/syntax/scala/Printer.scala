@@ -285,6 +285,16 @@ package object Printer
             def printBody = ifSome(body, crlf + tab + " = ")
         }
 
+        trait TypeDeclaration extends Printable
+        {
+            self: Typed.TypeDeclaration =>
+            def toScala = ty match {
+                case Types.Interface(name, _, bases) =>
+                    "type " + name + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
+
+            }
+        }
+
 
         type Expr = base.Expr
         type BooleanExpr = base.BooleanExpr
@@ -318,8 +328,10 @@ package object Printer
         trait TopLevelPackage extends Printable {
             def packages : Map[String, Any]
             def functions : Map[String, Any]
+            def types : Map[String, Any]
             def content =
                 (packages.values mkString crlf) +
+                (types.values mkString crlf) +
                 (functions.values mkString crlf)
             def wrapped(name : String) =
                 crlf + s"package $name {" +

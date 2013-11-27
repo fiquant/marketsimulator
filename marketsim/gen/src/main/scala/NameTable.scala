@@ -7,6 +7,7 @@ object NameTable {
 
         var functions = Map[String, AST.FunDef]()
         var packages = Map[String, Scope]()
+        var types = Map[String, Any]()
         var parent : Option[Scope] = None
         var typed : Option[Typed.Package] = None
 
