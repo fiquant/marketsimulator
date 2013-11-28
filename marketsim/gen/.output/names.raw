@@ -748,6 +748,12 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - R
+| | | | | | | - TypeAlias:
+| | | | | | | | - T1
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - T
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:

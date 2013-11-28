@@ -150,6 +150,8 @@ package trash {
         type R : T
         
         type U : T, R
+        
+        type T1 = T
     }
     
     package in1 {

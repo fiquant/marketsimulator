@@ -908,6 +908,14 @@ Definitions:
 | | | | | | | | | | | | - trash
 | | | | | | | | | | | | - types
 | | | | | | | | | | | | - R
+| | | | | | | - TypeAlias:
+| | | | | | | | - T1
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - trash
+| | | | | | | | | | | - types
+| | | | | | | | | | | - T
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:

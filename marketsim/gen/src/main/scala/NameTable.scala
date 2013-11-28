@@ -71,9 +71,7 @@ object NameTable {
 
     private def create(p : AST.Definitions, impl : Scope) : Unit =
         p.definitions foreach {
-            case fun_def : AST.FunDef => impl.add(fun_def)
-            case type_def : AST.TypeDeclaration => impl.add(type_def)
-            case alias : AST.TypeAlias => throw new Exception("Not implemented")
+            case m : AST.Member => impl.add(m)
             case package_def : AST.PackageDef => impl.add(package_def)
         }
 

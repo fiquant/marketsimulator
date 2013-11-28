@@ -150,6 +150,7 @@ package trash {
     package types {type T
         type R : trash.types.T
         type U : trash.types.T, trash.types.R
+        type T1 = trash.types.T
     }
     
     package in1 {

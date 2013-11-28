@@ -47,8 +47,6 @@ object Runner extends syntax.scala.Parser {
 
         println(generator.python.base.Annotations)
 
-        ExprTest.run()
-
         val files = "random" :: "mathops" :: "misc" :: Nil
 
         val parsed = files.flatMap({ file => parse(s"defs/$file.sc") })

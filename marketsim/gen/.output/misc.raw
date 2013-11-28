@@ -180,6 +180,12 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - R
+| | | | | | | - TypeAlias:
+| | | | | | | | - T1
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - T
 | | | | - FunDef:
 | | | | | - A
 | | | | | - List:
