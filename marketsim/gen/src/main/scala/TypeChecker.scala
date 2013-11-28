@@ -25,7 +25,7 @@ case class TypeChecker(ctx : TypingExprCtx)
             val actual_args = args zip fun_type.parameters map {
                 case (actual, declared) =>
                     val typed = apply(actual)
-                    if (typed.ty != declared.ty) // TODO: support type casts and conversions
+                    if (typed.ty cannotCastTo declared.ty)
                         throw new Exception(s"Function '$name' is called with wrong argument of"+
                                             s" type '${typed.ty}' when type '${declared.ty}' is expected")
                     (declared, typed)

@@ -139,7 +139,7 @@ object Typer
             val ret_type = definition.ret_type map toTyped match {
                 case Some(ret_type) =>
                     body_type match {
-                        case Some(b) if b != ret_type =>
+                        case Some(b) if b cannotCastTo ret_type =>
                             throw new Exception(s"Inferred return type"
                                     + s" '$b' doesn't match to declared return type '$ret_type'")
                         case _ =>
@@ -162,7 +162,7 @@ object Typer
                         val initializer = inferType(e)
                         if (p.ty.nonEmpty) {
                             val decl_type = toTyped(p.ty.get)
-                            if (decl_type != initializer.ty) {
+                            if (initializer.ty cannotCastTo decl_type) {
                                 throw new Exception(s"Inferred type of '$initializer': '${initializer.ty}' "
                                         + s"doesn't match to the declared type '$decl_type'")
                             } // TODO: support casts
