@@ -881,10 +881,10 @@ Definitions:
 | | | | | | | - types
 | | | | | - Definitions:
 | | | | | | - List:
-| | | | | | | - TypeDeclaration:
+| | | | | | | - Interface:
 | | | | | | | | - T
 | | | | | | | | - List:
-| | | | | | | - TypeDeclaration:
+| | | | | | | - Interface:
 | | | | | | | | - R
 | | | | | | | | - List:
 | | | | | | | | | - SimpleType:
@@ -893,7 +893,7 @@ Definitions:
 | | | | | | | | | | | | - trash
 | | | | | | | | | | | | - types
 | | | | | | | | | | | | - T
-| | | | | | | - TypeDeclaration:
+| | | | | | | - Interface:
 | | | | | | | | - U
 | | | | | | | | - List:
 | | | | | | | | | - SimpleType:
@@ -908,7 +908,7 @@ Definitions:
 | | | | | | | | | | | | - trash
 | | | | | | | | | | | | - types
 | | | | | | | | | | | | - R
-| | | | | | | - TypeAlias:
+| | | | | | | - Alias:
 | | | | | | | | - T1
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
@@ -1000,7 +1000,7 @@ Definitions:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - trash
 | | | | | | | | | | | | | | | - types
-| | | | | | | | | | | | | | | - T
+| | | | | | | | | | | | | | | - T1
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:

@@ -158,7 +158,7 @@ package trash {
             def A(x : () => Float = constant(),
                   y : () => Float = if 3.0>x+2.0 then x else x*2.0) : trash.types.T
         }
-        def A(x : () => trash.types.T = trash.A()) : trash.types.U
+        def A(x : () => trash.types.T1 = trash.A()) : trash.types.U
     }
     def A(x : () => trash.types.T = trash.in1.in2.A()) : trash.types.R
 }

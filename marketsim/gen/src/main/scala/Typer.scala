@@ -38,36 +38,36 @@ object Typer
                         definition match {
                             case f : AST.FunDef => getTyped(f)
                             case t : AST.TypeDeclaration => getTyped(t)
-                            case a : AST.TypeAlias => getTyped(a)
                         }
-                    } catch {
-                        case ex : Exception =>
-                            throw new Exception(s"\r\nWhen typing '${definition.name}':\r\n" + ex.getMessage)
                     }
+//                    catch {
+//                        case ex : Exception =>
+//                            throw new Exception(s"\r\nWhen typing '${source qualifyName definition.name}':\r\n" + ex.getMessage, ex)
+//                    }
                 }
                 source.packages.values  foreach { Processor(_).run() }
-            } catch {
-                case e : Exception =>
-                    println("An error occurred during typing:")
-                    println(e.getMessage)
             }
+//            catch {
+//                case e : Exception =>
+//                    println("An error occurred during typing:")
+//                    println(e.getMessage)
+//            }
         }
 
-        private def getTyped(definition : AST.FunDef) = {
+        private def getTyped(definition : AST.FunDef) : Typed.Function = {
             source.typed.get.getOrElseUpdateFunction(definition.name, {
                     visited.enter(source qualifyName definition.name) { toTyped(definition) }
             })
         }
 
-        private def getTyped(definition : AST.TypeDeclaration) = {
+        private def getTyped(definition : AST.TypeDeclaration) : Typed.TypeDeclaration = {
             source.typed.get.getOrElseUpdateType(definition.name, {
-                    visited.enter(source qualifyName definition.name) { toTyped(definition) }
-            })
-        }
-
-        private def getTyped(definition : AST.TypeAlias) = {
-            source.typed.get.getOrElseUpdateType(definition.name, {
-                    visited.enter(source qualifyName definition.name) { toTyped(definition) }
+                    visited.enter(source qualifyName definition.name) {
+                        definition match {
+                            case t : AST.Interface => toTyped(t)
+                            case t : AST.Alias => toTyped(t)
+                        }
+                    }
             })
         }
 
@@ -86,14 +86,14 @@ object Typer
 
 
 
-        private def toTyped(definition  : AST.TypeDeclaration) : Typed.TypeDeclaration =
+        private def toTyped(definition  : AST.Interface) : Typed.TypeDeclaration =
         {
             val bases = definition.bases map toTyped
             val ty = Types.Interface(definition.name, source.typed.get, bases)
             Typed.TypeDeclaration(ty)
         }
 
-        private def toTyped(definition  : AST.TypeAlias) : Typed.TypeDeclaration =
+        private def toTyped(definition  : AST.Alias) : Typed.TypeDeclaration =
         {
             val ty = Types.Alias(definition.name, source.typed.get, toTyped(definition.target))
             Typed.TypeDeclaration(ty)
@@ -188,10 +188,11 @@ object Typer
                         else
                             throw new Exception(s"parameter ${p.name} has undefined type")
                 }
-            } catch {
-                case e: Exception =>
-                    throw new Exception(s"When typing parameter '${p.name}'\r\n" + e.getMessage)
             }
+//            catch {
+//                case e: Exception =>
+//                    throw new Exception(s"When typing parameter '${p.name}'\r\n" + e.toString, e)
+//            }
         }
 
         private def toTyped(a : AST.Annotation) : Typed.Annotation =

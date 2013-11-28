@@ -160,7 +160,7 @@ package trash {
                   y = if 3.0>x+2.0 then x else x*2.0) : types.T
         }
         
-        def A(x : () => types.T = trash.A()) : types.U
+        def A(x : () => types.T1 = trash.A()) : types.U
     }
     
     def A(x = in1.in2.A()) : types.R

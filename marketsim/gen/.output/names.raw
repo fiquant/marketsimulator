@@ -727,17 +727,17 @@ Definitions:
 | | | | | | | - types
 | | | | | - Definitions:
 | | | | | | - List:
-| | | | | | | - TypeDeclaration:
+| | | | | | | - Interface:
 | | | | | | | | - T
 | | | | | | | | - List:
-| | | | | | | - TypeDeclaration:
+| | | | | | | - Interface:
 | | | | | | | | - R
 | | | | | | | | - List:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - T
-| | | | | | | - TypeDeclaration:
+| | | | | | | - Interface:
 | | | | | | | | - U
 | | | | | | | | - List:
 | | | | | | | | | - SimpleType:
@@ -748,7 +748,7 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - R
-| | | | | | | - TypeAlias:
+| | | | | | | - Alias:
 | | | | | | | | - T1
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
@@ -824,7 +824,7 @@ Definitions:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - types
-| | | | | | | | | | | | | | | - T
+| | | | | | | | | | | | | | | - T1
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:

@@ -85,13 +85,15 @@ package object AST {
                       docstring      : Option[DocString],
                       annotations    : List[Annotation]) extends Member with pp.Function with ScPrintable
 
-    case class TypeDeclaration(name : String, bases : List[Type])
-            extends Member
+    sealed abstract class TypeDeclaration extends Member
+
+    case class Interface(name : String, bases : List[Type])
+            extends TypeDeclaration
             with    pp.TypeDeclaration
             with    ScPrintable
 
-    case class TypeAlias(name : String, target : Type)
-            extends Member
+    case class Alias(name : String, target : Type)
+            extends TypeDeclaration
             with    pp.TypeAlias
             with    ScPrintable
 

@@ -13,7 +13,13 @@ package object Types
             with    py.Base
             with    ScPyPrintable
     {
-        def canCastTo(other : Base) = this == other
+        final def canCastTo(other : Base) : Boolean = this == other || (other match {
+            case a : Alias => canCastTo(a.target)
+            case _ => false
+        }) || canCastToImpl(other)
+
+        protected def canCastToImpl(other : Base) = false
+
         def cannotCastTo(other : Base) = !canCastTo(other)
     }
 
@@ -42,16 +48,16 @@ package object Types
             with    sc.Function
             with    py.Function
     {
-        override def canCastTo(other : Base) = {
-            super.canCastTo(other) || (other match {
-                case f : Function =>
+        override def canCastToImpl(other : Base) = {
+            other match {
+                case f: Function =>
                     (f.args.length == args.length) &&
                     (ret canCastTo f.ret) &&
                     (args zip f.args).forall({
                         case (mine, others) => others canCastTo mine
                     })
                 case _ => false
-            })
+            }
         }
     }
 
@@ -66,12 +72,13 @@ package object Types
 
     case class Interface(name : String, scope : Typed.Package, bases : List[Base]) extends UserDefined
     {
-        override def canCastTo(other : Base) = {
-            super.canCastTo(other) || (bases exists { _ canCastTo other })
-        }
+        override def canCastToImpl(other : Base) =  bases exists { _ canCastTo other }
     }
 
     case class Alias(name : String, scope : Typed.Package, target : Base) extends UserDefined
+    {
+        override def canCastToImpl(other : Base) =  target canCastTo other
+    }
 
     def nullaryFunction(ret_type : Base) = Function(List(), ret_type)
     val FloatFunc = nullaryFunction(`Float`)

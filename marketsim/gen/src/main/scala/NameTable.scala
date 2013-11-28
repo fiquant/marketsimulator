@@ -44,7 +44,7 @@ object NameTable {
                 case x :: Nil =>
                     members get x match {
                         case Some(f) if f.cast[T].nonEmpty => Some((this, f.asInstanceOf[T]))
-                        case None => parent flatMap { _ lookup name }
+                        case _ => parent flatMap { _ lookup name }
                     }
                 case x :: tl =>
                     packages get x map { _ lookup tl } match {
