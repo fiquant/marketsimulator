@@ -73,6 +73,15 @@ object Typer
 //    }
 
 
+    def toTyped(t : AST.Type) : Types.Base = t match {
+        case AST.SimpleType("Float") => Types.`Float`
+        case AST.SimpleType("Boolean") => Types.`Boolean`
+        case AST.SimpleType(name) => throw new Exception(s"Unknown type $name")
+        case AST.UnitType => Types.Unit
+        case AST.TupleType(types) => Types.Tuple(types map toTyped)
+        case AST.FunctionType(arg_types, ret_type) => Types.Function(arg_types map toTyped, toTyped(ret_type))
+    }
+
     private def toTyped(definition  : AST.FunDef,
                         target      : Typed.Package,
                         lookup      : AST.QualifiedName => Typed.Function): Typed.Function =
@@ -112,7 +121,7 @@ object Typer
         }
 
         // inferring type of the function from type of its body or using explicit specification
-        val ret_type = definition.ret_type map Types.fromAST match {
+        val ret_type = definition.ret_type map toTyped match {
             case Some(ret_type) =>
                 body_type match {
                     case Some(b) if b != ret_type =>
@@ -131,13 +140,13 @@ object Typer
             definition.docstring, definition.annotations map toTyped)
     }
 
-    private def toTyped(p: AST.Parameter, inferType : AST.Expr => Typed.ArithExpr)= {
+    private def toTyped(p: AST.Parameter, inferType : AST.Expr => Typed.ArithExpr) : Typed.Parameter = {
         try {
             p.initializer match {
                 case Some(e) =>
                     val initializer = inferType(e)
                     if (p.ty.nonEmpty) {
-                        val decl_type = Types.fromAST(p.ty.get)
+                        val decl_type = toTyped(p.ty.get)
                         if (decl_type != initializer.ty) {
                             throw new Exception(s"Inferred type of '$initializer': '${initializer.ty}' "
                                     + s"doesn't match to the declared type '$decl_type'")
@@ -148,7 +157,7 @@ object Typer
                     }
                 case None =>
                     if (p.ty.nonEmpty)
-                        Typed.Parameter(p.name, Types.fromAST(p.ty.get), None, p.comment)
+                        Typed.Parameter(p.name, toTyped(p.ty.get), None, p.comment)
                     else
                         throw new Exception(s"parameter ${p.name} has undefined type")
             }
@@ -158,6 +167,6 @@ object Typer
         }
     }
 
-    private def toTyped(a : AST.Annotation)  =
+    private def toTyped(a : AST.Annotation) : Typed.Annotation =
         Typed.Annotation(Typed.Annotations.lookup(a.name.toString), a.parameters)
 }
