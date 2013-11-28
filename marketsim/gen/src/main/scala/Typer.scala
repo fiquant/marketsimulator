@@ -36,6 +36,7 @@ object Typer
                 source.members.values foreach {
                     case f : AST.FunDef => getTyped(f)
                     case t : AST.TypeDeclaration => getTyped(t)
+                    case a : AST.TypeAlias => getTyped(a)
                 }
                 source.packages.values  foreach { Processor(_).run() }
             } catch {
@@ -67,6 +68,17 @@ object Typer
             })
         }
 
+        private def getTyped(definition : AST.TypeAlias) = {
+            source.typed.get.getOrElseUpdateType(definition.name, {
+                try {
+                    visited.enter(source qualifyName definition.name) { toTyped(definition) }
+                } catch {
+                    case ex : Exception =>
+                        throw new Exception(s"\r\nWhen typing type declaration '${definition.name}':\r\n" + ex.getMessage)
+                }
+            })
+        }
+
         private def lookupFunction(name : AST.QualifiedName) : Typed.Function =
             source.lookupFunction(name.names) match {
                 case Some((scope, definition)) => Processor(scope).getTyped(definition)
@@ -86,6 +98,12 @@ object Typer
         {
             val bases = definition.bases map toTyped
             val ty = Types.Interface(definition.name, source.typed.get, bases)
+            Typed.TypeDeclaration(ty)
+        }
+
+        private def toTyped(definition  : AST.TypeAlias) : Typed.TypeDeclaration =
+        {
+            val ty = Types.Alias(definition.name, source.typed.get, toTyped(definition.target))
             Typed.TypeDeclaration(ty)
         }
 
