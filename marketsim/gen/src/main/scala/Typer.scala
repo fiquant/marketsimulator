@@ -33,10 +33,17 @@ object Typer
 
         def run() {
             try {
-                source.members.values foreach {
-                    case f : AST.FunDef => getTyped(f)
-                    case t : AST.TypeDeclaration => getTyped(t)
-                    case a : AST.TypeAlias => getTyped(a)
+                source.members.values foreach { definition =>
+                    try {
+                        definition match {
+                            case f : AST.FunDef => getTyped(f)
+                            case t : AST.TypeDeclaration => getTyped(t)
+                            case a : AST.TypeAlias => getTyped(a)
+                        }
+                    } catch {
+                        case ex : Exception =>
+                            throw new Exception(s"\r\nWhen typing '${definition.name}':\r\n" + ex.getMessage)
+                    }
                 }
                 source.packages.values  foreach { Processor(_).run() }
             } catch {
@@ -48,34 +55,19 @@ object Typer
 
         private def getTyped(definition : AST.FunDef) = {
             source.typed.get.getOrElseUpdateFunction(definition.name, {
-                try {
                     visited.enter(source qualifyName definition.name) { toTyped(definition) }
-                } catch {
-                    case ex : Exception =>
-                        throw new Exception(s"\r\nWhen typing function '${definition.name}':\r\n" + ex.getMessage)
-                }
             })
         }
 
         private def getTyped(definition : AST.TypeDeclaration) = {
             source.typed.get.getOrElseUpdateType(definition.name, {
-                try {
                     visited.enter(source qualifyName definition.name) { toTyped(definition) }
-                } catch {
-                    case ex : Exception =>
-                        throw new Exception(s"\r\nWhen typing type declaration '${definition.name}':\r\n" + ex.getMessage)
-                }
             })
         }
 
         private def getTyped(definition : AST.TypeAlias) = {
             source.typed.get.getOrElseUpdateType(definition.name, {
-                try {
                     visited.enter(source qualifyName definition.name) { toTyped(definition) }
-                } catch {
-                    case ex : Exception =>
-                        throw new Exception(s"\r\nWhen typing type declaration '${definition.name}':\r\n" + ex.getMessage)
-                }
             })
         }
 

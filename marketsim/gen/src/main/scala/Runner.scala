@@ -45,34 +45,35 @@ object Runner extends syntax.scala.Parser {
 
     def main(args: Array[String]) {
 
-        println(generator.python.base.Annotations)
+        generator.python.base.Annotations
 
         val files = "random" :: "mathops" :: "misc" :: Nil
 
+        print(s"parsing...")
+
         val parsed = files.flatMap({ file => parse(s"defs/$file.sc") })
+
+        println("done")
 
         val names = buildNames(parsed)
 
         val typed = buildTyped(names)
 
-//        generator.python.gen.apply(typed, "_out")
+        generatePython(typed)
+    }
 
-        println("..done")
 
-
-//        val python_definitions =fromAST(parsed)
-//
-//        for ((filename, definitions) <- python_definitions.groupBy({ _.filename }))
-//        {
-//            managed(new PrintWriter(filename)) map { py_output =>
-//                py_output.print(definitions.head.prologue)
-//                py_output.println(definitions.mkString("\r\n"))
-//            }
-//        }
+    def generatePython(typed: Typed.Package)
+    {
+        print("generating python code...")
+        generator.python.gen.apply(typed, "_out")
+        println("done")
     }
 
     def buildNames(parsed: List[AST.Definitions]) =
     {
+        print("building name tables...")
+
         val names = NameTable.apply(parsed)
 
         for (output <- managed(new PrintWriter(".output/names.sc"))) {
@@ -84,11 +85,15 @@ object Runner extends syntax.scala.Parser {
         if (names_2 != names)
             throw new Exception("re-parsed names differ from original ones.")
 
+        println("done")
+
         names
     }
 
 
     def buildTyped(names: NameTable.Scope)  = {
+        print("typing...")
+
         val typed = Typer(names)
 
         for (output <- managed(new PrintWriter(".output/typed.sc"))) {
@@ -100,6 +105,7 @@ object Runner extends syntax.scala.Parser {
         if (typed != typed_2)
             throw new Exception("re-parsed typed representation differs from the original one")
 
+        println("done")
         typed
     }
 }
