@@ -1,32 +1,19 @@
 import syntax.scala.Printer.{typed => pp}
 import AST.ScPrintable
+import shapeless.syntax.typeable._
 
 object NameTable {
 
-    class Scope(val name : String = "_root_") extends pp.Scope with ScPrintable {
+    class Scope(val name : String = "_root_") extends pp.NamesScope with ScPrintable {
 
         var packages = Map[String, Scope]()
-        var functions = Map[String, AST.FunDef]()
-        var types = Map[String, AST.TypeDeclaration]()
         var members = Map[String, AST.Member]()
         var parent : Option[Scope] = None
         var typed : Option[Typed.Package] = None
 
         def add(m : AST.Member) {
-            //check_name_is_unique(m.name, m)
+            check_name_is_unique(m.name, m)
             members = members updated (m.name, m)
-        }
-
-        def add(f : AST.FunDef) {
-            check_name_is_unique(f.name, f)
-            functions = functions updated (f.name, f)
-            add(f.asInstanceOf[AST.Member])
-        }
-
-        def add(t : AST.TypeDeclaration) {
-            check_name_is_unique(t.name, t)
-            types = types updated (t.name, t)
-            add(t.asInstanceOf[AST.Member])
         }
 
         def qualifyName(x : String) = typed.get qualifyName x
@@ -34,10 +21,8 @@ object NameTable {
         override def equals(o : Any) = true
 
         private def check_name_is_unique(name : String, e : Any) {
-            if (functions contains name)
-                throw new Exception(s"Duplicate definition for $name:\r\n" + functions(name) + "\r\n" + e)
-            if (types contains name)
-                throw new Exception(s"Duplicate definition for $name:\r\n" + types(name) + "\r\n" + e)
+            if (members contains name)
+                throw new Exception(s"Duplicate definition for $name:\r\n" + members(name) + "\r\n" + e)
             if (packages contains name)
                 throw new Exception(s"Duplicate definition for $name:\r\n" + packages(name) + "\r\n" + e)
         }
@@ -58,7 +43,7 @@ object NameTable {
                 case Nil => throw new Exception("Qualified name cannot be empty")
                 case x :: Nil =>
                     members get x match {
-                        case Some(f) if f.isInstanceOf[T] => Some((this, f.asInstanceOf[T]))
+                        case Some(f) if f.cast[T].nonEmpty => Some((this, f.asInstanceOf[T]))
                         case None => parent flatMap { _ lookup name }
                     }
                 case x :: tl =>
@@ -69,40 +54,8 @@ object NameTable {
             }
         }
 
-        def lookupFunction(name : List[String]) : Option[(Scope, AST.FunDef)] = {
-            name match {
-                case Nil => throw new Exception("Qualified name cannot be empty")
-                case x :: Nil =>
-                    functions get x match {
-                        case Some(f) => Some((this, f))
-                        case None => parent flatMap { _ lookupFunction name }
-                    }
-                case x :: tl =>
-                    packages get x map { _ lookupFunction tl } match {
-                        case None => parent flatMap { _ lookupFunction name }
-                        case y => y.get
-                    }
-            }
-        }
-
-        // TODO: factor out common implementation for lookupXXX
-
-        def lookupType(name : List[String]) : Option[(Scope, AST.TypeDeclaration)] = {
-            name match {
-                case Nil => throw new Exception("Qualified name cannot be empty")
-                case x :: Nil =>
-                    types get x match {
-                        case Some(f) => Some((this, f))
-                        case None => parent flatMap { _ lookupType name }
-                    }
-                case x :: tl =>
-                    packages get x map { _ lookupType tl } match {
-                        case None => parent flatMap { _ lookupType name }
-                        case y => y.get
-                    }
-            }
-        }
-
+        def lookupFunction(name : List[String]) : Option[(Scope, AST.FunDef)] = lookup[AST.FunDef](name)
+        def lookupType(name : List[String]) : Option[(Scope, AST.TypeDeclaration)] = lookup[AST.TypeDeclaration](name)
 
         private def toTyped(target : Typed.Package) : Typed.Package =
         {

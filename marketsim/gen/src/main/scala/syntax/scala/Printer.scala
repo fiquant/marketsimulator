@@ -366,9 +366,22 @@ package object Printer
             override def toScala = wrapped(name)
         }
 
-        trait Scope extends TopLevelPackage {
-            def name : String
-            override def toScala = if (name == "_root_") content else wrapped(name)
+        trait Scope extends TopLevelPackage
+
+        trait NamesScope extends Printable {
+            val name : String
+            def packages : Map[String, Any]
+            def members : Map[String, Any]
+            def content =
+                (packages.values mkString crlf) +
+                (members.values mkString crlf)
+
+            def wrapped(name : String) =
+                crlf + s"package $name {" +
+                        indent() { content } +
+                        crlf + "}"
+
+            def toScala = if (name == "_root_") content else wrapped(name)
         }
 
     }

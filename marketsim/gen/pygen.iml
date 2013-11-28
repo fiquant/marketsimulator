@@ -32,6 +32,7 @@
     <orderEntry type="library" name="SBT: org.scala-lang:scala-reflect:2.10.0" level="project" />
     <orderEntry type="library" name="SBT: com.github.nikita-volkov:sext:0.2.3" level="project" />
     <orderEntry type="library" name="SBT: org.scala-lang:scala-compiler:2.10.2" level="project" />
+    <orderEntry type="library" name="SBT: com.chuusai:shapeless_2.10.2:2.0.0-M1" level="project" />
   </component>
 </module>
 

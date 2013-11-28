@@ -33,9 +33,11 @@ object Typer
 
         def run() {
             try {
-                source.functions foreach { case (name, definition) => getTyped(definition) }
-                source.types     foreach { case (name, definition) => getTyped(definition) }
-                source.packages  foreach { case (name, subpackage) => Processor(subpackage).run() }
+                source.members.values foreach {
+                    case f : AST.FunDef => getTyped(f)
+                    case t : AST.TypeDeclaration => getTyped(t)
+                }
+                source.packages.values  foreach { Processor(_).run() }
             } catch {
                 case e : Exception =>
                     println("An error occurred during typing:")
