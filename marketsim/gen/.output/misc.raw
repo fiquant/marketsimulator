@@ -215,7 +215,14 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - x
-| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - types
+| | | | | | | | | | | | | | | - T
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
