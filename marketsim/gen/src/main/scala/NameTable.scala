@@ -68,6 +68,25 @@ object NameTable {
             }
         }
 
+        // TODO: factor out common implementation for lookupXXX
+
+        def lookupType(name : List[String]) : Option[(Scope, AST.TypeDeclaration)] = {
+            name match {
+                case Nil => throw new Exception("Qualified name cannot be empty")
+                case x :: Nil =>
+                    types get x match {
+                        case Some(f) => Some((this, f))
+                        case None => parent flatMap { _ lookupType name }
+                    }
+                case x :: tl =>
+                    packages get x map { _ lookupType tl } match {
+                        case None => parent flatMap { _ lookupType name }
+                        case y => y.get
+                    }
+            }
+        }
+
+
         private def toTyped(target : Typed.Package) : Typed.Package =
         {
             typed = Some(target)

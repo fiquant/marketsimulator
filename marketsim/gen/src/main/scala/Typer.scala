@@ -18,10 +18,13 @@ object Typer
         }
     }
 
+    // TODO: introduce fully qualified names in form .pkg1.pkgA.func
+    //       in order to solve problem of hiding of top-level names by local ones
+
     private def getTyped(scope : NameTable.Scope, definition : AST.FunDef) = {
         scope.typed.get.getOrElseUpdateFunction(definition.name, {
             try {
-                visited.enter(scope qualifyName definition.name) { toTyped(definition, scope.typed.get, lookup(scope) ) }
+                visited.enter(scope qualifyName definition.name) { toTyped(definition, scope.typed.get, lookupFunction(scope) ) }
             } catch {
                 case ex : Exception =>
                     throw new Exception(s"\r\nWhen typing function '${definition.name}':\r\n" + ex.getMessage)
@@ -29,10 +32,16 @@ object Typer
         })
     }
 
-    private def lookup(source : NameTable.Scope)(name : AST.QualifiedName) : Typed.Function =
+    private def lookupFunction(source : NameTable.Scope)(name : AST.QualifiedName) : Typed.Function =
         source.lookupFunction(name.names) match {
             case Some((scope, definition)) => getTyped(scope, definition)
             case None => throw new Exception(s"cannot find name $name")
+        }
+
+    private def lookupType(source : NameTable.Scope)(name : AST.QualifiedName) : Types.UserDefined =
+        source.lookupType(name.names) match {
+            //case Some((scope, definition)) => getTyped(scope, definition)
+            case _ => throw new Exception(s"cannot find name $name")
         }
 
     private def process(source : NameTable.Scope)
@@ -53,6 +62,15 @@ object Typer
         process(source)
         source.typed.get
     }
+
+//    private def toTyped(definition  : AST.TypeDeclaration,
+//                        target      : Typed.Package,
+//                        lookup      : AST.QualifiedName => Typed.TypeDeclaration) =
+//    {
+//        definition match {
+//
+//        }
+//    }
 
 
     private def toTyped(definition  : AST.FunDef,

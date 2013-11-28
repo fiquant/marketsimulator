@@ -162,6 +162,17 @@ package object Typed
                     functions = functions updated (f.name, f)
                     f
             }
+
+        // TODO: factor common implementation out
+
+        def getOrElseUpdateType(name : String, default : => TypeDeclaration) =
+            types get name match {
+                case Some(t) => t
+                case None =>
+                    val t = default
+                    types = types updated (t.ty.name, t)
+                    t
+            }
     }
 
     class SubPackage(val name : String, parent : Package) extends Package with sc.SubPackage with ScPrintable
