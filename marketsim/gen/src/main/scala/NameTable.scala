@@ -5,20 +5,28 @@ object NameTable {
 
     class Scope(val name : String = "_root_") extends pp.Scope with ScPrintable {
 
-        var functions = Map[String, AST.FunDef]()
         var packages = Map[String, Scope]()
+        var functions = Map[String, AST.FunDef]()
         var types = Map[String, AST.TypeDeclaration]()
+        var members = Map[String, AST.Member]()
         var parent : Option[Scope] = None
         var typed : Option[Typed.Package] = None
+
+        def add(m : AST.Member) {
+            //check_name_is_unique(m.name, m)
+            members = members updated (m.name, m)
+        }
 
         def add(f : AST.FunDef) {
             check_name_is_unique(f.name, f)
             functions = functions updated (f.name, f)
+            add(f.asInstanceOf[AST.Member])
         }
 
         def add(t : AST.TypeDeclaration) {
             check_name_is_unique(t.name, t)
             types = types updated (t.name, t)
+            add(t.asInstanceOf[AST.Member])
         }
 
         def qualifyName(x : String) = typed.get qualifyName x
@@ -45,12 +53,19 @@ object NameTable {
             create(p.members, target)
         }
 
-        def getFunDef(name : AST.QualifiedName) : AST.FunDef = getFunDef(name.toString)
-
-        def getFunDef(name : String) : AST.FunDef = {
-            functions get name match {
-                case Some(x) => x
-                case None => throw new Exception(s"Cannot find name $name")
+        def lookup[T <: AST.Member](name : List[String])(implicit t : Manifest[T]) : Option[(Scope, T)] = {
+            name match {
+                case Nil => throw new Exception("Qualified name cannot be empty")
+                case x :: Nil =>
+                    members get x match {
+                        case Some(f) if f.isInstanceOf[T] => Some((this, f.asInstanceOf[T]))
+                        case None => parent flatMap { _ lookup name }
+                    }
+                case x :: tl =>
+                    packages get x map { _ lookup tl } match {
+                        case None => parent flatMap { _ lookup name }
+                        case y => y.get
+                    }
             }
         }
 

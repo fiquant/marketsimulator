@@ -70,6 +70,11 @@ package object AST {
 
     abstract sealed class Definition extends pp.Definition
 
+    abstract sealed class Member extends Definition
+    {
+        val name : String
+    }
+
     case class PackageDef(name      : QualifiedName,
                           members   : Definitions) extends Definition with pp.Package with ScPrintable
 
@@ -78,15 +83,15 @@ package object AST {
                       body           : Option[Expr],
                       ret_type       : Option[Type],
                       docstring      : Option[DocString],
-                      annotations    : List[Annotation]) extends Definition with pp.Function with ScPrintable
+                      annotations    : List[Annotation]) extends Member with pp.Function with ScPrintable
 
     case class TypeDeclaration(name : String, bases : List[Type])
-            extends Definition
+            extends Member
             with    pp.TypeDeclaration
             with    ScPrintable
 
     case class TypeAlias(name : String, target : Type)
-            extends Definition
+            extends Member
             with    pp.TypeAlias
             with    ScPrintable
 
