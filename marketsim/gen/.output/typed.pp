@@ -143,7 +143,7 @@ package observable {
             y : () => Float = constant()) : Float = if x>y then x else y
 }
 
-package thrash {
+package trash {
     package types {
     }
     
@@ -153,10 +153,10 @@ package thrash {
                   y : () => Float = if 3.0>x+2.0 then x else x*2.0) : Float
         }
         
-        def C(x : () => Float = thrash.A()) : Float
+        def A(x : () => Float = trash.A()) : Float
     }
     
-    def A(x : () => Float = thrash.in1.in2.A()) : Float
+    def A(x : () => Float = trash.in1.in2.A()) : Float
 }
 
 def constant(x : Float = 1.0) : Float

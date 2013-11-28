@@ -12,7 +12,7 @@ package observable
 
 def constant(x = 1.0) : Float
 
-package thrash
+package trash
 
 package types {
     type T
@@ -23,7 +23,7 @@ package types {
 def A(x = in1.in2.A()) : Float
 
 package in1
-def C(x = A()) : Float
+def A(x = trash.A()) : Float
 
 package in2
 def A(x = constant(), y = if 3 > x + 2 then x else x*2) : Float

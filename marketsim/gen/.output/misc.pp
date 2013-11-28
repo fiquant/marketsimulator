@@ -14,7 +14,7 @@ package observable {
 
 def constant(x = 1.0) : Float
 
-package thrash {
+package trash {
     package types {
         type T
         
@@ -26,7 +26,7 @@ package thrash {
     def A(x = in1.in2.A()) : Float
     
     package in1 {
-        def C(x = A()) : Float
+        def A(x = trash.A()) : Float
         
         package in2 {
             def A(x = constant(),

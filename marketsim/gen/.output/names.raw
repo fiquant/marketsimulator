@@ -688,7 +688,7 @@ Definitions:
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
-| | | | - thrash
+| | | | - trash
 | | - Definitions:
 | | | - List:
 | | | | - PackageDef:
@@ -768,7 +768,7 @@ Definitions:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
 | | | | | | | - FunDef:
-| | | | | | | | - C
+| | | | | | | | - A
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - x
@@ -777,6 +777,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - trash
 | | | | | | | | | | | | | | - A
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
