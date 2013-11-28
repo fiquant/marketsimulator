@@ -23,13 +23,13 @@ package thrash {
         type U : T, R
     }
     
-    def A(x = in1.in2.B()) : Float
+    def A(x = in1.in2.A()) : Float
     
     package in1 {
         def C(x = A()) : Float
         
         package in2 {
-            def B(x = constant(),
+            def A(x = constant(),
                   y = if 3.0>x+2.0 then x else x*2.0) : Float
         }
     }

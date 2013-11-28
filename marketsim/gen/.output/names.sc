@@ -154,11 +154,11 @@ package thrash {
     
     package in1 {
         package in2 {
-            def B(x = constant(),
+            def A(x = constant(),
                   y = if 3.0>x+2.0 then x else x*2.0) : Float
         }
         def C(x = A()) : Float
     }
-    def A(x = in1.in2.B()) : Float
+    def A(x = in1.in2.A()) : Float
 }
 def constant(x = 1.0) : Float

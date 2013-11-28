@@ -18,10 +18,10 @@ object Typer
         }
     }
 
-    private def getTyped(source : NameTable.Scope, definition : AST.FunDef) = {
-        source.typed.get.getOrElseUpdateFunction(definition.name, {
+    private def getTyped(scope : NameTable.Scope, definition : AST.FunDef) = {
+        scope.typed.get.getOrElseUpdateFunction(definition.name, {
             try {
-                visited.enter(definition.name) { toTyped(definition, source.typed.get, lookup(source) ) }
+                visited.enter(scope qualifyName definition.name) { toTyped(definition, scope.typed.get, lookup(scope) ) }
             } catch {
                 case ex : Exception =>
                     throw new Exception(s"\r\nWhen typing function '${definition.name}':\r\n" + ex.getMessage)

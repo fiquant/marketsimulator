@@ -20,13 +20,13 @@ package types {
     type U : T, R
 }
 
-def A(x = in1.in2.B()) : Float
+def A(x = in1.in2.A()) : Float
 
 package in1
 def C(x = A()) : Float
 
 package in2
-def B(x = constant(), y = if 3 > x + 2 then x else x*2) : Float
+def A(x = constant(), y = if 3 > x + 2 then x else x*2) : Float
 
 
 

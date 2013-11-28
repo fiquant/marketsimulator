@@ -7,7 +7,7 @@ object NameTable {
 
         var functions = Map[String, AST.FunDef]()
         var packages = Map[String, Scope]()
-        var types = Map[String, Any]()
+        var types = Map[String, AST.TypeDeclaration]()
         var parent : Option[Scope] = None
         var typed : Option[Typed.Package] = None
 
@@ -20,6 +20,8 @@ object NameTable {
             check_name_is_unique(t.name, t)
             types = types updated (t.name, t)
         }
+
+        def qualifyName(x : String) = typed.get qualifyName x
 
         override def equals(o : Any) = true
 
