@@ -28,6 +28,8 @@ object NameTable {
         private def check_name_is_unique(name : String, e : Any) {
             if (functions contains name)
                 throw new Exception(s"Duplicate definition for $name:\r\n" + functions(name) + "\r\n" + e)
+            if (types contains name)
+                throw new Exception(s"Duplicate definition for $name:\r\n" + types(name) + "\r\n" + e)
             if (packages contains name)
                 throw new Exception(s"Duplicate definition for $name:\r\n" + packages(name) + "\r\n" + e)
         }
@@ -103,6 +105,7 @@ object NameTable {
         p.definitions foreach {
             case fun_def : AST.FunDef => impl.add(fun_def)
             case type_def : AST.TypeDeclaration => impl.add(type_def)
+            case alias : AST.TypeAlias => throw new Exception("Not implemented")
             case package_def : AST.PackageDef => impl.add(package_def)
         }
 

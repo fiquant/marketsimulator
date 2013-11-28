@@ -55,7 +55,7 @@ package object Types
         }
     }
 
-    abstract class UserDefined
+    sealed abstract class UserDefined
             extends Base
             with    sc.UserDefined
             with    py.UserDefined
@@ -70,6 +70,8 @@ package object Types
             super.canCastTo(other) || (bases exists { _ canCastTo other })
         }
     }
+
+    case class Alias(name : String, scope : Typed.Package, target : Base) extends UserDefined
 
     def nullaryFunction(ret_type : Base) = Function(List(), ret_type)
     val FloatFunc = nullaryFunction(`Float`)

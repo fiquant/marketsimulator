@@ -142,6 +142,14 @@ package object Printer
             def toScala = crlf + "type " + name + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
         }
 
+        trait TypeAlias extends Printable with Definition
+        {
+            val name : String
+            val target : Any
+
+            def toScala = crlf + s"type $name = $target"
+        }
+
         trait Function extends Printable with Definition {
             val docstring : Option[DocString]
             val annotations : List[Annotation]
@@ -195,6 +203,7 @@ package object Printer
         type QualifiedName = base.QualifiedName
         type Package = base.Package[Definition]
         type TypeDeclaration = base.TypeDeclaration
+        type TypeAlias = base.TypeAlias
 
         trait Annotation extends base.Annotation {
             self: AST.Annotation =>
@@ -299,7 +308,10 @@ package object Printer
             self: Typed.TypeDeclaration =>
             def toScala = ty match {
                 case Types.Interface(name, _, bases) =>
-                    "type " + name + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
+                    s"type $name" + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
+
+                case Types.Alias(name, _, target) =>
+                    s"type $name = $target"
 
             }
         }

@@ -85,6 +85,11 @@ package object AST {
             with    pp.TypeDeclaration
             with    ScPrintable
 
+    case class TypeAlias(name : String, target : Type)
+            extends Definition
+            with    pp.TypeAlias
+            with    ScPrintable
+
     case class Definitions(definitions : List[Definition]) extends pp.Definitions with ScPrintable
 
     sealed abstract class BinOpSymbol extends pp.BinOpSymbol
