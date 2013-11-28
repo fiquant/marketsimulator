@@ -23,14 +23,14 @@ package trash {
         type U : T, R
     }
     
-    def A(x = in1.in2.A()) : Float
+    def A(x = in1.in2.A()) : types.R
     
     package in1 {
-        def A(x = trash.A()) : Float
+        def A(x = trash.A()) : types.U
         
         package in2 {
             def A(x = constant(),
-                  y = if 3.0>x+2.0 then x else x*2.0) : Float
+                  y = if 3.0>x+2.0 then x else x*2.0) : types.T
         }
     }
 }

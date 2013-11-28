@@ -802,7 +802,8 @@ Definitions:
 | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - types
+| | | | | | | | | | | | | | | - T
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
 | | | | | | | - FunDef:
@@ -824,7 +825,8 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | | | | | - types
+| | | | | | | | | | | | - U
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | - FunDef:
@@ -847,7 +849,8 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | | | | - types
+| | | | | | | | | - R
 | | | | | - None
 | | | | | - List:
 | - FunDef:

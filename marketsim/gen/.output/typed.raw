@@ -974,7 +974,9 @@ Definitions:
 | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - trash
+| | | | | | | | | | | | | | | - types
+| | | | | | | | | | | | | | | - T
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
 | | | | | | | - FunDef:
@@ -988,7 +990,9 @@ Definitions:
 | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - trash
+| | | | | | | | | | | | | | | - types
+| | | | | | | | | | | | | | | - R
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -1002,7 +1006,9 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | | | | | - trash
+| | | | | | | | | | | | - types
+| | | | | | | | | | | | - U
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | - FunDef:
@@ -1016,7 +1022,9 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | | | | | - trash
+| | | | | | | | | | | | - types
+| | | | | | | | | | | | - T
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -1032,7 +1040,9 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | | | | - trash
+| | | | | | | | | - types
+| | | | | | | | | - R
 | | | | | - None
 | | | | | - List:
 | - FunDef:

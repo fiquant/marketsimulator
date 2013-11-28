@@ -200,7 +200,8 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | | | | - types
+| | | | | | | | | - R
 | | | | | - None
 | | | | | - List:
 | | | | - PackageDef:
@@ -228,7 +229,8 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | | | | | - types
+| | | | | | | | | | | | - U
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | - PackageDef:
@@ -279,6 +281,7 @@ Definitions:
 | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - types
+| | | | | | | | | | | | | | | - T
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
