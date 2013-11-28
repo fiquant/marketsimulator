@@ -32,7 +32,9 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
-| | | | | | | | | | - Float
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Gamma distribution
@@ -74,7 +76,9 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
-| | | | | | | | | | - Float
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Normal distribution
@@ -100,7 +104,9 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
-| | | | | | | | | | - Float
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Pareto distribution
@@ -139,7 +145,9 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
-| | | | | | | | | | - Float
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Triangular distribution
@@ -181,7 +189,9 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
-| | | | | | | | | | - Float
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Von Mises distribution
@@ -213,7 +223,9 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
-| | | | | | | | | | - Float
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Uniform distribution
@@ -252,7 +264,9 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
-| | | | | | | | | | - Float
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Weibull distribution
@@ -278,7 +292,9 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
-| | | | | | | | | | - Float
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Exponential distribution
@@ -312,7 +328,9 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
-| | | | | | | | | | - Float
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Log normal distribution
@@ -348,7 +366,9 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
-| | | | | | | | | | - Float
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Beta distribution
@@ -387,7 +407,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Arc tangent of x, in radians.
@@ -421,7 +443,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Square root of x
@@ -455,7 +479,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Exponent of x
@@ -489,7 +515,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Natural logarithm of x (to base e)
@@ -535,7 +563,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Return *x* raised to the power *y*.
@@ -704,14 +734,20 @@ Definitions:
 | | | | | | | | - R
 | | | | | | | | - List:
 | | | | | | | | | - SimpleType:
-| | | | | | | | | | - T
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - T
 | | | | | | | - TypeDeclaration:
 | | | | | | | | - U
 | | | | | | | | - List:
 | | | | | | | | | - SimpleType:
-| | | | | | | | | | - T
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - T
 | | | | | | | | | - SimpleType:
-| | | | | | | | | | - R
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - R
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -764,7 +800,9 @@ Definitions:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
 | | | | | | | - FunDef:
@@ -784,7 +822,9 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
-| | | | | | | | | | - Float
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | - FunDef:
@@ -805,7 +845,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - None
 | | | | | - List:
 | - FunDef:
@@ -821,6 +863,8 @@ Definitions:
 | | - None
 | | - Some:
 | | | - SimpleType:
-| | | | - Float
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Float
 | | - None
 | | - List:

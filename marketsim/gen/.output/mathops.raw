@@ -24,7 +24,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Exponent of x
@@ -58,7 +60,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Natural logarithm of x (to base e)
@@ -92,7 +96,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Square root of x
@@ -138,7 +144,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Return *x* raised to the power *y*.
@@ -177,7 +185,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Arc tangent of x, in radians.

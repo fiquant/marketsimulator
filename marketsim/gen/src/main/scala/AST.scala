@@ -47,7 +47,7 @@ package object AST {
 
     sealed abstract class Type extends pp.TypeBase
 
-    case class SimpleType   (name : String)                          extends Type with pp.SimpleType with ScPrintable
+    case class SimpleType   (name : QualifiedName)                   extends Type with pp.SimpleType with ScPrintable
     case object UnitType                                             extends Type with pp.UnitType with ScPrintable
     case class FunctionType (args : List[Type], ret : Type) extends Type with pp.FunctionType with ScPrintable
     case class TupleType    (elems : List[Type])                     extends Type with pp.TupleType with ScPrintable

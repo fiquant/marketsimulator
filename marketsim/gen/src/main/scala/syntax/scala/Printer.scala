@@ -247,7 +247,7 @@ package object Printer
 
         trait SimpleType extends Printable {
             self: AST.SimpleType =>
-            def toScala = name
+            def toScala = name.toString
         }
 
         type UnitType = base.UnitType

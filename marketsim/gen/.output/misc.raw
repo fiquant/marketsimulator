@@ -142,7 +142,9 @@ Definitions:
 | | - None
 | | - Some:
 | | | - SimpleType:
-| | | | - Float
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Float
 | | - None
 | | - List:
 | - PackageDef:
@@ -164,14 +166,20 @@ Definitions:
 | | | | | | | | - R
 | | | | | | | | - List:
 | | | | | | | | | - SimpleType:
-| | | | | | | | | | - T
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - T
 | | | | | | | - TypeDeclaration:
 | | | | | | | | - U
 | | | | | | | | - List:
 | | | | | | | | | - SimpleType:
-| | | | | | | | | | - T
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - T
 | | | | | | | | | - SimpleType:
-| | | | | | | | | | - R
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - R
 | | | | - FunDef:
 | | | | | - A
 | | | | | - List:
@@ -190,7 +198,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - None
 | | | | | - List:
 | | | | - PackageDef:
@@ -216,7 +226,9 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
-| | | | | | | | | | - Float
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | - PackageDef:
@@ -265,6 +277,8 @@ Definitions:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:

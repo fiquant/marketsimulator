@@ -27,12 +27,14 @@ object Typer
 
     case class Processor(source : NameTable.Scope)
     {
+        self =>
         // TODO: introduce fully qualified names in form .pkg1.pkgA.func
         //       in order to solve problem of hiding of top-level names by local ones
 
         def run() {
             try {
                 source.functions foreach { case (name, definition) => getTyped(definition) }
+                source.types     foreach { case (name, definition) => getTyped(definition) }
                 source.packages  foreach { case (name, subpackage) => Processor(subpackage).run() }
             } catch {
                 case e : Exception =>
@@ -87,9 +89,9 @@ object Typer
 
 
         private def toTyped(t : AST.Type) : Types.Base = t match {
-            case AST.SimpleType("Float") => Types.`Float`
-            case AST.SimpleType("Boolean") => Types.`Boolean`
-            case AST.SimpleType(name) => lookupType(AST.QualifiedName(name :: Nil))
+            case AST.SimpleType(AST.QualifiedName("Float" :: Nil)) => Types.`Float`
+            case AST.SimpleType(AST.QualifiedName("Boolean" :: Nil)) => Types.`Boolean`
+            case AST.SimpleType(name) => lookupType(name)
             case AST.UnitType => Types.Unit
             case AST.TupleType(types) => Types.Tuple(types map toTyped)
             case AST.FunctionType(arg_types, ret_type) => Types.Function(arg_types map toTyped, toTyped(ret_type))
@@ -101,7 +103,7 @@ object Typer
 
             def inferType(locals: List[Typed.Parameter])(e: AST.Expr) = {
                 val ctx = new TypingExprCtx {
-                    def lookupFunction(name: AST.QualifiedName) = lookupFunction(name)
+                    def lookupFunction(name: AST.QualifiedName) = self.lookupFunction(name)
 
                     def lookupVar(name: String) = locals.find({
                         _.name == name

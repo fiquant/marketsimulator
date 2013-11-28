@@ -128,6 +128,9 @@ package object Typed
     case class TypeDeclaration(ty : Types.UserDefined)
             extends sc.TypeDeclaration
             with    ScPrintable
+    {
+        ty.scope.insert(this)
+    }
 
     class Package extends sc.TopLevelPackage with ScPrintable
     {
@@ -139,8 +142,14 @@ package object Typed
 
         def qualifyName(x : String) = x
 
-        def insert(f : Function) {
-            functions = functions.updated(f.name, f)
+        def insert(f : Function)  = {
+            functions = functions updated (f.name, f)
+            f
+        }
+
+        def insert(t : TypeDeclaration) = {
+            types = types updated (t.ty.name, t)
+            t
         }
 
         def createChild(n : String) = {
@@ -157,10 +166,7 @@ package object Typed
         def getOrElseUpdateFunction(name : String, default : => Typed.Function) =
             functions get name match {
                 case Some(f) => f
-                case None =>
-                    val f = default
-                    functions = functions updated (f.name, f)
-                    f
+                case None => insert(default)
             }
 
         // TODO: factor common implementation out
@@ -168,10 +174,7 @@ package object Typed
         def getOrElseUpdateType(name : String, default : => TypeDeclaration) =
             types get name match {
                 case Some(t) => t
-                case None =>
-                    val t = default
-                    types = types updated (t.ty.name, t)
-                    t
+                case None => insert(default)
             }
     }
 

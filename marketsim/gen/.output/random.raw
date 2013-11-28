@@ -27,7 +27,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Beta distribution
@@ -56,7 +58,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Exponential distribution
@@ -90,7 +94,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Uniform distribution
@@ -134,7 +140,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Triangular distribution
@@ -172,7 +180,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Gamma distribution
@@ -212,7 +222,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Log normal distribution
@@ -250,7 +262,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Normal distribution
@@ -286,7 +300,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Von Mises distribution
@@ -312,7 +328,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Pareto distribution
@@ -346,7 +364,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
-| | | | | | | - Float
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Weibull distribution

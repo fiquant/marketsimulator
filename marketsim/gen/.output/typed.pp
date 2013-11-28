@@ -145,6 +145,11 @@ package observable {
 
 package trash {
     package types {
+        type T
+        
+        type R : trash.types.T
+        
+        type U : trash.types.T, trash.types.R
     }
     
     package in1 {

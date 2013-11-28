@@ -81,7 +81,7 @@ class Parser() extends JavaTokenParsers with PackratParsers
                 case x :: Nil => x
                 case x => TupleType(x)
             }
-            | ident ^^ SimpleType) withFailureMessage "tuple or simple type expected"
+            | qualified_name ^^ SimpleType) withFailureMessage "tuple or simple type expected"
 
     lazy val parameter = comment_lst ~ ident ~ opt(":" ~> typ) ~ opt("=" ~> expr) ^^ {
         case (c ~ name ~ ty ~ initializer) => Parameter(name, ty, initializer, c)
