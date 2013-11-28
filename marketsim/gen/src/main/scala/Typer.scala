@@ -3,7 +3,7 @@ object Typer
     private val visited = new {
         var grey_set = List[String]()
 
-        def enter(name : String)(f : => Typed.Function) =
+        def enter[T](name : String)(f : => T) =
         {
             // checking that there are no recursive calls
             if (grey_set contains name)
@@ -52,6 +52,17 @@ object Typer
             })
         }
 
+        private def getTyped(definition : AST.TypeDeclaration) = {
+            source.typed.get.getOrElseUpdateType(definition.name, {
+                try {
+                    visited.enter(source qualifyName definition.name) { toTyped(definition) }
+                } catch {
+                    case ex : Exception =>
+                        throw new Exception(s"\r\nWhen typing type declaration '${definition.name}':\r\n" + ex.getMessage)
+                }
+            })
+        }
+
         private def lookupFunction(name : AST.QualifiedName) : Typed.Function =
             source.lookupFunction(name.names) match {
                 case Some((scope, definition)) => Processor(scope).getTyped(definition)
@@ -60,26 +71,25 @@ object Typer
 
         private def lookupType(name : AST.QualifiedName) : Types.UserDefined =
             source.lookupType(name.names) match {
-                //case Some((scope, definition)) => getTyped(scope, definition)
-                case _ => throw new Exception(s"cannot find name $name")
+                case Some((scope, definition)) => Processor(scope).getTyped(definition).ty
+                case _ => throw new Exception(s"Unknown type $name")
             }
 
 
 
-        //    private def toTyped(definition  : AST.TypeDeclaration,
-        //                        target      : Typed.Package,
-        //                        lookup      : AST.QualifiedName => Typed.TypeDeclaration) =
-        //    {
-        //        definition match {
-        //
-        //        }
-        //    }
+
+        private def toTyped(definition  : AST.TypeDeclaration) : Typed.TypeDeclaration =
+        {
+            val bases = definition.bases map toTyped
+            val ty = Types.Interface(definition.name, source.typed.get, bases)
+            Typed.TypeDeclaration(ty)
+        }
 
 
         private def toTyped(t : AST.Type) : Types.Base = t match {
             case AST.SimpleType("Float") => Types.`Float`
             case AST.SimpleType("Boolean") => Types.`Boolean`
-            case AST.SimpleType(name) => throw new Exception(s"Unknown type $name")
+            case AST.SimpleType(name) => lookupType(AST.QualifiedName(name :: Nil))
             case AST.UnitType => Types.Unit
             case AST.TupleType(types) => Types.Tuple(types map toTyped)
             case AST.FunctionType(arg_types, ret_type) => Types.Function(arg_types map toTyped, toTyped(ret_type))
@@ -110,7 +120,7 @@ object Typer
                 (locals, p) =>
                     if (locals contains p.name)
                         throw new Exception(s"Duplicate parameter ${p.name}")
-                    locals :+ toTyped(p, inferType(locals)_)
+                    locals :+ toTyped(p, inferType(locals))
             }
 
             // getting a typed representation for function body if any
