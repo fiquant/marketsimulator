@@ -1,4 +1,4 @@
-from marketsim import context, event, ops, registry, types, _
+from marketsim import IObservable, IFunction, context, event, ops, registry, types, _
 from marketsim.ops import constant
 
 @registry.expose(['Basic', 'Min'])
@@ -17,8 +17,8 @@ class Min(ops.Observable[float]):
         return repr(self)
 
     _properties = {
-        'x' : types.IFunction[float],
-        'y' : types.IFunction[float]
+        'x' : IFunction,
+        'y' : IFunction
     }
 
     def __repr__(self):

@@ -140,30 +140,35 @@ object Typer
             // getting a typed representation for function body if any
             val body = definition.body map inferType(locals)
             val body_type = body map {
-                _.ty match {
-                    case Types.Function(_, rt) => rt
-                    case x => throw new Exception(s"don't know for the moment what to do with expr of type '$x'\r\n" +
+                _.ty.returnTypeIfFunction match {
+                    case Some(rt) => rt
+                    case None => throw new Exception(s"don't know for the moment what to do with expr of type '${body.get}'\r\n" +
                             "Locals are: " + locals.mkString("[", ", ", "]"))
                 }
             }
 
             // inferring type of the function from type of its body or using explicit specification
-            val ret_type = definition.ty map toTyped match {
-                case Some(ret_type@Types.Function(Nil, r)) =>
+            val ty = definition.ty map toTyped match {
+                case Some(decl_type) =>
+                    val ret_type = decl_type.returnTypeIfFunction
+
+                    if (ret_type.isEmpty)
+                        throw new Exception(s"Declared type $decl_type doesn't casts to any functional type")
+                    
                     body_type match {
-                        case Some(b) if b cannotCastTo r =>
+                        case Some(b) if b cannotCastTo ret_type.get =>
                             throw new Exception(s"Inferred return type"
-                                    + s" '$b' doesn't match to declared return type '$ret_type'")
+                                    + s" '$b' doesn't match to declared return type '$decl_type'")
                         case _ =>
                     }
-                    ret_type
+                    decl_type
 
                 case _ =>
                     def deref[A](x: Option[A], fail_msg: => Exception): A =
                         if (x.nonEmpty) x.get else throw fail_msg
                     Types.nullaryFunction(deref(body_type, new Exception(s"Return type for $definition should be given explicitly")))
             }
-            Typed.Function(target, definition.name, locals, ret_type, body,
+            Typed.Function(target, definition.name, locals, ty, body,
                 definition.docstring, definition.annotations map toTyped)
         }
 

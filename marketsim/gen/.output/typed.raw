@@ -491,12 +491,10 @@ Definitions:
 | | | | | | - Parameter:
 | | | | | | | - x
 | | | | | | | - Some:
-| | | | | | | | - FunctionType:
-| | | | | | | | | - List:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IFunction
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -535,12 +533,10 @@ Definitions:
 | | | | | | - Parameter:
 | | | | | | | - x
 | | | | | | | - Some:
-| | | | | | | | - FunctionType:
-| | | | | | | | | - List:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IFunction
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -579,12 +575,10 @@ Definitions:
 | | | | | | - Parameter:
 | | | | | | | - x
 | | | | | | | - Some:
-| | | | | | | | - FunctionType:
-| | | | | | | | | - List:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IFunction
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -623,12 +617,10 @@ Definitions:
 | | | | | | - Parameter:
 | | | | | | | - x
 | | | | | | | - Some:
-| | | | | | | | - FunctionType:
-| | | | | | | | | - List:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IFunction
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -667,12 +659,10 @@ Definitions:
 | | | | | | - Parameter:
 | | | | | | | - base
 | | | | | | | - Some:
-| | | | | | | | - FunctionType:
-| | | | | | | | | - List:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IFunction
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -685,12 +675,10 @@ Definitions:
 | | | | | | - Parameter:
 | | | | | | | - power
 | | | | | | | - Some:
-| | | | | | | | - FunctionType:
-| | | | | | | | | - List:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IFunction
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -740,12 +728,10 @@ Definitions:
 | | | | | | - Parameter:
 | | | | | | | - x
 | | | | | | | - Some:
-| | | | | | | | - FunctionType:
-| | | | | | | | | - List:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IFunction
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -783,12 +769,10 @@ Definitions:
 | | | | | | - Parameter:
 | | | | | | | - x
 | | | | | | | - Some:
-| | | | | | | | - FunctionType:
-| | | | | | | | | - List:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IFunction
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -799,12 +783,10 @@ Definitions:
 | | | | | | - Parameter:
 | | | | | | | - y
 | | | | | | | - Some:
-| | | | | | | | - FunctionType:
-| | | | | | | | | - List:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IFunction
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -847,12 +829,10 @@ Definitions:
 | | | | | | - Parameter:
 | | | | | | | - x
 | | | | | | | - Some:
-| | | | | | | | - FunctionType:
-| | | | | | | | | - List:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IFunction
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -863,12 +843,10 @@ Definitions:
 | | | | | | - Parameter:
 | | | | | | | - y
 | | | | | | | - Some:
-| | | | | | | | - FunctionType:
-| | | | | | | | | - List:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IFunction
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -970,12 +948,10 @@ Definitions:
 | | | | | | | | | | | | - Parameter:
 | | | | | | | | | | | | | - x
 | | | | | | | | | | | | | - Some:
-| | | | | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - IFunction
 | | | | | | | | | | | | | - Some:
 | | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | | - QualifiedName:
@@ -1154,30 +1130,6 @@ Definitions:
 | | | | | - List:
 | | | | | | - IFunction
 | - FunDef:
-| | - constant
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - Some:
-| | | | | - SimpleType:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - Float
-| | | | - Some:
-| | | | | - Const:
-| | | | | | - 1.0
-| | | | - List:
-| | - None
-| | - Some:
-| | | - FunctionType:
-| | | | - List:
-| | | | - SimpleType:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - Float
-| | - None
-| | - List:
-| - FunDef:
 | | - const
 | | - List:
 | | | - Parameter:
@@ -1193,12 +1145,10 @@ Definitions:
 | | | | - List:
 | | - None
 | | - Some:
-| | | - FunctionType:
-| | | | - List:
-| | | | - SimpleType:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - Float
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IObservable
 | | - None
 | | - List:
 | | | - Annotation:
@@ -1211,3 +1161,32 @@ Definitions:
 | | | | | - Basic
 | | | | | - C=%x
 | | | | | - _constant._Constant_Impl
+| - FunDef:
+| | - constant
+| | - List:
+| | | - Parameter:
+| | | | - x
+| | | | - Some:
+| | | | | - SimpleType:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - Float
+| | | | - Some:
+| | | | | - Const:
+| | | | | | - 1.0
+| | | | - List:
+| | - Some:
+| | | - FunCall:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - const
+| | | | - List:
+| | | | | - Var:
+| | | | | | - x
+| | - Some:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction
+| | - None
+| | - List:

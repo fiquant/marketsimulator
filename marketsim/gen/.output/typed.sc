@@ -97,25 +97,25 @@ package mathops {
      *
      */
     @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
-    def Atan(x : () => Float = constant(0.0)) : () => Float
+    def Atan(x : IFunction = constant(0.0)) : () => Float
     
     /** Square root of x
      *
      */
     @python.mathops("Log/Pow", "sqrt", "\\sqrt{%(x)s}")
-    def Sqrt(x : () => Float = constant(1.0)) : () => Float
+    def Sqrt(x : IFunction = constant(1.0)) : () => Float
     
     /** Exponent of x
      *
      */
     @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
-    def Exp(x : () => Float = constant(1.0)) : () => Float
+    def Exp(x : IFunction = constant(1.0)) : () => Float
     
     /** Natural logarithm of x (to base e)
      *
      */
     @python.mathops("Log/Pow", "log", "log(%(x)s)")
-    def Log(x : () => Float = constant(1.0)) : () => Float
+    def Log(x : IFunction = constant(1.0)) : () => Float
     
     /** Return *x* raised to the power *y*.
      *
@@ -126,23 +126,23 @@ package mathops {
      * ``pow(x, y)`` is undefined, and raises ``ValueError``.
      */
     @python.mathops("Log/Pow", "pow", "%(base)s^{%(power)s}")
-    def Pow(base : () => Float = constant(1.0),
-            power : () => Float = constant(1.0)) : () => Float
+    def Pow(base : IFunction = constant(1.0),
+            power : IFunction = constant(1.0)) : () => Float
 }
 
 package observable {
     @python.observable("Pow/Log", "{%x}^2")
-    def Sqr(x : () => Float = constant()) : () => Float
+    def Sqr(x : IFunction = constant()) : () => Float
     	 = x*x
     
     @python.observable("Basic", "min{%x, %y}")
-    def Min(x : () => Float = constant(),
-            y : () => Float = constant()) : () => Float
+    def Min(x : IFunction = constant(),
+            y : IFunction = constant()) : () => Float
     	 = if x<y then x else y
     
     @python.observable("Basic", "max{%x, %y}")
-    def Max(x : () => Float = constant(),
-            y : () => Float = constant()) : () => Float
+    def Max(x : IFunction = constant(),
+            y : IFunction = constant()) : () => Float
     	 = if x>y then x else y
 }
 
@@ -155,7 +155,7 @@ package trash {
     
     package in1 {
         package in2 {
-            def A(x : () => Float = constant(),
+            def A(x : IFunction = constant(),
                   y : () => Float = if 3.0>x+2.0 then x else x*2.0) : () => trash.types.T
         }
         def A(x : () => trash.types.T1 = trash.A()) : () => trash.types.U
@@ -167,7 +167,8 @@ package trash {
     def A(x : () => trash.types.T = trash.in1.in2.A()) : () => trash.types.R
 }type IFunction = () => Float
 type IObservable : IFunction
-def constant(x : Float = 1.0) : () => Float
-
 @python.intrinsic.function("Basic", "C=%x", "_constant._Constant_Impl")
-def const(x : Float = 1.0) : () => Float
+def const(x : Float = 1.0) : IObservable
+
+def constant(x : Float = 1.0) : IFunction
+	 = const(x)

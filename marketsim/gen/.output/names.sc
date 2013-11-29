@@ -167,10 +167,10 @@ package trash {
     
     def A(x = in1.in2.A()) : () => types.R
 }
-def constant(x = 1.0) : () => Float
+def constant(x = 1.0) : IFunction = const(x)
 
 @python.intrinsic.function("Basic", "C=%x", "_constant._Constant_Impl")
-def const(x = 1.0) : () => Float
+def const(x = 1.0) : IObservable
 
 type IFunction = () => Float
 

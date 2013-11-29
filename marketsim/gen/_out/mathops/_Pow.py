@@ -1,4 +1,4 @@
-from marketsim import registry, types, event
+from marketsim import IObservable, IFunction, registry, types, event
 import math
 from marketsim.ops._all import Observable, constant
 
@@ -25,8 +25,8 @@ class Pow(Observable[float]):
         return repr(self)
 
     _properties = {
-        'base' : types.IFunction[float],
-        'power' : types.IFunction[float]
+        'base' : IFunction,
+        'power' : IFunction
     }
 
     def __repr__(self):

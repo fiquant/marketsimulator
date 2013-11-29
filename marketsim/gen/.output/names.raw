@@ -951,14 +951,19 @@ Definitions:
 | | | | | - Const:
 | | | | | | - 1.0
 | | | | - List:
-| | - None
 | | - Some:
-| | | - FunctionType:
+| | | - FunCall:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - const
 | | | | - List:
-| | | | - SimpleType:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - Float
+| | | | | - Var:
+| | | | | | - x
+| | - Some:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction
 | | - None
 | | - List:
 | - FunDef:
@@ -973,12 +978,10 @@ Definitions:
 | | | | - List:
 | | - None
 | | - Some:
-| | | - FunctionType:
-| | | | - List:
-| | | | - SimpleType:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - Float
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IObservable
 | | - None
 | | - List:
 | | | - Annotation:

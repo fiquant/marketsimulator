@@ -1,4 +1,4 @@
-from marketsim import context, event, ops, registry, types, _
+from marketsim import IObservable, IFunction, context, event, ops, registry, types, _
 from marketsim.ops import constant
 
 @registry.expose(['Pow/Log', 'Sqr'])
@@ -16,7 +16,7 @@ class Sqr(ops.Observable[float]):
         return repr(self)
 
     _properties = {
-        'x' : types.IFunction[float]
+        'x' : IFunction
     }
 
     def __repr__(self):

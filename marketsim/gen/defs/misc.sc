@@ -10,10 +10,10 @@ package observable
     def Max(x = constant(), y = constant()) = if x > y then x else y
 }
 
-def constant(x = 1.0) => Float
+def constant(x = 1.0) : IFunction = const(x)
 
 @python.intrinsic.function("Basic", "C=%x", "_constant._Constant_Impl")
-def const(x = 1.0) => Float
+def const(x = 1.0) : IObservable
 
 type IFunction = () => Float
 type IObservable : IFunction

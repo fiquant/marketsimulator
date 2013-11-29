@@ -6,9 +6,10 @@ from bind import Method
 from side_ import Tag as Side
 from reference import Reference
 
-from types import IObservable
+from types import IObservable, IFunction
 
 IObservable = IObservable[float]
+IFunction = IFunction[float]
 
 class Alias(object):
     

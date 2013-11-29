@@ -21,6 +21,8 @@ package object Types
         protected def canCastToImpl(other : Base) = false
 
         def cannotCastTo(other : Base) = !canCastTo(other)
+
+        def returnTypeIfFunction : Option[Base] = None
     }
 
     case object `Float`
@@ -59,6 +61,8 @@ package object Types
                 case _ => false
             }
         }
+
+        override def returnTypeIfFunction = Some(ret)
     }
 
     sealed abstract class UserDefined
@@ -83,6 +87,15 @@ package object Types
             case that : Interface => bases == that.bases
             case _ => false
         })
+
+        override def returnTypeIfFunction =
+            bases flatMap { _.returnTypeIfFunction } match {
+                case Nil => None
+                case x :: tl =>
+                    if (tl exists { _ != x})
+                        throw new Exception(s"Type $this casts to different functional types: " + (x :: tl))
+                    Some(x)
+            }
     }
 
     case class Alias(name : String, scope : Typed.Package, target : Base) extends UserDefined
@@ -93,6 +106,8 @@ package object Types
             case that: Alias => target == that.target
             case _ => false
         })
+
+        override def returnTypeIfFunction = target.returnTypeIfFunction
     }
 
     def nullaryFunction(ret_type : Base) = Function(List(), ret_type)

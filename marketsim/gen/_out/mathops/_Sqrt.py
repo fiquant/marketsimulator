@@ -1,4 +1,4 @@
-from marketsim import registry, types, event
+from marketsim import IObservable, IFunction, registry, types, event
 import math
 from marketsim.ops._all import Observable, constant
 
@@ -17,7 +17,7 @@ class Sqrt(Observable[float]):
         return repr(self)
 
     _properties = {
-        'x' : types.IFunction[float]
+        'x' : IFunction
     }
 
     def __repr__(self):
