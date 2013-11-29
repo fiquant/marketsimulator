@@ -212,7 +212,7 @@ package object Printer
 
         trait Function extends base.Function {
             self: AST.FunDef =>
-            def printRetType = ifSome(ret_type, " : ")
+            def printRetType = ifSome(ty, " : ")
             def printBody = ifSome(body, " = ")
         }
 

@@ -148,7 +148,7 @@ object Typer
             }
 
             // inferring type of the function from type of its body or using explicit specification
-            val ret_type = definition.ret_type map toTyped match {
+            val ret_type = definition.ty map toTyped match {
                 case Some(ret_type@Types.Function(Nil, r)) =>
                     body_type match {
                         case Some(b) if b cannotCastTo r =>
