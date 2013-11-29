@@ -161,9 +161,17 @@ package trash {
         }
         def A(x : () => types.T1 = trash.A()) : types.U
     }
+    @python.intrinsic.function("Statistics", "Avg_{%alpha}^{%source}", "observable.ewma.EWMA_Impl")
+    def EWMA(source : IObservable,
+             alpha = 0.015) : Float
+    
     def A(x = in1.in2.A()) : types.R
 }
 def constant(x = 1.0) : Float
 
 @python.intrinsic.function("Basic", "C=%x", "_constant._Constant_Impl")
 def const(x = 1.0) : Float
+
+type IFunction = () => Float
+
+type IObservable : IFunction

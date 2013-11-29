@@ -4,7 +4,11 @@ from gen import cached_property
 
 from bind import Method
 from side_ import Tag as Side
-from reference import Reference 
+from reference import Reference
+
+from types import IObservable
+
+IObservable = IObservable[float]
 
 class Alias(object):
     

@@ -175,12 +175,70 @@ Definitions:
 | | | | | - Basic
 | | | | | - C=%x
 | | | | | - _constant._Constant_Impl
+| - Alias:
+| | - IFunction
+| | - FunctionType:
+| | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Float
+| - Interface:
+| | - IObservable
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction
+| - PackageDef:
+| | - QualifiedName:
+| | | - List:
+| | | | - observable
+| | - Definitions:
+| | | - List:
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
 | | | | - trash
 | | - Definitions:
 | | | - List:
+| | | | - FunDef:
+| | | | | - EWMA
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - source
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IObservable
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - alpha
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 0.015
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - Statistics
+| | | | | | | | - Avg_{%alpha}^{%source}
+| | | | | | | | - observable.ewma.EWMA_Impl
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:

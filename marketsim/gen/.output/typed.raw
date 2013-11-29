@@ -1020,6 +1020,47 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | - FunDef:
+| | | | | - EWMA
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - source
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IObservable
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - alpha
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 0.015
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - Statistics
+| | | | | | | | - Avg_{%alpha}^{%source}
+| | | | | | | | - observable.ewma.EWMA_Impl
+| | | | - FunDef:
 | | | | | - A
 | | | | | - List:
 | | | | | | - Parameter:
@@ -1053,6 +1094,21 @@ Definitions:
 | | | | | | | | | - R
 | | | | | - None
 | | | | | - List:
+| - Alias:
+| | - IFunction
+| | - FunctionType:
+| | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Float
+| - Interface:
+| | - IObservable
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction
 | - FunDef:
 | | - constant
 | | - List:

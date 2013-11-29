@@ -30,10 +30,14 @@ object NameTable {
         def add(p : AST.PackageDef) {
             val target = (p.name.names map (new Scope(_))).foldLeft(this) {
                 case (x, y) =>
-                    x.check_name_is_unique(y.name, y)
-                    x.packages = x.packages updated (y.name, y)
-                    y.parent = Some(x)
-                    y
+                    if (members contains y.name)
+                        throw new Exception(s"Duplicate definition for ${y.name}:\r\n" + members(y.name) + "\r\n" + y)
+                    if (!(packages contains y.name))
+                    {
+                        x.packages = x.packages updated (y.name, y)
+                        y.parent = Some(x)
+                    }
+                    x.packages(y.name)
             }
             create(p.members, target)
         }

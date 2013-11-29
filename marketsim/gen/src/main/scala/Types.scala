@@ -68,16 +68,31 @@ package object Types
     {
         val name : String
         val scope : Typed.Package
+
+        override def equals(o : Any) = o match {
+            case that : UserDefined => name == that.name && scope.qualifiedName == that.scope.qualifiedName
+            case _ => false
+        }
     }
 
     case class Interface(name : String, scope : Typed.Package, bases : List[Base]) extends UserDefined
     {
         override def canCastToImpl(other : Base) =  bases exists { _ canCastTo other }
+
+        override def equals(o : Any) = super.equals(o) && (o match {
+            case that : Interface => bases == that.bases
+            case _ => false
+        })
     }
 
     case class Alias(name : String, scope : Typed.Package, target : Base) extends UserDefined
     {
         override def canCastToImpl(other : Base) =  target canCastTo other
+
+        override def equals(o: Any) = super.equals(o) && (o match {
+            case that: Alias => target == that.target
+            case _ => false
+        })
     }
 
     def nullaryFunction(ret_type : Base) = Function(List(), ret_type)
