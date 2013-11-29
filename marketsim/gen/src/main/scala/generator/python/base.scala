@@ -8,19 +8,6 @@ package object base {
     val tab = "    "
     val comma = ","
 
-    object Annotations
-    {
-        import Typed.Annotations._
-
-        override def toString = registry.toString()
-
-        // TODO: non-intrusive registration
-        register(random)
-        register(mathops)
-        register(observable)
-        register(intrinsic_function)
-    }
-
     abstract class Class extends PyPrintable
     {
         def name : String

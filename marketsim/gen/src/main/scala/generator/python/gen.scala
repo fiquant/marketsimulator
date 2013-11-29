@@ -52,5 +52,16 @@ package object gen
 
     }
 
+    object Annotations {
 
+        import Typed.Annotations._
+
+        override def toString = registry.toString()
+
+        // TODO: non-intrusive registration
+        register(random)
+        register(mathops)
+        register(observable)
+        register(intrinsic_function)
+    }
 }

@@ -45,7 +45,7 @@ object Runner extends syntax.scala.Parser {
 
     def main(args: Array[String]) {
 
-        generator.python.base.Annotations
+        generator.python.gen.Annotations
 
         val files = "random" :: "mathops" :: "misc" :: Nil
 
