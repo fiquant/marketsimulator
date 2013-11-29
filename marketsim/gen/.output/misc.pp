@@ -14,6 +14,9 @@ package observable {
 
 def constant(x = 1.0) : Float
 
+@python.intrinsic.function("Basic", "C=%x", "_constant._Constant_Impl")
+def const(x = 1.0) : Float
+
 package trash {
     package types {
         type T

@@ -2,48 +2,7 @@ from marketsim import meta, constraints, Side, types, registry, getLabel, event,
 import marketsim
 import math, inspect 
 
-def convert(other):
-    if type(other) in [int, float]:
-        other = constant(other)
-    return other
-
-
-class Function_impl(object):
-    
-    def __add__(self, other):
-        from _arithmetic import Sum
-        return Sum(self, convert(other))
-    
-    def __sub__(self, other):
-        from _arithmetic import Sub
-        return Sub(self, convert(other))
-    
-    def __mul__(self, other):
-        from _arithmetic import Product
-        return Product(self, convert(other))
-    
-    def __div__(self, other):
-        from _arithmetic import Div
-        return Div(self, convert(other))
-    
-    def __lt__(self, other):
-        return less(self, convert(other))
-    
-    def __gt__(self, other):
-        return greater(self, convert(other))
-    
-    def __ge__(self, other):
-        return greater_equal(self, convert(other))
-    
-    def __eq__(self, other):
-        return equal(self, convert(other))
-    
-    def __ne__(self, other):
-        return notequal(self, convert(other))
-
-Function = types.Factory("Function", """(Function_impl, types.IFunction[%(T)s]):
-    T = %(T)s
-""", globals())   
+from _function import Function
 
 Observable = types.Factory('Observable', '''(types.IObservable[%(T)s], Function[%(T)s], event.Conditional):''', globals())
 
@@ -312,24 +271,25 @@ Constant = types.Factory('Constant', """(_Constant_Impl, Function[%(T)s], types.
     def __init__(self, value = _defaults[%(T)s]):
         self.value = value
         self._alias = ['Basic', 'Constant']
-        
-    def __iadd__(self, listener): 
+
+    def __iadd__(self, listener):
         return self
-        
-    def __isub__(self, listener): 
+
+    def __isub__(self, listener):
         return self
-    
+
     _properties = {'value' : %(T)s}
 """, globals())
 
+from marketsim.gen._out._const import const
+
 def constant(x = 1.):
-    return Constant[float](x) if type(x) is float\
+    return const(x) if type(x) is float\
         else Constant[float](x) if type(x) is int\
         else Constant[Side](x) if x in [Side.Sell, Side.Buy]\
         else Constant[bool](x) if type(x) is bool\
         else None    
 
-const = constant
 
 @registry.expose(['Arithmetic', 'negate'])
 class negate(Function[float]):

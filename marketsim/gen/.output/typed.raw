@@ -1075,3 +1075,35 @@ Definitions:
 | | | | | | - Float
 | | - None
 | | - List:
+| - FunDef:
+| | - const
+| | - List:
+| | | - Parameter:
+| | | | - x
+| | | | - Some:
+| | | | | - SimpleType:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - Float
+| | | | - Some:
+| | | | | - Const:
+| | | | | | - 1.0
+| | | | - List:
+| | - None
+| | - Some:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Float
+| | - None
+| | - List:
+| | | - Annotation:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - python
+| | | | | | - intrinsic
+| | | | | | - function
+| | | | - List:
+| | | | | - Basic
+| | | | | - C=%x
+| | | | | - _constant._Constant_Impl

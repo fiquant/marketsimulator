@@ -18,6 +18,7 @@ package object base {
         register(random)
         register(mathops)
         register(observable)
+        register(intrinsic_function)
     }
 
     abstract class Class extends PyPrintable

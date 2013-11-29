@@ -163,3 +163,6 @@ package trash {
     def A(x : () => trash.types.T = trash.in1.in2.A()) : trash.types.R
 }
 def constant(x : Float = 1.0) : Float
+
+@python.intrinsic.function("Basic", "C=%x", "_constant._Constant_Impl")
+def const(x : Float = 1.0) : Float
