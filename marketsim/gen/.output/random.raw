@@ -26,10 +26,12 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Beta distribution
@@ -57,10 +59,12 @@ Definitions:
 | | | | | | | | -  |lambda| is 1.0 divided by the desired mean. It should be greater zero.
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Exponential distribution
@@ -93,10 +97,12 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Uniform distribution
@@ -139,10 +145,12 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Triangular distribution
@@ -179,10 +187,12 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Gamma distribution
@@ -221,10 +231,12 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Log normal distribution
@@ -261,10 +273,12 @@ Definitions:
 | | | | | | | | -  |sigma| is the standard deviation 
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Normal distribution
@@ -299,10 +313,12 @@ Definitions:
 | | | | | | | | -       to a uniform random angle over the range 0 to 2|pi|        
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Von Mises distribution
@@ -327,10 +343,12 @@ Definitions:
 | | | | | | | | -  |alpha| is the shape parameter
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Pareto distribution
@@ -363,10 +381,12 @@ Definitions:
 | | | | | | | | -  |beta| is the shape parameter  
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Weibull distribution

@@ -149,19 +149,19 @@ object Typer
 
             // inferring type of the function from type of its body or using explicit specification
             val ret_type = definition.ret_type map toTyped match {
-                case Some(ret_type) =>
+                case Some(ret_type@Types.Function(Nil, r)) =>
                     body_type match {
-                        case Some(b) if b cannotCastTo ret_type =>
+                        case Some(b) if b cannotCastTo r =>
                             throw new Exception(s"Inferred return type"
                                     + s" '$b' doesn't match to declared return type '$ret_type'")
                         case _ =>
                     }
                     ret_type
 
-                case None =>
+                case _ =>
                     def deref[A](x: Option[A], fail_msg: => Exception): A =
                         if (x.nonEmpty) x.get else throw fail_msg
-                    deref(body_type, new Exception(s"Return type for should be given explicitly"))
+                    Types.nullaryFunction(deref(body_type, new Exception(s"Return type for $definition should be given explicitly")))
             }
             Typed.Function(target, definition.name, locals, ret_type, body,
                 definition.docstring, definition.annotations map toTyped)

@@ -13,18 +13,18 @@ package mathutils {
          */
         @python.random()
         def gammavariate(Alpha : Float = 1.0,
-                         Beta : Float = 1.0) : Float
+                         Beta : Float = 1.0) : () => Float
         
         /** Normal distribution
          */
         @python.random()
         def normalvariate(/** |mu| is the mean                  */ Mu : Float = 0.0,
-                          /** |sigma| is the standard deviation */ Sigma : Float = 1.0) : Float
+                          /** |sigma| is the standard deviation */ Sigma : Float = 1.0) : () => Float
         
         /** Pareto distribution
          */
         @python.random()
-        def paretovariate(/** |alpha| is the shape parameter*/ Alpha : Float = 1.0) : Float
+        def paretovariate(/** |alpha| is the shape parameter*/ Alpha : Float = 1.0) : () => Float
         
         /** Triangular distribution
          *
@@ -37,7 +37,7 @@ package mathutils {
         @python.random()
         def triangular(Low : Float = 0.0,
                        High : Float = 1.0,
-                       Mode : Float = 0.5) : Float
+                       Mode : Float = 0.5) : () => Float
         
         /** Von Mises distribution
          */
@@ -45,7 +45,7 @@ package mathutils {
         def vonmisesvariate(/** |mu| is the mean angle, expressed in radians between 0 and 2|pi|*/ Mu : Float = 0.0,
                             /** |kappa| is the concentration parameter, which must be greater than or equal to zero.
                               *      If |kappa| is equal to zero, this distribution reduces
-                              *      to a uniform random angle over the range 0 to 2|pi|        */ Kappa : Float = 0.0) : Float
+                              *      to a uniform random angle over the range 0 to 2|pi|        */ Kappa : Float = 0.0) : () => Float
         
         /** Uniform distribution
          *
@@ -56,20 +56,20 @@ package mathutils {
          */
         @python.random()
         def uniform(Low : Float = -10.0,
-                    High : Float = 10.0) : Float
+                    High : Float = 10.0) : () => Float
         
         /** Weibull distribution
          */
         @python.random()
         def weibullvariate(/** |alpha| is the scale parameter */ Alpha : Float = 1.0,
-                           /** |beta| is the shape parameter  */ Beta : Float = 1.0) : Float
+                           /** |beta| is the shape parameter  */ Beta : Float = 1.0) : () => Float
         
         /** Exponential distribution
          *
          *  Returned values range from 0 to positive infinity
          */
         @python.random()
-        def expovariate(/** |lambda| is 1.0 divided by the desired mean. It should be greater zero.*/ Lambda : Float = 1.0) : Float
+        def expovariate(/** |lambda| is 1.0 divided by the desired mean. It should be greater zero.*/ Lambda : Float = 1.0) : () => Float
         
         /** Log normal distribution
          *
@@ -79,7 +79,7 @@ package mathutils {
          */
         @python.random()
         def lognormvariate(Mu : Float = 0.0,
-                           Sigma : Float = 1.0) : Float
+                           Sigma : Float = 1.0) : () => Float
         
         /** Beta distribution
          *
@@ -88,7 +88,7 @@ package mathutils {
          */
         @python.random()
         def betavariate(Alpha : Float = 1.0,
-                        Beta : Float = 1.0) : Float
+                        Beta : Float = 1.0) : () => Float
     }
 }
 
@@ -97,25 +97,25 @@ package mathops {
      *
      */
     @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
-    def Atan(x : () => Float = constant(0.0)) : Float
+    def Atan(x : () => Float = constant(0.0)) : () => Float
     
     /** Square root of x
      *
      */
     @python.mathops("Log/Pow", "sqrt", "\\sqrt{%(x)s}")
-    def Sqrt(x : () => Float = constant(1.0)) : Float
+    def Sqrt(x : () => Float = constant(1.0)) : () => Float
     
     /** Exponent of x
      *
      */
     @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
-    def Exp(x : () => Float = constant(1.0)) : Float
+    def Exp(x : () => Float = constant(1.0)) : () => Float
     
     /** Natural logarithm of x (to base e)
      *
      */
     @python.mathops("Log/Pow", "log", "log(%(x)s)")
-    def Log(x : () => Float = constant(1.0)) : Float
+    def Log(x : () => Float = constant(1.0)) : () => Float
     
     /** Return *x* raised to the power *y*.
      *
@@ -127,20 +127,20 @@ package mathops {
      */
     @python.mathops("Log/Pow", "pow", "%(base)s^{%(power)s}")
     def Pow(base : () => Float = constant(1.0),
-            power : () => Float = constant(1.0)) : Float
+            power : () => Float = constant(1.0)) : () => Float
 }
 
 package observable {
     @python.observable("Pow/Log", "{%x}^2")
-    def Sqr(x : () => Float = constant()) : Float = x*x
+    def Sqr(x : () => Float = constant()) : () => Float = x*x
     
     @python.observable("Basic", "min{%x, %y}")
     def Min(x : () => Float = constant(),
-            y : () => Float = constant()) : Float = if x<y then x else y
+            y : () => Float = constant()) : () => Float = if x<y then x else y
     
     @python.observable("Basic", "max{%x, %y}")
     def Max(x : () => Float = constant(),
-            y : () => Float = constant()) : Float = if x>y then x else y
+            y : () => Float = constant()) : () => Float = if x>y then x else y
 }
 
 package trash {
@@ -157,24 +157,24 @@ package trash {
     package in1 {
         package in2 {
             def A(x : () => Float = constant(),
-                  y : () => Float = if 3.0>x+2.0 then x else x*2.0) : trash.types.T
+                  y : () => Float = if 3.0>x+2.0 then x else x*2.0) : () => trash.types.T
         }
         
-        def A(x : () => trash.types.T1 = trash.A()) : trash.types.U
+        def A(x : () => trash.types.T1 = trash.A()) : () => trash.types.U
     }
     
     @python.intrinsic.function("Statistics", "Avg_{%alpha}^{%source}", "observable.ewma.EWMA_Impl")
     def EWMA(source : IObservable,
-             alpha : Float = 0.015) : Float
+             alpha : Float = 0.015) : () => Float
     
-    def A(x : () => trash.types.T = trash.in1.in2.A()) : trash.types.R
+    def A(x : () => trash.types.T = trash.in1.in2.A()) : () => trash.types.R
 }
 
 type IFunction = () => Float
 
 type IObservable : IFunction
 
-def constant(x : Float = 1.0) : Float
+def constant(x : Float = 1.0) : () => Float
 
 @python.intrinsic.function("Basic", "C=%x", "_constant._Constant_Impl")
-def const(x : Float = 1.0) : Float
+def const(x : Float = 1.0) : () => Float

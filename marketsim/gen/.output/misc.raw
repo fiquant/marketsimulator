@@ -141,10 +141,12 @@ Definitions:
 | | | | - List:
 | | - None
 | | - Some:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - Float
+| | | - FunctionType:
+| | | | - List:
+| | | | - SimpleType:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - Float
 | | - None
 | | - List:
 | - FunDef:
@@ -159,10 +161,12 @@ Definitions:
 | | | | - List:
 | | - None
 | | - Some:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - Float
+| | | - FunctionType:
+| | | | - List:
+| | | | - SimpleType:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - Float
 | | - None
 | | - List:
 | | | - Annotation:
@@ -223,10 +227,12 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -289,11 +295,13 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - types
-| | | | | | | | | - R
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - types
+| | | | | | | | | | - R
 | | | | | - None
 | | | | | - List:
 | | | | - PackageDef:
@@ -325,11 +333,13 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - types
-| | | | | | | | | | | | - U
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - types
+| | | | | | | | | | | | | - U
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | - PackageDef:
@@ -377,10 +387,12 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - Some:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - types
-| | | | | | | | | | | | | | | - T
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - types
+| | | | | | | | | | | | | | | | - T
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:

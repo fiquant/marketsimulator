@@ -13,18 +13,18 @@ package mathutils {
          */
         @python.random()
         def gammavariate(Alpha = 1.0,
-                         Beta = 1.0) : Float
+                         Beta = 1.0) : () => Float
         
         /** Normal distribution
          */
         @python.random()
         def normalvariate(/** |mu| is the mean                  */ Mu = 0.0,
-                          /** |sigma| is the standard deviation */ Sigma = 1.0) : Float
+                          /** |sigma| is the standard deviation */ Sigma = 1.0) : () => Float
         
         /** Pareto distribution
          */
         @python.random()
-        def paretovariate(/** |alpha| is the shape parameter*/ Alpha = 1.0) : Float
+        def paretovariate(/** |alpha| is the shape parameter*/ Alpha = 1.0) : () => Float
         
         /** Triangular distribution
          *
@@ -37,7 +37,7 @@ package mathutils {
         @python.random()
         def triangular(Low = 0.0,
                        High = 1.0,
-                       Mode = 0.5) : Float
+                       Mode = 0.5) : () => Float
         
         /** Von Mises distribution
          */
@@ -45,7 +45,7 @@ package mathutils {
         def vonmisesvariate(/** |mu| is the mean angle, expressed in radians between 0 and 2|pi|*/ Mu = 0.0,
                             /** |kappa| is the concentration parameter, which must be greater than or equal to zero.
                               *      If |kappa| is equal to zero, this distribution reduces
-                              *      to a uniform random angle over the range 0 to 2|pi|        */ Kappa = 0.0) : Float
+                              *      to a uniform random angle over the range 0 to 2|pi|        */ Kappa = 0.0) : () => Float
         
         /** Uniform distribution
          *
@@ -56,20 +56,20 @@ package mathutils {
          */
         @python.random()
         def uniform(Low = -10.0,
-                    High = 10.0) : Float
+                    High = 10.0) : () => Float
         
         /** Weibull distribution
          */
         @python.random()
         def weibullvariate(/** |alpha| is the scale parameter */ Alpha = 1.0,
-                           /** |beta| is the shape parameter  */ Beta = 1.0) : Float
+                           /** |beta| is the shape parameter  */ Beta = 1.0) : () => Float
         
         /** Exponential distribution
          *
          *  Returned values range from 0 to positive infinity
          */
         @python.random()
-        def expovariate(/** |lambda| is 1.0 divided by the desired mean. It should be greater zero.*/ Lambda = 1.0) : Float
+        def expovariate(/** |lambda| is 1.0 divided by the desired mean. It should be greater zero.*/ Lambda = 1.0) : () => Float
         
         /** Log normal distribution
          *
@@ -79,7 +79,7 @@ package mathutils {
          */
         @python.random()
         def lognormvariate(Mu = 0.0,
-                           Sigma = 1.0) : Float
+                           Sigma = 1.0) : () => Float
         
         /** Beta distribution
          *
@@ -88,7 +88,7 @@ package mathutils {
          */
         @python.random()
         def betavariate(Alpha = 1.0,
-                        Beta = 1.0) : Float
+                        Beta = 1.0) : () => Float
     }
 }
 
@@ -97,25 +97,25 @@ package mathops {
      *
      */
     @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
-    def Atan(x = constant(0.0)) : Float
+    def Atan(x = constant(0.0)) : () => Float
     
     /** Square root of x
      *
      */
     @python.mathops("Log/Pow", "sqrt", "\\sqrt{%(x)s}")
-    def Sqrt(x = constant(1.0)) : Float
+    def Sqrt(x = constant(1.0)) : () => Float
     
     /** Exponent of x
      *
      */
     @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
-    def Exp(x = constant(1.0)) : Float
+    def Exp(x = constant(1.0)) : () => Float
     
     /** Natural logarithm of x (to base e)
      *
      */
     @python.mathops("Log/Pow", "log", "log(%(x)s)")
-    def Log(x = constant(1.0)) : Float
+    def Log(x = constant(1.0)) : () => Float
     
     /** Return *x* raised to the power *y*.
      *
@@ -127,7 +127,7 @@ package mathops {
      */
     @python.mathops("Log/Pow", "pow", "%(base)s^{%(power)s}")
     def Pow(base = constant(1.0),
-            power = constant(1.0)) : Float
+            power = constant(1.0)) : () => Float
 }
 
 package observable {
@@ -157,20 +157,20 @@ package trash {
     package in1 {
         package in2 {
             def A(x = constant(),
-                  y = if 3.0>x+2.0 then x else x*2.0) : types.T
+                  y = if 3.0>x+2.0 then x else x*2.0) : () => types.T
         }
-        def A(x : () => types.T1 = trash.A()) : types.U
+        def A(x : () => types.T1 = trash.A()) : () => types.U
     }
     @python.intrinsic.function("Statistics", "Avg_{%alpha}^{%source}", "observable.ewma.EWMA_Impl")
     def EWMA(source : IObservable,
-             alpha = 0.015) : Float
+             alpha = 0.015) : () => Float
     
-    def A(x = in1.in2.A()) : types.R
+    def A(x = in1.in2.A()) : () => types.R
 }
-def constant(x = 1.0) : Float
+def constant(x = 1.0) : () => Float
 
 @python.intrinsic.function("Basic", "C=%x", "_constant._Constant_Impl")
-def const(x = 1.0) : Float
+def const(x = 1.0) : () => Float
 
 type IFunction = () => Float
 

@@ -23,10 +23,12 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Exponent of x
@@ -59,10 +61,12 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Natural logarithm of x (to base e)
@@ -95,10 +99,12 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Square root of x
@@ -143,10 +149,12 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Return *x* raised to the power *y*.
@@ -184,10 +192,12 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Arc tangent of x, in radians.

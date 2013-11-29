@@ -91,10 +91,14 @@ class Parser() extends JavaTokenParsers with PackratParsers
                         ~ rep(annotation)
                         ~ ("def" ~> ident)
                         ~ ("(" ~> repsep(parameter, ",") <~ ")")
-                        ~ opt(":" ~> typ)
+                        ~ opt(func_type)
                         ~ opt("=" ~> expr)) ^^ {
         case (doc ~ annotations ~ name ~ parameters ~ t ~ body) => FunDef(name, parameters, body, t, doc, annotations)
     } withFailureMessage "function expected"
+
+    lazy val func_type = ("=>" ~> typ ^^ {
+        case t => FunctionType(Nil, t)
+    }) | (":" ~> typ)
 
     lazy val type_bases = ":" ~> repsep(typ, ",")
 

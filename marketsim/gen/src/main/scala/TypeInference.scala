@@ -35,7 +35,7 @@ package object TypeInference
 
     trait FunctionCall {
         self: Typed.FunctionCall =>
-        def ty = Types.nullaryFunction(target.ret_type)
+        def ty = target.ret_type
     }
 
     trait BooleanExpr {

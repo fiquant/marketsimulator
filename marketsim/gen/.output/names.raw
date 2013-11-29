@@ -31,10 +31,12 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Gamma distribution
@@ -75,10 +77,12 @@ Definitions:
 | | | | | | | | | | | -  |sigma| is the standard deviation 
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Normal distribution
@@ -103,10 +107,12 @@ Definitions:
 | | | | | | | | | | | -  |alpha| is the shape parameter
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Pareto distribution
@@ -144,10 +150,12 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Triangular distribution
@@ -188,10 +196,12 @@ Definitions:
 | | | | | | | | | | | -       to a uniform random angle over the range 0 to 2|pi|        
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Von Mises distribution
@@ -222,10 +232,12 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Uniform distribution
@@ -263,10 +275,12 @@ Definitions:
 | | | | | | | | | | | -  |beta| is the shape parameter  
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Weibull distribution
@@ -291,10 +305,12 @@ Definitions:
 | | | | | | | | | | | -  |lambda| is 1.0 divided by the desired mean. It should be greater zero.
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Exponential distribution
@@ -327,10 +343,12 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Log normal distribution
@@ -365,10 +383,12 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Beta distribution
@@ -406,10 +426,12 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Arc tangent of x, in radians.
@@ -442,10 +464,12 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Square root of x
@@ -478,10 +502,12 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Exponent of x
@@ -514,10 +540,12 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Natural logarithm of x (to base e)
@@ -562,10 +590,12 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Return *x* raised to the power *y*.
@@ -805,11 +835,13 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - Some:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - types
-| | | | | | | | | | | | | | | - T
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - types
+| | | | | | | | | | | | | | | | - T
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
 | | | | | | | - FunDef:
@@ -835,11 +867,13 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - types
-| | | | | | | | | | | | - U
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - types
+| | | | | | | | | | | | | - U
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | - FunDef:
@@ -863,10 +897,12 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Float
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -896,11 +932,13 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - types
-| | | | | | | | | - R
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - types
+| | | | | | | | | | - R
 | | | | | - None
 | | | | | - List:
 | - FunDef:
@@ -915,10 +953,12 @@ Definitions:
 | | | | - List:
 | | - None
 | | - Some:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - Float
+| | | - FunctionType:
+| | | | - List:
+| | | | - SimpleType:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - Float
 | | - None
 | | - List:
 | - FunDef:
@@ -933,10 +973,12 @@ Definitions:
 | | | | - List:
 | | - None
 | | - Some:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - Float
+| | | - FunctionType:
+| | | | - List:
+| | | | - SimpleType:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - Float
 | | - None
 | | - List:
 | | | - Annotation:

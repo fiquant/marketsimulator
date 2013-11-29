@@ -7,14 +7,14 @@ package mathutils.rnd {
      */
     @python.random()
     def betavariate(Alpha = 1.0,
-                    Beta = 1.0) : Float
+                    Beta = 1.0) : () => Float
     
     /** Exponential distribution
      *
      *  Returned values range from 0 to positive infinity
      */
     @python.random()
-    def expovariate(/** |lambda| is 1.0 divided by the desired mean. It should be greater zero.*/ Lambda = 1.0) : Float
+    def expovariate(/** |lambda| is 1.0 divided by the desired mean. It should be greater zero.*/ Lambda = 1.0) : () => Float
     
     /** Uniform distribution
      *
@@ -25,7 +25,7 @@ package mathutils.rnd {
      */
     @python.random()
     def uniform(Low = -10.0,
-                High = 10.0) : Float
+                High = 10.0) : () => Float
     
     /** Triangular distribution
      *
@@ -38,7 +38,7 @@ package mathutils.rnd {
     @python.random()
     def triangular(Low = 0.0,
                    High = 1.0,
-                   Mode = 0.5) : Float
+                   Mode = 0.5) : () => Float
     
     /** Gamma distribution
      *
@@ -52,7 +52,7 @@ package mathutils.rnd {
      */
     @python.random()
     def gammavariate(Alpha = 1.0,
-                     Beta = 1.0) : Float
+                     Beta = 1.0) : () => Float
     
     /** Log normal distribution
      *
@@ -62,13 +62,13 @@ package mathutils.rnd {
      */
     @python.random()
     def lognormvariate(Mu = 0.0,
-                       Sigma = 1.0) : Float
+                       Sigma = 1.0) : () => Float
     
     /** Normal distribution
      */
     @python.random()
     def normalvariate(/** |mu| is the mean                  */ Mu = 0.0,
-                      /** |sigma| is the standard deviation */ Sigma = 1.0) : Float
+                      /** |sigma| is the standard deviation */ Sigma = 1.0) : () => Float
     
     /** Von Mises distribution
      */
@@ -76,16 +76,16 @@ package mathutils.rnd {
     def vonmisesvariate(/** |mu| is the mean angle, expressed in radians between 0 and 2|pi|*/ Mu = 0.0,
                         /** |kappa| is the concentration parameter, which must be greater than or equal to zero.
                           *      If |kappa| is equal to zero, this distribution reduces
-                          *      to a uniform random angle over the range 0 to 2|pi|        */ Kappa = 0.0) : Float
+                          *      to a uniform random angle over the range 0 to 2|pi|        */ Kappa = 0.0) : () => Float
     
     /** Pareto distribution
      */
     @python.random()
-    def paretovariate(/** |alpha| is the shape parameter*/ Alpha = 1.0) : Float
+    def paretovariate(/** |alpha| is the shape parameter*/ Alpha = 1.0) : () => Float
     
     /** Weibull distribution
      */
     @python.random()
     def weibullvariate(/** |alpha| is the scale parameter */ Alpha = 1.0,
-                       /** |beta| is the shape parameter  */ Beta = 1.0) : Float
+                       /** |beta| is the shape parameter  */ Beta = 1.0) : () => Float
 }
