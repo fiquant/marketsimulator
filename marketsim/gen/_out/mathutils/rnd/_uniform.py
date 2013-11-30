@@ -1,3 +1,4 @@
+from marketsim import registry
 import random
 from marketsim import registry, types, ops
 import random

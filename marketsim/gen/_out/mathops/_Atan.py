@@ -1,7 +1,12 @@
+from marketsim import registry
+from marketsim import event
+from marketsim import types
+from marketsim import IObservable
+from marketsim import IFunction
+from marketsim.ops._all import Observable
+from marketsim.ops._all import constant
 import math
-from marketsim import IObservable, IFunction, registry, types, event
-import math
-from marketsim.ops._all import Observable, constant
+
 
 
 @registry.expose(['Trigonometric', 'Atan'])

@@ -2,6 +2,9 @@ package generator.python
 
 import AST.PyPrintable
 import predef._
+import predef.Import
+import predef.ImportFrom
+import scala.Some
 
 package object base {
 
@@ -13,8 +16,8 @@ package object base {
         def name : String
         def body : Code
         def registration : Code
-        def imports : Code
-        def base_class : String  = "object"
+        def imports : Code = ""
+        def base_class = "object"
 
         def toPython = {
             val code = imports | nl | registration | s"class $name($base_class):" |> body
@@ -62,7 +65,7 @@ package object base {
         def category    : String
         def parameters  : List[Parameter]
 
-        def registration = s"@registry.expose(['$category', '$alias'])"
+        def registration = s"@registry.expose(['$category', '$alias'])" ||| ImportFrom("registry", "marketsim")
 
         def join_fields(p : Parameter => Code, sep : Code = ", ") : Code = Code.from(parameters map p, sep)
 
@@ -84,7 +87,7 @@ package object base {
 
         def properties = "_properties = {" |> property_fields | "}"
 
-        def repr_body = s"""return "$name($repr_fields)" """
+        def repr_body : Code = s"""return "$name($repr_fields)" """
 
         def repr = Def("__repr__", "", repr_body)
 

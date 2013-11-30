@@ -1,4 +1,4 @@
-
+from marketsim import registry
 from marketsim import IObservable, IFunction, context, event, ops, registry, types, _
 from marketsim.ops import constant
 

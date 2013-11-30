@@ -53,7 +53,7 @@ object observable extends gen.PythonGenerator
 
         def attributes = Prop("attributes", "return {}")
 
-        val imports =
+        override val imports : Code =
             "from marketsim import IObservable, IFunction, context, event, ops, registry, types, _" |
             "from marketsim.ops import constant"
     }

@@ -38,7 +38,8 @@ def gen_needed():
     def process_files(_, dirname, fs):
         if dirname == ".":
             for f in [".idea", "project", "target", "_out", "_intrinsic"]:
-                fs.remove(f)
+                if f in fs:
+                    fs.remove(f)
         for f in fs:
             if os.path.splitext(f)[1] in exts:
                 full = os.path.join(dirname, f)
