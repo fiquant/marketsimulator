@@ -16,7 +16,11 @@ package object base {
         def imports : Code
         def base_class : String  = "object"
 
-        def toPython = (imports | nl | registration | s"class $name($base_class):" |> body).toString
+        def toPython = {
+            val code = imports | nl | registration | s"class $name($base_class):" |> body
+            val prologue = code.imports map { _.repr } mkString crlf
+            prologue + crlf + code
+        }
     }
 
     abstract class Parameter {
@@ -64,7 +68,7 @@ package object base {
 
         def init_fields = join_fields({ _.init })
         def assign_fields = join_fields({ _.assign }, nl)
-        def property_fields = join_fields({ _.property }, comma + crlf)
+        def property_fields = join_fields({ _.property }, comma + nl)
         def repr_fields = join_fields({ _.repr })
         def call_fields = join_fields({ _.call })
 
@@ -94,7 +98,7 @@ package object base {
     {
         def impl_module : String
 
-        def call_body : Code = s"""return $impl_module.$impl_function($call_fields)"""
+        def call_body : Code = s"""return $impl_module.$impl_function($call_fields)""" ||| Import(impl_module)
     }
 
 }

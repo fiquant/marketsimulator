@@ -33,12 +33,31 @@ package object predef {
 
     def crlf = "\r\n" + indent.get
 
+    trait Importable {
+        def repr : String
+    }
+
+
     abstract class Code
     {
         def toString : String
 
-        def | (t : Code) : Code = new Combine(new Combine(this, nl), t)
-        def |>(t : Code) : Code = new Combine(this, new Block(t))
+        def imports : Stream[Importable] = Nil.toStream
+
+        def ||| (t : Code) : Code = new Combine(this, t)
+        def |   (t : Code) : Code = this ||| nl ||| t
+        def |>  (t : Code) : Code = this ||| new Block(t)
+    }
+
+    case class Import(what: String) extends Code with Importable {
+        override def imports = Stream(this)
+        override def toString = ""
+        def repr = s"import $what"
+    }
+    case class ImportFrom(what: String, from: String) extends Code with Importable {
+        override def imports = Stream(this)
+        override def toString = ""
+        def repr = s"from $from import $what"
     }
 
     object Code
@@ -63,6 +82,8 @@ package object predef {
     class Block(inner : Code) extends Code
     {
         override def toString = indent(inner)
+
+        override def imports = inner.imports
     }
 
     val nl = new NewLine
@@ -71,6 +92,8 @@ package object predef {
     class Combine(x : Code, y : Code) extends Code
     {
         override def toString = x.toString + y.toString
+
+        override def imports = x.imports ++ y.imports
     }
 
     class LazyString(s : => String) extends Code {

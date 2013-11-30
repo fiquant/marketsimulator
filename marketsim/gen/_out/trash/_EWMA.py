@@ -1,3 +1,4 @@
+
 from marketsim import IFunction, IObservable, registry, types, _
 from marketsim.ops._function import Function
 from marketsim.gen._intrinsic.observable.ewma import EWMA_Impl
