@@ -41,22 +41,21 @@ object observable extends gen.PythonGenerator
             "ops.Observable[float].__init__(self)" |
             super.init_body |
             "self.impl = self.getImpl()" |
-            "event.subscribe(self.impl, _(self).fire, self)" |
-            stop
+            "event.subscribe(self.impl, _(self).fire, self)"
 
         override def call_body = "return self.impl()"
 
-        override def body = super.body | internals | attributes | getImpl | bind | reset | call | stop
+        override def body = super.body | internals | attributes | getImpl | bind | reset | call
 
         def getImpl = Def("getImpl", "", "return " + f.body.get.asPython)
 
-        def internals = "_internals = ['impl']" | nl
+        def internals = "_internals = ['impl']"
 
         def attributes = Prop("attributes", "return {}")
 
         val imports =
             "from marketsim import IObservable, IFunction, context, event, ops, registry, types, _" |
-            "from marketsim.ops import constant" | stop
+            "from marketsim.ops import constant"
     }
 
     def apply(/** arguments of the annotation */ args  : List[String])

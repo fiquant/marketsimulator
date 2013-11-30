@@ -8,12 +8,11 @@ object mathops extends gen.PythonGenerator
         override def assign =
             super.assign |
             s"if isinstance($name, types.IEvent):" |>
-                s"event.subscribe(self.$name, self.fire, self)" |
-            stop
+                s"event.subscribe(self.$name, self.fire, self)"
 
         def nullable =
             s"$name = self.$name()" |
-            s"if $name is None: return None" | stop
+            s"if $name is None: return None"
 
         override def call = s"self.$name()"
 
@@ -41,19 +40,19 @@ object mathops extends gen.PythonGenerator
 
         override val base_class = "Observable[float]"
 
-        override def init_body = "Observable[float].__init__(self)" | super.init_body | stop
+        override def init_body = "Observable[float].__init__(self)" | super.init_body
 
         def nullable_fields = join_fields({ _.nullable}, crlf)
 
-        override def call_body = nullable_fields | super.call_body | stop
+        override def call_body = nullable_fields | super.call_body
 
-        override def body = super.body | call | stop
+        override def body = super.body | call
 
 
         val imports =
             "from marketsim import IObservable, IFunction, registry, types, event" |
             "import math" |
-            "from marketsim.ops._all import Observable, constant" | stop
+            "from marketsim.ops._all import Observable, constant"
     }
 
     def apply(/** arguments of the annotation */ args  : List[String])

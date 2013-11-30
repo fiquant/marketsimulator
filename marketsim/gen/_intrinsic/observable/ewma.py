@@ -11,7 +11,7 @@ class EWMA_Impl(fold.Last, types.IDifferentiable):
     def __init__(self):
         """ Initializes EWMA with \alpha = alpha
         """
-        self._event = event.subscribe(self._source, _(self)._update, self)
+        self._event = event.subscribe(self.source, _(self)._update, self)
 
         self.reset()
 

@@ -2,6 +2,7 @@ from marketsim import IObservable, IFunction, registry, types, event
 import math
 from marketsim.ops._all import Observable, constant
 
+
 @registry.expose(['Log/Pow', 'Pow'])
 class Pow(Observable[float]):
     """ 
@@ -19,25 +20,22 @@ class Pow(Observable[float]):
         self.power = power if power is not None else constant(1.0)
         if isinstance(power, types.IEvent):
             event.subscribe(self.power, self.fire, self)
-
+    
     @property
     def label(self):
         return repr(self)
-
+    
     _properties = {
         'base' : IFunction,
         'power' : IFunction
     }
-
     def __repr__(self):
         return "%(base)s^{%(power)s}" % self.__dict__
-
-
+    
     def __call__(self, *args, **kwargs):
         base = self.base()
         if base is None: return None
         power = self.power()
         if power is None: return None
         return math.pow(self.base(), self.power())
-
-
+    

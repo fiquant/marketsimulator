@@ -33,23 +33,51 @@ package object predef {
 
     def crlf = "\r\n" + indent.get
 
-    class NewLine
-    class Stop
+    abstract class Code
+    {
+        def toString : String
+
+        def | (t : Code) : Code = new Combine(new Combine(this, nl), t)
+        def |>(t : Code) : Code = new Combine(this, new Block(t))
+    }
+
+    object Code
+    {
+        def from(lst : List[Code], sep : Code = nl) : Code = lst match {
+            case Nil => stop
+            case x :: Nil => x
+            case x :: tl => new Combine(new Combine(x, sep), from(tl, sep))
+        }
+    }
+
+    class NewLine extends Code
+    {
+        override def toString = crlf
+    }
+
+    class Stop extends Code
+    {
+        override def toString = ""
+    }
+
+    class Block(inner : Code) extends Code
+    {
+        override def toString = indent(inner)
+    }
 
     val nl = new NewLine
     val stop = new Stop
 
-    class LazyString(s : => String) {
+    class Combine(x : Code, y : Code) extends Code
+    {
+        override def toString = x.toString + y.toString
+    }
 
-        def | (t : => String) = new LazyString(s + crlf + t)
-        def | (t : NewLine) = s + "\r\n"
-        def | (t : Stop) = s
-        def |> (t : => Any) = new LazyString(s + indent(t))
+    class LazyString(s : => String) extends Code {
 
         override def toString = s
     }
 
-    implicit def toLazy(s : String) = new LazyString(s)
-    implicit def fromLazy(s : LazyString) = s.toString
+    implicit def toLazy(s : => String) = new LazyString(s)
 }
 

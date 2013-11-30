@@ -34,12 +34,14 @@ object intrinsic_function extends gen.PythonGenerator
 
         override val base_class = "Function[float], " + implementation_class
 
+        override def init_body = super.init_body | s"$implementation_class.__init__(self)"
+
         def call_body = ""
 
         val imports =
-            "from marketsim import registry, types, _" |
+            "from marketsim import IFunction, IObservable, registry, types, _" |
             "from marketsim.ops._function import Function" |
-            s"from marketsim.gen._intrinsic.$implementation_module import $implementation_class" | stop
+            s"from marketsim.gen._intrinsic.$implementation_module import $implementation_class"
     }
 
     def apply(/** arguments of the annotation */ args  : List[String])

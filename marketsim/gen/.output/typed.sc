@@ -161,7 +161,7 @@ package trash {
         def A(x : () => trash.types.T1 = trash.A()) : () => trash.types.U
     }
     @python.intrinsic.function("Statistics", "Avg_{%alpha}^{%source}", "observable.ewma.EWMA_Impl")
-    def EWMA(source : IObservable,
+    def EWMA(source : IObservable = const(),
              alpha : Float = 0.015) : () => Float
     
     def A(x : () => trash.types.T = trash.in1.in2.A()) : () => trash.types.R

@@ -1,6 +1,7 @@
 from marketsim import registry, types, ops
 import random
 
+
 @registry.expose(['Random', 'Triangular distribution'])
 class triangular(ops.Function[float]):
     """ 
@@ -14,26 +15,22 @@ class triangular(ops.Function[float]):
         self.Low = Low if Low is not None else 0.0
         self.High = High if High is not None else 1.0
         self.Mode = Mode if Mode is not None else 0.5
-
+    
     @property
     def label(self):
         return repr(self)
-
+    
     _properties = {
         'Low' : float,
         'High' : float,
         'Mode' : float
     }
-
     def __repr__(self):
         return "triangular(Low = "+repr(self.Low)+" , High = "+repr(self.High)+" , Mode = "+repr(self.Mode)+" )" 
-
-
+    
     def __call__(self, *args, **kwargs):
         return random.triangular(self.Low, self.High, self.Mode)
-
+    
     def _casts_to(self, dst):
         return triangular._types[0]._casts_to(dst)
-
-
-
+    

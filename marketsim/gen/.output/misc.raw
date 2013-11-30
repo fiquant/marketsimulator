@@ -214,12 +214,13 @@ Definitions:
 | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - source
+| | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - SimpleType:
+| | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IObservable
-| | | | | | | - None
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - alpha

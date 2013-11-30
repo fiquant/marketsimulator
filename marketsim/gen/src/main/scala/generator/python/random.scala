@@ -25,9 +25,9 @@ object random extends gen.PythonGenerator
 
         val imports =
             "from marketsim import registry, types, ops" |
-            "import random" | stop
+            "import random"
 
-        override def body = super.body | call | casts_to | nl
+        override def body = super.body | call | casts_to
     }
 
     def apply(/** arguments of the annotation */ args  : List[String])
