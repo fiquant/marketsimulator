@@ -1,11 +1,14 @@
 from marketsim import registry
 import random
-from marketsim import registry, types, ops
+from marketsim import IObservable
+from marketsim import IFunction
+from marketsim.ops._function import Function
+from marketsim import registry, types
 import random
 
 
 @registry.expose(['Random', 'Uniform distribution'])
-class uniform(ops.Function[float]):
+class uniform(Function[float]):
     """ 
      Return a random floating point number *N* such that
      *a* <= *N* <= *b* for *a* <= *b* and *b* <= *N* <= *a* for *b* < *a*.

@@ -72,30 +72,31 @@ package object Typed
             extends Expr
             with    sc.BooleanExpr
             with    TypeInference.BooleanExpr
+            with    ScPyPrintable
 
     case class Or(x : BooleanExpr,
                   y : BooleanExpr)
             extends BooleanExpr
             with    sc.Or
-            with    ScPrintable
+            with    py.Or
 
     case class And(x : BooleanExpr,
                    y : BooleanExpr)
             extends BooleanExpr
             with    sc.And
-            with    ScPrintable
+            with    py.And
 
     case class Not(x : BooleanExpr)
             extends BooleanExpr
             with    sc.Not
-            with    ScPrintable
+            with    py.Not
 
     case class Condition(symbol : CondSymbol,
                          x      : ArithExpr,
                          y      : ArithExpr)
             extends BooleanExpr
             with    sc.Condition
-            with    ScPrintable
+            with    py.Condition
             with    TypeInference.Condition
 
     case class Function(parent      : Package,

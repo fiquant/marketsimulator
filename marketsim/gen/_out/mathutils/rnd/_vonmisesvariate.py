@@ -1,11 +1,14 @@
 from marketsim import registry
 import random
-from marketsim import registry, types, ops
+from marketsim import IObservable
+from marketsim import IFunction
+from marketsim.ops._function import Function
+from marketsim import registry, types
 import random
 
 
 @registry.expose(['Random', 'Von Mises distribution'])
-class vonmisesvariate(ops.Function[float]):
+class vonmisesvariate(Function[float]):
     """ 
     """ 
     def __init__(self, Mu = None, Kappa = None):

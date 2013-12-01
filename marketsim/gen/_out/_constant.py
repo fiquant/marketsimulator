@@ -1,20 +1,18 @@
 from marketsim import registry
-from marketsim.gen._out import constant
-from marketsim.gen._out import constant
 from marketsim import IObservable
 from marketsim import IFunction
 from marketsim.ops._all import Observable
+from marketsim.gen._out import const
 from marketsim import context, event, registry, types, _
 
 
-@registry.expose(['Basic', 'Min'])
-class Min(Observable[float]):
+@registry.expose(['Basic', 'constant'])
+class constant(Observable[float]):
     """ 
     """ 
-    def __init__(self, x = None, y = None):
+    def __init__(self, x = None):
         Observable[float].__init__(self)
-        self.x = x if x is not None else constant()
-        self.y = y if y is not None else constant()
+        self.x = x if x is not None else 1.0
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -23,11 +21,10 @@ class Min(Observable[float]):
         return repr(self)
     
     _properties = {
-        'x' : IFunction,
-        'y' : IFunction
+        'x' : float
     }
     def __repr__(self):
-        return "min{%x, %y}" % self.__dict__
+        return "C=%x" % self.__dict__
     
     _internals = ['impl']
     @property
@@ -35,7 +32,7 @@ class Min(Observable[float]):
         return {}
     
     def getImpl(self):
-        return (self.x<self.y)[self.x, self.y]
+        return const(self.x)
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

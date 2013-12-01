@@ -1,11 +1,14 @@
 from marketsim import registry
 import random
-from marketsim import registry, types, ops
+from marketsim import IObservable
+from marketsim import IFunction
+from marketsim.ops._function import Function
+from marketsim import registry, types
 import random
 
 
 @registry.expose(['Random', 'Pareto distribution'])
-class paretovariate(ops.Function[float]):
+class paretovariate(Function[float]):
     """ 
     """ 
     def __init__(self, Alpha = None):

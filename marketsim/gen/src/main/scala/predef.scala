@@ -33,9 +33,6 @@ package object predef {
 
     def crlf = "\r\n" + indent.get
 
-    trait Importable {
-        def repr : String
-    }
 
 
     abstract class Code
@@ -47,6 +44,10 @@ package object predef {
         def ||| (t : Code) : Code = new Combine(this, t)
         def |   (t : Code) : Code = this ||| nl ||| t
         def |>  (t : Code) : Code = this ||| new Block(t)
+    }
+
+    trait Importable extends Code {
+        def repr: String
     }
 
     case class Import(what: String) extends Code with Importable {

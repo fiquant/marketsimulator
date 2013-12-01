@@ -35,27 +35,29 @@ object observable extends gen.PythonGenerator
 
         override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
 
-        override val base_class = "ops.Observable[float]"
+        override val base_class = "Observable[float]"
 
         override def init_body =
-            "ops.Observable[float].__init__(self)" |
+            "Observable[float].__init__(self)" |
             super.init_body |
             "self.impl = self.getImpl()" |
-            "event.subscribe(self.impl, _(self).fire, self)"
+            "event.subscribe(self.impl, _(self).fire, self)" |||
+                    ImportFrom("IObservable", "marketsim") |||
+                    ImportFrom("IFunction", "marketsim") |||
+                    ImportFrom("Observable", "marketsim.ops._all")
 
         override def call_body = "return self.impl()"
 
         override def body = super.body | internals | attributes | getImpl | bind | reset | call
 
-        def getImpl = Def("getImpl", "", "return " + f.body.get.asPython)
+        def getImpl = Def("getImpl", "", "return " + f.body.get.asPython) ||| Code.from(f.body.get.imports)
 
         def internals = "_internals = ['impl']"
 
         def attributes = Prop("attributes", "return {}")
 
         override val imports : Code =
-            "from marketsim import IObservable, IFunction, context, event, ops, registry, types, _" |
-            "from marketsim.ops import constant"
+            "from marketsim import context, event, registry, types, _"
     }
 
     def apply(/** arguments of the annotation */ args  : List[String])

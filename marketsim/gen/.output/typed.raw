@@ -1195,3 +1195,11 @@ Definitions:
 | | | | | | - IFunction
 | | - None
 | | - List:
+| | | - Annotation:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - python
+| | | | | | - observable
+| | | | - List:
+| | | | | - Basic
+| | | | | - C=%x

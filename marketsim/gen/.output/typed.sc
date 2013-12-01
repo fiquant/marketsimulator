@@ -170,5 +170,6 @@ type IObservable : IFunction
 @python.intrinsic.function("Basic", "C=%x", "_constant._Constant_Impl")
 def const(x : Float = 1.0) : IObservable
 
+@python.observable("Basic", "C=%x")
 def constant(x : Float = 1.0) : IFunction
 	 = const(x)

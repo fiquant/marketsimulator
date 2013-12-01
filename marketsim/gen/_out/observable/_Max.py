@@ -1,14 +1,18 @@
 from marketsim import registry
-from marketsim import IObservable, IFunction, context, event, ops, registry, types, _
-from marketsim.ops import constant
+from marketsim.gen._out import constant
+from marketsim.gen._out import constant
+from marketsim import IObservable
+from marketsim import IFunction
+from marketsim.ops._all import Observable
+from marketsim import context, event, registry, types, _
 
 
 @registry.expose(['Basic', 'Max'])
-class Max(ops.Observable[float]):
+class Max(Observable[float]):
     """ 
     """ 
     def __init__(self, x = None, y = None):
-        ops.Observable[float].__init__(self)
+        Observable[float].__init__(self)
         self.x = x if x is not None else constant()
         self.y = y if y is not None else constant()
         self.impl = self.getImpl()

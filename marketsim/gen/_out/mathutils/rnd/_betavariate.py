@@ -1,11 +1,14 @@
 from marketsim import registry
 import random
-from marketsim import registry, types, ops
+from marketsim import IObservable
+from marketsim import IFunction
+from marketsim.ops._function import Function
+from marketsim import registry, types
 import random
 
 
 @registry.expose(['Random', 'Beta distribution'])
-class betavariate(ops.Function[float]):
+class betavariate(Function[float]):
     """ 
      Conditions on the parameters are |alpha| > 0 and |beta| > 0.
      Returned values range between 0 and 1.

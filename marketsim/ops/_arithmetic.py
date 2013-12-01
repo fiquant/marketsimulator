@@ -1,6 +1,7 @@
 from marketsim import registry
 
-from _all import constant, BinaryOp
+from _all import BinaryOp
+from marketsim.gen._out._constant import constant
 
 @registry.expose(['Arithmetic', '+'], args = (constant(1.), constant(1.)))    
 class Sum(BinaryOp[float]):

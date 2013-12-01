@@ -28,7 +28,7 @@ package object AST {
             case ScalaMode => toScala
             case PythonMode => toPython
         }
-        
+
         def as(m : PrintMode) = {
             val old_mode = ScPyPrintable.printMode
             ScPyPrintable.printMode = m
@@ -39,6 +39,8 @@ package object AST {
 
         def asScala = as(ScalaMode)
         def asPython = as(PythonMode)
+
+        def imports: List[predef.Importable]
     }
 
 

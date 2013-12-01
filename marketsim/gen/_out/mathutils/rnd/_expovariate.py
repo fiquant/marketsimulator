@@ -1,11 +1,14 @@
 from marketsim import registry
 import random
-from marketsim import registry, types, ops
+from marketsim import IObservable
+from marketsim import IFunction
+from marketsim.ops._function import Function
+from marketsim import registry, types
 import random
 
 
 @registry.expose(['Random', 'Exponential distribution'])
-class expovariate(ops.Function[float]):
+class expovariate(Function[float]):
     """ 
       Returned values range from 0 to positive infinity
     """ 

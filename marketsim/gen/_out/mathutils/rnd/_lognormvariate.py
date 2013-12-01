@@ -1,11 +1,14 @@
 from marketsim import registry
 import random
-from marketsim import registry, types, ops
+from marketsim import IObservable
+from marketsim import IFunction
+from marketsim.ops._function import Function
+from marketsim import registry, types
 import random
 
 
 @registry.expose(['Random', 'Log normal distribution'])
-class lognormvariate(ops.Function[float]):
+class lognormvariate(Function[float]):
     """ 
      If you take the natural logarithm of this distribution,
       you'll get a normal distribution with mean |mu| and standard deviation |sigma|.

@@ -10,6 +10,7 @@ package observable
     def Max(x = constant(), y = constant()) = if x > y then x else y
 }
 
+@python.observable("Basic", "C=%x")
 def constant(x = 1.0) : IFunction = const(x)
 
 @python.intrinsic.function("Basic", "C=%x", "_constant._Constant_Impl")

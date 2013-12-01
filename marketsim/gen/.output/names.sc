@@ -167,6 +167,7 @@ package trash {
     
     def A(x = in1.in2.A()) : () => types.R
 }
+@python.observable("Basic", "C=%x")
 def constant(x = 1.0) : IFunction = const(x)
 
 @python.intrinsic.function("Basic", "C=%x", "_constant._Constant_Impl")

@@ -1,14 +1,17 @@
 from marketsim import registry
-from marketsim import IObservable, IFunction, context, event, ops, registry, types, _
-from marketsim.ops import constant
+from marketsim.gen._out import constant
+from marketsim import IObservable
+from marketsim import IFunction
+from marketsim.ops._all import Observable
+from marketsim import context, event, registry, types, _
 
 
 @registry.expose(['Pow/Log', 'Sqr'])
-class Sqr(ops.Observable[float]):
+class Sqr(Observable[float]):
     """ 
     """ 
     def __init__(self, x = None):
-        ops.Observable[float].__init__(self)
+        Observable[float].__init__(self)
         self.x = x if x is not None else constant()
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)

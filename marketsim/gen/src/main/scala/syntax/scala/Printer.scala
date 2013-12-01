@@ -75,7 +75,7 @@ package object Printer
         }
 
         trait Condition[T <: Expr] extends BooleanExpr with Printable {
-            val x, y : Expr
+            val x, y : T
             val symbol : CondSymbol
             def toScala = x.toString + symbol + y
         }
