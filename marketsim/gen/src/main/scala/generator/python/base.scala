@@ -34,17 +34,12 @@ package object base {
         def ty = p.ty.asPython
         def s_initializer = if (p.initializer.nonEmpty) "= None" else ""
 
-        def imports : Code = p.initializer match {
-            case Some(x) => Code.from(x.imports)
-            case None    => ""
-        }
-
         def init = s"$name $s_initializer"
         def assign : Code = {
-            (s"self.$name = $name" +
+            s"self.$name = $name" |||
                     (p.initializer match {
-                        case Some(x) => s" if $name is not None else " + x.asPython
-                        case None => ""})) ||| imports
+                        case Some(x) => (s" if $name is not None else " + x.asPython) ||| Code.from(x.imports)
+                        case None => ""})
         }
 
         def property = s"\'$name\' : $ty"
