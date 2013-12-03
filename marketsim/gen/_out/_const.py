@@ -22,5 +22,5 @@ class const(Function[float], _Constant_Impl):
         'x' : float
     }
     def __repr__(self):
-        return "C=%x" % self.__dict__
+        return "C=%(x)s" % self.__dict__
     

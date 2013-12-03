@@ -24,7 +24,7 @@ class Sqr(Observable[float]):
         'x' : IFunction
     }
     def __repr__(self):
-        return "{%x}^2" % self.__dict__
+        return "{%(x)s}^2" % self.__dict__
     
     _internals = ['impl']
     @property

@@ -10,6 +10,9 @@ class MACD(ops.Function[float]):
     
     def getImpl(self):
         return EWMA(self.source, 2./(self.fast+1)) - EWMA(self.source, 2./(self.slow+1))
+
+    def __repr__(self):
+        return self.label
     
     @property
     def label(self):
@@ -32,6 +35,9 @@ class signal(ops.Function[float]):
                                    self.fast, 
                                    self.slow)), 
                     2./(self.timeframe+1))
+
+    def __repr__(self):
+        return self.label
 
     @property
     def label(self):
@@ -63,6 +69,9 @@ class histogram(ops.Function[float]):
     
     def getImpl(self):
         return ops.Sub(_.macd, EWMA(_.macd, 2./(self.timeframe+1)))
+
+    def __repr__(self):
+        return self.label
 
     @property
     def label(self):

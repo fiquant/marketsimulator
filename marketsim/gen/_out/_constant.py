@@ -24,7 +24,7 @@ class constant(Observable[float]):
         'x' : float
     }
     def __repr__(self):
-        return "C=%x" % self.__dict__
+        return "C=%(x)s" % self.__dict__
     
     _internals = ['impl']
     @property

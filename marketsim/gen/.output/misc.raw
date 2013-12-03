@@ -36,7 +36,7 @@ Definitions:
 | | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - Pow/Log
-| | | | | | | | - {%x}^2
+| | | | | | | | - {%(x)s}^2
 | | | | - FunDef:
 | | | | | - Min
 | | | | | - List:
@@ -82,7 +82,7 @@ Definitions:
 | | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - Basic
-| | | | | | | | - min{%x, %y}
+| | | | | | | | - min{%(x)s, %(y)s}
 | | | | - FunDef:
 | | | | | - Max
 | | | | | - List:
@@ -128,7 +128,7 @@ Definitions:
 | | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - Basic
-| | | | | | | | - max{%x, %y}
+| | | | | | | | - max{%(x)s, %(y)s}
 | - FunDef:
 | | - constant
 | | - List:
@@ -161,7 +161,7 @@ Definitions:
 | | | | | | - observable
 | | | | - List:
 | | | | | - Basic
-| | | | | - C=%x
+| | | | | - C=%(x)s
 | - FunDef:
 | | - const
 | | - List:
@@ -188,7 +188,7 @@ Definitions:
 | | | | | | - function
 | | | | - List:
 | | | | | - Basic
-| | | | | - C=%x
+| | | | | - C=%(x)s
 | | | | | - _constant._Constant_Impl
 | - Alias:
 | | - IFunction
@@ -249,7 +249,7 @@ Definitions:
 | | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | | | - Statistics
-| | | | | | | | - Avg_{%alpha}^{%source}
+| | | | | | | | - Avg_{%(alpha)s}^{%(source)s}
 | | | | | | | | - observable.ewma.EWMA_Impl
 | - PackageDef:
 | | - QualifiedName:

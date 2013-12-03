@@ -219,7 +219,10 @@ class MidPrice(ops.Observable[float]):
         
     def getImpl(self):
         return (AskPrice(_.book) + BidPrice(_.book)) / 2
-    
+
+    def __repr__(self):
+        return self.label
+
     @property
     def label(self):
         return "MidPrice(%s)" % self.orderBook.label

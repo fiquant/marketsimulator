@@ -27,7 +27,7 @@ class Max(Observable[float]):
         'y' : IFunction
     }
     def __repr__(self):
-        return "max{%x, %y}" % self.__dict__
+        return "max{%(x)s, %(y)s}" % self.__dict__
     
     _internals = ['impl']
     @property

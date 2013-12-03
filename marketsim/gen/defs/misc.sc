@@ -1,19 +1,19 @@
 package observable
 {
-    @python.observable("Pow/Log", "{%x}^2")
+    @python.observable("Pow/Log", "{%(x)s}^2")
     def Sqr(x = constant()) = x*x
 
-    @python.observable("Basic", "min{%x, %y}")
+    @python.observable("Basic", "min{%(x)s, %(y)s}")
     def Min(x = constant(), y = constant()) = if x < y then x else y
 
-    @python.observable("Basic", "max{%x, %y}")
+    @python.observable("Basic", "max{%(x)s, %(y)s}")
     def Max(x = constant(), y = constant()) = if x > y then x else y
 }
 
-@python.observable("Basic", "C=%x")
+@python.observable("Basic", "C=%(x)s")
 def constant(x = 1.0) : IFunction = const(x)
 
-@python.intrinsic.function("Basic", "C=%x", "_constant._Constant_Impl")
+@python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
 def const(x = 1.0) : IObservable
 
 type IFunction = () => Float
@@ -21,7 +21,7 @@ type IObservable : IFunction
 
 package observable
 {
-    @python.intrinsic.function ("Statistics", "Avg_{%alpha}^{%source}", "observable.ewma.EWMA_Impl")
+    @python.intrinsic.function ("Statistics", "Avg_{%(alpha)s}^{%(source)s}", "observable.ewma.EWMA_Impl")
     def EWMA (source = const (), alpha = 0.015) => Float
 }
 

@@ -27,7 +27,7 @@ class Min(Observable[float]):
         'y' : IFunction
     }
     def __repr__(self):
-        return "min{%x, %y}" % self.__dict__
+        return "min{%(x)s, %(y)s}" % self.__dict__
     
     _internals = ['impl']
     @property
