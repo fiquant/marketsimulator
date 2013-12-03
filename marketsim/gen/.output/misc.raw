@@ -211,12 +211,6 @@ Definitions:
 | | | | - observable
 | | - Definitions:
 | | | - List:
-| - PackageDef:
-| | - QualifiedName:
-| | | - List:
-| | | | - trash
-| | - Definitions:
-| | | - List:
 | | | | - FunDef:
 | | | | | - EWMA
 | | | | | - List:
@@ -257,6 +251,12 @@ Definitions:
 | | | | | | | | - Statistics
 | | | | | | | | - Avg_{%alpha}^{%source}
 | | | | | | | | - observable.ewma.EWMA_Impl
+| - PackageDef:
+| | - QualifiedName:
+| | | - List:
+| | | | - trash
+| | - Definitions:
+| | | - List:
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:

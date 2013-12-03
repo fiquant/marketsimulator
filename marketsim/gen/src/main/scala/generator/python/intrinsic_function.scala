@@ -35,6 +35,8 @@ object intrinsic_function extends gen.PythonGenerator
         override def base_class = s"Function[float], $implementation_class"
 
         override def init_body = super.init_body | s"$implementation_class.__init__(self)" |||
+                ImportFrom("IObservable", "marketsim") |||
+                ImportFrom("IFunction", "marketsim") |||
                 ImportFrom("Function", "marketsim.ops._function") |||
                 ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
 

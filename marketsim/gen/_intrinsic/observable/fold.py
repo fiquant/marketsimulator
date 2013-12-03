@@ -13,7 +13,7 @@ class Last(object):
         self._scheduler = context.world
 
     def _update(self, _):
-        self.update(self._scheduler.currentTime, self._source())
+        self.update(self._scheduler.currentTime, self.source())
 
     def __call__(self):
         """ Returns value from the accumulator corresponding to the current time

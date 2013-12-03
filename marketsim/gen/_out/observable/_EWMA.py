@@ -1,7 +1,10 @@
-from marketsim import IFunction, IObservable, registry, types, _
+from marketsim import registry
+from marketsim.gen._out import const
+from marketsim import IObservable
+from marketsim import IFunction
 from marketsim.ops._function import Function
-from marketsim.gen._out._const import const
 from marketsim.gen._intrinsic.observable.ewma import EWMA_Impl
+
 
 
 @registry.expose(['Statistics', 'EWMA'])

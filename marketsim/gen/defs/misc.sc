@@ -21,12 +21,11 @@ type IObservable : IFunction
 
 package observable
 {
+    @python.intrinsic.function ("Statistics", "Avg_{%alpha}^{%source}", "observable.ewma.EWMA_Impl")
+    def EWMA (source = const (), alpha = 0.015) => Float
 }
 
 package trash
-
-@python.intrinsic.function ("Statistics", "Avg_{%alpha}^{%source}", "observable.ewma.EWMA_Impl")
-def EWMA (source = const (), alpha = 0.015) => Float
 
 package types {
     type T

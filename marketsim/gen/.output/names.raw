@@ -745,6 +745,46 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Basic
 | | | | | | | | - max{%x, %y}
+| | | | - FunDef:
+| | | | | - EWMA
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - source
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - alpha
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 0.015
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - Statistics
+| | | | | | | | - Avg_{%alpha}^{%source}
+| | | | | | | | - observable.ewma.EWMA_Impl
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
@@ -876,46 +916,6 @@ Definitions:
 | | | | | | | | | | | | | - U
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | - FunDef:
-| | | | | - EWMA
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - source
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - const
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - alpha
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - Const:
-| | | | | | | | | - 0.015
-| | | | | | | - List:
-| | | | | - None
-| | | | | - Some:
-| | | | | | - FunctionType:
-| | | | | | | - List:
-| | | | | | | - SimpleType:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - Float
-| | | | | - None
-| | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - intrinsic
-| | | | | | | | | - function
-| | | | | | | - List:
-| | | | | | | | - Statistics
-| | | | | | | | - Avg_{%alpha}^{%source}
-| | | | | | | | - observable.ewma.EWMA_Impl
 | | | | - FunDef:
 | | | | | - A
 | | | | | - List:
