@@ -136,7 +136,7 @@ package observable {
                           volume : Float = 100.0) : () => Float
         
         def WeightedPrice(queue : () => IOrderQueue,
-                          alpha : Float = 0.015) : () => Float = observable.EWMA(observable.orderbook.LastTradePrice(queue),alpha)/observable.EWMA(observable.orderbook.LastTradeVolume(queue),alpha)
+                          alpha : Float = 0.015) : () => Float = observable.EWMA(observable.orderbook.LastTradePrice(queue)*observable.orderbook.LastTradeVolume(queue),alpha)/observable.EWMA(observable.orderbook.LastTradeVolume(queue),alpha)
         
         def TickSize(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float
         
@@ -152,11 +152,11 @@ package observable {
         
         def Bids(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => IOrderQueue
         
-        def BestPrice(queue : () => IOrderQueue) : () => Float
+        def BestPrice(queue : () => IOrderQueue) : IObservable
         
         def OfTrader() : () => IOrderBook
         
-        def LastPrice(queue : () => IOrderQueue) : () => Float
+        def LastPrice(queue : () => IOrderQueue) : IObservable
         
         def Spread(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float = observable.orderbook.AskPrice(book)-observable.orderbook.BidPrice(book)
         

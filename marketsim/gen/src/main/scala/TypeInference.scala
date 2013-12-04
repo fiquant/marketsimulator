@@ -2,13 +2,17 @@ package object TypeInference
 {
     private def floatRank(e: Typed.Expr) = e.ty match {
         case x if x canCastTo Types.`Float` => 0
-        //case x if x canCastTo
+        case x if x canCastTo Types.FloatObservable => 10
         case x if x canCastTo Types.FloatFunc => 1
         case t => throw new Exception(s"has wrong type $t")
     }
 
     private def unifyFloat(xs : Typed.Expr*) =
-        if ((xs map floatRank).sum > 0) Types.FloatFunc else Types.`Float`
+        (xs map floatRank).sum match {
+            case x if x >= 10 => Types.FloatObservable
+            case x if x >= 1 => Types.FloatFunc
+            case 0 => Types.`Float`
+        }
 
     trait Neg {
         self: Typed.Neg =>

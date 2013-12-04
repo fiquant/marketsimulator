@@ -32,14 +32,14 @@ package observable
         def Asks(book = OfTrader()) => IOrderQueue
         def Bids(book = OfTrader()) => IOrderQueue
 
-        def BestPrice(queue : () => IOrderQueue) => Float
-        def LastPrice(queue : () => IOrderQueue) => Float
+        def BestPrice(queue : () => IOrderQueue) : IObservable
+        def LastPrice(queue : () => IOrderQueue) : IObservable
         def LastTradePrice (queue : () => IOrderQueue) : IObservable
         def LastTradeVolume(queue : () => IOrderQueue) : IObservable
         def PriceAtVolume(queue : () => IOrderQueue, volume = 100.0) => Float
 
         def WeightedPrice(queue : () => IOrderQueue, alpha = 0.015) =
-            EWMA(LastTradePrice(queue), alpha) / EWMA(LastTradeVolume(queue), alpha)
+            EWMA(LastTradePrice(queue)*LastTradeVolume(queue), alpha) / EWMA(LastTradeVolume(queue), alpha)
 
         def TickSize(book = OfTrader()) => Float
 
