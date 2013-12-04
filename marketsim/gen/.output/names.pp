@@ -205,13 +205,9 @@ package trash {
 @python.function("Basic", "C=%(x)s")
 def constant(x = 1.0) : IFunction = const(x)
 
-type IOrderQueue
-
-type IOrderBook
-
 @python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
 def const(x = 1.0) : IObservable
 
-type IObservable : IFunction
+type IOrderQueue
 
-type IFunction = () => Float
+type IOrderBook

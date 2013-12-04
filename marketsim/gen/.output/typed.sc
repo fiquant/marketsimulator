@@ -196,7 +196,7 @@ package trash {
     package in1 {
         package in2 {
             def A(x : IFunction = constant(),
-                  y : () => Float = if 3.0>x+2.0 then x else x*2.0) : () => trash.types.T
+                  y : IFunction = if 3.0>x+2.0 then x else x*2.0) : () => trash.types.T
         }
         def A(x : () => trash.types.T1 = trash.A()) : () => trash.types.U
     }

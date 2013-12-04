@@ -1520,12 +1520,10 @@ Definitions:
 | | | | | | | | | | | | - Parameter:
 | | | | | | | | | | | | | - y
 | | | | | | | | | | | | | - Some:
-| | | | | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - IFunction
 | | | | | | | | | | | | | - Some:
 | | | | | | | | | | | | | | - IfThenElse:
 | | | | | | | | | | | | | | | - Condition:

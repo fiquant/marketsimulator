@@ -190,21 +190,6 @@ Definitions:
 | | | | | - Basic
 | | | | | - C=%(x)s
 | | | | | - _constant._Constant_Impl
-| - Alias:
-| | - IFunction
-| | - FunctionType:
-| | | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - Float
-| - Interface:
-| | - IObservable
-| | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IFunction
 | - Interface:
 | | - IOrderQueue
 | | - List:

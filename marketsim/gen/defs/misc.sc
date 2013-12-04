@@ -16,8 +16,6 @@ def constant(x = 1.0) : IFunction = const(x)
 @python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
 def const(x = 1.0) : IObservable
 
-type IFunction = () => Float
-type IObservable : IFunction
 
 type IOrderQueue
 type IOrderBook

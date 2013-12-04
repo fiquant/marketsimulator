@@ -80,7 +80,11 @@ object Typer
         private def lookupType(name : AST.QualifiedName) : Types.UserDefined =
             source.lookupType(name.names) match {
                 case Some((scope, definition)) => Processor(scope).getTyped(definition).ty
-                case _ => throw new Exception(s"Unknown type $name")
+                case None => Typed.topLevel.types.get(name.toString) match {
+                    case Some(t) => t.ty
+                    case None => throw new Exception(s"Unknown type $name")
+                }
+
             }
 
 

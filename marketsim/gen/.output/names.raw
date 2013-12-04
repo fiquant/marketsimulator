@@ -1369,12 +1369,6 @@ Definitions:
 | | | | - List:
 | | | | | - Basic
 | | | | | - C=%(x)s
-| - Interface:
-| | - IOrderQueue
-| | - List:
-| - Interface:
-| | - IOrderBook
-| | - List:
 | - FunDef:
 | | - const
 | | - List:
@@ -1404,17 +1398,8 @@ Definitions:
 | | | | | - C=%(x)s
 | | | | | - _constant._Constant_Impl
 | - Interface:
-| | - IObservable
+| | - IOrderQueue
 | | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IFunction
-| - Alias:
-| | - IFunction
-| | - FunctionType:
-| | | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - Float
+| - Interface:
+| | - IOrderBook
+| | - List:

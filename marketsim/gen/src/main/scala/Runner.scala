@@ -42,10 +42,12 @@ object Runner extends syntax.scala.Parser {
     }
 
 
+    def unused(a : Any) {}
 
     def main(args: Array[String]) {
 
-        generator.python.gen.Annotations
+        unused(generator.python.gen.Annotations)
+        unused(Types.FloatObservable)
 
         val files = "random" :: "mathops" :: "misc" :: Nil
 

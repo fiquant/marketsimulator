@@ -111,8 +111,9 @@ package object Types
     }
 
     def nullaryFunction(ret_type : Base) = Function(List(), ret_type)
-    val FloatFunc = nullaryFunction(`Float`)
-    //val FloatObservable = Interface("IObservable")
+    val FloatFunc = Typed.TypeDeclaration(Alias("IFunction", Typed.topLevel, nullaryFunction(`Float`))).ty
+    val FloatObservable = Typed.TypeDeclaration(Interface("IObservable", Typed.topLevel, FloatFunc :: Nil)).ty
     val BooleanFunc = nullaryFunction(`Boolean`)
+
 
 }
