@@ -145,7 +145,7 @@ package observable {
             y : IFunction = constant()) : () => Float
     	 = if x>y then x else y
     
-    @python.intrinsic.function("Statistics", "Avg_{%(alpha)s}^{%(source)s}", "observable.ewma.EWMA_Impl")
+    @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "observable.ewma.EWMA_Impl")
     def EWMA(source : IObservable = const(),
              alpha : Float = 0.015) : () => Float
 }

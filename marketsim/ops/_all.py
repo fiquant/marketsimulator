@@ -26,7 +26,7 @@ class BinaryOp_Impl(object):
         return '(' + self.lhs.label + self.sign + self.rhs.label + ')'
     
     def __repr__(self):
-        return '(' + repr(self.lhs) + self.sign + repr(self.rhs) + ')'
+        return self.label
 
 BinaryOp = types.Factory("BinaryOp", """(BinaryOp_Impl, Observable[%(T)s]):
     def __init__(self, lhs, rhs):

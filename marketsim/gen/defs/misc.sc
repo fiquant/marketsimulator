@@ -21,7 +21,7 @@ type IObservable : IFunction
 
 package observable
 {
-    @python.intrinsic.function ("Statistics", "Avg_{%(alpha)s}^{%(source)s}", "observable.ewma.EWMA_Impl")
+    @python.intrinsic.function ("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "observable.ewma.EWMA_Impl")
     def EWMA (source = const (), alpha = 0.015) => Float
 }
 

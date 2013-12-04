@@ -25,5 +25,5 @@ class EWMA(Function[float], EWMA_Impl):
         'alpha' : float
     }
     def __repr__(self):
-        return "Avg_{%(alpha)s}^{%(source)s}" % self.__dict__
+        return "Avg_{\\alpha=%(alpha)s}(%(source)s)" % self.__dict__
     
