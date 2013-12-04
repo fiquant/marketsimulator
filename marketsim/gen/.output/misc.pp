@@ -1,22 +1,27 @@
 
 package observable {
     @python.observable("Pow/Log", "{%(x)s}^2")
-    def Sqr(x = constant()) = x*x
+    def Sqr(x = constant())
+         = x*x
     
     @python.observable("Basic", "min{%(x)s, %(y)s}")
     def Min(x = constant(),
-            y = constant()) = if x<y then x else y
+            y = constant())
+         = if x<y then x else y
     
     @python.observable("Basic", "max{%(x)s, %(y)s}")
     def Max(x = constant(),
-            y = constant()) = if x>y then x else y
+            y = constant())
+         = if x>y then x else y
 }
 
 @python.function("Basic", "C=%(x)s")
-def constant(x = 1.0) : IFunction = const(x)
+def constant(x = 1.0) : IFunction
+     = const(x)
 
 @python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
 def const(x = 1.0) : IObservable
+    
 
 type IOrderQueue
 
@@ -26,37 +31,52 @@ package observable {
     @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "observable.ewma.EWMA_Impl")
     def EWMA(source = const(),
              alpha = 0.015) : () => Float
+        
     
     package orderbook {
         def OfTrader() : () => IOrderBook
+            
         
         def Asks(book = OfTrader()) : () => IOrderQueue
+            
         
         def Bids(book = OfTrader()) : () => IOrderQueue
+            
         
         def BestPrice(queue : () => IOrderQueue) : IObservable
+            
         
         def LastPrice(queue : () => IOrderQueue) : IObservable
+            
         
         def LastTradePrice(queue : () => IOrderQueue) : IObservable
+            
         
         def LastTradeVolume(queue : () => IOrderQueue) : IObservable
+            
         
         def PriceAtVolume(queue : () => IOrderQueue,
                           volume = 100.0) : () => Float
+            
         
         def WeightedPrice(queue : () => IOrderQueue,
-                          alpha = 0.015) = EWMA(LastTradePrice(queue)*LastTradeVolume(queue),alpha)/EWMA(LastTradeVolume(queue),alpha)
+                          alpha = 0.015)
+             = EWMA(LastTradePrice(queue)*LastTradeVolume(queue),alpha)/EWMA(LastTradeVolume(queue),alpha)
         
         def TickSize(book = OfTrader()) : () => Float
+            
         
-        def AskPrice(book = OfTrader()) = BestPrice(Asks(book))
+        def AskPrice(book = OfTrader())
+             = BestPrice(Asks(book))
         
-        def BidPrice(book = OfTrader()) = BestPrice(Bids(book))
+        def BidPrice(book = OfTrader())
+             = BestPrice(Bids(book))
         
-        def Spread(book = OfTrader()) = AskPrice(book)-BidPrice(book)
+        def Spread(book = OfTrader())
+             = AskPrice(book)-BidPrice(book)
         
-        def MidPrice(book = OfTrader()) = (AskPrice(book)+BidPrice(book))/2.0
+        def MidPrice(book = OfTrader())
+             = (AskPrice(book)+BidPrice(book))/2.0
     }
 }
 
@@ -72,13 +92,16 @@ package trash {
     }
     
     def A(x = in1.in2.A()) : () => types.R
+        
     
     package in1 {
         def A(x : () => types.T1 = trash.A()) : () => types.U
+            
         
         package in2 {
             def A(x = constant(),
                   y = if 3.0>x+2.0 then x else x*2.0) : () => types.T
+                
         }
     }
 }

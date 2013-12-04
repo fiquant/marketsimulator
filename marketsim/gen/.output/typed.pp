@@ -14,17 +14,20 @@ package mathutils {
         @python.random()
         def gammavariate(Alpha : Float = 1.0,
                          Beta : Float = 1.0) : () => Float
+            
         
         /** Normal distribution
          */
         @python.random()
         def normalvariate(/** |mu| is the mean                  */ Mu : Float = 0.0,
                           /** |sigma| is the standard deviation */ Sigma : Float = 1.0) : () => Float
+            
         
         /** Pareto distribution
          */
         @python.random()
         def paretovariate(/** |alpha| is the shape parameter*/ Alpha : Float = 1.0) : () => Float
+            
         
         /** Triangular distribution
          *
@@ -38,6 +41,7 @@ package mathutils {
         def triangular(Low : Float = 0.0,
                        High : Float = 1.0,
                        Mode : Float = 0.5) : () => Float
+            
         
         /** Von Mises distribution
          */
@@ -46,6 +50,7 @@ package mathutils {
                             /** |kappa| is the concentration parameter, which must be greater than or equal to zero.
                               *      If |kappa| is equal to zero, this distribution reduces
                               *      to a uniform random angle over the range 0 to 2|pi|        */ Kappa : Float = 0.0) : () => Float
+            
         
         /** Uniform distribution
          *
@@ -57,12 +62,14 @@ package mathutils {
         @python.random()
         def uniform(Low : Float = -10.0,
                     High : Float = 10.0) : () => Float
+            
         
         /** Weibull distribution
          */
         @python.random()
         def weibullvariate(/** |alpha| is the scale parameter */ Alpha : Float = 1.0,
                            /** |beta| is the shape parameter  */ Beta : Float = 1.0) : () => Float
+            
         
         /** Exponential distribution
          *
@@ -70,6 +77,7 @@ package mathutils {
          */
         @python.random()
         def expovariate(/** |lambda| is 1.0 divided by the desired mean. It should be greater zero.*/ Lambda : Float = 1.0) : () => Float
+            
         
         /** Log normal distribution
          *
@@ -80,6 +88,7 @@ package mathutils {
         @python.random()
         def lognormvariate(Mu : Float = 0.0,
                            Sigma : Float = 1.0) : () => Float
+            
         
         /** Beta distribution
          *
@@ -89,6 +98,7 @@ package mathutils {
         @python.random()
         def betavariate(Alpha : Float = 1.0,
                         Beta : Float = 1.0) : () => Float
+            
     }
 }
 
@@ -98,24 +108,28 @@ package mathops {
      */
     @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
     def Atan(x : IFunction = constant(0.0)) : () => Float
+        
     
     /** Square root of x
      *
      */
     @python.mathops("Log/Pow", "sqrt", "\\sqrt{%(x)s}")
     def Sqrt(x : IFunction = constant(1.0)) : () => Float
+        
     
     /** Exponent of x
      *
      */
     @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
     def Exp(x : IFunction = constant(1.0)) : () => Float
+        
     
     /** Natural logarithm of x (to base e)
      *
      */
     @python.mathops("Log/Pow", "log", "log(%(x)s)")
     def Log(x : IFunction = constant(1.0)) : () => Float
+        
     
     /** Return *x* raised to the power *y*.
      *
@@ -128,55 +142,74 @@ package mathops {
     @python.mathops("Log/Pow", "pow", "%(base)s^{%(power)s}")
     def Pow(base : IFunction = constant(1.0),
             power : IFunction = constant(1.0)) : () => Float
+        
 }
 
 package observable {
     package orderbook {
         def PriceAtVolume(queue : () => IOrderQueue,
                           volume : Float = 100.0) : () => Float
+            
         
         def WeightedPrice(queue : () => IOrderQueue,
-                          alpha : Float = 0.015) : () => Float = observable.EWMA(observable.orderbook.LastTradePrice(queue)*observable.orderbook.LastTradeVolume(queue),alpha)/observable.EWMA(observable.orderbook.LastTradeVolume(queue),alpha)
+                          alpha : Float = 0.015) : () => Float
+             = observable.EWMA(observable.orderbook.LastTradePrice(queue)*observable.orderbook.LastTradeVolume(queue),alpha)/observable.EWMA(observable.orderbook.LastTradeVolume(queue),alpha)
         
         def TickSize(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float
+            
         
-        def MidPrice(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float = (observable.orderbook.AskPrice(book)+observable.orderbook.BidPrice(book))/2.0
+        def MidPrice(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float
+             = (observable.orderbook.AskPrice(book)+observable.orderbook.BidPrice(book))/2.0
         
         def Asks(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => IOrderQueue
+            
         
-        def AskPrice(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float = observable.orderbook.BestPrice(observable.orderbook.Asks(book))
+        def AskPrice(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float
+             = observable.orderbook.BestPrice(observable.orderbook.Asks(book))
         
         def LastTradeVolume(queue : () => IOrderQueue) : IObservable
+            
         
-        def BidPrice(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float = observable.orderbook.BestPrice(observable.orderbook.Bids(book))
+        def BidPrice(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float
+             = observable.orderbook.BestPrice(observable.orderbook.Bids(book))
         
         def Bids(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => IOrderQueue
+            
         
         def BestPrice(queue : () => IOrderQueue) : IObservable
+            
         
         def OfTrader() : () => IOrderBook
+            
         
         def LastPrice(queue : () => IOrderQueue) : IObservable
+            
         
-        def Spread(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float = observable.orderbook.AskPrice(book)-observable.orderbook.BidPrice(book)
+        def Spread(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float
+             = observable.orderbook.AskPrice(book)-observable.orderbook.BidPrice(book)
         
         def LastTradePrice(queue : () => IOrderQueue) : IObservable
+            
     }
     
     @python.observable("Pow/Log", "{%(x)s}^2")
-    def Sqr(x : IFunction = constant()) : () => Float = x*x
+    def Sqr(x : IFunction = constant()) : () => Float
+         = x*x
     
     @python.observable("Basic", "min{%(x)s, %(y)s}")
     def Min(x : IFunction = constant(),
-            y : IFunction = constant()) : () => Float = if x<y then x else y
+            y : IFunction = constant()) : () => Float
+         = if x<y then x else y
     
     @python.observable("Basic", "max{%(x)s, %(y)s}")
     def Max(x : IFunction = constant(),
-            y : IFunction = constant()) : () => Float = if x>y then x else y
+            y : IFunction = constant()) : () => Float
+         = if x>y then x else y
     
     @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "observable.ewma.EWMA_Impl")
     def EWMA(source : IObservable = const(),
              alpha : Float = 0.015) : () => Float
+        
 }
 
 package trash {
@@ -194,12 +227,15 @@ package trash {
         package in2 {
             def A(x : IFunction = constant(),
                   y : IFunction = if 3.0>x+2.0 then x else x*2.0) : () => trash.types.T
+                
         }
         
         def A(x : () => trash.types.T1 = trash.A()) : () => trash.types.U
+            
     }
     
     def A(x : () => trash.types.T = trash.in1.in2.A()) : () => trash.types.R
+        
 }
 
 type IFunction = () => Float
@@ -212,6 +248,8 @@ type IOrderBook
 
 @python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
 def const(x : Float = 1.0) : IObservable
+    
 
 @python.function("Basic", "C=%(x)s")
-def constant(x : Float = 1.0) : IFunction = const(x)
+def constant(x : Float = 1.0) : IFunction
+     = const(x)

@@ -165,7 +165,7 @@ package object Printer
                         + indent(("def " + name).length + 1){
                                 parameters.mkString("(", "," + crlf, ")") }
                         + printRetType
-                        + printBody)
+                        + indent(printBody))
             }
         }
 

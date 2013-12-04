@@ -14,17 +14,20 @@ package mathutils {
         @python.random()
         def gammavariate(Alpha = 1.0,
                          Beta = 1.0) : () => Float
+            
         
         /** Normal distribution
          */
         @python.random()
         def normalvariate(/** |mu| is the mean                  */ Mu = 0.0,
                           /** |sigma| is the standard deviation */ Sigma = 1.0) : () => Float
+            
         
         /** Pareto distribution
          */
         @python.random()
         def paretovariate(/** |alpha| is the shape parameter*/ Alpha = 1.0) : () => Float
+            
         
         /** Triangular distribution
          *
@@ -38,6 +41,7 @@ package mathutils {
         def triangular(Low = 0.0,
                        High = 1.0,
                        Mode = 0.5) : () => Float
+            
         
         /** Von Mises distribution
          */
@@ -46,6 +50,7 @@ package mathutils {
                             /** |kappa| is the concentration parameter, which must be greater than or equal to zero.
                               *      If |kappa| is equal to zero, this distribution reduces
                               *      to a uniform random angle over the range 0 to 2|pi|        */ Kappa = 0.0) : () => Float
+            
         
         /** Uniform distribution
          *
@@ -57,12 +62,14 @@ package mathutils {
         @python.random()
         def uniform(Low = -10.0,
                     High = 10.0) : () => Float
+            
         
         /** Weibull distribution
          */
         @python.random()
         def weibullvariate(/** |alpha| is the scale parameter */ Alpha = 1.0,
                            /** |beta| is the shape parameter  */ Beta = 1.0) : () => Float
+            
         
         /** Exponential distribution
          *
@@ -70,6 +77,7 @@ package mathutils {
          */
         @python.random()
         def expovariate(/** |lambda| is 1.0 divided by the desired mean. It should be greater zero.*/ Lambda = 1.0) : () => Float
+            
         
         /** Log normal distribution
          *
@@ -80,6 +88,7 @@ package mathutils {
         @python.random()
         def lognormvariate(Mu = 0.0,
                            Sigma = 1.0) : () => Float
+            
         
         /** Beta distribution
          *
@@ -89,6 +98,7 @@ package mathutils {
         @python.random()
         def betavariate(Alpha = 1.0,
                         Beta = 1.0) : () => Float
+            
     }
 }
 
@@ -98,24 +108,28 @@ package mathops {
      */
     @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
     def Atan(x = constant(0.0)) : () => Float
+        
     
     /** Square root of x
      *
      */
     @python.mathops("Log/Pow", "sqrt", "\\sqrt{%(x)s}")
     def Sqrt(x = constant(1.0)) : () => Float
+        
     
     /** Exponent of x
      *
      */
     @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
     def Exp(x = constant(1.0)) : () => Float
+        
     
     /** Natural logarithm of x (to base e)
      *
      */
     @python.mathops("Log/Pow", "log", "log(%(x)s)")
     def Log(x = constant(1.0)) : () => Float
+        
     
     /** Return *x* raised to the power *y*.
      *
@@ -128,54 +142,73 @@ package mathops {
     @python.mathops("Log/Pow", "pow", "%(base)s^{%(power)s}")
     def Pow(base = constant(1.0),
             power = constant(1.0)) : () => Float
+        
 }
 
 package observable {
     package orderbook {
         def PriceAtVolume(queue : () => IOrderQueue,
                           volume = 100.0) : () => Float
+            
         
         def WeightedPrice(queue : () => IOrderQueue,
-                          alpha = 0.015) = EWMA(LastTradePrice(queue)*LastTradeVolume(queue),alpha)/EWMA(LastTradeVolume(queue),alpha)
+                          alpha = 0.015)
+             = EWMA(LastTradePrice(queue)*LastTradeVolume(queue),alpha)/EWMA(LastTradeVolume(queue),alpha)
         
         def TickSize(book = OfTrader()) : () => Float
+            
         
-        def MidPrice(book = OfTrader()) = (AskPrice(book)+BidPrice(book))/2.0
+        def MidPrice(book = OfTrader())
+             = (AskPrice(book)+BidPrice(book))/2.0
         
         def Asks(book = OfTrader()) : () => IOrderQueue
+            
         
-        def AskPrice(book = OfTrader()) = BestPrice(Asks(book))
+        def AskPrice(book = OfTrader())
+             = BestPrice(Asks(book))
         
         def LastTradeVolume(queue : () => IOrderQueue) : IObservable
+            
         
-        def BidPrice(book = OfTrader()) = BestPrice(Bids(book))
+        def BidPrice(book = OfTrader())
+             = BestPrice(Bids(book))
         
         def Bids(book = OfTrader()) : () => IOrderQueue
+            
         
         def BestPrice(queue : () => IOrderQueue) : IObservable
+            
         
         def OfTrader() : () => IOrderBook
+            
         
         def LastPrice(queue : () => IOrderQueue) : IObservable
+            
         
-        def Spread(book = OfTrader()) = AskPrice(book)-BidPrice(book)
+        def Spread(book = OfTrader())
+             = AskPrice(book)-BidPrice(book)
         
         def LastTradePrice(queue : () => IOrderQueue) : IObservable
+            
     }
     @python.observable("Pow/Log", "{%(x)s}^2")
-    def Sqr(x = constant()) = x*x
+    def Sqr(x = constant())
+         = x*x
     
     @python.observable("Basic", "min{%(x)s, %(y)s}")
     def Min(x = constant(),
-            y = constant()) = if x<y then x else y
+            y = constant())
+         = if x<y then x else y
     
     @python.observable("Basic", "max{%(x)s, %(y)s}")
     def Max(x = constant(),
-            y = constant()) = if x>y then x else y
+            y = constant())
+         = if x>y then x else y
     
     @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "observable.ewma.EWMA_Impl")
     def EWMA(source = const(),
              alpha = 0.015) : () => Float
+        
 }
 
 package trash {
@@ -193,16 +226,21 @@ package trash {
         package in2 {
             def A(x = constant(),
                   y = if 3.0>x+2.0 then x else x*2.0) : () => types.T
+                
         }
         def A(x : () => types.T1 = trash.A()) : () => types.U
+            
     }
     def A(x = in1.in2.A()) : () => types.R
+        
 }
 @python.function("Basic", "C=%(x)s")
-def constant(x = 1.0) : IFunction = const(x)
+def constant(x = 1.0) : IFunction
+     = const(x)
 
 @python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
 def const(x = 1.0) : IObservable
+    
 
 type IOrderQueue
 
