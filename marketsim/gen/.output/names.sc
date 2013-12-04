@@ -131,6 +131,37 @@ package mathops {
 }
 
 package observable {
+    package orderbook {
+        def PriceAtVolume(queue : () => IOrderQueue,
+                          volume = 100.0) : () => Float
+        
+        def WeightedPrice(queue : () => IOrderQueue,
+                          alpha = 0.015) = EWMA(LastTradePrice(queue),alpha)/EWMA(LastTradeVolume(queue),alpha)
+        
+        def TickSize(book = OfTrader()) : () => Float
+        
+        def MidPrice(book = OfTrader()) = (AskPrice(book)+BidPrice(book))/2.0
+        
+        def Asks(book = OfTrader()) : () => IOrderQueue
+        
+        def AskPrice(book = OfTrader()) = BestPrice(Asks(book))
+        
+        def LastTradeVolume(queue : () => IOrderQueue) : IObservable
+        
+        def BidPrice(book = OfTrader()) = BestPrice(Bids(book))
+        
+        def Bids(book = OfTrader()) : () => IOrderQueue
+        
+        def BestPrice(queue : () => IOrderQueue) : () => Float
+        
+        def OfTrader() : () => IOrderBook
+        
+        def LastPrice(queue : () => IOrderQueue) : () => Float
+        
+        def Spread(book = OfTrader()) = AskPrice(book)-BidPrice(book)
+        
+        def LastTradePrice(queue : () => IOrderQueue) : IObservable
+    }
     @python.observable("Pow/Log", "{%(x)s}^2")
     def Sqr(x = constant()) = x*x
     
@@ -170,9 +201,13 @@ package trash {
 @python.function("Basic", "C=%(x)s")
 def constant(x = 1.0) : IFunction = const(x)
 
+type IOrderQueue
+
+type IOrderBook
+
 @python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
 def const(x = 1.0) : IObservable
 
-type IFunction = () => Float
-
 type IObservable : IFunction
+
+type IFunction = () => Float

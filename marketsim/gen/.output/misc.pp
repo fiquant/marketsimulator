@@ -22,10 +22,46 @@ type IFunction = () => Float
 
 type IObservable : IFunction
 
+type IOrderQueue
+
+type IOrderBook
+
 package observable {
     @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "observable.ewma.EWMA_Impl")
     def EWMA(source = const(),
              alpha = 0.015) : () => Float
+    
+    package orderbook {
+        def OfTrader() : () => IOrderBook
+        
+        def Asks(book = OfTrader()) : () => IOrderQueue
+        
+        def Bids(book = OfTrader()) : () => IOrderQueue
+        
+        def BestPrice(queue : () => IOrderQueue) : () => Float
+        
+        def LastPrice(queue : () => IOrderQueue) : () => Float
+        
+        def LastTradePrice(queue : () => IOrderQueue) : IObservable
+        
+        def LastTradeVolume(queue : () => IOrderQueue) : IObservable
+        
+        def PriceAtVolume(queue : () => IOrderQueue,
+                          volume = 100.0) : () => Float
+        
+        def WeightedPrice(queue : () => IOrderQueue,
+                          alpha = 0.015) = EWMA(LastTradePrice(queue),alpha)/EWMA(LastTradeVolume(queue),alpha)
+        
+        def TickSize(book = OfTrader()) : () => Float
+        
+        def AskPrice(book = OfTrader()) = BestPrice(Asks(book))
+        
+        def BidPrice(book = OfTrader()) = BestPrice(Bids(book))
+        
+        def Spread(book = OfTrader()) = AskPrice(book)-BidPrice(book)
+        
+        def MidPrice(book = OfTrader()) = (AskPrice(book)+BidPrice(book))/2.0
+    }
 }
 
 package trash {

@@ -131,6 +131,42 @@ package mathops {
 }
 
 package observable {
+    package orderbook {
+        def PriceAtVolume(queue : () => IOrderQueue,
+                          volume : Float = 100.0) : () => Float
+        
+        def WeightedPrice(queue : () => IOrderQueue,
+                          alpha : Float = 0.015) : () => Float
+        	 = observable.EWMA(observable.orderbook.LastTradePrice(queue),alpha)/observable.EWMA(observable.orderbook.LastTradeVolume(queue),alpha)
+        
+        def TickSize(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float
+        
+        def MidPrice(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float
+        	 = (observable.orderbook.AskPrice(book)+observable.orderbook.BidPrice(book))/2.0
+        
+        def Asks(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => IOrderQueue
+        
+        def AskPrice(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float
+        	 = observable.orderbook.BestPrice(observable.orderbook.Asks(book))
+        
+        def LastTradeVolume(queue : () => IOrderQueue) : IObservable
+        
+        def BidPrice(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float
+        	 = observable.orderbook.BestPrice(observable.orderbook.Bids(book))
+        
+        def Bids(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => IOrderQueue
+        
+        def BestPrice(queue : () => IOrderQueue) : () => Float
+        
+        def OfTrader() : () => IOrderBook
+        
+        def LastPrice(queue : () => IOrderQueue) : () => Float
+        
+        def Spread(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float
+        	 = observable.orderbook.AskPrice(book)-observable.orderbook.BidPrice(book)
+        
+        def LastTradePrice(queue : () => IOrderQueue) : IObservable
+    }
     @python.observable("Pow/Log", "{%(x)s}^2")
     def Sqr(x : IFunction = constant()) : () => Float
     	 = x*x
@@ -167,6 +203,8 @@ package trash {
     def A(x : () => trash.types.T = trash.in1.in2.A()) : () => trash.types.R
 }type IFunction = () => Float
 type IObservable : IFunction
+type IOrderQueue
+type IOrderBook
 @python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
 def const(x : Float = 1.0) : IObservable
 

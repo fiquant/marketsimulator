@@ -622,6 +622,400 @@ Definitions:
 | | | | - observable
 | | - Definitions:
 | | | - List:
+| | | | - PackageDef:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - orderbook
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - PriceAtVolume
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - queue
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IOrderQueue
+| | | | | | | | | | - None
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - volume
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 100.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - WeightedPrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - queue
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IOrderQueue
+| | | | | | | | | | - None
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - alpha
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 0.015
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Div
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - EWMA
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - LastTradePrice
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - queue
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - alpha
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - EWMA
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - LastTradeVolume
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - queue
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - alpha
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - TickSize
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - book
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - MidPrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - book
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Div
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Add
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - AskPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - book
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - BidPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - book
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 2.0
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - Asks
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - book
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - IOrderQueue
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - AskPrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - book
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - BestPrice
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Asks
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - book
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - LastTradeVolume
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - queue
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IOrderQueue
+| | | | | | | | | | - None
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - BidPrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - book
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - BestPrice
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Bids
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - book
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - Bids
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - book
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - IOrderQueue
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - BestPrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - queue
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IOrderQueue
+| | | | | | | | | | - None
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - OfTrader
+| | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - IOrderBook
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - LastPrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - queue
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IOrderQueue
+| | | | | | | | | | - None
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - Spread
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - book
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Sub
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - AskPrice
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - book
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - BidPrice
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - book
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - LastTradePrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - queue
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IOrderQueue
+| | | | | | | | | | - None
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
+| | | | | | | | - None
+| | | | | | | | - List:
 | | | | - FunDef:
 | | | | | - Sqr
 | | | | | - List:
@@ -975,6 +1369,12 @@ Definitions:
 | | | | - List:
 | | | | | - Basic
 | | | | | - C=%(x)s
+| - Interface:
+| | - IOrderQueue
+| | - List:
+| - Interface:
+| | - IOrderBook
+| | - List:
 | - FunDef:
 | | - const
 | | - List:
@@ -1003,6 +1403,13 @@ Definitions:
 | | | | | - Basic
 | | | | | - C=%(x)s
 | | | | | - _constant._Constant_Impl
+| - Interface:
+| | - IObservable
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction
 | - Alias:
 | | - IFunction
 | | - FunctionType:
@@ -1011,10 +1418,3 @@ Definitions:
 | | | | - QualifiedName:
 | | | | | - List:
 | | | | | | - Float
-| - Interface:
-| | - IObservable
-| | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IFunction
