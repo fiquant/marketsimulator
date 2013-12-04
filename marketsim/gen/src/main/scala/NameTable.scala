@@ -70,7 +70,7 @@ object NameTable {
             target
         }
 
-        def typePackages = toTyped(new Typed.Package())
+        def typePackages = toTyped(Typed.topLevel)
     }
 
     private def create(p : AST.Definitions, impl : Scope) : Unit =

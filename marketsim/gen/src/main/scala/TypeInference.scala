@@ -2,6 +2,7 @@ package object TypeInference
 {
     private def floatRank(e: Typed.Expr) = e.ty match {
         case x if x canCastTo Types.`Float` => 0
+        //case x if x canCastTo
         case x if x canCastTo Types.FloatFunc => 1
         case t => throw new Exception(s"has wrong type $t")
     }

@@ -179,6 +179,8 @@ package object Typed
             }
     }
 
+    val topLevel = new Package
+
     class SubPackage(val name : String, parent : Package) extends Package with sc.SubPackage with ScPrintable
     {
         override def qualifiedName = parent.qualifiedName :+ name

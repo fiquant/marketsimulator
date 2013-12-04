@@ -112,6 +112,7 @@ package object Types
 
     def nullaryFunction(ret_type : Base) = Function(List(), ret_type)
     val FloatFunc = nullaryFunction(`Float`)
+    //val FloatObservable = Interface("IObservable")
     val BooleanFunc = nullaryFunction(`Boolean`)
 
 }
