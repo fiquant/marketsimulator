@@ -62,6 +62,7 @@ package object gen
         register(random)
         register(mathops)
         register(observable)
+        register(function)
         register(intrinsic_function)
     }
 }

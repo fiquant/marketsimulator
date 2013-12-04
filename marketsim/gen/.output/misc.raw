@@ -158,7 +158,7 @@ Definitions:
 | | | | - QualifiedName:
 | | | | | - List:
 | | | | | | - python
-| | | | | | - observable
+| | | | | | - function
 | | | | - List:
 | | | | | - Basic
 | | | | | - C=%(x)s

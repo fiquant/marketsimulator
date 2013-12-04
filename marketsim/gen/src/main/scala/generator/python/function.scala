@@ -1,7 +1,7 @@
 package generator.python
 import predef._
 
-object observable extends gen.PythonGenerator
+object function extends gen.PythonGenerator
 {
     import base.{Def, Prop}
 
@@ -22,7 +22,7 @@ object observable extends gen.PythonGenerator
             case None => Nil
         }
 
-        type Parameter = observable.Parameter
+        type Parameter = function.Parameter
         val name = f.name
         val alias = name
 
@@ -35,16 +35,14 @@ object observable extends gen.PythonGenerator
 
         override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
 
-        override val base_class = "Observable[float]"
+        override val base_class = "Function[float]"
 
         override def init_body =
-            "Observable[float].__init__(self)" |
             super.init_body |
-            "self.impl = self.getImpl()" |
-            "event.subscribe(self.impl, _(self).fire, self)" |||
+            "self.impl = self.getImpl()"  |||
                     ImportFrom("IObservable", "marketsim") |||
                     ImportFrom("IFunction", "marketsim") |||
-                    ImportFrom("Observable", "marketsim.ops._all")
+                    ImportFrom("Function", "marketsim.ops._function")
 
         override def call_body = "return self.impl()"
 
@@ -66,5 +64,5 @@ object observable extends gen.PythonGenerator
         new Import(args, f)
     }
 
-    val name = "python.observable"
+    val name = "python.function"
 }

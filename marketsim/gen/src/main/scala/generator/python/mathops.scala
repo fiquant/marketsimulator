@@ -24,7 +24,7 @@ object mathops extends gen.PythonGenerator
     case class Import(args : List[String], f : Typed.Function) extends base.Intrinsic
     {
         if (args.length != 3)
-            throw new Exception(s"Annotation python.mathops should have 3 arguments in" +
+            throw new Exception(s"Annotation $name should have 3 arguments in" +
                     " form (category, implementation_function, label_template)" + "\r\n" + "In function " + f)
 
         val category = args(0)
