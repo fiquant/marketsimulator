@@ -27,6 +27,7 @@ package observable
 
     package orderbook
     {
+        @python.intrinsic.function ("Proxies", "$(TraderAsset)", "orderbook.of_trader._OfTrader_Impl")
         def OfTrader() => IOrderBook
 
         def Asks(book = OfTrader()) => IOrderQueue

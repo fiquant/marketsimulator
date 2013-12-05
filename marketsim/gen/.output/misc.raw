@@ -261,6 +261,16 @@ Definitions:
 | | | | | | | | | | | | | - IOrderBook
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - function
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Proxies
+| | | | | | | | | | | - $(TraderAsset)
+| | | | | | | | | | | - orderbook.of_trader._OfTrader_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - Asks
 | | | | | | | | - List:

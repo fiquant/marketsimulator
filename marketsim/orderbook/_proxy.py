@@ -73,8 +73,10 @@ class Proxy(Base):
         assert self._impl is None
         self._impl = ctx.orderbook
 
+#from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader
+
 class OfTrader(Base):
-    
+
     def __init__(self, Trader = None):
         if Trader is None:
             Trader = SingleProxy()
@@ -85,19 +87,19 @@ class OfTrader(Base):
     @property
     def label(self):
         return self._impl.label if self._impl else self._alias[0]
-            
-        
+
+
     """
         self.orderBook = aTrader.orderBook
         OnPropertyChanged(self.trader, 'orderBook', Method(self, '_onBookChanged'))
-        
+
     def _onBookChanged(self, newval):
         print "OfTrader order book changed: " + repr(self.orderBook) + ' --> ' + repr(newval)
         self.orderBook = newval
     """
-        
+
     _properties = { 'Trader': types.ISingleAssetTrader }
-    
+
     @property
     def _impl(self):
         try:

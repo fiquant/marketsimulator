@@ -183,6 +183,7 @@ package observable {
         def BestPrice(queue : () => IOrderQueue) : IObservable
             
         
+        @python.intrinsic.function("Proxies", "$(TraderAsset)", "orderbook.of_trader._OfTrader_Impl")
         def OfTrader() : () => IOrderBook
             
         
