@@ -3,6 +3,7 @@ from marketsim import IObservable
 from marketsim import IFunction
 from marketsim.ops._function import Function
 from marketsim.gen._intrinsic._constant import _Constant_Impl
+from marketsim import float
 
 
 

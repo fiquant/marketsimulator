@@ -3,6 +3,7 @@ from marketsim.gen._out import constant
 from marketsim import IObservable
 from marketsim import IFunction
 from marketsim.ops._all import Observable
+from marketsim import IFunction
 from marketsim import context, event, registry, types, _
 
 

@@ -1,4 +1,7 @@
 from marketsim import registry
+from marketsim import float
+from marketsim import float
+from marketsim import float
 import random
 from marketsim import IObservable
 from marketsim import IFunction

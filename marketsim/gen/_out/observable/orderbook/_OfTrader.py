@@ -4,6 +4,7 @@ from marketsim import IObservable
 from marketsim import IFunction
 from marketsim.ops._function import Function
 from marketsim.gen._intrinsic.orderbook.of_trader import _OfTrader_Impl
+from marketsim import ISingleAssetTrader
 
 
 

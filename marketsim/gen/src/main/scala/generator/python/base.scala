@@ -42,7 +42,7 @@ package object base {
                         case None => ""})
         }
 
-        def property = s"\'$name\' : $ty"
+        def property = s"\'$name\' : $ty" ||| ImportFrom(ty, "marketsim")
         def repr = s"""$name = \"+repr(self.$name)+\" """
         def call = s"self.$name"
     }

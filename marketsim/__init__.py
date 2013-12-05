@@ -6,10 +6,12 @@ from bind import Method
 from side_ import Tag as Side
 from reference import Reference
 
-from types import IObservable, IFunction
+from types import IObservable, IFunction, ISingleAssetTrader, IOrderQueue, IOrderBook
 
 IObservable = IObservable[float]
 IFunction = IFunction[float]
+float = float
+
 
 class Alias(object):
     

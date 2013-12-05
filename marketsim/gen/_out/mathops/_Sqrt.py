@@ -2,6 +2,7 @@ from marketsim import registry
 from marketsim.gen._out import constant
 from marketsim import event
 from marketsim import types
+from marketsim import IFunction
 from marketsim import IObservable
 from marketsim import IFunction
 from marketsim.ops._all import Observable

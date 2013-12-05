@@ -19,18 +19,9 @@ class Base(types.IOrderBook):
 
 class _OfTrader_Impl(Base):
 
-    def __init__(self, Trader = None):
-        if Trader is None:
-            Trader = SingleProxy()
-        self._alias = ["$(TraderAsset)"] if type(Trader) == SingleProxy else ['OfTrader']
+    def __init__(self):
+        self._alias = ["$(TraderAsset)"] if type(self.Trader) == SingleProxy else ['OfTrader']
         Base.__init__(self)
-        self.Trader = Trader
-
-    @property
-    def label(self):
-        return self._impl.label if self._impl else self._alias[0]
-
-    _properties = { 'Trader': types.ISingleAssetTrader }
 
     @property
     def _impl(self):

@@ -4,6 +4,8 @@ from marketsim import IObservable
 from marketsim import IFunction
 from marketsim.ops._function import Function
 from marketsim.gen._intrinsic.observable.ewma import EWMA_Impl
+from marketsim import IObservable
+from marketsim import float
 
 
 
