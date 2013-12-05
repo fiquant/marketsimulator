@@ -146,55 +146,60 @@ package mathops {
 }
 
 package observable {
+    package trader {
+        def SingleProxy() : ISingleAssetTrader
+            
+    }
+    
     package orderbook {
-        def PriceAtVolume(queue : () => IOrderQueue,
+        def PriceAtVolume(queue : IOrderQueue = observable.orderbook.Asks(),
                           volume : Float = 100.0) : () => Float
             
         
-        def WeightedPrice(queue : () => IOrderQueue,
+        def WeightedPrice(queue : IOrderQueue = observable.orderbook.Asks(),
                           alpha : Float = 0.015) : () => Float
             
             	 = observable.EWMA(observable.orderbook.LastTradePrice(queue)*observable.orderbook.LastTradeVolume(queue),alpha)/observable.EWMA(observable.orderbook.LastTradeVolume(queue),alpha)
         
-        def TickSize(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float
+        def TickSize(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
             
         
-        def MidPrice(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float
+        def MidPrice(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
             
             	 = (observable.orderbook.AskPrice(book)+observable.orderbook.BidPrice(book))/2.0
         
-        def Asks(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => IOrderQueue
+        def Asks(book : IOrderBook = observable.orderbook.OfTrader()) : IOrderQueue
             
         
-        def AskPrice(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float
+        def AskPrice(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
             
             	 = observable.orderbook.BestPrice(observable.orderbook.Asks(book))
         
-        def LastTradeVolume(queue : () => IOrderQueue) : IObservable
+        def LastTradeVolume(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
         
-        def BidPrice(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float
+        def BidPrice(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
             
             	 = observable.orderbook.BestPrice(observable.orderbook.Bids(book))
         
-        def Bids(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => IOrderQueue
+        def Bids(book : IOrderBook = observable.orderbook.OfTrader()) : IOrderQueue
             
         
-        def BestPrice(queue : () => IOrderQueue) : IObservable
+        def BestPrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
         
         @python.intrinsic.function("Proxies", "$(TraderAsset)", "orderbook.of_trader._OfTrader_Impl")
-        def OfTrader() : () => IOrderBook
+        def OfTrader(Trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IOrderBook
             
         
-        def LastPrice(queue : () => IOrderQueue) : IObservable
+        def LastPrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
         
-        def Spread(book : () => IOrderBook = observable.orderbook.OfTrader()) : () => Float
+        def Spread(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
             
             	 = observable.orderbook.AskPrice(book)-observable.orderbook.BidPrice(book)
         
-        def LastTradePrice(queue : () => IOrderQueue) : IObservable
+        def LastTradePrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
     }
     @python.observable("Pow/Log", "{%(x)s}^2")
@@ -238,10 +243,11 @@ package trash {
     }
     def A(x : () => trash.types.T = trash.in1.in2.A()) : () => trash.types.R
         
-}type IFunction = () => Float
-type IObservable : IFunction
-type IOrderQueue
+}type IOrderQueue
 type IOrderBook
+type IObservable : IFunction
+type IFunction = () => Float
+type ISingleAssetTrader
 @python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
 def const(x : Float = 1.0) : IObservable
     

@@ -196,6 +196,9 @@ Definitions:
 | - Interface:
 | | - IOrderBook
 | | - List:
+| - Interface:
+| | - ISingleAssetTrader
+| | - List:
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
@@ -245,20 +248,46 @@ Definitions:
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
+| | | | | | | - trader
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - SingleProxy
+| | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - ISingleAssetTrader
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | - PackageDef:
+| | | | | - QualifiedName:
+| | | | | | - List:
 | | | | | | | - orderbook
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - OfTrader
 | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - Trader
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | - SingleProxy
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - IOrderBook
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IOrderBook
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -286,12 +315,10 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - IOrderQueue
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IOrderQueue
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | - FunDef:
@@ -309,12 +336,10 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - IOrderQueue
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IOrderQueue
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | - FunDef:
@@ -322,14 +347,13 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - queue
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - IOrderQueue
 | | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Asks
+| | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
@@ -344,14 +368,13 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - queue
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - IOrderQueue
 | | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Asks
+| | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
@@ -366,14 +389,13 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - queue
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - IOrderQueue
 | | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Asks
+| | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
@@ -388,14 +410,13 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - queue
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - IOrderQueue
 | | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Asks
+| | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
@@ -410,14 +431,13 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - queue
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - IOrderQueue
 | | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Asks
+| | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - volume
@@ -441,14 +461,13 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - queue
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - IOrderQueue
 | | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Asks
+| | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - alpha

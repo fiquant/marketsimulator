@@ -154,20 +154,22 @@ object Typer
             // inferring type of the function from type of its body or using explicit specification
             val ty = definition.ty map toTyped match {
                 case Some(decl_type) =>
-                    val ret_type = decl_type.returnTypeIfFunction
-
-                    if (ret_type.isEmpty)
-                        throw new Exception(s"Declared type $decl_type doesn't casts to any functional type")
-                    
-                    body_type match {
-                        case Some(b) if b cannotCastTo ret_type.get =>
-                            throw new Exception(s"Inferred return type"
-                                    + s" '$b' doesn't match to declared return type '$decl_type'")
-                        case _ =>
+                    decl_type.returnTypeIfFunction match {
+                        case Some(ret_type) =>
+                            body_type match {
+                                case Some(b) if b cannotCastTo ret_type =>
+                                    throw new Exception(s"Inferred return type"
+                                            + s" '$b' doesn't match to declared return type '$decl_type'")
+                                case _ =>
+                            }
+                        case None =>
+                            if (body_type.nonEmpty)
+                                throw new Exception(s"Declared type $decl_type doesn't casts to any functional type")
                     }
+
                     decl_type
 
-                case _ =>
+                case None =>
                     def deref[A](x: Option[A], fail_msg: => Exception): A =
                         if (x.nonEmpty) x.get else throw fail_msg
                     Types.nullaryFunction(deref(body_type, new Exception(s"Return type for $definition should be given explicitly")))

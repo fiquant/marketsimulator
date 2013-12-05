@@ -27,40 +27,47 @@ type IOrderQueue
 
 type IOrderBook
 
+type ISingleAssetTrader
+
 package observable {
     @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "observable.ewma.EWMA_Impl")
     def EWMA(source = const(),
              alpha = 0.015) : () => Float
         
     
+    package trader {
+        def SingleProxy() : ISingleAssetTrader
+            
+    }
+    
     package orderbook {
         @python.intrinsic.function("Proxies", "$(TraderAsset)", "orderbook.of_trader._OfTrader_Impl")
-        def OfTrader() : () => IOrderBook
+        def OfTrader(Trader = trader.SingleProxy()) : IOrderBook
             
         
-        def Asks(book = OfTrader()) : () => IOrderQueue
+        def Asks(book = OfTrader()) : IOrderQueue
             
         
-        def Bids(book = OfTrader()) : () => IOrderQueue
+        def Bids(book = OfTrader()) : IOrderQueue
             
         
-        def BestPrice(queue : () => IOrderQueue) : IObservable
+        def BestPrice(queue = Asks()) : IObservable
             
         
-        def LastPrice(queue : () => IOrderQueue) : IObservable
+        def LastPrice(queue = Asks()) : IObservable
             
         
-        def LastTradePrice(queue : () => IOrderQueue) : IObservable
+        def LastTradePrice(queue = Asks()) : IObservable
             
         
-        def LastTradeVolume(queue : () => IOrderQueue) : IObservable
+        def LastTradeVolume(queue = Asks()) : IObservable
             
         
-        def PriceAtVolume(queue : () => IOrderQueue,
+        def PriceAtVolume(queue = Asks(),
                           volume = 100.0) : () => Float
             
         
-        def WeightedPrice(queue : () => IOrderQueue,
+        def WeightedPrice(queue = Asks(),
                           alpha = 0.015)
              = EWMA(LastTradePrice(queue)*LastTradeVolume(queue),alpha)/EWMA(LastTradeVolume(queue),alpha)
         

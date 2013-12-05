@@ -146,12 +146,17 @@ package mathops {
 }
 
 package observable {
+    package trader {
+        def SingleProxy() : ISingleAssetTrader
+            
+    }
+    
     package orderbook {
-        def PriceAtVolume(queue : () => IOrderQueue,
+        def PriceAtVolume(queue = Asks(),
                           volume = 100.0) : () => Float
             
         
-        def WeightedPrice(queue : () => IOrderQueue,
+        def WeightedPrice(queue = Asks(),
                           alpha = 0.015)
              = EWMA(LastTradePrice(queue)*LastTradeVolume(queue),alpha)/EWMA(LastTradeVolume(queue),alpha)
         
@@ -161,35 +166,35 @@ package observable {
         def MidPrice(book = OfTrader())
              = (AskPrice(book)+BidPrice(book))/2.0
         
-        def Asks(book = OfTrader()) : () => IOrderQueue
+        def Asks(book = OfTrader()) : IOrderQueue
             
         
         def AskPrice(book = OfTrader())
              = BestPrice(Asks(book))
         
-        def LastTradeVolume(queue : () => IOrderQueue) : IObservable
+        def LastTradeVolume(queue = Asks()) : IObservable
             
         
         def BidPrice(book = OfTrader())
              = BestPrice(Bids(book))
         
-        def Bids(book = OfTrader()) : () => IOrderQueue
+        def Bids(book = OfTrader()) : IOrderQueue
             
         
-        def BestPrice(queue : () => IOrderQueue) : IObservable
+        def BestPrice(queue = Asks()) : IObservable
             
         
         @python.intrinsic.function("Proxies", "$(TraderAsset)", "orderbook.of_trader._OfTrader_Impl")
-        def OfTrader() : () => IOrderBook
+        def OfTrader(Trader = trader.SingleProxy()) : IOrderBook
             
         
-        def LastPrice(queue : () => IOrderQueue) : IObservable
+        def LastPrice(queue = Asks()) : IObservable
             
         
         def Spread(book = OfTrader())
              = AskPrice(book)-BidPrice(book)
         
-        def LastTradePrice(queue : () => IOrderQueue) : IObservable
+        def LastTradePrice(queue = Asks()) : IObservable
             
     }
     @python.observable("Pow/Log", "{%(x)s}^2")
@@ -239,10 +244,12 @@ package trash {
 def constant(x = 1.0) : IFunction
      = const(x)
 
+type IOrderQueue
+
+type IOrderBook
+
 @python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
 def const(x = 1.0) : IObservable
     
 
-type IOrderQueue
-
-type IOrderBook
+type ISingleAssetTrader
