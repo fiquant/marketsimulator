@@ -56,10 +56,12 @@ class MultiProxy(Base, types.ITrader):
     def bind(self, context):
         self._bind(context.trader)
 
-class SingleProxy(SingleProxyBase):
+from marketsim.gen._out.observable.trader._SingleProxy import SingleProxy
 
-    def bind(self, ctx):
-        self._bind(ctx.trader)
+#class SingleProxy(SingleProxyBase):
+#
+#    def bind(self, ctx):
+#        self._bind(ctx.trader)
             
 class ParentProxy(SingleProxyBase):
     

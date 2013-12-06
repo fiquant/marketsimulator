@@ -147,6 +147,7 @@ package mathops {
 
 package observable {
     package trader {
+        @python.intrinsic.function("Proxies", "$(Trader)", "trader.proxy._Single_Impl")
         def SingleProxy() : ISingleAssetTrader
             
     }

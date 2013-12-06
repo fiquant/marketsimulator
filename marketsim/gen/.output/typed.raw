@@ -739,6 +739,16 @@ Definitions:
 | | | | | | | | | | | | - ISingleAssetTrader
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - function
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Proxies
+| | | | | | | | | | | - $(Trader)
+| | | | | | | | | | | - trader.proxy._Single_Impl
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
