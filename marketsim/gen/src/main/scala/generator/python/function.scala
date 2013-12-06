@@ -37,12 +37,14 @@ object function extends gen.PythonGenerator
 
         override val base_class = "Function[float]"
 
+        override def registration = super.registration |||
+                            ImportFrom("IObservable", "marketsim") |||
+                            ImportFrom("IFunction", "marketsim") |||
+                            ImportFrom("Function", "marketsim.ops._function")
+
         override def init_body =
             super.init_body |
-            "self.impl = self.getImpl()"  |||
-                    ImportFrom("IObservable", "marketsim") |||
-                    ImportFrom("IFunction", "marketsim") |||
-                    ImportFrom("Function", "marketsim.ops._function")
+            "self.impl = self.getImpl()"
 
         override def call_body = "return self.impl()"
 

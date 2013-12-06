@@ -19,10 +19,12 @@ object random extends gen.PythonGenerator
 
         type Parameter = random.Parameter
 
-        def casts_to = Def("_casts_to", "dst", s"return $name._types[0]._casts_to(dst)") |||
-                ImportFrom("IObservable", "marketsim") |||
-                ImportFrom("IFunction", "marketsim") |||
-                ImportFrom("Function", "marketsim.ops._function")
+        override def registration = super.registration |||
+                        ImportFrom("IObservable", "marketsim") |||
+                        ImportFrom("IFunction", "marketsim") |||
+                        ImportFrom("Function", "marketsim.ops._function")
+
+        def casts_to = Def("_casts_to", "dst", s"return $name._types[0]._casts_to(dst)")
 
 
         val impl_module = "random"

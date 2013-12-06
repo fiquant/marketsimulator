@@ -20,11 +20,13 @@ package object base {
         def base_class = "object"
 
         def toPython = {
-            val code = imports | nl | registration | s"class $name($base_class):" |> body
-            val prologue = code.imports map { _.repr } mkString crlf
-            prologue + crlf + code
+            withImports(imports | nl | registration | s"class $name($base_class):" |> body).toString
         }
     }
+
+
+    def withImports(code: => predef.Code) : Code =
+        new WithoutImports((code.imports map { _.repr + crlf } mkString "") + code)
 
     abstract class Parameter {
 
@@ -49,7 +51,7 @@ package object base {
 
     def Def(name : String, args : Code, body : Code) = {
         val a = if (args.toString == "") "" else ", " + args
-        s"def $name(self$a):" |> body | ""
+        s"def $name(self$a):" |> withImports(body) | ""
     }
 
     def Prop(name : String, body : Code) =

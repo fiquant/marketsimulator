@@ -1,17 +1,10 @@
 from marketsim import registry
-from marketsim.gen._out import constant
-from marketsim import event
-from marketsim import types
-from marketsim.gen._out import constant
-from marketsim import event
-from marketsim import types
-from marketsim import IFunction
-from marketsim import IFunction
 from marketsim import IObservable
 from marketsim import IFunction
 from marketsim.ops._all import Observable
 from marketsim.ops._all import constant
-import math
+from marketsim import IFunction
+from marketsim import IFunction
 
 
 
@@ -25,6 +18,12 @@ class Pow(Observable[float]):
      ``pow(x, y)`` is undefined, and raises ``ValueError``.
     """ 
     def __init__(self, base = None, power = None):
+        from marketsim.gen._out import constant
+        from marketsim import event
+        from marketsim import types
+        from marketsim.gen._out import constant
+        from marketsim import event
+        from marketsim import types
         Observable[float].__init__(self)
         self.base = base if base is not None else constant(1.0)
         if isinstance(base, types.IEvent):
@@ -45,6 +44,7 @@ class Pow(Observable[float]):
         return "%(base)s^{%(power)s}" % self.__dict__
     
     def __call__(self, *args, **kwargs):
+        import math
         base = self.base()
         if base is None: return None
         power = self.power()

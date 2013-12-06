@@ -87,6 +87,11 @@ package object predef {
         override def imports = inner.imports
     }
 
+    class WithoutImports(inner : => Code) extends Code
+    {
+        override def toString = inner.toString
+    }
+
     val nl = new NewLine
     val stop = new Stop
 

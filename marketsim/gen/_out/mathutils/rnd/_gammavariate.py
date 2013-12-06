@@ -1,10 +1,9 @@
 from marketsim import registry
-from marketsim import float
-from marketsim import float
-import random
 from marketsim import IObservable
 from marketsim import IFunction
 from marketsim.ops._function import Function
+from marketsim import float
+from marketsim import float
 from marketsim import registry, types
 import random
 
@@ -36,6 +35,7 @@ class gammavariate(Function[float]):
         return "gammavariate(Alpha = "+repr(self.Alpha)+" , Beta = "+repr(self.Beta)+" )" 
     
     def __call__(self, *args, **kwargs):
+        import random
         return random.gammavariate(self.Alpha, self.Beta)
     
     def _casts_to(self, dst):

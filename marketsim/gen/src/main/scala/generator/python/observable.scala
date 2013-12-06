@@ -37,14 +37,16 @@ object observable extends gen.PythonGenerator
 
         override val base_class = "Observable[float]"
 
+        override def registration = super.registration |||
+                            ImportFrom("IObservable", "marketsim") |||
+                            ImportFrom("IFunction", "marketsim") |||
+                            ImportFrom("Observable", "marketsim.ops._all")
+
         override def init_body =
             "Observable[float].__init__(self)" |
             super.init_body |
             "self.impl = self.getImpl()" |
-            "event.subscribe(self.impl, _(self).fire, self)" |||
-                    ImportFrom("IObservable", "marketsim") |||
-                    ImportFrom("IFunction", "marketsim") |||
-                    ImportFrom("Observable", "marketsim.ops._all")
+            "event.subscribe(self.impl, _(self).fire, self)"
 
         override def call_body = "return self.impl()"
 

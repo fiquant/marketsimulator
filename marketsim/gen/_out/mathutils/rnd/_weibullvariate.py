@@ -1,10 +1,9 @@
 from marketsim import registry
-from marketsim import float
-from marketsim import float
-import random
 from marketsim import IObservable
 from marketsim import IFunction
 from marketsim.ops._function import Function
+from marketsim import float
+from marketsim import float
 from marketsim import registry, types
 import random
 
@@ -29,6 +28,7 @@ class weibullvariate(Function[float]):
         return "weibullvariate(Alpha = "+repr(self.Alpha)+" , Beta = "+repr(self.Beta)+" )" 
     
     def __call__(self, *args, **kwargs):
+        import random
         return random.weibullvariate(self.Alpha, self.Beta)
     
     def _casts_to(self, dst):
