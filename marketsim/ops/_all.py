@@ -281,9 +281,9 @@ Constant = types.Factory('Constant', """(_Constant_Impl, Function[%(T)s], types.
     _properties = {'value' : %(T)s}
 """, globals())
 
-from marketsim.gen._out._const import const
 
 def constant(x = 1.):
+    from marketsim.gen._out._const import const
     return const(x) if type(x) is float\
         else Constant[float](x) if type(x) is int\
         else Constant[Side](x) if x in [Side.Sell, Side.Buy]\
@@ -296,8 +296,8 @@ class negate(Function[float]):
     """ Function returning Product of the operands
     """
     
-    def __init__(self, arg=constant(1.)):
-        self.arg = arg
+    def __init__(self, arg=None):
+        self.arg = arg if arg is not None else constant(1.)
         
     _properties = { "arg" : types.IFunction[float] }
     
@@ -313,6 +313,6 @@ def subscribe_if_event(source, target):
         event.subscribe(source, _(target).fire, target)
 
 @registry.expose(['Basic', 'Identity'])
-def identity(x = constant(1.)):
-    return  x
+def identity(x = None):
+    return  x if x is not None else constant(1.)
 
