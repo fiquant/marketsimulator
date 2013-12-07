@@ -1,8 +1,8 @@
 from marketsim import registry
 from marketsim import IObservable
 from marketsim import IFunction
-from marketsim.ops._all import Observable
 from marketsim.ops._all import constant
+from marketsim.ops._all import Observable
 from marketsim import IFunction
 from marketsim import IFunction
 

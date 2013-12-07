@@ -31,22 +31,22 @@ object observable extends gen.PythonGenerator
         def reset = Def("reset", "",
             "self.impl = self.getImpl()" |
             "ctx = getattr(self, '_ctx', None)" |
-            "if ctx: context.bind(self.impl, ctx)")
+            "if ctx: context.bind(self.impl, ctx)") |||
+                ImportFrom("context", "marketsim")
 
         override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
 
-        override val base_class = "Observable[float]"
+        override val base_class = "Observable[float]" |||
+                                    ImportFrom("Observable", "marketsim.ops._all")
 
-        override def registration = super.registration |||
-                            ImportFrom("IObservable", "marketsim") |||
-                            ImportFrom("IFunction", "marketsim") |||
-                            ImportFrom("Observable", "marketsim.ops._all")
 
         override def init_body =
             "Observable[float].__init__(self)" |
             super.init_body |
             "self.impl = self.getImpl()" |
-            "event.subscribe(self.impl, _(self).fire, self)"
+            "event.subscribe(self.impl, _(self).fire, self)" |||
+                                        ImportFrom("_", "marketsim") |||
+                                        ImportFrom("event", "marketsim")
 
         override def call_body = "return self.impl()"
 
@@ -58,8 +58,6 @@ object observable extends gen.PythonGenerator
 
         def attributes = Prop("attributes", "return {}")
 
-        override val imports : Code =
-            "from marketsim import context, event, registry, types, _"
     }
 
     def apply(/** arguments of the annotation */ args  : List[String])

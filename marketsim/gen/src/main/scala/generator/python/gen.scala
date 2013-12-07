@@ -45,10 +45,15 @@ package object gen
         }
     }
 
+    trait GenerationUnit
+    {
+        def name : String
+    }
+
     trait PythonGenerator extends Typed.AnnotationHandler
     {
         def apply(/** arguments of the annotation */ args  : List[String])
-                 (/** function to process         */ f     : Typed.Function) : base.Class
+                 (/** function to process         */ f     : Typed.Function) : GenerationUnit
 
     }
 

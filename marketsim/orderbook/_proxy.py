@@ -46,13 +46,13 @@ class Queue(types.IOrderQueue):
     def __repr__(self):
         return self.__str__()
 
-@registry.expose(["Queue's", "Asks"], args = (None,))    
+@registry.expose(["Queue's", "Asks"])
 def Asks(orderbook = None):
     if orderbook is None: orderbook = OfTrader()
     return Queue(orderbook, Side.Sell)
 
-@registry.expose(["Queue's", "Bids"], args = (None,))    
-def Bids(orderbook):
+@registry.expose(["Queue's", "Bids"])
+def Bids(orderbook = None):
     if orderbook is None: orderbook = OfTrader()
     return Queue(orderbook, Side.Buy)
     

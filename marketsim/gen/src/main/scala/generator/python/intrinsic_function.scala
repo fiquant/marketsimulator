@@ -32,23 +32,28 @@ object intrinsic_function extends gen.PythonGenerator
 
         override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
 
-        override def base_class = s"Function[float], $implementation_class"
+        override def base_class = s"Function[float], $implementation_class" |||
+                                ImportFrom("Function", "marketsim.ops._function") |||
+                                ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
 
         override def registration = super.registration |||
                         ImportFrom("IObservable", "marketsim") |||
-                        ImportFrom("IFunction", "marketsim") |||
-                        ImportFrom("Function", "marketsim.ops._function") |||
-                        ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
+                        ImportFrom("IFunction", "marketsim")
 
         override def init_body = super.init_body | s"$implementation_class.__init__(self)"
 
         def call_body = ""
     }
 
+
+
     def apply(/** arguments of the annotation */ args  : List[String])
              (/** function to process         */ f     : Typed.Function) =
     {
-        new Import(args, f)
+        if (f.ret_type canCastTo Types.FloatFunc)
+            new Import(args, f)
+        else
+            new Import(args, f)
     }
 
     val name = "python.intrinsic.function"

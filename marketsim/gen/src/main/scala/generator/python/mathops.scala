@@ -42,12 +42,11 @@ object mathops extends gen.PythonGenerator
         override def registration = super.registration |||
                         ImportFrom("IObservable", "marketsim") |||
                         ImportFrom("IFunction", "marketsim") |||
-                        ImportFrom("Observable", "marketsim.ops._all") |||
                         ImportFrom("constant", "marketsim.ops._all")
 
         override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
 
-        override val base_class = "Observable[float]"
+        override val base_class = "Observable[float]" ||| ImportFrom("Observable", "marketsim.ops._all")
 
         override def init_body = "Observable[float].__init__(self)" | super.init_body
 

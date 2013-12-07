@@ -35,12 +35,12 @@ object function extends gen.PythonGenerator
 
         override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
 
-        override val base_class = "Function[float]"
+        override val base_class : Code = "Function[float]" |||
+                                            ImportFrom("Function", "marketsim.ops._function")
 
         override def registration = super.registration |||
                             ImportFrom("IObservable", "marketsim") |||
-                            ImportFrom("IFunction", "marketsim") |||
-                            ImportFrom("Function", "marketsim.ops._function")
+                            ImportFrom("IFunction", "marketsim")
 
         override def init_body =
             super.init_body |
