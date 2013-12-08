@@ -39,11 +39,6 @@ object mathops extends gen.PythonGenerator
         val name = f.name
         val alias = name
 
-        override def registration = super.registration |||
-                        ImportFrom("IObservable", "marketsim") |||
-                        ImportFrom("IFunction", "marketsim") |||
-                        ImportFrom("constant", "marketsim.ops._all")
-
         override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
 
         override val base_class = "Observable[float]" ||| ImportFrom("Observable", "marketsim.ops._all")

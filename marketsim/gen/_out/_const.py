@@ -1,12 +1,7 @@
 from marketsim import registry
-from marketsim import IObservable
-from marketsim import IFunction
 from marketsim.ops._function import Function
 from marketsim.gen._intrinsic._constant import _Constant_Impl
 from marketsim import float
-
-
-
 @registry.expose(['Basic', 'const'])
 class const(Function[float], _Constant_Impl):
     """ 

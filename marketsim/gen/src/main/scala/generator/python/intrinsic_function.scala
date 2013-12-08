@@ -36,13 +36,9 @@ object intrinsic_function extends gen.PythonGenerator
                                 ImportFrom("Function", "marketsim.ops._function") |||
                                 ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
 
-        override def registration = super.registration |||
-                        ImportFrom("IObservable", "marketsim") |||
-                        ImportFrom("IFunction", "marketsim")
-
         override def init_body = super.init_body | s"$implementation_class.__init__(self)"
 
-        def call_body = ""
+        def call_body = ""  // TODO: remove from the base class
     }
 
 

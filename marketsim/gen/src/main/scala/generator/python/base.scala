@@ -16,11 +16,10 @@ package object base {
         def name : String
         def body : Code
         def registration : Code
-        def imports : Code = ""
         def base_class : Code = "object"
 
         def toPython = {
-            withImports(imports | nl | registration | s"class $name(" ||| base_class ||| "):" |> body).toString
+            withImports(registration | s"class $name(" ||| base_class ||| "):" |> body).toString
         }
     }
 

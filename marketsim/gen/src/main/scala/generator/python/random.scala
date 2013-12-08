@@ -14,24 +14,17 @@ object random extends gen.PythonGenerator
         val alias = f.docstring.get.brief
         val docstring = f.docstring.get.detailed
         val rv_type = "float"
-        override def base_class = s"Function[$rv_type]"
+        override def base_class = s"Function[$rv_type]" |||
+                                ImportFrom("Function", "marketsim.ops._function")
+
         override val category = "Random"
 
         type Parameter = random.Parameter
-
-        override def registration = super.registration |||
-                        ImportFrom("IObservable", "marketsim") |||
-                        ImportFrom("IFunction", "marketsim") |||
-                        ImportFrom("Function", "marketsim.ops._function")
 
         def casts_to = Def("_casts_to", "dst", s"return $name._types[0]._casts_to(dst)")
 
 
         val impl_module = "random"
-
-        override val imports  : Code =
-            "from marketsim import registry, types" |
-            "import random"
 
         override def body = super.body | call | casts_to
     }

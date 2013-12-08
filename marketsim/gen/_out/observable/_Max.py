@@ -3,9 +3,6 @@ from marketsim.ops._all import Observable
 from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import context
-
-
-
 @registry.expose(['Basic', 'Max'])
 class Max(Observable[float]):
     """ 

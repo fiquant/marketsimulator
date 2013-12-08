@@ -45,8 +45,8 @@ object observable extends gen.PythonGenerator
             super.init_body |
             "self.impl = self.getImpl()" |
             "event.subscribe(self.impl, _(self).fire, self)" |||
-                                        ImportFrom("_", "marketsim") |||
-                                        ImportFrom("event", "marketsim")
+                ImportFrom("_", "marketsim") |||
+                ImportFrom("event", "marketsim")
 
         override def call_body = "return self.impl()"
 

@@ -31,16 +31,13 @@ object function extends gen.PythonGenerator
         def reset = Def("reset", "",
             "self.impl = self.getImpl()" |
             "ctx = getattr(self, '_ctx', None)" |
-            "if ctx: context.bind(self.impl, ctx)")
+            "if ctx: context.bind(self.impl, ctx)") |||
+            ImportFrom("context", "marketsim")
 
         override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
 
         override val base_class : Code = "Function[float]" |||
                                             ImportFrom("Function", "marketsim.ops._function")
-
-        override def registration = super.registration |||
-                            ImportFrom("IObservable", "marketsim") |||
-                            ImportFrom("IFunction", "marketsim")
 
         override def init_body =
             super.init_body |
@@ -55,9 +52,6 @@ object function extends gen.PythonGenerator
         def internals = "_internals = ['impl']"
 
         def attributes = Prop("attributes", "return {}")
-
-        override val imports : Code =
-            "from marketsim import context, event, registry, types, _"
     }
 
     def apply(/** arguments of the annotation */ args  : List[String])
