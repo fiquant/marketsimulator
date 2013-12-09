@@ -38,7 +38,9 @@ package observable
         @python.intrinsic.function ("Proxies", "$(TraderAsset)", "orderbook.of_trader._OfTrader_Impl")
         def OfTrader(Trader = trader.SingleProxy()) : IOrderBook
 
+        @python.intrinsic.function ("-", "Asks", "orderbook.queue._Asks_Impl")
         def Asks(book = OfTrader()) : IOrderQueue
+        @python.intrinsic.function ("-", "Bids", "orderbook.queue._Bids_Impl")
         def Bids(book = OfTrader()) : IOrderQueue
 
         def BestPrice(queue = Asks()) : IObservable

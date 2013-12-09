@@ -46,9 +46,11 @@ package observable {
         def OfTrader(Trader = trader.SingleProxy()) : IOrderBook
             
         
+        @python.intrinsic.function("-", "Asks", "orderbook.queue._Asks_Impl")
         def Asks(book = OfTrader()) : IOrderQueue
             
         
+        @python.intrinsic.function("-", "Bids", "orderbook.queue._Bids_Impl")
         def Bids(book = OfTrader()) : IOrderQueue
             
         

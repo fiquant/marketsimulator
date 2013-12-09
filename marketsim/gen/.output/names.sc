@@ -167,6 +167,7 @@ package observable {
         def MidPrice(book = OfTrader())
              = (AskPrice(book)+BidPrice(book))/2.0
         
+        @python.intrinsic.function("-", "Asks", "orderbook.queue._Asks_Impl")
         def Asks(book = OfTrader()) : IOrderQueue
             
         
@@ -179,6 +180,7 @@ package observable {
         def BidPrice(book = OfTrader())
              = BestPrice(Bids(book))
         
+        @python.intrinsic.function("-", "Bids", "orderbook.queue._Bids_Impl")
         def Bids(book = OfTrader()) : IOrderQueue
             
         

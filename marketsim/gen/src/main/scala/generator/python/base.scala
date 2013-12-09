@@ -18,14 +18,8 @@ package object base {
         def registration : Code
         def base_class : Code = "object"
 
-        def toPython = {
+        def toPython =
             withImports(registration | s"class $name(" ||| base_class ||| "):" |> body).toString
-        }
-    }
-
-    abstract class Function extends PyPrintable with gen.GenerationUnit
-    {
-        def name : String
     }
 
 

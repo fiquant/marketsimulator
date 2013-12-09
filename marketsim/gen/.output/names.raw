@@ -829,6 +829,16 @@ Definitions:
 | | | | | | | | | | | | - IOrderQueue
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - function
+| | | | | | | | | | - List:
+| | | | | | | | | | | - -
+| | | | | | | | | | | - Asks
+| | | | | | | | | | | - orderbook.queue._Asks_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - AskPrice
 | | | | | | | | - List:
@@ -929,6 +939,16 @@ Definitions:
 | | | | | | | | | | | | - IOrderQueue
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - function
+| | | | | | | | | | - List:
+| | | | | | | | | | | - -
+| | | | | | | | | | | - Bids
+| | | | | | | | | | | - orderbook.queue._Bids_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - BestPrice
 | | | | | | | | - List:
