@@ -197,14 +197,10 @@ def AskLastPrice(book):
 @registry.expose(alias = ["Asset's", "Bid", "Last price"], args = (None,))
 def BidLastPrice(book):
     return QueueLastPrice(orderbook.Bids(book))
-    
-@registry.expose(alias = ["Asset's", "Ask", "Price"], args = (None,))
-def AskPrice(book):
-    return QueuePrice(orderbook.Asks(book))
 
-@registry.expose(alias = ["Asset's", "Bid", "Price"], args = (None,))
-def BidPrice(book):
-    return QueuePrice(orderbook.Bids(book))
+from marketsim.gen._out.observable.orderbook._AskPrice import AskPrice
+from marketsim.gen._out.observable.orderbook._BidPrice import BidPrice
+
 
 class MidPrice(ops.Observable[float]):
     

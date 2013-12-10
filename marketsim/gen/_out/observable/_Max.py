@@ -8,8 +8,8 @@ class Max(Observable[float]):
     """ 
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim.gen._out import constant
-        from marketsim.gen._out import constant
+        from marketsim.gen._out._constant import constant
+        from marketsim.gen._out._constant import constant
         from marketsim import _
         from marketsim import event
         Observable[float].__init__(self)

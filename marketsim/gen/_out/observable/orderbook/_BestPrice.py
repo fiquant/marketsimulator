@@ -6,7 +6,7 @@ class BestPrice(_BestPrice_Impl):
     """ 
     """ 
     def __init__(self, queue = None):
-        from marketsim.gen._out.observable.orderbook import Asks
+        from marketsim.gen._out.observable.orderbook._Asks import Asks
         from marketsim import event
         from marketsim import types
         self.queue = queue if queue is not None else Asks()

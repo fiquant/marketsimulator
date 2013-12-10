@@ -611,6 +611,14 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Orderbook
+| | | | | | | | | | | - AskPrice
 | | | | | | | - FunDef:
 | | | | | | | | - BidPrice
 | | | | | | | | - List:
@@ -640,6 +648,14 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Orderbook
+| | | | | | | | | | | - BidPrice
 | | | | | | | - FunDef:
 | | | | | | | | - Spread
 | | | | | | | | - List:

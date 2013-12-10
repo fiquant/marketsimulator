@@ -12,10 +12,10 @@ class Pow(Observable[float]):
      ``pow(x, y)`` is undefined, and raises ``ValueError``.
     """ 
     def __init__(self, base = None, power = None):
-        from marketsim.gen._out import constant
+        from marketsim.gen._out._constant import constant
         from marketsim import event
         from marketsim import types
-        from marketsim.gen._out import constant
+        from marketsim.gen._out._constant import constant
         from marketsim import event
         from marketsim import types
         Observable[float].__init__(self)

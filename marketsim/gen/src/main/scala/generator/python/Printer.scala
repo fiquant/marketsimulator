@@ -129,10 +129,10 @@ object Printer {
         def moduleName = {
             val name = target.parent.qualifiedName mkString "."
             val d = if (name == "") name else "." + name
-            "marketsim.gen._out" + (if (name == "") name else "." + name)
+            "marketsim.gen._out" + (if (name == "") name else "." + name) + "._" + target.name
         }
 
-        override def imports = predef.ImportFrom(target.name, moduleName) :: Nil
+        override def imports = predef.ImportFrom(target.name, moduleName) :: (arguments flatMap { p => p._2.imports })
     }
 
 }

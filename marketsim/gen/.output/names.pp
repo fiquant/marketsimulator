@@ -171,12 +171,14 @@ package observable {
         def Asks(book = OfTrader()) : IOrderQueue
             
         
+        @python.observable("Orderbook", "AskPrice")
         def AskPrice(book = OfTrader())
              = BestPrice(Asks(book))
         
         def LastTradeVolume(queue = Asks()) : IObservable
             
         
+        @python.observable("Orderbook", "BidPrice")
         def BidPrice(book = OfTrader())
              = BestPrice(Bids(book))
         

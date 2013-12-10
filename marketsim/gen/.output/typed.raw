@@ -1046,6 +1046,14 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Orderbook
+| | | | | | | | | | | - AskPrice
 | | | | | | | - FunDef:
 | | | | | | | | - LastTradeVolume
 | | | | | | | | - List:
@@ -1118,6 +1126,14 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Orderbook
+| | | | | | | | | | | - BidPrice
 | | | | | | | - FunDef:
 | | | | | | | | - Bids
 | | | | | | | | - List:

@@ -6,7 +6,7 @@ class Log(Observable[float]):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out import constant
+        from marketsim.gen._out._constant import constant
         from marketsim import event
         from marketsim import types
         Observable[float].__init__(self)

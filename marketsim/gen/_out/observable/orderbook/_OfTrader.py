@@ -7,7 +7,7 @@ class OfTrader(Function[float], _OfTrader_Impl):
     """ 
     """ 
     def __init__(self, Trader = None):
-        from marketsim.gen._out.observable.trader import SingleProxy
+        from marketsim.gen._out.observable.trader._SingleProxy import SingleProxy
         self.Trader = Trader if Trader is not None else SingleProxy()
         _OfTrader_Impl.__init__(self)
     

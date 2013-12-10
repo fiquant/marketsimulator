@@ -173,6 +173,7 @@ package observable {
         def Asks(book : IOrderBook = observable.orderbook.OfTrader()) : IOrderQueue
             
         
+        @python.observable("Orderbook", "AskPrice")
         def AskPrice(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
             
             	 = observable.orderbook.BestPrice(observable.orderbook.Asks(book))
@@ -180,6 +181,7 @@ package observable {
         def LastTradeVolume(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
         
+        @python.observable("Orderbook", "BidPrice")
         def BidPrice(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
             
             	 = observable.orderbook.BestPrice(observable.orderbook.Bids(book))

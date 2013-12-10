@@ -1,17 +1,17 @@
 from marketsim import registry
 from marketsim.ops._all import Observable
-from marketsim import IFunction
+from marketsim import IOrderBook
 from marketsim import context
-@registry.expose(["Pow/Log", "Sqr"])
-class Sqr(Observable[float]):
+@registry.expose(["Orderbook", "AskPrice"])
+class AskPrice(Observable[float]):
     """ 
     """ 
-    def __init__(self, x = None):
-        from marketsim.gen._out._constant import constant
+    def __init__(self, book = None):
+        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader
         from marketsim import _
         from marketsim import event
         Observable[float].__init__(self)
-        self.x = x if x is not None else constant()
+        self.book = book if book is not None else OfTrader()
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -20,10 +20,10 @@ class Sqr(Observable[float]):
         return repr(self)
     
     _properties = {
-        'x' : IFunction
+        'book' : IOrderBook
     }
     def __repr__(self):
-        return "{%(x)s}^2" % self.__dict__
+        return "AskPrice" % self.__dict__
     
     _internals = ['impl']
     @property
@@ -31,7 +31,10 @@ class Sqr(Observable[float]):
         return {}
     
     def getImpl(self):
-        return self.x*self.x
+        from marketsim.gen._out.observable.orderbook._BestPrice import BestPrice
+        from marketsim.gen._out.observable.orderbook._Asks import Asks
+        return BestPrice(Asks(self.book))
+        
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

@@ -7,7 +7,7 @@ class Bids(Function[float], _Bids_Impl):
     """ 
     """ 
     def __init__(self, book = None):
-        from marketsim.gen._out.observable.orderbook import OfTrader
+        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader
         self.book = book if book is not None else OfTrader()
         _Bids_Impl.__init__(self)
     

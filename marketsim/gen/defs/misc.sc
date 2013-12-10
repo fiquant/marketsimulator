@@ -55,7 +55,10 @@ package observable
 
         def TickSize(book = OfTrader()) => Float
 
+        @python.observable("Orderbook", "AskPrice")
         def AskPrice(book = OfTrader()) = BestPrice(Asks(book))
+
+        @python.observable("Orderbook", "BidPrice")
         def BidPrice(book = OfTrader()) = BestPrice(Bids(book))
 
         def Spread(book = OfTrader()) = AskPrice(book) - BidPrice(book)
