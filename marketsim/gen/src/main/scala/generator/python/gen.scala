@@ -69,5 +69,6 @@ package object gen
         register(observable)
         register(function)
         register(intrinsic_function)
+        register(intrinsic_observable)
     }
 }

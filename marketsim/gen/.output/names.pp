@@ -184,6 +184,7 @@ package observable {
         def Bids(book = OfTrader()) : IOrderQueue
             
         
+        @python.intrinsic.observable("Orderbook", "Best price", "orderbook.props._BestPrice_Impl")
         def BestPrice(queue = Asks()) : IObservable
             
         

@@ -102,12 +102,8 @@ class QueueProxy(_computed.Proxy):
 
     _properties = { 'orderqueue' : types.IOrderQueue }
     
-class QueuePrice(QueueProxy):
-    
-    @property
-    def _impl(self):
-        return self.orderqueue.bestPrice
-    
+from marketsim.gen._out.observable.orderbook._BestPrice import BestPrice as QueuePrice
+
 class QueueLastPrice(ops.Observable[float]):
     
     def __init__(self, orderqueue):
