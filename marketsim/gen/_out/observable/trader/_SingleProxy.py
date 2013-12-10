@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim.gen._intrinsic.trader.proxy import _Single_Impl
-@registry.expose(['Proxies', 'SingleProxy'])
+@registry.expose(["Proxies", "SingleProxy"])
 class SingleProxy(Function[float], _Single_Impl):
     """ 
     """ 

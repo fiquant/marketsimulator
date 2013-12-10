@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.ops._all import Observable
 from marketsim import IFunction
 from marketsim import IFunction
-@registry.expose(['Log/Pow', 'Pow'])
+@registry.expose(["Log/Pow", "Pow"])
 class Pow(Observable[float]):
     """ 
      Exceptional cases follow Annex F of the C99 standard as far as possible.

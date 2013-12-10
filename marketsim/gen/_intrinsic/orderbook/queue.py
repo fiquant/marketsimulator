@@ -18,17 +18,15 @@ class Base(types.IOrderBook):
 
 class Queue(types.IOrderQueue):
 
-    _properties = { 'orderbook' : types.IOrderBook,
-                    'side'      : types.Side }
+    _properties = { 'side'      : types.Side }
 
-    def __init__(self, orderbook, side):
-        self.orderbook = orderbook
+    def __init__(self, side):
         self.side = side
 
     @property
     def _impl(self):
         try:
-            return self.orderbook.queue(self.side)
+            return self.book.queue(self.side)
         except AttributeError:
             return None
 
@@ -44,9 +42,12 @@ class Queue(types.IOrderQueue):
     def __repr__(self):
         return self.__str__()
 
+class _Asks_Impl(Queue):
 
-def _Asks_Impl(orderbook):
-    return Queue(orderbook, Side.Sell)
+    def __init__(self):
+        Queue.__init__(self, Side.Sell)
 
-def _Bids_Impl(orderbook):
-    return Queue(orderbook, Side.Buy)
+class _Bids_Impl(Queue):
+
+    def __init__(self):
+        Queue.__init__(self, Side.Buy)

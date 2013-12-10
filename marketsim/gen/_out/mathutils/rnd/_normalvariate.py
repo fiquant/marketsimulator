@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import float
 from marketsim import float
-@registry.expose(['Random', 'Normal distribution'])
+@registry.expose(["Random", "Normal distribution"])
 class normalvariate(Function[float]):
     """ 
     """ 

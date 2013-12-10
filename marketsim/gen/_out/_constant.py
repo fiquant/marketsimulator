@@ -3,7 +3,7 @@ from marketsim.ops._function import Function
 from marketsim import float
 from marketsim.gen._out import const
 from marketsim import context
-@registry.expose(['Basic', 'constant'])
+@registry.expose(["Basic", "constant"])
 class constant(Function[float]):
     """ 
     """ 

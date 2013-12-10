@@ -65,7 +65,7 @@ package object base {
         def category    : String
         def parameters  : List[Parameter]
 
-        def registration = s"@registry.expose(['$category', '$alias'])" ||| ImportFrom("registry", "marketsim")
+        def registration = s"""@registry.expose(["$category", "$alias"])""" ||| ImportFrom("registry", "marketsim")
 
         def join_fields(p : Parameter => Code, sep : Code = ", ") : Code = Code.from(parameters map p, sep)
 

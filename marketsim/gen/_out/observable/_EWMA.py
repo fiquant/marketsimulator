@@ -3,7 +3,7 @@ from marketsim.ops._function import Function
 from marketsim.gen._intrinsic.observable.ewma import EWMA_Impl
 from marketsim import IObservable
 from marketsim import float
-@registry.expose(['Statistics', 'EWMA'])
+@registry.expose(["Statistics", "EWMA"])
 class EWMA(Function[float], EWMA_Impl):
     """ 
     """ 

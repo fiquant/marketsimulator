@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.ops._all import Observable
 from marketsim import IFunction
 from marketsim import context
-@registry.expose(['Pow/Log', 'Sqr'])
+@registry.expose(["Pow/Log", "Sqr"])
 class Sqr(Observable[float]):
     """ 
     """ 

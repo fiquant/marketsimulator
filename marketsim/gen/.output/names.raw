@@ -836,7 +836,7 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - -
+| | | | | | | | | | | - Queue's
 | | | | | | | | | | | - Asks
 | | | | | | | | | | | - orderbook.queue._Asks_Impl
 | | | | | | | - FunDef:
@@ -946,7 +946,7 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - -
+| | | | | | | | | | | - Queue's
 | | | | | | | | | | | - Bids
 | | | | | | | | | | | - orderbook.queue._Bids_Impl
 | | | | | | | - FunDef:

@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.ops._all import Observable
 from marketsim import IFunction
-@registry.expose(['Log/Pow', 'Log'])
+@registry.expose(["Log/Pow", "Log"])
 class Log(Observable[float]):
     """ 
     """ 

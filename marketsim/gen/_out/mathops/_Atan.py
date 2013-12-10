@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.ops._all import Observable
 from marketsim import IFunction
-@registry.expose(['Trigonometric', 'Atan'])
+@registry.expose(["Trigonometric", "Atan"])
 class Atan(Observable[float]):
     """ 
     """ 
