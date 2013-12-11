@@ -1,4 +1,4 @@
-from marketsim import types
+from marketsim import types, getLabel
 
 def aux(name):
     return name[0:2] == "__" or name == '_processing'
@@ -30,6 +30,9 @@ class Base(object):
             del self._impl.name
         else:
             del self.__dict__[name]
+
+    def __repr__(self):
+        return getLabel(self._impl) if self._impl else ""
 
 
     def _new_property_changed_listener_added(self, propname):

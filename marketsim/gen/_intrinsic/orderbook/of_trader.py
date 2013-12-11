@@ -1,5 +1,6 @@
 from marketsim import types
 from marketsim.trader._proxy import SingleProxy
+from marketsim import getLabel
 
 class Base(types.IOrderBook):
 
@@ -12,7 +13,7 @@ class Base(types.IOrderBook):
             raise AttributeError
 
     def __str__(self):
-        return 'Proxy for ' + (self._impl.__str__() if self._impl else '')
+        return getLabel(self._impl()) if self._impl else ''
 
     def __repr__(self):
         return self.__str__()
@@ -29,3 +30,4 @@ class _OfTrader_Impl(Base):
             return self.Trader.orderBook
         except AttributeError:
             return None
+

@@ -16,6 +16,4 @@ class SingleProxy(Function[float], _Single_Impl):
     _properties = {
         
     }
-    def __repr__(self):
-        return "$(Trader)" % self.__dict__
     

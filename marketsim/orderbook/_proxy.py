@@ -1,4 +1,4 @@
-from marketsim import registry, types, prop, bind, context, Side
+from marketsim import registry, types, prop, bind, context, Side, getLabel
 
 from marketsim.trader._proxy import SingleProxy
 
@@ -13,7 +13,7 @@ class Base(types.IOrderBook):
             raise AttributeError
     
     def __str__(self):
-        return 'Proxy for ' + (self._impl.__str__() if self._impl else '')
+        return getLabel(self._impl) if self._impl else ''
 
     def __repr__(self):
         return self.__str__()
@@ -44,7 +44,7 @@ class Queue(types.IOrderQueue):
             raise AttributeError
 
     def __str__(self):
-        return 'Proxy for ' + (self._impl.__str__() if self._impl else '')
+        return getLabel(self._impl) if self._impl else ''
 
     def __repr__(self):
         return self.__str__()

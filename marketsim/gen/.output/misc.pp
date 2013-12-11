@@ -36,13 +36,13 @@ package observable {
         
     
     package trader {
-        @python.intrinsic.function("Proxies", "$(Trader)", "trader.proxy._Single_Impl")
+        @python.intrinsic.function("Proxies", "N/A", "trader.proxy._Single_Impl")
         def SingleProxy() : ISingleAssetTrader
             
     }
     
     package orderbook {
-        @python.intrinsic.function("Proxies", "$(TraderAsset)", "orderbook.of_trader._OfTrader_Impl")
+        @python.intrinsic.function("Proxies", "N/A", "orderbook.of_trader._OfTrader_Impl")
         def OfTrader(Trader = trader.SingleProxy()) : IOrderBook
             
         
@@ -78,11 +78,11 @@ package observable {
         def TickSize(book = OfTrader()) : () => Float
             
         
-        @python.observable("Orderbook", "Price^Asks_{%(book)s}")
+        @python.observable("Orderbook", "Ask_{%(book)s}")
         def AskPrice(book = OfTrader())
              = BestPrice(Asks(book))
         
-        @python.observable("Orderbook", "BidPrice")
+        @python.observable("Orderbook", "Bid^{%(book)s}")
         def BidPrice(book = OfTrader())
              = BestPrice(Bids(book))
         

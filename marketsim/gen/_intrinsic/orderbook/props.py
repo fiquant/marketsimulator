@@ -22,6 +22,9 @@ class Proxy(types.IObservable[float], ops.Function[float]):
     def label(self):
         return self._impl.label
 
+    def __repr__(self):
+        return self._impl.label
+
     @property
     def attributes(self):
         return {}

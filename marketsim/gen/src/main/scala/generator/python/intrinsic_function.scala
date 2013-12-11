@@ -35,6 +35,8 @@ object intrinsic_function extends gen.PythonGenerator
 
         override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
 
+        override def repr = if (label_tmpl != "N/A") super.repr else ""
+
         override def base_class = s"Function[float], $implementation_class" |||
                                 ImportFrom("Function", "marketsim.ops._function") |||
                                 ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")

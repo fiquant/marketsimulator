@@ -23,7 +23,7 @@ class AskPrice(Observable[float]):
         'book' : IOrderBook
     }
     def __repr__(self):
-        return "Price^Asks_{%(book)s}" % self.__dict__
+        return "Ask_{%(book)s}" % self.__dict__
     
     _internals = ['impl']
     @property

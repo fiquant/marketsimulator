@@ -18,6 +18,4 @@ class OfTrader(Function[float], _OfTrader_Impl):
     _properties = {
         'Trader' : ISingleAssetTrader
     }
-    def __repr__(self):
-        return "$(TraderAsset)" % self.__dict__
     

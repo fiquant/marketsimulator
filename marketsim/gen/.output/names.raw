@@ -647,7 +647,7 @@ Definitions:
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Proxies
-| | | | | | | | | | | - $(Trader)
+| | | | | | | | | | | - N/A
 | | | | | | | | | | | - trader.proxy._Single_Impl
 | | | | - PackageDef:
 | | | | | - QualifiedName:
@@ -883,7 +883,7 @@ Definitions:
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Price^Asks_{%(book)s}
+| | | | | | | | | | | - Ask_{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - LastTradeVolume
 | | | | | | | | - List:
@@ -941,7 +941,7 @@ Definitions:
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - BidPrice
+| | | | | | | | | | | - Bid^{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - Bids
 | | | | | | | | - List:
@@ -1034,7 +1034,7 @@ Definitions:
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Proxies
-| | | | | | | | | | | - $(TraderAsset)
+| | | | | | | | | | | - N/A
 | | | | | | | | | | | - orderbook.of_trader._OfTrader_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - LastPrice

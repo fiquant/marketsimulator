@@ -147,7 +147,7 @@ package mathops {
 
 package observable {
     package trader {
-        @python.intrinsic.function("Proxies", "$(Trader)", "trader.proxy._Single_Impl")
+        @python.intrinsic.function("Proxies", "N/A", "trader.proxy._Single_Impl")
         def SingleProxy() : ISingleAssetTrader
             
     }
@@ -172,14 +172,14 @@ package observable {
         def Asks(book = OfTrader()) : IOrderQueue
             
         
-        @python.observable("Orderbook", "Price^Asks_{%(book)s}")
+        @python.observable("Orderbook", "Ask_{%(book)s}")
         def AskPrice(book = OfTrader())
              = BestPrice(Asks(book))
         
         def LastTradeVolume(queue = Asks()) : IObservable
             
         
-        @python.observable("Orderbook", "BidPrice")
+        @python.observable("Orderbook", "Bid^{%(book)s}")
         def BidPrice(book = OfTrader())
              = BestPrice(Bids(book))
         
@@ -191,7 +191,7 @@ package observable {
         def BestPrice(queue = Asks()) : IObservable
             
         
-        @python.intrinsic.function("Proxies", "$(TraderAsset)", "orderbook.of_trader._OfTrader_Impl")
+        @python.intrinsic.function("Proxies", "N/A", "orderbook.of_trader._OfTrader_Impl")
         def OfTrader(Trader = trader.SingleProxy()) : IOrderBook
             
         
