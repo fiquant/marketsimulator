@@ -165,15 +165,16 @@ package observable {
         def TickSize(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
             
         
+        @python.observable("Orderbook", "MidPrice")
         def MidPrice(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
             
             	 = (observable.orderbook.AskPrice(book)+observable.orderbook.BidPrice(book))/2.0
         
-        @python.intrinsic.function("Queue's", "Asks", "orderbook.queue._Asks_Impl")
+        @python.intrinsic.function("Queue's", "Asks(%(book)s)", "orderbook.queue._Asks_Impl")
         def Asks(book : IOrderBook = observable.orderbook.OfTrader()) : IOrderQueue
             
         
-        @python.observable("Orderbook", "AskPrice")
+        @python.observable("Orderbook", "Price^Asks_{%(book)s}")
         def AskPrice(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
             
             	 = observable.orderbook.BestPrice(observable.orderbook.Asks(book))
@@ -186,11 +187,11 @@ package observable {
             
             	 = observable.orderbook.BestPrice(observable.orderbook.Bids(book))
         
-        @python.intrinsic.function("Queue's", "Bids", "orderbook.queue._Bids_Impl")
+        @python.intrinsic.function("Queue's", "Bids(%(book)s)", "orderbook.queue._Bids_Impl")
         def Bids(book : IOrderBook = observable.orderbook.OfTrader()) : IOrderQueue
             
         
-        @python.intrinsic.observable("Orderbook", "Best price", "orderbook.props._BestPrice_Impl")
+        @python.intrinsic.observable("Orderbook", "Price(%(queue)s)", "orderbook.props._BestPrice_Impl")
         def BestPrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
         
@@ -201,6 +202,7 @@ package observable {
         def LastPrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
         
+        @python.observable("Orderbook", "Spread")
         def Spread(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
             
             	 = observable.orderbook.AskPrice(book)-observable.orderbook.BidPrice(book)

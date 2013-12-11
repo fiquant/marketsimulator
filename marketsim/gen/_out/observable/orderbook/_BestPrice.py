@@ -22,5 +22,5 @@ class BestPrice(_BestPrice_Impl):
         'queue' : IOrderQueue
     }
     def __repr__(self):
-        return "Best price" % self.__dict__
+        return "Price(%(queue)s)" % self.__dict__
     

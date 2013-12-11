@@ -964,6 +964,14 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Orderbook
+| | | | | | | | | | | - MidPrice
 | | | | | | | - FunDef:
 | | | | | | | | - Asks
 | | | | | | | | - List:
@@ -999,7 +1007,7 @@ Definitions:
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Queue's
-| | | | | | | | | | | - Asks
+| | | | | | | | | | | - Asks(%(book)s)
 | | | | | | | | | | | - orderbook.queue._Asks_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - AskPrice
@@ -1053,7 +1061,7 @@ Definitions:
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - AskPrice
+| | | | | | | | | | | - Price^Asks_{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - LastTradeVolume
 | | | | | | | | - List:
@@ -1169,7 +1177,7 @@ Definitions:
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Queue's
-| | | | | | | | | | | - Bids
+| | | | | | | | | | | - Bids(%(book)s)
 | | | | | | | | | | | - orderbook.queue._Bids_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - BestPrice
@@ -1206,7 +1214,7 @@ Definitions:
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Best price
+| | | | | | | | | | | - Price(%(queue)s)
 | | | | | | | | | | | - orderbook.props._BestPrice_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - OfTrader
@@ -1321,6 +1329,14 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Orderbook
+| | | | | | | | | | | - Spread
 | | | | | | | - FunDef:
 | | | | | | | | - LastTradePrice
 | | | | | | | | - List:

@@ -38,12 +38,12 @@ package observable
         @python.intrinsic.function ("Proxies", "$(TraderAsset)", "orderbook.of_trader._OfTrader_Impl")
         def OfTrader(Trader = trader.SingleProxy()) : IOrderBook
 
-        @python.intrinsic.function ("Queue's", "Asks", "orderbook.queue._Asks_Impl")
+        @python.intrinsic.function ("Queue's", "Asks(%(book)s)", "orderbook.queue._Asks_Impl")
         def Asks(book = OfTrader()) : IOrderQueue
-        @python.intrinsic.function ("Queue's", "Bids", "orderbook.queue._Bids_Impl")
+        @python.intrinsic.function ("Queue's", "Bids(%(book)s)", "orderbook.queue._Bids_Impl")
         def Bids(book = OfTrader()) : IOrderQueue
 
-        @python.intrinsic.observable ("Orderbook", "Best price", "orderbook.props._BestPrice_Impl")
+        @python.intrinsic.observable ("Orderbook", "Price(%(queue)s)", "orderbook.props._BestPrice_Impl")
         def BestPrice(queue = Asks()) : IObservable
         def LastPrice(queue = Asks()) : IObservable
         def LastTradePrice (queue = Asks()) : IObservable
@@ -55,13 +55,16 @@ package observable
 
         def TickSize(book = OfTrader()) => Float
 
-        @python.observable("Orderbook", "AskPrice")
+        @python.observable("Orderbook", "Price^Asks_{%(book)s}")
         def AskPrice(book = OfTrader()) = BestPrice(Asks(book))
 
         @python.observable("Orderbook", "BidPrice")
         def BidPrice(book = OfTrader()) = BestPrice(Bids(book))
 
+        @python.observable("Orderbook", "Spread")
         def Spread(book = OfTrader()) = AskPrice(book) - BidPrice(book)
+
+        @python.observable("Orderbook", "MidPrice")
         def MidPrice(book = OfTrader()) = (AskPrice(book) + BidPrice(book)) / 2
 
     }

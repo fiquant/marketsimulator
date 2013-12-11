@@ -19,5 +19,5 @@ class Bids(Function[float], _Bids_Impl):
         'book' : IOrderBook
     }
     def __repr__(self):
-        return "Bids" % self.__dict__
+        return "Bids(%(book)s)" % self.__dict__
     

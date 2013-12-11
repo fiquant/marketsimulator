@@ -19,5 +19,5 @@ class Asks(Function[float], _Asks_Impl):
         'book' : IOrderBook
     }
     def __repr__(self):
-        return "Asks" % self.__dict__
+        return "Asks(%(book)s)" % self.__dict__
     
