@@ -35,3 +35,4 @@ class _BestPrice_Impl(Proxy):
     def _impl(self):
         return self.queue.bestPrice
 
+

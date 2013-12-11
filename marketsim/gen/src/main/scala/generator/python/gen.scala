@@ -38,11 +38,7 @@ package object gen
 
         }
 
-        for (out <- managed(printWriter("__init__.py"))) {
-            names foreach { n =>
-                out.println(s"from _$n import $n")
-            }
-        }
+        for (out <- managed(printWriter("__init__.py"))) {}
     }
 
     trait GenerationUnit

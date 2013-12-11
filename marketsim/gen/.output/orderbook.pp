@@ -16,6 +16,7 @@ package observable.orderbook {
     def BestPrice(queue = Asks()) : IObservable
         
     
+    @python.intrinsic.observable("Orderbook", "LastPrice(%(queue)s)", "orderbook.props._LastPrice_Impl")
     def LastPrice(queue = Asks()) : IObservable
         
     

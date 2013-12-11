@@ -10,7 +10,10 @@ def Bids(book = OfTrader()) : IOrderQueue
 
 @python.intrinsic.observable ("Orderbook", "Price(%(queue)s)", "orderbook.props._BestPrice_Impl")
 def BestPrice(queue = Asks()) : IObservable
+
+@python.intrinsic.observable ("Orderbook", "LastPrice(%(queue)s)", "orderbook.props._LastPrice_Impl")
 def LastPrice(queue = Asks()) : IObservable
+
 def LastTradePrice (queue = Asks()) : IObservable
 def LastTradeVolume(queue = Asks()) : IObservable
 def PriceAtVolume(queue = Asks(), volume = 100.0) => Float

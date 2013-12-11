@@ -1280,6 +1280,16 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Orderbook
+| | | | | | | | | | | - LastPrice(%(queue)s)
+| | | | | | | | | | | - orderbook.props._LastPrice_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - Spread
 | | | | | | | | - List:

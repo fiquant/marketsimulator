@@ -195,6 +195,7 @@ package observable {
         def OfTrader(Trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IOrderBook
             
         
+        @python.intrinsic.observable("Orderbook", "LastPrice(%(queue)s)", "orderbook.props._LastPrice_Impl")
         def LastPrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
         
