@@ -164,6 +164,10 @@ package observable {
         def TickSize(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
             
         
+        @python.observable("Orderbook", "Ask_{%(book)s}")
+        def AskLastPrice(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
+             = observable.orderbook.LastPrice(observable.orderbook.Asks(book))
+        
         @python.observable("Orderbook", "MidPrice")
         def MidPrice(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
              = (observable.orderbook.AskPrice(book)+observable.orderbook.BidPrice(book))/2.0
@@ -195,7 +199,11 @@ package observable {
         def OfTrader(Trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IOrderBook
             
         
-        @python.intrinsic.observable("Orderbook", "LastPrice(%(queue)s)", "orderbook.props._LastPrice_Impl")
+        @python.observable("Orderbook", "Bid^{%(book)s}")
+        def BidLastPrice(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
+             = observable.orderbook.LastPrice(observable.orderbook.Bids(book))
+        
+        @python.intrinsic.observable("Orderbook", "LastPrice(%(queue)s)", "orderbook.last_price._LastPrice_Impl")
         def LastPrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
         

@@ -103,24 +103,8 @@ class QueueProxy(_computed.Proxy):
     _properties = { 'orderqueue' : types.IOrderQueue }
     
 from marketsim.gen._out.observable.orderbook._BestPrice import BestPrice as QueuePrice
+from marketsim.gen._out.observable.orderbook._LastPrice import LastPrice as QueueLastPrice
 
-class QueueLastPrice(ops.Observable[float]):
-    
-    def __init__(self, orderqueue):
-        ops.Observable[float].__init__(self)
-        self._price = QueuePrice(orderqueue)
-        event.subscribe(self._price, _(self)._update, self)
-        self._lastPrice = None
-        
-    def __call__(self):
-        return self._lastPrice
-    
-    def _update(self, src):
-        p = self._price()
-        if p is not None:
-            self._lastPrice = p
-            self.fire(self)
-        
     
 class QueueLastTrade(QueueProxy):
     
@@ -190,13 +174,8 @@ def AskLastTradePrice(book):
 def BidLastTradePrice(book):
     return QueueLastTradePrice(orderbook.Bids(book))
 
-@registry.expose(alias = ["Asset's", "Ask", "Last price"], args = (None,))
-def AskLastPrice(book):
-    return QueueLastPrice(orderbook.Asks(book))
-
-@registry.expose(alias = ["Asset's", "Bid", "Last price"], args = (None,))
-def BidLastPrice(book):
-    return QueueLastPrice(orderbook.Bids(book))
+from marketsim.gen._out.observable.orderbook._AskLastPrice import AskLastPrice
+from marketsim.gen._out.observable.orderbook._BidLastPrice import BidLastPrice
 
 from marketsim.gen._out.observable.orderbook._AskPrice import AskPrice
 from marketsim.gen._out.observable.orderbook._BidPrice import BidPrice

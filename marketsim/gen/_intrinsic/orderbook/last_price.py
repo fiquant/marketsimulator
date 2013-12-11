@@ -1,4 +1,4 @@
-from marketsim import ops, event
+from marketsim import ops, event, _
 
 from marketsim.gen._out.observable.orderbook._BestPrice import BestPrice
 
