@@ -36,9 +36,11 @@ package observable.orderbook {
     def BidLastPrice(book = OfTrader())
          = LastPrice(Bids(book))
     
+    @python.intrinsic.observable("Orderbook", "LastTradePrice(%(queue)s)", "orderbook.last_trade._LastTradePrice_Impl")
     def LastTradePrice(queue = Asks()) : IObservable
         
     
+    @python.intrinsic.observable("Orderbook", "LastTradeVolume(%(queue)s)", "orderbook.last_trade._LastTradeVolume_Impl")
     def LastTradeVolume(queue = Asks()) : IObservable
         
     

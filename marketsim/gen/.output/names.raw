@@ -942,6 +942,16 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Orderbook
+| | | | | | | | | | | - LastTradeVolume(%(queue)s)
+| | | | | | | | | | | - orderbook.last_trade._LastTradeVolume_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - BidPrice
 | | | | | | | | - List:
@@ -1203,6 +1213,16 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Orderbook
+| | | | | | | | | | | - LastTradePrice(%(queue)s)
+| | | | | | | | | | | - orderbook.last_trade._LastTradePrice_Impl
 | | | | - FunDef:
 | | | | | - Sqr
 | | | | | - List:

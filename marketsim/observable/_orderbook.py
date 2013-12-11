@@ -105,32 +105,11 @@ class QueueProxy(_computed.Proxy):
 from marketsim.gen._out.observable.orderbook._BestPrice import BestPrice as QueuePrice
 from marketsim.gen._out.observable.orderbook._LastPrice import LastPrice as QueueLastPrice
 
-    
-class QueueLastTrade(QueueProxy):
-    
-    @property
-    def _impl(self):
-        return self.orderqueue.lastTrade
-    
-class QueueLastTradePrice(QueueLastTrade):
-    
-    def __call__(self):
-        trade = QueueLastTrade.__call__(self)
-        return trade[0] if trade is not None else None
 
-    @property
-    def label(self):
-        return 'LastTradePrice_{' + self.orderqueue.label + '}'
-    
-class QueueLastTradeVolume(QueueLastTrade):
-    
-    def __call__(self):
-        return QueueLastTrade.__call__(self)[1]
+from marketsim.gen._intrinsic.orderbook.last_trade import LastTrade as QueueLastTrade
+from marketsim.gen._out.observable.orderbook._LastTradePrice import LastTradePrice as QueueLastTradePrice
+from marketsim.gen._out.observable.orderbook._LastTradeVolume import LastTradeVolume as QueueLastTradeVolume
 
-    @property
-    def label(self):
-        return 'LastTradeVolume_{' + self.orderqueue.label + '}'
-    
 from _ewma import EWMA
 
 class QueueWeightedPrice(ops.Function[float]):
