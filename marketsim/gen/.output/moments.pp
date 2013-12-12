@@ -16,4 +16,10 @@ package observable {
                    alpha = 0.015)
              = mathops.Sqrt(Var(source,alpha))
     }
+    
+    package Cumulative {
+        @python.intrinsic.function("Statistics", "Avg_{cumul}(%(source)s)", "moments.cma.CMA_Impl")
+        def Avg(source = const()) : () => Float
+            
+    }
 }

@@ -1,5 +1,11 @@
 
 package observable {
+    package Cumulative {
+        @python.intrinsic.function("Statistics", "Avg_{cumul}(%(source)s)", "moments.cma.CMA_Impl")
+        def Avg(source : IObservable = const()) : () => Float
+            
+    }
+    
     package macd {
         @python.function("MACD", "MACD_{%(fast)s}^{%(slow)s}(%(x)s)")
         def MACD(x : IObservable = observable.orderbook.MidPrice(),
