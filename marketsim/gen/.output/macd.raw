@@ -1,0 +1,9 @@
+Definitions:
+- List:
+| - PackageDef:
+| | - QualifiedName:
+| | | - List:
+| | | | - observable
+| | | | - macd
+| | - Definitions:
+| | | - List:

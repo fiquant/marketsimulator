@@ -629,7 +629,7 @@ Definitions:
 | | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - Orderbook
-| | | | | | | | - Spread
+| | | | | | | | - Spread_{%(book)s}
 | | | | - FunDef:
 | | | | | - MidPrice
 | | | | | - List:
@@ -674,4 +674,4 @@ Definitions:
 | | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - Orderbook
-| | | | | | | | - MidPrice
+| | | | | | | | - MidPrice_{%(book)s}

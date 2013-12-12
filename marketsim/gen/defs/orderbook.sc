@@ -12,7 +12,7 @@ def Bids(book = OfTrader()) : IOrderQueue
 def BestPrice(queue = Asks()) : IObservable
 
 @python.observable("Orderbook", "Ask_{%(book)s}")
-def AskPrice(book = OfTrader()) = BestPrice(Asks(book))
+    def AskPrice(book = OfTrader()) = BestPrice(Asks(book))
 
 @python.observable("Orderbook", "Bid^{%(book)s}")
 def BidPrice(book = OfTrader()) = BestPrice(Bids(book))
@@ -47,8 +47,8 @@ def BidWeightedPrice(book = OfTrader(), alpha = 0.015) = WeightedPrice(Bids(book
 def TickSize(book = OfTrader()) => Float
 
 
-@python.observable("Orderbook", "Spread")
+@python.observable("Orderbook", "Spread_{%(book)s}")
 def Spread(book = OfTrader()) = AskPrice(book) - BidPrice(book)
 
-@python.observable("Orderbook", "MidPrice")
+@python.observable("Orderbook", "MidPrice_{%(book)s}")
 def MidPrice(book = OfTrader()) = (AskPrice(book) + BidPrice(book)) / 2

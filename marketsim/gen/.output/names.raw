@@ -906,7 +906,7 @@ Definitions:
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - MidPrice
+| | | | | | | | | | | - MidPrice_{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - Asks
 | | | | | | | | - List:
@@ -1291,7 +1291,7 @@ Definitions:
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Spread
+| | | | | | | | | | | - Spread_{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - LastTradePrice
 | | | | | | | | - List:
@@ -1323,6 +1323,12 @@ Definitions:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - LastTradePrice(%(queue)s)
 | | | | | | | | | | | - orderbook.last_trade._LastTradePrice_Impl
+| | | | - PackageDef:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - macd
+| | | | | - Definitions:
+| | | | | | - List:
 | | | | - FunDef:
 | | | | | - Sqr
 | | | | | - List:

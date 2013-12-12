@@ -159,7 +159,7 @@ package observable {
         
         @python.observable("Orderbook", "Price_{%(alpha)s}^{%(queue)s}")
         def WeightedPrice(queue : IOrderQueue = observable.orderbook.Asks(),
-                          alpha : Float = 0.015) : () => Float
+                          alpha : Float = 0.015) : IFunction
             
             	 = observable.EWMA(observable.orderbook.LastTradePrice(queue)*observable.orderbook.LastTradeVolume(queue),alpha)/observable.EWMA(observable.orderbook.LastTradeVolume(queue),alpha)
         
@@ -167,18 +167,18 @@ package observable {
             
         
         @python.observable("Orderbook", "Ask_{%(book)s}")
-        def AskLastPrice(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
+        def AskLastPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable
             
             	 = observable.orderbook.LastPrice(observable.orderbook.Asks(book))
         
         @python.observable("Orderbook", "Ask_{%(alpha)s}^{%(book)s}")
         def AskWeightedPrice(book : IOrderBook = observable.orderbook.OfTrader(),
-                             alpha : Float = 0.015) : () => Float
+                             alpha : Float = 0.015) : IFunction
             
             	 = observable.orderbook.WeightedPrice(observable.orderbook.Asks(book),alpha)
         
-        @python.observable("Orderbook", "MidPrice")
-        def MidPrice(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
+        @python.observable("Orderbook", "MidPrice_{%(book)s}")
+        def MidPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable
             
             	 = (observable.orderbook.AskPrice(book)+observable.orderbook.BidPrice(book))/2.0
         
@@ -188,12 +188,12 @@ package observable {
         
         @python.observable("Orderbook", "Bid_{%(alpha)s}^{%(book)s}")
         def BidWeightedPrice(book : IOrderBook = observable.orderbook.OfTrader(),
-                             alpha : Float = 0.015) : () => Float
+                             alpha : Float = 0.015) : IFunction
             
             	 = observable.orderbook.WeightedPrice(observable.orderbook.Bids(book),alpha)
         
         @python.observable("Orderbook", "Ask_{%(book)s}")
-        def AskPrice(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
+        def AskPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable
             
             	 = observable.orderbook.BestPrice(observable.orderbook.Asks(book))
         
@@ -202,7 +202,7 @@ package observable {
             
         
         @python.observable("Orderbook", "Bid^{%(book)s}")
-        def BidPrice(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
+        def BidPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable
             
             	 = observable.orderbook.BestPrice(observable.orderbook.Bids(book))
         
@@ -219,7 +219,7 @@ package observable {
             
         
         @python.observable("Orderbook", "Bid^{%(book)s}")
-        def BidLastPrice(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
+        def BidLastPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable
             
             	 = observable.orderbook.LastPrice(observable.orderbook.Bids(book))
         
@@ -227,8 +227,8 @@ package observable {
         def LastPrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
         
-        @python.observable("Orderbook", "Spread")
-        def Spread(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
+        @python.observable("Orderbook", "Spread_{%(book)s}")
+        def Spread(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable
             
             	 = observable.orderbook.AskPrice(book)-observable.orderbook.BidPrice(book)
         
@@ -236,20 +236,23 @@ package observable {
         def LastTradePrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
     }
+    
+    package macd {
+    }
     @python.observable("Pow/Log", "{%(x)s}^2")
-    def Sqr(x : IFunction = constant()) : () => Float
+    def Sqr(x : IFunction = constant()) : IFunction
         
         	 = x*x
     
     @python.observable("Basic", "min{%(x)s, %(y)s}")
     def Min(x : IFunction = constant(),
-            y : IFunction = constant()) : () => Float
+            y : IFunction = constant()) : IFunction
         
         	 = if x<y then x else y
     
     @python.observable("Basic", "max{%(x)s, %(y)s}")
     def Max(x : IFunction = constant(),
-            y : IFunction = constant()) : () => Float
+            y : IFunction = constant()) : IFunction
         
         	 = if x>y then x else y
     

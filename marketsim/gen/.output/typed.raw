@@ -874,12 +874,10 @@ Definitions:
 | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - alpha
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -956,12 +954,10 @@ Definitions:
 | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | - book
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -1022,12 +1018,10 @@ Definitions:
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - alpha
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -1083,12 +1077,10 @@ Definitions:
 | | | | | | | | | | - Const:
 | | | | | | | | | | | - 2.0
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -1098,7 +1090,7 @@ Definitions:
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - MidPrice
+| | | | | | | | | | | - MidPrice_{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - Asks
 | | | | | | | | - List:
@@ -1186,12 +1178,10 @@ Definitions:
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - alpha
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -1239,12 +1229,10 @@ Definitions:
 | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | - book
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -1329,12 +1317,10 @@ Definitions:
 | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | - book
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -1493,12 +1479,10 @@ Definitions:
 | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | - book
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -1587,12 +1571,10 @@ Definitions:
 | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - book
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -1602,7 +1584,7 @@ Definitions:
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Spread
+| | | | | | | | | | | - Spread_{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - LastTradePrice
 | | | | | | | | - List:
@@ -1640,6 +1622,12 @@ Definitions:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - LastTradePrice(%(queue)s)
 | | | | | | | | | | | - orderbook.last_trade._LastTradePrice_Impl
+| | | | - PackageDef:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - macd
+| | | | | - Definitions:
+| | | | | | - List:
 | | | | - FunDef:
 | | | | | - Sqr
 | | | | | - List:
@@ -1665,12 +1653,10 @@ Definitions:
 | | | | | | | - Var:
 | | | | | | | | - x
 | | | | | - Some:
-| | | | | | - FunctionType:
-| | | | | | | - List:
-| | | | | | | - SimpleType:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - Float
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IFunction
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -1725,12 +1711,10 @@ Definitions:
 | | | | | | | - Var:
 | | | | | | | | - y
 | | | | | - Some:
-| | | | | | - FunctionType:
-| | | | | | | - List:
-| | | | | | | - SimpleType:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - Float
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IFunction
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -1785,12 +1769,10 @@ Definitions:
 | | | | | | | - Var:
 | | | | | | | | - y
 | | | | | - Some:
-| | | | | | - FunctionType:
-| | | | | | | - List:
-| | | | | | | - SimpleType:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - Float
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IFunction
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:

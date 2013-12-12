@@ -66,11 +66,11 @@ package observable.orderbook {
     def TickSize(book = OfTrader()) : () => Float
         
     
-    @python.observable("Orderbook", "Spread")
+    @python.observable("Orderbook", "Spread_{%(book)s}")
     def Spread(book = OfTrader())
          = AskPrice(book)-BidPrice(book)
     
-    @python.observable("Orderbook", "MidPrice")
+    @python.observable("Orderbook", "MidPrice_{%(book)s}")
     def MidPrice(book = OfTrader())
          = (AskPrice(book)+BidPrice(book))/2.0
 }

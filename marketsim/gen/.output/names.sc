@@ -174,7 +174,7 @@ package observable {
                              alpha = 0.015)
              = WeightedPrice(Asks(book),alpha)
         
-        @python.observable("Orderbook", "MidPrice")
+        @python.observable("Orderbook", "MidPrice_{%(book)s}")
         def MidPrice(book = OfTrader())
              = (AskPrice(book)+BidPrice(book))/2.0
         
@@ -219,13 +219,16 @@ package observable {
         def LastPrice(queue = Asks()) : IObservable
             
         
-        @python.observable("Orderbook", "Spread")
+        @python.observable("Orderbook", "Spread_{%(book)s}")
         def Spread(book = OfTrader())
              = AskPrice(book)-BidPrice(book)
         
         @python.intrinsic.observable("Orderbook", "LastTradePrice(%(queue)s)", "orderbook.last_trade._LastTradePrice_Impl")
         def LastTradePrice(queue = Asks()) : IObservable
             
+    }
+    
+    package macd {
     }
     @python.observable("Pow/Log", "{%(x)s}^2")
     def Sqr(x = constant())
