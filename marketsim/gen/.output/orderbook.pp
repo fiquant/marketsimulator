@@ -51,7 +51,7 @@ package observable.orderbook {
     @python.observable("Orderbook", "Price_{%(alpha)s}^{%(queue)s}")
     def WeightedPrice(queue = Asks(),
                       alpha = 0.015)
-         = EWMA(LastTradePrice(queue)*LastTradeVolume(queue),alpha)/EWMA(LastTradeVolume(queue),alpha)
+         = EW.Avg(LastTradePrice(queue)*LastTradeVolume(queue),alpha)/EW.Avg(LastTradeVolume(queue),alpha)
     
     @python.observable("Orderbook", "Ask_{%(alpha)s}^{%(book)s}")
     def AskWeightedPrice(book = OfTrader(),

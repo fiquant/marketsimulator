@@ -41,7 +41,8 @@ Definitions:
 | | | | | | | - FunCall:
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - EWMA
+| | | | | | | | | | - EW
+| | | | | | | | | | - Avg
 | | | | | | | | - List:
 | | | | | | | | | - Var:
 | | | | | | | | | | - x
@@ -58,7 +59,8 @@ Definitions:
 | | | | | | | - FunCall:
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - EWMA
+| | | | | | | | | | - EW
+| | | | | | | | | | - Avg
 | | | | | | | | - List:
 | | | | | | | | | - Var:
 | | | | | | | | | | - x
@@ -129,7 +131,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - EWMA
+| | | | | | | | | - EW
+| | | | | | | | | - Avg
 | | | | | | | - List:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:

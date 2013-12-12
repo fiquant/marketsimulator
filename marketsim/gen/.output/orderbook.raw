@@ -429,7 +429,8 @@ Definitions:
 | | | | | | | - FunCall:
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - EWMA
+| | | | | | | | | | - EW
+| | | | | | | | | | - Avg
 | | | | | | | | - List:
 | | | | | | | | | - BinOp:
 | | | | | | | | | | - Mul
@@ -452,7 +453,8 @@ Definitions:
 | | | | | | | - FunCall:
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - EWMA
+| | | | | | | | | | - EW
+| | | | | | | | | | - Avg
 | | | | | | | | - List:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:

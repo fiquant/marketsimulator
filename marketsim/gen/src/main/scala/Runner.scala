@@ -49,7 +49,7 @@ object Runner extends syntax.scala.Parser {
         unused(generator.python.gen.Annotations)
         unused(Types.FloatObservable)
 
-        val files = "random" :: "mathops" :: "misc" :: "orderbook" :: "macd" :: Nil
+        val files = "random" :: "mathops" :: "misc" :: "orderbook" :: "macd" :: "moments" :: Nil
 
         print(s"parsing...")
 

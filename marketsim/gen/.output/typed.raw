@@ -832,7 +832,8 @@ Definitions:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - EWMA
+| | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | - Avg
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - BinOp:
 | | | | | | | | | | | | | - Mul
@@ -860,7 +861,8 @@ Definitions:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - EWMA
+| | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | - Avg
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | - QualifiedName:
@@ -1676,7 +1678,8 @@ Definitions:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - EWMA
+| | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | - Avg
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - x
@@ -1694,7 +1697,8 @@ Definitions:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - EWMA
+| | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | - Avg
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - x
@@ -1791,7 +1795,8 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - observable
-| | | | | | | | | | | | - EWMA
+| | | | | | | | | | | | - EW
+| | | | | | | | | | | | - Avg
 | | | | | | | | | | - List:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -1952,68 +1957,63 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - MACD
 | | | | | | | | | | | - Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
-| | | | - FunDef:
-| | | | | - EWMA
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - source
-| | | | | | | - Some:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - IObservable
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - const
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - alpha
-| | | | | | | - Some:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Float
-| | | | | | | - Some:
-| | | | | | | | - Const:
-| | | | | | | | | - 0.015
-| | | | | | | - List:
-| | | | | - None
-| | | | | - Some:
-| | | | | | - FunctionType:
-| | | | | | | - List:
-| | | | | | | - SimpleType:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - Float
-| | | | | - None
-| | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
+| | | | - PackageDef:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - EW
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - Avg
 | | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - intrinsic
-| | | | | | | | | - function
-| | | | | | | - List:
-| | | | | | | | - Statistics
-| | | | | | | | - Avg_{\\alpha=%(alpha)s}(%(source)s)
-| | | | | | | | - observable.ewma.EWMA_Impl
-| | | | - FunDef:
-| | | | | - OnEveryDt
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - dt
-| | | | | | | - Some:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - source
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Float
-| | | | | | | - Some:
-| | | | | | | | - Const:
-| | | | | | | | | - 1.0
-| | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - alpha
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 0.015
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - function
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Statistics
+| | | | | | | | | | | - Avg_{\\alpha=%(alpha)s}(%(source)s)
+| | | | | | | | | | | - observable.ewma.EWMA_Impl
+| | | | - FunDef:
+| | | | | - Sqr
+| | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - x
 | | | | | | | - Some:
@@ -2028,24 +2028,28 @@ Definitions:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - BinOp:
+| | | | | | | - Mul
+| | | | | | | - Var:
+| | | | | | | | - x
+| | | | | | | - Var:
+| | | | | | | | - x
 | | | | | - Some:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable
+| | | | | | | | | - IFunction
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - python
-| | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Basic
-| | | | | | | | - [%(x)s]_dt=%(dt)s
-| | | | | | | | - observable.on_every_dt._OnEveryDt_Impl
+| | | | | | | | - Pow/Log
+| | | | | | | | - {%(x)s}^2
 | | | | - FunDef:
 | | | | | - Min
 | | | | | - List:
@@ -2163,8 +2167,19 @@ Definitions:
 | | | | | | | | - Basic
 | | | | | | | | - max{%(x)s, %(y)s}
 | | | | - FunDef:
-| | | | | - Sqr
+| | | | | - OnEveryDt
 | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - dt
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 1.0
+| | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - x
 | | | | | | | - Some:
@@ -2179,28 +2194,24 @@ Definitions:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | - List:
-| | | | | - Some:
-| | | | | | - BinOp:
-| | | | | | | - Mul
-| | | | | | | - Var:
-| | | | | | | | - x
-| | | | | | | - Var:
-| | | | | | | | - x
+| | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IFunction
+| | | | | | | | | - IObservable
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - python
+| | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Pow/Log
-| | | | | | | | - {%(x)s}^2
+| | | | | | | | - Basic
+| | | | | | | | - [%(x)s]_dt=%(dt)s
+| | | | | | | | - observable.on_every_dt._OnEveryDt_Impl
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:

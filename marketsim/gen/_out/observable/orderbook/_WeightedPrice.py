@@ -34,12 +34,12 @@ class WeightedPrice(Observable[float]):
         return {}
     
     def getImpl(self):
-        from marketsim.gen._out.observable._EWMA import EWMA
+        from marketsim.gen._out.observable.EW._Avg import Avg
         from marketsim.gen._out.observable.orderbook._LastTradePrice import LastTradePrice
         from marketsim.gen._out.observable.orderbook._LastTradeVolume import LastTradeVolume
-        from marketsim.gen._out.observable._EWMA import EWMA
+        from marketsim.gen._out.observable.EW._Avg import Avg
         from marketsim.gen._out.observable.orderbook._LastTradeVolume import LastTradeVolume
-        return EWMA(LastTradePrice(self.queue)*LastTradeVolume(self.queue),self.alpha)/EWMA(LastTradeVolume(self.queue),self.alpha)
+        return Avg(LastTradePrice(self.queue)*LastTradeVolume(self.queue),self.alpha)/Avg(LastTradeVolume(self.queue),self.alpha)
         
         
         

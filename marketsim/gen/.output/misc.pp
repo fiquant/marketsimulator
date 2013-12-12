@@ -35,11 +35,6 @@ type IOrderBook
 type ISingleAssetTrader
 
 package observable {
-    @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "observable.ewma.EWMA_Impl")
-    def EWMA(source = const(),
-             alpha = 0.015) : () => Float
-        
-    
     package trader {
         @python.intrinsic.function("Proxies", "N/A", "trader.proxy._Single_Impl")
         def SingleProxy() : ISingleAssetTrader

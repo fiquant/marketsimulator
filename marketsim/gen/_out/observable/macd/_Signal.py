@@ -5,7 +5,7 @@ from marketsim import float
 from marketsim import float
 from marketsim import float
 from marketsim import float
-from marketsim.gen._out.observable._EWMA import EWMA
+from marketsim.gen._out.observable.EW._Avg import Avg
 from marketsim.gen._out.observable._OnEveryDt import OnEveryDt
 from marketsim.gen._out.observable.macd._MACD import MACD
 from marketsim import context
@@ -42,7 +42,7 @@ class Signal(Function[float]):
         return {}
     
     def getImpl(self):
-        return EWMA(OnEveryDt(self.step,MACD(self.x,self.slow,self.fast)),2.0/(self.timeframe+1.0))
+        return Avg(OnEveryDt(self.step,MACD(self.x,self.slow,self.fast)),2.0/(self.timeframe+1.0))
     
     
     

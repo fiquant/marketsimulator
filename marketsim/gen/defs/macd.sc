@@ -2,11 +2,11 @@ package observable.macd
 
 @python.function("MACD", "MACD_{%(fast)s}^{%(slow)s}(%(x)s)")
 def MACD(x = orderbook.MidPrice(), slow = 26.0, fast = 12.0)
-    = EWMA(x, 2./(fast+1)) - EWMA(x, 2./(slow+1))
+    = EW.Avg(x, 2./(fast+1)) - EW.Avg(x, 2./(slow+1))
 
 @python.function("MACD", "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))")
 def Signal(x = orderbook.MidPrice(), slow = 26.0, fast = 12.0, timeframe = 9.0, step = 1.0)
-    = EWMA(OnEveryDt(step, MACD(x, slow, fast)),  2/(timeframe+1))
+    = EW.Avg(OnEveryDt(step, MACD(x, slow, fast)),  2/(timeframe+1))
 
 @python.function("MACD", "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))")
 def Histogram(x = orderbook.MidPrice(), slow = 26.0, fast = 12.0, timeframe = 9.0, step = 1.0)

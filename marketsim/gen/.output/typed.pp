@@ -160,7 +160,7 @@ package observable {
         @python.observable("Orderbook", "Price_{%(alpha)s}^{%(queue)s}")
         def WeightedPrice(queue : IOrderQueue = observable.orderbook.Asks(),
                           alpha : Float = 0.015) : IFunction
-             = observable.EWMA(observable.orderbook.LastTradePrice(queue)*observable.orderbook.LastTradeVolume(queue),alpha)/observable.EWMA(observable.orderbook.LastTradeVolume(queue),alpha)
+             = observable.EW.Avg(observable.orderbook.LastTradePrice(queue)*observable.orderbook.LastTradeVolume(queue),alpha)/observable.EW.Avg(observable.orderbook.LastTradeVolume(queue),alpha)
         
         def TickSize(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
             
@@ -233,7 +233,7 @@ package observable {
         def MACD(x : IObservable = observable.orderbook.MidPrice(),
                  slow : Float = 26.0,
                  fast : Float = 12.0) : IFunction
-             = observable.EWMA(x,2.0/(fast+1.0))-observable.EWMA(x,2.0/(slow+1.0))
+             = observable.EW.Avg(x,2.0/(fast+1.0))-observable.EW.Avg(x,2.0/(slow+1.0))
         
         @python.function("MACD", "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))")
         def Signal(x : IObservable = observable.orderbook.MidPrice(),
@@ -241,7 +241,7 @@ package observable {
                    fast : Float = 12.0,
                    timeframe : Float = 9.0,
                    step : Float = 1.0) : () => Float
-             = observable.EWMA(observable.OnEveryDt(step,observable.macd.MACD(x,slow,fast)),2.0/(timeframe+1.0))
+             = observable.EW.Avg(observable.OnEveryDt(step,observable.macd.MACD(x,slow,fast)),2.0/(timeframe+1.0))
         
         @python.function("MACD", "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))")
         def Histogram(x : IObservable = observable.orderbook.MidPrice(),
@@ -252,15 +252,16 @@ package observable {
              = observable.macd.MACD(x,slow,fast)-observable.macd.Signal(x,slow,fast,timeframe,step)
     }
     
-    @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "observable.ewma.EWMA_Impl")
-    def EWMA(source : IObservable = const(),
-             alpha : Float = 0.015) : () => Float
-        
+    package EW {
+        @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "observable.ewma.EWMA_Impl")
+        def Avg(source : IObservable = const(),
+                alpha : Float = 0.015) : () => Float
+            
+    }
     
-    @python.intrinsic.observable("Basic", "[%(x)s]_dt=%(dt)s", "observable.on_every_dt._OnEveryDt_Impl")
-    def OnEveryDt(dt : Float = 1.0,
-                  x : IFunction = constant()) : IObservable
-        
+    @python.observable("Pow/Log", "{%(x)s}^2")
+    def Sqr(x : IFunction = constant()) : IFunction
+         = x*x
     
     @python.observable("Basic", "min{%(x)s, %(y)s}")
     def Min(x : IFunction = constant(),
@@ -272,9 +273,10 @@ package observable {
             y : IFunction = constant()) : IFunction
          = if x>y then x else y
     
-    @python.observable("Pow/Log", "{%(x)s}^2")
-    def Sqr(x : IFunction = constant()) : IFunction
-         = x*x
+    @python.intrinsic.observable("Basic", "[%(x)s]_dt=%(dt)s", "observable.on_every_dt._OnEveryDt_Impl")
+    def OnEveryDt(dt : Float = 1.0,
+                  x : IFunction = constant()) : IObservable
+        
 }
 
 package trash {

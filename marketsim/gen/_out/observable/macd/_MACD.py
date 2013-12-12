@@ -3,8 +3,8 @@ from marketsim.ops._function import Function
 from marketsim import IObservable
 from marketsim import float
 from marketsim import float
-from marketsim.gen._out.observable._EWMA import EWMA
-from marketsim.gen._out.observable._EWMA import EWMA
+from marketsim.gen._out.observable.EW._Avg import Avg
+from marketsim.gen._out.observable.EW._Avg import Avg
 from marketsim import context
 @registry.expose(["MACD", "MACD"])
 class MACD(Function[float]):
@@ -35,7 +35,7 @@ class MACD(Function[float]):
         return {}
     
     def getImpl(self):
-        return EWMA(self.x,2.0/(self.fast+1.0))-EWMA(self.x,2.0/(self.slow+1.0))
+        return Avg(self.x,2.0/(self.fast+1.0))-Avg(self.x,2.0/(self.slow+1.0))
     
     
     def bind(self, ctx):
