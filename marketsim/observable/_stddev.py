@@ -106,9 +106,6 @@ def StdDevRolling(source, timeframe):
 from _ewma import EWMA
 
 from marketsim.gen._out.observable.EW._Var import Var as EWMV
+from marketsim.gen._out.observable.EW._StdDev import StdDev as StdDevEW
 
-@registry.expose(alias = ['Statistics', 'StdDev', 'Exponentially weighted'], 
-                 args = (ops.constant(1.),0.15))
-def StdDevEW(source, alpha):    
-    return ops.Sqrt(EWMV(source, alpha))
     
