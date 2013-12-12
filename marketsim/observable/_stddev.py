@@ -6,12 +6,8 @@ import math
 from _misc import Sqr
 
 from marketsim.gen._out.observable.Cumulative._Var import Var as Variance
+from marketsim.gen._out.observable.Cumulative._StdDev import StdDev
 
-@registry.expose(alias = ['Statistics', 'StdDev', 'Cumulative'], 
-                 args = (ops.constant(1.),))
-def StdDev(source):
-    return ops.Sqrt(Variance(source))
-        
 from _ma import MA
 
 @registry.expose(alias = ['Statistics', 'Variance', 'Moving'])

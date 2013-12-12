@@ -8,6 +8,10 @@ package observable {
         @python.intrinsic.function("Statistics", "\\sigma^2_{cumul}(%(source)s)", "moments.cmv.Variance_Impl")
         def Var(source : IObservable = const()) : () => Float
             
+        
+        @python.function("Statistics", "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}")
+        def StdDev(source : IObservable = const()) : () => Float
+             = mathops.Sqrt(observable.Cumulative.Var(source))
     }
     
     package macd {
