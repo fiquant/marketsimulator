@@ -1,10 +1,13 @@
-import java.io.PrintWriter
+import java.io.{PrintWriter, File}
 import resource._
 import sext._
+import scala.collection.JavaConversions._
 
 object Runner extends syntax.scala.Parser {
 
-    def parse(path : String) : Option[AST.Definitions] = {
+    def parse(file : File) : Option[AST.Definitions] = {
+
+        val path = file.getPath
 
         def printerFor(ext : String) = new PrintWriter(path.replace(".sc", ext).replace("defs", ".output"))
 
@@ -44,16 +47,21 @@ object Runner extends syntax.scala.Parser {
 
     def unused(a : Any) {}
 
+    def getFileTree(f : File) : Stream[File] =
+            f #:: (if (f.isDirectory) f.listFiles().toStream.flatMap(getFileTree)
+                                 else Stream.empty)
+
     def main(args: Array[String]) {
 
         unused(generator.python.gen.Annotations)
         unused(Types.FloatObservable)
 
-        val files = "random" :: "mathops" :: "misc" :: "orderbook" :: "macd" :: "moments" :: Nil
-
         print(s"parsing...")
 
-        val parsed = files.flatMap({ file => parse(s"defs/$file.sc") })
+        val parsed = (getFileTree(new File("defs"))
+                        filter  { _.getName endsWith ".sc" }
+                        flatMap { parse }
+                ).toList
 
         println("done")
 
@@ -82,7 +90,7 @@ object Runner extends syntax.scala.Parser {
             output.println(names)
         }
 
-        val names_2 = NameTable(parse(".output/names.sc").get :: Nil)
+        val names_2 = NameTable(parse(new File(".output/names.sc")).get :: Nil)
 
         if (names_2 != names)
             throw new Exception("re-parsed names differ from original ones.")
@@ -102,7 +110,7 @@ object Runner extends syntax.scala.Parser {
             output.println(typed)
         }
 
-        val typed_2 = Typer(NameTable(parse(".output/typed.sc").get :: Nil))
+        val typed_2 = Typer(NameTable(parse(new File(".output/typed.sc")).get :: Nil))
 
         if (typed != typed_2)
             throw new Exception("re-parsed typed representation differs from the original one")

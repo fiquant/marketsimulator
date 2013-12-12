@@ -1,4 +1,204 @@
 
+package observable {
+    package macd {
+        @python.function("MACD", "MACD_{%(fast)s}^{%(slow)s}(%(x)s)")
+        def MACD(x = orderbook.MidPrice(),
+                 slow = 26.0,
+                 fast = 12.0)
+             = EW.Avg(x,2.0/(fast+1.0))-EW.Avg(x,2.0/(slow+1.0))
+        
+        @python.function("MACD", "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))")
+        def Signal(x = orderbook.MidPrice(),
+                   slow = 26.0,
+                   fast = 12.0,
+                   timeframe = 9.0,
+                   step = 1.0)
+             = EW.Avg(OnEveryDt(step,MACD(x,slow,fast)),2.0/(timeframe+1.0))
+        
+        @python.function("MACD", "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))")
+        def Histogram(x = orderbook.MidPrice(),
+                      slow = 26.0,
+                      fast = 12.0,
+                      timeframe = 9.0,
+                      step = 1.0)
+             = MACD(x,slow,fast)-Signal(x,slow,fast,timeframe,step)
+    }
+    
+    package trader {
+        @python.intrinsic.function("Proxies", "N/A", "trader.proxy._Single_Impl")
+        def SingleProxy() : ISingleAssetTrader
+            
+    }
+    
+    package EW {
+        @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "observable.ewma.EWMA_Impl")
+        def Avg(source = const(),
+                alpha = 0.015) : () => Float
+            
+    }
+    
+    package orderbook {
+        def PriceAtVolume(queue = Asks(),
+                          volume = 100.0) : () => Float
+            
+        
+        @python.observable("Orderbook", "Price_{%(alpha)s}^{%(queue)s}")
+        def WeightedPrice(queue = Asks(),
+                          alpha = 0.015)
+             = EW.Avg(LastTradePrice(queue)*LastTradeVolume(queue),alpha)/EW.Avg(LastTradeVolume(queue),alpha)
+        
+        def TickSize(book = OfTrader()) : () => Float
+            
+        
+        @python.observable("Orderbook", "Ask_{%(book)s}")
+        def AskLastPrice(book = OfTrader())
+             = LastPrice(Asks(book))
+        
+        @python.observable("Orderbook", "Ask_{%(alpha)s}^{%(book)s}")
+        def AskWeightedPrice(book = OfTrader(),
+                             alpha = 0.015)
+             = WeightedPrice(Asks(book),alpha)
+        
+        @python.observable("Orderbook", "MidPrice_{%(book)s}")
+        def MidPrice(book = OfTrader())
+             = (AskPrice(book)+BidPrice(book))/2.0
+        
+        @python.intrinsic.function("Queue's", "Asks(%(book)s)", "orderbook.queue._Asks_Impl")
+        def Asks(book = OfTrader()) : IOrderQueue
+            
+        
+        @python.observable("Orderbook", "Bid_{%(alpha)s}^{%(book)s}")
+        def BidWeightedPrice(book = OfTrader(),
+                             alpha = 0.015)
+             = WeightedPrice(Bids(book),alpha)
+        
+        @python.observable("Orderbook", "Ask_{%(book)s}")
+        def AskPrice(book = OfTrader())
+             = BestPrice(Asks(book))
+        
+        @python.intrinsic.observable("Orderbook", "LastTradeVolume(%(queue)s)", "orderbook.last_trade._LastTradeVolume_Impl")
+        def LastTradeVolume(queue = Asks()) : IObservable
+            
+        
+        @python.observable("Orderbook", "Bid^{%(book)s}")
+        def BidPrice(book = OfTrader())
+             = BestPrice(Bids(book))
+        
+        @python.intrinsic.function("Queue's", "Bids(%(book)s)", "orderbook.queue._Bids_Impl")
+        def Bids(book = OfTrader()) : IOrderQueue
+            
+        
+        @python.intrinsic.observable("Orderbook", "Price(%(queue)s)", "orderbook.props._BestPrice_Impl")
+        def BestPrice(queue = Asks()) : IObservable
+            
+        
+        @python.intrinsic.function("Proxies", "N/A", "orderbook.of_trader._OfTrader_Impl")
+        def OfTrader(Trader = trader.SingleProxy()) : IOrderBook
+            
+        
+        @python.observable("Orderbook", "Bid^{%(book)s}")
+        def BidLastPrice(book = OfTrader())
+             = LastPrice(Bids(book))
+        
+        @python.intrinsic.observable("Orderbook", "LastPrice(%(queue)s)", "orderbook.last_price._LastPrice_Impl")
+        def LastPrice(queue = Asks()) : IObservable
+            
+        
+        @python.observable("Orderbook", "Spread_{%(book)s}")
+        def Spread(book = OfTrader())
+             = AskPrice(book)-BidPrice(book)
+        
+        @python.intrinsic.observable("Orderbook", "LastTradePrice(%(queue)s)", "orderbook.last_trade._LastTradePrice_Impl")
+        def LastTradePrice(queue = Asks()) : IObservable
+            
+    }
+    @python.observable("Pow/Log", "{%(x)s}^2")
+    def Sqr(x = constant())
+         = x*x
+    
+    @python.observable("Basic", "min{%(x)s, %(y)s}")
+    def Min(x = constant(),
+            y = constant())
+         = if x<y then x else y
+    
+    @python.observable("Basic", "max{%(x)s, %(y)s}")
+    def Max(x = constant(),
+            y = constant())
+         = if x>y then x else y
+    
+    @python.intrinsic.observable("Basic", "[%(x)s]_dt=%(dt)s", "observable.on_every_dt._OnEveryDt_Impl")
+    def OnEveryDt(dt = 1.0,
+                  x = constant()) : IObservable
+        
+}
+
+package mathops {
+    /** Arc tangent of x, in radians.
+     *
+     */
+    @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
+    def Atan(x = constant(0.0)) : () => Float
+        
+    
+    /** Square root of x
+     *
+     */
+    @python.mathops("Log/Pow", "sqrt", "\\sqrt{%(x)s}")
+    def Sqrt(x = constant(1.0)) : () => Float
+        
+    
+    /** Exponent of x
+     *
+     */
+    @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
+    def Exp(x = constant(1.0)) : () => Float
+        
+    
+    /** Natural logarithm of x (to base e)
+     *
+     */
+    @python.mathops("Log/Pow", "log", "log(%(x)s)")
+    def Log(x = constant(1.0)) : () => Float
+        
+    
+    /** Return *x* raised to the power *y*.
+     *
+     * Exceptional cases follow Annex F of the C99 standard as far as possible.
+     * In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,
+     * even when *x* is a zero or a NaN.
+     * If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
+     * ``pow(x, y)`` is undefined, and raises ``ValueError``.
+     */
+    @python.mathops("Log/Pow", "pow", "%(base)s^{%(power)s}")
+    def Pow(base = constant(1.0),
+            power = constant(1.0)) : () => Float
+        
+}
+
+package trash {
+    package types {
+        type T
+        
+        type R : T
+        
+        type U : T, R
+        
+        type T1 = T
+    }
+    
+    package in1 {
+        package in2 {
+            def A(x = constant(),
+                  y = if 3.0>x+2.0 then x else x*2.0) : () => types.T
+                
+        }
+        def A(x : () => types.T1 = trash.A()) : () => types.U
+            
+    }
+    def A(x = in1.in2.A()) : () => types.R
+        
+}
+
 package mathutils {
     package rnd {
         /** Gamma distribution
@@ -100,206 +300,6 @@ package mathutils {
                         Beta = 1.0) : () => Float
             
     }
-}
-
-package mathops {
-    /** Arc tangent of x, in radians.
-     *
-     */
-    @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
-    def Atan(x = constant(0.0)) : () => Float
-        
-    
-    /** Square root of x
-     *
-     */
-    @python.mathops("Log/Pow", "sqrt", "\\sqrt{%(x)s}")
-    def Sqrt(x = constant(1.0)) : () => Float
-        
-    
-    /** Exponent of x
-     *
-     */
-    @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
-    def Exp(x = constant(1.0)) : () => Float
-        
-    
-    /** Natural logarithm of x (to base e)
-     *
-     */
-    @python.mathops("Log/Pow", "log", "log(%(x)s)")
-    def Log(x = constant(1.0)) : () => Float
-        
-    
-    /** Return *x* raised to the power *y*.
-     *
-     * Exceptional cases follow Annex F of the C99 standard as far as possible.
-     * In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,
-     * even when *x* is a zero or a NaN.
-     * If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
-     * ``pow(x, y)`` is undefined, and raises ``ValueError``.
-     */
-    @python.mathops("Log/Pow", "pow", "%(base)s^{%(power)s}")
-    def Pow(base = constant(1.0),
-            power = constant(1.0)) : () => Float
-        
-}
-
-package observable {
-    package trader {
-        @python.intrinsic.function("Proxies", "N/A", "trader.proxy._Single_Impl")
-        def SingleProxy() : ISingleAssetTrader
-            
-    }
-    
-    package orderbook {
-        def PriceAtVolume(queue = Asks(),
-                          volume = 100.0) : () => Float
-            
-        
-        @python.observable("Orderbook", "Price_{%(alpha)s}^{%(queue)s}")
-        def WeightedPrice(queue = Asks(),
-                          alpha = 0.015)
-             = EW.Avg(LastTradePrice(queue)*LastTradeVolume(queue),alpha)/EW.Avg(LastTradeVolume(queue),alpha)
-        
-        def TickSize(book = OfTrader()) : () => Float
-            
-        
-        @python.observable("Orderbook", "Ask_{%(book)s}")
-        def AskLastPrice(book = OfTrader())
-             = LastPrice(Asks(book))
-        
-        @python.observable("Orderbook", "Ask_{%(alpha)s}^{%(book)s}")
-        def AskWeightedPrice(book = OfTrader(),
-                             alpha = 0.015)
-             = WeightedPrice(Asks(book),alpha)
-        
-        @python.observable("Orderbook", "MidPrice_{%(book)s}")
-        def MidPrice(book = OfTrader())
-             = (AskPrice(book)+BidPrice(book))/2.0
-        
-        @python.intrinsic.function("Queue's", "Asks(%(book)s)", "orderbook.queue._Asks_Impl")
-        def Asks(book = OfTrader()) : IOrderQueue
-            
-        
-        @python.observable("Orderbook", "Bid_{%(alpha)s}^{%(book)s}")
-        def BidWeightedPrice(book = OfTrader(),
-                             alpha = 0.015)
-             = WeightedPrice(Bids(book),alpha)
-        
-        @python.observable("Orderbook", "Ask_{%(book)s}")
-        def AskPrice(book = OfTrader())
-             = BestPrice(Asks(book))
-        
-        @python.intrinsic.observable("Orderbook", "LastTradeVolume(%(queue)s)", "orderbook.last_trade._LastTradeVolume_Impl")
-        def LastTradeVolume(queue = Asks()) : IObservable
-            
-        
-        @python.observable("Orderbook", "Bid^{%(book)s}")
-        def BidPrice(book = OfTrader())
-             = BestPrice(Bids(book))
-        
-        @python.intrinsic.function("Queue's", "Bids(%(book)s)", "orderbook.queue._Bids_Impl")
-        def Bids(book = OfTrader()) : IOrderQueue
-            
-        
-        @python.intrinsic.observable("Orderbook", "Price(%(queue)s)", "orderbook.props._BestPrice_Impl")
-        def BestPrice(queue = Asks()) : IObservable
-            
-        
-        @python.intrinsic.function("Proxies", "N/A", "orderbook.of_trader._OfTrader_Impl")
-        def OfTrader(Trader = trader.SingleProxy()) : IOrderBook
-            
-        
-        @python.observable("Orderbook", "Bid^{%(book)s}")
-        def BidLastPrice(book = OfTrader())
-             = LastPrice(Bids(book))
-        
-        @python.intrinsic.observable("Orderbook", "LastPrice(%(queue)s)", "orderbook.last_price._LastPrice_Impl")
-        def LastPrice(queue = Asks()) : IObservable
-            
-        
-        @python.observable("Orderbook", "Spread_{%(book)s}")
-        def Spread(book = OfTrader())
-             = AskPrice(book)-BidPrice(book)
-        
-        @python.intrinsic.observable("Orderbook", "LastTradePrice(%(queue)s)", "orderbook.last_trade._LastTradePrice_Impl")
-        def LastTradePrice(queue = Asks()) : IObservable
-            
-    }
-    
-    package macd {
-        @python.function("MACD", "MACD_{%(fast)s}^{%(slow)s}(%(x)s)")
-        def MACD(x = orderbook.MidPrice(),
-                 slow = 26.0,
-                 fast = 12.0)
-             = EW.Avg(x,2.0/(fast+1.0))-EW.Avg(x,2.0/(slow+1.0))
-        
-        @python.function("MACD", "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))")
-        def Signal(x = orderbook.MidPrice(),
-                   slow = 26.0,
-                   fast = 12.0,
-                   timeframe = 9.0,
-                   step = 1.0)
-             = EW.Avg(OnEveryDt(step,MACD(x,slow,fast)),2.0/(timeframe+1.0))
-        
-        @python.function("MACD", "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))")
-        def Histogram(x = orderbook.MidPrice(),
-                      slow = 26.0,
-                      fast = 12.0,
-                      timeframe = 9.0,
-                      step = 1.0)
-             = MACD(x,slow,fast)-Signal(x,slow,fast,timeframe,step)
-    }
-    
-    package EW {
-        @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "observable.ewma.EWMA_Impl")
-        def Avg(source = const(),
-                alpha = 0.015) : () => Float
-            
-    }
-    @python.observable("Pow/Log", "{%(x)s}^2")
-    def Sqr(x = constant())
-         = x*x
-    
-    @python.observable("Basic", "min{%(x)s, %(y)s}")
-    def Min(x = constant(),
-            y = constant())
-         = if x<y then x else y
-    
-    @python.observable("Basic", "max{%(x)s, %(y)s}")
-    def Max(x = constant(),
-            y = constant())
-         = if x>y then x else y
-    
-    @python.intrinsic.observable("Basic", "[%(x)s]_dt=%(dt)s", "observable.on_every_dt._OnEveryDt_Impl")
-    def OnEveryDt(dt = 1.0,
-                  x = constant()) : IObservable
-        
-}
-
-package trash {
-    package types {
-        type T
-        
-        type R : T
-        
-        type U : T, R
-        
-        type T1 = T
-    }
-    
-    package in1 {
-        package in2 {
-            def A(x = constant(),
-                  y = if 3.0>x+2.0 then x else x*2.0) : () => types.T
-                
-        }
-        def A(x : () => types.T1 = trash.A()) : () => types.U
-            
-    }
-    def A(x = in1.in2.A()) : () => types.R
-        
 }
 @python.function("Basic", "C=%(x)s")
 def constant(x = 1.0) : IFunction
