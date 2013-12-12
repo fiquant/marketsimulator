@@ -45,6 +45,39 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - Avg_{cumul}(%(source)s)
 | | | | | | | | | | | - moments.cma.CMA_Impl
+| | | | | | | - FunDef:
+| | | | | | | | - Var
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - source
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - function
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Statistics
+| | | | | | | | | | | - \\sigma^2_{cumul}(%(source)s)
+| | | | | | | | | | | - moments.cmv.Variance_Impl
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -410,7 +443,7 @@ Definitions:
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
-| | | | | | | | | | | - \\sigma^2^{\\alpha=%(alpha)s}_{%(source)s}
+| | | | | | | | | | | - \\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}
 | | | | | | | | | | | - moments.ewmv.EWMV_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - StdDev
@@ -458,7 +491,7 @@ Definitions:
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
-| | | | | | | | | | | - \\sqrt{\\sigma^2^{\\alpha=%(alpha)s}_{%(source)s}}
+| | | | | | | | | | | - \\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:

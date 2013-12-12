@@ -24,7 +24,7 @@ class StdDev(Function[float]):
         'alpha' : float
     }
     def __repr__(self):
-        return "\\sqrt{\\sigma^2^{\\alpha=%(alpha)s}_{%(source)s}}" % self.__dict__
+        return "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}" % self.__dict__
     
     _internals = ['impl']
     @property

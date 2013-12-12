@@ -1,26 +1,23 @@
 from marketsim import registry
 from marketsim.ops._function import Function
-from marketsim.gen._intrinsic.moments.ewmv import EWMV_Impl
+from marketsim.gen._intrinsic.moments.cmv import Variance_Impl
 from marketsim import IObservable
-from marketsim import float
 @registry.expose(["Statistics", "Var"])
-class Var(Function[float], EWMV_Impl):
+class Var(Function[float], Variance_Impl):
     """ 
     """ 
-    def __init__(self, source = None, alpha = None):
+    def __init__(self, source = None):
         from marketsim.gen._out._const import const
         self.source = source if source is not None else const()
-        self.alpha = alpha if alpha is not None else 0.015
-        EWMV_Impl.__init__(self)
+        Variance_Impl.__init__(self)
     
     @property
     def label(self):
         return repr(self)
     
     _properties = {
-        'source' : IObservable,
-        'alpha' : float
+        'source' : IObservable
     }
     def __repr__(self):
-        return "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}" % self.__dict__
+        return "\\sigma^2_{cumul}(%(source)s)" % self.__dict__
     

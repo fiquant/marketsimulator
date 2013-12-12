@@ -4,6 +4,10 @@ package observable {
         @python.intrinsic.function("Statistics", "Avg_{cumul}(%(source)s)", "moments.cma.CMA_Impl")
         def Avg(source : IObservable = const()) : () => Float
             
+        
+        @python.intrinsic.function("Statistics", "\\sigma^2_{cumul}(%(source)s)", "moments.cmv.Variance_Impl")
+        def Var(source : IObservable = const()) : () => Float
+            
     }
     
     package macd {
@@ -42,12 +46,12 @@ package observable {
                 alpha : Float = 0.015) : () => Float
             
         
-        @python.intrinsic.function("Statistics", "\\sigma^2^{\\alpha=%(alpha)s}_{%(source)s}", "moments.ewmv.EWMV_Impl")
+        @python.intrinsic.function("Statistics", "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}", "moments.ewmv.EWMV_Impl")
         def Var(source : IObservable = const(),
                 alpha : Float = 0.015) : () => Float
             
         
-        @python.function("Statistics", "\\sqrt{\\sigma^2^{\\alpha=%(alpha)s}_{%(source)s}}")
+        @python.function("Statistics", "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}")
         def StdDev(source : IObservable = const(),
                    alpha : Float = 0.015) : () => Float
              = mathops.Sqrt(observable.EW.Var(source,alpha))

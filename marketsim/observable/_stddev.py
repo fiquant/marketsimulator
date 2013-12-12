@@ -5,53 +5,8 @@ import math
 
 from _misc import Sqr
 
-@registry.expose(alias = ['Statistics', 'Variance', 'Cumulative'])
-class Variance(fold.Last):
-    
-    def __init__(self, source = ops.constant(1.)):
-        fold.Last.__init__(self, source)
-        self.reset()
-        
-    def reset(self):
-        self._x = None
-        self._t = 0
-        self._startT = 0
-        self._avg = 0
-        self._avg2 = 0
-        
-    def _increments(self, t, ti, mean, x):
-        dX = x - mean
-        dT = t - ti
-        T = t - self._startT
-        R = dX * dT / T 
-        return R, (ti - self._startT) * dX * R
-        
-        
-    def _at(self, t):
-        dM, dM2 = self._increments(t, self._t, self._avg, self._x)
-        return self._avg + dM, self._avg2 + dM2
-    
-    def at(self, t):
-        if self._x is not None and t > self._startT:
-            avg, avg2 = self._at(t)
-            return math.sqrt(avg2 / (t - self._startT))
-        else:
-            return None
-    
-    def _getLabel(self):
-        return '\sigma^2'
-        
-    def update(self, t, x):
-        if x is not None:
-            if self._x is not None and t > self._startT:
-                dM, dM2 = self._increments(t, self._t, self._avg, self._x)
-                self._avg += dM
-                self._avg2 += dM2
-            else:
-                self._startT = t
-            self._t = t
-            self._x = x
-            
+from marketsim.gen._out.observable.Cumulative._Var import Var as Variance
+
 @registry.expose(alias = ['Statistics', 'StdDev', 'Cumulative'], 
                  args = (ops.constant(1.),))
 def StdDev(source):
