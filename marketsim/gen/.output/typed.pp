@@ -229,11 +229,34 @@ package observable {
     }
     
     package macd {
+        def MACD(x : IObservable = observable.orderbook.MidPrice(),
+                 slow : Float = 26.0,
+                 fast : Float = 12.0) : IFunction
+             = observable.EWMA(x,2.0/(fast+1.0))-observable.EWMA(x,2.0/(slow+1.0))
+        
+        def Signal(x : IObservable = observable.orderbook.MidPrice(),
+                   slow : Float = 26.0,
+                   fast : Float = 12.0,
+                   timeframe : Float = 9.0,
+                   step : Float = 1.0) : () => Float
+             = observable.EWMA(observable.OnEveryDt(observable.macd.MACD(x,slow,fast),step),2.0/(timeframe+1.0))
+        
+        def Histogram(x : IObservable = observable.orderbook.MidPrice(),
+                      slow : Float = 26.0,
+                      fast : Float = 12.0,
+                      timeframe : Float = 9.0,
+                      step : Float = 1.0) : IFunction
+             = observable.macd.MACD(x,slow,fast)-observable.macd.Signal(x,slow,fast,timeframe,step)
     }
     
-    @python.observable("Pow/Log", "{%(x)s}^2")
-    def Sqr(x : IFunction = constant()) : IFunction
-         = x*x
+    @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "observable.ewma.EWMA_Impl")
+    def EWMA(source : IObservable = const(),
+             alpha : Float = 0.015) : () => Float
+        
+    
+    def OnEveryDt(x : IFunction = constant(),
+                  dt : Float = 1.0) : IObservable
+        
     
     @python.observable("Basic", "min{%(x)s, %(y)s}")
     def Min(x : IFunction = constant(),
@@ -245,10 +268,9 @@ package observable {
             y : IFunction = constant()) : IFunction
          = if x>y then x else y
     
-    @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "observable.ewma.EWMA_Impl")
-    def EWMA(source : IObservable = const(),
-             alpha : Float = 0.015) : () => Float
-        
+    @python.observable("Pow/Log", "{%(x)s}^2")
+    def Sqr(x : IFunction = constant()) : IFunction
+         = x*x
 }
 
 package trash {

@@ -8,6 +8,8 @@ package observable
 
     @python.observable("Basic", "max{%(x)s, %(y)s}")
     def Max(x = constant(), y = constant()) = if x > y then x else y
+
+    def OnEveryDt(x = constant(), dt = 1.0) : IObservable
 }
 
 @python.function("Basic", "C=%(x)s")

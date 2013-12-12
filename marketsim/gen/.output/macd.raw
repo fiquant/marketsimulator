@@ -7,3 +7,224 @@ Definitions:
 | | | | - macd
 | | - Definitions:
 | | | - List:
+| | | | - FunDef:
+| | | | | - MACD
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderbook
+| | | | | | | | | | | - MidPrice
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - slow
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 26.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - fast
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 12.0
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - BinOp:
+| | | | | | | - Sub
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - EWMA
+| | | | | | | | - List:
+| | | | | | | | | - Var:
+| | | | | | | | | | - x
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Div
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 2.0
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Add
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - fast
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 1.0
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - EWMA
+| | | | | | | | - List:
+| | | | | | | | | - Var:
+| | | | | | | | | | - x
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Div
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 2.0
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Add
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - slow
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 1.0
+| | | | | - None
+| | | | | - None
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - Signal
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderbook
+| | | | | | | | | | | - MidPrice
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - slow
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 26.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - fast
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 12.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - timeframe
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 9.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - step
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - EWMA
+| | | | | | | - List:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - OnEveryDt
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - MACD
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - slow
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - fast
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - step
+| | | | | | | | - BinOp:
+| | | | | | | | | - Div
+| | | | | | | | | - Const:
+| | | | | | | | | | - 2.0
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Add
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - timeframe
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 1.0
+| | | | | - None
+| | | | | - None
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - Histogram
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderbook
+| | | | | | | | | | | - MidPrice
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - slow
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 26.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - fast
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 12.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - timeframe
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 9.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - step
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - BinOp:
+| | | | | | | - Sub
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - MACD
+| | | | | | | | - List:
+| | | | | | | | | - Var:
+| | | | | | | | | | - x
+| | | | | | | | | - Var:
+| | | | | | | | | | - slow
+| | | | | | | | | - Var:
+| | | | | | | | | | - fast
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Signal
+| | | | | | | | - List:
+| | | | | | | | | - Var:
+| | | | | | | | | | - x
+| | | | | | | | | - Var:
+| | | | | | | | | | - slow
+| | | | | | | | | - Var:
+| | | | | | | | | | - fast
+| | | | | | | | | - Var:
+| | | | | | | | | | - timeframe
+| | | | | | | | | - Var:
+| | | | | | | | | | - step
+| | | | | - None
+| | | | | - None
+| | | | | - List:

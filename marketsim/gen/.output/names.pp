@@ -229,11 +229,34 @@ package observable {
     }
     
     package macd {
+        def MACD(x = orderbook.MidPrice(),
+                 slow = 26.0,
+                 fast = 12.0)
+             = EWMA(x,2.0/(fast+1.0))-EWMA(x,2.0/(slow+1.0))
+        
+        def Signal(x = orderbook.MidPrice(),
+                   slow = 26.0,
+                   fast = 12.0,
+                   timeframe = 9.0,
+                   step = 1.0)
+             = EWMA(OnEveryDt(MACD(x,slow,fast),step),2.0/(timeframe+1.0))
+        
+        def Histogram(x = orderbook.MidPrice(),
+                      slow = 26.0,
+                      fast = 12.0,
+                      timeframe = 9.0,
+                      step = 1.0)
+             = MACD(x,slow,fast)-Signal(x,slow,fast,timeframe,step)
     }
     
-    @python.observable("Pow/Log", "{%(x)s}^2")
-    def Sqr(x = constant())
-         = x*x
+    @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "observable.ewma.EWMA_Impl")
+    def EWMA(source = const(),
+             alpha = 0.015) : () => Float
+        
+    
+    def OnEveryDt(x = constant(),
+                  dt = 1.0) : IObservable
+        
     
     @python.observable("Basic", "min{%(x)s, %(y)s}")
     def Min(x = constant(),
@@ -245,10 +268,9 @@ package observable {
             y = constant())
          = if x>y then x else y
     
-    @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "observable.ewma.EWMA_Impl")
-    def EWMA(source = const(),
-             alpha = 0.015) : () => Float
-        
+    @python.observable("Pow/Log", "{%(x)s}^2")
+    def Sqr(x = constant())
+         = x*x
 }
 
 package trash {
