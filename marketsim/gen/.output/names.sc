@@ -239,7 +239,7 @@ package observable {
                    fast = 12.0,
                    timeframe = 9.0,
                    step = 1.0)
-             = EWMA(OnEveryDt(MACD(x,slow,fast),step),2.0/(timeframe+1.0))
+             = EWMA(OnEveryDt(step,MACD(x,slow,fast)),2.0/(timeframe+1.0))
         
         def Histogram(x = orderbook.MidPrice(),
                       slow = 26.0,
@@ -253,8 +253,9 @@ package observable {
              alpha = 0.015) : () => Float
         
     
-    def OnEveryDt(x = constant(),
-                  dt = 1.0) : IObservable
+    @python.intrinsic.observable("Basic", "[%(x)s]_dt=%(dt)s", "observable.on_every_dt._OnEveryDt_Impl")
+    def OnEveryDt(dt = 1.0,
+                  x = constant()) : IObservable
         
     
     @python.observable("Basic", "min{%(x)s, %(y)s}")

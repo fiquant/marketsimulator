@@ -1450,6 +1450,8 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - OnEveryDt
 | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - step
 | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | - List:
@@ -1461,8 +1463,6 @@ Definitions:
 | | | | | | | | | | | | | | | | - slow
 | | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | | - fast
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - step
 | | | | | | | | | | | - BinOp:
 | | | | | | | | | | | | - Div
 | | | | | | | | | | | | - Const:
@@ -1594,6 +1594,13 @@ Definitions:
 | | | | | - OnEveryDt
 | | | | | - List:
 | | | | | | - Parameter:
+| | | | | | | - dt
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | - Parameter:
 | | | | | | | - x
 | | | | | | | - None
 | | | | | | | - Some:
@@ -1603,13 +1610,6 @@ Definitions:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - dt
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - Const:
-| | | | | | | | | - 1.0
-| | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -1618,6 +1618,16 @@ Definitions:
 | | | | | | | | | - IObservable
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - Basic
+| | | | | | | | - [%(x)s]_dt=%(dt)s
+| | | | | | | | - observable.on_every_dt._OnEveryDt_Impl
 | | | | - FunDef:
 | | | | | - Min
 | | | | | - List:

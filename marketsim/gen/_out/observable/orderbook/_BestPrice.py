@@ -10,9 +10,9 @@ class BestPrice(_BestPrice_Impl):
         from marketsim import event
         from marketsim import types
         self.queue = queue if queue is not None else Asks()
+        _BestPrice_Impl.__init__(self)
         if isinstance(queue, types.IEvent):
             event.subscribe(self.queue, self.fire, self)
-        _BestPrice_Impl.__init__(self)
     
     @property
     def label(self):

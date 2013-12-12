@@ -22,7 +22,10 @@ class RSI(ops.Function[float]):
         }
         
     def getImpl(self):
-        return ops.constant(100.) - (ops.constant(100.) / (ops.constant(1.) + _.rs))    
+        return ops.constant(100.) - (ops.constant(100.) / (ops.constant(1.) + _.rs))
+
+    def __repr__(self):
+        return self.label
     
     @property    
     def label(self):

@@ -10,7 +10,7 @@ package observable.macd {
                fast = 12.0,
                timeframe = 9.0,
                step = 1.0)
-         = EWMA(OnEveryDt(MACD(x,slow,fast),step),2.0/(timeframe+1.0))
+         = EWMA(OnEveryDt(step,MACD(x,slow,fast)),2.0/(timeframe+1.0))
     
     def Histogram(x = orderbook.MidPrice(),
                   slow = 26.0,

@@ -11,13 +11,11 @@ object intrinsic_observable extends gen.PythonGenerator
 
     case class Parameter(p : Typed.Parameter) extends base.Parameter
     {
-        override def assign =
-            super.assign |
+        def subscribe =
             s"if isinstance($name, types.IEvent):" |>
                 s"event.subscribe(self.$name, self.fire, self)" |||
             ImportFrom("event", "marketsim") |||
             ImportFrom("types", "marketsim")
-
     }
 
     case class Import(args : List[String], f : Typed.Function) extends base.Printer
@@ -42,13 +40,16 @@ object intrinsic_observable extends gen.PythonGenerator
         val name = f.name
         val alias = name
 
+        val subscriptions = join_fields({ _.subscribe }, nl)
+
         override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
 
         override def base_class = s"$implementation_class" |||
                                 ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
 
         override def init_body =    super.init_body |
-                                    s"$implementation_class.__init__(self)"
+                                    s"$implementation_class.__init__(self)" |
+                                    subscriptions
 
         def call_body = ""  // TODO: remove from the base class
     }

@@ -9,7 +9,8 @@ package observable
     @python.observable("Basic", "max{%(x)s, %(y)s}")
     def Max(x = constant(), y = constant()) = if x > y then x else y
 
-    def OnEveryDt(x = constant(), dt = 1.0) : IObservable
+    @python.intrinsic.observable ("Basic", "[%(x)s]_dt=%(dt)s", "observable.on_every_dt._OnEveryDt_Impl")
+    def OnEveryDt(dt = 1.0, x = constant()) : IObservable
 }
 
 @python.function("Basic", "C=%(x)s")

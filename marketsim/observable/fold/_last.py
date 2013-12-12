@@ -28,6 +28,9 @@ class Last(ops.Function[float]):
     @property
     def label(self):
         return self._getLabel() + "^{" + getLabel(self._source) + "}"
+
+    def __repr__(self):
+        return self.label
             
     _properties = { 'source' : types.IObservable[float] }
     

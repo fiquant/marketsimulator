@@ -10,9 +10,9 @@ class LastTradePrice(_LastTradePrice_Impl):
         from marketsim import event
         from marketsim import types
         self.queue = queue if queue is not None else Asks()
+        _LastTradePrice_Impl.__init__(self)
         if isinstance(queue, types.IEvent):
             event.subscribe(self.queue, self.fire, self)
-        _LastTradePrice_Impl.__init__(self)
     
     @property
     def label(self):

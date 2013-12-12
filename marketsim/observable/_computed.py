@@ -99,16 +99,7 @@ class Proxy(types.IObservable[float], ops.Function[float]):
     def attributes(self):
         return {}
 
-
-def OnEveryDt(interval, source):
-    """ Creates an indicator that is updated regularly
-    interval - constant interval between updates
-    source - function to obtain indicator value
-    """
-    
-    return IndicatorBase(event.Every(ops.constant(interval)),
-                         source, 
-                         {'smooth':True})
+from marketsim.gen._out.observable._OnEveryDt import OnEveryDt
 
 class MultiFold(ops.Function[float]):
     def __init__(self, sources, folder):
