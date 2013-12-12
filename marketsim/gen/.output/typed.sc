@@ -238,12 +238,14 @@ package observable {
     }
     
     package macd {
+        @python.function("MACD", "MACD_{%(fast)s}^{%(slow)s}(%(x)s)")
         def MACD(x : IObservable = observable.orderbook.MidPrice(),
                  slow : Float = 26.0,
                  fast : Float = 12.0) : IFunction
             
             	 = observable.EWMA(x,2.0/(fast+1.0))-observable.EWMA(x,2.0/(slow+1.0))
         
+        @python.function("MACD", "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))")
         def Signal(x : IObservable = observable.orderbook.MidPrice(),
                    slow : Float = 26.0,
                    fast : Float = 12.0,
@@ -252,6 +254,7 @@ package observable {
             
             	 = observable.EWMA(observable.OnEveryDt(step,observable.macd.MACD(x,slow,fast)),2.0/(timeframe+1.0))
         
+        @python.function("MACD", "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))")
         def Histogram(x : IObservable = observable.orderbook.MidPrice(),
                       slow : Float = 26.0,
                       fast : Float = 12.0,

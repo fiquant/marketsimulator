@@ -75,6 +75,14 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - MACD
+| | | | | | | | - MACD_{%(fast)s}^{%(slow)s}(%(x)s)
 | | | | - FunDef:
 | | | | | - Signal
 | | | | | - List:
@@ -154,6 +162,14 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - MACD
+| | | | | | | | - Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
 | | | | - FunDef:
 | | | | | - Histogram
 | | | | | - List:
@@ -228,3 +244,11 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - MACD
+| | | | | | | | - Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
