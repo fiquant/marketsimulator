@@ -157,6 +157,7 @@ package observable {
                           volume = 100.0) : () => Float
             
         
+        @python.observable("Orderbook", "Price_{%(alpha)s}^{%(queue)s}")
         def WeightedPrice(queue = Asks(),
                           alpha = 0.015)
              = EWMA(LastTradePrice(queue)*LastTradeVolume(queue),alpha)/EWMA(LastTradeVolume(queue),alpha)
@@ -168,6 +169,11 @@ package observable {
         def AskLastPrice(book = OfTrader())
              = LastPrice(Asks(book))
         
+        @python.observable("Orderbook", "Ask_{%(alpha)s}^{%(book)s}")
+        def AskWeightedPrice(book = OfTrader(),
+                             alpha = 0.015)
+             = WeightedPrice(Asks(book),alpha)
+        
         @python.observable("Orderbook", "MidPrice")
         def MidPrice(book = OfTrader())
              = (AskPrice(book)+BidPrice(book))/2.0
@@ -175,6 +181,11 @@ package observable {
         @python.intrinsic.function("Queue's", "Asks(%(book)s)", "orderbook.queue._Asks_Impl")
         def Asks(book = OfTrader()) : IOrderQueue
             
+        
+        @python.observable("Orderbook", "Bid_{%(alpha)s}^{%(book)s}")
+        def BidWeightedPrice(book = OfTrader(),
+                             alpha = 0.015)
+             = WeightedPrice(Bids(book),alpha)
         
         @python.observable("Orderbook", "Ask_{%(book)s}")
         def AskPrice(book = OfTrader())

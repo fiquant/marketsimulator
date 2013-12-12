@@ -112,39 +112,10 @@ from marketsim.gen._out.observable.orderbook._LastTradeVolume import LastTradeVo
 
 from _ewma import EWMA
 
-class QueueWeightedPrice(ops.Function[float]):
-    
-    def getDefinitions(self):
-        return {
-            "volume"      : QueueLastTradeVolume(_.orderqueue) , 
-            'orderqueue'  : self.orderqueue
-        }
-        
-    def getImpl(self):
-        price  = QueueLastTradePrice(_.orderqueue)
-        return EWMA(price * _.volume, self.alpha) / EWMA(_.volume, self.alpha)
-    
-    @property
-    def label(self):
-        return 'WeightedPrice_{%g}(%s)' % (self.alpha, self.orderqueue.label)
-    
-_wrap.function(QueueWeightedPrice, ["OrderQueue's", "Trade weighted price"], 
-               """ Moving average of trade prices weighted by volumes of an order queue
-               """, 
-               [
-                    ('orderqueue', 'orderbook.Asks(orderbook.Proxy())', 'types.IOrderQueue'), 
-                    ('alpha'     , 0.15,                                'positive')
-               ], globals())
-   
- 
-@registry.expose(alias = ["Asset's", "Ask", "Weighted trade price"], args = (None, 0.15))
-def AskWeightedPrice(book = None, alpha = 0.15):
-    return QueueWeightedPrice(orderbook.Asks(book), alpha)
-    
-@registry.expose(alias = ["Asset's", "Bid", "Weighted trade price"], args = (None, 0.15))
-def BidWeightedPrice(book, alpha):
-    return QueueWeightedPrice(orderbook.Bids(book), alpha)
-    
+from marketsim.gen._out.observable.orderbook._WeightedPrice import WeightedPrice as QueueWeightedPrice
+from marketsim.gen._out.observable.orderbook._AskWeightedPrice import AskWeightedPrice
+from marketsim.gen._out.observable.orderbook._BidWeightedPrice import BidWeightedPrice
+
 @registry.expose(alias = ["Asset's", "Ask", "Last trade price"], args = (None,))
 def AskLastTradePrice(book):
     return QueueLastTradePrice(orderbook.Asks(book))
