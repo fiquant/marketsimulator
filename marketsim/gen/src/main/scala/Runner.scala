@@ -1,7 +1,6 @@
 import java.io.{PrintWriter, File}
 import resource._
 import sext._
-import scala.collection.JavaConversions._
 
 object Runner extends syntax.scala.Parser {
 
@@ -48,7 +47,7 @@ object Runner extends syntax.scala.Parser {
     def unused(a : Any) {}
 
     def getFileTree(f : File) : Stream[File] =
-            f #:: (if (f.isDirectory) f.listFiles().toStream.flatMap(getFileTree)
+            f #:: (if (f.isDirectory) f.listFiles.toStream flatMap getFileTree
                                  else Stream.empty)
 
     def main(args: Array[String]) {

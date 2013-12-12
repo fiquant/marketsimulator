@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._out import const
 from marketsim.ops._function import Function
-from marketsim.gen._intrinsic.observable.ewma import EWMA_Impl
+from marketsim.gen._intrinsic.moments.ewma import EWMA_Impl
 
 
 

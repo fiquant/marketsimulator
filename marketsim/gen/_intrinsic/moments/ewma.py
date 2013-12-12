@@ -1,7 +1,7 @@
 import math
 from marketsim import types, registry, ops, registry, event, _, getLabel
 
-import fold
+from marketsim.gen._intrinsic.observable import fold
 
 
 class EWMA_Impl(fold.Last, types.IDifferentiable):

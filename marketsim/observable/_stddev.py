@@ -104,51 +104,9 @@ def StdDevRolling(source, timeframe):
     return ops.Sqrt(MovingVariance(source, timeframe))
 
 from _ewma import EWMA
-        
-@registry.expose(alias = ['Statistics', 'Variance', 'Exponentially weighted'])
-class EWMV(fold.Last):
-    
-    def __init__(self, source = ops.constant(1.), alpha = 0.15):
-        fold.Last.__init__(self, source)
-        self.alpha = alpha
-        self._mean = EWMA(source, alpha) # TODO: handle source and alpha change
-        self.reset()
-        
-    _properties = { 'alpha'  : float }
-    
-    _internals = ['_mean']
-    
-    def reset(self):
-        self._variance = None
-        self._lastTime = None
-        self._lastValue = None
-    
-    @property
-    def label(self):
-        return '\sigma^2_{' + getLabel(self.source) + '}^{'+ str(self.alpha) +'}'
 
-    def __repr__(self):
-        return  self.label
-        
-    def at(self, t):
-        x = self._lastValue
-        if x is not None:
-            if self._variance is None:
-                self._variance = 0
-                self._lastTime = t
-            mean = self._mean()
-            delta = x - mean
-            # NB! this formula is not verified!!!
-            alpha = (1 - (1 - self.alpha)**( t - self._lastTime))
-            return (1 - alpha) * (self._variance + delta * delta * alpha)
-            
-    def update(self, time, value):
-        self._mean.update(time, value)
-        if value is not None:
-            self._variance = self.at(time)
-            self._lastValue = value
-            self._lastTime = time
-        
+from marketsim.gen._out.observable.EW._Var import Var as EWMV
+
 @registry.expose(alias = ['Statistics', 'StdDev', 'Exponentially weighted'], 
                  args = (ops.constant(1.),0.15))
 def StdDevEW(source, alpha):    
