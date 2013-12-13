@@ -156,6 +156,11 @@ package observable {
         def Avg(source : IObservable = const(),
                 timeframe : Float = 100.0) : () => Float
             
+        
+        @python.intrinsic.function("Statistics", "\\sigma^2_{n=%(timeframe)s}(%(source)s)", "moments.mv.MV_Impl")
+        def Var(source : IObservable = const(),
+                timeframe : Float = 100.0) : () => Float
+            
     }
     @python.observable("Pow/Log", "{%(x)s}^2")
     def Sqr(x : IFunction = constant()) : IFunction
