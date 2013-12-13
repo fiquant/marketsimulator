@@ -164,6 +164,11 @@ package observable {
             y : IFunction = constant()) : IFunction
          = if x<y then x else y
     
+    @python.observable("RSI", "Downs_{%(timeframe)s}(%(source)s)")
+    def DownMovements(source : IObservable = observable.orderbook.MidPrice(),
+                      timeframe : Float = 10.0) : IFunction
+         = observable.Max(const(0.0),observable.Lagged(source,timeframe)-source)
+    
     @python.intrinsic.observable("Basic", "Lagged_{%(timeframe)s}(%(source)s)", "observable.lagged.Lagged_Impl")
     def Lagged(source : IObservable = const(),
                timeframe : Float = 10.0) : IObservable
@@ -173,6 +178,11 @@ package observable {
     def Max(x : IFunction = constant(),
             y : IFunction = constant()) : IFunction
          = if x>y then x else y
+    
+    @python.observable("RSI", "Ups_{%(timeframe)s}(%(source)s)")
+    def UpMovements(source : IObservable = observable.orderbook.MidPrice(),
+                    timeframe : Float = 10.0) : IFunction
+         = observable.Max(const(0.0),source-observable.Lagged(source,timeframe))
     
     @python.observable("Pow/Log", "{%(x)s}^2")
     def Sqr(x : IFunction = constant()) : IFunction

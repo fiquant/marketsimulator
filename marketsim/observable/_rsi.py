@@ -4,7 +4,9 @@ from marketsim import (event, bind, meta, types,
 from _orderbook import MidPrice
 from _ewma import EWMA
 from _computed import OnEveryDt
-from _deltalag import Lagged, DeltaLag, UpMovements, DownMovements
+
+from marketsim.gen._out.observable._DownMovements import DownMovements
+from marketsim.gen._out.observable._UpMovements import UpMovements
 
 import fold
 
@@ -17,8 +19,8 @@ class RSI(ops.Function[float]):
     
     def getDefinitions(self):
         return { 
-            'rs' : (EWMA(Max(ops.constant(0.), MidPrice(self.orderBook) - Lagged(MidPrice(self.orderBook), self.timeframe)), self.alpha) /
-                    EWMA(Max(ops.constant(0.), Lagged(MidPrice(self.orderBook), self.timeframe) - MidPrice(self.orderBook)), self.alpha))
+            'rs' : (EWMA(UpMovements(MidPrice(self.orderBook), self.timeframe), self.alpha) /
+                    EWMA(DownMovements(MidPrice(self.orderBook), self.timeframe), self.alpha))
         }
         
     def getImpl(self):
