@@ -242,3 +242,73 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - RSI
 | | | | | | | | | | | - RSI-raw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
+| | | | - FunDef:
+| | | | | - RSI
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - book
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderbook
+| | | | | | | | | | | - OfTrader
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - timeframe
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 10.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - alpha
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 0.015
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - BinOp:
+| | | | | | | - Sub
+| | | | | | | - Const:
+| | | | | | | | - 100.0
+| | | | | | | - BinOp:
+| | | | | | | | - Div
+| | | | | | | | - Const:
+| | | | | | | | | - 100.0
+| | | | | | | | - BinOp:
+| | | | | | | | | - Add
+| | | | | | | | | - Const:
+| | | | | | | | | | - 1.0
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - rsi
+| | | | | | | | | | | | - Raw
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - book
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - timeframe
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - alpha
+| | | | | - None
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - RSI
+| | | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)

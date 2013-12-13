@@ -1091,8 +1091,13 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | - book
-| | | | | | | | | | - Const:
-| | | | | | | | | | | - 2.0
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - const
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | - 2.0
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
@@ -2240,6 +2245,110 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Pow/Log
 | | | | | | | | - {%(x)s}^2
+| | | | - FunDef:
+| | | | | - RSI
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - book
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IOrderBook
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - observable
+| | | | | | | | | | | - orderbook
+| | | | | | | | | | | - OfTrader
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - timeframe
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 10.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - alpha
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 0.015
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - BinOp:
+| | | | | | | - Sub
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - const
+| | | | | | | | - List:
+| | | | | | | | | - Const:
+| | | | | | | | | | - 100.0
+| | | | | | | - BinOp:
+| | | | | | | | - Div
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 100.0
+| | | | | | | | - BinOp:
+| | | | | | | | | - Add
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - const
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 1.0
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - rsi
+| | | | | | | | | | | | - Raw
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - book
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - timeframe
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - alpha
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - RSI
+| | | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
@@ -2559,7 +2668,7 @@ Definitions:
 | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | | | | | | - IObservable
 | | | | | | | | | | | | | - Some:
 | | | | | | | | | | | | | | - IfThenElse:
 | | | | | | | | | | | | | | | - Condition:
@@ -2570,16 +2679,26 @@ Definitions:
 | | | | | | | | | | | | | | | | | - Add
 | | | | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | | | | - x
-| | | | | | | | | | | | | | | | | - Const:
-| | | | | | | | | | | | | | | | | | - 2.0
+| | | | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | | | | | | | - 2.0
 | | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | | - x
 | | | | | | | | | | | | | | | - BinOp:
 | | | | | | | | | | | | | | | | - Mul
 | | | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | | | - x
-| | | | | | | | | | | | | | | | - Const:
-| | | | | | | | | | | | | | | | | - 2.0
+| | | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | | | | | | - 2.0
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - Some:

@@ -50,7 +50,8 @@ package object TypeInference
     trait Condition extends BooleanExpr {
         self: Typed.Condition =>
         override val ty = {
-            if (unifyFloat(x,y) != Types.FloatFunc)
+            val t = unifyFloat(x,y)
+            if (t != Types.Float && (t cannotCastTo Types.FloatFunc))
                 throw new Exception(s"Arguments of boolean expression must be casted to () => Float")
             Types.BooleanFunc
         }

@@ -19,4 +19,9 @@ package observable
                 EW.Avg(DownMovements(source, timeframe), alpha)
     }
 
+    @python.observable("RSI", "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)")
+    def RSI(book = orderbook.OfTrader(), timeframe = 10, alpha = 0.015)
+        = 100.0 - 100.0 / (1.0 + rsi.Raw(orderbook.MidPrice(book), timeframe, alpha))
+
+
 }

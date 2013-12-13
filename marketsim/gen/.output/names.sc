@@ -194,6 +194,12 @@ package observable {
     @python.observable("Pow/Log", "{%(x)s}^2")
     def Sqr(x = constant())
          = x*x
+    
+    @python.observable("RSI", "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)")
+    def RSI(book = orderbook.OfTrader(),
+            timeframe = 10.0,
+            alpha = 0.015)
+         = 100.0-100.0/(1.0+rsi.Raw(orderbook.MidPrice(book),timeframe,alpha))
 }
 
 package mathops {

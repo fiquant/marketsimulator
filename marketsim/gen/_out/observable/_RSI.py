@@ -1,17 +1,21 @@
 from marketsim import registry
 from marketsim.ops._all import Observable
 from marketsim import IOrderBook
+from marketsim import float
+from marketsim import float
 from marketsim import context
-@registry.expose(["Orderbook", "MidPrice"])
-class MidPrice(Observable[float]):
+@registry.expose(["RSI", "RSI"])
+class RSI(Observable[float]):
     """ 
     """ 
-    def __init__(self, book = None):
+    def __init__(self, book = None, timeframe = None, alpha = None):
         from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader
         from marketsim import _
         from marketsim import event
         Observable[float].__init__(self)
         self.book = book if book is not None else OfTrader()
+        self.timeframe = timeframe if timeframe is not None else 10.0
+        self.alpha = alpha if alpha is not None else 0.015
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -20,10 +24,12 @@ class MidPrice(Observable[float]):
         return repr(self)
     
     _properties = {
-        'book' : IOrderBook
+        'book' : IOrderBook,
+        'timeframe' : float,
+        'alpha' : float
     }
     def __repr__(self):
-        return "MidPrice_{%(book)s}" % self.__dict__
+        return "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)" % self.__dict__
     
     _internals = ['impl']
     @property
@@ -31,10 +37,14 @@ class MidPrice(Observable[float]):
         return {}
     
     def getImpl(self):
-        from marketsim.gen._out.observable.orderbook._AskPrice import AskPrice
-        from marketsim.gen._out.observable.orderbook._BidPrice import BidPrice
         from marketsim.gen._out._const import const
-        return (AskPrice(self.book)+BidPrice(self.book))/const(2.0)
+        from marketsim.gen._out._const import const
+        from marketsim.gen._out._const import const
+        from marketsim.gen._out.observable.rsi._Raw import Raw
+        from marketsim.gen._out.observable.orderbook._MidPrice import MidPrice
+        return const(100.0)-const(100.0)/(const(1.0)+Raw(MidPrice(self.book),self.timeframe,self.alpha))
+        
+        
         
         
     

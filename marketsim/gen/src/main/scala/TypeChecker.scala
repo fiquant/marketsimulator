@@ -8,14 +8,31 @@ case class TypeChecker(ctx : TypingExprCtx)
             Typed.Condition(symbol, apply(x), apply(y))
     }
 
+    def promote_literal(e : Typed.ArithExpr) =
+        e match {
+            case Typed.FloatConst(d) =>
+                val f = ctx.lookupFunction(AST.QualifiedName("const" :: Nil))
+                val r = Typed.FunctionCall(f, (f.parameters(0), e) :: Nil)
+                r
+            case x => x
+        }
+
+    def promote_opt(e : Typed.ArithExpr) =
+        if (e.ty canCastTo Types.FloatFunc) e match {
+            case Typed.BinOp(c, x, y) => Typed.BinOp(c, promote_literal(x), promote_literal(y))
+            case Typed.IfThenElse(cond, x, y) => Typed.IfThenElse(cond, promote_literal(x), promote_literal(y))
+            case x => x
+        } else e
+
+
     def apply(e : AST.Expr) : Typed.ArithExpr = e match {
         case AST.BinOp(c, x, y) =>
-            Typed.BinOp(c, apply(x), apply(y))
+            promote_opt(Typed.BinOp(c, apply(x), apply(y)))
 
         case AST.Neg(x) => Typed.Neg(apply(x))
 
         case AST.IfThenElse(cond, x, y) =>
-            Typed.IfThenElse(apply(cond), apply(x), apply(y))
+            promote_opt(Typed.IfThenElse(apply(cond), apply(x), apply(y)))
 
         case AST.Const(d) => Typed.FloatConst(d)
         case AST.Var(name) => Typed.ParamRef(ctx.lookupVar(name))

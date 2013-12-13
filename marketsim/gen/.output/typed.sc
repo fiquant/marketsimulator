@@ -103,7 +103,7 @@ package observable {
         @python.observable("Orderbook", "MidPrice_{%(book)s}")
         def MidPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable
             
-            	 = (observable.orderbook.AskPrice(book)+observable.orderbook.BidPrice(book))/2.0
+            	 = (observable.orderbook.AskPrice(book)+observable.orderbook.BidPrice(book))/const(2.0)
         
         @python.intrinsic.function("Queue's", "Asks(%(book)s)", "orderbook.queue._Asks_Impl")
         def Asks(book : IOrderBook = observable.orderbook.OfTrader()) : IOrderQueue
@@ -216,6 +216,13 @@ package observable {
     def Sqr(x : IFunction = constant()) : IFunction
         
         	 = x*x
+    
+    @python.observable("RSI", "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)")
+    def RSI(book : IOrderBook = observable.orderbook.OfTrader(),
+            timeframe : Float = 10.0,
+            alpha : Float = 0.015) : IObservable
+        
+        	 = const(100.0)-const(100.0)/(const(1.0)+observable.rsi.Raw(observable.orderbook.MidPrice(book),timeframe,alpha))
 }
 
 package mathops {
@@ -271,7 +278,7 @@ package trash {
     package in1 {
         package in2 {
             def A(x : IFunction = constant(),
-                  y : IFunction = if 3.0>x+2.0 then x else x*2.0) : () => trash.types.T
+                  y : IObservable = if 3.0>x+const(2.0) then x else x*const(2.0)) : () => trash.types.T
                 
         }
         def A(x : () => trash.types.T1 = trash.A()) : () => trash.types.U
