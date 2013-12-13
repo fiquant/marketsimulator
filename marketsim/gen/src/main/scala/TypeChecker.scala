@@ -5,7 +5,7 @@ case class TypeChecker(ctx : TypingExprCtx)
         case AST.Or(x, y) => Typed.Or(apply(x), apply(y))
         case AST.Not(x) => Typed.Not(apply(x))
         case AST.Condition(symbol, x, y) =>
-            Typed.Condition(symbol, apply(x), apply(y))
+            promote_opt(Typed.Condition(symbol, apply(x), apply(y)))
     }
 
     def promote_literal(e : Typed.ArithExpr) =
@@ -23,6 +23,11 @@ case class TypeChecker(ctx : TypingExprCtx)
             case Typed.IfThenElse(cond, x, y) => Typed.IfThenElse(cond, promote_literal(x), promote_literal(y))
             case x => x
         } else e
+
+    def promote_opt(e : Typed.BooleanExpr) = e match {
+            case Typed.Condition(symbol, x, y) => Typed.Condition(symbol, promote_literal(x), promote_literal(y))
+            case x => x
+        }
 
 
     def apply(e : AST.Expr) : Typed.ArithExpr = e match {

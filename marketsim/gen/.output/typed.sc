@@ -278,7 +278,7 @@ package trash {
     package in1 {
         package in2 {
             def A(x : IFunction = constant(),
-                  y : IObservable = if 3.0>x+const(2.0) then x else x*const(2.0)) : () => trash.types.T
+                  y : IObservable = if const(3.0)>x+const(2.0) then x else x*const(2.0)) : () => trash.types.T
                 
         }
         def A(x : () => trash.types.T1 = trash.A()) : () => trash.types.U
