@@ -2,34 +2,7 @@ from marketsim import ops, types, event, _, getLabel, registry
 
 import fold
 
-class Lagged(fold.Last, ops.Observable[float]):
-
-    def __init__(self, source, timeframe):
-        fold.Last.__init__(self, source)
-        ops.Observable[float].__init__(self)
-
-        self.timeframe = timeframe
-        self.reset()
-        self._alias = ['_details', 'Lagged']
-
-    _properties = { 'timeframe' : float }
-
-    def reset(self):
-        self._backX = 0
-
-    def at(self, t):
-        #print self._backX
-        return self._backX
-
-    def _getLabel(self):
-        return 'Lagged_{%s}' % self.timeframe
-
-    def _remove(self, x):
-        self._backX = x
-        self.fire(self)
-
-    def update(self, t, x):
-        self._scheduler.scheduleAfter(self.timeframe, _(self, x)._remove)
+from marketsim.gen._out.observable._Lagged import Lagged
 
 def DeltaLag(source, timeframe):
     return source - Lagged(source, timeframe)

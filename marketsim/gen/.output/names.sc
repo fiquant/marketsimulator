@@ -153,24 +153,29 @@ package observable {
                    timeframe = 100.0)
              = mathops.Sqrt(Var(source))
     }
-    @python.observable("Pow/Log", "{%(x)s}^2")
-    def Sqr(x = constant())
-         = x*x
+    @python.intrinsic.observable("Basic", "[%(x)s]_dt=%(dt)s", "observable.on_every_dt._OnEveryDt_Impl")
+    def OnEveryDt(dt = 1.0,
+                  x = constant()) : IObservable
+        
     
     @python.observable("Basic", "min{%(x)s, %(y)s}")
     def Min(x = constant(),
             y = constant())
          = if x<y then x else y
     
+    @python.intrinsic.observable("Basic", "Lagged_{%(timeframe)s}(%(source)s)", "observable.lagged.Lagged_Impl")
+    def Lagged(source = const(),
+               timeframe = 10.0) : IObservable
+        
+    
     @python.observable("Basic", "max{%(x)s, %(y)s}")
     def Max(x = constant(),
             y = constant())
          = if x>y then x else y
     
-    @python.intrinsic.observable("Basic", "[%(x)s]_dt=%(dt)s", "observable.on_every_dt._OnEveryDt_Impl")
-    def OnEveryDt(dt = 1.0,
-                  x = constant()) : IObservable
-        
+    @python.observable("Pow/Log", "{%(x)s}^2")
+    def Sqr(x = constant())
+         = x*x
 }
 
 package mathops {

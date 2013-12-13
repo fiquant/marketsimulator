@@ -1745,8 +1745,19 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - \\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}
 | | | | - FunDef:
-| | | | | - Sqr
+| | | | | - OnEveryDt
 | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - dt
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 1.0
+| | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - x
 | | | | | | | - Some:
@@ -1761,28 +1772,24 @@ Definitions:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | - List:
-| | | | | - Some:
-| | | | | | - BinOp:
-| | | | | | | - Mul
-| | | | | | | - Var:
-| | | | | | | | - x
-| | | | | | | - Var:
-| | | | | | | | - x
+| | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IFunction
+| | | | | | | | | - IObservable
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - python
+| | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Pow/Log
-| | | | | | | | - {%(x)s}^2
+| | | | | | | | - Basic
+| | | | | | | | - [%(x)s]_dt=%(dt)s
+| | | | | | | | - observable.on_every_dt._OnEveryDt_Impl
 | | | | - FunDef:
 | | | | | - Min
 | | | | | - List:
@@ -1842,6 +1849,52 @@ Definitions:
 | | | | | | | | - Basic
 | | | | | | | | - min{%(x)s, %(y)s}
 | | | | - FunDef:
+| | | | | - Lagged
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - source
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IObservable
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - timeframe
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 10.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - Basic
+| | | | | | | | - Lagged_{%(timeframe)s}(%(source)s)
+| | | | | | | | - observable.lagged.Lagged_Impl
+| | | | - FunDef:
 | | | | | - Max
 | | | | | - List:
 | | | | | | - Parameter:
@@ -1900,19 +1953,8 @@ Definitions:
 | | | | | | | | - Basic
 | | | | | | | | - max{%(x)s, %(y)s}
 | | | | - FunDef:
-| | | | | - OnEveryDt
+| | | | | - Sqr
 | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - dt
-| | | | | | | - Some:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Float
-| | | | | | | - Some:
-| | | | | | | | - Const:
-| | | | | | | | | - 1.0
-| | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - x
 | | | | | | | - Some:
@@ -1927,24 +1969,28 @@ Definitions:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - BinOp:
+| | | | | | | - Mul
+| | | | | | | - Var:
+| | | | | | | | - x
+| | | | | | | - Var:
+| | | | | | | | - x
 | | | | | - Some:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable
+| | | | | | | | | - IFunction
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - python
-| | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Basic
-| | | | | | | | - [%(x)s]_dt=%(dt)s
-| | | | | | | | - observable.on_every_dt._OnEveryDt_Impl
+| | | | | | | | - Pow/Log
+| | | | | | | | - {%(x)s}^2
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:

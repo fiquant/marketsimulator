@@ -1,0 +1,46 @@
+Definitions:
+- List:
+| - PackageDef:
+| | - QualifiedName:
+| | | - List:
+| | | | - observable
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Lagged
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - source
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - timeframe
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 10.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - Basic
+| | | | | | | | - Lagged_{%(timeframe)s}(%(source)s)
+| | | | | | | | - observable.lagged.Lagged_Impl
