@@ -10,4 +10,13 @@ package observable
     @python.observable("RSI", "Downs_{%(timeframe)s}(%(source)s)")
     def DownMovements(source = orderbook.MidPrice(), timeframe = 10)
         = Max(const(0), Lagged(source, timeframe) - source)
+
+    package rsi
+    {
+        @python.observable("RSI", "RSI-raw_{%(timeframe)s}^{%(alpha)s}(%(source)s)")
+        def Raw(source = orderbook.MidPrice(), timeframe = 10, alpha = 0.015)
+            =   EW.Avg(UpMovements  (source, timeframe), alpha) /
+                EW.Avg(DownMovements(source, timeframe), alpha)
+    }
+
 }

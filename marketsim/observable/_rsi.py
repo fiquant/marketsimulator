@@ -7,7 +7,7 @@ from _computed import OnEveryDt
 
 from marketsim.gen._out.observable._DownMovements import DownMovements
 from marketsim.gen._out.observable._UpMovements import UpMovements
-
+from marketsim.gen._out.observable.rsi._Raw import Raw
 import fold
 
 from marketsim.gen._out.observable._Max import Max
@@ -15,16 +15,11 @@ from marketsim.gen._out.observable._Max import Max
 import _wrap 
 from marketsim.types import *
 
+
 class RSI(ops.Function[float]):
     
-    def getDefinitions(self):
-        return { 
-            'rs' : (EWMA(UpMovements(MidPrice(self.orderBook), self.timeframe), self.alpha) /
-                    EWMA(DownMovements(MidPrice(self.orderBook), self.timeframe), self.alpha))
-        }
-        
     def getImpl(self):
-        return ops.constant(100.) - (ops.constant(100.) / (ops.constant(1.) + _.rs))
+        return ops.constant(100.) - (ops.constant(100.) / (ops.constant(1.) + Raw(MidPrice(self.orderBook), self.timeframe, self.alpha)))
 
     def __repr__(self):
         return self.label

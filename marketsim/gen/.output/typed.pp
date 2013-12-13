@@ -14,6 +14,14 @@ package observable {
              = mathops.Sqrt(observable.Cumulative.Var(source))
     }
     
+    package rsi {
+        @python.observable("RSI", "RSI-raw_{%(timeframe)s}^{%(alpha)s}(%(source)s)")
+        def Raw(source : IObservable = observable.orderbook.MidPrice(),
+                timeframe : Float = 10.0,
+                alpha : Float = 0.015) : IFunction
+             = observable.EW.Avg(observable.UpMovements(source,timeframe),alpha)/observable.EW.Avg(observable.DownMovements(source,timeframe),alpha)
+    }
+    
     package macd {
         @python.function("MACD", "MACD_{%(fast)s}^{%(slow)s}(%(x)s)")
         def MACD(x : IObservable = observable.orderbook.MidPrice(),
@@ -46,7 +54,7 @@ package observable {
     
     package EW {
         @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "moments.ewma.EWMA_Impl")
-        def Avg(source : IObservable = const(),
+        def Avg(source : IFunction = constant(),
                 alpha : Float = 0.015) : () => Float
             
         
