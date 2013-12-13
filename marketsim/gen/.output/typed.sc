@@ -159,8 +159,9 @@ package observable {
         
         @python.intrinsic.function("Statistics", "\\sigma^2_{n=%(timeframe)s}(%(source)s)", "moments.mv.MV_Impl")
         def Var(source : IObservable = const(),
-                timeframe : Float = 100.0) : () => Float
+                timeframe : Float = 100.0) : IFunction
             
+            	 = observable.Max(const(0.0),observable.Moving.Avg(source*source,timeframe)-observable.Sqr(observable.Moving.Avg(source,timeframe)))
         
         @python.function("Statistics", "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}")
         def StdDev(source : IObservable = const(),

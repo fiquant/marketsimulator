@@ -76,7 +76,10 @@ class Base(object):
                 self.inc()
                 
                 self.log(">>> " + str(type(obj)))
-                
+
+                if type(obj) is tuple:
+                    return
+
                 obj._processing = True
 
                 self.enter(obj)

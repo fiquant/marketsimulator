@@ -49,7 +49,17 @@ class Condition_Impl(object):
         self.cond = cond
         self.ifpart = ifpart
         self.elsepart = elsepart
-        
+        if types.IEvent in inspect.getmro(type(cond)):
+            event.subscribe(cond, _(self).fire, self)
+        if types.IEvent in inspect.getmro(type(ifpart)):
+            event.subscribe(ifpart, _(self).fire, self)
+        if types.IEvent in inspect.getmro(type(elsepart)):
+            event.subscribe(elsepart, _(self).fire, self)
+
+    @property
+    def label(self):
+        return 'if (' + getLabel(self.cond) + ") " + getLabel(self.ifpart) + " else " + getLabel(self.elsepart)
+
     def __call__(self):
         c = self.cond()
         assert c is not None
@@ -58,9 +68,10 @@ class Condition_Impl(object):
     def __repr__(self):
         return 'if ' + repr(self.cond) + ' then ' + repr(self.ifpart) + ' else ' + repr(self.elsepart)
 
-Condition = types.Factory("Condition", """(Condition_Impl, Function[%(T)s]):
+Condition = types.Factory("Condition", """(Condition_Impl, Observable[%(T)s]):
 
     def __init__(self, cond, ifpart, elsepart):
+        Observable[%(T)s].__init__(self)
         Condition_Impl.__init__(self, cond, ifpart, elsepart)
         self._alias = self.classAlias
         

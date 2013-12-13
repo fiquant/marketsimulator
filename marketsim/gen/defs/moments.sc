@@ -30,7 +30,7 @@ package observable
         def Avg (source = const (), timeframe = 100.0) => Float
 
         @python.intrinsic.function ("Statistics", "\\sigma^2_{n=%(timeframe)s}(%(source)s)", "moments.mv.MV_Impl")
-        def Var (source = const (), timeframe = 100.0) => Float
+        def Var (source = const (), timeframe = 100.0) = Max(const(0), Avg(source*source, timeframe) - Sqr(Avg(source, timeframe)))
 
         @python.function ("Statistics", "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}")
         def StdDev (source = const (), timeframe = 100.0) = mathops.Sqrt(Var(source))
