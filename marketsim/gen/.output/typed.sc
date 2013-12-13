@@ -161,6 +161,12 @@ package observable {
         def Var(source : IObservable = const(),
                 timeframe : Float = 100.0) : () => Float
             
+        
+        @python.function("Statistics", "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}")
+        def StdDev(source : IObservable = const(),
+                   timeframe : Float = 100.0) : () => Float
+            
+            	 = mathops.Sqrt(observable.Moving.Var(source))
     }
     @python.observable("Pow/Log", "{%(x)s}^2")
     def Sqr(x : IFunction = constant()) : IFunction

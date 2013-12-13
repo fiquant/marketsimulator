@@ -32,5 +32,7 @@ package observable
         @python.intrinsic.function ("Statistics", "\\sigma^2_{n=%(timeframe)s}(%(source)s)", "moments.mv.MV_Impl")
         def Var (source = const (), timeframe = 100.0) => Float
 
+        @python.function ("Statistics", "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}")
+        def StdDev (source = const (), timeframe = 100.0) = mathops.Sqrt(Var(source))
     }
 }
