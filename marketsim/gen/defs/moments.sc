@@ -23,4 +23,10 @@ package observable
         @python.function ("Statistics", "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}")
         def StdDev (source = const ()) = mathops.Sqrt(Var(source))
     }
+
+    package Moving
+    {
+        @python.intrinsic.function ("Statistics", "Avg_{n=%(timeframe)s}(%(source)s)", "moments.ma.MA_Impl")
+        def Avg (source = const (), timeframe = 100.0) => Float
+    }
 }

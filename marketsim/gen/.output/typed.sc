@@ -150,6 +150,13 @@ package observable {
         def LastTradePrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
     }
+    
+    package Moving {
+        @python.intrinsic.function("Statistics", "Avg_{n=%(timeframe)s}(%(source)s)", "moments.ma.MA_Impl")
+        def Avg(source : IObservable = const(),
+                timeframe : Float = 100.0) : () => Float
+            
+    }
     @python.observable("Pow/Log", "{%(x)s}^2")
     def Sqr(x : IFunction = constant()) : IFunction
         
