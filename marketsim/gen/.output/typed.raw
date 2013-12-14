@@ -19,6 +19,16 @@ Definitions:
 | | | | | | | | | | - Side
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - Side
+| | | | | | | | - Sell
+| | | | | | | | - side._Sell_Impl
 | | | | - FunDef:
 | | | | | - Buy
 | | | | | - List:
@@ -32,8 +42,18 @@ Definitions:
 | | | | | | | | | | - Side
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - Side
+| | | | | | | | - Buy
+| | | | | | | | - side._Buy_Impl
 | | | | - FunDef:
-| | | | | - None
+| | | | | - Nothing
 | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -45,6 +65,16 @@ Definitions:
 | | | | | | | | | | - Side
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - Side
+| | | | | | | | - None
+| | | | | | | | - side._Buy_Impl
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
@@ -919,7 +949,7 @@ Definitions:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - side
-| | | | | | | | | | | | | | - None
+| | | | | | | | | | | | | | - Nothing
 | | | | | | | | | | | | - List:
 | | | | | | | | - Some:
 | | | | | | | | | - FunctionType:
@@ -1202,7 +1232,7 @@ Definitions:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - side
-| | | | | | | | | | | | | | - None
+| | | | | | | | | | | | | | - Nothing
 | | | | | | | | | | | | - List:
 | | | | | | | | - Some:
 | | | | | | | | | - FunctionType:
@@ -1213,6 +1243,14 @@ Definitions:
 | | | | | | | | | | | | | - Side
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Side function
+| | | | | | | | | | | - Fv_{%(fv)s}(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - MeanReversion
 | | | | | | | | - List:

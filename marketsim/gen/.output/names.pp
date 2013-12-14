@@ -1,12 +1,15 @@
 
 package side {
+    @python.intrinsic.function("Side", "Sell", "side._Sell_Impl")
     def Sell() : () => Side
         
     
+    @python.intrinsic.function("Side", "Buy", "side._Buy_Impl")
     def Buy() : () => Side
         
     
-    def None() : () => Side
+    @python.intrinsic.function("Side", "None", "side._Buy_Impl")
+    def Nothing() : () => Side
         
 }
 
@@ -165,7 +168,7 @@ package observable {
         
         def Signal(signal = constant(),
                    threshold = 0.7)
-             = if signal>threshold then side.Buy() else if signal<0.0-threshold then side.Sell() else side.None()
+             = if signal>threshold then side.Buy() else if signal<0.0-threshold then side.Sell() else side.Nothing()
         
         def CrossingAverages(alpha_1 = 0.015,
                              alpha_2 = 0.15,
@@ -178,9 +181,10 @@ package observable {
                           book = orderbook.OfTrader())
              = Signal(Derivative(EW.Avg(orderbook.MidPrice(book),alpha)),threshold)
         
+        @python.observable("Side function", "Fv_{%(fv)s}(%(book)s)")
         def FundamentalValue(fv = constant(200.0),
                              book = orderbook.OfTrader())
-             = if orderbook.BidPrice(book)>fv then side.Sell() else if orderbook.AskPrice(book)<fv then side.Buy() else side.None()
+             = if orderbook.BidPrice(book)>fv then side.Sell() else if orderbook.AskPrice(book)<fv then side.Buy() else side.Nothing()
         
         def MeanReversion(alpha = 0.015,
                           book = orderbook.OfTrader())

@@ -31,13 +31,16 @@ def const(x = 1.0) : IObservable
 type Side
 
 package side {
+    @python.intrinsic.function("Side", "Sell", "side._Sell_Impl")
     def Sell() : () => Side
         
     
+    @python.intrinsic.function("Side", "Buy", "side._Buy_Impl")
     def Buy() : () => Side
         
     
-    def None() : () => Side
+    @python.intrinsic.function("Side", "None", "side._Buy_Impl")
+    def Nothing() : () => Side
         
 }
 

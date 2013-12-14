@@ -1,4 +1,5 @@
 from marketsim import registry
+from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IOrderQueue
 from marketsim import float
@@ -8,6 +9,8 @@ class WeightedPrice(Observable[float]):
     """ 
     """ 
     def __init__(self, queue = None, alpha = None):
+        from marketsim import float
+        from marketsim.ops._all import Observable
         from marketsim.gen._out.observable.orderbook._Asks import Asks
         from marketsim import _
         from marketsim import event

@@ -36,12 +36,15 @@ object observable extends gen.PythonGenerator
 
         override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
 
-        override val base_class = "Observable[float]" |||
+        val ty = f.ret_type.returnTypeIfFunction.get.asPython
+
+        override val base_class = s"Observable[$ty]" |||
+                                    ImportFrom(ty, "marketsim") |||
                                     ImportFrom("Observable", "marketsim.ops._all")
 
 
         override def init_body =
-            "Observable[float].__init__(self)" |
+            base_class ||| ".__init__(self)" |
             super.init_body |
             "self.impl = self.getImpl()" |
             "event.subscribe(self.impl, _(self).fire, self)" |||

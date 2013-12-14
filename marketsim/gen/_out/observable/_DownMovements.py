@@ -1,4 +1,5 @@
 from marketsim import registry
+from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IObservable
 from marketsim import float
@@ -8,6 +9,8 @@ class DownMovements(Observable[float]):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
+        from marketsim import float
+        from marketsim.ops._all import Observable
         from marketsim.gen._out.observable.orderbook._MidPrice import MidPrice
         from marketsim import _
         from marketsim import event

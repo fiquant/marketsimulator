@@ -104,7 +104,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - side
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Nothing
 | | | | | | | | | - List:
 | | | | | - None
 | | | | | - None
@@ -318,11 +318,19 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - side
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Nothing
 | | | | | | | | | - List:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - Side function
+| | | | | | | | - Fv_{%(fv)s}(%(book)s)
 | | | | - FunDef:
 | | | | | - MeanReversion
 | | | | | - List:

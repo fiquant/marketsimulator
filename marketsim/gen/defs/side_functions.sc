@@ -6,7 +6,7 @@ package observable.sidefunc
     def Signal(signal = constant(), threshold = 0.7) =
         if signal >   threshold then side.Buy()  else
         if signal < 0-threshold then side.Sell() else
-                                     side.None()
+                                     side.Nothing()
 
     def TrendFollower(
         alpha = 0.015,
@@ -23,13 +23,14 @@ package observable.sidefunc
 
         = Signal(EW.Avg(orderbook.MidPrice(book), alpha_1) - EW.Avg(orderbook.MidPrice(book), alpha_2), threshold)
 
+    @python.observable ("Side function", "Fv_{%(fv)s}(%(book)s)")
     def FundamentalValue(
         fv = constant(200.),
         book = orderbook.OfTrader())
 
         =   if orderbook.BidPrice(book) > fv then side.Sell() else
             if orderbook.AskPrice(book) < fv then side.Buy()  else
-                                                  side.None()
+                                                  side.Nothing()
 
     def MeanReversion(
         alpha = 0.015,

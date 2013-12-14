@@ -1,12 +1,15 @@
 
 package side {
+    @python.intrinsic.function("Side", "Sell", "side._Sell_Impl")
     def Sell() : () => Side
         
     
+    @python.intrinsic.function("Side", "Buy", "side._Buy_Impl")
     def Buy() : () => Side
         
     
-    def None() : () => Side
+    @python.intrinsic.function("Side", "None", "side._Buy_Impl")
+    def Nothing() : () => Side
         
 }
 
@@ -167,7 +170,7 @@ package observable {
         def Signal(signal : IFunction = constant(),
                    threshold : Float = 0.7) : () => Side
             
-            	 = if signal>threshold then side.Buy() else if signal<0.0-threshold then side.Sell() else side.None()
+            	 = if signal>threshold then side.Buy() else if signal<0.0-threshold then side.Sell() else side.Nothing()
         
         def CrossingAverages(alpha_1 : Float = 0.015,
                              alpha_2 : Float = 0.15,
@@ -182,10 +185,11 @@ package observable {
             
             	 = observable.sidefunc.Signal(Derivative(observable.EW.Avg(observable.orderbook.MidPrice(book),alpha)),threshold)
         
+        @python.observable("Side function", "Fv_{%(fv)s}(%(book)s)")
         def FundamentalValue(fv : IFunction = constant(200.0),
                              book : IOrderBook = observable.orderbook.OfTrader()) : () => Side
             
-            	 = if observable.orderbook.BidPrice(book)>fv then side.Sell() else if observable.orderbook.AskPrice(book)<fv then side.Buy() else side.None()
+            	 = if observable.orderbook.BidPrice(book)>fv then side.Sell() else if observable.orderbook.AskPrice(book)<fv then side.Buy() else side.Nothing()
         
         def MeanReversion(alpha : Float = 0.015,
                           book : IOrderBook = observable.orderbook.OfTrader()) : () => Side
