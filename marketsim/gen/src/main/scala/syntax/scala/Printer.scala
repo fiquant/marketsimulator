@@ -325,11 +325,11 @@ package object Printer
         type BinOp = base.BinOp[Typed.ArithExpr]
         type Neg = base.Neg[Typed.ArithExpr]
 
-        type IfThenElse = base.IfThenElse[Typed.Expr, Typed.BooleanExpr]
-        type IfThenElseArith = base.IfThenElseArith[Typed.ArithExpr, Typed.BooleanExpr]
-        type And = base.And[Typed.BooleanExpr]
-        type Or = base.Or[Typed.BooleanExpr]
-        type Not = base.Not[Typed.BooleanExpr, Typed.ArithExpr]
+        type IfThenElse = base.IfThenElse[Typed.Expr, Typed.Expr]
+        type IfThenElseArith = base.IfThenElseArith[Typed.ArithExpr, Typed.Expr]
+        type And = base.And[Typed.Expr]
+        type Or = base.Or[Typed.Expr]
+        type Not = base.Not[Typed.Expr, Typed.ArithExpr]
         type Condition = base.Condition[Typed.ArithExpr]
 
         import base.Priority_0

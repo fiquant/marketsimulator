@@ -1,6 +1,6 @@
 case class TypeChecker(ctx : TypingExprCtx)
 {
-    def asBoolean(e : AST.BooleanExpr) : Typed.BooleanExpr = e match {
+    def asBoolean(e : AST.BooleanExpr) : Typed.Expr = e match {
         case AST.And(x, y) => Typed.And(asBoolean(x), asBoolean(y))
         case AST.Or(x, y) => Typed.Or(asBoolean(x), asBoolean(y))
         case AST.Not(x) => Typed.Not(asBoolean(x))
@@ -24,7 +24,7 @@ case class TypeChecker(ctx : TypingExprCtx)
             case x => x
         } else e
 
-    def promote_opt(e : Typed.BooleanExpr) = e match {
+    def promote_opt(e : Typed.Expr) = e match {
             case Typed.Condition(symbol, x, y) => Typed.Condition(symbol, promote_literal(x), promote_literal(y))
             case x => x
         }

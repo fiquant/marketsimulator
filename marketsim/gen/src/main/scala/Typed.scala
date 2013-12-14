@@ -5,7 +5,10 @@ package object Typed
     import generator.python.{Printer => py}
     import AST.{ScPrintable, ScPyPrintable}
 
-    abstract class Expr extends ScPyPrintable {
+    abstract class Expr
+            extends ScPyPrintable
+            with    sc.BooleanExpr
+    {
         def ty : Types.Base
     }
 
@@ -28,7 +31,7 @@ package object Typed
             with    py.BinOp
             with    TypeInference.BinOp
 
-    case class IfThenElseArith(cond  : BooleanExpr,
+    case class IfThenElseArith(cond  : Expr,
                                x     : ArithExpr,
                                y     : ArithExpr)
             extends ArithExpr
@@ -36,7 +39,7 @@ package object Typed
             with    py.IfThenElseArith
             with    TypeInference.IfThenElseArith
 
-    case class IfThenElse(cond  : BooleanExpr,
+    case class IfThenElse(cond  : Expr,
                           x     : Expr,
                           y     : Expr)
             extends Expr
@@ -75,32 +78,30 @@ package object Typed
             extends sc.Parameter
             with    ScPrintable
 
-    abstract class BooleanExpr
+    case class Or(x : Expr,
+                  y : Expr)
             extends Expr
-            with    sc.BooleanExpr
-            with    TypeInference.BooleanExpr
-
-    case class Or(x : BooleanExpr,
-                  y : BooleanExpr)
-            extends BooleanExpr
             with    sc.Or
             with    py.Or
+            with    TypeInference.BooleanExpr
 
-    case class And(x : BooleanExpr,
-                   y : BooleanExpr)
-            extends BooleanExpr
+    case class And(x : Expr,
+                   y : Expr)
+            extends Expr
             with    sc.And
             with    py.And
+            with    TypeInference.BooleanExpr
 
-    case class Not(x : BooleanExpr)
-            extends BooleanExpr
+    case class Not(x : Expr)
+            extends Expr
             with    sc.Not
             with    py.Not
+            with    TypeInference.BooleanExpr
 
     case class Condition(symbol : CondSymbol,
                          x      : ArithExpr,
                          y      : ArithExpr)
-            extends BooleanExpr
+            extends Expr
             with    sc.Condition
             with    py.Condition
             with    TypeInference.Condition
