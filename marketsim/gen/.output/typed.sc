@@ -464,5 +464,6 @@ def constant(x : Float = 1.0) : IFunction
     
     	 = const(x)
 
+@python.intrinsic.function("Basic", "\\frac{d%(x)s}{dt}", "observable.derivative._Derivative_Impl")
 def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float
     

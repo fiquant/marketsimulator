@@ -52,6 +52,7 @@ type ISingleAssetTrader
 
 type IDifferentiable : IFunction
 
+@python.intrinsic.function("Basic", "\\frac{d%(x)s}{dt}", "observable.derivative._Derivative_Impl")
 def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float
     
 

@@ -3257,6 +3257,16 @@ Definitions:
 | | | | | | | - Float
 | | - None
 | | - List:
+| | | - Annotation:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - python
+| | | | | | - intrinsic
+| | | | | | - function
+| | | | - List:
+| | | | | - Basic
+| | | | | - \\frac{d%(x)s}{dt}
+| | | | | - observable.derivative._Derivative_Impl
 | - Interface:
 | | - IDifferentiable
 | | - List:

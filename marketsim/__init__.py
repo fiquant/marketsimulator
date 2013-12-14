@@ -6,7 +6,7 @@ from bind import Method
 from side_ import Tag as Side
 from reference import Reference
 
-from types import IObservable, IFunction, ISingleAssetTrader, IOrderQueue, IOrderBook
+from types import IObservable, IFunction, ISingleAssetTrader, IOrderQueue, IOrderBook, IDifferentiable
 
 IObservable = IObservable[float]
 IFunction = IFunction[float]

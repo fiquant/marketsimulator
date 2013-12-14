@@ -443,6 +443,7 @@ def const(x = 1.0) : IObservable
 
 type ISingleAssetTrader
 
+@python.intrinsic.function("Basic", "\\frac{d%(x)s}{dt}", "observable.derivative._Derivative_Impl")
 def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float
     
 
