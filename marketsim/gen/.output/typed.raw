@@ -774,6 +774,513 @@ Definitions:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
+| | | | | | | | - PairTrading
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - dependee
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IOrderBook
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - factor
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - book
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IOrderBook
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | - FundamentalValue
+| | | | | | | | | | - List:
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Mul
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - dependee
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - factor
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - book
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Side
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - Signal
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - signal
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - threshold
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 0.7
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - IfThenElse:
+| | | | | | | | | | - Condition:
+| | | | | | | | | | | - Greater
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - signal
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - threshold
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - Buy
+| | | | | | | | | | | - List:
+| | | | | | | | | | - IfThenElse:
+| | | | | | | | | | | - Condition:
+| | | | | | | | | | | | - Less
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - signal
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | - 0.0
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - threshold
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | - Sell
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | - None
+| | | | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Side
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - CrossingAverages
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - alpha_1
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 0.015
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - alpha_2
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 0.15
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - threshold
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 0.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - book
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IOrderBook
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | - Signal
+| | | | | | | | | | - List:
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Sub
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - alpha_1
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - alpha_2
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - threshold
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Side
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - TrendFollower
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - alpha
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 0.015
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - threshold
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 0.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - book
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IOrderBook
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | - Signal
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Derivative
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - alpha
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - threshold
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Side
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - FundamentalValue
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - fv
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | - 200.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - book
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IOrderBook
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - IfThenElse:
+| | | | | | | | | | - Condition:
+| | | | | | | | | | | - Greater
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - BidPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - book
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - fv
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - Sell
+| | | | | | | | | | | - List:
+| | | | | | | | | | - IfThenElse:
+| | | | | | | | | | | - Condition:
+| | | | | | | | | | | | - Less
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | - AskPrice
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - fv
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | - Buy
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | - None
+| | | | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Side
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - MeanReversion
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - alpha
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 0.015
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - book
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IOrderBook
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | - FundamentalValue
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - alpha
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - book
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Side
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
 | | | | | | | | - Noise
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -811,15 +1318,25 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - Const:
 | | | | | | | | | | | | | | - 0.5
-| | | | | | | | | | - Const:
-| | | | | | | | | | | - 0.0
-| | | | | | | | | | - Const:
-| | | | | | | | | | | - 1.0
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - Sell
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Float
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - Buy
+| | | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Side
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | - PackageDef:
@@ -1261,12 +1778,10 @@ Definitions:
 | | | | | | | | | | | | | - Const:
 | | | | | | | | | | | | | | - 1.0
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IDifferentiable
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -1451,12 +1966,10 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IDifferentiable
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -3393,6 +3906,13 @@ Definitions:
 | - Interface:
 | | - ISingleAssetTrader
 | | - List:
+| - Interface:
+| | - IDifferentiable
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction
 | - FunDef:
 | | - const
 | | - List:
@@ -3462,3 +3982,32 @@ Definitions:
 | | | | - List:
 | | | | | - Basic
 | | | | | - C=%(x)s
+| - FunDef:
+| | - Derivative
+| | - List:
+| | | - Parameter:
+| | | | - x
+| | | | - Some:
+| | | | | - SimpleType:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - IDifferentiable
+| | | | - Some:
+| | | | | - FunCall:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - observable
+| | | | | | | | - EW
+| | | | | | | | - Avg
+| | | | | | - List:
+| | | | - List:
+| | - None
+| | - Some:
+| | | - FunctionType:
+| | | | - List:
+| | | | - SimpleType:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - Float
+| | - None
+| | - List:

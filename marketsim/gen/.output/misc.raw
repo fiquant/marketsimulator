@@ -285,6 +285,42 @@ Definitions:
 | - Interface:
 | | - ISingleAssetTrader
 | | - List:
+| - Interface:
+| | - IDifferentiable
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction
+| - FunDef:
+| | - Derivative
+| | - List:
+| | | - Parameter:
+| | | | - x
+| | | | - Some:
+| | | | | - SimpleType:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - IDifferentiable
+| | | | - Some:
+| | | | | - FunCall:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - observable
+| | | | | | | | - EW
+| | | | | | | | - Avg
+| | | | | | - List:
+| | | | - List:
+| | - None
+| | - Some:
+| | | - FunctionType:
+| | | | - List:
+| | | | - SimpleType:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - Float
+| | - None
+| | - List:
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:

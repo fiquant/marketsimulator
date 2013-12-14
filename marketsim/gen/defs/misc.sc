@@ -34,6 +34,10 @@ type IOrderBook
 
 type ISingleAssetTrader
 
+type IDifferentiable : IFunction
+
+def Derivative(x : IDifferentiable = observable.EW.Avg()) => Float
+
 package observable
 {
     package trader

@@ -3,7 +3,7 @@ package observable {
     package EW {
         @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "moments.ewma.EWMA_Impl")
         def Avg(source = constant(),
-                alpha = 0.015) : () => Float
+                alpha = 0.015) : IDifferentiable
             
         
         @python.intrinsic.function("Statistics", "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}", "moments.ewmv.EWMV_Impl")

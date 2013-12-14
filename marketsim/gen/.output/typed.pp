@@ -158,8 +158,36 @@ package mathutils {
 
 package observable {
     package sidefunc {
-        def Noise(side_distribution : () => Float = mathutils.rnd.uniform(0.0,1.0)) : Float
-             = if side_distribution>const(0.5) then 0.0 else 1.0
+        def PairTrading(dependee : IOrderBook = observable.orderbook.OfTrader(),
+                        factor : IFunction = constant(1.0),
+                        book : IOrderBook = observable.orderbook.OfTrader()) : () => Side
+             = observable.sidefunc.FundamentalValue(observable.orderbook.MidPrice(dependee)*factor,book)
+        
+        def Signal(signal : IFunction = constant(),
+                   threshold : Float = 0.7) : () => Side
+             = if signal>threshold then side.Buy() else if signal<0.0-threshold then side.Sell() else side.None()
+        
+        def CrossingAverages(alpha_1 : Float = 0.015,
+                             alpha_2 : Float = 0.15,
+                             threshold : Float = 0.0,
+                             book : IOrderBook = observable.orderbook.OfTrader()) : () => Side
+             = observable.sidefunc.Signal(observable.EW.Avg(observable.orderbook.MidPrice(book),alpha_1)-observable.EW.Avg(observable.orderbook.MidPrice(book),alpha_2),threshold)
+        
+        def TrendFollower(alpha : Float = 0.015,
+                          threshold : Float = 0.0,
+                          book : IOrderBook = observable.orderbook.OfTrader()) : () => Side
+             = observable.sidefunc.Signal(Derivative(observable.EW.Avg(observable.orderbook.MidPrice(book),alpha)),threshold)
+        
+        def FundamentalValue(fv : IFunction = constant(200.0),
+                             book : IOrderBook = observable.orderbook.OfTrader()) : () => Side
+             = if observable.orderbook.BidPrice(book)>fv then side.Sell() else if observable.orderbook.AskPrice(book)<fv then side.Buy() else side.None()
+        
+        def MeanReversion(alpha : Float = 0.015,
+                          book : IOrderBook = observable.orderbook.OfTrader()) : () => Side
+             = observable.sidefunc.FundamentalValue(observable.EW.Avg(observable.orderbook.MidPrice(book),alpha),book)
+        
+        def Noise(side_distribution : () => Float = mathutils.rnd.uniform(0.0,1.0)) : () => Side
+             = if side_distribution>const(0.5) then side.Sell() else side.Buy()
     }
     
     package Cumulative {
@@ -196,7 +224,7 @@ package observable {
                    slow : Float = 26.0,
                    fast : Float = 12.0,
                    timeframe : Float = 9.0,
-                   step : Float = 1.0) : () => Float
+                   step : Float = 1.0) : IDifferentiable
              = observable.EW.Avg(observable.OnEveryDt(step,observable.macd.MACD(x,slow,fast)),2.0/(timeframe+1.0))
         
         @python.function("MACD", "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))")
@@ -217,7 +245,7 @@ package observable {
     package EW {
         @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "moments.ewma.EWMA_Impl")
         def Avg(source : IFunction = constant(),
-                alpha : Float = 0.015) : () => Float
+                alpha : Float = 0.015) : IDifferentiable
             
         
         @python.intrinsic.function("Statistics", "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}", "moments.ewmv.EWMV_Impl")
@@ -403,6 +431,8 @@ type IFunction = () => Float
 
 type ISingleAssetTrader
 
+type IDifferentiable : IFunction
+
 @python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
 def const(x : Float = 1.0) : IObservable
     
@@ -410,3 +440,6 @@ def const(x : Float = 1.0) : IObservable
 @python.function("Basic", "C=%(x)s")
 def constant(x : Float = 1.0) : IFunction
      = const(x)
+
+def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float
+    
