@@ -172,6 +172,7 @@ package observable {
                    threshold = 0.7)
              = if signal>threshold then side.Buy() else if signal<0.0-threshold then side.Sell() else side.Nothing()
         
+        @python.observable("Side function", "CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)")
         def CrossingAverages(alpha_1 = 0.015,
                              alpha_2 = 0.15,
                              threshold = 0.0,

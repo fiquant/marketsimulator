@@ -257,6 +257,14 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - Side function
+| | | | | | | | - CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)
 | | | | - FunDef:
 | | | | | - FundamentalValue
 | | | | | - List:

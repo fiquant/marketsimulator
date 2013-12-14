@@ -16,6 +16,7 @@ package observable.sidefunc
 
         = Signal(Derivative(EW.Avg(orderbook.MidPrice(book), alpha)), threshold)
 
+    @python.observable ("Side function", "CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)")
     def CrossingAverages(
         alpha_1 = 0.015,
         alpha_2 = 0.15,
