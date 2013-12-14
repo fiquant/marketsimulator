@@ -73,20 +73,20 @@ package object Typed
             extends Expr
             with    sc.Or
             with    py.Or
-            with    TypeInference.BooleanExpr
+            with    TypeInference.BinaryBoolean
 
     case class And(x : Expr,
                    y : Expr)
             extends Expr
             with    sc.And
             with    py.And
-            with    TypeInference.BooleanExpr
+            with    TypeInference.BinaryBoolean
 
     case class Not(x : Expr)
             extends Expr
             with    sc.Not
             with    py.Not
-            with    TypeInference.BooleanExpr
+            with    TypeInference.UnaryBoolean
 
     case class Condition(symbol : CondSymbol,
                          x      : Expr,

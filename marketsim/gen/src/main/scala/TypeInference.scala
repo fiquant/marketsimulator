@@ -23,40 +23,60 @@ package object TypeInference
 
     trait Neg {
         self: Typed.Neg =>
-        def ty = unifyFloat(x)
+        val ty = unifyFloat(x)
     }
 
     trait BinOp {
         self: Typed.BinOp =>
-        def ty = unifyFloat(x,y)
+        val ty = unifyFloat(x,y)
     }
 
     trait IfThenElse {
         self: Typed.IfThenElse =>
-        def ty = unifyFloat(x,y)
+        val ty = {
+            if (isFloat(x) && isFloat(y))
+                unifyFloat(x,y)
+            else {
+                if (x.ty canCastTo y.ty) y.ty else
+                if (y.ty canCastTo x.ty) x.ty else
+                    throw new Exception("Cannot unify if-then-else branches in expression " + self)
+            }
+        }
     }
 
     trait FloatConst {
-        def ty = Types.`Float`
+        val ty = Types.`Float`
     }
 
     trait ParamRef {
         self: Typed.ParamRef =>
-        def ty = p.ty
+        val ty = p.ty
     }
 
     trait FunctionCall {
         self: Typed.FunctionCall =>
-        def ty = target.ret_type
+        val ty = target.ret_type
     }
 
-    trait BooleanExpr {
-        val ty = Types.BooleanFunc
+    def checkBoolean(e : Typed.Expr) = {
+        if (e.ty cannotCastTo Types.BooleanFunc)
+            throw new Exception(s"Expression $e is supposed to have () => Boolean type")
+        e.ty
     }
 
-    trait Condition extends BooleanExpr {
+    trait UnaryBoolean {
+        val x : Typed.Expr
+        val ty = checkBoolean(x)
+    }
+
+    trait BinaryBoolean extends UnaryBoolean {
+        val y : Typed.Expr
+        override val ty = checkBoolean(x); checkBoolean(y)
+    }
+
+    trait Condition {
         self: Typed.Condition =>
-        override val ty = {
+        val ty = {
             val t = unifyFloat(x,y)
             if (t != Types.Float && (t cannotCastTo Types.FloatFunc))
                 throw new Exception(s"Arguments of boolean expression must be casted to () => Float")
