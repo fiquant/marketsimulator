@@ -39,6 +39,7 @@ package observable.sidefunc
 
         =   FundamentalValue(EW.Avg(orderbook.MidPrice(book), alpha), book)
 
+    @python.observable ("Side function", "Pt_{%(factor)s*%(dependee)s}(%(book)s)")
     def PairTrading(
         dependee = orderbook.OfTrader(),
         factor = constant(1.),

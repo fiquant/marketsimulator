@@ -161,6 +161,7 @@ package mathutils {
 
 package observable {
     package sidefunc {
+        @python.observable("Side function", "Pt_{%(factor)s*%(dependee)s}(%(book)s)")
         def PairTrading(dependee = orderbook.OfTrader(),
                         factor = constant(1.0),
                         book = orderbook.OfTrader())
