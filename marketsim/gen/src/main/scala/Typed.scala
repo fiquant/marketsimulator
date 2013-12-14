@@ -7,7 +7,6 @@ package object Typed
 
     abstract class Expr
             extends ScPyPrintable
-            with    sc.BooleanExpr
             with    sc.Expr
             with    py.Expr
     {

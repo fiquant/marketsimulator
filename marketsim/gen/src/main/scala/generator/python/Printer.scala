@@ -71,7 +71,6 @@ object Printer {
     }
 
     trait Expr extends pp.Expr with PrintablePort
-    trait BooleanExpr extends pp.BooleanExpr with PrintablePort
 
     trait BinOp extends pp.BinOp[Typed.Expr] with PrintablePort
     {

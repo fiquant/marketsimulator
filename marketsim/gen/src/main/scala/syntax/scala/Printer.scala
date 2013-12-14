@@ -49,32 +49,30 @@ package object Printer
 
         trait CondSymbol
 
-        trait IfThenElse[T, U <: BooleanExpr] extends Expr with Priority_3 {
+        trait IfThenElse[T, U <: Expr] extends Expr with Priority_3 {
             val x, y : T
             val cond : U
             def toScala = s"if $cond then $x else $y"
         }
 
-        trait BooleanExpr
-
-        trait Or[T <: BooleanExpr] extends BooleanExpr with Printable with Priority_2 {
+        trait Or[T <: Expr] extends Expr with Printable with Priority_2 {
             val x, y : T
             def toScala = s"$x or $y"
         }
 
-        trait And[T <: BooleanExpr] extends BooleanExpr with Printable with Priority_1 {
+        trait And[T <: Expr] extends Expr with Printable with Priority_1 {
             val x, y : T
             def wrap(z : T) = pars(z, z.isInstanceOf[Or[T]])
             def toScala = wrap(x) + " and " + wrap(y)
         }
 
-        trait Not[T <: BooleanExpr, U <: Expr] extends BooleanExpr with Printable with Priority_0 {
+        trait Not[T <: Expr, U <: Expr] extends Expr with Printable with Priority_0 {
             val x : T
             def wrap(z : T) = pars(z, !z.isInstanceOf[Condition[U]])
             def toScala = "not " + wrap(x)
         }
 
-        trait Condition[T <: Expr] extends BooleanExpr with Printable with Priority_0 {
+        trait Condition[T <: Expr] extends Expr with Printable with Priority_0 {
             val x, y : T
             val symbol : CondSymbol
             def toScala = x.toString + symbol + y
@@ -190,7 +188,7 @@ package object Printer
     object ast {
 
         type Expr = base.Expr
-        type BooleanExpr = base.BooleanExpr
+        type BooleanExpr = base.Expr
         type CondSymbol = base.CondSymbol
         type BinOpSymbol = base.BinOpSymbol
         type Add = base.Add
@@ -318,7 +316,7 @@ package object Printer
 
 
         type Expr = base.Expr
-        type BooleanExpr = base.BooleanExpr
+        type BooleanExpr = base.Expr
 
         type BinOp = base.BinOp[Typed.Expr]
         type Neg = base.Neg[Typed.Expr]
