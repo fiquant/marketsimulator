@@ -8,7 +8,7 @@ case class TypeChecker(ctx : TypingExprCtx)
             promote_opt(Typed.Condition(symbol, asArith(x), asArith(y)))
     }
 
-    def promote_literal(e : Typed.ArithExpr) =
+    def promote_literal(e : Typed.Expr) =
         e match {
             case Typed.FloatConst(d) =>
                 val f = ctx.lookupFunction(AST.QualifiedName("const" :: Nil))
@@ -17,20 +17,19 @@ case class TypeChecker(ctx : TypingExprCtx)
             case x => x
         }
 
-    def promote_opt(e : Typed.ArithExpr) =
+    def promote_opt(e : Typed.Expr) =
         if (e.ty canCastTo Types.FloatFunc) e match {
             case Typed.BinOp(c, x, y) => Typed.BinOp(c, promote_literal(x), promote_literal(y))
             case Typed.IfThenElseArith(cond, x, y) => Typed.IfThenElseArith(cond, promote_literal(x), promote_literal(y))
             case x => x
-        } else e
-
-    def promote_opt(e : Typed.Expr) = e match {
+        } else e match {
             case Typed.Condition(symbol, x, y) => Typed.Condition(symbol, promote_literal(x), promote_literal(y))
             case x => x
         }
 
 
-    def asArith(e : AST.Expr) : Typed.ArithExpr = e match {
+
+    def asArith(e : AST.Expr) : Typed.Expr = e match {
         case AST.BinOp(c, x, y) =>
             promote_opt(Typed.BinOp(c, asArith(x), asArith(y)))
 

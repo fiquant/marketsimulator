@@ -8,33 +8,30 @@ package object Typed
     abstract class Expr
             extends ScPyPrintable
             with    sc.BooleanExpr
+            with    sc.Expr
+            with    py.Expr
     {
         def ty : Types.Base
     }
 
-    abstract class ArithExpr
+    case class Neg(x : Expr)
             extends Expr
-            with    sc.Expr
-            with    py.Expr
-
-    case class Neg(x : ArithExpr)
-            extends ArithExpr
             with    sc.Neg
             with    py.Neg
             with    TypeInference.Neg
 
     case class BinOp(symbol : BinOpSymbol,
-                     x      : ArithExpr,
-                     y      : ArithExpr)
-            extends ArithExpr
+                     x      : Expr,
+                     y      : Expr)
+            extends Expr
             with    sc.BinOp
             with    py.BinOp
             with    TypeInference.BinOp
 
     case class IfThenElseArith(cond  : Expr,
-                               x     : ArithExpr,
-                               y     : ArithExpr)
-            extends ArithExpr
+                               x     : Expr,
+                               y     : Expr)
+            extends Expr
             with    sc.IfThenElseArith
             with    py.IfThenElseArith
             with    TypeInference.IfThenElseArith
@@ -48,20 +45,20 @@ package object Typed
             with    TypeInference.IfThenElse
 
     case class FloatConst(x : Double)
-            extends ArithExpr
+            extends Expr
             with    sc.FloatConst
             with    py.FloatConst
             with    TypeInference.FloatConst
 
     case class ParamRef(p : Parameter)
-            extends ArithExpr
+            extends Expr
             with    sc.ParamRef
             with    py.ParamRef
             with    TypeInference.ParamRef
 
     case class FunctionCall(target      : Function,
-                            arguments   : List[(Parameter, ArithExpr)])
-            extends ArithExpr
+                            arguments   : List[(Parameter, Expr)])
+            extends Expr
             with    sc.FunCall
             with    py.FunCall
             with    TypeInference.FunctionCall
@@ -73,7 +70,7 @@ package object Typed
 
     case class Parameter(name        : String,
                          ty          : Types.Base,
-                         initializer : Option[ArithExpr],
+                         initializer : Option[Expr],
                          comment     : List[String])
             extends sc.Parameter
             with    ScPrintable
@@ -99,8 +96,8 @@ package object Typed
             with    TypeInference.BooleanExpr
 
     case class Condition(symbol : CondSymbol,
-                         x      : ArithExpr,
-                         y      : ArithExpr)
+                         x      : Expr,
+                         y      : Expr)
             extends Expr
             with    sc.Condition
             with    py.Condition
@@ -110,7 +107,7 @@ package object Typed
                         name        : String,
                         parameters  : List[Parameter],
                         ret_type    : Types.Base,
-                        body        : Option[ArithExpr],
+                        body        : Option[Expr],
                         docstring   : Option[DocString],
                         annotations : List[Annotation])
             extends sc.Function

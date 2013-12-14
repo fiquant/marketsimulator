@@ -73,17 +73,17 @@ object Printer {
     trait Expr extends pp.Expr with PrintablePort
     trait BooleanExpr extends pp.BooleanExpr with PrintablePort
 
-    trait BinOp extends pp.BinOp[Typed.ArithExpr] with PrintablePort
+    trait BinOp extends pp.BinOp[Typed.Expr] with PrintablePort
     {
         override def imports = x.imports ++ y.imports
     }
 
-    trait Neg extends pp.Neg[Typed.ArithExpr] with PrintablePort
+    trait Neg extends pp.Neg[Typed.Expr] with PrintablePort
     {
         override def imports = x.imports
     }
 
-    trait IfThenElseArith extends pp.IfThenElseArith[Typed.ArithExpr, Typed.Expr] with PrintablePort
+    trait IfThenElseArith extends pp.IfThenElseArith[Typed.Expr, Typed.Expr] with PrintablePort
     {
         override def toPython = s"($cond)[${wrap(x)}, ${wrap(y)}]"
 
@@ -105,11 +105,11 @@ object Printer {
         override def imports = x.imports ++ y.imports
     }
 
-    trait Not extends pp.Not[Typed.Expr, Typed.ArithExpr] with PrintablePort {
+    trait Not extends pp.Not[Typed.Expr, Typed.Expr] with PrintablePort {
         override def imports = x.imports
     }
 
-    trait Condition extends pp.Condition[Typed.ArithExpr] with PrintablePort {
+    trait Condition extends pp.Condition[Typed.Expr] with PrintablePort {
         override def imports = x.imports ++ y.imports
     }
 

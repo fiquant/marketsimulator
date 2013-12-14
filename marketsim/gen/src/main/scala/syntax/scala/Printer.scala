@@ -59,24 +59,24 @@ package object Printer
 
         trait BooleanExpr
 
-        trait Or[T <: BooleanExpr] extends BooleanExpr with Printable {
+        trait Or[T <: BooleanExpr] extends BooleanExpr with Printable with Priority_2 {
             val x, y : T
             def toScala = s"$x or $y"
         }
 
-        trait And[T <: BooleanExpr] extends BooleanExpr with Printable {
+        trait And[T <: BooleanExpr] extends BooleanExpr with Printable with Priority_1 {
             val x, y : T
             def wrap(z : T) = pars(z, z.isInstanceOf[Or[T]])
             def toScala = wrap(x) + " and " + wrap(y)
         }
 
-        trait Not[T <: BooleanExpr, U <: Expr] extends BooleanExpr with Printable {
+        trait Not[T <: BooleanExpr, U <: Expr] extends BooleanExpr with Printable with Priority_0 {
             val x : T
             def wrap(z : T) = pars(z, !z.isInstanceOf[Condition[U]])
             def toScala = "not " + wrap(x)
         }
 
-        trait Condition[T <: Expr] extends BooleanExpr with Printable {
+        trait Condition[T <: Expr] extends BooleanExpr with Printable with Priority_0 {
             val x, y : T
             val symbol : CondSymbol
             def toScala = x.toString + symbol + y
@@ -322,15 +322,15 @@ package object Printer
         type Expr = base.Expr
         type BooleanExpr = base.BooleanExpr
 
-        type BinOp = base.BinOp[Typed.ArithExpr]
-        type Neg = base.Neg[Typed.ArithExpr]
+        type BinOp = base.BinOp[Typed.Expr]
+        type Neg = base.Neg[Typed.Expr]
 
         type IfThenElse = base.IfThenElse[Typed.Expr, Typed.Expr]
-        type IfThenElseArith = base.IfThenElseArith[Typed.ArithExpr, Typed.Expr]
+        type IfThenElseArith = base.IfThenElseArith[Typed.Expr, Typed.Expr]
         type And = base.And[Typed.Expr]
         type Or = base.Or[Typed.Expr]
-        type Not = base.Not[Typed.Expr, Typed.ArithExpr]
-        type Condition = base.Condition[Typed.ArithExpr]
+        type Not = base.Not[Typed.Expr, Typed.Expr]
+        type Condition = base.Condition[Typed.Expr]
 
         import base.Priority_0
 
