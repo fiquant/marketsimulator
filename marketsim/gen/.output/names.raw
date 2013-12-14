@@ -1138,7 +1138,11 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - side_distribution
-| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -1175,6 +1179,14 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Side function
+| | | | | | | | | | | - Noise_{%(side_distribution)s}
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:

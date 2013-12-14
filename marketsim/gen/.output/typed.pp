@@ -195,7 +195,8 @@ package observable {
                           book : IOrderBook = observable.orderbook.OfTrader()) : () => Side
              = observable.sidefunc.FundamentalValue(observable.EW.Avg(observable.orderbook.MidPrice(book),alpha),book)
         
-        def Noise(side_distribution : () => Float = mathutils.rnd.uniform(0.0,1.0)) : () => Side
+        @python.observable("Side function", "Noise_{%(side_distribution)s}")
+        def Noise(side_distribution : IFunction = mathutils.rnd.uniform(0.0,1.0)) : () => Side
              = if side_distribution>const(0.5) then side.Sell() else side.Buy()
     }
     
