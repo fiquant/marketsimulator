@@ -177,6 +177,14 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - Side function
+| | | | | | | | - Tf_{%(alpha)s}(%(book)s)
 | | | | - FunDef:
 | | | | | - CrossingAverages
 | | | | | - List:

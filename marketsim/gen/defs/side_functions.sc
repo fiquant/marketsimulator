@@ -9,6 +9,7 @@ package observable.sidefunc
         if signal < 0-threshold then side.Sell() else
                                      side.Nothing()
 
+    @python.observable ("Side function", "Tf_{%(alpha)s}(%(book)s)")
     def TrendFollower(
         alpha = 0.015,
         threshold = 0.,

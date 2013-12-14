@@ -179,6 +179,7 @@ package observable {
                              book = orderbook.OfTrader())
              = Signal(EW.Avg(orderbook.MidPrice(book),alpha_1)-EW.Avg(orderbook.MidPrice(book),alpha_2),threshold)
         
+        @python.observable("Side function", "Tf_{%(alpha)s}(%(book)s)")
         def TrendFollower(alpha = 0.015,
                           threshold = 0.0,
                           book = orderbook.OfTrader())
