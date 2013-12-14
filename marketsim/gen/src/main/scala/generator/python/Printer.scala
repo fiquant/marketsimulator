@@ -83,9 +83,16 @@ object Printer {
         override def imports = x.imports
     }
 
-    trait IfThenElseArith extends pp.IfThenElse[Typed.ArithExpr, Typed.BooleanExpr] with PrintablePort
+    trait IfThenElseArith extends pp.IfThenElseArith[Typed.ArithExpr, Typed.BooleanExpr] with PrintablePort
     {
         override def toPython = s"($cond)[${wrap(x)}, ${wrap(y)}]"
+
+        override def imports = x.imports ++ y.imports ++ cond.imports
+    }
+
+    trait IfThenElse extends pp.IfThenElse[Typed.Expr, Typed.BooleanExpr] with PrintablePort
+    {
+        override def toPython = s"($cond)[$x, $y]"
 
         override def imports = x.imports ++ y.imports ++ cond.imports
     }

@@ -128,7 +128,7 @@ object Typer
                         case None => throw new Exception(s"Cannot lookup parameter $name")
                     }
                 }
-                TypeChecker(ctx)(e)
+                TypeChecker(ctx).asArith(e)
             }
 
             val emptyLocals = List[Typed.Parameter]()

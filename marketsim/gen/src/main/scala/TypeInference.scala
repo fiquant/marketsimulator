@@ -1,14 +1,21 @@
 package object TypeInference
 {
-    private def floatRank(e: Typed.Expr) = e.ty match {
+    def floatRank(e: Typed.Expr) = e.ty match {
         case x if x canCastTo Types.`Float` => 0
         case x if x canCastTo Types.FloatObservable => 10
         case x if x canCastTo Types.FloatFunc => 1
-        case t => throw new Exception(s"has wrong type $t")
+        case t => -1
+    }
+
+    def isFloat(e : Typed.Expr) = floatRank(e) >= 0
+
+    private def floatRankStrict(e: Typed.Expr) = floatRank(e) match {
+        case -1 => throw new Exception(s"Expression $e is expected to a float-like type")
+        case x => x
     }
 
     private def unifyFloat(xs : Typed.Expr*) =
-        (xs map floatRank).sum match {
+        (xs map floatRankStrict).sum match {
             case x if x >= 10 => Types.FloatObservable
             case x if x >= 1 => Types.FloatFunc
             case 0 => Types.`Float`
@@ -27,6 +34,13 @@ package object TypeInference
     trait IfThenElseArith {
         self: Typed.IfThenElseArith =>
         def ty = unifyFloat(x,y)
+    }
+
+    trait IfThenElse {
+        self: Typed.IfThenElse =>
+        def ty = if (x.ty canCastTo y.ty) y.ty else
+                 if (y.ty canCastTo x.ty) x.ty else
+                throw new Exception("Cannot unify types of if-then-else branches " + self)
     }
 
     trait FloatConst {

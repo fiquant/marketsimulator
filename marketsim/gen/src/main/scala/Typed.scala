@@ -5,7 +5,7 @@ package object Typed
     import generator.python.{Printer => py}
     import AST.{ScPrintable, ScPyPrintable}
 
-    abstract class Expr {
+    abstract class Expr extends ScPyPrintable {
         def ty : Types.Base
     }
 
@@ -13,7 +13,6 @@ package object Typed
             extends Expr
             with    sc.Expr
             with    py.Expr
-            with    ScPyPrintable
 
     case class Neg(x : ArithExpr)
             extends ArithExpr
@@ -36,6 +35,14 @@ package object Typed
             with    sc.IfThenElseArith
             with    py.IfThenElseArith
             with    TypeInference.IfThenElseArith
+
+    case class IfThenElse(cond  : BooleanExpr,
+                          x     : Expr,
+                          y     : Expr)
+            extends Expr
+            with    sc.IfThenElse
+            with    py.IfThenElse
+            with    TypeInference.IfThenElse
 
     case class FloatConst(x : Double)
             extends ArithExpr
@@ -72,7 +79,6 @@ package object Typed
             extends Expr
             with    sc.BooleanExpr
             with    TypeInference.BooleanExpr
-            with    ScPyPrintable
 
     case class Or(x : BooleanExpr,
                   y : BooleanExpr)

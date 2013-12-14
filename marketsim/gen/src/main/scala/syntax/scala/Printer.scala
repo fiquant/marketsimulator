@@ -49,11 +49,13 @@ package object Printer
 
         trait CondSymbol
 
-        trait IfThenElse[T <: Expr, U <: BooleanExpr] extends Expr with Priority_3 {
+        trait IfThenElse[T, U <: BooleanExpr] extends Expr with Priority_3 {
             val x, y : T
             val cond : U
-            def toScala = s"if $cond then ${wrap(x)} else ${wrap(y)}"
+            def toScala = s"if $cond then $x else $y"
         }
+
+        trait IfThenElseArith[T, U <: BooleanExpr] extends IfThenElse[T,U] with Priority_3
 
         trait BooleanExpr
 
@@ -323,7 +325,8 @@ package object Printer
         type BinOp = base.BinOp[Typed.ArithExpr]
         type Neg = base.Neg[Typed.ArithExpr]
 
-        type IfThenElseArith = base.IfThenElse[Typed.ArithExpr, Typed.BooleanExpr]
+        type IfThenElse = base.IfThenElse[Typed.Expr, Typed.BooleanExpr]
+        type IfThenElseArith = base.IfThenElseArith[Typed.ArithExpr, Typed.BooleanExpr]
         type And = base.And[Typed.BooleanExpr]
         type Or = base.Or[Typed.BooleanExpr]
         type Not = base.Not[Typed.BooleanExpr, Typed.ArithExpr]
