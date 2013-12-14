@@ -32,6 +32,7 @@ package observable.sidefunc
             if orderbook.AskPrice(book) < fv then side.Buy()  else
                                                   side.Nothing()
 
+    @python.observable ("Side function", "Mr_{%(alpha)s}(%(book)s)")
     def MeanReversion(
         alpha = 0.015,
         book = orderbook.OfTrader())

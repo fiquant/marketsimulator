@@ -1318,6 +1318,14 @@ Definitions:
 | | | | | | | | | | | | | - Side
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Side function
+| | | | | | | | | | | - Mr_{%(alpha)s}(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Noise
 | | | | | | | | - List:
