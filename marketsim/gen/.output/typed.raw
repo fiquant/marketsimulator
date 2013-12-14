@@ -928,8 +928,13 @@ Definitions:
 | | | | | | | | | | | - Greater
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - signal
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - threshold
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - threshold
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
@@ -941,12 +946,17 @@ Definitions:
 | | | | | | | | | | | | - Less
 | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - signal
-| | | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | | - Sub
-| | | | | | | | | | | | | - Const:
-| | | | | | | | | | | | | | - 0.0
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - threshold
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | | | - 0.0
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - threshold
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
@@ -968,6 +978,14 @@ Definitions:
 | | | | | | | | | | | | | - Side
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Side function
+| | | | | | | | | | | - SignalSide_{%(threshold)s}(%(signal)s)
 | | | | | | | - FunDef:
 | | | | | | | | - CrossingAverages
 | | | | | | | | - List:

@@ -167,9 +167,10 @@ package observable {
                         book : IOrderBook = observable.orderbook.OfTrader()) : () => Side
              = observable.sidefunc.FundamentalValue(observable.orderbook.MidPrice(dependee)*factor,book)
         
+        @python.observable("Side function", "SignalSide_{%(threshold)s}(%(signal)s)")
         def Signal(signal : IFunction = constant(),
                    threshold : Float = 0.7) : () => Side
-             = if signal>threshold then side.Buy() else if signal<0.0-threshold then side.Sell() else side.Nothing()
+             = if signal>const(threshold) then side.Buy() else if signal<const(0.0-threshold) then side.Sell() else side.Nothing()
         
         def CrossingAverages(alpha_1 : Float = 0.015,
                              alpha_2 : Float = 0.15,

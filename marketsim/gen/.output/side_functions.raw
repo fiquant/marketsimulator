@@ -109,6 +109,14 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - Side function
+| | | | | | | | - SignalSide_{%(threshold)s}(%(signal)s)
 | | | | - FunDef:
 | | | | | - TrendFollower
 | | | | | - List:

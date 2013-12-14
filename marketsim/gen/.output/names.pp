@@ -167,6 +167,7 @@ package observable {
                         book = orderbook.OfTrader())
              = FundamentalValue(orderbook.MidPrice(dependee)*factor,book)
         
+        @python.observable("Side function", "SignalSide_{%(threshold)s}(%(signal)s)")
         def Signal(signal = constant(),
                    threshold = 0.7)
              = if signal>threshold then side.Buy() else if signal<0.0-threshold then side.Sell() else side.Nothing()
