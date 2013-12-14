@@ -33,9 +33,9 @@ package object Typed
                                x     : ArithExpr,
                                y     : ArithExpr)
             extends ArithExpr
-            with    sc.IfThenElse
-            with    py.IfThenElse
-            with    TypeInference.IfThenElse
+            with    sc.IfThenElseArith
+            with    py.IfThenElseArith
+            with    TypeInference.IfThenElseArith
 
     case class FloatConst(x : Double)
             extends ArithExpr
