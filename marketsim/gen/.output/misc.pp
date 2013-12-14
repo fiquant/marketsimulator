@@ -28,6 +28,19 @@ def constant(x = 1.0) : IFunction
 def const(x = 1.0) : IObservable
     
 
+type Side
+
+package side {
+    def Sell() : () => Side
+        
+    
+    def Buy() : () => Side
+        
+    
+    def None() : () => Side
+        
+}
+
 type IOrderQueue
 
 type IOrderBook

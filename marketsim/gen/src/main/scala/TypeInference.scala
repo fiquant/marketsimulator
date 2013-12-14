@@ -25,7 +25,7 @@ package object TypeInference
     }
 
     trait IfThenElse {
-        self: Typed.IfThenElse =>
+        self: Typed.IfThenElseArith =>
         def ty = unifyFloat(x,y)
     }
 

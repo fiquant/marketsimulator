@@ -29,9 +29,9 @@ package object Typed
             with    py.BinOp
             with    TypeInference.BinOp
 
-    case class IfThenElse(cond  : BooleanExpr,
-                          x     : ArithExpr,
-                          y     : ArithExpr)
+    case class IfThenElseArith(cond  : BooleanExpr,
+                               x     : ArithExpr,
+                               y     : ArithExpr)
             extends ArithExpr
             with    sc.IfThenElse
             with    py.IfThenElse

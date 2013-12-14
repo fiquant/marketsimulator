@@ -20,7 +20,7 @@ case class TypeChecker(ctx : TypingExprCtx)
     def promote_opt(e : Typed.ArithExpr) =
         if (e.ty canCastTo Types.FloatFunc) e match {
             case Typed.BinOp(c, x, y) => Typed.BinOp(c, promote_literal(x), promote_literal(y))
-            case Typed.IfThenElse(cond, x, y) => Typed.IfThenElse(cond, promote_literal(x), promote_literal(y))
+            case Typed.IfThenElseArith(cond, x, y) => Typed.IfThenElseArith(cond, promote_literal(x), promote_literal(y))
             case x => x
         } else e
 
@@ -37,7 +37,7 @@ case class TypeChecker(ctx : TypingExprCtx)
         case AST.Neg(x) => Typed.Neg(apply(x))
 
         case AST.IfThenElse(cond, x, y) =>
-            promote_opt(Typed.IfThenElse(apply(cond), apply(x), apply(y)))
+            promote_opt(Typed.IfThenElseArith(apply(cond), apply(x), apply(y)))
 
         case AST.Const(d) => Typed.FloatConst(d)
         case AST.Var(name) => Typed.ParamRef(ctx.lookupVar(name))

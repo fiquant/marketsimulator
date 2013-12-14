@@ -3,9 +3,710 @@ Definitions:
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
+| | | | - side
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Sell
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Side
+| | | | | - None
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - Buy
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Side
+| | | | | - None
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - None
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Side
+| | | | | - None
+| | | | | - List:
+| - PackageDef:
+| | - QualifiedName:
+| | | - List:
+| | | | - mathops
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Atan
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 0.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Arc tangent of x, in radians.
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - mathops
+| | | | | | | - List:
+| | | | | | | | - Trigonometric
+| | | | | | | | - atan
+| | | | | | | | - atan(%(x)s)
+| | | | - FunDef:
+| | | | | - Sqrt
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Square root of x
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - mathops
+| | | | | | | - List:
+| | | | | | | | - Log/Pow
+| | | | | | | | - sqrt
+| | | | | | | | - \\sqrt{%(x)s}
+| | | | - FunDef:
+| | | | | - Exp
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Exponent of x
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - mathops
+| | | | | | | - List:
+| | | | | | | | - Log/Pow
+| | | | | | | | - exp
+| | | | | | | | - e^{%(x)s}
+| | | | - FunDef:
+| | | | | - Log
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Natural logarithm of x (to base e)
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - mathops
+| | | | | | | - List:
+| | | | | | | | - Log/Pow
+| | | | | | | | - log
+| | | | | | | | - log(%(x)s)
+| | | | - FunDef:
+| | | | | - Pow
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - base
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - power
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Return *x* raised to the power *y*.
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | | | | -  Exceptional cases follow Annex F of the C99 standard as far as possible.
+| | | | | | | | -  In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,
+| | | | | | | | -  even when *x* is a zero or a NaN.
+| | | | | | | | -  If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
+| | | | | | | | -  ``pow(x, y)`` is undefined, and raises ``ValueError``.
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - mathops
+| | | | | | | - List:
+| | | | | | | | - Log/Pow
+| | | | | | | | - pow
+| | | | | | | | - %(base)s^{%(power)s}
+| - PackageDef:
+| | - QualifiedName:
+| | | - List:
+| | | | - mathutils
+| | - Definitions:
+| | | - List:
+| | | | - PackageDef:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - rnd
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - gammavariate
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - Alpha
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - Beta
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Gamma distribution
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | | | | -   Conditions on the parameters are |alpha| > 0 and |beta| > 0.
+| | | | | | | | | | | - 
+| | | | | | | | | | | -   The probability distribution function is: ::
+| | | | | | | | | | | - 
+| | | | | | | | | | | -                x ** (alpha - 1) * math.exp(-x / beta)
+| | | | | | | | | | | -      pdf(x) =  --------------------------------------
+| | | | | | | | | | | -                   math.gamma(alpha) * beta ** alpha
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - random
+| | | | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - normalvariate
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - Mu
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 0.0
+| | | | | | | | | | - List:
+| | | | | | | | | | | -  |mu| is the mean                  
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - Sigma
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | | | | -  |sigma| is the standard deviation 
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Normal distribution
+| | | | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - random
+| | | | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - paretovariate
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - Alpha
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | | | | -  |alpha| is the shape parameter
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Pareto distribution
+| | | | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - random
+| | | | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - triangular
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - Low
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 0.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - High
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - Mode
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 0.5
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Triangular distribution
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | | | | -  Return a random floating point number *N* such that *low* <= *N* <= *high* and
+| | | | | | | | | | | -        with the specified *mode* between those bounds.
+| | | | | | | | | | | -        The *low* and *high* bounds default to zero and one.
+| | | | | | | | | | | -        The *mode* argument defaults to the midpoint between the bounds,
+| | | | | | | | | | | -        giving a symmetric distribution.
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - random
+| | | | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - vonmisesvariate
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - Mu
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 0.0
+| | | | | | | | | | - List:
+| | | | | | | | | | | -  |mu| is the mean angle, expressed in radians between 0 and 2|pi|
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - Kappa
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 0.0
+| | | | | | | | | | - List:
+| | | | | | | | | | | -  |kappa| is the concentration parameter, which must be greater than or equal to zero.
+| | | | | | | | | | | -       If |kappa| is equal to zero, this distribution reduces
+| | | | | | | | | | | -       to a uniform random angle over the range 0 to 2|pi|        
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Von Mises distribution
+| | | | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - random
+| | | | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - uniform
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - Low
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - -10.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - High
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 10.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Uniform distribution
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | | | | -  Return a random floating point number *N* such that
+| | | | | | | | | | | -  *a* <= *N* <= *b* for *a* <= *b* and *b* <= *N* <= *a* for *b* < *a*.
+| | | | | | | | | | | -  The end-point value *b* may or may not be included in the range depending on
+| | | | | | | | | | | -  floating-point rounding in the equation *a* + (*b*-*a*) * *random()*.
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - random
+| | | | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - weibullvariate
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - Alpha
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | | | | -  |alpha| is the scale parameter 
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - Beta
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | | | | -  |beta| is the shape parameter  
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Weibull distribution
+| | | | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - random
+| | | | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - expovariate
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - Lambda
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | | | | -  |lambda| is 1.0 divided by the desired mean. It should be greater zero.
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Exponential distribution
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | | | | -   Returned values range from 0 to positive infinity
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - random
+| | | | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - lognormvariate
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - Mu
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 0.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - Sigma
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Log normal distribution
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | | | | -  If you take the natural logarithm of this distribution,
+| | | | | | | | | | | -   you'll get a normal distribution with mean |mu| and standard deviation |sigma|.
+| | | | | | | | | | | -   |mu| can have any value, and |sigma| must be greater than zero.
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - random
+| | | | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - betavariate
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - Alpha
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - Beta
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Beta distribution
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | | | | -  Conditions on the parameters are |alpha| > 0 and |beta| > 0.
+| | | | | | | | | | | -  Returned values range between 0 and 1.
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - random
+| | | | | | | | | | - List:
+| - PackageDef:
+| | - QualifiedName:
+| | | - List:
 | | | | - observable
 | | - Definitions:
 | | | - List:
+| | | | - PackageDef:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - sidefunc
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - Noise
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - side_distribution
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - mathutils
+| | | | | | | | | | | | | | - rnd
+| | | | | | | | | | | | | | - uniform
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | - 0.0
+| | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - IfThenElse:
+| | | | | | | | | | - Condition:
+| | | | | | | | | | | - Greater
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - side_distribution
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 0.5
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 0.0
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 1.0
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -1842,219 +2543,6 @@ Definitions:
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
-| | | | - mathops
-| | - Definitions:
-| | | - List:
-| | | | - FunDef:
-| | | | | - Atan
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - x
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - constant
-| | | | | | | | | - List:
-| | | | | | | | | | - Const:
-| | | | | | | | | | | - 0.0
-| | | | | | | - List:
-| | | | | - None
-| | | | | - Some:
-| | | | | | - FunctionType:
-| | | | | | | - List:
-| | | | | | | - SimpleType:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - Float
-| | | | | - Some:
-| | | | | | - DocString:
-| | | | | | | - Arc tangent of x, in radians.
-| | | | | | | - List:
-| | | | | | | | - 
-| | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - mathops
-| | | | | | | - List:
-| | | | | | | | - Trigonometric
-| | | | | | | | - atan
-| | | | | | | | - atan(%(x)s)
-| | | | - FunDef:
-| | | | | - Sqrt
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - x
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - constant
-| | | | | | | | | - List:
-| | | | | | | | | | - Const:
-| | | | | | | | | | | - 1.0
-| | | | | | | - List:
-| | | | | - None
-| | | | | - Some:
-| | | | | | - FunctionType:
-| | | | | | | - List:
-| | | | | | | - SimpleType:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - Float
-| | | | | - Some:
-| | | | | | - DocString:
-| | | | | | | - Square root of x
-| | | | | | | - List:
-| | | | | | | | - 
-| | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - mathops
-| | | | | | | - List:
-| | | | | | | | - Log/Pow
-| | | | | | | | - sqrt
-| | | | | | | | - \\sqrt{%(x)s}
-| | | | - FunDef:
-| | | | | - Exp
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - x
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - constant
-| | | | | | | | | - List:
-| | | | | | | | | | - Const:
-| | | | | | | | | | | - 1.0
-| | | | | | | - List:
-| | | | | - None
-| | | | | - Some:
-| | | | | | - FunctionType:
-| | | | | | | - List:
-| | | | | | | - SimpleType:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - Float
-| | | | | - Some:
-| | | | | | - DocString:
-| | | | | | | - Exponent of x
-| | | | | | | - List:
-| | | | | | | | - 
-| | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - mathops
-| | | | | | | - List:
-| | | | | | | | - Log/Pow
-| | | | | | | | - exp
-| | | | | | | | - e^{%(x)s}
-| | | | - FunDef:
-| | | | | - Log
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - x
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - constant
-| | | | | | | | | - List:
-| | | | | | | | | | - Const:
-| | | | | | | | | | | - 1.0
-| | | | | | | - List:
-| | | | | - None
-| | | | | - Some:
-| | | | | | - FunctionType:
-| | | | | | | - List:
-| | | | | | | - SimpleType:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - Float
-| | | | | - Some:
-| | | | | | - DocString:
-| | | | | | | - Natural logarithm of x (to base e)
-| | | | | | | - List:
-| | | | | | | | - 
-| | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - mathops
-| | | | | | | - List:
-| | | | | | | | - Log/Pow
-| | | | | | | | - log
-| | | | | | | | - log(%(x)s)
-| | | | - FunDef:
-| | | | | - Pow
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - base
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - constant
-| | | | | | | | | - List:
-| | | | | | | | | | - Const:
-| | | | | | | | | | | - 1.0
-| | | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - power
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - constant
-| | | | | | | | | - List:
-| | | | | | | | | | - Const:
-| | | | | | | | | | | - 1.0
-| | | | | | | - List:
-| | | | | - None
-| | | | | - Some:
-| | | | | | - FunctionType:
-| | | | | | | - List:
-| | | | | | | - SimpleType:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - Float
-| | | | | - Some:
-| | | | | | - DocString:
-| | | | | | | - Return *x* raised to the power *y*.
-| | | | | | | - List:
-| | | | | | | | - 
-| | | | | | | | -  Exceptional cases follow Annex F of the C99 standard as far as possible.
-| | | | | | | | -  In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,
-| | | | | | | | -  even when *x* is a zero or a NaN.
-| | | | | | | | -  If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
-| | | | | | | | -  ``pow(x, y)`` is undefined, and raises ``ValueError``.
-| | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - mathops
-| | | | | | | - List:
-| | | | | | | | - Log/Pow
-| | | | | | | | - pow
-| | | | | | | | - %(base)s^{%(power)s}
-| - PackageDef:
-| | - QualifiedName:
-| | | - List:
 | | | | - trash
 | | - Definitions:
 | | | - List:
@@ -2209,409 +2697,6 @@ Definitions:
 | | | | | | | | | | - R
 | | | | | - None
 | | | | | - List:
-| - PackageDef:
-| | - QualifiedName:
-| | | - List:
-| | | | - mathutils
-| | - Definitions:
-| | | - List:
-| | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - rnd
-| | | | | - Definitions:
-| | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - gammavariate
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - Alpha
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - Beta
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Gamma distribution
-| | | | | | | | | | - List:
-| | | | | | | | | | | - 
-| | | | | | | | | | | -   Conditions on the parameters are |alpha| > 0 and |beta| > 0.
-| | | | | | | | | | | - 
-| | | | | | | | | | | -   The probability distribution function is: ::
-| | | | | | | | | | | - 
-| | | | | | | | | | | -                x ** (alpha - 1) * math.exp(-x / beta)
-| | | | | | | | | | | -      pdf(x) =  --------------------------------------
-| | | | | | | | | | | -                   math.gamma(alpha) * beta ** alpha
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - random
-| | | | | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - normalvariate
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - Mu
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 0.0
-| | | | | | | | | | - List:
-| | | | | | | | | | | -  |mu| is the mean                  
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - Sigma
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | | | | -  |sigma| is the standard deviation 
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Normal distribution
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - random
-| | | | | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - paretovariate
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - Alpha
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | | | | -  |alpha| is the shape parameter
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Pareto distribution
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - random
-| | | | | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - triangular
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - Low
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 0.0
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - High
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - Mode
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 0.5
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Triangular distribution
-| | | | | | | | | | - List:
-| | | | | | | | | | | - 
-| | | | | | | | | | | -  Return a random floating point number *N* such that *low* <= *N* <= *high* and
-| | | | | | | | | | | -        with the specified *mode* between those bounds.
-| | | | | | | | | | | -        The *low* and *high* bounds default to zero and one.
-| | | | | | | | | | | -        The *mode* argument defaults to the midpoint between the bounds,
-| | | | | | | | | | | -        giving a symmetric distribution.
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - random
-| | | | | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - vonmisesvariate
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - Mu
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 0.0
-| | | | | | | | | | - List:
-| | | | | | | | | | | -  |mu| is the mean angle, expressed in radians between 0 and 2|pi|
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - Kappa
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 0.0
-| | | | | | | | | | - List:
-| | | | | | | | | | | -  |kappa| is the concentration parameter, which must be greater than or equal to zero.
-| | | | | | | | | | | -       If |kappa| is equal to zero, this distribution reduces
-| | | | | | | | | | | -       to a uniform random angle over the range 0 to 2|pi|        
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Von Mises distribution
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - random
-| | | | | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - uniform
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - Low
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - -10.0
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - High
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 10.0
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Uniform distribution
-| | | | | | | | | | - List:
-| | | | | | | | | | | - 
-| | | | | | | | | | | -  Return a random floating point number *N* such that
-| | | | | | | | | | | -  *a* <= *N* <= *b* for *a* <= *b* and *b* <= *N* <= *a* for *b* < *a*.
-| | | | | | | | | | | -  The end-point value *b* may or may not be included in the range depending on
-| | | | | | | | | | | -  floating-point rounding in the equation *a* + (*b*-*a*) * *random()*.
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - random
-| | | | | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - weibullvariate
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - Alpha
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | | | | -  |alpha| is the scale parameter 
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - Beta
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | | | | -  |beta| is the shape parameter  
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Weibull distribution
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - random
-| | | | | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - expovariate
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - Lambda
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | | | | -  |lambda| is 1.0 divided by the desired mean. It should be greater zero.
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Exponential distribution
-| | | | | | | | | | - List:
-| | | | | | | | | | | - 
-| | | | | | | | | | | -   Returned values range from 0 to positive infinity
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - random
-| | | | | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - lognormvariate
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - Mu
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 0.0
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - Sigma
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Log normal distribution
-| | | | | | | | | | - List:
-| | | | | | | | | | | - 
-| | | | | | | | | | | -  If you take the natural logarithm of this distribution,
-| | | | | | | | | | | -   you'll get a normal distribution with mean |mu| and standard deviation |sigma|.
-| | | | | | | | | | | -   |mu| can have any value, and |sigma| must be greater than zero.
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - random
-| | | | | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - betavariate
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - Alpha
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - Beta
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Beta distribution
-| | | | | | | | | | - List:
-| | | | | | | | | | | - 
-| | | | | | | | | | | -  Conditions on the parameters are |alpha| > 0 and |beta| > 0.
-| | | | | | | | | | | -  Returned values range between 0 and 1.
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - random
-| | | | | | | | | | - List:
 | - FunDef:
 | | - constant
 | | - List:
@@ -2645,6 +2730,9 @@ Definitions:
 | | | | - List:
 | | | | | - Basic
 | | | | | - C=%(x)s
+| - Interface:
+| | - Side
+| | - List:
 | - Interface:
 | | - IOrderQueue
 | | - List:

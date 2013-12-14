@@ -229,6 +229,54 @@ Definitions:
 | | | | | - C=%(x)s
 | | | | | - _constant._Constant_Impl
 | - Interface:
+| | - Side
+| | - List:
+| - PackageDef:
+| | - QualifiedName:
+| | | - List:
+| | | | - side
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Sell
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Side
+| | | | | - None
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - Buy
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Side
+| | | | | - None
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - None
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Side
+| | | | | - None
+| | | | | - List:
+| - Interface:
 | | - IOrderQueue
 | | - List:
 | - Interface:

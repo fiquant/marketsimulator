@@ -19,6 +19,15 @@ def constant(x = 1.0) : IFunction = const(x)
 @python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
 def const(x = 1.0) : IObservable
 
+type Side
+
+package side
+{
+    def Sell() => Side
+    def Buy() => Side
+    def None() => Side
+}
+
 
 type IOrderQueue
 type IOrderBook

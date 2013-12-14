@@ -1,0 +1,43 @@
+Definitions:
+- List:
+| - PackageDef:
+| | - QualifiedName:
+| | | - List:
+| | | | - observable
+| | | | - sidefunc
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Noise
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - side_distribution
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - mathutils
+| | | | | | | | | | | - rnd
+| | | | | | | | | | | - uniform
+| | | | | | | | | - List:
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 0.0
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - IfThenElse:
+| | | | | | | - Condition:
+| | | | | | | | - Greater
+| | | | | | | | - Var:
+| | | | | | | | | - side_distribution
+| | | | | | | | - Const:
+| | | | | | | | | - 0.5
+| | | | | | | - Const:
+| | | | | | | | - 0.0
+| | | | | | | - Const:
+| | | | | | | | - 1.0
+| | | | | - None
+| | | | | - None
+| | | | | - List:
