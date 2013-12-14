@@ -31,16 +31,9 @@ package object TypeInference
         def ty = unifyFloat(x,y)
     }
 
-    trait IfThenElseArith {
-        self: Typed.IfThenElseArith =>
-        def ty = unifyFloat(x,y)
-    }
-
     trait IfThenElse {
         self: Typed.IfThenElse =>
-        def ty = if (x.ty canCastTo y.ty) y.ty else
-                 if (y.ty canCastTo x.ty) x.ty else
-                throw new Exception("Cannot unify types of if-then-else branches " + self)
+        def ty = unifyFloat(x,y)
     }
 
     trait FloatConst {

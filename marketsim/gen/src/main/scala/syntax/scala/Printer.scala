@@ -55,8 +55,6 @@ package object Printer
             def toScala = s"if $cond then $x else $y"
         }
 
-        trait IfThenElseArith[T, U <: BooleanExpr] extends IfThenElse[T,U] with Priority_3
-
         trait BooleanExpr
 
         trait Or[T <: BooleanExpr] extends BooleanExpr with Printable with Priority_2 {
@@ -326,7 +324,6 @@ package object Printer
         type Neg = base.Neg[Typed.Expr]
 
         type IfThenElse = base.IfThenElse[Typed.Expr, Typed.Expr]
-        type IfThenElseArith = base.IfThenElseArith[Typed.Expr, Typed.Expr]
         type And = base.And[Typed.Expr]
         type Or = base.Or[Typed.Expr]
         type Not = base.Not[Typed.Expr, Typed.Expr]

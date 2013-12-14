@@ -28,14 +28,6 @@ package object Typed
             with    py.BinOp
             with    TypeInference.BinOp
 
-    case class IfThenElseArith(cond  : Expr,
-                               x     : Expr,
-                               y     : Expr)
-            extends Expr
-            with    sc.IfThenElseArith
-            with    py.IfThenElseArith
-            with    TypeInference.IfThenElseArith
-
     case class IfThenElse(cond  : Expr,
                           x     : Expr,
                           y     : Expr)
@@ -43,6 +35,8 @@ package object Typed
             with    sc.IfThenElse
             with    py.IfThenElse
             with    TypeInference.IfThenElse
+
+
 
     case class FloatConst(x : Double)
             extends Expr
