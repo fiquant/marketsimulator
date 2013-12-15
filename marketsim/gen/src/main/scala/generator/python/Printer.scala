@@ -11,16 +11,16 @@ object Printer {
 
     object types {
 
-        trait Base
+        trait Base extends Printable
 
-        trait Unit extends Printable {
+        trait Unit extends Base {
             def toPython =
                 throw new Exception("Unit types are not supported yet for python generation")
             def imports = Nil
 
         }
 
-        trait Tuple extends Printable {
+        trait Tuple extends Base {
             val elems : List[Base]
             def toPython = {
                 throw new Exception("Tuple types are not supported yet for python generation")
@@ -30,7 +30,7 @@ object Printer {
             def imports = Nil
         }
 
-        trait Function extends Printable {
+        trait Function extends Base {
             val args : List[Base]
             val ret : Base
             def toPython = {
@@ -43,24 +43,30 @@ object Printer {
                 //(if (args.length == 1) args(0) else args.mkString("(", ",", ")")) + s" => $ret"
             }
 
-            def imports = Nil
+            def imports = predef.ImportFrom("types", "marketsim") :: ret.imports ++ (args match {
+                case Nil => Nil
+                case x :: Nil =>
+                    println(x.imports)
+                    x.imports
+                case _ => throw new Exception("Only unary and nullary functions are supported for python generation")
+            })
         }
 
-        trait `Float`    extends Printable
+        trait `Float`    extends Base
         {
             def toPython = "float"
             def imports = Nil
         }
 
-        trait `Boolean`  extends Printable
+        trait `Boolean`  extends Base
         {
             def toPython = "bool"
             def imports = Nil
         }
 
-        trait UserDefined extends st.UserDefined with PrintablePort
+        trait UserDefined extends st.UserDefined with PrintablePort with Base
         {
-            def imports = Nil
+            def imports = predef.ImportFrom(name, "marketsim") :: Nil
         }
     }
 

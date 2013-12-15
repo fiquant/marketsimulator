@@ -295,9 +295,9 @@ package observable {
         def MidPrice(book = OfTrader())
              = (AskPrice(book)+BidPrice(book))/2.0
         
-        @python.intrinsic.function("Queue's", "Asks(%(book)s)", "orderbook.queue._Asks_Impl")
-        def Asks(book = OfTrader()) : IOrderQueue
-            
+        @python.intrinsic.function("Asset's", "Asks(%(book)s)", "orderbook.queue._Asks_Impl")
+        def Asks(book = OfTrader())
+             = Queue(book,side.Sell())
         
         @python.observable("Orderbook", "Bid_{%(alpha)s}^{%(book)s}")
         def BidWeightedPrice(book = OfTrader(),
@@ -316,12 +316,17 @@ package observable {
         def BidPrice(book = OfTrader())
              = BestPrice(Bids(book))
         
-        @python.intrinsic.function("Queue's", "Bids(%(book)s)", "orderbook.queue._Bids_Impl")
-        def Bids(book = OfTrader()) : IOrderQueue
-            
+        @python.intrinsic.function("Asset's", "Bids(%(book)s)", "orderbook.queue._Bids_Impl")
+        def Bids(book = OfTrader())
+             = Queue(book,side.Buy())
         
         @python.intrinsic.observable("Orderbook", "Price(%(queue)s)", "orderbook.props._BestPrice_Impl")
         def BestPrice(queue = Asks()) : IObservable
+            
+        
+        @python.intrinsic.function("Asset's", "Queue(%(book)s)", "orderbook.queue._Queue_Impl")
+        def Queue(book = OfTrader(),
+                  side = side.Sell()) : IOrderQueue
             
         
         @python.intrinsic.function("Proxies", "N/A", "orderbook.of_trader._OfTrader_Impl")

@@ -31,7 +31,7 @@ package object base {
         val p : Typed.Parameter
 
         def name = p.name
-        def ty = p.ty.asPython
+        def ty = p.ty.asPython ||| Code.from(p.ty.imports)
         def s_initializer = if (p.initializer.nonEmpty) "= None" else ""
 
         def init = s"$name $s_initializer"
@@ -42,7 +42,7 @@ package object base {
                         case None => ""})
         }
 
-        def property = s"\'$name\' : $ty" ||| ImportFrom(ty, "marketsim")
+        def property = s"\'$name\' : " ||| ty
         def repr = s"""$name = \"+repr(self.$name)+\" """
         def call = s"self.$name"
     }

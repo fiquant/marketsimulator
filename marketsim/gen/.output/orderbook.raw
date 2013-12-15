@@ -40,7 +40,7 @@ Definitions:
 | | | | | | | | - N/A
 | | | | | | | | - orderbook.of_trader._OfTrader_Impl
 | | | | - FunDef:
-| | | | | - Asks
+| | | | | - Queue
 | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - book
@@ -50,6 +50,17 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - OfTrader
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - side
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Sell
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
@@ -67,7 +78,47 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - function
 | | | | | | | - List:
-| | | | | | | | - Queue's
+| | | | | | | | - Asset's
+| | | | | | | | - Queue(%(book)s)
+| | | | | | | | - orderbook.queue._Queue_Impl
+| | | | - FunDef:
+| | | | | - Asks
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - book
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - OfTrader
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Queue
+| | | | | | | - List:
+| | | | | | | | - Var:
+| | | | | | | | | - book
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Sell
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - Asset's
 | | | | | | | | - Asks(%(book)s)
 | | | | | | | | - orderbook.queue._Asks_Impl
 | | | | - FunDef:
@@ -83,12 +134,21 @@ Definitions:
 | | | | | | | | | | | - OfTrader
 | | | | | | | | | - List:
 | | | | | | | - List:
-| | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
+| | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IOrderQueue
+| | | | | | | | | - Queue
+| | | | | | | - List:
+| | | | | | | | - Var:
+| | | | | | | | | - book
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Buy
+| | | | | | | | | - List:
+| | | | | - None
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -98,7 +158,7 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - function
 | | | | | | | - List:
-| | | | | | | | - Queue's
+| | | | | | | | - Asset's
 | | | | | | | | - Bids(%(book)s)
 | | | | | | | | - orderbook.queue._Bids_Impl
 | | | | - FunDef:

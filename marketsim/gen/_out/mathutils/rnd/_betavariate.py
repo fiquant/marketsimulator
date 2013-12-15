@@ -1,7 +1,5 @@
 from marketsim import registry
 from marketsim.ops._function import Function
-from marketsim import float
-from marketsim import float
 @registry.expose(["Random", "Beta distribution"])
 class betavariate(Function[float]):
     """ 

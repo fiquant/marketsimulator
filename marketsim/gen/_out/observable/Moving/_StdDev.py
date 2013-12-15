@@ -1,7 +1,6 @@
 from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import IObservable
-from marketsim import float
 from marketsim.gen._out.mathops._Sqrt import Sqrt
 from marketsim.gen._out.observable.Moving._Var import Var
 from marketsim import context

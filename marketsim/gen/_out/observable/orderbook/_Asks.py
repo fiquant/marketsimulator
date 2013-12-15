@@ -1,9 +1,8 @@
 from marketsim import registry
-from marketsim.ops._function import Function
 from marketsim.gen._intrinsic.orderbook.queue import _Asks_Impl
 from marketsim import IOrderBook
-@registry.expose(["Queue's", "Asks"])
-class Asks(Function[float], _Asks_Impl):
+@registry.expose(["Asset's", "Asks"])
+class Asks(_Asks_Impl):
     """ 
     """ 
     def __init__(self, book = None):

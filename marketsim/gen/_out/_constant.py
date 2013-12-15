@@ -1,6 +1,5 @@
 from marketsim import registry
 from marketsim.ops._function import Function
-from marketsim import float
 from marketsim.gen._out._const import const
 from marketsim import context
 @registry.expose(["Basic", "constant"])

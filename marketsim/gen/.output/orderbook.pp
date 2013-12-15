@@ -4,13 +4,18 @@ package observable.orderbook {
     def OfTrader(Trader = trader.SingleProxy()) : IOrderBook
         
     
-    @python.intrinsic.function("Queue's", "Asks(%(book)s)", "orderbook.queue._Asks_Impl")
-    def Asks(book = OfTrader()) : IOrderQueue
+    @python.intrinsic.function("Asset's", "Queue(%(book)s)", "orderbook.queue._Queue_Impl")
+    def Queue(book = OfTrader(),
+              side = side.Sell()) : IOrderQueue
         
     
-    @python.intrinsic.function("Queue's", "Bids(%(book)s)", "orderbook.queue._Bids_Impl")
-    def Bids(book = OfTrader()) : IOrderQueue
-        
+    @python.intrinsic.function("Asset's", "Asks(%(book)s)", "orderbook.queue._Asks_Impl")
+    def Asks(book = OfTrader())
+         = Queue(book,side.Sell())
+    
+    @python.intrinsic.function("Asset's", "Bids(%(book)s)", "orderbook.queue._Bids_Impl")
+    def Bids(book = OfTrader())
+         = Queue(book,side.Buy())
     
     @python.intrinsic.observable("Orderbook", "Price(%(queue)s)", "orderbook.props._BestPrice_Impl")
     def BestPrice(queue = Asks()) : IObservable

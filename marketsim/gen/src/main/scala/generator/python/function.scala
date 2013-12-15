@@ -36,8 +36,13 @@ object function extends gen.PythonGenerator
 
         override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
 
-        override val base_class : Code = "Function[float]" |||
-                                            ImportFrom("Function", "marketsim.ops._function")
+        override val base_class : Code =
+            f.ret_type.returnTypeIfFunction match {
+                case Some(t) => s"Function[${t.asPython}]" |||
+                                ImportFrom("Function", "marketsim.ops._function") |||
+                                Code.from(t.imports)
+                case None => "object"
+        }
 
         override def init_body =
             super.init_body |

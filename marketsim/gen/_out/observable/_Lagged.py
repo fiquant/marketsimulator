@@ -1,7 +1,6 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.observable.lagged import Lagged_Impl
 from marketsim import IObservable
-from marketsim import float
 @registry.expose(["Basic", "Lagged"])
 class Lagged(Lagged_Impl):
     """ 

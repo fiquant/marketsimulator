@@ -2,8 +2,6 @@ from marketsim import registry
 from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IOrderBook
-from marketsim import float
-from marketsim import float
 from marketsim import context
 @registry.expose(["RSI", "RSI"])
 class RSI(Observable[float]):

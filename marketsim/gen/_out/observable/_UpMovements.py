@@ -2,7 +2,6 @@ from marketsim import registry
 from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IObservable
-from marketsim import float
 from marketsim import context
 @registry.expose(["RSI", "UpMovements"])
 class UpMovements(Observable[float]):

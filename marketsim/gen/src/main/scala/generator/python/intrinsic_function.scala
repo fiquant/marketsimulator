@@ -37,9 +37,17 @@ object intrinsic_function extends gen.PythonGenerator
 
         override def repr = if (label_tmpl != "N/A") super.repr else ""
 
-        override def base_class = s"Function[float], $implementation_class" |||
+        def base_class_function : Code =
+            f.ret_type.returnTypeIfFunction match {
+                case Some(t) => s"Function[${t.asPython}], " |||
                                 ImportFrom("Function", "marketsim.ops._function") |||
-                                ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
+                                Code.from(t.imports)
+                case None => ""
+        }
+
+        override def base_class = base_class_function |||
+                                  implementation_class |||
+                                  ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
 
         override def init_body = super.init_body | s"$implementation_class.__init__(self)"
 

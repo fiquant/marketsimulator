@@ -1,6 +1,5 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.observable.on_every_dt import _OnEveryDt_Impl
-from marketsim import float
 from marketsim import IFunction
 @registry.expose(["Basic", "OnEveryDt"])
 class OnEveryDt(_OnEveryDt_Impl):

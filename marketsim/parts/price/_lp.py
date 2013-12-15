@@ -1,5 +1,7 @@
 from marketsim import mathutils, ops, defs, _, observable, orderbook, types, Side, registry
-               
+
+from marketsim.gen._out.observable.orderbook._Queue import Queue
+
 def SafeSidePrice(orderBook, side, defaultValue):
     
     return defs(
@@ -13,7 +15,7 @@ def SafeSidePrice(orderBook, side, defaultValue):
         { 
           'lastPrice': observable.QueueLastPrice(_.queue), 
           'sidePrice': observable.QueuePrice(_.queue), 
-          'queue'    : orderbook.QueueProxy(orderBook, side)
+          'queue'    : Queue(orderBook, ops.constant(side))
         })
 
 import _wrap

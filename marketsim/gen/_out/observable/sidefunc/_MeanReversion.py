@@ -1,7 +1,6 @@
 from marketsim import registry
 from marketsim import Side
 from marketsim.ops._all import Observable
-from marketsim import float
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Side function", "MeanReversion"])
