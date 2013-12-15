@@ -436,39 +436,6 @@ Definitions:
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
-| | | | - observable
-| | - Definitions:
-| | | - List:
-| | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - trader
-| | | | | - Definitions:
-| | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - SingleProxy
-| | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - ISingleAssetTrader
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - function
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Proxies
-| | | | | | | | | | | - N/A
-| | | | | | | | | | | - trader.proxy._Single_Impl
-| - PackageDef:
-| | - QualifiedName:
-| | | - List:
 | | | | - trash
 | | - Definitions:
 | | | - List:

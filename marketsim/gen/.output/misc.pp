@@ -65,14 +65,6 @@ type IDifferentiable : IFunction
 def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float
     
 
-package observable {
-    package trader {
-        @python.intrinsic.function("Proxies", "N/A", "trader.proxy._Single_Impl")
-        def SingleProxy() : ISingleAssetTrader
-            
-    }
-}
-
 package trash {
     package types {
         type T

@@ -52,15 +52,6 @@ type IDifferentiable : IFunction
 @python.intrinsic.function ("Basic", "\\frac{d%(x)s}{dt}", "observable.derivative._Derivative_Impl")
 def Derivative(x : IDifferentiable = observable.EW.Avg()) => Float
 
-package observable
-{
-    package trader
-    {
-        @python.intrinsic.function ("Proxies", "N/A", "trader.proxy._Single_Impl")
-        def SingleProxy() : ISingleAssetTrader
-    }
-}
-
 package trash
 
 package types {

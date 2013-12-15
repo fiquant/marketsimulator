@@ -256,8 +256,24 @@ package observable {
     }
     
     package trader {
+        def Balance(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : () => Float
+            
+        
+        def Position(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : () => Float
+            
+        
+        def Efficiency(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IFunction
+             = observable.trader.Balance(trader)+observable.orderbook.CumulativePrice(observable.orderbook.OfTrader(trader),observable.trader.Position(trader))
+        
         @python.intrinsic.function("Proxies", "N/A", "trader.proxy._Single_Impl")
         def SingleProxy() : ISingleAssetTrader
+            
+        
+        def EfficiencyTrend(trader : ISingleAssetTrader = observable.trader.SingleProxy(),
+                            alpha : Float = 0.15) : () => Float
+             = Derivative(observable.EW.Avg(observable.trader.Efficiency(trader),alpha))
+        
+        def PendingVolume(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : () => Float
             
     }
     
@@ -350,6 +366,10 @@ package observable {
         @python.observable("Orderbook", "Bid^{%(book)s}")
         def BidLastPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable
              = observable.orderbook.LastPrice(observable.orderbook.Bids(book))
+        
+        def CumulativePrice(book : IOrderBook = observable.orderbook.OfTrader(),
+                            volume : IFunction = constant()) : () => Float
+            
         
         @python.intrinsic.observable("Orderbook", "LastPrice(%(queue)s)", "orderbook.last_price._LastPrice_Impl")
         def LastPrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
