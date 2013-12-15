@@ -270,6 +270,10 @@ package observable {
     }
     
     package orderbook {
+        def SafeSidePrice(queue = Asks(),
+                          defaultValue = constant(100.0))
+             = IfDefined(BestPrice(queue),IfDefined(LastPrice(queue),defaultValue))
+        
         def PriceAtVolume(queue = Asks(),
                           volume = 100.0) : () => Float
             
@@ -340,6 +344,10 @@ package observable {
         @python.intrinsic.observable("Orderbook", "LastPrice(%(queue)s)", "orderbook.last_price._LastPrice_Impl")
         def LastPrice(queue = Asks()) : IObservable
             
+        
+        def IfDefined(x = constant(),
+                      elsePart = constant())
+             = if x<>null() then x else elsePart
         
         @python.observable("Orderbook", "Spread_{%(book)s}")
         def Spread(book = OfTrader())
@@ -435,6 +443,9 @@ def constant(x = 1.0) : IFunction
      = const(x)
 
 type Side
+
+def null() : () => Float
+    
 
 type IOrderQueue
 

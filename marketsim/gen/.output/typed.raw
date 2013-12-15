@@ -2194,6 +2194,83 @@ Definitions:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
+| | | | | | | | - SafeSidePrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - queue
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IOrderQueue
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - Asks
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - defaultValue
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | - 100.0
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | - IfDefined
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - BestPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - queue
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - IfDefined
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | - LastPrice
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - queue
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - defaultValue
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
 | | | | | | | | - PriceAtVolume
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -3059,6 +3136,59 @@ Definitions:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - LastPrice(%(queue)s)
 | | | | | | | | | | | - orderbook.last_price._LastPrice_Impl
+| | | | | | | - FunDef:
+| | | | | | | | - IfDefined
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - elsePart
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - IfThenElse:
+| | | | | | | | | | - Condition:
+| | | | | | | | | | | - NotEqual
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - x
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - null
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - x
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - elsePart
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
+| | | | | | | | - None
+| | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - Spread
 | | | | | | | | - List:
@@ -4160,6 +4290,19 @@ Definitions:
 | | | | - List:
 | | | | | - Basic
 | | | | | - C=%(x)s
+| - FunDef:
+| | - null
+| | - List:
+| | - None
+| | - Some:
+| | | - FunctionType:
+| | | | - List:
+| | | | - SimpleType:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - Float
+| | - None
+| | - List:
 | - FunDef:
 | | - Derivative
 | | - List:

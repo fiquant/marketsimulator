@@ -19,6 +19,8 @@ def constant(x = 1.0) : IFunction = const(x)
 @python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
 def const(x = 1.0) : IObservable
 
+def null() => Float
+
 type Side
 
 package side

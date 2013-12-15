@@ -1798,6 +1798,61 @@ Definitions:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
+| | | | | | | | - SafeSidePrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - queue
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Asks
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - defaultValue
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | - 100.0
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IfDefined
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - BestPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - queue
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IfDefined
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - LastPrice
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - queue
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - defaultValue
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
 | | | | | | | | - PriceAtVolume
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -2455,6 +2510,47 @@ Definitions:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - LastPrice(%(queue)s)
 | | | | | | | | | | | - orderbook.last_price._LastPrice_Impl
+| | | | | | | - FunDef:
+| | | | | | | | - IfDefined
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - elsePart
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - IfThenElse:
+| | | | | | | | | | - Condition:
+| | | | | | | | | | | - NotEqual
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - x
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - null
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - x
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - elsePart
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - Spread
 | | | | | | | | - List:
@@ -3270,6 +3366,19 @@ Definitions:
 | | | | | - C=%(x)s
 | - Interface:
 | | - Side
+| | - List:
+| - FunDef:
+| | - null
+| | - List:
+| | - None
+| | - Some:
+| | | - FunctionType:
+| | | | - List:
+| | | | - SimpleType:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - Float
+| | - None
 | | - List:
 | - Interface:
 | | - IOrderQueue

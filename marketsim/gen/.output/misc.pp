@@ -28,6 +28,9 @@ def constant(x = 1.0) : IFunction
 def const(x = 1.0) : IObservable
     
 
+def null() : () => Float
+    
+
 type Side
 
 package side {

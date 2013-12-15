@@ -49,6 +49,14 @@ package observable.orderbook {
     def LastTradeVolume(queue = Asks()) : IObservable
         
     
+    def IfDefined(x = constant(),
+                  elsePart = constant())
+         = if x<>null() then x else elsePart
+    
+    def SafeSidePrice(queue = Asks(),
+                      defaultValue = constant(100.0))
+         = IfDefined(BestPrice(queue),IfDefined(LastPrice(queue),defaultValue))
+    
     def PriceAtVolume(queue = Asks(),
                       volume = 100.0) : () => Float
         

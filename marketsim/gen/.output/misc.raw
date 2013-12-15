@@ -228,6 +228,19 @@ Definitions:
 | | | | | - Basic
 | | | | | - C=%(x)s
 | | | | | - _constant._Constant_Impl
+| - FunDef:
+| | - null
+| | - List:
+| | - None
+| | - Some:
+| | | - FunctionType:
+| | | | - List:
+| | | | - SimpleType:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - Float
+| | - None
+| | - List:
 | - Interface:
 | | - Side
 | | - List:
