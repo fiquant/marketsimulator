@@ -1852,6 +1852,14 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Orderbook
+| | | | | | | | | | | - SafeSidePrice^{%(queue)s}
 | | | | | | | - FunDef:
 | | | | | | | | - PriceAtVolume
 | | | | | | | | - List:
@@ -2510,47 +2518,6 @@ Definitions:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - LastPrice(%(queue)s)
 | | | | | | | | | | | - orderbook.last_price._LastPrice_Impl
-| | | | | | | - FunDef:
-| | | | | | | | - IfDefined
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - elsePart
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - IfThenElse:
-| | | | | | | | | | - Condition:
-| | | | | | | | | | | - NotEqual
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - x
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - null
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - x
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - elsePart
-| | | | | | | | - None
-| | | | | | | | - None
-| | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - Spread
 | | | | | | | | - List:
@@ -3380,6 +3347,16 @@ Definitions:
 | | | | | | | - Float
 | | - None
 | | - List:
+| | | - Annotation:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - python
+| | | | | | - intrinsic
+| | | | | | - function
+| | | | - List:
+| | | | | - Basic
+| | | | | - Null
+| | | | | - _constant._Null_Impl
 | - Interface:
 | | - IOrderQueue
 | | - List:
@@ -3463,3 +3440,52 @@ Definitions:
 | | | | - QualifiedName:
 | | | | | - List:
 | | | | | | - IFunction
+| - FunDef:
+| | - IfDefined
+| | - List:
+| | | - Parameter:
+| | | | - x
+| | | | - None
+| | | | - Some:
+| | | | | - FunCall:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - constant
+| | | | | | - List:
+| | | | - List:
+| | | - Parameter:
+| | | | - elsePart
+| | | | - None
+| | | | - Some:
+| | | | | - FunCall:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - constant
+| | | | | | - List:
+| | | | - List:
+| | - Some:
+| | | - IfThenElse:
+| | | | - Condition:
+| | | | | - NotEqual
+| | | | | - Var:
+| | | | | | - x
+| | | | | - FunCall:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - null
+| | | | | | - List:
+| | | | - Var:
+| | | | | - x
+| | | | - Var:
+| | | | | - elsePart
+| | - None
+| | - None
+| | - List:
+| | | - Annotation:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - python
+| | | | | | - observable
+| | | | - List:
+| | | | | - Basic
+| | | | | - If def(%(x)s) else %(elsePart)s

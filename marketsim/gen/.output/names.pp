@@ -270,6 +270,7 @@ package observable {
     }
     
     package orderbook {
+        @python.observable("Orderbook", "SafeSidePrice^{%(queue)s}")
         def SafeSidePrice(queue = Asks(),
                           defaultValue = constant(100.0))
              = IfDefined(BestPrice(queue),IfDefined(LastPrice(queue),defaultValue))
@@ -344,10 +345,6 @@ package observable {
         @python.intrinsic.observable("Orderbook", "LastPrice(%(queue)s)", "orderbook.last_price._LastPrice_Impl")
         def LastPrice(queue = Asks()) : IObservable
             
-        
-        def IfDefined(x = constant(),
-                      elsePart = constant())
-             = if x<>null() then x else elsePart
         
         @python.observable("Orderbook", "Spread_{%(book)s}")
         def Spread(book = OfTrader())
@@ -448,6 +445,7 @@ def constant(x = 1.0) : IFunction
 
 type Side
 
+@python.intrinsic.function("Basic", "Null", "_constant._Null_Impl")
 def null() : () => Float
     
 
@@ -466,3 +464,8 @@ def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float
     
 
 type IDifferentiable : IFunction
+
+@python.observable("Basic", "If def(%(x)s) else %(elsePart)s")
+def IfDefined(x = constant(),
+              elsePart = constant())
+     = if x<>null() then x else elsePart

@@ -9,6 +9,7 @@ from _array import Array
 import _wrap
 
 const = ops.constant
+from marketsim.gen._out.observable.orderbook._Queue import Queue
 
 class MarketMaker(types.ISingleAssetStrategy):
     
@@ -23,7 +24,7 @@ class MarketMaker(types.ISingleAssetStrategy):
                             BreaksAtChanges(
                                 observable.OnEveryDt(
                                     0.9,
-                                    parts.price.SafeSidePrice(orderbook.OfTrader(), side, 100 + sign)\
+                                    parts.price.SafeSidePrice(Queue(orderbook.OfTrader(), ops.constant(side)), ops.constant(100 + sign))\
                                         / ops.Exp(ops.Atan(volumeTraded) / 1000)
                             )),
                             order._limit.Price_Factory(

@@ -19,7 +19,13 @@ def constant(x = 1.0) : IFunction = const(x)
 @python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
 def const(x = 1.0) : IObservable
 
+@python.intrinsic.function("Basic", "Null", "_constant._Null_Impl")
 def null() => Float
+
+@python.observable("Basic", "If def(%(x)s) else %(elsePart)s")
+def IfDefined(x = constant(), elsePart = constant()) =
+    if x <> null() then x else elsePart
+
 
 type Side
 

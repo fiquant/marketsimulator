@@ -26,3 +26,17 @@ class _Constant_Impl(types.IObservable[float]):
     @property
     def label(self):
         return str(self.x)
+
+class _Null_Impl(types.IObservable[float]):
+    """ Constant function returning None.
+    """
+
+    def __iadd__(self, listener):
+        return self
+
+    def __isub__(self, listener):
+        return self
+
+    def __call__(self, *args, **kwargs):
+        return None
+

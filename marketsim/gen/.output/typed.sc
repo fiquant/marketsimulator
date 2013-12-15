@@ -283,10 +283,11 @@ package observable {
     }
     
     package orderbook {
+        @python.observable("Orderbook", "SafeSidePrice^{%(queue)s}")
         def SafeSidePrice(queue : IOrderQueue = observable.orderbook.Asks(),
                           defaultValue : IFunction = constant(100.0)) : IFunction
             
-            	 = observable.orderbook.IfDefined(observable.orderbook.BestPrice(queue),observable.orderbook.IfDefined(observable.orderbook.LastPrice(queue),defaultValue))
+            	 = IfDefined(observable.orderbook.BestPrice(queue),IfDefined(observable.orderbook.LastPrice(queue),defaultValue))
         
         def PriceAtVolume(queue : IOrderQueue = observable.orderbook.Asks(),
                           volume : Float = 100.0) : () => Float
@@ -368,11 +369,6 @@ package observable {
         @python.intrinsic.observable("Orderbook", "LastPrice(%(queue)s)", "orderbook.last_price._LastPrice_Impl")
         def LastPrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
-        
-        def IfDefined(x : IFunction = constant(),
-                      elsePart : IFunction = constant()) : IFunction
-            
-            	 = if x<>null() then x else elsePart
         
         @python.observable("Orderbook", "Spread_{%(book)s}")
         def Spread(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable
@@ -474,18 +470,25 @@ type IObservable : IFunction
 type IFunction = () => Float
 type ISingleAssetTrader
 type IDifferentiable : IFunction
-@python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
-def const(x : Float = 1.0) : IObservable
-    
-
 @python.function("Basic", "C=%(x)s")
 def constant(x : Float = 1.0) : IFunction
     
     	 = const(x)
 
+@python.intrinsic.function("Basic", "Null", "_constant._Null_Impl")
 def null() : () => Float
+    
+
+@python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
+def const(x : Float = 1.0) : IObservable
     
 
 @python.intrinsic.function("Basic", "\\frac{d%(x)s}{dt}", "observable.derivative._Derivative_Impl")
 def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float
     
+
+@python.observable("Basic", "If def(%(x)s) else %(elsePart)s")
+def IfDefined(x : IFunction = constant(),
+              elsePart : IFunction = constant()) : IFunction
+    
+    	 = if x<>null() then x else elsePart

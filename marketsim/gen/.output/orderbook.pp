@@ -49,10 +49,7 @@ package observable.orderbook {
     def LastTradeVolume(queue = Asks()) : IObservable
         
     
-    def IfDefined(x = constant(),
-                  elsePart = constant())
-         = if x<>null() then x else elsePart
-    
+    @python.observable("Orderbook", "SafeSidePrice^{%(queue)s}")
     def SafeSidePrice(queue = Asks(),
                       defaultValue = constant(100.0))
          = IfDefined(BestPrice(queue),IfDefined(LastPrice(queue),defaultValue))

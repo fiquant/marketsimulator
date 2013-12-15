@@ -2232,8 +2232,6 @@ Definitions:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - observable
-| | | | | | | | | | | | - orderbook
 | | | | | | | | | | | | - IfDefined
 | | | | | | | | | | - List:
 | | | | | | | | | | | - FunCall:
@@ -2248,8 +2246,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | - orderbook
 | | | | | | | | | | | | | | - IfDefined
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FunCall:
@@ -2270,6 +2266,14 @@ Definitions:
 | | | | | | | | | | | | - IFunction
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Orderbook
+| | | | | | | | | | | - SafeSidePrice^{%(queue)s}
 | | | | | | | - FunDef:
 | | | | | | | | - PriceAtVolume
 | | | | | | | | - List:
@@ -3136,59 +3140,6 @@ Definitions:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - LastPrice(%(queue)s)
 | | | | | | | | | | | - orderbook.last_price._LastPrice_Impl
-| | | | | | | - FunDef:
-| | | | | | | | - IfDefined
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IFunction
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - elsePart
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IFunction
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - IfThenElse:
-| | | | | | | | | | - Condition:
-| | | | | | | | | | | - NotEqual
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - x
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - null
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - x
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - elsePart
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction
-| | | | | | | | - None
-| | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - Spread
 | | | | | | | | - List:
@@ -4222,38 +4173,6 @@ Definitions:
 | | | | | - List:
 | | | | | | - IFunction
 | - FunDef:
-| | - const
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - Some:
-| | | | | - SimpleType:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - Float
-| | | | - Some:
-| | | | | - Const:
-| | | | | | - 1.0
-| | | | - List:
-| | - None
-| | - Some:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IObservable
-| | - None
-| | - List:
-| | | - Annotation:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - python
-| | | | | | - intrinsic
-| | | | | | - function
-| | | | - List:
-| | | | | - Basic
-| | | | | - C=%(x)s
-| | | | | - _constant._Constant_Impl
-| - FunDef:
 | | - constant
 | | - List:
 | | | - Parameter:
@@ -4303,6 +4222,48 @@ Definitions:
 | | | | | | | - Float
 | | - None
 | | - List:
+| | | - Annotation:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - python
+| | | | | | - intrinsic
+| | | | | | - function
+| | | | - List:
+| | | | | - Basic
+| | | | | - Null
+| | | | | - _constant._Null_Impl
+| - FunDef:
+| | - const
+| | - List:
+| | | - Parameter:
+| | | | - x
+| | | | - Some:
+| | | | | - SimpleType:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - Float
+| | | | - Some:
+| | | | | - Const:
+| | | | | | - 1.0
+| | | | - List:
+| | - None
+| | - Some:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IObservable
+| | - None
+| | - List:
+| | | - Annotation:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - python
+| | | | | | - intrinsic
+| | | | | | - function
+| | | | - List:
+| | | | | - Basic
+| | | | | - C=%(x)s
+| | | | | - _constant._Constant_Impl
 | - FunDef:
 | | - Derivative
 | | - List:
@@ -4342,3 +4303,64 @@ Definitions:
 | | | | | - Basic
 | | | | | - \\frac{d%(x)s}{dt}
 | | | | | - observable.derivative._Derivative_Impl
+| - FunDef:
+| | - IfDefined
+| | - List:
+| | | - Parameter:
+| | | | - x
+| | | | - Some:
+| | | | | - SimpleType:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - IFunction
+| | | | - Some:
+| | | | | - FunCall:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - constant
+| | | | | | - List:
+| | | | - List:
+| | | - Parameter:
+| | | | - elsePart
+| | | | - Some:
+| | | | | - SimpleType:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - IFunction
+| | | | - Some:
+| | | | | - FunCall:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - constant
+| | | | | | - List:
+| | | | - List:
+| | - Some:
+| | | - IfThenElse:
+| | | | - Condition:
+| | | | | - NotEqual
+| | | | | - Var:
+| | | | | | - x
+| | | | | - FunCall:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - null
+| | | | | | - List:
+| | | | - Var:
+| | | | | - x
+| | | | - Var:
+| | | | | - elsePart
+| | - Some:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction
+| | - None
+| | - List:
+| | | - Annotation:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - python
+| | | | | | - observable
+| | | | - List:
+| | | | | - Basic
+| | | | | - If def(%(x)s) else %(elsePart)s

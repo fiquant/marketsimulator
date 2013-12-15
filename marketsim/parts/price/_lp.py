@@ -1,31 +1,15 @@
 from marketsim import mathutils, ops, defs, _, observable, orderbook, types, Side, registry
 
 from marketsim.gen._out.observable.orderbook._Queue import Queue
-
-def SafeSidePrice(orderBook, side, defaultValue):
-    
-    return defs(
-        (ops._None[float]() == _.sidePrice)[
-            (ops._None[float]() == _.lastPrice)[
-                ops.constant(defaultValue),
-                _.lastPrice
-            ], 
-            _.sidePrice        
-        ],
-        { 
-          'lastPrice': observable.QueueLastPrice(_.queue), 
-          'sidePrice': observable.QueuePrice(_.queue), 
-          'queue'    : Queue(orderBook, ops.constant(side))
-        })
+from marketsim.gen._out.observable.orderbook._SafeSidePrice import SafeSidePrice
 
 import _wrap
 
 class LiquidityProvider(ops.Observable[float]): # ops.Observable[Price]
     
     def getImpl(self):
-        return SafeSidePrice(self.orderBook, 
-                             self.side, 
-                             self.initialValue) * self.priceDistr
+        return SafeSidePrice(Queue(self.orderBook, ops.constant(self.side)),
+                             ops.constant(self.initialValue)) * self.priceDistr
                                         
 _wrap.function(LiquidityProvider, ['parts', 'price', 'LiquidityProvider side'], 
              """ Liquidity provider for one side has followng parameters:
