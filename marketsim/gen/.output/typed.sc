@@ -292,6 +292,31 @@ package observable {
             
     }
     
+    package volumefunc {
+        def DesiredPosition(desiredPosition : IFunction = constant(),
+                            trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IFunction
+            
+            	 = desiredPosition-observable.trader.Position(trader)-observable.trader.PendingVolume(trader)
+        
+        def Deviation_Rel(alpha : Float = 0.15,
+                          price : IObservable = observable.orderbook.MidPrice()) : IObservable
+            
+            	 = (price-observable.EW.Avg(price,alpha))/observable.EW.StdDev(price,alpha)
+        
+        def Bollinger_linear(alpha : Float = 0.15,
+                             k : IObservable = const(0.5),
+                             trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IFunction
+            
+            	 = observable.volumefunc.DesiredPosition(observable.volumefunc.Deviation_Rel(alpha,observable.orderbook.MidPrice(observable.orderbook.OfTrader(trader)))*k,trader)
+        
+        def RSI_linear(alpha : Float = 1.0/14.0,
+                       k : IObservable = const(-0.04),
+                       timeframe : Float = 1.0,
+                       trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IFunction
+            
+            	 = observable.volumefunc.DesiredPosition((const(50.0)-observable.RSI(observable.orderbook.OfTrader(trader),timeframe,alpha))*k,trader)
+    }
+    
     package EW {
         @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "moments.ewma.EWMA_Impl")
         def Avg(source : IFunction = constant(),

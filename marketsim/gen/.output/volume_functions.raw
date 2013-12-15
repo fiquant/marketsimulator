@@ -1,0 +1,260 @@
+Definitions:
+- List:
+| - PackageDef:
+| | - QualifiedName:
+| | | - List:
+| | | | - observable
+| | | | - volumefunc
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - DesiredPosition
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - desiredPosition
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - trader
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - trader
+| | | | | | | | | | | - SingleProxy
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - BinOp:
+| | | | | | | - Sub
+| | | | | | | - BinOp:
+| | | | | | | | - Sub
+| | | | | | | | - Var:
+| | | | | | | | | - desiredPosition
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - trader
+| | | | | | | | | | | - Position
+| | | | | | | | | - List:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - trader
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - trader
+| | | | | | | | | | - PendingVolume
+| | | | | | | | - List:
+| | | | | | | | | - Var:
+| | | | | | | | | | - trader
+| | | | | - None
+| | | | | - None
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - Deviation_Rel
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - alpha
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 0.15
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - price
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderbook
+| | | | | | | | | | | - MidPrice
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - BinOp:
+| | | | | | | - Div
+| | | | | | | - BinOp:
+| | | | | | | | - Sub
+| | | | | | | | - Var:
+| | | | | | | | | - price
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - EW
+| | | | | | | | | | | - Avg
+| | | | | | | | | - List:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - price
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - alpha
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - EW
+| | | | | | | | | | - StdDev
+| | | | | | | | - List:
+| | | | | | | | | - Var:
+| | | | | | | | | | - price
+| | | | | | | | | - Var:
+| | | | | | | | | | - alpha
+| | | | | - None
+| | | | | - None
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - Bollinger_linear
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - alpha
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 0.15
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - k
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 0.5
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - trader
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - trader
+| | | | | | | | | | | - SingleProxy
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - DesiredPosition
+| | | | | | | - List:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Mul
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Deviation_Rel
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - alpha
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - trader
+| | | | | | | | | - Var:
+| | | | | | | | | | - k
+| | | | | | | | - Var:
+| | | | | | | | | - trader
+| | | | | - None
+| | | | | - None
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - RSI_linear
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - alpha
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Div
+| | | | | | | | | - Const:
+| | | | | | | | | | - 1.0
+| | | | | | | | | - Const:
+| | | | | | | | | | - 14.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - k
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - -0.04
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - timeframe
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - trader
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - trader
+| | | | | | | | | | | - SingleProxy
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - DesiredPosition
+| | | | | | | - List:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Mul
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Sub
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 50.0
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | - RSI
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - alpha
+| | | | | | | | | - Var:
+| | | | | | | | | | - k
+| | | | | | | | - Var:
+| | | | | | | | | - trader
+| | | | | - None
+| | | | | - None
+| | | | | - List:
