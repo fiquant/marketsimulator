@@ -160,6 +160,15 @@ package mathutils {
 }
 
 package observable {
+    package pricefunc {
+        @python.observable("Price function", "Lp_{%(side)s}(%(book)s)")
+        def LiquidityProvider(side = side.Sell(),
+                              initialValue = 100.0,
+                              priceDistr = mathutils.rnd.lognormvariate(0.0,0.1),
+                              book = orderbook.OfTrader())
+             = orderbook.SafeSidePrice(orderbook.Queue(book,side),constant(initialValue))*priceDistr
+    }
+    
     package sidefunc {
         @python.observable("Side function", "Pt_{%(factor)s*%(dependee)s}(%(book)s)")
         def PairTrading(dependee = orderbook.OfTrader(),

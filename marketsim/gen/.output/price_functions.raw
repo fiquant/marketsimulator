@@ -1,0 +1,96 @@
+Definitions:
+- List:
+| - PackageDef:
+| | - QualifiedName:
+| | | - List:
+| | | | - observable
+| | | | - pricefunc
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - LiquidityProvider
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - side
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Sell
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - initialValue
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 100.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - priceDistr
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - mathutils
+| | | | | | | | | | | - rnd
+| | | | | | | | | | | - lognormvariate
+| | | | | | | | | - List:
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 0.0
+| | | | | | | | | | - Const:
+| | | | | | | | | | | - 0.1
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - book
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderbook
+| | | | | | | | | | | - OfTrader
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - BinOp:
+| | | | | | | - Mul
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - orderbook
+| | | | | | | | | | - SafeSidePrice
+| | | | | | | | - List:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | - Queue
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - book
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - side
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - constant
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - initialValue
+| | | | | | | - Var:
+| | | | | | | | - priceDistr
+| | | | | - None
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - Price function
+| | | | | | | | - Lp_{%(side)s}(%(book)s)

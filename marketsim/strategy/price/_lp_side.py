@@ -11,7 +11,7 @@ class LiquidityProviderSide(types.ISingleAssetStrategy):
     def getImpl(self):
         return Generic(self.orderFactory(
                             ops.constant(self.side),
-                            parts.price.LiquidityProvider(self.side, 
+                            parts.price.LiquidityProvider(ops.constant(self.side),
                                                           self.initialValue, 
                                                           self.priceDistr)), 
                        self.eventGen)
