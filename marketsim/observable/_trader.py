@@ -51,14 +51,16 @@ class profit_and_loss(ops.Function[float]):
     
     _properties = { 'trader' : types.IAccount }
     
-class volume_traded(ops.Function[float]):
+class volume_traded(ops.Observable[float]):
     """ Returns trader's position (i.e. number of assets traded)
     """
     
     def __init__(self, trader):
+        ops.Observable[float].__init__(self)
         self.trader = trader
+        event.subscribe(OnTraded(trader), self.fire, self)
         self._alias = ["Trader's", "Position"]
-    
+
     def __call__(self):
         return self.trader.amount
     

@@ -3,13 +3,65 @@ from marketsim import (registry, orderbook, request, Side, getLabel,
 
 import marketsim
 
-from _trader import volume_traded
+from _trader import volume_traded, profit_and_loss
 
 from _orderbook import LastTrade
-from _trader import OnTraded
 
 def sign(x):
     return 1 if x > 0 else -1 if x < 0 else 0
+
+@registry.expose(alias = ["Asset's", "Cumulative price"])
+class CumulativePrice(ops.Observable[float]):
+
+    def __init__(self, book = None, depth = None):
+
+        super(CumulativePrice, self).__init__()
+
+        self.book = book if book else orderbook.OfTrader()
+        self.depth = depth if depth else volume_traded(marketsim.trader.SingleProxy())
+
+        self.attributes = {}
+
+        self.reset()
+        event.subscribe(LastTrade(self.book), _(self)._update, self)
+        event.subscribe(self.depth, _(self)._update, self)
+
+    @property
+    def digits(self):
+        return self.book._digitsToShow
+
+    def _callback(self, sign, (price, volume_unmatched)):
+        if volume_unmatched == 0:
+            self._current = sign*price
+            self.fire(self)
+        else: # don't know what to do for the moment
+            self._current = None
+
+    def _update(self, dummy = None):
+        depth = self.depth()
+        side = Side.Buy if depth < 0 else Side.Sell
+        self.book.process(
+                        request.EvalMarketOrder(side,
+                                                abs(depth),
+                                                _(self, -sign(depth))._callback))
+
+    _properties = {
+        'book' : types.IOrderBook,
+        'depth': types.IObservable[float]
+    }
+
+    def reset(self):
+        self._current = None
+
+    @property
+    def label(self):
+        """ Returns indicator label
+        """
+        return "CumulativePrice_{"+getLabel(self.book)+"}"
+
+    def __call__(self):
+        return self._current
+
 
 @registry.expose(alias = ["Trader's", "Efficiency"])
 class Efficiency(ops.Observable[float]):
@@ -28,6 +80,7 @@ class Efficiency(ops.Observable[float]):
         self.attributes = {}
 
         self.amount = volume_traded(trader)
+        self.balance = profit_and_loss(trader)
         
         self.reset()
         event.subscribe(LastTrade(orderbook.OfTrader(trader)), _(self)._update, self)
@@ -41,7 +94,7 @@ class Efficiency(ops.Observable[float]):
     
     def _callback(self, sign, (price, volume_unmatched)): 
         if volume_unmatched == 0: 
-            self._current = self._trader.PnL - sign*price
+            self._current = self.balance() - sign*price
             self.fire(self)
         else: # don't know what to do for the moment
             self._current = None
