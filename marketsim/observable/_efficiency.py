@@ -1,7 +1,9 @@
-from marketsim import (registry, orderbook, request, Side, getLabel, 
+from marketsim import (registry, orderbook, request, Side, getLabel,
                        meta, types, bind, event, _, ops)
 
 import marketsim
+
+from _trader import volume_traded
 
 from _orderbook import LastTrade
 from _trader import OnTraded
@@ -24,10 +26,14 @@ class Efficiency(ops.Observable[float]):
         self._trader = trader if trader else marketsim.trader.SingleProxy()
         
         self.attributes = {}
+
+        self.amount = volume_traded(trader)
         
         self.reset()
         event.subscribe(LastTrade(orderbook.OfTrader(trader)), _(self)._update, self)
-        event.subscribe(OnTraded(trader), _(self)._update, self)
+        event.subscribe(self.amount, _(self)._update, self)
+
+    _internal = ["amount"]
         
     @property
     def digits(self):
@@ -41,11 +47,12 @@ class Efficiency(ops.Observable[float]):
             self._current = None
 
     def _update(self, dummy = None):
-        side = Side.Buy if self._trader.amount < 0 else Side.Sell 
+        amount = self.amount()
+        side = Side.Buy if amount < 0 else Side.Sell
         self._trader.orderBook.process(
                         request.EvalMarketOrder(side, 
-                                                abs(self._trader.amount), 
-                                                _(self, -sign(self._trader.amount))._callback))
+                                                abs(amount),
+                                                _(self, -sign(amount))._callback))
     
         
     @property
