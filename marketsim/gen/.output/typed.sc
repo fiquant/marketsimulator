@@ -298,6 +298,7 @@ package observable {
     }
     
     package volumefunc {
+        @python.observable("Volume function", "Dp_{%(trader)s}(%(desiredPosition)s)")
         def DesiredPosition(desiredPosition : IFunction = constant(),
                             trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IFunction
             
