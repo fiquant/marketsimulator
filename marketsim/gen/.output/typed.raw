@@ -2385,6 +2385,16 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Trader's
+| | | | | | | | | | | - PendingVolume_{%(trader)s}
+| | | | | | | | | | | - trader.props.PendingVolume_Impl
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:

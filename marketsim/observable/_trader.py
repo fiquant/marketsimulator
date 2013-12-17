@@ -72,45 +72,37 @@ def InstEfficiency(trader):
 def PnL(trader):
     
     return IndicatorBase(OnTraded(trader), profit_and_loss(trader))
-    
-def VolumeTraded(aTrader = None):
-    """ Returns an indicator bound to trader's position 
-    """
-    if aTrader is None:
-        aTrader = SingleProxy()
-        
-    return IndicatorBase(\
-        OnTraded(aTrader), 
-        volume_traded(aTrader))
-    
+
+VolumeTraded = volume_traded
+
 class Base(object):
 
     def __init__(self, trader):
         self.trader = trader
-        
+
     def bind(self, ctx):
         event.subscribe(self.trader.on_order_matched, _(self).onOrderMatched, self, ctx)
         event.subscribe(self.trader.on_order_disposed, _(self).onOrderDisposed, self, ctx)
-        
+
     _properties = { 'trader' : types.IAccount }
-            
+
 class PendingVolume_Impl(Base, ops.Observable[float]): # should be int
-    
+
     def __init__(self, trader):
         Base.__init__(self, trader)
         ops.Observable[float].__init__(self)
         self._pendingVolume = 0
-        
+
     @property
     def label(self):
         return "PendingVolume_{%s}" % self.trader.label
-        
+
     def _onOrderSent(self, order):
         Base._onOrderSent(self, order)
         if 'volume' in dir(order):
             self._pendingVolume += order.volumeSigned
             self.fire(self)
-        
+
     def onOrderMatched(self, t, order, price, volume):
         self._pendingVolume -= order.volumeSigned
         self.fire(self)
@@ -121,11 +113,11 @@ class PendingVolume_Impl(Base, ops.Observable[float]): # should be int
 
     def __call__(self):
         return self._pendingVolume
-    
+
 import _computed
 
 class Proxy(_computed.Proxy):
-    
+
     def __init__(self, trader = None):
         if trader is None:
             trader = SingleProxy()
@@ -134,11 +126,5 @@ class Proxy(_computed.Proxy):
 
     _properties = { 'trader' : types.IAccount }
 
-    
-class PendingVolume(Proxy):
 
-    @property
-    def _impl(self):
-        if '_pendingVolume' not in dir(self.trader):
-            self.trader._pendingVolume = PendingVolume_Impl(self.trader)
-        return self.trader._pendingVolume
+from marketsim.gen._out.observable.trader._PendingVolume import PendingVolume

@@ -12,6 +12,7 @@ package observable.trader {
     def Balance(trader = SingleProxy()) : () => Float
         
     
+    @python.intrinsic.observable("Trader's", "PendingVolume_{%(trader)s}", "trader.props.PendingVolume_Impl")
     def PendingVolume(trader = SingleProxy()) : () => Float
         
     

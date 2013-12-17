@@ -276,6 +276,7 @@ package observable {
                             alpha : Float = 0.15) : () => Float
              = Derivative(observable.EW.Avg(observable.trader.Efficiency(trader),alpha))
         
+        @python.intrinsic.observable("Trader's", "PendingVolume_{%(trader)s}", "trader.props.PendingVolume_Impl")
         def PendingVolume(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : () => Float
             
     }
