@@ -74,6 +74,9 @@ package object AST {
             with    ScPrintable
 
     case class Attribute(name : String, value : String)
+            extends Decorator
+            with    pp.Attribute
+            with    ScPrintable
 
     case class DocString(brief : String, detailed : List[String]) extends pp.DocString with ScPrintable
 

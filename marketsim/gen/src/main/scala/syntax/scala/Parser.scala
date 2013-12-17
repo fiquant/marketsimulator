@@ -88,12 +88,12 @@ class Parser() extends JavaTokenParsers with PackratParsers
     } withFailureMessage "parameter expected"
 
     lazy val function  = (opt(docstring)
-                        ~ rep(annotation)
+                        ~ rep(decorator)
                         ~ ("def" ~> ident)
                         ~ ("(" ~> repsep(parameter, ",") <~ ")")
                         ~ opt(func_type)
                         ~ opt("=" ~> expr)) ^^ {
-        case (doc ~ annotations ~ name ~ parameters ~ t ~ body) => FunDef(name, parameters, body, t, doc, annotations)
+        case (doc ~ decorators ~ name ~ parameters ~ t ~ body) => FunDef(name, parameters, body, t, doc, decorators)
     } withFailureMessage "function expected"
 
     lazy val func_type = ("=>" ~> typ ^^ {
@@ -168,8 +168,14 @@ class Parser() extends JavaTokenParsers with PackratParsers
 
     lazy val qualified_name = rep1sep(ident, ".") ^^ QualifiedName
 
-    lazy val annotation = ("@" ~> qualified_name) ~ opt("(" ~> repsep(string, ",") <~ ")") ^^ {
+    lazy val annotation = qualified_name ~ opt("(" ~> repsep(string, ",") <~ ")") ^^ {
         case (name ~ parameters) => Annotation(name, parameters.getOrElse(List()))
     }
+
+    lazy val attribute = ident ~ ("=" ~> string) ^^ {
+        case (name ~ value) => Attribute(name, value)
+    }
+
+    lazy val decorator = "@" ~> (annotation | attribute)
 }
 

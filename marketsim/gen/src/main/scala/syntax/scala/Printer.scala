@@ -109,6 +109,13 @@ package object Printer
                 "@" + getName + "(" + parameters.map({ "\"" + _ + "\""}).mkString(", ") + ")"
         }
 
+        trait Attribute extends Decorator with Printable {
+            def name : String
+            def value : String
+
+            def toScala = s"@$name = $value"
+        }
+
         trait Parameter extends Printable {
             val comment : List[String]
             val name : String
@@ -205,6 +212,7 @@ package object Printer
         type TypeDeclaration = base.TypeDeclaration
         type TypeAlias = base.TypeAlias
         type Decorator = base.Decorator
+        type Attribute = base.Attribute
 
         trait Annotation extends base.Annotation {
             self: AST.Annotation =>
