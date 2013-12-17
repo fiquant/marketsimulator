@@ -388,8 +388,9 @@ package observable {
         def BidLastPrice(book = OfTrader())
              = LastPrice(Bids(book))
         
+        @python.intrinsic.observable("Orderbook", "CumulativePrice(%(book)s, %(depth)s)", "orderbook.cumulative_price.CumulativePrice_Impl")
         def CumulativePrice(book = OfTrader(),
-                            volume = constant()) : () => Float
+                            depth = constant()) : () => Float
             
         
         @python.intrinsic.observable("Orderbook", "LastPrice(%(queue)s)", "orderbook.last_price._LastPrice_Impl")

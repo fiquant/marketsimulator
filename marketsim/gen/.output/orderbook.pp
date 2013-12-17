@@ -84,7 +84,8 @@ package observable.orderbook {
     def MidPrice(book = OfTrader())
          = (AskPrice(book)+BidPrice(book))/2.0
     
+    @python.intrinsic.observable("Orderbook", "CumulativePrice(%(book)s, %(depth)s)", "orderbook.cumulative_price.CumulativePrice_Impl")
     def CumulativePrice(book = OfTrader(),
-                        volume = constant()) : () => Float
+                        depth = constant()) : () => Float
         
 }

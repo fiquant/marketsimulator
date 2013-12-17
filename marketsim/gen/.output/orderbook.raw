@@ -814,7 +814,7 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
-| | | | | | | - volume
+| | | | | | | - depth
 | | | | | | | - None
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
@@ -833,3 +833,13 @@ Definitions:
 | | | | | | | | | | - Float
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - Orderbook
+| | | | | | | | - CumulativePrice(%(book)s, %(depth)s)
+| | | | | | | | - orderbook.cumulative_price.CumulativePrice_Impl
