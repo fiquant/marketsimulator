@@ -4,9 +4,11 @@ package observable.trader {
     def SingleProxy() : ISingleAssetTrader
         
     
+    @python.intrinsic.observable("Trader's", "Amount_{%(trader)s}", "trader.props.Position_Impl")
     def Position(trader = SingleProxy()) : () => Float
         
     
+    @python.intrinsic.observable("Trader's", "Balance_{%(trader)s}", "trader.props.Balance_Impl")
     def Balance(trader = SingleProxy()) : () => Float
         
     

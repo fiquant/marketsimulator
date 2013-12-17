@@ -29,50 +29,8 @@ class rough_balance(ops.Function[float]):
     
     _properties = { 'trader' : types.IAccount }
 
-class profit_and_loss(ops.Function[float]):
-    """ Returns balance of the given *trader*
-    """
-    
-    def __init__(self, trader):
-        self.trader = trader
-        self._alias = ["Trader's", "Balance"]
-        
-    @property
-    def label(self):
-        return "P&L_{" + getLabel(self.trader) + "}"
-    
-    @property
-    def digits(self):
-        return self.trader._digitsToShow
-    
-    
-    def __call__(self):
-        return self.trader.PnL
-    
-    _properties = { 'trader' : types.IAccount }
-    
-class volume_traded(ops.Observable[float]):
-    """ Returns trader's position (i.e. number of assets traded)
-    """
-    
-    def __init__(self, trader):
-        ops.Observable[float].__init__(self)
-        self.trader = trader
-        event.subscribe(OnTraded(trader), self.fire, self)
-        self._alias = ["Trader's", "Position"]
-
-    def __call__(self):
-        return self.trader.amount
-    
-    @property
-    def digits(self):
-        return 0
-    
-    @property
-    def label(self):
-        return "Amount_{" + getLabel(self.trader) + "}"
-    
-    _properties = { 'trader' : types.IAccount }
+from marketsim.gen._out.observable.trader._Balance import Balance as profit_and_loss
+from marketsim.gen._out.observable.trader._Position import Position as volume_traded
 
 #### ------------------------------------------------------- Events
 

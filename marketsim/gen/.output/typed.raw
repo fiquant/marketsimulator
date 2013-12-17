@@ -2152,6 +2152,16 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Trader's
+| | | | | | | | | | | - Balance_{%(trader)s}
+| | | | | | | | | | | - trader.props.Balance_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - Position
 | | | | | | | | - List:
@@ -2181,6 +2191,16 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Trader's
+| | | | | | | | | | | - Amount_{%(trader)s}
+| | | | | | | | | | | - trader.props.Position_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - Efficiency
 | | | | | | | | - List:
