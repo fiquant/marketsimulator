@@ -221,6 +221,10 @@ package observable {
         @python.function("Statistics", "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}")
         def StdDev(source : IObservable = const()) : () => Float
              = mathops.Sqrt(observable.Cumulative.Var(source))
+        
+        @python.function("Statistics", "RSD_{cumul}_{%(source)s}")
+        def RelStdDev(source : IObservable = const()) : IObservable
+             = (source-observable.Cumulative.Avg(source))/observable.Cumulative.StdDev(source)
     }
     
     package rsi {
@@ -288,14 +292,10 @@ package observable {
                             trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IFunction
              = desiredPosition-observable.trader.Position(trader)-observable.trader.PendingVolume(trader)
         
-        def Deviation_Rel(alpha : Float = 0.15,
-                          price : IObservable = observable.orderbook.MidPrice()) : IObservable
-             = (price-observable.EW.Avg(price,alpha))/observable.EW.StdDev(price,alpha)
-        
         def Bollinger_linear(alpha : Float = 0.15,
                              k : IObservable = const(0.5),
                              trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IFunction
-             = observable.volumefunc.DesiredPosition(observable.volumefunc.Deviation_Rel(alpha,observable.orderbook.MidPrice(observable.orderbook.OfTrader(trader)))*k,trader)
+             = observable.volumefunc.DesiredPosition(observable.EW.RelStdDev(observable.orderbook.MidPrice(observable.orderbook.OfTrader(trader)),alpha)*k,trader)
         
         def RSI_linear(alpha : Float = 1.0/14.0,
                        k : IObservable = const(-0.04),
@@ -319,6 +319,11 @@ package observable {
         def StdDev(source : IObservable = const(),
                    alpha : Float = 0.015) : () => Float
              = mathops.Sqrt(observable.EW.Var(source,alpha))
+        
+        @python.function("Statistics", "RSD_{\\alpha=%(alpha)s}_{%(source)s}")
+        def RelStdDev(source : IObservable = const(),
+                      alpha : Float = 0.15) : IObservable
+             = (source-observable.EW.Avg(source,alpha))/observable.EW.StdDev(source,alpha)
     }
     
     package orderbook {
@@ -427,6 +432,11 @@ package observable {
         def StdDev(source : IObservable = const(),
                    timeframe : Float = 100.0) : () => Float
              = mathops.Sqrt(observable.Moving.Var(source))
+        
+        @python.function("Statistics", "RSD_{n=%(timeframe)s}_{%(source)s}")
+        def RelStdDev(source : IObservable = const(),
+                      timeframe : Float = 100.0) : IObservable
+             = (source-observable.Moving.Avg(source,timeframe))/observable.Moving.StdDev(source,timeframe)
     }
     
     @python.intrinsic.observable("Basic", "[%(x)s]_dt=%(dt)s", "observable.on_every_dt._OnEveryDt_Impl")

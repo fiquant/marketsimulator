@@ -221,6 +221,10 @@ package observable {
         @python.function("Statistics", "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}")
         def StdDev(source = const())
              = mathops.Sqrt(Var(source))
+        
+        @python.function("Statistics", "RSD_{cumul}_{%(source)s}")
+        def RelStdDev(source = const())
+             = (source-Avg(source))/StdDev(source)
     }
     
     package rsi {
@@ -288,14 +292,10 @@ package observable {
                             trader = trader.SingleProxy())
              = desiredPosition-trader.Position(trader)-trader.PendingVolume(trader)
         
-        def Deviation_Rel(alpha = 0.15,
-                          price = orderbook.MidPrice())
-             = (price-EW.Avg(price,alpha))/EW.StdDev(price,alpha)
-        
         def Bollinger_linear(alpha = 0.15,
                              k = const(0.5),
                              trader = trader.SingleProxy())
-             = DesiredPosition(Deviation_Rel(alpha,orderbook.MidPrice(orderbook.OfTrader(trader)))*k,trader)
+             = DesiredPosition(EW.RelStdDev(orderbook.MidPrice(orderbook.OfTrader(trader)),alpha)*k,trader)
         
         def RSI_linear(alpha = 1.0/14.0,
                        k = const(-0.04),
@@ -319,6 +319,11 @@ package observable {
         def StdDev(source = const(),
                    alpha = 0.015)
              = mathops.Sqrt(Var(source,alpha))
+        
+        @python.function("Statistics", "RSD_{\\alpha=%(alpha)s}_{%(source)s}")
+        def RelStdDev(source = const(),
+                      alpha = 0.15)
+             = (source-Avg(source,alpha))/StdDev(source,alpha)
     }
     
     package orderbook {
@@ -427,6 +432,11 @@ package observable {
         def StdDev(source = const(),
                    timeframe = 100.0)
              = mathops.Sqrt(Var(source))
+        
+        @python.function("Statistics", "RSD_{n=%(timeframe)s}_{%(source)s}")
+        def RelStdDev(source = const(),
+                      timeframe = 100.0)
+             = (source-Avg(source,timeframe))/StdDev(source,timeframe)
     }
     @python.intrinsic.observable("Basic", "[%(x)s]_dt=%(dt)s", "observable.on_every_dt._OnEveryDt_Impl")
     def OnEveryDt(dt = 1.0,

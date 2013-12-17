@@ -1390,6 +1390,51 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - \\sqrt{\\sigma^2_{cumul}_{%(source)s}}
+| | | | | | | - FunDef:
+| | | | | | | | - RelStdDev
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - source
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Div
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Sub
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - source
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - source
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - StdDev
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - source
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - function
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Statistics
+| | | | | | | | | | | - RSD_{cumul}_{%(source)s}
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -2024,57 +2069,6 @@ Definitions:
 | | | | | | | | | | | - Volume function
 | | | | | | | | | | | - Dp_{%(trader)s}(%(desiredPosition)s)
 | | | | | | | - FunDef:
-| | | | | | | | - Deviation_Rel
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - alpha
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 0.15
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - price
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - BinOp:
-| | | | | | | | | | - Div
-| | | | | | | | | | - BinOp:
-| | | | | | | | | | | - Sub
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - price
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - EW
-| | | | | | | | | | | | | | - Avg
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - price
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - alpha
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - EW
-| | | | | | | | | | | | | - StdDev
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - price
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - alpha
-| | | | | | | | - None
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | - FunDef:
 | | | | | | | | - Bollinger_linear
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -2118,10 +2112,9 @@ Definitions:
 | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Deviation_Rel
+| | | | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | | | - RelStdDev
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - alpha
 | | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
@@ -2136,6 +2129,8 @@ Definitions:
 | | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - alpha
 | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - k
 | | | | | | | | | | | - Var:
@@ -2355,6 +2350,62 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - \\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}
+| | | | | | | - FunDef:
+| | | | | | | | - RelStdDev
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - source
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - alpha
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 0.15
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Div
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Sub
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - source
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - alpha
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - StdDev
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - alpha
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - function
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Statistics
+| | | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -3363,6 +3414,62 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - \\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}
+| | | | | | | - FunDef:
+| | | | | | | | - RelStdDev
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - source
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - timeframe
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 100.0
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Div
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Sub
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - source
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - StdDev
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - timeframe
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - function
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Statistics
+| | | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
 | | | | - FunDef:
 | | | | | - OnEveryDt
 | | | | | - List:

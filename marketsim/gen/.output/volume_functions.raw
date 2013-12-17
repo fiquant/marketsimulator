@@ -66,57 +66,6 @@ Definitions:
 | | | | | | | | - Volume function
 | | | | | | | | - Dp_{%(trader)s}(%(desiredPosition)s)
 | | | | - FunDef:
-| | | | | - Deviation_Rel
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - alpha
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - Const:
-| | | | | | | | | - 0.15
-| | | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - price
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - orderbook
-| | | | | | | | | | | - MidPrice
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | - Some:
-| | | | | | - BinOp:
-| | | | | | | - Div
-| | | | | | | - BinOp:
-| | | | | | | | - Sub
-| | | | | | | | - Var:
-| | | | | | | | | - price
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - EW
-| | | | | | | | | | | - Avg
-| | | | | | | | | - List:
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - price
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - alpha
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - EW
-| | | | | | | | | | - StdDev
-| | | | | | | | - List:
-| | | | | | | | | - Var:
-| | | | | | | | | | - price
-| | | | | | | | | - Var:
-| | | | | | | | | | - alpha
-| | | | | - None
-| | | | | - None
-| | | | | - List:
-| | | | - FunDef:
 | | | | | - Bollinger_linear
 | | | | | - List:
 | | | | | | - Parameter:
@@ -160,10 +109,9 @@ Definitions:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Deviation_Rel
+| | | | | | | | | | | | - EW
+| | | | | | | | | | | | - RelStdDev
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - alpha
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
@@ -178,6 +126,8 @@ Definitions:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - alpha
 | | | | | | | | | - Var:
 | | | | | | | | | | - k
 | | | | | | | | - Var:

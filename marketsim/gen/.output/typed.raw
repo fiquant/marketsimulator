@@ -1683,6 +1683,63 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - \\sqrt{\\sigma^2_{cumul}_{%(source)s}}
+| | | | | | | - FunDef:
+| | | | | | | | - RelStdDev
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - source
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Div
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Sub
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - source
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - Cumulative
+| | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - source
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - Cumulative
+| | | | | | | | | | | | | - StdDev
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - source
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - function
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Statistics
+| | | | | | | | | | | - RSD_{cumul}_{%(source)s}
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -2483,72 +2540,6 @@ Definitions:
 | | | | | | | | | | | - Volume function
 | | | | | | | | | | | - Dp_{%(trader)s}(%(desiredPosition)s)
 | | | | | | | - FunDef:
-| | | | | | | | - Deviation_Rel
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - alpha
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 0.15
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - price
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IObservable
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - BinOp:
-| | | | | | | | | | - Div
-| | | | | | | | | | - BinOp:
-| | | | | | | | | | | - Sub
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - price
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | - EW
-| | | | | | | | | | | | | | - Avg
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - price
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - alpha
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - EW
-| | | | | | | | | | | | | - StdDev
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - price
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - alpha
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | - FunDef:
 | | | | | | | | - Bollinger_linear
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -2608,11 +2599,9 @@ Definitions:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | - volumefunc
-| | | | | | | | | | | | | | | - Deviation_Rel
+| | | | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | | | - RelStdDev
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - alpha
 | | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
@@ -2629,6 +2618,8 @@ Definitions:
 | | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - alpha
 | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - k
 | | | | | | | | | | | - Var:
@@ -2913,6 +2904,78 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - \\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}
+| | | | | | | - FunDef:
+| | | | | | | | - RelStdDev
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - source
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - alpha
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 0.15
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Div
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Sub
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - source
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - alpha
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | - StdDev
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - alpha
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - function
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Statistics
+| | | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -4219,6 +4282,78 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - \\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}
+| | | | | | | - FunDef:
+| | | | | | | | - RelStdDev
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - source
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - timeframe
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 100.0
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Div
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Sub
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - source
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - Moving
+| | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - Moving
+| | | | | | | | | | | | | - StdDev
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - timeframe
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - function
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Statistics
+| | | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
 | | | | - FunDef:
 | | | | | - OnEveryDt
 | | | | | - List:
