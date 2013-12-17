@@ -100,7 +100,9 @@ package object Printer
             def toScala = names.mkString(".")
         }
 
-        trait Annotation extends Printable {
+        trait Decorator
+
+        trait Annotation extends Decorator with Printable {
             def getName : String
             val parameters : List[String]
             def toScala =
@@ -150,7 +152,7 @@ package object Printer
 
         trait Function extends Printable with Definition {
             val docstring : Option[DocString]
-            val annotations : List[Annotation]
+            val annotations : List[Decorator]
             val name : String
             val parameters : List[Parameter]
             def printRetType : String
@@ -202,6 +204,7 @@ package object Printer
         type Package = base.Package[Definition]
         type TypeDeclaration = base.TypeDeclaration
         type TypeAlias = base.TypeAlias
+        type Decorator = base.Decorator
 
         trait Annotation extends base.Annotation {
             self: AST.Annotation =>

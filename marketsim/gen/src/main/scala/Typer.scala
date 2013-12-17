@@ -193,8 +193,10 @@ object Typer
 //            }
         }
 
-        private def toTyped(a : AST.Annotation) : Typed.Annotation =
-            Typed.Annotation(Typed.Annotations.lookup(a.name.toString), a.parameters)
+        private def toTyped(x : AST.Decorator) = x match {
+            case a :  AST.Annotation => Typed.Annotation(Typed.Annotations.lookup(a.name.toString), a.parameters)
+            case _ => throw new Exception("not supported yet")
+        }
 
     }
 

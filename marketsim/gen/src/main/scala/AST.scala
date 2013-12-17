@@ -49,10 +49,10 @@ package object AST {
 
     sealed abstract class Type extends pp.TypeBase
 
-    case class SimpleType   (name : QualifiedName)                   extends Type with pp.SimpleType with ScPrintable
-    case object UnitType                                             extends Type with pp.UnitType with ScPrintable
-    case class FunctionType (args : List[Type], ret : Type) extends Type with pp.FunctionType with ScPrintable
-    case class TupleType    (elems : List[Type])                     extends Type with pp.TupleType with ScPrintable
+    case class SimpleType   (name : QualifiedName)         extends Type with pp.SimpleType with ScPrintable
+    case object UnitType                                   extends Type with pp.UnitType with ScPrintable
+    case class FunctionType (args : List[Type], ret : Type)extends Type with pp.FunctionType with ScPrintable
+    case class TupleType    (elems : List[Type])           extends Type with pp.TupleType with ScPrintable
     {
         assert(elems.length > 1) // SimpleType or UnitType should be used in this case
     }
@@ -65,8 +65,15 @@ package object AST {
 
     case class QualifiedName(names   : List[String]) extends pp.QualifiedName with ScPrintable
 
+    abstract class Decorator extends pp.Decorator
+
     case class Annotation(name       : QualifiedName,
-                          parameters : List[String]) extends pp.Annotation with ScPrintable
+                          parameters : List[String])
+            extends Decorator
+            with    pp.Annotation
+            with    ScPrintable
+
+    case class Attribute(name : String, value : String)
 
     case class DocString(brief : String, detailed : List[String]) extends pp.DocString with ScPrintable
 
@@ -85,7 +92,7 @@ package object AST {
                       body           : Option[Expr],
                       ty             : Option[Type],
                       docstring      : Option[DocString],
-                      annotations    : List[Annotation]) extends Member with pp.Function with ScPrintable
+                      annotations    : List[Decorator]) extends Member with pp.Function with ScPrintable
 
     sealed abstract class TypeDeclaration extends Member
 
