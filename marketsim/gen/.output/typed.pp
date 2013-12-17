@@ -272,6 +272,7 @@ package observable {
         def SingleProxy() : ISingleAssetTrader
             
         
+        @python.function("Trader's", "EfficiencyTrend_{%(trader)s}")
         def EfficiencyTrend(trader : ISingleAssetTrader = observable.trader.SingleProxy(),
                             alpha : Float = 0.15) : () => Float
              = Derivative(observable.EW.Avg(observable.trader.Efficiency(trader),alpha))

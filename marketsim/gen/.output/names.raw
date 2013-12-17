@@ -1918,6 +1918,14 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - function
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Trader's
+| | | | | | | | | | | - EfficiencyTrend_{%(trader)s}
 | | | | | | | - FunDef:
 | | | | | | | | - PendingVolume
 | | | | | | | | - List:

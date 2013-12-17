@@ -16,6 +16,7 @@ package observable.trader
     def Efficiency(trader = SingleProxy())
         = Balance(trader) + orderbook.CumulativePrice(orderbook.OfTrader(trader), Position(trader))
 
+    @python.function("Trader's", "EfficiencyTrend_{%(trader)s}")
     def EfficiencyTrend(trader = SingleProxy(), alpha = 0.15)
         = Derivative(EW.Avg(Efficiency(trader), alpha))
 }
