@@ -95,7 +95,7 @@ package object AST {
                       body           : Option[Expr],
                       ty             : Option[Type],
                       docstring      : Option[DocString],
-                      annotations    : List[Decorator]) extends Member with pp.Function with ScPrintable
+                      decorators     : List[Decorator]) extends Member with pp.Function with ScPrintable
 
     sealed abstract class TypeDeclaration extends Member
 

@@ -19,6 +19,9 @@ Definitions:
 | | | | | | | | | | - Side
 | | | | | - None
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Sell
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:

@@ -161,8 +161,10 @@ object Typer
                         if (x.nonEmpty) x.get else throw fail_msg
                     deref(body_type, new Exception(s"Return type for $definition should be given explicitly"))
             }
+            val annotations = definition.decorators collect toTypedAnnotation
+            val attributes = Typed.Attributes((definition.decorators collect toTypedAttribute).toMap)
             Typed.Function(target, definition.name, locals, ty, body,
-                definition.docstring, definition.annotations map toTyped)
+                definition.docstring, annotations, attributes)
         }
 
         private def toTyped(p: AST.Parameter, inferType : AST.Expr => Typed.Expr) : Typed.Parameter = {
@@ -193,11 +195,13 @@ object Typer
 //            }
         }
 
-        private def toTyped(x : AST.Decorator) = x match {
+        private val toTypedAnnotation : PartialFunction[AST.Decorator, Typed.Annotation] = {
             case a :  AST.Annotation => Typed.Annotation(Typed.Annotations.lookup(a.name.toString), a.parameters)
-            case _ => throw new Exception("not supported yet")
         }
 
+        private val toTypedAttribute : PartialFunction[AST.Decorator, (String,String)] = {
+            case AST.Attribute(name, value) => (name, value)
+        }
     }
 
 }

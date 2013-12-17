@@ -32,6 +32,7 @@ type Side
 package side
 {
     @python.intrinsic.function("Side", "Sell", "side._Sell_Impl")
+    @label = "Sell"
     def Sell() => Side
 
     @python.intrinsic.function("Side", "Buy", "side._Buy_Impl")

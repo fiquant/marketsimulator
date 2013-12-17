@@ -61,6 +61,10 @@ package object Typed
             extends sc.Annotation
             with    ScPrintable
 
+    case class Attributes(items : Map[String, String])
+            extends sc.Attributes
+            with    ScPrintable
+
     case class Parameter(name        : String,
                          ty          : Types.Base,
                          initializer : Option[Expr],
@@ -102,11 +106,14 @@ package object Typed
                         ret_type    : Types.Base,
                         body        : Option[Expr],
                         docstring   : Option[DocString],
-                        annotations : List[Annotation])
+                        annotations : List[Annotation],
+                        attributes  : Attributes)
             extends sc.Function
             with    ScPrintable
     {
         parent.insert(this)
+        
+        def decorators = attributes :: annotations
 
         override def equals(o : Any) = o match {
             case that : Function =>

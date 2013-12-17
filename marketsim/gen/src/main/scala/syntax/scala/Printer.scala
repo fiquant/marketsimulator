@@ -161,7 +161,7 @@ package object Printer
 
         trait Function extends Printable with Definition {
             val docstring : Option[DocString]
-            val annotations : List[Decorator]
+            def decorators : Iterable[Decorator]
             val name : String
             val parameters : List[Parameter]
             def printRetType : String
@@ -169,7 +169,7 @@ package object Printer
 
             def toScala = {
                 (crlf   + ifSome(docstring)
-                        + annotations.map({_ + crlf}).mkString("")
+                        + decorators.map({_ + crlf}).mkString("")
                         + "def " + name
                         + indent(("def " + name).length + 1){
                                 parameters.mkString("(", "," + crlf, ")") }
@@ -301,6 +301,13 @@ package object Printer
             self: Typed.Parameter =>
             def printType = " : " + ty
             def printInitializer = ifSome(initializer, " = ")
+        }
+
+        trait Attributes extends Printable with base.Decorator {
+            self: Typed.Attributes =>
+
+            override def toScala =
+                items map { case (name, value) => "@" + name + " = " + base.quote(value) } mkString crlf
         }
 
         trait Annotation extends base.Annotation {

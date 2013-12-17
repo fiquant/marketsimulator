@@ -332,6 +332,9 @@ Definitions:
 | | | | | | | | - Side
 | | | | | | | | - Sell
 | | | | | | | | - side._Sell_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Sell
 | | | | - FunDef:
 | | | | | - Buy
 | | | | | - List:
