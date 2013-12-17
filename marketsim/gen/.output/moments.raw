@@ -193,6 +193,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
+| | | | | - List:
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -348,6 +349,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{cumul}_{%(source)s}
+| | | | | - List:
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -570,3 +572,5 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
+| | | | | - List:
+| | - List:

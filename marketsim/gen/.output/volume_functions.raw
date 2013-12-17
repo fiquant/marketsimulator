@@ -246,3 +246,4 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Volume function
 | | | | | | | | - RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s
+| | - List:

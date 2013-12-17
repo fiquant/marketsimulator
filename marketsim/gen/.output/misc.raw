@@ -167,6 +167,7 @@ Definitions:
 | | | | | | | | - Basic
 | | | | | | | | - [%(x)s]_dt=%(dt)s
 | | | | | | | | - observable.on_every_dt._OnEveryDt_Impl
+| | - List:
 | - FunDef:
 | | - constant
 | | - List:
@@ -381,6 +382,10 @@ Definitions:
 | | | | | | | | - Side
 | | | | | | | | - None
 | | | | | | | | - side._Buy_Impl
+| | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Side
 | - Interface:
 | | - IOrderQueue
 | | - List:
@@ -475,6 +480,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - T
+| | | | | - List:
 | | | | - FunDef:
 | | | | | - A
 | | | | | - List:
@@ -593,3 +599,6 @@ Definitions:
 | | | | | | | | | | | | | | | | - T
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | - List:
+| | - List:

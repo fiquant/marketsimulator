@@ -843,3 +843,4 @@ Definitions:
 | | | | | | | | - Orderbook
 | | | | | | | | - CumulativePrice(%(book)s, %(depth)s)
 | | | | | | | | - orderbook.cumulative_price.CumulativePrice_Impl
+| | - List:

@@ -242,6 +242,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - RSI
 | | | | | | | | | | | - RSI-raw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
+| | | | | - List:
 | | | | - FunDef:
 | | | | | - RSI
 | | | | | - List:
@@ -312,3 +313,4 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - RSI
 | | | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
+| | - List:

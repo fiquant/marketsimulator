@@ -491,3 +491,4 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Side function
 | | | | | | | | - Pt_{%(factor)s*%(dependee)s}(%(book)s)
+| | - List:

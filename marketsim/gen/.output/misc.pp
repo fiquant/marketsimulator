@@ -38,6 +38,7 @@ def IfDefined(x = constant(),
      = if x<>null() then x else elsePart
 
 type Side
+@category = "Side"
 
 package side {
     @python.intrinsic.function("Side", "Sell", "side._Sell_Impl")

@@ -78,6 +78,7 @@ Definitions:
 | | | | | | | | - Side
 | | | | | | | | - None
 | | | | | | | | - side._Buy_Impl
+| | - List:
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
@@ -291,6 +292,7 @@ Definitions:
 | | | | | | | | - Log/Pow
 | | | | | | | | - pow
 | | | | | | | | - %(base)s^{%(power)s}
+| | - List:
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
@@ -694,6 +696,8 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - random
 | | | | | | | | | | - List:
+| | | | | - List:
+| | - List:
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
@@ -793,6 +797,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Price function
 | | | | | | | | | | | - Lp_{%(side)s}(%(book)s)
+| | | | | - List:
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -1283,6 +1288,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Side function
 | | | | | | | | | | | - Noise_{%(side_distribution)s}
+| | | | | - List:
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -1438,6 +1444,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{cumul}_{%(source)s}
+| | | | | - List:
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -1520,6 +1527,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - RSI
 | | | | | | | | | | | - RSI-raw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
+| | | | | - List:
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -1774,6 +1782,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - MACD
 | | | | | | | | | | | - Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
+| | | | | - List:
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -2007,6 +2016,7 @@ Definitions:
 | | | | | | | | | | | - Trader's
 | | | | | | | | | | | - PendingVolume_{%(trader)s}
 | | | | | | | | | | | - trader.props.PendingVolume_Impl
+| | | | | - List:
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -2252,6 +2262,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Volume function
 | | | | | | | | | | | - RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s
+| | | | | - List:
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -2439,6 +2450,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
+| | | | | - List:
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -3281,6 +3293,7 @@ Definitions:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - LastTradePrice(%(queue)s)
 | | | | | | | | | | | - orderbook.last_trade._LastTradePrice_Impl
+| | | | | - List:
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -3503,6 +3516,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
+| | | | | - List:
 | | | | - FunDef:
 | | | | | - OnEveryDt
 | | | | | - List:
@@ -3888,6 +3902,7 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - RSI
 | | | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
+| | - List:
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
@@ -3927,6 +3942,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - T
+| | | | | - List:
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -3987,6 +4003,7 @@ Definitions:
 | | | | | | | | | | | | | | | | - T
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
+| | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - A
 | | | | | | | | - List:
@@ -4019,6 +4036,7 @@ Definitions:
 | | | | | | | | | | | | | - U
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | - List:
 | | | | - FunDef:
 | | | | | - A
 | | | | | - List:
@@ -4045,6 +4063,7 @@ Definitions:
 | | | | | | | | | | - R
 | | | | | - None
 | | | | | - List:
+| | - List:
 | - FunDef:
 | | - constant
 | | - List:

@@ -123,6 +123,7 @@ package object Typed
                 ret_type             == that.ret_type &&
                 body                 == that.body &&
                 docstring            == that.docstring &&
+                attributes           == that.attributes &&
                 annotations          == that.annotations
             case _ => false
         }

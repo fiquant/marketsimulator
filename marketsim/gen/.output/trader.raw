@@ -234,3 +234,4 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Trader's
 | | | | | | | | - EfficiencyTrend_{%(trader)s}
+| | - List:
