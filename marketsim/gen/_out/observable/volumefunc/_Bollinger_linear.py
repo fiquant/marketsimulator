@@ -4,11 +4,11 @@ from marketsim.ops._all import Observable
 from marketsim import IObservable
 from marketsim import ISingleAssetTrader
 from marketsim import context
-@registry.expose(["Volume function", "DesiredPosition"])
-class DesiredPosition(Observable[float]):
+@registry.expose(["Volume function", "Bollinger_linear"])
+class Bollinger_linear(Observable[float]):
     """ 
     """ 
-    def __init__(self, desiredPosition = None, trader = None):
+    def __init__(self, alpha = None, k = None, trader = None):
         from marketsim import float
         from marketsim.ops._all import Observable
         from marketsim.gen._out._const import const
@@ -16,7 +16,8 @@ class DesiredPosition(Observable[float]):
         from marketsim import _
         from marketsim import event
         Observable[float].__init__(self)
-        self.desiredPosition = desiredPosition if desiredPosition is not None else const()
+        self.alpha = alpha if alpha is not None else 0.15
+        self.k = k if k is not None else const(0.5)
         self.trader = trader if trader is not None else SingleProxy()
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -26,11 +27,12 @@ class DesiredPosition(Observable[float]):
         return repr(self)
     
     _properties = {
-        'desiredPosition' : IObservable,
+        'alpha' : float,
+        'k' : IObservable,
         'trader' : ISingleAssetTrader
     }
     def __repr__(self):
-        return "Dp_{%(trader)s}(%(desiredPosition)s)" % self.__dict__
+        return "Bl_{%(trader)s}(%(alpha)s)*%(k)s" % self.__dict__
     
     _internals = ['impl']
     @property
@@ -38,9 +40,15 @@ class DesiredPosition(Observable[float]):
         return {}
     
     def getImpl(self):
-        from marketsim.gen._out.observable.trader._Position import Position
-        from marketsim.gen._out.observable.trader._PendingVolume import PendingVolume
-        return self.desiredPosition-Position(self.trader)-PendingVolume(self.trader)
+        from marketsim.gen._out.observable.volumefunc._DesiredPosition import DesiredPosition
+        from marketsim.gen._out.observable._OnEveryDt import OnEveryDt
+        from marketsim.gen._out.observable.EW._RelStdDev import RelStdDev
+        from marketsim.gen._out.observable.orderbook._MidPrice import MidPrice
+        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader
+        return DesiredPosition(OnEveryDt(1.0,RelStdDev(MidPrice(OfTrader(self.trader)),self.alpha))*self.k,self.trader)
+        
+        
+        
         
     
     def bind(self, ctx):

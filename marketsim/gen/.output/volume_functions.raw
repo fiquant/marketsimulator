@@ -17,7 +17,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - constant
+| | | | | | | | | | | - const
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
@@ -109,25 +109,32 @@ Definitions:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - EW
-| | | | | | | | | | | | - RelStdDev
+| | | | | | | | | | | | - OnEveryDt
 | | | | | | | | | | - List:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 1.0
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | | - RelStdDev
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | | | | | - MidPrice
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - trader
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - alpha
+| | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - alpha
 | | | | | | | | | - Var:
 | | | | | | | | | | - k
 | | | | | | | | - Var:
@@ -135,6 +142,14 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - Volume function
+| | | | | | | | - Bl_{%(trader)s}(%(alpha)s)*%(k)s
 | | | | - FunDef:
 | | | | | - RSI_linear
 | | | | | - List:

@@ -304,21 +304,22 @@ package observable {
     
     package volumefunc {
         @python.observable("Volume function", "Dp_{%(trader)s}(%(desiredPosition)s)")
-        def DesiredPosition(desiredPosition : IFunction = constant(),
-                            trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IFunction
+        def DesiredPosition(desiredPosition : IObservable = const(),
+                            trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IObservable
             
             	 = desiredPosition-observable.trader.Position(trader)-observable.trader.PendingVolume(trader)
         
+        @python.observable("Volume function", "Bl_{%(trader)s}(%(alpha)s)*%(k)s")
         def Bollinger_linear(alpha : Float = 0.15,
                              k : IObservable = const(0.5),
-                             trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IFunction
+                             trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IObservable
             
-            	 = observable.volumefunc.DesiredPosition(observable.EW.RelStdDev(observable.orderbook.MidPrice(observable.orderbook.OfTrader(trader)),alpha)*k,trader)
+            	 = observable.volumefunc.DesiredPosition(observable.OnEveryDt(1.0,observable.EW.RelStdDev(observable.orderbook.MidPrice(observable.orderbook.OfTrader(trader)),alpha))*k,trader)
         
         def RSI_linear(alpha : Float = 1.0/14.0,
                        k : IObservable = const(-0.04),
                        timeframe : Float = 1.0,
-                       trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IFunction
+                       trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IObservable
             
             	 = observable.volumefunc.DesiredPosition((const(50.0)-observable.RSI(observable.orderbook.OfTrader(trader),timeframe,alpha))*k,trader)
     }
