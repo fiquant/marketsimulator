@@ -62,7 +62,6 @@ class CumulativePrice(ops.Observable[float]):
     def __call__(self):
         return self._current
 
-
 @registry.expose(alias = ["Trader's", "Efficiency"])
 class Efficiency(ops.Observable[float]):
     """ Observes trader's balance as if was cleared (trader's balance if its position was cleared).
@@ -82,31 +81,21 @@ class Efficiency(ops.Observable[float]):
         self.amount = volume_traded(trader)
         self.balance = profit_and_loss(trader)
         
+        self.price = CumulativePrice(orderbook.OfTrader(trader), self.amount)
+
         self.reset()
-        event.subscribe(LastTrade(orderbook.OfTrader(trader)), _(self)._update, self)
+        event.subscribe(self.price, _(self)._update, self)
         event.subscribe(self.amount, _(self)._update, self)
 
-    _internal = ["amount"]
+    _internal = ["amount", "balance", "price"]
         
     @property
     def digits(self):
         return self._trader.orderBook._digitsToShow
     
-    def _callback(self, sign, (price, volume_unmatched)): 
-        if volume_unmatched == 0: 
-            self._current = self.balance() - sign*price
-            self.fire(self)
-        else: # don't know what to do for the moment
-            self._current = None
-
     def _update(self, dummy = None):
-        amount = self.amount()
-        side = Side.Buy if amount < 0 else Side.Sell
-        self._trader.orderBook.process(
-                        request.EvalMarketOrder(side, 
-                                                abs(amount),
-                                                _(self, -sign(amount))._callback))
-    
+        self._current = (self.balance - self.price)()
+        self.fire(self)
         
     @property
     def trader(self):
