@@ -106,14 +106,16 @@ package object Printer
             def getName : String
             val parameters : List[String]
             def toScala =
-                "@" + getName + "(" + parameters.map({ "\"" + _ + "\""}).mkString(", ") + ")"
+                "@" + getName + "(" + (parameters map quote mkString ", ") + ")"
         }
+
+        def quote(s : String) = "\"" + s + "\""
 
         trait Attribute extends Decorator with Printable {
             def name : String
             def value : String
 
-            def toScala = s"@$name = $value"
+            def toScala = s"@$name = " + quote(value)
         }
 
         trait Parameter extends Printable {

@@ -168,14 +168,14 @@ class Parser() extends JavaTokenParsers with PackratParsers
 
     lazy val qualified_name = rep1sep(ident, ".") ^^ QualifiedName
 
-    lazy val annotation = qualified_name ~ opt("(" ~> repsep(string, ",") <~ ")") ^^ {
+    lazy val annotation = ("@" ~> qualified_name) ~ opt("(" ~> repsep(string, ",") <~ ")") ^^ {
         case (name ~ parameters) => Annotation(name, parameters.getOrElse(List()))
     }
 
-    lazy val attribute = ident ~ ("=" ~> string) ^^ {
+    lazy val attribute = ("@" ~> ident) ~ ("=" ~> string) ^^ {
         case (name ~ value) => Attribute(name, value)
     }
 
-    lazy val decorator = "@" ~> (annotation | attribute)
+    lazy val decorator =  attribute | annotation
 }
 
