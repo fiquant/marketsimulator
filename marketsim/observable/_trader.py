@@ -86,34 +86,6 @@ class Base(object):
 
     _properties = { 'trader' : types.IAccount }
 
-class PendingVolume_Impl(Base, ops.Observable[float]): # should be int
-
-    def __init__(self, trader):
-        Base.__init__(self, trader)
-        ops.Observable[float].__init__(self)
-        self._pendingVolume = 0
-
-    @property
-    def label(self):
-        return "PendingVolume_{%s}" % self.trader.label
-
-    def _onOrderSent(self, order):
-        Base._onOrderSent(self, order)
-        if 'volume' in dir(order):
-            self._pendingVolume += order.volumeSigned
-            self.fire(self)
-
-    def onOrderMatched(self, t, order, price, volume):
-        self._pendingVolume -= order.volumeSigned
-        self.fire(self)
-
-    def onOrderDisposed(self, t, order):
-        self._pendingVolume -= order.volumeSigned
-        self.fire(self)
-
-    def __call__(self):
-        return self._pendingVolume
-
 import _computed
 
 class Proxy(_computed.Proxy):

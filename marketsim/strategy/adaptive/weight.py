@@ -32,11 +32,13 @@ def efficiency(trader):
     return cachedattr(trader, '_efficiency', 
                       lambda: observable.Efficiency(trader))
 
+from marketsim.gen._out.observable.trader._EfficiencyTrend import EfficiencyTrend
+
 @registry.expose(alias=['Efficiency trend'])
 @meta.sig(args=(types.IAccount,), rv=types.IFunction[float])
 def efficiencyTrend(trader):
     return cachedattr(trader, '_efficiencyTrend', 
-                      lambda: observable.trend(efficiency(trader), alpha=0.015))
+                      lambda: EfficiencyTrend(trader, alpha=0.015))
 
 @registry.expose(alias=['chooseTheBest '])
 @meta.sig(args=(types.listOf(float),), rv=types.listOf(float))

@@ -9,6 +9,8 @@ package observable.volumefunc
         = DesiredPosition(OnEveryDt(1,
             EW.RelStdDev(orderbook.MidPrice(orderbook.OfTrader(trader)), alpha)) * k, trader)
 
+    @python.observable("Volume function", "RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s")
     def RSI_linear(alpha = 1./14, k = const(-0.04), timeframe = 1., trader = trader.SingleProxy())
-        = DesiredPosition((50 - orderbook.RSI(orderbook.OfTrader(trader), timeframe, alpha))* k, trader)
+        = DesiredPosition(OnEveryDt(1,
+            (50 - orderbook.RSI(orderbook.OfTrader(trader), timeframe, alpha))) * k, trader)
 }
