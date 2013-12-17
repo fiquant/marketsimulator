@@ -2264,6 +2264,14 @@ Definitions:
 | | | | | | | | | | | | - IFunction
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Trader's
+| | | | | | | | | | | - Efficiency_{%(trader)s}
 | | | | | | | - FunDef:
 | | | | | | | | - SingleProxy
 | | | | | | | | - List:

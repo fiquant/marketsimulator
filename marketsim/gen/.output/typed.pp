@@ -264,6 +264,7 @@ package observable {
         def Position(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : () => Float
             
         
+        @python.observable("Trader's", "Efficiency_{%(trader)s}")
         def Efficiency(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IFunction
              = observable.trader.Balance(trader)+observable.orderbook.CumulativePrice(observable.orderbook.OfTrader(trader),observable.trader.Position(trader))
         
