@@ -1,16 +1,16 @@
 @category = "Side"
 package side {
-    @python.intrinsic.function("Side", "Sell", "side._Sell_Impl")
+    @python.intrinsic.function("side._Sell_Impl")
     @label = "Sell"
     def Sell() : () => Side
         
     
-    @python.intrinsic.function("Side", "Buy", "side._Buy_Impl")
+    @python.intrinsic.function("side._Buy_Impl")
     @label = "Buy"
     def Buy() : () => Side
         
     
-    @python.intrinsic.function("Side", "None", "side._Buy_Impl")
+    @python.intrinsic.function("side._Buy_Impl")
     @label = "NoneSide"
     def Nothing() : () => Side
         
@@ -231,12 +231,12 @@ package observable {@category = "Price function"
     }
     @category = "Statistics"
     package Cumulative {
-        @python.intrinsic.function("Statistics", "Avg_{cumul}(%(source)s)", "moments.cma.CMA_Impl")
+        @python.intrinsic.function("moments.cma.CMA_Impl")
         @label = "Avg_{cumul}(%(source)s)"
         def Avg(source = const()) : () => Float
             
         
-        @python.intrinsic.function("Statistics", "\\sigma^2_{cumul}(%(source)s)", "moments.cmv.Variance_Impl")
+        @python.intrinsic.function("moments.cmv.Variance_Impl")
         @label = "\\sigma^2_{cumul}(%(source)s)"
         def Var(source = const()) : () => Float
             
@@ -304,7 +304,7 @@ package observable {@category = "Price function"
         def Efficiency(trader = SingleProxy())
              = Balance(trader)+orderbook.CumulativePrice(orderbook.OfTrader(trader),Position(trader))
         
-        @python.intrinsic.function("Proxies", "N/A", "trader.proxy._Single_Impl")
+        @python.intrinsic.function("trader.proxy._Single_Impl")
         @label = "N/A"
         def SingleProxy() : ISingleAssetTrader
             
@@ -345,13 +345,13 @@ package observable {@category = "Price function"
     }
     @category = "Statistics"
     package EW {
-        @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "moments.ewma.EWMA_Impl")
+        @python.intrinsic.function("moments.ewma.EWMA_Impl")
         @label = "Avg_{\\alpha=%(alpha)s}(%(source)s)"
         def Avg(source = constant(),
                 alpha = 0.015) : IDifferentiable
             
         
-        @python.intrinsic.function("Statistics", "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}", "moments.ewmv.EWMV_Impl")
+        @python.intrinsic.function("moments.ewmv.EWMV_Impl")
         @label = "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}"
         def Var(source = const(),
                 alpha = 0.015) : () => Float
@@ -406,7 +406,7 @@ package observable {@category = "Price function"
         def MidPrice(book = OfTrader())
              = (AskPrice(book)+BidPrice(book))/2.0
         
-        @python.intrinsic.function("Asset's", "Asks(%(book)s)", "orderbook.queue._Asks_Impl")
+        @python.intrinsic.function("orderbook.queue._Asks_Impl")
         @label = "Asks(%(book)s)"
         def Asks(book = OfTrader())
              = Queue(book,side.Sell())
@@ -432,7 +432,7 @@ package observable {@category = "Price function"
         def BidPrice(book = OfTrader())
              = BestPrice(Bids(book))
         
-        @python.intrinsic.function("Asset's", "Bids(%(book)s)", "orderbook.queue._Bids_Impl")
+        @python.intrinsic.function("orderbook.queue._Bids_Impl")
         @label = "Bids(%(book)s)"
         def Bids(book = OfTrader())
              = Queue(book,side.Buy())
@@ -442,13 +442,13 @@ package observable {@category = "Price function"
         def BestPrice(queue = Asks()) : IObservable
             
         
-        @python.intrinsic.function("Asset's", "Queue(%(book)s)", "orderbook.queue._Queue_Impl")
+        @python.intrinsic.function("orderbook.queue._Queue_Impl")
         @label = "Queue(%(book)s)"
         def Queue(book = OfTrader(),
                   side = side.Sell()) : IOrderQueue
             
         
-        @python.intrinsic.function("Proxies", "N/A", "orderbook.of_trader._OfTrader_Impl")
+        @python.intrinsic.function("orderbook.of_trader._OfTrader_Impl")
         @label = "N/A"
         def OfTrader(Trader = trader.SingleProxy()) : IOrderBook
             
@@ -481,13 +481,13 @@ package observable {@category = "Price function"
     }
     @category = "Statistics"
     package Moving {
-        @python.intrinsic.function("Statistics", "Avg_{n=%(timeframe)s}(%(source)s)", "moments.ma.MA_Impl")
+        @python.intrinsic.function("moments.ma.MA_Impl")
         @label = "Avg_{n=%(timeframe)s}(%(source)s)"
         def Avg(source = const(),
                 timeframe = 100.0) : () => Float
             
         
-        @python.intrinsic.function("Statistics", "\\sigma^2_{n=%(timeframe)s}(%(source)s)", "moments.mv.MV_Impl")
+        @python.intrinsic.function("moments.mv.MV_Impl")
         @label = "\\sigma^2_{n=%(timeframe)s}(%(source)s)"
         def Var(source = const(),
                 timeframe = 100.0)
@@ -586,7 +586,7 @@ def constant(x = 1.0) : IFunction
 
 type Side
 
-@python.intrinsic.function("Basic", "Null", "_constant._Null_Impl")
+@python.intrinsic.function("_constant._Null_Impl")
 @category = "Basic"
 @label = "Null"
 def null() : () => Float
@@ -596,7 +596,7 @@ type IOrderQueue
 
 type IOrderBook
 
-@python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
+@python.intrinsic.function("_constant._Constant_Impl")
 @category = "Basic"
 @label = "C=%(x)s"
 def const(x = 1.0) : IObservable
@@ -604,7 +604,7 @@ def const(x = 1.0) : IObservable
 
 type ISingleAssetTrader
 
-@python.intrinsic.function("Basic", "\\frac{d%(x)s}{dt}", "observable.derivative._Derivative_Impl")
+@python.intrinsic.function("observable.derivative._Derivative_Impl")
 @category = "Basic"
 @label = "\\frac{d%(x)s}{dt}"
 def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float

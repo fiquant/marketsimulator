@@ -242,8 +242,6 @@ Definitions:
 | | | | | | - intrinsic
 | | | | | | - function
 | | | | - List:
-| | | | | - Basic
-| | | | | - C=%(x)s
 | | | | | - _constant._Constant_Impl
 | | | - Attribute:
 | | | | - category
@@ -271,8 +269,6 @@ Definitions:
 | | | | | | - intrinsic
 | | | | | | - function
 | | | | - List:
-| | | | | - Basic
-| | | | | - Null
 | | | | | - _constant._Null_Impl
 | | | - Attribute:
 | | | | - category
@@ -362,8 +358,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - function
 | | | | | | | - List:
-| | | | | | | | - Side
-| | | | | | | | - Sell
 | | | | | | | | - side._Sell_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -388,8 +382,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - function
 | | | | | | | - List:
-| | | | | | | | - Side
-| | | | | | | | - Buy
 | | | | | | | | - side._Buy_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -414,8 +406,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - function
 | | | | | | | - List:
-| | | | | | | | - Side
-| | | | | | | | - None
 | | | | | | | | - side._Buy_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -476,8 +466,6 @@ Definitions:
 | | | | | | - intrinsic
 | | | | | | - function
 | | | | - List:
-| | | | | - Basic
-| | | | | - \\frac{d%(x)s}{dt}
 | | | | | - observable.derivative._Derivative_Impl
 | | | - Attribute:
 | | | | - category

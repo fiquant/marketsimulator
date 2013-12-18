@@ -1,7 +1,7 @@
 @category = "Trader's"
 
 package observable.trader {
-    @python.intrinsic.function("Proxies", "N/A", "trader.proxy._Single_Impl")
+    @python.intrinsic.function("trader.proxy._Single_Impl")
     @label = "N/A"
     def SingleProxy() : ISingleAssetTrader
         

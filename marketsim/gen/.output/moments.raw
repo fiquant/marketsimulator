@@ -47,8 +47,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - Avg_{\\alpha=%(alpha)s}(%(source)s)
 | | | | | | | | | | | - moments.ewma.EWMA_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -90,8 +88,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - \\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}
 | | | | | | | | | | | - moments.ewmv.EWMV_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -241,8 +237,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - Avg_{cumul}(%(source)s)
 | | | | | | | | | | | - moments.cma.CMA_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -277,8 +271,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - \\sigma^2_{cumul}(%(source)s)
 | | | | | | | | | | | - moments.cmv.Variance_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -415,8 +407,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - Avg_{n=%(timeframe)s}(%(source)s)
 | | | | | | | | | | | - moments.ma.MA_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -493,8 +483,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - \\sigma^2_{n=%(timeframe)s}(%(source)s)
 | | | | | | | | | | | - moments.mv.MV_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label

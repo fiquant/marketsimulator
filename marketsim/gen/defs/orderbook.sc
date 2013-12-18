@@ -1,19 +1,19 @@
 @category = "Asset's"
 package observable.orderbook
 {
-    @python.intrinsic.function ("Proxies", "N/A", "orderbook.of_trader._OfTrader_Impl")
+    @python.intrinsic.function ("orderbook.of_trader._OfTrader_Impl")
     @label = "N/A"
     def OfTrader(Trader = trader.SingleProxy()) : IOrderBook
 
-    @python.intrinsic.function ("Asset's", "Queue(%(book)s)", "orderbook.queue._Queue_Impl")
+    @python.intrinsic.function ("orderbook.queue._Queue_Impl")
     @label = "Queue(%(book)s)"
     def Queue(book = OfTrader(), side = side.Sell()) : IOrderQueue
 
-    @python.intrinsic.function ("Asset's", "Asks(%(book)s)", "orderbook.queue._Asks_Impl")
+    @python.intrinsic.function ("orderbook.queue._Asks_Impl")
     @label = "Asks(%(book)s)"
     def Asks(book = OfTrader()) = Queue(book, side.Sell())
 
-    @python.intrinsic.function ("Asset's", "Bids(%(book)s)", "orderbook.queue._Bids_Impl")
+    @python.intrinsic.function ("orderbook.queue._Bids_Impl")
     @label = "Bids(%(book)s)"
     def Bids(book = OfTrader()) = Queue(book, side.Buy())
 

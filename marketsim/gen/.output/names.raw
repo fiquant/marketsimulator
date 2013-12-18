@@ -26,8 +26,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - function
 | | | | | | | - List:
-| | | | | | | | - Side
-| | | | | | | | - Sell
 | | | | | | | | - side._Sell_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -52,8 +50,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - function
 | | | | | | | - List:
-| | | | | | | | - Side
-| | | | | | | | - Buy
 | | | | | | | | - side._Buy_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -78,8 +74,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - function
 | | | | | | | - List:
-| | | | | | | | - Side
-| | | | | | | | - None
 | | | | | | | | - side._Buy_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -1368,8 +1362,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - Avg_{cumul}(%(source)s)
 | | | | | | | | | | | - moments.cma.CMA_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -1404,8 +1396,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - \\sigma^2_{cumul}(%(source)s)
 | | | | | | | | | | | - moments.cmv.Variance_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -1999,8 +1989,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Proxies
-| | | | | | | | | | | - N/A
 | | | | | | | | | | | - trader.proxy._Single_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -2391,8 +2379,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - Avg_{\\alpha=%(alpha)s}(%(source)s)
 | | | | | | | | | | | - moments.ewma.EWMA_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -2434,8 +2420,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - \\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}
 | | | | | | | | | | | - moments.ewmv.EWMV_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -2914,8 +2898,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Asset's
-| | | | | | | | | | | - Asks(%(book)s)
 | | | | | | | | | | | - orderbook.queue._Asks_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -3114,8 +3096,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Asset's
-| | | | | | | | | | | - Bids(%(book)s)
 | | | | | | | | | | | - orderbook.queue._Bids_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -3193,8 +3173,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Asset's
-| | | | | | | | | | | - Queue(%(book)s)
 | | | | | | | | | | | - orderbook.queue._Queue_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -3228,8 +3206,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Proxies
-| | | | | | | | | | | - N/A
 | | | | | | | | | | | - orderbook.of_trader._OfTrader_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -3475,8 +3451,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - Avg_{n=%(timeframe)s}(%(source)s)
 | | | | | | | | | | | - moments.ma.MA_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -3553,8 +3527,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - \\sigma^2_{n=%(timeframe)s}(%(source)s)
 | | | | | | | | | | | - moments.mv.MV_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -4291,8 +4263,6 @@ Definitions:
 | | | | | | - intrinsic
 | | | | | | - function
 | | | | - List:
-| | | | | - Basic
-| | | | | - Null
 | | | | | - _constant._Null_Impl
 | | | - Attribute:
 | | | | - category
@@ -4331,8 +4301,6 @@ Definitions:
 | | | | | | - intrinsic
 | | | | | | - function
 | | | | - List:
-| | | | | - Basic
-| | | | | - C=%(x)s
 | | | | | - _constant._Constant_Impl
 | | | - Attribute:
 | | | | - category
@@ -4379,8 +4347,6 @@ Definitions:
 | | | | | | - intrinsic
 | | | | | | - function
 | | | | - List:
-| | | | | - Basic
-| | | | | - \\frac{d%(x)s}{dt}
 | | | | | - observable.derivative._Derivative_Impl
 | | | - Attribute:
 | | | | - category

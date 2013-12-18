@@ -36,8 +36,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - function
 | | | | | | | - List:
-| | | | | | | | - Proxies
-| | | | | | | | - N/A
 | | | | | | | | - orderbook.of_trader._OfTrader_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -81,8 +79,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - function
 | | | | | | | - List:
-| | | | | | | | - Asset's
-| | | | | | | | - Queue(%(book)s)
 | | | | | | | | - orderbook.queue._Queue_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -124,8 +120,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - function
 | | | | | | | - List:
-| | | | | | | | - Asset's
-| | | | | | | | - Asks(%(book)s)
 | | | | | | | | - orderbook.queue._Asks_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -167,8 +161,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - function
 | | | | | | | - List:
-| | | | | | | | - Asset's
-| | | | | | | | - Bids(%(book)s)
 | | | | | | | | - orderbook.queue._Bids_Impl
 | | | | | | - Attribute:
 | | | | | | | - label

@@ -32,13 +32,13 @@ package observable {
 def constant(x = 1.0) : IFunction
      = const(x)
 
-@python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
+@python.intrinsic.function("_constant._Constant_Impl")
 @category = "Basic"
 @label = "C=%(x)s"
 def const(x = 1.0) : IObservable
     
 
-@python.intrinsic.function("Basic", "Null", "_constant._Null_Impl")
+@python.intrinsic.function("_constant._Null_Impl")
 @category = "Basic"
 @label = "Null"
 def null() : () => Float
@@ -55,17 +55,17 @@ type Side
 @category = "Side"
 
 package side {
-    @python.intrinsic.function("Side", "Sell", "side._Sell_Impl")
+    @python.intrinsic.function("side._Sell_Impl")
     @label = "Sell"
     def Sell() : () => Side
         
     
-    @python.intrinsic.function("Side", "Buy", "side._Buy_Impl")
+    @python.intrinsic.function("side._Buy_Impl")
     @label = "Buy"
     def Buy() : () => Side
         
     
-    @python.intrinsic.function("Side", "None", "side._Buy_Impl")
+    @python.intrinsic.function("side._Buy_Impl")
     @label = "NoneSide"
     def Nothing() : () => Side
         
@@ -79,7 +79,7 @@ type ISingleAssetTrader
 
 type IDifferentiable : IFunction
 
-@python.intrinsic.function("Basic", "\\frac{d%(x)s}{dt}", "observable.derivative._Derivative_Impl")
+@python.intrinsic.function("observable.derivative._Derivative_Impl")
 @category = "Basic"
 @label = "\\frac{d%(x)s}{dt}"
 def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float
