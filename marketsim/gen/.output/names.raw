@@ -129,9 +129,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - mathops
 | | | | | | | - List:
-| | | | | | | | - Trigonometric
 | | | | | | | | - atan
-| | | | | | | | - atan(%(x)s)
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Trigonometric
@@ -173,9 +171,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - mathops
 | | | | | | | - List:
-| | | | | | | | - Log/Pow
 | | | | | | | | - sqrt
-| | | | | | | | - \\sqrt{%(x)s}
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Log/Pow
@@ -217,9 +213,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - mathops
 | | | | | | | - List:
-| | | | | | | | - Log/Pow
 | | | | | | | | - exp
-| | | | | | | | - e^{%(x)s}
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Log/Pow
@@ -261,9 +255,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - mathops
 | | | | | | | - List:
-| | | | | | | | - Log/Pow
 | | | | | | | | - log
-| | | | | | | | - log(%(x)s)
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Log/Pow
@@ -322,9 +314,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - mathops
 | | | | | | | - List:
-| | | | | | | | - Log/Pow
 | | | | | | | | - pow
-| | | | | | | | - %(base)s^{%(power)s}
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Log/Pow

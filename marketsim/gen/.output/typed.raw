@@ -139,9 +139,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - mathops
 | | | | | | | - List:
-| | | | | | | | - Trigonometric
 | | | | | | | | - atan
-| | | | | | | | - atan(%(x)s)
 | | | | - FunDef:
 | | | | | - Sqrt
 | | | | | - List:
@@ -187,9 +185,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - mathops
 | | | | | | | - List:
-| | | | | | | | - Log/Pow
 | | | | | | | | - sqrt
-| | | | | | | | - \\sqrt{%(x)s}
 | | | | - FunDef:
 | | | | | - Exp
 | | | | | - List:
@@ -235,9 +231,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - mathops
 | | | | | | | - List:
-| | | | | | | | - Log/Pow
 | | | | | | | | - exp
-| | | | | | | | - e^{%(x)s}
 | | | | - FunDef:
 | | | | | - Log
 | | | | | - List:
@@ -283,9 +277,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - mathops
 | | | | | | | - List:
-| | | | | | | | - Log/Pow
 | | | | | | | | - log
-| | | | | | | | - log(%(x)s)
 | | | | - FunDef:
 | | | | | - Pow
 | | | | | - List:
@@ -352,9 +344,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - mathops
 | | | | | | | - List:
-| | | | | | | | - Log/Pow
 | | | | | | | | - pow
-| | | | | | | | - %(base)s^{%(power)s}
 | | - List:
 | - PackageDef:
 | | - QualifiedName:

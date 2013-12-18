@@ -22,7 +22,7 @@ package mathops {
      */
     @category = "Trigonometric"
     @label = "atan(%(x)s)"
-    @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
+    @python.mathops("atan")
     def Atan(x : IFunction = constant(0.0)) : () => Float
         
     
@@ -31,7 +31,7 @@ package mathops {
      */
     @category = "Log/Pow"
     @label = "\\sqrt{%(x)s}"
-    @python.mathops("Log/Pow", "sqrt", "\\sqrt{%(x)s}")
+    @python.mathops("sqrt")
     def Sqrt(x : IFunction = constant(1.0)) : () => Float
         
     
@@ -40,7 +40,7 @@ package mathops {
      */
     @category = "Log/Pow"
     @label = "e^{%(x)s}"
-    @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
+    @python.mathops("exp")
     def Exp(x : IFunction = constant(1.0)) : () => Float
         
     
@@ -49,7 +49,7 @@ package mathops {
      */
     @category = "Log/Pow"
     @label = "log(%(x)s)"
-    @python.mathops("Log/Pow", "log", "log(%(x)s)")
+    @python.mathops("log")
     def Log(x : IFunction = constant(1.0)) : () => Float
         
     
@@ -63,7 +63,7 @@ package mathops {
      */
     @category = "Log/Pow"
     @label = "%(base)s^{%(power)s}"
-    @python.mathops("Log/Pow", "pow", "%(base)s^{%(power)s}")
+    @python.mathops("pow")
     def Pow(base : IFunction = constant(1.0),
             power : IFunction = constant(1.0)) : () => Float
         

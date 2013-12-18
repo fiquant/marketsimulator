@@ -20,7 +20,7 @@ package mathops {
     /** Arc tangent of x, in radians.
      *
      */
-    @python.mathops("Trigonometric", "atan", "atan(%(x)s)")
+    @python.mathops("atan")
     @category = "Trigonometric"
     @label = "atan(%(x)s)"
     def Atan(x = constant(0.0)) : () => Float
@@ -29,7 +29,7 @@ package mathops {
     /** Square root of x
      *
      */
-    @python.mathops("Log/Pow", "sqrt", "\\sqrt{%(x)s}")
+    @python.mathops("sqrt")
     @category = "Log/Pow"
     @label = "\\sqrt{%(x)s}"
     def Sqrt(x = constant(1.0)) : () => Float
@@ -38,7 +38,7 @@ package mathops {
     /** Exponent of x
      *
      */
-    @python.mathops("Log/Pow", "exp", "e^{%(x)s}")
+    @python.mathops("exp")
     @category = "Log/Pow"
     @label = "e^{%(x)s}"
     def Exp(x = constant(1.0)) : () => Float
@@ -47,7 +47,7 @@ package mathops {
     /** Natural logarithm of x (to base e)
      *
      */
-    @python.mathops("Log/Pow", "log", "log(%(x)s)")
+    @python.mathops("log")
     @category = "Log/Pow"
     @label = "log(%(x)s)"
     def Log(x = constant(1.0)) : () => Float
@@ -61,7 +61,7 @@ package mathops {
      * If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
      * ``pow(x, y)`` is undefined, and raises ``ValueError``.
      */
-    @python.mathops("Log/Pow", "pow", "%(base)s^{%(power)s}")
+    @python.mathops("pow")
     @category = "Log/Pow"
     @label = "%(base)s^{%(power)s}"
     def Pow(base = constant(1.0),

@@ -23,18 +23,19 @@ object mathops extends gen.PythonGenerator
 
     case class Import(args : List[String], f : Typed.Function) extends base.Intrinsic
     {
-        if (args.length != 3)
-            throw new Exception(s"Annotation $name should have 3 arguments in" +
-                    " form (category, implementation_function, label_template)" + "\r\n" + "In function " + f)
+        val name = f.name
 
-        override val impl_function = args(1)
+        if (args.length != 1)
+            throw new Exception(s"Annotation $name should have 1 arguments in" +
+                    " form (implementation_function)" + "\r\n" + "In function " + f)
+
+        override val impl_function = args(0)
 
         val parameters  = f.parameters map Parameter
         val docstring  = f.docstring.get.detailed
 
         type Parameter = mathops.Parameter
         val impl_module = "math"
-        val name = f.name
         val alias = name
 
         override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
