@@ -1,6 +1,8 @@
+@category = "Basic"
 package observable
 {
     @python.observable("Pow/Log", "{%(x)s}^2")
+    @category = "Pow/Log"
     def Sqr(x = constant()) = x*x
 
     @python.observable("Basic", "min{%(x)s, %(y)s}")
@@ -14,15 +16,19 @@ package observable
 }
 
 @python.function("Basic", "C=%(x)s")
+@category = "Basic"
 def constant(x = 1.0) : IFunction = const(x)
 
 @python.intrinsic.function("Basic", "C=%(x)s", "_constant._Constant_Impl")
+@category = "Basic"
 def const(x = 1.0) : IObservable
 
 @python.intrinsic.function("Basic", "Null", "_constant._Null_Impl")
+@category = "Basic"
 def null() => Float
 
 @python.observable("Basic", "If def(%(x)s) else %(elsePart)s")
+@category = "Basic"
 def IfDefined(x = constant(), elsePart = constant()) =
     if x <> null() then x else elsePart
 
@@ -33,7 +39,6 @@ type Side
 package side
 {
     @python.intrinsic.function("Side", "Sell", "side._Sell_Impl")
-    @label = "Sell"
     def Sell() => Side
 
     @python.intrinsic.function("Side", "Buy", "side._Buy_Impl")
@@ -52,6 +57,7 @@ type ISingleAssetTrader
 type IDifferentiable : IFunction
 
 @python.intrinsic.function ("Basic", "\\frac{d%(x)s}{dt}", "observable.derivative._Derivative_Impl")
+@category = "Basic"
 def Derivative(x : IDifferentiable = observable.EW.Avg()) => Float
 
 package trash

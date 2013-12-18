@@ -1,3 +1,4 @@
+@category = "Side function"
 package observable.sidefunc
 {
     @python.observable ("Side function", "Noise_{%(side_distribution)s}")

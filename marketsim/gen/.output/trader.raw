@@ -235,3 +235,6 @@ Definitions:
 | | | | | | | | - Trader's
 | | | | | | | | - EfficiencyTrend_{%(trader)s}
 | | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Trader's

@@ -1,3 +1,4 @@
+@category = "Price function"
 
 package observable.pricefunc {
     @python.observable("Price function", "Lp_{%(side)s}(%(book)s)")

@@ -1,3 +1,4 @@
+@category = "MACD"
 package observable.macd
 
 @python.function("MACD", "MACD_{%(fast)s}^{%(slow)s}(%(x)s)")

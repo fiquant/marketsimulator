@@ -1,3 +1,4 @@
+@category = "Asset's"
 package observable.orderbook
 {
     @python.intrinsic.function ("Proxies", "N/A", "orderbook.of_trader._OfTrader_Impl")

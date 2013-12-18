@@ -492,3 +492,6 @@ Definitions:
 | | | | | | | | - Side function
 | | | | | | | | - Pt_{%(factor)s*%(dependee)s}(%(book)s)
 | | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Side function

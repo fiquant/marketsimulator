@@ -1,3 +1,4 @@
+@category = "Volume function"
 
 package observable.volumefunc {
     @python.observable("Volume function", "Dp_{%(trader)s}(%(desiredPosition)s)")

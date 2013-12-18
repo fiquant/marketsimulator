@@ -243,6 +243,9 @@ Definitions:
 | | | | | | | | | | | - RSI
 | | | | | | | | | | | - RSI-raw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - RSI
 | | | | - FunDef:
 | | | | | - RSI
 | | | | | - List:

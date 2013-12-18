@@ -95,3 +95,6 @@ Definitions:
 | | | | | | | | - Price function
 | | | | | | | | - Lp_{%(side)s}(%(book)s)
 | | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Price function

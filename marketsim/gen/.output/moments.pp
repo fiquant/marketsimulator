@@ -1,5 +1,6 @@
 
-package observable {
+package observable {@category = "Statistics"
+    
     package EW {
         @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "moments.ewma.EWMA_Impl")
         def Avg(source = constant(),
@@ -21,6 +22,7 @@ package observable {
                       alpha = 0.15)
              = (source-Avg(source,alpha))/StdDev(source,alpha)
     }
+    @category = "Statistics"
     
     package Cumulative {
         @python.intrinsic.function("Statistics", "Avg_{cumul}(%(source)s)", "moments.cma.CMA_Impl")
@@ -39,6 +41,7 @@ package observable {
         def RelStdDev(source = const())
              = (source-Avg(source))/StdDev(source)
     }
+    @category = "Statistics"
     
     package Moving {
         @python.intrinsic.function("Statistics", "Avg_{n=%(timeframe)s}(%(source)s)", "moments.ma.MA_Impl")

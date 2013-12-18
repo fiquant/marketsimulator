@@ -19,9 +19,6 @@ Definitions:
 | | | | | | | | | | - Side
 | | | | | - None
 | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Sell
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -121,6 +118,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - 
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Trigonometric
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -163,6 +163,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - 
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Log/Pow
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -205,6 +208,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - 
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Log/Pow
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -247,6 +253,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - 
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Log/Pow
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -310,6 +319,9 @@ Definitions:
 | | | | | | | | -  If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
 | | | | | | | | -  ``pow(x, y)`` is undefined, and raises ``ValueError``.
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Log/Pow
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -928,6 +940,9 @@ Definitions:
 | | | | | | | | | | | - Price function
 | | | | | | | | | | | - Lp_{%(side)s}(%(book)s)
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Price function
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -1565,6 +1580,9 @@ Definitions:
 | | | | | | | | | | | - Side function
 | | | | | | | | | | | - Noise_{%(side_distribution)s}
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Side function
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -1753,6 +1771,9 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{cumul}_{%(source)s}
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Statistics
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -1857,6 +1878,9 @@ Definitions:
 | | | | | | | | | | | - RSI
 | | | | | | | | | | | - RSI-raw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - RSI
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -2189,6 +2213,9 @@ Definitions:
 | | | | | | | | | | | - MACD
 | | | | | | | | | | | - Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - MACD
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -2476,6 +2503,9 @@ Definitions:
 | | | | | | | | | | | - PendingVolume_{%(trader)s}
 | | | | | | | | | | | - trader.props.PendingVolume_Impl
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Trader's
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -2790,6 +2820,9 @@ Definitions:
 | | | | | | | | | | | - Volume function
 | | | | | | | | | | | - RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Volume function
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -3026,6 +3059,9 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Statistics
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -4125,6 +4161,9 @@ Definitions:
 | | | | | | | | | | | - LastTradePrice(%(queue)s)
 | | | | | | | | | | | - orderbook.last_trade._LastTradePrice_Impl
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Asset's
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -4406,6 +4445,9 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Statistics
 | | | | - FunDef:
 | | | | | - OnEveryDt
 | | | | | - List:
@@ -4791,6 +4833,9 @@ Definitions:
 | | | | | | | | | - IFunction
 | | | | | - None
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Pow/Log
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -4904,6 +4949,9 @@ Definitions:
 | | | | | | | | - RSI
 | | | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
 | | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
@@ -5172,6 +5220,9 @@ Definitions:
 | | | | | | - IFunction
 | | - None
 | | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
 | | | - Annotation:
 | | | | - QualifiedName:
 | | | | | - List:
@@ -5193,6 +5244,9 @@ Definitions:
 | | | | | | | - Float
 | | - None
 | | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
 | | | - Annotation:
 | | | | - QualifiedName:
 | | | | | - List:
@@ -5225,6 +5279,9 @@ Definitions:
 | | | | | | - IObservable
 | | - None
 | | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
 | | | - Annotation:
 | | | | - QualifiedName:
 | | | | | - List:
@@ -5264,6 +5321,9 @@ Definitions:
 | | | | | | | - Float
 | | - None
 | | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
 | | | - Annotation:
 | | | | - QualifiedName:
 | | | | | - List:
@@ -5327,6 +5387,9 @@ Definitions:
 | | | | | | - IFunction
 | | - None
 | | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
 | | | - Annotation:
 | | | | - QualifiedName:
 | | | | | - List:

@@ -194,6 +194,9 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Statistics
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -350,6 +353,9 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{cumul}_{%(source)s}
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Statistics
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -573,4 +579,7 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Statistics
 | | - List:

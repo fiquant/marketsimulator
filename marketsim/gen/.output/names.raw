@@ -29,9 +29,6 @@ Definitions:
 | | | | | | | | - Side
 | | | | | | | | - Sell
 | | | | | | | | - side._Sell_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Sell
 | | | | - FunDef:
 | | | | | - Buy
 | | | | | - List:
@@ -126,6 +123,9 @@ Definitions:
 | | | | | | | | - Trigonometric
 | | | | | | | | - atan
 | | | | | | | | - atan(%(x)s)
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Trigonometric
 | | | | - FunDef:
 | | | | | - Sqrt
 | | | | | - List:
@@ -164,6 +164,9 @@ Definitions:
 | | | | | | | | - Log/Pow
 | | | | | | | | - sqrt
 | | | | | | | | - \\sqrt{%(x)s}
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Log/Pow
 | | | | - FunDef:
 | | | | | - Exp
 | | | | | - List:
@@ -202,6 +205,9 @@ Definitions:
 | | | | | | | | - Log/Pow
 | | | | | | | | - exp
 | | | | | | | | - e^{%(x)s}
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Log/Pow
 | | | | - FunDef:
 | | | | | - Log
 | | | | | - List:
@@ -240,6 +246,9 @@ Definitions:
 | | | | | | | | - Log/Pow
 | | | | | | | | - log
 | | | | | | | | - log(%(x)s)
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Log/Pow
 | | | | - FunDef:
 | | | | | - Pow
 | | | | | - List:
@@ -295,6 +304,9 @@ Definitions:
 | | | | | | | | - Log/Pow
 | | | | | | | | - pow
 | | | | | | | | - %(base)s^{%(power)s}
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Log/Pow
 | | - List:
 | - PackageDef:
 | | - QualifiedName:
@@ -801,6 +813,9 @@ Definitions:
 | | | | | | | | | | | - Price function
 | | | | | | | | | | | - Lp_{%(side)s}(%(book)s)
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Price function
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -1292,6 +1307,9 @@ Definitions:
 | | | | | | | | | | | - Side function
 | | | | | | | | | | | - Noise_{%(side_distribution)s}
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Side function
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -1448,6 +1466,9 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{cumul}_{%(source)s}
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Statistics
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -1531,6 +1552,9 @@ Definitions:
 | | | | | | | | | | | - RSI
 | | | | | | | | | | | - RSI-raw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - RSI
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -1786,6 +1810,9 @@ Definitions:
 | | | | | | | | | | | - MACD
 | | | | | | | | | | | - Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - MACD
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -2020,6 +2047,9 @@ Definitions:
 | | | | | | | | | | | - PendingVolume_{%(trader)s}
 | | | | | | | | | | | - trader.props.PendingVolume_Impl
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Trader's
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -2266,6 +2296,9 @@ Definitions:
 | | | | | | | | | | | - Volume function
 | | | | | | | | | | | - RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Volume function
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -2454,6 +2487,9 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Statistics
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -3297,6 +3333,9 @@ Definitions:
 | | | | | | | | | | | - LastTradePrice(%(queue)s)
 | | | | | | | | | | | - orderbook.last_trade._LastTradePrice_Impl
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Asset's
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -3520,6 +3559,9 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Statistics
 | | | | - FunDef:
 | | | | | - OnEveryDt
 | | | | | - List:
@@ -3835,6 +3877,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Pow/Log
 | | | | | | | | - {%(x)s}^2
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Pow/Log
 | | | | - FunDef:
 | | | | | - RSI
 | | | | | - List:
@@ -3906,6 +3951,9 @@ Definitions:
 | | | | | | | | - RSI
 | | | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
 | | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
@@ -4100,6 +4148,9 @@ Definitions:
 | | | | - List:
 | | | | | - Basic
 | | | | | - C=%(x)s
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
 | - Interface:
 | | - Side
 | | - List:
@@ -4126,6 +4177,9 @@ Definitions:
 | | | | | - Basic
 | | | | | - Null
 | | | | | - _constant._Null_Impl
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
 | - Interface:
 | | - IOrderQueue
 | | - List:
@@ -4160,6 +4214,9 @@ Definitions:
 | | | | | - Basic
 | | | | | - C=%(x)s
 | | | | | - _constant._Constant_Impl
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
 | - Interface:
 | | - ISingleAssetTrader
 | | - List:
@@ -4202,6 +4259,9 @@ Definitions:
 | | | | | - Basic
 | | | | | - \\frac{d%(x)s}{dt}
 | | | | | - observable.derivative._Derivative_Impl
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
 | - Interface:
 | | - IDifferentiable
 | | - List:
@@ -4258,3 +4318,6 @@ Definitions:
 | | | | - List:
 | | | | | - Basic
 | | | | | - If def(%(x)s) else %(elsePart)s
+| | | - Attribute:
+| | | | - category
+| | | | - Basic

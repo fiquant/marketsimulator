@@ -1,3 +1,4 @@
+@category = "Trader's"
 
 package observable.trader {
     @python.intrinsic.function("Proxies", "N/A", "trader.proxy._Single_Impl")

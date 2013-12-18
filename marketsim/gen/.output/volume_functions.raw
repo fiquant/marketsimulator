@@ -247,3 +247,6 @@ Definitions:
 | | | | | | | | - Volume function
 | | | | | | | | - RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s
 | | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Volume function

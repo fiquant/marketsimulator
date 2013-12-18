@@ -37,6 +37,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Pow/Log
 | | | | | | | | - {%(x)s}^2
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Pow/Log
 | | | | - FunDef:
 | | | | | - Min
 | | | | | - List:
@@ -168,6 +171,9 @@ Definitions:
 | | | | | | | | - [%(x)s]_dt=%(dt)s
 | | | | | | | | - observable.on_every_dt._OnEveryDt_Impl
 | | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
 | - FunDef:
 | | - constant
 | | - List:
@@ -201,6 +207,9 @@ Definitions:
 | | | | - List:
 | | | | | - Basic
 | | | | | - C=%(x)s
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
 | - FunDef:
 | | - const
 | | - List:
@@ -229,6 +238,9 @@ Definitions:
 | | | | | - Basic
 | | | | | - C=%(x)s
 | | | | | - _constant._Constant_Impl
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
 | - FunDef:
 | | - null
 | | - List:
@@ -252,6 +264,9 @@ Definitions:
 | | | | | - Basic
 | | | | | - Null
 | | | | | - _constant._Null_Impl
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
 | - FunDef:
 | | - IfDefined
 | | - List:
@@ -301,6 +316,9 @@ Definitions:
 | | | | - List:
 | | | | | - Basic
 | | | | | - If def(%(x)s) else %(elsePart)s
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
 | - Interface:
 | | - Side
 | | - List:
@@ -333,9 +351,6 @@ Definitions:
 | | | | | | | | - Side
 | | | | | | | | - Sell
 | | | | | | | | - side._Sell_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Sell
 | | | | - FunDef:
 | | | | | - Buy
 | | | | | - List:
@@ -441,6 +456,9 @@ Definitions:
 | | | | | - Basic
 | | | | | - \\frac{d%(x)s}{dt}
 | | | | | - observable.derivative._Derivative_Impl
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:

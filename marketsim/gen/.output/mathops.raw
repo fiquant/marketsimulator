@@ -44,6 +44,9 @@ Definitions:
 | | | | | | | | - Log/Pow
 | | | | | | | | - exp
 | | | | | | | | - e^{%(x)s}
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Log/Pow
 | | | | - FunDef:
 | | | | | - Log
 | | | | | - List:
@@ -82,6 +85,9 @@ Definitions:
 | | | | | | | | - Log/Pow
 | | | | | | | | - log
 | | | | | | | | - log(%(x)s)
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Log/Pow
 | | | | - FunDef:
 | | | | | - Sqrt
 | | | | | - List:
@@ -120,6 +126,9 @@ Definitions:
 | | | | | | | | - Log/Pow
 | | | | | | | | - sqrt
 | | | | | | | | - \\sqrt{%(x)s}
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Log/Pow
 | | | | - FunDef:
 | | | | | - Pow
 | | | | | - List:
@@ -175,6 +184,9 @@ Definitions:
 | | | | | | | | - Log/Pow
 | | | | | | | | - pow
 | | | | | | | | - %(base)s^{%(power)s}
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Log/Pow
 | | | | - FunDef:
 | | | | | - Atan
 | | | | | - List:
@@ -213,4 +225,7 @@ Definitions:
 | | | | | | | | - Trigonometric
 | | | | | | | | - atan
 | | | | | | | | - atan(%(x)s)
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Trigonometric
 | | - List:

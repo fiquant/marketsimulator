@@ -14,6 +14,7 @@ package observable {
     def DownMovements(source = orderbook.MidPrice(),
                       timeframe = 10.0)
          = Max(const(0.0),Lagged(source,timeframe)-source)
+    @category = "RSI"
     
     package rsi {
         @python.observable("RSI", "RSI-raw_{%(timeframe)s}^{%(alpha)s}(%(source)s)")
