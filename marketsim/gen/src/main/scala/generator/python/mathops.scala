@@ -27,7 +27,6 @@ object mathops extends gen.PythonGenerator
             throw new Exception(s"Annotation $name should have 3 arguments in" +
                     " form (category, implementation_function, label_template)" + "\r\n" + "In function " + f)
 
-        val category = args(0)
         override val impl_function = args(1)
         val label_tmpl = args(2)
 

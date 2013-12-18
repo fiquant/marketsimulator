@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.orderbook.of_trader import _OfTrader_Impl
 from marketsim import ISingleAssetTrader
-@registry.expose(["Proxies", "OfTrader"])
+@registry.expose(["Asset's", "OfTrader"])
 class OfTrader(_OfTrader_Impl):
     """ 
     """ 

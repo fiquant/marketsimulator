@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.orderbook.last_trade import _LastTradeVolume_Impl
 from marketsim import IOrderQueue
-@registry.expose(["Orderbook", "LastTradeVolume"])
+@registry.expose(["Asset's", "LastTradeVolume"])
 class LastTradeVolume(_LastTradeVolume_Impl):
     """ 
     """ 

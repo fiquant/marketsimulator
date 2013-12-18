@@ -3,7 +3,7 @@ from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IObservable
 from marketsim import context
-@registry.expose(["RSI", "DownMovements"])
+@registry.expose(["Basic", "DownMovements"])
 class DownMovements(Observable[float]):
     """ 
     """ 

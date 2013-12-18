@@ -3,7 +3,7 @@ from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IOrderQueue
 from marketsim import context
-@registry.expose(["Orderbook", "WeightedPrice"])
+@registry.expose(["Asset's", "WeightedPrice"])
 class WeightedPrice(Observable[float]):
     """ 
     """ 

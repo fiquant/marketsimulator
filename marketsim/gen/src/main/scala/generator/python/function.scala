@@ -13,7 +13,6 @@ object function extends gen.PythonGenerator
             throw new Exception(s"Annotation $name should have 2 arguments in" +
                     " form (category, label_template)" + "\r\n" + "In function " + f)
 
-        val category = args(0)
         val label_tmpl = args(1)
 
         val parameters  = f.parameters map Parameter

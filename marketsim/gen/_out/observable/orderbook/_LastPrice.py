@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.orderbook.last_price import _LastPrice_Impl
 from marketsim import IOrderQueue
-@registry.expose(["Orderbook", "LastPrice"])
+@registry.expose(["Asset's", "LastPrice"])
 class LastPrice(_LastPrice_Impl):
     """ 
     """ 

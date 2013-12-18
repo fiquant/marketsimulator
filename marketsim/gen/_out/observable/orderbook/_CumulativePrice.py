@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.orderbook.cumulative_price import CumulativePrice_Impl
 from marketsim import IOrderBook
 from marketsim import IFunction
-@registry.expose(["Orderbook", "CumulativePrice"])
+@registry.expose(["Asset's", "CumulativePrice"])
 class CumulativePrice(CumulativePrice_Impl):
     """ 
     """ 

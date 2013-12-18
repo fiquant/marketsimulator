@@ -4,7 +4,7 @@ from marketsim.ops._all import Observable
 from marketsim import IOrderQueue
 from marketsim import IFunction
 from marketsim import context
-@registry.expose(["Orderbook", "SafeSidePrice"])
+@registry.expose(["Asset's", "SafeSidePrice"])
 class SafeSidePrice(Observable[float]):
     """ 
     """ 

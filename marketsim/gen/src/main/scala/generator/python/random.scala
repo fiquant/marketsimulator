@@ -14,6 +14,7 @@ object random extends gen.PythonGenerator
         val alias = f.docstring.get.brief
         val docstring = f.docstring.get.detailed
         val rv_type = "float"
+        val args = Nil
         override def base_class = s"Function[$rv_type]" |||
                                 ImportFrom("Function", "marketsim.ops._function")
 

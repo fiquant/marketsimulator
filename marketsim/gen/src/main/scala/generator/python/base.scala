@@ -59,12 +59,13 @@ package object base {
 
     abstract class Printer extends Class {
         type Parameter <: base.Parameter
+        val args        : List[String]
+        val f           : Typed.Function
         def name        : String
         def docstring   : List[String]
         def alias       : String
-        def category    : String
+        def category    = f.getAttribute("category")
         def parameters  : List[Parameter]
-
         def registration = s"""@registry.expose(["$category", "$alias"])""" ||| ImportFrom("registry", "marketsim")
 
         def join_fields(p : Parameter => Code, sep : Code = ", ") : Code = Code.from(parameters map p, sep)

@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.orderbook.props import _BestPrice_Impl
 from marketsim import IOrderQueue
-@registry.expose(["Orderbook", "BestPrice"])
+@registry.expose(["Asset's", "BestPrice"])
 class BestPrice(_BestPrice_Impl):
     """ 
     """ 
