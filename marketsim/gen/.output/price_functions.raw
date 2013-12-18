@@ -1,10 +1,11 @@
 Definitions:
 - List:
 | - PackageDef:
-| | - QualifiedName:
-| | | - List:
-| | | | - observable
-| | | | - pricefunc
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - observable
+| | | | | - pricefunc
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:

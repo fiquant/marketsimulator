@@ -1,10 +1,11 @@
 Definitions:
 - List:
 | - PackageDef:
-| | - QualifiedName:
-| | | - List:
-| | | | - observable
-| | | | - macd
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - observable
+| | | | | - macd
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:

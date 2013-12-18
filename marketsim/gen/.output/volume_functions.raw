@@ -1,10 +1,11 @@
 Definitions:
 - List:
 | - PackageDef:
-| | - QualifiedName:
-| | | - List:
-| | | | - observable
-| | | | - volumefunc
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - observable
+| | | | | - volumefunc
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:

@@ -1,9 +1,10 @@
 Definitions:
 - List:
 | - PackageDef:
-| | - QualifiedName:
-| | | - List:
-| | | | - side
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - side
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -83,9 +84,10 @@ Definitions:
 | | | | - category
 | | | | - Side
 | - PackageDef:
-| | - QualifiedName:
-| | | - List:
-| | | | - mathops
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - mathops
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -317,15 +319,17 @@ Definitions:
 | | | | | | | - %(base)s^{%(power)s}
 | | - List:
 | - PackageDef:
-| | - QualifiedName:
-| | | - List:
-| | | | - mathutils
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - mathutils
 | | - Definitions:
 | | | - List:
 | | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - rnd
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - rnd
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -722,15 +726,17 @@ Definitions:
 | | | | | - List:
 | | - List:
 | - PackageDef:
-| | - QualifiedName:
-| | | - List:
-| | | | - observable
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - observable
 | | - Definitions:
 | | | - List:
 | | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - pricefunc
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - pricefunc
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -826,9 +832,10 @@ Definitions:
 | | | | | | | - category
 | | | | | | | - Price function
 | | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - sidefunc
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - sidefunc
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -1327,9 +1334,10 @@ Definitions:
 | | | | | | | - category
 | | | | | | | - Side function
 | | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - Cumulative
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - Cumulative
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -1490,9 +1498,10 @@ Definitions:
 | | | | | | | - category
 | | | | | | | - Statistics
 | | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - rsi
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - rsi
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -1577,9 +1586,10 @@ Definitions:
 | | | | | | | - category
 | | | | | | | - RSI
 | | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - macd
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - macd
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -1838,9 +1848,10 @@ Definitions:
 | | | | | | | - category
 | | | | | | | - MACD
 | | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - trader
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - trader
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -2081,9 +2092,10 @@ Definitions:
 | | | | | | | - category
 | | | | | | | - Trader's
 | | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - volumefunc
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - volumefunc
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -2333,9 +2345,10 @@ Definitions:
 | | | | | | | - category
 | | | | | | | - Volume function
 | | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - EW
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - EW
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -2528,9 +2541,10 @@ Definitions:
 | | | | | | | - category
 | | | | | | | - Statistics
 | | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - orderbook
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - orderbook
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -3393,9 +3407,10 @@ Definitions:
 | | | | | | | - category
 | | | | | | | - Asset's
 | | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - Moving
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - Moving
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -4023,15 +4038,17 @@ Definitions:
 | | | | - category
 | | | | - Basic
 | - PackageDef:
-| | - QualifiedName:
-| | | - List:
-| | | | - trash
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - trash
 | | - Definitions:
 | | | - List:
 | | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - types
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - types
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - Interface:
@@ -4063,15 +4080,17 @@ Definitions:
 | | | | | | | | | | | - T
 | | | | | - List:
 | | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - in1
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - in1
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - PackageDef:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - in2
+| | | | | | | | - Some:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - in2
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - FunDef:

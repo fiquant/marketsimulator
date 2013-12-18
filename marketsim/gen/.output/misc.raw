@@ -1,9 +1,10 @@
 Definitions:
 - List:
 | - PackageDef:
-| | - QualifiedName:
-| | | - List:
-| | | | - observable
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - observable
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -331,9 +332,10 @@ Definitions:
 | | - Side
 | | - List:
 | - PackageDef:
-| | - QualifiedName:
-| | | - List:
-| | | | - side
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - side
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -472,15 +474,17 @@ Definitions:
 | | | | - label
 | | | | - \\frac{d%(x)s}{dt}
 | - PackageDef:
-| | - QualifiedName:
-| | | - List:
-| | | | - trash
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - trash
 | | - Definitions:
 | | | - List:
 | | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - types
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - types
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - Interface:
@@ -538,9 +542,10 @@ Definitions:
 | | | | | - None
 | | | | | - List:
 | | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - in1
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - in1
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -576,9 +581,10 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | - PackageDef:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - in2
+| | | | | | | | - Some:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - in2
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - FunDef:

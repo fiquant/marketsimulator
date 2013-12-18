@@ -1,9 +1,10 @@
 Definitions:
 - List:
 | - PackageDef:
-| | - QualifiedName:
-| | | - List:
-| | | | - observable
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - observable
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -164,9 +165,10 @@ Definitions:
 | | | | | | | - label
 | | | | | | | - Downs_{%(timeframe)s}(%(source)s)
 | | | | - PackageDef:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - rsi
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - rsi
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:

@@ -1,9 +1,10 @@
 Definitions:
 - List:
 | - PackageDef:
-| | - QualifiedName:
-| | | - List:
-| | | | - mathops
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - mathops
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:

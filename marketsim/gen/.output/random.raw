@@ -1,10 +1,11 @@
 Definitions:
 - List:
 | - PackageDef:
-| | - QualifiedName:
-| | | - List:
-| | | | - mathutils
-| | | | - rnd
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - mathutils
+| | | | | - rnd
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:

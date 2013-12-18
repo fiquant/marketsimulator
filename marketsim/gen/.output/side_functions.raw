@@ -1,10 +1,11 @@
 Definitions:
 - List:
 | - PackageDef:
-| | - QualifiedName:
-| | | - List:
-| | | | - observable
-| | | | - sidefunc
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - observable
+| | | | | - sidefunc
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
