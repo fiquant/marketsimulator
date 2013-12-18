@@ -28,6 +28,9 @@ Definitions:
 | | | | | | | | - Proxies
 | | | | | | | | - N/A
 | | | | | | | | - trader.proxy._Single_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - N/A
 | | | | - FunDef:
 | | | | | - Position
 | | | | | - List:
@@ -61,6 +64,9 @@ Definitions:
 | | | | | | | | - Trader's
 | | | | | | | | - Amount_{%(trader)s}
 | | | | | | | | - trader.props.Position_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Amount_{%(trader)s}
 | | | | - FunDef:
 | | | | | - Balance
 | | | | | - List:
@@ -94,6 +100,9 @@ Definitions:
 | | | | | | | | - Trader's
 | | | | | | | | - Balance_{%(trader)s}
 | | | | | | | | - trader.props.Balance_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Balance_{%(trader)s}
 | | | | - FunDef:
 | | | | | - PendingVolume
 | | | | | - List:
@@ -127,6 +136,9 @@ Definitions:
 | | | | | | | | - Trader's
 | | | | | | | | - PendingVolume_{%(trader)s}
 | | | | | | | | - trader.props.PendingVolume_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - PendingVolume_{%(trader)s}
 | | | | - FunDef:
 | | | | | - Efficiency
 | | | | | - List:
@@ -182,6 +194,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Trader's
 | | | | | | | | - Efficiency_{%(trader)s}
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Efficiency_{%(trader)s}
 | | | | - FunDef:
 | | | | | - EfficiencyTrend
 | | | | | - List:
@@ -234,6 +249,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Trader's
 | | | | | | | | - EfficiencyTrend_{%(trader)s}
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - EfficiencyTrend_{%(trader)s}
 | | - List:
 | | | - Attribute:
 | | | | - category

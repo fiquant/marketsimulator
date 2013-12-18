@@ -1,16 +1,19 @@
 
 package observable {
     @python.intrinsic.observable("Basic", "Lagged_{%(timeframe)s}(%(source)s)", "observable.lagged.Lagged_Impl")
+    @label = "Lagged_{%(timeframe)s}(%(source)s)"
     def Lagged(source = const(),
                timeframe = 10.0) : IObservable
         
     
     @python.observable("RSI", "Ups_{%(timeframe)s}(%(source)s)")
+    @label = "Ups_{%(timeframe)s}(%(source)s)"
     def UpMovements(source = orderbook.MidPrice(),
                     timeframe = 10.0)
          = Max(const(0.0),source-Lagged(source,timeframe))
     
     @python.observable("RSI", "Downs_{%(timeframe)s}(%(source)s)")
+    @label = "Downs_{%(timeframe)s}(%(source)s)"
     def DownMovements(source = orderbook.MidPrice(),
                       timeframe = 10.0)
          = Max(const(0.0),Lagged(source,timeframe)-source)
@@ -18,6 +21,7 @@ package observable {
     
     package rsi {
         @python.observable("RSI", "RSI-raw_{%(timeframe)s}^{%(alpha)s}(%(source)s)")
+        @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
         def Raw(source = orderbook.MidPrice(),
                 timeframe = 10.0,
                 alpha = 0.015)
@@ -25,6 +29,7 @@ package observable {
     }
     
     @python.observable("RSI", "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)")
+    @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)"
     def RSI(book = orderbook.OfTrader(),
             timeframe = 10.0,
             alpha = 0.015)

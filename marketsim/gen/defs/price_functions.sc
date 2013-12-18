@@ -2,6 +2,7 @@
 package observable.pricefunc
 {
     @python.observable ("Price function", "Lp_{%(side)s}(%(book)s)")
+    @label = "Lp_{%(side)s}(%(book)s)"
     def LiquidityProvider(
             side = side.Sell(),
             initialValue = 100.,

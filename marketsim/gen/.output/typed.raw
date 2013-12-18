@@ -19,6 +19,9 @@ Definitions:
 | | | | | | | | | | - Side
 | | | | | - None
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Sell
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -42,6 +45,9 @@ Definitions:
 | | | | | | | | | | - Side
 | | | | | - None
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Buy
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -65,6 +71,9 @@ Definitions:
 | | | | | | | | | | - Side
 | | | | | - None
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - NoneSide
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -121,6 +130,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Trigonometric
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - atan(%(x)s)
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -166,6 +178,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Log/Pow
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - \\sqrt{%(x)s}
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -211,6 +226,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Log/Pow
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - e^{%(x)s}
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -256,6 +274,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Log/Pow
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - log(%(x)s)
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -322,6 +343,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Log/Pow
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - %(base)s^{%(power)s}
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -931,6 +955,9 @@ Definitions:
 | | | | | | | | | | | | - IFunction
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Lp_{%(side)s}(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -1032,6 +1059,9 @@ Definitions:
 | | | | | | | | | | | | | - Side
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Pt_{%(factor)s*%(dependee)s}(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -1124,6 +1154,9 @@ Definitions:
 | | | | | | | | | | | | | - Side
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - SignalSide_{%(threshold)s}(%(signal)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -1241,6 +1274,9 @@ Definitions:
 | | | | | | | | | | | | | - Side
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -1332,6 +1368,9 @@ Definitions:
 | | | | | | | | | | | | | - Side
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Tf_{%(alpha)s}(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -1431,6 +1470,9 @@ Definitions:
 | | | | | | | | | | | | | - Side
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Fv_{%(fv)s}(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -1506,6 +1548,9 @@ Definitions:
 | | | | | | | | | | | | | - Side
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Mr_{%(alpha)s}(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -1571,6 +1616,9 @@ Definitions:
 | | | | | | | | | | | | | - Side
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Noise_{%(side_distribution)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -1616,6 +1664,9 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Avg_{cumul}(%(source)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -1653,6 +1704,9 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - \\sigma^2_{cumul}(%(source)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -1705,6 +1759,9 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - \\sqrt{\\sigma^2_{cumul}_{%(source)s}}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -1762,6 +1819,9 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - RSD_{cumul}_{%(source)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -1869,6 +1929,9 @@ Definitions:
 | | | | | | | | | | | | - IFunction
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -1976,6 +2039,9 @@ Definitions:
 | | | | | | | | | | | | - IFunction
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - MACD_{%(fast)s}^{%(slow)s}(%(x)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -2093,6 +2159,9 @@ Definitions:
 | | | | | | | | | | | | - IDifferentiable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -2204,6 +2273,9 @@ Definitions:
 | | | | | | | | | | | | - IFunction
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -2251,6 +2323,9 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Balance_{%(trader)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -2290,6 +2365,9 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Amount_{%(trader)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -2363,6 +2441,9 @@ Definitions:
 | | | | | | | | | | | | - IFunction
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Efficiency_{%(trader)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -2382,6 +2463,9 @@ Definitions:
 | | | | | | | | | | | | - ISingleAssetTrader
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - N/A
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -2455,6 +2539,9 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - EfficiencyTrend_{%(trader)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -2492,6 +2579,9 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - PendingVolume_{%(trader)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -2577,6 +2667,9 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Dp_{%(trader)s}(%(desiredPosition)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -2685,6 +2778,9 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Bl_{%(trader)s}(%(alpha)s)*%(k)s
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -2811,6 +2907,9 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3141,6 +3240,9 @@ Definitions:
 | | | | | | | | | | | | - IFunction
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - SafeSidePrice^{%(queue)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3276,6 +3378,9 @@ Definitions:
 | | | | | | | | | | | | - IFunction
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Price_{%(alpha)s}^{%(queue)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3356,6 +3461,9 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Ask_{%(book)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3420,6 +3528,9 @@ Definitions:
 | | | | | | | | | | | | - IFunction
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Ask_{%(alpha)s}^{%(book)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3484,6 +3595,9 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - MidPrice_{%(book)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3534,6 +3648,9 @@ Definitions:
 | | | | | | | | | | | | - IOrderQueue
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Asks(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3600,6 +3717,9 @@ Definitions:
 | | | | | | | | | | | | - IFunction
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Bid_{%(alpha)s}^{%(book)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3651,6 +3771,9 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Ask_{%(book)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3686,6 +3809,9 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - LastTradeVolume(%(queue)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3739,6 +3865,9 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Bid^{%(book)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3789,6 +3918,9 @@ Definitions:
 | | | | | | | | | | | | - IOrderQueue
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Bids(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3826,6 +3958,9 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Price(%(queue)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3880,6 +4015,9 @@ Definitions:
 | | | | | | | | | | | | - IOrderQueue
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Queue(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3917,6 +4055,9 @@ Definitions:
 | | | | | | | | | | | | - IOrderBook
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - N/A
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3970,6 +4111,9 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Bid^{%(book)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4021,6 +4165,9 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - CumulativePrice(%(book)s, %(depth)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4058,6 +4205,9 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - LastPrice(%(queue)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4115,6 +4265,9 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Spread_{%(book)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4150,6 +4303,9 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - LastTradePrice(%(queue)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4208,6 +4364,9 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Avg_{n=%(timeframe)s}(%(source)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4301,6 +4460,9 @@ Definitions:
 | | | | | | | | | | | | - IFunction
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - \\sigma^2_{n=%(timeframe)s}(%(source)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4364,6 +4526,9 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - \\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4436,6 +4601,9 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4484,6 +4652,9 @@ Definitions:
 | | | | | | | | | - IObservable
 | | | | | - None
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - [%(x)s]_dt=%(dt)s
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -4544,6 +4715,9 @@ Definitions:
 | | | | | | | | | - IFunction
 | | | | | - None
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - min{%(x)s, %(y)s}
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -4617,6 +4791,9 @@ Definitions:
 | | | | | | | | | - IFunction
 | | | | | - None
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Downs_{%(timeframe)s}(%(source)s)
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -4661,6 +4838,9 @@ Definitions:
 | | | | | | | | | - IObservable
 | | | | | - None
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Lagged_{%(timeframe)s}(%(source)s)
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -4721,6 +4901,9 @@ Definitions:
 | | | | | | | | | - IFunction
 | | | | | - None
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - max{%(x)s, %(y)s}
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -4794,6 +4977,9 @@ Definitions:
 | | | | | | | | | - IFunction
 | | | | | - None
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Ups_{%(timeframe)s}(%(source)s)
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -4836,6 +5022,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Pow/Log
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - {%(x)s}^2
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -4940,6 +5129,9 @@ Definitions:
 | | | | | | | | | - IObservable
 | | | | | - None
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -5221,6 +5413,9 @@ Definitions:
 | | - None
 | | - List:
 | | | - Attribute:
+| | | | - label
+| | | | - C=%(x)s
+| | | - Attribute:
 | | | | - category
 | | | | - Basic
 | | | - Annotation:
@@ -5247,6 +5442,9 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
+| | | - Attribute:
+| | | | - label
+| | | | - Null
 | | | - Annotation:
 | | | | - QualifiedName:
 | | | | | - List:
@@ -5282,6 +5480,9 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
+| | | - Attribute:
+| | | | - label
+| | | | - C=%(x)s
 | | | - Annotation:
 | | | | - QualifiedName:
 | | | | | - List:
@@ -5324,6 +5525,9 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
+| | | - Attribute:
+| | | | - label
+| | | | - \\frac{d%(x)s}{dt}
 | | | - Annotation:
 | | | | - QualifiedName:
 | | | | | - List:
@@ -5390,6 +5594,9 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
+| | | - Attribute:
+| | | | - label
+| | | | - If def(%(x)s) else %(elsePart)s
 | | | - Annotation:
 | | | | - QualifiedName:
 | | | | | - List:

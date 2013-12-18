@@ -39,6 +39,9 @@ Definitions:
 | | | | | | | | - Proxies
 | | | | | | | | - N/A
 | | | | | | | | - orderbook.of_trader._OfTrader_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - N/A
 | | | | - FunDef:
 | | | | | - Queue
 | | | | | - List:
@@ -81,6 +84,9 @@ Definitions:
 | | | | | | | | - Asset's
 | | | | | | | | - Queue(%(book)s)
 | | | | | | | | - orderbook.queue._Queue_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Queue(%(book)s)
 | | | | - FunDef:
 | | | | | - Asks
 | | | | | - List:
@@ -121,6 +127,9 @@ Definitions:
 | | | | | | | | - Asset's
 | | | | | | | | - Asks(%(book)s)
 | | | | | | | | - orderbook.queue._Asks_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Asks(%(book)s)
 | | | | - FunDef:
 | | | | | - Bids
 | | | | | - List:
@@ -161,6 +170,9 @@ Definitions:
 | | | | | | | | - Asset's
 | | | | | | | | - Bids(%(book)s)
 | | | | | | | | - orderbook.queue._Bids_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Bids(%(book)s)
 | | | | - FunDef:
 | | | | | - BestPrice
 | | | | | - List:
@@ -192,6 +204,9 @@ Definitions:
 | | | | | | | | - Orderbook
 | | | | | | | | - Price(%(queue)s)
 | | | | | | | | - orderbook.props._BestPrice_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Price(%(queue)s)
 | | | | - FunDef:
 | | | | | - AskPrice
 | | | | | - List:
@@ -229,6 +244,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Orderbook
 | | | | | | | | - Ask_{%(book)s}
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Ask_{%(book)s}
 | | | | - FunDef:
 | | | | | - BidPrice
 | | | | | - List:
@@ -266,6 +284,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Orderbook
 | | | | | | | | - Bid^{%(book)s}
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Bid^{%(book)s}
 | | | | - FunDef:
 | | | | | - LastPrice
 | | | | | - List:
@@ -297,6 +318,9 @@ Definitions:
 | | | | | | | | - Orderbook
 | | | | | | | | - LastPrice(%(queue)s)
 | | | | | | | | - orderbook.last_price._LastPrice_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - LastPrice(%(queue)s)
 | | | | - FunDef:
 | | | | | - AskLastPrice
 | | | | | - List:
@@ -334,6 +358,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Orderbook
 | | | | | | | | - Ask_{%(book)s}
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Ask_{%(book)s}
 | | | | - FunDef:
 | | | | | - BidLastPrice
 | | | | | - List:
@@ -371,6 +398,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Orderbook
 | | | | | | | | - Bid^{%(book)s}
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Bid^{%(book)s}
 | | | | - FunDef:
 | | | | | - LastTradePrice
 | | | | | - List:
@@ -402,6 +432,9 @@ Definitions:
 | | | | | | | | - Orderbook
 | | | | | | | | - LastTradePrice(%(queue)s)
 | | | | | | | | - orderbook.last_trade._LastTradePrice_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - LastTradePrice(%(queue)s)
 | | | | - FunDef:
 | | | | | - LastTradeVolume
 | | | | | - List:
@@ -433,6 +466,9 @@ Definitions:
 | | | | | | | | - Orderbook
 | | | | | | | | - LastTradeVolume(%(queue)s)
 | | | | | | | | - orderbook.last_trade._LastTradeVolume_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - LastTradeVolume(%(queue)s)
 | | | | - FunDef:
 | | | | | - SafeSidePrice
 | | | | | - List:
@@ -496,6 +532,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Orderbook
 | | | | | | | | - SafeSidePrice^{%(queue)s}
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - SafeSidePrice^{%(queue)s}
 | | | | - FunDef:
 | | | | | - PriceAtVolume
 | | | | | - List:
@@ -599,6 +638,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Orderbook
 | | | | | | | | - Price_{%(alpha)s}^{%(queue)s}
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Price_{%(alpha)s}^{%(queue)s}
 | | | | - FunDef:
 | | | | | - AskWeightedPrice
 | | | | | - List:
@@ -645,6 +687,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Orderbook
 | | | | | | | | - Ask_{%(alpha)s}^{%(book)s}
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Ask_{%(alpha)s}^{%(book)s}
 | | | | - FunDef:
 | | | | | - BidWeightedPrice
 | | | | | - List:
@@ -691,6 +736,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Orderbook
 | | | | | | | | - Bid_{%(alpha)s}^{%(book)s}
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Bid_{%(alpha)s}^{%(book)s}
 | | | | - FunDef:
 | | | | | - TickSize
 | | | | | - List:
@@ -755,6 +803,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Orderbook
 | | | | | | | | - Spread_{%(book)s}
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Spread_{%(book)s}
 | | | | - FunDef:
 | | | | | - MidPrice
 | | | | | - List:
@@ -800,6 +851,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Orderbook
 | | | | | | | | - MidPrice_{%(book)s}
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - MidPrice_{%(book)s}
 | | | | - FunDef:
 | | | | | - CumulativePrice
 | | | | | - List:
@@ -843,6 +897,9 @@ Definitions:
 | | | | | | | | - Orderbook
 | | | | | | | | - CumulativePrice(%(book)s, %(depth)s)
 | | | | | | | | - orderbook.cumulative_price.CumulativePrice_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - CumulativePrice(%(book)s, %(depth)s)
 | | - List:
 | | | - Attribute:
 | | | | - category

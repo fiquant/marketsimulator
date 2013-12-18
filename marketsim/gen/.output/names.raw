@@ -29,6 +29,9 @@ Definitions:
 | | | | | | | | - Side
 | | | | | | | | - Sell
 | | | | | | | | - side._Sell_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Sell
 | | | | - FunDef:
 | | | | | - Buy
 | | | | | - List:
@@ -52,6 +55,9 @@ Definitions:
 | | | | | | | | - Side
 | | | | | | | | - Buy
 | | | | | | | | - side._Buy_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Buy
 | | | | - FunDef:
 | | | | | - Nothing
 | | | | | - List:
@@ -75,6 +81,9 @@ Definitions:
 | | | | | | | | - Side
 | | | | | | | | - None
 | | | | | | | | - side._Buy_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - NoneSide
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -126,6 +135,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Trigonometric
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - atan(%(x)s)
 | | | | - FunDef:
 | | | | | - Sqrt
 | | | | | - List:
@@ -167,6 +179,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Log/Pow
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - \\sqrt{%(x)s}
 | | | | - FunDef:
 | | | | | - Exp
 | | | | | - List:
@@ -208,6 +223,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Log/Pow
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - e^{%(x)s}
 | | | | - FunDef:
 | | | | | - Log
 | | | | | - List:
@@ -249,6 +267,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Log/Pow
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - log(%(x)s)
 | | | | - FunDef:
 | | | | | - Pow
 | | | | | - List:
@@ -307,6 +328,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Log/Pow
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - %(base)s^{%(power)s}
 | | - List:
 | - PackageDef:
 | | - QualifiedName:
@@ -812,6 +836,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Price function
 | | | | | | | | | | | - Lp_{%(side)s}(%(book)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Lp_{%(side)s}(%(book)s)
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -890,6 +917,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Side function
 | | | | | | | | | | | - Pt_{%(factor)s*%(dependee)s}(%(book)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Pt_{%(factor)s*%(dependee)s}(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Signal
 | | | | | | | | - List:
@@ -958,6 +988,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Side function
 | | | | | | | | | | | - SignalSide_{%(threshold)s}(%(signal)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - SignalSide_{%(threshold)s}(%(signal)s)
 | | | | | | | - FunDef:
 | | | | | | | | - CrossingAverages
 | | | | | | | | - List:
@@ -1046,6 +1079,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Side function
 | | | | | | | | | | | - CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - TrendFollower
 | | | | | | | | - List:
@@ -1114,6 +1150,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Side function
 | | | | | | | | | | | - Tf_{%(alpha)s}(%(book)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Tf_{%(alpha)s}(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - FundamentalValue
 | | | | | | | | - List:
@@ -1196,6 +1235,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Side function
 | | | | | | | | | | | - Fv_{%(fv)s}(%(book)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Fv_{%(fv)s}(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - MeanReversion
 | | | | | | | | - List:
@@ -1252,6 +1294,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Side function
 | | | | | | | | | | | - Mr_{%(alpha)s}(%(book)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Mr_{%(alpha)s}(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Noise
 | | | | | | | | - List:
@@ -1306,6 +1351,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Side function
 | | | | | | | | | | | - Noise_{%(side_distribution)s}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Noise_{%(side_distribution)s}
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -1349,6 +1397,9 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - Avg_{cumul}(%(source)s)
 | | | | | | | | | | | - moments.cma.CMA_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Avg_{cumul}(%(source)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Var
 | | | | | | | | - List:
@@ -1382,6 +1433,9 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - \\sigma^2_{cumul}(%(source)s)
 | | | | | | | | | | | - moments.cmv.Variance_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - \\sigma^2_{cumul}(%(source)s)
 | | | | | | | - FunDef:
 | | | | | | | | - StdDev
 | | | | | | | | - List:
@@ -1420,6 +1474,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - \\sqrt{\\sigma^2_{cumul}_{%(source)s}}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - \\sqrt{\\sigma^2_{cumul}_{%(source)s}}
 | | | | | | | - FunDef:
 | | | | | | | | - RelStdDev
 | | | | | | | | - List:
@@ -1465,6 +1522,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{cumul}_{%(source)s}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - RSD_{cumul}_{%(source)s}
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -1551,6 +1611,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - RSI
 | | | | | | | | | | | - RSI-raw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -1639,6 +1702,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - MACD
 | | | | | | | | | | | - MACD_{%(fast)s}^{%(slow)s}(%(x)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - MACD_{%(fast)s}^{%(slow)s}(%(x)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Signal
 | | | | | | | | - List:
@@ -1727,6 +1793,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - MACD
 | | | | | | | | | | | - Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
 | | | | | | | - FunDef:
 | | | | | | | | - Histogram
 | | | | | | | | - List:
@@ -1809,6 +1878,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - MACD
 | | | | | | | | | | | - Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -1852,6 +1924,9 @@ Definitions:
 | | | | | | | | | | | - Trader's
 | | | | | | | | | | | - Balance_{%(trader)s}
 | | | | | | | | | | | - trader.props.Balance_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Balance_{%(trader)s}
 | | | | | | | - FunDef:
 | | | | | | | | - Position
 | | | | | | | | - List:
@@ -1885,6 +1960,9 @@ Definitions:
 | | | | | | | | | | | - Trader's
 | | | | | | | | | | | - Amount_{%(trader)s}
 | | | | | | | | | | | - trader.props.Position_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Amount_{%(trader)s}
 | | | | | | | - FunDef:
 | | | | | | | | - Efficiency
 | | | | | | | | - List:
@@ -1940,6 +2018,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Trader's
 | | | | | | | | | | | - Efficiency_{%(trader)s}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Efficiency_{%(trader)s}
 | | | | | | | - FunDef:
 | | | | | | | | - SingleProxy
 | | | | | | | | - List:
@@ -1961,6 +2042,9 @@ Definitions:
 | | | | | | | | | | | - Proxies
 | | | | | | | | | | | - N/A
 | | | | | | | | | | | - trader.proxy._Single_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - N/A
 | | | | | | | - FunDef:
 | | | | | | | | - EfficiencyTrend
 | | | | | | | | - List:
@@ -2013,6 +2097,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Trader's
 | | | | | | | | | | | - EfficiencyTrend_{%(trader)s}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - EfficiencyTrend_{%(trader)s}
 | | | | | | | - FunDef:
 | | | | | | | | - PendingVolume
 | | | | | | | | - List:
@@ -2046,6 +2133,9 @@ Definitions:
 | | | | | | | | | | | - Trader's
 | | | | | | | | | | | - PendingVolume_{%(trader)s}
 | | | | | | | | | | | - trader.props.PendingVolume_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - PendingVolume_{%(trader)s}
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -2114,6 +2204,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Volume function
 | | | | | | | | | | | - Dp_{%(trader)s}(%(desiredPosition)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Dp_{%(trader)s}(%(desiredPosition)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Bollinger_linear
 | | | | | | | | - List:
@@ -2199,6 +2292,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Volume function
 | | | | | | | | | | | - Bl_{%(trader)s}(%(alpha)s)*%(k)s
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Bl_{%(trader)s}(%(alpha)s)*%(k)s
 | | | | | | | - FunDef:
 | | | | | | | | - RSI_linear
 | | | | | | | | - List:
@@ -2295,6 +2391,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Volume function
 | | | | | | | | | | | - RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -2559,6 +2658,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - SafeSidePrice^{%(queue)s}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - SafeSidePrice^{%(queue)s}
 | | | | | | | - FunDef:
 | | | | | | | | - PriceAtVolume
 | | | | | | | | - List:
@@ -2662,6 +2764,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - Price_{%(alpha)s}^{%(queue)s}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Price_{%(alpha)s}^{%(queue)s}
 | | | | | | | - FunDef:
 | | | | | | | | - TickSize
 | | | | | | | | - List:
@@ -2722,6 +2827,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - Ask_{%(book)s}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Ask_{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - AskWeightedPrice
 | | | | | | | | - List:
@@ -2768,6 +2876,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - Ask_{%(alpha)s}^{%(book)s}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Ask_{%(alpha)s}^{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - MidPrice
 | | | | | | | | - List:
@@ -2813,6 +2924,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - MidPrice_{%(book)s}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - MidPrice_{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - Asks
 | | | | | | | | - List:
@@ -2853,6 +2967,9 @@ Definitions:
 | | | | | | | | | | | - Asset's
 | | | | | | | | | | | - Asks(%(book)s)
 | | | | | | | | | | | - orderbook.queue._Asks_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Asks(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - BidWeightedPrice
 | | | | | | | | - List:
@@ -2899,6 +3016,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - Bid_{%(alpha)s}^{%(book)s}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Bid_{%(alpha)s}^{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - AskPrice
 | | | | | | | | - List:
@@ -2936,6 +3056,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - Ask_{%(book)s}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Ask_{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - LastTradeVolume
 | | | | | | | | - List:
@@ -2967,6 +3090,9 @@ Definitions:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - LastTradeVolume(%(queue)s)
 | | | | | | | | | | | - orderbook.last_trade._LastTradeVolume_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - LastTradeVolume(%(queue)s)
 | | | | | | | - FunDef:
 | | | | | | | | - BidPrice
 | | | | | | | | - List:
@@ -3004,6 +3130,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - Bid^{%(book)s}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Bid^{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - Bids
 | | | | | | | | - List:
@@ -3044,6 +3173,9 @@ Definitions:
 | | | | | | | | | | | - Asset's
 | | | | | | | | | | | - Bids(%(book)s)
 | | | | | | | | | | | - orderbook.queue._Bids_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Bids(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - BestPrice
 | | | | | | | | - List:
@@ -3075,6 +3207,9 @@ Definitions:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - Price(%(queue)s)
 | | | | | | | | | | | - orderbook.props._BestPrice_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Price(%(queue)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Queue
 | | | | | | | | - List:
@@ -3117,6 +3252,9 @@ Definitions:
 | | | | | | | | | | | - Asset's
 | | | | | | | | | | | - Queue(%(book)s)
 | | | | | | | | | | | - orderbook.queue._Queue_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Queue(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - OfTrader
 | | | | | | | | - List:
@@ -3149,6 +3287,9 @@ Definitions:
 | | | | | | | | | | | - Proxies
 | | | | | | | | | | | - N/A
 | | | | | | | | | | | - orderbook.of_trader._OfTrader_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - N/A
 | | | | | | | - FunDef:
 | | | | | | | | - BidLastPrice
 | | | | | | | | - List:
@@ -3186,6 +3327,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - Bid^{%(book)s}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Bid^{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - CumulativePrice
 | | | | | | | | - List:
@@ -3229,6 +3373,9 @@ Definitions:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - CumulativePrice(%(book)s, %(depth)s)
 | | | | | | | | | | | - orderbook.cumulative_price.CumulativePrice_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - CumulativePrice(%(book)s, %(depth)s)
 | | | | | | | - FunDef:
 | | | | | | | | - LastPrice
 | | | | | | | | - List:
@@ -3260,6 +3407,9 @@ Definitions:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - LastPrice(%(queue)s)
 | | | | | | | | | | | - orderbook.last_price._LastPrice_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - LastPrice(%(queue)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Spread
 | | | | | | | | - List:
@@ -3301,6 +3451,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - Spread_{%(book)s}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Spread_{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - LastTradePrice
 | | | | | | | | - List:
@@ -3332,6 +3485,9 @@ Definitions:
 | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | - LastTradePrice(%(queue)s)
 | | | | | | | | | | | - orderbook.last_trade._LastTradePrice_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - LastTradePrice(%(queue)s)
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -3382,6 +3538,9 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - Avg_{n=%(timeframe)s}(%(source)s)
 | | | | | | | | | | | - moments.ma.MA_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Avg_{n=%(timeframe)s}(%(source)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Var
 | | | | | | | | - List:
@@ -3457,6 +3616,9 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - \\sigma^2_{n=%(timeframe)s}(%(source)s)
 | | | | | | | | | | | - moments.mv.MV_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - \\sigma^2_{n=%(timeframe)s}(%(source)s)
 | | | | | | | - FunDef:
 | | | | | | | | - StdDev
 | | | | | | | | - List:
@@ -3502,6 +3664,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - \\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - \\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}
 | | | | | | | - FunDef:
 | | | | | | | | - RelStdDev
 | | | | | | | | - List:
@@ -3558,6 +3723,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -3600,6 +3768,9 @@ Definitions:
 | | | | | | | | - Basic
 | | | | | | | | - [%(x)s]_dt=%(dt)s
 | | | | | | | | - observable.on_every_dt._OnEveryDt_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - [%(x)s]_dt=%(dt)s
 | | | | - FunDef:
 | | | | | - Min
 | | | | | - List:
@@ -3646,6 +3817,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Basic
 | | | | | | | | - min{%(x)s, %(y)s}
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - min{%(x)s, %(y)s}
 | | | | - FunDef:
 | | | | | - DownMovements
 | | | | | - List:
@@ -3704,6 +3878,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - RSI
 | | | | | | | | - Downs_{%(timeframe)s}(%(source)s)
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Downs_{%(timeframe)s}(%(source)s)
 | | | | - FunDef:
 | | | | | - Lagged
 | | | | | - List:
@@ -3742,6 +3919,9 @@ Definitions:
 | | | | | | | | - Basic
 | | | | | | | | - Lagged_{%(timeframe)s}(%(source)s)
 | | | | | | | | - observable.lagged.Lagged_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Lagged_{%(timeframe)s}(%(source)s)
 | | | | - FunDef:
 | | | | | - Max
 | | | | | - List:
@@ -3788,6 +3968,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Basic
 | | | | | | | | - max{%(x)s, %(y)s}
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - max{%(x)s, %(y)s}
 | | | | - FunDef:
 | | | | | - UpMovements
 | | | | | - List:
@@ -3846,6 +4029,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - RSI
 | | | | | | | | - Ups_{%(timeframe)s}(%(source)s)
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Ups_{%(timeframe)s}(%(source)s)
 | | | | - FunDef:
 | | | | | - Sqr
 | | | | | - List:
@@ -3880,6 +4066,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Pow/Log
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - {%(x)s}^2
 | | | | - FunDef:
 | | | | | - RSI
 | | | | | - List:
@@ -3950,6 +4139,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - RSI
 | | | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -4149,6 +4341,9 @@ Definitions:
 | | | | | - Basic
 | | | | | - C=%(x)s
 | | | - Attribute:
+| | | | - label
+| | | | - C=%(x)s
+| | | - Attribute:
 | | | | - category
 | | | | - Basic
 | - Interface:
@@ -4180,6 +4375,9 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
+| | | - Attribute:
+| | | | - label
+| | | | - Null
 | - Interface:
 | | - IOrderQueue
 | | - List:
@@ -4217,6 +4415,9 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
+| | | - Attribute:
+| | | | - label
+| | | | - C=%(x)s
 | - Interface:
 | | - ISingleAssetTrader
 | | - List:
@@ -4262,6 +4463,9 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
+| | | - Attribute:
+| | | | - label
+| | | | - \\frac{d%(x)s}{dt}
 | - Interface:
 | | - IDifferentiable
 | | - List:
@@ -4321,3 +4525,6 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
+| | | - Attribute:
+| | | | - label
+| | | | - If def(%(x)s) else %(elsePart)s

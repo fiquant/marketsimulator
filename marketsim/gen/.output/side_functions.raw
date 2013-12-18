@@ -61,6 +61,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Side function
 | | | | | | | | - Noise_{%(side_distribution)s}
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Noise_{%(side_distribution)s}
 | | | | - FunDef:
 | | | | | - Signal
 | | | | | - List:
@@ -129,6 +132,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Side function
 | | | | | | | | - SignalSide_{%(threshold)s}(%(signal)s)
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - SignalSide_{%(threshold)s}(%(signal)s)
 | | | | - FunDef:
 | | | | | - TrendFollower
 | | | | | - List:
@@ -197,6 +203,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Side function
 | | | | | | | | - Tf_{%(alpha)s}(%(book)s)
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Tf_{%(alpha)s}(%(book)s)
 | | | | - FunDef:
 | | | | | - CrossingAverages
 | | | | | - List:
@@ -285,6 +294,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Side function
 | | | | | | | | - CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)
 | | | | - FunDef:
 | | | | | - FundamentalValue
 | | | | | - List:
@@ -367,6 +379,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Side function
 | | | | | | | | - Fv_{%(fv)s}(%(book)s)
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Fv_{%(fv)s}(%(book)s)
 | | | | - FunDef:
 | | | | | - MeanReversion
 | | | | | - List:
@@ -423,6 +438,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Side function
 | | | | | | | | - Mr_{%(alpha)s}(%(book)s)
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Mr_{%(alpha)s}(%(book)s)
 | | | | - FunDef:
 | | | | | - PairTrading
 | | | | | - List:
@@ -491,6 +509,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Side function
 | | | | | | | | - Pt_{%(factor)s*%(dependee)s}(%(book)s)
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Pt_{%(factor)s*%(dependee)s}(%(book)s)
 | | - List:
 | | | - Attribute:
 | | | | - category

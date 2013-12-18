@@ -236,6 +236,9 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - Avg_{cumul}(%(source)s)
 | | | | | | | | | | | - moments.cma.CMA_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Avg_{cumul}(%(source)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Var
 | | | | | | | | - List:
@@ -269,6 +272,9 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - \\sigma^2_{cumul}(%(source)s)
 | | | | | | | | | | | - moments.cmv.Variance_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - \\sigma^2_{cumul}(%(source)s)
 | | | | | | | - FunDef:
 | | | | | | | | - StdDev
 | | | | | | | | - List:
@@ -307,6 +313,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - \\sqrt{\\sigma^2_{cumul}_{%(source)s}}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - \\sqrt{\\sigma^2_{cumul}_{%(source)s}}
 | | | | | | | - FunDef:
 | | | | | | | | - RelStdDev
 | | | | | | | | - List:
@@ -352,6 +361,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{cumul}_{%(source)s}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - RSD_{cumul}_{%(source)s}
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -402,6 +414,9 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - Avg_{n=%(timeframe)s}(%(source)s)
 | | | | | | | | | | | - moments.ma.MA_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Avg_{n=%(timeframe)s}(%(source)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Var
 | | | | | | | | - List:
@@ -477,6 +492,9 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - \\sigma^2_{n=%(timeframe)s}(%(source)s)
 | | | | | | | | | | | - moments.mv.MV_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - \\sigma^2_{n=%(timeframe)s}(%(source)s)
 | | | | | | | - FunDef:
 | | | | | | | | - StdDev
 | | | | | | | | - List:
@@ -522,6 +540,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - \\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - \\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}
 | | | | | | | - FunDef:
 | | | | | | | | - RelStdDev
 | | | | | | | | - List:
@@ -578,6 +599,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category

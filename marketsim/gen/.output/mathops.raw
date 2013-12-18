@@ -47,6 +47,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Log/Pow
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - e^{%(x)s}
 | | | | - FunDef:
 | | | | | - Log
 | | | | | - List:
@@ -88,6 +91,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Log/Pow
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - log(%(x)s)
 | | | | - FunDef:
 | | | | | - Sqrt
 | | | | | - List:
@@ -129,6 +135,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Log/Pow
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - \\sqrt{%(x)s}
 | | | | - FunDef:
 | | | | | - Pow
 | | | | | - List:
@@ -187,6 +196,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Log/Pow
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - %(base)s^{%(power)s}
 | | | | - FunDef:
 | | | | | - Atan
 | | | | | - List:
@@ -228,4 +240,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Trigonometric
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - atan(%(x)s)
 | | - List:

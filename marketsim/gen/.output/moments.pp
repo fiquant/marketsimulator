@@ -26,18 +26,22 @@ package observable {@category = "Statistics"
     
     package Cumulative {
         @python.intrinsic.function("Statistics", "Avg_{cumul}(%(source)s)", "moments.cma.CMA_Impl")
+        @label = "Avg_{cumul}(%(source)s)"
         def Avg(source = const()) : () => Float
             
         
         @python.intrinsic.function("Statistics", "\\sigma^2_{cumul}(%(source)s)", "moments.cmv.Variance_Impl")
+        @label = "\\sigma^2_{cumul}(%(source)s)"
         def Var(source = const()) : () => Float
             
         
         @python.function("Statistics", "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}")
+        @label = "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}"
         def StdDev(source = const())
              = mathops.Sqrt(Var(source))
         
         @python.function("Statistics", "RSD_{cumul}_{%(source)s}")
+        @label = "RSD_{cumul}_{%(source)s}"
         def RelStdDev(source = const())
              = (source-Avg(source))/StdDev(source)
     }
@@ -45,21 +49,25 @@ package observable {@category = "Statistics"
     
     package Moving {
         @python.intrinsic.function("Statistics", "Avg_{n=%(timeframe)s}(%(source)s)", "moments.ma.MA_Impl")
+        @label = "Avg_{n=%(timeframe)s}(%(source)s)"
         def Avg(source = const(),
                 timeframe = 100.0) : () => Float
             
         
         @python.intrinsic.function("Statistics", "\\sigma^2_{n=%(timeframe)s}(%(source)s)", "moments.mv.MV_Impl")
+        @label = "\\sigma^2_{n=%(timeframe)s}(%(source)s)"
         def Var(source = const(),
                 timeframe = 100.0)
              = Max(const(0.0),Avg(source*source,timeframe)-Sqr(Avg(source,timeframe)))
         
         @python.function("Statistics", "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}")
+        @label = "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}"
         def StdDev(source = const(),
                    timeframe = 100.0)
              = mathops.Sqrt(Var(source))
         
         @python.function("Statistics", "RSD_{n=%(timeframe)s}_{%(source)s}")
+        @label = "RSD_{n=%(timeframe)s}_{%(source)s}"
         def RelStdDev(source = const(),
                       timeframe = 100.0)
              = (source-Avg(source,timeframe))/StdDev(source,timeframe)

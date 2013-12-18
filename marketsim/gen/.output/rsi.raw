@@ -44,6 +44,9 @@ Definitions:
 | | | | | | | | - Basic
 | | | | | | | | - Lagged_{%(timeframe)s}(%(source)s)
 | | | | | | | | - observable.lagged.Lagged_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Lagged_{%(timeframe)s}(%(source)s)
 | | | | - FunDef:
 | | | | | - UpMovements
 | | | | | - List:
@@ -102,6 +105,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - RSI
 | | | | | | | | - Ups_{%(timeframe)s}(%(source)s)
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Ups_{%(timeframe)s}(%(source)s)
 | | | | - FunDef:
 | | | | | - DownMovements
 | | | | | - List:
@@ -160,6 +166,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - RSI
 | | | | | | | | - Downs_{%(timeframe)s}(%(source)s)
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Downs_{%(timeframe)s}(%(source)s)
 | | | | - PackageDef:
 | | | | | - QualifiedName:
 | | | | | | - List:
@@ -242,6 +251,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - RSI
 | | | | | | | | | | | - RSI-raw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -316,4 +328,7 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - RSI
 | | | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
 | | - List:

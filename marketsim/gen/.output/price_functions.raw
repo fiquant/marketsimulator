@@ -94,6 +94,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Price function
 | | | | | | | | - Lp_{%(side)s}(%(book)s)
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Lp_{%(side)s}(%(book)s)
 | | - List:
 | | | - Attribute:
 | | | | - category

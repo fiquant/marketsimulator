@@ -40,6 +40,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Pow/Log
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - {%(x)s}^2
 | | | | - FunDef:
 | | | | | - Min
 | | | | | - List:
@@ -86,6 +89,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Basic
 | | | | | | | | - min{%(x)s, %(y)s}
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - min{%(x)s, %(y)s}
 | | | | - FunDef:
 | | | | | - Max
 | | | | | - List:
@@ -132,6 +138,9 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Basic
 | | | | | | | | - max{%(x)s, %(y)s}
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - max{%(x)s, %(y)s}
 | | | | - FunDef:
 | | | | | - OnEveryDt
 | | | | | - List:
@@ -170,6 +179,9 @@ Definitions:
 | | | | | | | | - Basic
 | | | | | | | | - [%(x)s]_dt=%(dt)s
 | | | | | | | | - observable.on_every_dt._OnEveryDt_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - [%(x)s]_dt=%(dt)s
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -208,6 +220,9 @@ Definitions:
 | | | | | - Basic
 | | | | | - C=%(x)s
 | | | - Attribute:
+| | | | - label
+| | | | - C=%(x)s
+| | | - Attribute:
 | | | | - category
 | | | | - Basic
 | - FunDef:
@@ -241,6 +256,9 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
+| | | - Attribute:
+| | | | - label
+| | | | - C=%(x)s
 | - FunDef:
 | | - null
 | | - List:
@@ -267,6 +285,9 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
+| | | - Attribute:
+| | | | - label
+| | | | - Null
 | - FunDef:
 | | - IfDefined
 | | - List:
@@ -319,6 +340,9 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
+| | | - Attribute:
+| | | | - label
+| | | | - If def(%(x)s) else %(elsePart)s
 | - Interface:
 | | - Side
 | | - List:
@@ -351,6 +375,9 @@ Definitions:
 | | | | | | | | - Side
 | | | | | | | | - Sell
 | | | | | | | | - side._Sell_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Sell
 | | | | - FunDef:
 | | | | | - Buy
 | | | | | - List:
@@ -374,6 +401,9 @@ Definitions:
 | | | | | | | | - Side
 | | | | | | | | - Buy
 | | | | | | | | - side._Buy_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Buy
 | | | | - FunDef:
 | | | | | - Nothing
 | | | | | - List:
@@ -397,6 +427,9 @@ Definitions:
 | | | | | | | | - Side
 | | | | | | | | - None
 | | | | | | | | - side._Buy_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - NoneSide
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -459,6 +492,9 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
+| | | - Attribute:
+| | | | - label
+| | | | - \\frac{d%(x)s}{dt}
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
