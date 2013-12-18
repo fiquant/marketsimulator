@@ -63,8 +63,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Volume function
-| | | | | | | | - Dp_{%(trader)s}(%(desiredPosition)s)
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Dp_{%(trader)s}(%(desiredPosition)s)
@@ -151,8 +149,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Volume function
-| | | | | | | | - Bl_{%(trader)s}(%(alpha)s)*%(k)s
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Bl_{%(trader)s}(%(alpha)s)*%(k)s
@@ -250,8 +246,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Volume function
-| | | | | | | | - RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s

@@ -6,13 +6,13 @@ package observable {
                timeframe = 10.0) : IObservable
         
     
-    @python.observable("RSI", "Ups_{%(timeframe)s}(%(source)s)")
+    @python.observable()
     @label = "Ups_{%(timeframe)s}(%(source)s)"
     def UpMovements(source = orderbook.MidPrice(),
                     timeframe = 10.0)
          = Max(const(0.0),source-Lagged(source,timeframe))
     
-    @python.observable("RSI", "Downs_{%(timeframe)s}(%(source)s)")
+    @python.observable()
     @label = "Downs_{%(timeframe)s}(%(source)s)"
     def DownMovements(source = orderbook.MidPrice(),
                       timeframe = 10.0)
@@ -20,7 +20,7 @@ package observable {
     @category = "RSI"
     
     package rsi {
-        @python.observable("RSI", "RSI-raw_{%(timeframe)s}^{%(alpha)s}(%(source)s)")
+        @python.observable()
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
         def Raw(source = orderbook.MidPrice(),
                 timeframe = 10.0,
@@ -28,7 +28,7 @@ package observable {
              = EW.Avg(UpMovements(source,timeframe),alpha)/EW.Avg(DownMovements(source,timeframe),alpha)
     }
     
-    @python.observable("RSI", "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)")
+    @python.observable()
     @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)"
     def RSI(book = orderbook.OfTrader(),
             timeframe = 10.0,

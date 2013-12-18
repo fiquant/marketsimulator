@@ -17,7 +17,7 @@ package observable.trader
     @label = "PendingVolume_{%(trader)s}"
     def PendingVolume(trader = SingleProxy()) => Float
 
-    @python.observable("Trader's", "Efficiency_{%(trader)s}")
+    @python.observable
     @label = "Efficiency_{%(trader)s}"
     def Efficiency(trader = SingleProxy())
         = Balance(trader) + orderbook.CumulativePrice(orderbook.OfTrader(trader), Position(trader))

@@ -1,7 +1,7 @@
 @category = "Price function"
 package observable.pricefunc
 {
-    @python.observable ("Price function", "Lp_{%(side)s}(%(book)s)")
+    @python.observable
     @label = "Lp_{%(side)s}(%(book)s)"
     def LiquidityProvider(
             side = side.Sell(),

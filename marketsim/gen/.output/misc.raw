@@ -35,8 +35,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Pow/Log
-| | | | | | | | - {%(x)s}^2
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Pow/Log
@@ -87,8 +85,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Basic
-| | | | | | | | - min{%(x)s, %(y)s}
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - min{%(x)s, %(y)s}
@@ -136,8 +132,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Basic
-| | | | | | | | - max{%(x)s, %(y)s}
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - max{%(x)s, %(y)s}
@@ -333,8 +327,6 @@ Definitions:
 | | | | | | - python
 | | | | | | - observable
 | | | | - List:
-| | | | | - Basic
-| | | | | - If def(%(x)s) else %(elsePart)s
 | | | - Attribute:
 | | | | - category
 | | | | - Basic

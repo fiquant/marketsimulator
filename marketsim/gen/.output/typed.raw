@@ -964,8 +964,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Price function
-| | | | | | | | | | | - Lp_{%(side)s}(%(book)s)
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -1068,8 +1066,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Side function
-| | | | | | | | | | | - Pt_{%(factor)s*%(dependee)s}(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Signal
 | | | | | | | | - List:
@@ -1163,8 +1159,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Side function
-| | | | | | | | | | | - SignalSide_{%(threshold)s}(%(signal)s)
 | | | | | | | - FunDef:
 | | | | | | | | - CrossingAverages
 | | | | | | | | - List:
@@ -1283,8 +1277,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Side function
-| | | | | | | | | | | - CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - TrendFollower
 | | | | | | | | - List:
@@ -1377,8 +1369,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Side function
-| | | | | | | | | | | - Tf_{%(alpha)s}(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - FundamentalValue
 | | | | | | | | - List:
@@ -1479,8 +1469,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Side function
-| | | | | | | | | | | - Fv_{%(fv)s}(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - MeanReversion
 | | | | | | | | - List:
@@ -1557,8 +1545,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Side function
-| | | | | | | | | | | - Mr_{%(alpha)s}(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Noise
 | | | | | | | | - List:
@@ -1625,8 +1611,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Side function
-| | | | | | | | | | | - Noise_{%(side_distribution)s}
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -1934,8 +1918,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - RSI
-| | | | | | | | | | | - RSI-raw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -2440,8 +2422,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Trader's
-| | | | | | | | | | | - Efficiency_{%(trader)s}
 | | | | | | | - FunDef:
 | | | | | | | | - SingleProxy
 | | | | | | | | - List:
@@ -2664,8 +2644,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Volume function
-| | | | | | | | | | | - Dp_{%(trader)s}(%(desiredPosition)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Bollinger_linear
 | | | | | | | | - List:
@@ -2775,8 +2753,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Volume function
-| | | | | | | | | | | - Bl_{%(trader)s}(%(alpha)s)*%(k)s
 | | | | | | | - FunDef:
 | | | | | | | | - RSI_linear
 | | | | | | | | - List:
@@ -2904,8 +2880,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Volume function
-| | | | | | | | | | | - RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -3245,8 +3219,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - SafeSidePrice^{%(queue)s}
 | | | | | | | - FunDef:
 | | | | | | | | - PriceAtVolume
 | | | | | | | | - List:
@@ -3383,8 +3355,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Price_{%(alpha)s}^{%(queue)s}
 | | | | | | | - FunDef:
 | | | | | | | | - TickSize
 | | | | | | | | - List:
@@ -3466,8 +3436,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Ask_{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - AskWeightedPrice
 | | | | | | | | - List:
@@ -3533,8 +3501,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Ask_{%(alpha)s}^{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - MidPrice
 | | | | | | | | - List:
@@ -3600,8 +3566,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - MidPrice_{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - Asks
 | | | | | | | | - List:
@@ -3722,8 +3686,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Bid_{%(alpha)s}^{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - AskPrice
 | | | | | | | | - List:
@@ -3776,8 +3738,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Ask_{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - LastTradeVolume
 | | | | | | | | - List:
@@ -3870,8 +3830,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Bid^{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - Bids
 | | | | | | | | - List:
@@ -4116,8 +4074,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Bid^{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - CumulativePrice
 | | | | | | | | - List:
@@ -4270,8 +4226,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Spread_{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - LastTradePrice
 | | | | | | | | - List:
@@ -4716,8 +4670,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Basic
-| | | | | | | | - min{%(x)s, %(y)s}
 | | | | - FunDef:
 | | | | | - DownMovements
 | | | | | - List:
@@ -4792,8 +4744,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - RSI
-| | | | | | | | - Downs_{%(timeframe)s}(%(source)s)
 | | | | - FunDef:
 | | | | | - Lagged
 | | | | | - List:
@@ -4902,8 +4852,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Basic
-| | | | | | | | - max{%(x)s, %(y)s}
 | | | | - FunDef:
 | | | | | - UpMovements
 | | | | | - List:
@@ -4978,8 +4926,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - RSI
-| | | | | | | | - Ups_{%(timeframe)s}(%(source)s)
 | | | | - FunDef:
 | | | | | - Sqr
 | | | | | - List:
@@ -5023,8 +4969,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Pow/Log
-| | | | | | | | - {%(x)s}^2
 | | | | - FunDef:
 | | | | | - RSI
 | | | | | - List:
@@ -5130,8 +5074,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - RSI
-| | | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -5593,5 +5535,3 @@ Definitions:
 | | | | | | - python
 | | | | | | - observable
 | | | | - List:
-| | | | | - Basic
-| | | | | - If def(%(x)s) else %(elsePart)s

@@ -192,8 +192,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Trader's
-| | | | | | | | - Efficiency_{%(trader)s}
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Efficiency_{%(trader)s}

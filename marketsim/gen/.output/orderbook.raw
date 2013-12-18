@@ -242,8 +242,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Orderbook
-| | | | | | | | - Ask_{%(book)s}
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Ask_{%(book)s}
@@ -282,8 +280,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Orderbook
-| | | | | | | | - Bid^{%(book)s}
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Bid^{%(book)s}
@@ -356,8 +352,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Orderbook
-| | | | | | | | - Ask_{%(book)s}
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Ask_{%(book)s}
@@ -396,8 +390,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Orderbook
-| | | | | | | | - Bid^{%(book)s}
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Bid^{%(book)s}
@@ -530,8 +522,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Orderbook
-| | | | | | | | - SafeSidePrice^{%(queue)s}
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - SafeSidePrice^{%(queue)s}
@@ -636,8 +626,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Orderbook
-| | | | | | | | - Price_{%(alpha)s}^{%(queue)s}
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Price_{%(alpha)s}^{%(queue)s}
@@ -685,8 +673,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Orderbook
-| | | | | | | | - Ask_{%(alpha)s}^{%(book)s}
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Ask_{%(alpha)s}^{%(book)s}
@@ -734,8 +720,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Orderbook
-| | | | | | | | - Bid_{%(alpha)s}^{%(book)s}
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Bid_{%(alpha)s}^{%(book)s}
@@ -801,8 +785,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Orderbook
-| | | | | | | | - Spread_{%(book)s}
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Spread_{%(book)s}
@@ -849,8 +831,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Orderbook
-| | | | | | | | - MidPrice_{%(book)s}
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - MidPrice_{%(book)s}

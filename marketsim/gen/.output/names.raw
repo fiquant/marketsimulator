@@ -834,8 +834,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Price function
-| | | | | | | | | | | - Lp_{%(side)s}(%(book)s)
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Lp_{%(side)s}(%(book)s)
@@ -915,8 +913,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Side function
-| | | | | | | | | | | - Pt_{%(factor)s*%(dependee)s}(%(book)s)
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Pt_{%(factor)s*%(dependee)s}(%(book)s)
@@ -986,8 +982,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Side function
-| | | | | | | | | | | - SignalSide_{%(threshold)s}(%(signal)s)
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - SignalSide_{%(threshold)s}(%(signal)s)
@@ -1077,8 +1071,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Side function
-| | | | | | | | | | | - CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)
@@ -1148,8 +1140,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Side function
-| | | | | | | | | | | - Tf_{%(alpha)s}(%(book)s)
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Tf_{%(alpha)s}(%(book)s)
@@ -1233,8 +1223,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Side function
-| | | | | | | | | | | - Fv_{%(fv)s}(%(book)s)
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Fv_{%(fv)s}(%(book)s)
@@ -1292,8 +1280,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Side function
-| | | | | | | | | | | - Mr_{%(alpha)s}(%(book)s)
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Mr_{%(alpha)s}(%(book)s)
@@ -1349,8 +1335,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Side function
-| | | | | | | | | | | - Noise_{%(side_distribution)s}
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Noise_{%(side_distribution)s}
@@ -1605,8 +1589,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - RSI
-| | | | | | | | | | | - RSI-raw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
@@ -2006,8 +1988,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Trader's
-| | | | | | | | | | | - Efficiency_{%(trader)s}
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Efficiency_{%(trader)s}
@@ -2190,8 +2170,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Volume function
-| | | | | | | | | | | - Dp_{%(trader)s}(%(desiredPosition)s)
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Dp_{%(trader)s}(%(desiredPosition)s)
@@ -2278,8 +2256,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Volume function
-| | | | | | | | | | | - Bl_{%(trader)s}(%(alpha)s)*%(k)s
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Bl_{%(trader)s}(%(alpha)s)*%(k)s
@@ -2377,8 +2353,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Volume function
-| | | | | | | | | | | - RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s
@@ -2652,8 +2626,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - SafeSidePrice^{%(queue)s}
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - SafeSidePrice^{%(queue)s}
@@ -2758,8 +2730,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Price_{%(alpha)s}^{%(queue)s}
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Price_{%(alpha)s}^{%(queue)s}
@@ -2821,8 +2791,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Ask_{%(book)s}
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Ask_{%(book)s}
@@ -2870,8 +2838,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Ask_{%(alpha)s}^{%(book)s}
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Ask_{%(alpha)s}^{%(book)s}
@@ -2918,8 +2884,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - MidPrice_{%(book)s}
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - MidPrice_{%(book)s}
@@ -3010,8 +2974,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Bid_{%(alpha)s}^{%(book)s}
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Bid_{%(alpha)s}^{%(book)s}
@@ -3050,8 +3012,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Ask_{%(book)s}
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Ask_{%(book)s}
@@ -3124,8 +3084,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Bid^{%(book)s}
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Bid^{%(book)s}
@@ -3321,8 +3279,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Bid^{%(book)s}
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Bid^{%(book)s}
@@ -3445,8 +3401,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Spread_{%(book)s}
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Spread_{%(book)s}
@@ -3807,8 +3761,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Basic
-| | | | | | | | - min{%(x)s, %(y)s}
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - min{%(x)s, %(y)s}
@@ -3868,8 +3820,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - RSI
-| | | | | | | | - Downs_{%(timeframe)s}(%(source)s)
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Downs_{%(timeframe)s}(%(source)s)
@@ -3958,8 +3908,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Basic
-| | | | | | | | - max{%(x)s, %(y)s}
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - max{%(x)s, %(y)s}
@@ -4019,8 +3967,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - RSI
-| | | | | | | | - Ups_{%(timeframe)s}(%(source)s)
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Ups_{%(timeframe)s}(%(source)s)
@@ -4053,8 +3999,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Pow/Log
-| | | | | | | | - {%(x)s}^2
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Pow/Log
@@ -4129,8 +4073,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - RSI
-| | | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
@@ -4510,8 +4452,6 @@ Definitions:
 | | | | | | - python
 | | | | | | - observable
 | | | | - List:
-| | | | | - Basic
-| | | | | - If def(%(x)s) else %(elsePart)s
 | | | - Attribute:
 | | | | - category
 | | | | - Basic

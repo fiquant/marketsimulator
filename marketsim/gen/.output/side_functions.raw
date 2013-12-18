@@ -59,8 +59,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Side function
-| | | | | | | | - Noise_{%(side_distribution)s}
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Noise_{%(side_distribution)s}
@@ -130,8 +128,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Side function
-| | | | | | | | - SignalSide_{%(threshold)s}(%(signal)s)
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - SignalSide_{%(threshold)s}(%(signal)s)
@@ -201,8 +197,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Side function
-| | | | | | | | - Tf_{%(alpha)s}(%(book)s)
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Tf_{%(alpha)s}(%(book)s)
@@ -292,8 +286,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Side function
-| | | | | | | | - CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)
@@ -377,8 +369,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Side function
-| | | | | | | | - Fv_{%(fv)s}(%(book)s)
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Fv_{%(fv)s}(%(book)s)
@@ -436,8 +426,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Side function
-| | | | | | | | - Mr_{%(alpha)s}(%(book)s)
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Mr_{%(alpha)s}(%(book)s)
@@ -507,8 +495,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Side function
-| | | | | | | | - Pt_{%(factor)s*%(dependee)s}(%(book)s)
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Pt_{%(factor)s*%(dependee)s}(%(book)s)

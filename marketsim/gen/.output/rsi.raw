@@ -103,8 +103,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - RSI
-| | | | | | | | - Ups_{%(timeframe)s}(%(source)s)
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Ups_{%(timeframe)s}(%(source)s)
@@ -164,8 +162,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - RSI
-| | | | | | | | - Downs_{%(timeframe)s}(%(source)s)
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Downs_{%(timeframe)s}(%(source)s)
@@ -249,8 +245,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - RSI
-| | | | | | | | | | | - RSI-raw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
@@ -326,8 +320,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - RSI
-| | | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)

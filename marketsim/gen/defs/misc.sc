@@ -1,16 +1,16 @@
 @category = "Basic"
 package observable
 {
-    @python.observable("Pow/Log", "{%(x)s}^2")
+    @python.observable
     @category = "Pow/Log"
     @label = "{%(x)s}^2"
     def Sqr(x = constant()) = x*x
 
-    @python.observable("Basic", "min{%(x)s, %(y)s}")
+    @python.observable
     @label = "min{%(x)s, %(y)s}"
     def Min(x = constant(), y = constant()) = if x < y then x else y
 
-    @python.observable("Basic", "max{%(x)s, %(y)s}")
+    @python.observable
     @label = "max{%(x)s, %(y)s}"
     def Max(x = constant(), y = constant()) = if x > y then x else y
 
@@ -34,7 +34,7 @@ def const(x = 1.0) : IObservable
 @label = "Null"
 def null() => Float
 
-@python.observable("Basic", "If def(%(x)s) else %(elsePart)s")
+@python.observable
 @category = "Basic"
 @label = "If def(%(x)s) else %(elsePart)s"
 def IfDefined(x = constant(), elsePart = constant()) =
