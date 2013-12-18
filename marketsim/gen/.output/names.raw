@@ -79,6 +79,9 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - side._Buy_Impl
 | | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Side
 | - PackageDef:
 | | - QualifiedName:
 | | | - List:
