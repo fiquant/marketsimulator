@@ -115,6 +115,11 @@ package object Typed
         
         def decorators = attributes :: annotations
 
+        def getAttribute(name : String) = attributes.items get name match {
+            case Some(v) => v
+            case None =>    parent getAttribute name
+        }
+
         override def equals(o : Any) = o match {
             case that : Function =>
                 parent.qualifiedName == that.parent.qualifiedName &&
@@ -149,6 +154,10 @@ package object Typed
         def qualifiedName : List[String] = Nil
 
         def qualifyName(x : String) = x
+
+        def getAttribute(name : String) : String =
+            throw new Exception(s"Cannot find attribute named $name")
+
 
         def insert(f : Function)  = {
             functions = functions updated (f.name, f)
@@ -201,6 +210,12 @@ package object Typed
         override def qualifiedName = parent.qualifiedName :+ name
 
         override def qualifyName(x : String) = (qualifiedName mkString ".") + "." + x
+
+        override def getAttribute(name : String) = attributes.items get name match {
+            case Some(v) => v
+            case None    => parent getAttribute name
+        }
+
 
         override def equals(o : Any) = o match {
             case that : SubPackage => super.equals(o) && name == that.name
