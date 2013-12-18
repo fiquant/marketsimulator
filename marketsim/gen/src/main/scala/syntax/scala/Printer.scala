@@ -367,14 +367,16 @@ package object Printer
         }
 
         trait TopLevelPackage extends Printable {
-            def packages : Map[String, Any]
-            def functions : Map[String, Any]
-            def types : Map[String, Any]
+            def packages    : Map[String, Any]
+            def functions   : Map[String, Any]
+            def types       : Map[String, Any]
+            def attributes  : Any
             def content =
-                (packages.values mkString crlf) +
-                (types.values mkString crlf) +
+                (packages.values  mkString crlf) +
+                (types.values     mkString crlf) +
                 (functions.values mkString crlf)
             def wrapped(name : String) =
+                attributes +
                 crlf + s"package $name {" +
                     indent() { content } +
                 crlf + "}"

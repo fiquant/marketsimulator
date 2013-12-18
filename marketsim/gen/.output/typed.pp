@@ -1,3 +1,4 @@
+@category = "Side"
 
 package side {
     @label = "Sell"

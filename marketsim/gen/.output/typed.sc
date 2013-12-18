@@ -1,4 +1,4 @@
-
+@category = "Side"
 package side {
     @label = "Sell"
     @python.intrinsic.function("Side", "Sell", "side._Sell_Impl")

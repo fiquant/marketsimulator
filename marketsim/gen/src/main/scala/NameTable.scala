@@ -74,7 +74,7 @@ object NameTable {
         {
             typed = Some(target)
             packages.values foreach {
-                p => p.toTyped(target.createChild(p.name))
+                p => p.toTyped(target.createChild(p.name, p.attributes))
             }
             target
         }

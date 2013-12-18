@@ -144,7 +144,7 @@ package object Typed
         var packages = Map[String, SubPackage]()
         var types = Map[String, TypeDeclaration]()
         var annotations = List[Annotation]()
-        var attributes = Attributes(Map.empty)
+        val attributes = Attributes(Map.empty)
 
         def qualifiedName : List[String] = Nil
 
@@ -160,14 +160,17 @@ package object Typed
             t
         }
 
-        def createChild(n : String) = {
-            val p = new SubPackage(n, this)
+        def createChild(n : String, a : Attributes) = {
+            val p = new SubPackage(n, this, a)
             packages = packages.updated(p.name, p)
             p
         }
 
         override def equals(o : Any) = o match {
-            case that : Package => functions.equals(that.functions) && packages.equals(that.packages)
+            case that : Package =>
+                (functions  equals that.functions) &&
+                (packages   equals that.packages)  &&
+                (attributes equals that.attributes)
             case _ => false
         }
 
@@ -188,7 +191,12 @@ package object Typed
 
     val topLevel = new Package
 
-    class SubPackage(val name : String, parent : Package) extends Package with sc.SubPackage with ScPrintable
+    class SubPackage(         val name       : String,
+                                  parent     : Package,
+                     override val attributes : Attributes)
+            extends Package
+            with    sc.SubPackage
+            with    ScPrintable
     {
         override def qualifiedName = parent.qualifiedName :+ name
 
