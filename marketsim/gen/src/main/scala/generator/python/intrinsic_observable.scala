@@ -20,13 +20,14 @@ object intrinsic_observable extends gen.PythonGenerator
 
     case class Import(args : List[String], f : Typed.Function) extends base.Printer
     {
-        if (args.length != 3)
-            throw new Exception(s"Annotation $name should have 3 arguments in" +
-                    " form (category, label_template, implementation_class)" + "\r\n" + "In function " + f)
+        val name = f.name
+        if (args.length != 1)
+            throw new Exception(s"Annotation $name should have 1 arguments in" +
+                    " form (implementation_class)" + "\r\n" + "In function " + f)
 
-        val last_dot_idx = args(2).lastIndexOf(".")
-        val implementation_module =args(2).substring(0, last_dot_idx)
-        val implementation_class  =args(2).substring(last_dot_idx + 1)
+        val last_dot_idx = args(0).lastIndexOf(".")
+        val implementation_module =args(0).substring(0, last_dot_idx)
+        val implementation_class  =args(0).substring(last_dot_idx + 1)
 
         val parameters  = f.parameters map Parameter
         val docstring  = f.docstring match {
@@ -35,7 +36,6 @@ object intrinsic_observable extends gen.PythonGenerator
         }
 
         type Parameter = intrinsic_observable.Parameter
-        val name = f.name
         val alias = name
 
         val subscriptions = join_fields({ _.subscribe }, nl)

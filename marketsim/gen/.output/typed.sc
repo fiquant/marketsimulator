@@ -314,12 +314,12 @@ package observable {@category = "Price function"
     @category = "Trader's"
     package trader {
         @label = "Balance_{%(trader)s}"
-        @python.intrinsic.observable("Trader's", "Balance_{%(trader)s}", "trader.props.Balance_Impl")
+        @python.intrinsic.observable("trader.props.Balance_Impl")
         def Balance(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : () => Float
             
         
         @label = "Amount_{%(trader)s}"
-        @python.intrinsic.observable("Trader's", "Amount_{%(trader)s}", "trader.props.Position_Impl")
+        @python.intrinsic.observable("trader.props.Position_Impl")
         def Position(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : () => Float
             
         
@@ -342,7 +342,7 @@ package observable {@category = "Price function"
             	 = Derivative(observable.EW.Avg(observable.trader.Efficiency(trader),alpha))
         
         @label = "PendingVolume_{%(trader)s}"
-        @python.intrinsic.observable("Trader's", "PendingVolume_{%(trader)s}", "trader.props.PendingVolume_Impl")
+        @python.intrinsic.observable("trader.props.PendingVolume_Impl")
         def PendingVolume(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : () => Float
             
     }
@@ -464,7 +464,7 @@ package observable {@category = "Price function"
             	 = observable.orderbook.BestPrice(observable.orderbook.Asks(book))
         
         @label = "LastTradeVolume(%(queue)s)"
-        @python.intrinsic.observable("Orderbook", "LastTradeVolume(%(queue)s)", "orderbook.last_trade._LastTradeVolume_Impl")
+        @python.intrinsic.observable("orderbook.last_trade._LastTradeVolume_Impl")
         def LastTradeVolume(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
         
@@ -481,7 +481,7 @@ package observable {@category = "Price function"
             	 = observable.orderbook.Queue(book,side.Buy())
         
         @label = "Price(%(queue)s)"
-        @python.intrinsic.observable("Orderbook", "Price(%(queue)s)", "orderbook.props._BestPrice_Impl")
+        @python.intrinsic.observable("orderbook.props._BestPrice_Impl")
         def BestPrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
         
@@ -503,13 +503,13 @@ package observable {@category = "Price function"
             	 = observable.orderbook.LastPrice(observable.orderbook.Bids(book))
         
         @label = "CumulativePrice(%(book)s, %(depth)s)"
-        @python.intrinsic.observable("Orderbook", "CumulativePrice(%(book)s, %(depth)s)", "orderbook.cumulative_price.CumulativePrice_Impl")
+        @python.intrinsic.observable("orderbook.cumulative_price.CumulativePrice_Impl")
         def CumulativePrice(book : IOrderBook = observable.orderbook.OfTrader(),
                             depth : IFunction = constant()) : () => Float
             
         
         @label = "LastPrice(%(queue)s)"
-        @python.intrinsic.observable("Orderbook", "LastPrice(%(queue)s)", "orderbook.last_price._LastPrice_Impl")
+        @python.intrinsic.observable("orderbook.last_price._LastPrice_Impl")
         def LastPrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
         
@@ -520,7 +520,7 @@ package observable {@category = "Price function"
             	 = observable.orderbook.AskPrice(book)-observable.orderbook.BidPrice(book)
         
         @label = "LastTradePrice(%(queue)s)"
-        @python.intrinsic.observable("Orderbook", "LastTradePrice(%(queue)s)", "orderbook.last_trade._LastTradePrice_Impl")
+        @python.intrinsic.observable("orderbook.last_trade._LastTradePrice_Impl")
         def LastTradePrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
     }
@@ -554,7 +554,7 @@ package observable {@category = "Price function"
             	 = (source-observable.Moving.Avg(source,timeframe))/observable.Moving.StdDev(source,timeframe)
     }
     @label = "[%(x)s]_dt=%(dt)s"
-    @python.intrinsic.observable("Basic", "[%(x)s]_dt=%(dt)s", "observable.on_every_dt._OnEveryDt_Impl")
+    @python.intrinsic.observable("observable.on_every_dt._OnEveryDt_Impl")
     def OnEveryDt(dt : Float = 1.0,
                   x : IFunction = constant()) : IObservable
         
@@ -574,7 +574,7 @@ package observable {@category = "Price function"
         	 = observable.Max(const(0.0),observable.Lagged(source,timeframe)-source)
     
     @label = "Lagged_{%(timeframe)s}(%(source)s)"
-    @python.intrinsic.observable("Basic", "Lagged_{%(timeframe)s}(%(source)s)", "observable.lagged.Lagged_Impl")
+    @python.intrinsic.observable("observable.lagged.Lagged_Impl")
     def Lagged(source : IObservable = const(),
                timeframe : Float = 10.0) : IObservable
         

@@ -170,8 +170,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Basic
-| | | | | | | | - [%(x)s]_dt=%(dt)s
 | | | | | | | | - observable.on_every_dt._OnEveryDt_Impl
 | | | | | | - Attribute:
 | | | | | | | - label

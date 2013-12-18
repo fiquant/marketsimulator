@@ -19,7 +19,7 @@ package observable {
             y = constant())
          = if x>y then x else y
     
-    @python.intrinsic.observable("Basic", "[%(x)s]_dt=%(dt)s", "observable.on_every_dt._OnEveryDt_Impl")
+    @python.intrinsic.observable("observable.on_every_dt._OnEveryDt_Impl")
     @label = "[%(x)s]_dt=%(dt)s"
     def OnEveryDt(dt = 1.0,
                   x = constant()) : IObservable

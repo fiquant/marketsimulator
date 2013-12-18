@@ -2285,8 +2285,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Trader's
-| | | | | | | | | | | - Balance_{%(trader)s}
 | | | | | | | | | | | - trader.props.Balance_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - Position
@@ -2327,8 +2325,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Trader's
-| | | | | | | | | | | - Amount_{%(trader)s}
 | | | | | | | | | | | - trader.props.Position_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - Efficiency
@@ -2535,8 +2531,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Trader's
-| | | | | | | | | | | - PendingVolume_{%(trader)s}
 | | | | | | | | | | | - trader.props.PendingVolume_Impl
 | | | | | - List:
 | | | | | | - Attribute:
@@ -3747,8 +3741,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - LastTradeVolume(%(queue)s)
 | | | | | | | | | | | - orderbook.last_trade._LastTradeVolume_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - BidPrice
@@ -3892,8 +3884,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Price(%(queue)s)
 | | | | | | | | | | | - orderbook.props._BestPrice_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - Queue
@@ -4093,8 +4083,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - CumulativePrice(%(book)s, %(depth)s)
 | | | | | | | | | | | - orderbook.cumulative_price.CumulativePrice_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - LastPrice
@@ -4133,8 +4121,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - LastPrice(%(queue)s)
 | | | | | | | | | | | - orderbook.last_price._LastPrice_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - Spread
@@ -4229,8 +4215,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - LastTradePrice(%(queue)s)
 | | | | | | | | | | | - orderbook.last_trade._LastTradePrice_Impl
 | | | | | - List:
 | | | | | | - Attribute:
@@ -4570,8 +4554,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Basic
-| | | | | | | | - [%(x)s]_dt=%(dt)s
 | | | | | | | | - observable.on_every_dt._OnEveryDt_Impl
 | | | | - FunDef:
 | | | | | - Min
@@ -4752,8 +4734,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Basic
-| | | | | | | | - Lagged_{%(timeframe)s}(%(source)s)
 | | | | | | | | - observable.lagged.Lagged_Impl
 | | | | - FunDef:
 | | | | | - Max

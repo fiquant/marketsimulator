@@ -1873,8 +1873,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Trader's
-| | | | | | | | | | | - Balance_{%(trader)s}
 | | | | | | | | | | | - trader.props.Balance_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -1909,8 +1907,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Trader's
-| | | | | | | | | | | - Amount_{%(trader)s}
 | | | | | | | | | | | - trader.props.Position_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -2076,8 +2072,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Trader's
-| | | | | | | | | | | - PendingVolume_{%(trader)s}
 | | | | | | | | | | | - trader.props.PendingVolume_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -3015,8 +3009,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - LastTradeVolume(%(queue)s)
 | | | | | | | | | | | - orderbook.last_trade._LastTradeVolume_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -3128,8 +3120,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - Price(%(queue)s)
 | | | | | | | | | | | - orderbook.props._BestPrice_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -3288,8 +3278,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - CumulativePrice(%(book)s, %(depth)s)
 | | | | | | | | | | | - orderbook.cumulative_price.CumulativePrice_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -3322,8 +3310,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - LastPrice(%(queue)s)
 | | | | | | | | | | | - orderbook.last_price._LastPrice_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -3398,8 +3384,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Orderbook
-| | | | | | | | | | | - LastTradePrice(%(queue)s)
 | | | | | | | | | | | - orderbook.last_trade._LastTradePrice_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -3673,8 +3657,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Basic
-| | | | | | | | - [%(x)s]_dt=%(dt)s
 | | | | | | | | - observable.on_every_dt._OnEveryDt_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -3820,8 +3802,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Basic
-| | | | | | | | - Lagged_{%(timeframe)s}(%(source)s)
 | | | | | | | | - observable.lagged.Lagged_Impl
 | | | | | | - Attribute:
 | | | | | | | - label

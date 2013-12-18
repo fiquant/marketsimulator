@@ -193,8 +193,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Orderbook
-| | | | | | | | - Price(%(queue)s)
 | | | | | | | | - orderbook.props._BestPrice_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -303,8 +301,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Orderbook
-| | | | | | | | - LastPrice(%(queue)s)
 | | | | | | | | - orderbook.last_price._LastPrice_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -413,8 +409,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Orderbook
-| | | | | | | | - LastTradePrice(%(queue)s)
 | | | | | | | | - orderbook.last_trade._LastTradePrice_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -447,8 +441,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Orderbook
-| | | | | | | | - LastTradeVolume(%(queue)s)
 | | | | | | | | - orderbook.last_trade._LastTradeVolume_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -866,8 +858,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Orderbook
-| | | | | | | | - CumulativePrice(%(book)s, %(depth)s)
 | | | | | | | | - orderbook.cumulative_price.CumulativePrice_Impl
 | | | | | | - Attribute:
 | | | | | | | - label

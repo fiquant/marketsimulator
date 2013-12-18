@@ -59,8 +59,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Trader's
-| | | | | | | | - Amount_{%(trader)s}
 | | | | | | | | - trader.props.Position_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -95,8 +93,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Trader's
-| | | | | | | | - Balance_{%(trader)s}
 | | | | | | | | - trader.props.Balance_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -131,8 +127,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - Trader's
-| | | | | | | | - PendingVolume_{%(trader)s}
 | | | | | | | | - trader.props.PendingVolume_Impl
 | | | | | | - Attribute:
 | | | | | | | - label

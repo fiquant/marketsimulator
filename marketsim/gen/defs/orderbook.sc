@@ -17,7 +17,7 @@ package observable.orderbook
     @label = "Bids(%(book)s)"
     def Bids(book = OfTrader()) = Queue(book, side.Buy())
 
-    @python.intrinsic.observable ("Orderbook", "Price(%(queue)s)", "orderbook.props._BestPrice_Impl")
+    @python.intrinsic.observable ("orderbook.props._BestPrice_Impl")
     @label = "Price(%(queue)s)"
     def BestPrice(queue = Asks()) : IObservable
 
@@ -29,7 +29,7 @@ package observable.orderbook
     @label = "Bid^{%(book)s}"
     def BidPrice(book = OfTrader()) = BestPrice(Bids(book))
 
-    @python.intrinsic.observable ("Orderbook", "LastPrice(%(queue)s)", "orderbook.last_price._LastPrice_Impl")
+    @python.intrinsic.observable ("orderbook.last_price._LastPrice_Impl")
     @label = "LastPrice(%(queue)s)"
     def LastPrice(queue = Asks()) : IObservable
 
@@ -41,11 +41,11 @@ package observable.orderbook
     @label = "Bid^{%(book)s}"
     def BidLastPrice(book = OfTrader()) = LastPrice(Bids(book))
 
-    @python.intrinsic.observable ("Orderbook", "LastTradePrice(%(queue)s)", "orderbook.last_trade._LastTradePrice_Impl")
+    @python.intrinsic.observable ("orderbook.last_trade._LastTradePrice_Impl")
     @label = "LastTradePrice(%(queue)s)"
     def LastTradePrice (queue = Asks()) : IObservable
 
-    @python.intrinsic.observable ("Orderbook", "LastTradeVolume(%(queue)s)", "orderbook.last_trade._LastTradeVolume_Impl")
+    @python.intrinsic.observable ("orderbook.last_trade._LastTradeVolume_Impl")
     @label = "LastTradeVolume(%(queue)s)"
     def LastTradeVolume(queue = Asks()) : IObservable
 
@@ -80,7 +80,7 @@ package observable.orderbook
     @label = "MidPrice_{%(book)s}"
     def MidPrice(book = OfTrader()) = (AskPrice(book) + BidPrice(book)) / 2
 
-    @python.intrinsic.observable ("Orderbook", "CumulativePrice(%(book)s, %(depth)s)", "orderbook.cumulative_price.CumulativePrice_Impl")
+    @python.intrinsic.observable ("orderbook.cumulative_price.CumulativePrice_Impl")
     @label = "CumulativePrice(%(book)s, %(depth)s)"
     def CumulativePrice(book = OfTrader(), depth = constant()) => Float
 }
