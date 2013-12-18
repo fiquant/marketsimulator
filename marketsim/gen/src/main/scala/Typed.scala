@@ -204,22 +204,30 @@ package object Typed
 
     val topLevel = new Package
 
-    class SubPackage(         val name       : String,
-                                  parent     : Package,
-                     override val attributes : Attributes)
+    class AnonymousPackage(val parent : Package, override val attributes : Attributes)
             extends Package
-            with    sc.SubPackage
-            with    ScPrintable
     {
-        override def qualifiedName = parent.qualifiedName :+ name
+        override def qualifiedName = parent.qualifiedName
 
-        override def qualifyName(x : String) = (qualifiedName mkString ".") + "." + x
+        override def qualifyName(x : String) = parent qualifyName x
 
         override def getAttribute(name : String) = attributes.items get name match {
             case Some(v) => v
             case None    => parent getAttribute name
         }
 
+    }
+
+    class SubPackage(val name   : String,
+                     parent     : Package,
+                     attributes : Attributes)
+            extends AnonymousPackage(parent, attributes)
+            with    sc.SubPackage
+            with    ScPrintable
+    {
+        override def qualifiedName = parent.qualifiedName :+ name
+
+        override def qualifyName(x : String) = (qualifiedName mkString ".") + "." + x
 
         override def equals(o : Any) = o match {
             case that : SubPackage => super.equals(o) && name == that.name
