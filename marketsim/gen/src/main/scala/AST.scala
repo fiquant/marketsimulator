@@ -89,7 +89,7 @@ package object AST {
 
     case class PackageDef(name      : QualifiedName,
                           members   : Definitions,
-                          decorators: List[Decorator]) extends Definition with pp.Package with ScPrintable
+                          attributes: List[Attribute]) extends Definition with pp.Package with ScPrintable
 
     case class FunDef(name           : String,
                       parameters     : List[Parameter],

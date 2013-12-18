@@ -112,8 +112,8 @@ class Parser() extends JavaTokenParsers with PackratParsers
 
     lazy val package_body = ("{" ~> definitions <~ "}") | definitions
 
-    lazy val `package` = rep(decorator) ~ ("package" ~> qualified_name) ~ package_body ^^ {
-        case decorators ~ name ~ members => PackageDef(name, members, decorators)
+    lazy val `package` = rep(attribute) ~ ("package" ~> qualified_name) ~ package_body ^^ {
+        case attributes ~ name ~ members => PackageDef(name, members, attributes)
     }
 
     lazy val definition = type_alias | type_declaration | function | `package`

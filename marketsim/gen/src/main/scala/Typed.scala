@@ -143,6 +143,8 @@ package object Typed
         var functions = Map[String, Function]()
         var packages = Map[String, SubPackage]()
         var types = Map[String, TypeDeclaration]()
+        var annotations = List[Annotation]()
+        var attributes = Attributes(Map.empty)
 
         def qualifiedName : List[String] = Nil
 
