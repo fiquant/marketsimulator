@@ -19,7 +19,7 @@ package observable
     def OnEveryDt(dt = 1.0, x = constant()) : IObservable
 }
 
-@python.function("Basic", "C=%(x)s")
+@python.function
 @label = "C=%(x)s"
 @category = "Basic"
 def constant(x = 1.0) : IFunction = const(x)

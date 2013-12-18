@@ -1768,8 +1768,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - \\sqrt{\\sigma^2_{cumul}_{%(source)s}}
 | | | | | | | - FunDef:
 | | | | | | | | - RelStdDev
 | | | | | | | | - List:
@@ -1828,8 +1826,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - RSD_{cumul}_{%(source)s}
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -2048,8 +2044,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - MACD
-| | | | | | | | | | | - MACD_{%(fast)s}^{%(slow)s}(%(x)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Signal
 | | | | | | | | - List:
@@ -2168,8 +2162,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - MACD
-| | | | | | | | | | | - Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
 | | | | | | | - FunDef:
 | | | | | | | | - Histogram
 | | | | | | | | - List:
@@ -2282,8 +2274,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - MACD
-| | | | | | | | | | | - Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -2548,8 +2538,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Trader's
-| | | | | | | | | | | - EfficiencyTrend_{%(trader)s}
 | | | | | | | - FunDef:
 | | | | | | | | - PendingVolume
 | | | | | | | | - List:
@@ -3092,8 +3080,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - \\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}
 | | | | | | | - FunDef:
 | | | | | | | | - RelStdDev
 | | | | | | | | - List:
@@ -3167,8 +3153,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -4547,8 +4531,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - \\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}
 | | | | | | | - FunDef:
 | | | | | | | | - RelStdDev
 | | | | | | | | - List:
@@ -4622,8 +4604,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -5436,8 +5416,6 @@ Definitions:
 | | | | | | - python
 | | | | | | - function
 | | | | - List:
-| | | | | - Basic
-| | | | | - C=%(x)s
 | - FunDef:
 | | - null
 | | - List:

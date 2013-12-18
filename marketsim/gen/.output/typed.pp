@@ -247,12 +247,12 @@ package observable {@category = "Price function"
             
         
         @label = "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}"
-        @python.function("Statistics", "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}")
+        @python.function()
         def StdDev(source : IObservable = const()) : () => Float
              = mathops.Sqrt(observable.Cumulative.Var(source))
         
         @label = "RSD_{cumul}_{%(source)s}"
-        @python.function("Statistics", "RSD_{cumul}_{%(source)s}")
+        @python.function()
         def RelStdDev(source : IObservable = const()) : IObservable
              = (source-observable.Cumulative.Avg(source))/observable.Cumulative.StdDev(source)
     }
@@ -270,14 +270,14 @@ package observable {@category = "Price function"
     
     package macd {
         @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
-        @python.function("MACD", "MACD_{%(fast)s}^{%(slow)s}(%(x)s)")
+        @python.function()
         def MACD(x : IObservable = observable.orderbook.MidPrice(),
                  slow : Float = 26.0,
                  fast : Float = 12.0) : IFunction
              = observable.EW.Avg(x,2.0/(fast+1.0))-observable.EW.Avg(x,2.0/(slow+1.0))
         
         @label = "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-        @python.function("MACD", "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))")
+        @python.function()
         def Signal(x : IObservable = observable.orderbook.MidPrice(),
                    slow : Float = 26.0,
                    fast : Float = 12.0,
@@ -286,7 +286,7 @@ package observable {@category = "Price function"
              = observable.EW.Avg(observable.OnEveryDt(step,observable.macd.MACD(x,slow,fast)),2.0/(timeframe+1.0))
         
         @label = "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-        @python.function("MACD", "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))")
+        @python.function()
         def Histogram(x : IObservable = observable.orderbook.MidPrice(),
                       slow : Float = 26.0,
                       fast : Float = 12.0,
@@ -318,7 +318,7 @@ package observable {@category = "Price function"
             
         
         @label = "EfficiencyTrend_{%(trader)s}"
-        @python.function("Trader's", "EfficiencyTrend_{%(trader)s}")
+        @python.function()
         def EfficiencyTrend(trader : ISingleAssetTrader = observable.trader.SingleProxy(),
                             alpha : Float = 0.15) : () => Float
              = Derivative(observable.EW.Avg(observable.trader.Efficiency(trader),alpha))
@@ -368,13 +368,13 @@ package observable {@category = "Price function"
             
         
         @label = "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}"
-        @python.function("Statistics", "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}")
+        @python.function()
         def StdDev(source : IObservable = const(),
                    alpha : Float = 0.015) : () => Float
              = mathops.Sqrt(observable.EW.Var(source,alpha))
         
         @label = "RSD_{\\alpha=%(alpha)s}_{%(source)s}"
-        @python.function("Statistics", "RSD_{\\alpha=%(alpha)s}_{%(source)s}")
+        @python.function()
         def RelStdDev(source : IObservable = const(),
                       alpha : Float = 0.15) : IObservable
              = (source-observable.EW.Avg(source,alpha))/observable.EW.StdDev(source,alpha)
@@ -506,13 +506,13 @@ package observable {@category = "Price function"
              = observable.Max(const(0.0),observable.Moving.Avg(source*source,timeframe)-observable.Sqr(observable.Moving.Avg(source,timeframe)))
         
         @label = "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}"
-        @python.function("Statistics", "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}")
+        @python.function()
         def StdDev(source : IObservable = const(),
                    timeframe : Float = 100.0) : () => Float
              = mathops.Sqrt(observable.Moving.Var(source))
         
         @label = "RSD_{n=%(timeframe)s}_{%(source)s}"
-        @python.function("Statistics", "RSD_{n=%(timeframe)s}_{%(source)s}")
+        @python.function()
         def RelStdDev(source : IObservable = const(),
                       timeframe : Float = 100.0) : IObservable
              = (source-observable.Moving.Avg(source,timeframe))/observable.Moving.StdDev(source,timeframe)
@@ -610,7 +610,7 @@ type IDifferentiable : IFunction
 
 @label = "C=%(x)s"
 @category = "Basic"
-@python.function("Basic", "C=%(x)s")
+@python.function()
 def constant(x : Float = 1.0) : IFunction
      = const(x)
 

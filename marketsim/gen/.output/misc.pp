@@ -26,7 +26,7 @@ package observable {
         
 }
 
-@python.function("Basic", "C=%(x)s")
+@python.function()
 @label = "C=%(x)s"
 @category = "Basic"
 def constant(x = 1.0) : IFunction

@@ -246,12 +246,12 @@ package observable {@category = "Price function"
         def Var(source = const()) : () => Float
             
         
-        @python.function("Statistics", "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}")
+        @python.function()
         @label = "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}"
         def StdDev(source = const())
              = mathops.Sqrt(Var(source))
         
-        @python.function("Statistics", "RSD_{cumul}_{%(source)s}")
+        @python.function()
         @label = "RSD_{cumul}_{%(source)s}"
         def RelStdDev(source = const())
              = (source-Avg(source))/StdDev(source)
@@ -269,14 +269,14 @@ package observable {@category = "Price function"
     @category = "MACD"
     
     package macd {
-        @python.function("MACD", "MACD_{%(fast)s}^{%(slow)s}(%(x)s)")
+        @python.function()
         @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
         def MACD(x = orderbook.MidPrice(),
                  slow = 26.0,
                  fast = 12.0)
              = EW.Avg(x,2.0/(fast+1.0))-EW.Avg(x,2.0/(slow+1.0))
         
-        @python.function("MACD", "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))")
+        @python.function()
         @label = "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
         def Signal(x = orderbook.MidPrice(),
                    slow = 26.0,
@@ -285,7 +285,7 @@ package observable {@category = "Price function"
                    step = 1.0)
              = EW.Avg(OnEveryDt(step,MACD(x,slow,fast)),2.0/(timeframe+1.0))
         
-        @python.function("MACD", "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))")
+        @python.function()
         @label = "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
         def Histogram(x = orderbook.MidPrice(),
                       slow = 26.0,
@@ -317,7 +317,7 @@ package observable {@category = "Price function"
         def SingleProxy() : ISingleAssetTrader
             
         
-        @python.function("Trader's", "EfficiencyTrend_{%(trader)s}")
+        @python.function()
         @label = "EfficiencyTrend_{%(trader)s}"
         def EfficiencyTrend(trader = SingleProxy(),
                             alpha = 0.15)
@@ -367,13 +367,13 @@ package observable {@category = "Price function"
                 alpha = 0.015) : () => Float
             
         
-        @python.function("Statistics", "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}")
+        @python.function()
         @label = "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}"
         def StdDev(source = const(),
                    alpha = 0.015)
              = mathops.Sqrt(Var(source,alpha))
         
-        @python.function("Statistics", "RSD_{\\alpha=%(alpha)s}_{%(source)s}")
+        @python.function()
         @label = "RSD_{\\alpha=%(alpha)s}_{%(source)s}"
         def RelStdDev(source = const(),
                       alpha = 0.15)
@@ -505,13 +505,13 @@ package observable {@category = "Price function"
                 timeframe = 100.0)
              = Max(const(0.0),Avg(source*source,timeframe)-Sqr(Avg(source,timeframe)))
         
-        @python.function("Statistics", "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}")
+        @python.function()
         @label = "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}"
         def StdDev(source = const(),
                    timeframe = 100.0)
              = mathops.Sqrt(Var(source))
         
-        @python.function("Statistics", "RSD_{n=%(timeframe)s}_{%(source)s}")
+        @python.function()
         @label = "RSD_{n=%(timeframe)s}_{%(source)s}"
         def RelStdDev(source = const(),
                       timeframe = 100.0)
@@ -594,7 +594,7 @@ package trash {
         
 }
 
-@python.function("Basic", "C=%(x)s")
+@python.function()
 @label = "C=%(x)s"
 @category = "Basic"
 def constant(x = 1.0) : IFunction

@@ -141,8 +141,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - \\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - \\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}
@@ -200,8 +198,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
@@ -323,8 +319,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - \\sqrt{\\sigma^2_{cumul}_{%(source)s}}
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - \\sqrt{\\sigma^2_{cumul}_{%(source)s}}
@@ -371,8 +365,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - RSD_{cumul}_{%(source)s}
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - RSD_{cumul}_{%(source)s}
@@ -550,8 +542,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - \\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - \\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}
@@ -609,8 +599,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - function
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Statistics
-| | | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}

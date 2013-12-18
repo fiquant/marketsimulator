@@ -9,10 +9,6 @@ object function extends gen.PythonGenerator
 
     case class Import(args : List[String], f : Typed.Function) extends base.Printer
     {
-        if (args.length != 2)
-            throw new Exception(s"Annotation $name should have 2 arguments in" +
-                    " form (category, label_template)" + "\r\n" + "In function " + f)
-
         val parameters  = f.parameters map Parameter
         val docstring  = f.docstring match {
             case Some(d) => d.detailed

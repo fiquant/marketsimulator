@@ -247,8 +247,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - function
 | | | | | | | - List:
-| | | | | | | | - Trader's
-| | | | | | | | - EfficiencyTrend_{%(trader)s}
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - EfficiencyTrend_{%(trader)s}
