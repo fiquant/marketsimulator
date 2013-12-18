@@ -28,7 +28,6 @@ object mathops extends gen.PythonGenerator
                     " form (category, implementation_function, label_template)" + "\r\n" + "In function " + f)
 
         override val impl_function = args(1)
-        val label_tmpl = args(2)
 
         val parameters  = f.parameters map Parameter
         val docstring  = f.docstring.get.detailed

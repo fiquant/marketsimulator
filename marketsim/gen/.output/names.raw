@@ -2442,6 +2442,9 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - Avg_{\\alpha=%(alpha)s}(%(source)s)
 | | | | | | | | | | | - moments.ewma.EWMA_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Avg_{\\alpha=%(alpha)s}(%(source)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Var
 | | | | | | | | - List:
@@ -2482,6 +2485,9 @@ Definitions:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - \\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}
 | | | | | | | | | | | - moments.ewmv.EWMV_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - \\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}
 | | | | | | | - FunDef:
 | | | | | | | | - StdDev
 | | | | | | | | - List:
@@ -2529,6 +2535,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - \\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - \\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}
 | | | | | | | - FunDef:
 | | | | | | | | - RelStdDev
 | | | | | | | | - List:
@@ -2585,6 +2594,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Statistics
 | | | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category

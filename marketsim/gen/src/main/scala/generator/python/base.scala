@@ -86,6 +86,9 @@ package object base {
 
         def label = Prop("label", "return repr(self)")
 
+        def label_tmpl = f.getAttribute("label")
+
+
         def properties = "_properties = {" |> property_fields | "}"
 
         def repr_body : Code = s"""return "$name($repr_fields)" """

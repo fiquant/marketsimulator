@@ -346,21 +346,25 @@ package observable {@category = "Price function"
     @category = "Statistics"
     package EW {
         @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "moments.ewma.EWMA_Impl")
+        @label = "Avg_{\\alpha=%(alpha)s}(%(source)s)"
         def Avg(source = constant(),
                 alpha = 0.015) : IDifferentiable
             
         
         @python.intrinsic.function("Statistics", "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}", "moments.ewmv.EWMV_Impl")
+        @label = "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}"
         def Var(source = const(),
                 alpha = 0.015) : () => Float
             
         
         @python.function("Statistics", "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}")
+        @label = "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}"
         def StdDev(source = const(),
                    alpha = 0.015)
              = mathops.Sqrt(Var(source,alpha))
         
         @python.function("Statistics", "RSD_{\\alpha=%(alpha)s}_{%(source)s}")
+        @label = "RSD_{\\alpha=%(alpha)s}_{%(source)s}"
         def RelStdDev(source = const(),
                       alpha = 0.15)
              = (source-Avg(source,alpha))/StdDev(source,alpha)

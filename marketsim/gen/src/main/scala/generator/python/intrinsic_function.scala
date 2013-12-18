@@ -17,7 +17,6 @@ object intrinsic_function extends gen.PythonGenerator
             throw new Exception(s"Annotation $name should have 3 arguments in" +
                     " form (category, label_template, implementation_class)" + "\r\n" + "In function " + f)
 
-        val label_tmpl = args(1)
         val last_dot_idx = args(2).lastIndexOf(".")
         val implementation_module =args(2).substring(0, last_dot_idx)
         val implementation_class  =args(2).substring(last_dot_idx + 1)

@@ -2964,6 +2964,9 @@ Definitions:
 | | | | | | | | | | | | - IDifferentiable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Avg_{\\alpha=%(alpha)s}(%(source)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3012,6 +3015,9 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - \\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3077,6 +3083,9 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - \\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3149,6 +3158,9 @@ Definitions:
 | | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:

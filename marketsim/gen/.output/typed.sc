@@ -374,26 +374,26 @@ package observable {@category = "Price function"
     }
     @category = "Statistics"
     package EW {
-        
+        @label = "Avg_{\\alpha=%(alpha)s}(%(source)s)"
         @python.intrinsic.function("Statistics", "Avg_{\\alpha=%(alpha)s}(%(source)s)", "moments.ewma.EWMA_Impl")
         def Avg(source : IFunction = constant(),
                 alpha : Float = 0.015) : IDifferentiable
             
         
-        
+        @label = "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}"
         @python.intrinsic.function("Statistics", "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}", "moments.ewmv.EWMV_Impl")
         def Var(source : IObservable = const(),
                 alpha : Float = 0.015) : () => Float
             
         
-        
+        @label = "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}"
         @python.function("Statistics", "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}")
         def StdDev(source : IObservable = const(),
                    alpha : Float = 0.015) : () => Float
             
             	 = mathops.Sqrt(observable.EW.Var(source,alpha))
         
-        
+        @label = "RSD_{\\alpha=%(alpha)s}_{%(source)s}"
         @python.function("Statistics", "RSD_{\\alpha=%(alpha)s}_{%(source)s}")
         def RelStdDev(source : IObservable = const(),
                       alpha : Float = 0.15) : IObservable

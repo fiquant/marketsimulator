@@ -30,7 +30,7 @@ class Raw(Observable[float]):
         'alpha' : float
     }
     def __repr__(self):
-        return "RSI-raw_{%(timeframe)s}^{%(alpha)s}(%(source)s)" % self.__dict__
+        return "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)" % self.__dict__
     
     _internals = ['impl']
     @property

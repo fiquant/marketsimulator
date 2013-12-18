@@ -117,7 +117,11 @@ package object Typed
 
         def getAttribute(name : String) = attributes.items get name match {
             case Some(v) => v
-            case None =>    parent getAttribute name
+            case None =>    try {
+                parent getAttribute name
+            } catch {
+                case e : Exception => throw new Exception(s"Cannot find attribute '$name' for function $this")
+            }
         }
 
         override def equals(o : Any) = o match {
