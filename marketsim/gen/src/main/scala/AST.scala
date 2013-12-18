@@ -87,9 +87,12 @@ package object AST {
         val name : String
     }
 
-    case class PackageDef(name      : QualifiedName,
+    case class PackageDef(name      : Option[QualifiedName],
                           members   : Definitions,
                           attributes: List[Attribute]) extends Definition with pp.Package with ScPrintable
+    {
+        def getName = if (name.nonEmpty) name.get.toString else ""
+    }
 
     case class FunDef(name           : String,
                       parameters     : List[Parameter],

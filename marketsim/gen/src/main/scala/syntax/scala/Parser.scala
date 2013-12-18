@@ -112,7 +112,7 @@ class Parser() extends JavaTokenParsers with PackratParsers
 
     lazy val package_body = ("{" ~> definitions <~ "}") | definitions
 
-    lazy val `package` = rep(attribute) ~ ("package" ~> qualified_name) ~ package_body ^^ {
+    lazy val `package` = rep(attribute) ~ ("package" ~> opt(qualified_name)) ~ package_body ^^ {
         case attributes ~ name ~ members => PackageDef(name, members, attributes)
     }
 

@@ -7,6 +7,7 @@ object NameTable {
     class Scope(val name : String = "_root_") extends pp.NamesScope with ScPrintable {
 
         var packages = Map[String, Scope]()
+        val anonymous = List[Scope]()
         var members = Map[String, AST.Member]()
         var attributes = Typed.Attributes(Map.empty)
         var parent : Option[Scope] = None
@@ -37,18 +38,21 @@ object NameTable {
         }
 
         def add(p : AST.PackageDef) {
-            val target = (p.name.names map (new Scope(_))).foldLeft(this) {
-                case (x, y) =>
-                    if (members contains y.name)
-                        throw new Exception(s"Duplicate definition for ${y.name}:\r\n" + members(y.name) + "\r\n" + y)
-                    if (!(packages contains y.name))
-                    {
-                        x.packages = x.packages updated (y.name, y)
-                        y.parent = Some(x)
+            p.name match {
+                case Some(name) =>
+                    val target = (name.names map (new Scope(_))).foldLeft(this) {
+                        case (x, y) =>
+                            if (members contains y.name)
+                                throw new Exception(s"Duplicate definition for ${y.name}:\r\n" + members(y.name) + "\r\n" + y)
+                            if (!(packages contains y.name))
+                            {
+                                x.packages = x.packages updated (y.name, y)
+                                y.parent = Some(x)
+                            }
+                            x.packages(y.name)
                     }
-                    x.packages(y.name)
+                    create(p.members, p.attributes, target)
             }
-            create(p.members, p.attributes, target)
         }
 
         def lookup[T <: AST.Member](name : List[String])(implicit t : Manifest[T]) : Option[(Scope, T)] = {

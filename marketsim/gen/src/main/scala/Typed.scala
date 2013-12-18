@@ -162,6 +162,7 @@ package object Typed
         def getAttribute(name : String) : String =
             throw new Exception(s"Cannot find attribute named $name")
 
+        def getName = ""
 
         def insert(f : Function)  = {
             functions = functions updated (f.name, f)
@@ -228,6 +229,8 @@ package object Typed
         override def qualifiedName = parent.qualifiedName :+ name
 
         override def qualifyName(x : String) = (qualifiedName mkString ".") + "." + x
+
+        override def getName = name
 
         override def equals(o : Any) = o match {
             case that : SubPackage => super.equals(o) && name == that.name

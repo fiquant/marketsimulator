@@ -134,13 +134,14 @@ package object Printer
         }
 
         trait Package[+T <: Definition] extends Printable with Definition {
-            val name : AST.QualifiedName
             val members : Definitions[T]
             def attributes : Iterable[Decorator]
 
+            def getName : String
+
             def toScala = (
                     (attributes map { _ + crlf } mkString "") +
-                    crlf + "package " + name + " {"
+                    crlf + "package " + getName + " {"
                     + indent() { members }
                     + crlf + "}")
         }
