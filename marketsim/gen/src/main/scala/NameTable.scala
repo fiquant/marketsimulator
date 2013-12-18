@@ -8,6 +8,7 @@ object NameTable {
 
         var packages = Map[String, Scope]()
         var members = Map[String, AST.Member]()
+        var attributes = Typed.Attributes(Map.empty)
         var parent : Option[Scope] = None
         var typed : Option[Typed.Package] = None
 
@@ -27,6 +28,14 @@ object NameTable {
                 throw new Exception(s"Duplicate definition for $name:\r\n" + packages(name) + "\r\n" + e)
         }
 
+        def add(a : AST.Attribute) {
+            attributes.items get a.name match {
+                case None => attributes = Typed.Attributes(attributes.items updated (a.name, a.value))
+                case Some(v) =>
+                    throw new Exception(s"Duplicate definition for package attribute ${qualifyName(a.name)}: $v => ${a.value}" )
+            }
+        }
+
         def add(p : AST.PackageDef) {
             val target = (p.name.names map (new Scope(_))).foldLeft(this) {
                 case (x, y) =>
@@ -39,7 +48,7 @@ object NameTable {
                     }
                     x.packages(y.name)
             }
-            create(p.members, target)
+            create(p.members, p.attributes, target)
         }
 
         def lookup[T <: AST.Member](name : List[String])(implicit t : Manifest[T]) : Option[(Scope, T)] = {
@@ -61,7 +70,7 @@ object NameTable {
         def lookupFunction(name : List[String]) : Option[(Scope, AST.FunDef)] = lookup[AST.FunDef](name)
         def lookupType(name : List[String]) : Option[(Scope, AST.TypeDeclaration)] = lookup[AST.TypeDeclaration](name)
 
-        private def toTyped(target : Typed.Package) : Typed.Package =
+        def toTyped(target : Typed.Package) : Typed.Package =
         {
             typed = Some(target)
             packages.values foreach {
@@ -69,19 +78,19 @@ object NameTable {
             }
             target
         }
-
-        def typePackages = toTyped(Typed.topLevel)
     }
 
-    private def create(p : AST.Definitions, impl : Scope) : Unit =
+    private def create(p : AST.Definitions, a : Iterable[AST.Attribute], impl : Scope) {
         p.definitions foreach {
             case m : AST.Member => impl.add(m)
             case package_def : AST.PackageDef => impl.add(package_def)
         }
+        a foreach { impl.add }
+    }
 
     def apply(p : List[AST.Definitions], impl : Scope = new Scope) : Scope =
     {
-        p foreach { create(_, impl) }
+        p foreach { create(_, Nil, impl) }
 
         impl
     }

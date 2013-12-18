@@ -20,7 +20,7 @@ object Typer
 
     def apply(source : NameTable.Scope) =
     {
-        source.typePackages
+        source.toTyped(Typed.topLevel)
         Processor(source).run()
         source.typed.get
     }
