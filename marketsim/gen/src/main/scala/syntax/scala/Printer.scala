@@ -369,11 +369,13 @@ package object Printer
 
         trait TopLevelPackage extends Printable {
             def packages    : Map[String, Any]
+            def anonymous   : Iterable[Any]
             def functions   : Map[String, Any]
             def types       : Map[String, Any]
             def attributes  : Any
             def content =
                 (packages.values  mkString crlf) +
+                (anonymous        mkString crlf) +
                 (types.values     mkString crlf) +
                 (functions.values mkString crlf)
             def wrapped(name : String) =
@@ -382,6 +384,10 @@ package object Printer
                     indent() { content } +
                 crlf + "}"
             def toScala = content
+        }
+
+        trait AnonymousPackage extends TopLevelPackage  {
+            override def toScala = wrapped("")
         }
 
         trait SubPackage extends TopLevelPackage  {

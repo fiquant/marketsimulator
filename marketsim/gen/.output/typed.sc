@@ -610,7 +610,12 @@ package observable {@category = "Price function"
 }
 
 package trash {
-    package types {type T
+    package types {
+        package  {
+        }
+        
+        package  {
+        }type T
         type R : trash.types.T
         type U : trash.types.T, trash.types.R
         type T1 = trash.types.T

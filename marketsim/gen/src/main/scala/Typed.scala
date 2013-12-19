@@ -215,6 +215,8 @@ package object Typed
 
     class AnonymousPackage(val parent : Package, override val attributes : Attributes)
             extends Package
+            with    sc.AnonymousPackage
+            with    ScPrintable
     {
         override def qualifiedName = parent.qualifiedName
 
