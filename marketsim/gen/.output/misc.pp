@@ -87,18 +87,20 @@ def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float
 
 package trash {
     package types {
-        type T
-        
-        type R : T
-        
-        type U : T, R
-        
         type T1 = T
         
         package  {
+            type T
         }
         
         package  {
+            type R : T
+        }
+        
+        package  {
+            package  {
+                type U : T, R
+            }
         }
     }
     

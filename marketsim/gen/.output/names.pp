@@ -570,17 +570,19 @@ package observable {@category = "Price function"
 
 package trash {
     package types {
-        package  {
+        package $2 {
+            package $0 {
+                type U : T, R
+            }
         }
         
-        package  {
+        package $1 {
+            type R : T
         }
         
-        type T
-        
-        type R : T
-        
-        type U : T, R
+        package $0 {
+            type T
+        }
         
         type T1 = T
     }

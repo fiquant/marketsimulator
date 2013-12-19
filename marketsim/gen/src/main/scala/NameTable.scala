@@ -1,6 +1,7 @@
 import syntax.scala.Printer.{typed => pp}
 import AST.ScPrintable
 import shapeless.syntax.typeable._
+import scala.collection.immutable._
 
 object NameTable {
 
@@ -19,6 +20,11 @@ object NameTable {
         }
 
         def qualifyName(x : String) = typed.get qualifyName x
+
+        def qualifiedName = parent match {
+            case Some(p) => p.qualifyName(name)
+            case None    => name
+        }
 
         override def equals(o : Any) = true
 
@@ -52,30 +58,37 @@ object NameTable {
                 case Some(qn) =>
                     (qn.names map (new Scope(_))).foldLeft(this) { populate }
                 case None =>
-                    anonymous = new Scope("") :: anonymous
-                    anonymous.head
+                    val fresh = new Scope("$" + anonymous.length)
+                    anonymous = fresh :: anonymous
+                    fresh.parent = Some(this)
+                    fresh
             }
             create(p.members, p.attributes, target)
         }
 
-        def lookup[T <: AST.Member](name : List[String])(implicit t : Manifest[T]) : Option[(Scope, T)] = {
-            anonymous map { _ lookup name } find { _.nonEmpty } match {
-                case Some(Some((scope, x))) => Some((scope, x.asInstanceOf[T]))
-                case Some(None) => throw new Exception("cannot occur")
-                case None =>
-                    name match {
-                        case Nil => throw new Exception("Qualified name cannot be empty")
-                        case x :: Nil =>
-                            members get x match {
-                                case Some(f) if f.cast[T].nonEmpty => Some((this, f.asInstanceOf[T]))
-                                case _ => parent flatMap { _ lookup name }
-                            }
-                        case x :: tl =>
-                            packages get x map { _ lookup tl } match {
-                                case None => parent flatMap { _ lookup name }
-                                case y => y.get
-                            }
-                    }
+        def lookup[T <: AST.Member](qn : List[String], visited : HashSet[Scope] = HashSet.empty)(implicit t : Manifest[T]) : Option[(Scope, T)] = {
+            if (visited contains this)
+                None
+            else {
+                val v = visited + this
+                anonymous map { _ lookup (qn, v) } find { _.nonEmpty } match {
+                    case Some(Some((scope, x))) => Some((scope, x.asInstanceOf[T]))
+                    case Some(None) => throw new Exception("cannot occur")
+                    case None =>
+                        qn match {
+                            case Nil => throw new Exception("Qualified name cannot be empty")
+                            case x :: Nil =>
+                                members get x match {
+                                    case Some(f) if f.cast[T].nonEmpty => Some((this, f.asInstanceOf[T]))
+                                    case _ => parent flatMap { _ lookup (qn, v) }
+                                }
+                            case x :: tl =>
+                                packages get x map { _ lookup tl } match {
+                                    case None => parent flatMap { _ lookup (qn, v) }
+                                    case y => y.get
+                                }
+                        }
+                }
             }
         }
 

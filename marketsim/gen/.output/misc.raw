@@ -487,27 +487,6 @@ Definitions:
 | | | | | | | | - types
 | | | | | - Definitions:
 | | | | | | - List:
-| | | | | | | - Interface:
-| | | | | | | | - T
-| | | | | | | | - List:
-| | | | | | | - Interface:
-| | | | | | | | - R
-| | | | | | | | - List:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - T
-| | | | | | | - Interface:
-| | | | | | | | - U
-| | | | | | | | - List:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - T
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - R
 | | | | | | | - Alias:
 | | | | | | | | - T1
 | | | | | | | | - SimpleType:
@@ -518,11 +497,42 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
+| | | | | | | | | | - Interface:
+| | | | | | | | | | | - T
+| | | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | - PackageDef:
 | | | | | | | | - None
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
+| | | | | | | | | | - Interface:
+| | | | | | | | | | | - R
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - T
+| | | | | | | | - List:
+| | | | | | | - PackageDef:
+| | | | | | | | - None
+| | | | | | | | - Definitions:
+| | | | | | | | | - List:
+| | | | | | | | | | - PackageDef:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Definitions:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Interface:
+| | | | | | | | | | | | | | - U
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - T
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - R
+| | | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | - List:
 | | | | - FunDef:
