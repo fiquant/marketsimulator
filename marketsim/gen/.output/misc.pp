@@ -38,6 +38,20 @@ package observable {
                 timeframe = 100.0) : IObservable
             
     }
+    
+    package Cumulative {
+        @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
+        @label = "Min_{\\epsilon}(%(source)s)"
+        def MinEpsilon(source = constant(),
+                       epsilon = constant(0.01)) : IObservable
+            
+        
+        @python.intrinsic("observable.minmax_eps.MaxEpsilon_Impl")
+        @label = "Max_{\\epsilon}(%(source)s)"
+        def MaxEpsilon(source = constant(),
+                       epsilon = constant(0.01)) : IObservable
+            
+    }
 }
 @category = "Basic"
 

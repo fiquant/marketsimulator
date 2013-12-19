@@ -238,6 +238,20 @@ package observable {@category = "Price function"
         def Noise(side_distribution : IFunction = mathutils.rnd.uniform(0.0,1.0))
              = if side_distribution>0.5 then side.Sell() else side.Buy()
     }
+    
+    package Cumulative {
+        @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
+        @label = "Min_{\\epsilon}(%(source)s)"
+        def MinEpsilon(source = constant(),
+                       epsilon = constant(0.01)) : IObservable
+            
+        
+        @python.intrinsic("observable.minmax_eps.MaxEpsilon_Impl")
+        @label = "Max_{\\epsilon}(%(source)s)"
+        def MaxEpsilon(source = constant(),
+                       epsilon = constant(0.01)) : IObservable
+            
+    }
     @category = "RSI"
     
     package rsi {

@@ -210,6 +210,20 @@ package observable {@category = "Price function"
             
             	 = if side_distribution>const(0.5) then side.Sell() else side.Buy()
     }
+    
+    package Cumulative {
+        @label = "Min_{\\epsilon}(%(source)s)"
+        @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
+        def MinEpsilon(source : IFunction = constant(),
+                       epsilon : IFunction = constant(0.01)) : IObservable
+            
+        
+        @label = "Max_{\\epsilon}(%(source)s)"
+        @python.intrinsic("observable.minmax_eps.MaxEpsilon_Impl")
+        def MaxEpsilon(source : IFunction = constant(),
+                       epsilon : IFunction = constant(0.01)) : IObservable
+            
+    }
     @category = "RSI"
     package rsi {
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
