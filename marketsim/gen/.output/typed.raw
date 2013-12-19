@@ -3568,6 +3568,106 @@ Definitions:
 | | | | | | | - category
 | | | | | | | - Asset's
 | | | | - PackageDef:
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - Moving
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - Min
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - source
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - timeframe
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 100.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Min_{n=%(timeframe)s}(%(source)s)
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | - List:
+| | | | | | | | | | | - observable.minmax.Min_Impl
+| | | | | | | - FunDef:
+| | | | | | | | - Max
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - source
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - timeframe
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Const:
+| | | | | | | | | | | | - 100.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Max_{n=%(timeframe)s}(%(source)s)
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | - List:
+| | | | | | | | | | | - observable.minmax.Max_Impl
+| | | | | - List:
+| | | | - PackageDef:
 | | | | | - None
 | | | | | - Definitions:
 | | | | | | - List:

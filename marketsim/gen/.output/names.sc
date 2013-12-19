@@ -433,6 +433,20 @@ package observable {@category = "Price function"
         @label = "LastTradePrice(%(queue)s)"
         def LastTradePrice(queue = Asks()) : IObservable
             
+    }
+    
+    package Moving {
+        @python.intrinsic("observable.minmax.Min_Impl")
+        @label = "Min_{n=%(timeframe)s}(%(source)s)"
+        def Min(source = constant(),
+                timeframe = 100.0) : IObservable
+            
+        
+        @python.intrinsic("observable.minmax.Max_Impl")
+        @label = "Max_{n=%(timeframe)s}(%(source)s)"
+        def Max(source = constant(),
+                timeframe = 100.0) : IObservable
+            
     }@category = "Statistics"
     package $0 {
         package EW {
