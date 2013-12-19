@@ -16,57 +16,60 @@ package side {
         
 }
 
-package mathops {
-    /** Arc tangent of x, in radians.
-     *
-     */
-    @python.mathops("atan")
-    @category = "Trigonometric"
-    @label = "atan(%(x)s)"
-    def Atan(x = constant(0.0)) : () => Float
-        
-    
-    /** Square root of x
-     *
-     */
-    @python.mathops("sqrt")
+package mathops {@category = "Trigonometric"
+    package $1 {
+        /** Arc tangent of x, in radians.
+         *
+         */
+        @python.mathops("atan")
+        @label = "atan(%(x)s)"
+        def Atan(x = constant(0.0)) : () => Float
+            
+    }
     @category = "Log/Pow"
-    @label = "\\sqrt{%(x)s}"
-    def Sqrt(x = constant(1.0)) : () => Float
+    package $0 {
+        /** Exponent of x
+         *
+         */
+        @python.mathops("exp")
+        @category = "Log/Pow"
+        @label = "e^{%(x)s}"
+        def Exp(x = constant(1.0)) : () => Float
+            
         
-    
-    /** Exponent of x
-     *
-     */
-    @python.mathops("exp")
-    @category = "Log/Pow"
-    @label = "e^{%(x)s}"
-    def Exp(x = constant(1.0)) : () => Float
+        /** Natural logarithm of x (to base e)
+         *
+         */
+        @python.mathops("log")
+        @category = "Log/Pow"
+        @label = "log(%(x)s)"
+        def Log(x = constant(1.0)) : () => Float
+            
         
-    
-    /** Natural logarithm of x (to base e)
-     *
-     */
-    @python.mathops("log")
-    @category = "Log/Pow"
-    @label = "log(%(x)s)"
-    def Log(x = constant(1.0)) : () => Float
+        /** Square root of x
+         *
+         */
+        @python.mathops("sqrt")
+        @category = "Log/Pow"
+        @label = "\\sqrt{%(x)s}"
+        def Sqrt(x = constant(1.0)) : () => Float
+            
         
-    
-    /** Return *x* raised to the power *y*.
-     *
-     * Exceptional cases follow Annex F of the C99 standard as far as possible.
-     * In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,
-     * even when *x* is a zero or a NaN.
-     * If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
-     * ``pow(x, y)`` is undefined, and raises ``ValueError``.
-     */
-    @python.mathops("pow")
-    @category = "Log/Pow"
-    @label = "%(base)s^{%(power)s}"
-    def Pow(base = constant(1.0),
-            power = constant(1.0)) : () => Float
-        
+        /** Return *x* raised to the power *y*.
+         *
+         * Exceptional cases follow Annex F of the C99 standard as far as possible.
+         * In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,
+         * even when *x* is a zero or a NaN.
+         * If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
+         * ``pow(x, y)`` is undefined, and raises ``ValueError``.
+         */
+        @python.mathops("pow")
+        @category = "Log/Pow"
+        @label = "%(base)s^{%(power)s}"
+        def Pow(base = constant(1.0),
+                power = constant(1.0)) : () => Float
+            
+    }
 }
 
 package mathutils {
@@ -229,28 +232,6 @@ package observable {@category = "Price function"
         def Noise(side_distribution : IFunction = mathutils.rnd.uniform(0.0,1.0))
              = if side_distribution>0.5 then side.Sell() else side.Buy()
     }
-    @category = "Statistics"
-    package Cumulative {
-        @python.intrinsic.function("moments.cma.CMA_Impl")
-        @label = "Avg_{cumul}(%(source)s)"
-        def Avg(source = const()) : () => Float
-            
-        
-        @python.intrinsic.function("moments.cmv.Variance_Impl")
-        @label = "\\sigma^2_{cumul}(%(source)s)"
-        def Var(source = const()) : () => Float
-            
-        
-        @python.function()
-        @label = "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}"
-        def StdDev(source = const())
-             = mathops.Sqrt(Var(source))
-        
-        @python.function()
-        @label = "RSD_{cumul}_{%(source)s}"
-        def RelStdDev(source = const())
-             = (source-Avg(source))/StdDev(source)
-    }
     @category = "RSI"
     package rsi {
         @python.observable()
@@ -342,32 +323,6 @@ package observable {@category = "Price function"
                        timeframe = 1.0,
                        trader = trader.SingleProxy())
              = DesiredPosition(OnEveryDt(1.0,50.0-orderbook.RSI(orderbook.OfTrader(trader),timeframe,alpha))*k,trader)
-    }
-    @category = "Statistics"
-    package EW {
-        @python.intrinsic.function("moments.ewma.EWMA_Impl")
-        @label = "Avg_{\\alpha=%(alpha)s}(%(source)s)"
-        def Avg(source = constant(),
-                alpha = 0.015) : IDifferentiable
-            
-        
-        @python.intrinsic.function("moments.ewmv.EWMV_Impl")
-        @label = "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}"
-        def Var(source = const(),
-                alpha = 0.015) : () => Float
-            
-        
-        @python.function()
-        @label = "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}"
-        def StdDev(source = const(),
-                   alpha = 0.015)
-             = mathops.Sqrt(Var(source,alpha))
-        
-        @python.function()
-        @label = "RSD_{\\alpha=%(alpha)s}_{%(source)s}"
-        def RelStdDev(source = const(),
-                      alpha = 0.15)
-             = (source-Avg(source,alpha))/StdDev(source,alpha)
     }
     @category = "Asset's"
     package orderbook {
@@ -478,32 +433,81 @@ package observable {@category = "Price function"
         @label = "LastTradePrice(%(queue)s)"
         def LastTradePrice(queue = Asks()) : IObservable
             
-    }
-    @category = "Statistics"
-    package Moving {
-        @python.intrinsic.function("moments.ma.MA_Impl")
-        @label = "Avg_{n=%(timeframe)s}(%(source)s)"
-        def Avg(source = const(),
-                timeframe = 100.0) : () => Float
+    }@category = "Statistics"
+    package $0 {
+        package EW {
+            @python.intrinsic.function("moments.ewma.EWMA_Impl")
+            @label = "Avg_{\\alpha=%(alpha)s}(%(source)s)"
+            def Avg(source = constant(),
+                    alpha = 0.015) : IDifferentiable
+                
             
+            @python.intrinsic.function("moments.ewmv.EWMV_Impl")
+            @label = "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}"
+            def Var(source = const(),
+                    alpha = 0.015) : () => Float
+                
+            
+            @python.function()
+            @label = "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}"
+            def StdDev(source = const(),
+                       alpha = 0.015)
+                 = mathops.Sqrt(Var(source,alpha))
+            
+            @python.function()
+            @label = "RSD_{\\alpha=%(alpha)s}_{%(source)s}"
+            def RelStdDev(source = const(),
+                          alpha = 0.15)
+                 = (source-Avg(source,alpha))/StdDev(source,alpha)
+        }
         
-        @python.intrinsic.function("moments.mv.MV_Impl")
-        @label = "\\sigma^2_{n=%(timeframe)s}(%(source)s)"
-        def Var(source = const(),
-                timeframe = 100.0)
-             = Max(const(0.0),Avg(source*source,timeframe)-Sqr(Avg(source,timeframe)))
+        package Cumulative {
+            @python.intrinsic.function("moments.cma.CMA_Impl")
+            @label = "Avg_{cumul}(%(source)s)"
+            def Avg(source = const()) : () => Float
+                
+            
+            @python.intrinsic.function("moments.cmv.Variance_Impl")
+            @label = "\\sigma^2_{cumul}(%(source)s)"
+            def Var(source = const()) : () => Float
+                
+            
+            @python.function()
+            @label = "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}"
+            def StdDev(source = const())
+                 = mathops.Sqrt(Var(source))
+            
+            @python.function()
+            @label = "RSD_{cumul}_{%(source)s}"
+            def RelStdDev(source = const())
+                 = (source-Avg(source))/StdDev(source)
+        }
         
-        @python.function()
-        @label = "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}"
-        def StdDev(source = const(),
-                   timeframe = 100.0)
-             = mathops.Sqrt(Var(source))
-        
-        @python.function()
-        @label = "RSD_{n=%(timeframe)s}_{%(source)s}"
-        def RelStdDev(source = const(),
-                      timeframe = 100.0)
-             = (source-Avg(source,timeframe))/StdDev(source,timeframe)
+        package Moving {
+            @python.intrinsic.function("moments.ma.MA_Impl")
+            @label = "Avg_{n=%(timeframe)s}(%(source)s)"
+            def Avg(source = const(),
+                    timeframe = 100.0) : () => Float
+                
+            
+            @python.intrinsic.function("moments.mv.MV_Impl")
+            @label = "\\sigma^2_{n=%(timeframe)s}(%(source)s)"
+            def Var(source = const(),
+                    timeframe = 100.0)
+                 = Max(const(0.0),Avg(source*source,timeframe)-Sqr(Avg(source,timeframe)))
+            
+            @python.function()
+            @label = "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}"
+            def StdDev(source = const(),
+                       timeframe = 100.0)
+                 = mathops.Sqrt(Var(source))
+            
+            @python.function()
+            @label = "RSD_{n=%(timeframe)s}_{%(source)s}"
+            def RelStdDev(source = const(),
+                          timeframe = 100.0)
+                 = (source-Avg(source,timeframe))/StdDev(source,timeframe)
+        }
     }
     @python.intrinsic.observable("observable.on_every_dt._OnEveryDt_Impl")
     @label = "[%(x)s]_dt=%(dt)s"
@@ -584,44 +588,40 @@ package trash {
     }
     def A(x = in1.in2.A()) : () => types.R
         
-}
-@python.function()
-@label = "C=%(x)s"
-@category = "Basic"
-def constant(x = 1.0) : IFunction
-     = const(x)
-
-type Side
-
-@python.intrinsic.function("_constant._Null_Impl")
-@category = "Basic"
-@label = "Null"
-def null() : () => Float
+}@category = "Basic"
+package $0 {
+    @python.function()
+    @label = "C=%(x)s"
+    def constant(x = 1.0) : IFunction
+         = const(x)
     
+    @python.intrinsic.function("_constant._Null_Impl")
+    @label = "Null"
+    def null() : () => Float
+        
+    
+    @python.intrinsic.function("_constant._Constant_Impl")
+    @label = "C=%(x)s"
+    def const(x = 1.0) : IObservable
+        
+    
+    @python.intrinsic.function("observable.derivative._Derivative_Impl")
+    @label = "\\frac{d%(x)s}{dt}"
+    def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float
+        
+    
+    @python.observable()
+    @label = "If def(%(x)s) else %(elsePart)s"
+    def IfDefined(x = constant(),
+                  elsePart = constant())
+         = if x<>null() then x else elsePart
+}
+type Side
 
 type IOrderQueue
 
 type IOrderBook
 
-@python.intrinsic.function("_constant._Constant_Impl")
-@category = "Basic"
-@label = "C=%(x)s"
-def const(x = 1.0) : IObservable
-    
-
 type ISingleAssetTrader
 
-@python.intrinsic.function("observable.derivative._Derivative_Impl")
-@category = "Basic"
-@label = "\\frac{d%(x)s}{dt}"
-def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float
-    
-
 type IDifferentiable : IFunction
-
-@python.observable()
-@category = "Basic"
-@label = "If def(%(x)s) else %(elsePart)s"
-def IfDefined(x = constant(),
-              elsePart = constant())
-     = if x<>null() then x else elsePart

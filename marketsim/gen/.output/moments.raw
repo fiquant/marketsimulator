@@ -8,466 +8,560 @@ Definitions:
 | | - Definitions:
 | | | - List:
 | | | | - PackageDef:
-| | | | | - Some:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - EW
+| | | | | - None
 | | | | | - Definitions:
 | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - Avg
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - source
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - alpha
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 0.015
-| | | | | | | | | | - List:
-| | | | | | | | - None
+| | | | | | | - PackageDef:
 | | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - EW
+| | | | | | | | - Definitions:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Avg
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IDifferentiable
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - function
-| | | | | | | | | | - List:
-| | | | | | | | | | | - moments.ewma.EWMA_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Avg_{\\alpha=%(alpha)s}(%(source)s)
-| | | | | | | - FunDef:
-| | | | | | | | - Var
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - source
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - const
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - alpha
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 0.015
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - function
-| | | | | | | | | | - List:
-| | | | | | | | | | | - moments.ewmv.EWMV_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - \\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}
-| | | | | | | - FunDef:
-| | | | | | | | - StdDev
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - source
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - const
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - alpha
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 0.015
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - mathops
-| | | | | | | | | | | | - Sqrt
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Var
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - source
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - alpha
-| | | | | | | | - None
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
-| | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - \\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}
-| | | | | | | - FunDef:
-| | | | | | | | - RelStdDev
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - source
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - const
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - alpha
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 0.15
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - BinOp:
-| | | | | | | | | | - Div
-| | | | | | | | | | - BinOp:
-| | | | | | | | | | | - Sub
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - source
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Avg
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - source
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - alpha
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - StdDev
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | - Parameter:
 | | | | | | | | | | | | | - source
-| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
 | | | | | | | | | | | | | - alpha
-| | | | | | | | - None
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
-| | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
-| | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - category
-| | | | | | | - Statistics
-| | | | - PackageDef:
-| | | | | - Some:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - Cumulative
-| | | | | - Definitions:
-| | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - Avg
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - source
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | | - 0.015
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - const
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IDifferentiable
+| | | | | | | | | | | - None
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - function
-| | | | | | | | | | - List:
-| | | | | | | | | | | - moments.cma.CMA_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Avg_{cumul}(%(source)s)
-| | | | | | | - FunDef:
-| | | | | | | | - Var
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - source
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - const
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - moments.ewma.EWMA_Impl
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - Avg_{\\alpha=%(alpha)s}(%(source)s)
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Var
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - function
-| | | | | | | | | | - List:
-| | | | | | | | | | | - moments.cmv.Variance_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - \\sigma^2_{cumul}(%(source)s)
-| | | | | | | - FunDef:
-| | | | | | | | - StdDev
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - source
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - const
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - mathops
-| | | | | | | | | | | | - Sqrt
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Var
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - source
-| | | | | | | | - None
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
-| | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - \\sqrt{\\sigma^2_{cumul}_{%(source)s}}
-| | | | | | | - FunDef:
-| | | | | | | | - RelStdDev
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - source
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - const
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - BinOp:
-| | | | | | | | | | - Div
-| | | | | | | | | | - BinOp:
-| | | | | | | | | | | - Sub
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - source
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Avg
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - source
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - StdDev
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | - Parameter:
 | | | | | | | | | | | | | - source
-| | | | | | | | - None
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
-| | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - RSD_{cumul}_{%(source)s}
-| | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - category
-| | | | | | | - Statistics
-| | | | - PackageDef:
-| | | | | - Some:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - Moving
-| | | | | - Definitions:
-| | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - Avg
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - source
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - const
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - timeframe
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 100.0
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - function
-| | | | | | | | | | - List:
-| | | | | | | | | | | - moments.ma.MA_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Avg_{n=%(timeframe)s}(%(source)s)
-| | | | | | | - FunDef:
-| | | | | | | | - Var
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - source
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - alpha
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | | - 0.015
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - const
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - timeframe
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 100.0
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Max
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunctionType:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - const
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Const:
-| | | | | | | | | | | | | | - 0.0
-| | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - function
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - moments.ewmv.EWMV_Impl
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - \\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - StdDev
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - alpha
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | | - 0.015
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - Some:
 | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | | | | - mathops
+| | | | | | | | | | | | | | | - Sqrt
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | | | | - Mul
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - source
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Var
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - alpha
+| | | | | | | | | | | - None
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - function
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - \\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - RelStdDev
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - alpha
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | | - 0.15
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Div
+| | | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | | - Sub
 | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - alpha
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - StdDev
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - alpha
+| | | | | | | | | | | - None
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - function
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
+| | | | | | | | - List:
+| | | | | | | - PackageDef:
+| | | | | | | | - Some:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Cumulative
+| | | | | | | | - Definitions:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Avg
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - function
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - moments.cma.CMA_Impl
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - Avg_{cumul}(%(source)s)
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Var
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - function
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - moments.cmv.Variance_Impl
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - \\sigma^2_{cumul}(%(source)s)
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - StdDev
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - Some:
 | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Sqr
+| | | | | | | | | | | | | | | - mathops
+| | | | | | | | | | | | | | | - Sqrt
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Var
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | - None
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - function
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - \\sqrt{\\sigma^2_{cumul}_{%(source)s}}
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - RelStdDev
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Div
+| | | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - StdDev
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | - None
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - function
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - RSD_{cumul}_{%(source)s}
+| | | | | | | | - List:
+| | | | | | | - PackageDef:
+| | | | | | | | - Some:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Moving
+| | | | | | | | - Definitions:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Avg
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | | - 100.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - function
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - moments.ma.MA_Impl
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - Avg_{n=%(timeframe)s}(%(source)s)
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Var
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | | - 100.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Max
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | | | | - 0.0
+| | | | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | | | | | | - Mul
+| | | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Sqr
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | - None
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - function
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - moments.mv.MV_Impl
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - \\sigma^2_{n=%(timeframe)s}(%(source)s)
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - StdDev
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | | - 100.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - mathops
+| | | | | | | | | | | | | | | - Sqrt
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Var
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | - None
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - function
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - \\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - RelStdDev
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | | - 100.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Div
+| | | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - source
 | | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
@@ -477,123 +571,28 @@ Definitions:
 | | | | | | | | | | | | | | | | | - source
 | | | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | | | - timeframe
-| | | | | | | | - None
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - StdDev
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | - None
+| | | | | | | | | | | - None
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - function
-| | | | | | | | | | - List:
-| | | | | | | | | | | - moments.mv.MV_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - \\sigma^2_{n=%(timeframe)s}(%(source)s)
-| | | | | | | - FunDef:
-| | | | | | | | - StdDev
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - source
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - const
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - timeframe
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 100.0
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - mathops
-| | | | | | | | | | | | - Sqrt
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Var
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - source
-| | | | | | | | - None
-| | | | | | | | - None
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
-| | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - \\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}
-| | | | | | | - FunDef:
-| | | | | | | | - RelStdDev
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - source
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - const
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - timeframe
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
-| | | | | | | | | | | | - 100.0
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - BinOp:
-| | | | | | | | | | - Div
-| | | | | | | | | | - BinOp:
-| | | | | | | | | | | - Sub
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - source
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Avg
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - source
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - timeframe
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - StdDev
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - source
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - timeframe
-| | | | | | | | - None
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
-| | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category

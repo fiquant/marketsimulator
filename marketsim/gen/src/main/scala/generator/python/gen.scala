@@ -64,6 +64,7 @@ package object gen
         register(mathops)
         register(observable)
         register(function)
+        register(intrinsic)
         register(intrinsic_function)
         register(intrinsic_observable)
     }

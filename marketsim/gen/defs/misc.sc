@@ -19,26 +19,29 @@ package observable
     def OnEveryDt(dt = 1.0, x = constant()) : IObservable
 }
 
-@python.function
-@label = "C=%(x)s"
 @category = "Basic"
-def constant(x = 1.0) : IFunction = const(x)
+package {
+    @python.function
+    @label = "C=%(x)s"
+    def constant(x = 1.0) : IFunction = const(x)
 
-@python.intrinsic.function("_constant._Constant_Impl")
-@category = "Basic"
-@label = "C=%(x)s"
-def const(x = 1.0) : IObservable
+    @python.intrinsic.function("_constant._Constant_Impl")
+    @label = "C=%(x)s"
+    def const(x = 1.0) : IObservable
 
-@python.intrinsic.function("_constant._Null_Impl")
-@category = "Basic"
-@label = "Null"
-def null() => Float
+    @python.intrinsic.function("_constant._Null_Impl")
+    @label = "Null"
+    def null() => Float
 
-@python.observable
-@category = "Basic"
-@label = "If def(%(x)s) else %(elsePart)s"
-def IfDefined(x = constant(), elsePart = constant()) =
-    if x <> null() then x else elsePart
+    @python.observable
+    @label = "If def(%(x)s) else %(elsePart)s"
+    def IfDefined(x = constant(), elsePart = constant()) =
+        if x <> null() then x else elsePart
+
+    @python.intrinsic.function ("observable.derivative._Derivative_Impl")
+    @label = "\\frac{d%(x)s}{dt}"
+    def Derivative(x : IDifferentiable = observable.EW.Avg()) => Float
+}
 
 
 type Side
@@ -67,10 +70,6 @@ type ISingleAssetTrader
 
 type IDifferentiable : IFunction
 
-@python.intrinsic.function ("observable.derivative._Derivative_Impl")
-@category = "Basic"
-@label = "\\frac{d%(x)s}{dt}"
-def Derivative(x : IDifferentiable = observable.EW.Avg()) => Float
 
 package trash
 

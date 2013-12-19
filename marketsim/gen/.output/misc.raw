@@ -179,155 +179,191 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
-| - FunDef:
-| | - constant
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - None
-| | | | - Some:
-| | | | | - Const:
-| | | | | | - 1.0
-| | | | - List:
-| | - Some:
-| | | - FunCall:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - const
-| | | | - List:
-| | | | | - Var:
-| | | | | | - x
-| | - Some:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IFunction
+| - PackageDef:
 | | - None
-| | - List:
-| | | - Annotation:
-| | | | - QualifiedName:
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - constant
 | | | | | - List:
-| | | | | | - python
-| | | | | | - function
-| | | | - List:
-| | | - Attribute:
-| | | | - label
-| | | | - C=%(x)s
-| | | - Attribute:
-| | | | - category
-| | | | - Basic
-| - FunDef:
-| | - const
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - None
-| | | | - Some:
-| | | | | - Const:
-| | | | | | - 1.0
-| | | | - List:
-| | - None
-| | - Some:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IObservable
-| | - None
-| | - List:
-| | | - Annotation:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - python
-| | | | | | - intrinsic
-| | | | | | - function
-| | | | - List:
-| | | | | - _constant._Constant_Impl
-| | | - Attribute:
-| | | | - category
-| | | | - Basic
-| | | - Attribute:
-| | | | - label
-| | | | - C=%(x)s
-| - FunDef:
-| | - null
-| | - List:
-| | - None
-| | - Some:
-| | | - FunctionType:
-| | | | - List:
-| | | | - SimpleType:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - Float
-| | - None
-| | - List:
-| | | - Annotation:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - python
-| | | | | | - intrinsic
-| | | | | | - function
-| | | | - List:
-| | | | | - _constant._Null_Impl
-| | | - Attribute:
-| | | | - category
-| | | | - Basic
-| | | - Attribute:
-| | | | - label
-| | | | - Null
-| - FunDef:
-| | - IfDefined
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - None
-| | | | - Some:
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 1.0
 | | | | | | | - List:
-| | | | | | | | - constant
-| | | | | | - List:
-| | | | - List:
-| | | - Parameter:
-| | | | - elsePart
-| | | | - None
-| | | | - Some:
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - const
 | | | | | | | - List:
-| | | | | | | | - constant
-| | | | | | - List:
-| | | | - List:
-| | - Some:
-| | | - IfThenElse:
-| | | | - Condition:
-| | | | | - NotEqual
-| | | | | - Var:
-| | | | | | - x
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - null
-| | | | | | - List:
-| | | | - Var:
-| | | | | - x
-| | | | - Var:
-| | | | | - elsePart
-| | - None
-| | - None
-| | - List:
-| | | - Annotation:
-| | | | - QualifiedName:
+| | | | | | | | - Var:
+| | | | | | | | | - x
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IFunction
+| | | | | - None
 | | | | | - List:
-| | | | | | - python
-| | | | | | - observable
-| | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - C=%(x)s
+| | | | - FunDef:
+| | | | | - const
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Const:
+| | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - _constant._Constant_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - C=%(x)s
+| | | | - FunDef:
+| | | | | - null
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - _constant._Null_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Null
+| | | | - FunDef:
+| | | | | - IfDefined
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - elsePart
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - IfThenElse:
+| | | | | | | - Condition:
+| | | | | | | | - NotEqual
+| | | | | | | | - Var:
+| | | | | | | | | - x
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - null
+| | | | | | | | | - List:
+| | | | | | | - Var:
+| | | | | | | | - x
+| | | | | | | - Var:
+| | | | | | | | - elsePart
+| | | | | - None
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - If def(%(x)s) else %(elsePart)s
+| | | | - FunDef:
+| | | | | - Derivative
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IDifferentiable
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - observable
+| | | | | | | | | | | - EW
+| | | | | | | | | | | - Avg
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Float
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - observable.derivative._Derivative_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - \\frac{d%(x)s}{dt}
+| | - List:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
-| | | - Attribute:
-| | | | - label
-| | | | - If def(%(x)s) else %(elsePart)s
 | - Interface:
 | | - Side
 | | - List:
@@ -430,49 +466,6 @@ Definitions:
 | | | | - QualifiedName:
 | | | | | - List:
 | | | | | | - IFunction
-| - FunDef:
-| | - Derivative
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - Some:
-| | | | | - SimpleType:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - IDifferentiable
-| | | | - Some:
-| | | | | - FunCall:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - observable
-| | | | | | | | - EW
-| | | | | | | | - Avg
-| | | | | | - List:
-| | | | - List:
-| | - None
-| | - Some:
-| | | - FunctionType:
-| | | | - List:
-| | | | - SimpleType:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - Float
-| | - None
-| | - List:
-| | | - Annotation:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - python
-| | | | | | - intrinsic
-| | | | | | - function
-| | | | - List:
-| | | | | - observable.derivative._Derivative_Impl
-| | | - Attribute:
-| | | | - category
-| | | | - Basic
-| | | - Attribute:
-| | | | - label
-| | | | - \\frac{d%(x)s}{dt}
 | - PackageDef:
 | | - Some:
 | | | - QualifiedName:

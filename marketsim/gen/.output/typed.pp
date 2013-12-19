@@ -17,57 +17,22 @@ package side {
         
 }
 
-package mathops {
-    /** Arc tangent of x, in radians.
-     *
-     */
+package mathops {@category = "Log/Pow"
+    
+    package  {
+        /** Square root of x
+         *
+         */
+        @category = "Log/Pow"
+        @label = "\\sqrt{%(x)s}"
+        @python.mathops("sqrt")
+        def Sqrt(x : IFunction = constant(1.0)) : () => Float
+            
+    }
     @category = "Trigonometric"
-    @label = "atan(%(x)s)"
-    @python.mathops("atan")
-    def Atan(x : IFunction = constant(0.0)) : () => Float
-        
     
-    /** Square root of x
-     *
-     */
-    @category = "Log/Pow"
-    @label = "\\sqrt{%(x)s}"
-    @python.mathops("sqrt")
-    def Sqrt(x : IFunction = constant(1.0)) : () => Float
-        
-    
-    /** Exponent of x
-     *
-     */
-    @category = "Log/Pow"
-    @label = "e^{%(x)s}"
-    @python.mathops("exp")
-    def Exp(x : IFunction = constant(1.0)) : () => Float
-        
-    
-    /** Natural logarithm of x (to base e)
-     *
-     */
-    @category = "Log/Pow"
-    @label = "log(%(x)s)"
-    @python.mathops("log")
-    def Log(x : IFunction = constant(1.0)) : () => Float
-        
-    
-    /** Return *x* raised to the power *y*.
-     *
-     * Exceptional cases follow Annex F of the C99 standard as far as possible.
-     * In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,
-     * even when *x* is a zero or a NaN.
-     * If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
-     * ``pow(x, y)`` is undefined, and raises ``ValueError``.
-     */
-    @category = "Log/Pow"
-    @label = "%(base)s^{%(power)s}"
-    @python.mathops("pow")
-    def Pow(base : IFunction = constant(1.0),
-            power : IFunction = constant(1.0)) : () => Float
-        
+    package  {
+    }
 }
 
 package mathutils {
@@ -233,29 +198,6 @@ package observable {@category = "Price function"
         def Noise(side_distribution : IFunction = mathutils.rnd.uniform(0.0,1.0)) : () => Side
              = if side_distribution>const(0.5) then side.Sell() else side.Buy()
     }
-    @category = "Statistics"
-    
-    package Cumulative {
-        @label = "Avg_{cumul}(%(source)s)"
-        @python.intrinsic.function("moments.cma.CMA_Impl")
-        def Avg(source : IObservable = const()) : () => Float
-            
-        
-        @label = "\\sigma^2_{cumul}(%(source)s)"
-        @python.intrinsic.function("moments.cmv.Variance_Impl")
-        def Var(source : IObservable = const()) : () => Float
-            
-        
-        @label = "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}"
-        @python.function()
-        def StdDev(source : IObservable = const()) : () => Float
-             = mathops.Sqrt(observable.Cumulative.Var(source))
-        
-        @label = "RSD_{cumul}_{%(source)s}"
-        @python.function()
-        def RelStdDev(source : IObservable = const()) : IObservable
-             = (source-observable.Cumulative.Avg(source))/observable.Cumulative.StdDev(source)
-    }
     @category = "RSI"
     
     package rsi {
@@ -351,33 +293,6 @@ package observable {@category = "Price function"
                        timeframe : Float = 1.0,
                        trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IObservable
              = observable.volumefunc.DesiredPosition(observable.OnEveryDt(1.0,const(50.0)-observable.RSI(observable.orderbook.OfTrader(trader),timeframe,alpha))*k,trader)
-    }
-    @category = "Statistics"
-    
-    package EW {
-        @label = "Avg_{\\alpha=%(alpha)s}(%(source)s)"
-        @python.intrinsic.function("moments.ewma.EWMA_Impl")
-        def Avg(source : IFunction = constant(),
-                alpha : Float = 0.015) : IDifferentiable
-            
-        
-        @label = "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}"
-        @python.intrinsic.function("moments.ewmv.EWMV_Impl")
-        def Var(source : IObservable = const(),
-                alpha : Float = 0.015) : () => Float
-            
-        
-        @label = "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}"
-        @python.function()
-        def StdDev(source : IObservable = const(),
-                   alpha : Float = 0.015) : () => Float
-             = mathops.Sqrt(observable.EW.Var(source,alpha))
-        
-        @label = "RSD_{\\alpha=%(alpha)s}_{%(source)s}"
-        @python.function()
-        def RelStdDev(source : IObservable = const(),
-                      alpha : Float = 0.15) : IObservable
-             = (source-observable.EW.Avg(source,alpha))/observable.EW.StdDev(source,alpha)
     }
     @category = "Asset's"
     
@@ -492,30 +407,38 @@ package observable {@category = "Price function"
     }
     @category = "Statistics"
     
-    package Moving {
-        @label = "Avg_{n=%(timeframe)s}(%(source)s)"
-        @python.intrinsic.function("moments.ma.MA_Impl")
-        def Avg(source : IObservable = const(),
-                timeframe : Float = 100.0) : () => Float
+    package  {
+        package EW {
+            @label = "Avg_{\\alpha=%(alpha)s}(%(source)s)"
+            @python.intrinsic.function("moments.ewma.EWMA_Impl")
+            def Avg(source : IFunction = constant(),
+                    alpha : Float = 0.015) : IDifferentiable
+                
             
+            @label = "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}"
+            @python.intrinsic.function("moments.ewmv.EWMV_Impl")
+            def Var(source : IObservable = const(),
+                    alpha : Float = 0.015) : () => Float
+                
+            
+            @label = "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}"
+            @python.function()
+            def StdDev(source : IObservable = const(),
+                       alpha : Float = 0.015) : () => Float
+                 = mathops.Sqrt(observable.EW.Var(source,alpha))
+            
+            @label = "RSD_{\\alpha=%(alpha)s}_{%(source)s}"
+            @python.function()
+            def RelStdDev(source : IObservable = const(),
+                          alpha : Float = 0.15) : IObservable
+                 = (source-observable.EW.Avg(source,alpha))/observable.EW.StdDev(source,alpha)
+        }
         
-        @label = "\\sigma^2_{n=%(timeframe)s}(%(source)s)"
-        @python.intrinsic.function("moments.mv.MV_Impl")
-        def Var(source : IObservable = const(),
-                timeframe : Float = 100.0) : IFunction
-             = observable.Max(const(0.0),observable.Moving.Avg(source*source,timeframe)-observable.Sqr(observable.Moving.Avg(source,timeframe)))
+        package Cumulative {
+        }
         
-        @label = "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}"
-        @python.function()
-        def StdDev(source : IObservable = const(),
-                   timeframe : Float = 100.0) : () => Float
-             = mathops.Sqrt(observable.Moving.Var(source))
-        
-        @label = "RSD_{n=%(timeframe)s}_{%(source)s}"
-        @python.function()
-        def RelStdDev(source : IObservable = const(),
-                      timeframe : Float = 100.0) : IObservable
-             = (source-observable.Moving.Avg(source,timeframe))/observable.Moving.StdDev(source,timeframe)
+        package Moving {
+        }
     }
     
     @label = "[%(x)s]_dt=%(dt)s"
@@ -601,6 +524,35 @@ package trash {
     def A(x : () => trash.types.T = trash.in1.in2.A()) : () => trash.types.R
         
 }
+@category = "Basic"
+
+package  {
+    @label = "C=%(x)s"
+    @python.function()
+    def constant(x : Float = 1.0) : IFunction
+         = const(x)
+    
+    @label = "Null"
+    @python.intrinsic.function("_constant._Null_Impl")
+    def null() : () => Float
+        
+    
+    @label = "C=%(x)s"
+    @python.intrinsic.function("_constant._Constant_Impl")
+    def const(x : Float = 1.0) : IObservable
+        
+    
+    @label = "\\frac{d%(x)s}{dt}"
+    @python.intrinsic.function("observable.derivative._Derivative_Impl")
+    def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float
+        
+    
+    @label = "If def(%(x)s) else %(elsePart)s"
+    @python.observable()
+    def IfDefined(x : IFunction = constant(),
+                  elsePart : IFunction = constant()) : IFunction
+         = if x<>null() then x else elsePart
+}
 
 type Side
 
@@ -615,34 +567,3 @@ type IFunction = () => Float
 type ISingleAssetTrader
 
 type IDifferentiable : IFunction
-
-@label = "C=%(x)s"
-@category = "Basic"
-@python.function()
-def constant(x : Float = 1.0) : IFunction
-     = const(x)
-
-@category = "Basic"
-@label = "Null"
-@python.intrinsic.function("_constant._Null_Impl")
-def null() : () => Float
-    
-
-@category = "Basic"
-@label = "C=%(x)s"
-@python.intrinsic.function("_constant._Constant_Impl")
-def const(x : Float = 1.0) : IObservable
-    
-
-@category = "Basic"
-@label = "\\frac{d%(x)s}{dt}"
-@python.intrinsic.function("observable.derivative._Derivative_Impl")
-def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float
-    
-
-@category = "Basic"
-@label = "If def(%(x)s) else %(elsePart)s"
-@python.observable()
-def IfDefined(x : IFunction = constant(),
-              elsePart : IFunction = constant()) : IFunction
-     = if x<>null() then x else elsePart
