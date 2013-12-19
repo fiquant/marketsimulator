@@ -15,13 +15,13 @@ package observable {@category = "Statistics"
                     alpha = 0.015) : () => Float
                 
             
-            @python.function()
+            @python()
             @label = "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}"
             def StdDev(source = const(),
                        alpha = 0.015)
                  = mathops.Sqrt(Var(source,alpha))
             
-            @python.function()
+            @python()
             @label = "RSD_{\\alpha=%(alpha)s}_{%(source)s}"
             def RelStdDev(source = const(),
                           alpha = 0.15)
@@ -39,12 +39,12 @@ package observable {@category = "Statistics"
             def Var(source = const()) : () => Float
                 
             
-            @python.function()
+            @python()
             @label = "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}"
             def StdDev(source = const())
                  = mathops.Sqrt(Var(source))
             
-            @python.function()
+            @python()
             @label = "RSD_{cumul}_{%(source)s}"
             def RelStdDev(source = const())
                  = (source-Avg(source))/StdDev(source)
@@ -63,13 +63,13 @@ package observable {@category = "Statistics"
                     timeframe = 100.0)
                  = Max(const(0.0),Avg(source*source,timeframe)-Sqr(Avg(source,timeframe)))
             
-            @python.function()
+            @python()
             @label = "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}"
             def StdDev(source = const(),
                        timeframe = 100.0)
                  = mathops.Sqrt(Var(source))
             
-            @python.function()
+            @python()
             @label = "RSD_{n=%(timeframe)s}_{%(source)s}"
             def RelStdDev(source = const(),
                           timeframe = 100.0)

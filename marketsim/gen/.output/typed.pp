@@ -202,7 +202,7 @@ package observable {@category = "Price function"
     
     package rsi {
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
-        @python.observable()
+        @python()
         def Raw(source : IObservable = observable.orderbook.MidPrice(),
                 timeframe : Float = 10.0,
                 alpha : Float = 0.015) : IFunction
@@ -212,14 +212,14 @@ package observable {@category = "Price function"
     
     package macd {
         @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
-        @python.function()
+        @python()
         def MACD(x : IObservable = observable.orderbook.MidPrice(),
                  slow : Float = 26.0,
                  fast : Float = 12.0) : IFunction
              = observable.EW.Avg(x,2.0/(fast+1.0))-observable.EW.Avg(x,2.0/(slow+1.0))
         
         @label = "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-        @python.function()
+        @python()
         def Signal(x : IObservable = observable.orderbook.MidPrice(),
                    slow : Float = 26.0,
                    fast : Float = 12.0,
@@ -228,7 +228,7 @@ package observable {@category = "Price function"
              = observable.EW.Avg(observable.OnEveryDt(step,observable.macd.MACD(x,slow,fast)),2.0/(timeframe+1.0))
         
         @label = "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-        @python.function()
+        @python()
         def Histogram(x : IObservable = observable.orderbook.MidPrice(),
                       slow : Float = 26.0,
                       fast : Float = 12.0,
@@ -260,7 +260,7 @@ package observable {@category = "Price function"
             
         
         @label = "EfficiencyTrend_{%(trader)s}"
-        @python.function()
+        @python()
         def EfficiencyTrend(trader : ISingleAssetTrader = observable.trader.SingleProxy(),
                             alpha : Float = 0.15) : () => Float
              = Derivative(observable.EW.Avg(observable.trader.Efficiency(trader),alpha))
@@ -308,7 +308,7 @@ package observable {@category = "Price function"
             
         
         @label = "Price_{%(alpha)s}^{%(queue)s}"
-        @python.function()
+        @python()
         def WeightedPrice(queue : IOrderQueue = observable.orderbook.Asks(),
                           alpha : Float = 0.015) : IFunction
              = observable.EW.Avg(observable.orderbook.LastTradePrice(queue)*observable.orderbook.LastTradeVolume(queue),alpha)/observable.EW.Avg(observable.orderbook.LastTradeVolume(queue),alpha)
@@ -317,18 +317,18 @@ package observable {@category = "Price function"
             
         
         @label = "Ask_{%(book)s}"
-        @python.observable()
+        @python()
         def AskLastPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable
              = observable.orderbook.LastPrice(observable.orderbook.Asks(book))
         
         @label = "Ask_{%(alpha)s}^{%(book)s}"
-        @python.function()
+        @python()
         def AskWeightedPrice(book : IOrderBook = observable.orderbook.OfTrader(),
                              alpha : Float = 0.015) : IFunction
              = observable.orderbook.WeightedPrice(observable.orderbook.Asks(book),alpha)
         
         @label = "MidPrice_{%(book)s}"
-        @python.observable()
+        @python()
         def MidPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable
              = (observable.orderbook.AskPrice(book)+observable.orderbook.BidPrice(book))/const(2.0)
         
@@ -338,13 +338,13 @@ package observable {@category = "Price function"
              = observable.orderbook.Queue(book,side.Sell())
         
         @label = "Bid_{%(alpha)s}^{%(book)s}"
-        @python.function()
+        @python()
         def BidWeightedPrice(book : IOrderBook = observable.orderbook.OfTrader(),
                              alpha : Float = 0.015) : IFunction
              = observable.orderbook.WeightedPrice(observable.orderbook.Bids(book),alpha)
         
         @label = "Ask_{%(book)s}"
-        @python.observable()
+        @python()
         def AskPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable
              = observable.orderbook.BestPrice(observable.orderbook.Asks(book))
         
@@ -354,7 +354,7 @@ package observable {@category = "Price function"
             
         
         @label = "Bid^{%(book)s}"
-        @python.observable()
+        @python()
         def BidPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable
              = observable.orderbook.BestPrice(observable.orderbook.Bids(book))
         
@@ -380,7 +380,7 @@ package observable {@category = "Price function"
             
         
         @label = "Bid^{%(book)s}"
-        @python.observable()
+        @python()
         def BidLastPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable
              = observable.orderbook.LastPrice(observable.orderbook.Bids(book))
         
@@ -396,7 +396,7 @@ package observable {@category = "Price function"
             
         
         @label = "Spread_{%(book)s}"
-        @python.observable()
+        @python()
         def Spread(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable
              = observable.orderbook.AskPrice(book)-observable.orderbook.BidPrice(book)
         
@@ -422,13 +422,13 @@ package observable {@category = "Price function"
                 
             
             @label = "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}"
-            @python.function()
+            @python()
             def StdDev(source : IObservable = const(),
                        alpha : Float = 0.015) : () => Float
                  = mathops.Sqrt(observable.EW.Var(source,alpha))
             
             @label = "RSD_{\\alpha=%(alpha)s}_{%(source)s}"
-            @python.function()
+            @python()
             def RelStdDev(source : IObservable = const(),
                           alpha : Float = 0.15) : IObservable
                  = (source-observable.EW.Avg(source,alpha))/observable.EW.StdDev(source,alpha)
@@ -460,7 +460,7 @@ package observable {@category = "Price function"
          = observable.Max(const(0.0),observable.Lagged(source,timeframe)-source)
     
     @label = "Lagged_{%(timeframe)s}(%(source)s)"
-    @python.intrinsic.observable("observable.lagged.Lagged_Impl")
+    @python.intrinsic("observable.lagged.Lagged_Impl")
     def Lagged(source : IObservable = const(),
                timeframe : Float = 10.0) : IObservable
         
@@ -484,7 +484,7 @@ package observable {@category = "Price function"
          = x*x
     
     @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)"
-    @python.observable()
+    @python()
     def RSI(book : IOrderBook = observable.orderbook.OfTrader(),
             timeframe : Float = 10.0,
             alpha : Float = 0.015) : IObservable
@@ -528,12 +528,12 @@ package trash {
 
 package  {
     @label = "C=%(x)s"
-    @python.function()
+    @python()
     def constant(x : Float = 1.0) : IFunction
          = const(x)
     
     @label = "Null"
-    @python.intrinsic.function("_constant._Null_Impl")
+    @python.intrinsic("_constant._Null_Impl")
     def null() : () => Float
         
     

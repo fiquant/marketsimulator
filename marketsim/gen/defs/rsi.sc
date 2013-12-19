@@ -1,6 +1,6 @@
 package observable
 {
-    @python.intrinsic.observable("observable.lagged.Lagged_Impl")
+    @python.intrinsic("observable.lagged.Lagged_Impl")
     @label = "Lagged_{%(timeframe)s}(%(source)s)"
     def Lagged (source = const (), timeframe = 10) : IObservable
 
@@ -17,14 +17,14 @@ package observable
     @category = "RSI"
     package rsi
     {
-        @python.observable
+        @python
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
         def Raw(source = orderbook.MidPrice(), timeframe = 10, alpha = 0.015)
             =   EW.Avg(UpMovements  (source, timeframe), alpha) /
                 EW.Avg(DownMovements(source, timeframe), alpha)
     }
 
-    @python.observable
+    @python
     @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)"
     def RSI(book = orderbook.OfTrader(), timeframe = 10, alpha = 0.015)
         = 100.0 - 100.0 / (1.0 + rsi.Raw(orderbook.MidPrice(book), timeframe, alpha))

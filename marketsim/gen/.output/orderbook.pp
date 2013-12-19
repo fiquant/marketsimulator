@@ -27,12 +27,12 @@ package observable.orderbook {
     def BestPrice(queue = Asks()) : IObservable
         
     
-    @python.observable()
+    @python()
     @label = "Ask_{%(book)s}"
     def AskPrice(book = OfTrader())
          = BestPrice(Asks(book))
     
-    @python.observable()
+    @python()
     @label = "Bid^{%(book)s}"
     def BidPrice(book = OfTrader())
          = BestPrice(Bids(book))
@@ -42,12 +42,12 @@ package observable.orderbook {
     def LastPrice(queue = Asks()) : IObservable
         
     
-    @python.observable()
+    @python()
     @label = "Ask_{%(book)s}"
     def AskLastPrice(book = OfTrader())
          = LastPrice(Asks(book))
     
-    @python.observable()
+    @python()
     @label = "Bid^{%(book)s}"
     def BidLastPrice(book = OfTrader())
          = LastPrice(Bids(book))
@@ -72,19 +72,19 @@ package observable.orderbook {
                       volume = 100.0) : () => Float
         
     
-    @python.function()
+    @python()
     @label = "Price_{%(alpha)s}^{%(queue)s}"
     def WeightedPrice(queue = Asks(),
                       alpha = 0.015)
          = EW.Avg(LastTradePrice(queue)*LastTradeVolume(queue),alpha)/EW.Avg(LastTradeVolume(queue),alpha)
     
-    @python.function()
+    @python()
     @label = "Ask_{%(alpha)s}^{%(book)s}"
     def AskWeightedPrice(book = OfTrader(),
                          alpha = 0.015)
          = WeightedPrice(Asks(book),alpha)
     
-    @python.function()
+    @python()
     @label = "Bid_{%(alpha)s}^{%(book)s}"
     def BidWeightedPrice(book = OfTrader(),
                          alpha = 0.015)
@@ -93,12 +93,12 @@ package observable.orderbook {
     def TickSize(book = OfTrader()) : () => Float
         
     
-    @python.observable()
+    @python()
     @label = "Spread_{%(book)s}"
     def Spread(book = OfTrader())
          = AskPrice(book)-BidPrice(book)
     
-    @python.observable()
+    @python()
     @label = "MidPrice_{%(book)s}"
     def MidPrice(book = OfTrader())
          = (AskPrice(book)+BidPrice(book))/2.0

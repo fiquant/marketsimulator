@@ -40,7 +40,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - observable.lagged.Lagged_Impl
 | | | | | | - Attribute:
@@ -243,7 +242,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -318,7 +316,6 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - python
-| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label

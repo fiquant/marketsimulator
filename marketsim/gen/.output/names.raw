@@ -1428,7 +1428,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -1518,7 +1517,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -1607,7 +1605,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -1690,7 +1687,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -1893,7 +1889,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -2356,7 +2351,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -2417,7 +2411,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -2464,7 +2457,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -2510,7 +2502,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -2597,7 +2588,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -2635,7 +2625,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -2704,7 +2693,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -2887,7 +2875,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -3001,7 +2988,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -3176,7 +3162,6 @@ Definitions:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
@@ -3233,7 +3218,6 @@ Definitions:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
@@ -3346,7 +3330,6 @@ Definitions:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
@@ -3392,7 +3375,6 @@ Definitions:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
@@ -3561,7 +3543,6 @@ Definitions:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
@@ -3618,7 +3599,6 @@ Definitions:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
@@ -3805,7 +3785,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - observable.lagged.Lagged_Impl
 | | | | | | - Attribute:
@@ -4018,7 +3997,6 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - python
-| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -4260,7 +4238,6 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - python
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -4283,7 +4260,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | | | - _constant._Null_Impl
 | | | | | | - Attribute:

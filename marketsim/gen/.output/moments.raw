@@ -139,7 +139,6 @@ Definitions:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
@@ -196,7 +195,6 @@ Definitions:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
@@ -309,7 +307,6 @@ Definitions:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
@@ -355,7 +352,6 @@ Definitions:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
@@ -524,7 +520,6 @@ Definitions:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
@@ -581,7 +576,6 @@ Definitions:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label

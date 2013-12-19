@@ -211,7 +211,6 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - python
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -263,7 +262,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | | | - _constant._Null_Impl
 | | | | | | - Attribute:

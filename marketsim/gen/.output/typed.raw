@@ -1517,7 +1517,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | - List:
 | | | | | | - Attribute:
@@ -1626,7 +1625,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - Signal
@@ -1744,7 +1742,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - Histogram
@@ -1856,7 +1853,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | - List:
 | | | | | | - Attribute:
@@ -2106,7 +2102,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - PendingVolume
@@ -2693,7 +2688,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - TickSize
@@ -2774,7 +2768,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - AskWeightedPrice
@@ -2839,7 +2832,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - MidPrice
@@ -2904,7 +2896,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - Asks
@@ -3021,7 +3012,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - AskPrice
@@ -3073,7 +3063,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - LastTradeVolume
@@ -3162,7 +3151,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - Bids
@@ -3394,7 +3382,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - CumulativePrice
@@ -3538,7 +3525,6 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - LastTradePrice
@@ -3748,7 +3734,6 @@ Definitions:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | - FunDef:
 | | | | | | | | | | | - RelStdDev
@@ -3821,7 +3806,6 @@ Definitions:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | - PackageDef:
@@ -4067,7 +4051,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - observable.lagged.Lagged_Impl
 | | | | - FunDef:
@@ -4349,7 +4332,6 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - python
-| | | | | | | | | - observable
 | | | | | | | - List:
 | | - List:
 | | | - Attribute:
@@ -4624,7 +4606,6 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - python
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | - FunDef:
 | | | | | - null
@@ -4647,7 +4628,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | | | - _constant._Null_Impl
 | | | | - FunDef:

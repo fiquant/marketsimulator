@@ -28,7 +28,7 @@ package observable {
 @category = "Basic"
 
 package  {
-    @python.function()
+    @python()
     @label = "C=%(x)s"
     def constant(x = 1.0) : IFunction
          = const(x)
@@ -38,7 +38,7 @@ package  {
     def const(x = 1.0) : IObservable
         
     
-    @python.intrinsic.function("_constant._Null_Impl")
+    @python.intrinsic("_constant._Null_Impl")
     @label = "Null"
     def null() : () => Float
         

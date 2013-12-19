@@ -226,7 +226,6 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - python
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
