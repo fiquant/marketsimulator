@@ -9,7 +9,7 @@ object intrinsic_observable extends gen.PythonGenerator
 {
     import base.{Def, Prop}
 
-    case class Parameter(p : Typed.Parameter) extends base.Parameter
+    class Parameter(p: Typed.Parameter) extends intrinsic_function.Parameter(p)
     {
         def subscribe =
             s"if isinstance($name, types.IEvent):" |>
@@ -18,29 +18,13 @@ object intrinsic_observable extends gen.PythonGenerator
             ImportFrom("types", "marketsim")
     }
 
-    case class Import(args : List[String], f : Typed.Function) extends base.Printer
+    class Import(args : List[String], f : Typed.Function) extends intrinsic_function.Common(args, f)
     {
-        val name = f.name
-        if (args.length != 1)
-            throw new Exception(s"Annotation $name should have 1 arguments in" +
-                    " form (implementation_class)" + "\r\n" + "In function " + f)
+        override val parameters  = f.parameters map { new Parameter(_) }
 
-        val last_dot_idx = args(0).lastIndexOf(".")
-        val implementation_module =args(0).substring(0, last_dot_idx)
-        val implementation_class  =args(0).substring(last_dot_idx + 1)
-
-        val parameters  = f.parameters map Parameter
-        val docstring  = f.docstring match {
-            case Some(d) => d.detailed
-            case None => Nil
-        }
-
-        type Parameter = intrinsic_observable.Parameter
-        val alias = name
+        override type Parameter = intrinsic_observable.Parameter
 
         val subscriptions = join_fields({ _.subscribe }, nl)
-
-        override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
 
         override def base_class = s"$implementation_class" |||
                                 ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
@@ -48,8 +32,6 @@ object intrinsic_observable extends gen.PythonGenerator
         override def init_body =    super.init_body |
                                     s"$implementation_class.__init__(self)" |
                                     subscriptions
-
-        def call_body = ""  // TODO: remove from the base class
     }
 
     def apply(/** arguments of the annotation */ args  : List[String])
