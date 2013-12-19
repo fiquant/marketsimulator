@@ -24,7 +24,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | | | - trader.proxy._Single_Impl
 | | | | | | - Attribute:
@@ -45,12 +44,10 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - FunctionType:
-| | | | | | | - List:
-| | | | | | | - SimpleType:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - Float
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -58,7 +55,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - trader.props.Position_Impl
 | | | | | | - Attribute:
@@ -79,12 +75,10 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - FunctionType:
-| | | | | | | - List:
-| | | | | | | - SimpleType:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - Float
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -92,7 +86,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - trader.props.Balance_Impl
 | | | | | | - Attribute:
@@ -113,12 +106,10 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
-| | | | | | - FunctionType:
-| | | | | | | - List:
-| | | | | | | - SimpleType:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - Float
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -126,7 +117,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - trader.props.PendingVolume_Impl
 | | | | | | - Attribute:

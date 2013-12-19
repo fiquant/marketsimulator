@@ -169,7 +169,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - observable.on_every_dt._OnEveryDt_Impl
 | | | | | | - Attribute:
@@ -354,7 +353,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | | | - observable.derivative._Derivative_Impl
 | | | | | | - Attribute:
@@ -392,7 +390,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | | | - side._Sell_Impl
 | | | | | | - Attribute:
@@ -416,7 +413,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | | | - side._Buy_Impl
 | | | | | | - Attribute:
@@ -440,7 +436,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | | | - side._Buy_Impl
 | | | | | | - Attribute:

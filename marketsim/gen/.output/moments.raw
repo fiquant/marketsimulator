@@ -51,7 +51,6 @@ Definitions:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
 | | | | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - moments.ewma.EWMA_Impl
 | | | | | | | | | | | | - Attribute:
@@ -92,7 +91,6 @@ Definitions:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
 | | | | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - moments.ewmv.EWMV_Impl
 | | | | | | | | | | | | - Attribute:
@@ -239,7 +237,6 @@ Definitions:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
 | | | | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - moments.cma.CMA_Impl
 | | | | | | | | | | | | - Attribute:
@@ -273,7 +270,6 @@ Definitions:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
 | | | | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - moments.cmv.Variance_Impl
 | | | | | | | | | | | | - Attribute:
@@ -407,7 +403,6 @@ Definitions:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
 | | | | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - moments.ma.MA_Impl
 | | | | | | | | | | | | - Attribute:
@@ -483,7 +478,6 @@ Definitions:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
 | | | | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - moments.mv.MV_Impl
 | | | | | | | | | | | | - Attribute:

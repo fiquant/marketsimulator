@@ -1,21 +1,21 @@
 @category = "Trader's"
 package observable.trader
 {
-    @python.intrinsic.function ("trader.proxy._Single_Impl")
+    @python.intrinsic("trader.proxy._Single_Impl")
     @label = "N/A"
     def SingleProxy() : ISingleAssetTrader
 
-    @python.intrinsic.observable("trader.props.Position_Impl")
+    @python.intrinsic("trader.props.Position_Impl")
     @label = "Amount_{%(trader)s}"
-    def Position(trader = SingleProxy()) => Float
+    def Position(trader = SingleProxy()) : IObservable
 
-    @python.intrinsic.observable("trader.props.Balance_Impl")
+    @python.intrinsic("trader.props.Balance_Impl")
     @label = "Balance_{%(trader)s}"
-    def Balance(trader = SingleProxy()) => Float
+    def Balance(trader = SingleProxy()) : IObservable
 
-    @python.intrinsic.observable("trader.props.PendingVolume_Impl")
+    @python.intrinsic("trader.props.PendingVolume_Impl")
     @label = "PendingVolume_{%(trader)s}"
-    def PendingVolume(trader = SingleProxy()) => Float
+    def PendingVolume(trader = SingleProxy()) : IObservable
 
     @python.observable
     @label = "Efficiency_{%(trader)s}"

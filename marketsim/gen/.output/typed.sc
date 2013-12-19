@@ -1,17 +1,17 @@
 @category = "Side"
 package side {
     @label = "Sell"
-    @python.intrinsic.function("side._Sell_Impl")
+    @python.intrinsic("side._Sell_Impl")
     def Sell() : () => Side
         
     
     @label = "Buy"
-    @python.intrinsic.function("side._Buy_Impl")
+    @python.intrinsic("side._Buy_Impl")
     def Buy() : () => Side
         
     
     @label = "NoneSide"
-    @python.intrinsic.function("side._Buy_Impl")
+    @python.intrinsic("side._Buy_Impl")
     def Nothing() : () => Side
         
 }
@@ -253,23 +253,23 @@ package observable {@category = "Price function"
     @category = "Trader's"
     package trader {
         @label = "Balance_{%(trader)s}"
-        @python.intrinsic.observable("trader.props.Balance_Impl")
-        def Balance(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : () => Float
+        @python.intrinsic("trader.props.Balance_Impl")
+        def Balance(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IObservable
             
         
         @label = "Amount_{%(trader)s}"
-        @python.intrinsic.observable("trader.props.Position_Impl")
-        def Position(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : () => Float
+        @python.intrinsic("trader.props.Position_Impl")
+        def Position(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IObservable
             
         
         @label = "Efficiency_{%(trader)s}"
         @python.observable()
-        def Efficiency(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IFunction
+        def Efficiency(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IObservable
             
             	 = observable.trader.Balance(trader)+observable.orderbook.CumulativePrice(observable.orderbook.OfTrader(trader),observable.trader.Position(trader))
         
         @label = "N/A"
-        @python.intrinsic.function("trader.proxy._Single_Impl")
+        @python.intrinsic("trader.proxy._Single_Impl")
         def SingleProxy() : ISingleAssetTrader
             
         
@@ -281,8 +281,8 @@ package observable {@category = "Price function"
             	 = Derivative(observable.EW.Avg(observable.trader.Efficiency(trader),alpha))
         
         @label = "PendingVolume_{%(trader)s}"
-        @python.intrinsic.observable("trader.props.PendingVolume_Impl")
-        def PendingVolume(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : () => Float
+        @python.intrinsic("trader.props.PendingVolume_Impl")
+        def PendingVolume(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IObservable
             
     }
     @category = "Volume function"
@@ -356,7 +356,7 @@ package observable {@category = "Price function"
             	 = (observable.orderbook.AskPrice(book)+observable.orderbook.BidPrice(book))/const(2.0)
         
         @label = "Asks(%(book)s)"
-        @python.intrinsic.function("orderbook.queue._Asks_Impl")
+        @python.intrinsic("orderbook.queue._Asks_Impl")
         def Asks(book : IOrderBook = observable.orderbook.OfTrader()) : IOrderQueue
             
             	 = observable.orderbook.Queue(book,side.Sell())
@@ -375,7 +375,7 @@ package observable {@category = "Price function"
             	 = observable.orderbook.BestPrice(observable.orderbook.Asks(book))
         
         @label = "LastTradeVolume(%(queue)s)"
-        @python.intrinsic.observable("orderbook.last_trade._LastTradeVolume_Impl")
+        @python.intrinsic("orderbook.last_trade._LastTradeVolume_Impl")
         def LastTradeVolume(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
         
@@ -386,24 +386,24 @@ package observable {@category = "Price function"
             	 = observable.orderbook.BestPrice(observable.orderbook.Bids(book))
         
         @label = "Bids(%(book)s)"
-        @python.intrinsic.function("orderbook.queue._Bids_Impl")
+        @python.intrinsic("orderbook.queue._Bids_Impl")
         def Bids(book : IOrderBook = observable.orderbook.OfTrader()) : IOrderQueue
             
             	 = observable.orderbook.Queue(book,side.Buy())
         
         @label = "Price(%(queue)s)"
-        @python.intrinsic.observable("orderbook.props._BestPrice_Impl")
+        @python.intrinsic("orderbook.props._BestPrice_Impl")
         def BestPrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
         
         @label = "Queue(%(book)s)"
-        @python.intrinsic.function("orderbook.queue._Queue_Impl")
+        @python.intrinsic("orderbook.queue._Queue_Impl")
         def Queue(book : IOrderBook = observable.orderbook.OfTrader(),
                   side : () => Side = side.Sell()) : IOrderQueue
             
         
         @label = "N/A"
-        @python.intrinsic.function("orderbook.of_trader._OfTrader_Impl")
+        @python.intrinsic("orderbook.of_trader._OfTrader_Impl")
         def OfTrader(Trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IOrderBook
             
         
@@ -414,13 +414,13 @@ package observable {@category = "Price function"
             	 = observable.orderbook.LastPrice(observable.orderbook.Bids(book))
         
         @label = "CumulativePrice(%(book)s, %(depth)s)"
-        @python.intrinsic.observable("orderbook.cumulative_price.CumulativePrice_Impl")
+        @python.intrinsic("orderbook.cumulative_price.CumulativePrice_Impl")
         def CumulativePrice(book : IOrderBook = observable.orderbook.OfTrader(),
                             depth : IFunction = constant()) : () => Float
             
         
         @label = "LastPrice(%(queue)s)"
-        @python.intrinsic.observable("orderbook.last_price._LastPrice_Impl")
+        @python.intrinsic("orderbook.last_price._LastPrice_Impl")
         def LastPrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
         
@@ -431,20 +431,20 @@ package observable {@category = "Price function"
             	 = observable.orderbook.AskPrice(book)-observable.orderbook.BidPrice(book)
         
         @label = "LastTradePrice(%(queue)s)"
-        @python.intrinsic.observable("orderbook.last_trade._LastTradePrice_Impl")
+        @python.intrinsic("orderbook.last_trade._LastTradePrice_Impl")
         def LastTradePrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable
             
     }@category = "Statistics"
     package  {
         package EW {
             @label = "Avg_{\\alpha=%(alpha)s}(%(source)s)"
-            @python.intrinsic.function("moments.ewma.EWMA_Impl")
+            @python.intrinsic("moments.ewma.EWMA_Impl")
             def Avg(source : IFunction = constant(),
                     alpha : Float = 0.015) : IDifferentiable
                 
             
             @label = "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}"
-            @python.intrinsic.function("moments.ewmv.EWMV_Impl")
+            @python.intrinsic("moments.ewmv.EWMV_Impl")
             def Var(source : IObservable = const(),
                     alpha : Float = 0.015) : () => Float
                 
@@ -471,7 +471,7 @@ package observable {@category = "Price function"
         }
     }
     @label = "[%(x)s]_dt=%(dt)s"
-    @python.intrinsic.observable("observable.on_every_dt._OnEveryDt_Impl")
+    @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
     def OnEveryDt(dt : Float = 1.0,
                   x : IFunction = constant()) : IObservable
         
@@ -573,7 +573,7 @@ package  {
         
     
     @label = "\\frac{d%(x)s}{dt}"
-    @python.intrinsic.function("observable.derivative._Derivative_Impl")
+    @python.intrinsic("observable.derivative._Derivative_Impl")
     def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float
         
     

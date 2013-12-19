@@ -14,7 +14,7 @@ package observable
     @label = "max{%(x)s, %(y)s}"
     def Max(x = constant(), y = constant()) = if x > y then x else y
 
-    @python.intrinsic.observable ("observable.on_every_dt._OnEveryDt_Impl")
+    @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
     @label = "[%(x)s]_dt=%(dt)s"
     def OnEveryDt(dt = 1.0, x = constant()) : IObservable
 }
@@ -38,7 +38,7 @@ package {
     def IfDefined(x = constant(), elsePart = constant()) =
         if x <> null() then x else elsePart
 
-    @python.intrinsic.function ("observable.derivative._Derivative_Impl")
+    @python.intrinsic("observable.derivative._Derivative_Impl")
     @label = "\\frac{d%(x)s}{dt}"
     def Derivative(x : IDifferentiable = observable.EW.Avg()) => Float
 }
@@ -49,15 +49,15 @@ type Side
 @category = "Side"
 package side
 {
-    @python.intrinsic.function("side._Sell_Impl")
+    @python.intrinsic("side._Sell_Impl")
     @label = "Sell"
     def Sell() => Side
 
-    @python.intrinsic.function("side._Buy_Impl")
+    @python.intrinsic("side._Buy_Impl")
     @label = "Buy"
     def Buy() => Side
 
-    @python.intrinsic.function("side._Buy_Impl")
+    @python.intrinsic("side._Buy_Impl")
     @label = "NoneSide"
     def Nothing() => Side
 }

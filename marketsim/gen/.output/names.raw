@@ -25,7 +25,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | | | - side._Sell_Impl
 | | | | | | - Attribute:
@@ -49,7 +48,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | | | - side._Buy_Impl
 | | | | | | - Attribute:
@@ -73,7 +71,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | | | - side._Buy_Impl
 | | | | | | - Attribute:
@@ -1724,12 +1721,10 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -1737,7 +1732,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | | | - trader.props.Balance_Impl
 | | | | | | | | | - Attribute:
@@ -1758,12 +1752,10 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -1771,7 +1763,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | | | - trader.props.Position_Impl
 | | | | | | | | | - Attribute:
@@ -1849,7 +1840,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | | | - trader.proxy._Single_Impl
 | | | | | | | | | - Attribute:
@@ -1923,12 +1913,10 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -1936,7 +1924,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | | | - trader.props.PendingVolume_Impl
 | | | | | | | | | - Attribute:
@@ -2563,7 +2550,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.queue._Asks_Impl
 | | | | | | | | | - Attribute:
@@ -2680,7 +2666,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.last_trade._LastTradeVolume_Impl
 | | | | | | | | | - Attribute:
@@ -2759,7 +2744,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.queue._Bids_Impl
 | | | | | | | | | - Attribute:
@@ -2791,7 +2775,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.props._BestPrice_Impl
 | | | | | | | | | - Attribute:
@@ -2834,7 +2817,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.queue._Queue_Impl
 | | | | | | | | | - Attribute:
@@ -2867,7 +2849,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.of_trader._OfTrader_Impl
 | | | | | | | | | - Attribute:
@@ -2949,7 +2930,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.cumulative_price.CumulativePrice_Impl
 | | | | | | | | | - Attribute:
@@ -2981,7 +2961,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.last_price._LastPrice_Impl
 | | | | | | | | | - Attribute:
@@ -3055,7 +3034,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.last_trade._LastTradePrice_Impl
 | | | | | | | | | - Attribute:
@@ -3112,7 +3090,6 @@ Definitions:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
 | | | | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - moments.ewma.EWMA_Impl
 | | | | | | | | | | | | - Attribute:
@@ -3153,7 +3130,6 @@ Definitions:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
 | | | | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - moments.ewmv.EWMV_Impl
 | | | | | | | | | | | | - Attribute:
@@ -3300,7 +3276,6 @@ Definitions:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
 | | | | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - moments.cma.CMA_Impl
 | | | | | | | | | | | | - Attribute:
@@ -3334,7 +3309,6 @@ Definitions:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
 | | | | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - moments.cmv.Variance_Impl
 | | | | | | | | | | | | - Attribute:
@@ -3468,7 +3442,6 @@ Definitions:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
 | | | | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - moments.ma.MA_Impl
 | | | | | | | | | | | | - Attribute:
@@ -3544,7 +3517,6 @@ Definitions:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - python
 | | | | | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | | | | - function
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - moments.mv.MV_Impl
 | | | | | | | | | | | | - Attribute:
@@ -3691,7 +3663,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - observable.on_every_dt._OnEveryDt_Impl
 | | | | | | - Attribute:
@@ -4383,7 +4354,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | | | - observable.derivative._Derivative_Impl
 | | | | | | - Attribute:

@@ -3,13 +3,13 @@ package observable {@category = "Statistics"
     
     package  {
         package EW {
-            @python.intrinsic.function("moments.ewma.EWMA_Impl")
+            @python.intrinsic("moments.ewma.EWMA_Impl")
             @label = "Avg_{\\alpha=%(alpha)s}(%(source)s)"
             def Avg(source = constant(),
                     alpha = 0.015) : IDifferentiable
                 
             
-            @python.intrinsic.function("moments.ewmv.EWMV_Impl")
+            @python.intrinsic("moments.ewmv.EWMV_Impl")
             @label = "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}"
             def Var(source = const(),
                     alpha = 0.015) : () => Float
@@ -29,12 +29,12 @@ package observable {@category = "Statistics"
         }
         
         package Cumulative {
-            @python.intrinsic.function("moments.cma.CMA_Impl")
+            @python.intrinsic("moments.cma.CMA_Impl")
             @label = "Avg_{cumul}(%(source)s)"
             def Avg(source = const()) : () => Float
                 
             
-            @python.intrinsic.function("moments.cmv.Variance_Impl")
+            @python.intrinsic("moments.cmv.Variance_Impl")
             @label = "\\sigma^2_{cumul}(%(source)s)"
             def Var(source = const()) : () => Float
                 
@@ -51,13 +51,13 @@ package observable {@category = "Statistics"
         }
         
         package Moving {
-            @python.intrinsic.function("moments.ma.MA_Impl")
+            @python.intrinsic("moments.ma.MA_Impl")
             @label = "Avg_{n=%(timeframe)s}(%(source)s)"
             def Avg(source = const(),
                     timeframe = 100.0) : () => Float
                 
             
-            @python.intrinsic.function("moments.mv.MV_Impl")
+            @python.intrinsic("moments.mv.MV_Impl")
             @label = "\\sigma^2_{n=%(timeframe)s}(%(source)s)"
             def Var(source = const(),
                     timeframe = 100.0)

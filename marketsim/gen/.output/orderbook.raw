@@ -35,7 +35,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | | | - orderbook.of_trader._OfTrader_Impl
 | | | | | | - Attribute:
@@ -78,7 +77,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | | | - orderbook.queue._Queue_Impl
 | | | | | | - Attribute:
@@ -119,7 +117,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | | | - orderbook.queue._Asks_Impl
 | | | | | | - Attribute:
@@ -160,7 +157,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
 | | | | | | | - List:
 | | | | | | | | - orderbook.queue._Bids_Impl
 | | | | | | - Attribute:
@@ -192,7 +188,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - orderbook.props._BestPrice_Impl
 | | | | | | - Attribute:
@@ -300,7 +295,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - orderbook.last_price._LastPrice_Impl
 | | | | | | - Attribute:
@@ -408,7 +402,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - orderbook.last_trade._LastTradePrice_Impl
 | | | | | | - Attribute:
@@ -440,7 +433,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - orderbook.last_trade._LastTradeVolume_Impl
 | | | | | | - Attribute:
@@ -857,7 +849,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - orderbook.cumulative_price.CumulativePrice_Impl
 | | | | | | - Attribute:
