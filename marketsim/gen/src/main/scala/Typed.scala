@@ -151,6 +151,7 @@ package object Typed
     {
         var functions = Map[String, Function]()
         var packages = Map[String, SubPackage]()
+        var anonymous = List[AnonymousPackage]()
         var types = Map[String, TypeDeclaration]()
         var annotations = List[Annotation]()
         val attributes = Attributes(Map.empty)
@@ -180,10 +181,17 @@ package object Typed
             p
         }
 
+        def createChild(a : Attributes) = {
+            val p = new AnonymousPackage(this, a)
+            anonymous = p :: anonymous
+            p
+        }
+
         override def equals(o : Any) = o match {
             case that : Package =>
                 (functions  equals that.functions) &&
                 (packages   equals that.packages)  &&
+                (anonymous  equals that.anonymous) &&
                 (attributes equals that.attributes)
             case _ => false
         }
@@ -256,7 +264,7 @@ package object Typed
             case None => throw new Exception(s"Cannot find annotation handler $name")
         }
 
-        override def toString = registry.toString
+        override def toString = registry.toString()
     }
 
 }

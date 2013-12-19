@@ -7,7 +7,7 @@ object NameTable {
     class Scope(val name : String = "_root_") extends pp.NamesScope with ScPrintable {
 
         var packages = Map[String, Scope]()
-        val anonymous = List[Scope]()
+        var anonymous = List[Scope]()
         var members = Map[String, AST.Member]()
         var attributes = Typed.Attributes(Map.empty)
         var parent : Option[Scope] = None
@@ -27,6 +27,7 @@ object NameTable {
                 throw new Exception(s"Duplicate definition for $name:\r\n" + members(name) + "\r\n" + e)
             if (packages contains name)
                 throw new Exception(s"Duplicate definition for $name:\r\n" + packages(name) + "\r\n" + e)
+            anonymous foreach { _.check_name_is_unique(name, e) }
         }
 
         def add(a : AST.Attribute) {
@@ -38,35 +39,42 @@ object NameTable {
         }
 
         def add(p : AST.PackageDef) {
-            p.name match {
-                case Some(name) =>
-                    val target = (name.names map (new Scope(_))).foldLeft(this) {
-                        case (x, y) =>
-                            if (members contains y.name)
-                                throw new Exception(s"Duplicate definition for ${y.name}:\r\n" + members(y.name) + "\r\n" + y)
-                            if (!(packages contains y.name))
-                            {
-                                x.packages = x.packages updated (y.name, y)
-                                y.parent = Some(x)
-                            }
-                            x.packages(y.name)
-                    }
-                    create(p.members, p.attributes, target)
+            def populate(src: Scope, child: Scope) = {
+                if (members contains child.name)
+                    throw new Exception(s"Duplicate definition for ${child.name}:\r\n" + members(child.name) + "\r\n" + child)
+                if (!(packages contains child.name)) {
+                    src.packages = src.packages updated(child.name, child)
+                    child.parent = Some(src)
+                }
+                src.packages(child.name)
             }
+            val target = p.name match {
+                case Some(qn) =>
+                    (qn.names map (new Scope(_))).foldLeft(this) { populate }
+                case None =>
+                    anonymous = new Scope("") :: anonymous
+                    anonymous.head
+            }
+            create(p.members, p.attributes, target)
         }
 
         def lookup[T <: AST.Member](name : List[String])(implicit t : Manifest[T]) : Option[(Scope, T)] = {
-            name match {
-                case Nil => throw new Exception("Qualified name cannot be empty")
-                case x :: Nil =>
-                    members get x match {
-                        case Some(f) if f.cast[T].nonEmpty => Some((this, f.asInstanceOf[T]))
-                        case _ => parent flatMap { _ lookup name }
-                    }
-                case x :: tl =>
-                    packages get x map { _ lookup tl } match {
-                        case None => parent flatMap { _ lookup name }
-                        case y => y.get
+            anonymous map { _ lookup name } find { _.nonEmpty } match {
+                case Some(Some((scope, x))) => Some((scope, x.asInstanceOf[T]))
+                case Some(None) => throw new Exception("cannot occur")
+                case None =>
+                    name match {
+                        case Nil => throw new Exception("Qualified name cannot be empty")
+                        case x :: Nil =>
+                            members get x match {
+                                case Some(f) if f.cast[T].nonEmpty => Some((this, f.asInstanceOf[T]))
+                                case _ => parent flatMap { _ lookup name }
+                            }
+                        case x :: tl =>
+                            packages get x map { _ lookup tl } match {
+                                case None => parent flatMap { _ lookup name }
+                                case y => y.get
+                            }
                     }
             }
         }
@@ -79,6 +87,9 @@ object NameTable {
             typed = Some(target)
             packages.values foreach {
                 p => p.toTyped(target.createChild(p.name, p.attributes))
+            }
+            anonymous foreach {
+                p => p.toTyped(target.createChild(p.attributes))
             }
             target
         }

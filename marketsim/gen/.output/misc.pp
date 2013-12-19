@@ -94,6 +94,12 @@ package trash {
         type U : T, R
         
         type T1 = T
+        
+        package  {
+        }
+        
+        package  {
+        }
     }
     
     def A(x = in1.in2.A()) : () => types.R
