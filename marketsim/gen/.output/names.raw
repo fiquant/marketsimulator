@@ -2356,7 +2356,7 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -2464,7 +2464,7 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -2597,7 +2597,7 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -2917,12 +2917,10 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:

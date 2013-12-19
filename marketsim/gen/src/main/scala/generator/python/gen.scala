@@ -62,6 +62,7 @@ package object gen
         // TODO: non-intrusive registration
         register(random)
         register(mathops)
+        register(base.python)
         register(observable)
         register(function)
         register(intrinsic)

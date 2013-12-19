@@ -2693,7 +2693,7 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - TickSize
@@ -2839,7 +2839,7 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - MidPrice
@@ -3021,7 +3021,7 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - function
 | | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - AskPrice
@@ -3431,12 +3431,10 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:

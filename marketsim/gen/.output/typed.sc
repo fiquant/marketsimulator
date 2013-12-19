@@ -326,7 +326,7 @@ package observable {@category = "Price function"
             
         
         @label = "Price_{%(alpha)s}^{%(queue)s}"
-        @python.observable()
+        @python.function()
         def WeightedPrice(queue : IOrderQueue = observable.orderbook.Asks(),
                           alpha : Float = 0.015) : IFunction
             
@@ -343,7 +343,7 @@ package observable {@category = "Price function"
             	 = observable.orderbook.LastPrice(observable.orderbook.Asks(book))
         
         @label = "Ask_{%(alpha)s}^{%(book)s}"
-        @python.observable()
+        @python.function()
         def AskWeightedPrice(book : IOrderBook = observable.orderbook.OfTrader(),
                              alpha : Float = 0.015) : IFunction
             
@@ -362,7 +362,7 @@ package observable {@category = "Price function"
             	 = observable.orderbook.Queue(book,side.Sell())
         
         @label = "Bid_{%(alpha)s}^{%(book)s}"
-        @python.observable()
+        @python.function()
         def BidWeightedPrice(book : IOrderBook = observable.orderbook.OfTrader(),
                              alpha : Float = 0.015) : IFunction
             
@@ -416,7 +416,7 @@ package observable {@category = "Price function"
         @label = "CumulativePrice(%(book)s, %(depth)s)"
         @python.intrinsic("orderbook.cumulative_price.CumulativePrice_Impl")
         def CumulativePrice(book : IOrderBook = observable.orderbook.OfTrader(),
-                            depth : IFunction = constant()) : () => Float
+                            depth : IFunction = constant()) : IObservable
             
         
         @label = "LastPrice(%(queue)s)"

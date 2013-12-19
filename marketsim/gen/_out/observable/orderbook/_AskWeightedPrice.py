@@ -1,23 +1,18 @@
 from marketsim import registry
-from marketsim import float
-from marketsim.ops._all import Observable
+from marketsim.ops._function import Function
 from marketsim import IOrderBook
+from marketsim.gen._out.observable.orderbook._WeightedPrice import WeightedPrice
+from marketsim.gen._out.observable.orderbook._Asks import Asks
 from marketsim import context
 @registry.expose(["Asset's", "AskWeightedPrice"])
-class AskWeightedPrice(Observable[float]):
+class AskWeightedPrice(Function[float]):
     """ 
     """ 
     def __init__(self, book = None, alpha = None):
-        from marketsim import float
-        from marketsim.ops._all import Observable
         from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader
-        from marketsim import _
-        from marketsim import event
-        Observable[float].__init__(self)
         self.book = book if book is not None else OfTrader()
         self.alpha = alpha if alpha is not None else 0.015
         self.impl = self.getImpl()
-        event.subscribe(self.impl, _(self).fire, self)
     
     @property
     def label(self):
@@ -36,10 +31,8 @@ class AskWeightedPrice(Observable[float]):
         return {}
     
     def getImpl(self):
-        from marketsim.gen._out.observable.orderbook._WeightedPrice import WeightedPrice
-        from marketsim.gen._out.observable.orderbook._Asks import Asks
         return WeightedPrice(Asks(self.book),self.alpha)
-        
+    
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

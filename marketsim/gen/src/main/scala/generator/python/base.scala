@@ -108,4 +108,18 @@ package object base {
         def call_body : Code = s"""return $impl_module.$impl_function($call_fields)""" ||| Import(impl_module)
     }
 
+    object python extends gen.PythonGenerator
+    {
+        val name = "python"
+
+        def apply(/** arguments of the annotation */ args  : List[String])
+                 (/** function to process         */ f     : Typed.Function) =
+        {
+            if (f.ret_type canCastTo Types.FloatObservable)
+                observable(args)(f)
+            else
+                function(args)(f)
+        }
+    }
+
 }
