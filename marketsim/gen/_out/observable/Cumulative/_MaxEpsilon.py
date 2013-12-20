@@ -14,21 +14,21 @@ class MaxEpsilon(MaxEpsilon_Impl):
         from marketsim import event
         from marketsim import types
         self.source = source if source is not None else constant()
-        self.epsilon = epsilon if epsilon is not None else constant(0.01)
+        self.epsilon = epsilon if epsilon is not None else constant(0.1)
         MaxEpsilon_Impl.__init__(self)
         if isinstance(source, types.IEvent):
             event.subscribe(self.source, self.fire, self)
         if isinstance(epsilon, types.IEvent):
             event.subscribe(self.epsilon, self.fire, self)
-    
+
     @property
     def label(self):
         return repr(self)
-    
+
     _properties = {
         'source' : IFunction,
         'epsilon' : IFunction
     }
     def __repr__(self):
         return "Max_{\\epsilon}(%(source)s)" % self.__dict__
-    
+

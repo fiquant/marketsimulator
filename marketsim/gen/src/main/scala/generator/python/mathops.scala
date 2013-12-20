@@ -42,7 +42,7 @@ object mathops extends gen.PythonGenerator
 
         override val base_class = "Observable[float]" ||| ImportFrom("Observable", "marketsim.ops._all")
 
-        override def init_body = "Observable[float].__init__(self)" | super.init_body
+        override def init_body = base_class ||| ".__init__(self)" | super.init_body
 
         def nullable_fields = join_fields({ _.nullable}, crlf)
 
