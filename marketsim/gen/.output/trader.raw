@@ -136,36 +136,41 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - Some:
-| | | | | | - BinOp:
-| | | | | | | - Add
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - Balance
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - Var:
-| | | | | | | | | | - trader
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - orderbook
-| | | | | | | | | | - CumulativePrice
-| | | | | | | | - List:
+| | | | | | | | | - Observable
+| | | | | | | - List:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Add
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Balance
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - trader
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - CumulativePrice
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - trader
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Position
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - trader
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - trader
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Position
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - trader
 | | | | | - None
 | | | | | - None
 | | | | | - List:

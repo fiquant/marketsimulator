@@ -750,7 +750,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -2069,42 +2069,48 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - Some:
-| | | | | | | | | - BinOp:
-| | | | | | | | | | - Add
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - trader
-| | | | | | | | | | | | | - Balance
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - trader
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | - CumulativePrice
-| | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - Observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Add
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | | - Balance
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - trader
 | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - observable
 | | | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | | | | - CumulativePrice
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - trader
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | - trader
-| | | | | | | | | | | | | | | - Position
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | | | | - Position
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - trader
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
@@ -2621,17 +2627,9 @@ Definitions:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IfDefined
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - Observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - BestPrice
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - queue
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
@@ -2642,17 +2640,31 @@ Definitions:
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | - observable
 | | | | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | | | - LastPrice
+| | | | | | | | | | | | | | | | - BestPrice
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | | - queue
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - defaultValue
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - IfDefined
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | | | - LastPrice
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | - queue
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - defaultValue
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | - IObservable
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -2963,35 +2975,41 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - Some:
-| | | | | | | | | - BinOp:
-| | | | | | | | | | - Div
-| | | | | | | | | | - BinOp:
-| | | | | | | | | | | - Add
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - AskPrice
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - book
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - BidPrice
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - book
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - const
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Const:
-| | | | | | | | | | | | | - 2.0
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - Observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Div
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Add
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | - AskPrice
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | - BidPrice
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | | - 2.0
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
@@ -3601,26 +3619,32 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - Some:
-| | | | | | | | | - BinOp:
-| | | | | | | | | | - Sub
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | - AskPrice
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - book
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | - BidPrice
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - book
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - Observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Sub
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | - AskPrice
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | - BidPrice
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - book
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
@@ -3797,12 +3821,12 @@ Definitions:
 | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | | | | | | - IObservable
 | | | | | | | | | | | | | - Some:
 | | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Parameter:
@@ -4178,34 +4202,40 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - observable
-| | | | | | | | | - Max
+| | | | | | | | | - Observable
 | | | | | | | - List:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - observable
+| | | | | | | | | | | - Max
 | | | | | | | | | - List:
-| | | | | | | | | | - Const:
-| | | | | | | | | | | - 0.0
-| | | | | | | | - BinOp:
-| | | | | | | | | - Sub
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - const
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - observable
-| | | | | | | | | | | | - Lagged
-| | | | | | | | | | - List:
+| | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | - 0.0
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Sub
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - Lagged
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - timeframe
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - source
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - timeframe
-| | | | | | | | | - Var:
-| | | | | | | | | | - source
 | | | | | - Some:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IFunction
+| | | | | | | | | - IObservable
 | | | | | - None
 | | | | | - List:
 | | | | | | - Attribute:
@@ -4357,34 +4387,40 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - observable
-| | | | | | | | | - Max
+| | | | | | | | | - Observable
 | | | | | | | - List:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - observable
+| | | | | | | | | | | - Max
 | | | | | | | | | - List:
-| | | | | | | | | | - Const:
-| | | | | | | | | | | - 0.0
-| | | | | | | | - BinOp:
-| | | | | | | | | - Sub
-| | | | | | | | | - Var:
-| | | | | | | | | | - source
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - const
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - observable
-| | | | | | | | | | | | - Lagged
-| | | | | | | | | | - List:
+| | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | - 0.0
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Sub
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - source
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - timeframe
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - Lagged
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - timeframe
 | | | | | - Some:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IFunction
+| | | | | | | | | - IObservable
 | | | | | - None
 | | | | | - List:
 | | | | | | - Attribute:
@@ -4543,6 +4579,41 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | - List:
+| | | | - FunDef:
+| | | | | - Observable
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IFunction
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | - None
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - [%(x)s]
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - observable.on_every_dt._Observable_Impl
 | | - List:
 | | | - Attribute:
 | | | | - category

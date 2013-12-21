@@ -10,13 +10,13 @@ package observable {
     @label = "Ups_{%(timeframe)s}(%(source)s)"
     def UpMovements(source = orderbook.MidPrice(),
                     timeframe = 10.0)
-         = Max(const(0.0),source-Lagged(source,timeframe))
+         = Observable(Max(const(0.0),source-Lagged(source,timeframe)))
     
     @python.observable()
     @label = "Downs_{%(timeframe)s}(%(source)s)"
     def DownMovements(source = orderbook.MidPrice(),
                       timeframe = 10.0)
-         = Max(const(0.0),Lagged(source,timeframe)-source)
+         = Observable(Max(const(0.0),Lagged(source,timeframe)-source))
     @category = "RSI"
     
     package rsi {

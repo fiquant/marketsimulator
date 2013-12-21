@@ -66,7 +66,7 @@ package observable.orderbook {
     @label = "SafeSidePrice^{%(queue)s}"
     def SafeSidePrice(queue = Asks(),
                       defaultValue = constant(100.0))
-         = IfDefined(BestPrice(queue),IfDefined(LastPrice(queue),defaultValue))
+         = Observable(IfDefined(BestPrice(queue),IfDefined(LastPrice(queue),defaultValue)))
     
     def PriceAtVolume(queue = Asks(),
                       volume = 100.0) : () => Float
@@ -96,12 +96,12 @@ package observable.orderbook {
     @python()
     @label = "Spread_{%(book)s}"
     def Spread(book = OfTrader())
-         = AskPrice(book)-BidPrice(book)
+         = Observable(AskPrice(book)-BidPrice(book))
     
     @python()
     @label = "MidPrice_{%(book)s}"
     def MidPrice(book = OfTrader())
-         = (AskPrice(book)+BidPrice(book))/2.0
+         = Observable((AskPrice(book)+BidPrice(book))/2.0)
     
     @python.intrinsic("orderbook.cumulative_price.CumulativePrice_Impl")
     @label = "CumulativePrice(%(book)s, %(depth)s)"

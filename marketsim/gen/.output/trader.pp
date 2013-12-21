@@ -24,7 +24,7 @@ package observable.trader {
     @python.observable()
     @label = "Efficiency_{%(trader)s}"
     def Efficiency(trader = SingleProxy())
-         = Balance(trader)+orderbook.CumulativePrice(orderbook.OfTrader(trader),Position(trader))
+         = Observable(Balance(trader)+orderbook.CumulativePrice(orderbook.OfTrader(trader),Position(trader)))
     
     @python()
     @label = "EfficiencyTrend_{%(trader)s}"

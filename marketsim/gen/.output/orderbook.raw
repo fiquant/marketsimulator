@@ -463,15 +463,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IfDefined
+| | | | | | | | | - Observable
 | | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - BestPrice
-| | | | | | | | | - List:
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - queue
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
@@ -480,12 +473,24 @@ Definitions:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - LastPrice
+| | | | | | | | | | | | | - BestPrice
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - queue
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - defaultValue
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - IfDefined
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - LastPrice
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - queue
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - defaultValue
 | | | | | - None
 | | | | | - None
 | | | | | - List:
@@ -730,22 +735,27 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - Some:
-| | | | | | - BinOp:
-| | | | | | | - Sub
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - AskPrice
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - Var:
-| | | | | | | | | | - book
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - BidPrice
-| | | | | | | | - List:
-| | | | | | | | | - Var:
-| | | | | | | | | | - book
+| | | | | | | | | - Observable
+| | | | | | | - List:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Sub
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - AskPrice
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - book
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - BidPrice
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - book
 | | | | | - None
 | | | | | - None
 | | | | | - List:
@@ -771,26 +781,31 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - Some:
-| | | | | | - BinOp:
-| | | | | | | - Div
-| | | | | | | - BinOp:
-| | | | | | | | - Add
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - AskPrice
-| | | | | | | | | - List:
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - book
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - BidPrice
-| | | | | | | | | - List:
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - book
-| | | | | | | - Const:
-| | | | | | | | - 2.0
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Observable
+| | | | | | | - List:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Div
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Add
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - AskPrice
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - book
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - BidPrice
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - book
+| | | | | | | | | - Const:
+| | | | | | | | | | - 2.0
 | | | | | - None
 | | | | | - None
 | | | | | - List:

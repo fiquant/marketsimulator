@@ -18,6 +18,10 @@ package observable
     @label = "[%(x)s]_dt=%(dt)s"
     def OnEveryDt(dt = 1.0, x = constant()) : IObservable
 
+    @python.intrinsic("observable.on_every_dt._Observable_Impl")
+    @label = "[%(x)s]"
+    def Observable(x = constant()) : IObservable
+
     package Moving
     {
         @python.intrinsic("observable.minmax.Min_Impl")

@@ -174,6 +174,37 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - [%(x)s]_dt=%(dt)s
+| | | | - FunDef:
+| | | | | - Observable
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - observable.on_every_dt._Observable_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - [%(x)s]
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:

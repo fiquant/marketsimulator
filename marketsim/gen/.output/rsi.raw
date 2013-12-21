@@ -70,28 +70,33 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - Max
+| | | | | | | | | - Observable
 | | | | | | | - List:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - Max
 | | | | | | | | | - List:
-| | | | | | | | | | - Const:
-| | | | | | | | | | | - 0.0
-| | | | | | | | - BinOp:
-| | | | | | | | | - Sub
-| | | | | | | | | - Var:
-| | | | | | | | | | - source
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - const
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Lagged
-| | | | | | | | | | - List:
+| | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | - 0.0
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Sub
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - source
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - timeframe
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Lagged
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - timeframe
 | | | | | - None
 | | | | | - None
 | | | | | - List:
@@ -129,28 +134,33 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - Max
+| | | | | | | | | - Observable
 | | | | | | | - List:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - Max
 | | | | | | | | | - List:
-| | | | | | | | | | - Const:
-| | | | | | | | | | | - 0.0
-| | | | | | | | - BinOp:
-| | | | | | | | | - Sub
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - const
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Lagged
-| | | | | | | | | | - List:
+| | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | - 0.0
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Sub
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Lagged
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - timeframe
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - source
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - timeframe
-| | | | | | | | | - Var:
-| | | | | | | | | | - source
 | | | | | - None
 | | | | | - None
 | | | | | - List:

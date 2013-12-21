@@ -7,7 +7,7 @@ package observable
         {
             @python.intrinsic("moments.ewma.EWMA_Impl")
             @label = "Avg_{\\alpha=%(alpha)s}(%(source)s)"
-            def Avg (source = constant (), alpha = 0.015) : IDifferentiable
+            def Avg (source = const (), alpha = 0.015) : IDifferentiable
 
             @python.intrinsic("moments.ewmv.EWMV_Impl")
             @label = "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}"

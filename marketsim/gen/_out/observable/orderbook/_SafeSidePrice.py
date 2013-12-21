@@ -38,11 +38,13 @@ class SafeSidePrice(Observable[float]):
         return {}
     
     def getImpl(self):
+        from marketsim.gen._out.observable._Observable import Observable
         from marketsim.gen._out._IfDefined import IfDefined
         from marketsim.gen._out.observable.orderbook._BestPrice import BestPrice
         from marketsim.gen._out._IfDefined import IfDefined
         from marketsim.gen._out.observable.orderbook._LastPrice import LastPrice
-        return IfDefined(BestPrice(self.queue),IfDefined(LastPrice(self.queue),self.defaultValue))
+        return Observable(IfDefined(BestPrice(self.queue),IfDefined(LastPrice(self.queue),self.defaultValue)))
+        
         
         
         

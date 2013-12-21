@@ -40,18 +40,18 @@ object Typer
                             case t : AST.TypeDeclaration => getTyped(t)
                         }
                     }
-//                    catch {
-//                        case ex : Exception =>
-//                            throw new Exception(s"\r\nWhen typing '${source qualifyName definition.name}':\r\n" + ex.getMessage, ex)
-//                    }
+                    catch {
+                        case ex : Exception =>
+                            throw new Exception(s"\r\nWhen typing '${source qualifyName definition.name}':\r\n" + ex.getMessage, ex)
+                    }
                 }
                 source.packages.values  foreach { Processor(_).run() }
             }
-//            catch {
-//                case e : Exception =>
-//                    println("An error occurred during typing:")
-//                    println(e.getMessage)
-//            }
+            catch {
+                case e : Exception =>
+                    println("An error occurred during typing:")
+                    println(e.getMessage)
+            }
         }
 
         private def getTyped(definition : AST.FunDef) : Typed.Function = {
@@ -189,10 +189,10 @@ object Typer
                             throw new Exception(s"parameter ${p.name} has undefined type")
                 }
             }
-//            catch {
-//                case e: Exception =>
-//                    throw new Exception(s"When typing parameter '${p.name}'\r\n" + e.toString, e)
-//            }
+            catch {
+                case e: Exception =>
+                    throw new Exception(s"When typing parameter '${p.name}'\r\n" + e.toString, e)
+            }
         }
 
         private val toTypedAnnotation : PartialFunction[AST.Decorator, Typed.Annotation] = {

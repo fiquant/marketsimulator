@@ -57,3 +57,13 @@ class _OnEveryDt_Impl(IndicatorBase):
         self._dataSource = self.x
         IndicatorBase.__init__(self)
         self._subscription = event.subscribe(event.Every(ops.constant(self.dt)), self.fire, self)
+
+class _Observable_Impl(IndicatorBase):
+    """ Creates an indicator that is updated regularly
+    interval - constant interval between updates
+    source - function to obtain indicator value
+    """
+    def __init__(self):
+        self._dataSource = self.x
+        IndicatorBase.__init__(self)
+        self._subscription = event.subscribe(self.x, self.fire, self)

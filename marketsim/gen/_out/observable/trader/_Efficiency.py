@@ -34,11 +34,13 @@ class Efficiency(Observable[float]):
         return {}
     
     def getImpl(self):
+        from marketsim.gen._out.observable._Observable import Observable
         from marketsim.gen._out.observable.trader._Balance import Balance
         from marketsim.gen._out.observable.orderbook._CumulativePrice import CumulativePrice
         from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader
         from marketsim.gen._out.observable.trader._Position import Position
-        return Balance(self.trader)+CumulativePrice(OfTrader(self.trader),Position(self.trader))
+        return Observable(Balance(self.trader)+CumulativePrice(OfTrader(self.trader),Position(self.trader)))
+        
         
         
         

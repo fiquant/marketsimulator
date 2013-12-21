@@ -297,7 +297,7 @@ package observable {@category = "Price function"
         @python.observable()
         @label = "Efficiency_{%(trader)s}"
         def Efficiency(trader = SingleProxy())
-             = Balance(trader)+orderbook.CumulativePrice(orderbook.OfTrader(trader),Position(trader))
+             = Observable(Balance(trader)+orderbook.CumulativePrice(orderbook.OfTrader(trader),Position(trader)))
         
         @python.intrinsic("trader.proxy._Single_Impl")
         @label = "N/A"
@@ -344,7 +344,7 @@ package observable {@category = "Price function"
         @label = "SafeSidePrice^{%(queue)s}"
         def SafeSidePrice(queue = Asks(),
                           defaultValue = constant(100.0))
-             = IfDefined(BestPrice(queue),IfDefined(LastPrice(queue),defaultValue))
+             = Observable(IfDefined(BestPrice(queue),IfDefined(LastPrice(queue),defaultValue)))
         
         def PriceAtVolume(queue = Asks(),
                           volume = 100.0) : () => Float
@@ -373,7 +373,7 @@ package observable {@category = "Price function"
         @python()
         @label = "MidPrice_{%(book)s}"
         def MidPrice(book = OfTrader())
-             = (AskPrice(book)+BidPrice(book))/2.0
+             = Observable((AskPrice(book)+BidPrice(book))/2.0)
         
         @python.intrinsic("orderbook.queue._Asks_Impl")
         @label = "Asks(%(book)s)"
@@ -441,7 +441,7 @@ package observable {@category = "Price function"
         @python()
         @label = "Spread_{%(book)s}"
         def Spread(book = OfTrader())
-             = AskPrice(book)-BidPrice(book)
+             = Observable(AskPrice(book)-BidPrice(book))
         
         @python.intrinsic("orderbook.last_trade._LastTradePrice_Impl")
         @label = "LastTradePrice(%(queue)s)"
@@ -466,7 +466,7 @@ package observable {@category = "Price function"
         package EW {
             @python.intrinsic("moments.ewma.EWMA_Impl")
             @label = "Avg_{\\alpha=%(alpha)s}(%(source)s)"
-            def Avg(source = constant(),
+            def Avg(source = const(),
                     alpha = 0.015) : IDifferentiable
                 
             
@@ -553,7 +553,7 @@ package observable {@category = "Price function"
     @label = "Downs_{%(timeframe)s}(%(source)s)"
     def DownMovements(source = orderbook.MidPrice(),
                       timeframe = 10.0)
-         = Max(const(0.0),Lagged(source,timeframe)-source)
+         = Observable(Max(const(0.0),Lagged(source,timeframe)-source))
     
     @python.intrinsic("observable.lagged.Lagged_Impl")
     @label = "Lagged_{%(timeframe)s}(%(source)s)"
@@ -571,7 +571,7 @@ package observable {@category = "Price function"
     @label = "Ups_{%(timeframe)s}(%(source)s)"
     def UpMovements(source = orderbook.MidPrice(),
                     timeframe = 10.0)
-         = Max(const(0.0),source-Lagged(source,timeframe))
+         = Observable(Max(const(0.0),source-Lagged(source,timeframe)))
     
     @python.observable()
     @category = "Pow/Log"
@@ -585,6 +585,11 @@ package observable {@category = "Price function"
             timeframe = 10.0,
             alpha = 0.015)
          = 100.0-100.0/(1.0+rsi.Raw(orderbook.MidPrice(book),timeframe,alpha))
+    
+    @python.intrinsic("observable.on_every_dt._Observable_Impl")
+    @label = "[%(x)s]"
+    def Observable(x = constant()) : IObservable
+        
 }
 
 package trash {

@@ -28,7 +28,7 @@ Definitions:
 | | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Parameter:

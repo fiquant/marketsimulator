@@ -36,10 +36,12 @@ class UpMovements(Observable[float]):
         return {}
     
     def getImpl(self):
+        from marketsim.gen._out.observable._Observable import Observable
         from marketsim.gen._out.observable._Max import Max
         from marketsim.gen._out._const import const
         from marketsim.gen._out.observable._Lagged import Lagged
-        return Max(const(0.0),self.source-Lagged(self.source,self.timeframe))
+        return Observable(Max(const(0.0),self.source-Lagged(self.source,self.timeframe)))
+        
         
         
     

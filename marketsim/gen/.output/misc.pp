@@ -25,6 +25,11 @@ package observable {
                   x = constant()) : IObservable
         
     
+    @python.intrinsic("observable.on_every_dt._Observable_Impl")
+    @label = "[%(x)s]"
+    def Observable(x = constant()) : IObservable
+        
+    
     package Moving {
         @python.intrinsic("observable.minmax.Min_Impl")
         @label = "Min_{n=%(timeframe)s}(%(source)s)"

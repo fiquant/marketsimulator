@@ -20,15 +20,15 @@ class MinEpsilon(MinEpsilon_Impl):
             event.subscribe(self.source, self.fire, self)
         if isinstance(epsilon, types.IEvent):
             event.subscribe(self.epsilon, self.fire, self)
-
+    
     @property
     def label(self):
         return repr(self)
-
+    
     _properties = {
         'source' : IFunction,
         'epsilon' : IFunction
     }
     def __repr__(self):
         return "Min_{\\epsilon}(%(source)s)" % self.__dict__
-
+    
