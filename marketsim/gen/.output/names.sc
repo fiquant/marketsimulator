@@ -588,7 +588,7 @@ package observable {@category = "Price function"
     
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
-    def Observable(x = constant()) : IObservable
+    def Observable(x : IFunction = const()) : IObservable
         
 }
 

@@ -4214,12 +4214,16 @@ Definitions:
 | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - x
-| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IFunction
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - constant
+| | | | | | | | | | | - const
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
