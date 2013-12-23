@@ -37,10 +37,6 @@ class RSI_linear(Observable[float]):
         return "RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         from marketsim.gen._out.observable.volumefunc._DesiredPosition import DesiredPosition
         from marketsim.gen._out.observable._OnEveryDt import OnEveryDt

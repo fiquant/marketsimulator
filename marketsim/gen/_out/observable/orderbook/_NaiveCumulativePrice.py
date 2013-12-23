@@ -33,10 +33,6 @@ class NaiveCumulativePrice(Observable[float]):
         return "NaiveCumulativePrice(%(book)s, %(depth)s)" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         from marketsim.gen._out.observable._Observable import Observable
         from marketsim.gen._out.observable.orderbook._AskPrice import AskPrice

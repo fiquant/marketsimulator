@@ -31,10 +31,6 @@ class Signal(Observable[Side]):
         return "SignalSide_{%(threshold)s}(%(signal)s)" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         from marketsim.gen._out.side._Buy import Buy
         from marketsim.gen._out.side._Sell import Sell

@@ -6,34 +6,6 @@ from _computed import IndicatorBase
 import _wrap 
 from marketsim.types import *
 
-class price_at_volume(ops.Function[float]):
-
-    def __init__(self, orderbook = None, side = Side.Sell, volumeAt = 100):
-        self.orderbook = orderbook if orderbook else marketsim.orderbook.Proxy()
-        self.side = side
-        self.volumeAt = volumeAt
-            
-    def __call__(self):
-        queue = self.orderbook.queue(self.side)
-        for (volume, price) in queue.getVolumePrices([self.volumeAt]):
-            return price
-        return None
-    
-    @property
-    def digits(self):
-        return self.orderbook._digitsToShow
-    
-    @property
-    def label(self):
-        return "PriceAtVolume_{"+str(self.volumeAt)+"}("+self.orderbook.queue(self.side).label+")" 
-    
-    _properties = { 'orderbook' : types.IOrderBook, 
-                    'side'      : types.Side, 
-                    'volumeAt'  : float }
-
-registry.expose(alias = ["Asset's", "Ask", "Price at volume"], args = (None, Side.Sell))(price_at_volume)
-registry.expose(alias = ["Asset's", "Bid", "Price at volume"], args = (None, Side.Buy))(price_at_volume)
-
 class volume_levels(ops.Function[types.IVolumeLevels]): 
     
     def __init__(self, 
@@ -158,12 +130,6 @@ class LastTradePrice(LastTrade):
 
 ### -------------------------------------------------------------------   Observables
         
-def PriceAtVolume(interval, orderbook, side, volume):
-
-    return IndicatorBase(event.Every(ops.constant(interval)),
-                         price_at_volume(orderbook, side, volume), 
-                         {'smooth':True, 'fillBelow' : side == Side.Buy, 'fillAbove' : side == Side.Sell})
-
 def VolumeLevels(interval, orderbook, side, volumeDelta, volumeCount):
 
     return IndicatorBase(event.Every(ops.constant(interval)),

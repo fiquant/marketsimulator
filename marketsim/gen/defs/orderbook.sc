@@ -54,9 +54,6 @@ package observable.orderbook
     def SafeSidePrice(queue = Asks(), defaultValue = constant(100.))
         = Observable(IfDefined(BestPrice(queue), IfDefined(LastPrice(queue), defaultValue)))
 
-    @label = "PriceAtVolume_{%(volume)s}{%(queue)s}"
-    def PriceAtVolume(queue = Asks(), volume = 100.0) => Float
-
     @python
     @label = "Price_{%(alpha)s}^{%(queue)s}"
     def WeightedPrice(queue = Asks(), alpha = 0.015) =

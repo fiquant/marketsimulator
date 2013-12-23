@@ -28,10 +28,6 @@ class MACD(Function[float]):
         return "MACD_{%(fast)s}^{%(slow)s}(%(x)s)" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         return Avg(self.x,2.0/(self.fast+1))-Avg(self.x,2.0/(self.slow+1))
     

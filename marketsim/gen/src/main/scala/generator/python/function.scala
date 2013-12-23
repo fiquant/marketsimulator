@@ -43,13 +43,11 @@ object function extends gen.PythonGenerator
 
         override def call_body = "return self.impl()"
 
-        override def body = super.body | internals | attributes | getImpl | bind | reset | call
+        override def body = super.body | internals | getImpl | bind | reset | call
 
         def getImpl = Def("getImpl", "", "return " + f.body.get.asPython) ||| Code.from(f.body.get.imports)
 
         def internals = "_internals = ['impl']"
-
-        def attributes = Prop("attributes", "return {}")
     }
 
     def apply(/** arguments of the annotation */ args  : List[String])

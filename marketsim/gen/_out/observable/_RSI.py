@@ -33,10 +33,6 @@ class RSI(Observable[float]):
         return "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         from marketsim.gen._out._const import const
         from marketsim.gen._out._const import const

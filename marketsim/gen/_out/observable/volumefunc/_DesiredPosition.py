@@ -33,10 +33,6 @@ class DesiredPosition(Observable[float]):
         return "Dp_{%(trader)s}(%(desiredPosition)s)" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         from marketsim.gen._out.observable.trader._Position import Position
         from marketsim.gen._out.observable.trader._PendingVolume import PendingVolume

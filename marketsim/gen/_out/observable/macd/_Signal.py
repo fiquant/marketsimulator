@@ -33,10 +33,6 @@ class Signal(Function[float]):
         return "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         return Avg(OnEveryDt(self.step,MACD(self.x,self.slow,self.fast)),2/(self.timeframe+1))
     

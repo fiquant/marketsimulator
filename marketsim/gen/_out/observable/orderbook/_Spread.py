@@ -29,10 +29,6 @@ class Spread(Observable[float]):
         return "Spread_{%(book)s}" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         from marketsim.gen._out.observable._Observable import Observable
         from marketsim.gen._out.observable.orderbook._AskPrice import AskPrice

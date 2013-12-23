@@ -32,10 +32,6 @@ class Histogram(Function[float]):
         return "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         return MACD(self.x,self.slow,self.fast)-Signal(self.x,self.slow,self.fast,self.timeframe,self.step)
     

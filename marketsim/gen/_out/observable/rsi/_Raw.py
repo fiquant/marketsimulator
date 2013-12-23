@@ -30,10 +30,6 @@ class Raw(Function[float]):
         return "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         return Avg(UpMovements(self.source,self.timeframe),self.alpha)/Avg(DownMovements(self.source,self.timeframe),self.alpha)
     

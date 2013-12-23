@@ -35,10 +35,6 @@ class CrossingAverages(Observable[Side]):
         return "CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         from marketsim.gen._out.observable.sidefunc._Signal import Signal
         from marketsim.gen._out.observable.EW._Avg import Avg

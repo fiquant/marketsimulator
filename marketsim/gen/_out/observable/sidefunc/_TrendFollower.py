@@ -33,10 +33,6 @@ class TrendFollower(Observable[Side]):
         return "Tf_{%(alpha)s}(%(book)s)" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         from marketsim.gen._out.observable.sidefunc._Signal import Signal
         from marketsim.gen._out._Derivative import Derivative

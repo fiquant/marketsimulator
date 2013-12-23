@@ -17,7 +17,7 @@ from _rsi import RSI
 
 from _deltalag import Lagged
 
-from _orderbook import (PriceAtVolume, VolumeLevels, TickSize,
+from _orderbook import (VolumeLevels, TickSize,
                         QueuePrice, AskLastTradePrice, BidLastTradePrice,
                         QueueLastPrice, AskLastPrice, BidLastPrice,
                         BidPrice, AskPrice, MidPrice, Spread,

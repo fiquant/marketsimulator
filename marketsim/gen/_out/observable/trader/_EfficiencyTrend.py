@@ -27,10 +27,6 @@ class EfficiencyTrend(Function[float]):
         return "EfficiencyTrend_{%(trader)s}" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         return Derivative(Avg(Efficiency(self.trader),self.alpha))
     

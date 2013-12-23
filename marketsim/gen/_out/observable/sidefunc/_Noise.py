@@ -29,10 +29,6 @@ class Noise(Observable[Side]):
         return "Noise_{%(side_distribution)s}" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         from marketsim.gen._out.side._Sell import Sell
         from marketsim.gen._out.side._Buy import Buy

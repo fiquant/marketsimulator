@@ -37,10 +37,6 @@ class PairTrading(Observable[Side]):
         return "Pt_{%(factor)s*%(dependee)s}(%(book)s)" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         from marketsim.gen._out.observable.sidefunc._FundamentalValue import FundamentalValue
         from marketsim.gen._out.observable.orderbook._MidPrice import MidPrice

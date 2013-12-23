@@ -29,10 +29,6 @@ class WeightedPrice(Function[float]):
         return "Price_{%(alpha)s}^{%(queue)s}" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         return Avg(LastTradePrice(self.queue)*LastTradeVolume(self.queue),self.alpha)/Avg(LastTradeVolume(self.queue),self.alpha)
     

@@ -41,10 +41,6 @@ class LiquidityProvider(Observable[float]):
         return "Lp_{%(side)s}(%(book)s)" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         from marketsim.gen._out.observable.orderbook._SafeSidePrice import SafeSidePrice
         from marketsim.gen._out.observable.orderbook._Queue import Queue

@@ -26,10 +26,6 @@ class AskWeightedPrice(Function[float]):
         return "Ask_{%(alpha)s}^{%(book)s}" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         return WeightedPrice(Asks(self.book),self.alpha)
     

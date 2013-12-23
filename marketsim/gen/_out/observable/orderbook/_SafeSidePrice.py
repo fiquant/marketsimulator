@@ -33,10 +33,6 @@ class SafeSidePrice(Observable[float]):
         return "SafeSidePrice^{%(queue)s}" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         from marketsim.gen._out.observable._Observable import Observable
         from marketsim.gen._out._IfDefined import IfDefined

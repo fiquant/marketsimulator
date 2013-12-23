@@ -33,10 +33,6 @@ class Max(Observable[float]):
         return "max{%(x)s, %(y)s}" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         return (self.x>self.y)[self.x, self.y]
     
