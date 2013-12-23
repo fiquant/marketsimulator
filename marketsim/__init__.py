@@ -10,7 +10,7 @@ from types import IObservable, IFunction, ISingleAssetTrader, IOrderQueue, IOrde
 
 IObservable = IObservable[float]
 IFunction = IFunction[float]
-float = float
+Float = float
 
 class CandleStick(collections.namedtuple("CandleStick", [
                                                      "open", "close",

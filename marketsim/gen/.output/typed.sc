@@ -659,6 +659,7 @@ type Side
 type IFunction_VolumeLevels = () => VolumeLevels
 type IFunction_CandleStick = () => CandleStick
 type IOrderQueue
+type Float
 type IOrderBook
 type IObservable : IFunction
 type IFunction = () => Float

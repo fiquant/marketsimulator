@@ -297,7 +297,6 @@ package object Printer
         type Base = base.TypeBase
         type Unit = base.UnitType
 
-        trait Float_ extends Printable {  def toScala = "Float"   }
         trait Int_ extends Printable {  def toScala = "Int"   }
         trait Boolean_ extends Printable {def toScala = "Boolean" }
         trait String_ extends Printable {def toScala = "String" }

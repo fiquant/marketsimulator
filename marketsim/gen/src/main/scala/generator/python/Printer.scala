@@ -52,12 +52,6 @@ object Printer {
             })
         }
 
-        trait Float_    extends Base
-        {
-            def toPython = "float"
-            def imports = Nil
-        }
-
         trait Int_    extends Base
         {
             def toPython = "int"
@@ -76,9 +70,18 @@ object Printer {
             def imports = Nil
         }
 
-        trait UserDefined extends st.UserDefined with PrintablePort with Base
+        trait UserDefined extends st.UserDefined with Printable with Base
         {
-            def imports = predef.ImportFrom(name, "marketsim") :: Nil
+            val builtins = Map("Float" -> "float")
+
+            def imports =
+                if (builtins contains name)
+                    Nil
+                else
+                    predef.ImportFrom(name, "marketsim") :: Nil
+
+
+            def toPython = builtins.getOrElse(name, name)
         }
     }
 

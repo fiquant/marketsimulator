@@ -5406,6 +5406,9 @@ Definitions:
 | | - IOrderQueue
 | | - List:
 | - Interface:
+| | - Float
+| | - List:
+| - Interface:
 | | - IOrderBook
 | | - List:
 | - Interface:

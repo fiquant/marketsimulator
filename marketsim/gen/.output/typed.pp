@@ -632,6 +632,8 @@ type IFunction_CandleStick = () => CandleStick
 
 type IOrderQueue
 
+type Float
+
 type IOrderBook
 
 type IObservable : IFunction
