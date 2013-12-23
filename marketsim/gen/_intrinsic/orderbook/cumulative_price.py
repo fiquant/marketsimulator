@@ -1,4 +1,4 @@
-from marketsim import ops, event, request, Side, _
+from marketsim import ops, event, request, Side, _, types
 from marketsim.gen._out.observable.orderbook._LastTradePrice import LastTradePrice
 
 def sign(x):

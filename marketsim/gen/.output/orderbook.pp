@@ -68,11 +68,6 @@ package observable.orderbook {
                       defaultValue = constant(100.0))
          = Observable(IfDefined(BestPrice(queue),IfDefined(LastPrice(queue),defaultValue)))
     
-    @label = "PriceAtVolume_{%(volume)s}{%(queue)s}"
-    def PriceAtVolume(queue = Asks(),
-                      volume = 100.0) : () => Float
-        
-    
     @python()
     @label = "Price_{%(alpha)s}^{%(queue)s}"
     def WeightedPrice(queue = Asks(),
@@ -108,6 +103,13 @@ package observable.orderbook {
     @label = "CumulativePrice(%(book)s, %(depth)s)"
     def CumulativePrice(book = OfTrader(),
                         depth = constant()) : IObservable
+        
+    
+    @python.intrinsic("orderbook.volume_levels.VolumeLevels_Impl")
+    @label = "VolumeLevels(%(queue)s)"
+    def VolumeLevels(queue = Asks(),
+                     volumeDelta = 30.0,
+                     volumeCount = 10) : IFunction_VolumeLevels
         
     
     @python()

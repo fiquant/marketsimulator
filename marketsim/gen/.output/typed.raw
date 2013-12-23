@@ -2755,49 +2755,6 @@ Definitions:
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | - FunDef:
-| | | | | | | | - PriceAtVolume
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - queue
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IOrderQueue
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - Asks
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - volume
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 100.0
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - PriceAtVolume_{%(volume)s}{%(queue)s}
-| | | | | | | - FunDef:
 | | | | | | | | - WeightedPrice
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -3643,6 +3600,65 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.cumulative_price.CumulativePrice_Impl
+| | | | | | | - FunDef:
+| | | | | | | | - VolumeLevels
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - queue
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IOrderQueue
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - Asks
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - volumeDelta
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 30.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - volumeCount
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Int
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - IntLit:
+| | | | | | | | | | | | - 10
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction_VolumeLevels
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - VolumeLevels(%(queue)s)
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderbook.volume_levels.VolumeLevels_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - LastPrice
 | | | | | | | | - List:

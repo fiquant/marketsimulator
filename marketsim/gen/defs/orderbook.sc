@@ -82,6 +82,10 @@ package observable.orderbook
     @label = "CumulativePrice(%(book)s, %(depth)s)"
     def CumulativePrice(book = OfTrader(), depth = constant()) : IObservable
 
+    @python.intrinsic("orderbook.volume_levels.VolumeLevels_Impl")
+    @label = "VolumeLevels(%(queue)s)"
+    def VolumeLevels(queue = Asks(), volumeDelta = 30., volumeCount = 10) : IFunction_VolumeLevels
+
     @python
     @label = "NaiveCumulativePrice(%(book)s, %(depth)s)"
     def NaiveCumulativePrice(book = OfTrader(), depth = constant()) =

@@ -2418,39 +2418,6 @@ Definitions:
 | | | | | | | | | | - label
 | | | | | | | | | | - SafeSidePrice^{%(queue)s}
 | | | | | | | - FunDef:
-| | | | | | | | - PriceAtVolume
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - queue
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Asks
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - volume
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 100.0
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - PriceAtVolume_{%(volume)s}{%(queue)s}
-| | | | | | | - FunDef:
 | | | | | | | | - WeightedPrice
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -3093,6 +3060,51 @@ Definitions:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - CumulativePrice(%(book)s, %(depth)s)
+| | | | | | | - FunDef:
+| | | | | | | | - VolumeLevels
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - queue
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Asks
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - volumeDelta
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 30.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - volumeCount
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - IntLit:
+| | | | | | | | | | | | - 10
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction_VolumeLevels
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderbook.volume_levels.VolumeLevels_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - VolumeLevels(%(queue)s)
 | | | | | | | - FunDef:
 | | | | | | | | - LastPrice
 | | | | | | | | - List:

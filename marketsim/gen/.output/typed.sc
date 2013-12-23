@@ -340,11 +340,6 @@ package observable {@category = "Price function"
             
             	 = observable.Observable(IfDefined(observable.orderbook.BestPrice(queue),IfDefined(observable.orderbook.LastPrice(queue),defaultValue)))
         
-        @label = "PriceAtVolume_{%(volume)s}{%(queue)s}"
-        def PriceAtVolume(queue : IOrderQueue = observable.orderbook.Asks(),
-                          volume : Float = 100.0) : () => Float
-            
-        
         @label = "Price_{%(alpha)s}^{%(queue)s}"
         @python()
         def WeightedPrice(queue : IOrderQueue = observable.orderbook.Asks(),
@@ -437,6 +432,13 @@ package observable {@category = "Price function"
         @python.intrinsic("orderbook.cumulative_price.CumulativePrice_Impl")
         def CumulativePrice(book : IOrderBook = observable.orderbook.OfTrader(),
                             depth : IFunction = constant()) : IObservable
+            
+        
+        @label = "VolumeLevels(%(queue)s)"
+        @python.intrinsic("orderbook.volume_levels.VolumeLevels_Impl")
+        def VolumeLevels(queue : IOrderQueue = observable.orderbook.Asks(),
+                         volumeDelta : Float = 30.0,
+                         volumeCount : Int = 10) : IFunction_VolumeLevels
             
         
         @label = "LastPrice(%(queue)s)"
