@@ -358,6 +358,12 @@ package observable {@category = "Price function"
             
             	 = observable.orderbook.LastPrice(observable.orderbook.Asks(book))
         
+        @label = "LastTradeBid^{%(book)s}"
+        @python()
+        def BidLastTradePrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable
+            
+            	 = observable.orderbook.LastTradePrice(observable.orderbook.Bids(book))
+        
         @label = "Ask_{%(alpha)s}^{%(book)s}"
         @python()
         def AskWeightedPrice(book : IOrderBook = observable.orderbook.OfTrader(),
@@ -422,6 +428,12 @@ package observable {@category = "Price function"
         @python.intrinsic("orderbook.of_trader._OfTrader_Impl")
         def OfTrader(Trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IOrderBook
             
+        
+        @label = "LastTradeAsk_{%(book)s}"
+        @python()
+        def AskLastTradePrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable
+            
+            	 = observable.orderbook.LastTradePrice(observable.orderbook.Asks(book))
         
         @label = "Bid^{%(book)s}"
         @python()

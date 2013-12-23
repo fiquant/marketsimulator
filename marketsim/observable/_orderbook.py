@@ -8,24 +8,8 @@ from marketsim.types import *
 
 import _computed
 
-class Proxy(_computed.Proxy):
-    
-    def __init__(self, orderbook):
-        self.orderbook = orderbook
-        self._alias = ["Asset's", self.__class__.__name__ ]
-
-    _properties = { 'orderbook' : types.IOrderBook }
-
 from marketsim.gen._out.observable.orderbook._TickSize import TickSize
 
-class QueueProxy(_computed.Proxy):
-    
-    def __init__(self, orderqueue):
-        self.orderqueue = orderqueue
-        self._alias = ["Queue's", self.__class__.__name__ ]
-
-    _properties = { 'orderqueue' : types.IOrderQueue }
-    
 from marketsim.gen._out.observable.orderbook._BestPrice import BestPrice as QueuePrice
 from marketsim.gen._out.observable.orderbook._LastPrice import LastPrice as QueueLastPrice
 
@@ -40,13 +24,8 @@ from marketsim.gen._out.observable.orderbook._WeightedPrice import WeightedPrice
 from marketsim.gen._out.observable.orderbook._AskWeightedPrice import AskWeightedPrice
 from marketsim.gen._out.observable.orderbook._BidWeightedPrice import BidWeightedPrice
 
-@registry.expose(alias = ["Asset's", "Ask", "Last trade price"], args = (None,))
-def AskLastTradePrice(book):
-    return QueueLastTradePrice(orderbook.Asks(book))
-    
-@registry.expose(alias = ["Asset's", "Bid", "Last trade price"], args = (None,))
-def BidLastTradePrice(book):
-    return QueueLastTradePrice(orderbook.Bids(book))
+from marketsim.gen._out.observable.orderbook._AskLastTradePrice import AskLastTradePrice
+from marketsim.gen._out.observable.orderbook._BidLastTradePrice import BidLastTradePrice
 
 from marketsim.gen._out.observable.orderbook._AskLastPrice import AskLastPrice
 from marketsim.gen._out.observable.orderbook._BidLastPrice import BidLastPrice
