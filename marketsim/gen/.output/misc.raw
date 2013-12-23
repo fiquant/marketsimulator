@@ -209,6 +209,48 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - [%(x)s]
+| | | | - FunDef:
+| | | | | - Quote
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - ticker
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - StringLit:
+| | | | | | | | | - ^GSPC
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - start
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - StringLit:
+| | | | | | | | | - 2001-1-1
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - end
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - StringLit:
+| | | | | | | | | - 2010-1-1
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - observable.quote.Quote_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - %(ticker)s
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:

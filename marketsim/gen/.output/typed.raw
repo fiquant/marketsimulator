@@ -4580,6 +4580,60 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | - List:
 | | | | - FunDef:
+| | | | | - Quote
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - ticker
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - String
+| | | | | | | - Some:
+| | | | | | | | - StringLit:
+| | | | | | | | | - ^GSPC
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - start
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - String
+| | | | | | | - Some:
+| | | | | | | | - StringLit:
+| | | | | | | | | - 2001-1-1
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - end
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - String
+| | | | | | | - Some:
+| | | | | | | | - StringLit:
+| | | | | | | | | - 2010-1-1
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | - None
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - %(ticker)s
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - observable.quote.Quote_Impl
+| | | | - FunDef:
 | | | | | - Observable
 | | | | | - List:
 | | | | | | - Parameter:

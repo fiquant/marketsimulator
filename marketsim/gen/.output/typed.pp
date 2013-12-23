@@ -518,6 +518,13 @@ package observable {@category = "Price function"
             alpha : Float = 0.015) : IObservable
          = const(100.0)-const(100.0)/(const(1.0)+observable.rsi.Raw(observable.orderbook.MidPrice(book),timeframe,alpha))
     
+    @label = "%(ticker)s"
+    @python.intrinsic("observable.quote.Quote_Impl")
+    def Quote(ticker : String = "^GSPC",
+              start : String = "2001-1-1",
+              end : String = "2010-1-1") : IObservable
+        
+    
     @label = "[%(x)s]"
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     def Observable(x : IFunction = const()) : IObservable

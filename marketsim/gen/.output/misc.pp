@@ -30,6 +30,13 @@ package observable {
     def Observable(x : IFunction = const()) : IObservable
         
     
+    @python.intrinsic("observable.quote.Quote_Impl")
+    @label = "%(ticker)s"
+    def Quote(ticker = "^GSPC",
+              start = "2001-1-1",
+              end = "2010-1-1") : IObservable
+        
+    
     package Moving {
         @python.intrinsic("observable.minmax.Min_Impl")
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
