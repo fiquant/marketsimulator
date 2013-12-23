@@ -626,6 +626,8 @@ type IObservable_CandleStick : IFunction_CandleStick
 
 type Side
 
+type Boolean
+
 type IFunction_VolumeLevels = () => VolumeLevels
 
 type IFunction_CandleStick = () => CandleStick
@@ -633,6 +635,8 @@ type IFunction_CandleStick = () => CandleStick
 type IOrderQueue
 
 type Float
+
+type Int
 
 type IOrderBook
 
@@ -645,3 +649,5 @@ type ISingleAssetTrader
 type IDifferentiable : IFunction
 
 type VolumeLevels
+
+type String

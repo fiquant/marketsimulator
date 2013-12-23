@@ -5386,6 +5386,9 @@ Definitions:
 | - Interface:
 | | - Side
 | | - List:
+| - Interface:
+| | - Boolean
+| | - List:
 | - Alias:
 | | - IFunction_VolumeLevels
 | | - FunctionType:
@@ -5407,6 +5410,9 @@ Definitions:
 | | - List:
 | - Interface:
 | | - Float
+| | - List:
+| - Interface:
+| | - Int
 | | - List:
 | - Interface:
 | | - IOrderBook
@@ -5438,4 +5444,7 @@ Definitions:
 | | | | | | - IFunction
 | - Interface:
 | | - VolumeLevels
+| | - List:
+| - Interface:
+| | - String
 | | - List:

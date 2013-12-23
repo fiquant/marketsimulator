@@ -25,21 +25,6 @@ package object Types
         def returnTypeIfFunction : Option[Base] = None
     }
 
-    case object Int_
-            extends Base
-            with    sc.Int_
-            with    py.Int_
-
-    case object Boolean_
-            extends Base
-            with    sc.Boolean_
-            with    py.Boolean_
-
-    case object String_
-            extends Base
-            with    sc.String_
-            with    py.String_
-
     case object Unit
             extends Base
             with    sc.Unit
@@ -117,11 +102,15 @@ package object Types
 
     def nullaryFunction(ret_type : Base) = Function(List(), ret_type)
 
+    val Int_ = Typed.TypeDeclaration(Interface("Int", Typed.topLevel, Nil)).ty
+
+    val String_ = Typed.TypeDeclaration(Interface("String", Typed.topLevel, Nil)).ty
 
     val Float_ = Typed.TypeDeclaration(Interface("Float", Typed.topLevel, Nil)).ty
     val FloatFunc = Typed.TypeDeclaration(Alias("IFunction", Typed.topLevel, nullaryFunction(Float_))).ty
     val FloatObservable = Typed.TypeDeclaration(Interface("IObservable", Typed.topLevel, FloatFunc :: Nil)).ty
 
+    val Boolean_ = Typed.TypeDeclaration(Interface("Boolean", Typed.topLevel, Nil)).ty
     val BooleanFunc = Typed.TypeDeclaration(Alias("IFunction_Boolean", Typed.topLevel, nullaryFunction(Boolean_))).ty
 
     val CandleStick = Typed.TypeDeclaration(Interface("CandleStick", Typed.topLevel, Nil)).ty

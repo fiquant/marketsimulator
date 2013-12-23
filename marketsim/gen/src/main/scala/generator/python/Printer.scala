@@ -52,27 +52,12 @@ object Printer {
             })
         }
 
-        trait Int_    extends Base
-        {
-            def toPython = "int"
-            def imports = Nil
-        }
-
-        trait Boolean_  extends Base
-        {
-            def toPython = "bool"
-            def imports = Nil
-        }
-
-        trait String_  extends Base
-        {
-            def toPython = "str"
-            def imports = Nil
-        }
-
         trait UserDefined extends st.UserDefined with Printable with Base
         {
-            val builtins = Map("Float" -> "float")
+            val builtins = Map("Float"  -> "float",
+                               "Int"    -> "int",
+                               "Boolean"-> "bool",
+                               "String" -> "str")
 
             def imports =
                 if (builtins contains name)

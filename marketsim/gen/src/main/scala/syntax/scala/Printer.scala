@@ -297,10 +297,6 @@ package object Printer
         type Base = base.TypeBase
         type Unit = base.UnitType
 
-        trait Int_ extends Printable {  def toScala = "Int"   }
-        trait Boolean_ extends Printable {def toScala = "Boolean" }
-        trait String_ extends Printable {def toScala = "String" }
-
         type Tuple = base.TupleType
         type Function = base.FunctionType
 
