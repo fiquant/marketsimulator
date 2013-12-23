@@ -41,7 +41,7 @@ class Signal(Observable[Side]):
         from marketsim.gen._out.side._Nothing import Nothing
         from marketsim.gen._out._const import const
         from marketsim.gen._out._const import const
-        return (self.signal>const(self.threshold))[Buy(), (self.signal<const(0.0-self.threshold))[Sell(), Nothing()]]
+        return (self.signal>const(self.threshold))[Buy(), (self.signal<const(0-self.threshold))[Sell(), Nothing()]]
         
         
         

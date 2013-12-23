@@ -41,6 +41,12 @@ package object Typed
             with    py.StringLit
             with    TypeInference.StringLit
 
+    case class IntLit(value : Int)
+            extends Expr
+            with    sc.IntLit
+            with    py.IntLit
+            with    TypeInference.IntLit
+
 
     case class FloatLit(x : Double)
             extends Expr

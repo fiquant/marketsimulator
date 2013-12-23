@@ -198,7 +198,7 @@ package observable {@category = "Price function"
         @label = "SignalSide_{%(threshold)s}(%(signal)s)"
         def Signal(signal = constant(),
                    threshold = 0.7)
-             = if signal>threshold then side.Buy() else if signal<0.0-threshold then side.Sell() else side.Nothing()
+             = if signal>threshold then side.Buy() else if signal<0-threshold then side.Sell() else side.Nothing()
         
         @python.observable()
         @label = "CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)"
@@ -262,7 +262,7 @@ package observable {@category = "Price function"
         def MACD(x = orderbook.MidPrice(),
                  slow = 26.0,
                  fast = 12.0)
-             = EW.Avg(x,2.0/(fast+1.0))-EW.Avg(x,2.0/(slow+1.0))
+             = EW.Avg(x,2.0/(fast+1))-EW.Avg(x,2.0/(slow+1))
         
         @python()
         @label = "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
@@ -271,7 +271,7 @@ package observable {@category = "Price function"
                    fast = 12.0,
                    timeframe = 9.0,
                    step = 1.0)
-             = EW.Avg(OnEveryDt(step,MACD(x,slow,fast)),2.0/(timeframe+1.0))
+             = EW.Avg(OnEveryDt(step,MACD(x,slow,fast)),2/(timeframe+1))
         
         @python()
         @label = "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
@@ -534,7 +534,7 @@ package observable {@category = "Price function"
             @label = "\\sigma^2_{n=%(timeframe)s}(%(source)s)"
             def Var(source = const(),
                     timeframe = 100.0)
-                 = Max(const(0.0),Avg(source*source,timeframe)-Sqr(Avg(source,timeframe)))
+                 = Max(const(0),Avg(source*source,timeframe)-Sqr(Avg(source,timeframe)))
             
             @python()
             @label = "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}"
@@ -638,7 +638,7 @@ package trash {
     package in1 {
         package in2 {
             def A(x = constant(),
-                  y = if 3.0>x+2.0 then x else x*2.0) : () => types.T
+                  y = if 3>x+2 then x else x*2) : () => types.T
                 
             
             def S1(y = "abc")

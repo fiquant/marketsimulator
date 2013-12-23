@@ -1,24 +1,27 @@
 package object TypeInference
 {
     def floatRank(e: Typed.Expr) = e.ty match {
-        case x if x canCastTo Types.Float_ => 0
-        case x if x canCastTo Types.FloatObservable => 10
-        case x if x canCastTo Types.FloatFunc => 1
+        case x if x canCastTo Types.Int_ => 0
+        case x if x canCastTo Types.Float_ => 1
+        case x if x canCastTo Types.FloatObservable => 100
+        case x if x canCastTo Types.FloatFunc => 10
         case t => -1
     }
 
-    def isFloat(e : Typed.Expr) = floatRank(e) >= 0
+    def isFloat(e : Typed.Expr) = floatRank(e) > 0
+    def isInt(e : Typed.Expr) = floatRank(e) == 0
 
     private def floatRankStrict(e: Typed.Expr) = floatRank(e) match {
-        case -1 => throw new Exception(s"Expression $e is expected to a float-like type")
+        case -1 => throw new Exception(s"Expression $e is expected to have a numeric-like type")
         case x => x
     }
 
     private def unifyFloat(xs : Typed.Expr*) =
         (xs map floatRankStrict).sum match {
-            case x if x >= 10 => Types.FloatObservable
-            case x if x >= 1 => Types.FloatFunc
-            case 0 => Types.Float_
+            case x if x >= 100 => Types.FloatObservable
+            case x if x >= 10 => Types.FloatFunc
+            case x if x >= 1 => Types.Float_
+            case 0 => Types.Int_
         }
 
     trait Neg {
@@ -52,6 +55,10 @@ package object TypeInference
         val ty = Types.String_
     }
 
+    trait IntLit {
+        val ty = Types.Int_
+    }
+
     trait ParamRef {
         self: Typed.ParamRef =>
         val ty = p.ty
@@ -82,8 +89,8 @@ package object TypeInference
         self: Typed.Condition =>
         val ty = {
             val t = unifyFloat(x,y)
-            if (t != Types.Float_ && (t cannotCastTo Types.FloatFunc))
-                throw new Exception(s"Arguments of boolean expression must be casted to () => Float")
+            if (t != Types.Float_ && (t cannotCastTo Types.FloatFunc) && t != Types.Int_)
+                throw new Exception(s"Arguments of boolean expression must be able to cast to () => Float or () => Int")
             Types.BooleanFunc
         }
     }

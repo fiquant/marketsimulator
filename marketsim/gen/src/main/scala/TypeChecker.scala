@@ -38,6 +38,7 @@ case class TypeChecker(ctx : TypingExprCtx)
 
         case AST.FloatLit(d) => Typed.FloatLit(d)
         case AST.StringLit(x) => Typed.StringLit(x)
+        case AST.IntLit(x) => Typed.IntLit(x)
         case AST.Var(name) => Typed.ParamRef(ctx.lookupVar(name))
 
         case AST.FunCall(name, args) =>

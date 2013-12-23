@@ -112,6 +112,11 @@ object Printer {
         override def imports = Nil
     }
 
+    trait IntLit extends pp.IntLit with PrintablePort
+    {
+        override def imports = Nil
+    }
+
     trait And extends pp.And[Typed.Expr] with PrintablePort
     {
         override def imports = x.imports ++ y.imports

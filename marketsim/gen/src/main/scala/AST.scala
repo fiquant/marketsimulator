@@ -125,6 +125,7 @@ package object AST {
 
     case class FloatLit  (value: Double)                            extends Expr with pp.FloatLit with ScPrintable
     case class StringLit (value: String)                            extends Expr with pp.StringLit with ScPrintable
+    case class IntLit    (value: Int)                               extends Expr with pp.IntLit with ScPrintable
     case class Var       (s : String)                               extends Expr with pp.Var with ScPrintable
     case class Neg       (x: Expr)                                  extends Expr with pp.Neg with ScPrintable
     case class BinOp     (symbol : BinOpSymbol, x: Expr, y: Expr)   extends Expr with pp.BinOp with ScPrintable

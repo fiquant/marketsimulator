@@ -40,6 +40,11 @@ package object Printer
             def toScala = "\"" + value + "\""
         }
 
+        trait IntLit extends Expr with Priority_0 {
+            def value : Int
+            def toScala = value.toString
+        }
+
         trait BinOp[T <: Expr] extends Expr {
             val x, y : T
             val symbol : BinOpSymbol
@@ -224,6 +229,7 @@ package object Printer
         type Decorator = base.Decorator
         type Attribute = base.Attribute
         type StringLit = base.StringLit
+        type IntLit = base.IntLit
 
         trait Annotation extends base.Annotation {
             self: AST.Annotation =>
@@ -334,6 +340,7 @@ package object Printer
         }
 
         type StringLit = base.StringLit
+        type IntLit = base.IntLit
 
         trait TypeDeclaration extends Printable
         {

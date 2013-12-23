@@ -33,7 +33,7 @@ class MACD(Function[float]):
         return {}
     
     def getImpl(self):
-        return Avg(self.x,2.0/(self.fast+1.0))-Avg(self.x,2.0/(self.slow+1.0))
+        return Avg(self.x,2.0/(self.fast+1))-Avg(self.x,2.0/(self.slow+1))
     
     
     def bind(self, ctx):

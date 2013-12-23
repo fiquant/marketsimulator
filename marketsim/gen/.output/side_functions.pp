@@ -10,7 +10,7 @@ package observable.sidefunc {
     @label = "SignalSide_{%(threshold)s}(%(signal)s)"
     def Signal(signal = constant(),
                threshold = 0.7)
-         = if signal>threshold then side.Buy() else if signal<0.0-threshold then side.Sell() else side.Nothing()
+         = if signal>threshold then side.Buy() else if signal<0-threshold then side.Sell() else side.Nothing()
     
     @python.observable()
     @label = "Tf_{%(alpha)s}(%(book)s)"

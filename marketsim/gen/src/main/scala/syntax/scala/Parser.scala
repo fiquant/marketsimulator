@@ -9,6 +9,8 @@ class Parser() extends JavaTokenParsers with PackratParsers
 
     lazy val string_literal = string ^^ AST.StringLit
 
+    lazy val float_literal = floatingPointNumber ^^ { s => { if (s contains ".") FloatLit(s.toDouble) else IntLit(s.toInt)}  }
+
     lazy val conditional = ("if" ~> boolean) ~ ("then" ~> expr) ~ ("else" ~> expr) ^^ {
         case (cond ~ x ~ y) => IfThenElse(cond, x, y)
     } withFailureMessage "conditional expected"
@@ -56,7 +58,7 @@ class Parser() extends JavaTokenParsers with PackratParsers
     } withFailureMessage "factor expected"
 
     lazy val term : Parser[Expr] = (
-                floatingPointNumber ^^ { s => FloatLit(s.toDouble) }
+                float_literal
             |   funcall
             |   ident ^^ Var
             |   "(" ~> expr <~ ")"

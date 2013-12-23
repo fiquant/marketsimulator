@@ -171,7 +171,7 @@ package observable {@category = "Price function"
         def Signal(signal : IFunction = constant(),
                    threshold : Float = 0.7) : () => Side
             
-            	 = if signal>const(threshold) then side.Buy() else if signal<const(0.0-threshold) then side.Sell() else side.Nothing()
+            	 = if signal>const(threshold) then side.Buy() else if signal<const(0-threshold) then side.Sell() else side.Nothing()
         
         @label = "CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)"
         @python.observable()
@@ -242,7 +242,7 @@ package observable {@category = "Price function"
                  slow : Float = 26.0,
                  fast : Float = 12.0) : IFunction
             
-            	 = observable.EW.Avg(x,2.0/(fast+1.0))-observable.EW.Avg(x,2.0/(slow+1.0))
+            	 = observable.EW.Avg(x,2.0/(fast+1))-observable.EW.Avg(x,2.0/(slow+1))
         
         @label = "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
         @python()
@@ -252,7 +252,7 @@ package observable {@category = "Price function"
                    timeframe : Float = 9.0,
                    step : Float = 1.0) : IDifferentiable
             
-            	 = observable.EW.Avg(observable.OnEveryDt(step,observable.macd.MACD(x,slow,fast)),2.0/(timeframe+1.0))
+            	 = observable.EW.Avg(observable.OnEveryDt(step,observable.macd.MACD(x,slow,fast)),2/(timeframe+1))
         
         @label = "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
         @python()
@@ -603,7 +603,7 @@ package trash {
         package in2 {
             
             def A(x : IFunction = constant(),
-                  y : IObservable = if const(3.0)>x+const(2.0) then x else x*const(2.0)) : () => trash.types.T
+                  y : IFunction = if 3>x+2 then x else x*2) : () => trash.types.T
                 
             
             
