@@ -533,6 +533,9 @@ Definitions:
 | | | | | | | | | | - Float
 | | | | | - None
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - PriceAtVolume_{%(volume)s}{%(queue)s}
 | | | | - FunDef:
 | | | | | - WeightedPrice
 | | | | | - List:

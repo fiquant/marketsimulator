@@ -2794,6 +2794,9 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - PriceAtVolume_{%(volume)s}{%(queue)s}
 | | | | | | | - FunDef:
 | | | | | | | | - WeightedPrice
 | | | | | | | | - List:
@@ -5399,6 +5402,14 @@ Definitions:
 | | - Side
 | | - List:
 | - Alias:
+| | - IFunction_VolumeLevels
+| | - FunctionType:
+| | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - VolumeLevels
+| - Alias:
 | | - IFunction_CandleStick
 | | - FunctionType:
 | | | - List:
@@ -5437,3 +5448,6 @@ Definitions:
 | | | | - QualifiedName:
 | | | | | - List:
 | | | | | | - IFunction
+| - Interface:
+| | - VolumeLevels
+| | - List:

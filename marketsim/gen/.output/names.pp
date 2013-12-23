@@ -362,6 +362,7 @@ package observable {@category = "Price function"
                           defaultValue = constant(100.0))
              = Observable(IfDefined(BestPrice(queue),IfDefined(LastPrice(queue),defaultValue)))
         
+        @label = "PriceAtVolume_{%(volume)s}{%(queue)s}"
         def PriceAtVolume(queue = Asks(),
                           volume = 100.0) : () => Float
             

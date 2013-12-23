@@ -322,6 +322,7 @@ package observable {@category = "Price function"
                           defaultValue : IFunction = constant(100.0)) : IObservable
              = observable.Observable(IfDefined(observable.orderbook.BestPrice(queue),IfDefined(observable.orderbook.LastPrice(queue),defaultValue)))
         
+        @label = "PriceAtVolume_{%(volume)s}{%(queue)s}"
         def PriceAtVolume(queue : IOrderQueue = observable.orderbook.Asks(),
                           volume : Float = 100.0) : () => Float
             
@@ -625,6 +626,8 @@ type IObservable_CandleStick : IFunction_CandleStick
 
 type Side
 
+type IFunction_VolumeLevels = () => VolumeLevels
+
 type IFunction_CandleStick = () => CandleStick
 
 type IOrderQueue
@@ -638,3 +641,5 @@ type IFunction = () => Float
 type ISingleAssetTrader
 
 type IDifferentiable : IFunction
+
+type VolumeLevels

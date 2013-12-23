@@ -30,6 +30,11 @@ package object Types
             with    sc.Float_
             with    py.Float_
 
+    case object Int_
+            extends Base
+            with    sc.Int_
+            with    py.Int_
+
     case object Boolean_
             extends Base
             with    sc.Boolean_

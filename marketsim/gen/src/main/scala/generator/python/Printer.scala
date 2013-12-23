@@ -58,6 +58,12 @@ object Printer {
             def imports = Nil
         }
 
+        trait Int_    extends Base
+        {
+            def toPython = "int"
+            def imports = Nil
+        }
+
         trait Boolean_  extends Base
         {
             def toPython = "bool"
