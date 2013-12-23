@@ -618,6 +618,9 @@ package trash {
             
             def S1(y = "abc")
                  = y
+            
+            def C(x : IFunction_CandleStick)
+                 = x
         }
         def A(x : () => types.T1 = trash.A()) : () => types.U
             

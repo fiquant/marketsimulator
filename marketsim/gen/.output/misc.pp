@@ -149,6 +149,9 @@ package trash {
             
             def S1(y = "abc")
                  = y
+            
+            def C(x : IFunction_CandleStick)
+                 = x
         }
     }
 }

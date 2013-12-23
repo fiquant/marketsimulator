@@ -584,6 +584,11 @@ package trash {
             def S1(y : String = "abc") : String
                 
                 	 = y
+            
+            
+            def C(x : IFunction_CandleStick) : IFunction_CandleStick
+                
+                	 = x
         }
         
         def A(x : () => trash.types.T1 = trash.A()) : () => trash.types.U
@@ -621,7 +626,10 @@ package  {
                   elsePart : IFunction = constant()) : IFunction
         
         	 = if x<>null() then x else elsePart
-}type Side
+}type CandleStick
+type IFunction_Boolean = () => Boolean
+type Side
+type IFunction_CandleStick = () => CandleStick
 type IOrderQueue
 type IOrderBook
 type IObservable : IFunction

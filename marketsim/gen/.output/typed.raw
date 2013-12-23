@@ -4798,6 +4798,28 @@ Definitions:
 | | | | | | | | | | | | | | | - String
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - C
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - IFunction_CandleStick
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IFunction_CandleStick
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - A
@@ -5074,8 +5096,27 @@ Definitions:
 | | | | - category
 | | | | - Basic
 | - Interface:
+| | - CandleStick
+| | - List:
+| - Alias:
+| | - IFunction_Boolean
+| | - FunctionType:
+| | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Boolean
+| - Interface:
 | | - Side
 | | - List:
+| - Alias:
+| | - IFunction_CandleStick
+| | - FunctionType:
+| | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - CandleStick
 | - Interface:
 | | - IOrderQueue
 | | - List:
