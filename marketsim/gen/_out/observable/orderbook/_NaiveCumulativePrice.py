@@ -40,7 +40,7 @@ class NaiveCumulativePrice(Observable[float]):
         from marketsim.gen._out._const import const
         from marketsim.gen._out._const import const
         from marketsim.gen._out._const import const
-        return Observable((self.depth<const(0.0))[AskPrice(self.book), (self.depth>const(0.0))[BidPrice(self.book), const(0.0)]])
+        return Observable((self.depth<const(0.0))[self.depth*AskPrice(self.book), (self.depth>const(0.0))[self.depth*BidPrice(self.book), const(0.0)]])
         
         
         

@@ -2878,6 +2878,16 @@ Definitions:
 | | | | | | | | | | | | | - Float
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - TickSize(%(book)s)
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderbook.props._TickSize_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - AskLastPrice
 | | | | | | | | - List:
@@ -3748,15 +3758,19 @@ Definitions:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | | | | - 0.0
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Mul
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - depth
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | - AskPrice
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | | - AskPrice
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - book
 | | | | | | | | | | | | - IfThenElse:
 | | | | | | | | | | | | | - Condition:
 | | | | | | | | | | | | | | - Greater
@@ -3769,15 +3783,19 @@ Definitions:
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | | | | | - 0.0
-| | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | | - Mul
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - depth
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | | - BidPrice
 | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | | | - BidPrice
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - book
 | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | - List:

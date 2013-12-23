@@ -15,19 +15,8 @@ class Proxy(_computed.Proxy):
         self._alias = ["Asset's", self.__class__.__name__ ]
 
     _properties = { 'orderbook' : types.IOrderBook }
- 
-@registry.expose(alias = ["Asset's", "Tick size"])   
-class TickSize(types.IFunction[float]):
-    
-    def __init__(self, orderbook = None):
-        self.orderbook = orderbook if orderbook else marketsim.orderbook.Proxy()
 
-    _properties = { 'orderbook' : types.IOrderBook }
-    
-    def __call__(self):
-        return self.orderbook.tickSize
-    
-    
+from marketsim.gen._out.observable.orderbook._TickSize import TickSize
 
 class QueueProxy(_computed.Proxy):
     

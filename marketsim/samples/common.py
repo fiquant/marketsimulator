@@ -160,8 +160,8 @@ def orderBooksToRender(ctx, traders):
             max = observable.Max(assetPrice, 100)
             candlesticks = observable.CandleSticks(assetPrice, 10)
             tickSize = observable.TickSize(thisBook)
-#             max_eps = observable.MaxEpsilon(assetPrice, tickSize)
-#             min_eps = observable.MinEpsilon(assetPrice, tickSize)
+            max_eps = observable.MaxEpsilon(assetPrice, tickSize)
+            min_eps = observable.MinEpsilon(assetPrice, tickSize)
             
             def bollinger(mean, stddev, graph):
                 return [
@@ -206,8 +206,8 @@ def orderBooksToRender(ctx, traders):
                 timeserie.ToRecord(assetPrice, ctx.minmax_graph),
                 timeserie.ToRecord(max, ctx.minmax_graph),
                 timeserie.ToRecord(min, ctx.minmax_graph),
-#                 timeserie.ToRecord(max_eps, ctx.minmax_graph),
-#                 timeserie.ToRecord(min_eps, ctx.minmax_graph),
+                timeserie.ToRecord(max_eps, ctx.minmax_graph),
+                timeserie.ToRecord(min_eps, ctx.minmax_graph),
             ] 
             + bollinger(ma100, stddev100, ctx.bollinger_100_graph) 
             + bollinger(ma20, stddev20, ctx.bollinger_20_graph)

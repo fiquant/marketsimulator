@@ -328,6 +328,8 @@ package observable {@category = "Price function"
                           alpha : Float = 0.015) : IFunction
              = observable.EW.Avg(observable.orderbook.LastTradePrice(queue)*observable.orderbook.LastTradeVolume(queue),alpha)/observable.EW.Avg(observable.orderbook.LastTradeVolume(queue),alpha)
         
+        @label = "TickSize(%(book)s)"
+        @python.intrinsic("orderbook.props._TickSize_Impl")
         def TickSize(book : IOrderBook = observable.orderbook.OfTrader()) : () => Float
             
         
@@ -421,7 +423,7 @@ package observable {@category = "Price function"
         @python()
         def NaiveCumulativePrice(book : IOrderBook = observable.orderbook.OfTrader(),
                                  depth : IFunction = constant()) : IObservable
-             = observable.Observable(if depth<const(0.0) then observable.orderbook.AskPrice(book) else if depth>const(0.0) then observable.orderbook.BidPrice(book) else const(0.0))
+             = observable.Observable(if depth<const(0.0) then depth*observable.orderbook.AskPrice(book) else if depth>const(0.0) then depth*observable.orderbook.BidPrice(book) else const(0.0))
         
         @label = "Spread_{%(book)s}"
         @python()

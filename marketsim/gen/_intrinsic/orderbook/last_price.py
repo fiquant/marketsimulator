@@ -18,3 +18,4 @@ class _LastPrice_Impl(ops.Observable[float]):
         if p is not None:
             self._lastPrice = p
             self.fire(self)
+

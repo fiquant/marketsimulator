@@ -36,3 +36,7 @@ class _BestPrice_Impl(Proxy):
         return self.queue.bestPrice
 
 
+class _TickSize_Impl(object):
+
+    def __call__(self):
+        return self.book.tickSize
