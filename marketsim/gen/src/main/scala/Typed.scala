@@ -35,6 +35,11 @@ package object Typed
             with    py.IfThenElse
             with    TypeInference.IfThenElse
 
+    case class StringLit(value : String)
+            extends Expr
+            with    sc.StringLit
+            with    py.StringLit
+            with    TypeInference.StringLit
 
 
     case class FloatConst(x : Double)

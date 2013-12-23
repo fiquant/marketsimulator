@@ -9,7 +9,7 @@ case class TypeChecker(ctx : TypingExprCtx)
     }
 
     def promote_literal(e : Typed.Expr) =
-        if (e.ty == Types.`Float`) {
+        if (e.ty == Types.Float_) {
             val f = ctx.lookupFunction(AST.QualifiedName("const" :: Nil))
             Typed.FunctionCall(f, (f.parameters(0), e) :: Nil)
         } else e
@@ -37,6 +37,7 @@ case class TypeChecker(ctx : TypingExprCtx)
             promote_opt(Typed.IfThenElse(asBoolean(cond), asArith(x), asArith(y)))
 
         case AST.Const(d) => Typed.FloatConst(d)
+        case AST.StringLit(x) => Typed.StringLit(x)
         case AST.Var(name) => Typed.ParamRef(ctx.lookupVar(name))
 
         case AST.FunCall(name, args) =>

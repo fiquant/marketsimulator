@@ -52,15 +52,21 @@ object Printer {
             })
         }
 
-        trait `Float`    extends Base
+        trait Float_    extends Base
         {
             def toPython = "float"
             def imports = Nil
         }
 
-        trait `Boolean`  extends Base
+        trait Boolean_  extends Base
         {
             def toPython = "bool"
+            def imports = Nil
+        }
+
+        trait String_  extends Base
+        {
+            def toPython = "str"
             def imports = Nil
         }
 
@@ -93,6 +99,11 @@ object Printer {
         override def toPython = s"($cond)[${wrap(x)}, ${wrap(y)}]"
 
         override def imports = x.imports ++ y.imports ++ cond.imports
+    }
+
+    trait StringLit extends pp.StringLit with PrintablePort
+    {
+        override def imports = Nil
     }
 
     trait And extends pp.And[Typed.Expr] with PrintablePort

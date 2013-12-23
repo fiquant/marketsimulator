@@ -35,6 +35,11 @@ package object Printer
         trait Mul extends BinOpSymbol with Priority_1 { def toScala = "*"   }
         trait Div extends BinOpSymbol with Priority_1 { def toScala = "/"   }
 
+        trait StringLit extends Expr with Priority_0 {
+            def value : String
+            def toScala = "\"" + value + "\""
+        }
+
         trait BinOp[T <: Expr] extends Expr {
             val x, y : T
             val symbol : BinOpSymbol
@@ -218,6 +223,7 @@ package object Printer
         type TypeAlias = base.TypeAlias
         type Decorator = base.Decorator
         type Attribute = base.Attribute
+        type StringLit = base.StringLit
 
         trait Annotation extends base.Annotation {
             self: AST.Annotation =>
@@ -242,6 +248,7 @@ package object Printer
             self: AST.Const =>
             def toScala = value.toString
         }
+
 
         trait Var extends Expr with Priority_0 {
             self: AST.Var =>
@@ -284,8 +291,9 @@ package object Printer
         type Base = base.TypeBase
         type Unit = base.UnitType
 
-        trait `Float` extends Printable {  def toScala = "Float"   }
-        trait `Boolean` extends Printable {def toScala = "Boolean" }
+        trait Float_ extends Printable {  def toScala = "Float"   }
+        trait Boolean_ extends Printable {def toScala = "Boolean" }
+        trait String_ extends Printable {def toScala = "String" }
 
         type Tuple = base.TupleType
         type Function = base.FunctionType
@@ -323,6 +331,8 @@ package object Printer
             def printRetType = " : " + ret_type
             def printBody = ifSome(body, crlf + tab + " = ")
         }
+
+        type StringLit = base.StringLit
 
         trait TypeDeclaration extends Printable
         {

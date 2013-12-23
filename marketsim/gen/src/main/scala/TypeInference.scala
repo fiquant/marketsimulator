@@ -1,7 +1,7 @@
 package object TypeInference
 {
     def floatRank(e: Typed.Expr) = e.ty match {
-        case x if x canCastTo Types.`Float` => 0
+        case x if x canCastTo Types.Float_ => 0
         case x if x canCastTo Types.FloatObservable => 10
         case x if x canCastTo Types.FloatFunc => 1
         case t => -1
@@ -18,7 +18,7 @@ package object TypeInference
         (xs map floatRankStrict).sum match {
             case x if x >= 10 => Types.FloatObservable
             case x if x >= 1 => Types.FloatFunc
-            case 0 => Types.`Float`
+            case 0 => Types.Float_
         }
 
     trait Neg {
@@ -45,7 +45,11 @@ package object TypeInference
     }
 
     trait FloatConst {
-        val ty = Types.`Float`
+        val ty = Types.Float_
+    }
+
+    trait StringLit {
+        val ty = Types.String_
     }
 
     trait ParamRef {
@@ -78,7 +82,7 @@ package object TypeInference
         self: Typed.Condition =>
         val ty = {
             val t = unifyFloat(x,y)
-            if (t != Types.Float && (t cannotCastTo Types.FloatFunc))
+            if (t != Types.Float_ && (t cannotCastTo Types.FloatFunc))
                 throw new Exception(s"Arguments of boolean expression must be casted to () => Float")
             Types.BooleanFunc
         }
