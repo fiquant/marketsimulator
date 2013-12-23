@@ -26,6 +26,10 @@ package observable
     @label = "%(ticker)s"
     def Quote(ticker = "^GSPC", start = "2001-1-1", end = "2010-1-1") : IObservable
 
+    @python.intrinsic("observable.candlestick.CandleSticks_Impl")
+    @label = "CandleSticks(%(source)s)"
+    def CandleSticks(source = const(), timeframe = 10.0) : IObservable_CandleStick
+
     package Moving
     {
         @python.intrinsic("observable.minmax.Min_Impl")

@@ -1,4 +1,4 @@
-import gen 
+import gen, collections
 
 from gen import cached_property
 
@@ -12,6 +12,13 @@ IObservable = IObservable[float]
 IFunction = IFunction[float]
 float = float
 
+class CandleStick(collections.namedtuple("CandleStick", [
+                                                     "open", "close",
+                                                     "min", "max",
+                                                     "mean", "stddev"
+                                     ])):
+
+    pass
 
 class Alias(object):
     

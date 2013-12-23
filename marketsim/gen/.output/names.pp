@@ -607,6 +607,12 @@ package observable {@category = "Price function"
               end = "2010-1-1") : IObservable
         
     
+    @python.intrinsic("observable.candlestick.CandleSticks_Impl")
+    @label = "CandleSticks(%(source)s)"
+    def CandleSticks(source = const(),
+                     timeframe = 10.0) : IObservable_CandleStick
+        
+    
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
     def Observable(x : IFunction = const()) : IObservable

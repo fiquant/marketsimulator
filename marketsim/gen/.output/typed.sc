@@ -560,6 +560,12 @@ package observable {@category = "Price function"
               end : String = "2010-1-1") : IObservable
         
     
+    @label = "CandleSticks(%(source)s)"
+    @python.intrinsic("observable.candlestick.CandleSticks_Impl")
+    def CandleSticks(source : IObservable = const(),
+                     timeframe : Float = 10.0) : IObservable_CandleStick
+        
+    
     @label = "[%(x)s]"
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     def Observable(x : IFunction = const()) : IObservable
@@ -635,6 +641,7 @@ package  {
         	 = if x<>null() then x else elsePart
 }type CandleStick
 type IFunction_Boolean = () => Boolean
+type IObservable_CandleStick : IFunction_CandleStick
 type Side
 type IFunction_CandleStick = () => CandleStick
 type IOrderQueue
