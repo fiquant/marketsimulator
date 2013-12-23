@@ -602,14 +602,23 @@ package trash {
     package in1 {
         package in2 {
             
+            def S1(y : String = "abc") : String
+                
+                	 = y
+            
+            
+            def F(x : IFunction = trash.in1.in2.IntFunc()) : IFunction
+                
+                	 = x
+            
+            
             def A(x : IFunction = constant(),
                   y : IFunction = if 3>x+2 then x else x*2) : () => trash.types.T
                 
             
             
-            def S1(y : String = "abc") : String
+            def IntFunc() : () => Int
                 
-                	 = y
             
             
             def C(x : IFunction_CandleStick) : IFunction_CandleStick
@@ -661,7 +670,7 @@ type IFunction_VolumeLevels = () => VolumeLevels
 type IFunction_CandleStick = () => CandleStick
 type IOrderQueue
 type Float
-type Int
+type Int : Float
 type IOrderBook
 type IObservable : IFunction
 type IFunction = () => Float

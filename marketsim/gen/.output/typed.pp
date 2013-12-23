@@ -570,12 +570,18 @@ package trash {
     
     package in1 {
         package in2 {
+            def S1(y : String = "abc") : String
+                 = y
+            
+            def F(x : IFunction = trash.in1.in2.IntFunc()) : IFunction
+                 = x
+            
             def A(x : IFunction = constant(),
                   y : IFunction = if 3>x+2 then x else x*2) : () => trash.types.T
                 
             
-            def S1(y : String = "abc") : String
-                 = y
+            def IntFunc() : () => Int
+                
             
             def C(x : IFunction_CandleStick) : IFunction_CandleStick
                  = x
@@ -636,7 +642,7 @@ type IOrderQueue
 
 type Float
 
-type Int
+type Int : Float
 
 type IOrderBook
 

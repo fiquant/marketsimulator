@@ -137,4 +137,8 @@ def S1(y = "abc") = y
 
 def C(x : IFunction_CandleStick) = x
 
+def IntFunc() => Int
+
+def F(x : IFunction = IntFunc()) = x
+
 
