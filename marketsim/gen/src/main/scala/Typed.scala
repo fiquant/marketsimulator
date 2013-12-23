@@ -42,11 +42,11 @@ package object Typed
             with    TypeInference.StringLit
 
 
-    case class FloatConst(x : Double)
+    case class FloatLit(x : Double)
             extends Expr
-            with    sc.FloatConst
-            with    py.FloatConst
-            with    TypeInference.FloatConst
+            with    sc.FloatLit
+            with    py.FloatLit
+            with    TypeInference.FloatLit
 
     case class ParamRef(p : Parameter)
             extends Expr

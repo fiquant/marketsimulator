@@ -261,7 +261,7 @@ Definitions:
 | | | | | | | - alpha
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.15
 | | | | | | | - List:
 | | | | | - Some:

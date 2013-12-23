@@ -56,7 +56,7 @@ class Parser() extends JavaTokenParsers with PackratParsers
     } withFailureMessage "factor expected"
 
     lazy val term : Parser[Expr] = (
-                floatingPointNumber ^^ { s => Const(s.toDouble) }
+                floatingPointNumber ^^ { s => FloatLit(s.toDouble) }
             |   funcall
             |   ident ^^ Var
             |   "(" ~> expr <~ ")"

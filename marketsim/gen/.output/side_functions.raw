@@ -26,9 +26,9 @@ Definitions:
 | | | | | | | | | | | - rnd
 | | | | | | | | | | | - uniform
 | | | | | | | | | - List:
-| | | | | | | | | | - Const:
+| | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 0.0
-| | | | | | | | | | - Const:
+| | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | - Some:
@@ -37,7 +37,7 @@ Definitions:
 | | | | | | | | - Greater
 | | | | | | | | - Var:
 | | | | | | | | | - side_distribution
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.5
 | | | | | | | - FunCall:
 | | | | | | | | - QualifiedName:
@@ -80,7 +80,7 @@ Definitions:
 | | | | | | | - threshold
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.7
 | | | | | | | - List:
 | | | | | - Some:
@@ -104,7 +104,7 @@ Definitions:
 | | | | | | | | | | - signal
 | | | | | | | | | - BinOp:
 | | | | | | | | | | - Sub
-| | | | | | | | | | - Const:
+| | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 0.0
 | | | | | | | | | | - Var:
 | | | | | | | | | | | - threshold
@@ -139,14 +139,14 @@ Definitions:
 | | | | | | | - alpha
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.015
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - threshold
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.0
 | | | | | | | - List:
 | | | | | | - Parameter:
@@ -208,21 +208,21 @@ Definitions:
 | | | | | | | - alpha_1
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.015
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - alpha_2
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.15
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - threshold
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.0
 | | | | | | | - List:
 | | | | | | - Parameter:
@@ -302,7 +302,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
-| | | | | | | | | | - Const:
+| | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 200.0
 | | | | | | | - List:
 | | | | | | - Parameter:
@@ -380,7 +380,7 @@ Definitions:
 | | | | | | | - alpha
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.015
 | | | | | | | - List:
 | | | | | | - Parameter:
@@ -453,7 +453,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
-| | | | | | | | | | - Const:
+| | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | - Parameter:

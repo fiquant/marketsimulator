@@ -15,14 +15,14 @@ Definitions:
 | | | | | | | - Alpha
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - Beta
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | - None
@@ -54,7 +54,7 @@ Definitions:
 | | | | | | | - Lambda
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | | | -  |lambda| is 1.0 divided by the desired mean. It should be greater zero.
@@ -86,14 +86,14 @@ Definitions:
 | | | | | | | - Low
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - -10.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - High
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 10.0
 | | | | | | | - List:
 | | | | | - None
@@ -127,21 +127,21 @@ Definitions:
 | | | | | | | - Low
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - High
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - Mode
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.5
 | | | | | | | - List:
 | | | | | - None
@@ -176,14 +176,14 @@ Definitions:
 | | | | | | | - Alpha
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - Beta
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | - None
@@ -220,14 +220,14 @@ Definitions:
 | | | | | | | - Mu
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - Sigma
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | - None
@@ -260,7 +260,7 @@ Definitions:
 | | | | | | | - Mu
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.0
 | | | | | | | - List:
 | | | | | | | | -  |mu| is the mean                  
@@ -268,7 +268,7 @@ Definitions:
 | | | | | | | - Sigma
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | | | -  |sigma| is the standard deviation 
@@ -298,7 +298,7 @@ Definitions:
 | | | | | | | - Mu
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.0
 | | | | | | | - List:
 | | | | | | | | -  |mu| is the mean angle, expressed in radians between 0 and 2|pi|
@@ -306,7 +306,7 @@ Definitions:
 | | | | | | | - Kappa
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.0
 | | | | | | | - List:
 | | | | | | | | -  |kappa| is the concentration parameter, which must be greater than or equal to zero.
@@ -338,7 +338,7 @@ Definitions:
 | | | | | | | - Alpha
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | | | -  |alpha| is the shape parameter
@@ -368,7 +368,7 @@ Definitions:
 | | | | | | | - Alpha
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | | | -  |alpha| is the scale parameter 
@@ -376,7 +376,7 @@ Definitions:
 | | | | | | | - Beta
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | | | -  |beta| is the shape parameter  

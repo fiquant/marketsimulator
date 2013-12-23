@@ -26,7 +26,7 @@ Definitions:
 | | | | | | | - initialValue
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 100.0
 | | | | | | | - List:
 | | | | | | - Parameter:
@@ -40,9 +40,9 @@ Definitions:
 | | | | | | | | | | | - rnd
 | | | | | | | | | | | - lognormvariate
 | | | | | | | | | - List:
-| | | | | | | | | | - Const:
+| | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 0.0
-| | | | | | | | | | - Const:
+| | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 0.1
 | | | | | | | - List:
 | | | | | | - Parameter:

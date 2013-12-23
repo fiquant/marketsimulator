@@ -36,7 +36,7 @@ case class TypeChecker(ctx : TypingExprCtx)
         case AST.IfThenElse(cond, x, y) =>
             promote_opt(Typed.IfThenElse(asBoolean(cond), asArith(x), asArith(y)))
 
-        case AST.Const(d) => Typed.FloatConst(d)
+        case AST.FloatLit(d) => Typed.FloatLit(d)
         case AST.StringLit(x) => Typed.StringLit(x)
         case AST.Var(name) => Typed.ParamRef(ctx.lookupVar(name))
 

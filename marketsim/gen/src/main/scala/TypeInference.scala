@@ -44,7 +44,7 @@ package object TypeInference
         }
     }
 
-    trait FloatConst {
+    trait FloatLit {
         val ty = Types.Float_
     }
 

@@ -130,8 +130,8 @@ object Printer {
 
     type Priority_0 = pp.Priority_0
 
-    trait FloatConst extends Expr with Priority_0 {
-        self: Typed.FloatConst =>
+    trait FloatLit extends Expr with Priority_0 {
+        self: Typed.FloatLit =>
         override def toPython = x.toString
 
         def imports = Nil

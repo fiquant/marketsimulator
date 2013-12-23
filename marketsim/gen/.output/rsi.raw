@@ -24,7 +24,7 @@ Definitions:
 | | | | | | | - timeframe
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 10.0
 | | | | | | | - List:
 | | | | | - None
@@ -63,7 +63,7 @@ Definitions:
 | | | | | | | - timeframe
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 10.0
 | | | | | | | - List:
 | | | | | - Some:
@@ -82,7 +82,7 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - const
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Const:
+| | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | - 0.0
 | | | | | | | | | | - BinOp:
 | | | | | | | | | | | - Sub
@@ -127,7 +127,7 @@ Definitions:
 | | | | | | | - timeframe
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 10.0
 | | | | | | | - List:
 | | | | | - Some:
@@ -146,7 +146,7 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - const
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Const:
+| | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | - 0.0
 | | | | | | | | | | - BinOp:
 | | | | | | | | | | | - Sub
@@ -198,14 +198,14 @@ Definitions:
 | | | | | | | | | | - timeframe
 | | | | | | | | | | - None
 | | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
+| | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | - 10.0
 | | | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - alpha
 | | | | | | | | | | - None
 | | | | | | | | | | - Some:
-| | | | | | | | | | | - Const:
+| | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | - 0.015
 | | | | | | | | | | - List:
 | | | | | | | | - Some:
@@ -278,28 +278,28 @@ Definitions:
 | | | | | | | - timeframe
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 10.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - alpha
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.015
 | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - BinOp:
 | | | | | | | - Sub
-| | | | | | | - Const:
+| | | | | | | - FloatLit:
 | | | | | | | | - 100.0
 | | | | | | | - BinOp:
 | | | | | | | | - Div
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 100.0
 | | | | | | | | - BinOp:
 | | | | | | | | | - Add
-| | | | | | | | | - Const:
+| | | | | | | | | - FloatLit:
 | | | | | | | | | | - 1.0
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:

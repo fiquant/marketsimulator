@@ -26,14 +26,14 @@ Definitions:
 | | | | | | | - slow
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 26.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - fast
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 12.0
 | | | | | | | - List:
 | | | | | - Some:
@@ -49,13 +49,13 @@ Definitions:
 | | | | | | | | | | - x
 | | | | | | | | | - BinOp:
 | | | | | | | | | | - Div
-| | | | | | | | | | - Const:
+| | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 2.0
 | | | | | | | | | | - BinOp:
 | | | | | | | | | | | - Add
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - fast
-| | | | | | | | | | | - Const:
+| | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | - 1.0
 | | | | | | | - FunCall:
 | | | | | | | | - QualifiedName:
@@ -67,13 +67,13 @@ Definitions:
 | | | | | | | | | | - x
 | | | | | | | | | - BinOp:
 | | | | | | | | | | - Div
-| | | | | | | | | | - Const:
+| | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 2.0
 | | | | | | | | | | - BinOp:
 | | | | | | | | | | | - Add
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - slow
-| | | | | | | | | | | - Const:
+| | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | - 1.0
 | | | | | - None
 | | | | | - None
@@ -104,28 +104,28 @@ Definitions:
 | | | | | | | - slow
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 26.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - fast
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 12.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - timeframe
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 9.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - step
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | - Some:
@@ -155,13 +155,13 @@ Definitions:
 | | | | | | | | | | | | | - fast
 | | | | | | | | - BinOp:
 | | | | | | | | | - Div
-| | | | | | | | | - Const:
+| | | | | | | | | - FloatLit:
 | | | | | | | | | | - 2.0
 | | | | | | | | | - BinOp:
 | | | | | | | | | | - Add
 | | | | | | | | | | - Var:
 | | | | | | | | | | | - timeframe
-| | | | | | | | | | - Const:
+| | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 1.0
 | | | | | - None
 | | | | | - None
@@ -192,28 +192,28 @@ Definitions:
 | | | | | | | - slow
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 26.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - fast
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 12.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - timeframe
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 9.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - step
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | - Some:

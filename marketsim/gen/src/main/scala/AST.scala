@@ -123,7 +123,7 @@ package object AST {
 
     sealed abstract class Expr extends pp.Expr
 
-    case class Const     (value: Double)                            extends Expr with pp.Const with ScPrintable
+    case class FloatLit  (value: Double)                            extends Expr with pp.FloatLit with ScPrintable
     case class StringLit (value: String)                            extends Expr with pp.StringLit with ScPrintable
     case class Var       (s : String)                               extends Expr with pp.Var with ScPrintable
     case class Neg       (x: Expr)                                  extends Expr with pp.Neg with ScPrintable

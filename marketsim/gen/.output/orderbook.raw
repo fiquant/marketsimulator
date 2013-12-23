@@ -456,7 +456,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
-| | | | | | | | | | - Const:
+| | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 100.0
 | | | | | | | - List:
 | | | | | - Some:
@@ -520,7 +520,7 @@ Definitions:
 | | | | | | | - volume
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 100.0
 | | | | | | | - List:
 | | | | | - None
@@ -553,7 +553,7 @@ Definitions:
 | | | | | | | - alpha
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.015
 | | | | | | | - List:
 | | | | | - Some:
@@ -626,7 +626,7 @@ Definitions:
 | | | | | | | - alpha
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.015
 | | | | | | | - List:
 | | | | | - Some:
@@ -672,7 +672,7 @@ Definitions:
 | | | | | | | - alpha
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Const:
+| | | | | | | | - FloatLit:
 | | | | | | | | | - 0.015
 | | | | | | | - List:
 | | | | | - Some:
@@ -807,7 +807,7 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - book
-| | | | | | | | | - Const:
+| | | | | | | | | - FloatLit:
 | | | | | | | | | | - 2.0
 | | | | | - None
 | | | | | - None
@@ -895,7 +895,7 @@ Definitions:
 | | | | | | | | | | - Less
 | | | | | | | | | | - Var:
 | | | | | | | | | | | - depth
-| | | | | | | | | | - Const:
+| | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 0.0
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
@@ -909,7 +909,7 @@ Definitions:
 | | | | | | | | | | | - Greater
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - depth
-| | | | | | | | | | | - Const:
+| | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | - 0.0
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
@@ -918,7 +918,7 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - book
-| | | | | | | | | | - Const:
+| | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 0.0
 | | | | | - None
 | | | | | - None

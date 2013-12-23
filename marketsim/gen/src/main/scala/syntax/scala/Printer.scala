@@ -244,8 +244,8 @@ package object Printer
 
         import base.Priority_0
 
-        trait Const extends Expr with Priority_0 {
-            self: AST.Const =>
+        trait FloatLit extends Expr with Priority_0 {
+            self: AST.FloatLit =>
             def toScala = value.toString
         }
 
@@ -363,8 +363,8 @@ package object Printer
 
         import base.Priority_0
 
-        trait FloatConst extends Expr with Priority_0 {
-            self: Typed.FloatConst =>
+        trait FloatLit extends Expr with Priority_0 {
+            self: Typed.FloatLit =>
             def toScala = x.toString
         }
 
