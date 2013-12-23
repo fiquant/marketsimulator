@@ -6,43 +6,6 @@ from _computed import IndicatorBase
 import _wrap 
 from marketsim.types import *
 
-class volume_levels(ops.Function[types.IVolumeLevels]): 
-    
-    def __init__(self, 
-                 orderbook = None, 
-                 side = Side.Sell, 
-                 volumeDelta = 30, 
-                 volumeCount = 10):
-        
-        self.orderbook = orderbook if orderbook else marketsim.orderbook.Proxy()
-        self.side = side
-        self.volumeDelta = volumeDelta
-        self.volumeCount = volumeCount
-    
-    @property    
-    def volumes(self):
-        return [self.volumeDelta * i for i in range(self.volumeCount)]
-        
-    def __call__(self):
-        queue = self.orderbook.queue(self.side)
-        return [price for (volume, price) in queue.getVolumePrices(self.volumes)]
-    
-    @property
-    def digits(self):
-        return self.orderbook._digitsToShow
-    
-    @property
-    def label(self):
-        return "VolumeLevels("+self.orderbook.queue(self.side).label+")" 
-    
-    _properties = { 'orderbook'     : types.IOrderBook, 
-                    'side'          : types.Side, 
-                    'volumeDelta'   : float,
-                    'volumeCount'   : int  }
-
-registry.expose(alias = ["Asset's", "Ask", "Volume levels"], args = (None, Side.Sell))(volume_levels)
-registry.expose(alias = ["Asset's", "Bid", "Volume levels"], args = (None, Side.Buy))(volume_levels)
-
 import _computed
 
 class Proxy(_computed.Proxy):
@@ -129,10 +92,13 @@ class LastTradePrice(LastTrade):
         
 
 ### -------------------------------------------------------------------   Observables
+
+from marketsim.gen._out.observable.orderbook._VolumeLevels import VolumeLevels as volume_levels
+from marketsim.gen._out.observable.orderbook._Queue import Queue
         
 def VolumeLevels(interval, orderbook, side, volumeDelta, volumeCount):
 
     return IndicatorBase(event.Every(ops.constant(interval)),
-                         volume_levels(orderbook, side, volumeDelta, volumeCount), 
+                         volume_levels(Queue(orderbook, ops.constant(side)), volumeDelta, volumeCount),
                          {'smooth':True, 'volumeLevels' : True, 
                           'fillBelow' : side == Side.Buy, 'fillAbove' : side == Side.Sell})

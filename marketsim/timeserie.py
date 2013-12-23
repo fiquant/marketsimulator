@@ -102,7 +102,7 @@ class VolumeLevels(ToRecord):
     
     @property
     def _isBuy(self):
-        return 1 if self._source.dataSource.side == types.Side.Buy else 0 
+        return 1 if self._source.dataSource.queue.side == types.Side.Buy else 0
 
     _properties = { "_volumes" : meta.listOf(float), 
                     '_isBuy'   : int }

@@ -53,7 +53,9 @@ class Local(BookBase):
                 nDigits += 1
                 d *= 10
             self._digitsToShow = nDigits
-        
+        self._asks._digitsToShow = self._digitsToShow
+        self._bids._digitsToShow = self._digitsToShow
+
         self._tickSize = tickSize
         self._marketOrderFee = marketOrderFee
         self._limitOrderFee = limitOrderFee
