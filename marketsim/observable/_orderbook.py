@@ -57,28 +57,8 @@ from marketsim.gen._out.observable.orderbook._BidPrice import BidPrice
 from marketsim.gen._out.observable.orderbook._MidPrice import MidPrice
 from marketsim.gen._out.observable.orderbook._Spread import Spread
 
-class LastTrade(Proxy):
-    
-    @property
-    def _impl(self):
-        return self.orderbook.lastTrade
-    
-    @property
-    def attributes(self):
-        return { 'transparency' : 80 }
-    
-class LastTradePrice(LastTrade): 
-    # TODO: we'll need to say to typechecker that 
-    # it is Observable[Price] but not Observable[PriceVolume]
-    
-    def __call__(self):
-        trade = LastTrade.__call__(self)
-        return trade[0] if trade is not None else None
-    
-    @property
-    def label(self):
-        return 'LastTradePrice_{' + self.orderbook.label + '}'
-        
+from marketsim.gen._out.observable.orderbook._LastTradePrice import LastTradePrice
+from marketsim.gen._out.observable.orderbook._LastTradeVolume import LastTradeVolume
 
 ### -------------------------------------------------------------------   Observables
 
