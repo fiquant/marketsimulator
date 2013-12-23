@@ -125,4 +125,8 @@ package object Types
     val CandleStick = Typed.TypeDeclaration(Interface("CandleStick", Typed.topLevel, Nil)).ty
     val CandleStickFunc = Typed.TypeDeclaration(Alias("IFunction_CandleStick", Typed.topLevel, nullaryFunction(CandleStick))).ty
     val CandleStickObservable = Typed.TypeDeclaration(Interface("IObservable_CandleStick", Typed.topLevel, CandleStickFunc :: Nil)).ty
+
+    val VolumeLevels = Typed.TypeDeclaration(Interface("VolumeLevels", Typed.topLevel, Nil)).ty
+    val VolumeLevelsFunc = Typed.TypeDeclaration(Alias("IFunction_VolumeLevels", Typed.topLevel, nullaryFunction(VolumeLevels))).ty
+
 }

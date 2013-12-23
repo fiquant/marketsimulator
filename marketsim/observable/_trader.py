@@ -5,29 +5,7 @@ from marketsim.trader._proxy import SingleProxy
 
 #### ------------------------------------------------------- Accessors
 
-class rough_balance(ops.Function[float]):
-    """ Approximation for trader's cleared balance. :: 
-    
-        Rb(trader) = Balance(trader) + VolumeTraded(trader)*MidPrice(Asset(trader))
-    
-    (so, bigger the trader position worse the approximation).
-    """
-    
-    def __init__(self, trader):
-        self.trader = trader
-        
-    def __call__(self):
-        return self.trader.PnL + self.trader.amount*self.trader.book.price if self.trader.book.price else 0
-   
-    @property
-    def digits(self):
-        return self.trader.orderBook._digitsToShow
-    
-    @property
-    def label(self):
-        return "InstEfficiency_{" + getLabel(self.trader) + "}"
-    
-    _properties = { 'trader' : types.IAccount }
+from marketsim.gen._out.observable.trader._RoughPnL import RoughPnL
 
 from marketsim.gen._out.observable.trader._Balance import Balance as profit_and_loss
 from marketsim.gen._out.observable.trader._Position import Position as volume_traded
@@ -63,15 +41,8 @@ class OnOrderMatched(event.Event):
 
 #### ------------------------------------------------------- Observables
     
-def InstEfficiency(trader):
-    """ Creates an indicator bound to rough estimation of a trader's balance if cleared
-    """
-    
-    return IndicatorBase(OnTraded(trader), rough_balance(trader))
-
-def PnL(trader):
-    
-    return IndicatorBase(OnTraded(trader), profit_and_loss(trader))
+InstEfficiency = RoughPnL
+PnL = profit_and_loss
 
 VolumeTraded = volume_traded
 

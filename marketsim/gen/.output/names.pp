@@ -298,6 +298,11 @@ package observable {@category = "Price function"
         def Balance(trader = SingleProxy()) : IObservable
             
         
+        @python.observable()
+        @label = "RoughPnL_{%(trader)s}"
+        def RoughPnL(trader = SingleProxy())
+             = Observable(Balance(trader)+orderbook.NaiveCumulativePrice(orderbook.OfTrader(trader),Position(trader)))
+        
         @python.intrinsic("trader.props.Position_Impl")
         @label = "Amount_{%(trader)s}"
         def Position(trader = SingleProxy()) : IObservable
@@ -448,6 +453,12 @@ package observable {@category = "Price function"
         @label = "LastPrice(%(queue)s)"
         def LastPrice(queue = Asks()) : IObservable
             
+        
+        @python()
+        @label = "NaiveCumulativePrice(%(book)s, %(depth)s)"
+        def NaiveCumulativePrice(book = OfTrader(),
+                                 depth = constant())
+             = Observable(if depth<0.0 then AskPrice(book) else if depth>0.0 then BidPrice(book) else 0.0)
         
         @python()
         @label = "Spread_{%(book)s}"

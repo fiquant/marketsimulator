@@ -184,6 +184,67 @@ Definitions:
 | | | | | | | - label
 | | | | | | | - Efficiency_{%(trader)s}
 | | | | - FunDef:
+| | | | | - RoughPnL
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - trader
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SingleProxy
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Observable
+| | | | | | | - List:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Add
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Balance
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - trader
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | - NaiveCumulativePrice
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - trader
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Position
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - trader
+| | | | | - None
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - RoughPnL_{%(trader)s}
+| | | | - FunDef:
 | | | | | - EfficiencyTrend
 | | | | | - List:
 | | | | | | - Parameter:

@@ -2013,6 +2013,84 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - trader.props.Balance_Impl
 | | | | | | | - FunDef:
+| | | | | | | | - RoughPnL
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - trader
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ISingleAssetTrader
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | - SingleProxy
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - Observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Add
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | | - Balance
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | - NaiveCumulativePrice
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | | | | - Position
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - trader
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - RoughPnL_{%(trader)s}
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | - FunDef:
 | | | | | | | | - Position
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -3599,6 +3677,110 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.last_price._LastPrice_Impl
+| | | | | | | - FunDef:
+| | | | | | | | - NaiveCumulativePrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - book
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IOrderBook
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - depth
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - Observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IfThenElse:
+| | | | | | | | | | | | - Condition:
+| | | | | | | | | | | | | - Less
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - depth
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | | | - 0.0
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | - AskPrice
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | - IfThenElse:
+| | | | | | | | | | | | | - Condition:
+| | | | | | | | | | | | | | - Greater
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - depth
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | | | | - 0.0
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | - BidPrice
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Const:
+| | | | | | | | | | | | | | | | - 0.0
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - NaiveCumulativePrice(%(book)s, %(depth)s)
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - Spread
 | | | | | | | | - List:

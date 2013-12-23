@@ -83,4 +83,9 @@ package observable.orderbook
     @python.intrinsic("orderbook.cumulative_price.CumulativePrice_Impl")
     @label = "CumulativePrice(%(book)s, %(depth)s)"
     def CumulativePrice(book = OfTrader(), depth = constant()) : IObservable
+
+    @python
+    @label = "NaiveCumulativePrice(%(book)s, %(depth)s)"
+    def NaiveCumulativePrice(book = OfTrader(), depth = constant()) =
+        Observable(if depth < 0 then AskPrice(book) else if depth > 0 then BidPrice(book) else 0)
 }
