@@ -5,7 +5,9 @@ import AST._
 
 class Parser() extends JavaTokenParsers with PackratParsers
 {
-    lazy val expr : Parser[Expr] = conditional | arithmetic
+    lazy val expr : Parser[Expr] = conditional | arithmetic | string_literal
+
+    lazy val string_literal = string ^^ AST.StringLit
 
     lazy val conditional = ("if" ~> boolean) ~ ("then" ~> expr) ~ ("else" ~> expr) ^^ {
         case (cond ~ x ~ y) => IfThenElse(cond, x, y)

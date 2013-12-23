@@ -125,6 +125,6 @@ def A(x : () => types.T1 = trash.A()) => types.U
 package in2
 def A(x = constant(), y = if 3 > x + 2 then x else x*2) => types.T
 
-
+def S1(y = "abc") = y
 
 

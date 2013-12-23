@@ -630,6 +630,9 @@ package trash {
             def A(x = constant(),
                   y = if 3.0>x+2.0 then x else x*2.0) : () => types.T
                 
+            
+            def S1(y = "abc")
+                 = y
         }
         
         def A(x : () => types.T1 = trash.A()) : () => types.U
