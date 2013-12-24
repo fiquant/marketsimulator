@@ -120,4 +120,8 @@ package object Types
     val VolumeLevels = Typed.TypeDeclaration(Interface("VolumeLevels", Typed.topLevel, Nil)).ty
     val VolumeLevelsFunc = Typed.TypeDeclaration(Alias("IFunction_VolumeLevels", Typed.topLevel, nullaryFunction(VolumeLevels))).ty
 
+    val Order = Typed.TypeDeclaration(Interface("Order", Typed.topLevel, Nil)).ty
+    val OrderFunc = Typed.TypeDeclaration(Alias("IFunction_Order", Typed.topLevel, nullaryFunction(Order))).ty
+    val OrderObservable = Typed.TypeDeclaration(Interface("IObservable_Order", Typed.topLevel, OrderFunc :: Nil)).ty
+
 }

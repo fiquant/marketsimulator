@@ -68,5 +68,6 @@ package object gen
         register(intrinsic)
         register(intrinsic_function)
         register(intrinsic_observable)
+        register(order_factory)
     }
 }

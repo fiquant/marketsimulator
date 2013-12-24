@@ -17,7 +17,7 @@ object mathops extends gen.PythonGenerator
             s"$name = self.$name()" |
             s"if $name is None: return None"
 
-        override def call = s"self.$name()"
+        override def call = name
 
     }
 

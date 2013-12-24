@@ -6,11 +6,16 @@ from bind import Method
 from side_ import Tag as Side
 from reference import Reference
 
-from types import IObservable, IFunction, ISingleAssetTrader, IOrderQueue, IOrderBook, IDifferentiable, IVolumeLevels as VolumeLevels
+from types import (IObservable, IFunction, ISingleAssetTrader,
+                   IOrderQueue, IOrderBook, IDifferentiable,
+                   IOrderGenerator,
+                   IVolumeLevels as VolumeLevels,
+                   IOrder as Order)
 
 IObservable = IObservable[float]
 IFunction = IFunction[float]
 float = float
+
 
 
 class CandleStick(collections.namedtuple("CandleStick", [

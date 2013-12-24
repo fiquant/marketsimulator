@@ -637,6 +637,72 @@ Definitions:
 | | - Some:
 | | | - QualifiedName:
 | | | | - List:
+| | | | | - order
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Market
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - side
+| | | | | | | - Some:
+| | | | | | | | - FunctionType:
+| | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Side
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Sell
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - volume
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IFunction
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable_Order
+| | | | | - None
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Market(%(side)s, %(volume)s)
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | - List:
+| | | | | | | | - order.market.Market_Impl
+| | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Order
+| - PackageDef:
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
 | | | | | - observable
 | | - Definitions:
 | | | - List:
@@ -5587,6 +5653,14 @@ Definitions:
 | - Interface:
 | | - IOrderQueue
 | | - List:
+| - Alias:
+| | - IFunction_Order
+| | - FunctionType:
+| | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Order
 | - Interface:
 | | - Float
 | | - List:
@@ -5619,6 +5693,9 @@ Definitions:
 | | - ISingleAssetTrader
 | | - List:
 | - Interface:
+| | - Order
+| | - List:
+| - Interface:
 | | - IDifferentiable
 | | - List:
 | | | - SimpleType:
@@ -5628,6 +5705,13 @@ Definitions:
 | - Interface:
 | | - VolumeLevels
 | | - List:
+| - Interface:
+| | - IObservable_Order
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction_Order
 | - Interface:
 | | - String
 | | - List:

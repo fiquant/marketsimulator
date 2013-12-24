@@ -137,6 +137,15 @@ package mathutils {
             
     }
 }
+@category = "Order"
+
+package order {
+    @label = "Market(%(side)s, %(volume)s)"
+    @python.order.factory("order.market.Market_Impl")
+    def Market(side : () => Side = side.Sell(),
+               volume : IFunction = constant(1.0)) : IObservable_Order
+        
+}
 @category = "Basic"
 
 package observable {@category = "Price function"
@@ -654,6 +663,8 @@ type IFunction_CandleStick = () => CandleStick
 
 type IOrderQueue
 
+type IFunction_Order = () => Order
+
 type Float
 
 type Int : Float
@@ -666,8 +677,12 @@ type IFunction = () => Float
 
 type ISingleAssetTrader
 
+type Order
+
 type IDifferentiable : IFunction
 
 type VolumeLevels
+
+type IObservable_Order : IFunction_Order
 
 type String

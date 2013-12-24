@@ -1,6 +1,5 @@
 package generator.python
 
-import AST.PyPrintable
 import predef._
 import predef.ImportFrom
 import scala.Some
