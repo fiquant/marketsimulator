@@ -15,17 +15,28 @@ object order_factory extends gen.PythonGenerator
             ImportFrom("event", "marketsim") |||
             ImportFrom("types", "marketsim")
 
-        def check_none : Code = p.name match {
-            case "volume" => s"if $name is None or abs($name) < 1: return None" | s"$name = int($name)"
-            case _ => s"if $name is None: return None"
+        def check_none_aux(name : String) : Code = name match {
+            case "volume" =>
+                s"if abs($name) < 1: return None" |
+                s"$name = int($name)"
+            case "signedVolume" =>
+                s"side = Side.Buy if signedVolume > 0 else Side.Sell" |
+                s"volume = abs(signedVolume)" |
+                check_none_aux("volume")
+
+            case _ => ""
         }
 
         def nullable =
             s"$name = self.$name()" |
-            check_none
+            s"if $name is None: return None" |
+            check_none_aux(name)
 
 
-        override def call = name
+        override def call = p.name match {
+            case "signedVolume" => "side, volume"
+            case _ => name
+        }
 
     }
 
@@ -72,10 +83,38 @@ object order_factory extends gen.PythonGenerator
         override def body = super.body | call
     }
 
+    class WithSignedOpt(args : List[String], f : Typed.Function) extends gen.GenerationUnit
+    {
+        val original = new Import(args, f)
+
+        def name = original.name
+
+        override def toString = original.toString + crlf + (f.parameters match {
+                    case s :: v :: tl if s.name == "side" && v.name == "volume" =>
+                        new Import(
+                            args,
+                            Typed.Function(
+                                f.parent,
+                                f.name + "Signed",
+                                Typed.Parameter(
+                                    "signedVolume",
+                                    v.ty,
+                                    v.initializer,
+                                    v.comment) :: tl,
+                                f.ret_type,
+                                f.body,
+                                f.docstring,
+                                f.annotations,
+                                f.attributes
+                            )).toString
+                    case _ => ""
+                })
+    }
+
     def apply(/** arguments of the annotation */ args  : List[String])
              (/** function to process         */ f     : Typed.Function) =
     {
-        new Import(args, f)
+        new WithSignedOpt(args, f)
     }
 
     val name = "python.order.factory"

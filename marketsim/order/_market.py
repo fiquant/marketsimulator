@@ -58,13 +58,9 @@ class Factory_Base(types.IOrderGenerator):
         return Market(*params) if params is not None else None
 
 from marketsim.gen._out.order._Market import Market as Factory
+from marketsim.gen._out.order._Market import MarketSigned as FactorySigned
 
-class FactorySigned(Factory_Base, combine.SignedVolume):
-    
-    def get(self):
-        return combine.SignedVolume.__call__(self)
-
-@registry.expose(['Market'])    
+@registry.expose(['Market'])
 @sig((IFunction[SignedVolume],), IOrderGenerator)
 class SignedVolume_Factory(object):
     
