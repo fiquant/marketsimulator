@@ -1,4 +1,4 @@
-from marketsim import combine, ops, registry, meta, types, bind
+from marketsim import event, combine, ops, registry, meta, types, bind
 from marketsim.types import *
 from _base import *
 
@@ -57,11 +57,37 @@ class Factory_Base(types.IOrderGenerator):
         params = self.get()
         return Market(*params) if params is not None else None
 
-class Factory(Factory_Base, combine.SideVolume):
-    
-    def get(self):
-        return combine.SideVolume.__call__(self)
-    
+class Factory(types.IOrderGenerator, ops.Observable[types.IOrder]):
+
+    _properties = {
+        'side'     : types.IFunction[Side],
+        'volume'   : types.IFunction[float],
+    }
+
+    def __init__(self,
+                 side = ops.constant(Side.Sell),
+                 volume = ops.constant(1.)):
+        ops.Observable[types.IOrder].__init__(self)
+        self.side = side
+        event.subscribe_if_observable(side, self)
+        self.volume = volume
+        event.subscribe_if_observable(volume, self)
+
+    def __call__(self):
+        side = self.side()
+
+        if side is None:
+            return None
+
+        volume = self.volume()
+
+        if volume is None or abs(volume) < 1:
+            return None
+
+        volume = int(volume)
+
+        return Market(side, volume)
+
 class FactorySigned(Factory_Base, combine.SignedVolume):
     
     def get(self):

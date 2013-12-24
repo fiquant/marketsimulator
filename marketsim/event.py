@@ -200,7 +200,11 @@ def subscribe(event, listener, target = None, ctx = None):
         context.bind(subscription, ctx)
             
     return subscription
-            
+
+def subscribe_if_observable(source, target):
+    if isinstance(source, types.IEvent):
+        subscribe(source, _(target).fire, target)
+
 class Every(Event):
     """ Represents a repeating action. 
     
