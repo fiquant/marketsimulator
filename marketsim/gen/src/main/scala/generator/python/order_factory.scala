@@ -93,20 +93,16 @@ object order_factory extends gen.PythonGenerator
                     case s :: v :: tl if s.name == "side" && v.name == "volume" =>
                         new Import(
                             args,
-                            Typed.Function(
-                                f.parent,
-                                f.name + "Signed",
-                                Typed.Parameter(
-                                    "signedVolume",
-                                    v.ty,
-                                    v.initializer,
-                                    v.comment) :: tl,
-                                f.ret_type,
-                                f.body,
-                                f.docstring,
-                                f.annotations,
-                                f.attributes
-                            )).toString
+                            f.copy(
+                                name = f.name + "Signed",
+                                parameters =
+                                        Typed.Parameter(
+                                            "signedVolume",
+                                            v.ty,
+                                            v.initializer,
+                                            v.comment) :: tl
+                                )
+                            ).toString
                     case _ => ""
                 })
     }
