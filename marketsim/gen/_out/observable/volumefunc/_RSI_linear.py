@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim import float
 from marketsim.ops._all import Observable
-from marketsim import IObservable_float
+from marketsim import IObservable_Float
 from marketsim import ISingleAssetTrader
 from marketsim import context
 @registry.expose(["Volume function", "RSI_linear"])
@@ -29,7 +29,7 @@ class RSI_linear(Observable[float]):
     
     _properties = {
         'alpha' : float,
-        'k' : IObservable_float,
+        'k' : IObservable_Float,
         'timeframe' : float,
         'trader' : ISingleAssetTrader
     }

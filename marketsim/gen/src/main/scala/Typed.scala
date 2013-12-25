@@ -122,7 +122,7 @@ package object Typed
             extends sc.Function
             with    ScPrintable
     {
-        parent.insert(this)
+        //parent.insert(this)
         
         def decorators = attributes :: annotations
 

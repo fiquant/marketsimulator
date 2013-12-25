@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IOrderQueue
-from marketsim import IFunction_float
+from marketsim import IFunction_Float
 from marketsim import context
 @registry.expose(["Asset's", "SafeSidePrice"])
 class SafeSidePrice(Observable[float]):
@@ -27,7 +27,7 @@ class SafeSidePrice(Observable[float]):
     
     _properties = {
         'queue' : IOrderQueue,
-        'defaultValue' : IFunction_float
+        'defaultValue' : IFunction_Float
     }
     def __repr__(self):
         return "SafeSidePrice^{%(queue)s}" % self.__dict__

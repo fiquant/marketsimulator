@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim.gen._intrinsic.moments.cma import CMA_Impl
-from marketsim import IObservable
+from marketsim import IObservable_Float
 @registry.expose(["Statistics", "Avg"])
 class Avg(Function[float], CMA_Impl):
     """ 
@@ -16,7 +16,7 @@ class Avg(Function[float], CMA_Impl):
         return repr(self)
     
     _properties = {
-        'source' : IObservable
+        'source' : IObservable_Float
     }
     def __repr__(self):
         return "Avg_{cumul}(%(source)s)" % self.__dict__

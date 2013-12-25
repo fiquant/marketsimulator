@@ -1,8 +1,8 @@
 from marketsim import registry
 from marketsim import float
 from marketsim.ops._all import Observable
-from marketsim import IFunction_float
-from marketsim import IFunction_float
+from marketsim import IFunction_Float
+from marketsim import IFunction_Float
 from marketsim import context
 @registry.expose(["Basic", "Max"])
 class Max(Observable[float]):
@@ -26,8 +26,8 @@ class Max(Observable[float]):
         return repr(self)
     
     _properties = {
-        'x' : IFunction_float,
-        'y' : IFunction_float
+        'x' : IFunction_Float,
+        'y' : IFunction_Float
     }
     def __repr__(self):
         return "max{%(x)s, %(y)s}" % self.__dict__

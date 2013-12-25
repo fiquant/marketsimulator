@@ -45,7 +45,7 @@ object Typer
                             throw new Exception(s"\r\nWhen typing '${source qualifyName definition.name}':\r\n" + ex.getMessage, ex)
                     }
                 }
-                source.packages.values  foreach { Processor(_).run() }
+                (source.packages.values ++ source.anonymous) foreach { Processor(_).run() }
             }
             catch {
                 case e : Exception =>

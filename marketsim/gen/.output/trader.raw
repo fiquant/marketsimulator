@@ -47,7 +47,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable_float
+| | | | | | | | | - IObservable_Float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -78,7 +78,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable_float
+| | | | | | | | | - IObservable_Float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -109,7 +109,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable_float
+| | | | | | | | | - IObservable_Float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:

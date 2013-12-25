@@ -1,11 +1,12 @@
 from marketsim import registry
 from marketsim.ops._all import Observable
-from marketsim import IFunction
+from marketsim import IFunction_Float
 @registry.expose(["Log/Pow", "Log"])
 class Log(Observable[float]):
     """ 
     """ 
     def __init__(self, x = None):
+        from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant
         from marketsim import event
         from marketsim import types
@@ -19,7 +20,7 @@ class Log(Observable[float]):
         return repr(self)
     
     _properties = {
-        'x' : IFunction
+        'x' : IFunction_Float
     }
     def __repr__(self):
         return "log(%(x)s)" % self.__dict__
@@ -28,5 +29,5 @@ class Log(Observable[float]):
         import math
         x = self.x()
         if x is None: return None
-        return math.log(self.x())
+        return math.log(x)
     

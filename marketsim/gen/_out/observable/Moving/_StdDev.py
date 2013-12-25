@@ -1,6 +1,6 @@
 from marketsim import registry
 from marketsim.ops._function import Function
-from marketsim import IObservable
+from marketsim import IObservable_Float
 from marketsim.gen._out.mathops._Sqrt import Sqrt
 from marketsim.gen._out.observable.Moving._Var import Var
 from marketsim import context
@@ -19,17 +19,13 @@ class StdDev(Function[float]):
         return repr(self)
     
     _properties = {
-        'source' : IObservable,
+        'source' : IObservable_Float,
         'timeframe' : float
     }
     def __repr__(self):
         return "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         return Sqrt(Var(self.source))
     

@@ -17,7 +17,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | - IFunction_Float
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:

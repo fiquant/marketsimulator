@@ -1,6 +1,6 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.observable.minmax import Max_Impl
-from marketsim import IFunction_float
+from marketsim import IFunction_Float
 @registry.expose(["Basic", "Max"])
 class Max(Max_Impl):
     """ 
@@ -24,7 +24,7 @@ class Max(Max_Impl):
         return repr(self)
     
     _properties = {
-        'source' : IFunction_float,
+        'source' : IFunction_Float,
         'timeframe' : float
     }
     def __repr__(self):

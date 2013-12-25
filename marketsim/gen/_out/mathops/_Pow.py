@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.ops._all import Observable
-from marketsim import IFunction
-from marketsim import IFunction
+from marketsim import IFunction_Float
+from marketsim import IFunction_Float
 @registry.expose(["Log/Pow", "Pow"])
 class Pow(Observable[float]):
     """ 
@@ -12,6 +12,7 @@ class Pow(Observable[float]):
      ``pow(x, y)`` is undefined, and raises ``ValueError``.
     """ 
     def __init__(self, base = None, power = None):
+        from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant
         from marketsim import event
         from marketsim import types
@@ -31,8 +32,8 @@ class Pow(Observable[float]):
         return repr(self)
     
     _properties = {
-        'base' : IFunction,
-        'power' : IFunction
+        'base' : IFunction_Float,
+        'power' : IFunction_Float
     }
     def __repr__(self):
         return "%(base)s^{%(power)s}" % self.__dict__
@@ -43,5 +44,5 @@ class Pow(Observable[float]):
         if base is None: return None
         power = self.power()
         if power is None: return None
-        return math.pow(self.base(), self.power())
+        return math.pow(base, power)
     

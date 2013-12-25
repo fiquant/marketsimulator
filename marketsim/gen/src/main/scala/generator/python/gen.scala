@@ -16,6 +16,7 @@ package object gen
         }
 
         p.packages.values foreach { sub => apply(sub, new File(dir, sub.name) ) }
+        p.anonymous       foreach {        apply(_, dir) }
 
         def printWriter(filename : String) = new PrintWriter(new File(dir, filename))
         def pyFile(f : Typed.Function) = printWriter("_" + f.name + ".py")
@@ -29,6 +30,7 @@ package object gen
                 case g :: Nil =>
                     val generated = g(f)
                     for (out <- managed(pyFile(f))) {
+                        //println(p qualifyName f.name)
                         out.println(generated)
                     }
                     Some(generated.name)

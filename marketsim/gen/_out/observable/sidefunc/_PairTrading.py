@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim import Side
 from marketsim.ops._all import Observable
 from marketsim import IOrderBook
-from marketsim import IFunction_float
+from marketsim import IFunction_Float
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Side function", "PairTrading"])
@@ -30,7 +30,7 @@ class PairTrading(Observable[Side]):
     
     _properties = {
         'dependee' : IOrderBook,
-        'factor' : IFunction_float,
+        'factor' : IFunction_Float,
         'book' : IOrderBook
     }
     def __repr__(self):

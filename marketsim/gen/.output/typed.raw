@@ -92,6 +92,98 @@ Definitions:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
+| | | | | | | | - Exp
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction_Float
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Exponent of x
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - category
+| | | | | | | | | | - Log/Pow
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - e^{%(x)s}
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - mathops
+| | | | | | | | | | - List:
+| | | | | | | | | | | - exp
+| | | | | | | - FunDef:
+| | | | | | | | - Log
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction_Float
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Natural logarithm of x (to base e)
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - category
+| | | | | | | | | | - Log/Pow
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - log(%(x)s)
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - mathops
+| | | | | | | | | | - List:
+| | | | | | | | | | | - log
+| | | | | | | - FunDef:
 | | | | | | | | - Sqrt
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -100,7 +192,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | | | - IFunction_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -137,6 +229,73 @@ Definitions:
 | | | | | | | | | | | | - mathops
 | | | | | | | | | | - List:
 | | | | | | | | | | | - sqrt
+| | | | | | | - FunDef:
+| | | | | | | | - Pow
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - base
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction_Float
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - power
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction_Float
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Return *x* raised to the power *y*.
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | | | | -  Exceptional cases follow Annex F of the C99 standard as far as possible.
+| | | | | | | | | | | -  In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,
+| | | | | | | | | | | -  even when *x* is a zero or a NaN.
+| | | | | | | | | | | -  If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
+| | | | | | | | | | | -  ``pow(x, y)`` is undefined, and raises ``ValueError``.
+| | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - category
+| | | | | | | | | | - Log/Pow
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - %(base)s^{%(power)s}
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - mathops
+| | | | | | | | | | - List:
+| | | | | | | | | | | - pow
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -145,6 +304,49 @@ Definitions:
 | | | | | - None
 | | | | | - Definitions:
 | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - Atan
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction_Float
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 0.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Arc tangent of x, in radians.
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - atan(%(x)s)
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - mathops
+| | | | | | | | | | - List:
+| | | | | | | | | | | - atan
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -666,7 +868,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | - IFunction_Float
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -816,7 +1018,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -864,7 +1066,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | | | - IFunction_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -940,7 +1142,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | | | - IFunction_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -1243,7 +1445,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | | | - IFunction_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -1419,7 +1621,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | | | - IFunction_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -1496,7 +1698,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | | | - IFunction_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -1510,7 +1712,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | | | - IFunction_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -1525,7 +1727,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -1547,7 +1749,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | | | - IFunction_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -1561,7 +1763,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | | | - IFunction_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -1576,7 +1778,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -1606,7 +1808,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | | | - IObservable_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -1683,7 +1885,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | - IFunction_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -1714,7 +1916,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | | | - IObservable_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -1791,7 +1993,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | - IFunction_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -1811,7 +2013,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | | | - IObservable_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -1928,7 +2130,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | | | - IObservable_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -2019,7 +2221,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | - IFunction_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -2065,7 +2267,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -2144,7 +2346,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -2180,7 +2382,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -2259,7 +2461,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -2387,7 +2589,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -2420,7 +2622,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | | | - IObservable_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -2473,7 +2675,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -2505,7 +2707,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | | | - IObservable_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -2582,7 +2784,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -2618,7 +2820,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | | | - IObservable_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -2709,7 +2911,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -2757,7 +2959,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | | | - IFunction_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -2808,7 +3010,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -2904,7 +3106,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | - IFunction_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -2994,7 +3196,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -3045,7 +3247,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -3109,7 +3311,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | - IFunction_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -3179,7 +3381,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -3295,7 +3497,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | - IFunction_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -3346,7 +3548,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -3381,7 +3583,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -3434,7 +3636,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -3521,7 +3723,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -3665,7 +3867,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -3716,7 +3918,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -3752,7 +3954,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | | | - IFunction_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -3765,7 +3967,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -3861,7 +4063,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -3899,7 +4101,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | | | - IFunction_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -3975,7 +4177,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -4036,7 +4238,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -4071,7 +4273,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -4104,7 +4306,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | | | - IFunction_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -4128,7 +4330,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -4150,7 +4352,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | | | - IFunction_Float
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -4174,7 +4376,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | - IObservable_Float
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
@@ -4208,7 +4410,7 @@ Definitions:
 | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | | | | | | - IObservable_Float
 | | | | | | | | | | | | | - Some:
 | | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | | - QualifiedName:
@@ -4254,7 +4456,7 @@ Definitions:
 | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | | | | | | - IObservable_Float
 | | | | | | | | | | | | | - Some:
 | | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | | - QualifiedName:
@@ -4302,7 +4504,7 @@ Definitions:
 | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | | | | | | - IObservable_Float
 | | | | | | | | | | | | | - Some:
 | | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | | - QualifiedName:
@@ -4365,7 +4567,7 @@ Definitions:
 | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | | | | | | - IObservable_Float
 | | | | | | | | | | | | | - Some:
 | | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | | - QualifiedName:
@@ -4417,7 +4619,7 @@ Definitions:
 | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | | | | | - IObservable_Float
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
@@ -4436,6 +4638,187 @@ Definitions:
 | | | | | | | | | | | - Cumulative
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Avg
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - IObservable_Float
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - Avg_{cumul}(%(source)s)
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - moments.cma.CMA_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Var
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - IObservable_Float
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - \\sigma^2_{cumul}(%(source)s)
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - moments.cmv.Variance_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - StdDev
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - IObservable_Float
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - mathops
+| | | | | | | | | | | | | | | - Sqrt
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | - Cumulative
+| | | | | | | | | | | | | | | | | - Var
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - \\sqrt{\\sigma^2_{cumul}_{%(source)s}}
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - RelStdDev
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - IObservable_Float
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Div
+| | | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | - Cumulative
+| | | | | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | - Cumulative
+| | | | | | | | | | | | | | | | - StdDev
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable_Float
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - RSD_{cumul}_{%(source)s}
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
@@ -4444,6 +4827,280 @@ Definitions:
 | | | | | | | | | | | - Moving
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Avg
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - IObservable_Float
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | - 100.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - Avg_{n=%(timeframe)s}(%(source)s)
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - moments.ma.MA_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Var
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - IObservable_Float
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | - 100.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | - Max
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - IntLit:
+| | | | | | | | | | | | | | | | | - 0
+| | | | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | | - Moving
+| | | | | | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | | | | | | - Mul
+| | | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | | - Sqr
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | | | | - Moving
+| | | | | | | | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IFunction_Float
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - \\sigma^2_{n=%(timeframe)s}(%(source)s)
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - moments.mv.MV_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - StdDev
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - IObservable_Float
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | - 100.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - mathops
+| | | | | | | | | | | | | | | - Sqrt
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | - Moving
+| | | | | | | | | | | | | | | | | - Var
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - \\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - RelStdDev
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - IObservable_Float
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | - 100.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Div
+| | | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | - Moving
+| | | | | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | - Moving
+| | | | | | | | | | | | | | | | - StdDev
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable_Float
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - label
+| | | | | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | - List:
 | | | | | | - Attribute:
@@ -4469,7 +5126,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | - IFunction_Float
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -4482,7 +5139,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable_float
+| | | | | | | | | - IObservable_Float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Attribute:
@@ -4504,7 +5161,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | - IFunction_Float
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -4518,7 +5175,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | - IFunction_Float
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -4542,7 +5199,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IFunction_float
+| | | | | | | | | - IFunction_Float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Attribute:
@@ -4563,7 +5220,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | - IObservable_Float
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -4622,7 +5279,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable_float
+| | | | | | | | | - IObservable_Float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Attribute:
@@ -4643,7 +5300,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | - IObservable_Float
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -4667,7 +5324,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable_float
+| | | | | | | | | - IObservable_Float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Attribute:
@@ -4689,7 +5346,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | - IFunction_Float
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -4703,7 +5360,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | - IFunction_Float
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -4727,7 +5384,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IFunction_float
+| | | | | | | | | - IFunction_Float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Attribute:
@@ -4748,7 +5405,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | - IObservable_Float
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -4807,7 +5464,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable_float
+| | | | | | | | | - IObservable_Float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Attribute:
@@ -4828,7 +5485,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | - IFunction_Float
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -4847,7 +5504,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IFunction_float
+| | | | | | | | | - IFunction_Float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Attribute:
@@ -4955,7 +5612,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable_float
+| | | | | | | | | - IObservable_Float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Attribute:
@@ -5007,7 +5664,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable_float
+| | | | | | | | | - IObservable_Float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Attribute:
@@ -5029,7 +5686,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IObservable_float
+| | | | | | | | | | | - IObservable_Float
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -5075,7 +5732,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | - IFunction_Float
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -5088,7 +5745,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable_float
+| | | | | | | | | - IObservable_Float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Attribute:
@@ -5222,7 +5879,7 @@ Definitions:
 | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | | | | | | - IFunction_Float
 | | | | | | | | | | | | | - Some:
 | | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | | - QualifiedName:
@@ -5240,7 +5897,7 @@ Definitions:
 | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | | | | - IFunction_Float
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
 | | | | | | | | | | - FunDef:
@@ -5252,7 +5909,7 @@ Definitions:
 | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | | | | | | - IFunction_Float
 | | | | | | | | | | | | | - Some:
 | | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | | - QualifiedName:
@@ -5266,7 +5923,7 @@ Definitions:
 | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | | | | | | | - IFunction_Float
 | | | | | | | | | | | | | - Some:
 | | | | | | | | | | | | | | - IfThenElse:
 | | | | | | | | | | | | | | | - Condition:
@@ -5438,7 +6095,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IFunction_float
+| | | | | | | | | - IFunction_Float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Attribute:
@@ -5491,7 +6148,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable_float
+| | | | | | | | | - IObservable_Float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Attribute:
@@ -5553,7 +6210,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | - IFunction_Float
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -5567,7 +6224,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IFunction_float
+| | | | | | | | | | | - IFunction_Float
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -5594,7 +6251,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IFunction_float
+| | | | | | | | | - IFunction_Float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Attribute:
@@ -5611,7 +6268,7 @@ Definitions:
 | | | | - category
 | | | | - Basic
 | - Alias:
-| | - IFunction_float
+| | - IFunction_Float
 | | - FunctionType:
 | | | - List:
 | | | - SimpleType:
@@ -5673,13 +6330,6 @@ Definitions:
 | | - Float
 | | - List:
 | - Interface:
-| | - IObservable_float
-| | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IFunction_float
-| - Interface:
 | | - Int
 | | - List:
 | | | - SimpleType:
@@ -5689,6 +6339,13 @@ Definitions:
 | - Interface:
 | | - IOrderBook
 | | - List:
+| - Interface:
+| | - IObservable_Float
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction_Float
 | - Interface:
 | | - ISingleAssetTrader
 | | - List:
@@ -5701,7 +6358,7 @@ Definitions:
 | | | - SimpleType:
 | | | | - QualifiedName:
 | | | | | - List:
-| | | | | | - IFunction_float
+| | | | | | - IFunction_Float
 | - Interface:
 | | - VolumeLevels
 | | - List:

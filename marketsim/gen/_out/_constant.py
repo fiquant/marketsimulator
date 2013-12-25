@@ -21,10 +21,6 @@ class constant(Function[float]):
         return "C=%(x)s" % self.__dict__
     
     _internals = ['impl']
-    @property
-    def attributes(self):
-        return {}
-    
     def getImpl(self):
         return const(self.x)
     

@@ -12,8 +12,8 @@ from types import (IObservable, IFunction, ISingleAssetTrader,
                    IVolumeLevels as VolumeLevels,
                    IOrder as Order)
 
-IObservable_float = IObservable[float]
-IFunction_float = IFunction[float]
+IObservable_Float = IObservable[float]
+IFunction_Float = IFunction[float]
 float = float
 
 

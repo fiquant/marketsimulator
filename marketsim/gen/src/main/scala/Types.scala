@@ -108,8 +108,8 @@ package object Types
     val String_ = makeBuiltin("String")
 
     val Float_ = makeBuiltin("Float")
-    val FloatFunc = Typed.TypeDeclaration(Alias("IFunction_float", Typed.topLevel, nullaryFunction(Float_))).ty
-    val FloatObservable = Typed.TypeDeclaration(Interface("IObservable_float", Typed.topLevel, FloatFunc :: Nil)).ty
+    val FloatFunc = Typed.TypeDeclaration(Alias("IFunction_Float", Typed.topLevel, nullaryFunction(Float_))).ty
+    val FloatObservable = Typed.TypeDeclaration(Interface("IObservable_Float", Typed.topLevel, FloatFunc :: Nil)).ty
 
     val Int_ = makeBuiltin("Int", Float_)
 

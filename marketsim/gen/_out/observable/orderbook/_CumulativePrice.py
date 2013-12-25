@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.orderbook.cumulative_price import CumulativePrice_Impl
 from marketsim import IOrderBook
-from marketsim import IFunction_float
+from marketsim import IFunction_Float
 @registry.expose(["Asset's", "CumulativePrice"])
 class CumulativePrice(CumulativePrice_Impl):
     """ 
@@ -27,7 +27,7 @@ class CumulativePrice(CumulativePrice_Impl):
     
     _properties = {
         'book' : IOrderBook,
-        'depth' : IFunction_float
+        'depth' : IFunction_Float
     }
     def __repr__(self):
         return "CumulativePrice(%(book)s, %(depth)s)" % self.__dict__

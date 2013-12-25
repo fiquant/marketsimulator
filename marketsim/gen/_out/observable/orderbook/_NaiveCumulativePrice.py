@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IOrderBook
-from marketsim import IFunction_float
+from marketsim import IFunction_Float
 from marketsim import context
 @registry.expose(["Asset's", "NaiveCumulativePrice"])
 class NaiveCumulativePrice(Observable[float]):
@@ -27,7 +27,7 @@ class NaiveCumulativePrice(Observable[float]):
     
     _properties = {
         'book' : IOrderBook,
-        'depth' : IFunction_float
+        'depth' : IFunction_Float
     }
     def __repr__(self):
         return "NaiveCumulativePrice(%(book)s, %(depth)s)" % self.__dict__

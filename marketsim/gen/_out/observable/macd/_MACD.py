@@ -1,6 +1,6 @@
 from marketsim import registry
 from marketsim.ops._function import Function
-from marketsim import IObservable_float
+from marketsim import IObservable_Float
 from marketsim.gen._out.observable.EW._Avg import Avg
 from marketsim.gen._out.observable.EW._Avg import Avg
 from marketsim import context
@@ -20,7 +20,7 @@ class MACD(Function[float]):
         return repr(self)
     
     _properties = {
-        'x' : IObservable_float,
+        'x' : IObservable_Float,
         'slow' : float,
         'fast' : float
     }
