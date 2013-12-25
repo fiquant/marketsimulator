@@ -32,7 +32,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable
+| | | | | | | | | - IObservable_float
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:

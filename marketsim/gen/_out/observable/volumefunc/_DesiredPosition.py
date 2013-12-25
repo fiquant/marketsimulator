@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim import float
 from marketsim.ops._all import Observable
-from marketsim import IObservable
+from marketsim import IObservable_float
 from marketsim import ISingleAssetTrader
 from marketsim import context
 @registry.expose(["Volume function", "DesiredPosition"])
@@ -26,7 +26,7 @@ class DesiredPosition(Observable[float]):
         return repr(self)
     
     _properties = {
-        'desiredPosition' : IObservable,
+        'desiredPosition' : IObservable_float,
         'trader' : ISingleAssetTrader
     }
     def __repr__(self):

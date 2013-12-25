@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import CandleStick
 from marketsim.gen._intrinsic.observable.candlestick import CandleSticks_Impl
-from marketsim import IObservable
+from marketsim import IObservable_float
 @registry.expose(["Basic", "CandleSticks"])
 class CandleSticks(Function[CandleStick], CandleSticks_Impl):
     """ 
@@ -18,7 +18,7 @@ class CandleSticks(Function[CandleStick], CandleSticks_Impl):
         return repr(self)
     
     _properties = {
-        'source' : IObservable,
+        'source' : IObservable_float,
         'timeframe' : float
     }
     def __repr__(self):

@@ -22,19 +22,19 @@ package observable {
     @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
     @label = "[%(x)s]_dt=%(dt)s"
     def OnEveryDt(dt = 1.0,
-                  x = constant()) : IObservable
+                  x = constant()) : IObservable_float
         
     
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
-    def Observable(x : IFunction = const()) : IObservable
+    def Observable(x : IFunction_float = const()) : IObservable_float
         
     
     @python.intrinsic("observable.quote.Quote_Impl")
     @label = "%(ticker)s"
     def Quote(ticker = "^GSPC",
               start = "2001-1-1",
-              end = "2010-1-1") : IObservable
+              end = "2010-1-1") : IObservable_float
         
     
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
@@ -47,13 +47,13 @@ package observable {
         @python.intrinsic("observable.minmax.Min_Impl")
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
         def Min(source = constant(),
-                timeframe = 100.0) : IObservable
+                timeframe = 100.0) : IObservable_float
             
         
         @python.intrinsic("observable.minmax.Max_Impl")
         @label = "Max_{n=%(timeframe)s}(%(source)s)"
         def Max(source = constant(),
-                timeframe = 100.0) : IObservable
+                timeframe = 100.0) : IObservable_float
             
     }
     
@@ -61,13 +61,13 @@ package observable {
         @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
         @label = "Min_{\\epsilon}(%(source)s)"
         def MinEpsilon(source = constant(),
-                       epsilon = constant(0.01)) : IObservable
+                       epsilon = constant(0.01)) : IObservable_float
             
         
         @python.intrinsic("observable.minmax_eps.MaxEpsilon_Impl")
         @label = "Max_{\\epsilon}(%(source)s)"
         def MaxEpsilon(source = constant(),
-                       epsilon = constant(0.01)) : IObservable
+                       epsilon = constant(0.01)) : IObservable_float
             
     }
 }
@@ -76,12 +76,12 @@ package observable {
 package  {
     @python()
     @label = "C=%(x)s"
-    def constant(x = 1.0) : IFunction
+    def constant(x = 1.0) : IFunction_float
          = const(x)
     
     @python.intrinsic.function("_constant._Constant_Impl")
     @label = "C=%(x)s"
-    def const(x = 1.0) : IObservable
+    def const(x = 1.0) : IObservable_float
         
     
     @python.intrinsic("_constant._Null_Impl")
@@ -127,7 +127,7 @@ type IOrderBook
 
 type ISingleAssetTrader
 
-type IDifferentiable : IFunction
+type IDifferentiable : IFunction_float
 
 package trash {
     package types {
@@ -169,7 +169,7 @@ package trash {
             def IntFunc() : () => Int
                 
             
-            def F(x : IFunction = IntFunc())
+            def F(x : IFunction_float = IntFunc())
                  = x
         }
     }

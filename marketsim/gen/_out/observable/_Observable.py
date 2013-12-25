@@ -1,6 +1,6 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.observable.on_every_dt import _Observable_Impl
-from marketsim import IFunction
+from marketsim import IFunction_float
 @registry.expose(["Basic", "Observable"])
 class Observable(_Observable_Impl):
     """ 
@@ -19,7 +19,7 @@ class Observable(_Observable_Impl):
         return repr(self)
     
     _properties = {
-        'x' : IFunction
+        'x' : IFunction_float
     }
     def __repr__(self):
         return "[%(x)s]" % self.__dict__

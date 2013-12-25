@@ -102,25 +102,28 @@ package object Types
 
     def nullaryFunction(ret_type : Base) = Function(List(), ret_type)
 
-    val String_ = Typed.TypeDeclaration(Interface("String", Typed.topLevel, Nil)).ty
+    def makeBuiltin(name : String, bases : Base*) = Typed.TypeDeclaration(Interface(name, Typed.topLevel, bases.toList)).ty
 
-    val Float_ = Typed.TypeDeclaration(Interface("Float", Typed.topLevel, Nil)).ty
-    val FloatFunc = Typed.TypeDeclaration(Alias("IFunction", Typed.topLevel, nullaryFunction(Float_))).ty
-    val FloatObservable = Typed.TypeDeclaration(Interface("IObservable", Typed.topLevel, FloatFunc :: Nil)).ty
 
-    val Int_ = Typed.TypeDeclaration(Interface("Int", Typed.topLevel, Float_ :: Nil)).ty
+    val String_ = makeBuiltin("String")
+
+    val Float_ = makeBuiltin("Float")
+    val FloatFunc = Typed.TypeDeclaration(Alias("IFunction_float", Typed.topLevel, nullaryFunction(Float_))).ty
+    val FloatObservable = Typed.TypeDeclaration(Interface("IObservable_float", Typed.topLevel, FloatFunc :: Nil)).ty
+
+    val Int_ = makeBuiltin("Int", Float_)
 
     val Boolean_ = Typed.TypeDeclaration(Interface("Boolean", Typed.topLevel, Nil)).ty
     val BooleanFunc = Typed.TypeDeclaration(Alias("IFunction_Boolean", Typed.topLevel, nullaryFunction(Boolean_))).ty
 
-    val CandleStick = Typed.TypeDeclaration(Interface("CandleStick", Typed.topLevel, Nil)).ty
+    val CandleStick = makeBuiltin("CandleStick")
     val CandleStickFunc = Typed.TypeDeclaration(Alias("IFunction_CandleStick", Typed.topLevel, nullaryFunction(CandleStick))).ty
     val CandleStickObservable = Typed.TypeDeclaration(Interface("IObservable_CandleStick", Typed.topLevel, CandleStickFunc :: Nil)).ty
 
-    val VolumeLevels = Typed.TypeDeclaration(Interface("VolumeLevels", Typed.topLevel, Nil)).ty
+    val VolumeLevels = makeBuiltin("VolumeLevels")
     val VolumeLevelsFunc = Typed.TypeDeclaration(Alias("IFunction_VolumeLevels", Typed.topLevel, nullaryFunction(VolumeLevels))).ty
 
-    val Order = Typed.TypeDeclaration(Interface("Order", Typed.topLevel, Nil)).ty
+    val Order = makeBuiltin("Order")
     val OrderFunc = Typed.TypeDeclaration(Alias("IFunction_Order", Typed.topLevel, nullaryFunction(Order))).ty
     val OrderObservable = Typed.TypeDeclaration(Interface("IObservable_Order", Typed.topLevel, OrderFunc :: Nil)).ty
 

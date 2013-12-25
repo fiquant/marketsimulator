@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim import float
 from marketsim.ops._all import Observable
-from marketsim import IObservable
+from marketsim import IObservable_float
 from marketsim import context
 @registry.expose(["Basic", "UpMovements"])
 class UpMovements(Observable[float]):
@@ -24,7 +24,7 @@ class UpMovements(Observable[float]):
         return repr(self)
     
     _properties = {
-        'source' : IObservable,
+        'source' : IObservable_float,
         'timeframe' : float
     }
     def __repr__(self):

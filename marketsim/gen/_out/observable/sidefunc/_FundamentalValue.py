@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim import Side
 from marketsim.ops._all import Observable
-from marketsim import IFunction
+from marketsim import IFunction_float
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Side function", "FundamentalValue"])
@@ -26,7 +26,7 @@ class FundamentalValue(Observable[Side]):
         return repr(self)
     
     _properties = {
-        'fv' : IFunction,
+        'fv' : IFunction_float,
         'book' : IOrderBook
     }
     def __repr__(self):

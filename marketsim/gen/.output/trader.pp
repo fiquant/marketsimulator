@@ -8,17 +8,17 @@ package observable.trader {
     
     @python.intrinsic("trader.props.Position_Impl")
     @label = "Amount_{%(trader)s}"
-    def Position(trader = SingleProxy()) : IObservable
+    def Position(trader = SingleProxy()) : IObservable_float
         
     
     @python.intrinsic("trader.props.Balance_Impl")
     @label = "Balance_{%(trader)s}"
-    def Balance(trader = SingleProxy()) : IObservable
+    def Balance(trader = SingleProxy()) : IObservable_float
         
     
     @python.intrinsic("trader.props.PendingVolume_Impl")
     @label = "PendingVolume_{%(trader)s}"
-    def PendingVolume(trader = SingleProxy()) : IObservable
+    def PendingVolume(trader = SingleProxy()) : IObservable_float
         
     
     @python.observable()

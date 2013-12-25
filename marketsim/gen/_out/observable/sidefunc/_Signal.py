@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim import Side
 from marketsim.ops._all import Observable
-from marketsim import IFunction
+from marketsim import IFunction_float
 from marketsim import context
 @registry.expose(["Side function", "Signal"])
 class Signal(Observable[Side]):
@@ -24,7 +24,7 @@ class Signal(Observable[Side]):
         return repr(self)
     
     _properties = {
-        'signal' : IFunction,
+        'signal' : IFunction_float,
         'threshold' : float
     }
     def __repr__(self):
