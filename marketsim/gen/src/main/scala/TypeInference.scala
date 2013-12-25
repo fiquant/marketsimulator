@@ -1,9 +1,9 @@
 package object TypeInference
 {
     def floatRank(e: Typed.Expr) = e.ty match {
-        case x if x canCastTo Types.Float_ => 0
-        case x if x canCastTo Types.FloatObservable => 10
-        case x if x canCastTo Types.FloatFunc => 1
+        case x if x canCastTo Types.float_ => 0
+        case x if x canCastTo Types.floatObservable => 10
+        case x if x canCastTo Types.floatFunc => 1
         case t => -1
     }
 
@@ -16,9 +16,9 @@ package object TypeInference
 
     private def unifyFloat(xs : Typed.Expr*) =
         (xs map floatRankStrict).sum match {
-            case x if x >= 10 => Types.FloatObservable
-            case x if x >= 1 => Types.FloatFunc
-            case x if x >= 0 => Types.Float_
+            case x if x >= 10 => Types.floatObservable
+            case x if x >= 1 => Types.floatFunc
+            case x if x >= 0 => Types.float_
         }
 
     trait Neg {
@@ -45,15 +45,15 @@ package object TypeInference
     }
 
     trait FloatLit {
-        val ty = Types.Float_
+        val ty = Types.float_
     }
 
     trait StringLit {
-        val ty = Types.String_
+        val ty = Types.string_
     }
 
     trait IntLit {
-        val ty = Types.Int_
+        val ty = Types.int_
     }
 
     trait ParamRef {
@@ -67,7 +67,7 @@ package object TypeInference
     }
 
     def checkBoolean(e : Typed.Expr) = {
-        if (e.ty cannotCastTo Types.BooleanFunc)
+        if (e.ty cannotCastTo Types.booleanFunc)
             throw new Exception(s"Expression $e is supposed to have () => Boolean type")
         e.ty
     }
@@ -86,9 +86,9 @@ package object TypeInference
         self: Typed.Condition =>
         val ty = {
             val t = unifyFloat(x,y)
-            if ((t cannotCastTo  Types.Float_) && (t cannotCastTo Types.FloatFunc))
+            if ((t cannotCastTo  Types.float_) && (t cannotCastTo Types.floatFunc))
                 throw new Exception(s"Arguments of boolean expression must be able to cast to () => Float or () => Int")
-            Types.BooleanFunc
+            Types.booleanFunc
         }
     }
 }

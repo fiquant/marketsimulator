@@ -116,7 +116,7 @@ package object base {
         def apply(/** arguments of the annotation */ args  : List[String])
                  (/** function to process         */ f     : Typed.Function) =
         {
-            if (f.ret_type canCastTo Types.FloatObservable)
+            if (f.ret_type canCastTo Types.floatObservable)
                 observable(args)(f)
             else
                 function(args)(f)

@@ -772,6 +772,7 @@ package  {
         
         	 = if x<>null() then x else elsePart
 }type IFunction_Float = () => Float
+type IObservable_Int : IFunction_Int
 type CandleStick
 type IFunction_Boolean = () => Boolean
 type IObservable_CandleStick : IFunction_CandleStick
@@ -781,10 +782,15 @@ type IFunction_VolumeLevels = () => VolumeLevels
 type IFunction_CandleStick = () => CandleStick
 type IOrderQueue
 type IFunction_Order = () => Order
+type IObservable_VolumeLevels : IFunction_VolumeLevels
 type Float
 type Int : Float
 type IOrderBook
+type IFunction_String = () => String
+type IObservable_String : IFunction_String
+type IObservable_Boolean : IFunction_Boolean
 type IObservable_Float : IFunction_Float
+type IFunction_Int = () => Int
 type ISingleAssetTrader
 type Order
 type IDifferentiable : IFunction_Float

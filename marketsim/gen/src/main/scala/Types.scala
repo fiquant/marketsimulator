@@ -103,28 +103,18 @@ package object Types
     def nullaryFunction(ret_type : Base) = Function(List(), ret_type)
 
     def makeBuiltin(name : String, bases : Base*) = Typed.TypeDeclaration(Interface(name, Typed.topLevel, bases.toList)).ty
+    def makeFunction(t : UserDefined) = Typed.TypeDeclaration(Alias("IFunction_" + t.name, Typed.topLevel, nullaryFunction(t))).ty
+
+    def genType(name : String, bases : Base*) = {
+        val scalar  = Typed.TypeDeclaration(Interface(name, Typed.topLevel, bases.toList)).ty
+        val func    = Typed.TypeDeclaration(Alias("IFunction_" + name, Typed.topLevel, nullaryFunction(scalar))).ty
+        val obs     = Typed.TypeDeclaration(Interface("IObservable_" + name, Typed.topLevel, func :: Nil)).ty
+        (scalar, func, obs)
+    }
 
 
-    val String_ = makeBuiltin("String")
-
-    val Float_ = makeBuiltin("Float")
-    val FloatFunc = Typed.TypeDeclaration(Alias("IFunction_Float", Typed.topLevel, nullaryFunction(Float_))).ty
-    val FloatObservable = Typed.TypeDeclaration(Interface("IObservable_Float", Typed.topLevel, FloatFunc :: Nil)).ty
-
-    val Int_ = makeBuiltin("Int", Float_)
-
-    val Boolean_ = Typed.TypeDeclaration(Interface("Boolean", Typed.topLevel, Nil)).ty
-    val BooleanFunc = Typed.TypeDeclaration(Alias("IFunction_Boolean", Typed.topLevel, nullaryFunction(Boolean_))).ty
-
-    val CandleStick = makeBuiltin("CandleStick")
-    val CandleStickFunc = Typed.TypeDeclaration(Alias("IFunction_CandleStick", Typed.topLevel, nullaryFunction(CandleStick))).ty
-    val CandleStickObservable = Typed.TypeDeclaration(Interface("IObservable_CandleStick", Typed.topLevel, CandleStickFunc :: Nil)).ty
-
-    val VolumeLevels = makeBuiltin("VolumeLevels")
-    val VolumeLevelsFunc = Typed.TypeDeclaration(Alias("IFunction_VolumeLevels", Typed.topLevel, nullaryFunction(VolumeLevels))).ty
-
-    val Order = makeBuiltin("Order")
-    val OrderFunc = Typed.TypeDeclaration(Alias("IFunction_Order", Typed.topLevel, nullaryFunction(Order))).ty
-    val OrderObservable = Typed.TypeDeclaration(Interface("IObservable_Order", Typed.topLevel, OrderFunc :: Nil)).ty
-
+    val (float_, floatFunc, floatObservable) = genType("Float")
+    val (string_, stringFunc, stringObservable) = genType("String")
+    val (int_, intFunc, intObservable) = genType("Int", float_)
+    val (boolean_, booleanFunc, booleanObservable) = genType("Boolean")
 }

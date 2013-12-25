@@ -105,10 +105,10 @@ object Typer
 
 
         private def toTyped(t : AST.Type) : Types.Base = t match {
-            case AST.SimpleType(AST.QualifiedName("Int" :: Nil)) => Types.Int_
-            case AST.SimpleType(AST.QualifiedName("Float" :: Nil)) => Types.Float_
-            case AST.SimpleType(AST.QualifiedName("Boolean" :: Nil)) => Types.Boolean_
-            case AST.SimpleType(AST.QualifiedName("String" :: Nil)) => Types.String_
+            case AST.SimpleType(AST.QualifiedName("Int" :: Nil)) => Types.int_
+            case AST.SimpleType(AST.QualifiedName("Float" :: Nil)) => Types.float_
+            case AST.SimpleType(AST.QualifiedName("Boolean" :: Nil)) => Types.boolean_
+            case AST.SimpleType(AST.QualifiedName("String" :: Nil)) => Types.string_
             case AST.SimpleType(name) => lookupType(name)
             case AST.UnitType => Types.Unit
             case AST.TupleType(types) => Types.Tuple(types map toTyped)

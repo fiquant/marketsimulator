@@ -7,7 +7,7 @@ object intrinsic extends gen.PythonGenerator
     def apply(/** arguments of the annotation */ args  : List[String])
              (/** function to process         */ f     : Typed.Function) =
     {
-        if (f.ret_type canCastTo Types.FloatObservable)
+        if (f.ret_type canCastTo Types.floatObservable)
             intrinsic_observable(args)(f)
         else
             intrinsic_function(args)(f)

@@ -752,6 +752,60 @@ Definitions:
 | | | | - QualifiedName:
 | | | | | - List:
 | | | | | | - IFunction_Float
+| - Interface:
+| | - CandleStick
+| | - List:
+| - Alias:
+| | - IFunction_CandleStick
+| | - FunctionType:
+| | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - CandleStick
+| - Interface:
+| | - IObservable_CandleStick
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction_CandleStick
+| - Interface:
+| | - VolumeLevels
+| | - List:
+| - Alias:
+| | - IFunction_VolumeLevels
+| | - FunctionType:
+| | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - VolumeLevels
+| - Interface:
+| | - IObservable_VolumeLevels
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction_VolumeLevels
+| - Interface:
+| | - Order
+| | - List:
+| - Alias:
+| | - IFunction_Order
+| | - FunctionType:
+| | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Order
+| - Interface:
+| | - IObservable_Order
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction_Order
 | - PackageDef:
 | | - Some:
 | | | - QualifiedName:

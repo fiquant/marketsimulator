@@ -5075,16 +5075,60 @@ Definitions:
 | | | | - category
 | | | | - Basic
 | - Interface:
+| | - CandleStick
+| | - List:
+| - Interface:
+| | - IObservable_CandleStick
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction_CandleStick
+| - Interface:
 | | - Side
 | | - List:
+| - Alias:
+| | - IFunction_VolumeLevels
+| | - FunctionType:
+| | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - VolumeLevels
+| - Alias:
+| | - IFunction_CandleStick
+| | - FunctionType:
+| | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - CandleStick
 | - Interface:
 | | - IOrderQueue
 | | - List:
+| - Alias:
+| | - IFunction_Order
+| | - FunctionType:
+| | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Order
+| - Interface:
+| | - IObservable_VolumeLevels
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction_VolumeLevels
 | - Interface:
 | | - IOrderBook
 | | - List:
 | - Interface:
 | | - ISingleAssetTrader
+| | - List:
+| - Interface:
+| | - Order
 | | - List:
 | - Interface:
 | | - IDifferentiable
@@ -5093,3 +5137,13 @@ Definitions:
 | | | | - QualifiedName:
 | | | | | - List:
 | | | | | | - IFunction_Float
+| - Interface:
+| | - VolumeLevels
+| | - List:
+| - Interface:
+| | - IObservable_Order
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction_Order

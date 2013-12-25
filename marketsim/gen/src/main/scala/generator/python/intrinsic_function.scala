@@ -61,7 +61,7 @@ object intrinsic_function extends gen.PythonGenerator
     def apply(/** arguments of the annotation */ args  : List[String])
              (/** function to process         */ f     : Typed.Function) =
     {
-        if (f.ret_type canCastTo Types.FloatFunc)
+        if (f.ret_type canCastTo Types.floatFunc)
             new Import(args, f)
         else
             new Import(args, f)

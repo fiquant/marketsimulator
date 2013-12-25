@@ -6276,6 +6276,13 @@ Definitions:
 | | | | | - List:
 | | | | | | - Float
 | - Interface:
+| | - IObservable_Int
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction_Int
+| - Interface:
 | | - CandleStick
 | | - List:
 | - Alias:
@@ -6327,6 +6334,13 @@ Definitions:
 | | | | | - List:
 | | | | | | - Order
 | - Interface:
+| | - IObservable_VolumeLevels
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction_VolumeLevels
+| - Interface:
 | | - Float
 | | - List:
 | - Interface:
@@ -6339,6 +6353,28 @@ Definitions:
 | - Interface:
 | | - IOrderBook
 | | - List:
+| - Alias:
+| | - IFunction_String
+| | - FunctionType:
+| | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - String
+| - Interface:
+| | - IObservable_String
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction_String
+| - Interface:
+| | - IObservable_Boolean
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction_Boolean
 | - Interface:
 | | - IObservable_Float
 | | - List:
@@ -6346,6 +6382,14 @@ Definitions:
 | | | | - QualifiedName:
 | | | | | - List:
 | | | | | | - IFunction_Float
+| - Alias:
+| | - IFunction_Int
+| | - FunctionType:
+| | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Int
 | - Interface:
 | | - ISingleAssetTrader
 | | - List:

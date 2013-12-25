@@ -129,6 +129,24 @@ type ISingleAssetTrader
 
 type IDifferentiable : IFunction_Float
 
+type CandleStick
+
+type IFunction_CandleStick = () => CandleStick
+
+type IObservable_CandleStick : IFunction_CandleStick
+
+type VolumeLevels
+
+type IFunction_VolumeLevels = () => VolumeLevels
+
+type IObservable_VolumeLevels : IFunction_VolumeLevels
+
+type Order
+
+type IFunction_Order = () => Order
+
+type IObservable_Order : IFunction_Order
+
 package trash {
     package types {
         type T1 = T

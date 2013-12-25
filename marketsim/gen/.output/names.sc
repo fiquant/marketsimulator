@@ -708,12 +708,30 @@ package $0 {
                   elsePart = constant())
          = if x<>null() then x else elsePart
 }
+type CandleStick
+
+type IObservable_CandleStick : IFunction_CandleStick
+
 type Side
 
+type IFunction_VolumeLevels = () => VolumeLevels
+
+type IFunction_CandleStick = () => CandleStick
+
 type IOrderQueue
+
+type IFunction_Order = () => Order
+
+type IObservable_VolumeLevels : IFunction_VolumeLevels
 
 type IOrderBook
 
 type ISingleAssetTrader
 
+type Order
+
 type IDifferentiable : IFunction_Float
+
+type VolumeLevels
+
+type IObservable_Order : IFunction_Order
