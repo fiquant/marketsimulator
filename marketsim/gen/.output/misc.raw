@@ -161,8 +161,13 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable_Float
+| | | | | | | | | - IObservable
 | | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -203,8 +208,13 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable_Float
+| | | | | | | | | - IObservable
 | | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -246,8 +256,13 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable_Float
+| | | | | | | | | - IObservable
 | | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -285,8 +300,13 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable_CandleStick
+| | | | | | | | | - IObservable
 | | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - CandleStick
+| | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -331,8 +351,13 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_Float
+| | | | | | | | | | | | - IObservable
 | | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -370,8 +395,13 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_Float
+| | | | | | | | | | | | - IObservable
 | | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -422,8 +452,13 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_Float
+| | | | | | | | | | | | - IObservable
 | | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -466,8 +501,13 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable_Float
+| | | | | | | | | | | | - IObservable
 | | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -543,8 +583,13 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable_Float
+| | | | | | | | | - IObservable
 | | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -789,50 +834,11 @@ Definitions:
 | | - CandleStick
 | | - List:
 | - Interface:
-| | - IObservable_CandleStick
-| | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IFunction
-| | | | - List:
-| | | | | - SimpleType:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - CandleStick
-| | | | | | - List:
-| - Interface:
 | | - VolumeLevels
 | | - List:
 | - Interface:
-| | - IObservable_VolumeLevels
-| | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IFunction
-| | | | - List:
-| | | | | - SimpleType:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - VolumeLevels
-| | | | | | - List:
-| - Interface:
 | | - Order
 | | - List:
-| - Interface:
-| | - IObservable_Order
-| | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IFunction
-| | | | - List:
-| | | | | - SimpleType:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - Order
-| | | | | | - List:
 | - PackageDef:
 | | - Some:
 | | | - QualifiedName:

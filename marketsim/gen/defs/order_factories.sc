@@ -3,5 +3,5 @@ package order
 {
     @python.order.factory("order.market.Market_Impl")
     @label = "Market(%(side)s, %(volume)s)"
-    def Market(side = side.Sell(), volume = constant(1.)) : IObservable_Order
+    def Market(side = side.Sell(), volume = constant(1.)) : IObservable[Order]
 }

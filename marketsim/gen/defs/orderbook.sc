@@ -19,7 +19,7 @@ package observable.orderbook
 
     @python.intrinsic("orderbook.props._BestPrice_Impl")
     @label = "Price(%(queue)s)"
-    def BestPrice(queue = Asks()) : IObservable_Float
+    def BestPrice(queue = Asks()) : IObservable[Float]
 
     @python
     @label = "Ask_{%(book)s}"
@@ -31,7 +31,7 @@ package observable.orderbook
 
     @python.intrinsic("orderbook.last_price._LastPrice_Impl")
     @label = "LastPrice(%(queue)s)"
-    def LastPrice(queue = Asks()) : IObservable_Float
+    def LastPrice(queue = Asks()) : IObservable[Float]
 
     @python
     @label = "Ask_{%(book)s}"
@@ -43,7 +43,7 @@ package observable.orderbook
 
     @python.intrinsic("orderbook.last_trade._LastTradePrice_Impl")
     @label = "LastTradePrice(%(queue)s)"
-    def LastTradePrice (queue = Asks()) : IObservable_Float
+    def LastTradePrice (queue = Asks()) : IObservable[Float]
 
     @python
     @label = "LastTradeAsk_{%(book)s}"
@@ -55,7 +55,7 @@ package observable.orderbook
 
     @python.intrinsic("orderbook.last_trade._LastTradeVolume_Impl")
     @label = "LastTradeVolume(%(queue)s)"
-    def LastTradeVolume(queue = Asks()) : IObservable_Float
+    def LastTradeVolume(queue = Asks()) : IObservable[Float]
 
     @python.observable
     @label = "SafeSidePrice^{%(queue)s}"
@@ -89,7 +89,7 @@ package observable.orderbook
 
     @python.intrinsic("orderbook.cumulative_price.CumulativePrice_Impl")
     @label = "CumulativePrice(%(book)s, %(depth)s)"
-    def CumulativePrice(book = OfTrader(), depth = constant()) : IObservable_Float
+    def CumulativePrice(book = OfTrader(), depth = constant()) : IObservable[Float]
 
     @python.intrinsic("orderbook.volume_levels.VolumeLevels_Impl")
     @label = "VolumeLevels(%(queue)s)"

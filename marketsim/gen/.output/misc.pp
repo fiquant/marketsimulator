@@ -22,38 +22,38 @@ package observable {
     @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
     @label = "[%(x)s]_dt=%(dt)s"
     def OnEveryDt(dt = 1.0,
-                  x = constant()) : IObservable_Float
+                  x = constant()) : IObservable[Float]
         
     
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
-    def Observable(x : IFunction[Float] = const()) : IObservable_Float
+    def Observable(x : IFunction[Float] = const()) : IObservable[Float]
         
     
     @python.intrinsic("observable.quote.Quote_Impl")
     @label = "%(ticker)s"
     def Quote(ticker = "^GSPC",
               start = "2001-1-1",
-              end = "2010-1-1") : IObservable_Float
+              end = "2010-1-1") : IObservable[Float]
         
     
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
     @label = "CandleSticks(%(source)s)"
     def CandleSticks(source = const(),
-                     timeframe = 10.0) : IObservable_CandleStick
+                     timeframe = 10.0) : IObservable[CandleStick]
         
     
     package Moving {
         @python.intrinsic("observable.minmax.Min_Impl")
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
         def Min(source = constant(),
-                timeframe = 100.0) : IObservable_Float
+                timeframe = 100.0) : IObservable[Float]
             
         
         @python.intrinsic("observable.minmax.Max_Impl")
         @label = "Max_{n=%(timeframe)s}(%(source)s)"
         def Max(source = constant(),
-                timeframe = 100.0) : IObservable_Float
+                timeframe = 100.0) : IObservable[Float]
             
     }
     
@@ -61,13 +61,13 @@ package observable {
         @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
         @label = "Min_{\\epsilon}(%(source)s)"
         def MinEpsilon(source = constant(),
-                       epsilon = constant(0.01)) : IObservable_Float
+                       epsilon = constant(0.01)) : IObservable[Float]
             
         
         @python.intrinsic("observable.minmax_eps.MaxEpsilon_Impl")
         @label = "Max_{\\epsilon}(%(source)s)"
         def MaxEpsilon(source = constant(),
-                       epsilon = constant(0.01)) : IObservable_Float
+                       epsilon = constant(0.01)) : IObservable[Float]
             
     }
 }
@@ -81,7 +81,7 @@ package  {
     
     @python.intrinsic.function("_constant._Constant_Impl")
     @label = "C=%(x)s"
-    def const(x = 1.0) : IObservable_Float
+    def const(x = 1.0) : IObservable[Float]
         
     
     @python.intrinsic("_constant._Null_Impl")
@@ -131,15 +131,9 @@ type IDifferentiable : IFunction[Float]
 
 type CandleStick
 
-type IObservable_CandleStick : IFunction[CandleStick]
-
 type VolumeLevels
 
-type IObservable_VolumeLevels : IFunction[VolumeLevels]
-
 type Order
-
-type IObservable_Order : IFunction[Order]
 
 package trash {
     package types {

@@ -183,7 +183,7 @@ package order {
     @python.order.factory("order.market.Market_Impl")
     @label = "Market(%(side)s, %(volume)s)"
     def Market(side = side.Sell(),
-               volume = constant(1.0)) : IObservable_Order
+               volume = constant(1.0)) : IObservable[Order]
         
 }
 @category = "Basic"
@@ -252,13 +252,13 @@ package observable {@category = "Price function"
         @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
         @label = "Min_{\\epsilon}(%(source)s)"
         def MinEpsilon(source = constant(),
-                       epsilon = constant(0.01)) : IObservable_Float
+                       epsilon = constant(0.01)) : IObservable[Float]
             
         
         @python.intrinsic("observable.minmax_eps.MaxEpsilon_Impl")
         @label = "Max_{\\epsilon}(%(source)s)"
         def MaxEpsilon(source = constant(),
-                       epsilon = constant(0.01)) : IObservable_Float
+                       epsilon = constant(0.01)) : IObservable[Float]
             
     }
     @category = "RSI"
@@ -304,7 +304,7 @@ package observable {@category = "Price function"
     package trader {
         @python.intrinsic("trader.props.Balance_Impl")
         @label = "Balance_{%(trader)s}"
-        def Balance(trader = SingleProxy()) : IObservable_Float
+        def Balance(trader = SingleProxy()) : IObservable[Float]
             
         
         @python.observable()
@@ -314,7 +314,7 @@ package observable {@category = "Price function"
         
         @python.intrinsic("trader.props.Position_Impl")
         @label = "Amount_{%(trader)s}"
-        def Position(trader = SingleProxy()) : IObservable_Float
+        def Position(trader = SingleProxy()) : IObservable[Float]
             
         
         @python.observable()
@@ -335,7 +335,7 @@ package observable {@category = "Price function"
         
         @python.intrinsic("trader.props.PendingVolume_Impl")
         @label = "PendingVolume_{%(trader)s}"
-        def PendingVolume(trader = SingleProxy()) : IObservable_Float
+        def PendingVolume(trader = SingleProxy()) : IObservable[Float]
             
     }
     @category = "Volume function"
@@ -421,7 +421,7 @@ package observable {@category = "Price function"
         
         @python.intrinsic("orderbook.last_trade._LastTradeVolume_Impl")
         @label = "LastTradeVolume(%(queue)s)"
-        def LastTradeVolume(queue = Asks()) : IObservable_Float
+        def LastTradeVolume(queue = Asks()) : IObservable[Float]
             
         
         @python()
@@ -436,7 +436,7 @@ package observable {@category = "Price function"
         
         @python.intrinsic("orderbook.props._BestPrice_Impl")
         @label = "Price(%(queue)s)"
-        def BestPrice(queue = Asks()) : IObservable_Float
+        def BestPrice(queue = Asks()) : IObservable[Float]
             
         
         @python.intrinsic("orderbook.queue._Queue_Impl")
@@ -463,7 +463,7 @@ package observable {@category = "Price function"
         @python.intrinsic("orderbook.cumulative_price.CumulativePrice_Impl")
         @label = "CumulativePrice(%(book)s, %(depth)s)"
         def CumulativePrice(book = OfTrader(),
-                            depth = constant()) : IObservable_Float
+                            depth = constant()) : IObservable[Float]
             
         
         @python.intrinsic("orderbook.volume_levels.VolumeLevels_Impl")
@@ -475,7 +475,7 @@ package observable {@category = "Price function"
         
         @python.intrinsic("orderbook.last_price._LastPrice_Impl")
         @label = "LastPrice(%(queue)s)"
-        def LastPrice(queue = Asks()) : IObservable_Float
+        def LastPrice(queue = Asks()) : IObservable[Float]
             
         
         @python()
@@ -491,7 +491,7 @@ package observable {@category = "Price function"
         
         @python.intrinsic("orderbook.last_trade._LastTradePrice_Impl")
         @label = "LastTradePrice(%(queue)s)"
-        def LastTradePrice(queue = Asks()) : IObservable_Float
+        def LastTradePrice(queue = Asks()) : IObservable[Float]
             
     }
     
@@ -499,13 +499,13 @@ package observable {@category = "Price function"
         @python.intrinsic("observable.minmax.Min_Impl")
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
         def Min(source = constant(),
-                timeframe = 100.0) : IObservable_Float
+                timeframe = 100.0) : IObservable[Float]
             
         
         @python.intrinsic("observable.minmax.Max_Impl")
         @label = "Max_{n=%(timeframe)s}(%(source)s)"
         def Max(source = constant(),
-                timeframe = 100.0) : IObservable_Float
+                timeframe = 100.0) : IObservable[Float]
             
     }
     @category = "Statistics"
@@ -589,7 +589,7 @@ package observable {@category = "Price function"
     @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
     @label = "[%(x)s]_dt=%(dt)s"
     def OnEveryDt(dt = 1.0,
-                  x = constant()) : IObservable_Float
+                  x = constant()) : IObservable[Float]
         
     
     @python.observable()
@@ -607,7 +607,7 @@ package observable {@category = "Price function"
     @python.intrinsic("observable.lagged.Lagged_Impl")
     @label = "Lagged_{%(timeframe)s}(%(source)s)"
     def Lagged(source = const(),
-               timeframe = 10.0) : IObservable_Float
+               timeframe = 10.0) : IObservable[Float]
         
     
     @python.observable()
@@ -639,18 +639,18 @@ package observable {@category = "Price function"
     @label = "%(ticker)s"
     def Quote(ticker = "^GSPC",
               start = "2001-1-1",
-              end = "2010-1-1") : IObservable_Float
+              end = "2010-1-1") : IObservable[Float]
         
     
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
     @label = "CandleSticks(%(source)s)"
     def CandleSticks(source = const(),
-                     timeframe = 10.0) : IObservable_CandleStick
+                     timeframe = 10.0) : IObservable[CandleStick]
         
     
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
-    def Observable(x : IFunction[Float] = const()) : IObservable_Float
+    def Observable(x : IFunction[Float] = const()) : IObservable[Float]
         
 }
 
@@ -714,7 +714,7 @@ package $0 {
     
     @python.intrinsic.function("_constant._Constant_Impl")
     @label = "C=%(x)s"
-    def const(x = 1.0) : IObservable_Float
+    def const(x = 1.0) : IObservable[Float]
         
     
     @python.intrinsic("observable.derivative._Derivative_Impl")
@@ -731,13 +731,9 @@ package $0 {
 
 type CandleStick
 
-type IObservable_CandleStick : IFunction[CandleStick]
-
 type Side
 
 type IOrderQueue
-
-type IObservable_VolumeLevels : IFunction[VolumeLevels]
 
 type IOrderBook
 
@@ -748,5 +744,3 @@ type Order
 type IDifferentiable : IFunction[Float]
 
 type VolumeLevels
-
-type IObservable_Order : IFunction[Order]

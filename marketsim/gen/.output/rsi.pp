@@ -3,7 +3,7 @@ package observable {
     @python.intrinsic("observable.lagged.Lagged_Impl")
     @label = "Lagged_{%(timeframe)s}(%(source)s)"
     def Lagged(source = const(),
-               timeframe = 10.0) : IObservable_Float
+               timeframe = 10.0) : IObservable[Float]
         
     
     @python.observable()

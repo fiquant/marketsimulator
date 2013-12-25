@@ -782,7 +782,6 @@ type IFunction_VolumeLevels = () => VolumeLevels
 type IFunction_CandleStick = () => CandleStick
 type IOrderQueue
 type IFunction_Order = () => Order
-type IObservable_VolumeLevels : IFunction_VolumeLevels
 type Float
 type Int : Float
 type IOrderBook
