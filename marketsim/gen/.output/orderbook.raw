@@ -28,6 +28,7 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - IOrderBook
+| | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -70,6 +71,7 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - IOrderQueue
+| | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -181,6 +183,7 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - IObservable_Float
+| | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -286,6 +289,7 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - IObservable_Float
+| | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -391,6 +395,7 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - IObservable_Float
+| | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -496,6 +501,7 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - IObservable_Float
+| | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -763,6 +769,7 @@ Definitions:
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
 | | | | | | | | | | - Float
+| | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -900,6 +907,7 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - IObservable_Float
+| | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -944,7 +952,13 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IFunction_VolumeLevels
+| | | | | | | | | - IFunction
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - VolumeLevels
+| | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:

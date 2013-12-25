@@ -244,7 +244,7 @@ package observable {@category = "Price function"
         
         @python.observable()
         @label = "Noise_{%(side_distribution)s}"
-        def Noise(side_distribution : IFunction_Float = mathutils.rnd.uniform(0.0,1.0))
+        def Noise(side_distribution : IFunction[Float] = mathutils.rnd.uniform(0.0,1.0))
              = if side_distribution>0.5 then side.Sell() else side.Buy()
     }
     
@@ -470,7 +470,7 @@ package observable {@category = "Price function"
         @label = "VolumeLevels(%(queue)s)"
         def VolumeLevels(queue = Asks(),
                          volumeDelta = 30.0,
-                         volumeCount = 10) : IFunction_VolumeLevels
+                         volumeCount = 10) : IFunction[VolumeLevels]
             
         
         @python.intrinsic("orderbook.last_price._LastPrice_Impl")
@@ -650,7 +650,7 @@ package observable {@category = "Price function"
     
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
-    def Observable(x : IFunction_Float = const()) : IObservable_Float
+    def Observable(x : IFunction[Float] = const()) : IObservable_Float
         
 }
 
@@ -678,7 +678,7 @@ package trash {
             def S1(y = "abc")
                  = y
             
-            def F(x : IFunction_Float = IntFunc())
+            def F(x : IFunction[Float] = IntFunc())
                  = x
             
             def A(x = constant(),
@@ -688,7 +688,7 @@ package trash {
             def IntFunc() : () => Int
                 
             
-            def C(x : IFunction_CandleStick)
+            def C(x : IFunction[CandleStick])
                  = x
         }
         
@@ -704,7 +704,7 @@ package trash {
 package $0 {
     @python()
     @label = "C=%(x)s"
-    def constant(x = 1.0) : IFunction_Float
+    def constant(x = 1.0) : IFunction[Float]
          = const(x)
     
     @python.intrinsic("_constant._Null_Impl")
@@ -731,19 +731,13 @@ package $0 {
 
 type CandleStick
 
-type IObservable_CandleStick : IFunction_CandleStick
+type IObservable_CandleStick : IFunction[CandleStick]
 
 type Side
 
-type IFunction_VolumeLevels = () => VolumeLevels
-
-type IFunction_CandleStick = () => CandleStick
-
 type IOrderQueue
 
-type IFunction_Order = () => Order
-
-type IObservable_VolumeLevels : IFunction_VolumeLevels
+type IObservable_VolumeLevels : IFunction[VolumeLevels]
 
 type IOrderBook
 
@@ -751,8 +745,8 @@ type ISingleAssetTrader
 
 type Order
 
-type IDifferentiable : IFunction_Float
+type IDifferentiable : IFunction[Float]
 
 type VolumeLevels
 
-type IObservable_Order : IFunction_Order
+type IObservable_Order : IFunction[Order]

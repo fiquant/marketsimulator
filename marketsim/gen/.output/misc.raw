@@ -162,6 +162,7 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - IObservable_Float
+| | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -183,7 +184,13 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IFunction_Float
+| | | | | | | | | | | - IFunction
+| | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | | | | - List:
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -197,6 +204,7 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - IObservable_Float
+| | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -239,6 +247,7 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - IObservable_Float
+| | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -277,6 +286,7 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - IObservable_CandleStick
+| | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -322,6 +332,7 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - IObservable_Float
+| | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -360,6 +371,7 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - IObservable_Float
+| | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -411,6 +423,7 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - IObservable_Float
+| | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -454,6 +467,7 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - IObservable_Float
+| | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
@@ -497,7 +511,13 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IFunction_Float
+| | | | | | | | | - IFunction
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -524,6 +544,7 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - IObservable_Float
+| | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -548,6 +569,7 @@ Definitions:
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
 | | | | | | | | | | - Float
+| | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -620,6 +642,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - IDifferentiable
+| | | | | | | | | - List:
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -637,6 +660,7 @@ Definitions:
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
 | | | | | | | | | | - Float
+| | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -674,6 +698,7 @@ Definitions:
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
 | | | | | | | | | | - Side
+| | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -697,6 +722,7 @@ Definitions:
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
 | | | | | | | | | | - Side
+| | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -720,6 +746,7 @@ Definitions:
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
 | | | | | | | | | | - Side
+| | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -751,61 +778,61 @@ Definitions:
 | | | - SimpleType:
 | | | | - QualifiedName:
 | | | | | - List:
-| | | | | | - IFunction_Float
+| | | | | | - IFunction
+| | | | - List:
+| | | | | - SimpleType:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - Float
+| | | | | | - List:
 | - Interface:
 | | - CandleStick
 | | - List:
-| - Alias:
-| | - IFunction_CandleStick
-| | - FunctionType:
-| | | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - CandleStick
 | - Interface:
 | | - IObservable_CandleStick
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:
 | | | | | - List:
-| | | | | | - IFunction_CandleStick
+| | | | | | - IFunction
+| | | | - List:
+| | | | | - SimpleType:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - CandleStick
+| | | | | | - List:
 | - Interface:
 | | - VolumeLevels
 | | - List:
-| - Alias:
-| | - IFunction_VolumeLevels
-| | - FunctionType:
-| | | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - VolumeLevels
 | - Interface:
 | | - IObservable_VolumeLevels
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:
 | | | | | - List:
-| | | | | | - IFunction_VolumeLevels
+| | | | | | - IFunction
+| | | | - List:
+| | | | | - SimpleType:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - VolumeLevels
+| | | | | | - List:
 | - Interface:
 | | - Order
 | | - List:
-| - Alias:
-| | - IFunction_Order
-| | - FunctionType:
-| | | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - Order
 | - Interface:
 | | - IObservable_Order
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:
 | | | | | - List:
-| | | | | | - IFunction_Order
+| | | | | | - IFunction
+| | | | - List:
+| | | | | - SimpleType:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - Order
+| | | | | | - List:
 | - PackageDef:
 | | - Some:
 | | | - QualifiedName:
@@ -826,6 +853,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - T
+| | | | | | | | | - List:
 | | | | | | | - PackageDef:
 | | | | | | | | - None
 | | | | | | | | - Definitions:
@@ -845,6 +873,7 @@ Definitions:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - T
+| | | | | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | - PackageDef:
 | | | | | | | | - None
@@ -861,10 +890,12 @@ Definitions:
 | | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | | | - T
+| | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | | | - R
+| | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | - List:
@@ -892,6 +923,7 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - types
 | | | | | | | | | | - R
+| | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | - PackageDef:
@@ -914,6 +946,7 @@ Definitions:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - types
 | | | | | | | | | | | | | | | - T1
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -931,6 +964,7 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - types
 | | | | | | | | | | | | | - U
+| | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | | | - PackageDef:
@@ -986,6 +1020,7 @@ Definitions:
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | - types
 | | | | | | | | | | | | | | | | - T
+| | | | | | | | | | | | | | - List:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
 | | | | | | | | | | - FunDef:
@@ -1013,7 +1048,13 @@ Definitions:
 | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - IFunction_CandleStick
+| | | | | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | - CandleStick
+| | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - None
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | - Some:
@@ -1033,6 +1074,7 @@ Definitions:
 | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | - Int
+| | | | | | | | | | | | | | - List:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
 | | | | | | | | | | - FunDef:
@@ -1044,7 +1086,13 @@ Definitions:
 | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - IFunction_Float
+| | | | | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - Some:
 | | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | | - QualifiedName:

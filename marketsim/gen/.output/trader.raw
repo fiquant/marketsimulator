@@ -17,6 +17,7 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - ISingleAssetTrader
+| | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -48,6 +49,7 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - IObservable_Float
+| | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -79,6 +81,7 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - IObservable_Float
+| | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:
@@ -110,6 +113,7 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - IObservable_Float
+| | | | | | | - List:
 | | | | | - None
 | | | | | - List:
 | | | | | | - Annotation:

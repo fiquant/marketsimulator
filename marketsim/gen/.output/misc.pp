@@ -27,7 +27,7 @@ package observable {
     
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
-    def Observable(x : IFunction_Float = const()) : IObservable_Float
+    def Observable(x : IFunction[Float] = const()) : IObservable_Float
         
     
     @python.intrinsic("observable.quote.Quote_Impl")
@@ -76,7 +76,7 @@ package observable {
 package  {
     @python()
     @label = "C=%(x)s"
-    def constant(x = 1.0) : IFunction_Float
+    def constant(x = 1.0) : IFunction[Float]
          = const(x)
     
     @python.intrinsic.function("_constant._Constant_Impl")
@@ -127,25 +127,19 @@ type IOrderBook
 
 type ISingleAssetTrader
 
-type IDifferentiable : IFunction_Float
+type IDifferentiable : IFunction[Float]
 
 type CandleStick
 
-type IFunction_CandleStick = () => CandleStick
-
-type IObservable_CandleStick : IFunction_CandleStick
+type IObservable_CandleStick : IFunction[CandleStick]
 
 type VolumeLevels
 
-type IFunction_VolumeLevels = () => VolumeLevels
-
-type IObservable_VolumeLevels : IFunction_VolumeLevels
+type IObservable_VolumeLevels : IFunction[VolumeLevels]
 
 type Order
 
-type IFunction_Order = () => Order
-
-type IObservable_Order : IFunction_Order
+type IObservable_Order : IFunction[Order]
 
 package trash {
     package types {
@@ -181,13 +175,13 @@ package trash {
             def S1(y = "abc")
                  = y
             
-            def C(x : IFunction_CandleStick)
+            def C(x : IFunction[CandleStick])
                  = x
             
             def IntFunc() : () => Int
                 
             
-            def F(x : IFunction_Float = IntFunc())
+            def F(x : IFunction[Float] = IntFunc())
                  = x
         }
     }

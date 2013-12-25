@@ -93,7 +93,7 @@ package observable.orderbook
 
     @python.intrinsic("orderbook.volume_levels.VolumeLevels_Impl")
     @label = "VolumeLevels(%(queue)s)"
-    def VolumeLevels(queue = Asks(), volumeDelta = 30., volumeCount = 10) : IFunction_VolumeLevels
+    def VolumeLevels(queue = Asks(), volumeDelta = 30., volumeCount = 10) : IFunction[VolumeLevels]
 
     @python
     @label = "NaiveCumulativePrice(%(book)s, %(depth)s)"

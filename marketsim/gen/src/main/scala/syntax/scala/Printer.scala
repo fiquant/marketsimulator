@@ -283,7 +283,7 @@ package object Printer
 
         trait SimpleType extends Printable {
             self: AST.SimpleType =>
-            def toScala = name.toString
+            def toScala = name.toString + (if (genericArgs.nonEmpty) genericArgs.mkString("[", ",", "]") else "")
         }
 
         type UnitType = base.UnitType

@@ -5,7 +5,6 @@ package object Types
     import generator.python.Printer.{types => py}
 
     // TODO:
-    //  Typedef         type A = B
     //  Generics        type G[T] : F[T]
 
     sealed abstract class Base
@@ -102,15 +101,23 @@ package object Types
 
     def nullaryFunction(ret_type : Base) = Function(List(), ret_type)
 
-    def makeBuiltin(name : String, bases : Base*) = Typed.TypeDeclaration(Interface(name, Typed.topLevel, bases.toList)).ty
-    def makeFunction(t : UserDefined) = Typed.TypeDeclaration(Alias("IFunction_" + t.name, Typed.topLevel, nullaryFunction(t))).ty
+    private def getLabel(t : Base) = t match {
+        case x : UserDefined => x.name
+    }
+
+    def functionOf_(t : Base) =
+        Typed.TypeDeclaration(Alias("IFunction_" + getLabel(t), Typed.topLevel, nullaryFunction(t))).ty
+
+
+    def functionOf = predef.Memoize1(functionOf_)
 
     def genType(name : String, bases : Base*) = {
         val scalar  = Typed.TypeDeclaration(Interface(name, Typed.topLevel, bases.toList)).ty
-        val func    = Typed.TypeDeclaration(Alias("IFunction_" + name, Typed.topLevel, nullaryFunction(scalar))).ty
+        val func    = functionOf(scalar)
         val obs     = Typed.TypeDeclaration(Interface("IObservable_" + name, Typed.topLevel, func :: Nil)).ty
         (scalar, func, obs)
     }
+
 
 
     val (float_, floatFunc, floatObservable) = genType("Float")
