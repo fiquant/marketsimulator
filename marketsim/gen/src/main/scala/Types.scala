@@ -54,21 +54,21 @@ package object Types
         override def returnTypeIfFunction = Some(ret)
     }
 
-    sealed abstract class UserDefined
+    sealed abstract class Declaration
             extends Base
-            with    sc.UserDefined
-            with    py.UserDefined
+            with    sc.TypeDeclaration
+            with    py.TypeDeclaration
     {
         val name : String
         val scope : Typed.Package
 
         override def equals(o : Any) = o match {
-            case that : UserDefined => name == that.name && scope.qualifiedName == that.scope.qualifiedName
+            case that : Declaration => name == that.name && scope.qualifiedName == that.scope.qualifiedName
             case _ => false
         }
     }
 
-    case class Interface(name : String, scope : Typed.Package, bases : List[Base]) extends UserDefined
+    case class Interface(name : String, scope : Typed.Package, bases : List[Base]) extends Declaration
     {
         override def canCastToImpl(other : Base) =  bases exists { _ canCastTo other }
 
@@ -87,7 +87,7 @@ package object Types
             }
     }
 
-    case class Alias(name : String, scope : Typed.Package, target : Base) extends UserDefined
+    case class Alias(name : String, scope : Typed.Package, target : Base) extends Declaration
     {
         override def canCastToImpl(other : Base) =  target canCastTo other
 
@@ -102,7 +102,7 @@ package object Types
     def nullaryFunction(ret_type : Base) = Function(List(), ret_type)
 
     private def getLabel(t : Base) = t match {
-        case x : UserDefined => x.name
+        case x : Declaration => x.name
     }
 
     def functionOf_(t : Base) =

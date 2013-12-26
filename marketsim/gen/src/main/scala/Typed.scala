@@ -151,7 +151,7 @@ package object Typed
     }
 
 
-    case class TypeDeclaration(ty : Types.UserDefined)
+    case class TypeDeclaration(ty : Types.Declaration)
             extends sc.TypeDeclaration
             with    ScPrintable
     {

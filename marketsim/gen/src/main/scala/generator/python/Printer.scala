@@ -52,7 +52,7 @@ object Printer {
             })
         }
 
-        trait UserDefined extends st.UserDefined with Printable with Base
+        trait TypeDeclaration extends st.TypeDeclaration with Printable with Base
         {
             val builtins = Map("Float"  -> "float",
                                "Int"    -> "int",
