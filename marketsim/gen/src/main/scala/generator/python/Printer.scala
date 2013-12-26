@@ -11,17 +11,17 @@ object Printer {
 
     object types {
 
-        trait Base extends Printable
+        trait Bound extends Printable
 
-        trait Unit extends Base {
+        trait Unit extends Bound {
             def toPython =
                 throw new Exception("Unit types are not supported yet for python generation")
             def imports = Nil
 
         }
 
-        trait Tuple extends Base {
-            val elems : List[Base]
+        trait Tuple extends Bound {
+            val elems : List[Bound]
             def toPython = {
                 throw new Exception("Tuple types are not supported yet for python generation")
                 //elems.mkString("(", ",", ")")
@@ -30,9 +30,9 @@ object Printer {
             def imports = Nil
         }
 
-        trait Function extends Base {
-            val args : List[Base]
-            val ret : Base
+        trait Function extends Bound {
+            val args : List[Bound]
+            val ret : Bound
             def toPython = {
                 val a = args match {
                     case Nil => ""
@@ -52,7 +52,7 @@ object Printer {
             })
         }
 
-        trait TypeDeclaration extends st.TypeDeclaration with Printable with Base
+        trait TypeDeclaration extends st.TypeDeclaration with Printable with Bound
         {
             val builtins = Map("Float"  -> "float",
                                "Int"    -> "int",

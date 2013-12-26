@@ -7,42 +7,42 @@ package object Types
     // TODO:
     //  Generics        type G[T] : F[T]
 
-    abstract class BaseUnbound
+    abstract class Unbound
 
-    sealed abstract class Base
-            extends BaseUnbound
-            with    sc.Base
-            with    py.Base
+    sealed abstract class Bound
+            extends Unbound
+            with    sc.Bound
+            with    py.Bound
             with    ScPyPrintable
     {
-        final def canCastTo(other : Base) : Boolean = this == other || (other match {
+        final def canCastTo(other : Bound) : Boolean = this == other || (other match {
             case a : Alias => canCastTo(a.target)
             case _ => false
         }) || canCastToImpl(other)
 
-        protected def canCastToImpl(other : Base) = false
+        protected def canCastToImpl(other : Bound) = false
 
-        def cannotCastTo(other : Base) = !canCastTo(other)
+        def cannotCastTo(other : Bound) = !canCastTo(other)
 
-        def returnTypeIfFunction : Option[Base] = None
+        def returnTypeIfFunction : Option[Bound] = None
     }
 
     case object Unit
-            extends Base
+            extends Bound
             with    sc.Unit
             with    py.Unit
 
-    case class Tuple(elems : List[Base])
-            extends Base
+    case class Tuple(elems : List[Bound])
+            extends Bound
             with    sc.Tuple
             with    py.Tuple
 
-    case class Function(args : List[Base], ret : Base)
-            extends Base
+    case class Function(args : List[Bound], ret : Bound)
+            extends Bound
             with    sc.Function
             with    py.Function
     {
-        override def canCastToImpl(other : Base) = {
+        override def canCastToImpl(other : Bound) = {
             other match {
                 case f: Function =>
                     (f.args.length == args.length) &&
@@ -58,7 +58,7 @@ package object Types
     }
 
     sealed abstract class Declaration
-            extends Base
+            extends Bound
             with    sc.TypeDeclaration
             with    py.TypeDeclaration
     {
@@ -67,13 +67,13 @@ package object Types
         val scope = decl.scope
     }
 
-    case class Interface(decl : Typed.Interface, genericArgs : List[Types.Base]) extends Declaration
+    case class Interface(decl : Typed.Interface, genericArgs : List[Types.Bound]) extends Declaration
     {
         val bases = decl.bases map {
-            case x : Base => x
+            case x : Bound => x
         }
 
-        override def canCastToImpl(other : Base) =  bases exists { _ canCastTo other }
+        override def canCastToImpl(other : Bound) =  bases exists { _ canCastTo other }
 
         override def returnTypeIfFunction =
             bases flatMap { _.returnTypeIfFunction } match {
@@ -85,30 +85,30 @@ package object Types
             }
     }
 
-    case class Alias(decl : Typed.Alias, genericArgs : List[Types.Base]) extends Declaration
+    case class Alias(decl : Typed.Alias, genericArgs : List[Types.Bound]) extends Declaration
     {
         val target = decl.target match {
-            case x : Base => x
+            case x : Bound => x
         }
 
-        override def canCastToImpl(other : Base) =  target canCastTo other
+        override def canCastToImpl(other : Bound) =  target canCastTo other
 
         override def returnTypeIfFunction = target.returnTypeIfFunction
     }
 
-    def nullaryFunction(ret_type : Base) = Function(List(), ret_type)
+    def nullaryFunction(ret_type : Bound) = Function(List(), ret_type)
 
-    private def getLabel(t : Base) = t match {
+    private def getLabel(t : Bound) = t match {
         case x : Declaration => x.name
     }
 
-    def makeScalar(name : String, bases : Base*) = {
+    def makeScalar(name : String, bases : Bound*) = {
         val ty = Typed.Interface(name, Typed.topLevel, bases.toList)
         Typed.topLevel insert ty
         ty.apply()
     }
 
-    def functionOf_(t : Base) = {
+    def functionOf_(t : Bound) = {
         val name = "IFunction_" + getLabel(t)
         val ty = Typed.Alias(name, Typed.topLevel, nullaryFunction(t))
         Typed.topLevel insert ty
@@ -116,7 +116,7 @@ package object Types
     }
 
 
-    def observableOf_(t : Base) = {
+    def observableOf_(t : Bound) = {
         val name = "IObservable_" + getLabel(t)
         val ty = Typed.Interface(name, Typed.topLevel, functionOf(t) :: Nil)
         Typed.topLevel insert ty
@@ -126,7 +126,7 @@ package object Types
     def functionOf = predef.Memoize1(functionOf_)
     def observableOf = predef.Memoize1(observableOf_)
 
-    def genType(name : String, bases : Base*) = {
+    def genType(name : String, bases : Bound*) = {
         val scalar  = makeScalar(name, bases : _*)
         val func    = functionOf(scalar)
         val obs     = observableOf(scalar)

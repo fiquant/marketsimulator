@@ -294,7 +294,7 @@ package object Printer
 
     object types {
 
-        type Base = base.TypeBase
+        type Bound = base.TypeBase
         type Unit = base.UnitType
 
         type Tuple = base.TupleType

@@ -102,7 +102,7 @@ object Typer
         }
 
 
-        private def toTyped(t : AST.Type) : Types.Base = t match {
+        private def toTyped(t : AST.Type) : Types.Bound = t match {
             case AST.SimpleType(AST.QualifiedName("Int" :: Nil), Nil) => Types.int_
             case AST.SimpleType(AST.QualifiedName("Float" :: Nil), Nil) => Types.float_
             case AST.SimpleType(AST.QualifiedName("Boolean" :: Nil), Nil) => Types.boolean_

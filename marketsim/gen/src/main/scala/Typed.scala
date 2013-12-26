@@ -10,7 +10,7 @@ package object Typed
             with    sc.Expr
             with    py.Expr
     {
-        def ty : Types.Base
+        def ty : Types.Bound
     }
 
     case class Neg(x : Expr)
@@ -77,7 +77,7 @@ package object Typed
             with    ScPrintable
 
     case class Parameter(name        : String,
-                         ty          : Types.Base,
+                         ty          : Types.Bound,
                          initializer : Option[Expr],
                          comment     : List[String])
             extends sc.Parameter
@@ -114,7 +114,7 @@ package object Typed
     case class Function(parent      : Package,
                         name        : String,
                         parameters  : List[Parameter],
-                        ret_type    : Types.Base,
+                        ret_type    : Types.Bound,
                         body        : Option[Expr],
                         docstring   : Option[DocString],
                         annotations : List[Annotation],
@@ -154,7 +154,7 @@ package object Typed
         val name : String
         val scope : Typed.Package
 
-        def apply(genericArgs : List[Types.Base] = Nil) : Types.Declaration
+        def apply(genericArgs : List[Types.Bound] = Nil) : Types.Declaration
 
         override def equals(o : Any) = o match {
             case that : TypeDeclaration => name == that.name && scope.qualifiedName == that.scope.qualifiedName
@@ -164,26 +164,26 @@ package object Typed
         def label = scope qualifyName name
     }
 
-    case class Alias(name : String, scope : Typed.Package, target : Types.BaseUnbound)
+    case class Alias(name : String, scope : Typed.Package, target : Types.Unbound)
             extends TypeDeclaration
             with sc.AliasDecl
             with ScPrintable
     {
         private val impl = predef.Memoize1({
-            genericArgs : List[Types.Base] => Types.Alias(this, genericArgs)
+            genericArgs : List[Types.Bound] => Types.Alias(this, genericArgs)
         })
-        def apply(genericArgs : List[Types.Base]) = impl(genericArgs)
+        def apply(genericArgs : List[Types.Bound]) = impl(genericArgs)
     }
 
-    case class Interface(name : String, scope : Typed.Package, bases : List[Types.BaseUnbound])
+    case class Interface(name : String, scope : Typed.Package, bases : List[Types.Unbound])
             extends TypeDeclaration
             with    sc.InterfaceDecl
             with    ScPrintable
     {
         private val impl = predef.Memoize1({
-            genericArgs : List[Types.Base] => Types.Interface(this, genericArgs)
+            genericArgs : List[Types.Bound] => Types.Interface(this, genericArgs)
         })
-        def apply(genericArgs : List[Types.Base]) = impl(genericArgs)
+        def apply(genericArgs : List[Types.Bound]) = impl(genericArgs)
     }
 
 
