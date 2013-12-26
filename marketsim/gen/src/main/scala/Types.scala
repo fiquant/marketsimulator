@@ -105,18 +105,30 @@ package object Types
         case x : Declaration => x.name
     }
 
-    def functionOf_(t : Base) =
-        Typed.TypeDeclaration(Alias("IFunction_" + getLabel(t), Typed.topLevel, nullaryFunction(t))).ty
+    def makeScalar(name : String, bases : Base*) = {
+        val declaration = Typed.TypeDeclaration(Interface(name, Typed.topLevel, bases.toList))
+        Typed.topLevel insert declaration
+        declaration.ty
+    }
+
+    def functionOf_(t : Base) = {
+        val declaration = Typed.TypeDeclaration(Alias("IFunction_" + getLabel(t), Typed.topLevel, nullaryFunction(t)))
+        Typed.topLevel insert declaration
+        declaration.ty
+    }
 
 
-    def observableOf_(t : Base) =
-        Typed.TypeDeclaration(Interface("IObservable_" + getLabel(t), Typed.topLevel, functionOf(t) :: Nil)).ty
+    def observableOf_(t : Base) = {
+        val declaration = Typed.TypeDeclaration(Interface("IObservable_" + getLabel(t), Typed.topLevel, functionOf(t) :: Nil))
+        Typed.topLevel insert declaration
+        declaration.ty
+    }
 
     def functionOf = predef.Memoize1(functionOf_)
     def observableOf = predef.Memoize1(observableOf_)
 
     def genType(name : String, bases : Base*) = {
-        val scalar  = Typed.TypeDeclaration(Interface(name, Typed.topLevel, bases.toList)).ty
+        val scalar  = makeScalar(name, bases : _*)
         val func    = functionOf(scalar)
         val obs     = observableOf(scalar)
         (scalar, func, obs)

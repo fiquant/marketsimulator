@@ -122,8 +122,6 @@ package object Typed
             extends sc.Function
             with    ScPrintable
     {
-        //parent.insert(this)
-        
         def decorators = attributes :: annotations
 
         def getAttribute(name : String) = attributes.items get name match {
@@ -155,7 +153,6 @@ package object Typed
             extends sc.TypeDeclaration
             with    ScPrintable
     {
-        ty.scope.insert(this)
     }
 
     class Package extends sc.TopLevelPackage with ScPrintable
