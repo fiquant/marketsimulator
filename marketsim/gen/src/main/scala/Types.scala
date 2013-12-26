@@ -62,21 +62,11 @@ package object Types
         val decl : Typed.TypeDeclaration
         val name = decl.name
         val scope = decl.scope
-
-        override def equals(o : Any) = o match {
-            case that : Declaration => name == that.name && scope.qualifiedName == that.scope.qualifiedName
-            case _ => false
-        }
     }
 
     case class Interface(decl : Typed.Interface, bases : List[Base]) extends Declaration
     {
         override def canCastToImpl(other : Base) =  bases exists { _ canCastTo other }
-
-        override def equals(o : Any) = super.equals(o) && (o match {
-            case that : Interface => bases == that.bases
-            case _ => false
-        })
 
         override def returnTypeIfFunction =
             bases flatMap { _.returnTypeIfFunction } match {
@@ -91,11 +81,6 @@ package object Types
     case class Alias(decl : Typed.Alias, target : Base) extends Declaration
     {
         override def canCastToImpl(other : Base) =  target canCastTo other
-
-        override def equals(o: Any) = super.equals(o) && (o match {
-            case that: Alias => target == that.target
-            case _ => false
-        })
 
         override def returnTypeIfFunction = target.returnTypeIfFunction
     }
