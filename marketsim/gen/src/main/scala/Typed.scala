@@ -160,22 +160,26 @@ package object Typed
             case that : TypeDeclaration => name == that.name && scope.qualifiedName == that.scope.qualifiedName
             case _ => false
         }
+
+        def label = scope qualifyName name
     }
 
-    case class Alias(name : String, scope : Typed.Package, t : Types.Alias)
+    case class Alias(name : String, scope : Typed.Package, target : Types.Base)
             extends TypeDeclaration
             with sc.AliasDecl
             with ScPrintable
     {
-        def apply = t
+        val t = Types.Alias(this, target)
+        def apply() = t
     }
 
-    case class Interface(name : String, scope : Typed.Package, t : Types.Interface)
+    case class Interface(name : String, scope : Typed.Package, bases : List[Types.Base])
             extends TypeDeclaration
             with    sc.InterfaceDecl
             with    ScPrintable
     {
-        def apply = t
+        val t = Types.Interface(this, bases)
+        def apply() = t
     }
 
 

@@ -59,8 +59,9 @@ package object Types
             with    sc.TypeDeclaration
             with    py.TypeDeclaration
     {
-        val name : String
-        val scope : Typed.Package
+        val decl : Typed.TypeDeclaration
+        val name = decl.name
+        val scope = decl.scope
 
         override def equals(o : Any) = o match {
             case that : Declaration => name == that.name && scope.qualifiedName == that.scope.qualifiedName
@@ -68,7 +69,7 @@ package object Types
         }
     }
 
-    case class Interface(name : String, scope : Typed.Package, bases : List[Base]) extends Declaration
+    case class Interface(decl : Typed.Interface, bases : List[Base]) extends Declaration
     {
         override def canCastToImpl(other : Base) =  bases exists { _ canCastTo other }
 
@@ -87,7 +88,7 @@ package object Types
             }
     }
 
-    case class Alias(name : String, scope : Typed.Package, target : Base) extends Declaration
+    case class Alias(decl : Typed.Alias, target : Base) extends Declaration
     {
         override def canCastToImpl(other : Base) =  target canCastTo other
 
@@ -106,24 +107,24 @@ package object Types
     }
 
     def makeScalar(name : String, bases : Base*) = {
-        val ty = Interface(name, Typed.topLevel, bases.toList)
-        Typed.topLevel insert Typed.Interface(name, Typed.topLevel, ty)
-        ty
+        val ty = Typed.Interface(name, Typed.topLevel, bases.toList)
+        Typed.topLevel insert ty
+        ty.apply()
     }
 
     def functionOf_(t : Base) = {
         val name = "IFunction_" + getLabel(t)
-        val ty = Alias(name, Typed.topLevel, nullaryFunction(t))
-        Typed.topLevel insert Typed.Alias(name, Typed.topLevel, ty)
-        ty
+        val ty = Typed.Alias(name, Typed.topLevel, nullaryFunction(t))
+        Typed.topLevel insert ty
+        ty.apply()
     }
 
 
     def observableOf_(t : Base) = {
         val name = "IObservable_" + getLabel(t)
-        val ty = Interface(name, Typed.topLevel, functionOf(t) :: Nil)
-        Typed.topLevel insert Typed.Interface(name, Typed.topLevel, ty)
-        ty
+        val ty = Typed.Interface(name, Typed.topLevel, functionOf(t) :: Nil)
+        Typed.topLevel insert ty
+        ty.apply()
     }
 
     def functionOf = predef.Memoize1(functionOf_)

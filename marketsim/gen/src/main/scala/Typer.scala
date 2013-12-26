@@ -93,14 +93,12 @@ object Typer
         private def toTyped(definition  : AST.Interface) : Typed.Interface =
         {
             val bases = definition.bases map toTyped
-            val ty = Types.Interface(definition.name, source.typed.get, bases)
-            Typed.Interface(definition.name, source.typed.get, ty)
+            Typed.Interface(definition.name, source.typed.get, bases)
         }
 
         private def toTyped(definition  : AST.Alias) : Typed.Alias =
         {
-            val ty = Types.Alias(definition.name, source.typed.get, toTyped(definition.target))
-            Typed.Alias(definition.name, source.typed.get, ty)
+            Typed.Alias(definition.name, source.typed.get, toTyped(definition.target))
         }
 
 
