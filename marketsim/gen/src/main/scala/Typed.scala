@@ -164,23 +164,25 @@ package object Typed
         def label = scope qualifyName name
     }
 
-    case class Alias(name : String, scope : Typed.Package, target : Types.Base)
+    case class Alias(name : String, scope : Typed.Package, target : Types.BaseUnbound)
             extends TypeDeclaration
             with sc.AliasDecl
             with ScPrintable
     {
-        private def impl_(genericArgs : List[Types.Base]) = Types.Alias(this, genericArgs)
-        private val impl = predef.Memoize1(impl_)
+        private val impl = predef.Memoize1({
+            genericArgs : List[Types.Base] => Types.Alias(this, genericArgs)
+        })
         def apply(genericArgs : List[Types.Base]) = impl(genericArgs)
     }
 
-    case class Interface(name : String, scope : Typed.Package, bases : List[Types.Base])
+    case class Interface(name : String, scope : Typed.Package, bases : List[Types.BaseUnbound])
             extends TypeDeclaration
             with    sc.InterfaceDecl
             with    ScPrintable
     {
-        private def impl_(genericArgs : List[Types.Base]) = Types.Interface(this, genericArgs)
-        private val impl = predef.Memoize1(impl_)
+        private val impl = predef.Memoize1({
+            genericArgs : List[Types.Base] => Types.Interface(this, genericArgs)
+        })
         def apply(genericArgs : List[Types.Base]) = impl(genericArgs)
     }
 

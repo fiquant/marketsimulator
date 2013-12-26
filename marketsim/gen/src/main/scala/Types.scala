@@ -7,8 +7,11 @@ package object Types
     // TODO:
     //  Generics        type G[T] : F[T]
 
+    abstract class BaseUnbound
+
     sealed abstract class Base
-            extends sc.Base
+            extends BaseUnbound
+            with    sc.Base
             with    py.Base
             with    ScPyPrintable
     {
@@ -66,7 +69,9 @@ package object Types
 
     case class Interface(decl : Typed.Interface, genericArgs : List[Types.Base]) extends Declaration
     {
-        val bases = decl.bases
+        val bases = decl.bases map {
+            case x : Base => x
+        }
 
         override def canCastToImpl(other : Base) =  bases exists { _ canCastTo other }
 
@@ -82,7 +87,9 @@ package object Types
 
     case class Alias(decl : Typed.Alias, genericArgs : List[Types.Base]) extends Declaration
     {
-        val target = decl.target
+        val target = decl.target match {
+            case x : Base => x
+        }
 
         override def canCastToImpl(other : Base) =  target canCastTo other
 
