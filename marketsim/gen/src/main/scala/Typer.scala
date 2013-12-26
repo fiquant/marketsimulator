@@ -79,9 +79,9 @@ object Typer
 
         private def lookupType(name : AST.QualifiedName) : Types.Declaration =
             source.lookupType(name.names) match {
-                case Some((scope, definition)) => Processor(scope).getTyped(definition).ty
+                case Some((scope, definition)) => Processor(scope).getTyped(definition).apply()
                 case None => Typed.topLevel.types.get(name.toString) match {
-                    case Some(t) => t.ty
+                    case Some(t) => t.apply()
                     case None => throw new Exception(s"Unknown type $name")
                 }
 
@@ -90,17 +90,17 @@ object Typer
 
 
 
-        private def toTyped(definition  : AST.Interface) : Typed.TypeDeclaration =
+        private def toTyped(definition  : AST.Interface) : Typed.Interface =
         {
             val bases = definition.bases map toTyped
             val ty = Types.Interface(definition.name, source.typed.get, bases)
-            Typed.TypeDeclaration(ty)
+            Typed.Interface(definition.name, source.typed.get, ty)
         }
 
-        private def toTyped(definition  : AST.Alias) : Typed.TypeDeclaration =
+        private def toTyped(definition  : AST.Alias) : Typed.Alias =
         {
             val ty = Types.Alias(definition.name, source.typed.get, toTyped(definition.target))
-            Typed.TypeDeclaration(ty)
+            Typed.Alias(definition.name, source.typed.get, ty)
         }
 
 

@@ -337,17 +337,18 @@ package object Printer
         type StringLit = base.StringLit
         type IntLit = base.IntLit
 
-        trait TypeDeclaration extends Printable
+        trait InterfaceDecl extends Printable
         {
-            self: Typed.TypeDeclaration =>
-            def toScala = ty match {
-                case Types.Interface(name, _, bases) =>
-                    s"type $name" + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
+            self: Typed.Interface =>
 
-                case Types.Alias(name, _, target) =>
-                    s"type $name = $target"
+            override def toScala = s"type $name" + (if (t.bases.isEmpty) "" else " : " + t.bases.mkString(", "))
+        }
 
-            }
+        trait AliasDecl extends Printable
+        {
+            self: Typed.Alias =>
+
+            override def toScala = s"type $name = ${t.target}"
         }
 
 

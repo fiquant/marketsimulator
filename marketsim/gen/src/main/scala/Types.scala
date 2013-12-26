@@ -106,22 +106,24 @@ package object Types
     }
 
     def makeScalar(name : String, bases : Base*) = {
-        val declaration = Typed.TypeDeclaration(Interface(name, Typed.topLevel, bases.toList))
-        Typed.topLevel insert declaration
-        declaration.ty
+        val ty = Interface(name, Typed.topLevel, bases.toList)
+        Typed.topLevel insert Typed.Interface(name, Typed.topLevel, ty)
+        ty
     }
 
     def functionOf_(t : Base) = {
-        val declaration = Typed.TypeDeclaration(Alias("IFunction_" + getLabel(t), Typed.topLevel, nullaryFunction(t)))
-        Typed.topLevel insert declaration
-        declaration.ty
+        val name = "IFunction_" + getLabel(t)
+        val ty = Alias(name, Typed.topLevel, nullaryFunction(t))
+        Typed.topLevel insert Typed.Alias(name, Typed.topLevel, ty)
+        ty
     }
 
 
     def observableOf_(t : Base) = {
-        val declaration = Typed.TypeDeclaration(Interface("IObservable_" + getLabel(t), Typed.topLevel, functionOf(t) :: Nil))
-        Typed.topLevel insert declaration
-        declaration.ty
+        val name = "IObservable_" + getLabel(t)
+        val ty = Interface(name, Typed.topLevel, functionOf(t) :: Nil)
+        Typed.topLevel insert Typed.Interface(name, Typed.topLevel, ty)
+        ty
     }
 
     def functionOf = predef.Memoize1(functionOf_)

@@ -149,11 +149,36 @@ package object Typed
     }
 
 
-    case class TypeDeclaration(ty : Types.Declaration)
-            extends sc.TypeDeclaration
+    abstract class TypeDeclaration
+    {
+        val name : String
+        val scope : Typed.Package
+
+        def apply() : Types.Declaration
+
+        override def equals(o : Any) = o match {
+            case that : TypeDeclaration => name == that.name && scope.qualifiedName == that.scope.qualifiedName
+            case _ => false
+        }
+    }
+
+    case class Alias(name : String, scope : Typed.Package, t : Types.Alias)
+            extends TypeDeclaration
+            with sc.AliasDecl
+            with ScPrintable
+    {
+        def apply = t
+    }
+
+    case class Interface(name : String, scope : Typed.Package, t : Types.Interface)
+            extends TypeDeclaration
+            with    sc.InterfaceDecl
             with    ScPrintable
     {
+        def apply = t
     }
+
+
 
     class Package extends sc.TopLevelPackage with ScPrintable
     {
@@ -179,7 +204,7 @@ package object Typed
         }
 
         def insert(t : TypeDeclaration) = {
-            types = types updated (t.ty.name, t)
+            types = types updated (t.name, t)
             t
         }
 
