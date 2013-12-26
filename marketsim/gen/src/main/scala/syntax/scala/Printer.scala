@@ -341,14 +341,14 @@ package object Printer
         {
             self: Typed.Interface =>
 
-            override def toScala = s"type $name" + (if (t.bases.isEmpty) "" else " : " + t.bases.mkString(", "))
+            override def toScala = s"type $name" + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
         }
 
         trait AliasDecl extends Printable
         {
             self: Typed.Alias =>
 
-            override def toScala = s"type $name = ${t.target}"
+            override def toScala = s"type $name = $target"
         }
 
 

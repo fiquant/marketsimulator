@@ -64,8 +64,10 @@ package object Types
         val scope = decl.scope
     }
 
-    case class Interface(decl : Typed.Interface, bases : List[Base]) extends Declaration
+    case class Interface(decl : Typed.Interface, genericArgs : List[Types.Base]) extends Declaration
     {
+        val bases = decl.bases
+
         override def canCastToImpl(other : Base) =  bases exists { _ canCastTo other }
 
         override def returnTypeIfFunction =
@@ -78,8 +80,10 @@ package object Types
             }
     }
 
-    case class Alias(decl : Typed.Alias, target : Base) extends Declaration
+    case class Alias(decl : Typed.Alias, genericArgs : List[Types.Base]) extends Declaration
     {
+        val target = decl.target
+
         override def canCastToImpl(other : Base) =  target canCastTo other
 
         override def returnTypeIfFunction = target.returnTypeIfFunction

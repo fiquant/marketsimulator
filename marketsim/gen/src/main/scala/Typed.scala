@@ -154,7 +154,7 @@ package object Typed
         val name : String
         val scope : Typed.Package
 
-        def apply() : Types.Declaration
+        def apply(genericArgs : List[Types.Base] = Nil) : Types.Declaration
 
         override def equals(o : Any) = o match {
             case that : TypeDeclaration => name == that.name && scope.qualifiedName == that.scope.qualifiedName
@@ -169,8 +169,9 @@ package object Typed
             with sc.AliasDecl
             with ScPrintable
     {
-        val t = Types.Alias(this, target)
-        def apply() = t
+        private def impl_(genericArgs : List[Types.Base]) = Types.Alias(this, genericArgs)
+        private val impl = predef.Memoize1(impl_)
+        def apply(genericArgs : List[Types.Base]) = impl(genericArgs)
     }
 
     case class Interface(name : String, scope : Typed.Package, bases : List[Types.Base])
@@ -178,8 +179,9 @@ package object Typed
             with    sc.InterfaceDecl
             with    ScPrintable
     {
-        val t = Types.Interface(this, bases)
-        def apply() = t
+        private def impl_(genericArgs : List[Types.Base]) = Types.Interface(this, genericArgs)
+        private val impl = predef.Memoize1(impl_)
+        def apply(genericArgs : List[Types.Base]) = impl(genericArgs)
     }
 
 
