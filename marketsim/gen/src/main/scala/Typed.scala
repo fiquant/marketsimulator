@@ -151,8 +151,9 @@ package object Typed
 
     abstract class TypeDeclaration
     {
-        val name : String
-        val scope : Typed.Package
+        val name        : String
+        val scope       : Typed.Package
+        val generics    : List[Types.Parameter]
 
         def apply(genericArgs : List[Types.Bound] = Nil) : Types.Declaration
 
@@ -162,9 +163,19 @@ package object Typed
         }
 
         def label = scope qualifyName name
+
+        def matchTypeParameter(genericArgs : List[Types.Bound], t : Types.Parameter) =
+            generics zip genericArgs find { _._1 == t } match {
+                case Some(p) => p._2
+                case None    => throw new Exception(s"Cannot find type parameter $t at $this")
+            }
+
     }
 
-    case class Alias(name : String, scope : Typed.Package, target : Types.Unbound)
+    case class Alias(name       : String,
+                     scope      : Typed.Package,
+                     target     : Types.Unbound,
+                     generics   : List[Types.Parameter] = Nil)
             extends TypeDeclaration
             with sc.AliasDecl
             with ScPrintable
@@ -175,7 +186,10 @@ package object Typed
         def apply(genericArgs : List[Types.Bound]) = impl(genericArgs)
     }
 
-    case class Interface(name : String, scope : Typed.Package, bases : List[Types.Unbound])
+    case class Interface(name       : String,
+                         scope      : Typed.Package,
+                         bases      : List[Types.Unbound],
+                         generics   : List[Types.Parameter] = Nil)
             extends TypeDeclaration
             with    sc.InterfaceDecl
             with    ScPrintable

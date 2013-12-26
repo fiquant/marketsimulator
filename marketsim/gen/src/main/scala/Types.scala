@@ -1,13 +1,20 @@
 package object Types
 {
-    import AST.ScPyPrintable
+    import AST.{ScPyPrintable, ScPrintable}
     import syntax.scala.Printer.{types => sc}
     import generator.python.Printer.{types => py}
 
     // TODO:
     //  Generics        type G[T] : F[T]
 
-    abstract class Unbound
+    sealed abstract class Unbound
+
+    case class Parameter(name : String)
+            extends Unbound
+            with    ScPrintable
+    {
+         override def toScala = name
+    }
 
     sealed abstract class Bound
             extends Unbound
@@ -65,12 +72,17 @@ package object Types
         val decl : Typed.TypeDeclaration
         val name = decl.name
         val scope = decl.scope
+        val generics = decl.generics
     }
 
     case class Interface(decl : Typed.Interface, genericArgs : List[Types.Bound]) extends Declaration
     {
+        if (decl.generics.length != genericArgs.length)
+            throw new Exception(s"Interface $decl is instantiated with wrong type parameters: $genericArgs" )
+
         val bases = decl.bases map {
             case x : Bound => x
+            case x : Parameter => decl matchTypeParameter (genericArgs, x)
         }
 
         override def canCastToImpl(other : Bound) =  bases exists { _ canCastTo other }
@@ -87,8 +99,12 @@ package object Types
 
     case class Alias(decl : Typed.Alias, genericArgs : List[Types.Bound]) extends Declaration
     {
+        if (decl.generics.length != genericArgs.length)
+            throw new Exception(s"Alias $decl is instantiated with wrong type parameters: $genericArgs" )
+
         val target = decl.target match {
             case x : Bound => x
+            case x : Parameter => decl matchTypeParameter (genericArgs, x)
         }
 
         override def canCastToImpl(other : Bound) =  target canCastTo other
