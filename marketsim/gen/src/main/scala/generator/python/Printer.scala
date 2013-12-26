@@ -54,19 +54,23 @@ object Printer {
 
         trait UsedDefined extends st.UsedDefined with Printable with Bound
         {
+            self: Types.UserDefined =>
+
             val builtins = Map("Float"  -> "float",
                                "Int"    -> "int",
                                "Boolean"-> "bool",
                                "String" -> "str")
 
             def imports =
-                if (builtins contains name)
+                if (builtins contains decl.name)
                     Nil
                 else
-                    predef.ImportFrom(name, "marketsim") :: Nil
+                    predef.ImportFrom(decl.name, "marketsim") :: Nil
 
 
-            def toPython = builtins.getOrElse(name, name)
+            def toPython =
+                builtins.getOrElse(decl.name, decl.name) +
+                (if (genericArgs.isEmpty) "" else genericArgs mkString ("[", ",", "]"))
         }
     }
 

@@ -69,21 +69,21 @@ package object Types
             with    sc.UsedDefined
             with    py.UsedDefined
     {
-        val decl : Typed.TypeDeclaration
-        val name = decl.name
-        val scope = decl.scope
-        val generics = decl.generics
+        val decl        : Typed.TypeDeclaration
+        val genericArgs : List[Types.Bound]
+
+        if (decl.generics.length != genericArgs.length)
+            throw new Exception(s"Type $decl is instantiated with wrong type parameters: $genericArgs" )
+
+        def bound(x : Unbound) = x match {
+            case x : Bound => x
+            case x : Parameter => decl matchTypeParameter (genericArgs, x)
+        }
     }
 
     case class Interface(decl : Typed.Interface, genericArgs : List[Types.Bound]) extends UserDefined
     {
-        if (decl.generics.length != genericArgs.length)
-            throw new Exception(s"Interface $decl is instantiated with wrong type parameters: $genericArgs" )
-
-        val bases = decl.bases map {
-            case x : Bound => x
-            case x : Parameter => decl matchTypeParameter (genericArgs, x)
-        }
+        val bases = decl.bases map bound
 
         override def canCastToImpl(other : Bound) =  bases exists { _ canCastTo other }
 
@@ -99,13 +99,7 @@ package object Types
 
     case class Alias(decl : Typed.Alias, genericArgs : List[Types.Bound]) extends UserDefined
     {
-        if (decl.generics.length != genericArgs.length)
-            throw new Exception(s"Alias $decl is instantiated with wrong type parameters: $genericArgs" )
-
-        val target = decl.target match {
-            case x : Bound => x
-            case x : Parameter => decl matchTypeParameter (genericArgs, x)
-        }
+        val target = bound(decl.target)
 
         override def canCastToImpl(other : Bound) =  target canCastTo other
 
@@ -115,7 +109,7 @@ package object Types
     def nullaryFunction(ret_type : Bound) = Function(List(), ret_type)
 
     private def getLabel(t : Bound) = t match {
-        case x : UserDefined => x.name
+        case x : UserDefined => x.decl.name
     }
 
     def makeScalar(name : String, bases : Bound*) = {

@@ -301,10 +301,9 @@ package object Printer
         type Function = base.FunctionType
 
         trait UsedDefined extends Printable {
-            val name : String
-            val scope : Typed.Package
+            val decl : Typed.TypeDeclaration
 
-            def toScala = scope qualifyName name
+            def toScala = decl.label
         }
     }
 

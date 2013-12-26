@@ -162,7 +162,7 @@ package object Typed
             case _ => false
         }
 
-        def label = scope qualifyName name
+        def label = (scope qualifyName name) + (if (generics.isEmpty) "" else generics mkString ("[", ",", "]"))
 
         def matchTypeParameter(genericArgs : List[Types.Bound], t : Types.Parameter) =
             generics zip genericArgs find { _._1 == t } match {
