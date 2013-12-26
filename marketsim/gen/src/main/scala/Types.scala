@@ -64,10 +64,10 @@ package object Types
         override def returnTypeIfFunction = Some(ret)
     }
 
-    sealed abstract class Declaration
+    sealed abstract class UserDefined
             extends Bound
-            with    sc.TypeDeclaration
-            with    py.TypeDeclaration
+            with    sc.UsedDefined
+            with    py.UsedDefined
     {
         val decl : Typed.TypeDeclaration
         val name = decl.name
@@ -75,7 +75,7 @@ package object Types
         val generics = decl.generics
     }
 
-    case class Interface(decl : Typed.Interface, genericArgs : List[Types.Bound]) extends Declaration
+    case class Interface(decl : Typed.Interface, genericArgs : List[Types.Bound]) extends UserDefined
     {
         if (decl.generics.length != genericArgs.length)
             throw new Exception(s"Interface $decl is instantiated with wrong type parameters: $genericArgs" )
@@ -97,7 +97,7 @@ package object Types
             }
     }
 
-    case class Alias(decl : Typed.Alias, genericArgs : List[Types.Bound]) extends Declaration
+    case class Alias(decl : Typed.Alias, genericArgs : List[Types.Bound]) extends UserDefined
     {
         if (decl.generics.length != genericArgs.length)
             throw new Exception(s"Alias $decl is instantiated with wrong type parameters: $genericArgs" )
@@ -115,7 +115,7 @@ package object Types
     def nullaryFunction(ret_type : Bound) = Function(List(), ret_type)
 
     private def getLabel(t : Bound) = t match {
-        case x : Declaration => x.name
+        case x : UserDefined => x.name
     }
 
     def makeScalar(name : String, bases : Bound*) = {

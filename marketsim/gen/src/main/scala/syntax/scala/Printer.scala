@@ -300,7 +300,7 @@ package object Printer
         type Tuple = base.TupleType
         type Function = base.FunctionType
 
-        trait TypeDeclaration extends Printable {
+        trait UsedDefined extends Printable {
             val name : String
             val scope : Typed.Package
 

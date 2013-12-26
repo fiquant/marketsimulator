@@ -77,7 +77,7 @@ object Typer
                 case None => throw new Exception(s"cannot find name $name")
             }
 
-        private def lookupType(name : AST.QualifiedName) : Types.Declaration =
+        private def lookupType(name : AST.QualifiedName) : Types.UserDefined =
             source.lookupType(name.names) match {
                 case Some((scope, definition)) => Processor(scope).getTyped(definition).apply()
                 case None => Typed.topLevel.types.get(name.toString) match {

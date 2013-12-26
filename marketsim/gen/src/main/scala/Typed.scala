@@ -155,7 +155,7 @@ package object Typed
         val scope       : Typed.Package
         val generics    : List[Types.Parameter]
 
-        def apply(genericArgs : List[Types.Bound] = Nil) : Types.Declaration
+        def apply(genericArgs : List[Types.Bound] = Nil) : Types.UserDefined
 
         override def equals(o : Any) = o match {
             case that : TypeDeclaration => name == that.name && scope.qualifiedName == that.scope.qualifiedName
