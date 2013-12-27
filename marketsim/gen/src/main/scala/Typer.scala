@@ -61,7 +61,7 @@ object Typer
         }
 
         private def getTyped(definition : AST.TypeDeclaration) : Typed.TypeDeclaration = {
-            source.typed.get.getOrElseUpdateType(definition.name, {
+            source.typed.get getOrElseUpdateType (definition.name, {
                     visited.enter(source qualifyName definition.name) {
                         definition match {
                             case t : AST.Interface => toTyped(t)
@@ -77,11 +77,12 @@ object Typer
                 case None => throw new Exception(s"cannot find name $name")
             }
 
-        private def lookupType(name : AST.QualifiedName) : Types.UserDefined =
+        private def lookupType(name : AST.QualifiedName) : Typed.TypeDeclaration =
             source.lookupType(name.names) match {
-                case Some((scope, definition)) => Processor(scope).getTyped(definition).apply()
+                case Some((scope, definition)) => Processor(scope).getTyped(definition)
                 case None => Typed.topLevel.types.get(name.toString) match {
-                    case Some(t) => t.apply()
+                    case Some(t : Typed.Alias) => t
+                    case Some(t : Typed.Interface) => t
                     case None => throw new Exception(s"Unknown type $name")
                 }
 
@@ -92,33 +93,44 @@ object Typer
 
         private def toTyped(definition  : AST.Interface) : Typed.Interface =
         {
-            val bases = definition.bases map toTyped
-            Typed.Interface(definition.name, source.typed.get, bases)
+            Typed.Interface(definition.name,
+                            source.typed.get,
+                            definition.bases map toUnbound)
         }
 
         private def toTyped(definition  : AST.Alias) : Typed.Alias =
         {
-            Typed.Alias(definition.name, source.typed.get, toTyped(definition.target))
+            Typed.Alias(definition.name,
+                        source.typed.get,
+                        toUnbound(definition.target))
         }
 
 
-        private def toTyped(t : AST.Type) : Types.Bound = t match {
-            case AST.SimpleType(AST.QualifiedName("Int" :: Nil), Nil) => Types.int_
-            case AST.SimpleType(AST.QualifiedName("Float" :: Nil), Nil) => Types.float_
-            case AST.SimpleType(AST.QualifiedName("Boolean" :: Nil), Nil) => Types.boolean_
-            case AST.SimpleType(AST.QualifiedName("String" :: Nil), Nil) => Types.string_
+        private def toUnbound(t : AST.Type) : Types.Unbound = t match {
+            case AST.SimpleType(AST.QualifiedName("Int" :: Nil), Nil) => Types.unbound_int
+            case AST.SimpleType(AST.QualifiedName("Float" :: Nil), Nil) => Types.unbound_float
+            case AST.SimpleType(AST.QualifiedName("Boolean" :: Nil), Nil) => Types.unbound_boolean
+            case AST.SimpleType(AST.QualifiedName("String" :: Nil), Nil) => Types.unbound_string
 
-            case AST.SimpleType(AST.QualifiedName("IFunction" :: Nil), (t1) :: Nil) => Types.functionOf(toTyped(t1))
+            case AST.SimpleType(AST.QualifiedName("IFunction" :: Nil), (t1) :: Nil) => Types.functionOf(toUnbound(t1))
             case AST.SimpleType(AST.QualifiedName("IFunction" :: Nil), _) => throw new Exception("IFunction[T] must have exactly one generic parameter: " + t)
-            case AST.SimpleType(AST.QualifiedName("IObservable" :: Nil), (t1) :: Nil) => Types.observableOf(toTyped(t1))
+            case AST.SimpleType(AST.QualifiedName("IObservable" :: Nil), (t1) :: Nil) => Types.observableOf(toUnbound(t1))
             case AST.SimpleType(AST.QualifiedName("IObservable" :: Nil), _) => throw new Exception("IObservable[T] must have exactly one generic parameter: " + t)
 
-            case AST.SimpleType(name, Nil) => lookupType(name)
+            case AST.SimpleType(name, Nil) => lookupType(name).apply(Nil)
             case AST.SimpleType(_, _) => throw new Exception(s"type $t should have no generic parameters")
 
-            case AST.UnitType => Types.Unit
-            case AST.TupleType(types) => Types.Tuple(types map toTyped)
-            case AST.FunctionType(arg_types, ret_type) => Types.Function(arg_types map toTyped, toTyped(ret_type))
+            case AST.UnitType => Types.Unit_Unbound
+            case AST.TupleType(types) => Types.Tuple_Unbound(types map toUnbound)
+            case AST.FunctionType(arg_types, ret_type) => Types.Function_Unbound(arg_types map toUnbound, toUnbound(ret_type))
+        }
+
+        private def toBound(t : AST.Type) : Types.Bound = t match {
+            case x : AST.SimpleType =>
+                val unbound = toUnbound(x).asInstanceOf[Types.UserDefined_Unbound]
+                unbound.bind(Types.TypeMapper(unbound.decl, x.genericArgs map { toBound }))
+            case x =>
+                toUnbound(x).bind(Types.EmptyTypeMapper)
         }
 
         private def toTyped(definition  : AST.FunDef): Typed.Function =
@@ -154,7 +166,7 @@ object Typer
             val body_type = body map { _.ty }
 
             // inferring type of the function from type of its body or using explicit specification
-            val ty = definition.ty map toTyped match {
+            val ty = definition.ty map toBound match {
                 case Some(decl_type) =>
                     body_type match {
                                 case Some(b) if b cannotCastTo decl_type =>
@@ -181,7 +193,7 @@ object Typer
                     case Some(e) =>
                         val initializer = inferType(e)
                         if (p.ty.nonEmpty) {
-                            val decl_type = toTyped(p.ty.get)
+                            val decl_type = toBound(p.ty.get)
                             if (initializer.ty cannotCastTo decl_type) {
                                 throw new Exception(s"Inferred type of '$initializer': '${initializer.ty}' "
                                         + s"doesn't match to the declared type '$decl_type'")
@@ -192,7 +204,7 @@ object Typer
                         }
                     case None =>
                         if (p.ty.nonEmpty)
-                            Typed.Parameter(p.name, toTyped(p.ty.get), None, p.comment)
+                            Typed.Parameter(p.name, toBound(p.ty.get), None, p.comment)
                         else
                             throw new Exception(s"parameter ${p.name} has undefined type")
                 }

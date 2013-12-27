@@ -149,13 +149,13 @@ package object Typed
     }
 
 
-    abstract class TypeDeclaration
+    trait TypeDeclaration
     {
         val name        : String
         val scope       : Typed.Package
         val generics    : List[Types.Parameter]
 
-        def apply(genericArgs : List[Types.Bound] = Nil) : Types.UserDefined
+        def apply(genericArgs : List[Types.Unbound] = Nil) : Types.Unbound
 
         override def equals(o : Any) = o match {
             case that : TypeDeclaration => name == that.name && scope.qualifiedName == that.scope.qualifiedName
@@ -163,13 +163,6 @@ package object Typed
         }
 
         def label = (scope qualifyName name) + (if (generics.isEmpty) "" else generics mkString ("[", ",", "]"))
-
-        def matchTypeParameter(genericArgs : List[Types.Bound], t : Types.Parameter) =
-            generics zip genericArgs find { _._1 == t } match {
-                case Some(p) => p._2
-                case None    => throw new Exception(s"Cannot find type parameter $t at $this")
-            }
-
     }
 
     case class Alias(name       : String,
@@ -177,13 +170,13 @@ package object Typed
                      target     : Types.Unbound,
                      generics   : List[Types.Parameter] = Nil)
             extends TypeDeclaration
-            with sc.AliasDecl
-            with ScPrintable
+            with    sc.AliasDecl
+            with    ScPrintable
     {
-        private val impl = predef.Memoize1({
-            genericArgs : List[Types.Bound] => Types.Alias(this, genericArgs)
+        private val unbound = predef.Memoize1({
+            genericArgs : List[Types.Unbound] => Types.Alias_Unbound(this, genericArgs)
         })
-        def apply(genericArgs : List[Types.Bound]) = impl(genericArgs)
+        def apply(genericArgs : List[Types.Unbound]) = unbound(genericArgs)
     }
 
     case class Interface(name       : String,
@@ -194,10 +187,10 @@ package object Typed
             with    sc.InterfaceDecl
             with    ScPrintable
     {
-        private val impl = predef.Memoize1({
-            genericArgs : List[Types.Bound] => Types.Interface(this, genericArgs)
+        private val unbound = predef.Memoize1({
+            genericArgs : List[Types.Unbound] => Types.Interface_Unbound(this, genericArgs)
         })
-        def apply(genericArgs : List[Types.Bound]) = impl(genericArgs)
+        def apply(genericArgs : List[Types.Unbound]) = unbound(genericArgs)
     }
 
 

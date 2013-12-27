@@ -294,7 +294,7 @@ package object Printer
 
     object types {
 
-        type Bound = base.TypeBase
+        type Base = base.TypeBase
         type Unit = base.UnitType
 
         type Tuple = base.TupleType
@@ -308,6 +308,20 @@ package object Printer
     }
 
     object typed {
+
+        trait InterfaceDecl extends Printable
+        {
+            self: Typed.Interface =>
+
+            override def toScala = s"type $name" + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
+        }
+
+        trait AliasDecl extends Printable
+        {
+            self: Typed.Alias =>
+
+            override def toScala = s"type $name = $target"
+        }
 
         trait Parameter extends base.Parameter {
             self: Typed.Parameter =>
@@ -336,19 +350,6 @@ package object Printer
         type StringLit = base.StringLit
         type IntLit = base.IntLit
 
-        trait InterfaceDecl extends Printable
-        {
-            self: Typed.Interface =>
-
-            override def toScala = s"type $name" + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
-        }
-
-        trait AliasDecl extends Printable
-        {
-            self: Typed.Alias =>
-
-            override def toScala = s"type $name = $target"
-        }
 
 
         type Expr = base.Expr
