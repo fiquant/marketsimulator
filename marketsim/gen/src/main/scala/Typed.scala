@@ -153,7 +153,7 @@ package object Typed
     {
         val name        : String
         val scope       : Typed.Package
-        val generics    : List[Types.Parameter]
+        val generics    : List[TypesUnbound.Parameter]
 
         def apply(genericArgs : List[Types.Unbound] = Nil) : Types.Unbound
 
@@ -168,13 +168,13 @@ package object Typed
     case class Alias(name       : String,
                      scope      : Typed.Package,
                      target     : Types.Unbound,
-                     generics   : List[Types.Parameter])
+                     generics   : List[TypesUnbound.Parameter])
             extends TypeDeclaration
             with    sc.AliasDecl
             with    ScPrintable
     {
         private val unbound = predef.Memoize1({
-            genericArgs : List[Types.Unbound] => Types.Alias_Unbound(this, genericArgs)
+            genericArgs : List[Types.Unbound] => TypesUnbound.Alias(this, genericArgs)
         })
         def apply(genericArgs : List[Types.Unbound]) = unbound(genericArgs)
     }
@@ -182,13 +182,13 @@ package object Typed
     case class Interface(name       : String,
                          scope      : Typed.Package,
                          bases      : List[Types.Unbound],
-                         generics   : List[Types.Parameter])
+                         generics   : List[TypesUnbound.Parameter])
             extends TypeDeclaration
             with    sc.InterfaceDecl
             with    ScPrintable
     {
         private val unbound = predef.Memoize1({
-            genericArgs : List[Types.Unbound] => Types.Interface_Unbound(this, genericArgs)
+            genericArgs : List[Types.Unbound] => TypesUnbound.Interface(this, genericArgs)
         })
         def apply(genericArgs : List[Types.Unbound]) = unbound(genericArgs)
     }

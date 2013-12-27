@@ -112,15 +112,15 @@ object Typer
 
             case AST.SimpleType(name, genericArgs) => lookupType(name).apply(genericArgs map { toUnbound })
 
-            case AST.UnitType => Types.Unit_Unbound
-            case AST.TupleType(types) => Types.Tuple_Unbound(types map toUnbound)
-            case AST.FunctionType(arg_types, ret_type) => Types.Function_Unbound(arg_types map toUnbound, toUnbound(ret_type))
+            case AST.UnitType => TypesUnbound.Unit
+            case AST.TupleType(types) => TypesUnbound.Tuple(types map toUnbound)
+            case AST.FunctionType(arg_types, ret_type) => TypesUnbound.Function(arg_types map toUnbound, toUnbound(ret_type))
         }
 
         private def toBound(t : AST.Type) : Types.Bound = t match {
             case x : AST.SimpleType =>
-                val unbound = toUnbound(x).asInstanceOf[Types.UserDefined_Unbound]
-                unbound.bind(Types.TypeMapper(unbound.decl, x.genericArgs map { toBound }))
+                val unbound = toUnbound(x).asInstanceOf[TypesUnbound.UserDefined]
+                unbound.bind(TypesUnbound.TypeMapper(unbound.decl, x.genericArgs map { toBound }))
             case x =>
                 toUnbound(x).bind(Types.EmptyTypeMapper)
         }
