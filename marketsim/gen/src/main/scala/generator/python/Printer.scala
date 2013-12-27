@@ -54,7 +54,7 @@ object Printer {
 
         trait UsedDefined extends st.UsedDefined with Printable with Bound
         {
-            self: Types.UserDefined =>
+            self: TypesBound.UserDefined =>
 
             val builtins = Map("Float"  -> "float",
                                "Int"    -> "int",

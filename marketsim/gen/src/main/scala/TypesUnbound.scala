@@ -44,7 +44,7 @@ package object TypesUnbound
             extends Unbound
             with    sc.Unit
     {
-        def bind(m : ITypeMapper) = Types.Unit
+        def bind(m : ITypeMapper) = TypesBound.Unit
     }
 
     case class Tuple(elems : List[Unbound])
@@ -52,7 +52,7 @@ package object TypesUnbound
             with    sc.Tuple
     {
         def bind(m : ITypeMapper) =
-            Types.Tuple(elems map { _ bind m })
+            TypesBound.Tuple(elems map { _ bind m })
     }
 
     case class Function(args : List[Unbound], ret : Unbound)
@@ -60,7 +60,7 @@ package object TypesUnbound
             with    sc.Function
     {
         def bind(m : ITypeMapper) =
-            Types.Function(
+            TypesBound.Function(
                 args map { _ bind m },
                 ret bind m)
     }
@@ -88,13 +88,13 @@ package object TypesUnbound
     case class Interface(decl : Typed.Interface, genericArgs : List[Unbound])
             extends UserDefined
     {
-        def bind(m : ITypeMapper) = Types.Interface(decl, genericArgs map { _ bind m })
+        def bind(m : ITypeMapper) = TypesBound.Interface(decl, genericArgs map { _ bind m })
     }
 
     case class Alias(decl : Typed.Alias, genericArgs : List[Unbound])
             extends UserDefined
     {
-        def bind(m : ITypeMapper) = Types.Alias(decl, genericArgs map { _ bind m })
+        def bind(m : ITypeMapper) = TypesBound.Alias(decl, genericArgs map { _ bind m })
     }
 
     def nullaryFunction(ret_type : Unbound) = Function(List(), ret_type)
