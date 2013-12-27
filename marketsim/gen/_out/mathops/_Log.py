@@ -1,6 +1,6 @@
 from marketsim import registry
 from marketsim.ops._all import Observable
-from marketsim import IFunction_Float
+from marketsim import IFunction
 @registry.expose(["Log/Pow", "Log"])
 class Log(Observable[float]):
     """ 
@@ -20,7 +20,7 @@ class Log(Observable[float]):
         return repr(self)
     
     _properties = {
-        'x' : IFunction_Float
+        'x' : IFunction[float]
     }
     def __repr__(self):
         return "log(%(x)s)" % self.__dict__

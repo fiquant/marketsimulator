@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.observable.minmax_eps import MinEpsilon_Impl
-from marketsim import IFunction_Float
-from marketsim import IFunction_Float
+from marketsim import IFunction
+from marketsim import IFunction
 @registry.expose(["Basic", "MinEpsilon"])
 class MinEpsilon(MinEpsilon_Impl):
     """ 
@@ -26,8 +26,8 @@ class MinEpsilon(MinEpsilon_Impl):
         return repr(self)
     
     _properties = {
-        'source' : IFunction_Float,
-        'epsilon' : IFunction_Float
+        'source' : IFunction[float],
+        'epsilon' : IFunction[float]
     }
     def __repr__(self):
         return "Min_{\\epsilon}(%(source)s)" % self.__dict__

@@ -1,6 +1,6 @@
 from marketsim import registry
 from marketsim.ops._function import Function
-from marketsim import IObservable_Float
+from marketsim import IObservable
 from marketsim.gen._out.observable.EW._Avg import Avg
 from marketsim.gen._out.observable._UpMovements import UpMovements
 from marketsim.gen._out.observable.EW._Avg import Avg
@@ -22,7 +22,7 @@ class Raw(Function[float]):
         return repr(self)
     
     _properties = {
-        'source' : IObservable_Float,
+        'source' : IObservable[float],
         'timeframe' : float,
         'alpha' : float
     }

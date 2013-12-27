@@ -1,6 +1,6 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.observable.lagged import Lagged_Impl
-from marketsim import IObservable_Float
+from marketsim import IObservable
 @registry.expose(["Basic", "Lagged"])
 class Lagged(Lagged_Impl):
     """ 
@@ -24,7 +24,7 @@ class Lagged(Lagged_Impl):
         return repr(self)
     
     _properties = {
-        'source' : IObservable_Float,
+        'source' : IObservable[float],
         'timeframe' : float
     }
     def __repr__(self):

@@ -1,8 +1,8 @@
 from marketsim import registry
 from marketsim import float
 from marketsim.ops._all import Observable
-from marketsim import IFunction_Float
-from marketsim import IFunction_Float
+from marketsim import IFunction
+from marketsim import IFunction
 from marketsim import context
 @registry.expose(["Basic", "IfDefined"])
 class IfDefined(Observable[float]):
@@ -26,8 +26,8 @@ class IfDefined(Observable[float]):
         return repr(self)
     
     _properties = {
-        'x' : IFunction_Float,
-        'elsePart' : IFunction_Float
+        'x' : IFunction[float],
+        'elsePart' : IFunction[float]
     }
     def __repr__(self):
         return "If def(%(x)s) else %(elsePart)s" % self.__dict__

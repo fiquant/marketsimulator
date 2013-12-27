@@ -126,6 +126,7 @@ package types {
             type U : T, R
         }
     }
+
 }
 
 def A(x = in1.in2.A()) => types.R

@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.ops._all import Observable
-from marketsim import IFunction_Float
-from marketsim import IFunction_Float
+from marketsim import IFunction
+from marketsim import IFunction
 @registry.expose(["Log/Pow", "Pow"])
 class Pow(Observable[float]):
     """ 
@@ -32,8 +32,8 @@ class Pow(Observable[float]):
         return repr(self)
     
     _properties = {
-        'base' : IFunction_Float,
-        'power' : IFunction_Float
+        'base' : IFunction[float],
+        'power' : IFunction[float]
     }
     def __repr__(self):
         return "%(base)s^{%(power)s}" % self.__dict__

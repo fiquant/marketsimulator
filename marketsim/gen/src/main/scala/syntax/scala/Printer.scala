@@ -300,10 +300,17 @@ package object Printer
         type Tuple = base.TupleType
         type Function = base.FunctionType
 
-        trait UsedDefined extends Printable {
+        trait UsedDefined_Unbound extends Printable {
             val decl : Typed.TypeDeclaration
 
             def toScala = decl.label
+        }
+
+        trait UsedDefined extends Printable {
+            val decl        : Typed.TypeDeclaration
+            val genericArgs : List[Types.Bound]
+
+            def toScala = (decl.scope qualifyName decl.name) + (if (genericArgs.isEmpty) "" else genericArgs mkString ("[", ",", "]"))
         }
     }
 

@@ -95,26 +95,22 @@ object Typer
         {
             Typed.Interface(definition.name,
                             source.typed.get,
-                            definition.bases map toUnbound)
+                            definition.bases map toUnbound,
+                            Nil)
         }
 
         private def toTyped(definition  : AST.Alias) : Typed.Alias =
         {
             Typed.Alias(definition.name,
                         source.typed.get,
-                        toUnbound(definition.target))
+                        toUnbound(definition.target),
+                        Nil)
         }
 
 
         private def toUnbound(t : AST.Type) : Types.Unbound = t match {
 
-            case AST.SimpleType(AST.QualifiedName("IFunction" :: Nil), (t1) :: Nil) => Types.functionOf(toUnbound(t1))
-            case AST.SimpleType(AST.QualifiedName("IFunction" :: Nil), _) => throw new Exception("IFunction[T] must have exactly one generic parameter: " + t)
-            case AST.SimpleType(AST.QualifiedName("IObservable" :: Nil), (t1) :: Nil) => Types.observableOf(toUnbound(t1))
-            case AST.SimpleType(AST.QualifiedName("IObservable" :: Nil), _) => throw new Exception("IObservable[T] must have exactly one generic parameter: " + t)
-
-            case AST.SimpleType(name, Nil) => lookupType(name).apply(Nil)
-            case AST.SimpleType(_, _) => throw new Exception(s"type $t should have no generic parameters")
+            case AST.SimpleType(name, genericArgs) => lookupType(name).apply(genericArgs map { toUnbound })
 
             case AST.UnitType => Types.Unit_Unbound
             case AST.TupleType(types) => Types.Tuple_Unbound(types map toUnbound)

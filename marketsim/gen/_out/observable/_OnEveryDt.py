@@ -1,6 +1,6 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.observable.on_every_dt import _OnEveryDt_Impl
-from marketsim import IFunction_Float
+from marketsim import IFunction
 @registry.expose(["Basic", "OnEveryDt"])
 class OnEveryDt(_OnEveryDt_Impl):
     """ 
@@ -25,7 +25,7 @@ class OnEveryDt(_OnEveryDt_Impl):
     
     _properties = {
         'dt' : float,
-        'x' : IFunction_Float
+        'x' : IFunction[float]
     }
     def __repr__(self):
         return "[%(x)s]_dt=%(dt)s" % self.__dict__

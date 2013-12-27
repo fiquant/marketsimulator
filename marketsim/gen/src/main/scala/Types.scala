@@ -72,7 +72,7 @@ package object Types
 
     sealed abstract class UserDefined_Unbound
             extends Unbound
-            with    sc.UsedDefined
+            with    sc.UsedDefined_Unbound
     {
         val decl        : Typed.TypeDeclaration
         val genericArgs : List[Types.Unbound]
@@ -189,33 +189,28 @@ package object Types
 
     def nullaryFunction(ret_type : Unbound) = Function_Unbound(List(), ret_type)
 
-    private def getLabel(t : Unbound) = t match {
-        case x : UserDefined_Unbound => x.decl.name
-    }
+    val IFunction = Typed.Alias("IFunction",
+                                Typed.topLevel,
+                                nullaryFunction(Types.Parameter("T")),
+                                Types.Parameter("T") :: Nil)
+
+    Typed.topLevel insert IFunction
+
+    val IObservable = Typed.Interface("IObservable",
+                                      Typed.topLevel,
+                                      IFunction(Types.Parameter("T") :: Nil) :: Nil,
+                                      Types.Parameter("T") :: Nil)
+
+    Typed.topLevel insert IObservable
 
     def makeScalar(name : String, bases : Unbound*) = {
-        val ty = Typed.Interface(name, Typed.topLevel, bases.toList)
+        val ty = Typed.Interface(name, Typed.topLevel, bases.toList, Nil)
         Typed.topLevel insert ty
         ty.apply(Nil)
     }
 
-    def functionOf_(t : Unbound) = {
-        val name = "IFunction_" + getLabel(t)
-        val ty = Typed.Alias(name, Typed.topLevel, nullaryFunction(t))
-        Typed.topLevel insert ty
-        ty.apply(Nil)
-    }
-
-
-    def observableOf_(t : Unbound) = {
-        val name = "IObservable_" + getLabel(t)
-        val ty = Typed.Interface(name, Typed.topLevel, functionOf(t) :: Nil)
-        Typed.topLevel insert ty
-        ty.apply(Nil)
-    }
-
-    def functionOf = predef.Memoize1(functionOf_)
-    def observableOf = predef.Memoize1(observableOf_)
+    def functionOf(t : Unbound) = IFunction(t :: Nil)
+    def observableOf(t : Unbound) = IObservable(t :: Nil)
 
     def genType(name : String, bases : Unbound*) = {
         val scalar  = makeScalar(name, bases : _*)
@@ -224,8 +219,6 @@ package object Types
         val m = Types.EmptyTypeMapper
         (scalar, scalar bind m, func bind m, obs bind m)
     }
-
-    //val IFunction = Typed.Alias("IFunction", Typed.topLevel, null)
 
 
     val (unbound_float,     float_, floatFunc, floatObservable) = genType("Float")

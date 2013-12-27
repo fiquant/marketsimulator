@@ -4,7 +4,7 @@ from marketsim import Order
 from marketsim.ops._all import Observable
 from marketsim import types
 from marketsim import Side
-from marketsim import IFunction_Float
+from marketsim import IFunction
 @registry.expose(["Order", "Market"])
 class Market(IOrderGenerator, Observable[Order]):
     """ 
@@ -33,7 +33,7 @@ class Market(IOrderGenerator, Observable[Order]):
     _properties = {
         'side' : types.IFunction[Side]
         ,
-        'volume' : IFunction_Float
+        'volume' : IFunction[float]
     }
     def __repr__(self):
         return "Market(%(side)s, %(volume)s)" % self.__dict__
@@ -53,7 +53,7 @@ from marketsim import registry
 from marketsim import IOrderGenerator
 from marketsim import Order
 from marketsim.ops._all import Observable
-from marketsim import IFunction_Float
+from marketsim import IFunction
 @registry.expose(["Order", "MarketSigned"])
 class MarketSigned(IOrderGenerator, Observable[Order]):
     """ 
@@ -74,7 +74,7 @@ class MarketSigned(IOrderGenerator, Observable[Order]):
         return repr(self)
     
     _properties = {
-        'signedVolume' : IFunction_Float
+        'signedVolume' : IFunction[float]
     }
     def __repr__(self):
         return "Market(%(side)s, %(volume)s)" % self.__dict__

@@ -168,7 +168,7 @@ package object Typed
     case class Alias(name       : String,
                      scope      : Typed.Package,
                      target     : Types.Unbound,
-                     generics   : List[Types.Parameter] = Nil)
+                     generics   : List[Types.Parameter])
             extends TypeDeclaration
             with    sc.AliasDecl
             with    ScPrintable
@@ -182,7 +182,7 @@ package object Typed
     case class Interface(name       : String,
                          scope      : Typed.Package,
                          bases      : List[Types.Unbound],
-                         generics   : List[Types.Parameter] = Nil)
+                         generics   : List[Types.Parameter])
             extends TypeDeclaration
             with    sc.InterfaceDecl
             with    ScPrintable

@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim import float
 from marketsim.ops._all import Observable
-from marketsim import IFunction_Float
+from marketsim import IFunction
 from marketsim import context
 @registry.expose(["Pow/Log", "Sqr"])
 class Sqr(Observable[float]):
@@ -23,7 +23,7 @@ class Sqr(Observable[float]):
         return repr(self)
     
     _properties = {
-        'x' : IFunction_Float
+        'x' : IFunction[float]
     }
     def __repr__(self):
         return "{%(x)s}^2" % self.__dict__

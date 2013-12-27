@@ -1,6 +1,6 @@
 from marketsim import registry
 from marketsim.ops._function import Function
-from marketsim import IObservable_Float
+from marketsim import IObservable
 from marketsim.gen._out.mathops._Sqrt import Sqrt
 from marketsim.gen._out.observable.EW._Var import Var
 from marketsim import context
@@ -19,7 +19,7 @@ class StdDev(Function[float]):
         return repr(self)
     
     _properties = {
-        'source' : IObservable_Float,
+        'source' : IObservable[float],
         'alpha' : float
     }
     def __repr__(self):

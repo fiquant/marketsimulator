@@ -8,12 +8,11 @@ from reference import Reference
 
 from types import (IObservable, IFunction, ISingleAssetTrader,
                    IOrderQueue, IOrderBook, IDifferentiable,
+                   IFunction, IObservable,
                    IOrderGenerator,
                    IVolumeLevels as VolumeLevels,
                    IOrder as Order)
 
-IObservable_Float = IObservable[float]
-IFunction_Float = IFunction[float]
 float = float
 
 

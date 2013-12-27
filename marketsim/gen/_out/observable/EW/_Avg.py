@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim.gen._intrinsic.moments.ewma import EWMA_Impl
-from marketsim import IObservable_Float
+from marketsim import IObservable
 @registry.expose(["Statistics", "Avg"])
 class Avg(Function[float], EWMA_Impl):
     """ 
@@ -17,7 +17,7 @@ class Avg(Function[float], EWMA_Impl):
         return repr(self)
     
     _properties = {
-        'source' : IObservable_Float,
+        'source' : IObservable[float],
         'alpha' : float
     }
     def __repr__(self):

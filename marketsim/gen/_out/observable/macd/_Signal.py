@@ -1,6 +1,6 @@
 from marketsim import registry
 from marketsim.ops._function import Function
-from marketsim import IObservable_Float
+from marketsim import IObservable
 from marketsim.gen._out.observable.EW._Avg import Avg
 from marketsim.gen._out.observable._OnEveryDt import OnEveryDt
 from marketsim.gen._out.observable.macd._MACD import MACD
@@ -23,7 +23,7 @@ class Signal(Function[float]):
         return repr(self)
     
     _properties = {
-        'x' : IObservable_Float,
+        'x' : IObservable[float],
         'slow' : float,
         'fast' : float,
         'timeframe' : float,

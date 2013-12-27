@@ -1,8 +1,8 @@
 from marketsim import registry
 from marketsim import float
 from marketsim.ops._all import Observable
-from marketsim import IFunction_Float
-from marketsim import IFunction_Float
+from marketsim import IFunction
+from marketsim import IFunction
 from marketsim import context
 @registry.expose(["Basic", "Min"])
 class Min(Observable[float]):
@@ -26,8 +26,8 @@ class Min(Observable[float]):
         return repr(self)
     
     _properties = {
-        'x' : IFunction_Float,
-        'y' : IFunction_Float
+        'x' : IFunction[float],
+        'y' : IFunction[float]
     }
     def __repr__(self):
         return "min{%(x)s, %(y)s}" % self.__dict__

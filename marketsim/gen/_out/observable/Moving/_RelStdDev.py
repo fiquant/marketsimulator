@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim import float
 from marketsim.ops._all import Observable
-from marketsim import IObservable_Float
+from marketsim import IObservable
 from marketsim import context
 @registry.expose(["Statistics", "RelStdDev"])
 class RelStdDev(Observable[float]):
@@ -24,7 +24,7 @@ class RelStdDev(Observable[float]):
         return repr(self)
     
     _properties = {
-        'source' : IObservable_Float,
+        'source' : IObservable[float],
         'timeframe' : float
     }
     def __repr__(self):

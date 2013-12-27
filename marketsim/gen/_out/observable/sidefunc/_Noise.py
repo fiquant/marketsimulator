@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim import Side
 from marketsim.ops._all import Observable
-from marketsim import IFunction_Float
+from marketsim import IFunction
 from marketsim import context
 @registry.expose(["Side function", "Noise"])
 class Noise(Observable[Side]):
@@ -23,7 +23,7 @@ class Noise(Observable[Side]):
         return repr(self)
     
     _properties = {
-        'side_distribution' : IFunction_Float
+        'side_distribution' : IFunction[float]
     }
     def __repr__(self):
         return "Noise_{%(side_distribution)s}" % self.__dict__
