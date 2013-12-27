@@ -80,9 +80,8 @@ object Typer
         private def lookupType(name : AST.QualifiedName) : Typed.TypeDeclaration =
             source.lookupType(name.names) match {
                 case Some((scope, definition)) => Processor(scope).getTyped(definition)
-                case None => Typed.topLevel.types.get(name.toString) match {
-                    case Some(t : Typed.Alias) => t
-                    case Some(t : Typed.Interface) => t
+                case None => Typed.topLevel.types get name.toString match {
+                    case Some(t) => t
                     case None => throw new Exception(s"Unknown type $name")
                 }
 
@@ -91,24 +90,24 @@ object Typer
 
 
 
-        private def toTyped(definition  : AST.Interface) : Typed.Interface =
+        private def toTyped(definition  : AST.Interface) : Typed.InterfaceDecl =
         {
-            Typed.Interface(definition.name,
+            Typed.InterfaceDecl(definition.name,
                             source.typed.get,
                             definition.bases map toUnbound,
                             Nil)
         }
 
-        private def toTyped(definition  : AST.Alias) : Typed.Alias =
+        private def toTyped(definition  : AST.Alias) : Typed.AliasDecl =
         {
-            Typed.Alias(definition.name,
+            Typed.AliasDecl(definition.name,
                         source.typed.get,
                         toUnbound(definition.target),
                         Nil)
         }
 
 
-        private def toUnbound(t : AST.Type) : Types.Unbound = t match {
+        private def toUnbound(t : AST.Type) : TypesUnbound.Base = t match {
 
             case AST.SimpleType(name, genericArgs) => lookupType(name).apply(genericArgs map { toUnbound })
 
@@ -117,7 +116,7 @@ object Typer
             case AST.FunctionType(arg_types, ret_type) => TypesUnbound.Function(arg_types map toUnbound, toUnbound(ret_type))
         }
 
-        private def toBound(t : AST.Type) : Types.Bound = t match {
+        private def toBound(t : AST.Type) : TypesBound.Base = t match {
             case x : AST.SimpleType =>
                 val unbound = toUnbound(x).asInstanceOf[TypesUnbound.UserDefined]
                 unbound.bind(TypesUnbound.TypeMapper(unbound.decl, x.genericArgs map { toBound }))

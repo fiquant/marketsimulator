@@ -10,7 +10,7 @@ package object Typed
             with    sc.Expr
             with    py.Expr
     {
-        def ty : Types.Bound
+        def ty : TypesBound.Base
     }
 
     case class Neg(x : Expr)
@@ -77,7 +77,7 @@ package object Typed
             with    ScPrintable
 
     case class Parameter(name        : String,
-                         ty          : Types.Bound,
+                         ty          : TypesBound.Base,
                          initializer : Option[Expr],
                          comment     : List[String])
             extends sc.Parameter
@@ -114,7 +114,7 @@ package object Typed
     case class Function(parent      : Package,
                         name        : String,
                         parameters  : List[Parameter],
-                        ret_type    : Types.Bound,
+                        ret_type    : TypesBound.Base,
                         body        : Option[Expr],
                         docstring   : Option[DocString],
                         annotations : List[Annotation],
@@ -155,7 +155,7 @@ package object Typed
         val scope       : Typed.Package
         val generics    : List[TypesUnbound.Parameter]
 
-        def apply(genericArgs : List[Types.Unbound] = Nil) : Types.Unbound
+        def apply(genericArgs : List[TypesUnbound.Base] = Nil) : TypesUnbound.Base
 
         override def equals(o : Any) = o match {
             case that : TypeDeclaration => name == that.name && scope.qualifiedName == that.scope.qualifiedName
@@ -165,32 +165,32 @@ package object Typed
         def label = (scope qualifyName name) + (if (generics.isEmpty) "" else generics mkString ("[", ",", "]"))
     }
 
-    case class Alias(name       : String,
-                     scope      : Typed.Package,
-                     target     : Types.Unbound,
-                     generics   : List[TypesUnbound.Parameter])
+    case class AliasDecl(name       : String,
+                         scope      : Typed.Package,
+                         target     : TypesUnbound.Base,
+                         generics   : List[TypesUnbound.Parameter])
             extends TypeDeclaration
             with    sc.AliasDecl
             with    ScPrintable
     {
         private val unbound = predef.Memoize1({
-            genericArgs : List[Types.Unbound] => TypesUnbound.Alias(this, genericArgs)
+            genericArgs : List[TypesUnbound.Base] => TypesUnbound.Alias(this, genericArgs)
         })
-        def apply(genericArgs : List[Types.Unbound]) = unbound(genericArgs)
+        def apply(genericArgs : List[TypesUnbound.Base]) = unbound(genericArgs)
     }
 
-    case class Interface(name       : String,
-                         scope      : Typed.Package,
-                         bases      : List[Types.Unbound],
-                         generics   : List[TypesUnbound.Parameter])
+    case class InterfaceDecl(name       : String,
+                             scope      : Typed.Package,
+                             bases      : List[TypesUnbound.Base],
+                             generics   : List[TypesUnbound.Parameter])
             extends TypeDeclaration
             with    sc.InterfaceDecl
             with    ScPrintable
     {
         private val unbound = predef.Memoize1({
-            genericArgs : List[Types.Unbound] => TypesUnbound.Interface(this, genericArgs)
+            genericArgs : List[TypesUnbound.Base] => TypesUnbound.Interface(this, genericArgs)
         })
-        def apply(genericArgs : List[Types.Unbound]) = unbound(genericArgs)
+        def apply(genericArgs : List[TypesUnbound.Base]) = unbound(genericArgs)
     }
 
 

@@ -7,12 +7,10 @@ package object Types
     import syntax.scala.Printer.{types => sc}
     import generator.python.Printer.{types => py}
 
-    type Unbound = TypesUnbound.Unbound
-    type Bound = TypesBound.Bound
     type TypeMapper = TypesUnbound.TypeMapper
     val EmptyTypeMapper = TypesUnbound.EmptyTypeMapper
 
-    def genType(name : String, bases : Unbound*) = {
+    def genType(name : String, bases : TypesUnbound.Base*) = {
         val scalar  = TypesUnbound.makeScalar(name, bases : _*)
         val func    = TypesUnbound.functionOf(scalar)
         val obs     = TypesUnbound.observableOf(scalar)

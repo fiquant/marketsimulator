@@ -308,7 +308,7 @@ package object Printer
 
         trait UsedDefined extends Printable {
             val decl        : Typed.TypeDeclaration
-            val genericArgs : List[Types.Bound]
+            val genericArgs : List[TypesBound.Base]
 
             def toScala = (decl.scope qualifyName decl.name) + (if (genericArgs.isEmpty) "" else genericArgs mkString ("[", ",", "]"))
         }
@@ -318,14 +318,14 @@ package object Printer
 
         trait InterfaceDecl extends Printable
         {
-            self: Typed.Interface =>
+            self: Typed.InterfaceDecl =>
 
             override def toScala = s"type $name" + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
         }
 
         trait AliasDecl extends Printable
         {
-            self: Typed.Alias =>
+            self: Typed.AliasDecl =>
 
             override def toScala = s"type $name = $target"
         }

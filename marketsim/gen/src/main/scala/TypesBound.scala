@@ -6,39 +6,39 @@ package object TypesBound
     import syntax.scala.Printer.{types => sc}
     import generator.python.Printer.{types => py}
 
-    sealed abstract class Bound
+    sealed abstract class Base
             extends sc.Base
             with    py.Bound
             with    ScPyPrintable
     {
-        final def canCastTo(other : Bound) : Boolean = this == other || (other match {
+        final def canCastTo(other : Base) : Boolean = this == other || (other match {
             case a : Alias => canCastTo(a.target)
             case _ => false
         }) || canCastToImpl(other)
 
-        protected def canCastToImpl(other : Bound) = false
+        protected def canCastToImpl(other : Base) = false
 
-        def cannotCastTo(other : Bound) = !canCastTo(other)
+        def cannotCastTo(other : Base) = !canCastTo(other)
 
-        def returnTypeIfFunction : Option[Bound] = None
+        def returnTypeIfFunction : Option[Base] = None
     }
 
     case object Unit
-            extends Bound
+            extends Base
             with    sc.Unit
             with    py.Unit
 
-    case class Tuple(elems : List[Bound])
-            extends Bound
+    case class Tuple(elems : List[Base])
+            extends Base
             with    sc.Tuple
             with    py.Tuple
 
-    case class Function(args : List[Bound], ret : Bound)
-            extends Bound
+    case class Function(args : List[Base], ret : Base)
+            extends Base
             with    sc.Function
             with    py.Function
     {
-        override def canCastToImpl(other : Bound) = {
+        override def canCastToImpl(other : Base) = {
             other match {
                 case f: Function =>
                     (f.args.length == args.length) &&
@@ -54,22 +54,22 @@ package object TypesBound
     }
 
     sealed abstract class UserDefined
-            extends Bound
+            extends Base
             with    sc.UsedDefined
             with    py.UsedDefined
     {
         val decl        : Typed.TypeDeclaration
-        val genericArgs : List[Bound]
+        val genericArgs : List[Base]
 
         if (decl.generics.length != genericArgs.length)
             throw new Exception(s"Type $decl is instantiated with wrong type parameters: $genericArgs" )
     }
 
-    case class Interface(decl : Typed.Interface, genericArgs : List[Bound]) extends UserDefined
+    case class Interface(decl : Typed.InterfaceDecl, genericArgs : List[Base]) extends UserDefined
     {
         val bases = decl.bases map { _ bind TypeMapper(decl, genericArgs) }
 
-        override def canCastToImpl(other : Bound) =  bases exists { _ canCastTo other }
+        override def canCastToImpl(other : Base) =  bases exists { _ canCastTo other }
 
         override def returnTypeIfFunction =
             bases flatMap { _.returnTypeIfFunction } match {
@@ -81,11 +81,11 @@ package object TypesBound
             }
     }
 
-    case class Alias(decl : Typed.Alias, genericArgs : List[Bound]) extends UserDefined
+    case class Alias(decl : Typed.AliasDecl, genericArgs : List[Base]) extends UserDefined
     {
         val target = decl.target bind TypeMapper(decl, genericArgs)
 
-        override def canCastToImpl(other : Bound) =  target canCastTo other
+        override def canCastToImpl(other : Base) =  target canCastTo other
 
         override def returnTypeIfFunction = target.returnTypeIfFunction
     }
