@@ -107,10 +107,6 @@ object Typer
 
 
         private def toUnbound(t : AST.Type) : Types.Unbound = t match {
-            case AST.SimpleType(AST.QualifiedName("Int" :: Nil), Nil) => Types.unbound_int
-            case AST.SimpleType(AST.QualifiedName("Float" :: Nil), Nil) => Types.unbound_float
-            case AST.SimpleType(AST.QualifiedName("Boolean" :: Nil), Nil) => Types.unbound_boolean
-            case AST.SimpleType(AST.QualifiedName("String" :: Nil), Nil) => Types.unbound_string
 
             case AST.SimpleType(AST.QualifiedName("IFunction" :: Nil), (t1) :: Nil) => Types.functionOf(toUnbound(t1))
             case AST.SimpleType(AST.QualifiedName("IFunction" :: Nil), _) => throw new Exception("IFunction[T] must have exactly one generic parameter: " + t)
