@@ -10,11 +10,11 @@ class UpMovements(Observable[float]):
     def __init__(self, source = None, timeframe = None):
         from marketsim import float
         from marketsim.ops._all import Observable
-        from marketsim.gen._out.observable.orderbook._MidPrice import MidPrice
+        from marketsim.gen._out._const import const
         from marketsim import _
         from marketsim import event
         Observable[float].__init__(self)
-        self.source = source if source is not None else MidPrice()
+        self.source = source if source is not None else const()
         self.timeframe = timeframe if timeframe is not None else 10.0
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)

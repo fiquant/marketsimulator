@@ -3,14 +3,14 @@
 package observable.macd {
     @python()
     @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
-    def MACD(x = orderbook.MidPrice(),
+    def MACD(x = const(),
              slow = 26.0,
              fast = 12.0)
          = EW.Avg(x,2.0/(fast+1))-EW.Avg(x,2.0/(slow+1))
     
     @python()
     @label = "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-    def Signal(x = orderbook.MidPrice(),
+    def Signal(x = const(),
                slow = 26.0,
                fast = 12.0,
                timeframe = 9.0,
@@ -19,7 +19,7 @@ package observable.macd {
     
     @python()
     @label = "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-    def Histogram(x = orderbook.MidPrice(),
+    def Histogram(x = const(),
                   slow = 26.0,
                   fast = 12.0,
                   timeframe = 9.0,

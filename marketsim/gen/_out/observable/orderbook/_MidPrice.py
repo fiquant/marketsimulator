@@ -1,19 +1,19 @@
 from marketsim import registry
-from marketsim import float
+from marketsim import Price
 from marketsim.ops._all import Observable
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Asset's", "MidPrice"])
-class MidPrice(Observable[float]):
+class MidPrice(Observable[Price]):
     """ 
     """ 
     def __init__(self, book = None):
-        from marketsim import float
+        from marketsim import Price
         from marketsim.ops._all import Observable
         from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader
         from marketsim import _
         from marketsim import event
-        Observable[float].__init__(self)
+        Observable[Price].__init__(self)
         self.book = book if book is not None else OfTrader()
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -30,11 +30,11 @@ class MidPrice(Observable[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out.observable._Observable import Observable
+        from marketsim.gen._out.observable._ObservablePrice import ObservablePrice
         from marketsim.gen._out.observable.orderbook._AskPrice import AskPrice
         from marketsim.gen._out.observable.orderbook._BidPrice import BidPrice
         from marketsim.gen._out._const import const
-        return Observable((AskPrice(self.book)+BidPrice(self.book))/const(2.0))
+        return ObservablePrice((AskPrice(self.book)+BidPrice(self.book))/const(2.0))
         
         
         

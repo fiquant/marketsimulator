@@ -22,6 +22,14 @@ package observable
     @label = "[%(x)s]"
     def Observable(x : IFunction[Float] = const()) : IObservable[Float]
 
+    @python.intrinsic("observable.on_every_dt._Observable_Impl")
+    @label = "[%(x)s]"
+    def ObservablePrice(x : IFunction[Float] = const()) : IObservable[Price]
+
+    @python.intrinsic("observable.on_every_dt._Observable_Impl")
+    @label = "[%(x)s]"
+    def ObservableVolume(x : IFunction[Float] = const()) : IObservable[Volume]
+
     @python.intrinsic("observable.quote.Quote_Impl")
     @label = "%(ticker)s"
     def Quote(ticker = "^GSPC", start = "2001-1-1", end = "2010-1-1") : IObservable[Price]

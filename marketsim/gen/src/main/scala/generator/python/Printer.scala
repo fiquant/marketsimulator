@@ -62,10 +62,10 @@ object Printer {
                                "String" -> "str")
 
             def imports =
-                if (builtins contains decl.name)
+                (if (builtins contains decl.name)
                     Nil
-                else
-                    predef.ImportFrom(decl.name, "marketsim") :: Nil
+                 else
+                    predef.ImportFrom(decl.name, "marketsim") :: Nil) ++ (genericArgs flatMap { _.imports })
 
 
             def toPython =

@@ -11,8 +11,8 @@ class Raw(Function[float]):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None, alpha = None):
-        from marketsim.gen._out.observable.orderbook._MidPrice import MidPrice
-        self.source = source if source is not None else MidPrice()
+        from marketsim.gen._out._const import const
+        self.source = source if source is not None else const()
         self.timeframe = timeframe if timeframe is not None else 10.0
         self.alpha = alpha if alpha is not None else 0.015
         self.impl = self.getImpl()

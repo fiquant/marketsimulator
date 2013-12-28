@@ -60,7 +60,7 @@ package observable.orderbook
     @python.observable
     @label = "SafeSidePrice^{%(queue)s}"
     def SafeSidePrice(queue = Asks(), defaultValue = constant(100.))
-        = Observable(IfDefined(BestPrice(queue), IfDefined(LastPrice(queue), defaultValue)))
+        = ObservablePrice(IfDefined(BestPrice(queue), IfDefined(LastPrice(queue), defaultValue)))
 
     @python
     @label = "Price_{%(alpha)s}^{%(queue)s}"
@@ -81,11 +81,11 @@ package observable.orderbook
 
     @python
     @label = "Spread_{%(book)s}"
-    def Spread(book = OfTrader()) = Observable(AskPrice(book) - BidPrice(book))
+    def Spread(book = OfTrader()) = ObservablePrice(AskPrice(book) - BidPrice(book))
 
     @python
     @label = "MidPrice_{%(book)s}"
-    def MidPrice(book = OfTrader()) = Observable((AskPrice(book) + BidPrice(book)) / 2.0)
+    def MidPrice(book = OfTrader()) = ObservablePrice((AskPrice(book) + BidPrice(book)) / 2.0)
 
     @python.intrinsic("orderbook.cumulative_price.CumulativePrice_Impl")
     @label = "CumulativePrice(%(book)s, %(depth)s)"
@@ -98,5 +98,5 @@ package observable.orderbook
     @python
     @label = "NaiveCumulativePrice(%(book)s, %(depth)s)"
     def NaiveCumulativePrice(book = OfTrader(), depth = constant()) =
-        Observable(if depth < 0.0 then depth*AskPrice(book) else if depth > 0.0 then depth*BidPrice(book) else 0.0)
+        ObservablePrice(if depth < 0.0 then depth*AskPrice(book) else if depth > 0.0 then depth*BidPrice(book) else 0.0)
 }

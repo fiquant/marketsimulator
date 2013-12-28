@@ -1995,9 +1995,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -2117,9 +2115,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -2228,9 +2224,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -2356,9 +2350,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -3293,7 +3285,7 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - observable
-| | | | | | | | | | | | - Observable
+| | | | | | | | | | | | - ObservablePrice
 | | | | | | | | | | - List:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -3334,7 +3326,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - Price
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
@@ -3704,7 +3696,7 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - observable
-| | | | | | | | | | | | - Observable
+| | | | | | | | | | | | - ObservablePrice
 | | | | | | | | | | - List:
 | | | | | | | | | | | - BinOp:
 | | | | | | | | | | | | - Div
@@ -3744,7 +3736,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - Price
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
@@ -4573,7 +4565,7 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - observable
-| | | | | | | | | | | | - Observable
+| | | | | | | | | | | | - ObservablePrice
 | | | | | | | | | | - List:
 | | | | | | | | | | | - IfThenElse:
 | | | | | | | | | | | | - Condition:
@@ -4641,7 +4633,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - Price
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
@@ -4678,7 +4670,7 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - observable
-| | | | | | | | | | | | - Observable
+| | | | | | | | | | | | - ObservablePrice
 | | | | | | | | | | - List:
 | | | | | | | | | | | - BinOp:
 | | | | | | | | | | | | - Sub
@@ -4709,7 +4701,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - Price
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
@@ -5879,9 +5871,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - observable
-| | | | | | | | | | | - orderbook
-| | | | | | | | | | | - MidPrice
+| | | | | | | | | | | - const
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
@@ -6108,9 +6098,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - observable
-| | | | | | | | | | | - orderbook
-| | | | | | | | | | | - MidPrice
+| | | | | | | | | | | - const
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
@@ -6350,6 +6338,53 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | - List:
 | | | | - FunDef:
+| | | | | - ObservableVolume
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IFunction
+| | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | | | | - List:
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Volume
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - [%(x)s]
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - observable.on_every_dt._Observable_Impl
+| | | | - FunDef:
 | | | | | - Quote
 | | | | | - List:
 | | | | | | - Parameter:
@@ -6471,6 +6506,53 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - observable.candlestick.CandleSticks_Impl
+| | | | - FunDef:
+| | | | | - ObservablePrice
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IFunction
+| | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | | | | - List:
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Price
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - [%(x)s]
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - observable.on_every_dt._Observable_Impl
 | | | | - FunDef:
 | | | | | - Observable
 | | | | | - List:
