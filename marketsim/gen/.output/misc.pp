@@ -177,6 +177,12 @@ package trash {
             
             def F(x : IFunction[Float] = IntFunc())
                  = x
+            
+            def IntObs() : IObservable[Int]
+                
+            
+            def O(x : IObservable[Float] = IntObs())
+                 = x
         }
     }
 }

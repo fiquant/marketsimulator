@@ -669,10 +669,16 @@ package trash {
                   y = if 3>x+2 then x else x*2) : () => types.T
                 
             
+            def IntObs() : IObservable[Int]
+                
+            
             def IntFunc() : IFunction[Int]
                 
             
             def C(x : IFunction[CandleStick])
+                 = x
+            
+            def O(x : IObservable[Float] = IntObs())
                  = x
         }
         def A(x : () => types.T1 = trash.A()) : () => types.U
