@@ -65,7 +65,7 @@ package object TypesBound
             throw new Exception(s"Type $decl is instantiated with wrong type parameters: $genericArgs" )
     }
 
-    def allSubstitutions[T](lst : List[T], f : T => List[T]) : List[List[T]] =
+    def allSubstitutions[T](lst : List[T], f : T => Iterable[T]) : Stream[List[T]] =
     {
         def elementSubstitution(head : List[T],
                                 elem : T,
@@ -73,24 +73,24 @@ package object TypesBound
 
             f(elem) map { x => head ++ (x :: tail) }
 
-        def partitions(head : List[T], tail : List[T]) : List[(List[T], T, List[T])] =
+        def partitions(head : List[T], tail : List[T]) : Stream[(List[T], T, List[T])] =
             tail match {
-                case Nil => Nil
+                case Nil => Stream.empty
                 case x :: tl =>
-                    (head, x, tl) :: partitions(head :+ x, tl)
+                    (head, x, tl) +: partitions(head :+ x, tl)
             }
         partitions(Nil, lst) flatMap { case (head, x, tail) => elementSubstitution(head, x, tail) }
     }
 
-    def directCasts(genericArgs : List[Base]) : List[List[Base]]=
+    def directCasts(genericArgs : List[Base]) : Stream[List[Base]]=
 
         allSubstitutions[Base](genericArgs, directCasts)
 
-    def directCasts(e : Base) : List[Base] = e match
+    def directCasts(e : Base) : Stream[Base] = e match
     {
-        case x : Alias      => List(x.target)
-        case x : Interface  => x.bases
-        case x if x == Unit => Nil
+        case x : Alias      => Stream(x.target)
+        case x : Interface  => x.bases.toStream
+        case x if x == Unit => Stream.empty
         case x : Tuple      => directCasts(x.elems) map Tuple
         case x : Function   => directCasts(x.ret) map { Function(x.args, _)}
     }
