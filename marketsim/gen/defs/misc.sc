@@ -141,8 +141,10 @@ def S1(y = "abc") = y
 
 def C(x : IFunction[CandleStick]) = x
 
-def IntFunc() => Int
+def IntFunc() : IFunction[Int]
 
 def F(x : IFunction[Float] = IntFunc()) = x
+
+
 
 

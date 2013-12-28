@@ -669,7 +669,7 @@ package trash {
                   y = if 3>x+2 then x else x*2) : () => types.T
                 
             
-            def IntFunc() : () => Int
+            def IntFunc() : IFunction[Int]
                 
             
             def C(x : IFunction[CandleStick])

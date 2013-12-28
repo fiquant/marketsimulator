@@ -82,11 +82,27 @@ package object TypesBound
         partitions(Nil, lst) flatMap { case (head, x, tail) => elementSubstitution(head, x, tail) }
     }
 
+    def directCasts(genericArgs : List[Base]) : List[List[Base]]=
+
+        allSubstitutions[Base](genericArgs, directCasts)
+
+    def directCasts(e : Base) : List[Base] = e match
+    {
+        case x : Alias      => List(x.target)
+        case x : Interface  => x.bases
+        case x if x == Unit => Nil
+        case x : Tuple      => directCasts(x.elems) map Tuple
+        case x : Function   => directCasts(x.ret) map { Function(x.args, _)}
+    }
+
+
+
     case class Interface(decl : Typed.InterfaceDecl, genericArgs : List[Base]) extends UserDefined
     {
         val bases = decl.bases map { _ bind TypeMapper(decl, genericArgs) }
 
-        override def canCastToImpl(other : Base) =  bases exists { _ canCastTo other }
+        override def canCastToImpl(other : Base) =  (bases exists { _ canCastTo other }) ||
+                (directCasts(genericArgs) map { g => copy(genericArgs = g) } exists { _ canCastTo other})
 
         override def returnTypeIfFunction =
             bases flatMap { _.returnTypeIfFunction } match {
@@ -102,7 +118,8 @@ package object TypesBound
     {
         val target = decl.target bind TypeMapper(decl, genericArgs)
 
-        override def canCastToImpl(other : Base) =  target canCastTo other
+        override def canCastToImpl(other : Base) =  (target canCastTo other) ||
+                    (directCasts(genericArgs) map { g => copy(genericArgs = g) } exists { _ canCastTo other})
 
         override def returnTypeIfFunction = target.returnTypeIfFunction
     }

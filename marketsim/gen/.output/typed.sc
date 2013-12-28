@@ -727,7 +727,7 @@ package trash {
                 
             
             
-            def IntFunc() : () => Int
+            def IntFunc() : IFunction[Int]
                 
             
             
