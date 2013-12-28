@@ -65,6 +65,23 @@ package object TypesBound
             throw new Exception(s"Type $decl is instantiated with wrong type parameters: $genericArgs" )
     }
 
+    def allSubstitutions[T](lst : List[T], f : T => List[T]) : List[List[T]] =
+    {
+        def elementSubstitution(head : List[T],
+                                elem : T,
+                                tail : List[T]) =
+
+            f(elem) map { x => head ++ (x :: tail) }
+
+        def partitions(head : List[T], tail : List[T]) : List[(List[T], T, List[T])] =
+            tail match {
+                case Nil => Nil
+                case x :: tl =>
+                    (head, x, tl) :: partitions(head :+ x, tl)
+            }
+        partitions(Nil, lst) flatMap { case (head, x, tail) => elementSubstitution(head, x, tail) }
+    }
+
     case class Interface(decl : Typed.InterfaceDecl, genericArgs : List[Base]) extends UserDefined
     {
         val bases = decl.bases map { _ bind TypeMapper(decl, genericArgs) }
