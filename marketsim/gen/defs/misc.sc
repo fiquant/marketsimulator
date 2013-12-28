@@ -24,7 +24,7 @@ package observable
 
     @python.intrinsic("observable.quote.Quote_Impl")
     @label = "%(ticker)s"
-    def Quote(ticker = "^GSPC", start = "2001-1-1", end = "2010-1-1") : IObservable[Float]
+    def Quote(ticker = "^GSPC", start = "2001-1-1", end = "2010-1-1") : IObservable[Price]
 
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
     @label = "CandleSticks(%(source)s)"
@@ -96,6 +96,8 @@ package side
     def Nothing() => Side
 }
 
+type Volume : Int
+type Price : Float
 
 type IOrderQueue
 type IOrderBook

@@ -53,7 +53,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Float
+| | | | | | | | | | | - Volume
 | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
@@ -90,7 +90,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Float
+| | | | | | | | | | | - Price
 | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
@@ -127,7 +127,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Float
+| | | | | | | | | | | - Volume
 | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:

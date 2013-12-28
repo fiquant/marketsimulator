@@ -15,7 +15,8 @@ from types import (IObservable, IFunction, ISingleAssetTrader,
 
 float = float
 
-
+Volume = float
+Price = float
 
 class CandleStick(collections.namedtuple("CandleStick", [
                                                      "open", "close",

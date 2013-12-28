@@ -1917,7 +1917,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - Price
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
@@ -2015,7 +2015,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - Volume
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
@@ -2187,7 +2187,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - Volume
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
@@ -2627,7 +2627,7 @@ Definitions:
 | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - Price
 | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
@@ -2957,7 +2957,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - Volume
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
@@ -3071,7 +3071,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - Price
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
@@ -3268,7 +3268,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - Price
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
@@ -3356,7 +3356,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - Price
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
@@ -3517,7 +3517,7 @@ Definitions:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - Price
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
@@ -4666,7 +4666,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Float
+| | | | | | | | | | | - Price
 | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
@@ -5316,8 +5316,24 @@ Definitions:
 | | - CandleStick
 | | - List:
 | - Interface:
+| | - Volume
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Int
+| | | | - List:
+| - Interface:
 | | - Side
 | | - List:
+| - Interface:
+| | - Price
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Float
+| | | | - List:
 | - Interface:
 | | - IOrderQueue
 | | - List:

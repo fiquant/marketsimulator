@@ -261,7 +261,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Float
+| | | | | | | | | | | - Price
 | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
@@ -808,6 +808,22 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Side
+| - Interface:
+| | - Volume
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Int
+| | | | - List:
+| - Interface:
+| | - Price
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Float
+| | | | - List:
 | - Interface:
 | | - IOrderQueue
 | | - List:
