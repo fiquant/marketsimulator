@@ -39,7 +39,7 @@ class Market(IOrderGenerator, Observable[Order]):
         return "Market(%(side)s, %(volume)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
-        from marketsim.gen._intrinsic.order.market import Market_Impl
+        from marketsim.gen._intrinsic.order.market import Order_Impl
         side = self.side()
         if side is None: return None
         
@@ -47,7 +47,7 @@ class Market(IOrderGenerator, Observable[Order]):
         if volume is None: return None
         if abs(volume) < 1: return None
         volume = int(volume)
-        return Market_Impl(side, volume)
+        return Order_Impl(side, volume)
     
 from marketsim import registry
 from marketsim import IOrderGenerator
@@ -80,12 +80,12 @@ class MarketSigned(IOrderGenerator, Observable[Order]):
         return "Market(%(side)s, %(volume)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
-        from marketsim.gen._intrinsic.order.market import Market_Impl
+        from marketsim.gen._intrinsic.order.market import Order_Impl
         signedVolume = self.signedVolume()
         if signedVolume is None: return None
         side = Side.Buy if signedVolume > 0 else Side.Sell
         volume = abs(signedVolume)
         if abs(volume) < 1: return None
         volume = int(volume)
-        return Market_Impl(side, volume)
+        return Order_Impl(side, volume)
     

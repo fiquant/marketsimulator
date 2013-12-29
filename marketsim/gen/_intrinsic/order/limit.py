@@ -1,7 +1,7 @@
 from _base import *
 from marketsim.types import *
 
-class Limit_Impl(Default, HasSide, HasPrice, HasVolume, Cancellable):
+class Order_Impl(Default, HasSide, HasPrice, HasVolume, Cancellable):
     """ Limit order of the given *side*, *price* and *volume*
     """
 
@@ -31,12 +31,12 @@ class Limit_Impl(Default, HasSide, HasPrice, HasVolume, Cancellable):
     def With(self, side = None, price = None, volume = None):
         def opt(a,b):
             return a if b is None else b
-        return Limit_Impl(opt(self.side, side),
+        return Order_Impl(opt(self.side, side),
                           opt(self.price, price),
                           opt(self.volumeUnmatched, volume))
         
     def clone(self):
-        return Limit_Impl(self.side, self.price, self.volumeUnmatched, self.owner, self.volumeFilled)
+        return Order_Impl(self.side, self.price, self.volumeUnmatched, self.owner, self.volumeFilled)
         
     def processIn(self, orderBook):
         """ Order book calls this method to ask the order 
@@ -67,7 +67,7 @@ class Limit_Impl(Default, HasSide, HasPrice, HasVolume, Cancellable):
         return pv
 
     @staticmethod
-    def Buy(price, volume): return Limit_Impl(Side.Buy, price, volume)
+    def Buy(price, volume): return Order_Impl(Side.Buy, price, volume)
      
     @staticmethod
-    def Sell(price, volume): return Limit_Impl(Side.Sell, price, volume)
+    def Sell(price, volume): return Order_Impl(Side.Sell, price, volume)

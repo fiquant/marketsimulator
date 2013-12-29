@@ -47,7 +47,7 @@ class Limit(IOrderGenerator, Observable[Order]):
         return "Limit(%(side)s, %(price)s, %(volume)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
-        from marketsim.gen._intrinsic.order.limit import Limit_Impl
+        from marketsim.gen._intrinsic.order.limit import Order_Impl
         side = self.side()
         if side is None: return None
         
@@ -58,7 +58,7 @@ class Limit(IOrderGenerator, Observable[Order]):
         if volume is None: return None
         if abs(volume) < 1: return None
         volume = int(volume)
-        return Limit_Impl(side, price, volume)
+        return Order_Impl(side, price, volume)
     
 from marketsim import registry
 from marketsim import IOrderGenerator
@@ -99,7 +99,7 @@ class LimitSigned(IOrderGenerator, Observable[Order]):
         return "Limit(%(side)s, %(price)s, %(volume)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
-        from marketsim.gen._intrinsic.order.limit import Limit_Impl
+        from marketsim.gen._intrinsic.order.limit import Order_Impl
         signedVolume = self.signedVolume()
         if signedVolume is None: return None
         side = Side.Buy if signedVolume > 0 else Side.Sell
@@ -109,5 +109,5 @@ class LimitSigned(IOrderGenerator, Observable[Order]):
         price = self.price()
         if price is None: return None
         
-        return Limit_Impl(side, price, volume)
+        return Order_Impl(side, price, volume)
     

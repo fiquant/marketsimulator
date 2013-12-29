@@ -54,7 +54,7 @@ Definitions:
 | | | | | | | | | - order
 | | | | | | | | | - factory
 | | | | | | | - List:
-| | | | | | | | - order.market.Market_Impl
+| | | | | | | | - order.market.Order_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Market(%(side)s, %(volume)s)
@@ -117,7 +117,7 @@ Definitions:
 | | | | | | | | | - order
 | | | | | | | | | - factory
 | | | | | | | - List:
-| | | | | | | | - order.limit.Limit_Impl
+| | | | | | | | - order.limit.Order_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Limit(%(side)s, %(price)s, %(volume)s)
@@ -168,7 +168,7 @@ Definitions:
 | | | | | | | | | - order
 | | | | | | | | | - factory
 | | | | | | | - List:
-| | | | | | | | - order.meta.fixed_budget.FixedBudget_Impl
+| | | | | | | | - order.meta.fixed_budget.Order_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - FixedBudget(%(side)s, %(budget)s)
@@ -206,7 +206,7 @@ Definitions:
 | | | | | | | | | - order
 | | | | | | | | | - factory
 | | | | | | | - List:
-| | | | | | | | - order.meta.ioc.ImmediateOrCancel_Impl
+| | | | | | | | - order.meta.ioc.Order_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - ImmediateOrCancel(%(proto)s)

@@ -4,7 +4,7 @@ from .. import _limit
 
 import _meta
 
-from marketsim.gen._intrinsic.order.meta.ioc import ImmediateOrCancel_Impl as ImmediateOrCancel
+from marketsim.gen._intrinsic.order.meta.ioc import Order_Impl as ImmediateOrCancel
 from marketsim.gen._out.order._ImmediateOrCancel import ImmediateOrCancel as Factory
 Order = ImmediateOrCancel
 

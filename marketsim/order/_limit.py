@@ -2,7 +2,7 @@ from _base import *
 from marketsim import combine, registry, bind, ops, meta, types
 from marketsim.types import *
 
-from marketsim.gen._intrinsic.order.limit import Limit_Impl as Limit
+from marketsim.gen._intrinsic.order.limit import Order_Impl as Limit
 from marketsim.gen._out.order._Limit import Limit as Factory
 
 Order = Limit

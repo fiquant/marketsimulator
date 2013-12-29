@@ -39,13 +39,13 @@ class FixedBudget(IOrderGenerator, Observable[Order]):
         return "FixedBudget(%(side)s, %(budget)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
-        from marketsim.gen._intrinsic.order.meta.fixed_budget import FixedBudget_Impl
+        from marketsim.gen._intrinsic.order.meta.fixed_budget import Order_Impl
         side = self.side()
         if side is None: return None
         
         budget = self.budget()
         if budget is None: return None
         
-        return FixedBudget_Impl(side, budget)
+        return Order_Impl(side, budget)
     
 

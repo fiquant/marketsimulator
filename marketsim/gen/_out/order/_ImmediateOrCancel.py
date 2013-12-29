@@ -31,10 +31,10 @@ class ImmediateOrCancel(IOrderGenerator, Observable[Order]):
         return "ImmediateOrCancel(%(proto)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
-        from marketsim.gen._intrinsic.order.meta.ioc import ImmediateOrCancel_Impl
+        from marketsim.gen._intrinsic.order.meta.ioc import Order_Impl
         proto = self.proto()
         if proto is None: return None
         
-        return ImmediateOrCancel_Impl(proto)
+        return Order_Impl(proto)
     
 

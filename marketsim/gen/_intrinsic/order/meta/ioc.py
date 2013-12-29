@@ -2,7 +2,7 @@ from marketsim import request, combine, meta, types, _, registry, bind, Side
 
 import _meta
 
-class ImmediateOrCancel_Impl(_meta.OwnsSingleOrder):
+class Order_Impl(_meta.OwnsSingleOrder):
     """ This a combination of a limit order and a cancel order sent immediately
     It works as a market order in sense that it is not put into the order queue 
     but can be matched (as a limit order) 
