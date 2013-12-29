@@ -192,6 +192,17 @@ package order {
               price : IFunction[Float] = constant(100.0),
               volume : IFunction[Float] = constant(1.0)) : IObservable[Order]
         
+    
+    @label = "FixedBudget(%(side)s, %(budget)s)"
+    @python.order.factory("order.meta.fixed_budget.FixedBudget_Impl")
+    def FixedBudget(side : () => Side = side.Sell(),
+                    budget : IFunction[Float] = constant(1000.0)) : IObservable[Order]
+        
+    
+    @label = "ImmediateOrCancel(%(proto)s)"
+    @python.order.factory("order.meta.ioc.ImmediateOrCancel_Impl")
+    def ImmediateOrCancel(proto : IObservable[Order] = order.Limit()) : IObservable[Order]
+        
 }
 @category = "Basic"
 
