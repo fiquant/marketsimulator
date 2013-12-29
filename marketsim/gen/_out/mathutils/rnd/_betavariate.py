@@ -19,7 +19,7 @@ class betavariate(Function[float]):
         'Beta' : float
     }
     def __repr__(self):
-        return "betavariate(Alpha = "+repr(self.Alpha)+" , Beta = "+repr(self.Beta)+" )" 
+        return "betavariate(%(Alpha)s, %(Beta)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random

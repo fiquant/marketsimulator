@@ -24,7 +24,7 @@ class triangular(Function[float]):
         'Mode' : float
     }
     def __repr__(self):
-        return "triangular(Low = "+repr(self.Low)+" , High = "+repr(self.High)+" , Mode = "+repr(self.Mode)+" )" 
+        return "triangular(%(Low)s, %(High)s, %(Mode)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random

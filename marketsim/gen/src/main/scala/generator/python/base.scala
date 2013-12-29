@@ -44,7 +44,7 @@ package object base {
         }
 
         def property = s"\'$name\' : " ||| ty
-        def repr = s"""$name = \"+repr(self.$name)+\" """
+        def repr = s"%($name)s"
         def call = s"self.$name"
     }
 
@@ -87,12 +87,15 @@ package object base {
 
         def label = Prop("label", "return repr(self)")
 
-        def label_tmpl = f.getAttribute("label")
+        def label_tmpl : Code = f.tryGetAttribute("label") match {
+            case Some(x) => x
+            case None => s"$name($repr_fields)"
+        }
 
 
         def properties = "_properties = {" |> property_fields | "}"
 
-        def repr_body : Code = s"""return "$name($repr_fields)" """
+        def repr_body : Code = s"""return "$label_tmpl" % self.__dict__"""
 
         def repr = Def("__repr__", "", repr_body)
 

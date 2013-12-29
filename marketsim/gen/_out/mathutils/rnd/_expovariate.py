@@ -16,7 +16,7 @@ class expovariate(Function[float]):
         'Lambda' : float
     }
     def __repr__(self):
-        return "expovariate(Lambda = "+repr(self.Lambda)+" )" 
+        return "expovariate(%(Lambda)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random

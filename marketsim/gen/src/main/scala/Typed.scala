@@ -124,13 +124,13 @@ package object Typed
     {
         def decorators = attributes :: annotations
 
-        def getAttribute(name : String) = attributes.items get name match {
+        def getAttribute(name : String) = tryGetAttribute(name) match {
             case Some(v) => v
-            case None =>    try {
-                parent getAttribute name
-            } catch {
-                case e : Exception => throw new Exception(s"Cannot find attribute '$name' for function $this")
-            }
+            case None =>    throw new Exception(s"Cannot find attribute '$name' for function $this")
+        }
+        def tryGetAttribute(name : String) = attributes.items get name match {
+            case Some(v) => Some(v)
+            case None =>    parent tryGetAttribute name
         }
 
         override def equals(o : Any) = o match {
@@ -208,8 +208,7 @@ package object Typed
 
         def qualifyName(x : String) = x
 
-        def getAttribute(name : String) : String =
-            throw new Exception(s"Cannot find attribute named $name")
+        def tryGetAttribute(name : String) : Option[String] = None
 
         def getName = ""
 
@@ -270,9 +269,9 @@ package object Typed
 
         override def qualifyName(x : String) = parent qualifyName x
 
-        override def getAttribute(name : String) = attributes.items get name match {
-            case Some(v) => v
-            case None    => parent getAttribute name
+        override def tryGetAttribute(name : String) = attributes.items get name match {
+            case Some(v) => Some(v)
+            case None    => parent tryGetAttribute name
         }
 
     }

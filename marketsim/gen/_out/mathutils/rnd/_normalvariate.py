@@ -17,7 +17,7 @@ class normalvariate(Function[float]):
         'Sigma' : float
     }
     def __repr__(self):
-        return "normalvariate(Mu = "+repr(self.Mu)+" , Sigma = "+repr(self.Sigma)+" )" 
+        return "normalvariate(%(Mu)s, %(Sigma)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random

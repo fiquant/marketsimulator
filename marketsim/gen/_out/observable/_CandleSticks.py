@@ -22,5 +22,5 @@ class CandleSticks(Function[CandleStick], CandleSticks_Impl):
         'timeframe' : float
     }
     def __repr__(self):
-        return "CandleSticks(%(source)s)" % self.__dict__
+        return "CandleSticks(%(source)s, %(timeframe)s)" % self.__dict__
     

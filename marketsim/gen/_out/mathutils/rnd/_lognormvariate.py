@@ -20,7 +20,7 @@ class lognormvariate(Function[float]):
         'Sigma' : float
     }
     def __repr__(self):
-        return "lognormvariate(Mu = "+repr(self.Mu)+" , Sigma = "+repr(self.Sigma)+" )" 
+        return "lognormvariate(%(Mu)s, %(Sigma)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random

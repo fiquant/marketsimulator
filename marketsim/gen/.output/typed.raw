@@ -6774,9 +6774,6 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - CandleSticks(%(source)s)
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:

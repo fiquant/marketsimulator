@@ -59,8 +59,6 @@ object order_factory extends gen.PythonGenerator
         type Parameter = order_factory.Parameter
         val alias = name
 
-        override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
-
         val ty = f.ret_type.returnTypeIfFunction.get.asPython
 
         override val base_class = s"Observable[$ty]" |||

@@ -17,7 +17,7 @@ class weibullvariate(Function[float]):
         'Beta' : float
     }
     def __repr__(self):
-        return "weibullvariate(Alpha = "+repr(self.Alpha)+" , Beta = "+repr(self.Beta)+" )" 
+        return "weibullvariate(%(Alpha)s, %(Beta)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random

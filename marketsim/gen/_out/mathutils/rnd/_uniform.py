@@ -21,7 +21,7 @@ class uniform(Function[float]):
         'High' : float
     }
     def __repr__(self):
-        return "uniform(Low = "+repr(self.Low)+" , High = "+repr(self.High)+" )" 
+        return "uniform(%(Low)s, %(High)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random

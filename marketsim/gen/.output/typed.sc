@@ -712,7 +712,7 @@ package observable {@category = "Price function"
               end : String = "2010-1-1") : IObservable[Price]
         
     
-    @label = "CandleSticks(%(source)s)"
+    
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
     def CandleSticks(source : IObservable[Float] = const(),
                      timeframe : Float = 10.0) : IObservable[CandleStick]

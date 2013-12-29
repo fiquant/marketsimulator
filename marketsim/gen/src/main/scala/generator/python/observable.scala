@@ -27,8 +27,6 @@ object observable extends gen.PythonGenerator
             "if ctx: context.bind(self.impl, ctx)") |||
                 ImportFrom("context", "marketsim")
 
-        override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
-
         val ty = f.ret_type.returnTypeIfFunction.get.asPython
 
         override val base_class = s"Observable[$ty]" |||

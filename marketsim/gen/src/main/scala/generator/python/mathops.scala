@@ -38,8 +38,6 @@ object mathops extends gen.PythonGenerator
         val impl_module = "math"
         val alias = name
 
-        override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
-
         override val base_class = "Observable[float]" ||| ImportFrom("Observable", "marketsim.ops._all")
 
         override def init_body = base_class ||| ".__init__(self)" | super.init_body
