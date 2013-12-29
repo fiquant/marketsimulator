@@ -191,6 +191,13 @@ package order {
     def Market(side : () => Side = side.Sell(),
                volume : IFunction[Float] = constant(1.0)) : IObservable[Order]
         
+    
+    @label = "Limit(%(side)s, %(price)s, %(volume)s)"
+    @python.order.factory("order.limit.Limit_Impl")
+    def Limit(side : () => Side = side.Sell(),
+              price : IFunction[Float] = constant(100.0),
+              volume : IFunction[Float] = constant(1.0)) : IObservable[Order]
+        
 }
 @category = "Basic"
 package observable {@category = "Price function"

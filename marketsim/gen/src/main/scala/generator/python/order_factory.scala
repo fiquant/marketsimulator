@@ -33,7 +33,6 @@ object order_factory extends gen.PythonGenerator
             check_none_aux(name)
 
         override def call = name
-
     }
 
     case class Import(args  : List[String],
