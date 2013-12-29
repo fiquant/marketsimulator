@@ -64,9 +64,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Dp_{%(trader)s}(%(desiredPosition)s)
 | | | | - FunDef:
 | | | | | - Bollinger_linear
 | | | | | - List:
@@ -150,9 +147,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Bl_{%(trader)s}(%(alpha)s)*%(k)s
 | | | | - FunDef:
 | | | | | - RSI_linear
 | | | | | - List:
@@ -247,9 +241,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s
 | | - List:
 | | | - Attribute:
 | | | | - category

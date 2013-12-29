@@ -2,7 +2,6 @@
 
 package observable.pricefunc {
     @python.observable()
-    @label = "Lp_{%(side)s}(%(book)s)"
     def LiquidityProvider(side = side.Sell(),
                           initialValue = 100.0,
                           priceDistr = mathutils.rnd.lognormvariate(0.0,0.1),

@@ -1,16 +1,16 @@
 @category = "Side"
 package side {
-    @label = "Sell"
+    
     @python.intrinsic("side._Sell_Impl")
     def Sell() : () => Side
         
     
-    @label = "Buy"
+    
     @python.intrinsic("side._Buy_Impl")
     def Buy() : () => Side
         
     
-    @label = "NoneSide"
+    
     @python.intrinsic("side._Buy_Impl")
     def Nothing() : () => Side
         
@@ -65,7 +65,7 @@ package mathops {@category = "Log/Pow"
         /** Arc tangent of x, in radians.
          *
          */
-        @label = "atan(%(x)s)"
+        
         @python.mathops("atan")
         def Atan(x : IFunction[Float] = constant(0.0)) : () => Float
             
@@ -186,31 +186,31 @@ package mathutils {
 }
 @category = "Order"
 package order {
-    @label = "Limit(%(side)s, %(price)s, %(volume)s)"
+    
     @python.order.factory("order.limit.Order_Impl")
     def Limit(side : () => Side = side.Sell(),
               price : IFunction[Float] = constant(100.0),
               volume : IFunction[Float] = constant(1.0)) : IObservable[Order]
         
     
-    @label = "ImmediateOrCancel(%(proto)s)"
+    
     @python.order.factory("order.meta.ioc.Order_Impl")
     def ImmediateOrCancel(proto : IObservable[Order] = order.Limit()) : IObservable[Order]
         
     
-    @label = "Market(%(side)s, %(volume)s)"
+    
     @python.order.factory("order.market.Order_Impl")
     def Market(side : () => Side = side.Sell(),
                volume : IFunction[Float] = constant(1.0)) : IObservable[Order]
         
     
-    @label = "StopLoss(%(maxloss)s, %(proto)s)"
+    
     @python.order.factory("order.meta.stoploss.Order_Impl")
     def StopLoss(maxloss : IObservable[Float] = const(0.1),
                  proto : IObservable[Order] = order.Market()) : IObservable[Order]
         
     
-    @label = "FixedBudget(%(side)s, %(budget)s)"
+    
     @python.order.factory("order.meta.fixed_budget.Order_Impl")
     def FixedBudget(side : () => Side = side.Sell(),
                     budget : IFunction[Float] = constant(1000.0)) : IObservable[Order]
@@ -219,7 +219,7 @@ package order {
 @category = "Basic"
 package observable {@category = "Price function"
     package pricefunc {
-        @label = "Lp_{%(side)s}(%(book)s)"
+        
         @python.observable()
         def LiquidityProvider(side : () => Side = side.Sell(),
                               initialValue : Float = 100.0,
@@ -230,7 +230,7 @@ package observable {@category = "Price function"
     }
     @category = "Side function"
     package sidefunc {
-        @label = "Pt_{%(factor)s*%(dependee)s}(%(book)s)"
+        
         @python.observable()
         def PairTrading(dependee : IOrderBook = observable.orderbook.OfTrader(),
                         factor : IFunction[Float] = constant(1.0),
@@ -238,14 +238,14 @@ package observable {@category = "Price function"
             
             	 = observable.sidefunc.FundamentalValue(observable.orderbook.MidPrice(dependee)*factor,book)
         
-        @label = "SignalSide_{%(threshold)s}(%(signal)s)"
+        
         @python.observable()
         def Signal(signal : IFunction[Float] = constant(),
                    threshold : Float = 0.7) : () => Side
             
             	 = if signal>const(threshold) then side.Buy() else if signal<const(0-threshold) then side.Sell() else side.Nothing()
         
-        @label = "CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)"
+        
         @python.observable()
         def CrossingAverages(alpha_1 : Float = 0.015,
                              alpha_2 : Float = 0.15,
@@ -254,7 +254,7 @@ package observable {@category = "Price function"
             
             	 = observable.sidefunc.Signal(observable.EW.Avg(observable.orderbook.MidPrice(book),alpha_1)-observable.EW.Avg(observable.orderbook.MidPrice(book),alpha_2),threshold)
         
-        @label = "Tf_{%(alpha)s}(%(book)s)"
+        
         @python.observable()
         def TrendFollower(alpha : Float = 0.015,
                           threshold : Float = 0.0,
@@ -262,21 +262,21 @@ package observable {@category = "Price function"
             
             	 = observable.sidefunc.Signal(Derivative(observable.EW.Avg(observable.orderbook.MidPrice(book),alpha)),threshold)
         
-        @label = "Fv_{%(fv)s}(%(book)s)"
+        
         @python.observable()
         def FundamentalValue(fv : IFunction[Float] = constant(200.0),
                              book : IOrderBook = observable.orderbook.OfTrader()) : () => Side
             
             	 = if observable.orderbook.BidPrice(book)>fv then side.Sell() else if observable.orderbook.AskPrice(book)<fv then side.Buy() else side.Nothing()
         
-        @label = "Mr_{%(alpha)s}(%(book)s)"
+        
         @python.observable()
         def MeanReversion(alpha : Float = 0.015,
                           book : IOrderBook = observable.orderbook.OfTrader()) : () => Side
             
             	 = observable.sidefunc.FundamentalValue(observable.EW.Avg(observable.orderbook.MidPrice(book),alpha),book)
         
-        @label = "Noise_{%(side_distribution)s}"
+        
         @python.observable()
         def Noise(side_distribution : IFunction[Float] = mathutils.rnd.uniform(0.0,1.0)) : () => Side
             
@@ -379,14 +379,14 @@ package observable {@category = "Price function"
     }
     @category = "Volume function"
     package volumefunc {
-        @label = "Dp_{%(trader)s}(%(desiredPosition)s)"
+        
         @python.observable()
         def DesiredPosition(desiredPosition : IObservable[Float] = const(),
                             trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IObservable[Float]
             
             	 = desiredPosition-observable.trader.Position(trader)-observable.trader.PendingVolume(trader)
         
-        @label = "Bl_{%(trader)s}(%(alpha)s)*%(k)s"
+        
         @python.observable()
         def Bollinger_linear(alpha : Float = 0.15,
                              k : IObservable[Float] = const(0.5),
@@ -394,7 +394,7 @@ package observable {@category = "Price function"
             
             	 = observable.volumefunc.DesiredPosition(observable.OnEveryDt(1.0,observable.EW.RelStdDev(observable.orderbook.MidPrice(observable.orderbook.OfTrader(trader)),alpha))*k,trader)
         
-        @label = "RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s"
+        
         @python.observable()
         def RSI_linear(alpha : Float = 1.0/14.0,
                        k : IObservable[Float] = const(-0.04),
@@ -405,7 +405,7 @@ package observable {@category = "Price function"
     }
     @category = "Asset's"
     package orderbook {
-        @label = "SafeSidePrice^{%(queue)s}"
+        
         @python.observable()
         def SafeSidePrice(queue : IOrderQueue = observable.orderbook.Asks(),
                           defaultValue : IFunction[Float] = constant(100.0)) : IObservable[Price]
@@ -419,18 +419,18 @@ package observable {@category = "Price function"
             
             	 = observable.EW.Avg(observable.orderbook.LastTradePrice(queue)*observable.orderbook.LastTradeVolume(queue),alpha)/observable.EW.Avg(observable.orderbook.LastTradeVolume(queue),alpha)
         
-        @label = "TickSize(%(book)s)"
+        
         @python.intrinsic("orderbook.props._TickSize_Impl")
         def TickSize(book : IOrderBook = observable.orderbook.OfTrader()) : () => Price
             
         
-        @label = "Ask_{%(book)s}"
+        @label = "LastAsk_{%(book)s}"
         @python()
         def AskLastPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable[Price]
             
             	 = observable.orderbook.LastPrice(observable.orderbook.Asks(book))
         
-        @label = "LastTradeBid^{%(book)s}"
+        
         @python()
         def BidLastTradePrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable[Price]
             
@@ -443,13 +443,13 @@ package observable {@category = "Price function"
             
             	 = observable.orderbook.WeightedPrice(observable.orderbook.Asks(book),alpha)
         
-        @label = "MidPrice_{%(book)s}"
+        
         @python()
         def MidPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable[Price]
             
             	 = observable.ObservablePrice((observable.orderbook.AskPrice(book)+observable.orderbook.BidPrice(book))/const(2.0))
         
-        @label = "Asks(%(book)s)"
+        
         @python.intrinsic("orderbook.queue._Asks_Impl")
         def Asks(book : IOrderBook = observable.orderbook.OfTrader()) : IOrderQueue
             
@@ -468,7 +468,7 @@ package observable {@category = "Price function"
             
             	 = observable.orderbook.BestPrice(observable.orderbook.Asks(book))
         
-        @label = "LastTradeVolume(%(queue)s)"
+        
         @python.intrinsic("orderbook.last_trade._LastTradeVolume_Impl")
         def LastTradeVolume(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable[Volume]
             
@@ -479,18 +479,18 @@ package observable {@category = "Price function"
             
             	 = observable.orderbook.BestPrice(observable.orderbook.Bids(book))
         
-        @label = "Bids(%(book)s)"
+        
         @python.intrinsic("orderbook.queue._Bids_Impl")
         def Bids(book : IOrderBook = observable.orderbook.OfTrader()) : IOrderQueue
             
             	 = observable.orderbook.Queue(book,side.Buy())
         
-        @label = "Price(%(queue)s)"
+        
         @python.intrinsic("orderbook.props._BestPrice_Impl")
         def BestPrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable[Price]
             
         
-        @label = "Queue(%(book)s)"
+        
         @python.intrinsic("orderbook.queue._Queue_Impl")
         def Queue(book : IOrderBook = observable.orderbook.OfTrader(),
                   side : () => Side = side.Sell()) : IOrderQueue
@@ -501,19 +501,19 @@ package observable {@category = "Price function"
         def OfTrader(Trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IOrderBook
             
         
-        @label = "LastTradeAsk_{%(book)s}"
+        
         @python()
         def AskLastTradePrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable[Price]
             
             	 = observable.orderbook.LastTradePrice(observable.orderbook.Asks(book))
         
-        @label = "Bid^{%(book)s}"
+        @label = "LastBid^{%(book)s}"
         @python()
         def BidLastPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable[Price]
             
             	 = observable.orderbook.LastPrice(observable.orderbook.Bids(book))
         
-        @label = "CumulativePrice(%(book)s, %(depth)s)"
+        
         @python.intrinsic("orderbook.cumulative_price.CumulativePrice_Impl")
         def CumulativePrice(book : IOrderBook = observable.orderbook.OfTrader(),
                             depth : IFunction[Float] = constant()) : IObservable[Price]
@@ -526,25 +526,25 @@ package observable {@category = "Price function"
                          volumeCount : Int = 10) : IFunction[VolumeLevels]
             
         
-        @label = "LastPrice(%(queue)s)"
+        
         @python.intrinsic("orderbook.last_price._LastPrice_Impl")
         def LastPrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable[Price]
             
         
-        @label = "NaiveCumulativePrice(%(book)s, %(depth)s)"
+        
         @python()
         def NaiveCumulativePrice(book : IOrderBook = observable.orderbook.OfTrader(),
                                  depth : IFunction[Float] = constant()) : IObservable[Price]
             
             	 = observable.ObservablePrice(if depth<const(0.0) then depth*observable.orderbook.AskPrice(book) else if depth>const(0.0) then depth*observable.orderbook.BidPrice(book) else const(0.0))
         
-        @label = "Spread_{%(book)s}"
+        
         @python()
         def Spread(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable[Price]
             
             	 = observable.ObservablePrice(observable.orderbook.AskPrice(book)-observable.orderbook.BidPrice(book))
         
-        @label = "LastTradePrice(%(queue)s)"
+        
         @python.intrinsic("orderbook.last_trade._LastTradePrice_Impl")
         def LastTradePrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable[Price]
             
@@ -712,7 +712,7 @@ package observable {@category = "Price function"
               end : String = "2010-1-1") : IObservable[Price]
         
     
-    
+    @label = "CandleSticks(%(source)s)"
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
     def CandleSticks(source : IObservable[Float] = const(),
                      timeframe : Float = 10.0) : IObservable[CandleStick]
@@ -793,7 +793,7 @@ package  {
         
         	 = const(x)
     
-    @label = "Null"
+    
     @python.intrinsic("_constant._Null_Impl")
     def null() : () => Float
         

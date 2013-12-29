@@ -24,5 +24,5 @@ class Queue(_Queue_Impl):
         
     }
     def __repr__(self):
-        return "Queue(%(book)s)" % self.__dict__
+        return "Queue(%(book)s, %(side)s)" % self.__dict__
     

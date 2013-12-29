@@ -89,7 +89,7 @@ package object base {
 
         def label_tmpl : Code = f.tryGetAttribute("label") match {
             case Some(x) => x
-            case None => s"$name($repr_fields)"
+            case None => name ||| (if (parameters.isEmpty) "" else s"($repr_fields)")
         }
 
 

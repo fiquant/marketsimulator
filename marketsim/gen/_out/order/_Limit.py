@@ -96,7 +96,7 @@ class LimitSigned(IOrderGenerator, Observable[Order]):
         'price' : IFunction[float]
     }
     def __repr__(self):
-        return "Limit(%(side)s, %(price)s, %(volume)s)" % self.__dict__
+        return "LimitSigned(%(signedVolume)s, %(price)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         from marketsim.gen._intrinsic.order.limit import Order_Impl

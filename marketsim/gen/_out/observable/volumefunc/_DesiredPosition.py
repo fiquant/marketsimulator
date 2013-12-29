@@ -30,7 +30,7 @@ class DesiredPosition(Observable[float]):
         'trader' : ISingleAssetTrader
     }
     def __repr__(self):
-        return "Dp_{%(trader)s}(%(desiredPosition)s)" % self.__dict__
+        return "DesiredPosition(%(desiredPosition)s, %(trader)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):

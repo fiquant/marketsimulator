@@ -30,7 +30,7 @@ class TrendFollower(Observable[Side]):
         'book' : IOrderBook
     }
     def __repr__(self):
-        return "Tf_{%(alpha)s}(%(book)s)" % self.__dict__
+        return "TrendFollower(%(alpha)s, %(threshold)s, %(book)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):

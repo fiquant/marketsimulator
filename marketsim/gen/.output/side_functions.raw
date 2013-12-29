@@ -66,9 +66,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Noise_{%(side_distribution)s}
 | | | | - FunDef:
 | | | | | - Signal
 | | | | | - List:
@@ -135,9 +132,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - SignalSide_{%(threshold)s}(%(signal)s)
 | | | | - FunDef:
 | | | | | - TrendFollower
 | | | | | - List:
@@ -204,9 +198,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Tf_{%(alpha)s}(%(book)s)
 | | | | - FunDef:
 | | | | | - CrossingAverages
 | | | | | - List:
@@ -293,9 +284,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)
 | | | | - FunDef:
 | | | | | - FundamentalValue
 | | | | | - List:
@@ -376,9 +364,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Fv_{%(fv)s}(%(book)s)
 | | | | - FunDef:
 | | | | | - MeanReversion
 | | | | | - List:
@@ -433,9 +418,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Mr_{%(alpha)s}(%(book)s)
 | | | | - FunDef:
 | | | | | - PairTrading
 | | | | | - List:
@@ -502,9 +484,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Pt_{%(factor)s*%(dependee)s}(%(book)s)
 | | - List:
 | | | - Attribute:
 | | | | - category

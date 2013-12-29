@@ -47,7 +47,6 @@ package {
      *
      */
     @python.mathops("atan")
-    @label = "atan(%(x)s)"
     def Atan(x = constant(0.0)) => Float
 
 }

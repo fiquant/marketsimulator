@@ -32,7 +32,7 @@ class CrossingAverages(Observable[Side]):
         'book' : IOrderBook
     }
     def __repr__(self):
-        return "CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)" % self.__dict__
+        return "CrossingAverages(%(alpha_1)s, %(alpha_2)s, %(threshold)s, %(book)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):

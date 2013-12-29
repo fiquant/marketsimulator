@@ -35,6 +35,7 @@ package observable
     def Quote(ticker = "^GSPC", start = "2001-1-1", end = "2010-1-1") : IObservable[Price]
 
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
+    @label = "CandleSticks(%(source)s)"
     def CandleSticks(source = const(), timeframe = 10.0) : IObservable[CandleStick]
 
     package Moving
@@ -71,7 +72,6 @@ package {
     def const(x = 1.0) : IObservable[Float]
 
     @python.intrinsic("_constant._Null_Impl")
-    @label = "Null"
     def null() => Float
 
     @python.observable
@@ -91,15 +91,12 @@ type Side
 package side
 {
     @python.intrinsic("side._Sell_Impl")
-    @label = "Sell"
     def Sell() => Side
 
     @python.intrinsic("side._Buy_Impl")
-    @label = "Buy"
     def Buy() => Side
 
     @python.intrinsic("side._Buy_Impl")
-    @label = "NoneSide"
     def Nothing() => Side
 }
 

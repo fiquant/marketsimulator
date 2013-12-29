@@ -26,7 +26,7 @@ class BidLastTradePrice(Observable[Price]):
         'book' : IOrderBook
     }
     def __repr__(self):
-        return "LastTradeBid^{%(book)s}" % self.__dict__
+        return "BidLastTradePrice(%(book)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):

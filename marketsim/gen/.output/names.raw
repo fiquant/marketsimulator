@@ -28,9 +28,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - side._Sell_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Sell
 | | | | - FunDef:
 | | | | | - Buy
 | | | | | - List:
@@ -52,9 +49,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - side._Buy_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Buy
 | | | | - FunDef:
 | | | | | - Nothing
 | | | | | - List:
@@ -76,9 +70,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - side._Buy_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - NoneSide
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -134,9 +125,6 @@ Definitions:
 | | | | | | | | | | | | - mathops
 | | | | | | | | | | - List:
 | | | | | | | | | | | - atan
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - atan(%(x)s)
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -826,9 +814,6 @@ Definitions:
 | | | | | | | | | - factory
 | | | | | | | - List:
 | | | | | | | | - order.limit.Order_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Limit(%(side)s, %(price)s, %(volume)s)
 | | | | - FunDef:
 | | | | | - ImmediateOrCancel
 | | | | | - List:
@@ -864,9 +849,6 @@ Definitions:
 | | | | | | | | | - factory
 | | | | | | | - List:
 | | | | | | | | - order.meta.ioc.Order_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - ImmediateOrCancel(%(proto)s)
 | | | | - FunDef:
 | | | | | - Market
 | | | | | - List:
@@ -915,9 +897,6 @@ Definitions:
 | | | | | | | | | - factory
 | | | | | | | - List:
 | | | | | | | | - order.market.Order_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Market(%(side)s, %(volume)s)
 | | | | - FunDef:
 | | | | | - StopLoss
 | | | | | - List:
@@ -965,9 +944,6 @@ Definitions:
 | | | | | | | | | - factory
 | | | | | | | - List:
 | | | | | | | | - order.meta.stoploss.Order_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - StopLoss(%(maxloss)s, %(proto)s)
 | | | | - FunDef:
 | | | | | - FixedBudget
 | | | | | - List:
@@ -1016,9 +992,6 @@ Definitions:
 | | | | | | | | | - factory
 | | | | | | | - List:
 | | | | | | | | - order.meta.fixed_budget.Order_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - FixedBudget(%(side)s, %(budget)s)
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -1122,9 +1095,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Lp_{%(side)s}(%(book)s)
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -1202,9 +1172,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Pt_{%(factor)s*%(dependee)s}(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Signal
 | | | | | | | | - List:
@@ -1271,9 +1238,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - SignalSide_{%(threshold)s}(%(signal)s)
 | | | | | | | - FunDef:
 | | | | | | | | - CrossingAverages
 | | | | | | | | - List:
@@ -1360,9 +1324,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - TrendFollower
 | | | | | | | | - List:
@@ -1429,9 +1390,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Tf_{%(alpha)s}(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - FundamentalValue
 | | | | | | | | - List:
@@ -1512,9 +1470,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Fv_{%(fv)s}(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - MeanReversion
 | | | | | | | | - List:
@@ -1569,9 +1524,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Mr_{%(alpha)s}(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Noise
 | | | | | | | | - List:
@@ -1630,9 +1582,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Noise_{%(side_distribution)s}
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -2466,9 +2415,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Dp_{%(trader)s}(%(desiredPosition)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Bollinger_linear
 | | | | | | | | - List:
@@ -2552,9 +2498,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Bl_{%(trader)s}(%(alpha)s)*%(k)s
 | | | | | | | - FunDef:
 | | | | | | | | - RSI_linear
 | | | | | | | | - List:
@@ -2649,9 +2592,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -2729,9 +2669,6 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - SafeSidePrice^{%(queue)s}
 | | | | | | | - FunDef:
 | | | | | | | | - WeightedPrice
 | | | | | | | | - List:
@@ -2836,9 +2773,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.props._TickSize_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - TickSize(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - AskLastPrice
 | | | | | | | | - List:
@@ -2875,7 +2809,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
-| | | | | | | | | | - Ask_{%(book)s}
+| | | | | | | | | | - LastAsk_{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - BidLastTradePrice
 | | | | | | | | - List:
@@ -2910,9 +2844,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
 | | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - LastTradeBid^{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - AskWeightedPrice
 | | | | | | | | - List:
@@ -3006,9 +2937,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
 | | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - MidPrice_{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - Asks
 | | | | | | | | - List:
@@ -3046,9 +2974,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.queue._Asks_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Asks(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - BidWeightedPrice
 | | | | | | | | - List:
@@ -3166,9 +3091,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.last_trade._LastTradeVolume_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - LastTradeVolume(%(queue)s)
 | | | | | | | - FunDef:
 | | | | | | | | - BidPrice
 | | | | | | | | - List:
@@ -3243,9 +3165,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.queue._Bids_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Bids(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - BestPrice
 | | | | | | | | - List:
@@ -3280,9 +3199,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.props._BestPrice_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Price(%(queue)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Queue
 | | | | | | | | - List:
@@ -3323,9 +3239,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.queue._Queue_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Queue(%(book)s)
 | | | | | | | - FunDef:
 | | | | | | | | - OfTrader
 | | | | | | | | - List:
@@ -3393,9 +3306,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
 | | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - LastTradeAsk_{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - BidLastPrice
 | | | | | | | | - List:
@@ -3432,7 +3342,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
-| | | | | | | | | | - Bid^{%(book)s}
+| | | | | | | | | | - LastBid^{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - CumulativePrice
 | | | | | | | | - List:
@@ -3477,9 +3387,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.cumulative_price.CumulativePrice_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - CumulativePrice(%(book)s, %(depth)s)
 | | | | | | | - FunDef:
 | | | | | | | | - VolumeLevels
 | | | | | | | | - List:
@@ -3565,9 +3472,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.last_price._LastPrice_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - LastPrice(%(queue)s)
 | | | | | | | - FunDef:
 | | | | | | | | - NaiveCumulativePrice
 | | | | | | | | - List:
@@ -3643,9 +3547,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
 | | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - NaiveCumulativePrice(%(book)s, %(depth)s)
 | | | | | | | - FunDef:
 | | | | | | | | - Spread
 | | | | | | | | - List:
@@ -3689,9 +3590,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - python
 | | | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Spread_{%(book)s}
 | | | | | | | - FunDef:
 | | | | | | | | - LastTradePrice
 | | | | | | | | - List:
@@ -3726,9 +3624,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook.last_trade._LastTradePrice_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - LastTradePrice(%(queue)s)
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -4964,6 +4859,9 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - observable.candlestick.CandleSticks_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - CandleSticks(%(source)s)
 | | | | - FunDef:
 | | | | | - ObservablePrice
 | | | | | - List:
@@ -5466,9 +5364,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - _constant._Null_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Null
 | | | | - FunDef:
 | | | | | - const
 | | | | | - List:

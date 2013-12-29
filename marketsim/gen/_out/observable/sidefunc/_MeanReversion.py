@@ -28,7 +28,7 @@ class MeanReversion(Observable[Side]):
         'book' : IOrderBook
     }
     def __repr__(self):
-        return "Mr_{%(alpha)s}(%(book)s)" % self.__dict__
+        return "MeanReversion(%(alpha)s, %(book)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):

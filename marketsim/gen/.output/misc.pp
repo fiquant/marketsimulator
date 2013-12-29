@@ -48,6 +48,7 @@ package observable {
         
     
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
+    @label = "CandleSticks(%(source)s)"
     def CandleSticks(source = const(),
                      timeframe = 10.0) : IObservable[CandleStick]
         
@@ -94,7 +95,6 @@ package  {
         
     
     @python.intrinsic("_constant._Null_Impl")
-    @label = "Null"
     def null() : () => Float
         
     
@@ -115,17 +115,14 @@ type Side
 
 package side {
     @python.intrinsic("side._Sell_Impl")
-    @label = "Sell"
     def Sell() : () => Side
         
     
     @python.intrinsic("side._Buy_Impl")
-    @label = "Buy"
     def Buy() : () => Side
         
     
     @python.intrinsic("side._Buy_Impl")
-    @label = "NoneSide"
     def Nothing() : () => Side
         
 }

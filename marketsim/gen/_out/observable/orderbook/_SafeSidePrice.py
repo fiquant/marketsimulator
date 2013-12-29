@@ -30,7 +30,7 @@ class SafeSidePrice(Observable[Price]):
         'defaultValue' : IFunction[float]
     }
     def __repr__(self):
-        return "SafeSidePrice^{%(queue)s}" % self.__dict__
+        return "SafeSidePrice(%(queue)s, %(defaultValue)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):

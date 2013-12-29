@@ -2,19 +2,16 @@
 package observable.sidefunc
 {
     @python.observable
-    @label = "Noise_{%(side_distribution)s}"
     def Noise(side_distribution : IFunction[Float] = mathutils.rnd.uniform(0., 1.)) =
         if side_distribution > 0.5 then side.Sell() else side.Buy()
 
     @python.observable
-    @label = "SignalSide_{%(threshold)s}(%(signal)s)"
     def Signal(signal = constant(), threshold = 0.7) =
         if signal >   threshold then side.Buy()  else
         if signal < 0-threshold then side.Sell() else
                                      side.Nothing()
 
     @python.observable
-    @label = "Tf_{%(alpha)s}(%(book)s)"
     def TrendFollower(
         alpha = 0.015,
         threshold = 0.,
@@ -23,7 +20,6 @@ package observable.sidefunc
         = Signal(Derivative(EW.Avg(orderbook.MidPrice(book), alpha)), threshold)
 
     @python.observable
-    @label = "CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)"
     def CrossingAverages(
         alpha_1 = 0.015,
         alpha_2 = 0.15,
@@ -33,7 +29,6 @@ package observable.sidefunc
         = Signal(EW.Avg(orderbook.MidPrice(book), alpha_1) - EW.Avg(orderbook.MidPrice(book), alpha_2), threshold)
 
     @python.observable
-    @label = "Fv_{%(fv)s}(%(book)s)"
     def FundamentalValue(
         fv = constant(200.),
         book = orderbook.OfTrader())
@@ -43,7 +38,6 @@ package observable.sidefunc
                                                   side.Nothing()
 
     @python.observable
-    @label = "Mr_{%(alpha)s}(%(book)s)"
     def MeanReversion(
         alpha = 0.015,
         book = orderbook.OfTrader())
@@ -51,7 +45,6 @@ package observable.sidefunc
         =   FundamentalValue(EW.Avg(orderbook.MidPrice(book), alpha), book)
 
     @python.observable
-    @label = "Pt_{%(factor)s*%(dependee)s}(%(book)s)"
     def PairTrading(
         dependee = orderbook.OfTrader(),
         factor = constant(1.),

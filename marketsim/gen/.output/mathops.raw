@@ -245,9 +245,6 @@ Definitions:
 | | | | | | | | | | | | - mathops
 | | | | | | | | | | - List:
 | | | | | | | | | | | - atan
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - atan(%(x)s)
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category

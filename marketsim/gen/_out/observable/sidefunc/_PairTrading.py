@@ -34,7 +34,7 @@ class PairTrading(Observable[Side]):
         'book' : IOrderBook
     }
     def __repr__(self):
-        return "Pt_{%(factor)s*%(dependee)s}(%(book)s)" % self.__dict__
+        return "PairTrading(%(dependee)s, %(factor)s, %(book)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):

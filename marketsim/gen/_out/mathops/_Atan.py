@@ -23,7 +23,7 @@ class Atan(Observable[float]):
         'x' : IFunction[float]
     }
     def __repr__(self):
-        return "atan(%(x)s)" % self.__dict__
+        return "Atan(%(x)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import math

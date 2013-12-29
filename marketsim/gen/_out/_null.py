@@ -17,5 +17,5 @@ class null(Function[float], _Null_Impl):
         
     }
     def __repr__(self):
-        return "Null" % self.__dict__
+        return "null" % self.__dict__
     

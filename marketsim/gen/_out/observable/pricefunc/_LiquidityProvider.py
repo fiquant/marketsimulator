@@ -38,7 +38,7 @@ class LiquidityProvider(Observable[float]):
         'book' : IOrderBook
     }
     def __repr__(self):
-        return "Lp_{%(side)s}(%(book)s)" % self.__dict__
+        return "LiquidityProvider(%(side)s, %(initialValue)s, %(priceDistr)s, %(book)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):

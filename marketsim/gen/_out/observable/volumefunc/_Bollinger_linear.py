@@ -32,7 +32,7 @@ class Bollinger_linear(Observable[float]):
         'trader' : ISingleAssetTrader
     }
     def __repr__(self):
-        return "Bl_{%(trader)s}(%(alpha)s)*%(k)s" % self.__dict__
+        return "Bollinger_linear(%(alpha)s, %(k)s, %(trader)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):

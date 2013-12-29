@@ -18,5 +18,5 @@ class Nothing(Function[Side], _Buy_Impl):
         
     }
     def __repr__(self):
-        return "NoneSide" % self.__dict__
+        return "Nothing" % self.__dict__
     

@@ -28,7 +28,7 @@ class Signal(Observable[Side]):
         'threshold' : float
     }
     def __repr__(self):
-        return "SignalSide_{%(threshold)s}(%(signal)s)" % self.__dict__
+        return "Signal(%(signal)s, %(threshold)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):

@@ -81,9 +81,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - orderbook.queue._Queue_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Queue(%(book)s)
 | | | | - FunDef:
 | | | | | - Asks
 | | | | | - List:
@@ -121,9 +118,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - orderbook.queue._Asks_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Asks(%(book)s)
 | | | | - FunDef:
 | | | | | - Bids
 | | | | | - List:
@@ -161,9 +155,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - orderbook.queue._Bids_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Bids(%(book)s)
 | | | | - FunDef:
 | | | | | - BestPrice
 | | | | | - List:
@@ -198,9 +189,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - orderbook.props._BestPrice_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Price(%(queue)s)
 | | | | - FunDef:
 | | | | | - AskPrice
 | | | | | - List:
@@ -309,9 +297,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - orderbook.last_price._LastPrice_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - LastPrice(%(queue)s)
 | | | | - FunDef:
 | | | | | - AskLastPrice
 | | | | | - List:
@@ -348,7 +333,7 @@ Definitions:
 | | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
-| | | | | | | - Ask_{%(book)s}
+| | | | | | | - LastAsk_{%(book)s}
 | | | | - FunDef:
 | | | | | - BidLastPrice
 | | | | | - List:
@@ -385,7 +370,7 @@ Definitions:
 | | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
-| | | | | | | - Bid^{%(book)s}
+| | | | | | | - LastBid^{%(book)s}
 | | | | - FunDef:
 | | | | | - LastTradePrice
 | | | | | - List:
@@ -420,9 +405,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - orderbook.last_trade._LastTradePrice_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - LastTradePrice(%(queue)s)
 | | | | - FunDef:
 | | | | | - AskLastTradePrice
 | | | | | - List:
@@ -457,9 +439,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - LastTradeAsk_{%(book)s}
 | | | | - FunDef:
 | | | | | - BidLastTradePrice
 | | | | | - List:
@@ -494,9 +473,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - LastTradeBid^{%(book)s}
 | | | | - FunDef:
 | | | | | - LastTradeVolume
 | | | | | - List:
@@ -531,9 +507,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - orderbook.last_trade._LastTradeVolume_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - LastTradeVolume(%(queue)s)
 | | | | - FunDef:
 | | | | | - SafeSidePrice
 | | | | | - List:
@@ -600,9 +573,6 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - SafeSidePrice^{%(queue)s}
 | | | | - FunDef:
 | | | | | - WeightedPrice
 | | | | | - List:
@@ -799,9 +769,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - orderbook.props._TickSize_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - TickSize(%(book)s)
 | | | | - FunDef:
 | | | | | - Spread
 | | | | | - List:
@@ -845,9 +812,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Spread_{%(book)s}
 | | | | - FunDef:
 | | | | | - MidPrice
 | | | | | - List:
@@ -895,9 +859,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - MidPrice_{%(book)s}
 | | | | - FunDef:
 | | | | | - CumulativePrice
 | | | | | - List:
@@ -942,9 +903,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - orderbook.cumulative_price.CumulativePrice_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - CumulativePrice(%(book)s, %(depth)s)
 | | | | - FunDef:
 | | | | | - VolumeLevels
 | | | | | - List:
@@ -1071,9 +1029,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - NaiveCumulativePrice(%(book)s, %(depth)s)
 | | - List:
 | | | - Attribute:
 | | | | - category

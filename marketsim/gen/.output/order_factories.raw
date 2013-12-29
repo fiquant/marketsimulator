@@ -55,9 +55,6 @@ Definitions:
 | | | | | | | | | - factory
 | | | | | | | - List:
 | | | | | | | | - order.market.Order_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Market(%(side)s, %(volume)s)
 | | | | - FunDef:
 | | | | | - Limit
 | | | | | - List:
@@ -118,9 +115,6 @@ Definitions:
 | | | | | | | | | - factory
 | | | | | | | - List:
 | | | | | | | | - order.limit.Order_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Limit(%(side)s, %(price)s, %(volume)s)
 | | | | - FunDef:
 | | | | | - FixedBudget
 | | | | | - List:
@@ -169,9 +163,6 @@ Definitions:
 | | | | | | | | | - factory
 | | | | | | | - List:
 | | | | | | | | - order.meta.fixed_budget.Order_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - FixedBudget(%(side)s, %(budget)s)
 | | | | - FunDef:
 | | | | | - ImmediateOrCancel
 | | | | | - List:
@@ -207,9 +198,6 @@ Definitions:
 | | | | | | | | | - factory
 | | | | | | | - List:
 | | | | | | | | - order.meta.ioc.Order_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - ImmediateOrCancel(%(proto)s)
 | | | | - FunDef:
 | | | | | - StopLoss
 | | | | | - List:
@@ -257,9 +245,6 @@ Definitions:
 | | | | | | | | | - factory
 | | | | | | | - List:
 | | | | | | | | - order.meta.stoploss.Order_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - StopLoss(%(maxloss)s, %(proto)s)
 | | - List:
 | | | - Attribute:
 | | | | - category

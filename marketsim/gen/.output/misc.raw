@@ -410,6 +410,9 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - observable.candlestick.CandleSticks_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - CandleSticks(%(source)s)
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:
@@ -715,9 +718,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - _constant._Null_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Null
 | | | | - FunDef:
 | | | | | - IfDefined
 | | | | | - List:
@@ -844,9 +844,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - side._Sell_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Sell
 | | | | - FunDef:
 | | | | | - Buy
 | | | | | - List:
@@ -868,9 +865,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - side._Buy_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Buy
 | | | | - FunDef:
 | | | | | - Nothing
 | | | | | - List:
@@ -892,9 +886,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - side._Buy_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - NoneSide
 | | - List:
 | | | - Attribute:
 | | | | - category

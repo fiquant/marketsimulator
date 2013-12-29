@@ -21,9 +21,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Sell
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -45,9 +42,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Buy
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -69,9 +63,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - NoneSide
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -381,9 +372,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - 
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - atan(%(x)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -994,9 +982,6 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Limit(%(side)s, %(price)s, %(volume)s)
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -1043,9 +1028,6 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - ImmediateOrCancel(%(proto)s)
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -1111,9 +1093,6 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Market(%(side)s, %(volume)s)
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -1182,9 +1161,6 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - StopLoss(%(maxloss)s, %(proto)s)
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -1250,9 +1226,6 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - FixedBudget(%(side)s, %(budget)s)
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -1395,9 +1368,6 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Lp_{%(side)s}(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -1507,9 +1477,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Pt_{%(factor)s*%(dependee)s}(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -1608,9 +1575,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - SignalSide_{%(threshold)s}(%(signal)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -1731,9 +1695,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - CrAvg_{%(alpha_1)s}^{%(alpha_2)s}(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -1827,9 +1788,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Tf_{%(alpha)s}(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -1935,9 +1893,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Fv_{%(fv)s}(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -2014,9 +1969,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Mr_{%(alpha)s}(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -2087,9 +2039,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Noise_{%(side_distribution)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3231,9 +3180,6 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Dp_{%(trader)s}(%(desiredPosition)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3354,9 +3300,6 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Bl_{%(trader)s}(%(alpha)s)*%(k)s
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3496,9 +3439,6 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - RSI_{%(trader)s}(%(alpha)s, %(timeframe)s)*%(k)s
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3608,9 +3548,6 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - SafeSidePrice^{%(queue)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3751,9 +3688,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - TickSize(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3813,7 +3747,7 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
-| | | | | | | | | | - Ask_{%(book)s}
+| | | | | | | | | | - LastAsk_{%(book)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -3869,9 +3803,6 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - LastTradeBid^{%(book)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4018,9 +3949,6 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - MidPrice_{%(book)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4070,9 +3998,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Asks(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4244,9 +4169,6 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - LastTradeVolume(%(queue)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4356,9 +4278,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Bids(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4400,9 +4319,6 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Price(%(queue)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4457,9 +4373,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Queue(%(book)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4556,9 +4469,6 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - LastTradeAsk_{%(book)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4616,7 +4526,7 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
-| | | | | | | | | | - Bid^{%(book)s}
+| | | | | | | | | | - LastBid^{%(book)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4676,9 +4586,6 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - CumulativePrice(%(book)s, %(depth)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4788,9 +4695,6 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - LastPrice(%(queue)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4915,9 +4819,6 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - NaiveCumulativePrice(%(book)s, %(depth)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -4983,9 +4884,6 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Spread_{%(book)s}
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -5025,9 +4923,6 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - LastTradePrice(%(queue)s)
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -6774,6 +6669,9 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - CandleSticks(%(source)s)
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -7354,9 +7252,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Null
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:

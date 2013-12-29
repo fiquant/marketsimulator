@@ -51,7 +51,6 @@ package mathops {@category = "Log/Pow"
          *
          */
         @python.mathops("atan")
-        @label = "atan(%(x)s)"
         def Atan(x = constant(0.0)) : () => Float
             
     }

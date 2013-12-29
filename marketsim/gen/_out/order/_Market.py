@@ -77,7 +77,7 @@ class MarketSigned(IOrderGenerator, Observable[Order]):
         'signedVolume' : IFunction[float]
     }
     def __repr__(self):
-        return "Market(%(side)s, %(volume)s)" % self.__dict__
+        return "MarketSigned(%(signedVolume)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         from marketsim.gen._intrinsic.order.market import Order_Impl

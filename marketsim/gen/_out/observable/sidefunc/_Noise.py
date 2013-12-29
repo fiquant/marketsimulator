@@ -26,7 +26,7 @@ class Noise(Observable[Side]):
         'side_distribution' : IFunction[float]
     }
     def __repr__(self):
-        return "Noise_{%(side_distribution)s}" % self.__dict__
+        return "Noise(%(side_distribution)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):

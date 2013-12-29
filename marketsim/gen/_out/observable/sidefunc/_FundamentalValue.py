@@ -30,7 +30,7 @@ class FundamentalValue(Observable[Side]):
         'book' : IOrderBook
     }
     def __repr__(self):
-        return "Fv_{%(fv)s}(%(book)s)" % self.__dict__
+        return "FundamentalValue(%(fv)s, %(book)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):

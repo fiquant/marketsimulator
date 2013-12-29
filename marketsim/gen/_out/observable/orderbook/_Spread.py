@@ -26,7 +26,7 @@ class Spread(Observable[Price]):
         'book' : IOrderBook
     }
     def __repr__(self):
-        return "Spread_{%(book)s}" % self.__dict__
+        return "Spread(%(book)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):
