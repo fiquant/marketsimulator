@@ -32,15 +32,14 @@ object order_factory extends gen.PythonGenerator
             s"if $name is None: return None" |
             check_none_aux(name)
 
-
-        override def call = p.name match {
-            case "signedVolume" => "side, volume"
-            case _ => name
-        }
+        override def call = name
 
     }
 
-    case class Import(args : List[String], f : Typed.Function) extends base.Printer
+    case class Import(args  : List[String],
+                      f     : Typed.Function,
+                      call_override : Option[Code] = None)
+            extends base.Printer
     {
         val name = f.name
 
@@ -74,6 +73,11 @@ object order_factory extends gen.PythonGenerator
         override def init_body = base_class ||| ".__init__(self)" | super.init_body
 
         def nullable_fields = join_fields({ _.nullable}, crlf)
+
+        override def call_fields = call_override match {
+            case Some(x) => x
+            case None    => super.call_fields
+        }
 
         override def call_body = nullable_fields |
                 s"""return $implementation_class($call_fields)""" |||
@@ -112,7 +116,8 @@ object order_factory extends gen.PythonGenerator
                                             volume.ty,
                                             volume.initializer,
                                             volume.comment) :: rest
-                                )
+                                ),
+                            Some(original.call_fields)
                             ).toString
                     case _ => ""
                 })
