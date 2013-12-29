@@ -89,8 +89,19 @@ object order_factory extends gen.PythonGenerator
 
         def name = original.name
 
-        override def toString = original.toString + crlf + (f.parameters match {
-                    case s :: v :: tl if s.name == "side" && v.name == "volume" =>
+        def extractSideVolume(parameters : List[Typed.Parameter]) =
+        {
+            val (side, rest_0) = parameters.partition({ _.name == "side"})
+            val (volume, rest_1) = rest_0.partition({ _.name == "volume" })
+
+            if (side.length == 1 && volume.length == 1)
+                Some((side(0), volume(0), rest_1))
+            else
+                None
+        }
+
+        override def toString = original.toString + crlf + (extractSideVolume(f.parameters) match {
+                    case Some((side, volume, rest)) =>
                         new Import(
                             args,
                             f.copy(
@@ -98,9 +109,9 @@ object order_factory extends gen.PythonGenerator
                                 parameters =
                                         Typed.Parameter(
                                             "signedVolume",
-                                            v.ty,
-                                            v.initializer,
-                                            v.comment) :: tl
+                                            volume.ty,
+                                            volume.initializer,
+                                            volume.comment) :: rest
                                 )
                             ).toString
                     case _ => ""
