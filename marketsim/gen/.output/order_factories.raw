@@ -210,6 +210,56 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - ImmediateOrCancel(%(proto)s)
+| | | | - FunDef:
+| | | | | - StopLoss
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - maxloss
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 0.1
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - proto
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Market
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Order
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | - List:
+| | | | | | | | - order.meta.stoploss.Order_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - StopLoss(%(maxloss)s, %(proto)s)
 | | - List:
 | | | - Attribute:
 | | | | - category

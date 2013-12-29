@@ -767,57 +767,6 @@ Definitions:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
-| | | | | - Market
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - side
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - side
-| | | | | | | | | | | - Sell
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - volume
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - constant
-| | | | | | | | | - List:
-| | | | | | | | | | - FloatLit:
-| | | | | | | | | | | - 1.0
-| | | | | | | - List:
-| | | | | - None
-| | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - IObservable
-| | | | | | | - List:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Order
-| | | | | | | | | - List:
-| | | | | - None
-| | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - order
-| | | | | | | | | - factory
-| | | | | | | - List:
-| | | | | | | | - order.market.Order_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Market(%(side)s, %(volume)s)
-| | | | - FunDef:
 | | | | | - Limit
 | | | | | - List:
 | | | | | | - Parameter:
@@ -881,6 +830,145 @@ Definitions:
 | | | | | | | - label
 | | | | | | | - Limit(%(side)s, %(price)s, %(volume)s)
 | | | | - FunDef:
+| | | | | - ImmediateOrCancel
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - proto
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Limit
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Order
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | - List:
+| | | | | | | | - order.meta.ioc.Order_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - ImmediateOrCancel(%(proto)s)
+| | | | - FunDef:
+| | | | | - Market
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - side
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Sell
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - volume
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Order
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | - List:
+| | | | | | | | - order.market.Order_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Market(%(side)s, %(volume)s)
+| | | | - FunDef:
+| | | | | - StopLoss
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - maxloss
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 0.1
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - proto
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Market
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Order
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | - List:
+| | | | | | | | - order.meta.stoploss.Order_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - StopLoss(%(maxloss)s, %(proto)s)
+| | | | - FunDef:
 | | | | | - FixedBudget
 | | | | | - List:
 | | | | | | - Parameter:
@@ -931,44 +1019,6 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - FixedBudget(%(side)s, %(budget)s)
-| | | | - FunDef:
-| | | | | - ImmediateOrCancel
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - proto
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Limit
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | - None
-| | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - IObservable
-| | | | | | | - List:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Order
-| | | | | | | | | - List:
-| | | | | - None
-| | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - order
-| | | | | | | | | - factory
-| | | | | | | - List:
-| | | | | | | | - order.meta.ioc.Order_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - ImmediateOrCancel(%(proto)s)
 | | - List:
 | | | - Attribute:
 | | | | - category

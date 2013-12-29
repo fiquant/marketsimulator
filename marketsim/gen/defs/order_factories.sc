@@ -17,4 +17,7 @@ package order
     @label = "ImmediateOrCancel(%(proto)s)"
     def ImmediateOrCancel(proto = Limit()) : IObservable[Order]
 
+    @python.order.factory("order.meta.stoploss.Order_Impl")
+    @label = "StopLoss(%(maxloss)s, %(proto)s)"
+    def StopLoss(maxloss = const(0.1), proto = Market()) : IObservable[Order]
 }

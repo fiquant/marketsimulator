@@ -186,12 +186,6 @@ package mathutils {
 }
 @category = "Order"
 package order {
-    @label = "Market(%(side)s, %(volume)s)"
-    @python.order.factory("order.market.Order_Impl")
-    def Market(side : () => Side = side.Sell(),
-               volume : IFunction[Float] = constant(1.0)) : IObservable[Order]
-        
-    
     @label = "Limit(%(side)s, %(price)s, %(volume)s)"
     @python.order.factory("order.limit.Order_Impl")
     def Limit(side : () => Side = side.Sell(),
@@ -199,15 +193,27 @@ package order {
               volume : IFunction[Float] = constant(1.0)) : IObservable[Order]
         
     
+    @label = "ImmediateOrCancel(%(proto)s)"
+    @python.order.factory("order.meta.ioc.Order_Impl")
+    def ImmediateOrCancel(proto : IObservable[Order] = order.Limit()) : IObservable[Order]
+        
+    
+    @label = "Market(%(side)s, %(volume)s)"
+    @python.order.factory("order.market.Order_Impl")
+    def Market(side : () => Side = side.Sell(),
+               volume : IFunction[Float] = constant(1.0)) : IObservable[Order]
+        
+    
+    @label = "StopLoss(%(maxloss)s, %(proto)s)"
+    @python.order.factory("order.meta.stoploss.Order_Impl")
+    def StopLoss(maxloss : IObservable[Float] = const(0.1),
+                 proto : IObservable[Order] = order.Market()) : IObservable[Order]
+        
+    
     @label = "FixedBudget(%(side)s, %(budget)s)"
     @python.order.factory("order.meta.fixed_budget.Order_Impl")
     def FixedBudget(side : () => Side = side.Sell(),
                     budget : IFunction[Float] = constant(1000.0)) : IObservable[Order]
-        
-    
-    @label = "ImmediateOrCancel(%(proto)s)"
-    @python.order.factory("order.meta.ioc.Order_Impl")
-    def ImmediateOrCancel(proto : IObservable[Order] = order.Limit()) : IObservable[Order]
         
 }
 @category = "Basic"
