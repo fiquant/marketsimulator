@@ -35,12 +35,27 @@ object order_factory extends gen.PythonGenerator
         override def call = name
     }
 
-    class Factory(val args   : List[String],
-                  val f      : Typed.Function)
-            extends base.Printer
+    abstract class FactoryBase(val f : Typed.Function)
+        extends base.Printer
     {
-        val name = f.name
+        def name = f.name
 
+        val docstring  = f.docstring match {
+            case Some(d) => d.detailed
+            case None => Nil
+        }
+
+        def alias = name
+
+        def ty = f.ret_type.returnTypeIfFunction.get.asPython
+
+        override def body = super.body | call
+    }
+
+    class Factory(val args  : List[String],
+                  _f        : Typed.Function)
+            extends FactoryBase(_f)
+    {
         if (args.length != 1)
             throw new Exception(s"Annotation $name should have 1 arguments in" +
                     " form (implementation_class)" + "\r\n" + "In function " + f)
@@ -50,21 +65,14 @@ object order_factory extends gen.PythonGenerator
         val implementation_class  =args(0).substring(last_dot_idx + 1)
 
         val parameters  = f.parameters map Parameter
-        val docstring  = f.docstring match {
-            case Some(d) => d.detailed
-            case None => Nil
-        }
 
         type Parameter = order_factory.Parameter
-        val alias = name
 
-        val ty = f.ret_type.returnTypeIfFunction.get.asPython
-
-        override val base_class = s"Observable[$ty]" |||
+        override def base_class = s"Observable[$ty]" |||
                                     ImportFrom(ty, "marketsim") |||
                                     ImportFrom("Observable", "marketsim.ops._all")
 
-        override val base_classes = "IOrderGenerator, " ||| ImportFrom("IOrderGenerator", "marketsim") ||| base_class
+        override def base_classes = "IOrderGenerator, " ||| ImportFrom("IOrderGenerator", "marketsim") ||| base_class
 
         override def init_body = base_class ||| ".__init__(self)" | super.init_body
 
@@ -73,9 +81,6 @@ object order_factory extends gen.PythonGenerator
         override def call_body = nullable_fields |
                 s"""return $implementation_class($call_fields)""" |||
                 ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
-
-
-        override def body = super.body | call
     }
 
     class SignedFactory(side        : Typed.Parameter,
@@ -93,6 +98,38 @@ object order_factory extends gen.PythonGenerator
 
         override val name = original.name + "Signed"
         override val alias = name
+    }
+
+    case class PartialFactoryParameter(p : Typed.Parameter) extends base.Parameter
+    {
+        def call_body_assign = s"$name = self.$name"
+
+        def call_body_assign_arg = s"$name = $name" ||| assign_if_none
+    }
+
+
+    class Side_Factory(side     : Typed.Parameter,
+                       rest     : List[Typed.Parameter],
+                       original : Factory)
+            extends FactoryBase(original.f)
+    {
+        override type Parameter = PartialFactoryParameter
+        val parameters  = rest map PartialFactoryParameter
+
+        override def name = "Side_" + original.name
+        override def alias = original.alias
+
+        override def registration = super.registration |
+            "@sig((IFunction[Side],), IOrderGenerator)" |||
+            ImportFrom("sig", "marketsim.types")
+
+        def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
+
+        override def call_body = PartialFactoryParameter(side).call_body_assign_arg |
+                call_body_assignments |
+                s"""return ${original.name}(${original.call_fields})"""
+
+        override def call_args = "side = None"
     }
 
     class WithSignedOpt(args : List[String], f : Typed.Function) extends gen.GenerationUnit
@@ -122,9 +159,15 @@ object order_factory extends gen.PythonGenerator
                 None
         }
 
-        override def toString = original.toString + crlf + (extractSideVolume(f.parameters) match {
+        override def toString = original.toString + crlf +
+                (extractSideVolume(f.parameters) match {
                     case Some((side, volume, rest)) =>
                         new SignedFactory(side, volume, rest, original).toString
+                    case _ => ""
+                }) + crlf +
+                (extractSide(f.parameters) match {
+                    case Some((side, rest)) =>
+                        new Side_Factory(side, rest, original).toString
                     case _ => ""
                 })
     }

@@ -111,3 +111,36 @@ class LimitSigned(IOrderGenerator, Observable[Order]):
         
         return Order_Impl(side, price, volume)
     
+from marketsim import registry
+from marketsim.types import sig
+from marketsim import IFunction
+from marketsim import IFunction
+@registry.expose(["Order", "Limit"])
+@sig((IFunction[Side],), IOrderGenerator)
+class Side_Limit(object):
+    """ 
+    """ 
+    def __init__(self, price = None, volume = None):
+        from marketsim.gen._out._constant import constant
+        from marketsim.gen._out._constant import constant
+        self.price = price if price is not None else constant(100.0)
+        self.volume = volume if volume is not None else constant(1.0)
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'price' : IFunction[float],
+        'volume' : IFunction[float]
+    }
+    def __repr__(self):
+        return "Side_Limit(%(price)s, %(volume)s)" % self.__dict__
+    
+    def __call__(self, side = None):
+        from marketsim.gen._out.side._Sell import Sell
+        side = side if side is not None else Sell()
+        price = self.price
+        volume = self.volume
+        return Limit(side, price, volume)
+    

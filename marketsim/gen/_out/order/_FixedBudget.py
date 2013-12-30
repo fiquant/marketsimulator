@@ -49,3 +49,31 @@ class FixedBudget(IOrderGenerator, Observable[Order]):
         return Order_Impl(side, budget)
     
 
+from marketsim import registry
+from marketsim.types import sig
+from marketsim import IFunction
+@registry.expose(["Order", "FixedBudget"])
+@sig((IFunction[Side],), IOrderGenerator)
+class Side_FixedBudget(object):
+    """ 
+    """ 
+    def __init__(self, budget = None):
+        from marketsim.gen._out._constant import constant
+        self.budget = budget if budget is not None else constant(1000.0)
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'budget' : IFunction[float]
+    }
+    def __repr__(self):
+        return "Side_FixedBudget(%(budget)s)" % self.__dict__
+    
+    def __call__(self, side = None):
+        from marketsim.gen._out.side._Sell import Sell
+        side = side if side is not None else Sell()
+        budget = self.budget
+        return FixedBudget(side, budget)
+    

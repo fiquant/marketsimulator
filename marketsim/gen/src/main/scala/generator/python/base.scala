@@ -36,12 +36,13 @@ package object base {
         def s_initializer = if (p.initializer.nonEmpty) "= None" else ""
 
         def init = s"$name $s_initializer"
-        def assign : Code = {
-            s"self.$name = $name" |||
-                    (p.initializer match {
-                        case Some(x) => (s" if $name is not None else " + x.asPython) ||| Code.from(x.imports)
-                        case None => ""})
-        }
+        def assign =  s"self.$name = $name" ||| assign_if_none
+
+        def assign_if_none: predef.Code =
+            p.initializer match {
+                case Some(x) => (s" if $name is not None else " + x.asPython) ||| Code.from(x.imports)
+                case None => ""
+            }
 
         def property = s"\'$name\' : " ||| ty
         def repr = s"%($name)s"
@@ -60,7 +61,6 @@ package object base {
 
     abstract class Printer extends Class {
         type Parameter <: base.Parameter
-        val args        : List[String]
         val f           : Typed.Function
         def name        : String
         def docstring   : List[String]
@@ -100,7 +100,8 @@ package object base {
         def repr = Def("__repr__", "", repr_body)
 
         def call_body : Code
-        def call = Def("__call__", "*args, **kwargs", call_body)
+        def call_args = "*args, **kwargs"
+        def call = Def("__call__", call_args, call_body)
 
         def body = doc | init | label | properties | repr
     }
