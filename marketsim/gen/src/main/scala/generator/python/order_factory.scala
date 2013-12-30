@@ -35,9 +35,8 @@ object order_factory extends gen.PythonGenerator
         override def call = name
     }
 
-    case class Import(args  : List[String],
-                      f     : Typed.Function,
-                      call_override : Option[Code] = None)
+    class Factory(val args   : List[String],
+                  val f      : Typed.Function)
             extends base.Printer
     {
         val name = f.name
@@ -71,11 +70,6 @@ object order_factory extends gen.PythonGenerator
 
         def nullable_fields = join_fields({ _.nullable}, crlf)
 
-        override def call_fields = call_override match {
-            case Some(x) => x
-            case None    => super.call_fields
-        }
-
         override def call_body = nullable_fields |
                 s"""return $implementation_class($call_fields)""" |||
                 ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
@@ -84,9 +78,26 @@ object order_factory extends gen.PythonGenerator
         override def body = super.body | call
     }
 
+    class SignedFactory(side        : Typed.Parameter,
+                        volume      : Typed.Parameter,
+                        rest        : List[Typed.Parameter],
+                        original    : Factory)
+            extends Factory(original.args, original.f)
+    {
+        override def call_fields = original.call_fields
+
+        override val parameters  = (Typed.Parameter("signedVolume",
+                                                    volume.ty,
+                                                    volume.initializer,
+                                                    volume.comment) :: rest) map Parameter
+
+        override val name = original.name + "Signed"
+        override val alias = name
+    }
+
     class WithSignedOpt(args : List[String], f : Typed.Function) extends gen.GenerationUnit
     {
-        val original = new Import(args, f)
+        val original = new Factory(args, f)
 
         def name = original.name
 
@@ -101,21 +112,19 @@ object order_factory extends gen.PythonGenerator
                 None
         }
 
+        def extractSide(parameters : List[Typed.Parameter]) =
+        {
+            val (side, rest_0) = parameters.partition({ _.name == "side"})
+
+            if (side.length == 1)
+                Some((side(0), rest_0))
+            else
+                None
+        }
+
         override def toString = original.toString + crlf + (extractSideVolume(f.parameters) match {
                     case Some((side, volume, rest)) =>
-                        new Import(
-                            args,
-                            f.copy(
-                                name = f.name + "Signed",
-                                parameters =
-                                        Typed.Parameter(
-                                            "signedVolume",
-                                            volume.ty,
-                                            volume.initializer,
-                                            volume.comment) :: rest
-                                ),
-                            Some(original.call_fields)
-                            ).toString
+                        new SignedFactory(side, volume, rest, original).toString
                     case _ => ""
                 })
     }
