@@ -39,3 +39,32 @@ class ImmediateOrCancel(IOrderGenerator, Observable[Order]):
     
 
 
+from marketsim import registry
+from marketsim.types import sig
+from marketsim import IFunction
+from marketsim import Side
+from marketsim import meta
+from marketsim import IOrderGenerator
+@registry.expose(["Order", "ImmediateOrCancel"])
+@sig((IFunction[Side],), IOrderGenerator)
+class Side_ImmediateOrCancel(object):
+    """ 
+    """ 
+    def __init__(self, proto = None):
+        from marketsim.gen._out.order._Limit import Side_Limit
+        self.proto = proto if proto is not None else Side_Limit()
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'proto' : meta.function((IFunction[Side],), IOrderGenerator)
+    }
+    def __repr__(self):
+        return "Side_ImmediateOrCancel(%(proto)s)" % self.__dict__
+    
+    def __call__(self, side = None):
+        proto = self.proto
+        return ImmediateOrCancel(self.proto(side))
+    

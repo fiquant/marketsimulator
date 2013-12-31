@@ -50,3 +50,37 @@ class StopLoss(IOrderGenerator, Observable[Order]):
     
 
 
+from marketsim import registry
+from marketsim.types import sig
+from marketsim import IFunction
+from marketsim import Side
+from marketsim import IObservable
+from marketsim import meta
+from marketsim import IOrderGenerator
+@registry.expose(["Order", "StopLoss"])
+@sig((IFunction[Side],), IOrderGenerator)
+class Side_StopLoss(object):
+    """ 
+    """ 
+    def __init__(self, maxloss = None, proto = None):
+        from marketsim.gen._out._const import const
+        from marketsim.gen._out.order._Market import Side_Market
+        self.maxloss = maxloss if maxloss is not None else const(0.1)
+        self.proto = proto if proto is not None else Side_Market()
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'maxloss' : IObservable[float],
+        'proto' : meta.function((IFunction[Side],), IOrderGenerator)
+    }
+    def __repr__(self):
+        return "Side_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
+    
+    def __call__(self, side = None):
+        maxloss = self.maxloss
+        proto = self.proto
+        return StopLoss(self.maxloss, self.proto(side))
+    

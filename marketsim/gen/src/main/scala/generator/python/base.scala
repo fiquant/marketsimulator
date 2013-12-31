@@ -33,13 +33,14 @@ package object base {
 
         def name = p.name
         def ty = p.ty.asPython ||| Code.from(p.ty.imports)
-        def s_initializer = if (p.initializer.nonEmpty) "= None" else ""
+        def initializer = p.initializer
+        def s_initializer = if (initializer.nonEmpty) "= None" else ""
 
         def init = s"$name $s_initializer"
         def assign =  s"self.$name = $name" ||| assign_if_none
 
         def assign_if_none: predef.Code =
-            p.initializer match {
+            initializer match {
                 case Some(x) => (s" if $name is not None else " + x.asPython) ||| Code.from(x.imports)
                 case None => ""
             }

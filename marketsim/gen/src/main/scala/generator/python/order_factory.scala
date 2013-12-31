@@ -121,13 +121,66 @@ object order_factory extends gen.PythonGenerator
 
         override def registration = super.registration |
             "@sig((IFunction[Side],), IOrderGenerator)" |||
-            ImportFrom("sig", "marketsim.types")
+            ImportFrom("sig", "marketsim.types") |||
+            ImportFrom("IFunction", "marketsim") |||
+            ImportFrom("Side", "marketsim")
 
         def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
 
         override def call_body = PartialFactoryParameter(side).call_body_assign_arg |
                 call_body_assignments |
                 s"""return ${original.name}(${original.call_fields})"""
+
+        override def call_args = "side = None"
+    }
+
+    case class PartialFactoryOnProtoParameter(p : Typed.Parameter) extends base.Parameter
+    {
+        val proto = "proto"
+        val isProto = name == "proto"
+
+        def prefixize(x : ImportFrom) = x.copy(what = "Side_" + x.what)
+
+        override def assign_if_none: predef.Code =
+            if (isProto) initializer match {
+                case Some(x) => (s" if $name is not None else Side_" + x.asPython) ||| prefixize(x.imports(0).asInstanceOf[ImportFrom])
+                case None => ""
+            } else super.assign_if_none
+
+        override def call = if (isProto) s"self.$proto(side)" else super.call
+
+        override def property = s"\'$name\' : " |||
+                (if (isProto) s"meta.function((IFunction[Side],), IOrderGenerator)" |||
+                        ImportFrom("meta", "marketsim") |||
+                        ImportFrom("IOrderGenerator", "marketsim")
+                else ty)
+
+        def call_body_assign = s"$name = self.$name"
+
+        def call_body_assign_arg = s"$name = $name" ||| assign_if_none
+    }
+
+    class Side_FactoryOnProto(original : Factory)
+            extends FactoryBase(original.f)
+    {
+        override type Parameter = PartialFactoryOnProtoParameter
+        val parameters  = original.f.parameters map PartialFactoryOnProtoParameter
+
+        override def name = "Side_" + original.name
+        override def alias = original.alias
+
+        override def registration = super.registration |
+            "@sig((IFunction[Side],), IOrderGenerator)" |||
+            ImportFrom("sig", "marketsim.types") |||
+            ImportFrom("IFunction", "marketsim") |||
+            ImportFrom("Side", "marketsim")
+
+
+        def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
+
+        override def call_body =
+                call_body_assignments |
+                s"""return ${original.name}($call_fields)"""
 
         override def call_args = "side = None"
     }
@@ -159,6 +212,8 @@ object order_factory extends gen.PythonGenerator
                 None
         }
 
+        def hasProto(parameters : List[Typed.Parameter]) = parameters exists { _.name == "proto" }
+
         override def toString = original.toString + crlf +
                 (extractSideVolume(f.parameters) match {
                     case Some((side, volume, rest)) =>
@@ -169,7 +224,8 @@ object order_factory extends gen.PythonGenerator
                     case Some((side, rest)) =>
                         new Side_Factory(side, rest, original).toString
                     case _ => ""
-                })
+                }) + crlf +
+                (if (hasProto(f.parameters)) new Side_FactoryOnProto(original).toString else "")
     }
 
     def apply(/** arguments of the annotation */ args  : List[String])
