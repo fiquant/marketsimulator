@@ -108,7 +108,7 @@ object order_factory extends gen.PythonGenerator
     }
 
 
-    class Side_Factory(side     : Typed.Parameter,
+    class Side_Factory(curried  : Typed.Parameter,
                        rest     : List[Typed.Parameter],
                        original : Factory)
             extends FactoryBase(original.f)
@@ -116,7 +116,7 @@ object order_factory extends gen.PythonGenerator
         override type Parameter = PartialFactoryParameter
         val parameters  = rest map PartialFactoryParameter
 
-        override def name = "Side_" + original.name
+        override def name = curried.name + "_" + original.name
         override def alias = original.alias
 
         override def registration = super.registration |
@@ -127,7 +127,7 @@ object order_factory extends gen.PythonGenerator
 
         def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
 
-        override def call_body = PartialFactoryParameter(side).call_body_assign_arg |
+        override def call_body = PartialFactoryParameter(curried).call_body_assign_arg |
                 call_body_assignments |
                 s"""return ${original.name}(${original.call_fields})"""
 
@@ -139,11 +139,11 @@ object order_factory extends gen.PythonGenerator
         val proto = "proto"
         val isProto = name == "proto"
 
-        def prefixize(x : ImportFrom) = x.copy(what = "Side_" + x.what)
+        def prefixize(x : ImportFrom) = x.copy(what = "side_" + x.what)
 
         override def assign_if_none: predef.Code =
             if (isProto) initializer match {
-                case Some(x) => (s" if $name is not None else Side_" + x.asPython) ||| prefixize(x.imports(0).asInstanceOf[ImportFrom])
+                case Some(x) => (s" if $name is not None else side_" + x.asPython) ||| prefixize(x.imports(0).asInstanceOf[ImportFrom])
                 case None => ""
             } else super.assign_if_none
 
@@ -166,7 +166,7 @@ object order_factory extends gen.PythonGenerator
         override type Parameter = PartialFactoryOnProtoParameter
         val parameters  = original.f.parameters map PartialFactoryOnProtoParameter
 
-        override def name = "Side_" + original.name
+        override def name = "side_" + original.name
         override def alias = original.alias
 
         override def registration = super.registration |

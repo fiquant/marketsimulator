@@ -5,27 +5,9 @@ import _meta
 from marketsim.types import *
 
 from marketsim.gen._intrinsic.order.meta.stoploss import Order_Impl as StopLoss
-from marketsim.gen._out.order._StopLoss import StopLoss as Factory
+from marketsim.gen._out.order._StopLoss import (StopLoss as Factory, side_StopLoss as Side_Factory)
 
 @registry.expose(['Stoploss'])
-@sig((IFunction[Side],), IOrderGenerator)
-class Side_Factory(object):
-    
-    def __init__(self, 
-                 maxloss = ops.constant(0.1), 
-                 factory = _market.Side_Factory()):
-        self.maxloss = maxloss
-        self.factory = factory
-        
-    _properties = {
-        'maxloss':  IFunction[float],
-        'factory' : meta.function((IFunction[Side],), IOrderGenerator)
-    }
-    
-    def __call__(self, side):
-        return Factory(self.maxloss, self.factory(side))
-
-@registry.expose(['Stoploss'])    
 @sig((IFunction[Side],IFunction[float]), IOrderGenerator)
 class SidePrice_Factory(object):
     

@@ -96,7 +96,7 @@ from marketsim import Side
 from marketsim import IFunction
 @registry.expose(["Order", "Market"])
 @sig((IFunction[Side],), IOrderGenerator)
-class Side_Market(object):
+class side_Market(object):
     """ 
     """ 
     def __init__(self, volume = None):
@@ -111,7 +111,7 @@ class Side_Market(object):
         'volume' : IFunction[float]
     }
     def __repr__(self):
-        return "Side_Market(%(volume)s)" % self.__dict__
+        return "side_Market(%(volume)s)" % self.__dict__
     
     def __call__(self, side = None):
         from marketsim.gen._out.side._Sell import Sell

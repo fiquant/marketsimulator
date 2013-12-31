@@ -119,7 +119,7 @@ from marketsim import IFunction
 from marketsim import IFunction
 @registry.expose(["Order", "Limit"])
 @sig((IFunction[Side],), IOrderGenerator)
-class Side_Limit(object):
+class side_Limit(object):
     """ 
     """ 
     def __init__(self, price = None, volume = None):
@@ -137,7 +137,7 @@ class Side_Limit(object):
         'volume' : IFunction[float]
     }
     def __repr__(self):
-        return "Side_Limit(%(price)s, %(volume)s)" % self.__dict__
+        return "side_Limit(%(price)s, %(volume)s)" % self.__dict__
     
     def __call__(self, side = None):
         from marketsim.gen._out.side._Sell import Sell

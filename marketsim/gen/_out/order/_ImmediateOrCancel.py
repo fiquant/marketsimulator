@@ -47,12 +47,12 @@ from marketsim import meta
 from marketsim import IOrderGenerator
 @registry.expose(["Order", "ImmediateOrCancel"])
 @sig((IFunction[Side],), IOrderGenerator)
-class Side_ImmediateOrCancel(object):
+class side_ImmediateOrCancel(object):
     """ 
     """ 
     def __init__(self, proto = None):
-        from marketsim.gen._out.order._Limit import Side_Limit
-        self.proto = proto if proto is not None else Side_Limit()
+        from marketsim.gen._out.order._Limit import side_Limit
+        self.proto = proto if proto is not None else side_Limit()
     
     @property
     def label(self):
@@ -62,7 +62,7 @@ class Side_ImmediateOrCancel(object):
         'proto' : meta.function((IFunction[Side],), IOrderGenerator)
     }
     def __repr__(self):
-        return "Side_ImmediateOrCancel(%(proto)s)" % self.__dict__
+        return "side_ImmediateOrCancel(%(proto)s)" % self.__dict__
     
     def __call__(self, side = None):
         proto = self.proto

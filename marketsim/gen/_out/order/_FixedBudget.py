@@ -56,7 +56,7 @@ from marketsim import Side
 from marketsim import IFunction
 @registry.expose(["Order", "FixedBudget"])
 @sig((IFunction[Side],), IOrderGenerator)
-class Side_FixedBudget(object):
+class side_FixedBudget(object):
     """ 
     """ 
     def __init__(self, budget = None):
@@ -71,7 +71,7 @@ class Side_FixedBudget(object):
         'budget' : IFunction[float]
     }
     def __repr__(self):
-        return "Side_FixedBudget(%(budget)s)" % self.__dict__
+        return "side_FixedBudget(%(budget)s)" % self.__dict__
     
     def __call__(self, side = None):
         from marketsim.gen._out.side._Sell import Sell

@@ -59,14 +59,14 @@ from marketsim import meta
 from marketsim import IOrderGenerator
 @registry.expose(["Order", "StopLoss"])
 @sig((IFunction[Side],), IOrderGenerator)
-class Side_StopLoss(object):
+class side_StopLoss(object):
     """ 
     """ 
     def __init__(self, maxloss = None, proto = None):
         from marketsim.gen._out._const import const
-        from marketsim.gen._out.order._Market import Side_Market
+        from marketsim.gen._out.order._Market import side_Market
         self.maxloss = maxloss if maxloss is not None else const(0.1)
-        self.proto = proto if proto is not None else Side_Market()
+        self.proto = proto if proto is not None else side_Market()
     
     @property
     def label(self):
@@ -77,7 +77,7 @@ class Side_StopLoss(object):
         'proto' : meta.function((IFunction[Side],), IOrderGenerator)
     }
     def __repr__(self):
-        return "Side_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
+        return "side_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
     
     def __call__(self, side = None):
         maxloss = self.maxloss
