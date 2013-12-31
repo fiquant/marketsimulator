@@ -111,8 +111,8 @@ object order_factory extends gen.PythonGenerator
 
 
     class PartialFactory(curried  : List[Typed.Parameter],
-                       rest     : List[Typed.Parameter],
-                       original : Factory)
+                         rest     : List[Typed.Parameter],
+                         original : Factory)
             extends FactoryBase(original.f)
     {
         override type Parameter = PartialFactoryParameter
@@ -122,8 +122,14 @@ object order_factory extends gen.PythonGenerator
         override def name = (curried map { _.name } mkString "") + "_" + original.name
         override def alias = original.alias
 
+        def curr_types =
+            if (curried.length == 1)
+                curried(0).ty
+            else
+                TypesBound.Tuple(curried map { _.ty })
+
         override def registration = super.registration |
-            "@types.sig(("||| curried(0).ty.toPython |||",), IOrderGenerator)" |||
+            "@types.sig(("||| curr_types.toPython ||| Code.from(curr_types.imports) |||",), IOrderGenerator)" |||
             ImportFrom("types", "marketsim")
 
         def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
@@ -136,23 +142,35 @@ object order_factory extends gen.PythonGenerator
         override def call_args = join_fields({ _.call_arg }, ",", curried_parameters)
     }
 
-    case class PartialFactoryOnProtoParameter(curried : Typed.Parameter, p : Typed.Parameter) extends base.Parameter
+    case class PartialFactoryOnProtoParameter(curried   : List[Typed.Parameter],
+                                              p         : Typed.Parameter)
+            extends base.Parameter
     {
         val proto = "proto"
         val isProto = name == "proto"
 
-        def prefixize(x : ImportFrom) = x.copy(what = curried.name + "_" + x.what)
+        val prefix = curried map { _.name } mkString ""
+
+        def prefixize(x : ImportFrom) = x.copy(what = prefix + "_" + x.what)
 
         override def assign_if_none: predef.Code =
             if (isProto) initializer match {
-                case Some(x) => (s" if $name is not None else ${curried.name}_" + x.asPython) ||| prefixize(x.imports(0).asInstanceOf[ImportFrom])
+                case Some(x) => (s" if $name is not None else ${prefix}_" + x.asPython) ||| prefixize(x.imports(0).asInstanceOf[ImportFrom])
                 case None => ""
             } else super.assign_if_none
 
-        override def call = if (isProto) s"self.$proto(${curried.name})" else super.call
+        def curr_types =
+            if (curried.length == 1)
+                curried(0).ty
+            else
+                TypesBound.Tuple(curried map { _.ty })
+
+        def call_args = curried map { _.name } mkString ","
+
+        override def call = if (isProto) s"self.$proto($call_args)" else super.call
 
         override def property = s"\'$name\' : " |||
-                (if (isProto) s"meta.function((IFunction[${curried.ty.toPython}],), IOrderGenerator)" |||
+                (if (isProto) s"meta.function((IFunction["||| curr_types.toPython ||| Code.from(curr_types.imports) |||"],), IOrderGenerator)" |||
                         ImportFrom("meta", "marketsim") |||
                         ImportFrom("IOrderGenerator", "marketsim")
                 else ty)
@@ -167,7 +185,7 @@ object order_factory extends gen.PythonGenerator
             extends FactoryBase(original.f)
     {
         override type Parameter = PartialFactoryOnProtoParameter
-        val parameters  = original.f.parameters map { PartialFactoryOnProtoParameter(curried, _) }
+        val parameters  = original.f.parameters map { PartialFactoryOnProtoParameter(List(curried), _) }
 
         override def name = curried.name + "_" + original.name
         override def alias = original.alias

@@ -55,6 +55,7 @@ from marketsim.types import sig
 from marketsim import IFunction
 from marketsim import Side
 from marketsim import IObservable
+from marketsim import Side
 from marketsim import meta
 from marketsim import IOrderGenerator
 @registry.expose(["Order", "StopLoss"])
