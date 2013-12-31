@@ -193,7 +193,7 @@ package order {
     
     @python.order.factory("order.meta.stoploss.Order_Impl")
     def StopLoss(maxloss : IObservable[Float] = const(0.1),
-                 proto : IObservable[Order] = order.Market()) : IObservable[Order]
+                 proto : IObservable[Order] = order.Limit()) : IObservable[Order]
         
     
     @python.order.factory("order.meta.fixed_budget.Order_Impl")

@@ -152,7 +152,7 @@ object order_factory extends gen.PythonGenerator
         override def call = if (isProto) s"self.$proto(${curried.name})" else super.call
 
         override def property = s"\'$name\' : " |||
-                (if (isProto) s"meta.function((IFunction[${curried.ty}],), IOrderGenerator)" |||
+                (if (isProto) s"meta.function((IFunction[${curried.ty.toPython}],), IOrderGenerator)" |||
                         ImportFrom("meta", "marketsim") |||
                         ImportFrom("IOrderGenerator", "marketsim")
                 else ty)
@@ -221,6 +221,8 @@ object order_factory extends gen.PythonGenerator
             Typed.Parameter(name, ty, None, Nil)
 
         val sideParam = createParam("side", Types.side_)
+        val volumeParam = createParam("volume")
+        val priceParam = createParam("price")
 
         def partialFactory(curried : Typed.Parameter) =
             (extract(curried.name, f.parameters) match {
@@ -241,11 +243,8 @@ object order_factory extends gen.PythonGenerator
                     case _ => ""
                 }) + crlf +
                 partialFactory(sideParam) +
-                (extract("volume", f.parameters) match {
-                    case Some((volume, rest)) =>
-                        new PartialFactory(volume, rest, original).toString
-                    case _ => ""
-                })
+                partialFactory(volumeParam) +
+                partialFactory(priceParam)
     }
 
     def apply(/** arguments of the annotation */ args  : List[String])
