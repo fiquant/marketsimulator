@@ -84,3 +84,4 @@ class side_StopLoss(object):
         proto = self.proto
         return StopLoss(self.maxloss, self.proto(side))
     
+

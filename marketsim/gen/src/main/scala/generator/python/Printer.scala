@@ -70,7 +70,7 @@ object Printer {
 
             def toPython =
                 builtins.getOrElse(decl.name, decl.name) +
-                (if (genericArgs.isEmpty) "" else genericArgs mkString ("[", ",", "]"))
+                (if (genericArgs.isEmpty) "" else genericArgs map { _.toPython } mkString ("[", ",", "]"))
         }
     }
 

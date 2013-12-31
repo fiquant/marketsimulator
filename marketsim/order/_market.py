@@ -8,7 +8,8 @@ Order = Market
 
 from marketsim.gen._out.order._Market import (Market as Factory,
                                               MarketSigned as FactorySigned,
-                                              side_Market as Side_Factory)
+                                              side_Market as Side_Factory,
+                                              volume_Market as Volume_Factory)
 
 @registry.expose(['Market'])
 @sig((IFunction[SignedVolume],), IOrderGenerator)

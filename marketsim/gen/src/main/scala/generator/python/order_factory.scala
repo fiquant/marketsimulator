@@ -204,12 +204,12 @@ object order_factory extends gen.PythonGenerator
                 None
         }
 
-        def extractSide(parameters : List[Typed.Parameter]) =
+        def extract(name : String, parameters : List[Typed.Parameter]) =
         {
-            val (side, rest_0) = parameters.partition({ _.name == "side"})
+            val (curried, rest_0) = parameters partition { _.name == name}
 
-            if (side.length == 1)
-                Some((side(0), rest_0))
+            if (curried.length == 1)
+                Some((curried, rest_0))
             else
                 None
         }
@@ -222,12 +222,17 @@ object order_factory extends gen.PythonGenerator
                         new SignedFactory(side, volume, rest, original).toString
                     case _ => ""
                 }) + crlf +
-                (extractSide(f.parameters) match {
+                (extract("side", f.parameters) match {
                     case Some((side, rest)) =>
-                        new PartialFactory(List(side), rest, original).toString
+                        new PartialFactory(side, rest, original).toString
                     case _ => ""
                 }) + crlf +
-                (if (hasProto(f.parameters)) new Side_FactoryOnProto(original).toString else "")
+                (if (hasProto(f.parameters)) new Side_FactoryOnProto(original).toString else "") + crlf +
+                (extract("volume", f.parameters) match {
+                    case Some((volume, rest)) =>
+                        new PartialFactory(volume, rest, original).toString
+                    case _ => ""
+                })
     }
 
     def apply(/** arguments of the annotation */ args  : List[String])
