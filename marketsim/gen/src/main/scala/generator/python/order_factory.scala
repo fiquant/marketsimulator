@@ -105,33 +105,35 @@ object order_factory extends gen.PythonGenerator
         def call_body_assign = s"$name = self.$name"
 
         def call_body_assign_arg = s"$name = $name" ||| assign_if_none
+
+        def call_arg = s"$name = None"
     }
 
 
-    class Side_Factory(curried  : Typed.Parameter,
+    class PartialFactory(curried  : List[Typed.Parameter],
                        rest     : List[Typed.Parameter],
                        original : Factory)
             extends FactoryBase(original.f)
     {
         override type Parameter = PartialFactoryParameter
         val parameters  = rest map PartialFactoryParameter
+        val curried_parameters = curried map PartialFactoryParameter
 
-        override def name = curried.name + "_" + original.name
+        override def name = (curried map { _.name } mkString "") + "_" + original.name
         override def alias = original.alias
 
         override def registration = super.registration |
-            "@sig((IFunction[Side],), IOrderGenerator)" |||
-            ImportFrom("sig", "marketsim.types") |||
-            ImportFrom("IFunction", "marketsim") |||
-            ImportFrom("Side", "marketsim")
+            "@types.sig(("||| curried(0).ty.toPython |||",), IOrderGenerator)" |||
+            ImportFrom("types", "marketsim")
 
         def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
+        def call_body_assign_args = join_fields({ _.call_body_assign_arg }, crlf, curried_parameters)
 
-        override def call_body = PartialFactoryParameter(curried).call_body_assign_arg |
+        override def call_body = call_body_assign_args |
                 call_body_assignments |
                 s"""return ${original.name}(${original.call_fields})"""
 
-        override def call_args = "side = None"
+        override def call_args = join_fields({ _.call_arg }, ",", curried_parameters)
     }
 
     case class PartialFactoryOnProtoParameter(p : Typed.Parameter) extends base.Parameter
@@ -222,7 +224,7 @@ object order_factory extends gen.PythonGenerator
                 }) + crlf +
                 (extractSide(f.parameters) match {
                     case Some((side, rest)) =>
-                        new Side_Factory(side, rest, original).toString
+                        new PartialFactory(List(side), rest, original).toString
                     case _ => ""
                 }) + crlf +
                 (if (hasProto(f.parameters)) new Side_FactoryOnProto(original).toString else "")

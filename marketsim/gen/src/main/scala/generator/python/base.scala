@@ -70,7 +70,10 @@ package object base {
         def parameters  : List[Parameter]
         def registration = s"""@registry.expose(["$category", "$alias"])""" ||| ImportFrom("registry", "marketsim")
 
-        def join_fields(p : Parameter => Code, sep : Code = ", ") : Code = Code.from(parameters map p, sep)
+        def join_fields(p        : Parameter => Code,
+                        sep      : Code = ", ",
+                        elements : List[Parameter] = parameters) : Code
+            = Code.from(elements map p, sep)
 
         def init_fields = join_fields({ _.init })
         def assign_fields = join_fields({ _.assign }, nl)
@@ -101,7 +104,7 @@ package object base {
         def repr = Def("__repr__", "", repr_body)
 
         def call_body : Code
-        def call_args = "*args, **kwargs"
+        def call_args : Code = "*args, **kwargs"
         def call = Def("__call__", call_args, call_body)
 
         def body = doc | init | label | properties | repr
