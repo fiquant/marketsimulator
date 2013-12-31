@@ -136,23 +136,23 @@ object order_factory extends gen.PythonGenerator
         override def call_args = join_fields({ _.call_arg }, ",", curried_parameters)
     }
 
-    case class PartialFactoryOnProtoParameter(p : Typed.Parameter) extends base.Parameter
+    case class PartialFactoryOnProtoParameter(curried : Typed.Parameter, p : Typed.Parameter) extends base.Parameter
     {
         val proto = "proto"
         val isProto = name == "proto"
 
-        def prefixize(x : ImportFrom) = x.copy(what = "side_" + x.what)
+        def prefixize(x : ImportFrom) = x.copy(what = curried.name + "_" + x.what)
 
         override def assign_if_none: predef.Code =
             if (isProto) initializer match {
-                case Some(x) => (s" if $name is not None else side_" + x.asPython) ||| prefixize(x.imports(0).asInstanceOf[ImportFrom])
+                case Some(x) => (s" if $name is not None else ${curried.name}_" + x.asPython) ||| prefixize(x.imports(0).asInstanceOf[ImportFrom])
                 case None => ""
             } else super.assign_if_none
 
-        override def call = if (isProto) s"self.$proto(side)" else super.call
+        override def call = if (isProto) s"self.$proto(${curried.name})" else super.call
 
         override def property = s"\'$name\' : " |||
-                (if (isProto) s"meta.function((IFunction[Side],), IOrderGenerator)" |||
+                (if (isProto) s"meta.function((IFunction[${curried.ty}],), IOrderGenerator)" |||
                         ImportFrom("meta", "marketsim") |||
                         ImportFrom("IOrderGenerator", "marketsim")
                 else ty)
@@ -162,20 +162,21 @@ object order_factory extends gen.PythonGenerator
         def call_body_assign_arg = s"$name = $name" ||| assign_if_none
     }
 
-    class Side_FactoryOnProto(original : Factory)
+    class PartialFactoryOnProto(curried  : Typed.Parameter,
+                                original : Factory)
             extends FactoryBase(original.f)
     {
         override type Parameter = PartialFactoryOnProtoParameter
-        val parameters  = original.f.parameters map PartialFactoryOnProtoParameter
+        val parameters  = original.f.parameters map { PartialFactoryOnProtoParameter(curried, _) }
 
-        override def name = "side_" + original.name
+        override def name = curried.name + "_" + original.name
         override def alias = original.alias
 
         override def registration = super.registration |
-            "@sig((IFunction[Side],), IOrderGenerator)" |||
+            "@sig((IFunction["||| curried.ty.toPython |||"],), IOrderGenerator)" |||
             ImportFrom("sig", "marketsim.types") |||
             ImportFrom("IFunction", "marketsim") |||
-            ImportFrom("Side", "marketsim")
+            Code.from(curried.ty.imports)
 
 
         def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
@@ -184,7 +185,7 @@ object order_factory extends gen.PythonGenerator
                 call_body_assignments |
                 s"""return ${original.name}($call_fields)"""
 
-        override def call_args = "side = None"
+        override def call_args = curried.name + " = None"
     }
 
     class WithSignedOpt(args : List[String], f : Typed.Function) extends gen.GenerationUnit
@@ -216,18 +217,30 @@ object order_factory extends gen.PythonGenerator
 
         def hasProto(parameters : List[Typed.Parameter]) = parameters exists { _.name == "proto" }
 
+        def createParam(name : String, ty : TypesBound.Base = Types.float_) =
+            Typed.Parameter(name, ty, None, Nil)
+
+        val sideParam = createParam("side", Types.side_)
+
+        def partialFactory(curried : Typed.Parameter) =
+            (extract(curried.name, f.parameters) match {
+                case Some((cr, rest)) =>
+                    new PartialFactory(cr, rest, original).toString
+                case _ => ""
+            }) + crlf +
+            (if (hasProto(f.parameters))
+                new PartialFactoryOnProto(
+                    curried,
+                    original).toString
+            else "") + crlf
+
         override def toString = original.toString + crlf +
                 (extractSideVolume(f.parameters) match {
                     case Some((side, volume, rest)) =>
                         new SignedFactory(side, volume, rest, original).toString
                     case _ => ""
                 }) + crlf +
-                (extract("side", f.parameters) match {
-                    case Some((side, rest)) =>
-                        new PartialFactory(side, rest, original).toString
-                    case _ => ""
-                }) + crlf +
-                (if (hasProto(f.parameters)) new Side_FactoryOnProto(original).toString else "") + crlf +
+                partialFactory(sideParam) +
                 (extract("volume", f.parameters) match {
                     case Some((volume, rest)) =>
                         new PartialFactory(volume, rest, original).toString

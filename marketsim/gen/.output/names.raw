@@ -5506,9 +5506,6 @@ Definitions:
 | | | | | | - Int
 | | | | - List:
 | - Interface:
-| | - Side
-| | - List:
-| - Interface:
 | | - Price
 | | - List:
 | | | - SimpleType:

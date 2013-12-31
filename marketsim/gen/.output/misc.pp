@@ -109,8 +109,6 @@ package  {
     def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float
         
 }
-
-type Side
 @category = "Side"
 
 package side {

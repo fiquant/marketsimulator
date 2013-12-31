@@ -813,9 +813,6 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
-| - Interface:
-| | - Side
-| | - List:
 | - PackageDef:
 | | - Some:
 | | | - QualifiedName:

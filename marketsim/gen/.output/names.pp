@@ -737,8 +737,6 @@ type CandleStick
 
 type Volume : Int
 
-type Side
-
 type Price : Float
 
 type IOrderQueue
