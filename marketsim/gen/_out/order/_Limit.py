@@ -112,14 +112,12 @@ class LimitSigned(IOrderGenerator, Observable[Order]):
         return Order_Impl(side, price, volume)
     
 from marketsim import registry
-from marketsim import types
 from marketsim import Side
 from marketsim import types
 from marketsim import IFunction
 from marketsim import IFunction
 @registry.expose(["Order", "Limit"])
-@types.sig((types.IFunction[Side]
-,), IOrderGenerator)
+@types.sig((IFunction[Side],), IOrderGenerator)
 class side_Limit(object):
     """ 
     """ 
@@ -149,7 +147,6 @@ class side_Limit(object):
     
 
 from marketsim import registry
-from marketsim import IFunction
 from marketsim import types
 from marketsim import types
 from marketsim import Side
@@ -186,7 +183,6 @@ class volume_Limit(object):
     
 
 from marketsim import registry
-from marketsim import IFunction
 from marketsim import types
 from marketsim import types
 from marketsim import Side
@@ -218,6 +214,37 @@ class price_Limit(object):
         from marketsim.gen._out._constant import constant
         price = price if price is not None else constant(100.0)
         side = self.side
+        volume = self.volume
+        return Limit(side, price, volume)
+    
+
+from marketsim import registry
+from marketsim import types
+from marketsim import IFunction
+@registry.expose(["Order", "Limit"])
+@types.sig((IFunction[(Side,float)],), IOrderGenerator)
+class sideprice_Limit(object):
+    """ 
+    """ 
+    def __init__(self, volume = None):
+        from marketsim.gen._out._constant import constant
+        self.volume = volume if volume is not None else constant(1.0)
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'volume' : IFunction[float]
+    }
+    def __repr__(self):
+        return "sideprice_Limit(%(volume)s)" % self.__dict__
+    
+    def __call__(self, side = None,price = None):
+        from marketsim.gen._out.side._Sell import Sell
+        from marketsim.gen._out._constant import constant
+        side = side if side is not None else Sell()
+        price = price if price is not None else constant(100.0)
         volume = self.volume
         return Limit(side, price, volume)
     

@@ -22,10 +22,7 @@ object Printer {
 
         trait Tuple extends Bound {
             val elems : List[Bound]
-            def toPython = {
-                throw new Exception("Tuple types are not supported yet for python generation")
-                //elems.mkString("(", ",", ")")
-            }
+            def toPython = elems map { _.toPython } mkString ("(", ",", ")")
 
             def imports = Nil
         }
