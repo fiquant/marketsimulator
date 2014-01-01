@@ -122,14 +122,8 @@ object order_factory extends gen.PythonGenerator
         override def name = (curried map { _.name } mkString "") + "_" + original.name
         override def alias = original.alias
 
-        def curr_types =
-            if (curried.length == 1)
-                curried(0).ty
-            else
-                TypesBound.Tuple(curried map { _.ty })
-
         override def registration = super.registration |
-            "@types.sig(("||| curr_types.toPython ||| Code.from(curr_types.imports) |||",), IOrderGenerator)" |||
+            "@types.sig(("||| curriedTypes(curried) |||",), IOrderGenerator)" |||
             ImportFrom("types", "marketsim")
 
         def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
@@ -159,18 +153,12 @@ object order_factory extends gen.PythonGenerator
                 case None => ""
             } else super.assign_if_none
 
-        def curr_types =
-            if (curried.length == 1)
-                curried(0).ty
-            else
-                TypesBound.Tuple(curried map { _.ty })
-
         def call_args = curried map { _.name } mkString ","
 
         override def call = if (isProto) s"self.$proto($call_args)" else super.call
 
         override def property = s"\'$name\' : " |||
-                (if (isProto) s"meta.function((IFunction["||| curr_types.toPython ||| Code.from(curr_types.imports) |||"],), IOrderGenerator)" |||
+                (if (isProto) s"meta.function((IFunction["||| curriedTypes(curried) |||"],), IOrderGenerator)" |||
                         ImportFrom("meta", "marketsim") |||
                         ImportFrom("IOrderGenerator", "marketsim")
                 else ty)
@@ -178,23 +166,43 @@ object order_factory extends gen.PythonGenerator
         def call_body_assign = s"$name = self.$name"
 
         def call_body_assign_arg = s"$name = $name" ||| assign_if_none
+
+        def call_arg = s"$name = None"
     }
 
-    class PartialFactoryOnProto(curried  : Typed.Parameter,
+
+    def paramTypesInPython(curried: List[Typed.Parameter]) = {
+        if (curried.length == 1)
+            curried(0).ty
+        else
+            TypesBound.Tuple(curried map { _.ty })
+    }
+
+    def curriedTypes(curried : List[Typed.Parameter]) = {
+        val curr_types =
+            if (curried.length == 1)
+                curried(0).ty
+            else
+                TypesBound.Tuple(curried map { _.ty })
+
+        curr_types.toPython ||| Code.from(curr_types.imports)
+    }
+
+    class PartialFactoryOnProto(curried  : List[Typed.Parameter],
                                 original : Factory)
             extends FactoryBase(original.f)
     {
         override type Parameter = PartialFactoryOnProtoParameter
-        val parameters  = original.f.parameters map { PartialFactoryOnProtoParameter(List(curried), _) }
+        val parameters  = original.f.parameters map { PartialFactoryOnProtoParameter(curried, _) }
 
-        override def name = curried.name + "_" + original.name
+        val prefix = curried map { _.name } mkString ""
+        override def name = prefix + "_" + original.name
         override def alias = original.alias
 
         override def registration = super.registration |
-            "@sig((IFunction["||| curried.ty.toPython |||"],), IOrderGenerator)" |||
+            "@sig((IFunction["||| curriedTypes(curried) |||"],), IOrderGenerator)" |||
             ImportFrom("sig", "marketsim.types") |||
-            ImportFrom("IFunction", "marketsim") |||
-            Code.from(curried.ty.imports)
+            ImportFrom("IFunction", "marketsim")
 
 
         def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
@@ -203,7 +211,11 @@ object order_factory extends gen.PythonGenerator
                 call_body_assignments |
                 s"""return ${original.name}($call_fields)"""
 
-        override def call_args = curried.name + " = None"
+        override def call_args =
+            join_fields(
+                { _.call_arg }, ",",
+                curried map { PartialFactoryOnProtoParameter(curried, _) }
+            )
     }
 
     class WithSignedOpt(args : List[String], f : Typed.Function) extends gen.GenerationUnit
@@ -212,26 +224,28 @@ object order_factory extends gen.PythonGenerator
 
         def name = original.name
 
+        def extract(names : List[String], parameters : List[Typed.Parameter])
+            : Option[(List[Typed.Parameter], List[Typed.Parameter])] = names match
+        {
+            case Nil =>
+                Some((Nil, parameters))
+
+            case n :: tl =>
+
+                val (curried, rest_0) = parameters partition { _.name == n}
+
+                if (curried.length == 1) {
+                    extract(tl, rest_0) match {
+                        case Some((c_1, r_1)) => Some((curried(0) :: c_1, r_1))
+                        case None             => None
+                    }
+                }
+                else
+                    None
+        }
+
         def extractSideVolume(parameters : List[Typed.Parameter]) =
-        {
-            val (side, rest_0) = parameters.partition({ _.name == "side"})
-            val (volume, rest_1) = rest_0.partition({ _.name == "volume" })
-
-            if (side.length == 1 && volume.length == 1)
-                Some((side(0), volume(0), rest_1))
-            else
-                None
-        }
-
-        def extract(name : String, parameters : List[Typed.Parameter]) =
-        {
-            val (curried, rest_0) = parameters partition { _.name == name}
-
-            if (curried.length == 1)
-                Some((curried, rest_0))
-            else
-                None
-        }
+            extract(List("side", "volume"), parameters)
 
         def hasProto(parameters : List[Typed.Parameter]) = parameters exists { _.name == "proto" }
 
@@ -243,20 +257,20 @@ object order_factory extends gen.PythonGenerator
         val priceParam = createParam("price")
 
         def partialFactory(curried : Typed.Parameter) =
-            (extract(curried.name, f.parameters) match {
+            (extract(List(curried.name), f.parameters) match {
                 case Some((cr, rest)) =>
                     new PartialFactory(cr, rest, original).toString
                 case _ => ""
             }) + crlf +
             (if (hasProto(f.parameters))
                 new PartialFactoryOnProto(
-                    curried,
+                    List(curried),
                     original).toString
             else "") + crlf
 
         override def toString = original.toString + crlf +
                 (extractSideVolume(f.parameters) match {
-                    case Some((side, volume, rest)) =>
+                    case Some((side :: volume :: Nil, rest)) =>
                         new SignedFactory(side, volume, rest, original).toString
                     case _ => ""
                 }) + crlf +

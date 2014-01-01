@@ -51,9 +51,9 @@ class StopLoss(IOrderGenerator, Observable[Order]):
 
 
 from marketsim import registry
+from marketsim import Side
 from marketsim.types import sig
 from marketsim import IFunction
-from marketsim import Side
 from marketsim import IObservable
 from marketsim import Side
 from marketsim import meta
