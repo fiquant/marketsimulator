@@ -245,6 +245,53 @@ Definitions:
 | | | | | | | | | - factory
 | | | | | | | - List:
 | | | | | | | | - order.meta.stoploss.Order_Impl
+| | | | - FunDef:
+| | | | | - WithExpiry
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - expiry
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 10.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - proto
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Limit
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Order
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | - List:
+| | | | | | | | - order.meta.with_expiry.WithExpiry_Impl
 | | - List:
 | | | - Attribute:
 | | | | - category

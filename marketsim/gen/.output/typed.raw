@@ -1170,6 +1170,74 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - order.meta.stoploss.Order_Impl
 | | | | - FunDef:
+| | | | | - WithExpiry
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - expiry
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IObservable
+| | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | | | | - List:
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 10.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - proto
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IObservable
+| | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Order
+| | | | | | | | | | | - List:
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - order
+| | | | | | | | | | | - Limit
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Order
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | - List:
+| | | | | | | | - order.meta.with_expiry.WithExpiry_Impl
+| | | | - FunDef:
 | | | | | - FixedBudget
 | | | | | - List:
 | | | | | | - Parameter:

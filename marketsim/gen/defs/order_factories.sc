@@ -15,4 +15,7 @@ package order
 
     @python.order.factory("order.meta.stoploss.Order_Impl")
     def StopLoss(maxloss = const(0.1), proto = Limit()) : IObservable[Order]
+
+    @python.order.factory("order.meta.with_expiry.WithExpiry_Impl")
+    def WithExpiry(expiry = const(10.), proto = Limit()) : IObservable[Order]
 }
