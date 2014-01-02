@@ -112,15 +112,14 @@ class LimitSigned(IOrderGenerator, Observable[Order]):
         return Order_Impl(side, price, volume)
     
 from marketsim import registry
+from marketsim import IOrderGenerator
 from marketsim import types
 from marketsim import Side
-from marketsim import types
 from marketsim import IFunction
 from marketsim import IFunction
 @registry.expose(["Order", "Limit"])
-@types.sig((types.IFunction[Side],)
-, IOrderGenerator)
-class side_Limit(object):
+class side_Limit(IFunction[IOrderGenerator, types.IFunction[Side]
+]):
     """ 
     """ 
     def __init__(self, price = None, volume = None):
@@ -148,14 +147,13 @@ class side_Limit(object):
         return Limit(side, price, volume)
     
 from marketsim import registry
+from marketsim import IOrderGenerator
 from marketsim import IFunction
-from marketsim import types
 from marketsim import types
 from marketsim import Side
 from marketsim import IFunction
 @registry.expose(["Order", "Limit"])
-@types.sig((IFunction[float],), IOrderGenerator)
-class volume_Limit(object):
+class volume_Limit(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
     """ 
     def __init__(self, side = None, price = None):
@@ -184,14 +182,13 @@ class volume_Limit(object):
         return Limit(side, price, volume)
     
 from marketsim import registry
+from marketsim import IOrderGenerator
 from marketsim import IFunction
-from marketsim import types
 from marketsim import types
 from marketsim import Side
 from marketsim import IFunction
 @registry.expose(["Order", "Limit"])
-@types.sig((IFunction[float],), IOrderGenerator)
-class price_Limit(object):
+class price_Limit(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
     """ 
     def __init__(self, side = None, volume = None):
@@ -220,16 +217,15 @@ class price_Limit(object):
         return Limit(side, price, volume)
     
 from marketsim import registry
+from marketsim import IOrderGenerator
 from marketsim import types
 from marketsim import Side
 from marketsim import IFunction
-from marketsim import types
 from marketsim import IFunction
 @registry.expose(["Order", "Limit"])
-@types.sig((types.IFunction[Side],IFunction[float],)
+class sideprice_Limit(IFunction[IOrderGenerator, types.IFunction[Side],IFunction[float]
 
-, IOrderGenerator)
-class sideprice_Limit(object):
+]):
     """ 
     """ 
     def __init__(self, volume = None):
@@ -253,5 +249,41 @@ class sideprice_Limit(object):
         price = price if price is not None else constant(100.0)
         volume = self.volume
         return Limit(side, price, volume)
+    
+from marketsim import registry
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import types
+from marketsim import Side
+from marketsim import IFunction
+from marketsim import IFunction
+@registry.expose(["Order", "Limit"])
+class side_price_Limit(IFunction[IFunction[IOrderGenerator, IFunction[float]], types.IFunction[Side]
+]):
+    """ 
+    """ 
+    def __init__(self, price = None, volume = None):
+        from marketsim.gen._out._constant import constant
+        from marketsim.gen._out._constant import constant
+        self.price = price if price is not None else constant(100.0)
+        self.volume = volume if volume is not None else constant(1.0)
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'price' : IFunction[float],
+        'volume' : IFunction[float]
+    }
+    def __repr__(self):
+        return "side_price_Limit(%(price)s, %(volume)s)" % self.__dict__
+    
+    def __call__(self, side = None):
+        from marketsim.gen._out.side._Sell import Sell
+        side = side if side is not None else Sell()
+        price = self.price
+        volume = self.volume
+        return price_Limit(side, volume)
     
 

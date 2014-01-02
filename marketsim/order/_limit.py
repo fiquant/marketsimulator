@@ -7,32 +7,10 @@ from marketsim.gen._out.order._Limit import (Limit as Factory,
                                              side_Limit as Side_Factory,
                                              volume_Limit as Volume_Factory,
                                              price_Limit as Price_Factory,
-                                             sideprice_Limit as SidePrice_Factory)
+                                             sideprice_Limit as SidePrice_Factory,
+                                             side_price_Limit as Side_Price_Factory)
 
 Order = Limit
-
-@registry.expose(['Limit'])
-@sig((IFunction[Side],IFunction[float]), IOrderGenerator)
-class SidePrice_Factory(combine.Volume):
-
-    def __call__(self, side, price):
-        return Factory(side, price, self.volume)
-
-@registry.expose(['Limit'])
-class Side_Price_Factory(IFunction[IFunction[IOrderGenerator, 
-                                             IFunction[float]], 
-                                   IFunction[Side]]):
-    
-    def __init__(self, 
-                 volume = ops.constant(1.)):
-        self.volume = volume
-        
-    _properties = { 
-        'volume' : types.IFunction[float],
-     }
-    
-    def __call__(self, side):
-        return Price_Factory(side, self.volume)
 
 class PriceVolume_Factory(IFunction[IOrderGenerator, PriceVolume]):
     

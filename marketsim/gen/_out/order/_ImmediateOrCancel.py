@@ -38,18 +38,15 @@ class ImmediateOrCancel(IOrderGenerator, Observable[Order]):
         return Order_Impl(proto)
     
 from marketsim import registry
-from marketsim import IFunction
-from marketsim import Side
-from marketsim.types import sig
-from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import Side
-from marketsim import meta
 from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import Side
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import Side
 @registry.expose(["Order", "ImmediateOrCancel"])
-@sig((IFunction[Side],)
-, IOrderGenerator)
-class side_ImmediateOrCancel(object):
+class side_ImmediateOrCancel(IFunction[IOrderGenerator, IFunction[Side]
+]):
     """ 
     """ 
     def __init__(self, proto = None):
@@ -61,26 +58,23 @@ class side_ImmediateOrCancel(object):
         return repr(self)
     
     _properties = {
-        'proto' : meta.function((IFunction[Side],)
-        , IOrderGenerator)
+        'proto' : IFunction[IOrderGenerator, IFunction[Side]
+        ]
     }
     def __repr__(self):
         return "side_ImmediateOrCancel(%(proto)s)" % self.__dict__
     
     def __call__(self, side = None):
         proto = self.proto
-        return ImmediateOrCancel(self.proto(side))
+        return ImmediateOrCancel(proto(side))
     
 from marketsim import registry
-from marketsim import IFunction
-from marketsim.types import sig
-from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import meta
 from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import IOrderGenerator
+from marketsim import IFunction
 @registry.expose(["Order", "ImmediateOrCancel"])
-@sig((IFunction[float],), IOrderGenerator)
-class volume_ImmediateOrCancel(object):
+class volume_ImmediateOrCancel(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
     """ 
     def __init__(self, proto = None):
@@ -92,25 +86,22 @@ class volume_ImmediateOrCancel(object):
         return repr(self)
     
     _properties = {
-        'proto' : meta.function((IFunction[float],), IOrderGenerator)
+        'proto' : IFunction[IOrderGenerator, IFunction[float]]
     }
     def __repr__(self):
         return "volume_ImmediateOrCancel(%(proto)s)" % self.__dict__
     
     def __call__(self, volume = None):
         proto = self.proto
-        return ImmediateOrCancel(self.proto(volume))
+        return ImmediateOrCancel(proto(volume))
     
 from marketsim import registry
-from marketsim import IFunction
-from marketsim.types import sig
-from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import meta
 from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import IOrderGenerator
+from marketsim import IFunction
 @registry.expose(["Order", "ImmediateOrCancel"])
-@sig((IFunction[float],), IOrderGenerator)
-class price_ImmediateOrCancel(object):
+class price_ImmediateOrCancel(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
     """ 
     def __init__(self, proto = None):
@@ -122,31 +113,28 @@ class price_ImmediateOrCancel(object):
         return repr(self)
     
     _properties = {
-        'proto' : meta.function((IFunction[float],), IOrderGenerator)
+        'proto' : IFunction[IOrderGenerator, IFunction[float]]
     }
     def __repr__(self):
         return "price_ImmediateOrCancel(%(proto)s)" % self.__dict__
     
     def __call__(self, price = None):
         proto = self.proto
-        return ImmediateOrCancel(self.proto(price))
+        return ImmediateOrCancel(proto(price))
     
 from marketsim import registry
-from marketsim import IFunction
-from marketsim import Side
-from marketsim import IFunction
-from marketsim.types import sig
-from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import Side
-from marketsim import IFunction
-from marketsim import meta
 from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import Side
+from marketsim import IFunction
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import Side
+from marketsim import IFunction
 @registry.expose(["Order", "ImmediateOrCancel"])
-@sig((IFunction[Side],IFunction[float],)
+class sideprice_ImmediateOrCancel(IFunction[IOrderGenerator, IFunction[Side],IFunction[float]
 
-, IOrderGenerator)
-class sideprice_ImmediateOrCancel(object):
+]):
     """ 
     """ 
     def __init__(self, proto = None):
@@ -158,15 +146,48 @@ class sideprice_ImmediateOrCancel(object):
         return repr(self)
     
     _properties = {
-        'proto' : meta.function((IFunction[Side],IFunction[float],)
+        'proto' : IFunction[IOrderGenerator, IFunction[Side],IFunction[float]
         
-        , IOrderGenerator)
+        ]
     }
     def __repr__(self):
         return "sideprice_ImmediateOrCancel(%(proto)s)" % self.__dict__
     
     def __call__(self, side = None,price = None):
         proto = self.proto
-        return ImmediateOrCancel(self.proto(side,price))
+        return ImmediateOrCancel(proto(side,price))
+    
+from marketsim import registry
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import Side
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import Side
+@registry.expose(["Order", "ImmediateOrCancel"])
+class side_price_ImmediateOrCancel(IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]
+]):
+    """ 
+    """ 
+    def __init__(self, proto = None):
+        from marketsim.gen._out.order._Limit import side_price_Limit
+        self.proto = proto if proto is not None else side_price_Limit()
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]
+        ]
+    }
+    def __repr__(self):
+        return "side_price_ImmediateOrCancel(%(proto)s)" % self.__dict__
+    
+    def __call__(self, side = None):
+        proto = self.proto
+        return price_ImmediateOrCancel(proto(side))
     
 

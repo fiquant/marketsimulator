@@ -49,19 +49,16 @@ class WithExpiry(IOrderGenerator, Observable[Order]):
         return WithExpiry_Impl(expiry, proto)
     
 from marketsim import registry
-from marketsim import IFunction
-from marketsim import Side
-from marketsim.types import sig
-from marketsim import IFunction
-from marketsim import IObservable
-from marketsim import IFunction
-from marketsim import Side
-from marketsim import meta
 from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import Side
+from marketsim import IObservable
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import Side
 @registry.expose(["Order", "WithExpiry"])
-@sig((IFunction[Side],)
-, IOrderGenerator)
-class side_WithExpiry(object):
+class side_WithExpiry(IFunction[IOrderGenerator, IFunction[Side]
+]):
     """ 
     """ 
     def __init__(self, expiry = None, proto = None):
@@ -76,8 +73,8 @@ class side_WithExpiry(object):
     
     _properties = {
         'expiry' : IObservable[float],
-        'proto' : meta.function((IFunction[Side],)
-        , IOrderGenerator)
+        'proto' : IFunction[IOrderGenerator, IFunction[Side]
+        ]
     }
     def __repr__(self):
         return "side_WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
@@ -85,19 +82,16 @@ class side_WithExpiry(object):
     def __call__(self, side = None):
         expiry = self.expiry
         proto = self.proto
-        return WithExpiry(self.expiry, self.proto(side))
+        return WithExpiry(expiry, proto(side))
     
 from marketsim import registry
-from marketsim import IFunction
-from marketsim.types import sig
+from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IObservable
-from marketsim import IFunction
-from marketsim import meta
 from marketsim import IOrderGenerator
+from marketsim import IFunction
 @registry.expose(["Order", "WithExpiry"])
-@sig((IFunction[float],), IOrderGenerator)
-class volume_WithExpiry(object):
+class volume_WithExpiry(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
     """ 
     def __init__(self, expiry = None, proto = None):
@@ -112,7 +106,7 @@ class volume_WithExpiry(object):
     
     _properties = {
         'expiry' : IObservable[float],
-        'proto' : meta.function((IFunction[float],), IOrderGenerator)
+        'proto' : IFunction[IOrderGenerator, IFunction[float]]
     }
     def __repr__(self):
         return "volume_WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
@@ -120,19 +114,16 @@ class volume_WithExpiry(object):
     def __call__(self, volume = None):
         expiry = self.expiry
         proto = self.proto
-        return WithExpiry(self.expiry, self.proto(volume))
+        return WithExpiry(expiry, proto(volume))
     
 from marketsim import registry
-from marketsim import IFunction
-from marketsim.types import sig
+from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IObservable
-from marketsim import IFunction
-from marketsim import meta
 from marketsim import IOrderGenerator
+from marketsim import IFunction
 @registry.expose(["Order", "WithExpiry"])
-@sig((IFunction[float],), IOrderGenerator)
-class price_WithExpiry(object):
+class price_WithExpiry(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
     """ 
     def __init__(self, expiry = None, proto = None):
@@ -147,7 +138,7 @@ class price_WithExpiry(object):
     
     _properties = {
         'expiry' : IObservable[float],
-        'proto' : meta.function((IFunction[float],), IOrderGenerator)
+        'proto' : IFunction[IOrderGenerator, IFunction[float]]
     }
     def __repr__(self):
         return "price_WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
@@ -155,25 +146,22 @@ class price_WithExpiry(object):
     def __call__(self, price = None):
         expiry = self.expiry
         proto = self.proto
-        return WithExpiry(self.expiry, self.proto(price))
+        return WithExpiry(expiry, proto(price))
     
 from marketsim import registry
+from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import Side
-from marketsim import IFunction
-from marketsim.types import sig
 from marketsim import IFunction
 from marketsim import IObservable
+from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
-from marketsim import meta
-from marketsim import IOrderGenerator
 @registry.expose(["Order", "WithExpiry"])
-@sig((IFunction[Side],IFunction[float],)
+class sideprice_WithExpiry(IFunction[IOrderGenerator, IFunction[Side],IFunction[float]
 
-, IOrderGenerator)
-class sideprice_WithExpiry(object):
+]):
     """ 
     """ 
     def __init__(self, expiry = None, proto = None):
@@ -188,9 +176,9 @@ class sideprice_WithExpiry(object):
     
     _properties = {
         'expiry' : IObservable[float],
-        'proto' : meta.function((IFunction[Side],IFunction[float],)
+        'proto' : IFunction[IOrderGenerator, IFunction[Side],IFunction[float]
         
-        , IOrderGenerator)
+        ]
     }
     def __repr__(self):
         return "sideprice_WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
@@ -198,6 +186,44 @@ class sideprice_WithExpiry(object):
     def __call__(self, side = None,price = None):
         expiry = self.expiry
         proto = self.proto
-        return WithExpiry(self.expiry, self.proto(side,price))
+        return WithExpiry(expiry, proto(side,price))
+    
+from marketsim import registry
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import Side
+from marketsim import IObservable
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import Side
+@registry.expose(["Order", "WithExpiry"])
+class side_price_WithExpiry(IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]
+]):
+    """ 
+    """ 
+    def __init__(self, expiry = None, proto = None):
+        from marketsim.gen._out._const import const
+        from marketsim.gen._out.order._Limit import side_price_Limit
+        self.expiry = expiry if expiry is not None else const(10.0)
+        self.proto = proto if proto is not None else side_price_Limit()
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'expiry' : IObservable[float],
+        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]
+        ]
+    }
+    def __repr__(self):
+        return "side_price_WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
+    
+    def __call__(self, side = None):
+        expiry = self.expiry
+        proto = self.proto
+        return price_WithExpiry(expiry, proto(side))
     
 

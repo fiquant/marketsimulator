@@ -40,14 +40,20 @@ object order_factory extends gen.PythonGenerator
     {
         def name = f.name
 
+        def raw_params = f.parameters
+
         val docstring  = f.docstring match {
             case Some(d) => d.detailed
             case None => Nil
         }
 
+        def prefix = ""
+
         def alias = name
 
         def ty = f.ret_type.returnTypeIfFunction.get.asPython
+
+        def interface = "IOrderGenerator" ||| ImportFrom("IOrderGenerator", "marketsim")
 
         override def body = super.body | call
     }
@@ -72,7 +78,7 @@ object order_factory extends gen.PythonGenerator
                                     ImportFrom(ty, "marketsim") |||
                                     ImportFrom("Observable", "marketsim.ops._all")
 
-        override def base_classes = "IOrderGenerator, " ||| ImportFrom("IOrderGenerator", "marketsim") ||| base_class
+        override def base_classes = interface ||| ", " ||| base_class
 
         override def init_body = base_class ||| ".__init__(self)" | super.init_body
 
@@ -107,6 +113,8 @@ object order_factory extends gen.PythonGenerator
         def call_body_assign_arg = s"$name = $name" ||| assign_if_none
 
         def call_arg = s"$name = None"
+
+        override def call = name
     }
 
 
@@ -122,9 +130,8 @@ object order_factory extends gen.PythonGenerator
         override def name = (curried map { _.name } mkString "") + "_" + original.name
         override def alias = original.alias
 
-        override def registration = super.registration |
-            "@types.sig("||| curriedTypes(curried) |||", IOrderGenerator)" |||
-            ImportFrom("types", "marketsim")
+        override def interface = s"IFunction["||| original.interface |||", "||| curriedTypesAsList(curried) |||"]"
+        override def base_classes = interface
 
         def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
         def call_body_assign_args = join_fields({ _.call_body_assign_arg }, crlf, curried_parameters)
@@ -137,13 +144,16 @@ object order_factory extends gen.PythonGenerator
     }
 
     case class PartialFactoryOnProtoParameter(curried   : List[Typed.Parameter],
+                                              original  : FactoryBase,
                                               p         : Typed.Parameter)
             extends base.Parameter
     {
         val proto = "proto"
         val isProto = name == "proto"
 
-        val prefix = curried map { _.name } mkString ""
+        val prefix =
+            (curried map { _.name } mkString "") +
+            (if (original.prefix != "") "_" + original.prefix else "")
 
         def prefixize(x : ImportFrom) = x.copy(what = prefix + "_" + x.what)
 
@@ -155,13 +165,12 @@ object order_factory extends gen.PythonGenerator
 
         def call_args = curried map { _.name } mkString ","
 
-        override def call = if (isProto) s"self.$proto($call_args)" else super.call
+        override def call = if (isProto) s"$proto($call_args)" else name
+
+        def interface = s"IFunction["||| original.interface |||", "||| curriedTypesAsList(curried) |||"]"
 
         override def property = s"\'$name\' : " |||
-                (if (isProto) s"meta.function("||| curriedTypes(curried) |||", IOrderGenerator)" |||
-                        ImportFrom("meta", "marketsim") |||
-                        ImportFrom("IOrderGenerator", "marketsim")
-                else ty)
+                (if (isProto) interface else ty)
 
         def call_body_assign = s"$name = self.$name"
 
@@ -184,22 +193,25 @@ object order_factory extends gen.PythonGenerator
         curr_types.toPython ||| Code.from(curr_types.imports)
     }
 
+    def curriedTypesAsList(curried : List[Typed.Parameter]) = {
+        val curr_types = curried map { _.ty }
+
+        (curr_types map { _.toPython } mkString "," ) ||| Code.from(curr_types flatMap { _.imports })
+    }
+
     class PartialFactoryOnProto(curried  : List[Typed.Parameter],
                                 original : FactoryBase)
             extends FactoryBase(original.f)
     {
         override type Parameter = PartialFactoryOnProtoParameter
-        val parameters  = original.f.parameters map { PartialFactoryOnProtoParameter(curried, _) }
+        val parameters  = original.f.parameters map { PartialFactoryOnProtoParameter(curried, original, _) }
 
-        val prefix = curried map { _.name } mkString ""
+        override val prefix = curried map { _.name } mkString ""
         override def name = prefix + "_" + original.name
         override def alias = original.alias
 
-        override def registration = super.registration |
-            "@sig("||| curriedTypes(curried) |||", IOrderGenerator)" |||
-            ImportFrom("sig", "marketsim.types") |||
-            ImportFrom("IFunction", "marketsim")
-
+        override def interface = s"IFunction["||| original.interface |||", "||| curriedTypesAsList(curried) |||"]"
+        override def base_classes = interface
 
         def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
 
@@ -210,7 +222,7 @@ object order_factory extends gen.PythonGenerator
         override def call_args =
             join_fields(
                 { _.call_arg }, ",",
-                curried map { PartialFactoryOnProtoParameter(curried, _) }
+                curried map { PartialFactoryOnProtoParameter(curried, original, _) }
             )
     }
 
@@ -251,7 +263,7 @@ object order_factory extends gen.PythonGenerator
 
         def partialFactory(curried  : List[Typed.Parameter],
                            base     : FactoryBase = original) =
-            extract(curried map { _.name }, f.parameters) match {
+            extract(curried map { _.name }, base.raw_params) match {
                 case Some((cr, rest)) =>
                     Some(new PartialFactory(cr, rest, base))
                 case _ =>
@@ -270,12 +282,19 @@ object order_factory extends gen.PythonGenerator
 
         def ifSome[A](x : Option[A]) = if (x.nonEmpty) x.get.toString + crlf else ""
 
+        val priceFactory = partialFactory(priceParam :: Nil)
+        val sideFactory = partialFactory(sideParam :: Nil)
+        val volumeFactory = partialFactory(volumeParam :: Nil)
+        val sidePriceFactory = partialFactory(sideParam :: priceParam :: Nil)
+        val side_priceFactory = priceFactory flatMap { partialFactory(sideParam :: Nil, _) }
+
         override def toString = original.toString + crlf +
                 ifSome(signedFactory) +
-                ifSome(partialFactory(sideParam :: Nil)) +
-                ifSome(partialFactory(volumeParam :: Nil)) +
-                ifSome(partialFactory(priceParam :: Nil)) +
-                ifSome(partialFactory(sideParam :: priceParam :: Nil))
+                ifSome(sideFactory) +
+                ifSome(volumeFactory) +
+                ifSome(priceFactory) +
+                ifSome(sidePriceFactory) +
+                ifSome(side_priceFactory)
     }
 
     def apply(/** arguments of the annotation */ args  : List[String])

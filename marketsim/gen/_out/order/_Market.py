@@ -90,14 +90,13 @@ class MarketSigned(IOrderGenerator, Observable[Order]):
         return Order_Impl(side, volume)
     
 from marketsim import registry
+from marketsim import IOrderGenerator
 from marketsim import types
 from marketsim import Side
-from marketsim import types
 from marketsim import IFunction
 @registry.expose(["Order", "Market"])
-@types.sig((types.IFunction[Side],)
-, IOrderGenerator)
-class side_Market(object):
+class side_Market(IFunction[IOrderGenerator, types.IFunction[Side]
+]):
     """ 
     """ 
     def __init__(self, volume = None):
@@ -121,13 +120,12 @@ class side_Market(object):
         return Market(side, volume)
     
 from marketsim import registry
+from marketsim import IOrderGenerator
 from marketsim import IFunction
-from marketsim import types
 from marketsim import types
 from marketsim import Side
 @registry.expose(["Order", "Market"])
-@types.sig((IFunction[float],), IOrderGenerator)
-class volume_Market(object):
+class volume_Market(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
     """ 
     def __init__(self, side = None):

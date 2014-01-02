@@ -43,8 +43,7 @@ class Factory(types.IPersistentOrderGenerator):
         return Peg(proto) if proto is not None else None
 
 @registry.expose(['Peg'])
-@sig((IFunction[Side],), IOrderGenerator)
-class Side_Factory(object):
+class Side_Factory(IFunction[IOrderGenerator, IFunction[Side]]):
     
     def __init__(self, 
                  factory = _limit.Side_Price_Factory()):

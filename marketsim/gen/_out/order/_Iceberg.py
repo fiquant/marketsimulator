@@ -49,19 +49,16 @@ class Iceberg(IOrderGenerator, Observable[Order]):
         return Iceberg_Impl(lotSize, proto)
     
 from marketsim import registry
-from marketsim import IFunction
-from marketsim import Side
-from marketsim.types import sig
-from marketsim import IFunction
-from marketsim import IObservable
-from marketsim import IFunction
-from marketsim import Side
-from marketsim import meta
 from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import Side
+from marketsim import IObservable
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import Side
 @registry.expose(["Order", "Iceberg"])
-@sig((IFunction[Side],)
-, IOrderGenerator)
-class side_Iceberg(object):
+class side_Iceberg(IFunction[IOrderGenerator, IFunction[Side]
+]):
     """ 
     """ 
     def __init__(self, lotSize = None, proto = None):
@@ -76,8 +73,8 @@ class side_Iceberg(object):
     
     _properties = {
         'lotSize' : IObservable[float],
-        'proto' : meta.function((IFunction[Side],)
-        , IOrderGenerator)
+        'proto' : IFunction[IOrderGenerator, IFunction[Side]
+        ]
     }
     def __repr__(self):
         return "side_Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
@@ -85,19 +82,16 @@ class side_Iceberg(object):
     def __call__(self, side = None):
         lotSize = self.lotSize
         proto = self.proto
-        return Iceberg(self.lotSize, self.proto(side))
+        return Iceberg(lotSize, proto(side))
     
 from marketsim import registry
-from marketsim import IFunction
-from marketsim.types import sig
+from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IObservable
-from marketsim import IFunction
-from marketsim import meta
 from marketsim import IOrderGenerator
+from marketsim import IFunction
 @registry.expose(["Order", "Iceberg"])
-@sig((IFunction[float],), IOrderGenerator)
-class volume_Iceberg(object):
+class volume_Iceberg(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
     """ 
     def __init__(self, lotSize = None, proto = None):
@@ -112,7 +106,7 @@ class volume_Iceberg(object):
     
     _properties = {
         'lotSize' : IObservable[float],
-        'proto' : meta.function((IFunction[float],), IOrderGenerator)
+        'proto' : IFunction[IOrderGenerator, IFunction[float]]
     }
     def __repr__(self):
         return "volume_Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
@@ -120,19 +114,16 @@ class volume_Iceberg(object):
     def __call__(self, volume = None):
         lotSize = self.lotSize
         proto = self.proto
-        return Iceberg(self.lotSize, self.proto(volume))
+        return Iceberg(lotSize, proto(volume))
     
 from marketsim import registry
-from marketsim import IFunction
-from marketsim.types import sig
+from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IObservable
-from marketsim import IFunction
-from marketsim import meta
 from marketsim import IOrderGenerator
+from marketsim import IFunction
 @registry.expose(["Order", "Iceberg"])
-@sig((IFunction[float],), IOrderGenerator)
-class price_Iceberg(object):
+class price_Iceberg(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
     """ 
     def __init__(self, lotSize = None, proto = None):
@@ -147,7 +138,7 @@ class price_Iceberg(object):
     
     _properties = {
         'lotSize' : IObservable[float],
-        'proto' : meta.function((IFunction[float],), IOrderGenerator)
+        'proto' : IFunction[IOrderGenerator, IFunction[float]]
     }
     def __repr__(self):
         return "price_Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
@@ -155,25 +146,22 @@ class price_Iceberg(object):
     def __call__(self, price = None):
         lotSize = self.lotSize
         proto = self.proto
-        return Iceberg(self.lotSize, self.proto(price))
+        return Iceberg(lotSize, proto(price))
     
 from marketsim import registry
+from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import Side
-from marketsim import IFunction
-from marketsim.types import sig
 from marketsim import IFunction
 from marketsim import IObservable
+from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
-from marketsim import meta
-from marketsim import IOrderGenerator
 @registry.expose(["Order", "Iceberg"])
-@sig((IFunction[Side],IFunction[float],)
+class sideprice_Iceberg(IFunction[IOrderGenerator, IFunction[Side],IFunction[float]
 
-, IOrderGenerator)
-class sideprice_Iceberg(object):
+]):
     """ 
     """ 
     def __init__(self, lotSize = None, proto = None):
@@ -188,9 +176,9 @@ class sideprice_Iceberg(object):
     
     _properties = {
         'lotSize' : IObservable[float],
-        'proto' : meta.function((IFunction[Side],IFunction[float],)
+        'proto' : IFunction[IOrderGenerator, IFunction[Side],IFunction[float]
         
-        , IOrderGenerator)
+        ]
     }
     def __repr__(self):
         return "sideprice_Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
@@ -198,6 +186,44 @@ class sideprice_Iceberg(object):
     def __call__(self, side = None,price = None):
         lotSize = self.lotSize
         proto = self.proto
-        return Iceberg(self.lotSize, self.proto(side,price))
+        return Iceberg(lotSize, proto(side,price))
+    
+from marketsim import registry
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import Side
+from marketsim import IObservable
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import Side
+@registry.expose(["Order", "Iceberg"])
+class side_price_Iceberg(IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]
+]):
+    """ 
+    """ 
+    def __init__(self, lotSize = None, proto = None):
+        from marketsim.gen._out._const import const
+        from marketsim.gen._out.order._Limit import side_price_Limit
+        self.lotSize = lotSize if lotSize is not None else const(10.0)
+        self.proto = proto if proto is not None else side_price_Limit()
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'lotSize' : IObservable[float],
+        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]
+        ]
+    }
+    def __repr__(self):
+        return "side_price_Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
+    
+    def __call__(self, side = None):
+        lotSize = self.lotSize
+        proto = self.proto
+        return price_Iceberg(lotSize, proto(side))
     
 

@@ -49,14 +49,13 @@ class FixedBudget(IOrderGenerator, Observable[Order]):
         return Order_Impl(side, budget)
     
 from marketsim import registry
+from marketsim import IOrderGenerator
 from marketsim import types
 from marketsim import Side
-from marketsim import types
 from marketsim import IFunction
 @registry.expose(["Order", "FixedBudget"])
-@types.sig((types.IFunction[Side],)
-, IOrderGenerator)
-class side_FixedBudget(object):
+class side_FixedBudget(IFunction[IOrderGenerator, types.IFunction[Side]
+]):
     """ 
     """ 
     def __init__(self, budget = None):
