@@ -22,9 +22,9 @@ object Printer {
 
         trait Tuple extends Bound {
             val elems : List[Bound]
-            def toPython = elems map { _.toPython } mkString ("(", ",", ")")
+            def toPython = elems map { _.toPython } map { _ + "," } mkString ("(", "", ")")
 
-            def imports = Nil
+            def imports = elems flatMap { _.imports }
         }
 
         trait Function extends Bound {

@@ -51,15 +51,18 @@ class StopLoss(IOrderGenerator, Observable[Order]):
 
 
 from marketsim import registry
+from marketsim import IFunction
 from marketsim import Side
 from marketsim.types import sig
 from marketsim import IFunction
 from marketsim import IObservable
+from marketsim import IFunction
 from marketsim import Side
 from marketsim import meta
 from marketsim import IOrderGenerator
 @registry.expose(["Order", "StopLoss"])
-@sig((IFunction[Side],), IOrderGenerator)
+@sig((IFunction[Side],)
+, IOrderGenerator)
 class side_StopLoss(object):
     """ 
     """ 
@@ -75,7 +78,8 @@ class side_StopLoss(object):
     
     _properties = {
         'maxloss' : IObservable[float],
-        'proto' : meta.function((IFunction[Side],), IOrderGenerator)
+        'proto' : meta.function((IFunction[Side],)
+        , IOrderGenerator)
     }
     def __repr__(self):
         return "side_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
@@ -87,9 +91,11 @@ class side_StopLoss(object):
     
 
 from marketsim import registry
+from marketsim import IFunction
 from marketsim.types import sig
 from marketsim import IFunction
 from marketsim import IObservable
+from marketsim import IFunction
 from marketsim import meta
 from marketsim import IOrderGenerator
 @registry.expose(["Order", "StopLoss"])
@@ -121,9 +127,11 @@ class volume_StopLoss(object):
     
 
 from marketsim import registry
+from marketsim import IFunction
 from marketsim.types import sig
 from marketsim import IFunction
 from marketsim import IObservable
+from marketsim import IFunction
 from marketsim import meta
 from marketsim import IOrderGenerator
 @registry.expose(["Order", "StopLoss"])
@@ -155,13 +163,21 @@ class price_StopLoss(object):
     
 
 from marketsim import registry
+from marketsim import IFunction
+from marketsim import Side
+from marketsim import IFunction
 from marketsim.types import sig
 from marketsim import IFunction
 from marketsim import IObservable
+from marketsim import IFunction
+from marketsim import Side
+from marketsim import IFunction
 from marketsim import meta
 from marketsim import IOrderGenerator
 @registry.expose(["Order", "StopLoss"])
-@sig((IFunction[(Side,float)],), IOrderGenerator)
+@sig((IFunction[Side],IFunction[float],)
+
+, IOrderGenerator)
 class sideprice_StopLoss(object):
     """ 
     """ 
@@ -177,7 +193,9 @@ class sideprice_StopLoss(object):
     
     _properties = {
         'maxloss' : IObservable[float],
-        'proto' : meta.function((IFunction[(Side,float)],), IOrderGenerator)
+        'proto' : meta.function((IFunction[Side],IFunction[float],)
+        
+        , IOrderGenerator)
     }
     def __repr__(self):
         return "sideprice_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__

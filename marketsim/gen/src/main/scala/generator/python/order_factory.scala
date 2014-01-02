@@ -123,7 +123,7 @@ object order_factory extends gen.PythonGenerator
         override def alias = original.alias
 
         override def registration = super.registration |
-            "@types.sig((IFunction["||| curriedTypesF(curried) |||"],), IOrderGenerator)" |||
+            "@types.sig("||| curriedTypes(curried) |||", IOrderGenerator)" |||
             ImportFrom("types", "marketsim")
 
         def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
@@ -158,7 +158,7 @@ object order_factory extends gen.PythonGenerator
         override def call = if (isProto) s"self.$proto($call_args)" else super.call
 
         override def property = s"\'$name\' : " |||
-                (if (isProto) s"meta.function((IFunction["||| curriedTypes(curried) |||"],), IOrderGenerator)" |||
+                (if (isProto) s"meta.function("||| curriedTypes(curried) |||", IOrderGenerator)" |||
                         ImportFrom("meta", "marketsim") |||
                         ImportFrom("IOrderGenerator", "marketsim")
                 else ty)
@@ -179,21 +179,7 @@ object order_factory extends gen.PythonGenerator
     }
 
     def curriedTypes(curried : List[Typed.Parameter]) = {
-        val curr_types =
-            if (curried.length == 1)
-                curried(0).ty
-            else
-                TypesBound.Tuple(curried map { _.ty })
-
-        curr_types.toPython ||| Code.from(curr_types.imports)
-    }
-
-    def curriedTypesF(curried : List[Typed.Parameter]) = {
-        val curr_types =
-            if (curried.length == 1)
-                curried(0).ty.returnTypeIfFunction.get
-            else
-                TypesBound.Tuple(curried map { _.ty.returnTypeIfFunction.get })
+        val curr_types = TypesBound.Tuple(curried map { _.ty })
 
         curr_types.toPython ||| Code.from(curr_types.imports)
     }
@@ -210,7 +196,7 @@ object order_factory extends gen.PythonGenerator
         override def alias = original.alias
 
         override def registration = super.registration |
-            "@sig((IFunction["||| curriedTypes(curried) |||"],), IOrderGenerator)" |||
+            "@sig("||| curriedTypes(curried) |||", IOrderGenerator)" |||
             ImportFrom("sig", "marketsim.types") |||
             ImportFrom("IFunction", "marketsim")
 
@@ -256,10 +242,10 @@ object order_factory extends gen.PythonGenerator
 
         def hasProto(parameters : List[Typed.Parameter]) = parameters exists { _.name == "proto" }
 
-        def createParam(name : String, ty : TypesBound.Base = Types.float_) =
+        def createParam(name : String, ty : TypesBound.Base = Types.floatFunc) =
             Typed.Parameter(name, ty, None, Nil)
 
-        val sideParam = createParam("side", Types.side_)
+        val sideParam = createParam("side", Types.sideFunc)
         val volumeParam = createParam("volume")
         val priceParam = createParam("price")
 

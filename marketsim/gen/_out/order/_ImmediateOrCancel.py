@@ -40,14 +40,17 @@ class ImmediateOrCancel(IOrderGenerator, Observable[Order]):
 
 
 from marketsim import registry
+from marketsim import IFunction
 from marketsim import Side
 from marketsim.types import sig
+from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import Side
 from marketsim import meta
 from marketsim import IOrderGenerator
 @registry.expose(["Order", "ImmediateOrCancel"])
-@sig((IFunction[Side],), IOrderGenerator)
+@sig((IFunction[Side],)
+, IOrderGenerator)
 class side_ImmediateOrCancel(object):
     """ 
     """ 
@@ -60,7 +63,8 @@ class side_ImmediateOrCancel(object):
         return repr(self)
     
     _properties = {
-        'proto' : meta.function((IFunction[Side],), IOrderGenerator)
+        'proto' : meta.function((IFunction[Side],)
+        , IOrderGenerator)
     }
     def __repr__(self):
         return "side_ImmediateOrCancel(%(proto)s)" % self.__dict__
@@ -71,7 +75,9 @@ class side_ImmediateOrCancel(object):
     
 
 from marketsim import registry
+from marketsim import IFunction
 from marketsim.types import sig
+from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import meta
 from marketsim import IOrderGenerator
@@ -100,7 +106,9 @@ class volume_ImmediateOrCancel(object):
     
 
 from marketsim import registry
+from marketsim import IFunction
 from marketsim.types import sig
+from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import meta
 from marketsim import IOrderGenerator
@@ -129,12 +137,20 @@ class price_ImmediateOrCancel(object):
     
 
 from marketsim import registry
+from marketsim import IFunction
+from marketsim import Side
+from marketsim import IFunction
 from marketsim.types import sig
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import Side
 from marketsim import IFunction
 from marketsim import meta
 from marketsim import IOrderGenerator
 @registry.expose(["Order", "ImmediateOrCancel"])
-@sig((IFunction[(Side,float)],), IOrderGenerator)
+@sig((IFunction[Side],IFunction[float],)
+
+, IOrderGenerator)
 class sideprice_ImmediateOrCancel(object):
     """ 
     """ 
@@ -147,7 +163,9 @@ class sideprice_ImmediateOrCancel(object):
         return repr(self)
     
     _properties = {
-        'proto' : meta.function((IFunction[(Side,float)],), IOrderGenerator)
+        'proto' : meta.function((IFunction[Side],IFunction[float],)
+        
+        , IOrderGenerator)
     }
     def __repr__(self):
         return "sideprice_ImmediateOrCancel(%(proto)s)" % self.__dict__

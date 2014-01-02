@@ -112,12 +112,14 @@ class LimitSigned(IOrderGenerator, Observable[Order]):
         return Order_Impl(side, price, volume)
     
 from marketsim import registry
+from marketsim import types
 from marketsim import Side
 from marketsim import types
 from marketsim import IFunction
 from marketsim import IFunction
 @registry.expose(["Order", "Limit"])
-@types.sig((IFunction[Side],), IOrderGenerator)
+@types.sig((types.IFunction[Side],)
+, IOrderGenerator)
 class side_Limit(object):
     """ 
     """ 
@@ -147,6 +149,7 @@ class side_Limit(object):
     
 
 from marketsim import registry
+from marketsim import IFunction
 from marketsim import types
 from marketsim import types
 from marketsim import Side
@@ -183,6 +186,7 @@ class volume_Limit(object):
     
 
 from marketsim import registry
+from marketsim import IFunction
 from marketsim import types
 from marketsim import types
 from marketsim import Side
@@ -220,9 +224,14 @@ class price_Limit(object):
 
 from marketsim import registry
 from marketsim import types
+from marketsim import Side
+from marketsim import IFunction
+from marketsim import types
 from marketsim import IFunction
 @registry.expose(["Order", "Limit"])
-@types.sig((IFunction[(Side,float)],), IOrderGenerator)
+@types.sig((types.IFunction[Side],IFunction[float],)
+
+, IOrderGenerator)
 class sideprice_Limit(object):
     """ 
     """ 
