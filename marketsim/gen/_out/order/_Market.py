@@ -120,7 +120,6 @@ class side_Market(object):
         volume = self.volume
         return Market(side, volume)
     
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim import types
@@ -152,9 +151,4 @@ class volume_Market(object):
         side = self.side
         return Market(side, volume)
     
-
-
-
-
-
 

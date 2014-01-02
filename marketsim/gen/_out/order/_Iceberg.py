@@ -48,8 +48,6 @@ class Iceberg(IOrderGenerator, Observable[Order]):
         
         return Iceberg_Impl(lotSize, proto)
     
-
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim import Side
@@ -89,7 +87,6 @@ class side_Iceberg(object):
         proto = self.proto
         return Iceberg(self.lotSize, self.proto(side))
     
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim.types import sig
@@ -125,7 +122,6 @@ class volume_Iceberg(object):
         proto = self.proto
         return Iceberg(self.lotSize, self.proto(volume))
     
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim.types import sig
@@ -161,7 +157,6 @@ class price_Iceberg(object):
         proto = self.proto
         return Iceberg(self.lotSize, self.proto(price))
     
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim import Side

@@ -48,7 +48,6 @@ class FixedBudget(IOrderGenerator, Observable[Order]):
         
         return Order_Impl(side, budget)
     
-
 from marketsim import registry
 from marketsim import types
 from marketsim import Side
@@ -80,11 +79,4 @@ class side_FixedBudget(object):
         budget = self.budget
         return FixedBudget(side, budget)
     
-
-
-
-
-
-
-
 

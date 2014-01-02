@@ -48,8 +48,6 @@ class WithExpiry(IOrderGenerator, Observable[Order]):
         
         return WithExpiry_Impl(expiry, proto)
     
-
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim import Side
@@ -89,7 +87,6 @@ class side_WithExpiry(object):
         proto = self.proto
         return WithExpiry(self.expiry, self.proto(side))
     
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim.types import sig
@@ -125,7 +122,6 @@ class volume_WithExpiry(object):
         proto = self.proto
         return WithExpiry(self.expiry, self.proto(volume))
     
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim.types import sig
@@ -161,7 +157,6 @@ class price_WithExpiry(object):
         proto = self.proto
         return WithExpiry(self.expiry, self.proto(price))
     
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim import Side

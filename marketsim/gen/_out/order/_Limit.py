@@ -147,7 +147,6 @@ class side_Limit(object):
         volume = self.volume
         return Limit(side, price, volume)
     
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim import types
@@ -184,7 +183,6 @@ class volume_Limit(object):
         price = self.price
         return Limit(side, price, volume)
     
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim import types
@@ -221,7 +219,6 @@ class price_Limit(object):
         volume = self.volume
         return Limit(side, price, volume)
     
-
 from marketsim import registry
 from marketsim import types
 from marketsim import Side
@@ -257,5 +254,4 @@ class sideprice_Limit(object):
         volume = self.volume
         return Limit(side, price, volume)
     
-
 

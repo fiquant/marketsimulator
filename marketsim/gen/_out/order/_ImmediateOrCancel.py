@@ -37,8 +37,6 @@ class ImmediateOrCancel(IOrderGenerator, Observable[Order]):
         
         return Order_Impl(proto)
     
-
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim import Side
@@ -73,7 +71,6 @@ class side_ImmediateOrCancel(object):
         proto = self.proto
         return ImmediateOrCancel(self.proto(side))
     
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim.types import sig
@@ -104,7 +101,6 @@ class volume_ImmediateOrCancel(object):
         proto = self.proto
         return ImmediateOrCancel(self.proto(volume))
     
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim.types import sig
@@ -135,7 +131,6 @@ class price_ImmediateOrCancel(object):
         proto = self.proto
         return ImmediateOrCancel(self.proto(price))
     
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim import Side

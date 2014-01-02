@@ -48,8 +48,6 @@ class StopLoss(IOrderGenerator, Observable[Order]):
         
         return Order_Impl(maxloss, proto)
     
-
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim import Side
@@ -89,7 +87,6 @@ class side_StopLoss(object):
         proto = self.proto
         return StopLoss(self.maxloss, self.proto(side))
     
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim.types import sig
@@ -125,7 +122,6 @@ class volume_StopLoss(object):
         proto = self.proto
         return StopLoss(self.maxloss, self.proto(volume))
     
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim.types import sig
@@ -161,7 +157,6 @@ class price_StopLoss(object):
         proto = self.proto
         return StopLoss(self.maxloss, self.proto(price))
     
-
 from marketsim import registry
 from marketsim import IFunction
 from marketsim import Side
