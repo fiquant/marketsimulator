@@ -197,6 +197,11 @@ package order {
                    proto = Limit()) : IObservable[Order]
         
     
+    @python.order.factory("order.meta.iceberg.Iceberg_Impl")
+    def Iceberg(lotSize = const(10.0),
+                proto = Limit()) : IObservable[Order]
+        
+    
     @python.order.factory("order.meta.fixed_budget.Order_Impl")
     def FixedBudget(side = side.Sell(),
                     budget = constant(1000.0)) : IObservable[Order]

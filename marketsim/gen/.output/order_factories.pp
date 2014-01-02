@@ -30,4 +30,9 @@ package order {
     def WithExpiry(expiry = const(10.0),
                    proto = Limit()) : IObservable[Order]
         
+    
+    @python.order.factory("order.meta.iceberg.Iceberg_Impl")
+    def Iceberg(lotSize = const(10.0),
+                proto = Limit()) : IObservable[Order]
+        
 }
