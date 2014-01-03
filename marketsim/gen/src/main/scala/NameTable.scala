@@ -20,12 +20,12 @@ package object NameTable {
             members = members updated (m.name, m)
         }
 
-        def qualifyName(x : String) = typed.get qualifyName x
-
-        def qualifiedName = parent match {
-            case Some(p) => p.qualifyName(name)
-            case None    => name
+        def qualifyName(x : String) : String = parent match {
+            case Some(p) if p.name != "_root_" => p.qualifiedName + "." + x
+            case _                             => x
         }
+
+        def qualifiedName = qualifyName(name)
 
         override def equals(o : Any) = true
 

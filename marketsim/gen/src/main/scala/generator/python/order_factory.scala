@@ -341,14 +341,27 @@ object order_factory
         def partialFactory(curried  : List[AST.Parameter],
                            base     : AST.FunDef = f) =
         {
-            val prefixed = (curried map { _.name } mkString "") + "_" + base.name
+            val prefix = (curried map { _.name } mkString "") + "_"
+            val prefixed = prefix + base.name
 
-            extract(curried map { _.name }, f.parameters) match {
+            def addPrefix(e : Option[AST.Expr]) = {
+                val call = e.get.asInstanceOf[AST.FunCall]
+                val names = call.name.names
+                val fresh_name = AST.QualifiedName(names.updated(names.length-1, prefix + names.last))
+                Some(call.copy(name = fresh_name))
+            }
+
+            lazy val withAdjustedProto = base.parameters map {
+                case x if x.name == "proto" => x.copy(initializer = addPrefix(x.initializer))
+                case x => x
+            }
+
+            extract(curried map { _.name }, base.parameters) match {
                 case Some((cr, rest)) =>
-                    Some(f.copy(name = prefixed, decorators = Nil))
+                    Some(base.copy(name = prefixed, parameters = rest, decorators = Nil))
                 case _ =>
-                    if (hasProto(f.parameters))
-                        Some(f.copy(name = prefixed, decorators = Nil))
+                    if (hasProto(base.parameters))
+                        Some(base.copy(name = prefixed, parameters = withAdjustedProto, decorators = Nil))
                     else
                         None
             }
@@ -367,7 +380,8 @@ object order_factory
             sidePriceFactory,
             side_priceFactory
         ) collect { case Some(p) =>
-            //f.parent.insert(p)
+            if (!(scope.members contains p.name))
+                scope.add(p)
         }
     }
 
