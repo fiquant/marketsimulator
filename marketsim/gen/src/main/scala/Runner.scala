@@ -83,7 +83,7 @@ object Runner extends syntax.scala.Parser {
     {
         print("building name tables...")
 
-        val names = NameTable.apply(parsed)
+        val names = NameTable(parsed)
 
         for (output <- managed(new PrintWriter(".output/names.sc"))) {
             output.println(names)

@@ -172,10 +172,8 @@ object Typer
                         if (x.nonEmpty) x.get else throw fail_msg
                     deref(body_type, new Exception(s"Return type for $definition should be given explicitly"))
             }
-            val annotations = definition.decorators collect toTypedAnnotation
-            val attributes = Typed.Attributes((definition.decorators collect toTypedAttribute).toMap)
             Typed.Function(target, definition.name, locals, ty, body,
-                definition.docstring, annotations, attributes)
+                definition.docstring, annotationsOf(definition), attributesOf(definition))
         }
 
         private def toTyped(p: AST.Parameter, inferType : AST.Expr => Typed.Expr) : Typed.Parameter = {
@@ -206,13 +204,17 @@ object Typer
             }
         }
 
-        private val toTypedAnnotation : PartialFunction[AST.Decorator, Typed.Annotation] = {
-            case a :  AST.Annotation => Typed.Annotation(Typed.Annotations.lookup(a.name.toString), a.parameters)
-        }
-
-        private val toTypedAttribute : PartialFunction[AST.Decorator, (String,String)] = {
-            case AST.Attribute(name, value) => (name, value)
-        }
     }
 
+    def annotationsOf(definition : AST.FunDef) = definition.decorators collect toTypedAnnotation
+
+    def attributesOf(definition : AST.FunDef) = Typed.Attributes((definition.decorators collect toTypedAttribute).toMap)
+
+    private val toTypedAnnotation : PartialFunction[AST.Decorator, Typed.Annotation] = {
+        case a :  AST.Annotation => Typed.Annotation(Typed.Annotations.lookup(a.name.toString), a.parameters)
+    }
+
+    private val toTypedAttribute : PartialFunction[AST.Decorator, (String,String)] = {
+        case AST.Attribute(name, value) => (name, value)
+    }
 }

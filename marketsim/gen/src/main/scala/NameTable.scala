@@ -2,6 +2,7 @@ import syntax.scala.Printer.{typed => pp}
 import AST.ScPrintable
 import shapeless.syntax.typeable._
 import scala.collection.immutable._
+import Typed.AfterTyping
 
 object NameTable {
 
@@ -116,9 +117,34 @@ object NameTable {
         a foreach { impl.add }
     }
 
-    def apply(p : List[AST.Definitions], impl : Scope = new Scope) : Scope =
+    trait BeforeTyping extends Typed.AnnotationHandler
     {
+        def beforeTyping(/** arguments of the annotation     */ args  : List[String])
+                        (/** function to process             */ f     : AST.FunDef, 
+                         /** scope where function is defined */ scope : Scope)
+    }
+
+    object BeforeTyping
+    {
+        def apply(scope : Scope)
+        {
+            scope.packages.values foreach { apply }
+            scope.anonymous       foreach { apply }
+
+            scope.members.values collect { case f : AST.FunDef =>
+                Typer.annotationsOf(f) collect { case Typed.Annotation(g : BeforeTyping, args) => g.beforeTyping(args)(f, scope) }
+            }
+        }
+    }
+
+
+    def apply(p : List[AST.Definitions]) : Scope =
+    {
+        val impl : Scope = new Scope
+
         p foreach { create(_, Nil, impl) }
+
+        BeforeTyping(impl)
 
         impl
     }
