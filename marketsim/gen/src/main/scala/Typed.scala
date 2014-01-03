@@ -316,5 +316,23 @@ package object Typed
         override def toString = registry.toString()
     }
 
+    trait AfterTyping extends AnnotationHandler
+    {
+        def afterTyping(/** arguments of the annotation */ args  : List[String])
+                       (/** function to process         */ f     : Typed.Function)
+    }
+
+    object AfterTyping
+    {
+        def apply(pkg : Package = topLevel)
+        {
+            pkg.packages.values foreach { apply(_) }
+            pkg.anonymous       foreach { apply(_) }
+
+            pkg.functions.values foreach { f=>
+                f.annotations collect { case Typed.Annotation(g : AfterTyping, args) => g.afterTyping(args)(f) }
+            }
+        }
+    }
 }
 

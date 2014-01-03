@@ -54,12 +54,6 @@ package object gen
                           (/** function to process         */ f     : Typed.Function) : GenerationUnit
     }
 
-    trait AfterTyping extends Typed.AnnotationHandler
-    {
-        def afterTyping(/** arguments of the annotation */ args  : List[String])
-                       (/** function to process         */ f     : Typed.Function)
-    }
-
     object Annotations {
 
         import Typed.Annotations._
