@@ -83,13 +83,13 @@ object Runner extends syntax.scala.Parser {
     {
         print("building name tables...")
 
-        val names = NameTable(parsed)
+        val names = NameTable.apply(parsed)
 
         for (output <- managed(new PrintWriter(".output/names.sc"))) {
             output.println(names)
         }
 
-        val names_2 = NameTable(parse(new File(".output/names.sc")).get :: Nil)
+        val names_2 = NameTable.apply(parse(new File(".output/names.sc")).get :: Nil)
 
         if (names_2 != names)
             throw new Exception("re-parsed names differ from original ones.")
@@ -103,7 +103,7 @@ object Runner extends syntax.scala.Parser {
     def buildTyped(names: NameTable.Scope)  = {
         print("typing...")
 
-        val typed = Typer(names)
+        val typed = Typer.apply(names)
 
         Typed.AfterTyping()
 
@@ -111,7 +111,7 @@ object Runner extends syntax.scala.Parser {
             output.println(typed)
         }
 
-        val typed_2 = Typer(NameTable(parse(new File(".output/typed.sc")).get :: Nil))
+        val typed_2 = Typer.apply(NameTable.apply(parse(new File(".output/typed.sc")).get :: Nil))
 
         if (typed != typed_2)
             throw new Exception("re-parsed typed representation differs from the original one")

@@ -6,7 +6,7 @@ import scala.Some
 
 object order_factory
         extends gen.PythonGenerator
-        with    Typed.AfterTyping
+        with    Typed.BeforeTyping
 {
     case class Parameter(p : Typed.Parameter) extends base.Parameter
     {
@@ -305,11 +305,12 @@ object order_factory
         new WithSignedOpt(args, f)
     }
 
-    def afterTyping(/** arguments of the annotation */ args  : List[String])
-                   (/** function to process         */ f     : Typed.Function)
+    def beforeTyping(/** arguments of the annotation */ args  : List[String])
+                    (/** function to process         */ f     : AST.FunDef,
+                                                        scope : NameTable.Scope)
     {
-        def extract(names : List[String], parameters : List[Typed.Parameter])
-            : Option[(List[Typed.Parameter], List[Typed.Parameter])] = names match
+        def extract(names : List[String], parameters : List[AST.Parameter])
+            : Option[(List[AST.Parameter], List[AST.Parameter])] = names match
         {
             case Nil =>
                 Some((Nil, parameters))
@@ -328,26 +329,26 @@ object order_factory
                     None
         }
 
-        def hasProto(parameters : List[Typed.Parameter]) = parameters exists { _.name == "proto" }
+        def hasProto(parameters : List[AST.Parameter]) = parameters exists { _.name == "proto" }
 
-        def createParam(name : String, ty : TypesBound.Base = Types.floatFunc) =
-            Typed.Parameter(name, ty, None, Nil)
+        def createParam(name : String, ty : AST.Type = AST.float_function_t) =
+            AST.Parameter(name, Some(ty), None, Nil)
 
-        val sideParam = createParam("side", Types.sideFunc)
+        val sideParam = createParam("side", AST.side_function_t)
         val volumeParam = createParam("volume")
         val priceParam = createParam("price")
 
-        def partialFactory(curried  : List[Typed.Parameter],
-                           base     : Typed.Function = f) =
+        def partialFactory(curried  : List[AST.Parameter],
+                           base     : AST.FunDef = f) =
         {
             val prefixed = (curried map { _.name } mkString "") + "_" + base.name
 
             extract(curried map { _.name }, f.parameters) match {
                 case Some((cr, rest)) =>
-                    Some(f.copy(name = prefixed, parameters = rest, annotations = Nil))
+                    Some(f.copy(name = prefixed, decorators = Nil))
                 case _ =>
                     if (hasProto(f.parameters))
-                        Some(f.copy(name = prefixed, annotations = Nil))
+                        Some(f.copy(name = prefixed, decorators = Nil))
                     else
                         None
             }

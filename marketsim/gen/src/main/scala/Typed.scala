@@ -316,6 +316,26 @@ package object Typed
         override def toString = registry.toString()
     }
 
+    trait BeforeTyping extends Typed.AnnotationHandler
+    {
+        def beforeTyping(/** arguments of the annotation     */ args  : List[String])
+                        (/** function to process             */ f     : AST.FunDef,
+                         /** scope where function is defined */ scope : NameTable.Scope)
+    }
+
+    object BeforeTyping
+    {
+        def apply(scope : NameTable.Scope)
+        {
+            scope.packages.values foreach { apply }
+            scope.anonymous       foreach { apply }
+
+            scope.members.values collect { case f : AST.FunDef =>
+                Typer.annotationsOf(f) collect { case Typed.Annotation(g : BeforeTyping, args) => g.beforeTyping(args)(f, scope) }
+            }
+        }
+    }
+
     trait AfterTyping extends AnnotationHandler
     {
         def afterTyping(/** arguments of the annotation */ args  : List[String])

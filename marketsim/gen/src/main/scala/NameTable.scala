@@ -4,7 +4,7 @@ import shapeless.syntax.typeable._
 import scala.collection.immutable._
 import Typed.AfterTyping
 
-object NameTable {
+package object NameTable {
 
     class Scope(val name : String = "_root_") extends pp.NamesScope with ScPrintable {
 
@@ -117,25 +117,6 @@ object NameTable {
         a foreach { impl.add }
     }
 
-    trait BeforeTyping extends Typed.AnnotationHandler
-    {
-        def beforeTyping(/** arguments of the annotation     */ args  : List[String])
-                        (/** function to process             */ f     : AST.FunDef, 
-                         /** scope where function is defined */ scope : Scope)
-    }
-
-    object BeforeTyping
-    {
-        def apply(scope : Scope)
-        {
-            scope.packages.values foreach { apply }
-            scope.anonymous       foreach { apply }
-
-            scope.members.values collect { case f : AST.FunDef =>
-                Typer.annotationsOf(f) collect { case Typed.Annotation(g : BeforeTyping, args) => g.beforeTyping(args)(f, scope) }
-            }
-        }
-    }
 
 
     def apply(p : List[AST.Definitions]) : Scope =
@@ -144,7 +125,7 @@ object NameTable {
 
         p foreach { create(_, Nil, impl) }
 
-        BeforeTyping(impl)
+        Typed.BeforeTyping(impl)
 
         impl
     }
