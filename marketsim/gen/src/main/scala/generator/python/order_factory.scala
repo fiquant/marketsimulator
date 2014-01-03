@@ -356,12 +356,14 @@ object order_factory
                 case x => x
             }
 
+            val ty = Some(AST.FunctionType(curried map { _.ty.get }, base.ty.get))
+
             extract(curried map { _.name }, base.parameters) match {
                 case Some((cr, rest)) =>
-                    Some(base.copy(name = prefixed, parameters = rest, decorators = Nil))
+                    Some(base.copy(name = prefixed, parameters = rest, decorators = Nil, ty = ty))
                 case _ =>
                     if (hasProto(base.parameters))
-                        Some(base.copy(name = prefixed, parameters = withAdjustedProto, decorators = Nil))
+                        Some(base.copy(name = prefixed, parameters = withAdjustedProto, decorators = Nil, ty = ty))
                     else
                         None
             }

@@ -205,7 +205,11 @@ package object Printer
         trait FunctionType extends Printable {
             val args : List[TypeBase]
             val ret : TypeBase
-            def toScala = (if (args.length == 1) args(0) else args.mkString("(", ",", ")")) + s" => $ret"
+            def correct(t : TypeBase) = t match {
+                case x : FunctionType => "(" + x + ")"
+                case x                => x
+            }
+            def toScala = (if (args.length == 1) correct(args(0)) else (args map correct).mkString("(", ",", ")")) + s" => " + correct(ret)
         }
     }
 

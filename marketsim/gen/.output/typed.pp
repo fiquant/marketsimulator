@@ -176,51 +176,51 @@ package mathutils {
 @category = "Order"
 
 package order {
-    def side_ImmediateOrCancel(proto : IObservable[Order] = order.side_Limit()) : IObservable[Order]
+    def side_ImmediateOrCancel(proto : (() => Side) => IObservable[Order] = order.side_Limit()) : (() => Side) => IObservable[Order]
         
     
     def side_price_StopLoss(maxloss : IObservable[Float] = const(0.1),
-                            proto : IObservable[Order] = order.side_price_Limit()) : IObservable[Order]
+                            proto : (() => Side) => ((() => Float) => IObservable[Order]) = order.side_price_Limit()) : (() => Side) => ((() => Float) => IObservable[Order])
         
     
     def price_Iceberg(lotSize : IObservable[Float] = const(10.0),
-                      proto : IObservable[Order] = order.price_Limit()) : IObservable[Order]
+                      proto : (() => Float) => IObservable[Order] = order.price_Limit()) : (() => Float) => IObservable[Order]
         
     
     def price_StopLoss(maxloss : IObservable[Float] = const(0.1),
-                       proto : IObservable[Order] = order.price_Limit()) : IObservable[Order]
+                       proto : (() => Float) => IObservable[Order] = order.price_Limit()) : (() => Float) => IObservable[Order]
         
     
-    def price_ImmediateOrCancel(proto : IObservable[Order] = order.price_Limit()) : IObservable[Order]
+    def price_ImmediateOrCancel(proto : (() => Float) => IObservable[Order] = order.price_Limit()) : (() => Float) => IObservable[Order]
         
     
     def sideprice_StopLoss(maxloss : IObservable[Float] = const(0.1),
-                           proto : IObservable[Order] = order.sideprice_Limit()) : IObservable[Order]
+                           proto : ((() => Side),(() => Float)) => IObservable[Order] = order.sideprice_Limit()) : ((() => Side),(() => Float)) => IObservable[Order]
         
     
     def side_Iceberg(lotSize : IObservable[Float] = const(10.0),
-                     proto : IObservable[Order] = order.side_Limit()) : IObservable[Order]
+                     proto : (() => Side) => IObservable[Order] = order.side_Limit()) : (() => Side) => IObservable[Order]
         
     
-    def side_FixedBudget(budget : IFunction[Float] = constant(1000.0)) : IObservable[Order]
+    def side_FixedBudget(budget : IFunction[Float] = constant(1000.0)) : (() => Side) => IObservable[Order]
         
     
-    def sideprice_Limit(volume : IFunction[Float] = constant(1.0)) : IObservable[Order]
+    def sideprice_Limit(volume : IFunction[Float] = constant(1.0)) : ((() => Side),(() => Float)) => IObservable[Order]
         
     
     def side_price_Iceberg(lotSize : IObservable[Float] = const(10.0),
-                           proto : IObservable[Order] = order.side_price_Limit()) : IObservable[Order]
+                           proto : (() => Side) => ((() => Float) => IObservable[Order]) = order.side_price_Limit()) : (() => Side) => ((() => Float) => IObservable[Order])
         
     
-    def side_price_ImmediateOrCancel(proto : IObservable[Order] = order.side_price_Limit()) : IObservable[Order]
+    def side_price_ImmediateOrCancel(proto : (() => Side) => ((() => Float) => IObservable[Order]) = order.side_price_Limit()) : (() => Side) => ((() => Float) => IObservable[Order])
         
     
     def side_WithExpiry(expiry : IObservable[Float] = const(10.0),
-                        proto : IObservable[Order] = order.side_Limit()) : IObservable[Order]
+                        proto : (() => Side) => IObservable[Order] = order.side_Limit()) : (() => Side) => IObservable[Order]
         
     
     def side_StopLoss(maxloss : IObservable[Float] = const(0.1),
-                      proto : IObservable[Order] = order.side_Limit()) : IObservable[Order]
+                      proto : (() => Side) => IObservable[Order] = order.side_Limit()) : (() => Side) => IObservable[Order]
         
     
     @python.order.factory("order.limit.Order_Impl")
@@ -230,7 +230,7 @@ package order {
         
     
     def volume_StopLoss(maxloss : IObservable[Float] = const(0.1),
-                        proto : IObservable[Order] = order.volume_Limit()) : IObservable[Order]
+                        proto : (() => Float) => IObservable[Order] = order.volume_Limit()) : (() => Float) => IObservable[Order]
         
     
     @python.order.factory("order.meta.ioc.Order_Impl")
@@ -243,11 +243,11 @@ package order {
         
     
     def volume_WithExpiry(expiry : IObservable[Float] = const(10.0),
-                          proto : IObservable[Order] = order.volume_Limit()) : IObservable[Order]
+                          proto : (() => Float) => IObservable[Order] = order.volume_Limit()) : (() => Float) => IObservable[Order]
         
     
     def sideprice_WithExpiry(expiry : IObservable[Float] = const(10.0),
-                             proto : IObservable[Order] = order.sideprice_Limit()) : IObservable[Order]
+                             proto : ((() => Side),(() => Float)) => IObservable[Order] = order.sideprice_Limit()) : ((() => Side),(() => Float)) => IObservable[Order]
         
     
     @python.order.factory("order.meta.stoploss.Order_Impl")
@@ -255,21 +255,21 @@ package order {
                  proto : IObservable[Order] = order.Limit()) : IObservable[Order]
         
     
-    def volume_ImmediateOrCancel(proto : IObservable[Order] = order.volume_Limit()) : IObservable[Order]
+    def volume_ImmediateOrCancel(proto : (() => Float) => IObservable[Order] = order.volume_Limit()) : (() => Float) => IObservable[Order]
         
     
-    def volume_Market(side : () => Side = side.Sell()) : IObservable[Order]
+    def volume_Market(side : () => Side = side.Sell()) : (() => Float) => IObservable[Order]
         
     
     def side_Limit(price : IFunction[Float] = constant(100.0),
-                   volume : IFunction[Float] = constant(1.0)) : IObservable[Order]
+                   volume : IFunction[Float] = constant(1.0)) : (() => Side) => IObservable[Order]
         
     
     def side_price_WithExpiry(expiry : IObservable[Float] = const(10.0),
-                              proto : IObservable[Order] = order.side_price_Limit()) : IObservable[Order]
+                              proto : (() => Side) => ((() => Float) => IObservable[Order]) = order.side_price_Limit()) : (() => Side) => ((() => Float) => IObservable[Order])
         
     
-    def side_price_Limit(volume : IFunction[Float] = constant(1.0)) : IObservable[Order]
+    def side_price_Limit(volume : IFunction[Float] = constant(1.0)) : (() => Side) => ((() => Float) => IObservable[Order])
         
     
     @python.order.factory("order.meta.with_expiry.WithExpiry_Impl")
@@ -278,14 +278,14 @@ package order {
         
     
     def volume_Iceberg(lotSize : IObservable[Float] = const(10.0),
-                       proto : IObservable[Order] = order.volume_Limit()) : IObservable[Order]
+                       proto : (() => Float) => IObservable[Order] = order.volume_Limit()) : (() => Float) => IObservable[Order]
         
     
-    def side_Market(volume : IFunction[Float] = constant(1.0)) : IObservable[Order]
+    def side_Market(volume : IFunction[Float] = constant(1.0)) : (() => Side) => IObservable[Order]
         
     
     def price_WithExpiry(expiry : IObservable[Float] = const(10.0),
-                         proto : IObservable[Order] = order.price_Limit()) : IObservable[Order]
+                         proto : (() => Float) => IObservable[Order] = order.price_Limit()) : (() => Float) => IObservable[Order]
         
     
     @python.order.factory("order.meta.iceberg.Iceberg_Impl")
@@ -299,18 +299,18 @@ package order {
         
     
     def price_Limit(side : () => Side = side.Sell(),
-                    volume : IFunction[Float] = constant(1.0)) : IObservable[Order]
+                    volume : IFunction[Float] = constant(1.0)) : (() => Float) => IObservable[Order]
         
     
     def sideprice_Iceberg(lotSize : IObservable[Float] = const(10.0),
-                          proto : IObservable[Order] = order.sideprice_Limit()) : IObservable[Order]
+                          proto : ((() => Side),(() => Float)) => IObservable[Order] = order.sideprice_Limit()) : ((() => Side),(() => Float)) => IObservable[Order]
         
     
-    def sideprice_ImmediateOrCancel(proto : IObservable[Order] = order.sideprice_Limit()) : IObservable[Order]
+    def sideprice_ImmediateOrCancel(proto : ((() => Side),(() => Float)) => IObservable[Order] = order.sideprice_Limit()) : ((() => Side),(() => Float)) => IObservable[Order]
         
     
     def volume_Limit(side : () => Side = side.Sell(),
-                     price : IFunction[Float] = constant(100.0)) : IObservable[Order]
+                     price : IFunction[Float] = constant(100.0)) : (() => Float) => IObservable[Order]
         
 }
 @category = "Basic"
