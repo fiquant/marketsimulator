@@ -105,7 +105,7 @@ object Runner extends syntax.scala.Parser {
 
         val typed = Typer(names)
 
-        Typed.AfterTyping.apply()
+        Typed.AfterTyping()
 
         for (output <- managed(new PrintWriter(".output/typed.sc"))) {
             output.println(typed)

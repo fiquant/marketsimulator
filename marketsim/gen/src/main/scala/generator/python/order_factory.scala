@@ -4,7 +4,9 @@ import predef._
 import predef.ImportFrom
 import scala.Some
 
-object order_factory extends gen.PythonGenerator
+object order_factory
+        extends gen.PythonGenerator
+        with    Typed.AfterTyping
 {
     case class Parameter(p : Typed.Parameter) extends base.Parameter
     {
@@ -301,6 +303,71 @@ object order_factory extends gen.PythonGenerator
                       (/** function to process         */ f     : Typed.Function) =
     {
         new WithSignedOpt(args, f)
+    }
+
+    def afterTyping(/** arguments of the annotation */ args  : List[String])
+                   (/** function to process         */ f     : Typed.Function)
+    {
+        def extract(names : List[String], parameters : List[Typed.Parameter])
+            : Option[(List[Typed.Parameter], List[Typed.Parameter])] = names match
+        {
+            case Nil =>
+                Some((Nil, parameters))
+
+            case n :: tl =>
+
+                val (curried, rest_0) = parameters partition { _.name == n}
+
+                if (curried.length == 1) {
+                    extract(tl, rest_0) match {
+                        case Some((c_1, r_1)) => Some((curried(0) :: c_1, r_1))
+                        case None             => None
+                    }
+                }
+                else
+                    None
+        }
+
+        def hasProto(parameters : List[Typed.Parameter]) = parameters exists { _.name == "proto" }
+
+        def createParam(name : String, ty : TypesBound.Base = Types.floatFunc) =
+            Typed.Parameter(name, ty, None, Nil)
+
+        val sideParam = createParam("side", Types.sideFunc)
+        val volumeParam = createParam("volume")
+        val priceParam = createParam("price")
+
+        def partialFactory(curried  : List[Typed.Parameter],
+                           base     : Typed.Function = f) =
+        {
+            val prefixed = (curried map { _.name } mkString "") + "_" + base.name
+
+            extract(curried map { _.name }, f.parameters) match {
+                case Some((cr, rest)) =>
+                    Some(f.copy(name = prefixed, parameters = rest, annotations = Nil))
+                case _ =>
+                    if (hasProto(f.parameters))
+                        Some(f.copy(name = prefixed, annotations = Nil))
+                    else
+                        None
+            }
+
+        }
+
+        val priceFactory = partialFactory(priceParam :: Nil)
+        val sideFactory = partialFactory(sideParam :: Nil)
+        val volumeFactory = partialFactory(volumeParam :: Nil)
+        val sidePriceFactory = partialFactory(sideParam :: priceParam :: Nil)
+        val side_priceFactory = priceFactory flatMap { partialFactory(sideParam :: Nil, _) }
+
+        List(priceFactory,
+            sideFactory,
+            volumeFactory,
+            sidePriceFactory,
+            side_priceFactory
+        ) collect { case Some(p) =>
+            //f.parent.insert(p)
+        }
     }
 
     val name = "python.order.factory"
