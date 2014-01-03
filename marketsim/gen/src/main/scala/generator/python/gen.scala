@@ -22,7 +22,7 @@ package object gen
         def pyFile(f : Typed.Function) = printWriter("_" + f.name + ".py")
 
         val names = p.functions.values flatMap { f =>
-            f.annotations collect { case Typed.Annotation(g : PythonGenerator, args) => g(args)_ } match {
+            f.annotations collect { case Typed.Annotation(g : PythonGenerator, args) => g.generatePython(args)_ } match {
                 case Nil =>
                     None
                     // an exception should be thrown here if function body is empty
@@ -50,9 +50,14 @@ package object gen
 
     trait PythonGenerator extends Typed.AnnotationHandler
     {
-        def apply(/** arguments of the annotation */ args  : List[String])
-                 (/** function to process         */ f     : Typed.Function) : GenerationUnit
+        def generatePython(/** arguments of the annotation */ args  : List[String])
+                          (/** function to process         */ f     : Typed.Function) : GenerationUnit
+    }
 
+    trait AfterTyping extends Typed.AnnotationHandler
+    {
+        def afterTyping(/** arguments of the annotation */ args  : List[String])
+                       (/** function to process         */ f     : Typed.Function)
     }
 
     object Annotations {

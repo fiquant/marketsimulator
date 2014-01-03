@@ -4,12 +4,12 @@ object intrinsic extends gen.PythonGenerator
 {
     val name = "python.intrinsic"
 
-    def apply(/** arguments of the annotation */ args  : List[String])
-             (/** function to process         */ f     : Typed.Function) =
+    def generatePython(/** arguments of the annotation */ args  : List[String])
+                      (/** function to process         */ f     : Typed.Function) =
     {
         if (f.ret_type canCastTo Types.floatObservable)
-            intrinsic_observable(args)(f)
+            intrinsic_observable.generatePython(args)(f)
         else
-            intrinsic_function(args)(f)
+            intrinsic_function.generatePython(args)(f)
     }
 }

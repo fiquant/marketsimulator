@@ -121,13 +121,13 @@ package object base {
     {
         val name = "python"
 
-        def apply(/** arguments of the annotation */ args  : List[String])
-                 (/** function to process         */ f     : Typed.Function) =
+        def generatePython(/** arguments of the annotation */ args  : List[String])
+                          (/** function to process         */ f     : Typed.Function) =
         {
             if (f.ret_type canCastTo Types.floatObservable)
-                observable(args)(f)
+                observable.generatePython(args)(f)
             else
-                function(args)(f)
+                function.generatePython(args)(f)
         }
     }
 

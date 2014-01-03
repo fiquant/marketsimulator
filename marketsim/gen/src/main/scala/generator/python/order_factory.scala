@@ -297,8 +297,8 @@ object order_factory extends gen.PythonGenerator
                 ifSome(side_priceFactory)
     }
 
-    def apply(/** arguments of the annotation */ args  : List[String])
-             (/** function to process         */ f     : Typed.Function) =
+    def generatePython(/** arguments of the annotation */ args  : List[String])
+                      (/** function to process         */ f     : Typed.Function) =
     {
         new WithSignedOpt(args, f)
     }

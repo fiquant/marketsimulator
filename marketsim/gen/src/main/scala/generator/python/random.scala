@@ -30,8 +30,8 @@ object random extends gen.PythonGenerator
         override def body = super.body | call | casts_to
     }
 
-    def apply(/** arguments of the annotation */ args  : List[String])
-             (/** function to process         */ f     : Typed.Function) =
+    def generatePython(/** arguments of the annotation */ args  : List[String])
+                      (/** function to process         */ f     : Typed.Function) =
     {
         new Import(f)
     }
