@@ -50,10 +50,17 @@ object Runner extends syntax.scala.Parser {
             f #:: (if (f.isDirectory) f.listFiles.toStream flatMap getFileTree
                                  else Stream.empty)
 
+    def cleanUp(path : String) {
+        getFileTree(new File(path)) foreach { _.delete() }
+    }
+
     def main(args: Array[String]) {
 
         unused(generator.python.gen.Annotations)
         unused(Types.floatObservable)
+
+        cleanUp(".output")
+        cleanUp("_out")
 
         print(s"parsing...")
 
