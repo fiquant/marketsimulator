@@ -6,7 +6,7 @@ import predef._
 object order_factory_curried
         extends gen.PythonGenerator
 {
-    case class PartialFactoryParameter(p : Typed.Parameter) extends base.Parameter
+    case class FactoryParameter(p : Typed.Parameter) extends base.Parameter
     {
         def call_body_assign = s"$name = self.$name"
 
@@ -37,10 +37,10 @@ object order_factory_curried
             case _ => throw new Exception("original factory is not of appropriate type")
         }
 
-        override type Parameter = PartialFactoryParameter
-        val parameters  = x.parameters map PartialFactoryParameter
-        val curried = f.parameters filter { p => !(x.parameters contains p) }
-        val curried_parameters =  curried map PartialFactoryParameter
+        override type Parameter = FactoryParameter
+        val parameters  = x.parameters map FactoryParameter
+        override val curried = f.parameters filter { p => !(x.parameters contains p) }
+        val curried_parameters =  curried map FactoryParameter
 
         override def target = original.target
 

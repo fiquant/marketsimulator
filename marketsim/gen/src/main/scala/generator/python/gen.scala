@@ -85,5 +85,6 @@ package object gen
         register(intrinsic_observable)
         register(order_factory)
         register(order_factory_curried)
+        register(order_factory_on_proto)
     }
 }

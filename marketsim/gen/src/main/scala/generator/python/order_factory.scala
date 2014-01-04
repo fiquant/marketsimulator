@@ -49,6 +49,9 @@ object order_factory
             case None => Nil
         }
 
+        // only for curried factories
+        def curried : List[Typed.Parameter] = Nil
+
         def prefix = ""
 
         def alias = name
@@ -291,12 +294,7 @@ object order_factory
         val side_priceFactory = priceFactory flatMap { partialFactory(sideParam :: Nil, _) }
 
         override def toString = original.toString + crlf +
-                ifSome(signedFactory) +
-                ifSome(sideFactory) +
-                ifSome(volumeFactory) +
-                ifSome(priceFactory) +
-                ifSome(sidePriceFactory) +
-                ifSome(side_priceFactory)
+                ifSome(signedFactory)
     }
 
     def generatePython(/** arguments of the annotation */ args  : List[String])
@@ -371,7 +369,15 @@ object order_factory
                         ty = ty))
                 case _ =>
                     if (hasProto(base.parameters))
-                        Some(base.copy(name = prefixed, parameters = withAdjustedProto, decorators = Nil, ty = ty))
+                        Some(base.copy(
+                            name = prefixed,
+                            parameters = withAdjustedProto,
+                            decorators =
+                                    AST.Annotation(
+                                        AST.QualifiedName(
+                                            order_factory_on_proto.name.split('.').toList),
+                                        base.name :: Nil) :: Nil,
+                            ty = ty))
                     else
                         None
             }

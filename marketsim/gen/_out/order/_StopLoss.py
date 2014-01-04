@@ -1,5 +1,190 @@
 from marketsim import registry
 from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import types
+from marketsim import Side
+from marketsim import IFunction
+from marketsim import IObservable
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import types
+from marketsim import Side
+@registry.expose(["Order", "StopLoss"])
+class side_price_StopLoss(IFunction[IFunction[IOrderGenerator, IFunction[float]], types.IFunction[Side]
+]):
+    """ 
+    """ 
+    def __init__(self, maxloss = None, proto = None):
+        from marketsim.gen._out._const import const
+        from marketsim.gen._out.order._Limit import side_price_Limit
+        self.maxloss = maxloss if maxloss is not None else const(0.1)
+        self.proto = proto if proto is not None else side_price_Limit()
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'maxloss' : IObservable[float],
+        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], types.IFunction[Side]
+        ]
+    }
+    def __repr__(self):
+        return "side_price_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
+    
+    def __call__(self, side = None):
+        maxloss = self.maxloss
+        proto = self.proto
+        return price_StopLoss(maxloss, proto(side))
+    
+from marketsim import registry
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import IObservable
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+@registry.expose(["Order", "StopLoss"])
+class price_StopLoss(IFunction[IOrderGenerator, IFunction[float]]):
+    """ 
+    """ 
+    def __init__(self, maxloss = None, proto = None):
+        from marketsim.gen._out._const import const
+        from marketsim.gen._out.order._Limit import price_Limit
+        self.maxloss = maxloss if maxloss is not None else const(0.1)
+        self.proto = proto if proto is not None else price_Limit()
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'maxloss' : IObservable[float],
+        'proto' : IFunction[IOrderGenerator, IFunction[float]]
+    }
+    def __repr__(self):
+        return "price_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
+    
+    def __call__(self, price = None):
+        maxloss = self.maxloss
+        proto = self.proto
+        return StopLoss(maxloss, proto(price))
+    
+from marketsim import registry
+from marketsim import IOrderGenerator
+from marketsim import types
+from marketsim import Side
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import IObservable
+from marketsim import IOrderGenerator
+from marketsim import types
+from marketsim import Side
+from marketsim import IFunction
+@registry.expose(["Order", "StopLoss"])
+class sideprice_StopLoss(IFunction[IOrderGenerator, types.IFunction[Side],IFunction[float]
+
+]):
+    """ 
+    """ 
+    def __init__(self, maxloss = None, proto = None):
+        from marketsim.gen._out._const import const
+        from marketsim.gen._out.order._Limit import sideprice_Limit
+        self.maxloss = maxloss if maxloss is not None else const(0.1)
+        self.proto = proto if proto is not None else sideprice_Limit()
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'maxloss' : IObservable[float],
+        'proto' : IFunction[IOrderGenerator, types.IFunction[Side],IFunction[float]
+        
+        ]
+    }
+    def __repr__(self):
+        return "sideprice_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
+    
+    def __call__(self, side = None,price = None):
+        maxloss = self.maxloss
+        proto = self.proto
+        return StopLoss(maxloss, proto(side,price))
+    
+from marketsim import registry
+from marketsim import IOrderGenerator
+from marketsim import types
+from marketsim import Side
+from marketsim import IFunction
+from marketsim import IObservable
+from marketsim import IOrderGenerator
+from marketsim import types
+from marketsim import Side
+@registry.expose(["Order", "StopLoss"])
+class side_StopLoss(IFunction[IOrderGenerator, types.IFunction[Side]
+]):
+    """ 
+    """ 
+    def __init__(self, maxloss = None, proto = None):
+        from marketsim.gen._out._const import const
+        from marketsim.gen._out.order._Limit import side_Limit
+        self.maxloss = maxloss if maxloss is not None else const(0.1)
+        self.proto = proto if proto is not None else side_Limit()
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'maxloss' : IObservable[float],
+        'proto' : IFunction[IOrderGenerator, types.IFunction[Side]
+        ]
+    }
+    def __repr__(self):
+        return "side_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
+    
+    def __call__(self, side = None):
+        maxloss = self.maxloss
+        proto = self.proto
+        return StopLoss(maxloss, proto(side))
+    
+from marketsim import registry
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import IObservable
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+@registry.expose(["Order", "StopLoss"])
+class volume_StopLoss(IFunction[IOrderGenerator, IFunction[float]]):
+    """ 
+    """ 
+    def __init__(self, maxloss = None, proto = None):
+        from marketsim.gen._out._const import const
+        from marketsim.gen._out.order._Limit import volume_Limit
+        self.maxloss = maxloss if maxloss is not None else const(0.1)
+        self.proto = proto if proto is not None else volume_Limit()
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'maxloss' : IObservable[float],
+        'proto' : IFunction[IOrderGenerator, IFunction[float]]
+    }
+    def __repr__(self):
+        return "volume_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
+    
+    def __call__(self, volume = None):
+        maxloss = self.maxloss
+        proto = self.proto
+        return StopLoss(maxloss, proto(volume))
+    
+from marketsim import registry
+from marketsim import IOrderGenerator
 from marketsim import Order
 from marketsim.ops._all import Observable
 from marketsim import IObservable
@@ -47,183 +232,5 @@ class StopLoss(IOrderGenerator, Observable[Order]):
         if proto is None: return None
         
         return Order_Impl(maxloss, proto)
-    
-from marketsim import registry
-from marketsim import IOrderGenerator
-from marketsim import IFunction
-from marketsim import Side
-from marketsim import IObservable
-from marketsim import IOrderGenerator
-from marketsim import IFunction
-from marketsim import Side
-@registry.expose(["Order", "StopLoss"])
-class side_StopLoss(IFunction[IOrderGenerator, IFunction[Side]
-]):
-    """ 
-    """ 
-    def __init__(self, maxloss = None, proto = None):
-        from marketsim.gen._out._const import const
-        from marketsim.gen._out.order._Limit import side_Limit
-        self.maxloss = maxloss if maxloss is not None else const(0.1)
-        self.proto = proto if proto is not None else side_Limit()
-    
-    @property
-    def label(self):
-        return repr(self)
-    
-    _properties = {
-        'maxloss' : IObservable[float],
-        'proto' : IFunction[IOrderGenerator, IFunction[Side]
-        ]
-    }
-    def __repr__(self):
-        return "side_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
-    
-    def __call__(self, side = None):
-        maxloss = self.maxloss
-        proto = self.proto
-        return StopLoss(maxloss, proto(side))
-    
-from marketsim import registry
-from marketsim import IOrderGenerator
-from marketsim import IFunction
-from marketsim import IObservable
-from marketsim import IOrderGenerator
-from marketsim import IFunction
-@registry.expose(["Order", "StopLoss"])
-class volume_StopLoss(IFunction[IOrderGenerator, IFunction[float]]):
-    """ 
-    """ 
-    def __init__(self, maxloss = None, proto = None):
-        from marketsim.gen._out._const import const
-        from marketsim.gen._out.order._Limit import volume_Limit
-        self.maxloss = maxloss if maxloss is not None else const(0.1)
-        self.proto = proto if proto is not None else volume_Limit()
-    
-    @property
-    def label(self):
-        return repr(self)
-    
-    _properties = {
-        'maxloss' : IObservable[float],
-        'proto' : IFunction[IOrderGenerator, IFunction[float]]
-    }
-    def __repr__(self):
-        return "volume_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
-    
-    def __call__(self, volume = None):
-        maxloss = self.maxloss
-        proto = self.proto
-        return StopLoss(maxloss, proto(volume))
-    
-from marketsim import registry
-from marketsim import IOrderGenerator
-from marketsim import IFunction
-from marketsim import IObservable
-from marketsim import IOrderGenerator
-from marketsim import IFunction
-@registry.expose(["Order", "StopLoss"])
-class price_StopLoss(IFunction[IOrderGenerator, IFunction[float]]):
-    """ 
-    """ 
-    def __init__(self, maxloss = None, proto = None):
-        from marketsim.gen._out._const import const
-        from marketsim.gen._out.order._Limit import price_Limit
-        self.maxloss = maxloss if maxloss is not None else const(0.1)
-        self.proto = proto if proto is not None else price_Limit()
-    
-    @property
-    def label(self):
-        return repr(self)
-    
-    _properties = {
-        'maxloss' : IObservable[float],
-        'proto' : IFunction[IOrderGenerator, IFunction[float]]
-    }
-    def __repr__(self):
-        return "price_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
-    
-    def __call__(self, price = None):
-        maxloss = self.maxloss
-        proto = self.proto
-        return StopLoss(maxloss, proto(price))
-    
-from marketsim import registry
-from marketsim import IOrderGenerator
-from marketsim import IFunction
-from marketsim import Side
-from marketsim import IFunction
-from marketsim import IObservable
-from marketsim import IOrderGenerator
-from marketsim import IFunction
-from marketsim import Side
-from marketsim import IFunction
-@registry.expose(["Order", "StopLoss"])
-class sideprice_StopLoss(IFunction[IOrderGenerator, IFunction[Side],IFunction[float]
-
-]):
-    """ 
-    """ 
-    def __init__(self, maxloss = None, proto = None):
-        from marketsim.gen._out._const import const
-        from marketsim.gen._out.order._Limit import sideprice_Limit
-        self.maxloss = maxloss if maxloss is not None else const(0.1)
-        self.proto = proto if proto is not None else sideprice_Limit()
-    
-    @property
-    def label(self):
-        return repr(self)
-    
-    _properties = {
-        'maxloss' : IObservable[float],
-        'proto' : IFunction[IOrderGenerator, IFunction[Side],IFunction[float]
-        
-        ]
-    }
-    def __repr__(self):
-        return "sideprice_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
-    
-    def __call__(self, side = None,price = None):
-        maxloss = self.maxloss
-        proto = self.proto
-        return StopLoss(maxloss, proto(side,price))
-    
-from marketsim import registry
-from marketsim import IOrderGenerator
-from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import Side
-from marketsim import IObservable
-from marketsim import IOrderGenerator
-from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import Side
-@registry.expose(["Order", "StopLoss"])
-class side_price_StopLoss(IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]
-]):
-    """ 
-    """ 
-    def __init__(self, maxloss = None, proto = None):
-        from marketsim.gen._out._const import const
-        from marketsim.gen._out.order._Limit import side_price_Limit
-        self.maxloss = maxloss if maxloss is not None else const(0.1)
-        self.proto = proto if proto is not None else side_price_Limit()
-    
-    @property
-    def label(self):
-        return repr(self)
-    
-    _properties = {
-        'maxloss' : IObservable[float],
-        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]
-        ]
-    }
-    def __repr__(self):
-        return "side_price_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
-    
-    def __call__(self, side = None):
-        maxloss = self.maxloss
-        proto = self.proto
-        return price_StopLoss(maxloss, proto(side))
     
 

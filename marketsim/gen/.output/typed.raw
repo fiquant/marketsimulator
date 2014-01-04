@@ -959,6 +959,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - ImmediateOrCancel
 | | | | - FunDef:
 | | | | | - side_price_StopLoss
 | | | | | - List:
@@ -1055,6 +1064,15 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - price_StopLoss
 | | | | - FunDef:
 | | | | | - price_Iceberg
 | | | | | - List:
@@ -1133,6 +1151,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - Iceberg
 | | | | - FunDef:
 | | | | | - price_StopLoss
 | | | | | - List:
@@ -1211,6 +1238,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - StopLoss
 | | | | - FunDef:
 | | | | | - price_ImmediateOrCancel
 | | | | | - List:
@@ -1267,6 +1303,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - ImmediateOrCancel
 | | | | - FunDef:
 | | | | | - sideprice_StopLoss
 | | | | | - List:
@@ -1359,6 +1404,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - StopLoss
 | | | | - FunDef:
 | | | | | - side_Iceberg
 | | | | | - List:
@@ -1437,6 +1491,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - Iceberg
 | | | | - FunDef:
 | | | | | - side_FixedBudget
 | | | | | - List:
@@ -1654,6 +1717,15 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - price_Iceberg
 | | | | - FunDef:
 | | | | | - side_price_ImmediateOrCancel
 | | | | | - List:
@@ -1728,6 +1800,15 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - price_ImmediateOrCancel
 | | | | - FunDef:
 | | | | | - side_WithExpiry
 | | | | | - List:
@@ -1806,6 +1887,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - WithExpiry
 | | | | - FunDef:
 | | | | | - side_StopLoss
 | | | | | - List:
@@ -1884,6 +1974,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - StopLoss
 | | | | - FunDef:
 | | | | | - Limit
 | | | | | - List:
@@ -2049,6 +2148,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - StopLoss
 | | | | - FunDef:
 | | | | | - ImmediateOrCancel
 | | | | | - List:
@@ -2238,6 +2346,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - WithExpiry
 | | | | - FunDef:
 | | | | | - sideprice_WithExpiry
 | | | | | - List:
@@ -2330,6 +2447,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - WithExpiry
 | | | | - FunDef:
 | | | | | - StopLoss
 | | | | | - List:
@@ -2454,6 +2580,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - ImmediateOrCancel
 | | | | - FunDef:
 | | | | | - volume_Market
 | | | | | - List:
@@ -2682,6 +2817,15 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - price_WithExpiry
 | | | | - FunDef:
 | | | | | - side_price_Limit
 | | | | | - List:
@@ -2894,6 +3038,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - Iceberg
 | | | | - FunDef:
 | | | | | - side_Market
 | | | | | - List:
@@ -3029,6 +3182,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - WithExpiry
 | | | | - FunDef:
 | | | | | - Iceberg
 | | | | | - List:
@@ -3329,6 +3491,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - Iceberg
 | | | | - FunDef:
 | | | | | - sideprice_ImmediateOrCancel
 | | | | | - List:
@@ -3399,6 +3570,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - on_proto
+| | | | | | | - List:
+| | | | | | | | - ImmediateOrCancel
 | | | | - FunDef:
 | | | | | - volume_Limit
 | | | | | - List:
