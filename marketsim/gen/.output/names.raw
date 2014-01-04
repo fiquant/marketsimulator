@@ -1120,6 +1120,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - curried
+| | | | | | | - List:
+| | | | | | | | - FixedBudget
 | | | | - FunDef:
 | | | | | - sideprice_Limit
 | | | | | - List:
@@ -1165,6 +1174,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - curried
+| | | | | | | - List:
+| | | | | | | | - Limit
 | | | | - FunDef:
 | | | | | - side_price_Iceberg
 | | | | | - List:
@@ -1777,6 +1795,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - curried
+| | | | | | | - List:
+| | | | | | | | - Market
 | | | | - FunDef:
 | | | | | - side_Limit
 | | | | | - List:
@@ -1827,6 +1854,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - curried
+| | | | | | | - List:
+| | | | | | | | - Limit
 | | | | - FunDef:
 | | | | | - side_price_WithExpiry
 | | | | | - List:
@@ -1931,6 +1967,15 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - curried
+| | | | | | | - List:
+| | | | | | | | - price_Limit
 | | | | - FunDef:
 | | | | | - WithExpiry
 | | | | | - List:
@@ -2064,6 +2109,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - curried
+| | | | | | | - List:
+| | | | | | | | - Market
 | | | | - FunDef:
 | | | | | - price_WithExpiry
 | | | | | - List:
@@ -2256,6 +2310,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - curried
+| | | | | | | - List:
+| | | | | | | | - Limit
 | | | | - FunDef:
 | | | | | - sideprice_Iceberg
 | | | | | - List:
@@ -2403,6 +2466,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - curried
+| | | | | | | - List:
+| | | | | | | | - Limit
 | | - List:
 | | | - Attribute:
 | | | | - category

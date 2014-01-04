@@ -124,6 +124,7 @@ object Runner extends syntax.scala.Parser {
             throw new Exception("re-parsed typed representation differs from the original one")
 
         println("done")
+
         typed
     }
 }

@@ -1485,6 +1485,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - curried
+| | | | | | | - List:
+| | | | | | | | - FixedBudget
 | | | | - FunDef:
 | | | | | - sideprice_Limit
 | | | | | - List:
@@ -1540,6 +1549,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - curried
+| | | | | | | - List:
+| | | | | | | | - Limit
 | | | | - FunDef:
 | | | | | - side_price_Iceberg
 | | | | | - List:
@@ -2480,6 +2498,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - curried
+| | | | | | | - List:
+| | | | | | | | - Market
 | | | | - FunDef:
 | | | | | - side_Limit
 | | | | | - List:
@@ -2550,6 +2577,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - curried
+| | | | | | | - List:
+| | | | | | | | - Limit
 | | | | - FunDef:
 | | | | | - side_price_WithExpiry
 | | | | | - List:
@@ -2703,6 +2739,15 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - curried
+| | | | | | | - List:
+| | | | | | | | - price_Limit
 | | | | - FunDef:
 | | | | | - WithExpiry
 | | | | | - List:
@@ -2897,6 +2942,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - curried
+| | | | | | | - List:
+| | | | | | | | - Market
 | | | | - FunDef:
 | | | | | - price_WithExpiry
 | | | | | - List:
@@ -3174,6 +3228,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - curried
+| | | | | | | - List:
+| | | | | | | | - Limit
 | | | | - FunDef:
 | | | | | - sideprice_Iceberg
 | | | | | - List:
@@ -3402,6 +3465,15 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | | | - curried
+| | | | | | | - List:
+| | | | | | | | - Limit
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -8963,29 +9035,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
-| | | | | | | | | | - Interface:
-| | | | | | | | | | | - T
-| | | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | - PackageDef:
-| | | | | | | | - None
-| | | | | | | | - Definitions:
-| | | | | | | | | - List:
-| | | | | | | | | | - Interface:
-| | | | | | | | | | | - R
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - trash
-| | | | | | | | | | | | | | | - types
-| | | | | | | | | | | | | | | - T
-| | | | | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | - PackageDef:
-| | | | | | | | - None
-| | | | | | | | - Definitions:
-| | | | | | | | | - List:
 | | | | | | | | | | - PackageDef:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - Definitions:
@@ -9008,6 +9057,19 @@ Definitions:
 | | | | | | | | | | | | | | | | | | - R
 | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
+| | | | | | | | | | - Interface:
+| | | | | | | | | | | - T
+| | | | | | | | | | | - List:
+| | | | | | | | | | - Interface:
+| | | | | | | | | | | - R
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - trash
+| | | | | | | | | | | | | | | - types
+| | | | | | | | | | | | | | | - T
+| | | | | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | - Alias:
 | | | | | | | | - T1

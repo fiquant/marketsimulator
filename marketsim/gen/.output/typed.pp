@@ -202,9 +202,11 @@ package order {
                      proto : (() => Side) => IObservable[Order] = order.side_Limit()) : (() => Side) => IObservable[Order]
         
     
+    @python.order.factory.curried("FixedBudget")
     def side_FixedBudget(budget : IFunction[Float] = constant(1000.0)) : (() => Side) => IObservable[Order]
         
     
+    @python.order.factory.curried("Limit")
     def sideprice_Limit(volume : IFunction[Float] = constant(1.0)) : ((() => Side),(() => Float)) => IObservable[Order]
         
     
@@ -258,9 +260,11 @@ package order {
     def volume_ImmediateOrCancel(proto : (() => Float) => IObservable[Order] = order.volume_Limit()) : (() => Float) => IObservable[Order]
         
     
+    @python.order.factory.curried("Market")
     def volume_Market(side : () => Side = side.Sell()) : (() => Float) => IObservable[Order]
         
     
+    @python.order.factory.curried("Limit")
     def side_Limit(price : IFunction[Float] = constant(100.0),
                    volume : IFunction[Float] = constant(1.0)) : (() => Side) => IObservable[Order]
         
@@ -269,6 +273,7 @@ package order {
                               proto : (() => Side) => ((() => Float) => IObservable[Order]) = order.side_price_Limit()) : (() => Side) => ((() => Float) => IObservable[Order])
         
     
+    @python.order.factory.curried("price_Limit")
     def side_price_Limit(volume : IFunction[Float] = constant(1.0)) : (() => Side) => ((() => Float) => IObservable[Order])
         
     
@@ -281,6 +286,7 @@ package order {
                        proto : (() => Float) => IObservable[Order] = order.volume_Limit()) : (() => Float) => IObservable[Order]
         
     
+    @python.order.factory.curried("Market")
     def side_Market(volume : IFunction[Float] = constant(1.0)) : (() => Side) => IObservable[Order]
         
     
@@ -298,6 +304,7 @@ package order {
                     budget : IFunction[Float] = constant(1000.0)) : IObservable[Order]
         
     
+    @python.order.factory.curried("Limit")
     def price_Limit(side : () => Side = side.Sell(),
                     volume : IFunction[Float] = constant(1.0)) : (() => Float) => IObservable[Order]
         
@@ -309,6 +316,7 @@ package order {
     def sideprice_ImmediateOrCancel(proto : ((() => Side),(() => Float)) => IObservable[Order] = order.sideprice_Limit()) : ((() => Side),(() => Float)) => IObservable[Order]
         
     
+    @python.order.factory.curried("Limit")
     def volume_Limit(side : () => Side = side.Sell(),
                      price : IFunction[Float] = constant(100.0)) : (() => Float) => IObservable[Order]
         
@@ -768,17 +776,13 @@ package observable {@category = "Price function"
 package trash {
     package types {
         package  {
-            type T
-        }
-        
-        package  {
-            type R : trash.types.T
-        }
-        
-        package  {
             package  {
                 type U : trash.types.T, trash.types.R
             }
+            
+            type T
+            
+            type R : trash.types.T
         }
         
         type T1 = trash.types.T

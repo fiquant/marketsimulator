@@ -202,9 +202,11 @@ package order {
                      proto = side_Limit()) : (() => Side) => IObservable[Order]
         
     
+    @python.order.factory.curried("FixedBudget")
     def side_FixedBudget(budget = constant(1000.0)) : (() => Side) => IObservable[Order]
         
     
+    @python.order.factory.curried("Limit")
     def sideprice_Limit(volume = constant(1.0)) : ((() => Side),(() => Float)) => IObservable[Order]
         
     
@@ -258,9 +260,11 @@ package order {
     def volume_ImmediateOrCancel(proto = volume_Limit()) : (() => Float) => IObservable[Order]
         
     
+    @python.order.factory.curried("Market")
     def volume_Market(side = side.Sell()) : (() => Float) => IObservable[Order]
         
     
+    @python.order.factory.curried("Limit")
     def side_Limit(price = constant(100.0),
                    volume = constant(1.0)) : (() => Side) => IObservable[Order]
         
@@ -269,6 +273,7 @@ package order {
                               proto = side_price_Limit()) : (() => Side) => ((() => Float) => IObservable[Order])
         
     
+    @python.order.factory.curried("price_Limit")
     def side_price_Limit(volume = constant(1.0)) : (() => Side) => ((() => Float) => IObservable[Order])
         
     
@@ -281,6 +286,7 @@ package order {
                        proto = volume_Limit()) : (() => Float) => IObservable[Order]
         
     
+    @python.order.factory.curried("Market")
     def side_Market(volume = constant(1.0)) : (() => Side) => IObservable[Order]
         
     
@@ -298,6 +304,7 @@ package order {
                     budget = constant(1000.0)) : IObservable[Order]
         
     
+    @python.order.factory.curried("Limit")
     def price_Limit(side = side.Sell(),
                     volume = constant(1.0)) : (() => Float) => IObservable[Order]
         
@@ -309,6 +316,7 @@ package order {
     def sideprice_ImmediateOrCancel(proto = sideprice_Limit()) : ((() => Side),(() => Float)) => IObservable[Order]
         
     
+    @python.order.factory.curried("Limit")
     def volume_Limit(side = side.Sell(),
                      price = constant(100.0)) : (() => Float) => IObservable[Order]
         

@@ -360,7 +360,15 @@ object order_factory
 
             extract(curried map { _.name }, base.parameters) match {
                 case Some((cr, rest)) =>
-                    Some(base.copy(name = prefixed, parameters = rest, decorators = Nil, ty = ty))
+                    Some(base.copy(
+                        name = prefixed,
+                        parameters = rest,
+                        decorators =
+                                AST.Annotation(
+                                    AST.QualifiedName(
+                                        order_factory_curried.name.split('.').toList),
+                                    base.name :: Nil) :: Nil,
+                        ty = ty))
                 case _ =>
                     if (hasProto(base.parameters))
                         Some(base.copy(name = prefixed, parameters = withAdjustedProto, decorators = Nil, ty = ty))

@@ -407,7 +407,7 @@ package object Printer
                 attributes +
                 crlf + s"package $name {" +
                     indent() { content } +
-                crlf + "}"
+                crlf + "}" + crlf
             def toScala = content
         }
 

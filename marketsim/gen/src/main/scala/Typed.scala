@@ -224,14 +224,18 @@ package object Typed
 
         def createChild(n : String, a : Attributes) = {
             val p = new SubPackage(n, this, a)
-            packages = packages.updated(p.name, p)
+            packages = packages updated (p.name, p)
             p
         }
 
         def createChild(a : Attributes) = {
-            val p = new AnonymousPackage(this, a)
-            anonymous = p :: anonymous
-            p
+            anonymous find { _.attributes == a } match {
+                case Some(p) => p
+                case None    =>
+                    val p = new AnonymousPackage(this, a)
+                    anonymous = p :: anonymous
+                    p
+            }
         }
 
         override def equals(o : Any) = o match {

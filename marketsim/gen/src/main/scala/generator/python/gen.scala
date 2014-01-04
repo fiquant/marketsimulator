@@ -6,6 +6,23 @@ import scala.Some
 
 package object gen
 {
+    // TODO: memoization
+    def generationUnit(f : Typed.Function) = 
+    {
+        f.annotations collect { 
+            case Typed.Annotation(g : PythonGenerator, args) => g.generatePython(args)_ 
+        } match {
+            case Nil =>
+                None
+                // an exception should be thrown here if function body is empty
+
+            case g :: Nil =>
+                Some(g(f))
+
+            case _ => throw new Exception("Multiple python generators are given for function " + f)
+        }
+    }
+    
     def apply(p : Typed.Package, dst_dir : String) { apply(p, new File(dst_dir)) }
 
     def apply(p : Typed.Package, dir : File)
@@ -24,25 +41,16 @@ package object gen
                 new BufferedWriter(
                     new OutputStreamWriter(
                         new FileOutputStream(
-                            new File(dir, filename)))),
-                    true)
+                            new File(dir, filename), true))),
+            true)
 
-        val names = p.functions.values flatMap { f =>
-            f.annotations collect { case Typed.Annotation(g : PythonGenerator, args) => g.generatePython(args)_ } match {
-                case Nil =>
-                    None
-                    // an exception should be thrown here if function body is empty
-
-                case g :: Nil =>
-                    val generated = g(f)
-                    for (out <- managed(printWriter(s"_${generated.target}.py"))) {
-                        out.println(generated)
-                    }
-                    Some(generated.name)
-
-                case _ => throw new Exception("Multiple python generators are given for function " + f)
-            }
-
+        val names = p.functions.values flatMap { f => generationUnit(f) map { g =>
+                //println(f.parent.hashCode(), f.parent.asInstanceOf[Typed.AnonymousPackage].parent.hashCode(), f.name)
+                for (out <- managed(printWriter(s"_${g.target}.py"))) {
+                    out.println(g)
+                }
+                Some(g.name)
+        }
         }
 
         for (out <- managed(printWriter("__init__.py"))) {}
@@ -76,5 +84,6 @@ package object gen
         register(intrinsic_function)
         register(intrinsic_observable)
         register(order_factory)
+        register(order_factory_curried)
     }
 }

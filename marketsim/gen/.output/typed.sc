@@ -16,6 +16,7 @@ package side {
         
 }
 
+
 package mathops {@category = "Log/Pow"
     package  {
         /** Exponent of x
@@ -60,6 +61,7 @@ package mathops {@category = "Log/Pow"
                 power : IFunction[Float] = constant(1.0)) : () => Float
             
     }
+    
     @category = "Trigonometric"
     package  {
         /** Arc tangent of x, in radians.
@@ -70,7 +72,9 @@ package mathops {@category = "Log/Pow"
         def Atan(x : IFunction[Float] = constant(0.0)) : () => Float
             
     }
+    
 }
+
 
 package mathutils {
     package rnd {
@@ -183,7 +187,9 @@ package mathutils {
                         Beta : Float = 1.0) : () => Float
             
     }
+    
 }
+
 @category = "Order"
 package order {
     
@@ -220,10 +226,12 @@ package order {
         
     
     
+    @python.order.factory.curried("FixedBudget")
     def side_FixedBudget(budget : IFunction[Float] = constant(1000.0)) : (() => Side) => IObservable[Order]
         
     
     
+    @python.order.factory.curried("Limit")
     def sideprice_Limit(volume : IFunction[Float] = constant(1.0)) : ((() => Side),(() => Float)) => IObservable[Order]
         
     
@@ -290,10 +298,12 @@ package order {
         
     
     
+    @python.order.factory.curried("Market")
     def volume_Market(side : () => Side = side.Sell()) : (() => Float) => IObservable[Order]
         
     
     
+    @python.order.factory.curried("Limit")
     def side_Limit(price : IFunction[Float] = constant(100.0),
                    volume : IFunction[Float] = constant(1.0)) : (() => Side) => IObservable[Order]
         
@@ -304,6 +314,7 @@ package order {
         
     
     
+    @python.order.factory.curried("price_Limit")
     def side_price_Limit(volume : IFunction[Float] = constant(1.0)) : (() => Side) => ((() => Float) => IObservable[Order])
         
     
@@ -319,6 +330,7 @@ package order {
         
     
     
+    @python.order.factory.curried("Market")
     def side_Market(volume : IFunction[Float] = constant(1.0)) : (() => Side) => IObservable[Order]
         
     
@@ -340,6 +352,7 @@ package order {
         
     
     
+    @python.order.factory.curried("Limit")
     def price_Limit(side : () => Side = side.Sell(),
                     volume : IFunction[Float] = constant(1.0)) : (() => Float) => IObservable[Order]
         
@@ -354,10 +367,12 @@ package order {
         
     
     
+    @python.order.factory.curried("Limit")
     def volume_Limit(side : () => Side = side.Sell(),
                      price : IFunction[Float] = constant(100.0)) : (() => Float) => IObservable[Order]
         
 }
+
 @category = "Basic"
 package observable {@category = "Price function"
     package pricefunc {
@@ -370,6 +385,7 @@ package observable {@category = "Price function"
             
             	 = observable.orderbook.SafeSidePrice(observable.orderbook.Queue(book,side),constant(initialValue))*priceDistr
     }
+    
     @category = "Side function"
     package sidefunc {
         
@@ -425,6 +441,7 @@ package observable {@category = "Price function"
             	 = if side_distribution>const(0.5) then side.Sell() else side.Buy()
     }
     
+    
     package Cumulative {
         @label = "Min_{\\epsilon}(%(source)s)"
         @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
@@ -438,6 +455,7 @@ package observable {@category = "Price function"
                        epsilon : IFunction[Float] = constant(0.01)) : IObservable[Float]
             
     }
+    
     @category = "RSI"
     package rsi {
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
@@ -448,6 +466,7 @@ package observable {@category = "Price function"
             
             	 = observable.EW.Avg(observable.UpMovements(source,timeframe),alpha)/observable.EW.Avg(observable.DownMovements(source,timeframe),alpha)
     }
+    
     @category = "MACD"
     package macd {
         @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
@@ -478,6 +497,7 @@ package observable {@category = "Price function"
             
             	 = observable.macd.MACD(x,slow,fast)-observable.macd.Signal(x,slow,fast,timeframe,step)
     }
+    
     @category = "Trader's"
     package trader {
         @label = "Balance_{%(trader)s}"
@@ -519,6 +539,7 @@ package observable {@category = "Price function"
         def PendingVolume(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IObservable[Volume]
             
     }
+    
     @category = "Volume function"
     package volumefunc {
         
@@ -545,6 +566,7 @@ package observable {@category = "Price function"
             
             	 = observable.volumefunc.DesiredPosition(observable.OnEveryDt(1.0,const(50.0)-observable.RSI(observable.orderbook.OfTrader(trader),timeframe,alpha))*k,trader)
     }
+    
     @category = "Asset's"
     package orderbook {
         
@@ -692,6 +714,7 @@ package observable {@category = "Price function"
             
     }
     
+    
     package Moving {
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
         @python.intrinsic("observable.minmax.Min_Impl")
@@ -704,7 +727,8 @@ package observable {@category = "Price function"
         def Max(source : IFunction[Float] = constant(),
                 timeframe : Float = 100.0) : IObservable[Float]
             
-    }@category = "Statistics"
+    }
+    @category = "Statistics"
     package  {
         package EW {
             @label = "Avg_{\\alpha=%(alpha)s}(%(source)s)"
@@ -734,6 +758,7 @@ package observable {@category = "Price function"
                 	 = (source-observable.EW.Avg(source,alpha))/observable.EW.StdDev(source,alpha)
         }
         
+        
         package Cumulative {
             @label = "Avg_{cumul}(%(source)s)"
             @python.intrinsic("moments.cma.CMA_Impl")
@@ -757,6 +782,7 @@ package observable {@category = "Price function"
                 
                 	 = (source-observable.Cumulative.Avg(source))/observable.Cumulative.StdDev(source)
         }
+        
         
         package Moving {
             @label = "Avg_{n=%(timeframe)s}(%(source)s)"
@@ -786,7 +812,9 @@ package observable {@category = "Price function"
                 
                 	 = (source-observable.Moving.Avg(source,timeframe))/observable.Moving.StdDev(source,timeframe)
         }
+        
     }
+    
     @label = "[%(x)s]_dt=%(dt)s"
     @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
     def OnEveryDt(dt : Float = 1.0,
@@ -871,19 +899,18 @@ package observable {@category = "Price function"
         
 }
 
+
 package trash {
     package types {
-        package  {type T
-        }
-        
-        package  {type R : trash.types.T
-        }
-        
         package  {
             package  {type U : trash.types.T, trash.types.R
             }
-        }type T1 = trash.types.T
+            type T
+            type R : trash.types.T
+        }
+        type T1 = trash.types.T
     }
+    
     
     package in1 {
         package in2 {
@@ -921,13 +948,16 @@ package trash {
                 	 = x
         }
         
+        
         def A(x : () => trash.types.T1 = trash.A()) : () => trash.types.U
             
     }
     
+    
     def A(x : () => trash.types.T = trash.in1.in2.A()) : () => trash.types.R
         
-}@category = "Basic"
+}
+@category = "Basic"
 package  {
     @label = "C=%(x)s"
     @python()
@@ -956,7 +986,8 @@ package  {
                   elsePart : IFunction[Float] = constant()) : IFunction[Float]
         
         	 = if x<>null() then x else elsePart
-}type CandleStick
+}
+type CandleStick
 type Volume : Int
 type Side
 type Boolean
