@@ -1,7 +1,8 @@
 package generator.python
 
-import java.io.{File, PrintWriter}
+import java.io._
 import resource._
+import scala.Some
 
 package object gen
 {
@@ -18,8 +19,13 @@ package object gen
         p.packages.values foreach { sub => apply(sub, new File(dir, sub.name) ) }
         p.anonymous       foreach {        apply(_, dir) }
 
-        def printWriter(filename : String) = new PrintWriter(new File(dir, filename))
-        def pyFile(f : Typed.Function) = printWriter("_" + f.name + ".py")
+        def printWriter(filename : String) =
+            new PrintWriter(
+                new BufferedWriter(
+                    new OutputStreamWriter(
+                        new FileOutputStream(
+                            new File(dir, filename)))),
+                    true)
 
         val names = p.functions.values flatMap { f =>
             f.annotations collect { case Typed.Annotation(g : PythonGenerator, args) => g.generatePython(args)_ } match {
@@ -29,8 +35,7 @@ package object gen
 
                 case g :: Nil =>
                     val generated = g(f)
-                    for (out <- managed(pyFile(f))) {
-                        //println(p qualifyName f.name)
+                    for (out <- managed(printWriter(s"_${generated.target}.py"))) {
                         out.println(generated)
                     }
                     Some(generated.name)
@@ -46,6 +51,7 @@ package object gen
     trait GenerationUnit
     {
         def name : String
+        def target = name
     }
 
     trait PythonGenerator extends Typed.AnnotationHandler
