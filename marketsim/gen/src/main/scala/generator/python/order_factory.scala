@@ -86,15 +86,22 @@ object order_factory
 
         type Parameter = order_factory.Parameter
 
-        override def base_class = s"Observable[$ty]" |||
-                                    ImportFrom(ty, "marketsim") |||
-                                    ImportFrom("Observable", "marketsim.ops._all")
+        override def base_class =
+            if (is_factory_intrinsic)
+                implementation_class |||
+                        ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
+            else
+                s"Observable[$ty]" |||
+                        ImportFrom(ty, "marketsim") |||
+                        ImportFrom("Observable", "marketsim.ops._all")
 
         override def base_classes = interface ||| ", " ||| base_class
 
         override def init_body = base_class ||| ".__init__(self)" | super.init_body
 
         def nullable_fields = join_fields({ _.nullable}, crlf)
+
+        override def call = if (is_factory_intrinsic) "" else super.call
 
         override def call_body = nullable_fields |
                 s"""return $implementation_class($call_fields)""" |||
