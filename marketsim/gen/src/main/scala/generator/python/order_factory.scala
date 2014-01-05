@@ -264,6 +264,7 @@ object order_factory
         val sideFactory = partialFactory(sideParam :: Nil)
         val volumeFactory = partialFactory(volumeParam :: Nil)
         val sidePriceFactory = partialFactory(sideParam :: priceParam :: Nil)
+        val priceVolumeFactory = partialFactory(priceParam :: volumeParam :: Nil)
         val side_priceFactory = priceFactory flatMap { partialFactory(sideParam :: Nil, _) }
 
         val scope_curried = scope getPackageOrCreate "_curried"
@@ -272,6 +273,7 @@ object order_factory
             sideFactory,
             volumeFactory,
             sidePriceFactory,
+            priceVolumeFactory,
             side_priceFactory
         ) collect { case Some(p) =>
             if (!(scope_curried.members contains p.name))
