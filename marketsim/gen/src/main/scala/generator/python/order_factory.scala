@@ -69,11 +69,18 @@ object order_factory
     {
         if (args.length != 1)
             throw new Exception(s"Annotation $name should have 1 arguments in" +
-                    " form (implementation_class)" + "\r\n" + "In function " + f)
+                    " form (...Order_Impl or ...Factory_Impl)" + "\r\n" + "In function " + f)
 
         val last_dot_idx = args(0).lastIndexOf(".")
         val implementation_module =args(0).substring(0, last_dot_idx)
         val implementation_class  =args(0).substring(last_dot_idx + 1)
+
+        val is_factory_intrinsic = implementation_class match {
+            case "Order_Impl" => false
+            case "Factory_Impl" => true
+            case _ => throw new Exception("Implementation class should be either Order_Impl or Factory_Impl" +
+                    "\r\n" + "In function " + f)
+        }
 
         val parameters  = f.parameters map Parameter
 

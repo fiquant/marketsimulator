@@ -351,12 +351,12 @@ package order {
                  proto : IObservable[Order] = order.Limit()) : IObservable[Order]
         
     
-    @python.order.factory("order.meta.with_expiry.WithExpiry_Impl")
+    @python.order.factory("order.meta.with_expiry.Order_Impl")
     def WithExpiry(expiry : IObservable[Float] = const(10.0),
                    proto : IObservable[Order] = order.Limit()) : IObservable[Order]
         
     
-    @python.order.factory("order.meta.iceberg.Iceberg_Impl")
+    @python.order.factory("order.meta.iceberg.Order_Impl")
     def Iceberg(lotSize : IObservable[Float] = const(10.0),
                 proto : IObservable[Order] = order.Limit()) : IObservable[Order]
         

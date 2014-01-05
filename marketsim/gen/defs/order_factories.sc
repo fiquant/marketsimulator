@@ -16,9 +16,9 @@ package order
     @python.order.factory("order.meta.stoploss.Order_Impl")
     def StopLoss(maxloss = const(0.1), proto = Limit()) : IObservable[Order]
 
-    @python.order.factory("order.meta.with_expiry.WithExpiry_Impl")
+    @python.order.factory("order.meta.with_expiry.Order_Impl")
     def WithExpiry(expiry = const(10.), proto = Limit()) : IObservable[Order]
 
-    @python.order.factory("order.meta.iceberg.Iceberg_Impl")
+    @python.order.factory("order.meta.iceberg.Order_Impl")
     def Iceberg(lotSize = const(10.), proto = Limit()) : IObservable[Order]
 }

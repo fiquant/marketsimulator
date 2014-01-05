@@ -2892,7 +2892,7 @@ Definitions:
 | | | | | | | | | - order
 | | | | | | | | | - factory
 | | | | | | | - List:
-| | | | | | | | - order.meta.with_expiry.WithExpiry_Impl
+| | | | | | | | - order.meta.with_expiry.Order_Impl
 | | | | - FunDef:
 | | | | | - Iceberg
 | | | | | - List:
@@ -2939,7 +2939,7 @@ Definitions:
 | | | | | | | | | - order
 | | | | | | | | | - factory
 | | | | | | | - List:
-| | | | | | | | - order.meta.iceberg.Iceberg_Impl
+| | | | | | | | - order.meta.iceberg.Order_Impl
 | | | | - FunDef:
 | | | | | - FixedBudget
 | | | | | - List:
