@@ -45,8 +45,8 @@ package object gen
             true)
 
         val names = p.functions.values flatMap { f => generationUnit(f) map { g =>
-                //println(f.parent.hashCode(), f.parent.asInstanceOf[Typed.AnonymousPackage].parent.hashCode(), f.name)
-                for (out <- managed(printWriter(s"_${g.name}.py"))) {
+                //println(f.parent.qualifiedName, f.name)
+                for (out <- managed(printWriter(s"_${f.name}.py"))) {
                     out.println(g)
                 }
                 Some(g.name)

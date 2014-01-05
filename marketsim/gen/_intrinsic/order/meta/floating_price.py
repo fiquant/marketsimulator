@@ -38,5 +38,5 @@ class Order_Impl(_meta.OwnsSingleOrder):
 class Factory_Impl(ops.Observable[Order]):
     
     def __call__(self):
-        proto = self.factory(ops.constant(0))()
-        return Order_Impl(proto, self.price) if proto is not None else None
+        proto = self.proto(ops.constant(0))()
+        return Order_Impl(proto, self.floatingPrice) if proto is not None else None

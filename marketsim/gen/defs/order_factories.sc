@@ -21,4 +21,7 @@ package order
 
     @python.order.factory("order.meta.iceberg.Order_Impl")
     def Iceberg(lotSize = const(10.), proto = Limit()) : IObservable[Order]
+
+    @python.order.factory("order.meta.floating_price.Factory_Impl")
+    def FloatingPrice(floatingPrice = constant(10.), proto = _curried.price_Limit()) : IObservable[Order]
 }

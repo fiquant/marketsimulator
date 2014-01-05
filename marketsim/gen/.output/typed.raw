@@ -977,6 +977,68 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - ImmediateOrCancel
 | | | | | | | - FunDef:
+| | | | | | | | - volume_price_Limit
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - side
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Side
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | - Sell
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - FunctionType:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - curried
+| | | | | | | | | | - List:
+| | | | | | | | | | | - price_Limit
+| | | | | | | - FunDef:
 | | | | | | | | - side_price_StopLoss
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -1171,6 +1233,108 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Iceberg
 | | | | | | | - FunDef:
+| | | | | | | | - sideprice_FloatingPrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - floatingPrice
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 10.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - proto
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Side
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | - sideprice_Limit
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Side
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - on_proto
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatingPrice
+| | | | | | | - FunDef:
 | | | | | | | | - price_StopLoss
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -1325,6 +1489,112 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - ImmediateOrCancel
 | | | | | | | - FunDef:
+| | | | | | | | - volume_price_WithExpiry
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - expiry
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 10.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - proto
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | - volume_price_Limit
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - FunctionType:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - on_proto
+| | | | | | | | | | - List:
+| | | | | | | | | | | - price_WithExpiry
+| | | | | | | - FunDef:
 | | | | | | | | - sideprice_StopLoss
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -1426,6 +1696,108 @@ Definitions:
 | | | | | | | | | | | | - on_proto
 | | | | | | | | | | - List:
 | | | | | | | | | | | - StopLoss
+| | | | | | | - FunDef:
+| | | | | | | | - volumeprice_FloatingPrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - floatingPrice
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 10.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - proto
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | - volumeprice_Limit
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - on_proto
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatingPrice
 | | | | | | | - FunDef:
 | | | | | | | | - side_Iceberg
 | | | | | | | | - List:
@@ -1742,6 +2114,108 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - price_Iceberg
 | | | | | | | - FunDef:
+| | | | | | | | - volumeprice_WithExpiry
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - expiry
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 10.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - proto
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | - volumeprice_Limit
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - on_proto
+| | | | | | | | | | - List:
+| | | | | | | | | | | - WithExpiry
+| | | | | | | - FunDef:
 | | | | | | | | - side_price_ImmediateOrCancel
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -1825,6 +2299,86 @@ Definitions:
 | | | | | | | | | | | | - on_proto
 | | | | | | | | | | - List:
 | | | | | | | | | | | - price_ImmediateOrCancel
+| | | | | | | - FunDef:
+| | | | | | | | - volumeprice_ImmediateOrCancel
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - proto
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | - volumeprice_Limit
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - on_proto
+| | | | | | | | | | - List:
+| | | | | | | | | | | - ImmediateOrCancel
 | | | | | | | - FunDef:
 | | | | | | | | - side_WithExpiry
 | | | | | | | | - List:
@@ -2272,6 +2826,168 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - StopLoss
 | | | | | | | - FunDef:
+| | | | | | | | - volumeprice_Limit
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - side
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Side
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | - Sell
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - curried
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Limit
+| | | | | | | - FunDef:
+| | | | | | | | - volumeprice_Iceberg
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - lotSize
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 10.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - proto
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | - volumeprice_Limit
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - on_proto
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Iceberg
+| | | | | | | - FunDef:
 | | | | | | | | - volume_WithExpiry
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -2528,6 +3244,103 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - ImmediateOrCancel
 | | | | | | | - FunDef:
+| | | | | | | | - volume_FloatingPrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - floatingPrice
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 10.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - proto
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | - volume_price_Limit
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - on_proto
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatingPrice
+| | | | | | | - FunDef:
 | | | | | | | | - volume_Market
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -2580,6 +3393,196 @@ Definitions:
 | | | | | | | | | | | | - curried
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Market
+| | | | | | | - FunDef:
+| | | | | | | | - volume_price_StopLoss
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - maxloss
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 0.1
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - proto
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | - volume_price_Limit
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - FunctionType:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - on_proto
+| | | | | | | | | | - List:
+| | | | | | | | | | | - price_StopLoss
+| | | | | | | - FunDef:
+| | | | | | | | - volume_price_ImmediateOrCancel
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - proto
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | - volume_price_Limit
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - FunctionType:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - on_proto
+| | | | | | | | | | - List:
+| | | | | | | | | | | - price_ImmediateOrCancel
 | | | | | | | - FunDef:
 | | | | | | | | - side_Limit
 | | | | | | | | - List:
@@ -2659,6 +3662,209 @@ Definitions:
 | | | | | | | | | | | | - curried
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Limit
+| | | | | | | - FunDef:
+| | | | | | | | - side_price_FloatingPrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - floatingPrice
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 10.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - proto
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Side
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | - side_price_Limit
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Side
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - FunctionType:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - on_proto
+| | | | | | | | | | - List:
+| | | | | | | | | | | - price_FloatingPrice
+| | | | | | | - FunDef:
+| | | | | | | | - side_FloatingPrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - floatingPrice
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 10.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - proto
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Side
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | - side_price_Limit
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Side
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - on_proto
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatingPrice
 | | | | | | | - FunDef:
 | | | | | | | | - pricevolume_Iceberg
 | | | | | | | | - List:
@@ -3082,6 +4288,112 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Iceberg
 | | | | | | | - FunDef:
+| | | | | | | | - volume_price_FloatingPrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - floatingPrice
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 10.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - proto
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | - volume_price_Limit
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - FunctionType:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - on_proto
+| | | | | | | | | | - List:
+| | | | | | | | | | | - price_FloatingPrice
+| | | | | | | - FunDef:
 | | | | | | | | - side_Market
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -3138,6 +4450,196 @@ Definitions:
 | | | | | | | | | | | | - curried
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Market
+| | | | | | | - FunDef:
+| | | | | | | | - price_FloatingPrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - floatingPrice
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 10.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - proto
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | - price_Limit
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - on_proto
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatingPrice
+| | | | | | | - FunDef:
+| | | | | | | | - volumeprice_StopLoss
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - maxloss
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 0.1
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - proto
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | - volumeprice_Limit
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - on_proto
+| | | | | | | | | | - List:
+| | | | | | | | | | | - StopLoss
 | | | | | | | - FunDef:
 | | | | | | | | - price_WithExpiry
 | | | | | | | | - List:
@@ -3226,6 +4728,112 @@ Definitions:
 | | | | | | | | | | | | - on_proto
 | | | | | | | | | | - List:
 | | | | | | | | | | | - WithExpiry
+| | | | | | | - FunDef:
+| | | | | | | | - volume_price_Iceberg
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - lotSize
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 10.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - proto
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | - volume_price_Limit
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - FunctionType:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - on_proto
+| | | | | | | | | | - List:
+| | | | | | | | | | | - price_Iceberg
 | | | | | | | - FunDef:
 | | | | | | | | - price_Limit
 | | | | | | | | - List:
@@ -3403,6 +5011,108 @@ Definitions:
 | | | | | | | | | | | | - on_proto
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Iceberg
+| | | | | | | - FunDef:
+| | | | | | | | - pricevolume_FloatingPrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - floatingPrice
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 10.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - proto
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | - volumeprice_Limit
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - on_proto
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatingPrice
 | | | | | | | - FunDef:
 | | | | | | | | - sideprice_ImmediateOrCancel
 | | | | | | | | - List:
@@ -3995,6 +5705,84 @@ Definitions:
 | | | | | | | | | - factory
 | | | | | | | - List:
 | | | | | | | | - order.meta.with_expiry.Order_Impl
+| | | | - FunDef:
+| | | | | - FloatingPrice
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - floatingPrice
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IFunction
+| | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | | | | - List:
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 10.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - proto
+| | | | | | | - Some:
+| | | | | | | | - FunctionType:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunctionType:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Order
+| | | | | | | | | | | | - List:
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - order
+| | | | | | | | | | | - _curried
+| | | | | | | | | | | - price_Limit
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Order
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | - List:
+| | | | | | | | - order.meta.floating_price.Factory_Impl
 | | | | - FunDef:
 | | | | | - Iceberg
 | | | | | - List:

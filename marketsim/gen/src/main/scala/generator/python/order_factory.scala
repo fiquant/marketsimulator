@@ -230,11 +230,21 @@ object order_factory
 
             def addPrefix(e : Option[AST.Expr]) = {
                 val call = e.get.asInstanceOf[AST.FunCall]
-                val names = call.name.names
-                val last = names.last
-                val names_0 = names updated (names.length-1, "_curried")
-                val names_1 = names_0 :+ (prefix + last)
-                val fresh_name = AST.QualifiedName(names_1)
+                def insertPrefix(in : List[String]): List[String] = {
+                    in match {
+                        case "order" :: tl =>
+                            "order" :: insertPrefix(tl)
+                        case last :: Nil =>
+                            "_curried" :: (prefix + last) :: Nil
+                        case "_curried" :: last :: Nil if (last startsWith "price_") && (prefix contains "price") =>
+                            "_curried" :: (prefix.replace("price", "").dropRight(1) + last) :: Nil
+                        case "_curried" :: last :: Nil =>
+                            "_curried" :: (prefix + last) :: Nil
+                        case _ => throw new Exception(s"cannot handle function call of form " + call)
+                    }
+                }
+                val names = insertPrefix(call.name.names)
+                val fresh_name = AST.QualifiedName(names)
 
                 Some(call.copy(name = fresh_name))
             }
@@ -279,7 +289,9 @@ object order_factory
         val volumeFactory = partialFactory(volumeParam :: Nil)
         val sidePriceFactory = partialFactory(sideParam :: priceParam :: Nil)
         val priceVolumeFactory = partialFactory(priceParam :: volumeParam :: Nil)
+        val volumePriceFactory = partialFactory(volumeParam :: priceParam :: Nil)
         val side_priceFactory = priceFactory flatMap { partialFactory(sideParam :: Nil, _) }
+        val volume_priceFactory = priceFactory flatMap { partialFactory(volumeParam :: Nil, _) }
 
         val scope_curried = scope getPackageOrCreate "_curried"
 
@@ -288,7 +300,9 @@ object order_factory
             volumeFactory,
             sidePriceFactory,
             priceVolumeFactory,
-            side_priceFactory
+            side_priceFactory,
+            volume_priceFactory,
+            volumePriceFactory
         ) collect { case Some(p) =>
             if (!(scope_curried.members contains p.name))
                 scope_curried.add(p)

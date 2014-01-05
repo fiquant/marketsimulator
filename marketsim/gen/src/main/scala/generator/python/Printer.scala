@@ -43,7 +43,6 @@ object Printer {
             def imports = predef.ImportFrom("types", "marketsim") :: ret.imports ++ (args match {
                 case Nil => Nil
                 case x :: Nil =>
-                    println(x.imports)
                     x.imports
                 case _ => throw new Exception("Only unary and nullary functions are supported for python generation")
             })
