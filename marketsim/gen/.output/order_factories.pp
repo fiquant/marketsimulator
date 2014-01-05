@@ -40,4 +40,8 @@ package order {
     def FloatingPrice(floatingPrice = constant(10.0),
                       proto = _curried.price_Limit()) : IOrderGenerator
         
+    
+    @python.order.factory("order.meta.peg.Factory_Impl")
+    def Peg(proto = _curried.price_Limit()) : IOrderGenerator
+        
 }

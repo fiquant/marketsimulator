@@ -347,6 +347,37 @@ Definitions:
 | | | | | | | | | - factory
 | | | | | | | - List:
 | | | | | | | | - order.meta.floating_price.Factory_Impl
+| | | | - FunDef:
+| | | | | - Peg
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - proto
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - _curried
+| | | | | | | | | | | - price_Limit
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IOrderGenerator
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | - List:
+| | | | | | | | - order.meta.peg.Factory_Impl
 | | - List:
 | | | - Attribute:
 | | | | - category
