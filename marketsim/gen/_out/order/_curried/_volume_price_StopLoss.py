@@ -8,7 +8,6 @@ from marketsim import IObservable
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IFunction
-from marketsim import IFunction
 @registry.expose(["Order", "StopLoss"])
 class volume_price_StopLoss(IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[float]]):
     """ 

@@ -178,283 +178,283 @@ package mathutils {
 package order {
     package _curried {
         @python.order.factory.on_proto("ImmediateOrCancel")
-        def side_ImmediateOrCancel(proto = _curried.side_Limit()) : (() => Side) => IObservable[Order]
+        def side_ImmediateOrCancel(proto = _curried.side_Limit()) : (() => Side) => IOrderGenerator
             
         
         @python.order.factory.curried("price_Limit")
-        def volume_price_Limit(side = side.Sell()) : (() => Float) => ((() => Float) => IObservable[Order])
+        def volume_price_Limit(side = side.Sell()) : (() => Float) => ((() => Float) => IOrderGenerator)
             
         
         @python.order.factory.on_proto("price_StopLoss")
         def side_price_StopLoss(maxloss = const(0.1),
-                                proto = _curried.side_price_Limit()) : (() => Side) => ((() => Float) => IObservable[Order])
+                                proto = _curried.side_price_Limit()) : (() => Side) => ((() => Float) => IOrderGenerator)
             
         
         @python.order.factory.on_proto("Iceberg")
         def price_Iceberg(lotSize = const(10.0),
-                          proto = _curried.price_Limit()) : (() => Float) => IObservable[Order]
+                          proto = _curried.price_Limit()) : (() => Float) => IOrderGenerator
             
         
         @python.order.factory.on_proto("FloatingPrice")
         def sideprice_FloatingPrice(floatingPrice = constant(10.0),
-                                    proto = _curried.sideprice_Limit()) : ((() => Side),(() => Float)) => IObservable[Order]
+                                    proto = _curried.sideprice_Limit()) : ((() => Side),(() => Float)) => IOrderGenerator
             
         
         @python.order.factory.on_proto("StopLoss")
         def price_StopLoss(maxloss = const(0.1),
-                           proto = _curried.price_Limit()) : (() => Float) => IObservable[Order]
+                           proto = _curried.price_Limit()) : (() => Float) => IOrderGenerator
             
         
         @python.order.factory.on_proto("ImmediateOrCancel")
-        def price_ImmediateOrCancel(proto = _curried.price_Limit()) : (() => Float) => IObservable[Order]
+        def price_ImmediateOrCancel(proto = _curried.price_Limit()) : (() => Float) => IOrderGenerator
             
         
         @python.order.factory.on_proto("price_WithExpiry")
         def volume_price_WithExpiry(expiry = const(10.0),
-                                    proto = _curried.volume_price_Limit()) : (() => Float) => ((() => Float) => IObservable[Order])
+                                    proto = _curried.volume_price_Limit()) : (() => Float) => ((() => Float) => IOrderGenerator)
             
         
         @python.order.factory.on_proto("StopLoss")
         def sideprice_StopLoss(maxloss = const(0.1),
-                               proto = _curried.sideprice_Limit()) : ((() => Side),(() => Float)) => IObservable[Order]
+                               proto = _curried.sideprice_Limit()) : ((() => Side),(() => Float)) => IOrderGenerator
             
         
         @python.order.factory.on_proto("FloatingPrice")
         def volumeprice_FloatingPrice(floatingPrice = constant(10.0),
-                                      proto = _curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IObservable[Order]
+                                      proto = _curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
             
         
         @python.order.factory.on_proto("Iceberg")
         def side_Iceberg(lotSize = const(10.0),
-                         proto = _curried.side_Limit()) : (() => Side) => IObservable[Order]
+                         proto = _curried.side_Limit()) : (() => Side) => IOrderGenerator
             
         
         @python.order.factory.curried("FixedBudget")
-        def side_FixedBudget(budget = constant(1000.0)) : (() => Side) => IObservable[Order]
+        def side_FixedBudget(budget = constant(1000.0)) : (() => Side) => IOrderGenerator
             
         
         @python.order.factory.curried("Limit")
-        def sideprice_Limit(volume = constant(1.0)) : ((() => Side),(() => Float)) => IObservable[Order]
+        def sideprice_Limit(volume = constant(1.0)) : ((() => Side),(() => Float)) => IOrderGenerator
             
         
         @python.order.factory.on_proto("price_Iceberg")
         def side_price_Iceberg(lotSize = const(10.0),
-                               proto = _curried.side_price_Limit()) : (() => Side) => ((() => Float) => IObservable[Order])
+                               proto = _curried.side_price_Limit()) : (() => Side) => ((() => Float) => IOrderGenerator)
             
         
         @python.order.factory.on_proto("WithExpiry")
         def volumeprice_WithExpiry(expiry = const(10.0),
-                                   proto = _curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IObservable[Order]
+                                   proto = _curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
             
         
         @python.order.factory.on_proto("price_ImmediateOrCancel")
-        def side_price_ImmediateOrCancel(proto = _curried.side_price_Limit()) : (() => Side) => ((() => Float) => IObservable[Order])
+        def side_price_ImmediateOrCancel(proto = _curried.side_price_Limit()) : (() => Side) => ((() => Float) => IOrderGenerator)
             
         
         @python.order.factory.on_proto("ImmediateOrCancel")
-        def volumeprice_ImmediateOrCancel(proto = _curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IObservable[Order]
+        def volumeprice_ImmediateOrCancel(proto = _curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
             
         
         @python.order.factory.on_proto("WithExpiry")
         def side_WithExpiry(expiry = const(10.0),
-                            proto = _curried.side_Limit()) : (() => Side) => IObservable[Order]
+                            proto = _curried.side_Limit()) : (() => Side) => IOrderGenerator
             
         
         @python.order.factory.on_proto("StopLoss")
         def side_StopLoss(maxloss = const(0.1),
-                          proto = _curried.side_Limit()) : (() => Side) => IObservable[Order]
+                          proto = _curried.side_Limit()) : (() => Side) => IOrderGenerator
             
         
         @python.order.factory.on_proto("StopLoss")
         def pricevolume_StopLoss(maxloss = const(0.1),
-                                 proto = _curried.pricevolume_Limit()) : ((() => Float),(() => Float)) => IObservable[Order]
+                                 proto = _curried.pricevolume_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
             
         
         @python.order.factory.on_proto("ImmediateOrCancel")
-        def pricevolume_ImmediateOrCancel(proto = _curried.pricevolume_Limit()) : ((() => Float),(() => Float)) => IObservable[Order]
+        def pricevolume_ImmediateOrCancel(proto = _curried.pricevolume_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
             
         
         @python.order.factory.on_proto("StopLoss")
         def volume_StopLoss(maxloss = const(0.1),
-                            proto = _curried.volume_Limit()) : (() => Float) => IObservable[Order]
+                            proto = _curried.volume_Limit()) : (() => Float) => IOrderGenerator
             
         
         @python.order.factory.curried("Limit")
-        def volumeprice_Limit(side = side.Sell()) : ((() => Float),(() => Float)) => IObservable[Order]
+        def volumeprice_Limit(side = side.Sell()) : ((() => Float),(() => Float)) => IOrderGenerator
             
         
         @python.order.factory.on_proto("Iceberg")
         def volumeprice_Iceberg(lotSize = const(10.0),
-                                proto = _curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IObservable[Order]
+                                proto = _curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
             
         
         @python.order.factory.on_proto("WithExpiry")
         def volume_WithExpiry(expiry = const(10.0),
-                              proto = _curried.volume_Limit()) : (() => Float) => IObservable[Order]
+                              proto = _curried.volume_Limit()) : (() => Float) => IOrderGenerator
             
         
         @python.order.factory.on_proto("WithExpiry")
         def sideprice_WithExpiry(expiry = const(10.0),
-                                 proto = _curried.sideprice_Limit()) : ((() => Side),(() => Float)) => IObservable[Order]
+                                 proto = _curried.sideprice_Limit()) : ((() => Side),(() => Float)) => IOrderGenerator
             
         
         @python.order.factory.on_proto("ImmediateOrCancel")
-        def volume_ImmediateOrCancel(proto = _curried.volume_Limit()) : (() => Float) => IObservable[Order]
+        def volume_ImmediateOrCancel(proto = _curried.volume_Limit()) : (() => Float) => IOrderGenerator
             
         
         @python.order.factory.on_proto("FloatingPrice")
         def volume_FloatingPrice(floatingPrice = constant(10.0),
-                                 proto = _curried.volume_price_Limit()) : (() => Float) => IObservable[Order]
+                                 proto = _curried.volume_price_Limit()) : (() => Float) => IOrderGenerator
             
         
         @python.order.factory.curried("Market")
-        def volume_Market(side = side.Sell()) : (() => Float) => IObservable[Order]
+        def volume_Market(side = side.Sell()) : (() => Float) => IOrderGenerator
             
         
         @python.order.factory.on_proto("price_StopLoss")
         def volume_price_StopLoss(maxloss = const(0.1),
-                                  proto = _curried.volume_price_Limit()) : (() => Float) => ((() => Float) => IObservable[Order])
+                                  proto = _curried.volume_price_Limit()) : (() => Float) => ((() => Float) => IOrderGenerator)
             
         
         @python.order.factory.on_proto("price_ImmediateOrCancel")
-        def volume_price_ImmediateOrCancel(proto = _curried.volume_price_Limit()) : (() => Float) => ((() => Float) => IObservable[Order])
+        def volume_price_ImmediateOrCancel(proto = _curried.volume_price_Limit()) : (() => Float) => ((() => Float) => IOrderGenerator)
             
         
         @python.order.factory.curried("Limit")
         def side_Limit(price = constant(100.0),
-                       volume = constant(1.0)) : (() => Side) => IObservable[Order]
+                       volume = constant(1.0)) : (() => Side) => IOrderGenerator
             
         
         @python.order.factory.on_proto("price_FloatingPrice")
         def side_price_FloatingPrice(floatingPrice = constant(10.0),
-                                     proto = _curried.side_price_Limit()) : (() => Side) => ((() => Float) => IObservable[Order])
+                                     proto = _curried.side_price_Limit()) : (() => Side) => ((() => Float) => IOrderGenerator)
             
         
         @python.order.factory.on_proto("FloatingPrice")
         def side_FloatingPrice(floatingPrice = constant(10.0),
-                               proto = _curried.side_price_Limit()) : (() => Side) => IObservable[Order]
+                               proto = _curried.side_price_Limit()) : (() => Side) => IOrderGenerator
             
         
         @python.order.factory.on_proto("Iceberg")
         def pricevolume_Iceberg(lotSize = const(10.0),
-                                proto = _curried.pricevolume_Limit()) : ((() => Float),(() => Float)) => IObservable[Order]
+                                proto = _curried.pricevolume_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
             
         
         @python.order.factory.on_proto("price_WithExpiry")
         def side_price_WithExpiry(expiry = const(10.0),
-                                  proto = _curried.side_price_Limit()) : (() => Side) => ((() => Float) => IObservable[Order])
+                                  proto = _curried.side_price_Limit()) : (() => Side) => ((() => Float) => IOrderGenerator)
             
         
         @python.order.factory.curried("price_Limit")
-        def side_price_Limit(volume = constant(1.0)) : (() => Side) => ((() => Float) => IObservable[Order])
+        def side_price_Limit(volume = constant(1.0)) : (() => Side) => ((() => Float) => IOrderGenerator)
             
         
         @python.order.factory.curried("Limit")
-        def pricevolume_Limit(side = side.Sell()) : ((() => Float),(() => Float)) => IObservable[Order]
+        def pricevolume_Limit(side = side.Sell()) : ((() => Float),(() => Float)) => IOrderGenerator
             
         
         @python.order.factory.on_proto("Iceberg")
         def volume_Iceberg(lotSize = const(10.0),
-                           proto = _curried.volume_Limit()) : (() => Float) => IObservable[Order]
+                           proto = _curried.volume_Limit()) : (() => Float) => IOrderGenerator
             
         
         @python.order.factory.on_proto("price_FloatingPrice")
         def volume_price_FloatingPrice(floatingPrice = constant(10.0),
-                                       proto = _curried.volume_price_Limit()) : (() => Float) => ((() => Float) => IObservable[Order])
+                                       proto = _curried.volume_price_Limit()) : (() => Float) => ((() => Float) => IOrderGenerator)
             
         
         @python.order.factory.curried("Market")
-        def side_Market(volume = constant(1.0)) : (() => Side) => IObservable[Order]
+        def side_Market(volume = constant(1.0)) : (() => Side) => IOrderGenerator
             
         
         @python.order.factory.on_proto("FloatingPrice")
         def price_FloatingPrice(floatingPrice = constant(10.0),
-                                proto = _curried.price_Limit()) : (() => Float) => IObservable[Order]
+                                proto = _curried.price_Limit()) : (() => Float) => IOrderGenerator
             
         
         @python.order.factory.on_proto("StopLoss")
         def volumeprice_StopLoss(maxloss = const(0.1),
-                                 proto = _curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IObservable[Order]
+                                 proto = _curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
             
         
         @python.order.factory.on_proto("WithExpiry")
         def price_WithExpiry(expiry = const(10.0),
-                             proto = _curried.price_Limit()) : (() => Float) => IObservable[Order]
+                             proto = _curried.price_Limit()) : (() => Float) => IOrderGenerator
             
         
         @python.order.factory.on_proto("price_Iceberg")
         def volume_price_Iceberg(lotSize = const(10.0),
-                                 proto = _curried.volume_price_Limit()) : (() => Float) => ((() => Float) => IObservable[Order])
+                                 proto = _curried.volume_price_Limit()) : (() => Float) => ((() => Float) => IOrderGenerator)
             
         
         @python.order.factory.curried("Limit")
         def price_Limit(side = side.Sell(),
-                        volume = constant(1.0)) : (() => Float) => IObservable[Order]
+                        volume = constant(1.0)) : (() => Float) => IOrderGenerator
             
         
         @python.order.factory.on_proto("Iceberg")
         def sideprice_Iceberg(lotSize = const(10.0),
-                              proto = _curried.sideprice_Limit()) : ((() => Side),(() => Float)) => IObservable[Order]
+                              proto = _curried.sideprice_Limit()) : ((() => Side),(() => Float)) => IOrderGenerator
             
         
         @python.order.factory.on_proto("FloatingPrice")
         def pricevolume_FloatingPrice(floatingPrice = constant(10.0),
-                                      proto = _curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IObservable[Order]
+                                      proto = _curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
             
         
         @python.order.factory.on_proto("ImmediateOrCancel")
-        def sideprice_ImmediateOrCancel(proto = _curried.sideprice_Limit()) : ((() => Side),(() => Float)) => IObservable[Order]
+        def sideprice_ImmediateOrCancel(proto = _curried.sideprice_Limit()) : ((() => Side),(() => Float)) => IOrderGenerator
             
         
         @python.order.factory.on_proto("WithExpiry")
         def pricevolume_WithExpiry(expiry = const(10.0),
-                                   proto = _curried.pricevolume_Limit()) : ((() => Float),(() => Float)) => IObservable[Order]
+                                   proto = _curried.pricevolume_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
             
         
         @python.order.factory.curried("Limit")
         def volume_Limit(side = side.Sell(),
-                         price = constant(100.0)) : (() => Float) => IObservable[Order]
+                         price = constant(100.0)) : (() => Float) => IOrderGenerator
             
     }
     
     @python.order.factory("order.limit.Order_Impl")
     def Limit(side = side.Sell(),
               price = constant(100.0),
-              volume = constant(1.0)) : IObservable[Order]
+              volume = constant(1.0)) : IOrderGenerator
         
     
     @python.order.factory("order.meta.ioc.Order_Impl")
-    def ImmediateOrCancel(proto = Limit()) : IObservable[Order]
+    def ImmediateOrCancel(proto = Limit()) : IOrderGenerator
         
     
     @python.order.factory("order.market.Order_Impl")
     def Market(side = side.Sell(),
-               volume = constant(1.0)) : IObservable[Order]
+               volume = constant(1.0)) : IOrderGenerator
         
     
     @python.order.factory("order.meta.stoploss.Order_Impl")
     def StopLoss(maxloss = const(0.1),
-                 proto = Limit()) : IObservable[Order]
+                 proto = Limit()) : IOrderGenerator
         
     
     @python.order.factory("order.meta.with_expiry.Order_Impl")
     def WithExpiry(expiry = const(10.0),
-                   proto = Limit()) : IObservable[Order]
+                   proto = Limit()) : IOrderGenerator
         
     
     @python.order.factory("order.meta.floating_price.Factory_Impl")
     def FloatingPrice(floatingPrice = constant(10.0),
-                      proto = _curried.price_Limit()) : IObservable[Order]
+                      proto = _curried.price_Limit()) : IOrderGenerator
         
     
     @python.order.factory("order.meta.iceberg.Order_Impl")
     def Iceberg(lotSize = const(10.0),
-                proto = Limit()) : IObservable[Order]
+                proto = Limit()) : IOrderGenerator
         
     
     @python.order.factory("order.meta.fixed_budget.Order_Impl")
     def FixedBudget(side = side.Sell(),
-                    budget = constant(1000.0)) : IObservable[Order]
+                    budget = constant(1000.0)) : IOrderGenerator
         
 }
 @category = "Basic"
@@ -1006,3 +1006,5 @@ type Order
 type IDifferentiable : IFunction[Float]
 
 type VolumeLevels
+
+type IOrderGenerator = IObservable[Order]

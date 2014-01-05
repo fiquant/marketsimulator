@@ -909,6 +909,18 @@ Definitions:
 | - Interface:
 | | - IOrderBook
 | | - List:
+| - Alias:
+| | - IOrderGenerator
+| | - SimpleType:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - IObservable
+| | | - List:
+| | | | - SimpleType:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - Order
+| | | | | - List:
 | - Interface:
 | | - ISingleAssetTrader
 | | - List:

@@ -5,6 +5,7 @@ from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
+from marketsim import IFunction
 @registry.expose(["Order", "FloatingPrice"])
 class volume_FloatingPrice(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
@@ -21,7 +22,7 @@ class volume_FloatingPrice(IFunction[IOrderGenerator, IFunction[float]]):
     
     _properties = {
         'floatingPrice' : IFunction[float],
-        'proto' : IFunction[IOrderGenerator, IFunction[float]]
+        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[float]]
     }
     def __repr__(self):
         return "volume_FloatingPrice(%(floatingPrice)s, %(proto)s)" % self.__dict__

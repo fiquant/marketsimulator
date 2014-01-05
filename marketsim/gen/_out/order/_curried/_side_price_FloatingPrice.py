@@ -8,7 +8,6 @@ from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
-from marketsim import IFunction
 from marketsim import types
 from marketsim import Side
 @registry.expose(["Order", "FloatingPrice"])

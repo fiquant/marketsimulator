@@ -2,8 +2,7 @@ from marketsim import registry
 from marketsim import IOrderGenerator
 from marketsim import Order
 from marketsim.ops._all import Observable
-from marketsim import IObservable
-from marketsim import Order
+from marketsim import IOrderGenerator
 @registry.expose(["Order", "ImmediateOrCancel"])
 class ImmediateOrCancel(IOrderGenerator, Observable[Order]):
     """ 
@@ -24,8 +23,7 @@ class ImmediateOrCancel(IOrderGenerator, Observable[Order]):
         return repr(self)
     
     _properties = {
-        'proto' : IObservable[Order]
-        
+        'proto' : IOrderGenerator
     }
     def __repr__(self):
         return "ImmediateOrCancel(%(proto)s)" % self.__dict__

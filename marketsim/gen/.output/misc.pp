@@ -133,6 +133,8 @@ type IOrderQueue
 
 type IOrderBook
 
+type IOrderGenerator = IObservable[Order]
+
 type ISingleAssetTrader
 
 type IDifferentiable : IFunction[Float]

@@ -8,7 +8,6 @@ from marketsim import IObservable
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IFunction
-from marketsim import IFunction
 @registry.expose(["Order", "WithExpiry"])
 class volume_price_WithExpiry(IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[float]]):
     """ 

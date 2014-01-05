@@ -3,8 +3,7 @@ from marketsim import IOrderGenerator
 from marketsim.gen._intrinsic.order.meta.floating_price import Factory_Impl
 from marketsim import IFunction
 from marketsim import types
-from marketsim import IObservable
-from marketsim import Order
+from marketsim import IOrderGenerator
 from marketsim import types
 @registry.expose(["Order", "FloatingPrice"])
 class FloatingPrice(IOrderGenerator, Factory_Impl):
@@ -32,8 +31,7 @@ class FloatingPrice(IOrderGenerator, Factory_Impl):
     
     _properties = {
         'floatingPrice' : IFunction[float],
-        'proto' : types.IFunction[IObservable[Order],types.IFunction[float]]
-        
+        'proto' : types.IFunction[IOrderGenerator,types.IFunction[float]]
         
         
     }

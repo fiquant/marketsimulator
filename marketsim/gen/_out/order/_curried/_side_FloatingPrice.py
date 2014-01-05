@@ -5,6 +5,7 @@ from marketsim import Side
 from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import IOrderGenerator
+from marketsim import IFunction
 from marketsim import types
 from marketsim import Side
 @registry.expose(["Order", "FloatingPrice"])
@@ -24,7 +25,7 @@ class side_FloatingPrice(IFunction[IOrderGenerator, types.IFunction[Side]
     
     _properties = {
         'floatingPrice' : IFunction[float],
-        'proto' : IFunction[IOrderGenerator, types.IFunction[Side]
+        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], types.IFunction[Side]
         ]
     }
     def __repr__(self):

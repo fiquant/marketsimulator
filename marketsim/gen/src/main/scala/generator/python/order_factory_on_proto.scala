@@ -6,13 +6,15 @@ import predef._
 object order_factory_on_proto
         extends gen.PythonGenerator
 {
-    case class FactoryParameter(curried   : List[Typed.Parameter],
+    case class FactoryParameter(fac_cur   : FactoryBase,
                                 original  : FactoryBase,
                                 p         : Typed.Parameter)
             extends base.Parameter
     {
         val proto = "proto"
         val isProto = name == "proto"
+
+        val curried = fac_cur.curried
 
         val prefix =
             (curried map { _.name } mkString "") +
@@ -29,7 +31,7 @@ object order_factory_on_proto
 
         override def call = if (isProto) s"$proto($call_args)" else name
 
-        def interface = s"IFunction["||| original.interface |||", "||| curriedTypesAsList(curried) |||"]"
+        def interface = fac_cur.interface
 
         override def property = s"\'$name\' : " |||
                 (if (isProto) interface else ty)
@@ -54,18 +56,20 @@ object order_factory_on_proto
         }
 
         override type Parameter = FactoryParameter
-        override val curried = x.parameters find { _.name == "proto" } match {
+        val factory_of_curried = x.parameters find { _.name == "proto" } match {
             case Some(p) =>
                 val ini = p.initializer.get.asInstanceOf[Typed.FunctionCall].target
                 val factory = gen.generationUnit(ini).get match {
                     case x : FactoryBase => x
                     case _ => throw new Exception("original factory is not of appropriate type")
                 }
-                factory.curried
+                factory
             case None => throw new Exception("Here should be a parameter with name proto")
         }
-        val curried_parameters = curried map { FactoryParameter(curried, original, _) }
-        val parameters  = x.parameters map { FactoryParameter(curried, original, _) }
+
+        override val curried = factory_of_curried.curried
+        val curried_parameters = curried map { FactoryParameter(factory_of_curried, original, _) }
+        val parameters  = x.parameters map { FactoryParameter(factory_of_curried, original, _) }
 
         override val prefix = curried map { _.name } mkString ""
         override def name = prefix + "_" + original.name

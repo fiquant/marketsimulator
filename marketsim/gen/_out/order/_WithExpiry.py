@@ -3,8 +3,7 @@ from marketsim import IOrderGenerator
 from marketsim import Order
 from marketsim.ops._all import Observable
 from marketsim import IObservable
-from marketsim import IObservable
-from marketsim import Order
+from marketsim import IOrderGenerator
 @registry.expose(["Order", "WithExpiry"])
 class WithExpiry(IOrderGenerator, Observable[Order]):
     """ 
@@ -32,8 +31,7 @@ class WithExpiry(IOrderGenerator, Observable[Order]):
     
     _properties = {
         'expiry' : IObservable[float],
-        'proto' : IObservable[Order]
-        
+        'proto' : IOrderGenerator
     }
     def __repr__(self):
         return "WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__

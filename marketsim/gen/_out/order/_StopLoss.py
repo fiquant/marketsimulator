@@ -3,8 +3,7 @@ from marketsim import IOrderGenerator
 from marketsim import Order
 from marketsim.ops._all import Observable
 from marketsim import IObservable
-from marketsim import IObservable
-from marketsim import Order
+from marketsim import IOrderGenerator
 @registry.expose(["Order", "StopLoss"])
 class StopLoss(IOrderGenerator, Observable[Order]):
     """ 
@@ -32,8 +31,7 @@ class StopLoss(IOrderGenerator, Observable[Order]):
     
     _properties = {
         'maxloss' : IObservable[float],
-        'proto' : IObservable[Order]
-        
+        'proto' : IOrderGenerator
     }
     def __repr__(self):
         return "StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
