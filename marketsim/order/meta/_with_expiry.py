@@ -5,7 +5,7 @@ from marketsim.types import *
 
 import _meta
 
-from marketsim.gen._intrinsic.order.meta.with_expiry import WithExpiry_Impl as WithExpiry
+from marketsim.gen._intrinsic.order.meta.with_expiry import Order_Impl as WithExpiry
 from marketsim.gen._out.order._WithExpiry import WithExpiry as Factory
 from marketsim.gen._out.order._curried._side_WithExpiry import side_WithExpiry as Side_Factory
 from marketsim.gen._out.order._curried._sideprice_WithExpiry import sideprice_WithExpiry as SidePrice_Factory

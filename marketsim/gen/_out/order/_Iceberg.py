@@ -39,13 +39,13 @@ class Iceberg(IOrderGenerator, Observable[Order]):
         return "Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
-        from marketsim.gen._intrinsic.order.meta.iceberg import Iceberg_Impl
+        from marketsim.gen._intrinsic.order.meta.iceberg import Order_Impl
         lotSize = self.lotSize()
         if lotSize is None: return None
         
         proto = self.proto()
         if proto is None: return None
         
-        return Iceberg_Impl(lotSize, proto)
+        return Order_Impl(lotSize, proto)
     
 

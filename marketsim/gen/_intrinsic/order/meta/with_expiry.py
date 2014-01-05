@@ -2,7 +2,7 @@ from marketsim import request, _
 
 import _meta
 
-class WithExpiry_Impl(_meta.OwnsSingleOrder):
+class Order_Impl(_meta.OwnsSingleOrder):
     """ Limit-like order which is cancelled after given *delay*
     """
     

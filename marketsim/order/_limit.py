@@ -9,21 +9,9 @@ from marketsim.gen._out.order._curried._volume_Limit import volume_Limit as Volu
 from marketsim.gen._out.order._curried._price_Limit import price_Limit as Price_Factory
 from marketsim.gen._out.order._curried._sideprice_Limit import sideprice_Limit as SidePrice_Factory
 from marketsim.gen._out.order._curried._side_price_Limit import side_price_Limit as Side_Price_Factory
+from marketsim.gen._out.order._curried._pricevolume_Limit import pricevolume_Limit as PriceVolume_Factory
 
 Order = Limit
-
-class PriceVolume_Factory(IFunction[IOrderGenerator, PriceVolume]):
-    
-    def __init__(self, side = ops.constant(Side.Sell)):
-        self.side = side
-        
-    _properties = { 
-        'side'   : types.IFunction[Side]
-     }
-    
-    def __call__(self, price, volume):
-        return Factory(self.side, price, volume)
-
 
 class LimitOrderFactory(types.IFunction[types.IOrder, types.SidePriceVolume]):
     

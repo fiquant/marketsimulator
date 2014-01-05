@@ -1,6 +1,6 @@
 import _meta
 
-class Iceberg_Impl(_meta.OwnsSingleOrder):
+class Order_Impl(_meta.OwnsSingleOrder):
     """ Virtual order that implements iceberg strategy:
     First it sends an order for a small potion of its volume to a book and
     once it is filled resends a new order 
@@ -16,7 +16,7 @@ class Iceberg_Impl(_meta.OwnsSingleOrder):
         self._lotSize = lotSize
         
     def With(self, **kwargs):
-        return Iceberg_Impl(self._lotSize, self.proto.With(**kwargs))
+        return Order_Impl(self._lotSize, self.proto.With(**kwargs))
                 
     def onOrderDisposed(self, order):
         if not self.cancelled:
