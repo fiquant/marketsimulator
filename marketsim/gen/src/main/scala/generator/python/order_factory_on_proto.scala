@@ -21,13 +21,7 @@ object order_factory_on_proto
         override def assign_if_none: predef.Code =
             if (isProto) initializer match {
                 case Some(x) =>
-                    val ini = initializer.get.asInstanceOf[Typed.FunctionCall].target
-                    val factory = gen.generationUnit(ini).get match {
-                        case x : FactoryBase => x
-                        case _ => throw new Exception("original factory is not of appropriate type")
-                    }
-                    (s" if $name is not None else " + x.asPython) |||
-                            ImportFrom(ini.name, "marketsim.gen._out.order._" + factory.target)
+                    (s" if $name is not None else " + x.asPython) ||| Code.from(x.imports)
                 case None => ""
             } else super.assign_if_none
 
@@ -73,8 +67,6 @@ object order_factory_on_proto
         val curried_parameters = curried map { FactoryParameter(curried, original, _) }
         val parameters  = x.parameters map { FactoryParameter(curried, original, _) }
 
-        override def target = original.target
-
         override val prefix = curried map { _.name } mkString ""
         override def name = prefix + "_" + original.name
         override def alias = original.alias
@@ -88,9 +80,12 @@ object order_factory_on_proto
 
         def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
 
+        val original_module_infix = if (original.curried == Nil) "" else "curried._"
+
         override def call_body =
                 call_body_assignments |
-                s"""return ${original.name}($call_fields)"""
+                s"""return ${original.name}($call_fields)"""  |||
+                ImportFrom(original.name, "marketsim.gen._out.order._" + original_module_infix + original.name)
 
         override def call_args =
             join_fields(

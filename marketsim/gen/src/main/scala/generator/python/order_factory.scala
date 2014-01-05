@@ -345,7 +345,11 @@ object order_factory
             def addPrefix(e : Option[AST.Expr]) = {
                 val call = e.get.asInstanceOf[AST.FunCall]
                 val names = call.name.names
-                val fresh_name = AST.QualifiedName(names.updated(names.length-1, prefix + names.last))
+                val last = names.last
+                val names_0 = names updated (names.length-1, "_curried")
+                val names_1 = names_0 :+ (prefix + last)
+                val fresh_name = AST.QualifiedName(names_1)
+
                 Some(call.copy(name = fresh_name))
             }
 
@@ -390,14 +394,16 @@ object order_factory
         val sidePriceFactory = partialFactory(sideParam :: priceParam :: Nil)
         val side_priceFactory = priceFactory flatMap { partialFactory(sideParam :: Nil, _) }
 
+        val scope_curried = scope getPackageOrCreate "_curried"
+
         List(priceFactory,
             sideFactory,
             volumeFactory,
             sidePriceFactory,
             side_priceFactory
         ) collect { case Some(p) =>
-            if (!(scope.members contains p.name))
-                scope.add(p)
+            if (!(scope_curried.members contains p.name))
+                scope_curried.add(p)
         }
     }
 

@@ -67,6 +67,16 @@ package object NameTable {
             create(p.members, p.attributes, target)
         }
 
+        def getPackageOrCreate(name : String) =
+            packages get name match {
+                case Some(p) => p
+                case None    =>
+                    val p = new Scope(name)
+                    p.parent = Some(this)
+                    packages = packages updated (name, p)
+                    p
+            }
+
         def lookup[T <: AST.Member](qn : List[String], visited : HashSet[Scope] = HashSet.empty)(implicit t : Manifest[T]) : Option[(Scope, T)] = {
             if (visited contains this)
                 None

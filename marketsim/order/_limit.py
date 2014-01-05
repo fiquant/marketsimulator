@@ -3,12 +3,12 @@ from marketsim import combine, registry, bind, ops, meta, types
 from marketsim.types import *
 
 from marketsim.gen._intrinsic.order.limit import Order_Impl as Limit
-from marketsim.gen._out.order._Limit import (Limit as Factory,
-                                             side_Limit as Side_Factory,
-                                             volume_Limit as Volume_Factory,
-                                             price_Limit as Price_Factory,
-                                             sideprice_Limit as SidePrice_Factory,
-                                             side_price_Limit as Side_Price_Factory)
+from marketsim.gen._out.order._Limit import Limit as Factory
+from marketsim.gen._out.order._curried._side_Limit import side_Limit as Side_Factory
+from marketsim.gen._out.order._curried._volume_Limit import volume_Limit as Volume_Factory
+from marketsim.gen._out.order._curried._price_Limit import price_Limit as Price_Factory
+from marketsim.gen._out.order._curried._sideprice_Limit import sideprice_Limit as SidePrice_Factory
+from marketsim.gen._out.order._curried._side_price_Limit import side_price_Limit as Side_Price_Factory
 
 Order = Limit
 

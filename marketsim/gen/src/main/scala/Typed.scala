@@ -253,6 +253,8 @@ package object Typed
                 case None => insert(default)
             }
 
+        def getFunction(name : String) = functions get name
+
         // TODO: factor common implementation out
 
         def getOrElseUpdateType(name : String, default : => TypeDeclaration) =
@@ -264,8 +266,20 @@ package object Typed
 
     val topLevel = new Package
 
+    abstract class SubPackageBase extends Package
+    {
+        def parent : Package
+
+        override def getFunction(name : String) =
+            functions get name match {
+                case Some(f) => Some(f)
+                case None    => parent getFunction name
+            }
+
+    }
+
     class AnonymousPackage(val parent : Package, override val attributes : Attributes)
-            extends Package
+            extends SubPackageBase
             with    sc.AnonymousPackage
             with    ScPrintable
     {

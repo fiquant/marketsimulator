@@ -46,7 +46,7 @@ package object gen
 
         val names = p.functions.values flatMap { f => generationUnit(f) map { g =>
                 //println(f.parent.hashCode(), f.parent.asInstanceOf[Typed.AnonymousPackage].parent.hashCode(), f.name)
-                for (out <- managed(printWriter(s"_${g.target}.py"))) {
+                for (out <- managed(printWriter(s"_${g.name}.py"))) {
                     out.println(g)
                 }
                 Some(g.name)
@@ -59,7 +59,6 @@ package object gen
     trait GenerationUnit
     {
         def name : String
-        def target = name
     }
 
     trait PythonGenerator extends Typed.AnnotationHandler

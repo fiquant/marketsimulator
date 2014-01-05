@@ -20,9 +20,10 @@ object order_factory_curried
     def lookupOriginal(args   : List[String],
                        f      : Typed.Function) =
     {
-        f.parent.functions get args(0) match {
+        f.parent getFunction args(0) match {
             case Some(x) => x
-            case None    => throw new Exception("cannot find original for curried factory" + f.name)
+            case None    =>
+                throw new Exception("cannot find original for curried factory " + f.name)
         }
     }
 
@@ -42,8 +43,6 @@ object order_factory_curried
         override val curried = f.parameters filter { p => !(x.parameters contains p) }
         val curried_parameters =  curried map FactoryParameter
 
-        override def target = original.target
-
         override def name = (curried map { _.name } mkString "") + "_" + original.name
         override def alias = original.alias
 
@@ -53,9 +52,12 @@ object order_factory_curried
         def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
         def call_body_assign_args = join_fields({ _.call_body_assign_arg }, crlf, curried_parameters)
 
+        val original_module_infix = if (original.curried == Nil) "" else "curried._"
+
         override def call_body = call_body_assign_args |
                 call_body_assignments |
-                s"""return ${original.name}(${original.call_fields})"""
+                s"""return ${original.name}(${original.call_fields})""" |||
+                ImportFrom(original.name, "marketsim.gen._out.order._" + original_module_infix + original.name)
 
         override def call_args = join_fields({ _.call_arg }, ",", curried_parameters)
     }
