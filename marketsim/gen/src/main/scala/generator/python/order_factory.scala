@@ -222,16 +222,20 @@ object order_factory
         val volumeParam = createParam("volume")
         val priceParam = createParam("price")
 
+
+        def withFullyQualifyArgs(f : AST.FunDef) = f.copy(parameters = f.parameters map {
+            p => p.copy(initializer = p.initializer map scope.fullyQualify)
+        })
+
         def partialFactory(curried  : List[AST.Parameter],
-                           base     : AST.FunDef = f) =
+                           base_    : AST.FunDef = f) =
         {
+            val base = (base_)
             val prefix = (curried map { _.name } mkString "") + "_"
             val prefixed = prefix + base.name
 
             def addPrefix(e : Option[AST.Expr]) = {
                 val call = e.get.asInstanceOf[AST.FunCall]
-                val f = scope.resolveFunction(call.name)
-                //println(f.get._2.name)
                 def insertPrefix(in : List[String]): List[String] = {
                     in match {
                         case "order" :: tl =>

@@ -16,6 +16,7 @@ package object NameTable {
         var typed : Option[Typed.Package] = None
 
         val isRoot = name == "_root_"
+        val isAnonymous = name startsWith "$"
 
         def add(m : AST.Member) {
             check_name_is_unique(m.name, m)
@@ -25,14 +26,19 @@ package object NameTable {
         def qualifyName(x : String) : AST.QualifiedName =
             AST.QualifiedName(qualifiedName.names :+ x)
 
-        def qualifiedName : AST.QualifiedName =
+        private def getQualifiedName(show_anonymous : Boolean = false) : AST.QualifiedName =
             AST.QualifiedName(
                 if (isRoot)
-                    "" :: Nil
+                    (if (show_anonymous) name else "") :: Nil
                 else
-                    parent.get.qualifiedName.names :+ name
+                    if (isAnonymous && !show_anonymous)
+                        (parent.get getQualifiedName show_anonymous).names
+                    else
+                        (parent.get getQualifiedName show_anonymous).names :+ name
             )
 
+        lazy val qualifiedName     = getQualifiedName(show_anonymous = false)
+        lazy val qualifiedNameAnon = getQualifiedName(show_anonymous = true)
 
         override def equals(o : Any) = true
 
@@ -89,6 +95,7 @@ package object NameTable {
                 None
             else {
                 val v = visited + this
+                //println(s"looking for $qn at $qualifiedNameAnon")
                 qn match {
                     case Nil => throw new Exception("Qualified name cannot be empty")
                     case "" :: tl =>
@@ -133,6 +140,32 @@ package object NameTable {
                             None
                     }
             }
+
+        def fullyQualifyB(e : AST.BooleanExpr) : AST.BooleanExpr = e match {
+            case AST.And(x, y) => AST.And(fullyQualifyB(x), fullyQualifyB(y))
+            case AST.Or(x, y) => AST.Or(fullyQualifyB(x), fullyQualifyB(y))
+            case AST.Not(x) => AST.Not(fullyQualifyB(x))
+            case AST.Condition(c, x, y) => AST.Condition(c, fullyQualify(x), fullyQualify(y))
+        }
+
+        def fullyQualify(e : AST.Expr) : AST.Expr = e match {
+            case AST.FunCall(n, params) =>
+                resolveFunction(n) match {
+                    case Some((scope, fun)) =>
+                        AST.FunCall(
+                            scope qualifyName fun.name,
+                            params map fullyQualify)
+                    case None =>
+                        throw new Exception(s"cannot find function $n from scope " + qualifiedNameAnon)
+                }
+            case x : AST.StringLit => x
+            case x : AST.FloatLit => x
+            case x : AST.IntLit => x
+            case x : AST.Var => x
+            case AST.BinOp(s, x, y) => AST.BinOp(s, fullyQualify(x), fullyQualify(y))
+            case AST.Neg(x) => AST.Neg(fullyQualify(x))
+            case AST.IfThenElse(cond, x, y) => AST.IfThenElse(fullyQualifyB(cond), fullyQualify(x), fullyQualify(y))
+        }
 
         def toTyped(target : Typed.Package) : Typed.Package =
         {
