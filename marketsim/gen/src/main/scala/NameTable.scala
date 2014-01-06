@@ -122,6 +122,18 @@ package object NameTable {
         def lookupFunctionAlias(name : List[String]) : Option[(Scope, AST.FunAlias)] = lookup[AST.FunAlias](name)
         def lookupType(name : List[String]) : Option[(Scope, AST.TypeDeclaration)] = lookup[AST.TypeDeclaration](name)
 
+        def resolveFunction(name : AST.QualifiedName) : Option[(Scope, AST.FunDef)] =
+            lookupFunction(name.names) match {
+                case r : Some[_] => r
+                case None =>
+                    lookupFunctionAlias(name.names) match {
+                        case Some((scope, alias)) =>
+                            scope resolveFunction alias.target
+                        case None =>
+                            None
+                    }
+            }
+
         def toTyped(target : Typed.Package) : Typed.Package =
         {
             typed = Some(target)

@@ -230,6 +230,8 @@ object order_factory
 
             def addPrefix(e : Option[AST.Expr]) = {
                 val call = e.get.asInstanceOf[AST.FunCall]
+                val f = scope.resolveFunction(call.name)
+                //println(f.get._2.name)
                 def insertPrefix(in : List[String]): List[String] = {
                     in match {
                         case "order" :: tl =>
