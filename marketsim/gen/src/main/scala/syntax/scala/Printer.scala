@@ -172,6 +172,14 @@ package object Printer
             def toScala = crlf + s"type $name = $target"
         }
 
+        trait FunctionAlias extends Printable with Definition
+        {
+            val name    : String
+            val target  : AST.QualifiedName
+
+            def toScala = crlf + s"def $name = $target"
+        }
+
         trait Function extends Printable with Definition {
             val docstring : Option[DocString]
             def decorators : Iterable[Decorator]
@@ -240,11 +248,14 @@ package object Printer
             def getName  = name.toString
         }
 
+
         trait Function extends base.Function {
             self: AST.FunDef =>
             def printRetType = ifSome(ty, " : ")
             def printBody = ifSome(body, " = ")
         }
+
+        type FunctionAlias = base.FunctionAlias
 
         trait Parameter extends base.Parameter {
             self: AST.Parameter =>
@@ -358,6 +369,11 @@ package object Printer
             def printBody = ifSome(body, crlf + tab + " = ")
         }
 
+        trait FunctionAlias extends Printable {
+            self : Typed.FunctionAlias =>
+            def toScala = crlf + s"def $name = " + target.qualifiedName
+        }
+
         type StringLit = base.StringLit
         type IntLit = base.IntLit
 
@@ -396,13 +412,15 @@ package object Printer
             def packages    : Map[String, Any]
             def anonymous   : Iterable[Any]
             def functions   : Map[String, Any]
+            def functionAliases : Map[String, Any]
             def types       : Map[String, Any]
             def attributes  : Any
             def content =
                 (packages.values  mkString crlf) +
                 (anonymous        mkString crlf) +
                 (types.values     mkString crlf) +
-                (functions.values mkString crlf)
+                (functions.values mkString crlf) +
+                (functionAliases.values mkString crlf)
             def wrapped(name : String) =
                 attributes +
                 crlf + s"package $name {" +

@@ -1019,6 +1019,8 @@ package  {
     def IfDefined(x : IFunction[Float] = constant(),
                   elsePart : IFunction[Float] = constant()) : IFunction[Float]
          = if x<>null() then x else elsePart
+    
+    def EWMA = observable.EW.Avg
 }
 
 type CandleStick

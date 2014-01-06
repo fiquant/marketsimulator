@@ -768,6 +768,13 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - If def(%(x)s) else %(elsePart)s
+| | | | - FunAlias:
+| | | | | - EWMA
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - observable
+| | | | | | | - EW
+| | | | | | | - Avg
 | | | | - FunDef:
 | | | | | - Derivative
 | | | | | - List:

@@ -121,7 +121,16 @@ package object AST {
                       body           : Option[Expr],
                       ty             : Option[Type],
                       docstring      : Option[DocString],
-                      decorators     : List[Decorator]) extends Member with pp.Function with ScPrintable
+                      decorators     : List[Decorator])
+            extends Member
+            with    pp.Function
+            with    ScPrintable
+
+    case class FunAlias(name    : String,
+                        target  : QualifiedName)
+            extends Member
+            with    pp.FunctionAlias
+            with    ScPrintable
 
     sealed abstract class TypeDeclaration extends Member
 

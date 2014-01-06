@@ -42,8 +42,10 @@ package object Typer
                 source.members.values foreach { definition =>
                     try {
                         definition match {
+                            case a : AST.FunAlias => getTyped(a)
                             case f : AST.FunDef => getTyped(f)
                             case t : AST.TypeDeclaration => getTyped(t)
+                            case _ => throw new Exception("cannot type a member: " + definition)
                         }
                     }
                     catch {
@@ -58,6 +60,12 @@ package object Typer
                     println("An error occurred during typing:")
                     println(e.getMessage)
             }
+        }
+
+        private def getTyped(definition : AST.FunAlias) : Typed.FunctionAlias = {
+            source.typed.get.getOrElseUpdateFunctionAlias(definition.name, {
+                    visited.enter(source qualifyName definition.name) { toTyped(definition) }
+            })
         }
 
         private def getTyped(definition : AST.FunDef) : Typed.Function = {
@@ -181,6 +189,10 @@ package object Typer
             Typed.Function(target, definition.name, locals, ty, body,
                 definition.docstring, annotationsOf(definition), attributesOf(definition))
         }
+
+        private def toTyped(f : AST.FunAlias) : Typed.FunctionAlias =
+            Typed.FunctionAlias(source.typed.get, f.name, lookupFunction(f.target))
+
 
         private def toTyped(p: AST.Parameter, inferType : AST.Expr => Typed.Expr) : Typed.Parameter = {
             try {

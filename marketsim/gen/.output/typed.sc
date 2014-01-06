@@ -1191,6 +1191,7 @@ package  {
                   elsePart : IFunction[Float] = constant()) : IFunction[Float]
         
         	 = if x<>null() then x else elsePart
+    def EWMA = observable.EW.Avg
 }
 type CandleStick
 type Volume : Int

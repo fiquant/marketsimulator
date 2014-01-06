@@ -111,6 +111,12 @@ package object Typed
             with    py.Condition
             with    TypeInference.Condition
 
+    case class FunctionAlias(parent : Package,
+                             name   : String,
+                             target : Function)
+            extends sc.FunctionAlias
+            with    ScPrintable
+
     case class Function(parent      : Package,
                         name        : String,
                         parameters  : List[Parameter],
@@ -123,6 +129,8 @@ package object Typed
             with    ScPrintable
     {
         def decorators = attributes :: annotations
+
+        def qualifiedName = parent qualifyName name
 
         def getAttribute(name : String) = tryGetAttribute(name) match {
             case Some(v) => v
@@ -198,6 +206,7 @@ package object Typed
     class Package extends sc.TopLevelPackage with ScPrintable
     {
         var functions = Map[String, Function]()
+        var functionAliases = Map[String, FunctionAlias]()
         var packages = Map[String, SubPackage]()
         var anonymous = List[AnonymousPackage]()
         var types = Map[String, TypeDeclaration]()
@@ -214,6 +223,11 @@ package object Typed
 
         def insert(f : Function)  = {
             functions = functions updated (f.name, f)
+            f
+        }
+
+        def insert(f : FunctionAlias)  = {
+            functionAliases = functionAliases updated (f.name, f)
             f
         }
 
@@ -240,10 +254,11 @@ package object Typed
 
         override def equals(o : Any) = o match {
             case that : Package =>
-                (functions  equals that.functions) &&
-                (packages   equals that.packages)  &&
-                (anonymous  equals that.anonymous) &&
-                (attributes equals that.attributes)
+                (functions       equals that.functions) &&
+                (functionAliases equals that.functionAliases) &&
+                (packages        equals that.packages)  &&
+                (anonymous       equals that.anonymous) &&
+                (attributes      equals that.attributes)
             case _ => false
         }
 
@@ -253,7 +268,24 @@ package object Typed
                 case None => insert(default)
             }
 
-        def getFunction(name : String) = functions get name
+        def getOrElseUpdateFunctionAlias(name : String, default : => Typed.FunctionAlias) =
+            functionAliases get name match {
+                case Some(f) => f
+                case None => insert(default)
+            }
+
+        protected def getFunctionImpl(name : String) =
+            functions get name match {
+                case Some(f) => Some(f)
+                case None    =>
+                    functionAliases get name match {
+                        case Some(a) => Some(a.target)
+                        case None    => None
+                    }
+
+            }
+
+        def getFunction(name : String) = getFunctionImpl(name)
 
         // TODO: factor common implementation out
 
@@ -271,7 +303,7 @@ package object Typed
         def parent : Package
 
         override def getFunction(name : String) =
-            functions get name match {
+            getFunctionImpl(name) match {
                 case Some(f) => Some(f)
                 case None    => parent getFunction name
             }

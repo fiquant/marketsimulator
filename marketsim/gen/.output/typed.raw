@@ -12162,6 +12162,13 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
+| | | | - FunAlias:
+| | | | | - EWMA
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - observable
+| | | | | | | - EW
+| | | | | | | - Avg
 | | - List:
 | | | - Attribute:
 | | | | - category

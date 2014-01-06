@@ -104,6 +104,8 @@ package  {
                   elsePart = constant())
          = if x<>null() then x else elsePart
     
+    def EWMA = observable.EW.Avg
+    
     @python.intrinsic("observable.derivative._Derivative_Impl")
     @label = "\\frac{d%(x)s}{dt}"
     def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float

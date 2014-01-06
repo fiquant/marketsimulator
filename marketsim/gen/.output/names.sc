@@ -978,6 +978,8 @@ package trash {
         
 }@category = "Basic"
 package $0 {
+    def EWMA = observable.EW.Avg
+    
     @python()
     @label = "C=%(x)s"
     def constant(x = 1.0) : IFunction[Float]

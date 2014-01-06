@@ -8562,6 +8562,13 @@ Definitions:
 | | | | | - $0
 | | - Definitions:
 | | | - List:
+| | | | - FunAlias:
+| | | | | - EWMA
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - observable
+| | | | | | | - EW
+| | | | | | | - Avg
 | | | | - FunDef:
 | | | | | - constant
 | | | | | - List:

@@ -93,6 +93,10 @@ class Parser() extends JavaTokenParsers with PackratParsers
         case (c ~ name ~ ty ~ initializer) => Parameter(name, ty, initializer, c)
     } withFailureMessage "parameter expected"
 
+    lazy val function_alias = ("def" ~> ident) ~ ("=" ~> qualified_name) ^^ {
+        case (n ~ target) => FunAlias(n, target)
+    }
+
     lazy val function  = (opt(docstring)
                         ~ rep(decorator)
                         ~ ("def" ~> ident)
@@ -122,7 +126,7 @@ class Parser() extends JavaTokenParsers with PackratParsers
         case attributes ~ name ~ members => PackageDef(name, members, attributes)
     }
 
-    lazy val definition = type_alias | type_declaration | function | `package`
+    lazy val definition = type_alias | type_declaration | function_alias | function | `package`
 
     lazy val definitions : Parser[AST.Definitions] = rep(definition) ^^ Definitions
 
