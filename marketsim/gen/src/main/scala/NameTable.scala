@@ -15,14 +15,16 @@ package object NameTable {
         var parent : Option[Scope] = None
         var typed : Option[Typed.Package] = None
 
+        val isRoot = name == "_root_"
+
         def add(m : AST.Member) {
             check_name_is_unique(m.name, m)
             members = members updated (m.name, m)
         }
 
         def qualifyName(x : String) : String = parent match {
-            case Some(p) if p.name != "_root_" => p.qualifiedName + "." + x
-            case _                             => x
+            case Some(p) if !isRoot => p.qualifiedName + "." + x
+            case _                  => x
         }
 
         def qualifiedName = qualifyName(name)
@@ -82,21 +84,29 @@ package object NameTable {
                 None
             else {
                 val v = visited + this
-                anonymous map { _ lookup (qn, v) } find { _.nonEmpty } match {
-                    case Some(Some((scope, x))) => Some((scope, x.asInstanceOf[T]))
-                    case Some(None) => throw new Exception("cannot occur")
-                    case None =>
-                        qn match {
-                            case Nil => throw new Exception("Qualified name cannot be empty")
-                            case x :: Nil =>
-                                members get x match {
-                                    case Some(f) if f.cast[T].nonEmpty => Some((this, f.asInstanceOf[T]))
-                                    case _ => parent flatMap { _ lookup (qn, v) }
-                                }
-                            case x :: tl =>
-                                packages get x map { _ lookup tl } match {
-                                    case None => parent flatMap { _ lookup (qn, v) }
-                                    case y => y.get
+                qn match {
+                    case Nil => throw new Exception("Qualified name cannot be empty")
+                    case "" :: tl =>
+                        if (isRoot)
+                            lookup(tl)
+                        else
+                            parent.get lookup (qn,v)
+                    case _ =>
+                        anonymous map { _ lookup (qn, v) } find { _.nonEmpty } match {
+                            case Some(Some((scope, x))) => Some((scope, x.asInstanceOf[T]))
+                            case Some(None) => throw new Exception("cannot occur")
+                            case None =>
+                                qn match {
+                                    case x :: Nil =>
+                                        members get x match {
+                                            case Some(f) if f.cast[T].nonEmpty => Some((this, f.asInstanceOf[T]))
+                                            case _ => parent flatMap { _ lookup (qn, v) }
+                                        }
+                                    case x :: tl =>
+                                        packages get x map { _ lookup tl } match {
+                                            case None => parent flatMap { _ lookup (qn, v) }
+                                            case y => y.get
+                                        }
                                 }
                         }
                 }

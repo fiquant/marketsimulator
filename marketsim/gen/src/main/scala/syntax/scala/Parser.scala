@@ -176,7 +176,9 @@ class Parser() extends JavaTokenParsers with PackratParsers
 
     lazy val string = stringLiteral ^^ { _ stripPrefix "\"" stripSuffix "\"" }
 
-    lazy val qualified_name = rep1sep(ident, ".") ^^ QualifiedName
+    lazy val qualified_name = opt(".") ~ rep1sep(ident, ".") ^^ {
+        case (dot ~ names) => QualifiedName(if (dot.nonEmpty) "" :: names else names)
+    }
 
     lazy val annotation = ("@" ~> qualified_name) ~ opt("(" ~> repsep(string, ",") <~ ")") ^^ {
         case (name ~ parameters) => Annotation(name, parameters.getOrElse(List()))

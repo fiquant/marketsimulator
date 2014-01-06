@@ -989,7 +989,7 @@ package trash {
                  = x
         }
         
-        def A(x : () => types.T1 = trash.A()) : () => types.U
+        def A(x : () => .trash.types.T1 = trash.A()) : () => types.U
             
     }
     
