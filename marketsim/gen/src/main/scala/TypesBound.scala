@@ -2,7 +2,7 @@ import TypesUnbound.TypeMapper
 
 package object TypesBound
 {
-    import AST.{ScPyPrintable, ScPrintable}
+    import predef.{ScPyPrintable, ScPrintable}
     import syntax.scala.Printer.{types => sc}
     import generator.python.Printer.{types => py}
 

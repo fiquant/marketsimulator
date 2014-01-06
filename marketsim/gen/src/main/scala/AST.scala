@@ -1,50 +1,7 @@
+import predef.ScPrintable
+
 package object AST {
 
-    trait ScPrintable
-    {
-        def toScala : String
-        override def toString = toScala
-    }
-
-    trait PyPrintable
-    {
-        def toPython : String
-        override def toString = toPython
-    }
-
-    sealed abstract class PrintMode
-
-    case object ScalaMode extends PrintMode
-    case object PythonMode extends PrintMode
-
-    object ScPyPrintable
-    {
-        var printMode : PrintMode = ScalaMode
-    }
-
-    trait ScPyPrintable extends ScPrintable with PyPrintable
-    {
-        override def toString = ScPyPrintable.printMode match {
-            case ScalaMode => toScala
-            case PythonMode => toPython
-        }
-
-        def as(m : PrintMode) = {
-            val old_mode = ScPyPrintable.printMode
-            ScPyPrintable.printMode = m
-            val ret = toString
-            ScPyPrintable.printMode = old_mode
-            ret
-        }
-
-        def asScala = as(ScalaMode)
-        def asPython = as(PythonMode)
-
-        def imports: List[predef.Importable]
-    }
-
-
-    
     import syntax.scala.Printer.{ast => pp}
 
     sealed abstract class Type extends pp.TypeBase

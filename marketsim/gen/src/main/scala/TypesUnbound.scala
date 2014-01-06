@@ -2,7 +2,7 @@ import syntax.scala.Printer.types
 
 package object TypesUnbound
 {
-    import AST.{ScPyPrintable, ScPrintable}
+    import predef.{ScPyPrintable, ScPrintable}
     import syntax.scala.Printer.{types => sc}
 
     sealed abstract class Base

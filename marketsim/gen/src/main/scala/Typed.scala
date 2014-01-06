@@ -3,7 +3,7 @@ package object Typed
     import AST.{BinOpSymbol, CondSymbol, DocString, QualifiedName}
     import syntax.scala.Printer.{typed => sc}
     import generator.python.{Printer => py}
-    import AST.{ScPrintable, ScPyPrintable}
+    import predef.{ScPrintable, ScPyPrintable}
 
     abstract class Expr
             extends ScPyPrintable
