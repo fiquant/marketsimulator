@@ -971,7 +971,7 @@ package trash {
             def O(x : IObservable[Float] = IntObs())
                  = x
         }
-        def A(x : () => .trash.types.T1 = trash.A()) : () => types.U
+        def A(x : () => .trash.types.T1 = .trash.A()) : () => types.U
             
     }
     def A(x = in1.in2.A()) : () => types.R

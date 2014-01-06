@@ -170,7 +170,7 @@ package trash {
         
     
     package in1 {
-        def A(x : () => .trash.types.T1 = trash.A()) : () => types.U
+        def A(x : () => .trash.types.T1 = .trash.A()) : () => types.U
             
         
         package in2 {

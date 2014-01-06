@@ -22,12 +22,17 @@ package object NameTable {
             members = members updated (m.name, m)
         }
 
-        def qualifyName(x : String) : String = parent match {
-            case Some(p) if !isRoot => p.qualifiedName + "." + x
-            case _                  => x
-        }
+        def qualifyName(x : String) : AST.QualifiedName =
+            AST.QualifiedName(qualifiedName.names :+ x)
 
-        def qualifiedName = qualifyName(name)
+        def qualifiedName : AST.QualifiedName =
+            AST.QualifiedName(
+                if (isRoot)
+                    "" :: Nil
+                else
+                    parent.get.qualifiedName.names :+ name
+            )
+
 
         override def equals(o : Any) = true
 

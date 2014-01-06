@@ -9,13 +9,13 @@ package object Typer
     private val visited = new {
         var grey_set = List[String]()
 
-        def enter[T](name : String)(f : => T) =
+        def enter[T](name : AST.QualifiedName)(f : => T) =
         {
             // checking that there are no recursive calls
             if (grey_set contains name)
                 throw new Exception("Cycle detected in function definitions: " + grey_set.mkString("->"))
 
-            grey_set = name :: grey_set
+            grey_set = name.toString :: grey_set
 
             val ty = f
 
