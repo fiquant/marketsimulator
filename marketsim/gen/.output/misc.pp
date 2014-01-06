@@ -108,7 +108,7 @@ package  {
     
     @python.intrinsic("observable.derivative._Derivative_Impl")
     @label = "\\frac{d%(x)s}{dt}"
-    def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float
+    def Derivative(x : IDifferentiable = EWMA()) : () => Float
         
 }
 @category = "Side"

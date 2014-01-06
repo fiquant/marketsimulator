@@ -104,6 +104,7 @@ package object NameTable {
         }
 
         def lookupFunction(name : List[String]) : Option[(Scope, AST.FunDef)] = lookup[AST.FunDef](name)
+        def lookupFunctionAlias(name : List[String]) : Option[(Scope, AST.FunAlias)] = lookup[AST.FunAlias](name)
         def lookupType(name : List[String]) : Option[(Scope, AST.TypeDeclaration)] = lookup[AST.TypeDeclaration](name)
 
         def toTyped(target : Typed.Package) : Typed.Package =

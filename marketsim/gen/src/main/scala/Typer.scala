@@ -86,13 +86,17 @@ package object Typer
         }
 
         private def lookupFunction(name : AST.QualifiedName) : Typed.Function =
-            source.lookupFunction(name.names) match {
+            source lookupFunction name.names match {
                 case Some((scope, definition)) => Processor(scope).getTyped(definition)
-                case None => throw new Exception(s"cannot find name $name")
+                case None =>
+                    source lookupFunctionAlias name.names match {
+                        case Some((scope, definition)) => lookupFunction(definition.target)
+                        case None => throw new Exception(s"cannot find name $name")
+                    }
             }
 
         private def lookupType(name : AST.QualifiedName) : Typed.TypeDeclaration =
-            source.lookupType(name.names) match {
+            source lookupType name.names match {
                 case Some((scope, definition)) => Processor(scope).getTyped(definition)
                 case None => Typed.topLevel.types get name.toString match {
                     case Some(t) => t

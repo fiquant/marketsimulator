@@ -790,9 +790,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - observable
-| | | | | | | | | | | - EW
-| | | | | | | | | | | - Avg
+| | | | | | | | | | | - EWMA
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
