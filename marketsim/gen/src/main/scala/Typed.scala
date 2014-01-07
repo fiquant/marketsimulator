@@ -203,7 +203,7 @@ package object Typed
 
 
 
-    class Package extends sc.TopLevelPackage with ScPrintable
+    abstract class Package
     {
         var functions = Map[String, Function]()
         var functionAliases = Map[String, FunctionAlias]()
@@ -213,13 +213,10 @@ package object Typed
         var annotations = List[Annotation]()
         val attributes = Attributes(Map.empty)
 
-        def qualifiedName : List[String] = Nil
-
-        def qualifyName(x : String) = x
-
-        def tryGetAttribute(name : String) : Option[String] = None
-
-        def getName = ""
+        def qualifiedName : List[String]
+        def qualifyName(x : String) : String
+        def tryGetAttribute(name : String) : Option[String]
+        def getName : String
 
         def insert(f : Function)  = {
             functions = functions updated (f.name, f)
@@ -287,8 +284,6 @@ package object Typed
 
         def getFunction(name : String) = getFunctionImpl(name)
 
-        // TODO: factor common implementation out
-
         def getOrElseUpdateType(name : String, default : => TypeDeclaration) =
             types get name match {
                 case Some(t) => t
@@ -296,7 +291,22 @@ package object Typed
             }
     }
 
-    val topLevel = new Package
+    class TopLevelPackage
+            extends Package
+            with    sc.TopLevelPackage
+            with    ScPrintable
+    {
+        def qualifiedName : List[String] = Nil
+
+        def qualifyName(x : String) = x
+
+        def tryGetAttribute(name : String) : Option[String] = None
+
+        def getName = ""
+
+    }
+
+    val topLevel = new TopLevelPackage
 
     abstract class SubPackageBase extends Package
     {
@@ -316,6 +326,8 @@ package object Typed
             with    ScPrintable
     {
         override def qualifiedName = parent.qualifiedName
+
+        def getName = ""
 
         override def qualifyName(x : String) = parent qualifyName x
 
