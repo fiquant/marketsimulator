@@ -8,7 +8,7 @@ object Runner extends syntax.scala.Parser {
 
         val path = file.getPath
 
-        def printerFor(ext : String) = new PrintWriter(path.replace(".sc", ext).replace("defs", ".output"))
+        def printerFor(ext : String) = new PrintWriter(path.replace(".sc", ext).replace("defs", ".parsed"))
 
         (managed(io.Source fromFile path) and
          managed(printerFor(".raw")) and
@@ -52,6 +52,16 @@ object Runner extends syntax.scala.Parser {
 
     def cleanUp(path : String) {
         getFileTree(new File(path)) foreach { _.delete() }
+        mkdir(path)
+    }
+
+    def mkdir(name : String) {
+        val dir = new File(name)
+        if (!dir.exists()) {
+            dir.mkdirs()
+            if (!dir.exists())
+                throw new Exception("cannot create directory " + dir.getName)
+        }
     }
 
     def main(args: Array[String]) {
@@ -59,6 +69,7 @@ object Runner extends syntax.scala.Parser {
         unused(generator.python.gen.Annotations)
 
         cleanUp(".output")
+        cleanUp(".parsed")
         cleanUp("_out")
 
         Typed.withNewTopLevel({
