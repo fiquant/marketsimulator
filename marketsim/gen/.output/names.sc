@@ -644,7 +644,7 @@ package observable {@category = "Price function"
                        k = const(-0.04),
                        timeframe = 1.0,
                        trader = trader.SingleProxy())
-             = DesiredPosition(OnEveryDt(1.0,50.0-orderbook.RSI(orderbook.OfTrader(trader),timeframe,alpha))*k,trader)
+             = DesiredPosition(OnEveryDt(1.0,50.0-RSI(orderbook.OfTrader(trader),timeframe,alpha))*k,trader)
     }
     @category = "Asset's"
     package orderbook {

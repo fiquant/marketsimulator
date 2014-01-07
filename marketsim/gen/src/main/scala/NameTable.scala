@@ -90,39 +90,53 @@ package object NameTable {
                     p
             }
 
-        def lookup[T <: AST.Member](qn : List[String], visited : HashSet[Scope] = HashSet.empty)(implicit t : Manifest[T]) : Option[(Scope, T)] = {
-            if (visited contains this)
-                None
-            else {
-                val v = visited + this
-                //println(s"looking for $qn at $qualifiedNameAnon")
+        private def lookupInnerScopes[T <: AST.Member](qn : List[String])(implicit t : Manifest[T]) : Option[(Scope, T)] =
+        {
+            //println(s"looking for $qn in inner scopes of $qualifiedNameAnon")
+            anonymous map { _ lookupInnerScopes qn } find { _.nonEmpty } match {
+                case Some(Some((scope, x)))
+                    => Some((scope, x.asInstanceOf[T]))
+                case Some(None)
+                    => throw new Exception("cannot occur")
+                case None =>
+                    qn match {
+                        case x :: Nil =>
+                            members get x match {
+                                case Some(f) if f.cast[T].nonEmpty
+                                    => Some((this, f.asInstanceOf[T]))
+                                case _
+                                    => None
+                            }
+                        case x :: tl =>
+                            packages get x map { _ lookupInnerScopes tl } match {
+                                case Some(y)  => y
+                                case None     => None
+                            }
+                    }
+            }
+        }
+
+
+        def lookup[T <: AST.Member](qn : List[String])(implicit t : Manifest[T]) : Option[(Scope, T)] =
+        {
+            //println(s"looking for $qn in $qualifiedNameAnon")
+            if (isAnonymous)
+                parent.get lookup qn
+            else
                 qn match {
                     case Nil => throw new Exception("Qualified name cannot be empty")
                     case "" :: tl =>
                         if (isRoot)
                             lookup(tl)
                         else
-                            parent.get lookup (qn,v)
+                            parent.get lookup qn
                     case _ =>
-                        anonymous map { _ lookup (qn, v) } find { _.nonEmpty } match {
-                            case Some(Some((scope, x))) => Some((scope, x.asInstanceOf[T]))
-                            case Some(None) => throw new Exception("cannot occur")
-                            case None =>
-                                qn match {
-                                    case x :: Nil =>
-                                        members get x match {
-                                            case Some(f) if f.cast[T].nonEmpty => Some((this, f.asInstanceOf[T]))
-                                            case _ => parent flatMap { _ lookup (qn, v) }
-                                        }
-                                    case x :: tl =>
-                                        packages get x map { _ lookup tl } match {
-                                            case None => parent flatMap { _ lookup (qn, v) }
-                                            case y => y.get
-                                        }
-                                }
+                        lookupInnerScopes(qn) match {
+                            case Some(x) => Some(x)
+                            case None    =>
+                                parent flatMap { _ lookup qn }
                         }
                 }
-            }
         }
 
         def lookupFunction(name : List[String]) : Option[(Scope, AST.FunDef)] = lookup[AST.FunDef](name)
