@@ -987,6 +987,54 @@ Definitions:
 | | | | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | | | - side_price_Limit
+| | | | | | | | | | | | | - FunAlias:
+| | | | | | | | | | | | | | - ImmediateOrCancel
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | | | - side_price_ImmediateOrCancel
+| | | | | | | | | | | | | - FunAlias:
+| | | | | | | | | | | | | | - StopLoss
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | | | - side_price_StopLoss
+| | | | | | | | | | | | | - FunAlias:
+| | | | | | | | | | | | | | - WithExpiry
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | | | - side_price_WithExpiry
+| | | | | | | | | | | | | - FunAlias:
+| | | | | | | | | | | | | | - FloatingPrice
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | | | - side_price_FloatingPrice
+| | | | | | | | | | | | | - FunAlias:
+| | | | | | | | | | | | | | - Iceberg
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | | | - side_price_Iceberg
+| | | | | | | | | | | | | - FunAlias:
+| | | | | | | | | | | | | | - Peg
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | | | - side_price_Peg
 | | | | | | | | | | | - List:
 | | | | | | | | | | - FunAlias:
 | | | | | | | | | | | - Limit
@@ -997,6 +1045,14 @@ Definitions:
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - side_Limit
 | | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - ImmediateOrCancel
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - side_ImmediateOrCancel
+| | | | | | | | | | - FunAlias:
 | | | | | | | | | | | - Market
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
@@ -1005,6 +1061,38 @@ Definitions:
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - side_Market
 | | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - StopLoss
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - side_StopLoss
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - WithExpiry
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - side_WithExpiry
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - FloatingPrice
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - side_FloatingPrice
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Iceberg
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - side_Iceberg
+| | | | | | | | | | - FunAlias:
 | | | | | | | | | | | - FixedBudget
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
@@ -1012,6 +1100,14 @@ Definitions:
 | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - side_FixedBudget
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Peg
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - side_Peg
 | | | | | | | | - List:
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
@@ -1028,6 +1124,54 @@ Definitions:
 | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - price_Limit
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - ImmediateOrCancel
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - price_ImmediateOrCancel
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - StopLoss
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - price_StopLoss
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - WithExpiry
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - price_WithExpiry
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - FloatingPrice
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - price_FloatingPrice
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Iceberg
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - price_Iceberg
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Peg
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - price_Peg
 | | | | | | | | - List:
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
@@ -1044,6 +1188,54 @@ Definitions:
 | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - sideprice_Limit
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - ImmediateOrCancel
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - sideprice_ImmediateOrCancel
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - StopLoss
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - sideprice_StopLoss
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - WithExpiry
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - sideprice_WithExpiry
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - FloatingPrice
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - sideprice_FloatingPrice
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Iceberg
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - sideprice_Iceberg
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Peg
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - sideprice_Peg
 | | | | | | | | - List:
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
@@ -1060,6 +1252,54 @@ Definitions:
 | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - volumeprice_Limit
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - ImmediateOrCancel
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volumeprice_ImmediateOrCancel
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - StopLoss
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volumeprice_StopLoss
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - WithExpiry
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volumeprice_WithExpiry
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - FloatingPrice
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volumeprice_FloatingPrice
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Iceberg
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volumeprice_Iceberg
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Peg
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volumeprice_Peg
 | | | | | | | | - List:
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
@@ -1083,6 +1323,54 @@ Definitions:
 | | | | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | | | - volume_price_Limit
+| | | | | | | | | | | | | - FunAlias:
+| | | | | | | | | | | | | | - ImmediateOrCancel
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | | | - volume_price_ImmediateOrCancel
+| | | | | | | | | | | | | - FunAlias:
+| | | | | | | | | | | | | | - StopLoss
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | | | - volume_price_StopLoss
+| | | | | | | | | | | | | - FunAlias:
+| | | | | | | | | | | | | | - WithExpiry
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | | | - volume_price_WithExpiry
+| | | | | | | | | | | | | - FunAlias:
+| | | | | | | | | | | | | | - FloatingPrice
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | | | - volume_price_FloatingPrice
+| | | | | | | | | | | | | - FunAlias:
+| | | | | | | | | | | | | | - Iceberg
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | | | - volume_price_Iceberg
+| | | | | | | | | | | | | - FunAlias:
+| | | | | | | | | | | | | | - Peg
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - order
+| | | | | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | | | | - volume_price_Peg
 | | | | | | | | | | | - List:
 | | | | | | | | | | - FunAlias:
 | | | | | | | | | | | - Limit
@@ -1093,6 +1381,14 @@ Definitions:
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - volume_Limit
 | | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - ImmediateOrCancel
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volume_ImmediateOrCancel
+| | | | | | | | | | - FunAlias:
 | | | | | | | | | | | - Market
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
@@ -1100,6 +1396,46 @@ Definitions:
 | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - volume_Market
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - StopLoss
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volume_StopLoss
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - WithExpiry
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volume_WithExpiry
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - FloatingPrice
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volume_FloatingPrice
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Iceberg
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volume_Iceberg
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Peg
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volume_Peg
 | | | | | | | | - List:
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
@@ -1116,6 +1452,54 @@ Definitions:
 | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - pricevolume_Limit
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - ImmediateOrCancel
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - pricevolume_ImmediateOrCancel
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - StopLoss
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - pricevolume_StopLoss
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - WithExpiry
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - pricevolume_WithExpiry
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - FloatingPrice
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - pricevolume_FloatingPrice
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Iceberg
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - pricevolume_Iceberg
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Peg
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - pricevolume_Peg
 | | | | | | | | - List:
 | | | | | - List:
 | | | | - PackageDef:

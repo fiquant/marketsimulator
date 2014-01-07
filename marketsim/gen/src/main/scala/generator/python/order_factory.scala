@@ -287,7 +287,9 @@ object order_factory
                                     base.name :: Nil) :: Nil,
                         ty = ty))
                 case _ =>
-                    if (hasProto(base.parameters))
+                    if (hasProto(base.parameters)){
+                        locate(alias) add AST.FunAlias(
+                            brief_name, AST.QualifiedName("" :: "order" :: "_curried" :: prefixed :: Nil))
                         Some(base.copy(
                             name = prefixed,
                             parameters = withAdjustedProto,
@@ -297,6 +299,7 @@ object order_factory
                                             order_factory_on_proto.name.split('.').toList),
                                         base.name :: Nil) :: Nil,
                             ty = ty))
+                    }
                     else
                         None
             }
