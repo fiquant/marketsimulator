@@ -92,12 +92,10 @@ package object NameTable {
 
         private def lookupInnerScopes[T <: AST.Member](qn : List[String])(implicit t : Manifest[T]) : Option[(Scope, T)] =
         {
-            //println(s"looking for $qn in inner scopes of $qualifiedNameAnon")
+            //println(s"looking for $qn in inner scopes of $qualifiedNameAnon ")
             anonymous map { _ lookupInnerScopes qn } find { _.nonEmpty } match {
-                case Some(Some((scope, x)))
-                    => Some((scope, x.asInstanceOf[T]))
-                case Some(None)
-                    => throw new Exception("cannot occur")
+                case Some(x)
+                    => x
                 case None =>
                     qn match {
                         case x :: Nil =>
@@ -126,10 +124,10 @@ package object NameTable {
                 qn match {
                     case Nil => throw new Exception("Qualified name cannot be empty")
                     case "" :: tl =>
-                        if (isRoot)
-                            lookup(tl)
-                        else
-                            parent.get lookup qn
+                        parent match {
+                            case Some(p) => p lookup qn
+                            case None    => lookup(tl)
+                        }
                     case _ =>
                         lookupInnerScopes(qn) match {
                             case Some(x) => Some(x)
