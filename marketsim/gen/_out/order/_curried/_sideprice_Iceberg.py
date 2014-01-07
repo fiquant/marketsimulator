@@ -10,7 +10,7 @@ from marketsim import types
 from marketsim import Side
 from marketsim import IFunction
 @registry.expose(["Order", "Iceberg"])
-class sideprice_Iceberg(IFunction[IOrderGenerator, types.IFunction[Side],IFunction[float]
+class sideprice_Iceberg(IFunction[IOrderGenerator, IFunction[Side],IFunction[float]
 
 ]):
     """ 
@@ -27,7 +27,7 @@ class sideprice_Iceberg(IFunction[IOrderGenerator, types.IFunction[Side],IFuncti
     
     _properties = {
         'lotSize' : IObservable[float],
-        'proto' : IFunction[IOrderGenerator, types.IFunction[Side],IFunction[float]
+        'proto' : IFunction[IOrderGenerator, IFunction[Side],IFunction[float]
         
         ]
     }

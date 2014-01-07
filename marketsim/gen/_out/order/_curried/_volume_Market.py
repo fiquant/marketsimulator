@@ -16,7 +16,7 @@ class volume_Market(IFunction[IOrderGenerator, IFunction[float]]):
         return repr(self)
     
     _properties = {
-        'side' : types.IFunction[Side]
+        'side' : IFunction[Side]
         
     }
     def __repr__(self):

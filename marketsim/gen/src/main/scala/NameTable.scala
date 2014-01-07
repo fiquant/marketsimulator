@@ -19,8 +19,14 @@ package object NameTable {
         val isAnonymous = name startsWith "$"
 
         def add(m : AST.Member) {
-            check_name_is_unique(m.name, m)
-            members = members updated (m.name, m)
+            members get m.name match {  // TODO: lookup at anon spaces too
+                case None =>
+                    check_name_is_unique(m.name, m)
+                    members = members updated (m.name, m)
+                case Some(x) =>
+                    if (x != m)
+                        throw new Exception(s"Trying to replace member $x\r\n by $m\r\n at $qualifiedNameAnon" )
+            }
         }
 
         def qualifyName(x : String) : AST.QualifiedName =
@@ -43,7 +49,7 @@ package object NameTable {
         override def equals(o : Any) = true
 
         private def check_name_is_unique(name : String, e : Any) {
-            if (members contains name)
+            if ((members contains name) && members(name) != e)
                 throw new Exception(s"Duplicate definition for $name:\r\n" + members(name) + "\r\n" + e)
             if (packages contains name)
                 throw new Exception(s"Duplicate definition for $name:\r\n" + packages(name) + "\r\n" + e)

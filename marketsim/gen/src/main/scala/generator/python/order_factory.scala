@@ -234,6 +234,11 @@ object order_factory
             val prefix = (curried map { _.name } mkString "") + "_"
             val prefixed = prefix + base.name
 
+            val orig_path = base.name split "_"
+            val (orig_scope, brief_name_arr) = orig_path.splitAt(orig_path.length - 1)
+            val alias = "_" :: prefix.take(prefix.length - 1) :: orig_scope.toList
+            val brief_name = brief_name_arr(0)
+
             def addPrefix(e : Option[AST.Expr]) = {
                 val call = e.get.asInstanceOf[AST.FunCall]
                 def insertPrefix(in : List[String]): List[String] = {
@@ -262,8 +267,16 @@ object order_factory
 
             val ty = Some(AST.FunctionType(curried map { _.ty.get }, base.ty.get))
 
+            def locate(path : List[String], n : NameTable.Scope = scope) : NameTable.Scope  =
+                path match  {
+                    case Nil => n
+                    case x :: xs => locate(xs, n getPackageOrCreate x)
+                }
+
             extract(curried map { _.name }, base.parameters) match {
                 case Some((cr, rest)) =>
+                    locate(alias) add AST.FunAlias(
+                        brief_name, AST.QualifiedName("" :: "order" :: "_curried" :: prefixed :: Nil))
                     Some(base.copy(
                         name = prefixed,
                         parameters = rest,

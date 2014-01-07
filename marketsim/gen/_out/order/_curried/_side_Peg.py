@@ -8,7 +8,7 @@ from marketsim import IFunction
 from marketsim import types
 from marketsim import Side
 @registry.expose(["Order", "Peg"])
-class side_Peg(IFunction[IOrderGenerator, types.IFunction[Side]
+class side_Peg(IFunction[IOrderGenerator, IFunction[Side]
 ]):
     """ 
     """ 
@@ -21,7 +21,7 @@ class side_Peg(IFunction[IOrderGenerator, types.IFunction[Side]
         return repr(self)
     
     _properties = {
-        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], types.IFunction[Side]
+        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]
         ]
     }
     def __repr__(self):

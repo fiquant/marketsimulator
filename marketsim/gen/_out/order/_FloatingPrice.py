@@ -31,7 +31,7 @@ class FloatingPrice(IOrderGenerator, Factory_Impl):
     
     _properties = {
         'floatingPrice' : IFunction[float],
-        'proto' : types.IFunction[IOrderGenerator,types.IFunction[float]]
+        'proto' : IFunction[IOrderGenerator,IFunction[float]]
         
         
     }

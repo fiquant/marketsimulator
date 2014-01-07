@@ -23,7 +23,7 @@ class Peg(IOrderGenerator, Factory_Impl):
         return repr(self)
     
     _properties = {
-        'proto' : types.IFunction[IOrderGenerator,types.IFunction[float]]
+        'proto' : IFunction[IOrderGenerator,IFunction[float]]
         
         
     }

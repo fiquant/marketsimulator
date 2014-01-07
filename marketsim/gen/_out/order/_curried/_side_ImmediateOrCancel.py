@@ -7,7 +7,7 @@ from marketsim import IOrderGenerator
 from marketsim import types
 from marketsim import Side
 @registry.expose(["Order", "ImmediateOrCancel"])
-class side_ImmediateOrCancel(IFunction[IOrderGenerator, types.IFunction[Side]
+class side_ImmediateOrCancel(IFunction[IOrderGenerator, IFunction[Side]
 ]):
     """ 
     """ 
@@ -20,7 +20,7 @@ class side_ImmediateOrCancel(IFunction[IOrderGenerator, types.IFunction[Side]
         return repr(self)
     
     _properties = {
-        'proto' : IFunction[IOrderGenerator, types.IFunction[Side]
+        'proto' : IFunction[IOrderGenerator, IFunction[Side]
         ]
     }
     def __repr__(self):

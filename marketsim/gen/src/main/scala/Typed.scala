@@ -215,8 +215,8 @@ package object Typed
         var annotations = List[Annotation]()
         val attributes = Attributes(Map.empty)
 
-        def qualifiedName : List[String]
-        def qualifyName(x : String) : String
+        def qualifiedName : AST.QualifiedName
+        def qualifyName(x : String) : AST.QualifiedName = AST.QualifiedName(qualifiedName.names :+ x)
         def tryGetAttribute(name : String) : Option[String]
         def getName : String
 
@@ -298,9 +298,7 @@ package object Typed
             with    sc.TopLevelPackage
             with    ScPrintable
     {
-        def qualifiedName : List[String] = Nil
-
-        def qualifyName(x : String) = x
+        def qualifiedName = AST.QualifiedName("" :: Nil)
 
         def tryGetAttribute(name : String) : Option[String] = None
 
@@ -365,8 +363,6 @@ package object Typed
 
         def getName = ""
 
-        override def qualifyName(x : String) = parent qualifyName x
-
         override def tryGetAttribute(name : String) = attributes.items get name match {
             case Some(v) => Some(v)
             case None    => parent tryGetAttribute name
@@ -381,9 +377,7 @@ package object Typed
             with    sc.SubPackage
             with    ScPrintable
     {
-        override def qualifiedName = parent.qualifiedName :+ name
-
-        override def qualifyName(x : String) = (qualifiedName mkString ".") + "." + x
+        override def qualifiedName = AST.QualifiedName(parent.qualifiedName.names :+ name)
 
         override def getName = name
 

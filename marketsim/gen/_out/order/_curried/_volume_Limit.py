@@ -19,7 +19,7 @@ class volume_Limit(IFunction[IOrderGenerator, IFunction[float]]):
         return repr(self)
     
     _properties = {
-        'side' : types.IFunction[Side]
+        'side' : IFunction[Side]
         ,
         'price' : IFunction[float]
     }

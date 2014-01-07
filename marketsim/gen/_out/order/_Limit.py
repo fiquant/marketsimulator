@@ -38,7 +38,7 @@ class Limit(IOrderGenerator, Observable[Order]):
         return repr(self)
     
     _properties = {
-        'side' : types.IFunction[Side]
+        'side' : IFunction[Side]
         ,
         'price' : IFunction[float],
         'volume' : IFunction[float]

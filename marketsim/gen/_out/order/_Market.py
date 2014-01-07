@@ -31,7 +31,7 @@ class Market(IOrderGenerator, Observable[Order]):
         return repr(self)
     
     _properties = {
-        'side' : types.IFunction[Side]
+        'side' : IFunction[Side]
         ,
         'volume' : IFunction[float]
     }

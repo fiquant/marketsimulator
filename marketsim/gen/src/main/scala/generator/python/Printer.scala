@@ -31,21 +31,11 @@ object Printer {
             val args : List[Bound]
             val ret : Bound
             def toPython = {
-                val a = args match {
-                    case Nil => ""
-                    case x :: Nil => "," + x
-                    case _ => throw new Exception("Only unary and nullary functions are supported for python generation")
-                }
-                s"types.IFunction[$ret$a]"
-                //(if (args.length == 1) args(0) else args.mkString("(", ",", ")")) + s" => $ret"
+                val types = (ret :: args) map { _.toPython } mkString ","
+                s"IFunction[$types]"
             }
 
-            def imports = predef.ImportFrom("types", "marketsim") :: ret.imports ++ (args match {
-                case Nil => Nil
-                case x :: Nil =>
-                    x.imports
-                case _ => throw new Exception("Only unary and nullary functions are supported for python generation")
-            })
+            def imports = (predef.ImportFrom("types", "marketsim") :: ret.imports) ++ (args flatMap { _.imports })
         }
 
         trait UsedDefined extends st.UsedDefined with Printable with Bound
@@ -142,9 +132,8 @@ object Printer {
         override def toPython = target.name + arguments.map({ _._2 }).mkString("(",",",")")
 
         def moduleName = {
-            val name = target.parent.qualifiedName mkString "."
-            val d = if (name == "") name else "." + name
-            "marketsim.gen._out" + (if (name == "") name else "." + name) + "._" + target.name
+            val name = target.parent.qualifiedName.toString
+            "marketsim.gen._out" + name.splitAt(0)._2 + "._" + target.name
         }
 
         override def imports = predef.ImportFrom(target.name, moduleName) :: (arguments flatMap { p => p._2.imports })

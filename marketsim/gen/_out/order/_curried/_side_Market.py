@@ -4,7 +4,7 @@ from marketsim import types
 from marketsim import Side
 from marketsim import IFunction
 @registry.expose(["Order", "Market"])
-class side_Market(IFunction[IOrderGenerator, types.IFunction[Side]
+class side_Market(IFunction[IOrderGenerator, IFunction[Side]
 ]):
     """ 
     """ 

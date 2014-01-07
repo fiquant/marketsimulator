@@ -10,7 +10,7 @@ from marketsim import types
 from marketsim import Side
 from marketsim import IFunction
 @registry.expose(["Order", "StopLoss"])
-class sideprice_StopLoss(IFunction[IOrderGenerator, types.IFunction[Side],IFunction[float]
+class sideprice_StopLoss(IFunction[IOrderGenerator, IFunction[Side],IFunction[float]
 
 ]):
     """ 
@@ -27,7 +27,7 @@ class sideprice_StopLoss(IFunction[IOrderGenerator, types.IFunction[Side],IFunct
     
     _properties = {
         'maxloss' : IObservable[float],
-        'proto' : IFunction[IOrderGenerator, types.IFunction[Side],IFunction[float]
+        'proto' : IFunction[IOrderGenerator, IFunction[Side],IFunction[float]
         
         ]
     }

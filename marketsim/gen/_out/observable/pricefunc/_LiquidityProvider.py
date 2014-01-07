@@ -31,10 +31,10 @@ class LiquidityProvider(Observable[float]):
         return repr(self)
     
     _properties = {
-        'side' : types.IFunction[Side]
+        'side' : IFunction[Side]
         ,
         'initialValue' : float,
-        'priceDistr' : types.IFunction[float],
+        'priceDistr' : IFunction[float],
         'book' : IOrderBook
     }
     def __repr__(self):

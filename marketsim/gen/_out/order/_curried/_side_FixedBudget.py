@@ -4,7 +4,7 @@ from marketsim import types
 from marketsim import Side
 from marketsim import IFunction
 @registry.expose(["Order", "FixedBudget"])
-class side_FixedBudget(IFunction[IOrderGenerator, types.IFunction[Side]
+class side_FixedBudget(IFunction[IOrderGenerator, IFunction[Side]
 ]):
     """ 
     """ 

@@ -172,6 +172,44 @@ package mathutils {
 }
 @category = "Order"
 package order {
+    package _ {
+        package side {
+            package price {
+                def Limit = .order._curried.side_price_Limit
+            }
+            def Limit = .order._curried.side_Limit
+            
+            def Market = .order._curried.side_Market
+            
+            def FixedBudget = .order._curried.side_FixedBudget
+        }
+        
+        package price {
+            def Limit = .order._curried.price_Limit
+        }
+        
+        package sideprice {
+            def Limit = .order._curried.sideprice_Limit
+        }
+        
+        package volumeprice {
+            def Limit = .order._curried.volumeprice_Limit
+        }
+        
+        package volume {
+            package price {
+                def Limit = .order._curried.volume_price_Limit
+            }
+            def Limit = .order._curried.volume_Limit
+            
+            def Market = .order._curried.volume_Market
+        }
+        
+        package pricevolume {
+            def Limit = .order._curried.pricevolume_Limit
+        }
+    }
+    
     package _curried {
         @python.order.factory.on_proto("ImmediateOrCancel")
         def side_ImmediateOrCancel(proto = .order._curried.side_Limit()) : (() => Side) => IOrderGenerator

@@ -18,7 +18,7 @@ class pricevolume_Limit(IFunction[IOrderGenerator, IFunction[float],IFunction[fl
         return repr(self)
     
     _properties = {
-        'side' : types.IFunction[Side]
+        'side' : IFunction[Side]
         
     }
     def __repr__(self):

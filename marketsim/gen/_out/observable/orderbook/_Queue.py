@@ -20,7 +20,7 @@ class Queue(_Queue_Impl):
     
     _properties = {
         'book' : IOrderBook,
-        'side' : types.IFunction[Side]
+        'side' : IFunction[Side]
         
     }
     def __repr__(self):

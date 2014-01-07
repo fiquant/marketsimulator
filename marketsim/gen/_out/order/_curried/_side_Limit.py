@@ -5,7 +5,7 @@ from marketsim import Side
 from marketsim import IFunction
 from marketsim import IFunction
 @registry.expose(["Order", "Limit"])
-class side_Limit(IFunction[IOrderGenerator, types.IFunction[Side]
+class side_Limit(IFunction[IOrderGenerator, IFunction[Side]
 ]):
     """ 
     """ 

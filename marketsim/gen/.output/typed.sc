@@ -2,17 +2,17 @@
 package side {
     
     @python.intrinsic("side._Sell_Impl")
-    def Sell() : () => Side
+    def Sell() : () => .Side
         
     
     
     @python.intrinsic("side._Buy_Impl")
-    def Buy() : () => Side
+    def Buy() : () => .Side
         
     
     
     @python.intrinsic("side._Buy_Impl")
-    def Nothing() : () => Side
+    def Nothing() : () => .Side
         
 }
 
@@ -25,7 +25,7 @@ package mathops {@category = "Log/Pow"
         @category = "Log/Pow"
         @label = "e^{%(x)s}"
         @python.mathops("exp")
-        def Exp(x : IFunction[Float] = constant(1.0)) : () => Float
+        def Exp(x : .IFunction[.Float] = .constant(1.0)) : () => .Float
             
         
         /** Natural logarithm of x (to base e)
@@ -34,7 +34,7 @@ package mathops {@category = "Log/Pow"
         @category = "Log/Pow"
         @label = "log(%(x)s)"
         @python.mathops("log")
-        def Log(x : IFunction[Float] = constant(1.0)) : () => Float
+        def Log(x : .IFunction[.Float] = .constant(1.0)) : () => .Float
             
         
         /** Square root of x
@@ -43,7 +43,7 @@ package mathops {@category = "Log/Pow"
         @category = "Log/Pow"
         @label = "\\sqrt{%(x)s}"
         @python.mathops("sqrt")
-        def Sqrt(x : IFunction[Float] = constant(1.0)) : () => Float
+        def Sqrt(x : .IFunction[.Float] = .constant(1.0)) : () => .Float
             
         
         /** Return *x* raised to the power *y*.
@@ -57,8 +57,8 @@ package mathops {@category = "Log/Pow"
         @category = "Log/Pow"
         @label = "%(base)s^{%(power)s}"
         @python.mathops("pow")
-        def Pow(base : IFunction[Float] = constant(1.0),
-                power : IFunction[Float] = constant(1.0)) : () => Float
+        def Pow(base : .IFunction[.Float] = .constant(1.0),
+                power : .IFunction[.Float] = .constant(1.0)) : () => .Float
             
     }
     
@@ -69,7 +69,7 @@ package mathops {@category = "Log/Pow"
          */
         
         @python.mathops("atan")
-        def Atan(x : IFunction[Float] = constant(0.0)) : () => Float
+        def Atan(x : .IFunction[.Float] = .constant(0.0)) : () => .Float
             
     }
     
@@ -90,23 +90,23 @@ package mathutils {
          */
         
         @python.random()
-        def gammavariate(Alpha : Float = 1.0,
-                         Beta : Float = 1.0) : () => Float
+        def gammavariate(Alpha : .Float = 1.0,
+                         Beta : .Float = 1.0) : () => .Float
             
         
         /** Normal distribution
          */
         
         @python.random()
-        def normalvariate(/** |mu| is the mean                  */ Mu : Float = 0.0,
-                          /** |sigma| is the standard deviation */ Sigma : Float = 1.0) : () => Float
+        def normalvariate(/** |mu| is the mean                  */ Mu : .Float = 0.0,
+                          /** |sigma| is the standard deviation */ Sigma : .Float = 1.0) : () => .Float
             
         
         /** Pareto distribution
          */
         
         @python.random()
-        def paretovariate(/** |alpha| is the shape parameter*/ Alpha : Float = 1.0) : () => Float
+        def paretovariate(/** |alpha| is the shape parameter*/ Alpha : .Float = 1.0) : () => .Float
             
         
         /** Triangular distribution
@@ -119,19 +119,19 @@ package mathutils {
          */
         
         @python.random()
-        def triangular(Low : Float = 0.0,
-                       High : Float = 1.0,
-                       Mode : Float = 0.5) : () => Float
+        def triangular(Low : .Float = 0.0,
+                       High : .Float = 1.0,
+                       Mode : .Float = 0.5) : () => .Float
             
         
         /** Von Mises distribution
          */
         
         @python.random()
-        def vonmisesvariate(/** |mu| is the mean angle, expressed in radians between 0 and 2|pi|*/ Mu : Float = 0.0,
+        def vonmisesvariate(/** |mu| is the mean angle, expressed in radians between 0 and 2|pi|*/ Mu : .Float = 0.0,
                             /** |kappa| is the concentration parameter, which must be greater than or equal to zero.
                               *      If |kappa| is equal to zero, this distribution reduces
-                              *      to a uniform random angle over the range 0 to 2|pi|        */ Kappa : Float = 0.0) : () => Float
+                              *      to a uniform random angle over the range 0 to 2|pi|        */ Kappa : .Float = 0.0) : () => .Float
             
         
         /** Uniform distribution
@@ -143,16 +143,16 @@ package mathutils {
          */
         
         @python.random()
-        def uniform(Low : Float = -10.0,
-                    High : Float = 10.0) : () => Float
+        def uniform(Low : .Float = -10.0,
+                    High : .Float = 10.0) : () => .Float
             
         
         /** Weibull distribution
          */
         
         @python.random()
-        def weibullvariate(/** |alpha| is the scale parameter */ Alpha : Float = 1.0,
-                           /** |beta| is the shape parameter  */ Beta : Float = 1.0) : () => Float
+        def weibullvariate(/** |alpha| is the scale parameter */ Alpha : .Float = 1.0,
+                           /** |beta| is the shape parameter  */ Beta : .Float = 1.0) : () => .Float
             
         
         /** Exponential distribution
@@ -161,7 +161,7 @@ package mathutils {
          */
         
         @python.random()
-        def expovariate(/** |lambda| is 1.0 divided by the desired mean. It should be greater zero.*/ Lambda : Float = 1.0) : () => Float
+        def expovariate(/** |lambda| is 1.0 divided by the desired mean. It should be greater zero.*/ Lambda : .Float = 1.0) : () => .Float
             
         
         /** Log normal distribution
@@ -172,8 +172,8 @@ package mathutils {
          */
         
         @python.random()
-        def lognormvariate(Mu : Float = 0.0,
-                           Sigma : Float = 1.0) : () => Float
+        def lognormvariate(Mu : .Float = 0.0,
+                           Sigma : .Float = 1.0) : () => .Float
             
         
         /** Beta distribution
@@ -183,8 +183,8 @@ package mathutils {
          */
         
         @python.random()
-        def betavariate(Alpha : Float = 1.0,
-                        Beta : Float = 1.0) : () => Float
+        def betavariate(Alpha : .Float = 1.0,
+                        Beta : .Float = 1.0) : () => .Float
             
     }
     
@@ -192,389 +192,436 @@ package mathutils {
 
 @category = "Order"
 package order {
+    package _ {
+        package side {
+            package price {
+                def Limit = .order._curried.side_price_Limit
+            }
+            
+            def Limit = .order._curried.side_Limit
+            
+            def Market = .order._curried.side_Market
+            
+            def FixedBudget = .order._curried.side_FixedBudget
+        }
+        
+        
+        package price {
+            def Limit = .order._curried.price_Limit
+        }
+        
+        
+        package sideprice {
+            def Limit = .order._curried.sideprice_Limit
+        }
+        
+        
+        package volumeprice {
+            def Limit = .order._curried.volumeprice_Limit
+        }
+        
+        
+        package volume {
+            package price {
+                def Limit = .order._curried.volume_price_Limit
+            }
+            
+            def Limit = .order._curried.volume_Limit
+            
+            def Market = .order._curried.volume_Market
+        }
+        
+        
+        package pricevolume {
+            def Limit = .order._curried.pricevolume_Limit
+        }
+        
+    }
+    
+    
     package _curried {
         
         @python.order.factory.on_proto("ImmediateOrCancel")
-        def side_ImmediateOrCancel(proto : (() => Side) => IOrderGenerator = order._curried.side_Limit()) : (() => Side) => IOrderGenerator
+        def side_ImmediateOrCancel(proto : (() => .Side) => .IOrderGenerator = .order._curried.side_Limit()) : (() => .Side) => .IOrderGenerator
             
         
         
         @python.order.factory.curried("price_Limit")
-        def volume_price_Limit(side : () => Side = side.Sell()) : (() => Float) => ((() => Float) => IOrderGenerator)
+        def volume_price_Limit(side : () => .Side = .side.Sell()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
             
         
         
         @python.order.factory.on_proto("price_StopLoss")
-        def side_price_StopLoss(maxloss : IObservable[Float] = const(0.1),
-                                proto : (() => Side) => ((() => Float) => IOrderGenerator) = order._curried.side_price_Limit()) : (() => Side) => ((() => Float) => IOrderGenerator)
+        def side_price_StopLoss(maxloss : .IObservable[.Float] = .const(0.1),
+                                proto : (() => .Side) => ((() => .Float) => .IOrderGenerator) = .order._curried.side_price_Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
             
         
         
         @python.order.factory.on_proto("Iceberg")
-        def price_Iceberg(lotSize : IObservable[Float] = const(10.0),
-                          proto : (() => Float) => IOrderGenerator = order._curried.price_Limit()) : (() => Float) => IOrderGenerator
+        def price_Iceberg(lotSize : .IObservable[.Float] = .const(10.0),
+                          proto : (() => .Float) => .IOrderGenerator = .order._curried.price_Limit()) : (() => .Float) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("FloatingPrice")
-        def sideprice_FloatingPrice(floatingPrice : IFunction[Float] = constant(10.0),
-                                    proto : ((() => Side),(() => Float)) => IOrderGenerator = order._curried.sideprice_Limit()) : ((() => Side),(() => Float)) => IOrderGenerator
+        def sideprice_FloatingPrice(floatingPrice : .IFunction[.Float] = .constant(10.0),
+                                    proto : ((() => .Side),(() => .Float)) => .IOrderGenerator = .order._curried.sideprice_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("StopLoss")
-        def price_StopLoss(maxloss : IObservable[Float] = const(0.1),
-                           proto : (() => Float) => IOrderGenerator = order._curried.price_Limit()) : (() => Float) => IOrderGenerator
+        def price_StopLoss(maxloss : .IObservable[.Float] = .const(0.1),
+                           proto : (() => .Float) => .IOrderGenerator = .order._curried.price_Limit()) : (() => .Float) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("ImmediateOrCancel")
-        def price_ImmediateOrCancel(proto : (() => Float) => IOrderGenerator = order._curried.price_Limit()) : (() => Float) => IOrderGenerator
+        def price_ImmediateOrCancel(proto : (() => .Float) => .IOrderGenerator = .order._curried.price_Limit()) : (() => .Float) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("price_WithExpiry")
-        def volume_price_WithExpiry(expiry : IObservable[Float] = const(10.0),
-                                    proto : (() => Float) => ((() => Float) => IOrderGenerator) = order._curried.volume_price_Limit()) : (() => Float) => ((() => Float) => IOrderGenerator)
+        def volume_price_WithExpiry(expiry : .IObservable[.Float] = .const(10.0),
+                                    proto : (() => .Float) => ((() => .Float) => .IOrderGenerator) = .order._curried.volume_price_Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
             
         
         
         @python.order.factory.on_proto("StopLoss")
-        def sideprice_StopLoss(maxloss : IObservable[Float] = const(0.1),
-                               proto : ((() => Side),(() => Float)) => IOrderGenerator = order._curried.sideprice_Limit()) : ((() => Side),(() => Float)) => IOrderGenerator
+        def sideprice_StopLoss(maxloss : .IObservable[.Float] = .const(0.1),
+                               proto : ((() => .Side),(() => .Float)) => .IOrderGenerator = .order._curried.sideprice_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("FloatingPrice")
-        def volumeprice_FloatingPrice(floatingPrice : IFunction[Float] = constant(10.0),
-                                      proto : ((() => Float),(() => Float)) => IOrderGenerator = order._curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
+        def volumeprice_FloatingPrice(floatingPrice : .IFunction[.Float] = .constant(10.0),
+                                      proto : ((() => .Float),(() => .Float)) => .IOrderGenerator = .order._curried.volumeprice_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("price_Peg")
-        def volume_price_Peg(proto : (() => Float) => ((() => Float) => IOrderGenerator) = order._curried.volume_price_Limit()) : (() => Float) => ((() => Float) => IOrderGenerator)
+        def volume_price_Peg(proto : (() => .Float) => ((() => .Float) => .IOrderGenerator) = .order._curried.volume_price_Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
             
         
         
         @python.order.factory.on_proto("Iceberg")
-        def side_Iceberg(lotSize : IObservable[Float] = const(10.0),
-                         proto : (() => Side) => IOrderGenerator = order._curried.side_Limit()) : (() => Side) => IOrderGenerator
+        def side_Iceberg(lotSize : .IObservable[.Float] = .const(10.0),
+                         proto : (() => .Side) => .IOrderGenerator = .order._curried.side_Limit()) : (() => .Side) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("Peg")
-        def volume_Peg(proto : (() => Float) => ((() => Float) => IOrderGenerator) = order._curried.volume_price_Limit()) : (() => Float) => IOrderGenerator
+        def volume_Peg(proto : (() => .Float) => ((() => .Float) => .IOrderGenerator) = .order._curried.volume_price_Limit()) : (() => .Float) => .IOrderGenerator
             
         
         
         @python.order.factory.curried("FixedBudget")
-        def side_FixedBudget(budget : IFunction[Float] = constant(1000.0)) : (() => Side) => IOrderGenerator
+        def side_FixedBudget(budget : .IFunction[.Float] = .constant(1000.0)) : (() => .Side) => .IOrderGenerator
             
         
         
         @python.order.factory.curried("Limit")
-        def sideprice_Limit(volume : IFunction[Float] = constant(1.0)) : ((() => Side),(() => Float)) => IOrderGenerator
+        def sideprice_Limit(volume : .IFunction[.Float] = .constant(1.0)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("Peg")
-        def sideprice_Peg(proto : ((() => Side),(() => Float)) => IOrderGenerator = order._curried.sideprice_Limit()) : ((() => Side),(() => Float)) => IOrderGenerator
+        def sideprice_Peg(proto : ((() => .Side),(() => .Float)) => .IOrderGenerator = .order._curried.sideprice_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("Peg")
-        def side_Peg(proto : (() => Side) => ((() => Float) => IOrderGenerator) = order._curried.side_price_Limit()) : (() => Side) => IOrderGenerator
+        def side_Peg(proto : (() => .Side) => ((() => .Float) => .IOrderGenerator) = .order._curried.side_price_Limit()) : (() => .Side) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("price_Iceberg")
-        def side_price_Iceberg(lotSize : IObservable[Float] = const(10.0),
-                               proto : (() => Side) => ((() => Float) => IOrderGenerator) = order._curried.side_price_Limit()) : (() => Side) => ((() => Float) => IOrderGenerator)
+        def side_price_Iceberg(lotSize : .IObservable[.Float] = .const(10.0),
+                               proto : (() => .Side) => ((() => .Float) => .IOrderGenerator) = .order._curried.side_price_Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
             
         
         
         @python.order.factory.on_proto("WithExpiry")
-        def volumeprice_WithExpiry(expiry : IObservable[Float] = const(10.0),
-                                   proto : ((() => Float),(() => Float)) => IOrderGenerator = order._curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
+        def volumeprice_WithExpiry(expiry : .IObservable[.Float] = .const(10.0),
+                                   proto : ((() => .Float),(() => .Float)) => .IOrderGenerator = .order._curried.volumeprice_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("price_ImmediateOrCancel")
-        def side_price_ImmediateOrCancel(proto : (() => Side) => ((() => Float) => IOrderGenerator) = order._curried.side_price_Limit()) : (() => Side) => ((() => Float) => IOrderGenerator)
+        def side_price_ImmediateOrCancel(proto : (() => .Side) => ((() => .Float) => .IOrderGenerator) = .order._curried.side_price_Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
             
         
         
         @python.order.factory.on_proto("ImmediateOrCancel")
-        def volumeprice_ImmediateOrCancel(proto : ((() => Float),(() => Float)) => IOrderGenerator = order._curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
+        def volumeprice_ImmediateOrCancel(proto : ((() => .Float),(() => .Float)) => .IOrderGenerator = .order._curried.volumeprice_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("WithExpiry")
-        def side_WithExpiry(expiry : IObservable[Float] = const(10.0),
-                            proto : (() => Side) => IOrderGenerator = order._curried.side_Limit()) : (() => Side) => IOrderGenerator
+        def side_WithExpiry(expiry : .IObservable[.Float] = .const(10.0),
+                            proto : (() => .Side) => .IOrderGenerator = .order._curried.side_Limit()) : (() => .Side) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("StopLoss")
-        def side_StopLoss(maxloss : IObservable[Float] = const(0.1),
-                          proto : (() => Side) => IOrderGenerator = order._curried.side_Limit()) : (() => Side) => IOrderGenerator
+        def side_StopLoss(maxloss : .IObservable[.Float] = .const(0.1),
+                          proto : (() => .Side) => .IOrderGenerator = .order._curried.side_Limit()) : (() => .Side) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("StopLoss")
-        def pricevolume_StopLoss(maxloss : IObservable[Float] = const(0.1),
-                                 proto : ((() => Float),(() => Float)) => IOrderGenerator = order._curried.pricevolume_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
+        def pricevolume_StopLoss(maxloss : .IObservable[.Float] = .const(0.1),
+                                 proto : ((() => .Float),(() => .Float)) => .IOrderGenerator = .order._curried.pricevolume_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("ImmediateOrCancel")
-        def pricevolume_ImmediateOrCancel(proto : ((() => Float),(() => Float)) => IOrderGenerator = order._curried.pricevolume_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
+        def pricevolume_ImmediateOrCancel(proto : ((() => .Float),(() => .Float)) => .IOrderGenerator = .order._curried.pricevolume_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("Peg")
-        def pricevolume_Peg(proto : ((() => Float),(() => Float)) => IOrderGenerator = order._curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
+        def pricevolume_Peg(proto : ((() => .Float),(() => .Float)) => .IOrderGenerator = .order._curried.volumeprice_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("Peg")
-        def price_Peg(proto : (() => Float) => IOrderGenerator = order._curried.price_Limit()) : (() => Float) => IOrderGenerator
+        def price_Peg(proto : (() => .Float) => .IOrderGenerator = .order._curried.price_Limit()) : (() => .Float) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("StopLoss")
-        def volume_StopLoss(maxloss : IObservable[Float] = const(0.1),
-                            proto : (() => Float) => IOrderGenerator = order._curried.volume_Limit()) : (() => Float) => IOrderGenerator
+        def volume_StopLoss(maxloss : .IObservable[.Float] = .const(0.1),
+                            proto : (() => .Float) => .IOrderGenerator = .order._curried.volume_Limit()) : (() => .Float) => .IOrderGenerator
             
         
         
         @python.order.factory.curried("Limit")
-        def volumeprice_Limit(side : () => Side = side.Sell()) : ((() => Float),(() => Float)) => IOrderGenerator
+        def volumeprice_Limit(side : () => .Side = .side.Sell()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("Iceberg")
-        def volumeprice_Iceberg(lotSize : IObservable[Float] = const(10.0),
-                                proto : ((() => Float),(() => Float)) => IOrderGenerator = order._curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
+        def volumeprice_Iceberg(lotSize : .IObservable[.Float] = .const(10.0),
+                                proto : ((() => .Float),(() => .Float)) => .IOrderGenerator = .order._curried.volumeprice_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("WithExpiry")
-        def volume_WithExpiry(expiry : IObservable[Float] = const(10.0),
-                              proto : (() => Float) => IOrderGenerator = order._curried.volume_Limit()) : (() => Float) => IOrderGenerator
+        def volume_WithExpiry(expiry : .IObservable[.Float] = .const(10.0),
+                              proto : (() => .Float) => .IOrderGenerator = .order._curried.volume_Limit()) : (() => .Float) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("WithExpiry")
-        def sideprice_WithExpiry(expiry : IObservable[Float] = const(10.0),
-                                 proto : ((() => Side),(() => Float)) => IOrderGenerator = order._curried.sideprice_Limit()) : ((() => Side),(() => Float)) => IOrderGenerator
+        def sideprice_WithExpiry(expiry : .IObservable[.Float] = .const(10.0),
+                                 proto : ((() => .Side),(() => .Float)) => .IOrderGenerator = .order._curried.sideprice_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("ImmediateOrCancel")
-        def volume_ImmediateOrCancel(proto : (() => Float) => IOrderGenerator = order._curried.volume_Limit()) : (() => Float) => IOrderGenerator
+        def volume_ImmediateOrCancel(proto : (() => .Float) => .IOrderGenerator = .order._curried.volume_Limit()) : (() => .Float) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("FloatingPrice")
-        def volume_FloatingPrice(floatingPrice : IFunction[Float] = constant(10.0),
-                                 proto : (() => Float) => ((() => Float) => IOrderGenerator) = order._curried.volume_price_Limit()) : (() => Float) => IOrderGenerator
+        def volume_FloatingPrice(floatingPrice : .IFunction[.Float] = .constant(10.0),
+                                 proto : (() => .Float) => ((() => .Float) => .IOrderGenerator) = .order._curried.volume_price_Limit()) : (() => .Float) => .IOrderGenerator
             
         
         
         @python.order.factory.curried("Market")
-        def volume_Market(side : () => Side = side.Sell()) : (() => Float) => IOrderGenerator
+        def volume_Market(side : () => .Side = .side.Sell()) : (() => .Float) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("price_StopLoss")
-        def volume_price_StopLoss(maxloss : IObservable[Float] = const(0.1),
-                                  proto : (() => Float) => ((() => Float) => IOrderGenerator) = order._curried.volume_price_Limit()) : (() => Float) => ((() => Float) => IOrderGenerator)
+        def volume_price_StopLoss(maxloss : .IObservable[.Float] = .const(0.1),
+                                  proto : (() => .Float) => ((() => .Float) => .IOrderGenerator) = .order._curried.volume_price_Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
             
         
         
         @python.order.factory.on_proto("price_ImmediateOrCancel")
-        def volume_price_ImmediateOrCancel(proto : (() => Float) => ((() => Float) => IOrderGenerator) = order._curried.volume_price_Limit()) : (() => Float) => ((() => Float) => IOrderGenerator)
+        def volume_price_ImmediateOrCancel(proto : (() => .Float) => ((() => .Float) => .IOrderGenerator) = .order._curried.volume_price_Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
             
         
         
         @python.order.factory.curried("Limit")
-        def side_Limit(price : IFunction[Float] = constant(100.0),
-                       volume : IFunction[Float] = constant(1.0)) : (() => Side) => IOrderGenerator
+        def side_Limit(price : .IFunction[.Float] = .constant(100.0),
+                       volume : .IFunction[.Float] = .constant(1.0)) : (() => .Side) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("price_FloatingPrice")
-        def side_price_FloatingPrice(floatingPrice : IFunction[Float] = constant(10.0),
-                                     proto : (() => Side) => ((() => Float) => IOrderGenerator) = order._curried.side_price_Limit()) : (() => Side) => ((() => Float) => IOrderGenerator)
+        def side_price_FloatingPrice(floatingPrice : .IFunction[.Float] = .constant(10.0),
+                                     proto : (() => .Side) => ((() => .Float) => .IOrderGenerator) = .order._curried.side_price_Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
             
         
         
         @python.order.factory.on_proto("FloatingPrice")
-        def side_FloatingPrice(floatingPrice : IFunction[Float] = constant(10.0),
-                               proto : (() => Side) => ((() => Float) => IOrderGenerator) = order._curried.side_price_Limit()) : (() => Side) => IOrderGenerator
+        def side_FloatingPrice(floatingPrice : .IFunction[.Float] = .constant(10.0),
+                               proto : (() => .Side) => ((() => .Float) => .IOrderGenerator) = .order._curried.side_price_Limit()) : (() => .Side) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("Iceberg")
-        def pricevolume_Iceberg(lotSize : IObservable[Float] = const(10.0),
-                                proto : ((() => Float),(() => Float)) => IOrderGenerator = order._curried.pricevolume_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
+        def pricevolume_Iceberg(lotSize : .IObservable[.Float] = .const(10.0),
+                                proto : ((() => .Float),(() => .Float)) => .IOrderGenerator = .order._curried.pricevolume_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("price_WithExpiry")
-        def side_price_WithExpiry(expiry : IObservable[Float] = const(10.0),
-                                  proto : (() => Side) => ((() => Float) => IOrderGenerator) = order._curried.side_price_Limit()) : (() => Side) => ((() => Float) => IOrderGenerator)
+        def side_price_WithExpiry(expiry : .IObservable[.Float] = .const(10.0),
+                                  proto : (() => .Side) => ((() => .Float) => .IOrderGenerator) = .order._curried.side_price_Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
             
         
         
         @python.order.factory.curried("price_Limit")
-        def side_price_Limit(volume : IFunction[Float] = constant(1.0)) : (() => Side) => ((() => Float) => IOrderGenerator)
+        def side_price_Limit(volume : .IFunction[.Float] = .constant(1.0)) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
             
         
         
         @python.order.factory.curried("Limit")
-        def pricevolume_Limit(side : () => Side = side.Sell()) : ((() => Float),(() => Float)) => IOrderGenerator
+        def pricevolume_Limit(side : () => .Side = .side.Sell()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("Iceberg")
-        def volume_Iceberg(lotSize : IObservable[Float] = const(10.0),
-                           proto : (() => Float) => IOrderGenerator = order._curried.volume_Limit()) : (() => Float) => IOrderGenerator
+        def volume_Iceberg(lotSize : .IObservable[.Float] = .const(10.0),
+                           proto : (() => .Float) => .IOrderGenerator = .order._curried.volume_Limit()) : (() => .Float) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("price_FloatingPrice")
-        def volume_price_FloatingPrice(floatingPrice : IFunction[Float] = constant(10.0),
-                                       proto : (() => Float) => ((() => Float) => IOrderGenerator) = order._curried.volume_price_Limit()) : (() => Float) => ((() => Float) => IOrderGenerator)
+        def volume_price_FloatingPrice(floatingPrice : .IFunction[.Float] = .constant(10.0),
+                                       proto : (() => .Float) => ((() => .Float) => .IOrderGenerator) = .order._curried.volume_price_Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
             
         
         
         @python.order.factory.curried("Market")
-        def side_Market(volume : IFunction[Float] = constant(1.0)) : (() => Side) => IOrderGenerator
+        def side_Market(volume : .IFunction[.Float] = .constant(1.0)) : (() => .Side) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("FloatingPrice")
-        def price_FloatingPrice(floatingPrice : IFunction[Float] = constant(10.0),
-                                proto : (() => Float) => IOrderGenerator = order._curried.price_Limit()) : (() => Float) => IOrderGenerator
+        def price_FloatingPrice(floatingPrice : .IFunction[.Float] = .constant(10.0),
+                                proto : (() => .Float) => .IOrderGenerator = .order._curried.price_Limit()) : (() => .Float) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("StopLoss")
-        def volumeprice_StopLoss(maxloss : IObservable[Float] = const(0.1),
-                                 proto : ((() => Float),(() => Float)) => IOrderGenerator = order._curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
+        def volumeprice_StopLoss(maxloss : .IObservable[.Float] = .const(0.1),
+                                 proto : ((() => .Float),(() => .Float)) => .IOrderGenerator = .order._curried.volumeprice_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("WithExpiry")
-        def price_WithExpiry(expiry : IObservable[Float] = const(10.0),
-                             proto : (() => Float) => IOrderGenerator = order._curried.price_Limit()) : (() => Float) => IOrderGenerator
+        def price_WithExpiry(expiry : .IObservable[.Float] = .const(10.0),
+                             proto : (() => .Float) => .IOrderGenerator = .order._curried.price_Limit()) : (() => .Float) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("price_Iceberg")
-        def volume_price_Iceberg(lotSize : IObservable[Float] = const(10.0),
-                                 proto : (() => Float) => ((() => Float) => IOrderGenerator) = order._curried.volume_price_Limit()) : (() => Float) => ((() => Float) => IOrderGenerator)
+        def volume_price_Iceberg(lotSize : .IObservable[.Float] = .const(10.0),
+                                 proto : (() => .Float) => ((() => .Float) => .IOrderGenerator) = .order._curried.volume_price_Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
             
         
         
         @python.order.factory.on_proto("Peg")
-        def volumeprice_Peg(proto : ((() => Float),(() => Float)) => IOrderGenerator = order._curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
+        def volumeprice_Peg(proto : ((() => .Float),(() => .Float)) => .IOrderGenerator = .order._curried.volumeprice_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.curried("Limit")
-        def price_Limit(side : () => Side = side.Sell(),
-                        volume : IFunction[Float] = constant(1.0)) : (() => Float) => IOrderGenerator
+        def price_Limit(side : () => .Side = .side.Sell(),
+                        volume : .IFunction[.Float] = .constant(1.0)) : (() => .Float) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("Iceberg")
-        def sideprice_Iceberg(lotSize : IObservable[Float] = const(10.0),
-                              proto : ((() => Side),(() => Float)) => IOrderGenerator = order._curried.sideprice_Limit()) : ((() => Side),(() => Float)) => IOrderGenerator
+        def sideprice_Iceberg(lotSize : .IObservable[.Float] = .const(10.0),
+                              proto : ((() => .Side),(() => .Float)) => .IOrderGenerator = .order._curried.sideprice_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("FloatingPrice")
-        def pricevolume_FloatingPrice(floatingPrice : IFunction[Float] = constant(10.0),
-                                      proto : ((() => Float),(() => Float)) => IOrderGenerator = order._curried.volumeprice_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
+        def pricevolume_FloatingPrice(floatingPrice : .IFunction[.Float] = .constant(10.0),
+                                      proto : ((() => .Float),(() => .Float)) => .IOrderGenerator = .order._curried.volumeprice_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("ImmediateOrCancel")
-        def sideprice_ImmediateOrCancel(proto : ((() => Side),(() => Float)) => IOrderGenerator = order._curried.sideprice_Limit()) : ((() => Side),(() => Float)) => IOrderGenerator
+        def sideprice_ImmediateOrCancel(proto : ((() => .Side),(() => .Float)) => .IOrderGenerator = .order._curried.sideprice_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("WithExpiry")
-        def pricevolume_WithExpiry(expiry : IObservable[Float] = const(10.0),
-                                   proto : ((() => Float),(() => Float)) => IOrderGenerator = order._curried.pricevolume_Limit()) : ((() => Float),(() => Float)) => IOrderGenerator
+        def pricevolume_WithExpiry(expiry : .IObservable[.Float] = .const(10.0),
+                                   proto : ((() => .Float),(() => .Float)) => .IOrderGenerator = .order._curried.pricevolume_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
             
         
         
         @python.order.factory.on_proto("price_Peg")
-        def side_price_Peg(proto : (() => Side) => ((() => Float) => IOrderGenerator) = order._curried.side_price_Limit()) : (() => Side) => ((() => Float) => IOrderGenerator)
+        def side_price_Peg(proto : (() => .Side) => ((() => .Float) => .IOrderGenerator) = .order._curried.side_price_Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
             
         
         
         @python.order.factory.curried("Limit")
-        def volume_Limit(side : () => Side = side.Sell(),
-                         price : IFunction[Float] = constant(100.0)) : (() => Float) => IOrderGenerator
+        def volume_Limit(side : () => .Side = .side.Sell(),
+                         price : .IFunction[.Float] = .constant(100.0)) : (() => .Float) => .IOrderGenerator
             
     }
     
     
     @python.order.factory("order.limit.Order_Impl")
-    def Limit(side : () => Side = side.Sell(),
-              price : IFunction[Float] = constant(100.0),
-              volume : IFunction[Float] = constant(1.0)) : IOrderGenerator
+    def Limit(side : () => .Side = .side.Sell(),
+              price : .IFunction[.Float] = .constant(100.0),
+              volume : .IFunction[.Float] = .constant(1.0)) : .IOrderGenerator
         
     
     
     @python.order.factory("order.meta.ioc.Order_Impl")
-    def ImmediateOrCancel(proto : IOrderGenerator = order.Limit()) : IOrderGenerator
+    def ImmediateOrCancel(proto : .IOrderGenerator = .order.Limit()) : .IOrderGenerator
         
     
     
     @python.order.factory("order.market.Order_Impl")
-    def Market(side : () => Side = side.Sell(),
-               volume : IFunction[Float] = constant(1.0)) : IOrderGenerator
+    def Market(side : () => .Side = .side.Sell(),
+               volume : .IFunction[.Float] = .constant(1.0)) : .IOrderGenerator
         
     
     
     @python.order.factory("order.meta.stoploss.Order_Impl")
-    def StopLoss(maxloss : IObservable[Float] = const(0.1),
-                 proto : IOrderGenerator = order.Limit()) : IOrderGenerator
+    def StopLoss(maxloss : .IObservable[.Float] = .const(0.1),
+                 proto : .IOrderGenerator = .order.Limit()) : .IOrderGenerator
         
     
     
     @python.order.factory("order.meta.with_expiry.Order_Impl")
-    def WithExpiry(expiry : IObservable[Float] = const(10.0),
-                   proto : IOrderGenerator = order.Limit()) : IOrderGenerator
+    def WithExpiry(expiry : .IObservable[.Float] = .const(10.0),
+                   proto : .IOrderGenerator = .order.Limit()) : .IOrderGenerator
         
     
     
     @python.order.factory("order.meta.floating_price.Factory_Impl")
-    def FloatingPrice(floatingPrice : IFunction[Float] = constant(10.0),
-                      proto : (() => Float) => IOrderGenerator = order._curried.price_Limit()) : IOrderGenerator
+    def FloatingPrice(floatingPrice : .IFunction[.Float] = .constant(10.0),
+                      proto : (() => .Float) => .IOrderGenerator = .order._curried.price_Limit()) : .IOrderGenerator
         
     
     
     @python.order.factory("order.meta.iceberg.Order_Impl")
-    def Iceberg(lotSize : IObservable[Float] = const(10.0),
-                proto : IOrderGenerator = order.Limit()) : IOrderGenerator
+    def Iceberg(lotSize : .IObservable[.Float] = .const(10.0),
+                proto : .IOrderGenerator = .order.Limit()) : .IOrderGenerator
         
     
     
     @python.order.factory("order.meta.fixed_budget.Order_Impl")
-    def FixedBudget(side : () => Side = side.Sell(),
-                    budget : IFunction[Float] = constant(1000.0)) : IOrderGenerator
+    def FixedBudget(side : () => .Side = .side.Sell(),
+                    budget : .IFunction[.Float] = .constant(1000.0)) : .IOrderGenerator
         
     
     
     @python.order.factory("order.meta.peg.Factory_Impl")
-    def Peg(proto : (() => Float) => IOrderGenerator = order._curried.price_Limit()) : IOrderGenerator
+    def Peg(proto : (() => .Float) => .IOrderGenerator = .order._curried.price_Limit()) : .IOrderGenerator
         
 }
 
@@ -583,81 +630,81 @@ package observable {@category = "Price function"
     package pricefunc {
         
         @python.observable()
-        def LiquidityProvider(side : () => Side = side.Sell(),
-                              initialValue : Float = 100.0,
-                              priceDistr : () => Float = mathutils.rnd.lognormvariate(0.0,0.1),
-                              book : IOrderBook = observable.orderbook.OfTrader()) : IObservable[Float]
+        def LiquidityProvider(side : () => .Side = .side.Sell(),
+                              initialValue : .Float = 100.0,
+                              priceDistr : () => .Float = .mathutils.rnd.lognormvariate(0.0,0.1),
+                              book : .IOrderBook = .observable.orderbook.OfTrader()) : .IObservable[.Float]
             
-            	 = observable.orderbook.SafeSidePrice(observable.orderbook.Queue(book,side),constant(initialValue))*priceDistr
+            	 = .observable.orderbook.SafeSidePrice(.observable.orderbook.Queue(book,side),.constant(initialValue))*priceDistr
     }
     
     @category = "Side function"
     package sidefunc {
         
         @python.observable()
-        def PairTrading(dependee : IOrderBook = observable.orderbook.OfTrader(),
-                        factor : IFunction[Float] = constant(1.0),
-                        book : IOrderBook = observable.orderbook.OfTrader()) : () => Side
+        def PairTrading(dependee : .IOrderBook = .observable.orderbook.OfTrader(),
+                        factor : .IFunction[.Float] = .constant(1.0),
+                        book : .IOrderBook = .observable.orderbook.OfTrader()) : () => .Side
             
-            	 = observable.sidefunc.FundamentalValue(observable.orderbook.MidPrice(dependee)*factor,book)
+            	 = .observable.sidefunc.FundamentalValue(.observable.orderbook.MidPrice(dependee)*factor,book)
         
         
         @python.observable()
-        def Signal(signal : IFunction[Float] = constant(),
-                   threshold : Float = 0.7) : () => Side
+        def Signal(signal : .IFunction[.Float] = .constant(),
+                   threshold : .Float = 0.7) : () => .Side
             
-            	 = if signal>const(threshold) then side.Buy() else if signal<const(0-threshold) then side.Sell() else side.Nothing()
+            	 = if signal>.const(threshold) then .side.Buy() else if signal<.const(0-threshold) then .side.Sell() else .side.Nothing()
         
         
         @python.observable()
-        def CrossingAverages(alpha_1 : Float = 0.015,
-                             alpha_2 : Float = 0.15,
-                             threshold : Float = 0.0,
-                             book : IOrderBook = observable.orderbook.OfTrader()) : () => Side
+        def CrossingAverages(alpha_1 : .Float = 0.015,
+                             alpha_2 : .Float = 0.15,
+                             threshold : .Float = 0.0,
+                             book : .IOrderBook = .observable.orderbook.OfTrader()) : () => .Side
             
-            	 = observable.sidefunc.Signal(observable.EW.Avg(observable.orderbook.MidPrice(book),alpha_1)-observable.EW.Avg(observable.orderbook.MidPrice(book),alpha_2),threshold)
+            	 = .observable.sidefunc.Signal(.observable.EW.Avg(.observable.orderbook.MidPrice(book),alpha_1)-.observable.EW.Avg(.observable.orderbook.MidPrice(book),alpha_2),threshold)
         
         
         @python.observable()
-        def TrendFollower(alpha : Float = 0.015,
-                          threshold : Float = 0.0,
-                          book : IOrderBook = observable.orderbook.OfTrader()) : () => Side
+        def TrendFollower(alpha : .Float = 0.015,
+                          threshold : .Float = 0.0,
+                          book : .IOrderBook = .observable.orderbook.OfTrader()) : () => .Side
             
-            	 = observable.sidefunc.Signal(Derivative(observable.EW.Avg(observable.orderbook.MidPrice(book),alpha)),threshold)
+            	 = .observable.sidefunc.Signal(.Derivative(.observable.EW.Avg(.observable.orderbook.MidPrice(book),alpha)),threshold)
         
         
         @python.observable()
-        def FundamentalValue(fv : IFunction[Float] = constant(200.0),
-                             book : IOrderBook = observable.orderbook.OfTrader()) : () => Side
+        def FundamentalValue(fv : .IFunction[.Float] = .constant(200.0),
+                             book : .IOrderBook = .observable.orderbook.OfTrader()) : () => .Side
             
-            	 = if observable.orderbook.BidPrice(book)>fv then side.Sell() else if observable.orderbook.AskPrice(book)<fv then side.Buy() else side.Nothing()
+            	 = if .observable.orderbook.BidPrice(book)>fv then .side.Sell() else if .observable.orderbook.AskPrice(book)<fv then .side.Buy() else .side.Nothing()
         
         
         @python.observable()
-        def MeanReversion(alpha : Float = 0.015,
-                          book : IOrderBook = observable.orderbook.OfTrader()) : () => Side
+        def MeanReversion(alpha : .Float = 0.015,
+                          book : .IOrderBook = .observable.orderbook.OfTrader()) : () => .Side
             
-            	 = observable.sidefunc.FundamentalValue(observable.EW.Avg(observable.orderbook.MidPrice(book),alpha),book)
+            	 = .observable.sidefunc.FundamentalValue(.observable.EW.Avg(.observable.orderbook.MidPrice(book),alpha),book)
         
         
         @python.observable()
-        def Noise(side_distribution : IFunction[Float] = mathutils.rnd.uniform(0.0,1.0)) : () => Side
+        def Noise(side_distribution : .IFunction[.Float] = .mathutils.rnd.uniform(0.0,1.0)) : () => .Side
             
-            	 = if side_distribution>const(0.5) then side.Sell() else side.Buy()
+            	 = if side_distribution>.const(0.5) then .side.Sell() else .side.Buy()
     }
     
     
     package Cumulative {
         @label = "Min_{\\epsilon}(%(source)s)"
         @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
-        def MinEpsilon(source : IFunction[Float] = constant(),
-                       epsilon : IFunction[Float] = constant(0.01)) : IObservable[Float]
+        def MinEpsilon(source : .IFunction[.Float] = .constant(),
+                       epsilon : .IFunction[.Float] = .constant(0.01)) : .IObservable[.Float]
             
         
         @label = "Max_{\\epsilon}(%(source)s)"
         @python.intrinsic("observable.minmax_eps.MaxEpsilon_Impl")
-        def MaxEpsilon(source : IFunction[Float] = constant(),
-                       epsilon : IFunction[Float] = constant(0.01)) : IObservable[Float]
+        def MaxEpsilon(source : .IFunction[.Float] = .constant(),
+                       epsilon : .IFunction[.Float] = .constant(0.01)) : .IObservable[.Float]
             
     }
     
@@ -665,83 +712,83 @@ package observable {@category = "Price function"
     package rsi {
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
         @python()
-        def Raw(source : IObservable[Float] = const(),
-                timeframe : Float = 10.0,
-                alpha : Float = 0.015) : IFunction[Float]
+        def Raw(source : .IObservable[.Float] = .const(),
+                timeframe : .Float = 10.0,
+                alpha : .Float = 0.015) : .IFunction[.Float]
             
-            	 = observable.EW.Avg(observable.UpMovements(source,timeframe),alpha)/observable.EW.Avg(observable.DownMovements(source,timeframe),alpha)
+            	 = .observable.EW.Avg(.observable.UpMovements(source,timeframe),alpha)/.observable.EW.Avg(.observable.DownMovements(source,timeframe),alpha)
     }
     
     @category = "MACD"
     package macd {
         @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
         @python()
-        def MACD(x : IObservable[Float] = const(),
-                 slow : Float = 26.0,
-                 fast : Float = 12.0) : IFunction[Float]
+        def MACD(x : .IObservable[.Float] = .const(),
+                 slow : .Float = 26.0,
+                 fast : .Float = 12.0) : .IFunction[.Float]
             
-            	 = observable.EW.Avg(x,2.0/(fast+1))-observable.EW.Avg(x,2.0/(slow+1))
+            	 = .observable.EW.Avg(x,2.0/(fast+1))-.observable.EW.Avg(x,2.0/(slow+1))
         
         @label = "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
         @python()
-        def Signal(x : IObservable[Float] = const(),
-                   slow : Float = 26.0,
-                   fast : Float = 12.0,
-                   timeframe : Float = 9.0,
-                   step : Float = 1.0) : IDifferentiable
+        def Signal(x : .IObservable[.Float] = .const(),
+                   slow : .Float = 26.0,
+                   fast : .Float = 12.0,
+                   timeframe : .Float = 9.0,
+                   step : .Float = 1.0) : .IDifferentiable
             
-            	 = observable.EW.Avg(observable.OnEveryDt(step,observable.macd.MACD(x,slow,fast)),2/(timeframe+1))
+            	 = .observable.EW.Avg(.observable.OnEveryDt(step,.observable.macd.MACD(x,slow,fast)),2/(timeframe+1))
         
         @label = "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
         @python()
-        def Histogram(x : IObservable[Float] = const(),
-                      slow : Float = 26.0,
-                      fast : Float = 12.0,
-                      timeframe : Float = 9.0,
-                      step : Float = 1.0) : IFunction[Float]
+        def Histogram(x : .IObservable[.Float] = .const(),
+                      slow : .Float = 26.0,
+                      fast : .Float = 12.0,
+                      timeframe : .Float = 9.0,
+                      step : .Float = 1.0) : .IFunction[.Float]
             
-            	 = observable.macd.MACD(x,slow,fast)-observable.macd.Signal(x,slow,fast,timeframe,step)
+            	 = .observable.macd.MACD(x,slow,fast)-.observable.macd.Signal(x,slow,fast,timeframe,step)
     }
     
     @category = "Trader's"
     package trader {
         @label = "Balance_{%(trader)s}"
         @python.intrinsic("trader.props.Balance_Impl")
-        def Balance(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IObservable[Price]
+        def Balance(trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Price]
             
         
         @label = "RoughPnL_{%(trader)s}"
         @python.observable()
-        def RoughPnL(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IObservable[Float]
+        def RoughPnL(trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Float]
             
-            	 = observable.Observable(observable.trader.Balance(trader)+observable.orderbook.NaiveCumulativePrice(observable.orderbook.OfTrader(trader),observable.trader.Position(trader)))
+            	 = .observable.Observable(.observable.trader.Balance(trader)+.observable.orderbook.NaiveCumulativePrice(.observable.orderbook.OfTrader(trader),.observable.trader.Position(trader)))
         
         @label = "Amount_{%(trader)s}"
         @python.intrinsic("trader.props.Position_Impl")
-        def Position(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IObservable[Volume]
+        def Position(trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Volume]
             
         
         @label = "Efficiency_{%(trader)s}"
         @python.observable()
-        def Efficiency(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IObservable[Float]
+        def Efficiency(trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Float]
             
-            	 = observable.Observable(observable.trader.Balance(trader)+observable.orderbook.CumulativePrice(observable.orderbook.OfTrader(trader),observable.trader.Position(trader)))
+            	 = .observable.Observable(.observable.trader.Balance(trader)+.observable.orderbook.CumulativePrice(.observable.orderbook.OfTrader(trader),.observable.trader.Position(trader)))
         
         @label = "N/A"
         @python.intrinsic("trader.proxy._Single_Impl")
-        def SingleProxy() : ISingleAssetTrader
+        def SingleProxy() : .ISingleAssetTrader
             
         
         @label = "EfficiencyTrend_{%(trader)s}"
         @python()
-        def EfficiencyTrend(trader : ISingleAssetTrader = observable.trader.SingleProxy(),
-                            alpha : Float = 0.15) : () => Float
+        def EfficiencyTrend(trader : .ISingleAssetTrader = .observable.trader.SingleProxy(),
+                            alpha : .Float = 0.15) : () => .Float
             
-            	 = Derivative(observable.EW.Avg(observable.trader.Efficiency(trader),alpha))
+            	 = .Derivative(.observable.EW.Avg(.observable.trader.Efficiency(trader),alpha))
         
         @label = "PendingVolume_{%(trader)s}"
         @python.intrinsic("trader.props.PendingVolume_Impl")
-        def PendingVolume(trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IObservable[Volume]
+        def PendingVolume(trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Volume]
             
     }
     
@@ -749,173 +796,173 @@ package observable {@category = "Price function"
     package volumefunc {
         
         @python.observable()
-        def DesiredPosition(desiredPosition : IObservable[Float] = const(),
-                            trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IObservable[Float]
+        def DesiredPosition(desiredPosition : .IObservable[.Float] = .const(),
+                            trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Float]
             
-            	 = desiredPosition-observable.trader.Position(trader)-observable.trader.PendingVolume(trader)
+            	 = desiredPosition-.observable.trader.Position(trader)-.observable.trader.PendingVolume(trader)
         
         
         @python.observable()
-        def Bollinger_linear(alpha : Float = 0.15,
-                             k : IObservable[Float] = const(0.5),
-                             trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IObservable[Float]
+        def Bollinger_linear(alpha : .Float = 0.15,
+                             k : .IObservable[.Float] = .const(0.5),
+                             trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Float]
             
-            	 = observable.volumefunc.DesiredPosition(observable.OnEveryDt(1.0,observable.EW.RelStdDev(observable.orderbook.MidPrice(observable.orderbook.OfTrader(trader)),alpha))*k,trader)
+            	 = .observable.volumefunc.DesiredPosition(.observable.OnEveryDt(1.0,.observable.EW.RelStdDev(.observable.orderbook.MidPrice(.observable.orderbook.OfTrader(trader)),alpha))*k,trader)
         
         
         @python.observable()
-        def RSI_linear(alpha : Float = 1.0/14.0,
-                       k : IObservable[Float] = const(-0.04),
-                       timeframe : Float = 1.0,
-                       trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IObservable[Float]
+        def RSI_linear(alpha : .Float = 1.0/14.0,
+                       k : .IObservable[.Float] = .const(-0.04),
+                       timeframe : .Float = 1.0,
+                       trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Float]
             
-            	 = observable.volumefunc.DesiredPosition(observable.OnEveryDt(1.0,const(50.0)-observable.RSI(observable.orderbook.OfTrader(trader),timeframe,alpha))*k,trader)
+            	 = .observable.volumefunc.DesiredPosition(.observable.OnEveryDt(1.0,.const(50.0)-.observable.RSI(.observable.orderbook.OfTrader(trader),timeframe,alpha))*k,trader)
     }
     
     @category = "Asset's"
     package orderbook {
         
         @python.observable()
-        def SafeSidePrice(queue : IOrderQueue = observable.orderbook.Asks(),
-                          defaultValue : IFunction[Float] = constant(100.0)) : IObservable[Price]
+        def SafeSidePrice(queue : .IOrderQueue = .observable.orderbook.Asks(),
+                          defaultValue : .IFunction[.Float] = .constant(100.0)) : .IObservable[.Price]
             
-            	 = observable.ObservablePrice(IfDefined(observable.orderbook.BestPrice(queue),IfDefined(observable.orderbook.LastPrice(queue),defaultValue)))
+            	 = .observable.ObservablePrice(.IfDefined(.observable.orderbook.BestPrice(queue),.IfDefined(.observable.orderbook.LastPrice(queue),defaultValue)))
         
         @label = "Price_{%(alpha)s}^{%(queue)s}"
         @python()
-        def WeightedPrice(queue : IOrderQueue = observable.orderbook.Asks(),
-                          alpha : Float = 0.015) : IFunction[Float]
+        def WeightedPrice(queue : .IOrderQueue = .observable.orderbook.Asks(),
+                          alpha : .Float = 0.015) : .IFunction[.Float]
             
-            	 = observable.EW.Avg(observable.orderbook.LastTradePrice(queue)*observable.orderbook.LastTradeVolume(queue),alpha)/observable.EW.Avg(observable.orderbook.LastTradeVolume(queue),alpha)
+            	 = .observable.EW.Avg(.observable.orderbook.LastTradePrice(queue)*.observable.orderbook.LastTradeVolume(queue),alpha)/.observable.EW.Avg(.observable.orderbook.LastTradeVolume(queue),alpha)
         
         
         @python.intrinsic("orderbook.props._TickSize_Impl")
-        def TickSize(book : IOrderBook = observable.orderbook.OfTrader()) : () => Price
+        def TickSize(book : .IOrderBook = .observable.orderbook.OfTrader()) : () => .Price
             
         
         @label = "LastAsk_{%(book)s}"
         @python()
-        def AskLastPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable[Price]
+        def AskLastPrice(book : .IOrderBook = .observable.orderbook.OfTrader()) : .IObservable[.Price]
             
-            	 = observable.orderbook.LastPrice(observable.orderbook.Asks(book))
+            	 = .observable.orderbook.LastPrice(.observable.orderbook.Asks(book))
         
         
         @python()
-        def BidLastTradePrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable[Price]
+        def BidLastTradePrice(book : .IOrderBook = .observable.orderbook.OfTrader()) : .IObservable[.Price]
             
-            	 = observable.orderbook.LastTradePrice(observable.orderbook.Bids(book))
+            	 = .observable.orderbook.LastTradePrice(.observable.orderbook.Bids(book))
         
         @label = "Ask_{%(alpha)s}^{%(book)s}"
         @python()
-        def AskWeightedPrice(book : IOrderBook = observable.orderbook.OfTrader(),
-                             alpha : Float = 0.015) : IFunction[Float]
+        def AskWeightedPrice(book : .IOrderBook = .observable.orderbook.OfTrader(),
+                             alpha : .Float = 0.015) : .IFunction[.Float]
             
-            	 = observable.orderbook.WeightedPrice(observable.orderbook.Asks(book),alpha)
+            	 = .observable.orderbook.WeightedPrice(.observable.orderbook.Asks(book),alpha)
         
         
         @python()
-        def MidPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable[Price]
+        def MidPrice(book : .IOrderBook = .observable.orderbook.OfTrader()) : .IObservable[.Price]
             
-            	 = observable.ObservablePrice((observable.orderbook.AskPrice(book)+observable.orderbook.BidPrice(book))/const(2.0))
+            	 = .observable.ObservablePrice((.observable.orderbook.AskPrice(book)+.observable.orderbook.BidPrice(book))/.const(2.0))
         
         
         @python.intrinsic("orderbook.queue._Asks_Impl")
-        def Asks(book : IOrderBook = observable.orderbook.OfTrader()) : IOrderQueue
+        def Asks(book : .IOrderBook = .observable.orderbook.OfTrader()) : .IOrderQueue
             
-            	 = observable.orderbook.Queue(book,side.Sell())
+            	 = .observable.orderbook.Queue(book,.side.Sell())
         
         @label = "Bid_{%(alpha)s}^{%(book)s}"
         @python()
-        def BidWeightedPrice(book : IOrderBook = observable.orderbook.OfTrader(),
-                             alpha : Float = 0.015) : IFunction[Float]
+        def BidWeightedPrice(book : .IOrderBook = .observable.orderbook.OfTrader(),
+                             alpha : .Float = 0.015) : .IFunction[.Float]
             
-            	 = observable.orderbook.WeightedPrice(observable.orderbook.Bids(book),alpha)
+            	 = .observable.orderbook.WeightedPrice(.observable.orderbook.Bids(book),alpha)
         
         @label = "Ask_{%(book)s}"
         @python()
-        def AskPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable[Price]
+        def AskPrice(book : .IOrderBook = .observable.orderbook.OfTrader()) : .IObservable[.Price]
             
-            	 = observable.orderbook.BestPrice(observable.orderbook.Asks(book))
+            	 = .observable.orderbook.BestPrice(.observable.orderbook.Asks(book))
         
         
         @python.intrinsic("orderbook.last_trade._LastTradeVolume_Impl")
-        def LastTradeVolume(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable[Volume]
+        def LastTradeVolume(queue : .IOrderQueue = .observable.orderbook.Asks()) : .IObservable[.Volume]
             
         
         @label = "Bid^{%(book)s}"
         @python()
-        def BidPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable[Price]
+        def BidPrice(book : .IOrderBook = .observable.orderbook.OfTrader()) : .IObservable[.Price]
             
-            	 = observable.orderbook.BestPrice(observable.orderbook.Bids(book))
+            	 = .observable.orderbook.BestPrice(.observable.orderbook.Bids(book))
         
         
         @python.intrinsic("orderbook.queue._Bids_Impl")
-        def Bids(book : IOrderBook = observable.orderbook.OfTrader()) : IOrderQueue
+        def Bids(book : .IOrderBook = .observable.orderbook.OfTrader()) : .IOrderQueue
             
-            	 = observable.orderbook.Queue(book,side.Buy())
+            	 = .observable.orderbook.Queue(book,.side.Buy())
         
         
         @python.intrinsic("orderbook.props._BestPrice_Impl")
-        def BestPrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable[Price]
+        def BestPrice(queue : .IOrderQueue = .observable.orderbook.Asks()) : .IObservable[.Price]
             
         
         
         @python.intrinsic("orderbook.queue._Queue_Impl")
-        def Queue(book : IOrderBook = observable.orderbook.OfTrader(),
-                  side : () => Side = side.Sell()) : IOrderQueue
+        def Queue(book : .IOrderBook = .observable.orderbook.OfTrader(),
+                  side : () => .Side = .side.Sell()) : .IOrderQueue
             
         
         @label = "N/A"
         @python.intrinsic("orderbook.of_trader._OfTrader_Impl")
-        def OfTrader(Trader : ISingleAssetTrader = observable.trader.SingleProxy()) : IOrderBook
+        def OfTrader(Trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IOrderBook
             
         
         
         @python()
-        def AskLastTradePrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable[Price]
+        def AskLastTradePrice(book : .IOrderBook = .observable.orderbook.OfTrader()) : .IObservable[.Price]
             
-            	 = observable.orderbook.LastTradePrice(observable.orderbook.Asks(book))
+            	 = .observable.orderbook.LastTradePrice(.observable.orderbook.Asks(book))
         
         @label = "LastBid^{%(book)s}"
         @python()
-        def BidLastPrice(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable[Price]
+        def BidLastPrice(book : .IOrderBook = .observable.orderbook.OfTrader()) : .IObservable[.Price]
             
-            	 = observable.orderbook.LastPrice(observable.orderbook.Bids(book))
+            	 = .observable.orderbook.LastPrice(.observable.orderbook.Bids(book))
         
         
         @python.intrinsic("orderbook.cumulative_price.CumulativePrice_Impl")
-        def CumulativePrice(book : IOrderBook = observable.orderbook.OfTrader(),
-                            depth : IFunction[Float] = constant()) : IObservable[Price]
+        def CumulativePrice(book : .IOrderBook = .observable.orderbook.OfTrader(),
+                            depth : .IFunction[.Float] = .constant()) : .IObservable[.Price]
             
         
         @label = "VolumeLevels(%(queue)s)"
         @python.intrinsic("orderbook.volume_levels.VolumeLevels_Impl")
-        def VolumeLevels(queue : IOrderQueue = observable.orderbook.Asks(),
-                         volumeDelta : Float = 30.0,
-                         volumeCount : Int = 10) : IFunction[VolumeLevels]
+        def VolumeLevels(queue : .IOrderQueue = .observable.orderbook.Asks(),
+                         volumeDelta : .Float = 30.0,
+                         volumeCount : .Int = 10) : .IFunction[.VolumeLevels]
             
         
         
         @python.intrinsic("orderbook.last_price._LastPrice_Impl")
-        def LastPrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable[Price]
+        def LastPrice(queue : .IOrderQueue = .observable.orderbook.Asks()) : .IObservable[.Price]
             
         
         
         @python()
-        def NaiveCumulativePrice(book : IOrderBook = observable.orderbook.OfTrader(),
-                                 depth : IFunction[Float] = constant()) : IObservable[Price]
+        def NaiveCumulativePrice(book : .IOrderBook = .observable.orderbook.OfTrader(),
+                                 depth : .IFunction[.Float] = .constant()) : .IObservable[.Price]
             
-            	 = observable.ObservablePrice(if depth<const(0.0) then depth*observable.orderbook.AskPrice(book) else if depth>const(0.0) then depth*observable.orderbook.BidPrice(book) else const(0.0))
+            	 = .observable.ObservablePrice(if depth<.const(0.0) then depth*.observable.orderbook.AskPrice(book) else if depth>.const(0.0) then depth*.observable.orderbook.BidPrice(book) else .const(0.0))
         
         
         @python()
-        def Spread(book : IOrderBook = observable.orderbook.OfTrader()) : IObservable[Price]
+        def Spread(book : .IOrderBook = .observable.orderbook.OfTrader()) : .IObservable[.Price]
             
-            	 = observable.ObservablePrice(observable.orderbook.AskPrice(book)-observable.orderbook.BidPrice(book))
+            	 = .observable.ObservablePrice(.observable.orderbook.AskPrice(book)-.observable.orderbook.BidPrice(book))
         
         
         @python.intrinsic("orderbook.last_trade._LastTradePrice_Impl")
-        def LastTradePrice(queue : IOrderQueue = observable.orderbook.Asks()) : IObservable[Price]
+        def LastTradePrice(queue : .IOrderQueue = .observable.orderbook.Asks()) : .IObservable[.Price]
             
     }
     
@@ -923,14 +970,14 @@ package observable {@category = "Price function"
     package Moving {
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
         @python.intrinsic("observable.minmax.Min_Impl")
-        def Min(source : IFunction[Float] = constant(),
-                timeframe : Float = 100.0) : IObservable[Float]
+        def Min(source : .IFunction[.Float] = .constant(),
+                timeframe : .Float = 100.0) : .IObservable[.Float]
             
         
         @label = "Max_{n=%(timeframe)s}(%(source)s)"
         @python.intrinsic("observable.minmax.Max_Impl")
-        def Max(source : IFunction[Float] = constant(),
-                timeframe : Float = 100.0) : IObservable[Float]
+        def Max(source : .IFunction[.Float] = .constant(),
+                timeframe : .Float = 100.0) : .IObservable[.Float]
             
     }
     @category = "Statistics"
@@ -938,169 +985,169 @@ package observable {@category = "Price function"
         package EW {
             @label = "Avg_{\\alpha=%(alpha)s}(%(source)s)"
             @python.intrinsic("moments.ewma.EWMA_Impl")
-            def Avg(source : IObservable[Float] = const(),
-                    alpha : Float = 0.015) : IDifferentiable
+            def Avg(source : .IObservable[.Float] = .const(),
+                    alpha : .Float = 0.015) : .IDifferentiable
                 
             
             @label = "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}"
             @python.intrinsic("moments.ewmv.EWMV_Impl")
-            def Var(source : IObservable[Float] = const(),
-                    alpha : Float = 0.015) : () => Float
+            def Var(source : .IObservable[.Float] = .const(),
+                    alpha : .Float = 0.015) : () => .Float
                 
             
             @label = "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}"
             @python()
-            def StdDev(source : IObservable[Float] = const(),
-                       alpha : Float = 0.015) : () => Float
+            def StdDev(source : .IObservable[.Float] = .const(),
+                       alpha : .Float = 0.015) : () => .Float
                 
-                	 = mathops.Sqrt(observable.EW.Var(source,alpha))
+                	 = .mathops.Sqrt(.observable.EW.Var(source,alpha))
             
             @label = "RSD_{\\alpha=%(alpha)s}_{%(source)s}"
             @python()
-            def RelStdDev(source : IObservable[Float] = const(),
-                          alpha : Float = 0.15) : IObservable[Float]
+            def RelStdDev(source : .IObservable[.Float] = .const(),
+                          alpha : .Float = 0.15) : .IObservable[.Float]
                 
-                	 = (source-observable.EW.Avg(source,alpha))/observable.EW.StdDev(source,alpha)
+                	 = (source-.observable.EW.Avg(source,alpha))/.observable.EW.StdDev(source,alpha)
         }
         
         
         package Cumulative {
             @label = "Avg_{cumul}(%(source)s)"
             @python.intrinsic("moments.cma.CMA_Impl")
-            def Avg(source : IObservable[Float] = const()) : () => Float
+            def Avg(source : .IObservable[.Float] = .const()) : () => .Float
                 
             
             @label = "\\sigma^2_{cumul}(%(source)s)"
             @python.intrinsic("moments.cmv.Variance_Impl")
-            def Var(source : IObservable[Float] = const()) : () => Float
+            def Var(source : .IObservable[.Float] = .const()) : () => .Float
                 
             
             @label = "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}"
             @python()
-            def StdDev(source : IObservable[Float] = const()) : () => Float
+            def StdDev(source : .IObservable[.Float] = .const()) : () => .Float
                 
-                	 = mathops.Sqrt(observable.Cumulative.Var(source))
+                	 = .mathops.Sqrt(.observable.Cumulative.Var(source))
             
             @label = "RSD_{cumul}_{%(source)s}"
             @python()
-            def RelStdDev(source : IObservable[Float] = const()) : IObservable[Float]
+            def RelStdDev(source : .IObservable[.Float] = .const()) : .IObservable[.Float]
                 
-                	 = (source-observable.Cumulative.Avg(source))/observable.Cumulative.StdDev(source)
+                	 = (source-.observable.Cumulative.Avg(source))/.observable.Cumulative.StdDev(source)
         }
         
         
         package Moving {
             @label = "Avg_{n=%(timeframe)s}(%(source)s)"
             @python.intrinsic("moments.ma.MA_Impl")
-            def Avg(source : IObservable[Float] = const(),
-                    timeframe : Float = 100.0) : () => Float
+            def Avg(source : .IObservable[.Float] = .const(),
+                    timeframe : .Float = 100.0) : () => .Float
                 
             
             @label = "\\sigma^2_{n=%(timeframe)s}(%(source)s)"
             @python.intrinsic("moments.mv.MV_Impl")
-            def Var(source : IObservable[Float] = const(),
-                    timeframe : Float = 100.0) : IFunction[Float]
+            def Var(source : .IObservable[.Float] = .const(),
+                    timeframe : .Float = 100.0) : .IFunction[.Float]
                 
-                	 = observable.Max(const(0),observable.Moving.Avg(source*source,timeframe)-observable.Sqr(observable.Moving.Avg(source,timeframe)))
+                	 = .observable.Max(.const(0),.observable.Moving.Avg(source*source,timeframe)-.observable.Sqr(.observable.Moving.Avg(source,timeframe)))
             
             @label = "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}"
             @python()
-            def StdDev(source : IObservable[Float] = const(),
-                       timeframe : Float = 100.0) : () => Float
+            def StdDev(source : .IObservable[.Float] = .const(),
+                       timeframe : .Float = 100.0) : () => .Float
                 
-                	 = mathops.Sqrt(observable.Moving.Var(source))
+                	 = .mathops.Sqrt(.observable.Moving.Var(source))
             
             @label = "RSD_{n=%(timeframe)s}_{%(source)s}"
             @python()
-            def RelStdDev(source : IObservable[Float] = const(),
-                          timeframe : Float = 100.0) : IObservable[Float]
+            def RelStdDev(source : .IObservable[.Float] = .const(),
+                          timeframe : .Float = 100.0) : .IObservable[.Float]
                 
-                	 = (source-observable.Moving.Avg(source,timeframe))/observable.Moving.StdDev(source,timeframe)
+                	 = (source-.observable.Moving.Avg(source,timeframe))/.observable.Moving.StdDev(source,timeframe)
         }
         
     }
     
     @label = "[%(x)s]_dt=%(dt)s"
     @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
-    def OnEveryDt(dt : Float = 1.0,
-                  x : IFunction[Float] = constant()) : IObservable[Float]
+    def OnEveryDt(dt : .Float = 1.0,
+                  x : .IFunction[.Float] = .constant()) : .IObservable[.Float]
         
     
     @label = "min{%(x)s, %(y)s}"
     @python.observable()
-    def Min(x : IFunction[Float] = constant(),
-            y : IFunction[Float] = constant()) : IFunction[Float]
+    def Min(x : .IFunction[.Float] = .constant(),
+            y : .IFunction[.Float] = .constant()) : .IFunction[.Float]
         
         	 = if x<y then x else y
     
     @label = "Downs_{%(timeframe)s}(%(source)s)"
     @python.observable()
-    def DownMovements(source : IObservable[Float] = const(),
-                      timeframe : Float = 10.0) : IObservable[Float]
+    def DownMovements(source : .IObservable[.Float] = .const(),
+                      timeframe : .Float = 10.0) : .IObservable[.Float]
         
-        	 = observable.Observable(observable.Max(const(0.0),observable.Lagged(source,timeframe)-source))
+        	 = .observable.Observable(.observable.Max(.const(0.0),.observable.Lagged(source,timeframe)-source))
     
     @label = "Lagged_{%(timeframe)s}(%(source)s)"
     @python.intrinsic("observable.lagged.Lagged_Impl")
-    def Lagged(source : IObservable[Float] = const(),
-               timeframe : Float = 10.0) : IObservable[Float]
+    def Lagged(source : .IObservable[.Float] = .const(),
+               timeframe : .Float = 10.0) : .IObservable[.Float]
         
     
     @label = "max{%(x)s, %(y)s}"
     @python.observable()
-    def Max(x : IFunction[Float] = constant(),
-            y : IFunction[Float] = constant()) : IFunction[Float]
+    def Max(x : .IFunction[.Float] = .constant(),
+            y : .IFunction[.Float] = .constant()) : .IFunction[.Float]
         
         	 = if x>y then x else y
     
     @label = "Ups_{%(timeframe)s}(%(source)s)"
     @python.observable()
-    def UpMovements(source : IObservable[Float] = const(),
-                    timeframe : Float = 10.0) : IObservable[Float]
+    def UpMovements(source : .IObservable[.Float] = .const(),
+                    timeframe : .Float = 10.0) : .IObservable[.Float]
         
-        	 = observable.Observable(observable.Max(const(0.0),source-observable.Lagged(source,timeframe)))
+        	 = .observable.Observable(.observable.Max(.const(0.0),source-.observable.Lagged(source,timeframe)))
     
     @category = "Pow/Log"
     @label = "{%(x)s}^2"
     @python.observable()
-    def Sqr(x : IFunction[Float] = constant()) : IFunction[Float]
+    def Sqr(x : .IFunction[.Float] = .constant()) : .IFunction[.Float]
         
         	 = x*x
     
     @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)"
     @python()
-    def RSI(book : IOrderBook = observable.orderbook.OfTrader(),
-            timeframe : Float = 10.0,
-            alpha : Float = 0.015) : IObservable[Float]
+    def RSI(book : .IOrderBook = .observable.orderbook.OfTrader(),
+            timeframe : .Float = 10.0,
+            alpha : .Float = 0.015) : .IObservable[.Float]
         
-        	 = const(100.0)-const(100.0)/(const(1.0)+observable.rsi.Raw(observable.orderbook.MidPrice(book),timeframe,alpha))
+        	 = .const(100.0)-.const(100.0)/(.const(1.0)+.observable.rsi.Raw(.observable.orderbook.MidPrice(book),timeframe,alpha))
     
     @label = "[%(x)s]"
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
-    def ObservableVolume(x : IFunction[Float] = const()) : IObservable[Volume]
+    def ObservableVolume(x : .IFunction[.Float] = .const()) : .IObservable[.Volume]
         
     
     @label = "%(ticker)s"
     @python.intrinsic("observable.quote.Quote_Impl")
-    def Quote(ticker : String = "^GSPC",
-              start : String = "2001-1-1",
-              end : String = "2010-1-1") : IObservable[Price]
+    def Quote(ticker : .String = "^GSPC",
+              start : .String = "2001-1-1",
+              end : .String = "2010-1-1") : .IObservable[.Price]
         
     
     @label = "CandleSticks(%(source)s)"
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
-    def CandleSticks(source : IObservable[Float] = const(),
-                     timeframe : Float = 10.0) : IObservable[CandleStick]
+    def CandleSticks(source : .IObservable[.Float] = .const(),
+                     timeframe : .Float = 10.0) : .IObservable[.CandleStick]
         
     
     @label = "[%(x)s]"
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
-    def ObservablePrice(x : IFunction[Float] = const()) : IObservable[Price]
+    def ObservablePrice(x : .IFunction[.Float] = .const()) : .IObservable[.Price]
         
     
     @label = "[%(x)s]"
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
-    def Observable(x : IFunction[Float] = const()) : IObservable[Float]
+    def Observable(x : .IFunction[.Float] = .const()) : .IObservable[.Float]
         
 }
 
@@ -1120,78 +1167,78 @@ package trash {
     package in1 {
         package in2 {
             
-            def S1(y : String = "abc") : String
+            def S1(y : .String = "abc") : .String
                 
                 	 = y
             
             
-            def F(x : IFunction[Float] = trash.in1.in2.IntFunc()) : IFunction[Float]
+            def F(x : .IFunction[.Float] = .trash.in1.in2.IntFunc()) : .IFunction[.Float]
                 
                 	 = x
             
             
-            def A(x : IFunction[Float] = constant(),
-                  y : IFunction[Float] = if 3>x+2 then x else x*2) : () => trash.types.T
+            def A(x : .IFunction[.Float] = .constant(),
+                  y : .IFunction[.Float] = if 3>x+2 then x else x*2) : () => .trash.types.T
                 
             
             
-            def IntObs() : IObservable[Int]
+            def IntObs() : .IObservable[.Int]
                 
             
             
-            def IntFunc() : IFunction[Int]
+            def IntFunc() : .IFunction[.Int]
                 
             
             
-            def C(x : IFunction[CandleStick]) : IFunction[CandleStick]
+            def C(x : .IFunction[.CandleStick]) : .IFunction[.CandleStick]
                 
                 	 = x
             
             
-            def O(x : IObservable[Float] = trash.in1.in2.IntObs()) : IObservable[Float]
+            def O(x : .IObservable[.Float] = .trash.in1.in2.IntObs()) : .IObservable[.Float]
                 
                 	 = x
         }
         
         
-        def A(x : () => trash.types.T1 = trash.A()) : () => trash.types.U
+        def A(x : () => .trash.types.T1 = .trash.A()) : () => .trash.types.U
             
     }
     
     
-    def A(x : () => trash.types.T = trash.in1.in2.A()) : () => trash.types.R
+    def A(x : () => .trash.types.T = .trash.in1.in2.A()) : () => .trash.types.R
         
 }
 @category = "Basic"
 package  {
     @label = "C=%(x)s"
     @python()
-    def constant(x : Float = 1.0) : IFunction[Float]
+    def constant(x : .Float = 1.0) : .IFunction[.Float]
         
-        	 = const(x)
+        	 = .const(x)
     
     
     @python.intrinsic("_constant._Null_Impl")
-    def null() : () => Float
+    def null() : () => .Float
         
     
     @label = "C=%(x)s"
     @python.intrinsic.function("_constant._Constant_Impl")
-    def const(x : Float = 1.0) : IObservable[Float]
+    def const(x : .Float = 1.0) : .IObservable[.Float]
         
     
     @label = "\\frac{d%(x)s}{dt}"
     @python.intrinsic("observable.derivative._Derivative_Impl")
-    def Derivative(x : IDifferentiable = observable.EW.Avg()) : () => Float
+    def Derivative(x : .IDifferentiable = .observable.EW.Avg()) : () => .Float
         
     
     @label = "If def(%(x)s) else %(elsePart)s"
     @python.observable()
-    def IfDefined(x : IFunction[Float] = constant(),
-                  elsePart : IFunction[Float] = constant()) : IFunction[Float]
+    def IfDefined(x : .IFunction[.Float] = .constant(),
+                  elsePart : .IFunction[.Float] = .constant()) : .IFunction[.Float]
         
-        	 = if x<>null() then x else elsePart
-    def EWMA = observable.EW.Avg
+        	 = if x<>.null() then x else elsePart
+    def EWMA = .observable.EW.Avg
 }
 type CandleStick
 type Volume : Int

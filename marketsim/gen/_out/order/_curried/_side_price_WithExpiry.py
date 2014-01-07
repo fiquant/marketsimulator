@@ -11,7 +11,7 @@ from marketsim import IFunction
 from marketsim import types
 from marketsim import Side
 @registry.expose(["Order", "WithExpiry"])
-class side_price_WithExpiry(IFunction[IFunction[IOrderGenerator, IFunction[float]], types.IFunction[Side]
+class side_price_WithExpiry(IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]
 ]):
     """ 
     """ 
@@ -27,7 +27,7 @@ class side_price_WithExpiry(IFunction[IFunction[IOrderGenerator, IFunction[float
     
     _properties = {
         'expiry' : IObservable[float],
-        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], types.IFunction[Side]
+        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]
         ]
     }
     def __repr__(self):
