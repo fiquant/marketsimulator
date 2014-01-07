@@ -1108,12 +1108,12 @@ package observable {@category = "Price function"
 package trash {
     package types {
         package  {
-            package  {type U : trash.types.T, trash.types.R
+            package  {type U : T, R
             }
             type T
-            type R : trash.types.T
+            type R : T
         }
-        type T1 = trash.types.T
+        type T1 = T
     }
     
     
@@ -1202,11 +1202,11 @@ type IOrderQueue
 type Float
 type Int : Float
 type IOrderBook
-type IObservable : IFunction[T]
-type IFunction = () => T
+type IObservable[U] : IFunction[U]
+type IFunction[T] = () => T
 type ISingleAssetTrader
 type Order
-type IDifferentiable : IFunction[T]
+type IDifferentiable : IFunction[Float]
 type VolumeLevels
-type IOrderGenerator = IObservable[T]
+type IOrderGenerator = IObservable[Order]
 type String

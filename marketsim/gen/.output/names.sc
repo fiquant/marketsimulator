@@ -1009,11 +1009,23 @@ type CandleStick
 
 type Volume : Int
 
+type Side
+
+type Boolean
+
 type Price : Float
 
 type IOrderQueue
 
+type Float
+
+type Int : Float
+
 type IOrderBook
+
+type IObservable[U] : IFunction[U]
+
+type IFunction[T] = () => T
 
 type ISingleAssetTrader
 
@@ -1024,3 +1036,5 @@ type IDifferentiable : IFunction[Float]
 type VolumeLevels
 
 type IOrderGenerator = IObservable[Order]
+
+type String

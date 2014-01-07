@@ -9,15 +9,16 @@ package object TypesUnbound
         extends sc.Base
         with    ScPrintable
     {
-        def bind(m : ITypeMapper) : TypesBound.Base
+        def bind(m : ITypeMapper[TypesBound.Base]) : TypesBound.Base
+        def substitute(m : ITypeMapper[TypesUnbound.Base]) : TypesUnbound.Base
     }
 
-    trait ITypeMapper
+    trait ITypeMapper[T]
     {
-        def apply(t : Parameter) : TypesBound.Base
+        def apply(t : Parameter) : T
     }
 
-    case class TypeMapper(decl : Typed.TypeDeclaration, genericArgs : List[TypesBound.Base]) extends ITypeMapper
+    case class TypeMapper[T](decl : Typed.TypeDeclaration, genericArgs : List[T]) extends ITypeMapper[T]
     {
         def apply(t : Parameter) =
             decl.generics zip genericArgs find { _._1 == t } match {
@@ -26,7 +27,13 @@ package object TypesUnbound
             }
     }
 
-    object EmptyTypeMapper extends ITypeMapper
+    object EmptyTypeMapper_Bound extends ITypeMapper[TypesBound.Base]
+    {
+        def apply(t : Parameter) =
+            throw new Exception("Cannot do any type mapping")
+    }
+
+    object EmptyTypeMapper_Unbound extends ITypeMapper[TypesUnbound.Base]
     {
         def apply(t : Parameter) =
             throw new Exception("Cannot do any type mapping")
@@ -37,32 +44,42 @@ package object TypesUnbound
     {
         override def toScala = name
 
-        def bind(m : ITypeMapper) = m(this)
+        def bind(m : ITypeMapper[TypesBound.Base]) = m(this)
+        def substitute(m : ITypeMapper[TypesUnbound.Base]) = m(this)
     }
 
     case object Unit
             extends Base
             with    sc.Unit
     {
-        def bind(m : ITypeMapper) = TypesBound.Unit
+        def bind(m : ITypeMapper[TypesBound.Base]) = TypesBound.Unit
+        def substitute(m : ITypeMapper[TypesUnbound.Base]) = TypesUnbound.Unit
     }
 
     case class Tuple(elems : List[Base])
             extends Base
             with    sc.Tuple
     {
-        def bind(m : ITypeMapper) =
+        def bind(m : ITypeMapper[TypesBound.Base]) =
             TypesBound.Tuple(elems map { _ bind m })
+
+        def substitute(m : ITypeMapper[TypesUnbound.Base]) =
+            TypesUnbound.Tuple(elems map { _ substitute m })
     }
 
     case class Function(args : List[Base], ret : Base)
             extends Base
             with    sc.Function
     {
-        def bind(m : ITypeMapper) =
+        def bind(m : ITypeMapper[TypesBound.Base]) =
             TypesBound.Function(
                 args map { _ bind m },
                 ret bind m)
+
+        def substitute(m : ITypeMapper[TypesUnbound.Base]) =
+            TypesUnbound.Function(
+                args map { _ substitute m },
+                ret substitute m)
     }
 
     sealed abstract class UserDefined
@@ -74,6 +91,8 @@ package object TypesUnbound
 
         if (decl.generics.length != genericArgs.length)
             throw new Exception(s"Type $decl is instantiated with wrong type parameters: $genericArgs" )
+
+        def substitute(m : ITypeMapper[TypesUnbound.Base]) : UserDefined
     }
 
     /**
@@ -88,13 +107,17 @@ package object TypesUnbound
     case class Interface(decl : Typed.InterfaceDecl, genericArgs : List[Base])
             extends UserDefined
     {
-        def bind(m : ITypeMapper) = TypesBound.Interface(decl, genericArgs map { _ bind m })
+        def bind(m : ITypeMapper[TypesBound.Base]) = TypesBound.Interface(decl, genericArgs map { _ bind m })
+
+        def substitute(m : ITypeMapper[TypesUnbound.Base]) = TypesUnbound.Interface(decl, genericArgs map { _ substitute m })
     }
 
     case class Alias(decl : Typed.AliasDecl, genericArgs : List[Base])
             extends UserDefined
     {
-        def bind(m : ITypeMapper) = TypesBound.Alias(decl, genericArgs map { _ bind m })
+        def bind(m : ITypeMapper[TypesBound.Base]) = TypesBound.Alias(decl, genericArgs map { _ bind m })
+
+        def substitute(m : ITypeMapper[TypesUnbound.Base]) = TypesUnbound.Alias(decl, genericArgs map { _ substitute m })
     }
 
     def nullaryFunction(ret_type : Base) = Function(List(), ret_type)

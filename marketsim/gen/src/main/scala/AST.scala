@@ -73,6 +73,10 @@ package object AST {
         def getName = if (name.nonEmpty) name.get.toString else ""
     }
 
+    case class Generics(elems : List[String])
+            extends pp.Generics
+            with    ScPrintable
+
     case class FunDef(name           : String,
                       parameters     : List[Parameter],
                       body           : Option[Expr],
@@ -91,12 +95,16 @@ package object AST {
 
     sealed abstract class TypeDeclaration extends Member
 
-    case class Interface(name : String, bases : List[Type])
+    case class Interface(name       : String,
+                         generics   : Generics,
+                         bases      : List[Type])
             extends TypeDeclaration
             with    pp.TypeDeclaration
             with    ScPrintable
 
-    case class Alias(name : String, target : Type)
+    case class Alias(name       : String,
+                     generics   : Generics,
+                     target     : Type)
             extends TypeDeclaration
             with    pp.TypeAlias
             with    ScPrintable

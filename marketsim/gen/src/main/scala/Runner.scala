@@ -122,9 +122,9 @@ object Runner extends syntax.scala.Parser {
             output.println(typed)
         }
 
-//        val typed_2 = Typed.withNewTopLevel({
-//            Typer.apply(NameTable.apply(parse(new File(".output/typed.sc")).get :: Nil))
-//        })
+        val typed_2 = Typed.withNewTopLevel({
+            Typer.apply(NameTable.apply(parse(new File(".output/typed.sc")).get :: Nil))
+        })
 
 //        if (typed != typed_2)
 //            throw new Exception("re-parsed typed representation differs from the original one")

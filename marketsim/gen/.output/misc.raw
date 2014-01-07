@@ -893,7 +893,39 @@ Definitions:
 | | | | - category
 | | | | - Side
 | - Interface:
+| | - Side
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - String
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - Boolean
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - Float
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - Int
+| | - Generics:
+| | | - List:
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Float
+| | | | - List:
+| - Interface:
 | | - Volume
+| | - Generics:
+| | | - List:
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:
@@ -902,6 +934,8 @@ Definitions:
 | | | | - List:
 | - Interface:
 | | - Price
+| | - Generics:
+| | | - List:
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:
@@ -910,12 +944,46 @@ Definitions:
 | | | | - List:
 | - Interface:
 | | - IOrderQueue
+| | - Generics:
+| | | - List:
 | | - List:
 | - Interface:
 | | - IOrderBook
+| | - Generics:
+| | | - List:
 | | - List:
 | - Alias:
+| | - IFunction
+| | - Generics:
+| | | - List:
+| | | | - T
+| | - FunctionType:
+| | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - T
+| | | | - List:
+| - Interface:
+| | - IObservable
+| | - Generics:
+| | | - List:
+| | | | - U
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction
+| | | | - List:
+| | | | | - SimpleType:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - U
+| | | | | | - List:
+| - Alias:
 | | - IOrderGenerator
+| | - Generics:
+| | | - List:
 | | - SimpleType:
 | | | - QualifiedName:
 | | | | - List:
@@ -928,9 +996,13 @@ Definitions:
 | | | | | - List:
 | - Interface:
 | | - ISingleAssetTrader
+| | - Generics:
+| | | - List:
 | | - List:
 | - Interface:
 | | - IDifferentiable
+| | - Generics:
+| | | - List:
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:
@@ -944,12 +1016,18 @@ Definitions:
 | | | | | | - List:
 | - Interface:
 | | - CandleStick
+| | - Generics:
+| | | - List:
 | | - List:
 | - Interface:
 | | - VolumeLevels
+| | - Generics:
+| | | - List:
 | | - List:
 | - Interface:
 | | - Order
+| | - Generics:
+| | | - List:
 | | - List:
 | - PackageDef:
 | | - Some:
@@ -967,6 +1045,8 @@ Definitions:
 | | | | | | - List:
 | | | | | | | - Alias:
 | | | | | | | | - T1
+| | | | | | | | - Generics:
+| | | | | | | | | - List:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
@@ -978,6 +1058,8 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - Interface:
 | | | | | | | | | | | - T
+| | | | | | | | | | | - Generics:
+| | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | - PackageDef:
@@ -986,6 +1068,8 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - Interface:
 | | | | | | | | | | | - R
+| | | | | | | | | | | - Generics:
+| | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | - QualifiedName:
@@ -1003,6 +1087,8 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - Interface:
 | | | | | | | | | | | | | | - U
+| | | | | | | | | | | | | | - Generics:
+| | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | | - QualifiedName:

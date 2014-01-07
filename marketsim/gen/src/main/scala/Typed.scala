@@ -163,7 +163,7 @@ package object Typed
         val scope       : Typed.Package
         val generics    : List[TypesUnbound.Parameter]
 
-        def apply(genericArgs : List[TypesUnbound.Base]) : TypesUnbound.Base
+        def resolveGenerics(genericArgs : List[TypesUnbound.Base]) : TypesUnbound.Base
 
         override def equals(o : Any) = o match {
             case that : TypeDeclaration => name == that.name && scope.qualifiedName == that.scope.qualifiedName
@@ -182,9 +182,10 @@ package object Typed
             with    ScPrintable
     {
         private val unbound = predef.Memoize1({
-            genericArgs : List[TypesUnbound.Base] => TypesUnbound.Alias(this, genericArgs)
+            genericArgs : List[TypesUnbound.Base] =>
+                TypesUnbound.Alias(this, genericArgs)
         })
-        def apply(genericArgs : List[TypesUnbound.Base]) = unbound(genericArgs)
+        def resolveGenerics(genericArgs : List[TypesUnbound.Base]) = unbound(genericArgs)
     }
 
     case class InterfaceDecl(name       : String,
@@ -196,9 +197,10 @@ package object Typed
             with    ScPrintable
     {
         private val unbound = predef.Memoize1({
-            genericArgs : List[TypesUnbound.Base] => TypesUnbound.Interface(this, genericArgs)
+            genericArgs : List[TypesUnbound.Base] =>
+                TypesUnbound.Interface(this, genericArgs)
         })
-        def apply(genericArgs : List[TypesUnbound.Base]) = unbound(genericArgs)
+        def resolveGenerics(genericArgs : List[TypesUnbound.Base]) = unbound(genericArgs)
     }
 
 
@@ -304,48 +306,30 @@ package object Typed
 
         def getName = ""
 
-        val T = TypesUnbound.Parameter("T")
-        val _T_ = T :: Nil
+        def makeScalar(name : String) =
+            (types get name).get resolveGenerics Nil
 
-        val IFunction = Typed.AliasDecl("IFunction",
-                                    this,
-                                    TypesUnbound.nullaryFunction(T),
-                                    _T_)
+        def functionOf(t : TypesUnbound.Base) =
+            (types get "IFunction").get resolveGenerics  t :: Nil
 
-        insert(IFunction)
+        def observableOf(t : TypesUnbound.Base) =
+            (types get "IObservable").get resolveGenerics  t :: Nil
 
-        val IObservable = Typed.InterfaceDecl("IObservable",
-                                          this,
-                                          IFunction(_T_) :: Nil,
-                                          _T_)
+        val EmptyTypeMapper = TypesUnbound.EmptyTypeMapper_Bound
 
-        insert(IObservable)
-
-        def makeScalar(name : String, bases : TypesUnbound.Base*) = {
-            val ty = Typed.InterfaceDecl(name, this, bases.toList, Nil)
-            insert(ty)
-            ty.apply(Nil)
-        }
-
-        def functionOf(t : TypesUnbound.Base) = IFunction(t :: Nil)
-        def observableOf(t : TypesUnbound.Base) = IObservable(t :: Nil)
-
-        type TypeMapper = TypesUnbound.TypeMapper
-        val EmptyTypeMapper = TypesUnbound.EmptyTypeMapper
-
-        def genType(name : String, bases : TypesUnbound.Base*) = {
-            val scalar  = makeScalar(name, bases : _*)
+        def genType(name : String) = {
+            val scalar  = makeScalar(name)
             val func    = functionOf(scalar)
             val obs     = observableOf(scalar)
             val m = EmptyTypeMapper
             (scalar, scalar bind m, func bind m, obs bind m)
         }
 
-        val (unbound_float,     float_, floatFunc, floatObservable) = genType("Float")
-        val (unbound_string,    string_, stringFunc, stringObservable) = genType("String")
-        val (unbound_int,       int_, intFunc, intObservable) = genType("Int", unbound_float)
-        val (unbound_side,      side_, sideFunc, sideObservable) = genType("Side")
-        val (unbound_boolean,   boolean_, booleanFunc, booleanObservable) = genType("Boolean")
+        lazy val (unbound_float,     float_, floatFunc, floatObservable) = genType("Float")
+        lazy val (unbound_string,    string_, stringFunc, stringObservable) = genType("String")
+        lazy val (unbound_int,       int_, intFunc, intObservable) = genType("Int")
+        lazy val (unbound_side,      side_, sideFunc, sideObservable) = genType("Side")
+        lazy val (unbound_boolean,   boolean_, booleanFunc, booleanObservable) = genType("Boolean")
     }
 
     private var topLevelInstance : Option[TopLevelPackage] = None

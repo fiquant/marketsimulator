@@ -949,15 +949,15 @@ package trash {
     package types {
         package  {
             package  {
-                type U : trash.types.T, trash.types.R
+                type U : T, R
             }
             
             type T
             
-            type R : trash.types.T
+            type R : T
         }
         
-        type T1 = trash.types.T
+        type T1 = T
     }
     
     package in1 {
@@ -1041,18 +1041,18 @@ type Int : Float
 
 type IOrderBook
 
-type IObservable : IFunction[T]
+type IObservable[U] : IFunction[U]
 
-type IFunction = () => T
+type IFunction[T] = () => T
 
 type ISingleAssetTrader
 
 type Order
 
-type IDifferentiable : IFunction[T]
+type IDifferentiable : IFunction[Float]
 
 type VolumeLevels
 
-type IOrderGenerator = IObservable[T]
+type IOrderGenerator = IObservable[Order]
 
 type String

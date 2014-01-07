@@ -110,6 +110,11 @@ package object Printer
             def toScala = names.mkString(".")
         }
 
+        trait Generics extends Printable {
+            val elems : List[String]
+            def toScala = if (elems.nonEmpty) elems.mkString("[", ",", "]") else ""
+        }
+
         trait Decorator
 
         trait Annotation extends Decorator with Printable {
@@ -159,17 +164,19 @@ package object Printer
         trait TypeDeclaration extends Printable with Definition
         {
             val name : String
+            val generics : Generics
             val bases : List[Any]
 
-            def toScala = crlf + "type " + name + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
+            def toScala = crlf + "type " + name + generics + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
         }
 
         trait TypeAlias extends Printable with Definition
         {
             val name : String
+            val generics : Generics
             val target : Any
 
-            def toScala = crlf + s"type $name = $target"
+            def toScala = crlf + s"type $name$generics = $target"
         }
 
         trait FunctionAlias extends Printable with Definition
@@ -236,6 +243,7 @@ package object Printer
         type DocString = base.DocString
         type QualifiedName = base.QualifiedName
         type Package = base.Package[Definition]
+        type Generics = base.Generics
         type TypeDeclaration = base.TypeDeclaration
         type TypeAlias = base.TypeAlias
         type Decorator = base.Decorator
@@ -316,9 +324,10 @@ package object Printer
         type Function = base.FunctionType
 
         trait UsedDefined_Unbound extends Printable {
-            val decl : Typed.TypeDeclaration
+            self : TypesUnbound.UserDefined =>
 
-            def toScala = decl.label
+            def toScala =
+                decl.name + (if (genericArgs.nonEmpty) genericArgs mkString ("[",",","]") else "")
         }
 
         trait UsedDefined extends Printable {
@@ -331,18 +340,24 @@ package object Printer
 
     object typed {
 
+        def printGenerics(gs : List[TypesUnbound.Parameter]) =
+            if (gs.nonEmpty)
+                gs mkString ("[", ",", "]")
+            else
+                ""
+
         trait InterfaceDecl extends Printable
         {
             self: Typed.InterfaceDecl =>
 
-            override def toScala = s"type $name" + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
+            override def toScala = s"type $name" + printGenerics(generics) + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
         }
 
         trait AliasDecl extends Printable
         {
             self: Typed.AliasDecl =>
 
-            override def toScala = s"type $name = $target"
+            override def toScala = s"type $name${printGenerics(generics)} = $target"
         }
 
         trait Parameter extends base.Parameter {

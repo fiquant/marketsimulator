@@ -112,34 +112,38 @@ package object Typer
         {
             Typed.InterfaceDecl(definition.name,
                             source.typed.get,
-                            definition.bases map toUnbound,
-                            Nil)
+                            definition.bases map { toUnbound(definition.generics) },
+                            definition.generics.elems map { TypesUnbound.Parameter })
         }
 
         private def toTyped(definition  : AST.Alias) : Typed.AliasDecl =
         {
             Typed.AliasDecl(definition.name,
                         source.typed.get,
-                        toUnbound(definition.target),
-                        Nil)
+                        toUnbound(definition.generics)(definition.target),
+                        definition.generics.elems map { TypesUnbound.Parameter })
         }
 
 
-        private def toUnbound(t : AST.Type) : TypesUnbound.Base = t match {
+        private def toUnbound(g : AST.Generics)(t : AST.Type) : TypesUnbound.Base = t match {
 
-            case AST.SimpleType(name, genericArgs) => lookupType(name).apply(genericArgs map { toUnbound })
+            case AST.SimpleType(name, genericArgs) =>
+                if (name.names.length == 1 && (g.elems contains name.names(0)))
+                    TypesUnbound.Parameter(name.names(0))
+                else
+                    lookupType(name).resolveGenerics(genericArgs map { toUnbound(g) })
 
             case AST.UnitType => TypesUnbound.Unit
-            case AST.TupleType(types) => TypesUnbound.Tuple(types map toUnbound)
-            case AST.FunctionType(arg_types, ret_type) => TypesUnbound.Function(arg_types map toUnbound, toUnbound(ret_type))
+            case AST.TupleType(types) => TypesUnbound.Tuple(types map toUnbound(g))
+            case AST.FunctionType(arg_types, ret_type) => TypesUnbound.Function(arg_types map toUnbound(g), toUnbound(g)(ret_type))
         }
 
         private def toBound(t : AST.Type) : TypesBound.Base = t match {
             case x : AST.SimpleType =>
-                val unbound = toUnbound(x).asInstanceOf[TypesUnbound.UserDefined]
+                val unbound = toUnbound(AST.Generics(Nil))(x).asInstanceOf[TypesUnbound.UserDefined]
                 unbound.bind(TypesUnbound.TypeMapper(unbound.decl, x.genericArgs map { toBound }))
             case x =>
-                toUnbound(x).bind(TypesUnbound.EmptyTypeMapper)
+                toUnbound(AST.Generics(Nil))(x).bind(TypesUnbound.EmptyTypeMapper_Bound)
         }
 
         private def toTyped(definition  : AST.FunDef): Typed.Function =

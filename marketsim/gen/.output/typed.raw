@@ -11553,43 +11553,43 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - Interface:
 | | | | | | | | | | | | | | - U
+| | | | | | | | | | | | | | - Generics:
+| | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - trash
-| | | | | | | | | | | | | | | | | | - types
 | | | | | | | | | | | | | | | | | | - T
 | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - trash
-| | | | | | | | | | | | | | | | | | - types
 | | | | | | | | | | | | | | | | | | - R
 | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | - Interface:
 | | | | | | | | | | | - T
+| | | | | | | | | | | - Generics:
+| | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | - Interface:
 | | | | | | | | | | | - R
+| | | | | | | | | | | - Generics:
+| | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - trash
-| | | | | | | | | | | | | | | - types
 | | | | | | | | | | | | | | | - T
 | | | | | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | - Alias:
 | | | | | | | | - T1
+| | | | | | | | - Generics:
+| | | | | | | | | - List:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - trash
-| | | | | | | | | | | - types
 | | | | | | | | | | | - T
 | | | | | | | | | - List:
 | | | | | - List:
@@ -12175,9 +12175,13 @@ Definitions:
 | | | | - Basic
 | - Interface:
 | | - CandleStick
+| | - Generics:
+| | | - List:
 | | - List:
 | - Interface:
 | | - Volume
+| | - Generics:
+| | | - List:
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:
@@ -12186,12 +12190,18 @@ Definitions:
 | | | | - List:
 | - Interface:
 | | - Side
+| | - Generics:
+| | | - List:
 | | - List:
 | - Interface:
 | | - Boolean
+| | - Generics:
+| | | - List:
 | | - List:
 | - Interface:
 | | - Price
+| | - Generics:
+| | | - List:
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:
@@ -12200,12 +12210,18 @@ Definitions:
 | | | | - List:
 | - Interface:
 | | - IOrderQueue
+| | - Generics:
+| | | - List:
 | | - List:
 | - Interface:
 | | - Float
+| | - Generics:
+| | | - List:
 | | - List:
 | - Interface:
 | | - Int
+| | - Generics:
+| | | - List:
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:
@@ -12214,9 +12230,14 @@ Definitions:
 | | | | - List:
 | - Interface:
 | | - IOrderBook
+| | - Generics:
+| | | - List:
 | | - List:
 | - Interface:
 | | - IObservable
+| | - Generics:
+| | | - List:
+| | | | - U
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:
@@ -12226,10 +12247,13 @@ Definitions:
 | | | | | - SimpleType:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
-| | | | | | | | - T
+| | | | | | | | - U
 | | | | | | - List:
 | - Alias:
 | | - IFunction
+| | - Generics:
+| | | - List:
+| | | | - T
 | | - FunctionType:
 | | | - List:
 | | | - SimpleType:
@@ -12239,12 +12263,18 @@ Definitions:
 | | | | - List:
 | - Interface:
 | | - ISingleAssetTrader
+| | - Generics:
+| | | - List:
 | | - List:
 | - Interface:
 | | - Order
+| | - Generics:
+| | | - List:
 | | - List:
 | - Interface:
 | | - IDifferentiable
+| | - Generics:
+| | | - List:
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:
@@ -12254,13 +12284,17 @@ Definitions:
 | | | | | - SimpleType:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
-| | | | | | | | - T
+| | | | | | | | - Float
 | | | | | | - List:
 | - Interface:
 | | - VolumeLevels
+| | - Generics:
+| | | - List:
 | | - List:
 | - Alias:
 | | - IOrderGenerator
+| | - Generics:
+| | | - List:
 | | - SimpleType:
 | | | - QualifiedName:
 | | | | - List:
@@ -12269,8 +12303,10 @@ Definitions:
 | | | | - SimpleType:
 | | | | | - QualifiedName:
 | | | | | | - List:
-| | | | | | | - T
+| | | | | | | - Order
 | | | | | - List:
 | - Interface:
 | | - String
+| | - Generics:
+| | | - List:
 | | - List:
