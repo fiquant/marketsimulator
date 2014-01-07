@@ -139,7 +139,7 @@ package object Typer
                 val unbound = toUnbound(x).asInstanceOf[TypesUnbound.UserDefined]
                 unbound.bind(TypesUnbound.TypeMapper(unbound.decl, x.genericArgs map { toBound }))
             case x =>
-                toUnbound(x).bind(Types.EmptyTypeMapper)
+                toUnbound(x).bind(TypesUnbound.EmptyTypeMapper)
         }
 
         private def toTyped(definition  : AST.FunDef): Typed.Function =
@@ -251,13 +251,13 @@ package object Typer
         }
 
         def promote_literal(e : Typed.Expr) =
-            if (e.ty == Types.float_) {
+            if (e.ty == Typed.topLevel.float_) {
                 val f = ctx.lookupFunction(AST.QualifiedName("const" :: Nil))
                 Typed.FunctionCall(f, (f.parameters(0), e) :: Nil)
             } else e
 
         def promote_opt(e : Typed.Expr) =
-            if (e.ty canCastTo Types.floatFunc) e match {
+            if (e.ty canCastTo Typed.topLevel.floatFunc) e match {
                 case Typed.BinOp(c, x, y) => Typed.BinOp(c, promote_literal(x), promote_literal(y))
                 case Typed.IfThenElse(cond, x, y) => Typed.IfThenElse(cond, promote_literal(x), promote_literal(y))
                 case x => x

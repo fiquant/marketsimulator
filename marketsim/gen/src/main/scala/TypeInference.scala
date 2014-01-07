@@ -1,9 +1,9 @@
 package object TypeInference
 {
     def floatRank(e: Typed.Expr) = e.ty match {
-        case x if x canCastTo Types.float_ => 0
-        case x if x canCastTo Types.floatObservable => 10
-        case x if x canCastTo Types.floatFunc => 1
+        case x if x canCastTo Typed.topLevel.float_ => 0
+        case x if x canCastTo Typed.topLevel.floatObservable => 10
+        case x if x canCastTo Typed.topLevel.floatFunc => 1
         case t => -1
     }
 
@@ -16,9 +16,9 @@ package object TypeInference
 
     private def unifyFloat(xs : Typed.Expr*) =
         (xs map floatRankStrict).sum match {
-            case x if x >= 10 => Types.floatObservable
-            case x if x >= 1 => Types.floatFunc
-            case x if x >= 0 => Types.float_
+            case x if x >= 10 => Typed.topLevel.floatObservable
+            case x if x >= 1 => Typed.topLevel.floatFunc
+            case x if x >= 0 => Typed.topLevel.float_
         }
 
     trait Neg {
@@ -45,15 +45,15 @@ package object TypeInference
     }
 
     trait FloatLit {
-        val ty = Types.float_
+        val ty =Typed.topLevel.float_
     }
 
     trait StringLit {
-        val ty = Types.string_
+        val ty = Typed.topLevel.string_
     }
 
     trait IntLit {
-        val ty = Types.int_
+        val ty = Typed.topLevel.int_
     }
 
     trait ParamRef {
@@ -67,7 +67,7 @@ package object TypeInference
     }
 
     def checkBoolean(e : Typed.Expr) = {
-        if (e.ty cannotCastTo Types.booleanFunc)
+        if (e.ty cannotCastTo Typed.topLevel.booleanFunc)
             throw new Exception(s"Expression $e is supposed to have () => Boolean type")
         e.ty
     }
@@ -86,9 +86,9 @@ package object TypeInference
         self: Typed.Condition =>
         val ty = {
             val t = unifyFloat(x,y)
-            if ((t cannotCastTo  Types.float_) && (t cannotCastTo Types.floatFunc))
+            if ((t cannotCastTo  Typed.topLevel.float_) && (t cannotCastTo Typed.topLevel.floatFunc))
                 throw new Exception(s"Arguments of boolean expression must be able to cast to () => Float or () => Int")
-            Types.booleanFunc
+            Typed.topLevel.booleanFunc
         }
     }
 }

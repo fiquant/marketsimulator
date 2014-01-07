@@ -99,30 +99,4 @@ package object TypesUnbound
 
     def nullaryFunction(ret_type : Base) = Function(List(), ret_type)
 
-    val T = Parameter("T")
-    val _T_ = T :: Nil
-
-    val IFunction = Typed.AliasDecl("IFunction",
-                                Typed.topLevel,
-                                nullaryFunction(T),
-                                _T_)
-
-    Typed.topLevel insert IFunction
-
-    val IObservable = Typed.InterfaceDecl("IObservable",
-                                      Typed.topLevel,
-                                      IFunction(_T_) :: Nil,
-                                      _T_)
-
-    Typed.topLevel insert IObservable
-
-    def makeScalar(name : String, bases : Base*) = {
-        val ty = Typed.InterfaceDecl(name, Typed.topLevel, bases.toList, Nil)
-        Typed.topLevel insert ty
-        ty.apply(Nil)
-    }
-
-    def functionOf(t : Base) = IFunction(t :: Nil)
-    def observableOf(t : Base) = IObservable(t :: Nil)
-
 }

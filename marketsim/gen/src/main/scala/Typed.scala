@@ -304,6 +304,48 @@ package object Typed
 
         def getName = ""
 
+        val T = TypesUnbound.Parameter("T")
+        val _T_ = T :: Nil
+
+        val IFunction = Typed.AliasDecl("IFunction",
+                                    this,
+                                    TypesUnbound.nullaryFunction(T),
+                                    _T_)
+
+        insert(IFunction)
+
+        val IObservable = Typed.InterfaceDecl("IObservable",
+                                          this,
+                                          IFunction(_T_) :: Nil,
+                                          _T_)
+
+        insert(IObservable)
+
+        def makeScalar(name : String, bases : TypesUnbound.Base*) = {
+            val ty = Typed.InterfaceDecl(name, this, bases.toList, Nil)
+            insert(ty)
+            ty.apply(Nil)
+        }
+
+        def functionOf(t : TypesUnbound.Base) = IFunction(t :: Nil)
+        def observableOf(t : TypesUnbound.Base) = IObservable(t :: Nil)
+
+        type TypeMapper = TypesUnbound.TypeMapper
+        val EmptyTypeMapper = TypesUnbound.EmptyTypeMapper
+
+        def genType(name : String, bases : TypesUnbound.Base*) = {
+            val scalar  = makeScalar(name, bases : _*)
+            val func    = functionOf(scalar)
+            val obs     = observableOf(scalar)
+            val m = EmptyTypeMapper
+            (scalar, scalar bind m, func bind m, obs bind m)
+        }
+
+        val (unbound_float,     float_, floatFunc, floatObservable) = genType("Float")
+        val (unbound_string,    string_, stringFunc, stringObservable) = genType("String")
+        val (unbound_int,       int_, intFunc, intObservable) = genType("Int", unbound_float)
+        val (unbound_side,      side_, sideFunc, sideObservable) = genType("Side")
+        val (unbound_boolean,   boolean_, booleanFunc, booleanObservable) = genType("Boolean")
     }
 
     val topLevel = new TopLevelPackage

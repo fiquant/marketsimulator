@@ -57,7 +57,6 @@ object Runner extends syntax.scala.Parser {
     def main(args: Array[String]) {
 
         unused(generator.python.gen.Annotations)
-        unused(Types.floatObservable)
 
         cleanUp(".output")
         cleanUp("_out")
