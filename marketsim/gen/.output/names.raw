@@ -82,10 +82,7 @@ Definitions:
 | | - Definitions:
 | | | - List:
 | | | | - PackageDef:
-| | | | | - Some:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - $1
+| | | | | - None
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -130,10 +127,7 @@ Definitions:
 | | | | | | | - category
 | | | | | | | - Trigonometric
 | | | | - PackageDef:
-| | | | | - Some:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - $0
+| | | | | - None
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -771,6 +765,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - side_Limit
 | | | | | | | | | | | | - List:
@@ -812,6 +808,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - Sell
 | | | | | | | | | | | | - List:
@@ -862,6 +859,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -874,6 +872,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - side_price_Limit
 | | | | | | | | | | | | - List:
@@ -924,6 +924,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -936,6 +937,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - price_Limit
 | | | | | | | | | | | | - List:
@@ -977,6 +980,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -989,6 +993,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - sideprice_Limit
 | | | | | | | | | | | | - List:
@@ -1037,6 +1043,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -1049,6 +1056,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - price_Limit
 | | | | | | | | | | | | - List:
@@ -1090,6 +1099,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - price_Limit
 | | | | | | | | | | | | - List:
@@ -1131,6 +1142,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -1143,6 +1155,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volume_price_Limit
 | | | | | | | | | | | | - List:
@@ -1193,6 +1207,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -1205,6 +1220,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - sideprice_Limit
 | | | | | | | | | | | | - List:
@@ -1253,6 +1270,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -1265,6 +1283,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volumeprice_Limit
 | | | | | | | | | | | | - List:
@@ -1313,6 +1333,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volume_price_Limit
 | | | | | | | | | | | | - List:
@@ -1363,6 +1385,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -1375,6 +1398,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - side_Limit
 | | | | | | | | | | | | - List:
@@ -1416,6 +1441,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volume_price_Limit
 | | | | | | | | | | | | - List:
@@ -1457,6 +1484,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -1499,6 +1527,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -1548,6 +1577,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - sideprice_Limit
 | | | | | | | | | | | | - List:
@@ -1596,6 +1627,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - side_price_Limit
 | | | | | | | | | | | | - List:
@@ -1637,6 +1670,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -1649,6 +1683,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - side_price_Limit
 | | | | | | | | | | | | - List:
@@ -1699,6 +1735,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -1711,6 +1748,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volumeprice_Limit
 | | | | | | | | | | | | - List:
@@ -1759,6 +1798,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - side_price_Limit
 | | | | | | | | | | | | - List:
@@ -1809,6 +1850,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volumeprice_Limit
 | | | | | | | | | | | | - List:
@@ -1857,6 +1900,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -1869,6 +1913,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - side_Limit
 | | | | | | | | | | | | - List:
@@ -1910,6 +1956,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -1922,6 +1969,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - side_Limit
 | | | | | | | | | | | | - List:
@@ -1963,6 +2012,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -1975,6 +2025,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - pricevolume_Limit
 | | | | | | | | | | | | - List:
@@ -2023,6 +2075,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - pricevolume_Limit
 | | | | | | | | | | | | - List:
@@ -2071,6 +2125,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volumeprice_Limit
 | | | | | | | | | | | | - List:
@@ -2119,6 +2175,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - price_Limit
 | | | | | | | | | | | | - List:
@@ -2160,6 +2218,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -2172,6 +2231,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volume_Limit
 | | | | | | | | | | | | - List:
@@ -2213,6 +2274,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - Sell
 | | | | | | | | | | | | - List:
@@ -2261,6 +2323,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -2273,6 +2336,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volumeprice_Limit
 | | | | | | | | | | | | - List:
@@ -2321,6 +2386,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -2333,6 +2399,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volume_Limit
 | | | | | | | | | | | | - List:
@@ -2374,6 +2442,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -2386,6 +2455,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - sideprice_Limit
 | | | | | | | | | | | | - List:
@@ -2434,6 +2505,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volume_Limit
 | | | | | | | | | | | | - List:
@@ -2475,6 +2548,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -2487,6 +2561,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volume_price_Limit
 | | | | | | | | | | | | - List:
@@ -2528,6 +2604,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - Sell
 | | | | | | | | | | | | - List:
@@ -2569,6 +2646,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -2581,6 +2659,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volume_price_Limit
 | | | | | | | | | | | | - List:
@@ -2631,6 +2711,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volume_price_Limit
 | | | | | | | | | | | | - List:
@@ -2681,6 +2763,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -2693,6 +2776,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -2735,6 +2819,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -2747,6 +2832,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - side_price_Limit
 | | | | | | | | | | | | - List:
@@ -2797,6 +2884,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -2809,6 +2897,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - side_price_Limit
 | | | | | | | | | | | | - List:
@@ -2850,6 +2940,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -2862,6 +2953,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - pricevolume_Limit
 | | | | | | | | | | | | - List:
@@ -2910,6 +3003,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -2922,6 +3016,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - side_price_Limit
 | | | | | | | | | | | | - List:
@@ -2972,6 +3068,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -3023,6 +3120,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - Sell
 | | | | | | | | | | | | - List:
@@ -3071,6 +3169,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -3083,6 +3182,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volume_Limit
 | | | | | | | | | | | | - List:
@@ -3124,6 +3225,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -3136,6 +3238,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volume_price_Limit
 | | | | | | | | | | | | - List:
@@ -3186,6 +3290,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -3228,6 +3333,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -3240,6 +3346,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - price_Limit
 | | | | | | | | | | | | - List:
@@ -3281,6 +3389,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -3293,6 +3402,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volumeprice_Limit
 | | | | | | | | | | | | - List:
@@ -3341,6 +3452,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -3353,6 +3465,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - price_Limit
 | | | | | | | | | | | | - List:
@@ -3394,6 +3508,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -3406,6 +3521,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volume_price_Limit
 | | | | | | | | | | | | - List:
@@ -3456,6 +3573,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volumeprice_Limit
 | | | | | | | | | | | | - List:
@@ -3504,6 +3623,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - Sell
 | | | | | | | | | | | | - List:
@@ -3515,6 +3635,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -3557,6 +3678,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -3569,6 +3691,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - sideprice_Limit
 | | | | | | | | | | | | - List:
@@ -3617,6 +3741,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -3629,6 +3754,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - volumeprice_Limit
 | | | | | | | | | | | | - List:
@@ -3677,6 +3804,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - sideprice_Limit
 | | | | | | | | | | | | - List:
@@ -3725,6 +3854,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -3737,6 +3867,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - pricevolume_Limit
 | | | | | | | | | | | | - List:
@@ -3785,6 +3917,8 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | - side_price_Limit
 | | | | | | | | | | | | - List:
@@ -3835,6 +3969,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - Sell
 | | | | | | | | | | | | - List:
@@ -3846,6 +3981,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FloatLit:
@@ -6982,10 +7118,7 @@ Definitions:
 | | | | | | | | | | - Max_{n=%(timeframe)s}(%(source)s)
 | | | | | - List:
 | | | | - PackageDef:
-| | | | | - Some:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - $0
+| | | | | - None
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - PackageDef:
@@ -8232,17 +8365,11 @@ Definitions:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - PackageDef:
-| | | | | | | | - Some:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - $2
+| | | | | | | | - None
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - PackageDef:
-| | | | | | | | | | | - Some:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - $0
+| | | | | | | | | | | - None
 | | | | | | | | | | | - Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - Interface:
@@ -8263,10 +8390,7 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | - PackageDef:
-| | | | | | | | - Some:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - $1
+| | | | | | | | - None
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - Interface:
@@ -8281,10 +8405,7 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | - PackageDef:
-| | | | | | | | - Some:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - $0
+| | | | | | | | - None
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - Interface:
@@ -8566,10 +8687,7 @@ Definitions:
 | | | | | - List:
 | | - List:
 | - PackageDef:
-| | - Some:
-| | | - QualifiedName:
-| | | | - List:
-| | | | | - $0
+| | - None
 | | - Definitions:
 | | | - List:
 | | | | - FunAlias:

@@ -230,7 +230,7 @@ object order_factory
         def partialFactory(curried  : List[AST.Parameter],
                            base_    : AST.FunDef = f) =
         {
-            val base = (base_)
+            val base = withFullyQualifyArgs(base_)
             val prefix = (curried map { _.name } mkString "") + "_"
             val prefixed = prefix + base.name
 
@@ -238,8 +238,8 @@ object order_factory
                 val call = e.get.asInstanceOf[AST.FunCall]
                 def insertPrefix(in : List[String]): List[String] = {
                     in match {
-                        case "order" :: tl =>
-                            "order" :: insertPrefix(tl)
+                        case "" :: "order" :: tl =>
+                            "" :: "order" :: insertPrefix(tl)
                         case last :: Nil =>
                             "_curried" :: (prefix + last) :: Nil
                         case "_curried" :: last :: Nil if (last startsWith "price_") && (prefix contains "price") =>

@@ -472,7 +472,11 @@ package object Printer
                         indent() { content } +
                         crlf + "}"
 
-            def toScala = if (name == "_root_") content else wrapped(name)
+            def toScala =
+                if (name == "_root_")
+                    content
+                else
+                    wrapped(if (name.startsWith("$")) "" else name)
         }
 
     }
