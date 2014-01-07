@@ -61,20 +61,23 @@ object Runner extends syntax.scala.Parser {
         cleanUp(".output")
         cleanUp("_out")
 
-        print(s"parsing...")
+        Typed.withNewTopLevel({
+            print(s"parsing...")
 
-        val parsed = (getFileTree(new File("defs"))
-                        filter  { _.getName endsWith ".sc" }
-                        flatMap { parse }
-                ).toList
+            val parsed = (getFileTree(new File("defs"))
+                            filter  { _.getName endsWith ".sc" }
+                            flatMap { parse }
+                    ).toList
 
-        println("done")
+            println("done")
 
-        val names = buildNames(parsed)
+            val names = buildNames(parsed)
 
-        val typed = buildTyped(names)
+            val typed = buildTyped(names)
 
-        generatePython(typed)
+            generatePython(typed)
+        })
+
     }
 
 
@@ -95,7 +98,9 @@ object Runner extends syntax.scala.Parser {
             output.println(names)
         }
 
-        val names_2 = NameTable.apply(parse(new File(".output/names.sc")).get :: Nil)
+        val names_2 = Typed.withNewTopLevel({
+            NameTable.apply(parse(new File(".output/names.sc")).get :: Nil)
+        })
 
         if (names_2 != names)
             throw new Exception("re-parsed names differ from original ones.")
@@ -117,10 +122,12 @@ object Runner extends syntax.scala.Parser {
             output.println(typed)
         }
 
-        val typed_2 = Typer.apply(NameTable.apply(parse(new File(".output/typed.sc")).get :: Nil))
+//        val typed_2 = Typed.withNewTopLevel({
+//            Typer.apply(NameTable.apply(parse(new File(".output/typed.sc")).get :: Nil))
+//        })
 
-        if (typed != typed_2)
-            throw new Exception("re-parsed typed representation differs from the original one")
+//        if (typed != typed_2)
+//            throw new Exception("re-parsed typed representation differs from the original one")
 
         println("done")
 

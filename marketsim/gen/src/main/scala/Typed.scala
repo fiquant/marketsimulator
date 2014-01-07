@@ -163,7 +163,7 @@ package object Typed
         val scope       : Typed.Package
         val generics    : List[TypesUnbound.Parameter]
 
-        def apply(genericArgs : List[TypesUnbound.Base] = Nil) : TypesUnbound.Base
+        def apply(genericArgs : List[TypesUnbound.Base]) : TypesUnbound.Base
 
         override def equals(o : Any) = o match {
             case that : TypeDeclaration => name == that.name && scope.qualifiedName == that.scope.qualifiedName
@@ -348,7 +348,17 @@ package object Typed
         val (unbound_boolean,   boolean_, booleanFunc, booleanObservable) = genType("Boolean")
     }
 
-    val topLevel = new TopLevelPackage
+    private var topLevelInstance : Option[TopLevelPackage] = None
+
+    def topLevel = topLevelInstance.get
+
+    def withNewTopLevel[T](f : => T) : T ={
+        val old = topLevelInstance
+        topLevelInstance = Some(new TopLevelPackage)
+        val ret = f
+        topLevelInstance = old
+        ret
+    }
 
     abstract class SubPackageBase extends Package
     {
