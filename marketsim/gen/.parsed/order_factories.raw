@@ -326,8 +326,9 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - _curried
-| | | | | | | | | | | - price_Limit
+| | | | | | | | | | | - _
+| | | | | | | | | | | - price
+| | | | | | | | | | | - Limit
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
@@ -357,8 +358,9 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - _curried
-| | | | | | | | | | | - price_Limit
+| | | | | | | | | | | - _
+| | | | | | | | | | | - price
+| | | | | | | | | | | - Limit
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None

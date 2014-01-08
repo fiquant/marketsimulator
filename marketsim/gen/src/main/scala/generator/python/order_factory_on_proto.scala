@@ -72,13 +72,14 @@ object order_factory_on_proto
         val parameters  = x.parameters map { FactoryParameter(factory_of_curried, original, _) }
 
         override val prefix = curried map { _.name } mkString ""
-        override def name = prefix + "_" + original.name
+        override def name = x.name
         override def alias = original.alias
 
+        def makeCode(t : TypesBound.Base) =
+            Code.from(t.imports) ||| t.toPython
+
         override def interface =
-            s"IFunction["||| original.interface |||
-            ", "||| curriedTypesAsList(curried) |||"]" |||
-            ImportFrom("IFunction", "marketsim")
+            makeCode(x.ret_type)
 
         override def base_classes = interface
 

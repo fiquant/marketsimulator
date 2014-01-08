@@ -1,14 +1,18 @@
 from marketsim import registry
+from marketsim import IFunction
+from marketsim import IFunction
 from marketsim import IOrderGenerator
-from marketsim import IFunction
-from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IFunction
 @registry.expose(["Order", "Peg"])
-class volume_price_Peg(IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[float]]):
+class volume_price_Peg(
+
+
+
+IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
     """ 
     """ 
     def __init__(self, proto = None):

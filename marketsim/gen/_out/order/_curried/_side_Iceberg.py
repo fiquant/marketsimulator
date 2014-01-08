@@ -1,15 +1,17 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
-from marketsim import types
-from marketsim import Side
 from marketsim import IFunction
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import Side
 from marketsim import IObservable
 from marketsim import IOrderGenerator
-from marketsim import types
+from marketsim import IFunction
 from marketsim import Side
 @registry.expose(["Order", "Iceberg"])
-class side_Iceberg(IFunction[IOrderGenerator, IFunction[Side]
-]):
+class side_Iceberg(
+
+
+IFunction[IOrderGenerator,IFunction[Side]]):
     """ 
     """ 
     def __init__(self, lotSize = None, proto = None):

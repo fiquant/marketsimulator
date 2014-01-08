@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.orderbook.queue import _Queue_Impl
 from marketsim import IOrderBook
-from marketsim import types
+from marketsim import IFunction
 from marketsim import Side
 @registry.expose(["Asset's", "Queue"])
 class Queue(_Queue_Impl):

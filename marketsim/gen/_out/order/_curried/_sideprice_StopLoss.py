@@ -1,18 +1,20 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
-from marketsim import types
-from marketsim import Side
 from marketsim import IFunction
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import Side
 from marketsim import IFunction
 from marketsim import IObservable
 from marketsim import IOrderGenerator
-from marketsim import types
+from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
 @registry.expose(["Order", "StopLoss"])
-class sideprice_StopLoss(IFunction[IOrderGenerator, IFunction[Side],IFunction[float]
+class sideprice_StopLoss(
 
-]):
+
+
+IFunction[IOrderGenerator,IFunction[Side],IFunction[float]]):
     """ 
     """ 
     def __init__(self, maxloss = None, proto = None):

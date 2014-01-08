@@ -1,15 +1,17 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
-from marketsim import types
-from marketsim import Side
 from marketsim import IFunction
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import Side
 from marketsim import IObservable
 from marketsim import IOrderGenerator
-from marketsim import types
+from marketsim import IFunction
 from marketsim import Side
 @registry.expose(["Order", "WithExpiry"])
-class side_WithExpiry(IFunction[IOrderGenerator, IFunction[Side]
-]):
+class side_WithExpiry(
+
+
+IFunction[IOrderGenerator,IFunction[Side]]):
     """ 
     """ 
     def __init__(self, expiry = None, proto = None):

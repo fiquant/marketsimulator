@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim import IOrderGenerator
 from marketsim.gen._intrinsic.order.meta.peg import Factory_Impl
-from marketsim import types
+from marketsim import IFunction
 from marketsim import IOrderGenerator
-from marketsim import types
+from marketsim import IFunction
 @registry.expose(["Order", "Peg"])
 class Peg(IOrderGenerator, Factory_Impl):
     """ 

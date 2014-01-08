@@ -223,13 +223,20 @@ object order_factory
         val priceParam = createParam("price")
 
 
-        def withFullyQualifyArgs(f : AST.FunDef) = f.copy(parameters = f.parameters map {
-            p => p.copy(initializer = p.initializer map scope.fullyQualify)
+        def withFullyQualifyArgs(f : AST.FunDef) = f.copy(
+            ty = f.ty map scope.fullyQualify,
+            parameters =
+                    f.parameters map { p =>
+                        p.copy(
+                            initializer = p.initializer map scope.fullyQualify,
+                            ty = p.ty map scope.fullyQualify
+                        )
         })
 
         def partialFactory(curried  : List[AST.Parameter],
                            base_    : AST.FunDef = f) =
         {
+            //println(s"partial factory $curried for $base_")
             val base = withFullyQualifyArgs(base_)
             val prefix = (curried map { _.name } mkString "") + "_"
             val prefixed = prefix + base.name
@@ -247,16 +254,17 @@ object order_factory
                         case "" :: "order" :: tl =>
                             "" :: "order" :: insertPrefix(tl)
                         case last :: Nil =>
-                            "_curried" :: (prefix + last) :: Nil
-                        case "_curried" :: last :: Nil if (last startsWith "price_") && (prefix contains "price") =>
-                            "_curried" :: (prefix.replace("price", "").dropRight(1) + last) :: Nil
-                        case "_curried" :: last :: Nil =>
-                            "_curried" :: (prefix + last) :: Nil
+                            alias :+ last
+                        case "_" :: "price" :: tl if (curried find { _.name == "price" }).nonEmpty =>
+                            ("_" :: (curried map { _.name } filter { _ != "price"}  mkString "_") :: "price" :: tl) filter { _ != "" }
+                        case "_" :: tl =>
+                            "_" :: u_prefix :: tl
                         case _ => throw new Exception(s"cannot handle function call of form " + call)
                     }
                 }
                 val names = insertPrefix(call.name.names)
                 val fresh_name = AST.QualifiedName(names)
+                //println((curried map { _.name } mkString ("(", ",", ")")) + " -> " + call.name + " = " + fresh_name)
 
                 Some(call.copy(name = fresh_name))
             }
@@ -274,10 +282,8 @@ object order_factory
                     case x :: xs => locate(xs, n getPackageOrCreate x)
                 }
 
-            extract(curried map { _.name }, base.parameters) match {
+            (extract(curried map { _.name }, base.parameters) match {
                 case Some((cr, rest)) =>
-                    locate(alias) add AST.FunAlias(
-                        brief_name, AST.QualifiedName("" :: "order" :: "_curried" :: prefixed :: Nil))
                     Some(base.copy(
                         name = prefixed,
                         parameters = rest,
@@ -286,11 +292,9 @@ object order_factory
                                     AST.QualifiedName(
                                         order_factory_curried.name.split('.').toList),
                                     base.name :: Nil) :: Nil,
-                        ty = ty))
+                        ty = ty map scope.fullyQualify))
                 case _ =>
                     if (hasProto(base.parameters)){
-                        locate(alias) add AST.FunAlias(
-                            brief_name, AST.QualifiedName("" :: "order" :: "_curried" :: prefixed :: Nil))
                         Some(base.copy(
                             name = prefixed,
                             parameters = withAdjustedProto,
@@ -299,12 +303,21 @@ object order_factory
                                         AST.QualifiedName(
                                             order_factory_on_proto.name.split('.').toList),
                                         base.name :: Nil) :: Nil,
-                            ty = ty))
+                            ty = ty map scope.fullyQualify))
                     }
                     else
                         None
-            }
+            }) map  { fc =>
+                locate(alias) add AST.FunAlias(
+                    brief_name, AST.QualifiedName("" :: "order" :: "_curried" :: prefixed :: Nil))
 
+                val curried = scope getPackageOrCreate "_curried"
+
+                if (!(curried.members contains fc.name))
+                    curried add fc
+
+                fc
+            }
         }
 
         val priceFactory = partialFactory(priceParam :: Nil)
@@ -315,21 +328,6 @@ object order_factory
         val volumePriceFactory = partialFactory(volumeParam :: priceParam :: Nil)
         val side_priceFactory = priceFactory flatMap { partialFactory(sideParam :: Nil, _) }
         val volume_priceFactory = priceFactory flatMap { partialFactory(volumeParam :: Nil, _) }
-
-        val scope_curried = scope getPackageOrCreate "_curried"
-
-        List(priceFactory,
-            sideFactory,
-            volumeFactory,
-            sidePriceFactory,
-            priceVolumeFactory,
-            side_priceFactory,
-            volume_priceFactory,
-            volumePriceFactory
-        ) collect { case Some(p) =>
-            if (!(scope_curried.members contains p.name))
-                scope_curried.add(p)
-        }
     }
 
     val name = "python.order.factory"

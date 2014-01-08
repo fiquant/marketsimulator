@@ -2,9 +2,9 @@ from marketsim import registry
 from marketsim import IOrderGenerator
 from marketsim.gen._intrinsic.order.meta.floating_price import Factory_Impl
 from marketsim import IFunction
-from marketsim import types
+from marketsim import IFunction
 from marketsim import IOrderGenerator
-from marketsim import types
+from marketsim import IFunction
 @registry.expose(["Order", "FloatingPrice"])
 class FloatingPrice(IOrderGenerator, Factory_Impl):
     """ 

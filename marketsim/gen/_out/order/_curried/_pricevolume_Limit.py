@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IFunction
-from marketsim import types
+from marketsim import IFunction
 from marketsim import Side
 @registry.expose(["Order", "Limit"])
 class pricevolume_Limit(IFunction[IOrderGenerator, IFunction[float],IFunction[float]

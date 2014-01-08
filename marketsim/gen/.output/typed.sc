@@ -361,7 +361,7 @@ package order {
         
         @python.order.factory.on_proto("FloatingPrice")
         def sideprice_FloatingPrice(floatingPrice : .IFunction[.Float] = .constant(10.0),
-                                    proto : ((() => .Side),(() => .Float)) => .IOrderGenerator = .order._curried.sideprice_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+                                    proto : (() => .Side) => ((() => .Float) => .IOrderGenerator) = .order._curried.side_price_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         
@@ -390,7 +390,7 @@ package order {
         
         @python.order.factory.on_proto("FloatingPrice")
         def volumeprice_FloatingPrice(floatingPrice : .IFunction[.Float] = .constant(10.0),
-                                      proto : ((() => .Float),(() => .Float)) => .IOrderGenerator = .order._curried.volumeprice_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
+                                      proto : (() => .Float) => ((() => .Float) => .IOrderGenerator) = .order._curried.volume_price_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
             
         
         
@@ -421,7 +421,7 @@ package order {
         
         
         @python.order.factory.on_proto("Peg")
-        def sideprice_Peg(proto : ((() => .Side),(() => .Float)) => .IOrderGenerator = .order._curried.sideprice_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+        def sideprice_Peg(proto : (() => .Side) => ((() => .Float) => .IOrderGenerator) = .order._curried.side_price_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         
@@ -476,7 +476,7 @@ package order {
         
         
         @python.order.factory.on_proto("Peg")
-        def pricevolume_Peg(proto : ((() => .Float),(() => .Float)) => .IOrderGenerator = .order._curried.volumeprice_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
+        def pricevolume_Peg(proto : (() => .Float) => ((() => .Float) => .IOrderGenerator) = .order._curried.volume_price_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
             
         
         
@@ -623,7 +623,7 @@ package order {
         
         
         @python.order.factory.on_proto("Peg")
-        def volumeprice_Peg(proto : ((() => .Float),(() => .Float)) => .IOrderGenerator = .order._curried.volumeprice_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
+        def volumeprice_Peg(proto : (() => .Float) => ((() => .Float) => .IOrderGenerator) = .order._curried.volume_price_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
             
         
         
@@ -641,7 +641,7 @@ package order {
         
         @python.order.factory.on_proto("FloatingPrice")
         def pricevolume_FloatingPrice(floatingPrice : .IFunction[.Float] = .constant(10.0),
-                                      proto : ((() => .Float),(() => .Float)) => .IOrderGenerator = .order._curried.volumeprice_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
+                                      proto : (() => .Float) => ((() => .Float) => .IOrderGenerator) = .order._curried.volume_price_Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
             
         
         

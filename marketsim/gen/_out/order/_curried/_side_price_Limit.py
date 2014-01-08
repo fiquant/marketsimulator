@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim import IOrderGenerator
 from marketsim import IFunction
-from marketsim import types
+from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
 @registry.expose(["Order", "Limit"])

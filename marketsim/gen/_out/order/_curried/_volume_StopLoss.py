@@ -1,12 +1,14 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
 from marketsim import IFunction
+from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IObservable
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 @registry.expose(["Order", "StopLoss"])
-class volume_StopLoss(IFunction[IOrderGenerator, IFunction[float]]):
+class volume_StopLoss(
+
+IFunction[IOrderGenerator,IFunction[float]]):
     """ 
     """ 
     def __init__(self, maxloss = None, proto = None):

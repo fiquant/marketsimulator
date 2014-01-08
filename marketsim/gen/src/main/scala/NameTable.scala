@@ -151,6 +151,7 @@ package object NameTable {
             lookupFunction(name.names) match {
                 case r : Some[_] => r
                 case None =>
+                    println("resolve alias for " + name)
                     lookupFunctionAlias(name.names) match {
                         case Some((scope, alias)) =>
                             scope resolveFunction alias.target
@@ -166,16 +167,22 @@ package object NameTable {
             case AST.Condition(c, x, y) => AST.Condition(c, fullyQualify(x), fullyQualify(y))
         }
 
+        def fullyQualify(n : AST.QualifiedName) =
+            lookup[AST.Member](n.names) match {
+                case Some((scope, m)) => scope qualifyName m.name
+                case None => throw new Exception(s"Cannot lookup $n from scope $this")
+            }
+
+        def fullyQualify(t : AST.Type) : AST.Type = t match {
+            case AST.SimpleType(n, generics) => AST.SimpleType(fullyQualify(n), generics map fullyQualify)
+            case AST.TupleType(elems) => AST.TupleType(elems map fullyQualify)
+            case AST.FunctionType(args, ret) => AST.FunctionType(args map fullyQualify, fullyQualify(ret))
+            case AST.UnitType => AST.UnitType
+        }
+
         def fullyQualify(e : AST.Expr) : AST.Expr = e match {
             case AST.FunCall(n, params) =>
-                resolveFunction(n) match {
-                    case Some((scope, fun)) =>
-                        AST.FunCall(
-                            scope qualifyName fun.name,
-                            params map fullyQualify)
-                    case None =>
-                        throw new Exception(s"cannot find function $n from scope " + qualifiedNameAnon)
-                }
+                AST.FunCall(fullyQualify(n), params map fullyQualify)
             case x : AST.StringLit => x
             case x : AST.FloatLit => x
             case x : AST.IntLit => x

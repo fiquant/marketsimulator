@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim import float
 from marketsim.ops._all import Observable
-from marketsim import types
+from marketsim import IFunction
 from marketsim import Side
-from marketsim import types
+from marketsim import IFunction
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Price function", "LiquidityProvider"])

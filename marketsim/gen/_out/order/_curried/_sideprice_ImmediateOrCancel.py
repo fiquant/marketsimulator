@@ -1,17 +1,19 @@
 from marketsim import registry
+from marketsim import IFunction
 from marketsim import IOrderGenerator
-from marketsim import types
+from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
-from marketsim import IFunction
 from marketsim import IOrderGenerator
-from marketsim import types
+from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
 @registry.expose(["Order", "ImmediateOrCancel"])
-class sideprice_ImmediateOrCancel(IFunction[IOrderGenerator, IFunction[Side],IFunction[float]
+class sideprice_ImmediateOrCancel(
 
-]):
+
+
+IFunction[IOrderGenerator,IFunction[Side],IFunction[float]]):
     """ 
     """ 
     def __init__(self, proto = None):

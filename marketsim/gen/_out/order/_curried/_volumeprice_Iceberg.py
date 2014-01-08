@@ -1,6 +1,6 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
 from marketsim import IFunction
+from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import IObservable
@@ -8,8 +8,10 @@ from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IFunction
 @registry.expose(["Order", "Iceberg"])
-class pricevolume_Iceberg(IFunction[IOrderGenerator, IFunction[float],IFunction[float]
-]):
+class volumeprice_Iceberg(
+
+
+IFunction[IOrderGenerator,IFunction[float],IFunction[float]]):
     """ 
     """ 
     def __init__(self, lotSize = None, proto = None):
@@ -28,7 +30,7 @@ class pricevolume_Iceberg(IFunction[IOrderGenerator, IFunction[float],IFunction[
         ]
     }
     def __repr__(self):
-        return "pricevolume_Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
+        return "volumeprice_Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
     
     def __call__(self, price = None,volume = None):
         from marketsim.gen._out.order._Iceberg import Iceberg

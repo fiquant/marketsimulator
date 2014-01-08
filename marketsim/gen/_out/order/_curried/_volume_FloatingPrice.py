@@ -1,13 +1,15 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
 from marketsim import IFunction
+from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IFunction
 @registry.expose(["Order", "FloatingPrice"])
-class volume_FloatingPrice(IFunction[IOrderGenerator, IFunction[float]]):
+class volume_FloatingPrice(
+
+IFunction[IOrderGenerator,IFunction[float]]):
     """ 
     """ 
     def __init__(self, floatingPrice = None, proto = None):

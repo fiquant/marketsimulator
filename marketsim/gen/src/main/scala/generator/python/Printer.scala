@@ -35,7 +35,7 @@ object Printer {
                 s"IFunction[$types]"
             }
 
-            def imports = (predef.ImportFrom("types", "marketsim") :: ret.imports) ++ (args flatMap { _.imports })
+            def imports = (predef.ImportFrom("IFunction", "marketsim") :: ret.imports) ++ (args flatMap { _.imports })
         }
 
         trait UsedDefined extends st.UsedDefined with Printable with Bound
