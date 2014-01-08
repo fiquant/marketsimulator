@@ -236,7 +236,8 @@ object order_factory
 
             val orig_path = base.name split "_"
             val (orig_scope, brief_name_arr) = orig_path.splitAt(orig_path.length - 1)
-            val alias = "_" :: prefix.take(prefix.length - 1) :: orig_scope.toList
+            val u_prefix = curried map { _.name } mkString "_"
+            val alias = "_" :: u_prefix :: orig_scope.toList
             val brief_name = brief_name_arr(0)
 
             def addPrefix(e : Option[AST.Expr]) = {

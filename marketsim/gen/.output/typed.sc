@@ -230,6 +230,23 @@ package order {
         }
         
         
+        package side_price {
+            def Limit = .order._curried.sideprice_Limit
+            
+            def ImmediateOrCancel = .order._curried.sideprice_ImmediateOrCancel
+            
+            def StopLoss = .order._curried.sideprice_StopLoss
+            
+            def WithExpiry = .order._curried.sideprice_WithExpiry
+            
+            def FloatingPrice = .order._curried.sideprice_FloatingPrice
+            
+            def Iceberg = .order._curried.sideprice_Iceberg
+            
+            def Peg = .order._curried.sideprice_Peg
+        }
+        
+        
         package price {
             def Limit = .order._curried.price_Limit
             
@@ -247,24 +264,7 @@ package order {
         }
         
         
-        package sideprice {
-            def Limit = .order._curried.sideprice_Limit
-            
-            def ImmediateOrCancel = .order._curried.sideprice_ImmediateOrCancel
-            
-            def StopLoss = .order._curried.sideprice_StopLoss
-            
-            def WithExpiry = .order._curried.sideprice_WithExpiry
-            
-            def FloatingPrice = .order._curried.sideprice_FloatingPrice
-            
-            def Iceberg = .order._curried.sideprice_Iceberg
-            
-            def Peg = .order._curried.sideprice_Peg
-        }
-        
-        
-        package volumeprice {
+        package volume_price {
             def Limit = .order._curried.volumeprice_Limit
             
             def ImmediateOrCancel = .order._curried.volumeprice_ImmediateOrCancel
@@ -278,6 +278,23 @@ package order {
             def Iceberg = .order._curried.volumeprice_Iceberg
             
             def Peg = .order._curried.volumeprice_Peg
+        }
+        
+        
+        package price_volume {
+            def Limit = .order._curried.pricevolume_Limit
+            
+            def ImmediateOrCancel = .order._curried.pricevolume_ImmediateOrCancel
+            
+            def StopLoss = .order._curried.pricevolume_StopLoss
+            
+            def WithExpiry = .order._curried.pricevolume_WithExpiry
+            
+            def FloatingPrice = .order._curried.pricevolume_FloatingPrice
+            
+            def Iceberg = .order._curried.pricevolume_Iceberg
+            
+            def Peg = .order._curried.pricevolume_Peg
         }
         
         
@@ -313,23 +330,6 @@ package order {
             def Iceberg = .order._curried.volume_Iceberg
             
             def Peg = .order._curried.volume_Peg
-        }
-        
-        
-        package pricevolume {
-            def Limit = .order._curried.pricevolume_Limit
-            
-            def ImmediateOrCancel = .order._curried.pricevolume_ImmediateOrCancel
-            
-            def StopLoss = .order._curried.pricevolume_StopLoss
-            
-            def WithExpiry = .order._curried.pricevolume_WithExpiry
-            
-            def FloatingPrice = .order._curried.pricevolume_FloatingPrice
-            
-            def Iceberg = .order._curried.pricevolume_Iceberg
-            
-            def Peg = .order._curried.pricevolume_Peg
         }
         
     }
