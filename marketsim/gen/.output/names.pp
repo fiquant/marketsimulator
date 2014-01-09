@@ -728,7 +728,6 @@ package observable {@category = "Price function"
         def Balance(trader = SingleProxy()) : IObservable[Price]
             
         
-        @python.observable()
         @label = "RoughPnL_{%(trader)s}"
         def RoughPnL(trader = SingleProxy())
              = Observable(Balance(trader)+orderbook.NaiveCumulativePrice(orderbook.OfTrader(trader),Position(trader)))
@@ -738,7 +737,6 @@ package observable {@category = "Price function"
         def Position(trader = SingleProxy()) : IObservable[Volume]
             
         
-        @python.observable()
         @label = "Efficiency_{%(trader)s}"
         def Efficiency(trader = SingleProxy())
              = Observable(Balance(trader)+orderbook.CumulativePrice(orderbook.OfTrader(trader),Position(trader)))
@@ -748,7 +746,6 @@ package observable {@category = "Price function"
         def SingleProxy() : ISingleAssetTrader
             
         
-        @python()
         @label = "EfficiencyTrend_{%(trader)s}"
         def EfficiencyTrend(trader = SingleProxy(),
                             alpha = 0.15)

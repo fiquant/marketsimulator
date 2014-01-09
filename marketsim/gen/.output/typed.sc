@@ -840,7 +840,6 @@ package observable {@category = "Price function"
             
         
         @label = "RoughPnL_{%(trader)s}"
-        @python.observable()
         def RoughPnL(trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Float]
             
             	 = .observable.Observable(.observable.trader.Balance(trader)+.observable.orderbook.NaiveCumulativePrice(.observable.orderbook.OfTrader(trader),.observable.trader.Position(trader)))
@@ -851,7 +850,6 @@ package observable {@category = "Price function"
             
         
         @label = "Efficiency_{%(trader)s}"
-        @python.observable()
         def Efficiency(trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Float]
             
             	 = .observable.Observable(.observable.trader.Balance(trader)+.observable.orderbook.CumulativePrice(.observable.orderbook.OfTrader(trader),.observable.trader.Position(trader)))
@@ -862,7 +860,6 @@ package observable {@category = "Price function"
             
         
         @label = "EfficiencyTrend_{%(trader)s}"
-        @python()
         def EfficiencyTrend(trader : .ISingleAssetTrader = .observable.trader.SingleProxy(),
                             alpha : .Float = 0.15) : () => .Float
             

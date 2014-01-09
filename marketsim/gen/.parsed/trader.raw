@@ -193,12 +193,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - observable
-| | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Efficiency_{%(trader)s}
@@ -254,12 +248,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - observable
-| | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - RoughPnL_{%(trader)s}
@@ -307,11 +295,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - EfficiencyTrend_{%(trader)s}
