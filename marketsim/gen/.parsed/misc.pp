@@ -84,7 +84,6 @@ package observable {
 @category = "Basic"
 
 package  {
-    @python()
     @label = "C=%(x)s"
     def constant(x = 1.0) : IFunction[Float]
          = const(x)

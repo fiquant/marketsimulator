@@ -1,3 +1,4 @@
+@python = "no"
 package trash
 
 package types {

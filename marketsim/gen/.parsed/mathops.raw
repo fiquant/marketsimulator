@@ -49,9 +49,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - exp
 | | | | | | | | | - Attribute:
-| | | | | | | | | | - category
-| | | | | | | | | | - Log/Pow
-| | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - e^{%(x)s}
 | | | | | | | - FunDef:
@@ -92,9 +89,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - log
 | | | | | | | | | - Attribute:
-| | | | | | | | | | - category
-| | | | | | | | | | - Log/Pow
-| | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - log(%(x)s)
 | | | | | | | - FunDef:
@@ -134,9 +128,6 @@ Definitions:
 | | | | | | | | | | | | - mathops
 | | | | | | | | | | - List:
 | | | | | | | | | | | - sqrt
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - category
-| | | | | | | | | | - Log/Pow
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - \\sqrt{%(x)s}
@@ -194,9 +185,6 @@ Definitions:
 | | | | | | | | | | | | - mathops
 | | | | | | | | | | - List:
 | | | | | | | | | | | - pow
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - category
-| | | | | | | | | | - Log/Pow
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - %(base)s^{%(power)s}

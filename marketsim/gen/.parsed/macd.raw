@@ -77,11 +77,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - MACD_{%(fast)s}^{%(slow)s}(%(x)s)
@@ -164,11 +159,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
@@ -245,11 +235,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))

@@ -1,7 +1,6 @@
 @category = "Price function"
 package observable.pricefunc
 {
-    @python.observable
     def LiquidityProvider(
             side = side.Sell(),
             initialValue = 100.,

@@ -137,11 +137,6 @@ Definitions:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Annotation:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - \\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}
@@ -193,11 +188,6 @@ Definitions:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Annotation:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
@@ -307,11 +297,6 @@ Definitions:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Annotation:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - \\sqrt{\\sigma^2_{cumul}_{%(source)s}}
@@ -352,11 +337,6 @@ Definitions:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Annotation:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - RSD_{cumul}_{%(source)s}
@@ -521,11 +501,6 @@ Definitions:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Annotation:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - \\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}
@@ -577,11 +552,6 @@ Definitions:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Annotation:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}

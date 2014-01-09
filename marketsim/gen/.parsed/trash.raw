@@ -336,3 +336,6 @@ Definitions:
 | | | | | | | | - List:
 | | | | | - List:
 | | - List:
+| | | - Attribute:
+| | | | - python
+| | | | - no

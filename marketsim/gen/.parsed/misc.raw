@@ -654,11 +654,6 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - C=%(x)s

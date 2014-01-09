@@ -22,7 +22,6 @@ package mathops {@category = "Log/Pow"
         /** Exponent of x
          *
          */
-        @category = "Log/Pow"
         @label = "e^{%(x)s}"
         @python.mathops("exp")
         def Exp(x : .IFunction[.Float] = .constant(1.0)) : () => .Float
@@ -31,7 +30,6 @@ package mathops {@category = "Log/Pow"
         /** Natural logarithm of x (to base e)
          *
          */
-        @category = "Log/Pow"
         @label = "log(%(x)s)"
         @python.mathops("log")
         def Log(x : .IFunction[.Float] = .constant(1.0)) : () => .Float
@@ -40,7 +38,6 @@ package mathops {@category = "Log/Pow"
         /** Square root of x
          *
          */
-        @category = "Log/Pow"
         @label = "\\sqrt{%(x)s}"
         @python.mathops("sqrt")
         def Sqrt(x : .IFunction[.Float] = .constant(1.0)) : () => .Float
@@ -54,7 +51,6 @@ package mathops {@category = "Log/Pow"
          * If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
          * ``pow(x, y)`` is undefined, and raises ``ValueError``.
          */
-        @category = "Log/Pow"
         @label = "%(base)s^{%(power)s}"
         @python.mathops("pow")
         def Pow(base : .IFunction[.Float] = .constant(1.0),
@@ -725,7 +721,6 @@ package order {
 package observable {@category = "Price function"
     package pricefunc {
         
-        @python.observable()
         def LiquidityProvider(side : () => .Side = .side.Sell(),
                               initialValue : .Float = 100.0,
                               priceDistr : () => .Float = .mathutils.rnd.lognormvariate(0.0,0.1),
@@ -783,7 +778,6 @@ package observable {@category = "Price function"
             	 = .observable.sidefunc.FundamentalValue(.observable.EW.Avg(.observable.orderbook.MidPrice(book),alpha),book)
         
         
-        @python.observable()
         def Noise(side_distribution : .IFunction[.Float] = .mathutils.rnd.uniform(0.0,1.0)) : () => .Side
             
             	 = if side_distribution>.const(0.5) then .side.Sell() else .side.Buy()
@@ -807,7 +801,6 @@ package observable {@category = "Price function"
     @category = "RSI"
     package rsi {
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
-        @python()
         def Raw(source : .IObservable[.Float] = .const(),
                 timeframe : .Float = 10.0,
                 alpha : .Float = 0.015) : .IFunction[.Float]
@@ -818,7 +811,6 @@ package observable {@category = "Price function"
     @category = "MACD"
     package macd {
         @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
-        @python()
         def MACD(x : .IObservable[.Float] = .const(),
                  slow : .Float = 26.0,
                  fast : .Float = 12.0) : .IFunction[.Float]
@@ -826,7 +818,6 @@ package observable {@category = "Price function"
             	 = .observable.EW.Avg(x,2.0/(fast+1))-.observable.EW.Avg(x,2.0/(slow+1))
         
         @label = "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-        @python()
         def Signal(x : .IObservable[.Float] = .const(),
                    slow : .Float = 26.0,
                    fast : .Float = 12.0,
@@ -836,7 +827,6 @@ package observable {@category = "Price function"
             	 = .observable.EW.Avg(.observable.OnEveryDt(step,.observable.macd.MACD(x,slow,fast)),2/(timeframe+1))
         
         @label = "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-        @python()
         def Histogram(x : .IObservable[.Float] = .const(),
                       slow : .Float = 26.0,
                       fast : .Float = 12.0,
@@ -925,7 +915,6 @@ package observable {@category = "Price function"
             	 = .observable.ObservablePrice(.IfDefined(.observable.orderbook.BestPrice(queue),.IfDefined(.observable.orderbook.LastPrice(queue),defaultValue)))
         
         @label = "Price_{%(alpha)s}^{%(queue)s}"
-        @python()
         def WeightedPrice(queue : .IOrderQueue = .observable.orderbook.Asks(),
                           alpha : .Float = 0.015) : .IFunction[.Float]
             
@@ -937,26 +926,22 @@ package observable {@category = "Price function"
             
         
         @label = "LastAsk_{%(book)s}"
-        @python()
         def AskLastPrice(book : .IOrderBook = .observable.orderbook.OfTrader()) : .IObservable[.Price]
             
             	 = .observable.orderbook.LastPrice(.observable.orderbook.Asks(book))
         
         
-        @python()
         def BidLastTradePrice(book : .IOrderBook = .observable.orderbook.OfTrader()) : .IObservable[.Price]
             
             	 = .observable.orderbook.LastTradePrice(.observable.orderbook.Bids(book))
         
         @label = "Ask_{%(alpha)s}^{%(book)s}"
-        @python()
         def AskWeightedPrice(book : .IOrderBook = .observable.orderbook.OfTrader(),
                              alpha : .Float = 0.015) : .IFunction[.Float]
             
             	 = .observable.orderbook.WeightedPrice(.observable.orderbook.Asks(book),alpha)
         
         
-        @python()
         def MidPrice(book : .IOrderBook = .observable.orderbook.OfTrader()) : .IObservable[.Price]
             
             	 = .observable.ObservablePrice((.observable.orderbook.AskPrice(book)+.observable.orderbook.BidPrice(book))/.const(2.0))
@@ -968,14 +953,12 @@ package observable {@category = "Price function"
             	 = .observable.orderbook.Queue(book,.side.Sell())
         
         @label = "Bid_{%(alpha)s}^{%(book)s}"
-        @python()
         def BidWeightedPrice(book : .IOrderBook = .observable.orderbook.OfTrader(),
                              alpha : .Float = 0.015) : .IFunction[.Float]
             
             	 = .observable.orderbook.WeightedPrice(.observable.orderbook.Bids(book),alpha)
         
         @label = "Ask_{%(book)s}"
-        @python()
         def AskPrice(book : .IOrderBook = .observable.orderbook.OfTrader()) : .IObservable[.Price]
             
             	 = .observable.orderbook.BestPrice(.observable.orderbook.Asks(book))
@@ -986,7 +969,6 @@ package observable {@category = "Price function"
             
         
         @label = "Bid^{%(book)s}"
-        @python()
         def BidPrice(book : .IOrderBook = .observable.orderbook.OfTrader()) : .IObservable[.Price]
             
             	 = .observable.orderbook.BestPrice(.observable.orderbook.Bids(book))
@@ -1014,13 +996,11 @@ package observable {@category = "Price function"
             
         
         
-        @python()
         def AskLastTradePrice(book : .IOrderBook = .observable.orderbook.OfTrader()) : .IObservable[.Price]
             
             	 = .observable.orderbook.LastTradePrice(.observable.orderbook.Asks(book))
         
         @label = "LastBid^{%(book)s}"
-        @python()
         def BidLastPrice(book : .IOrderBook = .observable.orderbook.OfTrader()) : .IObservable[.Price]
             
             	 = .observable.orderbook.LastPrice(.observable.orderbook.Bids(book))
@@ -1044,14 +1024,12 @@ package observable {@category = "Price function"
             
         
         
-        @python()
         def NaiveCumulativePrice(book : .IOrderBook = .observable.orderbook.OfTrader(),
                                  depth : .IFunction[.Float] = .constant()) : .IObservable[.Price]
             
             	 = .observable.ObservablePrice(if depth<.const(0.0) then depth*.observable.orderbook.AskPrice(book) else if depth>.const(0.0) then depth*.observable.orderbook.BidPrice(book) else .const(0.0))
         
         
-        @python()
         def Spread(book : .IOrderBook = .observable.orderbook.OfTrader()) : .IObservable[.Price]
             
             	 = .observable.ObservablePrice(.observable.orderbook.AskPrice(book)-.observable.orderbook.BidPrice(book))
@@ -1092,14 +1070,12 @@ package observable {@category = "Price function"
                 
             
             @label = "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}"
-            @python()
             def StdDev(source : .IObservable[.Float] = .const(),
                        alpha : .Float = 0.015) : () => .Float
                 
                 	 = .mathops.Sqrt(.observable.EW.Var(source,alpha))
             
             @label = "RSD_{\\alpha=%(alpha)s}_{%(source)s}"
-            @python()
             def RelStdDev(source : .IObservable[.Float] = .const(),
                           alpha : .Float = 0.15) : .IObservable[.Float]
                 
@@ -1119,13 +1095,11 @@ package observable {@category = "Price function"
                 
             
             @label = "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}"
-            @python()
             def StdDev(source : .IObservable[.Float] = .const()) : () => .Float
                 
                 	 = .mathops.Sqrt(.observable.Cumulative.Var(source))
             
             @label = "RSD_{cumul}_{%(source)s}"
-            @python()
             def RelStdDev(source : .IObservable[.Float] = .const()) : .IObservable[.Float]
                 
                 	 = (source-.observable.Cumulative.Avg(source))/.observable.Cumulative.StdDev(source)
@@ -1147,14 +1121,12 @@ package observable {@category = "Price function"
                 	 = .observable.Max(.const(0),.observable.Moving.Avg(source*source,timeframe)-.observable.Sqr(.observable.Moving.Avg(source,timeframe)))
             
             @label = "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}"
-            @python()
             def StdDev(source : .IObservable[.Float] = .const(),
                        timeframe : .Float = 100.0) : () => .Float
                 
                 	 = .mathops.Sqrt(.observable.Moving.Var(source))
             
             @label = "RSD_{n=%(timeframe)s}_{%(source)s}"
-            @python()
             def RelStdDev(source : .IObservable[.Float] = .const(),
                           timeframe : .Float = 100.0) : .IObservable[.Float]
                 
@@ -1177,7 +1149,6 @@ package observable {@category = "Price function"
         	 = if x<y then x else y
     
     @label = "Downs_{%(timeframe)s}(%(source)s)"
-    @python.observable()
     def DownMovements(source : .IObservable[.Float] = .const(),
                       timeframe : .Float = 10.0) : .IObservable[.Float]
         
@@ -1197,7 +1168,6 @@ package observable {@category = "Price function"
         	 = if x>y then x else y
     
     @label = "Ups_{%(timeframe)s}(%(source)s)"
-    @python.observable()
     def UpMovements(source : .IObservable[.Float] = .const(),
                     timeframe : .Float = 10.0) : .IObservable[.Float]
         
@@ -1211,7 +1181,6 @@ package observable {@category = "Price function"
         	 = x*x
     
     @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)"
-    @python()
     def RSI(book : .IOrderBook = .observable.orderbook.OfTrader(),
             timeframe : .Float = 10.0,
             alpha : .Float = 0.015) : .IObservable[.Float]
@@ -1247,7 +1216,7 @@ package observable {@category = "Price function"
         
 }
 
-
+@python = "no"
 package trash {
     package types {
         package  {
@@ -1308,7 +1277,6 @@ package trash {
 @category = "Basic"
 package  {
     @label = "C=%(x)s"
-    @python()
     def constant(x : .Float = 1.0) : .IFunction[.Float]
         
         	 = .const(x)

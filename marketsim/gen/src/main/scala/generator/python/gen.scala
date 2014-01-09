@@ -9,18 +9,20 @@ package object gen
     // TODO: memoization
     def generationUnit(f : Typed.Function) = 
     {
-        f.annotations collect { 
-            case Typed.Annotation(g : PythonGenerator, args) => g.generatePython(args)_ 
-        } match {
-            case Nil =>
-                None
-                // an exception should be thrown here if function body is empty
+        if (f.tryGetAttribute("python") == Some("no"))
+            None
+        else
+            f.annotations collect {
+                case Typed.Annotation(g : PythonGenerator, args) => g.generatePython(args)_
+            } match {
+                case Nil =>
+                    Some(base.python.generatePython(Nil)(f))
 
-            case g :: Nil =>
-                Some(g(f))
+                case g :: Nil =>
+                    Some(g(f))
 
-            case _ => throw new Exception("Multiple python generators are given for function " + f)
-        }
+                case _ => throw new Exception("Multiple python generators are given for function " + f)
+            }
     }
     
     def apply(p : Typed.Package, dst_dir : String, idx_dir : String)

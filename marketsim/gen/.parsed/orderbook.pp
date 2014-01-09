@@ -23,12 +23,10 @@ package observable.orderbook {
     def BestPrice(queue = Asks()) : IObservable[Price]
         
     
-    @python()
     @label = "Ask_{%(book)s}"
     def AskPrice(book = OfTrader())
          = BestPrice(Asks(book))
     
-    @python()
     @label = "Bid^{%(book)s}"
     def BidPrice(book = OfTrader())
          = BestPrice(Bids(book))
@@ -37,12 +35,10 @@ package observable.orderbook {
     def LastPrice(queue = Asks()) : IObservable[Price]
         
     
-    @python()
     @label = "LastAsk_{%(book)s}"
     def AskLastPrice(book = OfTrader())
          = LastPrice(Asks(book))
     
-    @python()
     @label = "LastBid^{%(book)s}"
     def BidLastPrice(book = OfTrader())
          = LastPrice(Bids(book))
@@ -51,11 +47,9 @@ package observable.orderbook {
     def LastTradePrice(queue = Asks()) : IObservable[Price]
         
     
-    @python()
     def AskLastTradePrice(book = OfTrader())
          = LastTradePrice(Asks(book))
     
-    @python()
     def BidLastTradePrice(book = OfTrader())
          = LastTradePrice(Bids(book))
     
@@ -68,19 +62,16 @@ package observable.orderbook {
                       defaultValue = constant(100.0))
          = ObservablePrice(IfDefined(BestPrice(queue),IfDefined(LastPrice(queue),defaultValue)))
     
-    @python()
     @label = "Price_{%(alpha)s}^{%(queue)s}"
     def WeightedPrice(queue = Asks(),
                       alpha = 0.015)
          = EW.Avg(LastTradePrice(queue)*LastTradeVolume(queue),alpha)/EW.Avg(LastTradeVolume(queue),alpha)
     
-    @python()
     @label = "Ask_{%(alpha)s}^{%(book)s}"
     def AskWeightedPrice(book = OfTrader(),
                          alpha = 0.015)
          = WeightedPrice(Asks(book),alpha)
     
-    @python()
     @label = "Bid_{%(alpha)s}^{%(book)s}"
     def BidWeightedPrice(book = OfTrader(),
                          alpha = 0.015)
@@ -90,11 +81,9 @@ package observable.orderbook {
     def TickSize(book = OfTrader()) : () => Price
         
     
-    @python()
     def Spread(book = OfTrader())
          = ObservablePrice(AskPrice(book)-BidPrice(book))
     
-    @python()
     def MidPrice(book = OfTrader())
          = ObservablePrice((AskPrice(book)+BidPrice(book))/2.0)
     
@@ -110,7 +99,6 @@ package observable.orderbook {
                      volumeCount = 10) : IFunction[VolumeLevels]
         
     
-    @python()
     def NaiveCumulativePrice(book = OfTrader(),
                              depth = constant())
          = ObservablePrice(if depth<0.0 then depth*AskPrice(book) else if depth>0.0 then depth*BidPrice(book) else 0.0)

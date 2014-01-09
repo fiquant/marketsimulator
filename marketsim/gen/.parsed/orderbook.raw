@@ -218,11 +218,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Ask_{%(book)s}
@@ -255,11 +250,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Bid^{%(book)s}
@@ -326,11 +316,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - LastAsk_{%(book)s}
@@ -363,11 +348,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - LastBid^{%(book)s}
@@ -434,11 +414,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | | | - FunDef:
 | | | | | - BidLastTradePrice
 | | | | | - List:
@@ -468,11 +443,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | | | - FunDef:
 | | | | | - LastTradeVolume
 | | | | | - List:
@@ -638,11 +608,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Price_{%(alpha)s}^{%(queue)s}
@@ -684,11 +649,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Ask_{%(alpha)s}^{%(book)s}
@@ -730,11 +690,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Bid_{%(alpha)s}^{%(book)s}
@@ -807,11 +762,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | | | - FunDef:
 | | | | | - MidPrice
 | | | | | - List:
@@ -854,11 +804,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | | | - FunDef:
 | | | | | - CumulativePrice
 | | | | | - List:
@@ -1024,11 +969,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | - List:
 | | | - Attribute:
 | | | | - category

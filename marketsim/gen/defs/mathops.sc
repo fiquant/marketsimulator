@@ -6,7 +6,6 @@ package {
       *
       */
     @python.mathops("exp")
-    @category = "Log/Pow"
     @label = "e^{%(x)s}"
     def Exp(x = constant(1.0)) => Float
 
@@ -14,7 +13,6 @@ package {
      *
      */
     @python.mathops("log")
-    @category = "Log/Pow"
     @label = "log(%(x)s)"
     def Log(x = constant(1.0)) => Float
 
@@ -22,7 +20,6 @@ package {
      *
      */
     @python.mathops("sqrt")
-    @category = "Log/Pow"
     @label = "\\sqrt{%(x)s}"
     def Sqrt(x = constant(1.0)) => Float
 
@@ -35,7 +32,6 @@ package {
       * ``pow(x, y)`` is undefined, and raises ``ValueError``.
       */
     @python.mathops("pow")
-    @category = "Log/Pow"
     @label = "%(base)s^{%(power)s}"
     def Pow(base = constant(1.0), power = constant(1.0)) => Float
 

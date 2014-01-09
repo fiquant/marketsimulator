@@ -1,22 +1,19 @@
 from marketsim import registry
+from marketsim.ops._function import Function
 from marketsim import Side
-from marketsim.ops._all import Observable
 from marketsim import IFunction
+from marketsim.gen._out.side._Sell import Sell
+from marketsim.gen._out.side._Buy import Buy
+from marketsim.gen._out._const import const
 from marketsim import context
 @registry.expose(["Side function", "Noise"])
-class Noise(Observable[Side]):
+class Noise(Function[Side]):
     """ 
     """ 
     def __init__(self, side_distribution = None):
-        from marketsim import Side
-        from marketsim.ops._all import Observable
         from marketsim.gen._out.mathutils.rnd._uniform import uniform
-        from marketsim import _
-        from marketsim import event
-        Observable[Side].__init__(self)
         self.side_distribution = side_distribution if side_distribution is not None else uniform(0.0,1.0)
         self.impl = self.getImpl()
-        event.subscribe(self.impl, _(self).fire, self)
     
     @property
     def label(self):
@@ -30,12 +27,9 @@ class Noise(Observable[Side]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out.side._Sell import Sell
-        from marketsim.gen._out.side._Buy import Buy
-        from marketsim.gen._out._const import const
         return (self.side_distribution>const(0.5))[Sell(), Buy()]
-        
-        
+    
+    
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

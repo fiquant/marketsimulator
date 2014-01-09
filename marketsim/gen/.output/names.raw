@@ -168,9 +168,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - exp
 | | | | | | | | | - Attribute:
-| | | | | | | | | | - category
-| | | | | | | | | | - Log/Pow
-| | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - e^{%(x)s}
 | | | | | | | - FunDef:
@@ -211,9 +208,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - log
 | | | | | | | | | - Attribute:
-| | | | | | | | | | - category
-| | | | | | | | | | - Log/Pow
-| | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - log(%(x)s)
 | | | | | | | - FunDef:
@@ -253,9 +247,6 @@ Definitions:
 | | | | | | | | | | | | - mathops
 | | | | | | | | | | - List:
 | | | | | | | | | | | - sqrt
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - category
-| | | | | | | | | | - Log/Pow
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - \\sqrt{%(x)s}
@@ -313,9 +304,6 @@ Definitions:
 | | | | | | | | | | | | - mathops
 | | | | | | | | | | - List:
 | | | | | | | | | | | - pow
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - category
-| | | | | | | | | | - Log/Pow
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - %(base)s^{%(power)s}
@@ -5252,12 +5240,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
-| | | | | | | | | | - List:
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -5739,12 +5721,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
-| | | | | | | | | | - List:
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -5929,11 +5905,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
@@ -6017,11 +5988,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - MACD_{%(fast)s}^{%(slow)s}(%(x)s)
@@ -6104,11 +6070,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
@@ -6185,11 +6146,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
@@ -6896,11 +6852,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Price_{%(alpha)s}^{%(queue)s}
@@ -6964,11 +6915,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - LastAsk_{%(book)s}
@@ -7001,11 +6947,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - AskWeightedPrice
 | | | | | | | | - List:
@@ -7044,11 +6985,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Ask_{%(alpha)s}^{%(book)s}
@@ -7094,11 +7030,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - Asks
 | | | | | | | | - List:
@@ -7174,11 +7105,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Bid_{%(alpha)s}^{%(book)s}
@@ -7211,11 +7137,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Ask_{%(book)s}
@@ -7282,11 +7203,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Bid^{%(book)s}
@@ -7463,11 +7379,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - BidLastPrice
 | | | | | | | | - List:
@@ -7497,11 +7408,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - LastBid^{%(book)s}
@@ -7704,11 +7610,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - Spread
 | | | | | | | | - List:
@@ -7747,11 +7648,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - LastTradePrice
 | | | | | | | | - List:
@@ -8016,11 +7912,6 @@ Definitions:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Annotation:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - \\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}
@@ -8072,11 +7963,6 @@ Definitions:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Annotation:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
@@ -8186,11 +8072,6 @@ Definitions:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Annotation:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - \\sqrt{\\sigma^2_{cumul}_{%(source)s}}
@@ -8231,11 +8112,6 @@ Definitions:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Annotation:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - RSD_{cumul}_{%(source)s}
@@ -8400,11 +8276,6 @@ Definitions:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Annotation:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - \\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}
@@ -8456,11 +8327,6 @@ Definitions:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Annotation:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
@@ -8614,12 +8480,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - observable
-| | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Downs_{%(timeframe)s}(%(source)s)
@@ -8768,12 +8628,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - observable
-| | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Ups_{%(timeframe)s}(%(source)s)
@@ -8874,11 +8728,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
@@ -9455,6 +9304,9 @@ Definitions:
 | | | | | - None
 | | | | | - List:
 | | - List:
+| | | - Attribute:
+| | | | - python
+| | | | - no
 | - PackageDef:
 | | - None
 | | - Definitions:
@@ -9497,11 +9349,6 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - C=%(x)s
