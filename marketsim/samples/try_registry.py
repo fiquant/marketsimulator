@@ -28,11 +28,12 @@ def Complete(ctx):
     
     return [
             ctx.makeTrader_A( 
-                      strategy.v0.LiquidityProvider(
-                            volumeDistr=const(70.), 
-                            orderFactoryT=order.WithExpiryFactory(
-                                expirationDistr=const(10))), 
-                      "liquidity"), 
+                    strategy.LiquidityProvider(
+                                orderFactory = order.factory.sideprice.WithExpiry(
+                                    ops.constant(10),
+                                    order.factory.sideprice.Limit(
+                                        volume=ops.constant(170)))),
+                      "liquidity"),
             
     
             ctx.makeTrader_A(fv_200_12, "t200"),    

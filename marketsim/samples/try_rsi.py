@@ -54,12 +54,4 @@ def RSI(ctx):
                                          threshold=threshold),
                          "rsi_bis",
                          myVolume() + myRsiBis()), 
-            
-        ctx.makeTrader_A(strategy.v0.RSIEx(alpha = alpha,
-                                        threshold=threshold, 
-                                        volumeDistr=one, 
-                                        creationIntervalDistr=one), 
-                         "rsi_ex", (myVolume() + myRsi() + 
-                                    Constant(threshold, demo) + 
-                                    Constant(100-threshold, demo)))
-    ]    
+    ]

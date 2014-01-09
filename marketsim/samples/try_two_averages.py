@@ -37,20 +37,6 @@ def TwoAverages(ctx):
                         "signal", 
                         [(linear_signal, ctx.amount_graph)]),
             
-        ctx.makeTrader_A(strategy.v0.TwoAverages(ewma_alpha1 = alpha_slow, 
-                                              ewma_alpha2 = alpha_fast,
-                                              creationIntervalDistr = const(1.),
-                                              volumeDistr           = const(1.)), 
-                        'avg+', 
-                        myAverage(alpha_slow) + myAverage(alpha_fast) + myVolume()),
-
-        ctx.makeTrader_A(strategy.v0.TwoAverages(ewma_alpha2 = alpha_slow, 
-                                              ewma_alpha1 = alpha_fast,
-                                              creationIntervalDistr = const(1.),
-                                              volumeDistr           = const(1.)), 
-                         'avg-',
-                         myVolume()),
-
         ctx.makeTrader_A(strategy.TwoAverages(
                             event.Every(ops.constant(1.)),
                             order.factory.side.Market(volume = const(1.)),
