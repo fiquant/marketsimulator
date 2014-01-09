@@ -186,12 +186,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - observable
-| | | | | | | - List:
 | | | | - FunDef:
 | | | | | - CrossingAverages
 | | | | | - List:
@@ -272,12 +266,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - observable
-| | | | | | | - List:
 | | | | - FunDef:
 | | | | | - FundamentalValue
 | | | | | - List:
@@ -406,12 +394,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - observable
-| | | | | | | - List:
 | | | | - FunDef:
 | | | | | - PairTrading
 | | | | | - List:
@@ -453,31 +435,30 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - FundamentalValue
+| | | | | | | | | - ObservableSide
 | | | | | | | - List:
-| | | | | | | | - BinOp:
-| | | | | | | | | - Mul
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | - MidPrice
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
+| | | | | | | | | | | - FundamentalValue
+| | | | | | | | | - List:
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Mul
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - dependee
 | | | | | | | | | | | - Var:
-| | | | | | | | | | | | - dependee
-| | | | | | | | | - Var:
-| | | | | | | | | | - factor
-| | | | | | | | - Var:
-| | | | | | | | | - book
+| | | | | | | | | | | | - factor
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - book
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - observable
-| | | | | | | - List:
 | | - List:
 | | | - Attribute:
 | | | | - category

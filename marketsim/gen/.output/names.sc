@@ -629,25 +629,22 @@ package observable {@category = "Price function"
     }
     @category = "Side function"
     package sidefunc {
-        @python.observable()
         def PairTrading(dependee = orderbook.OfTrader(),
                         factor = constant(1.0),
                         book = orderbook.OfTrader())
-             = FundamentalValue(orderbook.MidPrice(dependee)*factor,book)
+             = ObservableSide(FundamentalValue(orderbook.MidPrice(dependee)*factor,book))
         
         @python.observable()
         def Signal(signal = constant(),
                    threshold = 0.7)
              = if signal>threshold then side.Buy() else if signal<0-threshold then side.Sell() else side.Nothing()
         
-        @python.observable()
         def CrossingAverages(alpha_1 = 0.015,
                              alpha_2 = 0.15,
                              threshold = 0.0,
                              book = orderbook.OfTrader())
              = Signal(EW.Avg(orderbook.MidPrice(book),alpha_1)-EW.Avg(orderbook.MidPrice(book),alpha_2),threshold)
         
-        @python.observable()
         def TrendFollower(alpha = 0.015,
                           threshold = 0.0,
                           book = orderbook.OfTrader())
@@ -658,7 +655,6 @@ package observable {@category = "Price function"
                              book = orderbook.OfTrader())
              = if orderbook.BidPrice(book)>fv then side.Sell() else if orderbook.AskPrice(book)<fv then side.Buy() else side.Nothing()
         
-        @python.observable()
         def MeanReversion(alpha = 0.015,
                           book = orderbook.OfTrader())
              = FundamentalValue(EW.Avg(orderbook.MidPrice(book),alpha),book)
@@ -1006,6 +1002,11 @@ package observable {@category = "Price function"
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
     def ObservableVolume(x : IFunction[Float] = const()) : IObservable[Volume]
+        
+    
+    @python.intrinsic("observable.on_every_dt._ObservableSide_Impl")
+    @label = "[%(x)s]"
+    def ObservableSide(x : IFunction[Side] = side.Sell()) : IObservable[Side]
         
     
     @python.intrinsic("observable.quote.Quote_Impl")

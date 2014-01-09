@@ -124,10 +124,7 @@ package object base {
         def generatePython(/** arguments of the annotation */ args  : List[String])
                           (/** function to process         */ f     : Typed.Function) =
         {
-            if (f.ret_type canCastTo Typed.topLevel.floatObservable)
-                observable.generatePython(args)(f)
-            else
-                function.generatePython(args)(f)
+            (if (TypesBound.isObservable(f.ret_type)) observable else function).generatePython(args)(f)
         }
     }
 

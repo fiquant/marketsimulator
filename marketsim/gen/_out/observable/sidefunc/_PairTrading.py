@@ -38,9 +38,11 @@ class PairTrading(Observable[Side]):
     
     _internals = ['impl']
     def getImpl(self):
+        from marketsim.gen._out.observable._ObservableSide import ObservableSide
         from marketsim.gen._out.observable.sidefunc._FundamentalValue import FundamentalValue
         from marketsim.gen._out.observable.orderbook._MidPrice import MidPrice
-        return FundamentalValue(MidPrice(self.dependee)*self.factor,self.book)
+        return ObservableSide(FundamentalValue(MidPrice(self.dependee)*self.factor,self.book))
+        
         
     
     def bind(self, ctx):

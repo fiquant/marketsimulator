@@ -1,24 +1,22 @@
 from marketsim import registry
+from marketsim.ops._function import Function
 from marketsim import Side
-from marketsim.ops._all import Observable
 from marketsim import IOrderBook
+from marketsim.gen._out.observable.sidefunc._Signal import Signal
+from marketsim.gen._out._Derivative import Derivative
+from marketsim.gen._out.observable.EW._Avg import Avg
+from marketsim.gen._out.observable.orderbook._MidPrice import MidPrice
 from marketsim import context
 @registry.expose(["Side function", "TrendFollower"])
-class TrendFollower(Observable[Side]):
+class TrendFollower(Function[Side]):
     """ 
     """ 
     def __init__(self, alpha = None, threshold = None, book = None):
-        from marketsim import Side
-        from marketsim.ops._all import Observable
         from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader
-        from marketsim import _
-        from marketsim import event
-        Observable[Side].__init__(self)
         self.alpha = alpha if alpha is not None else 0.015
         self.threshold = threshold if threshold is not None else 0.0
         self.book = book if book is not None else OfTrader()
         self.impl = self.getImpl()
-        event.subscribe(self.impl, _(self).fire, self)
     
     @property
     def label(self):
@@ -34,14 +32,10 @@ class TrendFollower(Observable[Side]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out.observable.sidefunc._Signal import Signal
-        from marketsim.gen._out._Derivative import Derivative
-        from marketsim.gen._out.observable.EW._Avg import Avg
-        from marketsim.gen._out.observable.orderbook._MidPrice import MidPrice
         return Signal(Derivative(Avg(MidPrice(self.book),self.alpha)),self.threshold)
-        
-        
-        
+    
+    
+    
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

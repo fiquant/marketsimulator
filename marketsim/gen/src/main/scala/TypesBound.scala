@@ -114,6 +114,11 @@ package object TypesBound
             }
     }
 
+    def isObservable(t : Base) = t match {
+        case TypesBound.Interface(Typed.InterfaceDecl("IObservable", _, _, _), _) => true
+        case _ => false
+    }
+
     case class Alias(decl : Typed.AliasDecl, genericArgs : List[Base]) extends UserDefined
     {
         val target = decl.target bind TypeMapper(decl, genericArgs)

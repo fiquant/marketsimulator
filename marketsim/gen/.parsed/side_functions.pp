@@ -9,13 +9,11 @@ package observable.sidefunc {
                threshold = 0.7)
          = if signal>threshold then side.Buy() else if signal<0-threshold then side.Sell() else side.Nothing()
     
-    @python.observable()
     def TrendFollower(alpha = 0.015,
                       threshold = 0.0,
                       book = orderbook.OfTrader())
          = Signal(Derivative(EW.Avg(orderbook.MidPrice(book),alpha)),threshold)
     
-    @python.observable()
     def CrossingAverages(alpha_1 = 0.015,
                          alpha_2 = 0.15,
                          threshold = 0.0,
@@ -27,14 +25,12 @@ package observable.sidefunc {
                          book = orderbook.OfTrader())
          = if orderbook.BidPrice(book)>fv then side.Sell() else if orderbook.AskPrice(book)<fv then side.Buy() else side.Nothing()
     
-    @python.observable()
     def MeanReversion(alpha = 0.015,
                       book = orderbook.OfTrader())
          = FundamentalValue(EW.Avg(orderbook.MidPrice(book),alpha),book)
     
-    @python.observable()
     def PairTrading(dependee = orderbook.OfTrader(),
                     factor = constant(1.0),
                     book = orderbook.OfTrader())
-         = FundamentalValue(orderbook.MidPrice(dependee)*factor,book)
+         = ObservableSide(FundamentalValue(orderbook.MidPrice(dependee)*factor,book))
 }

@@ -7,9 +7,9 @@ object intrinsic extends gen.PythonGenerator
     def generatePython(/** arguments of the annotation */ args  : List[String])
                       (/** function to process         */ f     : Typed.Function) =
     {
-        if (f.ret_type canCastTo Typed.topLevel.floatObservable)
-            intrinsic_observable.generatePython(args)(f)
+        (if (TypesBound.isObservable(f.ret_type))
+            intrinsic_observable
         else
-            intrinsic_function.generatePython(args)(f)
+            intrinsic_function).generatePython(args)(f)
     }
 }

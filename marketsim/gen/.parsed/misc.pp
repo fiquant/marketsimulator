@@ -40,6 +40,11 @@ package observable {
     def ObservableVolume(x : IFunction[Float] = const()) : IObservable[Volume]
         
     
+    @python.intrinsic("observable.on_every_dt._ObservableSide_Impl")
+    @label = "[%(x)s]"
+    def ObservableSide(x : IFunction[Side] = side.Sell()) : IObservable[Side]
+        
+    
     @python.intrinsic("observable.quote.Quote_Impl")
     @label = "%(ticker)s"
     def Quote(ticker = "^GSPC",

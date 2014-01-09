@@ -58,12 +58,40 @@ class _OnEveryDt_Impl(IndicatorBase):
         IndicatorBase.__init__(self)
         self._subscription = event.subscribe(event.Every(ops.constant(self.dt)), self.fire, self)
 
-class _Observable_Impl(IndicatorBase):
+class _Observable_Impl(ops.Observable[float]):
     """ Creates an indicator that is updated regularly
     interval - constant interval between updates
     source - function to obtain indicator value
     """
     def __init__(self):
+        ops.Observable[float].__init__(self)
         self._dataSource = self.x
-        IndicatorBase.__init__(self)
         self._subscription = event.subscribe(self.x, self.fire, self)
+
+    def schedule(self):
+        self.reset()
+
+    def __call__(self):
+        """ Returns current value
+        """
+        return self._dataSource()
+
+from marketsim import Side
+
+class _ObservableSide_Impl(ops.Observable[Side]):
+    """ Creates an indicator that is updated regularly
+    interval - constant interval between updates
+    source - function to obtain indicator value
+    """
+    def __init__(self):
+        ops.Observable[Side].__init__(self)
+        self._dataSource = self.x
+        self._subscription = event.subscribe(self.x, self.fire, self)
+
+    def schedule(self):
+        self.reset()
+
+    def __call__(self):
+        """ Returns current value
+        """
+        return self._dataSource()

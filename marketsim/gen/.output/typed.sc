@@ -732,12 +732,11 @@ package observable {@category = "Price function"
     @category = "Side function"
     package sidefunc {
         
-        @python.observable()
         def PairTrading(dependee : .IOrderBook = .observable.orderbook.OfTrader(),
                         factor : .IFunction[.Float] = .constant(1.0),
-                        book : .IOrderBook = .observable.orderbook.OfTrader()) : () => .Side
+                        book : .IOrderBook = .observable.orderbook.OfTrader()) : .IObservable[.Side]
             
-            	 = .observable.sidefunc.FundamentalValue(.observable.orderbook.MidPrice(dependee)*factor,book)
+            	 = .observable.ObservableSide(.observable.sidefunc.FundamentalValue(.observable.orderbook.MidPrice(dependee)*factor,book))
         
         
         @python.observable()
@@ -747,7 +746,6 @@ package observable {@category = "Price function"
             	 = if signal>.const(threshold) then .side.Buy() else if signal<.const(0-threshold) then .side.Sell() else .side.Nothing()
         
         
-        @python.observable()
         def CrossingAverages(alpha_1 : .Float = 0.015,
                              alpha_2 : .Float = 0.15,
                              threshold : .Float = 0.0,
@@ -756,7 +754,6 @@ package observable {@category = "Price function"
             	 = .observable.sidefunc.Signal(.observable.EW.Avg(.observable.orderbook.MidPrice(book),alpha_1)-.observable.EW.Avg(.observable.orderbook.MidPrice(book),alpha_2),threshold)
         
         
-        @python.observable()
         def TrendFollower(alpha : .Float = 0.015,
                           threshold : .Float = 0.0,
                           book : .IOrderBook = .observable.orderbook.OfTrader()) : () => .Side
@@ -771,7 +768,6 @@ package observable {@category = "Price function"
             	 = if .observable.orderbook.BidPrice(book)>fv then .side.Sell() else if .observable.orderbook.AskPrice(book)<fv then .side.Buy() else .side.Nothing()
         
         
-        @python.observable()
         def MeanReversion(alpha : .Float = 0.015,
                           book : .IOrderBook = .observable.orderbook.OfTrader()) : () => .Side
             
@@ -1190,6 +1186,11 @@ package observable {@category = "Price function"
     @label = "[%(x)s]"
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     def ObservableVolume(x : .IFunction[.Float] = .const()) : .IObservable[.Volume]
+        
+    
+    @label = "[%(x)s]"
+    @python.intrinsic("observable.on_every_dt._ObservableSide_Impl")
+    def ObservableSide(x : .IFunction[.Side] = .side.Sell()) : .IObservable[.Side]
         
     
     @label = "%(ticker)s"
