@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (order, strategy, 
+from marketsim import (order, strategy, event,
                        ops, mathutils)
 from common import expose
 
@@ -12,19 +12,19 @@ def Arbitrage(ctx):
     
     ctx.volumeStep = 70
     
-    factory = order.WithExpiryFactory(ops.constant(50))
-
     return [
-        ctx.makeTrader_A( 
-            strategy.v0.LiquidityProvider(defaultValue=50.,
-                                       orderFactoryT=factory, 
-                                       volumeDistr=liqVol), 
+        ctx.makeTrader_A(
+            strategy.LiquidityProvider(
+                        orderFactory = order.factory.sideprice.WithExpiry(ops.constant(50),
+                            order.factory.sideprice.Limit(volume=liqVol)),
+                        defaultValue = 50.),
             "LiquidityProvider_A"),
     
         ctx.makeTrader_B( 
-            strategy.v0.LiquidityProvider(defaultValue=150., 
-                                       orderFactoryT=factory, 
-                                       volumeDistr=liqVol), 
+            strategy.LiquidityProvider(
+                        orderFactory = order.factory.sideprice.WithExpiry(ops.constant(50),
+                            order.factory.sideprice.Limit(volume=liqVol)),
+                        defaultValue = 150.),
             "LiquidityProvider_B"),
             
         ctx.makeMultiAssetTrader([ctx.remote_A, ctx.remote_B], 
