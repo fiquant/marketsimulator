@@ -33,37 +33,36 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - Some:
-| | | | | | - BinOp:
-| | | | | | | - Sub
-| | | | | | | - BinOp:
-| | | | | | | | - Sub
-| | | | | | | | - Var:
-| | | | | | | | | - desiredPosition
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - trader
-| | | | | | | | | | | - Position
-| | | | | | | | | - List:
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - trader
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - trader
-| | | | | | | | | | - PendingVolume
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - Var:
-| | | | | | | | | | - trader
+| | | | | | | | | - ObservableVolume
+| | | | | | | - List:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Sub
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Sub
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - desiredPosition
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | - Position
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - trader
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - trader
+| | | | | | | | | | | | - PendingVolume
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - trader
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - observable
-| | | | | | | - List:
 | | | | - FunDef:
 | | | | | - Bollinger_linear
 | | | | | - List:
@@ -141,12 +140,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - observable
-| | | | | | | - List:
 | | | | - FunDef:
 | | | | | - RSI_linear
 | | | | | - List:
@@ -234,12 +227,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - observable
-| | | | | | | - List:
 | | - List:
 | | | - Attribute:
 | | | | - category

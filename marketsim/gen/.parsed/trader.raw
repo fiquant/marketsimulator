@@ -64,9 +64,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - trader.props.Position_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Amount_{%(trader)s}
 | | | | - FunDef:
 | | | | | - Balance
 | | | | | - List:
@@ -101,9 +98,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - trader.props.Balance_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Balance_{%(trader)s}
 | | | | - FunDef:
 | | | | | - PendingVolume
 | | | | | - List:
@@ -138,9 +132,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - trader.props.PendingVolume_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - PendingVolume_{%(trader)s}
 | | | | - FunDef:
 | | | | | - Efficiency
 | | | | | - List:
@@ -193,9 +184,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Efficiency_{%(trader)s}
 | | | | - FunDef:
 | | | | | - RoughPnL
 | | | | | - List:
@@ -248,9 +236,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - RoughPnL_{%(trader)s}
 | | | | - FunDef:
 | | | | | - EfficiencyTrend
 | | | | | - List:
@@ -295,9 +280,6 @@ Definitions:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - EfficiencyTrend_{%(trader)s}
 | | - List:
 | | | - Attribute:
 | | | | - category

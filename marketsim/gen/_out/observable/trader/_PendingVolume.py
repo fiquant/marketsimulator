@@ -22,5 +22,5 @@ class PendingVolume(PendingVolume_Impl):
         'trader' : ISingleAssetTrader
     }
     def __repr__(self):
-        return "PendingVolume_{%(trader)s}" % self.__dict__
+        return "PendingVolume(%(trader)s)" % self.__dict__
     

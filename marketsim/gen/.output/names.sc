@@ -711,20 +711,16 @@ package observable {@category = "Price function"
     @category = "Trader's"
     package trader {
         @python.intrinsic("trader.props.Balance_Impl")
-        @label = "Balance_{%(trader)s}"
         def Balance(trader = SingleProxy()) : IObservable[Price]
             
         
-        @label = "RoughPnL_{%(trader)s}"
         def RoughPnL(trader = SingleProxy())
              = Observable(Balance(trader)+orderbook.NaiveCumulativePrice(orderbook.OfTrader(trader),Position(trader)))
         
         @python.intrinsic("trader.props.Position_Impl")
-        @label = "Amount_{%(trader)s}"
         def Position(trader = SingleProxy()) : IObservable[Volume]
             
         
-        @label = "Efficiency_{%(trader)s}"
         def Efficiency(trader = SingleProxy())
              = Observable(Balance(trader)+orderbook.CumulativePrice(orderbook.OfTrader(trader),Position(trader)))
         
@@ -733,30 +729,25 @@ package observable {@category = "Price function"
         def SingleProxy() : ISingleAssetTrader
             
         
-        @label = "EfficiencyTrend_{%(trader)s}"
         def EfficiencyTrend(trader = SingleProxy(),
                             alpha = 0.15)
              = Derivative(EW.Avg(Efficiency(trader),alpha))
         
         @python.intrinsic("trader.props.PendingVolume_Impl")
-        @label = "PendingVolume_{%(trader)s}"
         def PendingVolume(trader = SingleProxy()) : IObservable[Volume]
             
     }
     @category = "Volume function"
     package volumefunc {
-        @python.observable()
         def DesiredPosition(desiredPosition = const(),
                             trader = trader.SingleProxy())
-             = desiredPosition-trader.Position(trader)-trader.PendingVolume(trader)
+             = ObservableVolume(desiredPosition-trader.Position(trader)-trader.PendingVolume(trader))
         
-        @python.observable()
         def Bollinger_linear(alpha = 0.15,
                              k = const(0.5),
                              trader = trader.SingleProxy())
              = DesiredPosition(OnEveryDt(1.0,EW.RelStdDev(orderbook.MidPrice(orderbook.OfTrader(trader)),alpha))*k,trader)
         
-        @python.observable()
         def RSI_linear(alpha = 1.0/14.0,
                        k = const(-0.04),
                        timeframe = 1.0,
@@ -1014,7 +1005,6 @@ package observable {@category = "Price function"
         
     
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
-    @label = "CandleSticks(%(source)s)"
     def CandleSticks(source = const(),
                      timeframe = 10.0) : IObservable[CandleStick]
         

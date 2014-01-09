@@ -22,5 +22,5 @@ class Position(Position_Impl):
         'trader' : ISingleAssetTrader
     }
     def __repr__(self):
-        return "Amount_{%(trader)s}" % self.__dict__
+        return "Position(%(trader)s)" % self.__dict__
     

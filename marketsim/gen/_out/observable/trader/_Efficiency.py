@@ -26,7 +26,7 @@ class Efficiency(Observable[float]):
         'trader' : ISingleAssetTrader
     }
     def __repr__(self):
-        return "Efficiency_{%(trader)s}" % self.__dict__
+        return "Efficiency(%(trader)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):

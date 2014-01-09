@@ -24,7 +24,7 @@ class EfficiencyTrend(Function[float]):
         'alpha' : float
     }
     def __repr__(self):
-        return "EfficiencyTrend_{%(trader)s}" % self.__dict__
+        return "EfficiencyTrend(%(trader)s, %(alpha)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):

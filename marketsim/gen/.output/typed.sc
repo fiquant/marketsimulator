@@ -834,22 +834,22 @@ package observable {@category = "Price function"
     
     @category = "Trader's"
     package trader {
-        @label = "Balance_{%(trader)s}"
+        
         @python.intrinsic("trader.props.Balance_Impl")
         def Balance(trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Price]
             
         
-        @label = "RoughPnL_{%(trader)s}"
+        
         def RoughPnL(trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Float]
             
             	 = .observable.Observable(.observable.trader.Balance(trader)+.observable.orderbook.NaiveCumulativePrice(.observable.orderbook.OfTrader(trader),.observable.trader.Position(trader)))
         
-        @label = "Amount_{%(trader)s}"
+        
         @python.intrinsic("trader.props.Position_Impl")
         def Position(trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Volume]
             
         
-        @label = "Efficiency_{%(trader)s}"
+        
         def Efficiency(trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Float]
             
             	 = .observable.Observable(.observable.trader.Balance(trader)+.observable.orderbook.CumulativePrice(.observable.orderbook.OfTrader(trader),.observable.trader.Position(trader)))
@@ -859,13 +859,13 @@ package observable {@category = "Price function"
         def SingleProxy() : .ISingleAssetTrader
             
         
-        @label = "EfficiencyTrend_{%(trader)s}"
+        
         def EfficiencyTrend(trader : .ISingleAssetTrader = .observable.trader.SingleProxy(),
                             alpha : .Float = 0.15) : () => .Float
             
             	 = .Derivative(.observable.EW.Avg(.observable.trader.Efficiency(trader),alpha))
         
-        @label = "PendingVolume_{%(trader)s}"
+        
         @python.intrinsic("trader.props.PendingVolume_Impl")
         def PendingVolume(trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Volume]
             
@@ -874,26 +874,23 @@ package observable {@category = "Price function"
     @category = "Volume function"
     package volumefunc {
         
-        @python.observable()
         def DesiredPosition(desiredPosition : .IObservable[.Float] = .const(),
-                            trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Float]
+                            trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Volume]
             
-            	 = desiredPosition-.observable.trader.Position(trader)-.observable.trader.PendingVolume(trader)
+            	 = .observable.ObservableVolume(desiredPosition-.observable.trader.Position(trader)-.observable.trader.PendingVolume(trader))
         
         
-        @python.observable()
         def Bollinger_linear(alpha : .Float = 0.15,
                              k : .IObservable[.Float] = .const(0.5),
-                             trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Float]
+                             trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Volume]
             
             	 = .observable.volumefunc.DesiredPosition(.observable.OnEveryDt(1.0,.observable.EW.RelStdDev(.observable.orderbook.MidPrice(.observable.orderbook.OfTrader(trader)),alpha))*k,trader)
         
         
-        @python.observable()
         def RSI_linear(alpha : .Float = 1.0/14.0,
                        k : .IObservable[.Float] = .const(-0.04),
                        timeframe : .Float = 1.0,
-                       trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Float]
+                       trader : .ISingleAssetTrader = .observable.trader.SingleProxy()) : .IObservable[.Volume]
             
             	 = .observable.volumefunc.DesiredPosition(.observable.OnEveryDt(1.0,.const(50.0)-.observable.RSI(.observable.orderbook.OfTrader(trader),timeframe,alpha))*k,trader)
     }
@@ -1197,7 +1194,7 @@ package observable {@category = "Price function"
               end : .String = "2010-1-1") : .IObservable[.Price]
         
     
-    @label = "CandleSticks(%(source)s)"
+    
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
     def CandleSticks(source : .IObservable[.Float] = .const(),
                      timeframe : .Float = 10.0) : .IObservable[.CandleStick]

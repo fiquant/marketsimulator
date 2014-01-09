@@ -6175,9 +6175,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - trader.props.Balance_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Balance_{%(trader)s}
 | | | | | | | - FunDef:
 | | | | | | | | - RoughPnL
 | | | | | | | | - List:
@@ -6230,9 +6227,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - RoughPnL_{%(trader)s}
 | | | | | | | - FunDef:
 | | | | | | | | - Position
 | | | | | | | | - List:
@@ -6267,9 +6261,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - trader.props.Position_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Amount_{%(trader)s}
 | | | | | | | - FunDef:
 | | | | | | | | - Efficiency
 | | | | | | | | - List:
@@ -6322,9 +6313,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Efficiency_{%(trader)s}
 | | | | | | | - FunDef:
 | | | | | | | | - SingleProxy
 | | | | | | | | - List:
@@ -6391,9 +6379,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - EfficiencyTrend_{%(trader)s}
 | | | | | | | - FunDef:
 | | | | | | | | - PendingVolume
 | | | | | | | | - List:
@@ -6428,9 +6413,6 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - trader.props.PendingVolume_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - PendingVolume_{%(trader)s}
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -6467,37 +6449,36 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - Some:
-| | | | | | | | | - BinOp:
-| | | | | | | | | | - Sub
-| | | | | | | | | | - BinOp:
-| | | | | | | | | | | - Sub
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - desiredPosition
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - trader
-| | | | | | | | | | | | | | - Position
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - trader
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - trader
-| | | | | | | | | | | | | - PendingVolume
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - trader
+| | | | | | | | | | | | - ObservableVolume
+| | | | | | | | | | - List:
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Sub
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - desiredPosition
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | | | - Position
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | | - PendingVolume
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - trader
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
-| | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - Bollinger_linear
 | | | | | | | | - List:
@@ -6575,12 +6556,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
-| | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - RSI_linear
 | | | | | | | | - List:
@@ -6668,12 +6643,6 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - observable
-| | | | | | | | | | - List:
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -8879,9 +8848,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - observable.candlestick.CandleSticks_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - CandleSticks(%(source)s)
 | | | | - FunDef:
 | | | | | - ObservablePrice
 | | | | | - List:

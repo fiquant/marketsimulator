@@ -1,21 +1,21 @@
 from marketsim import registry
-from marketsim import float
+from marketsim import Volume
 from marketsim.ops._all import Observable
 from marketsim import IObservable
 from marketsim import ISingleAssetTrader
 from marketsim import context
 @registry.expose(["Volume function", "DesiredPosition"])
-class DesiredPosition(Observable[float]):
+class DesiredPosition(Observable[Volume]):
     """ 
     """ 
     def __init__(self, desiredPosition = None, trader = None):
-        from marketsim import float
+        from marketsim import Volume
         from marketsim.ops._all import Observable
         from marketsim.gen._out._const import const
         from marketsim.gen._out.observable.trader._SingleProxy import SingleProxy
         from marketsim import _
         from marketsim import event
-        Observable[float].__init__(self)
+        Observable[Volume].__init__(self)
         self.desiredPosition = desiredPosition if desiredPosition is not None else const()
         self.trader = trader if trader is not None else SingleProxy()
         self.impl = self.getImpl()
@@ -34,9 +34,11 @@ class DesiredPosition(Observable[float]):
     
     _internals = ['impl']
     def getImpl(self):
+        from marketsim.gen._out.observable._ObservableVolume import ObservableVolume
         from marketsim.gen._out.observable.trader._Position import Position
         from marketsim.gen._out.observable.trader._PendingVolume import PendingVolume
-        return self.desiredPosition-Position(self.trader)-PendingVolume(self.trader)
+        return ObservableVolume(self.desiredPosition-Position(self.trader)-PendingVolume(self.trader))
+        
         
     
     def bind(self, ctx):

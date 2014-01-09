@@ -22,5 +22,5 @@ class Balance(Balance_Impl):
         'trader' : ISingleAssetTrader
     }
     def __repr__(self):
-        return "Balance_{%(trader)s}" % self.__dict__
+        return "Balance(%(trader)s)" % self.__dict__
     

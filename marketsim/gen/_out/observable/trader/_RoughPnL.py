@@ -26,7 +26,7 @@ class RoughPnL(Observable[float]):
         'trader' : ISingleAssetTrader
     }
     def __repr__(self):
-        return "RoughPnL_{%(trader)s}" % self.__dict__
+        return "RoughPnL(%(trader)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):
