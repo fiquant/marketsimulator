@@ -12,5 +12,4 @@ from try_choose_the_best import ChooseTheBest
 from try_multiarmed_bandit import MultiarmedBandit
 # from try_arbitrage import Arbitrage
 from try_rsi import RSI
-from try_desired import DesiredPosition
 from try_market_data import MarketData

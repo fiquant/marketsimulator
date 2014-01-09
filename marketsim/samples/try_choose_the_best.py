@@ -34,7 +34,9 @@ def ChooseTheBest(ctx):
         return [cross(slow_alpha, fast_alpha), cross(fast_alpha, slow_alpha)]
         
     return [
-        ctx.makeTrader_A(strategy.v0.LiquidityProvider(volumeDistr=const(45)),
+        ctx.makeTrader_A(
+            strategy.LiquidityProvider(
+                orderFactory = order.factory.sideprice.Limit(volume=const(45))),
                          "liquidity"),
 
         ctx.makeTrader_A(strategy.Signal(event.Every(const(1.)),

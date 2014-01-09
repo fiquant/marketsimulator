@@ -12,22 +12,10 @@ def Canceller(ctx):
     ctx.volumeStep = 15
 
     return [
-        ctx.makeTrader_A(strategy.v0.LiquidityProviderSide(side = Side.Sell),
-                         "LiquidityProvider-"),
-        
         ctx.makeTrader_A(strategy.LiquidityProvider(),
                          "LiquidityProviderEx-"),
          
-        ctx.makeTrader_A(strategy.v0.LiquidityProviderSide(side = Side.Buy),
-                         "LiquidityProviderBuy"),
-    
-        ctx.makeTrader_A(  strategy.v0.LiquidityProviderSide(
-                                side = Side.Sell,
-                                orderFactoryT=order.WithExpiryFactory(
-                                    expirationDistr=ops.constant(10))),
-                           "LiquidityProviderWithExpiry"),
-        
-        ctx.makeTrader_A(   strategy.v0.FundamentalValue(
+        ctx.makeTrader_A(   strategy.FundamentalValue(
                                 fundamentalValue = ops.constant(1000)), 
                             "fv_1000")
         ]
