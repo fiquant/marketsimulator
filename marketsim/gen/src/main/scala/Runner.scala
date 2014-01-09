@@ -71,6 +71,7 @@ object Runner extends syntax.scala.Parser {
         cleanUp(".output")
         cleanUp(".parsed")
         cleanUp("_out")
+        cleanUp("../_pub")
 
         Typed.withNewTopLevel({
             print(s"parsing...")
@@ -95,7 +96,7 @@ object Runner extends syntax.scala.Parser {
     def generatePython(typed: Typed.Package)
     {
         print("generating python code...")
-        generator.python.gen.apply(typed, "_out")
+        generator.python.gen.apply(typed, "_out", "../_pub")
         println("done")
     }
 

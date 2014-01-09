@@ -23,37 +23,58 @@ package object gen
         }
     }
     
-    def apply(p : Typed.Package, dst_dir : String) { apply(p, new File(dst_dir)) }
-
-    def apply(p : Typed.Package, dir : File)
+    def apply(p : Typed.Package, dst_dir : String, idx_dir : String)
     {
+        apply(p, new File(dst_dir), new File(idx_dir))
+    }
+
+    def apply(p : Typed.Package, dir : File, idx_dir : File)
+    {
+        ensure_dir(dir)
+        ensure_dir(idx_dir)
+
+        p.packages.values foreach { sub => apply(sub, new File(dir, sub.name), new File(idx_dir, sub.name) ) }
+        p.anonymous       foreach {        apply(_, dir, idx_dir) }
+
+        def printWriter(dst_dir : File, filename : String) =
+            new PrintWriter(
+                new BufferedWriter(
+                    new OutputStreamWriter(
+                        new FileOutputStream(
+                            new File(dst_dir, filename), true))),
+            true)
+
+        for (idx_out <- managed(printWriter(idx_dir, "__init__.py")))
+        {
+            p.functions.values foreach { f =>
+                generationUnit(f) map { g =>
+                    //println(f.parent.qualifiedName, f.name)
+                    for (out <- managed(printWriter(dir, s"_${f.name}.py"))) {
+                        out.println(g)
+                    }
+                    idx_out.println(base.withImports(Printer.importsOf(f)))
+                }
+            }
+
+            p.functionAliases.values foreach { f =>
+                generationUnit(f.target) map { g =>
+                    idx_out.println(base.withImports(Printer.importsOf(f.target).as(f.name)))
+                }
+            }
+
+            for (out <- managed(printWriter(dir, "__init__.py"))) {}
+
+        }
+
+    }
+
+
+    def ensure_dir(dir: File) {
         if (!dir.exists()) {
             dir.mkdirs()
             if (!dir.exists())
                 throw new Exception("cannot create directory " + dir.getName)
         }
-
-        p.packages.values foreach { sub => apply(sub, new File(dir, sub.name) ) }
-        p.anonymous       foreach {        apply(_, dir) }
-
-        def printWriter(filename : String) =
-            new PrintWriter(
-                new BufferedWriter(
-                    new OutputStreamWriter(
-                        new FileOutputStream(
-                            new File(dir, filename), true))),
-            true)
-
-        val names = p.functions.values flatMap { f => generationUnit(f) map { g =>
-                //println(f.parent.qualifiedName, f.name)
-                for (out <- managed(printWriter(s"_${f.name}.py"))) {
-                    out.println(g)
-                }
-                Some(g.name)
-        }
-        }
-
-        for (out <- managed(printWriter("__init__.py"))) {}
     }
 
     trait GenerationUnit
