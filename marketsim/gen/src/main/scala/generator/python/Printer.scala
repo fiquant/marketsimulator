@@ -66,11 +66,18 @@ object Printer {
         override def toPython = toScala
     }
 
-    trait Expr extends pp.Expr with PrintablePort
+    trait Expr extends pp.Expr with predef.ScPyPrintable
 
     trait BinOp extends pp.BinOp[Typed.Expr] with PrintablePort
     {
         override def imports = x.imports ++ y.imports
+    }
+
+    trait Cast extends Printable
+    {
+        val x : Expr
+        def toPython = x.toPython
+        def imports = x.imports
     }
 
     trait Neg extends pp.Neg[Typed.Expr] with PrintablePort

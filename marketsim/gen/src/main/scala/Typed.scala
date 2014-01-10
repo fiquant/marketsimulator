@@ -117,6 +117,16 @@ package object Typed
             with    py.Condition
             with    TypeInference.Condition
 
+    case class Cast(x   : Expr,
+                    ty  : TypesBound.Base)
+            extends Expr
+            with    sc.Cast
+            with    py.Cast
+    {
+        if (x.ty cannotCastTo ty)
+            throw new Exception(s"Expression $x cannot be casted to $ty")
+    }
+
     case class FunctionAlias(parent : Package,
                              name   : String,
                              target : Function)

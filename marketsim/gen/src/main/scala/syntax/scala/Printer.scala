@@ -25,6 +25,7 @@ package object Printer
         trait Priority_1 { val priority = 1 }
         trait Priority_2 { val priority = 2 }
         trait Priority_3 { val priority = 3 }
+        trait Priority_4 { val priority = 4 }
 
         trait BinOpSymbol extends Printable {
             val priority : Int
@@ -50,6 +51,12 @@ package object Printer
             val symbol : BinOpSymbol
             def toScala = wrap(x) + symbol + wrap(y, rhs = true)
             val priority = symbol.priority
+        }
+
+        trait Cast extends Expr with Priority_4 {
+            val x  : Any
+            val ty : Any
+            def toScala = x.toString + " : " + ty
         }
 
         trait Neg[T <: Expr] extends Expr with Priority_0 {
@@ -250,6 +257,7 @@ package object Printer
         type Attribute = base.Attribute
         type StringLit = base.StringLit
         type IntLit = base.IntLit
+        type Cast = base.Cast
 
         trait Annotation extends base.Annotation {
             self: AST.Annotation =>
@@ -399,6 +407,7 @@ package object Printer
 
         type BinOp = base.BinOp[Typed.Expr]
         type Neg = base.Neg[Typed.Expr]
+        type Cast = base.Cast
 
         type IfThenElse = base.IfThenElse[Typed.Expr, Typed.Expr]
         type And = base.And[Typed.Expr]
