@@ -63,7 +63,8 @@ object order_factory_on_proto
                     case _ => throw new Exception("original factory is not of appropriate type")
                 }
                 factory
-            case None => throw new Exception("Here should be a parameter with name proto and function call as initializer")
+            case None => throw new Exception("Here should be a parameter with name proto")
+            case _ => throw new Exception("Here should be a parameter with function call as initializer")
         }
 
         override val curried = factory_of_curried.curried

@@ -63,12 +63,15 @@ package object TypeInference
 
     trait FunctionRef {
         self: Typed.FunctionRef =>
-        val ty = f.ret_type  // full_type should be here
+        val ty = f.ty
     }
 
     trait FunctionCall {
         self: Typed.FunctionCall =>
-        val ty = target.ty
+        val ty = target.ty.returnTypeIfFunction match {
+            case Some(t) => t
+            case None    => throw new Exception(s"${target.ty} should be castable to a function")
+        }
     }
 
     def checkBoolean(e : Typed.Expr) = {

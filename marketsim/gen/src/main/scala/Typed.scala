@@ -138,6 +138,8 @@ package object Typed
 
         def qualifiedName = parent qualifyName name
 
+        val ty = TypesBound.Function(parameters map { _.ty }, ret_type)
+
         def getAttribute(name : String) = tryGetAttribute(name) match {
             case Some(v) => v
             case None =>    throw new Exception(s"Cannot find attribute '$name' for function $this")
