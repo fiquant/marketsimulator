@@ -286,7 +286,7 @@ package object Printer
 
         trait FunCall extends Expr with Priority_0 {
             self: AST.FunCall =>
-            def toScala = name + pars(args.mkString(","))
+            def toScala = name + (args map { _ mkString ("(", ",", ")")} mkString "")
         }
 
         type BinOp = base.BinOp[AST.Expr]

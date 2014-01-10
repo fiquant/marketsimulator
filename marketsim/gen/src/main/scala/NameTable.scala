@@ -182,7 +182,7 @@ package object NameTable {
 
         def fullyQualify(e : AST.Expr) : AST.Expr = e match {
             case AST.FunCall(n, params) =>
-                AST.FunCall(fullyQualify(n), params map fullyQualify)
+                AST.FunCall(fullyQualify(n), params map { _ map fullyQualify})
             case x : AST.StringLit => x
             case x : AST.FloatLit => x
             case x : AST.IntLit => x

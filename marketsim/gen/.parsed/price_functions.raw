@@ -21,6 +21,7 @@ Definitions:
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Sell
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - initialValue
@@ -40,10 +41,11 @@ Definitions:
 | | | | | | | | | | | - rnd
 | | | | | | | | | | | - lognormvariate
 | | | | | | | | | - List:
-| | | | | | | | | | - FloatLit:
-| | | | | | | | | | | - 0.0
-| | | | | | | | | | - FloatLit:
-| | | | | | | | | | | - 0.1
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 0.0
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 0.1
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - book
@@ -55,6 +57,7 @@ Definitions:
 | | | | | | | | | | | - orderbook
 | | | | | | | | | | | - OfTrader
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - BinOp:
@@ -65,23 +68,26 @@ Definitions:
 | | | | | | | | | | - orderbook
 | | | | | | | | | | - SafeSidePrice
 | | | | | | | | - List:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | - Queue
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | - Queue
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - book
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - side
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - side
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - constant
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - constant
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - initialValue
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - initialValue
 | | | | | | | - Var:
 | | | | | | | | - priceDistr
 | | | | | - None

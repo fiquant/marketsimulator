@@ -32,10 +32,11 @@ Definitions:
 | | | | | | | | | | | - rnd
 | | | | | | | | | | | - uniform
 | | | | | | | | | - List:
-| | | | | | | | | | - FloatLit:
-| | | | | | | | | | | - 0.0
-| | | | | | | | | | - FloatLit:
-| | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 0.0
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - IfThenElse:
@@ -51,12 +52,14 @@ Definitions:
 | | | | | | | | | | - side
 | | | | | | | | | | - Sell
 | | | | | | | | - List:
+| | | | | | | | | - List:
 | | | | | | | - FunCall:
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
 | | | | | | | | | | - side
 | | | | | | | | | | - Buy
 | | | | | | | | - List:
+| | | | | | | | | - List:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
@@ -72,6 +75,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - threshold
@@ -94,6 +98,7 @@ Definitions:
 | | | | | | | | | | - side
 | | | | | | | | | | - Buy
 | | | | | | | | - List:
+| | | | | | | | | - List:
 | | | | | | | - IfThenElse:
 | | | | | | | | - Condition:
 | | | | | | | | | - Less
@@ -111,12 +116,14 @@ Definitions:
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Sell
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Nothing
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
@@ -153,6 +160,7 @@ Definitions:
 | | | | | | | | | | | - orderbook
 | | | | | | | | | | | - OfTrader
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - FunCall:
@@ -160,29 +168,33 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Signal
 | | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Derivative
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Derivative
-| | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - EW
-| | | | | | | | | | | | | - Avg
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | | | - Avg
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - book
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - alpha
-| | | | | | | | - Var:
-| | | | | | | | | - threshold
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - alpha
+| | | | | | | | | - Var:
+| | | | | | | | | | - threshold
 | | | | | - None
 | | | | | - None
 | | | | | - List:
@@ -220,6 +232,7 @@ Definitions:
 | | | | | | | | | | | - orderbook
 | | | | | | | | | | | - OfTrader
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - FunCall:
@@ -227,42 +240,47 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Signal
 | | | | | | | - List:
-| | | | | | | | - BinOp:
-| | | | | | | | | - Sub
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - EW
-| | | | | | | | | | | | - Avg
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - MidPrice
+| | | | | | | | - List:
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Sub
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - book
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - alpha_1
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | - Avg
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - EW
-| | | | | | | | | | | | - Avg
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - MidPrice
 | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - book
 | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - book
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - alpha_2
-| | | | | | | | - Var:
-| | | | | | | | | - threshold
+| | | | | | | | | | | | | | - alpha_1
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | - Avg
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - alpha_2
+| | | | | | | | | - Var:
+| | | | | | | | | | - threshold
 | | | | | - None
 | | | | | - None
 | | | | | - List:
@@ -278,8 +296,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
-| | | | | | | | | | - FloatLit:
-| | | | | | | | | | | - 200.0
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 200.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - book
@@ -291,6 +310,7 @@ Definitions:
 | | | | | | | | | | | - orderbook
 | | | | | | | | | | | - OfTrader
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - IfThenElse:
@@ -302,8 +322,9 @@ Definitions:
 | | | | | | | | | | | - orderbook
 | | | | | | | | | | | - BidPrice
 | | | | | | | | | - List:
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - book
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - book
 | | | | | | | | - Var:
 | | | | | | | | | - fv
 | | | | | | | - FunCall:
@@ -312,6 +333,7 @@ Definitions:
 | | | | | | | | | | - side
 | | | | | | | | | | - Sell
 | | | | | | | | - List:
+| | | | | | | | | - List:
 | | | | | | | - IfThenElse:
 | | | | | | | | - Condition:
 | | | | | | | | | - Less
@@ -321,8 +343,9 @@ Definitions:
 | | | | | | | | | | | | - orderbook
 | | | | | | | | | | | | - AskPrice
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - book
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - book
 | | | | | | | | | - Var:
 | | | | | | | | | | - fv
 | | | | | | | | - FunCall:
@@ -331,12 +354,14 @@ Definitions:
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Buy
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Nothing
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | - None
 | | | | | - None
 | | | | | - List:
@@ -366,6 +391,7 @@ Definitions:
 | | | | | | | | | | | - orderbook
 | | | | | | | | | | | - OfTrader
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - FunCall:
@@ -373,24 +399,27 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - FundamentalValue
 | | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - EW
-| | | | | | | | | | | - Avg
-| | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | - MidPrice
+| | | | | | | | - List:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
+| | | | | | | | | | | | - EW
+| | | | | | | | | | | | - Avg
+| | | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - book
 | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - book
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - alpha
-| | | | | | | | - Var:
-| | | | | | | | | - book
+| | | | | | | | | | | | | - alpha
+| | | | | | | | | - Var:
+| | | | | | | | | | - book
 | | | | | - None
 | | | | | - None
 | | | | | - List:
@@ -407,6 +436,7 @@ Definitions:
 | | | | | | | | | | | - orderbook
 | | | | | | | | | | | - OfTrader
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - factor
@@ -417,8 +447,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
-| | | | | | | | | | - FloatLit:
-| | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - book
@@ -430,6 +461,7 @@ Definitions:
 | | | | | | | | | | | - orderbook
 | | | | | | | | | | | - OfTrader
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - FunCall:
@@ -437,25 +469,28 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - ObservableSide
 | | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FundamentalValue
 | | | | | | | | | | - List:
-| | | | | | | | | | | - FundamentalValue
-| | | | | | | | | - List:
-| | | | | | | | | | - BinOp:
-| | | | | | | | | | | - Mul
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Mul
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - dependee
 | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - dependee
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - factor
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - book
+| | | | | | | | | | | | | | - factor
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - book
 | | | | | - None
 | | | | | - None
 | | | | | - List:

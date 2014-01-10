@@ -65,7 +65,7 @@ class Parser() extends JavaTokenParsers with PackratParsers
             |   "-" ~> term ^^ Neg) withFailureMessage "term expected"
 
     lazy val funcall = qualified_name ~ ("(" ~> repsep(expr, ",") <~ ")") ^^ {
-        case name ~ list => FunCall(name, list)
+        case name ~ list => FunCall(name, list :: Nil)
     } withFailureMessage "funcall expected"
 
     lazy val typ : Parser[Type] = (

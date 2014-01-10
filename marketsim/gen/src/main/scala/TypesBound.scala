@@ -21,6 +21,7 @@ package object TypesBound
         def cannotCastTo(other : Base) = !canCastTo(other)
 
         def returnTypeIfFunction : Option[Base] = None
+        def paramTypesIfFunction : Option[List[Base]] = None
     }
 
     case object Unit
@@ -51,6 +52,7 @@ package object TypesBound
         }
 
         override def returnTypeIfFunction = Some(ret)
+        override def paramTypesIfFunction = Some(args)
     }
 
     sealed abstract class UserDefined
@@ -112,6 +114,15 @@ package object TypesBound
                         throw new Exception(s"Type $this casts to different functional types: " + (x :: tl))
                     Some(x)
             }
+
+        override def paramTypesIfFunction =
+            bases flatMap { _.paramTypesIfFunction } match {
+                case Nil => None
+                case x :: tl =>
+                    if (tl exists { _ != x})
+                        throw new Exception(s"Type $this casts to different functional types: " + (x :: tl))
+                    Some(x)
+            }
     }
 
     def isObservable(t : Base) = t match {
@@ -127,6 +138,7 @@ package object TypesBound
                     (directCasts(genericArgs) map { g => copy(genericArgs = g) } exists { _ canCastTo other})
 
         override def returnTypeIfFunction = target.returnTypeIfFunction
+        override def paramTypesIfFunction = target.paramTypesIfFunction
     }
 
 }

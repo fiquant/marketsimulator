@@ -287,7 +287,8 @@ package object Typer
             case AST.IntLit(x) => Typed.IntLit(x)
             case AST.Var(name) => Typed.ParamRef(ctx.lookupVar(name))
 
-            case AST.FunCall(name, args) =>
+            case AST.FunCall(name, arg_lists) =>
+                val args = arg_lists(0)
                 val fun_type = ctx.lookupFunction(name)
                 val actual_args = args zip fun_type.parameters map {
                     case (actual, declared) =>

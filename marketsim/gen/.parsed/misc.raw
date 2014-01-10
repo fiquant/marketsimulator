@@ -19,6 +19,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - BinOp:
@@ -54,6 +55,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - y
@@ -64,6 +66,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - IfThenElse:
@@ -101,6 +104,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - y
@@ -111,6 +115,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - IfThenElse:
@@ -155,6 +160,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -202,6 +208,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - const
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -249,6 +256,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - const
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -296,6 +304,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - const
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -344,6 +353,7 @@ Definitions:
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Sell
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -429,6 +439,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - const
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - timeframe
@@ -477,6 +488,7 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - timeframe
@@ -521,6 +533,7 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - timeframe
@@ -573,6 +586,7 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - epsilon
@@ -583,8 +597,9 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 0.01
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | - 0.01
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
@@ -622,6 +637,7 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - epsilon
@@ -632,8 +648,9 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 0.01
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | - 0.01
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
@@ -684,8 +701,9 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - const
 | | | | | | | - List:
-| | | | | | | | - Var:
-| | | | | | | | | - x
+| | | | | | | | - List:
+| | | | | | | | | - Var:
+| | | | | | | | | | - x
 | | | | | - Some:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
@@ -770,6 +788,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - elsePart
@@ -780,6 +799,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - IfThenElse:
@@ -792,6 +812,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - null
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - Var:
 | | | | | | | | - x
 | | | | | | | - Var:
@@ -832,6 +853,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - EWMA
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:

@@ -20,6 +20,7 @@ Definitions:
 | | | | | | | | | | | - order
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  order factory function
 | | | | | | - Parameter:
@@ -37,6 +38,7 @@ Definitions:
 | | | | | | | | | | | - observable
 | | | | | | | | | | | - OnEveryDt
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  Event source making the strategy to wake up
 | | | | | - None
@@ -77,6 +79,7 @@ Definitions:
 | | | | | | | | | | | - observable
 | | | | | | | | | | | - OnEveryDt
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  Event source making the strategy to wake up
 | | | | | | - Parameter:
@@ -91,6 +94,7 @@ Definitions:
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  order factory function
 | | | | | | - Parameter:
@@ -102,8 +106,9 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
-| | | | | | | | | | - FloatLit:
-| | | | | | | | | | | - 0.0
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 0.0
 | | | | | | | - List:
 | | | | | | | | -  signal to be listened to 
 | | | | | | - Parameter:
