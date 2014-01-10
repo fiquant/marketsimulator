@@ -4,6 +4,7 @@ package object Typer
     {
         def lookupFunction(name : AST.QualifiedName) : Typed.Function
         def lookupVar(name : String) : Typed.Parameter
+        def toTyped(t : AST.Type) : TypesBound.Base
     }
 
     private val visited = new {
@@ -152,6 +153,8 @@ package object Typer
 
             def inferType(locals: List[Typed.Parameter])(e: AST.Expr) = {
                 val ctx = new TypingExprCtx {
+                    def toTyped(t : AST.Type) = self.toBound(t)
+
                     def lookupFunction(name: AST.QualifiedName) = self.lookupFunction(name)
 
                     def lookupVar(name: String) = locals.find({
@@ -278,6 +281,8 @@ package object Typer
                 promote_opt(Typed.BinOp(c, asArith(x), asArith(y)))
 
             case AST.Neg(x) => Typed.Neg(asArith(x))
+
+            case AST.Cast(x, ty) => Typed.Cast(asArith(x), ctx toTyped ty)
 
             case AST.IfThenElse(cond, x, y) =>
                 promote_opt(Typed.IfThenElse(asBoolean(cond), asArith(x), asArith(y)))

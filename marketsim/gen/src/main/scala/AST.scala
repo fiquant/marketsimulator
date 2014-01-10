@@ -127,6 +127,7 @@ package object AST {
     case class BinOp     (symbol : BinOpSymbol, x: Expr, y: Expr)         extends Expr with pp.BinOp with ScPrintable
     case class IfThenElse(cond : BooleanExpr, x : Expr, y : Expr)         extends Expr with pp.IfThenElse with ScPrintable
     case class FunCall   (name : QualifiedName, args : List[List[Expr]])  extends Expr with pp.FunCall with ScPrintable
+    case class Cast      (x : Expr, ty : Type)                            extends Expr with pp.Cast with ScPrintable
 
     sealed abstract class CondSymbol extends pp.CondSymbol
 
