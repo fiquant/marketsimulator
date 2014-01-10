@@ -717,6 +717,18 @@ package order {
         
 }
 
+@category = "Strategy"
+package strategies {
+    /** Generic strategy that wakes up on events given by *eventGen*,
+     *  creates an order via *orderFactory* and sends the order to the market using its trader
+     */
+    
+    @python.intrinsic("strategy.generic._Generic_Impl")
+    def Generic(/** Event source making the strategy to wake up*/ orderFactory : .IOrderGenerator = .order.Limit(),
+                /** order factory function*/ eventGen : .IEvent = .observable.OnEveryDt()) : .ISingleAssetStrategy
+        
+}
+
 @category = "Basic"
 package observable {@category = "Price function"
     package pricefunc {
@@ -1308,8 +1320,10 @@ type IOrderQueue
 type Float
 type Int : Float
 type IOrderBook
-type IObservable[U] : IFunction[U]
+type IEvent
+type IObservable[U] : IFunction[U], IEvent
 type IFunction[T] = () => T
+type ISingleAssetStrategy
 type ISingleAssetTrader
 type Order
 type IDifferentiable : IFunction[Float]

@@ -19,7 +19,9 @@ type IOrderBook
 
 type IFunction[T] = () => T
 
-type IObservable[U] : IFunction[U]
+type IEvent
+
+type IObservable[U] : IFunction[U], IEvent
 
 type IOrderGenerator = IObservable[Order]
 
@@ -32,3 +34,5 @@ type CandleStick
 type VolumeLevels
 
 type Order
+
+type ISingleAssetStrategy

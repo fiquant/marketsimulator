@@ -73,6 +73,11 @@ Definitions:
 | | | | | | - T
 | | | | - List:
 | - Interface:
+| | - IEvent
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
 | | - IObservable
 | | - Generics:
 | | | - List:
@@ -88,6 +93,11 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - U
 | | | | | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IEvent
+| | | | - List:
 | - Alias:
 | | - IOrderGenerator
 | | - Generics:
@@ -134,6 +144,11 @@ Definitions:
 | | - List:
 | - Interface:
 | | - Order
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - ISingleAssetStrategy
 | | - Generics:
 | | | - List:
 | | - List:

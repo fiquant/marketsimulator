@@ -9,7 +9,7 @@ from reference import Reference
 from types import (IObservable, IFunction, ISingleAssetTrader,
                    IOrderQueue, IOrderBook, IDifferentiable,
                    IFunction, IObservable,
-                   IOrderGenerator,
+                   IOrderGenerator, IEvent,
                    IVolumeLevels as VolumeLevels,
                    IOrder as Order)
 

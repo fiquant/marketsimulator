@@ -5151,6 +5151,74 @@ Definitions:
 | | - Some:
 | | | - QualifiedName:
 | | | | - List:
+| | | | | - strategies
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Generic
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - orderFactory
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IOrderGenerator
+| | | | | | | | | - List:
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - order
+| | | | | | | | | | | - Limit
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  Event source making the strategy to wake up
+| | | | | | - Parameter:
+| | | | | | | - eventGen
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IEvent
+| | | | | | | | | - List:
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - observable
+| | | | | | | | | | | - OnEveryDt
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  order factory function
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Generic strategy that wakes up on events given by *eventGen*,
+| | | | | | | - List:
+| | | | | | | | -   creates an order via *orderFactory* and sends the order to the market using its trader
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.generic._Generic_Impl
+| | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Strategy
+| - PackageDef:
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
 | | | | | - observable
 | | - Definitions:
 | | | - List:
@@ -9540,6 +9608,11 @@ Definitions:
 | | | - List:
 | | - List:
 | - Interface:
+| | - IEvent
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
 | | - IObservable
 | | - Generics:
 | | | - List:
@@ -9555,6 +9628,11 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - U
 | | | | | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IEvent
+| | | | - List:
 | - Alias:
 | | - IFunction
 | | - Generics:
@@ -9567,6 +9645,11 @@ Definitions:
 | | | | | - List:
 | | | | | | - T
 | | | | - List:
+| - Interface:
+| | - ISingleAssetStrategy
+| | - Generics:
+| | | - List:
+| | - List:
 | - Interface:
 | | - ISingleAssetTrader
 | | - Generics:
