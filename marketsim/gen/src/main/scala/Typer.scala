@@ -289,7 +289,10 @@ package object Typer
 
             case AST.FunCall(name, arg_lists) =>
                 val args = arg_lists(0)
-                val fun_type = ctx.lookupFunction(name)
+                val fun_type = ctx lookupFunction name
+                if (args.length < fun_type.ty.mandatory_arg_count)
+                    throw new Exception(s"Function $name is called with $args but it" +
+                            s"should be called with at least ${fun_type.ty.mandatory_arg_count} arguments")
                 val actual_args = args zip fun_type.parameters map {
                     case (actual, declared) =>
                         val typed = asArith(actual)

@@ -34,7 +34,7 @@ package object TypesBound
             with    sc.Tuple
             with    py.Tuple
 
-    case class Function(args : List[Base], ret : Base)
+    case class Function(args : List[Base], ret : Base, mandatory_arg_count : Int)
             extends Base
             with    sc.Function
             with    py.Function
@@ -94,7 +94,7 @@ package object TypesBound
         case x : Interface  => x.bases.toStream
         case x if x == Unit => Stream.empty
         case x : Tuple      => directCasts(x.elems) map Tuple
-        case x : Function   => directCasts(x.ret) map { Function(x.args, _)}
+        case x : Function   => directCasts(x.ret) map { Function(x.args, _, x.mandatory_arg_count)}
     }
 
 

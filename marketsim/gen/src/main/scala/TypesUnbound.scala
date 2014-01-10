@@ -74,7 +74,8 @@ package object TypesUnbound
         def bind(m : ITypeMapper[TypesBound.Base]) =
             TypesBound.Function(
                 args map { _ bind m },
-                ret bind m)
+                ret bind m,
+                args.length)
 
         def substitute(m : ITypeMapper[TypesUnbound.Base]) =
             TypesUnbound.Function(
