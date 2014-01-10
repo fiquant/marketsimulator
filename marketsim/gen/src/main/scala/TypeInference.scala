@@ -61,9 +61,14 @@ package object TypeInference
         val ty = p.ty
     }
 
+    trait FunctionRef {
+        self: Typed.FunctionRef =>
+        val ty = f.ret_type  // full_type should be here
+    }
+
     trait FunctionCall {
         self: Typed.FunctionCall =>
-        val ty = target.ret_type
+        val ty = target.ty
     }
 
     def checkBoolean(e : Typed.Expr) = {

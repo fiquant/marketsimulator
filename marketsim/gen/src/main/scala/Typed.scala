@@ -60,7 +60,13 @@ package object Typed
             with    py.ParamRef
             with    TypeInference.ParamRef
 
-    case class FunctionCall(target      : Function,
+    case class FunctionRef(f : Function)
+            extends Expr
+            with    sc.FunctionRef
+            with    py.FunctionRef
+            with    TypeInference.FunctionRef
+
+    case class FunctionCall(target      : Expr,
                             arguments   : List[(Parameter, Expr)])
             extends Expr
             with    sc.FunCall

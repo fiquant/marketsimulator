@@ -57,14 +57,13 @@ object order_factory_on_proto
 
         override type Parameter = FactoryParameter
         val factory_of_curried = x.parameters find { _.name == "proto" } match {
-            case Some(p) =>
-                val ini = p.initializer.get.asInstanceOf[Typed.FunctionCall].target
-                val factory = gen.generationUnit(ini).get match {
+            case Some(Typed.Parameter(_, _, Some(Typed.FunctionCall(Typed.FunctionRef(f), _)), _)) =>
+                val factory = gen.generationUnit(f).get match {
                     case x : FactoryBase => x
                     case _ => throw new Exception("original factory is not of appropriate type")
                 }
                 factory
-            case None => throw new Exception("Here should be a parameter with name proto")
+            case None => throw new Exception("Here should be a parameter with name proto and function call as initializer")
         }
 
         override val curried = factory_of_curried.curried

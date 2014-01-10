@@ -127,6 +127,13 @@ object Printer {
         def imports = Nil
     }
 
+    trait FunctionRef extends Expr with Priority_0 {
+        self: Typed.FunctionRef =>
+        override def toPython = f.name
+
+        def imports = importsOf(f) :: Nil
+    }
+
     def moduleName(target : Typed.Function) = {
         val name = target.parent.qualifiedName.toString
         "marketsim.gen._out" + name.splitAt(0)._2 + "._" + target.name
@@ -138,11 +145,10 @@ object Printer {
     trait FunCall extends Expr with Priority_0 {
         self: Typed.FunctionCall =>
         override def toPython =
-            target.name +
-                    arguments.map({ _._2 }).mkString("(",",",")")
+            target + arguments.map({ _._2 }).mkString("(",",",")")
 
         override def imports =
-            importsOf(target) :: (arguments flatMap { p => p._2.imports })
+            target.imports ++ (arguments flatMap { p => p._2.imports })
     }
 
 }

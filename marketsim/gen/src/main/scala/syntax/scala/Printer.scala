@@ -418,9 +418,14 @@ package object Printer
             def toScala = p.name
         }
 
+        trait FunctionRef extends Expr with Priority_0 {
+            self: Typed.FunctionRef =>
+            def toScala = (f.parent qualifyName f.name).toString
+        }
+
         trait FunCall extends Expr with Priority_0 {
             self: Typed.FunctionCall =>
-            def toScala = target.parent.qualifyName(target.name) + arguments.map({ _._2 }).mkString("(",",",")")
+            def toScala = target + arguments.map({ _._2 }).mkString("(",",",")")
         }
 
         trait TopLevelPackage extends Printable {

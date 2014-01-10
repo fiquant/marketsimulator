@@ -257,7 +257,7 @@ package object Typer
         def promote_literal(e : Typed.Expr) =
             if (e.ty == Typed.topLevel.float_) {
                 val f = ctx.lookupFunction(AST.QualifiedName("const" :: Nil))
-                Typed.FunctionCall(f, (f.parameters(0), e) :: Nil)
+                Typed.FunctionCall(Typed.FunctionRef(f), (f.parameters(0), e) :: Nil)
             } else e
 
         def promote_opt(e : Typed.Expr) =
@@ -297,7 +297,7 @@ package object Typer
                                                 s" type '${typed.ty}' when type '${declared.ty}' is expected")
                         (declared, typed)
                 }
-                Typed.FunctionCall(fun_type, actual_args)
+                Typed.FunctionCall(Typed.FunctionRef(fun_type), actual_args)
         }
 
     }
