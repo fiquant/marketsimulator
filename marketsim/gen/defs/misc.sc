@@ -20,19 +20,19 @@ package observable
 
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
-    def Observable(x : IFunction[Float] = const()) : IObservable[Float]
+    def Observable(x = const() : IFunction[Float]) : IObservable[Float]
 
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
-    def ObservablePrice(x : IFunction[Float] = const()) : IObservable[Price]
+    def ObservablePrice(x = const() : IFunction[Float]) : IObservable[Price]
 
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
-    def ObservableVolume(x : IFunction[Float] = const()) : IObservable[Volume]
+    def ObservableVolume(x = const() : IFunction[Float]) : IObservable[Volume]
 
     @python.intrinsic("observable.on_every_dt._ObservableSide_Impl")
     @label = "[%(x)s]"
-    def ObservableSide(x : IFunction[Side] = side.Sell()) : IObservable[Side]
+    def ObservableSide(x = side.Sell() : IFunction[Side]) : IObservable[Side]
 
     @python.intrinsic("observable.quote.Quote_Impl")
     @label = "%(ticker)s"
@@ -85,7 +85,7 @@ package {
 
     @python.intrinsic("observable.derivative._Derivative_Impl")
     @label = "\\frac{d%(x)s}{dt}"
-    def Derivative(x : IDifferentiable = EWMA()) => Float
+    def Derivative(x = EWMA() : IDifferentiable) => Float
 }
 
 @category = "Side"

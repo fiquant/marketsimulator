@@ -25,19 +25,20 @@ Definitions:
 | | | | | | | | -  order factory function
 | | | | | | - Parameter:
 | | | | | | | - eventGen
+| | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - OnEveryDt
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IEvent
-| | | | | | | | | - List:
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - observable
-| | | | | | | | | | | - OnEveryDt
-| | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IEvent
 | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  Event source making the strategy to wake up
@@ -66,19 +67,20 @@ Definitions:
 | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - eventGen
+| | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - OnEveryDt
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IEvent
-| | | | | | | | | - List:
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - observable
-| | | | | | | | | | | - OnEveryDt
-| | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IEvent
 | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  Event source making the strategy to wake up

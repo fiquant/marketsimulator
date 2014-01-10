@@ -725,7 +725,7 @@ package strategies {
     
     @python.intrinsic("strategy.generic._Generic_Impl")
     def Generic(/** order factory function*/ orderFactory : .IOrderGenerator = .order.Limit(),
-                /** Event source making the strategy to wake up*/ eventGen : .IEvent = .observable.OnEveryDt()) : .ISingleAssetStrategy
+                /** Event source making the strategy to wake up*/ eventGen : .IEvent = .observable.OnEveryDt() : .IEvent) : .ISingleAssetStrategy
         
     
     /** Signal strategy listens to some discrete signal
@@ -733,7 +733,7 @@ package strategies {
      * When the signal gets lower than -threshold the strategy starts to sell.
      */
     @python = "no"
-    def Signal(/** Event source making the strategy to wake up*/ eventGen : .IEvent = .observable.OnEveryDt(),
+    def Signal(/** Event source making the strategy to wake up*/ eventGen : .IEvent = .observable.OnEveryDt() : .IEvent,
                /** order factory function*/ orderFactory : (() => .Side) => .IOrderGenerator = .order._curried.side_Market(),
                /** signal to be listened to */ signal : .IFunction[.Float] = .constant(0.0),
                /** threshold when the trader starts to act */ threshold : .Float = 0.7) : .ISingleAssetStrategy
@@ -797,7 +797,7 @@ package observable {@category = "Price function"
             	 = .observable.sidefunc.FundamentalValue(.observable.EW.Avg(.observable.orderbook.MidPrice(book),alpha),book)
         
         
-        def Noise(side_distribution : .IFunction[.Float] = .mathutils.rnd.uniform(0.0,1.0)) : () => .Side
+        def Noise(side_distribution : .IFunction[.Float] = .mathutils.rnd.uniform(0.0,1.0) : .IFunction[.Float]) : () => .Side
             
             	 = if side_distribution>.const(0.5) then .side.Sell() else .side.Buy()
     }
@@ -1202,12 +1202,12 @@ package observable {@category = "Price function"
     
     @label = "[%(x)s]"
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
-    def ObservableVolume(x : .IFunction[.Float] = .const()) : .IObservable[.Volume]
+    def ObservableVolume(x : .IFunction[.Float] = .const() : .IFunction[.Float]) : .IObservable[.Volume]
         
     
     @label = "[%(x)s]"
     @python.intrinsic("observable.on_every_dt._ObservableSide_Impl")
-    def ObservableSide(x : .IFunction[.Side] = .side.Sell()) : .IObservable[.Side]
+    def ObservableSide(x : .IFunction[.Side] = .side.Sell() : .IFunction[.Side]) : .IObservable[.Side]
         
     
     @label = "%(ticker)s"
@@ -1225,12 +1225,12 @@ package observable {@category = "Price function"
     
     @label = "[%(x)s]"
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
-    def ObservablePrice(x : .IFunction[.Float] = .const()) : .IObservable[.Price]
+    def ObservablePrice(x : .IFunction[.Float] = .const() : .IFunction[.Float]) : .IObservable[.Price]
         
     
     @label = "[%(x)s]"
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
-    def Observable(x : .IFunction[.Float] = .const()) : .IObservable[.Float]
+    def Observable(x : .IFunction[.Float] = .const() : .IFunction[.Float]) : .IObservable[.Float]
         
 }
 
@@ -1311,7 +1311,7 @@ package  {
     
     @label = "\\frac{d%(x)s}{dt}"
     @python.intrinsic("observable.derivative._Derivative_Impl")
-    def Derivative(x : .IDifferentiable = .observable.EW.Avg()) : () => .Float
+    def Derivative(x : .IDifferentiable = .observable.EW.Avg() : .IDifferentiable) : () => .Float
         
     
     @label = "If def(%(x)s) else %(elsePart)s"

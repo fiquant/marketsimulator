@@ -6,7 +6,7 @@ package strategies {
      */
     @python.intrinsic("strategy.generic._Generic_Impl")
     def Generic(/** order factory function*/ orderFactory = order.Limit(),
-                /** Event source making the strategy to wake up*/ eventGen : IEvent = observable.OnEveryDt()) : ISingleAssetStrategy
+                /** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent) : ISingleAssetStrategy
         
     
     /** Signal strategy listens to some discrete signal
@@ -14,7 +14,7 @@ package strategies {
      * When the signal gets lower than -threshold the strategy starts to sell.
      */
     @python = "no"
-    def Signal(/** Event source making the strategy to wake up*/ eventGen : IEvent = observable.OnEveryDt(),
+    def Signal(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
                /** order factory function*/ orderFactory = order._.side.Market(),
                /** signal to be listened to */ signal = constant(0.0),
                /** threshold when the trader starts to act */ threshold = 0.7) : ISingleAssetStrategy

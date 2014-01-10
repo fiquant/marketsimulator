@@ -5289,19 +5289,20 @@ Definitions:
 | | | | | | | | -  order factory function
 | | | | | | - Parameter:
 | | | | | | | - eventGen
+| | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - OnEveryDt
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IEvent
-| | | | | | | | | - List:
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - observable
-| | | | | | | | | | | - OnEveryDt
-| | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IEvent
 | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  Event source making the strategy to wake up
@@ -5330,19 +5331,20 @@ Definitions:
 | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - eventGen
+| | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - OnEveryDt
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IEvent
-| | | | | | | | | - List:
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - observable
-| | | | | | | | | | | - OnEveryDt
-| | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IEvent
 | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  Event source making the strategy to wake up
@@ -5950,30 +5952,31 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - side_distribution
+| | | | | | | | | | - None
 | | | | | | | | | | - Some:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - IFunction
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | - Cast:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - mathutils
+| | | | | | | | | | | | | | | - rnd
+| | | | | | | | | | | | | | | - uniform
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - mathutils
-| | | | | | | | | | | | | | - rnd
-| | | | | | | | | | | | | | - uniform
-| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | - 0.0
+| | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IFunction
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | - 0.0
-| | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - Some:
 | | | | | | | | | - IfThenElse:
@@ -9141,24 +9144,25 @@ Definitions:
 | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - x
+| | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - IFunction
-| | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - const
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
-| | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
 | | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -9189,25 +9193,26 @@ Definitions:
 | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - x
+| | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - IFunction
-| | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Side
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - side
+| | | | | | | | | | | | - Sell
 | | | | | | | | | | - List:
-| | | | | | | | | | | - side
-| | | | | | | | | | | - Sell
-| | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
 | | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Side
+| | | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -9328,24 +9333,25 @@ Definitions:
 | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - x
+| | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - IFunction
-| | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - const
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
-| | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
 | | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -9376,24 +9382,25 @@ Definitions:
 | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - x
+| | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - IFunction
-| | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - const
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
-| | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
 | | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -9874,18 +9881,19 @@ Definitions:
 | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - x
+| | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - EWMA
 | | | | | | | | | | - List:
-| | | | | | | | | | | - IDifferentiable
-| | | | | | | | | - List:
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - EWMA
-| | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IDifferentiable
 | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None

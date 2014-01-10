@@ -9,7 +9,7 @@ package strategies
     def Generic(/** order factory function*/
                 orderFactory = order.Limit(),
                 /** Event source making the strategy to wake up*/
-                eventGen     : IEvent = observable.OnEveryDt()) : ISingleAssetStrategy
+                eventGen     = observable.OnEveryDt() : IEvent) : ISingleAssetStrategy
 
     /**
      * Signal strategy listens to some discrete signal
@@ -18,7 +18,7 @@ package strategies
      */
     @python = "no"
     def Signal(/** Event source making the strategy to wake up*/
-               eventGen     : IEvent = observable.OnEveryDt(),
+               eventGen     = observable.OnEveryDt() : IEvent,
                /** order factory function*/
                orderFactory = order._.side.Market(),
                /** signal to be listened to */
