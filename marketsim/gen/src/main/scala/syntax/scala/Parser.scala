@@ -5,7 +5,7 @@ import AST._
 
 class Parser() extends JavaTokenParsers with PackratParsers
 {
-    lazy val expr : Parser[Expr] = conditional | arithmetic | string_literal
+    lazy val expr : Parser[Expr] = conditional | castable | string_literal
 
     lazy val string_literal = string ^^ AST.StringLit
 
@@ -44,6 +44,11 @@ class Parser() extends JavaTokenParsers with PackratParsers
     lazy val addsub_op = ("+" ^^^ Add | "-" ^^^ Sub) withFailureMessage "+ or - expected"
 
     lazy val muldiv_op = ("*" ^^^ Mul | "/" ^^^ Div) withFailureMessage "* or / expected"
+
+    lazy val castable = arithmetic ~ opt(":" ~> typ) ^^ {
+        case a ~ None    => a
+        case a ~ Some(t) => Cast(a, t)
+    }
 
     lazy val arithmetic = factor ~ rep(addsub_op ~ factor) ^^ {
         case start ~ list => list.foldLeft(start) {
