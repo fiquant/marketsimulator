@@ -807,6 +807,18 @@ package strategy {
         
         	 = .strategy.Generic(orderFactory(.observable.sidefunc.MeanReversion(ewma_alpha)),eventGen)
     
+    /** Liquidity provider for one side
+     */
+    
+    def LiquidityProviderSide(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent,
+                              /** order factory function*/ orderFactory : Optional[((() => .Side),(() => .Float)) => .IOrderGenerator] = .order._curried.sideprice_Limit(),
+                              /** side of orders to create */ side : Optional[() => .Side] = .side.Sell(),
+                              /** initial price which is taken if orderBook is empty */ initialValue : Optional[.Float] = 100.0,
+                              /** defines multipliers for current asset price when price of
+                                *                    order to create is calculated*/ priceDistr : Optional[() => .Float] = .mathutils.rnd.lognormvariate(0.0,0.1)) : .ISingleAssetStrategy
+        
+        	 = .strategy.Generic(orderFactory(side,.observable.pricefunc.LiquidityProvider(side,initialValue,priceDistr)),eventGen)
+    
     /** Generic strategy that wakes up on events given by *eventGen*,
      *  creates an order via *orderFactory* and sends the order to the market using its trader
      */

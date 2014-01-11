@@ -19,7 +19,7 @@ class LiquidityProvider(types.ISingleAssetStrategy):
         def create(side):
             return LiquidityProviderSide(  _.eventGen,
                                            self.orderFactory,
-                                           side, 
+                                           ops.constant(side),
                                            self.defaultValue,
                                            _.price)
     
