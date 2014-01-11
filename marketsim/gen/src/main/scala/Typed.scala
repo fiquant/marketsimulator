@@ -148,18 +148,7 @@ package object Typed
 
         def qualifiedName = parent qualifyName name
 
-        val first_optional = parameters indexWhere { _.initializer.nonEmpty } match {
-            case -1 => parameters.length
-            case idx => idx
-        }
-
-        parameters.indexWhere({ _.initializer.isEmpty}, first_optional) match {
-            case -1 =>
-            case idx => throw new Exception(s"A mandatory argument '${parameters(idx)}' found after optional argument '${parameters(first_optional)}' " +
-                    s"at function declaration $this")
-        }
-
-        val ty = TypesBound.Function(parameters map { _.ty }, ret_type, first_optional)
+        val ty = TypesBound.Function(parameters map { _.ty }, ret_type)
 
         def getAttribute(name : String) = tryGetAttribute(name) match {
             case Some(v) => v
