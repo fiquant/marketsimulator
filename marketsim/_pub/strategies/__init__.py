@@ -1,3 +1,5 @@
+from marketsim.gen._out.strategies._PairTrading import PairTrading
+
 from marketsim.gen._out.strategies._Signal import Signal
 
 from marketsim.gen._out.strategies._CrossingAverages import CrossingAverages

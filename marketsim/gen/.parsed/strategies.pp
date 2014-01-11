@@ -62,4 +62,17 @@ package strategies {
                       /** order factory function*/ orderFactory = order._.side.Market(),
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15)
          = Generic(orderFactory(observable.sidefunc.MeanReversion(ewma_alpha)),eventGen)
+    
+    /** Dependent price strategy believes that the fair price of an asset *A*
+     * is completely correlated with price of another asset *B* and the following relation
+     * should be held: *PriceA* = *kPriceB*, where *k* is some factor.
+     * It may be considered as a variety of a fundamental value strategy
+     * with the exception that it is invoked every the time price of another
+     * asset *B* changes.
+     */
+    def PairTrading(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
+                    /** order factory function*/ orderFactory = order._.side.Market(),
+                    /** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn = observable.orderbook.OfTrader(),
+                    /** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0)
+         = Generic(orderFactory(observable.sidefunc.PairTrading(bookToDependOn,factor)),eventGen)
 }

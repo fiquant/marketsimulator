@@ -42,7 +42,7 @@ package observable.sidefunc
 
     def PairTrading(
         dependee = orderbook.OfTrader(),
-        factor = constant(1.),
+        factor = 1.,
         book = orderbook.OfTrader())
 
         = ObservableSide(FundamentalValue(orderbook.MidPrice(dependee) * factor, book))

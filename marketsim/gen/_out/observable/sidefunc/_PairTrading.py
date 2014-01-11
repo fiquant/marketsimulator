@@ -2,7 +2,6 @@ from marketsim import registry
 from marketsim import Side
 from marketsim.ops._all import Observable
 from marketsim import IOrderBook
-from marketsim import IFunction
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Side function", "PairTrading"])
@@ -13,13 +12,12 @@ class PairTrading(Observable[Side]):
         from marketsim import Side
         from marketsim.ops._all import Observable
         from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader as _observable_orderbook_OfTrader
-        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader as _observable_orderbook_OfTrader
         from marketsim import _
         from marketsim import event
         Observable[Side].__init__(self)
         self.dependee = dependee if dependee is not None else _observable_orderbook_OfTrader()
-        self.factor = factor if factor is not None else _constant(1.0)
+        self.factor = factor if factor is not None else 1.0
         self.book = book if book is not None else _observable_orderbook_OfTrader()
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -30,7 +28,7 @@ class PairTrading(Observable[Side]):
     
     _properties = {
         'dependee' : IOrderBook,
-        'factor' : IFunction[float],
+        'factor' : float,
         'book' : IOrderBook
     }
     def __repr__(self):
@@ -41,7 +39,9 @@ class PairTrading(Observable[Side]):
         from marketsim.gen._out.observable._ObservableSide import ObservableSide as _observable_ObservableSide
         from marketsim.gen._out.observable.sidefunc._FundamentalValue import FundamentalValue as _observable_sidefunc_FundamentalValue
         from marketsim.gen._out.observable.orderbook._MidPrice import MidPrice as _observable_orderbook_MidPrice
-        return _observable_ObservableSide(_observable_sidefunc_FundamentalValue(_observable_orderbook_MidPrice(self.dependee)*self.factor,self.book))
+        from marketsim.gen._out._const import const as _const
+        return _observable_ObservableSide(_observable_sidefunc_FundamentalValue(_observable_orderbook_MidPrice(self.dependee)*_const(self.factor),self.book))
+        
         
         
     
