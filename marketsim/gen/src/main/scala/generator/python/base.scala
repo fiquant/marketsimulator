@@ -103,7 +103,7 @@ package object base {
 
         def repr = Def("__repr__", "", repr_body)
 
-        def call_body : Code
+        def call_body : Code = ""
         def call_args : Code = "*args, **kwargs"
         def call = Def("__call__", call_args, call_body)
 
@@ -114,7 +114,7 @@ package object base {
     {
         def impl_module : String
 
-        def call_body : Code = s"""return $impl_module.$impl_function($call_fields)""" ||| Import(impl_module)
+        override def call_body : Code = s"""return $impl_module.$impl_function($call_fields)""" ||| Import(impl_module)
     }
 
     object python extends gen.PythonGenerator
@@ -124,7 +124,11 @@ package object base {
         def generatePython(/** arguments of the annotation */ args  : List[String])
                           (/** function to process         */ f     : Typed.Function) =
         {
-            (if (TypesBound.isObservable(f.ret_type)) observable else function).generatePython(args)(f)
+            (if (TypesBound.isObservable(f.ret_type)) observable
+                else if (TypesBound.isStrategy(f.ret_type))
+                    strategy
+                else
+                    function).generatePython(args)(f)
         }
     }
 

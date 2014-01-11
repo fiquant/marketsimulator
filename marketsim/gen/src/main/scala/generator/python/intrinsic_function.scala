@@ -30,7 +30,7 @@ object intrinsic_function extends gen.PythonGenerator
 
         override def repr = if (label_tmpl.toString != "N/A") super.repr else ""
 
-        def call_body = ""  // TODO: remove from the base class
+        override def call_body = ""  // TODO: remove from the base class
     }
 
 

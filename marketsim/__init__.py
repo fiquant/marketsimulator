@@ -10,6 +10,7 @@ from types import (IObservable, IFunction, ISingleAssetTrader,
                    IOrderQueue, IOrderBook, IDifferentiable,
                    IFunction, IObservable,
                    IOrderGenerator, IEvent,
+                   ISingleAssetStrategy,
                    IVolumeLevels as VolumeLevels,
                    IOrder as Order)
 

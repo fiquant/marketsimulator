@@ -732,7 +732,7 @@ package strategies {
      * and when the signal becomes more than some threshold the strategy starts to buy.
      * When the signal gets lower than -threshold the strategy starts to sell.
      */
-    @python = "no"
+    
     def Signal(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent,
                /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market(),
                /** signal to be listened to */ signal : Optional[.IFunction[.Float]] = .constant(0.0),

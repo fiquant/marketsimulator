@@ -16,7 +16,6 @@ package strategies
      * and when the signal becomes more than some threshold the strategy starts to buy.
      * When the signal gets lower than -threshold the strategy starts to sell.
      */
-    @python = "no"
     def Signal(/** Event source making the strategy to wake up*/
                eventGen     = observable.OnEveryDt() : IEvent,
                /** order factory function*/
