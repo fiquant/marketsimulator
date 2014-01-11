@@ -739,6 +739,21 @@ package strategies {
                /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : .ISingleAssetStrategy
         
         	 = .strategies.Generic(orderFactory(.observable.sidefunc.Signal(signal,threshold)),eventGen)
+    
+    /** Trend follower can be considered as a sort of a signal strategy
+     * where the *signal* is a trend of the asset.
+     * Under trend we understand the first derivative of some moving average of asset prices.
+     * If the derivative is positive, the trader buys; if negative - it sells.
+     * Since moving average is a continuously changing signal, we check its
+     * derivative at moments of time given by *eventGen*.
+     */
+    
+    def TrendFollower(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent,
+                      /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market(),
+                      /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha : Optional[.Float] = 0.15,
+                      /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0) : .ISingleAssetStrategy
+        
+        	 = .strategies.Generic(orderFactory(.observable.sidefunc.TrendFollower(ewma_alpha,threshold)),eventGen)
 }
 
 @category = "Basic"
