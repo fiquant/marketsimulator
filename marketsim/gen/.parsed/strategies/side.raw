@@ -551,4 +551,122 @@ Definitions:
 | | | | | | | | -  with the exception that it is invoked every the time price of another
 | | | | | | | | -  asset *B* changes.
 | | | | | - List:
+| | | | - FunDef:
+| | | | | - RSIbis
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - eventGen
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - OnEveryDt
+| | | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IEvent
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  Event source making the strategy to wake up
+| | | | | | - Parameter:
+| | | | | | | - orderFactory
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - order
+| | | | | | | | | | | - _
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Market
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  order factory function
+| | | | | | - Parameter:
+| | | | | | | - alpha
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Div
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 1.0
+| | | | | | | | | - IntLit:
+| | | | | | | | | | - 14
+| | | | | | | - List:
+| | | | | | | | -  parameter |alpha| for exponentially weighted moving average 
+| | | | | | - Parameter:
+| | | | | | | - timeframe
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - threshold
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 30.0
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Generic
+| | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - orderFactory
+| | | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | | | | - Signal
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 50.0
+| | | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | | | - RSI
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | | | - alpha
+| | | | | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 50.0
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - threshold
+| | | | | | | | | - Var:
+| | | | | | | | | | - eventGen
+| | | | | - None
+| | | | | - None
+| | | | | - List:
 | | - List:

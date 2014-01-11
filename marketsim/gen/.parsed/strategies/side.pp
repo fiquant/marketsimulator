@@ -66,4 +66,11 @@ package strategy {
                     /** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn = observable.orderbook.OfTrader(),
                     /** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0)
          = Generic(orderFactory(observable.sidefunc.PairTrading(bookToDependOn,factor)),eventGen)
+    
+    def RSIbis(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
+               /** order factory function*/ orderFactory = order._.side.Market(),
+               /** parameter |alpha| for exponentially weighted moving average */ alpha = 1.0/14,
+               timeframe = 1.0,
+               threshold = 30.0)
+         = Generic(orderFactory(observable.sidefunc.Signal(50.0-observable.RSI(observable.orderbook.OfTrader(),timeframe,alpha),50.0-threshold)),eventGen)
 }

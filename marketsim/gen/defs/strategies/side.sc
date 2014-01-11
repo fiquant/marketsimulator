@@ -103,4 +103,22 @@ package strategy
 
         =   Generic(orderFactory(observable.sidefunc.PairTrading(bookToDependOn, factor)), eventGen)
 
+    def RSIbis(         /** Event source making the strategy to wake up*/
+                        eventGen     = observable.OnEveryDt() : IEvent,
+                        /** order factory function*/
+                        orderFactory = order._.side.Market(),
+                        /** parameter |alpha| for exponentially weighted moving average */
+                        alpha        = 1./14,
+                        timeframe    = 1.,
+                        threshold    = 30.)
+
+        =   Generic(
+                orderFactory(
+                    observable.sidefunc.Signal(
+                        50.0 - observable.RSI(
+                                    observable.orderbook.OfTrader(),
+                                    timeframe,
+                                    alpha),
+                        50.0 - threshold)),
+                eventGen)
 }

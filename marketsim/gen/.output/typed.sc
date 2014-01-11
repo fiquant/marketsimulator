@@ -786,6 +786,15 @@ package strategy {
         
         	 = .strategy.Generic(orderFactory(.observable.sidefunc.FundamentalValue(fundamentalValue)),eventGen)
     
+    
+    def RSIbis(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent,
+               /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market(),
+               /** parameter |alpha| for exponentially weighted moving average */ alpha : Optional[.Float] = 1.0/14,
+               timeframe : Optional[.Float] = 1.0,
+               threshold : Optional[.Float] = 30.0) : .ISingleAssetStrategy
+        
+        	 = .strategy.Generic(orderFactory(.observable.sidefunc.Signal(.const(50.0)-.observable.RSI(.observable.orderbook.OfTrader(),timeframe,alpha),50.0-threshold)),eventGen)
+    
     /** Mean reversion strategy believes that asset price should return to its average value.
      * It estimates this average using some functional and
      * if the current asset price is lower than the average
