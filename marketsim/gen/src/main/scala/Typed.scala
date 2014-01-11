@@ -342,9 +342,6 @@ package object Typed
         def observableOf(t : TypesUnbound.Base) =
             (types get "IObservable").get resolveGenerics  t :: Nil
 
-        def optionalOf(t : TypesUnbound.Base) =
-            (types get "Optional").get resolveGenerics t :: Nil
-
         val EmptyTypeMapper = TypesUnbound.EmptyTypeMapper_Bound
 
         def genType(name : String) = {

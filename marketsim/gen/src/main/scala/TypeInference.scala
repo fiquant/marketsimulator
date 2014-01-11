@@ -58,7 +58,10 @@ package object TypeInference
 
     trait ParamRef {
         self: Typed.ParamRef =>
-        val ty = p.ty
+        val ty = p.ty match {
+            case TypesBound.Optional(x) => x
+            case x                      => x
+        }
     }
 
     trait FunctionRef {

@@ -210,16 +210,17 @@ package object Typer
                 p.initializer match {
                     case Some(e) =>
                         val initializer = inferType(e)
-                        if (p.ty.nonEmpty) {
+                        val ty = if (p.ty.nonEmpty) {
                             val decl_type = toBound(p.ty.get)
                             if (initializer.ty cannotCastTo decl_type) {
                                 throw new Exception(s"Inferred type of '$initializer': '${initializer.ty}' "
                                         + s"doesn't match to the declared type '$decl_type'")
-                            } // TODO: support casts
-                            Typed.Parameter(p.name, decl_type, Some(initializer), p.comment)
+                            }
+                            decl_type
                         } else {
-                            Typed.Parameter(p.name, initializer.ty, Some(initializer), p.comment)
+                            TypesBound.Optional(initializer.ty)
                         }
+                        Typed.Parameter(p.name, ty, Some(initializer), p.comment)
                     case None =>
                         if (p.ty.nonEmpty)
                             Typed.Parameter(p.name, toBound(p.ty.get), None, p.comment)
