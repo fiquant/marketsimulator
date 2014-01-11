@@ -12,8 +12,9 @@ package object TypesBound
             with    ScPyPrintable
     {
         final def canCastTo(other : Base) : Boolean = this == other || (other match {
-            case a : Alias => canCastTo(a.target)
-            case _ => false
+            case a : Alias      => canCastTo(a.target)
+            case Optional(x)    => canCastTo(x)
+            case _              => false
         }) || canCastToImpl(other)
 
         protected def canCastToImpl(other : Base) = false
@@ -28,6 +29,11 @@ package object TypesBound
             extends Base
             with    sc.Unit
             with    py.Unit
+
+    case class Optional(x : Base)
+            extends Base
+            with    sc.Optional
+            with    py.Optional
 
     case class Tuple(elems : List[Base])
             extends Base

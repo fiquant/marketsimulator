@@ -328,6 +328,12 @@ package object Printer
         type Base = base.TypeBase
         type Unit = base.UnitType
 
+        trait Optional extends Printable {
+            def x : Any
+
+            def toScala = s"Opt[$x]"
+        }
+
         type Tuple = base.TupleType
         type Function = base.FunctionType
 
