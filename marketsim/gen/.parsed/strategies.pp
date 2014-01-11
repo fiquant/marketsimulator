@@ -43,4 +43,13 @@ package strategies {
                          /** parameter |alpha| for exponentially weighted moving average 2 */ ewma_alpha_2 = 0.015,
                          /** threshold when the trader starts to act */ threshold = 0.0)
          = Generic(orderFactory(observable.sidefunc.CrossingAverages(ewma_alpha_1,ewma_alpha_2,threshold)),eventGen)
+    
+    /** Fundamental value strategy believes that an asset should have some specific price
+     * (*fundamental value*) and if the current asset price is lower than the fundamental value
+     * it starts to buy the asset and if the price is higher it starts to sell the asset.
+     */
+    def FundamentalValue(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
+                         /** order factory function*/ orderFactory = order._.side.Market(),
+                         /** defines fundamental value */ fundamentalValue = constant(100.0))
+         = Generic(orderFactory(observable.sidefunc.FundamentalValue(fundamentalValue)),eventGen)
 }
