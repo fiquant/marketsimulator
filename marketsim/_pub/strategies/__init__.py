@@ -6,5 +6,7 @@ from marketsim.gen._out.strategies._TrendFollower import TrendFollower
 
 from marketsim.gen._out.strategies._FundamentalValue import FundamentalValue
 
+from marketsim.gen._out.strategies._MeanReversion import MeanReversion
+
 from marketsim.gen._out.strategies._Generic import Generic
 

@@ -664,6 +664,16 @@ package strategies {
                          /** defines fundamental value */ fundamentalValue = constant(100.0))
          = Generic(orderFactory(observable.sidefunc.FundamentalValue(fundamentalValue)),eventGen)
     
+    /** Mean reversion strategy believes that asset price should return to its average value.
+     * It estimates this average using some functional and
+     * if the current asset price is lower than the average
+     * it buys the asset and if the price is higher it sells the asset.
+     */
+    def MeanReversion(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
+                      /** order factory function*/ orderFactory = order._.side.Market(),
+                      /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15)
+         = Generic(orderFactory(observable.sidefunc.MeanReversion(ewma_alpha)),eventGen)
+    
     /** Generic strategy that wakes up on events given by *eventGen*,
      *  creates an order via *orderFactory* and sends the order to the market using its trader
      */
