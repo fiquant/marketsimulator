@@ -754,6 +754,20 @@ package strategies {
                       /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0) : .ISingleAssetStrategy
         
         	 = .strategies.Generic(orderFactory(.observable.sidefunc.TrendFollower(ewma_alpha,threshold)),eventGen)
+    
+    /** Two averages strategy compares two averages of price of the same asset but
+     * with different parameters ('slow' and 'fast' averages) and when
+     * the first is greater than the second one it buys,
+     * when the first is lower than the second one it sells
+     */
+    
+    def CrossingAverages(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent,
+                         /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market(),
+                         /** parameter |alpha| for exponentially weighted moving average 1 */ ewma_alpha_1 : Optional[.Float] = 0.15,
+                         /** parameter |alpha| for exponentially weighted moving average 2 */ ewma_alpha_2 : Optional[.Float] = 0.015,
+                         /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0) : .ISingleAssetStrategy
+        
+        	 = .strategies.Generic(orderFactory(.observable.sidefunc.CrossingAverages(ewma_alpha_1,ewma_alpha_2,threshold)),eventGen)
 }
 
 @category = "Basic"

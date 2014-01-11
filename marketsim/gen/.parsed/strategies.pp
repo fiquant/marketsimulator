@@ -31,4 +31,16 @@ package strategies {
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15,
                       /** threshold when the trader starts to act */ threshold = 0.0)
          = Generic(orderFactory(observable.sidefunc.TrendFollower(ewma_alpha,threshold)),eventGen)
+    
+    /** Two averages strategy compares two averages of price of the same asset but
+     * with different parameters ('slow' and 'fast' averages) and when
+     * the first is greater than the second one it buys,
+     * when the first is lower than the second one it sells
+     */
+    def CrossingAverages(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
+                         /** order factory function*/ orderFactory = order._.side.Market(),
+                         /** parameter |alpha| for exponentially weighted moving average 1 */ ewma_alpha_1 = 0.15,
+                         /** parameter |alpha| for exponentially weighted moving average 2 */ ewma_alpha_2 = 0.015,
+                         /** threshold when the trader starts to act */ threshold = 0.0)
+         = Generic(orderFactory(observable.sidefunc.CrossingAverages(ewma_alpha_1,ewma_alpha_2,threshold)),eventGen)
 }
