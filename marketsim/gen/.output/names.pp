@@ -627,7 +627,7 @@ package order {
 }
 @category = "Strategy"
 
-package strategies {
+package strategy {
     /** Dependent price strategy believes that the fair price of an asset *A*
      * is completely correlated with price of another asset *B* and the following relation
      * should be held: *PriceA* = *kPriceB*, where *k* is some factor.

@@ -6,7 +6,13 @@ object Runner extends syntax.scala.Parser {
 
     def parse(file : File) : Option[AST.Definitions] = {
 
+        val target_dir = new File(file.getPath.replace("defs", ".parsed")).getParentFile
+
+        mkdir(target_dir)
+
         val path = file.getPath
+
+        //println("parsing " + file.getPath)
 
         def printerFor(ext : String) = new PrintWriter(path.replace(".sc", ext).replace("defs", ".parsed"))
 
@@ -40,7 +46,10 @@ object Runner extends syntax.scala.Parser {
                         println(x)
                         None
                 }
-        }).opt.get
+        }).either match {
+            case Left(exceptions) => throw new Exception(exceptions map { _.toString } mkString predef.crlf)
+            case Right(result)    => result
+        }
     }
 
 
@@ -56,7 +65,11 @@ object Runner extends syntax.scala.Parser {
     }
 
     def mkdir(name : String) {
-        val dir = new File(name)
+        mkdir(new File(name))
+    }
+
+
+    def mkdir(dir: File) {
         if (!dir.exists()) {
             dir.mkdirs()
             if (!dir.exists())

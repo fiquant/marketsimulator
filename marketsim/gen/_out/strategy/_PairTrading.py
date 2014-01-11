@@ -5,23 +5,28 @@ from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import Side
-from marketsim.gen._out.strategies._Generic import Generic as _strategies_Generic
-from marketsim.gen._out.observable.sidefunc._MeanReversion import MeanReversion as _observable_sidefunc_MeanReversion
+from marketsim import IOrderBook
+from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
+from marketsim.gen._out.observable.sidefunc._PairTrading import PairTrading as _observable_sidefunc_PairTrading
 from marketsim import context
-@registry.expose(["Strategy", "MeanReversion"])
-class MeanReversion(ISingleAssetStrategy):
-    """  It estimates this average using some functional and
-     if the current asset price is lower than the average
-     it buys the asset and if the price is higher it sells the asset.
+@registry.expose(["Strategy", "PairTrading"])
+class PairTrading(ISingleAssetStrategy):
+    """  is completely correlated with price of another asset *B* and the following relation
+     should be held: *PriceA* = *kPriceB*, where *k* is some factor.
+     It may be considered as a variety of a fundamental value strategy
+     with the exception that it is invoked every the time price of another
+     asset *B* changes.
     """ 
-    def __init__(self, eventGen = None, orderFactory = None, ewma_alpha = None):
+    def __init__(self, eventGen = None, orderFactory = None, bookToDependOn = None, factor = None):
         from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
         from marketsim.gen._out.order._curried._side_Market import side_Market as _order__curried_side_Market
+        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader as _observable_orderbook_OfTrader
         from marketsim import event
         from marketsim import _
         self.eventGen = eventGen if eventGen is not None else _observable_OnEveryDt()
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market()
-        self.ewma_alpha = ewma_alpha if ewma_alpha is not None else 0.15
+        self.bookToDependOn = bookToDependOn if bookToDependOn is not None else _observable_orderbook_OfTrader()
+        self.factor = factor if factor is not None else 1.0
         self.impl = self.getImpl()
         self.on_order_created = event.Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
@@ -36,14 +41,15 @@ class MeanReversion(ISingleAssetStrategy):
         
         
         ,
-        'ewma_alpha' : float
+        'bookToDependOn' : IOrderBook,
+        'factor' : float
     }
     def __repr__(self):
-        return "MeanReversion(%(eventGen)s, %(orderFactory)s, %(ewma_alpha)s)" % self.__dict__
+        return "PairTrading(%(eventGen)s, %(orderFactory)s, %(bookToDependOn)s, %(factor)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):
-        return _strategies_Generic(self.orderFactory(_observable_sidefunc_MeanReversion(self.ewma_alpha)),self.eventGen)
+        return _strategy_Generic(self.orderFactory(_observable_sidefunc_PairTrading(self.bookToDependOn,self.factor)),self.eventGen)
     
     
     def bind(self, ctx):

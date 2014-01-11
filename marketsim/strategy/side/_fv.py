@@ -1,1 +1,1 @@
-from marketsim.gen._out.strategies._FundamentalValue import FundamentalValue
+from marketsim.gen._out.strategy._FundamentalValue import FundamentalValue

@@ -5268,7 +5268,7 @@ Definitions:
 | | - Some:
 | | | - QualifiedName:
 | | | | - List:
-| | | | | - strategies
+| | | | | - strategy
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:

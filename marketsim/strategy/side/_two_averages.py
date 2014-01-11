@@ -1,1 +1,1 @@
-from marketsim.gen._out.strategies._CrossingAverages import CrossingAverages as TwoAverages
+from marketsim.gen._out.strategy._CrossingAverages import CrossingAverages as TwoAverages

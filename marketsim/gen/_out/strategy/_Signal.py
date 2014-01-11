@@ -6,15 +6,15 @@ from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
-from marketsim.gen._out.strategies._Generic import Generic as _strategies_Generic
-from marketsim.gen._out.observable.sidefunc._FundamentalValue import FundamentalValue as _observable_sidefunc_FundamentalValue
+from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
+from marketsim.gen._out.observable.sidefunc._Signal import Signal as _observable_sidefunc_Signal
 from marketsim import context
-@registry.expose(["Strategy", "FundamentalValue"])
-class FundamentalValue(ISingleAssetStrategy):
-    """  (*fundamental value*) and if the current asset price is lower than the fundamental value
-     it starts to buy the asset and if the price is higher it starts to sell the asset.
+@registry.expose(["Strategy", "Signal"])
+class Signal(ISingleAssetStrategy):
+    """  and when the signal becomes more than some threshold the strategy starts to buy.
+     When the signal gets lower than -threshold the strategy starts to sell.
     """ 
-    def __init__(self, eventGen = None, orderFactory = None, fundamentalValue = None):
+    def __init__(self, eventGen = None, orderFactory = None, signal = None, threshold = None):
         from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
         from marketsim.gen._out.order._curried._side_Market import side_Market as _order__curried_side_Market
         from marketsim.gen._out._constant import constant as _constant
@@ -22,7 +22,8 @@ class FundamentalValue(ISingleAssetStrategy):
         from marketsim import _
         self.eventGen = eventGen if eventGen is not None else _observable_OnEveryDt()
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market()
-        self.fundamentalValue = fundamentalValue if fundamentalValue is not None else _constant(100.0)
+        self.signal = signal if signal is not None else _constant(0.0)
+        self.threshold = threshold if threshold is not None else 0.7
         self.impl = self.getImpl()
         self.on_order_created = event.Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
@@ -37,14 +38,15 @@ class FundamentalValue(ISingleAssetStrategy):
         
         
         ,
-        'fundamentalValue' : IFunction[float]
+        'signal' : IFunction[float],
+        'threshold' : float
     }
     def __repr__(self):
-        return "FundamentalValue(%(eventGen)s, %(orderFactory)s, %(fundamentalValue)s)" % self.__dict__
+        return "Signal(%(eventGen)s, %(orderFactory)s, %(signal)s, %(threshold)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):
-        return _strategies_Generic(self.orderFactory(_observable_sidefunc_FundamentalValue(self.fundamentalValue)),self.eventGen)
+        return _strategy_Generic(self.orderFactory(_observable_sidefunc_Signal(self.signal,self.threshold)),self.eventGen)
     
     
     def bind(self, ctx):

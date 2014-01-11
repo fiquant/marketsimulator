@@ -1,1 +1,1 @@
-from marketsim._pub.strategies import Generic
+from marketsim._pub.strategy import Generic

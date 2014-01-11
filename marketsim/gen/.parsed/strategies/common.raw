@@ -1,0 +1,68 @@
+Definitions:
+- List:
+| - PackageDef:
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - strategy
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Generic
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - orderFactory
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - order
+| | | | | | | | | | | - Limit
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  order factory function
+| | | | | | - Parameter:
+| | | | | | | - eventGen
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - OnEveryDt
+| | | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IEvent
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  Event source making the strategy to wake up
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Generic strategy that wakes up on events given by *eventGen*,
+| | | | | | | - List:
+| | | | | | | | -   creates an order via *orderFactory* and sends the order to the market using its trader
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.generic._Generic_Impl
+| | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Strategy

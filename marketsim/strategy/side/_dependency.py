@@ -1,1 +1,1 @@
-from marketsim.gen._out.strategies._PairTrading import PairTrading as Dependency
+from marketsim.gen._out.strategy._PairTrading import PairTrading as Dependency

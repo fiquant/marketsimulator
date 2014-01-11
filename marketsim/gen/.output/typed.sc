@@ -718,7 +718,7 @@ package order {
 }
 
 @category = "Strategy"
-package strategies {
+package strategy {
     /** Dependent price strategy believes that the fair price of an asset *A*
      * is completely correlated with price of another asset *B* and the following relation
      * should be held: *PriceA* = *kPriceB*, where *k* is some factor.
@@ -732,7 +732,7 @@ package strategies {
                     /** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn : Optional[.IOrderBook] = .observable.orderbook.OfTrader(),
                     /** multiplier to obtain fair asset price from the reference asset price */ factor : Optional[.Float] = 1.0) : .ISingleAssetStrategy
         
-        	 = .strategies.Generic(orderFactory(.observable.sidefunc.PairTrading(bookToDependOn,factor)),eventGen)
+        	 = .strategy.Generic(orderFactory(.observable.sidefunc.PairTrading(bookToDependOn,factor)),eventGen)
     
     /** Signal strategy listens to some discrete signal
      * and when the signal becomes more than some threshold the strategy starts to buy.
@@ -744,7 +744,7 @@ package strategies {
                /** signal to be listened to */ signal : Optional[.IFunction[.Float]] = .constant(0.0),
                /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : .ISingleAssetStrategy
         
-        	 = .strategies.Generic(orderFactory(.observable.sidefunc.Signal(signal,threshold)),eventGen)
+        	 = .strategy.Generic(orderFactory(.observable.sidefunc.Signal(signal,threshold)),eventGen)
     
     /** Two averages strategy compares two averages of price of the same asset but
      * with different parameters ('slow' and 'fast' averages) and when
@@ -758,7 +758,7 @@ package strategies {
                          /** parameter |alpha| for exponentially weighted moving average 2 */ ewma_alpha_2 : Optional[.Float] = 0.015,
                          /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0) : .ISingleAssetStrategy
         
-        	 = .strategies.Generic(orderFactory(.observable.sidefunc.CrossingAverages(ewma_alpha_1,ewma_alpha_2,threshold)),eventGen)
+        	 = .strategy.Generic(orderFactory(.observable.sidefunc.CrossingAverages(ewma_alpha_1,ewma_alpha_2,threshold)),eventGen)
     
     /** Trend follower can be considered as a sort of a signal strategy
      * where the *signal* is a trend of the asset.
@@ -773,7 +773,7 @@ package strategies {
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha : Optional[.Float] = 0.15,
                       /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0) : .ISingleAssetStrategy
         
-        	 = .strategies.Generic(orderFactory(.observable.sidefunc.TrendFollower(ewma_alpha,threshold)),eventGen)
+        	 = .strategy.Generic(orderFactory(.observable.sidefunc.TrendFollower(ewma_alpha,threshold)),eventGen)
     
     /** Fundamental value strategy believes that an asset should have some specific price
      * (*fundamental value*) and if the current asset price is lower than the fundamental value
@@ -784,7 +784,7 @@ package strategies {
                          /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market(),
                          /** defines fundamental value */ fundamentalValue : Optional[.IFunction[.Float]] = .constant(100.0)) : .ISingleAssetStrategy
         
-        	 = .strategies.Generic(orderFactory(.observable.sidefunc.FundamentalValue(fundamentalValue)),eventGen)
+        	 = .strategy.Generic(orderFactory(.observable.sidefunc.FundamentalValue(fundamentalValue)),eventGen)
     
     /** Mean reversion strategy believes that asset price should return to its average value.
      * It estimates this average using some functional and
@@ -796,7 +796,7 @@ package strategies {
                       /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market(),
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha : Optional[.Float] = 0.15) : .ISingleAssetStrategy
         
-        	 = .strategies.Generic(orderFactory(.observable.sidefunc.MeanReversion(ewma_alpha)),eventGen)
+        	 = .strategy.Generic(orderFactory(.observable.sidefunc.MeanReversion(ewma_alpha)),eventGen)
     
     /** Generic strategy that wakes up on events given by *eventGen*,
      *  creates an order via *orderFactory* and sends the order to the market using its trader
