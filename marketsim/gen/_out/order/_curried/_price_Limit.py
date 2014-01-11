@@ -9,10 +9,10 @@ class price_Limit(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
     """ 
     def __init__(self, side = None, volume = None):
-        from marketsim.gen._out.side._Sell import Sell
-        from marketsim.gen._out._constant import constant
-        self.side = side if side is not None else Sell()
-        self.volume = volume if volume is not None else constant(1.0)
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim.gen._out._constant import constant as _constant
+        self.side = side if side is not None else _side_Sell()
+        self.volume = volume if volume is not None else _constant(1.0)
     
     @property
     def label(self):
@@ -27,9 +27,9 @@ class price_Limit(IFunction[IOrderGenerator, IFunction[float]]):
         return "price_Limit(%(side)s, %(volume)s)" % self.__dict__
     
     def __call__(self, price = None):
-        from marketsim.gen._out._constant import constant
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._Limit import Limit
-        price = price if price is not None else constant(100.0)
+        price = price if price is not None else _constant(100.0)
         side = self.side
         volume = self.volume
         return Limit(side, price, volume)

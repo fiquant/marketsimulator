@@ -15,10 +15,10 @@ IFunction[IOrderGenerator,IFunction[Side]]):
     """ 
     """ 
     def __init__(self, expiry = None, proto = None):
-        from marketsim.gen._out._const import const
-        from marketsim.gen._out.order._curried._side_Limit import side_Limit
-        self.expiry = expiry if expiry is not None else const(10.0)
-        self.proto = proto if proto is not None else side_Limit()
+        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out.order._curried._side_Limit import side_Limit as _order__curried_side_Limit
+        self.expiry = expiry if expiry is not None else _const(10.0)
+        self.proto = proto if proto is not None else _order__curried_side_Limit()
     
     @property
     def label(self):

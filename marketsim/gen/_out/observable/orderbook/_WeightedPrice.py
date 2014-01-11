@@ -1,19 +1,19 @@
 from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import IOrderQueue
-from marketsim.gen._out.observable.EW._Avg import Avg
-from marketsim.gen._out.observable.orderbook._LastTradePrice import LastTradePrice
-from marketsim.gen._out.observable.orderbook._LastTradeVolume import LastTradeVolume
-from marketsim.gen._out.observable.EW._Avg import Avg
-from marketsim.gen._out.observable.orderbook._LastTradeVolume import LastTradeVolume
+from marketsim.gen._out.observable.EW._Avg import Avg as _observable_EW_Avg
+from marketsim.gen._out.observable.orderbook._LastTradePrice import LastTradePrice as _observable_orderbook_LastTradePrice
+from marketsim.gen._out.observable.orderbook._LastTradeVolume import LastTradeVolume as _observable_orderbook_LastTradeVolume
+from marketsim.gen._out.observable.EW._Avg import Avg as _observable_EW_Avg
+from marketsim.gen._out.observable.orderbook._LastTradeVolume import LastTradeVolume as _observable_orderbook_LastTradeVolume
 from marketsim import context
 @registry.expose(["Asset's", "WeightedPrice"])
 class WeightedPrice(Function[float]):
     """ 
     """ 
     def __init__(self, queue = None, alpha = None):
-        from marketsim.gen._out.observable.orderbook._Asks import Asks
-        self.queue = queue if queue is not None else Asks()
+        from marketsim.gen._out.observable.orderbook._Asks import Asks as _observable_orderbook_Asks
+        self.queue = queue if queue is not None else _observable_orderbook_Asks()
         self.alpha = alpha if alpha is not None else 0.015
         self.impl = self.getImpl()
     
@@ -30,7 +30,7 @@ class WeightedPrice(Function[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        return Avg(LastTradePrice(self.queue)*LastTradeVolume(self.queue),self.alpha)/Avg(LastTradeVolume(self.queue),self.alpha)
+        return _observable_EW_Avg(_observable_orderbook_LastTradePrice(self.queue)*_observable_orderbook_LastTradeVolume(self.queue),self.alpha)/_observable_EW_Avg(_observable_orderbook_LastTradeVolume(self.queue),self.alpha)
     
     
     

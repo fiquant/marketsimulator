@@ -17,8 +17,8 @@ IFunction[IOrderGenerator,IFunction[Side],IFunction[float]]):
     """ 
     """ 
     def __init__(self, proto = None):
-        from marketsim.gen._out.order._curried._sideprice_Limit import sideprice_Limit
-        self.proto = proto if proto is not None else sideprice_Limit()
+        from marketsim.gen._out.order._curried._sideprice_Limit import sideprice_Limit as _order__curried_sideprice_Limit
+        self.proto = proto if proto is not None else _order__curried_sideprice_Limit()
     
     @property
     def label(self):

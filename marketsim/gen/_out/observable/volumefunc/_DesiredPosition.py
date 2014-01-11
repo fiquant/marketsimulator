@@ -11,13 +11,13 @@ class DesiredPosition(Observable[Volume]):
     def __init__(self, desiredPosition = None, trader = None):
         from marketsim import Volume
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._const import const
-        from marketsim.gen._out.observable.trader._SingleProxy import SingleProxy
+        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out.observable.trader._SingleProxy import SingleProxy as _observable_trader_SingleProxy
         from marketsim import _
         from marketsim import event
         Observable[Volume].__init__(self)
-        self.desiredPosition = desiredPosition if desiredPosition is not None else const()
-        self.trader = trader if trader is not None else SingleProxy()
+        self.desiredPosition = desiredPosition if desiredPosition is not None else _const()
+        self.trader = trader if trader is not None else _observable_trader_SingleProxy()
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -34,10 +34,10 @@ class DesiredPosition(Observable[Volume]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out.observable._ObservableVolume import ObservableVolume
-        from marketsim.gen._out.observable.trader._Position import Position
-        from marketsim.gen._out.observable.trader._PendingVolume import PendingVolume
-        return ObservableVolume(self.desiredPosition-Position(self.trader)-PendingVolume(self.trader))
+        from marketsim.gen._out.observable._ObservableVolume import ObservableVolume as _observable_ObservableVolume
+        from marketsim.gen._out.observable.trader._Position import Position as _observable_trader_Position
+        from marketsim.gen._out.observable.trader._PendingVolume import PendingVolume as _observable_trader_PendingVolume
+        return _observable_ObservableVolume(self.desiredPosition-_observable_trader_Position(self.trader)-_observable_trader_PendingVolume(self.trader))
         
         
     

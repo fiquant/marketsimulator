@@ -8,10 +8,10 @@ class Queue(_Queue_Impl):
     """ 
     """ 
     def __init__(self, book = None, side = None):
-        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader
-        from marketsim.gen._out.side._Sell import Sell
-        self.book = book if book is not None else OfTrader()
-        self.side = side if side is not None else Sell()
+        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader as _observable_orderbook_OfTrader
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        self.book = book if book is not None else _observable_orderbook_OfTrader()
+        self.side = side if side is not None else _side_Sell()
         _Queue_Impl.__init__(self)
     
     @property

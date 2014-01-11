@@ -13,17 +13,17 @@ class Pow(Observable[float]):
     """ 
     def __init__(self, base = None, power = None):
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._constant import constant
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import types
-        from marketsim.gen._out._constant import constant
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import types
         Observable[float].__init__(self)
-        self.base = base if base is not None else constant(1.0)
+        self.base = base if base is not None else _constant(1.0)
         if isinstance(base, types.IEvent):
             event.subscribe(self.base, self.fire, self)
-        self.power = power if power is not None else constant(1.0)
+        self.power = power if power is not None else _constant(1.0)
         if isinstance(power, types.IEvent):
             event.subscribe(self.power, self.fire, self)
     

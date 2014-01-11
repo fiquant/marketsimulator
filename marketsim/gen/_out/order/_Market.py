@@ -12,17 +12,17 @@ class Market(IOrderGenerator, Observable[Order]):
     def __init__(self, side = None, volume = None):
         from marketsim import Order
         from marketsim.ops._all import Observable
-        from marketsim.gen._out.side._Sell import Sell
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim import event
         from marketsim import types
-        from marketsim.gen._out._constant import constant
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import types
         Observable[Order].__init__(self)
-        self.side = side if side is not None else Sell()
+        self.side = side if side is not None else _side_Sell()
         if isinstance(side, types.IEvent):
             event.subscribe(self.side, self.fire, self)
-        self.volume = volume if volume is not None else constant(1.0)
+        self.volume = volume if volume is not None else _constant(1.0)
         if isinstance(volume, types.IEvent):
             event.subscribe(self.volume, self.fire, self)
     
@@ -61,11 +61,11 @@ class MarketSigned(IOrderGenerator, Observable[Order]):
     def __init__(self, signedVolume = None):
         from marketsim import Order
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._constant import constant
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import types
         Observable[Order].__init__(self)
-        self.signedVolume = signedVolume if signedVolume is not None else constant(1.0)
+        self.signedVolume = signedVolume if signedVolume is not None else _constant(1.0)
         if isinstance(signedVolume, types.IEvent):
             event.subscribe(self.signedVolume, self.fire, self)
     

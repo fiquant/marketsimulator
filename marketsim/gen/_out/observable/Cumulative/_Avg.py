@@ -7,8 +7,8 @@ class Avg(Function[float], CMA_Impl):
     """ 
     """ 
     def __init__(self, source = None):
-        from marketsim.gen._out._const import const
-        self.source = source if source is not None else const()
+        from marketsim.gen._out._const import const as _const
+        self.source = source if source is not None else _const()
         CMA_Impl.__init__(self)
     
     @property

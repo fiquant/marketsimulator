@@ -10,11 +10,11 @@ class UpMovements(Observable[float]):
     def __init__(self, source = None, timeframe = None):
         from marketsim import float
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._const import const
+        from marketsim.gen._out._const import const as _const
         from marketsim import _
         from marketsim import event
         Observable[float].__init__(self)
-        self.source = source if source is not None else const()
+        self.source = source if source is not None else _const()
         self.timeframe = timeframe if timeframe is not None else 10.0
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -32,11 +32,11 @@ class UpMovements(Observable[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out.observable._Observable import Observable
-        from marketsim.gen._out.observable._Max import Max
-        from marketsim.gen._out._const import const
-        from marketsim.gen._out.observable._Lagged import Lagged
-        return Observable(Max(const(0.0),self.source-Lagged(self.source,self.timeframe)))
+        from marketsim.gen._out.observable._Observable import Observable as _observable_Observable
+        from marketsim.gen._out.observable._Max import Max as _observable_Max
+        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out.observable._Lagged import Lagged as _observable_Lagged
+        return _observable_Observable(_observable_Max(_const(0.0),self.source-_observable_Lagged(self.source,self.timeframe)))
         
         
         

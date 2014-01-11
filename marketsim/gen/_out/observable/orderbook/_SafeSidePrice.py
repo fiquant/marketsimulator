@@ -11,13 +11,13 @@ class SafeSidePrice(Observable[Price]):
     def __init__(self, queue = None, defaultValue = None):
         from marketsim import Price
         from marketsim.ops._all import Observable
-        from marketsim.gen._out.observable.orderbook._Asks import Asks
-        from marketsim.gen._out._constant import constant
+        from marketsim.gen._out.observable.orderbook._Asks import Asks as _observable_orderbook_Asks
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim import _
         from marketsim import event
         Observable[Price].__init__(self)
-        self.queue = queue if queue is not None else Asks()
-        self.defaultValue = defaultValue if defaultValue is not None else constant(100.0)
+        self.queue = queue if queue is not None else _observable_orderbook_Asks()
+        self.defaultValue = defaultValue if defaultValue is not None else _constant(100.0)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -34,12 +34,12 @@ class SafeSidePrice(Observable[Price]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out.observable._ObservablePrice import ObservablePrice
-        from marketsim.gen._out._IfDefined import IfDefined
-        from marketsim.gen._out.observable.orderbook._BestPrice import BestPrice
-        from marketsim.gen._out._IfDefined import IfDefined
-        from marketsim.gen._out.observable.orderbook._LastPrice import LastPrice
-        return ObservablePrice(IfDefined(BestPrice(self.queue),IfDefined(LastPrice(self.queue),self.defaultValue)))
+        from marketsim.gen._out.observable._ObservablePrice import ObservablePrice as _observable_ObservablePrice
+        from marketsim.gen._out._IfDefined import IfDefined as _IfDefined
+        from marketsim.gen._out.observable.orderbook._BestPrice import BestPrice as _observable_orderbook_BestPrice
+        from marketsim.gen._out._IfDefined import IfDefined as _IfDefined
+        from marketsim.gen._out.observable.orderbook._LastPrice import LastPrice as _observable_orderbook_LastPrice
+        return _observable_ObservablePrice(_IfDefined(_observable_orderbook_BestPrice(self.queue),_IfDefined(_observable_orderbook_LastPrice(self.queue),self.defaultValue)))
         
         
         

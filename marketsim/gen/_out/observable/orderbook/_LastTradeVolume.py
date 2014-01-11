@@ -6,10 +6,10 @@ class LastTradeVolume(_LastTradeVolume_Impl):
     """ 
     """ 
     def __init__(self, queue = None):
-        from marketsim.gen._out.observable.orderbook._Asks import Asks
+        from marketsim.gen._out.observable.orderbook._Asks import Asks as _observable_orderbook_Asks
         from marketsim import event
         from marketsim import types
-        self.queue = queue if queue is not None else Asks()
+        self.queue = queue if queue is not None else _observable_orderbook_Asks()
         _LastTradeVolume_Impl.__init__(self)
         if isinstance(queue, types.IEvent):
             event.subscribe(self.queue, self.fire, self)

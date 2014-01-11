@@ -1,16 +1,16 @@
 from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import IObservable
-from marketsim.gen._out.observable.macd._MACD import MACD
-from marketsim.gen._out.observable.macd._Signal import Signal
+from marketsim.gen._out.observable.macd._MACD import MACD as _observable_macd_MACD
+from marketsim.gen._out.observable.macd._Signal import Signal as _observable_macd_Signal
 from marketsim import context
 @registry.expose(["MACD", "Histogram"])
 class Histogram(Function[float]):
     """ 
     """ 
     def __init__(self, x = None, slow = None, fast = None, timeframe = None, step = None):
-        from marketsim.gen._out._const import const
-        self.x = x if x is not None else const()
+        from marketsim.gen._out._const import const as _const
+        self.x = x if x is not None else _const()
         self.slow = slow if slow is not None else 26.0
         self.fast = fast if fast is not None else 12.0
         self.timeframe = timeframe if timeframe is not None else 9.0
@@ -33,7 +33,7 @@ class Histogram(Function[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        return MACD(self.x,self.slow,self.fast)-Signal(self.x,self.slow,self.fast,self.timeframe,self.step)
+        return _observable_macd_MACD(self.x,self.slow,self.fast)-_observable_macd_Signal(self.x,self.slow,self.fast,self.timeframe,self.step)
     
     
     def bind(self, ctx):

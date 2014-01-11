@@ -1,16 +1,16 @@
 from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import IObservable
-from marketsim.gen._out.observable.EW._Avg import Avg
-from marketsim.gen._out.observable.EW._Avg import Avg
+from marketsim.gen._out.observable.EW._Avg import Avg as _observable_EW_Avg
+from marketsim.gen._out.observable.EW._Avg import Avg as _observable_EW_Avg
 from marketsim import context
 @registry.expose(["MACD", "MACD"])
 class MACD(Function[float]):
     """ 
     """ 
     def __init__(self, x = None, slow = None, fast = None):
-        from marketsim.gen._out._const import const
-        self.x = x if x is not None else const()
+        from marketsim.gen._out._const import const as _const
+        self.x = x if x is not None else _const()
         self.slow = slow if slow is not None else 26.0
         self.fast = fast if fast is not None else 12.0
         self.impl = self.getImpl()
@@ -29,7 +29,7 @@ class MACD(Function[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        return Avg(self.x,2.0/(self.fast+1))-Avg(self.x,2.0/(self.slow+1))
+        return _observable_EW_Avg(self.x,2.0/(self.fast+1))-_observable_EW_Avg(self.x,2.0/(self.slow+1))
     
     
     def bind(self, ctx):

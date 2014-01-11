@@ -9,8 +9,8 @@ class side_FixedBudget(IFunction[IOrderGenerator, IFunction[Side]
     """ 
     """ 
     def __init__(self, budget = None):
-        from marketsim.gen._out._constant import constant
-        self.budget = budget if budget is not None else constant(1000.0)
+        from marketsim.gen._out._constant import constant as _constant
+        self.budget = budget if budget is not None else _constant(1000.0)
     
     @property
     def label(self):
@@ -23,9 +23,9 @@ class side_FixedBudget(IFunction[IOrderGenerator, IFunction[Side]
         return "side_FixedBudget(%(budget)s)" % self.__dict__
     
     def __call__(self, side = None):
-        from marketsim.gen._out.side._Sell import Sell
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out.order._FixedBudget import FixedBudget
-        side = side if side is not None else Sell()
+        side = side if side is not None else _side_Sell()
         budget = self.budget
         return FixedBudget(side, budget)
     

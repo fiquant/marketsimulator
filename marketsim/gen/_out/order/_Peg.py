@@ -10,11 +10,11 @@ class Peg(IOrderGenerator, Factory_Impl):
     """ 
     def __init__(self, proto = None):
         from marketsim.gen._intrinsic.order.meta.peg import Factory_Impl
-        from marketsim.gen._out.order._curried._price_Limit import price_Limit
+        from marketsim.gen._out.order._curried._price_Limit import price_Limit as _order__curried_price_Limit
         from marketsim import event
         from marketsim import types
         Factory_Impl.__init__(self)
-        self.proto = proto if proto is not None else price_Limit()
+        self.proto = proto if proto is not None else _order__curried_price_Limit()
         if isinstance(proto, types.IEvent):
             event.subscribe(self.proto, self.fire, self)
     

@@ -9,8 +9,8 @@ class side_Market(IFunction[IOrderGenerator, IFunction[Side]
     """ 
     """ 
     def __init__(self, volume = None):
-        from marketsim.gen._out._constant import constant
-        self.volume = volume if volume is not None else constant(1.0)
+        from marketsim.gen._out._constant import constant as _constant
+        self.volume = volume if volume is not None else _constant(1.0)
     
     @property
     def label(self):
@@ -23,9 +23,9 @@ class side_Market(IFunction[IOrderGenerator, IFunction[Side]
         return "side_Market(%(volume)s)" % self.__dict__
     
     def __call__(self, side = None):
-        from marketsim.gen._out.side._Sell import Sell
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out.order._Market import Market
-        side = side if side is not None else Sell()
+        side = side if side is not None else _side_Sell()
         volume = self.volume
         return Market(side, volume)
     

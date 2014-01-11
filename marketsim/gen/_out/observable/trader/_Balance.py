@@ -6,10 +6,10 @@ class Balance(Balance_Impl):
     """ 
     """ 
     def __init__(self, trader = None):
-        from marketsim.gen._out.observable.trader._SingleProxy import SingleProxy
+        from marketsim.gen._out.observable.trader._SingleProxy import SingleProxy as _observable_trader_SingleProxy
         from marketsim import event
         from marketsim import types
-        self.trader = trader if trader is not None else SingleProxy()
+        self.trader = trader if trader is not None else _observable_trader_SingleProxy()
         Balance_Impl.__init__(self)
         if isinstance(trader, types.IEvent):
             event.subscribe(self.trader, self.fire, self)

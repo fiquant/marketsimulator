@@ -11,14 +11,14 @@ class Bollinger_linear(Observable[Volume]):
     def __init__(self, alpha = None, k = None, trader = None):
         from marketsim import Volume
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._const import const
-        from marketsim.gen._out.observable.trader._SingleProxy import SingleProxy
+        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out.observable.trader._SingleProxy import SingleProxy as _observable_trader_SingleProxy
         from marketsim import _
         from marketsim import event
         Observable[Volume].__init__(self)
         self.alpha = alpha if alpha is not None else 0.15
-        self.k = k if k is not None else const(0.5)
-        self.trader = trader if trader is not None else SingleProxy()
+        self.k = k if k is not None else _const(0.5)
+        self.trader = trader if trader is not None else _observable_trader_SingleProxy()
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -36,12 +36,12 @@ class Bollinger_linear(Observable[Volume]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out.observable.volumefunc._DesiredPosition import DesiredPosition
-        from marketsim.gen._out.observable._OnEveryDt import OnEveryDt
-        from marketsim.gen._out.observable.EW._RelStdDev import RelStdDev
-        from marketsim.gen._out.observable.orderbook._MidPrice import MidPrice
-        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader
-        return DesiredPosition(OnEveryDt(1.0,RelStdDev(MidPrice(OfTrader(self.trader)),self.alpha))*self.k,self.trader)
+        from marketsim.gen._out.observable.volumefunc._DesiredPosition import DesiredPosition as _observable_volumefunc_DesiredPosition
+        from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
+        from marketsim.gen._out.observable.EW._RelStdDev import RelStdDev as _observable_EW_RelStdDev
+        from marketsim.gen._out.observable.orderbook._MidPrice import MidPrice as _observable_orderbook_MidPrice
+        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader as _observable_orderbook_OfTrader
+        return _observable_volumefunc_DesiredPosition(_observable_OnEveryDt(1.0,_observable_EW_RelStdDev(_observable_orderbook_MidPrice(_observable_orderbook_OfTrader(self.trader)),self.alpha))*self.k,self.trader)
         
         
         

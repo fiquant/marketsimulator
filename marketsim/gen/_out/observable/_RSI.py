@@ -10,11 +10,11 @@ class RSI(Observable[float]):
     def __init__(self, book = None, timeframe = None, alpha = None):
         from marketsim import float
         from marketsim.ops._all import Observable
-        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader
+        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader as _observable_orderbook_OfTrader
         from marketsim import _
         from marketsim import event
         Observable[float].__init__(self)
-        self.book = book if book is not None else OfTrader()
+        self.book = book if book is not None else _observable_orderbook_OfTrader()
         self.timeframe = timeframe if timeframe is not None else 10.0
         self.alpha = alpha if alpha is not None else 0.015
         self.impl = self.getImpl()
@@ -34,12 +34,12 @@ class RSI(Observable[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out._const import const
-        from marketsim.gen._out._const import const
-        from marketsim.gen._out._const import const
-        from marketsim.gen._out.observable.rsi._Raw import Raw
-        from marketsim.gen._out.observable.orderbook._MidPrice import MidPrice
-        return const(100.0)-const(100.0)/(const(1.0)+Raw(MidPrice(self.book),self.timeframe,self.alpha))
+        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out.observable.rsi._Raw import Raw as _observable_rsi_Raw
+        from marketsim.gen._out.observable.orderbook._MidPrice import MidPrice as _observable_orderbook_MidPrice
+        return _const(100.0)-_const(100.0)/(_const(1.0)+_observable_rsi_Raw(_observable_orderbook_MidPrice(self.book),self.timeframe,self.alpha))
         
         
         

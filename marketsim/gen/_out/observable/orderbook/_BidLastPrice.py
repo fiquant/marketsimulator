@@ -10,11 +10,11 @@ class BidLastPrice(Observable[Price]):
     def __init__(self, book = None):
         from marketsim import Price
         from marketsim.ops._all import Observable
-        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader
+        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader as _observable_orderbook_OfTrader
         from marketsim import _
         from marketsim import event
         Observable[Price].__init__(self)
-        self.book = book if book is not None else OfTrader()
+        self.book = book if book is not None else _observable_orderbook_OfTrader()
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -30,9 +30,9 @@ class BidLastPrice(Observable[Price]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out.observable.orderbook._LastPrice import LastPrice
-        from marketsim.gen._out.observable.orderbook._Bids import Bids
-        return LastPrice(Bids(self.book))
+        from marketsim.gen._out.observable.orderbook._LastPrice import LastPrice as _observable_orderbook_LastPrice
+        from marketsim.gen._out.observable.orderbook._Bids import Bids as _observable_orderbook_Bids
+        return _observable_orderbook_LastPrice(_observable_orderbook_Bids(self.book))
         
     
     def bind(self, ctx):

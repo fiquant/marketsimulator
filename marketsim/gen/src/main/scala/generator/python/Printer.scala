@@ -142,15 +142,18 @@ object Printer {
 
     trait FunctionRef extends Expr with Priority_0 {
         self: Typed.FunctionRef =>
-        override def toPython = f.name
+        override def toPython = fullImportName(f.qualifiedName)
 
-        def imports = importsOf(f) :: Nil
+        def imports = (importsOf(f) as fullImportName(f.qualifiedName)) :: Nil
     }
 
     def moduleName(target : Typed.Function) = {
         val name = target.parent.qualifiedName.toString
         "marketsim.gen._out" + name.splitAt(0)._2 + "._" + target.name
     }
+
+    def fullImportName(n : AST.QualifiedName) =
+        n.names mkString "_"
 
     def importsOf(target : Typed.Function) =
         predef.ImportFrom(target.name, moduleName(target))

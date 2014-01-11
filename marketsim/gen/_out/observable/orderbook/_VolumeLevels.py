@@ -8,8 +8,8 @@ class VolumeLevels(Function[VolumeLevels], VolumeLevels_Impl):
     """ 
     """ 
     def __init__(self, queue = None, volumeDelta = None, volumeCount = None):
-        from marketsim.gen._out.observable.orderbook._Asks import Asks
-        self.queue = queue if queue is not None else Asks()
+        from marketsim.gen._out.observable.orderbook._Asks import Asks as _observable_orderbook_Asks
+        self.queue = queue if queue is not None else _observable_orderbook_Asks()
         self.volumeDelta = volumeDelta if volumeDelta is not None else 30.0
         self.volumeCount = volumeCount if volumeCount is not None else 10
         VolumeLevels_Impl.__init__(self)

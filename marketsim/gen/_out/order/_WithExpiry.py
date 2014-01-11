@@ -11,17 +11,17 @@ class WithExpiry(IOrderGenerator, Observable[Order]):
     def __init__(self, expiry = None, proto = None):
         from marketsim import Order
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._const import const
+        from marketsim.gen._out._const import const as _const
         from marketsim import event
         from marketsim import types
-        from marketsim.gen._out.order._Limit import Limit
+        from marketsim.gen._out.order._Limit import Limit as _order_Limit
         from marketsim import event
         from marketsim import types
         Observable[Order].__init__(self)
-        self.expiry = expiry if expiry is not None else const(10.0)
+        self.expiry = expiry if expiry is not None else _const(10.0)
         if isinstance(expiry, types.IEvent):
             event.subscribe(self.expiry, self.fire, self)
-        self.proto = proto if proto is not None else Limit()
+        self.proto = proto if proto is not None else _order_Limit()
         if isinstance(proto, types.IEvent):
             event.subscribe(self.proto, self.fire, self)
     

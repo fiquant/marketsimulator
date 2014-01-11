@@ -11,13 +11,13 @@ class NaiveCumulativePrice(Observable[Price]):
     def __init__(self, book = None, depth = None):
         from marketsim import Price
         from marketsim.ops._all import Observable
-        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader
-        from marketsim.gen._out._constant import constant
+        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader as _observable_orderbook_OfTrader
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim import _
         from marketsim import event
         Observable[Price].__init__(self)
-        self.book = book if book is not None else OfTrader()
-        self.depth = depth if depth is not None else constant()
+        self.book = book if book is not None else _observable_orderbook_OfTrader()
+        self.depth = depth if depth is not None else _constant()
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -34,13 +34,13 @@ class NaiveCumulativePrice(Observable[Price]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out.observable._ObservablePrice import ObservablePrice
-        from marketsim.gen._out.observable.orderbook._AskPrice import AskPrice
-        from marketsim.gen._out.observable.orderbook._BidPrice import BidPrice
-        from marketsim.gen._out._const import const
-        from marketsim.gen._out._const import const
-        from marketsim.gen._out._const import const
-        return ObservablePrice((self.depth<const(0.0))[self.depth*AskPrice(self.book), (self.depth>const(0.0))[self.depth*BidPrice(self.book), const(0.0)]])
+        from marketsim.gen._out.observable._ObservablePrice import ObservablePrice as _observable_ObservablePrice
+        from marketsim.gen._out.observable.orderbook._AskPrice import AskPrice as _observable_orderbook_AskPrice
+        from marketsim.gen._out.observable.orderbook._BidPrice import BidPrice as _observable_orderbook_BidPrice
+        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out._const import const as _const
+        return _observable_ObservablePrice((self.depth<_const(0.0))[self.depth*_observable_orderbook_AskPrice(self.book), (self.depth>_const(0.0))[self.depth*_observable_orderbook_BidPrice(self.book), _const(0.0)]])
         
         
         

@@ -7,8 +7,8 @@ class Derivative(Function[float], _Derivative_Impl):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out.observable.EW._Avg import Avg
-        self.x = x if x is not None else Avg()
+        from marketsim.gen._out.observable.EW._Avg import Avg as _observable_EW_Avg
+        self.x = x if x is not None else _observable_EW_Avg()
         _Derivative_Impl.__init__(self)
     
     @property

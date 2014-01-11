@@ -7,11 +7,11 @@ class Sqrt(Observable[float]):
     """ 
     def __init__(self, x = None):
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._constant import constant
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import types
         Observable[float].__init__(self)
-        self.x = x if x is not None else constant(1.0)
+        self.x = x if x is not None else _constant(1.0)
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
     

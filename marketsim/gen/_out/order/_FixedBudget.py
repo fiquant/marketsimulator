@@ -12,17 +12,17 @@ class FixedBudget(IOrderGenerator, Observable[Order]):
     def __init__(self, side = None, budget = None):
         from marketsim import Order
         from marketsim.ops._all import Observable
-        from marketsim.gen._out.side._Sell import Sell
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim import event
         from marketsim import types
-        from marketsim.gen._out._constant import constant
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import types
         Observable[Order].__init__(self)
-        self.side = side if side is not None else Sell()
+        self.side = side if side is not None else _side_Sell()
         if isinstance(side, types.IEvent):
             event.subscribe(self.side, self.fire, self)
-        self.budget = budget if budget is not None else constant(1000.0)
+        self.budget = budget if budget is not None else _constant(1000.0)
         if isinstance(budget, types.IEvent):
             event.subscribe(self.budget, self.fire, self)
     

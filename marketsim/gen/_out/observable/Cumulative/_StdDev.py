@@ -1,16 +1,16 @@
 from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import IObservable
-from marketsim.gen._out.mathops._Sqrt import Sqrt
-from marketsim.gen._out.observable.Cumulative._Var import Var
+from marketsim.gen._out.mathops._Sqrt import Sqrt as _mathops_Sqrt
+from marketsim.gen._out.observable.Cumulative._Var import Var as _observable_Cumulative_Var
 from marketsim import context
 @registry.expose(["Statistics", "StdDev"])
 class StdDev(Function[float]):
     """ 
     """ 
     def __init__(self, source = None):
-        from marketsim.gen._out._const import const
-        self.source = source if source is not None else const()
+        from marketsim.gen._out._const import const as _const
+        self.source = source if source is not None else _const()
         self.impl = self.getImpl()
     
     @property
@@ -25,7 +25,7 @@ class StdDev(Function[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        return Sqrt(Var(self.source))
+        return _mathops_Sqrt(_observable_Cumulative_Var(self.source))
     
     
     def bind(self, ctx):

@@ -10,11 +10,11 @@ class RoughPnL(Observable[float]):
     def __init__(self, trader = None):
         from marketsim import float
         from marketsim.ops._all import Observable
-        from marketsim.gen._out.observable.trader._SingleProxy import SingleProxy
+        from marketsim.gen._out.observable.trader._SingleProxy import SingleProxy as _observable_trader_SingleProxy
         from marketsim import _
         from marketsim import event
         Observable[float].__init__(self)
-        self.trader = trader if trader is not None else SingleProxy()
+        self.trader = trader if trader is not None else _observable_trader_SingleProxy()
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -30,12 +30,12 @@ class RoughPnL(Observable[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out.observable._Observable import Observable
-        from marketsim.gen._out.observable.trader._Balance import Balance
-        from marketsim.gen._out.observable.orderbook._NaiveCumulativePrice import NaiveCumulativePrice
-        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader
-        from marketsim.gen._out.observable.trader._Position import Position
-        return Observable(Balance(self.trader)+NaiveCumulativePrice(OfTrader(self.trader),Position(self.trader)))
+        from marketsim.gen._out.observable._Observable import Observable as _observable_Observable
+        from marketsim.gen._out.observable.trader._Balance import Balance as _observable_trader_Balance
+        from marketsim.gen._out.observable.orderbook._NaiveCumulativePrice import NaiveCumulativePrice as _observable_orderbook_NaiveCumulativePrice
+        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader as _observable_orderbook_OfTrader
+        from marketsim.gen._out.observable.trader._Position import Position as _observable_trader_Position
+        return _observable_Observable(_observable_trader_Balance(self.trader)+_observable_orderbook_NaiveCumulativePrice(_observable_orderbook_OfTrader(self.trader),_observable_trader_Position(self.trader)))
         
         
         

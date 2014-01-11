@@ -7,14 +7,14 @@ class CumulativePrice(CumulativePrice_Impl):
     """ 
     """ 
     def __init__(self, book = None, depth = None):
-        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader
-        from marketsim.gen._out._constant import constant
+        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader as _observable_orderbook_OfTrader
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import types
         from marketsim import event
         from marketsim import types
-        self.book = book if book is not None else OfTrader()
-        self.depth = depth if depth is not None else constant()
+        self.book = book if book is not None else _observable_orderbook_OfTrader()
+        self.depth = depth if depth is not None else _constant()
         CumulativePrice_Impl.__init__(self)
         if isinstance(book, types.IEvent):
             event.subscribe(self.book, self.fire, self)

@@ -10,11 +10,11 @@ class Spread(Observable[Price]):
     def __init__(self, book = None):
         from marketsim import Price
         from marketsim.ops._all import Observable
-        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader
+        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader as _observable_orderbook_OfTrader
         from marketsim import _
         from marketsim import event
         Observable[Price].__init__(self)
-        self.book = book if book is not None else OfTrader()
+        self.book = book if book is not None else _observable_orderbook_OfTrader()
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -30,10 +30,10 @@ class Spread(Observable[Price]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out.observable._ObservablePrice import ObservablePrice
-        from marketsim.gen._out.observable.orderbook._AskPrice import AskPrice
-        from marketsim.gen._out.observable.orderbook._BidPrice import BidPrice
-        return ObservablePrice(AskPrice(self.book)-BidPrice(self.book))
+        from marketsim.gen._out.observable._ObservablePrice import ObservablePrice as _observable_ObservablePrice
+        from marketsim.gen._out.observable.orderbook._AskPrice import AskPrice as _observable_orderbook_AskPrice
+        from marketsim.gen._out.observable.orderbook._BidPrice import BidPrice as _observable_orderbook_BidPrice
+        return _observable_ObservablePrice(_observable_orderbook_AskPrice(self.book)-_observable_orderbook_BidPrice(self.book))
         
         
     

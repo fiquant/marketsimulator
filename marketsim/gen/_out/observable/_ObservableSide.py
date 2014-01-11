@@ -7,10 +7,10 @@ class ObservableSide(_ObservableSide_Impl):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out.side._Sell import Sell
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim import event
         from marketsim import types
-        self.x = x if x is not None else Sell()
+        self.x = x if x is not None else _side_Sell()
         _ObservableSide_Impl.__init__(self)
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)

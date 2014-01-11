@@ -10,11 +10,11 @@ class RelStdDev(Observable[float]):
     def __init__(self, source = None):
         from marketsim import float
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._const import const
+        from marketsim.gen._out._const import const as _const
         from marketsim import _
         from marketsim import event
         Observable[float].__init__(self)
-        self.source = source if source is not None else const()
+        self.source = source if source is not None else _const()
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -30,9 +30,9 @@ class RelStdDev(Observable[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out.observable.Cumulative._Avg import Avg
-        from marketsim.gen._out.observable.Cumulative._StdDev import StdDev
-        return (self.source-Avg(self.source))/StdDev(self.source)
+        from marketsim.gen._out.observable.Cumulative._Avg import Avg as _observable_Cumulative_Avg
+        from marketsim.gen._out.observable.Cumulative._StdDev import StdDev as _observable_Cumulative_StdDev
+        return (self.source-_observable_Cumulative_Avg(self.source))/_observable_Cumulative_StdDev(self.source)
         
     
     def bind(self, ctx):

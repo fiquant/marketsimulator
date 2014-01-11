@@ -10,11 +10,11 @@ class ImmediateOrCancel(IOrderGenerator, Observable[Order]):
     def __init__(self, proto = None):
         from marketsim import Order
         from marketsim.ops._all import Observable
-        from marketsim.gen._out.order._Limit import Limit
+        from marketsim.gen._out.order._Limit import Limit as _order_Limit
         from marketsim import event
         from marketsim import types
         Observable[Order].__init__(self)
-        self.proto = proto if proto is not None else Limit()
+        self.proto = proto if proto is not None else _order_Limit()
         if isinstance(proto, types.IEvent):
             event.subscribe(self.proto, self.fire, self)
     

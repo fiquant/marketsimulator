@@ -11,13 +11,13 @@ class IfDefined(Observable[float]):
     def __init__(self, x = None, elsePart = None):
         from marketsim import float
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._constant import constant
-        from marketsim.gen._out._constant import constant
+        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim import _
         from marketsim import event
         Observable[float].__init__(self)
-        self.x = x if x is not None else constant()
-        self.elsePart = elsePart if elsePart is not None else constant()
+        self.x = x if x is not None else _constant()
+        self.elsePart = elsePart if elsePart is not None else _constant()
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -34,8 +34,8 @@ class IfDefined(Observable[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out._null import null
-        return (self.x<>null())[self.x, self.elsePart]
+        from marketsim.gen._out._null import null as _null
+        return (self.x<>_null())[self.x, self.elsePart]
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

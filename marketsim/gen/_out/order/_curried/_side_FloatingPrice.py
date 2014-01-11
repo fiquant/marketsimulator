@@ -16,10 +16,10 @@ IFunction[IOrderGenerator,IFunction[Side]]):
     """ 
     """ 
     def __init__(self, floatingPrice = None, proto = None):
-        from marketsim.gen._out._constant import constant
-        from marketsim.gen._out.order._curried._side_price_Limit import side_price_Limit
-        self.floatingPrice = floatingPrice if floatingPrice is not None else constant(10.0)
-        self.proto = proto if proto is not None else side_price_Limit()
+        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out.order._curried._side_price_Limit import side_price_Limit as _order__curried_side_price_Limit
+        self.floatingPrice = floatingPrice if floatingPrice is not None else _constant(10.0)
+        self.proto = proto if proto is not None else _order__curried_side_price_Limit()
     
     @property
     def label(self):

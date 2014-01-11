@@ -6,12 +6,12 @@ class CandleSticks(CandleSticks_Impl):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
-        from marketsim.gen._out._const import const
+        from marketsim.gen._out._const import const as _const
         from marketsim import event
         from marketsim import types
         from marketsim import event
         from marketsim import types
-        self.source = source if source is not None else const()
+        self.source = source if source is not None else _const()
         self.timeframe = timeframe if timeframe is not None else 10.0
         CandleSticks_Impl.__init__(self)
         if isinstance(source, types.IEvent):

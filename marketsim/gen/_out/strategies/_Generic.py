@@ -7,10 +7,10 @@ class Generic(_Generic_Impl):
     """   creates an order via *orderFactory* and sends the order to the market using its trader
     """ 
     def __init__(self, orderFactory = None, eventGen = None):
-        from marketsim.gen._out.order._Limit import Limit
-        from marketsim.gen._out.observable._OnEveryDt import OnEveryDt
-        self.orderFactory = orderFactory if orderFactory is not None else Limit()
-        self.eventGen = eventGen if eventGen is not None else OnEveryDt()
+        from marketsim.gen._out.order._Limit import Limit as _order_Limit
+        from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
+        self.orderFactory = orderFactory if orderFactory is not None else _order_Limit()
+        self.eventGen = eventGen if eventGen is not None else _observable_OnEveryDt()
         _Generic_Impl.__init__(self)
     
     @property
