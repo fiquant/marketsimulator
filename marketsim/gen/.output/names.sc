@@ -636,8 +636,8 @@ package strategies {
     def Signal(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
                /** order factory function*/ orderFactory = order._.side.Market(),
                /** signal to be listened to */ signal = constant(0.0),
-               /** threshold when the trader starts to act */ threshold = 0.7) : ISingleAssetStrategy
-        
+               /** threshold when the trader starts to act */ threshold = 0.7)
+         = Generic(orderFactory(observable.sidefunc.Signal(signal,threshold)),eventGen)
 }
 @category = "Basic"
 package observable {@category = "Price function"

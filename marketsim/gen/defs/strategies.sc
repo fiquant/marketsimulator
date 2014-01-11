@@ -24,5 +24,7 @@ package strategies
                /** signal to be listened to */
                signal       = constant(0.),
                /** threshold when the trader starts to act */
-               threshold    = 0.7) : ISingleAssetStrategy
+               threshold    = 0.7)
+        =
+            Generic(orderFactory(observable.sidefunc.Signal(signal, threshold)), eventGen)
 }

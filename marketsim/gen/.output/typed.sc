@@ -738,6 +738,7 @@ package strategies {
                /** signal to be listened to */ signal : Optional[.IFunction[.Float]] = .constant(0.0),
                /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : .ISingleAssetStrategy
         
+        	 = .strategies.Generic(orderFactory(.observable.sidefunc.Signal(signal,threshold)),eventGen)
 }
 
 @category = "Basic"

@@ -121,13 +121,34 @@ Definitions:
 | | | | | | | | | - 0.7
 | | | | | | | - List:
 | | | | | | | | -  threshold when the trader starts to act 
-| | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
+| | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | | | - Generic
 | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - orderFactory
+| | | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | | | | - Signal
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - signal
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - threshold
+| | | | | | | | | - Var:
+| | | | | | | | | | - eventGen
+| | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Signal strategy listens to some discrete signal
