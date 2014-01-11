@@ -815,6 +815,14 @@ package strategy {
     def Generic(/** order factory function*/ orderFactory : Optional[.IOrderGenerator] = .order.Limit(),
                 /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent) : .ISingleAssetStrategy
         
+    
+    /** Noise strategy is a quite dummy strategy that randomly creates an order and sends it to the order book.
+     */
+    
+    def Noise(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent,
+              /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market()) : .ISingleAssetStrategy
+        
+        	 = .strategy.Generic(orderFactory(.observable.sidefunc.Noise()),eventGen)
 }
 
 @category = "Basic"

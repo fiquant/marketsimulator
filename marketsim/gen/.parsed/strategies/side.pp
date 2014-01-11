@@ -1,5 +1,11 @@
 
 package strategy {
+    /** Noise strategy is a quite dummy strategy that randomly creates an order and sends it to the order book.
+     */
+    def Noise(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
+              /** order factory function*/ orderFactory = order._.side.Market())
+         = Generic(orderFactory(observable.sidefunc.Noise()),eventGen)
+    
     /** Signal strategy listens to some discrete signal
      * and when the signal becomes more than some threshold the strategy starts to buy.
      * When the signal gets lower than -threshold the strategy starts to sell.
