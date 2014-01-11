@@ -2,7 +2,7 @@ package object Typer
 {
     trait TypingExprCtx
     {
-        def lookupFunction(name : AST.QualifiedName) : Typed.Function
+        def lookupFunction(name : AST.QualifiedName) : Typed.Expr
         def lookupVar(name : String) : Typed.Parameter
         def toTyped(t : AST.Type) : TypesBound.Base
     }
@@ -155,7 +155,14 @@ package object Typer
                 val ctx = new TypingExprCtx {
                     def toTyped(t : AST.Type) = self.toBound(t)
 
-                    def lookupFunction(name: AST.QualifiedName) = self.lookupFunction(name)
+                    def lookupFunction(name: AST.QualifiedName) =
+                        if (name.names.length == 1) {
+                            locals find { _.name == name.names(0) } match {
+                                case Some(p) => Typed.ParamRef(p)
+                                case None    => Typed.FunctionRef(self lookupFunction name)
+                            }
+                        } else
+                            Typed.FunctionRef(self lookupFunction name)
 
                     def lookupVar(name: String) = locals.find({
                         _.name == name
@@ -261,7 +268,7 @@ package object Typer
         def promote_literal(e : Typed.Expr) =
             if (e.ty == Typed.topLevel.float_) {
                 val f = ctx.lookupFunction(AST.QualifiedName("const" :: Nil))
-                Typed.FunctionCall(Typed.FunctionRef(f), e :: Nil)
+                Typed.FunctionCall(f, e :: Nil)
             } else e
 
         def promote_opt(e : Typed.Expr) =
@@ -294,21 +301,27 @@ package object Typer
             case AST.Var(name) => Typed.ParamRef(ctx.lookupVar(name))
 
             case AST.FunCall(name, arg_lists) =>
-                val fun_type = ctx lookupFunction name
-                val acc = Typed.FunctionRef(fun_type)
-                val args = arg_lists(0)
-                if (args.length < acc.ty.mandatory_arg_count)
-                    throw new Exception(s"Function $name is called with $args but it" +
-                            s"should be called with at least ${acc.ty.mandatory_arg_count} arguments")
-                val actual_args = args zip acc.ty.args map {
-                    case (actual, declared) =>
-                        val typed = asArith(actual)
-                        if (typed.ty cannotCastTo declared)
-                            throw new Exception(s"Function '$name' is called with wrong argument of"+
-                                                s" type '${typed.ty}' when type '$declared' is expected")
-                        typed
+
+                arg_lists.foldLeft[Typed.Expr](ctx lookupFunction name) {
+                    (acc, args) =>
+                        val ty = acc.ty match {
+                            case x : TypesBound.Function => x
+                            case _ => throw new Exception(s"$acc must have a function-like type")
+                        }
+                        if (args.length < ty.mandatory_arg_count)
+                            throw new Exception(s"Function $name is called with $args but it" +
+                                    s"should be called with at least ${ty.mandatory_arg_count} arguments")
+                        val actual_args = args zip ty.args map {
+                            case (actual, declared) =>
+                                val typed = asArith(actual)
+                                if (typed.ty cannotCastTo declared)
+                                    throw new Exception(s"Function '$name' is called with wrong argument of"+
+                                                        s" type '${typed.ty}' when type '$declared' is expected")
+                                typed
+                        }
+                        Typed.FunctionCall(acc, actual_args)
                 }
-                Typed.FunctionCall(acc, actual_args)
+
         }
 
     }
