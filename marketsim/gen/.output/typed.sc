@@ -1255,7 +1255,7 @@ package trash {
                 	 = y
             
             
-            def F(x : .IFunction[.Float] = .trash.in1.in2.IntFunc()) : .IFunction[.Float]
+            def F(x : .IFunction[.Float] = .trash.in1.in2.IntFunc() : .IFunction[.Float]) : .IFunction[.Float]
                 
                 	 = x
             
@@ -1278,7 +1278,12 @@ package trash {
                 	 = x
             
             
-            def O(x : .IObservable[.Float] = .trash.in1.in2.IntObs()) : .IObservable[.Float]
+            def S2() : Optional[.String]
+                
+                	 = .trash.in1.in2.S1()
+            
+            
+            def O(x : .IObservable[.Float] = .trash.in1.in2.IntObs() : .IObservable[.Float]) : .IObservable[.Float]
                 
                 	 = x
         }
@@ -1324,6 +1329,7 @@ package  {
 }
 type CandleStick
 type Volume : Int
+type Optional[T]
 type Side
 type Boolean
 type Price : Float

@@ -34,19 +34,22 @@ package trash {
             def S1(y = "abc")
                  = y
             
+            def S2() : Optional[String]
+                 = S1()
+            
             def C(x : IFunction[CandleStick])
                  = x
             
             def IntFunc() : IFunction[Int]
                 
             
-            def F(x : IFunction[Float] = IntFunc())
+            def F(x = IntFunc() : IFunction[Float])
                  = x
             
             def IntObs() : IObservable[Int]
                 
             
-            def O(x : IObservable[Float] = IntObs())
+            def O(x = IntObs() : IObservable[Float])
                  = x
         }
     }

@@ -108,7 +108,14 @@ package object TypesUnbound
     case class Interface(decl : Typed.InterfaceDecl, genericArgs : List[Base])
             extends UserDefined
     {
-        def bind(m : ITypeMapper[TypesBound.Base]) = TypesBound.Interface(decl, genericArgs map { _ bind m })
+        def bind(m : ITypeMapper[TypesBound.Base]) =
+            if (decl.name == "Optional") {
+                if (genericArgs.length != 1)
+                    throw new Exception("Option[T] must have exactly one generic parameter")
+                TypesBound.Optional(genericArgs(0) bind m)
+            }
+            else
+                TypesBound.Interface(decl, genericArgs map { _ bind m })
 
         def substitute(m : ITypeMapper[TypesUnbound.Base]) = TypesUnbound.Interface(decl, genericArgs map { _ substitute m })
     }

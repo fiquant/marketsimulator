@@ -1,6 +1,12 @@
 Definitions:
 - List:
 | - Interface:
+| | - Optional
+| | - Generics:
+| | | - List:
+| | | | - T
+| | - List:
+| - Interface:
 | | - Side
 | | - Generics:
 | | | - List:

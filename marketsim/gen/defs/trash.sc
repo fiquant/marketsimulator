@@ -30,15 +30,19 @@ def A(x = constant(), y = if 3 > x + 2 then x else x*2) => types.T
 
 def S1(y = "abc") = y
 
+def S2() : Optional[String] = S1()
+
 def C(x : IFunction[CandleStick]) = x
 
 def IntFunc() : IFunction[Int]
 
-def F(x : IFunction[Float] = IntFunc()) = x
+def F(x  = IntFunc() : IFunction[Float]) = x
 
 def IntObs() : IObservable[Int]
 
-def O(x : IObservable[Float] = IntObs()) = x
+def O(x = IntObs() : IObservable[Float] ) = x
+
+
 
 
 

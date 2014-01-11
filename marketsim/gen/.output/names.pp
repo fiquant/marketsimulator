@@ -1085,7 +1085,7 @@ package trash {
             def S1(y = "abc")
                  = y
             
-            def F(x : IFunction[Float] = IntFunc())
+            def F(x = IntFunc() : IFunction[Float])
                  = x
             
             def A(x = constant(),
@@ -1101,7 +1101,10 @@ package trash {
             def C(x : IFunction[CandleStick])
                  = x
             
-            def O(x : IObservable[Float] = IntObs())
+            def S2() : Optional[String]
+                 = S1()
+            
+            def O(x = IntObs() : IObservable[Float])
                  = x
         }
         
@@ -1145,6 +1148,8 @@ package  {
 type CandleStick
 
 type Volume : Int
+
+type Optional[T]
 
 type Side
 

@@ -1,3 +1,5 @@
+type Optional[T]
+
 type Side
 type String
 

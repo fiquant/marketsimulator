@@ -331,7 +331,7 @@ package object Printer
         trait Optional extends Printable {
             def x : Any
 
-            def toScala = s"Opt[$x]"
+            def toScala = s"Optional[$x]"
         }
 
         type Tuple = base.TupleType
