@@ -440,7 +440,7 @@ package object Printer
 
         trait FunCall extends Expr with Priority_0 {
             self: Typed.FunctionCall =>
-            def toScala = target + arguments.map({ _._2 }).mkString("(",",",")")
+            def toScala = target + arguments.mkString("(",",",")")
         }
 
         trait TopLevelPackage extends Printable {

@@ -261,7 +261,7 @@ package object Typer
         def promote_literal(e : Typed.Expr) =
             if (e.ty == Typed.topLevel.float_) {
                 val f = ctx.lookupFunction(AST.QualifiedName("const" :: Nil))
-                Typed.FunctionCall(Typed.FunctionRef(f), (f.parameters(0), e) :: Nil)
+                Typed.FunctionCall(Typed.FunctionRef(f), e :: Nil)
             } else e
 
         def promote_opt(e : Typed.Expr) =
@@ -294,20 +294,21 @@ package object Typer
             case AST.Var(name) => Typed.ParamRef(ctx.lookupVar(name))
 
             case AST.FunCall(name, arg_lists) =>
-                val args = arg_lists(0)
                 val fun_type = ctx lookupFunction name
-                if (args.length < fun_type.ty.mandatory_arg_count)
+                val acc = Typed.FunctionRef(fun_type)
+                val args = arg_lists(0)
+                if (args.length < acc.ty.mandatory_arg_count)
                     throw new Exception(s"Function $name is called with $args but it" +
-                            s"should be called with at least ${fun_type.ty.mandatory_arg_count} arguments")
-                val actual_args = args zip fun_type.parameters map {
+                            s"should be called with at least ${acc.ty.mandatory_arg_count} arguments")
+                val actual_args = args zip acc.ty.args map {
                     case (actual, declared) =>
                         val typed = asArith(actual)
-                        if (typed.ty cannotCastTo declared.ty)
+                        if (typed.ty cannotCastTo declared)
                             throw new Exception(s"Function '$name' is called with wrong argument of"+
-                                                s" type '${typed.ty}' when type '${declared.ty}' is expected")
-                        (declared, typed)
+                                                s" type '${typed.ty}' when type '$declared' is expected")
+                        typed
                 }
-                Typed.FunctionCall(Typed.FunctionRef(fun_type), actual_args)
+                Typed.FunctionCall(acc, actual_args)
         }
 
     }

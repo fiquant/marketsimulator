@@ -67,7 +67,7 @@ package object Typed
             with    TypeInference.FunctionRef
 
     case class FunctionCall(target      : Expr,
-                            arguments   : List[(Parameter, Expr)])
+                            arguments   : List[Expr])
             extends Expr
             with    sc.FunCall
             with    py.FunCall

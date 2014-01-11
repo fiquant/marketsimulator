@@ -158,10 +158,10 @@ object Printer {
     trait FunCall extends Expr with Priority_0 {
         self: Typed.FunctionCall =>
         override def toPython =
-            target + arguments.map({ _._2 }).mkString("(",",",")")
+            target + arguments.mkString("(",",",")")
 
         override def imports =
-            target.imports ++ (arguments flatMap { p => p._2.imports })
+            target.imports ++ (arguments flatMap { _.imports })
     }
 
 }
