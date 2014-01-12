@@ -681,7 +681,7 @@ package order {
               volume = constant(1.0)) : IOrderGenerator
         
     
-    @python = "no"
+    @python.order.factory("order.market.Order_Impl")
     def MarketSigned(/**signed volume*/ signedVolume : () => Float = constant(1.0)) : .IOrderGenerator
         
     
@@ -719,7 +719,7 @@ package order {
                     budget = constant(1000.0)) : IOrderGenerator
         
     
-    @python = "no"
+    @python.order.factory("order.limit.Order_Impl")
     def LimitSigned(/**signed volume*/ signedVolume : () => Float = constant(1.0),
                     price = constant(100.0)) : .IOrderGenerator
         

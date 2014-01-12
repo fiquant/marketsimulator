@@ -245,8 +245,6 @@ object order_factory
                                     sv(1).initializer,
                                     "signed volume" :: Nil) ::
                                 rest,
-                        decorators =
-                                AST.Attribute("python", "no") :: Nil,
                         ty = f.ty map scope.fullyQualify)
 
                 scope add fc

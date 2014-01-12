@@ -6082,9 +6082,14 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - python
-| | | | | | | - no
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | - List:
+| | | | | | | | - order.market.Order_Impl
 | | | | - FunDef:
 | | | | | - ImmediateOrCancel
 | | | | | - List:
@@ -6431,9 +6436,14 @@ Definitions:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - python
-| | | | | | | - no
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - order
+| | | | | | | | | - factory
+| | | | | | | - List:
+| | | | | | | | - order.limit.Order_Impl
 | | | | - FunDef:
 | | | | | - Peg
 | | | | | - List:
