@@ -31,4 +31,3 @@ class Peg(IOrderGenerator, Factory_Impl):
         return "Peg(%(proto)s)" % self.__dict__
     
     
-

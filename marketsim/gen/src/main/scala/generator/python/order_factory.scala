@@ -24,7 +24,8 @@ object order_factory
             case "signedVolume" =>
                 s"side = Side.Buy if signedVolume > 0 else Side.Sell" |
                 s"volume = abs(signedVolume)" |
-                check_none_aux("volume")
+                check_none_aux("volume") |||
+                ImportFrom("Side", "marketsim")
 
             case _ => ""
         }
@@ -103,26 +104,16 @@ object order_factory
 
         override def call = if (is_factory_intrinsic) "" else super.call
 
+        override def call_fields : Code = if (name endsWith "Signed") {
+            val original_f = f.parent getFunction (name replace ("Signed", ""))
+            val original = gen.generationUnit(original_f.get).get.asInstanceOf[Factory]
+            original.call_fields
+        }  else
+            super.call_fields
+
         override def call_body = nullable_fields |
                 s"""return $implementation_class($call_fields)""" |||
                 ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
-    }
-
-    class SignedFactory(side        : Typed.Parameter,
-                        volume      : Typed.Parameter,
-                        rest        : List[Typed.Parameter],
-                        original    : Factory)
-            extends Factory(original.args, original.f)
-    {
-        override def call_fields = original.call_fields
-
-        override val parameters  = (Typed.Parameter("signedVolume",
-                                                    volume.ty,
-                                                    volume.initializer,
-                                                    volume.comment) :: rest) map Parameter
-
-        override val name = original.name + "Signed"
-        override val alias = name
     }
 
     def paramTypesInPython(curried: List[Typed.Parameter]) = {
@@ -144,49 +135,10 @@ object order_factory
         (curr_types map { _.toPython } mkString "," ) ||| Code.from(curr_types flatMap { _.imports })
     }
 
-    class WithSignedOpt(args : List[String], f : Typed.Function) extends gen.GenerationUnit
-    {
-        val original = new Factory(args, f)
-
-        def name = original.name
-
-        def extract(names : List[String], parameters : List[Typed.Parameter])
-            : Option[(List[Typed.Parameter], List[Typed.Parameter])] = names match
-        {
-            case Nil =>
-                Some((Nil, parameters))
-
-            case n :: tl =>
-
-                val (curried, rest_0) = parameters partition { _.name == n}
-
-                if (curried.length == 1) {
-                    extract(tl, rest_0) match {
-                        case Some((c_1, r_1)) => Some((curried(0) :: c_1, r_1))
-                        case None             => None
-                    }
-                }
-                else
-                    None
-        }
-
-        val signedFactory =
-            extract(List("side", "volume"), f.parameters) match {
-                case Some((side :: volume :: Nil, rest)) =>
-                    Some(new SignedFactory(side, volume, rest, original))
-                case _ => None
-            }
-
-        def ifSome[A](x : Option[A]) = if (x.nonEmpty) x.get.toString + crlf else ""
-
-        override def toString = original.toString + crlf +
-                ifSome(signedFactory)
-    }
-
     def generatePython(/** arguments of the annotation */ args  : List[String])
                       (/** function to process         */ f     : Typed.Function) =
     {
-        new WithSignedOpt(args, f)
+        new Factory(args, f)
     }
 
     def beforeTyping(/** arguments of the annotation */ args  : List[String])

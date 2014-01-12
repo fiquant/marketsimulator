@@ -46,4 +46,3 @@ class StopLoss(IOrderGenerator, Observable[Order]):
         
         return Order_Impl(maxloss, proto)
     
-

@@ -39,4 +39,3 @@ class FloatingPrice(IOrderGenerator, Factory_Impl):
         return "FloatingPrice(%(floatingPrice)s, %(proto)s)" % self.__dict__
     
     
-

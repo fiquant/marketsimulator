@@ -4,6 +4,7 @@ from marketsim.types import *
 
 from marketsim.gen._intrinsic.order.limit import Order_Impl as Limit
 from marketsim.gen._out.order._Limit import Limit as Factory
+from marketsim.gen._out.order._LimitSigned import LimitSigned as FactorySigned
 from marketsim.gen._out.order._curried._side_Limit import side_Limit as Side_Factory
 from marketsim.gen._out.order._curried._volume_Limit import volume_Limit as Volume_Factory
 from marketsim.gen._out.order._curried._price_Limit import price_Limit as Price_Factory

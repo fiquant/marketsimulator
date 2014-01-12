@@ -46,4 +46,3 @@ class Iceberg(IOrderGenerator, Observable[Order]):
         
         return Order_Impl(lotSize, proto)
     
-

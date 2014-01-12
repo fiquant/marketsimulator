@@ -29,6 +29,7 @@ class MarketSigned(IOrderGenerator, Observable[Order]):
         return "MarketSigned(%(signedVolume)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
+        from marketsim import Side
         from marketsim.gen._intrinsic.order.market import Order_Impl
         signedVolume = self.signedVolume()
         if signedVolume is None: return None
@@ -36,6 +37,5 @@ class MarketSigned(IOrderGenerator, Observable[Order]):
         volume = abs(signedVolume)
         if abs(volume) < 1: return None
         volume = int(volume)
-        return Order_Impl(signedVolume)
+        return Order_Impl(side, volume)
     
-

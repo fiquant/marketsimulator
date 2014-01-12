@@ -7,7 +7,7 @@ from marketsim.gen._intrinsic.order.market import Order_Impl as Market
 Order = Market
 
 from marketsim.gen._out.order._Market import Market as Factory
-from marketsim.gen._out.order._Market import MarketSigned as FactorySigned
+from marketsim.gen._out.order._MarketSigned import MarketSigned as FactorySigned
 from marketsim.gen._out.order._curried._side_Market import side_Market as Side_Factory
 from marketsim.gen._out.order._curried._volume_Market import volume_Market as Volume_Factory
 

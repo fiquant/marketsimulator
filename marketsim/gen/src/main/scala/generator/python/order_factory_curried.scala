@@ -1,6 +1,6 @@
 package generator.python
 
-import generator.python.order_factory.{FactoryBase, WithSignedOpt, curriedTypesAsList}
+import generator.python.order_factory.{FactoryBase, curriedTypesAsList}
 import predef._
 
 object order_factory_curried
@@ -34,7 +34,6 @@ object order_factory_curried
     {
         val original = gen.generationUnit(f).get match {
             case x : FactoryBase => x
-            case x : WithSignedOpt => x.original
             case _ => throw new Exception("original factory is not of appropriate type")
         }
 
