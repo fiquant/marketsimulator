@@ -6,6 +6,8 @@ from marketsim.gen._out.strategy._PairTrading import PairTrading
 
 from marketsim.gen._out.strategy._Signal import Signal
 
+from marketsim.gen._out.strategy._LiquidityProvider import LiquidityProvider
+
 from marketsim.gen._out.strategy._CrossingAverages import CrossingAverages
 
 from marketsim.gen._out.strategy._TrendFollower import TrendFollower

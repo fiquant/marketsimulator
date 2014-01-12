@@ -6923,6 +6923,125 @@ Definitions:
 | | | | | | | | -  When the signal gets lower than -threshold the strategy starts to sell.
 | | | | | - List:
 | | | | - FunDef:
+| | | | | - LiquidityProvider
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - eventGen
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - OnEveryDt
+| | | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IEvent
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  Event source making the strategy to wake up
+| | | | | | - Parameter:
+| | | | | | | - orderFactory
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - order
+| | | | | | | | | | | - _
+| | | | | | | | | | | - side_price
+| | | | | | | | | | | - Limit
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  order factory function
+| | | | | | - Parameter:
+| | | | | | | - initialValue
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 100.0
+| | | | | | | - List:
+| | | | | | | | -  initial price which is taken if orderBook is empty 
+| | | | | | - Parameter:
+| | | | | | | - priceDistr
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - mathutils
+| | | | | | | | | | | - rnd
+| | | | | | | | | | | - lognormvariate
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 0.0
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 0.1
+| | | | | | | - List:
+| | | | | | | | -  defines multipliers for current asset price when price of
+| | | | | | | | -                     order to create is calculated
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Combine
+| | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - LiquidityProviderSide
+| | | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - eventGen
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - orderFactory
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | | - Sell
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - initialValue
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - priceDistr
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - LiquidityProviderSide
+| | | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - eventGen
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - orderFactory
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | | - Buy
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - initialValue
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - priceDistr
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Liquidity provider for two sides
+| | | | | | | - List:
+| | | | | - List:
+| | | | - FunDef:
 | | | | | - CrossingAverages
 | | | | | - List:
 | | | | | | - Parameter:
