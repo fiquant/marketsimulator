@@ -220,6 +220,39 @@ package order {
             def Peg = .order._curried.sideprice_Peg
         }
         
+        package side_volume {
+            package price {
+                def Limit = .order._curried.sidevolume_price_Limit
+                
+                def ImmediateOrCancel = .order._curried.sidevolume_price_ImmediateOrCancel
+                
+                def StopLoss = .order._curried.sidevolume_price_StopLoss
+                
+                def WithExpiry = .order._curried.sidevolume_price_WithExpiry
+                
+                def FloatingPrice = .order._curried.sidevolume_price_FloatingPrice
+                
+                def Iceberg = .order._curried.sidevolume_price_Iceberg
+                
+                def Peg = .order._curried.sidevolume_price_Peg
+            }
+            def Limit = .order._curried.sidevolume_Limit
+            
+            def ImmediateOrCancel = .order._curried.sidevolume_ImmediateOrCancel
+            
+            def Market = .order._curried.sidevolume_Market
+            
+            def StopLoss = .order._curried.sidevolume_StopLoss
+            
+            def WithExpiry = .order._curried.sidevolume_WithExpiry
+            
+            def FloatingPrice = .order._curried.sidevolume_FloatingPrice
+            
+            def Iceberg = .order._curried.sidevolume_Iceberg
+            
+            def Peg = .order._curried.sidevolume_Peg
+        }
+        
         package price {
             def Limit = .order._curried.price_Limit
             
@@ -311,6 +344,16 @@ package order {
         def volume_price_Limit(side = .side.Sell()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
             
         
+        @python.order.factory.on_proto("Iceberg")
+        def sidevolume_Iceberg(lotSize = .const(10.0),
+                               proto = .order._.side_volume.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+            
+        
+        @python.order.factory.on_proto("WithExpiry")
+        def sidevolume_WithExpiry(expiry = .const(10.0),
+                                  proto = .order._.side_volume.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+            
+        
         @python.order.factory.on_proto("price_StopLoss")
         def side_price_StopLoss(maxloss = .const(0.1),
                                 proto = .order._.side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
@@ -359,8 +402,17 @@ package order {
                          proto = .order._.side.Limit()) : (() => .Side) => .IOrderGenerator
             
         
+        @python.order.factory.on_proto("price_WithExpiry")
+        def sidevolume_price_WithExpiry(expiry = .const(10.0),
+                                        proto = .order._.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
+            
+        
         @python.order.factory.on_proto("Peg")
         def volume_Peg(proto = .order._.volume.price.Limit()) : (() => .Float) => .IOrderGenerator
+            
+        
+        @python.order.factory.on_proto("ImmediateOrCancel")
+        def sidevolume_ImmediateOrCancel(proto = .order._.side_volume.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         @python.order.factory.curried("FixedBudget")
@@ -373,6 +425,10 @@ package order {
         
         @python.order.factory.on_proto("Peg")
         def sideprice_Peg(proto = .order._.side.price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+            
+        
+        @python.order.factory.on_proto("Peg")
+        def sidevolume_Peg(proto = .order._.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("Peg")
@@ -407,6 +463,11 @@ package order {
                           proto = .order._.side.Limit()) : (() => .Side) => .IOrderGenerator
             
         
+        @python.order.factory.on_proto("price_StopLoss")
+        def sidevolume_price_StopLoss(maxloss = .const(0.1),
+                                      proto = .order._.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
+            
+        
         @python.order.factory.on_proto("StopLoss")
         def pricevolume_StopLoss(maxloss = .const(0.1),
                                  proto = .order._.price_volume.Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
@@ -431,6 +492,15 @@ package order {
         
         @python.order.factory.curried("Limit")
         def volumeprice_Limit(side = .side.Sell()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
+            
+        
+        @python.order.factory.curried("price_Limit")
+        def sidevolume_price_Limit() : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
+            
+        
+        @python.order.factory.on_proto("StopLoss")
+        def sidevolume_StopLoss(maxloss = .const(0.1),
+                                proto = .order._.side_volume.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("Iceberg")
@@ -522,6 +592,11 @@ package order {
                                 proto = .order._.price.Limit()) : (() => .Float) => .IOrderGenerator
             
         
+        @python.order.factory.on_proto("FloatingPrice")
+        def sidevolume_FloatingPrice(floatingPrice = .constant(10.0),
+                                     proto = .order._.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+            
+        
         @python.order.factory.on_proto("StopLoss")
         def volumeprice_StopLoss(maxloss = .const(0.1),
                                  proto = .order._.volume_price.Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
@@ -537,8 +612,21 @@ package order {
                                  proto = .order._.volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
             
         
+        @python.order.factory.on_proto("price_FloatingPrice")
+        def sidevolume_price_FloatingPrice(floatingPrice = .constant(10.0),
+                                           proto = .order._.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
+            
+        
         @python.order.factory.on_proto("Peg")
         def volumeprice_Peg(proto = .order._.volume.price.Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
+            
+        
+        @python.order.factory.on_proto("price_ImmediateOrCancel")
+        def sidevolume_price_ImmediateOrCancel(proto = .order._.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
+            
+        
+        @python.order.factory.curried("Market")
+        def sidevolume_Market() : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         @python.order.factory.curried("Limit")
@@ -546,9 +634,17 @@ package order {
                         volume = .constant(1.0)) : (() => .Float) => .IOrderGenerator
             
         
+        @python.order.factory.curried("Limit")
+        def sidevolume_Limit(price = .constant(100.0)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+            
+        
         @python.order.factory.on_proto("Iceberg")
         def sideprice_Iceberg(lotSize = .const(10.0),
                               proto = .order._.side_price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+            
+        
+        @python.order.factory.on_proto("price_Peg")
+        def sidevolume_price_Peg(proto = .order._.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.on_proto("FloatingPrice")
@@ -567,6 +663,11 @@ package order {
         
         @python.order.factory.on_proto("price_Peg")
         def side_price_Peg(proto = .order._.side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
+            
+        
+        @python.order.factory.on_proto("price_Iceberg")
+        def sidevolume_price_Iceberg(lotSize = .const(10.0),
+                                     proto = .order._.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.curried("Limit")
