@@ -233,6 +233,27 @@ object order_factory
                         )
         })
 
+        val factorySigned = extract("side" :: "volume" :: Nil, f.parameters) map {
+            case (sv, rest) => ()
+                val fc =
+                    f.copy(
+                        name = f.name + "Signed",
+                        parameters =
+                                AST.Parameter(
+                                    "signedVolume",
+                                    Some(AST.float_function_t),
+                                    sv(1).initializer,
+                                    "signed volume" :: Nil) ::
+                                rest,
+                        decorators =
+                                AST.Attribute("python", "no") :: Nil,
+                        ty = f.ty map scope.fullyQualify)
+
+                scope add fc
+
+                fc
+        }
+
         def partialFactory(curried  : List[AST.Parameter],
                            base_    : AST.FunDef = f) =
         {

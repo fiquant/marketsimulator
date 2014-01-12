@@ -6049,6 +6049,43 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - order.limit.Order_Impl
 | | | | - FunDef:
+| | | | | - MarketSigned
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - signedVolume
+| | | | | | | - Some:
+| | | | | | | | - FunctionType:
+| | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Float
+| | | | | | | | | | - List:
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | | | - signed volume
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - 
+| | | | | | | | | - IOrderGenerator
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - python
+| | | | | | | - no
+| | | | - FunDef:
 | | | | | - ImmediateOrCancel
 | | | | | - List:
 | | | | | | - Parameter:
@@ -6347,6 +6384,56 @@ Definitions:
 | | | | | | | | | - factory
 | | | | | | | - List:
 | | | | | | | | - order.meta.fixed_budget.Order_Impl
+| | | | - FunDef:
+| | | | | - LimitSigned
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - signedVolume
+| | | | | | | - Some:
+| | | | | | | | - FunctionType:
+| | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Float
+| | | | | | | | | | - List:
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | | | - signed volume
+| | | | | | - Parameter:
+| | | | | | | - price
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 100.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - 
+| | | | | | | | | - IOrderGenerator
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - python
+| | | | | | | - no
 | | | | - FunDef:
 | | | | | - Peg
 | | | | | - List:
