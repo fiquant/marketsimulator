@@ -5,7 +5,7 @@ package strategy
      */
     def LiquidityProviderSide(
                 /** Event source making the strategy to wake up*/
-                eventGen     = observable.OnEveryDt() : IEvent,
+                eventGen     = event.Every(mathutils.rnd.expovariate(1.)),
                 /** order factory function*/
                 orderFactory = order._.side_price.Limit(),
                 /** side of orders to create */
@@ -30,7 +30,7 @@ package strategy
      */
     def LiquidityProvider(
                 /** Event source making the strategy to wake up*/
-                eventGen     = observable.OnEveryDt() : IEvent,
+                eventGen     = event.Every(mathutils.rnd.expovariate(1.)),
                 /** order factory function*/
                 orderFactory = order._.side_price.Limit(),
                 /** initial price which is taken if orderBook is empty */

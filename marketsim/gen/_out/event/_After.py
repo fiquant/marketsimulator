@@ -1,5 +1,7 @@
+from marketsim import registry
 from marketsim.gen._intrinsic.event import _After_Impl
 from marketsim import IFunction
+@registry.expose(["Event", "After"])
 class After(_After_Impl):
     """ 
     """ 

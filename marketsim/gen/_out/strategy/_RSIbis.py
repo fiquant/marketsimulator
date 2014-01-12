@@ -16,11 +16,13 @@ class RSIbis(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, eventGen = None, orderFactory = None, alpha = None, timeframe = None, threshold = None):
-        from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
+        from marketsim.gen._out.event._Every import Every as _event_Every
+        from marketsim.gen._out.mathutils.rnd._expovariate import expovariate as _mathutils_rnd_expovariate
         from marketsim.gen._out.order._curried._side_Market import side_Market as _order__curried_side_Market
         from marketsim import event
         from marketsim import _
-        self.eventGen = eventGen if eventGen is not None else _observable_OnEveryDt()
+        self.eventGen = eventGen if eventGen is not None else _event_Every(_mathutils_rnd_expovariate(1.0))
+        
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market()
         self.alpha = alpha if alpha is not None else 1.0/14
         self.timeframe = timeframe if timeframe is not None else 1.0

@@ -907,7 +907,7 @@ package strategy {
      * asset *B* changes.
      */
     
-    def PairTrading(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent,
+    def PairTrading(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.mathutils.rnd.expovariate(1.0)),
                     /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market(),
                     /** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn : Optional[.IOrderBook] = .observable.orderbook.OfTrader(),
                     /** multiplier to obtain fair asset price from the reference asset price */ factor : Optional[.Float] = 1.0) : .ISingleAssetStrategy
@@ -919,7 +919,7 @@ package strategy {
      * When the signal gets lower than -threshold the strategy starts to sell.
      */
     
-    def Signal(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent,
+    def Signal(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.mathutils.rnd.expovariate(1.0)),
                /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market(),
                /** signal to be listened to */ signal : Optional[.IFunction[.Float]] = .constant(0.0),
                /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : .ISingleAssetStrategy
@@ -929,7 +929,7 @@ package strategy {
     /** Liquidity provider for two sides
      */
     
-    def LiquidityProvider(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent,
+    def LiquidityProvider(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.mathutils.rnd.expovariate(1.0)),
                           /** order factory function*/ orderFactory : Optional[((() => .Side),(() => .Float)) => .IOrderGenerator] = .order._curried.sideprice_Limit(),
                           /** initial price which is taken if orderBook is empty */ initialValue : Optional[.Float] = 100.0,
                           /** defines multipliers for current asset price when price of
@@ -943,7 +943,7 @@ package strategy {
      * when the first is lower than the second one it sells
      */
     
-    def CrossingAverages(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent,
+    def CrossingAverages(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.mathutils.rnd.expovariate(1.0)),
                          /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market(),
                          /** parameter |alpha| for exponentially weighted moving average 1 */ ewma_alpha_1 : Optional[.Float] = 0.15,
                          /** parameter |alpha| for exponentially weighted moving average 2 */ ewma_alpha_2 : Optional[.Float] = 0.015,
@@ -959,7 +959,7 @@ package strategy {
      * derivative at moments of time given by *eventGen*.
      */
     
-    def TrendFollower(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent,
+    def TrendFollower(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.mathutils.rnd.expovariate(1.0)),
                       /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market(),
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha : Optional[.Float] = 0.15,
                       /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0) : .ISingleAssetStrategy
@@ -971,14 +971,14 @@ package strategy {
      * it starts to buy the asset and if the price is higher it starts to sell the asset.
      */
     
-    def FundamentalValue(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent,
+    def FundamentalValue(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.mathutils.rnd.expovariate(1.0)),
                          /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market(),
                          /** defines fundamental value */ fundamentalValue : Optional[.IFunction[.Float]] = .constant(100.0)) : .ISingleAssetStrategy
         
         	 = .strategy.Generic(orderFactory(.observable.sidefunc.FundamentalValue(fundamentalValue)),eventGen)
     
     
-    def RSIbis(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent,
+    def RSIbis(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.mathutils.rnd.expovariate(1.0)),
                /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market(),
                /** parameter |alpha| for exponentially weighted moving average */ alpha : Optional[.Float] = 1.0/14,
                timeframe : Optional[.Float] = 1.0,
@@ -992,7 +992,7 @@ package strategy {
      * it buys the asset and if the price is higher it sells the asset.
      */
     
-    def MeanReversion(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent,
+    def MeanReversion(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.mathutils.rnd.expovariate(1.0)),
                       /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market(),
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha : Optional[.Float] = 0.15) : .ISingleAssetStrategy
         
@@ -1001,7 +1001,7 @@ package strategy {
     /** Liquidity provider for one side
      */
     
-    def LiquidityProviderSide(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent,
+    def LiquidityProviderSide(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.mathutils.rnd.expovariate(1.0)),
                               /** order factory function*/ orderFactory : Optional[((() => .Side),(() => .Float)) => .IOrderGenerator] = .order._curried.sideprice_Limit(),
                               /** side of orders to create */ side : Optional[() => .Side] = .side.Sell(),
                               /** initial price which is taken if orderBook is empty */ initialValue : Optional[.Float] = 100.0,
@@ -1022,7 +1022,7 @@ package strategy {
     /** Noise strategy is a quite dummy strategy that randomly creates an order and sends it to the order book.
      */
     
-    def Noise(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent,
+    def Noise(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.mathutils.rnd.expovariate(1.0)),
               /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market()) : .ISingleAssetStrategy
         
         	 = .strategy.Generic(orderFactory(.observable.sidefunc.Noise()),eventGen)

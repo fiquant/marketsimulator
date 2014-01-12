@@ -1,5 +1,7 @@
+from marketsim import registry
 from marketsim.gen._intrinsic.event import _Every_Impl
 from marketsim import IFunction
+@registry.expose(["Event", "Every"])
 class Every(_Every_Impl):
     """ 
     """ 

@@ -2,7 +2,7 @@
 package strategy {
     /** Liquidity provider for one side
      */
-    def LiquidityProviderSide(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
+    def LiquidityProviderSide(/** Event source making the strategy to wake up*/ eventGen = event.Every(mathutils.rnd.expovariate(1.0)),
                               /** order factory function*/ orderFactory = order._.side_price.Limit(),
                               /** side of orders to create */ side = .side.Sell(),
                               /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
@@ -12,7 +12,7 @@ package strategy {
     
     /** Liquidity provider for two sides
      */
-    def LiquidityProvider(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
+    def LiquidityProvider(/** Event source making the strategy to wake up*/ eventGen = event.Every(mathutils.rnd.expovariate(1.0)),
                           /** order factory function*/ orderFactory = order._.side_price.Limit(),
                           /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
                           /** defines multipliers for current asset price when price of

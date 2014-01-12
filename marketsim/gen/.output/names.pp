@@ -788,7 +788,7 @@ package strategy {
      * with the exception that it is invoked every the time price of another
      * asset *B* changes.
      */
-    def PairTrading(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
+    def PairTrading(/** Event source making the strategy to wake up*/ eventGen = event.Every(mathutils.rnd.expovariate(1.0)),
                     /** order factory function*/ orderFactory = order._.side.Market(),
                     /** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn = observable.orderbook.OfTrader(),
                     /** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0)
@@ -798,7 +798,7 @@ package strategy {
      * and when the signal becomes more than some threshold the strategy starts to buy.
      * When the signal gets lower than -threshold the strategy starts to sell.
      */
-    def Signal(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
+    def Signal(/** Event source making the strategy to wake up*/ eventGen = event.Every(mathutils.rnd.expovariate(1.0)),
                /** order factory function*/ orderFactory = order._.side.Market(),
                /** signal to be listened to */ signal = constant(0.0),
                /** threshold when the trader starts to act */ threshold = 0.7)
@@ -806,7 +806,7 @@ package strategy {
     
     /** Liquidity provider for two sides
      */
-    def LiquidityProvider(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
+    def LiquidityProvider(/** Event source making the strategy to wake up*/ eventGen = event.Every(mathutils.rnd.expovariate(1.0)),
                           /** order factory function*/ orderFactory = order._.side_price.Limit(),
                           /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
                           /** defines multipliers for current asset price when price of
@@ -818,7 +818,7 @@ package strategy {
      * the first is greater than the second one it buys,
      * when the first is lower than the second one it sells
      */
-    def CrossingAverages(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
+    def CrossingAverages(/** Event source making the strategy to wake up*/ eventGen = event.Every(mathutils.rnd.expovariate(1.0)),
                          /** order factory function*/ orderFactory = order._.side.Market(),
                          /** parameter |alpha| for exponentially weighted moving average 1 */ ewma_alpha_1 = 0.15,
                          /** parameter |alpha| for exponentially weighted moving average 2 */ ewma_alpha_2 = 0.015,
@@ -832,7 +832,7 @@ package strategy {
      * Since moving average is a continuously changing signal, we check its
      * derivative at moments of time given by *eventGen*.
      */
-    def TrendFollower(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
+    def TrendFollower(/** Event source making the strategy to wake up*/ eventGen = event.Every(mathutils.rnd.expovariate(1.0)),
                       /** order factory function*/ orderFactory = order._.side.Market(),
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15,
                       /** threshold when the trader starts to act */ threshold = 0.0)
@@ -842,12 +842,12 @@ package strategy {
      * (*fundamental value*) and if the current asset price is lower than the fundamental value
      * it starts to buy the asset and if the price is higher it starts to sell the asset.
      */
-    def FundamentalValue(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
+    def FundamentalValue(/** Event source making the strategy to wake up*/ eventGen = event.Every(mathutils.rnd.expovariate(1.0)),
                          /** order factory function*/ orderFactory = order._.side.Market(),
                          /** defines fundamental value */ fundamentalValue = constant(100.0))
          = Generic(orderFactory(observable.sidefunc.FundamentalValue(fundamentalValue)),eventGen)
     
-    def RSIbis(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
+    def RSIbis(/** Event source making the strategy to wake up*/ eventGen = event.Every(mathutils.rnd.expovariate(1.0)),
                /** order factory function*/ orderFactory = order._.side.Market(),
                /** parameter |alpha| for exponentially weighted moving average */ alpha = 1.0/14,
                timeframe = 1.0,
@@ -859,14 +859,14 @@ package strategy {
      * if the current asset price is lower than the average
      * it buys the asset and if the price is higher it sells the asset.
      */
-    def MeanReversion(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
+    def MeanReversion(/** Event source making the strategy to wake up*/ eventGen = event.Every(mathutils.rnd.expovariate(1.0)),
                       /** order factory function*/ orderFactory = order._.side.Market(),
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15)
          = Generic(orderFactory(observable.sidefunc.MeanReversion(ewma_alpha)),eventGen)
     
     /** Liquidity provider for one side
      */
-    def LiquidityProviderSide(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
+    def LiquidityProviderSide(/** Event source making the strategy to wake up*/ eventGen = event.Every(mathutils.rnd.expovariate(1.0)),
                               /** order factory function*/ orderFactory = order._.side_price.Limit(),
                               /** side of orders to create */ side = .side.Sell(),
                               /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
@@ -884,7 +884,7 @@ package strategy {
     
     /** Noise strategy is a quite dummy strategy that randomly creates an order and sends it to the order book.
      */
-    def Noise(/** Event source making the strategy to wake up*/ eventGen = observable.OnEveryDt() : IEvent,
+    def Noise(/** Event source making the strategy to wake up*/ eventGen = event.Every(mathutils.rnd.expovariate(1.0)),
               /** order factory function*/ orderFactory = order._.side.Market())
          = Generic(orderFactory(observable.sidefunc.Noise()),eventGen)
     

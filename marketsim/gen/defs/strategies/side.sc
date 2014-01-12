@@ -4,7 +4,7 @@ package strategy
      * Noise strategy is a quite dummy strategy that randomly creates an order and sends it to the order book.
      */
     def Noise(/** Event source making the strategy to wake up*/
-               eventGen     = observable.OnEveryDt() : IEvent,
+               eventGen     = event.Every(mathutils.rnd.expovariate(1.)),
                /** order factory function*/
                orderFactory = order._.side.Market())
 
@@ -16,7 +16,7 @@ package strategy
      * When the signal gets lower than -threshold the strategy starts to sell.
      */
     def Signal(/** Event source making the strategy to wake up*/
-               eventGen     = observable.OnEveryDt() : IEvent,
+               eventGen     = event.Every(mathutils.rnd.expovariate(1.)),
                /** order factory function*/
                orderFactory = order._.side.Market(),
                /** signal to be listened to */
@@ -35,7 +35,7 @@ package strategy
      * derivative at moments of time given by *eventGen*.
      */
     def TrendFollower(  /** Event source making the strategy to wake up*/
-                        eventGen     = observable.OnEveryDt() : IEvent,
+                        eventGen     = event.Every(mathutils.rnd.expovariate(1.)),
                         /** order factory function*/
                         orderFactory = order._.side.Market(),
                         /** parameter |alpha| for exponentially weighted moving average */
@@ -52,7 +52,7 @@ package strategy
       * when the first is lower than the second one it sells
       */
     def CrossingAverages(/** Event source making the strategy to wake up*/
-                        eventGen     = observable.OnEveryDt() : IEvent,
+                        eventGen     = event.Every(mathutils.rnd.expovariate(1.)),
                         /** order factory function*/
                         orderFactory = order._.side.Market(),
                         /** parameter |alpha| for exponentially weighted moving average 1 */
@@ -71,7 +71,7 @@ package strategy
      */
     def FundamentalValue(
                /** Event source making the strategy to wake up*/
-               eventGen         = observable.OnEveryDt() : IEvent,
+               eventGen         = event.Every(mathutils.rnd.expovariate(1.)),
                /** order factory function*/
                orderFactory     = order._.side.Market(),
                /** defines fundamental value */
@@ -86,7 +86,7 @@ package strategy
       * it buys the asset and if the price is higher it sells the asset.
       */
     def MeanReversion(  /** Event source making the strategy to wake up*/
-                        eventGen     = observable.OnEveryDt() : IEvent,
+                        eventGen     = event.Every(mathutils.rnd.expovariate(1.)),
                         /** order factory function*/
                         orderFactory = order._.side.Market(),
                         /** parameter |alpha| for exponentially weighted moving average */
@@ -103,7 +103,7 @@ package strategy
       * asset *B* changes.
       */
     def PairTrading(    /** Event source making the strategy to wake up*/
-                        eventGen        = observable.OnEveryDt() : IEvent,
+                        eventGen        = event.Every(mathutils.rnd.expovariate(1.)),
                         /** order factory function*/
                         orderFactory    = order._.side.Market(),
                         /** reference to order book for another asset used to evaluate fair price of our asset */
@@ -114,7 +114,7 @@ package strategy
         =   Generic(orderFactory(observable.sidefunc.PairTrading(bookToDependOn, factor)), eventGen)
 
     def RSIbis(         /** Event source making the strategy to wake up*/
-                        eventGen     = observable.OnEveryDt() : IEvent,
+                        eventGen     = event.Every(mathutils.rnd.expovariate(1.)),
                         /** order factory function*/
                         orderFactory = order._.side.Market(),
                         /** parameter |alpha| for exponentially weighted moving average */
