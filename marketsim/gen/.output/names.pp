@@ -759,6 +759,11 @@ package order {
 @category = "Strategy"
 
 package strategy {
+    @python.intrinsic("strategy.combine._Combine_Impl")
+    def Combine(A = Noise(),
+                B = Noise()) : ISingleAssetStrategy
+        
+    
     def RSI_linear(orderFactory = order._.signedVolume.MarketSigned(),
                    alpha = 1.0/14,
                    k = const(-0.04),

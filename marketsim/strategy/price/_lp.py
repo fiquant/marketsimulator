@@ -5,6 +5,8 @@ from marketsim import (order, orderbook, mathutils, defs, _,
 from marketsim.types import *
 from .. import _wrap
 
+from marketsim.gen._out.strategy._Combine import Combine
+
 class LiquidityProvider(types.ISingleAssetStrategy):
     
     def getDefinitions(self):
@@ -23,10 +25,10 @@ class LiquidityProvider(types.ISingleAssetStrategy):
                                            self.defaultValue,
                                            _.price)
     
-        return Array([
+        return Combine(
                 create(Side.Sell),
                 create(Side.Buy)
-            ]) 
+            )
 
 _wrap.strategy(LiquidityProvider, ['Periodic', 'LiquidityProvider'],
                  """ Liquidity provider is a combination of two LiquidityProviderSide traders 

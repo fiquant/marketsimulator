@@ -10,4 +10,8 @@ package strategy
                 orderFactory = order.Limit(),
                 /** Event source making the strategy to wake up*/
                 eventGen     = observable.OnEveryDt() : IEvent) : ISingleAssetStrategy
+
+    @python.intrinsic("strategy.combine._Combine_Impl")
+    def Combine(A = Noise(), B = Noise()) : ISingleAssetStrategy
+
 }

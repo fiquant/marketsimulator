@@ -873,6 +873,12 @@ package order {
 @category = "Strategy"
 package strategy {
     
+    @python.intrinsic("strategy.combine._Combine_Impl")
+    def Combine(A : Optional[.ISingleAssetStrategy] = .strategy.Noise(),
+                B : Optional[.ISingleAssetStrategy] = .strategy.Noise()) : .ISingleAssetStrategy
+        
+    
+    
     def RSI_linear(orderFactory : Optional[(() => .Float) => .IOrderGenerator] = .order._curried.signedVolume_MarketSigned(),
                    alpha : Optional[.Float] = 1.0/14,
                    k : Optional[.IObservable[.Float]] = .const(-0.04),
