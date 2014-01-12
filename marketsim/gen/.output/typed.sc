@@ -996,6 +996,13 @@ package strategy {
               /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market()) : .ISingleAssetStrategy
         
         	 = .strategy.Generic(orderFactory(.observable.sidefunc.Noise()),eventGen)
+    
+    
+    def Bollinger_linear(orderFactory : Optional[(() => .Float) => .IOrderGenerator] = .order._curried.signedVolume_MarketSigned(),
+                         alpha : Optional[.Float] = 0.15,
+                         k : Optional[.IObservable[.Float]] = .const(0.5)) : .ISingleAssetStrategy
+        
+        	 = .strategy.Generic(orderFactory(.observable.volumefunc.Bollinger_linear(alpha,k)))
 }
 
 @category = "Basic"

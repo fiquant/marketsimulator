@@ -20,3 +20,5 @@ from marketsim.gen._out.strategy._Generic import Generic
 
 from marketsim.gen._out.strategy._Noise import Noise
 
+from marketsim.gen._out.strategy._Bollinger_linear import Bollinger_linear
+
