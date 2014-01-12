@@ -71,6 +71,19 @@ package mathops {@category = "Log/Pow"
     
 }
 
+@category = "Event"
+package event {
+    
+    @python.intrinsic("event._Every_Impl")
+    def Every(intervalFunc : Optional[() => .Float] = .mathutils.rnd.expovariate(1.0)) : .IEvent
+        
+    
+    
+    @python.intrinsic("event._After_Impl")
+    def After(delay : Optional[.IFunction[.Float]] = .constant(10.0)) : .IEvent
+        
+}
+
 
 package mathutils {
     package rnd {
