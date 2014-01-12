@@ -102,6 +102,8 @@ object order_factory
 
         def nullable_fields = join_fields({ _.nullable}, crlf)
 
+
+
         override def call = if (is_factory_intrinsic) "" else super.call
 
         override def call_fields : Code = if (name endsWith "Signed") {
@@ -172,6 +174,7 @@ object order_factory
 
         val sideParam = createParam("side", AST.side_function_t)
         val volumeParam = createParam("volume")
+        val signedVolumeParam = createParam("signedVolume")
         val priceParam = createParam("price")
 
 
@@ -184,6 +187,12 @@ object order_factory
                             ty = p.ty map scope.fullyQualify
                         )
         })
+
+        def locate(path : List[String], n : NameTable.Scope = scope) : NameTable.Scope  =
+            path match  {
+                case Nil => n
+                case x :: xs => locate(xs, n getPackageOrCreate x)
+            }
 
         val factorySigned = extract("side" :: "volume" :: Nil, f.parameters) map {
             case (sv, rest) => ()
@@ -198,6 +207,9 @@ object order_factory
                                     "signed volume" :: Nil) ::
                                 rest,
                         ty = f.ty map scope.fullyQualify)
+
+                locate("signed" :: Nil) add AST.FunAlias(
+                    f.name, AST.QualifiedName("" :: "order" :: fc.name :: Nil))
 
                 scope add fc
 
@@ -247,12 +259,6 @@ object order_factory
 
             val ty = Some(AST.FunctionType(curried map { _.ty.get }, base.ty.get))
 
-            def locate(path : List[String], n : NameTable.Scope = scope) : NameTable.Scope  =
-                path match  {
-                    case Nil => n
-                    case x :: xs => locate(xs, n getPackageOrCreate x)
-                }
-
             (extract(curried map { _.name }, base.parameters) match {
                 case Some((cr, rest)) =>
                     Some(base.copy(
@@ -291,6 +297,7 @@ object order_factory
             }
         }
 
+        val signedVolumeFactory = factorySigned flatMap { partialFactory(signedVolumeParam :: Nil, _) }
         val priceFactory = partialFactory(priceParam :: Nil)
         val sideFactory = partialFactory(sideParam :: Nil)
         val volumeFactory = partialFactory(volumeParam :: Nil)

@@ -188,6 +188,13 @@ package mathutils {
 
 @category = "Order"
 package order {
+    package signed {
+        def Limit = .order.LimitSigned
+        
+        def Market = .order.MarketSigned
+    }
+    
+    
     package _ {
         package side {
             package price {
@@ -309,6 +316,13 @@ package order {
             def Iceberg = .order._curried.volumeprice_Iceberg
             
             def Peg = .order._curried.volumeprice_Peg
+        }
+        
+        
+        package signedVolume {
+            def LimitSigned = .order._curried.signedVolume_LimitSigned
+            
+            def MarketSigned = .order._curried.signedVolume_MarketSigned
         }
         
         
@@ -486,6 +500,11 @@ package order {
         
         @python.order.factory.on_proto("Peg")
         def side_Peg(proto : Optional[(() => .Side) => ((() => .Float) => .IOrderGenerator)] = .order._curried.side_price_Limit()) : (() => .Side) => .IOrderGenerator
+            
+        
+        
+        @python.order.factory.curried("LimitSigned")
+        def signedVolume_LimitSigned(price : Optional[.IFunction[.Float]] = .constant(100.0)) : (() => .Float) => .IOrderGenerator
             
         
         
@@ -744,6 +763,11 @@ package order {
         
         @python.order.factory.on_proto("price_Peg")
         def sidevolume_price_Peg(proto : Optional[((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)] = .order._curried.sidevolume_price_Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
+            
+        
+        
+        @python.order.factory.curried("MarketSigned")
+        def signedVolume_MarketSigned() : (() => .Float) => .IOrderGenerator
             
         
         

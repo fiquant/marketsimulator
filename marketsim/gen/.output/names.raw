@@ -746,6 +746,28 @@ Definitions:
 | | | | | - Some:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
+| | | | | | | | - signed
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - FunAlias:
+| | | | | | | | - Limit
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - LimitSigned
+| | | | | | | - FunAlias:
+| | | | | | | | - Market
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - MarketSigned
+| | | | | - List:
+| | | | - PackageDef:
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
 | | | | | | | | - _
 | | | | | - Definitions:
 | | | | | | - List:
@@ -1220,6 +1242,30 @@ Definitions:
 | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - volumeprice_Peg
+| | | | | | | | - List:
+| | | | | | | - PackageDef:
+| | | | | | | | - Some:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - signedVolume
+| | | | | | | | - Definitions:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - LimitSigned
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - signedVolume_LimitSigned
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - MarketSigned
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - signedVolume_MarketSigned
 | | | | | | | | - List:
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
@@ -2753,6 +2799,52 @@ Definitions:
 | | | | | | | | | | | | - on_proto
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Peg
+| | | | | | | - FunDef:
+| | | | | | | | - signedVolume_LimitSigned
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - price
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | - 100.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - IOrderGenerator
+| | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - curried
+| | | | | | | | | | - List:
+| | | | | | | | | | | - LimitSigned
 | | | | | | | - FunDef:
 | | | | | | | | - side_price_Iceberg
 | | | | | | | | - List:
@@ -5598,6 +5690,38 @@ Definitions:
 | | | | | | | | | | | | - on_proto
 | | | | | | | | | | - List:
 | | | | | | | | | | | - price_Peg
+| | | | | | | - FunDef:
+| | | | | | | | - signedVolume_MarketSigned
+| | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - IOrderGenerator
+| | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - factory
+| | | | | | | | | | | | - curried
+| | | | | | | | | | - List:
+| | | | | | | | | | | - MarketSigned
 | | | | | | | - FunDef:
 | | | | | | | | - pricevolume_FloatingPrice
 | | | | | | | | - List:

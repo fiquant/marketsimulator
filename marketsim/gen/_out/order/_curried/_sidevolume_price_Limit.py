@@ -11,7 +11,7 @@ class sidevolume_price_Limit(IFunction[IFunction[IOrderGenerator, IFunction[floa
     """ 
     """ 
     def __init__(self):
-        
+        pass
     
     @property
     def label(self):

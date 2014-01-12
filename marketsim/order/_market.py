@@ -8,16 +8,9 @@ Order = Market
 
 from marketsim.gen._out.order._Market import Market as Factory
 from marketsim.gen._out.order._MarketSigned import MarketSigned as FactorySigned
+from marketsim.gen._out.order._curried._signedVolume_MarketSigned import signedVolume_MarketSigned as SignedVolume_Factory
 from marketsim.gen._out.order._curried._side_Market import side_Market as Side_Factory
 from marketsim.gen._out.order._curried._volume_Market import volume_Market as Volume_Factory
-
-@registry.expose(['Market'])
-@sig((IFunction[SignedVolume],), IOrderGenerator)
-class SignedVolume_Factory(object):
-    
-    def __call__(self, signedVolume):
-        return FactorySigned(signedVolume)
-
 
 @registry.expose(alias=['Market'])
 @sig(args=(Side,), rv=function((Volume,), IOrder))

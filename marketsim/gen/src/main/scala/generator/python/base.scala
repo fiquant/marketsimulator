@@ -37,6 +37,7 @@ package object base {
         def s_initializer = if (initializer.nonEmpty) "= None" else ""
 
         def init = s"$name $s_initializer"
+        def init_raw = name
         def assign =  s"self.$name = $name" ||| assign_if_none
 
         def assign_if_none: predef.Code =
@@ -52,7 +53,9 @@ package object base {
 
     def Def(name : String, args : Code, body : Code) = {
         val a = if (args.toString == "") "" else ", " + args
-        s"def $name(self$a):" |> withImports(body) | ""
+        s"def $name(self$a):" |>
+                (if (body.isInstanceOf[predef.Stop]) "pass" else withImports(body)) |
+        ""
     }
 
     def Prop(name : String, body : Code) =
@@ -70,12 +73,13 @@ package object base {
         def parameters  : List[Parameter]
         def registration = s"""@registry.expose(["$category", "$alias"])""" ||| ImportFrom("registry", "marketsim")
 
-        def join_fields(p        : Parameter => Code,
-                        sep      : Code = ", ",
-                        elements : List[Parameter] = parameters) : Code
-            = Code.from(elements map p, sep)
+        def join_fields(p           : Parameter => Code,
+                        sep         : Code = ", ",
+                        elements    : List[Parameter] = parameters) : Code
+            =   Code.from(elements map p, sep)
 
         def init_fields = join_fields({ _.init })
+        def init_raw_fields = join_fields({ _.init_raw })
         def assign_fields = join_fields({ _.assign }, nl)
         def property_fields = join_fields({ _.property }, comma + nl)
         def repr_fields = join_fields({ _.repr })

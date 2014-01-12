@@ -42,6 +42,8 @@ from marketsim.gen._out.order._curried._sidevolume_Peg import sidevolume_Peg
 
 from marketsim.gen._out.order._curried._side_Peg import side_Peg
 
+from marketsim.gen._out.order._curried._signedVolume_LimitSigned import signedVolume_LimitSigned
+
 from marketsim.gen._out.order._curried._side_price_Iceberg import side_price_Iceberg
 
 from marketsim.gen._out.order._curried._volumeprice_WithExpiry import volumeprice_WithExpiry
@@ -133,6 +135,8 @@ from marketsim.gen._out.order._curried._sidevolume_Limit import sidevolume_Limit
 from marketsim.gen._out.order._curried._sideprice_Iceberg import sideprice_Iceberg
 
 from marketsim.gen._out.order._curried._sidevolume_price_Peg import sidevolume_price_Peg
+
+from marketsim.gen._out.order._curried._signedVolume_MarketSigned import signedVolume_MarketSigned
 
 from marketsim.gen._out.order._curried._pricevolume_FloatingPrice import pricevolume_FloatingPrice
 

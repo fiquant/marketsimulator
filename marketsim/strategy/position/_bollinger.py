@@ -15,7 +15,7 @@ _wrap.strategy(Bollinger_linear, ['Desired position', 'Bollinger linear'],
                """
                """, 
                [
-                  ('orderFactory', 'order.factory.signedvolume.Market()', 'IFunction[SignedVolume] -> IOrderGenerator'),
+                  ('orderFactory', 'order.factory.signedvolume.Market()', 'IFunction[float] -> IOrderGenerator'),
                   ('alpha',        '0.15',                'non_negative'), 
                   ('k',            'ops.constant(+0.5)',  'IFunction[float]'), 
                ], globals())

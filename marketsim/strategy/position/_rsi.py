@@ -18,7 +18,7 @@ _wrap.strategy(RSI_linear, ['Desired position', 'RSI linear'],
                """
                """, 
                [
-                  ('orderFactory', 'order.factory.signedvolume.Market()', 'IFunction[SignedVolume] -> IOrderGenerator'),
+                  ('orderFactory', 'order.factory.signedvolume.Market()', 'IFunction[float] -> IOrderGenerator'),
                   ('alpha',                 '1./14',                         'non_negative'), 
                   ('k',                     'ops.constant(-0.04)',           'IFunction[float]'), 
                   ('timeframe',             '1.',                            'non_negative'), 

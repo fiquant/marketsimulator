@@ -10,7 +10,7 @@ class sidevolume_Market(IFunction[IOrderGenerator, IFunction[Side],IFunction[flo
     """ 
     """ 
     def __init__(self):
-        
+        pass
     
     @property
     def label(self):
