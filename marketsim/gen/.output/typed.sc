@@ -872,6 +872,14 @@ package order {
 
 @category = "Strategy"
 package strategy {
+    
+    def RSI_linear(orderFactory : Optional[(() => .Float) => .IOrderGenerator] = .order._curried.signedVolume_MarketSigned(),
+                   alpha : Optional[.Float] = 1.0/14,
+                   k : Optional[.IObservable[.Float]] = .const(-0.04),
+                   timeframe : Optional[.Float] = 1.0) : .ISingleAssetStrategy
+        
+        	 = .strategy.Generic(orderFactory(.observable.volumefunc.RSI_linear(alpha,k,timeframe)))
+    
     /** Dependent price strategy believes that the fair price of an asset *A*
      * is completely correlated with price of another asset *B* and the following relation
      * should be held: *PriceA* = *kPriceB*, where *k* is some factor.
@@ -1153,19 +1161,19 @@ package observable {@category = "Price function"
             	 = .observable.ObservableVolume(desiredPosition-.observable.trader.Position(trader)-.observable.trader.PendingVolume(trader))
         
         
-        def Bollinger_linear(alpha : Optional[.Float] = 0.15,
-                             k : Optional[.IObservable[.Float]] = .const(0.5),
-                             trader : Optional[.ISingleAssetTrader] = .observable.trader.SingleProxy()) : .IObservable[.Volume]
-            
-            	 = .observable.volumefunc.DesiredPosition(.observable.OnEveryDt(1.0,.observable.EW.RelStdDev(.observable.orderbook.MidPrice(.observable.orderbook.OfTrader(trader)),alpha))*k,trader)
-        
-        
         def RSI_linear(alpha : Optional[.Float] = 1.0/14.0,
                        k : Optional[.IObservable[.Float]] = .const(-0.04),
                        timeframe : Optional[.Float] = 1.0,
                        trader : Optional[.ISingleAssetTrader] = .observable.trader.SingleProxy()) : .IObservable[.Volume]
             
             	 = .observable.volumefunc.DesiredPosition(.observable.OnEveryDt(1.0,.const(50.0)-.observable.RSI(.observable.orderbook.OfTrader(trader),timeframe,alpha))*k,trader)
+        
+        
+        def Bollinger_linear(alpha : Optional[.Float] = 0.15,
+                             k : Optional[.IObservable[.Float]] = .const(0.5),
+                             trader : Optional[.ISingleAssetTrader] = .observable.trader.SingleProxy()) : .IObservable[.Volume]
+            
+            	 = .observable.volumefunc.DesiredPosition(.observable.OnEveryDt(1.0,.observable.EW.RelStdDev(.observable.orderbook.MidPrice(.observable.orderbook.OfTrader(trader)),alpha))*k,trader)
     }
     
     @category = "Asset's"

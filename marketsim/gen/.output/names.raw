@@ -6613,6 +6613,84 @@ Definitions:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
+| | | | | - RSI_linear
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - orderFactory
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - order
+| | | | | | | | | | | - _
+| | | | | | | | | | | - signedVolume
+| | | | | | | | | | | - MarketSigned
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - alpha
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Div
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 1.0
+| | | | | | | | | - IntLit:
+| | | | | | | | | | - 14
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - k
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - -0.04
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - timeframe
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Generic
+| | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - orderFactory
+| | | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | - volumefunc
+| | | | | | | | | | | | | | | - RSI_linear
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - alpha
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - k
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - timeframe
+| | | | | - None
+| | | | | - None
+| | | | | - List:
+| | | | - FunDef:
 | | | | | - PairTrading
 | | | | | - List:
 | | | | | | - Parameter:

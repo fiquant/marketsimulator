@@ -759,6 +759,12 @@ package order {
 @category = "Strategy"
 
 package strategy {
+    def RSI_linear(orderFactory = order._.signedVolume.MarketSigned(),
+                   alpha = 1.0/14,
+                   k = const(-0.04),
+                   timeframe = 1.0)
+         = Generic(orderFactory(observable.volumefunc.RSI_linear(alpha,k,timeframe)))
+    
     /** Dependent price strategy believes that the fair price of an asset *A*
      * is completely correlated with price of another asset *B* and the following relation
      * should be held: *PriceA* = *kPriceB*, where *k* is some factor.

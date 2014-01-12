@@ -47,6 +47,13 @@ def RSI(ctx):
                          "signal", 
                          [(linear_signal, ctx.amount_graph)]),
     
+        ctx.makeTrader_A(strategy.RSI_linear(
+                                         order.factory.SignedVolume_Market(),
+                                         alpha = alpha,
+                                         timeframe = 1),
+                         "rsi_linear",
+                         myVolume()),
+
         ctx.makeTrader_A(strategy.RSIbis(event.Every(ops.constant(1.)),
                                          order.factory.side.Market(one),
                                          alpha = alpha,

@@ -1,3 +1,5 @@
+from marketsim.gen._out.strategy._RSI_linear import RSI_linear
+
 from marketsim.gen._out.strategy._PairTrading import PairTrading
 
 from marketsim.gen._out.strategy._Signal import Signal
