@@ -1011,9 +1011,9 @@ package strategy {
                    /** Start date in DD-MM-YYYY format */ start : Optional[.String] = "2001-1-1",
                    /** End date in DD-MM-YYYY format */ end : Optional[.String] = "2010-1-1",
                    /** Price difference between orders placed and underlying quotes */ delta : Optional[.Float] = 1.0,
-                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume : Optional[.Float] = 1000.0) : .ISingleAssetStrategy
+                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume : Optional[.Float] = 1000000.0) : .ISingleAssetStrategy
         
-        	 = .strategy.Combine(.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.Quote(ticker,start,end)+.const(delta)),.order._curried.price_Limit(.side.Sell(),.constant(1000000)))),.event.After(.constant(0.0))),.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.Quote(ticker,start,end)-.const(delta)),.order._curried.price_Limit(.side.Buy(),.constant(1000000)))),.event.After(.constant(0.0))))
+        	 = .strategy.Combine(.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.Quote(ticker,start,end)+.const(delta)),.order._curried.price_Limit(.side.Sell(),.constant(volume)))),.event.After(.constant(0.0))),.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.Quote(ticker,start,end)-.const(delta)),.order._curried.price_Limit(.side.Buy(),.constant(volume)))),.event.After(.constant(0.0))))
     
     /** Liquidity provider for one side
      */
@@ -1461,6 +1461,7 @@ package observable {@category = "Price function"
     }
     
     @label = "[%(x)s]_dt=%(dt)s"
+    @observe_args = "no"
     @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
     def OnEveryDt(dt : Optional[.Float] = 1.0,
                   x : Optional[.IFunction[.Float]] = .constant()) : .IObservable[.Float]

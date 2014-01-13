@@ -16,6 +16,7 @@ package observable
 
     @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
     @label = "[%(x)s]_dt=%(dt)s"
+    @observe_args = "no"
     def OnEveryDt(dt = 1.0, x = constant()) : IObservable[Float]
 
     @python.intrinsic("observable.on_every_dt._Observable_Impl")

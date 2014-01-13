@@ -42,7 +42,7 @@ object order_factory_on_proto
 
         def call_arg = s"$name = None"
     }
-    
+
     import order_factory_curried.lookupOriginal
 
     class PartialFactory(args   : List[String],

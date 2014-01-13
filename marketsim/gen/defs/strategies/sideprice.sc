@@ -62,7 +62,7 @@ package strategy
                     /** Price difference between orders placed and underlying quotes */
                     delta = 1.,
                     /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */
-                    volume = 1000.)
+                    volume = 1000000.)
 
     =
     Combine(
@@ -71,14 +71,14 @@ package strategy
                 constant(volume),
                 order.FloatingPrice(
                     observable.BreaksAtChanges(observable.Quote(ticker, start, end) + delta),
-                    order._.price.Limit(side.Sell(), constant(1000000)))),
+                    order._.price.Limit(side.Sell(), constant(volume)))),
             event.After(constant(0.))),
         Generic(
             order.Iceberg(
                 constant(volume),
                 order.FloatingPrice(
                     observable.BreaksAtChanges(observable.Quote(ticker, start, end) - delta),
-                    order._.price.Limit(side.Buy(), constant(1000000)))),
+                    order._.price.Limit(side.Buy(), constant(volume)))),
             event.After(constant(0.)))
     )
 }

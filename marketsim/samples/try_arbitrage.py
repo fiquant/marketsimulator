@@ -17,14 +17,14 @@ def Arbitrage(ctx):
             strategy.LiquidityProvider(
                         orderFactory = order.factory.sideprice.WithExpiry(ops.constant(50),
                             order.factory.sideprice.Limit(volume=liqVol)),
-                        defaultValue = 50.),
+                        initialValue= 50.),
             "LiquidityProvider_A"),
     
         ctx.makeTrader_B( 
             strategy.LiquidityProvider(
                         orderFactory = order.factory.sideprice.WithExpiry(ops.constant(50),
                             order.factory.sideprice.Limit(volume=liqVol)),
-                        defaultValue = 150.),
+                        initialValue = 150.),
             "LiquidityProvider_B"),
             
         ctx.makeMultiAssetTrader([ctx.remote_A, ctx.remote_B], 

@@ -866,8 +866,8 @@ package strategy {
                    /** Start date in DD-MM-YYYY format */ start = "2001-1-1",
                    /** End date in DD-MM-YYYY format */ end = "2010-1-1",
                    /** Price difference between orders placed and underlying quotes */ delta = 1.0,
-                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0)
-         = Combine(Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.Quote(ticker,start,end)+delta),order._.price.Limit(side.Sell(),constant(1000000)))),event.After(constant(0.0))),Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.Quote(ticker,start,end)-delta),order._.price.Limit(side.Buy(),constant(1000000)))),event.After(constant(0.0))))
+                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000000.0)
+         = Combine(Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.Quote(ticker,start,end)+delta),order._.price.Limit(side.Sell(),constant(volume)))),event.After(constant(0.0))),Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.Quote(ticker,start,end)-delta),order._.price.Limit(side.Buy(),constant(volume)))),event.After(constant(0.0))))
     
     /** Liquidity provider for one side
      */
@@ -1223,6 +1223,7 @@ package observable {@category = "Price function"
     }
     @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
     @label = "[%(x)s]_dt=%(dt)s"
+    @observe_args = "no"
     def OnEveryDt(dt = 1.0,
                   x = constant()) : IObservable[Float]
         

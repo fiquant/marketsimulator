@@ -9,20 +9,25 @@ object intrinsic_observable extends gen.PythonGenerator
 {
     import base.{Def, Prop}
 
-    class Parameter(p: Typed.Parameter) extends intrinsic_function.Parameter(p)
-    {
-        def subscribe =
-            s"if isinstance($name, types.IEvent):" |>
-                s"event.subscribe(self.$name, self.fire, self)" |||
-            ImportFrom("event", "marketsim") |||
-            ImportFrom("types", "marketsim")
-    }
-
     class Import(args : List[String], f : Typed.Function) extends intrinsic_function.Common(args, f)
     {
+        val observe_args = (f tryGetAttribute "observe_args") != Some("no")
+
+        class Parameter_(p: Typed.Parameter) extends intrinsic_function.Parameter(p)
+        {
+            def subscribe : Code =
+                if (observe_args)
+                    s"if isinstance($name, types.IEvent):" |>
+                        s"event.subscribe(self.$name, self.fire, self)" |||
+                    ImportFrom("event", "marketsim") |||
+                    ImportFrom("types", "marketsim")
+                else ""
+        }
+
+
         override val parameters  = f.parameters map { new Parameter(_) }
 
-        override type Parameter = intrinsic_observable.Parameter
+        override type Parameter = Parameter_
 
         val subscriptions = join_fields({ _.subscribe }, nl)
 

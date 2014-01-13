@@ -186,6 +186,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - [%(x)s]_dt=%(dt)s
+| | | | | | - Attribute:
+| | | | | | | - observe_args
+| | | | | | | - no
 | | | | - FunDef:
 | | | | | - Observable
 | | | | | - List:

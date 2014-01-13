@@ -51,14 +51,14 @@ def Complete(ctx):
     
             ctx.makeTrader_A(strategy.TwoAverages(event.Every(ops.constant(1.)),
                                                   order.factory.side.Market(const(1.)),
-                                                  ewma_alpha1=0.15,
-                                                  ewma_alpha2=0.015),
+                                                  ewma_alpha_1=0.15,
+                                                  ewma_alpha_2=0.015),
                              label="avg+"),
 
             ctx.makeTrader_A(strategy.TwoAverages(event.Every(ops.constant(1.)),
                                                   order.factory.side.Market(const(1.)),
-                                                  ewma_alpha2=0.15,
-                                                  ewma_alpha1=0.015),
+                                                  ewma_alpha_2=0.15,
+                                                  ewma_alpha_1=0.015),
                              label="avg-"),
     
             ctx.makeTrader_A(strategy.TradeIfProfitable(fv_200),

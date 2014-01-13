@@ -42,7 +42,7 @@ class MarketData(ISingleAssetStrategy):
         self.start = start if start is not None else "2001-1-1"
         self.end = end if end is not None else "2010-1-1"
         self.delta = delta if delta is not None else 1.0
-        self.volume = volume if volume is not None else 1000.0
+        self.volume = volume if volume is not None else 1000000.0
         self.impl = self.getImpl()
         self.on_order_created = event.Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
@@ -63,7 +63,7 @@ class MarketData(ISingleAssetStrategy):
     
     _internals = ['impl']
     def getImpl(self):
-        return _strategy_Combine(_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_Quote(self.ticker,self.start,self.end)+_const(self.delta)),_order__curried_price_Limit(_side_Sell(),_constant(1000000)))),_event_After(_constant(0.0))),_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_Quote(self.ticker,self.start,self.end)-_const(self.delta)),_order__curried_price_Limit(_side_Buy(),_constant(1000000)))),_event_After(_constant(0.0))))
+        return _strategy_Combine(_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_Quote(self.ticker,self.start,self.end)+_const(self.delta)),_order__curried_price_Limit(_side_Sell(),_constant(self.volume)))),_event_After(_constant(0.0))),_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_Quote(self.ticker,self.start,self.end)-_const(self.delta)),_order__curried_price_Limit(_side_Buy(),_constant(self.volume)))),_event_After(_constant(0.0))))
     
     
     
