@@ -760,6 +760,11 @@ package order {
 }
 @category = "Strategy"
 package strategy {
+    package account {
+        @python.intrinsic("strategy.account._Account_Impl")
+        def Real(inner = Noise()) : IAccount
+            
+    }
     @python.intrinsic("strategy.combine._Combine_Impl")
     def Combine(A = Noise(),
                 B = Noise()) : ISingleAssetStrategy
@@ -1415,6 +1420,8 @@ type CandleStick
 type Volume : Int
 
 type Optional[T]
+
+type IAccount
 
 type Side
 

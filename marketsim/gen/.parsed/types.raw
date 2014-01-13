@@ -168,3 +168,8 @@ Definitions:
 | | - Generics:
 | | | - List:
 | | - List:
+| - Interface:
+| | - IAccount
+| | - Generics:
+| | | - List:
+| | - List:
