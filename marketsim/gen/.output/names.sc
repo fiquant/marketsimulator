@@ -815,6 +815,11 @@ package strategy {
                          /** threshold when the trader starts to act */ threshold = 0.0)
          = Generic(orderFactory(observable.sidefunc.CrossingAverages(ewma_alpha_1,ewma_alpha_2,threshold)),eventGen)
     
+    @python.intrinsic("strategy.suspendable._Suspendable_Impl")
+    def Suspendable(inner = Noise(),
+                    predicate = true()) : ISingleAssetStrategy
+        
+    
     /** Trend follower can be considered as a sort of a signal strategy
      * where the *signal* is a trend of the asset.
      * Under trend we understand the first derivative of some moving average of asset prices.
@@ -1375,6 +1380,11 @@ package  {
     def constant(x = 1.0) : IFunction[Float]
          = const(x)
     
+    @python.intrinsic.function("_constant._False_Impl")
+    @label = "False"
+    def false() : IObservable[Boolean]
+        
+    
     @python.intrinsic("_constant._Null_Impl")
     def null() : () => Float
         
@@ -1382,6 +1392,11 @@ package  {
     @python.intrinsic.function("_constant._Constant_Impl")
     @label = "C=%(x)s"
     def const(x = 1.0) : IObservable[Float]
+        
+    
+    @python.intrinsic.function("_constant._True_Impl")
+    @label = "True"
+    def true() : IObservable[Boolean]
         
     
     @python.intrinsic("observable.derivative._Derivative_Impl")

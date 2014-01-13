@@ -10,6 +10,8 @@ from marketsim.gen._out.strategy._LiquidityProvider import LiquidityProvider
 
 from marketsim.gen._out.strategy._CrossingAverages import CrossingAverages
 
+from marketsim.gen._out.strategy._Suspendable import Suspendable
+
 from marketsim.gen._out.strategy._TrendFollower import TrendFollower
 
 from marketsim.gen._out.strategy._FundamentalValue import FundamentalValue

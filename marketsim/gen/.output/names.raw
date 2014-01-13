@@ -7234,6 +7234,47 @@ Definitions:
 | | | | | | | | -  when the first is lower than the second one it sells
 | | | | | - List:
 | | | | - FunDef:
+| | | | | - Suspendable
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - inner
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Noise
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - predicate
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - true
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.suspendable._Suspendable_Impl
+| | | | - FunDef:
 | | | | | - TrendFollower
 | | | | | - List:
 | | | | | | - Parameter:
@@ -13026,6 +13067,34 @@ Definitions:
 | | | | | | | - label
 | | | | | | | - C=%(x)s
 | | | | - FunDef:
+| | | | | - false
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Boolean
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - _constant._False_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - False
+| | | | - FunDef:
 | | | | | - null
 | | | | | - List:
 | | | | | - None
@@ -13081,6 +13150,34 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - C=%(x)s
+| | | | - FunDef:
+| | | | | - true
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Boolean
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - _constant._True_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - True
 | | | | - FunDef:
 | | | | | - Derivative
 | | | | | - List:

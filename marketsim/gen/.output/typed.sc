@@ -951,6 +951,12 @@ package strategy {
         
         	 = .strategy.Generic(orderFactory(.observable.sidefunc.CrossingAverages(ewma_alpha_1,ewma_alpha_2,threshold)),eventGen)
     
+    
+    @python.intrinsic("strategy.suspendable._Suspendable_Impl")
+    def Suspendable(inner : Optional[.ISingleAssetStrategy] = .strategy.Noise(),
+                    predicate : Optional[.IObservable[.Boolean]] = .true()) : .ISingleAssetStrategy
+        
+    
     /** Trend follower can be considered as a sort of a signal strategy
      * where the *signal* is a trend of the asset.
      * Under trend we understand the first derivative of some moving average of asset prices.
@@ -1638,6 +1644,11 @@ package  {
         
         	 = .const(x)
     
+    @label = "False"
+    @python.intrinsic.function("_constant._False_Impl")
+    def false() : .IObservable[.Boolean]
+        
+    
     
     @python.intrinsic("_constant._Null_Impl")
     def null() : () => .Float
@@ -1646,6 +1657,11 @@ package  {
     @label = "C=%(x)s"
     @python.intrinsic.function("_constant._Constant_Impl")
     def const(x : Optional[.Float] = 1.0) : .IObservable[.Float]
+        
+    
+    @label = "True"
+    @python.intrinsic.function("_constant._True_Impl")
+    def true() : .IObservable[.Boolean]
         
     
     @label = "\\frac{d%(x)s}{dt}"

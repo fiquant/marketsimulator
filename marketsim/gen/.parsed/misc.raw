@@ -800,6 +800,62 @@ Definitions:
 | | | | | | | - label
 | | | | | | | - C=%(x)s
 | | | | - FunDef:
+| | | | | - true
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Boolean
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - _constant._True_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - True
+| | | | - FunDef:
+| | | | | - false
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Boolean
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - _constant._False_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - False
+| | | | - FunDef:
 | | | | | - null
 | | | | | - List:
 | | | | | - None
