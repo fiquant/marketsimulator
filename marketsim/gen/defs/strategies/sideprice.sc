@@ -43,4 +43,42 @@ package strategy
                 LiquidityProviderSide(eventGen, orderFactory, side.Sell(), initialValue, priceDistr),
                 LiquidityProviderSide(eventGen, orderFactory, side.Buy(), initialValue, priceDistr)
             )
+
+    /**
+     *  A Strategy that allows to drive the asset price based on historical market data
+     *  by creating large volume orders for the given price.
+     *
+     *  Every time step of 1 in the simulation corresponds to a 1 day in the market data.
+     *
+     *  At each time step the previous Limit Buy/Sell orders are cancelled and new ones
+     *  are created based on the next price of the market data.
+     */
+    def MarketData( /** Ticker of the asset */
+                    ticker = "^GSPC",
+                    /** Start date in DD-MM-YYYY format */
+                    start = "2001-1-1",
+                    /** End date in DD-MM-YYYY format */
+                    end = "2010-1-1",
+                    /** Price difference between orders placed and underlying quotes */
+                    delta = 1.,
+                    /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */
+                    volume = 1000.)
+
+    =
+    Combine(
+        Generic(
+            order.Iceberg(
+                constant(volume),
+                order.FloatingPrice(
+                    observable.BreaksAtChanges(observable.Quote(ticker, start, end) + delta),
+                    order._.price.Limit(side.Sell(), constant(1000000)))),
+            event.After(constant(0.))),
+        Generic(
+            order.Iceberg(
+                constant(volume),
+                order.FloatingPrice(
+                    observable.BreaksAtChanges(observable.Quote(ticker, start, end) - delta),
+                    order._.price.Limit(side.Buy(), constant(1000000)))),
+            event.After(constant(0.)))
+    )
 }

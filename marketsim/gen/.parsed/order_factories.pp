@@ -22,22 +22,22 @@ package order {
         
     
     @python.order.factory("order.meta.stoploss.Order_Impl")
-    def StopLoss(maxloss = const(0.1),
+    def StopLoss(maxloss = constant(0.1),
                  proto = Limit()) : IOrderGenerator
         
     
     @python.order.factory("order.meta.with_expiry.Order_Impl")
-    def WithExpiry(expiry = const(10.0),
+    def WithExpiry(expiry = constant(10.0),
                    proto = Limit()) : IOrderGenerator
         
     
     @python.order.factory("order.meta.iceberg.Order_Impl")
-    def Iceberg(lotSize = const(10.0),
+    def Iceberg(lotSize = constant(10.0),
                 proto = Limit()) : IOrderGenerator
         
     
     @python.order.factory("order.meta.floating_price.Factory_Impl")
-    def FloatingPrice(floatingPrice = constant(10.0),
+    def FloatingPrice(floatingPrice = const(10.0),
                       proto = _.price.Limit()) : IOrderGenerator
         
     

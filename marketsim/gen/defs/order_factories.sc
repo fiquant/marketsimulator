@@ -14,16 +14,16 @@ package order
     def ImmediateOrCancel(proto = Limit()) : IOrderGenerator
 
     @python.order.factory("order.meta.stoploss.Order_Impl")
-    def StopLoss(maxloss = const(0.1), proto = Limit()) : IOrderGenerator
+    def StopLoss(maxloss = constant(0.1), proto = Limit()) : IOrderGenerator
 
     @python.order.factory("order.meta.with_expiry.Order_Impl")
-    def WithExpiry(expiry = const(10.), proto = Limit()) : IOrderGenerator
+    def WithExpiry(expiry = constant(10.), proto = Limit()) : IOrderGenerator
 
     @python.order.factory("order.meta.iceberg.Order_Impl")
-    def Iceberg(lotSize = const(10.), proto = Limit()) : IOrderGenerator
+    def Iceberg(lotSize = constant(10.), proto = Limit()) : IOrderGenerator
 
     @python.order.factory("order.meta.floating_price.Factory_Impl")
-    def FloatingPrice(floatingPrice = constant(10.), proto = _.price.Limit()) : IOrderGenerator
+    def FloatingPrice(floatingPrice = const(10.), proto = _.price.Limit()) : IOrderGenerator
 
     @python.order.factory("order.meta.peg.Factory_Impl")
     def Peg(proto = _.price.Limit()) : IOrderGenerator

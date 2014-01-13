@@ -196,7 +196,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - FloatLit:
@@ -240,7 +240,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - FloatLit:
@@ -284,7 +284,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
+| | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - FloatLit:
@@ -328,7 +328,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - constant
+| | | | | | | | | | | - const
 | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - FloatLit:

@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim import IOrderGenerator
 from marketsim import Order
 from marketsim.ops._all import Observable
-from marketsim import IObservable
+from marketsim import IFunction
 from marketsim import IOrderGenerator
 @registry.expose(["Order", "Iceberg"])
 class Iceberg(IOrderGenerator, Observable[Order]):
@@ -11,14 +11,14 @@ class Iceberg(IOrderGenerator, Observable[Order]):
     def __init__(self, lotSize = None, proto = None):
         from marketsim import Order
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import types
         from marketsim.gen._out.order._Limit import Limit as _order_Limit
         from marketsim import event
         from marketsim import types
         Observable[Order].__init__(self)
-        self.lotSize = lotSize if lotSize is not None else _const(10.0)
+        self.lotSize = lotSize if lotSize is not None else _constant(10.0)
         if isinstance(lotSize, types.IEvent):
             event.subscribe(self.lotSize, self.fire, self)
         self.proto = proto if proto is not None else _order_Limit()
@@ -30,7 +30,7 @@ class Iceberg(IOrderGenerator, Observable[Order]):
         return repr(self)
     
     _properties = {
-        'lotSize' : IObservable[float],
+        'lotSize' : IFunction[float],
         'proto' : IOrderGenerator
     }
     def __repr__(self):

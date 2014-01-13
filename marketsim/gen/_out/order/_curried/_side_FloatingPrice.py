@@ -3,7 +3,7 @@ from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import Side
-from marketsim import IFunction
+from marketsim import IObservable
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IFunction
@@ -16,9 +16,9 @@ IFunction[IOrderGenerator,IFunction[Side]]):
     """ 
     """ 
     def __init__(self, floatingPrice = None, proto = None):
-        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.order._curried._side_price_Limit import side_price_Limit as _order__curried_side_price_Limit
-        self.floatingPrice = floatingPrice if floatingPrice is not None else _constant(10.0)
+        self.floatingPrice = floatingPrice if floatingPrice is not None else _const(10.0)
         self.proto = proto if proto is not None else _order__curried_side_price_Limit()
     
     @property
@@ -26,7 +26,7 @@ IFunction[IOrderGenerator,IFunction[Side]]):
         return repr(self)
     
     _properties = {
-        'floatingPrice' : IFunction[float],
+        'floatingPrice' : IObservable[float],
         'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]
         ]
     }

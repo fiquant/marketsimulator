@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
-from marketsim import IFunction
+from marketsim import IObservable
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 @registry.expose(["Order", "FloatingPrice"])
@@ -12,9 +12,9 @@ IFunction[IOrderGenerator,IFunction[float]]):
     """ 
     """ 
     def __init__(self, floatingPrice = None, proto = None):
-        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.order._curried._price_Limit import price_Limit as _order__curried_price_Limit
-        self.floatingPrice = floatingPrice if floatingPrice is not None else _constant(10.0)
+        self.floatingPrice = floatingPrice if floatingPrice is not None else _const(10.0)
         self.proto = proto if proto is not None else _order__curried_price_Limit()
     
     @property
@@ -22,7 +22,7 @@ IFunction[IOrderGenerator,IFunction[float]]):
         return repr(self)
     
     _properties = {
-        'floatingPrice' : IFunction[float],
+        'floatingPrice' : IObservable[float],
         'proto' : IFunction[IOrderGenerator, IFunction[float]]
     }
     def __repr__(self):

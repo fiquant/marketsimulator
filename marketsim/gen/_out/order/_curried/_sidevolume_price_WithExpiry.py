@@ -6,7 +6,7 @@ from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
-from marketsim import IObservable
+from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IFunction
@@ -23,9 +23,9 @@ IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side],IFunction[
     """ 
     """ 
     def __init__(self, expiry = None, proto = None):
-        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._curried._sidevolume_price_Limit import sidevolume_price_Limit as _order__curried_sidevolume_price_Limit
-        self.expiry = expiry if expiry is not None else _const(10.0)
+        self.expiry = expiry if expiry is not None else _constant(10.0)
         self.proto = proto if proto is not None else _order__curried_sidevolume_price_Limit()
     
     @property
@@ -33,7 +33,7 @@ IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side],IFunction[
         return repr(self)
     
     _properties = {
-        'expiry' : IObservable[float],
+        'expiry' : IFunction[float],
         'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side],IFunction[float]
         
         ]
