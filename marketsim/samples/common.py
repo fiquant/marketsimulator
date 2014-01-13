@@ -32,7 +32,8 @@ class Context(object):
         self.world = world 
         self.book_A = orderbook.Local(tickSize=0.01, label="A")
         self.book_B = orderbook.Local(tickSize=0.01, label="B")
-        
+        self.book_C = orderbook.Local(tickSize=0.01, label="C")
+
         if config.showTiming:
             self.world.process(const(10), bind.Function(_print, '.'))
             self.world.process(const(100), bind.Function(_print, '\n'))
@@ -41,10 +42,12 @@ class Context(object):
 
         self.link_A = remote.TwoWayLink(remote.Link(delay), remote.Link(delay))
         self.link_B = remote.TwoWayLink(remote.Link(delay), remote.Link(delay))
+        self.link_C = remote.TwoWayLink(remote.Link(delay), remote.Link(delay))
 
         self.remote_A = orderbook.Remote(self.book_A, self.link_A)
         self.remote_B = orderbook.Remote(self.book_B, self.link_B)
-    
+        self.remote_C = orderbook.Remote(self.book_C, self.link_C)
+
         self.graph = graph_renderer
         self.price_graph = self.graph("Price")
         self.askbid_graph = self.graph("AskBid")
@@ -130,6 +133,9 @@ class Context(object):
     
     def makeTrader_B(self, strategy, label, additional_ts = []):
         return self.makeTrader(self.book_B, strategy, label, additional_ts)
+
+    def makeTrader_C(self, strategy, label, additional_ts = []):
+        return self.makeTrader(self.book_C, strategy, label, additional_ts)
 
 def orderBooksToRender(ctx, traders):
         books = list(set(itertools.chain(*[t.orderBooks for t in traders]))) 
