@@ -6726,6 +6726,36 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - strategy.account._Account_Impl
+| | | | | | | - FunDef:
+| | | | | | | | - VirtualMarket
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - inner
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Noise
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IAccount
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | - List:
+| | | | | | | | | | | - strategy.account._VirtualMarket_Impl
 | | | | | - List:
 | | | | - FunDef:
 | | | | | - Combine

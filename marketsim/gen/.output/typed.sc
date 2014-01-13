@@ -890,6 +890,11 @@ package strategy {
         @python.intrinsic("strategy.account._Account_Impl")
         def Real(inner : Optional[.ISingleAssetStrategy] = .strategy.Noise()) : .IAccount
             
+        
+        
+        @python.intrinsic("strategy.account._VirtualMarket_Impl")
+        def VirtualMarket(inner : Optional[.ISingleAssetStrategy] = .strategy.Noise()) : .IAccount
+            
     }
     
     

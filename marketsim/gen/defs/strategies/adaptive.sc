@@ -7,6 +7,9 @@ package strategy
     {
         @python.intrinsic("strategy.account._Account_Impl")
         def Real(inner = Noise()) : IAccount
+
+        @python.intrinsic("strategy.account._VirtualMarket_Impl")
+        def VirtualMarket(inner = Noise()) : IAccount
     }
 }
 
