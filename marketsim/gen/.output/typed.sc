@@ -1011,9 +1011,9 @@ package strategy {
                    /** Start date in DD-MM-YYYY format */ start : Optional[.String] = "2001-1-1",
                    /** End date in DD-MM-YYYY format */ end : Optional[.String] = "2010-1-1",
                    /** Price difference between orders placed and underlying quotes */ delta : Optional[.Float] = 1.0,
-                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume : Optional[.Float] = 1000000.0) : .ISingleAssetStrategy
+                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume : Optional[.Float] = 1000.0) : .ISingleAssetStrategy
         
-        	 = .strategy.Combine(.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.Quote(ticker,start,end)+.const(delta)),.order._curried.price_Limit(.side.Sell(),.constant(volume)))),.event.After(.constant(0.0))),.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.Quote(ticker,start,end)-.const(delta)),.order._curried.price_Limit(.side.Buy(),.constant(volume)))),.event.After(.constant(0.0))))
+        	 = .strategy.Combine(.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.Quote(ticker,start,end)+.const(delta)),.order._curried.price_Limit(.side.Sell(),.constant(volume*1000)))),.event.After(.constant(0.0))),.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.Quote(ticker,start,end)-.const(delta)),.order._curried.price_Limit(.side.Buy(),.constant(volume*1000)))),.event.After(.constant(0.0))))
     
     /** Liquidity provider for one side
      */
@@ -1035,6 +1035,12 @@ package strategy {
     def Generic(/** order factory function*/ orderFactory : Optional[.IOrderGenerator] = .order.Limit(),
                 /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent) : .ISingleAssetStrategy
         
+    
+    
+    def MarketMaker(delta : Optional[.Float] = 1.0,
+                    volume : Optional[.Float] = 20.0) : .ISingleAssetStrategy
+        
+        	 = .strategy.Combine(.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.OnEveryDt(0.9,.observable.orderbook.SafeSidePrice(.observable.orderbook.Asks(),.constant(100+delta))/.mathops.Exp(.mathops.Atan(.observable.trader.Position())/1000))),.order._curried.price_Limit(.side.Sell(),.constant(volume*1000)))),.event.After(.constant(0.0))),.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.OnEveryDt(0.9,.observable.orderbook.SafeSidePrice(.observable.orderbook.Bids(),.constant(100-delta))/.mathops.Exp(.mathops.Atan(.observable.trader.Position())/1000))),.order._curried.price_Limit(.side.Buy(),.constant(volume*1000)))),.event.After(.constant(0.0))))
     
     /** Noise strategy is a quite dummy strategy that randomly creates an order and sends it to the order book.
      */

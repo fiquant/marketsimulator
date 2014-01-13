@@ -24,6 +24,8 @@ from marketsim.gen._out.strategy._LiquidityProviderSide import LiquidityProvider
 
 from marketsim.gen._out.strategy._Generic import Generic
 
+from marketsim.gen._out.strategy._MarketMaker import MarketMaker
+
 from marketsim.gen._out.strategy._Noise import Noise
 
 from marketsim.gen._out.strategy._Bollinger_linear import Bollinger_linear

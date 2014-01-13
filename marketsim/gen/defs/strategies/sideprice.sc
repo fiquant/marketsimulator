@@ -62,7 +62,7 @@ package strategy
                     /** Price difference between orders placed and underlying quotes */
                     delta = 1.,
                     /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */
-                    volume = 1000000.)
+                    volume = 1000.)
 
     =
     Combine(
@@ -71,14 +71,44 @@ package strategy
                 constant(volume),
                 order.FloatingPrice(
                     observable.BreaksAtChanges(observable.Quote(ticker, start, end) + delta),
-                    order._.price.Limit(side.Sell(), constant(volume)))),
+                    order._.price.Limit(side.Sell(), constant(volume*1000)))),
             event.After(constant(0.))),
         Generic(
             order.Iceberg(
                 constant(volume),
                 order.FloatingPrice(
                     observable.BreaksAtChanges(observable.Quote(ticker, start, end) - delta),
-                    order._.price.Limit(side.Buy(), constant(volume)))),
+                    order._.price.Limit(side.Buy(), constant(volume*1000)))),
             event.After(constant(0.)))
     )
+
+    def MarketMaker(delta = 1., volume = 20.) =
+
+        Combine(
+            Generic(
+                order.Iceberg(
+                    constant(volume),
+                    order.FloatingPrice(
+                        observable.BreaksAtChanges(
+                            observable.OnEveryDt(0.9,
+                                observable.orderbook.SafeSidePrice(observable.orderbook.Asks(), constant(100 + delta)) /
+                                    mathops.Exp(mathops.Atan(observable.trader.Position()) / 1000)
+                            )
+                        ),
+                        order._.price.Limit(side.Sell(), constant(volume*1000)))),
+            event.After(constant(0.))),
+        Generic(
+            order.Iceberg(
+                constant(volume),
+                order.FloatingPrice(
+                    observable.BreaksAtChanges(
+                        observable.OnEveryDt(0.9,
+                            observable.orderbook.SafeSidePrice(observable.orderbook.Bids(), constant(100 - delta)) /
+                                mathops.Exp(mathops.Atan(observable.trader.Position()) / 1000)
+                        )
+                    ),
+                    order._.price.Limit(side.Buy(), constant(volume*1000)))),
+            event.After(constant(0.))))
+
+
 }
