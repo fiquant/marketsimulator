@@ -1468,6 +1468,11 @@ package observable {@category = "Price function"
                timeframe : Optional[.Float] = 10.0) : .IObservable[.Float]
         
     
+    
+    @python.intrinsic("observable.breaks_at_changes._BreaksAtChanges_Impl")
+    def BreaksAtChanges(source : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+        
+    
     @label = "max{%(x)s, %(y)s}"
     @python.observable()
     def Max(x : Optional[.IFunction[.Float]] = .constant(),

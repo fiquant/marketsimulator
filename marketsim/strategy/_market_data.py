@@ -8,34 +8,7 @@ import _wrap
 
 const = ops.constant
 
-@registry.expose(alias = ['_details', "BreaksAtChanges"])
-class BreaksAtChanges(ops.Observable[float]):
-    
-    def __init__(self, source = ops.constant(1.)):
-        ops.Observable[float].__init__(self)
-        self.source = source
-        self._value = None
-        event.subscribe(source, _(self)._clean, self)
-        
-    _properties = {
-        'source' : types.IObservable[float]
-    }
-    
-    def bind(self, ctx):
-        self._scheduler = ctx.world
-    
-    def _clean(self, dummy):
-        self._setup(None)
-        self._scheduler.async(_(self, self.source())._setup)
-        
-    def _setup(self, x):
-        self._value = x
-        self.fire(self)
-    
-    def __call__(self):
-        return self._value
-    
-    
+from marketsim.gen._out.observable._BreaksAtChanges import BreaksAtChanges
 
 class MarketData(types.ISingleAssetStrategy):
     

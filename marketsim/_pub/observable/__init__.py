@@ -6,6 +6,8 @@ from marketsim.gen._out.observable._DownMovements import DownMovements
 
 from marketsim.gen._out.observable._Lagged import Lagged
 
+from marketsim.gen._out.observable._BreaksAtChanges import BreaksAtChanges
+
 from marketsim.gen._out.observable._Max import Max
 
 from marketsim.gen._out.observable._UpMovements import UpMovements

@@ -52,6 +52,10 @@ package observable {
               end = "2010-1-1") : IObservable[Price]
         
     
+    @python.intrinsic("observable.breaks_at_changes._BreaksAtChanges_Impl")
+    def BreaksAtChanges(source = constant(1.0)) : IObservable[Float]
+        
+    
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
     def CandleSticks(source = const(),
                      timeframe = 10.0) : IObservable[CandleStick]
