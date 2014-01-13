@@ -13,4 +13,8 @@ package strategy {
     def Combine(A = Noise(),
                 B = Noise()) : ISingleAssetStrategy
         
+    
+    @python.intrinsic("strategy.canceller._Canceller_Impl")
+    def Canceller(cancellationIntervalDistr = mathutils.rnd.expovariate(1.0)) : ISingleAssetStrategy
+        
 }

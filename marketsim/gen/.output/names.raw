@@ -7874,6 +7874,40 @@ Definitions:
 | | | | | | | | -   are created based on the next price of the market data.
 | | | | | - List:
 | | | | - FunDef:
+| | | | | - Canceller
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - cancellationIntervalDistr
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - mathutils
+| | | | | | | | | | | - rnd
+| | | | | | | | | | | - expovariate
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.canceller._Canceller_Impl
+| | | | - FunDef:
 | | | | | - LiquidityProviderSide
 | | | | | - List:
 | | | | | | - Parameter:

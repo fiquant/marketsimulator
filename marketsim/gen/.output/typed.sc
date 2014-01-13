@@ -1015,6 +1015,11 @@ package strategy {
         
         	 = .strategy.Combine(.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.Quote(ticker,start,end)+.const(delta)),.order._curried.price_Limit(.side.Sell(),.constant(volume*1000)))),.event.After(.constant(0.0))),.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.Quote(ticker,start,end)-.const(delta)),.order._curried.price_Limit(.side.Buy(),.constant(volume*1000)))),.event.After(.constant(0.0))))
     
+    
+    @python.intrinsic("strategy.canceller._Canceller_Impl")
+    def Canceller(cancellationIntervalDistr : Optional[() => .Float] = .mathutils.rnd.expovariate(1.0)) : .ISingleAssetStrategy
+        
+    
     /** Liquidity provider for one side
      */
     

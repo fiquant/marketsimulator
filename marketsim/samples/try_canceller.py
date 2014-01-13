@@ -14,6 +14,8 @@ def Canceller(ctx):
     return [
         ctx.makeTrader_A(strategy.LiquidityProvider(),
                          "LiquidityProviderEx-"),
+
+        ctx.makeTrader_A(strategy.Canceller(), "canceller"),
          
         ctx.makeTrader_A(   strategy.FundamentalValue(
                                 fundamentalValue = ops.constant(1000)), 
