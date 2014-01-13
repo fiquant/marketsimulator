@@ -29,6 +29,8 @@ type IOrderGenerator = IObservable[Order]
 
 type ISingleAssetTrader
 
+type ISingleAssetTrader
+
 type IDifferentiable : IFunction[Float]
 
 type CandleStick
@@ -38,3 +40,5 @@ type VolumeLevels
 type Order
 
 type ISingleAssetStrategy
+
+type IMultiAssetStrategy

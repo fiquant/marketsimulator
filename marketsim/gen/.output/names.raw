@@ -7417,6 +7417,25 @@ Definitions:
 | | | | | | | | -  it starts to buy the asset and if the price is higher it starts to sell the asset.
 | | | | | - List:
 | | | | - FunDef:
+| | | | | - Arbitrage
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IMultiAssetStrategy
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.arbitrage._Arbitrage_Impl
+| | | | - FunDef:
 | | | | | - RSIbis
 | | | | | - List:
 | | | | | | - Parameter:
@@ -13228,6 +13247,11 @@ Definitions:
 | | - List:
 | - Interface:
 | | - IEvent
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - IMultiAssetStrategy
 | | - Generics:
 | | | - List:
 | | - List:

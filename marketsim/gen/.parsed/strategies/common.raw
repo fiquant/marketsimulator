@@ -137,6 +137,25 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - strategy.canceller._Canceller_Impl
+| | | | - FunDef:
+| | | | | - Arbitrage
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IMultiAssetStrategy
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.arbitrage._Arbitrage_Impl
 | | - List:
 | | | - Attribute:
 | | | | - category

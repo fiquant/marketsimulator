@@ -124,6 +124,11 @@ Definitions:
 | | | - List:
 | | - List:
 | - Interface:
+| | - ISingleAssetTrader
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
 | | - IDifferentiable
 | | - Generics:
 | | | - List:
@@ -155,6 +160,11 @@ Definitions:
 | | - List:
 | - Interface:
 | | - ISingleAssetStrategy
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - IMultiAssetStrategy
 | | - Generics:
 | | | - List:
 | | - List:

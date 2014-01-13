@@ -978,6 +978,11 @@ package strategy {
         	 = .strategy.Generic(orderFactory(.observable.sidefunc.FundamentalValue(fundamentalValue)),eventGen)
     
     
+    @python.intrinsic("strategy.arbitrage._Arbitrage_Impl")
+    def Arbitrage() : .IMultiAssetStrategy
+        
+    
+    
     def RSIbis(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.mathutils.rnd.expovariate(1.0)),
                /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market(),
                /** parameter |alpha| for exponentially weighted moving average */ alpha : Optional[.Float] = 1.0/14,
@@ -1667,6 +1672,7 @@ type Float
 type Int : Float
 type IOrderBook
 type IEvent
+type IMultiAssetStrategy
 type IObservable[U] : IFunction[U], IEvent
 type IFunction[T] = () => T
 type ISingleAssetStrategy
