@@ -75,7 +75,7 @@ object order_factory_on_proto
         override def alias = original.alias
 
         def makeCode(t : TypesBound.Base) =
-            Code.from(t.imports) ||| t.toPython
+            Code.from(t.imports) ||| t.asPython
 
         override def interface =
             makeCode(x.ret_type)

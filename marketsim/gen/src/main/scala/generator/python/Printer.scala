@@ -33,7 +33,7 @@ object Printer {
 
         trait List_ extends Bound {
             def x : Bound
-            def toPython = s"listOf($x)"
+            def toPython = s"listOf(${x.toPython})"
             def imports = x.imports
         }
 

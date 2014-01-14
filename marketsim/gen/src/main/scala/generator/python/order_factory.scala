@@ -134,7 +134,7 @@ object order_factory
     def curriedTypesAsList(curried : List[Typed.Parameter]) = {
         val curr_types = curried map { _.ty }
 
-        (curr_types map { _.toPython } mkString "," ) ||| Code.from(curr_types flatMap { _.imports })
+        (curr_types map { _.asPython } mkString "," ) ||| Code.from(curr_types flatMap { _.imports })
     }
 
     def generatePython(/** arguments of the annotation */ args  : List[String])
