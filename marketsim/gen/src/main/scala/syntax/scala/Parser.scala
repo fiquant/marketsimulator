@@ -5,9 +5,14 @@ import AST._
 
 class Parser() extends JavaTokenParsers with PackratParsers
 {
-    lazy val expr : Parser[Expr] =  boolean | conditional | castable | string_literal
+    lazy val expr : Parser[Expr] =  castable | string_literal
 
     lazy val string_literal = string ^^ AST.StringLit
+
+    lazy val castable = boolean ~ opt(":" ~> typ) ^^ {
+        case a ~ None    => a
+        case a ~ Some(t) => Cast(a, t)
+    }
 
     lazy val float_literal = floatingPointNumber ^^ { s => { if (s contains ".") FloatLit(s.toDouble) else IntLit(s.toInt)}  }
 
@@ -37,18 +42,17 @@ class Parser() extends JavaTokenParsers with PackratParsers
         }
     } withFailureMessage "boolean_factor expected"
 
-    lazy val boolean_term = ((conditional | castable) ~ logic_op ~ expr ^^ { case (x ~ op ~ y) => Condition(op, x, y) }
-                        | "not" ~> boolean ^^ Not
-                        | "(" ~> boolean <~ ")" ) withFailureMessage "boolean_term expected"
+    lazy val boolean_term =
+        ((conditional | arithmetic) ~ opt(logic_op ~ expr) ^^ {
+            case (x ~ Some(op ~ y)) => Condition(op, x, y)
+            case x ~ None => x
+        }
+        | "not" ~> boolean ^^ Not
+        | "(" ~> boolean <~ ")" ) withFailureMessage "boolean_term expected"
 
     lazy val addsub_op = ("+" ^^^ Add | "-" ^^^ Sub) withFailureMessage "+ or - expected"
 
     lazy val muldiv_op = ("*" ^^^ Mul | "/" ^^^ Div) withFailureMessage "* or / expected"
-
-    lazy val castable = arithmetic ~ opt(":" ~> typ) ^^ {
-        case a ~ None    => a
-        case a ~ Some(t) => Cast(a, t)
-    }
 
     lazy val arithmetic = factor ~ rep(addsub_op ~ factor) ^^ {
         case start ~ list => list.foldLeft(start) {
