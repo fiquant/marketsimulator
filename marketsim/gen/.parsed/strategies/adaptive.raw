@@ -60,7 +60,17 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - inner
-| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Optional
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - ISingleAssetStrategy
+| | | | | | | | | | | | | | - List:
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -85,12 +95,27 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - strategy.account._Account_Impl
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - curried
+| | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - VirtualMarket
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - inner
-| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Optional
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - ISingleAssetStrategy
+| | | | | | | | | | | | | | - List:
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -115,5 +140,24 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - strategy.account._VirtualMarket_Impl
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - curried
+| | | | | | | | | | - List:
+| | | | | | | - FunAlias:
+| | | | | | | | - real
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - _
+| | | | | | | | | | - inner
+| | | | | | | | | | - inner_Real
+| | | | | | | - FunAlias:
+| | | | | | | | - virtualMarket
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - _
+| | | | | | | | | | - inner
+| | | | | | | | | | - inner_VirtualMarket
 | | | | | - List:
 | | - List:

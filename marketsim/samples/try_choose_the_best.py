@@ -55,13 +55,13 @@ def ChooseTheBest(ctx):
 
         ctx.makeTrader_A(strategy.ChooseTheBest(
                                     strategies(), 
-                                    strategy.adaptive.virtualMarket), 
+                                    strategy.adaptive.virtualMarket()),
                          'best virt',
                          myVolume()),
 
         ctx.makeTrader_A(strategy.ChooseTheBest(
                                     strategies(), 
-                                    strategy.adaptive.account), 
+                                    strategy.adaptive.account()),
                          'best real',
                          myVolume()),
     ]

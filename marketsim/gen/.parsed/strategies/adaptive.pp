@@ -7,11 +7,17 @@ package strategy {
     
     package account {
         @python.intrinsic("strategy.account._Account_Impl")
-        def Real(inner = Noise()) : IAccount
+        @curried()
+        def Real(inner : Optional[ISingleAssetStrategy] = Noise()) : IAccount
             
         
         @python.intrinsic("strategy.account._VirtualMarket_Impl")
-        def VirtualMarket(inner = Noise()) : IAccount
+        @curried()
+        def VirtualMarket(inner : Optional[ISingleAssetStrategy] = Noise()) : IAccount
             
+        
+        def real = _.inner.inner_Real
+        
+        def virtualMarket = _.inner.inner_VirtualMarket
     }
 }

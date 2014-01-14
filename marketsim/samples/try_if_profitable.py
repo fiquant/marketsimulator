@@ -31,11 +31,11 @@ def TradeIfProfitable(ctx):
                     alpha1, alpha2)
     
     
-    avg_plus_virt = strategy.TradeIfProfitable(cross(slow_alpha, fast_alpha), strategy.adaptive.virtualMarket)
-    avg_minus_virt = strategy.TradeIfProfitable(cross(fast_alpha, slow_alpha), strategy.adaptive.virtualMarket)
+    avg_plus_virt = strategy.TradeIfProfitable(cross(slow_alpha, fast_alpha), strategy.adaptive.virtualMarket())
+    avg_minus_virt = strategy.TradeIfProfitable(cross(fast_alpha, slow_alpha), strategy.adaptive.virtualMarket())
 
-    avg_plus_real = strategy.TradeIfProfitable(cross(slow_alpha, fast_alpha), strategy.adaptive.account)
-    avg_minus_real = strategy.TradeIfProfitable(cross(fast_alpha, slow_alpha), strategy.adaptive.account)
+    avg_plus_real = strategy.TradeIfProfitable(cross(slow_alpha, fast_alpha), strategy.adaptive.account())
+    avg_minus_real = strategy.TradeIfProfitable(cross(fast_alpha, slow_alpha), strategy.adaptive.account())
 
     return [
         ctx.makeTrader_A(strategy.LiquidityProvider(

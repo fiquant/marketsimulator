@@ -6696,12 +6696,106 @@ Definitions:
 | | | | | | | | - account
 | | | | | - Definitions:
 | | | | | | - List:
+| | | | | | | - PackageDef:
+| | | | | | | | - Some:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - _
+| | | | | | | | - Definitions:
+| | | | | | | | | - List:
+| | | | | | | | | | - PackageDef:
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - inner
+| | | | | | | | | | | - Definitions:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunDef:
+| | | | | | | | | | | | | | - inner_Real
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - None
+| | | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | | | | - Optional
+| | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | | | | | | - ISingleAssetStrategy
+| | | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | | | - IAccount
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - None
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | | | | - curried
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Real
+| | | | | | | | | | | | | - FunDef:
+| | | | | | | | | | | | | | - inner_VirtualMarket
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - None
+| | | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | | | | - Optional
+| | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | | | | | | - ISingleAssetStrategy
+| | | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | | | - IAccount
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - None
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | | | | - curried
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - VirtualMarket
+| | | | | | | | | | | - List:
+| | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - Real
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - inner
-| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Optional
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - ISingleAssetStrategy
+| | | | | | | | | | | | | | - List:
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -6726,12 +6820,27 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - strategy.account._Account_Impl
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - curried
+| | | | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - VirtualMarket
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - inner
-| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Optional
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - ISingleAssetStrategy
+| | | | | | | | | | | | | | - List:
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -6756,6 +6865,25 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - strategy.account._VirtualMarket_Impl
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - curried
+| | | | | | | | | | - List:
+| | | | | | | - FunAlias:
+| | | | | | | | - real
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - _
+| | | | | | | | | | - inner
+| | | | | | | | | | - inner_Real
+| | | | | | | - FunAlias:
+| | | | | | | | - virtualMarket
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - _
+| | | | | | | | | | - inner
+| | | | | | | | | | - inner_VirtualMarket
 | | | | | - List:
 | | | | - FunDef:
 | | | | | - Combine

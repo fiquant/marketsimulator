@@ -771,13 +771,31 @@ package order {
 
 package strategy {
     package account {
+        package _ {
+            package inner {
+                @python.curried("Real")
+                def inner_Real() : .Optional[.ISingleAssetStrategy] => .IAccount
+                    
+                
+                @python.curried("VirtualMarket")
+                def inner_VirtualMarket() : .Optional[.ISingleAssetStrategy] => .IAccount
+                    
+            }
+        }
+        
         @python.intrinsic("strategy.account._Account_Impl")
-        def Real(inner = Noise()) : IAccount
+        @curried()
+        def Real(inner : Optional[ISingleAssetStrategy] = Noise()) : IAccount
             
         
         @python.intrinsic("strategy.account._VirtualMarket_Impl")
-        def VirtualMarket(inner = Noise()) : IAccount
+        @curried()
+        def VirtualMarket(inner : Optional[ISingleAssetStrategy] = Noise()) : IAccount
             
+        
+        def real = _.inner.inner_Real
+        
+        def virtualMarket = _.inner.inner_VirtualMarket
     }
     
     @python.intrinsic("strategy.combine._Combine_Impl")

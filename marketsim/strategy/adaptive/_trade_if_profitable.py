@@ -23,7 +23,7 @@ _wrap.strategy(TradeIfProfitable, ['Adaptive', 'Trade-if-profitable'],
      """,
      [
       ('inner',       'FundamentalValue()',       'types.ISingleAssetStrategy'),
-      ('account',     'virtualMarket',            'types.ISingleAssetStrategy -> types.IAccount'),
+      ('account',     'virtualMarket()',            'types.ISingleAssetStrategy -> types.IAccount'),
       ('performance', 'weight.efficiencyTrend',   'types.IAccount -> types.IFunction[float]'),
      ], 
      globals())

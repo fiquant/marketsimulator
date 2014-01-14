@@ -6,8 +6,4 @@ from .._wrap import wrapper2
 from ..side import FundamentalValue
 
 from marketsim.gen._out.strategy.account._VirtualMarket import VirtualMarket
-
-@registry.expose(alias=['virtual market'])
-@meta.sig((types.ISingleAssetStrategy,), types.IAccount)
-def virtualMarket(strategy):
-    return VirtualMarket(strategy)
+from marketsim.gen._out.strategy.account._.inner._inner_VirtualMarket import inner_VirtualMarket as virtualMarket

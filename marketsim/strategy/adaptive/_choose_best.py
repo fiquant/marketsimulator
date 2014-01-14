@@ -52,6 +52,6 @@ exec wrapper2("ChooseTheBest",
                  """,
              [
               ('strategies',  '[v0.FundamentalValue()]',  'meta.listOf(types.ISingleAssetStrategy)'),
-              ('account',     'virtualMarket',            'types.ISingleAssetStrategy -> types.IAccount'),
+              ('account',     'virtualMarket()',            'types.ISingleAssetStrategy -> types.IAccount'),
               ('performance', 'weight.efficiencyTrend',   'types.IAccount -> types.IFunction[float]'),
              ], category="Adaptive")

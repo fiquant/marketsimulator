@@ -10,27 +10,30 @@ object curried
     object after_typing
         extends gen.PythonGenerator
     {
-        import order_factory_curried.FactoryParameter
+        import order_factory_curried.{FactoryParameter, lookupOriginal}
         import order_factory.curriedTypesAsList
 
         class Curried(args   : List[String],
                       val f  : Typed.Function)
                 extends base.Printer
         {
+            val original = lookupOriginal(args, f)
+
             override type Parameter = FactoryParameter
             val parameters  = f.parameters map FactoryParameter
-            val curried = f.parameters filter { p => !(f.parameters contains p) }
+            val curried = original.parameters filter { p => !(f.parameters contains p) }
             val curried_parameters =  curried map FactoryParameter
 
-            val docstring  = f.docstring match {
+            val docstring  = original.docstring match {
                 case Some(d) => d.detailed
                 case None => Nil
             }
 
-            override def name = (curried map { _.name } mkString "") + "_" + f.name
+            override def name = f.name
             override def alias = f.name
 
-            def interface = s"IFunction["||| f.ret_type.toPython ||| Code.from(f.ret_type.imports) |||", "||| curriedTypesAsList(curried) |||"]"
+            def interface =  s"IFunction["||| original.ret_type.toPython ||| Code.from(original.ret_type.imports) |||
+                    ", "||| curriedTypesAsList(curried) |||"]" ||| ImportFrom("IFunction", "marketsim")
             override def base_classes = interface
 
             def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
@@ -38,10 +41,12 @@ object curried
 
             override def call_body = call_body_assign_args |
                     call_body_assignments |
-                    s"""return ${f.name}(${f.parameters map { _.name} mkString ","})""" |||
-                    Printer.importsOf(f)
+                    s"""return ${original.name}(${original.parameters map { _.name} mkString ","})""" |||
+                    Printer.importsOf(original)
 
             override def call_args = join_fields({ _.call_arg }, ",", curried_parameters)
+
+            override def body = super.body | call
         }
 
         def generatePython(/** arguments of the annotation */ args  : List[String])
