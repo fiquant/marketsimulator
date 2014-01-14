@@ -5,6 +5,11 @@ package strategy {
                     predicate = true()) : ISingleAssetStrategy
         
     
+    def TradeIfProfitable(inner = Noise(),
+                          acc = account._.inner.inner_VirtualMarket(),
+                          performance = weight._.trader.trader_EfficiencyTrend())
+         = Suspendable(inner)
+    
     package account {
         @python.intrinsic("strategy.account._Account_Impl")
         @curried("inner")
@@ -22,6 +27,20 @@ package strategy {
     }
     
     package weight {
+        def atanpow = _.f.f_AtanPow
+        
+        def clamp0 = _.f.f_Clamp0
+        
+        def identity_f = _.f.f_IdentityF
+        
+        def score = _.trader.trader_Score
+        
+        def unit = _.trader.trader_Unit
+        
+        def efficiency = _.trader.trader_Efficiency
+        
+        def efficiencyTrend = _.trader.trader_EfficiencyTrend
+        
         @curried("f")
         def AtanPow(f : Optional[IFunction[Float]] = constant(),
                     base = 1.002) : IFunction[Float]

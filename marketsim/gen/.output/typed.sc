@@ -889,13 +889,13 @@ package strategy {
         package _ {
             package inner {
                 
-                @python.curried("Real")
-                def inner_Real() : Optional[.ISingleAssetStrategy] => .IAccount
+                @python.curried("VirtualMarket")
+                def inner_VirtualMarket() : Optional[.ISingleAssetStrategy] => .IAccount
                     
                 
                 
-                @python.curried("VirtualMarket")
-                def inner_VirtualMarket() : Optional[.ISingleAssetStrategy] => .IAccount
+                @python.curried("Real")
+                def inner_Real() : Optional[.ISingleAssetStrategy] => .IAccount
                     
             }
             
@@ -922,6 +922,11 @@ package strategy {
         package _ {
             package trader {
                 
+                @python.curried("EfficiencyTrend")
+                def trader_EfficiencyTrend(alpha : Optional[.Float] = 0.15) : .IAccount => .IFunction[.Float]
+                    
+                
+                
                 @python.curried("Efficiency")
                 def trader_Efficiency() : .IAccount => .IFunction[.Float]
                     
@@ -929,11 +934,6 @@ package strategy {
                 
                 @python.curried("Score")
                 def trader_Score() : .IAccount => .IFunction[.Float]
-                    
-                
-                
-                @python.curried("EfficiencyTrend")
-                def trader_EfficiencyTrend(alpha : Optional[.Float] = 0.15) : .IAccount => .IFunction[.Float]
                     
                 
                 
@@ -945,13 +945,13 @@ package strategy {
             
             package f {
                 
-                @python.curried("Clamp0")
-                def f_Clamp0() : Optional[.IFunction[.Float]] => .IFunction[.Float]
+                @python.curried("AtanPow")
+                def f_AtanPow(base : Optional[.Float] = 1.002) : Optional[.IFunction[.Float]] => .IFunction[.Float]
                     
                 
                 
-                @python.curried("AtanPow")
-                def f_AtanPow(base : Optional[.Float] = 1.002) : Optional[.IFunction[.Float]] => .IFunction[.Float]
+                @python.curried("Clamp0")
+                def f_Clamp0() : Optional[.IFunction[.Float]] => .IFunction[.Float]
                     
                 
                 
@@ -1005,6 +1005,19 @@ package strategy {
         def IdentityF(f : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
             
             	 = f
+        def efficiency = .strategy.weight._.trader.trader_Efficiency
+        
+        def score = .strategy.weight._.trader.trader_Score
+        
+        def atanpow = .strategy.weight._.f.f_AtanPow
+        
+        def efficiencyTrend = .strategy.weight._.trader.trader_EfficiencyTrend
+        
+        def clamp0 = .strategy.weight._.f.f_Clamp0
+        
+        def unit = .strategy.weight._.trader.trader_Unit
+        
+        def identity_f = .strategy.weight._.f.f_IdentityF
     }
     
     
@@ -1118,6 +1131,13 @@ package strategy {
                threshold : Optional[.Float] = 30.0) : .ISingleAssetStrategy
         
         	 = .strategy.Generic(orderFactory(.observable.sidefunc.Signal(.const(50.0)-.observable.RSI(.observable.orderbook.OfTrader(),timeframe,alpha),50.0-threshold)),eventGen)
+    
+    
+    def TradeIfProfitable(inner : Optional[.ISingleAssetStrategy] = .strategy.Noise(),
+                          acc : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account._.inner.inner_VirtualMarket(),
+                          performance : Optional[.IAccount => .IFunction[.Float]] = .strategy.weight._.trader.trader_EfficiencyTrend()) : .ISingleAssetStrategy
+        
+        	 = .strategy.Suspendable(inner)
     
     /** Mean reversion strategy believes that asset price should return to its average value.
      * It estimates this average using some functional and

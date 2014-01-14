@@ -20,6 +20,8 @@ from marketsim.gen._out.strategy._Arbitrage import Arbitrage
 
 from marketsim.gen._out.strategy._RSIbis import RSIbis
 
+from marketsim.gen._out.strategy._TradeIfProfitable import TradeIfProfitable
+
 from marketsim.gen._out.strategy._MeanReversion import MeanReversion
 
 from marketsim.gen._out.strategy._MarketData import MarketData

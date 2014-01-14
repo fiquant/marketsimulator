@@ -833,9 +833,19 @@ package strategy {
             }
         }
         
+        def efficiency = _.trader.trader_Efficiency
+        
+        def score = _.trader.trader_Score
+        
+        def atanpow = _.f.f_AtanPow
+        
         @curried("trader")
         def Efficiency(trader : IAccount = observable.trader.SingleProxy()) : IFunction[Float]
              = observable.trader.Efficiency(trader)
+        
+        def efficiencyTrend = _.trader.trader_EfficiencyTrend
+        
+        def clamp0 = _.f.f_Clamp0
         
         @python.intrinsic("strategy.weight._Score_Impl")
         @curried("trader")
@@ -851,6 +861,8 @@ package strategy {
                             alpha = 0.15) : IFunction[Float]
              = Derivative(observable.EW.Avg(observable.trader.Efficiency(trader),alpha))
         
+        def unit = _.trader.trader_Unit
+        
         @curried("trader")
         def Unit(trader : IAccount = observable.trader.SingleProxy()) : IFunction[Float]
              = constant(1.0)
@@ -859,6 +871,8 @@ package strategy {
         def AtanPow(f : Optional[IFunction[Float]] = constant(),
                     base = 1.002) : IFunction[Float]
              = mathops.Atan(mathops.Pow(constant(base),f))
+        
+        def identity_f = _.f.f_IdentityF
         
         @curried("f")
         def IdentityF(f : Optional[IFunction[Float]] = constant()) : IFunction[Float]
@@ -957,6 +971,11 @@ package strategy {
                timeframe = 1.0,
                threshold = 30.0)
          = Generic(orderFactory(observable.sidefunc.Signal(50.0-observable.RSI(observable.orderbook.OfTrader(),timeframe,alpha),50.0-threshold)),eventGen)
+    
+    def TradeIfProfitable(inner = Noise(),
+                          acc = account._.inner.inner_VirtualMarket(),
+                          performance = weight._.trader.trader_EfficiencyTrend())
+         = Suspendable(inner)
     
     /** Mean reversion strategy believes that asset price should return to its average value.
      * It estimates this average using some functional and

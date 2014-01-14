@@ -7206,6 +7206,27 @@ Definitions:
 | | | | | | | | | | | | | | | | | - IdentityF
 | | | | | | | | | | | - List:
 | | | | | | | | - List:
+| | | | | | | - FunAlias:
+| | | | | | | | - efficiency
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - _
+| | | | | | | | | | - trader
+| | | | | | | | | | - trader_Efficiency
+| | | | | | | - FunAlias:
+| | | | | | | | - score
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - _
+| | | | | | | | | | - trader
+| | | | | | | | | | - trader_Score
+| | | | | | | - FunAlias:
+| | | | | | | | - atanpow
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - _
+| | | | | | | | | | - f
+| | | | | | | | | | - f_AtanPow
 | | | | | | | - FunDef:
 | | | | | | | | - Efficiency
 | | | | | | | | - List:
@@ -7257,6 +7278,20 @@ Definitions:
 | | | | | | | | | | | | - curried
 | | | | | | | | | | - List:
 | | | | | | | | | | | - trader
+| | | | | | | - FunAlias:
+| | | | | | | | - efficiencyTrend
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - _
+| | | | | | | | | | - trader
+| | | | | | | | | | - trader_EfficiencyTrend
+| | | | | | | - FunAlias:
+| | | | | | | | - clamp0
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - _
+| | | | | | | | | | - f
+| | | | | | | | | | - f_Clamp0
 | | | | | | | - FunDef:
 | | | | | | | | - Score
 | | | | | | | | - List:
@@ -7449,6 +7484,13 @@ Definitions:
 | | | | | | | | | | | | - curried
 | | | | | | | | | | - List:
 | | | | | | | | | | | - trader
+| | | | | | | - FunAlias:
+| | | | | | | | - unit
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - _
+| | | | | | | | | | - trader
+| | | | | | | | | | - trader_Unit
 | | | | | | | - FunDef:
 | | | | | | | | - Unit
 | | | | | | | | - List:
@@ -7578,6 +7620,13 @@ Definitions:
 | | | | | | | | | | | | - curried
 | | | | | | | | | | - List:
 | | | | | | | | | | | - f
+| | | | | | | - FunAlias:
+| | | | | | | | - identity_f
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - _
+| | | | | | | | | | - f
+| | | | | | | | | | - f_IdentityF
 | | | | | | | - FunDef:
 | | | | | | | | - IdentityF
 | | | | | | | | - List:
@@ -8536,6 +8585,60 @@ Definitions:
 | | | | | | | | | | | | | | | | | - threshold
 | | | | | | | | | - Var:
 | | | | | | | | | | - eventGen
+| | | | | - None
+| | | | | - None
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - TradeIfProfitable
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - inner
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Noise
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - acc
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - account
+| | | | | | | | | | | - _
+| | | | | | | | | | | - inner
+| | | | | | | | | | | - inner_VirtualMarket
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - performance
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - weight
+| | | | | | | | | | | - _
+| | | | | | | | | | | - trader
+| | | | | | | | | | | - trader_EfficiencyTrend
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Suspendable
+| | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | | - Var:
+| | | | | | | | | | - inner
 | | | | | - None
 | | | | | - None
 | | | | | - List:
