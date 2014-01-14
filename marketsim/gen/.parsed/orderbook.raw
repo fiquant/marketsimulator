@@ -15,12 +15,18 @@ Definitions:
 | | | | | | | - Trader
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - trader
+| | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | - List:
-| | | | | | | | | | | - trader
-| | | | | | | | | | | - SingleProxy
-| | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IAccount
 | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None

@@ -5,7 +5,7 @@ from marketsim.gen._out._Derivative import Derivative as _Derivative
 from marketsim.gen._out.observable.EW._Avg import Avg as _observable_EW_Avg
 from marketsim.gen._out.observable.trader._Efficiency import Efficiency as _observable_trader_Efficiency
 from marketsim import context
-@registry.expose(["Trader's", "EfficiencyTrend"])
+@registry.expose(["Strategy", "EfficiencyTrend"])
 class EfficiencyTrend(Function[float]):
     """ 
     """ 

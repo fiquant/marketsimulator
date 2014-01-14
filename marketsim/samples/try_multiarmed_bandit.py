@@ -45,43 +45,43 @@ def MultiarmedBandit(ctx):
         ctx.makeTrader_A(strategy.MultiarmedBandit(
                                     strategies(), 
                                     strategy.adaptive.virtualMarket(),
-                                    strategy.adaptive.weight.efficiencyTrend), 
+                                    strategy.adaptive.weight.efficiencyTrend()),
                          'virt trend',
                          myVolume()),
 
         ctx.makeTrader_A(strategy.MultiarmedBandit(
                                     strategies(), 
                                     strategy.adaptive.account(),
-                                    strategy.adaptive.weight.efficiencyTrend), 
+                                    strategy.adaptive.weight.efficiencyTrend()),
                          'real trend',
                          myVolume()),
 
         ctx.makeTrader_A(strategy.MultiarmedBandit(
                                     strategies(), 
                                     strategy.adaptive.virtualMarket(),
-                                    strategy.adaptive.weight.efficiency), 
+                                    strategy.adaptive.weight.efficiency()),
                          'virt efficiency',
                          myVolume()),
 
         ctx.makeTrader_A(strategy.MultiarmedBandit(
                                     strategies(), 
                                     strategy.adaptive.account(),
-                                    strategy.adaptive.weight.efficiency), 
+                                    strategy.adaptive.weight.efficiency()),
                          'real efficiency',
                          myVolume()),
 
         ctx.makeTrader_A(strategy.MultiarmedBandit(
-                                    strategies(), 
+                                    strategies(),
                                     strategy.adaptive.virtualMarket(),
-                                    strategy.adaptive.weight.score, 
+                                    strategy.adaptive.weight.score(),
                                     strategy.adaptive.weight.atanpow()),
                          'virt score',
                          myVolume()),
 
         ctx.makeTrader_A(strategy.MultiarmedBandit(
-                                    strategies(), 
+                                    strategies(),
                                     strategy.adaptive.account(),
-                                    strategy.adaptive.weight.score, 
+                                    strategy.adaptive.weight.score(),
                                     strategy.adaptive.weight.clamp0()),
                          'real score',
                          myVolume()),
@@ -89,7 +89,7 @@ def MultiarmedBandit(ctx):
         ctx.makeTrader_A(strategy.MultiarmedBandit(
                                     strategies(), 
                                     strategy.adaptive.virtualMarket(),
-                                    strategy.adaptive.weight.efficiencyTrend, 
+                                    strategy.adaptive.weight.efficiencyTrend(),
                                     strategy.adaptive.weight.identityF(),
                                     strategy.adaptive.weight.chooseTheBest), 
                          'virt best',
@@ -98,7 +98,7 @@ def MultiarmedBandit(ctx):
         ctx.makeTrader_A(strategy.MultiarmedBandit(
                                     strategies(), 
                                     strategy.adaptive.account(),
-                                    strategy.adaptive.weight.unit,
+                                    strategy.adaptive.weight.unit(),
                                     strategy.adaptive.weight.identityF()),
                          'uniform',
                          myVolume()),

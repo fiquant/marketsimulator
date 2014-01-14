@@ -1,6 +1,6 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.orderbook.of_trader import _OfTrader_Impl
-from marketsim import ISingleAssetTrader
+from marketsim import IAccount
 @registry.expose(["Asset's", "OfTrader"])
 class OfTrader(_OfTrader_Impl):
     """ 
@@ -15,6 +15,6 @@ class OfTrader(_OfTrader_Impl):
         return repr(self)
     
     _properties = {
-        'Trader' : ISingleAssetTrader
+        'Trader' : IAccount
     }
     

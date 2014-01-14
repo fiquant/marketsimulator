@@ -920,15 +920,38 @@ package strategy {
     
     package weight {
         package _ {
-            package f {
+            package trader {
                 
-                @python.curried("AtanPow")
-                def f_AtanPow(base : Optional[.Float] = 1.002) : Optional[.IFunction[.Float]] => .IFunction[.Float]
+                @python.curried("Efficiency")
+                def trader_Efficiency() : .IAccount => .IFunction[.Float]
                     
                 
                 
+                @python.curried("Score")
+                def trader_Score() : .IAccount => .IFunction[.Float]
+                    
+                
+                
+                @python.curried("EfficiencyTrend")
+                def trader_EfficiencyTrend(alpha : Optional[.Float] = 0.15) : .IAccount => .IFunction[.Float]
+                    
+                
+                
+                @python.curried("Unit")
+                def trader_Unit() : .IAccount => .IFunction[.Float]
+                    
+            }
+            
+            
+            package f {
+                
                 @python.curried("Clamp0")
                 def f_Clamp0() : Optional[.IFunction[.Float]] => .IFunction[.Float]
+                    
+                
+                
+                @python.curried("AtanPow")
+                def f_AtanPow(base : Optional[.Float] = 1.002) : Optional[.IFunction[.Float]] => .IFunction[.Float]
                     
                 
                 
@@ -940,17 +963,42 @@ package strategy {
         }
         
         
-        @curried("f")
-        def AtanPow(f : Optional[.IFunction[.Float]] = .constant(),
-                    base : Optional[.Float] = 1.002) : .IFunction[.Float]
+        @curried("trader")
+        def Efficiency(trader : .IAccount = .observable.trader.SingleProxy()) : .IFunction[.Float]
             
-            	 = .mathops.Atan(.mathops.Pow(.constant(base),f))
+            	 = .observable.trader.Efficiency(trader)
+        
+        
+        @python.intrinsic("strategy.weight._Score_Impl")
+        @curried("trader")
+        def Score(trader : .IAccount = .observable.trader.SingleProxy()) : .IFunction[.Float]
+            
         
         
         @curried("f")
         def Clamp0(f : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
             
             	 = .observable.Max(.constant(0),f)+1
+        
+        
+        @curried("trader")
+        def EfficiencyTrend(trader : .IAccount = .observable.trader.SingleProxy(),
+                            alpha : Optional[.Float] = 0.15) : .IFunction[.Float]
+            
+            	 = .Derivative(.observable.EW.Avg(.observable.trader.Efficiency(trader),alpha))
+        
+        
+        @curried("trader")
+        def Unit(trader : .IAccount = .observable.trader.SingleProxy()) : .IFunction[.Float]
+            
+            	 = .constant(1.0)
+        
+        
+        @curried("f")
+        def AtanPow(f : Optional[.IFunction[.Float]] = .constant(),
+                    base : Optional[.Float] = 1.002) : .IFunction[.Float]
+            
+            	 = .mathops.Atan(.mathops.Pow(.constant(base),f))
         
         
         @curried("f")
@@ -1267,7 +1315,7 @@ package observable {@category = "Price function"
     package trader {
         
         @python.intrinsic("trader.props.Balance_Impl")
-        def Balance(trader : Optional[.ISingleAssetTrader] = .observable.trader.SingleProxy()) : .IObservable[.Price]
+        def Balance(trader : Optional[.IAccount] = .observable.trader.SingleProxy() : .IAccount) : .IObservable[.Price]
             
         
         
@@ -1277,11 +1325,11 @@ package observable {@category = "Price function"
         
         
         @python.intrinsic("trader.props.Position_Impl")
-        def Position(trader : Optional[.ISingleAssetTrader] = .observable.trader.SingleProxy()) : .IObservable[.Volume]
+        def Position(trader : Optional[.IAccount] = .observable.trader.SingleProxy() : .IAccount) : .IObservable[.Volume]
             
         
         
-        def Efficiency(trader : Optional[.ISingleAssetTrader] = .observable.trader.SingleProxy()) : .IObservable[.Float]
+        def Efficiency(trader : Optional[.IAccount] = .observable.trader.SingleProxy() : .IAccount) : .IObservable[.Float]
             
             	 = .observable.Observable(.observable.trader.Balance(trader)+.observable.orderbook.CumulativePrice(.observable.orderbook.OfTrader(trader),.observable.trader.Position(trader)))
         
@@ -1291,7 +1339,7 @@ package observable {@category = "Price function"
             
         
         
-        def EfficiencyTrend(trader : Optional[.ISingleAssetTrader] = .observable.trader.SingleProxy(),
+        def EfficiencyTrend(trader : Optional[.IAccount] = .observable.trader.SingleProxy() : .IAccount,
                             alpha : Optional[.Float] = 0.15) : () => .Float
             
             	 = .Derivative(.observable.EW.Avg(.observable.trader.Efficiency(trader),alpha))
@@ -1413,7 +1461,7 @@ package observable {@category = "Price function"
         
         @label = "N/A"
         @python.intrinsic("orderbook.of_trader._OfTrader_Impl")
-        def OfTrader(Trader : Optional[.ISingleAssetTrader] = .observable.trader.SingleProxy()) : .IOrderBook
+        def OfTrader(Trader : Optional[.IAccount] = .observable.trader.SingleProxy() : .IAccount) : .IOrderBook
             
         
         
@@ -1767,7 +1815,7 @@ type IMultiAssetStrategy
 type IObservable[U] : IFunction[U], IEvent
 type IFunction[T] = () => T
 type ISingleAssetStrategy
-type ISingleAssetTrader
+type ISingleAssetTrader : IAccount
 type Order
 type IDifferentiable : IFunction[Float]
 type VolumeLevels

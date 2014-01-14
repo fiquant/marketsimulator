@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim import float
 from marketsim.ops._all import Observable
-from marketsim import ISingleAssetTrader
+from marketsim import IAccount
 from marketsim import context
 @registry.expose(["Trader's", "Efficiency"])
 class Efficiency(Observable[float]):
@@ -23,7 +23,7 @@ class Efficiency(Observable[float]):
         return repr(self)
     
     _properties = {
-        'trader' : ISingleAssetTrader
+        'trader' : IAccount
     }
     def __repr__(self):
         return "Efficiency(%(trader)s)" % self.__dict__

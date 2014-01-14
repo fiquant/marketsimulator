@@ -27,9 +27,9 @@ type IObservable[U] : IFunction[U], IEvent
 
 type IOrderGenerator = IObservable[Order]
 
-type ISingleAssetTrader
+type IAccount
 
-type ISingleAssetTrader
+type ISingleAssetTrader : IAccount
 
 type IDifferentiable : IFunction[Float]
 
@@ -42,5 +42,3 @@ type Order
 type ISingleAssetStrategy
 
 type IMultiAssetStrategy
-
-type IAccount

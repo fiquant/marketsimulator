@@ -119,7 +119,7 @@ Definitions:
 | | | | | | | - Order
 | | | | | - List:
 | - Interface:
-| | - ISingleAssetTrader
+| | - IAccount
 | | - Generics:
 | | | - List:
 | | - List:
@@ -128,6 +128,11 @@ Definitions:
 | | - Generics:
 | | | - List:
 | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IAccount
+| | | | - List:
 | - Interface:
 | | - IDifferentiable
 | | - Generics:
@@ -165,11 +170,6 @@ Definitions:
 | | - List:
 | - Interface:
 | | - IMultiAssetStrategy
-| | - Generics:
-| | | - List:
-| | - List:
-| - Interface:
-| | - IAccount
 | | - Generics:
 | | | - List:
 | | - List:

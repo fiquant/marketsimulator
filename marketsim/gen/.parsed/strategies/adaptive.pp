@@ -34,5 +34,23 @@ package strategy {
         @curried("f")
         def IdentityF(f : Optional[IFunction[Float]] = constant()) : IFunction[Float]
              = f
+        
+        @python.intrinsic("strategy.weight._Score_Impl")
+        @curried("trader")
+        def Score(trader : IAccount = observable.trader.SingleProxy()) : IFunction[Float]
+            
+        
+        @curried("trader")
+        def Unit(trader : IAccount = observable.trader.SingleProxy()) : IFunction[Float]
+             = constant(1.0)
+        
+        @curried("trader")
+        def Efficiency(trader : IAccount = observable.trader.SingleProxy()) : IFunction[Float]
+             = observable.trader.Efficiency(trader)
+        
+        @curried("trader")
+        def EfficiencyTrend(trader : IAccount = observable.trader.SingleProxy(),
+                            alpha = 0.15) : IFunction[Float]
+             = Derivative(observable.EW.Avg(observable.trader.Efficiency(trader),alpha))
     }
 }

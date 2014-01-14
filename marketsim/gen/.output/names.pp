@@ -800,13 +800,31 @@ package strategy {
     
     package weight {
         package _ {
-            package f {
-                @python.curried("AtanPow")
-                def f_AtanPow(base = 1.002) : .Optional[.IFunction[.Float]] => .IFunction[.Float]
+            package trader {
+                @python.curried("Efficiency")
+                def trader_Efficiency() : .IAccount => .IFunction[.Float]
                     
                 
+                @python.curried("Score")
+                def trader_Score() : .IAccount => .IFunction[.Float]
+                    
+                
+                @python.curried("EfficiencyTrend")
+                def trader_EfficiencyTrend(alpha = 0.15) : .IAccount => .IFunction[.Float]
+                    
+                
+                @python.curried("Unit")
+                def trader_Unit() : .IAccount => .IFunction[.Float]
+                    
+            }
+            
+            package f {
                 @python.curried("Clamp0")
                 def f_Clamp0() : .Optional[.IFunction[.Float]] => .IFunction[.Float]
+                    
+                
+                @python.curried("AtanPow")
+                def f_AtanPow(base = 1.002) : .Optional[.IFunction[.Float]] => .IFunction[.Float]
                     
                 
                 @python.curried("IdentityF")
@@ -815,14 +833,32 @@ package strategy {
             }
         }
         
-        @curried("f")
-        def AtanPow(f : Optional[IFunction[Float]] = constant(),
-                    base = 1.002) : IFunction[Float]
-             = mathops.Atan(mathops.Pow(constant(base),f))
+        @curried("trader")
+        def Efficiency(trader : IAccount = observable.trader.SingleProxy()) : IFunction[Float]
+             = observable.trader.Efficiency(trader)
+        
+        @python.intrinsic("strategy.weight._Score_Impl")
+        @curried("trader")
+        def Score(trader : IAccount = observable.trader.SingleProxy()) : IFunction[Float]
+            
         
         @curried("f")
         def Clamp0(f : Optional[IFunction[Float]] = constant()) : IFunction[Float]
              = observable.Max(constant(0),f)+1
+        
+        @curried("trader")
+        def EfficiencyTrend(trader : IAccount = observable.trader.SingleProxy(),
+                            alpha = 0.15) : IFunction[Float]
+             = Derivative(observable.EW.Avg(observable.trader.Efficiency(trader),alpha))
+        
+        @curried("trader")
+        def Unit(trader : IAccount = observable.trader.SingleProxy()) : IFunction[Float]
+             = constant(1.0)
+        
+        @curried("f")
+        def AtanPow(f : Optional[IFunction[Float]] = constant(),
+                    base = 1.002) : IFunction[Float]
+             = mathops.Atan(mathops.Pow(constant(base),f))
         
         @curried("f")
         def IdentityF(f : Optional[IFunction[Float]] = constant()) : IFunction[Float]
@@ -1083,17 +1119,17 @@ package observable {@category = "Price function"
     
     package trader {
         @python.intrinsic("trader.props.Balance_Impl")
-        def Balance(trader = SingleProxy()) : IObservable[Price]
+        def Balance(trader = SingleProxy() : IAccount) : IObservable[Price]
             
         
         def RoughPnL(trader = SingleProxy())
              = Observable(Balance(trader)+orderbook.NaiveCumulativePrice(orderbook.OfTrader(trader),Position(trader)))
         
         @python.intrinsic("trader.props.Position_Impl")
-        def Position(trader = SingleProxy()) : IObservable[Volume]
+        def Position(trader = SingleProxy() : IAccount) : IObservable[Volume]
             
         
-        def Efficiency(trader = SingleProxy())
+        def Efficiency(trader = SingleProxy() : IAccount)
              = Observable(Balance(trader)+orderbook.CumulativePrice(orderbook.OfTrader(trader),Position(trader)))
         
         @python.intrinsic("trader.proxy._Single_Impl")
@@ -1101,7 +1137,7 @@ package observable {@category = "Price function"
         def SingleProxy() : ISingleAssetTrader
             
         
-        def EfficiencyTrend(trader = SingleProxy(),
+        def EfficiencyTrend(trader = SingleProxy() : IAccount,
                             alpha = 0.15)
              = Derivative(EW.Avg(Efficiency(trader),alpha))
         
@@ -1195,7 +1231,7 @@ package observable {@category = "Price function"
         
         @python.intrinsic("orderbook.of_trader._OfTrader_Impl")
         @label = "N/A"
-        def OfTrader(Trader = trader.SingleProxy()) : IOrderBook
+        def OfTrader(Trader = trader.SingleProxy() : IAccount) : IOrderBook
             
         
         def AskLastTradePrice(book = OfTrader())
@@ -1529,7 +1565,7 @@ type IFunction[T] = () => T
 
 type ISingleAssetStrategy
 
-type ISingleAssetTrader
+type ISingleAssetTrader : IAccount
 
 type Order
 

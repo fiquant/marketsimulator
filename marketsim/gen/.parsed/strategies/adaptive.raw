@@ -370,5 +370,227 @@ Definitions:
 | | | | | | | | | | | | - curried
 | | | | | | | | | | - List:
 | | | | | | | | | | | - f
+| | | | | | | - FunDef:
+| | | | | | | | - Score
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - trader
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IAccount
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | - SingleProxy
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | - List:
+| | | | | | | | | | | - strategy.weight._Score_Impl
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - curried
+| | | | | | | | | | - List:
+| | | | | | | | | | | - trader
+| | | | | | | - FunDef:
+| | | | | | | | - Unit
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - trader
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IAccount
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | - SingleProxy
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - constant
+| | | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 1.0
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - curried
+| | | | | | | | | | - List:
+| | | | | | | | | | | - trader
+| | | | | | | - FunDef:
+| | | | | | | | - Efficiency
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - trader
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IAccount
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | - SingleProxy
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - trader
+| | | | | | | | | | | | - Efficiency
+| | | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - trader
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - curried
+| | | | | | | | | | - List:
+| | | | | | | | | | | - trader
+| | | | | | | - FunDef:
+| | | | | | | | - EfficiencyTrend
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - trader
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IAccount
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | - SingleProxy
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - alpha
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 0.15
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Derivative
+| | | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | | | | | - Efficiency
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - alpha
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - curried
+| | | | | | | | | | - List:
+| | | | | | | | | | | - trader
 | | | | | - List:
 | | - List:

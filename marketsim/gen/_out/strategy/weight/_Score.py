@@ -1,18 +1,15 @@
 from marketsim import registry
-from marketsim.gen._intrinsic.trader.props import Position_Impl
+from marketsim.ops._function import Function
+from marketsim.gen._intrinsic.strategy.weight import _Score_Impl
 from marketsim import IAccount
-@registry.expose(["Trader's", "Position"])
-class Position(Position_Impl):
+@registry.expose(["Strategy", "Score"])
+class Score(Function[float], _Score_Impl):
     """ 
     """ 
     def __init__(self, trader = None):
         from marketsim.gen._out.observable.trader._SingleProxy import SingleProxy as _observable_trader_SingleProxy
-        from marketsim import event
-        from marketsim import types
         self.trader = trader if trader is not None else _observable_trader_SingleProxy()
-        Position_Impl.__init__(self)
-        if isinstance(trader, types.IEvent):
-            event.subscribe(self.trader, self.fire, self)
+        _Score_Impl.__init__(self)
     
     @property
     def label(self):
@@ -22,5 +19,5 @@ class Position(Position_Impl):
         'trader' : IAccount
     }
     def __repr__(self):
-        return "Position(%(trader)s)" % self.__dict__
+        return "Score(%(trader)s)" % self.__dict__
     

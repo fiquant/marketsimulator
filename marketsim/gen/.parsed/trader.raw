@@ -37,11 +37,17 @@ Definitions:
 | | | | | | | - trader
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | - List:
-| | | | | | | | | | | - SingleProxy
-| | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IAccount
 | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
@@ -72,11 +78,17 @@ Definitions:
 | | | | | | | - trader
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | - List:
-| | | | | | | | | | | - SingleProxy
-| | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IAccount
 | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
@@ -142,11 +154,17 @@ Definitions:
 | | | | | | | - trader
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | - List:
-| | | | | | | | | | | - SingleProxy
-| | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IAccount
 | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - Some:
@@ -258,11 +276,17 @@ Definitions:
 | | | | | | | - trader
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | - List:
-| | | | | | | | | | | - SingleProxy
-| | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IAccount
 | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:

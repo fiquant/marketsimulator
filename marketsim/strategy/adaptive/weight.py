@@ -20,19 +20,8 @@ def cachedattr(obj, name, setter):
         
     return getattr(obj, name)
 
-@registry.expose(alias=['Efficiency'])
-@meta.sig(args=(types.IAccount,), rv=types.IFunction[float])
-def efficiency(trader):
-    return cachedattr(trader, '_efficiency', 
-                      lambda: observable.Efficiency(trader))
-
-from marketsim.gen._out.observable.trader._EfficiencyTrend import EfficiencyTrend
-
-@registry.expose(alias=['Efficiency trend'])
-@meta.sig(args=(types.IAccount,), rv=types.IFunction[float])
-def efficiencyTrend(trader):
-    return cachedattr(trader, '_efficiencyTrend', 
-                      lambda: EfficiencyTrend(trader, alpha=0.015))
+from marketsim.gen._out.strategy.weight._.trader._trader_Efficiency import trader_Efficiency as efficiency
+from marketsim.gen._out.strategy.weight._.trader._trader_EfficiencyTrend import trader_EfficiencyTrend as efficiencyTrend
 
 @registry.expose(alias=['chooseTheBest '])
 @meta.sig(args=(types.listOf(float),), rv=types.listOf(float))
@@ -47,36 +36,5 @@ def chooseTheBest(weights):
     
     return weights
 
-class Score(ops.Function[float]):
-    
-    def __init__(self, trader):
-        self.trader = trader
-        self._efficiency = observable.Efficiency(trader)
-        event.subscribe(
-                observable.OnEveryDt(1, self._efficiency),
-                 _(self)._update, self)
-        self._score = 1
-        self._last = 0
-        
-    _properties = { 'trader' : types.IAccount }
-    
-    def _update(self, dummy):
-        e = self._efficiency()
-        if e is not None:
-            delta = e - self._last
-            if delta > 0: self._score += 1
-            if delta < 0 and self._score > 1: self._score -= 1
-        
-    def __call__(self):
-        return self._score
-
-@registry.expose(alias=['Score'])
-@meta.sig(args=(types.IAccount,), rv=types.IFunction[float])
-def score(trader):
-    return cachedattr(trader, '_score', 
-                      lambda: Score(trader))
-
-@registry.expose(alias=['Uniform'])
-@meta.sig(args=(types.IAccount,), rv=types.IFunction[float])
-def unit(trader):
-    return ops.constant(1.)
+from marketsim.gen._out.strategy.weight._.trader._trader_Score import trader_Score as score
+from marketsim.gen._out.strategy.weight._.trader._trader_Unit import trader_Unit as unit

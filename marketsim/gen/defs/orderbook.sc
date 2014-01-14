@@ -3,7 +3,7 @@ package observable.orderbook
 {
     @python.intrinsic("orderbook.of_trader._OfTrader_Impl")
     @label = "N/A"
-    def OfTrader(Trader = trader.SingleProxy()) : IOrderBook
+    def OfTrader(Trader = trader.SingleProxy() : IAccount) : IOrderBook
 
     @python.intrinsic("orderbook.queue._Queue_Impl")
     def Queue(book = OfTrader(), side = side.Sell()) : IOrderQueue
