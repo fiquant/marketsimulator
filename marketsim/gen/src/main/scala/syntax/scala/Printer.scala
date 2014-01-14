@@ -334,6 +334,12 @@ package object Printer
             def toScala = s"Optional[$x]"
         }
 
+        trait List_ extends Printable {
+            def x : Any
+
+            def toScala = s"List[$x]"
+        }
+
         type Tuple = base.TupleType
         type Function = base.FunctionType
 

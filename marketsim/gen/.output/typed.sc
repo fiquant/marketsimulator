@@ -1837,6 +1837,7 @@ type IFunction[T] = () => T
 type ISingleAssetStrategy
 type ISingleAssetTrader : IAccount
 type Order
+type List[T]
 type IDifferentiable : IFunction[Float]
 type VolumeLevels
 type IOrderGenerator = IObservable[Order]

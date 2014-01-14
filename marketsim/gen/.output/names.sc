@@ -1557,6 +1557,8 @@ type ISingleAssetTrader : IAccount
 
 type Order
 
+type List[T]
+
 type IDifferentiable : IFunction[Float]
 
 type VolumeLevels

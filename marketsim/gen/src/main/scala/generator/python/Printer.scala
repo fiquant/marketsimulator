@@ -26,6 +26,12 @@ object Printer {
             def imports = x.imports
         }
 
+        trait List_ extends Bound {
+            def x : Bound
+            def toPython = s"listOf($x)"
+            def imports = x.imports
+        }
+
         trait Tuple extends Bound {
             val elems : List[Bound]
             def toPython = elems map { _.toPython } map { _ + "," } mkString ("(", "", ")")

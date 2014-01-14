@@ -1,6 +1,8 @@
 
 type Optional[T]
 
+type List[T]
+
 type Side
 
 type String

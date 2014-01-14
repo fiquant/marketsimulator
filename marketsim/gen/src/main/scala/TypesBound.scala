@@ -35,6 +35,11 @@ package object TypesBound
             with    sc.Optional
             with    py.Optional
 
+    case class List_(x : Base)
+            extends Base
+            with    sc.List_
+            with    py.List_
+
     case class Tuple(elems : List[Base])
             extends Base
             with    sc.Tuple

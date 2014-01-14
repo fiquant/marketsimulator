@@ -7,6 +7,12 @@ Definitions:
 | | | | - T
 | | - List:
 | - Interface:
+| | - List
+| | - Generics:
+| | | - List:
+| | | | - T
+| | - List:
+| - Interface:
 | | - Side
 | | - Generics:
 | | | - List:
