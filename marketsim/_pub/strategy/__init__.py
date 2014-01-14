@@ -24,6 +24,8 @@ from marketsim.gen._out.strategy._TradeIfProfitable import TradeIfProfitable
 
 from marketsim.gen._out.strategy._MeanReversion import MeanReversion
 
+from marketsim.gen._out.strategy._MultiArmedBandit import MultiArmedBandit
+
 from marketsim.gen._out.strategy._MarketData import MarketData
 
 from marketsim.gen._out.strategy._Canceller import Canceller

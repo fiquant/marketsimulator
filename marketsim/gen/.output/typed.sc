@@ -922,13 +922,13 @@ package strategy {
         package _ {
             package array {
                 
-                @python.curried("ChooseTheBest")
-                def array_ChooseTheBest() : Optional[List[.Float]] => List[.Float]
+                @python.curried("IdentityL")
+                def array_IdentityL() : Optional[List[.Float]] => List[.Float]
                     
                 
                 
-                @python.curried("IdentityL")
-                def array_IdentityL() : Optional[List[.Float]] => List[.Float]
+                @python.curried("ChooseTheBest")
+                def array_ChooseTheBest() : Optional[List[.Float]] => List[.Float]
                     
             }
             
@@ -1024,7 +1024,6 @@ package strategy {
         @curried("array")
         def IdentityL(array : Optional[List[.Float]] = []) : List[.Float]
             
-            	 = array
         
         
         @curried("f")
@@ -1176,6 +1175,21 @@ package strategy {
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha : Optional[.Float] = 0.15) : .ISingleAssetStrategy
         
         	 = .strategy.Generic(orderFactory(.observable.sidefunc.MeanReversion(ewma_alpha)),eventGen)
+    
+    /** A composite strategy initialized with an array of strategies.
+     * In some moments of time the most effective strategy
+     * is chosen and made running; other strategies are suspended.
+     * The choice is made randomly among the strategies that have
+     * a positive efficiency trend, weighted by the efficiency value.
+     */
+    
+    @python.intrinsic("strategy.multiarmed_bandit._MultiarmedBandit2_Impl")
+    def MultiArmedBandit(/** original strategies that can be suspended */ strategies : Optional[List[.ISingleAssetStrategy]] = [.strategy.Noise()],
+                         /** function creating phantom strategy used for efficiency estimation */ account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account._.inner.inner_VirtualMarket(),
+                         /** function estimating is the strategy efficient or not */ weight : Optional[.IAccount => .IFunction[.Float]] = .strategy.weight._.trader.trader_EfficiencyTrend(),
+                         normalizer : Optional[Optional[.IFunction[.Float]] => .IFunction[.Float]] = .strategy.weight._.f.f_AtanPow(),
+                         /** weighting scheme for choosing strategies */ corrector : Optional[Optional[List[.Float]] => List[.Float]] = .strategy.weight._.array.array_IdentityL()) : .ISingleAssetStrategy
+        
     
     /** A Strategy that allows to drive the asset price based on historical market data
      *  by creating large volume orders for the given price.

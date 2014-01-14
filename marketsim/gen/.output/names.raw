@@ -7797,9 +7797,7 @@ Definitions:
 | | | | | | | | | | | - List_:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - Var:
-| | | | | | | | | | - array
+| | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
@@ -8960,6 +8958,105 @@ Definitions:
 | | | | | | | | -  if the current asset price is lower than the average
 | | | | | | | | -  it buys the asset and if the price is higher it sells the asset.
 | | | | | - List:
+| | | | - FunDef:
+| | | | | - MultiArmedBandit
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - strategies
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - List_:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Noise
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  original strategies that can be suspended 
+| | | | | | - Parameter:
+| | | | | | | - account
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - account
+| | | | | | | | | | | - _
+| | | | | | | | | | | - inner
+| | | | | | | | | | | - inner_VirtualMarket
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  function creating phantom strategy used for efficiency estimation 
+| | | | | | - Parameter:
+| | | | | | | - weight
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - weight
+| | | | | | | | | | | - _
+| | | | | | | | | | | - trader
+| | | | | | | | | | | - trader_EfficiencyTrend
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  function estimating is the strategy efficient or not 
+| | | | | | - Parameter:
+| | | | | | | - normalizer
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - weight
+| | | | | | | | | | | - _
+| | | | | | | | | | | - f
+| | | | | | | | | | | - f_AtanPow
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - corrector
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - weight
+| | | | | | | | | | | - _
+| | | | | | | | | | | - array
+| | | | | | | | | | | - array_IdentityL
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  weighting scheme for choosing strategies 
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - A composite strategy initialized with an array of strategies.
+| | | | | | | - List:
+| | | | | | | | -  In some moments of time the most effective strategy
+| | | | | | | | -  is chosen and made running; other strategies are suspended.
+| | | | | | | | -  The choice is made randomly among the strategies that have
+| | | | | | | | -  a positive efficiency trend, weighted by the efficiency value.
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.multiarmed_bandit._MultiarmedBandit2_Impl
 | | | | - FunDef:
 | | | | | - MarketData
 | | | | | - List:
