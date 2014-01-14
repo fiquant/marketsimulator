@@ -1,3 +1,5 @@
+from marketsim.gen._out.strategy.weight._ChooseTheBest import ChooseTheBest
+
 from marketsim.gen._out.strategy.weight._Efficiency import Efficiency
 
 from marketsim.gen._out.strategy.weight._Score import Score

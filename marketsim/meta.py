@@ -60,6 +60,8 @@ class function(collections.namedtuple("function", ["args", "rv"])):
         raise exception.Constraint(self, x)
     
 class listOf(collections.namedtuple("listOf", ["elementType"])):
+
+    __name__ = "listOf"
     
     def toJS(self):
         def impl(convertToJs):

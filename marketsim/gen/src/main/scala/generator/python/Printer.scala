@@ -3,10 +3,13 @@ package generator.python
 object Printer {
 
     import syntax.scala.Printer.{base => pp, types => st}
+    import predef.{Code, Combine, ImportFrom}
 
     trait Printable {
         def toPython : String
+        def asPython : String
         def imports : List[predef.Importable]
+        def asCode  = new Combine(asPython, Code.from(imports))
     }
 
     object types {
@@ -33,8 +36,8 @@ object Printer {
 
         trait List_ extends Bound {
             def x : Bound
-            def toPython = s"listOf(${x.toPython})"
-            def imports = x.imports
+            def toPython = s"listOf($x)"
+            def imports = ImportFrom("listOf", "marketsim") :: x.imports
         }
 
         trait Tuple extends Bound {

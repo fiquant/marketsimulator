@@ -91,7 +91,7 @@ def MultiarmedBandit(ctx):
                                     strategy.adaptive.virtualMarket(),
                                     strategy.adaptive.weight.efficiencyTrend(),
                                     strategy.adaptive.weight.identityF(),
-                                    strategy.adaptive.weight.chooseTheBest), 
+                                    strategy.adaptive.weight.chooseTheBest()),
                          'virt best',
                          myVolume()),
 

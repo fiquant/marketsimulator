@@ -39,7 +39,7 @@ class _MultiarmedBandit2_Impl(Strategy):
         choices = [s._origin for s in self._estimators]
         def opt(x): return 0 if x is None else x
         weights = [opt(e()) for e in self._estimators]
-        weights = self.corrector(weights)
+        weights = self.corrector(weights)()
         cumdist = list(numpy.cumsum(weights))
         
         if cumdist[-1] > 0:
@@ -78,5 +78,5 @@ exec wrapper2("MultiarmedBandit2",
               ('account',     'virtualMarket()',          'types.ISingleAssetStrategy -> types.IAccount'),
               ('weight',      'weight.efficiencyTrend()', 'types.IAccount -> types.IFunction[float]'),
               ('normalizer',  'weight.atanpow()',       'types.IFunction[float] -> types.IFunction[float]'),
-              ('corrector',   'weight.identity',        '(listOf(float),) -> listOf(float)')
+              ('corrector',   'weight.identityL()',        'IFunction[listOf(float), listOf(float)]')
              ], category="Adaptive")

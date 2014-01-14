@@ -920,6 +920,19 @@ package strategy {
     
     package weight {
         package _ {
+            package array {
+                
+                @python.curried("ChooseTheBest")
+                def array_ChooseTheBest() : Optional[List[.Float]] => List[.Float]
+                    
+                
+                
+                @python.curried("IdentityL")
+                def array_IdentityL() : Optional[List[.Float]] => List[.Float]
+                    
+            }
+            
+            
             package trader {
                 
                 @python.curried("EfficiencyTrend")
@@ -960,15 +973,13 @@ package strategy {
                     
             }
             
-            
-            package array {
-                
-                @python.curried("IdentityL")
-                def array_IdentityL() : Optional[List[.Float]] => List[.Float]
-                    
-            }
-            
         }
+        
+        
+        @python.intrinsic("strategy.weight._ChooseTheBest_Impl")
+        @curried("array")
+        def ChooseTheBest(array : Optional[List[.Float]] = []) : List[.Float]
+            
         
         
         @curried("trader")
@@ -1009,6 +1020,7 @@ package strategy {
             	 = .mathops.Atan(.mathops.Pow(.constant(base),f))
         
         
+        @python.intrinsic("strategy.weight._Identity_Impl")
         @curried("array")
         def IdentityL(array : Optional[List[.Float]] = []) : List[.Float]
             

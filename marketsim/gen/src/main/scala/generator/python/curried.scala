@@ -32,7 +32,7 @@ object curried
             override def name = f.name
             override def alias = f.name
 
-            def interface =  s"IFunction["||| original.ret_type.asPython ||| Code.from(original.ret_type.imports) |||
+            def interface =  s"IFunction["||| original.ret_type.asCode |||
                     ", "||| curriedTypesAsList(curried) |||"]" ||| ImportFrom("IFunction", "marketsim")
             override def base_classes = interface
 

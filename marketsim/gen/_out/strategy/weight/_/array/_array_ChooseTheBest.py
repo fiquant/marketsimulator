@@ -2,8 +2,8 @@ from marketsim import registry
 from marketsim import listOf
 from marketsim import listOf
 from marketsim import IFunction
-@registry.expose(["Strategy", "array_IdentityL"])
-class array_IdentityL(IFunction[listOf(float), listOf(float)]):
+@registry.expose(["Strategy", "array_ChooseTheBest"])
+class array_ChooseTheBest(IFunction[listOf(float), listOf(float)]):
     """ 
     """ 
     def __init__(self):
@@ -17,11 +17,11 @@ class array_IdentityL(IFunction[listOf(float), listOf(float)]):
         
     }
     def __repr__(self):
-        return "array_IdentityL" % self.__dict__
+        return "array_ChooseTheBest" % self.__dict__
     
     def __call__(self, array = None):
-        from marketsim.gen._out.strategy.weight._IdentityL import IdentityL
+        from marketsim.gen._out.strategy.weight._ChooseTheBest import ChooseTheBest
         array = array if array is not None else []
         
-        return IdentityL(array)
+        return ChooseTheBest(array)
     
