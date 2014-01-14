@@ -143,30 +143,46 @@ object order_factory
         new Factory(args, f)
     }
 
+    def extract(names : List[String], parameters : List[AST.Parameter])
+        : Option[(List[AST.Parameter], List[AST.Parameter])] = names match
+    {
+        case Nil =>
+            Some((Nil, parameters))
+
+        case n :: tl =>
+
+            val (curried, rest_0) = parameters partition { _.name == n}
+
+            if (curried.length == 1) {
+                extract(tl, rest_0) match {
+                    case Some((c_1, r_1)) => Some((curried(0) :: c_1, r_1))
+                    case None             => None
+                }
+            }
+            else
+                None
+    }
+
+    def withFullyQualifyArgs(f : AST.FunDef, scope : NameTable.Scope) = f.copy(
+        ty = f.ty map scope.fullyQualify,
+        parameters =
+                f.parameters map { p =>
+                    p.copy(
+                        initializer = p.initializer map scope.fullyQualify,
+                        ty = p.ty map scope.fullyQualify
+                    )
+    })
+
+    def locate(path : List[String], n : NameTable.Scope) : NameTable.Scope  =
+        path match  {
+            case Nil => n
+            case x :: xs => locate(xs, n getPackageOrCreate x)
+        }
+
     def beforeTyping(/** arguments of the annotation */ args  : List[String])
                     (/** function to process         */ f     : AST.FunDef,
                                                         scope : NameTable.Scope)
     {
-        def extract(names : List[String], parameters : List[AST.Parameter])
-            : Option[(List[AST.Parameter], List[AST.Parameter])] = names match
-        {
-            case Nil =>
-                Some((Nil, parameters))
-
-            case n :: tl =>
-
-                val (curried, rest_0) = parameters partition { _.name == n}
-
-                if (curried.length == 1) {
-                    extract(tl, rest_0) match {
-                        case Some((c_1, r_1)) => Some((curried(0) :: c_1, r_1))
-                        case None             => None
-                    }
-                }
-                else
-                    None
-        }
-
         def hasProto(parameters : List[AST.Parameter]) = parameters exists { _.name == "proto" }
 
         def createParam(name : String, ty : AST.Type = AST.float_function_t) =
@@ -178,21 +194,6 @@ object order_factory
         val priceParam = createParam("price")
 
 
-        def withFullyQualifyArgs(f : AST.FunDef) = f.copy(
-            ty = f.ty map scope.fullyQualify,
-            parameters =
-                    f.parameters map { p =>
-                        p.copy(
-                            initializer = p.initializer map scope.fullyQualify,
-                            ty = p.ty map scope.fullyQualify
-                        )
-        })
-
-        def locate(path : List[String], n : NameTable.Scope = scope) : NameTable.Scope  =
-            path match  {
-                case Nil => n
-                case x :: xs => locate(xs, n getPackageOrCreate x)
-            }
 
         val factorySigned = extract("side" :: "volume" :: Nil, f.parameters) map {
             case (sv, rest) => ()
@@ -208,7 +209,7 @@ object order_factory
                                 rest,
                         ty = f.ty map scope.fullyQualify)
 
-                locate("signed" :: Nil) add AST.FunAlias(
+                locate("signed" :: Nil, scope) add AST.FunAlias(
                     f.name, AST.QualifiedName("" :: "order" :: fc.name :: Nil))
 
                 scope add fc
@@ -220,7 +221,7 @@ object order_factory
                            base_    : AST.FunDef = f) =
         {
             //println(s"partial factory $curried for $base_")
-            val base = withFullyQualifyArgs(base_)
+            val base = withFullyQualifyArgs(base_, scope)
             val prefix = (curried map { _.name } mkString "") + "_"
             val prefixed = prefix + base.name
 
@@ -285,7 +286,7 @@ object order_factory
                     else
                         None
             }) map  { fc =>
-                locate(alias) add AST.FunAlias(
+                locate(alias, scope) add AST.FunAlias(
                     brief_name, AST.QualifiedName("" :: "order" :: "_curried" :: prefixed :: Nil))
 
                 val curried = scope getPackageOrCreate "_curried"

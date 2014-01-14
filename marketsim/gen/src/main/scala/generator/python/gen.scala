@@ -99,6 +99,8 @@ package object gen
         // TODO: non-intrusive registration
         register(random)
         register(mathops)
+        register(curried)
+        register(curried.after_typing)
         register(base.python)
         register(observable)
         register(function)
