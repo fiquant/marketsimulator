@@ -1,14 +1,14 @@
 package strategy
 {
     @python.intrinsic("strategy.suspendable._Suspendable_Impl")
-    def Suspendable(inner = Noise(), predicate = true()) : ISingleAssetStrategy
+    def Suspendable(inner = Noise(), predicate = true() : IFunction[Boolean]) : ISingleAssetStrategy
 
     def TradeIfProfitable(
                 inner       = Noise(),
-                acc         = account._.inner.inner_VirtualMarket(),
+                account     = account._.inner.inner_VirtualMarket(),
                 performance = weight._.trader.trader_EfficiencyTrend())
 
-        =   Suspendable(inner)
+        =   Suspendable(inner, performance(account(inner)) >= 0)
 
     package account
     {

@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.strategy.suspendable import _Suspendable_Impl
 from marketsim import ISingleAssetStrategy
-from marketsim import IObservable
+from marketsim import IFunction
 @registry.expose(["Strategy", "Suspendable"])
 class Suspendable(_Suspendable_Impl):
     """ 
@@ -19,7 +19,7 @@ class Suspendable(_Suspendable_Impl):
     
     _properties = {
         'inner' : ISingleAssetStrategy,
-        'predicate' : IObservable[bool]
+        'predicate' : IFunction[bool]
     }
     def __repr__(self):
         return "Suspendable(%(inner)s, %(predicate)s)" % self.__dict__

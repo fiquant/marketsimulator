@@ -8241,12 +8241,23 @@ Definitions:
 | | | | | | | - predicate
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - true
 | | | | | | | | | | - List:
-| | | | | | | | | | | - true
-| | | | | | | | | - List:
+| | | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
 | | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -8603,7 +8614,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
-| | | | | | | - acc
+| | | | | | | - account
 | | | | | | | - None
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
@@ -8639,6 +8650,24 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Var:
 | | | | | | | | | | - inner
+| | | | | | | | | - Condition:
+| | | | | | | | | | - GreaterEqual
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - performance
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - account
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | - inner
+| | | | | | | | | | - IntLit:
+| | | | | | | | | | | - 0
 | | | | | - None
 | | | | | - None
 | | | | | - List:

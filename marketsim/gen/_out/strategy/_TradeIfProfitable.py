@@ -13,14 +13,14 @@ from marketsim import context
 class TradeIfProfitable(ISingleAssetStrategy):
     """ 
     """ 
-    def __init__(self, inner = None, acc = None, performance = None):
+    def __init__(self, inner = None, account = None, performance = None):
         from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
         from marketsim.gen._out.strategy.account._.inner._inner_VirtualMarket import inner_VirtualMarket as _strategy_account___inner_inner_VirtualMarket
         from marketsim.gen._out.strategy.weight._.trader._trader_EfficiencyTrend import trader_EfficiencyTrend as _strategy_weight___trader_trader_EfficiencyTrend
         from marketsim import event
         from marketsim import _
         self.inner = inner if inner is not None else _strategy_Noise()
-        self.acc = acc if acc is not None else _strategy_account___inner_inner_VirtualMarket()
+        self.account = account if account is not None else _strategy_account___inner_inner_VirtualMarket()
         self.performance = performance if performance is not None else _strategy_weight___trader_trader_EfficiencyTrend()
         self.impl = self.getImpl()
         self.on_order_created = event.Event()
@@ -32,7 +32,7 @@ class TradeIfProfitable(ISingleAssetStrategy):
     
     _properties = {
         'inner' : ISingleAssetStrategy,
-        'acc' : IFunction[IAccount,ISingleAssetStrategy]
+        'account' : IFunction[IAccount,ISingleAssetStrategy]
         
         ,
         'performance' : IFunction[IFunction[float],IAccount]
@@ -40,11 +40,11 @@ class TradeIfProfitable(ISingleAssetStrategy):
         
     }
     def __repr__(self):
-        return "TradeIfProfitable(%(inner)s, %(acc)s, %(performance)s)" % self.__dict__
+        return "TradeIfProfitable(%(inner)s, %(account)s, %(performance)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):
-        return _strategy_Suspendable(self.inner)
+        return _strategy_Suspendable(self.inner,self.performance(self.account(self.inner))>=0)
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

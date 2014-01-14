@@ -5,7 +5,7 @@ import AST._
 
 class Parser() extends JavaTokenParsers with PackratParsers
 {
-    lazy val expr : Parser[Expr] = conditional | castable | string_literal
+    lazy val expr : Parser[Expr] =  boolean | conditional | castable | string_literal
 
     lazy val string_literal = string ^^ AST.StringLit
 
@@ -37,7 +37,7 @@ class Parser() extends JavaTokenParsers with PackratParsers
         }
     } withFailureMessage "boolean_factor expected"
 
-    lazy val boolean_term = (expr ~ logic_op ~ expr ^^ { case (x ~ op ~ y) => Condition(op, x, y) }
+    lazy val boolean_term = ((conditional | castable) ~ logic_op ~ expr ^^ { case (x ~ op ~ y) => Condition(op, x, y) }
                         | "not" ~> boolean ^^ Not
                         | "(" ~> boolean <~ ")" ) withFailureMessage "boolean_term expected"
 

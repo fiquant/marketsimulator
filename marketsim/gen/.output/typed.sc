@@ -1089,7 +1089,7 @@ package strategy {
     
     @python.intrinsic("strategy.suspendable._Suspendable_Impl")
     def Suspendable(inner : Optional[.ISingleAssetStrategy] = .strategy.Noise(),
-                    predicate : Optional[.IObservable[.Boolean]] = .true()) : .ISingleAssetStrategy
+                    predicate : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean]) : .ISingleAssetStrategy
         
     
     /** Trend follower can be considered as a sort of a signal strategy
@@ -1134,10 +1134,10 @@ package strategy {
     
     
     def TradeIfProfitable(inner : Optional[.ISingleAssetStrategy] = .strategy.Noise(),
-                          acc : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account._.inner.inner_VirtualMarket(),
+                          account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account._.inner.inner_VirtualMarket(),
                           performance : Optional[.IAccount => .IFunction[.Float]] = .strategy.weight._.trader.trader_EfficiencyTrend()) : .ISingleAssetStrategy
         
-        	 = .strategy.Suspendable(inner)
+        	 = .strategy.Suspendable(inner,performance(account(inner))>=0)
     
     /** Mean reversion strategy believes that asset price should return to its average value.
      * It estimates this average using some functional and
