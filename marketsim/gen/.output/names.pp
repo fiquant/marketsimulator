@@ -1495,8 +1495,9 @@ package trash {
             def IntFunc() : IFunction[Int]
                 
             
-            def C(x : IFunction[CandleStick])
-                 = x
+            def C(x : IFunction[CandleStick],
+                  p = [12,23.2,0])
+                 = p
             
             def S2() : Optional[String]
                  = S1()

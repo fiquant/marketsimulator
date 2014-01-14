@@ -1755,9 +1755,10 @@ package trash {
                 
             
             
-            def C(x : .IFunction[.CandleStick]) : .IFunction[.CandleStick]
+            def C(x : .IFunction[.CandleStick],
+                  p : Optional[List[.Float]] = [12,23.2,0]) : List[.Float]
                 
-                	 = x
+                	 = p
             
             
             def S2() : Optional[.String]

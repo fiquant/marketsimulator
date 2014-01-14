@@ -32,7 +32,7 @@ def S1(y = "abc") = y
 
 def S2() : Optional[String] = S1()
 
-def C(x : IFunction[CandleStick]) = x
+def C(x : IFunction[CandleStick], p = [12, 23.2, 0]) = p
 
 def IntFunc() : IFunction[Int]
 
