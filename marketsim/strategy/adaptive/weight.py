@@ -2,15 +2,9 @@ from marketsim import event, _, meta, types, registry, ops, observable
 from _virtual_market import VirtualMarket
 from _account import Account
 
-@registry.expose(alias=['AtanPow'])
-@meta.sig(args=(types.IFunction[float],), rv=types.IFunction[float])
-def atanpow(f, base = 1.002):
-    return ops.Atan(ops.Pow(ops.constant(base), f))
-
-@registry.expose(alias=['Clamp0'])
-@meta.sig(args=(types.IFunction[float],), rv=types.IFunction[float])
-def clamp0(f):
-    return ops.Max(f, ops.constant(0)) + 1
+from marketsim.gen._out.strategy.weight._.f._f_AtanPow import f_AtanPow as atanpow
+from marketsim.gen._out.strategy.weight._.f._f_Clamp0 import f_Clamp0 as clamp0
+from marketsim.gen._out.strategy.weight._.f._f_IdentityF import f_IdentityF as identityF
 
 def identity(x):
     return x

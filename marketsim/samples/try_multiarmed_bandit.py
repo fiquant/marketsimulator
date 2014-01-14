@@ -74,7 +74,7 @@ def MultiarmedBandit(ctx):
                                     strategies(), 
                                     strategy.adaptive.virtualMarket(),
                                     strategy.adaptive.weight.score, 
-                                    strategy.adaptive.weight.identity), 
+                                    strategy.adaptive.weight.atanpow()),
                          'virt score',
                          myVolume()),
 
@@ -82,7 +82,7 @@ def MultiarmedBandit(ctx):
                                     strategies(), 
                                     strategy.adaptive.account(),
                                     strategy.adaptive.weight.score, 
-                                    strategy.adaptive.weight.identity), 
+                                    strategy.adaptive.weight.clamp0()),
                          'real score',
                          myVolume()),
 
@@ -90,7 +90,7 @@ def MultiarmedBandit(ctx):
                                     strategies(), 
                                     strategy.adaptive.virtualMarket(),
                                     strategy.adaptive.weight.efficiencyTrend, 
-                                    strategy.adaptive.weight.identity, 
+                                    strategy.adaptive.weight.identityF(),
                                     strategy.adaptive.weight.chooseTheBest), 
                          'virt best',
                          myVolume()),
@@ -99,7 +99,7 @@ def MultiarmedBandit(ctx):
                                     strategies(), 
                                     strategy.adaptive.account(),
                                     strategy.adaptive.weight.unit,
-                                    strategy.adaptive.weight.identity), 
+                                    strategy.adaptive.weight.identityF()),
                          'uniform',
                          myVolume()),
 

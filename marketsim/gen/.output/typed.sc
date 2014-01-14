@@ -903,18 +903,60 @@ package strategy {
         
         
         @python.intrinsic("strategy.account._Account_Impl")
-        @curried()
+        @curried("inner")
         def Real(inner : Optional[.ISingleAssetStrategy] = .strategy.Noise()) : .IAccount
             
         
         
         @python.intrinsic("strategy.account._VirtualMarket_Impl")
-        @curried()
+        @curried("inner")
         def VirtualMarket(inner : Optional[.ISingleAssetStrategy] = .strategy.Noise()) : .IAccount
             
         def real = .strategy.account._.inner.inner_Real
         
         def virtualMarket = .strategy.account._.inner.inner_VirtualMarket
+    }
+    
+    
+    package weight {
+        package _ {
+            package f {
+                
+                @python.curried("AtanPow")
+                def f_AtanPow(base : Optional[.Float] = 1.002) : Optional[.IFunction[.Float]] => .IFunction[.Float]
+                    
+                
+                
+                @python.curried("Clamp0")
+                def f_Clamp0() : Optional[.IFunction[.Float]] => .IFunction[.Float]
+                    
+                
+                
+                @python.curried("IdentityF")
+                def f_IdentityF() : Optional[.IFunction[.Float]] => .IFunction[.Float]
+                    
+            }
+            
+        }
+        
+        
+        @curried("f")
+        def AtanPow(f : Optional[.IFunction[.Float]] = .constant(),
+                    base : Optional[.Float] = 1.002) : .IFunction[.Float]
+            
+            	 = .mathops.Atan(.mathops.Pow(.constant(base),f))
+        
+        
+        @curried("f")
+        def Clamp0(f : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
+            
+            	 = .observable.Max(.constant(0),f)+1
+        
+        
+        @curried("f")
+        def IdentityF(f : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
+            
+            	 = f
     }
     
     

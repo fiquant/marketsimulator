@@ -65,26 +65,27 @@ object curried
                     (/** function to process         */ f     : AST.FunDef,
                                                         scope : NameTable.Scope)
     {
-        def partialFactory(curried  : List[String],
+        def partialFactory(curried  : String,
                            base_    : AST.FunDef = f) =
         {
             //println(s"partial factory $curried for $base_")
             val base = withFullyQualifyArgs(base_, scope)
-            val prefix = (curried mkString "") + "_"
+            val prefix = curried + "_"
             val prefixed = prefix + base.name
 
             val orig_path = base.name split "_"
             val (orig_scope, brief_name_arr) = orig_path.splitAt(orig_path.length - 1)
-            val u_prefix = curried mkString "_"
+            val u_prefix = curried
             val alias = "_" :: u_prefix :: orig_scope.toList
             val brief_name = brief_name_arr(0)
 
-            (extract(curried, base.parameters) match {
+            (extract(curried :: Nil, base.parameters) match {
                 case Some((cr, rest)) =>
                     val ty = Some(AST.FunctionType(cr map { _.ty.get }, base.ty.get))
                     Some(base.copy(
                         name = prefixed,
                         parameters = rest,
+                        body = None,
                         decorators =
                                 AST.Annotation(
                                     AST.QualifiedName(
@@ -103,7 +104,7 @@ object curried
             }
         }
 
-        (if (args.isEmpty) f.parameters map {_.name} else args) map { a => partialFactory(a :: Nil, f) }
+        args map { partialFactory(_, f) }
 
     }
 
