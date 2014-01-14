@@ -30,6 +30,15 @@ package object TypesBound
             with    sc.Unit
             with    py.Unit
 
+    case object Nothing
+            extends Base
+            with    sc.Nothing
+            with    py.Nothing
+    {
+        override def canCastToImpl(other : Base) = true
+    }
+
+
     case class Optional(x : Base)
             extends Base
             with    sc.Optional

@@ -77,6 +77,17 @@ package object TypeInference
         }
     }
 
+    trait List_ {
+        self: Typed.List_ =>
+        val ty =
+            xs.foldLeft[TypesBound.Base](TypesBound.Nothing) {
+                (acc, x) =>
+                    if (acc canCastTo x.ty) x.ty else
+                    if (x.ty canCastTo acc) acc  else
+                        throw new Exception(s"Cannot unify $acc and ${x.ty} when typing expression $this")
+        }
+    }
+
     def checkBoolean(e : Typed.Expr) = {
         if (e.ty cannotCastTo Typed.topLevel.booleanFunc)
             throw new Exception(s"Expression $e is supposed to have () => Boolean type")

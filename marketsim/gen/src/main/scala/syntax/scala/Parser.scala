@@ -71,7 +71,10 @@ class Parser() extends JavaTokenParsers with PackratParsers
             |   funcall
             |   ident ^^ Var
             |   "(" ~> expr <~ ")"
+            |   list
             |   "-" ~> term ^^ Neg) withFailureMessage "term expected"
+
+    lazy val list = "[" ~> repsep(expr, ",") <~ "]" ^^ AST.List_
 
     lazy val funcall = qualified_name ~ ("(" ~> repsep(expr, ",") <~ ")") ^^ {
         case name ~ list => FunCall(name, list :: Nil)

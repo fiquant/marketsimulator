@@ -292,6 +292,8 @@ package object Typer
             case AST.IntLit(x) => Typed.IntLit(x)
             case AST.Var(name) => Typed.ParamRef(ctx.lookupVar(name))
 
+            case AST.List_(xs) => Typed.List_(xs map asArith)
+
             case AST.FunCall(name, arg_lists) =>
 
                 arg_lists.foldLeft[Typed.Expr](ctx lookupFunction name) {

@@ -182,6 +182,7 @@ package object NameTable {
             case x : AST.FloatLit => x
             case x : AST.IntLit => x
             case x : AST.Var => x
+            case AST.List_(xs) => AST.List_(xs map fullyQualify)
             case AST.BinOp(s, x, y) => AST.BinOp(s, fullyQualify(x), fullyQualify(y))
             case AST.Neg(x) => AST.Neg(fullyQualify(x))
             case AST.IfThenElse(cond, x, y) => AST.IfThenElse(fullyQualify(cond), fullyQualify(x), fullyQualify(y))

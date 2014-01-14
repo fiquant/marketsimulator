@@ -17,7 +17,12 @@ object Printer {
             def toPython =
                 throw new Exception("Unit types are not supported yet for python generation")
             def imports = Nil
+        }
 
+        trait Nothing extends Bound {
+            def toPython =
+                throw new Exception("Nothing types are not supported for python generation")
+            def imports = Nil
         }
 
         trait Optional extends Bound {
@@ -90,6 +95,13 @@ object Printer {
         val x : Expr
         def toPython = x.toPython
         def imports = x.imports
+    }
+
+    trait List_ extends Printable
+    {
+        val xs : List[Expr]
+        def toPython = xs mkString ("[", ",", "]")
+        def imports = xs flatMap { _.imports }
     }
 
     trait Neg extends pp.Neg[Typed.Expr] with PrintablePort

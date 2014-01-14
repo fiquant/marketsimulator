@@ -59,6 +59,11 @@ package object Printer
             def toScala = x.toString + " : " + ty
         }
 
+        trait List_ extends Expr with Priority_0 {
+            val xs : List[Any]
+            def toScala = xs mkString ("[", ",", "]")
+        }
+
         trait Neg[T <: Expr] extends Expr with Priority_0 {
             val x : T
             def toScala = "-" + wrap(x)
@@ -258,6 +263,7 @@ package object Printer
         type StringLit = base.StringLit
         type IntLit = base.IntLit
         type Cast = base.Cast
+        type List_ = base.List_
 
         trait Annotation extends base.Annotation {
             self: AST.Annotation =>
@@ -327,6 +333,10 @@ package object Printer
 
         type Base = base.TypeBase
         type Unit = base.UnitType
+
+        trait Nothing {
+            def toScala = "Nothing"
+        }
 
         trait Optional extends Printable {
             def x : Any
@@ -420,6 +430,7 @@ package object Printer
         type BinOp = base.BinOp[Typed.Expr]
         type Neg = base.Neg[Typed.Expr]
         type Cast = base.Cast
+        type List_ = base.List_
 
         type IfThenElse = base.IfThenElse[Typed.Expr, Typed.Expr]
         type And = base.And[Typed.Expr]

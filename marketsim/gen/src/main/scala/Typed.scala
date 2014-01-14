@@ -127,6 +127,12 @@ package object Typed
             throw new Exception(s"Expression $x cannot be casted to $ty")
     }
 
+    case class List_(xs : List[Expr])
+            extends Expr
+            with    sc.List_
+            with    py.List_
+            with    TypeInference.List_
+
     case class FunctionAlias(parent : Package,
                              name   : String,
                              target : Function)
