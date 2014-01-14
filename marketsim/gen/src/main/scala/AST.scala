@@ -125,7 +125,7 @@ package object AST {
     case class Var       (s : String)                                     extends Expr with pp.Var with ScPrintable
     case class Neg       (x: Expr)                                        extends Expr with pp.Neg with ScPrintable
     case class BinOp     (symbol : BinOpSymbol, x: Expr, y: Expr)         extends Expr with pp.BinOp with ScPrintable
-    case class IfThenElse(cond : BooleanExpr, x : Expr, y : Expr)         extends Expr with pp.IfThenElse with ScPrintable
+    case class IfThenElse(cond : Expr, x : Expr, y : Expr)                extends Expr with pp.IfThenElse with ScPrintable
     case class FunCall   (name : QualifiedName, args : List[List[Expr]])  extends Expr with pp.FunCall with ScPrintable
     case class Cast      (x : Expr, ty : Type)                            extends Expr with pp.Cast with ScPrintable
 
@@ -138,11 +138,9 @@ package object AST {
     case object Equal          extends CondSymbol with pp.Equal with ScPrintable
     case object NotEqual       extends CondSymbol with pp.NotEqual with ScPrintable
 
-    sealed abstract class BooleanExpr extends pp.BooleanExpr
-
-    case class Condition(symbol : CondSymbol, x : Expr, y : Expr)   extends BooleanExpr with pp.Condition with ScPrintable
-    case class Or       (x : BooleanExpr, y : BooleanExpr)          extends BooleanExpr with pp.Or with ScPrintable
-    case class And      (x : BooleanExpr, y : BooleanExpr)          extends BooleanExpr with pp.And with ScPrintable
-    case class Not      (x : BooleanExpr)                           extends BooleanExpr with pp.Not with ScPrintable
+    case class Condition(symbol : CondSymbol, x : Expr, y : Expr)   extends Expr with pp.Condition with ScPrintable
+    case class Or       (x : Expr, y : Expr)                        extends Expr with pp.Or with ScPrintable
+    case class And      (x : Expr, y : Expr)                        extends Expr with pp.And with ScPrintable
+    case class Not      (x : Expr)                                  extends Expr with pp.Not with ScPrintable
 }
 

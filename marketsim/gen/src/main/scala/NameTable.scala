@@ -160,13 +160,6 @@ package object NameTable {
                     }
             }
 
-        def fullyQualifyB(e : AST.BooleanExpr) : AST.BooleanExpr = e match {
-            case AST.And(x, y) => AST.And(fullyQualifyB(x), fullyQualifyB(y))
-            case AST.Or(x, y) => AST.Or(fullyQualifyB(x), fullyQualifyB(y))
-            case AST.Not(x) => AST.Not(fullyQualifyB(x))
-            case AST.Condition(c, x, y) => AST.Condition(c, fullyQualify(x), fullyQualify(y))
-        }
-
         def fullyQualify(n : AST.QualifiedName) =
             lookup[AST.Member](n.names) match {
                 case Some((scope, m)) => scope qualifyName m.name
@@ -191,7 +184,11 @@ package object NameTable {
             case x : AST.Var => x
             case AST.BinOp(s, x, y) => AST.BinOp(s, fullyQualify(x), fullyQualify(y))
             case AST.Neg(x) => AST.Neg(fullyQualify(x))
-            case AST.IfThenElse(cond, x, y) => AST.IfThenElse(fullyQualifyB(cond), fullyQualify(x), fullyQualify(y))
+            case AST.IfThenElse(cond, x, y) => AST.IfThenElse(fullyQualify(cond), fullyQualify(x), fullyQualify(y))
+            case AST.And(x, y) => AST.And(fullyQualify(x), fullyQualify(y))
+            case AST.Or(x, y) => AST.Or(fullyQualify(x), fullyQualify(y))
+            case AST.Not(x) => AST.Not(fullyQualify(x))
+            case AST.Condition(c, x, y) => AST.Condition(c, fullyQualify(x), fullyQualify(y))
         }
 
         def toTyped(target : Typed.Package) : Typed.Package =

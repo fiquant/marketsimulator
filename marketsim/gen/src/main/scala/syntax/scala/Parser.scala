@@ -15,7 +15,7 @@ class Parser() extends JavaTokenParsers with PackratParsers
         case (cond ~ x ~ y) => IfThenElse(cond, x, y)
     } withFailureMessage "conditional expected"
 
-    lazy val boolean : Parser[BooleanExpr] = boolean_factor ~ rep("or" ~ boolean_factor) ^^ {
+    lazy val boolean : Parser[Expr] = boolean_factor ~ rep("or" ~ boolean_factor) ^^ {
         case op ~ list => list.foldLeft(op) {
             case (x, "or" ~ y) => Or(x, y)
         }

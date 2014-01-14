@@ -257,14 +257,6 @@ package object Typer
 
     case class TypeChecker(ctx : TypingExprCtx)
     {
-        def asBoolean(e : AST.BooleanExpr) : Typed.Expr = e match {
-            case AST.And(x, y) => Typed.And(asBoolean(x), asBoolean(y))
-            case AST.Or(x, y) => Typed.Or(asBoolean(x), asBoolean(y))
-            case AST.Not(x) => Typed.Not(asBoolean(x))
-            case AST.Condition(symbol, x, y) =>
-                promote_opt(Typed.Condition(symbol, asArith(x), asArith(y)))
-        }
-
         def promote_literal(e : Typed.Expr) =
             if (e.ty == Typed.topLevel.float_) {
                 val f = ctx.lookupFunction(AST.QualifiedName("const" :: Nil))
@@ -293,7 +285,7 @@ package object Typer
             case AST.Cast(x, ty) => Typed.Cast(asArith(x), ctx toTyped ty)
 
             case AST.IfThenElse(cond, x, y) =>
-                promote_opt(Typed.IfThenElse(asBoolean(cond), asArith(x), asArith(y)))
+                promote_opt(Typed.IfThenElse(asArith(cond), asArith(x), asArith(y)))
 
             case AST.FloatLit(d) => Typed.FloatLit(d)
             case AST.StringLit(x) => Typed.StringLit(x)
@@ -321,6 +313,12 @@ package object Typer
                         }
                         Typed.FunctionCall(acc, actual_args)
                 }
+            case AST.And(x, y) => Typed.And(asArith(x), asArith(y))
+            case AST.Or(x, y) => Typed.Or(asArith(x), asArith(y))
+            case AST.Not(x) => Typed.Not(asArith(x))
+            case AST.Condition(symbol, x, y) =>
+                promote_opt(Typed.Condition(symbol, asArith(x), asArith(y)))
+
 
         }
 

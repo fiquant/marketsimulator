@@ -299,10 +299,10 @@ package object Printer
 
         type BinOp = base.BinOp[AST.Expr]
         type Neg = base.Neg[AST.Expr]
-        type IfThenElse = base.IfThenElse[AST.Expr, AST.BooleanExpr]
-        type And = base.And[AST.BooleanExpr]
-        type Or = base.Or[AST.BooleanExpr]
-        type Not = base.Not[AST.BooleanExpr, AST.Expr]
+        type IfThenElse = base.IfThenElse[AST.Expr, AST.Expr]
+        type And = base.And[AST.Expr]
+        type Or = base.Or[AST.Expr]
+        type Not = base.Not[AST.Expr, AST.Expr]
         type Condition = base.Condition[AST.Expr]
 
         trait Less extends Printable        {   def toScala = "<"   }
