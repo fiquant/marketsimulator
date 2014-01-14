@@ -724,5 +724,52 @@ Definitions:
 | | | | | | | | | | | | - curried
 | | | | | | | | | | - List:
 | | | | | | | | | | | - trader
+| | | | | | | - FunDef:
+| | | | | | | | - IdentityL
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - array
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Optional
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - List
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - List_:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - Var:
+| | | | | | | | | | - array
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - List
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - curried
+| | | | | | | | | | - List:
+| | | | | | | | | | | - array
 | | | | | - List:
 | | - List:

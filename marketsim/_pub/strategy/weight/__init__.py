@@ -10,6 +10,8 @@ from marketsim.gen._out.strategy.weight._Unit import Unit
 
 from marketsim.gen._out.strategy.weight._AtanPow import AtanPow
 
+from marketsim.gen._out.strategy.weight._IdentityL import IdentityL
+
 from marketsim.gen._out.strategy.weight._IdentityF import IdentityF
 
 from marketsim.gen._out.strategy.weight._.trader._trader_Efficiency import trader_Efficiency as efficiency

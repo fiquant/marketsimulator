@@ -48,7 +48,14 @@ package object TypesBound
             extends Base
             with    sc.List_
             with    py.List_
-
+    {
+        override def canCastToImpl(other : Base) = {
+            other match {
+                case List_(y) => x canCastTo y
+                case _ => false
+            }
+        }
+    }
     case class Tuple(elems : List[Base])
             extends Base
             with    sc.Tuple

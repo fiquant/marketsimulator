@@ -62,6 +62,10 @@ package strategy
         @curried("trader")
         def EfficiencyTrend(trader : IAccount = observable.trader.SingleProxy(), alpha = 0.15) : IFunction[Float]
             = Derivative(observable.EW.Avg(observable.trader.Efficiency(trader), alpha))
+
+        @curried("array")
+        def IdentityL(array : Optional[List[Float]] = []) : List[Float]
+            = array
     }
 }
 

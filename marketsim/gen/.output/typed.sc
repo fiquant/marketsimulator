@@ -960,6 +960,14 @@ package strategy {
                     
             }
             
+            
+            package array {
+                
+                @python.curried("IdentityL")
+                def array_IdentityL() : Optional[List[.Float]] => List[.Float]
+                    
+            }
+            
         }
         
         
@@ -999,6 +1007,12 @@ package strategy {
                     base : Optional[.Float] = 1.002) : .IFunction[.Float]
             
             	 = .mathops.Atan(.mathops.Pow(.constant(base),f))
+        
+        
+        @curried("array")
+        def IdentityL(array : Optional[List[.Float]] = []) : List[.Float]
+            
+            	 = array
         
         
         @curried("f")

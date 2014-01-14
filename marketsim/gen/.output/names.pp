@@ -831,6 +831,12 @@ package strategy {
                 def f_IdentityF() : .Optional[.IFunction[.Float]] => .IFunction[.Float]
                     
             }
+            
+            package array {
+                @python.curried("IdentityL")
+                def array_IdentityL() : .Optional[.List[.Float]] => .List[.Float]
+                    
+            }
         }
         
         def efficiency = _.trader.trader_Efficiency
@@ -871,6 +877,10 @@ package strategy {
         def AtanPow(f : Optional[IFunction[Float]] = constant(),
                     base = 1.002) : IFunction[Float]
              = mathops.Atan(mathops.Pow(constant(base),f))
+        
+        @curried("array")
+        def IdentityL(array : Optional[List[Float]] = []) : List[Float]
+             = array
         
         def identity_f = _.f.f_IdentityF
         
