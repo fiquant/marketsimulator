@@ -923,6 +923,16 @@ package strategy {
                     /** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0)
          = Generic(orderFactory(observable.sidefunc.PairTrading(bookToDependOn,factor)),eventGen)
     
+    /** A composite strategy initialized with an array of strategies.
+     * In some moments of time the most effective strategy
+     * is chosen and made running; other strategies are suspended.
+     */
+    @python.intrinsic("strategy.choose_the_best._ChooseTheBest_Impl")
+    def ChooseTheBest(/** original strategies that can be suspended */ strategies = [Noise()],
+                      /** function creating phantom strategy used for efficiency estimation */ account = account._.inner.inner_VirtualMarket(),
+                      /** function estimating is the strategy efficient or not */ performance = weight._.trader.trader_EfficiencyTrend()) : ISingleAssetStrategy
+        
+    
     /** Signal strategy listens to some discrete signal
      * and when the signal becomes more than some threshold the strategy starts to buy.
      * When the signal gets lower than -threshold the strategy starts to sell.

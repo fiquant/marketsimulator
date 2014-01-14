@@ -230,6 +230,74 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - strategy.multiarmed_bandit._MultiarmedBandit2_Impl
+| | | | - FunDef:
+| | | | | - ChooseTheBest
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - strategies
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - List_:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Noise
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  original strategies that can be suspended 
+| | | | | | - Parameter:
+| | | | | | | - account
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - account
+| | | | | | | | | | | - _
+| | | | | | | | | | | - inner
+| | | | | | | | | | | - inner_VirtualMarket
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  function creating phantom strategy used for efficiency estimation 
+| | | | | | - Parameter:
+| | | | | | | - performance
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - weight
+| | | | | | | | | | | - _
+| | | | | | | | | | | - trader
+| | | | | | | | | | | - trader_EfficiencyTrend
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  function estimating is the strategy efficient or not 
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - A composite strategy initialized with an array of strategies.
+| | | | | | | - List:
+| | | | | | | | -  In some moments of time the most effective strategy
+| | | | | | | | -  is chosen and made running; other strategies are suspended.
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.choose_the_best._ChooseTheBest_Impl
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:

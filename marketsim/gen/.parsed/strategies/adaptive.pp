@@ -24,6 +24,16 @@ package strategy {
                          /** weighting scheme for choosing strategies */ corrector = weight._.array.array_IdentityL()) : ISingleAssetStrategy
         
     
+    /** A composite strategy initialized with an array of strategies.
+     * In some moments of time the most effective strategy
+     * is chosen and made running; other strategies are suspended.
+     */
+    @python.intrinsic("strategy.choose_the_best._ChooseTheBest_Impl")
+    def ChooseTheBest(/** original strategies that can be suspended */ strategies = [Noise()],
+                      /** function creating phantom strategy used for efficiency estimation */ account = account._.inner.inner_VirtualMarket(),
+                      /** function estimating is the strategy efficient or not */ performance = weight._.trader.trader_EfficiencyTrend()) : ISingleAssetStrategy
+        
+    
     package account {
         @python.intrinsic("strategy.account._Account_Impl")
         @curried("inner")
