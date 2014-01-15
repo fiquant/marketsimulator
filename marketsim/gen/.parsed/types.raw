@@ -13,6 +13,11 @@ Definitions:
 | | | | - T
 | | - List:
 | - Interface:
+| | - Any
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
 | | - Side
 | | - Generics:
 | | | - List:
@@ -181,6 +186,11 @@ Definitions:
 | | - List:
 | - Interface:
 | | - IGraph
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - ITimeSerie
 | | - Generics:
 | | | - List:
 | | - List:

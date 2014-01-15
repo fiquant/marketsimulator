@@ -28,6 +28,11 @@ object Printer {
             def imports = Nil
         }
 
+        trait Any_ extends Bound {
+            def toPython = "object"
+            def imports = Nil
+        }
+
         trait Optional extends Bound {
             def x : Bound
             def toPython = x.toPython

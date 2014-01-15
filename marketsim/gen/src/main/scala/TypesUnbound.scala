@@ -107,17 +107,20 @@ package object TypesUnbound
     case class Interface(decl : Typed.InterfaceDecl, genericArgs : List[Base])
             extends UserDefined
     {
-        def assureOneArg() =
-            if (genericArgs.length != 1)
-                throw new Exception(this + " must have exactly one generic parameter")
+        def assureArgCount(n : Int) =
+            if (genericArgs.length != n)
+                throw new Exception(s"$this must have exactly $n generic parameter")
 
         def bind(m : ITypeMapper[TypesBound.Base]) = decl.name match {
             case "Optional" =>
-                assureOneArg()
+                assureArgCount(1)
                 TypesBound.Optional(genericArgs(0) bind m)
             case "List" =>
-                assureOneArg()
+                assureArgCount(1)
                 TypesBound.List_(genericArgs(0) bind m)
+            case "Any" =>
+                assureArgCount(0)
+                TypesBound.Any_
             case _ =>
                 TypesBound.Interface(decl, genericArgs map { _ bind m })
         }

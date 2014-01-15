@@ -4,6 +4,8 @@ from marketsim.gen._out._false import false
 
 from marketsim.gen._out._null import null
 
+from marketsim.gen._out._TimeSerie import TimeSerie
+
 from marketsim.gen._out._const import const
 
 from marketsim.gen._out._true import true

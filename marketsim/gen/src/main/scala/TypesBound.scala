@@ -14,6 +14,7 @@ package object TypesBound
         final def canCastTo(other : Base) : Boolean = this == other || (other match {
             case a : Alias      => canCastTo(a.target)
             case Optional(x)    => canCastTo(x)
+            case Any_           => true
             case _              => false
         }) || canCastToImpl(other)
 
@@ -38,6 +39,10 @@ package object TypesBound
         override def canCastToImpl(other : Base) = true
     }
 
+    case object Any_
+            extends Base
+            with    sc.Any_
+            with    py.Any_
 
     case class Optional(x : Base)
             extends Base
@@ -120,14 +125,17 @@ package object TypesBound
 
         allSubstitutions[Base](genericArgs, directCasts)
 
-    def directCasts(e : Base) : Stream[Base] = e match
-    {
-        case x : Alias      => Stream(x.target)
-        case x : Interface  => x.bases.toStream
-        case x if x == Unit => Stream.empty
-        case x : Tuple      => directCasts(x.elems) map Tuple
-        case x : Function   => directCasts(x.ret) map { Function(x.args, _)}
-    }
+    def directCasts(e : Base) : Stream[Base] =
+        if (e == Any_)
+            Stream.empty
+        else
+            Any_ #:: (e match {
+                case x : Alias      => Stream(x.target)
+                case x : Interface  => x.bases.toStream
+                case x if x == Unit => Stream.empty
+                case x : Tuple      => directCasts(x.elems) map Tuple
+                case x : Function   => directCasts(x.ret) map { Function(x.args, _)}
+            })
 
 
 

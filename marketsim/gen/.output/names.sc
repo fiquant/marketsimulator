@@ -1551,6 +1551,13 @@ package  {
     def null() : () => Float
         
     
+    @python.intrinsic("timeserie._ToRecord_Impl")
+    def TimeSerie(source = const(0.0) : IObservable[Any],
+                  graph = veusz.Graph(),
+                  _digitsToShow = 4,
+                  _smooth = false()) : ITimeSerie
+        
+    
     @python.intrinsic.function("_constant._Constant_Impl")
     @label = "C=%(x)s"
     def const(x = 1.0) : IObservable[Float]
@@ -1615,6 +1622,10 @@ type List[T]
 type IDifferentiable : IFunction[Float]
 
 type VolumeLevels
+
+type ITimeSerie
+
+type Any
 
 type IOrderGenerator = IObservable[Order]
 

@@ -1,5 +1,6 @@
 type Optional[T]
 type List[T]
+type Any
 
 type Side
 type String
@@ -34,4 +35,5 @@ type ISingleAssetStrategy
 type IMultiAssetStrategy
 
 type IGraph
+type ITimeSerie
 

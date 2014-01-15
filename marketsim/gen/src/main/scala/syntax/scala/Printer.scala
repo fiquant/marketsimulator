@@ -338,6 +338,10 @@ package object Printer
             def toScala = "Nothing"
         }
 
+        trait Any_ {
+            def toScala = "Any"
+        }
+
         trait Optional extends Printable {
             def x : Any
 

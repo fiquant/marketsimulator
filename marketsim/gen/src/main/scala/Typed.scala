@@ -124,7 +124,7 @@ package object Typed
             with    py.Cast
     {
         if (x.ty cannotCastTo ty)
-            throw new Exception(s"Expression $x cannot be casted to $ty")
+            throw new Exception(s"Expression $x of type ${x.ty} cannot be casted to $ty")
     }
 
     case class List_(xs : List[Expr])

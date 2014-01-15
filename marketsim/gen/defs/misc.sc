@@ -98,6 +98,12 @@ package {
     @python.intrinsic("observable.derivative._Derivative_Impl")
     @label = "\\frac{d%(x)s}{dt}"
     def Derivative(x = EWMA() : IDifferentiable) => Float
+
+    @python.intrinsic("timeserie._ToRecord_Impl")
+    def TimeSerie(source        = const(0.) : IObservable[Any],
+                  graph         = veusz.Graph(),
+                  _digitsToShow = 4,
+                  _smooth       = false()) : ITimeSerie
 }
 
 @category = "Side"
