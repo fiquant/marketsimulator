@@ -101,7 +101,7 @@ class Context(object):
                      observable.PnL(thisTrader)          : self.balance_graph 
                    }
         
-        t = trader.SingleAsset(book, strategy, label = label, timeseries = trader_ts())
+        t = trader.SingleAsset(book, strategy, name = label, timeseries = trader_ts())
                     
         for (ts, graph) in additional_ts:
             t.addTimeSerie(ts, graph)
@@ -110,7 +110,7 @@ class Context(object):
     
     def makeMultiAssetTrader(self, books, aStrategy, label, additional_ts = []):
         traders = [self.makeTrader(b, strategy.Empty(), label + "_" + b.label) for b in books]
-        t = trader.MultiAsset(traders, aStrategy, label = label)
+        t = trader.MultiAsset(traders, aStrategy, name = label)
                     
         for (ts, graph) in additional_ts:
             t.addTimeSerie(ts, graph)
@@ -123,7 +123,7 @@ class Context(object):
             return { observable.Efficiency(thisTrader)   : self.minors_eff_graph, 
                      observable.VolumeTraded(thisTrader) : self.minors_amount_graph    }
         
-        return trader.SingleAsset(self.book_A, strategy, label = label, timeseries = trader_ts())
+        return trader.SingleAsset(self.book_A, strategy, name = label, timeseries = trader_ts())
         
     def makeTrader_A(self, strategy, label, additional_ts = []):
         return self.makeTrader(self.book_A, strategy, label, additional_ts)

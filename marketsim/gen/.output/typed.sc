@@ -1275,6 +1275,21 @@ package strategy {
         	 = .strategy.Generic(orderFactory(.observable.volumefunc.Bollinger_linear(alpha,k)))
 }
 
+@category = "Trader"
+package trader {
+    /** A trader that trades a single asset on a single market
+     */
+    @label = "%(name)s"
+    @python.intrinsic("trader.classes._SingleAsset_Impl")
+    def SingleAsset(/** order book for the asset being traded */ orderBook : .IOrderBook,
+                    /** strategy run by the trader */ strategy : Optional[.ISingleAssetStrategy] = .strategy.Noise(),
+                    name : Optional[.String] = "-trader-",
+                    /** current position of the trader (number of assets that it owns) */ amount : Optional[.Float] = 0.0,
+                    /** current trader balance (number of money units that it owns) */ PnL : Optional[.Float] = 0.0,
+                    timeseries : Optional[List[.ITimeSerie]] = [] : List[.ITimeSerie]) : .ISingleAssetTrader
+        
+}
+
 @category = "Basic"
 package observable {@category = "Price function"
     package pricefunc {

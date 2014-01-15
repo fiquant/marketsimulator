@@ -71,7 +71,11 @@ package object base {
         def alias       : String
         def category    = f.getAttribute("category")
         def parameters  : List[Parameter]
-        def registration = s"""@registry.expose(["$category", "$alias"])""" ||| ImportFrom("registry", "marketsim")
+        def registration =
+            if (parameters exists { _.p.initializer.isEmpty })
+                ""
+            else
+                s"""@registry.expose(["$category", "$alias"])""" ||| ImportFrom("registry", "marketsim")
 
         def join_fields(p           : Parameter => Code,
                         sep         : Code = ", ",

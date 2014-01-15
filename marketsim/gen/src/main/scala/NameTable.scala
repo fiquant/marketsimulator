@@ -64,19 +64,20 @@ package object NameTable {
             }
         }
 
-        def add(p : AST.PackageDef) {
-            def populate(src: Scope, child: Scope) = {
-                if (members contains child.name)
-                    throw new Exception(s"Duplicate definition for ${child.name}:\r\n" + members(child.name) + "\r\n" + child)
-                if (!(packages contains child.name)) {
-                    src.packages = src.packages updated(child.name, child)
-                    child.parent = Some(src)
-                }
-                src.packages(child.name)
+        private def populate(child: Scope) = {
+            if (members contains child.name)
+                throw new Exception(s"Duplicate definition for ${child.name}:\r\n" + members(child.name) + "\r\n" + child)
+            if (!(packages contains child.name)) {
+                packages = packages updated(child.name, child)
+                child.parent = Some(this)
             }
+            packages(child.name)
+        }
+
+        def add(p : AST.PackageDef) {
             val target = p.name match {
                 case Some(qn) =>
-                    (qn.names map (new Scope(_))).foldLeft(this) { populate }
+                    (qn.names map (new Scope(_))).foldLeft(this) { _.populate(_) }
                 case None =>
                     val fresh = new Scope("$" + anonymous.length)
                     anonymous = fresh :: anonymous
