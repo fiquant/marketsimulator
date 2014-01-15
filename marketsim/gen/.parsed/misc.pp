@@ -157,6 +157,15 @@ package trader {
                     /** current trader balance (number of money units that it owns) */ PnL = 0.0,
                     timeseries = [] : List[ITimeSerie]) : ISingleAssetTrader
         
+    
+    @python.intrinsic("trader.classes._MultiAsset_Impl")
+    @label = "%(name)s"
+    def MultiAsset(traders = [] : List[ISingleAssetTrader],
+                   /** strategy run by the trader */ strategy = strategy.Arbitrage(),
+                   name = "-trader-",
+                   /** current trader balance (number of money units that it owns) */ PnL = 0.0,
+                   timeseries = [] : List[ITimeSerie]) : ITrader
+        
 }
 @category = "Side"
 

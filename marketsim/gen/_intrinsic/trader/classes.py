@@ -123,3 +123,45 @@ class _SingleAsset_Impl(_Base_Impl, types.ISingleAssetTrader):
 
     def send(self, order, unused = None):
         _Base_Impl.send(self, self.orderBook, order)
+
+class _MultiAsset_Impl(_Base_Impl, types.ITrader):
+
+    def __init__(self):
+        _Base_Impl.__init__(self)
+        self._alias = [self.label]
+        for t in self._traders:
+            t.on_traded += self.on_traded.fire
+
+    @property
+    def traders(self):
+        return self._traders
+
+    @traders.setter
+    def traders(self, newTraders):
+        if hasattr(self, "_traders"):
+            for t in self._traders:
+                t.on_traded -= self.on_traded.fire
+        self._traders = newTraders
+        if hasattr(self, "on_traded"):
+            for t in self._traders:
+                t.on_traded += self.on_traded.fire
+
+    def dispose(self):
+        for t in self._traders:
+            t.on_traded -= self.on_traded.fire
+
+    @property
+    def orderBooks(self):
+        return [t.orderBook for t in self._traders]
+
+    @property
+    def _digitsToShow(self):
+        return max([t._digitsToShow for t in self._traders])
+
+    @property
+    def PnL(self):
+        return sum([t.PnL for t in self._traders])
+
+    @PnL.setter
+    def PnL(self, value):
+        assert value == self.PnL, 'cannot change balance of a multi asset trader'

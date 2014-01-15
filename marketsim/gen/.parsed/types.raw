@@ -130,6 +130,11 @@ Definitions:
 | | | | | | | - Order
 | | | | | - List:
 | - Interface:
+| | - ITrader
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
 | | - IAccount
 | | - Generics:
 | | | - List:
@@ -143,6 +148,11 @@ Definitions:
 | | | | - QualifiedName:
 | | | | | - List:
 | | | | | | - IAccount
+| | | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - ITrader
 | | | | - List:
 | - Interface:
 | | - IDifferentiable

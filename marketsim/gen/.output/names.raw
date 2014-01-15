@@ -10171,6 +10171,92 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - %(name)s
+| | | | - FunDef:
+| | | | | - MultiAsset
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - traders
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - List_:
+| | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - List
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ISingleAssetTrader
+| | | | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - strategy
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - strategy
+| | | | | | | | | | | - Arbitrage
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  strategy run by the trader 
+| | | | | | - Parameter:
+| | | | | | | - name
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - StringLit:
+| | | | | | | | | - -trader-
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - PnL
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.0
+| | | | | | | - List:
+| | | | | | | | -  current trader balance (number of money units that it owns) 
+| | | | | | - Parameter:
+| | | | | | | - timeseries
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - List_:
+| | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - List
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ITimeSerie
+| | | | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ITrader
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - trader.classes._MultiAsset_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - %(name)s
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -15032,6 +15118,11 @@ Definitions:
 | | | | - category
 | | | | - Basic
 | - Interface:
+| | - ITrader
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
 | | - IGraph
 | | - Generics:
 | | | - List:
@@ -15164,6 +15255,11 @@ Definitions:
 | | | | - QualifiedName:
 | | | | | - List:
 | | | | | | - IAccount
+| | | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - ITrader
 | | | | - List:
 | - Interface:
 | | - Order

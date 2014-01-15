@@ -1104,6 +1104,15 @@ package trader {
                     /** current trader balance (number of money units that it owns) */ PnL = 0.0,
                     timeseries = [] : List[ITimeSerie]) : ISingleAssetTrader
         
+    
+    @python.intrinsic("trader.classes._MultiAsset_Impl")
+    @label = "%(name)s"
+    def MultiAsset(traders = [] : List[ISingleAssetTrader],
+                   /** strategy run by the trader */ strategy = strategy.Arbitrage(),
+                   name = "-trader-",
+                   /** current trader balance (number of money units that it owns) */ PnL = 0.0,
+                   timeseries = [] : List[ITimeSerie]) : ITrader
+        
 }
 @category = "Basic"
 
@@ -1633,6 +1642,8 @@ package  {
         
 }
 
+type ITrader
+
 type IGraph
 
 type CandleStick
@@ -1667,7 +1678,7 @@ type IFunction[T] = () => T
 
 type ISingleAssetStrategy
 
-type ISingleAssetTrader : IAccount
+type ISingleAssetTrader : IAccount, ITrader
 
 type Order
 

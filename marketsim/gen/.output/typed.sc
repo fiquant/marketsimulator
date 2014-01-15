@@ -1288,6 +1288,15 @@ package trader {
                     /** current trader balance (number of money units that it owns) */ PnL : Optional[.Float] = 0.0,
                     timeseries : Optional[List[.ITimeSerie]] = [] : List[.ITimeSerie]) : .ISingleAssetTrader
         
+    
+    @label = "%(name)s"
+    @python.intrinsic("trader.classes._MultiAsset_Impl")
+    def MultiAsset(traders : Optional[List[.ISingleAssetTrader]] = [] : List[.ISingleAssetTrader],
+                   /** strategy run by the trader */ strategy : Optional[.IMultiAssetStrategy] = .strategy.Arbitrage(),
+                   name : Optional[.String] = "-trader-",
+                   /** current trader balance (number of money units that it owns) */ PnL : Optional[.Float] = 0.0,
+                   timeseries : Optional[List[.ITimeSerie]] = [] : List[.ITimeSerie]) : .ITrader
+        
 }
 
 @category = "Basic"
@@ -1908,6 +1917,7 @@ package  {
         
     def EWMA = .observable.EW.Avg
 }
+type ITrader
 type IGraph
 type CandleStick
 type Volume : Int
@@ -1925,7 +1935,7 @@ type IMultiAssetStrategy
 type IObservable[U] : IFunction[U], IEvent
 type IFunction[T] = () => T
 type ISingleAssetStrategy
-type ISingleAssetTrader : IAccount
+type ISingleAssetTrader : IAccount, ITrader
 type Order
 type List[T]
 type IDifferentiable : IFunction[Float]
