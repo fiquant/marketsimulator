@@ -13,6 +13,7 @@ from types import (IObservable, IFunction, ISingleAssetTrader,
                    ISingleAssetStrategy,
                    listOf,
                    IAccount,
+                   IGraph, ITimeSerie,
                    IVolumeLevels as VolumeLevels,
                    IOrder as Order)
 

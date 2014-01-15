@@ -14685,17 +14685,6 @@ Definitions:
 | | | | | | | | - IntLit:
 | | | | | | | | | - 4
 | | | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - _smooth
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - false
-| | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -14712,6 +14701,9 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - timeserie._ToRecord_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - %(source)s
 | | | | - FunDef:
 | | | | | - const
 | | | | | - List:

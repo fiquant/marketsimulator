@@ -100,10 +100,10 @@ package {
     def Derivative(x = EWMA() : IDifferentiable) => Float
 
     @python.intrinsic("timeserie._ToRecord_Impl")
+    @label = "%(source)s"
     def TimeSerie(source        = const(0.) : IObservable[Any],
                   graph         = veusz.Graph(),
-                  _digitsToShow = 4,
-                  _smooth       = false()) : ITimeSerie
+                  _digitsToShow = 4) : ITimeSerie
 }
 
 @category = "Side"

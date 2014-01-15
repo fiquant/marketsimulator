@@ -132,7 +132,11 @@ package object TypesBound
             Any_ #:: (e match {
                 case x : Alias      => Stream(x.target)
                 case x : Interface  => x.bases.toStream
-                case x if x == Unit => Stream.empty
+                case Unit           => Stream.empty
+                case Any_           => throw new Exception("cannot happen")
+                case List_(x)       => directCasts(x) map List_
+                case Nothing        => throw new Exception("don't know how to implement")
+                case Optional(x)    => directCasts(x) map Optional
                 case x : Tuple      => directCasts(x.elems) map Tuple
                 case x : Function   => directCasts(x.ret) map { Function(x.args, _)}
             })
