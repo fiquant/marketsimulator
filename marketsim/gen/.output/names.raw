@@ -7431,7 +7431,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - observable
 | | | | | | | | | | | | | | - trader
 | | | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | | | - List:
@@ -7614,7 +7613,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - observable
 | | | | | | | | | | | | | | - trader
 | | | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | | | - List:
@@ -10257,6 +10255,28 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - %(name)s
+| | | | - FunDef:
+| | | | | - SingleProxy
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetTrader
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - trader.proxy._Single_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - N/A
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -11358,11 +11378,17 @@ Definitions:
 | | | | | | | | | | - trader
 | | | | | | | | | | - None
 | | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - Cast:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - SingleProxy
-| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IAccount
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - Some:
@@ -11514,28 +11540,13 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | - FunDef:
+| | | | | | | - FunAlias:
 | | | | | | | | - SingleProxy
-| | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - ISingleAssetTrader
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | - List:
-| | | | | | | | | | | - trader.proxy._Single_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - N/A
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - trader
+| | | | | | | | | | - SingleProxy
 | | | | | | | - FunDef:
 | | | | | | | | - EfficiencyTrend
 | | | | | | | | - List:
@@ -11597,11 +11608,17 @@ Definitions:
 | | | | | | | | | | - trader
 | | | | | | | | | | - None
 | | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - Cast:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - SingleProxy
-| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IAccount
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - None

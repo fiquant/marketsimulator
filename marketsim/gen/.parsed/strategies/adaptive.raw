@@ -781,7 +781,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - observable
 | | | | | | | | | | | | | | - trader
 | | | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | | | - List:
@@ -832,7 +831,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - observable
 | | | | | | | | | | | | | | - trader
 | | | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | | | - List:

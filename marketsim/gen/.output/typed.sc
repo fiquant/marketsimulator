@@ -991,14 +991,14 @@ package strategy {
         
         
         @curried("trader")
-        def Efficiency(trader : .IAccount = .observable.trader.SingleProxy()) : .IFunction[.Float]
+        def Efficiency(trader : .IAccount = .trader.SingleProxy()) : .IFunction[.Float]
             
             	 = .observable.trader.Efficiency(trader)
         
         
         @python.intrinsic("strategy.weight._Score_Impl")
         @curried("trader")
-        def Score(trader : .IAccount = .observable.trader.SingleProxy()) : .IFunction[.Float]
+        def Score(trader : .IAccount = .trader.SingleProxy()) : .IFunction[.Float]
             
         
         
@@ -1009,14 +1009,14 @@ package strategy {
         
         
         @curried("trader")
-        def EfficiencyTrend(trader : .IAccount = .observable.trader.SingleProxy(),
+        def EfficiencyTrend(trader : .IAccount = .trader.SingleProxy(),
                             alpha : Optional[.Float] = 0.15) : .IFunction[.Float]
             
             	 = .Derivative(.observable.EW.Avg(.observable.trader.Efficiency(trader),alpha))
         
         
         @curried("trader")
-        def Unit(trader : .IAccount = .observable.trader.SingleProxy()) : .IFunction[.Float]
+        def Unit(trader : .IAccount = .trader.SingleProxy()) : .IFunction[.Float]
             
             	 = .constant(1.0)
         
@@ -1277,6 +1277,11 @@ package strategy {
 
 @category = "Trader"
 package trader {
+    @label = "N/A"
+    @python.intrinsic("trader.proxy._Single_Impl")
+    def SingleProxy() : .ISingleAssetTrader
+        
+    
     /** A trader that trades a single asset on a single market
      */
     @label = "%(name)s"
@@ -1418,46 +1423,42 @@ package observable {@category = "Price function"
     package trader {
         
         @python.intrinsic("trader.props.Balance_Impl")
-        def Balance(trader : Optional[.IAccount] = .observable.trader.SingleProxy() : .IAccount) : .IObservable[.Price]
+        def Balance(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Price]
             
         
         
-        def RoughPnL(trader : Optional[.ISingleAssetTrader] = .observable.trader.SingleProxy()) : .IObservable[.Float]
+        def RoughPnL(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Float]
             
             	 = .observable.Observable(.observable.trader.Balance(trader)+.observable.orderbook.NaiveCumulativePrice(.observable.orderbook.OfTrader(trader),.observable.trader.Position(trader)))
         
         
         @python.intrinsic("trader.props.Position_Impl")
-        def Position(trader : Optional[.IAccount] = .observable.trader.SingleProxy() : .IAccount) : .IObservable[.Volume]
+        def Position(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Volume]
             
         
         
-        def Efficiency(trader : Optional[.IAccount] = .observable.trader.SingleProxy() : .IAccount) : .IObservable[.Float]
+        def Efficiency(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Float]
             
             	 = .observable.Observable(.observable.trader.Balance(trader)+.observable.orderbook.CumulativePrice(.observable.orderbook.OfTrader(trader),.observable.trader.Position(trader)))
         
-        @label = "N/A"
-        @python.intrinsic("trader.proxy._Single_Impl")
-        def SingleProxy() : .ISingleAssetTrader
-            
         
-        
-        def EfficiencyTrend(trader : Optional[.IAccount] = .observable.trader.SingleProxy() : .IAccount,
+        def EfficiencyTrend(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount,
                             alpha : Optional[.Float] = 0.15) : () => .Float
             
             	 = .Derivative(.observable.EW.Avg(.observable.trader.Efficiency(trader),alpha))
         
         
         @python.intrinsic("trader.props.PendingVolume_Impl")
-        def PendingVolume(trader : Optional[.ISingleAssetTrader] = .observable.trader.SingleProxy()) : .IObservable[.Volume]
+        def PendingVolume(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Volume]
             
+        def SingleProxy = .trader.SingleProxy
     }
     
     @category = "Volume function"
     package volumefunc {
         
         def DesiredPosition(desiredPosition : Optional[.IObservable[.Float]] = .const(),
-                            trader : Optional[.ISingleAssetTrader] = .observable.trader.SingleProxy()) : .IObservable[.Volume]
+                            trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Volume]
             
             	 = .observable.ObservableVolume(desiredPosition-.observable.trader.Position(trader)-.observable.trader.PendingVolume(trader))
         
@@ -1465,14 +1466,14 @@ package observable {@category = "Price function"
         def RSI_linear(alpha : Optional[.Float] = 1.0/14.0,
                        k : Optional[.IObservable[.Float]] = .const(-0.04),
                        timeframe : Optional[.Float] = 1.0,
-                       trader : Optional[.ISingleAssetTrader] = .observable.trader.SingleProxy()) : .IObservable[.Volume]
+                       trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Volume]
             
             	 = .observable.volumefunc.DesiredPosition(.observable.OnEveryDt(1.0,.const(50.0)-.observable.RSI(.observable.orderbook.OfTrader(trader),timeframe,alpha))*k,trader)
         
         
         def Bollinger_linear(alpha : Optional[.Float] = 0.15,
                              k : Optional[.IObservable[.Float]] = .const(0.5),
-                             trader : Optional[.ISingleAssetTrader] = .observable.trader.SingleProxy()) : .IObservable[.Volume]
+                             trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Volume]
             
             	 = .observable.volumefunc.DesiredPosition(.observable.OnEveryDt(1.0,.observable.EW.RelStdDev(.observable.orderbook.MidPrice(.observable.orderbook.OfTrader(trader)),alpha))*k,trader)
     }
@@ -1564,7 +1565,7 @@ package observable {@category = "Price function"
         
         @label = "N/A"
         @python.intrinsic("orderbook.of_trader._OfTrader_Impl")
-        def OfTrader(Trader : Optional[.IAccount] = .observable.trader.SingleProxy() : .IAccount) : .IOrderBook
+        def OfTrader(Trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IOrderBook
             
         
         

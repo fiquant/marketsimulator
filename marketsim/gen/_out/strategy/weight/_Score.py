@@ -7,8 +7,8 @@ class Score(Function[float], _Score_Impl):
     """ 
     """ 
     def __init__(self, trader = None):
-        from marketsim.gen._out.observable.trader._SingleProxy import SingleProxy as _observable_trader_SingleProxy
-        self.trader = trader if trader is not None else _observable_trader_SingleProxy()
+        from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
+        self.trader = trader if trader is not None else _trader_SingleProxy()
         _Score_Impl.__init__(self)
     
     @property

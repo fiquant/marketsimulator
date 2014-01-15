@@ -10,11 +10,11 @@ class Efficiency(Observable[float]):
     def __init__(self, trader = None):
         from marketsim import float
         from marketsim.ops._all import Observable
-        from marketsim.gen._out.observable.trader._SingleProxy import SingleProxy as _observable_trader_SingleProxy
+        from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim import _
         from marketsim import event
         Observable[float].__init__(self)
-        self.trader = trader if trader is not None else _observable_trader_SingleProxy()
+        self.trader = trader if trader is not None else _trader_SingleProxy()
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     

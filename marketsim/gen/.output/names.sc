@@ -849,7 +849,7 @@ package strategy {
         def atanpow = _.f.f_AtanPow
         
         @curried("trader")
-        def Efficiency(trader : IAccount = observable.trader.SingleProxy()) : IFunction[Float]
+        def Efficiency(trader : IAccount = trader.SingleProxy()) : IFunction[Float]
              = observable.trader.Efficiency(trader)
         
         def efficiencyTrend = _.trader.trader_EfficiencyTrend
@@ -866,7 +866,7 @@ package strategy {
              = observable.Max(constant(0),f)+1
         
         @curried("trader")
-        def EfficiencyTrend(trader : IAccount = observable.trader.SingleProxy(),
+        def EfficiencyTrend(trader : IAccount = trader.SingleProxy(),
                             alpha = 0.15) : IFunction[Float]
              = Derivative(observable.EW.Avg(observable.trader.Efficiency(trader),alpha))
         
@@ -1098,6 +1098,11 @@ package trader {
                    /** current trader balance (number of money units that it owns) */ PnL = 0.0,
                    timeseries = [] : List[ITimeSerie]) : ITrader
         
+    
+    @python.intrinsic("trader.proxy._Single_Impl")
+    @label = "N/A"
+    def SingleProxy() : ISingleAssetTrader
+        
 }
 @category = "Basic"
 package observable {@category = "Price function"
@@ -1195,7 +1200,7 @@ package observable {@category = "Price function"
         def Balance(trader = SingleProxy() : IAccount) : IObservable[Price]
             
         
-        def RoughPnL(trader = SingleProxy())
+        def RoughPnL(trader = SingleProxy() : IAccount)
              = Observable(Balance(trader)+orderbook.NaiveCumulativePrice(orderbook.OfTrader(trader),Position(trader)))
         
         @python.intrinsic("trader.props.Position_Impl")
@@ -1205,17 +1210,14 @@ package observable {@category = "Price function"
         def Efficiency(trader = SingleProxy() : IAccount)
              = Observable(Balance(trader)+orderbook.CumulativePrice(orderbook.OfTrader(trader),Position(trader)))
         
-        @python.intrinsic("trader.proxy._Single_Impl")
-        @label = "N/A"
-        def SingleProxy() : ISingleAssetTrader
-            
+        def SingleProxy = .trader.SingleProxy
         
         def EfficiencyTrend(trader = SingleProxy() : IAccount,
                             alpha = 0.15)
              = Derivative(EW.Avg(Efficiency(trader),alpha))
         
         @python.intrinsic("trader.props.PendingVolume_Impl")
-        def PendingVolume(trader = SingleProxy()) : IObservable[Volume]
+        def PendingVolume(trader = SingleProxy() : IAccount) : IObservable[Volume]
             
     }
     @category = "Volume function"

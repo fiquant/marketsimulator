@@ -89,11 +89,11 @@ package strategy
             = constant(1.)
 
         @curried("trader")
-        def Efficiency(trader : IAccount = observable.trader.SingleProxy()) : IFunction[Float]
+        def Efficiency(trader : IAccount = trader.SingleProxy()) : IFunction[Float]
             = observable.trader.Efficiency(trader)
 
         @curried("trader")
-        def EfficiencyTrend(trader : IAccount = observable.trader.SingleProxy(), alpha = 0.15) : IFunction[Float]
+        def EfficiencyTrend(trader : IAccount = trader.SingleProxy(), alpha = 0.15) : IFunction[Float]
             = Derivative(observable.EW.Avg(observable.trader.Efficiency(trader), alpha))
 
         @python.intrinsic("strategy.weight._Identity_Impl")
