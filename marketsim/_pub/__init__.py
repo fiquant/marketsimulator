@@ -14,5 +14,7 @@ from marketsim.gen._out._Derivative import Derivative
 
 from marketsim.gen._out._IfDefined import IfDefined
 
+from marketsim.gen._out._volumeLevels import volumeLevels
+
 from marketsim.gen._out.observable.EW._Avg import Avg as EWMA
 

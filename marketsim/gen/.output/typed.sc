@@ -1884,6 +1884,13 @@ package  {
                   elsePart : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
         
         	 = if x<>.null() then x else elsePart
+    
+    @label = "%(source)s"
+    @python.intrinsic("timeserie._VolumeLevels_Impl")
+    def volumeLevels(source : Optional[.IObservable[Any]] = .const(0.0) : .IObservable[Any],
+                     graph : Optional[.IGraph] = .veusz.Graph(),
+                     _digitsToShow : Optional[.Int] = 4) : .ITimeSerie
+        
     def EWMA = .observable.EW.Avg
 }
 type IGraph

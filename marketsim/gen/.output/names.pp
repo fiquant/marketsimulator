@@ -1609,6 +1609,13 @@ package  {
     def IfDefined(x = constant(),
                   elsePart = constant())
          = if x<>null() then x else elsePart
+    
+    @python.intrinsic("timeserie._VolumeLevels_Impl")
+    @label = "%(source)s"
+    def volumeLevels(source = const(0.0) : IObservable[Any],
+                     graph = veusz.Graph(),
+                     _digitsToShow = 4) : ITimeSerie
+        
 }
 
 type IGraph

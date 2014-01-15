@@ -70,3 +70,13 @@ class _ToRecord_Impl(types.ITimeSerie):  # TODO: should the source be split into
     
     def drop(self): # later a more sophisticated protocol would be introduced
         self._data = []
+
+class _VolumeLevels_Impl(_ToRecord_Impl):
+
+    @property
+    def _volumes(self):
+        return self.source.dataSource.volumes
+
+    @property
+    def _isBuy(self):
+        return 1 if self.source.dataSource.queue.side == types.Side.Buy else 0

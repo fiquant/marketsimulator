@@ -135,6 +135,13 @@ package  {
                   graph = veusz.Graph(),
                   _digitsToShow = 4) : ITimeSerie
         
+    
+    @python.intrinsic("timeserie._VolumeLevels_Impl")
+    @label = "%(source)s"
+    def volumeLevels(source = const(0.0) : IObservable[Any],
+                     graph = veusz.Graph(),
+                     _digitsToShow = 4) : ITimeSerie
+        
 }
 @category = "Side"
 
