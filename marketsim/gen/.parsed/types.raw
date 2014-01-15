@@ -179,3 +179,8 @@ Definitions:
 | | - Generics:
 | | | - List:
 | | - List:
+| - Interface:
+| | - IGraph
+| | - Generics:
+| | | - List:
+| | - List:

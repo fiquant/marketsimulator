@@ -33,3 +33,5 @@ type Order
 type ISingleAssetStrategy
 type IMultiAssetStrategy
 
+type IGraph
+

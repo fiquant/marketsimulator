@@ -399,6 +399,43 @@ Definitions:
 | | - Some:
 | | | - QualifiedName:
 | | | | - List:
+| | | | | - veusz
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Graph
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - name
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - StringLit:
+| | | | | | | | | - graph
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IGraph
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - veusz._Graph_Impl
+| | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - N/A
+| - PackageDef:
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
 | | | | | - mathutils
 | | - Definitions:
 | | | - List:
@@ -14763,6 +14800,11 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
+| - Interface:
+| | - IGraph
+| | - Generics:
+| | | - List:
+| | - List:
 | - Interface:
 | | - CandleStick
 | | - Generics:

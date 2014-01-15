@@ -84,6 +84,14 @@ package event {
         
 }
 
+@category = "N/A"
+package veusz {
+    
+    @python.intrinsic("veusz._Graph_Impl")
+    def Graph(name : Optional[.String] = "graph") : .IGraph
+        
+}
+
 
 package mathutils {
     package rnd {
@@ -1871,6 +1879,7 @@ package  {
         	 = if x<>.null() then x else elsePart
     def EWMA = .observable.EW.Avg
 }
+type IGraph
 type CandleStick
 type Volume : Int
 type Optional[T]

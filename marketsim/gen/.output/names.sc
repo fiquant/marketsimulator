@@ -73,6 +73,12 @@ package event {
     def After(delay = constant(10.0)) : IEvent
         
 }
+@category = "N/A"
+package veusz {
+    @python.intrinsic("veusz._Graph_Impl")
+    def Graph(name = "graph") : IGraph
+        
+}
 
 package mathutils {
     package rnd {
@@ -1566,6 +1572,8 @@ package  {
                   elsePart = constant())
          = if x<>null() then x else elsePart
 }
+type IGraph
+
 type CandleStick
 
 type Volume : Int

@@ -123,4 +123,11 @@ package event
     def After(delay = constant(10.)) : IEvent
 }
 
+@category = "N/A"
+package veusz
+{
+    @python.intrinsic("veusz._Graph_Impl")
+    def Graph(name = "graph") : IGraph
+}
+
 
