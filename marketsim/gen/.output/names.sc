@@ -1522,6 +1522,16 @@ package observable {@category = "Price function"
     def ObservableVolume(x = const() : IFunction[Float]) : IObservable[Volume]
         
     
+    /** A discrete signal with user-defined increments.
+     */
+    @python.intrinsic("observable.randomwalk._RandomWalk_Impl")
+    @label = "%(name)s"
+    def RandomWalk(/** initial value of the signal */ initialValue = 0.0,
+                   /** increment function */ deltaDistr = mathutils.rnd.normalvariate(0.0,1.0),
+                   /** intervals between signal updates */ intervalDistr = mathutils.rnd.expovariate(1.0),
+                   name = "-random-") : IObservable[Float]
+        
+    
     @python.intrinsic("observable.on_every_dt._ObservableSide_Impl")
     @label = "[%(x)s]"
     def ObservableSide(x = side.Sell() : IFunction[Side]) : IObservable[Side]

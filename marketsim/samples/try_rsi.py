@@ -10,7 +10,7 @@ def RSI(ctx):
     const = ops.constant
     linear_signal = signal.RandomWalk(initialValue=20, 
                                       deltaDistr=const(-.1), 
-                                      label="20-0.1t")
+                                      name="20-0.1t")
     
     one = const(1)
     

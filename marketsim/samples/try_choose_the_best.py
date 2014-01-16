@@ -18,7 +18,7 @@ def ChooseTheBest(ctx):
 
     linear_signal = signal.RandomWalk(initialValue=200, 
                                       deltaDistr=const(-1), 
-                                      label="200-t")
+                                      name="200-t")
     
     demo = ctx.addGraph('demo')
     myVolume = lambda: [(observable.VolumeTraded(), demo)]

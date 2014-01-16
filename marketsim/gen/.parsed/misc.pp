@@ -63,6 +63,16 @@ package observable {
                      timeframe = 10.0) : IObservable[CandleStick]
         
     
+    /** A discrete signal with user-defined increments.
+     */
+    @python.intrinsic("observable.randomwalk._RandomWalk_Impl")
+    @label = "%(name)s"
+    def RandomWalk(/** initial value of the signal */ initialValue = 0.0,
+                   /** increment function */ deltaDistr = mathutils.rnd.normalvariate(0.0,1.0),
+                   /** intervals between signal updates */ intervalDistr = mathutils.rnd.expovariate(1.0),
+                   name = "-random-") : IObservable[Float]
+        
+    
     package Moving {
         @python.intrinsic("observable.minmax.Min_Impl")
         @label = "Min_{n=%(timeframe)s}(%(source)s)"

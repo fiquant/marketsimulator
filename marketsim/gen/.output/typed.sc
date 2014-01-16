@@ -1816,6 +1816,16 @@ package observable {@category = "Price function"
     def ObservableVolume(x : Optional[.IFunction[.Float]] = .const() : .IFunction[.Float]) : .IObservable[.Volume]
         
     
+    /** A discrete signal with user-defined increments.
+     */
+    @label = "%(name)s"
+    @python.intrinsic("observable.randomwalk._RandomWalk_Impl")
+    def RandomWalk(/** initial value of the signal */ initialValue : Optional[.Float] = 0.0,
+                   /** increment function */ deltaDistr : Optional[() => .Float] = .mathutils.rnd.normalvariate(0.0,1.0),
+                   /** intervals between signal updates */ intervalDistr : Optional[() => .Float] = .mathutils.rnd.expovariate(1.0),
+                   name : Optional[.String] = "-random-") : .IObservable[.Float]
+        
+    
     @label = "[%(x)s]"
     @python.intrinsic("observable.on_every_dt._ObservableSide_Impl")
     def ObservableSide(x : Optional[.IFunction[.Side]] = .side.Sell() : .IFunction[.Side]) : .IObservable[.Side]

@@ -18,6 +18,8 @@ from marketsim.gen._out.observable._RSI import RSI
 
 from marketsim.gen._out.observable._ObservableVolume import ObservableVolume
 
+from marketsim.gen._out.observable._RandomWalk import RandomWalk
+
 from marketsim.gen._out.observable._ObservableSide import ObservableSide
 
 from marketsim.gen._out.observable._Quote import Quote
