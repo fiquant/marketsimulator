@@ -3,6 +3,10 @@ from marketsim import Side
 class VolumeLevels_Impl(object):
 
     @property
+    def dataSource(self):
+        return self
+
+    @property
     def volumes(self):
         return [self.volumeDelta * i for i in range(self.volumeCount)]
 

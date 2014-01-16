@@ -220,22 +220,22 @@ def orderBooksToRender(ctx, traders):
             )
 
         for b in books:
-            b.volumes_graph = ctx.addGraph("Volume levels " + b.label)
             thisBook = orderbook.Proxy()
             ts = orderbook_ts()
+            b.volumes_graph = ctx.addGraph("Volume levels " + b.label)
             ts.append(timeserie.VolumeLevels(
-                           observable.VolumeLevels(1, 
-                                                   thisBook, 
-                                                   Side.Sell, 
-                                                   30, 
-                                                   10), 
+                           observable.VolumeLevels(1,
+                                                   thisBook,
+                                                   Side.Sell,
+                                                   30,
+                                                   10),
                            b.volumes_graph))
             ts.append(timeserie.VolumeLevels(
-                           observable.VolumeLevels(1, 
-                                                   thisBook, 
-                                                   Side.Buy, 
-                                                   30, 
-                                                   10), 
+                           observable.VolumeLevels(1,
+                                                   thisBook,
+                                                   Side.Buy,
+                                                   30,
+                                                   10),
                            b.volumes_graph))
             b.timeseries = ts
              

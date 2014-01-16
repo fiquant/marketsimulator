@@ -47,9 +47,10 @@ class _ToRecord_Impl(types.ITimeSerie):  # TODO: should the source be split into
                         target.append((x, None))
                 
         x = self.source()
-        appendex(self._data, (self._sched.currentTime, x))
-        # we should also filter out constant segmemnts
-        appendex(self._changes, (self._sched.currentTime, x))
+        if hasattr(self, "_sched"):
+            appendex(self._data, (self._sched.currentTime, x))
+            # we should also filter out constant segmemnts
+            appendex(self._changes, (self._sched.currentTime, x))
                 
     def reset(self):
         self._data = []
@@ -77,7 +78,13 @@ class _VolumeLevels_Impl(_ToRecord_Impl):
     def _volumes(self):
         return self.source.dataSource.volumes
 
+    @_volumes.setter
+    def _volumes(self, s): pass
+
     @property
     def _isBuy(self):
         return 1 if self.source.dataSource.queue.side == types.Side.Buy else 0
+
+    @_isBuy.setter
+    def _isBuy(self, o): pass
 

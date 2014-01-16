@@ -150,9 +150,12 @@ package  {
     
     @python.intrinsic("timeserie._VolumeLevels_Impl")
     @label = "%(source)s"
-    def volumeLevels(source = const(0.0) : IObservable[Any],
+    def volumeLevels(source : IFunction[VolumeLevels],
                      graph = veusz.Graph(),
-                     _digitsToShow = 4) : ITimeSerie
+                     _digitsToShow = 4,
+                     _smooth = 1,
+                     _volumes = [30.0],
+                     _isBuy = 1) : ITimeSerie
         
 }
 @category = "Side"

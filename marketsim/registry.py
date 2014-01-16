@@ -566,7 +566,6 @@ def expose(alias, constructor=None, args = None):
                 except Exception, err:
                     print "Exposing ", f, "failed: ", err
 
-                print "Exposing ", f, " with : ", alias
                 obj._alias = alias
                 instance.insert(obj)
             startup.append(inner)

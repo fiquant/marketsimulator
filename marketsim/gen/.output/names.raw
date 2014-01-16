@@ -10472,7 +10472,7 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 0.001
+| | | | | | | | | | | | - 0.0010
 | | | | | | | - List:
 | | | | | | | | -  function called for each packet in order to determine
 | | | | | | | | -  when it will appear at the end point
@@ -15428,27 +15428,18 @@ Definitions:
 | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - source
-| | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Cast:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - const
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | - 0.0
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable
-| | | | | | | | | | - List:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Any
+| | | | | | | | | | | - IFunction
+| | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - VolumeLevels
+| | | | | | | | | | | - List:
+| | | | | | | - None
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - graph
@@ -15468,6 +15459,29 @@ Definitions:
 | | | | | | | - Some:
 | | | | | | | | - IntLit:
 | | | | | | | | | - 4
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - _smooth
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - IntLit:
+| | | | | | | | | - 1
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - _volumes
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - List_:
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 30.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - _isBuy
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - IntLit:
+| | | | | | | | | - 1
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:

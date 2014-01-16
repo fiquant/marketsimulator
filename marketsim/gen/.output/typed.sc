@@ -1329,7 +1329,7 @@ package orderbook {
     
     @python.intrinsic("orderbook.link._Link_Impl")
     def Link(/** function called for each packet in order to determine
-               * when it will appear at the end point*/ latency : Optional[.IObservable[.Float]] = .const(0.001)) : .ILink
+               * when it will appear at the end point*/ latency : Optional[.IObservable[.Float]] = .const(0.0010)) : .ILink
         
     
     /** Represents latency in information propagation between two agents
@@ -1973,9 +1973,12 @@ package  {
     
     @label = "%(source)s"
     @python.intrinsic("timeserie._VolumeLevels_Impl")
-    def volumeLevels(source : Optional[.IObservable[Any]] = .const(0.0) : .IObservable[Any],
+    def volumeLevels(source : .IFunction[.VolumeLevels],
                      graph : Optional[.IGraph] = .veusz.Graph(),
-                     _digitsToShow : Optional[.Int] = 4) : .ITimeSerie
+                     _digitsToShow : Optional[.Int] = 4,
+                     _smooth : Optional[.Int] = 1,
+                     _volumes : Optional[List[.Float]] = [30.0],
+                     _isBuy : Optional[.Int] = 1) : .ITimeSerie
         
     def EWMA = .observable.EW.Avg
 }

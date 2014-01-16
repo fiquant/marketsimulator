@@ -1153,7 +1153,7 @@ package orderbook {
      */
     @python.intrinsic("orderbook.link._Link_Impl")
     def Link(/** function called for each packet in order to determine
-               * when it will appear at the end point*/ latency = const(0.001)) : ILink
+               * when it will appear at the end point*/ latency = const(0.0010)) : ILink
         
     
     /** Represents latency in information propagation between two agents
@@ -1697,9 +1697,12 @@ package  {
     
     @python.intrinsic("timeserie._VolumeLevels_Impl")
     @label = "%(source)s"
-    def volumeLevels(source = const(0.0) : IObservable[Any],
+    def volumeLevels(source : IFunction[VolumeLevels],
                      graph = veusz.Graph(),
-                     _digitsToShow = 4) : ITimeSerie
+                     _digitsToShow = 4,
+                     _smooth = 1,
+                     _volumes = [30.0],
+                     _isBuy = 1) : ITimeSerie
         
 }
 

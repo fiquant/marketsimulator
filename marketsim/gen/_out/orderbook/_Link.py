@@ -8,7 +8,7 @@ class Link(_Link_Impl):
     """ 
     def __init__(self, latency = None):
         from marketsim.gen._out._const import const as _const
-        self.latency = latency if latency is not None else _const(0.001)
+        self.latency = latency if latency is not None else _const(0.0010)
         _Link_Impl.__init__(self)
     
     @property

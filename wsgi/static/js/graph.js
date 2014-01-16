@@ -89,9 +89,9 @@ function TimeSerie(source, initialData) {
 			'volumes' : ts.volumes ? ts.volumes() : undefined,
 			'step' : !smooth,
 			'type' : type,
-			'digits':  ts.lookupField('_digits').impl().serialized(),
+			'digits':  ts.lookupField('_digitsToShow').impl().serialized(),
 			'tooltip' : {
-				'valueDecimals': ts.lookupField('_digits').impl().serialized()
+				'valueDecimals': ts.lookupField('_digitsToShow').impl().serialized()
 			}
 		}] : [];
 	}
@@ -132,7 +132,7 @@ function makeVolumeLevels(source, initialData) {
 					'color' : c,
 					'type' : 'areasplinerange', 
 					'tooltip' : {
-						'valueDecimals': ts.lookupField('_digits').impl().serialized()
+						'valueDecimals': ts.lookupField('_digitsToShow').impl().serialized()
 					}
 				});
 			}
