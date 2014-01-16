@@ -1114,7 +1114,7 @@ package strategy {
                           /** defines multipliers for current asset price when price of
                             *                    order to create is calculated*/ priceDistr : Optional[() => .Float] = .mathutils.rnd.lognormvariate(0.0,0.1)) : .ISingleAssetStrategy
         
-        	 = .strategy.Combine(.strategy.LiquidityProviderSide(eventGen,orderFactory,.side.Sell(),initialValue,priceDistr),.strategy.LiquidityProviderSide(eventGen,orderFactory,.side.Buy(),initialValue,priceDistr))
+        	 = .strategy.Array([.strategy.LiquidityProviderSide(eventGen,orderFactory,.side.Sell(),initialValue,priceDistr),.strategy.LiquidityProviderSide(eventGen,orderFactory,.side.Buy(),initialValue,priceDistr)])
     
     /** Two averages strategy compares two averages of price of the same asset but
      * with different parameters ('slow' and 'fast' averages) and when
@@ -1182,6 +1182,11 @@ package strategy {
                           performance : Optional[.IAccount => .IFunction[.Float]] = .strategy.weight._.trader.trader_EfficiencyTrend()) : .ISingleAssetStrategy
         
         	 = .strategy.Suspendable(inner,performance(account(inner))>=0)
+    
+    
+    @python.intrinsic("strategy.combine._Array_Impl")
+    def Array(strategies : Optional[List[.ISingleAssetStrategy]] = [] : List[.ISingleAssetStrategy]) : .ISingleAssetStrategy
+        
     
     /** Mean reversion strategy believes that asset price should return to its average value.
      * It estimates this average using some functional and

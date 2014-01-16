@@ -39,10 +39,10 @@ package strategy
                     order to create is calculated*/
                 priceDistr   = mathutils.rnd.lognormvariate(0., .1))
 
-        =   Combine(
+        =   Array([
                 LiquidityProviderSide(eventGen, orderFactory, side.Sell(), initialValue, priceDistr),
                 LiquidityProviderSide(eventGen, orderFactory, side.Buy(), initialValue, priceDistr)
-            )
+            ])
 
     /**
      *  A Strategy that allows to drive the asset price based on historical market data

@@ -14,6 +14,10 @@ package strategy {
                 B = Noise()) : ISingleAssetStrategy
         
     
+    @python.intrinsic("strategy.combine._Array_Impl")
+    def Array(strategies = [] : List[ISingleAssetStrategy]) : ISingleAssetStrategy
+        
+    
     @python.intrinsic("strategy.canceller._Canceller_Impl")
     def Canceller(cancellationIntervalDistr = mathutils.rnd.expovariate(1.0)) : ISingleAssetStrategy
         

@@ -7,7 +7,7 @@ from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
 from marketsim import IFunction
-from marketsim.gen._out.strategy._Combine import Combine as _strategy_Combine
+from marketsim.gen._out.strategy._Array import Array as _strategy_Array
 from marketsim.gen._out.strategy._LiquidityProviderSide import LiquidityProviderSide as _strategy_LiquidityProviderSide
 from marketsim.gen._out.side._Sell import Sell as _side_Sell
 from marketsim.gen._out.strategy._LiquidityProviderSide import LiquidityProviderSide as _strategy_LiquidityProviderSide
@@ -52,7 +52,7 @@ class LiquidityProvider(ISingleAssetStrategy):
     
     _internals = ['impl']
     def getImpl(self):
-        return _strategy_Combine(_strategy_LiquidityProviderSide(self.eventGen,self.orderFactory,_side_Sell(),self.initialValue,self.priceDistr),_strategy_LiquidityProviderSide(self.eventGen,self.orderFactory,_side_Buy(),self.initialValue,self.priceDistr))
+        return _strategy_Array([_strategy_LiquidityProviderSide(self.eventGen,self.orderFactory,_side_Sell(),self.initialValue,self.priceDistr),_strategy_LiquidityProviderSide(self.eventGen,self.orderFactory,_side_Buy(),self.initialValue,self.priceDistr)])
     
     
     

@@ -198,51 +198,53 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - Combine
+| | | | | | | | | - Array
 | | | | | | | - List:
 | | | | | | | | - List:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - LiquidityProviderSide
+| | | | | | | | | - List_:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - eventGen
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - orderFactory
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - side
-| | | | | | | | | | | | | | | - Sell
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - initialValue
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - priceDistr
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - LiquidityProviderSide
-| | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - eventGen
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - orderFactory
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - side
-| | | | | | | | | | | | | | | - Buy
+| | | | | | | | | | | | | | - LiquidityProviderSide
+| | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - initialValue
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - priceDistr
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - eventGen
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - orderFactory
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | | | | - Sell
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - initialValue
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - priceDistr
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - LiquidityProviderSide
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - eventGen
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - orderFactory
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | | | | - Buy
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - initialValue
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - priceDistr
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:

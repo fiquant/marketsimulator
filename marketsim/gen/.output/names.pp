@@ -957,7 +957,7 @@ package strategy {
                           /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
                           /** defines multipliers for current asset price when price of
                             *                    order to create is calculated*/ priceDistr = mathutils.rnd.lognormvariate(0.0,0.1))
-         = Combine(LiquidityProviderSide(eventGen,orderFactory,side.Sell(),initialValue,priceDistr),LiquidityProviderSide(eventGen,orderFactory,side.Buy(),initialValue,priceDistr))
+         = Array([LiquidityProviderSide(eventGen,orderFactory,side.Sell(),initialValue,priceDistr),LiquidityProviderSide(eventGen,orderFactory,side.Buy(),initialValue,priceDistr)])
     
     /** Two averages strategy compares two averages of price of the same asset but
      * with different parameters ('slow' and 'fast' averages) and when
@@ -1013,6 +1013,10 @@ package strategy {
                           account = account._.inner.inner_VirtualMarket(),
                           performance = weight._.trader.trader_EfficiencyTrend())
          = Suspendable(inner,performance(account(inner))>=0)
+    
+    @python.intrinsic("strategy.combine._Array_Impl")
+    def Array(strategies = [] : List[ISingleAssetStrategy]) : ISingleAssetStrategy
+        
     
     /** Mean reversion strategy believes that asset price should return to its average value.
      * It estimates this average using some functional and

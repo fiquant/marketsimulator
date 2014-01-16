@@ -17,7 +17,7 @@ package strategy {
                           /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
                           /** defines multipliers for current asset price when price of
                             *                    order to create is calculated*/ priceDistr = mathutils.rnd.lognormvariate(0.0,0.1))
-         = Combine(LiquidityProviderSide(eventGen,orderFactory,side.Sell(),initialValue,priceDistr),LiquidityProviderSide(eventGen,orderFactory,side.Buy(),initialValue,priceDistr))
+         = Array([LiquidityProviderSide(eventGen,orderFactory,side.Sell(),initialValue,priceDistr),LiquidityProviderSide(eventGen,orderFactory,side.Buy(),initialValue,priceDistr)])
     
     /** A Strategy that allows to drive the asset price based on historical market data
      *  by creating large volume orders for the given price.

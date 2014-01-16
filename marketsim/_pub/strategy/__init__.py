@@ -24,6 +24,8 @@ from marketsim.gen._out.strategy._RSIbis import RSIbis
 
 from marketsim.gen._out.strategy._TradeIfProfitable import TradeIfProfitable
 
+from marketsim.gen._out.strategy._Array import Array
+
 from marketsim.gen._out.strategy._MeanReversion import MeanReversion
 
 from marketsim.gen._out.strategy._MultiArmedBandit import MultiArmedBandit
