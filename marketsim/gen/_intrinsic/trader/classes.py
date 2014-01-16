@@ -37,10 +37,10 @@ class _Base_Impl(_Holder_Impl):
         self._ctx = ctx.context.copy()
 
     def reset(self):
-        self._PnL = 0
+        self.PnL = 0
 
     def _charge(self, price):
-        self._PnL -= price
+        self.PnL -= price
 
     def onOrderMatched(self, order, price, volume):
         """ Called when a trader's 'order' is traded against 'other' order
@@ -99,7 +99,7 @@ class _SingleAsset_Impl(_Base_Impl, types.ISingleAssetTrader):
         self._alias = [self.label]
 
     def reset(self):
-        self._amount = 0
+        self.amount = 0
 
     _internals = ['orderBook'] # hack in order to make it processed first
 
@@ -109,7 +109,7 @@ class _SingleAsset_Impl(_Base_Impl, types.ISingleAssetTrader):
         Trader's amount and P&L is updated and listeners are notified about the trade
         """
         dVolume = volume if order.side == Side.Buy else -volume
-        self._amount += dVolume
+        self.amount += dVolume
         _Base_Impl.onOrderMatched(self, order, price, volume)
 
 

@@ -1104,6 +1104,19 @@ package trader {
     def SingleProxy() : ISingleAssetTrader
         
 }
+@category = "Asset"
+package orderbook {
+    /** Order book for a single asset in a market.
+     * Maintains two order queues for orders of different sides
+     */
+    @python.intrinsic("orderbook.local._Local_Impl")
+    @label = "%(name)s"
+    def Local(tickSize = 0.01,
+              _digitsToShow = 2,
+              name = "-orderbook-",
+              timeseries = [] : List[ITimeSerie]) : IOrderBook
+        
+}
 @category = "Basic"
 package observable {@category = "Price function"
     package pricefunc {
@@ -1268,7 +1281,7 @@ package observable {@category = "Price function"
         def MidPrice(book = OfTrader())
              = ObservablePrice((AskPrice(book)+BidPrice(book))/2.0)
         
-        @python.intrinsic("orderbook.queue._Asks_Impl")
+        @python.intrinsic("orderbook.proxy._Asks_Impl")
         def Asks(book = OfTrader())
              = Queue(book,side.Sell())
         
@@ -1289,7 +1302,7 @@ package observable {@category = "Price function"
         def BidPrice(book = OfTrader())
              = BestPrice(Bids(book))
         
-        @python.intrinsic("orderbook.queue._Bids_Impl")
+        @python.intrinsic("orderbook.proxy._Bids_Impl")
         def Bids(book = OfTrader())
              = Queue(book,side.Buy())
         
@@ -1297,7 +1310,7 @@ package observable {@category = "Price function"
         def BestPrice(queue = Asks()) : IObservable[Price]
             
         
-        @python.intrinsic("orderbook.queue._Queue_Impl")
+        @python.intrinsic("orderbook.proxy._Queue_Impl")
         def Queue(book = OfTrader(),
                   side = side.Sell()) : IOrderQueue
             
@@ -1493,6 +1506,7 @@ package observable {@category = "Price function"
         
     
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
+    @label = "Candles_{%(source)s}"
     def CandleSticks(source = const(),
                      timeframe = 10.0) : IObservable[CandleStick]
         

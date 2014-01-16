@@ -58,6 +58,7 @@ package observable {
         
     
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
+    @label = "Candles_{%(source)s}"
     def CandleSticks(source = const(),
                      timeframe = 10.0) : IObservable[CandleStick]
         

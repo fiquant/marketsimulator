@@ -30,9 +30,9 @@ class Context(object):
     def __init__(self, world, graph_renderer):
         
         self.world = world 
-        self.book_A = orderbook.Local(tickSize=0.01, label="A")
-        self.book_B = orderbook.Local(tickSize=0.01, label="B")
-        self.book_C = orderbook.Local(tickSize=0.01, label="C")
+        self.book_A = orderbook.Local(tickSize=0.01, name="A")
+        self.book_B = orderbook.Local(tickSize=0.01, name="B")
+        self.book_C = orderbook.Local(tickSize=0.01, name="C")
 
         if config.showTiming:
             self.world.process(const(10), bind.Function(_print, '.'))

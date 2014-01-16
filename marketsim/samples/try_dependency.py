@@ -8,7 +8,7 @@ from common import expose
 @expose("Dependency", __name__)
 def Dependency(ctx):
 
-    liqVol = ops.constant(2)
+    liqVol = ops.constant(3)
     
     ctx.volumeStep = 70
 
@@ -37,7 +37,7 @@ def Dependency(ctx):
             strategy.Dependency(
                 event.Every(ops.constant(1.)),
                 order.factory.side.Market(),
-                ctx.book_A, 
+                ctx.book_A,
                 factor=.5),
             "B dependent on A ex"),
-    ]    
+    ]

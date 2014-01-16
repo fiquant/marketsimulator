@@ -1,3 +1,17 @@
+@category = "Asset"
+
+package orderbook {
+    /** Order book for a single asset in a market.
+     * Maintains two order queues for orders of different sides
+     */
+    @python.intrinsic("orderbook.local._Local_Impl")
+    @label = "%(name)s"
+    def Local(tickSize = 0.01,
+              _digitsToShow = 2,
+              name = "-orderbook-",
+              timeseries = [] : List[ITimeSerie]) : IOrderBook
+        
+}
 @category = "Asset's"
 
 package observable.orderbook {
@@ -6,16 +20,16 @@ package observable.orderbook {
     def OfTrader(Trader = trader.SingleProxy() : IAccount) : IOrderBook
         
     
-    @python.intrinsic("orderbook.queue._Queue_Impl")
+    @python.intrinsic("orderbook.proxy._Queue_Impl")
     def Queue(book = OfTrader(),
               side = side.Sell()) : IOrderQueue
         
     
-    @python.intrinsic("orderbook.queue._Asks_Impl")
+    @python.intrinsic("orderbook.proxy._Asks_Impl")
     def Asks(book = OfTrader())
          = Queue(book,side.Sell())
     
-    @python.intrinsic("orderbook.queue._Bids_Impl")
+    @python.intrinsic("orderbook.proxy._Bids_Impl")
     def Bids(book = OfTrader())
          = Queue(book,side.Buy())
     

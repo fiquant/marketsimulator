@@ -513,6 +513,9 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - observable.candlestick.CandleSticks_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Candles_{%(source)s}
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:

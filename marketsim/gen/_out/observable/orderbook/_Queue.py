@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._intrinsic.orderbook.queue import _Queue_Impl
+from marketsim.gen._intrinsic.orderbook.proxy import _Queue_Impl
 from marketsim import IOrderBook
 from marketsim import IFunction
 from marketsim import Side

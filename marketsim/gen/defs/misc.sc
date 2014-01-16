@@ -43,6 +43,7 @@ package observable
     def BreaksAtChanges(source = constant(1.)) : IObservable[Float]
 
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
+    @label = "Candles_{%(source)s}"
     def CandleSticks(source = const(), timeframe = 10.0) : IObservable[CandleStick]
 
     package Moving

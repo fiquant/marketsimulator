@@ -1304,6 +1304,20 @@ package trader {
         
 }
 
+@category = "Asset"
+package orderbook {
+    /** Order book for a single asset in a market.
+     * Maintains two order queues for orders of different sides
+     */
+    @label = "%(name)s"
+    @python.intrinsic("orderbook.local._Local_Impl")
+    def Local(tickSize : Optional[.Float] = 0.01,
+              _digitsToShow : Optional[.Int] = 2,
+              name : Optional[.String] = "-orderbook-",
+              timeseries : Optional[List[.ITimeSerie]] = [] : List[.ITimeSerie]) : .IOrderBook
+        
+}
+
 @category = "Basic"
 package observable {@category = "Price function"
     package pricefunc {
@@ -1520,7 +1534,7 @@ package observable {@category = "Price function"
             	 = .observable.ObservablePrice((.observable.orderbook.AskPrice(book)+.observable.orderbook.BidPrice(book))/.const(2.0))
         
         
-        @python.intrinsic("orderbook.queue._Asks_Impl")
+        @python.intrinsic("orderbook.proxy._Asks_Impl")
         def Asks(book : Optional[.IOrderBook] = .observable.orderbook.OfTrader()) : .IOrderQueue
             
             	 = .observable.orderbook.Queue(book,.side.Sell())
@@ -1547,7 +1561,7 @@ package observable {@category = "Price function"
             	 = .observable.orderbook.BestPrice(.observable.orderbook.Bids(book))
         
         
-        @python.intrinsic("orderbook.queue._Bids_Impl")
+        @python.intrinsic("orderbook.proxy._Bids_Impl")
         def Bids(book : Optional[.IOrderBook] = .observable.orderbook.OfTrader()) : .IOrderQueue
             
             	 = .observable.orderbook.Queue(book,.side.Buy())
@@ -1558,7 +1572,7 @@ package observable {@category = "Price function"
             
         
         
-        @python.intrinsic("orderbook.queue._Queue_Impl")
+        @python.intrinsic("orderbook.proxy._Queue_Impl")
         def Queue(book : Optional[.IOrderBook] = .observable.orderbook.OfTrader(),
                   side : Optional[() => .Side] = .side.Sell()) : .IOrderQueue
             
@@ -1783,7 +1797,7 @@ package observable {@category = "Price function"
               end : Optional[.String] = "2010-1-1") : .IObservable[.Price]
         
     
-    
+    @label = "Candles_{%(source)s}"
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
     def CandleSticks(source : Optional[.IObservable[.Float]] = .const(),
                      timeframe : Optional[.Float] = 10.0) : .IObservable[.CandleStick]

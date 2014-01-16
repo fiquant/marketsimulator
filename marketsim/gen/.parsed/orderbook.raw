@@ -4,6 +4,82 @@ Definitions:
 | | - Some:
 | | | - QualifiedName:
 | | | | - List:
+| | | | | - orderbook
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Local
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - tickSize
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.01
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - _digitsToShow
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - IntLit:
+| | | | | | | | | - 2
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - name
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - StringLit:
+| | | | | | | | | - -orderbook-
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - timeseries
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - List_:
+| | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - List
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ITimeSerie
+| | | | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IOrderBook
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Order book for a single asset in a market.
+| | | | | | | - List:
+| | | | | | | | -  Maintains two order queues for orders of different sides
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.local._Local_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - %(name)s
+| | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Asset
+| - PackageDef:
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
 | | | | | - observable
 | | | | | - orderbook
 | | - Definitions:
@@ -89,7 +165,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - orderbook.queue._Queue_Impl
+| | | | | | | | - orderbook.proxy._Queue_Impl
 | | | | - FunDef:
 | | | | | - Asks
 | | | | | - List:
@@ -129,7 +205,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - orderbook.queue._Asks_Impl
+| | | | | | | | - orderbook.proxy._Asks_Impl
 | | | | - FunDef:
 | | | | | - Bids
 | | | | | - List:
@@ -169,7 +245,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - orderbook.queue._Bids_Impl
+| | | | | | | | - orderbook.proxy._Bids_Impl
 | | | | - FunDef:
 | | | | | - BestPrice
 | | | | | - List:

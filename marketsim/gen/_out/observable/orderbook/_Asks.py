@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._intrinsic.orderbook.queue import _Asks_Impl
+from marketsim.gen._intrinsic.orderbook.proxy import _Asks_Impl
 from marketsim import IOrderBook
 @registry.expose(["Asset's", "Asks"])
 class Asks(_Asks_Impl):

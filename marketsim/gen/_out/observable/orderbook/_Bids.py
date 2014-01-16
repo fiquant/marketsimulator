@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._intrinsic.orderbook.queue import _Bids_Impl
+from marketsim.gen._intrinsic.orderbook.proxy import _Bids_Impl
 from marketsim import IOrderBook
 @registry.expose(["Asset's", "Bids"])
 class Bids(_Bids_Impl):
