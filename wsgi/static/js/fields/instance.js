@@ -3,13 +3,13 @@
  * @param {string} typename
  */
 function isReferenceType(typename) {
-	if (typename.indexOf("._proxy.") > 0) {
+	if (typename.indexOf("proxy") > 0) {
 		return false;
 	}
-	return (typename.indexOf("marketsim.orderbook.") == 0 ||
+	return (typename.indexOf(".Local") == 0 ||
 			typename.indexOf("marketsim.scheduler.Scheduler") == 0 ||
 			typename.indexOf("marketsim.js.Graph") == 0 ||
-			typename.indexOf("marketsim.trader.") == 0);
+			typename.indexOf(".SingleAsset") == 0);
 }
 
 /**
@@ -267,9 +267,9 @@ function createInstance(id, src, root) {
 		})
 	}	
 	var created = new Instance(id, ctor, fields, myTypeinfo.castsTo, alias, root);
-	if (ctor == "marketsim.timeserie.ToRecord") {
+	if (ctor == "marketsim.gen._out._TimeSerie.TimeSerie") {
 		created = makeTimeSerie(created, root.response().ts_changes);
-	} else if (ctor == "marketsim.timeserie.VolumeLevels") {
+	} else if (ctor == "marketsim.gen._out._volumeLevels.volumeLevels") {
 		created = makeVolumeLevels(created, root.response().ts_changes);
 	} else if (ctor == "marketsim.js.Graph") {
 		created = makeGraph(created, root);

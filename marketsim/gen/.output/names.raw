@@ -15240,6 +15240,13 @@ Definitions:
 | | | | | | | | - IntLit:
 | | | | | | | | | - 4
 | | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - _smooth
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - IntLit:
+| | | | | | | | | - 1
+| | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:

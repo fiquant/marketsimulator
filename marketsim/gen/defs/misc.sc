@@ -118,7 +118,8 @@ package {
     @label = "%(source)s"
     def TimeSerie(source        = const(0.) : IObservable[Any],
                   graph         = veusz.Graph(),
-                  _digitsToShow = 4) : ITimeSerie
+                  _digitsToShow = 4,
+                  _smooth       = 1) : ITimeSerie
 
     @python.intrinsic("timeserie._VolumeLevels_Impl")
     @label = "%(source)s"

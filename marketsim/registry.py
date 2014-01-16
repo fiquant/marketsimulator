@@ -565,7 +565,8 @@ def expose(alias, constructor=None, args = None):
                     obj = f() if args is None else f(*args)
                 except Exception, err:
                     print "Exposing ", f, "failed: ", err
-                    
+
+                print "Exposing ", f, " with : ", alias
                 obj._alias = alias
                 instance.insert(obj)
             startup.append(inner)
@@ -601,8 +602,8 @@ class Simulation(object):
 
 def createSimulation(instance):
     instance.pushAllReferences()
-    traders = instance.valuesOfType("marketsim.trader.")
-    orderbooks = instance.valuesOfType("marketsim.orderbook.")
+    traders = instance.valuesOfType("marketsim.gen._out.trader._SingleAsset.SingleAsset")
+    orderbooks = instance.valuesOfType("marketsim.gen._out.orderbook._Local.Local")
     graphs = instance.valuesOfType("marketsim.js.Graph")
     return Simulation(traders, orderbooks, graphs)
 

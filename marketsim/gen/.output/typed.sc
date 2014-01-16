@@ -1945,7 +1945,8 @@ package  {
     @python.intrinsic("timeserie._ToRecord_Impl")
     def TimeSerie(source : Optional[.IObservable[Any]] = .const(0.0) : .IObservable[Any],
                   graph : Optional[.IGraph] = .veusz.Graph(),
-                  _digitsToShow : Optional[.Int] = 4) : .ITimeSerie
+                  _digitsToShow : Optional[.Int] = 4,
+                  _smooth : Optional[.Int] = 1) : .ITimeSerie
         
     
     @label = "C=%(x)s"

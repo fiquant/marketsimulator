@@ -29,7 +29,6 @@ def createSimulation(name='All'):
         myRegistry.insert(Side.Sell)
         myRegistry.insert(Side.Buy)    
         ctx = Context(world, js.Graph)
-        dependency = strategy.v0.Dependency(ctx.book_B)
         dependency_ex = strategy.Dependency(event.Every(mathutils.rnd.expovariate(1.)),
                                             order.factory.side.Market(), 
                                             ctx.book_B)
@@ -41,7 +40,6 @@ def createSimulation(name='All'):
                 myRegistry.insert(obj)
                 
         register([
-                  (dependency, ["Basic", "Dependency"]),
                   (dependency_ex, None),
         ])
         
