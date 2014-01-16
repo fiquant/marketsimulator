@@ -52,13 +52,13 @@ class _Remote_Impl(BookBase):
     
     def __init__(self):
         
+        self.name = self.orderbook.label
+        self._digitsToShow = self.orderbook._digitsToShow
         BookBase.__init__(self, # TODO: dependency tracking
                           Queue(self.orderbook.bids, self, self.link.down),
-                          Queue(self.orderbook.asks, self, self.link.down),
-                          self.orderbook.label)
-        
-        self._digitsToShow = self._book._digitsToShow
-        
+                          Queue(self.orderbook.asks, self, self.link.down))
+
+
     @property
     def _upLink(self):
         return self.link.up

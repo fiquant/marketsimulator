@@ -1337,6 +1337,16 @@ package orderbook {
     def TwoWayLink(/** Forward link (normally from a trader to a market)*/ up : Optional[.ILink] = .orderbook.Link(),
                    /** Backward link (normally from a market to a trader)*/ down : Optional[.ILink] = .orderbook.Link()) : .ITwoWayLink
         
+    
+    /** Represent an *orderbook* from point of view of a remote trader connected
+     * to the market by means of a *link* that introduces some latency in information propagation
+     */
+    @label = "%(orderbook)s.name^remote"
+    @python.intrinsic("orderbook.remote._Remote_Impl")
+    def Remote(orderbook : Optional[.IOrderBook] = .orderbook.Local(),
+               link : Optional[.ITwoWayLink] = .orderbook.TwoWayLink(),
+               timeseries : Optional[List[.ITimeSerie]] = [] : List[.ITimeSerie]) : .IOrderBook
+        
 }
 
 @category = "Basic"

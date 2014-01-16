@@ -13,6 +13,16 @@ package orderbook
               timeseries    = [] : List[ITimeSerie]) : IOrderBook
 
     /**
+     * Represent an *orderbook* from point of view of a remote trader connected
+     * to the market by means of a *link* that introduces some latency in information propagation
+     */
+    @python.intrinsic("orderbook.remote._Remote_Impl")
+    @label = "%(orderbook)s.name^remote"
+    def Remote(orderbook     = Local(),
+               link          = TwoWayLink(),
+               timeseries    = [] : List[ITimeSerie]) : IOrderBook
+
+    /**
      * Represents latency in information propagation from one agent to another one
      * (normally between a trader and a market).
      * Ensures that sending packets via a link preserves their order.
@@ -33,6 +43,7 @@ package orderbook
                    up = Link(),
                    /** Backward link (normally from a market to a trader)*/
                    down = Link()) : ITwoWayLink
+
 
 }
 
