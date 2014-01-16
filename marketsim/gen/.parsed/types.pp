@@ -19,15 +19,19 @@ type Volume : Int
 
 type Price : Float
 
-type IOrderQueue
-
-type IOrderBook
-
 type IFunction[T] = () => T
 
 type IEvent
 
 type IObservable[U] : IFunction[U], IEvent
+
+type IOrderQueue
+
+type IOrderBook
+
+type ILink
+
+type ITwoWayLink
 
 type IOrderGenerator = IObservable[Order]
 

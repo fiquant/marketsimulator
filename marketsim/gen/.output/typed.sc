@@ -1316,6 +1316,27 @@ package orderbook {
               name : Optional[.String] = "-orderbook-",
               timeseries : Optional[List[.ITimeSerie]] = [] : List[.ITimeSerie]) : .IOrderBook
         
+    
+    /** Represents latency in information propagation from one agent to another one
+     * (normally between a trader and a market).
+     * Ensures that sending packets via a link preserves their order.
+     */
+    
+    @python.intrinsic("orderbook.link._Link_Impl")
+    def Link(/** function called for each packet in order to determine
+               * when it will appear at the end point*/ latency : Optional[.IObservable[.Float]] = .const(0.001)) : .ILink
+        
+    
+    /** Represents latency in information propagation between two agents
+     * (normally between a trader and a market).
+     * Ensures that sending packets via links preserves their order.
+     * Holds two one-way links in opposite directions.
+     */
+    
+    @python.intrinsic("orderbook.link._TwoWayLink_Impl")
+    def TwoWayLink(/** Forward link (normally from a trader to a market)*/ up : Optional[.ILink] = .orderbook.Link(),
+                   /** Backward link (normally from a market to a trader)*/ down : Optional[.ILink] = .orderbook.Link()) : .ITwoWayLink
+        
 }
 
 @category = "Basic"
@@ -1944,9 +1965,11 @@ type Price : Float
 type IOrderQueue
 type Float
 type Int : Float
+type ILink
 type IOrderBook
 type IEvent
 type IMultiAssetStrategy
+type ITwoWayLink
 type IObservable[U] : IFunction[U], IEvent
 type IFunction[T] = () => T
 type ISingleAssetStrategy

@@ -1,4 +1,4 @@
-from marketsim import event, registry, remote, types, bind, _
+from marketsim import event, registry, remote, types, bind, _, ITwoWayLink
 from _base import BookBase
 from _queue import BestPrice, LastTrade
 
@@ -81,7 +81,7 @@ class Remote(BookBase):
     def orderbook(self, value):
         self._book = value
         
-    _properties = { 'link'      : remote.TwoWayLink,
+    _properties = { 'link'      : ITwoWayLink,
                     'orderbook' : types.IOrderBook }
         
     def _on_matched(self, order, price, volume):

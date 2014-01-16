@@ -67,16 +67,6 @@ Definitions:
 | | | | | - List:
 | | | | | | - Float
 | | | | - List:
-| - Interface:
-| | - IOrderQueue
-| | - Generics:
-| | | - List:
-| | - List:
-| - Interface:
-| | - IOrderBook
-| | - Generics:
-| | | - List:
-| | - List:
 | - Alias:
 | | - IFunction
 | | - Generics:
@@ -115,6 +105,26 @@ Definitions:
 | | | | | - List:
 | | | | | | - IEvent
 | | | | - List:
+| - Interface:
+| | - IOrderQueue
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - IOrderBook
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - ILink
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - ITwoWayLink
+| | - Generics:
+| | | - List:
+| | - List:
 | - Alias:
 | | - IOrderGenerator
 | | - Generics:

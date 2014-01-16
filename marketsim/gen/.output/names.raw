@@ -10353,6 +10353,94 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - %(name)s
+| | | | - FunDef:
+| | | | | - Link
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - latency
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 0.001
+| | | | | | | - List:
+| | | | | | | | -  function called for each packet in order to determine
+| | | | | | | | -  when it will appear at the end point
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ILink
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Represents latency in information propagation from one agent to another one
+| | | | | | | - List:
+| | | | | | | | -  (normally between a trader and a market).
+| | | | | | | | -  Ensures that sending packets via a link preserves their order.
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.link._Link_Impl
+| | | | - FunDef:
+| | | | | - TwoWayLink
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - up
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Link
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  Forward link (normally from a trader to a market)
+| | | | | | - Parameter:
+| | | | | | | - down
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Link
+| | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  Backward link (normally from a market to a trader)
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ITwoWayLink
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Represents latency in information propagation between two agents
+| | | | | | | - List:
+| | | | | | | | -  (normally between a trader and a market).
+| | | | | | | | -  Ensures that sending packets via links preserves their order.
+| | | | | | | | -  Holds two one-way links in opposite directions.
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.link._TwoWayLink_Impl
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -15290,6 +15378,11 @@ Definitions:
 | | | | | | - Float
 | | | | - List:
 | - Interface:
+| | - ILink
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
 | | - IOrderBook
 | | - Generics:
 | | | - List:
@@ -15301,6 +15394,11 @@ Definitions:
 | | - List:
 | - Interface:
 | | - IMultiAssetStrategy
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - ITwoWayLink
 | | - Generics:
 | | | - List:
 | | - List:

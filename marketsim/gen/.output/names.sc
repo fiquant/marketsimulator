@@ -1116,6 +1116,25 @@ package orderbook {
               name = "-orderbook-",
               timeseries = [] : List[ITimeSerie]) : IOrderBook
         
+    
+    /** Represents latency in information propagation from one agent to another one
+     * (normally between a trader and a market).
+     * Ensures that sending packets via a link preserves their order.
+     */
+    @python.intrinsic("orderbook.link._Link_Impl")
+    def Link(/** function called for each packet in order to determine
+               * when it will appear at the end point*/ latency = const(0.001)) : ILink
+        
+    
+    /** Represents latency in information propagation between two agents
+     * (normally between a trader and a market).
+     * Ensures that sending packets via links preserves their order.
+     * Holds two one-way links in opposite directions.
+     */
+    @python.intrinsic("orderbook.link._TwoWayLink_Impl")
+    def TwoWayLink(/** Forward link (normally from a trader to a market)*/ up = Link(),
+                   /** Backward link (normally from a market to a trader)*/ down = Link()) : ITwoWayLink
+        
 }
 @category = "Basic"
 package observable {@category = "Price function"
@@ -1649,11 +1668,15 @@ type Float
 
 type Int : Float
 
+type ILink
+
 type IOrderBook
 
 type IEvent
 
 type IMultiAssetStrategy
+
+type ITwoWayLink
 
 type IObservable[U] : IFunction[U], IEvent
 

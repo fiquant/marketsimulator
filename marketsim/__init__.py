@@ -22,6 +22,9 @@ float = float
 Volume = float
 Price = float
 
+class ILink(object):pass
+class ITwoWayLink(object):pass
+
 class CandleStick(collections.namedtuple("CandleStick", [
                                                      "open", "close",
                                                      "min", "max",
