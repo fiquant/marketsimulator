@@ -14,57 +14,56 @@ package side {
         
 }
 
-package mathops {@category = "Trigonometric"
+package mathops {
+    /** Arc tangent of x, in radians.
+     *
+     */
+    @category = "Trigonometric"
+    @python.mathops("atan")
+    def Atan(x = constant(0.0)) : () => Float
+        
     
-    package  {
-        /** Arc tangent of x, in radians.
-         *
-         */
-        @python.mathops("atan")
-        def Atan(x = constant(0.0)) : () => Float
-            
-    }
+    /** Square root of x
+     *
+     */
     @category = "Log/Pow"
+    @python.mathops("sqrt")
+    @label = "\\sqrt{%(x)s}"
+    def Sqrt(x = constant(1.0)) : () => Float
+        
     
-    package  {
-        /** Exponent of x
-         *
-         */
-        @python.mathops("exp")
-        @label = "e^{%(x)s}"
-        def Exp(x = constant(1.0)) : () => Float
-            
+    /** Exponent of x
+     *
+     */
+    @category = "Log/Pow"
+    @python.mathops("exp")
+    @label = "e^{%(x)s}"
+    def Exp(x = constant(1.0)) : () => Float
         
-        /** Natural logarithm of x (to base e)
-         *
-         */
-        @python.mathops("log")
-        @label = "log(%(x)s)"
-        def Log(x = constant(1.0)) : () => Float
-            
+    
+    /** Natural logarithm of x (to base e)
+     *
+     */
+    @category = "Log/Pow"
+    @python.mathops("log")
+    @label = "log(%(x)s)"
+    def Log(x = constant(1.0)) : () => Float
         
-        /** Square root of x
-         *
-         */
-        @python.mathops("sqrt")
-        @label = "\\sqrt{%(x)s}"
-        def Sqrt(x = constant(1.0)) : () => Float
-            
+    
+    /** Return *x* raised to the power *y*.
+     *
+     * Exceptional cases follow Annex F of the C99 standard as far as possible.
+     * In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,
+     * even when *x* is a zero or a NaN.
+     * If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
+     * ``pow(x, y)`` is undefined, and raises ``ValueError``.
+     */
+    @category = "Log/Pow"
+    @python.mathops("pow")
+    @label = "%(base)s^{%(power)s}"
+    def Pow(base = constant(1.0),
+            power = constant(1.0)) : () => Float
         
-        /** Return *x* raised to the power *y*.
-         *
-         * Exceptional cases follow Annex F of the C99 standard as far as possible.
-         * In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,
-         * even when *x* is a zero or a NaN.
-         * If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
-         * ``pow(x, y)`` is undefined, and raises ``ValueError``.
-         */
-        @python.mathops("pow")
-        @label = "%(base)s^{%(power)s}"
-        def Pow(base = constant(1.0),
-                power = constant(1.0)) : () => Float
-            
-    }
 }
 @category = "Event"
 
@@ -1153,7 +1152,7 @@ package orderbook {
      */
     @python.intrinsic("orderbook.link._Link_Impl")
     def Link(/** function called for each packet in order to determine
-               * when it will appear at the end point*/ latency = const(0.0010)) : ILink
+               * when it will appear at the end point*/ latency = const(0.001)) : ILink
         
     
     /** Represents latency in information propagation between two agents
@@ -1213,8 +1212,23 @@ package observable {@category = "Price function"
         def Noise(side_distribution = mathutils.rnd.uniform(0.0,1.0) : IFunction[Float])
              = if side_distribution>0.5 then side.Sell() else side.Buy()
     }
+    @category = "Statistics"
     
     package Cumulative {
+        @label = "RSD_{cumul}_{%(source)s}"
+        def RelStdDev(source = const())
+             = (source-Avg(source))/StdDev(source)
+        
+        @python.intrinsic("moments.cmv.Variance_Impl")
+        @label = "\\sigma^2_{cumul}(%(source)s)"
+        def Var(source = const()) : () => Float
+            
+        
+        @python.intrinsic("moments.cma.CMA_Impl")
+        @label = "Avg_{cumul}(%(source)s)"
+        def Avg(source = const()) : () => Float
+            
+        
         @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
         @label = "Min_{\\epsilon}(%(source)s)"
         def MinEpsilon(source = constant(),
@@ -1226,6 +1240,10 @@ package observable {@category = "Price function"
         def MaxEpsilon(source = constant(),
                        epsilon = constant(0.01)) : IObservable[Float]
             
+        
+        @label = "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}"
+        def StdDev(source = const())
+             = mathops.Sqrt(Var(source))
     }
     @category = "RSI"
     
@@ -1305,6 +1323,31 @@ package observable {@category = "Price function"
                        timeframe = 1.0,
                        trader = trader.SingleProxy())
              = DesiredPosition(OnEveryDt(1.0,50.0-RSI(orderbook.OfTrader(trader),timeframe,alpha))*k,trader)
+    }
+    @category = "Statistics"
+    
+    package EW {
+        @python.intrinsic("moments.ewma.EWMA_Impl")
+        @label = "Avg_{\\alpha=%(alpha)s}(%(source)s)"
+        def Avg(source = const(),
+                alpha = 0.015) : IDifferentiable
+            
+        
+        @python.intrinsic("moments.ewmv.EWMV_Impl")
+        @label = "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}"
+        def Var(source = const(),
+                alpha = 0.015) : () => Float
+            
+        
+        @label = "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}"
+        def StdDev(source = const(),
+                   alpha = 0.015)
+             = mathops.Sqrt(Var(source,alpha))
+        
+        @label = "RSD_{\\alpha=%(alpha)s}_{%(source)s}"
+        def RelStdDev(source = const(),
+                      alpha = 0.15)
+             = (source-Avg(source,alpha))/StdDev(source,alpha)
     }
     @category = "Asset's"
     
@@ -1411,6 +1454,7 @@ package observable {@category = "Price function"
         def LastTradePrice(queue = Asks()) : IObservable[Price]
             
     }
+    @category = "Statistics"
     
     package Moving {
         @python.intrinsic("observable.minmax.Min_Impl")
@@ -1419,82 +1463,33 @@ package observable {@category = "Price function"
                 timeframe = 100.0) : IObservable[Float]
             
         
+        @label = "RSD_{n=%(timeframe)s}_{%(source)s}"
+        def RelStdDev(source = const(),
+                      timeframe = 100.0)
+             = (source-Avg(source,timeframe))/StdDev(source,timeframe)
+        
+        @python.intrinsic("moments.mv.MV_Impl")
+        @label = "\\sigma^2_{n=%(timeframe)s}(%(source)s)"
+        def Var(source = const(),
+                timeframe = 100.0)
+             = observable.Max(const(0),Avg(source*source,timeframe)-Sqr(Avg(source,timeframe)))
+        
         @python.intrinsic("observable.minmax.Max_Impl")
         @label = "Max_{n=%(timeframe)s}(%(source)s)"
         def Max(source = constant(),
                 timeframe = 100.0) : IObservable[Float]
             
-    }
-    @category = "Statistics"
-    
-    package  {
-        package EW {
-            @python.intrinsic("moments.ewma.EWMA_Impl")
-            @label = "Avg_{\\alpha=%(alpha)s}(%(source)s)"
-            def Avg(source = const(),
-                    alpha = 0.015) : IDifferentiable
-                
-            
-            @python.intrinsic("moments.ewmv.EWMV_Impl")
-            @label = "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}"
-            def Var(source = const(),
-                    alpha = 0.015) : () => Float
-                
-            
-            @label = "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}"
-            def StdDev(source = const(),
-                       alpha = 0.015)
-                 = mathops.Sqrt(Var(source,alpha))
-            
-            @label = "RSD_{\\alpha=%(alpha)s}_{%(source)s}"
-            def RelStdDev(source = const(),
-                          alpha = 0.15)
-                 = (source-Avg(source,alpha))/StdDev(source,alpha)
-        }
         
-        package Cumulative {
-            @python.intrinsic("moments.cma.CMA_Impl")
-            @label = "Avg_{cumul}(%(source)s)"
-            def Avg(source = const()) : () => Float
-                
+        @python.intrinsic("moments.ma.MA_Impl")
+        @label = "Avg_{n=%(timeframe)s}(%(source)s)"
+        def Avg(source = const(),
+                timeframe = 100.0) : () => Float
             
-            @python.intrinsic("moments.cmv.Variance_Impl")
-            @label = "\\sigma^2_{cumul}(%(source)s)"
-            def Var(source = const()) : () => Float
-                
-            
-            @label = "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}"
-            def StdDev(source = const())
-                 = mathops.Sqrt(Var(source))
-            
-            @label = "RSD_{cumul}_{%(source)s}"
-            def RelStdDev(source = const())
-                 = (source-Avg(source))/StdDev(source)
-        }
         
-        package Moving {
-            @python.intrinsic("moments.ma.MA_Impl")
-            @label = "Avg_{n=%(timeframe)s}(%(source)s)"
-            def Avg(source = const(),
-                    timeframe = 100.0) : () => Float
-                
-            
-            @python.intrinsic("moments.mv.MV_Impl")
-            @label = "\\sigma^2_{n=%(timeframe)s}(%(source)s)"
-            def Var(source = const(),
-                    timeframe = 100.0)
-                 = Max(const(0),Avg(source*source,timeframe)-Sqr(Avg(source,timeframe)))
-            
-            @label = "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}"
-            def StdDev(source = const(),
-                       timeframe = 100.0)
-                 = mathops.Sqrt(Var(source))
-            
-            @label = "RSD_{n=%(timeframe)s}_{%(source)s}"
-            def RelStdDev(source = const(),
-                          timeframe = 100.0)
-                 = (source-Avg(source,timeframe))/StdDev(source,timeframe)
-        }
+        @label = "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}"
+        def StdDev(source = const(),
+                   timeframe = 100.0)
+             = mathops.Sqrt(Var(source))
     }
     
     @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
@@ -1595,21 +1590,13 @@ package observable {@category = "Price function"
 
 package trash {
     package types {
-        package  {
-            package  {
-                type U : T, R
-            }
-        }
-        
-        package  {
-            type R : T
-        }
-        
-        package  {
-            type T
-        }
-        
         type T1 = T
+        
+        type U : T, R
+        
+        type R : T
+        
+        type T
     }
     
     package in1 {
@@ -1648,63 +1635,17 @@ package trash {
     def A(x = in1.in2.A()) : () => types.R
         
 }
-@category = "Basic"
 
-package  {
-    def EWMA = observable.EW.Avg
+@category = "Basic"
+@label = "C=%(x)s"
+def constant(x = 1.0) : IFunction[Float]
+     = const(x)
+
+@category = "Basic"
+@python.intrinsic.function("_constant._False_Impl")
+@label = "False"
+def false() : IObservable[Boolean]
     
-    @label = "C=%(x)s"
-    def constant(x = 1.0) : IFunction[Float]
-         = const(x)
-    
-    @python.intrinsic.function("_constant._False_Impl")
-    @label = "False"
-    def false() : IObservable[Boolean]
-        
-    
-    @python.intrinsic("_constant._Null_Impl")
-    def null() : () => Float
-        
-    
-    @python.intrinsic("timeserie._ToRecord_Impl")
-    @label = "%(source)s"
-    def TimeSerie(source = const(0.0) : IObservable[Any],
-                  graph = veusz.Graph(),
-                  _digitsToShow = 4,
-                  _smooth = 1) : ITimeSerie
-        
-    
-    @python.intrinsic.function("_constant._Constant_Impl")
-    @label = "C=%(x)s"
-    def const(x = 1.0) : IObservable[Float]
-        
-    
-    @python.intrinsic.function("_constant._True_Impl")
-    @label = "True"
-    def true() : IObservable[Boolean]
-        
-    
-    @python.intrinsic("observable.derivative._Derivative_Impl")
-    @label = "\\frac{d%(x)s}{dt}"
-    def Derivative(x = EWMA() : IDifferentiable) : () => Float
-        
-    
-    @python.observable()
-    @label = "If def(%(x)s) else %(elsePart)s"
-    def IfDefined(x = constant(),
-                  elsePart = constant())
-         = if x<>null() then x else elsePart
-    
-    @python.intrinsic("timeserie._VolumeLevels_Impl")
-    @label = "%(source)s"
-    def volumeLevels(source : IFunction[VolumeLevels],
-                     graph = veusz.Graph(),
-                     _digitsToShow = 4,
-                     _smooth = 1,
-                     _volumes = [30.0],
-                     _isBuy = 1) : ITimeSerie
-        
-}
 
 type ITrader
 
@@ -1724,7 +1665,21 @@ type Boolean
 
 type Price : Float
 
+@category = "Basic"
+@python.intrinsic("_constant._Null_Impl")
+def null() : () => Float
+    
+
 type IOrderQueue
+
+@category = "Basic"
+@python.intrinsic("timeserie._ToRecord_Impl")
+@label = "%(source)s"
+def TimeSerie(source = const(0.0) : IObservable[Any],
+              graph = veusz.Graph(),
+              _digitsToShow = 4,
+              _smooth = 1) : ITimeSerie
+    
 
 type Float
 
@@ -1738,6 +1693,12 @@ type IEvent
 
 type IMultiAssetStrategy
 
+@category = "Basic"
+@python.intrinsic.function("_constant._Constant_Impl")
+@label = "C=%(x)s"
+def const(x = 1.0) : IObservable[Float]
+    
+
 type ITwoWayLink
 
 type IObservable[U] : IFunction[U], IEvent
@@ -1748,7 +1709,19 @@ type ISingleAssetStrategy
 
 type ISingleAssetTrader : IAccount, ITrader
 
+@category = "Basic"
+@python.intrinsic.function("_constant._True_Impl")
+@label = "True"
+def true() : IObservable[Boolean]
+    
+
 type Order
+
+@category = "Basic"
+@python.intrinsic("observable.derivative._Derivative_Impl")
+@label = "\\frac{d%(x)s}{dt}"
+def Derivative(x = observable.EW.Avg() : IDifferentiable) : () => Float
+    
 
 type List[T]
 
@@ -1756,9 +1729,27 @@ type IDifferentiable : IFunction[Float]
 
 type VolumeLevels
 
+@category = "Basic"
+@python.observable()
+@label = "If def(%(x)s) else %(elsePart)s"
+def IfDefined(x = constant(),
+              elsePart = constant())
+     = if x<>null() then x else elsePart
+
 type ITimeSerie
 
 type Any
+
+@category = "Basic"
+@python.intrinsic("timeserie._VolumeLevels_Impl")
+@label = "%(source)s"
+def volumeLevels(source : IFunction[VolumeLevels],
+                 graph = veusz.Graph(),
+                 _digitsToShow = 4,
+                 _smooth = 1,
+                 _volumes = [30.0],
+                 _isBuy = 1) : ITimeSerie
+    
 
 type IOrderGenerator = IObservable[Order]
 

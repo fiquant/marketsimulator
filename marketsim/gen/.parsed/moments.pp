@@ -57,7 +57,7 @@ package observable {@category = "Statistics"
             @label = "\\sigma^2_{n=%(timeframe)s}(%(source)s)"
             def Var(source = const(),
                     timeframe = 100.0)
-                 = Max(const(0),Avg(source*source,timeframe)-Sqr(Avg(source,timeframe)))
+                 = observable.Max(const(0),Avg(source*source,timeframe)-Sqr(Avg(source,timeframe)))
             
             @label = "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}"
             def StdDev(source = const(),

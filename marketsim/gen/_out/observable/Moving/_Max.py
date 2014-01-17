@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.observable.minmax import Max_Impl
 from marketsim import IFunction
-@registry.expose(["Basic", "Max"])
+@registry.expose(["Statistics", "Max"])
 class Max(Max_Impl):
     """ 
     """ 

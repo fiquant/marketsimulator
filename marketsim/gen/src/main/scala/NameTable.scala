@@ -6,7 +6,7 @@ import Typed.AfterTyping
 
 package object NameTable {
 
-    class Scope(val name : String = "_root_") extends pp.NamesScope with ScPrintable {
+    case class Scope(name : String = "_root_") extends pp.NamesScope with ScPrintable {
 
         var packages = Map[String, Scope]()
         var anonymous = List[Scope]()
@@ -56,20 +56,28 @@ package object NameTable {
             anonymous foreach { _.check_name_is_unique(name, e) }
         }
 
-        def add(a : AST.Attribute) {
-            attributes.items get a.name match {
-                case None => attributes = Typed.Attributes(attributes.items updated (a.name, a.value))
+        def add(a : AST.Attribute) = addAttribute(a.name, a.value)
+
+        def addAttribute(key : String, value : String) {
+            attributes.items get key match {
+                case None => attributes = Typed.Attributes(attributes.items updated (key, value))
                 case Some(v) =>
-                    throw new Exception(s"Duplicate definition for package attribute ${qualifyName(a.name)}: $v => ${a.value}" )
+                    if (v != value)
+                        throw new Exception(s"Duplicate definition for package attribute ${qualifyName(key)}: $v => $value at $this" )
             }
         }
 
-        private def populate(child: Scope) = {
+        private def populate(child: Scope) : Scope = {
             if (members contains child.name)
                 throw new Exception(s"Duplicate definition for ${child.name}:\r\n" + members(child.name) + "\r\n" + child)
-            if (!(packages contains child.name)) {
-                packages = packages updated(child.name, child)
-                child.parent = Some(this)
+            packages get child.name match {
+                case Some(existing) =>
+                    child.members.values foreach existing.add
+                    child.packages.values foreach existing.populate
+                    child.attributes.items foreach { p => existing.addAttribute(p._1, p._2) }
+                case None =>
+                    packages = packages updated(child.name, child)
+                    child.parent = Some(this)
             }
             packages(child.name)
         }
@@ -85,6 +93,31 @@ package object NameTable {
                     fresh
             }
             create(p.members, p.attributes, target)
+        }
+
+        def removeAnonymous()
+        {
+            packages.values foreach { _.removeAnonymous() }
+
+            val a = anonymous
+            anonymous = Nil
+
+            a foreach { pkg =>
+                pkg.removeAnonymous()
+                pkg.packages.values foreach { inner =>
+                    inner.attributes = Typed.Attributes(pkg.attributes.items ++ inner.attributes.items)
+                    populate(inner)
+                }
+                pkg.members.values foreach { m =>
+                    add(m match {
+                        case f : AST.FunDef =>
+                            f.copy(decorators =
+                                    (pkg.attributes.items map { p => AST.Attribute(p._1, p._2) }).toList
+                                            ++ f.decorators)
+                        case x => x
+                    })
+                }
+            }
         }
 
         def getPackageOrCreate(name : String) =
@@ -222,6 +255,7 @@ package object NameTable {
 
         p foreach { create(_, Nil, impl) }
 
+        impl.removeAnonymous()
         Typed.BeforeTyping(impl)
 
         impl

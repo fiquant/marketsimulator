@@ -431,6 +431,7 @@ Definitions:
 | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - observable
 | | | | | | | | | | | | | | | - Max
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - List:

@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.observable.minmax_eps import MaxEpsilon_Impl
 from marketsim import IFunction
 from marketsim import IFunction
-@registry.expose(["Basic", "MaxEpsilon"])
+@registry.expose(["Statistics", "MaxEpsilon"])
 class MaxEpsilon(MaxEpsilon_Impl):
     """ 
     """ 

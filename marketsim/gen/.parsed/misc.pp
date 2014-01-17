@@ -72,6 +72,7 @@ package observable {
                    /** intervals between signal updates */ intervalDistr = mathutils.rnd.expovariate(1.0),
                    name = "-random-") : IObservable[Float]
         
+    @category = "Statistics"
     
     package Moving {
         @python.intrinsic("observable.minmax.Min_Impl")
@@ -86,6 +87,7 @@ package observable {
                 timeframe = 100.0) : IObservable[Float]
             
     }
+    @category = "Statistics"
     
     package Cumulative {
         @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
@@ -133,11 +135,9 @@ package  {
                   elsePart = constant())
          = if x<>null() then x else elsePart
     
-    def EWMA = observable.EW.Avg
-    
     @python.intrinsic("observable.derivative._Derivative_Impl")
     @label = "\\frac{d%(x)s}{dt}"
-    def Derivative(x = EWMA() : IDifferentiable) : () => Float
+    def Derivative(x = observable.EW.Avg() : IDifferentiable) : () => Float
         
     
     @python.intrinsic("timeserie._ToRecord_Impl")

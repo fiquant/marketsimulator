@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.observable.minmax import Min_Impl
 from marketsim import IFunction
-@registry.expose(["Basic", "Min"])
+@registry.expose(["Statistics", "Min"])
 class Min(Min_Impl):
     """ 
     """ 

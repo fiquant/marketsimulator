@@ -152,7 +152,7 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 0.0010
+| | | | | | | | | | | | - 0.001
 | | | | | | | - List:
 | | | | | | | | -  function called for each packet in order to determine
 | | | | | | | | -  when it will appear at the end point

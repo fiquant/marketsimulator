@@ -693,6 +693,9 @@ Definitions:
 | | | | | | | | | | - label
 | | | | | | | | | | - Max_{n=%(timeframe)s}(%(source)s)
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Statistics
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:
@@ -803,6 +806,9 @@ Definitions:
 | | | | | | | | | | - label
 | | | | | | | | | | - Max_{\\epsilon}(%(source)s)
 | | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Statistics
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -1011,13 +1017,6 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - If def(%(x)s) else %(elsePart)s
-| | | | - FunAlias:
-| | | | | - EWMA
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - observable
-| | | | | | | - EW
-| | | | | | | - Avg
 | | | | - FunDef:
 | | | | | - Derivative
 | | | | | - List:
@@ -1029,7 +1028,9 @@ Definitions:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - EWMA
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - EW
+| | | | | | | | | | | | - Avg
 | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | - SimpleType:

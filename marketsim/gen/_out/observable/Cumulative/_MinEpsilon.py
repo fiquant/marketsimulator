@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.observable.minmax_eps import MinEpsilon_Impl
 from marketsim import IFunction
 from marketsim import IFunction
-@registry.expose(["Basic", "MinEpsilon"])
+@registry.expose(["Statistics", "MinEpsilon"])
 class MinEpsilon(MinEpsilon_Impl):
     """ 
     """ 

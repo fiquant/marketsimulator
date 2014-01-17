@@ -28,7 +28,7 @@ package orderbook {
      */
     @python.intrinsic("orderbook.link._Link_Impl")
     def Link(/** function called for each packet in order to determine
-               * when it will appear at the end point*/ latency = const(0.0010)) : ILink
+               * when it will appear at the end point*/ latency = const(0.001)) : ILink
         
     
     /** Represents latency in information propagation between two agents
