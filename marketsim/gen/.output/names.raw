@@ -74,6 +74,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Side
+| | - false
 | - PackageDef:
 | | - Some:
 | | | - QualifiedName:
@@ -317,6 +318,7 @@ Definitions:
 | | | | | | | - label
 | | | | | | | - %(base)s^{%(power)s}
 | | - List:
+| | - false
 | - PackageDef:
 | | - Some:
 | | | - QualifiedName:
@@ -394,6 +396,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Event
+| | - false
 | - PackageDef:
 | | - Some:
 | | | - QualifiedName:
@@ -431,6 +434,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - N/A
+| | - false
 | - PackageDef:
 | | - Some:
 | | | - QualifiedName:
@@ -847,7 +851,9 @@ Definitions:
 | | | | | | | | | | | | - random
 | | | | | | | | | | - List:
 | | | | | - List:
+| | | | | - false
 | | - List:
+| | - false
 | - PackageDef:
 | | - Some:
 | | | - QualifiedName:
@@ -877,6 +883,7 @@ Definitions:
 | | | | | | | | | | - order
 | | | | | | | | | | - MarketSigned
 | | | | | - List:
+| | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:
@@ -955,6 +962,7 @@ Definitions:
 | | | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | | | - side_price_Peg
 | | | | | | | | | | | - List:
+| | | | | | | | | | | - false
 | | | | | | | | | | - FunAlias:
 | | | | | | | | | | | - Limit
 | | | | | | | | | | | - QualifiedName:
@@ -1028,6 +1036,7 @@ Definitions:
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - side_Peg
 | | | | | | | | - List:
+| | | | | | | | - false
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
 | | | | | | | | | - QualifiedName:
@@ -1092,6 +1101,7 @@ Definitions:
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - sideprice_Peg
 | | | | | | | | - List:
+| | | | | | | | - false
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
 | | | | | | | | | - QualifiedName:
@@ -1163,6 +1173,7 @@ Definitions:
 | | | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | | | - sidevolume_price_Peg
 | | | | | | | | | | | - List:
+| | | | | | | | | | | - false
 | | | | | | | | | | - FunAlias:
 | | | | | | | | | | | - Limit
 | | | | | | | | | | | - QualifiedName:
@@ -1228,6 +1239,7 @@ Definitions:
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - sidevolume_Peg
 | | | | | | | | - List:
+| | | | | | | | - false
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
 | | | | | | | | | - QualifiedName:
@@ -1292,6 +1304,7 @@ Definitions:
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - price_Peg
 | | | | | | | | - List:
+| | | | | | | | - false
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
 | | | | | | | | | - QualifiedName:
@@ -1356,6 +1369,7 @@ Definitions:
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - volumeprice_Peg
 | | | | | | | | - List:
+| | | | | | | | - false
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
 | | | | | | | | | - QualifiedName:
@@ -1380,6 +1394,7 @@ Definitions:
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - signedVolume_MarketSigned
 | | | | | | | | - List:
+| | | | | | | | - false
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
 | | | | | | | | | - QualifiedName:
@@ -1444,6 +1459,7 @@ Definitions:
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - pricevolume_Peg
 | | | | | | | | - List:
+| | | | | | | | - false
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
 | | | | | | | | | - QualifiedName:
@@ -1515,6 +1531,7 @@ Definitions:
 | | | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | | | - volume_price_Peg
 | | | | | | | | | | | - List:
+| | | | | | | | | | | - false
 | | | | | | | | | | - FunAlias:
 | | | | | | | | | | | - Limit
 | | | | | | | | | | | - QualifiedName:
@@ -1580,7 +1597,9 @@ Definitions:
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - volume_Peg
 | | | | | | | | - List:
+| | | | | | | | - false
 | | | | | - List:
+| | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:
@@ -6227,6 +6246,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Limit
 | | | | | - List:
+| | | | | - false
 | | | | - FunDef:
 | | | | | - Limit
 | | | | | - List:
@@ -6718,6 +6738,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Order
+| | - false
 | - PackageDef:
 | | - Some:
 | | | - QualifiedName:
@@ -6815,7 +6836,9 @@ Definitions:
 | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | | - VirtualMarket
 | | | | | | | | | | | - List:
+| | | | | | | | | | | - false
 | | | | | | | | - List:
+| | | | | | | | - false
 | | | | | | | - FunDef:
 | | | | | | | | - Real
 | | | | | | | | - List:
@@ -6923,6 +6946,7 @@ Definitions:
 | | | | | | | | | | - inner
 | | | | | | | | | | - inner_VirtualMarket
 | | | | | - List:
+| | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:
@@ -7037,6 +7061,7 @@ Definitions:
 | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | | - IdentityL
 | | | | | | | | | | | - List:
+| | | | | | | | | | | - false
 | | | | | | | | | | - PackageDef:
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - QualifiedName:
@@ -7188,6 +7213,7 @@ Definitions:
 | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | | - Unit
 | | | | | | | | | | | - List:
+| | | | | | | | | | | - false
 | | | | | | | | | | - PackageDef:
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - QualifiedName:
@@ -7341,7 +7367,9 @@ Definitions:
 | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | | - IdentityF
 | | | | | | | | | | | - List:
+| | | | | | | | | | | - false
 | | | | | | | | - List:
+| | | | | | | | - false
 | | | | | | | - FunAlias:
 | | | | | | | | - efficiency
 | | | | | | | | - QualifiedName:
@@ -7917,6 +7945,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - f
 | | | | | - List:
+| | | | | - false
 | | | | - FunDef:
 | | | | | - Combine
 | | | | | - List:
@@ -10110,6 +10139,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Strategy
+| | - false
 | - PackageDef:
 | | - Some:
 | | | - QualifiedName:
@@ -10319,6 +10349,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Trader
+| | - false
 | - PackageDef:
 | | - Some:
 | | | - QualifiedName:
@@ -10549,6 +10580,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Asset
+| | - false
 | - PackageDef:
 | | - Some:
 | | | - QualifiedName:
@@ -10652,6 +10684,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Price function
+| | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:
@@ -11144,6 +11177,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Side function
+| | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:
@@ -11406,6 +11440,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Statistics
+| | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:
@@ -11492,6 +11527,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - RSI
+| | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:
@@ -11743,6 +11779,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - MACD
+| | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:
@@ -12066,6 +12103,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Trader's
+| | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:
@@ -12314,6 +12352,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Volume function
+| | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:
@@ -12506,6 +12545,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Statistics
+| | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:
@@ -13551,6 +13591,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Asset's
+| | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:
@@ -13873,6 +13914,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Statistics
+| | | | | - false
 | | | | - FunDef:
 | | | | | - OnEveryDt
 | | | | | - List:
@@ -14702,6 +14744,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
+| | - false
 | - PackageDef:
 | | - Some:
 | | | - QualifiedName:
@@ -14756,6 +14799,7 @@ Definitions:
 | | | | | | | | | | | | - R
 | | | | | | | | | | - List:
 | | | | | - List:
+| | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:
@@ -14993,6 +15037,7 @@ Definitions:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
 | | | | | | | | - List:
+| | | | | | | | - false
 | | | | | | | - FunDef:
 | | | | | | | | - A
 | | | | | | | | - List:
@@ -15032,6 +15077,7 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | - List:
+| | | | | - false
 | | | | - FunDef:
 | | | | | - A
 | | | | | - List:
@@ -15064,6 +15110,7 @@ Definitions:
 | | | - Attribute:
 | | | | - python
 | | | | - no
+| | - false
 | - FunDef:
 | | - constant
 | | - List:

@@ -6,8 +6,11 @@ import Typed.AfterTyping
 
 package object NameTable {
 
-    case class Scope(name : String = "_root_") extends pp.NamesScope with ScPrintable {
-
+    case class Scope(name       : String = "_root_",
+                     `abstract` : Boolean = false)
+            extends pp.NamesScope
+            with    ScPrintable
+    {
         var packages = Map[String, Scope]()
         var members = Map[String, AST.Member]()
         var attributes = Typed.Attributes(Map.empty)
@@ -16,6 +19,7 @@ package object NameTable {
 
         val isRoot = name == "_root_"
         val isAnonymous = name startsWith "$"
+        val nonAbstract = `abstract` == false
 
         def add(m : AST.Member) {
             members get m.name match {
@@ -70,6 +74,8 @@ package object NameTable {
                 throw new Exception(s"Duplicate definition for ${child.name}:\r\n" + members(child.name) + "\r\n" + child)
             packages get child.name match {
                 case Some(existing) =>
+                    if (existing.`abstract` != child.`abstract`)
+                        throw new Exception(s"Trying to merge packages with different `abstract` annotations:" + existing + child)
                     child.members.values foreach existing.add
                     child.packages.values foreach existing.populate
                     child.attributes.items foreach { p => existing.addAttribute(p._1, p._2) }
@@ -80,19 +86,24 @@ package object NameTable {
             packages(child.name)
         }
 
-        var anon_idx = 0
+        private var anon_idx = 0
 
         def add(p : AST.PackageDef) {
             val target = p.name match {
                 case Some(qn) =>
-                    (qn.names map (new Scope(_))).foldLeft(this) { _.populate(_) }
+                    (qn.names map (new Scope(_, p.`abstract`))).foldLeft(this) { _.populate(_) }
                 case None =>
-                    val fresh = new Scope("$" + anon_idx); anon_idx += 1
-                    packages = packages updated (fresh.name, fresh)
-                    fresh.parent = Some(this)
-                    fresh
+                    anon_idx += 1
+                    populate(new Scope("$" + anon_idx))
             }
             create(p.members, p.attributes, target)
+        }
+
+        def removeAbstract()
+        {
+            packages = packages filter { _._2.nonAbstract }
+
+            packages.values foreach { _.removeAbstract() }
         }
 
         def removeAnonymous()
@@ -249,6 +260,7 @@ package object NameTable {
         p foreach { create(_, Nil, impl) }
 
         impl.removeAnonymous()
+        impl.removeAbstract()
         Typed.BeforeTyping(impl)
 
         impl

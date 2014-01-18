@@ -66,6 +66,12 @@ package observable.orderbook
     @python.intrinsic("orderbook.props._BestPrice_Impl")
     def BestPrice(queue = Asks()) : IObservable[Price]
 
+    abstract package _base_impl
+    {
+        @label = "$name_{%(book)s}"
+        def Price(book = OfTrader()) = BestPrice(_queue(book))
+    }
+
     @label = "Ask_{%(book)s}"
     def AskPrice(book = OfTrader()) = BestPrice(Asks(book))
 

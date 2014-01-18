@@ -209,6 +209,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Trader
+| | - false
 | - PackageDef:
 | | - Some:
 | | | - QualifiedName:
@@ -533,3 +534,4 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Trader's
+| | - false

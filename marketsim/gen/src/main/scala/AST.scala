@@ -68,7 +68,8 @@ package object AST {
 
     case class PackageDef(name      : Option[QualifiedName],
                           members   : Definitions,
-                          attributes: List[Attribute]) extends Definition with pp.Package with ScPrintable
+                          attributes: List[Attribute],
+                          `abstract`: Boolean) extends Definition with pp.Package with ScPrintable
     {
         def getName = if (name.nonEmpty) name.get.toString else ""
     }

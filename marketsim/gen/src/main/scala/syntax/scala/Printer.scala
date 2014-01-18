@@ -163,12 +163,13 @@ package object Printer
         trait Package[+T <: Definition] extends Printable with Definition {
             val members : Definitions[T]
             def attributes : Iterable[Decorator]
+            val `abstract` : Boolean
 
             def getName : String
 
             def toScala = (
                     (attributes map { _ + crlf } mkString "") +
-                    crlf + "package " + getName + " {"
+                    crlf + (if (`abstract`) "abstract " else "") + "package " + getName + " {"
                     + indent() { members }
                     + crlf + "}")
         }
@@ -495,17 +496,16 @@ package object Printer
         trait Scope extends TopLevelPackage
 
         trait NamesScope extends Printable {
-            val name : String
-            def packages : Map[String, Any]
-            def members : Map[String, Any]
-            def attributes : Any
+            self: NameTable.Scope =>
+
             def content =
                 (packages.values mkString crlf) +
                 (members.values mkString crlf)
 
             def wrapped(name : String) =
                 attributes +
-                crlf + s"package $name {" +
+                crlf +  (if (`abstract`) "abstract " else "") +
+                        s"package $name {" +
                         indent() { content } +
                         crlf + "}"
 

@@ -197,6 +197,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Log/Pow
+| | | | | - false
 | | | | - PackageDef:
 | | | | | - None
 | | | | | - Definitions:
@@ -243,4 +244,6 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Trigonometric
+| | | | | - false
 | | - List:
+| | - false

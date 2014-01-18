@@ -200,6 +200,7 @@ Definitions:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
 | | | | | | | | - List:
+| | | | | | | | - false
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
 | | | | | | | | | - QualifiedName:
@@ -357,6 +358,7 @@ Definitions:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - RSD_{cumul}_{%(source)s}
 | | | | | | | | - List:
+| | | | | | | | - false
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
 | | | | | | | | | - QualifiedName:
@@ -586,8 +588,11 @@ Definitions:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
 | | | | | | | | - List:
+| | | | | | | | - false
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Statistics
+| | | | | - false
 | | - List:
+| | - false

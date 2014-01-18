@@ -262,6 +262,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - RSI
+| | | | | - false
 | | | | - FunDef:
 | | | | | - RSI
 | | | | | - List:
@@ -331,3 +332,4 @@ Definitions:
 | | | | | | | - label
 | | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
 | | - List:
+| | - false

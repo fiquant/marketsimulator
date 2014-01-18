@@ -412,6 +412,7 @@ Definitions:
 | | | | | | | | | | - inner
 | | | | | | | | | | - inner_VirtualMarket
 | | | | | - List:
+| | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
 | | | | | | - QualifiedName:
@@ -994,4 +995,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - array
 | | | | | - List:
+| | | | | - false
 | | - List:
+| | - false
