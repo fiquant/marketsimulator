@@ -209,6 +209,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Trader
+| | - List:
 | | - false
 | - PackageDef:
 | | - Some:
@@ -534,4 +535,5 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Trader's
+| | - List:
 | | - false

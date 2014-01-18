@@ -203,6 +203,7 @@ Definitions:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - suffix
 | | | | | | | | | | - _{\\\\alpha=%(alpha)s}(%(source)s)
+| | | | | | | | - List:
 | | | | | | | | - false
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
@@ -364,6 +365,7 @@ Definitions:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - suffix
 | | | | | | | | | | - _{cumul}(%(source)s)
+| | | | | | | | - List:
 | | | | | | | | - false
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
@@ -597,11 +599,14 @@ Definitions:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - suffix
 | | | | | | | | | | - _{n=%(timeframe)s}(%(source)s)
+| | | | | | | | - List:
 | | | | | | | | - false
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Statistics
+| | | | | - List:
 | | | | | - false
+| | - List:
 | | - List:
 | | - false

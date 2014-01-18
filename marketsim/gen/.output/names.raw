@@ -74,6 +74,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Side
+| | - List:
 | | - false
 | - PackageDef:
 | | - Some:
@@ -318,6 +319,7 @@ Definitions:
 | | | | | | | - label
 | | | | | | | - %(base)s^{%(power)s}
 | | - List:
+| | - List:
 | | - false
 | - PackageDef:
 | | - Some:
@@ -396,6 +398,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Event
+| | - List:
 | | - false
 | - PackageDef:
 | | - Some:
@@ -434,6 +437,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - N/A
+| | - List:
 | | - false
 | - PackageDef:
 | | - Some:
@@ -851,7 +855,9 @@ Definitions:
 | | | | | | | | | | | | - random
 | | | | | | | | | | - List:
 | | | | | - List:
+| | | | | - List:
 | | | | | - false
+| | - List:
 | | - List:
 | | - false
 | - PackageDef:
@@ -882,6 +888,7 @@ Definitions:
 | | | | | | | | | | - 
 | | | | | | | | | | - order
 | | | | | | | | | | - MarketSigned
+| | | | | - List:
 | | | | | - List:
 | | | | | - false
 | | | | - PackageDef:
@@ -962,6 +969,7 @@ Definitions:
 | | | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | | | - side_price_Peg
 | | | | | | | | | | | - List:
+| | | | | | | | | | | - List:
 | | | | | | | | | | | - false
 | | | | | | | | | | - FunAlias:
 | | | | | | | | | | | - Limit
@@ -1036,6 +1044,7 @@ Definitions:
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - side_Peg
 | | | | | | | | - List:
+| | | | | | | | - List:
 | | | | | | | | - false
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
@@ -1100,6 +1109,7 @@ Definitions:
 | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - sideprice_Peg
+| | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | - false
 | | | | | | | - PackageDef:
@@ -1173,6 +1183,7 @@ Definitions:
 | | | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | | | - sidevolume_price_Peg
 | | | | | | | | | | | - List:
+| | | | | | | | | | | - List:
 | | | | | | | | | | | - false
 | | | | | | | | | | - FunAlias:
 | | | | | | | | | | | - Limit
@@ -1239,6 +1250,7 @@ Definitions:
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - sidevolume_Peg
 | | | | | | | | - List:
+| | | | | | | | - List:
 | | | | | | | | - false
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
@@ -1303,6 +1315,7 @@ Definitions:
 | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - price_Peg
+| | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | - false
 | | | | | | | - PackageDef:
@@ -1369,6 +1382,7 @@ Definitions:
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - volumeprice_Peg
 | | | | | | | | - List:
+| | | | | | | | - List:
 | | | | | | | | - false
 | | | | | | | - PackageDef:
 | | | | | | | | - Some:
@@ -1393,6 +1407,7 @@ Definitions:
 | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - signedVolume_MarketSigned
+| | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | - false
 | | | | | | | - PackageDef:
@@ -1458,6 +1473,7 @@ Definitions:
 | | | | | | | | | | | | | - order
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - pricevolume_Peg
+| | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | - false
 | | | | | | | - PackageDef:
@@ -1531,6 +1547,7 @@ Definitions:
 | | | | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | | | | - volume_price_Peg
 | | | | | | | | | | | - List:
+| | | | | | | | | | | - List:
 | | | | | | | | | | | - false
 | | | | | | | | | | - FunAlias:
 | | | | | | | | | | | - Limit
@@ -1597,7 +1614,9 @@ Definitions:
 | | | | | | | | | | | | | - _curried
 | | | | | | | | | | | | | - volume_Peg
 | | | | | | | | - List:
+| | | | | | | | - List:
 | | | | | | | | - false
+| | | | | - List:
 | | | | | - List:
 | | | | | - false
 | | | | - PackageDef:
@@ -6246,6 +6265,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Limit
 | | | | | - List:
+| | | | | - List:
 | | | | | - false
 | | | | - FunDef:
 | | | | | - Limit
@@ -6738,6 +6758,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Order
+| | - List:
 | | - false
 | - PackageDef:
 | | - Some:
@@ -6836,7 +6857,9 @@ Definitions:
 | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | | - VirtualMarket
 | | | | | | | | | | | - List:
+| | | | | | | | | | | - List:
 | | | | | | | | | | | - false
+| | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | - false
 | | | | | | | - FunDef:
@@ -6945,6 +6968,7 @@ Definitions:
 | | | | | | | | | | - _
 | | | | | | | | | | - inner
 | | | | | | | | | | - inner_VirtualMarket
+| | | | | - List:
 | | | | | - List:
 | | | | | - false
 | | | | - PackageDef:
@@ -7060,6 +7084,7 @@ Definitions:
 | | | | | | | | | | | | | | | | | | - curried
 | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | | - IdentityL
+| | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | - false
 | | | | | | | | | | - PackageDef:
@@ -7212,6 +7237,7 @@ Definitions:
 | | | | | | | | | | | | | | | | | | - curried
 | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | | - Unit
+| | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | - false
 | | | | | | | | | | - PackageDef:
@@ -7367,7 +7393,9 @@ Definitions:
 | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | | - IdentityF
 | | | | | | | | | | | - List:
+| | | | | | | | | | | - List:
 | | | | | | | | | | | - false
+| | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | - false
 | | | | | | | - FunAlias:
@@ -7944,6 +7972,7 @@ Definitions:
 | | | | | | | | | | | | - curried
 | | | | | | | | | | - List:
 | | | | | | | | | | | - f
+| | | | | - List:
 | | | | | - List:
 | | | | | - false
 | | | | - FunDef:
@@ -10139,6 +10168,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Strategy
+| | - List:
 | | - false
 | - PackageDef:
 | | - Some:
@@ -10349,6 +10379,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Trader
+| | - List:
 | | - false
 | - PackageDef:
 | | - Some:
@@ -10580,6 +10611,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Asset
+| | - List:
 | | - false
 | - PackageDef:
 | | - Some:
@@ -10684,6 +10716,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Price function
+| | | | | - List:
 | | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
@@ -11177,6 +11210,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Side function
+| | | | | - List:
 | | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
@@ -11443,6 +11477,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - suffix
 | | | | | | | - _{cumul}(%(source)s)
+| | | | | - List:
 | | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
@@ -11530,6 +11565,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - RSI
+| | | | | - List:
 | | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
@@ -11782,6 +11818,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - MACD
+| | | | | - List:
 | | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
@@ -12106,6 +12143,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Trader's
+| | | | | - List:
 | | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
@@ -12355,6 +12393,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Volume function
+| | | | | - List:
 | | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
@@ -12551,6 +12590,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - suffix
 | | | | | | | - _{\\\\alpha=%(alpha)s}(%(source)s)
+| | | | | - List:
 | | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
@@ -13597,6 +13637,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Asset's
+| | | | | - List:
 | | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
@@ -13923,6 +13964,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - suffix
 | | | | | | | - _{n=%(timeframe)s}(%(source)s)
+| | | | | - List:
 | | | | | - false
 | | | | - FunDef:
 | | | | | - OnEveryDt
@@ -14753,6 +14795,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
+| | - List:
 | | - false
 | - PackageDef:
 | | - Some:
@@ -14807,6 +14850,7 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - R
 | | | | | | | | | | - List:
+| | | | | - List:
 | | | | | - List:
 | | | | | - false
 | | | | - PackageDef:
@@ -15046,6 +15090,7 @@ Definitions:
 | | | | | | | | | | | - None
 | | | | | | | | | | | - List:
 | | | | | | | | - List:
+| | | | | | | | - List:
 | | | | | | | | - false
 | | | | | | | - FunDef:
 | | | | | | | | - A
@@ -15086,6 +15131,7 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - List:
 | | | | | - List:
+| | | | | - List:
 | | | | | - false
 | | | | - FunDef:
 | | | | | - A
@@ -15119,6 +15165,7 @@ Definitions:
 | | | - Attribute:
 | | | | - python
 | | | | - no
+| | - List:
 | | - false
 | - FunDef:
 | | - constant

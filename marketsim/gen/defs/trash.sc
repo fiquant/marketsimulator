@@ -20,9 +20,12 @@ package types {
 
 }
 
+abstract package _base1 {}
+abstract package _base2 {}
+
 def A(x = in1.in2.A()) => types.R
 
-package in1
+package in1 extends _base1 extends _base2
 def A(x : () => .trash.types.T1 = .trash.A()) => types.U
 
 package in2

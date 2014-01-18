@@ -230,6 +230,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Asset
+| | - List:
 | | - false
 | - PackageDef:
 | | - Some:
@@ -478,6 +479,7 @@ Definitions:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - $name_{%(book)s}
+| | | | | - List:
 | | | | | - List:
 | | | | | - true
 | | | | - FunDef:
@@ -1321,4 +1323,5 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Asset's
+| | - List:
 | | - false

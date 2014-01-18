@@ -164,12 +164,15 @@ package object Printer
             val members : Definitions[T]
             def attributes : Iterable[Decorator]
             val `abstract` : Boolean
+            val bases      : Iterable[Any]
 
             def getName : String
 
             def toScala = (
                     (attributes map { _ + crlf } mkString "") +
-                    crlf + (if (`abstract`) "abstract " else "") + "package " + getName + " {"
+                    crlf + (if (`abstract`) "abstract " else "") + "package " + getName
+                    + (bases map { " extends " + _ } mkString "")
+                    + " {"
                     + indent() { members }
                     + crlf + "}")
         }

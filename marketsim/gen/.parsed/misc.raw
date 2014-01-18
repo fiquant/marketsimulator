@@ -696,6 +696,7 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Statistics
+| | | | | - List:
 | | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
@@ -810,11 +811,13 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Statistics
+| | | | | - List:
 | | | | | - false
 | | - List:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
+| | - List:
 | | - false
 | - PackageDef:
 | | - None
@@ -1218,6 +1221,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Basic
+| | - List:
 | | - false
 | - PackageDef:
 | | - Some:
@@ -1293,6 +1297,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Side
+| | - List:
 | | - false
 | - PackageDef:
 | | - Some:
@@ -1371,6 +1376,7 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Event
+| | - List:
 | | - false
 | - PackageDef:
 | | - Some:
@@ -1409,4 +1415,5 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - N/A
+| | - List:
 | | - false
