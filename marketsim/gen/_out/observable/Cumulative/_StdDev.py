@@ -21,7 +21,7 @@ class StdDev(Function[float]):
         'source' : IObservable[float]
     }
     def __repr__(self):
-        return "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}" % self.__dict__
+        return "\\sqrt{\\sigma^2_{cumul}(%(source)s)}" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):

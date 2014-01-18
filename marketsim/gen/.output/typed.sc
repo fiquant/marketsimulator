@@ -1415,18 +1415,19 @@ package observable {@category = "Price function"
     }
     
     @category = "Statistics"
+    @suffix = "_{cumul}(%(source)s)"
     package Cumulative {
-        @label = "RSD_{cumul}_{%(source)s}"
+        @label = "RSD{{suffix}}"
         def RelStdDev(source : Optional[.IObservable[.Float]] = .const()) : .IObservable[.Float]
             
             	 = (source-.observable.Cumulative.Avg(source))/.observable.Cumulative.StdDev(source)
         
-        @label = "\\sigma^2_{cumul}(%(source)s)"
+        @label = "\\sigma^2{{suffix}}"
         @python.intrinsic("moments.cmv.Variance_Impl")
         def Var(source : Optional[.IObservable[.Float]] = .const()) : () => .Float
             
         
-        @label = "Avg_{cumul}(%(source)s)"
+        @label = "Avg{{suffix}}"
         @python.intrinsic("moments.cma.CMA_Impl")
         def Avg(source : Optional[.IObservable[.Float]] = .const()) : () => .Float
             
@@ -1443,7 +1444,7 @@ package observable {@category = "Price function"
                        epsilon : Optional[.IFunction[.Float]] = .constant(0.01)) : .IObservable[.Float]
             
         
-        @label = "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}"
+        @label = "\\sqrt{\\sigma^2{{suffix}}}"
         def StdDev(source : Optional[.IObservable[.Float]] = .const()) : () => .Float
             
             	 = .mathops.Sqrt(.observable.Cumulative.Var(source))
@@ -1547,26 +1548,27 @@ package observable {@category = "Price function"
     }
     
     @category = "Statistics"
+    @suffix = "_{\\\\alpha=%(alpha)s}(%(source)s)"
     package EW {
-        @label = "Avg_{\\alpha=%(alpha)s}(%(source)s)"
+        @label = "Avg{{suffix}}"
         @python.intrinsic("moments.ewma.EWMA_Impl")
         def Avg(source : Optional[.IObservable[.Float]] = .const(),
                 alpha : Optional[.Float] = 0.015) : .IDifferentiable
             
         
-        @label = "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}"
+        @label = "\\sigma^2{{suffix}}"
         @python.intrinsic("moments.ewmv.EWMV_Impl")
         def Var(source : Optional[.IObservable[.Float]] = .const(),
                 alpha : Optional[.Float] = 0.015) : () => .Float
             
         
-        @label = "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}"
+        @label = "\\sqrt{\\sigma^2{{suffix}}}"
         def StdDev(source : Optional[.IObservable[.Float]] = .const(),
                    alpha : Optional[.Float] = 0.015) : () => .Float
             
             	 = .mathops.Sqrt(.observable.EW.Var(source,alpha))
         
-        @label = "RSD_{\\alpha=%(alpha)s}_{%(source)s}"
+        @label = "RSD{{suffix}}"
         def RelStdDev(source : Optional[.IObservable[.Float]] = .const(),
                       alpha : Optional[.Float] = 0.15) : .IObservable[.Float]
             
@@ -1709,6 +1711,7 @@ package observable {@category = "Price function"
     }
     
     @category = "Statistics"
+    @suffix = "_{n=%(timeframe)s}(%(source)s)"
     package Moving {
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
         @python.intrinsic("observable.minmax.Min_Impl")
@@ -1716,13 +1719,13 @@ package observable {@category = "Price function"
                 timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
             
         
-        @label = "RSD_{n=%(timeframe)s}_{%(source)s}"
+        @label = "RSD{{suffix}}"
         def RelStdDev(source : Optional[.IObservable[.Float]] = .const(),
                       timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
             
             	 = (source-.observable.Moving.Avg(source,timeframe))/.observable.Moving.StdDev(source,timeframe)
         
-        @label = "\\sigma^2_{n=%(timeframe)s}(%(source)s)"
+        @label = "\\sigma^2{{suffix}}"
         @python.intrinsic("moments.mv.MV_Impl")
         def Var(source : Optional[.IObservable[.Float]] = .const(),
                 timeframe : Optional[.Float] = 100.0) : .IFunction[.Float]
@@ -1735,13 +1738,13 @@ package observable {@category = "Price function"
                 timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
             
         
-        @label = "Avg_{n=%(timeframe)s}(%(source)s)"
+        @label = "Avg{{suffix}}"
         @python.intrinsic("moments.ma.MA_Impl")
         def Avg(source : Optional[.IObservable[.Float]] = .const(),
                 timeframe : Optional[.Float] = 100.0) : () => .Float
             
         
-        @label = "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}"
+        @label = "\\sqrt{\\sigma^2{{suffix}}}"
         def StdDev(source : Optional[.IObservable[.Float]] = .const(),
                    timeframe : Optional[.Float] = 100.0) : () => .Float
             

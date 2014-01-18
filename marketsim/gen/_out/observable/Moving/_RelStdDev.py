@@ -28,7 +28,7 @@ class RelStdDev(Observable[float]):
         'timeframe' : float
     }
     def __repr__(self):
-        return "RSD_{n=%(timeframe)s}_{%(source)s}" % self.__dict__
+        return "RSD_{n=%(timeframe)s}(%(source)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):

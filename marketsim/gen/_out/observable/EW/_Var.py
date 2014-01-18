@@ -21,5 +21,5 @@ class Var(Function[float], EWMV_Impl):
         'alpha' : float
     }
     def __repr__(self):
-        return "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}" % self.__dict__
+        return "\\sigma^2_{\\alpha=%(alpha)s}(%(source)s)" % self.__dict__
     

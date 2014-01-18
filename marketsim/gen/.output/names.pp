@@ -1213,19 +1213,20 @@ package observable {@category = "Price function"
              = if side_distribution>0.5 then side.Sell() else side.Buy()
     }
     @category = "Statistics"
+    @suffix = "_{cumul}(%(source)s)"
     
     package Cumulative {
-        @label = "RSD_{cumul}_{%(source)s}"
+        @label = "RSD{{suffix}}"
         def RelStdDev(source = const())
              = (source-Avg(source))/StdDev(source)
         
         @python.intrinsic("moments.cmv.Variance_Impl")
-        @label = "\\sigma^2_{cumul}(%(source)s)"
+        @label = "\\sigma^2{{suffix}}"
         def Var(source = const()) : () => Float
             
         
         @python.intrinsic("moments.cma.CMA_Impl")
-        @label = "Avg_{cumul}(%(source)s)"
+        @label = "Avg{{suffix}}"
         def Avg(source = const()) : () => Float
             
         
@@ -1241,7 +1242,7 @@ package observable {@category = "Price function"
                        epsilon = constant(0.01)) : IObservable[Float]
             
         
-        @label = "\\sqrt{\\sigma^2_{cumul}_{%(source)s}}"
+        @label = "\\sqrt{\\sigma^2{{suffix}}}"
         def StdDev(source = const())
              = mathops.Sqrt(Var(source))
     }
@@ -1325,26 +1326,27 @@ package observable {@category = "Price function"
              = DesiredPosition(OnEveryDt(1.0,50.0-RSI(orderbook.OfTrader(trader),timeframe,alpha))*k,trader)
     }
     @category = "Statistics"
+    @suffix = "_{\\\\alpha=%(alpha)s}(%(source)s)"
     
     package EW {
         @python.intrinsic("moments.ewma.EWMA_Impl")
-        @label = "Avg_{\\alpha=%(alpha)s}(%(source)s)"
+        @label = "Avg{{suffix}}"
         def Avg(source = const(),
                 alpha = 0.015) : IDifferentiable
             
         
         @python.intrinsic("moments.ewmv.EWMV_Impl")
-        @label = "\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}"
+        @label = "\\sigma^2{{suffix}}"
         def Var(source = const(),
                 alpha = 0.015) : () => Float
             
         
-        @label = "\\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}"
+        @label = "\\sqrt{\\sigma^2{{suffix}}}"
         def StdDev(source = const(),
                    alpha = 0.015)
              = mathops.Sqrt(Var(source,alpha))
         
-        @label = "RSD_{\\alpha=%(alpha)s}_{%(source)s}"
+        @label = "RSD{{suffix}}"
         def RelStdDev(source = const(),
                       alpha = 0.15)
              = (source-Avg(source,alpha))/StdDev(source,alpha)
@@ -1455,6 +1457,7 @@ package observable {@category = "Price function"
             
     }
     @category = "Statistics"
+    @suffix = "_{n=%(timeframe)s}(%(source)s)"
     
     package Moving {
         @python.intrinsic("observable.minmax.Min_Impl")
@@ -1463,13 +1466,13 @@ package observable {@category = "Price function"
                 timeframe = 100.0) : IObservable[Float]
             
         
-        @label = "RSD_{n=%(timeframe)s}_{%(source)s}"
+        @label = "RSD{{suffix}}"
         def RelStdDev(source = const(),
                       timeframe = 100.0)
              = (source-Avg(source,timeframe))/StdDev(source,timeframe)
         
         @python.intrinsic("moments.mv.MV_Impl")
-        @label = "\\sigma^2_{n=%(timeframe)s}(%(source)s)"
+        @label = "\\sigma^2{{suffix}}"
         def Var(source = const(),
                 timeframe = 100.0)
              = observable.Max(const(0),Avg(source*source,timeframe)-Sqr(Avg(source,timeframe)))
@@ -1481,12 +1484,12 @@ package observable {@category = "Price function"
             
         
         @python.intrinsic("moments.ma.MA_Impl")
-        @label = "Avg_{n=%(timeframe)s}(%(source)s)"
+        @label = "Avg{{suffix}}"
         def Avg(source = const(),
                 timeframe = 100.0) : () => Float
             
         
-        @label = "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}"
+        @label = "\\sqrt{\\sigma^2{{suffix}}}"
         def StdDev(source = const(),
                    timeframe = 100.0)
              = mathops.Sqrt(Var(source))

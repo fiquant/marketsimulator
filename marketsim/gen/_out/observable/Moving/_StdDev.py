@@ -23,7 +23,7 @@ class StdDev(Function[float]):
         'timeframe' : float
     }
     def __repr__(self):
-        return "\\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}" % self.__dict__
+        return "\\sqrt{\\sigma^2_{n=%(timeframe)s}(%(source)s)}" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):

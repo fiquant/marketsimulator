@@ -11227,7 +11227,7 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
-| | | | | | | | | | - RSD_{cumul}_{%(source)s}
+| | | | | | | | | | - RSD{{suffix}}
 | | | | | | | - FunDef:
 | | | | | | | | - Var
 | | | | | | | | - List:
@@ -11262,7 +11262,7 @@ Definitions:
 | | | | | | | | | | | - moments.cmv.Variance_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
-| | | | | | | | | | - \\sigma^2_{cumul}(%(source)s)
+| | | | | | | | | | - \\sigma^2{{suffix}}
 | | | | | | | - FunDef:
 | | | | | | | | - Avg
 | | | | | | | | - List:
@@ -11297,7 +11297,7 @@ Definitions:
 | | | | | | | | | | | - moments.cma.CMA_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
-| | | | | | | | | | - Avg_{cumul}(%(source)s)
+| | | | | | | | | | - Avg{{suffix}}
 | | | | | | | - FunDef:
 | | | | | | | | - MinEpsilon
 | | | | | | | | - List:
@@ -11435,11 +11435,14 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
-| | | | | | | | | | - \\sqrt{\\sigma^2_{cumul}_{%(source)s}}
+| | | | | | | | | | - \\sqrt{\\sigma^2{{suffix}}}
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Statistics
+| | | | | | - Attribute:
+| | | | | | | - suffix
+| | | | | | | - _{cumul}(%(source)s)
 | | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
@@ -12399,7 +12402,7 @@ Definitions:
 | | | | | | | | | | | - moments.ewma.EWMA_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
-| | | | | | | | | | - Avg_{\\alpha=%(alpha)s}(%(source)s)
+| | | | | | | | | | - Avg{{suffix}}
 | | | | | | | - FunDef:
 | | | | | | | | - Var
 | | | | | | | | - List:
@@ -12441,7 +12444,7 @@ Definitions:
 | | | | | | | | | | | - moments.ewmv.EWMV_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
-| | | | | | | | | | - \\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}
+| | | | | | | | | | - \\sigma^2{{suffix}}
 | | | | | | | - FunDef:
 | | | | | | | | - StdDev
 | | | | | | | | - List:
@@ -12486,7 +12489,7 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
-| | | | | | | | | | - \\sqrt{\\sigma^2_{\\alpha=%(alpha)s}_{%(source)s}}
+| | | | | | | | | | - \\sqrt{\\sigma^2{{suffix}}}
 | | | | | | | - FunDef:
 | | | | | | | | - RelStdDev
 | | | | | | | | - List:
@@ -12540,11 +12543,14 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
-| | | | | | | | | | - RSD_{\\alpha=%(alpha)s}_{%(source)s}
+| | | | | | | | | | - RSD{{suffix}}
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Statistics
+| | | | | | - Attribute:
+| | | | | | | - suffix
+| | | | | | | - _{\\\\alpha=%(alpha)s}(%(source)s)
 | | | | | - false
 | | | | - PackageDef:
 | | | | | - Some:
@@ -13697,7 +13703,7 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
-| | | | | | | | | | - RSD_{n=%(timeframe)s}_{%(source)s}
+| | | | | | | | | | - RSD{{suffix}}
 | | | | | | | - FunDef:
 | | | | | | | | - Var
 | | | | | | | | - List:
@@ -13779,7 +13785,7 @@ Definitions:
 | | | | | | | | | | | - moments.mv.MV_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
-| | | | | | | | | | - \\sigma^2_{n=%(timeframe)s}(%(source)s)
+| | | | | | | | | | - \\sigma^2{{suffix}}
 | | | | | | | - FunDef:
 | | | | | | | | - Max
 | | | | | | | | - List:
@@ -13866,7 +13872,7 @@ Definitions:
 | | | | | | | | | | | - moments.ma.MA_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
-| | | | | | | | | | - Avg_{n=%(timeframe)s}(%(source)s)
+| | | | | | | | | | - Avg{{suffix}}
 | | | | | | | - FunDef:
 | | | | | | | | - StdDev
 | | | | | | | | - List:
@@ -13909,11 +13915,14 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
-| | | | | | | | | | - \\sqrt{\\sigma^2_{n=%(timeframe)s}_{%(source)s}}
+| | | | | | | | | | - \\sqrt{\\sigma^2{{suffix}}}
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Statistics
+| | | | | | - Attribute:
+| | | | | | | - suffix
+| | | | | | | - _{n=%(timeframe)s}(%(source)s)
 | | | | | - false
 | | | | - FunDef:
 | | | | | - OnEveryDt

@@ -28,7 +28,7 @@ class RelStdDev(Observable[float]):
         'alpha' : float
     }
     def __repr__(self):
-        return "RSD_{\\alpha=%(alpha)s}_{%(source)s}" % self.__dict__
+        return "RSD_{\\alpha=%(alpha)s}(%(source)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):

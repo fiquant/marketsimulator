@@ -470,7 +470,7 @@ package object Printer
             def functions   : Map[String, Any]
             def functionAliases : Map[String, Any]
             def types       : Map[String, Any]
-            def attributes  : Any
+            protected def attributes  : Any
             def content =
                 (packages.values  mkString crlf) +
                 (types.values     mkString crlf) +

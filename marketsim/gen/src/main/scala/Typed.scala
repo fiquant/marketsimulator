@@ -1,3 +1,5 @@
+import scala.util.matching.Regex
+
 package object Typed
 {
     import AST.{BinOpSymbol, CondSymbol, DocString, QualifiedName}
@@ -139,6 +141,26 @@ package object Typed
             extends sc.FunctionAlias
             with    ScPrintable
 
+    trait AttributeReplace
+    {
+        def parent : Package
+        def attributes : Attributes
+
+        def tryGetAttributeImpl(name : String) = attributes.items get name match {
+            case Some(v) => Some(v)
+            case None =>    parent tryGetAttributeImpl name
+        }
+
+        def tryGetAttribute(name : String) : Option[String] =
+            tryGetAttributeImpl(name) map { v =>
+                new Regex("\\{\\{(\\w+)\\}\\}", "x") replaceAllIn (v, m => tryGetAttribute(m.group("x")) match {
+                    case Some(y) => y
+                    case None    =>
+                        throw new Exception(s"Cannot find attribute named ${m.group("x")} when evaluating attribute $name")
+                })
+            }
+    }
+
     case class Function(parent      : Package,
                         name        : String,
                         parameters  : List[Parameter],
@@ -149,6 +171,7 @@ package object Typed
                         attributes  : Attributes)
             extends sc.Function
             with    ScPrintable
+            with    AttributeReplace
     {
         def decorators = attributes :: annotations
 
@@ -159,10 +182,6 @@ package object Typed
         def getAttribute(name : String) = tryGetAttribute(name) match {
             case Some(v) => v
             case None =>    throw new Exception(s"Cannot find attribute '$name' for function $this")
-        }
-        def tryGetAttribute(name : String) = attributes.items get name match {
-            case Some(v) => Some(v)
-            case None =>    parent tryGetAttribute name
         }
 
         override def equals(o : Any) = o match {
@@ -236,11 +255,12 @@ package object Typed
         var packages = Map[String, SubPackage]()
         var types = Map[String, TypeDeclaration]()
         var annotations = List[Annotation]()
-        val attributes = Attributes(Map.empty)
+        protected val attributes = Attributes(Map.empty)
 
         def qualifiedName : AST.QualifiedName
         def qualifyName(x : String) : AST.QualifiedName = AST.QualifiedName(qualifiedName.names :+ x)
         def tryGetAttribute(name : String) : Option[String]
+        def tryGetAttributeImpl(name : String) : Option[String]
         def getName : String
 
         def insert(f : Function)  = {
@@ -314,6 +334,8 @@ package object Typed
 
         def tryGetAttribute(name : String) : Option[String] = None
 
+        def tryGetAttributeImpl(name : String) = Option.empty[String]
+
         def getName = ""
 
         def makeScalar(name : String) =
@@ -360,6 +382,7 @@ package object Typed
             extends Package
             with    sc.SubPackage
             with    ScPrintable
+            with    AttributeReplace
     {
         override def getFunction(name : String) =
             getFunctionImpl(name) match {
@@ -370,11 +393,6 @@ package object Typed
         override def qualifiedName = AST.QualifiedName(parent.qualifiedName.names :+ name)
 
         override def getName = name
-
-        override def tryGetAttribute(name : String) = attributes.items get name match {
-            case Some(v) => Some(v)
-            case None    => parent tryGetAttribute name
-        }
 
         override def equals(o : Any) = o match {
             case that : SubPackage => super.equals(o) && name == that.name

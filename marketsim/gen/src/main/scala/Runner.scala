@@ -1,5 +1,6 @@
 import java.io.{PrintWriter, File}
 import resource._
+import scala.util.matching.Regex
 import sext._
 
 object Runner extends syntax.scala.Parser {

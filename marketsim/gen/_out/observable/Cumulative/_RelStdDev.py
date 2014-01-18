@@ -26,7 +26,7 @@ class RelStdDev(Observable[float]):
         'source' : IObservable[float]
     }
     def __repr__(self):
-        return "RSD_{cumul}_{%(source)s}" % self.__dict__
+        return "RSD_{cumul}(%(source)s)" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):
