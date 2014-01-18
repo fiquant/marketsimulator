@@ -1592,11 +1592,11 @@ package trash {
     package types {
         type T1 = T
         
-        type U : T, R
+        type T
         
         type R : T
         
-        type T
+        type U : T, R
     }
     
     package in1 {

@@ -444,7 +444,6 @@ package object Typed
         def apply(scope : NameTable.Scope)
         {
             scope.packages.values foreach { apply }
-            scope.anonymous       foreach { apply }
 
             scope.members.values collect { case f : AST.FunDef =>
                 Typer.annotationsOf(f) collect { case Typed.Annotation(g : BeforeTyping, args) => g.beforeTyping(args)(f, scope) }

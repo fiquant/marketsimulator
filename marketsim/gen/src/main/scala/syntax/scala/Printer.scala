@@ -501,10 +501,8 @@ package object Printer
             def packages : Map[String, Any]
             def members : Map[String, Any]
             def attributes : Any
-            def anonymous : Iterable[Any]
             def content =
                 (packages.values mkString crlf) +
-                (anonymous mkString crlf) +
                 (members.values mkString crlf)
 
             def wrapped(name : String) =

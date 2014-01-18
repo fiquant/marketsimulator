@@ -9,7 +9,6 @@ package object NameTable {
     case class Scope(name : String = "_root_") extends pp.NamesScope with ScPrintable {
 
         var packages = Map[String, Scope]()
-        var anonymous = List[Scope]()
         var members = Map[String, AST.Member]()
         var attributes = Typed.Attributes(Map.empty)
         var parent : Option[Scope] = None
@@ -19,7 +18,7 @@ package object NameTable {
         val isAnonymous = name startsWith "$"
 
         def add(m : AST.Member) {
-            members get m.name match {  // TODO: lookup at anon spaces too
+            members get m.name match {
                 case None =>
                     check_name_is_unique(m.name, m)
                     members = members updated (m.name, m)
@@ -53,7 +52,6 @@ package object NameTable {
                 throw new Exception(s"Duplicate definition for $name:\r\n" + members(name) + "\r\n" + e)
             if (packages contains name)
                 throw new Exception(s"Duplicate definition for $name:\r\n" + packages(name) + "\r\n" + e)
-            anonymous foreach { _.check_name_is_unique(name, e) }
         }
 
         def add(a : AST.Attribute) = addAttribute(a.name, a.value)
@@ -82,13 +80,15 @@ package object NameTable {
             packages(child.name)
         }
 
+        var anon_idx = 0
+
         def add(p : AST.PackageDef) {
             val target = p.name match {
                 case Some(qn) =>
                     (qn.names map (new Scope(_))).foldLeft(this) { _.populate(_) }
                 case None =>
-                    val fresh = new Scope("$" + anonymous.length)
-                    anonymous = fresh :: anonymous
+                    val fresh = new Scope("$" + anon_idx); anon_idx += 1
+                    packages = packages updated (fresh.name, fresh)
                     fresh.parent = Some(this)
                     fresh
             }
@@ -99,24 +99,25 @@ package object NameTable {
         {
             packages.values foreach { _.removeAnonymous() }
 
-            val a = anonymous
-            anonymous = Nil
+            val (anonymous, normal) =  packages partition { _._2.isAnonymous }
 
-            a foreach { pkg =>
-                pkg.removeAnonymous()
-                pkg.packages.values foreach { inner =>
-                    inner.attributes = Typed.Attributes(pkg.attributes.items ++ inner.attributes.items)
-                    populate(inner)
-                }
-                pkg.members.values foreach { m =>
-                    add(m match {
-                        case f : AST.FunDef =>
-                            f.copy(decorators =
-                                    (pkg.attributes.items map { p => AST.Attribute(p._1, p._2) }).toList
-                                            ++ f.decorators)
-                        case x => x
-                    })
-                }
+            packages = normal
+
+            anonymous.values foreach {
+                pkg =>
+                    pkg.packages.values foreach { inner =>
+                        inner.attributes = Typed.Attributes(pkg.attributes.items ++ inner.attributes.items)
+                        populate(inner)
+                    }
+                    pkg.members.values foreach { m =>
+                        add(m match {
+                            case f : AST.FunDef =>
+                                f.copy(decorators =
+                                        (pkg.attributes.items map { p => AST.Attribute(p._1, p._2) }).toList
+                                                ++ f.decorators)
+                            case x => x
+                        })
+                    }
             }
         }
 
@@ -133,23 +134,18 @@ package object NameTable {
         private def lookupInnerScopes[T <: AST.Member](qn : List[String])(implicit t : Manifest[T]) : Option[(Scope, T)] =
         {
             //println(s"looking for $qn in inner scopes of $qualifiedNameAnon ")
-            anonymous map { _ lookupInnerScopes qn } find { _.nonEmpty } match {
-                case Some(x)
-                    => x
-                case None =>
-                    qn match {
-                        case x :: Nil =>
-                            members get x match {
-                                case Some(f) if f.cast[T].nonEmpty
-                                    => Some((this, f.asInstanceOf[T]))
-                                case _
-                                    => None
-                            }
-                        case x :: tl =>
-                            packages get x map { _ lookupInnerScopes tl } match {
-                                case Some(y)  => y
-                                case None     => None
-                            }
+            qn match {
+                case x :: Nil =>
+                    members get x match {
+                        case Some(f) if f.cast[T].nonEmpty
+                            => Some((this, f.asInstanceOf[T]))
+                        case _
+                            => None
+                    }
+                case x :: tl =>
+                    packages get x map { _ lookupInnerScopes tl } match {
+                        case Some(y)  => y
+                        case None     => None
                     }
             }
         }
@@ -231,9 +227,6 @@ package object NameTable {
             typed = Some(target)
             packages.values foreach {
                 p => p.toTyped(target.createChild(p.name, p.attributes))
-            }
-            anonymous foreach {
-                p => p.toTyped(target.createChild(p.attributes))
             }
             target
         }
