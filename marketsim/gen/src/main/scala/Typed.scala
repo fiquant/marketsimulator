@@ -234,7 +234,6 @@ package object Typed
         var functions = Map[String, Function]()
         var functionAliases = Map[String, FunctionAlias]()
         var packages = Map[String, SubPackage]()
-        var anonymous = List[AnonymousPackage]()
         var types = Map[String, TypeDeclaration]()
         var annotations = List[Annotation]()
         val attributes = Attributes(Map.empty)
@@ -265,22 +264,11 @@ package object Typed
             p
         }
 
-        def createChild(a : Attributes) = {
-            anonymous find { _.attributes == a } match {
-                case Some(p) => p
-                case None    =>
-                    val p = new AnonymousPackage(this, a)
-                    anonymous = p :: anonymous
-                    p
-            }
-        }
-
         override def equals(o : Any) = o match {
             case that : Package =>
                 (functions       equals that.functions) &&
                 (functionAliases equals that.functionAliases) &&
                 (packages        equals that.packages)  &&
-                (anonymous       equals that.anonymous) &&
                 (attributes      equals that.attributes)
             case _ => false
         }
@@ -366,44 +354,27 @@ package object Typed
         ret
     }
 
-    abstract class SubPackageBase extends Package
+    class SubPackage(val name   : String,
+                     val parent : Package,
+                     override val attributes : Attributes)
+            extends Package
+            with    sc.SubPackage
+            with    ScPrintable
     {
-        def parent : Package
-
         override def getFunction(name : String) =
             getFunctionImpl(name) match {
                 case Some(f) => Some(f)
                 case None    => parent getFunction name
             }
 
-    }
+        override def qualifiedName = AST.QualifiedName(parent.qualifiedName.names :+ name)
 
-    class AnonymousPackage(val parent : Package, override val attributes : Attributes)
-            extends SubPackageBase
-            with    sc.AnonymousPackage
-            with    ScPrintable
-    {
-        override def qualifiedName = parent.qualifiedName
-
-        def getName = ""
+        override def getName = name
 
         override def tryGetAttribute(name : String) = attributes.items get name match {
             case Some(v) => Some(v)
             case None    => parent tryGetAttribute name
         }
-
-    }
-
-    class SubPackage(val name   : String,
-                     parent     : Package,
-                     attributes : Attributes)
-            extends AnonymousPackage(parent, attributes)
-            with    sc.SubPackage
-            with    ScPrintable
-    {
-        override def qualifiedName = AST.QualifiedName(parent.qualifiedName.names :+ name)
-
-        override def getName = name
 
         override def equals(o : Any) = o match {
             case that : SubPackage => super.equals(o) && name == that.name
@@ -462,7 +433,6 @@ package object Typed
         def apply(pkg : Package = topLevel)
         {
             pkg.packages.values foreach { apply(_) }
-            pkg.anonymous       foreach { apply(_) }
 
             pkg.functions.values foreach { f=>
                 f.annotations collect { case Typed.Annotation(g : AfterTyping, args) => g.afterTyping(args)(f) }

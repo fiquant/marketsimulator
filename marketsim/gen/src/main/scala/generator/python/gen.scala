@@ -36,7 +36,6 @@ package object gen
         ensure_dir(idx_dir)
 
         p.packages.values foreach { sub => apply(sub, new File(dir, sub.name), new File(idx_dir, sub.name) ) }
-        p.anonymous       foreach {        apply(_, dir, idx_dir) }
 
         def printWriter(dst_dir : File, filename : String) =
             new PrintWriter(
