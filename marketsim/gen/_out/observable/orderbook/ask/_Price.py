@@ -3,8 +3,8 @@ from marketsim import Price
 from marketsim.ops._all import Observable
 from marketsim import IOrderBook
 from marketsim import context
-@registry.expose(["Asset's", "AskLastPrice"])
-class AskLastPrice(Observable[Price]):
+@registry.expose(["Asset's", "Price"])
+class Price(Observable[Price]):
     """ 
     """ 
     def __init__(self, book = None):
@@ -26,13 +26,13 @@ class AskLastPrice(Observable[Price]):
         'book' : IOrderBook
     }
     def __repr__(self):
-        return "LastAsk_{%(book)s}" % self.__dict__
+        return "Ask_{%(book)s}" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out.observable.orderbook._LastPrice import LastPrice as _observable_orderbook_LastPrice
+        from marketsim.gen._out.observable.orderbook._BestPrice import BestPrice as _observable_orderbook_BestPrice
         from marketsim.gen._out.observable.orderbook._Asks import Asks as _observable_orderbook_Asks
-        return _observable_orderbook_LastPrice(_observable_orderbook_Asks(self.book))
+        return _observable_orderbook_BestPrice(_observable_orderbook_Asks(self.book))
         
     
     def bind(self, ctx):

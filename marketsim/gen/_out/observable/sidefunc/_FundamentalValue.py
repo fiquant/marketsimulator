@@ -37,9 +37,9 @@ class FundamentalValue(Observable[Side]):
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out.side._Buy import Buy as _side_Buy
         from marketsim.gen._out.side._Nothing import Nothing as _side_Nothing
-        from marketsim.gen._out.observable.orderbook._AskPrice import AskPrice as _observable_orderbook_AskPrice
-        from marketsim.gen._out.observable.orderbook._BidPrice import BidPrice as _observable_orderbook_BidPrice
-        return (_observable_orderbook_BidPrice(self.book)>self.fv)[_side_Sell(), (_observable_orderbook_AskPrice(self.book)<self.fv)[_side_Buy(), _side_Nothing()]]
+        from marketsim.gen._out.observable.orderbook.ask._Price import Price as _observable_orderbook_ask_Price
+        from marketsim.gen._out.observable.orderbook.bid._Price import Price as _observable_orderbook_bid_Price
+        return (_observable_orderbook_bid_Price(self.book)>self.fv)[_side_Sell(), (_observable_orderbook_ask_Price(self.book)<self.fv)[_side_Buy(), _side_Nothing()]]
         
         
         

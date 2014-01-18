@@ -30,9 +30,9 @@ package observable.sidefunc
         fv = constant(200.),
         book = orderbook.OfTrader())
 
-        =   if orderbook.BidPrice(book) > fv then side.Sell() else
-            if orderbook.AskPrice(book) < fv then side.Buy()  else
-                                                  side.Nothing()
+        =   if orderbook.bid.Price(book) > fv then side.Sell() else
+            if orderbook.ask.Price(book) < fv then side.Buy()  else
+                                                   side.Nothing()
 
     def MeanReversion(
         alpha = 0.015,

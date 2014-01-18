@@ -2,10 +2,10 @@ from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import IOrderBook
 from marketsim.gen._out.observable.orderbook._WeightedPrice import WeightedPrice as _observable_orderbook_WeightedPrice
-from marketsim.gen._out.observable.orderbook._Bids import Bids as _observable_orderbook_Bids
+from marketsim.gen._out.observable.orderbook._Asks import Asks as _observable_orderbook_Asks
 from marketsim import context
-@registry.expose(["Asset's", "BidWeightedPrice"])
-class BidWeightedPrice(Function[float]):
+@registry.expose(["Asset's", "WeightedPrice"])
+class WeightedPrice(Function[float]):
     """ 
     """ 
     def __init__(self, book = None, alpha = None):
@@ -23,11 +23,11 @@ class BidWeightedPrice(Function[float]):
         'alpha' : float
     }
     def __repr__(self):
-        return "Bid_{%(alpha)s}^{%(book)s}" % self.__dict__
+        return "[Ask_{%(book)s}]_{%(alpha)s}" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):
-        return _observable_orderbook_WeightedPrice(_observable_orderbook_Bids(self.book),self.alpha)
+        return _observable_orderbook_WeightedPrice(_observable_orderbook_Asks(self.book),self.alpha)
     
     
     def bind(self, ctx):

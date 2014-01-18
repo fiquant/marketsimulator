@@ -318,9 +318,16 @@ package object NameTable {
 
         p foreach { create(_, Nil, impl) }
 
+        println("\r\n\tremoving anonymous packages")
         impl.removeAnonymous()
+
+        println("\tinjecting base packages")
         impl.injectBases()
+
+        println("\tremoving abstract packages")
         impl.removeAbstract()
+
+        println("\tapplying before typing annotations")
         Typed.BeforeTyping(impl)
 
         impl

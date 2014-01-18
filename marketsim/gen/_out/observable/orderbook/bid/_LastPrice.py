@@ -3,8 +3,8 @@ from marketsim import Price
 from marketsim.ops._all import Observable
 from marketsim import IOrderBook
 from marketsim import context
-@registry.expose(["Asset's", "Spread"])
-class Spread(Observable[Price]):
+@registry.expose(["Asset's", "LastPrice"])
+class LastPrice(Observable[Price]):
     """ 
     """ 
     def __init__(self, book = None):
@@ -26,15 +26,13 @@ class Spread(Observable[Price]):
         'book' : IOrderBook
     }
     def __repr__(self):
-        return "Spread(%(book)s)" % self.__dict__
+        return "Last(Bid^{%(book)s})" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out.observable._ObservablePrice import ObservablePrice as _observable_ObservablePrice
-        from marketsim.gen._out.observable.orderbook.ask._Price import Price as _observable_orderbook_ask_Price
-        from marketsim.gen._out.observable.orderbook.bid._Price import Price as _observable_orderbook_bid_Price
-        return _observable_ObservablePrice(_observable_orderbook_ask_Price(self.book)-_observable_orderbook_bid_Price(self.book))
-        
+        from marketsim.gen._out.observable.orderbook._LastPrice import LastPrice as _observable_orderbook_LastPrice
+        from marketsim.gen._out.observable.orderbook._Bids import Bids as _observable_orderbook_Bids
+        return _observable_orderbook_LastPrice(_observable_orderbook_Bids(self.book))
         
     
     def bind(self, ctx):

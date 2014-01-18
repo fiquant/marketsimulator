@@ -321,7 +321,8 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - orderbook
-| | | | | | | | | | | - BidPrice
+| | | | | | | | | | | - bid
+| | | | | | | | | | | - Price
 | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Var:
@@ -342,7 +343,8 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | - AskPrice
+| | | | | | | | | | | | - ask
+| | | | | | | | | | | | - Price
 | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Var:

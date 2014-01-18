@@ -21,17 +21,17 @@ from marketsim.gen._out.observable.orderbook._LastTradeVolume import LastTradeVo
 from _ewma import EWMA
 
 from marketsim.gen._out.observable.orderbook._WeightedPrice import WeightedPrice as QueueWeightedPrice
-from marketsim.gen._out.observable.orderbook._AskWeightedPrice import AskWeightedPrice
-from marketsim.gen._out.observable.orderbook._BidWeightedPrice import BidWeightedPrice
+from marketsim.gen._out.observable.orderbook.ask._WeightedPrice import WeightedPrice as AskWeightedPrice
+from marketsim.gen._out.observable.orderbook.bid._WeightedPrice import WeightedPrice as BidWeightedPrice
 
-from marketsim.gen._out.observable.orderbook._AskLastTradePrice import AskLastTradePrice
-from marketsim.gen._out.observable.orderbook._BidLastTradePrice import BidLastTradePrice
+from marketsim.gen._out.observable.orderbook.ask._LastTradePrice import LastTradePrice as AskLastTradePrice
+from marketsim.gen._out.observable.orderbook.bid._LastTradePrice import LastTradePrice as BidLastTradePrice
 
-from marketsim.gen._out.observable.orderbook._AskLastPrice import AskLastPrice
-from marketsim.gen._out.observable.orderbook._BidLastPrice import BidLastPrice
+from marketsim.gen._out.observable.orderbook.ask._LastPrice import LastPrice as AskLastPrice
+from marketsim.gen._out.observable.orderbook.bid._LastPrice import LastPrice as BidLastPrice
 
-from marketsim.gen._out.observable.orderbook._AskPrice import AskPrice
-from marketsim.gen._out.observable.orderbook._BidPrice import BidPrice
+from marketsim.gen._out.observable.orderbook.ask._Price import Price as AskPrice
+from marketsim.gen._out.observable.orderbook.bid._Price import Price as BidPrice
 
 from marketsim.gen._out.observable.orderbook._MidPrice import MidPrice
 from marketsim.gen._out.observable.orderbook._Spread import Spread

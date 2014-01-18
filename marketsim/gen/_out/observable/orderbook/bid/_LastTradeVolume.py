@@ -1,19 +1,19 @@
 from marketsim import registry
-from marketsim import Price
+from marketsim import Volume
 from marketsim.ops._all import Observable
 from marketsim import IOrderBook
 from marketsim import context
-@registry.expose(["Asset's", "BidPrice"])
-class BidPrice(Observable[Price]):
+@registry.expose(["Asset's", "LastTradeVolume"])
+class LastTradeVolume(Observable[Volume]):
     """ 
     """ 
     def __init__(self, book = None):
-        from marketsim import Price
+        from marketsim import Volume
         from marketsim.ops._all import Observable
         from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader as _observable_orderbook_OfTrader
         from marketsim import _
         from marketsim import event
-        Observable[Price].__init__(self)
+        Observable[Volume].__init__(self)
         self.book = book if book is not None else _observable_orderbook_OfTrader()
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -26,13 +26,13 @@ class BidPrice(Observable[Price]):
         'book' : IOrderBook
     }
     def __repr__(self):
-        return "Bid^{%(book)s}" % self.__dict__
+        return "LastTradeVolume(Bid^{%(book)s})" % self.__dict__
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out.observable.orderbook._BestPrice import BestPrice as _observable_orderbook_BestPrice
+        from marketsim.gen._out.observable.orderbook._LastTradeVolume import LastTradeVolume as _observable_orderbook_LastTradeVolume
         from marketsim.gen._out.observable.orderbook._Bids import Bids as _observable_orderbook_Bids
-        return _observable_orderbook_BestPrice(_observable_orderbook_Bids(self.book))
+        return _observable_orderbook_LastTradeVolume(_observable_orderbook_Bids(self.book))
         
     
     def bind(self, ctx):
