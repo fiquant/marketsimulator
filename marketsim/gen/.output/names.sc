@@ -1575,7 +1575,7 @@ package trash {
         type U : T, R
     }
     
-    package in1 {
+    package in1 extends _base1 extends _base2 {
         package in2 {
             def S1(y = "abc")
                  = y

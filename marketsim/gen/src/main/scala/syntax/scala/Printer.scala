@@ -508,7 +508,7 @@ package object Printer
             def wrapped(name : String) =
                 attributes +
                 crlf +  (if (`abstract`) "abstract " else "") +
-                        s"package $name {" +
+                        s"package $name${bases map {" extends " + _ } mkString ""} {" +
                         indent() { content } +
                         crlf + "}"
 

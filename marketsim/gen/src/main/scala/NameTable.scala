@@ -11,15 +11,16 @@ package object NameTable {
             extends pp.NamesScope
             with    ScPrintable
     {
-        var packages = Map[String, Scope]()
-        var members = Map[String, AST.Member]()
-        var attributes = Typed.Attributes(Map.empty)
-        var parent : Option[Scope] = None
-        var typed : Option[Typed.Package] = None
+        var packages    = Map.empty[String, Scope]
+        var members     = Map.empty[String, AST.Member]
+        var attributes  = Typed.Attributes(Map.empty)
+        var parent      = Option.empty[Scope]
+        var typed       = Option.empty[Typed.Package]
+        var bases       = List.empty[AST.QualifiedName]
 
         val isRoot = name == "_root_"
         val isAnonymous = name startsWith "$"
-        val nonAbstract = `abstract` == false
+        val nonAbstract = !`abstract`
 
         def add(m : AST.Member) {
             members get m.name match {
@@ -96,6 +97,7 @@ package object NameTable {
                     anon_idx += 1
                     populate(new Scope("$" + anon_idx))
             }
+            target.bases = target.bases ++ p.bases
             create(p.members, p.attributes, target)
         }
 

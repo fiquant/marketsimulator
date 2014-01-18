@@ -15132,6 +15132,12 @@ Definitions:
 | | | | | | | | - List:
 | | | | | - List:
 | | | | | - List:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - _base1
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - _base2
 | | | | | - false
 | | | | - FunDef:
 | | | | | - A
