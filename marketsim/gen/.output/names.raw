@@ -15130,14 +15130,36 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - toInject1
+| | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Int
+| | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - toInject2
+| | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Int
+| | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
 | | | | | - List:
 | | | | | - List:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - _base1
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - _base2
 | | | | | - false
 | | | | - FunDef:
 | | | | | - A

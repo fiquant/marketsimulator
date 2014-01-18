@@ -20,9 +20,13 @@ package trash {
     }
     
     abstract package _base1 {
+        def toInject1() : () => Int
+            
     }
     
     abstract package _base2 {
+        def toInject2() : () => Int
+            
     }
     
     def A(x = in1.in2.A()) : () => types.R

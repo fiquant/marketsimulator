@@ -91,6 +91,20 @@ Definitions:
 | | | | | | | | - _base1
 | | | | | - Definitions:
 | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - toInject1
+| | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Int
+| | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
 | | | | | - List:
 | | | | | - List:
 | | | | | - true
@@ -101,6 +115,20 @@ Definitions:
 | | | | | | | | - _base2
 | | | | | - Definitions:
 | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - toInject2
+| | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Int
+| | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
 | | | | | - List:
 | | | | | - List:
 | | | | | - true

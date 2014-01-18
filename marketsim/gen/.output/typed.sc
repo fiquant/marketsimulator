@@ -1907,6 +1907,14 @@ package trash {
         
         def A(x : () => .trash.types.T1 = .trash.A()) : () => .trash.types.U
             
+        
+        
+        def toInject1() : () => .Int
+            
+        
+        
+        def toInject2() : () => .Int
+            
     }
     
     

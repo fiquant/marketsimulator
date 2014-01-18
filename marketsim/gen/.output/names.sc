@@ -1575,7 +1575,7 @@ package trash {
         type U : T, R
     }
     
-    package in1 extends _base1 extends _base2 {
+    package in1 {
         package in2 {
             def S1(y = "abc")
                  = y
@@ -1604,6 +1604,12 @@ package trash {
                  = x
         }
         def A(x : () => .trash.types.T1 = .trash.A()) : () => types.U
+            
+        
+        def toInject1() : () => Int
+            
+        
+        def toInject2() : () => Int
             
     }
     def A(x = in1.in2.A()) : () => types.R
