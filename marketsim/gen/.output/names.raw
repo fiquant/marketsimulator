@@ -11705,17 +11705,6 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Cumulative
 | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - source
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - const
-| | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -13082,7 +13071,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
@@ -13124,7 +13112,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
@@ -13168,7 +13155,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
@@ -13218,7 +13204,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
@@ -13228,7 +13213,7 @@ Definitions:
 | | | | | | | | | | - None
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 0.15
+| | | | | | | | | | | | - 0.015
 | | | | | | | | | | - List:
 | | | | | | | | - Some:
 | | | | | | | | | - BinOp:
@@ -14680,24 +14665,6 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Moving
 | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - source
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - const
-| | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - timeframe
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FloatLit:
-| | | | | | | | | - 100.0
-| | | | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:

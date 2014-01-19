@@ -8,22 +8,22 @@ package observable
         {
             @python.intrinsic("moments.ewma.EWMA_Impl")
             @label = "Avg{{suffix}}"
-            def Avg (source = const (), alpha = 0.015) : IDifferentiable
+            def Avg () : IDifferentiable
 
             @python.intrinsic("moments.ewmv.EWMV_Impl")
             @label = "\\sigma^2{{suffix}}"
-            def Var (source = const (), alpha = 0.015) => Float
+            def Var () => Float
 
             @label = "\\sqrt{\\sigma^2{{suffix}}}"
-            def StdDev (source = const (), alpha = 0.015) = mathops.Sqrt(Var(source, alpha))
+            def StdDev () = mathops.Sqrt(Var(source, alpha))
 
             @label = "RSD{{suffix}}"
-            def RelStdDev(source = const (), alpha = 0.15)
+            def RelStdDev()
                 = (source - Avg(source, alpha)) / StdDev(source, alpha)
         }
 
         @suffix = "_{cumul}(%(source)s)"
-        package Cumulative(source = const ())
+        package Cumulative
         {
             @python.intrinsic("moments.cma.CMA_Impl")
             @label = "Avg{{suffix}}"
@@ -42,7 +42,7 @@ package observable
         }
 
         @suffix = "_{n=%(timeframe)s}(%(source)s)"
-        package Moving(source = const (), timeframe = 100.0)
+        package Moving
         {
             @python.intrinsic("moments.ma.MA_Impl")
             @label = "Avg{{suffix}}"

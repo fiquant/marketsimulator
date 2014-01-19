@@ -1570,7 +1570,7 @@ package observable {@category = "Price function"
         
         @label = "RSD{{suffix}}"
         def RelStdDev(source : Optional[.IObservable[.Float]] = .const(),
-                      alpha : Optional[.Float] = 0.15) : .IObservable[.Float]
+                      alpha : Optional[.Float] = 0.015) : .IObservable[.Float]
             
             	 = (source-.observable.EW.Avg(source,alpha))/.observable.EW.StdDev(source,alpha)
     }

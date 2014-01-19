@@ -1197,7 +1197,7 @@ package observable() {@category = "Price function"
     }
     @category = "Statistics"
     @suffix = "_{cumul}(%(source)s)"
-    package Cumulative(source = const()) {
+    package Cumulative() {
         @label = "RSD{{suffix}}"
         def RelStdDev(source = .const())
              = (source-.observable.Cumulative.Avg(source))/.observable.Cumulative.StdDev(source)
@@ -1308,24 +1308,24 @@ package observable() {@category = "Price function"
     package EW(source = const(),alpha = 0.015) {
         @python.intrinsic("moments.ewma.EWMA_Impl")
         @label = "Avg{{suffix}}"
-        def Avg(source = .const(),
+        def Avg(source = const(),
                 alpha = 0.015) : .IDifferentiable
             
         
         @python.intrinsic("moments.ewmv.EWMV_Impl")
         @label = "\\sigma^2{{suffix}}"
-        def Var(source = .const(),
+        def Var(source = const(),
                 alpha = 0.015) : () => .Float
             
         
         @label = "\\sqrt{\\sigma^2{{suffix}}}"
-        def StdDev(source = .const(),
+        def StdDev(source = const(),
                    alpha = 0.015)
              = .mathops.Sqrt(.observable.EW.Var(source,alpha))
         
         @label = "RSD{{suffix}}"
-        def RelStdDev(source = .const(),
-                      alpha = 0.15)
+        def RelStdDev(source = const(),
+                      alpha = 0.015)
              = (source-.observable.EW.Avg(source,alpha))/.observable.EW.StdDev(source,alpha)
     }
     @category = "Asset's"
@@ -1451,7 +1451,7 @@ package observable() {@category = "Price function"
     }
     @category = "Statistics"
     @suffix = "_{n=%(timeframe)s}(%(source)s)"
-    package Moving(source = const(),timeframe = 100.0) {
+    package Moving() {
         @python.intrinsic("observable.minmax.Min_Impl")
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
         def Min(source = .constant(),

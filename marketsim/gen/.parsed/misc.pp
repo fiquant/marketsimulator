@@ -74,7 +74,7 @@ package observable() {
         
     @category = "Statistics"
     
-    package Moving(source = const(),timeframe = 100.0) {
+    package Moving() {
         @python.intrinsic("observable.minmax.Min_Impl")
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
         def Min(source = constant(),
@@ -89,7 +89,7 @@ package observable() {
     }
     @category = "Statistics"
     
-    package Cumulative(source = const()) {
+    package Cumulative() {
         @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
         @label = "Min_{\\epsilon}(%(source)s)"
         def MinEpsilon(source = constant(),

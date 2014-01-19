@@ -61,7 +61,7 @@ package observable
         : IObservable[Float]
 
     @category = "Statistics"
-    package Moving(source = const (), timeframe = 100.0)
+    package Moving
     {
         @python.intrinsic("observable.minmax.Min_Impl")
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
@@ -73,7 +73,7 @@ package observable
     }
 
     @category = "Statistics"
-    package Cumulative(source = const ())
+    package Cumulative
     {
         @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
         @label = "Min_{\\epsilon}(%(source)s)"

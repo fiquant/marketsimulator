@@ -313,25 +313,25 @@ package object NameTable {
             case AST.Condition(c, x, y) => AST.Condition(c, fullyQualify(isLocal)(x), fullyQualify(isLocal)(y))
         }
 
-        def fullyQualified(f : AST.FunDef) = {
-            def isLocal(n : String) = (f.parameters find { _.name == n }).nonEmpty
+        def fullyQualified(f : AST.FunDef, packageArgs : List[AST.Parameter] = Nil) = {
+            def isLocal(n : String) = (packageArgs ++ f.parameters find { _.name == n }).nonEmpty
             f.copy(
-                parameters = f.parameters map { p =>
+                parameters = packageArgs ++ (f.parameters map { p =>
                     p.copy(
                         ty = p.ty map fullyQualify,
                         initializer = p.initializer map fullyQualify(isLocal(_))
                     )
-                },
+                }),
                 ty = f.ty map fullyQualify,
                 body = f.body map fullyQualify(isLocal(_))
             )
         }
 
-        def qualifyNames() {
-            packages.values foreach { _.qualifyNames() }
+        def qualifyNames(packageArgs : List[AST.Parameter]) {
+            packages.values foreach { p => p.qualifyNames(packageArgs ++ p.parameters) }
 
             members = members mapValues {
-                case f : AST.FunDef => fullyQualified(f)
+                case f : AST.FunDef => fullyQualified(f, packageArgs)
                 case a : AST.FunAlias => a.copy(target = fullyQualify(a.target))
                 case x => x
             }
@@ -376,7 +376,7 @@ package object NameTable {
         Typed.BeforeTyping(impl)
 
         println("\tqualifying names")
-        impl.qualifyNames()
+        impl.qualifyNames(Nil)
 
         impl
     }
