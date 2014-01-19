@@ -14,7 +14,7 @@ from types import (IObservable, IFunction, ISingleAssetTrader,
                    listOf,
                    IAccount, ITrader,
                    IGraph, ITimeSerie,
-                   IVolumeLevels as VolumeLevels,
+                   IVolumeLevels,
                    IOrder as Order)
 
 float = float

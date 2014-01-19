@@ -59,7 +59,7 @@ object curried
     }
 
 
-    import order_factory.{extract , withFullyQualifyArgs, locate}
+    import order_factory.{extract , locate}
 
     def beforeTyping(/** arguments of the annotation */ args  : List[String])
                     (/** function to process         */ f     : AST.FunDef,
@@ -69,7 +69,7 @@ object curried
                            base_    : AST.FunDef = f) =
         {
             //println(s"partial factory $curried for $base_")
-            val base = withFullyQualifyArgs(base_, scope)
+            val base = scope fullyQualified  base_
             val prefix = curried + "_"
             val prefixed = prefix + base.name
 

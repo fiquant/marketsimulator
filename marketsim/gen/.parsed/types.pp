@@ -45,7 +45,7 @@ type IDifferentiable : IFunction[Float]
 
 type CandleStick
 
-type VolumeLevels
+type IVolumeLevels
 
 type Order
 

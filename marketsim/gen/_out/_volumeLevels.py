@@ -1,6 +1,6 @@
 from marketsim.gen._intrinsic.timeserie import _VolumeLevels_Impl
 from marketsim import IFunction
-from marketsim import VolumeLevels
+from marketsim import IVolumeLevels
 from marketsim import IGraph
 from marketsim import listOf
 
@@ -22,7 +22,7 @@ class volumeLevels(_VolumeLevels_Impl):
         return repr(self)
     
     _properties = {
-        'source' : IFunction[VolumeLevels]
+        'source' : IFunction[IVolumeLevels]
         ,
         'graph' : IGraph,
         '_digitsToShow' : int,

@@ -186,6 +186,8 @@ package object NameTable {
                 }
         }
 
+
+
         private def injectBasesImpl()
         {
             bases foreach { base =>
@@ -270,33 +272,69 @@ package object NameTable {
         def fullyQualify(n : AST.QualifiedName) =
             lookup[AST.Member](n.names) match {
                 case Some((scope, m)) => scope qualifyName m.name
-                case None => throw new Exception(s"Cannot lookup $n from scope $this")
+                case None => throw new Exception(s"Cannot lookup $n from scope $name")
             }
 
         def fullyQualify(t : AST.Type) : AST.Type = t match {
-            case AST.SimpleType(n, generics) => AST.SimpleType(fullyQualify(n), generics map fullyQualify)
+            case AST.SimpleType(n, generics) =>
+                AST.SimpleType(fullyQualify(n), generics map fullyQualify)
             case AST.TupleType(elems) => AST.TupleType(elems map fullyQualify)
             case AST.FunctionType(args, ret) => AST.FunctionType(args map fullyQualify, fullyQualify(ret))
             case AST.UnitType => AST.UnitType
         }
 
-        def fullyQualify(e : AST.Expr) : AST.Expr = e match {
+        def fullyQualify(isLocal : String => Boolean)(e : AST.Expr) : AST.Expr = e match {
             case AST.FunCall(n, params) =>
-                AST.FunCall(fullyQualify(n), params map { _ map fullyQualify})
+                AST.FunCall(
+                    n.names match {
+                        case x :: Nil if isLocal(x) => n
+                        case _ => fullyQualify(n)
+                    },
+                    params map { _ map fullyQualify(isLocal) })
+
             case AST.Cast(x, ty) =>
-                AST.Cast(fullyQualify(x), fullyQualify(ty))
+                AST.Cast(fullyQualify(isLocal)(x), fullyQualify(ty))
             case x : AST.StringLit => x
             case x : AST.FloatLit => x
             case x : AST.IntLit => x
-            case x : AST.Var => x
-            case AST.List_(xs) => AST.List_(xs map fullyQualify)
-            case AST.BinOp(s, x, y) => AST.BinOp(s, fullyQualify(x), fullyQualify(y))
-            case AST.Neg(x) => AST.Neg(fullyQualify(x))
-            case AST.IfThenElse(cond, x, y) => AST.IfThenElse(fullyQualify(cond), fullyQualify(x), fullyQualify(y))
-            case AST.And(x, y) => AST.And(fullyQualify(x), fullyQualify(y))
-            case AST.Or(x, y) => AST.Or(fullyQualify(x), fullyQualify(y))
-            case AST.Not(x) => AST.Not(fullyQualify(x))
-            case AST.Condition(c, x, y) => AST.Condition(c, fullyQualify(x), fullyQualify(y))
+            case x : AST.Var =>
+                if (isLocal(x.s))
+                    x
+                else
+                    throw new Exception(s"Cannot lookup variable ${x.s} while qualifying $e")
+
+            case AST.List_(xs) => AST.List_(xs map fullyQualify(isLocal))
+            case AST.BinOp(s, x, y) => AST.BinOp(s, fullyQualify(isLocal)(x), fullyQualify(isLocal)(y))
+            case AST.Neg(x) => AST.Neg(fullyQualify(isLocal)(x))
+            case AST.IfThenElse(cond, x, y) => AST.IfThenElse(fullyQualify(isLocal)(cond), fullyQualify(isLocal)(x), fullyQualify(isLocal)(y))
+            case AST.And(x, y) => AST.And(fullyQualify(isLocal)(x), fullyQualify(isLocal)(y))
+            case AST.Or(x, y) => AST.Or(fullyQualify(isLocal)(x), fullyQualify(isLocal)(y))
+            case AST.Not(x) => AST.Not(fullyQualify(isLocal)(x))
+            case AST.Condition(c, x, y) => AST.Condition(c, fullyQualify(isLocal)(x), fullyQualify(isLocal)(y))
+        }
+
+        def fullyQualified(f : AST.FunDef) = {
+            def isLocal(n : String) = (f.parameters find { _.name == n }).nonEmpty
+            f.copy(
+                parameters = f.parameters map { p =>
+                    p.copy(
+                        ty = p.ty map fullyQualify,
+                        initializer = p.initializer map fullyQualify(isLocal(_))
+                    )
+                },
+                ty = f.ty map fullyQualify,
+                body = f.body map fullyQualify(isLocal(_))
+            )
+        }
+
+        def qualifyNames() {
+            packages.values foreach { _.qualifyNames() }
+
+            members = members mapValues {
+                case f : AST.FunDef => fullyQualified(f)
+                case a : AST.FunAlias => a.copy(target = fullyQualify(a.target))
+                case x => x
+            }
         }
 
         def toTyped(target : Typed.Package) : Typed.Package =
@@ -336,6 +374,9 @@ package object NameTable {
 
         println("\tapplying before typing annotations")
         Typed.BeforeTyping(impl)
+
+        println("\tqualifying names")
+        impl.qualifyNames()
 
         impl
     }

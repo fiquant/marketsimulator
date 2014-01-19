@@ -140,7 +140,7 @@ package observable.orderbook() {
     @label = "VolumeLevels(%(queue)s)"
     def VolumeLevels(queue = Asks(),
                      volumeDelta = 30.0,
-                     volumeCount = 10) : IFunction[VolumeLevels]
+                     volumeCount = 10) : IFunction[IVolumeLevels]
         
     
     def NaiveCumulativePrice(book = OfTrader(),

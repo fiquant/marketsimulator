@@ -1,10 +1,10 @@
 from marketsim import registry
 from marketsim.ops._function import Function
-from marketsim import VolumeLevels
+from marketsim import IVolumeLevels
 from marketsim.gen._intrinsic.orderbook.volume_levels import VolumeLevels_Impl
 from marketsim import IOrderQueue
 @registry.expose(["Asset's", "VolumeLevels"])
-class VolumeLevels(Function[VolumeLevels], VolumeLevels_Impl):
+class VolumeLevels(Function[IVolumeLevels], VolumeLevels_Impl):
     """ 
     """ 
     def __init__(self, queue = None, volumeDelta = None, volumeCount = None):

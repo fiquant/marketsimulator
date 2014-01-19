@@ -123,7 +123,7 @@ package {
 
     @python.intrinsic("timeserie._VolumeLevels_Impl")
     @label = "%(source)s"
-    def volumeLevels(source        : IFunction[VolumeLevels],
+    def volumeLevels(source        : IFunction[IVolumeLevels],
                      graph         = veusz.Graph(),
                      _digitsToShow = 4,
                      _smooth       = 1,

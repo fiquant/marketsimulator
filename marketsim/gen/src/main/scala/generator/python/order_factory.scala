@@ -163,16 +163,6 @@ object order_factory
                 None
     }
 
-    def withFullyQualifyArgs(f : AST.FunDef, scope : NameTable.Scope) = f.copy(
-        ty = f.ty map scope.fullyQualify,
-        parameters =
-                f.parameters map { p =>
-                    p.copy(
-                        initializer = p.initializer map scope.fullyQualify,
-                        ty = p.ty map scope.fullyQualify
-                    )
-    })
-
     def locate(path : List[String], n : NameTable.Scope) : NameTable.Scope  =
         path match  {
             case Nil => n
@@ -221,7 +211,7 @@ object order_factory
                            base_    : AST.FunDef = f) =
         {
             //println(s"partial factory $curried for $base_")
-            val base = withFullyQualifyArgs(base_, scope)
+            val base = scope fullyQualified base_
             val prefix = (curried map { _.name } mkString "") + "_"
             val prefixed = prefix + base.name
 

@@ -33,7 +33,7 @@ type ISingleAssetTrader : IAccount, ITrader
 type IDifferentiable : IFunction[Float]
 
 type CandleStick
-type VolumeLevels
+type IVolumeLevels
 type Order
 
 type ISingleAssetStrategy

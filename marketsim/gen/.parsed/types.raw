@@ -185,7 +185,7 @@ Definitions:
 | | | - List:
 | | - List:
 | - Interface:
-| | - VolumeLevels
+| | - IVolumeLevels
 | | - Generics:
 | | | - List:
 | | - List:

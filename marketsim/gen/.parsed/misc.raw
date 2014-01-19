@@ -1185,7 +1185,7 @@ Definitions:
 | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - VolumeLevels
+| | | | | | | | | | | | | - IVolumeLevels
 | | | | | | | | | | | - List:
 | | | | | | | - None
 | | | | | | | - List:

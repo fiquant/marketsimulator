@@ -1702,7 +1702,7 @@ package observable {@category = "Price function"
         @python.intrinsic("orderbook.volume_levels.VolumeLevels_Impl")
         def VolumeLevels(queue : Optional[.IOrderQueue] = .observable.orderbook.Asks(),
                          volumeDelta : Optional[.Float] = 30.0,
-                         volumeCount : Optional[.Int] = 10) : .IFunction[.VolumeLevels]
+                         volumeCount : Optional[.Int] = 10) : .IFunction[.IVolumeLevels]
             
         
         
@@ -1959,10 +1959,10 @@ type IObservable[U] : IFunction[U], IEvent
 type IFunction[T] = () => T
 type ISingleAssetStrategy
 type ISingleAssetTrader : IAccount, ITrader
+type IVolumeLevels
 type Order
 type List[T]
 type IDifferentiable : IFunction[Float]
-type VolumeLevels
 type ITimeSerie
 type Any
 type IOrderGenerator = IObservable[Order]
@@ -2022,7 +2022,7 @@ def IfDefined(x : Optional[.IFunction[.Float]] = .constant(),
 @category = "Basic"
 @label = "%(source)s"
 @python.intrinsic("timeserie._VolumeLevels_Impl")
-def volumeLevels(source : .IFunction[.VolumeLevels],
+def volumeLevels(source : .IFunction[.IVolumeLevels],
                  graph : Optional[.IGraph] = .veusz.Graph(),
                  _digitsToShow : Optional[.Int] = 4,
                  _smooth : Optional[.Int] = 1,
