@@ -51,8 +51,6 @@ package object NameTable {
         lazy val qualifiedName     = getQualifiedName(show_anonymous = false)
         lazy val qualifiedNameAnon = getQualifiedName(show_anonymous = true)
 
-        override def equals(o : Any) = true
-
         private def check_name_is_unique(name : String, e : Any) {
             if ((members contains name) && members(name) != e)
                 throw new Exception(s"Duplicate definition for $name:\r\n" + members(name) + "\r\n" + e)
@@ -283,15 +281,35 @@ package object NameTable {
             case AST.UnitType => AST.UnitType
         }
 
-        def fullyQualify(isLocal : String => Boolean) = {
+        def fullyQualify(isLocal : String => Boolean,
+                         context : List[(Scope, List[AST.Parameter])]) =
+        {
             def qualify(e : AST.Expr) : AST.Expr = e match {
                 case AST.FunCall(n, params) =>
-                    AST.FunCall(
+                    val (common, qualified) =
                         n.names match {
-                            case x :: Nil if isLocal(x) => n
-                            case _ => fullyQualifyName(n)
-                        },
-                        params map { _ map qualify })
+                            case x :: Nil if isLocal(x) => (context.last._2, n)
+                            case _ =>
+                                lookup[AST.Member](n.names) match {
+                                    case Some((scope, m)) =>
+                                        def commonPrefix(s : Scope) : List[AST.Parameter] =
+                                            context find { _._1 == s } match {
+                                                case Some(x) =>
+                                                    //println(x._2)
+                                                    x._2
+                                                case None    =>
+                                                    if (s.parent.nonEmpty)
+                                                        commonPrefix(s.parent.get)
+                                                    else Nil
+                                            }
+                                        (commonPrefix(scope), scope qualifyName m.name)
+                                    case None =>
+                                        throw new Exception(s"Cannot lookup $n from scope $name")
+                                }
+                        }
+                    //println(context.last._2)
+                    val fresh = (common map { p => AST.Var(p.name)}) ++ params.head :: params.tail
+                    AST.FunCall(qualified, fresh map { _ map qualify })
 
                 case AST.Cast(x, ty) =>
                     AST.Cast(qualify(x), fullyQualifyType(ty))
@@ -316,25 +334,26 @@ package object NameTable {
             qualify(_)
         }
 
-        def fullyQualified(f : AST.FunDef, packageArgs : List[AST.Parameter] = Nil) = {
+        def fullyQualified(f : AST.FunDef, context : List[(Scope, List[AST.Parameter])] = List((this, Nil))) = {
+            val packageArgs = context flatMap { _._2 }
             def isLocal(n : String) = (packageArgs ++ f.parameters find { _.name == n }).nonEmpty
             f.copy(
                 parameters = packageArgs ++ (f.parameters map { p =>
                     p.copy(
                         ty = p.ty map fullyQualifyType,
-                        initializer = p.initializer map fullyQualify(isLocal(_))
+                        initializer = p.initializer map fullyQualify(isLocal(_), context)
                     )
                 }),
                 ty = f.ty map fullyQualifyType,
-                body = f.body map fullyQualify(isLocal(_))
+                body = f.body map fullyQualify(isLocal(_), context)
             )
         }
 
-        def qualifyNames(packageArgs : List[AST.Parameter]) {
-            packages.values foreach { p => p.qualifyNames(packageArgs ++ p.parameters) }
+        def qualifyNames(context : List[(Scope, List[AST.Parameter])]) {
+            packages.values foreach { p => p.qualifyNames(context :+ (p, context.last._2 ++ p.parameters)) }
 
             members = members mapValues {
-                case f : AST.FunDef => fullyQualified(f, packageArgs)
+                case f : AST.FunDef => fullyQualified(f, context)
                 case a : AST.FunAlias => a.copy(target = fullyQualifyName(a.target))
                 case x => x
             }
@@ -379,7 +398,7 @@ package object NameTable {
         Typed.BeforeTyping(impl)
 
         println("\tqualifying names")
-        impl.qualifyNames(Nil)
+        impl.qualifyNames((impl, Nil) :: Nil)
 
         impl
     }

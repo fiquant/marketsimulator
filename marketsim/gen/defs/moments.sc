@@ -15,11 +15,11 @@ package observable
             def Var () => Float
 
             @label = "\\sqrt{\\sigma^2{{suffix}}}"
-            def StdDev () = mathops.Sqrt(Var(source, alpha))
+            def StdDev () = mathops.Sqrt(Var())
 
             @label = "RSD{{suffix}}"
             def RelStdDev()
-                = (source - Avg(source, alpha)) / StdDev(source, alpha)
+                = (source - Avg()) / StdDev()
         }
 
         @suffix = "_{cumul}(%(source)s)"
