@@ -1215,7 +1215,7 @@ package observable() {@category = "Price function"
     @category = "Statistics"
     @suffix = "_{cumul}(%(source)s)"
     
-    package Cumulative() {
+    package Cumulative(source = const()) {
         @label = "RSD{{suffix}}"
         def RelStdDev(source = const())
              = (source-Avg(source))/StdDev(source)
@@ -1328,7 +1328,7 @@ package observable() {@category = "Price function"
     @category = "Statistics"
     @suffix = "_{\\\\alpha=%(alpha)s}(%(source)s)"
     
-    package EW() {
+    package EW(source = const(),alpha = 0.015) {
         @python.intrinsic("moments.ewma.EWMA_Impl")
         @label = "Avg{{suffix}}"
         def Avg(source = const(),
@@ -1479,7 +1479,7 @@ package observable() {@category = "Price function"
     @category = "Statistics"
     @suffix = "_{n=%(timeframe)s}(%(source)s)"
     
-    package Moving() {
+    package Moving(source = const(),timeframe = 100.0) {
         @python.intrinsic("observable.minmax.Min_Impl")
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
         def Min(source = constant(),

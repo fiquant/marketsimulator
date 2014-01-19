@@ -7,6 +7,7 @@ import Typed.AfterTyping
 package object NameTable {
 
     case class Scope(name       : String = "_root_",
+                     parameters : List[AST.Parameter] = Nil,
                      `abstract` : Boolean = false)
             extends pp.NamesScope
             with    ScPrintable
@@ -77,6 +78,8 @@ package object NameTable {
                 case Some(existing) =>
                     if (existing.`abstract` != child.`abstract`)
                         throw new Exception(s"Trying to merge packages with different `abstract` annotations:" + existing + child)
+                    if (existing.parameters != child.parameters)
+                        throw new Exception(s"Trying to merge packages with different parameters:" + existing + child)
                     child.members.values foreach existing.add
                     child.packages.values foreach existing.populate
                     child.attributes.items foreach { p => existing.addAttribute(p._1, p._2) }
@@ -89,14 +92,18 @@ package object NameTable {
 
         private var anon_idx = 0
 
+        private def addImpl(p : AST.PackageDef, qn : List[String]) : Scope = qn match {
+            case Nil =>
+                anon_idx += 1
+                addImpl(p, "$" + anon_idx :: Nil)
+            case x :: Nil =>
+                populate(Scope(x, p.parameters, p.`abstract`))
+            case x :: tl =>
+                getPackageOrCreate(x) addImpl (p, tl)
+        }
+
         def add(p : AST.PackageDef) {
-            val target = p.name match {
-                case Some(qn) =>
-                    (qn.names map (new Scope(_, p.`abstract`))).foldLeft(this) { _.populate(_) }
-                case None =>
-                    anon_idx += 1
-                    populate(new Scope("$" + anon_idx))
-            }
+            val target = addImpl(p, if (p.name.isEmpty) Nil else p.name.get.names)
             target.bases = target.bases ++ p.bases
             create(p.members, p.attributes, target)
         }
