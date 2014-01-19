@@ -1,7 +1,7 @@
 
-package mathops {@category = "Log/Pow"
+package mathops() {@category = "Log/Pow"
     
-    package  {
+    package () {
         /** Exponent of x
          *
          */
@@ -42,7 +42,7 @@ package mathops {@category = "Log/Pow"
     }
     @category = "Trigonometric"
     
-    package  {
+    package () {
         /** Arc tangent of x, in radians.
          *
          */

@@ -5,6 +5,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - side
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -81,6 +82,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - mathops
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -326,6 +328,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - event
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -405,6 +408,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - veusz
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -444,6 +448,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - mathutils
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - PackageDef:
@@ -451,6 +456,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - rnd
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -865,6 +871,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - order
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - PackageDef:
@@ -872,6 +879,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - signed
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunAlias:
@@ -896,6 +904,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - _
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - PackageDef:
@@ -903,6 +912,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - side
+| | | | | | | | - List:
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - PackageDef:
@@ -910,6 +920,7 @@ Definitions:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - price
+| | | | | | | | | | | - List:
 | | | | | | | | | | | - Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FunAlias:
@@ -1051,6 +1062,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - side_price
+| | | | | | | | - List:
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - FunAlias:
@@ -1117,6 +1129,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - side_volume
+| | | | | | | | - List:
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - PackageDef:
@@ -1124,6 +1137,7 @@ Definitions:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - price
+| | | | | | | | | | | - List:
 | | | | | | | | | | | - Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FunAlias:
@@ -1257,6 +1271,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - price
+| | | | | | | | - List:
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - FunAlias:
@@ -1323,6 +1338,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - volume_price
+| | | | | | | | - List:
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - FunAlias:
@@ -1389,6 +1405,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - signedVolume
+| | | | | | | | - List:
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - FunAlias:
@@ -1415,6 +1432,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - price_volume
+| | | | | | | | - List:
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - FunAlias:
@@ -1481,6 +1499,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - volume
+| | | | | | | | - List:
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - PackageDef:
@@ -1488,6 +1507,7 @@ Definitions:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - price
+| | | | | | | | | | | - List:
 | | | | | | | | | | | - Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FunAlias:
@@ -1624,6 +1644,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - _curried
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -6765,6 +6786,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - strategy
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - PackageDef:
@@ -6772,6 +6794,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - account
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - PackageDef:
@@ -6779,6 +6802,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - _
+| | | | | | | | - List:
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - PackageDef:
@@ -6786,6 +6810,7 @@ Definitions:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - inner
+| | | | | | | | | | | - List:
 | | | | | | | | | | | - Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FunDef:
@@ -6976,6 +7001,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - weight
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - PackageDef:
@@ -6983,6 +7009,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - _
+| | | | | | | | - List:
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - PackageDef:
@@ -6990,6 +7017,7 @@ Definitions:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - array
+| | | | | | | | | | | - List:
 | | | | | | | | | | | - Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FunDef:
@@ -7092,6 +7120,7 @@ Definitions:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | - List:
 | | | | | | | | | | | - Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FunDef:
@@ -7245,6 +7274,7 @@ Definitions:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - f
+| | | | | | | | | | | - List:
 | | | | | | | | | | | - Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FunDef:
@@ -10175,6 +10205,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - trader
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -10386,6 +10417,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - orderbook
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -10618,6 +10650,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - observable
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - PackageDef:
@@ -10625,6 +10658,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - pricefunc
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -10723,6 +10757,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - sidefunc
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -11219,6 +11254,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - Cumulative
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -11486,6 +11522,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - rsi
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -11574,6 +11611,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - macd
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -11827,6 +11865,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - trader
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -12152,6 +12191,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - volumefunc
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -12402,6 +12442,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - EW
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -12599,6 +12640,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - orderbook
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - PackageDef:
@@ -12606,6 +12648,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - ask
+| | | | | | | | - List:
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - FunDef:
@@ -12812,6 +12855,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - bid
+| | | | | | | | - List:
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - FunDef:
@@ -13772,6 +13816,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - Moving
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -14930,6 +14975,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - trash
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - PackageDef:
@@ -14937,6 +14983,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - types
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - Alias:
@@ -14986,6 +15033,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - in1
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - PackageDef:
@@ -14993,6 +15041,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - in2
+| | | | | | | | - List:
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - FunDef:

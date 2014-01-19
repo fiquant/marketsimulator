@@ -5,6 +5,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - trader
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -217,6 +218,7 @@ Definitions:
 | | | | - List:
 | | | | | - observable
 | | | | | - trader
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - FunAlias:

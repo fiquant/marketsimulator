@@ -5,10 +5,12 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - observable
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - PackageDef:
 | | | | | - None
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - PackageDef:
@@ -16,6 +18,25 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - EW
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - source
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - alpha
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 0.015
+| | | | | | | | | | - List:
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - FunDef:
@@ -210,6 +231,18 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Cumulative
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - source
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - FunDef:
@@ -372,6 +405,25 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Moving
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - source
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - timeframe
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 100.0
+| | | | | | | | | | - List:
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - FunDef:

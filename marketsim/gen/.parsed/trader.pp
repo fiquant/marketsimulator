@@ -1,6 +1,6 @@
 @category = "Trader"
 
-package trader {
+package trader() {
     /** A trader that trades a single asset on a single market
      */
     @python.intrinsic("trader.classes._SingleAsset_Impl")
@@ -29,7 +29,7 @@ package trader {
 }
 @category = "Trader's"
 
-package observable.trader {
+package observable.trader() {
     def SingleProxy = .trader.SingleProxy
     
     @python.intrinsic("trader.props.Position_Impl")

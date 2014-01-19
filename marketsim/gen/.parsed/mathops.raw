@@ -5,10 +5,12 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - mathops
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - PackageDef:
 | | | | | - None
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -201,6 +203,7 @@ Definitions:
 | | | | | - false
 | | | | - PackageDef:
 | | | | | - None
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:

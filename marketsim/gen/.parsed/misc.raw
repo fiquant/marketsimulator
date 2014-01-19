@@ -5,6 +5,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - observable
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -600,6 +601,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - Moving
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -703,6 +705,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - Cumulative
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -821,6 +824,7 @@ Definitions:
 | | - false
 | - PackageDef:
 | | - None
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -1228,6 +1232,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - side
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -1304,6 +1309,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - event
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -1383,6 +1389,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - veusz
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:

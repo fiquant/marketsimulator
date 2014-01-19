@@ -1,5 +1,5 @@
 
-package strategy {
+package strategy() {
     @python.intrinsic("strategy.suspendable._Suspendable_Impl")
     def Suspendable(inner = Noise(),
                     predicate = true() : IFunction[Boolean]) : ISingleAssetStrategy
@@ -34,7 +34,7 @@ package strategy {
                       /** function estimating is the strategy efficient or not */ performance = weight._.trader.trader_EfficiencyTrend()) : ISingleAssetStrategy
         
     
-    package account {
+    package account() {
         @python.intrinsic("strategy.account._Account_Impl")
         @curried("inner")
         def Real(inner : Optional[ISingleAssetStrategy] = Noise()) : IAccount
@@ -50,7 +50,7 @@ package strategy {
         def virtualMarket = _.inner.inner_VirtualMarket
     }
     
-    package weight {
+    package weight() {
         def atanpow = _.f.f_AtanPow
         
         def clamp0 = _.f.f_Clamp0

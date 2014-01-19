@@ -1,6 +1,6 @@
 @category = "Strategy"
 
-package strategy {
+package strategy() {
     /** Generic strategy that wakes up on events given by *eventGen*,
      *  creates an order via *orderFactory* and sends the order to the market using its trader
      */

@@ -1,9 +1,9 @@
 
-package observable {@category = "Statistics"
+package observable() {@category = "Statistics"
     
-    package  {@suffix = "_{\\\\alpha=%(alpha)s}(%(source)s)"
+    package () {@suffix = "_{\\\\alpha=%(alpha)s}(%(source)s)"
         
-        package EW {
+        package EW(source = const(),alpha = 0.015) {
             @python.intrinsic("moments.ewma.EWMA_Impl")
             @label = "Avg{{suffix}}"
             def Avg(source = const(),
@@ -28,7 +28,7 @@ package observable {@category = "Statistics"
         }
         @suffix = "_{cumul}(%(source)s)"
         
-        package Cumulative {
+        package Cumulative(source = const()) {
             @python.intrinsic("moments.cma.CMA_Impl")
             @label = "Avg{{suffix}}"
             def Avg(source = const()) : () => Float
@@ -49,7 +49,7 @@ package observable {@category = "Statistics"
         }
         @suffix = "_{n=%(timeframe)s}(%(source)s)"
         
-        package Moving {
+        package Moving(source = const(),timeframe = 100.0) {
             @python.intrinsic("moments.ma.MA_Impl")
             @label = "Avg{{suffix}}"
             def Avg(source = const(),

@@ -1,5 +1,5 @@
 
-package strategy {
+package strategy() {
     /** Noise strategy is a quite dummy strategy that randomly creates an order and sends it to the order book.
      */
     def Noise(/** Event source making the strategy to wake up*/ eventGen = event.Every(mathutils.rnd.expovariate(1.0)),

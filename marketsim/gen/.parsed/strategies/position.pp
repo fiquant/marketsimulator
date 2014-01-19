@@ -1,5 +1,5 @@
 
-package strategy {
+package strategy() {
     def RSI_linear(orderFactory = order._.signedVolume.MarketSigned(),
                    alpha = 1.0/14,
                    k = const(-0.04),

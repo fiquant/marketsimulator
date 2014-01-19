@@ -1,6 +1,6 @@
 @category = "Asset"
 
-package orderbook {
+package orderbook() {
     /** Order book for a single asset in a market.
      * Maintains two order queues for orders of different sides
      */
@@ -43,7 +43,7 @@ package orderbook {
 }
 @category = "Asset's"
 
-package observable.orderbook {
+package observable.orderbook() {
     @python.intrinsic("orderbook.of_trader._OfTrader_Impl")
     @label = "N/A"
     def OfTrader(Trader = trader.SingleProxy() : IAccount) : IOrderBook
@@ -66,7 +66,7 @@ package observable.orderbook {
     def BestPrice(queue = Asks()) : IObservable[Price]
         
     
-    abstract package _base_impl {
+    abstract package _base_impl() {
         @label = "{{queue}}"
         def Price(book = OfTrader())
              = BestPrice(_queue(book))
@@ -90,12 +90,12 @@ package observable.orderbook {
     }
     @queue = "Ask_{%(book)s}"
     
-    package ask extends _base_impl {
+    package ask() extends _base_impl {
         def _queue = Asks
     }
     @queue = "Bid^{%(book)s}"
     
-    package bid extends _base_impl {
+    package bid() extends _base_impl {
         def _queue = Bids
     }
     

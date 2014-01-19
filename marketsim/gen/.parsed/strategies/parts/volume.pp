@@ -1,6 +1,6 @@
 @category = "Volume function"
 
-package observable.volumefunc {
+package observable.volumefunc() {
     def DesiredPosition(desiredPosition = const(),
                         trader = trader.SingleProxy())
          = ObservableVolume(desiredPosition-trader.Position(trader)-trader.PendingVolume(trader))

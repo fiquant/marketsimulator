@@ -67,6 +67,7 @@ package object AST {
     }
 
     case class PackageDef(name      : Option[QualifiedName],
+                          parameters: List[Parameter],
                           members   : Definitions,
                           attributes: List[Attribute],
                           bases     : List[QualifiedName],

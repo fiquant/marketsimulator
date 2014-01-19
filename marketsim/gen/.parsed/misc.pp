@@ -1,6 +1,6 @@
 @category = "Basic"
 
-package observable {
+package observable() {
     @python.observable()
     @category = "Pow/Log"
     @label = "{%(x)s}^2"
@@ -74,7 +74,7 @@ package observable {
         
     @category = "Statistics"
     
-    package Moving {
+    package Moving() {
         @python.intrinsic("observable.minmax.Min_Impl")
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
         def Min(source = constant(),
@@ -89,7 +89,7 @@ package observable {
     }
     @category = "Statistics"
     
-    package Cumulative {
+    package Cumulative() {
         @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
         @label = "Min_{\\epsilon}(%(source)s)"
         def MinEpsilon(source = constant(),
@@ -105,7 +105,7 @@ package observable {
 }
 @category = "Basic"
 
-package  {
+package () {
     @label = "C=%(x)s"
     def constant(x = 1.0) : IFunction[Float]
          = const(x)
@@ -160,7 +160,7 @@ package  {
 }
 @category = "Side"
 
-package side {
+package side() {
     @python.intrinsic("side._Sell_Impl")
     def Sell() : () => Side
         
@@ -175,7 +175,7 @@ package side {
 }
 @category = "Event"
 
-package event {
+package event() {
     @python.intrinsic("event._Every_Impl")
     def Every(intervalFunc = mathutils.rnd.expovariate(1.0)) : IEvent
         
@@ -186,7 +186,7 @@ package event {
 }
 @category = "N/A"
 
-package veusz {
+package veusz() {
     @python.intrinsic("veusz._Graph_Impl")
     def Graph(name = "graph") : IGraph
         

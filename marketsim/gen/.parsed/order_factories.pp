@@ -1,6 +1,6 @@
 @category = "Order"
 
-package order {
+package order() {
     @python.order.factory("order.market.Order_Impl")
     def Market(side = side.Sell(),
                volume = constant(1.0)) : IOrderGenerator

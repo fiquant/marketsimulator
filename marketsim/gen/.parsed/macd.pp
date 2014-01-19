@@ -1,6 +1,6 @@
 @category = "MACD"
 
-package observable.macd {
+package observable.macd() {
     @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
     def MACD(x = const(),
              slow = 26.0,

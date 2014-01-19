@@ -5,6 +5,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - strategy
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:

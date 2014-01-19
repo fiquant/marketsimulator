@@ -5,6 +5,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - strategy
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -303,6 +304,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - account
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -419,6 +421,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - weight
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunAlias:

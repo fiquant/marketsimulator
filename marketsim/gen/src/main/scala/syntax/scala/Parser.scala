@@ -114,13 +114,18 @@ class Parser() extends JavaTokenParsers with PackratParsers
         case None     => Generics(Nil)
     }
 
+    lazy val parameters = opt("(" ~> repsep(parameter, ",") <~ ")") ^^ {
+        case None => Nil
+        case Some(p) => p
+    }
+
     lazy val function  = (opt(docstring)
                         ~ rep(decorator)
                         ~ ("def" ~> ident)
-                        ~ ("(" ~> repsep(parameter, ",") <~ ")")
+                        ~ parameters
                         ~ opt(func_type)
                         ~ opt("=" ~> expr)) ^^ {
-        case (doc ~ decorators ~ name  ~ parameters ~ t ~ body) => FunDef(name, parameters, body, t, doc, decorators)
+        case (doc ~ decorators ~ name  ~ ps ~ t ~ body) => FunDef(name, ps, body, t, doc, decorators)
     } withFailureMessage "function expected"
 
     lazy val func_type = ("=>" ~> typ ^^ {
@@ -143,11 +148,12 @@ class Parser() extends JavaTokenParsers with PackratParsers
         rep(attribute) ~
                 opt("abstract") ~
                 ("package" ~> opt(qualified_name)) ~
+                parameters ~
                 rep("extends" ~> qualified_name) ~
         package_body ^^
     {
-        case attributes ~ a ~ name ~ bases ~ members =>
-            PackageDef(name, members, attributes, bases, a.nonEmpty)
+        case attributes ~ a ~ name ~ ps ~ bases ~ members =>
+            PackageDef(name, ps, members, attributes, bases, a.nonEmpty)
     }
 
     lazy val definition = type_alias | type_declaration | function_alias | function | `package`

@@ -1,5 +1,5 @@
 
-package strategy {
+package strategy() {
     /** Liquidity provider for one side
      */
     def LiquidityProviderSide(/** Event source making the strategy to wake up*/ eventGen = event.Every(mathutils.rnd.expovariate(1.0)),

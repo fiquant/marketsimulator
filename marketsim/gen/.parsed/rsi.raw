@@ -5,6 +5,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - observable
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -181,6 +182,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - rsi
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:

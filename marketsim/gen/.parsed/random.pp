@@ -1,5 +1,5 @@
 
-package mathutils.rnd {
+package mathutils.rnd() {
     /** Beta distribution
      *
      * Conditions on the parameters are |alpha| > 0 and |beta| > 0.

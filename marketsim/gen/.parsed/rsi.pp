@@ -1,5 +1,5 @@
 
-package observable {
+package observable() {
     @python.intrinsic("observable.lagged.Lagged_Impl")
     @label = "Lagged_{%(timeframe)s}(%(source)s)"
     def Lagged(source = const(),
@@ -17,7 +17,7 @@ package observable {
          = Observable(Max(const(0.0),Lagged(source,timeframe)-source))
     @category = "RSI"
     
-    package rsi {
+    package rsi() {
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
         def Raw(source = const(),
                 timeframe = 10.0,

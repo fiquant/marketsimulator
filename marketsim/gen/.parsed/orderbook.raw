@@ -5,6 +5,7 @@ Definitions:
 | | | - QualifiedName:
 | | | | - List:
 | | | | | - orderbook
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -238,6 +239,7 @@ Definitions:
 | | | | - List:
 | | | | | - observable
 | | | | | - orderbook
+| | - List:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
@@ -442,6 +444,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - _base_impl
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
@@ -640,6 +643,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - ask
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunAlias:
@@ -661,6 +665,7 @@ Definitions:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
 | | | | | | | | - bid
+| | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunAlias:

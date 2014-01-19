@@ -1,6 +1,6 @@
 @category = "Side"
 
-package side {
+package side() {
     @python.intrinsic("side._Sell_Impl")
     def Sell() : () => Side
         
@@ -14,7 +14,7 @@ package side {
         
 }
 
-package mathops {
+package mathops() {
     /** Arc tangent of x, in radians.
      *
      */
@@ -67,7 +67,7 @@ package mathops {
 }
 @category = "Event"
 
-package event {
+package event() {
     @python.intrinsic("event._Every_Impl")
     def Every(intervalFunc = mathutils.rnd.expovariate(1.0)) : IEvent
         
@@ -78,14 +78,14 @@ package event {
 }
 @category = "N/A"
 
-package veusz {
+package veusz() {
     @python.intrinsic("veusz._Graph_Impl")
     def Graph(name = "graph") : IGraph
         
 }
 
-package mathutils {
-    package rnd {
+package mathutils() {
+    package rnd() {
         /** Gamma distribution
          *
          *  Conditions on the parameters are |alpha| > 0 and |beta| > 0.
@@ -188,16 +188,16 @@ package mathutils {
 }
 @category = "Order"
 
-package order {
-    package signed {
+package order() {
+    package signed() {
         def Limit = .order.LimitSigned
         
         def Market = .order.MarketSigned
     }
     
-    package _ {
-        package side {
-            package price {
+    package _() {
+        package side() {
+            package price() {
                 def Limit = .order._curried.side_price_Limit
                 
                 def ImmediateOrCancel = .order._curried.side_price_ImmediateOrCancel
@@ -232,7 +232,7 @@ package order {
             def Peg = .order._curried.side_Peg
         }
         
-        package side_price {
+        package side_price() {
             def Limit = .order._curried.sideprice_Limit
             
             def ImmediateOrCancel = .order._curried.sideprice_ImmediateOrCancel
@@ -248,8 +248,8 @@ package order {
             def Peg = .order._curried.sideprice_Peg
         }
         
-        package side_volume {
-            package price {
+        package side_volume() {
+            package price() {
                 def Limit = .order._curried.sidevolume_price_Limit
                 
                 def ImmediateOrCancel = .order._curried.sidevolume_price_ImmediateOrCancel
@@ -282,7 +282,7 @@ package order {
             def Peg = .order._curried.sidevolume_Peg
         }
         
-        package price {
+        package price() {
             def Limit = .order._curried.price_Limit
             
             def ImmediateOrCancel = .order._curried.price_ImmediateOrCancel
@@ -298,7 +298,7 @@ package order {
             def Peg = .order._curried.price_Peg
         }
         
-        package volume_price {
+        package volume_price() {
             def Limit = .order._curried.volumeprice_Limit
             
             def ImmediateOrCancel = .order._curried.volumeprice_ImmediateOrCancel
@@ -314,13 +314,13 @@ package order {
             def Peg = .order._curried.volumeprice_Peg
         }
         
-        package signedVolume {
+        package signedVolume() {
             def LimitSigned = .order._curried.signedVolume_LimitSigned
             
             def MarketSigned = .order._curried.signedVolume_MarketSigned
         }
         
-        package price_volume {
+        package price_volume() {
             def Limit = .order._curried.pricevolume_Limit
             
             def ImmediateOrCancel = .order._curried.pricevolume_ImmediateOrCancel
@@ -336,8 +336,8 @@ package order {
             def Peg = .order._curried.pricevolume_Peg
         }
         
-        package volume {
-            package price {
+        package volume() {
+            package price() {
                 def Limit = .order._curried.volume_price_Limit
                 
                 def ImmediateOrCancel = .order._curried.volume_price_ImmediateOrCancel
@@ -371,7 +371,7 @@ package order {
         }
     }
     
-    package _curried {
+    package _curried() {
         @python.order.factory.on_proto("ImmediateOrCancel")
         def side_ImmediateOrCancel(proto = .order._.side.Limit()) : (() => .Side) => .IOrderGenerator
             
@@ -775,10 +775,10 @@ package order {
 }
 @category = "Strategy"
 
-package strategy {
-    package account {
-        package _ {
-            package inner {
+package strategy() {
+    package account() {
+        package _() {
+            package inner() {
                 @python.curried("Real")
                 def inner_Real() : .Optional[.ISingleAssetStrategy] => .IAccount
                     
@@ -804,9 +804,9 @@ package strategy {
         def virtualMarket = _.inner.inner_VirtualMarket
     }
     
-    package weight {
-        package _ {
-            package array {
+    package weight() {
+        package _() {
+            package array() {
                 @python.curried("ChooseTheBest")
                 def array_ChooseTheBest() : .Optional[.List[.Float]] => .List[.Float]
                     
@@ -816,7 +816,7 @@ package strategy {
                     
             }
             
-            package trader {
+            package trader() {
                 @python.curried("Efficiency")
                 def trader_Efficiency() : .IAccount => .IFunction[.Float]
                     
@@ -834,7 +834,7 @@ package strategy {
                     
             }
             
-            package f {
+            package f() {
                 @python.curried("Clamp0")
                 def f_Clamp0() : .Optional[.IFunction[.Float]] => .IFunction[.Float]
                     
@@ -1095,7 +1095,7 @@ package strategy {
 }
 @category = "Trader"
 
-package trader {
+package trader() {
     /** A trader that trades a single asset on a single market
      */
     @python.intrinsic("trader.classes._SingleAsset_Impl")
@@ -1124,7 +1124,7 @@ package trader {
 }
 @category = "Asset"
 
-package orderbook {
+package orderbook() {
     /** Order book for a single asset in a market.
      * Maintains two order queues for orders of different sides
      */
@@ -1167,9 +1167,9 @@ package orderbook {
 }
 @category = "Basic"
 
-package observable {@category = "Price function"
+package observable() {@category = "Price function"
     
-    package pricefunc {
+    package pricefunc() {
         def LiquidityProvider(side = side.Sell(),
                               initialValue = 100.0,
                               priceDistr = mathutils.rnd.lognormvariate(0.0,0.1),
@@ -1178,7 +1178,7 @@ package observable {@category = "Price function"
     }
     @category = "Side function"
     
-    package sidefunc {
+    package sidefunc() {
         def PairTrading(dependee = orderbook.OfTrader(),
                         factor = 1.0,
                         book = orderbook.OfTrader())
@@ -1215,7 +1215,7 @@ package observable {@category = "Price function"
     @category = "Statistics"
     @suffix = "_{cumul}(%(source)s)"
     
-    package Cumulative {
+    package Cumulative() {
         @label = "RSD{{suffix}}"
         def RelStdDev(source = const())
              = (source-Avg(source))/StdDev(source)
@@ -1248,7 +1248,7 @@ package observable {@category = "Price function"
     }
     @category = "RSI"
     
-    package rsi {
+    package rsi() {
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
         def Raw(source = const(),
                 timeframe = 10.0,
@@ -1257,7 +1257,7 @@ package observable {@category = "Price function"
     }
     @category = "MACD"
     
-    package macd {
+    package macd() {
         @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
         def MACD(x = const(),
                  slow = 26.0,
@@ -1282,7 +1282,7 @@ package observable {@category = "Price function"
     }
     @category = "Trader's"
     
-    package trader {
+    package trader() {
         @python.intrinsic("trader.props.Balance_Impl")
         def Balance(trader = SingleProxy() : IAccount) : IObservable[Price]
             
@@ -1309,7 +1309,7 @@ package observable {@category = "Price function"
     }
     @category = "Volume function"
     
-    package volumefunc {
+    package volumefunc() {
         def DesiredPosition(desiredPosition = const(),
                             trader = trader.SingleProxy())
              = ObservableVolume(desiredPosition-trader.Position(trader)-trader.PendingVolume(trader))
@@ -1328,7 +1328,7 @@ package observable {@category = "Price function"
     @category = "Statistics"
     @suffix = "_{\\\\alpha=%(alpha)s}(%(source)s)"
     
-    package EW {
+    package EW() {
         @python.intrinsic("moments.ewma.EWMA_Impl")
         @label = "Avg{{suffix}}"
         def Avg(source = const(),
@@ -1353,9 +1353,9 @@ package observable {@category = "Price function"
     }
     @category = "Asset's"
     
-    package orderbook {@queue = "Ask_{%(book)s}"
+    package orderbook() {@queue = "Ask_{%(book)s}"
         
-        package ask {
+        package ask() {
             @label = "[{{queue}}]_{%(alpha)s}"
             def WeightedPrice(book = OfTrader(),
                               alpha = 0.015)
@@ -1381,7 +1381,7 @@ package observable {@category = "Price function"
         }
         @queue = "Bid^{%(book)s}"
         
-        package bid {
+        package bid() {
             @label = "[{{queue}}]_{%(alpha)s}"
             def WeightedPrice(book = OfTrader(),
                               alpha = 0.015)
@@ -1479,7 +1479,7 @@ package observable {@category = "Price function"
     @category = "Statistics"
     @suffix = "_{n=%(timeframe)s}(%(source)s)"
     
-    package Moving {
+    package Moving() {
         @python.intrinsic("observable.minmax.Min_Impl")
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
         def Min(source = constant(),
@@ -1611,8 +1611,8 @@ package observable {@category = "Price function"
 }
 @python = "no"
 
-package trash {
-    package types {
+package trash() {
+    package types() {
         type T1 = T
         
         type T
@@ -1622,8 +1622,8 @@ package trash {
         type U : T, R
     }
     
-    package in1 {
-        package in2 {
+    package in1() {
+        package in2() {
             def S1(y = "abc")
                  = y
             
