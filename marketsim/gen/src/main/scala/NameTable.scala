@@ -269,48 +269,51 @@ package object NameTable {
                     }
             }
 
-        def fullyQualify(n : AST.QualifiedName) =
+        def fullyQualifyName(n : AST.QualifiedName) =
             lookup[AST.Member](n.names) match {
                 case Some((scope, m)) => scope qualifyName m.name
                 case None => throw new Exception(s"Cannot lookup $n from scope $name")
             }
 
-        def fullyQualify(t : AST.Type) : AST.Type = t match {
+        def fullyQualifyType(t : AST.Type) : AST.Type = t match {
             case AST.SimpleType(n, generics) =>
-                AST.SimpleType(fullyQualify(n), generics map fullyQualify)
-            case AST.TupleType(elems) => AST.TupleType(elems map fullyQualify)
-            case AST.FunctionType(args, ret) => AST.FunctionType(args map fullyQualify, fullyQualify(ret))
+                AST.SimpleType(fullyQualifyName(n), generics map fullyQualifyType)
+            case AST.TupleType(elems) => AST.TupleType(elems map fullyQualifyType)
+            case AST.FunctionType(args, ret) => AST.FunctionType(args map fullyQualifyType, fullyQualifyType(ret))
             case AST.UnitType => AST.UnitType
         }
 
-        def fullyQualify(isLocal : String => Boolean)(e : AST.Expr) : AST.Expr = e match {
-            case AST.FunCall(n, params) =>
-                AST.FunCall(
-                    n.names match {
-                        case x :: Nil if isLocal(x) => n
-                        case _ => fullyQualify(n)
-                    },
-                    params map { _ map fullyQualify(isLocal) })
+        def fullyQualify(isLocal : String => Boolean) = {
+            def qualify(e : AST.Expr) : AST.Expr = e match {
+                case AST.FunCall(n, params) =>
+                    AST.FunCall(
+                        n.names match {
+                            case x :: Nil if isLocal(x) => n
+                            case _ => fullyQualifyName(n)
+                        },
+                        params map { _ map qualify })
 
-            case AST.Cast(x, ty) =>
-                AST.Cast(fullyQualify(isLocal)(x), fullyQualify(ty))
-            case x : AST.StringLit => x
-            case x : AST.FloatLit => x
-            case x : AST.IntLit => x
-            case x : AST.Var =>
-                if (isLocal(x.s))
-                    x
-                else
-                    throw new Exception(s"Cannot lookup variable ${x.s} while qualifying $e")
+                case AST.Cast(x, ty) =>
+                    AST.Cast(qualify(x), fullyQualifyType(ty))
+                case x : AST.StringLit => x
+                case x : AST.FloatLit => x
+                case x : AST.IntLit => x
+                case x : AST.Var =>
+                    if (isLocal(x.s))
+                        x
+                    else
+                        throw new Exception(s"Cannot lookup variable ${x.s} while qualifying $e")
 
-            case AST.List_(xs) => AST.List_(xs map fullyQualify(isLocal))
-            case AST.BinOp(s, x, y) => AST.BinOp(s, fullyQualify(isLocal)(x), fullyQualify(isLocal)(y))
-            case AST.Neg(x) => AST.Neg(fullyQualify(isLocal)(x))
-            case AST.IfThenElse(cond, x, y) => AST.IfThenElse(fullyQualify(isLocal)(cond), fullyQualify(isLocal)(x), fullyQualify(isLocal)(y))
-            case AST.And(x, y) => AST.And(fullyQualify(isLocal)(x), fullyQualify(isLocal)(y))
-            case AST.Or(x, y) => AST.Or(fullyQualify(isLocal)(x), fullyQualify(isLocal)(y))
-            case AST.Not(x) => AST.Not(fullyQualify(isLocal)(x))
-            case AST.Condition(c, x, y) => AST.Condition(c, fullyQualify(isLocal)(x), fullyQualify(isLocal)(y))
+                case AST.List_(xs) => AST.List_(xs map qualify)
+                case AST.BinOp(s, x, y) => AST.BinOp(s, qualify(x), qualify(y))
+                case AST.Neg(x) => AST.Neg(qualify(x))
+                case AST.IfThenElse(cond, x, y) => AST.IfThenElse(qualify(cond), qualify(x), qualify(y))
+                case AST.And(x, y) => AST.And(qualify(x), qualify(y))
+                case AST.Or(x, y) => AST.Or(qualify(x), qualify(y))
+                case AST.Not(x) => AST.Not(qualify(x))
+                case AST.Condition(c, x, y) => AST.Condition(c, qualify(x), qualify(y))
+            }
+            qualify(_)
         }
 
         def fullyQualified(f : AST.FunDef, packageArgs : List[AST.Parameter] = Nil) = {
@@ -318,11 +321,11 @@ package object NameTable {
             f.copy(
                 parameters = packageArgs ++ (f.parameters map { p =>
                     p.copy(
-                        ty = p.ty map fullyQualify,
+                        ty = p.ty map fullyQualifyType,
                         initializer = p.initializer map fullyQualify(isLocal(_))
                     )
                 }),
-                ty = f.ty map fullyQualify,
+                ty = f.ty map fullyQualifyType,
                 body = f.body map fullyQualify(isLocal(_))
             )
         }
@@ -332,7 +335,7 @@ package object NameTable {
 
             members = members mapValues {
                 case f : AST.FunDef => fullyQualified(f, packageArgs)
-                case a : AST.FunAlias => a.copy(target = fullyQualify(a.target))
+                case a : AST.FunAlias => a.copy(target = fullyQualifyName(a.target))
                 case x => x
             }
         }

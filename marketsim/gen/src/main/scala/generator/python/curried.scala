@@ -91,7 +91,7 @@ object curried
                                     AST.QualifiedName(
                                         after_typing.name.split('.').toList),
                                     base.name :: Nil) :: Nil,
-                        ty = ty map scope.fullyQualify))
+                        ty = ty map scope.fullyQualifyType))
                 case _ =>
                     throw new Exception("cannot happen")
             }) map  { fc =>

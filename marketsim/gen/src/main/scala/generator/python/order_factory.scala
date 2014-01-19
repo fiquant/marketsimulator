@@ -197,7 +197,7 @@ object order_factory
                                     sv(1).initializer,
                                     "signed volume" :: Nil) ::
                                 rest,
-                        ty = f.ty map scope.fullyQualify)
+                        ty = f.ty map scope.fullyQualifyType)
 
                 locate("signed" :: Nil, scope) add AST.FunAlias(
                     f.name, AST.QualifiedName("" :: "order" :: fc.name :: Nil))
@@ -260,7 +260,7 @@ object order_factory
                                     AST.QualifiedName(
                                         order_factory_curried.name.split('.').toList),
                                     base.name :: Nil) :: Nil,
-                        ty = ty map scope.fullyQualify))
+                        ty = ty map scope.fullyQualifyType))
                 case _ =>
                     if (hasProto(base.parameters)){
                         Some(base.copy(
@@ -271,7 +271,7 @@ object order_factory
                                         AST.QualifiedName(
                                             order_factory_on_proto.name.split('.').toList),
                                         base.name :: Nil) :: Nil,
-                            ty = ty map scope.fullyQualify))
+                            ty = ty map scope.fullyQualifyType))
                     }
                     else
                         None
