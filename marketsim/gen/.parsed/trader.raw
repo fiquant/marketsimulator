@@ -32,7 +32,6 @@ Definitions:
 | | | | | | | | | | | - strategy
 | | | | | | | | | | | - Noise
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  strategy run by the trader 
 | | | | | | - Parameter:
@@ -129,7 +128,6 @@ Definitions:
 | | | | | | | | | | | - strategy
 | | | | | | | | | | | - Arbitrage
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  strategy run by the trader 
 | | | | | | - Parameter:
@@ -241,7 +239,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -282,7 +279,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -323,7 +319,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -364,7 +359,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -377,41 +371,36 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Observable
 | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - BinOp:
-| | | | | | | | | | - Add
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Balance
+| | | | | | | | - BinOp:
+| | | | | | | | | - Add
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Balance
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - trader
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | - CumulativePrice
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - OfTrader
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | - trader
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Position
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | - CumulativePrice
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | | | - OfTrader
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | | - trader
-| | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - Position
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - trader
 | | | | | - None
 | | | | | - None
 | | | | | - List:
@@ -428,7 +417,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -441,41 +429,36 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Observable
 | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - BinOp:
-| | | | | | | | | | - Add
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Balance
+| | | | | | | | - BinOp:
+| | | | | | | | | - Add
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Balance
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - trader
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | - NaiveCumulativePrice
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - OfTrader
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | - trader
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Position
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | - NaiveCumulativePrice
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | | | - OfTrader
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | | - trader
-| | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - Position
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - trader
 | | | | | - None
 | | | | | - None
 | | | | | - List:
@@ -492,7 +475,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -512,24 +494,21 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Derivative
 | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - EW
-| | | | | | | | | | | | - Avg
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
+| | | | | | | | | | | - EW
+| | | | | | | | | | | - Avg
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Efficiency
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Efficiency
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - trader
 | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - alpha
+| | | | | | | | | | | | | - trader
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - alpha
 | | | | | - None
 | | | | | - None
 | | | | | - List:

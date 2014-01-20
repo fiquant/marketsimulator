@@ -21,7 +21,6 @@ Definitions:
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Sell
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - volume
@@ -32,9 +31,8 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 1.0
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -66,7 +64,6 @@ Definitions:
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Sell
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - price
@@ -77,9 +74,8 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 100.0
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 100.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - volume
@@ -90,9 +86,8 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 1.0
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -124,7 +119,6 @@ Definitions:
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Sell
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - budget
@@ -135,9 +129,8 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 1000.0
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1000.0
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -168,7 +161,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -199,9 +191,8 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 0.1
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 0.1
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - proto
@@ -212,7 +203,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -243,9 +233,8 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 10.0
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 10.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - proto
@@ -256,7 +245,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -287,9 +275,8 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 10.0
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 10.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - proto
@@ -300,7 +287,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -331,9 +317,8 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - const
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 10.0
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 10.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - proto
@@ -346,7 +331,6 @@ Definitions:
 | | | | | | | | | | | - price
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -379,7 +363,6 @@ Definitions:
 | | | | | | | | | | | - price
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:

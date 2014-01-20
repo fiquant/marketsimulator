@@ -66,7 +66,15 @@ class Parser() extends JavaTokenParsers with PackratParsers
         }
     } withFailureMessage "factor expected"
 
-    lazy val term : Parser[Expr] = (
+    lazy val term =
+            (funcall2
+         |  term2)
+
+    lazy val funcall2 = ident ~ ("(" ~> repsep(expr, ",") <~ ")") ^^ {
+        case name ~ list => FunCall(AST.QualifiedName(name :: Nil), list)
+    } withFailureMessage "funcall expected"
+
+    lazy val term2 : Parser[Expr] = (
                 float_literal
             |   funcall
             |   ident ^^ Var
@@ -77,7 +85,7 @@ class Parser() extends JavaTokenParsers with PackratParsers
     lazy val list = "[" ~> repsep(expr, ",") <~ "]" ^^ AST.List_
 
     lazy val funcall = qualified_name ~ ("(" ~> repsep(expr, ",") <~ ")") ^^ {
-        case name ~ list => FunCall(name, list :: Nil)
+        case name ~ list => FunCall(name, list)
     } withFailureMessage "funcall expected"
 
     lazy val typ : Parser[Type] = (

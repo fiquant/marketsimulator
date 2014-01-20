@@ -129,7 +129,7 @@ package object AST {
     case class Neg       (x: Expr)                                        extends Expr with pp.Neg with ScPrintable
     case class BinOp     (symbol : BinOpSymbol, x: Expr, y: Expr)         extends Expr with pp.BinOp with ScPrintable
     case class IfThenElse(cond : Expr, x : Expr, y : Expr)                extends Expr with pp.IfThenElse with ScPrintable
-    case class FunCall   (name : QualifiedName, args : List[List[Expr]])  extends Expr with pp.FunCall with ScPrintable
+    case class FunCall   (name : QualifiedName, args : List[Expr])        extends Expr with pp.FunCall with ScPrintable
     case class Cast      (x : Expr, ty : Type)                            extends Expr with pp.Cast with ScPrintable
     case class List_     (xs : List[Expr])                                extends Expr with pp.List_ with ScPrintable
 

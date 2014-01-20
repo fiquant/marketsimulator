@@ -20,7 +20,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Noise
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - predicate
@@ -32,7 +31,6 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - true
 | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -72,7 +70,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Noise
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - account
@@ -86,7 +83,6 @@ Definitions:
 | | | | | | | | | | | - inner
 | | | | | | | | | | | - inner_VirtualMarket
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - performance
@@ -100,7 +96,6 @@ Definitions:
 | | | | | | | | | | | - trader
 | | | | | | | | | | | - trader_EfficiencyTrend
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - FunCall:
@@ -108,27 +103,24 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Suspendable
 | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - Var:
-| | | | | | | | | | - inner
-| | | | | | | | | - Condition:
-| | | | | | | | | | - GreaterEqual
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - performance
+| | | | | | | | - Var:
+| | | | | | | | | - inner
+| | | | | | | | - Condition:
+| | | | | | | | | - GreaterEqual
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
+| | | | | | | | | | | | - performance
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - account
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - account
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | | - inner
-| | | | | | | | | | - IntLit:
-| | | | | | | | | | | - 0
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - inner
+| | | | | | | | | - IntLit:
+| | | | | | | | | | - 0
 | | | | | - None
 | | | | | - None
 | | | | | - List:
@@ -146,7 +138,6 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - Noise
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  original strategies that can be suspended 
 | | | | | | - Parameter:
@@ -161,7 +152,6 @@ Definitions:
 | | | | | | | | | | | - inner
 | | | | | | | | | | | - inner_VirtualMarket
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  function creating phantom strategy used for efficiency estimation 
 | | | | | | - Parameter:
@@ -176,7 +166,6 @@ Definitions:
 | | | | | | | | | | | - trader
 | | | | | | | | | | | - trader_EfficiencyTrend
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  function estimating is the strategy efficient or not 
 | | | | | | - Parameter:
@@ -191,7 +180,6 @@ Definitions:
 | | | | | | | | | | | - f
 | | | | | | | | | | | - f_AtanPow
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - corrector
@@ -205,7 +193,6 @@ Definitions:
 | | | | | | | | | | | - array
 | | | | | | | | | | | - array_IdentityL
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  weighting scheme for choosing strategies 
 | | | | | - None
@@ -245,7 +232,6 @@ Definitions:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - Noise
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  original strategies that can be suspended 
 | | | | | | - Parameter:
@@ -260,7 +246,6 @@ Definitions:
 | | | | | | | | | | | - inner
 | | | | | | | | | | | - inner_VirtualMarket
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  function creating phantom strategy used for efficiency estimation 
 | | | | | | - Parameter:
@@ -275,7 +260,6 @@ Definitions:
 | | | | | | | | | | | - trader
 | | | | | | | | | | | - trader_EfficiencyTrend
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  function estimating is the strategy efficient or not 
 | | | | | - None
@@ -329,7 +313,6 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - Noise
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
@@ -375,7 +358,6 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - Noise
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
@@ -500,7 +482,6 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - base
@@ -516,24 +497,21 @@ Definitions:
 | | | | | | | | | | | | - mathops
 | | | | | | | | | | | | - Atan
 | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - mathops
-| | | | | | | | | | | | | | | - Pow
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - mathops
+| | | | | | | | | | | | | | - Pow
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | | | | - base
 | | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - f
+| | | | | | | | | | | | | | | | - base
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - f
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
@@ -580,7 +558,6 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - Some:
 | | | | | | | | | - BinOp:
@@ -591,17 +568,15 @@ Definitions:
 | | | | | | | | | | | | | - observable
 | | | | | | | | | | | | | - Max
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - IntLit:
-| | | | | | | | | | | | | | | | | - 0
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - f
+| | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IntLit:
+| | | | | | | | | | | | | | | - 0
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - f
 | | | | | | | | | | - IntLit:
 | | | | | | | | | | | - 1
 | | | | | | | | - Some:
@@ -650,7 +625,6 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - Some:
 | | | | | | | | | - Var:
@@ -693,7 +667,6 @@ Definitions:
 | | | | | | | | | | | | | | - trader
 | | | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - Some:
@@ -741,7 +714,6 @@ Definitions:
 | | | | | | | | | | | | | | - trader
 | | | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - Some:
 | | | | | | | | | - FunCall:
@@ -749,9 +721,8 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - constant
 | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 1.0
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
@@ -789,7 +760,6 @@ Definitions:
 | | | | | | | | | | | | | | - trader
 | | | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - Some:
 | | | | | | | | | - FunCall:
@@ -799,9 +769,8 @@ Definitions:
 | | | | | | | | | | | | - trader
 | | | | | | | | | | | | - Efficiency
 | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - trader
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - trader
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
@@ -839,7 +808,6 @@ Definitions:
 | | | | | | | | | | | | | | - trader
 | | | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - alpha
@@ -854,27 +822,24 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Derivative
 | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | - EW
-| | | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | | | - Efficiency
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | | | | - trader
-| | | | | | | | | | | | | | | | | | - Efficiency
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | | | | - trader
 | | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - alpha
+| | | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - alpha
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:

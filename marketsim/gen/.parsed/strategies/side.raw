@@ -21,17 +21,15 @@ Definitions:
 | | | | | | | | | | | - event
 | | | | | | | | | | | - Every
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - mathutils
-| | | | | | | | | | | | | | - rnd
-| | | | | | | | | | | | | | - expovariate
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - mathutils
+| | | | | | | | | | | | | - rnd
+| | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | | | -  Event source making the strategy to wake up
 | | | | | | - Parameter:
@@ -46,7 +44,6 @@ Definitions:
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  order factory function
 | | | | | - Some:
@@ -55,23 +52,20 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Generic
 | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderFactory
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
+| | | | | | | | | | | - orderFactory
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | | - Noise
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | - sidefunc
-| | | | | | | | | | | | | | | - Noise
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | - Var:
-| | | | | | | | | | - eventGen
+| | | | | | | | - Var:
+| | | | | | | | | - eventGen
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
@@ -91,17 +85,15 @@ Definitions:
 | | | | | | | | | | | - event
 | | | | | | | | | | | - Every
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - mathutils
-| | | | | | | | | | | | | | - rnd
-| | | | | | | | | | | | | | - expovariate
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - mathutils
+| | | | | | | | | | | | | - rnd
+| | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | | | -  Event source making the strategy to wake up
 | | | | | | - Parameter:
@@ -116,7 +108,6 @@ Definitions:
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  order factory function
 | | | | | | - Parameter:
@@ -128,9 +119,8 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 0.0
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 0.0
 | | | | | | | - List:
 | | | | | | | | -  signal to be listened to 
 | | | | | | - Parameter:
@@ -147,27 +137,24 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Generic
 | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderFactory
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
+| | | | | | | | | | | - orderFactory
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | | - Signal
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | - sidefunc
-| | | | | | | | | | | | | | | - Signal
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - signal
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - threshold
-| | | | | | | | | - Var:
-| | | | | | | | | | - eventGen
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - signal
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - threshold
+| | | | | | | | - Var:
+| | | | | | | | | - eventGen
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
@@ -189,17 +176,15 @@ Definitions:
 | | | | | | | | | | | - event
 | | | | | | | | | | | - Every
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - mathutils
-| | | | | | | | | | | | | | - rnd
-| | | | | | | | | | | | | | - expovariate
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - mathutils
+| | | | | | | | | | | | | - rnd
+| | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | | | -  Event source making the strategy to wake up
 | | | | | | - Parameter:
@@ -214,7 +199,6 @@ Definitions:
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  order factory function
 | | | | | | - Parameter:
@@ -239,27 +223,24 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Generic
 | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderFactory
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
+| | | | | | | | | | | - orderFactory
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | | - TrendFollower
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | - sidefunc
-| | | | | | | | | | | | | | | - TrendFollower
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - ewma_alpha
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - threshold
-| | | | | | | | | - Var:
-| | | | | | | | | | - eventGen
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - ewma_alpha
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - threshold
+| | | | | | | | - Var:
+| | | | | | | | | - eventGen
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
@@ -284,17 +265,15 @@ Definitions:
 | | | | | | | | | | | - event
 | | | | | | | | | | | - Every
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - mathutils
-| | | | | | | | | | | | | | - rnd
-| | | | | | | | | | | | | | - expovariate
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - mathutils
+| | | | | | | | | | | | | - rnd
+| | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | | | -  Event source making the strategy to wake up
 | | | | | | - Parameter:
@@ -309,7 +288,6 @@ Definitions:
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  order factory function
 | | | | | | - Parameter:
@@ -342,29 +320,26 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Generic
 | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderFactory
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
+| | | | | | | | | | | - orderFactory
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | | - CrossingAverages
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | - sidefunc
-| | | | | | | | | | | | | | | - CrossingAverages
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - ewma_alpha_1
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - ewma_alpha_2
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - threshold
-| | | | | | | | | - Var:
-| | | | | | | | | | - eventGen
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - ewma_alpha_1
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - ewma_alpha_2
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - threshold
+| | | | | | | | - Var:
+| | | | | | | | | - eventGen
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
@@ -387,17 +362,15 @@ Definitions:
 | | | | | | | | | | | - event
 | | | | | | | | | | | - Every
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - mathutils
-| | | | | | | | | | | | | | - rnd
-| | | | | | | | | | | | | | - expovariate
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - mathutils
+| | | | | | | | | | | | | - rnd
+| | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | | | -  Event source making the strategy to wake up
 | | | | | | - Parameter:
@@ -412,7 +385,6 @@ Definitions:
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  order factory function
 | | | | | | - Parameter:
@@ -424,9 +396,8 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 100.0
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 100.0
 | | | | | | | - List:
 | | | | | | | | -  defines fundamental value 
 | | | | | - Some:
@@ -435,25 +406,22 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Generic
 | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderFactory
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
+| | | | | | | | | | | - orderFactory
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | | - FundamentalValue
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | - sidefunc
-| | | | | | | | | | | | | | | - FundamentalValue
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - fundamentalValue
-| | | | | | | | | - Var:
-| | | | | | | | | | - eventGen
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - fundamentalValue
+| | | | | | | | - Var:
+| | | | | | | | | - eventGen
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
@@ -475,17 +443,15 @@ Definitions:
 | | | | | | | | | | | - event
 | | | | | | | | | | | - Every
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - mathutils
-| | | | | | | | | | | | | | - rnd
-| | | | | | | | | | | | | | - expovariate
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - mathutils
+| | | | | | | | | | | | | - rnd
+| | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | | | -  Event source making the strategy to wake up
 | | | | | | - Parameter:
@@ -500,7 +466,6 @@ Definitions:
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  order factory function
 | | | | | | - Parameter:
@@ -517,25 +482,22 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Generic
 | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderFactory
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
+| | | | | | | | | | | - orderFactory
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | | - MeanReversion
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | - sidefunc
-| | | | | | | | | | | | | | | - MeanReversion
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - ewma_alpha
-| | | | | | | | | - Var:
-| | | | | | | | | | - eventGen
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - ewma_alpha
+| | | | | | | | - Var:
+| | | | | | | | | - eventGen
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
@@ -558,17 +520,15 @@ Definitions:
 | | | | | | | | | | | - event
 | | | | | | | | | | | - Every
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - mathutils
-| | | | | | | | | | | | | | - rnd
-| | | | | | | | | | | | | | - expovariate
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - mathutils
+| | | | | | | | | | | | | - rnd
+| | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | | | -  Event source making the strategy to wake up
 | | | | | | - Parameter:
@@ -583,7 +543,6 @@ Definitions:
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  order factory function
 | | | | | | - Parameter:
@@ -597,7 +556,6 @@ Definitions:
 | | | | | | | | | | | - orderbook
 | | | | | | | | | | | - OfTrader
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  reference to order book for another asset used to evaluate fair price of our asset 
 | | | | | | - Parameter:
@@ -614,27 +572,24 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Generic
 | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderFactory
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
+| | | | | | | | | | | - orderFactory
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | | - PairTrading
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | - sidefunc
-| | | | | | | | | | | | | | | - PairTrading
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - bookToDependOn
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - factor
-| | | | | | | | | - Var:
-| | | | | | | | | | - eventGen
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - bookToDependOn
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - factor
+| | | | | | | | - Var:
+| | | | | | | | | - eventGen
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
@@ -659,17 +614,15 @@ Definitions:
 | | | | | | | | | | | - event
 | | | | | | | | | | | - Every
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - mathutils
-| | | | | | | | | | | | | | - rnd
-| | | | | | | | | | | | | | - expovariate
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - mathutils
+| | | | | | | | | | | | | - rnd
+| | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | | | -  Event source making the strategy to wake up
 | | | | | | - Parameter:
@@ -684,7 +637,6 @@ Definitions:
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  order factory function
 | | | | | | - Parameter:
@@ -719,52 +671,47 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Generic
 | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderFactory
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
+| | | | | | | | | | | - orderFactory
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | | - Signal
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 50.0
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | - RSI
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | - sidefunc
-| | | | | | | | | | | | | | | - Signal
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | | | | | - Sub
-| | | | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | | | - 50.0
-| | | | | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | | | | | - RSI
+| | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | | | | | | | | | - OfTrader
-| | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | | | | | - timeframe
-| | | | | | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | | | | | - alpha
-| | | | | | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | | | | | - Sub
-| | | | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | | | - 50.0
-| | | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | | - threshold
-| | | | | | | | | - Var:
-| | | | | | | | | | - eventGen
+| | | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - alpha
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 50.0
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - threshold
+| | | | | | | | - Var:
+| | | | | | | | | - eventGen
 | | | | | - None
 | | | | | - None
 | | | | | - List:

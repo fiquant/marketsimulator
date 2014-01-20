@@ -308,8 +308,8 @@ package object NameTable {
                                 }
                         }
                     //println(context.last._2)
-                    val fresh = (common map { p => AST.Var(p.name)}) ++ params.head :: params.tail
-                    AST.FunCall(qualified, fresh map { _ map qualify })
+                    val fresh = (common map { p => AST.Var(p.name)}) ++ params
+                    AST.FunCall(qualified, fresh map qualify )
 
                 case AST.Cast(x, ty) =>
                     AST.Cast(qualify(x), fullyQualifyType(ty))

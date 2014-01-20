@@ -23,7 +23,6 @@ Definitions:
 | | | | | | | | | | | - signedVolume
 | | | | | | | | | | | - MarketSigned
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - alpha
@@ -45,9 +44,8 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - const
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - -0.04
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - -0.04
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - timeframe
@@ -62,27 +60,24 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Generic
 | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderFactory
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
+| | | | | | | | | | | - orderFactory
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - volumefunc
+| | | | | | | | | | | | | - RSI_linear
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | - volumefunc
-| | | | | | | | | | | | | | | - RSI_linear
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - alpha
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - k
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - alpha
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - k
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - timeframe
 | | | | | - None
 | | | | | - None
 | | | | | - List:
@@ -101,7 +96,6 @@ Definitions:
 | | | | | | | | | | | - signedVolume
 | | | | | | | | | | | - MarketSigned
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - alpha
@@ -119,9 +113,8 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - const
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 0.5
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 0.5
 | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - FunCall:
@@ -129,25 +122,22 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Generic
 | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderFactory
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
+| | | | | | | | | | | - orderFactory
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - volumefunc
+| | | | | | | | | | | | | - Bollinger_linear
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | - volumefunc
-| | | | | | | | | | | | | | | - Bollinger_linear
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - alpha
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - k
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - alpha
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - k
 | | | | | - None
 | | | | | - None
 | | | | | - List:

@@ -308,27 +308,26 @@ package object Typer
 
             case AST.List_(xs) => Typed.List_(xs map asArith)
 
-            case AST.FunCall(name, arg_lists) =>
+            case AST.FunCall(name, args) =>
 
-                arg_lists.foldLeft[Typed.Expr](ctx lookupFunction name) {
-                    (acc, args) =>
-                        val ty = acc.ty match {
-                            case x : TypesBound.Function => x
-                            case _ => throw new Exception(s"$acc must have a function-like type")
-                        }
-                        if (args.length < ty.mandatory_arg_count)
-                            throw new Exception(s"Function $name is called with $args but it" +
-                                    s"should be called with at least ${ty.mandatory_arg_count} arguments")
-                        val actual_args = args zip ty.args map {
-                            case (actual, declared) =>
-                                val typed = asArith(actual)
-                                if (typed.ty cannotCastTo declared)
-                                    throw new Exception(s"Function '$name' is called with wrong argument of"+
-                                                        s" type '${typed.ty}' when type '$declared' is expected")
-                                typed
-                        }
-                        Typed.FunctionCall(acc, actual_args)
+                val acc = ctx lookupFunction name
+                val ty = acc.ty match {
+                    case x : TypesBound.Function => x
+                    case _ => throw new Exception(s"$acc must have a function-like type")
                 }
+                if (args.length < ty.mandatory_arg_count)
+                    throw new Exception(s"Function $name is called with $args but it" +
+                            s"should be called with at least ${ty.mandatory_arg_count} arguments")
+                val actual_args = args zip ty.args map {
+                    case (actual, declared) =>
+                        val typed = asArith(actual)
+                        if (typed.ty cannotCastTo declared)
+                            throw new Exception(s"Function '$name' is called with wrong argument of"+
+                                                s" type '${typed.ty}' when type '$declared' is expected")
+                        typed
+                }
+                Typed.FunctionCall(acc, actual_args)
+
             case AST.And(x, y) => Typed.And(asArith(x), asArith(y))
             case AST.Or(x, y) => Typed.Or(asArith(x), asArith(y))
             case AST.Not(x) => Typed.Not(asArith(x))

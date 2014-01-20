@@ -21,7 +21,6 @@ Definitions:
 | | | | | | | | | | | - order
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  order factory function
 | | | | | | - Parameter:
@@ -35,7 +34,6 @@ Definitions:
 | | | | | | | | | | | | - observable
 | | | | | | | | | | | | - OnEveryDt
 | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
@@ -75,7 +73,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Noise
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - B
@@ -86,7 +83,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Noise
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -155,9 +151,8 @@ Definitions:
 | | | | | | | | | | | - rnd
 | | | | | | | | | | | - expovariate
 | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 1.0
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
