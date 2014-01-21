@@ -1,6 +1,6 @@
 from marketsim import ops, event, _
 
-from marketsim.gen._out.observable.orderbook._BestPrice import BestPrice
+from marketsim.gen._out.orderbook._BestPrice import BestPrice
 
 class _LastPrice_Impl(ops.Observable[float]):
 

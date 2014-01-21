@@ -494,13 +494,13 @@ Definitions:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - mathops
+| | | | | | | | | | | | - math
 | | | | | | | | | | | | - Atan
 | | | | | | | | | | - List:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - mathops
+| | | | | | | | | | | | | | - math
 | | | | | | | | | | | | | | - Pow
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FunCall:
@@ -565,7 +565,7 @@ Definitions:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - math
 | | | | | | | | | | | | | - Max
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - FunCall:
@@ -663,7 +663,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - observable
 | | | | | | | | | | | | | | - trader
 | | | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | | | - List:
@@ -710,7 +709,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - observable
 | | | | | | | | | | | | | | - trader
 | | | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | | | - List:
@@ -765,7 +763,6 @@ Definitions:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - observable
 | | | | | | | | | | | | - trader
 | | | | | | | | | | | | - Efficiency
 | | | | | | | | | | - List:
@@ -820,19 +817,19 @@ Definitions:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
+| | | | | | | | | | | | - math
 | | | | | | | | | | | | - Derivative
 | | | | | | | | | | - List:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - math
 | | | | | | | | | | | | | | - EW
 | | | | | | | | | | | | | | - Avg
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - observable
 | | | | | | | | | | | | | | | | - trader
 | | | | | | | | | | | | | | | | - Efficiency
 | | | | | | | | | | | | | | - List:

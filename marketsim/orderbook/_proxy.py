@@ -18,8 +18,8 @@ class Base(types.IOrderBook):
     def __repr__(self):
         return self.__str__()
 
-from marketsim.gen._out.observable.orderbook._Asks import Asks
-from marketsim.gen._out.observable.orderbook._Bids import Bids
+from marketsim.gen._out.orderbook._Asks import Asks
+from marketsim.gen._out.orderbook._Bids import Bids
 
 class Queue(types.IOrderQueue):
 
@@ -66,4 +66,4 @@ class Proxy(Base):
         assert self._impl is None
         self._impl = ctx.orderbook
 
-from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader
+from marketsim.gen._out.orderbook._OfTrader import OfTrader

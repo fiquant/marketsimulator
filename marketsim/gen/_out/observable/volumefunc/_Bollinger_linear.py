@@ -38,10 +38,10 @@ class Bollinger_linear(Observable[Volume]):
     def getImpl(self):
         from marketsim.gen._out.observable.volumefunc._DesiredPosition import DesiredPosition as _observable_volumefunc_DesiredPosition
         from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
-        from marketsim.gen._out.observable.EW._RelStdDev import RelStdDev as _observable_EW_RelStdDev
-        from marketsim.gen._out.observable.orderbook._MidPrice import MidPrice as _observable_orderbook_MidPrice
-        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader as _observable_orderbook_OfTrader
-        return _observable_volumefunc_DesiredPosition(_observable_OnEveryDt(1.0,_observable_EW_RelStdDev(_observable_orderbook_MidPrice(_observable_orderbook_OfTrader(self.trader)),self.alpha))*self.k,self.trader)
+        from marketsim.gen._out.math.EW._RelStdDev import RelStdDev as _math_EW_RelStdDev
+        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
+        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
+        return _observable_volumefunc_DesiredPosition(_observable_OnEveryDt(1.0,_math_EW_RelStdDev(_orderbook_MidPrice(_orderbook_OfTrader(self.trader)),self.alpha))*self.k,self.trader)
         
         
         

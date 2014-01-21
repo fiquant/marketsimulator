@@ -8,9 +8,15 @@ from marketsim.gen._out._TimeSerie import TimeSerie
 
 from marketsim.gen._out._const import const
 
+from marketsim.gen._out._ObservableVolume import ObservableVolume
+
+from marketsim.gen._out._ObservableSide import ObservableSide
+
 from marketsim.gen._out._true import true
 
-from marketsim.gen._out._Derivative import Derivative
+from marketsim.gen._out._ObservablePrice import ObservablePrice
+
+from marketsim.gen._out._Observable import Observable
 
 from marketsim.gen._out._IfDefined import IfDefined
 

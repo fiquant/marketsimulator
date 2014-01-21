@@ -1,8 +1,8 @@
 from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import IFunction
-from marketsim.gen._out.mathops._Atan import Atan as _mathops_Atan
-from marketsim.gen._out.mathops._Pow import Pow as _mathops_Pow
+from marketsim.gen._out.math._Atan import Atan as _math_Atan
+from marketsim.gen._out.math._Pow import Pow as _math_Pow
 from marketsim.gen._out._constant import constant as _constant
 from marketsim import context
 @registry.expose(["Strategy", "AtanPow"])
@@ -28,7 +28,7 @@ class AtanPow(Function[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        return _mathops_Atan(_mathops_Pow(_constant(self.base),self.f))
+        return _math_Atan(_math_Pow(_constant(self.base),self.f))
     
     
     

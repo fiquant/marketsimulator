@@ -1,31 +1,6 @@
 @category = "Basic"
 
-package observable() {
-    @python.observable()
-    @category = "Pow/Log"
-    @label = "{%(x)s}^2"
-    def Sqr(x = constant())
-         = x*x
-    
-    @python.observable()
-    @label = "min{%(x)s, %(y)s}"
-    def Min(x = constant(),
-            y = constant())
-         = if x<y then x else y
-    
-    @python.observable()
-    @label = "max{%(x)s, %(y)s}"
-    def Max(x = constant(),
-            y = constant())
-         = if x>y then x else y
-    
-    @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
-    @label = "[%(x)s]_dt=%(dt)s"
-    @observe_args = "no"
-    def OnEveryDt(dt = 1.0,
-                  x = constant()) : IObservable[Float]
-        
-    
+package () {
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
     def Observable(x = const() : IFunction[Float]) : IObservable[Float]
@@ -44,6 +19,16 @@ package observable() {
     @python.intrinsic("observable.on_every_dt._ObservableSide_Impl")
     @label = "[%(x)s]"
     def ObservableSide(x = side.Sell() : IFunction[Side]) : IObservable[Side]
+        
+}
+@category = "Basic"
+
+package observable() {
+    @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
+    @label = "[%(x)s]_dt=%(dt)s"
+    @observe_args = "no"
+    def OnEveryDt(dt = 1.0,
+                  x = constant()) : IObservable[Float]
         
     
     @python.intrinsic("observable.quote.Quote_Impl")
@@ -68,40 +53,10 @@ package observable() {
     @python.intrinsic("observable.randomwalk._RandomWalk_Impl")
     @label = "%(name)s"
     def RandomWalk(/** initial value of the signal */ initialValue = 0.0,
-                   /** increment function */ deltaDistr = mathutils.rnd.normalvariate(0.0,1.0),
-                   /** intervals between signal updates */ intervalDistr = mathutils.rnd.expovariate(1.0),
+                   /** increment function */ deltaDistr = math.random.normalvariate(0.0,1.0),
+                   /** intervals between signal updates */ intervalDistr = math.random.expovariate(1.0),
                    name = "-random-") : IObservable[Float]
         
-    @category = "Statistics"
-    
-    package Moving() {
-        @python.intrinsic("observable.minmax.Min_Impl")
-        @label = "Min_{n=%(timeframe)s}(%(source)s)"
-        def Min(source = constant(),
-                timeframe = 100.0) : IObservable[Float]
-            
-        
-        @python.intrinsic("observable.minmax.Max_Impl")
-        @label = "Max_{n=%(timeframe)s}(%(source)s)"
-        def Max(source = constant(),
-                timeframe = 100.0) : IObservable[Float]
-            
-    }
-    @category = "Statistics"
-    
-    package Cumulative() {
-        @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
-        @label = "Min_{\\epsilon}(%(source)s)"
-        def MinEpsilon(source = constant(),
-                       epsilon = constant(0.01)) : IObservable[Float]
-            
-        
-        @python.intrinsic("observable.minmax_eps.MaxEpsilon_Impl")
-        @label = "Max_{\\epsilon}(%(source)s)"
-        def MaxEpsilon(source = constant(),
-                       epsilon = constant(0.01)) : IObservable[Float]
-            
-    }
 }
 @category = "Basic"
 
@@ -134,11 +89,6 @@ package () {
     def IfDefined(x = constant(),
                   elsePart = constant())
          = if x<>null() then x else elsePart
-    
-    @python.intrinsic("observable.derivative._Derivative_Impl")
-    @label = "\\frac{d%(x)s}{dt}"
-    def Derivative(x = observable.EW.Avg() : IDifferentiable) : () => Float
-        
     
     @python.intrinsic("timeserie._ToRecord_Impl")
     @label = "%(source)s"

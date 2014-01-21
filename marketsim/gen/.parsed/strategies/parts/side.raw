@@ -20,8 +20,8 @@ Definitions:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - mathutils
-| | | | | | | | | | | | - rnd
+| | | | | | | | | | | | - math
+| | | | | | | | | | | | - random
 | | | | | | | | | | | | - uniform
 | | | | | | | | | | - List:
 | | | | | | | | | | | - FloatLit:
@@ -165,11 +165,13 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
+| | | | | | | | | | | - math
 | | | | | | | | | | | - Derivative
 | | | | | | | | | - List:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - math
 | | | | | | | | | | | | | - EW
 | | | | | | | | | | | | | - Avg
 | | | | | | | | | | | - List:
@@ -234,6 +236,7 @@ Definitions:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
+| | | | | | | | | | | | - math
 | | | | | | | | | | | | - EW
 | | | | | | | | | | | | - Avg
 | | | | | | | | | | - List:
@@ -250,6 +253,7 @@ Definitions:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
+| | | | | | | | | | | | - math
 | | | | | | | | | | | | - EW
 | | | | | | | | | | | | - Avg
 | | | | | | | | | | - List:
@@ -380,6 +384,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
+| | | | | | | | | | | - math
 | | | | | | | | | | | - EW
 | | | | | | | | | | | - Avg
 | | | | | | | | | - List:

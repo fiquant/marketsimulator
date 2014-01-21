@@ -1,5 +1,5 @@
 from marketsim import ops, event, request, Side, _, types
-from marketsim.gen._out.observable.orderbook._LastTradePrice import LastTradePrice
+from marketsim.gen._out.orderbook._LastTradePrice import LastTradePrice
 
 def sign(x):
     return 1 if x > 0 else -1 if x < 0 else 0

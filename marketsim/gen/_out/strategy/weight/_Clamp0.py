@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import IFunction
-from marketsim.gen._out.observable._Max import Max as _observable_Max
+from marketsim.gen._out.math._Max import Max as _math_Max
 from marketsim.gen._out._constant import constant as _constant
 from marketsim import context
 @registry.expose(["Strategy", "Clamp0"])
@@ -25,7 +25,7 @@ class Clamp0(Function[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        return _observable_Max(_constant(0),self.f)+1
+        return _math_Max(_constant(0),self.f)+1
     
     
     def bind(self, ctx):

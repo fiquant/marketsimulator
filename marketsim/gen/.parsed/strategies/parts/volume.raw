@@ -115,6 +115,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - math
 | | | | | | | | | | | | | | - EW
 | | | | | | | | | | | | | | - RelStdDev
 | | | | | | | | | | | | - List:
@@ -207,6 +208,7 @@ Definitions:
 | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - math
 | | | | | | | | | | | | | | | - RSI
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - FunCall:

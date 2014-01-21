@@ -1,189 +1,10 @@
 Definitions:
 - List:
 | - PackageDef:
-| | - Some:
-| | | - QualifiedName:
-| | | | - List:
-| | | | | - observable
+| | - None
 | | - List:
 | | - Definitions:
 | | | - List:
-| | | | - FunDef:
-| | | | | - Sqr
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - x
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - constant
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | - Some:
-| | | | | | - BinOp:
-| | | | | | | - Mul
-| | | | | | | - Var:
-| | | | | | | | - x
-| | | | | | | - Var:
-| | | | | | | | - x
-| | | | | - None
-| | | | | - None
-| | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - observable
-| | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - category
-| | | | | | | - Pow/Log
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - {%(x)s}^2
-| | | | - FunDef:
-| | | | | - Min
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - x
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - constant
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - y
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - constant
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | - Some:
-| | | | | | - IfThenElse:
-| | | | | | | - Condition:
-| | | | | | | | - Less
-| | | | | | | | - Var:
-| | | | | | | | | - x
-| | | | | | | | - Var:
-| | | | | | | | | - y
-| | | | | | | - Var:
-| | | | | | | | - x
-| | | | | | | - Var:
-| | | | | | | | - y
-| | | | | - None
-| | | | | - None
-| | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - observable
-| | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - min{%(x)s, %(y)s}
-| | | | - FunDef:
-| | | | | - Max
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - x
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - constant
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - y
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - constant
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | - Some:
-| | | | | | - IfThenElse:
-| | | | | | | - Condition:
-| | | | | | | | - Greater
-| | | | | | | | - Var:
-| | | | | | | | | - x
-| | | | | | | | - Var:
-| | | | | | | | | - y
-| | | | | | | - Var:
-| | | | | | | | - x
-| | | | | | | - Var:
-| | | | | | | | - y
-| | | | | - None
-| | | | | - None
-| | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - observable
-| | | | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - max{%(x)s, %(y)s}
-| | | | - FunDef:
-| | | | | - OnEveryDt
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - dt
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FloatLit:
-| | | | | | | | | - 1.0
-| | | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - x
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - constant
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | - None
-| | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - IObservable
-| | | | | | | - List:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Float
-| | | | | | | | | - List:
-| | | | | - None
-| | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - intrinsic
-| | | | | | | - List:
-| | | | | | | | - observable.on_every_dt._OnEveryDt_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - [%(x)s]_dt=%(dt)s
-| | | | | | - Attribute:
-| | | | | | | - observe_args
-| | | | | | | - no
 | | | | - FunDef:
 | | | | | - Observable
 | | | | | - List:
@@ -377,6 +198,67 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - [%(x)s]
+| | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
+| | - List:
+| | - false
+| - PackageDef:
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - observable
+| | - List:
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - OnEveryDt
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - dt
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - observable.on_every_dt._OnEveryDt_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - [%(x)s]_dt=%(dt)s
+| | | | | | - Attribute:
+| | | | | | | - observe_args
+| | | | | | | - no
 | | | | - FunDef:
 | | | | | - Quote
 | | | | | - List:
@@ -523,8 +405,8 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - mathutils
-| | | | | | | | | | | - rnd
+| | | | | | | | | | | - math
+| | | | | | | | | | | - random
 | | | | | | | | | | | - normalvariate
 | | | | | | | | | - List:
 | | | | | | | | | | - FloatLit:
@@ -540,8 +422,8 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - mathutils
-| | | | | | | | | | | - rnd
+| | | | | | | | | | | - math
+| | | | | | | | | | | - random
 | | | | | | | | | | | - expovariate
 | | | | | | | | | - List:
 | | | | | | | | | | - FloatLit:
@@ -582,220 +464,6 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - %(name)s
-| | | | - PackageDef:
-| | | | | - Some:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - Moving
-| | | | | - List:
-| | | | | - Definitions:
-| | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - Min
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - source
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - timeframe
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 100.0
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable
-| | | | | | | | | | - List:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | - List:
-| | | | | | | | | | | - observable.minmax.Min_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Min_{n=%(timeframe)s}(%(source)s)
-| | | | | | | - FunDef:
-| | | | | | | | - Max
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - source
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - timeframe
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 100.0
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable
-| | | | | | | | | | - List:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | - List:
-| | | | | | | | | | | - observable.minmax.Max_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Max_{n=%(timeframe)s}(%(source)s)
-| | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - category
-| | | | | | | - Statistics
-| | | | | - List:
-| | | | | - false
-| | | | - PackageDef:
-| | | | | - Some:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - Cumulative
-| | | | | - List:
-| | | | | - Definitions:
-| | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - MinEpsilon
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - source
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - epsilon
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 0.01
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable
-| | | | | | | | | | - List:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | - List:
-| | | | | | | | | | | - observable.minmax_eps.MinEpsilon_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Min_{\\epsilon}(%(source)s)
-| | | | | | | - FunDef:
-| | | | | | | | - MaxEpsilon
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - source
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - epsilon
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 0.01
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable
-| | | | | | | | | | - List:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | - List:
-| | | | | | | | | | | - observable.minmax_eps.MaxEpsilon_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Max_{\\epsilon}(%(source)s)
-| | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - category
-| | | | | | | - Statistics
-| | | | | - List:
-| | | | | - false
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -1003,48 +671,6 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - If def(%(x)s) else %(elsePart)s
-| | | | - FunDef:
-| | | | | - Derivative
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - x
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - Cast:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - observable
-| | | | | | | | | | | | - EW
-| | | | | | | | | | | | - Avg
-| | | | | | | | | | - List:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IDifferentiable
-| | | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | - None
-| | | | | - Some:
-| | | | | | - FunctionType:
-| | | | | | | - List:
-| | | | | | | - SimpleType:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - Float
-| | | | | | | | - List:
-| | | | | - None
-| | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - intrinsic
-| | | | | | | - List:
-| | | | | | | | - observable.derivative._Derivative_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - \\frac{d%(x)s}{dt}
 | | | | - FunDef:
 | | | | | - TimeSerie
 | | | | | - List:

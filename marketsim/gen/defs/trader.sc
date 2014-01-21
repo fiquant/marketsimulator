@@ -30,13 +30,6 @@ package trader
     @python.intrinsic("trader.proxy._Single_Impl")
     @label = "N/A"
     def SingleProxy() : ISingleAssetTrader
-}
-
-
-@category = "Trader's"
-package observable.trader
-{
-    def SingleProxy = .trader.SingleProxy
 
     @python.intrinsic("trader.props.Position_Impl")
     def Position(trader =SingleProxy() : IAccount) : IObservable[Volume]
@@ -54,6 +47,7 @@ package observable.trader
         = Observable(Balance(trader) + orderbook.NaiveCumulativePrice(orderbook.OfTrader(trader), Position(trader)))
 
     def EfficiencyTrend(trader = SingleProxy() : IAccount, alpha = 0.15)
-        = Derivative(EW.Avg(Efficiency(trader), alpha))
+        = math.Derivative(math.EW.Avg(Efficiency(trader), alpha))
 }
+
 

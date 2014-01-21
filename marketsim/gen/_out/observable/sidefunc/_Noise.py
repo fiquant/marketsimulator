@@ -11,8 +11,8 @@ class Noise(Function[Side]):
     """ 
     """ 
     def __init__(self, side_distribution = None):
-        from marketsim.gen._out.mathutils.rnd._uniform import uniform as _mathutils_rnd_uniform
-        self.side_distribution = side_distribution if side_distribution is not None else _mathutils_rnd_uniform(0.0,1.0)
+        from marketsim.gen._out.math.random._uniform import uniform as _math_random_uniform
+        self.side_distribution = side_distribution if side_distribution is not None else _math_random_uniform(0.0,1.0)
         self.impl = self.getImpl()
     
     @property

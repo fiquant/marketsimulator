@@ -1,1 +1,1 @@
-from marketsim.gen._out.observable.trader._Efficiency import Efficiency
+from marketsim.gen._out.trader._Efficiency import Efficiency

@@ -1,4 +1,4 @@
-package observable
+package math
 {
     @category = "Statistics"
     package
@@ -15,7 +15,7 @@ package observable
             def Var (source = const (), alpha = 0.015) => Float
 
             @label = "\\sqrt{\\sigma^2{{suffix}}}"
-            def StdDev (source = const (), alpha = 0.015) = mathops.Sqrt(Var(source, alpha))
+            def StdDev (source = const (), alpha = 0.015) = Sqrt(Var(source, alpha))
 
             @label = "RSD{{suffix}}"
             def RelStdDev(source = const (), alpha = 0.015)
@@ -34,7 +34,7 @@ package observable
             def Var (source = const ()) => Float
 
             @label = "\\sqrt{\\sigma^2{{suffix}}}"
-            def StdDev (source = const ()) = mathops.Sqrt(Var(source))
+            def StdDev (source = const ()) = Sqrt(Var(source))
 
             @label = "RSD{{suffix}}"
             def RelStdDev(source = const ())
@@ -51,10 +51,10 @@ package observable
             @python.intrinsic("moments.mv.MV_Impl")
             @label = "\\sigma^2{{suffix}}"
             def Var (source = const (), timeframe = 100.0)
-                = observable.Max(const(0), Avg(source*source, timeframe) - Sqr(Avg(source, timeframe)))
+                = math.Max(const(0), Avg(source*source, timeframe) - Sqr(Avg(source, timeframe)))
 
             @label = "\\sqrt{\\sigma^2{{suffix}}}"
-            def StdDev (source = const (), timeframe = 100.0) = mathops.Sqrt(Var(source))
+            def StdDev (source = const (), timeframe = 100.0) = Sqrt(Var(source))
 
             @label = "RSD{{suffix}}"
             def RelStdDev(source = const (), timeframe = 100.0)

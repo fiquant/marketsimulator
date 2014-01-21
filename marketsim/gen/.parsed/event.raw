@@ -18,8 +18,8 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - mathutils
-| | | | | | | | | | | - rnd
+| | | | | | | | | | | - math
+| | | | | | | | | | | - random
 | | | | | | | | | | | - expovariate
 | | | | | | | | | - List:
 | | | | | | | | | | - FloatLit:

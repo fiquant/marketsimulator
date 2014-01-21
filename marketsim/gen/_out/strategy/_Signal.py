@@ -16,12 +16,12 @@ class Signal(ISingleAssetStrategy):
     """ 
     def __init__(self, eventGen = None, orderFactory = None, signal = None, threshold = None):
         from marketsim.gen._out.event._Every import Every as _event_Every
-        from marketsim.gen._out.mathutils.rnd._expovariate import expovariate as _mathutils_rnd_expovariate
+        from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
         from marketsim.gen._out.order._curried._side_Market import side_Market as _order__curried_side_Market
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import _
-        self.eventGen = eventGen if eventGen is not None else _event_Every(_mathutils_rnd_expovariate(1.0))
+        self.eventGen = eventGen if eventGen is not None else _event_Every(_math_random_expovariate(1.0))
         
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market()
         self.signal = signal if signal is not None else _constant(0.0)

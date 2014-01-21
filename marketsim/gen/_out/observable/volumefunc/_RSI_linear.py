@@ -41,9 +41,9 @@ class RSI_linear(Observable[Volume]):
         from marketsim.gen._out.observable.volumefunc._DesiredPosition import DesiredPosition as _observable_volumefunc_DesiredPosition
         from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
         from marketsim.gen._out._const import const as _const
-        from marketsim.gen._out.observable._RSI import RSI as _observable_RSI
-        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader as _observable_orderbook_OfTrader
-        return _observable_volumefunc_DesiredPosition(_observable_OnEveryDt(1.0,_const(50.0)-_observable_RSI(_observable_orderbook_OfTrader(self.trader),self.timeframe,self.alpha))*self.k,self.trader)
+        from marketsim.gen._out.math._RSI import RSI as _math_RSI
+        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
+        return _observable_volumefunc_DesiredPosition(_observable_OnEveryDt(1.0,_const(50.0)-_math_RSI(_orderbook_OfTrader(self.trader),self.timeframe,self.alpha))*self.k,self.trader)
         
         
         

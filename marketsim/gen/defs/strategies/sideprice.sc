@@ -5,7 +5,7 @@ package strategy
      */
     def LiquidityProviderSide(
                 /** Event source making the strategy to wake up*/
-                eventGen     = event.Every(mathutils.rnd.expovariate(1.)),
+                eventGen     = event.Every(math.random.expovariate(1.)),
                 /** order factory function*/
                 orderFactory = order._.side_price.Limit(),
                 /** side of orders to create */
@@ -14,7 +14,7 @@ package strategy
                 initialValue = 100.0,
                 /** defines multipliers for current asset price when price of
                     order to create is calculated*/
-                priceDistr   = mathutils.rnd.lognormvariate(0., .1))
+                priceDistr   = math.random.lognormvariate(0., .1))
 
         =   Generic(
                 orderFactory(
@@ -30,14 +30,14 @@ package strategy
      */
     def LiquidityProvider(
                 /** Event source making the strategy to wake up*/
-                eventGen     = event.Every(mathutils.rnd.expovariate(1.)),
+                eventGen     = event.Every(math.random.expovariate(1.)),
                 /** order factory function*/
                 orderFactory = order._.side_price.Limit(),
                 /** initial price which is taken if orderBook is empty */
                 initialValue = 100.0,
                 /** defines multipliers for current asset price when price of
                     order to create is calculated*/
-                priceDistr   = mathutils.rnd.lognormvariate(0., .1))
+                priceDistr   = math.random.lognormvariate(0., .1))
 
         =   Array([
                 LiquidityProviderSide(eventGen, orderFactory, side.Sell(), initialValue, priceDistr),
@@ -91,8 +91,8 @@ package strategy
                     order.FloatingPrice(
                         observable.BreaksAtChanges(
                             observable.OnEveryDt(0.9,
-                                observable.orderbook.SafeSidePrice(observable.orderbook.Asks(), constant(100 + delta)) /
-                                    mathops.Exp(mathops.Atan(observable.trader.Position()) / 1000)
+                                orderbook.SafeSidePrice(orderbook.Asks(), constant(100 + delta)) /
+                                    math.Exp(math.Atan(trader.Position()) / 1000)
                             )
                         ),
                         order._.price.Limit(side.Sell(), constant(volume*1000)))),
@@ -103,8 +103,8 @@ package strategy
                 order.FloatingPrice(
                     observable.BreaksAtChanges(
                         observable.OnEveryDt(0.9,
-                            observable.orderbook.SafeSidePrice(observable.orderbook.Bids(), constant(100 - delta)) /
-                                mathops.Exp(mathops.Atan(observable.trader.Position()) / 1000)
+                            orderbook.SafeSidePrice(orderbook.Bids(), constant(100 - delta)) /
+                                math.Exp(math.Atan(trader.Position()) / 1000)
                         )
                     ),
                     order._.price.Limit(side.Buy(), constant(volume*1000)))),

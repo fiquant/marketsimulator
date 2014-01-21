@@ -44,12 +44,6 @@ package orderbook
                    /** Backward link (normally from a market to a trader)*/
                    down = Link()) : ITwoWayLink
 
-
-}
-
-@category = "Asset's"
-package observable.orderbook
-{
     @python.intrinsic("orderbook.of_trader._OfTrader_Impl")
     @label = "N/A"
     def OfTrader(Trader = trader.SingleProxy() : IAccount) : IOrderBook
@@ -65,6 +59,40 @@ package observable.orderbook
 
     @python.intrinsic("orderbook.props._BestPrice_Impl")
     def BestPrice(queue = Asks()) : IObservable[Price]
+
+    @python.intrinsic("orderbook.last_price._LastPrice_Impl")
+    def LastPrice(queue = Asks()) : IObservable[Price]
+
+    @python.intrinsic("orderbook.last_trade._LastTradePrice_Impl")
+    def LastTradePrice (queue = Asks()) : IObservable[Price]
+
+    @python.intrinsic("orderbook.last_trade._LastTradeVolume_Impl")
+    def LastTradeVolume(queue = Asks()) : IObservable[Volume]
+
+    @python.observable
+    def SafeSidePrice(queue = Asks(), defaultValue = constant(100.))
+        = ObservablePrice(IfDefined(BestPrice(queue), IfDefined(LastPrice(queue), defaultValue)))
+
+    @label = "Price_{%(alpha)s}^{%(queue)s}"
+    def WeightedPrice(queue = Asks(), alpha = 0.015) =
+        math.EW.Avg(LastTradePrice(queue)*LastTradeVolume(queue), alpha) / math.EW.Avg(LastTradeVolume(queue), alpha)
+
+    @python.intrinsic("orderbook.props._TickSize_Impl")
+    def TickSize(book = OfTrader()) => Price
+
+    def Spread(book = OfTrader()) = ObservablePrice(ask.Price(book) - bid.Price(book))
+
+    def MidPrice(book = OfTrader()) = ObservablePrice((ask.Price(book) + bid.Price(book)) / 2.0)
+
+    @python.intrinsic("orderbook.cumulative_price.CumulativePrice_Impl")
+    def CumulativePrice(book = OfTrader(), depth = constant()) : IObservable[Price]
+
+    @python.intrinsic("orderbook.volume_levels.VolumeLevels_Impl")
+    @label = "VolumeLevels(%(queue)s)"
+    def VolumeLevels(queue = Asks(), volumeDelta = 30., volumeCount = 10) : IFunction[IVolumeLevels]
+
+    def NaiveCumulativePrice(book = OfTrader(), depth = constant()) =
+        ObservablePrice(if depth < 0.0 then depth*ask.Price(book) else if depth > 0.0 then depth*bid.Price(book) else 0.0)
 
     abstract package _base_impl
     {
@@ -95,38 +123,5 @@ package observable.orderbook
     {
         def _queue = Bids
     }
-
-    @python.intrinsic("orderbook.last_price._LastPrice_Impl")
-    def LastPrice(queue = Asks()) : IObservable[Price]
-
-    @python.intrinsic("orderbook.last_trade._LastTradePrice_Impl")
-    def LastTradePrice (queue = Asks()) : IObservable[Price]
-
-    @python.intrinsic("orderbook.last_trade._LastTradeVolume_Impl")
-    def LastTradeVolume(queue = Asks()) : IObservable[Volume]
-
-    @python.observable
-    def SafeSidePrice(queue = Asks(), defaultValue = constant(100.))
-        = ObservablePrice(IfDefined(BestPrice(queue), IfDefined(LastPrice(queue), defaultValue)))
-
-    @label = "Price_{%(alpha)s}^{%(queue)s}"
-    def WeightedPrice(queue = Asks(), alpha = 0.015) =
-        EW.Avg(LastTradePrice(queue)*LastTradeVolume(queue), alpha) / EW.Avg(LastTradeVolume(queue), alpha)
-
-    @python.intrinsic("orderbook.props._TickSize_Impl")
-    def TickSize(book = OfTrader()) => Price
-
-    def Spread(book = OfTrader()) = ObservablePrice(ask.Price(book) - bid.Price(book))
-
-    def MidPrice(book = OfTrader()) = ObservablePrice((ask.Price(book) + bid.Price(book)) / 2.0)
-
-    @python.intrinsic("orderbook.cumulative_price.CumulativePrice_Impl")
-    def CumulativePrice(book = OfTrader(), depth = constant()) : IObservable[Price]
-
-    @python.intrinsic("orderbook.volume_levels.VolumeLevels_Impl")
-    @label = "VolumeLevels(%(queue)s)"
-    def VolumeLevels(queue = Asks(), volumeDelta = 30., volumeCount = 10) : IFunction[IVolumeLevels]
-
-    def NaiveCumulativePrice(book = OfTrader(), depth = constant()) =
-        ObservablePrice(if depth < 0.0 then depth*ask.Price(book) else if depth > 0.0 then depth*bid.Price(book) else 0.0)
 }
+

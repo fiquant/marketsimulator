@@ -5,10 +5,10 @@ from marketsim.trader._proxy import SingleProxy
 
 #### ------------------------------------------------------- Accessors
 
-from marketsim.gen._out.observable.trader._RoughPnL import RoughPnL
+from marketsim.gen._out.trader._RoughPnL import RoughPnL
 
-from marketsim.gen._out.observable.trader._Balance import Balance as profit_and_loss
-from marketsim.gen._out.observable.trader._Position import Position as volume_traded
+from marketsim.gen._out.trader._Balance import Balance as profit_and_loss
+from marketsim.gen._out.trader._Position import Position as volume_traded
 
 #### ------------------------------------------------------- Events
 
@@ -70,4 +70,4 @@ class Proxy(_computed.Proxy):
     _properties = { 'trader' : types.IAccount }
 
 
-from marketsim.gen._out.observable.trader._PendingVolume import PendingVolume
+from marketsim.gen._out.trader._PendingVolume import PendingVolume

@@ -4,8 +4,8 @@ Definitions:
 | | - Some:
 | | | - QualifiedName:
 | | | | - List:
-| | | | | - mathutils
-| | | | | - rnd
+| | | | | - math
+| | | | | - random
 | | - List:
 | | - Definitions:
 | | | - List:

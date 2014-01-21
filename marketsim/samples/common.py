@@ -145,7 +145,7 @@ def orderBooksToRender(ctx, traders):
         graphs = ctx.graphs
         
         def orderbook_ts():
-            from marketsim.gen._out.observable._Max import Max
+            from marketsim.gen._out.math._Max import Max
 
             thisBook = orderbook.Proxy()
             assetPrice = observable.MidPrice(thisBook)

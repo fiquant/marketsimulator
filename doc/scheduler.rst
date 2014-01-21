@@ -88,7 +88,7 @@ be obtained in the following way:
     
         def __init__(self):
             self._currentTime = observable.CurrentTime()
-            event.subscribe(event.Every(mathutils.rnd.expovariate(1.)), 
+            event.subscribe(event.Every(math.random.expovariate(1.)),
                             _(self)._print, self)
             
         _internals = ['_currentTime']

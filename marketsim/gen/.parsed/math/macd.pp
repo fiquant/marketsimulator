@@ -1,6 +1,6 @@
 @category = "MACD"
 
-package observable.macd() {
+package math.macd() {
     @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
     def MACD(x = const(),
              slow = 26.0,
@@ -13,7 +13,7 @@ package observable.macd() {
                fast = 12.0,
                timeframe = 9.0,
                step = 1.0)
-         = EW.Avg(OnEveryDt(step,MACD(x,slow,fast)),2/(timeframe+1))
+         = EW.Avg(observable.OnEveryDt(step,MACD(x,slow,fast)),2/(timeframe+1))
     
     @label = "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
     def Histogram(x = const(),

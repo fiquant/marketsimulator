@@ -1,7 +1,12 @@
-package mathops
+@category = "Basic"
+package math
 
 @category = "Log/Pow"
 package {
+    @python.observable
+    @label = "{%(x)s}^2"
+    def Sqr(x = constant()) = x*x
+
     /** Exponent of x
       *
       */
@@ -34,7 +39,20 @@ package {
     @python.mathops("pow")
     @label = "%(base)s^{%(power)s}"
     def Pow(base = constant(1.0), power = constant(1.0)) => Float
+}
 
+package {
+    @python.observable
+    @label = "min{%(x)s, %(y)s}"
+    def Min(x = constant(), y = constant()) = if x < y then x else y
+
+    @python.observable
+    @label = "max{%(x)s, %(y)s}"
+    def Max(x = constant(), y = constant()) = if x > y then x else y
+
+    @python.intrinsic("observable.derivative._Derivative_Impl")
+    @label = "\\frac{d%(x)s}{dt}"
+    def Derivative(x = math.EW.Avg() : IDifferentiable) => Float
 }
 
 @category = "Trigonometric"

@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import IAccount
-from marketsim.gen._out._Derivative import Derivative as _Derivative
-from marketsim.gen._out.observable.EW._Avg import Avg as _observable_EW_Avg
-from marketsim.gen._out.observable.trader._Efficiency import Efficiency as _observable_trader_Efficiency
+from marketsim.gen._out.math._Derivative import Derivative as _math_Derivative
+from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
+from marketsim.gen._out.trader._Efficiency import Efficiency as _trader_Efficiency
 from marketsim import context
 @registry.expose(["Strategy", "EfficiencyTrend"])
 class EfficiencyTrend(Function[float]):
@@ -28,7 +28,7 @@ class EfficiencyTrend(Function[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        return _Derivative(_observable_EW_Avg(_observable_trader_Efficiency(self.trader),self.alpha))
+        return _math_Derivative(_math_EW_Avg(_trader_Efficiency(self.trader),self.alpha))
     
     
     

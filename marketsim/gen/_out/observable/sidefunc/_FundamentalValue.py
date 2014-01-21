@@ -12,12 +12,12 @@ class FundamentalValue(Observable[Side]):
         from marketsim import Side
         from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader as _observable_orderbook_OfTrader
+        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim import _
         from marketsim import event
         Observable[Side].__init__(self)
         self.fv = fv if fv is not None else _constant(200.0)
-        self.book = book if book is not None else _observable_orderbook_OfTrader()
+        self.book = book if book is not None else _orderbook_OfTrader()
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -37,9 +37,9 @@ class FundamentalValue(Observable[Side]):
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out.side._Buy import Buy as _side_Buy
         from marketsim.gen._out.side._Nothing import Nothing as _side_Nothing
-        from marketsim.gen._out.observable.orderbook.ask._Price import Price as _observable_orderbook_ask_Price
-        from marketsim.gen._out.observable.orderbook.bid._Price import Price as _observable_orderbook_bid_Price
-        return (_observable_orderbook_bid_Price(self.book)>self.fv)[_side_Sell(), (_observable_orderbook_ask_Price(self.book)<self.fv)[_side_Buy(), _side_Nothing()]]
+        from marketsim.gen._out.orderbook.ask._Price import Price as _orderbook_ask_Price
+        from marketsim.gen._out.orderbook.bid._Price import Price as _orderbook_bid_Price
+        return (_orderbook_bid_Price(self.book)>self.fv)[_side_Sell(), (_orderbook_ask_Price(self.book)<self.fv)[_side_Buy(), _side_Nothing()]]
         
         
         

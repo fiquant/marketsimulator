@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import IAccount
-from marketsim.gen._out.observable.trader._Efficiency import Efficiency as _observable_trader_Efficiency
+from marketsim.gen._out.trader._Efficiency import Efficiency as _trader_Efficiency
 from marketsim import context
 @registry.expose(["Strategy", "Efficiency"])
 class Efficiency(Function[float]):
@@ -24,7 +24,7 @@ class Efficiency(Function[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        return _observable_trader_Efficiency(self.trader)
+        return _trader_Efficiency(self.trader)
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

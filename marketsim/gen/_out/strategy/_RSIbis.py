@@ -8,8 +8,8 @@ from marketsim import Side
 from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
 from marketsim.gen._out.observable.sidefunc._Signal import Signal as _observable_sidefunc_Signal
 from marketsim.gen._out._const import const as _const
-from marketsim.gen._out.observable._RSI import RSI as _observable_RSI
-from marketsim.gen._out.observable.orderbook._OfTrader import OfTrader as _observable_orderbook_OfTrader
+from marketsim.gen._out.math._RSI import RSI as _math_RSI
+from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
 from marketsim import context
 @registry.expose(["Strategy", "RSIbis"])
 class RSIbis(ISingleAssetStrategy):
@@ -17,11 +17,11 @@ class RSIbis(ISingleAssetStrategy):
     """ 
     def __init__(self, eventGen = None, orderFactory = None, alpha = None, timeframe = None, threshold = None):
         from marketsim.gen._out.event._Every import Every as _event_Every
-        from marketsim.gen._out.mathutils.rnd._expovariate import expovariate as _mathutils_rnd_expovariate
+        from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
         from marketsim.gen._out.order._curried._side_Market import side_Market as _order__curried_side_Market
         from marketsim import event
         from marketsim import _
-        self.eventGen = eventGen if eventGen is not None else _event_Every(_mathutils_rnd_expovariate(1.0))
+        self.eventGen = eventGen if eventGen is not None else _event_Every(_math_random_expovariate(1.0))
         
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market()
         self.alpha = alpha if alpha is not None else 1.0/14
@@ -50,7 +50,7 @@ class RSIbis(ISingleAssetStrategy):
     
     _internals = ['impl']
     def getImpl(self):
-        return _strategy_Generic(self.orderFactory(_observable_sidefunc_Signal(_const(50.0)-_observable_RSI(_observable_orderbook_OfTrader(),self.timeframe,self.alpha),50.0-self.threshold)),self.eventGen)
+        return _strategy_Generic(self.orderFactory(_observable_sidefunc_Signal(_const(50.0)-_math_RSI(_orderbook_OfTrader(),self.timeframe,self.alpha),50.0-self.threshold)),self.eventGen)
     
     
     

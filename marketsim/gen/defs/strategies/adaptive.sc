@@ -70,11 +70,11 @@ package strategy
 
         @curried("f")
         def AtanPow(f : Optional[IFunction[Float]] = constant(), base = 1.002) : IFunction[Float]
-            = mathops.Atan(mathops.Pow(constant(base), f))
+            = math.Atan(math.Pow(constant(base), f))
 
         @curried("f")
         def Clamp0(f : Optional[IFunction[Float]] = constant()) : IFunction[Float]
-            = observable.Max(constant(0), f) + 1
+            = math.Max(constant(0), f) + 1
 
         @curried("f")
         def IdentityF(f : Optional[IFunction[Float]] = constant()) : IFunction[Float]
@@ -82,19 +82,19 @@ package strategy
 
         @python.intrinsic("strategy.weight._Score_Impl")
         @curried("trader")
-        def Score(trader : IAccount = observable.trader.SingleProxy()) : IFunction[Float]
+        def Score(trader : IAccount = trader.SingleProxy()) : IFunction[Float]
 
         @curried("trader")
-        def Unit(trader : IAccount = observable.trader.SingleProxy()) : IFunction[Float]
+        def Unit(trader : IAccount = trader.SingleProxy()) : IFunction[Float]
             = constant(1.)
 
         @curried("trader")
         def Efficiency(trader : IAccount = trader.SingleProxy()) : IFunction[Float]
-            = observable.trader.Efficiency(trader)
+            = trader.Efficiency(trader)
 
         @curried("trader")
         def EfficiencyTrend(trader : IAccount = trader.SingleProxy(), alpha = 0.15) : IFunction[Float]
-            = Derivative(observable.EW.Avg(observable.trader.Efficiency(trader), alpha))
+            = math.Derivative(math.EW.Avg(trader.Efficiency(trader), alpha))
 
         @python.intrinsic("strategy.weight._Identity_Impl")
         @curried("array")

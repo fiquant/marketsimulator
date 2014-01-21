@@ -4,7 +4,7 @@ Definitions:
 | | - Some:
 | | | - QualifiedName:
 | | | | - List:
-| | | | | - observable
+| | | | | - math
 | | | | | - macd
 | | - List:
 | | - Definitions:
@@ -132,6 +132,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
+| | | | | | | | | | | - observable
 | | | | | | | | | | | - OnEveryDt
 | | | | | | | | | - List:
 | | | | | | | | | | - Var:

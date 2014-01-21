@@ -7,12 +7,12 @@ from marketsim.gen._out._constant import constant as _constant
 from marketsim.gen._out.order._FloatingPrice import FloatingPrice as _order_FloatingPrice
 from marketsim.gen._out.observable._BreaksAtChanges import BreaksAtChanges as _observable_BreaksAtChanges
 from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
-from marketsim.gen._out.observable.orderbook._SafeSidePrice import SafeSidePrice as _observable_orderbook_SafeSidePrice
-from marketsim.gen._out.observable.orderbook._Asks import Asks as _observable_orderbook_Asks
+from marketsim.gen._out.orderbook._SafeSidePrice import SafeSidePrice as _orderbook_SafeSidePrice
+from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
 from marketsim.gen._out._constant import constant as _constant
-from marketsim.gen._out.mathops._Exp import Exp as _mathops_Exp
-from marketsim.gen._out.mathops._Atan import Atan as _mathops_Atan
-from marketsim.gen._out.observable.trader._Position import Position as _observable_trader_Position
+from marketsim.gen._out.math._Exp import Exp as _math_Exp
+from marketsim.gen._out.math._Atan import Atan as _math_Atan
+from marketsim.gen._out.trader._Position import Position as _trader_Position
 from marketsim.gen._out.order._curried._price_Limit import price_Limit as _order__curried_price_Limit
 from marketsim.gen._out.side._Sell import Sell as _side_Sell
 from marketsim.gen._out._constant import constant as _constant
@@ -24,12 +24,12 @@ from marketsim.gen._out._constant import constant as _constant
 from marketsim.gen._out.order._FloatingPrice import FloatingPrice as _order_FloatingPrice
 from marketsim.gen._out.observable._BreaksAtChanges import BreaksAtChanges as _observable_BreaksAtChanges
 from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
-from marketsim.gen._out.observable.orderbook._SafeSidePrice import SafeSidePrice as _observable_orderbook_SafeSidePrice
-from marketsim.gen._out.observable.orderbook._Bids import Bids as _observable_orderbook_Bids
+from marketsim.gen._out.orderbook._SafeSidePrice import SafeSidePrice as _orderbook_SafeSidePrice
+from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
 from marketsim.gen._out._constant import constant as _constant
-from marketsim.gen._out.mathops._Exp import Exp as _mathops_Exp
-from marketsim.gen._out.mathops._Atan import Atan as _mathops_Atan
-from marketsim.gen._out.observable.trader._Position import Position as _observable_trader_Position
+from marketsim.gen._out.math._Exp import Exp as _math_Exp
+from marketsim.gen._out.math._Atan import Atan as _math_Atan
+from marketsim.gen._out.trader._Position import Position as _trader_Position
 from marketsim.gen._out.order._curried._price_Limit import price_Limit as _order__curried_price_Limit
 from marketsim.gen._out.side._Buy import Buy as _side_Buy
 from marketsim.gen._out._constant import constant as _constant
@@ -62,7 +62,7 @@ class MarketMaker(ISingleAssetStrategy):
     
     _internals = ['impl']
     def getImpl(self):
-        return _strategy_Combine(_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_OnEveryDt(0.9,_observable_orderbook_SafeSidePrice(_observable_orderbook_Asks(),_constant(100+self.delta))/_mathops_Exp(_mathops_Atan(_observable_trader_Position())/1000))),_order__curried_price_Limit(_side_Sell(),_constant(self.volume*1000)))),_event_After(_constant(0.0))),_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_OnEveryDt(0.9,_observable_orderbook_SafeSidePrice(_observable_orderbook_Bids(),_constant(100-self.delta))/_mathops_Exp(_mathops_Atan(_observable_trader_Position())/1000))),_order__curried_price_Limit(_side_Buy(),_constant(self.volume*1000)))),_event_After(_constant(0.0))))
+        return _strategy_Combine(_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_OnEveryDt(0.9,_orderbook_SafeSidePrice(_orderbook_Asks(),_constant(100+self.delta))/_math_Exp(_math_Atan(_trader_Position())/1000))),_order__curried_price_Limit(_side_Sell(),_constant(self.volume*1000)))),_event_After(_constant(0.0))),_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_OnEveryDt(0.9,_orderbook_SafeSidePrice(_orderbook_Bids(),_constant(100-self.delta))/_math_Exp(_math_Atan(_trader_Position())/1000))),_order__curried_price_Limit(_side_Buy(),_constant(self.volume*1000)))),_event_After(_constant(0.0))))
     
     
     

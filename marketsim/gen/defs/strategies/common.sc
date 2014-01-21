@@ -18,7 +18,7 @@ package strategy
     def Array(strategies = [] : List[ISingleAssetStrategy]) : ISingleAssetStrategy
 
     @python.intrinsic("strategy.canceller._Canceller_Impl")
-    def Canceller(cancellationIntervalDistr = mathutils.rnd.expovariate(1.)) : ISingleAssetStrategy
+    def Canceller(cancellationIntervalDistr = math.random.expovariate(1.)) : ISingleAssetStrategy
 
     @python.intrinsic("strategy.arbitrage._Arbitrage_Impl")
     def Arbitrage() : IMultiAssetStrategy

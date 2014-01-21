@@ -86,7 +86,7 @@ Basic observables
   .. code-block:: python 
   
     # randomly chooses either Side.Buy or Side.Sell
-    (mathutils.rnd.uniform(0.,1.) < 0.5)[ ops.constant(Side.Buy), ops.constant(Side.Sell) ]
+    (math.random.uniform(0.,1.) < 0.5)[ ops.constant(Side.Buy), ops.constant(Side.Sell) ]
   
 - Functions from standard ``math`` module: ``Atan``, ``Pow`` etc
 

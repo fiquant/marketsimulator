@@ -4,7 +4,7 @@ Definitions:
 | | - Some:
 | | | - QualifiedName:
 | | | | - List:
-| | | | | - observable
+| | | | | - math
 | | - List:
 | | - Definitions:
 | | | - List:
@@ -125,7 +125,6 @@ Definitions:
 | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - mathops
 | | | | | | | | | | | | | | | - Sqrt
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - FunCall:
@@ -293,7 +292,6 @@ Definitions:
 | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - mathops
 | | | | | | | | | | | | | | | - Sqrt
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - FunCall:
@@ -428,7 +426,7 @@ Definitions:
 | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | - math
 | | | | | | | | | | | | | | | - Max
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - FunCall:
@@ -504,7 +502,6 @@ Definitions:
 | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - mathops
 | | | | | | | | | | | | | | | - Sqrt
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - FunCall:

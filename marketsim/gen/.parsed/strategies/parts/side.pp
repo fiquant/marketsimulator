@@ -1,7 +1,7 @@
 @category = "Side function"
 
 package observable.sidefunc() {
-    def Noise(side_distribution = mathutils.rnd.uniform(0.0,1.0) : IFunction[Float])
+    def Noise(side_distribution = math.random.uniform(0.0,1.0) : IFunction[Float])
          = if side_distribution>0.5 then side.Sell() else side.Buy()
     
     @python.observable()
@@ -12,13 +12,13 @@ package observable.sidefunc() {
     def TrendFollower(alpha = 0.015,
                       threshold = 0.0,
                       book = orderbook.OfTrader())
-         = Signal(Derivative(EW.Avg(orderbook.MidPrice(book),alpha)),threshold)
+         = Signal(math.Derivative(math.EW.Avg(orderbook.MidPrice(book),alpha)),threshold)
     
     def CrossingAverages(alpha_1 = 0.015,
                          alpha_2 = 0.15,
                          threshold = 0.0,
                          book = orderbook.OfTrader())
-         = Signal(EW.Avg(orderbook.MidPrice(book),alpha_1)-EW.Avg(orderbook.MidPrice(book),alpha_2),threshold)
+         = Signal(math.EW.Avg(orderbook.MidPrice(book),alpha_1)-math.EW.Avg(orderbook.MidPrice(book),alpha_2),threshold)
     
     @python.observable()
     def FundamentalValue(fv = constant(200.0),
@@ -27,7 +27,7 @@ package observable.sidefunc() {
     
     def MeanReversion(alpha = 0.015,
                       book = orderbook.OfTrader())
-         = FundamentalValue(EW.Avg(orderbook.MidPrice(book),alpha),book)
+         = FundamentalValue(math.EW.Avg(orderbook.MidPrice(book),alpha),book)
     
     def PairTrading(dependee = orderbook.OfTrader(),
                     factor = 1.0,

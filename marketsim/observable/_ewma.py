@@ -1,7 +1,7 @@
 import math
 from marketsim import types, registry, ops, registry
 
-from marketsim.gen._out.observable.EW._Avg import Avg as EWMA
+from marketsim.gen._out.math.EW._Avg import Avg as EWMA
 
 from _computed import OnEveryDt
     

@@ -204,28 +204,6 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - N/A
-| | - List:
-| | | - Attribute:
-| | | | - category
-| | | | - Trader
-| | - List:
-| | - false
-| - PackageDef:
-| | - Some:
-| | | - QualifiedName:
-| | | | - List:
-| | | | | - observable
-| | | | | - trader
-| | - List:
-| | - Definitions:
-| | | - List:
-| | | | - FunAlias:
-| | | | | - SingleProxy
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - 
-| | | | | | | - trader
-| | | | | | | - SingleProxy
 | | | | - FunDef:
 | | | | | - Position
 | | | | | - List:
@@ -492,11 +470,13 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
+| | | | | | | | | - math
 | | | | | | | | | - Derivative
 | | | | | | | - List:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
+| | | | | | | | | | | - math
 | | | | | | | | | | | - EW
 | | | | | | | | | | | - Avg
 | | | | | | | | | - List:
@@ -515,6 +495,6 @@ Definitions:
 | | - List:
 | | | - Attribute:
 | | | | - category
-| | | | - Trader's
+| | | | - Trader
 | | - List:
 | | - false

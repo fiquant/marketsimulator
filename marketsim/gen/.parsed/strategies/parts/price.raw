@@ -37,8 +37,8 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - mathutils
-| | | | | | | | | | | - rnd
+| | | | | | | | | | | - math
+| | | | | | | | | | | - random
 | | | | | | | | | | | - lognormvariate
 | | | | | | | | | - List:
 | | | | | | | | | | - FloatLit:

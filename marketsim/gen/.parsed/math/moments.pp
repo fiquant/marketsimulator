@@ -1,5 +1,5 @@
 
-package observable() {@category = "Statistics"
+package math() {@category = "Statistics"
     
     package () {@suffix = "_{\\\\alpha=%(alpha)s}(%(source)s)"
         
@@ -19,7 +19,7 @@ package observable() {@category = "Statistics"
             @label = "\\sqrt{\\sigma^2{{suffix}}}"
             def StdDev(source = const(),
                        alpha = 0.015)
-                 = mathops.Sqrt(Var(source,alpha))
+                 = Sqrt(Var(source,alpha))
             
             @label = "RSD{{suffix}}"
             def RelStdDev(source = const(),
@@ -41,7 +41,7 @@ package observable() {@category = "Statistics"
             
             @label = "\\sqrt{\\sigma^2{{suffix}}}"
             def StdDev(source = const())
-                 = mathops.Sqrt(Var(source))
+                 = Sqrt(Var(source))
             
             @label = "RSD{{suffix}}"
             def RelStdDev(source = const())
@@ -60,12 +60,12 @@ package observable() {@category = "Statistics"
             @label = "\\sigma^2{{suffix}}"
             def Var(source = const(),
                     timeframe = 100.0)
-                 = observable.Max(const(0),Avg(source*source,timeframe)-Sqr(Avg(source,timeframe)))
+                 = math.Max(const(0),Avg(source*source,timeframe)-Sqr(Avg(source,timeframe)))
             
             @label = "\\sqrt{\\sigma^2{{suffix}}}"
             def StdDev(source = const(),
                        timeframe = 100.0)
-                 = mathops.Sqrt(Var(source))
+                 = Sqrt(Var(source))
             
             @label = "RSD{{suffix}}"
             def RelStdDev(source = const(),

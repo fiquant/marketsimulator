@@ -19,16 +19,16 @@ class LiquidityProvider(ISingleAssetStrategy):
     """ 
     def __init__(self, eventGen = None, orderFactory = None, initialValue = None, priceDistr = None):
         from marketsim.gen._out.event._Every import Every as _event_Every
-        from marketsim.gen._out.mathutils.rnd._expovariate import expovariate as _mathutils_rnd_expovariate
+        from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
         from marketsim.gen._out.order._curried._sideprice_Limit import sideprice_Limit as _order__curried_sideprice_Limit
-        from marketsim.gen._out.mathutils.rnd._lognormvariate import lognormvariate as _mathutils_rnd_lognormvariate
+        from marketsim.gen._out.math.random._lognormvariate import lognormvariate as _math_random_lognormvariate
         from marketsim import event
         from marketsim import _
-        self.eventGen = eventGen if eventGen is not None else _event_Every(_mathutils_rnd_expovariate(1.0))
+        self.eventGen = eventGen if eventGen is not None else _event_Every(_math_random_expovariate(1.0))
         
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_sideprice_Limit()
         self.initialValue = initialValue if initialValue is not None else 100.0
-        self.priceDistr = priceDistr if priceDistr is not None else _mathutils_rnd_lognormvariate(0.0,0.1)
+        self.priceDistr = priceDistr if priceDistr is not None else _math_random_lognormvariate(0.0,0.1)
         self.impl = self.getImpl()
         self.on_order_created = event.Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)

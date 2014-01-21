@@ -1,4 +1,4 @@
-package mathutils.rnd
+package math.random
 
 /** Beta distribution
  *
