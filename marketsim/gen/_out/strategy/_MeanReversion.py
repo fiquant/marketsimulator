@@ -6,7 +6,7 @@ from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import Side
 from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
-from marketsim.gen._out.observable.sidefunc._MeanReversion import MeanReversion as _observable_sidefunc_MeanReversion
+from marketsim.gen._out.strategy.side._MeanReversion import MeanReversion as _strategy_side_MeanReversion
 from marketsim import context
 @registry.expose(["Strategy", "MeanReversion"])
 class MeanReversion(ISingleAssetStrategy):
@@ -45,7 +45,7 @@ class MeanReversion(ISingleAssetStrategy):
     
     _internals = ['impl']
     def getImpl(self):
-        return _strategy_Generic(self.orderFactory(_observable_sidefunc_MeanReversion(self.ewma_alpha)),self.eventGen)
+        return _strategy_Generic(self.orderFactory(_strategy_side_MeanReversion(self.ewma_alpha)),self.eventGen)
     
     
     def bind(self, ctx):

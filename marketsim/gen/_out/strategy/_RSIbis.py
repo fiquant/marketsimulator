@@ -6,7 +6,7 @@ from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import Side
 from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
-from marketsim.gen._out.observable.sidefunc._Signal import Signal as _observable_sidefunc_Signal
+from marketsim.gen._out.strategy.side._Signal import Signal as _strategy_side_Signal
 from marketsim.gen._out._const import const as _const
 from marketsim.gen._out.math._RSI import RSI as _math_RSI
 from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
@@ -50,7 +50,7 @@ class RSIbis(ISingleAssetStrategy):
     
     _internals = ['impl']
     def getImpl(self):
-        return _strategy_Generic(self.orderFactory(_observable_sidefunc_Signal(_const(50.0)-_math_RSI(_orderbook_OfTrader(),self.timeframe,self.alpha),50.0-self.threshold)),self.eventGen)
+        return _strategy_Generic(self.orderFactory(_strategy_side_Signal(_const(50.0)-_math_RSI(_orderbook_OfTrader(),self.timeframe,self.alpha),50.0-self.threshold)),self.eventGen)
     
     
     

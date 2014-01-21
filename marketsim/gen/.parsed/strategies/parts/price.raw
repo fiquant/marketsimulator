@@ -4,8 +4,8 @@ Definitions:
 | | - Some:
 | | | - QualifiedName:
 | | | | - List:
-| | | | | - observable
-| | | | | - pricefunc
+| | | | | - strategy
+| | | | | - price
 | | - List:
 | | - Definitions:
 | | | - List:

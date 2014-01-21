@@ -1,1 +1,1 @@
-from marketsim.gen._out.observable.volumefunc._Bollinger_linear import Bollinger_linear
+from marketsim.gen._out.strategy.position._Bollinger_linear import Bollinger_linear

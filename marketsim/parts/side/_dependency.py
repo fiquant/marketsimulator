@@ -1,1 +1,1 @@
-from marketsim.gen._out.observable.sidefunc._PairTrading import PairTrading as Dependency
+from marketsim.gen._out.strategy.side._PairTrading import PairTrading as Dependency

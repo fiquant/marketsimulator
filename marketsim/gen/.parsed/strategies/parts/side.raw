@@ -4,8 +4,8 @@ Definitions:
 | | - Some:
 | | | - QualifiedName:
 | | | | - List:
-| | | | | - observable
-| | | | | - sidefunc
+| | | | | - strategy
+| | | | | - side
 | | - List:
 | | - Definitions:
 | | | - List:

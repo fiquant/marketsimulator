@@ -4,8 +4,8 @@ Definitions:
 | | - Some:
 | | | - QualifiedName:
 | | | | - List:
-| | | | | - observable
-| | | | | - volumefunc
+| | | | | - strategy
+| | | | | - position
 | | - List:
 | | - Definitions:
 | | | - List:
@@ -108,6 +108,7 @@ Definitions:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
 | | | | | | | | | | | | - OnEveryDt
 | | | | | | | | | | - List:
 | | | | | | | | | | | - FloatLit:
@@ -197,6 +198,7 @@ Definitions:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
+| | | | | | | | | | | | - observable
 | | | | | | | | | | | | - OnEveryDt
 | | | | | | | | | | - List:
 | | | | | | | | | | | - FloatLit:

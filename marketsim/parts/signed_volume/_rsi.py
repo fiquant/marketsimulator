@@ -1,1 +1,1 @@
-from marketsim.gen._out.observable.volumefunc._RSI_linear import RSI_linear
+from marketsim.gen._out.strategy.position._RSI_linear import RSI_linear

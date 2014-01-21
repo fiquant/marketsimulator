@@ -5,7 +5,7 @@ from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IObservable
 from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
-from marketsim.gen._out.observable.volumefunc._Bollinger_linear import Bollinger_linear as _observable_volumefunc_Bollinger_linear
+from marketsim.gen._out.strategy.position._Bollinger_linear import Bollinger_linear as _strategy_position_Bollinger_linear
 from marketsim import context
 @registry.expose(["Strategy", "Bollinger_linear"])
 class Bollinger_linear(ISingleAssetStrategy):
@@ -39,7 +39,7 @@ class Bollinger_linear(ISingleAssetStrategy):
     
     _internals = ['impl']
     def getImpl(self):
-        return _strategy_Generic(self.orderFactory(_observable_volumefunc_Bollinger_linear(self.alpha,self.k)))
+        return _strategy_Generic(self.orderFactory(_strategy_position_Bollinger_linear(self.alpha,self.k)))
     
     
     def bind(self, ctx):

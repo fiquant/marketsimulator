@@ -1,5 +1,5 @@
 @category = "Side function"
-package observable.sidefunc
+package strategy.side
 {
     def Noise(side_distribution = math.random.uniform(0., 1.) : IFunction[Float]) =
         if side_distribution > 0.5 then side.Sell() else side.Buy()

@@ -7,7 +7,7 @@ from marketsim import IFunction
 from marketsim import Side
 from marketsim import IOrderBook
 from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
-from marketsim.gen._out.observable.sidefunc._PairTrading import PairTrading as _observable_sidefunc_PairTrading
+from marketsim.gen._out.strategy.side._PairTrading import PairTrading as _strategy_side_PairTrading
 from marketsim import context
 @registry.expose(["Strategy", "PairTrading"])
 class PairTrading(ISingleAssetStrategy):
@@ -51,7 +51,7 @@ class PairTrading(ISingleAssetStrategy):
     
     _internals = ['impl']
     def getImpl(self):
-        return _strategy_Generic(self.orderFactory(_observable_sidefunc_PairTrading(self.bookToDependOn,self.factor)),self.eventGen)
+        return _strategy_Generic(self.orderFactory(_strategy_side_PairTrading(self.bookToDependOn,self.factor)),self.eventGen)
     
     
     def bind(self, ctx):

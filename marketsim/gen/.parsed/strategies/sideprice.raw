@@ -101,8 +101,7 @@ Definitions:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - pricefunc
+| | | | | | | | | | | | | - price
 | | | | | | | | | | | | | - LiquidityProvider
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Var:

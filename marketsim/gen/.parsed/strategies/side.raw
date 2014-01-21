@@ -60,8 +60,7 @@ Definitions:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | | - side
 | | | | | | | | | | | | | - Noise
 | | | | | | | | | | | - List:
 | | | | | | | | - Var:
@@ -145,8 +144,7 @@ Definitions:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | | - side
 | | | | | | | | | | | | | - Signal
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Var:
@@ -231,8 +229,7 @@ Definitions:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | | - side
 | | | | | | | | | | | | | - TrendFollower
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Var:
@@ -328,8 +325,7 @@ Definitions:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | | - side
 | | | | | | | | | | | | | - CrossingAverages
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Var:
@@ -414,8 +410,7 @@ Definitions:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | | - side
 | | | | | | | | | | | | | - FundamentalValue
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Var:
@@ -490,8 +485,7 @@ Definitions:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | | - side
 | | | | | | | | | | | | | - MeanReversion
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Var:
@@ -579,8 +573,7 @@ Definitions:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | | - side
 | | | | | | | | | | | | | - PairTrading
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Var:
@@ -678,8 +671,7 @@ Definitions:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - sidefunc
+| | | | | | | | | | | | | - side
 | | | | | | | | | | | | | - Signal
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - BinOp:

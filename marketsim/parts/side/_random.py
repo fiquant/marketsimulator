@@ -1,1 +1,1 @@
-from marketsim.gen._out.observable.sidefunc._Noise import Noise as Random
+from marketsim.gen._out.strategy.side._Noise import Noise as Random

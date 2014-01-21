@@ -941,32 +941,40 @@ package order() {
         
 }
 @category = "Strategy"
-package strategy() {
-    package account() {
-        package _() {
-            package inner() {
-                @python.curried("Real")
-                def inner_Real() : .Optional[.ISingleAssetStrategy] => .IAccount
-                    
-                
-                @python.curried("VirtualMarket")
-                def inner_VirtualMarket() : .Optional[.ISingleAssetStrategy] => .IAccount
-                    
-            }
-        }
-        @python.intrinsic("strategy.account._Account_Impl")
-        @curried("inner")
-        def Real(inner : Optional[ISingleAssetStrategy] = Noise()) : IAccount
-            
+package strategy() {@category = "Side function"
+    package side() {
+        def PairTrading(dependee = orderbook.OfTrader(),
+                        factor = 1.0,
+                        book = orderbook.OfTrader())
+             = ObservableSide(FundamentalValue(orderbook.MidPrice(dependee)*factor,book))
         
-        @python.intrinsic("strategy.account._VirtualMarket_Impl")
-        @curried("inner")
-        def VirtualMarket(inner : Optional[ISingleAssetStrategy] = Noise()) : IAccount
-            
+        @python.observable()
+        def Signal(signal = constant(),
+                   threshold = 0.7)
+             = if signal>threshold then side.Buy() else if signal<0-threshold then side.Sell() else side.Nothing()
         
-        def real = _.inner.inner_Real
+        def CrossingAverages(alpha_1 = 0.015,
+                             alpha_2 = 0.15,
+                             threshold = 0.0,
+                             book = orderbook.OfTrader())
+             = Signal(math.EW.Avg(orderbook.MidPrice(book),alpha_1)-math.EW.Avg(orderbook.MidPrice(book),alpha_2),threshold)
         
-        def virtualMarket = _.inner.inner_VirtualMarket
+        def TrendFollower(alpha = 0.015,
+                          threshold = 0.0,
+                          book = orderbook.OfTrader())
+             = Signal(math.Derivative(math.EW.Avg(orderbook.MidPrice(book),alpha)),threshold)
+        
+        @python.observable()
+        def FundamentalValue(fv = constant(200.0),
+                             book = orderbook.OfTrader())
+             = if orderbook.bid.Price(book)>fv then side.Sell() else if orderbook.ask.Price(book)<fv then side.Buy() else side.Nothing()
+        
+        def MeanReversion(alpha = 0.015,
+                          book = orderbook.OfTrader())
+             = FundamentalValue(math.EW.Avg(orderbook.MidPrice(book),alpha),book)
+        
+        def Noise(side_distribution = math.random.uniform(0.0,1.0) : IFunction[Float])
+             = if side_distribution>0.5 then side.Sell() else side.Buy()
     }
     
     package weight() {
@@ -1068,6 +1076,58 @@ package strategy() {
         def IdentityF(f : Optional[IFunction[Float]] = constant()) : IFunction[Float]
              = f
     }
+    @category = "Price function"
+    package price() {
+        def LiquidityProvider(side = side.Sell(),
+                              initialValue = 100.0,
+                              priceDistr = math.random.lognormvariate(0.0,0.1),
+                              book = orderbook.OfTrader())
+             = orderbook.SafeSidePrice(orderbook.Queue(book,side),constant(initialValue))*priceDistr
+    }
+    @category = "Volume function"
+    package position() {
+        def DesiredPosition(desiredPosition = const(),
+                            trader = trader.SingleProxy())
+             = ObservableVolume(desiredPosition-trader.Position(trader)-trader.PendingVolume(trader))
+        
+        def Bollinger_linear(alpha = 0.15,
+                             k = const(0.5),
+                             trader = trader.SingleProxy())
+             = DesiredPosition(observable.OnEveryDt(1.0,math.EW.RelStdDev(orderbook.MidPrice(orderbook.OfTrader(trader)),alpha))*k,trader)
+        
+        def RSI_linear(alpha = 1.0/14.0,
+                       k = const(-0.04),
+                       timeframe = 1.0,
+                       trader = trader.SingleProxy())
+             = DesiredPosition(observable.OnEveryDt(1.0,50.0-math.RSI(orderbook.OfTrader(trader),timeframe,alpha))*k,trader)
+    }
+    
+    package account() {
+        package _() {
+            package inner() {
+                @python.curried("Real")
+                def inner_Real() : .Optional[.ISingleAssetStrategy] => .IAccount
+                    
+                
+                @python.curried("VirtualMarket")
+                def inner_VirtualMarket() : .Optional[.ISingleAssetStrategy] => .IAccount
+                    
+            }
+        }
+        @python.intrinsic("strategy.account._Account_Impl")
+        @curried("inner")
+        def Real(inner : Optional[ISingleAssetStrategy] = Noise()) : IAccount
+            
+        
+        @python.intrinsic("strategy.account._VirtualMarket_Impl")
+        @curried("inner")
+        def VirtualMarket(inner : Optional[ISingleAssetStrategy] = Noise()) : IAccount
+            
+        
+        def real = _.inner.inner_Real
+        
+        def virtualMarket = _.inner.inner_VirtualMarket
+    }
     @python.intrinsic("strategy.combine._Combine_Impl")
     def Combine(A = Noise(),
                 B = Noise()) : ISingleAssetStrategy
@@ -1077,7 +1137,7 @@ package strategy() {
                    alpha = 1.0/14,
                    k = const(-0.04),
                    timeframe = 1.0)
-         = Generic(orderFactory(observable.volumefunc.RSI_linear(alpha,k,timeframe)))
+         = Generic(orderFactory(position.RSI_linear(alpha,k,timeframe)))
     
     /** Dependent price strategy believes that the fair price of an asset *A*
      * is completely correlated with price of another asset *B* and the following relation
@@ -1090,7 +1150,7 @@ package strategy() {
                     /** order factory function*/ orderFactory = order._.side.Market(),
                     /** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn = orderbook.OfTrader(),
                     /** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0)
-         = Generic(orderFactory(observable.sidefunc.PairTrading(bookToDependOn,factor)),eventGen)
+         = Generic(orderFactory(side.PairTrading(bookToDependOn,factor)),eventGen)
     
     /** A composite strategy initialized with an array of strategies.
      * In some moments of time the most effective strategy
@@ -1110,7 +1170,7 @@ package strategy() {
                /** order factory function*/ orderFactory = order._.side.Market(),
                /** signal to be listened to */ signal = constant(0.0),
                /** threshold when the trader starts to act */ threshold = 0.7)
-         = Generic(orderFactory(observable.sidefunc.Signal(signal,threshold)),eventGen)
+         = Generic(orderFactory(side.Signal(signal,threshold)),eventGen)
     
     /** Liquidity provider for two sides
      */
@@ -1131,7 +1191,7 @@ package strategy() {
                          /** parameter |alpha| for exponentially weighted moving average 1 */ ewma_alpha_1 = 0.15,
                          /** parameter |alpha| for exponentially weighted moving average 2 */ ewma_alpha_2 = 0.015,
                          /** threshold when the trader starts to act */ threshold = 0.0)
-         = Generic(orderFactory(observable.sidefunc.CrossingAverages(ewma_alpha_1,ewma_alpha_2,threshold)),eventGen)
+         = Generic(orderFactory(side.CrossingAverages(ewma_alpha_1,ewma_alpha_2,threshold)),eventGen)
     
     @python.intrinsic("strategy.suspendable._Suspendable_Impl")
     def Suspendable(inner = Noise(),
@@ -1149,7 +1209,7 @@ package strategy() {
                       /** order factory function*/ orderFactory = order._.side.Market(),
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15,
                       /** threshold when the trader starts to act */ threshold = 0.0)
-         = Generic(orderFactory(observable.sidefunc.TrendFollower(ewma_alpha,threshold)),eventGen)
+         = Generic(orderFactory(side.TrendFollower(ewma_alpha,threshold)),eventGen)
     
     /** Fundamental value strategy believes that an asset should have some specific price
      * (*fundamental value*) and if the current asset price is lower than the fundamental value
@@ -1158,7 +1218,7 @@ package strategy() {
     def FundamentalValue(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
                          /** order factory function*/ orderFactory = order._.side.Market(),
                          /** defines fundamental value */ fundamentalValue = constant(100.0))
-         = Generic(orderFactory(observable.sidefunc.FundamentalValue(fundamentalValue)),eventGen)
+         = Generic(orderFactory(side.FundamentalValue(fundamentalValue)),eventGen)
     
     @python.intrinsic("strategy.arbitrage._Arbitrage_Impl")
     def Arbitrage() : IMultiAssetStrategy
@@ -1169,7 +1229,7 @@ package strategy() {
                /** parameter |alpha| for exponentially weighted moving average */ alpha = 1.0/14,
                timeframe = 1.0,
                threshold = 30.0)
-         = Generic(orderFactory(observable.sidefunc.Signal(50.0-math.RSI(orderbook.OfTrader(),timeframe,alpha),50.0-threshold)),eventGen)
+         = Generic(orderFactory(side.Signal(50.0-math.RSI(orderbook.OfTrader(),timeframe,alpha),50.0-threshold)),eventGen)
     
     def TradeIfProfitable(inner = Noise(),
                           account = account._.inner.inner_VirtualMarket(),
@@ -1188,7 +1248,7 @@ package strategy() {
     def MeanReversion(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
                       /** order factory function*/ orderFactory = order._.side.Market(),
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15)
-         = Generic(orderFactory(observable.sidefunc.MeanReversion(ewma_alpha)),eventGen)
+         = Generic(orderFactory(side.MeanReversion(ewma_alpha)),eventGen)
     
     /** A composite strategy initialized with an array of strategies.
      * In some moments of time the most effective strategy
@@ -1231,7 +1291,7 @@ package strategy() {
                               /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
                               /** defines multipliers for current asset price when price of
                                 *                    order to create is calculated*/ priceDistr = math.random.lognormvariate(0.0,0.1))
-         = Generic(orderFactory(side,observable.pricefunc.LiquidityProvider(side,initialValue,priceDistr)),eventGen)
+         = Generic(orderFactory(side,price.LiquidityProvider(side,initialValue,priceDistr)),eventGen)
     
     /** Generic strategy that wakes up on events given by *eventGen*,
      *  creates an order via *orderFactory* and sends the order to the market using its trader
@@ -1249,12 +1309,12 @@ package strategy() {
      */
     def Noise(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
               /** order factory function*/ orderFactory = order._.side.Market())
-         = Generic(orderFactory(observable.sidefunc.Noise()),eventGen)
+         = Generic(orderFactory(side.Noise()),eventGen)
     
     def Bollinger_linear(orderFactory = order._.signedVolume.MarketSigned(),
                          alpha = 0.15,
                          k = const(0.5))
-         = Generic(orderFactory(observable.volumefunc.Bollinger_linear(alpha,k)))
+         = Generic(orderFactory(position.Bollinger_linear(alpha,k)))
 }
 @category = "Trader"
 package trader() {
@@ -1468,66 +1528,7 @@ package orderbook() {@queue = "Ask_{%(book)s}"
         
 }
 @category = "Basic"
-package observable() {@category = "Price function"
-    package pricefunc() {
-        def LiquidityProvider(side = side.Sell(),
-                              initialValue = 100.0,
-                              priceDistr = math.random.lognormvariate(0.0,0.1),
-                              book = orderbook.OfTrader())
-             = orderbook.SafeSidePrice(orderbook.Queue(book,side),constant(initialValue))*priceDistr
-    }
-    @category = "Side function"
-    package sidefunc() {
-        def PairTrading(dependee = orderbook.OfTrader(),
-                        factor = 1.0,
-                        book = orderbook.OfTrader())
-             = ObservableSide(FundamentalValue(orderbook.MidPrice(dependee)*factor,book))
-        
-        @python.observable()
-        def Signal(signal = constant(),
-                   threshold = 0.7)
-             = if signal>threshold then side.Buy() else if signal<0-threshold then side.Sell() else side.Nothing()
-        
-        def CrossingAverages(alpha_1 = 0.015,
-                             alpha_2 = 0.15,
-                             threshold = 0.0,
-                             book = orderbook.OfTrader())
-             = Signal(math.EW.Avg(orderbook.MidPrice(book),alpha_1)-math.EW.Avg(orderbook.MidPrice(book),alpha_2),threshold)
-        
-        def TrendFollower(alpha = 0.015,
-                          threshold = 0.0,
-                          book = orderbook.OfTrader())
-             = Signal(math.Derivative(math.EW.Avg(orderbook.MidPrice(book),alpha)),threshold)
-        
-        @python.observable()
-        def FundamentalValue(fv = constant(200.0),
-                             book = orderbook.OfTrader())
-             = if orderbook.bid.Price(book)>fv then side.Sell() else if orderbook.ask.Price(book)<fv then side.Buy() else side.Nothing()
-        
-        def MeanReversion(alpha = 0.015,
-                          book = orderbook.OfTrader())
-             = FundamentalValue(math.EW.Avg(orderbook.MidPrice(book),alpha),book)
-        
-        def Noise(side_distribution = math.random.uniform(0.0,1.0) : IFunction[Float])
-             = if side_distribution>0.5 then side.Sell() else side.Buy()
-    }
-    @category = "Volume function"
-    package volumefunc() {
-        def DesiredPosition(desiredPosition = const(),
-                            trader = trader.SingleProxy())
-             = ObservableVolume(desiredPosition-trader.Position(trader)-trader.PendingVolume(trader))
-        
-        def Bollinger_linear(alpha = 0.15,
-                             k = const(0.5),
-                             trader = trader.SingleProxy())
-             = DesiredPosition(OnEveryDt(1.0,math.EW.RelStdDev(orderbook.MidPrice(orderbook.OfTrader(trader)),alpha))*k,trader)
-        
-        def RSI_linear(alpha = 1.0/14.0,
-                       k = const(-0.04),
-                       timeframe = 1.0,
-                       trader = trader.SingleProxy())
-             = DesiredPosition(OnEveryDt(1.0,50.0-math.RSI(orderbook.OfTrader(trader),timeframe,alpha))*k,trader)
-    }
+package observable() {
     @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
     @label = "[%(x)s]_dt=%(dt)s"
     @observe_args = "no"

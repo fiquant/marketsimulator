@@ -68,8 +68,7 @@ Definitions:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - volumefunc
+| | | | | | | | | | | | | - position
 | | | | | | | | | | | | | - RSI_linear
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Var:
@@ -130,8 +129,7 @@ Definitions:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | - volumefunc
+| | | | | | | | | | | | | - position
 | | | | | | | | | | | | | - Bollinger_linear
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Var:

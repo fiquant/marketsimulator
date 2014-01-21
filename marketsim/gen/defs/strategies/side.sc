@@ -8,7 +8,7 @@ package strategy
                /** order factory function*/
                orderFactory = order._.side.Market())
 
-        =   Generic(orderFactory(observable.sidefunc.Noise()), eventGen)
+        =   Generic(orderFactory(side.Noise()), eventGen)
 
     /**
      * Signal strategy listens to some discrete signal
@@ -24,7 +24,7 @@ package strategy
                /** threshold when the trader starts to act */
                threshold    = 0.7)
 
-        =   Generic(orderFactory(observable.sidefunc.Signal(signal, threshold)), eventGen)
+        =   Generic(orderFactory(side.Signal(signal, threshold)), eventGen)
 
     /**
      * Trend follower can be considered as a sort of a signal strategy
@@ -43,7 +43,7 @@ package strategy
                         /** threshold when the trader starts to act */
                         threshold    = 0.)
 
-        =   Generic(orderFactory(observable.sidefunc.TrendFollower(ewma_alpha, threshold)), eventGen)
+        =   Generic(orderFactory(side.TrendFollower(ewma_alpha, threshold)), eventGen)
 
     /**
       * Two averages strategy compares two averages of price of the same asset but
@@ -62,7 +62,7 @@ package strategy
                         /** threshold when the trader starts to act */
                         threshold    = 0.)
 
-        =   Generic(orderFactory(observable.sidefunc.CrossingAverages(ewma_alpha_1, ewma_alpha_2, threshold)), eventGen)
+        =   Generic(orderFactory(side.CrossingAverages(ewma_alpha_1, ewma_alpha_2, threshold)), eventGen)
 
     /**
      * Fundamental value strategy believes that an asset should have some specific price
@@ -77,7 +77,7 @@ package strategy
                /** defines fundamental value */
                fundamentalValue = constant(100.))
 
-        =   Generic(orderFactory(observable.sidefunc.FundamentalValue(fundamentalValue)), eventGen)
+        =   Generic(orderFactory(side.FundamentalValue(fundamentalValue)), eventGen)
 
     /**
       * Mean reversion strategy believes that asset price should return to its average value.
@@ -92,7 +92,7 @@ package strategy
                         /** parameter |alpha| for exponentially weighted moving average */
                         ewma_alpha   = 0.15)
 
-        =   Generic(orderFactory(observable.sidefunc.MeanReversion(ewma_alpha)), eventGen)
+        =   Generic(orderFactory(side.MeanReversion(ewma_alpha)), eventGen)
 
     /**
       * Dependent price strategy believes that the fair price of an asset *A*
@@ -111,7 +111,7 @@ package strategy
                         /** multiplier to obtain fair asset price from the reference asset price */
                         factor          = 1.0)
 
-        =   Generic(orderFactory(observable.sidefunc.PairTrading(bookToDependOn, factor)), eventGen)
+        =   Generic(orderFactory(side.PairTrading(bookToDependOn, factor)), eventGen)
 
     def RSIbis(         /** Event source making the strategy to wake up*/
                         eventGen     = event.Every(math.random.expovariate(1.)),
@@ -124,7 +124,7 @@ package strategy
 
         =   Generic(
                 orderFactory(
-                    observable.sidefunc.Signal(
+                    side.Signal(
                         50.0 - math.RSI(
                                     orderbook.OfTrader(),
                                     timeframe,

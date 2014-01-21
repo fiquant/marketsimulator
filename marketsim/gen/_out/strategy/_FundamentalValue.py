@@ -7,7 +7,7 @@ from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
 from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
-from marketsim.gen._out.observable.sidefunc._FundamentalValue import FundamentalValue as _observable_sidefunc_FundamentalValue
+from marketsim.gen._out.strategy.side._FundamentalValue import FundamentalValue as _strategy_side_FundamentalValue
 from marketsim import context
 @registry.expose(["Strategy", "FundamentalValue"])
 class FundamentalValue(ISingleAssetStrategy):
@@ -46,7 +46,7 @@ class FundamentalValue(ISingleAssetStrategy):
     
     _internals = ['impl']
     def getImpl(self):
-        return _strategy_Generic(self.orderFactory(_observable_sidefunc_FundamentalValue(self.fundamentalValue)),self.eventGen)
+        return _strategy_Generic(self.orderFactory(_strategy_side_FundamentalValue(self.fundamentalValue)),self.eventGen)
     
     
     def bind(self, ctx):

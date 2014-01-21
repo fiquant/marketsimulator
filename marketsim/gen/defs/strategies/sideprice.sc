@@ -19,7 +19,7 @@ package strategy
         =   Generic(
                 orderFactory(
                     side,
-                    observable.pricefunc.LiquidityProvider(
+                    price.LiquidityProvider(
                         side,
                         initialValue,
                         priceDistr)),

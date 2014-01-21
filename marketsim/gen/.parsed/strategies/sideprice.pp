@@ -8,7 +8,7 @@ package strategy() {
                               /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
                               /** defines multipliers for current asset price when price of
                                 *                    order to create is calculated*/ priceDistr = math.random.lognormvariate(0.0,0.1))
-         = Generic(orderFactory(side,observable.pricefunc.LiquidityProvider(side,initialValue,priceDistr)),eventGen)
+         = Generic(orderFactory(side,price.LiquidityProvider(side,initialValue,priceDistr)),eventGen)
     
     /** Liquidity provider for two sides
      */

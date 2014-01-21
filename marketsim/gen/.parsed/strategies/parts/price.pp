@@ -1,6 +1,6 @@
 @category = "Price function"
 
-package observable.pricefunc() {
+package strategy.price() {
     def LiquidityProvider(side = side.Sell(),
                           initialValue = 100.0,
                           priceDistr = math.random.lognormvariate(0.0,0.1),

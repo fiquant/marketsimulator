@@ -1,1 +1,1 @@
-from marketsim.gen._out.observable.sidefunc._TrendFollower import TrendFollower
+from marketsim.gen._out.strategy.side._TrendFollower import TrendFollower

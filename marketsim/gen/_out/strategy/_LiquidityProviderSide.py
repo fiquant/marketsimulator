@@ -10,7 +10,7 @@ from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
 from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
-from marketsim.gen._out.observable.pricefunc._LiquidityProvider import LiquidityProvider as _observable_pricefunc_LiquidityProvider
+from marketsim.gen._out.strategy.price._LiquidityProvider import LiquidityProvider as _strategy_price_LiquidityProvider
 from marketsim import context
 @registry.expose(["Strategy", "LiquidityProviderSide"])
 class LiquidityProviderSide(ISingleAssetStrategy):
@@ -55,7 +55,7 @@ class LiquidityProviderSide(ISingleAssetStrategy):
     
     _internals = ['impl']
     def getImpl(self):
-        return _strategy_Generic(self.orderFactory(self.side,_observable_pricefunc_LiquidityProvider(self.side,self.initialValue,self.priceDistr)),self.eventGen)
+        return _strategy_Generic(self.orderFactory(self.side,_strategy_price_LiquidityProvider(self.side,self.initialValue,self.priceDistr)),self.eventGen)
     
     
     def bind(self, ctx):

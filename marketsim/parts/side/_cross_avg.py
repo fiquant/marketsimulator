@@ -1,1 +1,1 @@
-from marketsim.gen._out.observable.sidefunc._CrossingAverages import CrossingAverages as TwoAverages
+from marketsim.gen._out.strategy.side._CrossingAverages import CrossingAverages as TwoAverages

@@ -1,5 +1,5 @@
 @category = "Price function"
-package observable.pricefunc
+package strategy.price
 {
     def LiquidityProvider(
             side = side.Sell(),

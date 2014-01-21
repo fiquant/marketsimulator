@@ -5,7 +5,7 @@ from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IObservable
 from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
-from marketsim.gen._out.observable.volumefunc._RSI_linear import RSI_linear as _observable_volumefunc_RSI_linear
+from marketsim.gen._out.strategy.position._RSI_linear import RSI_linear as _strategy_position_RSI_linear
 from marketsim import context
 @registry.expose(["Strategy", "RSI_linear"])
 class RSI_linear(ISingleAssetStrategy):
@@ -41,7 +41,7 @@ class RSI_linear(ISingleAssetStrategy):
     
     _internals = ['impl']
     def getImpl(self):
-        return _strategy_Generic(self.orderFactory(_observable_volumefunc_RSI_linear(self.alpha,self.k,self.timeframe)))
+        return _strategy_Generic(self.orderFactory(_strategy_position_RSI_linear(self.alpha,self.k,self.timeframe)))
     
     
     def bind(self, ctx):

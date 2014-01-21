@@ -6,7 +6,7 @@ from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import Side
 from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
-from marketsim.gen._out.observable.sidefunc._TrendFollower import TrendFollower as _observable_sidefunc_TrendFollower
+from marketsim.gen._out.strategy.side._TrendFollower import TrendFollower as _strategy_side_TrendFollower
 from marketsim import context
 @registry.expose(["Strategy", "TrendFollower"])
 class TrendFollower(ISingleAssetStrategy):
@@ -49,7 +49,7 @@ class TrendFollower(ISingleAssetStrategy):
     
     _internals = ['impl']
     def getImpl(self):
-        return _strategy_Generic(self.orderFactory(_observable_sidefunc_TrendFollower(self.ewma_alpha,self.threshold)),self.eventGen)
+        return _strategy_Generic(self.orderFactory(_strategy_side_TrendFollower(self.ewma_alpha,self.threshold)),self.eventGen)
     
     
     def bind(self, ctx):

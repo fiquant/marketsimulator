@@ -7,7 +7,7 @@ from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
 from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
-from marketsim.gen._out.observable.sidefunc._Signal import Signal as _observable_sidefunc_Signal
+from marketsim.gen._out.strategy.side._Signal import Signal as _strategy_side_Signal
 from marketsim import context
 @registry.expose(["Strategy", "Signal"])
 class Signal(ISingleAssetStrategy):
@@ -48,7 +48,7 @@ class Signal(ISingleAssetStrategy):
     
     _internals = ['impl']
     def getImpl(self):
-        return _strategy_Generic(self.orderFactory(_observable_sidefunc_Signal(self.signal,self.threshold)),self.eventGen)
+        return _strategy_Generic(self.orderFactory(_strategy_side_Signal(self.signal,self.threshold)),self.eventGen)
     
     
     def bind(self, ctx):
