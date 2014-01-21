@@ -1863,12 +1863,6 @@ package observable {
               start : Optional[.String] = "2001-1-1",
               end : Optional[.String] = "2010-1-1") : .IObservable[.Price]
         
-    
-    @label = "Candles_{%(source)s}"
-    @python.intrinsic("observable.candlestick.CandleSticks_Impl")
-    def CandleSticks(source : Optional[.IObservable[.Float]] = .const(),
-                     timeframe : Optional[.Float] = 10.0) : .IObservable[.CandleStick]
-        
 }
 
 @python = "no"

@@ -12,5 +12,3 @@ from marketsim.gen._out.observable._Float import Float
 
 from marketsim.gen._out.observable._Quote import Quote
 
-from marketsim.gen._out.observable._CandleSticks import CandleSticks
-

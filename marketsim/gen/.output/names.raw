@@ -14196,50 +14196,6 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - %(ticker)s
-| | | | - FunDef:
-| | | | | - CandleSticks
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - source
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - const
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - timeframe
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FloatLit:
-| | | | | | | | | - 10.0
-| | | | | | | - List:
-| | | | | - None
-| | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - IObservable
-| | | | | | | - List:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - CandleStick
-| | | | | | | | | - List:
-| | | | | - None
-| | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - intrinsic
-| | | | | | | - List:
-| | | | | | | | - observable.candlestick.CandleSticks_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - Candles_{%(source)s}
 | | - List:
 | | | - Attribute:
 | | | | - category

@@ -1604,12 +1604,6 @@ package observable() {
               start = "2001-1-1",
               end = "2010-1-1") : IObservable[Price]
         
-    
-    @python.intrinsic("observable.candlestick.CandleSticks_Impl")
-    @label = "Candles_{%(source)s}"
-    def CandleSticks(source = const(),
-                     timeframe = 10.0) : IObservable[CandleStick]
-        
 }
 @python = "no"
 
