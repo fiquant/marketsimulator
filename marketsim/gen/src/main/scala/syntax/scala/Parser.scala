@@ -5,6 +5,8 @@ import AST._
 
 class Parser() extends JavaTokenParsers with PackratParsers
 {
+    protected override val whiteSpace = """(\s|//.*)+""".r
+
     lazy val expr : Parser[Expr] =  castable | string_literal
 
     lazy val string_literal = string ^^ AST.StringLit
