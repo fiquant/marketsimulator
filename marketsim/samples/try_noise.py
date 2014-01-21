@@ -1,9 +1,9 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import strategy, mathutils, order, ops
+from marketsim._pub import strategy, order, constant
 
-from common import expose, Interlacing
+from common import expose
 
 @expose("Noise", __name__)
 def Noise(ctx):
@@ -13,10 +13,10 @@ def Noise(ctx):
     return [
         ctx.makeTrader_A(
             strategy.LiquidityProvider(
-                        orderFactory = order.factory.sideprice.WithExpiry(
-                            ops.constant(10),
-                            order.factory.sideprice.Limit(
-                                volume=ops.constant(2)))),
+                        orderFactory = order.side_price.WithExpiry(
+                            constant(10),
+                            order.side_price.Limit(
+                                volume=constant(2)))),
                          "liquidity"),
         
         ctx.makeTrader_A(strategy.Noise(), "noise_ex"),

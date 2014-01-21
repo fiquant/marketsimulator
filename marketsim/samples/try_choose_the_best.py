@@ -1,10 +1,8 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (order, parts, signal, strategy, trader, orderbook, 
-                       event, timeserie, observable, veusz, mathutils, ops)
-
-const = ops.constant
+from marketsim._pub import (math, order, strategy, orderbook,
+                            event, observable, constant, trader)
 
 from common import expose
 
@@ -16,18 +14,18 @@ def ChooseTheBest(ctx):
     slow_alpha = 0.015
     fast_alpha = 0.15
 
-    linear_signal = signal.RandomWalk(initialValue=200, 
-                                      deltaDistr=const(-1), 
+    linear_signal = math.RandomWalk(initialValue=200,
+                                      deltaDistr=constant(-1),
                                       name="200-t")
     
     demo = ctx.addGraph('demo')
-    myVolume = lambda: [(observable.VolumeTraded(), demo)]
-    myAverage = lambda alpha: [(observable.avg(observable.MidPrice(orderbook.OfTrader()), alpha), demo)]
+    myVolume = lambda: [(trader.Position(), demo)]
+    myAverage = lambda alpha: [(observable.OnEveryDt(1, math.EW.Avg(orderbook.MidPrice(orderbook.OfTrader()), alpha)), demo)]
     
     def cross(alpha1, alpha2):
-        return strategy.TwoAverages(
-                    event.Every(const(1.)),
-                    order.factory.side.Market(volume = const(1.)),
+        return strategy.CrossingAverages(
+                    event.Every(constant(1.)),
+                    order.side.Market(volume = constant(1.)),
                     alpha1, alpha2)
         
     def strategies():
@@ -36,11 +34,11 @@ def ChooseTheBest(ctx):
     return [
         ctx.makeTrader_A(
             strategy.LiquidityProvider(
-                orderFactory = order.factory.sideprice.Limit(volume=const(45))),
+                orderFactory = order.side_price.Limit(volume=constant(45))),
                          "liquidity"),
 
-        ctx.makeTrader_A(strategy.Signal(event.Every(const(1.)),
-                                         order.factory.side.Market(volume = const(20)),
+        ctx.makeTrader_A(strategy.Signal(event.Every(constant(1.)),
+                                         order.side.Market(volume = constant(20)),
                                          linear_signal), 
                         "signal", 
                         [(linear_signal, ctx.amount_graph)]),
@@ -55,13 +53,13 @@ def ChooseTheBest(ctx):
 
         ctx.makeTrader_A(strategy.ChooseTheBest(
                                     strategies(), 
-                                    strategy.adaptive.virtualMarket()),
+                                    strategy.account.virtualMarket()),
                          'best virt',
                          myVolume()),
 
         ctx.makeTrader_A(strategy.ChooseTheBest(
                                     strategies(), 
-                                    strategy.adaptive.account()),
+                                    strategy.account.real()),
                          'best real',
                          myVolume()),
     ]

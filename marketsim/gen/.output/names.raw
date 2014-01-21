@@ -7958,6 +7958,12 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - array
 | | | | | | | - FunAlias:
+| | | | | | | | - chooseTheBest
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - array
+| | | | | | | | | | - array_ChooseTheBest
+| | | | | | | - FunAlias:
 | | | | | | | | - score
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:

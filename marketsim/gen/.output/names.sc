@@ -938,6 +938,8 @@ package strategy() {@category = "Side function"
         def ChooseTheBest(array : Optional[List[Float]] = []) : List[Float]
             
         
+        def chooseTheBest = array.array_ChooseTheBest
+        
         def score = trader.trader_Score
         
         def atanpow = f.f_AtanPow

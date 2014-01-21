@@ -438,6 +438,12 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - trader
 | | | | | | | | | | - trader_EfficiencyTrend
+| | | | | | | - FunAlias:
+| | | | | | | | - chooseTheBest
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - array
+| | | | | | | | | | - array_ChooseTheBest
 | | | | | | | - FunDef:
 | | | | | | | | - AtanPow
 | | | | | | | | - List:

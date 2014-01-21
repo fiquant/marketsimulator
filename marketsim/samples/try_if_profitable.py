@@ -1,10 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (order, parts, signal, strategy, trader, orderbook, 
-                       event, timeserie, observable, veusz, mathutils, ops)
-
-const = ops.constant
+from marketsim._pub import (order, strategy, trader, math, orderbook, observable, event, constant)
 
 from common import expose
 
@@ -16,36 +13,36 @@ def TradeIfProfitable(ctx):
     slow_alpha = 0.015
     fast_alpha = 0.15
 
-    linear_signal = signal.RandomWalk(initialValue=200, 
-                                      deltaDistr=const(-1), 
+    linear_signal = math.RandomWalk(initialValue=200,
+                                      deltaDistr=constant(-1),
                                       name="200-t")
     
     demo = ctx.addGraph('demo')
-    myVolume = lambda: [(observable.VolumeTraded(), demo)]
-    myAverage = lambda alpha: [(observable.avg(observable.MidPrice(orderbook.OfTrader()), alpha), demo)]
+    myVolume = lambda: [(trader.Position(), demo)]
+    myAverage = lambda alpha: [(observable.OnEveryDt(1, math.EW.Avg(orderbook.MidPrice(), alpha)), demo)]
     
     def cross(alpha1, alpha2):
-        return strategy.TwoAverages(
-                    event.Every(ops.constant(1.)),
-                    order.factory.side.Market(volume = const(1.)),
+        return strategy.CrossingAverages(
+                    event.Every(constant(1.)),
+                    order.side.Market(volume = constant(1.)),
                     alpha1, alpha2)
     
     
-    avg_plus_virt = strategy.TradeIfProfitable(cross(slow_alpha, fast_alpha), strategy.adaptive.virtualMarket())
-    avg_minus_virt = strategy.TradeIfProfitable(cross(fast_alpha, slow_alpha), strategy.adaptive.virtualMarket())
+    avg_plus_virt = strategy.TradeIfProfitable(cross(slow_alpha, fast_alpha), strategy.account.virtualMarket())
+    avg_minus_virt = strategy.TradeIfProfitable(cross(fast_alpha, slow_alpha), strategy.account.virtualMarket())
 
-    avg_plus_real = strategy.TradeIfProfitable(cross(slow_alpha, fast_alpha), strategy.adaptive.account())
-    avg_minus_real = strategy.TradeIfProfitable(cross(fast_alpha, slow_alpha), strategy.adaptive.account())
+    avg_plus_real = strategy.TradeIfProfitable(cross(slow_alpha, fast_alpha), strategy.account.real())
+    avg_minus_real = strategy.TradeIfProfitable(cross(fast_alpha, slow_alpha), strategy.account.real())
 
     return [
         ctx.makeTrader_A(strategy.LiquidityProvider(
-            orderFactory = order.factory.sideprice.Limit(
-                volume=ops.constant(45))),
+            orderFactory = order.side_price.Limit(
+                volume=constant(45))),
                          "liquidity"),
 
         ctx.makeTrader_A(strategy.Signal(
-                                    event.Every(ops.constant(1.)),
-                                    order.factory.side.Market(volume = const(20)),
+                                    event.Every(constant(1.)),
+                                    order.side.Market(volume = constant(20)),
                                     linear_signal), 
                         "signal", 
                         [(linear_signal, ctx.amount_graph)]),

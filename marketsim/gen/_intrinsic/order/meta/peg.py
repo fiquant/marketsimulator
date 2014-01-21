@@ -1,5 +1,5 @@
 from marketsim import (request, context, combine, Side, registry, meta, types, bind, Order,
-                       event, _, ops, observable, orderbook)
+                       event, _, ops)
 from marketsim.types import *
 
 from marketsim.gen._intrinsic.order.meta.floating_price import Order_Impl as FloatingPrice
@@ -11,16 +11,22 @@ def Peg(order):
     and is sent again to the order book 
     with a price one tick better than the best price in the book.
     """
+    from marketsim.gen._out.orderbook._OfTrader import OfTrader
+    from marketsim.gen._out.orderbook._TickSize import TickSize
+    from marketsim.gen._out.orderbook.ask._Price import Price as AskPrice
+    from marketsim.gen._out.orderbook.bid._Price import Price as BidPrice
+    from marketsim.gen._out.math.Cumulative._MaxEpsilon import MaxEpsilon
+    from marketsim.gen._out.math.Cumulative._MinEpsilon import MinEpsilon
 
     side = order.side
-    book = orderbook.OfTrader()
-    tickSize = observable.TickSize(book)
-    askPrice = observable.AskPrice(book)
-    bidPrice = observable.BidPrice(book)
+    book = OfTrader()
+    tickSize = TickSize(book)
+    askPrice = AskPrice(book)
+    bidPrice = BidPrice(book)
     
-    price = observable.MinEpsilon(askPrice, tickSize)\
+    price = MinEpsilon(askPrice, tickSize)\
                 if side == Side.Sell else\
-            observable.MaxEpsilon(bidPrice, tickSize)
+            MaxEpsilon(bidPrice, tickSize)
 
     return FloatingPrice(order, price)
 
@@ -28,5 +34,6 @@ def Peg(order):
 class Factory_Impl(ops.Observable[Order]):
     
     def __call__(self):
-        proto = self.proto(ops.constant(0))()
+        from marketsim.gen._out._constant import constant
+        proto = self.proto(constant(0))()
         return Peg(proto) if proto is not None else None

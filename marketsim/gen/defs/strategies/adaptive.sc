@@ -68,6 +68,8 @@ package strategy
         def efficiency = trader.trader_Efficiency
         def efficiencyTrend = trader.trader_EfficiencyTrend
 
+        def chooseTheBest = array.array_ChooseTheBest
+
         @curried("f")
         def AtanPow(f : Optional[IFunction[Float]] = constant(), base = 1.002) : IFunction[Float]
             = math.Atan(math.Pow(constant(base), f))

@@ -1143,6 +1143,8 @@ package strategy {@category = "Side function"
             	 = f
         def efficiency = .strategy.weight.trader.trader_Efficiency
         
+        def chooseTheBest = .strategy.weight.array.array_ChooseTheBest
+        
         def score = .strategy.weight.trader.trader_Score
         
         def atanpow = .strategy.weight.f.f_AtanPow

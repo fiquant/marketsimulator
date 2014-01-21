@@ -1,10 +1,9 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (parts, signal, strategy, trader, orderbook, ops, order,
-                       event, timeserie, observable, veusz, mathutils)
+from marketsim._pub import (strategy, trader, orderbook, constant, order, event, math)
 
-const = ops.constant
+const = constant
 
 from common import expose
 
@@ -16,38 +15,37 @@ def TwoAverages(ctx):
     alpha_slow = 0.015
     alpha_fast = 0.15
 
-    linear_signal = signal.RandomWalk(initialValue=200, 
+    linear_signal = math.RandomWalk(initialValue=200,
                                       deltaDistr=const(-1), 
                                       name="200-t")
     
     demo = ctx.addGraph('demo')
-    myVolume = lambda: [(observable.VolumeTraded(), demo)]
-    myAverage = lambda alpha: [(observable.avg(observable.MidPrice(orderbook.OfTrader()), alpha), demo)]
-    
+    myVolume = lambda: [(trader.Position(), demo)]
+
     return [
         ctx.makeTrader_A(
                 strategy.LiquidityProvider(
-                    event.Every(ops.constant(1.)),
-                    order.factory.sideprice.Limit(volume=const(10))),
+                    event.Every(constant(1.)),
+                    order.side_price.Limit(volume=const(10))),
                 "liquidity"),
 
-        ctx.makeTrader_A(strategy.Signal(event.Every(ops.constant(1.)),
-                                         order.factory.side.Market(volume = const(3)),
+        ctx.makeTrader_A(strategy.Signal(event.Every(constant(1.)),
+                                         order.side.Market(volume = const(3)),
                                          linear_signal), 
                         "signal", 
                         [(linear_signal, ctx.amount_graph)]),
             
-        ctx.makeTrader_A(strategy.TwoAverages(
-                            event.Every(ops.constant(1.)),
-                            order.factory.side.Market(volume = const(1.)),
+        ctx.makeTrader_A(strategy.CrossingAverages(
+                            event.Every(constant(1.)),
+                            order.side.Market(volume = const(1.)),
                             alpha_slow, 
                             alpha_fast),
                          'avg_ex+',
                          myVolume()),
 
-        ctx.makeTrader_A(strategy.TwoAverages(
-                            event.Every(ops.constant(1.)),
-                            order.factory.side.Market(volume = const(1.)),
+        ctx.makeTrader_A(strategy.CrossingAverages(
+                            event.Every(constant(1.)),
+                            order.side.Market(volume = const(1.)),
                             alpha_fast, 
                             alpha_slow),
                          'avg_ex-',

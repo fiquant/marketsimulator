@@ -1,10 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (order, parts, signal, strategy, trader, orderbook, 
-                       event, timeserie,  observable, veusz, mathutils, ops)
-
-const = ops.constant
+from marketsim._pub import (order, strategy, trader, orderbook, event, observable, math, constant)
 
 from common import expose
 
@@ -14,14 +11,13 @@ def MultiarmedBandit(ctx):
     ctx.volumeStep = 30
         
     demo = ctx.addGraph('demo')
-    myVolume = lambda: [(observable.VolumeTraded(), demo)]
-    myAverage = lambda alpha: [(observable.avg(observable.MidPrice(orderbook.OfTrader()), alpha), demo)]
-    
+    myVolume = lambda: [(trader.Position(), demo)]
+
     def fv(x):
         return  strategy.FundamentalValue(
-                    event.Every(ops.constant(1.)),
-                    order.factory.side.Market(volume = const(1.)),
-                    fundamentalValue = const(x))
+                    event.Every(constant(1.)),
+                    order.side.Market(volume = constant(1.)),
+                    fundamentalValue = constant(x))
                                         
     xs = range(100, 300, 50) + range(160, 190, 10)
     def strategies():
@@ -32,74 +28,74 @@ def MultiarmedBandit(ctx):
         
     return [
         ctx.makeTrader_A(strategy.LiquidityProvider(
-            orderFactory = order.factory.sideprice.Limit(volume=ops.constant(45))),
+            orderFactory = order.side_price.Limit(volume=constant(45))),
                          "liquidity"),
             
         ctx.makeTrader_A(        
                 strategy.FundamentalValue(
-                    event.Every(ops.constant(1.)),
-                    order.factory.side.Market(volume = const(12.)),
-                    fundamentalValue = const(200)),
+                    event.Every(constant(1.)),
+                    order.side.Market(volume = constant(12.)),
+                    fundamentalValue = constant(200)),
                 'fv 12-200'), 
 
-        ctx.makeTrader_A(strategy.MultiarmedBandit(
+        ctx.makeTrader_A(strategy.MultiArmedBandit(
                                     strategies(), 
-                                    strategy.adaptive.virtualMarket(),
-                                    strategy.adaptive.weight.efficiencyTrend()),
+                                    strategy.account.virtualMarket(),
+                                    strategy.weight.efficiencyTrend()),
                          'virt trend',
                          myVolume()),
 
-        ctx.makeTrader_A(strategy.MultiarmedBandit(
+        ctx.makeTrader_A(strategy.MultiArmedBandit(
                                     strategies(), 
-                                    strategy.adaptive.account(),
-                                    strategy.adaptive.weight.efficiencyTrend()),
+                                    strategy.account.real(),
+                                    strategy.weight.efficiencyTrend()),
                          'real trend',
                          myVolume()),
 
-        ctx.makeTrader_A(strategy.MultiarmedBandit(
+        ctx.makeTrader_A(strategy.MultiArmedBandit(
                                     strategies(), 
-                                    strategy.adaptive.virtualMarket(),
-                                    strategy.adaptive.weight.efficiency()),
+                                    strategy.account.virtualMarket(),
+                                    strategy.weight.efficiency()),
                          'virt efficiency',
                          myVolume()),
 
-        ctx.makeTrader_A(strategy.MultiarmedBandit(
+        ctx.makeTrader_A(strategy.MultiArmedBandit(
                                     strategies(), 
-                                    strategy.adaptive.account(),
-                                    strategy.adaptive.weight.efficiency()),
+                                    strategy.account.real(),
+                                    strategy.weight.efficiency()),
                          'real efficiency',
                          myVolume()),
 
-        ctx.makeTrader_A(strategy.MultiarmedBandit(
+        ctx.makeTrader_A(strategy.MultiArmedBandit(
                                     strategies(),
-                                    strategy.adaptive.virtualMarket(),
-                                    strategy.adaptive.weight.score(),
-                                    strategy.adaptive.weight.atanpow()),
+                                    strategy.account.virtualMarket(),
+                                    strategy.weight.score(),
+                                    strategy.weight.atanpow()),
                          'virt score',
                          myVolume()),
 
-        ctx.makeTrader_A(strategy.MultiarmedBandit(
+        ctx.makeTrader_A(strategy.MultiArmedBandit(
                                     strategies(),
-                                    strategy.adaptive.account(),
-                                    strategy.adaptive.weight.score(),
-                                    strategy.adaptive.weight.clamp0()),
+                                    strategy.account.real(),
+                                    strategy.weight.score(),
+                                    strategy.weight.clamp0()),
                          'real score',
                          myVolume()),
 
-        ctx.makeTrader_A(strategy.MultiarmedBandit(
+        ctx.makeTrader_A(strategy.MultiArmedBandit(
                                     strategies(), 
-                                    strategy.adaptive.virtualMarket(),
-                                    strategy.adaptive.weight.efficiencyTrend(),
-                                    strategy.adaptive.weight.identityF(),
-                                    strategy.adaptive.weight.chooseTheBest()),
+                                    strategy.account.virtualMarket(),
+                                    strategy.weight.efficiencyTrend(),
+                                    strategy.weight.identity_f(),
+                                    strategy.weight.chooseTheBest()),
                          'virt best',
                          myVolume()),
 
-        ctx.makeTrader_A(strategy.MultiarmedBandit(
+        ctx.makeTrader_A(strategy.MultiArmedBandit(
                                     strategies(), 
-                                    strategy.adaptive.account(),
-                                    strategy.adaptive.weight.unit(),
-                                    strategy.adaptive.weight.identityF()),
+                                    strategy.account.real(),
+                                    strategy.weight.unit(),
+                                    strategy.weight.identity_f()),
                          'uniform',
                          myVolume()),
 

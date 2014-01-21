@@ -1,4 +1,4 @@
-from marketsim import bind, types, observable
+from marketsim import bind, types, CandleStick
 from colorsys import hsv_to_rgb
 import subprocess 
 import random
@@ -128,7 +128,7 @@ class CSV(object):
             csv.write('Time'+label+','+label+',\n')
     
             for (t,x) in self._source.data:
-                if type(x) is observable.CandleStick:
+                if type(x) is CandleStick:
                     csv.write(str(t) + ',' + str(x.mean) + ',\n')  
                 elif x is not None: 
                     csv.write(str(t) + ',' + str(x) + ',\n')

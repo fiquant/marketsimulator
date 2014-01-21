@@ -1,8 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim import (strategy, trader, orderbook, order, ops, Side, mathutils,
-                       observable, veusz, registry, timeserie)
+from marketsim._pub import (strategy, constant)
 
 from common import expose
 
@@ -18,6 +17,6 @@ def Canceller(ctx):
         ctx.makeTrader_A(strategy.Canceller(), "canceller"),
          
         ctx.makeTrader_A(   strategy.FundamentalValue(
-                                fundamentalValue = ops.constant(1000)), 
+                                fundamentalValue = constant(1000)),
                             "fv_1000")
         ]

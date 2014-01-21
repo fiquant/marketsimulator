@@ -18,6 +18,8 @@ from marketsim.gen._out.strategy.weight._IdentityF import IdentityF
 
 from marketsim.gen._out.strategy.weight.trader._trader_Efficiency import trader_Efficiency as efficiency
 
+from marketsim.gen._out.strategy.weight.array._array_ChooseTheBest import array_ChooseTheBest as chooseTheBest
+
 from marketsim.gen._out.strategy.weight.trader._trader_Score import trader_Score as score
 
 from marketsim.gen._out.strategy.weight.f._f_AtanPow import f_AtanPow as atanpow
