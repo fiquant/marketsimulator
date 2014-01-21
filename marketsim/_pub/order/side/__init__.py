@@ -16,3 +16,4 @@ from marketsim.gen._out.order._curried._side_FixedBudget import side_FixedBudget
 
 from marketsim.gen._out.order._curried._side_Peg import side_Peg as Peg
 
+import price

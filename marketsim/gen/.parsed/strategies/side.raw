@@ -40,7 +40,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
@@ -103,7 +102,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
@@ -193,7 +191,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
@@ -281,7 +278,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
@@ -377,7 +373,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
@@ -457,7 +452,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
@@ -533,7 +527,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
@@ -625,7 +618,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:

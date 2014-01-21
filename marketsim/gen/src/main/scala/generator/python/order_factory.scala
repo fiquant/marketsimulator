@@ -218,7 +218,7 @@ object order_factory
             val orig_path = base.name split "_"
             val (orig_scope, brief_name_arr) = orig_path.splitAt(orig_path.length - 1)
             val u_prefix = curried map { _.name } mkString "_"
-            val alias = "_" :: u_prefix :: orig_scope.toList
+            val alias = u_prefix :: orig_scope.toList
             val brief_name = brief_name_arr(0)
 
             def addPrefix(e : Option[AST.Expr]) = {
@@ -229,10 +229,10 @@ object order_factory
                             "" :: "order" :: insertPrefix(tl)
                         case last :: Nil =>
                             alias :+ last
-                        case "_" :: "price" :: tl if (curried find { _.name == "price" }).nonEmpty =>
-                            ("_" :: (curried map { _.name } filter { _ != "price"}  mkString "_") :: "price" :: tl) filter { _ != "" }
-                        case "_" :: tl =>
-                            "_" :: u_prefix :: tl
+                        case "price" :: tl if (curried find { _.name == "price" }).nonEmpty =>
+                            ((curried map { _.name } filter { _ != "price"}  mkString "_") :: "price" :: tl) filter { _ != "" }
+                        case tl =>
+                            u_prefix :: tl
                         case _ => throw new Exception(s"cannot handle function call of form " + call)
                     }
                 }
@@ -294,8 +294,6 @@ object order_factory
         val volumeFactory = partialFactory(volumeParam :: Nil)
         val sidePriceFactory = partialFactory(sideParam :: priceParam :: Nil)
         val sideVolumeFactory = partialFactory(sideParam :: volumeParam :: Nil)
-        val priceVolumeFactory = partialFactory(priceParam :: volumeParam :: Nil)
-        val volumePriceFactory = partialFactory(volumeParam :: priceParam :: Nil)
         val side_priceFactory = priceFactory flatMap { partialFactory(sideParam :: Nil, _) }
         val volume_priceFactory = priceFactory flatMap { partialFactory(volumeParam :: Nil, _) }
         val sideVolume_priceFactory = priceFactory flatMap { partialFactory(sideParam :: volumeParam :: Nil, _) }

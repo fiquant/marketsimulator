@@ -79,7 +79,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - account
-| | | | | | | | | | | - _
 | | | | | | | | | | | - inner
 | | | | | | | | | | | - inner_VirtualMarket
 | | | | | | | | | - List:
@@ -92,7 +91,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - weight
-| | | | | | | | | | | - _
 | | | | | | | | | | | - trader
 | | | | | | | | | | | - trader_EfficiencyTrend
 | | | | | | | | | - List:
@@ -148,7 +146,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - account
-| | | | | | | | | | | - _
 | | | | | | | | | | | - inner
 | | | | | | | | | | | - inner_VirtualMarket
 | | | | | | | | | - List:
@@ -162,7 +159,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - weight
-| | | | | | | | | | | - _
 | | | | | | | | | | | - trader
 | | | | | | | | | | | - trader_EfficiencyTrend
 | | | | | | | | | - List:
@@ -176,7 +172,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - weight
-| | | | | | | | | | | - _
 | | | | | | | | | | | - f
 | | | | | | | | | | | - f_AtanPow
 | | | | | | | | | - List:
@@ -189,7 +184,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - weight
-| | | | | | | | | | | - _
 | | | | | | | | | | | - array
 | | | | | | | | | | | - array_IdentityL
 | | | | | | | | | - List:
@@ -242,7 +236,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - account
-| | | | | | | | | | | - _
 | | | | | | | | | | | - inner
 | | | | | | | | | | | - inner_VirtualMarket
 | | | | | | | | | - List:
@@ -256,7 +249,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - weight
-| | | | | | | | | | | - _
 | | | | | | | | | | | - trader
 | | | | | | | | | | | - trader_EfficiencyTrend
 | | | | | | | | | - List:
@@ -385,14 +377,12 @@ Definitions:
 | | | | | | | | - real
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - _
 | | | | | | | | | | - inner
 | | | | | | | | | | - inner_Real
 | | | | | | | - FunAlias:
 | | | | | | | | - virtualMarket
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - _
 | | | | | | | | | | - inner
 | | | | | | | | | | - inner_VirtualMarket
 | | | | | - List:
@@ -410,49 +400,42 @@ Definitions:
 | | | | | | | | - atanpow
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - _
 | | | | | | | | | | - f
 | | | | | | | | | | - f_AtanPow
 | | | | | | | - FunAlias:
 | | | | | | | | - clamp0
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - _
 | | | | | | | | | | - f
 | | | | | | | | | | - f_Clamp0
 | | | | | | | - FunAlias:
 | | | | | | | | - identity_f
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - _
 | | | | | | | | | | - f
 | | | | | | | | | | - f_IdentityF
 | | | | | | | - FunAlias:
 | | | | | | | | - score
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - _
 | | | | | | | | | | - trader
 | | | | | | | | | | - trader_Score
 | | | | | | | - FunAlias:
 | | | | | | | | - unit
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - _
 | | | | | | | | | | - trader
 | | | | | | | | | | - trader_Unit
 | | | | | | | - FunAlias:
 | | | | | | | | - efficiency
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - _
 | | | | | | | | | | - trader
 | | | | | | | | | | - trader_Efficiency
 | | | | | | | - FunAlias:
 | | | | | | | | - efficiencyTrend
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - _
 | | | | | | | | | | - trader
 | | | | | | | | | | - trader_EfficiencyTrend
 | | | | | | | - FunDef:

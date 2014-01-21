@@ -2429,6 +2429,432 @@ Definitions:
 | | | | | - Some:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
+| | | | | | | | - side
+| | | | | - List:
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - PackageDef:
+| | | | | | | | - Some:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - price
+| | | | | | | | - List:
+| | | | | | | | - Definitions:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Limit
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - side_price_Limit
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - ImmediateOrCancel
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - side_price_ImmediateOrCancel
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - StopLoss
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - side_price_StopLoss
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - WithExpiry
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - side_price_WithExpiry
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - FloatingPrice
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - side_price_FloatingPrice
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Iceberg
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - side_price_Iceberg
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Peg
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - side_price_Peg
+| | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | - false
+| | | | | | | - FunAlias:
+| | | | | | | | - Limit
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - side_Limit
+| | | | | | | - FunAlias:
+| | | | | | | | - ImmediateOrCancel
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - side_ImmediateOrCancel
+| | | | | | | - FunAlias:
+| | | | | | | | - Market
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - side_Market
+| | | | | | | - FunAlias:
+| | | | | | | | - StopLoss
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - side_StopLoss
+| | | | | | | - FunAlias:
+| | | | | | | | - WithExpiry
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - side_WithExpiry
+| | | | | | | - FunAlias:
+| | | | | | | | - FloatingPrice
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - side_FloatingPrice
+| | | | | | | - FunAlias:
+| | | | | | | | - Iceberg
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - side_Iceberg
+| | | | | | | - FunAlias:
+| | | | | | | | - FixedBudget
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - side_FixedBudget
+| | | | | | | - FunAlias:
+| | | | | | | | - Peg
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - side_Peg
+| | | | | - List:
+| | | | | - List:
+| | | | | - false
+| | | | - PackageDef:
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - side_price
+| | | | | - List:
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - FunAlias:
+| | | | | | | | - Limit
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - sideprice_Limit
+| | | | | | | - FunAlias:
+| | | | | | | | - ImmediateOrCancel
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - sideprice_ImmediateOrCancel
+| | | | | | | - FunAlias:
+| | | | | | | | - StopLoss
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - sideprice_StopLoss
+| | | | | | | - FunAlias:
+| | | | | | | | - WithExpiry
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - sideprice_WithExpiry
+| | | | | | | - FunAlias:
+| | | | | | | | - FloatingPrice
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - sideprice_FloatingPrice
+| | | | | | | - FunAlias:
+| | | | | | | | - Iceberg
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - sideprice_Iceberg
+| | | | | | | - FunAlias:
+| | | | | | | | - Peg
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - sideprice_Peg
+| | | | | - List:
+| | | | | - List:
+| | | | | - false
+| | | | - PackageDef:
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - side_volume
+| | | | | - List:
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - PackageDef:
+| | | | | | | | - Some:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - price
+| | | | | | | | - List:
+| | | | | | | | - Definitions:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Limit
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - sidevolume_price_Limit
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - ImmediateOrCancel
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - sidevolume_price_ImmediateOrCancel
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - StopLoss
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - sidevolume_price_StopLoss
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - WithExpiry
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - sidevolume_price_WithExpiry
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - FloatingPrice
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - sidevolume_price_FloatingPrice
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Iceberg
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - sidevolume_price_Iceberg
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Peg
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - sidevolume_price_Peg
+| | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | - false
+| | | | | | | - FunAlias:
+| | | | | | | | - Limit
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - sidevolume_Limit
+| | | | | | | - FunAlias:
+| | | | | | | | - ImmediateOrCancel
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - sidevolume_ImmediateOrCancel
+| | | | | | | - FunAlias:
+| | | | | | | | - Market
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - sidevolume_Market
+| | | | | | | - FunAlias:
+| | | | | | | | - StopLoss
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - sidevolume_StopLoss
+| | | | | | | - FunAlias:
+| | | | | | | | - WithExpiry
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - sidevolume_WithExpiry
+| | | | | | | - FunAlias:
+| | | | | | | | - FloatingPrice
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - sidevolume_FloatingPrice
+| | | | | | | - FunAlias:
+| | | | | | | | - Iceberg
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - sidevolume_Iceberg
+| | | | | | | - FunAlias:
+| | | | | | | | - Peg
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - sidevolume_Peg
+| | | | | - List:
+| | | | | - List:
+| | | | | - false
+| | | | - PackageDef:
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - price
+| | | | | - List:
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - FunAlias:
+| | | | | | | | - Limit
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - price_Limit
+| | | | | | | - FunAlias:
+| | | | | | | | - ImmediateOrCancel
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - price_ImmediateOrCancel
+| | | | | | | - FunAlias:
+| | | | | | | | - StopLoss
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - price_StopLoss
+| | | | | | | - FunAlias:
+| | | | | | | | - WithExpiry
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - price_WithExpiry
+| | | | | | | - FunAlias:
+| | | | | | | | - FloatingPrice
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - price_FloatingPrice
+| | | | | | | - FunAlias:
+| | | | | | | | - Iceberg
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - price_Iceberg
+| | | | | | | - FunAlias:
+| | | | | | | | - Peg
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - price_Peg
+| | | | | - List:
+| | | | | - List:
+| | | | | - false
+| | | | - PackageDef:
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
 | | | | | | | | - signed
 | | | | | - List:
 | | | | | - Definitions:
@@ -2454,739 +2880,26 @@ Definitions:
 | | | | | - Some:
 | | | | | | - QualifiedName:
 | | | | | | | - List:
-| | | | | | | | - _
+| | | | | | | | - signedVolume
 | | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
-| | | | | | | - PackageDef:
-| | | | | | | | - Some:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - side
-| | | | | | | | - List:
-| | | | | | | | - Definitions:
+| | | | | | | - FunAlias:
+| | | | | | | | - LimitSigned
+| | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - PackageDef:
-| | | | | | | | | | | - Some:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - price
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - Definitions:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - Limit
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - side_price_Limit
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - ImmediateOrCancel
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - side_price_ImmediateOrCancel
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - StopLoss
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - side_price_StopLoss
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - WithExpiry
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - side_price_WithExpiry
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - FloatingPrice
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - side_price_FloatingPrice
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - Iceberg
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - side_price_Iceberg
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - Peg
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - side_price_Peg
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - false
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Limit
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - side_Limit
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - ImmediateOrCancel
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - side_ImmediateOrCancel
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Market
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - side_Market
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - StopLoss
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - side_StopLoss
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - WithExpiry
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - side_WithExpiry
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - FloatingPrice
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - side_FloatingPrice
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Iceberg
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - side_Iceberg
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - FixedBudget
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - side_FixedBudget
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Peg
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - side_Peg
-| | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | - false
-| | | | | | | - PackageDef:
-| | | | | | | | - Some:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - side_price
-| | | | | | | | - List:
-| | | | | | | | - Definitions:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - signedVolume_LimitSigned
+| | | | | | | - FunAlias:
+| | | | | | | | - MarketSigned
+| | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Limit
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - sideprice_Limit
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - ImmediateOrCancel
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - sideprice_ImmediateOrCancel
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - StopLoss
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - sideprice_StopLoss
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - WithExpiry
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - sideprice_WithExpiry
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - FloatingPrice
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - sideprice_FloatingPrice
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Iceberg
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - sideprice_Iceberg
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Peg
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - sideprice_Peg
-| | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | - false
-| | | | | | | - PackageDef:
-| | | | | | | | - Some:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - side_volume
-| | | | | | | | - List:
-| | | | | | | | - Definitions:
-| | | | | | | | | - List:
-| | | | | | | | | | - PackageDef:
-| | | | | | | | | | | - Some:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - price
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - Definitions:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - Limit
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - sidevolume_price_Limit
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - ImmediateOrCancel
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - sidevolume_price_ImmediateOrCancel
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - StopLoss
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - sidevolume_price_StopLoss
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - WithExpiry
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - sidevolume_price_WithExpiry
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - FloatingPrice
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - sidevolume_price_FloatingPrice
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - Iceberg
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - sidevolume_price_Iceberg
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - Peg
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - sidevolume_price_Peg
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - false
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Limit
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - sidevolume_Limit
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - ImmediateOrCancel
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - sidevolume_ImmediateOrCancel
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Market
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - sidevolume_Market
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - StopLoss
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - sidevolume_StopLoss
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - WithExpiry
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - sidevolume_WithExpiry
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - FloatingPrice
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - sidevolume_FloatingPrice
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Iceberg
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - sidevolume_Iceberg
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Peg
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - sidevolume_Peg
-| | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | - false
-| | | | | | | - PackageDef:
-| | | | | | | | - Some:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - price
-| | | | | | | | - List:
-| | | | | | | | - Definitions:
-| | | | | | | | | - List:
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Limit
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - price_Limit
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - ImmediateOrCancel
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - price_ImmediateOrCancel
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - StopLoss
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - price_StopLoss
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - WithExpiry
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - price_WithExpiry
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - FloatingPrice
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - price_FloatingPrice
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Iceberg
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - price_Iceberg
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Peg
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - price_Peg
-| | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | - false
-| | | | | | | - PackageDef:
-| | | | | | | | - Some:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - volume_price
-| | | | | | | | - List:
-| | | | | | | | - Definitions:
-| | | | | | | | | - List:
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Limit
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - volumeprice_Limit
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - ImmediateOrCancel
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - volumeprice_ImmediateOrCancel
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - StopLoss
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - volumeprice_StopLoss
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - WithExpiry
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - volumeprice_WithExpiry
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - FloatingPrice
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - volumeprice_FloatingPrice
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Iceberg
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - volumeprice_Iceberg
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Peg
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - volumeprice_Peg
-| | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | - false
-| | | | | | | - PackageDef:
-| | | | | | | | - Some:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - signedVolume
-| | | | | | | | - List:
-| | | | | | | | - Definitions:
-| | | | | | | | | - List:
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - LimitSigned
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - signedVolume_LimitSigned
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - MarketSigned
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - signedVolume_MarketSigned
-| | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | - false
-| | | | | | | - PackageDef:
-| | | | | | | | - Some:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - price_volume
-| | | | | | | | - List:
-| | | | | | | | - Definitions:
-| | | | | | | | | - List:
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Limit
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - pricevolume_Limit
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - ImmediateOrCancel
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - pricevolume_ImmediateOrCancel
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - StopLoss
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - pricevolume_StopLoss
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - WithExpiry
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - pricevolume_WithExpiry
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - FloatingPrice
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - pricevolume_FloatingPrice
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Iceberg
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - pricevolume_Iceberg
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Peg
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - pricevolume_Peg
-| | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | - false
-| | | | | | | - PackageDef:
-| | | | | | | | - Some:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - volume
-| | | | | | | | - List:
-| | | | | | | | - Definitions:
-| | | | | | | | | - List:
-| | | | | | | | | | - PackageDef:
-| | | | | | | | | | | - Some:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - price
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - Definitions:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - Limit
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - volume_price_Limit
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - ImmediateOrCancel
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - volume_price_ImmediateOrCancel
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - StopLoss
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - volume_price_StopLoss
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - WithExpiry
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - volume_price_WithExpiry
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - FloatingPrice
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - volume_price_FloatingPrice
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - Iceberg
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - volume_price_Iceberg
-| | | | | | | | | | | | | - FunAlias:
-| | | | | | | | | | | | | | - Peg
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | | | | - volume_price_Peg
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - false
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Limit
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - volume_Limit
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - ImmediateOrCancel
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - volume_ImmediateOrCancel
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Market
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - volume_Market
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - StopLoss
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - volume_StopLoss
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - WithExpiry
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - volume_WithExpiry
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - FloatingPrice
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - volume_FloatingPrice
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Iceberg
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - volume_Iceberg
-| | | | | | | | | | - FunAlias:
-| | | | | | | | | | | - Peg
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - _curried
-| | | | | | | | | | | | | - volume_Peg
-| | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | - false
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - signedVolume_MarketSigned
 | | | | | - List:
 | | | | | - List:
 | | | | | - false
@@ -3208,7 +2921,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -3317,7 +3029,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side_volume
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -3381,7 +3092,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side_volume
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -3445,7 +3155,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -3512,7 +3221,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -3568,7 +3276,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -3633,7 +3340,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -3677,7 +3383,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -3733,7 +3438,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - volume
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -3800,7 +3504,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side_price
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -3843,71 +3546,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - StopLoss
 | | | | | | | - FunDef:
-| | | | | | | | - volumeprice_FloatingPrice
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - floatingPrice
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - const
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 10.0
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - proto
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
-| | | | | | | | | | | | | | - volume
-| | | | | | | | | | | | | | - price
-| | | | | | | | | | | | | | - Limit
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - IOrderGenerator
-| | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - order
-| | | | | | | | | | | | - factory
-| | | | | | | | | | | | - on_proto
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FloatingPrice
-| | | | | | | - FunDef:
 | | | | | | | | - volume_price_Peg
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -3917,7 +3555,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - volume
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -3984,7 +3621,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -4040,7 +3676,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side_volume
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -4103,7 +3738,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - volume
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -4148,7 +3782,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side_volume
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -4296,7 +3929,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -4349,7 +3981,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side_volume
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -4402,7 +4033,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -4503,7 +4133,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -4549,70 +4178,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - price_Iceberg
 | | | | | | | - FunDef:
-| | | | | | | | - volumeprice_WithExpiry
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - expiry
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 10.0
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - proto
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
-| | | | | | | | | | | | | | - volume_price
-| | | | | | | | | | | | | | - Limit
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - IOrderGenerator
-| | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - order
-| | | | | | | | | | | | - factory
-| | | | | | | | | | | | - on_proto
-| | | | | | | | | | - List:
-| | | | | | | | | | | - WithExpiry
-| | | | | | | - FunDef:
 | | | | | | | | - side_price_ImmediateOrCancel
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -4622,7 +4187,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -4668,58 +4232,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - price_ImmediateOrCancel
 | | | | | | | - FunDef:
-| | | | | | | | - volumeprice_ImmediateOrCancel
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - proto
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
-| | | | | | | | | | | | | | - volume_price
-| | | | | | | | | | | | | | - Limit
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - IOrderGenerator
-| | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - order
-| | | | | | | | | | | | - factory
-| | | | | | | | | | | | - on_proto
-| | | | | | | | | | - List:
-| | | | | | | | | | | - ImmediateOrCancel
-| | | | | | | - FunDef:
 | | | | | | | | - side_WithExpiry
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -4741,7 +4253,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -4797,7 +4308,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -4853,7 +4363,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side_volume
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -4907,175 +4416,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - price_StopLoss
 | | | | | | | - FunDef:
-| | | | | | | | - pricevolume_StopLoss
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - maxloss
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 0.1
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - proto
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
-| | | | | | | | | | | | | | - price_volume
-| | | | | | | | | | | | | | - Limit
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - IOrderGenerator
-| | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - order
-| | | | | | | | | | | | - factory
-| | | | | | | | | | | | - on_proto
-| | | | | | | | | | - List:
-| | | | | | | | | | | - StopLoss
-| | | | | | | - FunDef:
-| | | | | | | | - pricevolume_ImmediateOrCancel
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - proto
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
-| | | | | | | | | | | | | | - price_volume
-| | | | | | | | | | | | | | - Limit
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - IOrderGenerator
-| | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - order
-| | | | | | | | | | | | - factory
-| | | | | | | | | | | | - on_proto
-| | | | | | | | | | - List:
-| | | | | | | | | | | - ImmediateOrCancel
-| | | | | | | - FunDef:
-| | | | | | | | - pricevolume_Peg
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - proto
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
-| | | | | | | | | | | | | | - volume
-| | | | | | | | | | | | | | - price
-| | | | | | | | | | | | | | - Limit
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - IOrderGenerator
-| | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - order
-| | | | | | | | | | | | - factory
-| | | | | | | | | | | | - on_proto
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Peg
-| | | | | | | - FunDef:
 | | | | | | | | - price_Peg
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -5085,7 +4425,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -5141,7 +4480,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - volume
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -5175,57 +4513,6 @@ Definitions:
 | | | | | | | | | | | | - on_proto
 | | | | | | | | | | - List:
 | | | | | | | | | | | - StopLoss
-| | | | | | | - FunDef:
-| | | | | | | | - volumeprice_Limit
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - side
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - side
-| | | | | | | | | | | | | | - Sell
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - IOrderGenerator
-| | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - order
-| | | | | | | | | | | | - factory
-| | | | | | | | | | | | - curried
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Limit
 | | | | | | | - FunDef:
 | | | | | | | | - sidevolume_price_Limit
 | | | | | | | | - List:
@@ -5298,7 +4585,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side_volume
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -5341,70 +4627,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - StopLoss
 | | | | | | | - FunDef:
-| | | | | | | | - volumeprice_Iceberg
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - lotSize
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 10.0
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - proto
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
-| | | | | | | | | | | | | | - volume_price
-| | | | | | | | | | | | | | - Limit
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - IOrderGenerator
-| | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - order
-| | | | | | | | | | | | - factory
-| | | | | | | | | | | | - on_proto
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Iceberg
-| | | | | | | - FunDef:
 | | | | | | | | - volume_WithExpiry
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -5426,7 +4648,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - volume
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -5482,7 +4703,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side_price
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -5534,7 +4754,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - volume
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -5590,7 +4809,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - volume
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -5690,7 +4908,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - volume
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -5745,7 +4962,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - volume
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -5868,7 +5084,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -5935,7 +5150,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -5971,70 +5185,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - FloatingPrice
 | | | | | | | - FunDef:
-| | | | | | | | - pricevolume_Iceberg
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - lotSize
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 10.0
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - proto
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
-| | | | | | | | | | | | | | - price_volume
-| | | | | | | | | | | | | | - Limit
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - IOrderGenerator
-| | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - order
-| | | | | | | | | | | | - factory
-| | | | | | | | | | | | - on_proto
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Iceberg
-| | | | | | | - FunDef:
 | | | | | | | | - side_price_WithExpiry
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -6056,7 +5206,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -6156,57 +5305,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - price_Limit
 | | | | | | | - FunDef:
-| | | | | | | | - pricevolume_Limit
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - side
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - side
-| | | | | | | | | | | | | | - Sell
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - IOrderGenerator
-| | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - order
-| | | | | | | | | | | | - factory
-| | | | | | | | | | | | - curried
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Limit
-| | | | | | | - FunDef:
 | | | | | | | | - volume_Iceberg
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -6228,7 +5326,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - volume
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -6284,7 +5381,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - volume
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -6395,7 +5491,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -6451,7 +5546,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side_volume
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -6495,70 +5589,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - FloatingPrice
 | | | | | | | - FunDef:
-| | | | | | | | - volumeprice_StopLoss
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - maxloss
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 0.1
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - proto
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
-| | | | | | | | | | | | | | - volume_price
-| | | | | | | | | | | | | | - Limit
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - IOrderGenerator
-| | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - order
-| | | | | | | | | | | | - factory
-| | | | | | | | | | | | - on_proto
-| | | | | | | | | | - List:
-| | | | | | | | | | | - StopLoss
-| | | | | | | - FunDef:
 | | | | | | | | - price_WithExpiry
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -6580,7 +5610,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -6636,7 +5665,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - volume
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -6703,7 +5731,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side_volume
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -6757,59 +5784,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - price_FloatingPrice
 | | | | | | | - FunDef:
-| | | | | | | | - volumeprice_Peg
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - proto
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
-| | | | | | | | | | | | | | - volume
-| | | | | | | | | | | | | | - price
-| | | | | | | | | | | | | | - Limit
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - IOrderGenerator
-| | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - order
-| | | | | | | | | | | | - factory
-| | | | | | | | | | | | - on_proto
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Peg
-| | | | | | | - FunDef:
 | | | | | | | | - sidevolume_price_ImmediateOrCancel
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -6819,7 +5793,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side_volume
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -7041,7 +6014,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side_price
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -7093,7 +6065,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side_volume
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -7179,71 +6150,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - MarketSigned
 | | | | | | | - FunDef:
-| | | | | | | | - pricevolume_FloatingPrice
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - floatingPrice
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - const
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 10.0
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - proto
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
-| | | | | | | | | | | | | | - volume
-| | | | | | | | | | | | | | - price
-| | | | | | | | | | | | | | - Limit
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - IOrderGenerator
-| | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - order
-| | | | | | | | | | | | - factory
-| | | | | | | | | | | | - on_proto
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FloatingPrice
-| | | | | | | - FunDef:
 | | | | | | | | - sideprice_ImmediateOrCancel
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -7253,7 +6159,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side_price
 | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | - List:
@@ -7296,70 +6201,6 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - ImmediateOrCancel
 | | | | | | | - FunDef:
-| | | | | | | | - pricevolume_WithExpiry
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - expiry
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 10.0
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - proto
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
-| | | | | | | | | | | | | | - price_volume
-| | | | | | | | | | | | | | - Limit
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - IOrderGenerator
-| | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - order
-| | | | | | | | | | | | - factory
-| | | | | | | | | | | | - on_proto
-| | | | | | | | | | - List:
-| | | | | | | | | | | - WithExpiry
-| | | | | | | - FunDef:
 | | | | | | | | - side_price_Peg
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -7369,7 +6210,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -7436,7 +6276,6 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | - side_volume
 | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | - Limit
@@ -7544,6 +6383,148 @@ Definitions:
 | | | | | | | | | | | | - curried
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Limit
+| | | | | - List:
+| | | | | - List:
+| | | | | - false
+| | | | - PackageDef:
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - volume
+| | | | | - List:
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - PackageDef:
+| | | | | | | | - Some:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - price
+| | | | | | | | - List:
+| | | | | | | | - Definitions:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Limit
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volume_price_Limit
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - ImmediateOrCancel
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volume_price_ImmediateOrCancel
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - StopLoss
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volume_price_StopLoss
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - WithExpiry
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volume_price_WithExpiry
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - FloatingPrice
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volume_price_FloatingPrice
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Iceberg
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volume_price_Iceberg
+| | | | | | | | | | - FunAlias:
+| | | | | | | | | | | - Peg
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - _curried
+| | | | | | | | | | | | | - volume_price_Peg
+| | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | - false
+| | | | | | | - FunAlias:
+| | | | | | | | - Limit
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - volume_Limit
+| | | | | | | - FunAlias:
+| | | | | | | | - ImmediateOrCancel
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - volume_ImmediateOrCancel
+| | | | | | | - FunAlias:
+| | | | | | | | - Market
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - volume_Market
+| | | | | | | - FunAlias:
+| | | | | | | | - StopLoss
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - volume_StopLoss
+| | | | | | | - FunAlias:
+| | | | | | | | - WithExpiry
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - volume_WithExpiry
+| | | | | | | - FunAlias:
+| | | | | | | | - FloatingPrice
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - volume_FloatingPrice
+| | | | | | | - FunAlias:
+| | | | | | | | - Iceberg
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - volume_Iceberg
+| | | | | | | - FunAlias:
+| | | | | | | | - Peg
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - order
+| | | | | | | | | | - _curried
+| | | | | | | | | | - volume_Peg
 | | | | | - List:
 | | | | | - List:
 | | | | | - false
@@ -7823,7 +6804,6 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - _
 | | | | | | | | | | | - price
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:
@@ -7994,7 +6974,6 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - _
 | | | | | | | | | | | - price
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:
@@ -8511,43 +7490,23 @@ Definitions:
 | | | | | | | | - Some:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - _
+| | | | | | | | | | | - array
 | | | | | | | | - List:
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
-| | | | | | | | | | - PackageDef:
-| | | | | | | | | | | - Some:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - array
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - array_ChooseTheBest
 | | | | | | | | | | | - List:
-| | | | | | | | | | | - Definitions:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FunDef:
-| | | | | | | | | | | | | | - array_ChooseTheBest
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
-| | | | | | | | | | | | | | - Some:
-| | | | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | - Optional
-| | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | | | - List
-| | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | - Optional
+| | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | | | - List:
@@ -8560,40 +7519,40 @@ Definitions:
 | | | | | | | | | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - List
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | | | | - curried
+| | | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - ChooseTheBest
-| | | | | | | | | | | | | - FunDef:
-| | | | | | | | | | | | | | - array_IdentityL
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
-| | | | | | | | | | | | | | - Some:
-| | | | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - curried
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ChooseTheBest
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - array_IdentityL
+| | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | - Optional
-| | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | | | - List
-| | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | - Optional
+| | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | | | - List:
@@ -8606,205 +7565,205 @@ Definitions:
 | | | | | | | | | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - List
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | | | | - curried
+| | | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - IdentityL
+| | | | | | | | | | | - None
 | | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - false
-| | | | | | | | | | - PackageDef:
-| | | | | | | | | | | - Some:
-| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - curried
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | - IdentityL
+| | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | - false
+| | | | | | | - PackageDef:
+| | | | | | | | - Some:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - trader
+| | | | | | | | - List:
+| | | | | | | | - Definitions:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - trader_Efficiency
 | | | | | | | | | | | - List:
-| | | | | | | | | | | - Definitions:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FunDef:
-| | | | | | | | | | | | | | - trader_Efficiency
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
-| | | | | | | | | | | | | | - Some:
-| | | | | | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | - IAccount
-| | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | - IFunction
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Annotation:
-| | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | | | | - curried
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - Efficiency
-| | | | | | | | | | | | | - FunDef:
-| | | | | | | | | | | | | | - trader_Score
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
-| | | | | | | | | | | | | | - Some:
-| | | | | | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | - IAccount
-| | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | - IFunction
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Annotation:
-| | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | | | | - curried
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - Score
-| | | | | | | | | | | | | - FunDef:
-| | | | | | | | | | | | | | - trader_EfficiencyTrend
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Parameter:
-| | | | | | | | | | | | | | | | - alpha
-| | | | | | | | | | | | | | | | - None
-| | | | | | | | | | | | | | | | - Some:
-| | | | | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | | | | - 0.15
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
-| | | | | | | | | | | | | | - Some:
-| | | | | | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | - IAccount
-| | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | - IFunction
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Annotation:
-| | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | | | | - curried
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - EfficiencyTrend
-| | | | | | | | | | | | | - FunDef:
-| | | | | | | | | | | | | | - trader_Unit
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
-| | | | | | | | | | | | | | - Some:
-| | | | | | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | - IAccount
-| | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | - IFunction
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Annotation:
-| | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | | | | - curried
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - Unit
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - false
-| | | | | | | | | | - PackageDef:
+| | | | | | | | | | | - None
 | | | | | | | | | | | - Some:
-| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - FunctionType:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - f
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - Definitions:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FunDef:
-| | | | | | | | | | | | | | - f_Clamp0
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
-| | | | | | | | | | | | | | - Some:
-| | | | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | - Optional
-| | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | | | - IFunction
-| | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | - IAccount
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - curried
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Efficiency
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - trader_Score
+| | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | - IAccount
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - curried
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Score
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - trader_EfficiencyTrend
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - alpha
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | - 0.15
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | - IAccount
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - curried
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - EfficiencyTrend
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - trader_Unit
+| | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | - IAccount
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - curried
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Unit
+| | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | - false
+| | | | | | | - PackageDef:
+| | | | | | | | - Some:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - f
+| | | | | | | | - List:
+| | | | | | | | - Definitions:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - f_Clamp0
+| | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | - Optional
+| | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | | | - List:
@@ -8817,47 +7776,47 @@ Definitions:
 | | | | | | | | | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - IFunction
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | | | | - curried
+| | | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - Clamp0
-| | | | | | | | | | | | | - FunDef:
-| | | | | | | | | | | | | | - f_AtanPow
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Parameter:
-| | | | | | | | | | | | | | | | - base
-| | | | | | | | | | | | | | | | - None
-| | | | | | | | | | | | | | | | - Some:
-| | | | | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | | | | - 1.002
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - curried
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Clamp0
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - f_AtanPow
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - base
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | - 1.002
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
-| | | | | | | | | | | | | | - Some:
-| | | | | | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | - Optional
-| | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | | | - IFunction
-| | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | - Optional
+| | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | | | - List:
@@ -8870,40 +7829,40 @@ Definitions:
 | | | | | | | | | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - IFunction
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | | | | - curried
+| | | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - AtanPow
-| | | | | | | | | | | | | - FunDef:
-| | | | | | | | | | | | | | - f_IdentityF
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
-| | | | | | | | | | | | | | - Some:
-| | | | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - curried
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - AtanPow
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - f_IdentityF
+| | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | - Optional
-| | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | | | - IFunction
-| | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | - Optional
+| | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | | | - List:
@@ -8916,18 +7875,27 @@ Definitions:
 | | | | | | | | | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - IFunction
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | | | | - curried
+| | | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - IdentityF
+| | | | | | | | | | | - None
 | | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - false
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - curried
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IdentityF
 | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | - false
@@ -8935,7 +7903,6 @@ Definitions:
 | | | | | | | | - efficiency
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - _
 | | | | | | | | | | - trader
 | | | | | | | | | | - trader_Efficiency
 | | | | | | | - FunDef:
@@ -8994,14 +7961,12 @@ Definitions:
 | | | | | | | | - score
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - _
 | | | | | | | | | | - trader
 | | | | | | | | | | - trader_Score
 | | | | | | | - FunAlias:
 | | | | | | | | - atanpow
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - _
 | | | | | | | | | | - f
 | | | | | | | | | | - f_AtanPow
 | | | | | | | - FunDef:
@@ -9055,14 +8020,12 @@ Definitions:
 | | | | | | | | - efficiencyTrend
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - _
 | | | | | | | | | | - trader
 | | | | | | | | | | - trader_EfficiencyTrend
 | | | | | | | - FunAlias:
 | | | | | | | | - clamp0
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - _
 | | | | | | | | | | - f
 | | | | | | | | | | - f_Clamp0
 | | | | | | | - FunDef:
@@ -9251,7 +8214,6 @@ Definitions:
 | | | | | | | | - unit
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - _
 | | | | | | | | | | - trader
 | | | | | | | | | | - trader_Unit
 | | | | | | | - FunDef:
@@ -9432,7 +8394,6 @@ Definitions:
 | | | | | | | | - identity_f
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - _
 | | | | | | | | | | - f
 | | | | | | | | | | - f_IdentityF
 | | | | | | | - FunDef:
@@ -9831,89 +8792,78 @@ Definitions:
 | | | | | | | | - Some:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - _
+| | | | | | | | | | | - inner
 | | | | | | | | - List:
 | | | | | | | | - Definitions:
 | | | | | | | | | - List:
-| | | | | | | | | | - PackageDef:
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - inner_Real
+| | | | | | | | | | | - List:
+| | | | | | | | | | | - None
 | | | | | | | | | | | - Some:
-| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - FunctionType:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - inner
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - Definitions:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FunDef:
-| | | | | | | | | | | | | | - inner_Real
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
-| | | | | | | | | | | | | | - Some:
-| | | | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | - Optional
-| | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | | | - ISingleAssetStrategy
-| | | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | - Optional
+| | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | - IAccount
+| | | | | | | | | | | | | | | | | | | - ISingleAssetStrategy
 | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - IAccount
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Annotation:
-| | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | | | | - curried
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - Real
-| | | | | | | | | | | | | - FunDef:
-| | | | | | | | | | | | | | - inner_VirtualMarket
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
-| | | | | | | | | | | | | | - Some:
-| | | | | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - curried
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Real
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - inner_VirtualMarket
+| | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | - Optional
-| | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | | | | - ISingleAssetStrategy
-| | | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | | - Optional
+| | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | | | | - IAccount
+| | | | | | | | | | | | | | | | | | | - ISingleAssetStrategy
 | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | | - IAccount
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Annotation:
-| | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - python
-| | | | | | | | | | | | | | | | | | - curried
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - VirtualMarket
+| | | | | | | | | | | - None
 | | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - false
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - curried
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - VirtualMarket
 | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | - false
@@ -10011,14 +8961,12 @@ Definitions:
 | | | | | | | | - real
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - _
 | | | | | | | | | | - inner
 | | | | | | | | | | - inner_Real
 | | | | | | | - FunAlias:
 | | | | | | | | - virtualMarket
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - _
 | | | | | | | | | | - inner
 | | | | | | | | | | - inner_VirtualMarket
 | | | | | - List:
@@ -10074,7 +9022,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - signedVolume
 | | | | | | | | | | | - MarketSigned
 | | | | | | | | | - List:
@@ -10167,7 +9114,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
@@ -10251,7 +9197,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - account
-| | | | | | | | | | | - _
 | | | | | | | | | | | - inner
 | | | | | | | | | | | - inner_VirtualMarket
 | | | | | | | | | - List:
@@ -10265,7 +9210,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - weight
-| | | | | | | | | | | - _
 | | | | | | | | | | | - trader
 | | | | | | | | | | | - trader_EfficiencyTrend
 | | | | | | | | | - List:
@@ -10324,7 +9268,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
@@ -10414,7 +9357,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - side_price
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:
@@ -10530,7 +9472,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
@@ -10676,7 +9617,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
@@ -10764,7 +9704,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
@@ -10863,7 +9802,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
@@ -10964,7 +9902,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - account
-| | | | | | | | | | | - _
 | | | | | | | | | | | - inner
 | | | | | | | | | | | - inner_VirtualMarket
 | | | | | | | | | - List:
@@ -10977,7 +9914,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - weight
-| | | | | | | | | | | - _
 | | | | | | | | | | | - trader
 | | | | | | | | | | | - trader_EfficiencyTrend
 | | | | | | | | | - List:
@@ -11078,7 +10014,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
@@ -11146,7 +10081,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - account
-| | | | | | | | | | | - _
 | | | | | | | | | | | - inner
 | | | | | | | | | | | - inner_VirtualMarket
 | | | | | | | | | - List:
@@ -11160,7 +10094,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - weight
-| | | | | | | | | | | - _
 | | | | | | | | | | | - trader
 | | | | | | | | | | | - trader_EfficiencyTrend
 | | | | | | | | | - List:
@@ -11174,7 +10107,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - weight
-| | | | | | | | | | | - _
 | | | | | | | | | | | - f
 | | | | | | | | | | | - f_AtanPow
 | | | | | | | | | - List:
@@ -11187,7 +10119,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - weight
-| | | | | | | | | | | - _
 | | | | | | | | | | | - array
 | | | | | | | | | | | - array_IdentityL
 | | | | | | | | | - List:
@@ -11315,7 +10246,6 @@ Definitions:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | | | | - List:
@@ -11399,7 +10329,6 @@ Definitions:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | | | | - List:
@@ -11510,7 +10439,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - side_price
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:
@@ -11753,7 +10681,6 @@ Definitions:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | | | | - List:
@@ -11876,7 +10803,6 @@ Definitions:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | | | | - _
 | | | | | | | | | | | | | | | | | - price
 | | | | | | | | | | | | | | | | | - Limit
 | | | | | | | | | | | | | | | - List:
@@ -11945,7 +10871,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Market
 | | | | | | | | | - List:
@@ -11987,7 +10912,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - signedVolume
 | | | | | | | | | | | - MarketSigned
 | | | | | | | | | - List:

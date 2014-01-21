@@ -327,7 +327,6 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - _
 | | | | | | | | | | | - price
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:
@@ -359,7 +358,6 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - _
 | | | | | | | | | | | - price
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:

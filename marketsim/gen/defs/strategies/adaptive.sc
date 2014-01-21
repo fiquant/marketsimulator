@@ -5,8 +5,8 @@ package strategy
 
     def TradeIfProfitable(
                 inner       = Noise(),
-                account     = account._.inner.inner_VirtualMarket(),
-                performance = weight._.trader.trader_EfficiencyTrend())
+                account     = account.inner.inner_VirtualMarket(),
+                performance = weight.trader.trader_EfficiencyTrend())
 
         =   Suspendable(inner, performance(account(inner)) >= 0)
 
@@ -22,12 +22,12 @@ package strategy
             /** original strategies that can be suspended */
             strategies = [Noise()],
             /** function creating phantom strategy used for efficiency estimation */
-            account    = account._.inner.inner_VirtualMarket(),
+            account    = account.inner.inner_VirtualMarket(),
             /** function estimating is the strategy efficient or not */
-            weight     = weight._.trader.trader_EfficiencyTrend(),
-            normalizer = weight._.f.f_AtanPow(),
+            weight     = weight.trader.trader_EfficiencyTrend(),
+            normalizer = weight.f.f_AtanPow(),
             /** weighting scheme for choosing strategies */
-            corrector  = weight._.array.array_IdentityL()) : ISingleAssetStrategy
+            corrector  = weight.array.array_IdentityL()) : ISingleAssetStrategy
 
     /**
      * A composite strategy initialized with an array of strategies.
@@ -39,9 +39,9 @@ package strategy
             /** original strategies that can be suspended */
             strategies = [Noise()],
             /** function creating phantom strategy used for efficiency estimation */
-            account    = account._.inner.inner_VirtualMarket(),
+            account    = account.inner.inner_VirtualMarket(),
             /** function estimating is the strategy efficient or not */
-            performance= weight._.trader.trader_EfficiencyTrend()) : ISingleAssetStrategy
+            performance= weight.trader.trader_EfficiencyTrend()) : ISingleAssetStrategy
 
     package account
     {
@@ -53,20 +53,20 @@ package strategy
         @curried("inner")
         def VirtualMarket(inner : Optional[ISingleAssetStrategy] = Noise()) : IAccount
 
-        def real = _.inner.inner_Real
-        def virtualMarket = _.inner.inner_VirtualMarket
+        def real = inner.inner_Real
+        def virtualMarket = inner.inner_VirtualMarket
     }
 
     package weight
     {
-        def atanpow = _.f.f_AtanPow
-        def clamp0 = _.f.f_Clamp0
-        def identity_f = _.f.f_IdentityF
+        def atanpow = f.f_AtanPow
+        def clamp0 = f.f_Clamp0
+        def identity_f = f.f_IdentityF
 
-        def score = _.trader.trader_Score
-        def unit = _.trader.trader_Unit
-        def efficiency = _.trader.trader_Efficiency
-        def efficiencyTrend = _.trader.trader_EfficiencyTrend
+        def score = trader.trader_Score
+        def unit = trader.trader_Unit
+        def efficiency = trader.trader_Efficiency
+        def efficiencyTrend = trader.trader_EfficiencyTrend
 
         @curried("f")
         def AtanPow(f : Optional[IFunction[Float]] = constant(), base = 1.002) : IFunction[Float]

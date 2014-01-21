@@ -19,7 +19,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - signedVolume
 | | | | | | | | | | | - MarketSigned
 | | | | | | | | | - List:
@@ -91,7 +90,6 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - order
-| | | | | | | | | | | - _
 | | | | | | | | | | | - signedVolume
 | | | | | | | | | | | - MarketSigned
 | | | | | | | | | - List:

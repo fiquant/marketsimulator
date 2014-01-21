@@ -370,188 +370,121 @@ package math() {
 }
 @category = "Order"
 package order() {
+    package side() {
+        package price() {
+            def Limit = .order._curried.side_price_Limit
+            
+            def ImmediateOrCancel = .order._curried.side_price_ImmediateOrCancel
+            
+            def StopLoss = .order._curried.side_price_StopLoss
+            
+            def WithExpiry = .order._curried.side_price_WithExpiry
+            
+            def FloatingPrice = .order._curried.side_price_FloatingPrice
+            
+            def Iceberg = .order._curried.side_price_Iceberg
+            
+            def Peg = .order._curried.side_price_Peg
+        }
+        def Limit = .order._curried.side_Limit
+        
+        def ImmediateOrCancel = .order._curried.side_ImmediateOrCancel
+        
+        def Market = .order._curried.side_Market
+        
+        def StopLoss = .order._curried.side_StopLoss
+        
+        def WithExpiry = .order._curried.side_WithExpiry
+        
+        def FloatingPrice = .order._curried.side_FloatingPrice
+        
+        def Iceberg = .order._curried.side_Iceberg
+        
+        def FixedBudget = .order._curried.side_FixedBudget
+        
+        def Peg = .order._curried.side_Peg
+    }
+    
+    package side_price() {
+        def Limit = .order._curried.sideprice_Limit
+        
+        def ImmediateOrCancel = .order._curried.sideprice_ImmediateOrCancel
+        
+        def StopLoss = .order._curried.sideprice_StopLoss
+        
+        def WithExpiry = .order._curried.sideprice_WithExpiry
+        
+        def FloatingPrice = .order._curried.sideprice_FloatingPrice
+        
+        def Iceberg = .order._curried.sideprice_Iceberg
+        
+        def Peg = .order._curried.sideprice_Peg
+    }
+    
+    package side_volume() {
+        package price() {
+            def Limit = .order._curried.sidevolume_price_Limit
+            
+            def ImmediateOrCancel = .order._curried.sidevolume_price_ImmediateOrCancel
+            
+            def StopLoss = .order._curried.sidevolume_price_StopLoss
+            
+            def WithExpiry = .order._curried.sidevolume_price_WithExpiry
+            
+            def FloatingPrice = .order._curried.sidevolume_price_FloatingPrice
+            
+            def Iceberg = .order._curried.sidevolume_price_Iceberg
+            
+            def Peg = .order._curried.sidevolume_price_Peg
+        }
+        def Limit = .order._curried.sidevolume_Limit
+        
+        def ImmediateOrCancel = .order._curried.sidevolume_ImmediateOrCancel
+        
+        def Market = .order._curried.sidevolume_Market
+        
+        def StopLoss = .order._curried.sidevolume_StopLoss
+        
+        def WithExpiry = .order._curried.sidevolume_WithExpiry
+        
+        def FloatingPrice = .order._curried.sidevolume_FloatingPrice
+        
+        def Iceberg = .order._curried.sidevolume_Iceberg
+        
+        def Peg = .order._curried.sidevolume_Peg
+    }
+    
+    package price() {
+        def Limit = .order._curried.price_Limit
+        
+        def ImmediateOrCancel = .order._curried.price_ImmediateOrCancel
+        
+        def StopLoss = .order._curried.price_StopLoss
+        
+        def WithExpiry = .order._curried.price_WithExpiry
+        
+        def FloatingPrice = .order._curried.price_FloatingPrice
+        
+        def Iceberg = .order._curried.price_Iceberg
+        
+        def Peg = .order._curried.price_Peg
+    }
+    
     package signed() {
         def Limit = .order.LimitSigned
         
         def Market = .order.MarketSigned
     }
     
-    package _() {
-        package side() {
-            package price() {
-                def Limit = .order._curried.side_price_Limit
-                
-                def ImmediateOrCancel = .order._curried.side_price_ImmediateOrCancel
-                
-                def StopLoss = .order._curried.side_price_StopLoss
-                
-                def WithExpiry = .order._curried.side_price_WithExpiry
-                
-                def FloatingPrice = .order._curried.side_price_FloatingPrice
-                
-                def Iceberg = .order._curried.side_price_Iceberg
-                
-                def Peg = .order._curried.side_price_Peg
-            }
-            def Limit = .order._curried.side_Limit
-            
-            def ImmediateOrCancel = .order._curried.side_ImmediateOrCancel
-            
-            def Market = .order._curried.side_Market
-            
-            def StopLoss = .order._curried.side_StopLoss
-            
-            def WithExpiry = .order._curried.side_WithExpiry
-            
-            def FloatingPrice = .order._curried.side_FloatingPrice
-            
-            def Iceberg = .order._curried.side_Iceberg
-            
-            def FixedBudget = .order._curried.side_FixedBudget
-            
-            def Peg = .order._curried.side_Peg
-        }
+    package signedVolume() {
+        def LimitSigned = .order._curried.signedVolume_LimitSigned
         
-        package side_price() {
-            def Limit = .order._curried.sideprice_Limit
-            
-            def ImmediateOrCancel = .order._curried.sideprice_ImmediateOrCancel
-            
-            def StopLoss = .order._curried.sideprice_StopLoss
-            
-            def WithExpiry = .order._curried.sideprice_WithExpiry
-            
-            def FloatingPrice = .order._curried.sideprice_FloatingPrice
-            
-            def Iceberg = .order._curried.sideprice_Iceberg
-            
-            def Peg = .order._curried.sideprice_Peg
-        }
-        
-        package side_volume() {
-            package price() {
-                def Limit = .order._curried.sidevolume_price_Limit
-                
-                def ImmediateOrCancel = .order._curried.sidevolume_price_ImmediateOrCancel
-                
-                def StopLoss = .order._curried.sidevolume_price_StopLoss
-                
-                def WithExpiry = .order._curried.sidevolume_price_WithExpiry
-                
-                def FloatingPrice = .order._curried.sidevolume_price_FloatingPrice
-                
-                def Iceberg = .order._curried.sidevolume_price_Iceberg
-                
-                def Peg = .order._curried.sidevolume_price_Peg
-            }
-            def Limit = .order._curried.sidevolume_Limit
-            
-            def ImmediateOrCancel = .order._curried.sidevolume_ImmediateOrCancel
-            
-            def Market = .order._curried.sidevolume_Market
-            
-            def StopLoss = .order._curried.sidevolume_StopLoss
-            
-            def WithExpiry = .order._curried.sidevolume_WithExpiry
-            
-            def FloatingPrice = .order._curried.sidevolume_FloatingPrice
-            
-            def Iceberg = .order._curried.sidevolume_Iceberg
-            
-            def Peg = .order._curried.sidevolume_Peg
-        }
-        
-        package price() {
-            def Limit = .order._curried.price_Limit
-            
-            def ImmediateOrCancel = .order._curried.price_ImmediateOrCancel
-            
-            def StopLoss = .order._curried.price_StopLoss
-            
-            def WithExpiry = .order._curried.price_WithExpiry
-            
-            def FloatingPrice = .order._curried.price_FloatingPrice
-            
-            def Iceberg = .order._curried.price_Iceberg
-            
-            def Peg = .order._curried.price_Peg
-        }
-        
-        package volume_price() {
-            def Limit = .order._curried.volumeprice_Limit
-            
-            def ImmediateOrCancel = .order._curried.volumeprice_ImmediateOrCancel
-            
-            def StopLoss = .order._curried.volumeprice_StopLoss
-            
-            def WithExpiry = .order._curried.volumeprice_WithExpiry
-            
-            def FloatingPrice = .order._curried.volumeprice_FloatingPrice
-            
-            def Iceberg = .order._curried.volumeprice_Iceberg
-            
-            def Peg = .order._curried.volumeprice_Peg
-        }
-        
-        package signedVolume() {
-            def LimitSigned = .order._curried.signedVolume_LimitSigned
-            
-            def MarketSigned = .order._curried.signedVolume_MarketSigned
-        }
-        
-        package price_volume() {
-            def Limit = .order._curried.pricevolume_Limit
-            
-            def ImmediateOrCancel = .order._curried.pricevolume_ImmediateOrCancel
-            
-            def StopLoss = .order._curried.pricevolume_StopLoss
-            
-            def WithExpiry = .order._curried.pricevolume_WithExpiry
-            
-            def FloatingPrice = .order._curried.pricevolume_FloatingPrice
-            
-            def Iceberg = .order._curried.pricevolume_Iceberg
-            
-            def Peg = .order._curried.pricevolume_Peg
-        }
-        
-        package volume() {
-            package price() {
-                def Limit = .order._curried.volume_price_Limit
-                
-                def ImmediateOrCancel = .order._curried.volume_price_ImmediateOrCancel
-                
-                def StopLoss = .order._curried.volume_price_StopLoss
-                
-                def WithExpiry = .order._curried.volume_price_WithExpiry
-                
-                def FloatingPrice = .order._curried.volume_price_FloatingPrice
-                
-                def Iceberg = .order._curried.volume_price_Iceberg
-                
-                def Peg = .order._curried.volume_price_Peg
-            }
-            def Limit = .order._curried.volume_Limit
-            
-            def ImmediateOrCancel = .order._curried.volume_ImmediateOrCancel
-            
-            def Market = .order._curried.volume_Market
-            
-            def StopLoss = .order._curried.volume_StopLoss
-            
-            def WithExpiry = .order._curried.volume_WithExpiry
-            
-            def FloatingPrice = .order._curried.volume_FloatingPrice
-            
-            def Iceberg = .order._curried.volume_Iceberg
-            
-            def Peg = .order._curried.volume_Peg
-        }
+        def MarketSigned = .order._curried.signedVolume_MarketSigned
     }
     
     package _curried() {
         @python.order.factory.on_proto("ImmediateOrCancel")
-        def side_ImmediateOrCancel(proto = _.side.Limit()) : (() => .Side) => .IOrderGenerator
+        def side_ImmediateOrCancel(proto = side.Limit()) : (() => .Side) => .IOrderGenerator
             
         
         @python.order.factory.curried("price_Limit")
@@ -560,73 +493,68 @@ package order() {
         
         @python.order.factory.on_proto("Iceberg")
         def sidevolume_Iceberg(lotSize = constant(10.0),
-                               proto = _.side_volume.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+                               proto = side_volume.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("WithExpiry")
         def sidevolume_WithExpiry(expiry = constant(10.0),
-                                  proto = _.side_volume.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+                                  proto = side_volume.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("price_StopLoss")
         def side_price_StopLoss(maxloss = constant(0.1),
-                                proto = _.side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
+                                proto = side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.on_proto("Iceberg")
         def price_Iceberg(lotSize = constant(10.0),
-                          proto = _.price.Limit()) : (() => .Float) => .IOrderGenerator
+                          proto = price.Limit()) : (() => .Float) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("FloatingPrice")
         def sideprice_FloatingPrice(floatingPrice = const(10.0),
-                                    proto = _.side.price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+                                    proto = side.price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("StopLoss")
         def price_StopLoss(maxloss = constant(0.1),
-                           proto = _.price.Limit()) : (() => .Float) => .IOrderGenerator
+                           proto = price.Limit()) : (() => .Float) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("ImmediateOrCancel")
-        def price_ImmediateOrCancel(proto = _.price.Limit()) : (() => .Float) => .IOrderGenerator
+        def price_ImmediateOrCancel(proto = price.Limit()) : (() => .Float) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("price_WithExpiry")
         def volume_price_WithExpiry(expiry = constant(10.0),
-                                    proto = _.volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
+                                    proto = volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.on_proto("StopLoss")
         def sideprice_StopLoss(maxloss = constant(0.1),
-                               proto = _.side_price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
-            
-        
-        @python.order.factory.on_proto("FloatingPrice")
-        def volumeprice_FloatingPrice(floatingPrice = const(10.0),
-                                      proto = _.volume.price.Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
+                               proto = side_price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("price_Peg")
-        def volume_price_Peg(proto = _.volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
+        def volume_price_Peg(proto = volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.on_proto("Iceberg")
         def side_Iceberg(lotSize = constant(10.0),
-                         proto = _.side.Limit()) : (() => .Side) => .IOrderGenerator
+                         proto = side.Limit()) : (() => .Side) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("price_WithExpiry")
         def sidevolume_price_WithExpiry(expiry = constant(10.0),
-                                        proto = _.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
+                                        proto = side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.on_proto("Peg")
-        def volume_Peg(proto = _.volume.price.Limit()) : (() => .Float) => .IOrderGenerator
+        def volume_Peg(proto = volume.price.Limit()) : (() => .Float) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("ImmediateOrCancel")
-        def sidevolume_ImmediateOrCancel(proto = _.side_volume.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+        def sidevolume_ImmediateOrCancel(proto = side_volume.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         @python.order.factory.curried("FixedBudget")
@@ -638,15 +566,15 @@ package order() {
             
         
         @python.order.factory.on_proto("Peg")
-        def sideprice_Peg(proto = _.side.price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+        def sideprice_Peg(proto = side.price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("Peg")
-        def sidevolume_Peg(proto = _.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+        def sidevolume_Peg(proto = side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("Peg")
-        def side_Peg(proto = _.side.price.Limit()) : (() => .Side) => .IOrderGenerator
+        def side_Peg(proto = side.price.Limit()) : (() => .Side) => .IOrderGenerator
             
         
         @python.order.factory.curried("LimitSigned")
@@ -655,61 +583,35 @@ package order() {
         
         @python.order.factory.on_proto("price_Iceberg")
         def side_price_Iceberg(lotSize = constant(10.0),
-                               proto = _.side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
-            
-        
-        @python.order.factory.on_proto("WithExpiry")
-        def volumeprice_WithExpiry(expiry = constant(10.0),
-                                   proto = _.volume_price.Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
+                               proto = side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.on_proto("price_ImmediateOrCancel")
-        def side_price_ImmediateOrCancel(proto = _.side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
-            
-        
-        @python.order.factory.on_proto("ImmediateOrCancel")
-        def volumeprice_ImmediateOrCancel(proto = _.volume_price.Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
+        def side_price_ImmediateOrCancel(proto = side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.on_proto("WithExpiry")
         def side_WithExpiry(expiry = constant(10.0),
-                            proto = _.side.Limit()) : (() => .Side) => .IOrderGenerator
+                            proto = side.Limit()) : (() => .Side) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("StopLoss")
         def side_StopLoss(maxloss = constant(0.1),
-                          proto = _.side.Limit()) : (() => .Side) => .IOrderGenerator
+                          proto = side.Limit()) : (() => .Side) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("price_StopLoss")
         def sidevolume_price_StopLoss(maxloss = constant(0.1),
-                                      proto = _.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
-            
-        
-        @python.order.factory.on_proto("StopLoss")
-        def pricevolume_StopLoss(maxloss = constant(0.1),
-                                 proto = _.price_volume.Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
-            
-        
-        @python.order.factory.on_proto("ImmediateOrCancel")
-        def pricevolume_ImmediateOrCancel(proto = _.price_volume.Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
+                                      proto = side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.on_proto("Peg")
-        def pricevolume_Peg(proto = _.volume.price.Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
-            
-        
-        @python.order.factory.on_proto("Peg")
-        def price_Peg(proto = _.price.Limit()) : (() => .Float) => .IOrderGenerator
+        def price_Peg(proto = price.Limit()) : (() => .Float) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("StopLoss")
         def volume_StopLoss(maxloss = constant(0.1),
-                            proto = _.volume.Limit()) : (() => .Float) => .IOrderGenerator
-            
-        
-        @python.order.factory.curried("Limit")
-        def volumeprice_Limit(side = side.Sell()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
+                            proto = volume.Limit()) : (() => .Float) => .IOrderGenerator
             
         
         @python.order.factory.curried("price_Limit")
@@ -718,31 +620,26 @@ package order() {
         
         @python.order.factory.on_proto("StopLoss")
         def sidevolume_StopLoss(maxloss = constant(0.1),
-                                proto = _.side_volume.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
-            
-        
-        @python.order.factory.on_proto("Iceberg")
-        def volumeprice_Iceberg(lotSize = constant(10.0),
-                                proto = _.volume_price.Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
+                                proto = side_volume.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("WithExpiry")
         def volume_WithExpiry(expiry = constant(10.0),
-                              proto = _.volume.Limit()) : (() => .Float) => .IOrderGenerator
+                              proto = volume.Limit()) : (() => .Float) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("WithExpiry")
         def sideprice_WithExpiry(expiry = constant(10.0),
-                                 proto = _.side_price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+                                 proto = side_price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("ImmediateOrCancel")
-        def volume_ImmediateOrCancel(proto = _.volume.Limit()) : (() => .Float) => .IOrderGenerator
+        def volume_ImmediateOrCancel(proto = volume.Limit()) : (() => .Float) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("FloatingPrice")
         def volume_FloatingPrice(floatingPrice = const(10.0),
-                                 proto = _.volume.price.Limit()) : (() => .Float) => .IOrderGenerator
+                                 proto = volume.price.Limit()) : (() => .Float) => .IOrderGenerator
             
         
         @python.order.factory.curried("Market")
@@ -751,11 +648,11 @@ package order() {
         
         @python.order.factory.on_proto("price_StopLoss")
         def volume_price_StopLoss(maxloss = constant(0.1),
-                                  proto = _.volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
+                                  proto = volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.on_proto("price_ImmediateOrCancel")
-        def volume_price_ImmediateOrCancel(proto = _.volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
+        def volume_price_ImmediateOrCancel(proto = volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.curried("Limit")
@@ -765,40 +662,31 @@ package order() {
         
         @python.order.factory.on_proto("price_FloatingPrice")
         def side_price_FloatingPrice(floatingPrice = const(10.0),
-                                     proto = _.side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
+                                     proto = side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.on_proto("FloatingPrice")
         def side_FloatingPrice(floatingPrice = const(10.0),
-                               proto = _.side.price.Limit()) : (() => .Side) => .IOrderGenerator
-            
-        
-        @python.order.factory.on_proto("Iceberg")
-        def pricevolume_Iceberg(lotSize = constant(10.0),
-                                proto = _.price_volume.Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
+                               proto = side.price.Limit()) : (() => .Side) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("price_WithExpiry")
         def side_price_WithExpiry(expiry = constant(10.0),
-                                  proto = _.side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
+                                  proto = side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.curried("price_Limit")
         def side_price_Limit(volume = constant(1.0)) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
             
         
-        @python.order.factory.curried("Limit")
-        def pricevolume_Limit(side = side.Sell()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
-            
-        
         @python.order.factory.on_proto("Iceberg")
         def volume_Iceberg(lotSize = constant(10.0),
-                           proto = _.volume.Limit()) : (() => .Float) => .IOrderGenerator
+                           proto = volume.Limit()) : (() => .Float) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("price_FloatingPrice")
         def volume_price_FloatingPrice(floatingPrice = const(10.0),
-                                       proto = _.volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
+                                       proto = volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.curried("Market")
@@ -807,40 +695,31 @@ package order() {
         
         @python.order.factory.on_proto("FloatingPrice")
         def price_FloatingPrice(floatingPrice = const(10.0),
-                                proto = _.price.Limit()) : (() => .Float) => .IOrderGenerator
+                                proto = price.Limit()) : (() => .Float) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("FloatingPrice")
         def sidevolume_FloatingPrice(floatingPrice = const(10.0),
-                                     proto = _.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
-            
-        
-        @python.order.factory.on_proto("StopLoss")
-        def volumeprice_StopLoss(maxloss = constant(0.1),
-                                 proto = _.volume_price.Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
+                                     proto = side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("WithExpiry")
         def price_WithExpiry(expiry = constant(10.0),
-                             proto = _.price.Limit()) : (() => .Float) => .IOrderGenerator
+                             proto = price.Limit()) : (() => .Float) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("price_Iceberg")
         def volume_price_Iceberg(lotSize = constant(10.0),
-                                 proto = _.volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
+                                 proto = volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.on_proto("price_FloatingPrice")
         def sidevolume_price_FloatingPrice(floatingPrice = const(10.0),
-                                           proto = _.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
-            
-        
-        @python.order.factory.on_proto("Peg")
-        def volumeprice_Peg(proto = _.volume.price.Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
+                                           proto = side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.on_proto("price_ImmediateOrCancel")
-        def sidevolume_price_ImmediateOrCancel(proto = _.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
+        def sidevolume_price_ImmediateOrCancel(proto = side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.curried("Market")
@@ -858,44 +737,67 @@ package order() {
         
         @python.order.factory.on_proto("Iceberg")
         def sideprice_Iceberg(lotSize = constant(10.0),
-                              proto = _.side_price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+                              proto = side_price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("price_Peg")
-        def sidevolume_price_Peg(proto = _.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
+        def sidevolume_price_Peg(proto = side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.curried("MarketSigned")
         def signedVolume_MarketSigned() : (() => .Float) => .IOrderGenerator
             
         
-        @python.order.factory.on_proto("FloatingPrice")
-        def pricevolume_FloatingPrice(floatingPrice = const(10.0),
-                                      proto = _.volume.price.Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
-            
-        
         @python.order.factory.on_proto("ImmediateOrCancel")
-        def sideprice_ImmediateOrCancel(proto = _.side_price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
-            
-        
-        @python.order.factory.on_proto("WithExpiry")
-        def pricevolume_WithExpiry(expiry = constant(10.0),
-                                   proto = _.price_volume.Limit()) : ((() => .Float),(() => .Float)) => .IOrderGenerator
+        def sideprice_ImmediateOrCancel(proto = side_price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
             
         
         @python.order.factory.on_proto("price_Peg")
-        def side_price_Peg(proto = _.side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
+        def side_price_Peg(proto = side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.on_proto("price_Iceberg")
         def sidevolume_price_Iceberg(lotSize = constant(10.0),
-                                     proto = _.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
+                                     proto = side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
             
         
         @python.order.factory.curried("Limit")
         def volume_Limit(side = side.Sell(),
                          price = constant(100.0)) : (() => .Float) => .IOrderGenerator
             
+    }
+    
+    package volume() {
+        package price() {
+            def Limit = .order._curried.volume_price_Limit
+            
+            def ImmediateOrCancel = .order._curried.volume_price_ImmediateOrCancel
+            
+            def StopLoss = .order._curried.volume_price_StopLoss
+            
+            def WithExpiry = .order._curried.volume_price_WithExpiry
+            
+            def FloatingPrice = .order._curried.volume_price_FloatingPrice
+            
+            def Iceberg = .order._curried.volume_price_Iceberg
+            
+            def Peg = .order._curried.volume_price_Peg
+        }
+        def Limit = .order._curried.volume_Limit
+        
+        def ImmediateOrCancel = .order._curried.volume_ImmediateOrCancel
+        
+        def Market = .order._curried.volume_Market
+        
+        def StopLoss = .order._curried.volume_StopLoss
+        
+        def WithExpiry = .order._curried.volume_WithExpiry
+        
+        def FloatingPrice = .order._curried.volume_FloatingPrice
+        
+        def Iceberg = .order._curried.volume_Iceberg
+        
+        def Peg = .order._curried.volume_Peg
     }
     @python.order.factory("order.limit.Order_Impl")
     def Limit(side = side.Sell(),
@@ -928,7 +830,7 @@ package order() {
     
     @python.order.factory("order.meta.floating_price.Factory_Impl")
     def FloatingPrice(floatingPrice = const(10.0),
-                      proto = _.price.Limit()) : IOrderGenerator
+                      proto = price.Limit()) : IOrderGenerator
         
     
     @python.order.factory("order.meta.iceberg.Order_Impl")
@@ -947,7 +849,7 @@ package order() {
         
     
     @python.order.factory("order.meta.peg.Factory_Impl")
-    def Peg(proto = _.price.Limit()) : IOrderGenerator
+    def Peg(proto = price.Limit()) : IOrderGenerator
         
 }
 @category = "Strategy"
@@ -988,67 +890,65 @@ package strategy() {@category = "Side function"
     }
     
     package weight() {
-        package _() {
-            package array() {
-                @python.curried("ChooseTheBest")
-                def array_ChooseTheBest() : .Optional[.List[.Float]] => .List[.Float]
-                    
+        package array() {
+            @python.curried("ChooseTheBest")
+            def array_ChooseTheBest() : .Optional[.List[.Float]] => .List[.Float]
                 
-                @python.curried("IdentityL")
-                def array_IdentityL() : .Optional[.List[.Float]] => .List[.Float]
-                    
-            }
             
-            package trader() {
-                @python.curried("Efficiency")
-                def trader_Efficiency() : .IAccount => .IFunction[.Float]
-                    
+            @python.curried("IdentityL")
+            def array_IdentityL() : .Optional[.List[.Float]] => .List[.Float]
                 
-                @python.curried("Score")
-                def trader_Score() : .IAccount => .IFunction[.Float]
-                    
-                
-                @python.curried("EfficiencyTrend")
-                def trader_EfficiencyTrend(alpha = 0.15) : .IAccount => .IFunction[.Float]
-                    
-                
-                @python.curried("Unit")
-                def trader_Unit() : .IAccount => .IFunction[.Float]
-                    
-            }
-            
-            package f() {
-                @python.curried("Clamp0")
-                def f_Clamp0() : .Optional[.IFunction[.Float]] => .IFunction[.Float]
-                    
-                
-                @python.curried("AtanPow")
-                def f_AtanPow(base = 1.002) : .Optional[.IFunction[.Float]] => .IFunction[.Float]
-                    
-                
-                @python.curried("IdentityF")
-                def f_IdentityF() : .Optional[.IFunction[.Float]] => .IFunction[.Float]
-                    
-            }
         }
-        def efficiency = _.trader.trader_Efficiency
+        
+        package trader() {
+            @python.curried("Efficiency")
+            def trader_Efficiency() : .IAccount => .IFunction[.Float]
+                
+            
+            @python.curried("Score")
+            def trader_Score() : .IAccount => .IFunction[.Float]
+                
+            
+            @python.curried("EfficiencyTrend")
+            def trader_EfficiencyTrend(alpha = 0.15) : .IAccount => .IFunction[.Float]
+                
+            
+            @python.curried("Unit")
+            def trader_Unit() : .IAccount => .IFunction[.Float]
+                
+        }
+        
+        package f() {
+            @python.curried("Clamp0")
+            def f_Clamp0() : .Optional[.IFunction[.Float]] => .IFunction[.Float]
+                
+            
+            @python.curried("AtanPow")
+            def f_AtanPow(base = 1.002) : .Optional[.IFunction[.Float]] => .IFunction[.Float]
+                
+            
+            @python.curried("IdentityF")
+            def f_IdentityF() : .Optional[.IFunction[.Float]] => .IFunction[.Float]
+                
+        }
+        def efficiency = trader.trader_Efficiency
         
         @python.intrinsic("strategy.weight._ChooseTheBest_Impl")
         @curried("array")
         def ChooseTheBest(array : Optional[List[Float]] = []) : List[Float]
             
         
-        def score = _.trader.trader_Score
+        def score = trader.trader_Score
         
-        def atanpow = _.f.f_AtanPow
+        def atanpow = f.f_AtanPow
         
         @curried("trader")
         def Efficiency(trader : IAccount = trader.SingleProxy()) : IFunction[Float]
              = trader.Efficiency(trader)
         
-        def efficiencyTrend = _.trader.trader_EfficiencyTrend
+        def efficiencyTrend = trader.trader_EfficiencyTrend
         
-        def clamp0 = _.f.f_Clamp0
+        def clamp0 = f.f_Clamp0
         
         @python.intrinsic("strategy.weight._Score_Impl")
         @curried("trader")
@@ -1064,7 +964,7 @@ package strategy() {@category = "Side function"
                             alpha = 0.15) : IFunction[Float]
              = math.Derivative(math.EW.Avg(trader.Efficiency(trader),alpha))
         
-        def unit = _.trader.trader_Unit
+        def unit = trader.trader_Unit
         
         @curried("trader")
         def Unit(trader : IAccount = trader.SingleProxy()) : IFunction[Float]
@@ -1080,7 +980,7 @@ package strategy() {@category = "Side function"
         def IdentityL(array : Optional[List[Float]] = []) : List[Float]
             
         
-        def identity_f = _.f.f_IdentityF
+        def identity_f = f.f_IdentityF
         
         @curried("f")
         def IdentityF(f : Optional[IFunction[Float]] = constant()) : IFunction[Float]
@@ -1113,16 +1013,14 @@ package strategy() {@category = "Side function"
     }
     
     package account() {
-        package _() {
-            package inner() {
-                @python.curried("Real")
-                def inner_Real() : .Optional[.ISingleAssetStrategy] => .IAccount
-                    
+        package inner() {
+            @python.curried("Real")
+            def inner_Real() : .Optional[.ISingleAssetStrategy] => .IAccount
                 
-                @python.curried("VirtualMarket")
-                def inner_VirtualMarket() : .Optional[.ISingleAssetStrategy] => .IAccount
-                    
-            }
+            
+            @python.curried("VirtualMarket")
+            def inner_VirtualMarket() : .Optional[.ISingleAssetStrategy] => .IAccount
+                
         }
         @python.intrinsic("strategy.account._Account_Impl")
         @curried("inner")
@@ -1134,16 +1032,16 @@ package strategy() {@category = "Side function"
         def VirtualMarket(inner : Optional[ISingleAssetStrategy] = Noise()) : IAccount
             
         
-        def real = _.inner.inner_Real
+        def real = inner.inner_Real
         
-        def virtualMarket = _.inner.inner_VirtualMarket
+        def virtualMarket = inner.inner_VirtualMarket
     }
     @python.intrinsic("strategy.combine._Combine_Impl")
     def Combine(A = Noise(),
                 B = Noise()) : ISingleAssetStrategy
         
     
-    def RSI_linear(orderFactory = order._.signedVolume.MarketSigned(),
+    def RSI_linear(orderFactory = order.signedVolume.MarketSigned(),
                    alpha = 1.0/14,
                    k = const(-0.04),
                    timeframe = 1.0)
@@ -1157,7 +1055,7 @@ package strategy() {@category = "Side function"
      * asset *B* changes.
      */
     def PairTrading(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-                    /** order factory function*/ orderFactory = order._.side.Market(),
+                    /** order factory function*/ orderFactory = order.side.Market(),
                     /** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn = orderbook.OfTrader(),
                     /** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0)
          = Generic(orderFactory(side.PairTrading(bookToDependOn,factor)),eventGen)
@@ -1168,8 +1066,8 @@ package strategy() {@category = "Side function"
      */
     @python.intrinsic("strategy.choose_the_best._ChooseTheBest_Impl")
     def ChooseTheBest(/** original strategies that can be suspended */ strategies = [Noise()],
-                      /** function creating phantom strategy used for efficiency estimation */ account = account._.inner.inner_VirtualMarket(),
-                      /** function estimating is the strategy efficient or not */ performance = weight._.trader.trader_EfficiencyTrend()) : ISingleAssetStrategy
+                      /** function creating phantom strategy used for efficiency estimation */ account = account.inner.inner_VirtualMarket(),
+                      /** function estimating is the strategy efficient or not */ performance = weight.trader.trader_EfficiencyTrend()) : ISingleAssetStrategy
         
     
     /** Signal strategy listens to some discrete signal
@@ -1177,7 +1075,7 @@ package strategy() {@category = "Side function"
      * When the signal gets lower than -threshold the strategy starts to sell.
      */
     def Signal(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-               /** order factory function*/ orderFactory = order._.side.Market(),
+               /** order factory function*/ orderFactory = order.side.Market(),
                /** signal to be listened to */ signal = constant(0.0),
                /** threshold when the trader starts to act */ threshold = 0.7)
          = Generic(orderFactory(side.Signal(signal,threshold)),eventGen)
@@ -1185,7 +1083,7 @@ package strategy() {@category = "Side function"
     /** Liquidity provider for two sides
      */
     def LiquidityProvider(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-                          /** order factory function*/ orderFactory = order._.side_price.Limit(),
+                          /** order factory function*/ orderFactory = order.side_price.Limit(),
                           /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
                           /** defines multipliers for current asset price when price of
                             *                    order to create is calculated*/ priceDistr = math.random.lognormvariate(0.0,0.1))
@@ -1197,7 +1095,7 @@ package strategy() {@category = "Side function"
      * when the first is lower than the second one it sells
      */
     def CrossingAverages(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-                         /** order factory function*/ orderFactory = order._.side.Market(),
+                         /** order factory function*/ orderFactory = order.side.Market(),
                          /** parameter |alpha| for exponentially weighted moving average 1 */ ewma_alpha_1 = 0.15,
                          /** parameter |alpha| for exponentially weighted moving average 2 */ ewma_alpha_2 = 0.015,
                          /** threshold when the trader starts to act */ threshold = 0.0)
@@ -1216,7 +1114,7 @@ package strategy() {@category = "Side function"
      * derivative at moments of time given by *eventGen*.
      */
     def TrendFollower(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-                      /** order factory function*/ orderFactory = order._.side.Market(),
+                      /** order factory function*/ orderFactory = order.side.Market(),
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15,
                       /** threshold when the trader starts to act */ threshold = 0.0)
          = Generic(orderFactory(side.TrendFollower(ewma_alpha,threshold)),eventGen)
@@ -1226,7 +1124,7 @@ package strategy() {@category = "Side function"
      * it starts to buy the asset and if the price is higher it starts to sell the asset.
      */
     def FundamentalValue(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-                         /** order factory function*/ orderFactory = order._.side.Market(),
+                         /** order factory function*/ orderFactory = order.side.Market(),
                          /** defines fundamental value */ fundamentalValue = constant(100.0))
          = Generic(orderFactory(side.FundamentalValue(fundamentalValue)),eventGen)
     
@@ -1235,15 +1133,15 @@ package strategy() {@category = "Side function"
         
     
     def RSIbis(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-               /** order factory function*/ orderFactory = order._.side.Market(),
+               /** order factory function*/ orderFactory = order.side.Market(),
                /** parameter |alpha| for exponentially weighted moving average */ alpha = 1.0/14,
                timeframe = 1.0,
                threshold = 30.0)
          = Generic(orderFactory(side.Signal(50.0-math.RSI(orderbook.OfTrader(),timeframe,alpha),50.0-threshold)),eventGen)
     
     def TradeIfProfitable(inner = Noise(),
-                          account = account._.inner.inner_VirtualMarket(),
-                          performance = weight._.trader.trader_EfficiencyTrend())
+                          account = account.inner.inner_VirtualMarket(),
+                          performance = weight.trader.trader_EfficiencyTrend())
          = Suspendable(inner,performance(account(inner))>=0)
     
     @python.intrinsic("strategy.combine._Array_Impl")
@@ -1256,7 +1154,7 @@ package strategy() {@category = "Side function"
      * it buys the asset and if the price is higher it sells the asset.
      */
     def MeanReversion(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-                      /** order factory function*/ orderFactory = order._.side.Market(),
+                      /** order factory function*/ orderFactory = order.side.Market(),
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15)
          = Generic(orderFactory(side.MeanReversion(ewma_alpha)),eventGen)
     
@@ -1268,10 +1166,10 @@ package strategy() {@category = "Side function"
      */
     @python.intrinsic("strategy.multiarmed_bandit._MultiarmedBandit2_Impl")
     def MultiArmedBandit(/** original strategies that can be suspended */ strategies = [Noise()],
-                         /** function creating phantom strategy used for efficiency estimation */ account = account._.inner.inner_VirtualMarket(),
-                         /** function estimating is the strategy efficient or not */ weight = weight._.trader.trader_EfficiencyTrend(),
-                         normalizer = weight._.f.f_AtanPow(),
-                         /** weighting scheme for choosing strategies */ corrector = weight._.array.array_IdentityL()) : ISingleAssetStrategy
+                         /** function creating phantom strategy used for efficiency estimation */ account = account.inner.inner_VirtualMarket(),
+                         /** function estimating is the strategy efficient or not */ weight = weight.trader.trader_EfficiencyTrend(),
+                         normalizer = weight.f.f_AtanPow(),
+                         /** weighting scheme for choosing strategies */ corrector = weight.array.array_IdentityL()) : ISingleAssetStrategy
         
     
     /** A Strategy that allows to drive the asset price based on historical market data
@@ -1287,7 +1185,7 @@ package strategy() {@category = "Side function"
                    /** End date in DD-MM-YYYY format */ end = "2010-1-1",
                    /** Price difference between orders placed and underlying quotes */ delta = 1.0,
                    /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0)
-         = Combine(Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.Quote(ticker,start,end)+delta),order._.price.Limit(side.Sell(),constant(volume*1000)))),event.After(constant(0.0))),Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.Quote(ticker,start,end)-delta),order._.price.Limit(side.Buy(),constant(volume*1000)))),event.After(constant(0.0))))
+         = Combine(Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.Quote(ticker,start,end)+delta),order.price.Limit(side.Sell(),constant(volume*1000)))),event.After(constant(0.0))),Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.Quote(ticker,start,end)-delta),order.price.Limit(side.Buy(),constant(volume*1000)))),event.After(constant(0.0))))
     
     @python.intrinsic("strategy.canceller._Canceller_Impl")
     def Canceller(cancellationIntervalDistr = math.random.expovariate(1.0)) : ISingleAssetStrategy
@@ -1296,7 +1194,7 @@ package strategy() {@category = "Side function"
     /** Liquidity provider for one side
      */
     def LiquidityProviderSide(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-                              /** order factory function*/ orderFactory = order._.side_price.Limit(),
+                              /** order factory function*/ orderFactory = order.side_price.Limit(),
                               /** side of orders to create */ side = .side.Sell(),
                               /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
                               /** defines multipliers for current asset price when price of
@@ -1313,15 +1211,15 @@ package strategy() {@category = "Side function"
     
     def MarketMaker(delta = 1.0,
                     volume = 20.0)
-         = Combine(Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(0.9,orderbook.SafeSidePrice(orderbook.Asks(),constant(100+delta))/math.Exp(math.Atan(trader.Position())/1000))),order._.price.Limit(side.Sell(),constant(volume*1000)))),event.After(constant(0.0))),Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(0.9,orderbook.SafeSidePrice(orderbook.Bids(),constant(100-delta))/math.Exp(math.Atan(trader.Position())/1000))),order._.price.Limit(side.Buy(),constant(volume*1000)))),event.After(constant(0.0))))
+         = Combine(Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(0.9,orderbook.SafeSidePrice(orderbook.Asks(),constant(100+delta))/math.Exp(math.Atan(trader.Position())/1000))),order.price.Limit(side.Sell(),constant(volume*1000)))),event.After(constant(0.0))),Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(0.9,orderbook.SafeSidePrice(orderbook.Bids(),constant(100-delta))/math.Exp(math.Atan(trader.Position())/1000))),order.price.Limit(side.Buy(),constant(volume*1000)))),event.After(constant(0.0))))
     
     /** Noise strategy is a quite dummy strategy that randomly creates an order and sends it to the order book.
      */
     def Noise(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-              /** order factory function*/ orderFactory = order._.side.Market())
+              /** order factory function*/ orderFactory = order.side.Market())
          = Generic(orderFactory(side.Noise()),eventGen)
     
-    def Bollinger_linear(orderFactory = order._.signedVolume.MarketSigned(),
+    def Bollinger_linear(orderFactory = order.signedVolume.MarketSigned(),
                          alpha = 0.15,
                          k = const(0.5))
          = Generic(orderFactory(position.Bollinger_linear(alpha,k)))

@@ -7,7 +7,7 @@ package strategy
                 /** Event source making the strategy to wake up*/
                 eventGen     = event.Every(math.random.expovariate(1.)),
                 /** order factory function*/
-                orderFactory = order._.side_price.Limit(),
+                orderFactory = order.side_price.Limit(),
                 /** side of orders to create */
                 side         = .side.Sell(),
                 /** initial price which is taken if orderBook is empty */
@@ -32,7 +32,7 @@ package strategy
                 /** Event source making the strategy to wake up*/
                 eventGen     = event.Every(math.random.expovariate(1.)),
                 /** order factory function*/
-                orderFactory = order._.side_price.Limit(),
+                orderFactory = order.side_price.Limit(),
                 /** initial price which is taken if orderBook is empty */
                 initialValue = 100.0,
                 /** defines multipliers for current asset price when price of
@@ -71,14 +71,14 @@ package strategy
                 constant(volume),
                 order.FloatingPrice(
                     observable.BreaksAtChanges(observable.Quote(ticker, start, end) + delta),
-                    order._.price.Limit(side.Sell(), constant(volume*1000)))),
+                    order.price.Limit(side.Sell(), constant(volume*1000)))),
             event.After(constant(0.))),
         Generic(
             order.Iceberg(
                 constant(volume),
                 order.FloatingPrice(
                     observable.BreaksAtChanges(observable.Quote(ticker, start, end) - delta),
-                    order._.price.Limit(side.Buy(), constant(volume*1000)))),
+                    order.price.Limit(side.Buy(), constant(volume*1000)))),
             event.After(constant(0.)))
     )
 
@@ -95,7 +95,7 @@ package strategy
                                     math.Exp(math.Atan(trader.Position()) / 1000)
                             )
                         ),
-                        order._.price.Limit(side.Sell(), constant(volume*1000)))),
+                        order.price.Limit(side.Sell(), constant(volume*1000)))),
             event.After(constant(0.))),
         Generic(
             order.Iceberg(
@@ -107,7 +107,7 @@ package strategy
                                 math.Exp(math.Atan(trader.Position()) / 1000)
                         )
                     ),
-                    order._.price.Limit(side.Buy(), constant(volume*1000)))),
+                    order.price.Limit(side.Buy(), constant(volume*1000)))),
             event.After(constant(0.))))
 
 

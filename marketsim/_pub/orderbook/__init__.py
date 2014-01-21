@@ -38,3 +38,5 @@ from marketsim.gen._out.orderbook._Spread import Spread
 
 from marketsim.gen._out.orderbook._LastTradePrice import LastTradePrice
 
+import ask
+import bid

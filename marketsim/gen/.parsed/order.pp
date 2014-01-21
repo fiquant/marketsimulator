@@ -38,10 +38,10 @@ package order() {
     
     @python.order.factory("order.meta.floating_price.Factory_Impl")
     def FloatingPrice(floatingPrice = const(10.0),
-                      proto = _.price.Limit()) : IOrderGenerator
+                      proto = price.Limit()) : IOrderGenerator
         
     
     @python.order.factory("order.meta.peg.Factory_Impl")
-    def Peg(proto = _.price.Limit()) : IOrderGenerator
+    def Peg(proto = price.Limit()) : IOrderGenerator
         
 }

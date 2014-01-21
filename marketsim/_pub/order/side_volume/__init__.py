@@ -14,3 +14,4 @@ from marketsim.gen._out.order._curried._sidevolume_Iceberg import sidevolume_Ice
 
 from marketsim.gen._out.order._curried._sidevolume_Peg import sidevolume_Peg as Peg
 
+import price

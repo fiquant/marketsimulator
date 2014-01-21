@@ -63,6 +63,10 @@ package object gen
                 }
             }
 
+            p.packages.values foreach { pkg =>
+                idx_out.println(s"import " + pkg.name)
+            }
+
             for (out <- managed(printWriter(dir, "__init__.py"))) {}
 
         }

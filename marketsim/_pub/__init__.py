@@ -16,3 +16,13 @@ from marketsim.gen._out._IfDefined import IfDefined
 
 from marketsim.gen._out._volumeLevels import volumeLevels
 
+import side
+import event
+import veusz
+import math
+import order
+import strategy
+import trader
+import orderbook
+import observable
+import trash

@@ -6,7 +6,7 @@ package strategy
     def Noise(/** Event source making the strategy to wake up*/
                eventGen     = event.Every(math.random.expovariate(1.)),
                /** order factory function*/
-               orderFactory = order._.side.Market())
+               orderFactory = order.side.Market())
 
         =   Generic(orderFactory(side.Noise()), eventGen)
 
@@ -18,7 +18,7 @@ package strategy
     def Signal(/** Event source making the strategy to wake up*/
                eventGen     = event.Every(math.random.expovariate(1.)),
                /** order factory function*/
-               orderFactory = order._.side.Market(),
+               orderFactory = order.side.Market(),
                /** signal to be listened to */
                signal       = constant(0.),
                /** threshold when the trader starts to act */
@@ -37,7 +37,7 @@ package strategy
     def TrendFollower(  /** Event source making the strategy to wake up*/
                         eventGen     = event.Every(math.random.expovariate(1.)),
                         /** order factory function*/
-                        orderFactory = order._.side.Market(),
+                        orderFactory = order.side.Market(),
                         /** parameter |alpha| for exponentially weighted moving average */
                         ewma_alpha   = 0.15,
                         /** threshold when the trader starts to act */
@@ -54,7 +54,7 @@ package strategy
     def CrossingAverages(/** Event source making the strategy to wake up*/
                         eventGen     = event.Every(math.random.expovariate(1.)),
                         /** order factory function*/
-                        orderFactory = order._.side.Market(),
+                        orderFactory = order.side.Market(),
                         /** parameter |alpha| for exponentially weighted moving average 1 */
                         ewma_alpha_1 = 0.15,
                         /** parameter |alpha| for exponentially weighted moving average 2 */
@@ -73,7 +73,7 @@ package strategy
                /** Event source making the strategy to wake up*/
                eventGen         = event.Every(math.random.expovariate(1.)),
                /** order factory function*/
-               orderFactory     = order._.side.Market(),
+               orderFactory     = order.side.Market(),
                /** defines fundamental value */
                fundamentalValue = constant(100.))
 
@@ -88,7 +88,7 @@ package strategy
     def MeanReversion(  /** Event source making the strategy to wake up*/
                         eventGen     = event.Every(math.random.expovariate(1.)),
                         /** order factory function*/
-                        orderFactory = order._.side.Market(),
+                        orderFactory = order.side.Market(),
                         /** parameter |alpha| for exponentially weighted moving average */
                         ewma_alpha   = 0.15)
 
@@ -105,7 +105,7 @@ package strategy
     def PairTrading(    /** Event source making the strategy to wake up*/
                         eventGen        = event.Every(math.random.expovariate(1.)),
                         /** order factory function*/
-                        orderFactory    = order._.side.Market(),
+                        orderFactory    = order.side.Market(),
                         /** reference to order book for another asset used to evaluate fair price of our asset */
                         bookToDependOn  = orderbook.OfTrader(),
                         /** multiplier to obtain fair asset price from the reference asset price */
@@ -116,7 +116,7 @@ package strategy
     def RSIbis(         /** Event source making the strategy to wake up*/
                         eventGen     = event.Every(math.random.expovariate(1.)),
                         /** order factory function*/
-                        orderFactory = order._.side.Market(),
+                        orderFactory = order.side.Market(),
                         /** parameter |alpha| for exponentially weighted moving average */
                         alpha        = 1./14,
                         timeframe    = 1.,

@@ -3,7 +3,7 @@ package strategy() {
     /** Noise strategy is a quite dummy strategy that randomly creates an order and sends it to the order book.
      */
     def Noise(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-              /** order factory function*/ orderFactory = order._.side.Market())
+              /** order factory function*/ orderFactory = order.side.Market())
          = Generic(orderFactory(side.Noise()),eventGen)
     
     /** Signal strategy listens to some discrete signal
@@ -11,7 +11,7 @@ package strategy() {
      * When the signal gets lower than -threshold the strategy starts to sell.
      */
     def Signal(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-               /** order factory function*/ orderFactory = order._.side.Market(),
+               /** order factory function*/ orderFactory = order.side.Market(),
                /** signal to be listened to */ signal = constant(0.0),
                /** threshold when the trader starts to act */ threshold = 0.7)
          = Generic(orderFactory(side.Signal(signal,threshold)),eventGen)
@@ -24,7 +24,7 @@ package strategy() {
      * derivative at moments of time given by *eventGen*.
      */
     def TrendFollower(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-                      /** order factory function*/ orderFactory = order._.side.Market(),
+                      /** order factory function*/ orderFactory = order.side.Market(),
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15,
                       /** threshold when the trader starts to act */ threshold = 0.0)
          = Generic(orderFactory(side.TrendFollower(ewma_alpha,threshold)),eventGen)
@@ -35,7 +35,7 @@ package strategy() {
      * when the first is lower than the second one it sells
      */
     def CrossingAverages(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-                         /** order factory function*/ orderFactory = order._.side.Market(),
+                         /** order factory function*/ orderFactory = order.side.Market(),
                          /** parameter |alpha| for exponentially weighted moving average 1 */ ewma_alpha_1 = 0.15,
                          /** parameter |alpha| for exponentially weighted moving average 2 */ ewma_alpha_2 = 0.015,
                          /** threshold when the trader starts to act */ threshold = 0.0)
@@ -46,7 +46,7 @@ package strategy() {
      * it starts to buy the asset and if the price is higher it starts to sell the asset.
      */
     def FundamentalValue(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-                         /** order factory function*/ orderFactory = order._.side.Market(),
+                         /** order factory function*/ orderFactory = order.side.Market(),
                          /** defines fundamental value */ fundamentalValue = constant(100.0))
          = Generic(orderFactory(side.FundamentalValue(fundamentalValue)),eventGen)
     
@@ -56,7 +56,7 @@ package strategy() {
      * it buys the asset and if the price is higher it sells the asset.
      */
     def MeanReversion(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-                      /** order factory function*/ orderFactory = order._.side.Market(),
+                      /** order factory function*/ orderFactory = order.side.Market(),
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15)
          = Generic(orderFactory(side.MeanReversion(ewma_alpha)),eventGen)
     
@@ -68,13 +68,13 @@ package strategy() {
      * asset *B* changes.
      */
     def PairTrading(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-                    /** order factory function*/ orderFactory = order._.side.Market(),
+                    /** order factory function*/ orderFactory = order.side.Market(),
                     /** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn = orderbook.OfTrader(),
                     /** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0)
          = Generic(orderFactory(side.PairTrading(bookToDependOn,factor)),eventGen)
     
     def RSIbis(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-               /** order factory function*/ orderFactory = order._.side.Market(),
+               /** order factory function*/ orderFactory = order.side.Market(),
                /** parameter |alpha| for exponentially weighted moving average */ alpha = 1.0/14,
                timeframe = 1.0,
                threshold = 30.0)

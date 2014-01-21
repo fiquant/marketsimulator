@@ -76,7 +76,7 @@ object curried
             val orig_path = base.name split "_"
             val (orig_scope, brief_name_arr) = orig_path.splitAt(orig_path.length - 1)
             val u_prefix = curried
-            val alias = "_" :: u_prefix :: orig_scope.toList
+            val alias = u_prefix :: orig_scope.toList
             val brief_name = brief_name_arr(0)
 
             (extract(curried :: Nil, base.parameters) match {
