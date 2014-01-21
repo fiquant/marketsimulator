@@ -5,8 +5,6 @@ type List[T]
 
 type Any
 
-type Side
-
 type String
 
 type Boolean

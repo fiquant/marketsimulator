@@ -20,7 +20,10 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - Side
 | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Function always returning Sell side
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -41,7 +44,10 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - Side
 | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Function always returning Buy side
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -62,7 +68,10 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - Side
 | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Function always returning None of type Side
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -70,7 +79,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - side._Buy_Impl
+| | | | | | | | - side._None_Impl
 | | - List:
 | | | - Attribute:
 | | | | - category

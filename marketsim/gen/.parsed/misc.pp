@@ -158,21 +158,6 @@ package () {
                      _isBuy = 1) : ITimeSerie
         
 }
-@category = "Side"
-
-package side() {
-    @python.intrinsic("side._Sell_Impl")
-    def Sell() : () => Side
-        
-    
-    @python.intrinsic("side._Buy_Impl")
-    def Buy() : () => Side
-        
-    
-    @python.intrinsic("side._Buy_Impl")
-    def Nothing() : () => Side
-        
-}
 @category = "Event"
 
 package event() {

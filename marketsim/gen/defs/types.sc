@@ -1,8 +1,29 @@
+/**
+ * Optional type is used internally to specify a type of a parameter having a default argument.
+ * For any T: (T canBeCasted Optional[T])
+ */
 type Optional[T]
+
+/**
+ * List containing values of type T
+ * For any T, U: (T canBeCasted U) => (List[T] canBeCasted List[U])
+ * Constructor: [e1, e2, ... eN] construct a List[T]:
+ *  if exists T: exists i: decltype(ei) is T and for any j: (decltype(ej) canBeCasted decltype(ei))
+ * [] has type List[Nothing]
+ * Nothing is a special internal type that can be casted to any type
+ */
+// TODO: find the bottommost type that all ei can be casted to
 type List[T]
+
+/**
+ * Topmost type.
+ * For any T: (T canBeCasted Any)
+ */
 type Any
 
-type Side
+/**
+ *  String literal
+ */
 type String
 
 type Boolean
