@@ -338,6 +338,16 @@ package math() {
     def Log(x = constant(1.0)) : () => Float
         
     
+    /** A discrete signal with user-defined increments.
+     */
+    @python.intrinsic("observable.randomwalk._RandomWalk_Impl")
+    @label = "%(name)s"
+    def RandomWalk(/** initial value of the signal */ initialValue = 0.0,
+                   /** increment function */ deltaDistr = math.random.normalvariate(0.0,1.0),
+                   /** intervals between signal updates */ intervalDistr = math.random.expovariate(1.0),
+                   name = "-random-") : IObservable[Float]
+        
+    
     @python.intrinsic("observable.derivative._Derivative_Impl")
     @label = "\\frac{d%(x)s}{dt}"
     def Derivative(x = math.EW.Avg() : IDifferentiable) : () => Float
@@ -1558,16 +1568,6 @@ package observable() {
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
     def Float(x = const() : IFunction[Float]) : IObservable[Float]
-        
-    
-    /** A discrete signal with user-defined increments.
-     */
-    @python.intrinsic("observable.randomwalk._RandomWalk_Impl")
-    @label = "%(name)s"
-    def RandomWalk(/** initial value of the signal */ initialValue = 0.0,
-                   /** increment function */ deltaDistr = math.random.normalvariate(0.0,1.0),
-                   /** intervals between signal updates */ intervalDistr = math.random.expovariate(1.0),
-                   name = "-random-") : IObservable[Float]
         
     
     @python.intrinsic("observable.quote.Quote_Impl")

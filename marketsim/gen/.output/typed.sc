@@ -380,6 +380,16 @@ package math {
     def Log(x : Optional[.IFunction[.Float]] = .constant(1.0)) : () => .Float
         
     
+    /** A discrete signal with user-defined increments.
+     */
+    @label = "%(name)s"
+    @python.intrinsic("observable.randomwalk._RandomWalk_Impl")
+    def RandomWalk(/** initial value of the signal */ initialValue : Optional[.Float] = 0.0,
+                   /** increment function */ deltaDistr : Optional[() => .Float] = .math.random.normalvariate(0.0,1.0),
+                   /** intervals between signal updates */ intervalDistr : Optional[() => .Float] = .math.random.expovariate(1.0),
+                   name : Optional[.String] = "-random-") : .IObservable[.Float]
+        
+    
     @label = "\\frac{d%(x)s}{dt}"
     @python.intrinsic("observable.derivative._Derivative_Impl")
     def Derivative(x : Optional[.IDifferentiable] = .math.EW.Avg() : .IDifferentiable) : () => .Float
@@ -1845,16 +1855,6 @@ package observable {
     @label = "[%(x)s]"
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     def Float(x : Optional[.IFunction[.Float]] = .const() : .IFunction[.Float]) : .IObservable[.Float]
-        
-    
-    /** A discrete signal with user-defined increments.
-     */
-    @label = "%(name)s"
-    @python.intrinsic("observable.randomwalk._RandomWalk_Impl")
-    def RandomWalk(/** initial value of the signal */ initialValue : Optional[.Float] = 0.0,
-                   /** increment function */ deltaDistr : Optional[() => .Float] = .math.random.normalvariate(0.0,1.0),
-                   /** intervals between signal updates */ intervalDistr : Optional[() => .Float] = .math.random.expovariate(1.0),
-                   name : Optional[.String] = "-random-") : .IObservable[.Float]
         
     
     @label = "%(ticker)s"

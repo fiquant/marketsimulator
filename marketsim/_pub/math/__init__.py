@@ -20,6 +20,8 @@ from marketsim.gen._out.math._Exp import Exp
 
 from marketsim.gen._out.math._Log import Log
 
+from marketsim.gen._out.math._RandomWalk import RandomWalk
+
 from marketsim.gen._out.math._Derivative import Derivative
 
 from marketsim.gen._out.math._Pow import Pow
