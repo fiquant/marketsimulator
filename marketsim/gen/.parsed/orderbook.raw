@@ -540,7 +540,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - ObservablePrice
+| | | | | | | | | - observable
+| | | | | | | | | - Price
 | | | | | | | - List:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -695,7 +696,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - ObservablePrice
+| | | | | | | | | - observable
+| | | | | | | | | - Price
 | | | | | | | - List:
 | | | | | | | | - BinOp:
 | | | | | | | | | - Sub
@@ -735,7 +737,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - ObservablePrice
+| | | | | | | | | - observable
+| | | | | | | | | - Price
 | | | | | | | - List:
 | | | | | | | | - BinOp:
 | | | | | | | | | - Div
@@ -884,7 +887,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - ObservablePrice
+| | | | | | | | | - observable
+| | | | | | | | | - Price
 | | | | | | | - List:
 | | | | | | | | - IfThenElse:
 | | | | | | | | | - Condition:

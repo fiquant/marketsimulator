@@ -2,7 +2,7 @@
 package strategy.position
 {
     def DesiredPosition(desiredPosition = const(), trader = trader.SingleProxy())
-        = ObservableVolume(
+        = observable.Volume(
             desiredPosition - trader.Position(trader) - trader.PendingVolume(trader)
         )
 

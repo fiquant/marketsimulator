@@ -1,8 +1,8 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.observable.on_every_dt import _Observable_Impl
 from marketsim import IFunction
-@registry.expose(["Basic", "Observable"])
-class Observable(_Observable_Impl):
+@registry.expose(["Basic", "Price"])
+class Price(_Observable_Impl):
     """ 
     """ 
     def __init__(self, x = None):

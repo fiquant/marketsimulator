@@ -1,38 +1,6 @@
 @category = "Basic"
-package {
-    @python.intrinsic("observable.on_every_dt._Observable_Impl")
-    @label = "[%(x)s]"
-    def Observable(x = const() : IFunction[Float]) : IObservable[Float]
-
-    @python.intrinsic("observable.on_every_dt._Observable_Impl")
-    @label = "[%(x)s]"
-    def ObservablePrice(x = const() : IFunction[Float]) : IObservable[Price]
-
-    @python.intrinsic("observable.on_every_dt._Observable_Impl")
-    @label = "[%(x)s]"
-    def ObservableVolume(x = const() : IFunction[Float]) : IObservable[Volume]
-
-    @python.intrinsic("observable.on_every_dt._ObservableSide_Impl")
-    @label = "[%(x)s]"
-    def ObservableSide(x = side.Sell() : IFunction[Side]) : IObservable[Side]
-
-}
-
-@category = "Basic"
 package observable
 {
-    @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
-    @label = "[%(x)s]_dt=%(dt)s"
-    @observe_args = "no"
-    def OnEveryDt(dt = 1.0, x = constant()) : IObservable[Float]
-
-    @python.intrinsic("observable.quote.Quote_Impl")
-    @label = "%(ticker)s"
-    def Quote(ticker = "^GSPC", start = "2001-1-1", end = "2010-1-1") : IObservable[Price]
-
-    @python.intrinsic("observable.breaks_at_changes._BreaksAtChanges_Impl")
-    def BreaksAtChanges(source = constant(1.)) : IObservable[Float]
-
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
     @label = "Candles_{%(source)s}"
     def CandleSticks(source = const(), timeframe = 10.0) : IObservable[CandleStick]

@@ -45,5 +45,5 @@ package strategy.side
         factor = 1.,
         book = orderbook.OfTrader())
 
-        = ObservableSide(FundamentalValue(orderbook.MidPrice(dependee) * factor, book))
+        = observable.Side(FundamentalValue(orderbook.MidPrice(dependee) * factor, book))
 }

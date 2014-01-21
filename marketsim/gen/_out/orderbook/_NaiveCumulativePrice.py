@@ -34,13 +34,13 @@ class NaiveCumulativePrice(Observable[Price]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out._ObservablePrice import ObservablePrice as _ObservablePrice
+        from marketsim.gen._out.observable._Price import Price as _observable_Price
         from marketsim.gen._out.orderbook.ask._Price import Price as _orderbook_ask_Price
         from marketsim.gen._out.orderbook.bid._Price import Price as _orderbook_bid_Price
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out._const import const as _const
-        return _ObservablePrice((self.depth<_const(0.0))[self.depth*_orderbook_ask_Price(self.book), (self.depth>_const(0.0))[self.depth*_orderbook_bid_Price(self.book), _const(0.0)]])
+        return _observable_Price((self.depth<_const(0.0))[self.depth*_orderbook_ask_Price(self.book), (self.depth>_const(0.0))[self.depth*_orderbook_bid_Price(self.book), _const(0.0)]])
         
         
         

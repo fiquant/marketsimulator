@@ -32,11 +32,11 @@ class DownMovements(Observable[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out._Observable import Observable as _Observable
+        from marketsim.gen._out.observable._Float import Float as _observable_Float
         from marketsim.gen._out.math._Max import Max as _math_Max
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.math._Lagged import Lagged as _math_Lagged
-        return _Observable(_math_Max(_const(0.0),_math_Lagged(self.source,self.timeframe)-self.source))
+        return _observable_Float(_math_Max(_const(0.0),_math_Lagged(self.source,self.timeframe)-self.source))
         
         
         

@@ -37,7 +37,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - ObservableVolume
+| | | | | | | | | - observable
+| | | | | | | | | - Volume
 | | | | | | | - List:
 | | | | | | | | - BinOp:
 | | | | | | | | | - Sub

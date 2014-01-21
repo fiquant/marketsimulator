@@ -76,7 +76,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - Observable
+| | | | | | | | | - observable
+| | | | | | | | | - Float
 | | | | | | | - List:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -133,7 +134,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - Observable
+| | | | | | | | | - observable
+| | | | | | | | | - Float
 | | | | | | | - List:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:

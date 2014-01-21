@@ -9,12 +9,12 @@ package math() {
     @label = "Ups_{%(timeframe)s}(%(source)s)"
     def UpMovements(source = const(),
                     timeframe = 10.0)
-         = Observable(Max(const(0.0),source-Lagged(source,timeframe)))
+         = observable.Float(Max(const(0.0),source-Lagged(source,timeframe)))
     
     @label = "Downs_{%(timeframe)s}(%(source)s)"
     def DownMovements(source = const(),
                       timeframe = 10.0)
-         = Observable(Max(const(0.0),Lagged(source,timeframe)-source))
+         = observable.Float(Max(const(0.0),Lagged(source,timeframe)-source))
     @category = "RSI"
     
     package rsi() {

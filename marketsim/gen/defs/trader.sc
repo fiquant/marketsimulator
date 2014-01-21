@@ -41,10 +41,10 @@ package trader
     def PendingVolume(trader = SingleProxy() : IAccount) : IObservable[Volume]
 
     def Efficiency(trader = SingleProxy() : IAccount)
-        = Observable(Balance(trader) + orderbook.CumulativePrice(orderbook.OfTrader(trader), Position(trader)))
+        = observable.Float(Balance(trader) + orderbook.CumulativePrice(orderbook.OfTrader(trader), Position(trader)))
 
     def RoughPnL(trader = SingleProxy() : IAccount)
-        = Observable(Balance(trader) + orderbook.NaiveCumulativePrice(orderbook.OfTrader(trader), Position(trader)))
+        = observable.Float(Balance(trader) + orderbook.NaiveCumulativePrice(orderbook.OfTrader(trader), Position(trader)))
 
     def EfficiencyTrend(trader = SingleProxy() : IAccount, alpha = 0.15)
         = math.Derivative(math.EW.Avg(Efficiency(trader), alpha))

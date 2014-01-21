@@ -1780,7 +1780,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - Observable
+| | | | | | | | | - observable
+| | | | | | | | | - Float
 | | | | | | | - List:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -1968,7 +1969,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - Observable
+| | | | | | | | | - observable
+| | | | | | | | | - Float
 | | | | | | | - List:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -7995,7 +7997,8 @@ Definitions:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - ObservableSide
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - Side
 | | | | | | | | | | - List:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
@@ -9537,7 +9540,8 @@ Definitions:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - ObservableVolume
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - Volume
 | | | | | | | | | | - List:
 | | | | | | | | | | | - BinOp:
 | | | | | | | | | | | | - Sub
@@ -12031,7 +12035,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - Observable
+| | | | | | | | | - observable
+| | | | | | | | | - Float
 | | | | | | | - List:
 | | | | | | | | - BinOp:
 | | | | | | | | | - Add
@@ -12129,7 +12134,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - Observable
+| | | | | | | | | - observable
+| | | | | | | | | - Float
 | | | | | | | - List:
 | | | | | | | | - BinOp:
 | | | | | | | | | - Add
@@ -12879,7 +12885,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - ObservablePrice
+| | | | | | | | | - observable
+| | | | | | | | | - Price
 | | | | | | | - List:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
@@ -13034,7 +13041,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - ObservablePrice
+| | | | | | | | | - observable
+| | | | | | | | | - Price
 | | | | | | | - List:
 | | | | | | | | - BinOp:
 | | | | | | | | | - Div
@@ -13614,7 +13622,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - ObservablePrice
+| | | | | | | | | - observable
+| | | | | | | | | - Price
 | | | | | | | - List:
 | | | | | | | | - IfThenElse:
 | | | | | | | | | - Condition:
@@ -13714,7 +13723,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - ObservablePrice
+| | | | | | | | | - observable
+| | | | | | | | | - Price
 | | | | | | | - List:
 | | | | | | | | - BinOp:
 | | | | | | | | | - Sub
@@ -13833,6 +13843,151 @@ Definitions:
 | | | | | | | - observe_args
 | | | | | | | - no
 | | | | - FunDef:
+| | | | | - Volume
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - const
+| | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Volume
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - observable.on_every_dt._Observable_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - [%(x)s]
+| | | | - FunDef:
+| | | | | - Side
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - side
+| | | | | | | | | | | | - Sell
+| | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Side
+| | | | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Side
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - observable.on_every_dt._ObservableSide_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - [%(x)s]
+| | | | - FunDef:
+| | | | | - Price
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - const
+| | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Price
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - observable.on_every_dt._Observable_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - [%(x)s]
+| | | | - FunDef:
 | | | | | - BreaksAtChanges
 | | | | | - List:
 | | | | | | - Parameter:
@@ -13868,6 +14023,54 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - observable.breaks_at_changes._BreaksAtChanges_Impl
+| | | | - FunDef:
+| | | | | - Float
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - const
+| | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - observable.on_every_dt._Observable_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - [%(x)s]
 | | | | - FunDef:
 | | | | | - RandomWalk
 | | | | | - List:
@@ -14738,114 +14941,11 @@ Definitions:
 | | | - Attribute:
 | | | | - label
 | | | | - C=%(x)s
-| - FunDef:
-| | - ObservableVolume
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - None
-| | | | - Some:
-| | | | | - Cast:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - const
-| | | | | | | - List:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - IFunction
-| | | | | | | - List:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Float
-| | | | | | | | | - List:
-| | | | - List:
-| | - None
-| | - Some:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IObservable
-| | | | - List:
-| | | | | - SimpleType:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - Volume
-| | | | | | - List:
-| | - None
-| | - List:
-| | | - Attribute:
-| | | | - category
-| | | | - Basic
-| | | - Annotation:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - python
-| | | | | | - intrinsic
-| | | | - List:
-| | | | | - observable.on_every_dt._Observable_Impl
-| | | - Attribute:
-| | | | - label
-| | | | - [%(x)s]
 | - Interface:
 | | - ITwoWayLink
 | | - Generics:
 | | | - List:
 | | - List:
-| - FunDef:
-| | - ObservableSide
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - None
-| | | | - Some:
-| | | | | - Cast:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - side
-| | | | | | | | | - Sell
-| | | | | | | - List:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - IFunction
-| | | | | | | - List:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Side
-| | | | | | | | | - List:
-| | | | - List:
-| | - None
-| | - Some:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IObservable
-| | | | - List:
-| | | | | - SimpleType:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - Side
-| | | | | | - List:
-| | - None
-| | - List:
-| | | - Attribute:
-| | | | - category
-| | | | - Basic
-| | | - Annotation:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - python
-| | | | | | - intrinsic
-| | | | - List:
-| | | | | - observable.on_every_dt._ObservableSide_Impl
-| | | - Attribute:
-| | | | - label
-| | | | - [%(x)s]
 | - Interface:
 | | - IObservable
 | | - Generics:
@@ -14935,57 +15035,6 @@ Definitions:
 | | - Generics:
 | | | - List:
 | | - List:
-| - FunDef:
-| | - ObservablePrice
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - None
-| | | | - Some:
-| | | | | - Cast:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - const
-| | | | | | | - List:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - IFunction
-| | | | | | | - List:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Float
-| | | | | | | | | - List:
-| | | | - List:
-| | - None
-| | - Some:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IObservable
-| | | | - List:
-| | | | | - SimpleType:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - Price
-| | | | | | - List:
-| | - None
-| | - List:
-| | | - Attribute:
-| | | | - category
-| | | | - Basic
-| | | - Annotation:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - python
-| | | | | | - intrinsic
-| | | | - List:
-| | | | | - observable.on_every_dt._Observable_Impl
-| | | - Attribute:
-| | | | - label
-| | | | - [%(x)s]
 | - Interface:
 | | - Order
 | | - Generics:
@@ -14997,57 +15046,6 @@ Definitions:
 | | | - List:
 | | | | - T
 | | - List:
-| - FunDef:
-| | - Observable
-| | - List:
-| | | - Parameter:
-| | | | - x
-| | | | - None
-| | | | - Some:
-| | | | | - Cast:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - const
-| | | | | | | - List:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - IFunction
-| | | | | | | - List:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Float
-| | | | | | | | | - List:
-| | | | - List:
-| | - None
-| | - Some:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IObservable
-| | | | - List:
-| | | | | - SimpleType:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - Float
-| | | | | | - List:
-| | - None
-| | - List:
-| | | - Attribute:
-| | | | - category
-| | | | - Basic
-| | | - Annotation:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - python
-| | | | | | - intrinsic
-| | | | - List:
-| | | | | - observable.on_every_dt._Observable_Impl
-| | | - Attribute:
-| | | | - label
-| | | | - [%(x)s]
 | - Interface:
 | | - IDifferentiable
 | | - Generics:

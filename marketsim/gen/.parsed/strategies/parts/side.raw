@@ -439,7 +439,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - ObservableSide
+| | | | | | | | | - observable
+| | | | | | | | | - Side
 | | | | | | | - List:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:

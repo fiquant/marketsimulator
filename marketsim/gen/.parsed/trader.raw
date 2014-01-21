@@ -347,7 +347,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - Observable
+| | | | | | | | | - observable
+| | | | | | | | | - Float
 | | | | | | | - List:
 | | | | | | | | - BinOp:
 | | | | | | | | | - Add
@@ -405,7 +406,8 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - Observable
+| | | | | | | | | - observable
+| | | | | | | | | - Float
 | | | | | | | - List:
 | | | | | | | | - BinOp:
 | | | | | | | | | - Add

@@ -30,12 +30,12 @@ class Efficiency(Observable[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out._Observable import Observable as _Observable
+        from marketsim.gen._out.observable._Float import Float as _observable_Float
         from marketsim.gen._out.trader._Balance import Balance as _trader_Balance
         from marketsim.gen._out.orderbook._CumulativePrice import CumulativePrice as _orderbook_CumulativePrice
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim.gen._out.trader._Position import Position as _trader_Position
-        return _Observable(_trader_Balance(self.trader)+_orderbook_CumulativePrice(_orderbook_OfTrader(self.trader),_trader_Position(self.trader)))
+        return _observable_Float(_trader_Balance(self.trader)+_orderbook_CumulativePrice(_orderbook_OfTrader(self.trader),_trader_Position(self.trader)))
         
         
         

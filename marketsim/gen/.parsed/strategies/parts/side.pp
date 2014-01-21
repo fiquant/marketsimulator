@@ -32,5 +32,5 @@ package strategy.side() {
     def PairTrading(dependee = orderbook.OfTrader(),
                     factor = 1.0,
                     book = orderbook.OfTrader())
-         = ObservableSide(FundamentalValue(orderbook.MidPrice(dependee)*factor,book))
+         = observable.Side(FundamentalValue(orderbook.MidPrice(dependee)*factor,book))
 }

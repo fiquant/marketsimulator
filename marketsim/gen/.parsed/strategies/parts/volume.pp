@@ -3,7 +3,7 @@
 package strategy.position() {
     def DesiredPosition(desiredPosition = const(),
                         trader = trader.SingleProxy())
-         = ObservableVolume(desiredPosition-trader.Position(trader)-trader.PendingVolume(trader))
+         = observable.Volume(desiredPosition-trader.Position(trader)-trader.PendingVolume(trader))
     
     def Bollinger_linear(alpha = 0.15,
                          k = const(0.5),
