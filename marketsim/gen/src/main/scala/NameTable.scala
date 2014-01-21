@@ -309,7 +309,7 @@ package object NameTable {
                         }
                     //println(context.last._2)
                     val fresh = (common map { p => AST.Var(p.name)}) ++ params
-                    AST.FunCall(qualified, fresh map qualify )
+                    AST.FunCall(qualified, fresh map  qualify )
 
                 case AST.Cast(x, ty) =>
                     AST.Cast(qualify(x), fullyQualifyType(ty))
@@ -397,8 +397,8 @@ package object NameTable {
         println("\tapplying before typing annotations")
         Typed.BeforeTyping(impl)
 
-        println("\tqualifying names")
-        impl.qualifyNames((impl, Nil) :: Nil)
+//        println("\tqualifying names")
+//        impl.qualifyNames((impl, Nil) :: Nil)
 
         impl
     }

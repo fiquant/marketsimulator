@@ -69,7 +69,7 @@ object curried
                            base_    : AST.FunDef = f) =
         {
             //println(s"partial factory $curried for $base_")
-            val base = scope fullyQualified  base_
+            val base = base_
             val prefix = curried + "_"
             val prefixed = prefix + base.name
 

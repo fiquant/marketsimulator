@@ -211,7 +211,7 @@ object order_factory
                            base_    : AST.FunDef = f) =
         {
             //println(s"partial factory $curried for $base_")
-            val base = scope fullyQualified base_
+            val base = base_
             val prefix = (curried map { _.name } mkString "") + "_"
             val prefixed = prefix + base.name
 
