@@ -2001,6 +2001,13 @@ def const(x : Optional[.Float] = 1.0) : .IObservable[.Float]
     
 
 @category = "Basic"
+@label = "Candles_{%(source)s}"
+@python.intrinsic("observable.candlestick.CandleSticks_Impl")
+def CandleSticks(source : Optional[.IObservable[.Float]] = .const(),
+                 timeframe : Optional[.Float] = 10.0) : .IObservable[.CandleStick]
+    
+
+@category = "Basic"
 @label = "True"
 @python.intrinsic.function("_constant._True_Impl")
 def true() : .IObservable[.Boolean]

@@ -1706,6 +1706,13 @@ type IFunction[T] = () => T
 
 type ISingleAssetStrategy
 
+@category = "Basic"
+@python.intrinsic("observable.candlestick.CandleSticks_Impl")
+@label = "Candles_{%(source)s}"
+def CandleSticks(source = const(),
+                 timeframe = 10.0) : IObservable[CandleStick]
+    
+
 type ISingleAssetTrader : IAccount, ITrader
 
 @category = "Basic"
