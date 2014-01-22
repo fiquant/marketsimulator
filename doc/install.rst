@@ -13,6 +13,18 @@ The first approach is easier for new users while the latter one gives more contr
     :depth: 2
     :backlinks: none
 
+Installing Scala
+----------------
+
+At Ubuntu:
+
+.. code-block :: bash
+
+    wget http://apt.typesafe.com/repo-deb-build-0002.deb
+    sudo dpkg -i repo-deb-build-0002.deb
+    sudo apt-get update
+    sudo apt-get install sbt
+
 
 Steps common for Veusz and Web interfaces
 -----------------------------------------
