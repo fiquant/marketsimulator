@@ -13,11 +13,13 @@ class DesiredPosition(Observable[Volume]):
         from marketsim.ops._all import Observable
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
+        from marketsim import rtti
         from marketsim import _
         from marketsim import event
         Observable[Volume].__init__(self)
         self.desiredPosition = desiredPosition if desiredPosition is not None else _const()
         self.trader = trader if trader is not None else _trader_SingleProxy()
+        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     

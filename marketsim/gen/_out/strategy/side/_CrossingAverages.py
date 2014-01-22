@@ -14,10 +14,12 @@ class CrossingAverages(Function[Side]):
     """ 
     def __init__(self, alpha_1 = None, alpha_2 = None, threshold = None, book = None):
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
+        from marketsim import rtti
         self.alpha_1 = alpha_1 if alpha_1 is not None else 0.015
         self.alpha_2 = alpha_2 if alpha_2 is not None else 0.15
         self.threshold = threshold if threshold is not None else 0.0
         self.book = book if book is not None else _orderbook_OfTrader()
+        rtti.check_fields(self)
         self.impl = self.getImpl()
     
     @property

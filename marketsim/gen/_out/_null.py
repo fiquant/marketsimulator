@@ -6,7 +6,9 @@ class null(Function[float], _Null_Impl):
     """ 
     """ 
     def __init__(self):
+        from marketsim import rtti
         
+        rtti.check_fields(self)
         _Null_Impl.__init__(self)
     
     @property

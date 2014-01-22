@@ -11,11 +11,13 @@ class Signal(Observable[Side]):
         from marketsim import Side
         from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant as _constant
+        from marketsim import rtti
         from marketsim import _
         from marketsim import event
         Observable[Side].__init__(self)
         self.signal = signal if signal is not None else _constant()
         self.threshold = threshold if threshold is not None else 0.7
+        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     

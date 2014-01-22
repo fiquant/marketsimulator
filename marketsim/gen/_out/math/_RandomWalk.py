@@ -9,6 +9,7 @@ class RandomWalk(_RandomWalk_Impl):
     def __init__(self, initialValue = None, deltaDistr = None, intervalDistr = None, name = None):
         from marketsim.gen._out.math.random._normalvariate import normalvariate as _math_random_normalvariate
         from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
+        from marketsim import rtti
         from marketsim import event
         from marketsim import types
         from marketsim import event
@@ -21,6 +22,7 @@ class RandomWalk(_RandomWalk_Impl):
         self.deltaDistr = deltaDistr if deltaDistr is not None else _math_random_normalvariate(0.0,1.0)
         self.intervalDistr = intervalDistr if intervalDistr is not None else _math_random_expovariate(1.0)
         self.name = name if name is not None else "-random-"
+        rtti.check_fields(self)
         _RandomWalk_Impl.__init__(self)
         if isinstance(initialValue, types.IEvent):
             event.subscribe(self.initialValue, self.fire, self)

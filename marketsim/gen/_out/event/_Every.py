@@ -7,7 +7,9 @@ class Every(_Every_Impl):
     """ 
     def __init__(self, intervalFunc = None):
         from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
+        from marketsim import rtti
         self.intervalFunc = intervalFunc if intervalFunc is not None else _math_random_expovariate(1.0)
+        rtti.check_fields(self)
         _Every_Impl.__init__(self)
     
     @property

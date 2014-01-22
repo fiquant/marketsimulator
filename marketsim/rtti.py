@@ -140,7 +140,8 @@ def typecheck(constraint, obj):
     """ Checks that *obj* meets *constraint* for an object field
     """
     def throw():
-        raise marketsim.exception.Constraint(constraint, obj)
+        from marketsim import exception
+        raise exception.Constraint(constraint, obj)
     
     if type(obj) is marketsim.Reference:
         if obj.pointee:
@@ -166,3 +167,6 @@ def typecheck(constraint, obj):
              throw()
        
         
+def check_fields(obj):
+    for p in properties(obj):
+        typecheck(p.type, getattr(obj, p.name))

@@ -11,7 +11,9 @@ class side_price_Limit(IFunction[IFunction[IOrderGenerator, IFunction[float]], I
     """ 
     def __init__(self, volume = None):
         from marketsim.gen._out._constant import constant as _constant
+        from marketsim import rtti
         self.volume = volume if volume is not None else _constant(1.0)
+        rtti.check_fields(self)
     
     @property
     def label(self):

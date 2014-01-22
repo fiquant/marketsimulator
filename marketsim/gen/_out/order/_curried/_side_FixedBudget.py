@@ -10,7 +10,9 @@ class side_FixedBudget(IFunction[IOrderGenerator, IFunction[Side]
     """ 
     def __init__(self, budget = None):
         from marketsim.gen._out._constant import constant as _constant
+        from marketsim import rtti
         self.budget = budget if budget is not None else _constant(1000.0)
+        rtti.check_fields(self)
     
     @property
     def label(self):

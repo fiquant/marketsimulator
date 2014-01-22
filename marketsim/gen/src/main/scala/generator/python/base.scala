@@ -93,7 +93,7 @@ package object base {
 
         def doc = s"""\"\"\" ${docstring.mkString(crlf)}$crlf\"\"\" """
 
-        def init_body = assign_fields
+        def init_body = assign_fields | "rtti.check_fields(self)" ||| ImportFrom("rtti", "marketsim")
 
         def init = Def("__init__", init_fields, init_body)
 

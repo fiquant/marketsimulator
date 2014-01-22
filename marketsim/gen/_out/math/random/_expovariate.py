@@ -6,7 +6,9 @@ class expovariate(Function[float]):
       Returned values range from 0 to positive infinity
     """ 
     def __init__(self, Lambda = None):
+        from marketsim import rtti
         self.Lambda = Lambda if Lambda is not None else 1.0
+        rtti.check_fields(self)
     
     @property
     def label(self):

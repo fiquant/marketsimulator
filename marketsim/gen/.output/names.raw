@@ -10064,6 +10064,25 @@ Definitions:
 | | | | | | | | -  it buys the asset and if the price is higher it sells the asset.
 | | | | | - List:
 | | | | - FunDef:
+| | | | | - Empty
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.basic._Empty_Impl
+| | | | - FunDef:
 | | | | | - MultiArmedBandit
 | | | | | - List:
 | | | | | | - Parameter:
@@ -11864,6 +11883,28 @@ Definitions:
 | | | | | - List:
 | | | | | - false
 | | | | - FunDef:
+| | | | | - Proxy
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IOrderBook
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.of_trader._Proxy_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - N/A
+| | | | - FunDef:
 | | | | | - SafeSidePrice
 | | | | | - List:
 | | | | | | - Parameter:
@@ -12420,7 +12461,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IFunction
+| | | | | | | | | - IObservable
 | | | | | | | - List:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:

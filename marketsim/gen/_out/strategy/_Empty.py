@@ -1,16 +1,14 @@
 from marketsim import registry
-from marketsim.ops._function import Function
-from marketsim import Side
-from marketsim.gen._intrinsic.side import _None_Impl
-@registry.expose(["Side", "Nothing"])
-class Nothing(Function[Side], _None_Impl):
+from marketsim.gen._intrinsic.strategy.basic import _Empty_Impl
+@registry.expose(["Strategy", "Empty"])
+class Empty(_Empty_Impl):
     """ 
     """ 
     def __init__(self):
         from marketsim import rtti
         
         rtti.check_fields(self)
-        _None_Impl.__init__(self)
+        _Empty_Impl.__init__(self)
     
     @property
     def label(self):
@@ -20,5 +18,5 @@ class Nothing(Function[Side], _None_Impl):
         
     }
     def __repr__(self):
-        return "Nothing" % self.__dict__
+        return "Empty" % self.__dict__
     

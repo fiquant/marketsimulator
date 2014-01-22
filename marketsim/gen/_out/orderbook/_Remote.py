@@ -11,9 +11,11 @@ class Remote(_Remote_Impl):
     def __init__(self, orderbook = None, link = None, timeseries = None):
         from marketsim.gen._out.orderbook._Local import Local as _orderbook_Local
         from marketsim.gen._out.orderbook._TwoWayLink import TwoWayLink as _orderbook_TwoWayLink
+        from marketsim import rtti
         self.orderbook = orderbook if orderbook is not None else _orderbook_Local()
         self.link = link if link is not None else _orderbook_TwoWayLink()
         self.timeseries = timeseries if timeseries is not None else []
+        rtti.check_fields(self)
         _Remote_Impl.__init__(self)
     
     @property

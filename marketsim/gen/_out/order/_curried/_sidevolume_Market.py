@@ -10,7 +10,9 @@ class sidevolume_Market(IFunction[IOrderGenerator, IFunction[Side],IFunction[flo
     """ 
     """ 
     def __init__(self):
-        pass
+        from marketsim import rtti
+        
+        rtti.check_fields(self)
     
     @property
     def label(self):

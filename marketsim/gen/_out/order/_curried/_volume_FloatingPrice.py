@@ -15,8 +15,10 @@ IFunction[IOrderGenerator,IFunction[float]]):
     def __init__(self, floatingPrice = None, proto = None):
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.order._curried._volume_price_Limit import volume_price_Limit as _order__curried_volume_price_Limit
+        from marketsim import rtti
         self.floatingPrice = floatingPrice if floatingPrice is not None else _const(10.0)
         self.proto = proto if proto is not None else _order__curried_volume_price_Limit()
+        rtti.check_fields(self)
     
     @property
     def label(self):

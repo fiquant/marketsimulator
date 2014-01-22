@@ -5,6 +5,7 @@ class Quote(Quote_Impl):
     """ 
     """ 
     def __init__(self, ticker = None, start = None, end = None):
+        from marketsim import rtti
         from marketsim import event
         from marketsim import types
         from marketsim import event
@@ -14,6 +15,7 @@ class Quote(Quote_Impl):
         self.ticker = ticker if ticker is not None else "^GSPC"
         self.start = start if start is not None else "2001-1-1"
         self.end = end if end is not None else "2010-1-1"
+        rtti.check_fields(self)
         Quote_Impl.__init__(self)
         if isinstance(ticker, types.IEvent):
             event.subscribe(self.ticker, self.fire, self)

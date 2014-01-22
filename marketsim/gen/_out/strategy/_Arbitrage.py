@@ -5,7 +5,9 @@ class Arbitrage(_Arbitrage_Impl):
     """ 
     """ 
     def __init__(self):
+        from marketsim import rtti
         
+        rtti.check_fields(self)
         _Arbitrage_Impl.__init__(self)
     
     @property

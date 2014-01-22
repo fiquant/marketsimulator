@@ -6,7 +6,9 @@ class signedVolume_MarketSigned(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
     """ 
     def __init__(self):
-        pass
+        from marketsim import rtti
+        
+        rtti.check_fields(self)
     
     @property
     def label(self):

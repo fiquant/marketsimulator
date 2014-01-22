@@ -16,6 +16,7 @@ class LiquidityProvider(Observable[float]):
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out.math.random._lognormvariate import lognormvariate as _math_random_lognormvariate
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
+        from marketsim import rtti
         from marketsim import _
         from marketsim import event
         Observable[float].__init__(self)
@@ -23,6 +24,7 @@ class LiquidityProvider(Observable[float]):
         self.initialValue = initialValue if initialValue is not None else 100.0
         self.priceDistr = priceDistr if priceDistr is not None else _math_random_lognormvariate(0.0,0.1)
         self.book = book if book is not None else _orderbook_OfTrader()
+        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     

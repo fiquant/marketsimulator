@@ -13,11 +13,13 @@ class SafeSidePrice(Observable[Price]):
         from marketsim.ops._all import Observable
         from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
         from marketsim.gen._out._constant import constant as _constant
+        from marketsim import rtti
         from marketsim import _
         from marketsim import event
         Observable[Price].__init__(self)
         self.queue = queue if queue is not None else _orderbook_Asks()
         self.defaultValue = defaultValue if defaultValue is not None else _constant(100.0)
+        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     

@@ -7,10 +7,12 @@ class Local(_Local_Impl):
     """  Maintains two order queues for orders of different sides
     """ 
     def __init__(self, tickSize = None, _digitsToShow = None, name = None, timeseries = None):
+        from marketsim import rtti
         self.tickSize = tickSize if tickSize is not None else 0.01
         self._digitsToShow = _digitsToShow if _digitsToShow is not None else 2
         self.name = name if name is not None else "-orderbook-"
         self.timeseries = timeseries if timeseries is not None else []
+        rtti.check_fields(self)
         _Local_Impl.__init__(self)
     
     @property

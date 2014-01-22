@@ -7,7 +7,9 @@ class Buy(Function[Side], _Buy_Impl):
     """ 
     """ 
     def __init__(self):
+        from marketsim import rtti
         
+        rtti.check_fields(self)
         _Buy_Impl.__init__(self)
     
     @property

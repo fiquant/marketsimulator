@@ -13,11 +13,13 @@ class FundamentalValue(Observable[Side]):
         from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
+        from marketsim import rtti
         from marketsim import _
         from marketsim import event
         Observable[Side].__init__(self)
         self.fv = fv if fv is not None else _constant(200.0)
         self.book = book if book is not None else _orderbook_OfTrader()
+        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     

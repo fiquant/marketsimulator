@@ -8,7 +8,9 @@ class signedVolume_LimitSigned(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
     def __init__(self, price = None):
         from marketsim.gen._out._constant import constant as _constant
+        from marketsim import rtti
         self.price = price if price is not None else _constant(100.0)
+        rtti.check_fields(self)
     
     @property
     def label(self):

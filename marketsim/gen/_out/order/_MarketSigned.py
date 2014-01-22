@@ -13,10 +13,12 @@ class MarketSigned(IOrderGenerator, Observable[Order]):
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import types
+        from marketsim import rtti
         Observable[Order].__init__(self)
         self.signedVolume = signedVolume if signedVolume is not None else _constant(1.0)
         if isinstance(signedVolume, types.IEvent):
             event.subscribe(self.signedVolume, self.fire, self)
+        rtti.check_fields(self)
     
     @property
     def label(self):

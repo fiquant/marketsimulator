@@ -10,10 +10,12 @@ class Exp(Observable[float]):
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import types
+        from marketsim import rtti
         Observable[float].__init__(self)
         self.x = x if x is not None else _constant(1.0)
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
+        rtti.check_fields(self)
     
     @property
     def label(self):

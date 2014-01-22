@@ -1,6 +1,12 @@
-from marketsim import Side
+from marketsim import Side, ops, IVolumeLevels, event
+from marketsim.gen._out.side._Buy import Buy
+from marketsim.gen._out.side._Sell import Sell
 
-class VolumeLevels_Impl(object):
+class VolumeLevels_Impl(ops.Observable[IVolumeLevels]):
+
+    def __init__(self):
+        ops.Observable[IVolumeLevels].__init__(self)
+        event.subscribe(event.Every(ops.constant(1)), self.fire, self)
 
     @property
     def dataSource(self):
@@ -23,6 +29,6 @@ class VolumeLevels_Impl(object):
         return {
             'smooth':True,
             'volumeLevels' : True,
-            'fillBelow' : self.queue.side == Side.Buy,
-            'fillAbove' : self.queue.side == Side.Sell
+            'fillBelow' : repr(self.queue.side) == "Buy",
+            'fillAbove' : repr(self.queue.side) == "Sell"
         }

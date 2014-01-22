@@ -22,6 +22,7 @@ class PairTrading(ISingleAssetStrategy):
         from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
         from marketsim.gen._out.order._curried._side_Market import side_Market as _order__curried_side_Market
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
+        from marketsim import rtti
         from marketsim import event
         from marketsim import _
         self.eventGen = eventGen if eventGen is not None else _event_Every(_math_random_expovariate(1.0))
@@ -29,6 +30,7 @@ class PairTrading(ISingleAssetStrategy):
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market()
         self.bookToDependOn = bookToDependOn if bookToDependOn is not None else _orderbook_OfTrader()
         self.factor = factor if factor is not None else 1.0
+        rtti.check_fields(self)
         self.impl = self.getImpl()
         self.on_order_created = event.Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)

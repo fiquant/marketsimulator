@@ -7,7 +7,9 @@ class Array(_Array_Impl):
     """ 
     """ 
     def __init__(self, strategies = None):
+        from marketsim import rtti
         self.strategies = strategies if strategies is not None else []
+        rtti.check_fields(self)
         _Array_Impl.__init__(self)
     
     @property

@@ -13,6 +13,7 @@ class RSI_linear(Observable[Volume]):
         from marketsim.ops._all import Observable
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
+        from marketsim import rtti
         from marketsim import _
         from marketsim import event
         Observable[Volume].__init__(self)
@@ -20,6 +21,7 @@ class RSI_linear(Observable[Volume]):
         self.k = k if k is not None else _const(-0.04)
         self.timeframe = timeframe if timeframe is not None else 1.0
         self.trader = trader if trader is not None else _trader_SingleProxy()
+        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     

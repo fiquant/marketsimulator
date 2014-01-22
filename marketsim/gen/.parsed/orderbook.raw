@@ -262,6 +262,28 @@ Definitions:
 | | | | | | | - label
 | | | | | | | - N/A
 | | | | - FunDef:
+| | | | | - Proxy
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IOrderBook
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.of_trader._Proxy_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - N/A
+| | | | - FunDef:
 | | | | | - Queue
 | | | | | - List:
 | | | | | | - Parameter:
@@ -841,7 +863,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IFunction
+| | | | | | | | | - IObservable
 | | | | | | | - List:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:

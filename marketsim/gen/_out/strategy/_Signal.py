@@ -19,6 +19,7 @@ class Signal(ISingleAssetStrategy):
         from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
         from marketsim.gen._out.order._curried._side_Market import side_Market as _order__curried_side_Market
         from marketsim.gen._out._constant import constant as _constant
+        from marketsim import rtti
         from marketsim import event
         from marketsim import _
         self.eventGen = eventGen if eventGen is not None else _event_Every(_math_random_expovariate(1.0))
@@ -26,6 +27,7 @@ class Signal(ISingleAssetStrategy):
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market()
         self.signal = signal if signal is not None else _constant(0.0)
         self.threshold = threshold if threshold is not None else 0.7
+        rtti.check_fields(self)
         self.impl = self.getImpl()
         self.on_order_created = event.Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)

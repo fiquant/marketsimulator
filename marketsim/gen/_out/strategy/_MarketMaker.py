@@ -41,10 +41,12 @@ class MarketMaker(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, delta = None, volume = None):
+        from marketsim import rtti
         from marketsim import event
         from marketsim import _
         self.delta = delta if delta is not None else 1.0
         self.volume = volume if volume is not None else 20.0
+        rtti.check_fields(self)
         self.impl = self.getImpl()
         self.on_order_created = event.Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)

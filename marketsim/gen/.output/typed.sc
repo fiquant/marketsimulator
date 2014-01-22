@@ -1370,6 +1370,11 @@ package strategy {@category = "Side function"
         
         	 = .strategy.Generic(orderFactory(.strategy.side.MeanReversion(ewma_alpha)),eventGen)
     
+    
+    @python.intrinsic("strategy.basic._Empty_Impl")
+    def Empty() : .ISingleAssetStrategy
+        
+    
     /** A composite strategy initialized with an array of strategies.
      * In some moments of time the most effective strategy
      * is chosen and made running; other strategies are suspended.
@@ -1571,6 +1576,11 @@ package orderbook {@queue = "Ask_{%(book)s}"
         def _queue = .orderbook.Bids
     }
     
+    @label = "N/A"
+    @python.intrinsic("orderbook.of_trader._Proxy_Impl")
+    def Proxy() : .IOrderBook
+        
+    
     
     @python.observable()
     def SafeSidePrice(queue : Optional[.IOrderQueue] = .orderbook.Asks(),
@@ -1648,7 +1658,7 @@ package orderbook {@queue = "Ask_{%(book)s}"
     @python.intrinsic("orderbook.volume_levels.VolumeLevels_Impl")
     def VolumeLevels(queue : Optional[.IOrderQueue] = .orderbook.Asks(),
                      volumeDelta : Optional[.Float] = 30.0,
-                     volumeCount : Optional[.Int] = 10) : .IFunction[.IVolumeLevels]
+                     volumeCount : Optional[.Int] = 10) : .IObservable[.IVolumeLevels]
         
     
     

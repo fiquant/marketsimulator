@@ -171,6 +171,25 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - strategy.canceller._Canceller_Impl
 | | | | - FunDef:
+| | | | | - Empty
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.basic._Empty_Impl
+| | | | - FunDef:
 | | | | | - Arbitrage
 | | | | | - List:
 | | | | | - None

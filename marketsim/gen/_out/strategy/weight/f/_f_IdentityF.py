@@ -7,7 +7,9 @@ class f_IdentityF(IFunction[IFunction[float], IFunction[float]]):
     """ 
     """ 
     def __init__(self):
-        pass
+        from marketsim import rtti
+        
+        rtti.check_fields(self)
     
     @property
     def label(self):

@@ -2,8 +2,12 @@ import sys, itertools, pickle
 sys.path.append(r'..')
 sys.setrecursionlimit(10000)
 
-from marketsim import (request, _, orderbook, observable, timeserie, scheduler, veusz, registry, event, config, 
-                       context, trader, orderbook, Side, remote, ops, bind, signal, strategy, order)
+from marketsim import (_, scheduler, veusz, registry, config,
+                       context, bind)
+
+from marketsim.ops import Function
+
+from marketsim._pub import orderbook, TimeSerie, volumeLevels, trader, math, observable, const, strategy, side
 
 simulations = {}
 
@@ -17,7 +21,7 @@ def expose(label, module, only_veusz=False):
         return f
     return inner
     
-const = ops.constant 
+constant = const
 
 def _print(*args):
     if len(args) == 1:
@@ -38,11 +42,11 @@ class Context(object):
             self.world.process(const(10), bind.Function(_print, '.'))
             self.world.process(const(100), bind.Function(_print, '\n'))
         
-        delay = ops.constant(1.07)
+        delay = constant(1.07)
 
-        self.link_A = remote.TwoWayLink(remote.Link(delay), remote.Link(delay))
-        self.link_B = remote.TwoWayLink(remote.Link(delay), remote.Link(delay))
-        self.link_C = remote.TwoWayLink(remote.Link(delay), remote.Link(delay))
+        self.link_A = orderbook.TwoWayLink(orderbook.Link(delay), orderbook.Link(delay))
+        self.link_B = orderbook.TwoWayLink(orderbook.Link(delay), orderbook.Link(delay))
+        self.link_C = orderbook.TwoWayLink(orderbook.Link(delay), orderbook.Link(delay))
 
         self.remote_A = orderbook.Remote(self.book_A, self.link_A)
         self.remote_B = orderbook.Remote(self.book_B, self.link_B)
@@ -94,13 +98,12 @@ class Context(object):
     def makeTrader(self, book, strategy, label, additional_ts = []):
         def trader_ts():
             thisTrader = trader.SingleProxy()
-            return { 
-                     observable.VolumeTraded(thisTrader) : self.amount_graph, 
-                     #observable.PendingVolume(thisTrader): self.amount_graph, 
-                     observable.Efficiency(thisTrader)   : self.eff_graph,
-                     observable.PnL(thisTrader)          : self.balance_graph 
-                   }
-        
+            return [
+                TimeSerie(trader.Position(thisTrader),      self.amount_graph),
+                TimeSerie(trader.Efficiency(thisTrader),    self.eff_graph),
+                TimeSerie(trader.Balance(thisTrader),       self.balance_graph)
+            ]
+
         t = trader.SingleAsset(book, strategy, name = label, timeseries = trader_ts())
                     
         for (ts, graph) in additional_ts:
@@ -120,8 +123,8 @@ class Context(object):
     def makeMinorTrader(self, strategy, label):
         def trader_ts():
             thisTrader = trader.SingleProxy()
-            return { observable.Efficiency(thisTrader)   : self.minors_eff_graph, 
-                     observable.VolumeTraded(thisTrader) : self.minors_amount_graph    }
+            return [ TimeSerie(trader.Efficiency(thisTrader), self.minors_eff_graph),
+                     TimeSerie(trader.Position(thisTrader), self.minors_amount_graph) ]
         
         return trader.SingleAsset(self.book_A, strategy, name = label, timeseries = trader_ts())
         
@@ -148,99 +151,97 @@ def orderBooksToRender(ctx, traders):
             from marketsim.gen._out.math._Max import Max
 
             thisBook = orderbook.Proxy()
-            assetPrice = observable.MidPrice(thisBook)
-            askPrice = observable.AskPrice(thisBook)
-            bidPrice = observable.BidPrice(thisBook)
-            askWeightedPrice = observable.AskWeightedPrice(thisBook, 0.15)
-            bidWeightedPrice = observable.BidWeightedPrice(thisBook, 0.15)
-            avg = observable.avg
-            cma = observable.CMA(assetPrice)
-            stddev = observable.StdDev(assetPrice)
-            ma100 = observable.MA(assetPrice, 100)
-            ma20 = observable.MA(assetPrice, 20)
-            stddev100 = observable.StdDevRolling(assetPrice, 100)
-            stddev20 = observable.StdDevRolling(assetPrice, 20)
-            ewma015 = observable.EWMA(assetPrice, alpha=0.15)
-            ewmsd = observable.StdDevEW(assetPrice, 0.15)
-            min = observable.Min(assetPrice, 100)
-            max = observable.Max(assetPrice, 100)
-            candlesticks = observable.CandleSticks(assetPrice, 10)
-            tickSize = observable.TickSize(thisBook)
-            max_eps = observable.MaxEpsilon(assetPrice, tickSize)
-            min_eps = observable.MinEpsilon(assetPrice, tickSize)
+            assetPrice = orderbook.MidPrice(thisBook)
+            askPrice = orderbook.ask.Price(thisBook)
+            bidPrice = orderbook.bid.Price(thisBook)
+            askWeightedPrice = orderbook.ask.WeightedPrice(thisBook, 0.15)
+            bidWeightedPrice = orderbook.bid.WeightedPrice(thisBook, 0.15)
+            avg_015 = math.EW.Avg(assetPrice, 0.015)
+            avg_15 = math.EW.Avg(assetPrice, 0.15)
+            avg_65 = math.EW.Avg(assetPrice, 0.65)
+            cma = math.Cumulative.Avg(assetPrice)
+            stddev = math.EW.StdDev(assetPrice)
+            ma100 = math.Moving.Avg(assetPrice, 100)
+            ma20 = math.Moving.Avg(assetPrice, 20)
+            stddev100 = math.Moving.StdDev(assetPrice, 100)
+            stddev20 = math.Moving.StdDev(assetPrice, 20)
+            ewma015 = math.EW.Avg(assetPrice, alpha=0.15)
+            ewmsd = math.EW.StdDev(assetPrice, 0.15)
+            min = math.Moving.Min(assetPrice, 100)
+            max = math.Moving.Max(assetPrice, 100)
+            #candlesticks = observable.CandleSticks(assetPrice, 10)
+            tickSize = orderbook.TickSize(thisBook)
+            max_eps = math.Cumulative.MaxEpsilon(assetPrice, tickSize)
+            min_eps = math.Cumulative.MinEpsilon(assetPrice, tickSize)
             
             def bollinger(mean, stddev, graph):
                 return [
-                    timeserie.ToRecord(assetPrice, graph), 
-                    timeserie.ToRecord(observable.OnEveryDt(1, mean), graph), 
-                    timeserie.ToRecord(observable.OnEveryDt(1, mean + stddev*2), graph), 
-                    timeserie.ToRecord(observable.OnEveryDt(1, mean - stddev*2), graph),
+                    TimeSerie(assetPrice, graph), 
+                    TimeSerie(observable.OnEveryDt(1, mean), graph), 
+                    TimeSerie(observable.OnEveryDt(1, mean + stddev*2), graph), 
+                    TimeSerie(observable.OnEveryDt(1, mean - stddev*2), graph),
                 ] 
                 
             scaled = (assetPrice - 100) / 10
-            
+            scaled_13 = math.EW.Avg(scaled, 2./13.)
+            scaled_27 = math.EW.Avg(scaled, 2./27.)
+
             return ([
-                timeserie.ToRecord(assetPrice, ctx.price_graph), 
-                timeserie.ToRecord(askPrice, ctx.price_graph),
-                timeserie.ToRecord(bidPrice, ctx.price_graph),
-                #timeserie.ToRecord(observable.Spread(thisBook), ctx.price_graph),
+                TimeSerie(assetPrice, ctx.price_graph), 
+                TimeSerie(askPrice, ctx.price_graph),
+                TimeSerie(bidPrice, ctx.price_graph),
 
-                timeserie.ToRecord(observable.AskLastTradePrice(thisBook), ctx.askbid_graph),
-                timeserie.ToRecord(observable.BidLastTradePrice(thisBook), ctx.askbid_graph), 
-                timeserie.ToRecord(observable.OnEveryDt(1, askWeightedPrice), ctx.askbid_graph), 
-                timeserie.ToRecord(observable.OnEveryDt(1, bidWeightedPrice), ctx.askbid_graph), 
+                TimeSerie(orderbook.ask.LastTradePrice(thisBook), ctx.askbid_graph),
+                TimeSerie(orderbook.bid.LastTradePrice(thisBook), ctx.askbid_graph),
+                TimeSerie(observable.OnEveryDt(1, askWeightedPrice), ctx.askbid_graph), 
+                TimeSerie(observable.OnEveryDt(1, bidWeightedPrice), ctx.askbid_graph), 
                 
-                #timeserie.ToRecord(assetPrice, ctx.candles_graph), 
-                timeserie.ToRecord(candlesticks, ctx.candles_graph),
+                #TimeSerie(assetPrice, ctx.candles_graph), 
+                #TimeSerie(candlesticks, ctx.candles_graph),
 
-                timeserie.ToRecord(assetPrice, ctx.avgs_graph), 
-                timeserie.ToRecord(observable.OnEveryDt(1, cma), ctx.avgs_graph), 
-                timeserie.ToRecord(observable.OnEveryDt(1, ma20), ctx.avgs_graph), 
-                timeserie.ToRecord(observable.OnEveryDt(1, ma100), ctx.avgs_graph), 
-                timeserie.ToRecord(avg(assetPrice, alpha=0.15), ctx.avgs_graph),
-                timeserie.ToRecord(avg(assetPrice, alpha=0.65), ctx.avgs_graph),
-                timeserie.ToRecord(avg(assetPrice, alpha=0.015), ctx.avgs_graph),
+                TimeSerie(assetPrice, ctx.avgs_graph), 
+                TimeSerie(observable.OnEveryDt(1, cma), ctx.avgs_graph), 
+                TimeSerie(observable.OnEveryDt(1, ma20), ctx.avgs_graph), 
+                TimeSerie(observable.OnEveryDt(1, ma100), ctx.avgs_graph), 
+                TimeSerie(observable.OnEveryDt(1, avg_15), ctx.avgs_graph),
+                TimeSerie(observable.OnEveryDt(1, avg_65), ctx.avgs_graph),
+                TimeSerie(observable.OnEveryDt(1, avg_015), ctx.avgs_graph),
                  
-                timeserie.ToRecord(scaled, ctx.macd_graph), 
-                timeserie.ToRecord(avg(scaled, alpha=2./13), ctx.macd_graph),
-                timeserie.ToRecord(avg(scaled, alpha=2./27), ctx.macd_graph),
-                timeserie.ToRecord(observable.OnEveryDt(1, observable.MACD(assetPrice)), ctx.macd_graph), 
-                timeserie.ToRecord(observable.OnEveryDt(1, observable.MACD_signal(assetPrice)), ctx.macd_graph), 
-                timeserie.ToRecord(observable.OnEveryDt(1, observable.MACD_histogram(assetPrice)), ctx.macd_graph), 
+                TimeSerie(scaled, ctx.macd_graph), 
+                TimeSerie(observable.OnEveryDt(1, scaled_13), ctx.macd_graph),
+                TimeSerie(observable.OnEveryDt(1, scaled_27), ctx.macd_graph),
+                TimeSerie(observable.OnEveryDt(1, math.macd.MACD(assetPrice)), ctx.macd_graph),
+                TimeSerie(observable.OnEveryDt(1, math.macd.Signal(assetPrice)), ctx.macd_graph),
+                TimeSerie(observable.OnEveryDt(1, math.macd.Histogram(assetPrice)), ctx.macd_graph),
 
-                timeserie.ToRecord(assetPrice, ctx.minmax_graph),
-                timeserie.ToRecord(max, ctx.minmax_graph),
-                timeserie.ToRecord(min, ctx.minmax_graph),
-                timeserie.ToRecord(max_eps, ctx.minmax_graph),
-                timeserie.ToRecord(min_eps, ctx.minmax_graph),
-            ] 
-            + bollinger(ma100, stddev100, ctx.bollinger_100_graph) 
+                TimeSerie(max, ctx.minmax_graph),
+                TimeSerie(min, ctx.minmax_graph),
+                TimeSerie(max_eps, ctx.minmax_graph),
+                TimeSerie(min_eps, ctx.minmax_graph)
+            ]
+            + bollinger(ma100, stddev100, ctx.bollinger_100_graph)
             + bollinger(ma20, stddev20, ctx.bollinger_20_graph)
-            + bollinger(ewma015, ewmsd, ctx.bollinger_a015_graph)
+            + bollinger(avg_15, ewmsd, ctx.bollinger_a015_graph)
             )
 
         for b in books:
             thisBook = orderbook.Proxy()
             ts = orderbook_ts()
             b.volumes_graph = ctx.addGraph("Volume levels " + b.label)
-            ts.append(timeserie.VolumeLevels(
-                           observable.VolumeLevels(1,
-                                                   thisBook,
-                                                   Side.Sell,
+            ts.append(volumeLevels(
+                           orderbook.VolumeLevels(orderbook.Queue(thisBook, side.Sell()),
                                                    30,
                                                    10),
                            b.volumes_graph))
-            ts.append(timeserie.VolumeLevels(
-                           observable.VolumeLevels(1,
-                                                   thisBook,
-                                                   Side.Buy,
+            ts.append(volumeLevels(
+                           orderbook.VolumeLevels(orderbook.Queue(thisBook, side.Buy()),
                                                    30,
                                                    10),
                            b.volumes_graph))
             b.timeseries = ts
              
             b.rsi_graph = ctx.addGraph("RSI " + b.label)
-            ts.append(timeserie.ToRecord(observable.MidPrice(thisBook), b.rsi_graph))
+            ts.append(TimeSerie(orderbook.MidPrice(thisBook), b.rsi_graph))
             for timeframe in [#0., 
                               #0.001,
                               #0.01,
@@ -254,9 +255,9 @@ def orderBooksToRender(ctx, traders):
                               #4, 
                               5]:
                 ts.append(
-                    timeserie.ToRecord(
+                    TimeSerie(
                         observable.OnEveryDt(1, 
-                            observable.RSI(thisBook, 
+                            math.RSI(thisBook,
                                            timeframe, 
                                            1./14)), 
                         b.rsi_graph))
@@ -290,11 +291,7 @@ def run(name, constructor, only_veusz):
         r.insert(root)
         r.pushAllReferences()
         context.bind(root, {'world' : world })
-                    
-        if False:
-            req = request.EvalMarketOrder(Side.Sell, 500, _print)
-            world.schedule(10, _(ctx.remote_A, req).process)
-        
+
         def checks():
             if not only_veusz and config.checkConsistency:
                 r.typecheck()
@@ -323,9 +320,9 @@ def run(name, constructor, only_veusz):
             veusz.render(name, non_empty_graphs)
 
 def Constant(c, demo):
-    return [(observable.OnEveryDt(10, ops.constant(c)), demo)]
+    return [(observable.OnEveryDt(10, constant(c)), demo)]
 
-class Interlacing(ops.Function[float]):
+class Interlacing(Function[float]):
 
     def __init__(self, phase = 1, timeframe = 10):
         self.timeframe = timeframe
@@ -337,7 +334,9 @@ class Interlacing(ops.Function[float]):
     def __call__(self):
         return int(self._scheduler.currentTime / self.timeframe) % 2 * 2 - 1
 
-class InterlacingSide(ops.Function[Side]):
+from marketsim import Side as SIDE
+
+class InterlacingSide(Function[SIDE]):
     
     def __init__(self, phase = 1, timeframe = 10):
         self._impl = Interlacing(phase, timeframe)
@@ -345,4 +344,4 @@ class InterlacingSide(ops.Function[Side]):
     _internals = ['_impl']
         
     def __call__(self):
-        return Side.Buy if self._impl() > 0 else Side.Sell 
+        return side.Buy() if self._impl() > 0 else side.Sell()

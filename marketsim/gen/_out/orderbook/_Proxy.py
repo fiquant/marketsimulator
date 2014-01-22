@@ -1,14 +1,14 @@
 from marketsim import registry
-from marketsim.gen._intrinsic.trader.proxy import _Single_Impl
-@registry.expose(["Trader", "SingleProxy"])
-class SingleProxy(_Single_Impl):
+from marketsim.gen._intrinsic.orderbook.of_trader import _Proxy_Impl
+@registry.expose(["Asset", "Proxy"])
+class Proxy(_Proxy_Impl):
     """ 
     """ 
     def __init__(self):
         from marketsim import rtti
         
         rtti.check_fields(self)
-        _Single_Impl.__init__(self)
+        _Proxy_Impl.__init__(self)
     
     @property
     def label(self):

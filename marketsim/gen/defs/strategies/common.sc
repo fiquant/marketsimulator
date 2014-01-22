@@ -20,6 +20,9 @@ package strategy
     @python.intrinsic("strategy.canceller._Canceller_Impl")
     def Canceller(cancellationIntervalDistr = math.random.expovariate(1.)) : ISingleAssetStrategy
 
+    @python.intrinsic("strategy.basic._Empty_Impl")
+    def Empty() : ISingleAssetStrategy
+
     @python.intrinsic("strategy.arbitrage._Arbitrage_Impl")
     def Arbitrage() : IMultiAssetStrategy
 }

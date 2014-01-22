@@ -9,8 +9,10 @@ class uniform(Function[float]):
      floating-point rounding in the equation *a* + (*b*-*a*) * *random()*.
     """ 
     def __init__(self, Low = None, High = None):
+        from marketsim import rtti
         self.Low = Low if Low is not None else -10.0
         self.High = High if High is not None else 10.0
+        rtti.check_fields(self)
     
     @property
     def label(self):

@@ -9,12 +9,14 @@ class SingleAsset(_SingleAsset_Impl):
     """ 
     def __init__(self, orderBook , strategy = None, name = None, amount = None, PnL = None, timeseries = None):
         from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
+        from marketsim import rtti
         self.orderBook = orderBook
         self.strategy = strategy if strategy is not None else _strategy_Noise()
         self.name = name if name is not None else "-trader-"
         self.amount = amount if amount is not None else 0.0
         self.PnL = PnL if PnL is not None else 0.0
         self.timeseries = timeseries if timeseries is not None else []
+        rtti.check_fields(self)
         _SingleAsset_Impl.__init__(self)
     
     @property

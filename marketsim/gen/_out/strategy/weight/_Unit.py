@@ -9,7 +9,9 @@ class Unit(Function[float]):
     """ 
     def __init__(self, trader = None):
         from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
+        from marketsim import rtti
         self.trader = trader if trader is not None else _trader_SingleProxy()
+        rtti.check_fields(self)
         self.impl = self.getImpl()
     
     @property

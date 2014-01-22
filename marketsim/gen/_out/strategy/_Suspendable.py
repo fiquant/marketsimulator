@@ -9,8 +9,10 @@ class Suspendable(_Suspendable_Impl):
     def __init__(self, inner = None, predicate = None):
         from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
         from marketsim.gen._out._true import true as _true
+        from marketsim import rtti
         self.inner = inner if inner is not None else _strategy_Noise()
         self.predicate = predicate if predicate is not None else _true()
+        rtti.check_fields(self)
         _Suspendable_Impl.__init__(self)
     
     @property

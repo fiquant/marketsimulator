@@ -19,6 +19,7 @@ class Pow(Observable[float]):
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import types
+        from marketsim import rtti
         Observable[float].__init__(self)
         self.base = base if base is not None else _constant(1.0)
         if isinstance(base, types.IEvent):
@@ -26,6 +27,7 @@ class Pow(Observable[float]):
         self.power = power if power is not None else _constant(1.0)
         if isinstance(power, types.IEvent):
             event.subscribe(self.power, self.fire, self)
+        rtti.check_fields(self)
     
     @property
     def label(self):

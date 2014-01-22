@@ -8,7 +8,9 @@ class IdentityF(Function[float]):
     """ 
     def __init__(self, f = None):
         from marketsim.gen._out._constant import constant as _constant
+        from marketsim import rtti
         self.f = f if f is not None else _constant()
+        rtti.check_fields(self)
         self.impl = self.getImpl()
     
     @property

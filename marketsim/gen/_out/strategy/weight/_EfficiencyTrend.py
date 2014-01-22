@@ -11,8 +11,10 @@ class EfficiencyTrend(Function[float]):
     """ 
     def __init__(self, trader = None, alpha = None):
         from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
+        from marketsim import rtti
         self.trader = trader if trader is not None else _trader_SingleProxy()
         self.alpha = alpha if alpha is not None else 0.15
+        rtti.check_fields(self)
         self.impl = self.getImpl()
     
     @property

@@ -6,7 +6,9 @@ class false(Function[bool], _False_Impl):
     """ 
     """ 
     def __init__(self):
+        from marketsim import rtti
         
+        rtti.check_fields(self)
         _False_Impl.__init__(self)
     
     @property

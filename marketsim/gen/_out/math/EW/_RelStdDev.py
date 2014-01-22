@@ -11,11 +11,13 @@ class RelStdDev(Observable[float]):
         from marketsim import float
         from marketsim.ops._all import Observable
         from marketsim.gen._out._const import const as _const
+        from marketsim import rtti
         from marketsim import _
         from marketsim import event
         Observable[float].__init__(self)
         self.source = source if source is not None else _const()
         self.alpha = alpha if alpha is not None else 0.015
+        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     

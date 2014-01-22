@@ -9,12 +9,14 @@ class CumulativePrice(CumulativePrice_Impl):
     def __init__(self, book = None, depth = None):
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim.gen._out._constant import constant as _constant
+        from marketsim import rtti
         from marketsim import event
         from marketsim import types
         from marketsim import event
         from marketsim import types
         self.book = book if book is not None else _orderbook_OfTrader()
         self.depth = depth if depth is not None else _constant()
+        rtti.check_fields(self)
         CumulativePrice_Impl.__init__(self)
         if isinstance(book, types.IEvent):
             event.subscribe(self.book, self.fire, self)

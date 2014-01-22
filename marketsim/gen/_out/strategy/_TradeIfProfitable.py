@@ -17,11 +17,13 @@ class TradeIfProfitable(ISingleAssetStrategy):
         from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
         from marketsim.gen._out.strategy.account.inner._inner_VirtualMarket import inner_VirtualMarket as _strategy_account_inner_inner_VirtualMarket
         from marketsim.gen._out.strategy.weight.trader._trader_EfficiencyTrend import trader_EfficiencyTrend as _strategy_weight_trader_trader_EfficiencyTrend
+        from marketsim import rtti
         from marketsim import event
         from marketsim import _
         self.inner = inner if inner is not None else _strategy_Noise()
         self.account = account if account is not None else _strategy_account_inner_inner_VirtualMarket()
         self.performance = performance if performance is not None else _strategy_weight_trader_trader_EfficiencyTrend()
+        rtti.check_fields(self)
         self.impl = self.getImpl()
         self.on_order_created = event.Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)

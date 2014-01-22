@@ -31,6 +31,5 @@ class MultiAssetStrategy(Base, types.IMultiAssetStrategy):
         Base.__init__(self)
         self.on_order_created = event.Event()
 
-@registry.expose(['Empty']) 
-class Empty(Strategy):
+class _Empty_Impl(Strategy):
     pass

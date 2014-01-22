@@ -7,7 +7,9 @@ class trader_EfficiencyTrend(IFunction[IFunction[float], IAccount]):
     """ 
     """ 
     def __init__(self, alpha = None):
+        from marketsim import rtti
         self.alpha = alpha if alpha is not None else 0.15
+        rtti.check_fields(self)
     
     @property
     def label(self):

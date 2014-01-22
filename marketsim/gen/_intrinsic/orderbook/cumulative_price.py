@@ -1,5 +1,4 @@
 from marketsim import ops, event, request, Side, _, types
-from marketsim.gen._out.orderbook._LastTradePrice import LastTradePrice
 
 def sign(x):
     return 1 if x > 0 else -1 if x < 0 else 0
@@ -10,13 +9,17 @@ class CumulativePrice_Impl(ops.Observable[float]):
 
         ops.Observable[float].__init__(self)
 
-        self.price = LastTradePrice(self.book)
+        from marketsim.gen._out.orderbook.ask._LastTradePrice import LastTradePrice as Ask
+        from marketsim.gen._out.orderbook.bid._LastTradePrice import LastTradePrice as Bid
+        self.ask = Ask(self.book)
+        self.bid = Bid(self.book)
 
         self.reset()
-        event.subscribe(self.price, _(self)._update, self)
+        event.subscribe(self.ask, _(self)._update, self)
+        event.subscribe(self.bid, _(self)._update, self)
         event.subscribe(self.depth, _(self)._update, self)
 
-    _internals = ["price"]
+    _internals = ["ask", "bid"]
 
     @property
     def digits(self):

@@ -22,8 +22,10 @@ IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
     def __init__(self, lotSize = None, proto = None):
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._curried._side_price_Limit import side_price_Limit as _order__curried_side_price_Limit
+        from marketsim import rtti
         self.lotSize = lotSize if lotSize is not None else _constant(10.0)
         self.proto = proto if proto is not None else _order__curried_side_price_Limit()
+        rtti.check_fields(self)
     
     @property
     def label(self):

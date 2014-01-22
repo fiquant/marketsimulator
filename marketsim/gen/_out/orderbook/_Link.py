@@ -8,7 +8,9 @@ class Link(_Link_Impl):
     """ 
     def __init__(self, latency = None):
         from marketsim.gen._out._const import const as _const
+        from marketsim import rtti
         self.latency = latency if latency is not None else _const(0.001)
+        rtti.check_fields(self)
         _Link_Impl.__init__(self)
     
     @property

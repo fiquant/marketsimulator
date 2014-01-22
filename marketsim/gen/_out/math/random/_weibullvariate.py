@@ -5,8 +5,10 @@ class weibullvariate(Function[float]):
     """ 
     """ 
     def __init__(self, Alpha = None, Beta = None):
+        from marketsim import rtti
         self.Alpha = Alpha if Alpha is not None else 1.0
         self.Beta = Beta if Beta is not None else 1.0
+        rtti.check_fields(self)
     
     @property
     def label(self):

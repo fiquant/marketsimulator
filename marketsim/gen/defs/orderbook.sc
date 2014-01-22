@@ -48,6 +48,10 @@ package orderbook
     @label = "N/A"
     def OfTrader(Trader = trader.SingleProxy() : IAccount) : IOrderBook
 
+    @python.intrinsic("orderbook.of_trader._Proxy_Impl")
+    @label = "N/A"
+    def Proxy() : IOrderBook
+
     @python.intrinsic("orderbook.proxy._Queue_Impl")
     def Queue(book = OfTrader(), side = side.Sell()) : IOrderQueue
 
@@ -89,7 +93,7 @@ package orderbook
 
     @python.intrinsic("orderbook.volume_levels.VolumeLevels_Impl")
     @label = "VolumeLevels(%(queue)s)"
-    def VolumeLevels(queue = Asks(), volumeDelta = 30., volumeCount = 10) : IFunction[IVolumeLevels]
+    def VolumeLevels(queue = Asks(), volumeDelta = 30., volumeCount = 10) : IObservable[IVolumeLevels]
 
     def NaiveCumulativePrice(book = OfTrader(), depth = constant()) =
         observable.Price(if depth < 0.0 then depth*ask.Price(book) else if depth > 0.0 then depth*bid.Price(book) else 0.0)

@@ -11,8 +11,10 @@ class AtanPow(Function[float]):
     """ 
     def __init__(self, f = None, base = None):
         from marketsim.gen._out._constant import constant as _constant
+        from marketsim import rtti
         self.f = f if f is not None else _constant()
         self.base = base if base is not None else 1.002
+        rtti.check_fields(self)
         self.impl = self.getImpl()
     
     @property

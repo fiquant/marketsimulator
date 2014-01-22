@@ -36,6 +36,7 @@ class MarketData(ISingleAssetStrategy):
       are created based on the next price of the market data.
     """ 
     def __init__(self, ticker = None, start = None, end = None, delta = None, volume = None):
+        from marketsim import rtti
         from marketsim import event
         from marketsim import _
         self.ticker = ticker if ticker is not None else "^GSPC"
@@ -43,6 +44,7 @@ class MarketData(ISingleAssetStrategy):
         self.end = end if end is not None else "2010-1-1"
         self.delta = delta if delta is not None else 1.0
         self.volume = volume if volume is not None else 1000.0
+        rtti.check_fields(self)
         self.impl = self.getImpl()
         self.on_order_created = event.Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)

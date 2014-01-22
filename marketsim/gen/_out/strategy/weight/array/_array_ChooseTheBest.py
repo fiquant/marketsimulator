@@ -7,7 +7,9 @@ class array_ChooseTheBest(IFunction[listOf(float), listOf(float)]):
     """ 
     """ 
     def __init__(self):
-        pass
+        from marketsim import rtti
+        
+        rtti.check_fields(self)
     
     @property
     def label(self):

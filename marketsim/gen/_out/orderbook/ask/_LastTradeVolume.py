@@ -11,10 +11,12 @@ class LastTradeVolume(Observable[Volume]):
         from marketsim import Volume
         from marketsim.ops._all import Observable
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
+        from marketsim import rtti
         from marketsim import _
         from marketsim import event
         Observable[Volume].__init__(self)
         self.book = book if book is not None else _orderbook_OfTrader()
+        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     

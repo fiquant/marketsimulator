@@ -7,7 +7,9 @@ class f_AtanPow(IFunction[IFunction[float], IFunction[float]]):
     """ 
     """ 
     def __init__(self, base = None):
+        from marketsim import rtti
         self.base = base if base is not None else 1.002
+        rtti.check_fields(self)
     
     @property
     def label(self):

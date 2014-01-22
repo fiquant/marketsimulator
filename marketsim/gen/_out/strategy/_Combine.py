@@ -9,8 +9,10 @@ class Combine(_Combine_Impl):
     def __init__(self, A = None, B = None):
         from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
         from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
+        from marketsim import rtti
         self.A = A if A is not None else _strategy_Noise()
         self.B = B if B is not None else _strategy_Noise()
+        rtti.check_fields(self)
         _Combine_Impl.__init__(self)
     
     @property

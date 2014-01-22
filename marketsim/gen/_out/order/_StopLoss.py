@@ -17,6 +17,7 @@ class StopLoss(IOrderGenerator, Observable[Order]):
         from marketsim.gen._out.order._Limit import Limit as _order_Limit
         from marketsim import event
         from marketsim import types
+        from marketsim import rtti
         Observable[Order].__init__(self)
         self.maxloss = maxloss if maxloss is not None else _constant(0.1)
         if isinstance(maxloss, types.IEvent):
@@ -24,6 +25,7 @@ class StopLoss(IOrderGenerator, Observable[Order]):
         self.proto = proto if proto is not None else _order_Limit()
         if isinstance(proto, types.IEvent):
             event.subscribe(self.proto, self.fire, self)
+        rtti.check_fields(self)
     
     @property
     def label(self):

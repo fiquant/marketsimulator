@@ -6,7 +6,9 @@ class const(Function[float], _Constant_Impl):
     """ 
     """ 
     def __init__(self, x = None):
+        from marketsim import rtti
         self.x = x if x is not None else 1.0
+        rtti.check_fields(self)
         _Constant_Impl.__init__(self)
     
     @property

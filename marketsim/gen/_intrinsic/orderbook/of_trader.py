@@ -31,3 +31,17 @@ class _OfTrader_Impl(Base):
         except AttributeError:
             return None
 
+class _Proxy_Impl(Base):
+
+    def __init__(self):
+        self._impl = None
+        Base.__init__(self)
+
+    @property
+    def label(self):
+        return self._impl.label if self._impl else '$(OrderBook)'
+
+    def bind(self, ctx):
+        assert self._impl is None
+        self._impl = ctx.orderbook
+

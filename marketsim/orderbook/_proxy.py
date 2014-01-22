@@ -49,21 +49,5 @@ class Queue(types.IOrderQueue):
     def __repr__(self):
         return self.__str__()
 
-@registry.expose(['$(OrderBook)'])
-class Proxy(Base):
-    
-    def __init__(self):
-        self._impl = None
-        Base.__init__(self)
-        
-    _properties = {}
-        
-    @property
-    def label(self):
-        return self._impl.label if self._impl else '$(OrderBook)'    
-            
-    def bind(self, ctx):
-        assert self._impl is None
-        self._impl = ctx.orderbook
-
+from marketsim.gen._out.orderbook._Proxy import Proxy
 from marketsim.gen._out.orderbook._OfTrader import OfTrader

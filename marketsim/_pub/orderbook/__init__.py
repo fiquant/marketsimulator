@@ -1,3 +1,5 @@
+from marketsim.gen._out.orderbook._Proxy import Proxy
+
 from marketsim.gen._out.orderbook._SafeSidePrice import SafeSidePrice
 
 from marketsim.gen._out.orderbook._WeightedPrice import WeightedPrice

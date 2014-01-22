@@ -1160,6 +1160,10 @@ package strategy() {@category = "Side function"
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15)
          = Generic(orderFactory(side.MeanReversion(ewma_alpha)),eventGen)
     
+    @python.intrinsic("strategy.basic._Empty_Impl")
+    def Empty() : ISingleAssetStrategy
+        
+    
     /** A composite strategy initialized with an array of strategies.
      * In some moments of time the most effective strategy
      * is chosen and made running; other strategies are suspended.
@@ -1327,6 +1331,11 @@ package orderbook() {@queue = "Ask_{%(book)s}"
         def LastTradePrice(book = OfTrader())
              = orderbook.LastTradePrice(_queue(book))
     }
+    @python.intrinsic("orderbook.of_trader._Proxy_Impl")
+    @label = "N/A"
+    def Proxy() : IOrderBook
+        
+    
     @python.observable()
     def SafeSidePrice(queue = Asks(),
                       defaultValue = constant(100.0))
@@ -1389,7 +1398,7 @@ package orderbook() {@queue = "Ask_{%(book)s}"
     @label = "VolumeLevels(%(queue)s)"
     def VolumeLevels(queue = Asks(),
                      volumeDelta = 30.0,
-                     volumeCount = 10) : IFunction[IVolumeLevels]
+                     volumeCount = 10) : IObservable[IVolumeLevels]
         
     
     @python.intrinsic("orderbook.last_price._LastPrice_Impl")

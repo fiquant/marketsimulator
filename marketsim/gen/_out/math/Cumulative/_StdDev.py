@@ -10,7 +10,9 @@ class StdDev(Function[float]):
     """ 
     def __init__(self, source = None):
         from marketsim.gen._out._const import const as _const
+        from marketsim import rtti
         self.source = source if source is not None else _const()
+        rtti.check_fields(self)
         self.impl = self.getImpl()
     
     @property

@@ -17,6 +17,7 @@ class FloatingPrice(IOrderGenerator, Factory_Impl):
         from marketsim.gen._out.order._curried._price_Limit import price_Limit as _order__curried_price_Limit
         from marketsim import event
         from marketsim import types
+        from marketsim import rtti
         Factory_Impl.__init__(self)
         self.floatingPrice = floatingPrice if floatingPrice is not None else _const(10.0)
         if isinstance(floatingPrice, types.IEvent):
@@ -24,6 +25,7 @@ class FloatingPrice(IOrderGenerator, Factory_Impl):
         self.proto = proto if proto is not None else _order__curried_price_Limit()
         if isinstance(proto, types.IEvent):
             event.subscribe(self.proto, self.fire, self)
+        rtti.check_fields(self)
     
     @property
     def label(self):

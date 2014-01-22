@@ -22,6 +22,7 @@ class LiquidityProvider(ISingleAssetStrategy):
         from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
         from marketsim.gen._out.order._curried._sideprice_Limit import sideprice_Limit as _order__curried_sideprice_Limit
         from marketsim.gen._out.math.random._lognormvariate import lognormvariate as _math_random_lognormvariate
+        from marketsim import rtti
         from marketsim import event
         from marketsim import _
         self.eventGen = eventGen if eventGen is not None else _event_Every(_math_random_expovariate(1.0))
@@ -29,6 +30,7 @@ class LiquidityProvider(ISingleAssetStrategy):
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_sideprice_Limit()
         self.initialValue = initialValue if initialValue is not None else 100.0
         self.priceDistr = priceDistr if priceDistr is not None else _math_random_lognormvariate(0.0,0.1)
+        rtti.check_fields(self)
         self.impl = self.getImpl()
         self.on_order_created = event.Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)

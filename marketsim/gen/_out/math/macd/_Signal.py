@@ -11,11 +11,13 @@ class Signal(Function[float]):
     """ 
     def __init__(self, x = None, slow = None, fast = None, timeframe = None, step = None):
         from marketsim.gen._out._const import const as _const
+        from marketsim import rtti
         self.x = x if x is not None else _const()
         self.slow = slow if slow is not None else 26.0
         self.fast = fast if fast is not None else 12.0
         self.timeframe = timeframe if timeframe is not None else 9.0
         self.step = step if step is not None else 1.0
+        rtti.check_fields(self)
         self.impl = self.getImpl()
     
     @property

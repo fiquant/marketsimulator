@@ -11,7 +11,9 @@ class sidevolume_price_Limit(IFunction[IFunction[IOrderGenerator, IFunction[floa
     """ 
     """ 
     def __init__(self):
-        pass
+        from marketsim import rtti
+        
+        rtti.check_fields(self)
     
     @property
     def label(self):

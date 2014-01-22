@@ -5,8 +5,10 @@ class vonmisesvariate(Function[float]):
     """ 
     """ 
     def __init__(self, Mu = None, Kappa = None):
+        from marketsim import rtti
         self.Mu = Mu if Mu is not None else 0.0
         self.Kappa = Kappa if Kappa is not None else 0.0
+        rtti.check_fields(self)
     
     @property
     def label(self):

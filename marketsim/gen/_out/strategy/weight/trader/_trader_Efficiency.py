@@ -7,7 +7,9 @@ class trader_Efficiency(IFunction[IFunction[float], IAccount]):
     """ 
     """ 
     def __init__(self):
-        pass
+        from marketsim import rtti
+        
+        rtti.check_fields(self)
     
     @property
     def label(self):

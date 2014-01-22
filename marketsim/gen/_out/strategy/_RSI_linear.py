@@ -14,12 +14,14 @@ class RSI_linear(ISingleAssetStrategy):
     def __init__(self, orderFactory = None, alpha = None, k = None, timeframe = None):
         from marketsim.gen._out.order._curried._signedVolume_MarketSigned import signedVolume_MarketSigned as _order__curried_signedVolume_MarketSigned
         from marketsim.gen._out._const import const as _const
+        from marketsim import rtti
         from marketsim import event
         from marketsim import _
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_signedVolume_MarketSigned()
         self.alpha = alpha if alpha is not None else 1.0/14
         self.k = k if k is not None else _const(-0.04)
         self.timeframe = timeframe if timeframe is not None else 1.0
+        rtti.check_fields(self)
         self.impl = self.getImpl()
         self.on_order_created = event.Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)

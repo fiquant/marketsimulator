@@ -5,8 +5,10 @@ class normalvariate(Function[float]):
     """ 
     """ 
     def __init__(self, Mu = None, Sigma = None):
+        from marketsim import rtti
         self.Mu = Mu if Mu is not None else 0.0
         self.Sigma = Sigma if Sigma is not None else 1.0
+        rtti.check_fields(self)
     
     @property
     def label(self):

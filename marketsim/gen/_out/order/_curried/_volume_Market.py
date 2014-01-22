@@ -9,7 +9,9 @@ class volume_Market(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
     def __init__(self, side = None):
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim import rtti
         self.side = side if side is not None else _side_Sell()
+        rtti.check_fields(self)
     
     @property
     def label(self):

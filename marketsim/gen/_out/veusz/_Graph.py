@@ -5,7 +5,9 @@ class Graph(_Graph_Impl):
     """ 
     """ 
     def __init__(self, name = None):
+        from marketsim import rtti
         self.name = name if name is not None else "graph"
+        rtti.check_fields(self)
         _Graph_Impl.__init__(self)
     
     @property

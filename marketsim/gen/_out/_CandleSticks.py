@@ -7,12 +7,14 @@ class CandleSticks(CandleSticks_Impl):
     """ 
     def __init__(self, source = None, timeframe = None):
         from marketsim.gen._out._const import const as _const
+        from marketsim import rtti
         from marketsim import event
         from marketsim import types
         from marketsim import event
         from marketsim import types
         self.source = source if source is not None else _const()
         self.timeframe = timeframe if timeframe is not None else 10.0
+        rtti.check_fields(self)
         CandleSticks_Impl.__init__(self)
         if isinstance(source, types.IEvent):
             event.subscribe(self.source, self.fire, self)

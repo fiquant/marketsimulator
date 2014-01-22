@@ -6,7 +6,9 @@ class IdentityL(_Identity_Impl):
     """ 
     """ 
     def __init__(self, array = None):
+        from marketsim import rtti
         self.array = array if array is not None else []
+        rtti.check_fields(self)
         _Identity_Impl.__init__(self)
     
     @property

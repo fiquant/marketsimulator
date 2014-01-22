@@ -27,11 +27,13 @@ class MultiArmedBandit(_MultiarmedBandit2_Impl):
         from marketsim.gen._out.strategy.weight.trader._trader_EfficiencyTrend import trader_EfficiencyTrend as _strategy_weight_trader_trader_EfficiencyTrend
         from marketsim.gen._out.strategy.weight.f._f_AtanPow import f_AtanPow as _strategy_weight_f_f_AtanPow
         from marketsim.gen._out.strategy.weight.array._array_IdentityL import array_IdentityL as _strategy_weight_array_array_IdentityL
+        from marketsim import rtti
         self.strategies = strategies if strategies is not None else [_strategy_Noise()]
         self.account = account if account is not None else _strategy_account_inner_inner_VirtualMarket()
         self.weight = weight if weight is not None else _strategy_weight_trader_trader_EfficiencyTrend()
         self.normalizer = normalizer if normalizer is not None else _strategy_weight_f_f_AtanPow()
         self.corrector = corrector if corrector is not None else _strategy_weight_array_array_IdentityL()
+        rtti.check_fields(self)
         _MultiarmedBandit2_Impl.__init__(self)
     
     @property

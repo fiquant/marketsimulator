@@ -11,10 +11,12 @@ class RoughPnL(Observable[float]):
         from marketsim import float
         from marketsim.ops._all import Observable
         from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
+        from marketsim import rtti
         from marketsim import _
         from marketsim import event
         Observable[float].__init__(self)
         self.trader = trader if trader is not None else _trader_SingleProxy()
+        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     

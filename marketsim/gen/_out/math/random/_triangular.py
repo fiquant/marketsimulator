@@ -10,9 +10,11 @@ class triangular(Function[float]):
            giving a symmetric distribution.
     """ 
     def __init__(self, Low = None, High = None, Mode = None):
+        from marketsim import rtti
         self.Low = Low if Low is not None else 0.0
         self.High = High if High is not None else 1.0
         self.Mode = Mode if Mode is not None else 0.5
+        rtti.check_fields(self)
     
     @property
     def label(self):
