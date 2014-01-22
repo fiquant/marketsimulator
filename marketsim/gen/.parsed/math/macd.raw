@@ -22,6 +22,7 @@ Definitions:
 | | | | | | | | | | | - const
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  source 
 | | | | | | - Parameter:
 | | | | | | | - slow
 | | | | | | | - None
@@ -29,6 +30,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 26.0
 | | | | | | | - List:
+| | | | | | | | -  long period 
 | | | | | | - Parameter:
 | | | | | | | - fast
 | | | | | | | - None
@@ -36,6 +38,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 12.0
 | | | | | | | - List:
+| | | | | | | | -  short period 
 | | | | | - Some:
 | | | | | | - BinOp:
 | | | | | | | - Sub
@@ -76,7 +79,10 @@ Definitions:
 | | | | | | | | | | | - IntLit:
 | | | | | | | | | | | | - 1
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Moving average convergence/divergence
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -94,6 +100,7 @@ Definitions:
 | | | | | | | | | | | - const
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  source 
 | | | | | | - Parameter:
 | | | | | | | - slow
 | | | | | | | - None
@@ -101,6 +108,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 26.0
 | | | | | | | - List:
+| | | | | | | | -  long period 
 | | | | | | - Parameter:
 | | | | | | | - fast
 | | | | | | | - None
@@ -108,6 +116,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 12.0
 | | | | | | | - List:
+| | | | | | | | -  short period 
 | | | | | | - Parameter:
 | | | | | | | - timeframe
 | | | | | | | - None
@@ -115,6 +124,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 9.0
 | | | | | | | - List:
+| | | | | | | | -  signal period 
 | | | | | | - Parameter:
 | | | | | | | - step
 | | | | | | | - None
@@ -122,6 +132,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
+| | | | | | | | -  discretization step 
 | | | | | - Some:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
@@ -159,7 +170,10 @@ Definitions:
 | | | | | | | | | | - IntLit:
 | | | | | | | | | | | - 1
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Moving average convergence/divergence signal
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -177,6 +191,7 @@ Definitions:
 | | | | | | | | | | | - const
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  source 
 | | | | | | - Parameter:
 | | | | | | | - slow
 | | | | | | | - None
@@ -184,6 +199,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 26.0
 | | | | | | | - List:
+| | | | | | | | -  long period 
 | | | | | | - Parameter:
 | | | | | | | - fast
 | | | | | | | - None
@@ -191,6 +207,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 12.0
 | | | | | | | - List:
+| | | | | | | | -  short period 
 | | | | | | - Parameter:
 | | | | | | | - timeframe
 | | | | | | | - None
@@ -198,6 +215,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 9.0
 | | | | | | | - List:
+| | | | | | | | -  signal period 
 | | | | | | - Parameter:
 | | | | | | | - step
 | | | | | | | - None
@@ -205,6 +223,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
+| | | | | | | | -  discretization step 
 | | | | | - Some:
 | | | | | | - BinOp:
 | | | | | | | - Sub
@@ -235,7 +254,10 @@ Definitions:
 | | | | | | | | | - Var:
 | | | | | | | | | | - step
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Moving average convergence/divergence histogram
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label

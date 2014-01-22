@@ -29,6 +29,7 @@ Definitions:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  observable data source 
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - timeframe
 | | | | | | | | | | - None
@@ -36,6 +37,7 @@ Definitions:
 | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | - 100.0
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  sliding window size    
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
@@ -48,7 +50,10 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | - List:
-| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Running minimum of a function
+| | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
@@ -73,6 +78,7 @@ Definitions:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  observable data source 
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - timeframe
 | | | | | | | | | | - None
@@ -80,6 +86,7 @@ Definitions:
 | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | - 100.0
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  sliding window size    
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
@@ -92,7 +99,10 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | - List:
-| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Running maximum of a function
+| | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
@@ -131,6 +141,7 @@ Definitions:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  observable data source 
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - epsilon
 | | | | | | | | | | - None
@@ -143,6 +154,7 @@ Definitions:
 | | | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | | - 0.01
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  tolerance step         
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
@@ -155,7 +167,12 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | - List:
-| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Cumulative minimum of a function with positive tolerance.
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | | | | -   It fires updates only if *source* value becomes less than the old value minus *epsilon*
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
@@ -180,6 +197,7 @@ Definitions:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  observable data source 
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - epsilon
 | | | | | | | | | | - None
@@ -192,6 +210,7 @@ Definitions:
 | | | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | | - 0.01
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  tolerance step         
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
@@ -204,7 +223,12 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | - List:
-| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Cumulative maximum of a function with positive tolerance.
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | | | | -   It fires updates only if *source* value becomes greater than the old value plus *epsilon*
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:

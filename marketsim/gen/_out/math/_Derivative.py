@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.observable.derivative import _Derivative_Impl
 from marketsim import IDifferentiable
 @registry.expose(["Basic", "Derivative"])
 class Derivative(Function[float], _Derivative_Impl):
-    """ 
+    """  *x* should provide *derivative* member
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg

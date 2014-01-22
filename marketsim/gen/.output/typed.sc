@@ -174,16 +174,24 @@ package math {
         def Avg(source : Optional[.IObservable[.Float]] = .const()) : () => .Float
             
         
+        /** Cumulative minimum of a function with positive tolerance.
+         *
+         *  It fires updates only if *source* value becomes less than the old value minus *epsilon*
+         */
         @label = "Min_{\\epsilon}(%(source)s)"
         @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
-        def MinEpsilon(source : Optional[.IFunction[.Float]] = .constant(),
-                       epsilon : Optional[.IFunction[.Float]] = .constant(0.01)) : .IObservable[.Float]
+        def MinEpsilon(/** observable data source */ source : Optional[.IFunction[.Float]] = .constant(),
+                       /** tolerance step         */ epsilon : Optional[.IFunction[.Float]] = .constant(0.01)) : .IObservable[.Float]
             
         
+        /** Cumulative maximum of a function with positive tolerance.
+         *
+         *  It fires updates only if *source* value becomes greater than the old value plus *epsilon*
+         */
         @label = "Max_{\\epsilon}(%(source)s)"
         @python.intrinsic("observable.minmax_eps.MaxEpsilon_Impl")
-        def MaxEpsilon(source : Optional[.IFunction[.Float]] = .constant(),
-                       epsilon : Optional[.IFunction[.Float]] = .constant(0.01)) : .IObservable[.Float]
+        def MaxEpsilon(/** observable data source */ source : Optional[.IFunction[.Float]] = .constant(),
+                       /** tolerance step         */ epsilon : Optional[.IFunction[.Float]] = .constant(0.01)) : .IObservable[.Float]
             
         
         @label = "\\sqrt{\\sigma^2{{suffix}}}"
@@ -204,28 +212,34 @@ package math {
     
     @category = "MACD"
     package macd {
+        /** Moving average convergence/divergence
+         */
         @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
-        def MACD(x : Optional[.IObservable[.Float]] = .const(),
-                 slow : Optional[.Float] = 26.0,
-                 fast : Optional[.Float] = 12.0) : .IFunction[.Float]
+        def MACD(/** source */ x : Optional[.IObservable[.Float]] = .const(),
+                 /** long period */ slow : Optional[.Float] = 26.0,
+                 /** short period */ fast : Optional[.Float] = 12.0) : .IFunction[.Float]
             
             	 = .math.EW.Avg(x,2.0/(fast+1))-.math.EW.Avg(x,2.0/(slow+1))
         
+        /** Moving average convergence/divergence signal
+         */
         @label = "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-        def Signal(x : Optional[.IObservable[.Float]] = .const(),
-                   slow : Optional[.Float] = 26.0,
-                   fast : Optional[.Float] = 12.0,
-                   timeframe : Optional[.Float] = 9.0,
-                   step : Optional[.Float] = 1.0) : .IDifferentiable
+        def Signal(/** source */ x : Optional[.IObservable[.Float]] = .const(),
+                   /** long period */ slow : Optional[.Float] = 26.0,
+                   /** short period */ fast : Optional[.Float] = 12.0,
+                   /** signal period */ timeframe : Optional[.Float] = 9.0,
+                   /** discretization step */ step : Optional[.Float] = 1.0) : .IDifferentiable
             
             	 = .math.EW.Avg(.observable.OnEveryDt(step,.math.macd.MACD(x,slow,fast)),2/(timeframe+1))
         
+        /** Moving average convergence/divergence histogram
+         */
         @label = "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-        def Histogram(x : Optional[.IObservable[.Float]] = .const(),
-                      slow : Optional[.Float] = 26.0,
-                      fast : Optional[.Float] = 12.0,
-                      timeframe : Optional[.Float] = 9.0,
-                      step : Optional[.Float] = 1.0) : .IFunction[.Float]
+        def Histogram(/** source */ x : Optional[.IObservable[.Float]] = .const(),
+                      /** long period */ slow : Optional[.Float] = 26.0,
+                      /** short period */ fast : Optional[.Float] = 12.0,
+                      /** signal period */ timeframe : Optional[.Float] = 9.0,
+                      /** discretization step */ step : Optional[.Float] = 1.0) : .IFunction[.Float]
             
             	 = .math.macd.MACD(x,slow,fast)-.math.macd.Signal(x,slow,fast,timeframe,step)
     }
@@ -261,10 +275,12 @@ package math {
     @category = "Statistics"
     @suffix = "_{n=%(timeframe)s}(%(source)s)"
     package Moving {
+        /** Running minimum of a function
+         */
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
         @python.intrinsic("observable.minmax.Min_Impl")
-        def Min(source : Optional[.IFunction[.Float]] = .constant(),
-                timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
+        def Min(/** observable data source */ source : Optional[.IFunction[.Float]] = .constant(),
+                /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
             
         
         @label = "RSD{{suffix}}"
@@ -280,10 +296,12 @@ package math {
             
             	 = .math.Max(.const(0),.math.Moving.Avg(source*source,timeframe)-.math.Sqr(.math.Moving.Avg(source,timeframe)))
         
+        /** Running maximum of a function
+         */
         @label = "Max_{n=%(timeframe)s}(%(source)s)"
         @python.intrinsic("observable.minmax.Max_Impl")
-        def Max(source : Optional[.IFunction[.Float]] = .constant(),
-                timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
+        def Max(/** observable data source */ source : Optional[.IFunction[.Float]] = .constant(),
+                /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
             
         
         @label = "Avg{{suffix}}"
@@ -299,6 +317,9 @@ package math {
             	 = .math.Sqrt(.math.Moving.Var(source))
     }
     
+    /** Function returning minimum of two functions *x* and *y*.
+     * If *x* or/and *y* are observables, *Min* is also observable
+     */
     @label = "min{%(x)s, %(y)s}"
     @python.observable()
     def Min(x : Optional[.IFunction[.Float]] = .constant(),
@@ -326,6 +347,9 @@ package math {
                timeframe : Optional[.Float] = 10.0) : .IObservable[.Float]
         
     
+    /** Function returning maximum of two functions *x* and *y*.
+     * If *x* or/and *y* are observables, *Min* is also observable
+     */
     @label = "max{%(x)s, %(y)s}"
     @python.observable()
     def Max(x : Optional[.IFunction[.Float]] = .constant(),
@@ -339,6 +363,8 @@ package math {
         
         	 = .observable.Float(.math.Max(.const(0.0),source-.math.Lagged(source,timeframe)))
     
+    /** Square of *x*
+     */
     @category = "Log/Pow"
     @label = "{%(x)s}^2"
     @python.observable()
@@ -346,7 +372,7 @@ package math {
         
         	 = x*x
     
-    /** Square root of x
+    /** Square root of *x*
      *
      */
     @category = "Log/Pow"
@@ -362,7 +388,7 @@ package math {
         
         	 = .const(100.0)-.const(100.0)/(.const(1.0)+.math.rsi.Raw(.orderbook.MidPrice(book),timeframe,alpha))
     
-    /** Exponent of x
+    /** Exponent of *x*
      *
      */
     @category = "Log/Pow"
@@ -371,7 +397,7 @@ package math {
     def Exp(x : Optional[.IFunction[.Float]] = .constant(1.0)) : () => .Float
         
     
-    /** Natural logarithm of x (to base e)
+    /** Natural logarithm of *x* (to base e)
      *
      */
     @category = "Log/Pow"
@@ -390,6 +416,9 @@ package math {
                    name : Optional[.String] = "-random-") : .IObservable[.Float]
         
     
+    /** Function returning first derivative on time of *x*
+     * *x* should provide *derivative* member
+     */
     @label = "\\frac{d%(x)s}{dt}"
     @python.intrinsic("observable.derivative._Derivative_Impl")
     def Derivative(x : Optional[.IDifferentiable] = .math.EW.Avg() : .IDifferentiable) : () => .Float

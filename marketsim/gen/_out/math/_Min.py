@@ -6,7 +6,7 @@ from marketsim import IFunction
 from marketsim import context
 @registry.expose(["Basic", "Min"])
 class Min(Observable[float]):
-    """ 
+    """  If *x* or/and *y* are observables, *Min* is also observable
     """ 
     def __init__(self, x = None, y = None):
         from marketsim import float

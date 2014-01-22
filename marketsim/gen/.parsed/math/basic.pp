@@ -3,12 +3,14 @@
 package math() {@category = "Log/Pow"
     
     package () {
+        /** Square of *x*
+         */
         @python.observable()
         @label = "{%(x)s}^2"
         def Sqr(x = constant())
              = x*x
         
-        /** Exponent of x
+        /** Exponent of *x*
          *
          */
         @python.mathops("exp")
@@ -16,7 +18,7 @@ package math() {@category = "Log/Pow"
         def Exp(x = constant(1.0)) : () => Float
             
         
-        /** Natural logarithm of x (to base e)
+        /** Natural logarithm of *x* (to base e)
          *
          */
         @python.mathops("log")
@@ -24,7 +26,7 @@ package math() {@category = "Log/Pow"
         def Log(x = constant(1.0)) : () => Float
             
         
-        /** Square root of x
+        /** Square root of *x*
          *
          */
         @python.mathops("sqrt")
@@ -48,18 +50,27 @@ package math() {@category = "Log/Pow"
     }
     
     package () {
+        /** Function returning minimum of two functions *x* and *y*.
+         * If *x* or/and *y* are observables, *Min* is also observable
+         */
         @python.observable()
         @label = "min{%(x)s, %(y)s}"
         def Min(x = constant(),
                 y = constant())
              = if x<y then x else y
         
+        /** Function returning maximum of two functions *x* and *y*.
+         * If *x* or/and *y* are observables, *Min* is also observable
+         */
         @python.observable()
         @label = "max{%(x)s, %(y)s}"
         def Max(x = constant(),
                 y = constant())
              = if x>y then x else y
         
+        /** Function returning first derivative on time of *x*
+         * *x* should provide *derivative* member
+         */
         @python.intrinsic("observable.derivative._Derivative_Impl")
         @label = "\\frac{d%(x)s}{dt}"
         def Derivative(x = math.EW.Avg() : IDifferentiable) : () => Float
