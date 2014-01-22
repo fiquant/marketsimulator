@@ -26,7 +26,6 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - math
 | | | | | | | | | | | - random
 | | | | | | | | | | | - normalvariate
 | | | | | | | | | - List:
@@ -43,7 +42,6 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - math
 | | | | | | | | | | | - random
 | | | | | | | | | | | - expovariate
 | | | | | | | | | - List:

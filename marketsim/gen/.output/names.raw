@@ -930,6 +930,7 @@ Definitions:
 | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  observable data source 
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - timeframe
 | | | | | | | | | | - None
@@ -937,6 +938,7 @@ Definitions:
 | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | - 10.0
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  lag size 
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - alpha
 | | | | | | | | | | - None
@@ -944,6 +946,7 @@ Definitions:
 | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | - 0.015
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  alpha parameter for EWMA 
 | | | | | | | | - Some:
 | | | | | | | | | - BinOp:
 | | | | | | | | | | - Div
@@ -982,7 +985,10 @@ Definitions:
 | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - alpha
 | | | | | | | | - None
-| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Absolute value for Relative Strength Index
+| | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
@@ -1875,6 +1881,7 @@ Definitions:
 | | | | | | | | | | | - const
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  observable data source 
 | | | | | | - Parameter:
 | | | | | | | - timeframe
 | | | | | | | - None
@@ -1882,6 +1889,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 10.0
 | | | | | | | - List:
+| | | | | | | | -  lag size 
 | | | | | - Some:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
@@ -1915,7 +1923,10 @@ Definitions:
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - source
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns negative movements of some observable *source* with lag *timeframe*
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -1973,6 +1984,7 @@ Definitions:
 | | | | | | | | | | | - const
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  observable data source 
 | | | | | | - Parameter:
 | | | | | | | - timeframe
 | | | | | | | - None
@@ -1980,6 +1992,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 10.0
 | | | | | | | - List:
+| | | | | | | | -  lag size 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -1992,7 +2005,10 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Float
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Observable that adds a lag to an observable data source so [Lagged(x, dt)]t=t0 == [x]t=t0+dt
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -2068,6 +2084,7 @@ Definitions:
 | | | | | | | | | | | - const
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  observable data source 
 | | | | | | - Parameter:
 | | | | | | | - timeframe
 | | | | | | | - None
@@ -2075,6 +2092,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 10.0
 | | | | | | | - List:
+| | | | | | | | -  lag size 
 | | | | | - Some:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
@@ -2108,7 +2126,10 @@ Definitions:
 | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | - timeframe
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns positive movements of some observable *source* with lag *timeframe*
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -2208,6 +2229,7 @@ Definitions:
 | | | | | | | | | | | - OfTrader
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  asset price in question  
 | | | | | | - Parameter:
 | | | | | | | - timeframe
 | | | | | | | - None
@@ -2215,6 +2237,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 10.0
 | | | | | | | - List:
+| | | | | | | | -  lag size 
 | | | | | | - Parameter:
 | | | | | | | - alpha
 | | | | | | | - None
@@ -2222,6 +2245,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 0.015
 | | | | | | | - List:
+| | | | | | | | -  alpha parameter for EWMA 
 | | | | | - Some:
 | | | | | | - BinOp:
 | | | | | | | - Sub
@@ -2254,7 +2278,10 @@ Definitions:
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - alpha
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Relative Strength Index
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -2363,7 +2390,6 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - math
 | | | | | | | | | | | - random
 | | | | | | | | | | | - normalvariate
 | | | | | | | | | - List:
@@ -2380,7 +2406,6 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - math
 | | | | | | | | | | | - random
 | | | | | | | | | | | - expovariate
 | | | | | | | | | - List:

@@ -193,10 +193,12 @@ package math() {
     @category = "RSI"
     
     package rsi() {
+        /** Absolute value for Relative Strength Index
+         */
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
-        def Raw(source = const(),
-                timeframe = 10.0,
-                alpha = 0.015)
+        def Raw(/** observable data source */ source = const(),
+                /** lag size */ timeframe = 10.0,
+                /** alpha parameter for EWMA */ alpha = 0.015)
              = EW.Avg(UpMovements(source,timeframe),alpha)/EW.Avg(DownMovements(source,timeframe),alpha)
     }
     @category = "MACD"
@@ -324,9 +326,11 @@ package math() {
             y = constant())
          = if x<y then x else y
     
+    /** Returns negative movements of some observable *source* with lag *timeframe*
+     */
     @label = "Downs_{%(timeframe)s}(%(source)s)"
-    def DownMovements(source = const(),
-                      timeframe = 10.0)
+    def DownMovements(/** observable data source */ source = const(),
+                      /** lag size */ timeframe = 10.0)
          = observable.Float(Max(const(0.0),Lagged(source,timeframe)-source))
     
     /** Arc tangent of x, in radians.
@@ -337,10 +341,12 @@ package math() {
     def Atan(x = constant(0.0)) : () => Float
         
     
+    /** Observable that adds a lag to an observable data source so [Lagged(x, dt)]t=t0 == [x]t=t0+dt
+     */
     @python.intrinsic("observable.lagged.Lagged_Impl")
     @label = "Lagged_{%(timeframe)s}(%(source)s)"
-    def Lagged(source = const(),
-               timeframe = 10.0) : IObservable[Float]
+    def Lagged(/** observable data source */ source = const(),
+               /** lag size */ timeframe = 10.0) : IObservable[Float]
         
     
     /** Function returning maximum of two functions *x* and *y*.
@@ -352,9 +358,11 @@ package math() {
             y = constant())
          = if x>y then x else y
     
+    /** Returns positive movements of some observable *source* with lag *timeframe*
+     */
     @label = "Ups_{%(timeframe)s}(%(source)s)"
-    def UpMovements(source = const(),
-                    timeframe = 10.0)
+    def UpMovements(/** observable data source */ source = const(),
+                    /** lag size */ timeframe = 10.0)
          = observable.Float(Max(const(0.0),source-Lagged(source,timeframe)))
     
     /** Square of *x*
@@ -374,10 +382,12 @@ package math() {
     def Sqrt(x = constant(1.0)) : () => Float
         
     
+    /** Relative Strength Index
+     */
     @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)"
-    def RSI(book = orderbook.OfTrader(),
-            timeframe = 10.0,
-            alpha = 0.015)
+    def RSI(/** asset price in question  */ book = orderbook.OfTrader(),
+            /** lag size */ timeframe = 10.0,
+            /** alpha parameter for EWMA */ alpha = 0.015)
          = 100.0-100.0/(1.0+rsi.Raw(orderbook.MidPrice(book),timeframe,alpha))
     
     /** Exponent of *x*
@@ -403,8 +413,8 @@ package math() {
     @python.intrinsic("observable.randomwalk._RandomWalk_Impl")
     @label = "%(name)s"
     def RandomWalk(/** initial value of the signal */ initialValue = 0.0,
-                   /** increment function */ deltaDistr = math.random.normalvariate(0.0,1.0),
-                   /** intervals between signal updates */ intervalDistr = math.random.expovariate(1.0),
+                   /** increment function */ deltaDistr = random.normalvariate(0.0,1.0),
+                   /** intervals between signal updates */ intervalDistr = random.expovariate(1.0),
                    name = "-random-") : IObservable[Float]
         
     

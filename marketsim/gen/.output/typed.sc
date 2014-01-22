@@ -210,10 +210,12 @@ package math {
     
     @category = "RSI"
     package rsi {
+        /** Absolute value for Relative Strength Index
+         */
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
-        def Raw(source : Optional[.IObservable[.Float]] = .const(),
-                timeframe : Optional[.Float] = 10.0,
-                alpha : Optional[.Float] = 0.015) : .IFunction[.Float]
+        def Raw(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(),
+                /** lag size */ timeframe : Optional[.Float] = 10.0,
+                /** alpha parameter for EWMA */ alpha : Optional[.Float] = 0.015) : .IFunction[.Float]
             
             	 = .math.EW.Avg(.math.UpMovements(source,timeframe),alpha)/.math.EW.Avg(.math.DownMovements(source,timeframe),alpha)
     }
@@ -351,9 +353,11 @@ package math {
         
         	 = if x<y then x else y
     
+    /** Returns negative movements of some observable *source* with lag *timeframe*
+     */
     @label = "Downs_{%(timeframe)s}(%(source)s)"
-    def DownMovements(source : Optional[.IObservable[.Float]] = .const(),
-                      timeframe : Optional[.Float] = 10.0) : .IObservable[.Float]
+    def DownMovements(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(),
+                      /** lag size */ timeframe : Optional[.Float] = 10.0) : .IObservable[.Float]
         
         	 = .observable.Float(.math.Max(.const(0.0),.math.Lagged(source,timeframe)-source))
     
@@ -365,10 +369,12 @@ package math {
     def Atan(x : Optional[.IFunction[.Float]] = .constant(0.0)) : () => .Float
         
     
+    /** Observable that adds a lag to an observable data source so [Lagged(x, dt)]t=t0 == [x]t=t0+dt
+     */
     @label = "Lagged_{%(timeframe)s}(%(source)s)"
     @python.intrinsic("observable.lagged.Lagged_Impl")
-    def Lagged(source : Optional[.IObservable[.Float]] = .const(),
-               timeframe : Optional[.Float] = 10.0) : .IObservable[.Float]
+    def Lagged(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(),
+               /** lag size */ timeframe : Optional[.Float] = 10.0) : .IObservable[.Float]
         
     
     /** Function returning maximum of two functions *x* and *y*.
@@ -381,9 +387,11 @@ package math {
         
         	 = if x>y then x else y
     
+    /** Returns positive movements of some observable *source* with lag *timeframe*
+     */
     @label = "Ups_{%(timeframe)s}(%(source)s)"
-    def UpMovements(source : Optional[.IObservable[.Float]] = .const(),
-                    timeframe : Optional[.Float] = 10.0) : .IObservable[.Float]
+    def UpMovements(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(),
+                    /** lag size */ timeframe : Optional[.Float] = 10.0) : .IObservable[.Float]
         
         	 = .observable.Float(.math.Max(.const(0.0),source-.math.Lagged(source,timeframe)))
     
@@ -405,10 +413,12 @@ package math {
     def Sqrt(x : Optional[.IFunction[.Float]] = .constant(1.0)) : () => .Float
         
     
+    /** Relative Strength Index
+     */
     @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)"
-    def RSI(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
-            timeframe : Optional[.Float] = 10.0,
-            alpha : Optional[.Float] = 0.015) : .IObservable[.Float]
+    def RSI(/** asset price in question  */ book : Optional[.IOrderBook] = .orderbook.OfTrader(),
+            /** lag size */ timeframe : Optional[.Float] = 10.0,
+            /** alpha parameter for EWMA */ alpha : Optional[.Float] = 0.015) : .IObservable[.Float]
         
         	 = .const(100.0)-.const(100.0)/(.const(1.0)+.math.rsi.Raw(.orderbook.MidPrice(book),timeframe,alpha))
     
