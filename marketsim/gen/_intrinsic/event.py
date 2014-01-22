@@ -70,7 +70,7 @@ class Conditional(Event):
             
     def _fire_impl(self, *args):
         if len(self._less) or len(self._greater):
-            current = self() 
+            current = self()
             if current is not None:
                 for bound, handlers in list(self._greater.iteritems()):
                     if bound < current:

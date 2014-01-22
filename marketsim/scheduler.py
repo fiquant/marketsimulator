@@ -1,5 +1,5 @@
-import heapq, threading, collections, time, sys
-from marketsim import types,  _, meta, event
+import heapq, threading, collections, time
+from marketsim import _
 import datetime
 
 class stat(collections.namedtuple('stat', ['events_processed', 'events_rate', 'processing_time'])):
@@ -43,6 +43,7 @@ class Scheduler(object):
         self._currentTime = currentTime
         self._startTime = datetime.datetime.now() if startTime is None else startTime
         self._counter = 0
+        self.currentId = None
         self._working = False
 
     def __repr__(self):
@@ -99,7 +100,8 @@ class Scheduler(object):
         
     def step(self, limitTime):
         if (self._elements <> [] and self._elements[0][0][0] < limitTime):
-            ((actionTime,_), eh) = heapq.heappop(self._elements)
+            ((actionTime,eid), eh) = heapq.heappop(self._elements)
+            self.currentId = eid
             self._currentTime = actionTime
             #print 't = ', actionTime
             eh()
