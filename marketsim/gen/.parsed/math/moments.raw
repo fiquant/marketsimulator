@@ -34,6 +34,7 @@ Definitions:
 | | | | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  observable data source 
 | | | | | | | | | | | | - Parameter:
 | | | | | | | | | | | | | - alpha
 | | | | | | | | | | | | | - None
@@ -41,6 +42,7 @@ Definitions:
 | | | | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | | | - 0.015
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  alpha parameter 
 | | | | | | | | | | | - None
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - SimpleType:
@@ -48,7 +50,10 @@ Definitions:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - IDifferentiable
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Exponentially weighted moving average
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Annotation:
 | | | | | | | | | | | | | - QualifiedName:
@@ -73,6 +78,7 @@ Definitions:
 | | | | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  observable data source 
 | | | | | | | | | | | | - Parameter:
 | | | | | | | | | | | | | - alpha
 | | | | | | | | | | | | | - None
@@ -80,6 +86,7 @@ Definitions:
 | | | | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | | | - 0.015
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  alpha parameter 
 | | | | | | | | | | | - None
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - FunctionType:
@@ -89,7 +96,10 @@ Definitions:
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Exponentially weighted moving variance
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Annotation:
 | | | | | | | | | | | | | - QualifiedName:
@@ -114,6 +124,7 @@ Definitions:
 | | | | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  observable data source 
 | | | | | | | | | | | | - Parameter:
 | | | | | | | | | | | | | - alpha
 | | | | | | | | | | | | | - None
@@ -121,6 +132,7 @@ Definitions:
 | | | | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | | | - 0.015
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  alpha parameter 
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | - QualifiedName:
@@ -137,7 +149,10 @@ Definitions:
 | | | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | | | - alpha
 | | | | | | | | | | | - None
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Exponentially weighted moving standard deviation
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
@@ -155,6 +170,7 @@ Definitions:
 | | | | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  observable data source 
 | | | | | | | | | | | | - Parameter:
 | | | | | | | | | | | | | - alpha
 | | | | | | | | | | | | | - None
@@ -162,6 +178,7 @@ Definitions:
 | | | | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | | | - 0.015
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  alpha parameter 
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - BinOp:
 | | | | | | | | | | | | | - Div
@@ -188,7 +205,10 @@ Definitions:
 | | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | | - alpha
 | | | | | | | | | | | - None
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Exponentially weighted moving relative standard deviation
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
@@ -220,6 +240,7 @@ Definitions:
 | | | | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  observable data source 
 | | | | | | | | | | | - None
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - FunctionType:
@@ -229,7 +250,10 @@ Definitions:
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Cumulative average
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Annotation:
 | | | | | | | | | | | | | - QualifiedName:
@@ -254,6 +278,7 @@ Definitions:
 | | | | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  observable data source 
 | | | | | | | | | | | - None
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - FunctionType:
@@ -263,7 +288,10 @@ Definitions:
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Cumulative variance
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Annotation:
 | | | | | | | | | | | | | - QualifiedName:
@@ -288,6 +316,7 @@ Definitions:
 | | | | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  observable data source 
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | - QualifiedName:
@@ -302,7 +331,10 @@ Definitions:
 | | | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | | | - source
 | | | | | | | | | | | - None
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Cumulative standard deviation
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
@@ -320,6 +352,7 @@ Definitions:
 | | | | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  observable data source 
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - BinOp:
 | | | | | | | | | | | | | - Div
@@ -342,7 +375,10 @@ Definitions:
 | | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | | - source
 | | | | | | | | | | | - None
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Cumulative relative standard deviation
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
@@ -374,6 +410,7 @@ Definitions:
 | | | | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  observable data source 
 | | | | | | | | | | | | - Parameter:
 | | | | | | | | | | | | | - timeframe
 | | | | | | | | | | | | | - None
@@ -381,6 +418,7 @@ Definitions:
 | | | | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | | | - 100.0
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  sliding window size    
 | | | | | | | | | | | - None
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - FunctionType:
@@ -390,7 +428,10 @@ Definitions:
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Simple moving average
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Annotation:
 | | | | | | | | | | | | | - QualifiedName:
@@ -415,6 +456,7 @@ Definitions:
 | | | | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  observable data source 
 | | | | | | | | | | | | - Parameter:
 | | | | | | | | | | | | | - timeframe
 | | | | | | | | | | | | | - None
@@ -422,6 +464,7 @@ Definitions:
 | | | | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | | | - 100.0
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  sliding window size    
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | - QualifiedName:
@@ -466,7 +509,10 @@ Definitions:
 | | | | | | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | | | | | | - timeframe
 | | | | | | | | | | | - None
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Simple moving variance
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Annotation:
 | | | | | | | | | | | | | - QualifiedName:
@@ -491,6 +537,7 @@ Definitions:
 | | | | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  observable data source 
 | | | | | | | | | | | | - Parameter:
 | | | | | | | | | | | | | - timeframe
 | | | | | | | | | | | | | - None
@@ -498,6 +545,7 @@ Definitions:
 | | | | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | | | - 100.0
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  sliding window size    
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | - QualifiedName:
@@ -512,7 +560,10 @@ Definitions:
 | | | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | | | - source
 | | | | | | | | | | | - None
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Simple moving standard deviation
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
@@ -530,6 +581,7 @@ Definitions:
 | | | | | | | | | | | | | | | | | - const
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  observable data source 
 | | | | | | | | | | | | - Parameter:
 | | | | | | | | | | | | | - timeframe
 | | | | | | | | | | | | | - None
@@ -537,6 +589,7 @@ Definitions:
 | | | | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | | | - 100.0
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  sliding window size    
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - BinOp:
 | | | | | | | | | | | | | - Div
@@ -563,7 +616,10 @@ Definitions:
 | | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | | - timeframe
 | | | | | | | | | | | - None
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Simple moving relative standard deviation
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
