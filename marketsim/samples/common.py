@@ -3,7 +3,7 @@ sys.path.append(r'..')
 sys.setrecursionlimit(10000)
 
 from marketsim import (_, scheduler, veusz, registry, config,
-                       context, bind)
+                       context, bind, IEvent)
 
 from marketsim.ops import Function
 
@@ -28,6 +28,13 @@ def _print(*args):
         print args[0],
     else:
         print args
+
+
+def makeTimeSerie(source, graph):
+    if not isinstance(source, IEvent):
+        source = observable.OnEveryDt(1, source)
+    return TimeSerie(source, graph)
+
 
 class Context(object):
     
@@ -67,7 +74,7 @@ class Context(object):
         self.minmax_graph = self.graph('minmax')
         self.minors_eff_graph = self.graph('minor traders efficiency')
         self.minors_amount_graph = self.graph('minor traders position')
-        
+
         self.graphs = [
                        self.price_graph, 
                        self.askbid_graph,
@@ -94,7 +101,7 @@ class Context(object):
         graph = self.graph(name)
         self.graphs.append(graph)
         return graph
-            
+
     def makeTrader(self, book, strategy, label, additional_ts = []):
         def trader_ts():
             thisTrader = trader.SingleProxy()
@@ -152,77 +159,63 @@ def orderBooksToRender(ctx, traders):
 
             thisBook = orderbook.Proxy()
             assetPrice = orderbook.MidPrice(thisBook)
-            askPrice = orderbook.ask.Price(thisBook)
-            bidPrice = orderbook.bid.Price(thisBook)
-            askWeightedPrice = orderbook.ask.WeightedPrice(thisBook, 0.15)
-            bidWeightedPrice = orderbook.bid.WeightedPrice(thisBook, 0.15)
-            avg_015 = math.EW.Avg(assetPrice, 0.015)
-            avg_15 = math.EW.Avg(assetPrice, 0.15)
-            avg_65 = math.EW.Avg(assetPrice, 0.65)
-            cma = math.Cumulative.Avg(assetPrice)
-            stddev = math.EW.StdDev(assetPrice)
-            ma100 = math.Moving.Avg(assetPrice, 100)
-            ma20 = math.Moving.Avg(assetPrice, 20)
-            stddev100 = math.Moving.StdDev(assetPrice, 100)
-            stddev20 = math.Moving.StdDev(assetPrice, 20)
-            ewma015 = math.EW.Avg(assetPrice, alpha=0.15)
-            ewmsd = math.EW.StdDev(assetPrice, 0.15)
-            min = math.Moving.Min(assetPrice, 100)
-            max = math.Moving.Max(assetPrice, 100)
-            #candlesticks = observable.CandleSticks(assetPrice, 10)
-            tickSize = orderbook.TickSize(thisBook)
-            max_eps = math.Cumulative.MaxEpsilon(assetPrice, tickSize)
-            min_eps = math.Cumulative.MinEpsilon(assetPrice, tickSize)
-            
-            def bollinger(mean, stddev, graph):
-                return [
-                    TimeSerie(assetPrice, graph), 
-                    TimeSerie(observable.OnEveryDt(1, mean), graph), 
-                    TimeSerie(observable.OnEveryDt(1, mean + stddev*2), graph), 
-                    TimeSerie(observable.OnEveryDt(1, mean - stddev*2), graph),
-                ] 
-                
             scaled = (assetPrice - 100) / 10
-            scaled_13 = math.EW.Avg(scaled, 2./13.)
-            scaled_27 = math.EW.Avg(scaled, 2./27.)
 
-            return ([
-                TimeSerie(assetPrice, ctx.price_graph), 
-                TimeSerie(askPrice, ctx.price_graph),
-                TimeSerie(bidPrice, ctx.price_graph),
+            def bollinger(avg, stddev):
+                return [
+                    assetPrice, 
+                    avg, 
+                    observable.OnEveryDt(1, avg + stddev*2), 
+                    observable.OnEveryDt(1, avg - stddev*2)
+                ]
 
-                TimeSerie(orderbook.ask.LastTradePrice(thisBook), ctx.askbid_graph),
-                TimeSerie(orderbook.bid.LastTradePrice(thisBook), ctx.askbid_graph),
-                TimeSerie(observable.OnEveryDt(1, askWeightedPrice), ctx.askbid_graph), 
-                TimeSerie(observable.OnEveryDt(1, bidWeightedPrice), ctx.askbid_graph), 
-                
-                #TimeSerie(assetPrice, ctx.candles_graph), 
-                #TimeSerie(candlesticks, ctx.candles_graph),
+            ts = {
+                ctx.price_graph : [
+                    assetPrice,
+                    orderbook.ask.Price(),
+                    orderbook.bid.Price(),
+                ],
+                ctx.askbid_graph : [
+                    orderbook.ask.LastTradePrice(),
+                    orderbook.ask.WeightedPrice(),
+                    orderbook.bid.LastTradePrice(),
+                    orderbook.bid.WeightedPrice()
+                ],
+                ctx.avgs_graph : [
+                    math.Cumulative.Avg(assetPrice),
+                    math.Moving.Avg(assetPrice, 20),
+                    math.Moving.Avg(assetPrice, 100),
+                    math.EW.Avg(assetPrice, 0.15),
+                    math.EW.Avg(assetPrice, 0.65),
+                    math.EW.Avg(assetPrice, 0.015),
+                ],
+                ctx.macd_graph : [
+                    scaled,
+                    math.EW.Avg(scaled, 2./27),
+                    math.EW.Avg(scaled, 2./13),
+                    math.macd.MACD(assetPrice),
+                    math.macd.Signal(assetPrice),
+                    math.macd.Histogram(assetPrice)
+                ],
+                ctx.minmax_graph : [
+                    assetPrice,
+                    math.Cumulative.MaxEpsilon(assetPrice),
+                    math.Cumulative.MinEpsilon(assetPrice),
+                    math.Moving.Max(assetPrice, 100.),
+                    math.Moving.Min(assetPrice, 100.)
+                ],
+                ctx.bollinger_100_graph : bollinger(math.Moving.Avg(assetPrice, 100), math.Moving.StdDev(assetPrice, 100)),
+                ctx.bollinger_20_graph : bollinger(math.Moving.Avg(assetPrice, 20), math.Moving.StdDev(assetPrice, 20)),
+                ctx.bollinger_a015_graph : bollinger(math.EW.Avg(assetPrice, 0.015), math.EW.StdDev(assetPrice, 0.015)),
 
-                TimeSerie(assetPrice, ctx.avgs_graph), 
-                TimeSerie(observable.OnEveryDt(1, cma), ctx.avgs_graph), 
-                TimeSerie(observable.OnEveryDt(1, ma20), ctx.avgs_graph), 
-                TimeSerie(observable.OnEveryDt(1, ma100), ctx.avgs_graph), 
-                TimeSerie(observable.OnEveryDt(1, avg_15), ctx.avgs_graph),
-                TimeSerie(observable.OnEveryDt(1, avg_65), ctx.avgs_graph),
-                TimeSerie(observable.OnEveryDt(1, avg_015), ctx.avgs_graph),
-                 
-                TimeSerie(scaled, ctx.macd_graph), 
-                TimeSerie(observable.OnEveryDt(1, scaled_13), ctx.macd_graph),
-                TimeSerie(observable.OnEveryDt(1, scaled_27), ctx.macd_graph),
-                TimeSerie(observable.OnEveryDt(1, math.macd.MACD(assetPrice)), ctx.macd_graph),
-                TimeSerie(observable.OnEveryDt(1, math.macd.Signal(assetPrice)), ctx.macd_graph),
-                TimeSerie(observable.OnEveryDt(1, math.macd.Histogram(assetPrice)), ctx.macd_graph),
+            }
 
-                TimeSerie(max, ctx.minmax_graph),
-                TimeSerie(min, ctx.minmax_graph),
-                TimeSerie(max_eps, ctx.minmax_graph),
-                TimeSerie(min_eps, ctx.minmax_graph)
-            ]
-            + bollinger(ma100, stddev100, ctx.bollinger_100_graph)
-            + bollinger(ma20, stddev20, ctx.bollinger_20_graph)
-            + bollinger(avg_15, ewmsd, ctx.bollinger_a015_graph)
-            )
+            out = []
+            for (graph, timeserie_list) in ts.iteritems():
+                for timeserie in timeserie_list:
+                    out.append(makeTimeSerie(timeserie, graph))
+
+            return out
 
         for b in books:
             thisBook = orderbook.Proxy()

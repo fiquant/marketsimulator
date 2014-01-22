@@ -78,7 +78,7 @@ package orderbook
         = observable.Price(IfDefined(BestPrice(queue), IfDefined(LastPrice(queue), defaultValue)))
 
     @label = "Price_{%(alpha)s}^{%(queue)s}"
-    def WeightedPrice(queue = Asks(), alpha = 0.015) =
+    def WeightedPrice(queue = Asks(), alpha = 0.15) =
         math.EW.Avg(LastTradePrice(queue)*LastTradeVolume(queue), alpha) / math.EW.Avg(LastTradeVolume(queue), alpha)
 
     @python.intrinsic("orderbook.props._TickSize_Impl")
@@ -113,7 +113,7 @@ package orderbook
         def LastTradeVolume(book = OfTrader()) = orderbook.LastTradeVolume(_queue(book))
 
         @label = "[{{queue}}]_{%(alpha)s}"
-        def WeightedPrice(book = OfTrader(), alpha = 0.015) = orderbook.WeightedPrice(_queue(book), alpha)
+        def WeightedPrice(book = OfTrader(), alpha = 0.15) = orderbook.WeightedPrice(_queue(book), alpha)
     }
 
     @queue = "Ask_{%(book)s}"

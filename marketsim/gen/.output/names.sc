@@ -1285,7 +1285,7 @@ package orderbook() {@queue = "Ask_{%(book)s}"
     package ask() {
         @label = "[{{queue}}]_{%(alpha)s}"
         def WeightedPrice(book = OfTrader(),
-                          alpha = 0.015)
+                          alpha = 0.15)
              = orderbook.WeightedPrice(_queue(book),alpha)
         
         @label = "LastTradeVolume({{queue}})"
@@ -1310,7 +1310,7 @@ package orderbook() {@queue = "Ask_{%(book)s}"
     package bid() {
         @label = "[{{queue}}]_{%(alpha)s}"
         def WeightedPrice(book = OfTrader(),
-                          alpha = 0.015)
+                          alpha = 0.15)
              = orderbook.WeightedPrice(_queue(book),alpha)
         
         @label = "LastTradeVolume({{queue}})"
@@ -1343,7 +1343,7 @@ package orderbook() {@queue = "Ask_{%(book)s}"
     
     @label = "Price_{%(alpha)s}^{%(queue)s}"
     def WeightedPrice(queue = Asks(),
-                      alpha = 0.015)
+                      alpha = 0.15)
          = math.EW.Avg(LastTradePrice(queue)*LastTradeVolume(queue),alpha)/math.EW.Avg(LastTradeVolume(queue),alpha)
     
     @python.intrinsic("orderbook.props._TickSize_Impl")

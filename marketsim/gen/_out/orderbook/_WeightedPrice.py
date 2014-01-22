@@ -15,7 +15,7 @@ class WeightedPrice(Function[float]):
         from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
         from marketsim import rtti
         self.queue = queue if queue is not None else _orderbook_Asks()
-        self.alpha = alpha if alpha is not None else 0.015
+        self.alpha = alpha if alpha is not None else 0.15
         rtti.check_fields(self)
         self.impl = self.getImpl()
     

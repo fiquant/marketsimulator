@@ -1520,7 +1520,7 @@ package orderbook {@queue = "Ask_{%(book)s}"
     package ask {
         @label = "[{{queue}}]_{%(alpha)s}"
         def WeightedPrice(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
-                          alpha : Optional[.Float] = 0.015) : .IFunction[.Float]
+                          alpha : Optional[.Float] = 0.15) : .IFunction[.Float]
             
             	 = .orderbook.WeightedPrice(.orderbook.Asks(book),alpha)
         
@@ -1550,7 +1550,7 @@ package orderbook {@queue = "Ask_{%(book)s}"
     package bid {
         @label = "[{{queue}}]_{%(alpha)s}"
         def WeightedPrice(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
-                          alpha : Optional[.Float] = 0.015) : .IFunction[.Float]
+                          alpha : Optional[.Float] = 0.15) : .IFunction[.Float]
             
             	 = .orderbook.WeightedPrice(.orderbook.Bids(book),alpha)
         
@@ -1590,7 +1590,7 @@ package orderbook {@queue = "Ask_{%(book)s}"
     
     @label = "Price_{%(alpha)s}^{%(queue)s}"
     def WeightedPrice(queue : Optional[.IOrderQueue] = .orderbook.Asks(),
-                      alpha : Optional[.Float] = 0.015) : .IFunction[.Float]
+                      alpha : Optional[.Float] = 0.15) : .IFunction[.Float]
         
         	 = .math.EW.Avg(.orderbook.LastTradePrice(queue)*.orderbook.LastTradeVolume(queue),alpha)/.math.EW.Avg(.orderbook.LastTradeVolume(queue),alpha)
     
