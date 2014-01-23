@@ -1386,10 +1386,12 @@ package strategy {@category = "Side function"
         
         	 = .strategy.Generic(orderFactory(.strategy.side.CrossingAverages(ewma_alpha_1,ewma_alpha_2,threshold)),eventGen)
     
+    /** Strategy that wraps another strategy and passes its orders only if *predicate* is true
+     */
     
     @python.intrinsic("strategy.suspendable._Suspendable_Impl")
-    def Suspendable(inner : Optional[.ISingleAssetStrategy] = .strategy.Noise(),
-                    predicate : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean]) : .ISingleAssetStrategy
+    def Suspendable(/** wrapped strategy */ inner : Optional[.ISingleAssetStrategy] = .strategy.Noise(),
+                    /** predicate to evaluate */ predicate : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean]) : .ISingleAssetStrategy
         
     
     /** Trend follower can be considered as a sort of a signal strategy
@@ -1432,10 +1434,13 @@ package strategy {@category = "Side function"
         
         	 = .strategy.Generic(orderFactory(.strategy.side.Signal(.const(50.0)-.math.RSI(.orderbook.OfTrader(),timeframe,alpha),50.0-threshold)),eventGen)
     
+    /** Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
+     */
     
-    def TradeIfProfitable(inner : Optional[.ISingleAssetStrategy] = .strategy.Noise(),
-                          account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account.inner.inner_VirtualMarket(),
-                          performance : Optional[.IAccount => .IFunction[.Float]] = .strategy.weight.trader.trader_EfficiencyTrend()) : .ISingleAssetStrategy
+    def TradeIfProfitable(/** wrapped strategy */ inner : Optional[.ISingleAssetStrategy] = .strategy.Noise(),
+                          /** defines how strategy trades are booked: actually traded amount or virtual market orders are
+                            * used in order to estimate how the strategy would have traded if all her orders appear at market */ account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account.inner.inner_VirtualMarket(),
+                          /** given a trading account tells should it be considered as effective or not */ performance : Optional[.IAccount => .IFunction[.Float]] = .strategy.weight.trader.trader_EfficiencyTrend()) : .ISingleAssetStrategy
         
         	 = .strategy.Suspendable(inner,performance(account(inner))>=0)
     

@@ -9751,6 +9751,7 @@ Definitions:
 | | | | | | | | | | | - Noise
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  wrapped strategy 
 | | | | | | - Parameter:
 | | | | | | | - predicate
 | | | | | | | - None
@@ -9772,6 +9773,7 @@ Definitions:
 | | | | | | | | | | | | | | - Boolean
 | | | | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  predicate to evaluate 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -9779,7 +9781,10 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - ISingleAssetStrategy
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Strategy that wraps another strategy and passes its orders only if *predicate* is true
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -10097,6 +10102,7 @@ Definitions:
 | | | | | | | | | | | - Noise
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  wrapped strategy 
 | | | | | | - Parameter:
 | | | | | | | - account
 | | | | | | | - None
@@ -10109,6 +10115,8 @@ Definitions:
 | | | | | | | | | | | - inner_VirtualMarket
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  defines how strategy trades are booked: actually traded amount or virtual market orders are
+| | | | | | | | -  used in order to estimate how the strategy would have traded if all her orders appear at market 
 | | | | | | - Parameter:
 | | | | | | | - performance
 | | | | | | | - None
@@ -10121,6 +10129,7 @@ Definitions:
 | | | | | | | | | | | - trader_EfficiencyTrend
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  given a trading account tells should it be considered as effective or not 
 | | | | | - Some:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
@@ -10146,7 +10155,10 @@ Definitions:
 | | | | | | | | | - IntLit:
 | | | | | | | | | | - 0
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
+| | | | | | | - List:
 | | | | | - List:
 | | | | - FunDef:
 | | | | | - Array

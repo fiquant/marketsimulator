@@ -1189,9 +1189,11 @@ package strategy() {@category = "Side function"
                          /** threshold when the trader starts to act */ threshold = 0.0)
          = Generic(orderFactory(side.CrossingAverages(ewma_alpha_1,ewma_alpha_2,threshold)),eventGen)
     
+    /** Strategy that wraps another strategy and passes its orders only if *predicate* is true
+     */
     @python.intrinsic("strategy.suspendable._Suspendable_Impl")
-    def Suspendable(inner = Noise(),
-                    predicate = true() : IFunction[Boolean]) : ISingleAssetStrategy
+    def Suspendable(/** wrapped strategy */ inner = Noise(),
+                    /** predicate to evaluate */ predicate = true() : IFunction[Boolean]) : ISingleAssetStrategy
         
     
     /** Trend follower can be considered as a sort of a signal strategy
@@ -1227,9 +1229,12 @@ package strategy() {@category = "Side function"
                threshold = 30.0)
          = Generic(orderFactory(side.Signal(50.0-math.RSI(orderbook.OfTrader(),timeframe,alpha),50.0-threshold)),eventGen)
     
-    def TradeIfProfitable(inner = Noise(),
-                          account = account.inner.inner_VirtualMarket(),
-                          performance = weight.trader.trader_EfficiencyTrend())
+    /** Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
+     */
+    def TradeIfProfitable(/** wrapped strategy */ inner = Noise(),
+                          /** defines how strategy trades are booked: actually traded amount or virtual market orders are
+                            * used in order to estimate how the strategy would have traded if all her orders appear at market */ account = account.inner.inner_VirtualMarket(),
+                          /** given a trading account tells should it be considered as effective or not */ performance = weight.trader.trader_EfficiencyTrend())
          = Suspendable(inner,performance(account(inner))>=0)
     
     @python.intrinsic("strategy.combine._Array_Impl")

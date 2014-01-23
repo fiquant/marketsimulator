@@ -1,13 +1,18 @@
 
 package strategy() {
+    /** Strategy that wraps another strategy and passes its orders only if *predicate* is true
+     */
     @python.intrinsic("strategy.suspendable._Suspendable_Impl")
-    def Suspendable(inner = Noise(),
-                    predicate = true() : IFunction[Boolean]) : ISingleAssetStrategy
+    def Suspendable(/** wrapped strategy */ inner = Noise(),
+                    /** predicate to evaluate */ predicate = true() : IFunction[Boolean]) : ISingleAssetStrategy
         
     
-    def TradeIfProfitable(inner = Noise(),
-                          account = account.inner.inner_VirtualMarket(),
-                          performance = weight.trader.trader_EfficiencyTrend())
+    /** Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
+     */
+    def TradeIfProfitable(/** wrapped strategy */ inner = Noise(),
+                          /** defines how strategy trades are booked: actually traded amount or virtual market orders are
+                            * used in order to estimate how the strategy would have traded if all her orders appear at market */ account = account.inner.inner_VirtualMarket(),
+                          /** given a trading account tells should it be considered as effective or not */ performance = weight.trader.trader_EfficiencyTrend())
          = Suspendable(inner,performance(account(inner))>=0)
     
     /** A composite strategy initialized with an array of strategies.
@@ -33,79 +38,4 @@ package strategy() {
                       /** function creating phantom strategy used for efficiency estimation */ account = account.inner.inner_VirtualMarket(),
                       /** function estimating is the strategy efficient or not */ performance = weight.trader.trader_EfficiencyTrend()) : ISingleAssetStrategy
         
-    
-    package account() {
-        @python.intrinsic("strategy.account._Account_Impl")
-        @curried("inner")
-        def Real(inner : Optional[ISingleAssetStrategy] = Noise()) : IAccount
-            
-        
-        @python.intrinsic("strategy.account._VirtualMarket_Impl")
-        @curried("inner")
-        def VirtualMarket(inner : Optional[ISingleAssetStrategy] = Noise()) : IAccount
-            
-        
-        def real = inner.inner_Real
-        
-        def virtualMarket = inner.inner_VirtualMarket
-    }
-    
-    package weight() {
-        def atanpow = f.f_AtanPow
-        
-        def clamp0 = f.f_Clamp0
-        
-        def identity_f = f.f_IdentityF
-        
-        def score = trader.trader_Score
-        
-        def unit = trader.trader_Unit
-        
-        def efficiency = trader.trader_Efficiency
-        
-        def efficiencyTrend = trader.trader_EfficiencyTrend
-        
-        def chooseTheBest = array.array_ChooseTheBest
-        
-        @curried("f")
-        def AtanPow(f : Optional[IFunction[Float]] = constant(),
-                    base = 1.002) : IFunction[Float]
-             = math.Atan(math.Pow(constant(base),f))
-        
-        @curried("f")
-        def Clamp0(f : Optional[IFunction[Float]] = constant()) : IFunction[Float]
-             = math.Max(constant(0),f)+1
-        
-        @curried("f")
-        def IdentityF(f : Optional[IFunction[Float]] = constant()) : IFunction[Float]
-             = f
-        
-        @python.intrinsic("strategy.weight._Score_Impl")
-        @curried("trader")
-        def Score(trader : IAccount = trader.SingleProxy()) : IFunction[Float]
-            
-        
-        @curried("trader")
-        def Unit(trader : IAccount = trader.SingleProxy()) : IFunction[Float]
-             = constant(1.0)
-        
-        @curried("trader")
-        def Efficiency(trader : IAccount = trader.SingleProxy()) : IFunction[Float]
-             = trader.Efficiency(trader)
-        
-        @curried("trader")
-        def EfficiencyTrend(trader : IAccount = trader.SingleProxy(),
-                            alpha = 0.15) : IFunction[Float]
-             = math.Derivative(math.EW.Avg(trader.Efficiency(trader),alpha))
-        
-        @python.intrinsic("strategy.weight._Identity_Impl")
-        @curried("array")
-        def IdentityL(array : Optional[List[Float]] = []) : List[Float]
-            
-        
-        @python.intrinsic("strategy.weight._ChooseTheBest_Impl")
-        @curried("array")
-        def ChooseTheBest(array : Optional[List[Float]] = []) : List[Float]
-            
-    }
 }
