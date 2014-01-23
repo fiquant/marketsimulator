@@ -9327,6 +9327,7 @@ Definitions:
 | | | | | | | | | | | - MarketSigned
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  order factory function 
 | | | | | | - Parameter:
 | | | | | | | - alpha
 | | | | | | | - None
@@ -9338,6 +9339,7 @@ Definitions:
 | | | | | | | | | - IntLit:
 | | | | | | | | | | - 14
 | | | | | | | - List:
+| | | | | | | | -  alpha parameter for exponentially moving averages of up movements and down movements 
 | | | | | | - Parameter:
 | | | | | | | - k
 | | | | | | | - None
@@ -9350,6 +9352,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - -0.04
 | | | | | | | - List:
+| | | | | | | | -  observable scaling function that maps RSI deviation from 50 to the desired position 
 | | | | | | - Parameter:
 | | | | | | | - timeframe
 | | | | | | | - None
@@ -9357,6 +9360,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
+| | | | | | | | -  lag for calculating up and down movements 
 | | | | | - Some:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
@@ -9381,7 +9385,10 @@ Definitions:
 | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - timeframe
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Strategy believing that trader position should be proportional to 50 - RSI(asset)
+| | | | | | | - List:
 | | | | | - List:
 | | | | - FunDef:
 | | | | | - PairTrading
@@ -11267,6 +11274,7 @@ Definitions:
 | | | | | | | | | | | - MarketSigned
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  order factory function 
 | | | | | | - Parameter:
 | | | | | | | - alpha
 | | | | | | | - None
@@ -11274,6 +11282,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 0.15
 | | | | | | | - List:
+| | | | | | | | -  alpha parameter for exponentially weighted moving everage and variance 
 | | | | | | - Parameter:
 | | | | | | | - k
 | | | | | | | - None
@@ -11286,6 +11295,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 0.5
 | | | | | | | - List:
+| | | | | | | | -  observable scaling function that maps relative deviation to desired position 
 | | | | | - Some:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
@@ -11308,7 +11318,10 @@ Definitions:
 | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - k
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Strategy believing that trader position should be proportional to the relative standard deviation of its price
+| | | | | | | - List:
 | | | | | - List:
 | | - List:
 | | | - Attribute:

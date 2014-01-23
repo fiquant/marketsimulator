@@ -1378,11 +1378,13 @@ package strategy {@category = "Side function"
                 B : Optional[.ISingleAssetStrategy] = .strategy.Noise()) : .ISingleAssetStrategy
         
     
+    /** Strategy believing that trader position should be proportional to 50 - RSI(asset)
+     */
     
-    def RSI_linear(orderFactory : Optional[(() => .Float) => .IOrderGenerator] = .order._curried.signedVolume_MarketSigned(),
-                   alpha : Optional[.Float] = 1.0/14,
-                   k : Optional[.IObservable[.Float]] = .const(-0.04),
-                   timeframe : Optional[.Float] = 1.0) : .ISingleAssetStrategy
+    def RSI_linear(/** order factory function */ orderFactory : Optional[(() => .Float) => .IOrderGenerator] = .order._curried.signedVolume_MarketSigned(),
+                   /** alpha parameter for exponentially moving averages of up movements and down movements */ alpha : Optional[.Float] = 1.0/14,
+                   /** observable scaling function that maps RSI deviation from 50 to the desired position */ k : Optional[.IObservable[.Float]] = .const(-0.04),
+                   /** lag for calculating up and down movements */ timeframe : Optional[.Float] = 1.0) : .ISingleAssetStrategy
         
         	 = .strategy.Generic(orderFactory(.strategy.position.RSI_linear(alpha,k,timeframe)))
     
@@ -1622,10 +1624,12 @@ package strategy {@category = "Side function"
         
         	 = .strategy.Generic(orderFactory(.strategy.side.Noise()),eventGen)
     
+    /** Strategy believing that trader position should be proportional to the relative standard deviation of its price
+     */
     
-    def Bollinger_linear(orderFactory : Optional[(() => .Float) => .IOrderGenerator] = .order._curried.signedVolume_MarketSigned(),
-                         alpha : Optional[.Float] = 0.15,
-                         k : Optional[.IObservable[.Float]] = .const(0.5)) : .ISingleAssetStrategy
+    def Bollinger_linear(/** order factory function */ orderFactory : Optional[(() => .Float) => .IOrderGenerator] = .order._curried.signedVolume_MarketSigned(),
+                         /** alpha parameter for exponentially weighted moving everage and variance */ alpha : Optional[.Float] = 0.15,
+                         /** observable scaling function that maps relative deviation to desired position */ k : Optional[.IObservable[.Float]] = .const(0.5)) : .ISingleAssetStrategy
         
         	 = .strategy.Generic(orderFactory(.strategy.position.Bollinger_linear(alpha,k)))
 }
