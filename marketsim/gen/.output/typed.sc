@@ -1046,50 +1046,64 @@ package order {
 @category = "Strategy"
 package strategy {@category = "Side function"
     package side {
+        /** Side function for pair trading strategy
+         */
         
-        def PairTrading(dependee : Optional[.IOrderBook] = .orderbook.OfTrader(),
-                        factor : Optional[.Float] = 1.0,
-                        book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Side]
+        def PairTrading(/** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn : Optional[.IOrderBook] = .orderbook.OfTrader(),
+                        /** multiplier to obtain fair asset price from the reference asset price */ factor : Optional[.Float] = 1.0,
+                        /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Side]
             
-            	 = .observable.Side(.strategy.side.FundamentalValue(.orderbook.MidPrice(dependee)*.const(factor),book))
+            	 = .observable.Side(.strategy.side.FundamentalValue(.orderbook.MidPrice(bookToDependOn)*.const(factor),book))
         
+        /** Side function for signal strategy
+         */
         
         @python.observable()
-        def Signal(signal : Optional[.IFunction[.Float]] = .constant(),
-                   threshold : Optional[.Float] = 0.7) : () => .Side
+        def Signal(/** signal to be listened to */ signal : Optional[.IFunction[.Float]] = .constant(0.0),
+                   /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : () => .Side
             
             	 = if signal>.const(threshold) then .side.Buy() else if signal<.const(0-threshold) then .side.Sell() else .side.Nothing()
         
+        /** Side function for crossing averages strategy
+         */
         
-        def CrossingAverages(alpha_1 : Optional[.Float] = 0.015,
-                             alpha_2 : Optional[.Float] = 0.15,
-                             threshold : Optional[.Float] = 0.0,
-                             book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
+        def CrossingAverages(/** parameter |alpha| for exponentially weighted moving average 1 */ alpha_1 : Optional[.Float] = 0.15,
+                             /** parameter |alpha| for exponentially weighted moving average 2 */ alpha_2 : Optional[.Float] = 0.015,
+                             /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0,
+                             /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
             
             	 = .strategy.side.Signal(.math.EW.Avg(.orderbook.MidPrice(book),alpha_1)-.math.EW.Avg(.orderbook.MidPrice(book),alpha_2),threshold)
         
+        /** Side function for trend follower strategy
+         */
         
-        def TrendFollower(alpha : Optional[.Float] = 0.015,
-                          threshold : Optional[.Float] = 0.0,
-                          book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
+        def TrendFollower(/** parameter |alpha| for exponentially weighted moving average */ alpha : Optional[.Float] = 0.15,
+                          /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0,
+                          /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
             
             	 = .strategy.side.Signal(.math.Derivative(.math.EW.Avg(.orderbook.MidPrice(book),alpha)),threshold)
         
+        /** Side function for fundamental value strategy
+         */
         
         @python.observable()
-        def FundamentalValue(fv : Optional[.IFunction[.Float]] = .constant(200.0),
-                             book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
+        def FundamentalValue(/** fundamental value */ fv : Optional[.IFunction[.Float]] = .constant(200.0),
+                             /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
             
             	 = if .orderbook.bid.Price(book)>fv then .side.Sell() else if .orderbook.ask.Price(book)<fv then .side.Buy() else .side.Nothing()
         
+        /** Side function for mean reversion strategy
+         */
         
-        def MeanReversion(alpha : Optional[.Float] = 0.015,
-                          book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
+        def MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha : Optional[.Float] = 0.015,
+                          /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
             
             	 = .strategy.side.FundamentalValue(.math.EW.Avg(.orderbook.MidPrice(book),alpha),book)
         
+        /** Side function for a noise trading strategy
+         */
         
-        def Noise(side_distribution : Optional[.IFunction[.Float]] = .math.random.uniform(0.0,1.0) : .IFunction[.Float]) : () => .Side
+        def Noise(side_distribution : Optional[() => .Float] = .math.random.uniform(0.0,1.0)) : () => .Side
             
             	 = if side_distribution>.const(0.5) then .side.Sell() else .side.Buy()
     }
@@ -1223,11 +1237,14 @@ package strategy {@category = "Side function"
     
     @category = "Price function"
     package price {
+        /** Price function for a liquidity provider strategy
+         */
         
-        def LiquidityProvider(side : Optional[() => .Side] = .side.Sell(),
-                              initialValue : Optional[.Float] = 100.0,
-                              priceDistr : Optional[() => .Float] = .math.random.lognormvariate(0.0,0.1),
-                              book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Float]
+        def LiquidityProvider(/** side of orders to create */ side : Optional[() => .Side] = .side.Sell(),
+                              /** initial price which is taken if orderBook is empty */ initialValue : Optional[.Float] = 100.0,
+                              /** defines multipliers for current asset price when price of
+                                *             order to create is calculated*/ priceDistr : Optional[() => .Float] = .math.random.lognormvariate(0.0,0.1),
+                              /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Float]
             
             	 = .orderbook.SafeSidePrice(.orderbook.Queue(book,side),.constant(initialValue))*priceDistr
     }

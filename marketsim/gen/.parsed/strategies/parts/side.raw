@@ -16,28 +16,17 @@ Definitions:
 | | | | | | | - side_distribution
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Cast:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - math
-| | | | | | | | | | | | - random
-| | | | | | | | | | | | - uniform
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 0.0
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 1.0
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction
-| | | | | | | | | | - List:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Float
-| | | | | | | | | | | | - List:
+| | | | | | | | | | | - math
+| | | | | | | | | | | - random
+| | | | | | | | | | | - uniform
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 0.0
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - IfThenElse:
@@ -60,7 +49,10 @@ Definitions:
 | | | | | | | | | | - Buy
 | | | | | | | | - List:
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Side function for a noise trading strategy
+| | | | | | | - List:
 | | | | | - List:
 | | | | - FunDef:
 | | | | | - Signal
@@ -74,7 +66,10 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 0.0
 | | | | | | | - List:
+| | | | | | | | -  signal to be listened to 
 | | | | | | - Parameter:
 | | | | | | | - threshold
 | | | | | | | - None
@@ -82,6 +77,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 0.7
 | | | | | | | - List:
+| | | | | | | | -  threshold when the trader starts to act 
 | | | | | - Some:
 | | | | | | - IfThenElse:
 | | | | | | | - Condition:
@@ -120,7 +116,10 @@ Definitions:
 | | | | | | | | | | | - Nothing
 | | | | | | | | | - List:
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Side function for signal strategy
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -136,8 +135,9 @@ Definitions:
 | | | | | | | - None
 | | | | | | | - Some:
 | | | | | | | | - FloatLit:
-| | | | | | | | | - 0.015
+| | | | | | | | | - 0.15
 | | | | | | | - List:
+| | | | | | | | -  parameter |alpha| for exponentially weighted moving average 
 | | | | | | - Parameter:
 | | | | | | | - threshold
 | | | | | | | - None
@@ -145,6 +145,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 0.0
 | | | | | | | - List:
+| | | | | | | | -  threshold when the trader starts to act 
 | | | | | | - Parameter:
 | | | | | | | - book
 | | | | | | | - None
@@ -156,6 +157,7 @@ Definitions:
 | | | | | | | | | | | - OfTrader
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  asset in question 
 | | | | | - Some:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
@@ -188,7 +190,10 @@ Definitions:
 | | | | | | | | - Var:
 | | | | | | | | | - threshold
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Side function for trend follower strategy
+| | | | | | | - List:
 | | | | | - List:
 | | | | - FunDef:
 | | | | | - CrossingAverages
@@ -198,15 +203,17 @@ Definitions:
 | | | | | | | - None
 | | | | | | | - Some:
 | | | | | | | | - FloatLit:
-| | | | | | | | | - 0.015
+| | | | | | | | | - 0.15
 | | | | | | | - List:
+| | | | | | | | -  parameter |alpha| for exponentially weighted moving average 1 
 | | | | | | - Parameter:
 | | | | | | | - alpha_2
 | | | | | | | - None
 | | | | | | | - Some:
 | | | | | | | | - FloatLit:
-| | | | | | | | | - 0.15
+| | | | | | | | | - 0.015
 | | | | | | | - List:
+| | | | | | | | -  parameter |alpha| for exponentially weighted moving average 2 
 | | | | | | - Parameter:
 | | | | | | | - threshold
 | | | | | | | - None
@@ -214,6 +221,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 0.0
 | | | | | | | - List:
+| | | | | | | | -  threshold when the trader starts to act 
 | | | | | | - Parameter:
 | | | | | | | - book
 | | | | | | | - None
@@ -225,6 +233,7 @@ Definitions:
 | | | | | | | | | | | - OfTrader
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  asset in question 
 | | | | | - Some:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
@@ -270,7 +279,10 @@ Definitions:
 | | | | | | | | - Var:
 | | | | | | | | | - threshold
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Side function for crossing averages strategy
+| | | | | | | - List:
 | | | | | - List:
 | | | | - FunDef:
 | | | | | - FundamentalValue
@@ -287,6 +299,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 200.0
 | | | | | | | - List:
+| | | | | | | | -  fundamental value 
 | | | | | | - Parameter:
 | | | | | | | - book
 | | | | | | | - None
@@ -298,6 +311,7 @@ Definitions:
 | | | | | | | | | | | - OfTrader
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  asset in question 
 | | | | | - Some:
 | | | | | | - IfThenElse:
 | | | | | | | - Condition:
@@ -346,7 +360,10 @@ Definitions:
 | | | | | | | | | | | - Nothing
 | | | | | | | | | - List:
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Side function for fundamental value strategy
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -364,6 +381,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 0.015
 | | | | | | | - List:
+| | | | | | | | -  parameter |alpha| for exponentially weighted moving average 
 | | | | | | - Parameter:
 | | | | | | | - book
 | | | | | | | - None
@@ -375,6 +393,7 @@ Definitions:
 | | | | | | | | | | | - OfTrader
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  asset in question 
 | | | | | - Some:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
@@ -401,13 +420,16 @@ Definitions:
 | | | | | | | | - Var:
 | | | | | | | | | - book
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Side function for mean reversion strategy
+| | | | | | | - List:
 | | | | | - List:
 | | | | - FunDef:
 | | | | | - PairTrading
 | | | | | - List:
 | | | | | | - Parameter:
-| | | | | | | - dependee
+| | | | | | | - bookToDependOn
 | | | | | | | - None
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
@@ -417,6 +439,7 @@ Definitions:
 | | | | | | | | | | | - OfTrader
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  reference to order book for another asset used to evaluate fair price of our asset 
 | | | | | | - Parameter:
 | | | | | | | - factor
 | | | | | | | - None
@@ -424,6 +447,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
+| | | | | | | | -  multiplier to obtain fair asset price from the reference asset price 
 | | | | | | - Parameter:
 | | | | | | | - book
 | | | | | | | - None
@@ -435,6 +459,7 @@ Definitions:
 | | | | | | | | | | | - OfTrader
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  asset in question 
 | | | | | - Some:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
@@ -456,13 +481,16 @@ Definitions:
 | | | | | | | | | | | | | | - MidPrice
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - dependee
+| | | | | | | | | | | | | | - bookToDependOn
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - factor
 | | | | | | | | | | - Var:
 | | | | | | | | | | | - book
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Side function for pair trading strategy
+| | | | | | | - List:
 | | | | | - List:
 | | - List:
 | | | - Attribute:

@@ -14,7 +14,7 @@ class TrendFollower(Function[Side]):
     def __init__(self, alpha = None, threshold = None, book = None):
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
-        self.alpha = alpha if alpha is not None else 0.015
+        self.alpha = alpha if alpha is not None else 0.15
         self.threshold = threshold if threshold is not None else 0.0
         self.book = book if book is not None else _orderbook_OfTrader()
         rtti.check_fields(self)

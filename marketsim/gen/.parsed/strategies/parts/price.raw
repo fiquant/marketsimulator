@@ -19,10 +19,12 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
+| | | | | | | | | | | - 
 | | | | | | | | | | | - side
 | | | | | | | | | | | - Sell
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  side of orders to create 
 | | | | | | - Parameter:
 | | | | | | | - initialValue
 | | | | | | | - None
@@ -30,6 +32,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 100.0
 | | | | | | | - List:
+| | | | | | | | -  initial price which is taken if orderBook is empty 
 | | | | | | - Parameter:
 | | | | | | | - priceDistr
 | | | | | | | - None
@@ -46,6 +49,8 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 0.1
 | | | | | | | - List:
+| | | | | | | | -  defines multipliers for current asset price when price of
+| | | | | | | | -              order to create is calculated
 | | | | | | - Parameter:
 | | | | | | | - book
 | | | | | | | - None
@@ -57,6 +62,7 @@ Definitions:
 | | | | | | | | | | | - OfTrader
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  asset in question 
 | | | | | - Some:
 | | | | | | - BinOp:
 | | | | | | | - Mul
@@ -86,7 +92,10 @@ Definitions:
 | | | | | | | - Var:
 | | | | | | | | - priceDistr
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Price function for a liquidity provider strategy
+| | | | | | | - List:
 | | | | | - List:
 | | - List:
 | | | - Attribute:
