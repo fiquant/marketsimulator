@@ -4,7 +4,7 @@ from marketsim import IObservable
 from marketsim import IGraph
 @registry.expose(["Basic", "TimeSerie"])
 class TimeSerie(_ToRecord_Impl):
-    """ 
+    """   Used to specify what data should be collected about order books and traders
     """ 
     def __init__(self, source = None, graph = None, _digitsToShow = None, _smooth = None):
         from marketsim.gen._out._const import const as _const

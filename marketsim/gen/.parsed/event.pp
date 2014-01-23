@@ -1,11 +1,15 @@
 @category = "Event"
 
 package event() {
+    /** Event that fires every *intervalFunc* moments of time
+     */
     @python.intrinsic("event._Every_Impl")
-    def Every(intervalFunc = math.random.expovariate(1.0)) : IEvent
+    def Every(/** interval of time between two events */ intervalFunc = math.random.expovariate(1.0)) : IEvent
         
     
+    /** Event that once at *delay*
+     */
     @python.intrinsic("event._After_Impl")
-    def After(delay = constant(10.0)) : IEvent
+    def After(/** when the event should be fired */ delay = constant(10.0)) : IEvent
         
 }

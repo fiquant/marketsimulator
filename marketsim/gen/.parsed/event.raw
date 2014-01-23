@@ -25,6 +25,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 1.0
 | | | | | | | - List:
+| | | | | | | | -  interval of time between two events 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -32,7 +33,10 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IEvent
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Event that fires every *intervalFunc* moments of time
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -56,6 +60,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 10.0
 | | | | | | | - List:
+| | | | | | | | -  when the event should be fired 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -63,7 +68,10 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IEvent
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Event that once at *delay*
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:

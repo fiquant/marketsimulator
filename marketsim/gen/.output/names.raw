@@ -111,6 +111,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 1.0
 | | | | | | | - List:
+| | | | | | | | -  interval of time between two events 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -118,7 +119,10 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IEvent
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Event that fires every *intervalFunc* moments of time
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -142,6 +146,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 10.0
 | | | | | | | - List:
+| | | | | | | | -  when the event should be fired 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -149,7 +154,10 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IEvent
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Event that once at *delay*
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -189,7 +197,10 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IGraph
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Graph to render at Veusz. Time series are added to it automatically in their constructor
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -14119,7 +14130,11 @@ Definitions:
 | | | | | - List:
 | | | | | | - ITimeSerie
 | | | | - List:
-| | - None
+| | - Some:
+| | | - DocString:
+| | | | - Time serie to store and render it after on a graph
+| | | | - List:
+| | | | | -   Used to specify what data should be collected about order books and traders
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -14263,6 +14278,7 @@ Definitions:
 | | | | | | | | - const
 | | | | | | - List:
 | | | | - List:
+| | | | | -  observable data source considered as asset price 
 | | | - Parameter:
 | | | | - timeframe
 | | | | - None
@@ -14270,6 +14286,7 @@ Definitions:
 | | | | | - FloatLit:
 | | | | | | - 10.0
 | | | | - List:
+| | | | | -  size of timeframe 
 | | - None
 | | - Some:
 | | | - SimpleType:
@@ -14282,7 +14299,11 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - CandleStick
 | | | | | | - List:
-| | - None
+| | - Some:
+| | | - DocString:
+| | | | - Observable returning at the end of every *timeframe*
+| | | | - List:
+| | | | | -  open/close/min/max price, its average and standard deviation
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -14503,7 +14524,11 @@ Definitions:
 | | | | | - List:
 | | | | | | - ITimeSerie
 | | | | - List:
-| | - None
+| | - Some:
+| | | - DocString:
+| | | | - Time serie holding volume levels of an asset
+| | | | - List:
+| | | | | -  Level of volume V is a price at which cumulative volume of better orders is V
 | | - List:
 | | | - Attribute:
 | | | | - category

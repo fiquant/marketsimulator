@@ -24,19 +24,25 @@ package side {
 
 @category = "Event"
 package event {
+    /** Event that fires every *intervalFunc* moments of time
+     */
     
     @python.intrinsic("event._Every_Impl")
-    def Every(intervalFunc : Optional[() => .Float] = .math.random.expovariate(1.0)) : .IEvent
+    def Every(/** interval of time between two events */ intervalFunc : Optional[() => .Float] = .math.random.expovariate(1.0)) : .IEvent
         
     
+    /** Event that once at *delay*
+     */
     
     @python.intrinsic("event._After_Impl")
-    def After(delay : Optional[.IFunction[.Float]] = .constant(10.0)) : .IEvent
+    def After(/** when the event should be fired */ delay : Optional[.IFunction[.Float]] = .constant(10.0)) : .IEvent
         
 }
 
 @category = "N/A"
 package veusz {
+    /** Graph to render at Veusz. Time series are added to it automatically in their constructor
+     */
     
     @python.intrinsic("veusz._Graph_Impl")
     def Graph(name : Optional[.String] = "graph") : .IGraph
@@ -2049,6 +2055,9 @@ def false() : .IObservable[.Boolean]
 def null() : () => .Float
     
 
+/** Time serie to store and render it after on a graph
+ *  Used to specify what data should be collected about order books and traders
+ */
 @category = "Basic"
 @label = "%(source)s"
 @python.intrinsic("timeserie._ToRecord_Impl")
@@ -2064,11 +2073,14 @@ def TimeSerie(source : Optional[.IObservable[Any]] = .const(0.0) : .IObservable[
 def const(x : Optional[.Float] = 1.0) : .IObservable[.Float]
     
 
+/** Observable returning at the end of every *timeframe*
+ * open/close/min/max price, its average and standard deviation
+ */
 @category = "Basic"
 @label = "Candles_{%(source)s}"
 @python.intrinsic("observable.candlestick.CandleSticks_Impl")
-def CandleSticks(source : Optional[.IObservable[.Float]] = .const(),
-                 timeframe : Optional[.Float] = 10.0) : .IObservable[.CandleStick]
+def CandleSticks(/** observable data source considered as asset price */ source : Optional[.IObservable[.Float]] = .const(),
+                 /** size of timeframe */ timeframe : Optional[.Float] = 10.0) : .IObservable[.CandleStick]
     
 
 @category = "Basic"
@@ -2085,6 +2097,9 @@ def IfDefined(x : Optional[.IFunction[.Float]] = .constant(),
     
     	 = if x<>.null() then x else elsePart
 
+/** Time serie holding volume levels of an asset
+ * Level of volume V is a price at which cumulative volume of better orders is V
+ */
 @category = "Basic"
 @label = "%(source)s"
 @python.intrinsic("timeserie._VolumeLevels_Impl")

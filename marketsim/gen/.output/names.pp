@@ -22,17 +22,23 @@ package side() {
 @category = "Event"
 
 package event() {
+    /** Event that fires every *intervalFunc* moments of time
+     */
     @python.intrinsic("event._Every_Impl")
-    def Every(intervalFunc = math.random.expovariate(1.0)) : IEvent
+    def Every(/** interval of time between two events */ intervalFunc = math.random.expovariate(1.0)) : IEvent
         
     
+    /** Event that once at *delay*
+     */
     @python.intrinsic("event._After_Impl")
-    def After(delay = constant(10.0)) : IEvent
+    def After(/** when the event should be fired */ delay = constant(10.0)) : IEvent
         
 }
 @category = "N/A"
 
 package veusz() {
+    /** Graph to render at Veusz. Time series are added to it automatically in their constructor
+     */
     @python.intrinsic("veusz._Graph_Impl")
     def Graph(name = "graph") : IGraph
         
@@ -1785,6 +1791,9 @@ def null() : () => Float
 
 type IOrderQueue
 
+/** Time serie to store and render it after on a graph
+ *  Used to specify what data should be collected about order books and traders
+ */
 @category = "Basic"
 @python.intrinsic("timeserie._ToRecord_Impl")
 @label = "%(source)s"
@@ -1820,11 +1829,14 @@ type IFunction[T] = () => T
 
 type ISingleAssetStrategy
 
+/** Observable returning at the end of every *timeframe*
+ * open/close/min/max price, its average and standard deviation
+ */
 @category = "Basic"
 @python.intrinsic("observable.candlestick.CandleSticks_Impl")
 @label = "Candles_{%(source)s}"
-def CandleSticks(source = const(),
-                 timeframe = 10.0) : IObservable[CandleStick]
+def CandleSticks(/** observable data source considered as asset price */ source = const(),
+                 /** size of timeframe */ timeframe = 10.0) : IObservable[CandleStick]
     
 
 type ISingleAssetTrader : IAccount, ITrader
@@ -1854,6 +1866,9 @@ type ITimeSerie
 
 type Any
 
+/** Time serie holding volume levels of an asset
+ * Level of volume V is a price at which cumulative volume of better orders is V
+ */
 @category = "Basic"
 @python.intrinsic("timeserie._VolumeLevels_Impl")
 @label = "%(source)s"
