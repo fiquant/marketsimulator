@@ -1,14 +1,17 @@
 package strategy
 {
     /**
-     * Noise strategy is a quite dummy strategy that randomly creates an order and sends it to the order book.
+     * Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
      */
     def Noise(/** Event source making the strategy to wake up*/
                eventGen     = event.Every(math.random.expovariate(1.)),
                /** order factory function*/
                orderFactory = order.side.Market())
 
-        =   Generic(orderFactory(side.Noise()), eventGen)
+        =   Generic(
+                orderFactory(
+                    side.Noise()),
+                eventGen)
 
     /**
      * Signal strategy listens to some discrete signal
@@ -24,7 +27,10 @@ package strategy
                /** threshold when the trader starts to act */
                threshold    = 0.7)
 
-        =   Generic(orderFactory(side.Signal(signal, threshold)), eventGen)
+        =   Generic(
+                orderFactory(
+                    side.Signal(signal, threshold)),
+                eventGen)
 
     /**
      * Trend follower can be considered as a sort of a signal strategy
@@ -43,7 +49,10 @@ package strategy
                         /** threshold when the trader starts to act */
                         threshold    = 0.)
 
-        =   Generic(orderFactory(side.TrendFollower(ewma_alpha, threshold)), eventGen)
+        =   Generic(
+                orderFactory(
+                    side.TrendFollower(ewma_alpha, threshold)),
+                eventGen)
 
     /**
       * Two averages strategy compares two averages of price of the same asset but
@@ -62,7 +71,10 @@ package strategy
                         /** threshold when the trader starts to act */
                         threshold    = 0.)
 
-        =   Generic(orderFactory(side.CrossingAverages(ewma_alpha_1, ewma_alpha_2, threshold)), eventGen)
+        =   Generic(
+                orderFactory(
+                    side.CrossingAverages(ewma_alpha_1, ewma_alpha_2, threshold)),
+                eventGen)
 
     /**
      * Fundamental value strategy believes that an asset should have some specific price
@@ -77,7 +89,10 @@ package strategy
                /** defines fundamental value */
                fundamentalValue = constant(100.))
 
-        =   Generic(orderFactory(side.FundamentalValue(fundamentalValue)), eventGen)
+        =   Generic(
+                orderFactory(
+                    side.FundamentalValue(fundamentalValue)),
+                eventGen)
 
     /**
       * Mean reversion strategy believes that asset price should return to its average value.
@@ -92,7 +107,10 @@ package strategy
                         /** parameter |alpha| for exponentially weighted moving average */
                         ewma_alpha   = 0.15)
 
-        =   Generic(orderFactory(side.MeanReversion(ewma_alpha)), eventGen)
+        =   Generic(
+                orderFactory(
+                    side.MeanReversion(ewma_alpha)),
+                eventGen)
 
     /**
       * Dependent price strategy believes that the fair price of an asset *A*
@@ -111,15 +129,25 @@ package strategy
                         /** multiplier to obtain fair asset price from the reference asset price */
                         factor          = 1.0)
 
-        =   Generic(orderFactory(side.PairTrading(bookToDependOn, factor)), eventGen)
+        =   Generic(
+                orderFactory(
+                    side.PairTrading(bookToDependOn, factor)),
+                eventGen)
 
+    /**
+     *  Strategy that calculates Relative Strength Index of an asset
+     *  and starts to buy when RSI is greater than 50 + *threshold*
+     *  and sells when RSI is less than 50 - *thresold*
+     */
     def RSIbis(         /** Event source making the strategy to wake up*/
                         eventGen     = event.Every(math.random.expovariate(1.)),
                         /** order factory function*/
                         orderFactory = order.side.Market(),
-                        /** parameter |alpha| for exponentially weighted moving average */
+                        /** parameter |alpha| for exponentially weighted moving average when calculating RSI */
                         alpha        = 1./14,
+                        /** lag for calculating up and down movements for RSI */
                         timeframe    = 1.,
+                        /** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */
                         threshold    = 30.)
 
         =   Generic(

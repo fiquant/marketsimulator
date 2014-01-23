@@ -13,7 +13,8 @@ from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrad
 from marketsim import context
 @registry.expose(["Strategy", "RSIbis"])
 class RSIbis(ISingleAssetStrategy):
-    """ 
+    """   and starts to buy when RSI is greater than 50 + *threshold*
+      and sells when RSI is less than 50 - *thresold*
     """ 
     def __init__(self, eventGen = None, orderFactory = None, alpha = None, timeframe = None, threshold = None):
         from marketsim.gen._out.event._Every import Every as _event_Every

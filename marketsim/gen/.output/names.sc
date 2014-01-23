@@ -1292,11 +1292,15 @@ package strategy() {@category = "Side function"
     def Arbitrage() : IMultiAssetStrategy
         
     
+    /** Strategy that calculates Relative Strength Index of an asset
+     *  and starts to buy when RSI is greater than 50 + *threshold*
+     *  and sells when RSI is less than 50 - *thresold*
+     */
     def RSIbis(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
                /** order factory function*/ orderFactory = order.side.Market(),
-               /** parameter |alpha| for exponentially weighted moving average */ alpha = 1.0/14,
-               timeframe = 1.0,
-               threshold = 30.0)
+               /** parameter |alpha| for exponentially weighted moving average when calculating RSI */ alpha = 1.0/14,
+               /** lag for calculating up and down movements for RSI */ timeframe = 1.0,
+               /** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */ threshold = 30.0)
          = Generic(orderFactory(side.Signal(50.0-math.RSI(orderbook.OfTrader(),timeframe,alpha),50.0-threshold)),eventGen)
     
     /** Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
@@ -1390,7 +1394,7 @@ package strategy() {@category = "Side function"
                     volume = 20.0)
          = Combine(Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(0.9,orderbook.SafeSidePrice(orderbook.Asks(),constant(100+delta))/math.Exp(math.Atan(trader.Position())/1000))),order.price.Limit(side.Sell(),constant(volume*1000)))),event.After(constant(0.0))),Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(0.9,orderbook.SafeSidePrice(orderbook.Bids(),constant(100-delta))/math.Exp(math.Atan(trader.Position())/1000))),order.price.Limit(side.Buy(),constant(volume*1000)))),event.After(constant(0.0))))
     
-    /** Noise strategy is a quite dummy strategy that randomly creates an order and sends it to the order book.
+    /** Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
      */
     def Noise(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
               /** order factory function*/ orderFactory = order.side.Market())

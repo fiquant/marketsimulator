@@ -67,7 +67,7 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
-| | | | | | | - Noise strategy is a quite dummy strategy that randomly creates an order and sends it to the order book.
+| | | | | | | - Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
 | | | | | | | - List:
 | | | | | - List:
 | | | | - FunDef:
@@ -634,7 +634,7 @@ Definitions:
 | | | | | | | | | - IntLit:
 | | | | | | | | | | - 14
 | | | | | | | - List:
-| | | | | | | | -  parameter |alpha| for exponentially weighted moving average 
+| | | | | | | | -  parameter |alpha| for exponentially weighted moving average when calculating RSI 
 | | | | | | - Parameter:
 | | | | | | | - timeframe
 | | | | | | | - None
@@ -642,6 +642,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
+| | | | | | | | -  lag for calculating up and down movements for RSI 
 | | | | | | - Parameter:
 | | | | | | | - threshold
 | | | | | | | - None
@@ -649,6 +650,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 30.0
 | | | | | | | - List:
+| | | | | | | | -  strategy starts to act once RSI is out of [50-threshold, 50+threshold] 
 | | | | | - Some:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
@@ -695,7 +697,12 @@ Definitions:
 | | | | | | | | - Var:
 | | | | | | | | | - eventGen
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Strategy that calculates Relative Strength Index of an asset
+| | | | | | | - List:
+| | | | | | | | -   and starts to buy when RSI is greater than 50 + *threshold*
+| | | | | | | | -   and sells when RSI is less than 50 - *thresold*
 | | | | | - List:
 | | - List:
 | | - List:
