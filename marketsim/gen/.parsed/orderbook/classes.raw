@@ -249,7 +249,12 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IOrderBook
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Phantom orderbook used to refer to the order book associated with a single asset trader
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | | | | -   May be used only in objects that are held by traders (so it is used in trader properties and strategies)
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -271,7 +276,12 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IOrderBook
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Phantom orderbook that is used to refer to the current order book
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | | | | -   May be used only in objects held by orderbooks (so it is normally used in orderbook properties)
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:

@@ -12886,7 +12886,12 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IOrderBook
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Phantom orderbook that is used to refer to the current order book
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | | | | -   May be used only in objects held by orderbooks (so it is normally used in orderbook properties)
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -12923,6 +12928,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 100.0
 | | | | | | | - List:
+| | | | | | | | -  price to be used if there haven't been any trades 
 | | | | | - Some:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
@@ -12957,7 +12963,11 @@ Definitions:
 | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - defaultValue
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns best price if defined, otherwise last price
+| | | | | | | - List:
+| | | | | | | | -   and *defaultValue* if there haven't been any trades
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -12985,6 +12995,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 0.15
 | | | | | | | - List:
+| | | | | | | | -  parameter alpha for the moving average  
 | | | | | - Some:
 | | | | | | - BinOp:
 | | | | | | | - Div
@@ -13030,7 +13041,10 @@ Definitions:
 | | | | | | | | | - Var:
 | | | | | | | | | | - alpha
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns moving average of trade prices weighted by their volumes
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -13057,7 +13071,10 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - Price
 | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns tick size for the order *book*
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -13109,7 +13126,10 @@ Definitions:
 | | | | | | | | | - FloatLit:
 | | | | | | | | | | - 2.0
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - MidPrice of order *book*
+| | | | | | | - List:
 | | | | | - List:
 | | | | - FunDef:
 | | | | | - Asks
@@ -13139,7 +13159,10 @@ Definitions:
 | | | | | | | | | | | - Sell
 | | | | | | | | | - List:
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns sell side order queue for *book*
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -13173,7 +13196,11 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Volume
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns volume of the last trade at *queue*
+| | | | | | | - List:
+| | | | | | | | -   Returns None if there haven't been any trades
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -13210,7 +13237,10 @@ Definitions:
 | | | | | | | | | | | - Buy
 | | | | | | | | | - List:
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns buy side order queue for *book*
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -13244,7 +13274,11 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Price
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns best order price of *queue*
+| | | | | | | - List:
+| | | | | | | | -   Returns None is *queue* is empty
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -13331,7 +13365,10 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IOrderQueue
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns order queue of order *book* for trade *side*
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -13367,7 +13404,12 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IOrderBook
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Phantom orderbook used to refer to the order book associated with a single asset trader
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | | | | -   May be used only in objects that are held by traders (so it is used in trader properties and strategies)
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -13414,7 +13456,16 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Price
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns price for best orders of total volume *depth*
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | | | | -   In other words cumulative price corresponds to trader balance change
+| | | | | | | | -   if a market order of volume *depth* is completely matched
+| | | | | | | | - 
+| | | | | | | | -   Negative *depth* correponds to will buy assets
+| | | | | | | | -   Positive *depth* correponds to will sell assets
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -13443,6 +13494,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 30.0
 | | | | | | | - List:
+| | | | | | | | -  distance between two volumes 
 | | | | | | - Parameter:
 | | | | | | | - volumeCount
 | | | | | | | - None
@@ -13450,6 +13502,7 @@ Definitions:
 | | | | | | | | - IntLit:
 | | | | | | | | | - 10
 | | | | | | | - List:
+| | | | | | | | -  number of volume levels to track 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -13462,7 +13515,11 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - IVolumeLevels
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns arrays of levels for given volumes [i*volumeDelta for i in range(0, volumeCount)]
+| | | | | | | - List:
+| | | | | | | | -   Level of volume V is a price at which cumulative volume of better orders is V
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -13499,7 +13556,11 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Price
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns last defined price at *queue*
+| | | | | | | - List:
+| | | | | | | | -   Returns None is *queue* has been always empty
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -13708,7 +13769,14 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 0.0
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns naive approximation of price for best orders of total volume *depth*
+| | | | | | | - List:
+| | | | | | | | -   by taking into account prices only for the best order
+| | | | | | | | - 
+| | | | | | | | -   Negative *depth* correponds to will buy assets
+| | | | | | | | -   Positive *depth* correponds to will sell assets
 | | | | | - List:
 | | | | - FunDef:
 | | | | | - Link
@@ -13787,7 +13855,10 @@ Definitions:
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - book
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Spread of order *book*
+| | | | | | | - List:
 | | | | | - List:
 | | | | - FunDef:
 | | | | | - LastTradePrice
@@ -13814,7 +13885,11 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Price
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns price of the last trade at *queue*
+| | | | | | | - List:
+| | | | | | | | -   Returns None if there haven't been any trades
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:

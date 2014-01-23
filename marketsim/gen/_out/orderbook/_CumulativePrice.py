@@ -5,6 +5,11 @@ from marketsim import IFunction
 @registry.expose(["Asset", "CumulativePrice"])
 class CumulativePrice(CumulativePrice_Impl):
     """ 
+      In other words cumulative price corresponds to trader balance change
+      if a market order of volume *depth* is completely matched
+    
+      Negative *depth* correponds to will buy assets
+      Positive *depth* correponds to will sell assets
     """ 
     def __init__(self, book = None, depth = None):
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader

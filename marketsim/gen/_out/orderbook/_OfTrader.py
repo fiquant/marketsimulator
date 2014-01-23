@@ -4,6 +4,7 @@ from marketsim import IAccount
 @registry.expose(["Asset", "OfTrader"])
 class OfTrader(_OfTrader_Impl):
     """ 
+      May be used only in objects that are held by traders (so it is used in trader properties and strategies)
     """ 
     def __init__(self, Trader = None):
         from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy

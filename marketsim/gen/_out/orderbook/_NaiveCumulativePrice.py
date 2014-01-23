@@ -6,7 +6,10 @@ from marketsim import IFunction
 from marketsim import context
 @registry.expose(["Asset", "NaiveCumulativePrice"])
 class NaiveCumulativePrice(Observable[Price]):
-    """ 
+    """   by taking into account prices only for the best order
+    
+      Negative *depth* correponds to will buy assets
+      Positive *depth* correponds to will sell assets
     """ 
     def __init__(self, book = None, depth = None):
         from marketsim import Price

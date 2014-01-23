@@ -6,7 +6,7 @@ from marketsim import IFunction
 from marketsim import context
 @registry.expose(["Asset", "SafeSidePrice"])
 class SafeSidePrice(Observable[Price]):
-    """ 
+    """   and *defaultValue* if there haven't been any trades
     """ 
     def __init__(self, queue = None, defaultValue = None):
         from marketsim import Price

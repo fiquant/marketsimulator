@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.orderbook.props import _BestPrice_Impl
 from marketsim import IOrderQueue
 @registry.expose(["Asset", "BestPrice"])
 class BestPrice(_BestPrice_Impl):
-    """ 
+    """   Returns None is *queue* is empty
     """ 
     def __init__(self, queue = None):
         from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks

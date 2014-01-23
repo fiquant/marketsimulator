@@ -44,10 +44,20 @@ package orderbook
                    /** Backward link (normally from a market to a trader)*/
                    down = Link()) : ITwoWayLink
 
+    /**
+     *  Phantom orderbook used to refer to the order book associated with a single asset trader
+     *
+     *  May be used only in objects that are held by traders (so it is used in trader properties and strategies)
+     */
     @python.intrinsic("orderbook.of_trader._OfTrader_Impl")
     @label = "N/A"
     def OfTrader(Trader = trader.SingleProxy() : IAccount) : IOrderBook
 
+    /**
+     *  Phantom orderbook that is used to refer to the current order book
+     *
+     *  May be used only in objects held by orderbooks (so it is normally used in orderbook properties)
+     */
     @python.intrinsic("orderbook.of_trader._Proxy_Impl")
     @label = "N/A"
     def Proxy() : IOrderBook

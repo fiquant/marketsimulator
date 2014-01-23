@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.orderbook.last_trade import _LastTradePrice_Impl
 from marketsim import IOrderQueue
 @registry.expose(["Asset", "LastTradePrice"])
 class LastTradePrice(_LastTradePrice_Impl):
-    """ 
+    """   Returns None if there haven't been any trades
     """ 
     def __init__(self, queue = None):
         from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks

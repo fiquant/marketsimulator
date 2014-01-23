@@ -1984,40 +1984,63 @@ package orderbook() {@queue = "Ask_{%(book)s}"
         def LastTradePrice(book = OfTrader())
              = orderbook.LastTradePrice(_queue(book))
     }
+    /** Phantom orderbook that is used to refer to the current order book
+     *
+     *  May be used only in objects held by orderbooks (so it is normally used in orderbook properties)
+     */
     @python.intrinsic("orderbook.of_trader._Proxy_Impl")
     @label = "N/A"
     def Proxy() : IOrderBook
         
     
+    /** Returns best price if defined, otherwise last price
+     *  and *defaultValue* if there haven't been any trades
+     */
     @python.observable()
     def SafeSidePrice(queue = Asks(),
-                      defaultValue = constant(100.0))
+                      /** price to be used if there haven't been any trades */ defaultValue = constant(100.0))
          = observable.Price(IfDefined(BestPrice(queue),IfDefined(LastPrice(queue),defaultValue)))
     
+    /** Returns moving average of trade prices weighted by their volumes
+     */
     @label = "Price_{%(alpha)s}^{%(queue)s}"
     def WeightedPrice(queue = Asks(),
-                      alpha = 0.15)
+                      /** parameter alpha for the moving average  */ alpha = 0.15)
          = math.EW.Avg(LastTradePrice(queue)*LastTradeVolume(queue),alpha)/math.EW.Avg(LastTradeVolume(queue),alpha)
     
+    /** Returns tick size for the order *book*
+     */
     @python.intrinsic("orderbook.props._TickSize_Impl")
     def TickSize(book = OfTrader()) : () => Price
         
     
+    /** MidPrice of order *book*
+     */
     def MidPrice(book = OfTrader())
          = observable.Price((ask.Price(book)+bid.Price(book))/2.0)
     
+    /** Returns sell side order queue for *book*
+     */
     @python.intrinsic("orderbook.proxy._Asks_Impl")
     def Asks(book = OfTrader())
          = Queue(book,side.Sell())
     
+    /** Returns volume of the last trade at *queue*
+     *  Returns None if there haven't been any trades
+     */
     @python.intrinsic("orderbook.last_trade._LastTradeVolume_Impl")
     def LastTradeVolume(queue = Asks()) : IObservable[Volume]
         
     
+    /** Returns buy side order queue for *book*
+     */
     @python.intrinsic("orderbook.proxy._Bids_Impl")
     def Bids(book = OfTrader())
          = Queue(book,side.Buy())
     
+    /** Returns best order price of *queue*
+     *  Returns None is *queue* is empty
+     */
     @python.intrinsic("orderbook.props._BestPrice_Impl")
     def BestPrice(queue = Asks()) : IObservable[Price]
         
@@ -2032,28 +2055,48 @@ package orderbook() {@queue = "Ask_{%(book)s}"
                    /** Backward link (normally from a market to a trader)*/ down = Link()) : ITwoWayLink
         
     
+    /** Returns order queue of order *book* for trade *side*
+     */
     @python.intrinsic("orderbook.proxy._Queue_Impl")
     def Queue(book = OfTrader(),
               side = side.Sell()) : IOrderQueue
         
     
+    /** Phantom orderbook used to refer to the order book associated with a single asset trader
+     *
+     *  May be used only in objects that are held by traders (so it is used in trader properties and strategies)
+     */
     @python.intrinsic("orderbook.of_trader._OfTrader_Impl")
     @label = "N/A"
     def OfTrader(Trader = trader.SingleProxy() : IAccount) : IOrderBook
         
     
+    /** Returns price for best orders of total volume *depth*
+     *
+     *  In other words cumulative price corresponds to trader balance change
+     *  if a market order of volume *depth* is completely matched
+     *
+     *  Negative *depth* correponds to will buy assets
+     *  Positive *depth* correponds to will sell assets
+     */
     @python.intrinsic("orderbook.cumulative_price.CumulativePrice_Impl")
     def CumulativePrice(book = OfTrader(),
                         depth = constant()) : IObservable[Price]
         
     
+    /** Returns arrays of levels for given volumes [i*volumeDelta for i in range(0, volumeCount)]
+     *  Level of volume V is a price at which cumulative volume of better orders is V
+     */
     @python.intrinsic("orderbook.volume_levels.VolumeLevels_Impl")
     @label = "VolumeLevels(%(queue)s)"
     def VolumeLevels(queue = Asks(),
-                     volumeDelta = 30.0,
-                     volumeCount = 10) : IObservable[IVolumeLevels]
+                     /** distance between two volumes */ volumeDelta = 30.0,
+                     /** number of volume levels to track */ volumeCount = 10) : IObservable[IVolumeLevels]
         
     
+    /** Returns last defined price at *queue*
+     *  Returns None is *queue* has been always empty
+     */
     @python.intrinsic("orderbook.last_price._LastPrice_Impl")
     def LastPrice(queue = Asks()) : IObservable[Price]
         
@@ -2079,6 +2122,12 @@ package orderbook() {@queue = "Ask_{%(book)s}"
                timeseries = [] : List[ITimeSerie]) : IOrderBook
         
     
+    /** Returns naive approximation of price for best orders of total volume *depth*
+     *  by taking into account prices only for the best order
+     *
+     *  Negative *depth* correponds to will buy assets
+     *  Positive *depth* correponds to will sell assets
+     */
     def NaiveCumulativePrice(book = OfTrader(),
                              depth = constant())
          = observable.Price(if depth<0.0 then depth*ask.Price(book) else if depth>0.0 then depth*bid.Price(book) else 0.0)
@@ -2092,9 +2141,14 @@ package orderbook() {@queue = "Ask_{%(book)s}"
                * when it will appear at the end point*/ latency = const(0.001)) : ILink
         
     
+    /** Spread of order *book*
+     */
     def Spread(book = OfTrader())
          = observable.Price(ask.Price(book)-bid.Price(book))
     
+    /** Returns price of the last trade at *queue*
+     *  Returns None if there haven't been any trades
+     */
     @python.intrinsic("orderbook.last_trade._LastTradePrice_Impl")
     def LastTradePrice(queue = Asks()) : IObservable[Price]
         
