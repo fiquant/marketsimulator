@@ -16,10 +16,11 @@ from marketsim import listOf
 from marketsim import listOf
 @registry.expose(["Strategy", "MultiArmedBandit"])
 class MultiArmedBandit(_MultiarmedBandit2_Impl):
-    """  In some moments of time the most effective strategy
-     is chosen and made running; other strategies are suspended.
-     The choice is made randomly among the strategies that have
-     a positive efficiency trend, weighted by the efficiency value.
+    """  In some moments of time the efficiency of the strategies is evaluated
+     These efficiencies are mapped into weights using *weight* and *normilizer*
+     functions per every strategy and *corrector* for the whole collection of weights
+     These weights are used to choose randomly a strategy to run for the next quant of time.
+     All other strategies are suspended
     """ 
     def __init__(self, strategies = None, account = None, weight = None, normalizer = None, corrector = None):
         from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise

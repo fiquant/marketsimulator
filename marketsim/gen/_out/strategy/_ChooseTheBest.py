@@ -12,6 +12,8 @@ from marketsim import IAccount
 class ChooseTheBest(_ChooseTheBest_Impl):
     """  In some moments of time the most effective strategy
      is chosen and made running; other strategies are suspended.
+     It can be considered as a particular case for MultiArmedBandit strategy with
+     *corrector* parameter set to *chooseTheBest*
     """ 
     def __init__(self, strategies = None, account = None, performance = None):
         from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise

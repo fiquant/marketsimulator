@@ -1401,6 +1401,8 @@ package strategy {@category = "Side function"
     /** A composite strategy initialized with an array of strategies.
      * In some moments of time the most effective strategy
      * is chosen and made running; other strategies are suspended.
+     * It can be considered as a particular case for MultiArmedBandit strategy with
+     * *corrector* parameter set to *chooseTheBest*
      */
     
     @python.intrinsic("strategy.choose_the_best._ChooseTheBest_Impl")
@@ -1527,18 +1529,20 @@ package strategy {@category = "Side function"
         
     
     /** A composite strategy initialized with an array of strategies.
-     * In some moments of time the most effective strategy
-     * is chosen and made running; other strategies are suspended.
-     * The choice is made randomly among the strategies that have
-     * a positive efficiency trend, weighted by the efficiency value.
+     * In some moments of time the efficiency of the strategies is evaluated
+     * These efficiencies are mapped into weights using *weight* and *normilizer*
+     * functions per every strategy and *corrector* for the whole collection of weights
+     * These weights are used to choose randomly a strategy to run for the next quant of time.
+     * All other strategies are suspended
      */
     
     @python.intrinsic("strategy.multiarmed_bandit._MultiarmedBandit2_Impl")
     def MultiArmedBandit(/** original strategies that can be suspended */ strategies : Optional[List[.ISingleAssetStrategy]] = [.strategy.Noise()],
-                         /** function creating phantom strategy used for efficiency estimation */ account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account.inner.inner_VirtualMarket(),
+                         /** function creating a virtual account used for estimate efficiency of the strategy itself */ account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account.inner.inner_VirtualMarket(),
                          /** function estimating is the strategy efficient or not */ weight : Optional[.IAccount => .IFunction[.Float]] = .strategy.weight.trader.trader_EfficiencyTrend(),
-                         normalizer : Optional[Optional[.IFunction[.Float]] => .IFunction[.Float]] = .strategy.weight.f.f_AtanPow(),
-                         /** weighting scheme for choosing strategies */ corrector : Optional[Optional[List[.Float]] => List[.Float]] = .strategy.weight.array.array_IdentityL()) : .ISingleAssetStrategy
+                         /** function that maps trader efficiency to its weight that will be used for random choice */ normalizer : Optional[Optional[.IFunction[.Float]] => .IFunction[.Float]] = .strategy.weight.f.f_AtanPow(),
+                         /** given array of strategy weights corrects them.
+                           * for example it may set to 0 all weights except the maximal one */ corrector : Optional[Optional[List[.Float]] => List[.Float]] = .strategy.weight.array.array_IdentityL()) : .ISingleAssetStrategy
         
     
     /** A Strategy that allows to drive the asset price based on historical market data
