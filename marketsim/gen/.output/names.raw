@@ -7701,7 +7701,11 @@ Definitions:
 | | | | | | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Function returning an array of length *len(array)*
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -   having 1 at the index of the maximal element and 0 are at the rest
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Annotation:
 | | | | | | | | | | | | | - QualifiedName:
@@ -7747,7 +7751,10 @@ Definitions:
 | | | | | | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Identity function for an array of floats
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Annotation:
 | | | | | | | | | | | | | - QualifiedName:
@@ -7792,7 +7799,10 @@ Definitions:
 | | | | | | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Annotation:
 | | | | | | | | | | | | | - QualifiedName:
@@ -7826,7 +7836,13 @@ Definitions:
 | | | | | | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Calculates how many times efficiency of trader went up and went down
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  Returns difference between them.
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | -  TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Annotation:
 | | | | | | | | | | | | | - QualifiedName:
@@ -7845,6 +7861,7 @@ Definitions:
 | | | | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | | | - 0.15
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  parameter alpha for the moving average 
 | | | | | | | | | | | - None
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - FunctionType:
@@ -7867,7 +7884,10 @@ Definitions:
 | | | | | | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Returns first derivative of a moving average of the trader efficiency
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Annotation:
 | | | | | | | | | | | | | - QualifiedName:
@@ -7901,7 +7921,10 @@ Definitions:
 | | | | | | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Unit function. Used to simulate uniform random choice of a strategy
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Annotation:
 | | | | | | | | | | | | | - QualifiedName:
@@ -7958,7 +7981,10 @@ Definitions:
 | | | | | | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - scaling function = max(0, f(x)) + 1
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Annotation:
 | | | | | | | | | | | | | - QualifiedName:
@@ -7977,6 +8003,7 @@ Definitions:
 | | | | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | | | - 1.002
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -  base for power function 
 | | | | | | | | | | | - None
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - FunctionType:
@@ -8011,7 +8038,10 @@ Definitions:
 | | | | | | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - scaling function = atan(base^f(x))
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Annotation:
 | | | | | | | | | | | | | - QualifiedName:
@@ -8057,7 +8087,10 @@ Definitions:
 | | | | | | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - identity scaling = f(x)
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Annotation:
 | | | | | | | | | | | | | - QualifiedName:
@@ -8112,7 +8145,11 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | - List:
-| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Function returning an array of length *len(array)*
+| | | | | | | | | | - List:
+| | | | | | | | | | | -   having 1 at the index of the maximal element and 0 are at the rest
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
@@ -8164,6 +8201,7 @@ Definitions:
 | | | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  account in question 
 | | | | | | | | - Some:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
@@ -8184,7 +8222,10 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | - List:
-| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
+| | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
@@ -8223,6 +8264,7 @@ Definitions:
 | | | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  account in question 
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
@@ -8235,7 +8277,13 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | - List:
-| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Calculates how many times efficiency of trader went up and went down
+| | | | | | | | | | - List:
+| | | | | | | | | | | -  Returns difference between them.
+| | | | | | | | | | | - 
+| | | | | | | | | | | -  TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
@@ -8278,6 +8326,7 @@ Definitions:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  function to scale 
 | | | | | | | | - Some:
 | | | | | | | | | - BinOp:
 | | | | | | | | | | - Add
@@ -8309,7 +8358,10 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | - List:
-| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - scaling function = max(0, f(x)) + 1
+| | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
@@ -8336,6 +8388,7 @@ Definitions:
 | | | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  account in question 
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - alpha
 | | | | | | | | | | - None
@@ -8343,6 +8396,7 @@ Definitions:
 | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | - 0.15
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  parameter alpha for the moving average 
 | | | | | | | | - Some:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
@@ -8378,7 +8432,10 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | - List:
-| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Returns first derivative of a moving average of the trader efficiency
+| | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
@@ -8411,6 +8468,7 @@ Definitions:
 | | | | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  account in question 
 | | | | | | | | - Some:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
@@ -8430,7 +8488,10 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | - List:
-| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Unit function. Used to simulate uniform random choice of a strategy
+| | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
@@ -8466,6 +8527,7 @@ Definitions:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  function to scale 
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - base
 | | | | | | | | | | - None
@@ -8473,6 +8535,7 @@ Definitions:
 | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | - 1.002
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  base for power function 
 | | | | | | | | - Some:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
@@ -8506,7 +8569,10 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | - List:
-| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - scaling function = atan(base^f(x))
+| | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
@@ -8551,7 +8617,10 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | - List:
-| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Identity function for an array of floats
+| | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
@@ -8614,7 +8683,10 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - Float
 | | | | | | | | | | | | - List:
-| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - identity scaling = f(x)
+| | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
@@ -9024,7 +9096,11 @@ Definitions:
 | | | | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | | | - IAccount
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Associated with a strategy account that tracks
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -   how orders sent by the strategy have been actually traded
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Annotation:
 | | | | | | | | | | | | | - QualifiedName:
@@ -9058,7 +9134,13 @@ Definitions:
 | | | | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | | | - IAccount
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - DocString:
+| | | | | | | | | | | | | - Associated with a strategy account that evaluates for every order sent by the strategy
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | -   how it would be traded by sending request.evalMarketOrder
+| | | | | | | | | | | | | | -   (note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market
+| | | | | | | | | | | | | | -   but we want evaluate in any case would it be profitable or not)
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - Annotation:
 | | | | | | | | | | | | | - QualifiedName:
@@ -9093,6 +9175,7 @@ Definitions:
 | | | | | | | | | | | | | | - Noise
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  strategy to track 
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
@@ -9100,7 +9183,11 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - IAccount
 | | | | | | | | | | - List:
-| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Associated with a strategy account that tracks
+| | | | | | | | | | - List:
+| | | | | | | | | | | -   how orders sent by the strategy have been actually traded
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:
@@ -9138,6 +9225,7 @@ Definitions:
 | | | | | | | | | | | | | | - Noise
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
+| | | | | | | | | | | -  strategy to track 
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
@@ -9145,7 +9233,13 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - IAccount
 | | | | | | | | | | - List:
-| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Associated with a strategy account that evaluates for every order sent by the strategy
+| | | | | | | | | | - List:
+| | | | | | | | | | | -   how it would be traded by sending request.evalMarketOrder
+| | | | | | | | | | | -   (note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market
+| | | | | | | | | | | -   but we want evaluate in any case would it be profitable or not)
 | | | | | | | | - List:
 | | | | | | | | | - Annotation:
 | | | | | | | | | | - QualifiedName:

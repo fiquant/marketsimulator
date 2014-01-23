@@ -4,7 +4,9 @@ from marketsim import IAccount
 from marketsim import IFunction
 @registry.expose(["Strategy", "trader_Score"])
 class trader_Score(IFunction[IFunction[float], IAccount]):
-    """ 
+    """  Returns difference between them.
+    
+     TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))
     """ 
     def __init__(self):
         from marketsim import rtti

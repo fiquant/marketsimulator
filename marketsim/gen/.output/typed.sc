@@ -1111,11 +1111,16 @@ package strategy {@category = "Side function"
     
     package weight {
         package array {
+            /** Identity function for an array of floats
+             */
             
             @python.curried("IdentityL")
             def array_IdentityL() : Optional[List[.Float]] => List[.Float]
                 
             
+            /** Function returning an array of length *len(array)*
+             *  having 1 at the index of the maximal element and 0 are at the rest
+             */
             
             @python.curried("ChooseTheBest")
             def array_ChooseTheBest() : Optional[List[.Float]] => List[.Float]
@@ -1124,21 +1129,32 @@ package strategy {@category = "Side function"
         
         
         package trader {
+            /** Returns first derivative of a moving average of the trader efficiency
+             */
             
             @python.curried("EfficiencyTrend")
-            def trader_EfficiencyTrend(alpha : Optional[.Float] = 0.15) : .IAccount => .IFunction[.Float]
+            def trader_EfficiencyTrend(/** parameter alpha for the moving average */ alpha : Optional[.Float] = 0.15) : .IAccount => .IFunction[.Float]
                 
             
+            /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
+             */
             
             @python.curried("Efficiency")
             def trader_Efficiency() : .IAccount => .IFunction[.Float]
                 
             
+            /** Calculates how many times efficiency of trader went up and went down
+             * Returns difference between them.
+             *
+             * TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))
+             */
             
             @python.curried("Score")
             def trader_Score() : .IAccount => .IFunction[.Float]
                 
             
+            /** Unit function. Used to simulate uniform random choice of a strategy
+             */
             
             @python.curried("Unit")
             def trader_Unit() : .IAccount => .IFunction[.Float]
@@ -1147,72 +1163,100 @@ package strategy {@category = "Side function"
         
         
         package f {
+            /** scaling function = atan(base^f(x))
+             */
             
             @python.curried("AtanPow")
-            def f_AtanPow(base : Optional[.Float] = 1.002) : Optional[.IFunction[.Float]] => .IFunction[.Float]
+            def f_AtanPow(/** base for power function */ base : Optional[.Float] = 1.002) : Optional[.IFunction[.Float]] => .IFunction[.Float]
                 
             
+            /** scaling function = max(0, f(x)) + 1
+             */
             
             @python.curried("Clamp0")
             def f_Clamp0() : Optional[.IFunction[.Float]] => .IFunction[.Float]
                 
             
+            /** identity scaling = f(x)
+             */
             
             @python.curried("IdentityF")
             def f_IdentityF() : Optional[.IFunction[.Float]] => .IFunction[.Float]
                 
         }
         
+        /** Function returning an array of length *len(array)*
+         *  having 1 at the index of the maximal element and 0 are at the rest
+         */
         
         @python.intrinsic("strategy.weight._ChooseTheBest_Impl")
         @curried("array")
         def ChooseTheBest(array : Optional[List[.Float]] = []) : List[.Float]
             
         
+        /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
+         */
         
         @curried("trader")
-        def Efficiency(trader : .IAccount = .trader.SingleProxy()) : .IFunction[.Float]
+        def Efficiency(/** account in question */ trader : .IAccount = .trader.SingleProxy()) : .IFunction[.Float]
             
             	 = .trader.Efficiency(trader)
         
+        /** Calculates how many times efficiency of trader went up and went down
+         * Returns difference between them.
+         *
+         * TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))
+         */
         
         @python.intrinsic("strategy.weight._Score_Impl")
         @curried("trader")
-        def Score(trader : .IAccount = .trader.SingleProxy()) : .IFunction[.Float]
+        def Score(/** account in question */ trader : .IAccount = .trader.SingleProxy()) : .IFunction[.Float]
             
         
+        /** scaling function = max(0, f(x)) + 1
+         */
         
         @curried("f")
-        def Clamp0(f : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
+        def Clamp0(/** function to scale */ f : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
             
             	 = .math.Max(.constant(0),f)+1
         
+        /** Returns first derivative of a moving average of the trader efficiency
+         */
         
         @curried("trader")
-        def EfficiencyTrend(trader : .IAccount = .trader.SingleProxy(),
-                            alpha : Optional[.Float] = 0.15) : .IFunction[.Float]
+        def EfficiencyTrend(/** account in question */ trader : .IAccount = .trader.SingleProxy(),
+                            /** parameter alpha for the moving average */ alpha : Optional[.Float] = 0.15) : .IFunction[.Float]
             
             	 = .math.Derivative(.math.EW.Avg(.trader.Efficiency(trader),alpha))
         
+        /** Unit function. Used to simulate uniform random choice of a strategy
+         */
         
         @curried("trader")
-        def Unit(trader : .IAccount = .trader.SingleProxy()) : .IFunction[.Float]
+        def Unit(/** account in question */ trader : .IAccount = .trader.SingleProxy()) : .IFunction[.Float]
             
             	 = .constant(1.0)
         
+        /** scaling function = atan(base^f(x))
+         */
         
         @curried("f")
-        def AtanPow(f : Optional[.IFunction[.Float]] = .constant(),
-                    base : Optional[.Float] = 1.002) : .IFunction[.Float]
+        def AtanPow(/** function to scale */ f : Optional[.IFunction[.Float]] = .constant(),
+                    /** base for power function */ base : Optional[.Float] = 1.002) : .IFunction[.Float]
             
             	 = .math.Atan(.math.Pow(.constant(base),f))
         
+        /** Identity function for an array of floats
+         */
         
         @python.intrinsic("strategy.weight._Identity_Impl")
         @curried("array")
         def IdentityL(array : Optional[List[.Float]] = []) : List[.Float]
             
         
+        /** identity scaling = f(x)
+         */
         
         @curried("f")
         def IdentityF(f : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
@@ -1282,27 +1326,43 @@ package strategy {@category = "Side function"
     
     package account {
         package inner {
+            /** Associated with a strategy account that evaluates for every order sent by the strategy
+             *  how it would be traded by sending request.evalMarketOrder
+             *  (note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market
+             *  but we want evaluate in any case would it be profitable or not)
+             */
             
             @python.curried("VirtualMarket")
             def inner_VirtualMarket() : Optional[.ISingleAssetStrategy] => .IAccount
                 
             
+            /** Associated with a strategy account that tracks
+             *  how orders sent by the strategy have been actually traded
+             */
             
             @python.curried("Real")
             def inner_Real() : Optional[.ISingleAssetStrategy] => .IAccount
                 
         }
         
+        /** Associated with a strategy account that tracks
+         *  how orders sent by the strategy have been actually traded
+         */
         
         @python.intrinsic("strategy.account._Account_Impl")
         @curried("inner")
-        def Real(inner : Optional[.ISingleAssetStrategy] = .strategy.Noise()) : .IAccount
+        def Real(/** strategy to track */ inner : Optional[.ISingleAssetStrategy] = .strategy.Noise()) : .IAccount
             
         
+        /** Associated with a strategy account that evaluates for every order sent by the strategy
+         *  how it would be traded by sending request.evalMarketOrder
+         *  (note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market
+         *  but we want evaluate in any case would it be profitable or not)
+         */
         
         @python.intrinsic("strategy.account._VirtualMarket_Impl")
         @curried("inner")
-        def VirtualMarket(inner : Optional[.ISingleAssetStrategy] = .strategy.Noise()) : .IAccount
+        def VirtualMarket(/** strategy to track */ inner : Optional[.ISingleAssetStrategy] = .strategy.Noise()) : .IAccount
             
         def real = .strategy.account.inner.inner_Real
         

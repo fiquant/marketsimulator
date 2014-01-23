@@ -4,7 +4,7 @@ from marketsim import listOf
 from marketsim import IFunction
 @registry.expose(["Strategy", "array_ChooseTheBest"])
 class array_ChooseTheBest(IFunction[listOf(float), listOf(float)]):
-    """ 
+    """   having 1 at the index of the maximal element and 0 are at the rest
     """ 
     def __init__(self):
         from marketsim import rtti

@@ -3,7 +3,9 @@ from marketsim.gen._intrinsic.strategy.account import _VirtualMarket_Impl
 from marketsim import ISingleAssetStrategy
 @registry.expose(["Strategy", "VirtualMarket"])
 class VirtualMarket(_VirtualMarket_Impl):
-    """ 
+    """   how it would be traded by sending request.evalMarketOrder
+      (note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market
+      but we want evaluate in any case would it be profitable or not)
     """ 
     def __init__(self, inner = None):
         from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise

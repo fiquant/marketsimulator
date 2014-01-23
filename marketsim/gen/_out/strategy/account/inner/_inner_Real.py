@@ -4,7 +4,7 @@ from marketsim import ISingleAssetStrategy
 from marketsim import IFunction
 @registry.expose(["Strategy", "inner_Real"])
 class inner_Real(IFunction[IAccount, ISingleAssetStrategy]):
-    """ 
+    """   how orders sent by the strategy have been actually traded
     """ 
     def __init__(self):
         from marketsim import rtti
