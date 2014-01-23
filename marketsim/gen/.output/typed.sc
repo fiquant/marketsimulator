@@ -1369,6 +1369,9 @@ package strategy {@category = "Side function"
         def virtualMarket = .strategy.account.inner.inner_VirtualMarket
     }
     
+    /** Creates a strategy combining two strategies
+     *  Can be considered as a particular case of Array strategy
+     */
     
     @python.intrinsic("strategy.combine._Combine_Impl")
     def Combine(A : Optional[.ISingleAssetStrategy] = .strategy.Noise(),
@@ -1482,6 +1485,11 @@ package strategy {@category = "Side function"
         
         	 = .strategy.Generic(orderFactory(.strategy.side.FundamentalValue(fundamentalValue)),eventGen)
     
+    /** Strategy for a multi asset trader.
+     * It believes that these assets represent a single asset traded on different venues
+     * Once an ask at one venue becomes lower than a bid at another venue
+     * it sends market sell and buy orders in order to exploit this arbitrage possibility
+     */
     
     @python.intrinsic("strategy.arbitrage._Arbitrage_Impl")
     def Arbitrage() : .IMultiAssetStrategy
@@ -1506,9 +1514,11 @@ package strategy {@category = "Side function"
         
         	 = .strategy.Suspendable(inner,performance(account(inner))>=0)
     
+    /** Creates a strategy combining an array of strategies
+     */
     
     @python.intrinsic("strategy.combine._Array_Impl")
-    def Array(strategies : Optional[List[.ISingleAssetStrategy]] = [] : List[.ISingleAssetStrategy]) : .ISingleAssetStrategy
+    def Array(/** strategies to combine */ strategies : Optional[List[.ISingleAssetStrategy]] = [.strategy.Noise()]) : .ISingleAssetStrategy
         
     
     /** Mean reversion strategy believes that asset price should return to its average value.
@@ -1523,6 +1533,8 @@ package strategy {@category = "Side function"
         
         	 = .strategy.Generic(orderFactory(.strategy.side.MeanReversion(ewma_alpha)),eventGen)
     
+    /** Empty strategy doing nothing
+     */
     
     @python.intrinsic("strategy.basic._Empty_Impl")
     def Empty() : .ISingleAssetStrategy
@@ -1562,9 +1574,13 @@ package strategy {@category = "Side function"
         
         	 = .strategy.Combine(.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.Quote(ticker,start,end)+.const(delta)),.order._curried.price_Limit(.side.Sell(),.constant(volume*1000)))),.event.After(.constant(0.0))),.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.Quote(ticker,start,end)-.const(delta)),.order._curried.price_Limit(.side.Buy(),.constant(volume*1000)))),.event.After(.constant(0.0))))
     
+    /** Strategy that listens to all orders sent by a trader to the market
+     *  and in some moments of time it randomly chooses an order and cancels it
+     *  Note: a similar effect can be obtained using order.WithExpiry meta orders
+     */
     
     @python.intrinsic("strategy.canceller._Canceller_Impl")
-    def Canceller(cancellationIntervalDistr : Optional[() => .Float] = .math.random.expovariate(1.0)) : .ISingleAssetStrategy
+    def Canceller(/** intervals between order cancellations */ cancellationIntervalDistr : Optional[() => .Float] = .math.random.expovariate(1.0)) : .ISingleAssetStrategy
         
     
     /** Liquidity provider for one side
@@ -1585,7 +1601,7 @@ package strategy {@category = "Side function"
     
     @python.intrinsic("strategy.generic._Generic_Impl")
     def Generic(/** order factory function*/ orderFactory : Optional[.IOrderGenerator] = .order.Limit(),
-                /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .observable.OnEveryDt() : .IEvent) : .ISingleAssetStrategy
+                /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every()) : .ISingleAssetStrategy
         
     
     

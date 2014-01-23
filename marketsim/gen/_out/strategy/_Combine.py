@@ -4,7 +4,7 @@ from marketsim import ISingleAssetStrategy
 from marketsim import ISingleAssetStrategy
 @registry.expose(["Strategy", "Combine"])
 class Combine(_Combine_Impl):
-    """ 
+    """   Can be considered as a particular case of Array strategy
     """ 
     def __init__(self, A = None, B = None):
         from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise

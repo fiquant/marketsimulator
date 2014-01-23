@@ -8,10 +8,10 @@ class Generic(_Generic_Impl):
     """ 
     def __init__(self, orderFactory = None, eventGen = None):
         from marketsim.gen._out.order._Limit import Limit as _order_Limit
-        from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
+        from marketsim.gen._out.event._Every import Every as _event_Every
         from marketsim import rtti
         self.orderFactory = orderFactory if orderFactory is not None else _order_Limit()
-        self.eventGen = eventGen if eventGen is not None else _observable_OnEveryDt()
+        self.eventGen = eventGen if eventGen is not None else _event_Every()
         rtti.check_fields(self)
         _Generic_Impl.__init__(self)
     

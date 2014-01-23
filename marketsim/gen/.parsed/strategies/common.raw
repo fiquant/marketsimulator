@@ -27,18 +27,12 @@ Definitions:
 | | | | | | | - eventGen
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Cast:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - observable
-| | | | | | | | | | | | - OnEveryDt
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IEvent
-| | | | | | | | | | - List:
+| | | | | | | | | | | - event
+| | | | | | | | | | | - Every
+| | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  Event source making the strategy to wake up
 | | | | | - None
@@ -91,7 +85,11 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - ISingleAssetStrategy
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Creates a strategy combining two strategies
+| | | | | | | - List:
+| | | | | | | | -   Can be considered as a particular case of Array strategy
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -107,20 +105,15 @@ Definitions:
 | | | | | | | - strategies
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Cast:
-| | | | | | | | | - List_:
-| | | | | | | | | | - List:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - List
-| | | | | | | | | | - List:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - ISingleAssetStrategy
+| | | | | | | | - List_:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Noise
+| | | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  strategies to combine 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -128,7 +121,10 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - ISingleAssetStrategy
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Creates a strategy combining an array of strategies
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -154,6 +150,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 1.0
 | | | | | | | - List:
+| | | | | | | | -  intervals between order cancellations 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -161,7 +158,12 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - ISingleAssetStrategy
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Strategy that listens to all orders sent by a trader to the market
+| | | | | | | - List:
+| | | | | | | | -   and in some moments of time it randomly chooses an order and cancels it
+| | | | | | | | -   Note: a similar effect can be obtained using order.WithExpiry meta orders
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -180,7 +182,10 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - ISingleAssetStrategy
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Empty strategy doing nothing
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -199,7 +204,13 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IMultiAssetStrategy
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Strategy for a multi asset trader.
+| | | | | | | - List:
+| | | | | | | | -  It believes that these assets represent a single asset traded on different venues
+| | | | | | | | -  Once an ask at one venue becomes lower than a bid at another venue
+| | | | | | | | -  it sends market sell and buy orders in order to exploit this arbitrage possibility
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
