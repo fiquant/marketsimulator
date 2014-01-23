@@ -13203,6 +13203,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
+| | | | | | | | -  time discretization step 
 | | | | | | - Parameter:
 | | | | | | | - x
 | | | | | | | - None
@@ -13213,6 +13214,7 @@ Definitions:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  function to discretize 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -13225,7 +13227,10 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Float
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Discretizes function *x* at even time steps *dt*
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -13276,7 +13281,11 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Volume
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Down casts function *x* to IObservable[Volume].
+| | | | | | | - List:
+| | | | | | | | -  Needed since generic functions aren't implemented yet
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -13325,7 +13334,11 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Side
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Down casts function *x* to IObservable[Side].
+| | | | | | | - List:
+| | | | | | | | -  Needed since generic functions aren't implemented yet
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -13373,7 +13386,11 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Price
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Down casts function *x* to IObservable[Price].
+| | | | | | | - List:
+| | | | | | | | -  Needed since generic functions aren't implemented yet
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -13412,7 +13429,11 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Float
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Observable listening to *source*
+| | | | | | | - List:
+| | | | | | | | -   When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -13457,7 +13478,11 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Float
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Down casts function *x* to IObservable[Float].
+| | | | | | | - List:
+| | | | | | | | -  Needed since generic functions aren't implemented yet
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -13479,6 +13504,7 @@ Definitions:
 | | | | | | | | - StringLit:
 | | | | | | | | | - ^GSPC
 | | | | | | | - List:
+| | | | | | | | -  defines quotes to download 
 | | | | | | - Parameter:
 | | | | | | | - start
 | | | | | | | - None
@@ -13486,6 +13512,7 @@ Definitions:
 | | | | | | | | - StringLit:
 | | | | | | | | | - 2001-1-1
 | | | | | | | - List:
+| | | | | | | | -  defines first day to download in form YYYY-MM-DD 
 | | | | | | - Parameter:
 | | | | | | | - end
 | | | | | | | - None
@@ -13493,6 +13520,7 @@ Definitions:
 | | | | | | | | - StringLit:
 | | | | | | | | | - 2010-1-1
 | | | | | | | - List:
+| | | | | | | | -  defines last day to download in form YYYY-MM-DD 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -13505,7 +13533,11 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Price
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Observable that downloads closing prices for every day from *start* to *end* for asset given by *ticker*
+| | | | | | | - List:
+| | | | | | | | -   and follows the price in scale 1 model unit of time = 1 real day
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -13930,25 +13962,29 @@ Definitions:
 | | | | | | - 1.0
 | | | | - List:
 | | - Some:
-| | | - FunCall:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - const
-| | | | - List:
-| | | | | - Var:
-| | | | | | - x
-| | - Some:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IFunction
-| | | | - List:
-| | | | | - SimpleType:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - Float
+| | | - Cast:
+| | | | - FunCall:
+| | | | | - QualifiedName:
 | | | | | | - List:
+| | | | | | | - const
+| | | | | - List:
+| | | | | | - Var:
+| | | | | | | - x
+| | | | - SimpleType:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - IFunction
+| | | | | - List:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Float
+| | | | | | | - List:
 | | - None
+| | - Some:
+| | | - DocString:
+| | | | - Function always returning *x*
+| | | | - List:
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -13971,7 +14007,10 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Boolean
 | | | | | | - List:
-| | - None
+| | - Some:
+| | | - DocString:
+| | | | - Trivial observable always returning *False*
+| | | | - List:
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -14055,7 +14094,10 @@ Definitions:
 | | | | | | - List:
 | | | | | | | - Float
 | | | | | - List:
-| | - None
+| | - Some:
+| | | - DocString:
+| | | | - Trivial observable always returning *undefined* or *None* value
+| | | | - List:
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -14206,7 +14248,10 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Float
 | | | | | | - List:
-| | - None
+| | - Some:
+| | | - DocString:
+| | | | - Trivial observable always returning *x*
+| | | | - List:
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -14348,7 +14393,10 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Boolean
 | | | | | | - List:
-| | - None
+| | - Some:
+| | | - DocString:
+| | | | - Trivial observable always returning *True*
+| | | | - List:
 | | - List:
 | | | - Attribute:
 | | | | - category
@@ -14418,6 +14466,7 @@ Definitions:
 | | | | | | | | - constant
 | | | | | | - List:
 | | | | - List:
+| | | | | -  function to take values from when *x* is undefined 
 | | - Some:
 | | | - IfThenElse:
 | | | | - Condition:
@@ -14434,7 +14483,10 @@ Definitions:
 | | | | - Var:
 | | | | | - elsePart
 | | - None
-| | - None
+| | - Some:
+| | | - DocString:
+| | | | - Returns *x* if defined and *elsePart* otherwise
+| | | | - List:
 | | - List:
 | | | - Attribute:
 | | | | - category

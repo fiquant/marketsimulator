@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.observable.quote import Quote_Impl
 @registry.expose(["Basic", "Quote"])
 class Quote(Quote_Impl):
-    """ 
+    """   and follows the price in scale 1 model unit of time = 1 real day
     """ 
     def __init__(self, ticker = None, start = None, end = None):
         from marketsim import rtti

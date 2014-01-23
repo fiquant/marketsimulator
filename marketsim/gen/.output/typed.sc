@@ -1901,43 +1901,63 @@ package orderbook {@queue = "Ask_{%(book)s}"
 
 @category = "Basic"
 package observable {
+    /** Discretizes function *x* at even time steps *dt*
+     */
     @label = "[%(x)s]_dt=%(dt)s"
     @observe_args = "no"
     @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
-    def OnEveryDt(dt : Optional[.Float] = 1.0,
-                  x : Optional[.IFunction[.Float]] = .constant()) : .IObservable[.Float]
+    def OnEveryDt(/** time discretization step */ dt : Optional[.Float] = 1.0,
+                  /** function to discretize */ x : Optional[.IFunction[.Float]] = .constant()) : .IObservable[.Float]
         
     
+    /** Down casts function *x* to IObservable[Volume].
+     * Needed since generic functions aren't implemented yet
+     */
     @label = "[%(x)s]"
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     def Volume(x : Optional[.IFunction[.Float]] = .const() : .IFunction[.Float]) : .IObservable[.Volume]
         
     
+    /** Down casts function *x* to IObservable[Side].
+     * Needed since generic functions aren't implemented yet
+     */
     @label = "[%(x)s]"
     @python.intrinsic("observable.on_every_dt._ObservableSide_Impl")
     def Side(x : Optional[.IFunction[.Side]] = .side.Sell() : .IFunction[.Side]) : .IObservable[.Side]
         
     
+    /** Down casts function *x* to IObservable[Price].
+     * Needed since generic functions aren't implemented yet
+     */
     @label = "[%(x)s]"
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     def Price(x : Optional[.IFunction[.Float]] = .const() : .IFunction[.Float]) : .IObservable[.Price]
         
     
+    /** Observable listening to *source*
+     *  When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
+     */
     
     @python.intrinsic("observable.breaks_at_changes._BreaksAtChanges_Impl")
     def BreaksAtChanges(source : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
         
     
+    /** Down casts function *x* to IObservable[Float].
+     * Needed since generic functions aren't implemented yet
+     */
     @label = "[%(x)s]"
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     def Float(x : Optional[.IFunction[.Float]] = .const() : .IFunction[.Float]) : .IObservable[.Float]
         
     
+    /** Observable that downloads closing prices for every day from *start* to *end* for asset given by *ticker*
+     *  and follows the price in scale 1 model unit of time = 1 real day
+     */
     @label = "%(ticker)s"
     @python.intrinsic("observable.quote.Quote_Impl")
-    def Quote(ticker : Optional[.String] = "^GSPC",
-              start : Optional[.String] = "2001-1-1",
-              end : Optional[.String] = "2010-1-1") : .IObservable[.Price]
+    def Quote(/** defines quotes to download */ ticker : Optional[.String] = "^GSPC",
+              /** defines first day to download in form YYYY-MM-DD */ start : Optional[.String] = "2001-1-1",
+              /** defines last day to download in form YYYY-MM-DD */ end : Optional[.String] = "2010-1-1") : .IObservable[.Price]
         
 }
 
@@ -2038,18 +2058,24 @@ type ITimeSerie
 type Any
 type IOrderGenerator = IObservable[Order]
 type String
+/** Function always returning *x*
+ */
 @category = "Basic"
 @label = "C=%(x)s"
 def constant(x : Optional[.Float] = 1.0) : .IFunction[.Float]
     
-    	 = .const(x)
+    	 = .const(x) : .IFunction[.Float]
 
+/** Trivial observable always returning *False*
+ */
 @category = "Basic"
 @label = "False"
 @python.intrinsic.function("_constant._False_Impl")
 def false() : .IObservable[.Boolean]
     
 
+/** Trivial observable always returning *undefined* or *None* value
+ */
 @category = "Basic"
 @python.intrinsic("_constant._Null_Impl")
 def null() : () => .Float
@@ -2067,6 +2093,8 @@ def TimeSerie(source : Optional[.IObservable[Any]] = .const(0.0) : .IObservable[
               _smooth : Optional[.Int] = 1) : .ITimeSerie
     
 
+/** Trivial observable always returning *x*
+ */
 @category = "Basic"
 @label = "C=%(x)s"
 @python.intrinsic.function("_constant._Constant_Impl")
@@ -2083,17 +2111,21 @@ def CandleSticks(/** observable data source considered as asset price */ source 
                  /** size of timeframe */ timeframe : Optional[.Float] = 10.0) : .IObservable[.CandleStick]
     
 
+/** Trivial observable always returning *True*
+ */
 @category = "Basic"
 @label = "True"
 @python.intrinsic.function("_constant._True_Impl")
 def true() : .IObservable[.Boolean]
     
 
+/** Returns *x* if defined and *elsePart* otherwise
+ */
 @category = "Basic"
 @label = "If def(%(x)s) else %(elsePart)s"
 @python.observable()
 def IfDefined(x : Optional[.IFunction[.Float]] = .constant(),
-              elsePart : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
+              /** function to take values from when *x* is undefined */ elsePart : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
     
     	 = if x<>.null() then x else elsePart
 

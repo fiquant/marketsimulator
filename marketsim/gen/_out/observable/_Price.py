@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.observable.on_every_dt import _Observable_Impl
 from marketsim import IFunction
 @registry.expose(["Basic", "Price"])
 class Price(_Observable_Impl):
-    """ 
+    """  Needed since generic functions aren't implemented yet
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out._const import const as _const

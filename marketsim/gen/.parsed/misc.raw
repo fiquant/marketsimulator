@@ -16,25 +16,29 @@ Definitions:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - const
-| | | | | | | - List:
-| | | | | | | | - Var:
-| | | | | | | | | - x
-| | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - IFunction
-| | | | | | | - List:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Float
+| | | | | | - Cast:
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
+| | | | | | | | | | - const
+| | | | | | | | - List:
+| | | | | | | | | - Var:
+| | | | | | | | | | - x
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - IFunction
+| | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Float
+| | | | | | | | | | - List:
 | | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Function always returning *x*
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -61,7 +65,10 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Float
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Trivial observable always returning *x*
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -89,7 +96,10 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Boolean
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Trivial observable always returning *True*
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -117,7 +127,10 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Boolean
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Trivial observable always returning *False*
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -142,7 +155,10 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | | | - Float
 | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Trivial observable always returning *undefined* or *None* value
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -174,6 +190,7 @@ Definitions:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  function to take values from when *x* is undefined 
 | | | | | - Some:
 | | | | | | - IfThenElse:
 | | | | | | | - Condition:
@@ -190,7 +207,10 @@ Definitions:
 | | | | | | | - Var:
 | | | | | | | | - elsePart
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns *x* if defined and *elsePart* otherwise
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:

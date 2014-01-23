@@ -1633,42 +1633,62 @@ package orderbook() {@queue = "Ask_{%(book)s}"
 }
 @category = "Basic"
 package observable() {
+    /** Discretizes function *x* at even time steps *dt*
+     */
     @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
     @label = "[%(x)s]_dt=%(dt)s"
     @observe_args = "no"
-    def OnEveryDt(dt = 1.0,
-                  x = constant()) : IObservable[Float]
+    def OnEveryDt(/** time discretization step */ dt = 1.0,
+                  /** function to discretize */ x = constant()) : IObservable[Float]
         
     
+    /** Down casts function *x* to IObservable[Volume].
+     * Needed since generic functions aren't implemented yet
+     */
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
     def Volume(x = const() : IFunction[Float]) : IObservable[Volume]
         
     
+    /** Down casts function *x* to IObservable[Side].
+     * Needed since generic functions aren't implemented yet
+     */
     @python.intrinsic("observable.on_every_dt._ObservableSide_Impl")
     @label = "[%(x)s]"
     def Side(x = side.Sell() : IFunction[Side]) : IObservable[Side]
         
     
+    /** Down casts function *x* to IObservable[Price].
+     * Needed since generic functions aren't implemented yet
+     */
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
     def Price(x = const() : IFunction[Float]) : IObservable[Price]
         
     
+    /** Observable listening to *source*
+     *  When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
+     */
     @python.intrinsic("observable.breaks_at_changes._BreaksAtChanges_Impl")
     def BreaksAtChanges(source = constant(1.0)) : IObservable[Float]
         
     
+    /** Down casts function *x* to IObservable[Float].
+     * Needed since generic functions aren't implemented yet
+     */
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
     def Float(x = const() : IFunction[Float]) : IObservable[Float]
         
     
+    /** Observable that downloads closing prices for every day from *start* to *end* for asset given by *ticker*
+     *  and follows the price in scale 1 model unit of time = 1 real day
+     */
     @python.intrinsic("observable.quote.Quote_Impl")
     @label = "%(ticker)s"
-    def Quote(ticker = "^GSPC",
-              start = "2001-1-1",
-              end = "2010-1-1") : IObservable[Price]
+    def Quote(/** defines quotes to download */ ticker = "^GSPC",
+              /** defines first day to download in form YYYY-MM-DD */ start = "2001-1-1",
+              /** defines last day to download in form YYYY-MM-DD */ end = "2010-1-1") : IObservable[Price]
         
 }
 @python = "no"
@@ -1723,11 +1743,15 @@ package trash() {
     def A(x = in1.in2.A()) : () => types.R
         
 }
+/** Function always returning *x*
+ */
 @category = "Basic"
 @label = "C=%(x)s"
-def constant(x = 1.0) : IFunction[Float]
-     = const(x)
+def constant(x = 1.0)
+     = const(x) : IFunction[Float]
 
+/** Trivial observable always returning *False*
+ */
 @category = "Basic"
 @python.intrinsic.function("_constant._False_Impl")
 @label = "False"
@@ -1752,6 +1776,8 @@ type Boolean
 
 type Price : Float
 
+/** Trivial observable always returning *undefined* or *None* value
+ */
 @category = "Basic"
 @python.intrinsic("_constant._Null_Impl")
 def null() : () => Float
@@ -1783,6 +1809,8 @@ type IEvent
 
 type IMultiAssetStrategy
 
+/** Trivial observable always returning *x*
+ */
 @category = "Basic"
 @python.intrinsic.function("_constant._Constant_Impl")
 @label = "C=%(x)s"
@@ -1809,6 +1837,8 @@ def CandleSticks(/** observable data source considered as asset price */ source 
 
 type ISingleAssetTrader : IAccount, ITrader
 
+/** Trivial observable always returning *True*
+ */
 @category = "Basic"
 @python.intrinsic.function("_constant._True_Impl")
 @label = "True"
@@ -1823,11 +1853,13 @@ type List[T]
 
 type IDifferentiable : IFunction[Float]
 
+/** Returns *x* if defined and *elsePart* otherwise
+ */
 @category = "Basic"
 @python.observable()
 @label = "If def(%(x)s) else %(elsePart)s"
 def IfDefined(x = constant(),
-              elsePart = constant())
+              /** function to take values from when *x* is undefined */ elsePart = constant())
      = if x<>null() then x else elsePart
 
 type ITimeSerie
