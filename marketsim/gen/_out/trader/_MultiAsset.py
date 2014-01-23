@@ -7,7 +7,8 @@ from marketsim import listOf
 from marketsim import ITimeSerie
 @registry.expose(["Trader", "MultiAsset"])
 class MultiAsset(_MultiAsset_Impl):
-    """ 
+    """   It can be considered as a composition of single asset traders and multi asset strategies
+      At the moment there is no way to instruct a multi asset strategy to trade only on subset of the assets
     """ 
     def __init__(self, traders = None, strategy = None, name = None, PnL = None, timeseries = None):
         from marketsim.gen._out.strategy._Arbitrage import Arbitrage as _strategy_Arbitrage

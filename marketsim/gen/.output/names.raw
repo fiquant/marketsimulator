@@ -12023,7 +12023,10 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Price
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Number of money owned by trader
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -12089,7 +12092,11 @@ Definitions:
 | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | - trader
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns traders naive approximation of trader eficiency.
+| | | | | | | - List:
+| | | | | | | | -   It takes into account only the best price of the order queue
 | | | | | - List:
 | | | | - FunDef:
 | | | | | - Position
@@ -12122,7 +12129,12 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Volume
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns position of the trader
+| | | | | | | - List:
+| | | | | | | | -   It is negative if trader has sold more assets than has bought and
+| | | | | | | | -   positive otherwise
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -12188,7 +12200,10 @@ Definitions:
 | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | - trader
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
+| | | | | | | - List:
 | | | | | - List:
 | | | | - FunDef:
 | | | | | - SingleProxy
@@ -12200,7 +12215,11 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - ISingleAssetTrader
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Phantom trader that is used to refer to the current trader
+| | | | | | | - List:
+| | | | | | | | -   (normally it is used to define trader properties and strategies)
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -12233,6 +12252,7 @@ Definitions:
 | | | | | | | | | | | | | | - ISingleAssetTrader
 | | | | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  defines accounts for every asset to trade 
 | | | | | | - Parameter:
 | | | | | | | - strategy
 | | | | | | | - None
@@ -12244,7 +12264,7 @@ Definitions:
 | | | | | | | | | | | - Arbitrage
 | | | | | | | | | - List:
 | | | | | | | - List:
-| | | | | | | | -  strategy run by the trader 
+| | | | | | | | -  multi asset strategy run by the trader 
 | | | | | | - Parameter:
 | | | | | | | - name
 | | | | | | | - None
@@ -12278,6 +12298,7 @@ Definitions:
 | | | | | | | | | | | | | | - ITimeSerie
 | | | | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  defines what data should be gathered for the trader 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -12285,7 +12306,12 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - ITrader
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - A trader that trades different assets
+| | | | | | | - List:
+| | | | | | | | -   It can be considered as a composition of single asset traders and multi asset strategies
+| | | | | | | | -   At the moment there is no way to instruct a multi asset strategy to trade only on subset of the assets
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -12347,7 +12373,10 @@ Definitions:
 | | | | | | | | | | - Var:
 | | | | | | | | | | | - alpha
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns first derivative of a moving average of the trader efficiency
+| | | | | | | - List:
 | | | | | - List:
 | | | | - FunDef:
 | | | | | - PendingVolume
@@ -12380,7 +12409,10 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Volume
 | | | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Cumulative volume of orders sent to the market but haven't matched yet
+| | | | | | | - List:
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -12456,6 +12488,7 @@ Definitions:
 | | | | | | | | | | | | | | - ITimeSerie
 | | | | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  defines what data should be gathered for the trader 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:

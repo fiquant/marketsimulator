@@ -15,18 +15,30 @@ package trader
                     amount      = 0.0,
                     /** current trader balance (number of money units that it owns) */
                     PnL         = 0.0,
+                    /** defines what data should be gathered for the trader */
                     timeseries  = [] : List[ITimeSerie]) : ISingleAssetTrader
 
+    /**
+     *  A trader that trades different assets
+     *  It can be considered as a composition of single asset traders and multi asset strategies
+     *  At the moment there is no way to instruct a multi asset strategy to trade only on subset of the assets
+     */
     @python.intrinsic("trader.classes._MultiAsset_Impl")
     @label = "%(name)s"
-    def MultiAsset( traders     = [] : List[ISingleAssetTrader],
-                    /** strategy run by the trader */
+    def MultiAsset( /** defines accounts for every asset to trade */
+                    traders     = [] : List[ISingleAssetTrader],
+                    /** multi asset strategy run by the trader */
                     strategy    = strategy.Arbitrage(),
                     name        = "-trader-",
                     /** current trader balance (number of money units that it owns) */
                     PnL         = 0.0,
+                    /** defines what data should be gathered for the trader */
                     timeseries  = [] : List[ITimeSerie]) : ITrader
 
+    /**
+     *  Phantom trader that is used to refer to the current trader
+     *  (normally it is used to define trader properties and strategies)
+     */
     @python.intrinsic("trader.proxy._Single_Impl")
     @label = "N/A"
     def SingleProxy() : ISingleAssetTrader

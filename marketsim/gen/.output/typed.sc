@@ -2110,46 +2110,68 @@ package strategy {@category = "Side function"
 
 @category = "Trader"
 package trader {
+    /** Number of money owned by trader
+     */
     
     @python.intrinsic("trader.props.Balance_Impl")
     def Balance(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Price]
         
     
+    /** Returns traders naive approximation of trader eficiency.
+     *  It takes into account only the best price of the order queue
+     */
     
     def RoughPnL(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Float]
         
         	 = .observable.Float(.trader.Balance(trader)+.orderbook.NaiveCumulativePrice(.orderbook.OfTrader(trader),.trader.Position(trader)))
     
+    /** Returns position of the trader
+     *  It is negative if trader has sold more assets than has bought and
+     *  positive otherwise
+     */
     
     @python.intrinsic("trader.props.Position_Impl")
     def Position(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Volume]
         
     
+    /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
+     */
     
     def Efficiency(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Float]
         
         	 = .observable.Float(.trader.Balance(trader)+.orderbook.CumulativePrice(.orderbook.OfTrader(trader),.trader.Position(trader)))
     
+    /** Phantom trader that is used to refer to the current trader
+     *  (normally it is used to define trader properties and strategies)
+     */
     @label = "N/A"
     @python.intrinsic("trader.proxy._Single_Impl")
     def SingleProxy() : .ISingleAssetTrader
         
     
+    /** A trader that trades different assets
+     *  It can be considered as a composition of single asset traders and multi asset strategies
+     *  At the moment there is no way to instruct a multi asset strategy to trade only on subset of the assets
+     */
     @label = "%(name)s"
     @python.intrinsic("trader.classes._MultiAsset_Impl")
-    def MultiAsset(traders : Optional[List[.ISingleAssetTrader]] = [] : List[.ISingleAssetTrader],
-                   /** strategy run by the trader */ strategy : Optional[.IMultiAssetStrategy] = .strategy.Arbitrage(),
+    def MultiAsset(/** defines accounts for every asset to trade */ traders : Optional[List[.ISingleAssetTrader]] = [] : List[.ISingleAssetTrader],
+                   /** multi asset strategy run by the trader */ strategy : Optional[.IMultiAssetStrategy] = .strategy.Arbitrage(),
                    name : Optional[.String] = "-trader-",
                    /** current trader balance (number of money units that it owns) */ PnL : Optional[.Float] = 0.0,
-                   timeseries : Optional[List[.ITimeSerie]] = [] : List[.ITimeSerie]) : .ITrader
+                   /** defines what data should be gathered for the trader */ timeseries : Optional[List[.ITimeSerie]] = [] : List[.ITimeSerie]) : .ITrader
         
     
+    /** Returns first derivative of a moving average of the trader efficiency
+     */
     
     def EfficiencyTrend(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount,
                         alpha : Optional[.Float] = 0.15) : () => .Float
         
         	 = .math.Derivative(.math.EW.Avg(.trader.Efficiency(trader),alpha))
     
+    /** Cumulative volume of orders sent to the market but haven't matched yet
+     */
     
     @python.intrinsic("trader.props.PendingVolume_Impl")
     def PendingVolume(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Volume]
@@ -2164,7 +2186,7 @@ package trader {
                     name : Optional[.String] = "-trader-",
                     /** current position of the trader (number of assets that it owns) */ amount : Optional[.Float] = 0.0,
                     /** current trader balance (number of money units that it owns) */ PnL : Optional[.Float] = 0.0,
-                    timeseries : Optional[List[.ITimeSerie]] = [] : List[.ITimeSerie]) : .ISingleAssetTrader
+                    /** defines what data should be gathered for the trader */ timeseries : Optional[List[.ITimeSerie]] = [] : List[.ITimeSerie]) : .ISingleAssetTrader
         
 }
 

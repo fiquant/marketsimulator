@@ -75,6 +75,7 @@ Definitions:
 | | | | | | | | | | | | | | - ITimeSerie
 | | | | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  defines what data should be gathered for the trader 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -118,6 +119,7 @@ Definitions:
 | | | | | | | | | | | | | | - ISingleAssetTrader
 | | | | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  defines accounts for every asset to trade 
 | | | | | | - Parameter:
 | | | | | | | - strategy
 | | | | | | | - None
@@ -129,7 +131,7 @@ Definitions:
 | | | | | | | | | | | - Arbitrage
 | | | | | | | | | - List:
 | | | | | | | - List:
-| | | | | | | | -  strategy run by the trader 
+| | | | | | | | -  multi asset strategy run by the trader 
 | | | | | | - Parameter:
 | | | | | | | - name
 | | | | | | | - None
@@ -163,6 +165,7 @@ Definitions:
 | | | | | | | | | | | | | | - ITimeSerie
 | | | | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  defines what data should be gathered for the trader 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -170,7 +173,12 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - ITrader
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - A trader that trades different assets
+| | | | | | | - List:
+| | | | | | | | -   It can be considered as a composition of single asset traders and multi asset strategies
+| | | | | | | | -   At the moment there is no way to instruct a multi asset strategy to trade only on subset of the assets
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -192,7 +200,11 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - ISingleAssetTrader
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Phantom trader that is used to refer to the current trader
+| | | | | | | - List:
+| | | | | | | | -   (normally it is used to define trader properties and strategies)
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:

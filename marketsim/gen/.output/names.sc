@@ -1885,38 +1885,60 @@ package strategy() {@category = "Side function"
 }
 @category = "Trader"
 package trader() {
+    /** Number of money owned by trader
+     */
     @python.intrinsic("trader.props.Balance_Impl")
     def Balance(trader = SingleProxy() : IAccount) : IObservable[Price]
         
     
+    /** Returns traders naive approximation of trader eficiency.
+     *  It takes into account only the best price of the order queue
+     */
     def RoughPnL(trader = SingleProxy() : IAccount)
          = observable.Float(Balance(trader)+orderbook.NaiveCumulativePrice(orderbook.OfTrader(trader),Position(trader)))
     
+    /** Returns position of the trader
+     *  It is negative if trader has sold more assets than has bought and
+     *  positive otherwise
+     */
     @python.intrinsic("trader.props.Position_Impl")
     def Position(trader = SingleProxy() : IAccount) : IObservable[Volume]
         
     
+    /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
+     */
     def Efficiency(trader = SingleProxy() : IAccount)
          = observable.Float(Balance(trader)+orderbook.CumulativePrice(orderbook.OfTrader(trader),Position(trader)))
     
+    /** Phantom trader that is used to refer to the current trader
+     *  (normally it is used to define trader properties and strategies)
+     */
     @python.intrinsic("trader.proxy._Single_Impl")
     @label = "N/A"
     def SingleProxy() : ISingleAssetTrader
         
     
+    /** A trader that trades different assets
+     *  It can be considered as a composition of single asset traders and multi asset strategies
+     *  At the moment there is no way to instruct a multi asset strategy to trade only on subset of the assets
+     */
     @python.intrinsic("trader.classes._MultiAsset_Impl")
     @label = "%(name)s"
-    def MultiAsset(traders = [] : List[ISingleAssetTrader],
-                   /** strategy run by the trader */ strategy = strategy.Arbitrage(),
+    def MultiAsset(/** defines accounts for every asset to trade */ traders = [] : List[ISingleAssetTrader],
+                   /** multi asset strategy run by the trader */ strategy = strategy.Arbitrage(),
                    name = "-trader-",
                    /** current trader balance (number of money units that it owns) */ PnL = 0.0,
-                   timeseries = [] : List[ITimeSerie]) : ITrader
+                   /** defines what data should be gathered for the trader */ timeseries = [] : List[ITimeSerie]) : ITrader
         
     
+    /** Returns first derivative of a moving average of the trader efficiency
+     */
     def EfficiencyTrend(trader = SingleProxy() : IAccount,
                         alpha = 0.15)
          = math.Derivative(math.EW.Avg(Efficiency(trader),alpha))
     
+    /** Cumulative volume of orders sent to the market but haven't matched yet
+     */
     @python.intrinsic("trader.props.PendingVolume_Impl")
     def PendingVolume(trader = SingleProxy() : IAccount) : IObservable[Volume]
         
@@ -1930,7 +1952,7 @@ package trader() {
                     name = "-trader-",
                     /** current position of the trader (number of assets that it owns) */ amount = 0.0,
                     /** current trader balance (number of money units that it owns) */ PnL = 0.0,
-                    timeseries = [] : List[ITimeSerie]) : ISingleAssetTrader
+                    /** defines what data should be gathered for the trader */ timeseries = [] : List[ITimeSerie]) : ISingleAssetTrader
         
 }
 @category = "Asset"
