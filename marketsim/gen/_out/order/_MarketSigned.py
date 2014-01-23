@@ -6,6 +6,7 @@ from marketsim import IFunction
 @registry.expose(["Order", "MarketSigned"])
 class MarketSigned(IOrderGenerator, Observable[Order]):
     """ 
+      Market order intructs buy or sell given volume immediately
     """ 
     def __init__(self, signedVolume = None):
         from marketsim import Order

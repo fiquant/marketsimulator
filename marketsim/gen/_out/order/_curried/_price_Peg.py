@@ -9,6 +9,10 @@ class price_Peg(
 
 IFunction[IOrderGenerator,IFunction[float]]):
     """ 
+      A peg order is a particular case of the floating price order
+      with the price better at one tick than the best price of the order queue.
+      It implies that if several peg orders are sent to the same order queue
+      they start to race until being matched against the counterparty orders.
     """ 
     def __init__(self, proto = None):
         from marketsim.gen._out.order._curried._price_Limit import price_Limit as _order__curried_price_Limit

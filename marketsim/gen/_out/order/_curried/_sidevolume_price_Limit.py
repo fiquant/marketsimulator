@@ -9,6 +9,9 @@ class sidevolume_price_Limit(IFunction[IFunction[IOrderGenerator, IFunction[floa
 
 ]):
     """ 
+      Limit orders ask to buy or sell some asset at price better than some limit price.
+      If a limit order is not competely fulfilled
+      it remains in an order book waiting to be matched with another order.
     """ 
     def __init__(self):
         from marketsim import rtti

@@ -7,6 +7,9 @@ from marketsim import IFunction
 @registry.expose(["Order", "LimitSigned"])
 class LimitSigned(IOrderGenerator, Observable[Order]):
     """ 
+      Limit orders ask to buy or sell some asset at price better than some limit price.
+      If a limit order is not competely fulfilled
+      it remains in an order book waiting to be matched with another order.
     """ 
     def __init__(self, signedVolume = None, price = None):
         from marketsim import Order

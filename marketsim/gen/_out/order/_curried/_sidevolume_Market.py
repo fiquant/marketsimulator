@@ -8,6 +8,7 @@ class sidevolume_Market(IFunction[IOrderGenerator, IFunction[Side],IFunction[flo
 
 ]):
     """ 
+      Market order intructs buy or sell given volume immediately
     """ 
     def __init__(self):
         from marketsim import rtti

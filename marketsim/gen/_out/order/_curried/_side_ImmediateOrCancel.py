@@ -12,6 +12,12 @@ class side_ImmediateOrCancel(
 
 IFunction[IOrderGenerator,IFunction[Side]]):
     """ 
+      Immediate-Or-Cancel order sends an underlying order to the market and
+      immediately sends a cancel request for it.
+      It allows to combine market and limit order behaviour:
+      the order is either executed immediately
+      at price equal or better than given one
+      either it is cancelled (and consequently never stored in the order queue).
     """ 
     def __init__(self, proto = None):
         from marketsim.gen._out.order._curried._side_Limit import side_Limit as _order__curried_side_Limit

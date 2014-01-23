@@ -7,6 +7,10 @@ from marketsim import IFunction
 @registry.expose(["Order", "Peg"])
 class Peg(IOrderGenerator, Factory_Impl):
     """ 
+      A peg order is a particular case of the floating price order
+      with the price better at one tick than the best price of the order queue.
+      It implies that if several peg orders are sent to the same order queue
+      they start to race until being matched against the counterparty orders.
     """ 
     def __init__(self, proto = None):
         from marketsim.gen._intrinsic.order.meta.peg import Factory_Impl

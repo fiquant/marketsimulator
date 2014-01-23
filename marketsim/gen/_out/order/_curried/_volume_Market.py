@@ -6,6 +6,7 @@ from marketsim import Side
 @registry.expose(["Order", "Market"])
 class volume_Market(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
+      Market order intructs buy or sell given volume immediately
     """ 
     def __init__(self, side = None):
         from marketsim.gen._out.side._Sell import Sell as _side_Sell

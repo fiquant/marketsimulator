@@ -8,6 +8,9 @@ from marketsim import IFunction
 class side_Limit(IFunction[IOrderGenerator, IFunction[Side]
 ]):
     """ 
+      Limit orders ask to buy or sell some asset at price better than some limit price.
+      If a limit order is not competely fulfilled
+      it remains in an order book waiting to be matched with another order.
     """ 
     def __init__(self, price = None, volume = None):
         from marketsim.gen._out._constant import constant as _constant

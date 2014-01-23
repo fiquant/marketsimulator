@@ -7,6 +7,7 @@ from marketsim import IFunction
 class side_Market(IFunction[IOrderGenerator, IFunction[Side]
 ]):
     """ 
+      Market order intructs buy or sell given volume immediately
     """ 
     def __init__(self, volume = None):
         from marketsim.gen._out._constant import constant as _constant

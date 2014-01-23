@@ -13,6 +13,8 @@ class side_WithExpiry(
 
 IFunction[IOrderGenerator,IFunction[Side]]):
     """ 
+     WithExpiry orders can be viewed as ImmediateOrCancel orders
+     where cancel order is sent not immediately but after some delay
     """ 
     def __init__(self, expiry = None, proto = None):
         from marketsim.gen._out._constant import constant as _constant

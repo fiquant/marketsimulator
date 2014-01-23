@@ -22,6 +22,7 @@ Definitions:
 | | | | | | | | | | | - Sell
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  function defining side of orders to create 
 | | | | | | - Parameter:
 | | | | | | | - volume
 | | | | | | | - None
@@ -34,6 +35,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 1.0
 | | | | | | | - List:
+| | | | | | | | -  function defining volume of orders to create 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -41,7 +43,12 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IOrderGenerator
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Factory creating market orders
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | | | | -   Market order intructs buy or sell given volume immediately
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -65,6 +72,7 @@ Definitions:
 | | | | | | | | | | | - Sell
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  function defining side of orders to create 
 | | | | | | - Parameter:
 | | | | | | | - price
 | | | | | | | - None
@@ -77,6 +85,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 100.0
 | | | | | | | - List:
+| | | | | | | | -  function defining price of orders to create 
 | | | | | | - Parameter:
 | | | | | | | - volume
 | | | | | | | - None
@@ -89,6 +98,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 1.0
 | | | | | | | - List:
+| | | | | | | | -  function defining volume of orders to create 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -96,7 +106,14 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IOrderGenerator
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Factory creating limit orders
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | | | | -   Limit orders ask to buy or sell some asset at price better than some limit price.
+| | | | | | | | -   If a limit order is not competely fulfilled
+| | | | | | | | -   it remains in an order book waiting to be matched with another order.
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -120,6 +137,7 @@ Definitions:
 | | | | | | | | | | | - Sell
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  function defining side of orders to create 
 | | | | | | - Parameter:
 | | | | | | | - budget
 | | | | | | | - None
@@ -132,6 +150,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 1000.0
 | | | | | | | - List:
+| | | | | | | | -  function defining budget on which it may send orders at one time 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -139,7 +158,17 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IOrderGenerator
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Factory creating fixed budget orders
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | | | | -   Fixed budget order acts like a market order
+| | | | | | | | -   but the volume is implicitly given by a budget available for trades.
+| | | | | | | | -   Internally first it sends request.EvalVolumesForBudget
+| | | | | | | | -   to estimate volumes and prices of orders to sent and
+| | | | | | | | -   then sends a sequence of order.ImmediateOrCancel to be sure that
+| | | | | | | | -   cumulative price of trades to be done won't exceed the given budget.
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -162,6 +191,7 @@ Definitions:
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  factory for underlying orders 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -169,7 +199,17 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IOrderGenerator
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Factory creating Immediate-Or-Cancel orders
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | | | | -   Immediate-Or-Cancel order sends an underlying order to the market and
+| | | | | | | | -   immediately sends a cancel request for it.
+| | | | | | | | -   It allows to combine market and limit order behaviour:
+| | | | | | | | -   the order is either executed immediately
+| | | | | | | | -   at price equal or better than given one
+| | | | | | | | -   either it is cancelled (and consequently never stored in the order queue).
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -194,6 +234,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 0.1
 | | | | | | | - List:
+| | | | | | | | -  maximal acceptable loss factor 
 | | | | | | - Parameter:
 | | | | | | | - proto
 | | | | | | | - None
@@ -204,6 +245,7 @@ Definitions:
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  underlying orders to create 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -211,7 +253,15 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IOrderGenerator
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Factory creating StopLoss orders
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | | | | -   StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
+| | | | | | | | -   It keeps track of position and balance change induced by trades of the underlying order and
+| | | | | | | | -   if losses from keeping the position exceed certain limit (given by maximum loss factor),
+| | | | | | | | -   the meta order clears its position.
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -236,6 +286,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 10.0
 | | | | | | | - List:
+| | | | | | | | -  expiration period for orders 
 | | | | | | - Parameter:
 | | | | | | | - proto
 | | | | | | | - None
@@ -246,6 +297,7 @@ Definitions:
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  underlying orders to create 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -253,7 +305,13 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IOrderGenerator
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Factory creating WithExpiry orders
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | | | | -  WithExpiry orders can be viewed as ImmediateOrCancel orders
+| | | | | | | | -  where cancel order is sent not immediately but after some delay
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -278,6 +336,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 10.0
 | | | | | | | - List:
+| | | | | | | | -  maximal size of order to send 
 | | | | | | - Parameter:
 | | | | | | | - proto
 | | | | | | | - None
@@ -288,6 +347,7 @@ Definitions:
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  underlying orders to create 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -295,7 +355,14 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IOrderGenerator
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Factory creating iceberg orders
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | | | | -   Iceberg order is initialized by an underlying order and a lot size.
+| | | | | | | | -   It sends consequently pieces of the underlying order of size equal or less to the lot size
+| | | | | | | | -   thus maximum lot size volume is visible at the market at any moment.
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -320,6 +387,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 10.0
 | | | | | | | - List:
+| | | | | | | | -  observable defining price of orders to create 
 | | | | | | - Parameter:
 | | | | | | | - proto
 | | | | | | | - None
@@ -331,6 +399,7 @@ Definitions:
 | | | | | | | | | | | - Limit
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  underlying orders to create 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:
@@ -338,7 +407,14 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IOrderGenerator
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Factory creating orders with floating price
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | | | | -   Floating price order is initialized by an order having a price and an observable that generates new prices.
+| | | | | | | | -   When the observable value changes the order is cancelled and
+| | | | | | | | -   a new order with new price is created and sent to the order book.
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
@@ -369,7 +445,15 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IOrderGenerator
 | | | | | | | - List:
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Factory creating Peg orders
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | | | | -   A peg order is a particular case of the floating price order
+| | | | | | | | -   with the price better at one tick than the best price of the order queue.
+| | | | | | | | -   It implies that if several peg orders are sent to the same order queue
+| | | | | | | | -   they start to race until being matched against the counterparty orders.
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:

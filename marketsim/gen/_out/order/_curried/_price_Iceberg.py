@@ -10,6 +10,9 @@ class price_Iceberg(
 
 IFunction[IOrderGenerator,IFunction[float]]):
     """ 
+      Iceberg order is initialized by an underlying order and a lot size.
+      It sends consequently pieces of the underlying order of size equal or less to the lot size
+      thus maximum lot size volume is visible at the market at any moment.
     """ 
     def __init__(self, lotSize = None, proto = None):
         from marketsim.gen._out._constant import constant as _constant

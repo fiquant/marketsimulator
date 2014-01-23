@@ -7,6 +7,12 @@ from marketsim import IFunction
 class side_FixedBudget(IFunction[IOrderGenerator, IFunction[Side]
 ]):
     """ 
+      Fixed budget order acts like a market order
+      but the volume is implicitly given by a budget available for trades.
+      Internally first it sends request.EvalVolumesForBudget
+      to estimate volumes and prices of orders to sent and
+      then sends a sequence of order.ImmediateOrCancel to be sure that
+      cumulative price of trades to be done won't exceed the given budget.
     """ 
     def __init__(self, budget = None):
         from marketsim.gen._out._constant import constant as _constant

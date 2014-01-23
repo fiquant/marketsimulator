@@ -7,6 +7,9 @@ from marketsim import Side
 @registry.expose(["Order", "Limit"])
 class volume_price_Limit(IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[float]]):
     """ 
+      Limit orders ask to buy or sell some asset at price better than some limit price.
+      If a limit order is not competely fulfilled
+      it remains in an order book waiting to be matched with another order.
     """ 
     def __init__(self, side = None):
         from marketsim.gen._out.side._Sell import Sell as _side_Sell

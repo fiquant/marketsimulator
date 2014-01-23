@@ -4,6 +4,7 @@ from marketsim import IFunction
 @registry.expose(["Order", "MarketSigned"])
 class signedVolume_MarketSigned(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
+      Market order intructs buy or sell given volume immediately
     """ 
     def __init__(self):
         from marketsim import rtti

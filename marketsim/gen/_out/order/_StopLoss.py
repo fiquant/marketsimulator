@@ -7,6 +7,10 @@ from marketsim import IOrderGenerator
 @registry.expose(["Order", "StopLoss"])
 class StopLoss(IOrderGenerator, Observable[Order]):
     """ 
+      StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
+      It keeps track of position and balance change induced by trades of the underlying order and
+      if losses from keeping the position exceed certain limit (given by maximum loss factor),
+      the meta order clears its position.
     """ 
     def __init__(self, maxloss = None, proto = None):
         from marketsim import Order

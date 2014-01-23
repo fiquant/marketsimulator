@@ -7,6 +7,8 @@ from marketsim import IOrderGenerator
 @registry.expose(["Order", "WithExpiry"])
 class WithExpiry(IOrderGenerator, Observable[Order]):
     """ 
+     WithExpiry orders can be viewed as ImmediateOrCancel orders
+     where cancel order is sent not immediately but after some delay
     """ 
     def __init__(self, expiry = None, proto = None):
         from marketsim import Order

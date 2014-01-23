@@ -17,6 +17,9 @@ class sidevolume_FloatingPrice(
 
 IFunction[IOrderGenerator,IFunction[Side],IFunction[float]]):
     """ 
+      Floating price order is initialized by an order having a price and an observable that generates new prices.
+      When the observable value changes the order is cancelled and
+      a new order with new price is created and sent to the order book.
     """ 
     def __init__(self, floatingPrice = None, proto = None):
         from marketsim.gen._out._const import const as _const
