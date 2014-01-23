@@ -22,6 +22,7 @@ Definitions:
 | | | | | | | | | | | - const
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  observable desired position 
 | | | | | | - Parameter:
 | | | | | | | - trader
 | | | | | | | - None
@@ -33,6 +34,7 @@ Definitions:
 | | | | | | | | | | | - SingleProxy
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  trader in question 
 | | | | | - Some:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
@@ -63,7 +65,10 @@ Definitions:
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - trader
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Position function for desired position strategy
+| | | | | | | - List:
 | | | | | - List:
 | | | | - FunDef:
 | | | | | - Bollinger_linear
@@ -75,6 +80,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 0.15
 | | | | | | | - List:
+| | | | | | | | -  alpha parameter for exponentially weighted moving everage and variance 
 | | | | | | - Parameter:
 | | | | | | | - k
 | | | | | | | - None
@@ -87,6 +93,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 0.5
 | | | | | | | - List:
+| | | | | | | | -  observable scaling function that maps relative deviation to desired position 
 | | | | | | - Parameter:
 | | | | | | | - trader
 | | | | | | | - None
@@ -98,6 +105,7 @@ Definitions:
 | | | | | | | | | | | - SingleProxy
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  trader in question 
 | | | | | - Some:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
@@ -142,7 +150,10 @@ Definitions:
 | | | | | | | | - Var:
 | | | | | | | | | - trader
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Position function for Bollinger bands strategy with linear scaling
+| | | | | | | - List:
 | | | | | - List:
 | | | | - FunDef:
 | | | | | - RSI_linear
@@ -158,6 +169,7 @@ Definitions:
 | | | | | | | | | - FloatLit:
 | | | | | | | | | | - 14.0
 | | | | | | | - List:
+| | | | | | | | -  alpha parameter for exponentially moving averages of up movements and down movements 
 | | | | | | - Parameter:
 | | | | | | | - k
 | | | | | | | - None
@@ -170,6 +182,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - -0.04
 | | | | | | | - List:
+| | | | | | | | -  observable scaling function that maps RSI deviation from 50 to the desired position 
 | | | | | | - Parameter:
 | | | | | | | - timeframe
 | | | | | | | - None
@@ -177,6 +190,7 @@ Definitions:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
+| | | | | | | | -  lag for calculating up and down movements 
 | | | | | | - Parameter:
 | | | | | | | - trader
 | | | | | | | - None
@@ -188,6 +202,7 @@ Definitions:
 | | | | | | | | | | | - SingleProxy
 | | | | | | | | | - List:
 | | | | | | | - List:
+| | | | | | | | -  trader in question 
 | | | | | - Some:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
@@ -231,7 +246,10 @@ Definitions:
 | | | | | | | | - Var:
 | | | | | | | | | - trader
 | | | | | - None
-| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Position function for Relative Strength Index strategy with linear scaling
+| | | | | | | - List:
 | | | | | - List:
 | | - List:
 | | | - Attribute:

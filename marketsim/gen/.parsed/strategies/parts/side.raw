@@ -299,7 +299,7 @@ Definitions:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 200.0
 | | | | | | | - List:
-| | | | | | | | -  fundamental value 
+| | | | | | | | -  observable fundamental value 
 | | | | | | - Parameter:
 | | | | | | | - book
 | | | | | | | - None

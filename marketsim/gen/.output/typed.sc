@@ -1087,7 +1087,7 @@ package strategy {@category = "Side function"
          */
         
         @python.observable()
-        def FundamentalValue(/** fundamental value */ fv : Optional[.IFunction[.Float]] = .constant(200.0),
+        def FundamentalValue(/** observable fundamental value */ fv : Optional[.IFunction[.Float]] = .constant(200.0),
                              /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
             
             	 = if .orderbook.bid.Price(book)>fv then .side.Sell() else if .orderbook.ask.Price(book)<fv then .side.Buy() else .side.Nothing()
@@ -1251,24 +1251,30 @@ package strategy {@category = "Side function"
     
     @category = "Volume function"
     package position {
+        /** Position function for desired position strategy
+         */
         
-        def DesiredPosition(desiredPosition : Optional[.IObservable[.Float]] = .const(),
-                            trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Volume]
+        def DesiredPosition(/** observable desired position */ desiredPosition : Optional[.IObservable[.Float]] = .const(),
+                            /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Volume]
             
             	 = .observable.Volume(desiredPosition-.trader.Position(trader)-.trader.PendingVolume(trader))
         
+        /** Position function for Relative Strength Index strategy with linear scaling
+         */
         
-        def RSI_linear(alpha : Optional[.Float] = 1.0/14.0,
-                       k : Optional[.IObservable[.Float]] = .const(-0.04),
-                       timeframe : Optional[.Float] = 1.0,
-                       trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Volume]
+        def RSI_linear(/** alpha parameter for exponentially moving averages of up movements and down movements */ alpha : Optional[.Float] = 1.0/14.0,
+                       /** observable scaling function that maps RSI deviation from 50 to the desired position */ k : Optional[.IObservable[.Float]] = .const(-0.04),
+                       /** lag for calculating up and down movements */ timeframe : Optional[.Float] = 1.0,
+                       /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Volume]
             
             	 = .strategy.position.DesiredPosition(.observable.OnEveryDt(1.0,.const(50.0)-.math.RSI(.orderbook.OfTrader(trader),timeframe,alpha))*k,trader)
         
+        /** Position function for Bollinger bands strategy with linear scaling
+         */
         
-        def Bollinger_linear(alpha : Optional[.Float] = 0.15,
-                             k : Optional[.IObservable[.Float]] = .const(0.5),
-                             trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Volume]
+        def Bollinger_linear(/** alpha parameter for exponentially weighted moving everage and variance */ alpha : Optional[.Float] = 0.15,
+                             /** observable scaling function that maps relative deviation to desired position */ k : Optional[.IObservable[.Float]] = .const(0.5),
+                             /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Volume]
             
             	 = .strategy.position.DesiredPosition(.observable.OnEveryDt(1.0,.math.EW.RelStdDev(.orderbook.MidPrice(.orderbook.OfTrader(trader)),alpha))*k,trader)
     }

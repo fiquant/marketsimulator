@@ -57,7 +57,7 @@ package strategy.side
      */
     @python.observable
     def FundamentalValue(
-        /** fundamental value */
+        /** observable fundamental value */
         fv      = constant(200.),
         /** asset in question */
         book    = orderbook.OfTrader())

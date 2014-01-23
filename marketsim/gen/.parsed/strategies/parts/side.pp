@@ -31,7 +31,7 @@ package strategy.side() {
     /** Side function for fundamental value strategy
      */
     @python.observable()
-    def FundamentalValue(/** fundamental value */ fv = constant(200.0),
+    def FundamentalValue(/** observable fundamental value */ fv = constant(200.0),
                          /** asset in question */ book = orderbook.OfTrader())
          = if orderbook.bid.Price(book)>fv then side.Sell() else if orderbook.ask.Price(book)<fv then side.Buy() else side.Nothing()
     
