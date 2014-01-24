@@ -36,9 +36,8 @@ type Int : Float
 type Volume : Int
 type Price : Float
 
-/**
- * Alias for a nullary function returning value of type T
- */
+
+// Alias for a nullary function returning value of type T
 type IFunction[T] = () => T
 
 

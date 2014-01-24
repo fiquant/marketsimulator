@@ -19,7 +19,7 @@ object Runner extends syntax.scala.Parser {
 
         (managed(io.Source fromFile path) and
          managed(printerFor(".raw")) and
-         managed(printerFor(".pp")) map {
+         managed(printerFor(".1.sc")) map {
 
             case ((input, raw_output), pp_output) => Nil
                 val in = input.mkString
