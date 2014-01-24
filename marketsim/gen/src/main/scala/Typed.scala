@@ -360,7 +360,6 @@ package object Typed
         lazy val (unbound_float,     float_, floatFunc, floatObservable) = genType("Float")
         lazy val (unbound_string,    string_, stringFunc, stringObservable) = genType("String")
         lazy val (unbound_int,       int_, intFunc, intObservable) = genType("Int")
-        lazy val (unbound_side,      side_, sideFunc, sideObservable) = genType("Side")
         lazy val (unbound_boolean,   boolean_, booleanFunc, booleanObservable) = genType("Boolean")
     }
 
