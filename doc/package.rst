@@ -1,9 +1,16 @@
 Packages
 ========
 
-Packages are used to group type and function declarations and to introduce high level structure
+.. contents::
+    :local:
+    :depth: 2
+    :backlinks: none
 
-Syntax:
+Packages are used to group type and function declarations and to introduce high level structure. They are conceptually close to namespaces in C++ and to packages in Java and C#.
+
+
+Syntax
+------
 
 .. code-block:: scala
 
@@ -20,9 +27,10 @@ Syntax:
 
     MemberDef ::= PackageDef | FunctionDef | TypeDef
 
-Packages are conceptually close to namespaces in C++ and to packages in Java and C#.
+Composite names
+---------------
 
-Package may have a composite name like X.Y.Z -- in this case declaration like
+Package may have a composite name like ``X.Y.Z`` -- in this case declaration like
 
 .. code-block:: scala
 
@@ -44,7 +52,10 @@ is a shortcut for
         }
     }
 
-Members are accessed in a natural way. For example, function `f` can be accessed from package `X` as `Y.Z.f`.
+Members are accessed in a natural way. For example, function ``f`` can be accessed from package ``X`` as ``Y.Z.f``.
+
+Attribute inheritance
+---------------------
 
 Members of a package inherit its attributes
 
@@ -78,6 +89,9 @@ is equivalent to
         }
     }
 
+Anonymous packages
+------------------
+
 Sometimes packages serve only to assign attributes to a number of members. In these cases package name can be omitted
 
 .. code-block:: scala
@@ -109,6 +123,9 @@ is equivalent to
         def h()
     }
 
+Braceless package body
+----------------------
+
 Braces may be omitted. In this case the rest of the file is treated as inner members of the package
 
 .. code-block:: scala
@@ -129,4 +146,48 @@ is equivalent to
             package L {
             def f()
     }}}
+    
+Abstract packages
+-----------------
+
+If no typing and no code generation should be done for a package, it should be marked as ``abstract``. Normally these packages are used only code reuse through package inheritance 
+
+Package inheritance
+-------------------
+
+If package ``D`` derives from package ``B`` it inherits all his members literally (so it can be considered as a vary particular case of C++ macros). Multiple package inheritance is allowed. For example, 
+
+.. code-block:: scala
+
+    abstract package B1 
+    {
+        def f() = u() // note that u isn't defined at all
+        def g() = u() 
+    }
+    
+    abstract package B2
+    {
+        def f() = v() // note that v defined at D 
+    }
+    
+    package D extends B1 extends B2
+    {
+       def g() = v() 
+       def v() = // ...  
+    }
+    
+is equivalent to 
+
+.. code-block:: scala
+
+    package D 
+    {
+       def f() = v()  // inherited from B2
+       def g() = v()  // overrides B1.g
+       def v() = // ...  
+    }
+
+    
+
+
 
