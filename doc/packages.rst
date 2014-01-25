@@ -22,7 +22,7 @@ Syntax
 
     Attribute ::= Ident "=" Expr
 
-    PackageDef ::= Decorator* "abstract"? "package" QualifiedName? ("extends" QualifiedName)*
+    PackageDef ::= Attribute* "abstract"? "package" QualifiedName? ("extends" QualifiedName)*
                         ("{" MemberDef* "}") | MemberDef*
 
     MemberDef ::= PackageDef | FunctionDef | TypeDef
