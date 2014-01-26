@@ -141,11 +141,55 @@ Meta order factories have ``proto`` parameter which refers to the underlying ord
                             /** underlying orders to create */ 
                             proto : Optional[(() => .Side) => ((() => .Float) => .IOrderGenerator)] 
                                = .order._curried.side_price_Limit()
-                            ) 
-                               : (() => .Side) => ((() => .Float) => .IOrderGenerator)
+                            ) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
 
 Partial order factory for arguments ``(X,Y) => Z => Factory`` can be accessed as ``.order.X_Y.Z.Factory``.
 
 For example, function taking pair ``(side, volume)`` and returning function ``price => order.Limit(side, price, volume)`` can be accessed as ``.order.side_volume.price.Limit``.
 
+Partial functions
+-----------------
 
+Sometimes it is useful to have a partially applied function. For example, ``strategy.MultiAssetTrader`` is parametrized by a function that maps trader's "performance" to weights for random strategy selection procedure (in the following code it is named ``normalizer``).
+
+.. code-block :: scala
+
+    /**
+     * A composite strategy initialized with an array of strategies.
+     * In some moments of time the efficiency of the strategies is evaluated
+     * These efficiencies are mapped into weights using *weight* and *normilizer*
+     * functions per every strategy and *corrector* for the whole collection of weights
+     * These weights are used to choose randomly a strategy to run for the next quant of time.
+     * All other strategies are suspended
+     */
+    @python.intrinsic("strategy.multiarmed_bandit._MultiarmedBandit2_Impl")
+    def MultiArmedBandit(
+            /** original strategies that can be suspended */
+            strategies = [Noise()],
+            /** function creating a virtual account used for estimate efficiency of the strategy itself */
+            account    = account.inner.inner_VirtualMarket(),
+            /** function estimating is the strategy efficient or not */
+            weight     = weight.trader.trader_EfficiencyTrend(),
+            /** function that maps trader efficiency to its weight that will be used for random choice */
+            normalizer = weight.f.f_AtanPow(),
+            /** given array of strategy weights corrects them.
+              * for example it may set to 0 all weights except the maximal one */
+            corrector  = weight.array.array_IdentityL()) : ISingleAssetStrategy
+
+This parameter has default value ``(f : Float => Float) => Atan(Pow(1.002, f))`` which is a partial application of function
+
+.. code-block :: scala
+
+    /**
+     *  scaling function = atan(base^f(x))
+     */
+    @curried("f")
+    def AtanPow(
+        /** function to scale */
+        f : Optional[IFunction[Float]] = constant(),
+        /** base for power function */
+        base = 1.002) : IFunction[Float]
+
+        = math.Atan(math.Pow(constant(base), f))
+
+by parameter ``f``. Unfortunately, explicit request to generate a partial function (``@curried("f")``) is required since it might be used directly from a Python code. At the moment partial functions can be generated only over a single parameter. Function ``.pkg.F`` partially applied by parameter ``x`` can be accessed as ``.pkg.x.x_F``.
