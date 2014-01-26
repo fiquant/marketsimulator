@@ -21,23 +21,25 @@ Syntax
            | "(" Expr ")"
            | Expr "(" (Expr ("," Expr)*)? ")"                   // function application
            | QualifiedName                                      // reference to a name, local or global
+           | FloatLiteral                                       // Float and Int literals
+           | QuotedString                                       // String literal
 
 Float type unification and implicit conversions
 -----------------------------------------------
 
-At the moment some implicit conversions are hardcoded in the compiler. The rules following are applied in order:
+At the moment some implicit conversions are hardcoded in the compiler. The rules are applied in the following order:
 
-1. If arguments of an operation can be casted to ``IObservable[Float]``, then expression type is ``IObservable[Float]``
+1. If arguments of an operation can be casted to ``IObservable[Float]``, then the expression type is ``IObservable[Float]``
 
-2. If arguments of an operation can be casted to ``IFunction[Float]``, then expression type is ``IFunction[Float]``
+2. If arguments of an operation can be casted to ``IFunction[Float]``, then the expression type is ``IFunction[Float]``
 
-3. If arguments of an operation can be casted to ``Float``, then expression type is ``Float``
+3. If arguments of an operation can be casted to ``Float``, then the expression type is ``Float``
 
 4. If one argument of a function can be casted to ``IFunction[Float]`` and another one to ``Float``, an implicit conversion to ``IFunction[Float]`` is applied for the latter one (by injecting a call to ``constant(x)`` function).
 
 In future, once generic and implicit functions are introduced, there won't be any need in these hardcoded rules.
 
-We will refer to type obtained by appling these rules to expressions ``e1`` and ``e2`` as ``unifyFloat(e1, e2)``. Under *float-like type* we will understand a type that can be casted either to ``Float`` or to ``() => Float``
+We will refer to the type obtained by appling these rules to expressions ``e1`` and ``e2`` as ``unifyFloat(e1, e2)``. Under *float-like type* we will understand a type that can be casted either to ``Float`` or to ``() => Float``
 
 Expression typechecking
 -----------------------
