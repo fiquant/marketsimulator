@@ -9,7 +9,7 @@ Possible language improvements
 Package parameters
 ------------------
 
-It is not rare to see a lot of boiler plate code in strategies definition that comes from a fact that many functions share a considerable subset of their parameters. For example all liquidity provider related functions (price calculating function, strategy for one side, strategy for two sides) share parameters ``initialValue`` and ``priceDistr`` along with their default values and documentation comments. Liquidity provider strategies also share ``eventGen`` and ``orderFactory`` parameters. We might refactor these into package parameters:
+It is not rare to see a lot of boiler plate code in strategies definition that comes from a fact that many functions share a considerable subset of their parameters. For example all liquidity provider related functions (price calculating function, strategy for one side, strategy for two sides) share parameters ``initialValue`` and ``priceDistr`` along with their default values and documentation comments. Liquidity provider strategies also share ``eventGen`` and ``orderFactory`` parameters. We might factor them out into package parameters:
 
 .. code-block :: scala
 
@@ -21,7 +21,7 @@ It is not rare to see a lot of boiler plate code in strategies definition that c
             priceDistr   = math.random.lognormvariate(0., .1))
     {
         def Price(  /** side of orders to create */
-                    side         = .side.Sell(),
+                    side = .side.Sell(),
                     /** asset in question */
                     book = orderbook.OfTrader())
 
@@ -65,7 +65,7 @@ A liquidity provider strategy would be created in this syntax in the following w
 
     lp = LiquidityProvider(200.).Strategy(event.Every(1.)).TwoSides
 
-Note that since arguments are spread into different levels that helps to omit those who have default values.
+Note that since arguments are spread into different levels it helps to omit those ones who have default values.
 
 Package parameters with package inheritance would facilate code reuse. For example variance, standard deviation and relative stardard deviation can be generated automatically for different kinds of moving averages (exponentially weighted, cumulative and simple moving):
 
@@ -97,6 +97,12 @@ Package parameters with package inheritance would facilate code reuse. For examp
             def RelStdDev(source = const ())
 
                 = (source - Avg(source)) / StdDev(source)
+                
+            package Bollinger
+            {
+                def Hi(source = const ()) = Avg(source) + 2*StdDev(source)
+                def Lo(source = const ()) = Avg(source) - 2*StdDev(source)
+            }
         }
 
         @Kind = "Exponentially weighted"
