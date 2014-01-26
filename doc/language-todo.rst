@@ -11,7 +11,7 @@ Package parameters
 
 It is not rare to see a lot of boiler plate code in strategies definition that comes from a fact that many functions share a considerable subset of their parameters. For example all liquidity provider related functions (price calculating function, strategy for one side, strategy for two sides) share parameters ``initialValue`` and ``priceDistr`` along with their default values and documentation comments. Liquidity provider strategies also share ``eventGen`` and ``orderFactory`` parameters. We might refactor these into package parameters:
 
-.. code-block :: scala
+.. code-block:: scala
 
     package LiquidityProvider(
             /** initial price which is taken if orderBook is empty */
@@ -69,7 +69,7 @@ Note that since arguments are spread into different levels that helps to omit th
 
 Package parameters with package inheritance would facilate code reuse. For example variance, standard deviation and relative stardard deviation can be generated automatically for different kinds of moving averages (exponentially weighted, cumulative and simple moving):
 
-.. code-block :: scala
+.. code-block:: scala
 
         @category = "Statistics"
         abstract package base
@@ -135,6 +135,56 @@ Package parameters with package inheritance would facilate code reuse. For examp
             def Avg (source = const ()) : IDifferentiable
         }
 
+Extension methods
+-----------------
 
+Object-oriented programmers got used to property-like access to functions: ``obj.propA.propB.f(args)`` instead of ``f(propB(propA(obj)), args)``. To enable this notation a user might mark a parameter to be considered as object base by keyword ``this``:
 
+.. code-block:: scala
 
+    /**
+     *  Returns first derivative of a moving average of the trader efficiency
+     */
+    def EfficiencyTrend(this trader = SingleProxy() : IAccount, alpha = 0.15)
+        =   trader.Efficiency.EW(alpha).Avg.Derivative
+
+instead of
+
+.. code-block:: scala
+
+    /**
+     *  Returns first derivative of a moving average of the trader efficiency
+     */
+    def EfficiencyTrend(trader = SingleProxy() : IAccount, alpha = 0.15)
+        = math.Derivative(
+                math.EW.Avg(
+                        Efficiency(trader),
+                        alpha)
+        )
+
+If multiple functions should be added as extension methods for a type, a special syntax might be used:
+
+.. code-block:: scala
+
+    IOrderQueue {
+        /**
+         *  Returns best order price of *queue*
+         *  Returns None is *queue* is empty
+         */
+        @python.intrinsic("orderbook.props._BestPrice_Impl")
+        def BestPrice : IObservable[Price]
+    }
+
+    IOrderBook {
+        @python.intrinsic("orderbook.proxy._Queue_Impl")
+        def Queue(side = side.Sell()) : IOrderQueue
+
+        @python.intrinsic("orderbook.proxy._Asks_Impl")
+        def Asks = Queue(side.Sell())
+
+        @python.intrinsic("orderbook.proxy._Bids_Impl")
+        def Bids = Queue(side.Buy())
+
+        def Spread = Asks.Price - Bids.Price
+        def MidPrice = (Asks.Price + Bids.Price) / 2.0
+    }
