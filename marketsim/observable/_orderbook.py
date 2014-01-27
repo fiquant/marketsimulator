@@ -18,8 +18,6 @@ from marketsim.gen._intrinsic.orderbook.last_trade import LastTrade as QueueLast
 from marketsim.gen._out.orderbook._LastTradePrice import LastTradePrice as QueueLastTradePrice
 from marketsim.gen._out.orderbook._LastTradeVolume import LastTradeVolume as QueueLastTradeVolume
 
-from _ewma import EWMA
-
 from marketsim.gen._out.orderbook._WeightedPrice import WeightedPrice as QueueWeightedPrice
 from marketsim.gen._out.orderbook.ask._WeightedPrice import WeightedPrice as AskWeightedPrice
 from marketsim.gen._out.orderbook.bid._WeightedPrice import WeightedPrice as BidWeightedPrice

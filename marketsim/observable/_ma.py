@@ -1,1 +1,0 @@
-from marketsim.gen._out.math.Moving._Avg import Avg as MA

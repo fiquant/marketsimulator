@@ -3,10 +3,10 @@ import sys, os, json, time, cPickle as pickle, weakref, itertools
 sys.path.append(r'..')
 sys.setrecursionlimit(10000)
 
-from marketsim import (event, strategy, orderbook, trader, order, js, signal, remote, context, timeserie,
-                       scheduler, mathutils, observable, veusz, ops, registry, translations, types, config)
+from marketsim import (event, orderbook, trader, order, js, signal, remote, context, timeserie,
+                       scheduler, veusz, ops, registry, translations, types, config)
 
-from marketsim._pub import math
+from marketsim._pub import math, strategy
 
 from marketsim.types import Side
 
@@ -28,10 +28,8 @@ def createSimulation(name='All'):
         
         myRegistry = registry.create()
     
-        myRegistry.insert(Side.Sell)
-        myRegistry.insert(Side.Buy)    
         ctx = Context(world, js.Graph)
-        dependency_ex = strategy.Dependency(event.Every(math.random.expovariate(1.)),
+        dependency_ex = strategy.PairTrading(event.Every(math.random.expovariate(1.)),
                                             order.factory.side.Market(), 
                                             ctx.book_B)
         
