@@ -1,4 +1,3 @@
-from pandas.io.data import DataReader
 import pickle
 from datetime import datetime
 import os
@@ -18,6 +17,7 @@ def load(ticker, start, end):
     data = load_local(ticker, start, end)
 
     if data is None:
+        from pandas.io.data import DataReader
         print "NOT FOUND. DOWNLOADING..."
         data = DataReader(ticker,  "yahoo", start, end)
         print "DOWNLOAD COMPLETE"

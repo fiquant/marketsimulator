@@ -1,7 +1,7 @@
 from marketsim import ops, types, event, _, getLabel, registry
 
 import fold
-import blist
+
 
 class Min_Impl(fold.Last, ops.Observable[float]):
     
@@ -11,6 +11,7 @@ class Min_Impl(fold.Last, ops.Observable[float]):
         self.reset()
         
     def reset(self):
+        import blist
         self._levels = blist.sorteddict()
         self._x = None
     
@@ -46,6 +47,7 @@ class Max_Impl(fold.Last, ops.Observable[float]):
         self.reset()
         
     def reset(self):
+        import blist
         self._levels = blist.sorteddict()
         self._x = None
     

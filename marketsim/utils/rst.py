@@ -63,8 +63,6 @@ if not os.path.exists("_cache"):
 cache = None
 
 
-from docutils.core import publish_parts
-
 class Cache(object):
     
     def __enter__(self):
@@ -77,6 +75,7 @@ class Cache(object):
         cache = self
         
     def __getitem__(self, rst):
+        from docutils.core import publish_parts
         if rst not in self._cache:
             #print rst
             self._cache[rst] = publish_parts(xlat + greeks + rst,writer_name='html')['html_body']

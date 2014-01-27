@@ -3,7 +3,7 @@ from marketsim import (trader, order, orderbook, observable, order,
 
 from basic import Strategy
 
-import numpy, random, bisect
+import random, bisect
 
 class _MultiarmedBandit2_Impl(Strategy):
     
@@ -29,6 +29,7 @@ class _MultiarmedBandit2_Impl(Strategy):
             self._send(order)
             
     def _wakeUp(self, _):
+        import numpy
         # random weighted selection from the set of efficient strategies
         choices = [s._origin for s in self._estimators]
         def opt(x): return 0 if x is None else x

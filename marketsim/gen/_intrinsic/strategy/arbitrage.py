@@ -1,5 +1,4 @@
 from marketsim import order, Side, types, event, _
-from blist import sorteddict
 
 from basic import MultiAssetStrategy
 
@@ -9,7 +8,8 @@ class _Arbitrage_Impl(MultiAssetStrategy):
         """ Initializes trader by order books for the asset from different markets
         """
         MultiAssetStrategy.__init__(self)
-        
+        from blist import sorteddict
+
         # order queues ordered by their best asks and bids
         # something like std::map<Ticks, OrderQueue>[2]
         self._bests = [sorteddict(), sorteddict()]

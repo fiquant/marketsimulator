@@ -1,7 +1,5 @@
 from marketsim import types, _, ops, getLabel, event, _, bind
 import fold
-import pandas as pd
-import numpy as np
 class MetaStore(type):
     def __getitem__(cls, val):
         return cls.getitem(val)
@@ -19,6 +17,7 @@ class DataStore:
     
     @staticmethod 
     def addSource(source, label=None):
+        import pandas as pd
         label = getLabel(source) if label is None else label
         DataStore.sources[label] = source
         DataStore.events[label] = event.subscribe(source, _(DataStore, label).update, DataStore)
@@ -26,6 +25,7 @@ class DataStore:
     
     @staticmethod
     def update(label, timer):
+        import pandas as pd
 
         # t = pd.Timestamp(datetime.fromtimestamp(timer._scheduler.currentTime))
         # pd.SparseTimeSeries()
@@ -49,11 +49,13 @@ class ObservableHistory(fold.Last, ops.Observable[float]):
     """
     
     def __init__(self, source):
+        import pandas as pd
         fold.Last.__init__(self, source)
         ops.Observable[float].__init__(self)
         self._data = pd.Series()
         
     def update(self, t, x):
+        import pandas as pd
         self._data = self._data.append(pd.Series([x], [t]), verify_integrity = False)
         
     def at(self, t):
@@ -66,6 +68,7 @@ class ObservableHistory(fold.Last, ops.Observable[float]):
         return self.source.label
     
 class RollingApply(ObservableHistory):
+    import pandas as pd
     def __init__(self, source, window, func = pd.Series.mean):
         ObservableHistory.__init__(self, source)
         self._window = window
@@ -76,6 +79,7 @@ class RollingApply(ObservableHistory):
         return self._func(self.source[self._slice])
         
     def update(self, t, x):
+        import pandas as pd
         # TODO: check if we have already calculated the last value
         new = self.process()
         # print t, new

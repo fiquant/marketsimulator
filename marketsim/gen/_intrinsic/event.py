@@ -1,6 +1,5 @@
 from marketsim import bind, meta, context, types, _
             
-from blist import sorteddict
 
 class Event(types.IEvent):
     """ Multicast event
@@ -37,6 +36,7 @@ class Conditional(Event):
     
     def __init__(self):
         Event.__init__(self)
+        from blist import sorteddict
         self._greater = sorteddict()
         self._less = sorteddict()
     
