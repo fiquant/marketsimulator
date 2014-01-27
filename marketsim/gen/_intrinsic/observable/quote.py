@@ -1,4 +1,4 @@
-from marketsim import historical, ops, event, _, registry
+from marketsim import ops, event, _
 
 class Quote_Impl(ops.Observable[float]):
 
@@ -11,7 +11,8 @@ class Quote_Impl(ops.Observable[float]):
     @property
     def quotes(self):
         if self._quotes is None:
-            self._quotes = historical.market.load(self.ticker, self.start, self.end)['Adj Close']
+            from  marketsim.gen._intrinsic.historical.market import load
+            self._quotes = load(self.ticker, self.start, self.end)['Adj Close']
         return self._quotes
 
     def bind(self, ctx):
