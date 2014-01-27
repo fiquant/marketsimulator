@@ -1,5 +1,5 @@
 import random
-from marketsim import event, request, order, _, trader, orderbook, mathutils, meta, registry, types, event
+from marketsim import event, request, order, _, trader, orderbook, meta, registry, types, event
 
 class _Canceller_Impl(types.ISingleAssetStrategy):
     """ Randomly cancels created orders in specific moments of time    

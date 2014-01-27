@@ -1,5 +1,5 @@
 import random
-from marketsim import scheduler, meta, mathutils, ops, ILink, ITwoWayLink
+from marketsim import scheduler, meta, ops, ILink, ITwoWayLink
 
 class _Link_Impl(ILink):
     """ Represents latency in information propagation from one agent to another one

@@ -6,6 +6,8 @@ sys.setrecursionlimit(10000)
 from marketsim import (event, strategy, orderbook, trader, order, js, signal, remote, context, timeserie,
                        scheduler, mathutils, observable, veusz, ops, registry, translations, types, config)
 
+from marketsim._pub import math
+
 from marketsim.types import Side
 
 from marketsim.samples.common import Context, orderBooksToRender, simulations
@@ -29,7 +31,7 @@ def createSimulation(name='All'):
         myRegistry.insert(Side.Sell)
         myRegistry.insert(Side.Buy)    
         ctx = Context(world, js.Graph)
-        dependency_ex = strategy.Dependency(event.Every(mathutils.rnd.expovariate(1.)),
+        dependency_ex = strategy.Dependency(event.Every(math.random.expovariate(1.)),
                                             order.factory.side.Market(), 
                                             ctx.book_B)
         

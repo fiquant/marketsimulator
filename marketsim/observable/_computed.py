@@ -1,5 +1,5 @@
 from marketsim import (bind, event, getLabel, Side, ops,
-                       types, meta, mathutils, ops, registry,  _)
+                       types, meta, ops, registry,  _)
 
 import marketsim
 

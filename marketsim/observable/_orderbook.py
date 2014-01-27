@@ -1,5 +1,5 @@
 from marketsim import (meta, types, context, Side, event,  
-                       mathutils, getLabel, registry, ops, defs, _)
+                       getLabel, registry, ops, defs, _)
 
 from _computed import IndicatorBase
     

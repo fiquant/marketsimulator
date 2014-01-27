@@ -1,4 +1,4 @@
-from marketsim import _,  meta, types, ops, mathutils, registry, event
+from marketsim import _,  meta, types, ops, registry, event
 
 class _RandomWalk_Impl(ops.Observable[float]):
     """ A discrete signal with user-defined increments.

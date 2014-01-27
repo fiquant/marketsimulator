@@ -1,4 +1,4 @@
-from marketsim import meta, Side, event, _, types, event, getLabel, mathutils, ops
+from marketsim import meta, Side, event, _, types, event, getLabel, ops
 
 from _computed import IndicatorBase
 from marketsim.trader._proxy import SingleProxy

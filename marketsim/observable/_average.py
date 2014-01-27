@@ -1,4 +1,4 @@
-from marketsim import getLabel, ops, mathutils, meta, types, bind, event, _
+from marketsim import getLabel, ops, meta, types, bind, event, _
 
 class derivative(types.IUpdatableValue):
     """ Derivative of some moving average like value. 
