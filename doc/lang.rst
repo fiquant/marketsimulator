@@ -1,6 +1,8 @@
 Strategy definition language
 ----------------------------
 
+* `Compiler usage <compilation.rst>`_
+
 * `Packages <packages.rst>`_
 
 * `Types <types.rst>`_
@@ -11,5 +13,5 @@ Strategy definition language
 
 * `Possible language improvements <language-todo.rst>`_
 
-* `Syntax <doc/syntax.rst>`_
+* `Syntax <syntax.rst>`_
 

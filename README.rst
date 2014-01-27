@@ -16,6 +16,8 @@ The project simulates a generic agent based	market model. The aim is to explore 
 
 * `Strategy Definition Language <doc/lang.rst>`_
 
+  * `Compiler usage <doc/compilation.rst>`_
+
   * `Packages <doc/packages.rst>`_
   
   * `Types <doc/types.rst>`_
