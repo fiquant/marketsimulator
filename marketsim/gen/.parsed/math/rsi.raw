@@ -344,6 +344,56 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
+| | | | - FunDef:
+| | | | | - LogReturns
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  observable data source 
+| | | | | | - Parameter:
+| | | | | | | - timeframe
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 10.0
+| | | | | | | - List:
+| | | | | | | | -  lag size 
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Log
+| | | | | | | - List:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Div
+| | | | | | | | | - Var:
+| | | | | | | | | | - x
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Lagged
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - x
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - timeframe
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Log returns
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - LogReturns_{%(timeframe)s}(%(x)s)
 | | - List:
 | | - List:
 | | - false

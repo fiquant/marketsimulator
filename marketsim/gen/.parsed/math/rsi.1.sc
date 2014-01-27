@@ -40,4 +40,11 @@ package math() {
             /** lag size */ timeframe = 10.0,
             /** alpha parameter for EWMA */ alpha = 0.015)
          = 100.0-100.0/(1.0+rsi.Raw(orderbook.MidPrice(book),timeframe,alpha))
+    
+    /** Log returns
+     */
+    @label = "LogReturns_{%(timeframe)s}(%(x)s)"
+    def LogReturns(/** observable data source */ x = const(),
+                   /** lag size */ timeframe = 10.0)
+         = Log(x/Lagged(x,timeframe))
 }

@@ -410,6 +410,14 @@ package math {
         
         	 = x*x
     
+    /** Log returns
+     */
+    @label = "LogReturns_{%(timeframe)s}(%(x)s)"
+    def LogReturns(/** observable data source */ x : Optional[.IObservable[.Float]] = .const(),
+                   /** lag size */ timeframe : Optional[.Float] = 10.0) : () => .Float
+        
+        	 = .math.Log(x/.math.Lagged(x,timeframe))
+    
     /** Square root of *x*
      *
      */

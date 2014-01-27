@@ -369,6 +369,13 @@ package math() {
     def Sqr(x = constant())
          = x*x
     
+    /** Log returns
+     */
+    @label = "LogReturns_{%(timeframe)s}(%(x)s)"
+    def LogReturns(/** observable data source */ x = const(),
+                   /** lag size */ timeframe = 10.0)
+         = Log(x/Lagged(x,timeframe))
+    
     /** Square root of *x*
      *
      */

@@ -12,6 +12,8 @@ from marketsim.gen._out.math._UpMovements import UpMovements
 
 from marketsim.gen._out.math._Sqr import Sqr
 
+from marketsim.gen._out.math._LogReturns import LogReturns
+
 from marketsim.gen._out.math._Sqrt import Sqrt
 
 from marketsim.gen._out.math._RSI import RSI
