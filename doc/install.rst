@@ -56,9 +56,9 @@ This version of the simulator requires Python 2.7 installed: http://www.python.o
 Following Python packages need to be installed:
 
 - ``blist``: https://pypi.python.org/pypi/blist/
-- ``docutils``: https://pypi.python.org/pypi/docutils
-- ``numpy``: https://pypi.python.org/pypi/numpy
-- ``pandas``: http://pandas.pydata.org/
+- ``docutils``: https://pypi.python.org/pypi/docutils (only needed to run Web server)
+- ``numpy``: https://pypi.python.org/pypi/numpy (only needed for ``strategy.MultiArmedBandit``)
+- ``pandas``: http://pandas.pydata.org/ (only needed for ``Quotes`` at the moment)
 
 Normally all these packages can be downloaded and installed using ``pip`` (http://www.pip-installer.org/) or ``easy_install`` (https://pypi.python.org/pypi/setuptools)
 
