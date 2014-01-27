@@ -14,7 +14,7 @@ The project simulates a generic agent based	market model. The aim is to explore 
 
 * `History <doc/history.rst>`_
 
-* Strategy Definition Language
+* `Strategy Definition Language <doc/lang.rst>`_
 
   * `Packages <doc/packages.rst>`_
   
