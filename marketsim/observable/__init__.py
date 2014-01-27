@@ -32,5 +32,3 @@ from _macd import MACD, signal as MACD_signal, histogram as MACD_histogram
 from _minmax_eps import MinEpsilon, MaxEpsilon
 
 from _quote import Quote
-
-from _store import DataStore
