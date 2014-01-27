@@ -15,7 +15,7 @@ Syntax
 
     Decorator ::= "@" (Annotation | Attribute)
 
-    Annotation ::= QualifiedName "(" Expr ("," Expr)* ")"
+    Annotation ::= QualifiedName "(" (Expr ("," Expr)*)? ")"
 
     Attribute ::= Ident "=" Expr
 

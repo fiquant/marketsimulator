@@ -10,3 +10,6 @@ Strategy definition language
 * `Expressions <expressions.rst>`_
 
 * `Possible language improvements <language-todo.rst>`_
+
+* `Syntax <doc/syntax.rst>`_
+

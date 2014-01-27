@@ -24,6 +24,8 @@ The project simulates a generic agent based	market model. The aim is to explore 
 
   * `Expressions <doc/expressions.rst>`_
 
+  * `Syntax <doc/syntax.rst>`_
+
   * `Possible language improvements <doc/language-todo.rst>`_
 
 * `Components <doc/talks/objects.png>`_
