@@ -194,3 +194,58 @@ If multiple functions should be added as extension methods for a type, a special
         def Spread = Asks.Price - Bids.Price
         def MidPrice = (Asks.Price + Bids.Price) / 2.0
     }
+
+Function overloading
+--------------------
+
+At the moment several ad-hoc function overloads are hardcoded (e.g. arithmethic operators overloaded for ``Float``, ``() => Float`` and ``IObservable[Float]``). As simulation library grows the need for function overloading becomes evident. Overload rules would be typical as at mainstream languages.
+
+.. code-block:: scala
+
+    def * (x : Float,               y : Float)              : Float             // implementation for scalars
+    def * (x : Price,               y : Price)              : Price             // implementation for scalars
+    def * (x : () => Float,         y : () => Float)        : () => Float       // implementation for functions
+    def * (x : () => Price,         y : () => Price)        : () => Price       // implementation for functions
+    def * (x : IObservable[Float],  y : IObservable[Float]) : IObservable[Float]// implementation for observables
+    def * (x : IObservable[Price],  y : IObservable[Price]) : IObservable[Price]// implementation for observables
+
+Implicit conversions
+--------------------
+
+Currently the compiler inserts conversions from ``Float`` to ``() => Float`` where arithmentic operators have different operands, e.g.
+
+.. code-block:: scala
+
+    (ask.Price(book) + bid.Price(book)) / 2
+
+is converted to
+
+.. code-block:: scala
+
+    (ask.Price(book) + bid.Price(book)) / const(2)
+
+It might be reasonable to introduce implicit functions as it is done at Scala
+
+.. code-block:: scala
+
+    implicit def const(x : Float) : () => Float
+
+Generic functions
+-----------------
+
+If there is no generic functions many function overloads represent a boiler plate code:
+
+.. code-block:: scala
+
+    def Sqr(x : () => Float) = x * x
+    def Sqr(x : () => Price) = x * x
+    def Sqr(x : IObservable[Float]) = x * x
+    def Sqr(x : IObservable[Price]) = x * x
+
+To cover these particular cases a generic function might be introduced
+
+.. code-block:: scala
+
+    def Sqr[T <: () => Float](x : T) = x * x
+
+Having generic functions introduced it is possible to get rid of all unsafe downcasts thus improving static type safety. Also dimensional analysis becomes feasible.
