@@ -1,4 +1,4 @@
-from marketsim import (trader, order, orderbook, observable, order, 
+from marketsim import (order, orderbook, observable, order,
                        registry, types, meta, _, ops, event)
 
 from basic import Strategy

@@ -1,4 +1,4 @@
-from marketsim import ops, event
+from marketsim import ops, event, IAccount
 
 from marketsim.gen._out.trader._SingleProxy import SingleProxy
 
@@ -12,6 +12,19 @@ class OnTraded(event.Event):
 
     def bind(self, ctx):
         event.subscribe(self.trader.on_traded, self.fire, self, ctx)
+
+class OnOrderMatched(event.Event):
+    """ Multicast event that is fired once a trade is done by *trader*
+    """
+
+    def __init__(self, trader = None):
+        event.Event.__init__(self)
+        self.trader = trader if trader else SingleProxy()
+
+    def bind(self, ctx):
+        event.subscribe(self.trader.on_order_matched, self.fire, self, ctx)
+
+    _properties = { 'trader' : IAccount }
 
 
 class Position_Impl(ops.Observable[float]):

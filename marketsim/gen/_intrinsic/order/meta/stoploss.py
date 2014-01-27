@@ -2,6 +2,9 @@ from marketsim import ops, Side, types, combine, registry, context, bind, observ
 from .. import market
 import _meta
 
+from marketsim.gen._out.orderbook.ask._Price import Price as AskPrice
+from marketsim.gen._out.orderbook.bid._Price import Price as BidPrice
+
 from marketsim.types import *
 
 class Order_Impl(_meta.Base):
@@ -16,9 +19,9 @@ class Order_Impl(_meta.Base):
         self._stopLossOrder = None
         
     def startProcessing(self):
-        self._obsPrice = observable.AskPrice(self.orderBook) \
+        self._obsPrice = AskPrice(self.orderBook) \
                             if self.side == Side.Buy else \
-                         observable.BidPrice(self.orderBook)   
+                         BidPrice(self.orderBook)
         self.send(self._proto)
         
     def onOrderMatched(self, order, price, volume):

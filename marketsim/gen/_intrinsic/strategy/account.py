@@ -1,11 +1,13 @@
-from marketsim import (trader, Side, event, order, orderbook, observable, order, 
+from marketsim import (Side, event, order, orderbook, observable, order,
                        request, registry, types, meta, _, ops, event)
+
+from marketsim.gen._intrinsic.trader.props import OnOrderMatched
 
 class _Account_Impl(types.IAccount):
     
     def __init__(self):
         event.subscribe(self.inner.on_order_created, _(self).onOrderCreated, self)
-        event.subscribe(observable.OnOrderMatched(), _(self)._onOrderMatched, self)
+        event.subscribe(OnOrderMatched(), _(self)._onOrderMatched, self)
         self.on_traded = event.Event()
         self.orderBook = orderbook.OfTrader()
         self._balance = 0

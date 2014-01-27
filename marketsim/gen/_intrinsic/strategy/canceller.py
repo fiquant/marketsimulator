@@ -1,5 +1,5 @@
 import random
-from marketsim import event, request, order, _, trader, orderbook, meta, registry, types, event
+from marketsim import event, request, order, _, orderbook, meta, registry, types, event
 
 class _Canceller_Impl(types.ISingleAssetStrategy):
     """ Randomly cancels created orders in specific moments of time    
@@ -30,9 +30,10 @@ class _Canceller_Impl(types.ISingleAssetStrategy):
     def __init__(self):
 
         # orders created by trader
+        from marketsim.gen._out.trader._SingleProxy import SingleProxy
         self._elements = []
         self._eventGen = event.Every(self.cancellationIntervalDistr)
-        self._myTrader = trader.SingleProxy()
+        self._myTrader = SingleProxy()
         self._book = orderbook.OfTrader(self._myTrader)
         self.on_order_created = event.Event()
         

@@ -1,6 +1,6 @@
 from marketsim import registry, types, prop, bind, context, Side, getLabel
 
-from marketsim.trader._proxy import SingleProxy
+from marketsim.gen._out.trader._SingleProxy import SingleProxy
 
 class Base(types.IOrderBook):
     
