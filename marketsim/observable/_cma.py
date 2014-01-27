@@ -1,1 +1,0 @@
-from marketsim.gen._out.math.Cumulative._Avg import Avg as CMA

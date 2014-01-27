@@ -1,11 +1,14 @@
-from marketsim import ops, observable, event, _
+from marketsim import event, _
+
+from marketsim.gen._out.trader._Efficiency import Efficiency
+from marketsim.gen._out.observable._OnEveryDt import OnEveryDt
 
 class _Score_Impl(object):
 
     def __init__(self):
-        self._efficiency = observable.Efficiency(self.trader)
+        self._efficiency = Efficiency(self.trader)
         event.subscribe(
-                observable.OnEveryDt(1, self._efficiency),
+                OnEveryDt(1, self._efficiency),
                  _(self)._update, self)
         self._score = 1
         self._last = 0
