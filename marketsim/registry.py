@@ -6,7 +6,7 @@ import marketsim
 from functools import reduce
 
 from marketsim import (constraints, config, exception, rtti, Side, 
-                       meta, types, js, utils, prop, context)
+                       meta, types, js, utils, context)
 
 startup = []
 
@@ -190,22 +190,9 @@ class Registry(object):
         # try:
         value = self._convert(props, propname, value)
         # except: 
-        
-        prop.Set(obj, propname, value)
-        
-        """
-        #notifing all referencees that the object has changed
-        visited = set()
-        def notify(o):
-            for r in o._referencedBy:
-                if r not in visited:
-                    if '_on_property_changed' in dir(r):
-                        r._on_property_changed()
-                    notify(r)
-        
-        notify(obj)
-        """
-        
+
+        setattr(obj, propname, value)
+
     def _convert(self, dst_properties, k, v):
         
         def lookup(id):

@@ -1,5 +1,5 @@
 from marketsim.gen._out._TimeSerie import TimeSerie
-from marketsim import event, _, Side, types, meta, timeserie, context
+from marketsim import event, _, Side, types, context
 
 class _Holder_Impl(object):
 
