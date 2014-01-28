@@ -1,7 +1,7 @@
-from marketsim import (Side, event, order, orderbook, observable, order,
-                       request, registry, types, meta, _, ops, event)
+from marketsim import (Side, event, request, types, _)
 
 from marketsim.gen._intrinsic.trader.props import OnOrderMatched
+from marketsim.gen._out.orderbook._OfTrader import OfTrader
 
 class _Account_Impl(types.IAccount):
     
@@ -9,7 +9,7 @@ class _Account_Impl(types.IAccount):
         event.subscribe(self.inner.on_order_created, _(self).onOrderCreated, self)
         event.subscribe(OnOrderMatched(), _(self)._onOrderMatched, self)
         self.on_traded = event.Event()
-        self.orderBook = orderbook.OfTrader()
+        self.orderBook = OfTrader()
         self._balance = 0
         self._position = 0
         
@@ -39,7 +39,7 @@ class _VirtualMarket_Impl(types.IAccount):
         self._balance = 0
         self._position = 0
         self.on_traded = event.Event()
-        self.orderBook = orderbook.OfTrader()
+        self.orderBook = OfTrader()
         event.subscribe(self.inner.on_order_created, _(self).onOrderCreated, self)
 
     _internals = ['orderBook']
