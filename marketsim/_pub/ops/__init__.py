@@ -1,3 +1,5 @@
+from marketsim.gen._out.ops._Negate import Negate
+
 from marketsim.gen._out.ops._Add import Add
 
 from marketsim.gen._out.ops._Less import Less

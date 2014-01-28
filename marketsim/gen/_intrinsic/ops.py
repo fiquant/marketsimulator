@@ -1,5 +1,11 @@
 from marketsim.ops._all import Observable
 
+class _Negate_Impl(Observable[float]):
+
+    def __call__(self):
+        x = self.x()
+        return -x if x is not None else None
+
 class Base(Observable[float]):
 
     def __call__(self):

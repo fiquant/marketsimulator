@@ -81,23 +81,8 @@ def constant(x = 1.):
         else None    
 
 
-@registry.expose(['Arithmetic', 'negate'])
-class negate(Function[float]):
-    """ Function returning Product of the operands
-    """
-    
-    def __init__(self, arg=None):
-        self.arg = arg if arg is not None else constant(1.)
-        
-    _properties = { "arg" : types.IFunction[float] }
-    
-    def __call__(self, *args, **kwargs):
-        x = self.arg()
-        return -x if x is not None else None
-    
-    def __repr__(self):
-        return "-" + repr(self.arg)
-    
+from marketsim.gen._out.ops._Negate import Negate as negate
+
 def subscribe_if_event(source, target):
     if isinstance(source, types.IEvent):
         event.subscribe(source, _(target).fire, target)

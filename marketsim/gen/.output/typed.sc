@@ -51,6 +51,11 @@ package veusz {
 
 @category = "Ops"
 package ops {
+    @label = "-%(x)s"
+    @python.intrinsic.observable("ops._Negate_Impl")
+    def Negate(x : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+        
+    
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "+"
     @python.intrinsic.observable("ops._Add_Impl")

@@ -1,6 +1,11 @@
 @category = "Ops"
 
 package ops() {
+    @python.intrinsic.observable("ops._Negate_Impl")
+    @label = "-%(x)s"
+    def Negate(x = constant(1.0)) : IObservable[Float]
+        
+    
     @python.intrinsic.observable("ops._Div_Impl")
     @label = "\\frac{%(x)s}{%(y)s}"
     def Div(x = constant(1.0),
