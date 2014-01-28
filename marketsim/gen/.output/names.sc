@@ -329,6 +329,13 @@ package math() {
                       /** lag size */ timeframe = 10.0)
          = observable.Float(Max(const(0.0),Lagged(source,timeframe)-source))
     
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @python.intrinsic.observable("ops._AddImpl")
+    @symbol = "+"
+    def Add(x = constant(1.0),
+            y = constant(1.0)) : IObservable[Float]
+        
+    
     /** Arc tangent of x, in radians.
      *
      */
@@ -343,6 +350,13 @@ package math() {
     @label = "Lagged_{%(timeframe)s}(%(source)s)"
     def Lagged(/** observable data source */ source = const(),
                /** lag size */ timeframe = 10.0) : IObservable[Float]
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @python.intrinsic.observable("ops._MulImpl")
+    @symbol = "*"
+    def Mul(x = constant(1.0),
+            y = constant(1.0)) : IObservable[Float]
         
     
     /** Function returning maximum of two functions *x* and *y*.
@@ -421,6 +435,13 @@ package math() {
                    name = "-random-") : IObservable[Float]
         
     
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @python.intrinsic.observable("ops._SubImpl")
+    @symbol = "-"
+    def Sub(x = constant(1.0),
+            y = constant(1.0)) : IObservable[Float]
+        
+    
     /** Function returning first derivative on time of *x*
      * *x* should provide *derivative* member
      */
@@ -442,6 +463,12 @@ package math() {
     @label = "%(base)s^{%(power)s}"
     def Pow(base = constant(1.0),
             power = constant(1.0)) : () => Float
+        
+    
+    @python.intrinsic.observable("ops._DivImpl")
+    @label = "\\frac{%(x)s}{%(y)s}"
+    def Div(x = constant(1.0),
+            y = constant(1.0)) : IObservable[Float]
         
 }
 @category = "Order"

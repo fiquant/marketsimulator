@@ -367,6 +367,13 @@ package math {
         
         	 = .observable.Float(.math.Max(.const(0.0),.math.Lagged(source,timeframe)-source))
     
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "+"
+    @python.intrinsic.observable("ops._AddImpl")
+    def Add(x : Optional[.IFunction[.Float]] = .constant(1.0),
+            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+        
+    
     /** Arc tangent of x, in radians.
      *
      */
@@ -381,6 +388,13 @@ package math {
     @python.intrinsic("observable.lagged.Lagged_Impl")
     def Lagged(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(),
                /** lag size */ timeframe : Optional[.Float] = 10.0) : .IObservable[.Float]
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "*"
+    @python.intrinsic.observable("ops._MulImpl")
+    def Mul(x : Optional[.IFunction[.Float]] = .constant(1.0),
+            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
         
     
     /** Function returning maximum of two functions *x* and *y*.
@@ -464,6 +478,13 @@ package math {
                    name : Optional[.String] = "-random-") : .IObservable[.Float]
         
     
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "-"
+    @python.intrinsic.observable("ops._SubImpl")
+    def Sub(x : Optional[.IFunction[.Float]] = .constant(1.0),
+            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+        
+    
     /** Function returning first derivative on time of *x*
      * *x* should provide *derivative* member
      */
@@ -485,6 +506,12 @@ package math {
     @python.mathops("pow")
     def Pow(base : Optional[.IFunction[.Float]] = .constant(1.0),
             power : Optional[.IFunction[.Float]] = .constant(1.0)) : () => .Float
+        
+    
+    @label = "\\frac{%(x)s}{%(y)s}"
+    @python.intrinsic.observable("ops._DivImpl")
+    def Div(x : Optional[.IFunction[.Float]] = .constant(1.0),
+            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
         
 }
 
