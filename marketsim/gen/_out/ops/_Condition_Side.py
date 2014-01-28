@@ -5,7 +5,7 @@ from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
 from marketsim import Side
-@registry.expose(["Basic", "Condition_Side"])
+@registry.expose(["Ops", "Condition_Side"])
 class Condition_Side(_ConditionSide_Impl):
     """ 
     """ 

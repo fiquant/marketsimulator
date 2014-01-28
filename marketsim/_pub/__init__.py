@@ -19,6 +19,7 @@ from marketsim.gen._out._volumeLevels import volumeLevels
 import side
 import event
 import veusz
+import ops
 import math
 import order
 import strategy

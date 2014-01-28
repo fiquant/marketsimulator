@@ -43,18 +43,18 @@ BinaryOp = types.Factory("BinaryOp", """(BinaryOp_Impl, Observable[%(T)s]):
 
 Condition = {}
 
-from marketsim.gen._out.math._Condition_Float import Condition_Float
-from marketsim.gen._out.math._Condition_Side import Condition_Side
+from marketsim.gen._out.ops._Condition_Float import Condition_Float
+from marketsim.gen._out.ops._Condition_Side import Condition_Side
 
 Condition[float] = Condition_Float
 Condition[Side] = Condition_Side
 
-from marketsim.gen._out.math._Equal import Equal as equal
-from marketsim.gen._out.math._NotEqual import NotEqual as notequal
-from marketsim.gen._out.math._Less import Less as less
-from marketsim.gen._out.math._Greater import Greater as greater
-from marketsim.gen._out.math._LessEqual import LessEqual as less_equal
-from marketsim.gen._out.math._GreaterEqual import GreaterEqual as greater_equal
+from marketsim.gen._out.ops._Equal import Equal as equal
+from marketsim.gen._out.ops._NotEqual import NotEqual as notequal
+from marketsim.gen._out.ops._Less import Less as less
+from marketsim.gen._out.ops._Greater import Greater as greater
+from marketsim.gen._out.ops._LessEqual import LessEqual as less_equal
+from marketsim.gen._out.ops._GreaterEqual import GreaterEqual as greater_equal
 
 # ---------------------------------------------------- Constant
 

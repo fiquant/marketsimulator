@@ -1,5 +1,6 @@
+@category = "Ops"
 
-package math() {
+package ops() {
     @python.intrinsic.observable("ops._Div_Impl")
     @label = "\\frac{%(x)s}{%(y)s}"
     def Div(x = constant(1.0),

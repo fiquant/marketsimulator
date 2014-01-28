@@ -1,9 +1,9 @@
 from marketsim import registry
-from marketsim.gen._intrinsic.ops import _Mul_Impl
+from marketsim.gen._intrinsic.ops import _LessEqual_Impl
 from marketsim import IFunction
 from marketsim import IFunction
-@registry.expose(["Basic", "Mul"])
-class Mul(_Mul_Impl):
+@registry.expose(["Ops", "LessEqual"])
+class LessEqual(_LessEqual_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -17,7 +17,7 @@ class Mul(_Mul_Impl):
         self.x = x if x is not None else _constant(1.0)
         self.y = y if y is not None else _constant(1.0)
         rtti.check_fields(self)
-        _Mul_Impl.__init__(self)
+        _LessEqual_Impl.__init__(self)
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
         if isinstance(y, types.IEvent):
@@ -32,5 +32,5 @@ class Mul(_Mul_Impl):
         'y' : IFunction[float]
     }
     def __repr__(self):
-        return "({%(x)s}*{%(y)s})" % self.__dict__
+        return "({%(x)s}<={%(y)s})" % self.__dict__
     

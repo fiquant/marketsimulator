@@ -4,7 +4,7 @@ Definitions:
 | | - Some:
 | | | - QualifiedName:
 | | | | - List:
-| | | | | - math
+| | | | | - ops
 | | - List:
 | | - Definitions:
 | | | - List:
@@ -695,5 +695,8 @@ Definitions:
 | | | | | - List:
 | | | | | - false
 | | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Ops
 | | - List:
 | | - false

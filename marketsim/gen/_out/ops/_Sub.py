@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.ops import _Sub_Impl
 from marketsim import IFunction
 from marketsim import IFunction
-@registry.expose(["Basic", "Sub"])
+@registry.expose(["Ops", "Sub"])
 class Sub(_Sub_Impl):
     """ 
     """ 

@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.ops import _ConditionFloat_Impl
 from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import IFunction
-@registry.expose(["Basic", "Condition_Float"])
+@registry.expose(["Ops", "Condition_Float"])
 class Condition_Float(_ConditionFloat_Impl):
     """ 
     """ 

@@ -40,6 +40,91 @@ package veusz() {
     def Graph(name = "graph") : IGraph
         
 }
+@category = "Ops"
+package ops() {
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @python.intrinsic.observable("ops._Add_Impl")
+    @symbol = "+"
+    def Add(x = constant(1.0),
+            y = constant(1.0)) : IObservable[Float]
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @python.intrinsic.observable("ops._Less_Impl")
+    @symbol = "<"
+    def Less(x = constant(1.0),
+             y = constant(1.0)) : IObservable[Boolean]
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @python.intrinsic.observable("ops._Mul_Impl")
+    @symbol = "*"
+    def Mul(x = constant(1.0),
+            y = constant(1.0)) : IObservable[Float]
+        
+    
+    @python.intrinsic.observable("ops._ConditionFloat_Impl")
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    def Condition_Float(cond = true() : IFunction[Boolean],
+                        ifpart = constant(1.0),
+                        elsepart = constant(1.0)) : IObservable[Float]
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @python.intrinsic.observable("ops._NotEqual_Impl")
+    @symbol = "<>"
+    def NotEqual(x = constant(1.0),
+                 y = constant(1.0)) : IObservable[Boolean]
+        
+    
+    @python.intrinsic.observable("ops._ConditionSide_Impl")
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    def Condition_Side(cond = true() : IFunction[Boolean],
+                       ifpart = side.Sell(),
+                       elsepart = side.Buy()) : IObservable[Side]
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @python.intrinsic.observable("ops._GreaterEqual_Impl")
+    @symbol = ">="
+    def GreaterEqual(x = constant(1.0),
+                     y = constant(1.0)) : IObservable[Boolean]
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @python.intrinsic.observable("ops._Sub_Impl")
+    @symbol = "-"
+    def Sub(x = constant(1.0),
+            y = constant(1.0)) : IObservable[Float]
+        
+    
+    @python.intrinsic.observable("ops._Div_Impl")
+    @label = "\\frac{%(x)s}{%(y)s}"
+    def Div(x = constant(1.0),
+            y = constant(1.0)) : IObservable[Float]
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @python.intrinsic.observable("ops._LessEqual_Impl")
+    @symbol = "<="
+    def LessEqual(x = constant(1.0),
+                  y = constant(1.0)) : IObservable[Boolean]
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @python.intrinsic.observable("ops._Equal_Impl")
+    @symbol = "=="
+    def Equal(x = constant(1.0),
+              y = constant(1.0)) : IObservable[Boolean]
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @python.intrinsic.observable("ops._Greater_Impl")
+    @symbol = ">"
+    def Greater(x = constant(1.0),
+                y = constant(1.0)) : IObservable[Boolean]
+        
+}
 @category = "Basic"
 package math() {
     package random() {
@@ -329,13 +414,6 @@ package math() {
                       /** lag size */ timeframe = 10.0)
          = observable.Float(Max(const(0.0),Lagged(source,timeframe)-source))
     
-    @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._Add_Impl")
-    @symbol = "+"
-    def Add(x = constant(1.0),
-            y = constant(1.0)) : IObservable[Float]
-        
-    
     /** Arc tangent of x, in radians.
      *
      */
@@ -344,40 +422,12 @@ package math() {
     def Atan(x = constant(0.0)) : () => Float
         
     
-    @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._Less_Impl")
-    @symbol = "<"
-    def Less(x = constant(1.0),
-             y = constant(1.0)) : IObservable[Boolean]
-        
-    
     /** Observable that adds a lag to an observable data source so [Lagged(x, dt)]t=t0 == [x]t=t0+dt
      */
     @python.intrinsic("observable.lagged.Lagged_Impl")
     @label = "Lagged_{%(timeframe)s}(%(source)s)"
     def Lagged(/** observable data source */ source = const(),
                /** lag size */ timeframe = 10.0) : IObservable[Float]
-        
-    
-    @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._Mul_Impl")
-    @symbol = "*"
-    def Mul(x = constant(1.0),
-            y = constant(1.0)) : IObservable[Float]
-        
-    
-    @python.intrinsic.observable("ops._ConditionFloat_Impl")
-    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
-    def Condition_Float(cond = true() : IFunction[Boolean],
-                        ifpart = constant(1.0),
-                        elsepart = constant(1.0)) : IObservable[Float]
-        
-    
-    @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._NotEqual_Impl")
-    @symbol = "<>"
-    def NotEqual(x = constant(1.0),
-                 y = constant(1.0)) : IObservable[Boolean]
         
     
     /** Function returning maximum of two functions *x* and *y*.
@@ -411,13 +461,6 @@ package math() {
                    /** lag size */ timeframe = 10.0)
          = Log(x/Lagged(x,timeframe))
     
-    @python.intrinsic.observable("ops._ConditionSide_Impl")
-    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
-    def Condition_Side(cond = true() : IFunction[Boolean],
-                       ifpart = side.Sell(),
-                       elsepart = side.Buy()) : IObservable[Side]
-        
-    
     /** Square root of *x*
      *
      */
@@ -425,13 +468,6 @@ package math() {
     @python.mathops("sqrt")
     @label = "\\sqrt{%(x)s}"
     def Sqrt(x = constant(1.0)) : () => Float
-        
-    
-    @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._GreaterEqual_Impl")
-    @symbol = ">="
-    def GreaterEqual(x = constant(1.0),
-                     y = constant(1.0)) : IObservable[Boolean]
         
     
     /** Relative Strength Index
@@ -470,13 +506,6 @@ package math() {
                    name = "-random-") : IObservable[Float]
         
     
-    @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._Sub_Impl")
-    @symbol = "-"
-    def Sub(x = constant(1.0),
-            y = constant(1.0)) : IObservable[Float]
-        
-    
     /** Function returning first derivative on time of *x*
      * *x* should provide *derivative* member
      */
@@ -498,33 +527,6 @@ package math() {
     @label = "%(base)s^{%(power)s}"
     def Pow(base = constant(1.0),
             power = constant(1.0)) : () => Float
-        
-    
-    @python.intrinsic.observable("ops._Div_Impl")
-    @label = "\\frac{%(x)s}{%(y)s}"
-    def Div(x = constant(1.0),
-            y = constant(1.0)) : IObservable[Float]
-        
-    
-    @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._LessEqual_Impl")
-    @symbol = "<="
-    def LessEqual(x = constant(1.0),
-                  y = constant(1.0)) : IObservable[Boolean]
-        
-    
-    @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._Equal_Impl")
-    @symbol = "=="
-    def Equal(x = constant(1.0),
-              y = constant(1.0)) : IObservable[Boolean]
-        
-    
-    @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._Greater_Impl")
-    @symbol = ">"
-    def Greater(x = constant(1.0),
-                y = constant(1.0)) : IObservable[Boolean]
         
 }
 @category = "Order"

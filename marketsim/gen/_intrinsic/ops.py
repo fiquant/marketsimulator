@@ -51,8 +51,8 @@ class _Conditional_Base(Observable[bool]):
         return self.apply(x, y)
 
     def __getitem__(self, (ifpart, elsepart)):
-        from marketsim.gen._out.math._Condition_Float import Condition_Float
-        from marketsim.gen._out.math._Condition_Side import Condition_Side
+        from marketsim.gen._out.ops._Condition_Float import Condition_Float
+        from marketsim.gen._out.ops._Condition_Side import Condition_Side
         T = Condition_Float if ifpart.T == float or elsepart.T == float else Condition_Side
         return T(self, ifpart, elsepart)
 
