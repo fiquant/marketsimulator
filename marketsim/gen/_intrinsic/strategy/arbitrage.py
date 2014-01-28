@@ -1,4 +1,7 @@
-from marketsim import order, Side, types, event, _
+from marketsim import Side, event, _
+
+from marketsim.gen._out.order._ImmediateOrCancel import ImmediateOrCancel
+from marketsim.gen._out.order._Limit import Limit
 
 from basic import MultiAssetStrategy
 
@@ -72,24 +75,27 @@ class _Arbitrage_Impl(MultiAssetStrategy):
                     
                     def send(o):
                         self._send(myQueue.book, o)
+
+                    from marketsim.ops._all import constant
                         
-                    send(order.ImmediateOrCancel(
-                                        order.Limit(
-                                                 oppositeSide, 
-                                                 myPrice, 
-                                                 volumeToTrade)))                               
+                    send(ImmediateOrCancel(
+                                        Limit(
+                                                 constant(oppositeSide),
+                                                 constant(myPrice),
+                                                 constant(volumeToTrade)))())
                     
                     
-                    send(order.ImmediateOrCancel(
-                                        order.Limit(
-                                                 side, 
-                                                 oppositePrice, 
-                                                 volumeToTrade)))                                    
+                    send(ImmediateOrCancel(
+                                        Limit(
+                                                 constant(side),
+                                                 constant(oppositePrice),
+                                                 constant(volumeToTrade)))())
                     
     def _send(self, orderbook, order):
-        for t in self._traders:
-            if t.orderBook == orderbook:
-                t.send(order)
+        if order is not None:
+            for t in self._traders:
+                if t.orderBook == orderbook:
+                    t.send(order)
                     
     def _schedule(self, side, queue):
         self.inner(queue, side)
