@@ -151,6 +151,3 @@ def create():
 
 def current():
     return _instance
-
-""" Global object representing simulation clock.
-"""

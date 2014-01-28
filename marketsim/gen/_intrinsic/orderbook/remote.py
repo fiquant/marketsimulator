@@ -1,4 +1,4 @@
-from marketsim import event, registry, remote, types, bind, _
+from marketsim import types, bind, _
 from base import BookBase
 from queue import BestPrice, LastTrade
 
