@@ -34,9 +34,10 @@ class Order_Impl(_meta.OwnsSingleOrder):
                 self.send(None)
 
 
+from marketsim.gen._out._constant import constant
 
 class Factory_Impl(ops.Observable[Order]):
     
     def __call__(self):
-        proto = self.proto(ops.constant(0))()
+        proto = self.proto(constant(0))()
         return Order_Impl(proto, self.floatingPrice) if proto is not None else None

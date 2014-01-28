@@ -11,8 +11,9 @@ from marketsim._pub import math, strategy, trader, order
 from marketsim.types import Side
 
 from marketsim.samples.common import Context, orderBooksToRender, simulations
+from marketsim.gen._out._constant import constant
 
-const = ops.constant
+const = constant
 
 app = Flask(__name__)
 app.secret_key = config.secret_key

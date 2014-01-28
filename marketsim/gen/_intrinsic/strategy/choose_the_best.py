@@ -1,6 +1,7 @@
 from marketsim import _, ops, event
 
 from basic import Strategy
+from marketsim.gen._out._constant import constant
 
 class _ChooseTheBest_Impl(Strategy):
     
@@ -13,7 +14,7 @@ class _ChooseTheBest_Impl(Strategy):
             e = self.performance(self.account(s))
             e._origin = s
             self._estimators.append(e)
-        event.subscribe(event.Every(ops.constant(1.)), _(self)._wakeUp, self)
+        event.subscribe(event.Every(constant(1.)), _(self)._wakeUp, self)
             
     _internals = ['_estimators']
 

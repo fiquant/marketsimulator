@@ -6,26 +6,6 @@ from _function import Function
 
 Observable = types.Factory('Observable', '''(types.IObservable[%(T)s], Function[%(T)s], event.Conditional):''', globals())
 
-# ---------------------------------------------------- Constant
-
-# NB! _None is a special case of Constant but we don't use the latter 
-# since we don't want to show Nones in the web-interface and in the object graph
-
-class _None_Impl(object):
-    
-    def __call__(self):
-        return None
-    
-    def __repr__(self):
-        return 'None'
-
-_None = types.Factory('_None', """(_None_Impl, Function[%(T)s]):
-    def __init__(self):
-        self._alias = ['Basic', 'None']
-""", globals())
-
-_None[Side]
-_None[float]
 
 # ---------------------------------------------------- Constant
 

@@ -26,6 +26,8 @@ class IndicatorBase(ops.Observable[float]):
         """
         return self._dataSource()
 
+from marketsim.gen._out._constant import constant
+
 class _OnEveryDt_Impl(IndicatorBase):
     """ Creates an indicator that is updated regularly
     interval - constant interval between updates
@@ -35,7 +37,7 @@ class _OnEveryDt_Impl(IndicatorBase):
         self.attributes = {'smooth':True}
         self._dataSource = self.x
         IndicatorBase.__init__(self)
-        self._subscription = event.subscribe(event.Every(ops.constant(self.dt)), self.fire, self)
+        self._subscription = event.subscribe(event.Every(constant(self.dt)), self.fire, self)
 
 class _Observable_Impl(ops.Observable[float]):
     """ Creates an indicator that is updated regularly

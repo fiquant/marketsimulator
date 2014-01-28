@@ -1,12 +1,14 @@
 from marketsim import ops, event, _
 
+from marketsim.gen._out._constant import constant
+
 class Quote_Impl(ops.Observable[float]):
 
     def __init__(self):
         ops.Observable[float].__init__(self)
         self._quotes = None
         self._current = None
-        event.subscribe(event.Every(ops.constant(1)), _(self)._wakeUp, self)
+        event.subscribe(event.Every(constant(1)), _(self)._wakeUp, self)
 
     @property
     def quotes(self):
