@@ -76,18 +76,24 @@ class _Arbitrage_Impl(MultiAssetStrategy):
                     def send(o):
                         self._send(myQueue.book, o)
 
-                    from marketsim.ops._all import constant
+                    from marketsim.gen._out.side._Buy import Buy
+                    from marketsim.gen._out.side._Sell import Sell
+
+                    my_side = Buy() if side == Side.Buy else Sell()
+                    opp_side = Buy() if side == Side.Sell else Sell()
+
+                    from marketsim.gen._out._constant import constant
                         
                     send(ImmediateOrCancel(
                                         Limit(
-                                                 constant(oppositeSide),
+                                                 opp_side,
                                                  constant(myPrice),
                                                  constant(volumeToTrade)))())
                     
                     
                     send(ImmediateOrCancel(
                                         Limit(
-                                                 constant(side),
+                                                 my_side,
                                                  constant(oppositePrice),
                                                  constant(volumeToTrade)))())
                     
