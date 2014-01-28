@@ -6,56 +6,6 @@ from _function import Function
 
 Observable = types.Factory('Observable', '''(types.IObservable[%(T)s], Function[%(T)s], event.Conditional):''', globals())
 
-class BinaryOp_Impl(object):
-    
-    def __init__(self, lhs, rhs):
-        self.lhs = lhs
-        self.rhs = rhs 
-        if types.IEvent in inspect.getmro(type(lhs)):
-            event.subscribe(lhs, _(self).fire, self)
-        if types.IEvent in inspect.getmro(type(rhs)):
-            event.subscribe(rhs, _(self).fire, self)
-            
-    def __call__(self):
-        lhs = self.lhs()
-        rhs = self.rhs()
-        return self._call(lhs, rhs) if lhs is not None and rhs is not None else None
-
-    @property
-    def label(self):
-        return '(' + self.lhs.label + self.sign + self.rhs.label + ')'
-    
-    def __repr__(self):
-        return self.label
-
-BinaryOp = types.Factory("BinaryOp", """(BinaryOp_Impl, Observable[%(T)s]):
-    def __init__(self, lhs, rhs):
-        BinaryOp_Impl.__init__(self, lhs, rhs)
-        Observable[%(T)s].__init__(self)
-
-    _properties = [('lhs', meta.function((), %(T)s)), 
-                   ('rhs', meta.function((), %(T)s))]
-       
-    @property
-    def attributes(self):
-        return {}
-""", globals())
-
-Condition = {}
-
-from marketsim.gen._out.ops._Condition_Float import Condition_Float
-from marketsim.gen._out.ops._Condition_Side import Condition_Side
-
-Condition[float] = Condition_Float
-Condition[Side] = Condition_Side
-
-from marketsim.gen._out.ops._Equal import Equal as equal
-from marketsim.gen._out.ops._NotEqual import NotEqual as notequal
-from marketsim.gen._out.ops._Less import Less as less
-from marketsim.gen._out.ops._Greater import Greater as greater
-from marketsim.gen._out.ops._LessEqual import LessEqual as less_equal
-from marketsim.gen._out.ops._GreaterEqual import GreaterEqual as greater_equal
-
 # ---------------------------------------------------- Constant
 
 # NB! _None is a special case of Constant but we don't use the latter 
