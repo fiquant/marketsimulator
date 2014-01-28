@@ -382,6 +382,13 @@ package math {
     def Atan(x : Optional[.IFunction[.Float]] = .constant(0.0)) : () => .Float
         
     
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "<"
+    @python.intrinsic.observable("ops._Less_Impl")
+    def Less(x : Optional[.IFunction[.Float]] = .constant(1.0),
+             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Boolean]
+        
+    
     /** Observable that adds a lag to an observable data source so [Lagged(x, dt)]t=t0 == [x]t=t0+dt
      */
     @label = "Lagged_{%(timeframe)s}(%(source)s)"
@@ -402,6 +409,13 @@ package math {
     def Condition_Float(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
                         ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
                         elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "<>"
+    @python.intrinsic.observable("ops._NotEqual_Impl")
+    def NotEqual(x : Optional[.IFunction[.Float]] = .constant(1.0),
+                 y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Boolean]
         
     
     /** Function returning maximum of two functions *x* and *y*.
@@ -453,6 +467,13 @@ package math {
     @label = "\\sqrt{%(x)s}"
     @python.mathops("sqrt")
     def Sqrt(x : Optional[.IFunction[.Float]] = .constant(1.0)) : () => .Float
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = ">="
+    @python.intrinsic.observable("ops._GreaterEqual_Impl")
+    def GreaterEqual(x : Optional[.IFunction[.Float]] = .constant(1.0),
+                     y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Boolean]
         
     
     /** Relative Strength Index
@@ -526,6 +547,27 @@ package math {
     @python.intrinsic.observable("ops._Div_Impl")
     def Div(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "<="
+    @python.intrinsic.observable("ops._LessEqual_Impl")
+    def LessEqual(x : Optional[.IFunction[.Float]] = .constant(1.0),
+                  y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Boolean]
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "=="
+    @python.intrinsic.observable("ops._Equal_Impl")
+    def Equal(x : Optional[.IFunction[.Float]] = .constant(1.0),
+              y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Boolean]
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = ">"
+    @python.intrinsic.observable("ops._Greater_Impl")
+    def Greater(x : Optional[.IFunction[.Float]] = .constant(1.0),
+                y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Boolean]
         
 }
 

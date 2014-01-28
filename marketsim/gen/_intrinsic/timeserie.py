@@ -83,7 +83,7 @@ class _VolumeLevels_Impl(_ToRecord_Impl):
 
     @property
     def _isBuy(self):
-        return 1 if self.source.dataSource.queue.side == types.Side.Buy else 0
+        return 1 if self.source.dataSource.queue.side() == types.Side.Buy else 0
 
     @_isBuy.setter
     def _isBuy(self, o): pass

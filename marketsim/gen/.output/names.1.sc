@@ -354,6 +354,13 @@ package math() {
     def Atan(x = constant(0.0)) : () => Float
         
     
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @python.intrinsic.observable("ops._Less_Impl")
+    @symbol = "<"
+    def Less(x = constant(1.0),
+             y = constant(1.0)) : IObservable[Boolean]
+        
+    
     /** Observable that adds a lag to an observable data source so [Lagged(x, dt)]t=t0 == [x]t=t0+dt
      */
     @python.intrinsic("observable.lagged.Lagged_Impl")
@@ -374,6 +381,13 @@ package math() {
     def Condition_Float(cond = true() : IFunction[Boolean],
                         ifpart = constant(1.0),
                         elsepart = constant(1.0)) : IObservable[Float]
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @python.intrinsic.observable("ops._NotEqual_Impl")
+    @symbol = "<>"
+    def NotEqual(x = constant(1.0),
+                 y = constant(1.0)) : IObservable[Boolean]
         
     
     /** Function returning maximum of two functions *x* and *y*.
@@ -421,6 +435,13 @@ package math() {
     @python.mathops("sqrt")
     @label = "\\sqrt{%(x)s}"
     def Sqrt(x = constant(1.0)) : () => Float
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @python.intrinsic.observable("ops._GreaterEqual_Impl")
+    @symbol = ">="
+    def GreaterEqual(x = constant(1.0),
+                     y = constant(1.0)) : IObservable[Boolean]
         
     
     /** Relative Strength Index
@@ -493,6 +514,27 @@ package math() {
     @label = "\\frac{%(x)s}{%(y)s}"
     def Div(x = constant(1.0),
             y = constant(1.0)) : IObservable[Float]
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @python.intrinsic.observable("ops._LessEqual_Impl")
+    @symbol = "<="
+    def LessEqual(x = constant(1.0),
+                  y = constant(1.0)) : IObservable[Boolean]
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @python.intrinsic.observable("ops._Equal_Impl")
+    @symbol = "=="
+    def Equal(x = constant(1.0),
+              y = constant(1.0)) : IObservable[Boolean]
+        
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @python.intrinsic.observable("ops._Greater_Impl")
+    @symbol = ">"
+    def Greater(x = constant(1.0),
+                y = constant(1.0)) : IObservable[Boolean]
         
 }
 @category = "Order"

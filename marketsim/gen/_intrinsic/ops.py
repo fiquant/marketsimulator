@@ -42,3 +42,52 @@ from marketsim import Side
 
 class _ConditionFloat_Impl(_Condition_Impl, Observable[float]): pass
 class _ConditionSide_Impl(_Condition_Impl, Observable[Side]): pass
+
+class _Conditional_Base(Observable[bool]):
+
+    def __call__(self):
+        x = self.x()
+        y = self.y()
+        return self.apply(x, y)
+
+    def __getitem__(self, (ifpart, elsepart)):
+        from marketsim.gen._out.math._Condition_Float import Condition_Float
+        from marketsim.gen._out.math._Condition_Side import Condition_Side
+        T = Condition_Float if ifpart.T == float or elsepart.T == float else Condition_Side
+        return T(self, ifpart, elsepart)
+
+class _Equal_Impl(_Conditional_Base):
+
+    @staticmethod
+    def apply(x, y):
+        return x == y
+
+class _NotEqual_Impl(_Conditional_Base):
+
+    @staticmethod
+    def apply(x, y):
+        return x != y
+
+class _Less_Impl(_Conditional_Base):
+
+    @staticmethod
+    def apply(x, y):
+        return x < y
+
+class _Greater_Impl(_Conditional_Base):
+
+    @staticmethod
+    def apply(x, y):
+        return x > y
+
+class _LessEqual_Impl(_Conditional_Base):
+
+    @staticmethod
+    def apply(x, y):
+        return x <= y
+
+class _GreaterEqual_Impl(_Conditional_Base):
+
+    @staticmethod
+    def apply(x, y):
+        return x >= y
