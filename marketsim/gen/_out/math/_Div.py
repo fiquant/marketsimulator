@@ -1,9 +1,9 @@
 from marketsim import registry
-from marketsim.gen._intrinsic.ops import _DivImpl
+from marketsim.gen._intrinsic.ops import _Div_Impl
 from marketsim import IFunction
 from marketsim import IFunction
 @registry.expose(["Basic", "Div"])
-class Div(_DivImpl):
+class Div(_Div_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -17,7 +17,7 @@ class Div(_DivImpl):
         self.x = x if x is not None else _constant(1.0)
         self.y = y if y is not None else _constant(1.0)
         rtti.check_fields(self)
-        _DivImpl.__init__(self)
+        _Div_Impl.__init__(self)
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
         if isinstance(y, types.IEvent):

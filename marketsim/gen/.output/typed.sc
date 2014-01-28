@@ -369,7 +369,7 @@ package math {
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "+"
-    @python.intrinsic.observable("ops._AddImpl")
+    @python.intrinsic.observable("ops._Add_Impl")
     def Add(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
         
@@ -392,9 +392,16 @@ package math {
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "*"
-    @python.intrinsic.observable("ops._MulImpl")
+    @python.intrinsic.observable("ops._Mul_Impl")
     def Mul(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+        
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops._ConditionFloat_Impl")
+    def Condition_Float(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+                        ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
+                        elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
         
     
     /** Function returning maximum of two functions *x* and *y*.
@@ -431,6 +438,13 @@ package math {
                    /** lag size */ timeframe : Optional[.Float] = 10.0) : () => .Float
         
         	 = .math.Log(x/.math.Lagged(x,timeframe))
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops._ConditionSide_Impl")
+    def Condition_Side(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+                       ifpart : Optional[() => .Side] = .side.Sell(),
+                       elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
+        
     
     /** Square root of *x*
      *
@@ -480,7 +494,7 @@ package math {
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "-"
-    @python.intrinsic.observable("ops._SubImpl")
+    @python.intrinsic.observable("ops._Sub_Impl")
     def Sub(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
         
@@ -509,7 +523,7 @@ package math {
         
     
     @label = "\\frac{%(x)s}{%(y)s}"
-    @python.intrinsic.observable("ops._DivImpl")
+    @python.intrinsic.observable("ops._Div_Impl")
     def Div(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
         

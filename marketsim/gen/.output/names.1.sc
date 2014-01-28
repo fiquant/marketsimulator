@@ -340,7 +340,7 @@ package math() {
          = observable.Float(Max(const(0.0),Lagged(source,timeframe)-source))
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._AddImpl")
+    @python.intrinsic.observable("ops._Add_Impl")
     @symbol = "+"
     def Add(x = constant(1.0),
             y = constant(1.0)) : IObservable[Float]
@@ -363,10 +363,17 @@ package math() {
         
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._MulImpl")
+    @python.intrinsic.observable("ops._Mul_Impl")
     @symbol = "*"
     def Mul(x = constant(1.0),
             y = constant(1.0)) : IObservable[Float]
+        
+    
+    @python.intrinsic.observable("ops._ConditionFloat_Impl")
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    def Condition_Float(cond = true() : IFunction[Boolean],
+                        ifpart = constant(1.0),
+                        elsepart = constant(1.0)) : IObservable[Float]
         
     
     /** Function returning maximum of two functions *x* and *y*.
@@ -399,6 +406,13 @@ package math() {
     def LogReturns(/** observable data source */ x = const(),
                    /** lag size */ timeframe = 10.0)
          = Log(x/Lagged(x,timeframe))
+    
+    @python.intrinsic.observable("ops._ConditionSide_Impl")
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    def Condition_Side(cond = true() : IFunction[Boolean],
+                       ifpart = side.Sell(),
+                       elsepart = side.Buy()) : IObservable[Side]
+        
     
     /** Square root of *x*
      *
@@ -446,7 +460,7 @@ package math() {
         
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._SubImpl")
+    @python.intrinsic.observable("ops._Sub_Impl")
     @symbol = "-"
     def Sub(x = constant(1.0),
             y = constant(1.0)) : IObservable[Float]
@@ -475,7 +489,7 @@ package math() {
             power = constant(1.0)) : () => Float
         
     
-    @python.intrinsic.observable("ops._DivImpl")
+    @python.intrinsic.observable("ops._Div_Impl")
     @label = "\\frac{%(x)s}{%(y)s}"
     def Div(x = constant(1.0),
             y = constant(1.0)) : IObservable[Float]

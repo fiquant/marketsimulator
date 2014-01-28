@@ -1,9 +1,9 @@
 from marketsim import registry
-from marketsim.gen._intrinsic.ops import _AddImpl
+from marketsim.gen._intrinsic.ops import _Add_Impl
 from marketsim import IFunction
 from marketsim import IFunction
 @registry.expose(["Basic", "Add"])
-class Add(_AddImpl):
+class Add(_Add_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -17,7 +17,7 @@ class Add(_AddImpl):
         self.x = x if x is not None else _constant(1.0)
         self.y = y if y is not None else _constant(1.0)
         rtti.check_fields(self)
-        _AddImpl.__init__(self)
+        _Add_Impl.__init__(self)
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
         if isinstance(y, types.IEvent):

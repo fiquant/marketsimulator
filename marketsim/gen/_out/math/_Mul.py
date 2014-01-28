@@ -1,9 +1,9 @@
 from marketsim import registry
-from marketsim.gen._intrinsic.ops import _MulImpl
+from marketsim.gen._intrinsic.ops import _Mul_Impl
 from marketsim import IFunction
 from marketsim import IFunction
 @registry.expose(["Basic", "Mul"])
-class Mul(_MulImpl):
+class Mul(_Mul_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -17,7 +17,7 @@ class Mul(_MulImpl):
         self.x = x if x is not None else _constant(1.0)
         self.y = y if y is not None else _constant(1.0)
         rtti.check_fields(self)
-        _MulImpl.__init__(self)
+        _Mul_Impl.__init__(self)
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
         if isinstance(y, types.IEvent):

@@ -1,9 +1,9 @@
 from marketsim import registry
-from marketsim.gen._intrinsic.ops import _SubImpl
+from marketsim.gen._intrinsic.ops import _Sub_Impl
 from marketsim import IFunction
 from marketsim import IFunction
 @registry.expose(["Basic", "Sub"])
-class Sub(_SubImpl):
+class Sub(_Sub_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -17,7 +17,7 @@ class Sub(_SubImpl):
         self.x = x if x is not None else _constant(1.0)
         self.y = y if y is not None else _constant(1.0)
         rtti.check_fields(self)
-        _SubImpl.__init__(self)
+        _Sub_Impl.__init__(self)
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
         if isinstance(y, types.IEvent):

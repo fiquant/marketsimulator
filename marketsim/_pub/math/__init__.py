@@ -10,6 +10,8 @@ from marketsim.gen._out.math._Lagged import Lagged
 
 from marketsim.gen._out.math._Mul import Mul
 
+from marketsim.gen._out.math._Condition_Float import Condition_Float
+
 from marketsim.gen._out.math._Max import Max
 
 from marketsim.gen._out.math._UpMovements import UpMovements
@@ -17,6 +19,8 @@ from marketsim.gen._out.math._UpMovements import UpMovements
 from marketsim.gen._out.math._Sqr import Sqr
 
 from marketsim.gen._out.math._LogReturns import LogReturns
+
+from marketsim.gen._out.math._Condition_Side import Condition_Side
 
 from marketsim.gen._out.math._Sqrt import Sqrt
 
