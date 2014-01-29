@@ -8,4 +8,7 @@ checkConsistency = False
 usePandas = True
 useMinorTraders = True
 
+collectRSI = False
+collectMoving = True
+
 from config_user import *

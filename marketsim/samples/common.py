@@ -107,9 +107,8 @@ class Context(object):
             thisTrader = trader.SingleProxy()
             return [
                 TimeSerie(trader.Position(thisTrader),      self.amount_graph),
-                TimeSerie(trader.Efficiency(thisTrader),    self.eff_graph),
                 TimeSerie(trader.Balance(thisTrader),       self.balance_graph)
-            ]
+            ] + ([TimeSerie(trader.Efficiency(thisTrader),    self.eff_graph)] if config.collectMoving else [])
 
         t = trader.SingleAsset(book, strategy, name = label, timeseries = trader_ts())
                     
@@ -183,8 +182,8 @@ def orderBooksToRender(ctx, traders):
                 ],
                 ctx.avgs_graph : [
                     math.Cumulative.Avg(assetPrice),
-                    math.Moving.Avg(assetPrice, 20),
-                    math.Moving.Avg(assetPrice, 100),
+                    (math.Moving.Avg(assetPrice, 20), config.collectMoving),
+                    (math.Moving.Avg(assetPrice, 100), config.collectMoving),
                     math.EW.Avg(assetPrice, 0.15),
                     math.EW.Avg(assetPrice, 0.65),
                     math.EW.Avg(assetPrice, 0.015),
@@ -196,17 +195,17 @@ def orderBooksToRender(ctx, traders):
                     math.macd.MACD(assetPrice),
                     math.macd.Signal(assetPrice),
                     math.macd.Histogram(assetPrice),
-                    observable.OnEveryDt(1, math.LogReturns(assetPrice) * 100)
+                    (observable.OnEveryDt(1, math.LogReturns(assetPrice) * 100), config.collectMoving)
                 ],
                 ctx.minmax_graph : [
                     assetPrice,
                     math.Cumulative.MaxEpsilon(assetPrice),
                     math.Cumulative.MinEpsilon(assetPrice),
-                    math.Moving.Max(assetPrice, 100.),
-                    math.Moving.Min(assetPrice, 100.)
+                    (math.Moving.Max(assetPrice, 100.), config.collectMoving),
+                    (math.Moving.Min(assetPrice, 100.), config.collectMoving)
                 ],
-                ctx.bollinger_100_graph : bollinger(math.Moving.Avg(assetPrice, 100), math.Moving.StdDev(assetPrice, 100)),
-                ctx.bollinger_20_graph : bollinger(math.Moving.Avg(assetPrice, 20), math.Moving.StdDev(assetPrice, 20)),
+                ctx.bollinger_100_graph : bollinger(math.Moving.Avg(assetPrice, 100), math.Moving.StdDev(assetPrice, 100)) if config.collectMoving else [],
+                ctx.bollinger_20_graph : bollinger(math.Moving.Avg(assetPrice, 20), math.Moving.StdDev(assetPrice, 20)) if config.collectMoving else [],
                 ctx.bollinger_a015_graph : bollinger(math.EW.Avg(assetPrice, 0.015), math.EW.StdDev(assetPrice, 0.015)),
 
             }
@@ -214,6 +213,11 @@ def orderBooksToRender(ctx, traders):
             out = []
             for (graph, timeserie_list) in ts.iteritems():
                 for timeserie in timeserie_list:
+                    if type(timeserie) is tuple:
+                        if timeserie[1]:
+                            timeserie = timeserie[0]
+                        else:
+                            continue
                     out.append(makeTimeSerie(timeserie, graph))
 
             return out
@@ -233,29 +237,30 @@ def orderBooksToRender(ctx, traders):
                                                    10),
                            b.volumes_graph))
             b.timeseries = ts
-             
-            b.rsi_graph = ctx.addGraph("RSI " + b.label)
-            ts.append(TimeSerie(orderbook.MidPrice(thisBook), b.rsi_graph))
-            for timeframe in [#0., 
-                              #0.001,
-                              #0.01,
-                              0.1, 
-                              #0.3, 
-                              0.5, 
-                              1., 
-                              #1.5, 
-                              2, 
-                              #3, 
-                              #4, 
-                              5]:
-                ts.append(
-                    TimeSerie(
-                        observable.OnEveryDt(1, 
-                            math.RSI(thisBook,
-                                           timeframe, 
-                                           1./14)), 
-                        b.rsi_graph))
-            
+
+            if config.collectRSI:
+                b.rsi_graph = ctx.addGraph("RSI " + b.label)
+                ts.append(TimeSerie(orderbook.MidPrice(thisBook), b.rsi_graph))
+                for timeframe in [#0.,
+                                  #0.001,
+                                  #0.01,
+                                  0.1,
+                                  #0.3,
+                                  0.5,
+                                  1.,
+                                  #1.5,
+                                  2,
+                                  #3,
+                                  #4,
+                                  5]:
+                    ts.append(
+                        TimeSerie(
+                            observable.OnEveryDt(1,
+                                math.RSI(thisBook,
+                                               timeframe,
+                                               1./14)),
+                            b.rsi_graph))
+
         return books
     
 runTwoTimes = True

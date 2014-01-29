@@ -1,4 +1,3 @@
 from _function import Function
 
-from _all import (Observable,
-                  negate)
+from _all import Observable

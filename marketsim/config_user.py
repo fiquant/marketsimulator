@@ -1,2 +1,2 @@
 #checkConsistency = False
-#useMinorTraders = False
+useMinorTraders = False
