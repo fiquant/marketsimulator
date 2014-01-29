@@ -1,4 +1,4 @@
-class Settings:
-    #checkConsistency = False
-    useMinorTraders = False
+def adjust(ctx):
+
+    ctx.useMinorTraders = False
 
