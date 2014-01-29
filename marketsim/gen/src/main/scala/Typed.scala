@@ -140,6 +140,12 @@ package object Typed
                              target : Function)
             extends sc.FunctionAlias
             with    ScPrintable
+    {
+        override def equals(o : Any) = o match {
+            case other : FunctionAlias => target.qualifiedName == other.target.qualifiedName
+            case _ => false
+        }
+    }
 
     trait AttributeReplace
     {

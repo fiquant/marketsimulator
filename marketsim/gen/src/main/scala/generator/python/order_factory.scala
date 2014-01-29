@@ -233,7 +233,6 @@ object order_factory
                             ((curried map { _.name } filter { _ != "price"}  mkString "_") :: "price" :: tl) filter { _ != "" }
                         case tl =>
                             u_prefix :: tl
-                        case _ => throw new Exception(s"cannot handle function call of form " + call)
                     }
                 }
                 val names = insertPrefix(call.name.names)
