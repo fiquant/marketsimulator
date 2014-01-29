@@ -15,8 +15,10 @@ def generate_if_needed():
     if gen_needed():
         print "Running scala generator..."
 
+        from marketsim import config
+        sources = " ".join(config.sources)
         #subprocess.call("sbt clean", shell=True)
-        subprocess.call("""sbt "run defs" """, shell=True)
+        subprocess.call("""sbt "run %s " """ % sources, shell=True)
 
         print "done."
 

@@ -12,6 +12,8 @@ useMinorTraders = True
 collectRSI = False
 collectMoving = True
 
+sources = ["defs"]
+
 import subprocess, importlib, sys
 
 try:
