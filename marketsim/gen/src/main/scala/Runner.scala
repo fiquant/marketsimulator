@@ -78,31 +78,43 @@ object Runner extends syntax.scala.Parser {
         }
     }
 
+    case class Config(sources : List[File] = Nil)
+
     def main(args: Array[String]) {
 
-        unused(generator.python.gen.Annotations)
+        val parser = new scopt.OptionParser[Config]("gen") {
+        head("FiQuant Strategy Definition Language compiler", "0.8")
+        help("help") text "prints this usage text"
+        arg[File]("<dir>...") unbounded() optional() action { (x, c) =>
+            c.copy(sources = c.sources :+ x) } text "directories to process"
+        }
+        parser.parse(args, Config()) map { config =>
+            unused(generator.python.gen.Annotations)
 
-        cleanUp(".output")
-        cleanUp(".parsed")
-        cleanUp("_out")
-        cleanUp("../_pub")
+            cleanUp(".output")
+            cleanUp(".parsed")
+            cleanUp("_out")
+            cleanUp("../_pub")
 
-        Typed.withNewTopLevel({
-            print(s"parsing...")
+            Typed.withNewTopLevel({
+                print(s"parsing...")
 
-            val parsed = (getFileTree(new File("defs"))
-                            filter  { _.getName endsWith ".sc" }
-                            flatMap { parse }
-                    ).toList
+                val parsed = (config.sources flatMap   getFileTree)
+                                            .filter  {  _.getName endsWith ".sc" }
+                                            .flatMap {  parse }.toList
 
-            println("done")
+                println("done")
 
-            val names = buildNames(parsed)
+                val names = buildNames(parsed)
 
-            val typed = buildTyped(names)
+                val typed = buildTyped(names)
 
-            generatePython(typed)
-        })
+                generatePython(typed)
+            })
+        } getOrElse {
+          // arguments are bad, error message will have been displayed
+        }
+
 
     }
 

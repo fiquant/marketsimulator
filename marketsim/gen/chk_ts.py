@@ -16,7 +16,7 @@ def generate_if_needed():
         print "Running scala generator..."
 
         #subprocess.call("sbt clean", shell=True)
-        subprocess.call("sbt run", shell=True)
+        subprocess.call("""sbt "run defs" """, shell=True)
 
         print "done."
 
