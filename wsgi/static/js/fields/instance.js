@@ -6,10 +6,10 @@ function isReferenceType(typename) {
 	if (typename.indexOf("proxy") > 0) {
 		return false;
 	}
-	return (typename.indexOf(".Local") == 0 ||
+	return (typename.indexOf(".Local") > 0 ||
 			typename.indexOf("marketsim.scheduler.Scheduler") == 0 ||
 			typename.indexOf("marketsim.js.Graph") == 0 ||
-			typename.indexOf(".SingleAsset") == 0);
+			typename.indexOf(".SingleAsset") > 0);
 }
 
 /**
