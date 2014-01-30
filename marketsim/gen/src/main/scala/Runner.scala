@@ -5,7 +5,7 @@ import sext._
 
 object Runner extends syntax.scala.Parser {
 
-    def parse(file : File) : Option[AST.Definitions] = {
+    def parse(reparse : Boolean)(file : File) : Option[AST.Definitions] = {
 
         def parsedPath(file : File) = ".parsed/" + file
 
@@ -81,21 +81,34 @@ object Runner extends syntax.scala.Parser {
         }
     }
 
-    case class Config(sources : List[File] = Nil)
+    case class Config(sources : List[File] = Nil,
+                      reparse : Boolean = false,
+                      check_names : Boolean = false,
+                      check_typed : Boolean = false)
 
     def main(args: Array[String]) {
 
-        val parser = new scopt.OptionParser[Config]("gen") {
-        head("FiQuant Strategy Definition Language compiler", "0.8")
-        help("help") text "prints this usage text"
-        arg[File]("<dir>...") unbounded() optional() action { (x, c) =>
-            c.copy(sources = c.sources :+ x) } text "directories to process"
+        val parser = new scopt.OptionParser[Config]("gen")
+        {
+            head("FiQuant Strategy Definition Language compiler", "0.8")
+
+            help("help") text "prints this usage text"
+
+            opt[Unit]("reparse") action { (_, c) =>
+                c.copy(reparse = true) } text "reparse pretty printed parsed files"
+
+            opt[Unit]("check_names") action { (_, c) =>
+                c.copy(check_names = true) } text "check that re-parsed names are equal to the original names"
+
+            opt[Unit]("check_typed") action { (_, c) =>
+                c.copy(check_typed = true) } text "check that re-parsed typed representation is equal to the original one"
+
+            arg[File]("<dir>...") unbounded() optional() action { (x, c) =>
+                c.copy(sources = c.sources :+ x) } text "directories to process"
         }
         parser.parse(args, Config()) map { config =>
             unused(generator.python.gen.Annotations)
 
-            cleanUp(".output")
-            cleanUp(".parsed")
             cleanUp("_out")
             cleanUp("../_pub")
 
@@ -104,13 +117,13 @@ object Runner extends syntax.scala.Parser {
 
                 val parsed = (config.sources flatMap   getFileTree)
                                             .filter  {  _.getName endsWith ".sc" }
-                                            .flatMap {  parse }.toList
+                                            .flatMap {  parse(config.reparse)_ }.toList
 
                 println("done")
 
-                val names = buildNames(parsed)
+                val names = buildNames(parsed, config)
 
-                val typed = buildTyped(names)
+                val typed = buildTyped(names, config)
 
                 generatePython(typed)
             })
@@ -129,7 +142,7 @@ object Runner extends syntax.scala.Parser {
         println("done")
     }
 
-    def buildNames(parsed: List[AST.Definitions]) =
+    def buildNames(parsed: List[AST.Definitions], config : Config) =
     {
         print("building name tables...")
 
@@ -142,15 +155,18 @@ object Runner extends syntax.scala.Parser {
             output.println(names)
         }
 
-        val names_2 = Typed.withNewTopLevel({
-            NameTable.apply(parse(new File(names_file)).get :: Nil)
-        })
+        if (config.check_names)
+        {
+            val names_2 = Typed.withNewTopLevel({
+                NameTable.apply(parse(config.reparse)(new File(names_file)).get :: Nil)
+            })
 
-        if (names_2 != names) {
-            for (output <- managed(new PrintWriter(names_failed_file))) {
-                output.println(names_2)
+            if (names_2 != names) {
+                for (output <- managed(new PrintWriter(names_failed_file))) {
+                    output.println(names_2)
+                }
+                println(s"Re-parsed names differ from original ones. Compare files '$names_file' and '$names_failed_file'")
             }
-            println(s"Re-parsed names differ from original ones. Compare files '$names_file' and '$names_failed_file'")
         }
 
         println("done")
@@ -159,7 +175,7 @@ object Runner extends syntax.scala.Parser {
     }
 
 
-    def buildTyped(names: NameTable.Scope)  = {
+    def buildTyped(names: NameTable.Scope, config : Config)  = {
         print("typing...")
 
         val typed = Typer.apply(names)
@@ -173,16 +189,20 @@ object Runner extends syntax.scala.Parser {
             output.println(typed)
         }
 
-        val typed_2 = Typed.withNewTopLevel({
-            Typer.apply(NameTable.apply(parse(new File(typed_file)).get :: Nil))
-        })
+        if (config.check_typed)
+        {
+            val typed_2 = Typed.withNewTopLevel({
+                Typer.apply(NameTable.apply(parse(config.reparse)(new File(typed_file)).get :: Nil))
+            })
 
-        if (typed != typed_2) {
-            for (output <- managed(new PrintWriter(typed_failed_file))) {
-                output.println(typed_2)
+            if (typed != typed_2) {
+                for (output <- managed(new PrintWriter(typed_failed_file))) {
+                    output.println(typed_2)
+                }
+                println(s"Re-parsed names differ from original ones. Compare files '$typed_file' and '$typed_failed_file'")
             }
-            println(s"Re-parsed names differ from original ones. Compare files '$typed_file' and '$typed_failed_file'")
         }
+
 
         println("done")
 
