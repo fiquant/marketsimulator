@@ -135,16 +135,23 @@ object Runner extends syntax.scala.Parser {
 
         val names = NameTable.apply(parsed)
 
-        for (output <- managed(new PrintWriter(".output/names.sc"))) {
+        val names_file = ".output/names.sc"
+        val names_failed_file = ".output/names.failed.sc"
+
+        for (output <- managed(new PrintWriter(names_file))) {
             output.println(names)
         }
 
         val names_2 = Typed.withNewTopLevel({
-            NameTable.apply(parse(new File(".output/names.sc")).get :: Nil)
+            NameTable.apply(parse(new File(names_file)).get :: Nil)
         })
 
-        if (names_2 != names)
-            throw new Exception("re-parsed names differ from original ones.")
+        if (names_2 != names) {
+            for (output <- managed(new PrintWriter(names_failed_file))) {
+                output.println(names_2)
+            }
+            println(s"Re-parsed names differ from original ones. Compare files '$names_file' and '$names_failed_file'")
+        }
 
         println("done")
 
@@ -159,16 +166,23 @@ object Runner extends syntax.scala.Parser {
 
         Typed.AfterTyping()
 
-        for (output <- managed(new PrintWriter(".output/typed.sc"))) {
+        val typed_file = ".output/typed.sc"
+        val typed_failed_file = ".output/typed.failed.sc"
+
+        for (output <- managed(new PrintWriter(typed_file))) {
             output.println(typed)
         }
 
         val typed_2 = Typed.withNewTopLevel({
-            Typer.apply(NameTable.apply(parse(new File(".output/typed.sc")).get :: Nil))
+            Typer.apply(NameTable.apply(parse(new File(typed_file)).get :: Nil))
         })
 
-//        if (typed != typed_2)
-//            throw new Exception("re-parsed typed representation differs from the original one")
+        if (typed != typed_2) {
+            for (output <- managed(new PrintWriter(typed_failed_file))) {
+                output.println(typed_2)
+            }
+            println(s"Re-parsed names differ from original ones. Compare files '$typed_file' and '$typed_failed_file'")
+        }
 
         println("done")
 

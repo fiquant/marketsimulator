@@ -23,6 +23,18 @@ package object NameTable {
         val isAnonymous = name startsWith "$"
         val nonAbstract = !`abstract`
 
+        override def equals(o : Any) = o match {
+            case other : Scope =>
+                name == other.name &&
+                parameters == other.parameters &&
+                `abstract` == other.`abstract` &&
+                packages == other.packages &&
+                attributes == other.attributes &&
+                bases == other.bases &&
+                members == other.members
+            case _ => false
+        }
+
         def add(m : AST.Member) {
             members get m.name match {
                 case None =>
