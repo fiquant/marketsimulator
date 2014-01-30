@@ -39,7 +39,7 @@ def gen_needed():
 
     def process_files(_, dirname, fs):
         if dirname == ".":
-            for f in [".output", ".idea", "project", "target", "_out", "_intrinsic"]:
+            for f in [".output", ".idea", "project", "target", "_out", "_intrinsic", ".parsed"]:
                 if f in fs:
                     fs.remove(f)
         for f in fs:

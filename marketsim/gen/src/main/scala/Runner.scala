@@ -84,7 +84,12 @@ object Runner extends syntax.scala.Parser {
     case class Config(sources : List[File] = Nil,
                       reparse : Boolean = false,
                       check_names : Boolean = false,
-                      check_typed : Boolean = false)
+                      check_typed : Boolean = false,
+                      skip_errors : Boolean = false)
+
+    var config : Option[Config] = None
+
+    def catchErrors = !config.get.skip_errors
 
     def main(args: Array[String]) {
 
@@ -103,11 +108,16 @@ object Runner extends syntax.scala.Parser {
             opt[Unit]("check_typed") action { (_, c) =>
                 c.copy(check_typed = true) } text "check that re-parsed typed representation is equal to the original one"
 
+            opt[Unit]("skip_errors") action { (_, c) =>
+                c.copy(skip_errors = true) } text "for debug purpose don't catch exceptions"
+
             arg[File]("<dir>...") unbounded() optional() action { (x, c) =>
                 c.copy(sources = c.sources :+ x) } text "directories to process"
         }
         parser.parse(args, Config()) map { config =>
             unused(generator.python.gen.Annotations)
+
+            Runner.config = Some(config)
 
             cleanUp("_out")
             cleanUp("../_pub")
@@ -121,11 +131,11 @@ object Runner extends syntax.scala.Parser {
 
                 println("done")
 
-                val names = buildNames(parsed, config)
+                buildNames(parsed, config) map {
+                    buildTyped(_, config) map generatePython
+                }
 
-                val typed = buildTyped(names, config)
-
-                generatePython(typed)
+                Runner.config = None
             })
         } getOrElse {
           // arguments are bad, error message will have been displayed
@@ -146,66 +156,71 @@ object Runner extends syntax.scala.Parser {
     {
         print("building name tables...")
 
-        val names = NameTable.apply(parsed)
+        NameTable.create(parsed) map { names =>
+            val names_file = ".output/names.sc"
+            val names_failed_file = ".output/names.failed.sc"
 
-        val names_file = ".output/names.sc"
-        val names_failed_file = ".output/names.failed.sc"
-
-        for (output <- managed(new PrintWriter(names_file))) {
-            output.println(names)
-        }
-
-        if (config.check_names)
-        {
-            val names_2 = Typed.withNewTopLevel({
-                NameTable.apply(parse(config.reparse)(new File(names_file)).get :: Nil)
-            })
-
-            if (names_2 != names) {
-                for (output <- managed(new PrintWriter(names_failed_file))) {
-                    output.println(names_2)
-                }
-                println(s"Re-parsed names differ from original ones. Compare files '$names_file' and '$names_failed_file'")
+            for (output <- managed(new PrintWriter(names_file))) {
+                output.println(names)
             }
+
+            if (config.check_names)
+            {
+                Typed.withNewTopLevel({
+                    NameTable.create(parse(config.reparse)(new File(names_file)).get :: Nil)
+                }) map { names_2 =>
+                    if (names_2 != names) {
+                        for (output <- managed(new PrintWriter(names_failed_file))) {
+                            output.println(names_2)
+                        }
+                        println(s"Re-parsed names differ from original ones. Compare files '$names_file' and '$names_failed_file'")
+                    }
+                }
+            }
+
+            println("done")
+
+            names
         }
-
-        println("done")
-
-        names
     }
 
 
     def buildTyped(names: NameTable.Scope, config : Config)  = {
         print("typing...")
 
-        val typed = Typer.apply(names)
+        Typer.run(names) map { typed =>
 
-        Typed.AfterTyping()
+            Typed.AfterTyping()
 
-        val typed_file = ".output/typed.sc"
-        val typed_failed_file = ".output/typed.failed.sc"
+            val typed_file = ".output/typed.sc"
+            val typed_failed_file = ".output/typed.failed.sc"
 
-        for (output <- managed(new PrintWriter(typed_file))) {
-            output.println(typed)
-        }
-
-        if (config.check_typed)
-        {
-            val typed_2 = Typed.withNewTopLevel({
-                Typer.apply(NameTable.apply(parse(config.reparse)(new File(typed_file)).get :: Nil))
-            })
-
-            if (typed != typed_2) {
-                for (output <- managed(new PrintWriter(typed_failed_file))) {
-                    output.println(typed_2)
-                }
-                println(s"Re-parsed names differ from original ones. Compare files '$typed_file' and '$typed_failed_file'")
+            for (output <- managed(new PrintWriter(typed_file))) {
+                output.println(typed)
             }
+
+            if (config.check_typed)
+            {
+                NameTable.create(parse(config.reparse)(new File(typed_file)).get :: Nil) map { names_2 =>
+                    Typed.withNewTopLevel({
+                        Typer.run(names_2)
+                    }) map { typed_2 =>
+                        if (typed != typed_2) {
+                            for (output <- managed(new PrintWriter(typed_failed_file))) {
+                                output.println(typed_2)
+                            }
+                            println(s"Re-parsed names differ from original ones. Compare files '$typed_file' and '$typed_failed_file'")
+                        }
+
+                    }
+                }
+            }
+
+
+            println("done")
+
+            typed
         }
 
-
-        println("done")
-
-        typed
     }
 }

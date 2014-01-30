@@ -25,11 +25,11 @@ package object Typer
         }
     }
 
-    def apply(source : NameTable.Scope) =
+    def run(source : NameTable.Scope) =
     {
         source.toTyped(Typed.topLevel)
         Processor(source).run()
-        source.typed.get
+        source.typed
     }
 
     case class Processor(source : NameTable.Scope)

@@ -391,7 +391,7 @@ package object NameTable {
 
 
 
-    def apply(p : List[AST.Definitions]) : Scope =
+    def create(p : List[AST.Definitions]) : Option[Scope] =
     {
         val impl : Scope = new Scope
 
@@ -412,7 +412,7 @@ package object NameTable {
 //        println("\tqualifying names")
 //        impl.qualifyNames((impl, Nil) :: Nil)
 
-        impl
+        Some(impl)
     }
 
 }
