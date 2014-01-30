@@ -7,12 +7,14 @@ from marketsim import Side
 from marketsim import IFunction
 from marketsim import IFunction
 @registry.expose(["Order", "Limit"])
-class Limit(IOrderGenerator, Observable[Order]):""" 
+class Limit(IOrderGenerator, Observable[Order]):
+    """ 
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled
       it remains in an order book waiting to be matched with another order.
     """ 
-    def __init__(self, side = None, price = None, volume = None):from marketsim import Order
+    def __init__(self, side = None, price = None, volume = None):
+        from marketsim import Order
         from marketsim.ops._all import Observable
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim import event
@@ -26,24 +28,31 @@ class Limit(IOrderGenerator, Observable[Order]):"""
         from marketsim import rtti
         Observable[Order].__init__(self)
         self.side = side if side is not None else _side_Sell()
-        if isinstance(side, types.IEvent):event.subscribe(self.side, self.fire, self)
+        if isinstance(side, types.IEvent):
+            event.subscribe(self.side, self.fire, self)
         self.price = price if price is not None else _constant(100.0)
-        if isinstance(price, types.IEvent):event.subscribe(self.price, self.fire, self)
+        if isinstance(price, types.IEvent):
+            event.subscribe(self.price, self.fire, self)
         self.volume = volume if volume is not None else _constant(1.0)
-        if isinstance(volume, types.IEvent):event.subscribe(self.volume, self.fire, self)
+        if isinstance(volume, types.IEvent):
+            event.subscribe(self.volume, self.fire, self)
         rtti.check_fields(self)
     
     @property
-    def label(self):return repr(self)
+    def label(self):
+        return repr(self)
     
-    _properties = {'side' : IFunction[Side]
+    _properties = {
+        'side' : IFunction[Side]
         ,
         'price' : IFunction[float],
         'volume' : IFunction[float]
     }
-    def __repr__(self):return "Limit(%(side)s, %(price)s, %(volume)s)" % self.__dict__
+    def __repr__(self):
+        return "Limit(%(side)s, %(price)s, %(volume)s)" % self.__dict__
     
-    def __call__(self, *args, **kwargs):from marketsim.gen._intrinsic.order.limit import Order_Impl
+    def __call__(self, *args, **kwargs):
+        from marketsim.gen._intrinsic.order.limit import Order_Impl
         side = self.side()
         if side is None: return None
         

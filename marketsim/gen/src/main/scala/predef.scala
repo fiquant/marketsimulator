@@ -88,7 +88,7 @@ package object predef {
 
     class Block(inner : Code) extends Code
     {
-        override def toString = indent(inner)
+        override def toString = indent(crlf + inner)
 
         override def imports = inner.imports
     }

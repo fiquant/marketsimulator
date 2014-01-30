@@ -3,18 +3,23 @@ from marketsim.ops._function import Function
 from marketsim.gen._intrinsic.moments.cmv import Variance_Impl
 from marketsim import IObservable
 @registry.expose(["Statistics", "Var"])
-class Var(Function[float], Variance_Impl):""" 
+class Var(Function[float], Variance_Impl):
     """ 
-    def __init__(self, source = None):from marketsim.gen._out._const import const as _const
+    """ 
+    def __init__(self, source = None):
+        from marketsim.gen._out._const import const as _const
         from marketsim import rtti
         self.source = source if source is not None else _const()
         rtti.check_fields(self)
         Variance_Impl.__init__(self)
     
     @property
-    def label(self):return repr(self)
+    def label(self):
+        return repr(self)
     
-    _properties = {'source' : IObservable[float]
+    _properties = {
+        'source' : IObservable[float]
     }
-    def __repr__(self):return "\\sigma^2_{cumul}(%(source)s)" % self.__dict__
+    def __repr__(self):
+        return "\\sigma^2_{cumul}(%(source)s)" % self.__dict__
     

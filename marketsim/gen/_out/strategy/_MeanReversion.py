@@ -9,11 +9,13 @@ from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
 from marketsim.gen._out.strategy.side._MeanReversion import MeanReversion as _strategy_side_MeanReversion
 from marketsim import context
 @registry.expose(["Strategy", "MeanReversion"])
-class MeanReversion(ISingleAssetStrategy):"""  It estimates this average using some functional and
+class MeanReversion(ISingleAssetStrategy):
+    """  It estimates this average using some functional and
      if the current asset price is lower than the average
      it buys the asset and if the price is higher it sells the asset.
     """ 
-    def __init__(self, eventGen = None, orderFactory = None, ewma_alpha = None):from marketsim.gen._out.event._Every import Every as _event_Every
+    def __init__(self, eventGen = None, orderFactory = None, ewma_alpha = None):
+        from marketsim.gen._out.event._Every import Every as _event_Every
         from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
         from marketsim.gen._out.order._curried._side_Market import side_Market as _order__curried_side_Market
         from marketsim import rtti
@@ -29,26 +31,33 @@ class MeanReversion(ISingleAssetStrategy):"""  It estimates this average using s
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
-    def label(self):return repr(self)
+    def label(self):
+        return repr(self)
     
-    _properties = {'eventGen' : IEvent,
+    _properties = {
+        'eventGen' : IEvent,
         'orderFactory' : IFunction[IOrderGenerator,IFunction[Side]]
         
         
         ,
         'ewma_alpha' : float
     }
-    def __repr__(self):return "MeanReversion(%(eventGen)s, %(orderFactory)s, %(ewma_alpha)s)" % self.__dict__
+    def __repr__(self):
+        return "MeanReversion(%(eventGen)s, %(orderFactory)s, %(ewma_alpha)s)" % self.__dict__
     
     _internals = ['impl']
-    def getImpl(self):return _strategy_Generic(self.orderFactory(_strategy_side_MeanReversion(self.ewma_alpha)),self.eventGen)
+    def getImpl(self):
+        return _strategy_Generic(self.orderFactory(_strategy_side_MeanReversion(self.ewma_alpha)),self.eventGen)
     
     
-    def bind(self, ctx):self._ctx = ctx.clone()
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
     
-    def reset(self):self.impl = self.getImpl()
+    def reset(self):
+        self.impl = self.getImpl()
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
-    def _send(self, order, source):self.on_order_created.fire(order, self)
+    def _send(self, order, source):
+        self.on_order_created.fire(order, self)
     

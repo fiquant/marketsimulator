@@ -4,9 +4,11 @@ from marketsim.ops._all import Observable
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Asset", "LastTradeVolume"])
-class LastTradeVolume(Observable[Volume]):""" 
+class LastTradeVolume(Observable[Volume]):
     """ 
-    def __init__(self, book = None):from marketsim import Volume
+    """ 
+    def __init__(self, book = None):
+        from marketsim import Volume
         from marketsim.ops._all import Observable
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
@@ -19,23 +21,30 @@ class LastTradeVolume(Observable[Volume]):"""
         event.subscribe(self.impl, _(self).fire, self)
     
     @property
-    def label(self):return repr(self)
+    def label(self):
+        return repr(self)
     
-    _properties = {'book' : IOrderBook
+    _properties = {
+        'book' : IOrderBook
     }
-    def __repr__(self):return "LastTradeVolume(Bid^{%(book)s})" % self.__dict__
+    def __repr__(self):
+        return "LastTradeVolume(Bid^{%(book)s})" % self.__dict__
     
     _internals = ['impl']
-    def getImpl(self):from marketsim.gen._out.orderbook._LastTradeVolume import LastTradeVolume as _orderbook_LastTradeVolume
+    def getImpl(self):
+        from marketsim.gen._out.orderbook._LastTradeVolume import LastTradeVolume as _orderbook_LastTradeVolume
         from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
         return _orderbook_LastTradeVolume(_orderbook_Bids(self.book))
         
     
-    def bind(self, ctx):self._ctx = ctx.clone()
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
     
-    def reset(self):self.impl = self.getImpl()
+    def reset(self):
+        self.impl = self.getImpl()
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
-    def __call__(self, *args, **kwargs):return self.impl()
+    def __call__(self, *args, **kwargs):
+        return self.impl()
     

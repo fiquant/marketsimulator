@@ -4,10 +4,12 @@ from marketsim import Order
 from marketsim.ops._all import Observable
 from marketsim import IFunction
 @registry.expose(["Order", "MarketSigned"])
-class MarketSigned(IOrderGenerator, Observable[Order]):""" 
+class MarketSigned(IOrderGenerator, Observable[Order]):
+    """ 
       Market order intructs buy or sell given volume immediately
     """ 
-    def __init__(self, signedVolume = None):from marketsim import Order
+    def __init__(self, signedVolume = None):
+        from marketsim import Order
         from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
@@ -15,17 +17,22 @@ class MarketSigned(IOrderGenerator, Observable[Order]):"""
         from marketsim import rtti
         Observable[Order].__init__(self)
         self.signedVolume = signedVolume if signedVolume is not None else _constant(1.0)
-        if isinstance(signedVolume, types.IEvent):event.subscribe(self.signedVolume, self.fire, self)
+        if isinstance(signedVolume, types.IEvent):
+            event.subscribe(self.signedVolume, self.fire, self)
         rtti.check_fields(self)
     
     @property
-    def label(self):return repr(self)
+    def label(self):
+        return repr(self)
     
-    _properties = {'signedVolume' : IFunction[float]
+    _properties = {
+        'signedVolume' : IFunction[float]
     }
-    def __repr__(self):return "MarketSigned(%(signedVolume)s)" % self.__dict__
+    def __repr__(self):
+        return "MarketSigned(%(signedVolume)s)" % self.__dict__
     
-    def __call__(self, *args, **kwargs):from marketsim import Side
+    def __call__(self, *args, **kwargs):
+        from marketsim import Side
         from marketsim.gen._intrinsic.order.market import Order_Impl
         signedVolume = self.signedVolume()
         if signedVolume is None: return None

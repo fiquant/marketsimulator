@@ -13,9 +13,11 @@ from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
 from marketsim.gen._out.strategy.price._LiquidityProvider import LiquidityProvider as _strategy_price_LiquidityProvider
 from marketsim import context
 @registry.expose(["Strategy", "LiquidityProviderSide"])
-class LiquidityProviderSide(ISingleAssetStrategy):""" 
+class LiquidityProviderSide(ISingleAssetStrategy):
     """ 
-    def __init__(self, eventGen = None, orderFactory = None, side = None, initialValue = None, priceDistr = None):from marketsim.gen._out.event._Every import Every as _event_Every
+    """ 
+    def __init__(self, eventGen = None, orderFactory = None, side = None, initialValue = None, priceDistr = None):
+        from marketsim.gen._out.event._Every import Every as _event_Every
         from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
         from marketsim.gen._out.order._curried._sideprice_Limit import sideprice_Limit as _order__curried_sideprice_Limit
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
@@ -35,9 +37,11 @@ class LiquidityProviderSide(ISingleAssetStrategy):"""
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
-    def label(self):return repr(self)
+    def label(self):
+        return repr(self)
     
-    _properties = {'eventGen' : IEvent,
+    _properties = {
+        'eventGen' : IEvent,
         'orderFactory' : IFunction[IOrderGenerator,IFunction[Side],IFunction[float]]
         
         
@@ -48,17 +52,22 @@ class LiquidityProviderSide(ISingleAssetStrategy):"""
         'initialValue' : float,
         'priceDistr' : IFunction[float]
     }
-    def __repr__(self):return "LiquidityProviderSide(%(eventGen)s, %(orderFactory)s, %(side)s, %(initialValue)s, %(priceDistr)s)" % self.__dict__
+    def __repr__(self):
+        return "LiquidityProviderSide(%(eventGen)s, %(orderFactory)s, %(side)s, %(initialValue)s, %(priceDistr)s)" % self.__dict__
     
     _internals = ['impl']
-    def getImpl(self):return _strategy_Generic(self.orderFactory(self.side,_strategy_price_LiquidityProvider(self.side,self.initialValue,self.priceDistr)),self.eventGen)
+    def getImpl(self):
+        return _strategy_Generic(self.orderFactory(self.side,_strategy_price_LiquidityProvider(self.side,self.initialValue,self.priceDistr)),self.eventGen)
     
     
-    def bind(self, ctx):self._ctx = ctx.clone()
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
     
-    def reset(self):self.impl = self.getImpl()
+    def reset(self):
+        self.impl = self.getImpl()
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
-    def _send(self, order, source):self.on_order_created.fire(order, self)
+    def _send(self, order, source):
+        self.on_order_created.fire(order, self)
     

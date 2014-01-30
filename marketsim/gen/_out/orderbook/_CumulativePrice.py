@@ -3,14 +3,16 @@ from marketsim.gen._intrinsic.orderbook.cumulative_price import CumulativePrice_
 from marketsim import IOrderBook
 from marketsim import IFunction
 @registry.expose(["Asset", "CumulativePrice"])
-class CumulativePrice(CumulativePrice_Impl):""" 
+class CumulativePrice(CumulativePrice_Impl):
+    """ 
       In other words cumulative price corresponds to trader balance change
       if a market order of volume *depth* is completely matched
     
       Negative *depth* correponds to will buy assets
       Positive *depth* correponds to will sell assets
     """ 
-    def __init__(self, book = None, depth = None):from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
+    def __init__(self, book = None, depth = None):
+        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import rtti
         from marketsim import event
@@ -21,14 +23,19 @@ class CumulativePrice(CumulativePrice_Impl):"""
         self.depth = depth if depth is not None else _constant()
         rtti.check_fields(self)
         CumulativePrice_Impl.__init__(self)
-        if isinstance(book, types.IEvent):event.subscribe(self.book, self.fire, self)
-        if isinstance(depth, types.IEvent):event.subscribe(self.depth, self.fire, self)
+        if isinstance(book, types.IEvent):
+            event.subscribe(self.book, self.fire, self)
+        if isinstance(depth, types.IEvent):
+            event.subscribe(self.depth, self.fire, self)
     
     @property
-    def label(self):return repr(self)
+    def label(self):
+        return repr(self)
     
-    _properties = {'book' : IOrderBook,
+    _properties = {
+        'book' : IOrderBook,
         'depth' : IFunction[float]
     }
-    def __repr__(self):return "CumulativePrice(%(book)s, %(depth)s)" % self.__dict__
+    def __repr__(self):
+        return "CumulativePrice(%(book)s, %(depth)s)" % self.__dict__
     

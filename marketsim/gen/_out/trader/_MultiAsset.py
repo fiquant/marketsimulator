@@ -6,10 +6,12 @@ from marketsim import IMultiAssetStrategy
 from marketsim import listOf
 from marketsim import ITimeSerie
 @registry.expose(["Trader", "MultiAsset"])
-class MultiAsset(_MultiAsset_Impl):"""   It can be considered as a composition of single asset traders and multi asset strategies
+class MultiAsset(_MultiAsset_Impl):
+    """   It can be considered as a composition of single asset traders and multi asset strategies
       At the moment there is no way to instruct a multi asset strategy to trade only on subset of the assets
     """ 
-    def __init__(self, traders = None, strategy = None, name = None, PnL = None, timeseries = None):from marketsim.gen._out.strategy._Arbitrage import Arbitrage as _strategy_Arbitrage
+    def __init__(self, traders = None, strategy = None, name = None, PnL = None, timeseries = None):
+        from marketsim.gen._out.strategy._Arbitrage import Arbitrage as _strategy_Arbitrage
         from marketsim import rtti
         self.traders = traders if traders is not None else []
         self.strategy = strategy if strategy is not None else _strategy_Arbitrage()
@@ -20,9 +22,11 @@ class MultiAsset(_MultiAsset_Impl):"""   It can be considered as a composition o
         _MultiAsset_Impl.__init__(self)
     
     @property
-    def label(self):return repr(self)
+    def label(self):
+        return repr(self)
     
-    _properties = {'traders' : listOf(ISingleAssetTrader)
+    _properties = {
+        'traders' : listOf(ISingleAssetTrader)
         ,
         'strategy' : IMultiAssetStrategy,
         'name' : str,
@@ -30,5 +34,6 @@ class MultiAsset(_MultiAsset_Impl):"""   It can be considered as a composition o
         'timeseries' : listOf(ITimeSerie)
         
     }
-    def __repr__(self):return "%(name)s" % self.__dict__
+    def __repr__(self):
+        return "%(name)s" % self.__dict__
     

@@ -8,12 +8,14 @@ from marketsim import IFunction
 @registry.expose(["Order", "Iceberg"])
 class volume_Iceberg(
 
-IFunction[IOrderGenerator,IFunction[float]]):""" 
+IFunction[IOrderGenerator,IFunction[float]]):
+    """ 
       Iceberg order is initialized by an underlying order and a lot size.
       It sends consequently pieces of the underlying order of size equal or less to the lot size
       thus maximum lot size volume is visible at the market at any moment.
     """ 
-    def __init__(self, lotSize = None, proto = None):from marketsim.gen._out._constant import constant as _constant
+    def __init__(self, lotSize = None, proto = None):
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._curried._volume_Limit import volume_Limit as _order__curried_volume_Limit
         from marketsim import rtti
         self.lotSize = lotSize if lotSize is not None else _constant(10.0)
@@ -21,14 +23,18 @@ IFunction[IOrderGenerator,IFunction[float]]):"""
         rtti.check_fields(self)
     
     @property
-    def label(self):return repr(self)
+    def label(self):
+        return repr(self)
     
-    _properties = {'lotSize' : IFunction[float],
+    _properties = {
+        'lotSize' : IFunction[float],
         'proto' : IFunction[IOrderGenerator, IFunction[float]]
     }
-    def __repr__(self):return "volume_Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
+    def __repr__(self):
+        return "volume_Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
     
-    def __call__(self, volume = None):from marketsim.gen._out.order._Iceberg import Iceberg
+    def __call__(self, volume = None):
+        from marketsim.gen._out.order._Iceberg import Iceberg
         lotSize = self.lotSize
         proto = self.proto
         return Iceberg(lotSize, proto(volume))

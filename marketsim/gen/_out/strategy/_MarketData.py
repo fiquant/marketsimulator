@@ -27,14 +27,16 @@ from marketsim.gen._out.event._After import After as _event_After
 from marketsim.gen._out._constant import constant as _constant
 from marketsim import context
 @registry.expose(["Strategy", "MarketData"])
-class MarketData(ISingleAssetStrategy):"""   by creating large volume orders for the given price.
+class MarketData(ISingleAssetStrategy):
+    """   by creating large volume orders for the given price.
     
       Every time step of 1 in the simulation corresponds to a 1 day in the market data.
     
       At each time step the previous Limit Buy/Sell orders are cancelled and new ones
       are created based on the next price of the market data.
     """ 
-    def __init__(self, ticker = None, start = None, end = None, delta = None, volume = None):from marketsim import rtti
+    def __init__(self, ticker = None, start = None, end = None, delta = None, volume = None):
+        from marketsim import rtti
         from marketsim import event
         from marketsim import _
         self.ticker = ticker if ticker is not None else "^GSPC"
@@ -48,18 +50,22 @@ class MarketData(ISingleAssetStrategy):"""   by creating large volume orders for
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
-    def label(self):return repr(self)
+    def label(self):
+        return repr(self)
     
-    _properties = {'ticker' : str,
+    _properties = {
+        'ticker' : str,
         'start' : str,
         'end' : str,
         'delta' : float,
         'volume' : float
     }
-    def __repr__(self):return "MarketData(%(ticker)s, %(start)s, %(end)s, %(delta)s, %(volume)s)" % self.__dict__
+    def __repr__(self):
+        return "MarketData(%(ticker)s, %(start)s, %(end)s, %(delta)s, %(volume)s)" % self.__dict__
     
     _internals = ['impl']
-    def getImpl(self):return _strategy_Combine(_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_Quote(self.ticker,self.start,self.end)+_const(self.delta)),_order__curried_price_Limit(_side_Sell(),_constant(self.volume*1000)))),_event_After(_constant(0.0))),_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_Quote(self.ticker,self.start,self.end)-_const(self.delta)),_order__curried_price_Limit(_side_Buy(),_constant(self.volume*1000)))),_event_After(_constant(0.0))))
+    def getImpl(self):
+        return _strategy_Combine(_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_Quote(self.ticker,self.start,self.end)+_const(self.delta)),_order__curried_price_Limit(_side_Sell(),_constant(self.volume*1000)))),_event_After(_constant(0.0))),_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_Quote(self.ticker,self.start,self.end)-_const(self.delta)),_order__curried_price_Limit(_side_Buy(),_constant(self.volume*1000)))),_event_After(_constant(0.0))))
     
     
     
@@ -85,11 +91,14 @@ class MarketData(ISingleAssetStrategy):"""   by creating large volume orders for
     
     
     
-    def bind(self, ctx):self._ctx = ctx.clone()
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
     
-    def reset(self):self.impl = self.getImpl()
+    def reset(self):
+        self.impl = self.getImpl()
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
-    def _send(self, order, source):self.on_order_created.fire(order, self)
+    def _send(self, order, source):
+        self.on_order_created.fire(order, self)
     

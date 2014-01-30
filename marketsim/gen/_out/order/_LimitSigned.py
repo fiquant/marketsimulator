@@ -5,12 +5,14 @@ from marketsim.ops._all import Observable
 from marketsim import IFunction
 from marketsim import IFunction
 @registry.expose(["Order", "LimitSigned"])
-class LimitSigned(IOrderGenerator, Observable[Order]):""" 
+class LimitSigned(IOrderGenerator, Observable[Order]):
+    """ 
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled
       it remains in an order book waiting to be matched with another order.
     """ 
-    def __init__(self, signedVolume = None, price = None):from marketsim import Order
+    def __init__(self, signedVolume = None, price = None):
+        from marketsim import Order
         from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
@@ -21,20 +23,26 @@ class LimitSigned(IOrderGenerator, Observable[Order]):"""
         from marketsim import rtti
         Observable[Order].__init__(self)
         self.signedVolume = signedVolume if signedVolume is not None else _constant(1.0)
-        if isinstance(signedVolume, types.IEvent):event.subscribe(self.signedVolume, self.fire, self)
+        if isinstance(signedVolume, types.IEvent):
+            event.subscribe(self.signedVolume, self.fire, self)
         self.price = price if price is not None else _constant(100.0)
-        if isinstance(price, types.IEvent):event.subscribe(self.price, self.fire, self)
+        if isinstance(price, types.IEvent):
+            event.subscribe(self.price, self.fire, self)
         rtti.check_fields(self)
     
     @property
-    def label(self):return repr(self)
+    def label(self):
+        return repr(self)
     
-    _properties = {'signedVolume' : IFunction[float],
+    _properties = {
+        'signedVolume' : IFunction[float],
         'price' : IFunction[float]
     }
-    def __repr__(self):return "LimitSigned(%(signedVolume)s, %(price)s)" % self.__dict__
+    def __repr__(self):
+        return "LimitSigned(%(signedVolume)s, %(price)s)" % self.__dict__
     
-    def __call__(self, *args, **kwargs):from marketsim import Side
+    def __call__(self, *args, **kwargs):
+        from marketsim import Side
         from marketsim.gen._intrinsic.order.limit import Order_Impl
         signedVolume = self.signedVolume()
         if signedVolume is None: return None

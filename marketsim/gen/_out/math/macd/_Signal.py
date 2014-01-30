@@ -6,9 +6,11 @@ from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_On
 from marketsim.gen._out.math.macd._MACD import MACD as _math_macd_MACD
 from marketsim import context
 @registry.expose(["MACD", "Signal"])
-class Signal(Function[float]):""" 
+class Signal(Function[float]):
     """ 
-    def __init__(self, x = None, slow = None, fast = None, timeframe = None, step = None):from marketsim.gen._out._const import const as _const
+    """ 
+    def __init__(self, x = None, slow = None, fast = None, timeframe = None, step = None):
+        from marketsim.gen._out._const import const as _const
         from marketsim import rtti
         self.x = x if x is not None else _const()
         self.slow = slow if slow is not None else 26.0
@@ -19,26 +21,33 @@ class Signal(Function[float]):"""
         self.impl = self.getImpl()
     
     @property
-    def label(self):return repr(self)
+    def label(self):
+        return repr(self)
     
-    _properties = {'x' : IObservable[float],
+    _properties = {
+        'x' : IObservable[float],
         'slow' : float,
         'fast' : float,
         'timeframe' : float,
         'step' : float
     }
-    def __repr__(self):return "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))" % self.__dict__
+    def __repr__(self):
+        return "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))" % self.__dict__
     
     _internals = ['impl']
-    def getImpl(self):return _math_EW_Avg(_observable_OnEveryDt(self.step,_math_macd_MACD(self.x,self.slow,self.fast)),2/(self.timeframe+1))
+    def getImpl(self):
+        return _math_EW_Avg(_observable_OnEveryDt(self.step,_math_macd_MACD(self.x,self.slow,self.fast)),2/(self.timeframe+1))
     
     
     
-    def bind(self, ctx):self._ctx = ctx.clone()
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
     
-    def reset(self):self.impl = self.getImpl()
+    def reset(self):
+        self.impl = self.getImpl()
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
-    def __call__(self, *args, **kwargs):return self.impl()
+    def __call__(self, *args, **kwargs):
+        return self.impl()
     

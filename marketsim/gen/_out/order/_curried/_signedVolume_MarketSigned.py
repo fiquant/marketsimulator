@@ -2,21 +2,27 @@ from marketsim import registry
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 @registry.expose(["Order", "MarketSigned"])
-class signedVolume_MarketSigned(IFunction[IOrderGenerator, IFunction[float]]):""" 
+class signedVolume_MarketSigned(IFunction[IOrderGenerator, IFunction[float]]):
+    """ 
       Market order intructs buy or sell given volume immediately
     """ 
-    def __init__(self):from marketsim import rtti
+    def __init__(self):
+        from marketsim import rtti
         
         rtti.check_fields(self)
     
     @property
-    def label(self):return repr(self)
+    def label(self):
+        return repr(self)
     
     _properties = {
+        
     }
-    def __repr__(self):return "signedVolume_MarketSigned" % self.__dict__
+    def __repr__(self):
+        return "signedVolume_MarketSigned" % self.__dict__
     
-    def __call__(self, signedVolume = None):from marketsim.gen._out._constant import constant as _constant
+    def __call__(self, signedVolume = None):
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._MarketSigned import MarketSigned
         signedVolume = signedVolume if signedVolume is not None else _constant(1.0)
         

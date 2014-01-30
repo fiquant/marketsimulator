@@ -5,9 +5,11 @@ from marketsim import IObservable
 from marketsim import ISingleAssetTrader
 from marketsim import context
 @registry.expose(["Volume function", "RSI_linear"])
-class RSI_linear(Observable[Volume]):""" 
+class RSI_linear(Observable[Volume]):
     """ 
-    def __init__(self, alpha = None, k = None, timeframe = None, trader = None):from marketsim import Volume
+    """ 
+    def __init__(self, alpha = None, k = None, timeframe = None, trader = None):
+        from marketsim import Volume
         from marketsim.ops._all import Observable
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
@@ -24,17 +26,21 @@ class RSI_linear(Observable[Volume]):"""
         event.subscribe(self.impl, _(self).fire, self)
     
     @property
-    def label(self):return repr(self)
+    def label(self):
+        return repr(self)
     
-    _properties = {'alpha' : float,
+    _properties = {
+        'alpha' : float,
         'k' : IObservable[float],
         'timeframe' : float,
         'trader' : ISingleAssetTrader
     }
-    def __repr__(self):return "RSI_linear(%(alpha)s, %(k)s, %(timeframe)s, %(trader)s)" % self.__dict__
+    def __repr__(self):
+        return "RSI_linear(%(alpha)s, %(k)s, %(timeframe)s, %(trader)s)" % self.__dict__
     
     _internals = ['impl']
-    def getImpl(self):from marketsim.gen._out.strategy.position._DesiredPosition import DesiredPosition as _strategy_position_DesiredPosition
+    def getImpl(self):
+        from marketsim.gen._out.strategy.position._DesiredPosition import DesiredPosition as _strategy_position_DesiredPosition
         from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.math._RSI import RSI as _math_RSI
@@ -45,11 +51,14 @@ class RSI_linear(Observable[Volume]):"""
         
         
     
-    def bind(self, ctx):self._ctx = ctx.clone()
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
     
-    def reset(self):self.impl = self.getImpl()
+    def reset(self):
+        self.impl = self.getImpl()
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
-    def __call__(self, *args, **kwargs):return self.impl()
+    def __call__(self, *args, **kwargs):
+        return self.impl()
     

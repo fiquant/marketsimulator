@@ -8,9 +8,11 @@ from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
 from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
 from marketsim import context
 @registry.expose(["Side function", "TrendFollower"])
-class TrendFollower(Function[Side]):""" 
+class TrendFollower(Function[Side]):
     """ 
-    def __init__(self, alpha = None, threshold = None, book = None):from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
+    """ 
+    def __init__(self, alpha = None, threshold = None, book = None):
+        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
         self.alpha = alpha if alpha is not None else 0.15
         self.threshold = threshold if threshold is not None else 0.0
@@ -19,25 +21,32 @@ class TrendFollower(Function[Side]):"""
         self.impl = self.getImpl()
     
     @property
-    def label(self):return repr(self)
+    def label(self):
+        return repr(self)
     
-    _properties = {'alpha' : float,
+    _properties = {
+        'alpha' : float,
         'threshold' : float,
         'book' : IOrderBook
     }
-    def __repr__(self):return "TrendFollower(%(alpha)s, %(threshold)s, %(book)s)" % self.__dict__
+    def __repr__(self):
+        return "TrendFollower(%(alpha)s, %(threshold)s, %(book)s)" % self.__dict__
     
     _internals = ['impl']
-    def getImpl(self):return _strategy_side_Signal(_math_Derivative(_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha)),self.threshold)
+    def getImpl(self):
+        return _strategy_side_Signal(_math_Derivative(_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha)),self.threshold)
     
     
     
     
-    def bind(self, ctx):self._ctx = ctx.clone()
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
     
-    def reset(self):self.impl = self.getImpl()
+    def reset(self):
+        self.impl = self.getImpl()
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
-    def __call__(self, *args, **kwargs):return self.impl()
+    def __call__(self, *args, **kwargs):
+        return self.impl()
     

@@ -37,9 +37,11 @@ from marketsim.gen._out.event._After import After as _event_After
 from marketsim.gen._out._constant import constant as _constant
 from marketsim import context
 @registry.expose(["Strategy", "MarketMaker"])
-class MarketMaker(ISingleAssetStrategy):""" 
+class MarketMaker(ISingleAssetStrategy):
     """ 
-    def __init__(self, delta = None, volume = None):from marketsim import rtti
+    """ 
+    def __init__(self, delta = None, volume = None):
+        from marketsim import rtti
         from marketsim import event
         from marketsim import _
         self.delta = delta if delta is not None else 1.0
@@ -50,15 +52,19 @@ class MarketMaker(ISingleAssetStrategy):"""
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
-    def label(self):return repr(self)
+    def label(self):
+        return repr(self)
     
-    _properties = {'delta' : float,
+    _properties = {
+        'delta' : float,
         'volume' : float
     }
-    def __repr__(self):return "MarketMaker(%(delta)s, %(volume)s)" % self.__dict__
+    def __repr__(self):
+        return "MarketMaker(%(delta)s, %(volume)s)" % self.__dict__
     
     _internals = ['impl']
-    def getImpl(self):return _strategy_Combine(_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_OnEveryDt(0.9,_orderbook_SafeSidePrice(_orderbook_Asks(),_constant(100+self.delta))/_math_Exp(_math_Atan(_trader_Position())/1000))),_order__curried_price_Limit(_side_Sell(),_constant(self.volume*1000)))),_event_After(_constant(0.0))),_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_OnEveryDt(0.9,_orderbook_SafeSidePrice(_orderbook_Bids(),_constant(100-self.delta))/_math_Exp(_math_Atan(_trader_Position())/1000))),_order__curried_price_Limit(_side_Buy(),_constant(self.volume*1000)))),_event_After(_constant(0.0))))
+    def getImpl(self):
+        return _strategy_Combine(_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_OnEveryDt(0.9,_orderbook_SafeSidePrice(_orderbook_Asks(),_constant(100+self.delta))/_math_Exp(_math_Atan(_trader_Position())/1000))),_order__curried_price_Limit(_side_Sell(),_constant(self.volume*1000)))),_event_After(_constant(0.0))),_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_OnEveryDt(0.9,_orderbook_SafeSidePrice(_orderbook_Bids(),_constant(100-self.delta))/_math_Exp(_math_Atan(_trader_Position())/1000))),_order__curried_price_Limit(_side_Buy(),_constant(self.volume*1000)))),_event_After(_constant(0.0))))
     
     
     
@@ -94,11 +100,14 @@ class MarketMaker(ISingleAssetStrategy):"""
     
     
     
-    def bind(self, ctx):self._ctx = ctx.clone()
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
     
-    def reset(self):self.impl = self.getImpl()
+    def reset(self):
+        self.impl = self.getImpl()
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
-    def _send(self, order, source):self.on_order_created.fire(order, self)
+    def _send(self, order, source):
+        self.on_order_created.fire(order, self)
     
