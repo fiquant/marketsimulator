@@ -20,14 +20,16 @@ object Runner extends syntax.scala.Parser {
         def printerFor(ext : String) = new PrintWriter(path.replace(".sc", ext))
 
         (managed(io.Source fromFile file) and
+         managed(printerFor(".pretty-printed.sc")) and
          managed(printerFor(".raw")) map {
 
-            case (input, raw_output) => Nil
+            case ((input, pp_output), raw_output) => Nil
                 val in = input.mkString
 
                 parseAll(definitions, in) match {
                     case Success(result, _) => {
                         val pp = result.toString
+                        pp_output.println(pp)
                         parseAll(definitions, pp) match {
                             case Success(result2, _) => {
                                 if (result != result2) {
