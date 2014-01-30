@@ -19,13 +19,11 @@ class sidevolume_price_WithExpiry(
 
 
 
-IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side],IFunction[float]]):
-    """ 
+IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side],IFunction[float]]):""" 
      WithExpiry orders can be viewed as ImmediateOrCancel orders
      where cancel order is sent not immediately but after some delay
     """ 
-    def __init__(self, expiry = None, proto = None):
-        from marketsim.gen._out._constant import constant as _constant
+    def __init__(self, expiry = None, proto = None):from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._curried._sidevolume_price_Limit import sidevolume_price_Limit as _order__curried_sidevolume_price_Limit
         from marketsim import rtti
         self.expiry = expiry if expiry is not None else _constant(10.0)
@@ -33,20 +31,16 @@ IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side],IFunction[
         rtti.check_fields(self)
     
     @property
-    def label(self):
-        return repr(self)
+    def label(self):return repr(self)
     
-    _properties = {
-        'expiry' : IFunction[float],
+    _properties = {'expiry' : IFunction[float],
         'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side],IFunction[float]
         
         ]
     }
-    def __repr__(self):
-        return "sidevolume_price_WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
+    def __repr__(self):return "sidevolume_price_WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
     
-    def __call__(self, side = None,volume = None):
-        from marketsim.gen._out.order._curried._price_WithExpiry import price_WithExpiry
+    def __call__(self, side = None,volume = None):from marketsim.gen._out.order._curried._price_WithExpiry import price_WithExpiry
         expiry = self.expiry
         proto = self.proto
         return price_WithExpiry(expiry, proto(side,volume))

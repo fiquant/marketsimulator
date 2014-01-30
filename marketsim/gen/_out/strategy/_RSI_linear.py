@@ -8,11 +8,9 @@ from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
 from marketsim.gen._out.strategy.position._RSI_linear import RSI_linear as _strategy_position_RSI_linear
 from marketsim import context
 @registry.expose(["Strategy", "RSI_linear"])
-class RSI_linear(ISingleAssetStrategy):
+class RSI_linear(ISingleAssetStrategy):""" 
     """ 
-    """ 
-    def __init__(self, orderFactory = None, alpha = None, k = None, timeframe = None):
-        from marketsim.gen._out.order._curried._signedVolume_MarketSigned import signedVolume_MarketSigned as _order__curried_signedVolume_MarketSigned
+    def __init__(self, orderFactory = None, alpha = None, k = None, timeframe = None):from marketsim.gen._out.order._curried._signedVolume_MarketSigned import signedVolume_MarketSigned as _order__curried_signedVolume_MarketSigned
         from marketsim.gen._out._const import const as _const
         from marketsim import rtti
         from marketsim import event
@@ -27,33 +25,26 @@ class RSI_linear(ISingleAssetStrategy):
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
-    def label(self):
-        return repr(self)
+    def label(self):return repr(self)
     
-    _properties = {
-        'orderFactory' : IFunction[IOrderGenerator,IFunction[float]]
+    _properties = {'orderFactory' : IFunction[IOrderGenerator,IFunction[float]]
         
         ,
         'alpha' : float,
         'k' : IObservable[float],
         'timeframe' : float
     }
-    def __repr__(self):
-        return "RSI_linear(%(orderFactory)s, %(alpha)s, %(k)s, %(timeframe)s)" % self.__dict__
+    def __repr__(self):return "RSI_linear(%(orderFactory)s, %(alpha)s, %(k)s, %(timeframe)s)" % self.__dict__
     
     _internals = ['impl']
-    def getImpl(self):
-        return _strategy_Generic(self.orderFactory(_strategy_position_RSI_linear(self.alpha,self.k,self.timeframe)))
+    def getImpl(self):return _strategy_Generic(self.orderFactory(_strategy_position_RSI_linear(self.alpha,self.k,self.timeframe)))
     
     
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
+    def bind(self, ctx):self._ctx = ctx.clone()
     
-    def reset(self):
-        self.impl = self.getImpl()
+    def reset(self):self.impl = self.getImpl()
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
-    def _send(self, order, source):
-        self.on_order_created.fire(order, self)
+    def _send(self, order, source):self.on_order_created.fire(order, self)
     

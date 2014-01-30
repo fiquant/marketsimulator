@@ -4,11 +4,9 @@ from marketsim import ISingleAssetStrategy
 from marketsim import listOf
 from marketsim import ITimeSerie
 
-class SingleAsset(_SingleAsset_Impl):
+class SingleAsset(_SingleAsset_Impl):""" 
     """ 
-    """ 
-    def __init__(self, orderBook , strategy = None, name = None, amount = None, PnL = None, timeseries = None):
-        from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
+    def __init__(self, orderBook , strategy = None, name = None, amount = None, PnL = None, timeseries = None):from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
         from marketsim import rtti
         self.orderBook = orderBook
         self.strategy = strategy if strategy is not None else _strategy_Noise()
@@ -20,11 +18,9 @@ class SingleAsset(_SingleAsset_Impl):
         _SingleAsset_Impl.__init__(self)
     
     @property
-    def label(self):
-        return repr(self)
+    def label(self):return repr(self)
     
-    _properties = {
-        'orderBook' : IOrderBook,
+    _properties = {'orderBook' : IOrderBook,
         'strategy' : ISingleAssetStrategy,
         'name' : str,
         'amount' : float,
@@ -32,6 +28,5 @@ class SingleAsset(_SingleAsset_Impl):
         'timeseries' : listOf(ITimeSerie)
         
     }
-    def __repr__(self):
-        return "%(name)s" % self.__dict__
+    def __repr__(self):return "%(name)s" % self.__dict__
     

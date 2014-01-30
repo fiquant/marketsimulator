@@ -5,11 +5,9 @@ from marketsim import ITwoWayLink
 from marketsim import listOf
 from marketsim import ITimeSerie
 @registry.expose(["Asset", "Remote"])
-class Remote(_Remote_Impl):
-    """  to the market by means of a *link* that introduces some latency in information propagation
+class Remote(_Remote_Impl):"""  to the market by means of a *link* that introduces some latency in information propagation
     """ 
-    def __init__(self, orderbook = None, link = None, timeseries = None):
-        from marketsim.gen._out.orderbook._Local import Local as _orderbook_Local
+    def __init__(self, orderbook = None, link = None, timeseries = None):from marketsim.gen._out.orderbook._Local import Local as _orderbook_Local
         from marketsim.gen._out.orderbook._TwoWayLink import TwoWayLink as _orderbook_TwoWayLink
         from marketsim import rtti
         self.orderbook = orderbook if orderbook is not None else _orderbook_Local()
@@ -19,15 +17,12 @@ class Remote(_Remote_Impl):
         _Remote_Impl.__init__(self)
     
     @property
-    def label(self):
-        return repr(self)
+    def label(self):return repr(self)
     
-    _properties = {
-        'orderbook' : IOrderBook,
+    _properties = {'orderbook' : IOrderBook,
         'link' : ITwoWayLink,
         'timeseries' : listOf(ITimeSerie)
         
     }
-    def __repr__(self):
-        return "%(orderbook)s.name^remote" % self.__dict__
+    def __repr__(self):return "%(orderbook)s.name^remote" % self.__dict__
     

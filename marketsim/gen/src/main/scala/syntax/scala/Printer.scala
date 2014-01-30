@@ -161,7 +161,6 @@ package object Printer
         }
 
         trait Package[+T <: Definition] extends Printable with Definition {
-            val parameters : List[Any]
             val members : Definitions[T]
             def attributes : Iterable[Decorator]
             val `abstract` : Boolean
@@ -172,7 +171,6 @@ package object Printer
             def toScala = (
                     (attributes map { _ + crlf } mkString "") +
                     crlf + (if (`abstract`) "abstract " else "") + "package " + getName
-                    + indent(("package " + getName).length + 1) { parameters mkString("(", ",", ")") }
                     + (bases map { " extends " + _ } mkString "")
                     + " {"
                     + indent() { members }
@@ -410,7 +408,7 @@ package object Printer
             self: Typed.Attributes =>
 
             override def toScala =
-                items map { case (name, value) => "@" + name + " = " + base.quote(value) } mkString crlf
+                items map { case (name, value) => "@" + name + " = " + base.quote(value) + crlf } mkString ""
         }
 
         trait Annotation extends base.Annotation {
@@ -504,16 +502,16 @@ package object Printer
             self: NameTable.Scope =>
 
             def content =
-                (packages.values mkString crlf) +
-                (members.values mkString crlf)
+                (packages.values map { _ +  crlf } mkString "") +
+                (members.values map { _ +  crlf } mkString "")
 
             def wrapped(name : String) =
+                crlf +
                 attributes +
-                crlf +  (if (`abstract`) "abstract " else "") +
+                        (if (`abstract`) "abstract " else "") +
                         s"package $name" +
-                        (parameters mkString ("(", ",", ")")) +
-                        (bases map {" extends " + _ } mkString "") +
-                        " {" +
+                        (bases map {" extends " + _ } mkString "") + crlf +
+                        "{" +
                         indent() { content } +
                         crlf + "}"
 

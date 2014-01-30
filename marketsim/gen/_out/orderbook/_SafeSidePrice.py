@@ -5,11 +5,9 @@ from marketsim import IOrderQueue
 from marketsim import IFunction
 from marketsim import context
 @registry.expose(["Asset", "SafeSidePrice"])
-class SafeSidePrice(Observable[Price]):
-    """   and *defaultValue* if there haven't been any trades
+class SafeSidePrice(Observable[Price]):"""   and *defaultValue* if there haven't been any trades
     """ 
-    def __init__(self, queue = None, defaultValue = None):
-        from marketsim import Price
+    def __init__(self, queue = None, defaultValue = None):from marketsim import Price
         from marketsim.ops._all import Observable
         from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
         from marketsim.gen._out._constant import constant as _constant
@@ -24,19 +22,15 @@ class SafeSidePrice(Observable[Price]):
         event.subscribe(self.impl, _(self).fire, self)
     
     @property
-    def label(self):
-        return repr(self)
+    def label(self):return repr(self)
     
-    _properties = {
-        'queue' : IOrderQueue,
+    _properties = {'queue' : IOrderQueue,
         'defaultValue' : IFunction[float]
     }
-    def __repr__(self):
-        return "SafeSidePrice(%(queue)s, %(defaultValue)s)" % self.__dict__
+    def __repr__(self):return "SafeSidePrice(%(queue)s, %(defaultValue)s)" % self.__dict__
     
     _internals = ['impl']
-    def getImpl(self):
-        from marketsim.gen._out.observable._Price import Price as _observable_Price
+    def getImpl(self):from marketsim.gen._out.observable._Price import Price as _observable_Price
         from marketsim.gen._out._IfDefined import IfDefined as _IfDefined
         from marketsim.gen._out.orderbook._BestPrice import BestPrice as _orderbook_BestPrice
         from marketsim.gen._out._IfDefined import IfDefined as _IfDefined
@@ -47,14 +41,11 @@ class SafeSidePrice(Observable[Price]):
         
         
     
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
+    def bind(self, ctx):self._ctx = ctx.clone()
     
-    def reset(self):
-        self.impl = self.getImpl()
+    def reset(self):self.impl = self.getImpl()
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
-    def __call__(self, *args, **kwargs):
-        return self.impl()
+    def __call__(self, *args, **kwargs):return self.impl()
     

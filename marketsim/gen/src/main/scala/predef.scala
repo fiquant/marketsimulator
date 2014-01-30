@@ -26,7 +26,7 @@ package object predef {
             e
         }
 
-        def apply(f : => Any) : String = apply()("\r\n" + get + f)
+        def apply(f : => Any) : String = apply()(f)
     }
 
     val indent = new Indent()

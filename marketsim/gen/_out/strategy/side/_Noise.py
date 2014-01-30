@@ -7,40 +7,31 @@ from marketsim.gen._out.side._Buy import Buy as _side_Buy
 from marketsim.gen._out._const import const as _const
 from marketsim import context
 @registry.expose(["Side function", "Noise"])
-class Noise(Function[Side]):
+class Noise(Function[Side]):""" 
     """ 
-    """ 
-    def __init__(self, side_distribution = None):
-        from marketsim.gen._out.math.random._uniform import uniform as _math_random_uniform
+    def __init__(self, side_distribution = None):from marketsim.gen._out.math.random._uniform import uniform as _math_random_uniform
         from marketsim import rtti
         self.side_distribution = side_distribution if side_distribution is not None else _math_random_uniform(0.0,1.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
     
     @property
-    def label(self):
-        return repr(self)
+    def label(self):return repr(self)
     
-    _properties = {
-        'side_distribution' : IFunction[float]
+    _properties = {'side_distribution' : IFunction[float]
     }
-    def __repr__(self):
-        return "Noise(%(side_distribution)s)" % self.__dict__
+    def __repr__(self):return "Noise(%(side_distribution)s)" % self.__dict__
     
     _internals = ['impl']
-    def getImpl(self):
-        return (self.side_distribution>_const(0.5))[_side_Sell(), _side_Buy()]
+    def getImpl(self):return (self.side_distribution>_const(0.5))[_side_Sell(), _side_Buy()]
     
     
     
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
+    def bind(self, ctx):self._ctx = ctx.clone()
     
-    def reset(self):
-        self.impl = self.getImpl()
+    def reset(self):self.impl = self.getImpl()
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
-    def __call__(self, *args, **kwargs):
-        return self.impl()
+    def __call__(self, *args, **kwargs):return self.impl()
     

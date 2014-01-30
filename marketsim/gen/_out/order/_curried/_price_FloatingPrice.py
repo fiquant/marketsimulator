@@ -8,14 +8,12 @@ from marketsim import IFunction
 @registry.expose(["Order", "FloatingPrice"])
 class price_FloatingPrice(
 
-IFunction[IOrderGenerator,IFunction[float]]):
-    """ 
+IFunction[IOrderGenerator,IFunction[float]]):""" 
       Floating price order is initialized by an order having a price and an observable that generates new prices.
       When the observable value changes the order is cancelled and
       a new order with new price is created and sent to the order book.
     """ 
-    def __init__(self, floatingPrice = None, proto = None):
-        from marketsim.gen._out._const import const as _const
+    def __init__(self, floatingPrice = None, proto = None):from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.order._curried._price_Limit import price_Limit as _order__curried_price_Limit
         from marketsim import rtti
         self.floatingPrice = floatingPrice if floatingPrice is not None else _const(10.0)
@@ -23,18 +21,14 @@ IFunction[IOrderGenerator,IFunction[float]]):
         rtti.check_fields(self)
     
     @property
-    def label(self):
-        return repr(self)
+    def label(self):return repr(self)
     
-    _properties = {
-        'floatingPrice' : IObservable[float],
+    _properties = {'floatingPrice' : IObservable[float],
         'proto' : IFunction[IOrderGenerator, IFunction[float]]
     }
-    def __repr__(self):
-        return "price_FloatingPrice(%(floatingPrice)s, %(proto)s)" % self.__dict__
+    def __repr__(self):return "price_FloatingPrice(%(floatingPrice)s, %(proto)s)" % self.__dict__
     
-    def __call__(self, price = None):
-        from marketsim.gen._out.order._FloatingPrice import FloatingPrice
+    def __call__(self, price = None):from marketsim.gen._out.order._FloatingPrice import FloatingPrice
         floatingPrice = self.floatingPrice
         proto = self.proto
         return FloatingPrice(floatingPrice, proto(price))

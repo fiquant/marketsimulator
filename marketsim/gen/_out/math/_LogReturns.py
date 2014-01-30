@@ -5,11 +5,9 @@ from marketsim.gen._out.math._Log import Log as _math_Log
 from marketsim.gen._out.math._Lagged import Lagged as _math_Lagged
 from marketsim import context
 @registry.expose(["Basic", "LogReturns"])
-class LogReturns(Function[float]):
+class LogReturns(Function[float]):""" 
     """ 
-    """ 
-    def __init__(self, x = None, timeframe = None):
-        from marketsim.gen._out._const import const as _const
+    def __init__(self, x = None, timeframe = None):from marketsim.gen._out._const import const as _const
         from marketsim import rtti
         self.x = x if x is not None else _const()
         self.timeframe = timeframe if timeframe is not None else 10.0
@@ -17,29 +15,22 @@ class LogReturns(Function[float]):
         self.impl = self.getImpl()
     
     @property
-    def label(self):
-        return repr(self)
+    def label(self):return repr(self)
     
-    _properties = {
-        'x' : IObservable[float],
+    _properties = {'x' : IObservable[float],
         'timeframe' : float
     }
-    def __repr__(self):
-        return "LogReturns_{%(timeframe)s}(%(x)s)" % self.__dict__
+    def __repr__(self):return "LogReturns_{%(timeframe)s}(%(x)s)" % self.__dict__
     
     _internals = ['impl']
-    def getImpl(self):
-        return _math_Log(self.x/_math_Lagged(self.x,self.timeframe))
+    def getImpl(self):return _math_Log(self.x/_math_Lagged(self.x,self.timeframe))
     
     
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
+    def bind(self, ctx):self._ctx = ctx.clone()
     
-    def reset(self):
-        self.impl = self.getImpl()
+    def reset(self):self.impl = self.getImpl()
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
-    def __call__(self, *args, **kwargs):
-        return self.impl()
+    def __call__(self, *args, **kwargs):return self.impl()
     

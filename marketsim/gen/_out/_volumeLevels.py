@@ -4,11 +4,9 @@ from marketsim import IVolumeLevels
 from marketsim import IGraph
 from marketsim import listOf
 
-class volumeLevels(_VolumeLevels_Impl):
-    """  Level of volume V is a price at which cumulative volume of better orders is V
+class volumeLevels(_VolumeLevels_Impl):"""  Level of volume V is a price at which cumulative volume of better orders is V
     """ 
-    def __init__(self, source , graph = None, _digitsToShow = None, _smooth = None, _volumes = None, _isBuy = None):
-        from marketsim.gen._out.veusz._Graph import Graph as _veusz_Graph
+    def __init__(self, source , graph = None, _digitsToShow = None, _smooth = None, _volumes = None, _isBuy = None):from marketsim.gen._out.veusz._Graph import Graph as _veusz_Graph
         from marketsim import rtti
         self.source = source
         self.graph = graph if graph is not None else _veusz_Graph()
@@ -20,11 +18,9 @@ class volumeLevels(_VolumeLevels_Impl):
         _VolumeLevels_Impl.__init__(self)
     
     @property
-    def label(self):
-        return repr(self)
+    def label(self):return repr(self)
     
-    _properties = {
-        'source' : IFunction[IVolumeLevels]
+    _properties = {'source' : IFunction[IVolumeLevels]
         ,
         'graph' : IGraph,
         '_digitsToShow' : int,
@@ -32,6 +28,5 @@ class volumeLevels(_VolumeLevels_Impl):
         '_volumes' : listOf(float),
         '_isBuy' : int
     }
-    def __repr__(self):
-        return "%(source)s" % self.__dict__
+    def __repr__(self):return "%(source)s" % self.__dict__
     

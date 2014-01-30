@@ -4,11 +4,9 @@ from marketsim.ops._all import Observable
 from marketsim import IAccount
 from marketsim import context
 @registry.expose(["Trader", "Efficiency"])
-class Efficiency(Observable[float]):
+class Efficiency(Observable[float]):""" 
     """ 
-    """ 
-    def __init__(self, trader = None):
-        from marketsim import float
+    def __init__(self, trader = None):from marketsim import float
         from marketsim.ops._all import Observable
         from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim import rtti
@@ -21,18 +19,14 @@ class Efficiency(Observable[float]):
         event.subscribe(self.impl, _(self).fire, self)
     
     @property
-    def label(self):
-        return repr(self)
+    def label(self):return repr(self)
     
-    _properties = {
-        'trader' : IAccount
+    _properties = {'trader' : IAccount
     }
-    def __repr__(self):
-        return "Efficiency(%(trader)s)" % self.__dict__
+    def __repr__(self):return "Efficiency(%(trader)s)" % self.__dict__
     
     _internals = ['impl']
-    def getImpl(self):
-        from marketsim.gen._out.observable._Float import Float as _observable_Float
+    def getImpl(self):from marketsim.gen._out.observable._Float import Float as _observable_Float
         from marketsim.gen._out.trader._Balance import Balance as _trader_Balance
         from marketsim.gen._out.orderbook._CumulativePrice import CumulativePrice as _orderbook_CumulativePrice
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
@@ -43,14 +37,11 @@ class Efficiency(Observable[float]):
         
         
     
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
+    def bind(self, ctx):self._ctx = ctx.clone()
     
-    def reset(self):
-        self.impl = self.getImpl()
+    def reset(self):self.impl = self.getImpl()
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
-    def __call__(self, *args, **kwargs):
-        return self.impl()
+    def __call__(self, *args, **kwargs):return self.impl()
     

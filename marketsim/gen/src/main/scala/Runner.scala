@@ -18,10 +18,9 @@ object Runner extends syntax.scala.Parser {
         def printerFor(ext : String) = new PrintWriter(path.replace(".sc", ext).replace("defs", ".parsed"))
 
         (managed(io.Source fromFile path) and
-         managed(printerFor(".raw")) and
-         managed(printerFor(".1.sc")) map {
+         managed(printerFor(".raw")) map {
 
-            case ((input, raw_output), pp_output) => Nil
+            case (input, raw_output) => Nil
                 val in = input.mkString
 
                 parseAll(definitions, in) match {
@@ -33,17 +32,17 @@ object Runner extends syntax.scala.Parser {
                                     println(s"input: in")
                                     println(s"parsed: $result")
                                     println(s"re-parsed: $result2")
+                                    managed(printerFor(".reparsed.sc")) map
+                                            { _.println(pp) }
                                 }
                             }
                             case x => println(x)
                         }
                         raw_output.println(result.treeString)
-                        pp_output.println(pp)
                         Some(result)
                     }
                     case x =>
                         raw_output.println(x)
-                        pp_output.println(x)
                         println(x)
                         None
                 }

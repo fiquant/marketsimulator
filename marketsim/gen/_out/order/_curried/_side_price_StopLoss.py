@@ -16,15 +16,13 @@ class side_price_StopLoss(
 
 
 
-IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
-    """ 
+IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):""" 
       StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
       It keeps track of position and balance change induced by trades of the underlying order and
       if losses from keeping the position exceed certain limit (given by maximum loss factor),
       the meta order clears its position.
     """ 
-    def __init__(self, maxloss = None, proto = None):
-        from marketsim.gen._out._constant import constant as _constant
+    def __init__(self, maxloss = None, proto = None):from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._curried._side_price_Limit import side_price_Limit as _order__curried_side_price_Limit
         from marketsim import rtti
         self.maxloss = maxloss if maxloss is not None else _constant(0.1)
@@ -32,19 +30,15 @@ IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
         rtti.check_fields(self)
     
     @property
-    def label(self):
-        return repr(self)
+    def label(self):return repr(self)
     
-    _properties = {
-        'maxloss' : IFunction[float],
+    _properties = {'maxloss' : IFunction[float],
         'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]
         ]
     }
-    def __repr__(self):
-        return "side_price_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
+    def __repr__(self):return "side_price_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
     
-    def __call__(self, side = None):
-        from marketsim.gen._out.order._curried._price_StopLoss import price_StopLoss
+    def __call__(self, side = None):from marketsim.gen._out.order._curried._price_StopLoss import price_StopLoss
         maxloss = self.maxloss
         proto = self.proto
         return price_StopLoss(maxloss, proto(side))

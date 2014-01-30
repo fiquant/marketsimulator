@@ -5,11 +5,9 @@ from marketsim import IObservable
 from marketsim import ISingleAssetTrader
 from marketsim import context
 @registry.expose(["Volume function", "DesiredPosition"])
-class DesiredPosition(Observable[Volume]):
+class DesiredPosition(Observable[Volume]):""" 
     """ 
-    """ 
-    def __init__(self, desiredPosition = None, trader = None):
-        from marketsim import Volume
+    def __init__(self, desiredPosition = None, trader = None):from marketsim import Volume
         from marketsim.ops._all import Observable
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
@@ -24,33 +22,26 @@ class DesiredPosition(Observable[Volume]):
         event.subscribe(self.impl, _(self).fire, self)
     
     @property
-    def label(self):
-        return repr(self)
+    def label(self):return repr(self)
     
-    _properties = {
-        'desiredPosition' : IObservable[float],
+    _properties = {'desiredPosition' : IObservable[float],
         'trader' : ISingleAssetTrader
     }
-    def __repr__(self):
-        return "DesiredPosition(%(desiredPosition)s, %(trader)s)" % self.__dict__
+    def __repr__(self):return "DesiredPosition(%(desiredPosition)s, %(trader)s)" % self.__dict__
     
     _internals = ['impl']
-    def getImpl(self):
-        from marketsim.gen._out.observable._Volume import Volume as _observable_Volume
+    def getImpl(self):from marketsim.gen._out.observable._Volume import Volume as _observable_Volume
         from marketsim.gen._out.trader._Position import Position as _trader_Position
         from marketsim.gen._out.trader._PendingVolume import PendingVolume as _trader_PendingVolume
         return _observable_Volume(self.desiredPosition-_trader_Position(self.trader)-_trader_PendingVolume(self.trader))
         
         
     
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
+    def bind(self, ctx):self._ctx = ctx.clone()
     
-    def reset(self):
-        self.impl = self.getImpl()
+    def reset(self):self.impl = self.getImpl()
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
-    def __call__(self, *args, **kwargs):
-        return self.impl()
+    def __call__(self, *args, **kwargs):return self.impl()
     
