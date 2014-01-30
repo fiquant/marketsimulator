@@ -1,0 +1,443 @@
+Definitions:
+- List:
+| - PackageDef:
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - math
+| | - List:
+| | - Definitions:
+| | | - List:
+| | | | - PackageDef:
+| | | | | - None
+| | | | | - List:
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - Sqr
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Mul
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - x
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - x
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Square of *x*
+| | | | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - {%(x)s}^2
+| | | | | | | - FunDef:
+| | | | | | | | - Exp
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Exponent of *x*
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - mathops
+| | | | | | | | | | - List:
+| | | | | | | | | | | - exp
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - e^{%(x)s}
+| | | | | | | - FunDef:
+| | | | | | | | - Log
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Natural logarithm of *x* (to base e)
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - mathops
+| | | | | | | | | | - List:
+| | | | | | | | | | | - log
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - log(%(x)s)
+| | | | | | | - FunDef:
+| | | | | | | | - Sqrt
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Square root of *x*
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - mathops
+| | | | | | | | | | - List:
+| | | | | | | | | | | - sqrt
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - \\sqrt{%(x)s}
+| | | | | | | - FunDef:
+| | | | | | | | - Pow
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - base
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - power
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Return *x* raised to the power *y*.
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | | | | -  Exceptional cases follow Annex F of the C99 standard as far as possible.
+| | | | | | | | | | | -  In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,
+| | | | | | | | | | | -  even when *x* is a zero or a NaN.
+| | | | | | | | | | | -  If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
+| | | | | | | | | | | -  ``pow(x, y)`` is undefined, and raises ``ValueError``.
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - mathops
+| | | | | | | | | | - List:
+| | | | | | | | | | | - pow
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - %(base)s^{%(power)s}
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Log/Pow
+| | | | | - List:
+| | | | | - false
+| | | | - PackageDef:
+| | | | | - None
+| | | | | - List:
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - Min
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - y
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - IfThenElse:
+| | | | | | | | | | - Condition:
+| | | | | | | | | | | - Less
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - x
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - y
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - x
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - y
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Function returning minimum of two functions *x* and *y*.
+| | | | | | | | | | - List:
+| | | | | | | | | | | -  If *x* or/and *y* are observables, *Min* is also observable
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - min{%(x)s, %(y)s}
+| | | | | | | - FunDef:
+| | | | | | | | - Max
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - y
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - IfThenElse:
+| | | | | | | | | | - Condition:
+| | | | | | | | | | | - Greater
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - x
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - y
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - x
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - y
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Function returning maximum of two functions *x* and *y*.
+| | | | | | | | | | - List:
+| | | | | | | | | | | -  If *x* or/and *y* are observables, *Min* is also observable
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - max{%(x)s, %(y)s}
+| | | | | | | - FunDef:
+| | | | | | | | - Derivative
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - Cast:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - math
+| | | | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IDifferentiable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Function returning first derivative on time of *x*
+| | | | | | | | | | - List:
+| | | | | | | | | | | -  *x* should provide *derivative* member
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | - List:
+| | | | | | | | | | | - observable.derivative._Derivative_Impl
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - \\frac{d%(x)s}{dt}
+| | | | | - List:
+| | | | | - List:
+| | | | | - false
+| | | | - PackageDef:
+| | | | | - None
+| | | | | - List:
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - Atan
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 0.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunctionType:
+| | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Arc tangent of x, in radians.
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - mathops
+| | | | | | | | | | - List:
+| | | | | | | | | | | - atan
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - Trigonometric
+| | | | | - List:
+| | | | | - false
+| | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Basic
+| | - List:
+| | - false

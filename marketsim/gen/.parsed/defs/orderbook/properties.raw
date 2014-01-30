@@ -1,0 +1,981 @@
+Definitions:
+- List:
+| - PackageDef:
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - orderbook
+| | - List:
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Queue
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - book
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - OfTrader
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - side
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Sell
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IOrderQueue
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns order queue of order *book* for trade *side*
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.proxy._Queue_Impl
+| | | | - FunDef:
+| | | | | - Asks
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - book
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - OfTrader
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Queue
+| | | | | | | - List:
+| | | | | | | | - Var:
+| | | | | | | | | - book
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Sell
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns sell side order queue for *book*
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.proxy._Asks_Impl
+| | | | - FunDef:
+| | | | | - Bids
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - book
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - OfTrader
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Queue
+| | | | | | | - List:
+| | | | | | | | - Var:
+| | | | | | | | | - book
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Buy
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns buy side order queue for *book*
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.proxy._Bids_Impl
+| | | | - FunDef:
+| | | | | - BestPrice
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - queue
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Asks
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Price
+| | | | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns best order price of *queue*
+| | | | | | | - List:
+| | | | | | | | -   Returns None is *queue* is empty
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.props._BestPrice_Impl
+| | | | - FunDef:
+| | | | | - LastPrice
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - queue
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Asks
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Price
+| | | | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns last defined price at *queue*
+| | | | | | | - List:
+| | | | | | | | -   Returns None is *queue* has been always empty
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.last_price._LastPrice_Impl
+| | | | - FunDef:
+| | | | | - LastTradePrice
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - queue
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Asks
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Price
+| | | | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns price of the last trade at *queue*
+| | | | | | | - List:
+| | | | | | | | -   Returns None if there haven't been any trades
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.last_trade._LastTradePrice_Impl
+| | | | - FunDef:
+| | | | | - LastTradeVolume
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - queue
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Asks
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Volume
+| | | | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns volume of the last trade at *queue*
+| | | | | | | - List:
+| | | | | | | | -   Returns None if there haven't been any trades
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.last_trade._LastTradeVolume_Impl
+| | | | - FunDef:
+| | | | | - SafeSidePrice
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - queue
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Asks
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - defaultValue
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 100.0
+| | | | | | | - List:
+| | | | | | | | -  price to be used if there haven't been any trades 
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - observable
+| | | | | | | | | - Price
+| | | | | | | - List:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IfDefined
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - BestPrice
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - queue
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - IfDefined
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - LastPrice
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - queue
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - defaultValue
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns best price if defined, otherwise last price
+| | | | | | | - List:
+| | | | | | | | -   and *defaultValue* if there haven't been any trades
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | - FunDef:
+| | | | | - WeightedPrice
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - queue
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Asks
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - alpha
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.15
+| | | | | | | - List:
+| | | | | | | | -  parameter alpha for the moving average  
+| | | | | - Some:
+| | | | | | - BinOp:
+| | | | | | | - Div
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - math
+| | | | | | | | | | - EW
+| | | | | | | | | | - Avg
+| | | | | | | | - List:
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Mul
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - LastTradePrice
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - queue
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - LastTradeVolume
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - queue
+| | | | | | | | | - Var:
+| | | | | | | | | | - alpha
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - math
+| | | | | | | | | | - EW
+| | | | | | | | | | - Avg
+| | | | | | | | - List:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - LastTradeVolume
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - queue
+| | | | | | | | | - Var:
+| | | | | | | | | | - alpha
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns moving average of trade prices weighted by their volumes
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Price_{%(alpha)s}^{%(queue)s}
+| | | | - FunDef:
+| | | | | - TickSize
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - book
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - OfTrader
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FunctionType:
+| | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Price
+| | | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns tick size for the order *book*
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.props._TickSize_Impl
+| | | | - FunDef:
+| | | | | - Spread
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - book
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - OfTrader
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - observable
+| | | | | | | | | - Price
+| | | | | | | - List:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Sub
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - ask
+| | | | | | | | | | | | - Price
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - book
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - bid
+| | | | | | | | | | | | - Price
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - book
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Spread of order *book*
+| | | | | | | - List:
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - MidPrice
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - book
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - OfTrader
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - observable
+| | | | | | | | | - Price
+| | | | | | | - List:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Div
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Add
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - ask
+| | | | | | | | | | | | | - Price
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - book
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - bid
+| | | | | | | | | | | | | - Price
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - book
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 2.0
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - MidPrice of order *book*
+| | | | | | | - List:
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - CumulativePrice
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - book
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - OfTrader
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - depth
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Price
+| | | | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns price for best orders of total volume *depth*
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | | | | -   In other words cumulative price corresponds to trader balance change
+| | | | | | | | -   if a market order of volume *depth* is completely matched
+| | | | | | | | - 
+| | | | | | | | -   Negative *depth* correponds to will buy assets
+| | | | | | | | -   Positive *depth* correponds to will sell assets
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.cumulative_price.CumulativePrice_Impl
+| | | | - FunDef:
+| | | | | - NaiveCumulativePrice
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - book
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - OfTrader
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - depth
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - observable
+| | | | | | | | | - Price
+| | | | | | | - List:
+| | | | | | | | - IfThenElse:
+| | | | | | | | | - Condition:
+| | | | | | | | | | - Less
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - depth
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 0.0
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Mul
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - depth
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - ask
+| | | | | | | | | | | | | - Price
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - book
+| | | | | | | | | - IfThenElse:
+| | | | | | | | | | - Condition:
+| | | | | | | | | | | - Greater
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - depth
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 0.0
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Mul
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - depth
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - bid
+| | | | | | | | | | | | | | - Price
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - book
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 0.0
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns naive approximation of price for best orders of total volume *depth*
+| | | | | | | - List:
+| | | | | | | | -   by taking into account prices only for the best order
+| | | | | | | | - 
+| | | | | | | | -   Negative *depth* correponds to will buy assets
+| | | | | | | | -   Positive *depth* correponds to will sell assets
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - VolumeLevels
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - queue
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Asks
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - volumeDelta
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 30.0
+| | | | | | | - List:
+| | | | | | | | -  distance between two volumes 
+| | | | | | - Parameter:
+| | | | | | | - volumeCount
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - IntLit:
+| | | | | | | | | - 10
+| | | | | | | - List:
+| | | | | | | | -  number of volume levels to track 
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IVolumeLevels
+| | | | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns arrays of levels for given volumes [i*volumeDelta for i in range(0, volumeCount)]
+| | | | | | | - List:
+| | | | | | | | -   Level of volume V is a price at which cumulative volume of better orders is V
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.volume_levels.VolumeLevels_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - VolumeLevels(%(queue)s)
+| | | | - PackageDef:
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - _base_impl
+| | | | | - List:
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - Price
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - book
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - BestPrice
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - _queue
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - book
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - {{queue}}
+| | | | | | | - FunDef:
+| | | | | | | | - LastPrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - book
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | - LastPrice
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - _queue
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - book
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Last({{queue}})
+| | | | | | | - FunDef:
+| | | | | | | | - LastTradePrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - book
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | - LastTradePrice
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - _queue
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - book
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - LastTrade({{queue}})
+| | | | | | | - FunDef:
+| | | | | | | | - LastTradeVolume
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - book
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | - LastTradeVolume
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - _queue
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - book
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - LastTradeVolume({{queue}})
+| | | | | | | - FunDef:
+| | | | | | | | - WeightedPrice
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - book
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - alpha
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 0.15
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | - WeightedPrice
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - _queue
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - book
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - alpha
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - [{{queue}}]_{%(alpha)s}
+| | | | | - List:
+| | | | | - List:
+| | | | | - true
+| | | | - PackageDef:
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - ask
+| | | | | - List:
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - FunAlias:
+| | | | | | | | - _queue
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Asks
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - queue
+| | | | | | | - Ask_{%(book)s}
+| | | | | - List:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - _base_impl
+| | | | | - false
+| | | | - PackageDef:
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - bid
+| | | | | - List:
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - FunAlias:
+| | | | | | | | - _queue
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Bids
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - queue
+| | | | | | | - Bid^{%(book)s}
+| | | | | - List:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - _base_impl
+| | | | | - false
+| | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Asset
+| | - List:
+| | - false

@@ -7,17 +7,19 @@ object Runner extends syntax.scala.Parser {
 
     def parse(file : File) : Option[AST.Definitions] = {
 
-        val target_dir = new File(file.getPath.replace("defs", ".parsed")).getParentFile
+        def parsedPath(file : File) = ".parsed/" + file
+
+        val target_dir = parsedPath(file.getParentFile)
 
         mkdir(target_dir)
 
-        val path = file.getPath
+        val path = parsedPath(file)
 
         //println("parsing " + file.getPath)
 
-        def printerFor(ext : String) = new PrintWriter(path.replace(".sc", ext).replace("defs", ".parsed"))
+        def printerFor(ext : String) = new PrintWriter(path.replace(".sc", ext))
 
-        (managed(io.Source fromFile path) and
+        (managed(io.Source fromFile file) and
          managed(printerFor(".raw")) map {
 
             case (input, raw_output) => Nil
@@ -32,7 +34,7 @@ object Runner extends syntax.scala.Parser {
                                     println(s"input: in")
                                     println(s"parsed: $result")
                                     println(s"re-parsed: $result2")
-                                    managed(printerFor(".reparsed.sc")) map
+                                    managed(printerFor(".re-parsed.sc")) map
                                             { _.println(pp) }
                                 }
                             }

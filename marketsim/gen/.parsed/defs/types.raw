@@ -1,0 +1,211 @@
+Definitions:
+- List:
+| - Interface:
+| | - Optional
+| | - Generics:
+| | | - List:
+| | | | - T
+| | - List:
+| - Interface:
+| | - List
+| | - Generics:
+| | | - List:
+| | | | - T
+| | - List:
+| - Interface:
+| | - Any
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - String
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - Boolean
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - Float
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - Int
+| | - Generics:
+| | | - List:
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Float
+| | | | - List:
+| - Interface:
+| | - Volume
+| | - Generics:
+| | | - List:
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Int
+| | | | - List:
+| - Interface:
+| | - Price
+| | - Generics:
+| | | - List:
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Float
+| | | | - List:
+| - Alias:
+| | - IFunction
+| | - Generics:
+| | | - List:
+| | | | - T
+| | - FunctionType:
+| | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - T
+| | | | - List:
+| - Interface:
+| | - IEvent
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - IObservable
+| | - Generics:
+| | | - List:
+| | | | - U
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction
+| | | | - List:
+| | | | | - SimpleType:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - U
+| | | | | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IEvent
+| | | | - List:
+| - Interface:
+| | - IOrderQueue
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - IOrderBook
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - ILink
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - ITwoWayLink
+| | - Generics:
+| | | - List:
+| | - List:
+| - Alias:
+| | - IOrderGenerator
+| | - Generics:
+| | | - List:
+| | - SimpleType:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - IObservable
+| | | - List:
+| | | | - SimpleType:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - Order
+| | | | | - List:
+| - Interface:
+| | - ITrader
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - IAccount
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - ISingleAssetTrader
+| | - Generics:
+| | | - List:
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IAccount
+| | | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - ITrader
+| | | | - List:
+| - Interface:
+| | - IDifferentiable
+| | - Generics:
+| | | - List:
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction
+| | | | - List:
+| | | | | - SimpleType:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - Float
+| | | | | | - List:
+| - Interface:
+| | - CandleStick
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - IVolumeLevels
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - Order
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - ISingleAssetStrategy
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - IMultiAssetStrategy
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - IGraph
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - ITimeSerie
+| | - Generics:
+| | | - List:
+| | - List:

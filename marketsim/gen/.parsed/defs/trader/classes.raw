@@ -1,0 +1,224 @@
+Definitions:
+- List:
+| - PackageDef:
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - trader
+| | - List:
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - SingleAsset
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - orderBook
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IOrderBook
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | | | | -  order book for the asset being traded 
+| | | | | | - Parameter:
+| | | | | | | - strategy
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - strategy
+| | | | | | | | | | | - Noise
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  strategy run by the trader 
+| | | | | | - Parameter:
+| | | | | | | - name
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - StringLit:
+| | | | | | | | | - -trader-
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - amount
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.0
+| | | | | | | - List:
+| | | | | | | | -  current position of the trader (number of assets that it owns) 
+| | | | | | - Parameter:
+| | | | | | | - PnL
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.0
+| | | | | | | - List:
+| | | | | | | | -  current trader balance (number of money units that it owns) 
+| | | | | | - Parameter:
+| | | | | | | - timeseries
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - List_:
+| | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - List
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ITimeSerie
+| | | | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  defines what data should be gathered for the trader 
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetTrader
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - A trader that trades a single asset on a single market
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - trader.classes._SingleAsset_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - %(name)s
+| | | | - FunDef:
+| | | | | - MultiAsset
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - traders
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - List_:
+| | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - List
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ISingleAssetTrader
+| | | | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  defines accounts for every asset to trade 
+| | | | | | - Parameter:
+| | | | | | | - strategy
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - strategy
+| | | | | | | | | | | - Arbitrage
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  multi asset strategy run by the trader 
+| | | | | | - Parameter:
+| | | | | | | - name
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - StringLit:
+| | | | | | | | | - -trader-
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - PnL
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.0
+| | | | | | | - List:
+| | | | | | | | -  current trader balance (number of money units that it owns) 
+| | | | | | - Parameter:
+| | | | | | | - timeseries
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - List_:
+| | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - List
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ITimeSerie
+| | | | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  defines what data should be gathered for the trader 
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ITrader
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - A trader that trades different assets
+| | | | | | | - List:
+| | | | | | | | -   It can be considered as a composition of single asset traders and multi asset strategies
+| | | | | | | | -   At the moment there is no way to instruct a multi asset strategy to trade only on subset of the assets
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - trader.classes._MultiAsset_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - %(name)s
+| | | | - FunDef:
+| | | | | - SingleProxy
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetTrader
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Phantom trader that is used to refer to the current trader
+| | | | | | | - List:
+| | | | | | | | -   (normally it is used to define trader properties and strategies)
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - trader.proxy._Single_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - N/A
+| | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Trader
+| | - List:
+| | - false

@@ -1,0 +1,88 @@
+Definitions:
+- List:
+| - PackageDef:
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - math
+| | - List:
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - RandomWalk
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - initialValue
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.0
+| | | | | | | - List:
+| | | | | | | | -  initial value of the signal 
+| | | | | | - Parameter:
+| | | | | | | - deltaDistr
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - random
+| | | | | | | | | | | - normalvariate
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 0.0
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | | | -  increment function 
+| | | | | | - Parameter:
+| | | | | | | - intervalDistr
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - random
+| | | | | | | | | | | - expovariate
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | | | -  intervals between signal updates 
+| | | | | | - Parameter:
+| | | | | | | - name
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - StringLit:
+| | | | | | | | | - -random-
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - A discrete signal with user-defined increments.
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - observable.randomwalk._RandomWalk_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - %(name)s
+| | - List:
+| | - List:
+| | - false

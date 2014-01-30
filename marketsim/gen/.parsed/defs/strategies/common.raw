@@ -1,0 +1,227 @@
+Definitions:
+- List:
+| - PackageDef:
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - strategy
+| | - List:
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Generic
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - orderFactory
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - order
+| | | | | | | | | | | - Limit
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  order factory function
+| | | | | | - Parameter:
+| | | | | | | - eventGen
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - event
+| | | | | | | | | | | - Every
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  Event source making the strategy to wake up
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Generic strategy that wakes up on events given by *eventGen*,
+| | | | | | | - List:
+| | | | | | | | -   creates an order via *orderFactory* and sends the order to the market using its trader
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.generic._Generic_Impl
+| | | | - FunDef:
+| | | | | - Combine
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - A
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Noise
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - B
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Noise
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Creates a strategy combining two strategies
+| | | | | | | - List:
+| | | | | | | | -   Can be considered as a particular case of Array strategy
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.combine._Combine_Impl
+| | | | - FunDef:
+| | | | | - Array
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - strategies
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - List_:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Noise
+| | | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  strategies to combine 
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Creates a strategy combining an array of strategies
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.combine._Array_Impl
+| | | | - FunDef:
+| | | | | - Canceller
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - cancellationIntervalDistr
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - math
+| | | | | | | | | | | - random
+| | | | | | | | | | | - expovariate
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | | | -  intervals between order cancellations 
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Strategy that listens to all orders sent by a trader to the market
+| | | | | | | - List:
+| | | | | | | | -   and in some moments of time it randomly chooses an order and cancels it
+| | | | | | | | -   Note: a similar effect can be obtained using order.WithExpiry meta orders
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.canceller._Canceller_Impl
+| | | | - FunDef:
+| | | | | - Empty
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Empty strategy doing nothing
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.basic._Empty_Impl
+| | | | - FunDef:
+| | | | | - Arbitrage
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IMultiAssetStrategy
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Strategy for a multi asset trader.
+| | | | | | | - List:
+| | | | | | | | -  It believes that these assets represent a single asset traded on different venues
+| | | | | | | | -  Once an ask at one venue becomes lower than a bid at another venue
+| | | | | | | | -  it sends market sell and buy orders in order to exploit this arbitrage possibility
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.arbitrage._Arbitrage_Impl
+| | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Strategy
+| | - List:
+| | - false

@@ -1,0 +1,301 @@
+Definitions:
+- List:
+| - PackageDef:
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - orderbook
+| | - List:
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Local
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - tickSize
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.01
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - _digitsToShow
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - IntLit:
+| | | | | | | | | - 2
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - name
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - StringLit:
+| | | | | | | | | - -orderbook-
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - timeseries
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - List_:
+| | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - List
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ITimeSerie
+| | | | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IOrderBook
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Order book for a single asset in a market.
+| | | | | | | - List:
+| | | | | | | | -  Maintains two order queues for orders of different sides
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.local._Local_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - %(name)s
+| | | | - FunDef:
+| | | | | - Remote
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - orderbook
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Local
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - link
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - TwoWayLink
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - timeseries
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - List_:
+| | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - List
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ITimeSerie
+| | | | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IOrderBook
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Represent an *orderbook* from point of view of a remote trader connected
+| | | | | | | - List:
+| | | | | | | | -  to the market by means of a *link* that introduces some latency in information propagation
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.remote._Remote_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - %(orderbook)s.name^remote
+| | | | - FunDef:
+| | | | | - Link
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - latency
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 0.001
+| | | | | | | - List:
+| | | | | | | | -  function called for each packet in order to determine
+| | | | | | | | -  when it will appear at the end point
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ILink
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Represents latency in information propagation from one agent to another one
+| | | | | | | - List:
+| | | | | | | | -  (normally between a trader and a market).
+| | | | | | | | -  Ensures that sending packets via a link preserves their order.
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.link._Link_Impl
+| | | | - FunDef:
+| | | | | - TwoWayLink
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - up
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Link
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  Forward link (normally from a trader to a market)
+| | | | | | - Parameter:
+| | | | | | | - down
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Link
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  Backward link (normally from a market to a trader)
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ITwoWayLink
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Represents latency in information propagation between two agents
+| | | | | | | - List:
+| | | | | | | | -  (normally between a trader and a market).
+| | | | | | | | -  Ensures that sending packets via links preserves their order.
+| | | | | | | | -  Holds two one-way links in opposite directions.
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.link._TwoWayLink_Impl
+| | | | - FunDef:
+| | | | | - OfTrader
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - Trader
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - trader
+| | | | | | | | | | | | - SingleProxy
+| | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IAccount
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IOrderBook
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Phantom orderbook used to refer to the order book associated with a single asset trader
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | | | | -   May be used only in objects that are held by traders (so it is used in trader properties and strategies)
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.of_trader._OfTrader_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - N/A
+| | | | - FunDef:
+| | | | | - Proxy
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IOrderBook
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Phantom orderbook that is used to refer to the current order book
+| | | | | | | - List:
+| | | | | | | | - 
+| | | | | | | | -   May be used only in objects held by orderbooks (so it is normally used in orderbook properties)
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.of_trader._Proxy_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - N/A
+| | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - Asset
+| | - List:
+| | - false

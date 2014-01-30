@@ -1,0 +1,709 @@
+Definitions:
+- List:
+| - PackageDef:
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - strategy
+| | - List:
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Noise
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - eventGen
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - event
+| | | | | | | | | | | - Every
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - math
+| | | | | | | | | | | | | - random
+| | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | | | -  Event source making the strategy to wake up
+| | | | | | - Parameter:
+| | | | | | | - orderFactory
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - order
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Market
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  order factory function
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Generic
+| | | | | | | - List:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderFactory
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - Noise
+| | | | | | | | | | | - List:
+| | | | | | | | - Var:
+| | | | | | | | | - eventGen
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
+| | | | | | | - List:
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - Signal
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - eventGen
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - event
+| | | | | | | | | | | - Every
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - math
+| | | | | | | | | | | | | - random
+| | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | | | -  Event source making the strategy to wake up
+| | | | | | - Parameter:
+| | | | | | | - orderFactory
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - order
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Market
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  order factory function
+| | | | | | - Parameter:
+| | | | | | | - signal
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 0.0
+| | | | | | | - List:
+| | | | | | | | -  signal to be listened to 
+| | | | | | - Parameter:
+| | | | | | | - threshold
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.7
+| | | | | | | - List:
+| | | | | | | | -  threshold when the trader starts to act 
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Generic
+| | | | | | | - List:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderFactory
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - Signal
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - signal
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - threshold
+| | | | | | | | - Var:
+| | | | | | | | | - eventGen
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Signal strategy listens to some discrete signal
+| | | | | | | - List:
+| | | | | | | | -  and when the signal becomes more than some threshold the strategy starts to buy.
+| | | | | | | | -  When the signal gets lower than -threshold the strategy starts to sell.
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - TrendFollower
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - eventGen
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - event
+| | | | | | | | | | | - Every
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - math
+| | | | | | | | | | | | | - random
+| | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | | | -  Event source making the strategy to wake up
+| | | | | | - Parameter:
+| | | | | | | - orderFactory
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - order
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Market
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  order factory function
+| | | | | | - Parameter:
+| | | | | | | - ewma_alpha
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.15
+| | | | | | | - List:
+| | | | | | | | -  parameter |alpha| for exponentially weighted moving average 
+| | | | | | - Parameter:
+| | | | | | | - threshold
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.0
+| | | | | | | - List:
+| | | | | | | | -  threshold when the trader starts to act 
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Generic
+| | | | | | | - List:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderFactory
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - TrendFollower
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - ewma_alpha
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - threshold
+| | | | | | | | - Var:
+| | | | | | | | | - eventGen
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Trend follower can be considered as a sort of a signal strategy
+| | | | | | | - List:
+| | | | | | | | -  where the *signal* is a trend of the asset.
+| | | | | | | | -  Under trend we understand the first derivative of some moving average of asset prices.
+| | | | | | | | -  If the derivative is positive, the trader buys; if negative - it sells.
+| | | | | | | | -  Since moving average is a continuously changing signal, we check its
+| | | | | | | | -  derivative at moments of time given by *eventGen*.
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - CrossingAverages
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - eventGen
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - event
+| | | | | | | | | | | - Every
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - math
+| | | | | | | | | | | | | - random
+| | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | | | -  Event source making the strategy to wake up
+| | | | | | - Parameter:
+| | | | | | | - orderFactory
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - order
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Market
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  order factory function
+| | | | | | - Parameter:
+| | | | | | | - ewma_alpha_1
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.15
+| | | | | | | - List:
+| | | | | | | | -  parameter |alpha| for exponentially weighted moving average 1 
+| | | | | | - Parameter:
+| | | | | | | - ewma_alpha_2
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.015
+| | | | | | | - List:
+| | | | | | | | -  parameter |alpha| for exponentially weighted moving average 2 
+| | | | | | - Parameter:
+| | | | | | | - threshold
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.0
+| | | | | | | - List:
+| | | | | | | | -  threshold when the trader starts to act 
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Generic
+| | | | | | | - List:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderFactory
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - CrossingAverages
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - ewma_alpha_1
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - ewma_alpha_2
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - threshold
+| | | | | | | | - Var:
+| | | | | | | | | - eventGen
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Two averages strategy compares two averages of price of the same asset but
+| | | | | | | - List:
+| | | | | | | | -  with different parameters ('slow' and 'fast' averages) and when
+| | | | | | | | -  the first is greater than the second one it buys,
+| | | | | | | | -  when the first is lower than the second one it sells
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - FundamentalValue
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - eventGen
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - event
+| | | | | | | | | | | - Every
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - math
+| | | | | | | | | | | | | - random
+| | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | | | -  Event source making the strategy to wake up
+| | | | | | - Parameter:
+| | | | | | | - orderFactory
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - order
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Market
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  order factory function
+| | | | | | - Parameter:
+| | | | | | | - fundamentalValue
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 100.0
+| | | | | | | - List:
+| | | | | | | | -  defines fundamental value 
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Generic
+| | | | | | | - List:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderFactory
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - FundamentalValue
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - fundamentalValue
+| | | | | | | | - Var:
+| | | | | | | | | - eventGen
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Fundamental value strategy believes that an asset should have some specific price
+| | | | | | | - List:
+| | | | | | | | -  (*fundamental value*) and if the current asset price is lower than the fundamental value
+| | | | | | | | -  it starts to buy the asset and if the price is higher it starts to sell the asset.
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - MeanReversion
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - eventGen
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - event
+| | | | | | | | | | | - Every
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - math
+| | | | | | | | | | | | | - random
+| | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | | | -  Event source making the strategy to wake up
+| | | | | | - Parameter:
+| | | | | | | - orderFactory
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - order
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Market
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  order factory function
+| | | | | | - Parameter:
+| | | | | | | - ewma_alpha
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.15
+| | | | | | | - List:
+| | | | | | | | -  parameter |alpha| for exponentially weighted moving average 
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Generic
+| | | | | | | - List:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderFactory
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - MeanReversion
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - ewma_alpha
+| | | | | | | | - Var:
+| | | | | | | | | - eventGen
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Mean reversion strategy believes that asset price should return to its average value.
+| | | | | | | - List:
+| | | | | | | | -  It estimates this average using some functional and
+| | | | | | | | -  if the current asset price is lower than the average
+| | | | | | | | -  it buys the asset and if the price is higher it sells the asset.
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - PairTrading
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - eventGen
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - event
+| | | | | | | | | | | - Every
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - math
+| | | | | | | | | | | | | - random
+| | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | | | -  Event source making the strategy to wake up
+| | | | | | - Parameter:
+| | | | | | | - orderFactory
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - order
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Market
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  order factory function
+| | | | | | - Parameter:
+| | | | | | | - bookToDependOn
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderbook
+| | | | | | | | | | | - OfTrader
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  reference to order book for another asset used to evaluate fair price of our asset 
+| | | | | | - Parameter:
+| | | | | | | - factor
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | | | -  multiplier to obtain fair asset price from the reference asset price 
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Generic
+| | | | | | | - List:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderFactory
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - PairTrading
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - bookToDependOn
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - factor
+| | | | | | | | - Var:
+| | | | | | | | | - eventGen
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Dependent price strategy believes that the fair price of an asset *A*
+| | | | | | | - List:
+| | | | | | | | -  is completely correlated with price of another asset *B* and the following relation
+| | | | | | | | -  should be held: *PriceA* = *kPriceB*, where *k* is some factor.
+| | | | | | | | -  It may be considered as a variety of a fundamental value strategy
+| | | | | | | | -  with the exception that it is invoked every the time price of another
+| | | | | | | | -  asset *B* changes.
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - RSIbis
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - eventGen
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - event
+| | | | | | | | | | | - Every
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - math
+| | | | | | | | | | | | | - random
+| | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | | | -  Event source making the strategy to wake up
+| | | | | | - Parameter:
+| | | | | | | - orderFactory
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - order
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Market
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  order factory function
+| | | | | | - Parameter:
+| | | | | | | - alpha
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Div
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 1.0
+| | | | | | | | | - IntLit:
+| | | | | | | | | | - 14
+| | | | | | | - List:
+| | | | | | | | -  parameter |alpha| for exponentially weighted moving average when calculating RSI 
+| | | | | | - Parameter:
+| | | | | | | - timeframe
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | | | -  lag for calculating up and down movements for RSI 
+| | | | | | - Parameter:
+| | | | | | | - threshold
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 30.0
+| | | | | | | - List:
+| | | | | | | | -  strategy starts to act once RSI is out of [50-threshold, 50+threshold] 
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Generic
+| | | | | | | - List:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderFactory
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - Signal
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 50.0
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - math
+| | | | | | | | | | | | | | | | - RSI
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - alpha
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 50.0
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - threshold
+| | | | | | | | - Var:
+| | | | | | | | | - eventGen
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Strategy that calculates Relative Strength Index of an asset
+| | | | | | | - List:
+| | | | | | | | -   and starts to buy when RSI is greater than 50 + *threshold*
+| | | | | | | | -   and sells when RSI is less than 50 - *thresold*
+| | | | | - List:
+| | - List:
+| | - List:
+| | - false

@@ -1,0 +1,399 @@
+Definitions:
+- List:
+| - PackageDef:
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - math
+| | - List:
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Lagged
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - source
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  observable data source 
+| | | | | | - Parameter:
+| | | | | | | - timeframe
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 10.0
+| | | | | | | - List:
+| | | | | | | | -  lag size 
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Observable that adds a lag to an observable data source so [Lagged(x, dt)]t=t0 == [x]t=t0+dt
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - observable.lagged.Lagged_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Lagged_{%(timeframe)s}(%(source)s)
+| | | | - FunDef:
+| | | | | - UpMovements
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - source
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  observable data source 
+| | | | | | - Parameter:
+| | | | | | | - timeframe
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 10.0
+| | | | | | | - List:
+| | | | | | | | -  lag size 
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - observable
+| | | | | | | | | - Float
+| | | | | | | - List:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Max
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - const
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 0.0
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Sub
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - source
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Lagged
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - timeframe
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns positive movements of some observable *source* with lag *timeframe*
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Ups_{%(timeframe)s}(%(source)s)
+| | | | - FunDef:
+| | | | | - DownMovements
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - source
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  observable data source 
+| | | | | | - Parameter:
+| | | | | | | - timeframe
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 10.0
+| | | | | | | - List:
+| | | | | | | | -  lag size 
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - observable
+| | | | | | | | | - Float
+| | | | | | | - List:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Max
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - const
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 0.0
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Sub
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Lagged
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - source
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Returns negative movements of some observable *source* with lag *timeframe*
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - Downs_{%(timeframe)s}(%(source)s)
+| | | | - PackageDef:
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - rsi
+| | | | | - List:
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - Raw
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - source
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | | | -  observable data source 
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - timeframe
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 10.0
+| | | | | | | | | | - List:
+| | | | | | | | | | | -  lag size 
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - alpha
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 0.015
+| | | | | | | | | | - List:
+| | | | | | | | | | | -  alpha parameter for EWMA 
+| | | | | | | | - Some:
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Div
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | - Avg
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - UpMovements
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - alpha
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | - Avg
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - DownMovements
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - alpha
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - DocString:
+| | | | | | | | | | - Absolute value for Relative Strength Index
+| | | | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - category
+| | | | | | | - RSI
+| | | | | - List:
+| | | | | - false
+| | | | - FunDef:
+| | | | | - RSI
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - book
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - orderbook
+| | | | | | | | | | | - OfTrader
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  asset price in question  
+| | | | | | - Parameter:
+| | | | | | | - timeframe
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 10.0
+| | | | | | | - List:
+| | | | | | | | -  lag size 
+| | | | | | - Parameter:
+| | | | | | | - alpha
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.015
+| | | | | | | - List:
+| | | | | | | | -  alpha parameter for EWMA 
+| | | | | - Some:
+| | | | | | - BinOp:
+| | | | | | | - Sub
+| | | | | | | - FloatLit:
+| | | | | | | | - 100.0
+| | | | | | | - BinOp:
+| | | | | | | | - Div
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 100.0
+| | | | | | | | - BinOp:
+| | | | | | | | | - Add
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 1.0
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - rsi
+| | | | | | | | | | | | - Raw
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - book
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - timeframe
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - alpha
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Relative Strength Index
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
+| | | | - FunDef:
+| | | | | - LogReturns
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  observable data source 
+| | | | | | - Parameter:
+| | | | | | | - timeframe
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 10.0
+| | | | | | | - List:
+| | | | | | | | -  lag size 
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Log
+| | | | | | | - List:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Div
+| | | | | | | | | - Var:
+| | | | | | | | | | - x
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Lagged
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - x
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - timeframe
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Log returns
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - LogReturns_{%(timeframe)s}(%(x)s)
+| | - List:
+| | - List:
+| | - false

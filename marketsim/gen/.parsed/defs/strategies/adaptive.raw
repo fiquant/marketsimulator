@@ -1,0 +1,297 @@
+Definitions:
+- List:
+| - PackageDef:
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - strategy
+| | - List:
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Suspendable
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - inner
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Noise
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  wrapped strategy 
+| | | | | | - Parameter:
+| | | | | | | - predicate
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - true
+| | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  predicate to evaluate 
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Strategy that wraps another strategy and passes its orders only if *predicate* is true
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.suspendable._Suspendable_Impl
+| | | | - FunDef:
+| | | | | - TradeIfProfitable
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - inner
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Noise
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  wrapped strategy 
+| | | | | | - Parameter:
+| | | | | | | - account
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - account
+| | | | | | | | | | | - inner
+| | | | | | | | | | | - inner_VirtualMarket
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  defines how strategy trades are booked: actually traded amount or virtual market orders are
+| | | | | | | | -  used in order to estimate how the strategy would have traded if all her orders appear at market 
+| | | | | | - Parameter:
+| | | | | | | - performance
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - weight
+| | | | | | | | | | | - trader
+| | | | | | | | | | | - trader_EfficiencyTrend
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  given a trading account tells should it be considered as effective or not 
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Suspendable
+| | | | | | | - List:
+| | | | | | | | - Var:
+| | | | | | | | | - inner
+| | | | | | | | - Condition:
+| | | | | | | | | - GreaterEqual
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - performance
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - account
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - inner
+| | | | | | | | | - IntLit:
+| | | | | | | | | | - 0
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
+| | | | | | | - List:
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - MultiArmedBandit
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - strategies
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - List_:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Noise
+| | | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  original strategies that can be suspended 
+| | | | | | - Parameter:
+| | | | | | | - account
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - account
+| | | | | | | | | | | - inner
+| | | | | | | | | | | - inner_VirtualMarket
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  function creating a virtual account used for estimate efficiency of the strategy itself 
+| | | | | | - Parameter:
+| | | | | | | - weight
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - weight
+| | | | | | | | | | | - trader
+| | | | | | | | | | | - trader_EfficiencyTrend
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  function estimating is the strategy efficient or not 
+| | | | | | - Parameter:
+| | | | | | | - normalizer
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - weight
+| | | | | | | | | | | - f
+| | | | | | | | | | | - f_AtanPow
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  function that maps trader efficiency to its weight that will be used for random choice 
+| | | | | | - Parameter:
+| | | | | | | - corrector
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - weight
+| | | | | | | | | | | - array
+| | | | | | | | | | | - array_IdentityL
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  given array of strategy weights corrects them.
+| | | | | | | | -  for example it may set to 0 all weights except the maximal one 
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - A composite strategy initialized with an array of strategies.
+| | | | | | | - List:
+| | | | | | | | -  In some moments of time the efficiency of the strategies is evaluated
+| | | | | | | | -  These efficiencies are mapped into weights using *weight* and *normilizer*
+| | | | | | | | -  functions per every strategy and *corrector* for the whole collection of weights
+| | | | | | | | -  These weights are used to choose randomly a strategy to run for the next quant of time.
+| | | | | | | | -  All other strategies are suspended
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.multiarmed_bandit._MultiarmedBandit2_Impl
+| | | | - FunDef:
+| | | | | - ChooseTheBest
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - strategies
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - List_:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Noise
+| | | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  original strategies that can be suspended 
+| | | | | | - Parameter:
+| | | | | | | - account
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - account
+| | | | | | | | | | | - inner
+| | | | | | | | | | | - inner_VirtualMarket
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  function creating phantom strategy used for efficiency estimation 
+| | | | | | - Parameter:
+| | | | | | | - performance
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - weight
+| | | | | | | | | | | - trader
+| | | | | | | | | | | - trader_EfficiencyTrend
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  function estimating is the strategy efficient or not 
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - A composite strategy initialized with an array of strategies.
+| | | | | | | - List:
+| | | | | | | | -  In some moments of time the most effective strategy
+| | | | | | | | -  is chosen and made running; other strategies are suspended.
+| | | | | | | | -  It can be considered as a particular case for MultiArmedBandit strategy with
+| | | | | | | | -  *corrector* parameter set to *chooseTheBest*
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.choose_the_best._ChooseTheBest_Impl
+| | - List:
+| | - List:
+| | - false
