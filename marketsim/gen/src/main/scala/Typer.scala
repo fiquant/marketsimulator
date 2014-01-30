@@ -69,12 +69,13 @@ package object Typer
                     }
                 }
                 source.packages.values foreach { Processor(_).run() }
+            } catch {
+                case e : Exception =>
+                    //if (Runner.catchErrors) {
+                        println(e.getMessage)
+                    //}
+                    //else throw e
             }
-//            catch {
-//                case e : Exception =>
-//                    println("An error occurred during typing:")
-//                    println(e.getMessage)
-//            }
         }
 
         private def getTyped(definition : AST.FunAlias) : Typed.FunctionAlias = {

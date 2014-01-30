@@ -395,24 +395,35 @@ package object NameTable {
     {
         val impl : Scope = new Scope
 
-        p foreach { create(_, Nil, impl) }
+        try {
+            p foreach { create(_, Nil, impl) }
 
-        println("\r\n\tremoving anonymous packages")
-        impl.removeAnonymous()
+            println("\r\n\tremoving anonymous packages")
+            impl.removeAnonymous()
 
-        println("\tinjecting base packages")
-        impl.injectBases()
+            println("\tinjecting base packages")
+            impl.injectBases()
 
-        println("\tremoving abstract packages")
-        impl.removeAbstract()
+            println("\tremoving abstract packages")
+            impl.removeAbstract()
 
-        println("\tapplying before typing annotations")
-        Typed.BeforeTyping(impl)
+            println("\tapplying before typing annotations")
+            Typed.BeforeTyping(impl)
 
-//        println("\tqualifying names")
-//        impl.qualifyNames((impl, Nil) :: Nil)
+    //        println("\tqualifying names")
+    //        impl.qualifyNames((impl, Nil) :: Nil)
 
-        Some(impl)
+            Some(impl)
+        } catch {
+            case e : Exception =>
+                if (Runner.catchErrors) {
+                    println("An error occured during building name tables:")
+                    println(e.getMessage)
+                    None
+                }
+                else throw e
+        }
+
     }
 
 }
