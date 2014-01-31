@@ -416,7 +416,7 @@ package object NameTable {
             Some(impl)
         } catch {
             case e : Exception =>
-                if (Runner.catchErrors) {
+                if (config.catch_errors) {
                     println("An error occured during building name tables:")
                     println(e.getMessage)
                     None

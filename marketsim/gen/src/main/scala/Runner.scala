@@ -5,7 +5,7 @@ import sext._
 
 object Runner extends syntax.scala.Parser {
 
-    def parse(reparse : Boolean)(file : File) : Option[AST.Definitions] = {
+    def parse(file : File) : Option[AST.Definitions] = {
 
         def parsedPath(file : File) = ".parsed/" + file
 
@@ -30,18 +30,19 @@ object Runner extends syntax.scala.Parser {
                     case Success(result, _) => {
                         val pp = result.toString
                         pp_output.println(pp)
-                        parseAll(definitions, pp) match {
-                            case Success(result2, _) => {
-                                if (result != result2) {
-                                    println(s"input: in")
-                                    println(s"parsed: $result")
-                                    println(s"re-parsed: $result2")
-                                    managed(printerFor(".re-parsed.sc")) map
-                                            { _.println(pp) }
+                        if (config.reparse)
+                            parseAll(definitions, pp) match {
+                                case Success(result2, _) => {
+                                    if (result != result2) {
+                                        println(s"input: in")
+                                        println(s"parsed: $result")
+                                        println(s"re-parsed: $result2")
+                                        managed(printerFor(".re-parsed.sc")) map
+                                                { _.println(pp) }
+                                    }
                                 }
+                                case x => println(x)
                             }
-                            case x => println(x)
-                        }
                         raw_output.println(result.treeString)
                         Some(result)
                     }
@@ -81,43 +82,10 @@ object Runner extends syntax.scala.Parser {
         }
     }
 
-    case class Config(sources : List[File] = Nil,
-                      reparse : Boolean = false,
-                      check_names : Boolean = false,
-                      check_typed : Boolean = false,
-                      skip_errors : Boolean = false)
-
-    var config : Option[Config] = None
-
-    def catchErrors = !config.get.skip_errors
-
     def main(args: Array[String]) {
 
-        val parser = new scopt.OptionParser[Config]("gen")
-        {
-            head("FiQuant Strategy Definition Language compiler", "0.8")
-
-            help("help") text "prints this usage text"
-
-            opt[Unit]("reparse") action { (_, c) =>
-                c.copy(reparse = true) } text "reparse pretty printed parsed files"
-
-            opt[Unit]("check_names") action { (_, c) =>
-                c.copy(check_names = true) } text "check that re-parsed names are equal to the original names"
-
-            opt[Unit]("check_typed") action { (_, c) =>
-                c.copy(check_typed = true) } text "check that re-parsed typed representation is equal to the original one"
-
-            opt[Unit]("skip_errors") action { (_, c) =>
-                c.copy(skip_errors = true) } text "for debug purpose don't catch exceptions"
-
-            arg[File]("<dir>...") unbounded() optional() action { (x, c) =>
-                c.copy(sources = c.sources :+ x) } text "directories to process"
-        }
-        parser.parse(args, Config()) map { config =>
+        config.With(args) {
             unused(generator.python.gen.Annotations)
-
-            Runner.config = Some(config)
 
             cleanUp("_out")
             cleanUp("../_pub")
@@ -127,21 +95,15 @@ object Runner extends syntax.scala.Parser {
 
                 val parsed = (config.sources flatMap   getFileTree)
                                             .filter  {  _.getName endsWith ".sc" }
-                                            .flatMap {  parse(config.reparse)_ }.toList
+                                            .flatMap {  parse }.toList
 
                 println("done")
 
-                buildNames(parsed, config) map {
-                    buildTyped(_, config) map generatePython
+                buildNames(parsed) map {
+                    buildTyped(_) map generatePython
                 }
-
-                Runner.config = None
             })
-        } getOrElse {
-          // arguments are bad, error message will have been displayed
         }
-
-
     }
 
 
@@ -152,7 +114,7 @@ object Runner extends syntax.scala.Parser {
         println("done")
     }
 
-    def buildNames(parsed: List[AST.Definitions], config : Config) =
+    def buildNames(parsed: List[AST.Definitions]) =
     {
         print("building name tables...")
 
@@ -167,7 +129,7 @@ object Runner extends syntax.scala.Parser {
             if (config.check_names)
             {
                 Typed.withNewTopLevel({
-                    NameTable.create(parse(config.reparse)(new File(names_file)).get :: Nil)
+                    NameTable.create(parse(new File(names_file)).get :: Nil)
                 }) map { names_2 =>
                     if (names_2 != names) {
                         for (output <- managed(new PrintWriter(names_failed_file))) {
@@ -185,7 +147,7 @@ object Runner extends syntax.scala.Parser {
     }
 
 
-    def buildTyped(names: NameTable.Scope, config : Config)  = {
+    def buildTyped(names: NameTable.Scope)  = {
         print("typing...")
 
         Typer.run(names) map { typed =>
@@ -201,7 +163,7 @@ object Runner extends syntax.scala.Parser {
 
             if (config.check_typed)
             {
-                NameTable.create(parse(config.reparse)(new File(typed_file)).get :: Nil) map { names_2 =>
+                NameTable.create(parse(new File(typed_file)).get :: Nil) map { names_2 =>
                     Typed.withNewTopLevel({
                         Typer.run(names_2)
                     }) map { typed_2 =>
