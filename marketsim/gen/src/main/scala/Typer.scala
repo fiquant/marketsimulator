@@ -71,10 +71,10 @@ package object Typer
                 source.packages.values foreach { Processor(_).run() }
             } catch {
                 case e : Exception =>
-                    //if (Runner.catchErrors) {
+                    if (config.catch_errors) {
                         println(e.getMessage)
-                    //}
-                    //else throw e
+                    }
+                    else throw e
             }
         }
 

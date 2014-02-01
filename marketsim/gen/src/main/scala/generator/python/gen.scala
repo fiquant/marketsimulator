@@ -48,12 +48,20 @@ package object gen
         for (idx_out <- managed(printWriter(idx_dir, "__init__.py")))
         {
             p.functions.values foreach { f =>
-                generationUnit(f) map { g =>
-                    //println(f.parent.qualifiedName, f.name)
-                    for (out <- managed(printWriter(dir, s"_${f.name}.py"))) {
-                        out.println(g)
+                try {
+                    generationUnit(f) map { g =>
+                        //println(f.parent.qualifiedName, f.name)
+                        for (out <- managed(printWriter(dir, s"_${f.name}.py"))) {
+                            out.println(g)
+                        }
+                        idx_out.println(base.withImports(Printer.importsOf(f)))
                     }
-                    idx_out.println(base.withImports(Printer.importsOf(f)))
+                } catch {
+                    case e : Exception =>
+                        if (config.catch_errors) {
+                            println(s"An exception '${e.getMessage}' caught when generating python code for $f")
+                            println(e.getMessage)
+                        }
                 }
             }
 
