@@ -204,6 +204,8 @@ package object Printer
         }
 
         trait Function extends Printable with Definition {
+            def pos : Any
+            def filename : String
             val docstring : Option[DocString]
             def decorators : Iterable[Decorator]
             val name : String
@@ -212,7 +214,8 @@ package object Printer
             def printBody : String
 
             def toScala = {
-                (crlf   + ifSome(docstring)
+                (crlf   + s"// defined at $filename: " + pos + crlf
+                        + ifSome(docstring)
                         + decorators.map({_ + crlf}).mkString("")
                         + "def " + name
                         + indent(("def " + name).length + 1){
@@ -279,8 +282,6 @@ package object Printer
             self: AST.FunDef =>
             def printRetType = ifSome(ty, " : ")
             def printBody = ifSome(body, " = ")
-
-            override def toScala = super.toScala + s" // defined at $filename: " + pos
         }
 
         type FunctionAlias = base.FunctionAlias

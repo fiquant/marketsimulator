@@ -1,14 +1,16 @@
 @category = "Order"
 
 package order {
+    // defined at defs\order.sc: 12.5
     /** Factory creating market orders
      *
      *  Market order intructs buy or sell given volume immediately
      */
     @python.order.factory("order.market.Order_Impl")
     def Market(/** function defining side of orders to create */ side = side.Sell(),
-               /** function defining volume of orders to create */ volume = constant(1.0)) : IOrderGenerator // defined at defs\order.sc: 12.5
+               /** function defining volume of orders to create */ volume = constant(1.0)) : IOrderGenerator
     
+    // defined at defs\order.sc: 23.5
     /** Factory creating limit orders
      *
      *  Limit orders ask to buy or sell some asset at price better than some limit price.
@@ -18,8 +20,9 @@ package order {
     @python.order.factory("order.limit.Order_Impl")
     def Limit(/** function defining side of orders to create */ side = side.Sell(),
               /** function defining price of orders to create */ price = constant(100.0),
-              /** function defining volume of orders to create */ volume = constant(1.0)) : IOrderGenerator // defined at defs\order.sc: 23.5
+              /** function defining volume of orders to create */ volume = constant(1.0)) : IOrderGenerator
     
+    // defined at defs\order.sc: 38.5
     /** Factory creating fixed budget orders
      *
      *  Fixed budget order acts like a market order
@@ -31,8 +34,9 @@ package order {
      */
     @python.order.factory("order.meta.fixed_budget.Order_Impl")
     def FixedBudget(/** function defining side of orders to create */ side = side.Sell(),
-                    /** function defining budget on which it may send orders at one time */ budget = constant(1000.0)) : IOrderGenerator // defined at defs\order.sc: 38.5
+                    /** function defining budget on which it may send orders at one time */ budget = constant(1000.0)) : IOrderGenerator
     
+    // defined at defs\order.sc: 54.5
     /** Factory creating Immediate-Or-Cancel orders
      *
      *  Immediate-Or-Cancel order sends an underlying order to the market and
@@ -43,8 +47,9 @@ package order {
      *  either it is cancelled (and consequently never stored in the order queue).
      */
     @python.order.factory("order.meta.ioc.Order_Impl")
-    def ImmediateOrCancel(/** factory for underlying orders */ proto = Limit()) : IOrderGenerator // defined at defs\order.sc: 54.5
+    def ImmediateOrCancel(/** factory for underlying orders */ proto = Limit()) : IOrderGenerator
     
+    // defined at defs\order.sc: 68.5
     /** Factory creating StopLoss orders
      *
      *  StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
@@ -54,8 +59,9 @@ package order {
      */
     @python.order.factory("order.meta.stoploss.Order_Impl")
     def StopLoss(/** maximal acceptable loss factor */ maxloss = constant(0.1),
-                 /** underlying orders to create */ proto = Limit()) : IOrderGenerator // defined at defs\order.sc: 68.5
+                 /** underlying orders to create */ proto = Limit()) : IOrderGenerator
     
+    // defined at defs\order.sc: 82.5
     /** Factory creating WithExpiry orders
      *
      * WithExpiry orders can be viewed as ImmediateOrCancel orders
@@ -63,8 +69,9 @@ package order {
      */
     @python.order.factory("order.meta.with_expiry.Order_Impl")
     def WithExpiry(/** expiration period for orders */ expiry = constant(10.0),
-                   /** underlying orders to create */ proto = Limit()) : IOrderGenerator // defined at defs\order.sc: 82.5
+                   /** underlying orders to create */ proto = Limit()) : IOrderGenerator
     
+    // defined at defs\order.sc: 94.5
     /** Factory creating iceberg orders
      *
      *  Iceberg order is initialized by an underlying order and a lot size.
@@ -73,8 +80,9 @@ package order {
      */
     @python.order.factory("order.meta.iceberg.Order_Impl")
     def Iceberg(/** maximal size of order to send */ lotSize = constant(10.0),
-                /** underlying orders to create */ proto = Limit()) : IOrderGenerator // defined at defs\order.sc: 94.5
+                /** underlying orders to create */ proto = Limit()) : IOrderGenerator
     
+    // defined at defs\order.sc: 107.5
     /** Factory creating orders with floating price
      *
      *  Floating price order is initialized by an order having a price and an observable that generates new prices.
@@ -83,8 +91,9 @@ package order {
      */
     @python.order.factory("order.meta.floating_price.Factory_Impl")
     def FloatingPrice(/** observable defining price of orders to create */ floatingPrice = const(10.0),
-                      /** underlying orders to create */ proto = price.Limit()) : IOrderGenerator // defined at defs\order.sc: 107.5
+                      /** underlying orders to create */ proto = price.Limit()) : IOrderGenerator
     
+    // defined at defs\order.sc: 120.5
     /** Factory creating Peg orders
      *
      *  A peg order is a particular case of the floating price order
@@ -93,5 +102,5 @@ package order {
      *  they start to race until being matched against the counterparty orders.
      */
     @python.order.factory("order.meta.peg.Factory_Impl")
-    def Peg(proto = price.Limit()) : IOrderGenerator // defined at defs\order.sc: 120.5
+    def Peg(proto = price.Limit()) : IOrderGenerator
 }

@@ -14,6 +14,8 @@ package object AST {
             super.setPos(pos)
             this
         }
+
+        def copyPositionFrom(other : Positional) : this.type = setPos(other.pos, other.filename)
     }
 
     sealed abstract class Type extends pp.TypeBase
@@ -99,9 +101,9 @@ package object AST {
                       docstring      : Option[DocString],
                       decorators     : List[Decorator])
             extends Member
-            with    Positional
             with    pp.Function
             with    ScPrintable
+            with    Positional
 
     case class FunAlias(name    : String,
                         target  : QualifiedName)

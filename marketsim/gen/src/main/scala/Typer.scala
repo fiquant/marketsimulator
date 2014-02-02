@@ -223,7 +223,7 @@ package object Typer
                     deref(body_type, new Exception(s"Return type for $definition should be given explicitly"))
             }
             Typed.Function(target, definition.name, locals, ty, body,
-                definition.docstring, annotationsOf(definition), attributesOf(definition))
+                definition.docstring, annotationsOf(definition), attributesOf(definition)).copyPositionFrom(definition)
         }
 
         private def toTyped(f : AST.FunAlias) : Typed.FunctionAlias =

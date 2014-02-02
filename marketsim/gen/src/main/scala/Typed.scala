@@ -178,6 +178,7 @@ package object Typed
             extends sc.Function
             with    ScPrintable
             with    AttributeReplace
+            with    AST.Positional
     {
         def decorators = attributes :: annotations
 
