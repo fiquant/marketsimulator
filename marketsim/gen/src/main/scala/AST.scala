@@ -1,8 +1,20 @@
 import predef.ScPrintable
+import scala.util.parsing.input.{Position}
 
 package object AST {
 
     import syntax.scala.Printer.{ast => pp}
+
+    trait Positional extends scala.util.parsing.input.Positional
+    {
+        var filename : String = "<undefined filename>"
+
+        def setPos(pos : Position, _filename : String) : this.type = {
+            filename = _filename
+            super.setPos(pos)
+            this
+        }
+    }
 
     sealed abstract class Type extends pp.TypeBase
 
@@ -87,6 +99,7 @@ package object AST {
                       docstring      : Option[DocString],
                       decorators     : List[Decorator])
             extends Member
+            with    Positional
             with    pp.Function
             with    ScPrintable
 

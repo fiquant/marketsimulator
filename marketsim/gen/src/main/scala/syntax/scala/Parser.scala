@@ -2,10 +2,13 @@ package syntax.scala
 
 import scala.util.parsing.combinator._
 import AST._
+import scala.util.parsing.input.{NoPosition}
 
-class Parser() extends JavaTokenParsers with PackratParsers
+abstract class Parser() extends JavaTokenParsers with PackratParsers
 {
     protected override val whiteSpace = """(\s|//.*)+""".r
+
+    protected def currentFile : String
 
     lazy val expr : Parser[Expr] =  castable | string_literal
 
@@ -129,14 +132,32 @@ class Parser() extends JavaTokenParsers with PackratParsers
         case Some(p) => p
     }
 
-    lazy val function  = (opt(docstring)
-                        ~ rep(decorator)
-                        ~ ("def" ~> ident)
-                        ~ parameters
-                        ~ opt(func_type)
-                        ~ opt("=" ~> expr)) ^^ {
+    def positioned_ex[T <: AST.Positional](p: => Parser[T]): Parser[T] = {
+      val pp = Parser { in =>
+            p(in) match {
+              case Success(t, in1) => Success(if (t.pos == NoPosition) t setPos (in.pos, currentFile) else t, in1)
+              case ns: NoSuccess => ns
+            }
+          }
+
+      new Parser[T] {
+        def apply(in: Input) = {
+          val offset = in.offset
+          val start = handleWhiteSpace(in.source, offset)
+          pp(in.drop (start - offset))
+        }
+      }
+    }
+
+    lazy val function  =positioned_ex(
+                            (opt(docstring)
+                            ~ rep(decorator)
+                            ~ ("def" ~> ident)
+                            ~ parameters
+                            ~ opt(func_type)
+                            ~ opt("=" ~> expr)) ^^ {
         case (doc ~ decorators ~ name  ~ ps ~ t ~ body) => FunDef(name, ps, body, t, doc, decorators)
-    } withFailureMessage "function expected"
+    } withFailureMessage "function expected")
 
     lazy val func_type = ("=>" ~> typ ^^ {
         case t => FunctionType(Nil, t)

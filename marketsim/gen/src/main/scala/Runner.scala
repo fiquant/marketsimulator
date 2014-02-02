@@ -1,9 +1,23 @@
-import java.io.{PrintWriter, File}
+import java.io.{PrintWriter, File, FileInputStream, InputStreamReader}
 import resource._
 import scala.util.matching.Regex
+import scala.util.parsing.input.{CharArrayReader, Reader, StreamReader}
 import sext._
 
 object Runner extends syntax.scala.Parser {
+
+    var _currentFile : Option[String] = None
+
+    protected def currentFile = _currentFile.get
+
+    def parseAll[T](p: Parser[T], in: Reader[Char], filename : String): ParseResult[T] = {
+        _currentFile = Some(filename)
+        val ret = super.parseAll(p, in)
+        _currentFile = None
+        ret
+    }
+
+
 
     def parse(file : File) : Option[AST.Definitions] = {
 
@@ -22,19 +36,18 @@ object Runner extends syntax.scala.Parser {
 
         def printerFor(ext : String) = new PrintWriter(path.replace(".sc", ext))
 
-        (managed(io.Source fromFile file) and
+        (managed(new InputStreamReader(new FileInputStream(file))) and
          managed(printerFor(".pretty-printed.sc")) and
          managed(printerFor(".raw")) map {
 
             case ((input, pp_output), raw_output) => Nil
-                val in = input.mkString
 
-                parseAll(definitions, in) match {
+                parseAll(definitions, StreamReader(input), file.getPath) match {
                     case Success(result, _) => {
                         val pp = result.toString
                         pp_output.println(pp)
                         if (config.reparse)
-                            parseAll(definitions, pp) match {
+                            parseAll(definitions, new CharArrayReader(pp.toArray, 0), "") match {
                                 case Success(result2, _) => {
                                     if (result != result2) {
                                         println(s"input: in")

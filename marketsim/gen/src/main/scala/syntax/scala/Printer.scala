@@ -279,6 +279,8 @@ package object Printer
             self: AST.FunDef =>
             def printRetType = ifSome(ty, " : ")
             def printBody = ifSome(body, " = ")
+
+            override def toScala = super.toScala + s" // defined at $filename: " + pos
         }
 
         type FunctionAlias = base.FunctionAlias
