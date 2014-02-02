@@ -6,7 +6,8 @@ package object config
                       reparse : Boolean = false,
                       check_names : Boolean = false,
                       check_typed : Boolean = false,
-                      skip_errors : Boolean = false)
+                      skip_errors : Boolean = false,
+                      verbose : Boolean = false)
 
     private var instance : Option[Config] = None
 
@@ -15,6 +16,7 @@ package object config
     def check_names = instance.get.check_names
     def check_typed = instance.get.check_typed
     def catch_errors = !instance.get.skip_errors
+    def verbose = instance.get.verbose
 
     def With(args: Array[String])(f : => Unit)
     {
@@ -35,6 +37,9 @@ package object config
 
             opt[Unit]("skip_errors") action { (_, c) =>
                 c.copy(skip_errors = true) } text "for debug purpose don't catch exceptions"
+
+            opt[Unit]("verbose") action { (_, c) =>
+                c.copy(verbose = true) } text "verbose output of compiler"
 
             arg[File]("<dir>...") unbounded() optional() action { (x, c) =>
                 c.copy(sources = c.sources :+ x) } text "directories to process"

@@ -45,6 +45,9 @@ package object gen
                             new File(dst_dir, filename), true))),
             true)
 
+        if (config.verbose)
+            println("\t" + p.qualifiedName)
+
         for (idx_out <- managed(printWriter(idx_dir, "__init__.py")))
         {
             p.functions.values foreach { f =>

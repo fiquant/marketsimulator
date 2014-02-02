@@ -7,6 +7,9 @@ object Runner extends syntax.scala.Parser {
 
     def parse(file : File) : Option[AST.Definitions] = {
 
+        if (config.verbose)
+            println("\t" + file)
+
         def parsedPath(file : File) = ".parsed/" + file
 
         val target_dir = parsedPath(file.getParentFile)

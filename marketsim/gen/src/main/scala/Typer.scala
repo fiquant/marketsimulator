@@ -39,6 +39,9 @@ package object Typer
         //       in order to solve problem of hiding of top-level names by local ones
 
         def run() {
+            if (config.verbose)
+                println("\t" + source.qualifiedName)
+
             try {
                 source.members.values foreach { definition =>
                     try {
