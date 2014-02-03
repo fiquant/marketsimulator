@@ -19,7 +19,7 @@ package object base {
         def base_class : Code = "object"
         def base_classes = base_class
 
-        def toPython =
+        protected def toPython =
             withImports(registration | s"class $name(" ||| base_classes ||| "):" |> body).toString
     }
 

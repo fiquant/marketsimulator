@@ -149,7 +149,7 @@ package object predef {
 
     trait PyPrintable
     {
-        def toPython : String
+        protected def toPython : String
         override def toString = toPython
     }
 

@@ -128,7 +128,7 @@ object order_factory
     def curriedTypes(curried : List[Typed.Parameter]) = {
         val curr_types = TypesBound.Tuple(curried map { _.ty })
 
-        curr_types.toPython ||| Code.from(curr_types.imports)
+        curr_types.asPython ||| Code.from(curr_types.imports)
     }
 
     def curriedTypesAsList(curried : List[Typed.Parameter]) = {

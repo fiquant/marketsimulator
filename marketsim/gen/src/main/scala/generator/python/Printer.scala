@@ -6,7 +6,6 @@ object Printer {
     import predef.{Code, Combine, ImportFrom}
 
     trait Printable {
-        def toPython : String
         def asPython : String
         def imports : List[predef.Importable]
         def asCode  = new Combine(asPython, Code.from(imports))
@@ -17,37 +16,37 @@ object Printer {
         trait Bound extends Printable
 
         trait Unit extends Bound {
-            def toPython =
+            protected def toPython =
                 throw new Exception("Unit types are not supported yet for python generation")
             def imports = Nil
         }
 
         trait Nothing extends Bound {
-            def toPython =
+            protected def toPython =
                 throw new Exception("Nothing types are not supported for python generation")
             def imports = Nil
         }
 
         trait Any_ extends Bound {
-            def toPython = "object"
+            protected def toPython = "object"
             def imports = Nil
         }
 
         trait Optional extends Bound {
             def x : Bound
-            def toPython = x.toPython
+            protected def toPython = x.toString
             def imports = x.imports
         }
 
         trait List_ extends Bound {
             def x : Bound
-            def toPython = s"listOf($x)"
+            protected def toPython = s"listOf($x)"
             def imports = ImportFrom("listOf", "marketsim") :: x.imports
         }
 
         trait Tuple extends Bound {
             val elems : List[Bound]
-            def toPython = elems map { _.toPython } map { _ + "," } mkString ("(", "", ")")
+            protected def toPython = elems map { _.toString } map { _ + "," } mkString ("(", "", ")")
 
             def imports = elems flatMap { _.imports }
         }
@@ -55,8 +54,8 @@ object Printer {
         trait Function extends Bound {
             val args : List[Bound]
             val ret : Bound
-            def toPython = {
-                val types = (ret :: args) map { _.toPython } mkString ","
+            protected def toPython = {
+                val types = (ret :: args) map { _.toString } mkString ","
                 s"IFunction[$types]"
             }
 
@@ -79,96 +78,99 @@ object Printer {
                     predef.ImportFrom(decl.name, "marketsim") :: Nil) ++ (genericArgs flatMap { _.imports })
 
 
-            def toPython =
+            protected def toPython =
                 builtins.getOrElse(decl.name, decl.name) +
-                (if (genericArgs.isEmpty) "" else genericArgs map { _.toPython } mkString ("[", ",", "]"))
+                (if (genericArgs.isEmpty) "" else genericArgs map { _.toString } mkString ("[", ",", "]"))
         }
-    }
-
-    trait PrintablePort extends Printable
-    {
-        protected def toScala : String
-        override def toPython = toScala
     }
 
     trait Expr extends pp.Expr with predef.ScPyPrintable
 
-    trait BinOp extends pp.BinOp[Typed.Expr] with PrintablePort
+    trait BinOp extends pp.BinOp[Typed.Expr]
     {
-        override def imports = x.imports ++ y.imports
+        def imports = x.imports ++ y.imports
+        protected def toPython = toScala
     }
 
     trait Cast extends Printable
     {
         val x : Expr
-        def toPython = x.toPython
+        protected def toPython = x.toString
         def imports = x.imports
     }
 
     trait List_ extends Printable
     {
         val xs : List[Expr]
-        def toPython = xs mkString ("[", ",", "]")
+        protected def toPython = xs mkString ("[", ",", "]")
         def imports = xs flatMap { _.imports }
     }
 
-    trait Neg extends pp.Neg[Typed.Expr] with PrintablePort
+    trait Neg extends pp.Neg[Typed.Expr]
     {
-        override def imports = x.imports
+        def imports = x.imports
+        protected def toPython = toScala
     }
 
-    trait IfThenElse extends pp.IfThenElse[Typed.Expr, Typed.Expr] with PrintablePort
+    trait IfThenElse extends pp.IfThenElse[Typed.Expr, Typed.Expr]
     {
-        override def toPython = s"($cond)[${wrap(x)}, ${wrap(y)}]"
+        protected def toPython = s"($cond)[${wrap(x)}, ${wrap(y)}]"
 
-        override def imports = x.imports ++ y.imports ++ cond.imports
+        def imports = x.imports ++ y.imports ++ cond.imports
     }
 
-    trait StringLit extends pp.StringLit with PrintablePort
+    trait StringLit extends pp.StringLit
     {
-        override def imports = Nil
+        def imports = Nil
+        protected def toPython = toScala
     }
 
-    trait IntLit extends pp.IntLit with PrintablePort
+    trait IntLit extends pp.IntLit
     {
-        override def imports = Nil
+        def imports = Nil
+        protected def toPython = toScala
     }
 
-    trait And extends pp.And[Typed.Expr] with PrintablePort
+    trait And extends pp.And[Typed.Expr]
     {
-        override def imports = x.imports ++ y.imports
-    }
-    trait Or extends pp.Or[Typed.Expr] with PrintablePort {
-        override def imports = x.imports ++ y.imports
+        def imports = x.imports ++ y.imports
+        protected def toPython = toScala
     }
 
-    trait Not extends pp.Not[Typed.Expr, Typed.Expr] with PrintablePort {
-        override def imports = x.imports
+    trait Or extends pp.Or[Typed.Expr] {
+        def imports = x.imports ++ y.imports
+        protected def toPython = toScala
     }
 
-    trait Condition extends pp.Condition[Typed.Expr] with PrintablePort {
-        override def imports = x.imports ++ y.imports
+    trait Not extends pp.Not[Typed.Expr, Typed.Expr] {
+        protected def toPython = toScala
+        def imports = x.imports
+    }
+
+    trait Condition extends pp.Condition[Typed.Expr] {
+        protected def toPython = toScala
+        def imports = x.imports ++ y.imports
     }
 
     type Priority_0 = pp.Priority_0
 
     trait FloatLit extends Expr with Priority_0 {
         self: Typed.FloatLit =>
-        override def toPython = x.toString
+        protected def toPython = x.toString
 
         def imports = Nil
     }
 
     trait ParamRef extends Expr with Priority_0 {
         self: Typed.ParamRef =>
-        override def toPython = "self." + p.name
+        protected def toPython = "self." + p.name
 
         def imports = Nil
     }
 
     trait FunctionRef extends Expr with Priority_0 {
         self: Typed.FunctionRef =>
-        override def toPython = fullImportName(f.qualifiedName)
+        protected def toPython = fullImportName(f.qualifiedName)
 
         def imports = (importsOf(f) as fullImportName(f.qualifiedName)) :: Nil
     }
@@ -186,7 +188,7 @@ object Printer {
 
     trait FunCall extends Expr with Priority_0 {
         self: Typed.FunctionCall =>
-        override def toPython =
+        protected def toPython =
             target + arguments.mkString("(",",",")")
 
         override def imports =
