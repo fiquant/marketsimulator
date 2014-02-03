@@ -87,7 +87,7 @@ object Printer {
 
     trait PrintablePort extends Printable
     {
-        def toScala : String
+        protected def toScala : String
         override def toPython = toScala
     }
 

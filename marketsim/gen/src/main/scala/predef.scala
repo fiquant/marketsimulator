@@ -143,7 +143,7 @@ package object predef {
 
     trait ScPrintable
     {
-        def toScala : String
+        protected def toScala : String
         override def toString = toScala
     }
 

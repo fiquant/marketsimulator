@@ -6,9 +6,7 @@ package object Printer
 {
     val tab = "\t"
 
-    trait Printable {
-        def toScala : String
-    }
+    trait Printable
 
     object base {
         trait Expr extends Printable {
@@ -31,42 +29,42 @@ package object Printer
             val priority : Int
         }
 
-        trait Add extends BinOpSymbol with Priority_2 { def toScala = "+"   }
-        trait Sub extends BinOpSymbol with Priority_2 { def toScala = "-"   }
-        trait Mul extends BinOpSymbol with Priority_1 { def toScala = "*"   }
-        trait Div extends BinOpSymbol with Priority_1 { def toScala = "/"   }
+        trait Add extends BinOpSymbol with Priority_2 { protected def toScala = "+"   }
+        trait Sub extends BinOpSymbol with Priority_2 { protected def toScala = "-"   }
+        trait Mul extends BinOpSymbol with Priority_1 { protected def toScala = "*"   }
+        trait Div extends BinOpSymbol with Priority_1 { protected def toScala = "/"   }
 
         trait StringLit extends Expr with Priority_0 {
             def value : String
-            def toScala = "\"" + value + "\""
+            protected def toScala = "\"" + value + "\""
         }
 
         trait IntLit extends Expr with Priority_0 {
             def value : Int
-            def toScala = value.toString
+            protected def toScala = value.toString
         }
 
         trait BinOp[T <: Expr] extends Expr {
             val x, y : T
             val symbol : BinOpSymbol
-            def toScala = wrap(x) + symbol + wrap(y, rhs = true)
+            protected def toScala = wrap(x) + symbol + wrap(y, rhs = true)
             val priority = symbol.priority
         }
 
         trait Cast extends Expr with Priority_4 {
             val x  : Any
             val ty : Any
-            def toScala = x.toString + " : " + ty
+            protected def toScala = x.toString + " : " + ty
         }
 
         trait List_ extends Expr with Priority_0 {
             val xs : List[Any]
-            def toScala = xs mkString ("[", ",", "]")
+            protected def toScala = xs mkString ("[", ",", "]")
         }
 
         trait Neg[T <: Expr] extends Expr with Priority_0 {
             val x : T
-            def toScala = "-" + wrap(x)
+            protected def toScala = "-" + wrap(x)
         }
 
         trait CondSymbol
@@ -74,43 +72,43 @@ package object Printer
         trait IfThenElse[T, U <: Expr] extends Expr with Priority_3 {
             val x, y : T
             val cond : U
-            def toScala = s"if $cond then $x else $y"
+            protected def toScala = s"if $cond then $x else $y"
         }
 
         trait Or[T <: Expr] extends Expr with Printable with Priority_2 {
             val x, y : T
-            def toScala = s"$x or $y"
+            protected def toScala = s"$x or $y"
         }
 
         trait And[T <: Expr] extends Expr with Printable with Priority_1 {
             val x, y : T
             def wrap(z : T) = pars(z, z.isInstanceOf[Or[T]])
-            def toScala = wrap(x) + " and " + wrap(y)
+            protected def toScala = wrap(x) + " and " + wrap(y)
         }
 
         trait Not[T <: Expr, U <: Expr] extends Expr with Printable with Priority_0 {
             val x : T
             def wrap(z : T) = pars(z, !z.isInstanceOf[Condition[U]])
-            def toScala = "not " + wrap(x)
+            protected def toScala = "not " + wrap(x)
         }
 
         trait Condition[T <: Expr] extends Expr with Printable with Priority_0 {
             val x, y : T
             val symbol : CondSymbol
-            def toScala = x.toString + symbol + y
+            protected def toScala = x.toString + symbol + y
         }
 
         trait Definition
 
         trait Definitions[+T <: Definition] extends Printable {
             val definitions: List[T]
-            def toScala = definitions.mkString(crlf)
+            protected def toScala = definitions.mkString(crlf)
         }
 
         trait DocString extends Printable {
             val brief    : String
             val detailed : List[String]
-            def toScala =
+            protected def toScala =
                 ("/** " + brief
                         + detailed.map({ crlf + " *" + _ }).mkString("") + crlf
                         + " */" + crlf)
@@ -119,12 +117,12 @@ package object Printer
 
         trait QualifiedName extends Printable {
             val names : List[String]
-            def toScala = names.mkString(".")
+            protected def toScala = names.mkString(".")
         }
 
         trait Generics extends Printable {
             val elems : List[String]
-            def toScala = if (elems.nonEmpty) elems.mkString("[", ",", "]") else ""
+            protected def toScala = if (elems.nonEmpty) elems.mkString("[", ",", "]") else ""
         }
 
         trait Decorator
@@ -132,7 +130,7 @@ package object Printer
         trait Annotation extends Decorator with Printable {
             def getName : String
             val parameters : List[String]
-            def toScala =
+            protected def toScala =
                 "@" + getName + "(" + (parameters map quote mkString ", ") + ")"
         }
 
@@ -142,7 +140,7 @@ package object Printer
             def name : String
             def value : String
 
-            def toScala = s"@$name = " + quote(value)
+            protected def toScala = s"@$name = " + quote(value)
         }
 
         trait Parameter extends Printable {
@@ -151,7 +149,7 @@ package object Printer
             def printType : String
             def printInitializer : String
             
-            def toScala =
+            protected def toScala =
                 ((if (comment.nonEmpty) {
                     "/**" + comment.mkString(crlf + "  *") + "*/ "
                 } else "")
@@ -168,7 +166,7 @@ package object Printer
 
             def getName : String
 
-            def toScala = (
+            protected def toScala = (
                     (attributes map { _ + crlf } mkString "") +
                     crlf + (if (`abstract`) "abstract " else "") + "package " + getName
                     + (bases map { " extends " + _ } mkString "")
@@ -183,7 +181,7 @@ package object Printer
             val generics : Generics
             val bases : List[Any]
 
-            def toScala = crlf + "type " + name + generics + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
+            protected def toScala = crlf + "type " + name + generics + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
         }
 
         trait TypeAlias extends Printable with Definition
@@ -192,7 +190,7 @@ package object Printer
             val generics : Generics
             val target : Any
 
-            def toScala = crlf + s"type $name$generics = $target"
+            protected def toScala = crlf + s"type $name$generics = $target"
         }
 
         trait FunctionAlias extends Printable with Definition
@@ -200,7 +198,7 @@ package object Printer
             val name    : String
             val target  : AST.QualifiedName
 
-            def toScala = crlf + s"def $name = $target"
+            protected def toScala = crlf + s"def $name = $target"
         }
 
         trait Function extends Printable with Definition {
@@ -213,7 +211,7 @@ package object Printer
             def printRetType : String
             def printBody : String
 
-            def toScala = {
+            protected def toScala = {
                 (crlf   + s"// defined at $filename: " + pos + crlf
                         + ifSome(docstring)
                         + decorators.map({_ + crlf}).mkString("")
@@ -228,12 +226,12 @@ package object Printer
         trait TypeBase
 
         trait UnitType extends Printable {
-            def toScala = "()"
+            protected def toScala = "()"
         }
 
         trait TupleType extends Printable {
             val elems : List[TypeBase]
-            def toScala = pars(elems.mkString(","))
+            protected def toScala = pars(elems.mkString(","))
         }
 
         trait FunctionType extends Printable {
@@ -243,7 +241,12 @@ package object Printer
                 case x : FunctionType => "(" + x + ")"
                 case x                => x
             }
-            def toScala = (if (args.length == 1) correct(args(0)) else (args map correct).mkString("(", ",", ")")) + s" => " + correct(ret)
+            protected  def toScala =
+                (if (args.length == 1)
+                    correct(args(0))
+                else
+                    (args map correct).mkString("(", ",", ")")) +
+                        s" => " + correct(ret)
         }
     }
 
@@ -296,18 +299,18 @@ package object Printer
 
         trait FloatLit extends Expr with Priority_0 {
             self: AST.FloatLit =>
-            def toScala = value.toString
+            protected def toScala = value.toString
         }
 
 
         trait Var extends Expr with Priority_0 {
             self: AST.Var =>
-            def toScala = s
+            protected def toScala = s
         }
 
         trait FunCall extends Expr with Priority_0 {
             self: AST.FunCall =>
-            def toScala = name + (args mkString ("(", ",", ")"))
+            protected def toScala = name + (args mkString ("(", ",", ")"))
         }
 
         type BinOp = base.BinOp[AST.Expr]
@@ -327,7 +330,7 @@ package object Printer
 
         trait SimpleType extends Printable {
             self: AST.SimpleType =>
-            def toScala = name.toString + (if (genericArgs.nonEmpty) genericArgs.mkString("[", ",", "]") else "")
+            protected def toScala = name.toString + (if (genericArgs.nonEmpty) genericArgs.mkString("[", ",", "]") else "")
         }
 
         type UnitType = base.UnitType
@@ -342,23 +345,23 @@ package object Printer
         type Unit = base.UnitType
 
         trait Nothing {
-            def toScala = "Nothing"
+            protected def toScala = "Nothing"
         }
 
         trait Any_ {
-            def toScala = "Any"
+            protected def toScala = "Any"
         }
 
         trait Optional extends Printable {
             def x : Any
 
-            def toScala = s"Optional[$x]"
+            protected def toScala = s"Optional[$x]"
         }
 
         trait List_ extends Printable {
             def x : Any
 
-            def toScala = s"List[$x]"
+            protected def toScala = s"List[$x]"
         }
 
         type Tuple = base.TupleType
@@ -367,7 +370,7 @@ package object Printer
         trait UsedDefined_Unbound extends Printable {
             self : TypesUnbound.UserDefined =>
 
-            def toScala =
+            protected def toScala =
                 decl.name + (if (genericArgs.nonEmpty) genericArgs mkString ("[",",","]") else "")
         }
 
@@ -375,7 +378,9 @@ package object Printer
             val decl        : Typed.TypeDeclaration
             val genericArgs : List[TypesBound.Base]
 
-            def toScala = (decl.scope qualifyName decl.name) + (if (genericArgs.isEmpty) "" else genericArgs mkString ("[", ",", "]"))
+            protected def toScala =
+                (decl.scope qualifyName decl.name) +
+                        (if (genericArgs.isEmpty) "" else genericArgs mkString ("[", ",", "]"))
         }
     }
 
@@ -391,14 +396,14 @@ package object Printer
         {
             self: Typed.InterfaceDecl =>
 
-            override def toScala = s"type $name" + printGenerics(generics) + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
+            protected def toScala = s"type $name" + printGenerics(generics) + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
         }
 
         trait AliasDecl extends Printable
         {
             self: Typed.AliasDecl =>
 
-            override def toScala = s"type $name${printGenerics(generics)} = $target"
+            protected def toScala = s"type $name${printGenerics(generics)} = $target"
         }
 
         trait Parameter extends base.Parameter {
@@ -410,7 +415,7 @@ package object Printer
         trait Attributes extends Printable with base.Decorator {
             self: Typed.Attributes =>
 
-            override def toScala =
+            protected def toScala =
                 items map { case (name, value) => "@" + name + " = " + base.quote(value) + crlf } mkString ""
         }
 
@@ -427,7 +432,7 @@ package object Printer
 
         trait FunctionAlias extends Printable {
             self : Typed.FunctionAlias =>
-            def toScala = crlf + s"def $name = " + target.qualifiedName
+            protected def toScala = crlf + s"def $name = " + target.qualifiedName
         }
 
         type StringLit = base.StringLit
@@ -453,22 +458,22 @@ package object Printer
 
         trait FloatLit extends Expr with Priority_0 {
             self: Typed.FloatLit =>
-            def toScala = x.toString
+            protected def toScala = x.toString
         }
 
         trait ParamRef extends Expr with Priority_0 {
             self: Typed.ParamRef =>
-            def toScala = p.name
+            protected def toScala = p.name
         }
 
         trait FunctionRef extends Expr with Priority_0 {
             self: Typed.FunctionRef =>
-            def toScala = (f.parent qualifyName f.name).toString
+            protected def toScala = (f.parent qualifyName f.name).toString
         }
 
         trait FunCall extends Expr with Priority_0 {
             self: Typed.FunctionCall =>
-            def toScala = target + arguments.mkString("(",",",")")
+            protected def toScala = target + arguments.mkString("(",",",")")
         }
 
         trait TopLevelPackage extends Printable {
@@ -487,16 +492,16 @@ package object Printer
                 crlf + s"package $name {" +
                     indent() { content } +
                 crlf + "}" + crlf
-            def toScala = content
+            protected def toScala = content
         }
 
         trait AnonymousPackage extends TopLevelPackage  {
-            override def toScala = wrapped("")
+            protected override def toScala = wrapped("")
         }
 
         trait SubPackage extends TopLevelPackage  {
             def name : String
-            override def toScala = wrapped(name)
+            protected override def toScala = wrapped(name)
         }
 
         trait Scope extends TopLevelPackage
@@ -518,7 +523,7 @@ package object Printer
                         indent() { content } +
                         crlf + "}"
 
-            def toScala =
+            protected def toScala =
                 if (name == "_root_")
                     content
                 else

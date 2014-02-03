@@ -42,7 +42,7 @@ package object TypesUnbound
     case class Parameter(name : String)
             extends Base
     {
-        override def toScala = name
+        protected override def toScala = name
 
         def bind(m : ITypeMapper[TypesBound.Base]) = m(this)
         def substitute(m : ITypeMapper[TypesUnbound.Base]) = m(this)
