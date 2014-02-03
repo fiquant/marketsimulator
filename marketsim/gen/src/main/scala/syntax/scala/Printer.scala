@@ -212,7 +212,7 @@ package object Printer
             def printBody : String
 
             protected def toScala = {
-                (crlf   + s"// defined at $filename: " + pos + crlf
+                (crlf   + (if (config.show_location) s"// defined at $filename: " + pos + crlf else "")
                         + ifSome(docstring)
                         + decorators.map({_ + crlf}).mkString("")
                         + "def " + name

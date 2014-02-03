@@ -18,6 +18,16 @@ package object config
     def catch_errors = !instance.get.skip_errors
     def verbose = instance.get.verbose
 
+    var show_location : Boolean = true
+
+    def WithHiddenLocation[T](f : => T) = {
+        val old = show_location
+        show_location = false
+        val x = f
+        show_location = old
+        x
+    }
+
     def With(args: Array[String])(f : => Unit)
     {
         val parser = new scopt.OptionParser[Config]("gen")

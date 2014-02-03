@@ -139,7 +139,7 @@ object Runner extends syntax.scala.Parser {
             val names_failed_file = ".output/names.failed.sc"
 
             for (output <- managed(new PrintWriter(names_file))) {
-                output.println(names)
+                config.WithHiddenLocation({ output.println(names) })
             }
 
             if (config.check_names)
@@ -149,7 +149,7 @@ object Runner extends syntax.scala.Parser {
                 }) map { names_2 =>
                     if (names_2 != names) {
                         for (output <- managed(new PrintWriter(names_failed_file))) {
-                            output.println(names_2)
+                            config.WithHiddenLocation({ output.println(names_2) })
                         }
                         println(s"Re-parsed names differ from original ones. Compare files '$names_file' and '$names_failed_file'")
                     }
@@ -174,7 +174,7 @@ object Runner extends syntax.scala.Parser {
             val typed_failed_file = ".output/typed.failed.sc"
 
             for (output <- managed(new PrintWriter(typed_file))) {
-                output.println(typed)
+                config.WithHiddenLocation({ output.println(typed) })
             }
 
             if (config.check_typed)
@@ -185,7 +185,7 @@ object Runner extends syntax.scala.Parser {
                     }) map { typed_2 =>
                         if (typed != typed_2) {
                             for (output <- managed(new PrintWriter(typed_failed_file))) {
-                                output.println(typed_2)
+                                config.WithHiddenLocation({ output.println(typed_2) })
                             }
                             println(s"Re-parsed names differ from original ones. Compare files '$typed_file' and '$typed_failed_file'")
                         }

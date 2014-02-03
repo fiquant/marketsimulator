@@ -1,21 +1,18 @@
 @category = "Side"
 
 package side {
-    // defined at defs\side.sc: 10.5
     /** Function always returning Sell side
      */
     
     @python.intrinsic("side._Sell_Impl")
     def Sell() : () => .Side
     
-    // defined at defs\side.sc: 16.5
     /** Function always returning Buy side
      */
     
     @python.intrinsic("side._Buy_Impl")
     def Buy() : () => .Side
     
-    // defined at defs\side.sc: 22.5
     /** Function always returning None of type Side
      */
     
@@ -26,14 +23,12 @@ package side {
 @category = "Event"
 
 package event {
-    // defined at defs\event.sc: 4.5
     /** Event that fires every *intervalFunc* moments of time
      */
     
     @python.intrinsic("event._Every_Impl")
     def Every(/** interval of time between two events */ intervalFunc : Optional[() => .Float] = .math.random.expovariate(1.0)) : .IEvent
     
-    // defined at defs\event.sc: 11.5
     /** Event that once at *delay*
      */
     
@@ -44,7 +39,6 @@ package event {
 @category = "N/A"
 
 package veusz {
-    // defined at defs\graph.sc: 45.5
     /** Graph to render at Veusz. Time series are added to it automatically in their constructor
      */
     
@@ -55,13 +49,11 @@ package veusz {
 @category = "Ops"
 
 package ops {
-    // defined at defs\ops.sc: 4.5
     @label = "-%(x)s"
     
     @python.intrinsic.observable("ops._Negate_Impl")
     def Negate(x : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
     
-    // defined at <undefined filename>: <undefined position>
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "+"
     
@@ -69,7 +61,6 @@ package ops {
     def Add(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
     
-    // defined at <undefined filename>: <undefined position>
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<"
     
@@ -77,7 +68,6 @@ package ops {
     def Less(x : Optional[.IFunction[.Float]] = .constant(1.0),
              y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Boolean]
     
-    // defined at <undefined filename>: <undefined position>
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "*"
     
@@ -85,7 +75,6 @@ package ops {
     def Mul(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
     
-    // defined at defs\ops.sc: 28.5
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._ConditionFloat_Impl")
@@ -93,7 +82,6 @@ package ops {
                         ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
                         elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
     
-    // defined at <undefined filename>: <undefined position>
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<>"
     
@@ -101,7 +89,6 @@ package ops {
     def NotEqual(x : Optional[.IFunction[.Float]] = .constant(1.0),
                  y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Boolean]
     
-    // defined at defs\ops.sc: 34.5
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._ConditionSide_Impl")
@@ -109,7 +96,6 @@ package ops {
                        ifpart : Optional[() => .Side] = .side.Sell(),
                        elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
     
-    // defined at <undefined filename>: <undefined position>
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = ">="
     
@@ -117,7 +103,6 @@ package ops {
     def GreaterEqual(x : Optional[.IFunction[.Float]] = .constant(1.0),
                      y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Boolean]
     
-    // defined at <undefined filename>: <undefined position>
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "-"
     
@@ -125,14 +110,12 @@ package ops {
     def Sub(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
     
-    // defined at defs\ops.sc: 8.5
     @label = "\\frac{%(x)s}{%(y)s}"
     
     @python.intrinsic.observable("ops._Div_Impl")
     def Div(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
     
-    // defined at <undefined filename>: <undefined position>
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<="
     
@@ -140,7 +123,6 @@ package ops {
     def LessEqual(x : Optional[.IFunction[.Float]] = .constant(1.0),
                   y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Boolean]
     
-    // defined at <undefined filename>: <undefined position>
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "=="
     
@@ -148,7 +130,6 @@ package ops {
     def Equal(x : Optional[.IFunction[.Float]] = .constant(1.0),
               y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Boolean]
     
-    // defined at <undefined filename>: <undefined position>
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = ">"
     
@@ -161,7 +142,6 @@ package ops {
 
 package math {
     package random {
-        // defined at defs\math\random.sc: 39.1
         /** Gamma distribution
          *
          *  Conditions on the parameters are |alpha| > 0 and |beta| > 0.
@@ -177,7 +157,6 @@ package math {
         def gammavariate(Alpha : Optional[.Float] = 1.0,
                          Beta : Optional[.Float] = 1.0) : () => .Float
         
-        // defined at defs\math\random.sc: 61.1
         /** Normal distribution
          */
         
@@ -185,14 +164,12 @@ package math {
         def normalvariate(/** |mu| is the mean                  */ Mu : Optional[.Float] = 0.0,
                           /** |sigma| is the standard deviation */ Sigma : Optional[.Float] = 1.0) : () => .Float
         
-        // defined at defs\math\random.sc: 75.1
         /** Pareto distribution
          */
         
         @python.random()
         def paretovariate(/** |alpha| is the shape parameter*/ Alpha : Optional[.Float] = 1.0) : () => .Float
         
-        // defined at defs\math\random.sc: 28.1
         /** Triangular distribution
          *
          * Return a random floating point number *N* such that *low* <= *N* <= *high* and
@@ -207,7 +184,6 @@ package math {
                        High : Optional[.Float] = 1.0,
                        Mode : Optional[.Float] = 0.5) : () => .Float
         
-        // defined at defs\math\random.sc: 67.1
         /** Von Mises distribution
          */
         
@@ -217,7 +193,6 @@ package math {
                               *      If |kappa| is equal to zero, this distribution reduces
                               *      to a uniform random angle over the range 0 to 2|pi|        */ Kappa : Optional[.Float] = 0.0) : () => .Float
         
-        // defined at defs\math\random.sc: 18.1
         /** Uniform distribution
          *
          * Return a random floating point number *N* such that
@@ -230,7 +205,6 @@ package math {
         def uniform(Low : Optional[.Float] = -10.0,
                     High : Optional[.Float] = 10.0) : () => .Float
         
-        // defined at defs\math\random.sc: 80.1
         /** Weibull distribution
          */
         
@@ -238,7 +212,6 @@ package math {
         def weibullvariate(/** |alpha| is the scale parameter */ Alpha : Optional[.Float] = 1.0,
                            /** |beta| is the shape parameter  */ Beta : Optional[.Float] = 1.0) : () => .Float
         
-        // defined at defs\math\random.sc: 11.1
         /** Exponential distribution
          *
          *  Returned values range from 0 to positive infinity
@@ -247,7 +220,6 @@ package math {
         @python.random()
         def expovariate(/** |lambda| is 1.0 divided by the desired mean. It should be greater zero.*/ Lambda : Optional[.Float] = 1.0) : () => .Float
         
-        // defined at defs\math\random.sc: 52.1
         /** Log normal distribution
          *
          * If you take the natural logarithm of this distribution,
@@ -259,7 +231,6 @@ package math {
         def lognormvariate(Mu : Optional[.Float] = 0.0,
                            Sigma : Optional[.Float] = 1.0) : () => .Float
         
-        // defined at defs\math\random.sc: 3.1
         /** Beta distribution
          *
          * Conditions on the parameters are |alpha| > 0 and |beta| > 0.
@@ -275,7 +246,6 @@ package math {
     @suffix = "_{cumul}(%(source)s)"
     
     package Cumulative {
-        // defined at defs\math\moments.sc: 64.13
         /** Cumulative relative standard deviation
          */
         @label = "RSD{{suffix}}"
@@ -283,7 +253,6 @@ package math {
         def RelStdDev(/** observable data source */ source : Optional[.IObservable[.Float]] = .const()) : .IObservable[.Float]
             	 = (source-.math.Cumulative.Avg(source))/.math.Cumulative.StdDev(source)
         
-        // defined at defs\math\moments.sc: 50.13
         /** Cumulative variance
          */
         @label = "\\sigma^2{{suffix}}"
@@ -291,7 +260,6 @@ package math {
         @python.intrinsic("moments.cmv.Variance_Impl")
         def Var(/** observable data source */ source : Optional[.IObservable[.Float]] = .const()) : () => .Float
         
-        // defined at defs\math\moments.sc: 43.13
         /** Cumulative average
          */
         @label = "Avg{{suffix}}"
@@ -299,7 +267,6 @@ package math {
         @python.intrinsic("moments.cma.CMA_Impl")
         def Avg(/** observable data source */ source : Optional[.IObservable[.Float]] = .const()) : () => .Float
         
-        // defined at defs\math\minmax.sc: 26.9
         /** Cumulative minimum of a function with positive tolerance.
          *
          *  It fires updates only if *source* value becomes less than the old value minus *epsilon*
@@ -310,7 +277,6 @@ package math {
         def MinEpsilon(/** observable data source */ source : Optional[.IFunction[.Float]] = .constant(),
                        /** tolerance step         */ epsilon : Optional[.IFunction[.Float]] = .constant(0.01)) : .IObservable[.Float]
         
-        // defined at defs\math\minmax.sc: 36.9
         /** Cumulative maximum of a function with positive tolerance.
          *
          *  It fires updates only if *source* value becomes greater than the old value plus *epsilon*
@@ -321,7 +287,6 @@ package math {
         def MaxEpsilon(/** observable data source */ source : Optional[.IFunction[.Float]] = .constant(),
                        /** tolerance step         */ epsilon : Optional[.IFunction[.Float]] = .constant(0.01)) : .IObservable[.Float]
         
-        // defined at defs\math\moments.sc: 57.13
         /** Cumulative standard deviation
          */
         @label = "\\sqrt{\\sigma^2{{suffix}}}"
@@ -333,7 +298,6 @@ package math {
     @category = "RSI"
     
     package rsi {
-        // defined at defs\math\rsi.sc: 32.9
         /** Absolute value for Relative Strength Index
          */
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
@@ -347,7 +311,6 @@ package math {
     @category = "MACD"
     
     package macd {
-        // defined at defs\math\macd.sc: 4.5
         /** Moving average convergence/divergence
          */
         @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
@@ -357,7 +320,6 @@ package math {
                  /** short period */ fast : Optional[.Float] = 12.0) : .IFunction[.Float]
             	 = .math.EW.Avg(x,2.0/(fast+1))-.math.EW.Avg(x,2.0/(slow+1))
         
-        // defined at defs\math\macd.sc: 14.5
         /** Moving average convergence/divergence signal
          */
         @label = "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
@@ -369,7 +331,6 @@ package math {
                    /** discretization step */ step : Optional[.Float] = 1.0) : .IDifferentiable
             	 = .math.EW.Avg(.observable.OnEveryDt(step,.math.macd.MACD(x,slow,fast)),2/(timeframe+1))
         
-        // defined at defs\math\macd.sc: 26.5
         /** Moving average convergence/divergence histogram
          */
         @label = "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
@@ -386,7 +347,6 @@ package math {
     @suffix = "_{\\\\alpha=%(alpha)s}(%(source)s)"
     
     package EW {
-        // defined at defs\math\moments.sc: 9.13
         /** Exponentially weighted moving average
          */
         @label = "Avg{{suffix}}"
@@ -395,7 +355,6 @@ package math {
         def Avg(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(),
                 /** alpha parameter */ alpha : Optional[.Float] = 0.015) : .IDifferentiable
         
-        // defined at defs\math\moments.sc: 17.13
         /** Exponentially weighted moving variance
          */
         @label = "\\sigma^2{{suffix}}"
@@ -404,7 +363,6 @@ package math {
         def Var(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(),
                 /** alpha parameter */ alpha : Optional[.Float] = 0.015) : () => .Float
         
-        // defined at defs\math\moments.sc: 24.13
         /** Exponentially weighted moving standard deviation
          */
         @label = "\\sqrt{\\sigma^2{{suffix}}}"
@@ -413,7 +371,6 @@ package math {
                    /** alpha parameter */ alpha : Optional[.Float] = 0.015) : () => .Float
             	 = .math.Sqrt(.math.EW.Var(source,alpha))
         
-        // defined at defs\math\moments.sc: 31.13
         /** Exponentially weighted moving relative standard deviation
          */
         @label = "RSD{{suffix}}"
@@ -427,7 +384,6 @@ package math {
     @suffix = "_{n=%(timeframe)s}(%(source)s)"
     
     package Moving {
-        // defined at defs\math\minmax.sc: 6.9
         /** Running minimum of a function
          */
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
@@ -436,7 +392,6 @@ package math {
         def Min(/** observable data source */ source : Optional[.IFunction[.Float]] = .constant(),
                 /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
         
-        // defined at defs\math\moments.sc: 99.13
         /** Simple moving relative standard deviation
          */
         @label = "RSD{{suffix}}"
@@ -445,7 +400,6 @@ package math {
                       /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
             	 = (source-.math.Moving.Avg(source,timeframe))/.math.Moving.StdDev(source,timeframe)
         
-        // defined at defs\math\moments.sc: 83.13
         /** Simple moving variance
          */
         @label = "\\sigma^2{{suffix}}"
@@ -455,7 +409,6 @@ package math {
                 /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : .IFunction[.Float]
             	 = .math.Max(.const(0),.math.Moving.Avg(source*source,timeframe)-.math.Sqr(.math.Moving.Avg(source,timeframe)))
         
-        // defined at defs\math\minmax.sc: 14.9
         /** Running maximum of a function
          */
         @label = "Max_{n=%(timeframe)s}(%(source)s)"
@@ -464,7 +417,6 @@ package math {
         def Max(/** observable data source */ source : Optional[.IFunction[.Float]] = .constant(),
                 /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
         
-        // defined at defs\math\moments.sc: 75.13
         /** Simple moving average
          */
         @label = "Avg{{suffix}}"
@@ -473,7 +425,6 @@ package math {
         def Avg(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(),
                 /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : () => .Float
         
-        // defined at defs\math\moments.sc: 92.13
         /** Simple moving standard deviation
          */
         @label = "\\sqrt{\\sigma^2{{suffix}}}"
@@ -483,7 +434,6 @@ package math {
             	 = .math.Sqrt(.math.Moving.Var(source))
     }
     
-    // defined at <undefined filename>: <undefined position>
     /** Function returning minimum of two functions *x* and *y*.
      * If *x* or/and *y* are observables, *Min* is also observable
      */
@@ -494,7 +444,6 @@ package math {
             y : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
         	 = if x<y then x else y
     
-    // defined at defs\math\rsi.sc: 20.5
     /** Returns negative movements of some observable *source* with lag *timeframe*
      */
     @label = "Downs_{%(timeframe)s}(%(source)s)"
@@ -503,7 +452,6 @@ package math {
                       /** lag size */ timeframe : Optional[.Float] = 10.0) : .IObservable[.Float]
         	 = .observable.Float(.math.Max(.const(0.0),.math.Lagged(source,timeframe)-source))
     
-    // defined at <undefined filename>: <undefined position>
     /** Arc tangent of x, in radians.
      *
      */
@@ -512,7 +460,6 @@ package math {
     @python.mathops("atan")
     def Atan(x : Optional[.IFunction[.Float]] = .constant(0.0)) : () => .Float
     
-    // defined at defs\math\rsi.sc: 3.5
     /** Observable that adds a lag to an observable data source so [Lagged(x, dt)]t=t0 == [x]t=t0+dt
      */
     @label = "Lagged_{%(timeframe)s}(%(source)s)"
@@ -521,7 +468,6 @@ package math {
     def Lagged(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(),
                /** lag size */ timeframe : Optional[.Float] = 10.0) : .IObservable[.Float]
     
-    // defined at <undefined filename>: <undefined position>
     /** Function returning maximum of two functions *x* and *y*.
      * If *x* or/and *y* are observables, *Min* is also observable
      */
@@ -532,7 +478,6 @@ package math {
             y : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
         	 = if x>y then x else y
     
-    // defined at defs\math\rsi.sc: 11.5
     /** Returns positive movements of some observable *source* with lag *timeframe*
      */
     @label = "Ups_{%(timeframe)s}(%(source)s)"
@@ -541,7 +486,6 @@ package math {
                     /** lag size */ timeframe : Optional[.Float] = 10.0) : .IObservable[.Float]
         	 = .observable.Float(.math.Max(.const(0.0),source-.math.Lagged(source,timeframe)))
     
-    // defined at <undefined filename>: <undefined position>
     /** Square of *x*
      */
     @category = "Log/Pow"
@@ -551,7 +495,6 @@ package math {
     def Sqr(x : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
         	 = x*x
     
-    // defined at defs\math\rsi.sc: 54.5
     /** Log returns
      */
     @label = "LogReturns_{%(timeframe)s}(%(x)s)"
@@ -560,7 +503,6 @@ package math {
                    /** lag size */ timeframe : Optional[.Float] = 10.0) : () => .Float
         	 = .math.Log(x/.math.Lagged(x,timeframe))
     
-    // defined at <undefined filename>: <undefined position>
     /** Square root of *x*
      *
      */
@@ -570,7 +512,6 @@ package math {
     @python.mathops("sqrt")
     def Sqrt(x : Optional[.IFunction[.Float]] = .constant(1.0)) : () => .Float
     
-    // defined at defs\math\rsi.sc: 44.5
     /** Relative Strength Index
      */
     @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)"
@@ -580,7 +521,6 @@ package math {
             /** alpha parameter for EWMA */ alpha : Optional[.Float] = 0.015) : .IObservable[.Float]
         	 = .const(100.0)-.const(100.0)/(.const(1.0)+.math.rsi.Raw(.orderbook.MidPrice(book),timeframe,alpha))
     
-    // defined at <undefined filename>: <undefined position>
     /** Exponent of *x*
      *
      */
@@ -590,7 +530,6 @@ package math {
     @python.mathops("exp")
     def Exp(x : Optional[.IFunction[.Float]] = .constant(1.0)) : () => .Float
     
-    // defined at <undefined filename>: <undefined position>
     /** Natural logarithm of *x* (to base e)
      *
      */
@@ -600,7 +539,6 @@ package math {
     @python.mathops("log")
     def Log(x : Optional[.IFunction[.Float]] = .constant(1.0)) : () => .Float
     
-    // defined at defs\math\process.sc: 3.5
     /** A discrete signal with user-defined increments.
      */
     @label = "%(name)s"
@@ -611,7 +549,6 @@ package math {
                    /** intervals between signal updates */ intervalDistr : Optional[() => .Float] = .math.random.expovariate(1.0),
                    name : Optional[.String] = "-random-") : .IObservable[.Float]
     
-    // defined at <undefined filename>: <undefined position>
     /** Function returning first derivative on time of *x*
      * *x* should provide *derivative* member
      */
@@ -620,7 +557,6 @@ package math {
     @python.intrinsic("observable.derivative._Derivative_Impl")
     def Derivative(x : Optional[.IDifferentiable] = .math.EW.Avg() : .IDifferentiable) : () => .Float
     
-    // defined at <undefined filename>: <undefined position>
     /** Return *x* raised to the power *y*.
      *
      * Exceptional cases follow Annex F of the C99 standard as far as possible.
@@ -761,7 +697,6 @@ package order {
     
     
     package _curried {
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating Immediate-Or-Cancel orders
          *
          *  Immediate-Or-Cancel order sends an underlying order to the market and
@@ -775,7 +710,6 @@ package order {
         @python.order.factory.on_proto("ImmediateOrCancel")
         def side_ImmediateOrCancel(/** factory for underlying orders */ proto : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Limit()) : (() => .Side) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating limit orders
          *
          *  Limit orders ask to buy or sell some asset at price better than some limit price.
@@ -786,7 +720,6 @@ package order {
         @python.order.factory.curried("price_Limit")
         def volume_price_Limit(/** function defining side of orders to create */ side : Optional[() => .Side] = .side.Sell()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating iceberg orders
          *
          *  Iceberg order is initialized by an underlying order and a lot size.
@@ -798,7 +731,6 @@ package order {
         def sidevolume_Iceberg(/** maximal size of order to send */ lotSize : Optional[.IFunction[.Float]] = .constant(10.0),
                                /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => .IOrderGenerator] = .order._curried.sidevolume_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating WithExpiry orders
          *
          * WithExpiry orders can be viewed as ImmediateOrCancel orders
@@ -809,7 +741,6 @@ package order {
         def sidevolume_WithExpiry(/** expiration period for orders */ expiry : Optional[.IFunction[.Float]] = .constant(10.0),
                                   /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => .IOrderGenerator] = .order._curried.sidevolume_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating StopLoss orders
          *
          *  StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
@@ -822,7 +753,6 @@ package order {
         def side_price_StopLoss(/** maximal acceptable loss factor */ maxloss : Optional[.IFunction[.Float]] = .constant(0.1),
                                 /** underlying orders to create */ proto : Optional[(() => .Side) => ((() => .Float) => .IOrderGenerator)] = .order._curried.side_price_Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating iceberg orders
          *
          *  Iceberg order is initialized by an underlying order and a lot size.
@@ -834,7 +764,6 @@ package order {
         def price_Iceberg(/** maximal size of order to send */ lotSize : Optional[.IFunction[.Float]] = .constant(10.0),
                           /** underlying orders to create */ proto : Optional[(() => .Float) => .IOrderGenerator] = .order._curried.price_Limit()) : (() => .Float) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating orders with floating price
          *
          *  Floating price order is initialized by an order having a price and an observable that generates new prices.
@@ -846,7 +775,6 @@ package order {
         def sideprice_FloatingPrice(/** observable defining price of orders to create */ floatingPrice : Optional[.IObservable[.Float]] = .const(10.0),
                                     /** underlying orders to create */ proto : Optional[(() => .Side) => ((() => .Float) => .IOrderGenerator)] = .order._curried.side_price_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating StopLoss orders
          *
          *  StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
@@ -859,7 +787,6 @@ package order {
         def price_StopLoss(/** maximal acceptable loss factor */ maxloss : Optional[.IFunction[.Float]] = .constant(0.1),
                            /** underlying orders to create */ proto : Optional[(() => .Float) => .IOrderGenerator] = .order._curried.price_Limit()) : (() => .Float) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating Immediate-Or-Cancel orders
          *
          *  Immediate-Or-Cancel order sends an underlying order to the market and
@@ -873,7 +800,6 @@ package order {
         @python.order.factory.on_proto("ImmediateOrCancel")
         def price_ImmediateOrCancel(/** factory for underlying orders */ proto : Optional[(() => .Float) => .IOrderGenerator] = .order._curried.price_Limit()) : (() => .Float) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating WithExpiry orders
          *
          * WithExpiry orders can be viewed as ImmediateOrCancel orders
@@ -884,7 +810,6 @@ package order {
         def volume_price_WithExpiry(/** expiration period for orders */ expiry : Optional[.IFunction[.Float]] = .constant(10.0),
                                     /** underlying orders to create */ proto : Optional[(() => .Float) => ((() => .Float) => .IOrderGenerator)] = .order._curried.volume_price_Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating StopLoss orders
          *
          *  StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
@@ -897,7 +822,6 @@ package order {
         def sideprice_StopLoss(/** maximal acceptable loss factor */ maxloss : Optional[.IFunction[.Float]] = .constant(0.1),
                                /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => .IOrderGenerator] = .order._curried.sideprice_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating Peg orders
          *
          *  A peg order is a particular case of the floating price order
@@ -909,7 +833,6 @@ package order {
         @python.order.factory.on_proto("price_Peg")
         def volume_price_Peg(proto : Optional[(() => .Float) => ((() => .Float) => .IOrderGenerator)] = .order._curried.volume_price_Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating iceberg orders
          *
          *  Iceberg order is initialized by an underlying order and a lot size.
@@ -921,7 +844,6 @@ package order {
         def side_Iceberg(/** maximal size of order to send */ lotSize : Optional[.IFunction[.Float]] = .constant(10.0),
                          /** underlying orders to create */ proto : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Limit()) : (() => .Side) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating WithExpiry orders
          *
          * WithExpiry orders can be viewed as ImmediateOrCancel orders
@@ -932,7 +854,6 @@ package order {
         def sidevolume_price_WithExpiry(/** expiration period for orders */ expiry : Optional[.IFunction[.Float]] = .constant(10.0),
                                         /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)] = .order._curried.sidevolume_price_Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating Peg orders
          *
          *  A peg order is a particular case of the floating price order
@@ -944,7 +865,6 @@ package order {
         @python.order.factory.on_proto("Peg")
         def volume_Peg(proto : Optional[(() => .Float) => ((() => .Float) => .IOrderGenerator)] = .order._curried.volume_price_Limit()) : (() => .Float) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating Immediate-Or-Cancel orders
          *
          *  Immediate-Or-Cancel order sends an underlying order to the market and
@@ -958,7 +878,6 @@ package order {
         @python.order.factory.on_proto("ImmediateOrCancel")
         def sidevolume_ImmediateOrCancel(/** factory for underlying orders */ proto : Optional[((() => .Side),(() => .Float)) => .IOrderGenerator] = .order._curried.sidevolume_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating fixed budget orders
          *
          *  Fixed budget order acts like a market order
@@ -972,7 +891,6 @@ package order {
         @python.order.factory.curried("FixedBudget")
         def side_FixedBudget(/** function defining budget on which it may send orders at one time */ budget : Optional[.IFunction[.Float]] = .constant(1000.0)) : (() => .Side) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating limit orders
          *
          *  Limit orders ask to buy or sell some asset at price better than some limit price.
@@ -983,7 +901,6 @@ package order {
         @python.order.factory.curried("Limit")
         def sideprice_Limit(/** function defining volume of orders to create */ volume : Optional[.IFunction[.Float]] = .constant(1.0)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating Peg orders
          *
          *  A peg order is a particular case of the floating price order
@@ -995,7 +912,6 @@ package order {
         @python.order.factory.on_proto("Peg")
         def sideprice_Peg(proto : Optional[(() => .Side) => ((() => .Float) => .IOrderGenerator)] = .order._curried.side_price_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating Peg orders
          *
          *  A peg order is a particular case of the floating price order
@@ -1007,7 +923,6 @@ package order {
         @python.order.factory.on_proto("Peg")
         def sidevolume_Peg(proto : Optional[((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)] = .order._curried.sidevolume_price_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating Peg orders
          *
          *  A peg order is a particular case of the floating price order
@@ -1019,7 +934,6 @@ package order {
         @python.order.factory.on_proto("Peg")
         def side_Peg(proto : Optional[(() => .Side) => ((() => .Float) => .IOrderGenerator)] = .order._curried.side_price_Limit()) : (() => .Side) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating limit orders
          *
          *  Limit orders ask to buy or sell some asset at price better than some limit price.
@@ -1030,7 +944,6 @@ package order {
         @python.order.factory.curried("LimitSigned")
         def signedVolume_LimitSigned(/** function defining price of orders to create */ price : Optional[.IFunction[.Float]] = .constant(100.0)) : (() => .Float) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating iceberg orders
          *
          *  Iceberg order is initialized by an underlying order and a lot size.
@@ -1042,7 +955,6 @@ package order {
         def side_price_Iceberg(/** maximal size of order to send */ lotSize : Optional[.IFunction[.Float]] = .constant(10.0),
                                /** underlying orders to create */ proto : Optional[(() => .Side) => ((() => .Float) => .IOrderGenerator)] = .order._curried.side_price_Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating Immediate-Or-Cancel orders
          *
          *  Immediate-Or-Cancel order sends an underlying order to the market and
@@ -1056,7 +968,6 @@ package order {
         @python.order.factory.on_proto("price_ImmediateOrCancel")
         def side_price_ImmediateOrCancel(/** factory for underlying orders */ proto : Optional[(() => .Side) => ((() => .Float) => .IOrderGenerator)] = .order._curried.side_price_Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating WithExpiry orders
          *
          * WithExpiry orders can be viewed as ImmediateOrCancel orders
@@ -1067,7 +978,6 @@ package order {
         def side_WithExpiry(/** expiration period for orders */ expiry : Optional[.IFunction[.Float]] = .constant(10.0),
                             /** underlying orders to create */ proto : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Limit()) : (() => .Side) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating StopLoss orders
          *
          *  StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
@@ -1080,7 +990,6 @@ package order {
         def side_StopLoss(/** maximal acceptable loss factor */ maxloss : Optional[.IFunction[.Float]] = .constant(0.1),
                           /** underlying orders to create */ proto : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Limit()) : (() => .Side) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating StopLoss orders
          *
          *  StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
@@ -1093,7 +1002,6 @@ package order {
         def sidevolume_price_StopLoss(/** maximal acceptable loss factor */ maxloss : Optional[.IFunction[.Float]] = .constant(0.1),
                                       /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)] = .order._curried.sidevolume_price_Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating Peg orders
          *
          *  A peg order is a particular case of the floating price order
@@ -1105,7 +1013,6 @@ package order {
         @python.order.factory.on_proto("Peg")
         def price_Peg(proto : Optional[(() => .Float) => .IOrderGenerator] = .order._curried.price_Limit()) : (() => .Float) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating StopLoss orders
          *
          *  StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
@@ -1118,7 +1025,6 @@ package order {
         def volume_StopLoss(/** maximal acceptable loss factor */ maxloss : Optional[.IFunction[.Float]] = .constant(0.1),
                             /** underlying orders to create */ proto : Optional[(() => .Float) => .IOrderGenerator] = .order._curried.volume_Limit()) : (() => .Float) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating limit orders
          *
          *  Limit orders ask to buy or sell some asset at price better than some limit price.
@@ -1129,7 +1035,6 @@ package order {
         @python.order.factory.curried("price_Limit")
         def sidevolume_price_Limit() : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating StopLoss orders
          *
          *  StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
@@ -1142,7 +1047,6 @@ package order {
         def sidevolume_StopLoss(/** maximal acceptable loss factor */ maxloss : Optional[.IFunction[.Float]] = .constant(0.1),
                                 /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => .IOrderGenerator] = .order._curried.sidevolume_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating WithExpiry orders
          *
          * WithExpiry orders can be viewed as ImmediateOrCancel orders
@@ -1153,7 +1057,6 @@ package order {
         def volume_WithExpiry(/** expiration period for orders */ expiry : Optional[.IFunction[.Float]] = .constant(10.0),
                               /** underlying orders to create */ proto : Optional[(() => .Float) => .IOrderGenerator] = .order._curried.volume_Limit()) : (() => .Float) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating WithExpiry orders
          *
          * WithExpiry orders can be viewed as ImmediateOrCancel orders
@@ -1164,7 +1067,6 @@ package order {
         def sideprice_WithExpiry(/** expiration period for orders */ expiry : Optional[.IFunction[.Float]] = .constant(10.0),
                                  /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => .IOrderGenerator] = .order._curried.sideprice_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating Immediate-Or-Cancel orders
          *
          *  Immediate-Or-Cancel order sends an underlying order to the market and
@@ -1178,7 +1080,6 @@ package order {
         @python.order.factory.on_proto("ImmediateOrCancel")
         def volume_ImmediateOrCancel(/** factory for underlying orders */ proto : Optional[(() => .Float) => .IOrderGenerator] = .order._curried.volume_Limit()) : (() => .Float) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating orders with floating price
          *
          *  Floating price order is initialized by an order having a price and an observable that generates new prices.
@@ -1190,7 +1091,6 @@ package order {
         def volume_FloatingPrice(/** observable defining price of orders to create */ floatingPrice : Optional[.IObservable[.Float]] = .const(10.0),
                                  /** underlying orders to create */ proto : Optional[(() => .Float) => ((() => .Float) => .IOrderGenerator)] = .order._curried.volume_price_Limit()) : (() => .Float) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating market orders
          *
          *  Market order intructs buy or sell given volume immediately
@@ -1199,7 +1099,6 @@ package order {
         @python.order.factory.curried("Market")
         def volume_Market(/** function defining side of orders to create */ side : Optional[() => .Side] = .side.Sell()) : (() => .Float) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating StopLoss orders
          *
          *  StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
@@ -1212,7 +1111,6 @@ package order {
         def volume_price_StopLoss(/** maximal acceptable loss factor */ maxloss : Optional[.IFunction[.Float]] = .constant(0.1),
                                   /** underlying orders to create */ proto : Optional[(() => .Float) => ((() => .Float) => .IOrderGenerator)] = .order._curried.volume_price_Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating Immediate-Or-Cancel orders
          *
          *  Immediate-Or-Cancel order sends an underlying order to the market and
@@ -1226,7 +1124,6 @@ package order {
         @python.order.factory.on_proto("price_ImmediateOrCancel")
         def volume_price_ImmediateOrCancel(/** factory for underlying orders */ proto : Optional[(() => .Float) => ((() => .Float) => .IOrderGenerator)] = .order._curried.volume_price_Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating limit orders
          *
          *  Limit orders ask to buy or sell some asset at price better than some limit price.
@@ -1238,7 +1135,6 @@ package order {
         def side_Limit(/** function defining price of orders to create */ price : Optional[.IFunction[.Float]] = .constant(100.0),
                        /** function defining volume of orders to create */ volume : Optional[.IFunction[.Float]] = .constant(1.0)) : (() => .Side) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating orders with floating price
          *
          *  Floating price order is initialized by an order having a price and an observable that generates new prices.
@@ -1250,7 +1146,6 @@ package order {
         def side_price_FloatingPrice(/** observable defining price of orders to create */ floatingPrice : Optional[.IObservable[.Float]] = .const(10.0),
                                      /** underlying orders to create */ proto : Optional[(() => .Side) => ((() => .Float) => .IOrderGenerator)] = .order._curried.side_price_Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating orders with floating price
          *
          *  Floating price order is initialized by an order having a price and an observable that generates new prices.
@@ -1262,7 +1157,6 @@ package order {
         def side_FloatingPrice(/** observable defining price of orders to create */ floatingPrice : Optional[.IObservable[.Float]] = .const(10.0),
                                /** underlying orders to create */ proto : Optional[(() => .Side) => ((() => .Float) => .IOrderGenerator)] = .order._curried.side_price_Limit()) : (() => .Side) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating WithExpiry orders
          *
          * WithExpiry orders can be viewed as ImmediateOrCancel orders
@@ -1273,7 +1167,6 @@ package order {
         def side_price_WithExpiry(/** expiration period for orders */ expiry : Optional[.IFunction[.Float]] = .constant(10.0),
                                   /** underlying orders to create */ proto : Optional[(() => .Side) => ((() => .Float) => .IOrderGenerator)] = .order._curried.side_price_Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating limit orders
          *
          *  Limit orders ask to buy or sell some asset at price better than some limit price.
@@ -1284,7 +1177,6 @@ package order {
         @python.order.factory.curried("price_Limit")
         def side_price_Limit(/** function defining volume of orders to create */ volume : Optional[.IFunction[.Float]] = .constant(1.0)) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating iceberg orders
          *
          *  Iceberg order is initialized by an underlying order and a lot size.
@@ -1296,7 +1188,6 @@ package order {
         def volume_Iceberg(/** maximal size of order to send */ lotSize : Optional[.IFunction[.Float]] = .constant(10.0),
                            /** underlying orders to create */ proto : Optional[(() => .Float) => .IOrderGenerator] = .order._curried.volume_Limit()) : (() => .Float) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating orders with floating price
          *
          *  Floating price order is initialized by an order having a price and an observable that generates new prices.
@@ -1308,7 +1199,6 @@ package order {
         def volume_price_FloatingPrice(/** observable defining price of orders to create */ floatingPrice : Optional[.IObservable[.Float]] = .const(10.0),
                                        /** underlying orders to create */ proto : Optional[(() => .Float) => ((() => .Float) => .IOrderGenerator)] = .order._curried.volume_price_Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating market orders
          *
          *  Market order intructs buy or sell given volume immediately
@@ -1317,7 +1207,6 @@ package order {
         @python.order.factory.curried("Market")
         def side_Market(/** function defining volume of orders to create */ volume : Optional[.IFunction[.Float]] = .constant(1.0)) : (() => .Side) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating orders with floating price
          *
          *  Floating price order is initialized by an order having a price and an observable that generates new prices.
@@ -1329,7 +1218,6 @@ package order {
         def price_FloatingPrice(/** observable defining price of orders to create */ floatingPrice : Optional[.IObservable[.Float]] = .const(10.0),
                                 /** underlying orders to create */ proto : Optional[(() => .Float) => .IOrderGenerator] = .order._curried.price_Limit()) : (() => .Float) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating orders with floating price
          *
          *  Floating price order is initialized by an order having a price and an observable that generates new prices.
@@ -1341,7 +1229,6 @@ package order {
         def sidevolume_FloatingPrice(/** observable defining price of orders to create */ floatingPrice : Optional[.IObservable[.Float]] = .const(10.0),
                                      /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)] = .order._curried.sidevolume_price_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating WithExpiry orders
          *
          * WithExpiry orders can be viewed as ImmediateOrCancel orders
@@ -1352,7 +1239,6 @@ package order {
         def price_WithExpiry(/** expiration period for orders */ expiry : Optional[.IFunction[.Float]] = .constant(10.0),
                              /** underlying orders to create */ proto : Optional[(() => .Float) => .IOrderGenerator] = .order._curried.price_Limit()) : (() => .Float) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating iceberg orders
          *
          *  Iceberg order is initialized by an underlying order and a lot size.
@@ -1364,7 +1250,6 @@ package order {
         def volume_price_Iceberg(/** maximal size of order to send */ lotSize : Optional[.IFunction[.Float]] = .constant(10.0),
                                  /** underlying orders to create */ proto : Optional[(() => .Float) => ((() => .Float) => .IOrderGenerator)] = .order._curried.volume_price_Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating orders with floating price
          *
          *  Floating price order is initialized by an order having a price and an observable that generates new prices.
@@ -1376,7 +1261,6 @@ package order {
         def sidevolume_price_FloatingPrice(/** observable defining price of orders to create */ floatingPrice : Optional[.IObservable[.Float]] = .const(10.0),
                                            /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)] = .order._curried.sidevolume_price_Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating Immediate-Or-Cancel orders
          *
          *  Immediate-Or-Cancel order sends an underlying order to the market and
@@ -1390,7 +1274,6 @@ package order {
         @python.order.factory.on_proto("price_ImmediateOrCancel")
         def sidevolume_price_ImmediateOrCancel(/** factory for underlying orders */ proto : Optional[((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)] = .order._curried.sidevolume_price_Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating market orders
          *
          *  Market order intructs buy or sell given volume immediately
@@ -1399,7 +1282,6 @@ package order {
         @python.order.factory.curried("Market")
         def sidevolume_Market() : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating limit orders
          *
          *  Limit orders ask to buy or sell some asset at price better than some limit price.
@@ -1411,7 +1293,6 @@ package order {
         def price_Limit(/** function defining side of orders to create */ side : Optional[() => .Side] = .side.Sell(),
                         /** function defining volume of orders to create */ volume : Optional[.IFunction[.Float]] = .constant(1.0)) : (() => .Float) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating limit orders
          *
          *  Limit orders ask to buy or sell some asset at price better than some limit price.
@@ -1422,7 +1303,6 @@ package order {
         @python.order.factory.curried("Limit")
         def sidevolume_Limit(/** function defining price of orders to create */ price : Optional[.IFunction[.Float]] = .constant(100.0)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating iceberg orders
          *
          *  Iceberg order is initialized by an underlying order and a lot size.
@@ -1434,7 +1314,6 @@ package order {
         def sideprice_Iceberg(/** maximal size of order to send */ lotSize : Optional[.IFunction[.Float]] = .constant(10.0),
                               /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => .IOrderGenerator] = .order._curried.sideprice_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating Peg orders
          *
          *  A peg order is a particular case of the floating price order
@@ -1446,7 +1325,6 @@ package order {
         @python.order.factory.on_proto("price_Peg")
         def sidevolume_price_Peg(proto : Optional[((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)] = .order._curried.sidevolume_price_Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating market orders
          *
          *  Market order intructs buy or sell given volume immediately
@@ -1455,7 +1333,6 @@ package order {
         @python.order.factory.curried("MarketSigned")
         def signedVolume_MarketSigned() : (() => .Float) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating Immediate-Or-Cancel orders
          *
          *  Immediate-Or-Cancel order sends an underlying order to the market and
@@ -1469,7 +1346,6 @@ package order {
         @python.order.factory.on_proto("ImmediateOrCancel")
         def sideprice_ImmediateOrCancel(/** factory for underlying orders */ proto : Optional[((() => .Side),(() => .Float)) => .IOrderGenerator] = .order._curried.sideprice_Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating Peg orders
          *
          *  A peg order is a particular case of the floating price order
@@ -1481,7 +1357,6 @@ package order {
         @python.order.factory.on_proto("price_Peg")
         def side_price_Peg(proto : Optional[(() => .Side) => ((() => .Float) => .IOrderGenerator)] = .order._curried.side_price_Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating iceberg orders
          *
          *  Iceberg order is initialized by an underlying order and a lot size.
@@ -1493,7 +1368,6 @@ package order {
         def sidevolume_price_Iceberg(/** maximal size of order to send */ lotSize : Optional[.IFunction[.Float]] = .constant(10.0),
                                      /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)] = .order._curried.sidevolume_price_Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
         
-        // defined at <undefined filename>: <undefined position>
         /** Factory creating limit orders
          *
          *  Limit orders ask to buy or sell some asset at price better than some limit price.
@@ -1541,7 +1415,6 @@ package order {
         def Peg = .order._curried.volume_Peg
     }
     
-    // defined at defs\order.sc: 23.5
     /** Factory creating limit orders
      *
      *  Limit orders ask to buy or sell some asset at price better than some limit price.
@@ -1554,7 +1427,6 @@ package order {
               /** function defining price of orders to create */ price : Optional[.IFunction[.Float]] = .constant(100.0),
               /** function defining volume of orders to create */ volume : Optional[.IFunction[.Float]] = .constant(1.0)) : .IOrderGenerator
     
-    // defined at <undefined filename>: <undefined position>
     /** Factory creating market orders
      *
      *  Market order intructs buy or sell given volume immediately
@@ -1563,7 +1435,6 @@ package order {
     @python.order.factory("order.market.Order_Impl")
     def MarketSigned(/**signed volume*/ signedVolume : () => .Float = .constant(1.0)) : .IOrderGenerator
     
-    // defined at defs\order.sc: 54.5
     /** Factory creating Immediate-Or-Cancel orders
      *
      *  Immediate-Or-Cancel order sends an underlying order to the market and
@@ -1577,7 +1448,6 @@ package order {
     @python.order.factory("order.meta.ioc.Order_Impl")
     def ImmediateOrCancel(/** factory for underlying orders */ proto : Optional[.IOrderGenerator] = .order.Limit()) : .IOrderGenerator
     
-    // defined at defs\order.sc: 12.5
     /** Factory creating market orders
      *
      *  Market order intructs buy or sell given volume immediately
@@ -1587,7 +1457,6 @@ package order {
     def Market(/** function defining side of orders to create */ side : Optional[() => .Side] = .side.Sell(),
                /** function defining volume of orders to create */ volume : Optional[.IFunction[.Float]] = .constant(1.0)) : .IOrderGenerator
     
-    // defined at defs\order.sc: 68.5
     /** Factory creating StopLoss orders
      *
      *  StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
@@ -1600,7 +1469,6 @@ package order {
     def StopLoss(/** maximal acceptable loss factor */ maxloss : Optional[.IFunction[.Float]] = .constant(0.1),
                  /** underlying orders to create */ proto : Optional[.IOrderGenerator] = .order.Limit()) : .IOrderGenerator
     
-    // defined at defs\order.sc: 82.5
     /** Factory creating WithExpiry orders
      *
      * WithExpiry orders can be viewed as ImmediateOrCancel orders
@@ -1611,7 +1479,6 @@ package order {
     def WithExpiry(/** expiration period for orders */ expiry : Optional[.IFunction[.Float]] = .constant(10.0),
                    /** underlying orders to create */ proto : Optional[.IOrderGenerator] = .order.Limit()) : .IOrderGenerator
     
-    // defined at defs\order.sc: 107.5
     /** Factory creating orders with floating price
      *
      *  Floating price order is initialized by an order having a price and an observable that generates new prices.
@@ -1623,7 +1490,6 @@ package order {
     def FloatingPrice(/** observable defining price of orders to create */ floatingPrice : Optional[.IObservable[.Float]] = .const(10.0),
                       /** underlying orders to create */ proto : Optional[(() => .Float) => .IOrderGenerator] = .order._curried.price_Limit()) : .IOrderGenerator
     
-    // defined at defs\order.sc: 94.5
     /** Factory creating iceberg orders
      *
      *  Iceberg order is initialized by an underlying order and a lot size.
@@ -1635,7 +1501,6 @@ package order {
     def Iceberg(/** maximal size of order to send */ lotSize : Optional[.IFunction[.Float]] = .constant(10.0),
                 /** underlying orders to create */ proto : Optional[.IOrderGenerator] = .order.Limit()) : .IOrderGenerator
     
-    // defined at defs\order.sc: 38.5
     /** Factory creating fixed budget orders
      *
      *  Fixed budget order acts like a market order
@@ -1650,7 +1515,6 @@ package order {
     def FixedBudget(/** function defining side of orders to create */ side : Optional[() => .Side] = .side.Sell(),
                     /** function defining budget on which it may send orders at one time */ budget : Optional[.IFunction[.Float]] = .constant(1000.0)) : .IOrderGenerator
     
-    // defined at <undefined filename>: <undefined position>
     /** Factory creating limit orders
      *
      *  Limit orders ask to buy or sell some asset at price better than some limit price.
@@ -1662,7 +1526,6 @@ package order {
     def LimitSigned(/**signed volume*/ signedVolume : () => .Float = .constant(1.0),
                     /** function defining price of orders to create */ price : Optional[.IFunction[.Float]] = .constant(100.0)) : .IOrderGenerator
     
-    // defined at defs\order.sc: 120.5
     /** Factory creating Peg orders
      *
      *  A peg order is a particular case of the floating price order
@@ -1680,7 +1543,6 @@ package order {
 package strategy {@category = "Side function"
     
     package side {
-        // defined at defs\strategies\parts\side.sc: 82.5
         /** Side function for pair trading strategy
          */
         
@@ -1689,7 +1551,6 @@ package strategy {@category = "Side function"
                         /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Side]
             	 = .observable.Side(.strategy.side.FundamentalValue(.orderbook.MidPrice(bookToDependOn)*.const(factor),book))
         
-        // defined at defs\strategies\parts\side.sc: 11.5
         /** Side function for signal strategy
          */
         
@@ -1698,7 +1559,6 @@ package strategy {@category = "Side function"
                    /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : () => .Side
             	 = if signal>.const(threshold) then .side.Buy() else if signal<.const(0-threshold) then .side.Sell() else .side.Nothing()
         
-        // defined at defs\strategies\parts\side.sc: 37.5
         /** Side function for crossing averages strategy
          */
         
@@ -1708,7 +1568,6 @@ package strategy {@category = "Side function"
                              /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
             	 = .strategy.side.Signal(.math.EW.Avg(.orderbook.MidPrice(book),alpha_1)-.math.EW.Avg(.orderbook.MidPrice(book),alpha_2),threshold)
         
-        // defined at defs\strategies\parts\side.sc: 24.5
         /** Side function for trend follower strategy
          */
         
@@ -1717,7 +1576,6 @@ package strategy {@category = "Side function"
                           /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
             	 = .strategy.side.Signal(.math.Derivative(.math.EW.Avg(.orderbook.MidPrice(book),alpha)),threshold)
         
-        // defined at defs\strategies\parts\side.sc: 55.5
         /** Side function for fundamental value strategy
          */
         
@@ -1726,7 +1584,6 @@ package strategy {@category = "Side function"
                              /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
             	 = if .orderbook.bid.Price(book)>fv then .side.Sell() else if .orderbook.ask.Price(book)<fv then .side.Buy() else .side.Nothing()
         
-        // defined at defs\strategies\parts\side.sc: 69.5
         /** Side function for mean reversion strategy
          */
         
@@ -1734,7 +1591,6 @@ package strategy {@category = "Side function"
                           /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
             	 = .strategy.side.FundamentalValue(.math.EW.Avg(.orderbook.MidPrice(book),alpha),book)
         
-        // defined at defs\strategies\parts\side.sc: 4.5
         /** Side function for a noise trading strategy
          */
         
@@ -1745,14 +1601,12 @@ package strategy {@category = "Side function"
     
     package weight {
         package array {
-            // defined at <undefined filename>: <undefined position>
             /** Identity function for an array of floats
              */
             
             @python.curried("IdentityL")
             def array_IdentityL() : Optional[List[.Float]] => List[.Float]
             
-            // defined at <undefined filename>: <undefined position>
             /** Function returning an array of length *len(array)*
              *  having 1 at the index of the maximal element and 0 are at the rest
              */
@@ -1763,21 +1617,18 @@ package strategy {@category = "Side function"
         
         
         package trader {
-            // defined at <undefined filename>: <undefined position>
             /** Returns first derivative of a moving average of the trader efficiency
              */
             
             @python.curried("EfficiencyTrend")
             def trader_EfficiencyTrend(/** parameter alpha for the moving average */ alpha : Optional[.Float] = 0.15) : .IAccount => .IFunction[.Float]
             
-            // defined at <undefined filename>: <undefined position>
             /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
              */
             
             @python.curried("Efficiency")
             def trader_Efficiency() : .IAccount => .IFunction[.Float]
             
-            // defined at <undefined filename>: <undefined position>
             /** Calculates how many times efficiency of trader went up and went down
              * Returns difference between them.
              *
@@ -1787,7 +1638,6 @@ package strategy {@category = "Side function"
             @python.curried("Score")
             def trader_Score() : .IAccount => .IFunction[.Float]
             
-            // defined at <undefined filename>: <undefined position>
             /** Unit function. Used to simulate uniform random choice of a strategy
              */
             
@@ -1797,21 +1647,18 @@ package strategy {@category = "Side function"
         
         
         package f {
-            // defined at <undefined filename>: <undefined position>
             /** scaling function = atan(base^f(x))
              */
             
             @python.curried("AtanPow")
             def f_AtanPow(/** base for power function */ base : Optional[.Float] = 1.002) : Optional[.IFunction[.Float]] => .IFunction[.Float]
             
-            // defined at <undefined filename>: <undefined position>
             /** scaling function = max(0, f(x)) + 1
              */
             
             @python.curried("Clamp0")
             def f_Clamp0() : Optional[.IFunction[.Float]] => .IFunction[.Float]
             
-            // defined at <undefined filename>: <undefined position>
             /** identity scaling = f(x)
              */
             
@@ -1819,7 +1666,6 @@ package strategy {@category = "Side function"
             def f_IdentityF() : Optional[.IFunction[.Float]] => .IFunction[.Float]
         }
         
-        // defined at defs\strategies\efficiency.sc: 126.5
         /** Function returning an array of length *len(array)*
          *  having 1 at the index of the maximal element and 0 are at the rest
          */
@@ -1828,7 +1674,6 @@ package strategy {@category = "Side function"
         @curried("array")
         def ChooseTheBest(array : Optional[List[.Float]] = []) : List[.Float]
         
-        // defined at defs\strategies\efficiency.sc: 96.5
         /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
          */
         
@@ -1836,7 +1681,6 @@ package strategy {@category = "Side function"
         def Efficiency(/** account in question */ trader : .IAccount = .trader.SingleProxy()) : .IFunction[.Float]
             	 = .trader.Efficiency(trader)
         
-        // defined at defs\strategies\efficiency.sc: 77.5
         /** Calculates how many times efficiency of trader went up and went down
          * Returns difference between them.
          *
@@ -1847,7 +1691,6 @@ package strategy {@category = "Side function"
         @curried("trader")
         def Score(/** account in question */ trader : .IAccount = .trader.SingleProxy()) : .IFunction[.Float]
         
-        // defined at defs\strategies\efficiency.sc: 63.5
         /** scaling function = max(0, f(x)) + 1
          */
         
@@ -1855,7 +1698,6 @@ package strategy {@category = "Side function"
         def Clamp0(/** function to scale */ f : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
             	 = .math.Max(.constant(0),f)+1
         
-        // defined at defs\strategies\efficiency.sc: 105.5
         /** Returns first derivative of a moving average of the trader efficiency
          */
         
@@ -1864,7 +1706,6 @@ package strategy {@category = "Side function"
                             /** parameter alpha for the moving average */ alpha : Optional[.Float] = 0.15) : .IFunction[.Float]
             	 = .math.Derivative(.math.EW.Avg(.trader.Efficiency(trader),alpha))
         
-        // defined at defs\strategies\efficiency.sc: 87.5
         /** Unit function. Used to simulate uniform random choice of a strategy
          */
         
@@ -1872,7 +1713,6 @@ package strategy {@category = "Side function"
         def Unit(/** account in question */ trader : .IAccount = .trader.SingleProxy()) : .IFunction[.Float]
             	 = .constant(1.0)
         
-        // defined at defs\strategies\efficiency.sc: 51.5
         /** scaling function = atan(base^f(x))
          */
         
@@ -1881,7 +1721,6 @@ package strategy {@category = "Side function"
                     /** base for power function */ base : Optional[.Float] = 1.002) : .IFunction[.Float]
             	 = .math.Atan(.math.Pow(.constant(base),f))
         
-        // defined at defs\strategies\efficiency.sc: 119.5
         /** Identity function for an array of floats
          */
         
@@ -1889,7 +1728,6 @@ package strategy {@category = "Side function"
         @curried("array")
         def IdentityL(array : Optional[List[.Float]] = []) : List[.Float]
         
-        // defined at defs\strategies\efficiency.sc: 72.5
         /** identity scaling = f(x)
          */
         
@@ -1916,7 +1754,6 @@ package strategy {@category = "Side function"
     @category = "Price function"
     
     package price {
-        // defined at defs\strategies\parts\price.sc: 4.5
         /** Price function for a liquidity provider strategy
          */
         
@@ -1931,7 +1768,6 @@ package strategy {@category = "Side function"
     @category = "Volume function"
     
     package position {
-        // defined at defs\strategies\parts\position.sc: 4.5
         /** Position function for desired position strategy
          */
         
@@ -1939,7 +1775,6 @@ package strategy {@category = "Side function"
                             /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Volume]
             	 = .observable.Volume(desiredPosition-.trader.Position(trader)-.trader.PendingVolume(trader))
         
-        // defined at defs\strategies\parts\position.sc: 34.5
         /** Position function for Relative Strength Index strategy with linear scaling
          */
         
@@ -1949,7 +1784,6 @@ package strategy {@category = "Side function"
                        /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Volume]
             	 = .strategy.position.DesiredPosition(.observable.OnEveryDt(1.0,.const(50.0)-.math.RSI(.orderbook.OfTrader(trader),timeframe,alpha))*k,trader)
         
-        // defined at defs\strategies\parts\position.sc: 15.5
         /** Position function for Bollinger bands strategy with linear scaling
          */
         
@@ -1962,7 +1796,6 @@ package strategy {@category = "Side function"
     
     package account {
         package inner {
-            // defined at <undefined filename>: <undefined position>
             /** Associated with a strategy account that evaluates for every order sent by the strategy
              *  how it would be traded by sending request.evalMarketOrder
              *  (note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market
@@ -1972,7 +1805,6 @@ package strategy {@category = "Side function"
             @python.curried("VirtualMarket")
             def inner_VirtualMarket() : Optional[.ISingleAssetStrategy] => .IAccount
             
-            // defined at <undefined filename>: <undefined position>
             /** Associated with a strategy account that tracks
              *  how orders sent by the strategy have been actually traded
              */
@@ -1981,7 +1813,6 @@ package strategy {@category = "Side function"
             def inner_Real() : Optional[.ISingleAssetStrategy] => .IAccount
         }
         
-        // defined at defs\strategies\efficiency.sc: 3.5
         /** Associated with a strategy account that tracks
          *  how orders sent by the strategy have been actually traded
          */
@@ -1990,7 +1821,6 @@ package strategy {@category = "Side function"
         @curried("inner")
         def Real(/** strategy to track */ inner : Optional[.ISingleAssetStrategy] = .strategy.Noise()) : .IAccount
         
-        // defined at defs\strategies\efficiency.sc: 12.5
         /** Associated with a strategy account that evaluates for every order sent by the strategy
          *  how it would be traded by sending request.evalMarketOrder
          *  (note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market
@@ -2005,7 +1835,6 @@ package strategy {@category = "Side function"
         def virtualMarket = .strategy.account.inner.inner_VirtualMarket
     }
     
-    // defined at defs\strategies\common.sc: 14.5
     /** Creates a strategy combining two strategies
      *  Can be considered as a particular case of Array strategy
      */
@@ -2014,7 +1843,6 @@ package strategy {@category = "Side function"
     def Combine(A : Optional[.ISingleAssetStrategy] = .strategy.Noise(),
                 B : Optional[.ISingleAssetStrategy] = .strategy.Noise()) : .ISingleAssetStrategy
     
-    // defined at defs\strategies\position.sc: 3.5
     /** Strategy believing that trader position should be proportional to 50 - RSI(asset)
      */
     
@@ -2024,7 +1852,6 @@ package strategy {@category = "Side function"
                    /** lag for calculating up and down movements */ timeframe : Optional[.Float] = 1.0) : .ISingleAssetStrategy
         	 = .strategy.Generic(orderFactory(.strategy.position.RSI_linear(alpha,k,timeframe)))
     
-    // defined at defs\strategies\side.sc: 115.5
     /** Dependent price strategy believes that the fair price of an asset *A*
      * is completely correlated with price of another asset *B* and the following relation
      * should be held: *PriceA* = *kPriceB*, where *k* is some factor.
@@ -2039,7 +1866,6 @@ package strategy {@category = "Side function"
                     /** multiplier to obtain fair asset price from the reference asset price */ factor : Optional[.Float] = 1.0) : .ISingleAssetStrategy
         	 = .strategy.Generic(orderFactory(.strategy.side.PairTrading(bookToDependOn,factor)),eventGen)
     
-    // defined at defs\strategies\adaptive.sc: 49.5
     /** A composite strategy initialized with an array of strategies.
      * In some moments of time the most effective strategy
      * is chosen and made running; other strategies are suspended.
@@ -2052,7 +1878,6 @@ package strategy {@category = "Side function"
                       /** function creating phantom strategy used for efficiency estimation */ account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account.inner.inner_VirtualMarket(),
                       /** function estimating is the strategy efficient or not */ performance : Optional[.IAccount => .IFunction[.Float]] = .strategy.weight.trader.trader_EfficiencyTrend()) : .ISingleAssetStrategy
     
-    // defined at defs\strategies\side.sc: 16.5
     /** Signal strategy listens to some discrete signal
      * and when the signal becomes more than some threshold the strategy starts to buy.
      * When the signal gets lower than -threshold the strategy starts to sell.
@@ -2064,7 +1889,6 @@ package strategy {@category = "Side function"
                /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : .ISingleAssetStrategy
         	 = .strategy.Generic(orderFactory(.strategy.side.Signal(signal,threshold)),eventGen)
     
-    // defined at defs\strategies\sideprice.sc: 28.5
     /** Liquidity provider for two sides
      */
     
@@ -2075,7 +1899,6 @@ package strategy {@category = "Side function"
                             *                    order to create is calculated*/ priceDistr : Optional[() => .Float] = .math.random.lognormvariate(0.0,0.1)) : .ISingleAssetStrategy
         	 = .strategy.Array([.strategy.LiquidityProviderSide(eventGen,orderFactory,.side.Sell(),initialValue,priceDistr),.strategy.LiquidityProviderSide(eventGen,orderFactory,.side.Buy(),initialValue,priceDistr)])
     
-    // defined at defs\strategies\side.sc: 57.5
     /** Two averages strategy compares two averages of price of the same asset but
      * with different parameters ('slow' and 'fast' averages) and when
      * the first is greater than the second one it buys,
@@ -2089,7 +1912,6 @@ package strategy {@category = "Side function"
                          /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0) : .ISingleAssetStrategy
         	 = .strategy.Generic(orderFactory(.strategy.side.CrossingAverages(ewma_alpha_1,ewma_alpha_2,threshold)),eventGen)
     
-    // defined at defs\strategies\adaptive.sc: 3.5
     /** Strategy that wraps another strategy and passes its orders only if *predicate* is true
      */
     
@@ -2097,7 +1919,6 @@ package strategy {@category = "Side function"
     def Suspendable(/** wrapped strategy */ inner : Optional[.ISingleAssetStrategy] = .strategy.Noise(),
                     /** predicate to evaluate */ predicate : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean]) : .ISingleAssetStrategy
     
-    // defined at defs\strategies\side.sc: 35.5
     /** Trend follower can be considered as a sort of a signal strategy
      * where the *signal* is a trend of the asset.
      * Under trend we understand the first derivative of some moving average of asset prices.
@@ -2112,7 +1933,6 @@ package strategy {@category = "Side function"
                       /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0) : .ISingleAssetStrategy
         	 = .strategy.Generic(orderFactory(.strategy.side.TrendFollower(ewma_alpha,threshold)),eventGen)
     
-    // defined at defs\strategies\side.sc: 79.5
     /** Fundamental value strategy believes that an asset should have some specific price
      * (*fundamental value*) and if the current asset price is lower than the fundamental value
      * it starts to buy the asset and if the price is higher it starts to sell the asset.
@@ -2123,7 +1943,6 @@ package strategy {@category = "Side function"
                          /** defines fundamental value */ fundamentalValue : Optional[.IFunction[.Float]] = .constant(100.0)) : .ISingleAssetStrategy
         	 = .strategy.Generic(orderFactory(.strategy.side.FundamentalValue(fundamentalValue)),eventGen)
     
-    // defined at defs\strategies\common.sc: 44.5
     /** Strategy for a multi asset trader.
      * It believes that these assets represent a single asset traded on different venues
      * Once an ask at one venue becomes lower than a bid at another venue
@@ -2133,7 +1952,6 @@ package strategy {@category = "Side function"
     @python.intrinsic("strategy.arbitrage._Arbitrage_Impl")
     def Arbitrage() : .IMultiAssetStrategy
     
-    // defined at defs\strategies\side.sc: 137.5
     /** Strategy that calculates Relative Strength Index of an asset
      *  and starts to buy when RSI is greater than 50 + *threshold*
      *  and sells when RSI is less than 50 - *thresold*
@@ -2146,7 +1964,6 @@ package strategy {@category = "Side function"
                /** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */ threshold : Optional[.Float] = 30.0) : .ISingleAssetStrategy
         	 = .strategy.Generic(orderFactory(.strategy.side.Signal(.const(50.0)-.math.RSI(.orderbook.OfTrader(),timeframe,alpha),50.0-threshold)),eventGen)
     
-    // defined at defs\strategies\adaptive.sc: 13.5
     /** Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
      */
     
@@ -2156,14 +1973,12 @@ package strategy {@category = "Side function"
                           /** given a trading account tells should it be considered as effective or not */ performance : Optional[.IAccount => .IFunction[.Float]] = .strategy.weight.trader.trader_EfficiencyTrend()) : .ISingleAssetStrategy
         	 = .strategy.Suspendable(inner,performance(account(inner))>=0)
     
-    // defined at defs\strategies\common.sc: 22.5
     /** Creates a strategy combining an array of strategies
      */
     
     @python.intrinsic("strategy.combine._Array_Impl")
     def Array(/** strategies to combine */ strategies : Optional[List[.ISingleAssetStrategy]] = [.strategy.Noise()]) : .ISingleAssetStrategy
     
-    // defined at defs\strategies\side.sc: 97.5
     /** Mean reversion strategy believes that asset price should return to its average value.
      * It estimates this average using some functional and
      * if the current asset price is lower than the average
@@ -2175,14 +1990,12 @@ package strategy {@category = "Side function"
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha : Optional[.Float] = 0.15) : .ISingleAssetStrategy
         	 = .strategy.Generic(orderFactory(.strategy.side.MeanReversion(ewma_alpha)),eventGen)
     
-    // defined at defs\strategies\common.sc: 38.5
     /** Empty strategy doing nothing
      */
     
     @python.intrinsic("strategy.basic._Empty_Impl")
     def Empty() : .ISingleAssetStrategy
     
-    // defined at defs\strategies\adaptive.sc: 27.5
     /** A composite strategy initialized with an array of strategies.
      * In some moments of time the efficiency of the strategies is evaluated
      * These efficiencies are mapped into weights using *weight* and *normilizer*
@@ -2199,7 +2012,6 @@ package strategy {@category = "Side function"
                          /** given array of strategy weights corrects them.
                            * for example it may set to 0 all weights except the maximal one */ corrector : Optional[Optional[List[.Float]] => List[.Float]] = .strategy.weight.array.array_IdentityL()) : .ISingleAssetStrategy
     
-    // defined at defs\strategies\sideprice.sc: 47.5
     /** A Strategy that allows to drive the asset price based on historical market data
      *  by creating large volume orders for the given price.
      *
@@ -2216,7 +2028,6 @@ package strategy {@category = "Side function"
                    /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume : Optional[.Float] = 1000.0) : .ISingleAssetStrategy
         	 = .strategy.Combine(.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.Quote(ticker,start,end)+.const(delta)),.order._curried.price_Limit(.side.Sell(),.constant(volume*1000)))),.event.After(.constant(0.0))),.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.Quote(ticker,start,end)-.const(delta)),.order._curried.price_Limit(.side.Buy(),.constant(volume*1000)))),.event.After(.constant(0.0))))
     
-    // defined at defs\strategies\common.sc: 29.5
     /** Strategy that listens to all orders sent by a trader to the market
      *  and in some moments of time it randomly chooses an order and cancels it
      *  Note: a similar effect can be obtained using order.WithExpiry meta orders
@@ -2225,7 +2036,6 @@ package strategy {@category = "Side function"
     @python.intrinsic("strategy.canceller._Canceller_Impl")
     def Canceller(/** intervals between order cancellations */ cancellationIntervalDistr : Optional[() => .Float] = .math.random.expovariate(1.0)) : .ISingleAssetStrategy
     
-    // defined at defs\strategies\sideprice.sc: 3.5
     /** Liquidity provider for one side
      */
     
@@ -2237,7 +2047,6 @@ package strategy {@category = "Side function"
                                 *                    order to create is calculated*/ priceDistr : Optional[() => .Float] = .math.random.lognormvariate(0.0,0.1)) : .ISingleAssetStrategy
         	 = .strategy.Generic(orderFactory(side,.strategy.price.LiquidityProvider(side,initialValue,priceDistr)),eventGen)
     
-    // defined at defs\strategies\common.sc: 4.5
     /** Generic strategy that wakes up on events given by *eventGen*,
      *  creates an order via *orderFactory* and sends the order to the market using its trader
      */
@@ -2246,13 +2055,11 @@ package strategy {@category = "Side function"
     def Generic(/** order factory function*/ orderFactory : Optional[.IOrderGenerator] = .order.Limit(),
                 /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every()) : .ISingleAssetStrategy
     
-    // defined at defs\strategies\sideprice.sc: 85.5
     
     def MarketMaker(delta : Optional[.Float] = 1.0,
                     volume : Optional[.Float] = 20.0) : .ISingleAssetStrategy
         	 = .strategy.Combine(.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.OnEveryDt(0.9,.orderbook.SafeSidePrice(.orderbook.Asks(),.constant(100+delta))/.math.Exp(.math.Atan(.trader.Position())/1000))),.order._curried.price_Limit(.side.Sell(),.constant(volume*1000)))),.event.After(.constant(0.0))),.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.OnEveryDt(0.9,.orderbook.SafeSidePrice(.orderbook.Bids(),.constant(100-delta))/.math.Exp(.math.Atan(.trader.Position())/1000))),.order._curried.price_Limit(.side.Buy(),.constant(volume*1000)))),.event.After(.constant(0.0))))
     
-    // defined at defs\strategies\side.sc: 3.5
     /** Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
      */
     
@@ -2260,7 +2067,6 @@ package strategy {@category = "Side function"
               /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market()) : .ISingleAssetStrategy
         	 = .strategy.Generic(orderFactory(.strategy.side.Noise()),eventGen)
     
-    // defined at defs\strategies\position.sc: 19.5
     /** Strategy believing that trader position should be proportional to the relative standard deviation of its price
      */
     
@@ -2273,14 +2079,12 @@ package strategy {@category = "Side function"
 @category = "Trader"
 
 package trader {
-    // defined at defs\trader\properties.sc: 12.5
     /** Number of money owned by trader
      */
     
     @python.intrinsic("trader.props.Balance_Impl")
     def Balance(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Price]
     
-    // defined at defs\trader\properties.sc: 36.5
     /** Returns traders naive approximation of trader eficiency.
      *  It takes into account only the best price of the order queue
      */
@@ -2288,7 +2092,6 @@ package trader {
     def RoughPnL(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Float]
         	 = .observable.Float(.trader.Balance(trader)+.orderbook.NaiveCumulativePrice(.orderbook.OfTrader(trader),.trader.Position(trader)))
     
-    // defined at defs\trader\properties.sc: 4.5
     /** Returns position of the trader
      *  It is negative if trader has sold more assets than has bought and
      *  positive otherwise
@@ -2297,14 +2100,12 @@ package trader {
     @python.intrinsic("trader.props.Position_Impl")
     def Position(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Volume]
     
-    // defined at defs\trader\properties.sc: 24.5
     /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
      */
     
     def Efficiency(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Float]
         	 = .observable.Float(.trader.Balance(trader)+.orderbook.CumulativePrice(.orderbook.OfTrader(trader),.trader.Position(trader)))
     
-    // defined at defs\trader\classes.sc: 38.5
     /** Phantom trader that is used to refer to the current trader
      *  (normally it is used to define trader properties and strategies)
      */
@@ -2313,7 +2114,6 @@ package trader {
     @python.intrinsic("trader.proxy._Single_Impl")
     def SingleProxy() : .ISingleAssetTrader
     
-    // defined at defs\trader\classes.sc: 21.5
     /** A trader that trades different assets
      *  It can be considered as a composition of single asset traders and multi asset strategies
      *  At the moment there is no way to instruct a multi asset strategy to trade only on subset of the assets
@@ -2327,7 +2127,6 @@ package trader {
                    /** current trader balance (number of money units that it owns) */ PnL : Optional[.Float] = 0.0,
                    /** defines what data should be gathered for the trader */ timeseries : Optional[List[.ITimeSerie]] = [] : List[.ITimeSerie]) : .ITrader
     
-    // defined at defs\trader\properties.sc: 49.5
     /** Returns first derivative of a moving average of the trader efficiency
      */
     
@@ -2335,14 +2134,12 @@ package trader {
                         alpha : Optional[.Float] = 0.15) : () => .Float
         	 = .math.Derivative(.math.EW.Avg(.trader.Efficiency(trader),alpha))
     
-    // defined at defs\trader\properties.sc: 18.5
     /** Cumulative volume of orders sent to the market but haven't matched yet
      */
     
     @python.intrinsic("trader.props.PendingVolume_Impl")
     def PendingVolume(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Volume]
     
-    // defined at defs\trader\classes.sc: 4.5
     /** A trader that trades a single asset on a single market
      */
     @label = "%(name)s"
@@ -2361,32 +2158,27 @@ package trader {
 package orderbook {@queue = "Ask_{%(book)s}"
     
     package ask {
-        // defined at defs\orderbook\properties.sc: 152.9
         @label = "[{{queue}}]_{%(alpha)s}"
         
         def WeightedPrice(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
                           alpha : Optional[.Float] = 0.15) : .IFunction[.Float]
             	 = .orderbook.WeightedPrice(.orderbook.Asks(book),alpha)
         
-        // defined at defs\orderbook\properties.sc: 149.9
         @label = "LastTradeVolume({{queue}})"
         
         def LastTradeVolume(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Volume]
             	 = .orderbook.LastTradeVolume(.orderbook.Asks(book))
         
-        // defined at defs\orderbook\properties.sc: 140.9
         @label = "{{queue}}"
         
         def Price(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Price]
             	 = .orderbook.BestPrice(.orderbook.Asks(book))
         
-        // defined at defs\orderbook\properties.sc: 143.9
         @label = "Last({{queue}})"
         
         def LastPrice(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Price]
             	 = .orderbook.LastPrice(.orderbook.Asks(book))
         
-        // defined at defs\orderbook\properties.sc: 146.9
         @label = "LastTrade({{queue}})"
         
         def LastTradePrice(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Price]
@@ -2397,32 +2189,27 @@ package orderbook {@queue = "Ask_{%(book)s}"
     @queue = "Bid^{%(book)s}"
     
     package bid {
-        // defined at defs\orderbook\properties.sc: 152.9
         @label = "[{{queue}}]_{%(alpha)s}"
         
         def WeightedPrice(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
                           alpha : Optional[.Float] = 0.15) : .IFunction[.Float]
             	 = .orderbook.WeightedPrice(.orderbook.Bids(book),alpha)
         
-        // defined at defs\orderbook\properties.sc: 149.9
         @label = "LastTradeVolume({{queue}})"
         
         def LastTradeVolume(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Volume]
             	 = .orderbook.LastTradeVolume(.orderbook.Bids(book))
         
-        // defined at defs\orderbook\properties.sc: 140.9
         @label = "{{queue}}"
         
         def Price(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Price]
             	 = .orderbook.BestPrice(.orderbook.Bids(book))
         
-        // defined at defs\orderbook\properties.sc: 143.9
         @label = "Last({{queue}})"
         
         def LastPrice(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Price]
             	 = .orderbook.LastPrice(.orderbook.Bids(book))
         
-        // defined at defs\orderbook\properties.sc: 146.9
         @label = "LastTrade({{queue}})"
         
         def LastTradePrice(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Price]
@@ -2430,7 +2217,6 @@ package orderbook {@queue = "Ask_{%(book)s}"
         def _queue = .orderbook.Bids
     }
     
-    // defined at defs\orderbook\classes.sc: 56.5
     /** Phantom orderbook that is used to refer to the current order book
      *
      *  May be used only in objects held by orderbooks (so it is normally used in orderbook properties)
@@ -2440,7 +2226,6 @@ package orderbook {@queue = "Ask_{%(book)s}"
     @python.intrinsic("orderbook.of_trader._Proxy_Impl")
     def Proxy() : .IOrderBook
     
-    // defined at defs\orderbook\properties.sc: 50.5
     /** Returns best price if defined, otherwise last price
      *  and *defaultValue* if there haven't been any trades
      */
@@ -2450,7 +2235,6 @@ package orderbook {@queue = "Ask_{%(book)s}"
                       /** price to be used if there haven't been any trades */ defaultValue : Optional[.IFunction[.Float]] = .constant(100.0)) : .IObservable[.Price]
         	 = .observable.Price(.IfDefined(.orderbook.BestPrice(queue),.IfDefined(.orderbook.LastPrice(queue),defaultValue)))
     
-    // defined at defs\orderbook\properties.sc: 63.5
     /** Returns moving average of trade prices weighted by their volumes
      */
     @label = "Price_{%(alpha)s}^{%(queue)s}"
@@ -2459,21 +2243,18 @@ package orderbook {@queue = "Ask_{%(book)s}"
                       /** parameter alpha for the moving average  */ alpha : Optional[.Float] = 0.15) : .IFunction[.Float]
         	 = .math.EW.Avg(.orderbook.LastTradePrice(queue)*.orderbook.LastTradeVolume(queue),alpha)/.math.EW.Avg(.orderbook.LastTradeVolume(queue),alpha)
     
-    // defined at defs\orderbook\properties.sc: 74.5
     /** Returns tick size for the order *book*
      */
     
     @python.intrinsic("orderbook.props._TickSize_Impl")
     def TickSize(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Price
     
-    // defined at defs\orderbook\properties.sc: 88.5
     /** MidPrice of order *book*
      */
     
     def MidPrice(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Price]
         	 = .observable.Price((.orderbook.ask.Price(book)+.orderbook.bid.Price(book))/.const(2.0))
     
-    // defined at defs\orderbook\properties.sc: 10.5
     /** Returns sell side order queue for *book*
      */
     
@@ -2481,7 +2262,6 @@ package orderbook {@queue = "Ask_{%(book)s}"
     def Asks(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IOrderQueue
         	 = .orderbook.Queue(book,.side.Sell())
     
-    // defined at defs\orderbook\properties.sc: 43.5
     /** Returns volume of the last trade at *queue*
      *  Returns None if there haven't been any trades
      */
@@ -2489,7 +2269,6 @@ package orderbook {@queue = "Ask_{%(book)s}"
     @python.intrinsic("orderbook.last_trade._LastTradeVolume_Impl")
     def LastTradeVolume(queue : Optional[.IOrderQueue] = .orderbook.Asks()) : .IObservable[.Volume]
     
-    // defined at defs\orderbook\properties.sc: 16.5
     /** Returns buy side order queue for *book*
      */
     
@@ -2497,7 +2276,6 @@ package orderbook {@queue = "Ask_{%(book)s}"
     def Bids(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IOrderQueue
         	 = .orderbook.Queue(book,.side.Buy())
     
-    // defined at defs\orderbook\properties.sc: 22.5
     /** Returns best order price of *queue*
      *  Returns None is *queue* is empty
      */
@@ -2505,7 +2283,6 @@ package orderbook {@queue = "Ask_{%(book)s}"
     @python.intrinsic("orderbook.props._BestPrice_Impl")
     def BestPrice(queue : Optional[.IOrderQueue] = .orderbook.Asks()) : .IObservable[.Price]
     
-    // defined at defs\orderbook\classes.sc: 35.5
     /** Represents latency in information propagation between two agents
      * (normally between a trader and a market).
      * Ensures that sending packets via links preserves their order.
@@ -2516,7 +2293,6 @@ package orderbook {@queue = "Ask_{%(book)s}"
     def TwoWayLink(/** Forward link (normally from a trader to a market)*/ up : Optional[.ILink] = .orderbook.Link(),
                    /** Backward link (normally from a market to a trader)*/ down : Optional[.ILink] = .orderbook.Link()) : .ITwoWayLink
     
-    // defined at defs\orderbook\properties.sc: 4.5
     /** Returns order queue of order *book* for trade *side*
      */
     
@@ -2524,7 +2300,6 @@ package orderbook {@queue = "Ask_{%(book)s}"
     def Queue(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
               side : Optional[() => .Side] = .side.Sell()) : .IOrderQueue
     
-    // defined at defs\orderbook\classes.sc: 47.5
     /** Phantom orderbook used to refer to the order book associated with a single asset trader
      *
      *  May be used only in objects that are held by traders (so it is used in trader properties and strategies)
@@ -2534,7 +2309,6 @@ package orderbook {@queue = "Ask_{%(book)s}"
     @python.intrinsic("orderbook.of_trader._OfTrader_Impl")
     def OfTrader(Trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IOrderBook
     
-    // defined at defs\orderbook\properties.sc: 96.5
     /** Returns price for best orders of total volume *depth*
      *
      *  In other words cumulative price corresponds to trader balance change
@@ -2548,7 +2322,6 @@ package orderbook {@queue = "Ask_{%(book)s}"
     def CumulativePrice(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
                         depth : Optional[.IFunction[.Float]] = .constant()) : .IObservable[.Price]
     
-    // defined at defs\orderbook\properties.sc: 124.5
     /** Returns arrays of levels for given volumes [i*volumeDelta for i in range(0, volumeCount)]
      *  Level of volume V is a price at which cumulative volume of better orders is V
      */
@@ -2559,7 +2332,6 @@ package orderbook {@queue = "Ask_{%(book)s}"
                      /** distance between two volumes */ volumeDelta : Optional[.Float] = 30.0,
                      /** number of volume levels to track */ volumeCount : Optional[.Int] = 10) : .IObservable[.IVolumeLevels]
     
-    // defined at defs\orderbook\properties.sc: 29.5
     /** Returns last defined price at *queue*
      *  Returns None is *queue* has been always empty
      */
@@ -2567,7 +2339,6 @@ package orderbook {@queue = "Ask_{%(book)s}"
     @python.intrinsic("orderbook.last_price._LastPrice_Impl")
     def LastPrice(queue : Optional[.IOrderQueue] = .orderbook.Asks()) : .IObservable[.Price]
     
-    // defined at defs\orderbook\classes.sc: 4.5
     /** Order book for a single asset in a market.
      * Maintains two order queues for orders of different sides
      */
@@ -2579,7 +2350,6 @@ package orderbook {@queue = "Ask_{%(book)s}"
               name : Optional[.String] = "-orderbook-",
               timeseries : Optional[List[.ITimeSerie]] = [] : List[.ITimeSerie]) : .IOrderBook
     
-    // defined at defs\orderbook\classes.sc: 15.5
     /** Represent an *orderbook* from point of view of a remote trader connected
      * to the market by means of a *link* that introduces some latency in information propagation
      */
@@ -2590,7 +2360,6 @@ package orderbook {@queue = "Ask_{%(book)s}"
                link : Optional[.ITwoWayLink] = .orderbook.TwoWayLink(),
                timeseries : Optional[List[.ITimeSerie]] = [] : List[.ITimeSerie]) : .IOrderBook
     
-    // defined at defs\orderbook\properties.sc: 109.5
     /** Returns naive approximation of price for best orders of total volume *depth*
      *  by taking into account prices only for the best order
      *
@@ -2602,7 +2371,6 @@ package orderbook {@queue = "Ask_{%(book)s}"
                              depth : Optional[.IFunction[.Float]] = .constant()) : .IObservable[.Price]
         	 = .observable.Price(if depth<.const(0.0) then depth*.orderbook.ask.Price(book) else if depth>.const(0.0) then depth*.orderbook.bid.Price(book) else .const(0.0))
     
-    // defined at defs\orderbook\classes.sc: 25.5
     /** Represents latency in information propagation from one agent to another one
      * (normally between a trader and a market).
      * Ensures that sending packets via a link preserves their order.
@@ -2612,14 +2380,12 @@ package orderbook {@queue = "Ask_{%(book)s}"
     def Link(/** function called for each packet in order to determine
                * when it will appear at the end point*/ latency : Optional[.IObservable[.Float]] = .const(0.001)) : .ILink
     
-    // defined at defs\orderbook\properties.sc: 80.5
     /** Spread of order *book*
      */
     
     def Spread(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Price]
         	 = .observable.Price(.orderbook.ask.Price(book)-.orderbook.bid.Price(book))
     
-    // defined at defs\orderbook\properties.sc: 36.5
     /** Returns price of the last trade at *queue*
      *  Returns None if there haven't been any trades
      */
@@ -2631,7 +2397,6 @@ package orderbook {@queue = "Ask_{%(book)s}"
 @category = "Basic"
 
 package observable {
-    // defined at defs\observable.sc: 4.5
     /** Discretizes function *x* at even time steps *dt*
      */
     @label = "[%(x)s]_dt=%(dt)s"
@@ -2641,7 +2406,6 @@ package observable {
     def OnEveryDt(/** time discretization step */ dt : Optional[.Float] = 1.0,
                   /** function to discretize */ x : Optional[.IFunction[.Float]] = .constant()) : .IObservable[.Float]
     
-    // defined at defs\observable.sc: 51.5
     /** Down casts function *x* to IObservable[Volume].
      * Needed since generic functions aren't implemented yet
      */
@@ -2650,7 +2414,6 @@ package observable {
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     def Volume(x : Optional[.IFunction[.Float]] = .const() : .IFunction[.Float]) : .IObservable[.Volume]
     
-    // defined at defs\observable.sc: 59.5
     /** Down casts function *x* to IObservable[Side].
      * Needed since generic functions aren't implemented yet
      */
@@ -2659,7 +2422,6 @@ package observable {
     @python.intrinsic("observable.on_every_dt._ObservableSide_Impl")
     def Side(x : Optional[.IFunction[.Side]] = .side.Sell() : .IFunction[.Side]) : .IObservable[.Side]
     
-    // defined at defs\observable.sc: 43.5
     /** Down casts function *x* to IObservable[Price].
      * Needed since generic functions aren't implemented yet
      */
@@ -2668,7 +2430,6 @@ package observable {
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     def Price(x : Optional[.IFunction[.Float]] = .const() : .IFunction[.Float]) : .IObservable[.Price]
     
-    // defined at defs\observable.sc: 28.5
     /** Observable listening to *source*
      *  When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
      */
@@ -2676,7 +2437,6 @@ package observable {
     @python.intrinsic("observable.breaks_at_changes._BreaksAtChanges_Impl")
     def BreaksAtChanges(source : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
     
-    // defined at defs\observable.sc: 35.5
     /** Down casts function *x* to IObservable[Float].
      * Needed since generic functions aren't implemented yet
      */
@@ -2685,7 +2445,6 @@ package observable {
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     def Float(x : Optional[.IFunction[.Float]] = .const() : .IFunction[.Float]) : .IObservable[.Float]
     
-    // defined at defs\observable.sc: 15.5
     /** Observable that downloads closing prices for every day from *start* to *end* for asset given by *ticker*
      *  and follows the price in scale 1 model unit of time = 1 real day
      */
@@ -2709,60 +2468,48 @@ package trash {
     
     package in1 {
         package in2 {
-            // defined at defs\trash.sc: 34.1
             
             def S1(y : Optional[.String] = "abc") : .String
                 	 = y
             
-            // defined at defs\trash.sc: 42.1
             
             def F(x : Optional[.IFunction[.Float]] = .trash.in1.in2.IntFunc() : .IFunction[.Float]) : .IFunction[.Float]
                 	 = x
             
-            // defined at defs\trash.sc: 32.1
             
             def A(x : Optional[.IFunction[.Float]] = .constant(),
                   y : Optional[.IFunction[.Float]] = if 3>x+2 then x else x*2) : () => .trash.types.T
             
-            // defined at defs\trash.sc: 44.1
             
             def IntObs() : .IObservable[.Int]
             
-            // defined at defs\trash.sc: 40.1
             
             def IntFunc() : .IFunction[.Int]
             
-            // defined at defs\trash.sc: 38.1
             
             def C(x : .IFunction[.CandleStick],
                   p : Optional[List[.Float]] = [12,23.2,0]) : List[.Float]
                 	 = p
             
-            // defined at defs\trash.sc: 36.1
             
             def S2() : Optional[.String]
                 	 = .trash.in1.in2.S1()
             
-            // defined at defs\trash.sc: 46.1
             
             def O(x : Optional[.IObservable[.Float]] = .trash.in1.in2.IntObs() : .IObservable[.Float]) : .IObservable[.Float]
                 	 = x
         }
         
-        // defined at defs\trash.sc: 29.1
         
         def A(x : () => .trash.types.T1 = .trash.A()) : () => .trash.types.U
         
-        // defined at defs\trash.sc: 23.27
         
         def toInject1() : () => .Int
         
-        // defined at defs\trash.sc: 24.27
         
         def toInject2() : () => .Int
     }
     
-    // defined at defs\trash.sc: 26.1
     
     def A(x : Optional[() => .trash.types.T] = .trash.in1.in2.A()) : () => .trash.types.R
 }
@@ -2795,7 +2542,6 @@ type ITimeSerie
 type Any
 type IOrderGenerator = IObservable[Order]
 type String
-// defined at <undefined filename>: <undefined position>
 /** Function always returning *x*
  */
 @category = "Basic"
@@ -2804,7 +2550,6 @@ type String
 def constant(x : Optional[.Float] = 1.0) : .IFunction[.Float]
     	 = .const(x) : .IFunction[.Float]
 
-// defined at <undefined filename>: <undefined position>
 /** Trivial observable always returning *False*
  */
 @category = "Basic"
@@ -2813,7 +2558,6 @@ def constant(x : Optional[.Float] = 1.0) : .IFunction[.Float]
 @python.intrinsic.function("_constant._False_Impl")
 def false() : .IObservable[.Boolean]
 
-// defined at <undefined filename>: <undefined position>
 /** Trivial observable always returning *undefined* or *None* value
  */
 @category = "Basic"
@@ -2821,7 +2565,6 @@ def false() : .IObservable[.Boolean]
 @python.intrinsic("_constant._Null_Impl")
 def null() : () => .Float
 
-// defined at <undefined filename>: <undefined position>
 /** Time serie to store and render it after on a graph
  *  Used to specify what data should be collected about order books and traders
  */
@@ -2834,7 +2577,6 @@ def TimeSerie(source : Optional[.IObservable[Any]] = .const(0.0) : .IObservable[
               _digitsToShow : Optional[.Int] = 4,
               _smooth : Optional[.Int] = 1) : .ITimeSerie
 
-// defined at <undefined filename>: <undefined position>
 /** Trivial observable always returning *x*
  */
 @category = "Basic"
@@ -2843,7 +2585,6 @@ def TimeSerie(source : Optional[.IObservable[Any]] = .const(0.0) : .IObservable[
 @python.intrinsic.function("_constant._Constant_Impl")
 def const(x : Optional[.Float] = 1.0) : .IObservable[.Float]
 
-// defined at <undefined filename>: <undefined position>
 /** Observable returning at the end of every *timeframe*
  * open/close/min/max price, its average and standard deviation
  */
@@ -2854,7 +2595,6 @@ def const(x : Optional[.Float] = 1.0) : .IObservable[.Float]
 def CandleSticks(/** observable data source considered as asset price */ source : Optional[.IObservable[.Float]] = .const(),
                  /** size of timeframe */ timeframe : Optional[.Float] = 10.0) : .IObservable[.CandleStick]
 
-// defined at <undefined filename>: <undefined position>
 /** Trivial observable always returning *True*
  */
 @category = "Basic"
@@ -2863,7 +2603,6 @@ def CandleSticks(/** observable data source considered as asset price */ source 
 @python.intrinsic.function("_constant._True_Impl")
 def true() : .IObservable[.Boolean]
 
-// defined at <undefined filename>: <undefined position>
 /** Returns *x* if defined and *elsePart* otherwise
  */
 @category = "Basic"
@@ -2874,7 +2613,6 @@ def IfDefined(x : Optional[.IFunction[.Float]] = .constant(),
               /** function to take values from when *x* is undefined */ elsePart : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
     	 = if x<>.null() then x else elsePart
 
-// defined at <undefined filename>: <undefined position>
 /** Time serie holding volume levels of an asset
  * Level of volume V is a price at which cumulative volume of better orders is V
  */

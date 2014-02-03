@@ -170,30 +170,9 @@ package object predef {
         def asCode : Code
     }
 
-    sealed abstract class PrintMode
-
-    case object ScalaMode extends PrintMode
-
-    object ScPyPrintable
-    {
-        var printMode : PrintMode = ScalaMode
-    }
-
     trait ScPyPrintable extends ScPrintable with PyPrintable
     {
-        override def toString = ScPyPrintable.printMode match {
-            case ScalaMode => toScala
-        }
-
-        def as(m : PrintMode) = {
-            val old_mode = ScPyPrintable.printMode
-            ScPyPrintable.printMode = m
-            val ret = toString
-            ScPyPrintable.printMode = old_mode
-            ret
-        }
-
-        def asScala = as(ScalaMode)
+        def asScala = toScala
     }
 
 }
