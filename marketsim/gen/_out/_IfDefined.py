@@ -41,6 +41,7 @@ class IfDefined(Observable[float]):
     _internals = ['impl']
     def getImpl(self):
         from marketsim.gen._out._null import null as _null
+        from marketsim.gen._out._null import null as _null
         return (self.x<>_null())[self.x, self.elsePart]
     
     def bind(self, ctx):

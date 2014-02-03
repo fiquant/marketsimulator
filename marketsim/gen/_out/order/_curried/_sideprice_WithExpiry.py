@@ -35,9 +35,8 @@ IFunction[IOrderGenerator,IFunction[Side],IFunction[float]]):
     
     _properties = {
         'expiry' : IFunction[float],
-        'proto' : IFunction[IOrderGenerator, IFunction[Side],IFunction[float]
-        
-        ]
+        'proto' : IFunction[IOrderGenerator, IFunction[Side]
+        ,IFunction[float]]
     }
     def __repr__(self):
         return "sideprice_WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__

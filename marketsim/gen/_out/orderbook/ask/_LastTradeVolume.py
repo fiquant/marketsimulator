@@ -38,6 +38,9 @@ class LastTradeVolume(Observable[Volume]):
     def getImpl(self):
         from marketsim.gen._out.orderbook._LastTradeVolume import LastTradeVolume as _orderbook_LastTradeVolume
         from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
+        from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
+        from marketsim.gen._out.orderbook._LastTradeVolume import LastTradeVolume as _orderbook_LastTradeVolume
+        from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
         return _orderbook_LastTradeVolume(_orderbook_Asks(self.book))
         
     

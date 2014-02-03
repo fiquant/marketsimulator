@@ -46,7 +46,7 @@ object observable extends gen.PythonGenerator
 
         override def body = super.body | internals | getImpl | bind | reset | call
 
-        def getImpl = Def("getImpl", "", "return " ||| f.body.get.asPython ||| Code.from(f.body.get.imports))
+        def getImpl = Def("getImpl", "", "return " ||| f.body.get.asCode)
 
         def internals = "_internals = ['impl']"
     }

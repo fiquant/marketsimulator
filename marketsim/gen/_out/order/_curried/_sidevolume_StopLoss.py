@@ -37,9 +37,8 @@ IFunction[IOrderGenerator,IFunction[Side],IFunction[float]]):
     
     _properties = {
         'maxloss' : IFunction[float],
-        'proto' : IFunction[IOrderGenerator, IFunction[Side],IFunction[float]
-        
-        ]
+        'proto' : IFunction[IOrderGenerator, IFunction[Side]
+        ,IFunction[float]]
     }
     def __repr__(self):
         return "sidevolume_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__

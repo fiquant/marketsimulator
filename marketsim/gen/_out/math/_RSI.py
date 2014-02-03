@@ -41,13 +41,16 @@ class RSI(Observable[float]):
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.math.rsi._Raw import Raw as _math_rsi_Raw
         from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
-        return _const(100.0)-_const(100.0)/(_const(1.0)+_math_rsi_Raw(_orderbook_MidPrice(self.book),self.timeframe,self.alpha))
-        
-        
-        
-        
+        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
+        from marketsim.gen._out.math.rsi._Raw import Raw as _math_rsi_Raw
+        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
+        return (_const(100.0)-(_const(100.0)/((_const(1.0)+_math_rsi_Raw(_orderbook_MidPrice(self.book),self.timeframe,self.alpha)
+        ))))
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

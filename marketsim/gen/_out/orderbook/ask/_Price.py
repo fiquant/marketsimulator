@@ -38,6 +38,9 @@ class Price(Observable[Price]):
     def getImpl(self):
         from marketsim.gen._out.orderbook._BestPrice import BestPrice as _orderbook_BestPrice
         from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
+        from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
+        from marketsim.gen._out.orderbook._BestPrice import BestPrice as _orderbook_BestPrice
+        from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
         return _orderbook_BestPrice(_orderbook_Asks(self.book))
         
     

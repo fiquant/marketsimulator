@@ -37,9 +37,8 @@ IFunction[IOrderGenerator,IFunction[Side],IFunction[float]]):
     
     _properties = {
         'floatingPrice' : IObservable[float],
-        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side],IFunction[float]
-        
-        ]
+        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]
+        ,IFunction[float]]
     }
     def __repr__(self):
         return "sidevolume_FloatingPrice(%(floatingPrice)s, %(proto)s)" % self.__dict__

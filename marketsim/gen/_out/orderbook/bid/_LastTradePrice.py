@@ -38,6 +38,9 @@ class LastTradePrice(Observable[Price]):
     def getImpl(self):
         from marketsim.gen._out.orderbook._LastTradePrice import LastTradePrice as _orderbook_LastTradePrice
         from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
+        from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
+        from marketsim.gen._out.orderbook._LastTradePrice import LastTradePrice as _orderbook_LastTradePrice
+        from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
         return _orderbook_LastTradePrice(_orderbook_Bids(self.book))
         
     

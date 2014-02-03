@@ -41,9 +41,8 @@ IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side],IFunction[
     
     _properties = {
         'lotSize' : IFunction[float],
-        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side],IFunction[float]
-        
-        ]
+        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]
+        ,IFunction[float]]
     }
     def __repr__(self):
         return "sidevolume_price_Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__

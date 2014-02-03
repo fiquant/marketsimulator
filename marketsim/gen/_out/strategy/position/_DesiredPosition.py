@@ -44,8 +44,13 @@ class DesiredPosition(Observable[Volume]):
     def getImpl(self):
         from marketsim.gen._out.observable._Volume import Volume as _observable_Volume
         from marketsim.gen._out.trader._Position import Position as _trader_Position
+        from marketsim.gen._out.trader._Position import Position as _trader_Position
         from marketsim.gen._out.trader._PendingVolume import PendingVolume as _trader_PendingVolume
-        return _observable_Volume(self.desiredPosition-_trader_Position(self.trader)-_trader_PendingVolume(self.trader))
+        from marketsim.gen._out.trader._PendingVolume import PendingVolume as _trader_PendingVolume
+        from marketsim.gen._out.observable._Volume import Volume as _observable_Volume
+        from marketsim.gen._out.trader._Position import Position as _trader_Position
+        from marketsim.gen._out.trader._PendingVolume import PendingVolume as _trader_PendingVolume
+        return _observable_Volume(((self.desiredPosition-_trader_Position(self.trader))-_trader_PendingVolume(self.trader)))
         
         
     

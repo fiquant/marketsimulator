@@ -33,9 +33,8 @@ IFunction[IOrderGenerator,IFunction[Side],IFunction[float]]):
         return repr(self)
     
     _properties = {
-        'proto' : IFunction[IOrderGenerator, IFunction[Side],IFunction[float]
-        
-        ]
+        'proto' : IFunction[IOrderGenerator, IFunction[Side]
+        ,IFunction[float]]
     }
     def __repr__(self):
         return "sidevolume_ImmediateOrCancel(%(proto)s)" % self.__dict__

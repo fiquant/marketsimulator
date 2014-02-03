@@ -58,7 +58,6 @@ object order_factory
         def alias = name
 
         def ty = f.ret_type.returnTypeIfFunction.get.asPython
-
         def interface = "IOrderGenerator" ||| ImportFrom("IOrderGenerator", "marketsim")
 
         override def body = super.body | call
@@ -92,7 +91,7 @@ object order_factory
                 implementation_class |||
                         ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
             else
-                s"Observable[$ty]" |||
+                s"Observable["||| ty |||"]" |||
                         ImportFrom(ty, "marketsim") |||
                         ImportFrom("Observable", "marketsim.ops._all")
 
@@ -128,13 +127,13 @@ object order_factory
     def curriedTypes(curried : List[Typed.Parameter]) = {
         val curr_types = TypesBound.Tuple(curried map { _.ty })
 
-        curr_types.asPython ||| Code.from(curr_types.imports)
+        curr_types.asCode
     }
 
-    def curriedTypesAsList(curried : List[Typed.Parameter]) = {
-        val curr_types = curried map { _.ty }
-
-        (curr_types map { _.asPython } mkString "," ) ||| Code.from(curr_types flatMap { _.imports })
+    def curriedTypesAsList(curried : List[Typed.Parameter]) : Code = curried match {
+        case Nil => predef.stop
+        case x :: Nil => x.ty.asCode
+        case x :: y => x.ty.asCode ||| "," ||| curriedTypesAsList(y)
     }
 
     def generatePython(/** arguments of the annotation */ args  : List[String])

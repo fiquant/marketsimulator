@@ -54,10 +54,15 @@ class LiquidityProvider(Observable[float]):
     def getImpl(self):
         from marketsim.gen._out.orderbook._SafeSidePrice import SafeSidePrice as _orderbook_SafeSidePrice
         from marketsim.gen._out.orderbook._Queue import Queue as _orderbook_Queue
+        from marketsim.gen._out.orderbook._Queue import Queue as _orderbook_Queue
         from marketsim.gen._out._constant import constant as _constant
-        return _orderbook_SafeSidePrice(_orderbook_Queue(self.book,self.side),_constant(self.initialValue))*self.priceDistr
+        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out.orderbook._SafeSidePrice import SafeSidePrice as _orderbook_SafeSidePrice
+        from marketsim.gen._out.orderbook._Queue import Queue as _orderbook_Queue
+        from marketsim.gen._out._constant import constant as _constant
+        return (_orderbook_SafeSidePrice(_orderbook_Queue(self.book,self.side),_constant(self.initialValue))
         
-        
+        *self.priceDistr)
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

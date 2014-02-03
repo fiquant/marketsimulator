@@ -34,7 +34,7 @@ class Sqr(Observable[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        return self.x*self.x
+        return (self.x*self.x)
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
