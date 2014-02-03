@@ -68,6 +68,25 @@ package object gen
                 }
             }
 
+            if (p.types.nonEmpty)
+            {
+                for (out <- managed(printWriter(dir, "_types.py")))
+                {
+                    p.types.values foreach {
+                        case interface : Typed.InterfaceDecl =>
+                            if (interface.generics.isEmpty) {
+                                val name = interface.name
+                                val bases = interface.bases map { "," + _.toString } mkString ""
+                                out.println(s"#class $name(object$bases): pass")
+                            }
+
+                        case alias : Typed.AliasDecl =>
+                            if (alias.generics.isEmpty)
+                                out.println("#" + alias.name + " = " + alias.target.toString)
+                    }
+                }
+            }
+
             p.functionAliases.values foreach { f =>
                 generationUnit(f.target) map { g =>
                     idx_out.println(base.withImports(Printer.importsOf(f.target).as(f.name)))
