@@ -73,7 +73,7 @@ package ops
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     def Condition_Float(cond = true() : IFunction[Boolean],
                         ifpart = constant(1.0),
-                        elsepart = constant(1.0)) : IObservable[Float]
+                        elsepart = constant(1.0)) : IFunction[Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @python.intrinsic.observable("ops._NotEqual_Impl")
@@ -85,7 +85,7 @@ package ops
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     def Condition_Side(cond = true() : IFunction[Boolean],
                        ifpart = side.Sell(),
-                       elsepart = side.Buy()) : IObservable[Side]
+                       elsepart = side.Buy()) : IFunction[Side]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @python.intrinsic.observable("ops._GreaterEqual_Impl")

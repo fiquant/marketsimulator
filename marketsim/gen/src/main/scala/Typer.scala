@@ -284,7 +284,9 @@ package object Typer
         def promote_opt(e : Typed.Expr) =
             if (e.ty canCastTo Typed.topLevel.floatFunc) e match {
                 case Typed.BinOp(c, x, y) => Typed.BinOp(c, promote_literal(x), promote_literal(y))
-                case Typed.IfThenElse(cond, x, y) => Typed.IfThenElse(cond, promote_literal(x), promote_literal(y))
+                case Typed.IfThenElse(cond, x, y) =>
+                    val f = ctx lookupFunction AST.QualifiedName("ops" :: "Condition_Float" :: Nil)
+                    Typed.FunctionCall(f, cond :: promote_literal(x) :: promote_literal(y) :: Nil)
                 case x => x
             } else e match {
                 case Typed.Condition(symbol, x, y) =>

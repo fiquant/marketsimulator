@@ -80,7 +80,7 @@ package ops {
     @python.intrinsic.observable("ops._ConditionFloat_Impl")
     def Condition_Float(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
                         ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
-                        elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+                        elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<>"
@@ -94,7 +94,7 @@ package ops {
     @python.intrinsic.observable("ops._ConditionSide_Impl")
     def Condition_Side(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
                        ifpart : Optional[() => .Side] = .side.Sell(),
-                       elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
+                       elsepart : Optional[() => .Side] = .side.Buy()) : .IFunction[.Side]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = ">="
@@ -442,7 +442,7 @@ package math {
     @python.observable()
     def Min(x : Optional[.IFunction[.Float]] = .constant(),
             y : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
-        	 = if x<y then x else y
+        	 = .ops.Condition_Float(x<y,x,y)
     
     /** Returns negative movements of some observable *source* with lag *timeframe*
      */
@@ -476,7 +476,7 @@ package math {
     @python.observable()
     def Max(x : Optional[.IFunction[.Float]] = .constant(),
             y : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
-        	 = if x>y then x else y
+        	 = .ops.Condition_Float(x>y,x,y)
     
     /** Returns positive movements of some observable *source* with lag *timeframe*
      */
@@ -2369,7 +2369,7 @@ package orderbook {@queue = "Ask_{%(book)s}"
     
     def NaiveCumulativePrice(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
                              depth : Optional[.IFunction[.Float]] = .constant()) : .IObservable[.Price]
-        	 = .observable.Price(if depth<.const(0.0) then depth*.orderbook.ask.Price(book) else if depth>.const(0.0) then depth*.orderbook.bid.Price(book) else .const(0.0))
+        	 = .observable.Price(.ops.Condition_Float(depth<.const(0.0),depth*.orderbook.ask.Price(book),.ops.Condition_Float(depth>.const(0.0),depth*.orderbook.bid.Price(book),.const(0.0))))
     
     /** Represents latency in information propagation from one agent to another one
      * (normally between a trader and a market).
@@ -2478,7 +2478,7 @@ package trash {
             
             
             def A(x : Optional[.IFunction[.Float]] = .constant(),
-                  y : Optional[.IFunction[.Float]] = if 3>x+2 then x else x*2) : () => .trash.types.T
+                  y : Optional[.IFunction[.Float]] = .ops.Condition_Float(3>x+2,x,x*2)) : () => .trash.types.T
             
             
             def IntObs() : .IObservable[.Int]
@@ -2611,7 +2611,7 @@ def true() : .IObservable[.Boolean]
 @python.observable()
 def IfDefined(x : Optional[.IFunction[.Float]] = .constant(),
               /** function to take values from when *x* is undefined */ elsePart : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
-    	 = if x<>.null() then x else elsePart
+    	 = .ops.Condition_Float(x<>.null(),x,elsePart)
 
 /** Time serie holding volume levels of an asset
  * Level of volume V is a price at which cumulative volume of better orders is V
