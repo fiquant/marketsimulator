@@ -40,9 +40,11 @@ class DesiredPosition(Observable[Volume]):
     _internals = ['impl']
     def getImpl(self):
         from marketsim.gen._out.observable._Volume import Volume as _observable_Volume
+        from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
+        from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
         from marketsim.gen._out.trader._Position import Position as _trader_Position
         from marketsim.gen._out.trader._PendingVolume import PendingVolume as _trader_PendingVolume
-        return _observable_Volume(((self.desiredPosition-_trader_Position(self.trader))-_trader_PendingVolume(self.trader)))
+        return _observable_Volume(_ops_Sub(_ops_Sub(self.desiredPosition,_trader_Position(self.trader)),_trader_PendingVolume(self.trader)))
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

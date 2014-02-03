@@ -10,7 +10,7 @@ package ops {
     @python.intrinsic.observable("ops._Div_Impl")
     @label = "\\frac{%(x)s}{%(y)s}"
     def Div(x = constant(1.0),
-            y = constant(1.0)) : IObservable[Float]
+            y = constant(1.0)) : IFunction[Float]
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     
     package  {
@@ -18,19 +18,19 @@ package ops {
         @python.intrinsic.observable("ops._Mul_Impl")
         @symbol = "*"
         def Mul(x = constant(1.0),
-                y = constant(1.0)) : IObservable[Float]
+                y = constant(1.0)) : IFunction[Float]
         
         // defined at defs\ops.sc: 19.9
         @python.intrinsic.observable("ops._Add_Impl")
         @symbol = "+"
         def Add(x = constant(1.0),
-                y = constant(1.0)) : IObservable[Float]
+                y = constant(1.0)) : IFunction[Float]
         
         // defined at defs\ops.sc: 23.9
         @python.intrinsic.observable("ops._Sub_Impl")
         @symbol = "-"
         def Sub(x = constant(1.0),
-                y = constant(1.0)) : IObservable[Float]
+                y = constant(1.0)) : IFunction[Float]
     }
     
     // defined at defs\ops.sc: 28.5

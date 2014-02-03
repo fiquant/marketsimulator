@@ -112,16 +112,16 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - DesiredPosition
 | | | | | | | - List:
-| | | | | | | | - BinOp:
-| | | | | | | | | - Mul
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - observable
-| | | | | | | | | | | | - OnEveryDt
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 1.0
+| | | | | | | | | | | - observable
+| | | | | | | | | | | - OnEveryDt
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Mul
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
@@ -145,8 +145,8 @@ Definitions:
 | | | | | | | | | | | | | | | | | | - trader
 | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | - alpha
-| | | | | | | | | - Var:
-| | | | | | | | | | - k
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - k
 | | | | | | | | - Var:
 | | | | | | | | | - trader
 | | | | | - None
@@ -209,16 +209,16 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - DesiredPosition
 | | | | | | | - List:
-| | | | | | | | - BinOp:
-| | | | | | | | | - Mul
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - observable
-| | | | | | | | | | | | - OnEveryDt
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 1.0
+| | | | | | | | | | | - observable
+| | | | | | | | | | | - OnEveryDt
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Mul
 | | | | | | | | | | | - BinOp:
 | | | | | | | | | | | | - Sub
 | | | | | | | | | | | | - FloatLit:
@@ -241,8 +241,8 @@ Definitions:
 | | | | | | | | | | | | | | | - timeframe
 | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | - alpha
-| | | | | | | | | - Var:
-| | | | | | | | | | - k
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - k
 | | | | | | | | - Var:
 | | | | | | | | | - trader
 | | | | | - None

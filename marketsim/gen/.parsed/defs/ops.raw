@@ -80,7 +80,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable
+| | | | | | | | | - IFunction
 | | | | | | | - List:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
@@ -137,7 +137,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | - IFunction
 | | | | | | | | | | - List:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
@@ -189,7 +189,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | - IFunction
 | | | | | | | | | | - List:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
@@ -241,7 +241,7 @@ Definitions:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | - IFunction
 | | | | | | | | | | - List:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:

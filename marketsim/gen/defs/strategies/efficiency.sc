@@ -67,7 +67,7 @@ package strategy.weight
     def Clamp0( /** function to scale */
                 f : Optional[IFunction[Float]] = constant()) : IFunction[Float]
 
-        = math.Max(constant(0), f) + 1
+        = math.Max(constant(0), f) + constant(1)
 
     /** identity scaling = f(x) */
     @curried("f")

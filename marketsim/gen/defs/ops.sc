@@ -7,22 +7,22 @@ package ops
 
     @python.intrinsic.observable("ops._Div_Impl")
     @label = "\\frac{%(x)s}{%(y)s}"
-    def Div(x = constant(1.), y = constant(1.)) : IObservable[Float]
+    def Div(x = constant(1.), y = constant(1.)) : IFunction[Float]
 
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     package {
 
         @python.intrinsic.observable("ops._Mul_Impl")
         @symbol = "*"
-        def Mul(x = constant(1.), y = constant(1.)) : IObservable[Float]
+        def Mul(x = constant(1.), y = constant(1.)) : IFunction[Float]
 
         @python.intrinsic.observable("ops._Add_Impl")
         @symbol = "+"
-        def Add(x = constant(1.), y = constant(1.)) : IObservable[Float]
+        def Add(x = constant(1.), y = constant(1.)) : IFunction[Float]
 
         @python.intrinsic.observable("ops._Sub_Impl")
         @symbol = "-"
-        def Sub(x = constant(1.), y = constant(1.)) : IObservable[Float]
+        def Sub(x = constant(1.), y = constant(1.)) : IFunction[Float]
     }
 
     @python.intrinsic.observable("ops._ConditionFloat_Impl")

@@ -27,9 +27,11 @@ class Clamp0(Function[float]):
     
     _internals = ['impl']
     def getImpl(self):
+        from marketsim.gen._out.ops._Add import Add as _ops_Add
         from marketsim.gen._out.math._Max import Max as _math_Max
         from marketsim.gen._out._constant import constant as _constant
-        return (_math_Max(_constant(0),self.f)+1)
+        from marketsim.gen._out._constant import constant as _constant
+        return _ops_Add(_math_Max(_constant(0),self.f),_constant(1))
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

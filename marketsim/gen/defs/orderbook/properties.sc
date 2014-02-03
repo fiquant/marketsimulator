@@ -68,7 +68,7 @@ package orderbook
                       /** parameter alpha for the moving average  */
                       alpha = 0.15) =
 
-        math.EW.Avg(LastTradePrice(queue)*LastTradeVolume(queue), alpha) /
+        math.EW.Avg(observable.Float(LastTradePrice(queue)*LastTradeVolume(queue)), alpha) /
                 math.EW.Avg(LastTradeVolume(queue), alpha)
 
     /**

@@ -35,9 +35,10 @@ class Spread(Observable[Price]):
     _internals = ['impl']
     def getImpl(self):
         from marketsim.gen._out.observable._Price import Price as _observable_Price
+        from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
         from marketsim.gen._out.orderbook.ask._Price import Price as _orderbook_ask_Price
         from marketsim.gen._out.orderbook.bid._Price import Price as _orderbook_bid_Price
-        return _observable_Price((_orderbook_ask_Price(self.book)-_orderbook_bid_Price(self.book)))
+        return _observable_Price(_ops_Sub(_orderbook_ask_Price(self.book),_orderbook_bid_Price(self.book)))
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

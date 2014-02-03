@@ -35,10 +35,12 @@ class MidPrice(Observable[Price]):
     _internals = ['impl']
     def getImpl(self):
         from marketsim.gen._out.observable._Price import Price as _observable_Price
+        from marketsim.gen._out.ops._Div import Div as _ops_Div
+        from marketsim.gen._out.ops._Add import Add as _ops_Add
         from marketsim.gen._out.orderbook.ask._Price import Price as _orderbook_ask_Price
         from marketsim.gen._out.orderbook.bid._Price import Price as _orderbook_bid_Price
         from marketsim.gen._out._const import const as _const
-        return _observable_Price((((_orderbook_ask_Price(self.book)+_orderbook_bid_Price(self.book)))/_const(2.0)))
+        return _observable_Price(_ops_Div(_ops_Add(_orderbook_ask_Price(self.book),_orderbook_bid_Price(self.book)),_const(2.0)))
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

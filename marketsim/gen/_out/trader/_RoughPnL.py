@@ -35,11 +35,12 @@ class RoughPnL(Observable[float]):
     _internals = ['impl']
     def getImpl(self):
         from marketsim.gen._out.observable._Float import Float as _observable_Float
+        from marketsim.gen._out.ops._Add import Add as _ops_Add
         from marketsim.gen._out.trader._Balance import Balance as _trader_Balance
         from marketsim.gen._out.orderbook._NaiveCumulativePrice import NaiveCumulativePrice as _orderbook_NaiveCumulativePrice
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim.gen._out.trader._Position import Position as _trader_Position
-        return _observable_Float((_trader_Balance(self.trader)+_orderbook_NaiveCumulativePrice(_orderbook_OfTrader(self.trader),_trader_Position(self.trader))))
+        return _observable_Float(_ops_Add(_trader_Balance(self.trader),_orderbook_NaiveCumulativePrice(_orderbook_OfTrader(self.trader),_trader_Position(self.trader))))
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

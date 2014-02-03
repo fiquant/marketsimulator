@@ -39,9 +39,10 @@ class Histogram(Function[float]):
     
     _internals = ['impl']
     def getImpl(self):
+        from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
         from marketsim.gen._out.math.macd._MACD import MACD as _math_macd_MACD
         from marketsim.gen._out.math.macd._Signal import Signal as _math_macd_Signal
-        return (_math_macd_MACD(self.x,self.slow,self.fast)-_math_macd_Signal(self.x,self.slow,self.fast,self.timeframe,self.step))
+        return _ops_Sub(_math_macd_MACD(self.x,self.slow,self.fast),_math_macd_Signal(self.x,self.slow,self.fast,self.timeframe,self.step))
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

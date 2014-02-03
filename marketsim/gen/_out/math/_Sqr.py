@@ -35,7 +35,8 @@ class Sqr(Observable[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        return (self.x*self.x)
+        from marketsim.gen._out.ops._Mul import Mul as _ops_Mul
+        return _ops_Mul(self.x,self.x)
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

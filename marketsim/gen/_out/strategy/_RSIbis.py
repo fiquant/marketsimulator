@@ -49,10 +49,11 @@ class RSIbis(ISingleAssetStrategy):
     def getImpl(self):
         from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
         from marketsim.gen._out.strategy.side._Signal import Signal as _strategy_side_Signal
+        from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.math._RSI import RSI as _math_RSI
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
-        return _strategy_Generic(self.orderFactory(_strategy_side_Signal((_const(50.0)-_math_RSI(_orderbook_OfTrader(),self.timeframe,self.alpha)),(50.0-self.threshold))),self.eventGen)
+        return _strategy_Generic(self.orderFactory(_strategy_side_Signal(_ops_Sub(_const(50.0),_math_RSI(_orderbook_OfTrader(),self.timeframe,self.alpha)),(50.0-self.threshold))),self.eventGen)
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

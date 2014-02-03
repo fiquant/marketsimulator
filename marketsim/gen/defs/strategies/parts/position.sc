@@ -27,8 +27,8 @@ package strategy.position
             observable.OnEveryDt(1.0,
                 math.EW.RelStdDev(
                     orderbook.MidPrice(orderbook.OfTrader(trader)),
-                    alpha)
-            ) * k,
+                    alpha)  * k
+            ),
             trader)
 
     /**
@@ -46,7 +46,7 @@ package strategy.position
 
         = DesiredPosition(
             observable.OnEveryDt(1.0,
-                (50. - math.RSI(orderbook.OfTrader(trader), timeframe, alpha))
-            ) * k,
+                (50. - math.RSI(orderbook.OfTrader(trader), timeframe, alpha)) * k
+            ),
             trader)
 }

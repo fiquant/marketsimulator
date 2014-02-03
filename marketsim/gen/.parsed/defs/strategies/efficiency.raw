@@ -311,8 +311,13 @@ Definitions:
 | | | | | | | | | | | | - 0
 | | | | | | | | | - Var:
 | | | | | | | | | | - f
-| | | | | | | - IntLit:
-| | | | | | | | - 1
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - constant
+| | | | | | | | - List:
+| | | | | | | | | - IntLit:
+| | | | | | | | | | - 1
 | | | | | - Some:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:

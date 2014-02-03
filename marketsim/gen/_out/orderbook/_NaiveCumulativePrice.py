@@ -45,12 +45,14 @@ class NaiveCumulativePrice(Observable[Price]):
         from marketsim.gen._out.observable._Price import Price as _observable_Price
         from marketsim.gen._out.ops._Condition_Float import Condition_Float as _ops_Condition_Float
         from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out.ops._Mul import Mul as _ops_Mul
         from marketsim.gen._out.orderbook.ask._Price import Price as _orderbook_ask_Price
         from marketsim.gen._out.ops._Condition_Float import Condition_Float as _ops_Condition_Float
         from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out.ops._Mul import Mul as _ops_Mul
         from marketsim.gen._out.orderbook.bid._Price import Price as _orderbook_bid_Price
         from marketsim.gen._out._const import const as _const
-        return _observable_Price(_ops_Condition_Float(self.depth<_const(0.0),(self.depth*_orderbook_ask_Price(self.book)),_ops_Condition_Float(self.depth>_const(0.0),(self.depth*_orderbook_bid_Price(self.book)),_const(0.0))))
+        return _observable_Price(_ops_Condition_Float(self.depth<_const(0.0),_ops_Mul(self.depth,_orderbook_ask_Price(self.book)),_ops_Condition_Float(self.depth>_const(0.0),_ops_Mul(self.depth,_orderbook_bid_Price(self.book)),_const(0.0))))
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

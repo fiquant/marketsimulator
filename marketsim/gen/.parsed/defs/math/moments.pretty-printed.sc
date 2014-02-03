@@ -80,7 +80,7 @@ package math {@category = "Statistics"
             @python.intrinsic("moments.mv.MV_Impl")
             @label = "\\sigma^2{{suffix}}"
             def Var(/** observable data source */ source = const(),
-                    /** sliding window size    */ timeframe = 100.0) = math.Max(const(0),Avg(source*source,timeframe)-Sqr(Avg(source,timeframe)))
+                    /** sliding window size    */ timeframe = 100.0) = math.Max(const(0),Avg(observable.Float(source*source),timeframe)-Sqr(Avg(source,timeframe)))
             
             // defined at defs\math\moments.sc: 92.13
             /** Simple moving standard deviation

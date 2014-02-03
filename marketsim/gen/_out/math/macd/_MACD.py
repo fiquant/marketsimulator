@@ -33,9 +33,10 @@ class MACD(Function[float]):
     
     _internals = ['impl']
     def getImpl(self):
+        from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
         from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
         from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
-        return (_math_EW_Avg(self.x,(2.0/((self.fast+1))))-_math_EW_Avg(self.x,(2.0/((self.slow+1)))))
+        return _ops_Sub(_math_EW_Avg(self.x,(2.0/((self.fast+1)))),_math_EW_Avg(self.x,(2.0/((self.slow+1)))))
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

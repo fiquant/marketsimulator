@@ -31,8 +31,9 @@ class LogReturns(Function[float]):
     _internals = ['impl']
     def getImpl(self):
         from marketsim.gen._out.math._Log import Log as _math_Log
+        from marketsim.gen._out.ops._Div import Div as _ops_Div
         from marketsim.gen._out.math._Lagged import Lagged as _math_Lagged
-        return _math_Log((self.x/_math_Lagged(self.x,self.timeframe)))
+        return _math_Log(_ops_Div(self.x,_math_Lagged(self.x,self.timeframe)))
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

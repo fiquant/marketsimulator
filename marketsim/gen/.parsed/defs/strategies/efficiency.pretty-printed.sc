@@ -51,7 +51,7 @@ package strategy.weight {
     /** scaling function = max(0, f(x)) + 1
      */
     @curried("f")
-    def Clamp0(/** function to scale */ f : Optional[IFunction[Float]] = constant()) : IFunction[Float] = math.Max(constant(0),f)+1
+    def Clamp0(/** function to scale */ f : Optional[IFunction[Float]] = constant()) : IFunction[Float] = math.Max(constant(0),f)+constant(1)
     
     // defined at defs\strategies\efficiency.sc: 72.5
     /** identity scaling = f(x)

@@ -92,7 +92,7 @@ package strategy
                         observable.BreaksAtChanges(
                             observable.OnEveryDt(0.9,
                                 orderbook.SafeSidePrice(orderbook.Asks(), constant(100 + delta)) /
-                                    math.Exp(math.Atan(trader.Position()) / 1000)
+                                    math.Exp(math.Atan(trader.Position()) / constant(1000))
                             )
                         ),
                         order.price.Limit(side.Sell(), constant(volume*1000)))),
@@ -104,7 +104,7 @@ package strategy
                     observable.BreaksAtChanges(
                         observable.OnEveryDt(0.9,
                             orderbook.SafeSidePrice(orderbook.Bids(), constant(100 - delta)) /
-                                math.Exp(math.Atan(trader.Position()) / 1000)
+                                math.Exp(math.Atan(trader.Position()) / constant(1000))
                         )
                     ),
                     order.price.Limit(side.Buy(), constant(volume*1000)))),
