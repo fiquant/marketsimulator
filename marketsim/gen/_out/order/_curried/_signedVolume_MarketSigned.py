@@ -23,6 +23,7 @@ class signedVolume_MarketSigned(IFunction[IOrderGenerator, IFunction[float]]):
     
     def __call__(self, signedVolume = None):
         from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._MarketSigned import MarketSigned
         signedVolume = signedVolume if signedVolume is not None else _constant(1.0)
         

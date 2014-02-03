@@ -1,11 +1,13 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.ops import _Negate_Impl
 from marketsim import IFunction
+from marketsim import IFunction
 @registry.expose(["Ops", "Negate"])
 class Negate(_Negate_Impl):
     """ 
     """ 
     def __init__(self, x = None):
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import rtti
         from marketsim import event

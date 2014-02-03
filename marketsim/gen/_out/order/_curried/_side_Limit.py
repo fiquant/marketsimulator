@@ -4,6 +4,8 @@ from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
 from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import IFunction
 @registry.expose(["Order", "Limit"])
 class side_Limit(IFunction[IOrderGenerator, IFunction[Side]
 ]):
@@ -13,6 +15,8 @@ class side_Limit(IFunction[IOrderGenerator, IFunction[Side]
       it remains in an order book waiting to be matched with another order.
     """ 
     def __init__(self, price = None, volume = None):
+        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import rtti
@@ -32,6 +36,7 @@ class side_Limit(IFunction[IOrderGenerator, IFunction[Side]
         return "side_Limit(%(price)s, %(volume)s)" % self.__dict__
     
     def __call__(self, side = None):
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out.order._Limit import Limit
         side = side if side is not None else _side_Sell()

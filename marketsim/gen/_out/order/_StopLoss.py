@@ -3,6 +3,8 @@ from marketsim import IOrderGenerator
 from marketsim import Order
 from marketsim.ops._all import Observable
 from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import IOrderGenerator
 from marketsim import IOrderGenerator
 @registry.expose(["Order", "StopLoss"])
 class StopLoss(IOrderGenerator, Observable[Order]):
@@ -16,8 +18,10 @@ class StopLoss(IOrderGenerator, Observable[Order]):
         from marketsim import Order
         from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import types
+        from marketsim.gen._out.order._Limit import Limit as _order_Limit
         from marketsim.gen._out.order._Limit import Limit as _order_Limit
         from marketsim import event
         from marketsim import types

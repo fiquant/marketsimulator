@@ -2,12 +2,16 @@ from marketsim import registry
 from marketsim.gen._intrinsic.observable.randomwalk import _RandomWalk_Impl
 from marketsim import IFunction
 from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import IFunction
 @registry.expose(["Basic", "RandomWalk"])
 class RandomWalk(_RandomWalk_Impl):
     """ 
     """ 
     def __init__(self, initialValue = None, deltaDistr = None, intervalDistr = None, name = None):
         from marketsim.gen._out.math.random._normalvariate import normalvariate as _math_random_normalvariate
+        from marketsim.gen._out.math.random._normalvariate import normalvariate as _math_random_normalvariate
+        from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
         from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
         from marketsim import rtti
         from marketsim import event

@@ -2,6 +2,7 @@ from marketsim import registry
 from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IOrderBook
+from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Basic", "RSI"])
 class RSI(Observable[float]):
@@ -10,6 +11,7 @@ class RSI(Observable[float]):
     def __init__(self, book = None, timeframe = None, alpha = None):
         from marketsim import float
         from marketsim.ops._all import Observable
+        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
         from marketsim import _

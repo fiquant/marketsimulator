@@ -7,6 +7,7 @@ from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
 from marketsim import IFunction
+from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IFunction
@@ -27,6 +28,7 @@ IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side],IFunction[
       the meta order clears its position.
     """ 
     def __init__(self, maxloss = None, proto = None):
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._curried._sidevolume_price_Limit import sidevolume_price_Limit as _order__curried_sidevolume_price_Limit
         from marketsim import rtti

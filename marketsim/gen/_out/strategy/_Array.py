@@ -2,6 +2,8 @@ from marketsim import registry
 from marketsim.gen._intrinsic.strategy.combine import _Array_Impl
 from marketsim import listOf
 from marketsim import ISingleAssetStrategy
+from marketsim import listOf
+from marketsim import ISingleAssetStrategy
 @registry.expose(["Strategy", "Array"])
 class Array(_Array_Impl):
     """ 
@@ -19,6 +21,7 @@ class Array(_Array_Impl):
     
     _properties = {
         'strategies' : listOf(ISingleAssetStrategy)
+        
         
     }
     def __repr__(self):

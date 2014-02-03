@@ -4,6 +4,9 @@ from marketsim.gen._intrinsic.order.meta.peg import Factory_Impl
 from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import IOrderGenerator
+from marketsim import IFunction
 @registry.expose(["Order", "Peg"])
 class Peg(IOrderGenerator, Factory_Impl):
     """ 
@@ -14,6 +17,7 @@ class Peg(IOrderGenerator, Factory_Impl):
     """ 
     def __init__(self, proto = None):
         from marketsim.gen._intrinsic.order.meta.peg import Factory_Impl
+        from marketsim.gen._out.order._curried._price_Limit import price_Limit as _order__curried_price_Limit
         from marketsim.gen._out.order._curried._price_Limit import price_Limit as _order__curried_price_Limit
         from marketsim import event
         from marketsim import types
@@ -30,6 +34,8 @@ class Peg(IOrderGenerator, Factory_Impl):
     
     _properties = {
         'proto' : IFunction[IOrderGenerator,IFunction[float]]
+        
+        
         
         
     }

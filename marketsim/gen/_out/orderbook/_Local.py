@@ -2,6 +2,8 @@ from marketsim import registry
 from marketsim.gen._intrinsic.orderbook.local import _Local_Impl
 from marketsim import listOf
 from marketsim import ITimeSerie
+from marketsim import listOf
+from marketsim import ITimeSerie
 @registry.expose(["Asset", "Local"])
 class Local(_Local_Impl):
     """  Maintains two order queues for orders of different sides
@@ -24,6 +26,7 @@ class Local(_Local_Impl):
         '_digitsToShow' : int,
         'name' : str,
         'timeseries' : listOf(ITimeSerie)
+        
         
     }
     def __repr__(self):

@@ -1,13 +1,15 @@
 from marketsim import registry
-from marketsim.ops._function import Function
 from marketsim import Price
+from marketsim.ops._function import Function
 from marketsim.gen._intrinsic.orderbook.props import _TickSize_Impl
+from marketsim import IOrderBook
 from marketsim import IOrderBook
 @registry.expose(["Asset", "TickSize"])
 class TickSize(Function[Price], _TickSize_Impl):
     """ 
     """ 
     def __init__(self, book = None):
+        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
         self.book = book if book is not None else _orderbook_OfTrader()

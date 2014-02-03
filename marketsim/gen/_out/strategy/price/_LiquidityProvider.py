@@ -4,6 +4,10 @@ from marketsim.ops._all import Observable
 from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
+from marketsim import Side
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import IOrderBook
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Price function", "LiquidityProvider"])
@@ -14,7 +18,10 @@ class LiquidityProvider(Observable[float]):
         from marketsim import float
         from marketsim.ops._all import Observable
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out.math.random._lognormvariate import lognormvariate as _math_random_lognormvariate
+        from marketsim.gen._out.math.random._lognormvariate import lognormvariate as _math_random_lognormvariate
+        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
         from marketsim import _
@@ -34,6 +41,7 @@ class LiquidityProvider(Observable[float]):
     
     _properties = {
         'side' : IFunction[Side]
+        
         ,
         'initialValue' : float,
         'priceDistr' : IFunction[float],

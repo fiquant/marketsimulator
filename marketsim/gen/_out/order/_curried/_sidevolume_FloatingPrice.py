@@ -5,6 +5,7 @@ from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
 from marketsim import IObservable
+from marketsim import IObservable
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IFunction
@@ -22,6 +23,7 @@ IFunction[IOrderGenerator,IFunction[Side],IFunction[float]]):
       a new order with new price is created and sent to the order book.
     """ 
     def __init__(self, floatingPrice = None, proto = None):
+        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.order._curried._sidevolume_price_Limit import sidevolume_price_Limit as _order__curried_sidevolume_price_Limit
         from marketsim import rtti

@@ -1,13 +1,18 @@
 from marketsim.gen._intrinsic.timeserie import _VolumeLevels_Impl
 from marketsim import IFunction
 from marketsim import IVolumeLevels
+from marketsim import IFunction
+from marketsim import IVolumeLevels
 from marketsim import IGraph
+from marketsim import IGraph
+from marketsim import listOf
 from marketsim import listOf
 
 class volumeLevels(_VolumeLevels_Impl):
     """  Level of volume V is a price at which cumulative volume of better orders is V
     """ 
     def __init__(self, source , graph = None, _digitsToShow = None, _smooth = None, _volumes = None, _isBuy = None):
+        from marketsim.gen._out.veusz._Graph import Graph as _veusz_Graph
         from marketsim.gen._out.veusz._Graph import Graph as _veusz_Graph
         from marketsim import rtti
         self.source = source
@@ -25,6 +30,7 @@ class volumeLevels(_VolumeLevels_Impl):
     
     _properties = {
         'source' : IFunction[IVolumeLevels]
+        
         ,
         'graph' : IGraph,
         '_digitsToShow' : int,

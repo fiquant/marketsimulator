@@ -3,6 +3,7 @@ from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IObservable
+from marketsim import IObservable
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 @registry.expose(["Order", "FloatingPrice"])
@@ -15,6 +16,7 @@ IFunction[IOrderGenerator,IFunction[float]]):
       a new order with new price is created and sent to the order book.
     """ 
     def __init__(self, floatingPrice = None, proto = None):
+        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.order._curried._price_Limit import price_Limit as _order__curried_price_Limit
         from marketsim import rtti

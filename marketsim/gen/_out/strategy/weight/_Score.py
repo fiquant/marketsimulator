@@ -2,6 +2,7 @@ from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim.gen._intrinsic.strategy.weight import _Score_Impl
 from marketsim import IAccount
+from marketsim import IAccount
 @registry.expose(["Strategy", "Score"])
 class Score(Function[float], _Score_Impl):
     """  Returns difference between them.
@@ -9,6 +10,7 @@ class Score(Function[float], _Score_Impl):
      TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))
     """ 
     def __init__(self, trader = None):
+        from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim import rtti
         self.trader = trader if trader is not None else _trader_SingleProxy()

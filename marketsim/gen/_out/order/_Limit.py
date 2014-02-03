@@ -5,6 +5,10 @@ from marketsim.ops._all import Observable
 from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
+from marketsim import Side
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import IFunction
 from marketsim import IFunction
 @registry.expose(["Order", "Limit"])
 class Limit(IOrderGenerator, Observable[Order]):
@@ -17,11 +21,14 @@ class Limit(IOrderGenerator, Observable[Order]):
         from marketsim import Order
         from marketsim.ops._all import Observable
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim import event
         from marketsim import types
         from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import types
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import types
@@ -44,6 +51,7 @@ class Limit(IOrderGenerator, Observable[Order]):
     
     _properties = {
         'side' : IFunction[Side]
+        
         ,
         'price' : IFunction[float],
         'volume' : IFunction[float]

@@ -5,6 +5,7 @@ from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import IFunction
+from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IFunction
@@ -19,6 +20,7 @@ IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
      where cancel order is sent not immediately but after some delay
     """ 
     def __init__(self, expiry = None, proto = None):
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._curried._volume_price_Limit import volume_price_Limit as _order__curried_volume_price_Limit
         from marketsim import rtti

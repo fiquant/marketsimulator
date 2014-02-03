@@ -1,6 +1,11 @@
 from marketsim import registry
 from marketsim import ISingleAssetStrategy
 from marketsim import IEvent
+from marketsim import IEvent
+from marketsim import IFunction
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import Side
 from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
@@ -15,6 +20,10 @@ class Noise(ISingleAssetStrategy):
     def __init__(self, eventGen = None, orderFactory = None):
         from marketsim.gen._out.event._Every import Every as _event_Every
         from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
+        from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
+        from marketsim.gen._out.event._Every import Every as _event_Every
+        from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
+        from marketsim.gen._out.order._curried._side_Market import side_Market as _order__curried_side_Market
         from marketsim.gen._out.order._curried._side_Market import side_Market as _order__curried_side_Market
         from marketsim import rtti
         from marketsim import event
@@ -34,6 +43,9 @@ class Noise(ISingleAssetStrategy):
     _properties = {
         'eventGen' : IEvent,
         'orderFactory' : IFunction[IOrderGenerator,IFunction[Side]]
+        
+        
+        
         
         
         

@@ -3,6 +3,10 @@ from marketsim import ISingleAssetStrategy
 from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import IOrderGenerator
+from marketsim import IFunction
+from marketsim import IObservable
 from marketsim import IObservable
 from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
 from marketsim.gen._out.strategy.position._Bollinger_linear import Bollinger_linear as _strategy_position_Bollinger_linear
@@ -13,6 +17,8 @@ class Bollinger_linear(ISingleAssetStrategy):
     """ 
     def __init__(self, orderFactory = None, alpha = None, k = None):
         from marketsim.gen._out.order._curried._signedVolume_MarketSigned import signedVolume_MarketSigned as _order__curried_signedVolume_MarketSigned
+        from marketsim.gen._out.order._curried._signedVolume_MarketSigned import signedVolume_MarketSigned as _order__curried_signedVolume_MarketSigned
+        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out._const import const as _const
         from marketsim import rtti
         from marketsim import event
@@ -31,6 +37,8 @@ class Bollinger_linear(ISingleAssetStrategy):
     
     _properties = {
         'orderFactory' : IFunction[IOrderGenerator,IFunction[float]]
+        
+        
         
         ,
         'alpha' : float,

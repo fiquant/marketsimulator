@@ -31,9 +31,8 @@ object function extends gen.PythonGenerator
 
         override val base_class : Code =
             f.ret_type.returnTypeIfFunction match {
-                case Some(t) => s"Function[${t.asPython}]" |||
-                                ImportFrom("Function", "marketsim.ops._function") |||
-                                Code.from(t.imports)
+                case Some(t) => s"Function[" ||| t.asCode ||| "]" |||
+                                ImportFrom("Function", "marketsim.ops._function")
                 case None => "object"
         }
 
@@ -45,7 +44,7 @@ object function extends gen.PythonGenerator
 
         override def body = super.body | internals | getImpl | bind | reset | call
 
-        def getImpl = Def("getImpl", "", "return " + f.body.get.asPython) ||| Code.from(f.body.get.imports)
+        def getImpl = Def("getImpl", "", "return " ||| f.body.get.asCode)
 
         def internals = "_internals = ['impl']"
     }

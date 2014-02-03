@@ -1,11 +1,13 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.observable.lagged import Lagged_Impl
 from marketsim import IObservable
+from marketsim import IObservable
 @registry.expose(["Basic", "Lagged"])
 class Lagged(Lagged_Impl):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
+        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out._const import const as _const
         from marketsim import rtti
         from marketsim import event

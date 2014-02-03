@@ -1,11 +1,13 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.observable.minmax import Max_Impl
 from marketsim import IFunction
+from marketsim import IFunction
 @registry.expose(["Statistics", "Max"])
 class Max(Max_Impl):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import rtti
         from marketsim import event

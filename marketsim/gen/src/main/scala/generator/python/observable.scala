@@ -27,10 +27,10 @@ object observable extends gen.PythonGenerator
             "if ctx: context.bind(self.impl, ctx)") |||
                 ImportFrom("context", "marketsim")
 
-        val ty = f.ret_type.returnTypeIfFunction.get.asPython
+        val ty = f.ret_type.returnTypeIfFunction.get.asCode
 
-        override val base_class = s"Observable[$ty]" |||
-                                    ImportFrom(ty, "marketsim") |||
+        override val base_class = s"Observable["||| ty |||"]" |||
+                                    ImportFrom(ty.toString, "marketsim") |||
                                     ImportFrom("Observable", "marketsim.ops._all")
 
 

@@ -2,6 +2,8 @@ from marketsim import registry
 from marketsim.gen._intrinsic.orderbook.link import _TwoWayLink_Impl
 from marketsim import ILink
 from marketsim import ILink
+from marketsim import ILink
+from marketsim import ILink
 @registry.expose(["Asset", "TwoWayLink"])
 class TwoWayLink(_TwoWayLink_Impl):
     """  (normally between a trader and a market).
@@ -9,6 +11,8 @@ class TwoWayLink(_TwoWayLink_Impl):
      Holds two one-way links in opposite directions.
     """ 
     def __init__(self, up = None, down = None):
+        from marketsim.gen._out.orderbook._Link import Link as _orderbook_Link
+        from marketsim.gen._out.orderbook._Link import Link as _orderbook_Link
         from marketsim.gen._out.orderbook._Link import Link as _orderbook_Link
         from marketsim.gen._out.orderbook._Link import Link as _orderbook_Link
         from marketsim import rtti

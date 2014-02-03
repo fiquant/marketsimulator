@@ -1,6 +1,7 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.trader.props import Balance_Impl
 from marketsim import IAccount
+from marketsim import IAccount
 @registry.expose(["Trader", "Balance"])
 class Balance(Balance_Impl):
     """ 

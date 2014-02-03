@@ -31,7 +31,7 @@ package object base {
         val p : Typed.Parameter
 
         def name = p.name
-        def ty = p.ty.asPython ||| Code.from(p.ty.imports)
+        def ty = p.ty.asCode ||| Code.from(p.ty.imports)
         def initializer = p.initializer
         def s_initializer = if (initializer.nonEmpty) "= None" else ""
 
@@ -41,7 +41,7 @@ package object base {
 
         def assign_if_none: predef.Code =
             initializer match {
-                case Some(x) => (s" if $name is not None else " + x.asPython) ||| Code.from(x.imports)
+                case Some(x) => s" if $name is not None else " ||| x.asCode
                 case None => ""
             }
 

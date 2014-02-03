@@ -1,7 +1,13 @@
 package object predef {
 
-    def pars(s : Any, condition : Boolean = true) =
+    def pars(s : Any, condition : Boolean) : String =
         if (condition) "(" + s + ")" else s.toString
+
+    def pars(s : Any) : String = pars(s, condition = true)
+    def pars(s : Code) : Code = pars(s, condition = true)
+
+    def pars(s : Code, condition : Boolean) : Code =
+        if (condition) toLazy("(") ||| s ||| toLazy(")") else s
 
     def ifSome[A](p : Option[A], prefix : String = "", postfix : String = "") =
         if (p.nonEmpty) prefix + p.get + postfix else ""
@@ -42,6 +48,7 @@ package object predef {
         def imports : Stream[Importable] = Nil.toStream
 
         def ||| (t : Code) : Code = new Combine(this, t)
+        def ||| (t : => String) : Code = new Combine(this, new LazyString(t))
         def |   (t : Code) : Code = this ||| nl ||| t
         def |>  (t : Code) : Code = this ||| new Block(t)
     }
@@ -49,6 +56,7 @@ package object predef {
     trait Importable extends Code {
         def repr: String
     }
+
 
     case class Import(what: String) extends Code with Importable {
         override def imports = Stream(this)
@@ -101,6 +109,16 @@ package object predef {
     val nl = new NewLine
     val stop = new Stop
 
+    def makeCodeString(xs : List[Code], sep : Code) : Code =  xs match {
+        case Nil => stop
+        case x :: Nil => x
+        case x :: y => x ||| sep ||| makeCodeString(y, sep)
+    }
+
+    def makeCodeString(xs : List[Code], start : Code, sep : Code, stop : Code) : Code =
+        start ||| makeCodeString(xs, sep) ||| stop
+
+
     class Combine(x : Code, y : Code) extends Code
     {
         override def toString = x.toString + y.toString
@@ -151,6 +169,7 @@ package object predef {
     {
         protected def toPython : String
         override def toString = toPython
+        def asCode : Code
     }
 
     sealed abstract class PrintMode

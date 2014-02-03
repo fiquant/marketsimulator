@@ -1,6 +1,7 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.strategy.weight import _Identity_Impl
 from marketsim import listOf
+from marketsim import listOf
 @registry.expose(["Strategy", "IdentityL"])
 class IdentityL(_Identity_Impl):
     """ 

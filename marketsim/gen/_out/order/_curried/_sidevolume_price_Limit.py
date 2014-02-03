@@ -30,6 +30,8 @@ class sidevolume_price_Limit(IFunction[IFunction[IOrderGenerator, IFunction[floa
     
     def __call__(self, side = None,volume = None):
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._curried._price_Limit import price_Limit
         side = side if side is not None else _side_Sell()

@@ -1,6 +1,8 @@
 from marketsim import registry
 from marketsim import Price
+from marketsim import Price
 from marketsim.ops._all import Observable
+from marketsim import IOrderBook
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Asset", "Spread"])
@@ -9,7 +11,9 @@ class Spread(Observable[Price]):
     """ 
     def __init__(self, book = None):
         from marketsim import Price
+        from marketsim import Price
         from marketsim.ops._all import Observable
+        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
         from marketsim import _

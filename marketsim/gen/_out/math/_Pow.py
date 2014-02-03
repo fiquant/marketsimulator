@@ -2,6 +2,8 @@ from marketsim import registry
 from marketsim.ops._all import Observable
 from marketsim import IFunction
 from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import IFunction
 @registry.expose(["Log/Pow", "Pow"])
 class Pow(Observable[float]):
     """ 
@@ -14,8 +16,10 @@ class Pow(Observable[float]):
     def __init__(self, base = None, power = None):
         from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import types
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import types

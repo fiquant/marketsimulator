@@ -1,6 +1,8 @@
 from marketsim import registry
 from marketsim import Side
+from marketsim import Side
 from marketsim.ops._all import Observable
+from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import context
 @registry.expose(["Side function", "Signal"])
@@ -9,7 +11,9 @@ class Signal(Observable[Side]):
     """ 
     def __init__(self, signal = None, threshold = None):
         from marketsim import Side
+        from marketsim import Side
         from marketsim.ops._all import Observable
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import rtti
         from marketsim import _

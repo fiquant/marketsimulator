@@ -5,6 +5,7 @@ from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import IFunction
+from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IFunction
@@ -20,6 +21,7 @@ IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
       thus maximum lot size volume is visible at the market at any moment.
     """ 
     def __init__(self, lotSize = None, proto = None):
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._curried._volume_price_Limit import volume_price_Limit as _order__curried_volume_price_Limit
         from marketsim import rtti

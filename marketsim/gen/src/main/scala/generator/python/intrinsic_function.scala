@@ -42,9 +42,8 @@ object intrinsic_function extends gen.PythonGenerator
 
         def base_class_function : Code =
             f.ret_type.returnTypeIfFunction match {
-                case Some(t) => s"Function[${t.asPython}], " |||
-                                ImportFrom("Function", "marketsim.ops._function") |||
-                                Code.from(t.imports)
+                case Some(t) => s"Function[" ||| t.asCode |||"], " |||
+                                ImportFrom("Function", "marketsim.ops._function")
                 case None => ""
         }
 

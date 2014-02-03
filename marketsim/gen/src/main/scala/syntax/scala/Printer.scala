@@ -13,7 +13,7 @@ package object Printer
             val priority : Int
 
             def wrap(x : Expr, rhs : Boolean = false) =
-                pars(x, need_brackets(x, rhs))
+                pars(x.toString, need_brackets(x, rhs))
 
             def need_brackets(x : Expr, rhs : Boolean) =
                 x.priority > priority || x.priority == priority && rhs

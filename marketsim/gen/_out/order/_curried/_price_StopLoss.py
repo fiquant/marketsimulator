@@ -3,6 +3,7 @@ from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import IFunction
+from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
 @registry.expose(["Order", "StopLoss"])
@@ -16,6 +17,7 @@ IFunction[IOrderGenerator,IFunction[float]]):
       the meta order clears its position.
     """ 
     def __init__(self, maxloss = None, proto = None):
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._curried._price_Limit import price_Limit as _order__curried_price_Limit
         from marketsim import rtti

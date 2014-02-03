@@ -1,13 +1,14 @@
 from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import IAccount
-from marketsim.gen._out.trader._Efficiency import Efficiency as _trader_Efficiency
+from marketsim import IAccount
 from marketsim import context
 @registry.expose(["Strategy", "Efficiency"])
 class Efficiency(Function[float]):
     """ 
     """ 
     def __init__(self, trader = None):
+        from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim import rtti
         self.trader = trader if trader is not None else _trader_SingleProxy()
@@ -26,6 +27,8 @@ class Efficiency(Function[float]):
     
     _internals = ['impl']
     def getImpl(self):
+        from marketsim.gen._out.trader._Efficiency import Efficiency as _trader_Efficiency
+        from marketsim.gen._out.trader._Efficiency import Efficiency as _trader_Efficiency
         return _trader_Efficiency(self.trader)
     
     def bind(self, ctx):

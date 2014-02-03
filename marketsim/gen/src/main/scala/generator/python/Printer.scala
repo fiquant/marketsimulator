@@ -1,4 +1,5 @@
 package generator.python
+import predef._
 
 object Printer {
 
@@ -88,8 +89,11 @@ object Printer {
 
     trait BinOp extends pp.BinOp[Typed.Expr]
     {
+        def wr(x : Expr, rhs : Boolean) =
+            pars(x.asCode, need_brackets(x, rhs))
         def imports = x.imports ++ y.imports
         protected def toPython = toScala
+        def asCode = "(" ||| wr(x, false) ||| symbol.toString ||| wr(y, true) ||| ")"
     }
 
     trait Cast extends Printable
@@ -110,46 +114,63 @@ object Printer {
     {
         def imports = x.imports
         protected def toPython = toScala
+        def asCode = predef.toLazy("-") ||| x.asCode
     }
 
     trait IfThenElse extends pp.IfThenElse[Typed.Expr, Typed.Expr]
     {
+        def wr(x : Expr) =
+            pars(x.asCode, need_brackets(x, false))
+
         protected def toPython = s"($cond)[${wrap(x)}, ${wrap(y)}]"
 
         def imports = x.imports ++ y.imports ++ cond.imports
+
+        def asCode =  "(" ||| cond.asCode ||| ")[" ||| wr(x) ||| ", " ||| wr(y) ||| "]"
     }
 
     trait StringLit extends pp.StringLit
     {
         def imports = Nil
         protected def toPython = toScala
+
+        def asCode : Code = toScala
     }
 
     trait IntLit extends pp.IntLit
     {
         def imports = Nil
         protected def toPython = toScala
+
+        def asCode : Code = toScala
     }
 
     trait And extends pp.And[Typed.Expr]
     {
         def imports = x.imports ++ y.imports
         protected def toPython = toScala
+
+        def asCode = x.asCode ||| " and " ||| y.asCode
     }
 
     trait Or extends pp.Or[Typed.Expr] {
         def imports = x.imports ++ y.imports
         protected def toPython = toScala
+
+        def asCode = x.asCode ||| " or " ||| y.asCode
     }
 
     trait Not extends pp.Not[Typed.Expr, Typed.Expr] {
         protected def toPython = toScala
         def imports = x.imports
+        def asCode = "not " ||| x.asCode
     }
 
     trait Condition extends pp.Condition[Typed.Expr] {
         protected def toPython = toScala
         def imports = x.imports ++ y.imports
+
+        def asCode = x.asCode ||| symbol.toString ||| y.asCode
     }
 
     type Priority_0 = pp.Priority_0
@@ -159,6 +180,8 @@ object Printer {
         protected def toPython = x.toString
 
         def imports = Nil
+
+        def asCode = x.toString
     }
 
     trait ParamRef extends Expr with Priority_0 {
@@ -166,6 +189,8 @@ object Printer {
         protected def toPython = "self." + p.name
 
         def imports = Nil
+
+        def asCode = "self." + p.name
     }
 
     trait FunctionRef extends Expr with Priority_0 {
@@ -173,6 +198,8 @@ object Printer {
         protected def toPython = fullImportName(f.qualifiedName)
 
         def imports = (importsOf(f) as fullImportName(f.qualifiedName)) :: Nil
+
+        def asCode = fullImportName(f.qualifiedName) ||| (importsOf(f) as fullImportName(f.qualifiedName))
     }
 
     def moduleName(target : Typed.Function) = {
@@ -193,6 +220,11 @@ object Printer {
 
         override def imports =
             target.imports ++ (arguments flatMap { _.imports })
+
+
+        def asCode =
+            (target.asCode ||| makeCodeString(arguments map { _.asCode}, "(",",",")")) |||
+                Code.from(target.imports ++ (arguments flatMap { _.imports }))
     }
 
 }

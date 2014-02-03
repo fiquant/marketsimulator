@@ -2,6 +2,7 @@ from marketsim import registry
 from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IObservable
+from marketsim import IObservable
 from marketsim import context
 @registry.expose(["Basic", "DownMovements"])
 class DownMovements(Observable[float]):
@@ -10,6 +11,7 @@ class DownMovements(Observable[float]):
     def __init__(self, source = None, timeframe = None):
         from marketsim import float
         from marketsim.ops._all import Observable
+        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out._const import const as _const
         from marketsim import rtti
         from marketsim import _

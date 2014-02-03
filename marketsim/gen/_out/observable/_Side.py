@@ -2,6 +2,8 @@ from marketsim import registry
 from marketsim.gen._intrinsic.observable.on_every_dt import _ObservableSide_Impl
 from marketsim import IFunction
 from marketsim import Side
+from marketsim import IFunction
+from marketsim import Side
 @registry.expose(["Basic", "Side"])
 class Side(_ObservableSide_Impl):
     """  Needed since generic functions aren't implemented yet
@@ -23,6 +25,7 @@ class Side(_ObservableSide_Impl):
     
     _properties = {
         'x' : IFunction[Side]
+        
         
     }
     def __repr__(self):

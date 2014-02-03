@@ -1,7 +1,10 @@
 from marketsim import registry
 from marketsim import Volume
+from marketsim import Volume
 from marketsim.ops._all import Observable
 from marketsim import IObservable
+from marketsim import IObservable
+from marketsim import ISingleAssetTrader
 from marketsim import ISingleAssetTrader
 from marketsim import context
 @registry.expose(["Volume function", "Bollinger_linear"])
@@ -10,8 +13,11 @@ class Bollinger_linear(Observable[Volume]):
     """ 
     def __init__(self, alpha = None, k = None, trader = None):
         from marketsim import Volume
+        from marketsim import Volume
         from marketsim.ops._all import Observable
         from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim import rtti
         from marketsim import _

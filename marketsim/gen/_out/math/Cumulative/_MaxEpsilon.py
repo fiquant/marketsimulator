@@ -2,12 +2,16 @@ from marketsim import registry
 from marketsim.gen._intrinsic.observable.minmax_eps import MaxEpsilon_Impl
 from marketsim import IFunction
 from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import IFunction
 @registry.expose(["Statistics", "MaxEpsilon"])
 class MaxEpsilon(MaxEpsilon_Impl):
     """ 
       It fires updates only if *source* value becomes greater than the old value plus *epsilon*
     """ 
     def __init__(self, source = None, epsilon = None):
+        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import rtti

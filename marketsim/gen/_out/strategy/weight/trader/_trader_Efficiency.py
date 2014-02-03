@@ -23,6 +23,7 @@ class trader_Efficiency(IFunction[IFunction[float], IAccount]):
     
     def __call__(self, trader = None):
         from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
+        from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim.gen._out.strategy.weight._Efficiency import Efficiency
         trader = trader if trader is not None else _trader_SingleProxy()
         

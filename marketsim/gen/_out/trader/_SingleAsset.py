@@ -1,6 +1,10 @@
 from marketsim.gen._intrinsic.trader.classes import _SingleAsset_Impl
 from marketsim import IOrderBook
+from marketsim import IOrderBook
 from marketsim import ISingleAssetStrategy
+from marketsim import ISingleAssetStrategy
+from marketsim import listOf
+from marketsim import ITimeSerie
 from marketsim import listOf
 from marketsim import ITimeSerie
 
@@ -8,6 +12,7 @@ class SingleAsset(_SingleAsset_Impl):
     """ 
     """ 
     def __init__(self, orderBook , strategy = None, name = None, amount = None, PnL = None, timeseries = None):
+        from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
         from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
         from marketsim import rtti
         self.orderBook = orderBook
@@ -30,6 +35,7 @@ class SingleAsset(_SingleAsset_Impl):
         'amount' : float,
         'PnL' : float,
         'timeseries' : listOf(ITimeSerie)
+        
         
     }
     def __repr__(self):

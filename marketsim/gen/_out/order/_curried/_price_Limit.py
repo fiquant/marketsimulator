@@ -4,6 +4,9 @@ from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
+from marketsim import Side
+from marketsim import IFunction
+from marketsim import IFunction
 @registry.expose(["Order", "Limit"])
 class price_Limit(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
@@ -13,6 +16,8 @@ class price_Limit(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
     def __init__(self, side = None, volume = None):
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import rtti
         self.side = side if side is not None else _side_Sell()
@@ -25,6 +30,7 @@ class price_Limit(IFunction[IOrderGenerator, IFunction[float]]):
     
     _properties = {
         'side' : IFunction[Side]
+        
         ,
         'volume' : IFunction[float]
     }
@@ -32,6 +38,7 @@ class price_Limit(IFunction[IOrderGenerator, IFunction[float]]):
         return "price_Limit(%(side)s, %(volume)s)" % self.__dict__
     
     def __call__(self, price = None):
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._Limit import Limit
         price = price if price is not None else _constant(100.0)

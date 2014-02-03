@@ -1,7 +1,10 @@
 from marketsim import registry
 from marketsim import Side
+from marketsim import Side
 from marketsim.ops._all import Observable
 from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import IOrderBook
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Side function", "FundamentalValue"])
@@ -10,8 +13,11 @@ class FundamentalValue(Observable[Side]):
     """ 
     def __init__(self, fv = None, book = None):
         from marketsim import Side
+        from marketsim import Side
         from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
         from marketsim import _

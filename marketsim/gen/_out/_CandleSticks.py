@@ -1,11 +1,13 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.observable.candlestick import CandleSticks_Impl
 from marketsim import IObservable
+from marketsim import IObservable
 @registry.expose(["Basic", "CandleSticks"])
 class CandleSticks(CandleSticks_Impl):
     """  open/close/min/max price, its average and standard deviation
     """ 
     def __init__(self, source = None, timeframe = None):
+        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out._const import const as _const
         from marketsim import rtti
         from marketsim import event

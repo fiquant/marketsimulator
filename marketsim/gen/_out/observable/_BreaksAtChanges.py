@@ -1,11 +1,13 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.observable.breaks_at_changes import _BreaksAtChanges_Impl
 from marketsim import IFunction
+from marketsim import IFunction
 @registry.expose(["Basic", "BreaksAtChanges"])
 class BreaksAtChanges(_BreaksAtChanges_Impl):
     """   When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
     """ 
     def __init__(self, source = None):
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import rtti
         from marketsim import event

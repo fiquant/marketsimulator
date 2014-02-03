@@ -2,6 +2,11 @@ from marketsim import registry
 from marketsim.gen._intrinsic.ops import _ConditionSide_Impl
 from marketsim import IFunction
 from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import Side
+from marketsim import IFunction
+from marketsim import Side
+from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
 from marketsim import Side
@@ -12,6 +17,8 @@ class Condition_Side(_ConditionSide_Impl):
     def __init__(self, cond = None, ifpart = None, elsepart = None):
         from marketsim.gen._out._true import true as _true
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim.gen._out.side._Buy import Buy as _side_Buy
         from marketsim.gen._out.side._Buy import Buy as _side_Buy
         from marketsim import rtti
         from marketsim import event
@@ -39,8 +46,10 @@ class Condition_Side(_ConditionSide_Impl):
     _properties = {
         'cond' : IFunction[bool],
         'ifpart' : IFunction[Side]
+        
         ,
         'elsepart' : IFunction[Side]
+        
         
     }
     def __repr__(self):

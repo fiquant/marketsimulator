@@ -1,6 +1,5 @@
 from marketsim import registry
 from marketsim.ops._function import Function
-from marketsim.gen._out._const import const as _const
 from marketsim import context
 @registry.expose(["Basic", "constant"])
 class constant(Function[float]):
@@ -24,6 +23,7 @@ class constant(Function[float]):
     
     _internals = ['impl']
     def getImpl(self):
+        from marketsim.gen._out._const import const as _const
         return _const(self.x)
     
     def bind(self, ctx):
