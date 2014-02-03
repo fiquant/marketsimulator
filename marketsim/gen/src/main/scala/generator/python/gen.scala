@@ -55,7 +55,7 @@ package object gen
                     generationUnit(f) map { g =>
                         //println(f.parent.qualifiedName, f.name)
                         for (out <- managed(printWriter(dir, s"_${f.name}.py"))) {
-                            out.println(g)
+                            out.println(g.code)
                         }
                         idx_out.println(base.withImports(Printer.importsOf(f)))
                     }
@@ -96,6 +96,7 @@ package object gen
     trait GenerationUnit
     {
         def name : String
+        def code : predef.Code
     }
 
     trait PythonGenerator extends Typed.AnnotationHandler

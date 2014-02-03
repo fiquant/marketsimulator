@@ -11,7 +11,7 @@ package object base {
     val tab = "    "
     val comma = ","
 
-    abstract class Class extends PyPrintable with gen.GenerationUnit
+    abstract class Class extends gen.GenerationUnit
     {
         def name : String
         def body : Code
@@ -19,8 +19,7 @@ package object base {
         def base_class : Code = "object"
         def base_classes = base_class
 
-        protected def toPython =
-            withImports(registration | s"class $name(" ||| base_classes ||| "):" |> body).toString
+        def code = withImports(registration | s"class $name(" ||| base_classes ||| "):" |> body)
     }
 
 
