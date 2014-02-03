@@ -3,8 +3,7 @@ from marketsim import Volume
 from marketsim import Volume
 from marketsim.ops._all import Observable
 from marketsim import IObservable
-from marketsim import IObservable
-from marketsim import ISingleAssetTrader
+from marketsim import float
 from marketsim import ISingleAssetTrader
 from marketsim import context
 @registry.expose(["Volume function", "DesiredPosition"])
@@ -16,8 +15,6 @@ class DesiredPosition(Observable[Volume]):
         from marketsim import Volume
         from marketsim.ops._all import Observable
         from marketsim.gen._out._const import const as _const
-        from marketsim.gen._out._const import const as _const
-        from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim import rtti
         from marketsim import _
@@ -44,15 +41,8 @@ class DesiredPosition(Observable[Volume]):
     def getImpl(self):
         from marketsim.gen._out.observable._Volume import Volume as _observable_Volume
         from marketsim.gen._out.trader._Position import Position as _trader_Position
-        from marketsim.gen._out.trader._Position import Position as _trader_Position
-        from marketsim.gen._out.trader._PendingVolume import PendingVolume as _trader_PendingVolume
-        from marketsim.gen._out.trader._PendingVolume import PendingVolume as _trader_PendingVolume
-        from marketsim.gen._out.observable._Volume import Volume as _observable_Volume
-        from marketsim.gen._out.trader._Position import Position as _trader_Position
         from marketsim.gen._out.trader._PendingVolume import PendingVolume as _trader_PendingVolume
         return _observable_Volume(((self.desiredPosition-_trader_Position(self.trader))-_trader_PendingVolume(self.trader)))
-        
-        
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

@@ -1,5 +1,8 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.observable.quote import Quote_Impl
+from marketsim import str
+from marketsim import str
+from marketsim import str
 @registry.expose(["Basic", "Quote"])
 class Quote(Quote_Impl):
     """   and follows the price in scale 1 model unit of time = 1 real day

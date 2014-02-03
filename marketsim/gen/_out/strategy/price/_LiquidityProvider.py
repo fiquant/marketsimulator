@@ -1,13 +1,12 @@
 from marketsim import registry
 from marketsim import float
+from marketsim import float
 from marketsim.ops._all import Observable
-from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
-from marketsim import Side
+from marketsim import float
+from marketsim import float
 from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import IOrderBook
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Price function", "LiquidityProvider"])
@@ -16,12 +15,10 @@ class LiquidityProvider(Observable[float]):
     """ 
     def __init__(self, side = None, initialValue = None, priceDistr = None, book = None):
         from marketsim import float
+        from marketsim import float
         from marketsim.ops._all import Observable
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
-        from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out.math.random._lognormvariate import lognormvariate as _math_random_lognormvariate
-        from marketsim.gen._out.math.random._lognormvariate import lognormvariate as _math_random_lognormvariate
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
         from marketsim import _
@@ -40,9 +37,7 @@ class LiquidityProvider(Observable[float]):
         return repr(self)
     
     _properties = {
-        'side' : IFunction[Side]
-        
-        ,
+        'side' : IFunction[Side],
         'initialValue' : float,
         'priceDistr' : IFunction[float],
         'book' : IOrderBook
@@ -54,15 +49,8 @@ class LiquidityProvider(Observable[float]):
     def getImpl(self):
         from marketsim.gen._out.orderbook._SafeSidePrice import SafeSidePrice as _orderbook_SafeSidePrice
         from marketsim.gen._out.orderbook._Queue import Queue as _orderbook_Queue
-        from marketsim.gen._out.orderbook._Queue import Queue as _orderbook_Queue
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.orderbook._SafeSidePrice import SafeSidePrice as _orderbook_SafeSidePrice
-        from marketsim.gen._out.orderbook._Queue import Queue as _orderbook_Queue
-        from marketsim.gen._out._constant import constant as _constant
-        return (_orderbook_SafeSidePrice(_orderbook_Queue(self.book,self.side),_constant(self.initialValue))
-        
-        *self.priceDistr)
+        return (_orderbook_SafeSidePrice(_orderbook_Queue(self.book,self.side),_constant(self.initialValue))*self.priceDistr)
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

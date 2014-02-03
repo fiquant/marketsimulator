@@ -1,15 +1,13 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.strategy.suspendable import _Suspendable_Impl
 from marketsim import ISingleAssetStrategy
-from marketsim import ISingleAssetStrategy
 from marketsim import IFunction
-from marketsim import IFunction
+from marketsim import bool
 @registry.expose(["Strategy", "Suspendable"])
 class Suspendable(_Suspendable_Impl):
     """ 
     """ 
     def __init__(self, inner = None, predicate = None):
-        from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
         from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
         from marketsim.gen._out._true import true as _true
         from marketsim import rtti

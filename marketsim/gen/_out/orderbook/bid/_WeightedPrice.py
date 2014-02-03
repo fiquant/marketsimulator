@@ -1,14 +1,14 @@
 from marketsim import registry
+from marketsim import float
 from marketsim.ops._function import Function
 from marketsim import IOrderBook
-from marketsim import IOrderBook
+from marketsim import float
 from marketsim import context
 @registry.expose(["Asset", "WeightedPrice"])
 class WeightedPrice(Function[float]):
     """ 
     """ 
     def __init__(self, book = None, alpha = None):
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
         self.book = book if book is not None else _orderbook_OfTrader()
@@ -31,11 +31,7 @@ class WeightedPrice(Function[float]):
     def getImpl(self):
         from marketsim.gen._out.orderbook._WeightedPrice import WeightedPrice as _orderbook_WeightedPrice
         from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
-        from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
-        from marketsim.gen._out.orderbook._WeightedPrice import WeightedPrice as _orderbook_WeightedPrice
-        from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
         return _orderbook_WeightedPrice(_orderbook_Bids(self.book),self.alpha)
-        
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

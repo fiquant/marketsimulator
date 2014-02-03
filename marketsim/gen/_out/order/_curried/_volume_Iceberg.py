@@ -1,22 +1,21 @@
 from marketsim import registry
+from marketsim import IOrderGenerator
+from marketsim import float
 from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import float
 from marketsim import IOrderGenerator
 from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import IFunction
+from marketsim import float
 @registry.expose(["Order", "Iceberg"])
-class volume_Iceberg(
-
-IFunction[IOrderGenerator,IFunction[float]]):
+class volume_Iceberg(IFunction[IOrderGenerator,IFunction[float]]):
     """ 
       Iceberg order is initialized by an underlying order and a lot size.
       It sends consequently pieces of the underlying order of size equal or less to the lot size
       thus maximum lot size volume is visible at the market at any moment.
     """ 
     def __init__(self, lotSize = None, proto = None):
-        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._curried._volume_Limit import volume_Limit as _order__curried_volume_Limit
         from marketsim import rtti

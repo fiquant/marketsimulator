@@ -1,15 +1,13 @@
 from marketsim import registry
 from marketsim import ISingleAssetStrategy
-from marketsim import IFunction
 from marketsim import IOrderGenerator
+from marketsim import float
 from marketsim import IFunction
 from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import IFunction
+from marketsim import float
 from marketsim import IObservable
-from marketsim import IObservable
-from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
-from marketsim.gen._out.strategy.position._RSI_linear import RSI_linear as _strategy_position_RSI_linear
+from marketsim import float
+from marketsim import float
 from marketsim import context
 @registry.expose(["Strategy", "RSI_linear"])
 class RSI_linear(ISingleAssetStrategy):
@@ -17,8 +15,6 @@ class RSI_linear(ISingleAssetStrategy):
     """ 
     def __init__(self, orderFactory = None, alpha = None, k = None, timeframe = None):
         from marketsim.gen._out.order._curried._signedVolume_MarketSigned import signedVolume_MarketSigned as _order__curried_signedVolume_MarketSigned
-        from marketsim.gen._out.order._curried._signedVolume_MarketSigned import signedVolume_MarketSigned as _order__curried_signedVolume_MarketSigned
-        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out._const import const as _const
         from marketsim import rtti
         from marketsim import event
@@ -37,11 +33,7 @@ class RSI_linear(ISingleAssetStrategy):
         return repr(self)
     
     _properties = {
-        'orderFactory' : IFunction[IOrderGenerator,IFunction[float]]
-        
-        
-        
-        ,
+        'orderFactory' : IFunction[IOrderGenerator,IFunction[float]],
         'alpha' : float,
         'k' : IObservable[float],
         'timeframe' : float
@@ -51,8 +43,9 @@ class RSI_linear(ISingleAssetStrategy):
     
     _internals = ['impl']
     def getImpl(self):
+        from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
+        from marketsim.gen._out.strategy.position._RSI_linear import RSI_linear as _strategy_position_RSI_linear
         return _strategy_Generic(self.orderFactory(_strategy_position_RSI_linear(self.alpha,self.k,self.timeframe)))
-    
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

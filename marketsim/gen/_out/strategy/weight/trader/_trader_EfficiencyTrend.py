@@ -1,7 +1,9 @@
 from marketsim import registry
 from marketsim import IFunction
+from marketsim import float
 from marketsim import IAccount
 from marketsim import IFunction
+from marketsim import float
 @registry.expose(["Strategy", "trader_EfficiencyTrend"])
 class trader_EfficiencyTrend(IFunction[IFunction[float], IAccount]):
     """ 
@@ -22,7 +24,6 @@ class trader_EfficiencyTrend(IFunction[IFunction[float], IAccount]):
         return "trader_EfficiencyTrend(%(alpha)s)" % self.__dict__
     
     def __call__(self, trader = None):
-        from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim.gen._out.strategy.weight._EfficiencyTrend import EfficiencyTrend
         trader = trader if trader is not None else _trader_SingleProxy()

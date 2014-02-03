@@ -1,6 +1,6 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.strategy.canceller import _Canceller_Impl
-from marketsim import IFunction
+from marketsim import float
 from marketsim import IFunction
 @registry.expose(["Strategy", "Canceller"])
 class Canceller(_Canceller_Impl):
@@ -8,7 +8,6 @@ class Canceller(_Canceller_Impl):
       Note: a similar effect can be obtained using order.WithExpiry meta orders
     """ 
     def __init__(self, cancellationIntervalDistr = None):
-        from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
         from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
         from marketsim import rtti
         self.cancellationIntervalDistr = cancellationIntervalDistr if cancellationIntervalDistr is not None else _math_random_expovariate(1.0)

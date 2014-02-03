@@ -1,10 +1,11 @@
 from marketsim import registry
 from marketsim import float
+from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IFunction
+from marketsim import float
 from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import IFunction
+from marketsim import float
 from marketsim import context
 @registry.expose(["Basic", "IfDefined"])
 class IfDefined(Observable[float]):
@@ -12,9 +13,8 @@ class IfDefined(Observable[float]):
     """ 
     def __init__(self, x = None, elsePart = None):
         from marketsim import float
+        from marketsim import float
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import rtti
@@ -40,7 +40,6 @@ class IfDefined(Observable[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out._null import null as _null
         from marketsim.gen._out._null import null as _null
         return (self.x<>_null())[self.x, self.elsePart]
     

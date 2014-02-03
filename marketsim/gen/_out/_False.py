@@ -1,4 +1,5 @@
 from marketsim import registry
+from marketsim import bool
 from marketsim.ops._function import Function
 from marketsim.gen._intrinsic._constant import _False_Impl
 @registry.expose(["Basic", "false"])

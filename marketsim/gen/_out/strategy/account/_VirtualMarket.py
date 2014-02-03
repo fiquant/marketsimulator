@@ -1,7 +1,6 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.strategy.account import _VirtualMarket_Impl
 from marketsim import ISingleAssetStrategy
-from marketsim import ISingleAssetStrategy
 @registry.expose(["Strategy", "VirtualMarket"])
 class VirtualMarket(_VirtualMarket_Impl):
     """   how it would be traded by sending request.evalMarketOrder
@@ -9,7 +8,6 @@ class VirtualMarket(_VirtualMarket_Impl):
       but we want evaluate in any case would it be profitable or not)
     """ 
     def __init__(self, inner = None):
-        from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
         from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
         from marketsim import rtti
         self.inner = inner if inner is not None else _strategy_Noise()

@@ -1,7 +1,8 @@
 from marketsim import registry
+from marketsim import float
 from marketsim.ops._function import Function
 from marketsim import IAccount
-from marketsim import IAccount
+from marketsim import float
 from marketsim import context
 @registry.expose(["Trader", "EfficiencyTrend"])
 class EfficiencyTrend(Function[float]):
@@ -31,16 +32,7 @@ class EfficiencyTrend(Function[float]):
         from marketsim.gen._out.math._Derivative import Derivative as _math_Derivative
         from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
         from marketsim.gen._out.trader._Efficiency import Efficiency as _trader_Efficiency
-        from marketsim.gen._out.trader._Efficiency import Efficiency as _trader_Efficiency
-        from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
-        from marketsim.gen._out.trader._Efficiency import Efficiency as _trader_Efficiency
-        from marketsim.gen._out.math._Derivative import Derivative as _math_Derivative
-        from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
-        from marketsim.gen._out.trader._Efficiency import Efficiency as _trader_Efficiency
-        return _math_Derivative(_math_EW_Avg(_trader_Efficiency(self.trader),self.alpha)
-        )
-        
-        
+        return _math_Derivative(_math_EW_Avg(_trader_Efficiency(self.trader),self.alpha))
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

@@ -23,7 +23,7 @@ object order_factory_on_proto
         override def assign_if_none: predef.Code =
             if (isProto) initializer match {
                 case Some(x) =>
-                    (s" if $name is not None else " + x.asPython) ||| Code.from(x.imports)
+                    s" if $name is not None else " ||| x.asCode
                 case None => ""
             } else super.assign_if_none
 
@@ -74,8 +74,7 @@ object order_factory_on_proto
         override def name = x.name
         override def alias = original.alias
 
-        def makeCode(t : TypesBound.Base) =
-            Code.from(t.imports) ||| t.asPython
+        def makeCode(t : TypesBound.Base) = t.asCode
 
         override def interface =
             makeCode(x.ret_type)

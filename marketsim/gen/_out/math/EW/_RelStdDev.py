@@ -1,8 +1,10 @@
 from marketsim import registry
 from marketsim import float
+from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IObservable
-from marketsim import IObservable
+from marketsim import float
+from marketsim import float
 from marketsim import context
 @registry.expose(["Statistics", "RelStdDev"])
 class RelStdDev(Observable[float]):
@@ -10,8 +12,8 @@ class RelStdDev(Observable[float]):
     """ 
     def __init__(self, source = None, alpha = None):
         from marketsim import float
+        from marketsim import float
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out._const import const as _const
         from marketsim import rtti
         from marketsim import _
@@ -37,8 +39,6 @@ class RelStdDev(Observable[float]):
     _internals = ['impl']
     def getImpl(self):
         from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
-        from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
-        from marketsim.gen._out.math.EW._StdDev import StdDev as _math_EW_StdDev
         from marketsim.gen._out.math.EW._StdDev import StdDev as _math_EW_StdDev
         return (((self.source-_math_EW_Avg(self.source,self.alpha)))/_math_EW_StdDev(self.source,self.alpha))
     

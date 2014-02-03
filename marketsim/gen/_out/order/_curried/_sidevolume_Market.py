@@ -1,11 +1,11 @@
 from marketsim import registry
 from marketsim import IOrderGenerator
-from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import float
 @registry.expose(["Order", "Market"])
-class sidevolume_Market(IFunction[IOrderGenerator, IFunction[Side]
-,IFunction[float]]):
+class sidevolume_Market(IFunction[IOrderGenerator, IFunction[Side],IFunction[float]]):
     """ 
       Market order intructs buy or sell given volume immediately
     """ 
@@ -26,8 +26,6 @@ class sidevolume_Market(IFunction[IOrderGenerator, IFunction[Side]
     
     def __call__(self, side = None,volume = None):
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
-        from marketsim.gen._out.side._Sell import Sell as _side_Sell
-        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._Market import Market
         side = side if side is not None else _side_Sell()

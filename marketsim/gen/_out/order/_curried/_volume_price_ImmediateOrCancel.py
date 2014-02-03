@@ -1,18 +1,18 @@
 from marketsim import registry
+from marketsim import IOrderGenerator
+from marketsim import float
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import float
 from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
+from marketsim import float
 from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import IFunction
-from marketsim import IFunction
+from marketsim import float
 @registry.expose(["Order", "ImmediateOrCancel"])
-class volume_price_ImmediateOrCancel(
-
-
-
-IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
+class volume_price_ImmediateOrCancel(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
     """ 
       Immediate-Or-Cancel order sends an underlying order to the market and
       immediately sends a cancel request for it.

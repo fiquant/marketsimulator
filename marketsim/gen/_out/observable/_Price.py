@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.observable.on_every_dt import _Observable_Impl
 from marketsim import IFunction
-from marketsim import IFunction
+from marketsim import float
 @registry.expose(["Basic", "Price"])
 class Price(_Observable_Impl):
     """  Needed since generic functions aren't implemented yet

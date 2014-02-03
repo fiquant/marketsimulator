@@ -1,6 +1,6 @@
 from marketsim import registry
+from marketsim import float
 from marketsim.ops._function import Function
-from marketsim import IAccount
 from marketsim import IAccount
 from marketsim import context
 @registry.expose(["Strategy", "Unit"])
@@ -8,7 +8,6 @@ class Unit(Function[float]):
     """ 
     """ 
     def __init__(self, trader = None):
-        from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim import rtti
         self.trader = trader if trader is not None else _trader_SingleProxy()
@@ -27,7 +26,6 @@ class Unit(Function[float]):
     
     _internals = ['impl']
     def getImpl(self):
-        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         return _constant(1.0)
     

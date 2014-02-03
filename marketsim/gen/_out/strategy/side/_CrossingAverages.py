@@ -1,7 +1,9 @@
 from marketsim import registry
 from marketsim import Side
 from marketsim.ops._function import Function
-from marketsim import IOrderBook
+from marketsim import float
+from marketsim import float
+from marketsim import float
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Side function", "CrossingAverages"])
@@ -9,7 +11,6 @@ class CrossingAverages(Function[Side]):
     """ 
     """ 
     def __init__(self, alpha_1 = None, alpha_2 = None, threshold = None, book = None):
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
         self.alpha_1 = alpha_1 if alpha_1 is not None else 0.15
@@ -37,26 +38,9 @@ class CrossingAverages(Function[Side]):
         from marketsim.gen._out.strategy.side._Signal import Signal as _strategy_side_Signal
         from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
         from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
-        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
         from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
         from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
-        from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
-        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
-        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
-        from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
-        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
-        from marketsim.gen._out.strategy.side._Signal import Signal as _strategy_side_Signal
-        from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
-        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
-        from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
-        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
-        return _strategy_side_Signal((_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha_1)
-        -_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha_2)
-        ),self.threshold)
-        
-        
-        
-        
+        return _strategy_side_Signal((_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha_1)-_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha_2)),self.threshold)
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

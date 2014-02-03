@@ -21,6 +21,9 @@ float = float
 
 Volume = float
 Price = float
+bool = bool
+str = str
+int = int
 
 class ILink(object):pass
 class ITwoWayLink(object):pass

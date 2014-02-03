@@ -3,7 +3,6 @@ from marketsim import Volume
 from marketsim import Volume
 from marketsim.ops._all import Observable
 from marketsim import IOrderBook
-from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Asset", "LastTradeVolume"])
 class LastTradeVolume(Observable[Volume]):
@@ -13,7 +12,6 @@ class LastTradeVolume(Observable[Volume]):
         from marketsim import Volume
         from marketsim import Volume
         from marketsim.ops._all import Observable
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
         from marketsim import _
@@ -38,11 +36,7 @@ class LastTradeVolume(Observable[Volume]):
     def getImpl(self):
         from marketsim.gen._out.orderbook._LastTradeVolume import LastTradeVolume as _orderbook_LastTradeVolume
         from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
-        from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
-        from marketsim.gen._out.orderbook._LastTradeVolume import LastTradeVolume as _orderbook_LastTradeVolume
-        from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
         return _orderbook_LastTradeVolume(_orderbook_Bids(self.book))
-        
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

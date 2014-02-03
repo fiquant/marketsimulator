@@ -2,9 +2,9 @@ from marketsim import registry
 from marketsim import Volume
 from marketsim import Volume
 from marketsim.ops._all import Observable
+from marketsim import float
 from marketsim import IObservable
-from marketsim import IObservable
-from marketsim import ISingleAssetTrader
+from marketsim import float
 from marketsim import ISingleAssetTrader
 from marketsim import context
 @registry.expose(["Volume function", "Bollinger_linear"])
@@ -16,8 +16,6 @@ class Bollinger_linear(Observable[Volume]):
         from marketsim import Volume
         from marketsim.ops._all import Observable
         from marketsim.gen._out._const import const as _const
-        from marketsim.gen._out._const import const as _const
-        from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim import rtti
         from marketsim import _
@@ -49,32 +47,7 @@ class Bollinger_linear(Observable[Volume]):
         from marketsim.gen._out.math.EW._RelStdDev import RelStdDev as _math_EW_RelStdDev
         from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
-        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
-        from marketsim.gen._out.math.EW._RelStdDev import RelStdDev as _math_EW_RelStdDev
-        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
-        from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
-        from marketsim.gen._out.math.EW._RelStdDev import RelStdDev as _math_EW_RelStdDev
-        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
-        from marketsim.gen._out.strategy.position._DesiredPosition import DesiredPosition as _strategy_position_DesiredPosition
-        from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
-        from marketsim.gen._out.math.EW._RelStdDev import RelStdDev as _math_EW_RelStdDev
-        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
-        return _strategy_position_DesiredPosition((_observable_OnEveryDt(1.0,_math_EW_RelStdDev(_orderbook_MidPrice(_orderbook_OfTrader(self.trader))
-        ,self.alpha)
-        
-        )
-        
-        
-        *self.k),self.trader)
-        
-        
-        
-        
+        return _strategy_position_DesiredPosition((_observable_OnEveryDt(1.0,_math_EW_RelStdDev(_orderbook_MidPrice(_orderbook_OfTrader(self.trader)),self.alpha))*self.k),self.trader)
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

@@ -1,14 +1,15 @@
 from marketsim import registry
+from marketsim import float
 from marketsim.ops._function import Function
 from marketsim.gen._intrinsic.moments.mv import MV_Impl
 from marketsim import IObservable
-from marketsim import IObservable
+from marketsim import float
+from marketsim import float
 @registry.expose(["Statistics", "Var"])
 class Var(Function[float], MV_Impl):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
-        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out._const import const as _const
         from marketsim import rtti
         self.source = source if source is not None else _const()

@@ -1,17 +1,12 @@
 from marketsim import registry
 from marketsim import ISingleAssetStrategy
 from marketsim import IEvent
-from marketsim import IEvent
-from marketsim import IFunction
 from marketsim import IOrderGenerator
-from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
-from marketsim import IOrderGenerator
 from marketsim import IFunction
-from marketsim import Side
-from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
-from marketsim.gen._out.strategy.side._TrendFollower import TrendFollower as _strategy_side_TrendFollower
+from marketsim import float
+from marketsim import float
 from marketsim import context
 @registry.expose(["Strategy", "TrendFollower"])
 class TrendFollower(ISingleAssetStrategy):
@@ -24,16 +19,11 @@ class TrendFollower(ISingleAssetStrategy):
     def __init__(self, eventGen = None, orderFactory = None, ewma_alpha = None, threshold = None):
         from marketsim.gen._out.event._Every import Every as _event_Every
         from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
-        from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
-        from marketsim.gen._out.event._Every import Every as _event_Every
-        from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
-        from marketsim.gen._out.order._curried._side_Market import side_Market as _order__curried_side_Market
         from marketsim.gen._out.order._curried._side_Market import side_Market as _order__curried_side_Market
         from marketsim import rtti
         from marketsim import event
         from marketsim import _
         self.eventGen = eventGen if eventGen is not None else _event_Every(_math_random_expovariate(1.0))
-        
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market()
         self.ewma_alpha = ewma_alpha if ewma_alpha is not None else 0.15
         self.threshold = threshold if threshold is not None else 0.0
@@ -48,13 +38,7 @@ class TrendFollower(ISingleAssetStrategy):
     
     _properties = {
         'eventGen' : IEvent,
-        'orderFactory' : IFunction[IOrderGenerator,IFunction[Side]]
-        
-        
-        
-        
-        
-        ,
+        'orderFactory' : IFunction[IOrderGenerator,IFunction[Side]],
         'ewma_alpha' : float,
         'threshold' : float
     }
@@ -63,8 +47,9 @@ class TrendFollower(ISingleAssetStrategy):
     
     _internals = ['impl']
     def getImpl(self):
+        from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
+        from marketsim.gen._out.strategy.side._TrendFollower import TrendFollower as _strategy_side_TrendFollower
         return _strategy_Generic(self.orderFactory(_strategy_side_TrendFollower(self.ewma_alpha,self.threshold)),self.eventGen)
-    
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

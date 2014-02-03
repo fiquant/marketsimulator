@@ -3,7 +3,6 @@ from marketsim import Price
 from marketsim import Price
 from marketsim.ops._all import Observable
 from marketsim import IOrderBook
-from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Asset", "LastTradePrice"])
 class LastTradePrice(Observable[Price]):
@@ -13,7 +12,6 @@ class LastTradePrice(Observable[Price]):
         from marketsim import Price
         from marketsim import Price
         from marketsim.ops._all import Observable
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
         from marketsim import _
@@ -38,11 +36,7 @@ class LastTradePrice(Observable[Price]):
     def getImpl(self):
         from marketsim.gen._out.orderbook._LastTradePrice import LastTradePrice as _orderbook_LastTradePrice
         from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
-        from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
-        from marketsim.gen._out.orderbook._LastTradePrice import LastTradePrice as _orderbook_LastTradePrice
-        from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
         return _orderbook_LastTradePrice(_orderbook_Bids(self.book))
-        
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

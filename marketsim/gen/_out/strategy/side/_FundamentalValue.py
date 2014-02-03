@@ -3,8 +3,7 @@ from marketsim import Side
 from marketsim import Side
 from marketsim.ops._all import Observable
 from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import IOrderBook
+from marketsim import float
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Side function", "FundamentalValue"])
@@ -16,8 +15,6 @@ class FundamentalValue(Observable[Side]):
         from marketsim import Side
         from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
         from marketsim import _
@@ -43,14 +40,9 @@ class FundamentalValue(Observable[Side]):
     _internals = ['impl']
     def getImpl(self):
         from marketsim.gen._out.orderbook.bid._Price import Price as _orderbook_bid_Price
-        from marketsim.gen._out.orderbook.bid._Price import Price as _orderbook_bid_Price
-        from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out.orderbook.ask._Price import Price as _orderbook_ask_Price
-        from marketsim.gen._out.orderbook.ask._Price import Price as _orderbook_ask_Price
         from marketsim.gen._out.side._Buy import Buy as _side_Buy
-        from marketsim.gen._out.side._Buy import Buy as _side_Buy
-        from marketsim.gen._out.side._Nothing import Nothing as _side_Nothing
         from marketsim.gen._out.side._Nothing import Nothing as _side_Nothing
         return (_orderbook_bid_Price(self.book)>self.fv)[_side_Sell(), (_orderbook_ask_Price(self.book)<self.fv)[_side_Buy(), _side_Nothing()]]
     

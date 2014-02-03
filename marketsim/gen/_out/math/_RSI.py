@@ -1,8 +1,10 @@
 from marketsim import registry
 from marketsim import float
+from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IOrderBook
-from marketsim import IOrderBook
+from marketsim import float
+from marketsim import float
 from marketsim import context
 @registry.expose(["Basic", "RSI"])
 class RSI(Observable[float]):
@@ -10,8 +12,8 @@ class RSI(Observable[float]):
     """ 
     def __init__(self, book = None, timeframe = None, alpha = None):
         from marketsim import float
+        from marketsim import float
         from marketsim.ops._all import Observable
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
         from marketsim import _
@@ -41,16 +43,9 @@ class RSI(Observable[float]):
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out._const import const as _const
-        from marketsim.gen._out._const import const as _const
-        from marketsim.gen._out._const import const as _const
-        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.math.rsi._Raw import Raw as _math_rsi_Raw
         from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
-        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
-        from marketsim.gen._out.math.rsi._Raw import Raw as _math_rsi_Raw
-        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
-        return (_const(100.0)-(_const(100.0)/((_const(1.0)+_math_rsi_Raw(_orderbook_MidPrice(self.book),self.timeframe,self.alpha)
-        ))))
+        return (_const(100.0)-(_const(100.0)/((_const(1.0)+_math_rsi_Raw(_orderbook_MidPrice(self.book),self.timeframe,self.alpha)))))
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

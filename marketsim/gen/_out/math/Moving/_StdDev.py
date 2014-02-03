@@ -1,14 +1,15 @@
 from marketsim import registry
+from marketsim import float
 from marketsim.ops._function import Function
 from marketsim import IObservable
-from marketsim import IObservable
+from marketsim import float
+from marketsim import float
 from marketsim import context
 @registry.expose(["Statistics", "StdDev"])
 class StdDev(Function[float]):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
-        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out._const import const as _const
         from marketsim import rtti
         self.source = source if source is not None else _const()
@@ -31,11 +32,7 @@ class StdDev(Function[float]):
     def getImpl(self):
         from marketsim.gen._out.math._Sqrt import Sqrt as _math_Sqrt
         from marketsim.gen._out.math.Moving._Var import Var as _math_Moving_Var
-        from marketsim.gen._out.math.Moving._Var import Var as _math_Moving_Var
-        from marketsim.gen._out.math._Sqrt import Sqrt as _math_Sqrt
-        from marketsim.gen._out.math.Moving._Var import Var as _math_Moving_Var
         return _math_Sqrt(_math_Moving_Var(self.source))
-        
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

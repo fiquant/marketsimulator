@@ -1,14 +1,15 @@
 from marketsim import registry
+from marketsim import float
 from marketsim.ops._function import Function
 from marketsim import IFunction
-from marketsim import IFunction
+from marketsim import float
+from marketsim import float
 from marketsim import context
 @registry.expose(["Strategy", "AtanPow"])
 class AtanPow(Function[float]):
     """ 
     """ 
     def __init__(self, f = None, base = None):
-        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import rtti
         self.f = f if f is not None else _constant()
@@ -32,16 +33,7 @@ class AtanPow(Function[float]):
         from marketsim.gen._out.math._Atan import Atan as _math_Atan
         from marketsim.gen._out.math._Pow import Pow as _math_Pow
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.math._Pow import Pow as _math_Pow
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.math._Atan import Atan as _math_Atan
-        from marketsim.gen._out.math._Pow import Pow as _math_Pow
-        from marketsim.gen._out._constant import constant as _constant
-        return _math_Atan(_math_Pow(_constant(self.base),self.f)
-        )
-        
-        
+        return _math_Atan(_math_Pow(_constant(self.base),self.f))
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

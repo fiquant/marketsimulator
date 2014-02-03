@@ -2,12 +2,10 @@ from marketsim import registry
 from marketsim import IOrderGenerator
 from marketsim import Order
 from marketsim.ops._all import Observable
-from marketsim import IFunction
-from marketsim import Side
-from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
 from marketsim import IFunction
+from marketsim import float
 @registry.expose(["Order", "FixedBudget"])
 class FixedBudget(IOrderGenerator, Observable[Order]):
     """ 
@@ -22,10 +20,8 @@ class FixedBudget(IOrderGenerator, Observable[Order]):
         from marketsim import Order
         from marketsim.ops._all import Observable
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
-        from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim import event
         from marketsim import types
-        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import types
@@ -44,9 +40,7 @@ class FixedBudget(IOrderGenerator, Observable[Order]):
         return repr(self)
     
     _properties = {
-        'side' : IFunction[Side]
-        
-        ,
+        'side' : IFunction[Side],
         'budget' : IFunction[float]
     }
     def __repr__(self):

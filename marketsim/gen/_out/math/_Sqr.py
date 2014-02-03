@@ -1,8 +1,9 @@
 from marketsim import registry
 from marketsim import float
+from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IFunction
-from marketsim import IFunction
+from marketsim import float
 from marketsim import context
 @registry.expose(["Log/Pow", "Sqr"])
 class Sqr(Observable[float]):
@@ -10,8 +11,8 @@ class Sqr(Observable[float]):
     """ 
     def __init__(self, x = None):
         from marketsim import float
+        from marketsim import float
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import rtti
         from marketsim import _

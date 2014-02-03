@@ -1,21 +1,20 @@
 from marketsim import registry
-from marketsim import IFunction
 from marketsim import IOrderGenerator
+from marketsim import Side
 from marketsim import IFunction
+from marketsim import float
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import float
+from marketsim import IOrderGenerator
 from marketsim import Side
 from marketsim import IFunction
 from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import IFunction
-from marketsim import Side
-from marketsim import IFunction
+from marketsim import float
 @registry.expose(["Order", "StopLoss"])
-class sideprice_StopLoss(
-
-
-
-IFunction[IOrderGenerator,IFunction[Side],IFunction[float]]):
+class sideprice_StopLoss(IFunction[IOrderGenerator,IFunction[Side]
+,IFunction[float]]):
     """ 
       StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
       It keeps track of position and balance change induced by trades of the underlying order and
@@ -23,7 +22,6 @@ IFunction[IOrderGenerator,IFunction[Side],IFunction[float]]):
       the meta order clears its position.
     """ 
     def __init__(self, maxloss = None, proto = None):
-        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._curried._sideprice_Limit import sideprice_Limit as _order__curried_sideprice_Limit
         from marketsim import rtti
@@ -37,8 +35,7 @@ IFunction[IOrderGenerator,IFunction[Side],IFunction[float]]):
     
     _properties = {
         'maxloss' : IFunction[float],
-        'proto' : IFunction[IOrderGenerator, IFunction[Side]
-        ,IFunction[float]]
+        'proto' : IFunction[IOrderGenerator, IFunction[Side],IFunction[float]]
     }
     def __repr__(self):
         return "sideprice_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__

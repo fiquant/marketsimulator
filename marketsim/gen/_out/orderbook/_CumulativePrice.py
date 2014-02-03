@@ -1,9 +1,8 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.orderbook.cumulative_price import CumulativePrice_Impl
 from marketsim import IOrderBook
-from marketsim import IOrderBook
 from marketsim import IFunction
-from marketsim import IFunction
+from marketsim import float
 @registry.expose(["Asset", "CumulativePrice"])
 class CumulativePrice(CumulativePrice_Impl):
     """ 
@@ -15,8 +14,6 @@ class CumulativePrice(CumulativePrice_Impl):
     """ 
     def __init__(self, book = None, depth = None):
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
-        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import rtti
         from marketsim import event

@@ -1,24 +1,23 @@
 from marketsim import registry
-from marketsim import IFunction
-from marketsim import IFunction
 from marketsim import IOrderGenerator
+from marketsim import float
 from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
+from marketsim import float
+from marketsim import IFunction
+from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
-from marketsim import IFunction
+from marketsim import float
 from marketsim import Side
 from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import float
 @registry.expose(["Order", "Peg"])
-class sidevolume_price_Peg(
-
-
-
-
-
-IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side],IFunction[float]]):
+class sidevolume_price_Peg(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
+,IFunction[float]]):
     """ 
       A peg order is a particular case of the floating price order
       with the price better at one tick than the best price of the order queue.
@@ -36,8 +35,7 @@ IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side],IFunction[
         return repr(self)
     
     _properties = {
-        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]
-        ,IFunction[float]]
+        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side],IFunction[float]]
     }
     def __repr__(self):
         return "sidevolume_price_Peg(%(proto)s)" % self.__dict__

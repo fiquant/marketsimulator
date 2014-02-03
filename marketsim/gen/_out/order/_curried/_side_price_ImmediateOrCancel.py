@@ -1,21 +1,18 @@
 from marketsim import registry
+from marketsim import IOrderGenerator
+from marketsim import float
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import Side
 from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
-from marketsim import IFunction
+from marketsim import float
 from marketsim import Side
-from marketsim import IOrderGenerator
 from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import Side
 @registry.expose(["Order", "ImmediateOrCancel"])
-class side_price_ImmediateOrCancel(
-
-
-
-
-IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
+class side_price_ImmediateOrCancel(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
     """ 
       Immediate-Or-Cancel order sends an underlying order to the market and
       immediately sends a cancel request for it.
@@ -35,8 +32,7 @@ IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
         return repr(self)
     
     _properties = {
-        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]
-        ]
+        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]]
     }
     def __repr__(self):
         return "side_price_ImmediateOrCancel(%(proto)s)" % self.__dict__

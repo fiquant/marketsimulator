@@ -25,7 +25,6 @@ class inner_VirtualMarket(IFunction[IAccount, ISingleAssetStrategy]):
     
     def __call__(self, inner = None):
         from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
-        from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
         from marketsim.gen._out.strategy.account._VirtualMarket import VirtualMarket
         inner = inner if inner is not None else _strategy_Noise()
         

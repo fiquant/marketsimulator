@@ -1,14 +1,15 @@
 from marketsim import registry
+from marketsim import float
 from marketsim.ops._function import Function
 from marketsim import IObservable
-from marketsim import IObservable
+from marketsim import float
+from marketsim import float
 from marketsim import context
 @registry.expose(["Basic", "LogReturns"])
 class LogReturns(Function[float]):
     """ 
     """ 
     def __init__(self, x = None, timeframe = None):
-        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out._const import const as _const
         from marketsim import rtti
         self.x = x if x is not None else _const()
@@ -31,11 +32,7 @@ class LogReturns(Function[float]):
     def getImpl(self):
         from marketsim.gen._out.math._Log import Log as _math_Log
         from marketsim.gen._out.math._Lagged import Lagged as _math_Lagged
-        from marketsim.gen._out.math._Lagged import Lagged as _math_Lagged
-        from marketsim.gen._out.math._Log import Log as _math_Log
-        from marketsim.gen._out.math._Lagged import Lagged as _math_Lagged
         return _math_Log((self.x/_math_Lagged(self.x,self.timeframe)))
-        
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

@@ -1,7 +1,6 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.trader.props import PendingVolume_Impl
 from marketsim import IAccount
-from marketsim import IAccount
 @registry.expose(["Trader", "PendingVolume"])
 class PendingVolume(PendingVolume_Impl):
     """ 

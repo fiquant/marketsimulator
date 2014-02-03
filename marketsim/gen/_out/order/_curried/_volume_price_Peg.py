@@ -1,18 +1,18 @@
 from marketsim import registry
+from marketsim import IOrderGenerator
+from marketsim import float
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import float
 from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import IFunction
+from marketsim import float
 from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import IFunction
-from marketsim import IFunction
+from marketsim import float
 @registry.expose(["Order", "Peg"])
-class volume_price_Peg(
-
-
-
-IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
+class volume_price_Peg(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
     """ 
       A peg order is a particular case of the floating price order
       with the price better at one tick than the best price of the order queue.

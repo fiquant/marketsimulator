@@ -1,21 +1,20 @@
 from marketsim import registry
+from marketsim import IOrderGenerator
+from marketsim import float
 from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import IFunction
+from marketsim import float
 from marketsim import IOrderGenerator
 from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import IFunction
+from marketsim import float
 @registry.expose(["Order", "WithExpiry"])
-class price_WithExpiry(
-
-IFunction[IOrderGenerator,IFunction[float]]):
+class price_WithExpiry(IFunction[IOrderGenerator,IFunction[float]]):
     """ 
      WithExpiry orders can be viewed as ImmediateOrCancel orders
      where cancel order is sent not immediately but after some delay
     """ 
     def __init__(self, expiry = None, proto = None):
-        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._curried._price_Limit import price_Limit as _order__curried_price_Limit
         from marketsim import rtti

@@ -31,7 +31,7 @@ package object base {
         val p : Typed.Parameter
 
         def name = p.name
-        def ty = p.ty.asCode ||| Code.from(p.ty.imports)
+        def ty = p.ty.asCode
         def initializer = p.initializer
         def s_initializer = if (initializer.nonEmpty) "= None" else ""
 

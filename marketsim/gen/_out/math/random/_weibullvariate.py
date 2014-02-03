@@ -1,5 +1,7 @@
 from marketsim import registry
 from marketsim.ops._function import Function
+from marketsim import float
+from marketsim import float
 @registry.expose(["Random", "Weibull distribution"])
 class weibullvariate(Function[float]):
     """ 

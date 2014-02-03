@@ -167,15 +167,12 @@ package object predef {
 
     trait PyPrintable
     {
-        protected def toPython : String
-        override def toString = toPython
         def asCode : Code
     }
 
     sealed abstract class PrintMode
 
     case object ScalaMode extends PrintMode
-    case object PythonMode extends PrintMode
 
     object ScPyPrintable
     {
@@ -186,7 +183,6 @@ package object predef {
     {
         override def toString = ScPyPrintable.printMode match {
             case ScalaMode => toScala
-            case PythonMode => toPython
         }
 
         def as(m : PrintMode) = {
@@ -198,9 +194,6 @@ package object predef {
         }
 
         def asScala = as(ScalaMode)
-        def asPython = as(PythonMode)
-
-        def imports: List[predef.Importable]
     }
 
 }

@@ -3,7 +3,8 @@ from marketsim import Side
 from marketsim import Side
 from marketsim.ops._all import Observable
 from marketsim import IFunction
-from marketsim import IFunction
+from marketsim import float
+from marketsim import float
 from marketsim import context
 @registry.expose(["Side function", "Signal"])
 class Signal(Observable[Side]):
@@ -13,7 +14,6 @@ class Signal(Observable[Side]):
         from marketsim import Side
         from marketsim import Side
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import rtti
         from marketsim import _
@@ -39,14 +39,9 @@ class Signal(Observable[Side]):
     _internals = ['impl']
     def getImpl(self):
         from marketsim.gen._out._const import const as _const
-        from marketsim.gen._out._const import const as _const
-        from marketsim.gen._out.side._Buy import Buy as _side_Buy
         from marketsim.gen._out.side._Buy import Buy as _side_Buy
         from marketsim.gen._out._const import const as _const
-        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
-        from marketsim.gen._out.side._Sell import Sell as _side_Sell
-        from marketsim.gen._out.side._Nothing import Nothing as _side_Nothing
         from marketsim.gen._out.side._Nothing import Nothing as _side_Nothing
         return (self.signal>_const(self.threshold))[_side_Buy(), (self.signal<_const((0-self.threshold)))[_side_Sell(), _side_Nothing()]]
     

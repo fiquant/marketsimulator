@@ -1,30 +1,26 @@
 from marketsim import registry
-from marketsim import IFunction
-from marketsim import IFunction
 from marketsim import IOrderGenerator
+from marketsim import float
 from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import Side
+from marketsim import IFunction
+from marketsim import IFunction
 from marketsim import IObservable
-from marketsim import IObservable
+from marketsim import float
 from marketsim import IOrderGenerator
 from marketsim import IFunction
-from marketsim import IFunction
+from marketsim import float
 from marketsim import Side
+from marketsim import IFunction
 @registry.expose(["Order", "FloatingPrice"])
-class side_price_FloatingPrice(
-
-
-
-
-IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
+class side_price_FloatingPrice(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
     """ 
       Floating price order is initialized by an order having a price and an observable that generates new prices.
       When the observable value changes the order is cancelled and
       a new order with new price is created and sent to the order book.
     """ 
     def __init__(self, floatingPrice = None, proto = None):
-        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.order._curried._side_price_Limit import side_price_Limit as _order__curried_side_price_Limit
         from marketsim import rtti
@@ -38,8 +34,7 @@ IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
     
     _properties = {
         'floatingPrice' : IObservable[float],
-        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]
-        ]
+        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]]
     }
     def __repr__(self):
         return "side_price_FloatingPrice(%(floatingPrice)s, %(proto)s)" % self.__dict__

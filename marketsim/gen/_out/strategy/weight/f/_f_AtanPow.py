@@ -1,7 +1,10 @@
 from marketsim import registry
 from marketsim import IFunction
+from marketsim import float
 from marketsim import IFunction
+from marketsim import float
 from marketsim import IFunction
+from marketsim import float
 @registry.expose(["Strategy", "f_AtanPow"])
 class f_AtanPow(IFunction[IFunction[float], IFunction[float]]):
     """ 
@@ -22,7 +25,6 @@ class f_AtanPow(IFunction[IFunction[float], IFunction[float]]):
         return "f_AtanPow(%(base)s)" % self.__dict__
     
     def __call__(self, f = None):
-        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.strategy.weight._AtanPow import AtanPow
         f = f if f is not None else _constant()
