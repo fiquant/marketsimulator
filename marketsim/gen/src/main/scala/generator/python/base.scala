@@ -137,12 +137,13 @@ package object base {
     }
 
     trait BaseClass_Function extends Printer {
-        override def base_class : Code =
-            f.ret_type.returnTypeIfFunction match {
-                case Some(t) => s"Function[" ||| t.asCode ||| "]" |||
-                                ImportFrom("Function", "marketsim.ops._function")
-                case None => "object"
-        }
+
+        def functionBase =
+            f.ret_type.returnTypeIfFunction map { t =>
+                s"Function[" ||| t.asCode ||| "]" ||| ImportFrom("Function", "marketsim.ops._function")
+            }
+
+        override def base_class : Code = functionBase getOrElse "object"
     }
 
     abstract class Intrinsic extends Printer

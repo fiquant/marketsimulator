@@ -9,7 +9,9 @@ object intrinsic_observable extends gen.PythonGenerator
 {
     import base.{Def, Prop}
 
-    class Import(args : List[String], f : Typed.Function) extends intrinsic_function.Common(args, f)
+    class Import(args : List[String], f : Typed.Function)
+            extends intrinsic_function.Common(args, f)
+            with    intrinsic_function.BaseClass_Intrinsic
     {
         val observe_args = (f tryGetAttribute "observe_args") != Some("no")
 
@@ -31,8 +33,7 @@ object intrinsic_observable extends gen.PythonGenerator
 
         val subscriptions = join_fields({ _.subscribe }, nl)
 
-        override def base_class = s"$implementation_class" |||
-                                ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
+        override def base_class = implementationBase
 
         override def init_body =    super.init_body |
                                     s"$implementation_class.__init__(self)" |

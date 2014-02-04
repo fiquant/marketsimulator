@@ -29,8 +29,18 @@ object intrinsic_function extends gen.PythonGenerator
         override def call_body = ""  // TODO: remove from the base class
     }
 
+    trait BaseClass_Intrinsic extends Common
+    {
+        def implementationBase =
+            implementation_class |||
+                  ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
+    }
 
-    class Import(args : List[String], f : Typed.Function) extends Common(args, f)
+
+    class Import(args : List[String], f : Typed.Function)
+            extends Common(args, f)
+            with    base.BaseClass_Function
+            with    BaseClass_Intrinsic
     {
         override val parameters  = f.parameters map { new Parameter(_) }
 
@@ -43,9 +53,8 @@ object intrinsic_function extends gen.PythonGenerator
                 case None => ""
         }
 
-        override def base_class = base_class_function |||
-                                  implementation_class |||
-                                  ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
+        override def base_class = (functionBase match { case None => toLazy("") case Some(x) => x  ||| ", " }) |||
+                                  implementationBase
 
         override def init_body = super.init_body | s"$implementation_class.__init__(self)"
     }
