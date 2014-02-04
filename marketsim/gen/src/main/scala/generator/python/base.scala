@@ -87,8 +87,6 @@ package object base {
         def repr_fields = join_fields({ _.repr })
         def call_fields = join_fields({ _.call })
 
-        def impl_function = name
-
         def doc = s"""\"\"\" ${docstring.mkString(crlf)}$crlf\"\"\" """
 
         def init_body = assign_fields | "rtti.check_fields(self)" ||| ImportFrom("rtti", "marketsim")
@@ -160,6 +158,7 @@ package object base {
     abstract class Intrinsic extends Printer
     {
         def impl_module : String
+        def impl_function = name
 
         override def call_body : Code = s"""return $impl_module.$impl_function($call_fields)""" ||| Import(impl_module)
     }

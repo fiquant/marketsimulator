@@ -1,6 +1,7 @@
 from marketsim import registry
 from marketsim import IOrderGenerator
 from marketsim import Order
+from marketsim import Order
 from marketsim.ops._all import Observable
 from marketsim import IFunction
 from marketsim import float
@@ -14,6 +15,7 @@ class StopLoss(IOrderGenerator, Observable[Order]):
       the meta order clears its position.
     """ 
     def __init__(self, maxloss = None, proto = None):
+        from marketsim import Order
         from marketsim import Order
         from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant as _constant

@@ -1,6 +1,7 @@
 from marketsim import registry
 from marketsim import IOrderGenerator
 from marketsim import Order
+from marketsim import Order
 from marketsim.ops._all import Observable
 from marketsim import Side
 from marketsim import IFunction
@@ -16,6 +17,7 @@ class Limit(IOrderGenerator, Observable[Order]):
       it remains in an order book waiting to be matched with another order.
     """ 
     def __init__(self, side = None, price = None, volume = None):
+        from marketsim import Order
         from marketsim import Order
         from marketsim.ops._all import Observable
         from marketsim.gen._out.side._Sell import Sell as _side_Sell

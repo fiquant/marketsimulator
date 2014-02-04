@@ -42,6 +42,7 @@ object order_factory
         extends base.Printer
         with    base.DocString
         with    base.Alias
+        with    base.BaseClass_Observable
     {
         def name = f.name
 
@@ -52,7 +53,6 @@ object order_factory
 
         def prefix = ""
 
-        def ty = f.ret_type.returnTypeIfFunction.get
         def interface = "IOrderGenerator" ||| ImportFrom("IOrderGenerator", "marketsim")
 
         override def body = super.body | call
@@ -86,8 +86,7 @@ object order_factory
                 implementation_class |||
                         ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
             else
-                s"Observable["||| ty.asCode |||"]" |||
-                        ImportFrom("Observable", "marketsim.ops._all")
+                observableBase
 
         override def base_classes = interface ||| ", " ||| base_class
 

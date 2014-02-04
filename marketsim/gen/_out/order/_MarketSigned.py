@@ -1,6 +1,7 @@
 from marketsim import registry
 from marketsim import IOrderGenerator
 from marketsim import Order
+from marketsim import Order
 from marketsim.ops._all import Observable
 from marketsim import float
 from marketsim import IFunction
@@ -10,6 +11,7 @@ class MarketSigned(IOrderGenerator, Observable[Order]):
       Market order intructs buy or sell given volume immediately
     """ 
     def __init__(self, signedVolume = None):
+        from marketsim import Order
         from marketsim import Order
         from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant as _constant

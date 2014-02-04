@@ -1,6 +1,7 @@
 from marketsim import registry
 from marketsim import IOrderGenerator
 from marketsim import Order
+from marketsim import Order
 from marketsim.ops._all import Observable
 from marketsim import Side
 from marketsim import IFunction
@@ -12,6 +13,7 @@ class Market(IOrderGenerator, Observable[Order]):
       Market order intructs buy or sell given volume immediately
     """ 
     def __init__(self, side = None, volume = None):
+        from marketsim import Order
         from marketsim import Order
         from marketsim.ops._all import Observable
         from marketsim.gen._out.side._Sell import Sell as _side_Sell

@@ -1,6 +1,7 @@
 from marketsim import registry
 from marketsim import IOrderGenerator
 from marketsim import Order
+from marketsim import Order
 from marketsim.ops._all import Observable
 from marketsim import Side
 from marketsim import IFunction
@@ -17,6 +18,7 @@ class FixedBudget(IOrderGenerator, Observable[Order]):
       cumulative price of trades to be done won't exceed the given budget.
     """ 
     def __init__(self, side = None, budget = None):
+        from marketsim import Order
         from marketsim import Order
         from marketsim.ops._all import Observable
         from marketsim.gen._out.side._Sell import Sell as _side_Sell

@@ -1,6 +1,7 @@
 from marketsim import registry
 from marketsim import IOrderGenerator
 from marketsim import Order
+from marketsim import Order
 from marketsim.ops._all import Observable
 from marketsim import IFunction
 from marketsim import float
@@ -12,6 +13,7 @@ class WithExpiry(IOrderGenerator, Observable[Order]):
      where cancel order is sent not immediately but after some delay
     """ 
     def __init__(self, expiry = None, proto = None):
+        from marketsim import Order
         from marketsim import Order
         from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant as _constant
