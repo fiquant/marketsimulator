@@ -63,7 +63,7 @@ package object base {
 
     abstract class Printer extends Class {
         type Parameter <: base.Parameter
-        val f           : Typed.Function
+        def f           : Typed.Function
         def name        : String
         def docstring   : List[String]
         def alias       : String
@@ -116,30 +116,33 @@ package object base {
         def body = doc | init | label | properties | repr
     }
 
-    trait DocString {
-        def f : Typed.Function
-
+    trait DocString extends Printer {
         val docstring  = f.docstring match {
             case Some(d) => d.detailed
             case None => Nil
         }
     }
 
-    trait Alias {
-        def f : Typed.Function
-
+    trait Alias extends Printer {
         def alias = f.name
     }
 
-    trait DecoratedName {
-        def f : Typed.Function
-
+    trait DecoratedName extends Printer {
         def name =
             f.name + "_" +
                     (f.parameters map { p =>
                         "[].()=> ,".toList.foldLeft(p.ty.toString){case (z, s) => z.replace(s.toString, "_")}
                     } mkString "__")
 
+    }
+
+    trait BaseClass_Function extends Printer {
+        override def base_class : Code =
+            f.ret_type.returnTypeIfFunction match {
+                case Some(t) => s"Function[" ||| t.asCode ||| "]" |||
+                                ImportFrom("Function", "marketsim.ops._function")
+                case None => "object"
+        }
     }
 
     abstract class Intrinsic extends Printer
