@@ -35,8 +35,6 @@ package object Typer
     case class Processor(source : NameTable.Scope)
     {
         self =>
-        // TODO: introduce fully qualified names in form .pkg1.pkgA.func
-        //       in order to solve problem of hiding of top-level names by local ones
 
         def run() {
             if (config.verbose)
@@ -281,30 +279,31 @@ package object Typer
                 Typed.FunctionCall(f, e :: Nil)
             } else e
 
+        def function(name : List[String]) =
+            ctx lookupFunction AST.QualifiedName(name.toList)
+
         def promote_opt(e : Typed.Expr) =
             if (e.ty canCastTo Typed.topLevel.floatFunc) e match {
                 case Typed.BinOp(c, x, y) =>
-                    val px = promote_literal(x)
-                    val py = promote_literal(y)
                     val name = c match {
                         case AST.Mul => "Mul"
                         case AST.Div => "Div"
                         case AST.Add => "Add"
                         case AST.Sub => "Sub"
                     }
-                    val f = ctx lookupFunction AST.QualifiedName("ops" :: name :: Nil)
-                    Typed.FunctionCall(f, px :: py :: Nil)
+                    Typed.FunctionCall(
+                        function("ops" :: name :: Nil),
+                        promote_literal(x) :: promote_literal(y) :: Nil)
 
                 case Typed.IfThenElse(cond, x, y) =>
-                    val f = ctx lookupFunction AST.QualifiedName("ops" :: "Condition_Float" :: Nil)
-                    Typed.FunctionCall(f, cond :: promote_literal(x) :: promote_literal(y) :: Nil)
+                    Typed.FunctionCall(
+                        function("ops" :: "Condition_Float" :: Nil),
+                        cond :: promote_literal(x) :: promote_literal(y) :: Nil)
 
                 case x => x
             } else if (e.ty canCastTo Typed.topLevel.booleanFunc) e match {
 
                 case Typed.Condition(symbol, x, y) =>
-                    val px = promote_literal(x)
-                    val py = promote_literal(y)
                     val name = symbol match {
                         case AST.Equal          => "Equal"
                         case AST.NotEqual       => "NotEqual"
@@ -313,13 +312,15 @@ package object Typer
                         case AST.LessEqual      => "LessEqual"
                         case AST.GreaterEqual   => "GreaterEqual"
                     }
-                    val f = ctx lookupFunction AST.QualifiedName("ops" :: name :: Nil)
-                    Typed.FunctionCall(f, px :: py :: Nil)
+                    Typed.FunctionCall(
+                        function("ops" :: name :: Nil),
+                        promote_literal(x) :: promote_literal(y) :: Nil)
                 case x => x
             } else if (e.ty canCastTo Typed.topLevel.sideFunc) e match {
                 case Typed.IfThenElse(cond, x, y) =>
-                    val f = ctx lookupFunction AST.QualifiedName("ops" :: "Condition_Side" :: Nil)
-                    Typed.FunctionCall(f, cond :: x :: y :: Nil)
+                    Typed.FunctionCall(
+                        function("ops" :: "Condition_Side" :: Nil),
+                        cond :: x :: y :: Nil)
                 case x => x
             } else e
 
@@ -329,7 +330,15 @@ package object Typer
             case AST.BinOp(c, x, y) =>
                 promote_opt(Typed.BinOp(c, asArith(x), asArith(y)))
 
-            case AST.Neg(x) => Typed.Neg(asArith(x))
+            case AST.Neg(x) =>
+
+                asArith(x) match {
+                    case e if e.ty canCastTo Typed.topLevel.floatFunc =>
+                        Typed.FunctionCall(
+                            function("ops" :: "Negate" :: Nil),
+                            e :: Nil)
+                    case e => Typed.Neg(e)
+                }
 
             case AST.Cast(x, ty) => Typed.Cast(asArith(x), ctx toTyped ty)
 
