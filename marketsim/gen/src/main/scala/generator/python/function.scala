@@ -10,12 +10,12 @@ object function extends gen.PythonGenerator
     case class Import(args : List[String], f : Typed.Function)
             extends base.Printer
             with    base.DocString
+            with    base.Alias
     {
         val parameters  = f.parameters map Parameter
 
         type Parameter = function.Parameter
         val name = base.decoratedName(f)
-        val alias = f.name
 
         def bind = Def("bind", "ctx", "self._ctx = ctx.clone()")
 

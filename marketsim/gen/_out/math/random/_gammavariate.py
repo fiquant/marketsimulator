@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import float
 from marketsim import float
-@registry.expose(["Random", "Gamma distribution"])
+@registry.expose(["Random", "gammavariate"])
 class gammavariate(Function[float]):
     """ 
       Conditions on the parameters are |alpha| > 0 and |beta| > 0.
@@ -28,7 +28,7 @@ class gammavariate(Function[float]):
         'Beta' : float
     }
     def __repr__(self):
-        return "Gamma distribution(%(Alpha)s, %(Beta)s)" % self.__dict__
+        return "gammavariate(%(Alpha)s, %(Beta)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random

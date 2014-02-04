@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import float
 from marketsim import float
-@registry.expose(["Random", "Weibull distribution"])
+@registry.expose(["Random", "weibullvariate"])
 class weibullvariate(Function[float]):
     """ 
     """ 
@@ -21,7 +21,7 @@ class weibullvariate(Function[float]):
         'Beta' : float
     }
     def __repr__(self):
-        return "Weibull distribution(%(Alpha)s, %(Beta)s)" % self.__dict__
+        return "weibullvariate(%(Alpha)s, %(Beta)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random

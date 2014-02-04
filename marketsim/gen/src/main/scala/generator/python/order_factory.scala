@@ -41,6 +41,7 @@ object order_factory
     abstract class FactoryBase(val f : Typed.Function)
         extends base.Printer
         with    base.DocString
+        with    base.Alias
     {
         def name = f.name
 
@@ -50,8 +51,6 @@ object order_factory
         def curried : List[Typed.Parameter] = Nil
 
         def prefix = ""
-
-        def alias = name
 
         def ty = f.ret_type.returnTypeIfFunction.get
         def interface = "IOrderGenerator" ||| ImportFrom("IOrderGenerator", "marketsim")

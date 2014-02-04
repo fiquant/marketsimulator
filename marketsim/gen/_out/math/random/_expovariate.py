@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import float
-@registry.expose(["Random", "Exponential distribution"])
+@registry.expose(["Random", "expovariate"])
 class expovariate(Function[float]):
     """ 
       Returned values range from 0 to positive infinity
@@ -19,7 +19,7 @@ class expovariate(Function[float]):
         'Lambda' : float
     }
     def __repr__(self):
-        return "Exponential distribution(%(Lambda)s)" % self.__dict__
+        return "expovariate(%(Lambda)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random

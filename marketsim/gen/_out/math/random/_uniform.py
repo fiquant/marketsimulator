@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import float
 from marketsim import float
-@registry.expose(["Random", "Uniform distribution"])
+@registry.expose(["Random", "uniform"])
 class uniform(Function[float]):
     """ 
      Return a random floating point number *N* such that
@@ -25,7 +25,7 @@ class uniform(Function[float]):
         'High' : float
     }
     def __repr__(self):
-        return "Uniform distribution(%(Low)s, %(High)s)" % self.__dict__
+        return "uniform(%(Low)s, %(High)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random

@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import float
 from marketsim import float
-@registry.expose(["Random", "Beta distribution"])
+@registry.expose(["Random", "betavariate"])
 class betavariate(Function[float]):
     """ 
      Conditions on the parameters are |alpha| > 0 and |beta| > 0.
@@ -23,7 +23,7 @@ class betavariate(Function[float]):
         'Beta' : float
     }
     def __repr__(self):
-        return "Beta distribution(%(Alpha)s, %(Beta)s)" % self.__dict__
+        return "betavariate(%(Alpha)s, %(Beta)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random

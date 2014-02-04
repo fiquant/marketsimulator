@@ -3,7 +3,7 @@ from marketsim.ops._function import Function
 from marketsim import float
 from marketsim import float
 from marketsim import float
-@registry.expose(["Random", "Triangular distribution"])
+@registry.expose(["Random", "triangular"])
 class triangular(Function[float]):
     """ 
      Return a random floating point number *N* such that *low* <= *N* <= *high* and
@@ -29,7 +29,7 @@ class triangular(Function[float]):
         'Mode' : float
     }
     def __repr__(self):
-        return "Triangular distribution(%(Low)s, %(High)s, %(Mode)s)" % self.__dict__
+        return "triangular(%(Low)s, %(High)s, %(Mode)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random

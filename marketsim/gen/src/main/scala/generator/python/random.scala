@@ -10,10 +10,10 @@ object random extends gen.PythonGenerator
     case class Import(f : Typed.Function)
             extends base.Intrinsic
             with    base.DocString
+            with    base.Alias
     {
         val name = f.name
         val parameters = f.parameters map Parameter
-        val alias = f.docstring.get.brief
         val rv_type = "float"
         val args = Nil
         override def base_class = s"Function[$rv_type]" |||

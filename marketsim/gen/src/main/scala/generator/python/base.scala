@@ -132,6 +132,12 @@ package object base {
         }
     }
 
+    trait Alias {
+        def f : Typed.Function
+
+        def alias = f.name
+    }
+
     abstract class Intrinsic extends Printer
     {
         def impl_module : String

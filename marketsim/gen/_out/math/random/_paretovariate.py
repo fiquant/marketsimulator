@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import float
-@registry.expose(["Random", "Pareto distribution"])
+@registry.expose(["Random", "paretovariate"])
 class paretovariate(Function[float]):
     """ 
     """ 
@@ -18,7 +18,7 @@ class paretovariate(Function[float]):
         'Alpha' : float
     }
     def __repr__(self):
-        return "Pareto distribution(%(Alpha)s)" % self.__dict__
+        return "paretovariate(%(Alpha)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random

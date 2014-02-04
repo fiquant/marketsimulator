@@ -24,9 +24,9 @@ object mathops extends gen.PythonGenerator
     case class Import(args : List[String], f : Typed.Function)
             extends base.Intrinsic
             with    base.DocString
+            with    base.Alias
     {
         val name = base.decoratedName(f)
-        val alias = f.name
 
         if (args.length != 1)
             throw new Exception(s"Annotation $name should have 1 arguments in" +

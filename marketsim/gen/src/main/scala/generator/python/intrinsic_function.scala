@@ -13,9 +13,9 @@ object intrinsic_function extends gen.PythonGenerator
     abstract class Common(val args : List[String], val f : Typed.Function)
             extends base.Printer
             with    base.DocString
+            with    base.Alias
     {
         val name = base.decoratedName(f)
-        val alias = f.name
         if (args.length != 1)
             throw new Exception(s"Annotation $name should have 1 arguments in" +
                     " form (implementation_class)" + "\r\n" + "In function " + f)

@@ -10,12 +10,12 @@ object strategy extends gen.PythonGenerator
     case class Import(args : List[String], f : Typed.Function)
             extends base.Printer
             with    base.DocString
+            with    base.Alias
     {
         val parameters  = f.parameters map Parameter
 
         type Parameter = strategy.Parameter
         val name = base.decoratedName(f)
-        val alias = f.name
 
         override def init_body = super.init_body |
                 "self.impl = self.getImpl()"|

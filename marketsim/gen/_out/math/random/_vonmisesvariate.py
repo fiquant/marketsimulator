@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import float
 from marketsim import float
-@registry.expose(["Random", "Von Mises distribution"])
+@registry.expose(["Random", "vonmisesvariate"])
 class vonmisesvariate(Function[float]):
     """ 
     """ 
@@ -21,7 +21,7 @@ class vonmisesvariate(Function[float]):
         'Kappa' : float
     }
     def __repr__(self):
-        return "Von Mises distribution(%(Mu)s, %(Kappa)s)" % self.__dict__
+        return "vonmisesvariate(%(Mu)s, %(Kappa)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random
