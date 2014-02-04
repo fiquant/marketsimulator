@@ -19,6 +19,8 @@ object function extends gen.PythonGenerator
         val name = f.name
         val alias = name
 
+        //println(base.decoratedName(f))
+
         def bind = Def("bind", "ctx", "self._ctx = ctx.clone()")
 
         def reset = Def("reset", "",
