@@ -295,7 +295,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable
+| | | | | | | | | - IFunction
 | | | | | | | - List:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
@@ -405,7 +405,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable
+| | | | | | | | | - IFunction
 | | | | | | | - List:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
@@ -481,7 +481,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable
+| | | | | | | | | - IFunction
 | | | | | | | - List:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
@@ -607,7 +607,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable
+| | | | | | | | | - IFunction
 | | | | | | | - List:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
@@ -714,7 +714,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable
+| | | | | | | | | - IFunction
 | | | | | | | - List:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
@@ -769,7 +769,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - IObservable
+| | | | | | | | | - IFunction
 | | | | | | | - List:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
@@ -2387,12 +2387,18 @@ Definitions:
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | - Avg
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | | | | - Mul
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - source
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | | | | | - Mul
+| | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | | | - source
 | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | - timeframe
 | | | | | | | | | | | | - FunCall:
@@ -9795,8 +9801,13 @@ Definitions:
 | | | | | | | | | | | | | | | - 0
 | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - f
-| | | | | | | | | | - IntLit:
-| | | | | | | | | | | - 1
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - constant
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IntLit:
+| | | | | | | | | | | | | - 1
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
@@ -10360,16 +10371,16 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - DesiredPosition
 | | | | | | | | | | - List:
-| | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | - Mul
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | - OnEveryDt
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - OnEveryDt
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | | - Mul
 | | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
@@ -10393,8 +10404,8 @@ Definitions:
 | | | | | | | | | | | | | | | | | | | | | - trader
 | | | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | | | - alpha
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - k
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - k
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - trader
 | | | | | | | | - None
@@ -10457,16 +10468,16 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - DesiredPosition
 | | | | | | | | | | - List:
-| | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | - Mul
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | | - OnEveryDt
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | | - OnEveryDt
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | | - Mul
 | | | | | | | | | | | | | | - BinOp:
 | | | | | | | | | | | | | | | - Sub
 | | | | | | | | | | | | | | | - FloatLit:
@@ -10489,8 +10500,8 @@ Definitions:
 | | | | | | | | | | | | | | | | | | - timeframe
 | | | | | | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | | | | | | - alpha
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - k
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - k
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - trader
 | | | | | | | | - None
@@ -12483,8 +12494,13 @@ Definitions:
 | | | | | | | | | | | | | | | | | | | | | | | | | | | - trader
 | | | | | | | | | | | | | | | | | | | | | | | | | | | - Position
 | | | | | | | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | | - IntLit:
-| | | | | | | | | | | | | | | | | | | | | | | - 1000
+| | | | | | | | | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | | | | | | - IntLit:
+| | | | | | | | | | | | | | | | | | | | | | | | | - 1000
 | | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
@@ -12605,8 +12621,13 @@ Definitions:
 | | | | | | | | | | | | | | | | | | | | | | | | | | | - trader
 | | | | | | | | | | | | | | | | | | | | | | | | | | | - Position
 | | | | | | | | | | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | | | | | - IntLit:
-| | | | | | | | | | | | | | | | | | | | | | | - 1000
+| | | | | | | | | | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | | | | | | | | - IntLit:
+| | | | | | | | | | | | | | | | | | | | | | | | | - 1000
 | | | | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | | - List:
@@ -13834,22 +13855,28 @@ Definitions:
 | | | | | | | | | | - EW
 | | | | | | | | | | - Avg
 | | | | | | | | - List:
-| | | | | | | | | - BinOp:
-| | | | | | | | | | - Mul
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - LastTradePrice
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - queue
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - LastTradeVolume
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - queue
+| | | | | | | | | | | | - observable
+| | | | | | | | | | | | - Float
+| | | | | | | | | | - List:
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Mul
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - LastTradePrice
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - queue
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - LastTradeVolume
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - queue
 | | | | | | | | | - Var:
 | | | | | | | | | | - alpha
 | | | | | | | - FunCall:
