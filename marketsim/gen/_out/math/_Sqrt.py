@@ -3,7 +3,7 @@ from marketsim.ops._all import Observable
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Log/Pow", "Sqrt"])
-class Sqrt(Observable[float]):
+class Sqrt_Optional__IFunction__Float__(Observable[float]):
     """ 
     """ 
     def __init__(self, x = None):
@@ -34,3 +34,4 @@ class Sqrt(Observable[float]):
         if x is None: return None
         return math.sqrt(x)
     
+Sqrt = Sqrt_Optional__IFunction__Float__

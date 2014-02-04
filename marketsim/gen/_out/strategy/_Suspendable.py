@@ -4,7 +4,7 @@ from marketsim import ISingleAssetStrategy
 from marketsim import IFunction
 from marketsim import bool
 @registry.expose(["Strategy", "Suspendable"])
-class Suspendable(_Suspendable_Impl):
+class Suspendable_Optional__ISingleAssetStrategy___Optional__IFunction__Boolean__(_Suspendable_Impl):
     """ 
     """ 
     def __init__(self, inner = None, predicate = None):
@@ -27,3 +27,4 @@ class Suspendable(_Suspendable_Impl):
     def __repr__(self):
         return "Suspendable(%(inner)s, %(predicate)s)" % self.__dict__
     
+Suspendable = Suspendable_Optional__ISingleAssetStrategy___Optional__IFunction__Boolean__

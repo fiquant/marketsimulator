@@ -8,7 +8,7 @@ from marketsim import float
 from marketsim import ISingleAssetTrader
 from marketsim import context
 @registry.expose(["Volume function", "Bollinger_linear"])
-class Bollinger_linear(Observable[Volume]):
+class Bollinger_linear_Optional__Float___Optional__IObservable__Float____Optional__ISingleAssetTrader_(Observable[Volume]):
     """ 
     """ 
     def __init__(self, alpha = None, k = None, trader = None):
@@ -61,3 +61,4 @@ class Bollinger_linear(Observable[Volume]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+Bollinger_linear = Bollinger_linear_Optional__Float___Optional__IObservable__Float____Optional__ISingleAssetTrader_

@@ -6,7 +6,7 @@ from marketsim import float
 from marketsim import float
 from marketsim import context
 @registry.expose(["Statistics", "RelStdDev"])
-class RelStdDev(Function[float]):
+class RelStdDev_Optional__IObservable__Float____Optional__Float_(Function[float]):
     """ 
     """ 
     def __init__(self, source = None, alpha = None):
@@ -47,3 +47,4 @@ class RelStdDev(Function[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+RelStdDev = RelStdDev_Optional__IObservable__Float____Optional__Float_

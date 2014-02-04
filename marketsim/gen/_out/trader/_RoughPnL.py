@@ -5,7 +5,7 @@ from marketsim.ops._all import Observable
 from marketsim import IAccount
 from marketsim import context
 @registry.expose(["Trader", "RoughPnL"])
-class RoughPnL(Observable[float]):
+class RoughPnL_Optional__IAccount_(Observable[float]):
     """   It takes into account only the best price of the order queue
     """ 
     def __init__(self, trader = None):
@@ -53,3 +53,4 @@ class RoughPnL(Observable[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+RoughPnL = RoughPnL_Optional__IAccount_

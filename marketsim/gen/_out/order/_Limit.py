@@ -66,3 +66,4 @@ class Limit(IOrderGenerator, Observable[Order]):
         volume = int(volume)
         return Order_Impl(side, price, volume)
     
+Limit = Limit

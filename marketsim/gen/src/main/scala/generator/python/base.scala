@@ -25,7 +25,7 @@ package object base {
     def decoratedName(f : Typed.Function) =
         f.name + "_" +
                 (f.parameters map { p =>
-                    "[].()=> ".toList.foldLeft(p.ty.toString){case (z, s) => z.replace(s.toString, "_")}
+                    "[].()=> ,".toList.foldLeft(p.ty.toString){case (z, s) => z.replace(s.toString, "_")}
                 } mkString "__")
 
 
@@ -106,7 +106,7 @@ package object base {
 
         def label_tmpl : Code = f.tryGetAttribute("label") match {
             case Some(x) => x
-            case None => name ||| (if (parameters.isEmpty) "" else s"($repr_fields)")
+            case None => alias ||| (if (parameters.isEmpty) "" else s"($repr_fields)")
         }
 
 

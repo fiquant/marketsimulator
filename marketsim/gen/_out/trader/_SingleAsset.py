@@ -7,7 +7,7 @@ from marketsim import float
 from marketsim import ITimeSerie
 from marketsim import listOf
 
-class SingleAsset(_SingleAsset_Impl):
+class SingleAsset__IOrderBook__Optional__ISingleAssetStrategy___Optional__String___Optional__Float___Optional__Float___Optional_List__ITimeSerie__(_SingleAsset_Impl):
     """ 
     """ 
     def __init__(self, orderBook , strategy = None, name = None, amount = None, PnL = None, timeseries = None):
@@ -37,3 +37,4 @@ class SingleAsset(_SingleAsset_Impl):
     def __repr__(self):
         return "%(name)s" % self.__dict__
     
+SingleAsset = SingleAsset__IOrderBook__Optional__ISingleAssetStrategy___Optional__String___Optional__Float___Optional__Float___Optional_List__ITimeSerie__

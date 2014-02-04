@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.observable.on_every_dt import _Observable_Impl
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Basic", "Float"])
-class Float(_Observable_Impl):
+class Float_Optional__IFunction__Float__(_Observable_Impl):
     """  Needed since generic functions aren't implemented yet
     """ 
     def __init__(self, x = None):
@@ -27,3 +27,4 @@ class Float(_Observable_Impl):
     def __repr__(self):
         return "[%(x)s]" % self.__dict__
     
+Float = Float_Optional__IFunction__Float__

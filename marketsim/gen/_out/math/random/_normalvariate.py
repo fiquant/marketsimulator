@@ -21,7 +21,7 @@ class normalvariate(Function[float]):
         'Sigma' : float
     }
     def __repr__(self):
-        return "normalvariate(%(Mu)s, %(Sigma)s)" % self.__dict__
+        return "Normal distribution(%(Mu)s, %(Sigma)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random
@@ -30,3 +30,4 @@ class normalvariate(Function[float]):
     def _casts_to(self, dst):
         return normalvariate._types[0]._casts_to(dst)
     
+normalvariate = normalvariate

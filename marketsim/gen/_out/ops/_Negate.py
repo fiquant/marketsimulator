@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.ops import _Negate_Impl
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Ops", "Negate"])
-class Negate(_Negate_Impl):
+class Negate_Optional__IFunction__Float__(_Negate_Impl):
     """ 
     """ 
     def __init__(self, x = None):
@@ -27,3 +27,4 @@ class Negate(_Negate_Impl):
     def __repr__(self):
         return "-%(x)s" % self.__dict__
     
+Negate = Negate_Optional__IFunction__Float__

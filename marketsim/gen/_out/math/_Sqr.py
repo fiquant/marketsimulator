@@ -6,7 +6,7 @@ from marketsim import IFunction
 from marketsim import float
 from marketsim import context
 @registry.expose(["Log/Pow", "Sqr"])
-class Sqr(Observable[float]):
+class Sqr_Optional__IFunction__Float__(Observable[float]):
     """ 
     """ 
     def __init__(self, x = None):
@@ -49,3 +49,4 @@ class Sqr(Observable[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+Sqr = Sqr_Optional__IFunction__Float__

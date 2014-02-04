@@ -14,7 +14,7 @@ from marketsim import float
 from marketsim import IFunction
 from marketsim import context
 @registry.expose(["Strategy", "LiquidityProviderSide"])
-class LiquidityProviderSide(ISingleAssetStrategy):
+class LiquidityProviderSide_Optional__IEvent___Optional__________Side__________Float_______IOrderGenerator___Optional________Side___Optional__Float___Optional________Float_(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, eventGen = None, orderFactory = None, side = None, initialValue = None, priceDistr = None):
@@ -68,3 +68,4 @@ class LiquidityProviderSide(ISingleAssetStrategy):
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+LiquidityProviderSide = LiquidityProviderSide_Optional__IEvent___Optional__________Side__________Float_______IOrderGenerator___Optional________Side___Optional__Float___Optional________Float_

@@ -8,7 +8,7 @@ from marketsim import IFunction
 from marketsim import float
 from marketsim import context
 @registry.expose(["Strategy", "MeanReversion"])
-class MeanReversion(ISingleAssetStrategy):
+class MeanReversion_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float_(ISingleAssetStrategy):
     """  It estimates this average using some functional and
      if the current asset price is lower than the average
      it buys the asset and if the price is higher it sells the asset.
@@ -57,3 +57,4 @@ class MeanReversion(ISingleAssetStrategy):
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+MeanReversion = MeanReversion_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float_

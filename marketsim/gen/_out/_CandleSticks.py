@@ -4,7 +4,7 @@ from marketsim import IObservable
 from marketsim import float
 from marketsim import float
 @registry.expose(["Basic", "CandleSticks"])
-class CandleSticks(CandleSticks_Impl):
+class CandleSticks_Optional__IObservable__Float____Optional__Float_(CandleSticks_Impl):
     """  open/close/min/max price, its average and standard deviation
     """ 
     def __init__(self, source = None, timeframe = None):
@@ -34,3 +34,4 @@ class CandleSticks(CandleSticks_Impl):
     def __repr__(self):
         return "Candles_{%(source)s}" % self.__dict__
     
+CandleSticks = CandleSticks_Optional__IObservable__Float____Optional__Float_

@@ -23,7 +23,8 @@ object mathops extends gen.PythonGenerator
 
     case class Import(args : List[String], f : Typed.Function) extends base.Intrinsic
     {
-        val name = f.name
+        val name = base.decoratedName(f)
+        val alias = f.name
 
         if (args.length != 1)
             throw new Exception(s"Annotation $name should have 1 arguments in" +
@@ -36,7 +37,6 @@ object mathops extends gen.PythonGenerator
 
         type Parameter = mathops.Parameter
         val impl_module = "math"
-        val alias = name
 
         override val base_class = "Observable[float]" ||| ImportFrom("Observable", "marketsim.ops._all")
 

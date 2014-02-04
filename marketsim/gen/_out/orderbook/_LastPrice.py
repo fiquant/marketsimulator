@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.orderbook.last_price import _LastPrice_Impl
 from marketsim import IOrderQueue
 @registry.expose(["Asset", "LastPrice"])
-class LastPrice(_LastPrice_Impl):
+class LastPrice_Optional__IOrderQueue_(_LastPrice_Impl):
     """   Returns None is *queue* has been always empty
     """ 
     def __init__(self, queue = None):
@@ -26,3 +26,4 @@ class LastPrice(_LastPrice_Impl):
     def __repr__(self):
         return "LastPrice(%(queue)s)" % self.__dict__
     
+LastPrice = LastPrice_Optional__IOrderQueue_

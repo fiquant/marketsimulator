@@ -9,7 +9,7 @@ from marketsim import IOrderBook
 from marketsim import float
 from marketsim import context
 @registry.expose(["Strategy", "PairTrading"])
-class PairTrading(ISingleAssetStrategy):
+class PairTrading_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IOrderBook___Optional__Float_(ISingleAssetStrategy):
     """  is completely correlated with price of another asset *B* and the following relation
      should be held: *PriceA* = *kPriceB*, where *k* is some factor.
      It may be considered as a variety of a fundamental value strategy
@@ -63,3 +63,4 @@ class PairTrading(ISingleAssetStrategy):
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+PairTrading = PairTrading_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IOrderBook___Optional__Float_

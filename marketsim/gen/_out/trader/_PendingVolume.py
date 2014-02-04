@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.trader.props import PendingVolume_Impl
 from marketsim import IAccount
 @registry.expose(["Trader", "PendingVolume"])
-class PendingVolume(PendingVolume_Impl):
+class PendingVolume_Optional__IAccount_(PendingVolume_Impl):
     """ 
     """ 
     def __init__(self, trader = None):
@@ -26,3 +26,4 @@ class PendingVolume(PendingVolume_Impl):
     def __repr__(self):
         return "PendingVolume(%(trader)s)" % self.__dict__
     
+PendingVolume = PendingVolume_Optional__IAccount_

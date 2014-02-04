@@ -7,7 +7,7 @@ from marketsim import float
 from marketsim import float
 from marketsim import context
 @registry.expose(["Side function", "Signal"])
-class Signal(Observable[Side]):
+class Signal_Optional__IFunction__Float____Optional__Float_(Observable[Side]):
     """ 
     """ 
     def __init__(self, signal = None, threshold = None):
@@ -60,3 +60,4 @@ class Signal(Observable[Side]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+Signal = Signal_Optional__IFunction__Float____Optional__Float_

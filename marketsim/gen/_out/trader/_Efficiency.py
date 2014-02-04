@@ -5,7 +5,7 @@ from marketsim.ops._all import Observable
 from marketsim import IAccount
 from marketsim import context
 @registry.expose(["Trader", "Efficiency"])
-class Efficiency(Observable[float]):
+class Efficiency_Optional__IAccount_(Observable[float]):
     """ 
     """ 
     def __init__(self, trader = None):
@@ -53,3 +53,4 @@ class Efficiency(Observable[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+Efficiency = Efficiency_Optional__IAccount_

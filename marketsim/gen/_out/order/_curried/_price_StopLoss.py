@@ -33,7 +33,7 @@ class price_StopLoss(IFunction[IOrderGenerator,IFunction[float]]):
         'proto' : IFunction[IOrderGenerator, IFunction[float]]
     }
     def __repr__(self):
-        return "price_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
+        return "StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
     
     def __call__(self, price = None):
         from marketsim.gen._out.order._StopLoss import StopLoss
@@ -41,3 +41,4 @@ class price_StopLoss(IFunction[IOrderGenerator,IFunction[float]]):
         proto = self.proto
         return StopLoss(maxloss, proto(price))
     
+price_StopLoss = price_StopLoss

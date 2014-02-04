@@ -7,7 +7,7 @@ from marketsim import float
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Side function", "CrossingAverages"])
-class CrossingAverages(Function[Side]):
+class CrossingAverages_Optional__Float___Optional__Float___Optional__Float___Optional__IOrderBook_(Function[Side]):
     """ 
     """ 
     def __init__(self, alpha_1 = None, alpha_2 = None, threshold = None, book = None):
@@ -54,3 +54,4 @@ class CrossingAverages(Function[Side]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+CrossingAverages = CrossingAverages_Optional__Float___Optional__Float___Optional__Float___Optional__IOrderBook_

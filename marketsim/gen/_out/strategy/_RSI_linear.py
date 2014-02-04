@@ -10,7 +10,7 @@ from marketsim import float
 from marketsim import float
 from marketsim import context
 @registry.expose(["Strategy", "RSI_linear"])
-class RSI_linear(ISingleAssetStrategy):
+class RSI_linear_Optional_________Float______IOrderGenerator___Optional__Float___Optional__IObservable__Float____Optional__Float_(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, orderFactory = None, alpha = None, k = None, timeframe = None):
@@ -58,3 +58,4 @@ class RSI_linear(ISingleAssetStrategy):
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+RSI_linear = RSI_linear_Optional_________Float______IOrderGenerator___Optional__Float___Optional__IObservable__Float____Optional__Float_

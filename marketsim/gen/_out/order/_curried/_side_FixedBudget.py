@@ -28,7 +28,7 @@ class side_FixedBudget(IFunction[IOrderGenerator, IFunction[Side]]):
         'budget' : IFunction[float]
     }
     def __repr__(self):
-        return "side_FixedBudget(%(budget)s)" % self.__dict__
+        return "FixedBudget(%(budget)s)" % self.__dict__
     
     def __call__(self, side = None):
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
@@ -37,3 +37,4 @@ class side_FixedBudget(IFunction[IOrderGenerator, IFunction[Side]]):
         budget = self.budget
         return FixedBudget(side, budget)
     
+side_FixedBudget = side_FixedBudget

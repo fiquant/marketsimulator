@@ -16,8 +16,8 @@ object strategy extends gen.PythonGenerator
         }
 
         type Parameter = strategy.Parameter
-        val name = f.name
-        val alias = name
+        val name = base.decoratedName(f)
+        val alias = f.name
 
         override def init_body = super.init_body |
                 "self.impl = self.getImpl()"|

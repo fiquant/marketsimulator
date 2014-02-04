@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.observable.breaks_at_changes import _BreaksAtChang
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Basic", "BreaksAtChanges"])
-class BreaksAtChanges(_BreaksAtChanges_Impl):
+class BreaksAtChanges_Optional__IFunction__Float__(_BreaksAtChanges_Impl):
     """   When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
     """ 
     def __init__(self, source = None):
@@ -27,3 +27,4 @@ class BreaksAtChanges(_BreaksAtChanges_Impl):
     def __repr__(self):
         return "BreaksAtChanges(%(source)s)" % self.__dict__
     
+BreaksAtChanges = BreaksAtChanges_Optional__IFunction__Float__

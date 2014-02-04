@@ -7,7 +7,7 @@ from marketsim import IFunction
 from marketsim import float
 from marketsim import context
 @registry.expose(["Asset", "SafeSidePrice"])
-class SafeSidePrice(Observable[Price]):
+class SafeSidePrice_Optional__IOrderQueue___Optional__IFunction__Float__(Observable[Price]):
     """   and *defaultValue* if there haven't been any trades
     """ 
     def __init__(self, queue = None, defaultValue = None):
@@ -57,3 +57,4 @@ class SafeSidePrice(Observable[Price]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+SafeSidePrice = SafeSidePrice_Optional__IOrderQueue___Optional__IFunction__Float__

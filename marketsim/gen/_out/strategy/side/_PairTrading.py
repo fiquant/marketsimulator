@@ -7,7 +7,7 @@ from marketsim import float
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Side function", "PairTrading"])
-class PairTrading(Observable[Side]):
+class PairTrading_Optional__IOrderBook___Optional__Float___Optional__IOrderBook_(Observable[Side]):
     """ 
     """ 
     def __init__(self, bookToDependOn = None, factor = None, book = None):
@@ -59,3 +59,4 @@ class PairTrading(Observable[Side]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+PairTrading = PairTrading_Optional__IOrderBook___Optional__Float___Optional__IOrderBook_

@@ -4,7 +4,7 @@ from marketsim import float
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Basic", "OnEveryDt"])
-class OnEveryDt(_OnEveryDt_Impl):
+class OnEveryDt_Optional__Float___Optional__IFunction__Float__(_OnEveryDt_Impl):
     """ 
     """ 
     def __init__(self, dt = None, x = None):
@@ -28,3 +28,4 @@ class OnEveryDt(_OnEveryDt_Impl):
     def __repr__(self):
         return "[%(x)s]_dt=%(dt)s" % self.__dict__
     
+OnEveryDt = OnEveryDt_Optional__Float___Optional__IFunction__Float__

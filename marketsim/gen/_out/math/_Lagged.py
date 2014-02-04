@@ -4,7 +4,7 @@ from marketsim import IObservable
 from marketsim import float
 from marketsim import float
 @registry.expose(["Basic", "Lagged"])
-class Lagged(Lagged_Impl):
+class Lagged_Optional__IObservable__Float____Optional__Float_(Lagged_Impl):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
@@ -34,3 +34,4 @@ class Lagged(Lagged_Impl):
     def __repr__(self):
         return "Lagged_{%(timeframe)s}(%(source)s)" % self.__dict__
     
+Lagged = Lagged_Optional__IObservable__Float____Optional__Float_

@@ -4,7 +4,7 @@ from marketsim import IOrderBook
 from marketsim import Side
 from marketsim import IFunction
 @registry.expose(["Asset", "Queue"])
-class Queue(_Queue_Impl):
+class Queue_Optional__IOrderBook___Optional________Side_(_Queue_Impl):
     """ 
     """ 
     def __init__(self, book = None, side = None):
@@ -27,3 +27,4 @@ class Queue(_Queue_Impl):
     def __repr__(self):
         return "Queue(%(book)s, %(side)s)" % self.__dict__
     
+Queue = Queue_Optional__IOrderBook___Optional________Side_

@@ -10,7 +10,7 @@ from marketsim import float
 from marketsim import IAccount
 from marketsim import IFunction
 @registry.expose(["Strategy", "ChooseTheBest"])
-class ChooseTheBest(_ChooseTheBest_Impl):
+class ChooseTheBest_Optional_List__ISingleAssetStrategy____Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float__(_ChooseTheBest_Impl):
     """  In some moments of time the most effective strategy
      is chosen and made running; other strategies are suspended.
      It can be considered as a particular case for MultiArmedBandit strategy with
@@ -39,3 +39,4 @@ class ChooseTheBest(_ChooseTheBest_Impl):
     def __repr__(self):
         return "ChooseTheBest(%(strategies)s, %(account)s, %(performance)s)" % self.__dict__
     
+ChooseTheBest = ChooseTheBest_Optional_List__ISingleAssetStrategy____Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float__

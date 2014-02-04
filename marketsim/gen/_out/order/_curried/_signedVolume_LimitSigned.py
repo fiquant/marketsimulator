@@ -25,7 +25,7 @@ class signedVolume_LimitSigned(IFunction[IOrderGenerator, IFunction[float]]):
         'price' : IFunction[float]
     }
     def __repr__(self):
-        return "signedVolume_LimitSigned(%(price)s)" % self.__dict__
+        return "LimitSigned(%(price)s)" % self.__dict__
     
     def __call__(self, signedVolume = None):
         from marketsim.gen._out._constant import constant as _constant
@@ -34,3 +34,4 @@ class signedVolume_LimitSigned(IFunction[IOrderGenerator, IFunction[float]]):
         price = self.price
         return LimitSigned(signedVolume, price)
     
+signedVolume_LimitSigned = signedVolume_LimitSigned

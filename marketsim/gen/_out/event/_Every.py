@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.event import _Every_Impl
 from marketsim import float
 from marketsim import IFunction
 @registry.expose(["Event", "Every"])
-class Every(_Every_Impl):
+class Every_Optional________Float_(_Every_Impl):
     """ 
     """ 
     def __init__(self, intervalFunc = None):
@@ -23,3 +23,4 @@ class Every(_Every_Impl):
     def __repr__(self):
         return "Every(%(intervalFunc)s)" % self.__dict__
     
+Every = Every_Optional________Float_

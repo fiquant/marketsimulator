@@ -3,7 +3,7 @@ from marketsim.ops._all import Observable
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Trigonometric", "Atan"])
-class Atan(Observable[float]):
+class Atan_Optional__IFunction__Float__(Observable[float]):
     """ 
     """ 
     def __init__(self, x = None):
@@ -34,3 +34,4 @@ class Atan(Observable[float]):
         if x is None: return None
         return math.atan(x)
     
+Atan = Atan_Optional__IFunction__Float__

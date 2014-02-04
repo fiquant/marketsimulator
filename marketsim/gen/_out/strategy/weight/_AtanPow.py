@@ -6,7 +6,7 @@ from marketsim import float
 from marketsim import float
 from marketsim import context
 @registry.expose(["Strategy", "AtanPow"])
-class AtanPow(Function[float]):
+class AtanPow_Optional__IFunction__Float____Optional__Float_(Function[float]):
     """ 
     """ 
     def __init__(self, f = None, base = None):
@@ -46,3 +46,4 @@ class AtanPow(Function[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+AtanPow = AtanPow_Optional__IFunction__Float____Optional__Float_

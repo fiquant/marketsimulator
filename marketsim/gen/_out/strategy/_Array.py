@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.strategy.combine import _Array_Impl
 from marketsim import ISingleAssetStrategy
 from marketsim import listOf
 @registry.expose(["Strategy", "Array"])
-class Array(_Array_Impl):
+class Array_Optional_List__ISingleAssetStrategy__(_Array_Impl):
     """ 
     """ 
     def __init__(self, strategies = None):
@@ -23,3 +23,4 @@ class Array(_Array_Impl):
     def __repr__(self):
         return "Array(%(strategies)s)" % self.__dict__
     
+Array = Array_Optional_List__ISingleAssetStrategy__

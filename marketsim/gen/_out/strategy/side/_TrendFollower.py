@@ -6,7 +6,7 @@ from marketsim import float
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Side function", "TrendFollower"])
-class TrendFollower(Function[Side]):
+class TrendFollower_Optional__Float___Optional__Float___Optional__IOrderBook_(Function[Side]):
     """ 
     """ 
     def __init__(self, alpha = None, threshold = None, book = None):
@@ -49,3 +49,4 @@ class TrendFollower(Function[Side]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+TrendFollower = TrendFollower_Optional__Float___Optional__Float___Optional__IOrderBook_

@@ -9,7 +9,7 @@ from marketsim import float
 from marketsim import float
 from marketsim import context
 @registry.expose(["Strategy", "TrendFollower"])
-class TrendFollower(ISingleAssetStrategy):
+class TrendFollower_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float_(ISingleAssetStrategy):
     """  where the *signal* is a trend of the asset.
      Under trend we understand the first derivative of some moving average of asset prices.
      If the derivative is positive, the trader buys; if negative - it sells.
@@ -62,3 +62,4 @@ class TrendFollower(ISingleAssetStrategy):
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+TrendFollower = TrendFollower_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float_

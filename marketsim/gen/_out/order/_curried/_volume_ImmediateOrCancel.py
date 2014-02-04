@@ -30,10 +30,11 @@ class volume_ImmediateOrCancel(IFunction[IOrderGenerator,IFunction[float]]):
         'proto' : IFunction[IOrderGenerator, IFunction[float]]
     }
     def __repr__(self):
-        return "volume_ImmediateOrCancel(%(proto)s)" % self.__dict__
+        return "ImmediateOrCancel(%(proto)s)" % self.__dict__
     
     def __call__(self, volume = None):
         from marketsim.gen._out.order._ImmediateOrCancel import ImmediateOrCancel
         proto = self.proto
         return ImmediateOrCancel(proto(volume))
     
+volume_ImmediateOrCancel = volume_ImmediateOrCancel

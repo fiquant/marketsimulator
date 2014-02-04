@@ -5,7 +5,7 @@ from marketsim import IObservable
 from marketsim import float
 from marketsim import context
 @registry.expose(["Statistics", "StdDev"])
-class StdDev(Function[float]):
+class StdDev_Optional__IObservable__Float__(Function[float]):
     """ 
     """ 
     def __init__(self, source = None):
@@ -42,3 +42,4 @@ class StdDev(Function[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+StdDev = StdDev_Optional__IObservable__Float__

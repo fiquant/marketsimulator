@@ -5,7 +5,7 @@ from marketsim import float
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Log/Pow", "Pow"])
-class Pow(Observable[float]):
+class Pow_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[float]):
     """ 
      Exceptional cases follow Annex F of the C99 standard as far as possible.
      In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,
@@ -50,3 +50,4 @@ class Pow(Observable[float]):
         if power is None: return None
         return math.pow(base, power)
     
+Pow = Pow_Optional__IFunction__Float____Optional__IFunction__Float__

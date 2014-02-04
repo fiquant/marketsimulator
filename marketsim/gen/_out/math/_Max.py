@@ -8,7 +8,7 @@ from marketsim import IFunction
 from marketsim import float
 from marketsim import context
 @registry.expose(["Basic", "Max"])
-class Max(Observable[float]):
+class Max_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[float]):
     """  If *x* or/and *y* are observables, *Min* is also observable
     """ 
     def __init__(self, x = None, y = None):
@@ -55,3 +55,4 @@ class Max(Observable[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+Max = Max_Optional__IFunction__Float____Optional__IFunction__Float__

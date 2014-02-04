@@ -5,7 +5,7 @@ from marketsim import float
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Statistics", "MinEpsilon"])
-class MinEpsilon(MinEpsilon_Impl):
+class MinEpsilon_Optional__IFunction__Float____Optional__IFunction__Float__(MinEpsilon_Impl):
     """ 
       It fires updates only if *source* value becomes less than the old value minus *epsilon*
     """ 
@@ -37,3 +37,4 @@ class MinEpsilon(MinEpsilon_Impl):
     def __repr__(self):
         return "Min_{\\epsilon}(%(source)s)" % self.__dict__
     
+MinEpsilon = MinEpsilon_Optional__IFunction__Float____Optional__IFunction__Float__

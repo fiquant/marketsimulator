@@ -4,7 +4,7 @@ from marketsim import IFunction
 from marketsim import float
 from marketsim import float
 @registry.expose(["Statistics", "Min"])
-class Min(Min_Impl):
+class Min_Optional__IFunction__Float____Optional__Float_(Min_Impl):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
@@ -34,3 +34,4 @@ class Min(Min_Impl):
     def __repr__(self):
         return "Min_{n=%(timeframe)s}(%(source)s)" % self.__dict__
     
+Min = Min_Optional__IFunction__Float____Optional__Float_

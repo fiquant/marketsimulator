@@ -3,7 +3,7 @@ from marketsim import bool
 from marketsim.ops._function import Function
 from marketsim.gen._intrinsic._constant import _True_Impl
 @registry.expose(["Basic", "true"])
-class true(Function[bool], _True_Impl):
+class true_(Function[bool], _True_Impl):
     """ 
     """ 
     def __init__(self):
@@ -22,3 +22,4 @@ class true(Function[bool], _True_Impl):
     def __repr__(self):
         return "True" % self.__dict__
     
+true = true_

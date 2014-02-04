@@ -28,7 +28,7 @@ class gammavariate(Function[float]):
         'Beta' : float
     }
     def __repr__(self):
-        return "gammavariate(%(Alpha)s, %(Beta)s)" % self.__dict__
+        return "Gamma distribution(%(Alpha)s, %(Beta)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random
@@ -37,3 +37,4 @@ class gammavariate(Function[float]):
     def _casts_to(self, dst):
         return gammavariate._types[0]._casts_to(dst)
     
+gammavariate = gammavariate

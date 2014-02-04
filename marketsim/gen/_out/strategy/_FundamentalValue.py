@@ -9,7 +9,7 @@ from marketsim import IFunction
 from marketsim import float
 from marketsim import context
 @registry.expose(["Strategy", "FundamentalValue"])
-class FundamentalValue(ISingleAssetStrategy):
+class FundamentalValue_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IFunction__Float__(ISingleAssetStrategy):
     """  (*fundamental value*) and if the current asset price is lower than the fundamental value
      it starts to buy the asset and if the price is higher it starts to sell the asset.
     """ 
@@ -58,3 +58,4 @@ class FundamentalValue(ISingleAssetStrategy):
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+FundamentalValue = FundamentalValue_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IFunction__Float__

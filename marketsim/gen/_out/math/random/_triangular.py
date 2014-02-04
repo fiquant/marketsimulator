@@ -29,7 +29,7 @@ class triangular(Function[float]):
         'Mode' : float
     }
     def __repr__(self):
-        return "triangular(%(Low)s, %(High)s, %(Mode)s)" % self.__dict__
+        return "Triangular distribution(%(Low)s, %(High)s, %(Mode)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random
@@ -38,3 +38,4 @@ class triangular(Function[float]):
     def _casts_to(self, dst):
         return triangular._types[0]._casts_to(dst)
     
+triangular = triangular

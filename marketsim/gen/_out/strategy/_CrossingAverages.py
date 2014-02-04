@@ -10,7 +10,7 @@ from marketsim import float
 from marketsim import float
 from marketsim import context
 @registry.expose(["Strategy", "CrossingAverages"])
-class CrossingAverages(ISingleAssetStrategy):
+class CrossingAverages_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float___Optional__Float_(ISingleAssetStrategy):
     """  with different parameters ('slow' and 'fast' averages) and when
      the first is greater than the second one it buys,
      when the first is lower than the second one it sells
@@ -63,3 +63,4 @@ class CrossingAverages(ISingleAssetStrategy):
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+CrossingAverages = CrossingAverages_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float___Optional__Float_

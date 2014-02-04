@@ -5,7 +5,7 @@ from marketsim import float
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Statistics", "MaxEpsilon"])
-class MaxEpsilon(MaxEpsilon_Impl):
+class MaxEpsilon_Optional__IFunction__Float____Optional__IFunction__Float__(MaxEpsilon_Impl):
     """ 
       It fires updates only if *source* value becomes greater than the old value plus *epsilon*
     """ 
@@ -37,3 +37,4 @@ class MaxEpsilon(MaxEpsilon_Impl):
     def __repr__(self):
         return "Max_{\\epsilon}(%(source)s)" % self.__dict__
     
+MaxEpsilon = MaxEpsilon_Optional__IFunction__Float____Optional__IFunction__Float__

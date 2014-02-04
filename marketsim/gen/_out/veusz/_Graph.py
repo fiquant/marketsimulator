@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.veusz import _Graph_Impl
 from marketsim import str
 @registry.expose(["N/A", "Graph"])
-class Graph(_Graph_Impl):
+class Graph_Optional__String_(_Graph_Impl):
     """ 
     """ 
     def __init__(self, name = None):
@@ -21,3 +21,4 @@ class Graph(_Graph_Impl):
     def __repr__(self):
         return "Graph(%(name)s)" % self.__dict__
     
+Graph = Graph_Optional__String_

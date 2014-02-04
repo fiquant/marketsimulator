@@ -9,7 +9,7 @@ from marketsim import float
 from marketsim import ISingleAssetTrader
 from marketsim import context
 @registry.expose(["Volume function", "RSI_linear"])
-class RSI_linear(Observable[Volume]):
+class RSI_linear_Optional__Float___Optional__IObservable__Float____Optional__Float___Optional__ISingleAssetTrader_(Observable[Volume]):
     """ 
     """ 
     def __init__(self, alpha = None, k = None, timeframe = None, trader = None):
@@ -65,3 +65,4 @@ class RSI_linear(Observable[Volume]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+RSI_linear = RSI_linear_Optional__Float___Optional__IObservable__Float____Optional__Float___Optional__ISingleAssetTrader_

@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.strategy.account import _VirtualMarket_Impl
 from marketsim import ISingleAssetStrategy
 @registry.expose(["Strategy", "VirtualMarket"])
-class VirtualMarket(_VirtualMarket_Impl):
+class VirtualMarket_Optional__ISingleAssetStrategy_(_VirtualMarket_Impl):
     """   how it would be traded by sending request.evalMarketOrder
       (note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market
       but we want evaluate in any case would it be profitable or not)
@@ -24,3 +24,4 @@ class VirtualMarket(_VirtualMarket_Impl):
     def __repr__(self):
         return "VirtualMarket(%(inner)s)" % self.__dict__
     
+VirtualMarket = VirtualMarket_Optional__ISingleAssetStrategy_

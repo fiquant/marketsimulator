@@ -22,7 +22,7 @@ class sidevolume_Market(IFunction[IOrderGenerator, IFunction[Side],IFunction[flo
         
     }
     def __repr__(self):
-        return "sidevolume_Market" % self.__dict__
+        return "Market" % self.__dict__
     
     def __call__(self, side = None,volume = None):
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
@@ -33,3 +33,4 @@ class sidevolume_Market(IFunction[IOrderGenerator, IFunction[Side],IFunction[flo
         
         return Market(side, volume)
     
+sidevolume_Market = sidevolume_Market

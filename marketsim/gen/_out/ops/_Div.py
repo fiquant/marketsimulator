@@ -5,7 +5,7 @@ from marketsim import float
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Ops", "Div"])
-class Div(_Div_Impl):
+class Div_Optional__IFunction__Float____Optional__IFunction__Float__(_Div_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -36,3 +36,4 @@ class Div(_Div_Impl):
     def __repr__(self):
         return "\\frac{%(x)s}{%(y)s}" % self.__dict__
     
+Div = Div_Optional__IFunction__Float____Optional__IFunction__Float__

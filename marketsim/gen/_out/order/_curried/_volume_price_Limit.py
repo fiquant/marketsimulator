@@ -27,7 +27,7 @@ class volume_price_Limit(IFunction[IFunction[IOrderGenerator, IFunction[float]],
         'side' : IFunction[Side]
     }
     def __repr__(self):
-        return "volume_price_Limit(%(side)s)" % self.__dict__
+        return "Limit(%(side)s)" % self.__dict__
     
     def __call__(self, volume = None):
         from marketsim.gen._out._constant import constant as _constant
@@ -36,3 +36,4 @@ class volume_price_Limit(IFunction[IFunction[IOrderGenerator, IFunction[float]],
         side = self.side
         return price_Limit(side, volume)
     
+volume_price_Limit = volume_price_Limit

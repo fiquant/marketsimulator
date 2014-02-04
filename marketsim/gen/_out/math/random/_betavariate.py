@@ -23,7 +23,7 @@ class betavariate(Function[float]):
         'Beta' : float
     }
     def __repr__(self):
-        return "betavariate(%(Alpha)s, %(Beta)s)" % self.__dict__
+        return "Beta distribution(%(Alpha)s, %(Beta)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random
@@ -32,3 +32,4 @@ class betavariate(Function[float]):
     def _casts_to(self, dst):
         return betavariate._types[0]._casts_to(dst)
     
+betavariate = betavariate

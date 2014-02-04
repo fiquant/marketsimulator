@@ -38,10 +38,11 @@ class sidevolume_price_Peg(IFunction[IFunction[IOrderGenerator,IFunction[float]]
         'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side],IFunction[float]]
     }
     def __repr__(self):
-        return "sidevolume_price_Peg(%(proto)s)" % self.__dict__
+        return "Peg(%(proto)s)" % self.__dict__
     
     def __call__(self, side = None,volume = None):
         from marketsim.gen._out.order._curried._price_Peg import price_Peg
         proto = self.proto
         return price_Peg(proto(side,volume))
     
+sidevolume_price_Peg = sidevolume_price_Peg

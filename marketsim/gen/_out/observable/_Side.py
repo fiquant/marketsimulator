@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.observable.on_every_dt import _ObservableSide_Impl
 from marketsim import IFunction
 from marketsim import Side
 @registry.expose(["Basic", "Side"])
-class Side(_ObservableSide_Impl):
+class Side_Optional__IFunction__Side__(_ObservableSide_Impl):
     """  Needed since generic functions aren't implemented yet
     """ 
     def __init__(self, x = None):
@@ -27,3 +27,4 @@ class Side(_ObservableSide_Impl):
     def __repr__(self):
         return "[%(x)s]" % self.__dict__
     
+Side = Side_Optional__IFunction__Side__

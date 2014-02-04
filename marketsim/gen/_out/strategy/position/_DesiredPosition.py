@@ -7,7 +7,7 @@ from marketsim import float
 from marketsim import ISingleAssetTrader
 from marketsim import context
 @registry.expose(["Volume function", "DesiredPosition"])
-class DesiredPosition(Observable[Volume]):
+class DesiredPosition_Optional__IObservable__Float____Optional__ISingleAssetTrader_(Observable[Volume]):
     """ 
     """ 
     def __init__(self, desiredPosition = None, trader = None):
@@ -57,3 +57,4 @@ class DesiredPosition(Observable[Volume]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+DesiredPosition = DesiredPosition_Optional__IObservable__Float____Optional__ISingleAssetTrader_

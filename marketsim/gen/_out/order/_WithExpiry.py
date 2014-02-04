@@ -51,3 +51,4 @@ class WithExpiry(IOrderGenerator, Observable[Order]):
         
         return Order_Impl(expiry, proto)
     
+WithExpiry = WithExpiry

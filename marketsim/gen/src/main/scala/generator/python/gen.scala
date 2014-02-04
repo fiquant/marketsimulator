@@ -56,6 +56,8 @@ package object gen
                         //println(f.parent.qualifiedName, f.name)
                         for (out <- managed(printWriter(dir, s"_${f.name}.py"))) {
                             out.println(g.code)
+
+                            out.println(f.name + " = " + g.name)
                         }
                         idx_out.println(base.withImports(Printer.importsOf(f)))
                     }

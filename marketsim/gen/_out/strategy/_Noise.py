@@ -7,7 +7,7 @@ from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import context
 @registry.expose(["Strategy", "Noise"])
-class Noise(ISingleAssetStrategy):
+class Noise_Optional__IEvent___Optional_________Side______IOrderGenerator_(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, eventGen = None, orderFactory = None):
@@ -52,3 +52,4 @@ class Noise(ISingleAssetStrategy):
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+Noise = Noise_Optional__IEvent___Optional_________Side______IOrderGenerator_

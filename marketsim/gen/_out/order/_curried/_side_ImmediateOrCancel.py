@@ -30,10 +30,11 @@ class side_ImmediateOrCancel(IFunction[IOrderGenerator,IFunction[Side]]):
         'proto' : IFunction[IOrderGenerator, IFunction[Side]]
     }
     def __repr__(self):
-        return "side_ImmediateOrCancel(%(proto)s)" % self.__dict__
+        return "ImmediateOrCancel(%(proto)s)" % self.__dict__
     
     def __call__(self, side = None):
         from marketsim.gen._out.order._ImmediateOrCancel import ImmediateOrCancel
         proto = self.proto
         return ImmediateOrCancel(proto(side))
     
+side_ImmediateOrCancel = side_ImmediateOrCancel

@@ -6,7 +6,7 @@ from marketsim import IObservable
 from marketsim import float
 from marketsim import float
 @registry.expose(["Statistics", "Var"])
-class Var(Function[float], EWMV_Impl):
+class Var_Optional__IObservable__Float____Optional__Float_(Function[float], EWMV_Impl):
     """ 
     """ 
     def __init__(self, source = None, alpha = None):
@@ -28,3 +28,4 @@ class Var(Function[float], EWMV_Impl):
     def __repr__(self):
         return "\\sigma^2_{\\alpha=%(alpha)s}(%(source)s)" % self.__dict__
     
+Var = Var_Optional__IObservable__Float____Optional__Float_

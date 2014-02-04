@@ -6,7 +6,7 @@ from marketsim import float
 from marketsim import float
 from marketsim import context
 @registry.expose(["Basic", "RSI"])
-class RSI(Function[float]):
+class RSI_Optional__IOrderBook___Optional__Float___Optional__Float_(Function[float]):
     """ 
     """ 
     def __init__(self, book = None, timeframe = None, alpha = None):
@@ -53,3 +53,4 @@ class RSI(Function[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+RSI = RSI_Optional__IOrderBook___Optional__Float___Optional__Float_

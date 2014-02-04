@@ -36,7 +36,7 @@ class volume_price_WithExpiry(IFunction[IFunction[IOrderGenerator,IFunction[floa
         'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[float]]
     }
     def __repr__(self):
-        return "volume_price_WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
+        return "WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
     
     def __call__(self, volume = None):
         from marketsim.gen._out.order._curried._price_WithExpiry import price_WithExpiry
@@ -44,3 +44,4 @@ class volume_price_WithExpiry(IFunction[IFunction[IOrderGenerator,IFunction[floa
         proto = self.proto
         return price_WithExpiry(expiry, proto(volume))
     
+volume_price_WithExpiry = volume_price_WithExpiry

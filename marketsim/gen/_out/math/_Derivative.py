@@ -4,7 +4,7 @@ from marketsim.ops._function import Function
 from marketsim.gen._intrinsic.observable.derivative import _Derivative_Impl
 from marketsim import IDifferentiable
 @registry.expose(["Basic", "Derivative"])
-class Derivative(Function[float], _Derivative_Impl):
+class Derivative_Optional__IDifferentiable_(Function[float], _Derivative_Impl):
     """  *x* should provide *derivative* member
     """ 
     def __init__(self, x = None):
@@ -24,3 +24,4 @@ class Derivative(Function[float], _Derivative_Impl):
     def __repr__(self):
         return "\\frac{d%(x)s}{dt}" % self.__dict__
     
+Derivative = Derivative_Optional__IDifferentiable_

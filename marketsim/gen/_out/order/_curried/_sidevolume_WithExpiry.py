@@ -36,7 +36,7 @@ class sidevolume_WithExpiry(IFunction[IOrderGenerator,IFunction[Side]
         'proto' : IFunction[IOrderGenerator, IFunction[Side],IFunction[float]]
     }
     def __repr__(self):
-        return "sidevolume_WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
+        return "WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
     
     def __call__(self, side = None,volume = None):
         from marketsim.gen._out.order._WithExpiry import WithExpiry
@@ -44,3 +44,4 @@ class sidevolume_WithExpiry(IFunction[IOrderGenerator,IFunction[Side]
         proto = self.proto
         return WithExpiry(expiry, proto(side,volume))
     
+sidevolume_WithExpiry = sidevolume_WithExpiry

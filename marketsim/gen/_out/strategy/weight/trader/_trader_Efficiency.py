@@ -4,7 +4,7 @@ from marketsim import float
 from marketsim import IAccount
 from marketsim import IFunction
 @registry.expose(["Strategy", "trader_Efficiency"])
-class trader_Efficiency(IFunction[IFunction[float], IAccount]):
+class trader_Efficiency_(IFunction[IFunction[float], IAccount]):
     """ 
     """ 
     def __init__(self):
@@ -29,3 +29,4 @@ class trader_Efficiency(IFunction[IFunction[float], IAccount]):
         
         return Efficiency(trader)
     
+trader_Efficiency = trader_Efficiency_

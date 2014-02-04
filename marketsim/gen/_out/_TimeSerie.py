@@ -5,7 +5,7 @@ from marketsim import IGraph
 from marketsim import int
 from marketsim import int
 @registry.expose(["Basic", "TimeSerie"])
-class TimeSerie(_ToRecord_Impl):
+class TimeSerie_Optional__IObservable_Any____Optional__IGraph___Optional__Int___Optional__Int_(_ToRecord_Impl):
     """   Used to specify what data should be collected about order books and traders
     """ 
     def __init__(self, source = None, graph = None, _digitsToShow = None, _smooth = None):
@@ -32,3 +32,4 @@ class TimeSerie(_ToRecord_Impl):
     def __repr__(self):
         return "%(source)s" % self.__dict__
     
+TimeSerie = TimeSerie_Optional__IObservable_Any____Optional__IGraph___Optional__Int___Optional__Int_

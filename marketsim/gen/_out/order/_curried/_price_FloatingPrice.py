@@ -32,7 +32,7 @@ class price_FloatingPrice(IFunction[IOrderGenerator,IFunction[float]]):
         'proto' : IFunction[IOrderGenerator, IFunction[float]]
     }
     def __repr__(self):
-        return "price_FloatingPrice(%(floatingPrice)s, %(proto)s)" % self.__dict__
+        return "FloatingPrice(%(floatingPrice)s, %(proto)s)" % self.__dict__
     
     def __call__(self, price = None):
         from marketsim.gen._out.order._FloatingPrice import FloatingPrice
@@ -40,3 +40,4 @@ class price_FloatingPrice(IFunction[IOrderGenerator,IFunction[float]]):
         proto = self.proto
         return FloatingPrice(floatingPrice, proto(price))
     
+price_FloatingPrice = price_FloatingPrice

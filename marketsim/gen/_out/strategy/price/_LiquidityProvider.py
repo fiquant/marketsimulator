@@ -9,7 +9,7 @@ from marketsim import IFunction
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Price function", "LiquidityProvider"])
-class LiquidityProvider(Function[float]):
+class LiquidityProvider_Optional________Side___Optional__Float___Optional________Float___Optional__IOrderBook_(Function[float]):
     """ 
     """ 
     def __init__(self, side = None, initialValue = None, priceDistr = None, book = None):
@@ -56,3 +56,4 @@ class LiquidityProvider(Function[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+LiquidityProvider = LiquidityProvider_Optional________Side___Optional__Float___Optional________Float___Optional__IOrderBook_

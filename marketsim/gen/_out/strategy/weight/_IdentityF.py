@@ -5,7 +5,7 @@ from marketsim import IFunction
 from marketsim import float
 from marketsim import context
 @registry.expose(["Strategy", "IdentityF"])
-class IdentityF(Function[float]):
+class IdentityF_Optional__IFunction__Float__(Function[float]):
     """ 
     """ 
     def __init__(self, f = None):
@@ -40,3 +40,4 @@ class IdentityF(Function[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+IdentityF = IdentityF_Optional__IFunction__Float__

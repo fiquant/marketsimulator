@@ -29,8 +29,8 @@ object curried
                 case None => Nil
             }
 
-            override def name = f.name
-            override def alias = f.name
+            val name = base.decoratedName(f)
+            val alias = f.name
 
             def interface =  s"IFunction["||| original.ret_type.asCode |||
                     ", "||| curriedTypesAsList(curried) |||"]" ||| ImportFrom("IFunction", "marketsim")

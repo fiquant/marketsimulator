@@ -9,7 +9,7 @@ from marketsim import IObservable
 from marketsim import float
 from marketsim import context
 @registry.expose(["Strategy", "Bollinger_linear"])
-class Bollinger_linear(ISingleAssetStrategy):
+class Bollinger_linear_Optional_________Float______IOrderGenerator___Optional__Float___Optional__IObservable__Float__(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, orderFactory = None, alpha = None, k = None):
@@ -55,3 +55,4 @@ class Bollinger_linear(ISingleAssetStrategy):
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+Bollinger_linear = Bollinger_linear_Optional_________Float______IOrderGenerator___Optional__Float___Optional__IObservable__Float__

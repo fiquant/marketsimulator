@@ -7,7 +7,7 @@ from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
 @registry.expose(["Ops", "Condition_Side"])
-class Condition_Side(_ConditionSide_Impl):
+class Condition_Side_Optional__IFunction__Boolean____Optional________Side___Optional________Side_(_ConditionSide_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -45,3 +45,4 @@ class Condition_Side(_ConditionSide_Impl):
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
+Condition_Side = Condition_Side_Optional__IFunction__Boolean____Optional________Side___Optional________Side_

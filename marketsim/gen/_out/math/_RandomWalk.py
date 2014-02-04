@@ -7,7 +7,7 @@ from marketsim import float
 from marketsim import IFunction
 from marketsim import str
 @registry.expose(["Basic", "RandomWalk"])
-class RandomWalk(_RandomWalk_Impl):
+class RandomWalk_Optional__Float___Optional________Float___Optional________Float___Optional__String_(_RandomWalk_Impl):
     """ 
     """ 
     def __init__(self, initialValue = None, deltaDistr = None, intervalDistr = None, name = None):
@@ -50,3 +50,4 @@ class RandomWalk(_RandomWalk_Impl):
     def __repr__(self):
         return "%(name)s" % self.__dict__
     
+RandomWalk = RandomWalk_Optional__Float___Optional________Float___Optional________Float___Optional__String_

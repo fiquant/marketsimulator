@@ -10,7 +10,7 @@ from marketsim import IAccount
 from marketsim import IFunction
 from marketsim import context
 @registry.expose(["Strategy", "TradeIfProfitable"])
-class TradeIfProfitable(ISingleAssetStrategy):
+class TradeIfProfitable_Optional__ISingleAssetStrategy___Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float__(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, inner = None, account = None, performance = None):
@@ -58,3 +58,4 @@ class TradeIfProfitable(ISingleAssetStrategy):
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+TradeIfProfitable = TradeIfProfitable_Optional__ISingleAssetStrategy___Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float__

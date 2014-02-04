@@ -5,7 +5,7 @@ from marketsim.gen._intrinsic.moments.cmv import Variance_Impl
 from marketsim import IObservable
 from marketsim import float
 @registry.expose(["Statistics", "Var"])
-class Var(Function[float], Variance_Impl):
+class Var_Optional__IObservable__Float__(Function[float], Variance_Impl):
     """ 
     """ 
     def __init__(self, source = None):
@@ -25,3 +25,4 @@ class Var(Function[float], Variance_Impl):
     def __repr__(self):
         return "\\sigma^2_{cumul}(%(source)s)" % self.__dict__
     
+Var = Var_Optional__IObservable__Float__

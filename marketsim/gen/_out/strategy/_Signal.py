@@ -10,7 +10,7 @@ from marketsim import float
 from marketsim import float
 from marketsim import context
 @registry.expose(["Strategy", "Signal"])
-class Signal(ISingleAssetStrategy):
+class Signal_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IFunction__Float____Optional__Float_(ISingleAssetStrategy):
     """  and when the signal becomes more than some threshold the strategy starts to buy.
      When the signal gets lower than -threshold the strategy starts to sell.
     """ 
@@ -61,3 +61,4 @@ class Signal(ISingleAssetStrategy):
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+Signal = Signal_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IFunction__Float____Optional__Float_

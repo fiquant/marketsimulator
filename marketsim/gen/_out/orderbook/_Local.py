@@ -6,7 +6,7 @@ from marketsim import str
 from marketsim import ITimeSerie
 from marketsim import listOf
 @registry.expose(["Asset", "Local"])
-class Local(_Local_Impl):
+class Local_Optional__Float___Optional__Int___Optional__String___Optional_List__ITimeSerie__(_Local_Impl):
     """  Maintains two order queues for orders of different sides
     """ 
     def __init__(self, tickSize = None, _digitsToShow = None, name = None, timeseries = None):
@@ -31,3 +31,4 @@ class Local(_Local_Impl):
     def __repr__(self):
         return "%(name)s" % self.__dict__
     
+Local = Local_Optional__Float___Optional__Int___Optional__String___Optional_List__ITimeSerie__

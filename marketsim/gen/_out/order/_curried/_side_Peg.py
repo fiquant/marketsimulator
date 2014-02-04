@@ -30,10 +30,11 @@ class side_Peg(IFunction[IOrderGenerator,IFunction[Side]]):
         'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]]
     }
     def __repr__(self):
-        return "side_Peg(%(proto)s)" % self.__dict__
+        return "Peg(%(proto)s)" % self.__dict__
     
     def __call__(self, side = None):
         from marketsim.gen._out.order._Peg import Peg
         proto = self.proto
         return Peg(proto(side))
     
+side_Peg = side_Peg

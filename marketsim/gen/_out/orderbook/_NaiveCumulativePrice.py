@@ -7,7 +7,7 @@ from marketsim import IFunction
 from marketsim import float
 from marketsim import context
 @registry.expose(["Asset", "NaiveCumulativePrice"])
-class NaiveCumulativePrice(Observable[Price]):
+class NaiveCumulativePrice_Optional__IOrderBook___Optional__IFunction__Float__(Observable[Price]):
     """   by taking into account prices only for the best order
     
       Negative *depth* correponds to will buy assets
@@ -67,3 +67,4 @@ class NaiveCumulativePrice(Observable[Price]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+NaiveCumulativePrice = NaiveCumulativePrice_Optional__IOrderBook___Optional__IFunction__Float__

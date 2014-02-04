@@ -5,7 +5,7 @@ from marketsim import IFunction
 from marketsim import float
 from marketsim import context
 @registry.expose(["Strategy", "Clamp0"])
-class Clamp0(Function[float]):
+class Clamp0_Optional__IFunction__Float__(Function[float]):
     """ 
     """ 
     def __init__(self, f = None):
@@ -44,3 +44,4 @@ class Clamp0(Function[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+Clamp0 = Clamp0_Optional__IFunction__Float__

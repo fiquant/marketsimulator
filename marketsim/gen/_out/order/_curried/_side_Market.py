@@ -23,7 +23,7 @@ class side_Market(IFunction[IOrderGenerator, IFunction[Side]]):
         'volume' : IFunction[float]
     }
     def __repr__(self):
-        return "side_Market(%(volume)s)" % self.__dict__
+        return "Market(%(volume)s)" % self.__dict__
     
     def __call__(self, side = None):
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
@@ -32,3 +32,4 @@ class side_Market(IFunction[IOrderGenerator, IFunction[Side]]):
         volume = self.volume
         return Market(side, volume)
     
+side_Market = side_Market

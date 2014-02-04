@@ -5,7 +5,7 @@ from marketsim.ops._all import Observable
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Asset", "LastTradePrice"])
-class LastTradePrice(Observable[Price]):
+class LastTradePrice_Optional__IOrderBook_(Observable[Price]):
     """ 
     """ 
     def __init__(self, book = None):
@@ -49,3 +49,4 @@ class LastTradePrice(Observable[Price]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+LastTradePrice = LastTradePrice_Optional__IOrderBook_

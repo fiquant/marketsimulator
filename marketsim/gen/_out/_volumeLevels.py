@@ -8,7 +8,7 @@ from marketsim import float
 from marketsim import listOf
 from marketsim import int
 
-class volumeLevels(_VolumeLevels_Impl):
+class volumeLevels__IFunction__IVolumeLevels___Optional__IGraph___Optional__Int___Optional__Int___Optional_List__Float____Optional__Int_(_VolumeLevels_Impl):
     """  Level of volume V is a price at which cumulative volume of better orders is V
     """ 
     def __init__(self, source , graph = None, _digitsToShow = None, _smooth = None, _volumes = None, _isBuy = None):
@@ -38,3 +38,4 @@ class volumeLevels(_VolumeLevels_Impl):
     def __repr__(self):
         return "%(source)s" % self.__dict__
     
+volumeLevels = volumeLevels__IFunction__IVolumeLevels___Optional__IGraph___Optional__Int___Optional__Int___Optional_List__Float____Optional__Int_

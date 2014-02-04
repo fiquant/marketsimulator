@@ -6,7 +6,7 @@ from marketsim import float
 from marketsim import float
 from marketsim import context
 @registry.expose(["Basic", "LogReturns"])
-class LogReturns(Function[float]):
+class LogReturns_Optional__IObservable__Float____Optional__Float_(Function[float]):
     """ 
     """ 
     def __init__(self, x = None, timeframe = None):
@@ -46,3 +46,4 @@ class LogReturns(Function[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+LogReturns = LogReturns_Optional__IObservable__Float____Optional__Float_

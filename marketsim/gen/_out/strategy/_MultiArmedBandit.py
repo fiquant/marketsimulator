@@ -20,7 +20,7 @@ from marketsim import float
 from marketsim import listOf
 from marketsim import IFunction
 @registry.expose(["Strategy", "MultiArmedBandit"])
-class MultiArmedBandit(_MultiarmedBandit2_Impl):
+class MultiArmedBandit_Optional_List__ISingleAssetStrategy____Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float____Optional_Optional__IFunction__Float_______IFunction__Float____Optional_Optional_List__Float______List__Float__(_MultiarmedBandit2_Impl):
     """  In some moments of time the efficiency of the strategies is evaluated
      These efficiencies are mapped into weights using *weight* and *normilizer*
      functions per every strategy and *corrector* for the whole collection of weights
@@ -56,3 +56,4 @@ class MultiArmedBandit(_MultiarmedBandit2_Impl):
     def __repr__(self):
         return "MultiArmedBandit(%(strategies)s, %(account)s, %(weight)s, %(normalizer)s, %(corrector)s)" % self.__dict__
     
+MultiArmedBandit = MultiArmedBandit_Optional_List__ISingleAssetStrategy____Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float____Optional_Optional__IFunction__Float_______IFunction__Float____Optional_Optional_List__Float______List__Float__

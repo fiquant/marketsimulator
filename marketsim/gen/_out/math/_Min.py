@@ -8,7 +8,7 @@ from marketsim import IFunction
 from marketsim import float
 from marketsim import context
 @registry.expose(["Basic", "Min"])
-class Min(Observable[float]):
+class Min_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[float]):
     """  If *x* or/and *y* are observables, *Min* is also observable
     """ 
     def __init__(self, x = None, y = None):
@@ -55,3 +55,4 @@ class Min(Observable[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+Min = Min_Optional__IFunction__Float____Optional__IFunction__Float__

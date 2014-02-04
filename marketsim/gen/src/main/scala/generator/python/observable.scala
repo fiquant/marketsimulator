@@ -16,8 +16,8 @@ object observable extends gen.PythonGenerator
         }
 
         type Parameter = observable.Parameter
-        val name = f.name
-        val alias = name
+        val name = base.decoratedName(f)
+        val alias = f.name
 
         def bind = Def("bind", "ctx", "self._ctx = ctx.clone()")
 

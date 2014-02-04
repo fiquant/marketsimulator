@@ -7,7 +7,7 @@ from marketsim import float
 from marketsim import float
 from marketsim import context
 @registry.expose(["Strategy", "MarketData"])
-class MarketData(ISingleAssetStrategy):
+class MarketData_Optional__String___Optional__String___Optional__String___Optional__Float___Optional__Float_(ISingleAssetStrategy):
     """   by creating large volume orders for the given price.
     
       Every time step of 1 in the simulation corresponds to a 1 day in the market data.
@@ -85,3 +85,4 @@ class MarketData(ISingleAssetStrategy):
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+MarketData = MarketData_Optional__String___Optional__String___Optional__String___Optional__Float___Optional__Float_

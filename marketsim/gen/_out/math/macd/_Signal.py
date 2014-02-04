@@ -9,7 +9,7 @@ from marketsim import float
 from marketsim import float
 from marketsim import context
 @registry.expose(["MACD", "Signal"])
-class Signal(Function[float]):
+class Signal_Optional__IObservable__Float____Optional__Float___Optional__Float___Optional__Float___Optional__Float_(Function[float]):
     """ 
     """ 
     def __init__(self, x = None, slow = None, fast = None, timeframe = None, step = None):
@@ -55,3 +55,4 @@ class Signal(Function[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+Signal = Signal_Optional__IObservable__Float____Optional__Float___Optional__Float___Optional__Float___Optional__Float_

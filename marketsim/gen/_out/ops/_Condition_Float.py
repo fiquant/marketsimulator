@@ -7,7 +7,7 @@ from marketsim import float
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Ops", "Condition_Float"])
-class Condition_Float(_ConditionFloat_Impl):
+class Condition_Float_Optional__IFunction__Boolean____Optional__IFunction__Float____Optional__IFunction__Float__(_ConditionFloat_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -45,3 +45,4 @@ class Condition_Float(_ConditionFloat_Impl):
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
+Condition_Float = Condition_Float_Optional__IFunction__Boolean____Optional__IFunction__Float____Optional__IFunction__Float__

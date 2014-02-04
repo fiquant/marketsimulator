@@ -43,3 +43,4 @@ class MarketSigned(IOrderGenerator, Observable[Order]):
         volume = int(volume)
         return Order_Impl(side, volume)
     
+MarketSigned = MarketSigned

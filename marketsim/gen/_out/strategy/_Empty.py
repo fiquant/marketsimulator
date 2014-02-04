@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.strategy.basic import _Empty_Impl
 @registry.expose(["Strategy", "Empty"])
-class Empty(_Empty_Impl):
+class Empty_(_Empty_Impl):
     """ 
     """ 
     def __init__(self):
@@ -20,3 +20,4 @@ class Empty(_Empty_Impl):
     def __repr__(self):
         return "Empty" % self.__dict__
     
+Empty = Empty_

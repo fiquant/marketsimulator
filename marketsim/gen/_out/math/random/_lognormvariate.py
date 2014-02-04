@@ -24,7 +24,7 @@ class lognormvariate(Function[float]):
         'Sigma' : float
     }
     def __repr__(self):
-        return "lognormvariate(%(Mu)s, %(Sigma)s)" % self.__dict__
+        return "Log normal distribution(%(Mu)s, %(Sigma)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random
@@ -33,3 +33,4 @@ class lognormvariate(Function[float]):
     def _casts_to(self, dst):
         return lognormvariate._types[0]._casts_to(dst)
     
+lognormvariate = lognormvariate

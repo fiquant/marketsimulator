@@ -7,7 +7,7 @@ from marketsim import float
 from marketsim import float
 from marketsim import context
 @registry.expose(["Basic", "DownMovements"])
-class DownMovements(Observable[float]):
+class DownMovements_Optional__IObservable__Float____Optional__Float_(Observable[float]):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
@@ -56,3 +56,4 @@ class DownMovements(Observable[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+DownMovements = DownMovements_Optional__IObservable__Float____Optional__Float_

@@ -38,7 +38,7 @@ class sidevolume_StopLoss(IFunction[IOrderGenerator,IFunction[Side]
         'proto' : IFunction[IOrderGenerator, IFunction[Side],IFunction[float]]
     }
     def __repr__(self):
-        return "sidevolume_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
+        return "StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
     
     def __call__(self, side = None,volume = None):
         from marketsim.gen._out.order._StopLoss import StopLoss
@@ -46,3 +46,4 @@ class sidevolume_StopLoss(IFunction[IOrderGenerator,IFunction[Side]
         proto = self.proto
         return StopLoss(maxloss, proto(side,volume))
     
+sidevolume_StopLoss = sidevolume_StopLoss

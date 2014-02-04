@@ -20,7 +20,7 @@ class signedVolume_MarketSigned(IFunction[IOrderGenerator, IFunction[float]]):
         
     }
     def __repr__(self):
-        return "signedVolume_MarketSigned" % self.__dict__
+        return "MarketSigned" % self.__dict__
     
     def __call__(self, signedVolume = None):
         from marketsim.gen._out._constant import constant as _constant
@@ -29,3 +29,4 @@ class signedVolume_MarketSigned(IFunction[IOrderGenerator, IFunction[float]]):
         
         return MarketSigned(signedVolume)
     
+signedVolume_MarketSigned = signedVolume_MarketSigned

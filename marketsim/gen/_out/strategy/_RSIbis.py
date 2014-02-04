@@ -10,7 +10,7 @@ from marketsim import float
 from marketsim import float
 from marketsim import context
 @registry.expose(["Strategy", "RSIbis"])
-class RSIbis(ISingleAssetStrategy):
+class RSIbis_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float___Optional__Float_(ISingleAssetStrategy):
     """   and starts to buy when RSI is greater than 50 + *threshold*
       and sells when RSI is less than 50 - *thresold*
     """ 
@@ -66,3 +66,4 @@ class RSIbis(ISingleAssetStrategy):
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+RSIbis = RSIbis_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float___Optional__Float_

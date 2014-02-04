@@ -30,10 +30,11 @@ class price_ImmediateOrCancel(IFunction[IOrderGenerator,IFunction[float]]):
         'proto' : IFunction[IOrderGenerator, IFunction[float]]
     }
     def __repr__(self):
-        return "price_ImmediateOrCancel(%(proto)s)" % self.__dict__
+        return "ImmediateOrCancel(%(proto)s)" % self.__dict__
     
     def __call__(self, price = None):
         from marketsim.gen._out.order._ImmediateOrCancel import ImmediateOrCancel
         proto = self.proto
         return ImmediateOrCancel(proto(price))
     
+price_ImmediateOrCancel = price_ImmediateOrCancel

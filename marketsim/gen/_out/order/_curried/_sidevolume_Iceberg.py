@@ -37,7 +37,7 @@ class sidevolume_Iceberg(IFunction[IOrderGenerator,IFunction[Side]
         'proto' : IFunction[IOrderGenerator, IFunction[Side],IFunction[float]]
     }
     def __repr__(self):
-        return "sidevolume_Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
+        return "Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
     
     def __call__(self, side = None,volume = None):
         from marketsim.gen._out.order._Iceberg import Iceberg
@@ -45,3 +45,4 @@ class sidevolume_Iceberg(IFunction[IOrderGenerator,IFunction[Side]
         proto = self.proto
         return Iceberg(lotSize, proto(side,volume))
     
+sidevolume_Iceberg = sidevolume_Iceberg

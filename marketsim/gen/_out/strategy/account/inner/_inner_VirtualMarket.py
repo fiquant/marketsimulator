@@ -3,7 +3,7 @@ from marketsim import IAccount
 from marketsim import ISingleAssetStrategy
 from marketsim import IFunction
 @registry.expose(["Strategy", "inner_VirtualMarket"])
-class inner_VirtualMarket(IFunction[IAccount, ISingleAssetStrategy]):
+class inner_VirtualMarket_(IFunction[IAccount, ISingleAssetStrategy]):
     """   how it would be traded by sending request.evalMarketOrder
       (note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market
       but we want evaluate in any case would it be profitable or not)
@@ -30,3 +30,4 @@ class inner_VirtualMarket(IFunction[IAccount, ISingleAssetStrategy]):
         
         return VirtualMarket(inner)
     
+inner_VirtualMarket = inner_VirtualMarket_

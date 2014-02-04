@@ -5,7 +5,7 @@ from marketsim import IOrderBook
 from marketsim import float
 from marketsim import context
 @registry.expose(["Asset", "WeightedPrice"])
-class WeightedPrice(Function[float]):
+class WeightedPrice_Optional__IOrderBook___Optional__Float_(Function[float]):
     """ 
     """ 
     def __init__(self, book = None, alpha = None):
@@ -44,3 +44,4 @@ class WeightedPrice(Function[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+WeightedPrice = WeightedPrice_Optional__IOrderBook___Optional__Float_

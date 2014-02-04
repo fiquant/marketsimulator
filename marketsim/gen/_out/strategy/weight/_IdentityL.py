@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.strategy.weight import _Identity_Impl
 from marketsim import float
 from marketsim import listOf
 @registry.expose(["Strategy", "IdentityL"])
-class IdentityL(_Identity_Impl):
+class IdentityL_Optional_List__Float__(_Identity_Impl):
     """ 
     """ 
     def __init__(self, array = None):
@@ -22,3 +22,4 @@ class IdentityL(_Identity_Impl):
     def __repr__(self):
         return "IdentityL(%(array)s)" % self.__dict__
     
+IdentityL = IdentityL_Optional_List__Float__

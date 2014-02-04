@@ -5,7 +5,7 @@ from marketsim import IAccount
 from marketsim import float
 from marketsim import context
 @registry.expose(["Trader", "EfficiencyTrend"])
-class EfficiencyTrend(Function[float]):
+class EfficiencyTrend_Optional__IAccount___Optional__Float_(Function[float]):
     """ 
     """ 
     def __init__(self, trader = None, alpha = None):
@@ -45,3 +45,4 @@ class EfficiencyTrend(Function[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+EfficiencyTrend = EfficiencyTrend_Optional__IAccount___Optional__Float_

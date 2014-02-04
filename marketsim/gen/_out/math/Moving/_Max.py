@@ -4,7 +4,7 @@ from marketsim import IFunction
 from marketsim import float
 from marketsim import float
 @registry.expose(["Statistics", "Max"])
-class Max(Max_Impl):
+class Max_Optional__IFunction__Float____Optional__Float_(Max_Impl):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
@@ -34,3 +34,4 @@ class Max(Max_Impl):
     def __repr__(self):
         return "Max_{n=%(timeframe)s}(%(source)s)" % self.__dict__
     
+Max = Max_Optional__IFunction__Float____Optional__Float_

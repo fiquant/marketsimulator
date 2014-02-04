@@ -4,7 +4,7 @@ from marketsim import str
 from marketsim import str
 from marketsim import str
 @registry.expose(["Basic", "Quote"])
-class Quote(Quote_Impl):
+class Quote_Optional__String___Optional__String___Optional__String_(Quote_Impl):
     """   and follows the price in scale 1 model unit of time = 1 real day
     """ 
     def __init__(self, ticker = None, start = None, end = None):
@@ -39,3 +39,4 @@ class Quote(Quote_Impl):
     def __repr__(self):
         return "%(ticker)s" % self.__dict__
     
+Quote = Quote_Optional__String___Optional__String___Optional__String_

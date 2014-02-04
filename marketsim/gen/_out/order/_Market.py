@@ -52,3 +52,4 @@ class Market(IOrderGenerator, Observable[Order]):
         volume = int(volume)
         return Order_Impl(side, volume)
     
+Market = Market

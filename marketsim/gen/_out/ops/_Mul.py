@@ -5,7 +5,7 @@ from marketsim import float
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Ops", "Mul"])
-class Mul(_Mul_Impl):
+class Mul_Optional__IFunction__Float____Optional__IFunction__Float__(_Mul_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -36,3 +36,4 @@ class Mul(_Mul_Impl):
     def __repr__(self):
         return "({%(x)s}*{%(y)s})" % self.__dict__
     
+Mul = Mul_Optional__IFunction__Float____Optional__IFunction__Float__

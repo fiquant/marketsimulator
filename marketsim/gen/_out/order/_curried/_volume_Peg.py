@@ -30,10 +30,11 @@ class volume_Peg(IFunction[IOrderGenerator,IFunction[float]]):
         'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[float]]
     }
     def __repr__(self):
-        return "volume_Peg(%(proto)s)" % self.__dict__
+        return "Peg(%(proto)s)" % self.__dict__
     
     def __call__(self, volume = None):
         from marketsim.gen._out.order._Peg import Peg
         proto = self.proto
         return Peg(proto(volume))
     
+volume_Peg = volume_Peg

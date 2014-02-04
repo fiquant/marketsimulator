@@ -12,7 +12,8 @@ object intrinsic_function extends gen.PythonGenerator
 
     abstract class Common(val args : List[String], val f : Typed.Function) extends base.Printer
     {
-        val name = f.name
+        val name = base.decoratedName(f)
+        val alias = f.name
         if (args.length != 1)
             throw new Exception(s"Annotation $name should have 1 arguments in" +
                     " form (implementation_class)" + "\r\n" + "In function " + f)
@@ -25,8 +26,6 @@ object intrinsic_function extends gen.PythonGenerator
             case Some(d) => d.detailed
             case None => Nil
         }
-
-        val alias = name
 
         override def repr = if (label_tmpl.toString != "N/A") super.repr else ""
 

@@ -7,7 +7,7 @@ from marketsim import float
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Side function", "FundamentalValue"])
-class FundamentalValue(Observable[Side]):
+class FundamentalValue_Optional__IFunction__Float____Optional__IOrderBook_(Observable[Side]):
     """ 
     """ 
     def __init__(self, fv = None, book = None):
@@ -61,3 +61,4 @@ class FundamentalValue(Observable[Side]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+FundamentalValue = FundamentalValue_Optional__IFunction__Float____Optional__IOrderBook_

@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.strategy.generic import _Generic_Impl
 from marketsim import IOrderGenerator
 from marketsim import IEvent
 @registry.expose(["Strategy", "Generic"])
-class Generic(_Generic_Impl):
+class Generic_Optional__IOrderGenerator___Optional__IEvent_(_Generic_Impl):
     """   creates an order via *orderFactory* and sends the order to the market using its trader
     """ 
     def __init__(self, orderFactory = None, eventGen = None):
@@ -26,3 +26,4 @@ class Generic(_Generic_Impl):
     def __repr__(self):
         return "Generic(%(orderFactory)s, %(eventGen)s)" % self.__dict__
     
+Generic = Generic_Optional__IOrderGenerator___Optional__IEvent_

@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.strategy.combine import _Combine_Impl
 from marketsim import ISingleAssetStrategy
 from marketsim import ISingleAssetStrategy
 @registry.expose(["Strategy", "Combine"])
-class Combine(_Combine_Impl):
+class Combine_Optional__ISingleAssetStrategy___Optional__ISingleAssetStrategy_(_Combine_Impl):
     """   Can be considered as a particular case of Array strategy
     """ 
     def __init__(self, A = None, B = None):
@@ -26,3 +26,4 @@ class Combine(_Combine_Impl):
     def __repr__(self):
         return "Combine(%(A)s, %(B)s)" % self.__dict__
     
+Combine = Combine_Optional__ISingleAssetStrategy___Optional__ISingleAssetStrategy_

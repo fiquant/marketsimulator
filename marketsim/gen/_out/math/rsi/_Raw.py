@@ -7,7 +7,7 @@ from marketsim import float
 from marketsim import float
 from marketsim import context
 @registry.expose(["RSI", "Raw"])
-class Raw(Function[float]):
+class Raw_Optional__IObservable__Float____Optional__Float___Optional__Float_(Function[float]):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None, alpha = None):
@@ -51,3 +51,4 @@ class Raw(Function[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+Raw = Raw_Optional__IObservable__Float____Optional__Float___Optional__Float_

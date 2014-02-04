@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.event import _After_Impl
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Event", "After"])
-class After(_After_Impl):
+class After_Optional__IFunction__Float__(_After_Impl):
     """ 
     """ 
     def __init__(self, delay = None):
@@ -23,3 +23,4 @@ class After(_After_Impl):
     def __repr__(self):
         return "After(%(delay)s)" % self.__dict__
     
+After = After_Optional__IFunction__Float__

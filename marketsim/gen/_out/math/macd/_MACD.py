@@ -7,7 +7,7 @@ from marketsim import float
 from marketsim import float
 from marketsim import context
 @registry.expose(["MACD", "MACD"])
-class MACD(Function[float]):
+class MACD_Optional__IObservable__Float____Optional__Float___Optional__Float_(Function[float]):
     """ 
     """ 
     def __init__(self, x = None, slow = None, fast = None):
@@ -49,3 +49,4 @@ class MACD(Function[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+MACD = MACD_Optional__IObservable__Float____Optional__Float___Optional__Float_

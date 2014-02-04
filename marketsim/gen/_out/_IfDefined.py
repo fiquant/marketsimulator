@@ -8,7 +8,7 @@ from marketsim import IFunction
 from marketsim import float
 from marketsim import context
 @registry.expose(["Basic", "IfDefined"])
-class IfDefined(Observable[float]):
+class IfDefined_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[float]):
     """ 
     """ 
     def __init__(self, x = None, elsePart = None):
@@ -56,3 +56,4 @@ class IfDefined(Observable[float]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+IfDefined = IfDefined_Optional__IFunction__Float____Optional__IFunction__Float__

@@ -5,7 +5,7 @@ from marketsim import float
 from marketsim import listOf
 from marketsim import IFunction
 @registry.expose(["Strategy", "array_IdentityL"])
-class array_IdentityL(IFunction[listOf(float), listOf(float)]):
+class array_IdentityL_(IFunction[listOf(float), listOf(float)]):
     """ 
     """ 
     def __init__(self):
@@ -29,3 +29,4 @@ class array_IdentityL(IFunction[listOf(float), listOf(float)]):
         
         return IdentityL(array)
     
+array_IdentityL = array_IdentityL_

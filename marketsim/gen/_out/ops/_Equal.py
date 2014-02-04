@@ -5,7 +5,7 @@ from marketsim import float
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Ops", "Equal"])
-class Equal(_Equal_Impl):
+class Equal_Optional__IFunction__Float____Optional__IFunction__Float__(_Equal_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -36,3 +36,4 @@ class Equal(_Equal_Impl):
     def __repr__(self):
         return "({%(x)s}=={%(y)s})" % self.__dict__
     
+Equal = Equal_Optional__IFunction__Float____Optional__IFunction__Float__

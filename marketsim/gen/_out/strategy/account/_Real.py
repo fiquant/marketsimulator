@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.strategy.account import _Account_Impl
 from marketsim import ISingleAssetStrategy
 @registry.expose(["Strategy", "Real"])
-class Real(_Account_Impl):
+class Real_Optional__ISingleAssetStrategy_(_Account_Impl):
     """   how orders sent by the strategy have been actually traded
     """ 
     def __init__(self, inner = None):
@@ -22,3 +22,4 @@ class Real(_Account_Impl):
     def __repr__(self):
         return "Real(%(inner)s)" % self.__dict__
     
+Real = Real_Optional__ISingleAssetStrategy_

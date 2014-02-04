@@ -21,7 +21,7 @@ class vonmisesvariate(Function[float]):
         'Kappa' : float
     }
     def __repr__(self):
-        return "vonmisesvariate(%(Mu)s, %(Kappa)s)" % self.__dict__
+        return "Von Mises distribution(%(Mu)s, %(Kappa)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
         import random
@@ -30,3 +30,4 @@ class vonmisesvariate(Function[float]):
     def _casts_to(self, dst):
         return vonmisesvariate._types[0]._casts_to(dst)
     
+vonmisesvariate = vonmisesvariate

@@ -5,7 +5,7 @@ from marketsim import float
 from marketsim import IOrderBook
 from marketsim import context
 @registry.expose(["Side function", "MeanReversion"])
-class MeanReversion(Function[Side]):
+class MeanReversion_Optional__Float___Optional__IOrderBook_(Function[Side]):
     """ 
     """ 
     def __init__(self, alpha = None, book = None):
@@ -45,3 +45,4 @@ class MeanReversion(Function[Side]):
     def __call__(self, *args, **kwargs):
         return self.impl()
     
+MeanReversion = MeanReversion_Optional__Float___Optional__IOrderBook_

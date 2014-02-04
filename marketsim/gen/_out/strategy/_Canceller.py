@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.strategy.canceller import _Canceller_Impl
 from marketsim import float
 from marketsim import IFunction
 @registry.expose(["Strategy", "Canceller"])
-class Canceller(_Canceller_Impl):
+class Canceller_Optional________Float_(_Canceller_Impl):
     """   and in some moments of time it randomly chooses an order and cancels it
       Note: a similar effect can be obtained using order.WithExpiry meta orders
     """ 
@@ -24,3 +24,4 @@ class Canceller(_Canceller_Impl):
     def __repr__(self):
         return "Canceller(%(cancellationIntervalDistr)s)" % self.__dict__
     
+Canceller = Canceller_Optional________Float_

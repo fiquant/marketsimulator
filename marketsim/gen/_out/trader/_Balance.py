@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.trader.props import Balance_Impl
 from marketsim import IAccount
 @registry.expose(["Trader", "Balance"])
-class Balance(Balance_Impl):
+class Balance_Optional__IAccount_(Balance_Impl):
     """ 
     """ 
     def __init__(self, trader = None):
@@ -26,3 +26,4 @@ class Balance(Balance_Impl):
     def __repr__(self):
         return "Balance(%(trader)s)" % self.__dict__
     
+Balance = Balance_Optional__IAccount_

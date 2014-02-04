@@ -4,7 +4,7 @@ from marketsim import float
 from marketsim import float
 from marketsim import context
 @registry.expose(["Strategy", "MarketMaker"])
-class MarketMaker(ISingleAssetStrategy):
+class MarketMaker_Optional__Float___Optional__Float_(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, delta = None, volume = None):
@@ -85,3 +85,4 @@ class MarketMaker(ISingleAssetStrategy):
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+MarketMaker = MarketMaker_Optional__Float___Optional__Float_

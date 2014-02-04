@@ -56,3 +56,4 @@ class FixedBudget(IOrderGenerator, Observable[Order]):
         
         return Order_Impl(side, budget)
     
+FixedBudget = FixedBudget
