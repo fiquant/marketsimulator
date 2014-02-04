@@ -12,6 +12,7 @@ object observable extends gen.PythonGenerator
             with    base.DocString
             with    base.Alias
             with    base.DecoratedName
+            with    base.BaseClass_Observable
     {
         val parameters  = f.parameters map Parameter
 
@@ -24,12 +25,6 @@ object observable extends gen.PythonGenerator
             "ctx = getattr(self, '_ctx', None)" |
             "if ctx: context.bind(self.impl, ctx)") |||
                 ImportFrom("context", "marketsim")
-
-        val ty = f.ret_type.returnTypeIfFunction.get.asCode
-
-        override val base_class = s"Observable["||| ty |||"]" |||
-                                    ImportFrom(ty.toString, "marketsim") |||
-                                    ImportFrom("Observable", "marketsim.ops._all")
 
 
         override def init_body =

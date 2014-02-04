@@ -143,7 +143,18 @@ package object base {
                 s"Function[" ||| t.asCode ||| "]" ||| ImportFrom("Function", "marketsim.ops._function")
             }
 
-        override def base_class : Code = functionBase getOrElse "object"
+        override def base_class = functionBase getOrElse "object"
+    }
+
+    trait BaseClass_Observable extends Printer {
+
+        val ty = f.ret_type.returnTypeIfFunction.get
+
+        def observableBase =  s"Observable["||| ty.asCode |||"]" |||
+                                ImportFrom(ty.asCode.toString, "marketsim") |||
+                                ImportFrom("Observable", "marketsim.ops._all")
+
+        override def base_class = observableBase
     }
 
     abstract class Intrinsic extends Printer
