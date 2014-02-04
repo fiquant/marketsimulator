@@ -41,7 +41,8 @@ class Min(Observable[float]):
     _internals = ['impl']
     def getImpl(self):
         from marketsim.gen._out.ops._Condition_Float import Condition_Float as _ops_Condition_Float
-        return _ops_Condition_Float(self.x<self.y,self.x,self.y)
+        from marketsim.gen._out.ops._Less import Less as _ops_Less
+        return _ops_Condition_Float(_ops_Less(self.x,self.y),self.x,self.y)
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

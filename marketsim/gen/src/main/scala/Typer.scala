@@ -276,7 +276,7 @@ package object Typer
     case class TypeChecker(ctx : TypingExprCtx)
     {
         def promote_literal(e : Typed.Expr) =
-            if (e.ty == Typed.topLevel.float_) {
+            if (e.ty canCastTo Typed.topLevel.float_) {
                 val f = ctx.lookupFunction(AST.QualifiedName("const" :: Nil))
                 Typed.FunctionCall(f, e :: Nil)
             } else e
@@ -302,7 +302,18 @@ package object Typer
                 case x => x
             } else e match {
                 case Typed.Condition(symbol, x, y) =>
-                    Typed.Condition(symbol, promote_literal(x), promote_literal(y))
+                    val px = promote_literal(x)
+                    val py = promote_literal(y)
+                    val name = symbol match {
+                        case AST.Equal          => "Equal"
+                        case AST.NotEqual       => "NotEqual"
+                        case AST.Less           => "Less"
+                        case AST.Greater        => "Greater"
+                        case AST.LessEqual      => "LessEqual"
+                        case AST.GreaterEqual   => "GreaterEqual"
+                    }
+                    val f = ctx lookupFunction AST.QualifiedName("ops" :: name :: Nil)
+                    Typed.FunctionCall(f, px :: py :: Nil)
                 case x => x
             }
 

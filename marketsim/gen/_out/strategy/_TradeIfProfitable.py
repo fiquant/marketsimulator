@@ -43,7 +43,9 @@ class TradeIfProfitable(ISingleAssetStrategy):
     _internals = ['impl']
     def getImpl(self):
         from marketsim.gen._out.strategy._Suspendable import Suspendable as _strategy_Suspendable
-        return _strategy_Suspendable(self.inner,self.performance(self.account(self.inner))>=0)
+        from marketsim.gen._out.ops._GreaterEqual import GreaterEqual as _ops_GreaterEqual
+        from marketsim.gen._out._const import const as _const
+        return _strategy_Suspendable(self.inner,_ops_GreaterEqual(self.performance(self.account(self.inner)),_const(0)))
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

@@ -39,12 +39,14 @@ class FundamentalValue(Observable[Side]):
     
     _internals = ['impl']
     def getImpl(self):
+        from marketsim.gen._out.ops._Greater import Greater as _ops_Greater
         from marketsim.gen._out.orderbook.bid._Price import Price as _orderbook_bid_Price
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim.gen._out.ops._Less import Less as _ops_Less
         from marketsim.gen._out.orderbook.ask._Price import Price as _orderbook_ask_Price
         from marketsim.gen._out.side._Buy import Buy as _side_Buy
         from marketsim.gen._out.side._Nothing import Nothing as _side_Nothing
-        return (_orderbook_bid_Price(self.book)>self.fv)[_side_Sell(), (_orderbook_ask_Price(self.book)<self.fv)[_side_Buy(), _side_Nothing()]]
+        return (_ops_Greater(_orderbook_bid_Price(self.book),self.fv))[_side_Sell(), (_ops_Less(_orderbook_ask_Price(self.book),self.fv))[_side_Buy(), _side_Nothing()]]
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

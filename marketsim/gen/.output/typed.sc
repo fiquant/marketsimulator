@@ -442,7 +442,7 @@ package math {
     @python.observable()
     def Min(x : Optional[.IFunction[.Float]] = .constant(),
             y : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
-        	 = .ops.Condition_Float(x<y,x,y)
+        	 = .ops.Condition_Float(.ops.Less(x,y),x,y)
     
     /** Returns negative movements of some observable *source* with lag *timeframe*
      */
@@ -476,7 +476,7 @@ package math {
     @python.observable()
     def Max(x : Optional[.IFunction[.Float]] = .constant(),
             y : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
-        	 = .ops.Condition_Float(x>y,x,y)
+        	 = .ops.Condition_Float(.ops.Greater(x,y),x,y)
     
     /** Returns positive movements of some observable *source* with lag *timeframe*
      */
@@ -1557,7 +1557,7 @@ package strategy {@category = "Side function"
         @python.observable()
         def Signal(/** signal to be listened to */ signal : Optional[.IFunction[.Float]] = .constant(0.0),
                    /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : () => .Side
-            	 = if signal>.const(threshold) then .side.Buy() else if signal<.const(0-threshold) then .side.Sell() else .side.Nothing()
+            	 = if .ops.Greater(signal,.const(threshold)) then .side.Buy() else if .ops.Less(signal,.const(0-threshold)) then .side.Sell() else .side.Nothing()
         
         /** Side function for crossing averages strategy
          */
@@ -1582,7 +1582,7 @@ package strategy {@category = "Side function"
         @python.observable()
         def FundamentalValue(/** observable fundamental value */ fv : Optional[.IFunction[.Float]] = .constant(200.0),
                              /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
-            	 = if .orderbook.bid.Price(book)>fv then .side.Sell() else if .orderbook.ask.Price(book)<fv then .side.Buy() else .side.Nothing()
+            	 = if .ops.Greater(.orderbook.bid.Price(book),fv) then .side.Sell() else if .ops.Less(.orderbook.ask.Price(book),fv) then .side.Buy() else .side.Nothing()
         
         /** Side function for mean reversion strategy
          */
@@ -1595,7 +1595,7 @@ package strategy {@category = "Side function"
          */
         
         def Noise(side_distribution : Optional[() => .Float] = .math.random.uniform(0.0,1.0)) : () => .Side
-            	 = if side_distribution>.const(0.5) then .side.Sell() else .side.Buy()
+            	 = if .ops.Greater(side_distribution,.const(0.5)) then .side.Sell() else .side.Buy()
     }
     
     
@@ -1971,7 +1971,7 @@ package strategy {@category = "Side function"
                           /** defines how strategy trades are booked: actually traded amount or virtual market orders are
                             * used in order to estimate how the strategy would have traded if all her orders appear at market */ account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account.inner.inner_VirtualMarket(),
                           /** given a trading account tells should it be considered as effective or not */ performance : Optional[.IAccount => .IFunction[.Float]] = .strategy.weight.trader.trader_EfficiencyTrend()) : .ISingleAssetStrategy
-        	 = .strategy.Suspendable(inner,performance(account(inner))>=0)
+        	 = .strategy.Suspendable(inner,.ops.GreaterEqual(performance(account(inner)),.const(0)))
     
     /** Creates a strategy combining an array of strategies
      */
@@ -2369,7 +2369,7 @@ package orderbook {@queue = "Ask_{%(book)s}"
     
     def NaiveCumulativePrice(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
                              depth : Optional[.IFunction[.Float]] = .constant()) : .IObservable[.Price]
-        	 = .observable.Price(.ops.Condition_Float(depth<.const(0.0),.ops.Mul(depth,.orderbook.ask.Price(book)),.ops.Condition_Float(depth>.const(0.0),.ops.Mul(depth,.orderbook.bid.Price(book)),.const(0.0))))
+        	 = .observable.Price(.ops.Condition_Float(.ops.Less(depth,.const(0.0)),.ops.Mul(depth,.orderbook.ask.Price(book)),.ops.Condition_Float(.ops.Greater(depth,.const(0.0)),.ops.Mul(depth,.orderbook.bid.Price(book)),.const(0.0))))
     
     /** Represents latency in information propagation from one agent to another one
      * (normally between a trader and a market).
@@ -2478,7 +2478,7 @@ package trash {
             
             
             def A(x : Optional[.IFunction[.Float]] = .constant(),
-                  y : Optional[.IFunction[.Float]] = .ops.Condition_Float(3>.ops.Add(x,2),x,.ops.Mul(x,2))) : () => .trash.types.T
+                  y : Optional[.IFunction[.Float]] = .ops.Condition_Float(.ops.Greater(.const(3),.ops.Add(x,.const(2))),x,.ops.Mul(x,.const(2)))) : () => .trash.types.T
             
             
             def IntObs() : .IObservable[.Int]
@@ -2611,7 +2611,7 @@ def true() : .IObservable[.Boolean]
 @python.observable()
 def IfDefined(x : Optional[.IFunction[.Float]] = .constant(),
               /** function to take values from when *x* is undefined */ elsePart : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
-    	 = .ops.Condition_Float(x<>.null(),x,elsePart)
+    	 = .ops.Condition_Float(.ops.NotEqual(x,.null()),x,elsePart)
 
 /** Time serie holding volume levels of an asset
  * Level of volume V is a price at which cumulative volume of better orders is V
