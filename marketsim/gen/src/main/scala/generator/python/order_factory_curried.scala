@@ -28,10 +28,12 @@ object order_factory_curried
     }
 
 
-    class PartialFactory(args   : List[String],
-                         x      : Typed.Function)
-            extends FactoryBase(lookupOriginal(args, x))
+    class PartialFactory(val args   : List[String],
+                         x          : Typed.Function)
+            extends FactoryBase
     {
+        val f = lookupOriginal(args, x)
+
         val original = gen.generationUnit(f).get match {
             case x : FactoryBase => x
             case _ => throw new Exception("original factory is not of appropriate type")

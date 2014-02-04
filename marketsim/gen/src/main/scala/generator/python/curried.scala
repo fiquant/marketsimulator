@@ -13,7 +13,7 @@ object curried
         import order_factory_curried.{FactoryParameter, lookupOriginal}
         import order_factory.curriedTypesAsList
 
-        class Curried(args   : List[String],
+        class Curried(val args   : List[String],
                       val f  : Typed.Function)
                 extends base.Printer
                 with    base.DocString

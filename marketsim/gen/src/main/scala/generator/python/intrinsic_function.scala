@@ -15,15 +15,8 @@ object intrinsic_function extends gen.PythonGenerator
             with    base.DocString
             with    base.Alias
             with    base.DecoratedName
+            with    base.IntrinsicEx
     {
-        if (args.length != 1)
-            throw new Exception(s"Annotation $name should have 1 arguments in" +
-                    " form (implementation_class)" + "\r\n" + "In function " + f)
-
-        val last_dot_idx = args(0).lastIndexOf(".")
-        val implementation_module =args(0).substring(0, last_dot_idx)
-        val implementation_class  =args(0).substring(last_dot_idx + 1)
-
         override def repr = if (label_tmpl.toString != "N/A") super.repr else ""
 
         override def call_body = ""  // TODO: remove from the base class

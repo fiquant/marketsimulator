@@ -63,6 +63,7 @@ package object base {
 
     abstract class Printer extends Class {
         type Parameter <: base.Parameter
+        def args        : List[String]
         def f           : Typed.Function
         def name        : String
         def docstring   : List[String]
@@ -115,7 +116,7 @@ package object base {
     }
 
     trait DocString extends Printer {
-        val docstring  = f.docstring match {
+        def docstring  = f.docstring match {
             case Some(d) => d.detailed
             case None => Nil
         }
@@ -146,7 +147,7 @@ package object base {
 
     trait BaseClass_Observable extends Printer {
 
-        val ty = f.ret_type.returnTypeIfFunction.get
+        def ty = f.ret_type.returnTypeIfFunction.get
 
         def observableBase =  s"Observable["||| ty.asCode |||"]" |||
                                 ImportFrom(ty.asCode.toString, "marketsim") |||
@@ -155,12 +156,23 @@ package object base {
         override def base_class = observableBase
     }
 
-    abstract class Intrinsic extends Printer
+    trait Intrinsic extends Printer
     {
         def impl_module : String
         def impl_function = name
 
         override def call_body : Code = s"""return $impl_module.$impl_function($call_fields)""" ||| Import(impl_module)
+    }
+
+    trait IntrinsicEx extends Printer
+    {
+        if (args.length != 1)
+            throw new Exception(s"Annotation $name should have 1 arguments in" +
+                    " form (implementation_class)" + "\r\n" + "In function " + f)
+
+        val last_dot_idx = args(0).lastIndexOf(".")
+        val implementation_module =args(0).substring(0, last_dot_idx)
+        val implementation_class  =args(0).substring(last_dot_idx + 1)
     }
 
     object python extends gen.PythonGenerator

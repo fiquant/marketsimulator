@@ -38,7 +38,7 @@ object order_factory
         override def call = name
     }
 
-    abstract class FactoryBase(val f : Typed.Function)
+    abstract class FactoryBase
         extends base.Printer
         with    base.DocString
         with    base.Alias
@@ -59,8 +59,8 @@ object order_factory
     }
 
     class Factory(val args  : List[String],
-                  _f        : Typed.Function)
-            extends FactoryBase(_f)
+                  val f     : Typed.Function)
+            extends FactoryBase
     {
         if (args.length != 1)
             throw new Exception(s"Annotation $name should have 1 arguments in" +
@@ -69,6 +69,7 @@ object order_factory
         val last_dot_idx = args(0).lastIndexOf(".")
         val implementation_module =args(0).substring(0, last_dot_idx)
         val implementation_class  =args(0).substring(last_dot_idx + 1)
+        val impl_module = implementation_module
 
         val is_factory_intrinsic = implementation_class match {
             case "Order_Impl" => false
