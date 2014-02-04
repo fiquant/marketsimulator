@@ -27,11 +27,12 @@ class Noise(Function[Side]):
     
     _internals = ['impl']
     def getImpl(self):
+        from marketsim.gen._out.ops._Condition_Side import Condition_Side as _ops_Condition_Side
         from marketsim.gen._out.ops._Greater import Greater as _ops_Greater
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out.side._Buy import Buy as _side_Buy
-        return (_ops_Greater(self.side_distribution,_const(0.5)))[_side_Sell(), _side_Buy()]
+        return _ops_Condition_Side(_ops_Greater(self.side_distribution,_const(0.5)),_side_Sell(),_side_Buy())
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

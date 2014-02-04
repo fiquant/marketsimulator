@@ -300,7 +300,8 @@ package object Typer
                     Typed.FunctionCall(f, cond :: promote_literal(x) :: promote_literal(y) :: Nil)
 
                 case x => x
-            } else e match {
+            } else if (e.ty canCastTo Typed.topLevel.booleanFunc) e match {
+
                 case Typed.Condition(symbol, x, y) =>
                     val px = promote_literal(x)
                     val py = promote_literal(y)
@@ -315,7 +316,12 @@ package object Typer
                     val f = ctx lookupFunction AST.QualifiedName("ops" :: name :: Nil)
                     Typed.FunctionCall(f, px :: py :: Nil)
                 case x => x
-            }
+            } else if (e.ty canCastTo Typed.topLevel.sideFunc) e match {
+                case Typed.IfThenElse(cond, x, y) =>
+                    val f = ctx lookupFunction AST.QualifiedName("ops" :: "Condition_Side" :: Nil)
+                    Typed.FunctionCall(f, cond :: x :: y :: Nil)
+                case x => x
+            } else e
 
 
 

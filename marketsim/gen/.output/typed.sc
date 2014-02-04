@@ -1556,8 +1556,8 @@ package strategy {@category = "Side function"
         
         @python.observable()
         def Signal(/** signal to be listened to */ signal : Optional[.IFunction[.Float]] = .constant(0.0),
-                   /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : () => .Side
-            	 = if .ops.Greater(signal,.const(threshold)) then .side.Buy() else if .ops.Less(signal,.const(0-threshold)) then .side.Sell() else .side.Nothing()
+                   /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : .IFunction[.Side]
+            	 = .ops.Condition_Side(.ops.Greater(signal,.const(threshold)),.side.Buy(),.ops.Condition_Side(.ops.Less(signal,.const(0-threshold)),.side.Sell(),.side.Nothing()))
         
         /** Side function for crossing averages strategy
          */
@@ -1565,7 +1565,7 @@ package strategy {@category = "Side function"
         def CrossingAverages(/** parameter |alpha| for exponentially weighted moving average 1 */ alpha_1 : Optional[.Float] = 0.15,
                              /** parameter |alpha| for exponentially weighted moving average 2 */ alpha_2 : Optional[.Float] = 0.015,
                              /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0,
-                             /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
+                             /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IFunction[.Side]
             	 = .strategy.side.Signal(.ops.Sub(.math.EW.Avg(.orderbook.MidPrice(book),alpha_1),.math.EW.Avg(.orderbook.MidPrice(book),alpha_2)),threshold)
         
         /** Side function for trend follower strategy
@@ -1573,7 +1573,7 @@ package strategy {@category = "Side function"
         
         def TrendFollower(/** parameter |alpha| for exponentially weighted moving average */ alpha : Optional[.Float] = 0.15,
                           /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0,
-                          /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
+                          /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IFunction[.Side]
             	 = .strategy.side.Signal(.math.Derivative(.math.EW.Avg(.orderbook.MidPrice(book),alpha)),threshold)
         
         /** Side function for fundamental value strategy
@@ -1581,21 +1581,21 @@ package strategy {@category = "Side function"
         
         @python.observable()
         def FundamentalValue(/** observable fundamental value */ fv : Optional[.IFunction[.Float]] = .constant(200.0),
-                             /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
-            	 = if .ops.Greater(.orderbook.bid.Price(book),fv) then .side.Sell() else if .ops.Less(.orderbook.ask.Price(book),fv) then .side.Buy() else .side.Nothing()
+                             /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IFunction[.Side]
+            	 = .ops.Condition_Side(.ops.Greater(.orderbook.bid.Price(book),fv),.side.Sell(),.ops.Condition_Side(.ops.Less(.orderbook.ask.Price(book),fv),.side.Buy(),.side.Nothing()))
         
         /** Side function for mean reversion strategy
          */
         
         def MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha : Optional[.Float] = 0.015,
-                          /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
+                          /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IFunction[.Side]
             	 = .strategy.side.FundamentalValue(.math.EW.Avg(.orderbook.MidPrice(book),alpha),book)
         
         /** Side function for a noise trading strategy
          */
         
-        def Noise(side_distribution : Optional[() => .Float] = .math.random.uniform(0.0,1.0)) : () => .Side
-            	 = if .ops.Greater(side_distribution,.const(0.5)) then .side.Sell() else .side.Buy()
+        def Noise(side_distribution : Optional[() => .Float] = .math.random.uniform(0.0,1.0)) : .IFunction[.Side]
+            	 = .ops.Condition_Side(.ops.Greater(side_distribution,.const(0.5)),.side.Sell(),.side.Buy())
     }
     
     
