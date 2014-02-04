@@ -7,13 +7,11 @@ object observable extends gen.PythonGenerator
 
     case class Parameter(p : Typed.Parameter) extends base.Parameter
 
-    case class Import(args : List[String], f : Typed.Function) extends base.Printer
+    case class Import(args : List[String], f : Typed.Function)
+            extends base.Printer
+            with    base.DocString
     {
         val parameters  = f.parameters map Parameter
-        val docstring  = f.docstring match {
-            case Some(d) => d.detailed
-            case None => Nil
-        }
 
         type Parameter = observable.Parameter
         val name = base.decoratedName(f)

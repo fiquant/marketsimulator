@@ -40,15 +40,11 @@ object order_factory
 
     abstract class FactoryBase(val f : Typed.Function)
         extends base.Printer
+        with    base.DocString
     {
         def name = f.name
 
         def raw_params = f.parameters
-
-        val docstring  = f.docstring match {
-            case Some(d) => d.detailed
-            case None => Nil
-        }
 
         // only for curried factories
         def curried : List[Typed.Parameter] = Nil

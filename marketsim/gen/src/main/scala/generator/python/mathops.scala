@@ -21,7 +21,9 @@ object mathops extends gen.PythonGenerator
 
     }
 
-    case class Import(args : List[String], f : Typed.Function) extends base.Intrinsic
+    case class Import(args : List[String], f : Typed.Function)
+            extends base.Intrinsic
+            with    base.DocString
     {
         val name = base.decoratedName(f)
         val alias = f.name
@@ -33,7 +35,6 @@ object mathops extends gen.PythonGenerator
         override val impl_function = args(0)
 
         val parameters  = f.parameters map Parameter
-        val docstring  = f.docstring.get.detailed
 
         type Parameter = mathops.Parameter
         val impl_module = "math"

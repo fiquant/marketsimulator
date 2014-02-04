@@ -123,6 +123,15 @@ package object base {
         def body = doc | init | label | properties | repr
     }
 
+    trait DocString {
+        def f : Typed.Function
+
+        val docstring  = f.docstring match {
+            case Some(d) => d.detailed
+            case None => Nil
+        }
+    }
+
     abstract class Intrinsic extends Printer
     {
         def impl_module : String

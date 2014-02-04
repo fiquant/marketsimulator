@@ -16,6 +16,7 @@ object curried
         class Curried(args   : List[String],
                       val f  : Typed.Function)
                 extends base.Printer
+                with    base.DocString
         {
             val original = lookupOriginal(args, f)
 
@@ -23,11 +24,6 @@ object curried
             val parameters  = f.parameters map FactoryParameter
             val curried = original.parameters filter { p => !(f.parameters contains p) }
             val curried_parameters =  curried map FactoryParameter
-
-            val docstring  = original.docstring match {
-                case Some(d) => d.detailed
-                case None => Nil
-            }
 
             val name = base.decoratedName(f)
             val alias = f.name

@@ -10,7 +10,9 @@ object intrinsic_function extends gen.PythonGenerator
 
     class Parameter(val p : Typed.Parameter) extends base.Parameter
 
-    abstract class Common(val args : List[String], val f : Typed.Function) extends base.Printer
+    abstract class Common(val args : List[String], val f : Typed.Function)
+            extends base.Printer
+            with    base.DocString
     {
         val name = base.decoratedName(f)
         val alias = f.name
@@ -21,11 +23,6 @@ object intrinsic_function extends gen.PythonGenerator
         val last_dot_idx = args(0).lastIndexOf(".")
         val implementation_module =args(0).substring(0, last_dot_idx)
         val implementation_class  =args(0).substring(last_dot_idx + 1)
-
-        val docstring  = f.docstring match {
-            case Some(d) => d.detailed
-            case None => Nil
-        }
 
         override def repr = if (label_tmpl.toString != "N/A") super.repr else ""
 
