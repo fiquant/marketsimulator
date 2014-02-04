@@ -18,6 +18,7 @@ object curried
                 extends base.Printer
                 with    base.DocString
                 with    base.Alias
+                with    base.DecoratedName
         {
             val original = lookupOriginal(args, f)
 
@@ -25,8 +26,6 @@ object curried
             val parameters  = f.parameters map FactoryParameter
             val curried = original.parameters filter { p => !(f.parameters contains p) }
             val curried_parameters =  curried map FactoryParameter
-
-            val name = base.decoratedName(f)
 
             def interface =  s"IFunction["||| original.ret_type.asCode |||
                     ", "||| curriedTypesAsList(curried) |||"]" ||| ImportFrom("IFunction", "marketsim")

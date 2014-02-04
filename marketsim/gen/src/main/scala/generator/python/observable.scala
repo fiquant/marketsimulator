@@ -11,11 +11,11 @@ object observable extends gen.PythonGenerator
             extends base.Printer
             with    base.DocString
             with    base.Alias
+            with    base.DecoratedName
     {
         val parameters  = f.parameters map Parameter
 
         type Parameter = observable.Parameter
-        val name = base.decoratedName(f)
 
         def bind = Def("bind", "ctx", "self._ctx = ctx.clone()")
 

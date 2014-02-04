@@ -14,8 +14,8 @@ object intrinsic_function extends gen.PythonGenerator
             extends base.Printer
             with    base.DocString
             with    base.Alias
+            with    base.DecoratedName
     {
-        val name = base.decoratedName(f)
         if (args.length != 1)
             throw new Exception(s"Annotation $name should have 1 arguments in" +
                     " form (implementation_class)" + "\r\n" + "In function " + f)

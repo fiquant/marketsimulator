@@ -22,13 +22,6 @@ package object base {
         def code = withImports(registration | s"class $name(" ||| base_classes ||| "):" |> body)
     }
 
-    def decoratedName(f : Typed.Function) =
-        f.name + "_" +
-                (f.parameters map { p =>
-                    "[].()=> ,".toList.foldLeft(p.ty.toString){case (z, s) => z.replace(s.toString, "_")}
-                } mkString "__")
-
-
     def withImports(code: => predef.Code) : Code =
         new WithoutImports((code.imports map { _.repr + crlf } mkString "") + code)
 
@@ -136,6 +129,17 @@ package object base {
         def f : Typed.Function
 
         def alias = f.name
+    }
+
+    trait DecoratedName {
+        def f : Typed.Function
+
+        def name =
+            f.name + "_" +
+                    (f.parameters map { p =>
+                        "[].()=> ,".toList.foldLeft(p.ty.toString){case (z, s) => z.replace(s.toString, "_")}
+                    } mkString "__")
+
     }
 
     abstract class Intrinsic extends Printer

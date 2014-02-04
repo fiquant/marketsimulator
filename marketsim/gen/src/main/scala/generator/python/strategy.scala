@@ -11,11 +11,11 @@ object strategy extends gen.PythonGenerator
             extends base.Printer
             with    base.DocString
             with    base.Alias
+            with    base.DecoratedName
     {
         val parameters  = f.parameters map Parameter
 
         type Parameter = strategy.Parameter
-        val name = base.decoratedName(f)
 
         override def init_body = super.init_body |
                 "self.impl = self.getImpl()"|
