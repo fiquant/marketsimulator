@@ -13,12 +13,11 @@ object observable extends gen.PythonGenerator
             with    base.Alias
             with    base.DecoratedName
             with    base.BaseClass_Observable
+            with    base.Bind
     {
         val parameters  = f.parameters map Parameter
 
         type Parameter = observable.Parameter
-
-        def bind = Def("bind", "ctx", "self._ctx = ctx.clone()")
 
         def reset = Def("reset", "",
             "self.impl = self.getImpl()" |

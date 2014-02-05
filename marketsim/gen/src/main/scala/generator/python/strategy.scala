@@ -12,6 +12,7 @@ object strategy extends gen.PythonGenerator
             with    base.DocString
             with    base.Alias
             with    base.DecoratedName
+            with    base.Bind
     {
         val parameters  = f.parameters map Parameter
 
@@ -25,8 +26,6 @@ object strategy extends gen.PythonGenerator
                 ImportFrom("_", "marketsim")
 
         override def base_class = "ISingleAssetStrategy" ||| ImportFrom("ISingleAssetStrategy", "marketsim")
-
-        def bind = Def("bind", "ctx", "self._ctx = ctx.clone()")
 
         def reset = Def("reset", "",
             "self.impl = self.getImpl()" |

@@ -175,6 +175,11 @@ package object base {
         val implementation_class  =args(0).substring(last_dot_idx + 1)
     }
 
+    trait Bind
+    {
+        def bind = Def("bind", "ctx", "self._ctx = ctx.clone()")
+    }
+
     object python extends gen.PythonGenerator
     {
         val name = "python"
