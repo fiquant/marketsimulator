@@ -24,6 +24,8 @@ object intrinsic_function extends gen.PythonGenerator
 
     trait BaseClass_Intrinsic extends Common
     {
+        override def init_body = super.init_body | s"$implementation_class.__init__(self)"
+
         def implementationBase =
             implementation_class |||
                   ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
@@ -41,8 +43,6 @@ object intrinsic_function extends gen.PythonGenerator
 
         override def base_class = (functionBase match { case None => toLazy("") case Some(x) => x  ||| ", " }) |||
                                   implementationBase
-
-        override def init_body = super.init_body | s"$implementation_class.__init__(self)"
     }
 
 

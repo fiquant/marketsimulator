@@ -36,7 +36,6 @@ object intrinsic_observable extends gen.PythonGenerator
         override def base_class = implementationBase
 
         override def init_body =    super.init_body |
-                                    s"$implementation_class.__init__(self)" |
                                     subscriptions
     }
 

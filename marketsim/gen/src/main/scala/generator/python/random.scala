@@ -24,7 +24,6 @@ object random extends gen.PythonGenerator
 
         def casts_to = Def("_casts_to", "dst", s"return $name._types[0]._casts_to(dst)")
 
-
         val impl_module = "random"
 
         override def body = super.body | call | casts_to

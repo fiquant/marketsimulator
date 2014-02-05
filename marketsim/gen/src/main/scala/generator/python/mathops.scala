@@ -26,6 +26,7 @@ object mathops extends gen.PythonGenerator
             with    base.DocString
             with    base.Alias
             with    base.DecoratedName
+            with    base.BaseClass_Observable
     {
         if (args.length != 1)
             throw new Exception(s"Annotation $name should have 1 arguments in" +
@@ -37,10 +38,6 @@ object mathops extends gen.PythonGenerator
 
         type Parameter = mathops.Parameter
         val impl_module = "math"
-
-        override val base_class = "Observable[float]" ||| ImportFrom("Observable", "marketsim.ops._all")
-
-        override def init_body = base_class ||| ".__init__(self)" | super.init_body
 
         def nullable_fields = join_fields({ _.nullable}, crlf)
 

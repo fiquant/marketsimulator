@@ -1,4 +1,6 @@
 from marketsim import registry
+from marketsim import float
+from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IFunction
 from marketsim import float
@@ -7,6 +9,8 @@ class Sqrt_Optional__IFunction__Float__(Observable[float]):
     """ 
     """ 
     def __init__(self, x = None):
+        from marketsim import float
+        from marketsim import float
         from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import event

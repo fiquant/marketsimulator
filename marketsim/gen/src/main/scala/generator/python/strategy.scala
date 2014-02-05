@@ -29,8 +29,6 @@ object strategy extends gen.PythonGenerator
 
         def send = Def("_send", "order, source", "self.on_order_created.fire(order, self)")
 
-        override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
-
         override def body = super.body | send
     }
 

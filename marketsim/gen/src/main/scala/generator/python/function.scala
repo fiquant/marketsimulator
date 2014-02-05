@@ -19,8 +19,6 @@ object function extends gen.PythonGenerator
         val parameters  = f.parameters map Parameter
 
         type Parameter = function.Parameter
-
-        override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
     }
 
     def generatePython(/** arguments of the annotation */ args  : List[String])

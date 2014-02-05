@@ -1,4 +1,6 @@
 from marketsim import registry
+from marketsim import float
+from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IFunction
 from marketsim import float
@@ -14,6 +16,8 @@ class Pow_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[
      ``pow(x, y)`` is undefined, and raises ``ValueError``.
     """ 
     def __init__(self, base = None, power = None):
+        from marketsim import float
+        from marketsim import float
         from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
