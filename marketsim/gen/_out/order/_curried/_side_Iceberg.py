@@ -16,9 +16,14 @@ class side_Iceberg(IFunction[IOrderGenerator,IFunction[Side]]):
       thus maximum lot size volume is visible at the market at any moment.
     """ 
     def __init__(self, lotSize = None, proto = None):
+        from marketsim import IOrderGenerator
+        from marketsim import Side
+        from marketsim import IFunction
+        from marketsim import IFunction
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._curried._side_Limit import side_Limit as _order__curried_side_Limit
         from marketsim import rtti
+        IFunction[IOrderGenerator,IFunction[Side]].__init__(self)
         self.lotSize = lotSize if lotSize is not None else _constant(10.0)
         self.proto = proto if proto is not None else _order__curried_side_Limit()
         rtti.check_fields(self)

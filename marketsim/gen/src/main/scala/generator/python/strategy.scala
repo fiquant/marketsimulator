@@ -20,7 +20,6 @@ object strategy extends gen.PythonGenerator
         type Parameter = strategy.Parameter
 
         override def init_body = super.init_body |
-                "self.impl = self.getImpl()"|
                 "self.on_order_created = event.Event()" |
                 "event.subscribe(self.impl.on_order_created, _(self)._send, self)" |||
                 ImportFrom("event", "marketsim") |||

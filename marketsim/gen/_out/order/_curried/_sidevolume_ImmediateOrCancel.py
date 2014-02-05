@@ -22,8 +22,16 @@ class sidevolume_ImmediateOrCancel(IFunction[IOrderGenerator,IFunction[Side]
       either it is cancelled (and consequently never stored in the order queue).
     """ 
     def __init__(self, proto = None):
+        from marketsim import IOrderGenerator
+        from marketsim import Side
+        from marketsim import IFunction
+        from marketsim import float
+        from marketsim import IFunction
+        from marketsim import IFunction
         from marketsim.gen._out.order._curried._sidevolume_Limit import sidevolume_Limit as _order__curried_sidevolume_Limit
         from marketsim import rtti
+        IFunction[IOrderGenerator,IFunction[Side]
+        ,IFunction[float]].__init__(self)
         self.proto = proto if proto is not None else _order__curried_sidevolume_Limit()
         rtti.check_fields(self)
     

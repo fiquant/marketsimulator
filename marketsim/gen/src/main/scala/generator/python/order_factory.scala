@@ -91,11 +91,7 @@ object order_factory
 
         override def base_classes = interface ||| ", " ||| base_class
 
-        override def init_body = base_class ||| ".__init__(self)" | super.init_body
-
         def nullable_fields = join_fields({ _.nullable}, crlf)
-
-
 
         override def call = if (is_factory_intrinsic) "" else super.call
 

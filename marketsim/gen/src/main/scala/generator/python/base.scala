@@ -154,6 +154,10 @@ package object base {
                                 ImportFrom("Observable", "marketsim.ops._all")
 
         override def base_class = observableBase
+
+        override def init_body =
+            base_class ||| ".__init__(self)" |
+            super.init_body
     }
 
     trait Intrinsic extends Printer
@@ -191,6 +195,10 @@ package object base {
         override def body = super.body | internals | call | reset | getImpl
 
         override def call_body = "return self.impl()"
+
+        override def init_body =
+            super.init_body |
+            "self.impl = self.getImpl()"
 
         def reset = Def("reset", "",
             "self.impl = self.getImpl()" |

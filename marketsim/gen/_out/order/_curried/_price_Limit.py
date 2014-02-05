@@ -14,9 +14,13 @@ class price_Limit(IFunction[IOrderGenerator, IFunction[float]]):
       it remains in an order book waiting to be matched with another order.
     """ 
     def __init__(self, side = None, volume = None):
+        from marketsim import IOrderGenerator
+        from marketsim import IFunction
+        from marketsim import float
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import rtti
+        IFunction[IOrderGenerator, IFunction[float]].__init__(self)
         self.side = side if side is not None else _side_Sell()
         self.volume = volume if volume is not None else _constant(1.0)
         rtti.check_fields(self)

@@ -26,9 +26,20 @@ class sidevolume_price_FloatingPrice(IFunction[IFunction[IOrderGenerator,IFuncti
       a new order with new price is created and sent to the order book.
     """ 
     def __init__(self, floatingPrice = None, proto = None):
+        from marketsim import IOrderGenerator
+        from marketsim import float
+        from marketsim import IFunction
+        from marketsim import IFunction
+        from marketsim import Side
+        from marketsim import IFunction
+        from marketsim import float
+        from marketsim import IFunction
+        from marketsim import IFunction
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.order._curried._sidevolume_price_Limit import sidevolume_price_Limit as _order__curried_sidevolume_price_Limit
         from marketsim import rtti
+        IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
+        ,IFunction[float]].__init__(self)
         self.floatingPrice = floatingPrice if floatingPrice is not None else _const(10.0)
         self.proto = proto if proto is not None else _order__curried_sidevolume_price_Limit()
         rtti.check_fields(self)

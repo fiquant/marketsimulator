@@ -22,8 +22,16 @@ class volume_price_ImmediateOrCancel(IFunction[IFunction[IOrderGenerator,IFuncti
       either it is cancelled (and consequently never stored in the order queue).
     """ 
     def __init__(self, proto = None):
+        from marketsim import IOrderGenerator
+        from marketsim import float
+        from marketsim import IFunction
+        from marketsim import IFunction
+        from marketsim import float
+        from marketsim import IFunction
+        from marketsim import IFunction
         from marketsim.gen._out.order._curried._volume_price_Limit import volume_price_Limit as _order__curried_volume_price_Limit
         from marketsim import rtti
+        IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]].__init__(self)
         self.proto = proto if proto is not None else _order__curried_volume_price_Limit()
         rtti.check_fields(self)
     

@@ -14,7 +14,15 @@ class sidevolume_price_Limit(IFunction[IFunction[IOrderGenerator, IFunction[floa
       it remains in an order book waiting to be matched with another order.
     """ 
     def __init__(self):
+        from marketsim import IOrderGenerator
+        from marketsim import IFunction
+        from marketsim import float
+        from marketsim import Side
+        from marketsim import IFunction
+        from marketsim import IFunction
+        from marketsim import float
         from marketsim import rtti
+        IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side],IFunction[float]].__init__(self)
         
         rtti.check_fields(self)
     

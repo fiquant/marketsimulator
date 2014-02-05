@@ -81,6 +81,8 @@ object order_factory_on_proto
         override def interface =
             makeCode(x.ret_type)
 
+        override def base_class = interface
+
         override def base_classes = interface
 
         def call_body_assignments = join_fields({ _.call_body_assign }, crlf)

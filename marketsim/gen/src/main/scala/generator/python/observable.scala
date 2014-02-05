@@ -21,9 +21,7 @@ object observable extends gen.PythonGenerator
         type Parameter = observable.Parameter
 
         override def init_body =
-            base_class ||| ".__init__(self)" |
             super.init_body |
-            "self.impl = self.getImpl()" |
             "event.subscribe(self.impl, _(self).fire, self)" |||
                 ImportFrom("_", "marketsim") |||
                 ImportFrom("event", "marketsim")

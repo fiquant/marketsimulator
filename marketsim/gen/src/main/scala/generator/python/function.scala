@@ -21,10 +21,6 @@ object function extends gen.PythonGenerator
         type Parameter = function.Parameter
 
         override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
-
-        override def init_body =
-            super.init_body |
-            "self.impl = self.getImpl()"
     }
 
     def generatePython(/** arguments of the annotation */ args  : List[String])
