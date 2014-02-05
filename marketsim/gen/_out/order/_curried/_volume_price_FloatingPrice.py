@@ -13,7 +13,7 @@ from marketsim import IFunction
 from marketsim import float
 from marketsim import IFunction
 from marketsim import float
-@registry.expose(["Order", "FloatingPrice"])
+@registry.expose(["Order", "price_FloatingPrice"])
 class volume_price_FloatingPrice(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
     """ 
       Floating price order is initialized by an order having a price and an observable that generates new prices.
@@ -37,7 +37,7 @@ class volume_price_FloatingPrice(IFunction[IFunction[IOrderGenerator,IFunction[f
         'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[float]]
     }
     def __repr__(self):
-        return "FloatingPrice(%(floatingPrice)s, %(proto)s)" % self.__dict__
+        return "price_FloatingPrice(%(floatingPrice)s, %(proto)s)" % self.__dict__
     
     def __call__(self, volume = None):
         from marketsim.gen._out.order._curried._price_FloatingPrice import price_FloatingPrice

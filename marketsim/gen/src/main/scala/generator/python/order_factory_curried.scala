@@ -36,7 +36,6 @@ object order_factory_curried
             case x : FactoryBase => x
             case _ => throw new Exception("original factory is not of appropriate type")
         }
-        override def alias = original.alias
     }
 
 
@@ -48,9 +47,10 @@ object order_factory_curried
     {
 
         override type Parameter = FactoryParameter
-        val parameters  = x.parameters map FactoryParameter
+        def mkParam(p : Typed.Parameter) = FactoryParameter(p)
+        override lazy val parameters  = x.parameters map mkParam
         override val curried = f.parameters filter { p => !(x.parameters contains p) }
-        val curried_parameters =  curried map FactoryParameter
+        val curried_parameters =  curried map mkParam
 
         override def name = (curried map { _.name } mkString "") + "_" + original.name
 

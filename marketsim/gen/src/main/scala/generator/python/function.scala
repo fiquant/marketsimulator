@@ -16,8 +16,7 @@ object function extends gen.PythonGenerator
             with    base.Bind
             with    base.HasImpl
     {
-        val parameters  = f.parameters map Parameter
-
+        def mkParam(p : Typed.Parameter) = function.Parameter(p)
         type Parameter = function.Parameter
     }
 

@@ -17,7 +17,7 @@ from marketsim import Side
 from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import float
-@registry.expose(["Order", "FloatingPrice"])
+@registry.expose(["Order", "price_FloatingPrice"])
 class sidevolume_price_FloatingPrice(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
 ,IFunction[float]]):
     """ 
@@ -42,7 +42,7 @@ class sidevolume_price_FloatingPrice(IFunction[IFunction[IOrderGenerator,IFuncti
         'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side],IFunction[float]]
     }
     def __repr__(self):
-        return "FloatingPrice(%(floatingPrice)s, %(proto)s)" % self.__dict__
+        return "price_FloatingPrice(%(floatingPrice)s, %(proto)s)" % self.__dict__
     
     def __call__(self, side = None,volume = None):
         from marketsim.gen._out.order._curried._price_FloatingPrice import price_FloatingPrice

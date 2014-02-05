@@ -33,10 +33,9 @@ object mathops extends gen.PythonGenerator
                     " form (implementation_function)" + "\r\n" + "In function " + f)
 
         override val impl_function = args(0)
-
-        val parameters  = f.parameters map Parameter
-
+        def mkParam(p : Typed.Parameter) = mathops.Parameter(p)
         type Parameter = mathops.Parameter
+
         val impl_module = "math"
 
         def nullable_fields = join_fields({ _.nullable}, crlf)

@@ -71,8 +71,7 @@ object order_factory
                     "\r\n" + "In function " + f)
         }
 
-        val parameters  = f.parameters map Parameter
-
+        def mkParam(p : Typed.Parameter) = order_factory.Parameter(p)
         type Parameter = order_factory.Parameter
 
         def myBase =

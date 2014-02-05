@@ -75,7 +75,6 @@ package object base {
         def docstring   : List[String]
         def alias       : String
         def category    = f.getAttribute("category")
-        def parameters  : List[Parameter]
         def registration =
             if (parameters exists { _.p.initializer.isEmpty })
                 ""
@@ -86,6 +85,10 @@ package object base {
                         sep         : Code = ", ",
                         elements    : List[Parameter] = parameters) : Code
             =   Code.from(elements map p, sep)
+
+        def mkParam(p : Typed.Parameter) : Parameter
+
+        lazy val parameters  = f.parameters map mkParam
 
         def init_fields = join_fields({ _.init })
         def init_raw_fields = join_fields({ _.init_raw })

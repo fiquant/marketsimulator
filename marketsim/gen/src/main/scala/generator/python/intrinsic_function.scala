@@ -8,7 +8,7 @@ object intrinsic_function extends gen.PythonGenerator
 {
     import base.{Def, Prop}
 
-    class Parameter(val p : Typed.Parameter) extends base.Parameter
+    case class Parameter(p : Typed.Parameter) extends base.Parameter
 
     abstract class Common(val args : List[String], val f : Typed.Function)
             extends base.Printer
@@ -39,9 +39,8 @@ object intrinsic_function extends gen.PythonGenerator
             with    base.BaseClass_Function
             with    BaseClass_Intrinsic
     {
-        override val parameters  = f.parameters map { new Parameter(_) }
-
         override type Parameter = intrinsic_function.Parameter
+        def mkParam(p : Typed.Parameter) = intrinsic_function.Parameter(p)
     }
 
 

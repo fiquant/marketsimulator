@@ -6,7 +6,7 @@ from marketsim import Side
 from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import float
-@registry.expose(["Order", "Limit"])
+@registry.expose(["Order", "price_Limit"])
 class sidevolume_price_Limit(IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side],IFunction[float]]):
     """ 
       Limit orders ask to buy or sell some asset at price better than some limit price.
@@ -26,7 +26,7 @@ class sidevolume_price_Limit(IFunction[IFunction[IOrderGenerator, IFunction[floa
         
     }
     def __repr__(self):
-        return "Limit" % self.__dict__
+        return "price_Limit" % self.__dict__
     
     def __call__(self, side = None,volume = None):
         from marketsim.gen._out.side._Sell import Sell as _side_Sell

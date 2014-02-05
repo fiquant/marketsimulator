@@ -24,8 +24,7 @@ object intrinsic_observable extends gen.PythonGenerator
             override def observe_args = self.observe_args
         }
 
-        override val parameters  = f.parameters map { new Parameter(_) }
-
+        def mkParam(p : Typed.Parameter) = new Parameter_(p)
         override type Parameter = Parameter_
     }
 

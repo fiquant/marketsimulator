@@ -14,13 +14,13 @@ object random extends gen.PythonGenerator
             with    base.BaseClass_Function
     {
         val name = f.name
-        val parameters = f.parameters map Parameter
         val rv_type = "float"
         val args = Nil
 
         override val category = "Random"
 
         type Parameter = random.Parameter
+        def mkParam(p : Typed.Parameter) = random.Parameter(p)
 
         def casts_to = Def("_casts_to", "dst", s"return $name._types[0]._casts_to(dst)")
 

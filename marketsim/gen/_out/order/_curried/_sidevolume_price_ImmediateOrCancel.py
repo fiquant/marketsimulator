@@ -15,7 +15,7 @@ from marketsim import Side
 from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import float
-@registry.expose(["Order", "ImmediateOrCancel"])
+@registry.expose(["Order", "price_ImmediateOrCancel"])
 class sidevolume_price_ImmediateOrCancel(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
 ,IFunction[float]]):
     """ 
@@ -40,7 +40,7 @@ class sidevolume_price_ImmediateOrCancel(IFunction[IFunction[IOrderGenerator,IFu
         'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side],IFunction[float]]
     }
     def __repr__(self):
-        return "ImmediateOrCancel(%(proto)s)" % self.__dict__
+        return "price_ImmediateOrCancel(%(proto)s)" % self.__dict__
     
     def __call__(self, side = None,volume = None):
         from marketsim.gen._out.order._curried._price_ImmediateOrCancel import price_ImmediateOrCancel

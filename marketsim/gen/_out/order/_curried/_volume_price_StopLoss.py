@@ -13,7 +13,7 @@ from marketsim import IFunction
 from marketsim import float
 from marketsim import IFunction
 from marketsim import float
-@registry.expose(["Order", "StopLoss"])
+@registry.expose(["Order", "price_StopLoss"])
 class volume_price_StopLoss(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
     """ 
       StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
@@ -38,7 +38,7 @@ class volume_price_StopLoss(IFunction[IFunction[IOrderGenerator,IFunction[float]
         'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[float]]
     }
     def __repr__(self):
-        return "StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
+        return "price_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
     
     def __call__(self, volume = None):
         from marketsim.gen._out.order._curried._price_StopLoss import price_StopLoss

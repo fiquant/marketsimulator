@@ -51,6 +51,7 @@ object order_factory_on_proto
             with    OriginalFactory
     {
         override type Parameter = FactoryParameter
+
         val factory_of_curried = x.parameters find { _.name == "proto" } match {
             case Some(Typed.Parameter(_, _, Some(Typed.FunctionCall(Typed.FunctionRef(f), _)), _)) =>
                 val factory = gen.generationUnit(f).get match {
@@ -61,10 +62,11 @@ object order_factory_on_proto
             case None => throw new Exception("Here should be a parameter with name proto")
             case _ => throw new Exception("Here should be a parameter with function call as initializer")
         }
+        def mkParam(p : Typed.Parameter) = FactoryParameter(factory_of_curried, original, p)
 
         override val curried = factory_of_curried.curried
-        val curried_parameters = curried map { FactoryParameter(factory_of_curried, original, _) }
-        val parameters  = x.parameters map { FactoryParameter(factory_of_curried, original, _) }
+        val curried_parameters = curried map mkParam
+        override lazy val parameters  = x.parameters map mkParam
 
         override val prefix = curried map { _.name } mkString ""
         override def name = x.name

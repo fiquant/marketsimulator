@@ -16,8 +16,7 @@ object observable extends gen.PythonGenerator
             with    base.Bind
             with    base.HasImpl
     {
-        val parameters  = f.parameters map Parameter
-
+        def mkParam(p : Typed.Parameter) = observable.Parameter(p)
         type Parameter = observable.Parameter
 
         override def init_body =

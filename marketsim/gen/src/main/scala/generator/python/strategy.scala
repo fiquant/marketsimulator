@@ -15,8 +15,7 @@ object strategy extends gen.PythonGenerator
             with    base.Bind
             with    base.HasImpl
     {
-        val parameters  = f.parameters map Parameter
-
+        def mkParam(p : Typed.Parameter) = strategy.Parameter(p)
         type Parameter = strategy.Parameter
 
         override def init_body = super.init_body |

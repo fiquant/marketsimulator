@@ -13,7 +13,7 @@ from marketsim import IFunction
 from marketsim import float
 from marketsim import IFunction
 from marketsim import float
-@registry.expose(["Order", "WithExpiry"])
+@registry.expose(["Order", "price_WithExpiry"])
 class volume_price_WithExpiry(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
     """ 
      WithExpiry orders can be viewed as ImmediateOrCancel orders
@@ -36,7 +36,7 @@ class volume_price_WithExpiry(IFunction[IFunction[IOrderGenerator,IFunction[floa
         'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[float]]
     }
     def __repr__(self):
-        return "WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
+        return "price_WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
     
     def __call__(self, volume = None):
         from marketsim.gen._out.order._curried._price_WithExpiry import price_WithExpiry

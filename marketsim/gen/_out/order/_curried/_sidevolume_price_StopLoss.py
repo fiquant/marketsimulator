@@ -17,7 +17,7 @@ from marketsim import Side
 from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import float
-@registry.expose(["Order", "StopLoss"])
+@registry.expose(["Order", "price_StopLoss"])
 class sidevolume_price_StopLoss(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
 ,IFunction[float]]):
     """ 
@@ -43,7 +43,7 @@ class sidevolume_price_StopLoss(IFunction[IFunction[IOrderGenerator,IFunction[fl
         'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side],IFunction[float]]
     }
     def __repr__(self):
-        return "StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
+        return "price_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
     
     def __call__(self, side = None,volume = None):
         from marketsim.gen._out.order._curried._price_StopLoss import price_StopLoss

@@ -11,7 +11,7 @@ from marketsim import IFunction
 from marketsim import float
 from marketsim import Side
 from marketsim import IFunction
-@registry.expose(["Order", "Peg"])
+@registry.expose(["Order", "price_Peg"])
 class side_price_Peg(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
     """ 
       A peg order is a particular case of the floating price order
@@ -33,7 +33,7 @@ class side_price_Peg(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunc
         'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]]
     }
     def __repr__(self):
-        return "Peg(%(proto)s)" % self.__dict__
+        return "price_Peg(%(proto)s)" % self.__dict__
     
     def __call__(self, side = None):
         from marketsim.gen._out.order._curried._price_Peg import price_Peg

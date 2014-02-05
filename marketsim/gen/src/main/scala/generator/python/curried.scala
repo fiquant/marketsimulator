@@ -23,9 +23,10 @@ object curried
             val original = lookupOriginal(args, f)
 
             override type Parameter = FactoryParameter
-            val parameters  = f.parameters map FactoryParameter
+            def mkParam(p : Typed.Parameter) = FactoryParameter(p)
+
             val curried = original.parameters filter { p => !(f.parameters contains p) }
-            val curried_parameters =  curried map FactoryParameter
+            val curried_parameters =  curried map mkParam
 
             def interface =  s"IFunction["||| original.ret_type.asCode |||
                     ", "||| curriedTypesAsList(curried) |||"]" ||| ImportFrom("IFunction", "marketsim")
