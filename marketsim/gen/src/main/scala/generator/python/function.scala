@@ -32,8 +32,6 @@ object function extends gen.PythonGenerator
             super.init_body |
             "self.impl = self.getImpl()"
 
-        override def call_body = "return self.impl()"
-
         override def body = super.body | internals | getImpl | bind | reset | call
     }
 

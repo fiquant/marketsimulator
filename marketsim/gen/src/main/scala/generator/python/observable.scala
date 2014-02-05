@@ -35,8 +35,6 @@ object observable extends gen.PythonGenerator
                 ImportFrom("_", "marketsim") |||
                 ImportFrom("event", "marketsim")
 
-        override def call_body = "return self.impl()"
-
         override def body = super.body | internals | getImpl | bind | reset | call
     }
 

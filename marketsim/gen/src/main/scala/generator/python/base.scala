@@ -185,6 +185,8 @@ package object base {
         def getImpl = Def("getImpl", "", "return " ||| f.body.get.asCode)
 
         def internals = "_internals = ['impl']"
+
+        override def call_body = "return self.impl()"
     }
 
     object python extends gen.PythonGenerator
