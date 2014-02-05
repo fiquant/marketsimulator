@@ -4,7 +4,7 @@ from marketsim.ops._function import Function
 from marketsim.gen._intrinsic._constant import _Constant_Impl
 from marketsim import float
 @registry.expose(["Basic", "const"])
-class const_Optional__Float_(Function[float], _Constant_Impl):
+class const_Optional__Float_(Function[float],_Constant_Impl):
     """ 
     """ 
     def __init__(self, x = None):

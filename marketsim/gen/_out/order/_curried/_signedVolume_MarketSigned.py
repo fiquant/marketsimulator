@@ -8,11 +8,7 @@ class signedVolume_MarketSigned(IFunction[IOrderGenerator, IFunction[float]]):
       Market order intructs buy or sell given volume immediately
     """ 
     def __init__(self):
-        from marketsim import IOrderGenerator
-        from marketsim import float
-        from marketsim import IFunction
         from marketsim import rtti
-        IFunction[IOrderGenerator, IFunction[float]].__init__(self)
         
         rtti.check_fields(self)
     

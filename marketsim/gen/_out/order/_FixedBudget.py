@@ -1,14 +1,14 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
 from marketsim import Order
 from marketsim import Order
 from marketsim.ops._all import Observable
+from marketsim import IOrderGenerator
 from marketsim import Side
 from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Order", "FixedBudget"])
-class FixedBudget(IOrderGenerator, Observable[Order]):
+class FixedBudget(Observable[Order],IOrderGenerator):
     """ 
       Fixed budget order acts like a market order
       but the volume is implicitly given by a budget available for trades.

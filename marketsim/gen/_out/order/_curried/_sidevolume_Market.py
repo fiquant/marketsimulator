@@ -10,13 +10,7 @@ class sidevolume_Market(IFunction[IOrderGenerator, IFunction[Side],IFunction[flo
       Market order intructs buy or sell given volume immediately
     """ 
     def __init__(self):
-        from marketsim import IOrderGenerator
-        from marketsim import Side
-        from marketsim import IFunction
-        from marketsim import IFunction
-        from marketsim import float
         from marketsim import rtti
-        IFunction[IOrderGenerator, IFunction[Side],IFunction[float]].__init__(self)
         
         rtti.check_fields(self)
     

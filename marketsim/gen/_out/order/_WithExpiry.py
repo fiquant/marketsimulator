@@ -1,13 +1,13 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
 from marketsim import Order
 from marketsim import Order
 from marketsim.ops._all import Observable
+from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import float
 from marketsim import IOrderGenerator
 @registry.expose(["Order", "WithExpiry"])
-class WithExpiry(IOrderGenerator, Observable[Order]):
+class WithExpiry(Observable[Order],IOrderGenerator):
     """ 
      WithExpiry orders can be viewed as ImmediateOrCancel orders
      where cancel order is sent not immediately but after some delay

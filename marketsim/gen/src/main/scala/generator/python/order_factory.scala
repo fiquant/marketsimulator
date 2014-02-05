@@ -37,7 +37,6 @@ object order_factory
         extends base.Printer
         with    base.DocString
         with    base.Alias
-        with    base.BaseClass_Observable
     {
         def name = f.name
 
@@ -56,6 +55,7 @@ object order_factory
     class Factory(val args  : List[String],
                   val f     : Typed.Function)
             extends FactoryBase
+            with    base.BaseClass_Observable
     {
         if (args.length != 1)
             throw new Exception(s"Annotation $name should have 1 arguments in" +
@@ -77,14 +77,14 @@ object order_factory
 
         type Parameter = order_factory.Parameter
 
-        override def base_class =
+        def myBase =
             if (is_factory_intrinsic)
                 implementation_class |||
                         ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
             else
                 observableBase
 
-        override def base_classes = interface ||| ", " ||| base_class
+        override def base_class_list = interface :: myBase :: Nil
 
         def nullable_fields = join_fields({ _.nullable}, crlf)
 

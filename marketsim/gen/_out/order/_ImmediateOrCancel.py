@@ -1,11 +1,11 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
 from marketsim import Order
 from marketsim import Order
 from marketsim.ops._all import Observable
 from marketsim import IOrderGenerator
+from marketsim import IOrderGenerator
 @registry.expose(["Order", "ImmediateOrCancel"])
-class ImmediateOrCancel(IOrderGenerator, Observable[Order]):
+class ImmediateOrCancel(Observable[Order],IOrderGenerator):
     """ 
       Immediate-Or-Cancel order sends an underlying order to the market and
       immediately sends a cancel request for it.

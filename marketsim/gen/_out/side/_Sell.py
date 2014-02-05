@@ -3,7 +3,7 @@ from marketsim import Side
 from marketsim.ops._function import Function
 from marketsim.gen._intrinsic.side import _Sell_Impl
 @registry.expose(["Side", "Sell"])
-class Sell_(Function[Side], _Sell_Impl):
+class Sell_(Function[Side],_Sell_Impl):
     """ 
     """ 
     def __init__(self):

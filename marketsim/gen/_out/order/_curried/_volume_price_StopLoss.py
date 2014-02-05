@@ -22,17 +22,9 @@ class volume_price_StopLoss(IFunction[IFunction[IOrderGenerator,IFunction[float]
       the meta order clears its position.
     """ 
     def __init__(self, maxloss = None, proto = None):
-        from marketsim import IOrderGenerator
-        from marketsim import float
-        from marketsim import IFunction
-        from marketsim import IFunction
-        from marketsim import float
-        from marketsim import IFunction
-        from marketsim import IFunction
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._curried._volume_price_Limit import volume_price_Limit as _order__curried_volume_price_Limit
         from marketsim import rtti
-        IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]].__init__(self)
         self.maxloss = maxloss if maxloss is not None else _constant(0.1)
         self.proto = proto if proto is not None else _order__curried_volume_price_Limit()
         rtti.check_fields(self)

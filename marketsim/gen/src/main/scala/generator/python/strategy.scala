@@ -25,7 +25,9 @@ object strategy extends gen.PythonGenerator
                 ImportFrom("event", "marketsim") |||
                 ImportFrom("_", "marketsim")
 
-        override def base_class = "ISingleAssetStrategy" ||| ImportFrom("ISingleAssetStrategy", "marketsim")
+        def myBase = "ISingleAssetStrategy" ||| ImportFrom("ISingleAssetStrategy", "marketsim")
+
+        override def base_class_list = myBase :: Nil
 
         def send = Def("_send", "order, source", "self.on_order_created.fire(order, self)")
 

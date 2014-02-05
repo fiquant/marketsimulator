@@ -27,8 +27,6 @@ object intrinsic_observable extends gen.PythonGenerator
         override val parameters  = f.parameters map { new Parameter(_) }
 
         override type Parameter = Parameter_
-
-        override def base_classes = observableBase ||| "," ||| implementationBase
     }
 
     def generatePython(/** arguments of the annotation */ args  : List[String])

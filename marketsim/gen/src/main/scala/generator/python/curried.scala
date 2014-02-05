@@ -29,7 +29,7 @@ object curried
 
             def interface =  s"IFunction["||| original.ret_type.asCode |||
                     ", "||| curriedTypesAsList(curried) |||"]" ||| ImportFrom("IFunction", "marketsim")
-            override def base_classes = interface
+            override def base_class_list = interface :: Nil
 
             def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
             def call_body_assign_args = join_fields({ _.call_body_assign_arg }, crlf, curried_parameters)

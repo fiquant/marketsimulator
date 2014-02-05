@@ -3,7 +3,7 @@ from marketsim import Side
 from marketsim.ops._function import Function
 from marketsim.gen._intrinsic.side import _None_Impl
 @registry.expose(["Side", "Nothing"])
-class Nothing_(Function[Side], _None_Impl):
+class Nothing_(Function[Side],_None_Impl):
     """ 
     """ 
     def __init__(self):

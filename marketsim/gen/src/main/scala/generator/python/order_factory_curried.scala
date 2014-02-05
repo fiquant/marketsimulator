@@ -47,9 +47,9 @@ object order_factory_curried
         override def name = (curried map { _.name } mkString "") + "_" + original.name
         override def alias = original.alias
 
-        override def base_class = s"IFunction["||| original.interface |||", "||| curriedTypesAsList(curried) |||"]"
-        override def interface = base_class
-        override def base_classes = interface
+        def myBase = s"IFunction["||| original.interface |||", "||| curriedTypesAsList(curried) |||"]"
+        override def interface = myBase
+        override def base_class_list = interface :: Nil
 
         def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
         def call_body_assign_args = join_fields({ _.call_body_assign_arg }, crlf, curried_parameters)

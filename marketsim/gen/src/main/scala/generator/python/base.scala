@@ -16,8 +16,14 @@ package object base {
         def name : String
         def body : Code
         def registration : Code
-        def base_class : Code = "object"
-        def base_classes = base_class
+
+        private def base_classes : Code =
+            if (base_class_list.isEmpty)
+                "object"
+            else
+                base_class_list.reduceLeft[Code]({ case (b, acc) => acc ||| "," ||| b })
+
+        def base_class_list : List[Code] = Nil
 
         def code = withImports(registration | s"class $name(" ||| base_classes ||| "):" |> body)
     }
@@ -142,7 +148,11 @@ package object base {
                 s"Function[" ||| t.asCode ||| "]" ||| ImportFrom("Function", "marketsim.ops._function")
             }
 
-        override def base_class = functionBase getOrElse "object"
+        override def base_class_list =
+            if (functionBase.nonEmpty)
+                functionBase.get :: super.base_class_list
+            else
+                super.base_class_list
     }
 
     trait BaseClass_Observable extends Printer {
@@ -153,10 +163,10 @@ package object base {
                                 ImportFrom(ty.asCode.toString, "marketsim") |||
                                 ImportFrom("Observable", "marketsim.ops._all")
 
-        override def base_class = observableBase
+        override def base_class_list = observableBase :: super.base_class_list
 
         override def init_body =
-            base_class ||| ".__init__(self)" |
+            observableBase ||| ".__init__(self)" |
             super.init_body
     }
 

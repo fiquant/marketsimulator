@@ -1,6 +1,6 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
 from marketsim.gen._intrinsic.order.meta.floating_price import Factory_Impl
+from marketsim import IOrderGenerator
 from marketsim import IObservable
 from marketsim import float
 from marketsim import IOrderGenerator
@@ -8,14 +8,16 @@ from marketsim import float
 from marketsim import IFunction
 from marketsim import IFunction
 @registry.expose(["Order", "FloatingPrice"])
-class FloatingPrice(IOrderGenerator, Factory_Impl):
+class FloatingPrice(Factory_Impl,IOrderGenerator):
     """ 
       Floating price order is initialized by an order having a price and an observable that generates new prices.
       When the observable value changes the order is cancelled and
       a new order with new price is created and sent to the order book.
     """ 
     def __init__(self, floatingPrice = None, proto = None):
-        from marketsim.gen._intrinsic.order.meta.floating_price import Factory_Impl
+        from marketsim import Order
+        from marketsim import Order
+        from marketsim.ops._all import Observable
         from marketsim.gen._out._const import const as _const
         from marketsim import event
         from marketsim import types
@@ -23,7 +25,7 @@ class FloatingPrice(IOrderGenerator, Factory_Impl):
         from marketsim import event
         from marketsim import types
         from marketsim import rtti
-        Factory_Impl.__init__(self)
+        Observable[Order].__init__(self)
         self.floatingPrice = floatingPrice if floatingPrice is not None else _const(10.0)
         if isinstance(floatingPrice, types.IEvent):
             event.subscribe(self.floatingPrice, self.fire, self)

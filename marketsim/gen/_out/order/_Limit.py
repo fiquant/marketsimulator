@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
 from marketsim import Order
 from marketsim import Order
 from marketsim.ops._all import Observable
+from marketsim import IOrderGenerator
 from marketsim import Side
 from marketsim import IFunction
 from marketsim import IFunction
@@ -10,7 +10,7 @@ from marketsim import float
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Order", "Limit"])
-class Limit(IOrderGenerator, Observable[Order]):
+class Limit(Observable[Order],IOrderGenerator):
     """ 
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled

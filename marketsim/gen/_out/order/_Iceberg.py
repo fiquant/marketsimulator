@@ -1,13 +1,13 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
 from marketsim import Order
 from marketsim import Order
 from marketsim.ops._all import Observable
+from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import float
 from marketsim import IOrderGenerator
 @registry.expose(["Order", "Iceberg"])
-class Iceberg(IOrderGenerator, Observable[Order]):
+class Iceberg(Observable[Order],IOrderGenerator):
     """ 
       Iceberg order is initialized by an underlying order and a lot size.
       It sends consequently pieces of the underlying order of size equal or less to the lot size

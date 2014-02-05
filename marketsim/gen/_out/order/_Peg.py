@@ -1,12 +1,12 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
 from marketsim.gen._intrinsic.order.meta.peg import Factory_Impl
+from marketsim import IOrderGenerator
 from marketsim import IOrderGenerator
 from marketsim import float
 from marketsim import IFunction
 from marketsim import IFunction
 @registry.expose(["Order", "Peg"])
-class Peg(IOrderGenerator, Factory_Impl):
+class Peg(Factory_Impl,IOrderGenerator):
     """ 
       A peg order is a particular case of the floating price order
       with the price better at one tick than the best price of the order queue.
@@ -14,12 +14,14 @@ class Peg(IOrderGenerator, Factory_Impl):
       they start to race until being matched against the counterparty orders.
     """ 
     def __init__(self, proto = None):
-        from marketsim.gen._intrinsic.order.meta.peg import Factory_Impl
+        from marketsim import Order
+        from marketsim import Order
+        from marketsim.ops._all import Observable
         from marketsim.gen._out.order._curried._price_Limit import price_Limit as _order__curried_price_Limit
         from marketsim import event
         from marketsim import types
         from marketsim import rtti
-        Factory_Impl.__init__(self)
+        Observable[Order].__init__(self)
         self.proto = proto if proto is not None else _order__curried_price_Limit()
         if isinstance(proto, types.IEvent):
             event.subscribe(self.proto, self.fire, self)

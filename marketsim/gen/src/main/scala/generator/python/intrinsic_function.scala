@@ -29,6 +29,8 @@ object intrinsic_function extends gen.PythonGenerator
         def implementationBase =
             implementation_class |||
                   ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
+
+        override def base_class_list = implementationBase :: super.base_class_list
     }
 
 
@@ -40,9 +42,6 @@ object intrinsic_function extends gen.PythonGenerator
         override val parameters  = f.parameters map { new Parameter(_) }
 
         override type Parameter = intrinsic_function.Parameter
-
-        override def base_class = (functionBase match { case None => toLazy("") case Some(x) => x  ||| ", " }) |||
-                                  implementationBase
     }
 
 

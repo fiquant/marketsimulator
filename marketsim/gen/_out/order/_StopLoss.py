@@ -1,13 +1,13 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
 from marketsim import Order
 from marketsim import Order
 from marketsim.ops._all import Observable
+from marketsim import IOrderGenerator
 from marketsim import IFunction
 from marketsim import float
 from marketsim import IOrderGenerator
 @registry.expose(["Order", "StopLoss"])
-class StopLoss(IOrderGenerator, Observable[Order]):
+class StopLoss(Observable[Order],IOrderGenerator):
     """ 
       StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
       It keeps track of position and balance change induced by trades of the underlying order and

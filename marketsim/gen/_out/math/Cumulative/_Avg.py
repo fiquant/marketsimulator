@@ -5,7 +5,7 @@ from marketsim.gen._intrinsic.moments.cma import CMA_Impl
 from marketsim import IObservable
 from marketsim import float
 @registry.expose(["Statistics", "Avg"])
-class Avg_Optional__IObservable__Float__(Function[float], CMA_Impl):
+class Avg_Optional__IObservable__Float__(Function[float],CMA_Impl):
     """ 
     """ 
     def __init__(self, source = None):

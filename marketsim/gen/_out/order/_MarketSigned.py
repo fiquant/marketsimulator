@@ -1,12 +1,12 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
 from marketsim import Order
 from marketsim import Order
 from marketsim.ops._all import Observable
+from marketsim import IOrderGenerator
 from marketsim import float
 from marketsim import IFunction
 @registry.expose(["Order", "MarketSigned"])
-class MarketSigned(IOrderGenerator, Observable[Order]):
+class MarketSigned(Observable[Order],IOrderGenerator):
     """ 
       Market order intructs buy or sell given volume immediately
     """ 
