@@ -45,6 +45,9 @@ class RSIbis_Optional__IEvent___Optional_________Side______IOrderGenerator___Opt
     def __repr__(self):
         return "RSIbis(%(eventGen)s, %(orderFactory)s, %(alpha)s, %(timeframe)s, %(threshold)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -62,9 +65,6 @@ class RSIbis_Optional__IEvent___Optional_________Side______IOrderGenerator___Opt
         from marketsim.gen._out.math._RSI import RSI as _math_RSI
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         return _strategy_Generic(self.orderFactory(_strategy_side_Signal(_ops_Sub(_const(50.0),_math_RSI(_orderbook_OfTrader(),self.timeframe,self.alpha)),(50.0-self.threshold))),self.eventGen)
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

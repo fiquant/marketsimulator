@@ -37,6 +37,9 @@ class SafeSidePrice_Optional__IOrderQueue___Optional__IFunction__Float__(Observa
     def __repr__(self):
         return "SafeSidePrice(%(queue)s, %(defaultValue)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -53,8 +56,5 @@ class SafeSidePrice_Optional__IOrderQueue___Optional__IFunction__Float__(Observa
         from marketsim.gen._out._IfDefined import IfDefined as _IfDefined
         from marketsim.gen._out.orderbook._LastPrice import LastPrice as _orderbook_LastPrice
         return _observable_Price(_IfDefined(_orderbook_BestPrice(self.queue),_IfDefined(_orderbook_LastPrice(self.queue),self.defaultValue)))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 SafeSidePrice = SafeSidePrice_Optional__IOrderQueue___Optional__IFunction__Float__

@@ -32,6 +32,9 @@ class MidPrice_Optional__IOrderBook_(Observable[Price]):
     def __repr__(self):
         return "MidPrice(%(book)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -49,8 +52,5 @@ class MidPrice_Optional__IOrderBook_(Observable[Price]):
         from marketsim.gen._out.orderbook.bid._Price import Price as _orderbook_bid_Price
         from marketsim.gen._out._const import const as _const
         return _observable_Price(_ops_Div(_ops_Add(_orderbook_ask_Price(self.book),_orderbook_bid_Price(self.book)),_const(2.0)))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 MidPrice = MidPrice_Optional__IOrderBook_

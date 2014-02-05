@@ -28,6 +28,9 @@ class StdDev_Optional__IObservable__Float____Optional__Float_(Function[float]):
     def __repr__(self):
         return "\\sqrt{\\sigma^2_{n=%(timeframe)s}(%(source)s)}" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -41,8 +44,5 @@ class StdDev_Optional__IObservable__Float____Optional__Float_(Function[float]):
         from marketsim.gen._out.math._Sqrt import Sqrt as _math_Sqrt
         from marketsim.gen._out.math.Moving._Var import Var as _math_Moving_Var
         return _math_Sqrt(_math_Moving_Var(self.source))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 StdDev = StdDev_Optional__IObservable__Float____Optional__Float_

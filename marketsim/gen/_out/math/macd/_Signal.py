@@ -37,6 +37,9 @@ class Signal_Optional__IObservable__Float____Optional__Float___Optional__Float__
     def __repr__(self):
         return "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -51,8 +54,5 @@ class Signal_Optional__IObservable__Float____Optional__Float___Optional__Float__
         from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
         from marketsim.gen._out.math.macd._MACD import MACD as _math_macd_MACD
         return _math_EW_Avg(_observable_OnEveryDt(self.step,_math_macd_MACD(self.x,self.slow,self.fast)),(2/((self.timeframe+1))))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 Signal = Signal_Optional__IObservable__Float____Optional__Float___Optional__Float___Optional__Float___Optional__Float_

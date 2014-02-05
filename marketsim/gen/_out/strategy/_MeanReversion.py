@@ -40,6 +40,9 @@ class MeanReversion_Optional__IEvent___Optional_________Side______IOrderGenerato
     def __repr__(self):
         return "MeanReversion(%(eventGen)s, %(orderFactory)s, %(ewma_alpha)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -53,9 +56,6 @@ class MeanReversion_Optional__IEvent___Optional_________Side______IOrderGenerato
         from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
         from marketsim.gen._out.strategy.side._MeanReversion import MeanReversion as _strategy_side_MeanReversion
         return _strategy_Generic(self.orderFactory(_strategy_side_MeanReversion(self.ewma_alpha)),self.eventGen)
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

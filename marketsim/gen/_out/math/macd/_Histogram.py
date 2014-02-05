@@ -37,6 +37,9 @@ class Histogram_Optional__IObservable__Float____Optional__Float___Optional__Floa
     def __repr__(self):
         return "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -51,8 +54,5 @@ class Histogram_Optional__IObservable__Float____Optional__Float___Optional__Floa
         from marketsim.gen._out.math.macd._MACD import MACD as _math_macd_MACD
         from marketsim.gen._out.math.macd._Signal import Signal as _math_macd_Signal
         return _ops_Sub(_math_macd_MACD(self.x,self.slow,self.fast),_math_macd_Signal(self.x,self.slow,self.fast,self.timeframe,self.step))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 Histogram = Histogram_Optional__IObservable__Float____Optional__Float___Optional__Float___Optional__Float___Optional__Float_

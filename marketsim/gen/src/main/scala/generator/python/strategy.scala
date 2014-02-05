@@ -32,7 +32,7 @@ object strategy extends gen.PythonGenerator
 
         override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
 
-        override def body = super.body | bind | send
+        override def body = super.body | send
     }
 
     def generatePython(/** arguments of the annotation */ args  : List[String])

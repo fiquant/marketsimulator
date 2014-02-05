@@ -40,6 +40,9 @@ class NaiveCumulativePrice_Optional__IOrderBook___Optional__IFunction__Float__(O
     def __repr__(self):
         return "NaiveCumulativePrice(%(book)s, %(depth)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -63,8 +66,5 @@ class NaiveCumulativePrice_Optional__IOrderBook___Optional__IFunction__Float__(O
         from marketsim.gen._out.orderbook.bid._Price import Price as _orderbook_bid_Price
         from marketsim.gen._out._const import const as _const
         return _observable_Price(_ops_Condition_Float(_ops_Less(self.depth,_const(0.0)),_ops_Mul(self.depth,_orderbook_ask_Price(self.book)),_ops_Condition_Float(_ops_Greater(self.depth,_const(0.0)),_ops_Mul(self.depth,_orderbook_bid_Price(self.book)),_const(0.0))))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 NaiveCumulativePrice = NaiveCumulativePrice_Optional__IOrderBook___Optional__IFunction__Float__

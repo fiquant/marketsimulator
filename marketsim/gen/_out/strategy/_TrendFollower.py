@@ -45,6 +45,9 @@ class TrendFollower_Optional__IEvent___Optional_________Side______IOrderGenerato
     def __repr__(self):
         return "TrendFollower(%(eventGen)s, %(orderFactory)s, %(ewma_alpha)s, %(threshold)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -58,9 +61,6 @@ class TrendFollower_Optional__IEvent___Optional_________Side______IOrderGenerato
         from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
         from marketsim.gen._out.strategy.side._TrendFollower import TrendFollower as _strategy_side_TrendFollower
         return _strategy_Generic(self.orderFactory(_strategy_side_TrendFollower(self.ewma_alpha,self.threshold)),self.eventGen)
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

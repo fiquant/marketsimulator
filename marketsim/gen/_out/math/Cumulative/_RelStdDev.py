@@ -25,6 +25,9 @@ class RelStdDev_Optional__IObservable__Float__(Function[float]):
     def __repr__(self):
         return "RSD_{cumul}(%(source)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -40,8 +43,5 @@ class RelStdDev_Optional__IObservable__Float__(Function[float]):
         from marketsim.gen._out.math.Cumulative._Avg import Avg as _math_Cumulative_Avg
         from marketsim.gen._out.math.Cumulative._StdDev import StdDev as _math_Cumulative_StdDev
         return _ops_Div(_ops_Sub(self.source,_math_Cumulative_Avg(self.source)),_math_Cumulative_StdDev(self.source))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 RelStdDev = RelStdDev_Optional__IObservable__Float__

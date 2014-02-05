@@ -28,6 +28,9 @@ class AtanPow_Optional__IFunction__Float____Optional__Float_(Function[float]):
     def __repr__(self):
         return "AtanPow(%(f)s, %(base)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -42,8 +45,5 @@ class AtanPow_Optional__IFunction__Float____Optional__Float_(Function[float]):
         from marketsim.gen._out.math._Pow import Pow as _math_Pow
         from marketsim.gen._out._constant import constant as _constant
         return _math_Atan(_math_Pow(_constant(self.base),self.f))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 AtanPow = AtanPow_Optional__IFunction__Float____Optional__Float_

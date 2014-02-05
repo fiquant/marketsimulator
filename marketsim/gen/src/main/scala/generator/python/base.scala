@@ -175,9 +175,11 @@ package object base {
         val implementation_class  =args(0).substring(last_dot_idx + 1)
     }
 
-    trait Bind
+    trait Bind extends Printer
     {
         def bind = Def("bind", "ctx", "self._ctx = ctx.clone()")
+
+        override def body = super.body | bind
     }
 
     trait HasImpl extends Printer

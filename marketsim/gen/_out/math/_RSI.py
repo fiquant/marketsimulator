@@ -30,6 +30,9 @@ class RSI_Optional__IOrderBook___Optional__Float___Optional__Float_(Function[flo
     def __repr__(self):
         return "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -49,8 +52,5 @@ class RSI_Optional__IOrderBook___Optional__Float___Optional__Float_(Function[flo
         from marketsim.gen._out.math.rsi._Raw import Raw as _math_rsi_Raw
         from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
         return _ops_Sub(_const(100.0),_ops_Div(_const(100.0),_ops_Add(_const(1.0),_math_rsi_Raw(_orderbook_MidPrice(self.book),self.timeframe,self.alpha))))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 RSI = RSI_Optional__IOrderBook___Optional__Float___Optional__Float_

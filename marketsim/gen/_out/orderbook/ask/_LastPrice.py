@@ -32,6 +32,9 @@ class LastPrice_Optional__IOrderBook_(Observable[Price]):
     def __repr__(self):
         return "Last(Ask_{%(book)s})" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -45,8 +48,5 @@ class LastPrice_Optional__IOrderBook_(Observable[Price]):
         from marketsim.gen._out.orderbook._LastPrice import LastPrice as _orderbook_LastPrice
         from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
         return _orderbook_LastPrice(_orderbook_Asks(self.book))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 LastPrice = LastPrice_Optional__IOrderBook_

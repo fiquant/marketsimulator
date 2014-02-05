@@ -40,6 +40,9 @@ class TradeIfProfitable_Optional__ISingleAssetStrategy___Optional_Optional__ISin
     def __repr__(self):
         return "TradeIfProfitable(%(inner)s, %(account)s, %(performance)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -54,9 +57,6 @@ class TradeIfProfitable_Optional__ISingleAssetStrategy___Optional_Optional__ISin
         from marketsim.gen._out.ops._GreaterEqual import GreaterEqual as _ops_GreaterEqual
         from marketsim.gen._out._const import const as _const
         return _strategy_Suspendable(self.inner,_ops_GreaterEqual(self.performance(self.account(self.inner)),_const(0)))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

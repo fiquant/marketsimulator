@@ -25,6 +25,9 @@ class StdDev_Optional__IObservable__Float__(Function[float]):
     def __repr__(self):
         return "\\sqrt{\\sigma^2_{cumul}(%(source)s)}" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -38,8 +41,5 @@ class StdDev_Optional__IObservable__Float__(Function[float]):
         from marketsim.gen._out.math._Sqrt import Sqrt as _math_Sqrt
         from marketsim.gen._out.math.Cumulative._Var import Var as _math_Cumulative_Var
         return _math_Sqrt(_math_Cumulative_Var(self.source))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 StdDev = StdDev_Optional__IObservable__Float__

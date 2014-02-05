@@ -39,6 +39,9 @@ class PairTrading_Optional__IOrderBook___Optional__Float___Optional__IOrderBook_
     def __repr__(self):
         return "PairTrading(%(bookToDependOn)s, %(factor)s, %(book)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -55,8 +58,5 @@ class PairTrading_Optional__IOrderBook___Optional__Float___Optional__IOrderBook_
         from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
         from marketsim.gen._out._const import const as _const
         return _observable_Side(_strategy_side_FundamentalValue(_ops_Mul(_orderbook_MidPrice(self.bookToDependOn),_const(self.factor)),self.book))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 PairTrading = PairTrading_Optional__IOrderBook___Optional__Float___Optional__IOrderBook_

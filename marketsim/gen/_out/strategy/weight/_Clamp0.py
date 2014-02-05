@@ -25,6 +25,9 @@ class Clamp0_Optional__IFunction__Float__(Function[float]):
     def __repr__(self):
         return "Clamp0(%(f)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -40,8 +43,5 @@ class Clamp0_Optional__IFunction__Float__(Function[float]):
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         return _ops_Add(_math_Max(_constant(0),self.f),_constant(1))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 Clamp0 = Clamp0_Optional__IFunction__Float__

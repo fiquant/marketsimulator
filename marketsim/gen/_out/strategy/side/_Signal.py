@@ -36,6 +36,9 @@ class Signal_Optional__IFunction__Float____Optional__Float_(Observable[Side]):
     def __repr__(self):
         return "Signal(%(signal)s, %(threshold)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -56,8 +59,5 @@ class Signal_Optional__IFunction__Float____Optional__Float_(Observable[Side]):
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out.side._Nothing import Nothing as _side_Nothing
         return _ops_Condition_Side(_ops_Greater(self.signal,_const(self.threshold)),_side_Buy(),_ops_Condition_Side(_ops_Less(self.signal,_const((0-self.threshold))),_side_Sell(),_side_Nothing()))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 Signal = Signal_Optional__IFunction__Float____Optional__Float_

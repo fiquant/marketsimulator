@@ -25,8 +25,6 @@ object function extends gen.PythonGenerator
         override def init_body =
             super.init_body |
             "self.impl = self.getImpl()"
-
-        override def body = super.body | bind
     }
 
     def generatePython(/** arguments of the annotation */ args  : List[String])

@@ -28,6 +28,9 @@ class RelStdDev_Optional__IObservable__Float____Optional__Float_(Function[float]
     def __repr__(self):
         return "RSD_{\\alpha=%(alpha)s}(%(source)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -43,8 +46,5 @@ class RelStdDev_Optional__IObservable__Float____Optional__Float_(Function[float]
         from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
         from marketsim.gen._out.math.EW._StdDev import StdDev as _math_EW_StdDev
         return _ops_Div(_ops_Sub(self.source,_math_EW_Avg(self.source,self.alpha)),_math_EW_StdDev(self.source,self.alpha))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 RelStdDev = RelStdDev_Optional__IObservable__Float____Optional__Float_

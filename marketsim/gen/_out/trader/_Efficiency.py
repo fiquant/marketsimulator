@@ -32,6 +32,9 @@ class Efficiency_Optional__IAccount_(Observable[float]):
     def __repr__(self):
         return "Efficiency(%(trader)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -49,8 +52,5 @@ class Efficiency_Optional__IAccount_(Observable[float]):
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim.gen._out.trader._Position import Position as _trader_Position
         return _observable_Float(_ops_Add(_trader_Balance(self.trader),_orderbook_CumulativePrice(_orderbook_OfTrader(self.trader),_trader_Position(self.trader))))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 Efficiency = Efficiency_Optional__IAccount_

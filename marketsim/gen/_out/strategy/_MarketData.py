@@ -43,6 +43,9 @@ class MarketData_Optional__String___Optional__String___Optional__String___Option
     def __repr__(self):
         return "MarketData(%(ticker)s, %(start)s, %(end)s, %(delta)s, %(volume)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -81,9 +84,6 @@ class MarketData_Optional__String___Optional__String___Optional__String___Option
         from marketsim.gen._out.event._After import After as _event_After
         from marketsim.gen._out._constant import constant as _constant
         return _strategy_Combine(_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_ops_Add(_observable_Quote(self.ticker,self.start,self.end),_const(self.delta))),_order__curried_price_Limit(_side_Sell(),_constant((self.volume*1000))))),_event_After(_constant(0.0))),_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_ops_Sub(_observable_Quote(self.ticker,self.start,self.end),_const(self.delta))),_order__curried_price_Limit(_side_Buy(),_constant((self.volume*1000))))),_event_After(_constant(0.0))))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

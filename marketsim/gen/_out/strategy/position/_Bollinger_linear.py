@@ -40,6 +40,9 @@ class Bollinger_linear_Optional__Float___Optional__IObservable__Float____Optiona
     def __repr__(self):
         return "Bollinger_linear(%(alpha)s, %(k)s, %(trader)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -57,8 +60,5 @@ class Bollinger_linear_Optional__Float___Optional__IObservable__Float____Optiona
         from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         return _strategy_position_DesiredPosition(_observable_OnEveryDt(1.0,_ops_Mul(_math_EW_RelStdDev(_orderbook_MidPrice(_orderbook_OfTrader(self.trader)),self.alpha),self.k)),self.trader)
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 Bollinger_linear = Bollinger_linear_Optional__Float___Optional__IObservable__Float____Optional__ISingleAssetTrader_

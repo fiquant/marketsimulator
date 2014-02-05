@@ -29,6 +29,9 @@ class MarketMaker_Optional__Float___Optional__Float_(ISingleAssetStrategy):
     def __repr__(self):
         return "MarketMaker(%(delta)s, %(volume)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -81,9 +84,6 @@ class MarketMaker_Optional__Float___Optional__Float_(ISingleAssetStrategy):
         from marketsim.gen._out.event._After import After as _event_After
         from marketsim.gen._out._constant import constant as _constant
         return _strategy_Combine(_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_OnEveryDt(0.9,_ops_Div(_orderbook_SafeSidePrice(_orderbook_Asks(),_constant((100+self.delta))),_math_Exp(_ops_Div(_math_Atan(_trader_Position()),_constant(1000)))))),_order__curried_price_Limit(_side_Sell(),_constant((self.volume*1000))))),_event_After(_constant(0.0))),_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_OnEveryDt(0.9,_ops_Div(_orderbook_SafeSidePrice(_orderbook_Bids(),_constant((100-self.delta))),_math_Exp(_ops_Div(_math_Atan(_trader_Position()),_constant(1000)))))),_order__curried_price_Limit(_side_Buy(),_constant((self.volume*1000))))),_event_After(_constant(0.0))))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

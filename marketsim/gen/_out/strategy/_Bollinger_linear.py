@@ -38,6 +38,9 @@ class Bollinger_linear_Optional_________Float______IOrderGenerator___Optional__F
     def __repr__(self):
         return "Bollinger_linear(%(orderFactory)s, %(alpha)s, %(k)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -51,9 +54,6 @@ class Bollinger_linear_Optional_________Float______IOrderGenerator___Optional__F
         from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
         from marketsim.gen._out.strategy.position._Bollinger_linear import Bollinger_linear as _strategy_position_Bollinger_linear
         return _strategy_Generic(self.orderFactory(_strategy_position_Bollinger_linear(self.alpha,self.k)))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

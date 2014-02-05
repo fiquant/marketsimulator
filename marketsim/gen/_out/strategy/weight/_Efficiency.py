@@ -24,6 +24,9 @@ class Efficiency__IAccount(Function[float]):
     def __repr__(self):
         return "Efficiency(%(trader)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -36,8 +39,5 @@ class Efficiency__IAccount(Function[float]):
     def getImpl(self):
         from marketsim.gen._out.trader._Efficiency import Efficiency as _trader_Efficiency
         return _trader_Efficiency(self.trader)
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 Efficiency = Efficiency__IAccount

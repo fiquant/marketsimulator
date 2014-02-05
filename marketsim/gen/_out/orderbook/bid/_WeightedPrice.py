@@ -27,6 +27,9 @@ class WeightedPrice_Optional__IOrderBook___Optional__Float_(Function[float]):
     def __repr__(self):
         return "[Bid^{%(book)s}]_{%(alpha)s}" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -40,8 +43,5 @@ class WeightedPrice_Optional__IOrderBook___Optional__Float_(Function[float]):
         from marketsim.gen._out.orderbook._WeightedPrice import WeightedPrice as _orderbook_WeightedPrice
         from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
         return _orderbook_WeightedPrice(_orderbook_Bids(self.book),self.alpha)
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 WeightedPrice = WeightedPrice_Optional__IOrderBook___Optional__Float_

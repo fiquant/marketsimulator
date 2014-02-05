@@ -27,8 +27,6 @@ object observable extends gen.PythonGenerator
             "event.subscribe(self.impl, _(self).fire, self)" |||
                 ImportFrom("_", "marketsim") |||
                 ImportFrom("event", "marketsim")
-
-        override def body = super.body | bind
     }
 
     def generatePython(/** arguments of the annotation */ args  : List[String])

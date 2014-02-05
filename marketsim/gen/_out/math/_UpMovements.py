@@ -36,6 +36,9 @@ class UpMovements_Optional__IObservable__Float____Optional__Float_(Observable[fl
     def __repr__(self):
         return "Ups_{%(timeframe)s}(%(source)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -52,8 +55,5 @@ class UpMovements_Optional__IObservable__Float____Optional__Float_(Observable[fl
         from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
         from marketsim.gen._out.math._Lagged import Lagged as _math_Lagged
         return _observable_Float(_math_Max(_const(0.0),_ops_Sub(self.source,_math_Lagged(self.source,self.timeframe))))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 UpMovements = UpMovements_Optional__IObservable__Float____Optional__Float_

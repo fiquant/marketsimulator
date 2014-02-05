@@ -35,6 +35,9 @@ class Noise_Optional__IEvent___Optional_________Side______IOrderGenerator_(ISing
     def __repr__(self):
         return "Noise(%(eventGen)s, %(orderFactory)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -48,9 +51,6 @@ class Noise_Optional__IEvent___Optional_________Side______IOrderGenerator_(ISing
         from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
         from marketsim.gen._out.strategy.side._Noise import Noise as _strategy_side_Noise
         return _strategy_Generic(self.orderFactory(_strategy_side_Noise()),self.eventGen)
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

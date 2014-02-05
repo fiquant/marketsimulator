@@ -33,6 +33,9 @@ class CrossingAverages_Optional__Float___Optional__Float___Optional__Float___Opt
     def __repr__(self):
         return "CrossingAverages(%(alpha_1)s, %(alpha_2)s, %(threshold)s, %(book)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -50,8 +53,5 @@ class CrossingAverages_Optional__Float___Optional__Float___Optional__Float___Opt
         from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
         from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
         return _strategy_side_Signal(_ops_Sub(_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha_1),_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha_2)),self.threshold)
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 CrossingAverages = CrossingAverages_Optional__Float___Optional__Float___Optional__Float___Optional__IOrderBook_

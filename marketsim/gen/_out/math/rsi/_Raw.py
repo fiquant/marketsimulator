@@ -31,6 +31,9 @@ class Raw_Optional__IObservable__Float____Optional__Float___Optional__Float_(Fun
     def __repr__(self):
         return "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -47,8 +50,5 @@ class Raw_Optional__IObservable__Float____Optional__Float___Optional__Float_(Fun
         from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
         from marketsim.gen._out.math._DownMovements import DownMovements as _math_DownMovements
         return _ops_Div(_math_EW_Avg(_math_UpMovements(self.source,self.timeframe),self.alpha),_math_EW_Avg(_math_DownMovements(self.source,self.timeframe),self.alpha))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 Raw = Raw_Optional__IObservable__Float____Optional__Float___Optional__Float_

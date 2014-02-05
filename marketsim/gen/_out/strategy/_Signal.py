@@ -44,6 +44,9 @@ class Signal_Optional__IEvent___Optional_________Side______IOrderGenerator___Opt
     def __repr__(self):
         return "Signal(%(eventGen)s, %(orderFactory)s, %(signal)s, %(threshold)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -57,9 +60,6 @@ class Signal_Optional__IEvent___Optional_________Side______IOrderGenerator___Opt
         from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
         from marketsim.gen._out.strategy.side._Signal import Signal as _strategy_side_Signal
         return _strategy_Generic(self.orderFactory(_strategy_side_Signal(self.signal,self.threshold)),self.eventGen)
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

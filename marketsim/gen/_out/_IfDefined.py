@@ -38,6 +38,9 @@ class IfDefined_Optional__IFunction__Float____Optional__IFunction__Float__(Obser
     def __repr__(self):
         return "If def(%(x)s) else %(elsePart)s" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -52,8 +55,5 @@ class IfDefined_Optional__IFunction__Float____Optional__IFunction__Float__(Obser
         from marketsim.gen._out.ops._NotEqual import NotEqual as _ops_NotEqual
         from marketsim.gen._out._null import null as _null
         return _ops_Condition_Float(_ops_NotEqual(self.x,_null()),self.x,self.elsePart)
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 IfDefined = IfDefined_Optional__IFunction__Float____Optional__IFunction__Float__

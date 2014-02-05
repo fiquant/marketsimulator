@@ -30,6 +30,9 @@ class TrendFollower_Optional__Float___Optional__Float___Optional__IOrderBook_(Fu
     def __repr__(self):
         return "TrendFollower(%(alpha)s, %(threshold)s, %(book)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -45,8 +48,5 @@ class TrendFollower_Optional__Float___Optional__Float___Optional__IOrderBook_(Fu
         from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
         from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
         return _strategy_side_Signal(_math_Derivative(_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha)),self.threshold)
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 TrendFollower = TrendFollower_Optional__Float___Optional__Float___Optional__IOrderBook_

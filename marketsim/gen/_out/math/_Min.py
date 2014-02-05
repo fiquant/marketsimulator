@@ -38,6 +38,9 @@ class Min_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[
     def __repr__(self):
         return "min{%(x)s, %(y)s}" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -51,8 +54,5 @@ class Min_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[
         from marketsim.gen._out.ops._Condition_Float import Condition_Float as _ops_Condition_Float
         from marketsim.gen._out.ops._Less import Less as _ops_Less
         return _ops_Condition_Float(_ops_Less(self.x,self.y),self.x,self.y)
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 Min = Min_Optional__IFunction__Float____Optional__IFunction__Float__

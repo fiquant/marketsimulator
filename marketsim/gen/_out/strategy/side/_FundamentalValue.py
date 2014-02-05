@@ -37,6 +37,9 @@ class FundamentalValue_Optional__IFunction__Float____Optional__IOrderBook_(Obser
     def __repr__(self):
         return "FundamentalValue(%(fv)s, %(book)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -57,8 +60,5 @@ class FundamentalValue_Optional__IFunction__Float____Optional__IOrderBook_(Obser
         from marketsim.gen._out.side._Buy import Buy as _side_Buy
         from marketsim.gen._out.side._Nothing import Nothing as _side_Nothing
         return _ops_Condition_Side(_ops_Greater(_orderbook_bid_Price(self.book),self.fv),_side_Sell(),_ops_Condition_Side(_ops_Less(_orderbook_ask_Price(self.book),self.fv),_side_Buy(),_side_Nothing()))
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 FundamentalValue = FundamentalValue_Optional__IFunction__Float____Optional__IOrderBook_

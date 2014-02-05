@@ -43,6 +43,9 @@ class RSI_linear_Optional__Float___Optional__IObservable__Float____Optional__Flo
     def __repr__(self):
         return "RSI_linear(%(alpha)s, %(k)s, %(timeframe)s, %(trader)s)" % self.__dict__
     
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
     _internals = ['impl']
     def __call__(self, *args, **kwargs):
         return self.impl()
@@ -61,8 +64,5 @@ class RSI_linear_Optional__Float___Optional__IObservable__Float____Optional__Flo
         from marketsim.gen._out.math._RSI import RSI as _math_RSI
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         return _strategy_position_DesiredPosition(_observable_OnEveryDt(1.0,_ops_Mul(_ops_Sub(_const(50.0),_math_RSI(_orderbook_OfTrader(self.trader),self.timeframe,self.alpha)),self.k)),self.trader)
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
     
 RSI_linear = RSI_linear_Optional__Float___Optional__IObservable__Float____Optional__Float___Optional__ISingleAssetTrader_
