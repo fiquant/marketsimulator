@@ -43,19 +43,13 @@ object order_factory_on_proto
         def call_arg = s"$name = None"
     }
 
-    import order_factory_curried.lookupOriginal
+    import order_factory_curried.{lookupOriginal, OriginalFactory}
 
     class PartialFactory(val args   : List[String],
-                         x          : Typed.Function)
+                         val x      : Typed.Function)
             extends FactoryBase
+            with    OriginalFactory
     {
-        val f = lookupOriginal(args, x)
-
-        val original = gen.generationUnit(f).get match {
-            case x : FactoryBase => x
-            case _ => throw new Exception("original factory is not of appropriate type")
-        }
-
         override type Parameter = FactoryParameter
         val factory_of_curried = x.parameters find { _.name == "proto" } match {
             case Some(Typed.Parameter(_, _, Some(Typed.FunctionCall(Typed.FunctionRef(f), _)), _)) =>
@@ -74,12 +68,8 @@ object order_factory_on_proto
 
         override val prefix = curried map { _.name } mkString ""
         override def name = x.name
-        override def alias = original.alias
 
-        def makeCode(t : TypesBound.Base) = t.asCode
-
-        override def interface =
-            makeCode(x.ret_type)
+        override def interface = x.ret_type.asCode
 
         override def base_class_list = interface :: Nil
 
