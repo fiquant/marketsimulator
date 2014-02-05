@@ -1,19 +1,26 @@
 from marketsim import registry
+from marketsim import float
+from marketsim import float
+from marketsim.ops._all import Observable
 from marketsim.gen._intrinsic.observable.minmax import Max_Impl
 from marketsim import IFunction
 from marketsim import float
 from marketsim import float
 @registry.expose(["Statistics", "Max"])
-class Max_Optional__IFunction__Float____Optional__Float_(Max_Impl):
+class Max_Optional__IFunction__Float____Optional__Float_(Observable[float],Max_Impl):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
+        from marketsim import float
+        from marketsim import float
+        from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import event
         from marketsim import types
         from marketsim import event
         from marketsim import types
         from marketsim import rtti
+        Observable[float].__init__(self)
         self.source = source if source is not None else _constant()
         if isinstance(source, types.IEvent):
             event.subscribe(self.source, self.fire, self)

@@ -1,9 +1,8 @@
 from marketsim import (event, _, types, ops, registry)
 
-class _BreaksAtChanges_Impl(ops.Observable[float]):
+class _BreaksAtChanges_Impl(object):
     
     def __init__(self):
-        ops.Observable[float].__init__(self)
         self._value = None
         event.subscribe(self.source, _(self)._clean, self)
         

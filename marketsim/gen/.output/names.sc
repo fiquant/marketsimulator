@@ -69,7 +69,7 @@ package ops
     def Mul(x = constant(1.0),
             y = constant(1.0)) : IFunction[Float]
     
-    @python.intrinsic.observable("ops._ConditionFloat_Impl")
+    @python.intrinsic.observable("ops._Condition_Impl")
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     def Condition_Float(cond = true() : IFunction[Boolean],
                         ifpart = constant(1.0),
@@ -81,7 +81,7 @@ package ops
     def NotEqual(x = constant(1.0),
                  y = constant(1.0)) : IObservable[Boolean]
     
-    @python.intrinsic.observable("ops._ConditionSide_Impl")
+    @python.intrinsic.observable("ops._Condition_Impl")
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     def Condition_Side(cond = true() : IFunction[Boolean],
                        ifpart = side.Sell(),

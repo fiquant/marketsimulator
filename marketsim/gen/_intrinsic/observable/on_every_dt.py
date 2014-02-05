@@ -1,13 +1,12 @@
 from marketsim import event, types, ops
 
-class IndicatorBase(ops.Observable[float]):
+class IndicatorBase(object):
     """ Observable that stores some scalar value and knows how to update it
 
     * **Source of data** -- function that provides data
     * **Events when to act** -- events when to act
     """
     def __init__(self):
-        ops.Observable[float].__init__(self)
         self._alias = ['_details', 'indicator base']
 
     @property
@@ -39,13 +38,12 @@ class _OnEveryDt_Impl(IndicatorBase):
         IndicatorBase.__init__(self)
         self._subscription = event.subscribe(event.Every(constant(self.dt)), self.fire, self)
 
-class _Observable_Impl(ops.Observable[float]):
+class _Observable_Impl(object):
     """ Creates an indicator that is updated regularly
     interval - constant interval between updates
     source - function to obtain indicator value
     """
     def __init__(self):
-        ops.Observable[float].__init__(self)
         self._dataSource = self.x
         self._subscription = event.subscribe(self.x, self.fire, self)
 
@@ -59,13 +57,12 @@ class _Observable_Impl(ops.Observable[float]):
 
 from marketsim import Side
 
-class _ObservableSide_Impl(ops.Observable[Side]):
+class _ObservableSide_Impl(object):
     """ Creates an indicator that is updated regularly
     interval - constant interval between updates
     source - function to obtain indicator value
     """
     def __init__(self):
-        ops.Observable[Side].__init__(self)
         self._dataSource = self.x
         self._subscription = event.subscribe(self.x, self.fire, self)
 

@@ -2,11 +2,9 @@ from marketsim import ops, event, _
 
 import fold
 
-class Lagged_Impl(fold.Last, ops.Observable[float]):
+class Lagged_Impl(fold.Last):
 
     def __init__(self):
-        ops.Observable[float].__init__(self)
-
         self.reset()
         self._alias = ['_details', 'Lagged']
         self._event = event.subscribe(self.source, _(self)._update, self)

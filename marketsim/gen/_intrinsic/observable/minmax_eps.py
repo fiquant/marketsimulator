@@ -1,11 +1,10 @@
 from marketsim import bind, context, types, event, _, ops, registry
 
-class Base(ops.Observable[float]):
+class Base(object):
     """ Observable that fires if underlying source value becomes greater previous maximum plus some epsilon
     """
 
     def __init__(self):
-        ops.Observable[float].__init__(self)
         self.my_fire = self.fire
         self.fire = bind.Method(self, "_dummy")
         self.value = None

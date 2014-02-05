@@ -1,4 +1,7 @@
 from marketsim import registry
+from marketsim import float
+from marketsim import float
+from marketsim.ops._all import Observable
 from marketsim.gen._intrinsic.observable.randomwalk import _RandomWalk_Impl
 from marketsim import float
 from marketsim import float
@@ -7,10 +10,13 @@ from marketsim import float
 from marketsim import IFunction
 from marketsim import str
 @registry.expose(["Basic", "RandomWalk"])
-class RandomWalk_Optional__Float___Optional________Float___Optional________Float___Optional__String_(_RandomWalk_Impl):
+class RandomWalk_Optional__Float___Optional________Float___Optional________Float___Optional__String_(Observable[float],_RandomWalk_Impl):
     """ 
     """ 
     def __init__(self, initialValue = None, deltaDistr = None, intervalDistr = None, name = None):
+        from marketsim import float
+        from marketsim import float
+        from marketsim.ops._all import Observable
         from marketsim import event
         from marketsim import types
         from marketsim.gen._out.math.random._normalvariate import normalvariate as _math_random_normalvariate
@@ -22,6 +28,7 @@ class RandomWalk_Optional__Float___Optional________Float___Optional________Float
         from marketsim import event
         from marketsim import types
         from marketsim import rtti
+        Observable[float].__init__(self)
         self.initialValue = initialValue if initialValue is not None else 0.0
         if isinstance(initialValue, types.IEvent):
             event.subscribe(self.initialValue, self.fire, self)

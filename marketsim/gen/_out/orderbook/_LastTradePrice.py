@@ -1,15 +1,22 @@
 from marketsim import registry
+from marketsim import Price
+from marketsim import Price
+from marketsim.ops._all import Observable
 from marketsim.gen._intrinsic.orderbook.last_trade import _LastTradePrice_Impl
 from marketsim import IOrderQueue
 @registry.expose(["Asset", "LastTradePrice"])
-class LastTradePrice_Optional__IOrderQueue_(_LastTradePrice_Impl):
+class LastTradePrice_Optional__IOrderQueue_(Observable[Price],_LastTradePrice_Impl):
     """   Returns None if there haven't been any trades
     """ 
     def __init__(self, queue = None):
+        from marketsim import Price
+        from marketsim import Price
+        from marketsim.ops._all import Observable
         from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
         from marketsim import event
         from marketsim import types
         from marketsim import rtti
+        Observable[Price].__init__(self)
         self.queue = queue if queue is not None else _orderbook_Asks()
         if isinstance(queue, types.IEvent):
             event.subscribe(self.queue, self.fire, self)

@@ -4,10 +4,9 @@ from marketsim.gen._out.side._Sell import Sell
 
 from marketsim.gen._out._constant import constant
 
-class VolumeLevels_Impl(ops.Observable[IVolumeLevels]):
+class VolumeLevels_Impl(object):
 
     def __init__(self):
-        ops.Observable[IVolumeLevels].__init__(self)
         event.subscribe(event.Every(constant(1)), self.fire, self)
 
     @property

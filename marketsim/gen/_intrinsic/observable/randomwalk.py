@@ -1,6 +1,6 @@
 from marketsim import _,  meta, types, ops, registry, event
 
-class _RandomWalk_Impl(ops.Observable[float]):
+class _RandomWalk_Impl(object):
     """ A discrete signal with user-defined increments.
     
         Parameters:
@@ -20,8 +20,6 @@ class _RandomWalk_Impl(ops.Observable[float]):
         self.fire(self)
 
     def __init__(self):
-        ops.Observable[float].__init__(self)
-
         self.attributes = {"smooth":True}
 
         self._timer = event.Every(self.intervalDistr)

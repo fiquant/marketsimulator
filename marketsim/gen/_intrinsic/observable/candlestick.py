@@ -6,10 +6,9 @@ from marketsim.gen._out.math.Cumulative._StdDev import StdDev
 
 from marketsim.gen._out._constant import constant
 
-class CandleSticks_Impl(ops.Observable[types.ICandleStick]):
+class CandleSticks_Impl(object):
 
     def __init__(self):
-        ops.Observable[types.ICandleStick].__init__(self)
         self._event = event.subscribe(self.source, _(self)._update, self)
         event.subscribe(event.Every(constant(self.timeframe)), _(self)._flush, self)
         self.reset()

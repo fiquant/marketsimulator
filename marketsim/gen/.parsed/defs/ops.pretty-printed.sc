@@ -34,14 +34,14 @@ package ops {
     }
     
     // defined at defs\ops.sc: 28.5
-    @python.intrinsic.observable("ops._ConditionFloat_Impl")
+    @python.intrinsic.observable("ops._Condition_Impl")
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     def Condition_Float(cond = true() : IFunction[Boolean],
                         ifpart = constant(1.0),
                         elsepart = constant(1.0)) : IFunction[Float]
     
     // defined at defs\ops.sc: 34.5
-    @python.intrinsic.observable("ops._ConditionSide_Impl")
+    @python.intrinsic.observable("ops._Condition_Impl")
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     def Condition_Side(cond = true() : IFunction[Boolean],
                        ifpart = side.Sell(),

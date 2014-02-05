@@ -29,10 +29,15 @@ class Proxy(types.IObservable[float], ops.Function[float]):
     def attributes(self):
         return {}
 
-class _BestPrice_Impl(Proxy):
+class _BestPrice_Impl(object):
+
+    def bind(self, ctx):
+        from marketsim import event, _, context
+        event.subscribe(self.queue.bestPrice, _(self).fire, self)
+        context.bind(self._subscriptions, ctx)
 
     @property
-    def _impl(self):
+    def __call__(self):
         return self.queue.bestPrice
 
 

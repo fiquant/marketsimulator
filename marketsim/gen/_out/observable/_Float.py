@@ -1,16 +1,23 @@
 from marketsim import registry
+from marketsim import float
+from marketsim import float
+from marketsim.ops._all import Observable
 from marketsim.gen._intrinsic.observable.on_every_dt import _Observable_Impl
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Basic", "Float"])
-class Float_Optional__IFunction__Float__(_Observable_Impl):
+class Float_Optional__IFunction__Float__(Observable[float],_Observable_Impl):
     """  Needed since generic functions aren't implemented yet
     """ 
     def __init__(self, x = None):
+        from marketsim import float
+        from marketsim import float
+        from marketsim.ops._all import Observable
         from marketsim.gen._out._const import const as _const
         from marketsim import event
         from marketsim import types
         from marketsim import rtti
+        Observable[float].__init__(self)
         self.x = x if x is not None else _const()
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)

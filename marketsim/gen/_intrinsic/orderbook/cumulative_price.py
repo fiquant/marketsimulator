@@ -3,12 +3,9 @@ from marketsim import ops, event, request, Side, _, types
 def sign(x):
     return 1 if x > 0 else -1 if x < 0 else 0
 
-class CumulativePrice_Impl(ops.Observable[float]):
+class CumulativePrice_Impl(object):
 
     def __init__(self):
-
-        ops.Observable[float].__init__(self)
-
         from marketsim.gen._out.orderbook.ask._LastTradePrice import LastTradePrice as Ask
         from marketsim.gen._out.orderbook.bid._LastTradePrice import LastTradePrice as Bid
         self.ask = Ask(self.book)

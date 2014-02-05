@@ -1,5 +1,8 @@
 from marketsim import registry
-from marketsim.gen._intrinsic.ops import _ConditionSide_Impl
+from marketsim import Side
+from marketsim import Side
+from marketsim.ops._all import Observable
+from marketsim.gen._intrinsic.ops import _Condition_Impl
 from marketsim import IFunction
 from marketsim import bool
 from marketsim import Side
@@ -7,10 +10,13 @@ from marketsim import IFunction
 from marketsim import Side
 from marketsim import IFunction
 @registry.expose(["Ops", "Condition_Side"])
-class Condition_Side_Optional__IFunction__Boolean____Optional________Side___Optional________Side_(_ConditionSide_Impl):
+class Condition_Side_Optional__IFunction__Boolean____Optional________Side___Optional________Side_(Observable[Side],_Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
+        from marketsim import Side
+        from marketsim import Side
+        from marketsim.ops._all import Observable
         from marketsim.gen._out._true import true as _true
         from marketsim import event
         from marketsim import types
@@ -21,6 +27,7 @@ class Condition_Side_Optional__IFunction__Boolean____Optional________Side___Opti
         from marketsim import event
         from marketsim import types
         from marketsim import rtti
+        Observable[Side].__init__(self)
         self.cond = cond if cond is not None else _true()
         if isinstance(cond, types.IEvent):
             event.subscribe(self.cond, self.fire, self)
@@ -31,7 +38,7 @@ class Condition_Side_Optional__IFunction__Boolean____Optional________Side___Opti
         if isinstance(elsepart, types.IEvent):
             event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
-        _ConditionSide_Impl.__init__(self)
+        _Condition_Impl.__init__(self)
     
     @property
     def label(self):

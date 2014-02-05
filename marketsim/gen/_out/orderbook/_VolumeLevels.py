@@ -1,13 +1,19 @@
 from marketsim import registry
+from marketsim import IVolumeLevels
+from marketsim import IVolumeLevels
+from marketsim.ops._all import Observable
 from marketsim.gen._intrinsic.orderbook.volume_levels import VolumeLevels_Impl
 from marketsim import IOrderQueue
 from marketsim import float
 from marketsim import int
 @registry.expose(["Asset", "VolumeLevels"])
-class VolumeLevels_Optional__IOrderQueue___Optional__Float___Optional__Int_(VolumeLevels_Impl):
+class VolumeLevels_Optional__IOrderQueue___Optional__Float___Optional__Int_(Observable[IVolumeLevels],VolumeLevels_Impl):
     """   Level of volume V is a price at which cumulative volume of better orders is V
     """ 
     def __init__(self, queue = None, volumeDelta = None, volumeCount = None):
+        from marketsim import IVolumeLevels
+        from marketsim import IVolumeLevels
+        from marketsim.ops._all import Observable
         from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
         from marketsim import event
         from marketsim import types
@@ -16,6 +22,7 @@ class VolumeLevels_Optional__IOrderQueue___Optional__Float___Optional__Int_(Volu
         from marketsim import event
         from marketsim import types
         from marketsim import rtti
+        Observable[IVolumeLevels].__init__(self)
         self.queue = queue if queue is not None else _orderbook_Asks()
         if isinstance(queue, types.IEvent):
             event.subscribe(self.queue, self.fire, self)

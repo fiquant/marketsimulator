@@ -11,6 +11,7 @@ object intrinsic_observable extends gen.PythonGenerator
 
     class Import(args : List[String], f : Typed.Function)
             extends intrinsic_function.Common(args, f)
+            with    base.BaseClass_Observable
             with    intrinsic_function.BaseClass_Intrinsic
     {   self =>
 
@@ -27,7 +28,7 @@ object intrinsic_observable extends gen.PythonGenerator
 
         override type Parameter = Parameter_
 
-        override def base_class = implementationBase
+        override def base_classes = observableBase ||| "," ||| implementationBase
     }
 
     def generatePython(/** arguments of the annotation */ args  : List[String])

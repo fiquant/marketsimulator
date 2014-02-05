@@ -1,12 +1,12 @@
 from marketsim.ops._all import Observable
 
-class _Negate_Impl(Observable[float]):
+class _Negate_Impl(object):
 
     def __call__(self):
         x = self.x()
         return -x if x is not None else None
 
-class Base(Observable[float]):
+class Base(object):
 
     def __call__(self):
         x = self.x()
@@ -46,10 +46,7 @@ class _Condition_Impl(object):
 
 from marketsim import Side
 
-class _ConditionFloat_Impl(_Condition_Impl, Observable[float]): pass
-class _ConditionSide_Impl(_Condition_Impl, Observable[Side]): pass
-
-class _Conditional_Base(Observable[bool]):
+class _Conditional_Base(object):
 
     def __call__(self):
         x = self.x()

@@ -3,10 +3,9 @@ from marketsim import ops, types, event, _, getLabel, registry
 import fold
 
 
-class Min_Impl(fold.Last, ops.Observable[float]):
+class Min_Impl(fold.Last):
     
     def __init__(self):
-        ops.Observable[float].__init__(self)
         event.subscribe(self.source, _(self)._update, self)
         self.reset()
         
@@ -39,10 +38,9 @@ class Min_Impl(fold.Last, ops.Observable[float]):
         self._x = x
         self.fire(self)
         
-class Max_Impl(fold.Last, ops.Observable[float]):
+class Max_Impl(fold.Last):
     
     def __init__(self):
-        ops.Observable[float].__init__(self)
         event.subscribe(self.source, _(self)._update, self)
         self.reset()
         

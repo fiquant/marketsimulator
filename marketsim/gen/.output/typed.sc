@@ -77,7 +77,7 @@ package ops {
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._ConditionFloat_Impl")
+    @python.intrinsic.observable("ops._Condition_Impl")
     def Condition_Float(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
                         ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
                         elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
@@ -91,7 +91,7 @@ package ops {
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._ConditionSide_Impl")
+    @python.intrinsic.observable("ops._Condition_Impl")
     def Condition_Side(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
                        ifpart : Optional[() => .Side] = .side.Sell(),
                        elsepart : Optional[() => .Side] = .side.Buy()) : .IFunction[.Side]

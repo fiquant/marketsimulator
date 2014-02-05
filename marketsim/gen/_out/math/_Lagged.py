@@ -1,19 +1,26 @@
 from marketsim import registry
+from marketsim import float
+from marketsim import float
+from marketsim.ops._all import Observable
 from marketsim.gen._intrinsic.observable.lagged import Lagged_Impl
 from marketsim import IObservable
 from marketsim import float
 from marketsim import float
 @registry.expose(["Basic", "Lagged"])
-class Lagged_Optional__IObservable__Float____Optional__Float_(Lagged_Impl):
+class Lagged_Optional__IObservable__Float____Optional__Float_(Observable[float],Lagged_Impl):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
+        from marketsim import float
+        from marketsim import float
+        from marketsim.ops._all import Observable
         from marketsim.gen._out._const import const as _const
         from marketsim import event
         from marketsim import types
         from marketsim import event
         from marketsim import types
         from marketsim import rtti
+        Observable[float].__init__(self)
         self.source = source if source is not None else _const()
         if isinstance(source, types.IEvent):
             event.subscribe(self.source, self.fire, self)

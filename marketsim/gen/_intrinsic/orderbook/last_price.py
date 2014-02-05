@@ -2,10 +2,9 @@ from marketsim import ops, event, _
 
 from marketsim.gen._out.orderbook._BestPrice import BestPrice
 
-class _LastPrice_Impl(ops.Observable[float]):
+class _LastPrice_Impl(object):
 
     def __init__(self):
-        ops.Observable[float].__init__(self)
         self._price = BestPrice(self.queue)
         event.subscribe(self._price, _(self)._update, self)
         self._lastPrice = None

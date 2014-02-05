@@ -1,4 +1,4 @@
-from marketsim import ops, event, IAccount
+from marketsim import ops, event, IAccount, _
 
 from marketsim.gen._out.trader._SingleProxy import SingleProxy
 
@@ -27,12 +27,11 @@ class OnOrderMatched(event.Event):
     _properties = { 'trader' : IAccount }
 
 
-class Position_Impl(ops.Observable[float]):
+class Position_Impl(object):
     """ Returns trader's position (i.e. number of assets traded)
     """
 
     def __init__(self):
-        ops.Observable[float].__init__(self)
         event.subscribe(OnTraded(self.trader), self.fire, self)
 
     def __call__(self):
@@ -42,12 +41,11 @@ class Position_Impl(ops.Observable[float]):
     def digits(self):
         return 0
 
-class Balance_Impl(ops.Observable[float]):
+class Balance_Impl(object):
     """ Returns balance of the given *trader*
     """
 
     def __init__(self):
-        ops.Observable[float].__init__(self)
         event.subscribe(OnTraded(self.trader), self.fire, self)
 
     @property
@@ -57,11 +55,10 @@ class Balance_Impl(ops.Observable[float]):
     def __call__(self):
         return self.trader.PnL
 
-class _PendingVolume_Impl(ops.Observable[float]): # should be int
+class _PendingVolume_Impl(object): # should be int
 
     def __init__(self, trader):
         self.trader = trader
-        ops.Observable[float].__init__(self)
         self._pendingVolume = 0
 
     def bind(self, ctx):
@@ -86,7 +83,7 @@ class _PendingVolume_Impl(ops.Observable[float]): # should be int
 
 from marketsim.gen._intrinsic.orderbook.props import Proxy
 
-class PendingVolume_Impl(Proxy):
+class PendingVolume_Impl(object):
 
     @property
     def _impl(self):

@@ -1,6 +1,11 @@
 from props import Proxy
 
-class LastTrade(Proxy):
+class LastTrade(object):
+
+    def bind(self, ctx):
+        from marketsim import event, _, context
+        event.subscribe(self.queue.lastTrade, _(self).fire, self)
+        context.bind(self._subscriptions, ctx)
 
     @property
     def _impl(self):
@@ -9,7 +14,7 @@ class LastTrade(Proxy):
 class _LastTradePrice_Impl(LastTrade):
 
     def __call__(self):
-        trade = LastTrade.__call__(self)
+        trade = self._impl()
         return trade[0] if trade is not None else None
 
     @property
@@ -19,7 +24,7 @@ class _LastTradePrice_Impl(LastTrade):
 class _LastTradeVolume_Impl(LastTrade):
 
     def __call__(self):
-        return LastTrade.__call__(self)[1]
+        return self._impl()[1]
 
     @property
     def label(self):

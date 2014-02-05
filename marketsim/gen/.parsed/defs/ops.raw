@@ -336,7 +336,7 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - ops._ConditionFloat_Impl
+| | | | | | | | - ops._Condition_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - (if %(cond)s then %(ifpart)s else %(elsepart)s)
@@ -407,7 +407,7 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - ops._ConditionSide_Impl
+| | | | | | | | - ops._Condition_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - (if %(cond)s then %(ifpart)s else %(elsepart)s)
