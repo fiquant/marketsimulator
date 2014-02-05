@@ -38,6 +38,14 @@ class LiquidityProvider_Optional________Side___Optional__Float___Optional_______
         return "LiquidityProvider(%(side)s, %(initialValue)s, %(priceDistr)s, %(book)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.ops._Mul import Mul as _ops_Mul
         from marketsim.gen._out.orderbook._SafeSidePrice import SafeSidePrice as _orderbook_SafeSidePrice
@@ -47,13 +55,5 @@ class LiquidityProvider_Optional________Side___Optional__Float___Optional_______
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 LiquidityProvider = LiquidityProvider_Optional________Side___Optional__Float___Optional________Float___Optional__IOrderBook_

@@ -38,6 +38,14 @@ class SafeSidePrice_Optional__IOrderQueue___Optional__IFunction__Float__(Observa
         return "SafeSidePrice(%(queue)s, %(defaultValue)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.observable._Price import Price as _observable_Price
         from marketsim.gen._out._IfDefined import IfDefined as _IfDefined
@@ -48,13 +56,5 @@ class SafeSidePrice_Optional__IOrderQueue___Optional__IFunction__Float__(Observa
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 SafeSidePrice = SafeSidePrice_Optional__IOrderQueue___Optional__IFunction__Float__

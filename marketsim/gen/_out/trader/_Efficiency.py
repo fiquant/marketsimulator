@@ -33,6 +33,14 @@ class Efficiency_Optional__IAccount_(Observable[float]):
         return "Efficiency(%(trader)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.observable._Float import Float as _observable_Float
         from marketsim.gen._out.ops._Add import Add as _ops_Add
@@ -44,13 +52,5 @@ class Efficiency_Optional__IAccount_(Observable[float]):
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 Efficiency = Efficiency_Optional__IAccount_

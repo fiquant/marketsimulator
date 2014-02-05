@@ -29,6 +29,14 @@ class LogReturns_Optional__IObservable__Float____Optional__Float_(Function[float
         return "LogReturns_{%(timeframe)s}(%(x)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.math._Log import Log as _math_Log
         from marketsim.gen._out.ops._Div import Div as _ops_Div
@@ -37,13 +45,5 @@ class LogReturns_Optional__IObservable__Float____Optional__Float_(Function[float
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 LogReturns = LogReturns_Optional__IObservable__Float____Optional__Float_

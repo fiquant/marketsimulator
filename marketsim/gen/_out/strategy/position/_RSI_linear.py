@@ -44,6 +44,14 @@ class RSI_linear_Optional__Float___Optional__IObservable__Float____Optional__Flo
         return "RSI_linear(%(alpha)s, %(k)s, %(timeframe)s, %(trader)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.strategy.position._DesiredPosition import DesiredPosition as _strategy_position_DesiredPosition
         from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
@@ -56,13 +64,5 @@ class RSI_linear_Optional__Float___Optional__IObservable__Float____Optional__Flo
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 RSI_linear = RSI_linear_Optional__Float___Optional__IObservable__Float____Optional__Float___Optional__ISingleAssetTrader_

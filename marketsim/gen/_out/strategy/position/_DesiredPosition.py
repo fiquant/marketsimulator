@@ -38,6 +38,14 @@ class DesiredPosition_Optional__IObservable__Float____Optional__ISingleAssetTrad
         return "DesiredPosition(%(desiredPosition)s, %(trader)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.observable._Volume import Volume as _observable_Volume
         from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
@@ -48,13 +56,5 @@ class DesiredPosition_Optional__IObservable__Float____Optional__ISingleAssetTrad
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 DesiredPosition = DesiredPosition_Optional__IObservable__Float____Optional__ISingleAssetTrader_

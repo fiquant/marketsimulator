@@ -26,6 +26,14 @@ class Clamp0_Optional__IFunction__Float__(Function[float]):
         return "Clamp0(%(f)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.ops._Add import Add as _ops_Add
         from marketsim.gen._out.math._Max import Max as _math_Max
@@ -35,13 +43,5 @@ class Clamp0_Optional__IFunction__Float__(Function[float]):
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 Clamp0 = Clamp0_Optional__IFunction__Float__

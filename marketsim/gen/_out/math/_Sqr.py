@@ -34,19 +34,19 @@ class Sqr_Optional__IFunction__Float__(Observable[float]):
         return "{%(x)s}^2" % self.__dict__
     
     _internals = ['impl']
-    def getImpl(self):
-        from marketsim.gen._out.ops._Mul import Mul as _ops_Mul
-        return _ops_Mul(self.x,self.x)
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
+    def __call__(self, *args, **kwargs):
+        return self.impl()
     
     def reset(self):
         self.impl = self.getImpl()
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
-    def __call__(self, *args, **kwargs):
-        return self.impl()
+    def getImpl(self):
+        from marketsim.gen._out.ops._Mul import Mul as _ops_Mul
+        return _ops_Mul(self.x,self.x)
+    
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
     
 Sqr = Sqr_Optional__IFunction__Float__

@@ -31,6 +31,14 @@ class RSI_Optional__IOrderBook___Optional__Float___Optional__Float_(Function[flo
         return "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
         from marketsim.gen._out._const import const as _const
@@ -44,13 +52,5 @@ class RSI_Optional__IOrderBook___Optional__Float___Optional__Float_(Function[flo
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 RSI = RSI_Optional__IOrderBook___Optional__Float___Optional__Float_

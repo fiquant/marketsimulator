@@ -33,6 +33,14 @@ class Spread_Optional__IOrderBook_(Observable[Price]):
         return "Spread(%(book)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.observable._Price import Price as _observable_Price
         from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
@@ -42,13 +50,5 @@ class Spread_Optional__IOrderBook_(Observable[Price]):
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 Spread = Spread_Optional__IOrderBook_

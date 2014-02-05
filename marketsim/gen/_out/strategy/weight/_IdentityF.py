@@ -26,18 +26,18 @@ class IdentityF_Optional__IFunction__Float__(Function[float]):
         return "IdentityF(%(f)s)" % self.__dict__
     
     _internals = ['impl']
-    def getImpl(self):
-        return self.f
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
+    def __call__(self, *args, **kwargs):
+        return self.impl()
     
     def reset(self):
         self.impl = self.getImpl()
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
-    def __call__(self, *args, **kwargs):
-        return self.impl()
+    def getImpl(self):
+        return self.f
+    
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
     
 IdentityF = IdentityF_Optional__IFunction__Float__

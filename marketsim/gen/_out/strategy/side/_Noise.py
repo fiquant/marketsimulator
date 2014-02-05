@@ -26,6 +26,14 @@ class Noise_Optional________Float_(Function[Side]):
         return "Noise(%(side_distribution)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.ops._Condition_Side import Condition_Side as _ops_Condition_Side
         from marketsim.gen._out.ops._Greater import Greater as _ops_Greater
@@ -36,13 +44,5 @@ class Noise_Optional________Float_(Function[Side]):
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 Noise = Noise_Optional________Float_

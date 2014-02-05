@@ -28,6 +28,14 @@ class EfficiencyTrend__IAccount__Optional__Float_(Function[float]):
         return "EfficiencyTrend(%(trader)s, %(alpha)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.math._Derivative import Derivative as _math_Derivative
         from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
@@ -36,13 +44,5 @@ class EfficiencyTrend__IAccount__Optional__Float_(Function[float]):
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 EfficiencyTrend = EfficiencyTrend__IAccount__Optional__Float_

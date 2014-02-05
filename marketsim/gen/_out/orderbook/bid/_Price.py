@@ -33,6 +33,14 @@ class Price_Optional__IOrderBook_(Observable[Price]):
         return "Bid^{%(book)s}" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.orderbook._BestPrice import BestPrice as _orderbook_BestPrice
         from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
@@ -40,13 +48,5 @@ class Price_Optional__IOrderBook_(Observable[Price]):
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 Price = Price_Optional__IOrderBook_

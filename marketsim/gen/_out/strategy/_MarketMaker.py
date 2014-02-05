@@ -30,6 +30,14 @@ class MarketMaker_Optional__Float___Optional__Float_(ISingleAssetStrategy):
         return "MarketMaker(%(delta)s, %(volume)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.strategy._Combine import Combine as _strategy_Combine
         from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
@@ -76,11 +84,6 @@ class MarketMaker_Optional__Float___Optional__Float_(ISingleAssetStrategy):
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

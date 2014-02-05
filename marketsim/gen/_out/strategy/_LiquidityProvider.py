@@ -47,6 +47,14 @@ class LiquidityProvider_Optional__IEvent___Optional__________Side__________Float
         return "LiquidityProvider(%(eventGen)s, %(orderFactory)s, %(initialValue)s, %(priceDistr)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.strategy._Array import Array as _strategy_Array
         from marketsim.gen._out.strategy._LiquidityProviderSide import LiquidityProviderSide as _strategy_LiquidityProviderSide
@@ -57,11 +65,6 @@ class LiquidityProvider_Optional__IEvent___Optional__________Side__________Float
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

@@ -33,6 +33,14 @@ class LastTradeVolume_Optional__IOrderBook_(Observable[Volume]):
         return "LastTradeVolume(Ask_{%(book)s})" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.orderbook._LastTradeVolume import LastTradeVolume as _orderbook_LastTradeVolume
         from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
@@ -40,13 +48,5 @@ class LastTradeVolume_Optional__IOrderBook_(Observable[Volume]):
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 LastTradeVolume = LastTradeVolume_Optional__IOrderBook_

@@ -24,19 +24,19 @@ class constant_Optional__Float_(Function[float]):
         return "C=%(x)s" % self.__dict__
     
     _internals = ['impl']
-    def getImpl(self):
-        from marketsim.gen._out._const import const as _const
-        return _const(self.x)
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
+    def __call__(self, *args, **kwargs):
+        return self.impl()
     
     def reset(self):
         self.impl = self.getImpl()
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
-    def __call__(self, *args, **kwargs):
-        return self.impl()
+    def getImpl(self):
+        from marketsim.gen._out._const import const as _const
+        return _const(self.x)
+    
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
     
 constant = constant_Optional__Float_

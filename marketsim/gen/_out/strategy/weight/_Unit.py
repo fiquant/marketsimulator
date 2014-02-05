@@ -25,19 +25,19 @@ class Unit__IAccount(Function[float]):
         return "Unit(%(trader)s)" % self.__dict__
     
     _internals = ['impl']
-    def getImpl(self):
-        from marketsim.gen._out._constant import constant as _constant
-        return _constant(1.0)
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
+    def __call__(self, *args, **kwargs):
+        return self.impl()
     
     def reset(self):
         self.impl = self.getImpl()
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
-    def __call__(self, *args, **kwargs):
-        return self.impl()
+    def getImpl(self):
+        from marketsim.gen._out._constant import constant as _constant
+        return _constant(1.0)
+    
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
     
 Unit = Unit__IAccount

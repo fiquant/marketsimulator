@@ -28,6 +28,14 @@ class WeightedPrice_Optional__IOrderQueue___Optional__Float_(Function[float]):
         return "Price_{%(alpha)s}^{%(queue)s}" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.ops._Div import Div as _ops_Div
         from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
@@ -41,13 +49,5 @@ class WeightedPrice_Optional__IOrderQueue___Optional__Float_(Function[float]):
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 WeightedPrice = WeightedPrice_Optional__IOrderQueue___Optional__Float_

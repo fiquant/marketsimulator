@@ -42,6 +42,14 @@ class FundamentalValue_Optional__IEvent___Optional_________Side______IOrderGener
         return "FundamentalValue(%(eventGen)s, %(orderFactory)s, %(fundamentalValue)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
         from marketsim.gen._out.strategy.side._FundamentalValue import FundamentalValue as _strategy_side_FundamentalValue
@@ -49,11 +57,6 @@ class FundamentalValue_Optional__IEvent___Optional_________Side______IOrderGener
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

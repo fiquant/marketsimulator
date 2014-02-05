@@ -33,6 +33,14 @@ class MidPrice_Optional__IOrderBook_(Observable[Price]):
         return "MidPrice(%(book)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.observable._Price import Price as _observable_Price
         from marketsim.gen._out.ops._Div import Div as _ops_Div
@@ -44,13 +52,5 @@ class MidPrice_Optional__IOrderBook_(Observable[Price]):
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 MidPrice = MidPrice_Optional__IOrderBook_

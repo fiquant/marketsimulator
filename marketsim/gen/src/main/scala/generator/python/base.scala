@@ -186,6 +186,8 @@ package object base {
 
         def internals = "_internals = ['impl']"
 
+        override def body = super.body | internals | call | reset | getImpl
+
         override def call_body = "return self.impl()"
 
         def reset = Def("reset", "",

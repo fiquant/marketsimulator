@@ -32,6 +32,14 @@ class MACD_Optional__IObservable__Float____Optional__Float___Optional__Float_(Fu
         return "MACD_{%(fast)s}^{%(slow)s}(%(x)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
         from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
@@ -40,13 +48,5 @@ class MACD_Optional__IObservable__Float____Optional__Float___Optional__Float_(Fu
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 MACD = MACD_Optional__IObservable__Float____Optional__Float___Optional__Float_

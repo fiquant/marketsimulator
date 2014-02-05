@@ -40,6 +40,14 @@ class PairTrading_Optional__IOrderBook___Optional__Float___Optional__IOrderBook_
         return "PairTrading(%(bookToDependOn)s, %(factor)s, %(book)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.observable._Side import Side as _observable_Side
         from marketsim.gen._out.strategy.side._FundamentalValue import FundamentalValue as _strategy_side_FundamentalValue
@@ -50,13 +58,5 @@ class PairTrading_Optional__IOrderBook___Optional__Float___Optional__IOrderBook_
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 PairTrading = PairTrading_Optional__IOrderBook___Optional__Float___Optional__IOrderBook_

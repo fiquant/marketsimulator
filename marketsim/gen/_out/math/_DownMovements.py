@@ -37,6 +37,14 @@ class DownMovements_Optional__IObservable__Float____Optional__Float_(Observable[
         return "Downs_{%(timeframe)s}(%(source)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.observable._Float import Float as _observable_Float
         from marketsim.gen._out.math._Max import Max as _math_Max
@@ -47,13 +55,5 @@ class DownMovements_Optional__IObservable__Float____Optional__Float_(Observable[
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 DownMovements = DownMovements_Optional__IObservable__Float____Optional__Float_

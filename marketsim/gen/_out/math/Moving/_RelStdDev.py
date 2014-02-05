@@ -29,6 +29,14 @@ class RelStdDev_Optional__IObservable__Float____Optional__Float_(Function[float]
         return "RSD_{n=%(timeframe)s}(%(source)s)" % self.__dict__
     
     _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
     def getImpl(self):
         from marketsim.gen._out.ops._Div import Div as _ops_Div
         from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
@@ -38,13 +46,5 @@ class RelStdDev_Optional__IObservable__Float____Optional__Float_(Function[float]
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def __call__(self, *args, **kwargs):
-        return self.impl()
     
 RelStdDev = RelStdDev_Optional__IObservable__Float____Optional__Float_
