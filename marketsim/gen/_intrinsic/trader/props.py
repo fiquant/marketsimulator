@@ -81,8 +81,6 @@ class _PendingVolume_Impl(object): # should be int
     def __call__(self):
         return self._pendingVolume
 
-from marketsim.gen._intrinsic.orderbook.props import Proxy
-
 class PendingVolume_Impl(object):
 
     @property

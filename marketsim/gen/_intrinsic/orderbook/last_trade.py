@@ -1,5 +1,3 @@
-from props import Proxy
-
 class LastTrade(object):
 
     def bind(self, ctx):
