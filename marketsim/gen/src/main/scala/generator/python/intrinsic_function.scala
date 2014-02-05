@@ -39,13 +39,6 @@ object intrinsic_function extends gen.PythonGenerator
 
         override type Parameter = intrinsic_function.Parameter
 
-        def base_class_function : Code =
-            f.ret_type.returnTypeIfFunction match {
-                case Some(t) => s"Function[" ||| t.asCode |||"], " |||
-                                ImportFrom("Function", "marketsim.ops._function")
-                case None => ""
-        }
-
         override def base_class = (functionBase match { case None => toLazy("") case Some(x) => x  ||| ", " }) |||
                                   implementationBase
 

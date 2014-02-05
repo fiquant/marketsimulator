@@ -11,13 +11,12 @@ object random extends gen.PythonGenerator
             extends base.Intrinsic
             with    base.DocString
             with    base.Alias
+            with    base.BaseClass_Function
     {
         val name = f.name
         val parameters = f.parameters map Parameter
         val rv_type = "float"
         val args = Nil
-        override def base_class = s"Function[$rv_type]" |||
-                                ImportFrom("Function", "marketsim.ops._function")
 
         override val category = "Random"
 
