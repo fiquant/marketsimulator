@@ -8,14 +8,14 @@ class Position_Optional__IAccount_(Position_Impl):
     """ 
     def __init__(self, trader = None):
         from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
-        from marketsim import rtti
         from marketsim import event
         from marketsim import types
+        from marketsim import rtti
         self.trader = trader if trader is not None else _trader_SingleProxy()
-        rtti.check_fields(self)
-        Position_Impl.__init__(self)
         if isinstance(trader, types.IEvent):
             event.subscribe(self.trader, self.fire, self)
+        rtti.check_fields(self)
+        Position_Impl.__init__(self)
     
     @property
     def label(self):

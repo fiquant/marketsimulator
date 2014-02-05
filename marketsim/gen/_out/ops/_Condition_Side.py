@@ -12,26 +12,26 @@ class Condition_Side_Optional__IFunction__Boolean____Optional________Side___Opti
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
         from marketsim.gen._out._true import true as _true
+        from marketsim import event
+        from marketsim import types
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim import event
+        from marketsim import types
         from marketsim.gen._out.side._Buy import Buy as _side_Buy
+        from marketsim import event
+        from marketsim import types
         from marketsim import rtti
-        from marketsim import event
-        from marketsim import types
-        from marketsim import event
-        from marketsim import types
-        from marketsim import event
-        from marketsim import types
         self.cond = cond if cond is not None else _true()
-        self.ifpart = ifpart if ifpart is not None else _side_Sell()
-        self.elsepart = elsepart if elsepart is not None else _side_Buy()
-        rtti.check_fields(self)
-        _ConditionSide_Impl.__init__(self)
         if isinstance(cond, types.IEvent):
             event.subscribe(self.cond, self.fire, self)
+        self.ifpart = ifpart if ifpart is not None else _side_Sell()
         if isinstance(ifpart, types.IEvent):
             event.subscribe(self.ifpart, self.fire, self)
+        self.elsepart = elsepart if elsepart is not None else _side_Buy()
         if isinstance(elsepart, types.IEvent):
             event.subscribe(self.elsepart, self.fire, self)
+        rtti.check_fields(self)
+        _ConditionSide_Impl.__init__(self)
     
     @property
     def label(self):

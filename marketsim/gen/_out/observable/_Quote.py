@@ -8,24 +8,24 @@ class Quote_Optional__String___Optional__String___Optional__String_(Quote_Impl):
     """   and follows the price in scale 1 model unit of time = 1 real day
     """ 
     def __init__(self, ticker = None, start = None, end = None):
+        from marketsim import event
+        from marketsim import types
+        from marketsim import event
+        from marketsim import types
+        from marketsim import event
+        from marketsim import types
         from marketsim import rtti
-        from marketsim import event
-        from marketsim import types
-        from marketsim import event
-        from marketsim import types
-        from marketsim import event
-        from marketsim import types
         self.ticker = ticker if ticker is not None else "^GSPC"
-        self.start = start if start is not None else "2001-1-1"
-        self.end = end if end is not None else "2010-1-1"
-        rtti.check_fields(self)
-        Quote_Impl.__init__(self)
         if isinstance(ticker, types.IEvent):
             event.subscribe(self.ticker, self.fire, self)
+        self.start = start if start is not None else "2001-1-1"
         if isinstance(start, types.IEvent):
             event.subscribe(self.start, self.fire, self)
+        self.end = end if end is not None else "2010-1-1"
         if isinstance(end, types.IEvent):
             event.subscribe(self.end, self.fire, self)
+        rtti.check_fields(self)
+        Quote_Impl.__init__(self)
     
     @property
     def label(self):

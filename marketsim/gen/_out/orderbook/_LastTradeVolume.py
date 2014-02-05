@@ -7,14 +7,14 @@ class LastTradeVolume_Optional__IOrderQueue_(_LastTradeVolume_Impl):
     """ 
     def __init__(self, queue = None):
         from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
-        from marketsim import rtti
         from marketsim import event
         from marketsim import types
+        from marketsim import rtti
         self.queue = queue if queue is not None else _orderbook_Asks()
-        rtti.check_fields(self)
-        _LastTradeVolume_Impl.__init__(self)
         if isinstance(queue, types.IEvent):
             event.subscribe(self.queue, self.fire, self)
+        rtti.check_fields(self)
+        _LastTradeVolume_Impl.__init__(self)
     
     @property
     def label(self):

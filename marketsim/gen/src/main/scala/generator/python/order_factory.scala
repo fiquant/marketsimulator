@@ -8,15 +8,10 @@ object order_factory
         extends gen.PythonGenerator
         with    Typed.BeforeTyping
 {
-    case class Parameter(p : Typed.Parameter) extends base.Parameter
+    case class Parameter(p : Typed.Parameter)
+            extends base.Parameter
+            with    base.SubscribeParameter
     {
-        override def assign =
-            super.assign |
-            s"if isinstance($name, types.IEvent):" |>
-                s"event.subscribe(self.$name, self.fire, self)" |||
-            ImportFrom("event", "marketsim") |||
-            ImportFrom("types", "marketsim")
-
         def check_none_aux(name : String) : Code = name match {
             case "volume" =>
                 s"if abs($name) < 1: return None" |

@@ -8,14 +8,14 @@ class Volume_Optional__IFunction__Float__(_Observable_Impl):
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out._const import const as _const
-        from marketsim import rtti
         from marketsim import event
         from marketsim import types
+        from marketsim import rtti
         self.x = x if x is not None else _const()
-        rtti.check_fields(self)
-        _Observable_Impl.__init__(self)
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
+        rtti.check_fields(self)
+        _Observable_Impl.__init__(self)
     
     @property
     def label(self):

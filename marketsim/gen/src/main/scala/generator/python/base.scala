@@ -207,6 +207,20 @@ package object base {
             ImportFrom("context", "marketsim")
     }
 
+    trait SubscribeParameter extends Parameter
+    {
+        def observe_args = true
+
+        override def assign : Code =
+            super.assign | (
+            if (observe_args)
+                s"if isinstance($name, types.IEvent):" |>
+                    s"event.subscribe(self.$name, self.fire, self)" |||
+                ImportFrom("event", "marketsim") |||
+                ImportFrom("types", "marketsim")
+            else "")
+    }
+
 
     object python extends gen.PythonGenerator
     {

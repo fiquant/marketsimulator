@@ -9,24 +9,24 @@ class VolumeLevels_Optional__IOrderQueue___Optional__Float___Optional__Int_(Volu
     """ 
     def __init__(self, queue = None, volumeDelta = None, volumeCount = None):
         from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
+        from marketsim import event
+        from marketsim import types
+        from marketsim import event
+        from marketsim import types
+        from marketsim import event
+        from marketsim import types
         from marketsim import rtti
-        from marketsim import event
-        from marketsim import types
-        from marketsim import event
-        from marketsim import types
-        from marketsim import event
-        from marketsim import types
         self.queue = queue if queue is not None else _orderbook_Asks()
-        self.volumeDelta = volumeDelta if volumeDelta is not None else 30.0
-        self.volumeCount = volumeCount if volumeCount is not None else 10
-        rtti.check_fields(self)
-        VolumeLevels_Impl.__init__(self)
         if isinstance(queue, types.IEvent):
             event.subscribe(self.queue, self.fire, self)
+        self.volumeDelta = volumeDelta if volumeDelta is not None else 30.0
         if isinstance(volumeDelta, types.IEvent):
             event.subscribe(self.volumeDelta, self.fire, self)
+        self.volumeCount = volumeCount if volumeCount is not None else 10
         if isinstance(volumeCount, types.IEvent):
             event.subscribe(self.volumeCount, self.fire, self)
+        rtti.check_fields(self)
+        VolumeLevels_Impl.__init__(self)
     
     @property
     def label(self):

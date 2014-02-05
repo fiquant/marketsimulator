@@ -11,11 +11,11 @@ class OnEveryDt_Optional__Float___Optional__IFunction__Float__(_OnEveryDt_Impl):
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import rtti
         self.dt = dt if dt is not None else 1.0
+        
         self.x = x if x is not None else _constant()
+        
         rtti.check_fields(self)
         _OnEveryDt_Impl.__init__(self)
-        
-        
     
     @property
     def label(self):
