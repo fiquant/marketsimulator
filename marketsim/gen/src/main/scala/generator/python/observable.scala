@@ -20,13 +20,6 @@ object observable extends gen.PythonGenerator
 
         type Parameter = observable.Parameter
 
-        def reset = Def("reset", "",
-            "self.impl = self.getImpl()" |
-            "ctx = getattr(self, '_ctx', None)" |
-            "if ctx: context.bind(self.impl, ctx)") |||
-                ImportFrom("context", "marketsim")
-
-
         override def init_body =
             base_class ||| ".__init__(self)" |
             super.init_body |

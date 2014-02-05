@@ -28,12 +28,6 @@ object strategy extends gen.PythonGenerator
 
         override def base_class = "ISingleAssetStrategy" ||| ImportFrom("ISingleAssetStrategy", "marketsim")
 
-        def reset = Def("reset", "",
-            "self.impl = self.getImpl()" |
-            "ctx = getattr(self, '_ctx', None)" |
-            "if ctx: context.bind(self.impl, ctx)") |||
-            ImportFrom("context", "marketsim")
-
         def send = Def("_send", "order, source", "self.on_order_created.fire(order, self)")
 
         override def repr_body = s"""return "$label_tmpl" % self.__dict__"""

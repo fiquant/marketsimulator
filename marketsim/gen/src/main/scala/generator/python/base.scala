@@ -187,7 +187,14 @@ package object base {
         def internals = "_internals = ['impl']"
 
         override def call_body = "return self.impl()"
+
+        def reset = Def("reset", "",
+            "self.impl = self.getImpl()" |
+            "ctx = getattr(self, '_ctx', None)" |
+            "if ctx: context.bind(self.impl, ctx)") |||
+            ImportFrom("context", "marketsim")
     }
+
 
     object python extends gen.PythonGenerator
     {

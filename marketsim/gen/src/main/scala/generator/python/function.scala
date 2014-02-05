@@ -20,12 +20,6 @@ object function extends gen.PythonGenerator
 
         type Parameter = function.Parameter
 
-        def reset = Def("reset", "",
-            "self.impl = self.getImpl()" |
-            "ctx = getattr(self, '_ctx', None)" |
-            "if ctx: context.bind(self.impl, ctx)") |||
-            ImportFrom("context", "marketsim")
-
         override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
 
         override def init_body =
