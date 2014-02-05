@@ -180,6 +180,13 @@ package object base {
         def bind = Def("bind", "ctx", "self._ctx = ctx.clone()")
     }
 
+    trait HasImpl extends Printer
+    {
+        def getImpl = Def("getImpl", "", "return " ||| f.body.get.asCode)
+
+        def internals = "_internals = ['impl']"
+    }
+
     object python extends gen.PythonGenerator
     {
         val name = "python"

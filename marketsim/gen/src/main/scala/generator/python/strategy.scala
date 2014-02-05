@@ -13,6 +13,7 @@ object strategy extends gen.PythonGenerator
             with    base.Alias
             with    base.DecoratedName
             with    base.Bind
+            with    base.HasImpl
     {
         val parameters  = f.parameters map Parameter
 
@@ -38,10 +39,6 @@ object strategy extends gen.PythonGenerator
         override def repr_body = s"""return "$label_tmpl" % self.__dict__"""
 
         override def body = super.body | internals | getImpl | bind | reset | send
-
-        def getImpl = Def("getImpl", "", "return " ||| f.body.get.asCode)
-
-        def internals = "_internals = ['impl']"
     }
 
     def generatePython(/** arguments of the annotation */ args  : List[String])

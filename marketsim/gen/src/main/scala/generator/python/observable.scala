@@ -14,6 +14,7 @@ object observable extends gen.PythonGenerator
             with    base.DecoratedName
             with    base.BaseClass_Observable
             with    base.Bind
+            with    base.HasImpl
     {
         val parameters  = f.parameters map Parameter
 
@@ -37,10 +38,6 @@ object observable extends gen.PythonGenerator
         override def call_body = "return self.impl()"
 
         override def body = super.body | internals | getImpl | bind | reset | call
-
-        def getImpl = Def("getImpl", "", "return " ||| f.body.get.asCode)
-
-        def internals = "_internals = ['impl']"
     }
 
     def generatePython(/** arguments of the annotation */ args  : List[String])
