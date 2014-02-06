@@ -43,12 +43,13 @@ object order_factory_on_proto
         def call_arg = s"$name = None"
     }
 
-    import order_factory_curried.{lookupOriginal, OriginalFactory}
+    import order_factory_curried.{OriginalFactory, CurriedParameters}
 
     class PartialFactory(val args   : List[String],
                          val x      : Typed.Function)
             extends FactoryBase
             with    OriginalFactory
+            with    CurriedParameters
     {
         override type Parameter = FactoryParameter
 
@@ -65,8 +66,6 @@ object order_factory_on_proto
         def mkParam(p : Typed.Parameter) = FactoryParameter(factory_of_curried, original, p)
 
         override val curried = factory_of_curried.curried
-        val curried_parameters = curried map mkParam
-        override lazy val parameters  = x.parameters map mkParam
 
         override val prefix = curried map { _.name } mkString ""
         override def name = x.name

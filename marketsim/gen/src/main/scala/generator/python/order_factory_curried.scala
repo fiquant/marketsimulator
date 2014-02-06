@@ -38,19 +38,26 @@ object order_factory_curried
         }
     }
 
+    trait CurriedParameters extends base.Printer
+    {
+        def x : Typed.Function
+        override lazy val parameters  = x.parameters map mkParam
+        val curried : List[Typed.Parameter]
+        lazy val curried_parameters =  curried map mkParam
+    }
+
 
 
     class PartialFactory(val args   : List[String],
                          val x      : Typed.Function)
             extends FactoryBase
             with    OriginalFactory
+            with    CurriedParameters
     {
 
         override type Parameter = FactoryParameter
         def mkParam(p : Typed.Parameter) = FactoryParameter(p)
-        override lazy val parameters  = x.parameters map mkParam
         override val curried = f.parameters filter { p => !(x.parameters contains p) }
-        val curried_parameters =  curried map mkParam
 
         override def name = (curried map { _.name } mkString "") + "_" + original.name
 
