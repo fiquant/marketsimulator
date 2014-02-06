@@ -3,22 +3,33 @@ package generator.python
 import predef._
 import predef.ImportFrom
 import scala.Some
+import order_factory.curriedTypesAsList
 
 object curried
         extends Typed.BeforeTyping
 {
+    trait IFunction extends base.Printer
+    {
+        def original : Typed.Function
+        def curried : List[Typed.Parameter]
+
+        def ifunction_base =  s"IFunction["||| original.ret_type.asCode |||
+                ", "||| curriedTypesAsList(curried) |||"]" ||| ImportFrom("IFunction", "marketsim")
+        override def base_class_list = ifunction_base :: Nil
+    }
+
     object after_typing
         extends gen.PythonGenerator
     {
         import order_factory_curried.{FactoryParameter, lookupOriginal}
-        import order_factory.curriedTypesAsList
 
-        class Curried(val args   : List[String],
-                      val f  : Typed.Function)
+        case class Curried(args   : List[String],
+                           f  : Typed.Function)
                 extends base.Printer
                 with    base.DocString
                 with    base.Alias
                 with    base.DecoratedName
+                with    IFunction
         {
             val original = lookupOriginal(args, f)
 
@@ -27,10 +38,6 @@ object curried
 
             val curried = original.parameters filter { p => !(f.parameters contains p) }
             val curried_parameters =  curried map mkParam
-
-            def interface =  s"IFunction["||| original.ret_type.asCode |||
-                    ", "||| curriedTypesAsList(curried) |||"]" ||| ImportFrom("IFunction", "marketsim")
-            override def base_class_list = interface :: Nil
 
             def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
             def call_body_assign_args = join_fields({ _.call_body_assign_arg }, crlf, curried_parameters)

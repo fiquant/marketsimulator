@@ -43,13 +43,14 @@ object order_factory_on_proto
         def call_arg = s"$name = None"
     }
 
-    import order_factory_curried.{OriginalFactory, CurriedParameters}
+    import order_factory_curried.{OriginalFactory, CurriedParameters, ParametersInX}
 
-    class PartialFactory(val args   : List[String],
-                         val x      : Typed.Function)
+    case class PartialFactory(args   : List[String],
+                              x      : Typed.Function)
             extends FactoryBase
             with    OriginalFactory
             with    CurriedParameters
+            with    ParametersInX
     {
         override type Parameter = FactoryParameter
 
