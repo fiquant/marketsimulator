@@ -37,14 +37,10 @@ object order_factory_on_proto
                 (if (isProto) interface else ty)
     }
 
-    import order_factory_curried.{OriginalFactory, CurriedParameters, ParametersInX}
-
     case class PartialFactory(args   : List[String],
                               x      : Typed.Function)
             extends FactoryBase
-            with    OriginalFactory
-            with    CurriedParameters
-            with    ParametersInX
+            with    order_factory_curried.Call
     {
         override type Parameter = FactoryParameter
 
@@ -68,21 +64,6 @@ object order_factory_on_proto
         override def interface = x.ret_type.asCode
 
         override def base_class_list = interface :: Nil
-
-        def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
-        def call_body_assign_args = join_fields({ _.call_body_assign_arg }, crlf, curried_parameters)
-
-        val original_module_infix = if (original.curried == Nil) "" else "curried._"
-
-        override def call_body =  call_body_assign_args |
-                call_body_assignments |
-                s"""return ${original.name}($call_fields)"""  |||
-                ImportFrom(original.name, "marketsim.gen._out.order._" + original_module_infix + original.name)
-
-        override def call_args =
-            join_fields(
-                { _.call_arg }, ",",
-                curried_parameters)
     }
 
 

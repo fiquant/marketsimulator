@@ -52,12 +52,27 @@ object order_factory_curried
         override lazy val parameters  = x.parameters map mkParam
     }
 
+    trait Call extends ParametersInX with CurriedParameters with OriginalFactory
+    {
+        override type Parameter <: ParameterBase
+
+        def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
+        def call_body_assign_args = join_fields({ _.call_body_assign_arg }, crlf, curried_parameters)
+
+        val original_module_infix = if (original.curried == Nil) "" else "curried._"
+
+        override def call_body = call_body_assign_args |
+                call_body_assignments |
+                s"""return ${original.name}($call_fields)""" |||
+                ImportFrom(original.name, "marketsim.gen._out.order._" + original_module_infix + original.name)
+
+        override def call_args = join_fields({ _.call_arg }, ",", curried_parameters)
+    }
+
     case class PartialFactory(args   : List[String],
                               x      : Typed.Function)
             extends FactoryBase
-            with    OriginalFactory
-            with    CurriedParameters
-            with    ParametersInX
+            with    Call
     {
 
         override type Parameter = FactoryParameter
@@ -70,17 +85,7 @@ object order_factory_curried
         override def interface = myBase
         override def base_class_list = interface :: Nil
 
-        def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
-        def call_body_assign_args = join_fields({ _.call_body_assign_arg }, crlf, curried_parameters)
-
-        val original_module_infix = if (original.curried == Nil) "" else "curried._"
-
-        override def call_body = call_body_assign_args |
-                call_body_assignments |
-                s"""return ${original.name}(${original.init_raw_fields})""" |||
-                ImportFrom(original.name, "marketsim.gen._out.order._" + original_module_infix + original.name)
-
-        override def call_args = join_fields({ _.call_arg }, ",", curried_parameters)
+        override def call_fields = original.init_raw_fields
     }
 
 
