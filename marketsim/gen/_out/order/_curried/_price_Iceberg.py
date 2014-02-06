@@ -35,7 +35,9 @@ class price_Iceberg(IFunction[IOrderGenerator,IFunction[float]]):
         return "Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
     
     def __call__(self, price = None):
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._Iceberg import Iceberg
+        price = price if price is not None else _constant(100.0)
         lotSize = self.lotSize
         proto = self.proto
         return Iceberg(lotSize, proto(price))

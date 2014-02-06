@@ -33,7 +33,9 @@ class price_ImmediateOrCancel(IFunction[IOrderGenerator,IFunction[float]]):
         return "ImmediateOrCancel(%(proto)s)" % self.__dict__
     
     def __call__(self, price = None):
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._ImmediateOrCancel import ImmediateOrCancel
+        price = price if price is not None else _constant(100.0)
         proto = self.proto
         return ImmediateOrCancel(proto(price))
     

@@ -9,7 +9,7 @@ object order_factory_on_proto
     case class FactoryParameter(fac_cur   : FactoryBase,
                                 original  : FactoryBase,
                                 p         : Typed.Parameter)
-            extends base.Parameter
+            extends order_factory_curried.ParameterBase
     {
         val proto = "proto"
         val isProto = name == "proto"
@@ -35,12 +35,6 @@ object order_factory_on_proto
 
         override def property = s"\'$name\' : " |||
                 (if (isProto) interface else ty)
-
-        def call_body_assign = s"$name = self.$name"
-
-        def call_body_assign_arg = s"$name = $name" ||| assign_if_none
-
-        def call_arg = s"$name = None"
     }
 
     import order_factory_curried.{OriginalFactory, CurriedParameters, ParametersInX}
@@ -76,10 +70,11 @@ object order_factory_on_proto
         override def base_class_list = interface :: Nil
 
         def call_body_assignments = join_fields({ _.call_body_assign }, crlf)
+        def call_body_assign_args = join_fields({ _.call_body_assign_arg }, crlf, curried_parameters)
 
         val original_module_infix = if (original.curried == Nil) "" else "curried._"
 
-        override def call_body =
+        override def call_body =  call_body_assign_args |
                 call_body_assignments |
                 s"""return ${original.name}($call_fields)"""  |||
                 ImportFrom(original.name, "marketsim.gen._out.order._" + original_module_infix + original.name)

@@ -40,7 +40,9 @@ class side_price_FloatingPrice(IFunction[IFunction[IOrderGenerator,IFunction[flo
         return "price_FloatingPrice(%(floatingPrice)s, %(proto)s)" % self.__dict__
     
     def __call__(self, side = None):
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out.order._curried._price_FloatingPrice import price_FloatingPrice
+        side = side if side is not None else _side_Sell()
         floatingPrice = self.floatingPrice
         proto = self.proto
         return price_FloatingPrice(floatingPrice, proto(side))

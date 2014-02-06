@@ -33,7 +33,9 @@ class volume_ImmediateOrCancel(IFunction[IOrderGenerator,IFunction[float]]):
         return "ImmediateOrCancel(%(proto)s)" % self.__dict__
     
     def __call__(self, volume = None):
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._ImmediateOrCancel import ImmediateOrCancel
+        volume = volume if volume is not None else _constant(1.0)
         proto = self.proto
         return ImmediateOrCancel(proto(volume))
     

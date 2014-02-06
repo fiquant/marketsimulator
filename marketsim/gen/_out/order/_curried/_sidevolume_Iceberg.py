@@ -40,7 +40,11 @@ class sidevolume_Iceberg(IFunction[IOrderGenerator,IFunction[Side]
         return "Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
     
     def __call__(self, side = None,volume = None):
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._Iceberg import Iceberg
+        side = side if side is not None else _side_Sell()
+        volume = volume if volume is not None else _constant(1.0)
         lotSize = self.lotSize
         proto = self.proto
         return Iceberg(lotSize, proto(side,volume))

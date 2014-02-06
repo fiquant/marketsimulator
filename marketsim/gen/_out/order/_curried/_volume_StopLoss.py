@@ -36,7 +36,9 @@ class volume_StopLoss(IFunction[IOrderGenerator,IFunction[float]]):
         return "StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
     
     def __call__(self, volume = None):
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._StopLoss import StopLoss
+        volume = volume if volume is not None else _constant(1.0)
         maxloss = self.maxloss
         proto = self.proto
         return StopLoss(maxloss, proto(volume))

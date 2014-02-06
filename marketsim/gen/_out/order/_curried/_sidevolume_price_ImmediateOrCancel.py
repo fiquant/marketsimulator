@@ -43,7 +43,11 @@ class sidevolume_price_ImmediateOrCancel(IFunction[IFunction[IOrderGenerator,IFu
         return "price_ImmediateOrCancel(%(proto)s)" % self.__dict__
     
     def __call__(self, side = None,volume = None):
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._curried._price_ImmediateOrCancel import price_ImmediateOrCancel
+        side = side if side is not None else _side_Sell()
+        volume = volume if volume is not None else _constant(1.0)
         proto = self.proto
         return price_ImmediateOrCancel(proto(side,volume))
     

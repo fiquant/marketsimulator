@@ -39,7 +39,9 @@ class side_price_WithExpiry(IFunction[IFunction[IOrderGenerator,IFunction[float]
         return "price_WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
     
     def __call__(self, side = None):
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out.order._curried._price_WithExpiry import price_WithExpiry
+        side = side if side is not None else _side_Sell()
         expiry = self.expiry
         proto = self.proto
         return price_WithExpiry(expiry, proto(side))

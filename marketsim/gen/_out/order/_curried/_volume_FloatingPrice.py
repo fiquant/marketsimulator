@@ -37,7 +37,9 @@ class volume_FloatingPrice(IFunction[IOrderGenerator,IFunction[float]]):
         return "FloatingPrice(%(floatingPrice)s, %(proto)s)" % self.__dict__
     
     def __call__(self, volume = None):
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._FloatingPrice import FloatingPrice
+        volume = volume if volume is not None else _constant(1.0)
         floatingPrice = self.floatingPrice
         proto = self.proto
         return FloatingPrice(floatingPrice, proto(volume))

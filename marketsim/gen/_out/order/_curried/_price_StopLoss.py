@@ -36,7 +36,9 @@ class price_StopLoss(IFunction[IOrderGenerator,IFunction[float]]):
         return "StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
     
     def __call__(self, price = None):
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._StopLoss import StopLoss
+        price = price if price is not None else _constant(100.0)
         maxloss = self.maxloss
         proto = self.proto
         return StopLoss(maxloss, proto(price))

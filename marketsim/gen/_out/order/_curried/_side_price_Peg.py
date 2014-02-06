@@ -36,7 +36,9 @@ class side_price_Peg(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunc
         return "price_Peg(%(proto)s)" % self.__dict__
     
     def __call__(self, side = None):
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out.order._curried._price_Peg import price_Peg
+        side = side if side is not None else _side_Sell()
         proto = self.proto
         return price_Peg(proto(side))
     

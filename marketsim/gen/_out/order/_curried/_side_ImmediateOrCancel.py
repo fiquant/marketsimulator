@@ -33,7 +33,9 @@ class side_ImmediateOrCancel(IFunction[IOrderGenerator,IFunction[Side]]):
         return "ImmediateOrCancel(%(proto)s)" % self.__dict__
     
     def __call__(self, side = None):
+        from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out.order._ImmediateOrCancel import ImmediateOrCancel
+        side = side if side is not None else _side_Sell()
         proto = self.proto
         return ImmediateOrCancel(proto(side))
     

@@ -6,7 +6,7 @@ import predef._
 object order_factory_curried
         extends gen.PythonGenerator
 {
-    case class FactoryParameter(p : Typed.Parameter) extends base.Parameter
+    trait ParameterBase extends base.Parameter
     {
         def call_body_assign = s"$name = self.$name"
 
@@ -16,6 +16,8 @@ object order_factory_curried
 
         override def call = name
     }
+
+    case class FactoryParameter(p : Typed.Parameter) extends ParameterBase
 
     def lookupOriginal(args   : List[String],
                        f      : Typed.Function) =
