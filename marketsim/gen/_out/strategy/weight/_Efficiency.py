@@ -1,8 +1,8 @@
-from marketsim import registry
-from marketsim import float
-from marketsim.ops._function import Function
 from marketsim import IAccount
+from marketsim import registry
+from marketsim.ops._function import Function
 from marketsim import context
+from marketsim import float
 @registry.expose(["Strategy", "Efficiency"])
 class Efficiency__IAccount(Function[float]):
     """ 

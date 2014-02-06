@@ -2,8 +2,6 @@ from marketsim import registry
 from marketsim import IFunction
 from marketsim import float
 from marketsim import IAccount
-from marketsim import IFunction
-from marketsim import float
 @registry.expose(["Strategy", "trader_EfficiencyTrend"])
 class trader_EfficiencyTrend_Optional__Float_(IFunction[IFunction[float], IAccount]):
     """ 

@@ -1,32 +1,21 @@
-from marketsim import registry
-from marketsim import float
-from marketsim import float
-from marketsim.ops._all import Observable
 from marketsim.gen._intrinsic.ops import _Condition_Impl
+from marketsim.ops._all import Observable
 from marketsim import IFunction
+from marketsim import registry
 from marketsim import bool
-from marketsim import IFunction
-from marketsim import float
-from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Ops", "Condition_Float"])
 class Condition_Float_Optional__IFunction__Boolean____Optional__IFunction__Float____Optional__IFunction__Float__(Observable[float],_Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
-        from marketsim import float
-        from marketsim import float
+        from marketsim import types
         from marketsim.ops._all import Observable
+        from marketsim import rtti
         from marketsim.gen._out._true import true as _true
         from marketsim import event
-        from marketsim import types
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim import event
-        from marketsim import types
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim import event
-        from marketsim import types
-        from marketsim import rtti
+        from marketsim import float
         Observable[float].__init__(self)
         self.cond = cond if cond is not None else _true()
         if isinstance(cond, types.IEvent):

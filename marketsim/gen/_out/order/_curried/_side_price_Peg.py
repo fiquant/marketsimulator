@@ -1,16 +1,8 @@
+from marketsim import IFunction
+from marketsim import IOrderGenerator
+from marketsim import Side
 from marketsim import registry
-from marketsim import IOrderGenerator
 from marketsim import float
-from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import Side
-from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import IFunction
-from marketsim import float
-from marketsim import Side
-from marketsim import IFunction
 @registry.expose(["Order", "price_Peg"])
 class side_price_Peg(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
     """ 

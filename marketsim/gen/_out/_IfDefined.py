@@ -1,25 +1,19 @@
-from marketsim import registry
-from marketsim import float
-from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IFunction
-from marketsim import float
-from marketsim import IFunction
-from marketsim import float
+from marketsim import registry
 from marketsim import context
+from marketsim import float
 @registry.expose(["Basic", "IfDefined"])
 class IfDefined_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[float]):
     """ 
     """ 
     def __init__(self, x = None, elsePart = None):
-        from marketsim import float
-        from marketsim import float
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim import rtti
         from marketsim import _
+        from marketsim import rtti
         from marketsim import event
+        from marketsim.gen._out._constant import constant as _constant
+        from marketsim import float
         Observable[float].__init__(self)
         self.x = x if x is not None else _constant()
         self.elsePart = elsePart if elsePart is not None else _constant()

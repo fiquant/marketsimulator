@@ -1,8 +1,7 @@
-from marketsim import registry
-from marketsim import Price
-from marketsim import Price
 from marketsim.ops._all import Observable
 from marketsim import IOrderBook
+from marketsim import registry
+from marketsim import Price
 from marketsim import context
 @registry.expose(["Asset", "Spread"])
 class Spread_Optional__IOrderBook_(Observable[Price]):
@@ -10,12 +9,11 @@ class Spread_Optional__IOrderBook_(Observable[Price]):
     """ 
     def __init__(self, book = None):
         from marketsim import Price
-        from marketsim import Price
         from marketsim.ops._all import Observable
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
-        from marketsim import rtti
         from marketsim import _
+        from marketsim import rtti
         from marketsim import event
+        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         Observable[Price].__init__(self)
         self.book = book if book is not None else _orderbook_OfTrader()
         rtti.check_fields(self)

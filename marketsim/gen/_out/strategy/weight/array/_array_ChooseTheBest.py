@@ -1,8 +1,6 @@
 from marketsim import registry
 from marketsim import float
 from marketsim import listOf
-from marketsim import float
-from marketsim import listOf
 from marketsim import IFunction
 @registry.expose(["Strategy", "array_ChooseTheBest"])
 class array_ChooseTheBest_(IFunction[listOf(float), listOf(float)]):

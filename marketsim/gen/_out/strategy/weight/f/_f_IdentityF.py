@@ -1,9 +1,6 @@
 from marketsim import registry
 from marketsim import IFunction
 from marketsim import float
-from marketsim import IFunction
-from marketsim import float
-from marketsim import IFunction
 @registry.expose(["Strategy", "f_IdentityF"])
 class f_IdentityF_(IFunction[IFunction[float], IFunction[float]]):
     """ 

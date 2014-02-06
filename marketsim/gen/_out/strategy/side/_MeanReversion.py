@@ -1,9 +1,9 @@
-from marketsim import registry
-from marketsim import Side
-from marketsim.ops._function import Function
-from marketsim import float
 from marketsim import IOrderBook
+from marketsim import Side
+from marketsim import registry
+from marketsim.ops._function import Function
 from marketsim import context
+from marketsim import float
 @registry.expose(["Side function", "MeanReversion"])
 class MeanReversion_Optional__Float___Optional__IOrderBook_(Function[Side]):
     """ 

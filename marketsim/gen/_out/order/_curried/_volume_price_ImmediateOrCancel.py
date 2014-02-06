@@ -2,15 +2,6 @@ from marketsim import registry
 from marketsim import IOrderGenerator
 from marketsim import float
 from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import float
-from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import IFunction
-from marketsim import float
-from marketsim import IFunction
-from marketsim import float
 @registry.expose(["Order", "price_ImmediateOrCancel"])
 class volume_price_ImmediateOrCancel(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
     """ 

@@ -1,26 +1,18 @@
-from marketsim import registry
-from marketsim import Price
-from marketsim import Price
 from marketsim.ops._all import Observable
+from marketsim import str
+from marketsim import registry
 from marketsim.gen._intrinsic.observable.quote import Quote_Impl
-from marketsim import str
-from marketsim import str
-from marketsim import str
+from marketsim import Price
 @registry.expose(["Basic", "Quote"])
 class Quote_Optional__String___Optional__String___Optional__String_(Observable[Price],Quote_Impl):
     """   and follows the price in scale 1 model unit of time = 1 real day
     """ 
     def __init__(self, ticker = None, start = None, end = None):
         from marketsim import Price
-        from marketsim import Price
+        from marketsim import types
         from marketsim.ops._all import Observable
-        from marketsim import event
-        from marketsim import types
-        from marketsim import event
-        from marketsim import types
-        from marketsim import event
-        from marketsim import types
         from marketsim import rtti
+        from marketsim import event
         Observable[Price].__init__(self)
         self.ticker = ticker if ticker is not None else "^GSPC"
         if isinstance(ticker, types.IEvent):

@@ -1,8 +1,8 @@
-from marketsim import registry
-from marketsim import float
-from marketsim.ops._function import Function
-from marketsim.gen._intrinsic.observable.derivative import _Derivative_Impl
 from marketsim import IDifferentiable
+from marketsim import registry
+from marketsim.gen._intrinsic.observable.derivative import _Derivative_Impl
+from marketsim.ops._function import Function
+from marketsim import float
 @registry.expose(["Basic", "Derivative"])
 class Derivative_Optional__IDifferentiable_(Function[float],_Derivative_Impl):
     """  *x* should provide *derivative* member

@@ -1,23 +1,20 @@
-from marketsim import registry
-from marketsim import ISingleAssetStrategy
-from marketsim import IOrderGenerator
-from marketsim import float
 from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import float
 from marketsim import IObservable
-from marketsim import float
+from marketsim import IOrderGenerator
+from marketsim import ISingleAssetStrategy
+from marketsim import registry
 from marketsim import context
+from marketsim import float
 @registry.expose(["Strategy", "Bollinger_linear"])
 class Bollinger_linear_Optional_________Float______IOrderGenerator___Optional__Float___Optional__IObservable__Float__(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, orderFactory = None, alpha = None, k = None):
-        from marketsim.gen._out.order._curried._signedVolume_MarketSigned import signedVolume_MarketSigned as _order__curried_signedVolume_MarketSigned
         from marketsim.gen._out._const import const as _const
-        from marketsim import rtti
-        from marketsim import event
         from marketsim import _
+        from marketsim import rtti
+        from marketsim.gen._out.order._curried._signedVolume_MarketSigned import signedVolume_MarketSigned as _order__curried_signedVolume_MarketSigned
+        from marketsim import event
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_signedVolume_MarketSigned()
         self.alpha = alpha if alpha is not None else 0.15
         self.k = k if k is not None else _const(0.5)

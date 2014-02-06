@@ -1,11 +1,9 @@
-from marketsim import registry
-from marketsim import Order
 from marketsim import Order
 from marketsim.ops._all import Observable
-from marketsim import IOrderGenerator
 from marketsim import IFunction
-from marketsim import float
 from marketsim import IOrderGenerator
+from marketsim import registry
+from marketsim import float
 @registry.expose(["Order", "WithExpiry"])
 class WithExpiry(Observable[Order],IOrderGenerator):
     """ 
@@ -13,16 +11,13 @@ class WithExpiry(Observable[Order],IOrderGenerator):
      where cancel order is sent not immediately but after some delay
     """ 
     def __init__(self, expiry = None, proto = None):
-        from marketsim import Order
-        from marketsim import Order
-        from marketsim.ops._all import Observable
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim import event
         from marketsim import types
+        from marketsim.ops._all import Observable
+        from marketsim import rtti
         from marketsim.gen._out.order._Limit import Limit as _order_Limit
         from marketsim import event
-        from marketsim import types
-        from marketsim import rtti
+        from marketsim.gen._out._constant import constant as _constant
+        from marketsim import Order
         Observable[Order].__init__(self)
         self.expiry = expiry if expiry is not None else _constant(10.0)
         if isinstance(expiry, types.IEvent):

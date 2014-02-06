@@ -1,14 +1,11 @@
-from marketsim import registry
-from marketsim import ISingleAssetStrategy
-from marketsim import IEvent
+from marketsim import IFunction
 from marketsim import IOrderGenerator
+from marketsim import ISingleAssetStrategy
 from marketsim import Side
-from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import float
-from marketsim import float
-from marketsim import float
+from marketsim import registry
+from marketsim import IEvent
 from marketsim import context
+from marketsim import float
 @registry.expose(["Strategy", "CrossingAverages"])
 class CrossingAverages_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float___Optional__Float_(ISingleAssetStrategy):
     """  with different parameters ('slow' and 'fast' averages) and when
@@ -16,12 +13,12 @@ class CrossingAverages_Optional__IEvent___Optional_________Side______IOrderGener
      when the first is lower than the second one it sells
     """ 
     def __init__(self, eventGen = None, orderFactory = None, ewma_alpha_1 = None, ewma_alpha_2 = None, threshold = None):
-        from marketsim.gen._out.event._Every import Every as _event_Every
         from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
-        from marketsim.gen._out.order._curried._side_Market import side_Market as _order__curried_side_Market
-        from marketsim import rtti
-        from marketsim import event
         from marketsim import _
+        from marketsim import rtti
+        from marketsim.gen._out.order._curried._side_Market import side_Market as _order__curried_side_Market
+        from marketsim import event
+        from marketsim.gen._out.event._Every import Every as _event_Every
         self.eventGen = eventGen if eventGen is not None else _event_Every(_math_random_expovariate(1.0))
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market()
         self.ewma_alpha_1 = ewma_alpha_1 if ewma_alpha_1 is not None else 0.15

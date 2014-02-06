@@ -1,11 +1,9 @@
-from marketsim import registry
-from marketsim import Side
-from marketsim.ops._function import Function
-from marketsim import float
-from marketsim import float
-from marketsim import float
 from marketsim import IOrderBook
+from marketsim import Side
+from marketsim import registry
+from marketsim.ops._function import Function
 from marketsim import context
+from marketsim import float
 @registry.expose(["Side function", "CrossingAverages"])
 class CrossingAverages_Optional__Float___Optional__Float___Optional__Float___Optional__IOrderBook_(Function[Side]):
     """ 
@@ -48,8 +46,6 @@ class CrossingAverages_Optional__Float___Optional__Float___Optional__Float___Opt
     def getImpl(self):
         from marketsim.gen._out.strategy.side._Signal import Signal as _strategy_side_Signal
         from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
-        from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
-        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
         from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
         from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
         return _strategy_side_Signal(_ops_Sub(_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha_1),_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha_2)),self.threshold)

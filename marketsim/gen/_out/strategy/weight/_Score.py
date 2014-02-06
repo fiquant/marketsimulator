@@ -1,8 +1,8 @@
-from marketsim import registry
-from marketsim import float
-from marketsim.ops._function import Function
 from marketsim.gen._intrinsic.strategy.weight import _Score_Impl
 from marketsim import IAccount
+from marketsim import registry
+from marketsim.ops._function import Function
+from marketsim import float
 @registry.expose(["Strategy", "Score"])
 class Score__IAccount(Function[float],_Score_Impl):
     """  Returns difference between them.

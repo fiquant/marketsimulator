@@ -1,9 +1,8 @@
-from marketsim import registry
 from marketsim.gen._intrinsic.timeserie import _ToRecord_Impl
+from marketsim import int
 from marketsim import IObservable
 from marketsim import IGraph
-from marketsim import int
-from marketsim import int
+from marketsim import registry
 @registry.expose(["Basic", "TimeSerie"])
 class TimeSerie_Optional__IObservable_Any____Optional__IGraph___Optional__Int___Optional__Int_(_ToRecord_Impl):
     """   Used to specify what data should be collected about order books and traders

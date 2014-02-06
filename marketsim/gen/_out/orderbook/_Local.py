@@ -1,10 +1,10 @@
-from marketsim import registry
-from marketsim.gen._intrinsic.orderbook.local import _Local_Impl
-from marketsim import float
 from marketsim import int
 from marketsim import str
 from marketsim import ITimeSerie
+from marketsim.gen._intrinsic.orderbook.local import _Local_Impl
 from marketsim import listOf
+from marketsim import registry
+from marketsim import float
 @registry.expose(["Asset", "Local"])
 class Local_Optional__Float___Optional__Int___Optional__String___Optional_List__ITimeSerie__(_Local_Impl):
     """  Maintains two order queues for orders of different sides

@@ -1,11 +1,8 @@
-from marketsim import registry
-from marketsim import float
-from marketsim.ops._function import Function
 from marketsim import IObservable
-from marketsim import float
-from marketsim import float
-from marketsim import float
+from marketsim import registry
+from marketsim.ops._function import Function
 from marketsim import context
+from marketsim import float
 @registry.expose(["MACD", "MACD"])
 class MACD_Optional__IObservable__Float____Optional__Float___Optional__Float_(Function[float]):
     """ 
@@ -45,7 +42,6 @@ class MACD_Optional__IObservable__Float____Optional__Float___Optional__Float_(Fu
     
     def getImpl(self):
         from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
-        from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
         from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
         return _ops_Sub(_math_EW_Avg(self.x,(2.0/((self.fast+1)))),_math_EW_Avg(self.x,(2.0/((self.slow+1)))))
     

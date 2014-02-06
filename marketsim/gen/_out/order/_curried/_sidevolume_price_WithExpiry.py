@@ -1,21 +1,7 @@
+from marketsim import IFunction
+from marketsim import IOrderGenerator
+from marketsim import Side
 from marketsim import registry
-from marketsim import IOrderGenerator
-from marketsim import float
-from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import Side
-from marketsim import IFunction
-from marketsim import float
-from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import float
-from marketsim import IOrderGenerator
-from marketsim import IFunction
-from marketsim import float
-from marketsim import Side
-from marketsim import IFunction
-from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Order", "price_WithExpiry"])
 class sidevolume_price_WithExpiry(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]

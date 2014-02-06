@@ -1,10 +1,8 @@
-from marketsim import registry
-from marketsim import float
-from marketsim.ops._function import Function
 from marketsim import IOrderBook
-from marketsim import float
-from marketsim import float
+from marketsim import registry
+from marketsim.ops._function import Function
 from marketsim import context
+from marketsim import float
 @registry.expose(["Basic", "RSI"])
 class RSI_Optional__IOrderBook___Optional__Float___Optional__Float_(Function[float]):
     """ 
@@ -43,14 +41,12 @@ class RSI_Optional__IOrderBook___Optional__Float___Optional__Float_(Function[flo
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
-        from marketsim.gen._out._const import const as _const
-        from marketsim.gen._out.ops._Div import Div as _ops_Div
-        from marketsim.gen._out._const import const as _const
-        from marketsim.gen._out.ops._Add import Add as _ops_Add
         from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.math.rsi._Raw import Raw as _math_rsi_Raw
+        from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
         from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
+        from marketsim.gen._out.ops._Add import Add as _ops_Add
+        from marketsim.gen._out.ops._Div import Div as _ops_Div
         return _ops_Sub(_const(100.0),_ops_Div(_const(100.0),_ops_Add(_const(1.0),_math_rsi_Raw(_orderbook_MidPrice(self.book),self.timeframe,self.alpha))))
     
 RSI = RSI_Optional__IOrderBook___Optional__Float___Optional__Float_

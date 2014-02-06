@@ -1,12 +1,10 @@
-from marketsim.gen._intrinsic.timeserie import _VolumeLevels_Impl
 from marketsim import IFunction
+from marketsim import int
 from marketsim import IVolumeLevels
 from marketsim import IGraph
-from marketsim import int
-from marketsim import int
-from marketsim import float
+from marketsim.gen._intrinsic.timeserie import _VolumeLevels_Impl
 from marketsim import listOf
-from marketsim import int
+from marketsim import float
 
 class volumeLevels__IFunction__IVolumeLevels___Optional__IGraph___Optional__Int___Optional__Int___Optional_List__Float____Optional__Int_(_VolumeLevels_Impl):
     """  Level of volume V is a price at which cumulative volume of better orders is V

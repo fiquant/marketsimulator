@@ -1,11 +1,10 @@
-from marketsim.gen._intrinsic.trader.classes import _SingleAsset_Impl
-from marketsim import IOrderBook
-from marketsim import ISingleAssetStrategy
 from marketsim import str
-from marketsim import float
-from marketsim import float
+from marketsim.gen._intrinsic.trader.classes import _SingleAsset_Impl
 from marketsim import ITimeSerie
+from marketsim import ISingleAssetStrategy
+from marketsim import IOrderBook
 from marketsim import listOf
+from marketsim import float
 
 class SingleAsset__IOrderBook__Optional__ISingleAssetStrategy___Optional__String___Optional__Float___Optional__Float___Optional_List__ITimeSerie__(_SingleAsset_Impl):
     """ 

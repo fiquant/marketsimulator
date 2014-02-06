@@ -1,14 +1,10 @@
-from marketsim import registry
-from marketsim.gen._intrinsic.strategy.choose_the_best import _ChooseTheBest_Impl
+from marketsim import IFunction
+from marketsim import IAccount
 from marketsim import ISingleAssetStrategy
 from marketsim import listOf
-from marketsim import IAccount
-from marketsim import ISingleAssetStrategy
-from marketsim import IFunction
-from marketsim import IFunction
+from marketsim import registry
+from marketsim.gen._intrinsic.strategy.choose_the_best import _ChooseTheBest_Impl
 from marketsim import float
-from marketsim import IAccount
-from marketsim import IFunction
 @registry.expose(["Strategy", "ChooseTheBest"])
 class ChooseTheBest_Optional_List__ISingleAssetStrategy____Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float__(_ChooseTheBest_Impl):
     """  In some moments of time the most effective strategy

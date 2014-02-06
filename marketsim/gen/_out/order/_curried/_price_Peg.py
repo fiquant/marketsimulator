@@ -2,10 +2,6 @@ from marketsim import registry
 from marketsim import IOrderGenerator
 from marketsim import float
 from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import IFunction
-from marketsim import float
 @registry.expose(["Order", "Peg"])
 class price_Peg(IFunction[IOrderGenerator,IFunction[float]]):
     """ 

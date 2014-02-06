@@ -1,11 +1,8 @@
-from marketsim import registry
-from marketsim import float
-from marketsim.ops._function import Function
 from marketsim import IObservable
-from marketsim import float
-from marketsim import float
-from marketsim import float
+from marketsim import registry
+from marketsim.ops._function import Function
 from marketsim import context
+from marketsim import float
 @registry.expose(["RSI", "Raw"])
 class Raw_Optional__IObservable__Float____Optional__Float___Optional__Float_(Function[float]):
     """ 
@@ -47,7 +44,6 @@ class Raw_Optional__IObservable__Float____Optional__Float___Optional__Float_(Fun
         from marketsim.gen._out.ops._Div import Div as _ops_Div
         from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
         from marketsim.gen._out.math._UpMovements import UpMovements as _math_UpMovements
-        from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
         from marketsim.gen._out.math._DownMovements import DownMovements as _math_DownMovements
         return _ops_Div(_math_EW_Avg(_math_UpMovements(self.source,self.timeframe),self.alpha),_math_EW_Avg(_math_DownMovements(self.source,self.timeframe),self.alpha))
     

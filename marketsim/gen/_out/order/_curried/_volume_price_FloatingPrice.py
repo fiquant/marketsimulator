@@ -1,17 +1,7 @@
-from marketsim import registry
-from marketsim import IOrderGenerator
-from marketsim import float
-from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import float
-from marketsim import IFunction
 from marketsim import IFunction
 from marketsim import IObservable
-from marketsim import float
 from marketsim import IOrderGenerator
-from marketsim import IFunction
-from marketsim import float
-from marketsim import IFunction
+from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "price_FloatingPrice"])
 class volume_price_FloatingPrice(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):

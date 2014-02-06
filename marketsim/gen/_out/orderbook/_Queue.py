@@ -1,8 +1,8 @@
-from marketsim import registry
-from marketsim.gen._intrinsic.orderbook.proxy import _Queue_Impl
+from marketsim import IFunction
 from marketsim import IOrderBook
 from marketsim import Side
-from marketsim import IFunction
+from marketsim import registry
+from marketsim.gen._intrinsic.orderbook.proxy import _Queue_Impl
 @registry.expose(["Asset", "Queue"])
 class Queue_Optional__IOrderBook___Optional________Side_(_Queue_Impl):
     """ 

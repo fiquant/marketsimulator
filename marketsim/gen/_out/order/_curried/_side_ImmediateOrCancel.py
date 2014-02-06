@@ -2,10 +2,6 @@ from marketsim import registry
 from marketsim import IOrderGenerator
 from marketsim import Side
 from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import Side
-from marketsim import IFunction
 @registry.expose(["Order", "ImmediateOrCancel"])
 class side_ImmediateOrCancel(IFunction[IOrderGenerator,IFunction[Side]]):
     """ 

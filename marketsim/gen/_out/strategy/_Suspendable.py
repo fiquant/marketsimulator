@@ -1,7 +1,7 @@
-from marketsim import registry
 from marketsim.gen._intrinsic.strategy.suspendable import _Suspendable_Impl
-from marketsim import ISingleAssetStrategy
 from marketsim import IFunction
+from marketsim import ISingleAssetStrategy
+from marketsim import registry
 from marketsim import bool
 @registry.expose(["Strategy", "Suspendable"])
 class Suspendable_Optional__ISingleAssetStrategy___Optional__IFunction__Boolean__(_Suspendable_Impl):

@@ -1,9 +1,7 @@
-from marketsim import registry
-from marketsim import float
-from marketsim.ops._function import Function
-from marketsim.gen._intrinsic.moments.mv import MV_Impl
 from marketsim import IObservable
-from marketsim import float
+from marketsim.gen._intrinsic.moments.mv import MV_Impl
+from marketsim import registry
+from marketsim.ops._function import Function
 from marketsim import float
 @registry.expose(["Statistics", "Var"])
 class Var_Optional__IObservable__Float____Optional__Float_(Function[float],MV_Impl):

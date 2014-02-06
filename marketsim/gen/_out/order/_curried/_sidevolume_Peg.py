@@ -1,16 +1,7 @@
+from marketsim import IFunction
+from marketsim import IOrderGenerator
+from marketsim import Side
 from marketsim import registry
-from marketsim import IOrderGenerator
-from marketsim import Side
-from marketsim import IFunction
-from marketsim import float
-from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import IFunction
-from marketsim import float
-from marketsim import Side
-from marketsim import IFunction
-from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Order", "Peg"])
 class sidevolume_Peg(IFunction[IOrderGenerator,IFunction[Side]

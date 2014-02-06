@@ -1,8 +1,6 @@
 from marketsim import registry
 from marketsim import float
 from marketsim.ops._function import Function
-from marketsim import float
-from marketsim import float
 @registry.expose(["Random", "vonmisesvariate"])
 class vonmisesvariate(Function[float]):
     """ 

@@ -29,7 +29,7 @@ package object base {
     }
 
     def withImports(code: => predef.Code) : Code =
-        new WithoutImports((code.imports map { _.repr + crlf } mkString "") + code)
+        new WithoutImports((code.imports.toSet[Importable] map { _.repr + crlf } mkString "") + code)
 
     abstract class Parameter {
 

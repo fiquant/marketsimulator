@@ -1,25 +1,19 @@
-from marketsim import registry
-from marketsim import float
-from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IFunction
-from marketsim import float
-from marketsim import IFunction
-from marketsim import float
+from marketsim import registry
 from marketsim import context
+from marketsim import float
 @registry.expose(["Basic", "Max"])
 class Max_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[float]):
     """  If *x* or/and *y* are observables, *Min* is also observable
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim import float
-        from marketsim import float
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim import rtti
         from marketsim import _
+        from marketsim import rtti
         from marketsim import event
+        from marketsim.gen._out._constant import constant as _constant
+        from marketsim import float
         Observable[float].__init__(self)
         self.x = x if x is not None else _constant()
         self.y = y if y is not None else _constant()

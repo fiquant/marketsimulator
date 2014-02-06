@@ -1,11 +1,8 @@
+from marketsim.ops._all import Observable
+from marketsim import IFunction
+from marketsim.gen._intrinsic.ops import _Less_Impl
 from marketsim import registry
 from marketsim import bool
-from marketsim import bool
-from marketsim.ops._all import Observable
-from marketsim.gen._intrinsic.ops import _Less_Impl
-from marketsim import IFunction
-from marketsim import float
-from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Ops", "Less"])
 class Less_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[bool],_Less_Impl):
@@ -13,15 +10,11 @@ class Less_Optional__IFunction__Float____Optional__IFunction__Float__(Observable
     """ 
     def __init__(self, x = None, y = None):
         from marketsim import bool
-        from marketsim import bool
+        from marketsim import types
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim import event
-        from marketsim import types
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim import event
-        from marketsim import types
         from marketsim import rtti
+        from marketsim import event
+        from marketsim.gen._out._constant import constant as _constant
         Observable[bool].__init__(self)
         self.x = x if x is not None else _constant(1.0)
         if isinstance(x, types.IEvent):

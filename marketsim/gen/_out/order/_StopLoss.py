@@ -1,11 +1,9 @@
-from marketsim import registry
-from marketsim import Order
 from marketsim import Order
 from marketsim.ops._all import Observable
-from marketsim import IOrderGenerator
 from marketsim import IFunction
-from marketsim import float
 from marketsim import IOrderGenerator
+from marketsim import registry
+from marketsim import float
 @registry.expose(["Order", "StopLoss"])
 class StopLoss(Observable[Order],IOrderGenerator):
     """ 
@@ -15,16 +13,13 @@ class StopLoss(Observable[Order],IOrderGenerator):
       the meta order clears its position.
     """ 
     def __init__(self, maxloss = None, proto = None):
-        from marketsim import Order
-        from marketsim import Order
-        from marketsim.ops._all import Observable
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim import event
         from marketsim import types
+        from marketsim.ops._all import Observable
+        from marketsim import rtti
         from marketsim.gen._out.order._Limit import Limit as _order_Limit
         from marketsim import event
-        from marketsim import types
-        from marketsim import rtti
+        from marketsim.gen._out._constant import constant as _constant
+        from marketsim import Order
         Observable[Order].__init__(self)
         self.maxloss = maxloss if maxloss is not None else _constant(0.1)
         if isinstance(maxloss, types.IEvent):

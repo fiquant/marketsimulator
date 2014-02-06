@@ -1,9 +1,8 @@
-from marketsim import registry
-from marketsim import float
-from marketsim.ops._function import Function
 from marketsim import IFunction
-from marketsim import float
+from marketsim import registry
+from marketsim.ops._function import Function
 from marketsim import context
+from marketsim import float
 @registry.expose(["Strategy", "Clamp0"])
 class Clamp0_Optional__IFunction__Float__(Function[float]):
     """ 
@@ -40,7 +39,6 @@ class Clamp0_Optional__IFunction__Float__(Function[float]):
     def getImpl(self):
         from marketsim.gen._out.ops._Add import Add as _ops_Add
         from marketsim.gen._out.math._Max import Max as _math_Max
-        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out._constant import constant as _constant
         return _ops_Add(_math_Max(_constant(0),self.f),_constant(1))
     

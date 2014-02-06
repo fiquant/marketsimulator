@@ -1,12 +1,11 @@
-from marketsim import registry
 from marketsim.gen._intrinsic.trader.classes import _MultiAsset_Impl
 from marketsim import ISingleAssetTrader
-from marketsim import listOf
 from marketsim import IMultiAssetStrategy
 from marketsim import str
-from marketsim import float
 from marketsim import ITimeSerie
 from marketsim import listOf
+from marketsim import registry
+from marketsim import float
 @registry.expose(["Trader", "MultiAsset"])
 class MultiAsset_Optional_List__ISingleAssetTrader____Optional__IMultiAssetStrategy___Optional__String___Optional__Float___Optional_List__ITimeSerie__(_MultiAsset_Impl):
     """   It can be considered as a composition of single asset traders and multi asset strategies

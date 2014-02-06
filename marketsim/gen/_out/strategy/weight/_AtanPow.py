@@ -1,10 +1,8 @@
-from marketsim import registry
-from marketsim import float
-from marketsim.ops._function import Function
 from marketsim import IFunction
-from marketsim import float
-from marketsim import float
+from marketsim import registry
+from marketsim.ops._function import Function
 from marketsim import context
+from marketsim import float
 @registry.expose(["Strategy", "AtanPow"])
 class AtanPow_Optional__IFunction__Float____Optional__Float_(Function[float]):
     """ 

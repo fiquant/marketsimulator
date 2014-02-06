@@ -1,25 +1,20 @@
-from marketsim import registry
-from marketsim import CandleStick
-from marketsim import CandleStick
 from marketsim.ops._all import Observable
 from marketsim.gen._intrinsic.observable.candlestick import CandleSticks_Impl
+from marketsim import CandleStick
 from marketsim import IObservable
-from marketsim import float
+from marketsim import registry
 from marketsim import float
 @registry.expose(["Basic", "CandleSticks"])
 class CandleSticks_Optional__IObservable__Float____Optional__Float_(Observable[CandleStick],CandleSticks_Impl):
     """  open/close/min/max price, its average and standard deviation
     """ 
     def __init__(self, source = None, timeframe = None):
-        from marketsim import CandleStick
+        from marketsim.gen._out._const import const as _const
+        from marketsim import types
         from marketsim import CandleStick
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._const import const as _const
-        from marketsim import event
-        from marketsim import types
-        from marketsim import event
-        from marketsim import types
         from marketsim import rtti
+        from marketsim import event
         Observable[CandleStick].__init__(self)
         self.source = source if source is not None else _const()
         if isinstance(source, types.IEvent):

@@ -1,10 +1,8 @@
-from marketsim import registry
-from marketsim import float
-from marketsim.ops._function import Function
 from marketsim import IObservable
-from marketsim import float
-from marketsim import float
+from marketsim import registry
+from marketsim.ops._function import Function
 from marketsim import context
+from marketsim import float
 @registry.expose(["Statistics", "RelStdDev"])
 class RelStdDev_Optional__IObservable__Float____Optional__Float_(Function[float]):
     """ 

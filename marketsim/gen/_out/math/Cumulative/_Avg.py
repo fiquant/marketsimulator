@@ -1,8 +1,7 @@
-from marketsim import registry
-from marketsim import float
-from marketsim.ops._function import Function
-from marketsim.gen._intrinsic.moments.cma import CMA_Impl
 from marketsim import IObservable
+from marketsim import registry
+from marketsim.gen._intrinsic.moments.cma import CMA_Impl
+from marketsim.ops._function import Function
 from marketsim import float
 @registry.expose(["Statistics", "Avg"])
 class Avg_Optional__IObservable__Float__(Function[float],CMA_Impl):

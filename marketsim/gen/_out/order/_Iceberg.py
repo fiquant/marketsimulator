@@ -1,11 +1,9 @@
-from marketsim import registry
-from marketsim import Order
 from marketsim import Order
 from marketsim.ops._all import Observable
-from marketsim import IOrderGenerator
 from marketsim import IFunction
-from marketsim import float
 from marketsim import IOrderGenerator
+from marketsim import registry
+from marketsim import float
 @registry.expose(["Order", "Iceberg"])
 class Iceberg(Observable[Order],IOrderGenerator):
     """ 
@@ -14,16 +12,13 @@ class Iceberg(Observable[Order],IOrderGenerator):
       thus maximum lot size volume is visible at the market at any moment.
     """ 
     def __init__(self, lotSize = None, proto = None):
-        from marketsim import Order
-        from marketsim import Order
-        from marketsim.ops._all import Observable
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim import event
         from marketsim import types
+        from marketsim.ops._all import Observable
+        from marketsim import rtti
         from marketsim.gen._out.order._Limit import Limit as _order_Limit
         from marketsim import event
-        from marketsim import types
-        from marketsim import rtti
+        from marketsim.gen._out._constant import constant as _constant
+        from marketsim import Order
         Observable[Order].__init__(self)
         self.lotSize = lotSize if lotSize is not None else _constant(10.0)
         if isinstance(lotSize, types.IEvent):

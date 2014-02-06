@@ -1,8 +1,6 @@
 from marketsim import registry
 from marketsim import Order
-from marketsim import Order
 from marketsim.ops._all import Observable
-from marketsim import IOrderGenerator
 from marketsim import IOrderGenerator
 @registry.expose(["Order", "ImmediateOrCancel"])
 class ImmediateOrCancel(Observable[Order],IOrderGenerator):
@@ -15,13 +13,12 @@ class ImmediateOrCancel(Observable[Order],IOrderGenerator):
       either it is cancelled (and consequently never stored in the order queue).
     """ 
     def __init__(self, proto = None):
-        from marketsim import Order
-        from marketsim import Order
+        from marketsim import types
         from marketsim.ops._all import Observable
+        from marketsim import rtti
         from marketsim.gen._out.order._Limit import Limit as _order_Limit
         from marketsim import event
-        from marketsim import types
-        from marketsim import rtti
+        from marketsim import Order
         Observable[Order].__init__(self)
         self.proto = proto if proto is not None else _order_Limit()
         if isinstance(proto, types.IEvent):

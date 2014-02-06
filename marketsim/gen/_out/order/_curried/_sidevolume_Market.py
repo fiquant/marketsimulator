@@ -1,8 +1,7 @@
-from marketsim import registry
+from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import Side
-from marketsim import IFunction
-from marketsim import IFunction
+from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "Market"])
 class sidevolume_Market(IFunction[IOrderGenerator, IFunction[Side],IFunction[float]]):

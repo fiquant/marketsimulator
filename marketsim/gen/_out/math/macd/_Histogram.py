@@ -1,13 +1,8 @@
-from marketsim import registry
-from marketsim import float
-from marketsim.ops._function import Function
 from marketsim import IObservable
-from marketsim import float
-from marketsim import float
-from marketsim import float
-from marketsim import float
-from marketsim import float
+from marketsim import registry
+from marketsim.ops._function import Function
 from marketsim import context
+from marketsim import float
 @registry.expose(["MACD", "Histogram"])
 class Histogram_Optional__IObservable__Float____Optional__Float___Optional__Float___Optional__Float___Optional__Float_(Function[float]):
     """ 

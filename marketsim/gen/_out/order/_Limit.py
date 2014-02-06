@@ -1,13 +1,9 @@
-from marketsim import registry
-from marketsim import Order
 from marketsim import Order
 from marketsim.ops._all import Observable
+from marketsim import IFunction
 from marketsim import IOrderGenerator
 from marketsim import Side
-from marketsim import IFunction
-from marketsim import IFunction
-from marketsim import float
-from marketsim import IFunction
+from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "Limit"])
 class Limit(Observable[Order],IOrderGenerator):
@@ -17,19 +13,13 @@ class Limit(Observable[Order],IOrderGenerator):
       it remains in an order book waiting to be matched with another order.
     """ 
     def __init__(self, side = None, price = None, volume = None):
-        from marketsim import Order
-        from marketsim import Order
-        from marketsim.ops._all import Observable
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
-        from marketsim import event
         from marketsim import types
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim import event
-        from marketsim import types
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim import event
-        from marketsim import types
+        from marketsim.ops._all import Observable
         from marketsim import rtti
+        from marketsim import event
+        from marketsim.gen._out._constant import constant as _constant
+        from marketsim import Order
         Observable[Order].__init__(self)
         self.side = side if side is not None else _side_Sell()
         if isinstance(side, types.IEvent):
