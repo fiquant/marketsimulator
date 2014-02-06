@@ -28,4 +28,5 @@ class trader_Unit_(IFunction[IFunction[float], IAccount]):
         
         return Unit(trader)
     
-trader_Unit = trader_Unit_
+def trader_Unit(): 
+    return trader_Unit_()

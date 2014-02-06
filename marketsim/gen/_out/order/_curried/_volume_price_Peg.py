@@ -33,4 +33,3 @@ class volume_price_Peg(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFu
         proto = self.proto
         return price_Peg(proto(volume))
     
-volume_price_Peg = volume_price_Peg

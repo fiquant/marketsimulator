@@ -30,4 +30,5 @@ class inner_VirtualMarket_(IFunction[IAccount, ISingleAssetStrategy]):
         
         return VirtualMarket(inner)
     
-inner_VirtualMarket = inner_VirtualMarket_
+def inner_VirtualMarket(): 
+    return inner_VirtualMarket_()

@@ -55,4 +55,5 @@ class Bollinger_linear_Optional_________Float______IOrderGenerator___Optional__F
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
-Bollinger_linear = Bollinger_linear_Optional_________Float______IOrderGenerator___Optional__Float___Optional__IObservable__Float__
+def Bollinger_linear(orderFactory = None,alpha = None,k = None): 
+    return Bollinger_linear_Optional_________Float______IOrderGenerator___Optional__Float___Optional__IObservable__Float__(orderFactory,alpha,k)

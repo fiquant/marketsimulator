@@ -22,4 +22,5 @@ class Arbitrage_(_Arbitrage_Impl):
     def __repr__(self):
         return "Arbitrage" % self.__dict__
     
-Arbitrage = Arbitrage_
+def Arbitrage(): 
+    return Arbitrage_()

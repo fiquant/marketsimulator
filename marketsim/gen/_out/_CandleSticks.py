@@ -36,4 +36,5 @@ class CandleSticks_Optional__IObservable__Float____Optional__Float_(Observable[C
     def __repr__(self):
         return "Candles_{%(source)s}" % self.__dict__
     
-CandleSticks = CandleSticks_Optional__IObservable__Float____Optional__Float_
+def CandleSticks(source = None,timeframe = None): 
+    return CandleSticks_Optional__IObservable__Float____Optional__Float_(source,timeframe)

@@ -42,4 +42,5 @@ class Condition_Side_Optional__IFunction__Boolean____Optional________Side___Opti
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
-Condition_Side = Condition_Side_Optional__IFunction__Boolean____Optional________Side___Optional________Side_
+def Condition_Side(cond = None,ifpart = None,elsepart = None): 
+    return Condition_Side_Optional__IFunction__Boolean____Optional________Side___Optional________Side_(cond,ifpart,elsepart)

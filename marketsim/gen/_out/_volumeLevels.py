@@ -36,4 +36,5 @@ class volumeLevels__IFunction__IVolumeLevels___Optional__IGraph___Optional__Int_
     def __repr__(self):
         return "%(source)s" % self.__dict__
     
-volumeLevels = volumeLevels__IFunction__IVolumeLevels___Optional__IGraph___Optional__Int___Optional__Int___Optional_List__Float____Optional__Int_
+def volumeLevels(source = None,graph = None,_digitsToShow = None,_smooth = None,_volumes = None,_isBuy = None): 
+    return volumeLevels__IFunction__IVolumeLevels___Optional__IGraph___Optional__Int___Optional__Int___Optional_List__Float____Optional__Int_(source,graph,_digitsToShow,_smooth,_volumes,_isBuy)

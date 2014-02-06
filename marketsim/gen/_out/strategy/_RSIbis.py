@@ -66,4 +66,5 @@ class RSIbis_Optional__IEvent___Optional_________Side______IOrderGenerator___Opt
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
-RSIbis = RSIbis_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float___Optional__Float_
+def RSIbis(eventGen = None,orderFactory = None,alpha = None,timeframe = None,threshold = None): 
+    return RSIbis_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float___Optional__Float_(eventGen,orderFactory,alpha,timeframe,threshold)

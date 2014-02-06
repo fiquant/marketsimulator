@@ -31,4 +31,5 @@ class OnEveryDt_Optional__Float___Optional__IFunction__Float__(Observable[float]
     def __repr__(self):
         return "[%(x)s]_dt=%(dt)s" % self.__dict__
     
-OnEveryDt = OnEveryDt_Optional__Float___Optional__IFunction__Float__
+def OnEveryDt(dt = None,x = None): 
+    return OnEveryDt_Optional__Float___Optional__IFunction__Float__(dt,x)

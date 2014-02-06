@@ -24,4 +24,5 @@ class Canceller_Optional________Float_(_Canceller_Impl):
     def __repr__(self):
         return "Canceller(%(cancellationIntervalDistr)s)" % self.__dict__
     
-Canceller = Canceller_Optional________Float_
+def Canceller(cancellationIntervalDistr = None): 
+    return Canceller_Optional________Float_(cancellationIntervalDistr)

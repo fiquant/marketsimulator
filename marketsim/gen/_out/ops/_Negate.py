@@ -31,4 +31,5 @@ class Negate_Optional__IFunction__Float__(Observable[float],_Negate_Impl):
     def __repr__(self):
         return "-%(x)s" % self.__dict__
     
-Negate = Negate_Optional__IFunction__Float__
+def Negate(x = None): 
+    return Negate_Optional__IFunction__Float__(x)

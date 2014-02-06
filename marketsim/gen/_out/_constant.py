@@ -38,4 +38,5 @@ class constant_Optional__Float_(Function[float]):
         from marketsim.gen._out._const import const as _const
         return _const(self.x)
     
-constant = constant_Optional__Float_
+def constant(x = None): 
+    return constant_Optional__Float_(x)

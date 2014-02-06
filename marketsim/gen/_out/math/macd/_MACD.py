@@ -45,4 +45,5 @@ class MACD_Optional__IObservable__Float____Optional__Float___Optional__Float_(Fu
         from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
         return _ops_Sub(_math_EW_Avg(self.x,(2.0/((self.fast+1)))),_math_EW_Avg(self.x,(2.0/((self.slow+1)))))
     
-MACD = MACD_Optional__IObservable__Float____Optional__Float___Optional__Float_
+def MACD(x = None,slow = None,fast = None): 
+    return MACD_Optional__IObservable__Float____Optional__Float___Optional__Float_(x,slow,fast)

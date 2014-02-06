@@ -44,4 +44,5 @@ class LogReturns_Optional__IObservable__Float____Optional__Float_(Function[float
         from marketsim.gen._out.math._Lagged import Lagged as _math_Lagged
         return _math_Log(_ops_Div(self.x,_math_Lagged(self.x,self.timeframe)))
     
-LogReturns = LogReturns_Optional__IObservable__Float____Optional__Float_
+def LogReturns(x = None,timeframe = None): 
+    return LogReturns_Optional__IObservable__Float____Optional__Float_(x,timeframe)

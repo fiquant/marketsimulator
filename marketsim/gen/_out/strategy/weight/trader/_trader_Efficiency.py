@@ -28,4 +28,5 @@ class trader_Efficiency_(IFunction[IFunction[float], IAccount]):
         
         return Efficiency(trader)
     
-trader_Efficiency = trader_Efficiency_
+def trader_Efficiency(): 
+    return trader_Efficiency_()

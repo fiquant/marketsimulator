@@ -49,4 +49,5 @@ class Min_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[
         from marketsim.gen._out.ops._Less import Less as _ops_Less
         return _ops_Condition_Float(_ops_Less(self.x,self.y),self.x,self.y)
     
-Min = Min_Optional__IFunction__Float____Optional__IFunction__Float__
+def Min(x = None,y = None): 
+    return Min_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)

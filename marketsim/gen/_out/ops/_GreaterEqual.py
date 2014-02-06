@@ -36,4 +36,5 @@ class GreaterEqual_Optional__IFunction__Float____Optional__IFunction__Float__(Ob
     def __repr__(self):
         return "({%(x)s}>={%(y)s})" % self.__dict__
     
-GreaterEqual = GreaterEqual_Optional__IFunction__Float____Optional__IFunction__Float__
+def GreaterEqual(x = None,y = None): 
+    return GreaterEqual_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)

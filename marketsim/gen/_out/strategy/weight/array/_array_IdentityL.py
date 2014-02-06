@@ -27,4 +27,5 @@ class array_IdentityL_(IFunction[listOf(float), listOf(float)]):
         
         return IdentityL(array)
     
-array_IdentityL = array_IdentityL_
+def array_IdentityL(): 
+    return array_IdentityL_()

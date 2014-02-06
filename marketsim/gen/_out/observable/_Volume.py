@@ -32,4 +32,5 @@ class Volume_Optional__IFunction__Float__(Observable[Volume],_Observable_Impl):
     def __repr__(self):
         return "[%(x)s]" % self.__dict__
     
-Volume = Volume_Optional__IFunction__Float__
+def Volume(x = None): 
+    return Volume_Optional__IFunction__Float__(x)

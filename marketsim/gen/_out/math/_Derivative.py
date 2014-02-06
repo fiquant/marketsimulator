@@ -24,4 +24,5 @@ class Derivative_Optional__IDifferentiable_(Function[float],_Derivative_Impl):
     def __repr__(self):
         return "\\frac{d%(x)s}{dt}" % self.__dict__
     
-Derivative = Derivative_Optional__IDifferentiable_
+def Derivative(x = None): 
+    return Derivative_Optional__IDifferentiable_(x)

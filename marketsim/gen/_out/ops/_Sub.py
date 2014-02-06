@@ -35,4 +35,5 @@ class Sub_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[
     def __repr__(self):
         return "({%(x)s}-{%(y)s})" % self.__dict__
     
-Sub = Sub_Optional__IFunction__Float____Optional__IFunction__Float__
+def Sub(x = None,y = None): 
+    return Sub_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)

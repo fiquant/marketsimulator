@@ -36,4 +36,5 @@ class MaxEpsilon_Optional__IFunction__Float____Optional__IFunction__Float__(Obse
     def __repr__(self):
         return "Max_{\\epsilon}(%(source)s)" % self.__dict__
     
-MaxEpsilon = MaxEpsilon_Optional__IFunction__Float____Optional__IFunction__Float__
+def MaxEpsilon(source = None,epsilon = None): 
+    return MaxEpsilon_Optional__IFunction__Float____Optional__IFunction__Float__(source,epsilon)

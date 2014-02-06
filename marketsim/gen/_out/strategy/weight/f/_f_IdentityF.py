@@ -27,4 +27,5 @@ class f_IdentityF_(IFunction[IFunction[float], IFunction[float]]):
         
         return IdentityF(f)
     
-f_IdentityF = f_IdentityF_
+def f_IdentityF(): 
+    return f_IdentityF_()

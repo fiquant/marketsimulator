@@ -58,4 +58,3 @@ class Limit(Observable[Order],IOrderGenerator):
         volume = int(volume)
         return Order_Impl(side, price, volume)
     
-Limit = Limit

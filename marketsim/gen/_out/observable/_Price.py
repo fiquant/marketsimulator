@@ -32,4 +32,5 @@ class Price_Optional__IFunction__Float__(Observable[Price],_Observable_Impl):
     def __repr__(self):
         return "[%(x)s]" % self.__dict__
     
-Price = Price_Optional__IFunction__Float__
+def Price(x = None): 
+    return Price_Optional__IFunction__Float__(x)

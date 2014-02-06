@@ -21,4 +21,5 @@ class Graph_Optional__String_(_Graph_Impl):
     def __repr__(self):
         return "Graph(%(name)s)" % self.__dict__
     
-Graph = Graph_Optional__String_
+def Graph(name = None): 
+    return Graph_Optional__String_(name)

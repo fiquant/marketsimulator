@@ -27,4 +27,5 @@ class f_AtanPow_Optional__Float_(IFunction[IFunction[float], IFunction[float]]):
         base = self.base
         return AtanPow(f,base)
     
-f_AtanPow = f_AtanPow_Optional__Float_
+def f_AtanPow(base = None): 
+    return f_AtanPow_Optional__Float_(base)

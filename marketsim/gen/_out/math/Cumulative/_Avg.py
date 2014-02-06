@@ -24,4 +24,5 @@ class Avg_Optional__IObservable__Float__(Function[float],CMA_Impl):
     def __repr__(self):
         return "Avg_{cumul}(%(source)s)" % self.__dict__
     
-Avg = Avg_Optional__IObservable__Float__
+def Avg(source = None): 
+    return Avg_Optional__IObservable__Float__(source)

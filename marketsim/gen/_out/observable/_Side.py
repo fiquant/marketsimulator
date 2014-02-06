@@ -31,4 +31,5 @@ class Side_Optional__IFunction__Side__(Observable[Side],_ObservableSide_Impl):
     def __repr__(self):
         return "[%(x)s]" % self.__dict__
     
-Side = Side_Optional__IFunction__Side__
+def Side(x = None): 
+    return Side_Optional__IFunction__Side__(x)

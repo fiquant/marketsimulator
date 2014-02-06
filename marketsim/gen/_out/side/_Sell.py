@@ -22,4 +22,5 @@ class Sell_(Function[Side],_Sell_Impl):
     def __repr__(self):
         return "Sell" % self.__dict__
     
-Sell = Sell_
+def Sell(): 
+    return Sell_()

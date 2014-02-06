@@ -53,4 +53,5 @@ class LiquidityProvider_Optional________Side___Optional__Float___Optional_______
         from marketsim.gen._out._constant import constant as _constant
         return _ops_Mul(_orderbook_SafeSidePrice(_orderbook_Queue(self.book,self.side),_constant(self.initialValue)),self.priceDistr)
     
-LiquidityProvider = LiquidityProvider_Optional________Side___Optional__Float___Optional________Float___Optional__IOrderBook_
+def LiquidityProvider(side = None,initialValue = None,priceDistr = None,book = None): 
+    return LiquidityProvider_Optional________Side___Optional__Float___Optional________Float___Optional__IOrderBook_(side,initialValue,priceDistr,book)

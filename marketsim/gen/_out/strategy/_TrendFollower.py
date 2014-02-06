@@ -63,4 +63,5 @@ class TrendFollower_Optional__IEvent___Optional_________Side______IOrderGenerato
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
-TrendFollower = TrendFollower_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float_
+def TrendFollower(eventGen = None,orderFactory = None,ewma_alpha = None,threshold = None): 
+    return TrendFollower_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float_(eventGen,orderFactory,ewma_alpha,threshold)

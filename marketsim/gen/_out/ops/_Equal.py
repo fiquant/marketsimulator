@@ -36,4 +36,5 @@ class Equal_Optional__IFunction__Float____Optional__IFunction__Float__(Observabl
     def __repr__(self):
         return "({%(x)s}=={%(y)s})" % self.__dict__
     
-Equal = Equal_Optional__IFunction__Float____Optional__IFunction__Float__
+def Equal(x = None,y = None): 
+    return Equal_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)

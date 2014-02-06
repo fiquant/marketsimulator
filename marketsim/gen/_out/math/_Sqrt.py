@@ -35,4 +35,5 @@ class Sqrt_Optional__IFunction__Float__(Observable[float]):
         if x is None: return None
         return math.sqrt(x)
     
-Sqrt = Sqrt_Optional__IFunction__Float__
+def Sqrt(x = None): 
+    return Sqrt_Optional__IFunction__Float__(x)

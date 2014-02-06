@@ -55,4 +55,5 @@ class PairTrading_Optional__IOrderBook___Optional__Float___Optional__IOrderBook_
         from marketsim.gen._out.observable._Side import Side as _observable_Side
         return _observable_Side(_strategy_side_FundamentalValue(_ops_Mul(_orderbook_MidPrice(self.bookToDependOn),_const(self.factor)),self.book))
     
-PairTrading = PairTrading_Optional__IOrderBook___Optional__Float___Optional__IOrderBook_
+def PairTrading(bookToDependOn = None,factor = None,book = None): 
+    return PairTrading_Optional__IOrderBook___Optional__Float___Optional__IOrderBook_(bookToDependOn,factor,book)

@@ -47,4 +47,5 @@ class LastTradeVolume_Optional__IOrderBook_(Observable[Volume]):
         from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
         return _orderbook_LastTradeVolume(_orderbook_Bids(self.book))
     
-LastTradeVolume = LastTradeVolume_Optional__IOrderBook_
+def LastTradeVolume(book = None): 
+    return LastTradeVolume_Optional__IOrderBook_(book)

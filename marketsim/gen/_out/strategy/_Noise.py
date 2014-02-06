@@ -54,4 +54,5 @@ class Noise_Optional__IEvent___Optional_________Side______IOrderGenerator_(ISing
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
-Noise = Noise_Optional__IEvent___Optional_________Side______IOrderGenerator_
+def Noise(eventGen = None,orderFactory = None): 
+    return Noise_Optional__IEvent___Optional_________Side______IOrderGenerator_(eventGen,orderFactory)

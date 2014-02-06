@@ -35,4 +35,5 @@ class Exp_Optional__IFunction__Float__(Observable[float]):
         if x is None: return None
         return math.exp(x)
     
-Exp = Exp_Optional__IFunction__Float__
+def Exp(x = None): 
+    return Exp_Optional__IFunction__Float__(x)

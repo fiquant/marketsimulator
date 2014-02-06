@@ -44,4 +44,5 @@ class AtanPow_Optional__IFunction__Float____Optional__Float_(Function[float]):
         from marketsim.gen._out._constant import constant as _constant
         return _math_Atan(_math_Pow(_constant(self.base),self.f))
     
-AtanPow = AtanPow_Optional__IFunction__Float____Optional__Float_
+def AtanPow(f = None,base = None): 
+    return AtanPow_Optional__IFunction__Float____Optional__Float_(f,base)

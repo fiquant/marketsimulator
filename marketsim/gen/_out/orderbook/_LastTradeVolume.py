@@ -31,4 +31,5 @@ class LastTradeVolume_Optional__IOrderQueue_(Observable[Volume],_LastTradeVolume
     def __repr__(self):
         return "LastTradeVolume(%(queue)s)" % self.__dict__
     
-LastTradeVolume = LastTradeVolume_Optional__IOrderQueue_
+def LastTradeVolume(queue = None): 
+    return LastTradeVolume_Optional__IOrderQueue_(queue)

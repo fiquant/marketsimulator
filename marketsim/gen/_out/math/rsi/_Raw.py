@@ -47,4 +47,5 @@ class Raw_Optional__IObservable__Float____Optional__Float___Optional__Float_(Fun
         from marketsim.gen._out.math._DownMovements import DownMovements as _math_DownMovements
         return _ops_Div(_math_EW_Avg(_math_UpMovements(self.source,self.timeframe),self.alpha),_math_EW_Avg(_math_DownMovements(self.source,self.timeframe),self.alpha))
     
-Raw = Raw_Optional__IObservable__Float____Optional__Float___Optional__Float_
+def Raw(source = None,timeframe = None,alpha = None): 
+    return Raw_Optional__IObservable__Float____Optional__Float___Optional__Float_(source,timeframe,alpha)

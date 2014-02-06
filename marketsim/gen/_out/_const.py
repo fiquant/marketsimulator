@@ -22,4 +22,5 @@ class const_Optional__Float_(Function[float],_Constant_Impl):
     def __repr__(self):
         return "C=%(x)s" % self.__dict__
     
-const = const_Optional__Float_
+def const(x = None): 
+    return const_Optional__Float_(x)

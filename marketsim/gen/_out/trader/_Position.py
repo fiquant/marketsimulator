@@ -32,4 +32,5 @@ class Position_Optional__IAccount_(Observable[Volume],Position_Impl):
     def __repr__(self):
         return "Position(%(trader)s)" % self.__dict__
     
-Position = Position_Optional__IAccount_
+def Position(trader = None): 
+    return Position_Optional__IAccount_(trader)

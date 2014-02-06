@@ -35,4 +35,5 @@ class Min_Optional__IFunction__Float____Optional__Float_(Observable[float],Min_I
     def __repr__(self):
         return "Min_{n=%(timeframe)s}(%(source)s)" % self.__dict__
     
-Min = Min_Optional__IFunction__Float____Optional__Float_
+def Min(source = None,timeframe = None): 
+    return Min_Optional__IFunction__Float____Optional__Float_(source,timeframe)

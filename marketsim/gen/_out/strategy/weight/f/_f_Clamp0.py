@@ -27,4 +27,5 @@ class f_Clamp0_(IFunction[IFunction[float], IFunction[float]]):
         
         return Clamp0(f)
     
-f_Clamp0 = f_Clamp0_
+def f_Clamp0(): 
+    return f_Clamp0_()

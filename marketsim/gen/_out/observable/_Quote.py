@@ -38,4 +38,5 @@ class Quote_Optional__String___Optional__String___Optional__String_(Observable[P
     def __repr__(self):
         return "%(ticker)s" % self.__dict__
     
-Quote = Quote_Optional__String___Optional__String___Optional__String_
+def Quote(ticker = None,start = None,end = None): 
+    return Quote_Optional__String___Optional__String___Optional__String_(ticker,start,end)

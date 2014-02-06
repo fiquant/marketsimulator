@@ -22,4 +22,5 @@ class Buy_(Function[Side],_Buy_Impl):
     def __repr__(self):
         return "Buy" % self.__dict__
     
-Buy = Buy_
+def Buy(): 
+    return Buy_()

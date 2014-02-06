@@ -23,4 +23,5 @@ class After_Optional__IFunction__Float__(_After_Impl):
     def __repr__(self):
         return "After(%(delay)s)" % self.__dict__
     
-After = After_Optional__IFunction__Float__
+def After(delay = None): 
+    return After_Optional__IFunction__Float__(delay)

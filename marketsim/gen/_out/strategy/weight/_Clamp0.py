@@ -42,4 +42,5 @@ class Clamp0_Optional__IFunction__Float__(Function[float]):
         from marketsim.gen._out._constant import constant as _constant
         return _ops_Add(_math_Max(_constant(0),self.f),_constant(1))
     
-Clamp0 = Clamp0_Optional__IFunction__Float__
+def Clamp0(f = None): 
+    return Clamp0_Optional__IFunction__Float__(f)

@@ -50,4 +50,5 @@ class IfDefined_Optional__IFunction__Float____Optional__IFunction__Float__(Obser
         from marketsim.gen._out._null import null as _null
         return _ops_Condition_Float(_ops_NotEqual(self.x,_null()),self.x,self.elsePart)
     
-IfDefined = IfDefined_Optional__IFunction__Float____Optional__IFunction__Float__
+def IfDefined(x = None,elsePart = None): 
+    return IfDefined_Optional__IFunction__Float____Optional__IFunction__Float__(x,elsePart)

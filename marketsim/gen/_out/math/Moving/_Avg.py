@@ -26,4 +26,5 @@ class Avg_Optional__IObservable__Float____Optional__Float_(Function[float],MA_Im
     def __repr__(self):
         return "Avg_{n=%(timeframe)s}(%(source)s)" % self.__dict__
     
-Avg = Avg_Optional__IObservable__Float____Optional__Float_
+def Avg(source = None,timeframe = None): 
+    return Avg_Optional__IObservable__Float____Optional__Float_(source,timeframe)

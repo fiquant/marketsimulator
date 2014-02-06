@@ -27,4 +27,5 @@ class Suspendable_Optional__ISingleAssetStrategy___Optional__IFunction__Boolean_
     def __repr__(self):
         return "Suspendable(%(inner)s, %(predicate)s)" % self.__dict__
     
-Suspendable = Suspendable_Optional__ISingleAssetStrategy___Optional__IFunction__Boolean__
+def Suspendable(inner = None,predicate = None): 
+    return Suspendable_Optional__ISingleAssetStrategy___Optional__IFunction__Boolean__(inner,predicate)

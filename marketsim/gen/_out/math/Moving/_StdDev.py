@@ -43,4 +43,5 @@ class StdDev_Optional__IObservable__Float____Optional__Float_(Function[float]):
         from marketsim.gen._out.math.Moving._Var import Var as _math_Moving_Var
         return _math_Sqrt(_math_Moving_Var(self.source))
     
-StdDev = StdDev_Optional__IObservable__Float____Optional__Float_
+def StdDev(source = None,timeframe = None): 
+    return StdDev_Optional__IObservable__Float____Optional__Float_(source,timeframe)

@@ -50,4 +50,5 @@ class Signal_Optional__IObservable__Float____Optional__Float___Optional__Float__
         from marketsim.gen._out.math.macd._MACD import MACD as _math_macd_MACD
         return _math_EW_Avg(_observable_OnEveryDt(self.step,_math_macd_MACD(self.x,self.slow,self.fast)),(2/((self.timeframe+1))))
     
-Signal = Signal_Optional__IObservable__Float____Optional__Float___Optional__Float___Optional__Float___Optional__Float_
+def Signal(x = None,slow = None,fast = None,timeframe = None,step = None): 
+    return Signal_Optional__IObservable__Float____Optional__Float___Optional__Float___Optional__Float___Optional__Float_(x,slow,fast,timeframe,step)

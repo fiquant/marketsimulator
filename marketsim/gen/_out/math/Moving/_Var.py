@@ -26,4 +26,5 @@ class Var_Optional__IObservable__Float____Optional__Float_(Function[float],MV_Im
     def __repr__(self):
         return "\\sigma^2_{n=%(timeframe)s}(%(source)s)" % self.__dict__
     
-Var = Var_Optional__IObservable__Float____Optional__Float_
+def Var(source = None,timeframe = None): 
+    return Var_Optional__IObservable__Float____Optional__Float_(source,timeframe)

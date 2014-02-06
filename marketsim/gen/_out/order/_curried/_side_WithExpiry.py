@@ -36,4 +36,3 @@ class side_WithExpiry(IFunction[IOrderGenerator,IFunction[Side]]):
         proto = self.proto
         return WithExpiry(expiry, proto(side))
     
-side_WithExpiry = side_WithExpiry

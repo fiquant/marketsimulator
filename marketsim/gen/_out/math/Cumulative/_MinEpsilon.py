@@ -36,4 +36,5 @@ class MinEpsilon_Optional__IFunction__Float____Optional__IFunction__Float__(Obse
     def __repr__(self):
         return "Min_{\\epsilon}(%(source)s)" % self.__dict__
     
-MinEpsilon = MinEpsilon_Optional__IFunction__Float____Optional__IFunction__Float__
+def MinEpsilon(source = None,epsilon = None): 
+    return MinEpsilon_Optional__IFunction__Float____Optional__IFunction__Float__(source,epsilon)

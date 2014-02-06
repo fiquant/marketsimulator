@@ -72,4 +72,5 @@ class MarketData_Optional__String___Optional__String___Optional__String___Option
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
-MarketData = MarketData_Optional__String___Optional__String___Optional__String___Optional__Float___Optional__Float_
+def MarketData(ticker = None,start = None,end = None,delta = None,volume = None): 
+    return MarketData_Optional__String___Optional__String___Optional__String___Optional__Float___Optional__Float_(ticker,start,end,delta,volume)

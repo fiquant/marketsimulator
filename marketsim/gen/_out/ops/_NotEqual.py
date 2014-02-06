@@ -36,4 +36,5 @@ class NotEqual_Optional__IFunction__Float____Optional__IFunction__Float__(Observ
     def __repr__(self):
         return "({%(x)s}<>{%(y)s})" % self.__dict__
     
-NotEqual = NotEqual_Optional__IFunction__Float____Optional__IFunction__Float__
+def NotEqual(x = None,y = None): 
+    return NotEqual_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)

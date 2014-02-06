@@ -58,4 +58,5 @@ class Bollinger_linear_Optional__Float___Optional__IObservable__Float____Optiona
         from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
         return _strategy_position_DesiredPosition(_observable_OnEveryDt(1.0,_ops_Mul(_math_EW_RelStdDev(_orderbook_MidPrice(_orderbook_OfTrader(self.trader)),self.alpha),self.k)),self.trader)
     
-Bollinger_linear = Bollinger_linear_Optional__Float___Optional__IObservable__Float____Optional__ISingleAssetTrader_
+def Bollinger_linear(alpha = None,k = None,trader = None): 
+    return Bollinger_linear_Optional__Float___Optional__IObservable__Float____Optional__ISingleAssetTrader_(alpha,k,trader)

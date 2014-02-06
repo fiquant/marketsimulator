@@ -55,4 +55,5 @@ class Signal_Optional__IFunction__Float____Optional__Float_(Observable[Side]):
         from marketsim.gen._out.ops._Greater import Greater as _ops_Greater
         return _ops_Condition_Side(_ops_Greater(self.signal,_const(self.threshold)),_side_Buy(),_ops_Condition_Side(_ops_Less(self.signal,_const((0-self.threshold))),_side_Sell(),_side_Nothing()))
     
-Signal = Signal_Optional__IFunction__Float____Optional__Float_
+def Signal(signal = None,threshold = None): 
+    return Signal_Optional__IFunction__Float____Optional__Float_(signal,threshold)

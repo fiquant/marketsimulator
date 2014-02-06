@@ -22,4 +22,5 @@ class Real_Optional__ISingleAssetStrategy_(_Account_Impl):
     def __repr__(self):
         return "Real(%(inner)s)" % self.__dict__
     
-Real = Real_Optional__ISingleAssetStrategy_
+def Real(inner = None): 
+    return Real_Optional__ISingleAssetStrategy_(inner)

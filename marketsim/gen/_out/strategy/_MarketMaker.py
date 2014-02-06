@@ -64,4 +64,5 @@ class MarketMaker_Optional__Float___Optional__Float_(ISingleAssetStrategy):
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
-MarketMaker = MarketMaker_Optional__Float___Optional__Float_
+def MarketMaker(delta = None,volume = None): 
+    return MarketMaker_Optional__Float___Optional__Float_(delta,volume)

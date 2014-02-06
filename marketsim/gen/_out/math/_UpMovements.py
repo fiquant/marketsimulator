@@ -52,4 +52,5 @@ class UpMovements_Optional__IObservable__Float____Optional__Float_(Observable[fl
         from marketsim.gen._out.math._Lagged import Lagged as _math_Lagged
         return _observable_Float(_math_Max(_const(0.0),_ops_Sub(self.source,_math_Lagged(self.source,self.timeframe))))
     
-UpMovements = UpMovements_Optional__IObservable__Float____Optional__Float_
+def UpMovements(source = None,timeframe = None): 
+    return UpMovements_Optional__IObservable__Float____Optional__Float_(source,timeframe)

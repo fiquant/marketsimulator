@@ -22,4 +22,5 @@ class null_(Function[float],_Null_Impl):
     def __repr__(self):
         return "null" % self.__dict__
     
-null = null_
+def null(): 
+    return null_()

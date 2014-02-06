@@ -35,4 +35,5 @@ class ChooseTheBest_Optional_List__ISingleAssetStrategy____Optional_Optional__IS
     def __repr__(self):
         return "ChooseTheBest(%(strategies)s, %(account)s, %(performance)s)" % self.__dict__
     
-ChooseTheBest = ChooseTheBest_Optional_List__ISingleAssetStrategy____Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float__
+def ChooseTheBest(strategies = None,account = None,performance = None): 
+    return ChooseTheBest_Optional_List__ISingleAssetStrategy____Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float__(strategies,account,performance)

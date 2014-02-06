@@ -40,4 +40,5 @@ class Efficiency__IAccount(Function[float]):
         from marketsim.gen._out.trader._Efficiency import Efficiency as _trader_Efficiency
         return _trader_Efficiency(self.trader)
     
-Efficiency = Efficiency__IAccount
+def Efficiency(trader = None): 
+    return Efficiency__IAccount(trader)

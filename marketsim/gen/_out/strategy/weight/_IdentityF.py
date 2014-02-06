@@ -39,4 +39,5 @@ class IdentityF_Optional__IFunction__Float__(Function[float]):
     def getImpl(self):
         return self.f
     
-IdentityF = IdentityF_Optional__IFunction__Float__
+def IdentityF(f = None): 
+    return IdentityF_Optional__IFunction__Float__(f)

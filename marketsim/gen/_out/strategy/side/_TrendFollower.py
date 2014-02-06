@@ -48,4 +48,5 @@ class TrendFollower_Optional__Float___Optional__Float___Optional__IOrderBook_(Fu
         from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
         return _strategy_side_Signal(_math_Derivative(_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha)),self.threshold)
     
-TrendFollower = TrendFollower_Optional__Float___Optional__Float___Optional__IOrderBook_
+def TrendFollower(alpha = None,threshold = None,book = None): 
+    return TrendFollower_Optional__Float___Optional__Float___Optional__IOrderBook_(alpha,threshold,book)

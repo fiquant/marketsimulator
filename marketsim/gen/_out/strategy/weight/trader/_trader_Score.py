@@ -30,4 +30,5 @@ class trader_Score_(IFunction[IFunction[float], IAccount]):
         
         return Score(trader)
     
-trader_Score = trader_Score_
+def trader_Score(): 
+    return trader_Score_()

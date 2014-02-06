@@ -61,4 +61,5 @@ class RSI_linear_Optional__Float___Optional__IObservable__Float____Optional__Flo
         from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
         return _strategy_position_DesiredPosition(_observable_OnEveryDt(1.0,_ops_Mul(_ops_Sub(_const(50.0),_math_RSI(_orderbook_OfTrader(self.trader),self.timeframe,self.alpha)),self.k)),self.trader)
     
-RSI_linear = RSI_linear_Optional__Float___Optional__IObservable__Float____Optional__Float___Optional__ISingleAssetTrader_
+def RSI_linear(alpha = None,k = None,timeframe = None,trader = None): 
+    return RSI_linear_Optional__Float___Optional__IObservable__Float____Optional__Float___Optional__ISingleAssetTrader_(alpha,k,timeframe,trader)

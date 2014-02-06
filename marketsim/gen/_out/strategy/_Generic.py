@@ -26,4 +26,5 @@ class Generic_Optional__IOrderGenerator___Optional__IEvent_(_Generic_Impl):
     def __repr__(self):
         return "Generic(%(orderFactory)s, %(eventGen)s)" % self.__dict__
     
-Generic = Generic_Optional__IOrderGenerator___Optional__IEvent_
+def Generic(orderFactory = None,eventGen = None): 
+    return Generic_Optional__IOrderGenerator___Optional__IEvent_(orderFactory,eventGen)

@@ -51,4 +51,5 @@ class Efficiency_Optional__IAccount_(Observable[float]):
         from marketsim.gen._out.trader._Position import Position as _trader_Position
         return _observable_Float(_ops_Add(_trader_Balance(self.trader),_orderbook_CumulativePrice(_orderbook_OfTrader(self.trader),_trader_Position(self.trader))))
     
-Efficiency = Efficiency_Optional__IAccount_
+def Efficiency(trader = None): 
+    return Efficiency_Optional__IAccount_(trader)

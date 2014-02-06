@@ -22,4 +22,5 @@ class false_(Function[bool],_False_Impl):
     def __repr__(self):
         return "False" % self.__dict__
     
-false = false_
+def false(): 
+    return false_()

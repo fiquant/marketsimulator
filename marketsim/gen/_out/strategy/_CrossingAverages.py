@@ -63,4 +63,5 @@ class CrossingAverages_Optional__IEvent___Optional_________Side______IOrderGener
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
-CrossingAverages = CrossingAverages_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float___Optional__Float_
+def CrossingAverages(eventGen = None,orderFactory = None,ewma_alpha_1 = None,ewma_alpha_2 = None,threshold = None): 
+    return CrossingAverages_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float___Optional__Float_(eventGen,orderFactory,ewma_alpha_1,ewma_alpha_2,threshold)

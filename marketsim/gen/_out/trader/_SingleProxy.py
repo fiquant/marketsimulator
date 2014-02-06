@@ -18,4 +18,5 @@ class SingleProxy_(_Single_Impl):
         
     }
     
-SingleProxy = SingleProxy_
+def SingleProxy(): 
+    return SingleProxy_()

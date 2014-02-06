@@ -22,4 +22,5 @@ class ChooseTheBest_Optional_List__Float__(_ChooseTheBest_Impl):
     def __repr__(self):
         return "ChooseTheBest(%(array)s)" % self.__dict__
     
-ChooseTheBest = ChooseTheBest_Optional_List__Float__
+def ChooseTheBest(array = None): 
+    return ChooseTheBest_Optional_List__Float__(array)

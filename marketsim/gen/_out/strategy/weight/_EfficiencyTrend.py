@@ -44,4 +44,5 @@ class EfficiencyTrend__IAccount__Optional__Float_(Function[float]):
         from marketsim.gen._out.trader._Efficiency import Efficiency as _trader_Efficiency
         return _math_Derivative(_math_EW_Avg(_trader_Efficiency(self.trader),self.alpha))
     
-EfficiencyTrend = EfficiencyTrend__IAccount__Optional__Float_
+def EfficiencyTrend(trader = None,alpha = None): 
+    return EfficiencyTrend__IAccount__Optional__Float_(trader,alpha)

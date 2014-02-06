@@ -41,4 +41,5 @@ class Condition_Float_Optional__IFunction__Boolean____Optional__IFunction__Float
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
-Condition_Float = Condition_Float_Optional__IFunction__Boolean____Optional__IFunction__Float____Optional__IFunction__Float__
+def Condition_Float(cond = None,ifpart = None,elsepart = None): 
+    return Condition_Float_Optional__IFunction__Boolean____Optional__IFunction__Float____Optional__IFunction__Float__(cond,ifpart,elsepart)

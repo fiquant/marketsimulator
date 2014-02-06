@@ -21,4 +21,5 @@ class OfTrader_Optional__IAccount_(_OfTrader_Impl):
         'Trader' : IAccount
     }
     
-OfTrader = OfTrader_Optional__IAccount_
+def OfTrader(Trader = None): 
+    return OfTrader_Optional__IAccount_(Trader)

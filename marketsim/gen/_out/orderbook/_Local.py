@@ -31,4 +31,5 @@ class Local_Optional__Float___Optional__Int___Optional__String___Optional_List__
     def __repr__(self):
         return "%(name)s" % self.__dict__
     
-Local = Local_Optional__Float___Optional__Int___Optional__String___Optional_List__ITimeSerie__
+def Local(tickSize = None,_digitsToShow = None,name = None,timeseries = None): 
+    return Local_Optional__Float___Optional__Int___Optional__String___Optional_List__ITimeSerie__(tickSize,_digitsToShow,name,timeseries)

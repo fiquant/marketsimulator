@@ -41,4 +41,5 @@ class StdDev_Optional__IObservable__Float__(Function[float]):
         from marketsim.gen._out.math.Cumulative._Var import Var as _math_Cumulative_Var
         return _math_Sqrt(_math_Cumulative_Var(self.source))
     
-StdDev = StdDev_Optional__IObservable__Float__
+def StdDev(source = None): 
+    return StdDev_Optional__IObservable__Float__(source)

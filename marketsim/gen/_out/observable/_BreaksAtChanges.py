@@ -31,4 +31,5 @@ class BreaksAtChanges_Optional__IFunction__Float__(Observable[float],_BreaksAtCh
     def __repr__(self):
         return "BreaksAtChanges(%(source)s)" % self.__dict__
     
-BreaksAtChanges = BreaksAtChanges_Optional__IFunction__Float__
+def BreaksAtChanges(source = None): 
+    return BreaksAtChanges_Optional__IFunction__Float__(source)

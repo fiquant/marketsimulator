@@ -24,4 +24,5 @@ class Var_Optional__IObservable__Float__(Function[float],Variance_Impl):
     def __repr__(self):
         return "\\sigma^2_{cumul}(%(source)s)" % self.__dict__
     
-Var = Var_Optional__IObservable__Float__
+def Var(source = None): 
+    return Var_Optional__IObservable__Float__(source)

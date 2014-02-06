@@ -47,4 +47,5 @@ class Price_Optional__IOrderBook_(Observable[Price]):
         from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
         return _orderbook_BestPrice(_orderbook_Asks(self.book))
     
-Price = Price_Optional__IOrderBook_
+def Price(book = None): 
+    return Price_Optional__IOrderBook_(book)

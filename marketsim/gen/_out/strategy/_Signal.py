@@ -61,4 +61,5 @@ class Signal_Optional__IEvent___Optional_________Side______IOrderGenerator___Opt
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
-Signal = Signal_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IFunction__Float____Optional__Float_
+def Signal(eventGen = None,orderFactory = None,signal = None,threshold = None): 
+    return Signal_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IFunction__Float____Optional__Float_(eventGen,orderFactory,signal,threshold)

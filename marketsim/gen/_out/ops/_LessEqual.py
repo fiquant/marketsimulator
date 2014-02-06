@@ -36,4 +36,5 @@ class LessEqual_Optional__IFunction__Float____Optional__IFunction__Float__(Obser
     def __repr__(self):
         return "({%(x)s}<={%(y)s})" % self.__dict__
     
-LessEqual = LessEqual_Optional__IFunction__Float____Optional__IFunction__Float__
+def LessEqual(x = None,y = None): 
+    return LessEqual_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)

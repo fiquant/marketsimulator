@@ -45,4 +45,5 @@ class RandomWalk_Optional__Float___Optional________Float___Optional________Float
     def __repr__(self):
         return "%(name)s" % self.__dict__
     
-RandomWalk = RandomWalk_Optional__Float___Optional________Float___Optional________Float___Optional__String_
+def RandomWalk(initialValue = None,deltaDistr = None,intervalDistr = None,name = None): 
+    return RandomWalk_Optional__Float___Optional________Float___Optional________Float___Optional__String_(initialValue,deltaDistr,intervalDistr,name)

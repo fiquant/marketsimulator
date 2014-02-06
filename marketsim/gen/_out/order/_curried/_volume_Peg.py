@@ -33,4 +33,3 @@ class volume_Peg(IFunction[IOrderGenerator,IFunction[float]]):
         proto = self.proto
         return Peg(proto(volume))
     
-volume_Peg = volume_Peg

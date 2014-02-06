@@ -28,4 +28,5 @@ class inner_Real_(IFunction[IAccount, ISingleAssetStrategy]):
         
         return Real(inner)
     
-inner_Real = inner_Real_
+def inner_Real(): 
+    return inner_Real_()

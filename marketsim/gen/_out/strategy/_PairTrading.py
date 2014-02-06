@@ -65,4 +65,5 @@ class PairTrading_Optional__IEvent___Optional_________Side______IOrderGenerator_
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
-PairTrading = PairTrading_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IOrderBook___Optional__Float_
+def PairTrading(eventGen = None,orderFactory = None,bookToDependOn = None,factor = None): 
+    return PairTrading_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IOrderBook___Optional__Float_(eventGen,orderFactory,bookToDependOn,factor)

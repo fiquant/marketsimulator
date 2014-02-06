@@ -59,4 +59,5 @@ class MeanReversion_Optional__IEvent___Optional_________Side______IOrderGenerato
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
-MeanReversion = MeanReversion_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float_
+def MeanReversion(eventGen = None,orderFactory = None,ewma_alpha = None): 
+    return MeanReversion_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float_(eventGen,orderFactory,ewma_alpha)

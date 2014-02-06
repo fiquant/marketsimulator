@@ -47,4 +47,5 @@ class LastTradePrice_Optional__IOrderBook_(Observable[Price]):
         from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
         return _orderbook_LastTradePrice(_orderbook_Bids(self.book))
     
-LastTradePrice = LastTradePrice_Optional__IOrderBook_
+def LastTradePrice(book = None): 
+    return LastTradePrice_Optional__IOrderBook_(book)

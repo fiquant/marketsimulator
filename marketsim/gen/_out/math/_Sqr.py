@@ -46,4 +46,5 @@ class Sqr_Optional__IFunction__Float__(Observable[float]):
         from marketsim.gen._out.ops._Mul import Mul as _ops_Mul
         return _ops_Mul(self.x,self.x)
     
-Sqr = Sqr_Optional__IFunction__Float__
+def Sqr(x = None): 
+    return Sqr_Optional__IFunction__Float__(x)

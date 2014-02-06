@@ -26,4 +26,5 @@ class Var_Optional__IObservable__Float____Optional__Float_(Function[float],EWMV_
     def __repr__(self):
         return "\\sigma^2_{\\alpha=%(alpha)s}(%(source)s)" % self.__dict__
     
-Var = Var_Optional__IObservable__Float____Optional__Float_
+def Var(source = None,alpha = None): 
+    return Var_Optional__IObservable__Float____Optional__Float_(source,alpha)

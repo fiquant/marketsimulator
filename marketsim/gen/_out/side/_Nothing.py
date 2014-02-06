@@ -22,4 +22,5 @@ class Nothing_(Function[Side],_None_Impl):
     def __repr__(self):
         return "Nothing" % self.__dict__
     
-Nothing = Nothing_
+def Nothing(): 
+    return Nothing_()

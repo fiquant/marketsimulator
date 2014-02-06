@@ -42,4 +42,5 @@ class MultiArmedBandit_Optional_List__ISingleAssetStrategy____Optional_Optional_
     def __repr__(self):
         return "MultiArmedBandit(%(strategies)s, %(account)s, %(weight)s, %(normalizer)s, %(corrector)s)" % self.__dict__
     
-MultiArmedBandit = MultiArmedBandit_Optional_List__ISingleAssetStrategy____Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float____Optional_Optional__IFunction__Float_______IFunction__Float____Optional_Optional_List__Float______List__Float__
+def MultiArmedBandit(strategies = None,account = None,weight = None,normalizer = None,corrector = None): 
+    return MultiArmedBandit_Optional_List__ISingleAssetStrategy____Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float____Optional_Optional__IFunction__Float_______IFunction__Float____Optional_Optional_List__Float______List__Float__(strategies,account,weight,normalizer,corrector)

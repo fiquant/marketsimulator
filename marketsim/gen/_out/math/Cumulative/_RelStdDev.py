@@ -43,4 +43,5 @@ class RelStdDev_Optional__IObservable__Float__(Function[float]):
         from marketsim.gen._out.math.Cumulative._StdDev import StdDev as _math_Cumulative_StdDev
         return _ops_Div(_ops_Sub(self.source,_math_Cumulative_Avg(self.source)),_math_Cumulative_StdDev(self.source))
     
-RelStdDev = RelStdDev_Optional__IObservable__Float__
+def RelStdDev(source = None): 
+    return RelStdDev_Optional__IObservable__Float__(source)

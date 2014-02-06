@@ -46,4 +46,5 @@ class Pow_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[
         if power is None: return None
         return math.pow(base, power)
     
-Pow = Pow_Optional__IFunction__Float____Optional__IFunction__Float__
+def Pow(base = None,power = None): 
+    return Pow_Optional__IFunction__Float____Optional__IFunction__Float__(base,power)

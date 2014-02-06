@@ -24,4 +24,5 @@ class Combine_Optional__ISingleAssetStrategy___Optional__ISingleAssetStrategy_(_
     def __repr__(self):
         return "Combine(%(A)s, %(B)s)" % self.__dict__
     
-Combine = Combine_Optional__ISingleAssetStrategy___Optional__ISingleAssetStrategy_
+def Combine(A = None,B = None): 
+    return Combine_Optional__ISingleAssetStrategy___Optional__ISingleAssetStrategy_(A,B)

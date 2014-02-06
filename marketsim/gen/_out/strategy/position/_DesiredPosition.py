@@ -54,4 +54,5 @@ class DesiredPosition_Optional__IObservable__Float____Optional__ISingleAssetTrad
         from marketsim.gen._out.trader._PendingVolume import PendingVolume as _trader_PendingVolume
         return _observable_Volume(_ops_Sub(_ops_Sub(self.desiredPosition,_trader_Position(self.trader)),_trader_PendingVolume(self.trader)))
     
-DesiredPosition = DesiredPosition_Optional__IObservable__Float____Optional__ISingleAssetTrader_
+def DesiredPosition(desiredPosition = None,trader = None): 
+    return DesiredPosition_Optional__IObservable__Float____Optional__ISingleAssetTrader_(desiredPosition,trader)

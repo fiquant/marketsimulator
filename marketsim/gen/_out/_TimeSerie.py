@@ -31,4 +31,5 @@ class TimeSerie_Optional__IObservable_Any____Optional__IGraph___Optional__Int___
     def __repr__(self):
         return "%(source)s" % self.__dict__
     
-TimeSerie = TimeSerie_Optional__IObservable_Any____Optional__IGraph___Optional__Int___Optional__Int_
+def TimeSerie(source = None,graph = None,_digitsToShow = None,_smooth = None): 
+    return TimeSerie_Optional__IObservable_Any____Optional__IGraph___Optional__Int___Optional__Int_(source,graph,_digitsToShow,_smooth)

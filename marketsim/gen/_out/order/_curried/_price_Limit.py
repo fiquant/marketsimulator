@@ -37,4 +37,3 @@ class price_Limit(IFunction[IOrderGenerator, IFunction[float]]):
         volume = self.volume
         return Limit(side, price, volume)
     
-price_Limit = price_Limit

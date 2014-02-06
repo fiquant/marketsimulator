@@ -28,4 +28,5 @@ class trader_EfficiencyTrend_Optional__Float_(IFunction[IFunction[float], IAccou
         alpha = self.alpha
         return EfficiencyTrend(trader,alpha)
     
-trader_EfficiencyTrend = trader_EfficiencyTrend_Optional__Float_
+def trader_EfficiencyTrend(alpha = None): 
+    return trader_EfficiencyTrend_Optional__Float_(alpha)

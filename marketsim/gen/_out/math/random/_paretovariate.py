@@ -27,4 +27,3 @@ class paretovariate(Function[float]):
     def _casts_to(self, dst):
         return paretovariate._types[0]._casts_to(dst)
     
-paretovariate = paretovariate

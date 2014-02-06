@@ -35,4 +35,3 @@ class sidevolume_Limit(IFunction[IOrderGenerator, IFunction[Side],IFunction[floa
         price = self.price
         return Limit(side, price, volume)
     
-sidevolume_Limit = sidevolume_Limit

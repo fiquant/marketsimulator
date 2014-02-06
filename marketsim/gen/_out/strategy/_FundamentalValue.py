@@ -59,4 +59,5 @@ class FundamentalValue_Optional__IEvent___Optional_________Side______IOrderGener
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
-FundamentalValue = FundamentalValue_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IFunction__Float__
+def FundamentalValue(eventGen = None,orderFactory = None,fundamentalValue = None): 
+    return FundamentalValue_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IFunction__Float__(eventGen,orderFactory,fundamentalValue)

@@ -35,4 +35,5 @@ class Max_Optional__IFunction__Float____Optional__Float_(Observable[float],Max_I
     def __repr__(self):
         return "Max_{n=%(timeframe)s}(%(source)s)" % self.__dict__
     
-Max = Max_Optional__IFunction__Float____Optional__Float_
+def Max(source = None,timeframe = None): 
+    return Max_Optional__IFunction__Float____Optional__Float_(source,timeframe)

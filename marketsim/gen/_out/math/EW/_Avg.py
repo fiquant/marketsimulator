@@ -26,4 +26,5 @@ class Avg_Optional__IObservable__Float____Optional__Float_(Function[float],EWMA_
     def __repr__(self):
         return "Avg_{\\alpha=%(alpha)s}(%(source)s)" % self.__dict__
     
-Avg = Avg_Optional__IObservable__Float____Optional__Float_
+def Avg(source = None,alpha = None): 
+    return Avg_Optional__IObservable__Float____Optional__Float_(source,alpha)

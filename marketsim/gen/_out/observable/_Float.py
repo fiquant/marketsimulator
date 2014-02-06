@@ -31,4 +31,5 @@ class Float_Optional__IFunction__Float__(Observable[float],_Observable_Impl):
     def __repr__(self):
         return "[%(x)s]" % self.__dict__
     
-Float = Float_Optional__IFunction__Float__
+def Float(x = None): 
+    return Float_Optional__IFunction__Float__(x)

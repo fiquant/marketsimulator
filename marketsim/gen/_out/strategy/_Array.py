@@ -23,4 +23,5 @@ class Array_Optional_List__ISingleAssetStrategy__(_Array_Impl):
     def __repr__(self):
         return "Array(%(strategies)s)" % self.__dict__
     
-Array = Array_Optional_List__ISingleAssetStrategy__
+def Array(strategies = None): 
+    return Array_Optional_List__ISingleAssetStrategy__(strategies)

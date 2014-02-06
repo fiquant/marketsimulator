@@ -56,4 +56,5 @@ class TradeIfProfitable_Optional__ISingleAssetStrategy___Optional_Optional__ISin
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
-TradeIfProfitable = TradeIfProfitable_Optional__ISingleAssetStrategy___Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float__
+def TradeIfProfitable(inner = None,account = None,performance = None): 
+    return TradeIfProfitable_Optional__ISingleAssetStrategy___Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float__(inner,account,performance)

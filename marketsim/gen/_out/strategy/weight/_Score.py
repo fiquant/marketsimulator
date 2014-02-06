@@ -26,4 +26,5 @@ class Score__IAccount(Function[float],_Score_Impl):
     def __repr__(self):
         return "Score(%(trader)s)" % self.__dict__
     
-Score = Score__IAccount
+def Score(trader = None): 
+    return Score__IAccount(trader)

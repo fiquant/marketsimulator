@@ -22,4 +22,5 @@ class true_(Function[bool],_True_Impl):
     def __repr__(self):
         return "True" % self.__dict__
     
-true = true_
+def true(): 
+    return true_()

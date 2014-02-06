@@ -31,4 +31,5 @@ class PendingVolume_Optional__IAccount_(Observable[Volume],PendingVolume_Impl):
     def __repr__(self):
         return "PendingVolume(%(trader)s)" % self.__dict__
     
-PendingVolume = PendingVolume_Optional__IAccount_
+def PendingVolume(trader = None): 
+    return PendingVolume_Optional__IAccount_(trader)

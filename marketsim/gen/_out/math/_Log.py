@@ -35,4 +35,5 @@ class Log_Optional__IFunction__Float__(Observable[float]):
         if x is None: return None
         return math.log(x)
     
-Log = Log_Optional__IFunction__Float__
+def Log(x = None): 
+    return Log_Optional__IFunction__Float__(x)

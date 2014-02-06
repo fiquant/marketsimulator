@@ -49,4 +49,5 @@ class RSI_Optional__IOrderBook___Optional__Float___Optional__Float_(Function[flo
         from marketsim.gen._out.ops._Div import Div as _ops_Div
         return _ops_Sub(_const(100.0),_ops_Div(_const(100.0),_ops_Add(_const(1.0),_math_rsi_Raw(_orderbook_MidPrice(self.book),self.timeframe,self.alpha))))
     
-RSI = RSI_Optional__IOrderBook___Optional__Float___Optional__Float_
+def RSI(book = None,timeframe = None,alpha = None): 
+    return RSI_Optional__IOrderBook___Optional__Float___Optional__Float_(book,timeframe,alpha)

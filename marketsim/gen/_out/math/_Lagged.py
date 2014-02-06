@@ -35,4 +35,5 @@ class Lagged_Optional__IObservable__Float____Optional__Float_(Observable[float],
     def __repr__(self):
         return "Lagged_{%(timeframe)s}(%(source)s)" % self.__dict__
     
-Lagged = Lagged_Optional__IObservable__Float____Optional__Float_
+def Lagged(source = None,timeframe = None): 
+    return Lagged_Optional__IObservable__Float____Optional__Float_(source,timeframe)

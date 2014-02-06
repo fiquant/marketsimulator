@@ -63,4 +63,5 @@ class LiquidityProvider_Optional__IEvent___Optional__________Side__________Float
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
-LiquidityProvider = LiquidityProvider_Optional__IEvent___Optional__________Side__________Float_______IOrderGenerator___Optional__Float___Optional________Float_
+def LiquidityProvider(eventGen = None,orderFactory = None,initialValue = None,priceDistr = None): 
+    return LiquidityProvider_Optional__IEvent___Optional__________Side__________Float_______IOrderGenerator___Optional__Float___Optional________Float_(eventGen,orderFactory,initialValue,priceDistr)

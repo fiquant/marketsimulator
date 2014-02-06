@@ -26,4 +26,5 @@ class TwoWayLink_Optional__ILink___Optional__ILink_(_TwoWayLink_Impl):
     def __repr__(self):
         return "TwoWayLink(%(up)s, %(down)s)" % self.__dict__
     
-TwoWayLink = TwoWayLink_Optional__ILink___Optional__ILink_
+def TwoWayLink(up = None,down = None): 
+    return TwoWayLink_Optional__ILink___Optional__ILink_(up,down)

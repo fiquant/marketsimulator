@@ -22,4 +22,5 @@ class Asks_Optional__IOrderBook_(_Asks_Impl):
     def __repr__(self):
         return "Asks(%(book)s)" % self.__dict__
     
-Asks = Asks_Optional__IOrderBook_
+def Asks(book = None): 
+    return Asks_Optional__IOrderBook_(book)

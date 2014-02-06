@@ -45,4 +45,5 @@ class Noise_Optional________Float_(Function[Side]):
         from marketsim.gen._out.ops._Greater import Greater as _ops_Greater
         return _ops_Condition_Side(_ops_Greater(self.side_distribution,_const(0.5)),_side_Sell(),_side_Buy())
     
-Noise = Noise_Optional________Float_
+def Noise(side_distribution = None): 
+    return Noise_Optional________Float_(side_distribution)

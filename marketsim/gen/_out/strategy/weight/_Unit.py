@@ -40,4 +40,5 @@ class Unit__IAccount(Function[float]):
         from marketsim.gen._out._constant import constant as _constant
         return _constant(1.0)
     
-Unit = Unit__IAccount
+def Unit(trader = None): 
+    return Unit__IAccount(trader)

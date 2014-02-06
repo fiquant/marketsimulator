@@ -31,4 +31,5 @@ class BestPrice_Optional__IOrderQueue_(Observable[Price],_BestPrice_Impl):
     def __repr__(self):
         return "BestPrice(%(queue)s)" % self.__dict__
     
-BestPrice = BestPrice_Optional__IOrderQueue_
+def BestPrice(queue = None): 
+    return BestPrice_Optional__IOrderQueue_(queue)

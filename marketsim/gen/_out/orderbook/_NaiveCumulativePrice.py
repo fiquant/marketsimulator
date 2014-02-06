@@ -61,4 +61,5 @@ class NaiveCumulativePrice_Optional__IOrderBook___Optional__IFunction__Float__(O
         from marketsim.gen._out.ops._Greater import Greater as _ops_Greater
         return _observable_Price(_ops_Condition_Float(_ops_Less(self.depth,_const(0.0)),_ops_Mul(self.depth,_orderbook_ask_Price(self.book)),_ops_Condition_Float(_ops_Greater(self.depth,_const(0.0)),_ops_Mul(self.depth,_orderbook_bid_Price(self.book)),_const(0.0))))
     
-NaiveCumulativePrice = NaiveCumulativePrice_Optional__IOrderBook___Optional__IFunction__Float__
+def NaiveCumulativePrice(book = None,depth = None): 
+    return NaiveCumulativePrice_Optional__IOrderBook___Optional__IFunction__Float__(book,depth)

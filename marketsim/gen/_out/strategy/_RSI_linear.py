@@ -57,4 +57,5 @@ class RSI_linear_Optional_________Float______IOrderGenerator___Optional__Float__
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
-RSI_linear = RSI_linear_Optional_________Float______IOrderGenerator___Optional__Float___Optional__IObservable__Float____Optional__Float_
+def RSI_linear(orderFactory = None,alpha = None,k = None,timeframe = None): 
+    return RSI_linear_Optional_________Float______IOrderGenerator___Optional__Float___Optional__IObservable__Float____Optional__Float_(orderFactory,alpha,k,timeframe)

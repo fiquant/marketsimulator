@@ -58,4 +58,5 @@ class FundamentalValue_Optional__IFunction__Float____Optional__IOrderBook_(Obser
         from marketsim.gen._out.ops._Greater import Greater as _ops_Greater
         return _ops_Condition_Side(_ops_Greater(_orderbook_bid_Price(self.book),self.fv),_side_Sell(),_ops_Condition_Side(_ops_Less(_orderbook_ask_Price(self.book),self.fv),_side_Buy(),_side_Nothing()))
     
-FundamentalValue = FundamentalValue_Optional__IFunction__Float____Optional__IOrderBook_
+def FundamentalValue(fv = None,book = None): 
+    return FundamentalValue_Optional__IFunction__Float____Optional__IOrderBook_(fv,book)

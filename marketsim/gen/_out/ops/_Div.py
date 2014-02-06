@@ -35,4 +35,5 @@ class Div_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[
     def __repr__(self):
         return "\\frac{%(x)s}{%(y)s}" % self.__dict__
     
-Div = Div_Optional__IFunction__Float____Optional__IFunction__Float__
+def Div(x = None,y = None): 
+    return Div_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)

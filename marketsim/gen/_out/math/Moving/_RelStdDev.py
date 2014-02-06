@@ -45,4 +45,5 @@ class RelStdDev_Optional__IObservable__Float____Optional__Float_(Function[float]
         from marketsim.gen._out.math.Moving._StdDev import StdDev as _math_Moving_StdDev
         return _ops_Div(_ops_Sub(self.source,_math_Moving_Avg(self.source,self.timeframe)),_math_Moving_StdDev(self.source,self.timeframe))
     
-RelStdDev = RelStdDev_Optional__IObservable__Float____Optional__Float_
+def RelStdDev(source = None,timeframe = None): 
+    return RelStdDev_Optional__IObservable__Float____Optional__Float_(source,timeframe)

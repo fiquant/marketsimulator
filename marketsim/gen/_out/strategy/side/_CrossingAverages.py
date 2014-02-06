@@ -50,4 +50,5 @@ class CrossingAverages_Optional__Float___Optional__Float___Optional__Float___Opt
         from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
         return _strategy_side_Signal(_ops_Sub(_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha_1),_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha_2)),self.threshold)
     
-CrossingAverages = CrossingAverages_Optional__Float___Optional__Float___Optional__Float___Optional__IOrderBook_
+def CrossingAverages(alpha_1 = None,alpha_2 = None,threshold = None,book = None): 
+    return CrossingAverages_Optional__Float___Optional__Float___Optional__Float___Optional__IOrderBook_(alpha_1,alpha_2,threshold,book)

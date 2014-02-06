@@ -35,4 +35,5 @@ class Atan_Optional__IFunction__Float__(Observable[float]):
         if x is None: return None
         return math.atan(x)
     
-Atan = Atan_Optional__IFunction__Float__
+def Atan(x = None): 
+    return Atan_Optional__IFunction__Float__(x)

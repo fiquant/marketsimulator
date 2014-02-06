@@ -50,4 +50,3 @@ class StopLoss(Observable[Order],IOrderGenerator):
         
         return Order_Impl(maxloss, proto)
     
-StopLoss = StopLoss

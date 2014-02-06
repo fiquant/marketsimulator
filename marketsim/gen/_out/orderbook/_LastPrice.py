@@ -31,4 +31,5 @@ class LastPrice_Optional__IOrderQueue_(Observable[Price],_LastPrice_Impl):
     def __repr__(self):
         return "LastPrice(%(queue)s)" % self.__dict__
     
-LastPrice = LastPrice_Optional__IOrderQueue_
+def LastPrice(queue = None): 
+    return LastPrice_Optional__IOrderQueue_(queue)

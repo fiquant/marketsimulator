@@ -39,4 +39,3 @@ class sidevolume_WithExpiry(IFunction[IOrderGenerator,IFunction[Side]
         proto = self.proto
         return WithExpiry(expiry, proto(side,volume))
     
-sidevolume_WithExpiry = sidevolume_WithExpiry

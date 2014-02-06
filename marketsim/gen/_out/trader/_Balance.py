@@ -31,4 +31,5 @@ class Balance_Optional__IAccount_(Observable[Price],Balance_Impl):
     def __repr__(self):
         return "Balance(%(trader)s)" % self.__dict__
     
-Balance = Balance_Optional__IAccount_
+def Balance(trader = None): 
+    return Balance_Optional__IAccount_(trader)

@@ -27,4 +27,5 @@ class array_ChooseTheBest_(IFunction[listOf(float), listOf(float)]):
         
         return ChooseTheBest(array)
     
-array_ChooseTheBest = array_ChooseTheBest_
+def array_ChooseTheBest(): 
+    return array_ChooseTheBest_()

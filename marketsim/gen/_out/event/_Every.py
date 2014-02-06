@@ -23,4 +23,5 @@ class Every_Optional________Float_(_Every_Impl):
     def __repr__(self):
         return "Every(%(intervalFunc)s)" % self.__dict__
     
-Every = Every_Optional________Float_
+def Every(intervalFunc = None): 
+    return Every_Optional________Float_(intervalFunc)

@@ -48,4 +48,3 @@ class WithExpiry(Observable[Order],IOrderGenerator):
         
         return Order_Impl(expiry, proto)
     
-WithExpiry = WithExpiry

@@ -22,4 +22,5 @@ class IdentityL_Optional_List__Float__(_Identity_Impl):
     def __repr__(self):
         return "IdentityL(%(array)s)" % self.__dict__
     
-IdentityL = IdentityL_Optional_List__Float__
+def IdentityL(array = None): 
+    return IdentityL_Optional_List__Float__(array)

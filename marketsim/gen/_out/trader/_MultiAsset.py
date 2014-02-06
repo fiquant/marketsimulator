@@ -36,4 +36,5 @@ class MultiAsset_Optional_List__ISingleAssetTrader____Optional__IMultiAssetStrat
     def __repr__(self):
         return "%(name)s" % self.__dict__
     
-MultiAsset = MultiAsset_Optional_List__ISingleAssetTrader____Optional__IMultiAssetStrategy___Optional__String___Optional__Float___Optional_List__ITimeSerie__
+def MultiAsset(traders = None,strategy = None,name = None,PnL = None,timeseries = None): 
+    return MultiAsset_Optional_List__ISingleAssetTrader____Optional__IMultiAssetStrategy___Optional__String___Optional__Float___Optional_List__ITimeSerie__(traders,strategy,name,PnL,timeseries)

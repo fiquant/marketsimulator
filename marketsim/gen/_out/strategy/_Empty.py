@@ -20,4 +20,5 @@ class Empty_(_Empty_Impl):
     def __repr__(self):
         return "Empty" % self.__dict__
     
-Empty = Empty_
+def Empty(): 
+    return Empty_()

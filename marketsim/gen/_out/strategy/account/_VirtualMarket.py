@@ -24,4 +24,5 @@ class VirtualMarket_Optional__ISingleAssetStrategy_(_VirtualMarket_Impl):
     def __repr__(self):
         return "VirtualMarket(%(inner)s)" % self.__dict__
     
-VirtualMarket = VirtualMarket_Optional__ISingleAssetStrategy_
+def VirtualMarket(inner = None): 
+    return VirtualMarket_Optional__ISingleAssetStrategy_(inner)

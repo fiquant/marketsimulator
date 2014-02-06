@@ -50,4 +50,5 @@ class Histogram_Optional__IObservable__Float____Optional__Float___Optional__Floa
         from marketsim.gen._out.math.macd._Signal import Signal as _math_macd_Signal
         return _ops_Sub(_math_macd_MACD(self.x,self.slow,self.fast),_math_macd_Signal(self.x,self.slow,self.fast,self.timeframe,self.step))
     
-Histogram = Histogram_Optional__IObservable__Float____Optional__Float___Optional__Float___Optional__Float___Optional__Float_
+def Histogram(x = None,slow = None,fast = None,timeframe = None,step = None): 
+    return Histogram_Optional__IObservable__Float____Optional__Float___Optional__Float___Optional__Float___Optional__Float_(x,slow,fast,timeframe,step)

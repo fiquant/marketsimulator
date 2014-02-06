@@ -49,4 +49,5 @@ class Max_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[
         from marketsim.gen._out.ops._Greater import Greater as _ops_Greater
         return _ops_Condition_Float(_ops_Greater(self.x,self.y),self.x,self.y)
     
-Max = Max_Optional__IFunction__Float____Optional__IFunction__Float__
+def Max(x = None,y = None): 
+    return Max_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)

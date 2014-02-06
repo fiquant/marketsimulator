@@ -57,7 +57,14 @@ package object gen
                         for (out <- managed(printWriter(dir, s"_${f.name}.py"))) {
                             out.println(g.code)
 
-                            out.println(f.name + " = " + g.name)
+                            if (f.name != g.name) {
+                                import predef._
+                                val input_args = f.parameters map { _.name + " = None" } mkString ","
+                                val args_to_pass = f.parameters map { _.name } mkString ","
+                                val resolver = s"def ${f.name}($input_args): " |> s"return ${g.name}($args_to_pass)"
+
+                                out.println(resolver)
+                            }
                         }
                         idx_out.println(base.withImports(Printer.importsOf(f)))
                     }

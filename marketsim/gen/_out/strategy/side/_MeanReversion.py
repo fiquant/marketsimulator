@@ -45,4 +45,5 @@ class MeanReversion_Optional__Float___Optional__IOrderBook_(Function[Side]):
         from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
         return _strategy_side_FundamentalValue(_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha),self.book)
     
-MeanReversion = MeanReversion_Optional__Float___Optional__IOrderBook_
+def MeanReversion(alpha = None,book = None): 
+    return MeanReversion_Optional__Float___Optional__IOrderBook_(alpha,book)
