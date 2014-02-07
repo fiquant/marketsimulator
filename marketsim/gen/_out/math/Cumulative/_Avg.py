@@ -25,4 +25,9 @@ class Avg_Optional__IObservable__Float__(Function[float],CMA_Impl):
         return "Avg_{cumul}(%(source)s)" % self.__dict__
     
 def Avg(source = None): 
-    return Avg_Optional__IObservable__Float__(source)
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import rtti
+    if source is None or rtti.can_be_casted(source, IObservable[float]):
+        return Avg_Optional__IObservable__Float__(source)
+    raise Exception("Cannot find suitable overload")

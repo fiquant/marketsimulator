@@ -36,3 +36,4 @@ class volume_price_Iceberg(IFunction[IFunction[IOrderGenerator,IFunction[float]]
         proto = self.proto
         return price_Iceberg(lotSize, proto(volume))
     
+volume_price_Iceberg = volume_price_Iceberg

@@ -64,4 +64,15 @@ class TrendFollower_Optional__IEvent___Optional_________Side______IOrderGenerato
         self.on_order_created.fire(order, self)
     
 def TrendFollower(eventGen = None,orderFactory = None,ewma_alpha = None,threshold = None): 
-    return TrendFollower_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float_(eventGen,orderFactory,ewma_alpha,threshold)
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import IEvent
+    from marketsim import IOrderGenerator
+    from marketsim import Side
+    if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
+        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
+            if ewma_alpha is None or rtti.can_be_casted(ewma_alpha, float):
+                if threshold is None or rtti.can_be_casted(threshold, float):
+                    return TrendFollower_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float_(eventGen,orderFactory,ewma_alpha,threshold)
+    raise Exception("Cannot find suitable overload")

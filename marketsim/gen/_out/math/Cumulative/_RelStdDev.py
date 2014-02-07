@@ -44,4 +44,9 @@ class RelStdDev_Optional__IObservable__Float__(Function[float]):
         return _ops_Div(_ops_Sub(self.source,_math_Cumulative_Avg(self.source)),_math_Cumulative_StdDev(self.source))
     
 def RelStdDev(source = None): 
-    return RelStdDev_Optional__IObservable__Float__(source)
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import rtti
+    if source is None or rtti.can_be_casted(source, IObservable[float]):
+        return RelStdDev_Optional__IObservable__Float__(source)
+    raise Exception("Cannot find suitable overload")

@@ -46,4 +46,10 @@ class RelStdDev_Optional__IObservable__Float____Optional__Float_(Function[float]
         return _ops_Div(_ops_Sub(self.source,_math_Moving_Avg(self.source,self.timeframe)),_math_Moving_StdDev(self.source,self.timeframe))
     
 def RelStdDev(source = None,timeframe = None): 
-    return RelStdDev_Optional__IObservable__Float____Optional__Float_(source,timeframe)
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import rtti
+    if source is None or rtti.can_be_casted(source, IObservable[float]):
+        if timeframe is None or rtti.can_be_casted(timeframe, float):
+            return RelStdDev_Optional__IObservable__Float____Optional__Float_(source,timeframe)
+    raise Exception("Cannot find suitable overload")

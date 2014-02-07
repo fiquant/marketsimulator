@@ -62,4 +62,13 @@ class RSI_linear_Optional__Float___Optional__IObservable__Float____Optional__Flo
         return _strategy_position_DesiredPosition(_observable_OnEveryDt(1.0,_ops_Mul(_ops_Sub(_const(50.0),_math_RSI(_orderbook_OfTrader(self.trader),self.timeframe,self.alpha)),self.k)),self.trader)
     
 def RSI_linear(alpha = None,k = None,timeframe = None,trader = None): 
-    return RSI_linear_Optional__Float___Optional__IObservable__Float____Optional__Float___Optional__ISingleAssetTrader_(alpha,k,timeframe,trader)
+    from marketsim import float
+    from marketsim import IObservable
+    from marketsim import ISingleAssetTrader
+    from marketsim import rtti
+    if alpha is None or rtti.can_be_casted(alpha, float):
+        if k is None or rtti.can_be_casted(k, IObservable[float]):
+            if timeframe is None or rtti.can_be_casted(timeframe, float):
+                if trader is None or rtti.can_be_casted(trader, ISingleAssetTrader):
+                    return RSI_linear_Optional__Float___Optional__IObservable__Float____Optional__Float___Optional__ISingleAssetTrader_(alpha,k,timeframe,trader)
+    raise Exception("Cannot find suitable overload")

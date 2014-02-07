@@ -37,4 +37,10 @@ class CandleSticks_Optional__IObservable__Float____Optional__Float_(Observable[C
         return "Candles_{%(source)s}" % self.__dict__
     
 def CandleSticks(source = None,timeframe = None): 
-    return CandleSticks_Optional__IObservable__Float____Optional__Float_(source,timeframe)
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import rtti
+    if source is None or rtti.can_be_casted(source, IObservable[float]):
+        if timeframe is None or rtti.can_be_casted(timeframe, float):
+            return CandleSticks_Optional__IObservable__Float____Optional__Float_(source,timeframe)
+    raise Exception("Cannot find suitable overload")

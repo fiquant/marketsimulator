@@ -42,4 +42,12 @@ class Condition_Float_Optional__IFunction__Boolean____Optional__IFunction__Float
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
 def Condition_Float(cond = None,ifpart = None,elsepart = None): 
-    return Condition_Float_Optional__IFunction__Boolean____Optional__IFunction__Float____Optional__IFunction__Float__(cond,ifpart,elsepart)
+    from marketsim import IFunction
+    from marketsim import bool
+    from marketsim import float
+    from marketsim import rtti
+    if cond is None or rtti.can_be_casted(cond, IFunction[bool]):
+        if ifpart is None or rtti.can_be_casted(ifpart, IFunction[float]):
+            if elsepart is None or rtti.can_be_casted(elsepart, IFunction[float]):
+                return Condition_Float_Optional__IFunction__Boolean____Optional__IFunction__Float____Optional__IFunction__Float__(cond,ifpart,elsepart)
+    raise Exception("Cannot find suitable overload")

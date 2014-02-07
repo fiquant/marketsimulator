@@ -28,4 +28,6 @@ class array_ChooseTheBest_(IFunction[listOf(float), listOf(float)]):
         return ChooseTheBest(array)
     
 def array_ChooseTheBest(): 
+    from marketsim import rtti
     return array_ChooseTheBest_()
+    raise Exception("Cannot find suitable overload")

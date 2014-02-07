@@ -24,5 +24,4 @@ class TickSize_Optional__IOrderBook_(Function[Price],_TickSize_Impl):
     def __repr__(self):
         return "TickSize(%(book)s)" % self.__dict__
     
-def TickSize(book = None): 
-    return TickSize_Optional__IOrderBook_(book)
+TickSize = TickSize_Optional__IOrderBook_

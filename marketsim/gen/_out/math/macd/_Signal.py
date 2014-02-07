@@ -51,4 +51,13 @@ class Signal_Optional__IObservable__Float____Optional__Float___Optional__Float__
         return _math_EW_Avg(_observable_OnEveryDt(self.step,_math_macd_MACD(self.x,self.slow,self.fast)),(2/((self.timeframe+1))))
     
 def Signal(x = None,slow = None,fast = None,timeframe = None,step = None): 
-    return Signal_Optional__IObservable__Float____Optional__Float___Optional__Float___Optional__Float___Optional__Float_(x,slow,fast,timeframe,step)
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import rtti
+    if x is None or rtti.can_be_casted(x, IObservable[float]):
+        if slow is None or rtti.can_be_casted(slow, float):
+            if fast is None or rtti.can_be_casted(fast, float):
+                if timeframe is None or rtti.can_be_casted(timeframe, float):
+                    if step is None or rtti.can_be_casted(step, float):
+                        return Signal_Optional__IObservable__Float____Optional__Float___Optional__Float___Optional__Float___Optional__Float_(x,slow,fast,timeframe,step)
+    raise Exception("Cannot find suitable overload")

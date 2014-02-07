@@ -36,3 +36,4 @@ class volume_Iceberg(IFunction[IOrderGenerator,IFunction[float]]):
         proto = self.proto
         return Iceberg(lotSize, proto(volume))
     
+volume_Iceberg = volume_Iceberg

@@ -2345,9 +2345,9 @@ package orderbook {@queue = "Ask_{%(book)s}"
     @label = "%(name)s"
     
     @python.intrinsic("orderbook.local._Local_Impl")
-    def Local(tickSize : Optional[.Float] = 0.01,
+    def Local(name : Optional[.String] = "-orderbook-",
+              tickSize : Optional[.Float] = 0.01,
               _digitsToShow : Optional[.Int] = 2,
-              name : Optional[.String] = "-orderbook-",
               timeseries : Optional[List[.ITimeSerie]] = [] : List[.ITimeSerie]) : .IOrderBook
     
     /** Represent an *orderbook* from point of view of a remote trader connected

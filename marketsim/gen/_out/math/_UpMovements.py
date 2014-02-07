@@ -53,4 +53,10 @@ class UpMovements_Optional__IObservable__Float____Optional__Float_(Observable[fl
         return _observable_Float(_math_Max(_const(0.0),_ops_Sub(self.source,_math_Lagged(self.source,self.timeframe))))
     
 def UpMovements(source = None,timeframe = None): 
-    return UpMovements_Optional__IObservable__Float____Optional__Float_(source,timeframe)
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import rtti
+    if source is None or rtti.can_be_casted(source, IObservable[float]):
+        if timeframe is None or rtti.can_be_casted(timeframe, float):
+            return UpMovements_Optional__IObservable__Float____Optional__Float_(source,timeframe)
+    raise Exception("Cannot find suitable overload")

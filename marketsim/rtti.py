@@ -165,7 +165,15 @@ def typecheck(constraint, obj):
     else:
         if constraint not in types(obj):
              throw()
-       
+
+def can_be_casted(obj, constraint):
+    from marketsim import exception
+    try:
+        typecheck(constraint, obj)
+        return True
+    except exception.Constraint:
+        return False
+
         
 def check_fields(obj):
     for p in properties(obj):

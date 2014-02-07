@@ -46,4 +46,13 @@ class RandomWalk_Optional__Float___Optional________Float___Optional________Float
         return "%(name)s" % self.__dict__
     
 def RandomWalk(initialValue = None,deltaDistr = None,intervalDistr = None,name = None): 
-    return RandomWalk_Optional__Float___Optional________Float___Optional________Float___Optional__String_(initialValue,deltaDistr,intervalDistr,name)
+    from marketsim import float
+    from marketsim import IFunction
+    from marketsim import str
+    from marketsim import rtti
+    if initialValue is None or rtti.can_be_casted(initialValue, float):
+        if deltaDistr is None or rtti.can_be_casted(deltaDistr, IFunction[float]):
+            if intervalDistr is None or rtti.can_be_casted(intervalDistr, IFunction[float]):
+                if name is None or rtti.can_be_casted(name, str):
+                    return RandomWalk_Optional__Float___Optional________Float___Optional________Float___Optional__String_(initialValue,deltaDistr,intervalDistr,name)
+    raise Exception("Cannot find suitable overload")

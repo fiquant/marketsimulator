@@ -36,4 +36,10 @@ class Add_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[
         return "({%(x)s}+{%(y)s})" % self.__dict__
     
 def Add(x = None,y = None): 
-    return Add_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if x is None or rtti.can_be_casted(x, IFunction[float]):
+        if y is None or rtti.can_be_casted(y, IFunction[float]):
+            return Add_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)
+    raise Exception("Cannot find suitable overload")

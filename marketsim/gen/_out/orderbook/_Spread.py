@@ -49,5 +49,4 @@ class Spread_Optional__IOrderBook_(Observable[Price]):
         from marketsim.gen._out.orderbook.bid._Price import Price as _orderbook_bid_Price
         return _observable_Price(_ops_Sub(_orderbook_ask_Price(self.book),_orderbook_bid_Price(self.book)))
     
-def Spread(book = None): 
-    return Spread_Optional__IOrderBook_(book)
+Spread = Spread_Optional__IOrderBook_

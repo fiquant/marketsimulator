@@ -47,5 +47,4 @@ class LastTradeVolume_Optional__IOrderBook_(Observable[Volume]):
         from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
         return _orderbook_LastTradeVolume(_orderbook_Asks(self.book))
     
-def LastTradeVolume(book = None): 
-    return LastTradeVolume_Optional__IOrderBook_(book)
+LastTradeVolume = LastTradeVolume_Optional__IOrderBook_

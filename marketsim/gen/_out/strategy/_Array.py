@@ -24,4 +24,9 @@ class Array_Optional_List__ISingleAssetStrategy__(_Array_Impl):
         return "Array(%(strategies)s)" % self.__dict__
     
 def Array(strategies = None): 
-    return Array_Optional_List__ISingleAssetStrategy__(strategies)
+    from marketsim import ISingleAssetStrategy
+    from marketsim import listOf
+    from marketsim import rtti
+    if strategies is None or rtti.can_be_casted(strategies, listOf(ISingleAssetStrategy)):
+        return Array_Optional_List__ISingleAssetStrategy__(strategies)
+    raise Exception("Cannot find suitable overload")

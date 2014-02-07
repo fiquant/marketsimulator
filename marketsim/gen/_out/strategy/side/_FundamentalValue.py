@@ -59,4 +59,11 @@ class FundamentalValue_Optional__IFunction__Float____Optional__IOrderBook_(Obser
         return _ops_Condition_Side(_ops_Greater(_orderbook_bid_Price(self.book),self.fv),_side_Sell(),_ops_Condition_Side(_ops_Less(_orderbook_ask_Price(self.book),self.fv),_side_Buy(),_side_Nothing()))
     
 def FundamentalValue(fv = None,book = None): 
-    return FundamentalValue_Optional__IFunction__Float____Optional__IOrderBook_(fv,book)
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import IOrderBook
+    from marketsim import rtti
+    if fv is None or rtti.can_be_casted(fv, IFunction[float]):
+        if book is None or rtti.can_be_casted(book, IOrderBook):
+            return FundamentalValue_Optional__IFunction__Float____Optional__IOrderBook_(fv,book)
+    raise Exception("Cannot find suitable overload")

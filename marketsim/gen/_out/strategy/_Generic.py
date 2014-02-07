@@ -27,4 +27,10 @@ class Generic_Optional__IOrderGenerator___Optional__IEvent_(_Generic_Impl):
         return "Generic(%(orderFactory)s, %(eventGen)s)" % self.__dict__
     
 def Generic(orderFactory = None,eventGen = None): 
-    return Generic_Optional__IOrderGenerator___Optional__IEvent_(orderFactory,eventGen)
+    from marketsim import IOrderGenerator
+    from marketsim import IEvent
+    from marketsim import rtti
+    if orderFactory is None or rtti.can_be_casted(orderFactory, IOrderGenerator):
+        if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
+            return Generic_Optional__IOrderGenerator___Optional__IEvent_(orderFactory,eventGen)
+    raise Exception("Cannot find suitable overload")

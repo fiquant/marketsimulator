@@ -65,4 +65,17 @@ class LiquidityProviderSide_Optional__IEvent___Optional__________Side__________F
         self.on_order_created.fire(order, self)
     
 def LiquidityProviderSide(eventGen = None,orderFactory = None,side = None,initialValue = None,priceDistr = None): 
-    return LiquidityProviderSide_Optional__IEvent___Optional__________Side__________Float_______IOrderGenerator___Optional________Side___Optional__Float___Optional________Float_(eventGen,orderFactory,side,initialValue,priceDistr)
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import IEvent
+    from marketsim import IOrderGenerator
+    from marketsim import Side
+    if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
+        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]
+        ,IFunction[float]]):
+            if side is None or rtti.can_be_casted(side, IFunction[Side]):
+                if initialValue is None or rtti.can_be_casted(initialValue, float):
+                    if priceDistr is None or rtti.can_be_casted(priceDistr, IFunction[float]):
+                        return LiquidityProviderSide_Optional__IEvent___Optional__________Side__________Float_______IOrderGenerator___Optional________Side___Optional__Float___Optional________Float_(eventGen,orderFactory,side,initialValue,priceDistr)
+    raise Exception("Cannot find suitable overload")

@@ -46,4 +46,10 @@ class MeanReversion_Optional__Float___Optional__IOrderBook_(Function[Side]):
         return _strategy_side_FundamentalValue(_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha),self.book)
     
 def MeanReversion(alpha = None,book = None): 
-    return MeanReversion_Optional__Float___Optional__IOrderBook_(alpha,book)
+    from marketsim import float
+    from marketsim import IOrderBook
+    from marketsim import rtti
+    if alpha is None or rtti.can_be_casted(alpha, float):
+        if book is None or rtti.can_be_casted(book, IOrderBook):
+            return MeanReversion_Optional__Float___Optional__IOrderBook_(alpha,book)
+    raise Exception("Cannot find suitable overload")

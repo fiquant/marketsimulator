@@ -45,4 +45,10 @@ class AtanPow_Optional__IFunction__Float____Optional__Float_(Function[float]):
         return _math_Atan(_math_Pow(_constant(self.base),self.f))
     
 def AtanPow(f = None,base = None): 
-    return AtanPow_Optional__IFunction__Float____Optional__Float_(f,base)
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if f is None or rtti.can_be_casted(f, IFunction[float]):
+        if base is None or rtti.can_be_casted(base, float):
+            return AtanPow_Optional__IFunction__Float____Optional__Float_(f,base)
+    raise Exception("Cannot find suitable overload")

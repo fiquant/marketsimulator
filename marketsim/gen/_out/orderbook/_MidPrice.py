@@ -51,5 +51,4 @@ class MidPrice_Optional__IOrderBook_(Observable[Price]):
         from marketsim.gen._out.observable._Price import Price as _observable_Price
         return _observable_Price(_ops_Div(_ops_Add(_orderbook_ask_Price(self.book),_orderbook_bid_Price(self.book)),_const(2.0)))
     
-def MidPrice(book = None): 
-    return MidPrice_Optional__IOrderBook_(book)
+MidPrice = MidPrice_Optional__IOrderBook_

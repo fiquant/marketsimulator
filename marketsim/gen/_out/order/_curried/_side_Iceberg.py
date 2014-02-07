@@ -37,3 +37,4 @@ class side_Iceberg(IFunction[IOrderGenerator,IFunction[Side]]):
         proto = self.proto
         return Iceberg(lotSize, proto(side))
     
+side_Iceberg = side_Iceberg

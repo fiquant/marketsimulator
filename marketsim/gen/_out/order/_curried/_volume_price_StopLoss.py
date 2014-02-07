@@ -37,3 +37,4 @@ class volume_price_StopLoss(IFunction[IFunction[IOrderGenerator,IFunction[float]
         proto = self.proto
         return price_StopLoss(maxloss, proto(volume))
     
+volume_price_StopLoss = volume_price_StopLoss

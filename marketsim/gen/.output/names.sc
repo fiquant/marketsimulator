@@ -2098,9 +2098,9 @@ package orderbook
      */
     @python.intrinsic("orderbook.local._Local_Impl")
     @label = "%(name)s"
-    def Local(tickSize = 0.01,
+    def Local(name = "-orderbook-",
+              tickSize = 0.01,
               _digitsToShow = 2,
-              name = "-orderbook-",
               timeseries = [] : List[ITimeSerie]) : IOrderBook
     
     /** Represent an *orderbook* from point of view of a remote trader connected

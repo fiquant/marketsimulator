@@ -33,3 +33,4 @@ class uniform(Function[float]):
     def _casts_to(self, dst):
         return uniform._types[0]._casts_to(dst)
     
+uniform = uniform

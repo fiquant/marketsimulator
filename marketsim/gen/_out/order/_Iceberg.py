@@ -49,3 +49,4 @@ class Iceberg(Observable[Order],IOrderGenerator):
         
         return Order_Impl(lotSize, proto)
     
+Iceberg = Iceberg

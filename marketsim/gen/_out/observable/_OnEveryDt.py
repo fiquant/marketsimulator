@@ -32,4 +32,10 @@ class OnEveryDt_Optional__Float___Optional__IFunction__Float__(Observable[float]
         return "[%(x)s]_dt=%(dt)s" % self.__dict__
     
 def OnEveryDt(dt = None,x = None): 
-    return OnEveryDt_Optional__Float___Optional__IFunction__Float__(dt,x)
+    from marketsim import float
+    from marketsim import IFunction
+    from marketsim import rtti
+    if dt is None or rtti.can_be_casted(dt, float):
+        if x is None or rtti.can_be_casted(x, IFunction[float]):
+            return OnEveryDt_Optional__Float___Optional__IFunction__Float__(dt,x)
+    raise Exception("Cannot find suitable overload")

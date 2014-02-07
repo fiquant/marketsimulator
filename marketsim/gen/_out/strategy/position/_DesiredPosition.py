@@ -55,4 +55,11 @@ class DesiredPosition_Optional__IObservable__Float____Optional__ISingleAssetTrad
         return _observable_Volume(_ops_Sub(_ops_Sub(self.desiredPosition,_trader_Position(self.trader)),_trader_PendingVolume(self.trader)))
     
 def DesiredPosition(desiredPosition = None,trader = None): 
-    return DesiredPosition_Optional__IObservable__Float____Optional__ISingleAssetTrader_(desiredPosition,trader)
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import ISingleAssetTrader
+    from marketsim import rtti
+    if desiredPosition is None or rtti.can_be_casted(desiredPosition, IObservable[float]):
+        if trader is None or rtti.can_be_casted(trader, ISingleAssetTrader):
+            return DesiredPosition_Optional__IObservable__Float____Optional__ISingleAssetTrader_(desiredPosition,trader)
+    raise Exception("Cannot find suitable overload")

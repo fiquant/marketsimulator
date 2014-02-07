@@ -33,4 +33,9 @@ class Price_Optional__IFunction__Float__(Observable[Price],_Observable_Impl):
         return "[%(x)s]" % self.__dict__
     
 def Price(x = None): 
-    return Price_Optional__IFunction__Float__(x)
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if x is None or rtti.can_be_casted(x, IFunction[float]):
+        return Price_Optional__IFunction__Float__(x)
+    raise Exception("Cannot find suitable overload")

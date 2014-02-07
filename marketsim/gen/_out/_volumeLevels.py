@@ -37,4 +37,18 @@ class volumeLevels__IFunction__IVolumeLevels___Optional__IGraph___Optional__Int_
         return "%(source)s" % self.__dict__
     
 def volumeLevels(source = None,graph = None,_digitsToShow = None,_smooth = None,_volumes = None,_isBuy = None): 
-    return volumeLevels__IFunction__IVolumeLevels___Optional__IGraph___Optional__Int___Optional__Int___Optional_List__Float____Optional__Int_(source,graph,_digitsToShow,_smooth,_volumes,_isBuy)
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import int
+    from marketsim import listOf
+    from marketsim import IVolumeLevels
+    from marketsim import IGraph
+    if source is None or rtti.can_be_casted(source, IFunction[IVolumeLevels]):
+        if graph is None or rtti.can_be_casted(graph, IGraph):
+            if _digitsToShow is None or rtti.can_be_casted(_digitsToShow, int):
+                if _smooth is None or rtti.can_be_casted(_smooth, int):
+                    if _volumes is None or rtti.can_be_casted(_volumes, listOf(float)):
+                        if _isBuy is None or rtti.can_be_casted(_isBuy, int):
+                            return volumeLevels__IFunction__IVolumeLevels___Optional__IGraph___Optional__Int___Optional__Int___Optional_List__Float____Optional__Int_(source,graph,_digitsToShow,_smooth,_volumes,_isBuy)
+    raise Exception("Cannot find suitable overload")

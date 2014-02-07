@@ -98,7 +98,7 @@ class Context(object):
                        'Remote B': self.remote_B }
         
     def addGraph(self, name):
-        graph = self.graph(name)
+        graph = self.graph(name = name)
         self.graphs.append(graph)
         return graph
 
@@ -146,10 +146,12 @@ class Context(object):
     def makeTrader_C(self, strategy, label, additional_ts = []):
         return self.makeTrader(self.book_C, strategy, label, additional_ts)
 
+from marketsim.gen._out.orderbook._Local import Local_Optional__String___Optional__Float___Optional__Int___Optional_List__ITimeSerie__
+
 def orderBooksToRender(ctx, traders):
         books = list(set(itertools.chain(*[t.orderBooks for t in traders]))) 
         
-        books = filter(lambda b: type(b) is orderbook.Local, books)       
+        books = filter(lambda b: type(b) is Local_Optional__String___Optional__Float___Optional__Int___Optional_List__ITimeSerie__, books)
         
         graphs = ctx.graphs
         

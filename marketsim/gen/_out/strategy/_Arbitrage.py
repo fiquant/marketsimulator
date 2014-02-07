@@ -23,4 +23,6 @@ class Arbitrage_(_Arbitrage_Impl):
         return "Arbitrage" % self.__dict__
     
 def Arbitrage(): 
+    from marketsim import rtti
     return Arbitrage_()
+    raise Exception("Cannot find suitable overload")

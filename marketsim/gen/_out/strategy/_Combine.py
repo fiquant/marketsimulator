@@ -25,4 +25,9 @@ class Combine_Optional__ISingleAssetStrategy___Optional__ISingleAssetStrategy_(_
         return "Combine(%(A)s, %(B)s)" % self.__dict__
     
 def Combine(A = None,B = None): 
-    return Combine_Optional__ISingleAssetStrategy___Optional__ISingleAssetStrategy_(A,B)
+    from marketsim import ISingleAssetStrategy
+    from marketsim import rtti
+    if A is None or rtti.can_be_casted(A, ISingleAssetStrategy):
+        if B is None or rtti.can_be_casted(B, ISingleAssetStrategy):
+            return Combine_Optional__ISingleAssetStrategy___Optional__ISingleAssetStrategy_(A,B)
+    raise Exception("Cannot find suitable overload")

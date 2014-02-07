@@ -39,4 +39,10 @@ class Quote_Optional__String___Optional__String___Optional__String_(Observable[P
         return "%(ticker)s" % self.__dict__
     
 def Quote(ticker = None,start = None,end = None): 
-    return Quote_Optional__String___Optional__String___Optional__String_(ticker,start,end)
+    from marketsim import str
+    from marketsim import rtti
+    if ticker is None or rtti.can_be_casted(ticker, str):
+        if start is None or rtti.can_be_casted(start, str):
+            if end is None or rtti.can_be_casted(end, str):
+                return Quote_Optional__String___Optional__String___Optional__String_(ticker,start,end)
+    raise Exception("Cannot find suitable overload")

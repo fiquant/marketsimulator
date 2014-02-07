@@ -28,4 +28,6 @@ class f_IdentityF_(IFunction[IFunction[float], IFunction[float]]):
         return IdentityF(f)
     
 def f_IdentityF(): 
+    from marketsim import rtti
     return f_IdentityF_()
+    raise Exception("Cannot find suitable overload")

@@ -39,3 +39,4 @@ class sideprice_WithExpiry(IFunction[IOrderGenerator,IFunction[Side]
         proto = self.proto
         return WithExpiry(expiry, proto(side,price))
     
+sideprice_WithExpiry = sideprice_WithExpiry

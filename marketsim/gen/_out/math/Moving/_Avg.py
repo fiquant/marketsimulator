@@ -27,4 +27,10 @@ class Avg_Optional__IObservable__Float____Optional__Float_(Function[float],MA_Im
         return "Avg_{n=%(timeframe)s}(%(source)s)" % self.__dict__
     
 def Avg(source = None,timeframe = None): 
-    return Avg_Optional__IObservable__Float____Optional__Float_(source,timeframe)
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import rtti
+    if source is None or rtti.can_be_casted(source, IObservable[float]):
+        if timeframe is None or rtti.can_be_casted(timeframe, float):
+            return Avg_Optional__IObservable__Float____Optional__Float_(source,timeframe)
+    raise Exception("Cannot find suitable overload")

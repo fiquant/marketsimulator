@@ -43,5 +43,4 @@ class WeightedPrice_Optional__IOrderBook___Optional__Float_(Function[float]):
         from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
         return _orderbook_WeightedPrice(_orderbook_Bids(self.book),self.alpha)
     
-def WeightedPrice(book = None,alpha = None): 
-    return WeightedPrice_Optional__IOrderBook___Optional__Float_(book,alpha)
+WeightedPrice = WeightedPrice_Optional__IOrderBook___Optional__Float_

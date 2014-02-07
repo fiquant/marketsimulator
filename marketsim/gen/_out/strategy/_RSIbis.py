@@ -67,4 +67,16 @@ class RSIbis_Optional__IEvent___Optional_________Side______IOrderGenerator___Opt
         self.on_order_created.fire(order, self)
     
 def RSIbis(eventGen = None,orderFactory = None,alpha = None,timeframe = None,threshold = None): 
-    return RSIbis_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float___Optional__Float_(eventGen,orderFactory,alpha,timeframe,threshold)
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import IEvent
+    from marketsim import IOrderGenerator
+    from marketsim import Side
+    if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
+        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
+            if alpha is None or rtti.can_be_casted(alpha, float):
+                if timeframe is None or rtti.can_be_casted(timeframe, float):
+                    if threshold is None or rtti.can_be_casted(threshold, float):
+                        return RSIbis_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float___Optional__Float_(eventGen,orderFactory,alpha,timeframe,threshold)
+    raise Exception("Cannot find suitable overload")

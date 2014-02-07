@@ -44,4 +44,10 @@ class StdDev_Optional__IObservable__Float____Optional__Float_(Function[float]):
         return _math_Sqrt(_math_Moving_Var(self.source))
     
 def StdDev(source = None,timeframe = None): 
-    return StdDev_Optional__IObservable__Float____Optional__Float_(source,timeframe)
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import rtti
+    if source is None or rtti.can_be_casted(source, IObservable[float]):
+        if timeframe is None or rtti.can_be_casted(timeframe, float):
+            return StdDev_Optional__IObservable__Float____Optional__Float_(source,timeframe)
+    raise Exception("Cannot find suitable overload")

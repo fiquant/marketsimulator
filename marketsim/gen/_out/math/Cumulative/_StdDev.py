@@ -42,4 +42,9 @@ class StdDev_Optional__IObservable__Float__(Function[float]):
         return _math_Sqrt(_math_Cumulative_Var(self.source))
     
 def StdDev(source = None): 
-    return StdDev_Optional__IObservable__Float__(source)
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import rtti
+    if source is None or rtti.can_be_casted(source, IObservable[float]):
+        return StdDev_Optional__IObservable__Float__(source)
+    raise Exception("Cannot find suitable overload")

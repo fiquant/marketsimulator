@@ -43,4 +43,16 @@ class MultiArmedBandit_Optional_List__ISingleAssetStrategy____Optional_Optional_
         return "MultiArmedBandit(%(strategies)s, %(account)s, %(weight)s, %(normalizer)s, %(corrector)s)" % self.__dict__
     
 def MultiArmedBandit(strategies = None,account = None,weight = None,normalizer = None,corrector = None): 
-    return MultiArmedBandit_Optional_List__ISingleAssetStrategy____Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float____Optional_Optional__IFunction__Float_______IFunction__Float____Optional_Optional_List__Float______List__Float__(strategies,account,weight,normalizer,corrector)
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import listOf
+    from marketsim import ISingleAssetStrategy
+    from marketsim import IAccount
+    if strategies is None or rtti.can_be_casted(strategies, listOf(ISingleAssetStrategy)):
+        if account is None or rtti.can_be_casted(account, IFunction[IAccount,ISingleAssetStrategy]):
+            if weight is None or rtti.can_be_casted(weight, IFunction[IFunction[float],IAccount]):
+                if normalizer is None or rtti.can_be_casted(normalizer, IFunction[IFunction[float],IFunction[float]]):
+                    if corrector is None or rtti.can_be_casted(corrector, IFunction[listOf(float),listOf(float)]):
+                        return MultiArmedBandit_Optional_List__ISingleAssetStrategy____Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float____Optional_Optional__IFunction__Float_______IFunction__Float____Optional_Optional_List__Float______List__Float__(strategies,account,weight,normalizer,corrector)
+    raise Exception("Cannot find suitable overload")

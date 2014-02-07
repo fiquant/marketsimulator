@@ -22,4 +22,8 @@ class Graph_Optional__String_(_Graph_Impl):
         return "Graph(%(name)s)" % self.__dict__
     
 def Graph(name = None): 
-    return Graph_Optional__String_(name)
+    from marketsim import str
+    from marketsim import rtti
+    if name is None or rtti.can_be_casted(name, str):
+        return Graph_Optional__String_(name)
+    raise Exception("Cannot find suitable overload")

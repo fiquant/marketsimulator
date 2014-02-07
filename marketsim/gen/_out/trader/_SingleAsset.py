@@ -37,4 +37,18 @@ class SingleAsset__IOrderBook__Optional__ISingleAssetStrategy___Optional__String
         return "%(name)s" % self.__dict__
     
 def SingleAsset(orderBook = None,strategy = None,name = None,amount = None,PnL = None,timeseries = None): 
-    return SingleAsset__IOrderBook__Optional__ISingleAssetStrategy___Optional__String___Optional__Float___Optional__Float___Optional_List__ITimeSerie__(orderBook,strategy,name,amount,PnL,timeseries)
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import IOrderBook
+    from marketsim import str
+    from marketsim import listOf
+    from marketsim import ISingleAssetStrategy
+    from marketsim import ITimeSerie
+    if orderBook is None or rtti.can_be_casted(orderBook, IOrderBook):
+        if strategy is None or rtti.can_be_casted(strategy, ISingleAssetStrategy):
+            if name is None or rtti.can_be_casted(name, str):
+                if amount is None or rtti.can_be_casted(amount, float):
+                    if PnL is None or rtti.can_be_casted(PnL, float):
+                        if timeseries is None or rtti.can_be_casted(timeseries, listOf(ITimeSerie)):
+                            return SingleAsset__IOrderBook__Optional__ISingleAssetStrategy___Optional__String___Optional__Float___Optional__Float___Optional_List__ITimeSerie__(orderBook,strategy,name,amount,PnL,timeseries)
+    raise Exception("Cannot find suitable overload")

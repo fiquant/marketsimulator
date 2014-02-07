@@ -27,4 +27,8 @@ class Score__IAccount(Function[float],_Score_Impl):
         return "Score(%(trader)s)" % self.__dict__
     
 def Score(trader = None): 
-    return Score__IAccount(trader)
+    from marketsim import IAccount
+    from marketsim import rtti
+    if trader is None or rtti.can_be_casted(trader, IAccount):
+        return Score__IAccount(trader)
+    raise Exception("Cannot find suitable overload")

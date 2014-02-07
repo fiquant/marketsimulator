@@ -37,3 +37,4 @@ class sidevolume_price_Peg(IFunction[IFunction[IOrderGenerator,IFunction[float]]
         proto = self.proto
         return price_Peg(proto(side,volume))
     
+sidevolume_price_Peg = sidevolume_price_Peg

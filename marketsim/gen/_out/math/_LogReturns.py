@@ -45,4 +45,10 @@ class LogReturns_Optional__IObservable__Float____Optional__Float_(Function[float
         return _math_Log(_ops_Div(self.x,_math_Lagged(self.x,self.timeframe)))
     
 def LogReturns(x = None,timeframe = None): 
-    return LogReturns_Optional__IObservable__Float____Optional__Float_(x,timeframe)
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import rtti
+    if x is None or rtti.can_be_casted(x, IObservable[float]):
+        if timeframe is None or rtti.can_be_casted(timeframe, float):
+            return LogReturns_Optional__IObservable__Float____Optional__Float_(x,timeframe)
+    raise Exception("Cannot find suitable overload")

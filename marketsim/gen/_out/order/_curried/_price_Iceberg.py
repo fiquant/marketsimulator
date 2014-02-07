@@ -36,3 +36,4 @@ class price_Iceberg(IFunction[IOrderGenerator,IFunction[float]]):
         proto = self.proto
         return Iceberg(lotSize, proto(price))
     
+price_Iceberg = price_Iceberg

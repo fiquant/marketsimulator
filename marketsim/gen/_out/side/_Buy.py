@@ -23,4 +23,6 @@ class Buy_(Function[Side],_Buy_Impl):
         return "Buy" % self.__dict__
     
 def Buy(): 
+    from marketsim import rtti
     return Buy_()
+    raise Exception("Cannot find suitable overload")

@@ -36,4 +36,14 @@ class ChooseTheBest_Optional_List__ISingleAssetStrategy____Optional_Optional__IS
         return "ChooseTheBest(%(strategies)s, %(account)s, %(performance)s)" % self.__dict__
     
 def ChooseTheBest(strategies = None,account = None,performance = None): 
-    return ChooseTheBest_Optional_List__ISingleAssetStrategy____Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float__(strategies,account,performance)
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import listOf
+    from marketsim import ISingleAssetStrategy
+    from marketsim import IAccount
+    if strategies is None or rtti.can_be_casted(strategies, listOf(ISingleAssetStrategy)):
+        if account is None or rtti.can_be_casted(account, IFunction[IAccount,ISingleAssetStrategy]):
+            if performance is None or rtti.can_be_casted(performance, IFunction[IFunction[float],IAccount]):
+                return ChooseTheBest_Optional_List__ISingleAssetStrategy____Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float__(strategies,account,performance)
+    raise Exception("Cannot find suitable overload")

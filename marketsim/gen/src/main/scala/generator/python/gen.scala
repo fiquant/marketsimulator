@@ -57,14 +57,31 @@ package object gen
                         for (out <- managed(printWriter(dir, s"_${f.name}.py"))) {
                             out.println(g.code)
 
-                            if (f.name != g.name) {
+                            if (f.name != g.name &&
+                                    (!f.qualifiedName.names.contains("orderbook") ||
+                                            List("Local").exists({ n => f.qualifiedName.names.contains(n)}))) {
                                 import predef._
                                 val input_args = f.parameters map { _.name + " = None" } mkString ","
                                 val args_to_pass = f.parameters map { _.name } mkString ","
-                                val resolver = s"def ${f.name}($input_args): " |> s"return ${g.name}($args_to_pass)"
+
+                                def typecheck(args : List[Typed.Parameter]) : Code = args match {
+                                    case Nil =>
+                                        s"return ${g.name}($args_to_pass)"
+                                    case x :: tl =>
+                                        (s"if ${x.name} is None or rtti.can_be_casted(${x.name}, " ||| x.ty.asCode ||| "):"
+                                            |> typecheck(tl))
+                                }
+
+                                val resolver =
+                                    s"def ${f.name}($input_args): " |> base.withImports(
+                                            typecheck(f.parameters) |||
+                                            ImportFrom("rtti", "marketsim") |
+                                            """raise Exception("Cannot find suitable overload")""")
 
                                 out.println(resolver)
                             }
+                            else
+                                out.println(f.name + " = " + g.name)
                         }
                         idx_out.println(base.withImports(Printer.importsOf(f)))
                     }

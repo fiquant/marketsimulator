@@ -25,4 +25,8 @@ class Derivative_Optional__IDifferentiable_(Function[float],_Derivative_Impl):
         return "\\frac{d%(x)s}{dt}" % self.__dict__
     
 def Derivative(x = None): 
-    return Derivative_Optional__IDifferentiable_(x)
+    from marketsim import IDifferentiable
+    from marketsim import rtti
+    if x is None or rtti.can_be_casted(x, IDifferentiable):
+        return Derivative_Optional__IDifferentiable_(x)
+    raise Exception("Cannot find suitable overload")

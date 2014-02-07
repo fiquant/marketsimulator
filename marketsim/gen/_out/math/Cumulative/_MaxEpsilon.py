@@ -37,4 +37,10 @@ class MaxEpsilon_Optional__IFunction__Float____Optional__IFunction__Float__(Obse
         return "Max_{\\epsilon}(%(source)s)" % self.__dict__
     
 def MaxEpsilon(source = None,epsilon = None): 
-    return MaxEpsilon_Optional__IFunction__Float____Optional__IFunction__Float__(source,epsilon)
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if source is None or rtti.can_be_casted(source, IFunction[float]):
+        if epsilon is None or rtti.can_be_casted(epsilon, IFunction[float]):
+            return MaxEpsilon_Optional__IFunction__Float____Optional__IFunction__Float__(source,epsilon)
+    raise Exception("Cannot find suitable overload")

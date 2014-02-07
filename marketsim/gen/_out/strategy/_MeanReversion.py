@@ -60,4 +60,14 @@ class MeanReversion_Optional__IEvent___Optional_________Side______IOrderGenerato
         self.on_order_created.fire(order, self)
     
 def MeanReversion(eventGen = None,orderFactory = None,ewma_alpha = None): 
-    return MeanReversion_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float_(eventGen,orderFactory,ewma_alpha)
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import IEvent
+    from marketsim import IOrderGenerator
+    from marketsim import Side
+    if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
+        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
+            if ewma_alpha is None or rtti.can_be_casted(ewma_alpha, float):
+                return MeanReversion_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float_(eventGen,orderFactory,ewma_alpha)
+    raise Exception("Cannot find suitable overload")

@@ -41,3 +41,4 @@ class sidevolume_price_FloatingPrice(IFunction[IFunction[IOrderGenerator,IFuncti
         proto = self.proto
         return price_FloatingPrice(floatingPrice, proto(side,volume))
     
+sidevolume_price_FloatingPrice = sidevolume_price_FloatingPrice

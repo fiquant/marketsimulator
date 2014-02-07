@@ -37,4 +37,10 @@ class NotEqual_Optional__IFunction__Float____Optional__IFunction__Float__(Observ
         return "({%(x)s}<>{%(y)s})" % self.__dict__
     
 def NotEqual(x = None,y = None): 
-    return NotEqual_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if x is None or rtti.can_be_casted(x, IFunction[float]):
+        if y is None or rtti.can_be_casted(y, IFunction[float]):
+            return NotEqual_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)
+    raise Exception("Cannot find suitable overload")

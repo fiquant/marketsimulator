@@ -60,4 +60,14 @@ class FundamentalValue_Optional__IEvent___Optional_________Side______IOrderGener
         self.on_order_created.fire(order, self)
     
 def FundamentalValue(eventGen = None,orderFactory = None,fundamentalValue = None): 
-    return FundamentalValue_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IFunction__Float__(eventGen,orderFactory,fundamentalValue)
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import IEvent
+    from marketsim import IOrderGenerator
+    from marketsim import Side
+    if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
+        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
+            if fundamentalValue is None or rtti.can_be_casted(fundamentalValue, IFunction[float]):
+                return FundamentalValue_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IFunction__Float__(eventGen,orderFactory,fundamentalValue)
+    raise Exception("Cannot find suitable overload")

@@ -19,5 +19,4 @@ class Proxy_(_Proxy_Impl):
         
     }
     
-def Proxy(): 
-    return Proxy_()
+Proxy = Proxy_

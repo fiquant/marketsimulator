@@ -56,4 +56,13 @@ class Bollinger_linear_Optional_________Float______IOrderGenerator___Optional__F
         self.on_order_created.fire(order, self)
     
 def Bollinger_linear(orderFactory = None,alpha = None,k = None): 
-    return Bollinger_linear_Optional_________Float______IOrderGenerator___Optional__Float___Optional__IObservable__Float__(orderFactory,alpha,k)
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import IOrderGenerator
+    if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[float]]):
+        if alpha is None or rtti.can_be_casted(alpha, float):
+            if k is None or rtti.can_be_casted(k, IObservable[float]):
+                return Bollinger_linear_Optional_________Float______IOrderGenerator___Optional__Float___Optional__IObservable__Float__(orderFactory,alpha,k)
+    raise Exception("Cannot find suitable overload")

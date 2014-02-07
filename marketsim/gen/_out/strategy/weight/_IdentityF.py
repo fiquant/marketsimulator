@@ -40,4 +40,9 @@ class IdentityF_Optional__IFunction__Float__(Function[float]):
         return self.f
     
 def IdentityF(f = None): 
-    return IdentityF_Optional__IFunction__Float__(f)
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if f is None or rtti.can_be_casted(f, IFunction[float]):
+        return IdentityF_Optional__IFunction__Float__(f)
+    raise Exception("Cannot find suitable overload")

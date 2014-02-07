@@ -54,4 +54,14 @@ class LiquidityProvider_Optional________Side___Optional__Float___Optional_______
         return _ops_Mul(_orderbook_SafeSidePrice(_orderbook_Queue(self.book,self.side),_constant(self.initialValue)),self.priceDistr)
     
 def LiquidityProvider(side = None,initialValue = None,priceDistr = None,book = None): 
-    return LiquidityProvider_Optional________Side___Optional__Float___Optional________Float___Optional__IOrderBook_(side,initialValue,priceDistr,book)
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import IOrderBook
+    from marketsim import Side
+    if side is None or rtti.can_be_casted(side, IFunction[Side]):
+        if initialValue is None or rtti.can_be_casted(initialValue, float):
+            if priceDistr is None or rtti.can_be_casted(priceDistr, IFunction[float]):
+                if book is None or rtti.can_be_casted(book, IOrderBook):
+                    return LiquidityProvider_Optional________Side___Optional__Float___Optional________Float___Optional__IOrderBook_(side,initialValue,priceDistr,book)
+    raise Exception("Cannot find suitable overload")

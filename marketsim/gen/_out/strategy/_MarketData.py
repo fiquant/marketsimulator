@@ -73,4 +73,13 @@ class MarketData_Optional__String___Optional__String___Optional__String___Option
         self.on_order_created.fire(order, self)
     
 def MarketData(ticker = None,start = None,end = None,delta = None,volume = None): 
-    return MarketData_Optional__String___Optional__String___Optional__String___Optional__Float___Optional__Float_(ticker,start,end,delta,volume)
+    from marketsim import str
+    from marketsim import float
+    from marketsim import rtti
+    if ticker is None or rtti.can_be_casted(ticker, str):
+        if start is None or rtti.can_be_casted(start, str):
+            if end is None or rtti.can_be_casted(end, str):
+                if delta is None or rtti.can_be_casted(delta, float):
+                    if volume is None or rtti.can_be_casted(volume, float):
+                        return MarketData_Optional__String___Optional__String___Optional__String___Optional__Float___Optional__Float_(ticker,start,end,delta,volume)
+    raise Exception("Cannot find suitable overload")

@@ -36,3 +36,4 @@ class triangular(Function[float]):
     def _casts_to(self, dst):
         return triangular._types[0]._casts_to(dst)
     
+triangular = triangular

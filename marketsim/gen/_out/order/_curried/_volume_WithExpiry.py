@@ -35,3 +35,4 @@ class volume_WithExpiry(IFunction[IOrderGenerator,IFunction[float]]):
         proto = self.proto
         return WithExpiry(expiry, proto(volume))
     
+volume_WithExpiry = volume_WithExpiry

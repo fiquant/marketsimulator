@@ -54,5 +54,4 @@ class SafeSidePrice_Optional__IOrderQueue___Optional__IFunction__Float__(Observa
         from marketsim.gen._out.orderbook._LastPrice import LastPrice as _orderbook_LastPrice
         return _observable_Price(_IfDefined(_orderbook_BestPrice(self.queue),_IfDefined(_orderbook_LastPrice(self.queue),self.defaultValue)))
     
-def SafeSidePrice(queue = None,defaultValue = None): 
-    return SafeSidePrice_Optional__IOrderQueue___Optional__IFunction__Float__(queue,defaultValue)
+SafeSidePrice = SafeSidePrice_Optional__IOrderQueue___Optional__IFunction__Float__

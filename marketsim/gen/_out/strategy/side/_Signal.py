@@ -56,4 +56,10 @@ class Signal_Optional__IFunction__Float____Optional__Float_(Observable[Side]):
         return _ops_Condition_Side(_ops_Greater(self.signal,_const(self.threshold)),_side_Buy(),_ops_Condition_Side(_ops_Less(self.signal,_const((0-self.threshold))),_side_Sell(),_side_Nothing()))
     
 def Signal(signal = None,threshold = None): 
-    return Signal_Optional__IFunction__Float____Optional__Float_(signal,threshold)
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if signal is None or rtti.can_be_casted(signal, IFunction[float]):
+        if threshold is None or rtti.can_be_casted(threshold, float):
+            return Signal_Optional__IFunction__Float____Optional__Float_(signal,threshold)
+    raise Exception("Cannot find suitable overload")

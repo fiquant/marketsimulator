@@ -21,4 +21,6 @@ class Empty_(_Empty_Impl):
         return "Empty" % self.__dict__
     
 def Empty(): 
+    from marketsim import rtti
     return Empty_()
+    raise Exception("Cannot find suitable overload")

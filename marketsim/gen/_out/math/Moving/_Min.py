@@ -36,4 +36,10 @@ class Min_Optional__IFunction__Float____Optional__Float_(Observable[float],Min_I
         return "Min_{n=%(timeframe)s}(%(source)s)" % self.__dict__
     
 def Min(source = None,timeframe = None): 
-    return Min_Optional__IFunction__Float____Optional__Float_(source,timeframe)
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if source is None or rtti.can_be_casted(source, IFunction[float]):
+        if timeframe is None or rtti.can_be_casted(timeframe, float):
+            return Min_Optional__IFunction__Float____Optional__Float_(source,timeframe)
+    raise Exception("Cannot find suitable overload")

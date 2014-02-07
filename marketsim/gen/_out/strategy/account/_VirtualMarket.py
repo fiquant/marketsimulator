@@ -25,4 +25,8 @@ class VirtualMarket_Optional__ISingleAssetStrategy_(_VirtualMarket_Impl):
         return "VirtualMarket(%(inner)s)" % self.__dict__
     
 def VirtualMarket(inner = None): 
-    return VirtualMarket_Optional__ISingleAssetStrategy_(inner)
+    from marketsim import ISingleAssetStrategy
+    from marketsim import rtti
+    if inner is None or rtti.can_be_casted(inner, ISingleAssetStrategy):
+        return VirtualMarket_Optional__ISingleAssetStrategy_(inner)
+    raise Exception("Cannot find suitable overload")

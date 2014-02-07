@@ -46,4 +46,11 @@ class MACD_Optional__IObservable__Float____Optional__Float___Optional__Float_(Fu
         return _ops_Sub(_math_EW_Avg(self.x,(2.0/((self.fast+1)))),_math_EW_Avg(self.x,(2.0/((self.slow+1)))))
     
 def MACD(x = None,slow = None,fast = None): 
-    return MACD_Optional__IObservable__Float____Optional__Float___Optional__Float_(x,slow,fast)
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import rtti
+    if x is None or rtti.can_be_casted(x, IObservable[float]):
+        if slow is None or rtti.can_be_casted(slow, float):
+            if fast is None or rtti.can_be_casted(fast, float):
+                return MACD_Optional__IObservable__Float____Optional__Float___Optional__Float_(x,slow,fast)
+    raise Exception("Cannot find suitable overload")

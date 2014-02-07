@@ -29,4 +29,8 @@ class trader_EfficiencyTrend_Optional__Float_(IFunction[IFunction[float], IAccou
         return EfficiencyTrend(trader,alpha)
     
 def trader_EfficiencyTrend(alpha = None): 
-    return trader_EfficiencyTrend_Optional__Float_(alpha)
+    from marketsim import float
+    from marketsim import rtti
+    if alpha is None or rtti.can_be_casted(alpha, float):
+        return trader_EfficiencyTrend_Optional__Float_(alpha)
+    raise Exception("Cannot find suitable overload")

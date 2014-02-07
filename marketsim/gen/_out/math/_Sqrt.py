@@ -36,4 +36,9 @@ class Sqrt_Optional__IFunction__Float__(Observable[float]):
         return math.sqrt(x)
     
 def Sqrt(x = None): 
-    return Sqrt_Optional__IFunction__Float__(x)
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if x is None or rtti.can_be_casted(x, IFunction[float]):
+        return Sqrt_Optional__IFunction__Float__(x)
+    raise Exception("Cannot find suitable overload")

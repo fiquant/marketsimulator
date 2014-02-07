@@ -59,4 +59,12 @@ class Bollinger_linear_Optional__Float___Optional__IObservable__Float____Optiona
         return _strategy_position_DesiredPosition(_observable_OnEveryDt(1.0,_ops_Mul(_math_EW_RelStdDev(_orderbook_MidPrice(_orderbook_OfTrader(self.trader)),self.alpha),self.k)),self.trader)
     
 def Bollinger_linear(alpha = None,k = None,trader = None): 
-    return Bollinger_linear_Optional__Float___Optional__IObservable__Float____Optional__ISingleAssetTrader_(alpha,k,trader)
+    from marketsim import float
+    from marketsim import IObservable
+    from marketsim import ISingleAssetTrader
+    from marketsim import rtti
+    if alpha is None or rtti.can_be_casted(alpha, float):
+        if k is None or rtti.can_be_casted(k, IObservable[float]):
+            if trader is None or rtti.can_be_casted(trader, ISingleAssetTrader):
+                return Bollinger_linear_Optional__Float___Optional__IObservable__Float____Optional__ISingleAssetTrader_(alpha,k,trader)
+    raise Exception("Cannot find suitable overload")

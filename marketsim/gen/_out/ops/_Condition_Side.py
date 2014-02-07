@@ -43,4 +43,12 @@ class Condition_Side_Optional__IFunction__Boolean____Optional________Side___Opti
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
 def Condition_Side(cond = None,ifpart = None,elsepart = None): 
-    return Condition_Side_Optional__IFunction__Boolean____Optional________Side___Optional________Side_(cond,ifpart,elsepart)
+    from marketsim import IFunction
+    from marketsim import bool
+    from marketsim import Side
+    from marketsim import rtti
+    if cond is None or rtti.can_be_casted(cond, IFunction[bool]):
+        if ifpart is None or rtti.can_be_casted(ifpart, IFunction[Side]):
+            if elsepart is None or rtti.can_be_casted(elsepart, IFunction[Side]):
+                return Condition_Side_Optional__IFunction__Boolean____Optional________Side___Optional________Side_(cond,ifpart,elsepart)
+    raise Exception("Cannot find suitable overload")

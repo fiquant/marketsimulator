@@ -32,4 +32,9 @@ class BreaksAtChanges_Optional__IFunction__Float__(Observable[float],_BreaksAtCh
         return "BreaksAtChanges(%(source)s)" % self.__dict__
     
 def BreaksAtChanges(source = None): 
-    return BreaksAtChanges_Optional__IFunction__Float__(source)
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if source is None or rtti.can_be_casted(source, IFunction[float]):
+        return BreaksAtChanges_Optional__IFunction__Float__(source)
+    raise Exception("Cannot find suitable overload")

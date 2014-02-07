@@ -66,4 +66,16 @@ class PairTrading_Optional__IEvent___Optional_________Side______IOrderGenerator_
         self.on_order_created.fire(order, self)
     
 def PairTrading(eventGen = None,orderFactory = None,bookToDependOn = None,factor = None): 
-    return PairTrading_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IOrderBook___Optional__Float_(eventGen,orderFactory,bookToDependOn,factor)
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import IEvent
+    from marketsim import IOrderGenerator
+    from marketsim import IOrderBook
+    from marketsim import Side
+    if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
+        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
+            if bookToDependOn is None or rtti.can_be_casted(bookToDependOn, IOrderBook):
+                if factor is None or rtti.can_be_casted(factor, float):
+                    return PairTrading_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IOrderBook___Optional__Float_(eventGen,orderFactory,bookToDependOn,factor)
+    raise Exception("Cannot find suitable overload")

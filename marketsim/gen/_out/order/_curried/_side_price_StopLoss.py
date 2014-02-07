@@ -38,3 +38,4 @@ class side_price_StopLoss(IFunction[IFunction[IOrderGenerator,IFunction[float]],
         proto = self.proto
         return price_StopLoss(maxloss, proto(side))
     
+side_price_StopLoss = side_price_StopLoss

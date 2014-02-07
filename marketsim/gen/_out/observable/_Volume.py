@@ -33,4 +33,9 @@ class Volume_Optional__IFunction__Float__(Observable[Volume],_Observable_Impl):
         return "[%(x)s]" % self.__dict__
     
 def Volume(x = None): 
-    return Volume_Optional__IFunction__Float__(x)
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if x is None or rtti.can_be_casted(x, IFunction[float]):
+        return Volume_Optional__IFunction__Float__(x)
+    raise Exception("Cannot find suitable overload")

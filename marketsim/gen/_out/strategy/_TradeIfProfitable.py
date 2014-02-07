@@ -57,4 +57,13 @@ class TradeIfProfitable_Optional__ISingleAssetStrategy___Optional_Optional__ISin
         self.on_order_created.fire(order, self)
     
 def TradeIfProfitable(inner = None,account = None,performance = None): 
-    return TradeIfProfitable_Optional__ISingleAssetStrategy___Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float__(inner,account,performance)
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import ISingleAssetStrategy
+    from marketsim import IAccount
+    if inner is None or rtti.can_be_casted(inner, ISingleAssetStrategy):
+        if account is None or rtti.can_be_casted(account, IFunction[IAccount,ISingleAssetStrategy]):
+            if performance is None or rtti.can_be_casted(performance, IFunction[IFunction[float],IAccount]):
+                return TradeIfProfitable_Optional__ISingleAssetStrategy___Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float__(inner,account,performance)
+    raise Exception("Cannot find suitable overload")

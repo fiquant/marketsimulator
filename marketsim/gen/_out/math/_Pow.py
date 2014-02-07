@@ -47,4 +47,10 @@ class Pow_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[
         return math.pow(base, power)
     
 def Pow(base = None,power = None): 
-    return Pow_Optional__IFunction__Float____Optional__IFunction__Float__(base,power)
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if base is None or rtti.can_be_casted(base, IFunction[float]):
+        if power is None or rtti.can_be_casted(power, IFunction[float]):
+            return Pow_Optional__IFunction__Float____Optional__IFunction__Float__(base,power)
+    raise Exception("Cannot find suitable overload")

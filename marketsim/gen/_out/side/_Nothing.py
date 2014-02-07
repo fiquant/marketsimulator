@@ -23,4 +23,6 @@ class Nothing_(Function[Side],_None_Impl):
         return "Nothing" % self.__dict__
     
 def Nothing(): 
+    from marketsim import rtti
     return Nothing_()
+    raise Exception("Cannot find suitable overload")

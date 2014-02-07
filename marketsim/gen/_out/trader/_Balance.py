@@ -32,4 +32,8 @@ class Balance_Optional__IAccount_(Observable[Price],Balance_Impl):
         return "Balance(%(trader)s)" % self.__dict__
     
 def Balance(trader = None): 
-    return Balance_Optional__IAccount_(trader)
+    from marketsim import IAccount
+    from marketsim import rtti
+    if trader is None or rtti.can_be_casted(trader, IAccount):
+        return Balance_Optional__IAccount_(trader)
+    raise Exception("Cannot find suitable overload")

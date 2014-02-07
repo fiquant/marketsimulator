@@ -43,4 +43,9 @@ class Clamp0_Optional__IFunction__Float__(Function[float]):
         return _ops_Add(_math_Max(_constant(0),self.f),_constant(1))
     
 def Clamp0(f = None): 
-    return Clamp0_Optional__IFunction__Float__(f)
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if f is None or rtti.can_be_casted(f, IFunction[float]):
+        return Clamp0_Optional__IFunction__Float__(f)
+    raise Exception("Cannot find suitable overload")

@@ -65,4 +65,9 @@ class MarketMaker_Optional__Float___Optional__Float_(ISingleAssetStrategy):
         self.on_order_created.fire(order, self)
     
 def MarketMaker(delta = None,volume = None): 
-    return MarketMaker_Optional__Float___Optional__Float_(delta,volume)
+    from marketsim import float
+    from marketsim import rtti
+    if delta is None or rtti.can_be_casted(delta, float):
+        if volume is None or rtti.can_be_casted(volume, float):
+            return MarketMaker_Optional__Float___Optional__Float_(delta,volume)
+    raise Exception("Cannot find suitable overload")

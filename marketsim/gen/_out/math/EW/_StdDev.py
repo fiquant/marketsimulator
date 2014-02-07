@@ -44,4 +44,10 @@ class StdDev_Optional__IObservable__Float____Optional__Float_(Function[float]):
         return _math_Sqrt(_math_EW_Var(self.source,self.alpha))
     
 def StdDev(source = None,alpha = None): 
-    return StdDev_Optional__IObservable__Float____Optional__Float_(source,alpha)
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import rtti
+    if source is None or rtti.can_be_casted(source, IObservable[float]):
+        if alpha is None or rtti.can_be_casted(alpha, float):
+            return StdDev_Optional__IObservable__Float____Optional__Float_(source,alpha)
+    raise Exception("Cannot find suitable overload")

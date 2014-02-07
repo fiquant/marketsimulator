@@ -52,4 +52,8 @@ class Efficiency_Optional__IAccount_(Observable[float]):
         return _observable_Float(_ops_Add(_trader_Balance(self.trader),_orderbook_CumulativePrice(_orderbook_OfTrader(self.trader),_trader_Position(self.trader))))
     
 def Efficiency(trader = None): 
-    return Efficiency_Optional__IAccount_(trader)
+    from marketsim import IAccount
+    from marketsim import rtti
+    if trader is None or rtti.can_be_casted(trader, IAccount):
+        return Efficiency_Optional__IAccount_(trader)
+    raise Exception("Cannot find suitable overload")

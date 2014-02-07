@@ -23,4 +23,6 @@ class false_(Function[bool],_False_Impl):
         return "False" % self.__dict__
     
 def false(): 
+    from marketsim import rtti
     return false_()
+    raise Exception("Cannot find suitable overload")

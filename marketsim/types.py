@@ -85,6 +85,8 @@ IFunction = Factory('IFunction', """(object):
     _types = [function((%(R)s), %(T)s)]
 """)
 
+IFunction[Side]
+
 Construct = Factory('Construct', """(bind.Construct, IFunction[%(T)s, %(R)s]):""")
         
 class IOrder(object):

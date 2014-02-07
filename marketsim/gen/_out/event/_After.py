@@ -24,4 +24,9 @@ class After_Optional__IFunction__Float__(_After_Impl):
         return "After(%(delay)s)" % self.__dict__
     
 def After(delay = None): 
-    return After_Optional__IFunction__Float__(delay)
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if delay is None or rtti.can_be_casted(delay, IFunction[float]):
+        return After_Optional__IFunction__Float__(delay)
+    raise Exception("Cannot find suitable overload")

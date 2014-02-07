@@ -25,4 +25,9 @@ class Var_Optional__IObservable__Float__(Function[float],Variance_Impl):
         return "\\sigma^2_{cumul}(%(source)s)" % self.__dict__
     
 def Var(source = None): 
-    return Var_Optional__IObservable__Float__(source)
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import rtti
+    if source is None or rtti.can_be_casted(source, IObservable[float]):
+        return Var_Optional__IObservable__Float__(source)
+    raise Exception("Cannot find suitable overload")

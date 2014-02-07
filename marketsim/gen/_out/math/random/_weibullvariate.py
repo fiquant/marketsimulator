@@ -29,3 +29,4 @@ class weibullvariate(Function[float]):
     def _casts_to(self, dst):
         return weibullvariate._types[0]._casts_to(dst)
     
+weibullvariate = weibullvariate

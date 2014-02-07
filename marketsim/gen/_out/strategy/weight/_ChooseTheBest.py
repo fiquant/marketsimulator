@@ -23,4 +23,9 @@ class ChooseTheBest_Optional_List__Float__(_ChooseTheBest_Impl):
         return "ChooseTheBest(%(array)s)" % self.__dict__
     
 def ChooseTheBest(array = None): 
-    return ChooseTheBest_Optional_List__Float__(array)
+    from marketsim import float
+    from marketsim import listOf
+    from marketsim import rtti
+    if array is None or rtti.can_be_casted(array, listOf(float)):
+        return ChooseTheBest_Optional_List__Float__(array)
+    raise Exception("Cannot find suitable overload")

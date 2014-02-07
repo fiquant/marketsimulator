@@ -47,5 +47,4 @@ class WeightedPrice_Optional__IOrderQueue___Optional__Float_(Function[float]):
         from marketsim.gen._out.ops._Div import Div as _ops_Div
         return _ops_Div(_math_EW_Avg(_observable_Float(_ops_Mul(_orderbook_LastTradePrice(self.queue),_orderbook_LastTradeVolume(self.queue))),self.alpha),_math_EW_Avg(_orderbook_LastTradeVolume(self.queue),self.alpha))
     
-def WeightedPrice(queue = None,alpha = None): 
-    return WeightedPrice_Optional__IOrderQueue___Optional__Float_(queue,alpha)
+WeightedPrice = WeightedPrice_Optional__IOrderQueue___Optional__Float_

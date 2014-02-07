@@ -32,4 +32,8 @@ class PendingVolume_Optional__IAccount_(Observable[Volume],PendingVolume_Impl):
         return "PendingVolume(%(trader)s)" % self.__dict__
     
 def PendingVolume(trader = None): 
-    return PendingVolume_Optional__IAccount_(trader)
+    from marketsim import IAccount
+    from marketsim import rtti
+    if trader is None or rtti.can_be_casted(trader, IAccount):
+        return PendingVolume_Optional__IAccount_(trader)
+    raise Exception("Cannot find suitable overload")

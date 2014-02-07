@@ -39,4 +39,8 @@ class constant_Optional__Float_(Function[float]):
         return _const(self.x)
     
 def constant(x = None): 
-    return constant_Optional__Float_(x)
+    from marketsim import float
+    from marketsim import rtti
+    if x is None or rtti.can_be_casted(x, float):
+        return constant_Optional__Float_(x)
+    raise Exception("Cannot find suitable overload")

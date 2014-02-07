@@ -41,4 +41,8 @@ class Efficiency__IAccount(Function[float]):
         return _trader_Efficiency(self.trader)
     
 def Efficiency(trader = None): 
-    return Efficiency__IAccount(trader)
+    from marketsim import IAccount
+    from marketsim import rtti
+    if trader is None or rtti.can_be_casted(trader, IAccount):
+        return Efficiency__IAccount(trader)
+    raise Exception("Cannot find suitable overload")

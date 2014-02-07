@@ -22,5 +22,4 @@ class Bids_Optional__IOrderBook_(_Bids_Impl):
     def __repr__(self):
         return "Bids(%(book)s)" % self.__dict__
     
-def Bids(book = None): 
-    return Bids_Optional__IOrderBook_(book)
+Bids = Bids_Optional__IOrderBook_

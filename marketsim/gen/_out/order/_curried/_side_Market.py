@@ -31,3 +31,4 @@ class side_Market(IFunction[IOrderGenerator, IFunction[Side]]):
         volume = self.volume
         return Market(side, volume)
     
+side_Market = side_Market

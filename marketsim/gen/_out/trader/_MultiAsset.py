@@ -37,4 +37,17 @@ class MultiAsset_Optional_List__ISingleAssetTrader____Optional__IMultiAssetStrat
         return "%(name)s" % self.__dict__
     
 def MultiAsset(traders = None,strategy = None,name = None,PnL = None,timeseries = None): 
-    return MultiAsset_Optional_List__ISingleAssetTrader____Optional__IMultiAssetStrategy___Optional__String___Optional__Float___Optional_List__ITimeSerie__(traders,strategy,name,PnL,timeseries)
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import IMultiAssetStrategy
+    from marketsim import str
+    from marketsim import listOf
+    from marketsim import ITimeSerie
+    from marketsim import ISingleAssetTrader
+    if traders is None or rtti.can_be_casted(traders, listOf(ISingleAssetTrader)):
+        if strategy is None or rtti.can_be_casted(strategy, IMultiAssetStrategy):
+            if name is None or rtti.can_be_casted(name, str):
+                if PnL is None or rtti.can_be_casted(PnL, float):
+                    if timeseries is None or rtti.can_be_casted(timeseries, listOf(ITimeSerie)):
+                        return MultiAsset_Optional_List__ISingleAssetTrader____Optional__IMultiAssetStrategy___Optional__String___Optional__Float___Optional_List__ITimeSerie__(traders,strategy,name,PnL,timeseries)
+    raise Exception("Cannot find suitable overload")

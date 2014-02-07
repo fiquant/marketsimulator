@@ -42,3 +42,4 @@ class ImmediateOrCancel(Observable[Order],IOrderGenerator):
         
         return Order_Impl(proto)
     
+ImmediateOrCancel = ImmediateOrCancel

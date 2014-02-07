@@ -23,4 +23,8 @@ class const_Optional__Float_(Function[float],_Constant_Impl):
         return "C=%(x)s" % self.__dict__
     
 def const(x = None): 
-    return const_Optional__Float_(x)
+    from marketsim import float
+    from marketsim import rtti
+    if x is None or rtti.can_be_casted(x, float):
+        return const_Optional__Float_(x)
+    raise Exception("Cannot find suitable overload")

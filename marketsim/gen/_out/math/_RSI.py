@@ -50,4 +50,11 @@ class RSI_Optional__IOrderBook___Optional__Float___Optional__Float_(Function[flo
         return _ops_Sub(_const(100.0),_ops_Div(_const(100.0),_ops_Add(_const(1.0),_math_rsi_Raw(_orderbook_MidPrice(self.book),self.timeframe,self.alpha))))
     
 def RSI(book = None,timeframe = None,alpha = None): 
-    return RSI_Optional__IOrderBook___Optional__Float___Optional__Float_(book,timeframe,alpha)
+    from marketsim import IOrderBook
+    from marketsim import float
+    from marketsim import rtti
+    if book is None or rtti.can_be_casted(book, IOrderBook):
+        if timeframe is None or rtti.can_be_casted(timeframe, float):
+            if alpha is None or rtti.can_be_casted(alpha, float):
+                return RSI_Optional__IOrderBook___Optional__Float___Optional__Float_(book,timeframe,alpha)
+    raise Exception("Cannot find suitable overload")

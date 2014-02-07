@@ -41,4 +41,8 @@ class Unit__IAccount(Function[float]):
         return _constant(1.0)
     
 def Unit(trader = None): 
-    return Unit__IAccount(trader)
+    from marketsim import IAccount
+    from marketsim import rtti
+    if trader is None or rtti.can_be_casted(trader, IAccount):
+        return Unit__IAccount(trader)
+    raise Exception("Cannot find suitable overload")

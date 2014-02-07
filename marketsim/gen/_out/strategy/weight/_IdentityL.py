@@ -23,4 +23,9 @@ class IdentityL_Optional_List__Float__(_Identity_Impl):
         return "IdentityL(%(array)s)" % self.__dict__
     
 def IdentityL(array = None): 
-    return IdentityL_Optional_List__Float__(array)
+    from marketsim import float
+    from marketsim import listOf
+    from marketsim import rtti
+    if array is None or rtti.can_be_casted(array, listOf(float)):
+        return IdentityL_Optional_List__Float__(array)
+    raise Exception("Cannot find suitable overload")

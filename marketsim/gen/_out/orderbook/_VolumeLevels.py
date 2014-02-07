@@ -41,5 +41,4 @@ class VolumeLevels_Optional__IOrderQueue___Optional__Float___Optional__Int_(Obse
     def __repr__(self):
         return "VolumeLevels(%(queue)s)" % self.__dict__
     
-def VolumeLevels(queue = None,volumeDelta = None,volumeCount = None): 
-    return VolumeLevels_Optional__IOrderQueue___Optional__Float___Optional__Int_(queue,volumeDelta,volumeCount)
+VolumeLevels = VolumeLevels_Optional__IOrderQueue___Optional__Float___Optional__Int_

@@ -64,4 +64,16 @@ class CrossingAverages_Optional__IEvent___Optional_________Side______IOrderGener
         self.on_order_created.fire(order, self)
     
 def CrossingAverages(eventGen = None,orderFactory = None,ewma_alpha_1 = None,ewma_alpha_2 = None,threshold = None): 
-    return CrossingAverages_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float___Optional__Float_(eventGen,orderFactory,ewma_alpha_1,ewma_alpha_2,threshold)
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import IEvent
+    from marketsim import IOrderGenerator
+    from marketsim import Side
+    if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
+        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
+            if ewma_alpha_1 is None or rtti.can_be_casted(ewma_alpha_1, float):
+                if ewma_alpha_2 is None or rtti.can_be_casted(ewma_alpha_2, float):
+                    if threshold is None or rtti.can_be_casted(threshold, float):
+                        return CrossingAverages_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float___Optional__Float_(eventGen,orderFactory,ewma_alpha_1,ewma_alpha_2,threshold)
+    raise Exception("Cannot find suitable overload")

@@ -29,3 +29,4 @@ class normalvariate(Function[float]):
     def _casts_to(self, dst):
         return normalvariate._types[0]._casts_to(dst)
     
+normalvariate = normalvariate

@@ -41,3 +41,4 @@ class sidevolume_StopLoss(IFunction[IOrderGenerator,IFunction[Side]
         proto = self.proto
         return StopLoss(maxloss, proto(side,volume))
     
+sidevolume_StopLoss = sidevolume_StopLoss

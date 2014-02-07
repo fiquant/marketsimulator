@@ -35,3 +35,4 @@ class sideprice_Peg(IFunction[IOrderGenerator,IFunction[Side]
         proto = self.proto
         return Peg(proto(side))
     
+sideprice_Peg = sideprice_Peg

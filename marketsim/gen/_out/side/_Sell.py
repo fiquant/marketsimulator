@@ -23,4 +23,6 @@ class Sell_(Function[Side],_Sell_Impl):
         return "Sell" % self.__dict__
     
 def Sell(): 
+    from marketsim import rtti
     return Sell_()
+    raise Exception("Cannot find suitable overload")

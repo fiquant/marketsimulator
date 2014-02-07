@@ -48,4 +48,11 @@ class Raw_Optional__IObservable__Float____Optional__Float___Optional__Float_(Fun
         return _ops_Div(_math_EW_Avg(_math_UpMovements(self.source,self.timeframe),self.alpha),_math_EW_Avg(_math_DownMovements(self.source,self.timeframe),self.alpha))
     
 def Raw(source = None,timeframe = None,alpha = None): 
-    return Raw_Optional__IObservable__Float____Optional__Float___Optional__Float_(source,timeframe,alpha)
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import rtti
+    if source is None or rtti.can_be_casted(source, IObservable[float]):
+        if timeframe is None or rtti.can_be_casted(timeframe, float):
+            if alpha is None or rtti.can_be_casted(alpha, float):
+                return Raw_Optional__IObservable__Float____Optional__Float___Optional__Float_(source,timeframe,alpha)
+    raise Exception("Cannot find suitable overload")

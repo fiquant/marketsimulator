@@ -32,3 +32,4 @@ class signedVolume_LimitSigned(IFunction[IOrderGenerator, IFunction[float]]):
         price = self.price
         return LimitSigned(signedVolume, price)
     
+signedVolume_LimitSigned = signedVolume_LimitSigned

@@ -28,4 +28,11 @@ class Suspendable_Optional__ISingleAssetStrategy___Optional__IFunction__Boolean_
         return "Suspendable(%(inner)s, %(predicate)s)" % self.__dict__
     
 def Suspendable(inner = None,predicate = None): 
-    return Suspendable_Optional__ISingleAssetStrategy___Optional__IFunction__Boolean__(inner,predicate)
+    from marketsim import ISingleAssetStrategy
+    from marketsim import IFunction
+    from marketsim import bool
+    from marketsim import rtti
+    if inner is None or rtti.can_be_casted(inner, ISingleAssetStrategy):
+        if predicate is None or rtti.can_be_casted(predicate, IFunction[bool]):
+            return Suspendable_Optional__ISingleAssetStrategy___Optional__IFunction__Boolean__(inner,predicate)
+    raise Exception("Cannot find suitable overload")

@@ -27,4 +27,10 @@ class Avg_Optional__IObservable__Float____Optional__Float_(Function[float],EWMA_
         return "Avg_{\\alpha=%(alpha)s}(%(source)s)" % self.__dict__
     
 def Avg(source = None,alpha = None): 
-    return Avg_Optional__IObservable__Float____Optional__Float_(source,alpha)
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import rtti
+    if source is None or rtti.can_be_casted(source, IObservable[float]):
+        if alpha is None or rtti.can_be_casted(alpha, float):
+            return Avg_Optional__IObservable__Float____Optional__Float_(source,alpha)
+    raise Exception("Cannot find suitable overload")

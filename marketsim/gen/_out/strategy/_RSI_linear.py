@@ -58,4 +58,14 @@ class RSI_linear_Optional_________Float______IOrderGenerator___Optional__Float__
         self.on_order_created.fire(order, self)
     
 def RSI_linear(orderFactory = None,alpha = None,k = None,timeframe = None): 
-    return RSI_linear_Optional_________Float______IOrderGenerator___Optional__Float___Optional__IObservable__Float____Optional__Float_(orderFactory,alpha,k,timeframe)
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import IOrderGenerator
+    if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[float]]):
+        if alpha is None or rtti.can_be_casted(alpha, float):
+            if k is None or rtti.can_be_casted(k, IObservable[float]):
+                if timeframe is None or rtti.can_be_casted(timeframe, float):
+                    return RSI_linear_Optional_________Float______IOrderGenerator___Optional__Float___Optional__IObservable__Float____Optional__Float_(orderFactory,alpha,k,timeframe)
+    raise Exception("Cannot find suitable overload")

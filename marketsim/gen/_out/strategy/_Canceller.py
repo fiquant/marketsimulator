@@ -25,4 +25,9 @@ class Canceller_Optional________Float_(_Canceller_Impl):
         return "Canceller(%(cancellationIntervalDistr)s)" % self.__dict__
     
 def Canceller(cancellationIntervalDistr = None): 
-    return Canceller_Optional________Float_(cancellationIntervalDistr)
+    from marketsim import float
+    from marketsim import IFunction
+    from marketsim import rtti
+    if cancellationIntervalDistr is None or rtti.can_be_casted(cancellationIntervalDistr, IFunction[float]):
+        return Canceller_Optional________Float_(cancellationIntervalDistr)
+    raise Exception("Cannot find suitable overload")

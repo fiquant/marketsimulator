@@ -40,3 +40,4 @@ class sidevolume_Iceberg(IFunction[IOrderGenerator,IFunction[Side]
         proto = self.proto
         return Iceberg(lotSize, proto(side,volume))
     
+sidevolume_Iceberg = sidevolume_Iceberg

@@ -23,4 +23,8 @@ class Real_Optional__ISingleAssetStrategy_(_Account_Impl):
         return "Real(%(inner)s)" % self.__dict__
     
 def Real(inner = None): 
-    return Real_Optional__ISingleAssetStrategy_(inner)
+    from marketsim import ISingleAssetStrategy
+    from marketsim import rtti
+    if inner is None or rtti.can_be_casted(inner, ISingleAssetStrategy):
+        return Real_Optional__ISingleAssetStrategy_(inner)
+    raise Exception("Cannot find suitable overload")

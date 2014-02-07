@@ -27,4 +27,10 @@ class Var_Optional__IObservable__Float____Optional__Float_(Function[float],EWMV_
         return "\\sigma^2_{\\alpha=%(alpha)s}(%(source)s)" % self.__dict__
     
 def Var(source = None,alpha = None): 
-    return Var_Optional__IObservable__Float____Optional__Float_(source,alpha)
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import rtti
+    if source is None or rtti.can_be_casted(source, IObservable[float]):
+        if alpha is None or rtti.can_be_casted(alpha, float):
+            return Var_Optional__IObservable__Float____Optional__Float_(source,alpha)
+    raise Exception("Cannot find suitable overload")

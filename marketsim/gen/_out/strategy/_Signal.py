@@ -62,4 +62,15 @@ class Signal_Optional__IEvent___Optional_________Side______IOrderGenerator___Opt
         self.on_order_created.fire(order, self)
     
 def Signal(eventGen = None,orderFactory = None,signal = None,threshold = None): 
-    return Signal_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IFunction__Float____Optional__Float_(eventGen,orderFactory,signal,threshold)
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import IEvent
+    from marketsim import IOrderGenerator
+    from marketsim import Side
+    if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
+        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
+            if signal is None or rtti.can_be_casted(signal, IFunction[float]):
+                if threshold is None or rtti.can_be_casted(threshold, float):
+                    return Signal_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IFunction__Float____Optional__Float_(eventGen,orderFactory,signal,threshold)
+    raise Exception("Cannot find suitable overload")

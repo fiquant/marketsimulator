@@ -23,4 +23,6 @@ class null_(Function[float],_Null_Impl):
         return "null" % self.__dict__
     
 def null(): 
+    from marketsim import rtti
     return null_()
+    raise Exception("Cannot find suitable overload")

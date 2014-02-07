@@ -32,4 +32,9 @@ class Negate_Optional__IFunction__Float__(Observable[float],_Negate_Impl):
         return "-%(x)s" % self.__dict__
     
 def Negate(x = None): 
-    return Negate_Optional__IFunction__Float__(x)
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if x is None or rtti.can_be_casted(x, IFunction[float]):
+        return Negate_Optional__IFunction__Float__(x)
+    raise Exception("Cannot find suitable overload")

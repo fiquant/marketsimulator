@@ -12,6 +12,13 @@ Definitions:
 | | | | | - Local
 | | | | | - List:
 | | | | | | - Parameter:
+| | | | | | | - name
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - StringLit:
+| | | | | | | | | - -orderbook-
+| | | | | | | - List:
+| | | | | | - Parameter:
 | | | | | | | - tickSize
 | | | | | | | - None
 | | | | | | | - Some:
@@ -24,13 +31,6 @@ Definitions:
 | | | | | | | - Some:
 | | | | | | | | - IntLit:
 | | | | | | | | | - 2
-| | | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - name
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - StringLit:
-| | | | | | | | | - -orderbook-
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - timeseries

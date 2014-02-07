@@ -32,4 +32,9 @@ class Side_Optional__IFunction__Side__(Observable[Side],_ObservableSide_Impl):
         return "[%(x)s]" % self.__dict__
     
 def Side(x = None): 
-    return Side_Optional__IFunction__Side__(x)
+    from marketsim import IFunction
+    from marketsim import Side
+    from marketsim import rtti
+    if x is None or rtti.can_be_casted(x, IFunction[Side]):
+        return Side_Optional__IFunction__Side__(x)
+    raise Exception("Cannot find suitable overload")

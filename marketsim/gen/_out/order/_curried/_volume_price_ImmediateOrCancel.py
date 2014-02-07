@@ -35,3 +35,4 @@ class volume_price_ImmediateOrCancel(IFunction[IFunction[IOrderGenerator,IFuncti
         proto = self.proto
         return price_ImmediateOrCancel(proto(volume))
     
+volume_price_ImmediateOrCancel = volume_price_ImmediateOrCancel

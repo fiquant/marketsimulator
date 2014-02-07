@@ -51,4 +51,12 @@ class CrossingAverages_Optional__Float___Optional__Float___Optional__Float___Opt
         return _strategy_side_Signal(_ops_Sub(_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha_1),_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha_2)),self.threshold)
     
 def CrossingAverages(alpha_1 = None,alpha_2 = None,threshold = None,book = None): 
-    return CrossingAverages_Optional__Float___Optional__Float___Optional__Float___Optional__IOrderBook_(alpha_1,alpha_2,threshold,book)
+    from marketsim import float
+    from marketsim import IOrderBook
+    from marketsim import rtti
+    if alpha_1 is None or rtti.can_be_casted(alpha_1, float):
+        if alpha_2 is None or rtti.can_be_casted(alpha_2, float):
+            if threshold is None or rtti.can_be_casted(threshold, float):
+                if book is None or rtti.can_be_casted(book, IOrderBook):
+                    return CrossingAverages_Optional__Float___Optional__Float___Optional__Float___Optional__IOrderBook_(alpha_1,alpha_2,threshold,book)
+    raise Exception("Cannot find suitable overload")

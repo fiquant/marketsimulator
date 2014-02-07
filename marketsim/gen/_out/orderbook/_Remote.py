@@ -30,5 +30,4 @@ class Remote_Optional__IOrderBook___Optional__ITwoWayLink___Optional_List__ITime
     def __repr__(self):
         return "%(orderbook)s.name^remote" % self.__dict__
     
-def Remote(orderbook = None,link = None,timeseries = None): 
-    return Remote_Optional__IOrderBook___Optional__ITwoWayLink___Optional_List__ITimeSerie__(orderbook,link,timeseries)
+Remote = Remote_Optional__IOrderBook___Optional__ITwoWayLink___Optional_List__ITimeSerie__

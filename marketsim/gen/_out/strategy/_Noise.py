@@ -55,4 +55,12 @@ class Noise_Optional__IEvent___Optional_________Side______IOrderGenerator_(ISing
         self.on_order_created.fire(order, self)
     
 def Noise(eventGen = None,orderFactory = None): 
-    return Noise_Optional__IEvent___Optional_________Side______IOrderGenerator_(eventGen,orderFactory)
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import IEvent
+    from marketsim import IOrderGenerator
+    from marketsim import Side
+    if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
+        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
+            return Noise_Optional__IEvent___Optional_________Side______IOrderGenerator_(eventGen,orderFactory)
+    raise Exception("Cannot find suitable overload")

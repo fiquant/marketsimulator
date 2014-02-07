@@ -45,4 +45,10 @@ class EfficiencyTrend_Optional__IAccount___Optional__Float_(Function[float]):
         return _math_Derivative(_math_EW_Avg(_trader_Efficiency(self.trader),self.alpha))
     
 def EfficiencyTrend(trader = None,alpha = None): 
-    return EfficiencyTrend_Optional__IAccount___Optional__Float_(trader,alpha)
+    from marketsim import IAccount
+    from marketsim import float
+    from marketsim import rtti
+    if trader is None or rtti.can_be_casted(trader, IAccount):
+        if alpha is None or rtti.can_be_casted(alpha, float):
+            return EfficiencyTrend_Optional__IAccount___Optional__Float_(trader,alpha)
+    raise Exception("Cannot find suitable overload")

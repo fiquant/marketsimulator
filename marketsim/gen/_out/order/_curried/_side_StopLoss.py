@@ -38,3 +38,4 @@ class side_StopLoss(IFunction[IOrderGenerator,IFunction[Side]]):
         proto = self.proto
         return StopLoss(maxloss, proto(side))
     
+side_StopLoss = side_StopLoss

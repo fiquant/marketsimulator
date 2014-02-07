@@ -35,3 +35,4 @@ class Peg(Factory_Impl,IOrderGenerator):
         return "Peg(%(proto)s)" % self.__dict__
     
     
+Peg = Peg

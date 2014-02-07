@@ -37,3 +37,4 @@ class volume_FloatingPrice(IFunction[IOrderGenerator,IFunction[float]]):
         proto = self.proto
         return FloatingPrice(floatingPrice, proto(volume))
     
+volume_FloatingPrice = volume_FloatingPrice

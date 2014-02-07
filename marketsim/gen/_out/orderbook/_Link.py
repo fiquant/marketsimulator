@@ -24,5 +24,4 @@ class Link_Optional__IObservable__Float__(_Link_Impl):
     def __repr__(self):
         return "Link(%(latency)s)" % self.__dict__
     
-def Link(latency = None): 
-    return Link_Optional__IObservable__Float__(latency)
+Link = Link_Optional__IObservable__Float__

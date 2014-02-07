@@ -28,4 +28,6 @@ class array_IdentityL_(IFunction[listOf(float), listOf(float)]):
         return IdentityL(array)
     
 def array_IdentityL(): 
+    from marketsim import rtti
     return array_IdentityL_()
+    raise Exception("Cannot find suitable overload")

@@ -51,4 +51,10 @@ class IfDefined_Optional__IFunction__Float____Optional__IFunction__Float__(Obser
         return _ops_Condition_Float(_ops_NotEqual(self.x,_null()),self.x,self.elsePart)
     
 def IfDefined(x = None,elsePart = None): 
-    return IfDefined_Optional__IFunction__Float____Optional__IFunction__Float__(x,elsePart)
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if x is None or rtti.can_be_casted(x, IFunction[float]):
+        if elsePart is None or rtti.can_be_casted(elsePart, IFunction[float]):
+            return IfDefined_Optional__IFunction__Float____Optional__IFunction__Float__(x,elsePart)
+    raise Exception("Cannot find suitable overload")

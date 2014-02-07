@@ -36,4 +36,9 @@ class Log_Optional__IFunction__Float__(Observable[float]):
         return math.log(x)
     
 def Log(x = None): 
-    return Log_Optional__IFunction__Float__(x)
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if x is None or rtti.can_be_casted(x, IFunction[float]):
+        return Log_Optional__IFunction__Float__(x)
+    raise Exception("Cannot find suitable overload")

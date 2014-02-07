@@ -43,5 +43,4 @@ class CumulativePrice_Optional__IOrderBook___Optional__IFunction__Float__(Observ
     def __repr__(self):
         return "CumulativePrice(%(book)s, %(depth)s)" % self.__dict__
     
-def CumulativePrice(book = None,depth = None): 
-    return CumulativePrice_Optional__IOrderBook___Optional__IFunction__Float__(book,depth)
+CumulativePrice = CumulativePrice_Optional__IOrderBook___Optional__IFunction__Float__

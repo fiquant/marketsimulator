@@ -33,4 +33,8 @@ class Position_Optional__IAccount_(Observable[Volume],Position_Impl):
         return "Position(%(trader)s)" % self.__dict__
     
 def Position(trader = None): 
-    return Position_Optional__IAccount_(trader)
+    from marketsim import IAccount
+    from marketsim import rtti
+    if trader is None or rtti.can_be_casted(trader, IAccount):
+        return Position_Optional__IAccount_(trader)
+    raise Exception("Cannot find suitable overload")

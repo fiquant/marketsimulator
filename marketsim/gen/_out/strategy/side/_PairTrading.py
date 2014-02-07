@@ -56,4 +56,11 @@ class PairTrading_Optional__IOrderBook___Optional__Float___Optional__IOrderBook_
         return _observable_Side(_strategy_side_FundamentalValue(_ops_Mul(_orderbook_MidPrice(self.bookToDependOn),_const(self.factor)),self.book))
     
 def PairTrading(bookToDependOn = None,factor = None,book = None): 
-    return PairTrading_Optional__IOrderBook___Optional__Float___Optional__IOrderBook_(bookToDependOn,factor,book)
+    from marketsim import IOrderBook
+    from marketsim import float
+    from marketsim import rtti
+    if bookToDependOn is None or rtti.can_be_casted(bookToDependOn, IOrderBook):
+        if factor is None or rtti.can_be_casted(factor, float):
+            if book is None or rtti.can_be_casted(book, IOrderBook):
+                return PairTrading_Optional__IOrderBook___Optional__Float___Optional__IOrderBook_(bookToDependOn,factor,book)
+    raise Exception("Cannot find suitable overload")

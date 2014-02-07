@@ -49,4 +49,11 @@ class TrendFollower_Optional__Float___Optional__Float___Optional__IOrderBook_(Fu
         return _strategy_side_Signal(_math_Derivative(_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha)),self.threshold)
     
 def TrendFollower(alpha = None,threshold = None,book = None): 
-    return TrendFollower_Optional__Float___Optional__Float___Optional__IOrderBook_(alpha,threshold,book)
+    from marketsim import float
+    from marketsim import IOrderBook
+    from marketsim import rtti
+    if alpha is None or rtti.can_be_casted(alpha, float):
+        if threshold is None or rtti.can_be_casted(threshold, float):
+            if book is None or rtti.can_be_casted(book, IOrderBook):
+                return TrendFollower_Optional__Float___Optional__Float___Optional__IOrderBook_(alpha,threshold,book)
+    raise Exception("Cannot find suitable overload")

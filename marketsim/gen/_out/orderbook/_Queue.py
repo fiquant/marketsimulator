@@ -27,5 +27,4 @@ class Queue_Optional__IOrderBook___Optional________Side_(_Queue_Impl):
     def __repr__(self):
         return "Queue(%(book)s, %(side)s)" % self.__dict__
     
-def Queue(book = None,side = None): 
-    return Queue_Optional__IOrderBook___Optional________Side_(book,side)
+Queue = Queue_Optional__IOrderBook___Optional________Side_

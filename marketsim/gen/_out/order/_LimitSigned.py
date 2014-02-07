@@ -52,3 +52,4 @@ class LimitSigned(Observable[Order],IOrderGenerator):
         
         return Order_Impl(side, price, volume)
     
+LimitSigned = LimitSigned

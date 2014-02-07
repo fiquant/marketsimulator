@@ -24,4 +24,9 @@ class Every_Optional________Float_(_Every_Impl):
         return "Every(%(intervalFunc)s)" % self.__dict__
     
 def Every(intervalFunc = None): 
-    return Every_Optional________Float_(intervalFunc)
+    from marketsim import float
+    from marketsim import IFunction
+    from marketsim import rtti
+    if intervalFunc is None or rtti.can_be_casted(intervalFunc, IFunction[float]):
+        return Every_Optional________Float_(intervalFunc)
+    raise Exception("Cannot find suitable overload")

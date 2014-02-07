@@ -32,4 +32,13 @@ class TimeSerie_Optional__IObservable_Any____Optional__IGraph___Optional__Int___
         return "%(source)s" % self.__dict__
     
 def TimeSerie(source = None,graph = None,_digitsToShow = None,_smooth = None): 
-    return TimeSerie_Optional__IObservable_Any____Optional__IGraph___Optional__Int___Optional__Int_(source,graph,_digitsToShow,_smooth)
+    from marketsim import IObservable
+    from marketsim import IGraph
+    from marketsim import int
+    from marketsim import rtti
+    if source is None or rtti.can_be_casted(source, IObservable[object]):
+        if graph is None or rtti.can_be_casted(graph, IGraph):
+            if _digitsToShow is None or rtti.can_be_casted(_digitsToShow, int):
+                if _smooth is None or rtti.can_be_casted(_smooth, int):
+                    return TimeSerie_Optional__IObservable_Any____Optional__IGraph___Optional__Int___Optional__Int_(source,graph,_digitsToShow,_smooth)
+    raise Exception("Cannot find suitable overload")

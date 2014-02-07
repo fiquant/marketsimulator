@@ -35,3 +35,4 @@ class volume_ImmediateOrCancel(IFunction[IOrderGenerator,IFunction[float]]):
         proto = self.proto
         return ImmediateOrCancel(proto(volume))
     
+volume_ImmediateOrCancel = volume_ImmediateOrCancel
