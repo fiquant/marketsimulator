@@ -741,7 +741,7 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - ops._ConditionFloat_Impl
+| | | | | | | | - ops._Condition_Impl
 | | | | - FunDef:
 | | | | | - NotEqual
 | | | | | - List:
@@ -955,7 +955,7 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - ops._ConditionSide_Impl
+| | | | | | | | - ops._Condition_Impl
 | | | | - FunDef:
 | | | | | - GreaterEqual
 | | | | | - List:
@@ -14839,6 +14839,15 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | - false
+| | | | | | | - FunAlias:
+| | | | | | | | - efficiency
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - strategy
+| | | | | | | | | | - weight
+| | | | | | | | | | - trader
+| | | | | | | | | | - trader_Efficiency
 | | | | | | | - FunDef:
 | | | | | | | | - ChooseTheBest
 | | | | | | | | - List:
@@ -14897,6 +14906,33 @@ Definitions:
 | | | | | | | | | | | | - curried
 | | | | | | | | | | - List:
 | | | | | | | | | | | - array
+| | | | | | | - FunAlias:
+| | | | | | | | - chooseTheBest
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - strategy
+| | | | | | | | | | - weight
+| | | | | | | | | | - array
+| | | | | | | | | | - array_ChooseTheBest
+| | | | | | | - FunAlias:
+| | | | | | | | - score
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - strategy
+| | | | | | | | | | - weight
+| | | | | | | | | | - trader
+| | | | | | | | | | - trader_Score
+| | | | | | | - FunAlias:
+| | | | | | | | - atanpow
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - strategy
+| | | | | | | | | | - weight
+| | | | | | | | | | - f
+| | | | | | | | | | - f_AtanPow
 | | | | | | | - FunDef:
 | | | | | | | | - Efficiency
 | | | | | | | | - List:
@@ -14953,6 +14989,24 @@ Definitions:
 | | | | | | | | | | | | - curried
 | | | | | | | | | | - List:
 | | | | | | | | | | | - trader
+| | | | | | | - FunAlias:
+| | | | | | | | - efficiencyTrend
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - strategy
+| | | | | | | | | | - weight
+| | | | | | | | | | - trader
+| | | | | | | | | | - trader_EfficiencyTrend
+| | | | | | | - FunAlias:
+| | | | | | | | - clamp0
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - strategy
+| | | | | | | | | | - weight
+| | | | | | | | | | - f
+| | | | | | | | | | - f_Clamp0
 | | | | | | | - FunDef:
 | | | | | | | | - Score
 | | | | | | | | - List:
@@ -15191,6 +15245,15 @@ Definitions:
 | | | | | | | | | | | | - curried
 | | | | | | | | | | - List:
 | | | | | | | | | | | - trader
+| | | | | | | - FunAlias:
+| | | | | | | | - unit
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - strategy
+| | | | | | | | | | - weight
+| | | | | | | | | | - trader
+| | | | | | | | | | - trader_Unit
 | | | | | | | - FunDef:
 | | | | | | | | - Unit
 | | | | | | | | - List:
@@ -15403,6 +15466,15 @@ Definitions:
 | | | | | | | | | | | | - curried
 | | | | | | | | | | - List:
 | | | | | | | | | | | - array
+| | | | | | | - FunAlias:
+| | | | | | | | - identity_f
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - strategy
+| | | | | | | | | | - weight
+| | | | | | | | | | - f
+| | | | | | | | | | - f_IdentityF
 | | | | | | | - FunDef:
 | | | | | | | | - IdentityF
 | | | | | | | | - List:
@@ -15461,78 +15533,6 @@ Definitions:
 | | | | | | | | | | | | - curried
 | | | | | | | | | | - List:
 | | | | | | | | | | | - f
-| | | | | | | - FunAlias:
-| | | | | | | | - efficiency
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - 
-| | | | | | | | | | - strategy
-| | | | | | | | | | - weight
-| | | | | | | | | | - trader
-| | | | | | | | | | - trader_Efficiency
-| | | | | | | - FunAlias:
-| | | | | | | | - chooseTheBest
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - 
-| | | | | | | | | | - strategy
-| | | | | | | | | | - weight
-| | | | | | | | | | - array
-| | | | | | | | | | - array_ChooseTheBest
-| | | | | | | - FunAlias:
-| | | | | | | | - score
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - 
-| | | | | | | | | | - strategy
-| | | | | | | | | | - weight
-| | | | | | | | | | - trader
-| | | | | | | | | | - trader_Score
-| | | | | | | - FunAlias:
-| | | | | | | | - atanpow
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - 
-| | | | | | | | | | - strategy
-| | | | | | | | | | - weight
-| | | | | | | | | | - f
-| | | | | | | | | | - f_AtanPow
-| | | | | | | - FunAlias:
-| | | | | | | | - efficiencyTrend
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - 
-| | | | | | | | | | - strategy
-| | | | | | | | | | - weight
-| | | | | | | | | | - trader
-| | | | | | | | | | - trader_EfficiencyTrend
-| | | | | | | - FunAlias:
-| | | | | | | | - clamp0
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - 
-| | | | | | | | | | - strategy
-| | | | | | | | | | - weight
-| | | | | | | | | | - f
-| | | | | | | | | | - f_Clamp0
-| | | | | | | - FunAlias:
-| | | | | | | | - unit
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - 
-| | | | | | | | | | - strategy
-| | | | | | | | | | - weight
-| | | | | | | | | | - trader
-| | | | | | | | | | - trader_Unit
-| | | | | | | - FunAlias:
-| | | | | | | | - identity_f
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - 
-| | | | | | | | | | - strategy
-| | | | | | | | | | - weight
-| | | | | | | | | | - f
-| | | | | | | | | | - f_IdentityF
 | | | | | - List:
 | | | | | - List:
 | | | | | - false
@@ -21044,6 +21044,13 @@ Definitions:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Last({{queue}})
+| | | | | | | - FunAlias:
+| | | | | | | | - _queue
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - orderbook
+| | | | | | | | | | - Asks
 | | | | | | | - FunDef:
 | | | | | | | | - LastTradePrice
 | | | | | | | | - List:
@@ -21105,13 +21112,6 @@ Definitions:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - LastTrade({{queue}})
-| | | | | | | - FunAlias:
-| | | | | | | | - _queue
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - 
-| | | | | | | | | | - orderbook
-| | | | | | | | | | - Asks
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - queue
@@ -21390,6 +21390,13 @@ Definitions:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Last({{queue}})
+| | | | | | | - FunAlias:
+| | | | | | | | - _queue
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - 
+| | | | | | | | | | - orderbook
+| | | | | | | | | | - Bids
 | | | | | | | - FunDef:
 | | | | | | | | - LastTradePrice
 | | | | | | | | - List:
@@ -21451,13 +21458,6 @@ Definitions:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - LastTrade({{queue}})
-| | | | | | | - FunAlias:
-| | | | | | | | - _queue
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - 
-| | | | | | | | | | - orderbook
-| | | | | | | | | | - Bids
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - queue
@@ -22561,6 +22561,24 @@ Definitions:
 | | | | | - Local
 | | | | | - List:
 | | | | | | - Parameter:
+| | | | | | | - name
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Optional
+| | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - String
+| | | | | | | | | | | - List:
+| | | | | | | - Some:
+| | | | | | | | - StringLit:
+| | | | | | | | | - -orderbook-
+| | | | | | | - List:
+| | | | | | - Parameter:
 | | | | | | | - tickSize
 | | | | | | | - Some:
 | | | | | | | | - SimpleType:
@@ -22595,24 +22613,6 @@ Definitions:
 | | | | | | | - Some:
 | | | | | | | | - IntLit:
 | | | | | | | | | - 2
-| | | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - name
-| | | | | | | - Some:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Optional
-| | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - 
-| | | | | | | | | | | | | - String
-| | | | | | | | | | | - List:
-| | | | | | | - Some:
-| | | | | | | | - StringLit:
-| | | | | | | | | - -orderbook-
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - timeseries

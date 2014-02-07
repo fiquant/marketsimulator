@@ -69,7 +69,7 @@ package ops
     def Mul(x = constant(1.0),
             y = constant(1.0)) : IFunction[Float]
     
-    @python.intrinsic.observable("ops._ConditionFloat_Impl")
+    @python.intrinsic.observable("ops._Condition_Impl")
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     def Condition_Float(cond = true() : IFunction[Boolean],
                         ifpart = constant(1.0),
@@ -81,7 +81,7 @@ package ops
     def NotEqual(x = constant(1.0),
                  y = constant(1.0)) : IObservable[Boolean]
     
-    @python.intrinsic.observable("ops._ConditionSide_Impl")
+    @python.intrinsic.observable("ops._Condition_Impl")
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     def Condition_Side(cond = true() : IFunction[Boolean],
                        ifpart = side.Sell(),
@@ -2109,9 +2109,9 @@ package orderbook
      */
     @python.intrinsic("orderbook.local._Local_Impl")
     @label = "%(name)s"
-    def Local(tickSize = 0.01,
+    def Local(name = "-orderbook-",
+              tickSize = 0.01,
               _digitsToShow = 2,
-              name = "-orderbook-",
               timeseries = [] : List[ITimeSerie]) : IOrderBook
     
     /** Represent an *orderbook* from point of view of a remote trader connected
@@ -2259,19 +2259,6 @@ package trash
     
 }
 
-/** Function always returning *x*
- */
-@category = "Basic"
-@label = "C=%(x)s"
-def constant(x = 1.0) = const(x) : IFunction[Float]
-
-/** Trivial observable always returning *False*
- */
-@category = "Basic"
-@python.intrinsic.function("_constant._False_Impl")
-@label = "False"
-def false() : IObservable[Boolean]
-
 type ITrader
 
 type IGraph
@@ -2290,24 +2277,7 @@ type Boolean
 
 type Price : Float
 
-/** Trivial observable always returning *undefined* or *None* value
- */
-@category = "Basic"
-@python.intrinsic("_constant._Null_Impl")
-def null() : () => Float
-
 type IOrderQueue
-
-/** Time serie to store and render it after on a graph
- *  Used to specify what data should be collected about order books and traders
- */
-@category = "Basic"
-@python.intrinsic("timeserie._ToRecord_Impl")
-@label = "%(source)s"
-def TimeSerie(source = const(0.0) : IObservable[Any],
-              graph = veusz.Graph(),
-              _digitsToShow = 4,
-              _smooth = 1) : ITimeSerie
 
 type Float
 
@@ -2321,13 +2291,6 @@ type IEvent
 
 type IMultiAssetStrategy
 
-/** Trivial observable always returning *x*
- */
-@category = "Basic"
-@python.intrinsic.function("_constant._Constant_Impl")
-@label = "C=%(x)s"
-def const(x = 1.0) : IObservable[Float]
-
 type ITwoWayLink
 
 type IObservable[U] : IFunction[U], IEvent
@@ -2335,6 +2298,61 @@ type IObservable[U] : IFunction[U], IEvent
 type IFunction[T] = () => T
 
 type ISingleAssetStrategy
+
+type ISingleAssetTrader : IAccount, ITrader
+
+type IVolumeLevels
+
+type Order
+
+type List[T]
+
+type IDifferentiable : IFunction[Float]
+
+type ITimeSerie
+
+type Any
+
+type IOrderGenerator = IObservable[Order]
+
+type String
+
+/** Function always returning *x*
+ */
+@category = "Basic"
+@label = "C=%(x)s"
+def constant(x = 1.0) = const(x) : IFunction[Float]
+
+/** Trivial observable always returning *False*
+ */
+@category = "Basic"
+@python.intrinsic.function("_constant._False_Impl")
+@label = "False"
+def false() : IObservable[Boolean]
+
+/** Trivial observable always returning *undefined* or *None* value
+ */
+@category = "Basic"
+@python.intrinsic("_constant._Null_Impl")
+def null() : () => Float
+
+/** Time serie to store and render it after on a graph
+ *  Used to specify what data should be collected about order books and traders
+ */
+@category = "Basic"
+@python.intrinsic("timeserie._ToRecord_Impl")
+@label = "%(source)s"
+def TimeSerie(source = const(0.0) : IObservable[Any],
+              graph = veusz.Graph(),
+              _digitsToShow = 4,
+              _smooth = 1) : ITimeSerie
+
+/** Trivial observable always returning *x*
+ */
+@category = "Basic"
+@python.intrinsic.function("_constant._Constant_Impl")
+@label = "C=%(x)s"
+def const(x = 1.0) : IObservable[Float]
 
 /** Observable returning at the end of every *timeframe*
  * open/close/min/max price, its average and standard deviation
@@ -2345,22 +2363,12 @@ type ISingleAssetStrategy
 def CandleSticks(/** observable data source considered as asset price */ source = const(),
                  /** size of timeframe */ timeframe = 10.0) : IObservable[CandleStick]
 
-type ISingleAssetTrader : IAccount, ITrader
-
 /** Trivial observable always returning *True*
  */
 @category = "Basic"
 @python.intrinsic.function("_constant._True_Impl")
 @label = "True"
 def true() : IObservable[Boolean]
-
-type IVolumeLevels
-
-type Order
-
-type List[T]
-
-type IDifferentiable : IFunction[Float]
 
 /** Returns *x* if defined and *elsePart* otherwise
  */
@@ -2369,10 +2377,6 @@ type IDifferentiable : IFunction[Float]
 @label = "If def(%(x)s) else %(elsePart)s"
 def IfDefined(x = constant(),
               /** function to take values from when *x* is undefined */ elsePart = constant()) = if x<>null() then x else elsePart
-
-type ITimeSerie
-
-type Any
 
 /** Time serie holding volume levels of an asset
  * Level of volume V is a price at which cumulative volume of better orders is V
@@ -2386,8 +2390,4 @@ def volumeLevels(source : IFunction[IVolumeLevels],
                  _smooth = 1,
                  _volumes = [30.0],
                  _isBuy = 1) : ITimeSerie
-
-type IOrderGenerator = IObservable[Order]
-
-type String
 

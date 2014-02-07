@@ -282,7 +282,7 @@ package object NameTable {
                 case x :: Nil =>
                     functions get x match {
                         case Some(f : AST.FunDef) => Some((this, f))
-                        case Some(alias : AST.FunAlias) => resolveFunction(alias.target)
+                        case Some(alias : AST.FunAlias) => lookupFunction(alias.target.names)
                         case None => None
                     }
                 case x :: tl =>
@@ -315,8 +315,6 @@ package object NameTable {
                         }
                 }
         }
-
-        def resolveFunction(name : AST.QualifiedName) : Option[(Scope, AST.FunDef)] = lookupFunction(name.names)
 
         def fullyQualifyName(n : AST.QualifiedName) =
             lookupFunction(n.names) match {

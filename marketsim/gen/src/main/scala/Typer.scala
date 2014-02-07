@@ -101,7 +101,7 @@ package object Typer
         }
 
         private def lookupFunction(name : AST.QualifiedName) : Typed.Function =
-            source resolveFunction name match {
+            source lookupFunction name.names match {
                 case Some((scope, definition)) =>
                         Processor(scope).getTyped(definition).head.target
                 case None =>

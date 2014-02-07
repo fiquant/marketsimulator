@@ -77,7 +77,7 @@ package ops {
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._ConditionFloat_Impl")
+    @python.intrinsic.observable("ops._Condition_Impl")
     def Condition_Float(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
                         ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
                         elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
@@ -91,7 +91,7 @@ package ops {
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._ConditionSide_Impl")
+    @python.intrinsic.observable("ops._Condition_Impl")
     def Condition_Side(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
                        ifpart : Optional[() => .Side] = .side.Sell(),
                        elsepart : Optional[() => .Side] = .side.Buy()) : .IFunction[.Side]
@@ -1678,6 +1678,8 @@ package strategy {@category = "Side function"
             def f_IdentityF() : Optional[.IFunction[.Float]] => .IFunction[.Float]
         }
         
+        def efficiency = .strategy.weight.trader.trader_Efficiency
+        
         /** Function returning an array of length *len(array)*
          *  having 1 at the index of the maximal element and 0 are at the rest
          */
@@ -1686,12 +1688,22 @@ package strategy {@category = "Side function"
         @curried("array")
         def ChooseTheBest(array : Optional[List[.Float]] = []) : List[.Float]
         
+        def chooseTheBest = .strategy.weight.array.array_ChooseTheBest
+        
+        def score = .strategy.weight.trader.trader_Score
+        
+        def atanpow = .strategy.weight.f.f_AtanPow
+        
         /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
          */
         
         @curried("trader")
         def Efficiency(/** account in question */ trader : .IAccount = .trader.SingleProxy()) : .IFunction[.Float]
             	 = .trader.Efficiency(trader)
+        
+        def efficiencyTrend = .strategy.weight.trader.trader_EfficiencyTrend
+        
+        def clamp0 = .strategy.weight.f.f_Clamp0
         
         /** Calculates how many times efficiency of trader went up and went down
          * Returns difference between them.
@@ -1718,6 +1730,8 @@ package strategy {@category = "Side function"
                             /** parameter alpha for the moving average */ alpha : Optional[.Float] = 0.15) : .IFunction[.Float]
             	 = .math.Derivative(.math.EW.Avg(.trader.Efficiency(trader),alpha))
         
+        def unit = .strategy.weight.trader.trader_Unit
+        
         /** Unit function. Used to simulate uniform random choice of a strategy
          */
         
@@ -1740,27 +1754,14 @@ package strategy {@category = "Side function"
         @curried("array")
         def IdentityL(array : Optional[List[.Float]] = []) : List[.Float]
         
+        def identity_f = .strategy.weight.f.f_IdentityF
+        
         /** identity scaling = f(x)
          */
         
         @curried("f")
         def IdentityF(f : Optional[.IFunction[.Float]] = .constant()) : .IFunction[.Float]
             	 = f
-        def efficiency = .strategy.weight.trader.trader_Efficiency
-        
-        def chooseTheBest = .strategy.weight.array.array_ChooseTheBest
-        
-        def score = .strategy.weight.trader.trader_Score
-        
-        def atanpow = .strategy.weight.f.f_AtanPow
-        
-        def efficiencyTrend = .strategy.weight.trader.trader_EfficiencyTrend
-        
-        def clamp0 = .strategy.weight.f.f_Clamp0
-        
-        def unit = .strategy.weight.trader.trader_Unit
-        
-        def identity_f = .strategy.weight.f.f_IdentityF
     }
     
     @category = "Price function"
@@ -1842,6 +1843,7 @@ package strategy {@category = "Side function"
         @python.intrinsic("strategy.account._VirtualMarket_Impl")
         @curried("inner")
         def VirtualMarket(/** strategy to track */ inner : Optional[.ISingleAssetStrategy] = .strategy.Noise()) : .IAccount
+        
         def real = .strategy.account.inner.inner_Real
         
         def virtualMarket = .strategy.account.inner.inner_VirtualMarket
@@ -2191,11 +2193,12 @@ package orderbook {@queue = "Ask_{%(book)s}"
         def LastPrice(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Price]
             	 = .orderbook.LastPrice(.orderbook.Asks(book))
         
+        def _queue = .orderbook.Asks
+        
         @label = "LastTrade({{queue}})"
         
         def LastTradePrice(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Price]
             	 = .orderbook.LastTradePrice(.orderbook.Asks(book))
-        def _queue = .orderbook.Asks
     }
     
     @queue = "Bid^{%(book)s}"
@@ -2222,11 +2225,12 @@ package orderbook {@queue = "Ask_{%(book)s}"
         def LastPrice(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Price]
             	 = .orderbook.LastPrice(.orderbook.Bids(book))
         
+        def _queue = .orderbook.Bids
+        
         @label = "LastTrade({{queue}})"
         
         def LastTradePrice(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Price]
             	 = .orderbook.LastTradePrice(.orderbook.Bids(book))
-        def _queue = .orderbook.Bids
     }
     
     /** Phantom orderbook that is used to refer to the current order book
@@ -2357,9 +2361,9 @@ package orderbook {@queue = "Ask_{%(book)s}"
     @label = "%(name)s"
     
     @python.intrinsic("orderbook.local._Local_Impl")
-    def Local(tickSize : Optional[.Float] = 0.01,
+    def Local(name : Optional[.String] = "-orderbook-",
+              tickSize : Optional[.Float] = 0.01,
               _digitsToShow : Optional[.Int] = 2,
-              name : Optional[.String] = "-orderbook-",
               timeseries : Optional[List[.ITimeSerie]] = [] : List[.ITimeSerie]) : .IOrderBook
     
     /** Represent an *orderbook* from point of view of a remote trader connected

@@ -497,7 +497,7 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - ops._ConditionFloat_Impl
+| | | | | | | | - ops._Condition_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - (if %(cond)s then %(ifpart)s else %(elsepart)s)
@@ -623,7 +623,7 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - ops._ConditionSide_Impl
+| | | | | | | | - ops._Condition_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - (if %(cond)s then %(ifpart)s else %(elsepart)s)
@@ -14428,6 +14428,13 @@ Definitions:
 | | | | | - Local
 | | | | | - List:
 | | | | | | - Parameter:
+| | | | | | | - name
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - StringLit:
+| | | | | | | | | - -orderbook-
+| | | | | | | - List:
+| | | | | | - Parameter:
 | | | | | | | - tickSize
 | | | | | | | - None
 | | | | | | | - Some:
@@ -14440,13 +14447,6 @@ Definitions:
 | | | | | | | - Some:
 | | | | | | | | - IntLit:
 | | | | | | | | | - 2
-| | | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - name
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - StringLit:
-| | | | | | | | | - -orderbook-
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - timeseries
@@ -15525,6 +15525,220 @@ Definitions:
 | | | | - no
 | | - List:
 | | - false
+| - Interface:
+| | - ITrader
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - IGraph
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - CandleStick
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - Volume
+| | - Generics:
+| | | - List:
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Int
+| | | | - List:
+| - Interface:
+| | - Optional
+| | - Generics:
+| | | - List:
+| | | | - T
+| | - List:
+| - Interface:
+| | - IAccount
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - Side
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - Boolean
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - Price
+| | - Generics:
+| | | - List:
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Float
+| | | | - List:
+| - Interface:
+| | - IOrderQueue
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - Float
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - Int
+| | - Generics:
+| | | - List:
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - Float
+| | | | - List:
+| - Interface:
+| | - ILink
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - IOrderBook
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - IEvent
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - IMultiAssetStrategy
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - ITwoWayLink
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - IObservable
+| | - Generics:
+| | | - List:
+| | | | - U
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction
+| | | | - List:
+| | | | | - SimpleType:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - U
+| | | | | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IEvent
+| | | | - List:
+| - Alias:
+| | - IFunction
+| | - Generics:
+| | | - List:
+| | | | - T
+| | - FunctionType:
+| | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - T
+| | | | - List:
+| - Interface:
+| | - ISingleAssetStrategy
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - ISingleAssetTrader
+| | - Generics:
+| | | - List:
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IAccount
+| | | | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - ITrader
+| | | | - List:
+| - Interface:
+| | - IVolumeLevels
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - Order
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - List
+| | - Generics:
+| | | - List:
+| | | | - T
+| | - List:
+| - Interface:
+| | - IDifferentiable
+| | - Generics:
+| | | - List:
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction
+| | | | - List:
+| | | | | - SimpleType:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - Float
+| | | | | | - List:
+| - Interface:
+| | - ITimeSerie
+| | - Generics:
+| | | - List:
+| | - List:
+| - Interface:
+| | - Any
+| | - Generics:
+| | | - List:
+| | - List:
+| - Alias:
+| | - IOrderGenerator
+| | - Generics:
+| | | - List:
+| | - SimpleType:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - IObservable
+| | | - List:
+| | | | - SimpleType:
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - Order
+| | | | | - List:
+| - Interface:
+| | - String
+| | - Generics:
+| | | - List:
+| | - List:
 | - FunDef:
 | | - constant
 | | - List:
@@ -15600,62 +15814,6 @@ Definitions:
 | | | - Attribute:
 | | | | - label
 | | | | - False
-| - Interface:
-| | - ITrader
-| | - Generics:
-| | | - List:
-| | - List:
-| - Interface:
-| | - IGraph
-| | - Generics:
-| | | - List:
-| | - List:
-| - Interface:
-| | - CandleStick
-| | - Generics:
-| | | - List:
-| | - List:
-| - Interface:
-| | - Volume
-| | - Generics:
-| | | - List:
-| | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - Int
-| | | | - List:
-| - Interface:
-| | - Optional
-| | - Generics:
-| | | - List:
-| | | | - T
-| | - List:
-| - Interface:
-| | - IAccount
-| | - Generics:
-| | | - List:
-| | - List:
-| - Interface:
-| | - Side
-| | - Generics:
-| | | - List:
-| | - List:
-| - Interface:
-| | - Boolean
-| | - Generics:
-| | | - List:
-| | - List:
-| - Interface:
-| | - Price
-| | - Generics:
-| | | - List:
-| | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - Float
-| | | | - List:
 | - FunDef:
 | | - null
 | | - List:
@@ -15683,11 +15841,6 @@ Definitions:
 | | | | | | - intrinsic
 | | | | - List:
 | | | | | - _constant._Null_Impl
-| - Interface:
-| | - IOrderQueue
-| | - Generics:
-| | | - List:
-| | - List:
 | - FunDef:
 | | - TimeSerie
 | | - List:
@@ -15765,41 +15918,6 @@ Definitions:
 | | | - Attribute:
 | | | | - label
 | | | | - %(source)s
-| - Interface:
-| | - Float
-| | - Generics:
-| | | - List:
-| | - List:
-| - Interface:
-| | - Int
-| | - Generics:
-| | | - List:
-| | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - Float
-| | | | - List:
-| - Interface:
-| | - ILink
-| | - Generics:
-| | | - List:
-| | - List:
-| - Interface:
-| | - IOrderBook
-| | - Generics:
-| | | - List:
-| | - List:
-| - Interface:
-| | - IEvent
-| | - Generics:
-| | | - List:
-| | - List:
-| - Interface:
-| | - IMultiAssetStrategy
-| | - Generics:
-| | | - List:
-| | - List:
 | - FunDef:
 | | - const
 | | - List:
@@ -15841,49 +15959,6 @@ Definitions:
 | | | - Attribute:
 | | | | - label
 | | | | - C=%(x)s
-| - Interface:
-| | - ITwoWayLink
-| | - Generics:
-| | | - List:
-| | - List:
-| - Interface:
-| | - IObservable
-| | - Generics:
-| | | - List:
-| | | | - U
-| | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IFunction
-| | | | - List:
-| | | | | - SimpleType:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - U
-| | | | | | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IEvent
-| | | | - List:
-| - Alias:
-| | - IFunction
-| | - Generics:
-| | | - List:
-| | | | - T
-| | - FunctionType:
-| | | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - T
-| | | | - List:
-| - Interface:
-| | - ISingleAssetStrategy
-| | - Generics:
-| | | - List:
-| | - List:
 | - FunDef:
 | | - CandleSticks
 | | - List:
@@ -15937,21 +16012,6 @@ Definitions:
 | | | - Attribute:
 | | | | - label
 | | | | - Candles_{%(source)s}
-| - Interface:
-| | - ISingleAssetTrader
-| | - Generics:
-| | | - List:
-| | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IAccount
-| | | | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - ITrader
-| | | | - List:
 | - FunDef:
 | | - true
 | | - List:
@@ -15986,37 +16046,6 @@ Definitions:
 | | | - Attribute:
 | | | | - label
 | | | | - True
-| - Interface:
-| | - IVolumeLevels
-| | - Generics:
-| | | - List:
-| | - List:
-| - Interface:
-| | - Order
-| | - Generics:
-| | | - List:
-| | - List:
-| - Interface:
-| | - List
-| | - Generics:
-| | | - List:
-| | | | - T
-| | - List:
-| - Interface:
-| | - IDifferentiable
-| | - Generics:
-| | | - List:
-| | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - IFunction
-| | | | - List:
-| | | | | - SimpleType:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - Float
-| | | | | | - List:
 | - FunDef:
 | | - IfDefined
 | | - List:
@@ -16074,16 +16103,6 @@ Definitions:
 | | | - Attribute:
 | | | | - label
 | | | | - If def(%(x)s) else %(elsePart)s
-| - Interface:
-| | - ITimeSerie
-| | - Generics:
-| | | - List:
-| | - List:
-| - Interface:
-| | - Any
-| | - Generics:
-| | | - List:
-| | - List:
 | - FunDef:
 | | - volumeLevels
 | | - List:
@@ -16169,22 +16188,3 @@ Definitions:
 | | | - Attribute:
 | | | | - label
 | | | | - %(source)s
-| - Alias:
-| | - IOrderGenerator
-| | - Generics:
-| | | - List:
-| | - SimpleType:
-| | | - QualifiedName:
-| | | | - List:
-| | | | | - IObservable
-| | | - List:
-| | | | - SimpleType:
-| | | | | - QualifiedName:
-| | | | | | - List:
-| | | | | | | - Order
-| | | | | - List:
-| - Interface:
-| | - String
-| | - Generics:
-| | | - List:
-| | - List:
