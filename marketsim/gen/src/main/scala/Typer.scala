@@ -52,12 +52,11 @@ package object Typer
 
                 }
 
-                source.members.values foreach { definition =>
+                source.functions.values foreach { definition =>
                     try {
                         definition match {
                             case a : AST.FunAlias => getTyped(a)
                             case f : AST.FunDef => getTyped(f)
-                            case _ => throw new Exception("cannot type a member: " + definition)
                         }
                     }
                     catch {

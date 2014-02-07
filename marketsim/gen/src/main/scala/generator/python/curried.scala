@@ -100,7 +100,7 @@ object curried
             }) map  { fc =>
                 val curried = locate(alias, scope)
 
-                if (!(curried.members contains fc.name))
+                if (!(curried.functions contains fc.name))
                     curried add fc
 
                 fc

@@ -75,7 +75,7 @@ package object AST {
 
     abstract sealed class Definition extends pp.Definition
 
-    abstract sealed class Member extends Definition
+    abstract sealed class FunctionDeclaration extends Definition
     {
         val name : String
     }
@@ -100,14 +100,14 @@ package object AST {
                       ty             : Option[Type],
                       docstring      : Option[DocString],
                       decorators     : List[Decorator])
-            extends Member
+            extends FunctionDeclaration
             with    pp.Function
             with    ScPrintable
             with    Positional
 
     case class FunAlias(name    : String,
                         target  : QualifiedName)
-            extends Member
+            extends FunctionDeclaration
             with    pp.FunctionAlias
             with    ScPrintable
 

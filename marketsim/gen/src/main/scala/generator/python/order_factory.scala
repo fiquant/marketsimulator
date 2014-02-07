@@ -261,7 +261,7 @@ object order_factory
 
                 val curried = scope getPackageOrCreate "_curried"
 
-                if (!(curried.members contains fc.name))
+                if (!(curried.functions contains fc.name))
                     curried add fc
 
                 fc

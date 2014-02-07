@@ -13,7 +13,7 @@ package object NameTable {
             with    ScPrintable
     {
         var packages    = Map.empty[String, Scope]
-        var members     = Map.empty[String, AST.Member]
+        var functions   = Map.empty[String, AST.FunctionDeclaration]
         var types       = Map.empty[String, AST.TypeDeclaration]
         var attributes  = Typed.Attributes(Map.empty)
         var parent      = Option.empty[Scope]
@@ -33,15 +33,15 @@ package object NameTable {
                 attributes == other.attributes &&
                 types == other.types &&
                 bases == other.bases &&
-                members == other.members
+                functions == other.functions
             case _ => false
         }
 
-        def add(m : AST.Member) {
-            members get m.name match {
+        def add(m : AST.FunctionDeclaration) {
+            functions get m.name match {
                 case None =>
                     check_name_is_unique(m.name, m)
-                    members = members updated (m.name, m)
+                    functions = functions updated (m.name, m)
                 case Some(x) =>
                     if (x != m)
                         throw new Exception(s"Trying to replace member $x\r\n by $m\r\n at $qualifiedNameAnon" )
@@ -77,8 +77,8 @@ package object NameTable {
         lazy val qualifiedNameAnon = getQualifiedName(show_anonymous = true)
 
         private def check_name_is_unique(name : String, e : Any) {
-            if ((members contains name) && members(name) != e)
-                throw new Exception(s"Duplicate definition for $name:\r\n" + members(name) + "\r\n" + e)
+            if ((functions contains name) && functions(name) != e)
+                throw new Exception(s"Duplicate definition for $name:\r\n" + functions(name) + "\r\n" + e)
             if ((types contains name) && types(name) != e)
                 throw new Exception(s"Duplicate definition for $name:\r\n" + types(name) + "\r\n" + e)
             if (packages contains name)
@@ -97,15 +97,15 @@ package object NameTable {
         }
 
         private def populate(child: Scope) : Scope = {
-            if (members contains child.name)
-                throw new Exception(s"Duplicate definition for ${child.name}:\r\n" + members(child.name) + "\r\n" + child)
+            if (functions contains child.name)
+                throw new Exception(s"Duplicate definition for ${child.name}:\r\n" + functions(child.name) + "\r\n" + child)
             packages get child.name match {
                 case Some(existing) =>
                     if (existing.`abstract` != child.`abstract`)
                         throw new Exception(s"Trying to merge packages with different `abstract` annotations:" + existing + child)
                     if (existing.parameters != child.parameters)
                         throw new Exception(s"Trying to merge packages with different parameters:" + existing + child)
-                    child.members.values foreach existing.add
+                    child.functions.values foreach existing.add
                     child.types.values foreach existing.add
                     child.packages.values foreach existing.populate
                     child.attributes.items foreach { p => existing.addAttribute(p._1, p._2) }
@@ -155,7 +155,7 @@ package object NameTable {
                         inner.attributes = Typed.Attributes(pkg.attributes.items ++ inner.attributes.items)
                         populate(inner)
                     }
-                    pkg.members.values foreach { m =>
+                    pkg.functions.values foreach { m =>
                         add(m match {
                             case f : AST.FunDef =>
                                 f.copy(decorators =
@@ -221,7 +221,7 @@ package object NameTable {
                  lookupPackage(base.names) match {
                      case Some(b) =>
                          b.injectBasesImpl()
-                         b.members.values filterNot { members contains _.name } foreach { add }
+                         b.functions.values filterNot { functions contains _.name } foreach { add }
                          b.types.values filterNot { types contains _.name } foreach { add }
                          b.packages.values foreach { populate }
                          b.attributes.items foreach { p => addAttribute(p._1, p._2) }
@@ -275,12 +275,12 @@ package object NameTable {
                 }
         }
 
-        private def lookupInnerScopes[T <: AST.Member](qn : List[String])(implicit t : Manifest[T]) : Option[(Scope, T)] =
+        private def lookupInnerScopes[T <: AST.FunctionDeclaration](qn : List[String])(implicit t : Manifest[T]) : Option[(Scope, T)] =
         {
             //println(s"looking for $qn in inner scopes of $qualifiedNameAnon ")
             qn match {
                 case x :: Nil =>
-                    members get x match {
+                    functions get x match {
                         case Some(f) if f.cast[T].nonEmpty
                             => Some((this, f.asInstanceOf[T]))
                         case _
@@ -295,7 +295,7 @@ package object NameTable {
         }
 
 
-        def lookup[T <: AST.Member](qn : List[String])(implicit t : Manifest[T]) : Option[(Scope, T)] =
+        def lookup[T <: AST.FunctionDeclaration](qn : List[String])(implicit t : Manifest[T]) : Option[(Scope, T)] =
         {
             //println(s"looking for $qn in $qualifiedNameAnon")
             if (isAnonymous)
@@ -334,7 +334,7 @@ package object NameTable {
             }
 
         def fullyQualifyName(n : AST.QualifiedName) =
-            lookup[AST.Member](n.names) match {
+            lookup[AST.FunctionDeclaration](n.names) match {
                 case Some((scope, m)) => scope qualifyName m.name
                 case None => throw new Exception(s"Cannot lookup $n from scope $name")
             }
@@ -362,7 +362,7 @@ package object NameTable {
                         n.names match {
                             case x :: Nil if isLocal(x) => (context.last._2, n)
                             case _ =>
-                                lookup[AST.Member](n.names) match {
+                                lookup[AST.FunctionDeclaration](n.names) match {
                                     case Some((scope, m)) =>
                                         def commonPrefix(s : Scope) : List[AST.Parameter] =
                                             context find { _._1 == s } match {
@@ -424,7 +424,7 @@ package object NameTable {
         def qualifyNames(context : List[(Scope, List[AST.Parameter])]) {
             packages.values foreach { p => p.qualifyNames(context :+ (p, context.last._2 ++ p.parameters)) }
 
-            members = members mapValues {
+            functions = functions mapValues {
                 case f : AST.FunDef => fullyQualified(f, context)
                 case a : AST.FunAlias => a.copy(target = fullyQualifyName(a.target))
                 case x => x
@@ -444,7 +444,7 @@ package object NameTable {
     private def create(p : AST.Definitions, a : Iterable[AST.Attribute], impl : Scope) {
         p.definitions foreach {
             case t : AST.TypeDeclaration => impl.add(t)
-            case m : AST.Member => impl.add(m)
+            case m : AST.FunctionDeclaration => impl.add(m)
             case package_def : AST.PackageDef => impl.add(package_def)
         }
         a foreach { impl.add }
