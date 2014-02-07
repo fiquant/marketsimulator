@@ -41,12 +41,12 @@ package object Typer
                 println("\t" + source.qualifiedName)
 
             try {
-                source.members.values foreach { definition =>
+                source.members.values flatMap { definition =>
                     try {
                         definition match {
-                            case a : AST.FunAlias =>
-                            case f : AST.FunDef =>
-                            case t : AST.TypeDeclaration => getTyped(t)
+                            case a : AST.FunAlias => Some({ () => getTyped(a) })
+                            case f : AST.FunDef => Some({ () => getTyped(f) })
+                            case t : AST.TypeDeclaration => getTyped(t); None
                             case _ => throw new Exception("cannot type a member: " + definition)
                         }
                     }
@@ -54,21 +54,8 @@ package object Typer
                         case ex : Exception =>
                             throw new Exception(s"\r\nWhen typing '${source qualifyName definition.name}':\r\n" + ex.getMessage, ex)
                     }
-                }
-                source.members.values foreach { definition =>
-                    try {
-                        definition match {
-                            case a : AST.FunAlias => getTyped(a)
-                            case f : AST.FunDef => getTyped(f)
-                            case t : AST.TypeDeclaration =>
-                            case _ => throw new Exception("cannot type a member: " + definition)
-                        }
-                    }
-                    catch {
-                        case ex : Exception =>
-                            throw new Exception(s"\r\nWhen typing '${source qualifyName definition.name}':\r\n" + ex.getMessage, ex)
-                    }
-                }
+                } foreach { _.apply() }
+
                 source.packages.values foreach { Processor(_).run() }
             } catch {
                 case e : Exception =>
