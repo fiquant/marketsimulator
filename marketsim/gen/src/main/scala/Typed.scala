@@ -268,7 +268,7 @@ package object Typed
 
     abstract class Package
     {
-        var functions = Map[String, FunctionDecl]()
+        var functions = Map[String, List[FunctionDecl]]()
         var packages = Map[String, SubPackage]()
         var types = Map[String, TypeDeclaration]()
         var annotations = List[Annotation]()
@@ -281,7 +281,7 @@ package object Typed
         def getName : String
 
         def insert(f : FunctionDecl)  = {
-            functions = functions updated (f.name, f)
+            functions = functions updated (f.name, f :: (functions getOrElse (f.name, Nil)))
             f
         }
 
@@ -304,11 +304,10 @@ package object Typed
             case _ => false
         }
 
-        def getOrElseUpdateFunction(name : String, default : => Typed.Function) =
-            functions get name match {
-                case Some(f) => f
-                case None => insert(default)
-            }
+        def updateFunction(name : String, f : => Typed.FunctionDecl) {
+            if (!(functions contains name))
+                insert(f)
+        }
 
         def getOrElseUpdateFunctionAlias(name : String, default : => Typed.FunctionAlias) =
             functions get name match {
@@ -317,7 +316,7 @@ package object Typed
             }
 
         protected def getFunctionImpl(name : String) =
-            functions get name map { _.target }
+            functions get name map { _ map { _.target } }
 
         def getFunction(name : String) = getFunctionImpl(name)
 
@@ -455,11 +454,11 @@ package object Typed
         {
             pkg.packages.values foreach { apply(_) }
 
-            pkg.functions.values foreach {
+            pkg.functions.values foreach { _ foreach {
                 case f : Typed.Function =>
                     f.annotations collect { case Typed.Annotation(g : AfterTyping, args) => g.afterTyping(args)(f) }
                 case f : Typed.FunctionAlias =>
-            }
+            } }
         }
     }
 }

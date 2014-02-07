@@ -23,7 +23,9 @@ object order_factory_curried
                        f      : Typed.Function) =
     {
         f.parent getFunction args(0) match {
-            case Some(x) => x
+            case Some(x :: Nil) => x
+            case Some(x) =>
+                throw new Exception("cannot handle overloads for " + f.name)
             case None    =>
                 throw new Exception("cannot find original for curried factory " + f.name)
         }

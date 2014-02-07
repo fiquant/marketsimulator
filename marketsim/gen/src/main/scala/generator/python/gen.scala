@@ -50,7 +50,7 @@ package object gen
 
         for (idx_out <- managed(printWriter(idx_dir, "__init__.py")))
         {
-            p.functions.values foreach {
+            p.functions.values foreach { _ foreach {
                 case f : Typed.Function =>
                     try {
                         generationUnit(f) map { g =>
@@ -97,7 +97,7 @@ package object gen
                     generationUnit(f.target) map { g =>
                         idx_out.println(base.withImports(Printer.importsOf(f.target).as(f.name)))
                     }
-            }
+            } }
 
             if (p.types.nonEmpty)
             {

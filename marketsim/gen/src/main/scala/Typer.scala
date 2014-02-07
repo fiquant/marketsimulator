@@ -66,16 +66,18 @@ package object Typer
             }
         }
 
-        private def getTyped(definition : AST.FunAlias) : Typed.FunctionDecl = {
-            source.typed.get.getOrElseUpdateFunctionAlias(definition.name, {
+        private def getTyped(definition : AST.FunAlias) : List[Typed.FunctionDecl] = {
+            source.typed.get.updateFunction(definition.name, {
                     visited.enter(source qualifyName definition.name) { toTyped(definition) }
             })
+            source.typed.get.getFunction(definition.name).get
         }
 
-        private def getTyped(definition : AST.FunDef) : Typed.FunctionDecl = {
-            source.typed.get.getOrElseUpdateFunction(definition.name, {
+        private def getTyped(definition : AST.FunDef) : List[Typed.FunctionDecl] = {
+            source.typed.get.updateFunction(definition.name, {
                     visited.enter(source qualifyName definition.name) { toTyped(definition) }
             })
+            source.typed.get.getFunction(definition.name).get
         }
 
         private def getTyped(definition : AST.TypeDeclaration) : Typed.TypeDeclaration = {
@@ -91,7 +93,7 @@ package object Typer
 
         private def lookupFunction(name : AST.QualifiedName) : Typed.Function =
             source lookupFunction name.names match {
-                case Some((scope, definition)) => Processor(scope).getTyped(definition).target
+                case Some((scope, definition)) => Processor(scope).getTyped(definition).head.target
                 case None =>
                     source lookupFunctionAlias name.names match {
                         case Some((scope, definition)) => lookupFunction(definition.target)
