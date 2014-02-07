@@ -275,19 +275,18 @@ package object NameTable {
                 }
         }
 
-        private def lookupInnerScopes[T <: AST.FunctionDeclaration](qn : List[String])(implicit t : Manifest[T]) : Option[(Scope, T)] =
+        private def lookupFunctionInnerScopes(qn : List[String]) : Option[(Scope, AST.FunDef)] =
         {
             //println(s"looking for $qn in inner scopes of $qualifiedNameAnon ")
             qn match {
                 case x :: Nil =>
                     functions get x match {
-                        case Some(f) if f.cast[T].nonEmpty
-                            => Some((this, f.asInstanceOf[T]))
-                        case _
-                            => None
+                        case Some(f : AST.FunDef) => Some((this, f))
+                        case Some(alias : AST.FunAlias) => resolveFunction(alias.target)
+                        case None => None
                     }
                 case x :: tl =>
-                    packages get x map { _ lookupInnerScopes tl } match {
+                    packages get x map { _ lookupFunctionInnerScopes tl } match {
                         case Some(y)  => y
                         case None     => None
                     }
@@ -295,46 +294,32 @@ package object NameTable {
         }
 
 
-        def lookup[T <: AST.FunctionDeclaration](qn : List[String])(implicit t : Manifest[T]) : Option[(Scope, T)] =
+        def lookupFunction(qn : List[String]) : Option[(Scope, AST.FunDef)] =
         {
             //println(s"looking for $qn in $qualifiedNameAnon")
             if (isAnonymous)
-                parent.get lookup qn
+                parent.get lookupFunction qn
             else
                 qn match {
                     case Nil => throw new Exception("Qualified name cannot be empty")
                     case "" :: tl =>
                         parent match {
-                            case Some(p) => p lookup qn
-                            case None    => lookup(tl)
+                            case Some(p) => p lookupFunction qn
+                            case None    => lookupFunction(tl)
                         }
                     case _ =>
-                        lookupInnerScopes(qn) match {
+                        lookupFunctionInnerScopes(qn) match {
                             case Some(x) => Some(x)
                             case None    =>
-                                parent flatMap { _ lookup qn }
+                                parent flatMap { _ lookupFunction qn }
                         }
                 }
         }
 
-        def lookupFunction      (name : List[String]) : Option[(Scope, AST.FunDef)]         = lookup[AST.FunDef](name)
-        def lookupFunctionAlias (name : List[String]) : Option[(Scope, AST.FunAlias)]       = lookup[AST.FunAlias](name)
-
-        def resolveFunction(name : AST.QualifiedName) : Option[(Scope, AST.FunDef)] =
-            lookupFunction(name.names) match {
-                case r : Some[_] => r
-                case None =>
-                    println("resolve alias for " + name)
-                    lookupFunctionAlias(name.names) match {
-                        case Some((scope, alias)) =>
-                            scope resolveFunction alias.target
-                        case None =>
-                            None
-                    }
-            }
+        def resolveFunction(name : AST.QualifiedName) : Option[(Scope, AST.FunDef)] = lookupFunction(name.names)
 
         def fullyQualifyName(n : AST.QualifiedName) =
-            lookup[AST.FunctionDeclaration](n.names) match {
+            lookupFunction(n.names) match {
                 case Some((scope, m)) => scope qualifyName m.name
                 case None => throw new Exception(s"Cannot lookup $n from scope $name")
             }
@@ -362,7 +347,7 @@ package object NameTable {
                         n.names match {
                             case x :: Nil if isLocal(x) => (context.last._2, n)
                             case _ =>
-                                lookup[AST.FunctionDeclaration](n.names) match {
+                                lookupFunction(n.names) match {
                                     case Some((scope, m)) =>
                                         def commonPrefix(s : Scope) : List[AST.Parameter] =
                                             context find { _._1 == s } match {
