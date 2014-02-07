@@ -479,14 +479,12 @@ package object Printer
         trait TopLevelPackage extends Printable {
             def packages    : Map[String, Any]
             def functions   : Map[String, Any]
-            def functionAliases : Map[String, Any]
             def types       : Map[String, Any]
             protected def attributes  : Any
             def content =
                 (packages.values  mkString crlf) +
                 (types.values     mkString crlf) +
-                (functions.values mkString crlf) +
-                (functionAliases.values mkString crlf)
+                (functions.values mkString crlf)
             def wrapped(name : String) =
                 attributes +
                 crlf + s"package $name {" +

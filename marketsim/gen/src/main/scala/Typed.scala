@@ -135,11 +135,19 @@ package object Typed
             with    py.List_
             with    TypeInference.List_
 
+    trait FunctionDecl
+    {
+        val parent : Package
+        val name   : String
+        val target : Function
+    }
+
     case class FunctionAlias(parent : Package,
                              name   : String,
                              target : Function)
             extends sc.FunctionAlias
             with    ScPrintable
+            with    FunctionDecl
     {
         override def equals(o : Any) = o match {
             case other : FunctionAlias => target.qualifiedName == other.target.qualifiedName
@@ -179,7 +187,10 @@ package object Typed
             with    ScPrintable
             with    AttributeReplace
             with    AST.Positional
+            with    FunctionDecl
     {
+        val target = this
+
         def decorators = attributes :: annotations
 
         def qualifiedName = parent qualifyName name
@@ -257,8 +268,7 @@ package object Typed
 
     abstract class Package
     {
-        var functions = Map[String, Function]()
-        var functionAliases = Map[String, FunctionAlias]()
+        var functions = Map[String, FunctionDecl]()
         var packages = Map[String, SubPackage]()
         var types = Map[String, TypeDeclaration]()
         var annotations = List[Annotation]()
@@ -270,13 +280,8 @@ package object Typed
         def tryGetAttributeImpl(name : String) : Option[String]
         def getName : String
 
-        def insert(f : Function)  = {
+        def insert(f : FunctionDecl)  = {
             functions = functions updated (f.name, f)
-            f
-        }
-
-        def insert(f : FunctionAlias)  = {
-            functionAliases = functionAliases updated (f.name, f)
             f
         }
 
@@ -294,7 +299,6 @@ package object Typed
         override def equals(o : Any) = o match {
             case that : Package =>
                 (functions       equals that.functions) &&
-                (functionAliases equals that.functionAliases) &&
                 (packages        equals that.packages)  &&
                 (attributes      equals that.attributes)
             case _ => false
@@ -307,21 +311,13 @@ package object Typed
             }
 
         def getOrElseUpdateFunctionAlias(name : String, default : => Typed.FunctionAlias) =
-            functionAliases get name match {
+            functions get name match {
                 case Some(f) => f
                 case None => insert(default)
             }
 
         protected def getFunctionImpl(name : String) =
-            functions get name match {
-                case Some(f) => Some(f)
-                case None    =>
-                    functionAliases get name match {
-                        case Some(a) => Some(a.target)
-                        case None    => None
-                    }
-
-            }
+            functions get name map { _.target }
 
         def getFunction(name : String) = getFunctionImpl(name)
 
@@ -459,8 +455,10 @@ package object Typed
         {
             pkg.packages.values foreach { apply(_) }
 
-            pkg.functions.values foreach { f=>
-                f.annotations collect { case Typed.Annotation(g : AfterTyping, args) => g.afterTyping(args)(f) }
+            pkg.functions.values foreach {
+                case f : Typed.Function =>
+                    f.annotations collect { case Typed.Annotation(g : AfterTyping, args) => g.afterTyping(args)(f) }
+                case f : Typed.FunctionAlias =>
             }
         }
     }
