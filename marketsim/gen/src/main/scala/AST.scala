@@ -111,7 +111,10 @@ package object AST {
             with    pp.FunctionAlias
             with    ScPrintable
 
-    sealed abstract class TypeDeclaration extends Member
+    sealed abstract class TypeDeclaration extends Definition
+    {
+        val name : String
+    }
 
     case class Interface(name       : String,
                          generics   : Generics,

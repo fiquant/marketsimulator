@@ -509,6 +509,7 @@ package object Printer
 
             def content =
                 (packages.values map { _ +  crlf } mkString "") +
+                (types.values map { _ +  crlf } mkString "") +
                 (members.values map { _ +  crlf } mkString "")
 
             def wrapped(name : String) =

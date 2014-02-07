@@ -14,6 +14,7 @@ package object NameTable {
     {
         var packages    = Map.empty[String, Scope]
         var members     = Map.empty[String, AST.Member]
+        var types       = Map.empty[String, AST.TypeDeclaration]
         var attributes  = Typed.Attributes(Map.empty)
         var parent      = Option.empty[Scope]
         var typed       = Option.empty[Typed.Package]
@@ -30,6 +31,7 @@ package object NameTable {
                 `abstract` == other.`abstract` &&
                 packages == other.packages &&
                 attributes == other.attributes &&
+                types == other.types &&
                 bases == other.bases &&
                 members == other.members
             case _ => false
@@ -43,6 +45,17 @@ package object NameTable {
                 case Some(x) =>
                     if (x != m)
                         throw new Exception(s"Trying to replace member $x\r\n by $m\r\n at $qualifiedNameAnon" )
+            }
+        }
+
+        def add(t : AST.TypeDeclaration) {
+            types get t.name match {
+                case None =>
+                    check_name_is_unique(t.name, t)
+                    types = types updated (t.name, t)
+                case Some(x) =>
+                    if (x != t)
+                        throw new Exception(s"Trying to replace type member $x\r\n by $t\r\n at $qualifiedNameAnon" )
             }
         }
 
@@ -66,6 +79,8 @@ package object NameTable {
         private def check_name_is_unique(name : String, e : Any) {
             if ((members contains name) && members(name) != e)
                 throw new Exception(s"Duplicate definition for $name:\r\n" + members(name) + "\r\n" + e)
+            if ((types contains name) && types(name) != e)
+                throw new Exception(s"Duplicate definition for $name:\r\n" + types(name) + "\r\n" + e)
             if (packages contains name)
                 throw new Exception(s"Duplicate definition for $name:\r\n" + packages(name) + "\r\n" + e)
         }
@@ -91,6 +106,7 @@ package object NameTable {
                     if (existing.parameters != child.parameters)
                         throw new Exception(s"Trying to merge packages with different parameters:" + existing + child)
                     child.members.values foreach existing.add
+                    child.types.values foreach existing.add
                     child.packages.values foreach existing.populate
                     child.attributes.items foreach { p => existing.addAttribute(p._1, p._2) }
                 case None =>
@@ -148,6 +164,7 @@ package object NameTable {
                             case x => x
                         })
                     }
+                    pkg.types.values foreach { add }
             }
         }
 
@@ -205,6 +222,7 @@ package object NameTable {
                      case Some(b) =>
                          b.injectBasesImpl()
                          b.members.values filterNot { members contains _.name } foreach { add }
+                         b.types.values filterNot { types contains _.name } foreach { add }
                          b.packages.values foreach { populate }
                          b.attributes.items foreach { p => addAttribute(p._1, p._2) }
                      case None =>
@@ -218,6 +236,43 @@ package object NameTable {
         {
             injectBasesImpl()
             packages.values foreach { _.injectBases() }
+        }
+
+        private def lookupTypeInnerScopes(qn : List[String]) : Option[(Scope, AST.TypeDeclaration)] =
+        {
+            //println(s"looking for $qn in inner scopes of $qualifiedNameAnon ")
+            qn match {
+                case x :: Nil =>
+                    types get x map { (this, _) }
+                case x :: tl =>
+                    packages get x map { _ lookupTypeInnerScopes tl } match {
+                        case Some(y)  => y
+                        case None     => None
+                    }
+            }
+        }
+
+
+        def lookupType(qn : List[String]) : Option[(Scope, AST.TypeDeclaration)] =
+        {
+            //println(s"looking for $qn in $qualifiedNameAnon")
+            if (isAnonymous)
+                parent.get lookupType  qn
+            else
+                qn match {
+                    case Nil => throw new Exception("Qualified name cannot be empty")
+                    case "" :: tl =>
+                        parent match {
+                            case Some(p) => p lookupType  qn
+                            case None    => lookupType(tl)
+                        }
+                    case _ =>
+                        lookupTypeInnerScopes(qn) match {
+                            case Some(x) => Some(x)
+                            case None    =>
+                                parent flatMap { _ lookupType  qn }
+                        }
+                }
         }
 
         private def lookupInnerScopes[T <: AST.Member](qn : List[String])(implicit t : Manifest[T]) : Option[(Scope, T)] =
@@ -264,7 +319,6 @@ package object NameTable {
 
         def lookupFunction      (name : List[String]) : Option[(Scope, AST.FunDef)]         = lookup[AST.FunDef](name)
         def lookupFunctionAlias (name : List[String]) : Option[(Scope, AST.FunAlias)]       = lookup[AST.FunAlias](name)
-        def lookupType          (name : List[String]) : Option[(Scope, AST.TypeDeclaration)]= lookup[AST.TypeDeclaration](name)
 
         def resolveFunction(name : AST.QualifiedName) : Option[(Scope, AST.FunDef)] =
             lookupFunction(name.names) match {
@@ -285,9 +339,15 @@ package object NameTable {
                 case None => throw new Exception(s"Cannot lookup $n from scope $name")
             }
 
+        def fullyQualifyType(n : AST.QualifiedName) =
+            lookupType(n.names) match {
+                case Some((scope, m)) => scope qualifyName m.name
+                case None => throw new Exception(s"Cannot lookup $n from scope $name")
+            }
+
         def fullyQualifyType(t : AST.Type) : AST.Type = t match {
             case AST.SimpleType(n, generics) =>
-                AST.SimpleType(fullyQualifyName(n), generics map fullyQualifyType)
+                AST.SimpleType(fullyQualifyType(n), generics map fullyQualifyType)
             case AST.TupleType(elems) => AST.TupleType(elems map fullyQualifyType)
             case AST.FunctionType(args, ret) => AST.FunctionType(args map fullyQualifyType, fullyQualifyType(ret))
             case AST.UnitType => AST.UnitType
@@ -383,6 +443,7 @@ package object NameTable {
 
     private def create(p : AST.Definitions, a : Iterable[AST.Attribute], impl : Scope) {
         p.definitions foreach {
+            case t : AST.TypeDeclaration => impl.add(t)
             case m : AST.Member => impl.add(m)
             case package_def : AST.PackageDef => impl.add(package_def)
         }
