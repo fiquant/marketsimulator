@@ -5,7 +5,7 @@ from marketsim.ops._function import Function
 from marketsim import context
 from marketsim import float
 @registry.expose(["Side function", "Noise"])
-class Noise_Optional________Float_(Function[Side]):
+class Noise_Float(Function[Side]):
     """ 
     """ 
     def __init__(self, side_distribution = None):
@@ -50,5 +50,5 @@ def Noise(side_distribution = None):
     from marketsim import IFunction
     from marketsim import rtti
     if side_distribution is None or rtti.can_be_casted(side_distribution, IFunction[float]):
-        return Noise_Optional________Float_(side_distribution)
+        return Noise_Float(side_distribution)
     raise Exception("Cannot find suitable overload")

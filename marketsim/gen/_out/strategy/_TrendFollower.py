@@ -7,7 +7,7 @@ from marketsim import IEvent
 from marketsim import context
 from marketsim import float
 @registry.expose(["Strategy", "TrendFollower"])
-class TrendFollower_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float_(ISingleAssetStrategy):
+class TrendFollower_IEventSideIOrderGeneratorFloatFloat(ISingleAssetStrategy):
     """  where the *signal* is a trend of the asset.
      Under trend we understand the first derivative of some moving average of asset prices.
      If the derivative is positive, the trader buys; if negative - it sells.
@@ -74,5 +74,5 @@ def TrendFollower(eventGen = None,orderFactory = None,ewma_alpha = None,threshol
         if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
             if ewma_alpha is None or rtti.can_be_casted(ewma_alpha, float):
                 if threshold is None or rtti.can_be_casted(threshold, float):
-                    return TrendFollower_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float_(eventGen,orderFactory,ewma_alpha,threshold)
+                    return TrendFollower_IEventSideIOrderGeneratorFloatFloat(eventGen,orderFactory,ewma_alpha,threshold)
     raise Exception("Cannot find suitable overload")

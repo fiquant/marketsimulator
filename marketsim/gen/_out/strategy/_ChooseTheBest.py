@@ -6,7 +6,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.strategy.choose_the_best import _ChooseTheBest_Impl
 from marketsim import float
 @registry.expose(["Strategy", "ChooseTheBest"])
-class ChooseTheBest_Optional_List__ISingleAssetStrategy____Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float__(_ChooseTheBest_Impl):
+class ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountIFunctionFloat(_ChooseTheBest_Impl):
     """  In some moments of time the most effective strategy
      is chosen and made running; other strategies are suspended.
      It can be considered as a particular case for MultiArmedBandit strategy with
@@ -45,5 +45,5 @@ def ChooseTheBest(strategies = None,account = None,performance = None):
     if strategies is None or rtti.can_be_casted(strategies, listOf(ISingleAssetStrategy)):
         if account is None or rtti.can_be_casted(account, IFunction[IAccount,ISingleAssetStrategy]):
             if performance is None or rtti.can_be_casted(performance, IFunction[IFunction[float],IAccount]):
-                return ChooseTheBest_Optional_List__ISingleAssetStrategy____Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float__(strategies,account,performance)
+                return ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountIFunctionFloat(strategies,account,performance)
     raise Exception("Cannot find suitable overload")

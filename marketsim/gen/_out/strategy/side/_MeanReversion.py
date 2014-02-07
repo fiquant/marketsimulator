@@ -5,7 +5,7 @@ from marketsim.ops._function import Function
 from marketsim import context
 from marketsim import float
 @registry.expose(["Side function", "MeanReversion"])
-class MeanReversion_Optional__Float___Optional__IOrderBook_(Function[Side]):
+class MeanReversion_FloatIOrderBook(Function[Side]):
     """ 
     """ 
     def __init__(self, alpha = None, book = None):
@@ -51,5 +51,5 @@ def MeanReversion(alpha = None,book = None):
     from marketsim import rtti
     if alpha is None or rtti.can_be_casted(alpha, float):
         if book is None or rtti.can_be_casted(book, IOrderBook):
-            return MeanReversion_Optional__Float___Optional__IOrderBook_(alpha,book)
+            return MeanReversion_FloatIOrderBook(alpha,book)
     raise Exception("Cannot find suitable overload")

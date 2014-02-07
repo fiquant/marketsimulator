@@ -4,7 +4,7 @@ from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Log/Pow", "Sqr"])
-class Sqr_Optional__IFunction__Float__(Observable[float]):
+class Sqr_IFunctionFloat(Observable[float]):
     """ 
     """ 
     def __init__(self, x = None):
@@ -51,5 +51,5 @@ def Sqr(x = None):
     from marketsim import float
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
-        return Sqr_Optional__IFunction__Float__(x)
+        return Sqr_IFunctionFloat(x)
     raise Exception("Cannot find suitable overload")

@@ -3,7 +3,7 @@ from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IFunction
 @registry.expose(["Log/Pow", "Log"])
-class Log_Optional__IFunction__Float__(Observable[float]):
+class Log_IFunctionFloat(Observable[float]):
     """ 
     """ 
     def __init__(self, x = None):
@@ -40,5 +40,5 @@ def Log(x = None):
     from marketsim import float
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
-        return Log_Optional__IFunction__Float__(x)
+        return Log_IFunctionFloat(x)
     raise Exception("Cannot find suitable overload")

@@ -3,7 +3,7 @@ from marketsim import float
 from marketsim.ops._function import Function
 from marketsim import context
 @registry.expose(["Basic", "constant"])
-class constant_Optional__Float_(Function[float]):
+class constant_Float(Function[float]):
     """ 
     """ 
     def __init__(self, x = None):
@@ -42,5 +42,5 @@ def constant(x = None):
     from marketsim import float
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, float):
-        return constant_Optional__Float_(x)
+        return constant_Float(x)
     raise Exception("Cannot find suitable overload")

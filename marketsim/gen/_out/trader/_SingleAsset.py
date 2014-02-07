@@ -6,7 +6,7 @@ from marketsim import IOrderBook
 from marketsim import listOf
 from marketsim import float
 
-class SingleAsset__IOrderBook__Optional__ISingleAssetStrategy___Optional__String___Optional__Float___Optional__Float___Optional_List__ITimeSerie__(_SingleAsset_Impl):
+class SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie(_SingleAsset_Impl):
     """ 
     """ 
     def __init__(self, orderBook , strategy = None, name = None, amount = None, PnL = None, timeseries = None):
@@ -50,5 +50,5 @@ def SingleAsset(orderBook = None,strategy = None,name = None,amount = None,PnL =
                 if amount is None or rtti.can_be_casted(amount, float):
                     if PnL is None or rtti.can_be_casted(PnL, float):
                         if timeseries is None or rtti.can_be_casted(timeseries, listOf(ITimeSerie)):
-                            return SingleAsset__IOrderBook__Optional__ISingleAssetStrategy___Optional__String___Optional__Float___Optional__Float___Optional_List__ITimeSerie__(orderBook,strategy,name,amount,PnL,timeseries)
+                            return SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie(orderBook,strategy,name,amount,PnL,timeseries)
     raise Exception("Cannot find suitable overload")

@@ -4,7 +4,7 @@ from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import float
 @registry.expose(["Strategy", "Score"])
-class Score__IAccount(Function[float],_Score_Impl):
+class Score_IAccount(Function[float],_Score_Impl):
     """  Returns difference between them.
     
      TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))
@@ -30,5 +30,5 @@ def Score(trader = None):
     from marketsim import IAccount
     from marketsim import rtti
     if trader is None or rtti.can_be_casted(trader, IAccount):
-        return Score__IAccount(trader)
+        return Score_IAccount(trader)
     raise Exception("Cannot find suitable overload")

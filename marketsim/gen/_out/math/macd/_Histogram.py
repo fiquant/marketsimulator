@@ -4,7 +4,7 @@ from marketsim.ops._function import Function
 from marketsim import context
 from marketsim import float
 @registry.expose(["MACD", "Histogram"])
-class Histogram_Optional__IObservable__Float____Optional__Float___Optional__Float___Optional__Float___Optional__Float_(Function[float]):
+class Histogram_IObservableFloatFloatFloatFloatFloat(Function[float]):
     """ 
     """ 
     def __init__(self, x = None, slow = None, fast = None, timeframe = None, step = None):
@@ -59,5 +59,5 @@ def Histogram(x = None,slow = None,fast = None,timeframe = None,step = None):
             if fast is None or rtti.can_be_casted(fast, float):
                 if timeframe is None or rtti.can_be_casted(timeframe, float):
                     if step is None or rtti.can_be_casted(step, float):
-                        return Histogram_Optional__IObservable__Float____Optional__Float___Optional__Float___Optional__Float___Optional__Float_(x,slow,fast,timeframe,step)
+                        return Histogram_IObservableFloatFloatFloatFloatFloat(x,slow,fast,timeframe,step)
     raise Exception("Cannot find suitable overload")

@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.event import _After_Impl
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Event", "After"])
-class After_Optional__IFunction__Float__(_After_Impl):
+class After_IFunctionFloat(_After_Impl):
     """ 
     """ 
     def __init__(self, delay = None):
@@ -28,5 +28,5 @@ def After(delay = None):
     from marketsim import float
     from marketsim import rtti
     if delay is None or rtti.can_be_casted(delay, IFunction[float]):
-        return After_Optional__IFunction__Float__(delay)
+        return After_IFunctionFloat(delay)
     raise Exception("Cannot find suitable overload")

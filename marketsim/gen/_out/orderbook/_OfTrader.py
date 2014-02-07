@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.orderbook.of_trader import _OfTrader_Impl
 from marketsim import IAccount
 @registry.expose(["Asset", "OfTrader"])
-class OfTrader_Optional__IAccount_(_OfTrader_Impl):
+class OfTrader_IAccount(_OfTrader_Impl):
     """ 
       May be used only in objects that are held by traders (so it is used in trader properties and strategies)
     """ 
@@ -21,4 +21,4 @@ class OfTrader_Optional__IAccount_(_OfTrader_Impl):
         'Trader' : IAccount
     }
     
-OfTrader = OfTrader_Optional__IAccount_
+OfTrader = OfTrader_IAccount

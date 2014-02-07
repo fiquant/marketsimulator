@@ -6,7 +6,7 @@ from marketsim import IVolumeLevels
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Asset", "VolumeLevels"])
-class VolumeLevels_Optional__IOrderQueue___Optional__Float___Optional__Int_(Observable[IVolumeLevels],VolumeLevels_Impl):
+class VolumeLevels_IOrderQueueFloatInt(Observable[IVolumeLevels],VolumeLevels_Impl):
     """   Level of volume V is a price at which cumulative volume of better orders is V
     """ 
     def __init__(self, queue = None, volumeDelta = None, volumeCount = None):
@@ -41,4 +41,4 @@ class VolumeLevels_Optional__IOrderQueue___Optional__Float___Optional__Int_(Obse
     def __repr__(self):
         return "VolumeLevels(%(queue)s)" % self.__dict__
     
-VolumeLevels = VolumeLevels_Optional__IOrderQueue___Optional__Float___Optional__Int_
+VolumeLevels = VolumeLevels_IOrderQueueFloatInt

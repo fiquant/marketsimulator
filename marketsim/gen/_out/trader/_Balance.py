@@ -4,7 +4,7 @@ from marketsim import IAccount
 from marketsim import registry
 from marketsim import Price
 @registry.expose(["Trader", "Balance"])
-class Balance_Optional__IAccount_(Observable[Price],Balance_Impl):
+class Balance_IAccount(Observable[Price],Balance_Impl):
     """ 
     """ 
     def __init__(self, trader = None):
@@ -35,5 +35,5 @@ def Balance(trader = None):
     from marketsim import IAccount
     from marketsim import rtti
     if trader is None or rtti.can_be_casted(trader, IAccount):
-        return Balance_Optional__IAccount_(trader)
+        return Balance_IAccount(trader)
     raise Exception("Cannot find suitable overload")

@@ -4,7 +4,7 @@ from marketsim import registry
 from marketsim import Price
 from marketsim import context
 @registry.expose(["Asset", "MidPrice"])
-class MidPrice_Optional__IOrderBook_(Observable[Price]):
+class MidPrice_IOrderBook(Observable[Price]):
     """ 
     """ 
     def __init__(self, book = None):
@@ -51,4 +51,4 @@ class MidPrice_Optional__IOrderBook_(Observable[Price]):
         from marketsim.gen._out.observable._Price import Price as _observable_Price
         return _observable_Price(_ops_Div(_ops_Add(_orderbook_ask_Price(self.book),_orderbook_bid_Price(self.book)),_const(2.0)))
     
-MidPrice = MidPrice_Optional__IOrderBook_
+MidPrice = MidPrice_IOrderBook

@@ -5,7 +5,7 @@ from marketsim import IOrderBook
 from marketsim import listOf
 from marketsim import registry
 @registry.expose(["Asset", "Remote"])
-class Remote_Optional__IOrderBook___Optional__ITwoWayLink___Optional_List__ITimeSerie__(_Remote_Impl):
+class Remote_IOrderBookITwoWayLinkListITimeSerie(_Remote_Impl):
     """  to the market by means of a *link* that introduces some latency in information propagation
     """ 
     def __init__(self, orderbook = None, link = None, timeseries = None):
@@ -30,4 +30,4 @@ class Remote_Optional__IOrderBook___Optional__ITwoWayLink___Optional_List__ITime
     def __repr__(self):
         return "%(orderbook)s.name^remote" % self.__dict__
     
-Remote = Remote_Optional__IOrderBook___Optional__ITwoWayLink___Optional_List__ITimeSerie__
+Remote = Remote_IOrderBookITwoWayLinkListITimeSerie

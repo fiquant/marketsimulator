@@ -4,7 +4,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.observable.minmax import Max_Impl
 from marketsim import float
 @registry.expose(["Statistics", "Max"])
-class Max_Optional__IFunction__Float____Optional__Float_(Observable[float],Max_Impl):
+class Max_IFunctionFloatFloat(Observable[float],Max_Impl):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
@@ -41,5 +41,5 @@ def Max(source = None,timeframe = None):
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IFunction[float]):
         if timeframe is None or rtti.can_be_casted(timeframe, float):
-            return Max_Optional__IFunction__Float____Optional__Float_(source,timeframe)
+            return Max_IFunctionFloatFloat(source,timeframe)
     raise Exception("Cannot find suitable overload")

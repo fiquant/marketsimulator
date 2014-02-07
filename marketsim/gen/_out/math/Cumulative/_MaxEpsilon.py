@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.observable.minmax_eps import MaxEpsilon_Impl
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Statistics", "MaxEpsilon"])
-class MaxEpsilon_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[float],MaxEpsilon_Impl):
+class MaxEpsilon_IFunctionFloatIFunctionFloat(Observable[float],MaxEpsilon_Impl):
     """ 
       It fires updates only if *source* value becomes greater than the old value plus *epsilon*
     """ 
@@ -42,5 +42,5 @@ def MaxEpsilon(source = None,epsilon = None):
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IFunction[float]):
         if epsilon is None or rtti.can_be_casted(epsilon, IFunction[float]):
-            return MaxEpsilon_Optional__IFunction__Float____Optional__IFunction__Float__(source,epsilon)
+            return MaxEpsilon_IFunctionFloatIFunctionFloat(source,epsilon)
     raise Exception("Cannot find suitable overload")

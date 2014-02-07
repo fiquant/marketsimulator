@@ -5,7 +5,7 @@ from marketsim import IObservable
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Basic", "CandleSticks"])
-class CandleSticks_Optional__IObservable__Float____Optional__Float_(Observable[CandleStick],CandleSticks_Impl):
+class CandleSticks_IObservableFloatFloat(Observable[CandleStick],CandleSticks_Impl):
     """  open/close/min/max price, its average and standard deviation
     """ 
     def __init__(self, source = None, timeframe = None):
@@ -42,5 +42,5 @@ def CandleSticks(source = None,timeframe = None):
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservable[float]):
         if timeframe is None or rtti.can_be_casted(timeframe, float):
-            return CandleSticks_Optional__IObservable__Float____Optional__Float_(source,timeframe)
+            return CandleSticks_IObservableFloatFloat(source,timeframe)
     raise Exception("Cannot find suitable overload")

@@ -6,7 +6,7 @@ from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Side function", "FundamentalValue"])
-class FundamentalValue_Optional__IFunction__Float____Optional__IOrderBook_(Observable[Side]):
+class FundamentalValue_IFunctionFloatIOrderBook(Observable[Side]):
     """ 
     """ 
     def __init__(self, fv = None, book = None):
@@ -65,5 +65,5 @@ def FundamentalValue(fv = None,book = None):
     from marketsim import rtti
     if fv is None or rtti.can_be_casted(fv, IFunction[float]):
         if book is None or rtti.can_be_casted(book, IOrderBook):
-            return FundamentalValue_Optional__IFunction__Float____Optional__IOrderBook_(fv,book)
+            return FundamentalValue_IFunctionFloatIOrderBook(fv,book)
     raise Exception("Cannot find suitable overload")

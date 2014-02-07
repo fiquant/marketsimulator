@@ -5,7 +5,7 @@ from marketsim import registry
 from marketsim import bool
 from marketsim import float
 @registry.expose(["Ops", "GreaterEqual"])
-class GreaterEqual_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[bool],_GreaterEqual_Impl):
+class GreaterEqual_IFunctionFloatIFunctionFloat(Observable[bool],_GreaterEqual_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -42,5 +42,5 @@ def GreaterEqual(x = None,y = None):
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
         if y is None or rtti.can_be_casted(y, IFunction[float]):
-            return GreaterEqual_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)
+            return GreaterEqual_IFunctionFloatIFunctionFloat(x,y)
     raise Exception("Cannot find suitable overload")

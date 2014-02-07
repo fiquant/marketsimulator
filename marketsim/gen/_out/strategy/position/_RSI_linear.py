@@ -6,7 +6,7 @@ from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Volume function", "RSI_linear"])
-class RSI_linear_Optional__Float___Optional__IObservable__Float____Optional__Float___Optional__ISingleAssetTrader_(Observable[Volume]):
+class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(Observable[Volume]):
     """ 
     """ 
     def __init__(self, alpha = None, k = None, timeframe = None, trader = None):
@@ -70,5 +70,5 @@ def RSI_linear(alpha = None,k = None,timeframe = None,trader = None):
         if k is None or rtti.can_be_casted(k, IObservable[float]):
             if timeframe is None or rtti.can_be_casted(timeframe, float):
                 if trader is None or rtti.can_be_casted(trader, ISingleAssetTrader):
-                    return RSI_linear_Optional__Float___Optional__IObservable__Float____Optional__Float___Optional__ISingleAssetTrader_(alpha,k,timeframe,trader)
+                    return RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(alpha,k,timeframe,trader)
     raise Exception("Cannot find suitable overload")

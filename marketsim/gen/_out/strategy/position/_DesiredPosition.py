@@ -6,7 +6,7 @@ from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Volume function", "DesiredPosition"])
-class DesiredPosition_Optional__IObservable__Float____Optional__ISingleAssetTrader_(Observable[Volume]):
+class DesiredPosition_IObservableFloatISingleAssetTrader(Observable[Volume]):
     """ 
     """ 
     def __init__(self, desiredPosition = None, trader = None):
@@ -61,5 +61,5 @@ def DesiredPosition(desiredPosition = None,trader = None):
     from marketsim import rtti
     if desiredPosition is None or rtti.can_be_casted(desiredPosition, IObservable[float]):
         if trader is None or rtti.can_be_casted(trader, ISingleAssetTrader):
-            return DesiredPosition_Optional__IObservable__Float____Optional__ISingleAssetTrader_(desiredPosition,trader)
+            return DesiredPosition_IObservableFloatISingleAssetTrader(desiredPosition,trader)
     raise Exception("Cannot find suitable overload")

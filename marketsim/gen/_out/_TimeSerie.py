@@ -4,7 +4,7 @@ from marketsim import IObservable
 from marketsim import IGraph
 from marketsim import registry
 @registry.expose(["Basic", "TimeSerie"])
-class TimeSerie_Optional__IObservable_Any____Optional__IGraph___Optional__Int___Optional__Int_(_ToRecord_Impl):
+class TimeSerie_IObservableAnyIGraphIntInt(_ToRecord_Impl):
     """   Used to specify what data should be collected about order books and traders
     """ 
     def __init__(self, source = None, graph = None, _digitsToShow = None, _smooth = None):
@@ -40,5 +40,5 @@ def TimeSerie(source = None,graph = None,_digitsToShow = None,_smooth = None):
         if graph is None or rtti.can_be_casted(graph, IGraph):
             if _digitsToShow is None or rtti.can_be_casted(_digitsToShow, int):
                 if _smooth is None or rtti.can_be_casted(_smooth, int):
-                    return TimeSerie_Optional__IObservable_Any____Optional__IGraph___Optional__Int___Optional__Int_(source,graph,_digitsToShow,_smooth)
+                    return TimeSerie_IObservableAnyIGraphIntInt(source,graph,_digitsToShow,_smooth)
     raise Exception("Cannot find suitable overload")

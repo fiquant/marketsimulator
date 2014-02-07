@@ -6,7 +6,7 @@ from marketsim import listOf
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Asset", "Local"])
-class Local_Optional__String___Optional__Float___Optional__Int___Optional_List__ITimeSerie__(_Local_Impl):
+class Local_StringFloatIntListITimeSerie(_Local_Impl):
     """  Maintains two order queues for orders of different sides
     """ 
     def __init__(self, name = None, tickSize = None, _digitsToShow = None, timeseries = None):
@@ -42,5 +42,5 @@ def Local(name = None,tickSize = None,_digitsToShow = None,timeseries = None):
         if tickSize is None or rtti.can_be_casted(tickSize, float):
             if _digitsToShow is None or rtti.can_be_casted(_digitsToShow, int):
                 if timeseries is None or rtti.can_be_casted(timeseries, listOf(ITimeSerie)):
-                    return Local_Optional__String___Optional__Float___Optional__Int___Optional_List__ITimeSerie__(name,tickSize,_digitsToShow,timeseries)
+                    return Local_StringFloatIntListITimeSerie(name,tickSize,_digitsToShow,timeseries)
     raise Exception("Cannot find suitable overload")

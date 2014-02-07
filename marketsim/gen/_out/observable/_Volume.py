@@ -5,7 +5,7 @@ from marketsim import Volume
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Basic", "Volume"])
-class Volume_Optional__IFunction__Float__(Observable[Volume],_Observable_Impl):
+class Volume_IFunctionFloat(Observable[Volume],_Observable_Impl):
     """  Needed since generic functions aren't implemented yet
     """ 
     def __init__(self, x = None):
@@ -37,5 +37,5 @@ def Volume(x = None):
     from marketsim import float
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
-        return Volume_Optional__IFunction__Float__(x)
+        return Volume_IFunctionFloat(x)
     raise Exception("Cannot find suitable overload")

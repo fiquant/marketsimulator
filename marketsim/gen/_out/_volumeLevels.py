@@ -6,7 +6,7 @@ from marketsim.gen._intrinsic.timeserie import _VolumeLevels_Impl
 from marketsim import listOf
 from marketsim import float
 
-class volumeLevels__IFunction__IVolumeLevels___Optional__IGraph___Optional__Int___Optional__Int___Optional_List__Float____Optional__Int_(_VolumeLevels_Impl):
+class volumeLevels_IFunctionIVolumeLevelsIGraphIntIntListFloatInt(_VolumeLevels_Impl):
     """  Level of volume V is a price at which cumulative volume of better orders is V
     """ 
     def __init__(self, source , graph = None, _digitsToShow = None, _smooth = None, _volumes = None, _isBuy = None):
@@ -50,5 +50,5 @@ def volumeLevels(source = None,graph = None,_digitsToShow = None,_smooth = None,
                 if _smooth is None or rtti.can_be_casted(_smooth, int):
                     if _volumes is None or rtti.can_be_casted(_volumes, listOf(float)):
                         if _isBuy is None or rtti.can_be_casted(_isBuy, int):
-                            return volumeLevels__IFunction__IVolumeLevels___Optional__IGraph___Optional__Int___Optional__Int___Optional_List__Float____Optional__Int_(source,graph,_digitsToShow,_smooth,_volumes,_isBuy)
+                            return volumeLevels_IFunctionIVolumeLevelsIGraphIntIntListFloatInt(source,graph,_digitsToShow,_smooth,_volumes,_isBuy)
     raise Exception("Cannot find suitable overload")

@@ -4,7 +4,7 @@ from marketsim import IFunction
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Ops", "Mul"])
-class Mul_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[float],_Mul_Impl):
+class Mul_IFunctionFloatIFunctionFloat(Observable[float],_Mul_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -41,5 +41,5 @@ def Mul(x = None,y = None):
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
         if y is None or rtti.can_be_casted(y, IFunction[float]):
-            return Mul_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)
+            return Mul_IFunctionFloatIFunctionFloat(x,y)
     raise Exception("Cannot find suitable overload")

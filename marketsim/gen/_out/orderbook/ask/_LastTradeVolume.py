@@ -4,7 +4,7 @@ from marketsim import IOrderBook
 from marketsim import registry
 from marketsim import context
 @registry.expose(["Asset", "LastTradeVolume"])
-class LastTradeVolume_Optional__IOrderBook_(Observable[Volume]):
+class LastTradeVolume_IOrderBook(Observable[Volume]):
     """ 
     """ 
     def __init__(self, book = None):
@@ -47,4 +47,4 @@ class LastTradeVolume_Optional__IOrderBook_(Observable[Volume]):
         from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
         return _orderbook_LastTradeVolume(_orderbook_Asks(self.book))
     
-LastTradeVolume = LastTradeVolume_Optional__IOrderBook_
+LastTradeVolume = LastTradeVolume_IOrderBook

@@ -3,7 +3,7 @@ from marketsim import IFunction
 from marketsim import float
 from marketsim import IAccount
 @registry.expose(["Strategy", "trader_EfficiencyTrend"])
-class trader_EfficiencyTrend_Optional__Float_(IFunction[IFunction[float], IAccount]):
+class trader_EfficiencyTrend_Float(IFunction[IFunction[float], IAccount]):
     """ 
     """ 
     def __init__(self, alpha = None):
@@ -32,5 +32,5 @@ def trader_EfficiencyTrend(alpha = None):
     from marketsim import float
     from marketsim import rtti
     if alpha is None or rtti.can_be_casted(alpha, float):
-        return trader_EfficiencyTrend_Optional__Float_(alpha)
+        return trader_EfficiencyTrend_Float(alpha)
     raise Exception("Cannot find suitable overload")

@@ -7,7 +7,7 @@ from marketsim import IEvent
 from marketsim import context
 from marketsim import float
 @registry.expose(["Strategy", "CrossingAverages"])
-class CrossingAverages_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float___Optional__Float_(ISingleAssetStrategy):
+class CrossingAverages_IEventSideIOrderGeneratorFloatFloatFloat(ISingleAssetStrategy):
     """  with different parameters ('slow' and 'fast' averages) and when
      the first is greater than the second one it buys,
      when the first is lower than the second one it sells
@@ -75,5 +75,5 @@ def CrossingAverages(eventGen = None,orderFactory = None,ewma_alpha_1 = None,ewm
             if ewma_alpha_1 is None or rtti.can_be_casted(ewma_alpha_1, float):
                 if ewma_alpha_2 is None or rtti.can_be_casted(ewma_alpha_2, float):
                     if threshold is None or rtti.can_be_casted(threshold, float):
-                        return CrossingAverages_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float___Optional__Float_(eventGen,orderFactory,ewma_alpha_1,ewma_alpha_2,threshold)
+                        return CrossingAverages_IEventSideIOrderGeneratorFloatFloatFloat(eventGen,orderFactory,ewma_alpha_1,ewma_alpha_2,threshold)
     raise Exception("Cannot find suitable overload")

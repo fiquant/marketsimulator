@@ -4,7 +4,7 @@ from marketsim import IFunction
 from marketsim import Side
 from marketsim import registry
 @registry.expose(["Basic", "Side"])
-class Side_Optional__IFunction__Side__(Observable[Side],_ObservableSide_Impl):
+class Side_IFunctionSide(Observable[Side],_ObservableSide_Impl):
     """  Needed since generic functions aren't implemented yet
     """ 
     def __init__(self, x = None):
@@ -36,5 +36,5 @@ def Side(x = None):
     from marketsim import Side
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[Side]):
-        return Side_Optional__IFunction__Side__(x)
+        return Side_IFunctionSide(x)
     raise Exception("Cannot find suitable overload")

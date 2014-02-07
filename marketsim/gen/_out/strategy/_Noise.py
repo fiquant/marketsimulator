@@ -6,7 +6,7 @@ from marketsim import registry
 from marketsim import IEvent
 from marketsim import context
 @registry.expose(["Strategy", "Noise"])
-class Noise_Optional__IEvent___Optional_________Side______IOrderGenerator_(ISingleAssetStrategy):
+class Noise_IEventSideIOrderGenerator(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, eventGen = None, orderFactory = None):
@@ -62,5 +62,5 @@ def Noise(eventGen = None,orderFactory = None):
     from marketsim import Side
     if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
         if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
-            return Noise_Optional__IEvent___Optional_________Side______IOrderGenerator_(eventGen,orderFactory)
+            return Noise_IEventSideIOrderGenerator(eventGen,orderFactory)
     raise Exception("Cannot find suitable overload")

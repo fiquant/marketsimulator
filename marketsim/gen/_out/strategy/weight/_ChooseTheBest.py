@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.strategy.weight import _ChooseTheBest_Impl
 from marketsim import float
 from marketsim import listOf
 @registry.expose(["Strategy", "ChooseTheBest"])
-class ChooseTheBest_Optional_List__Float__(_ChooseTheBest_Impl):
+class ChooseTheBest_ListFloat(_ChooseTheBest_Impl):
     """   having 1 at the index of the maximal element and 0 are at the rest
     """ 
     def __init__(self, array = None):
@@ -27,5 +27,5 @@ def ChooseTheBest(array = None):
     from marketsim import listOf
     from marketsim import rtti
     if array is None or rtti.can_be_casted(array, listOf(float)):
-        return ChooseTheBest_Optional_List__Float__(array)
+        return ChooseTheBest_ListFloat(array)
     raise Exception("Cannot find suitable overload")

@@ -4,7 +4,7 @@ from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Basic", "IfDefined"])
-class IfDefined_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[float]):
+class IfDefined_IFunctionFloatIFunctionFloat(Observable[float]):
     """ 
     """ 
     def __init__(self, x = None, elsePart = None):
@@ -56,5 +56,5 @@ def IfDefined(x = None,elsePart = None):
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
         if elsePart is None or rtti.can_be_casted(elsePart, IFunction[float]):
-            return IfDefined_Optional__IFunction__Float____Optional__IFunction__Float__(x,elsePart)
+            return IfDefined_IFunctionFloatIFunctionFloat(x,elsePart)
     raise Exception("Cannot find suitable overload")

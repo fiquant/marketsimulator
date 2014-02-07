@@ -3,7 +3,7 @@ from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IFunction
 @registry.expose(["Log/Pow", "Pow"])
-class Pow_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[float]):
+class Pow_IFunctionFloatIFunctionFloat(Observable[float]):
     """ 
      Exceptional cases follow Annex F of the C99 standard as far as possible.
      In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,
@@ -52,5 +52,5 @@ def Pow(base = None,power = None):
     from marketsim import rtti
     if base is None or rtti.can_be_casted(base, IFunction[float]):
         if power is None or rtti.can_be_casted(power, IFunction[float]):
-            return Pow_Optional__IFunction__Float____Optional__IFunction__Float__(base,power)
+            return Pow_IFunctionFloatIFunctionFloat(base,power)
     raise Exception("Cannot find suitable overload")

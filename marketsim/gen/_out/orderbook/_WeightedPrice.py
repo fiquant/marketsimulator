@@ -4,7 +4,7 @@ from marketsim.ops._function import Function
 from marketsim import context
 from marketsim import float
 @registry.expose(["Asset", "WeightedPrice"])
-class WeightedPrice_Optional__IOrderQueue___Optional__Float_(Function[float]):
+class WeightedPrice_IOrderQueueFloat(Function[float]):
     """ 
     """ 
     def __init__(self, queue = None, alpha = None):
@@ -47,4 +47,4 @@ class WeightedPrice_Optional__IOrderQueue___Optional__Float_(Function[float]):
         from marketsim.gen._out.ops._Div import Div as _ops_Div
         return _ops_Div(_math_EW_Avg(_observable_Float(_ops_Mul(_orderbook_LastTradePrice(self.queue),_orderbook_LastTradeVolume(self.queue))),self.alpha),_math_EW_Avg(_orderbook_LastTradeVolume(self.queue),self.alpha))
     
-WeightedPrice = WeightedPrice_Optional__IOrderQueue___Optional__Float_
+WeightedPrice = WeightedPrice_IOrderQueueFloat

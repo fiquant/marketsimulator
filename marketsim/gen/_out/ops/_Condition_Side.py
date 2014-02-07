@@ -5,7 +5,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import bool
 @registry.expose(["Ops", "Condition_Side"])
-class Condition_Side_Optional__IFunction__Boolean____Optional________Side___Optional________Side_(Observable[Side],_Condition_Impl):
+class Condition_Side_IFunctionBooleanSideSide(Observable[Side],_Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -50,5 +50,5 @@ def Condition_Side(cond = None,ifpart = None,elsepart = None):
     if cond is None or rtti.can_be_casted(cond, IFunction[bool]):
         if ifpart is None or rtti.can_be_casted(ifpart, IFunction[Side]):
             if elsepart is None or rtti.can_be_casted(elsepart, IFunction[Side]):
-                return Condition_Side_Optional__IFunction__Boolean____Optional________Side___Optional________Side_(cond,ifpart,elsepart)
+                return Condition_Side_IFunctionBooleanSideSide(cond,ifpart,elsepart)
     raise Exception("Cannot find suitable overload")

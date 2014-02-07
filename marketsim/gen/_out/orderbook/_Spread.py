@@ -4,7 +4,7 @@ from marketsim import registry
 from marketsim import Price
 from marketsim import context
 @registry.expose(["Asset", "Spread"])
-class Spread_Optional__IOrderBook_(Observable[Price]):
+class Spread_IOrderBook(Observable[Price]):
     """ 
     """ 
     def __init__(self, book = None):
@@ -49,4 +49,4 @@ class Spread_Optional__IOrderBook_(Observable[Price]):
         from marketsim.gen._out.orderbook.bid._Price import Price as _orderbook_bid_Price
         return _observable_Price(_ops_Sub(_orderbook_ask_Price(self.book),_orderbook_bid_Price(self.book)))
     
-Spread = Spread_Optional__IOrderBook_
+Spread = Spread_IOrderBook

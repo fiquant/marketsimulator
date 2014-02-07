@@ -4,7 +4,7 @@ from marketsim.ops._function import Function
 from marketsim import context
 from marketsim import float
 @registry.expose(["Strategy", "Unit"])
-class Unit__IAccount(Function[float]):
+class Unit_IAccount(Function[float]):
     """ 
     """ 
     def __init__(self, trader = None):
@@ -44,5 +44,5 @@ def Unit(trader = None):
     from marketsim import IAccount
     from marketsim import rtti
     if trader is None or rtti.can_be_casted(trader, IAccount):
-        return Unit__IAccount(trader)
+        return Unit_IAccount(trader)
     raise Exception("Cannot find suitable overload")

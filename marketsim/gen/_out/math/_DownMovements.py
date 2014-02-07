@@ -4,7 +4,7 @@ from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Basic", "DownMovements"])
-class DownMovements_Optional__IObservable__Float____Optional__Float_(Observable[float]):
+class DownMovements_IObservableFloatFloat(Observable[float]):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
@@ -58,5 +58,5 @@ def DownMovements(source = None,timeframe = None):
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservable[float]):
         if timeframe is None or rtti.can_be_casted(timeframe, float):
-            return DownMovements_Optional__IObservable__Float____Optional__Float_(source,timeframe)
+            return DownMovements_IObservableFloatFloat(source,timeframe)
     raise Exception("Cannot find suitable overload")

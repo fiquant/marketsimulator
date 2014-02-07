@@ -4,7 +4,7 @@ from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Trader", "RoughPnL"])
-class RoughPnL_Optional__IAccount_(Observable[float]):
+class RoughPnL_IAccount(Observable[float]):
     """   It takes into account only the best price of the order queue
     """ 
     def __init__(self, trader = None):
@@ -55,5 +55,5 @@ def RoughPnL(trader = None):
     from marketsim import IAccount
     from marketsim import rtti
     if trader is None or rtti.can_be_casted(trader, IAccount):
-        return RoughPnL_Optional__IAccount_(trader)
+        return RoughPnL_IAccount(trader)
     raise Exception("Cannot find suitable overload")

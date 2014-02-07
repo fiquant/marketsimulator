@@ -7,7 +7,7 @@ from marketsim import IEvent
 from marketsim import context
 from marketsim import float
 @registry.expose(["Strategy", "Signal"])
-class Signal_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IFunction__Float____Optional__Float_(ISingleAssetStrategy):
+class Signal_IEventSideIOrderGeneratorIFunctionFloatFloat(ISingleAssetStrategy):
     """  and when the signal becomes more than some threshold the strategy starts to buy.
      When the signal gets lower than -threshold the strategy starts to sell.
     """ 
@@ -72,5 +72,5 @@ def Signal(eventGen = None,orderFactory = None,signal = None,threshold = None):
         if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
             if signal is None or rtti.can_be_casted(signal, IFunction[float]):
                 if threshold is None or rtti.can_be_casted(threshold, float):
-                    return Signal_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IFunction__Float____Optional__Float_(eventGen,orderFactory,signal,threshold)
+                    return Signal_IEventSideIOrderGeneratorIFunctionFloatFloat(eventGen,orderFactory,signal,threshold)
     raise Exception("Cannot find suitable overload")

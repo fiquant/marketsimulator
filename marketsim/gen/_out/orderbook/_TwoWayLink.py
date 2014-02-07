@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.orderbook.link import _TwoWayLink_Impl
 from marketsim import ILink
 @registry.expose(["Asset", "TwoWayLink"])
-class TwoWayLink_Optional__ILink___Optional__ILink_(_TwoWayLink_Impl):
+class TwoWayLink_ILinkILink(_TwoWayLink_Impl):
     """  (normally between a trader and a market).
      Ensures that sending packets via links preserves their order.
      Holds two one-way links in opposite directions.
@@ -26,4 +26,4 @@ class TwoWayLink_Optional__ILink___Optional__ILink_(_TwoWayLink_Impl):
     def __repr__(self):
         return "TwoWayLink(%(up)s, %(down)s)" % self.__dict__
     
-TwoWayLink = TwoWayLink_Optional__ILink___Optional__ILink_
+TwoWayLink = TwoWayLink_ILinkILink

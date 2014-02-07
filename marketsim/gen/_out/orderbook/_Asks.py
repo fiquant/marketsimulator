@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.orderbook.proxy import _Asks_Impl
 from marketsim import IOrderBook
 @registry.expose(["Asset", "Asks"])
-class Asks_Optional__IOrderBook_(_Asks_Impl):
+class Asks_IOrderBook(_Asks_Impl):
     """ 
     """ 
     def __init__(self, book = None):
@@ -22,4 +22,4 @@ class Asks_Optional__IOrderBook_(_Asks_Impl):
     def __repr__(self):
         return "Asks(%(book)s)" % self.__dict__
     
-Asks = Asks_Optional__IOrderBook_
+Asks = Asks_IOrderBook

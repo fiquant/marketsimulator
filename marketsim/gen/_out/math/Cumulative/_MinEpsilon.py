@@ -4,7 +4,7 @@ from marketsim import IFunction
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Statistics", "MinEpsilon"])
-class MinEpsilon_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[float],MinEpsilon_Impl):
+class MinEpsilon_IFunctionFloatIFunctionFloat(Observable[float],MinEpsilon_Impl):
     """ 
       It fires updates only if *source* value becomes less than the old value minus *epsilon*
     """ 
@@ -42,5 +42,5 @@ def MinEpsilon(source = None,epsilon = None):
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IFunction[float]):
         if epsilon is None or rtti.can_be_casted(epsilon, IFunction[float]):
-            return MinEpsilon_Optional__IFunction__Float____Optional__IFunction__Float__(source,epsilon)
+            return MinEpsilon_IFunctionFloatIFunctionFloat(source,epsilon)
     raise Exception("Cannot find suitable overload")

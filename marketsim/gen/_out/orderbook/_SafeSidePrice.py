@@ -6,7 +6,7 @@ from marketsim import Price
 from marketsim import context
 from marketsim import float
 @registry.expose(["Asset", "SafeSidePrice"])
-class SafeSidePrice_Optional__IOrderQueue___Optional__IFunction__Float__(Observable[Price]):
+class SafeSidePrice_IOrderQueueIFunctionFloat(Observable[Price]):
     """   and *defaultValue* if there haven't been any trades
     """ 
     def __init__(self, queue = None, defaultValue = None):
@@ -54,4 +54,4 @@ class SafeSidePrice_Optional__IOrderQueue___Optional__IFunction__Float__(Observa
         from marketsim.gen._out.orderbook._LastPrice import LastPrice as _orderbook_LastPrice
         return _observable_Price(_IfDefined(_orderbook_BestPrice(self.queue),_IfDefined(_orderbook_LastPrice(self.queue),self.defaultValue)))
     
-SafeSidePrice = SafeSidePrice_Optional__IOrderQueue___Optional__IFunction__Float__
+SafeSidePrice = SafeSidePrice_IOrderQueueIFunctionFloat

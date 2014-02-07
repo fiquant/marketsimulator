@@ -4,7 +4,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.orderbook.props import _BestPrice_Impl
 from marketsim import Price
 @registry.expose(["Asset", "BestPrice"])
-class BestPrice_Optional__IOrderQueue_(Observable[Price],_BestPrice_Impl):
+class BestPrice_IOrderQueue(Observable[Price],_BestPrice_Impl):
     """   Returns None is *queue* is empty
     """ 
     def __init__(self, queue = None):
@@ -31,4 +31,4 @@ class BestPrice_Optional__IOrderQueue_(Observable[Price],_BestPrice_Impl):
     def __repr__(self):
         return "BestPrice(%(queue)s)" % self.__dict__
     
-BestPrice = BestPrice_Optional__IOrderQueue_
+BestPrice = BestPrice_IOrderQueue

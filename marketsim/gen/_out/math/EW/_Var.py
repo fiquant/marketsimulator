@@ -4,7 +4,7 @@ from marketsim import registry
 from marketsim.ops._function import Function
 from marketsim import float
 @registry.expose(["Statistics", "Var"])
-class Var_Optional__IObservable__Float____Optional__Float_(Function[float],EWMV_Impl):
+class Var_IObservableFloatFloat(Function[float],EWMV_Impl):
     """ 
     """ 
     def __init__(self, source = None, alpha = None):
@@ -32,5 +32,5 @@ def Var(source = None,alpha = None):
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservable[float]):
         if alpha is None or rtti.can_be_casted(alpha, float):
-            return Var_Optional__IObservable__Float____Optional__Float_(source,alpha)
+            return Var_IObservableFloatFloat(source,alpha)
     raise Exception("Cannot find suitable overload")

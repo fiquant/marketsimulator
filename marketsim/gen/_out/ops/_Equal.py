@@ -5,7 +5,7 @@ from marketsim.gen._intrinsic.ops import _Equal_Impl
 from marketsim import bool
 from marketsim import float
 @registry.expose(["Ops", "Equal"])
-class Equal_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[bool],_Equal_Impl):
+class Equal_IFunctionFloatIFunctionFloat(Observable[bool],_Equal_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -42,5 +42,5 @@ def Equal(x = None,y = None):
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
         if y is None or rtti.can_be_casted(y, IFunction[float]):
-            return Equal_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)
+            return Equal_IFunctionFloatIFunctionFloat(x,y)
     raise Exception("Cannot find suitable overload")

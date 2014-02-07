@@ -7,7 +7,7 @@ from marketsim import IEvent
 from marketsim import context
 from marketsim import float
 @registry.expose(["Strategy", "RSIbis"])
-class RSIbis_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float___Optional__Float_(ISingleAssetStrategy):
+class RSIbis_IEventSideIOrderGeneratorFloatFloatFloat(ISingleAssetStrategy):
     """   and starts to buy when RSI is greater than 50 + *threshold*
       and sells when RSI is less than 50 - *thresold*
     """ 
@@ -78,5 +78,5 @@ def RSIbis(eventGen = None,orderFactory = None,alpha = None,timeframe = None,thr
             if alpha is None or rtti.can_be_casted(alpha, float):
                 if timeframe is None or rtti.can_be_casted(timeframe, float):
                     if threshold is None or rtti.can_be_casted(threshold, float):
-                        return RSIbis_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float___Optional__Float___Optional__Float_(eventGen,orderFactory,alpha,timeframe,threshold)
+                        return RSIbis_IEventSideIOrderGeneratorFloatFloatFloat(eventGen,orderFactory,alpha,timeframe,threshold)
     raise Exception("Cannot find suitable overload")

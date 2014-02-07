@@ -4,7 +4,7 @@ from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Basic", "Min"])
-class Min_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[float]):
+class Min_IFunctionFloatIFunctionFloat(Observable[float]):
     """  If *x* or/and *y* are observables, *Min* is also observable
     """ 
     def __init__(self, x = None, y = None):
@@ -55,5 +55,5 @@ def Min(x = None,y = None):
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
         if y is None or rtti.can_be_casted(y, IFunction[float]):
-            return Min_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)
+            return Min_IFunctionFloatIFunctionFloat(x,y)
     raise Exception("Cannot find suitable overload")

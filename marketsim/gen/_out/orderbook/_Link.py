@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.orderbook.link import _Link_Impl
 from marketsim import IObservable
 from marketsim import float
 @registry.expose(["Asset", "Link"])
-class Link_Optional__IObservable__Float__(_Link_Impl):
+class Link_IObservableFloat(_Link_Impl):
     """  (normally between a trader and a market).
      Ensures that sending packets via a link preserves their order.
     """ 
@@ -24,4 +24,4 @@ class Link_Optional__IObservable__Float__(_Link_Impl):
     def __repr__(self):
         return "Link(%(latency)s)" % self.__dict__
     
-Link = Link_Optional__IObservable__Float__
+Link = Link_IObservableFloat

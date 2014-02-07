@@ -5,7 +5,7 @@ from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Side function", "PairTrading"])
-class PairTrading_Optional__IOrderBook___Optional__Float___Optional__IOrderBook_(Observable[Side]):
+class PairTrading_IOrderBookFloatIOrderBook(Observable[Side]):
     """ 
     """ 
     def __init__(self, bookToDependOn = None, factor = None, book = None):
@@ -62,5 +62,5 @@ def PairTrading(bookToDependOn = None,factor = None,book = None):
     if bookToDependOn is None or rtti.can_be_casted(bookToDependOn, IOrderBook):
         if factor is None or rtti.can_be_casted(factor, float):
             if book is None or rtti.can_be_casted(book, IOrderBook):
-                return PairTrading_Optional__IOrderBook___Optional__Float___Optional__IOrderBook_(bookToDependOn,factor,book)
+                return PairTrading_IOrderBookFloatIOrderBook(bookToDependOn,factor,book)
     raise Exception("Cannot find suitable overload")

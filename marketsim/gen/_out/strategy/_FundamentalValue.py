@@ -7,7 +7,7 @@ from marketsim import IEvent
 from marketsim import context
 from marketsim import float
 @registry.expose(["Strategy", "FundamentalValue"])
-class FundamentalValue_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IFunction__Float__(ISingleAssetStrategy):
+class FundamentalValue_IEventSideIOrderGeneratorIFunctionFloat(ISingleAssetStrategy):
     """  (*fundamental value*) and if the current asset price is lower than the fundamental value
      it starts to buy the asset and if the price is higher it starts to sell the asset.
     """ 
@@ -69,5 +69,5 @@ def FundamentalValue(eventGen = None,orderFactory = None,fundamentalValue = None
     if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
         if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
             if fundamentalValue is None or rtti.can_be_casted(fundamentalValue, IFunction[float]):
-                return FundamentalValue_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IFunction__Float__(eventGen,orderFactory,fundamentalValue)
+                return FundamentalValue_IEventSideIOrderGeneratorIFunctionFloat(eventGen,orderFactory,fundamentalValue)
     raise Exception("Cannot find suitable overload")

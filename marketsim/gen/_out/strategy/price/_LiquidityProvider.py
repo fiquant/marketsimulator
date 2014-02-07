@@ -6,7 +6,7 @@ from marketsim.ops._function import Function
 from marketsim import context
 from marketsim import float
 @registry.expose(["Price function", "LiquidityProvider"])
-class LiquidityProvider_Optional________Side___Optional__Float___Optional________Float___Optional__IOrderBook_(Function[float]):
+class LiquidityProvider_SideFloatFloatIOrderBook(Function[float]):
     """ 
     """ 
     def __init__(self, side = None, initialValue = None, priceDistr = None, book = None):
@@ -63,5 +63,5 @@ def LiquidityProvider(side = None,initialValue = None,priceDistr = None,book = N
         if initialValue is None or rtti.can_be_casted(initialValue, float):
             if priceDistr is None or rtti.can_be_casted(priceDistr, IFunction[float]):
                 if book is None or rtti.can_be_casted(book, IOrderBook):
-                    return LiquidityProvider_Optional________Side___Optional__Float___Optional________Float___Optional__IOrderBook_(side,initialValue,priceDistr,book)
+                    return LiquidityProvider_SideFloatFloatIOrderBook(side,initialValue,priceDistr,book)
     raise Exception("Cannot find suitable overload")

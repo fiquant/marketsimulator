@@ -146,12 +146,12 @@ class Context(object):
     def makeTrader_C(self, strategy, label, additional_ts = []):
         return self.makeTrader(self.book_C, strategy, label, additional_ts)
 
-from marketsim.gen._out.orderbook._Local import Local_Optional__String___Optional__Float___Optional__Int___Optional_List__ITimeSerie__
+from marketsim.gen._out.orderbook._Local import Local_StringFloatIntListITimeSerie
 
 def orderBooksToRender(ctx, traders):
         books = list(set(itertools.chain(*[t.orderBooks for t in traders]))) 
         
-        books = filter(lambda b: type(b) is Local_Optional__String___Optional__Float___Optional__Int___Optional_List__ITimeSerie__, books)
+        books = filter(lambda b: type(b) is Local_StringFloatIntListITimeSerie, books)
         
         graphs = ctx.graphs
         

@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.strategy.combine import _Array_Impl
 from marketsim import ISingleAssetStrategy
 from marketsim import listOf
 @registry.expose(["Strategy", "Array"])
-class Array_Optional_List__ISingleAssetStrategy__(_Array_Impl):
+class Array_ListISingleAssetStrategy(_Array_Impl):
     """ 
     """ 
     def __init__(self, strategies = None):
@@ -28,5 +28,5 @@ def Array(strategies = None):
     from marketsim import listOf
     from marketsim import rtti
     if strategies is None or rtti.can_be_casted(strategies, listOf(ISingleAssetStrategy)):
-        return Array_Optional_List__ISingleAssetStrategy__(strategies)
+        return Array_ListISingleAssetStrategy(strategies)
     raise Exception("Cannot find suitable overload")

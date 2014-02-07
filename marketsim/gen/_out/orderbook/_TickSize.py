@@ -4,7 +4,7 @@ from marketsim import registry
 from marketsim import Price
 from marketsim.ops._function import Function
 @registry.expose(["Asset", "TickSize"])
-class TickSize_Optional__IOrderBook_(Function[Price],_TickSize_Impl):
+class TickSize_IOrderBook(Function[Price],_TickSize_Impl):
     """ 
     """ 
     def __init__(self, book = None):
@@ -24,4 +24,4 @@ class TickSize_Optional__IOrderBook_(Function[Price],_TickSize_Impl):
     def __repr__(self):
         return "TickSize(%(book)s)" % self.__dict__
     
-TickSize = TickSize_Optional__IOrderBook_
+TickSize = TickSize_IOrderBook

@@ -4,7 +4,7 @@ from marketsim.ops._function import Function
 from marketsim import context
 from marketsim import float
 @registry.expose(["Statistics", "RelStdDev"])
-class RelStdDev_Optional__IObservable__Float__(Function[float]):
+class RelStdDev_IObservableFloat(Function[float]):
     """ 
     """ 
     def __init__(self, source = None):
@@ -48,5 +48,5 @@ def RelStdDev(source = None):
     from marketsim import float
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservable[float]):
-        return RelStdDev_Optional__IObservable__Float__(source)
+        return RelStdDev_IObservableFloat(source)
     raise Exception("Cannot find suitable overload")

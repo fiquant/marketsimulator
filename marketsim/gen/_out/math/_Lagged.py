@@ -4,7 +4,7 @@ from marketsim import IObservable
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Basic", "Lagged"])
-class Lagged_Optional__IObservable__Float____Optional__Float_(Observable[float],Lagged_Impl):
+class Lagged_IObservableFloatFloat(Observable[float],Lagged_Impl):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
@@ -41,5 +41,5 @@ def Lagged(source = None,timeframe = None):
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservable[float]):
         if timeframe is None or rtti.can_be_casted(timeframe, float):
-            return Lagged_Optional__IObservable__Float____Optional__Float_(source,timeframe)
+            return Lagged_IObservableFloatFloat(source,timeframe)
     raise Exception("Cannot find suitable overload")

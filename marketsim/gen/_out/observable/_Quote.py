@@ -4,7 +4,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.observable.quote import Quote_Impl
 from marketsim import Price
 @registry.expose(["Basic", "Quote"])
-class Quote_Optional__String___Optional__String___Optional__String_(Observable[Price],Quote_Impl):
+class Quote_StringStringString(Observable[Price],Quote_Impl):
     """   and follows the price in scale 1 model unit of time = 1 real day
     """ 
     def __init__(self, ticker = None, start = None, end = None):
@@ -44,5 +44,5 @@ def Quote(ticker = None,start = None,end = None):
     if ticker is None or rtti.can_be_casted(ticker, str):
         if start is None or rtti.can_be_casted(start, str):
             if end is None or rtti.can_be_casted(end, str):
-                return Quote_Optional__String___Optional__String___Optional__String_(ticker,start,end)
+                return Quote_StringStringString(ticker,start,end)
     raise Exception("Cannot find suitable overload")

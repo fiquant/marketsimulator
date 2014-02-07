@@ -4,7 +4,7 @@ from marketsim.ops._function import Function
 from marketsim import context
 from marketsim import float
 @registry.expose(["Basic", "RSI"])
-class RSI_Optional__IOrderBook___Optional__Float___Optional__Float_(Function[float]):
+class RSI_IOrderBookFloatFloat(Function[float]):
     """ 
     """ 
     def __init__(self, book = None, timeframe = None, alpha = None):
@@ -56,5 +56,5 @@ def RSI(book = None,timeframe = None,alpha = None):
     if book is None or rtti.can_be_casted(book, IOrderBook):
         if timeframe is None or rtti.can_be_casted(timeframe, float):
             if alpha is None or rtti.can_be_casted(alpha, float):
-                return RSI_Optional__IOrderBook___Optional__Float___Optional__Float_(book,timeframe,alpha)
+                return RSI_IOrderBookFloatFloat(book,timeframe,alpha)
     raise Exception("Cannot find suitable overload")

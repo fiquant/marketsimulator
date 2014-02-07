@@ -4,7 +4,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.ops import _Sub_Impl
 from marketsim import float
 @registry.expose(["Ops", "Sub"])
-class Sub_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[float],_Sub_Impl):
+class Sub_IFunctionFloatIFunctionFloat(Observable[float],_Sub_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -41,5 +41,5 @@ def Sub(x = None,y = None):
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
         if y is None or rtti.can_be_casted(y, IFunction[float]):
-            return Sub_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)
+            return Sub_IFunctionFloatIFunctionFloat(x,y)
     raise Exception("Cannot find suitable overload")

@@ -8,7 +8,7 @@ from marketsim import IEvent
 from marketsim import context
 from marketsim import float
 @registry.expose(["Strategy", "PairTrading"])
-class PairTrading_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IOrderBook___Optional__Float_(ISingleAssetStrategy):
+class PairTrading_IEventSideIOrderGeneratorIOrderBookFloat(ISingleAssetStrategy):
     """  is completely correlated with price of another asset *B* and the following relation
      should be held: *PriceA* = *kPriceB*, where *k* is some factor.
      It may be considered as a variety of a fundamental value strategy
@@ -77,5 +77,5 @@ def PairTrading(eventGen = None,orderFactory = None,bookToDependOn = None,factor
         if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
             if bookToDependOn is None or rtti.can_be_casted(bookToDependOn, IOrderBook):
                 if factor is None or rtti.can_be_casted(factor, float):
-                    return PairTrading_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__IOrderBook___Optional__Float_(eventGen,orderFactory,bookToDependOn,factor)
+                    return PairTrading_IEventSideIOrderGeneratorIOrderBookFloat(eventGen,orderFactory,bookToDependOn,factor)
     raise Exception("Cannot find suitable overload")

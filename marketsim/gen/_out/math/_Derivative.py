@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.observable.derivative import _Derivative_Impl
 from marketsim.ops._function import Function
 from marketsim import float
 @registry.expose(["Basic", "Derivative"])
-class Derivative_Optional__IDifferentiable_(Function[float],_Derivative_Impl):
+class Derivative_IDifferentiable(Function[float],_Derivative_Impl):
     """  *x* should provide *derivative* member
     """ 
     def __init__(self, x = None):
@@ -28,5 +28,5 @@ def Derivative(x = None):
     from marketsim import IDifferentiable
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IDifferentiable):
-        return Derivative_Optional__IDifferentiable_(x)
+        return Derivative_IDifferentiable(x)
     raise Exception("Cannot find suitable overload")

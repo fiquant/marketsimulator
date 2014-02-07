@@ -4,7 +4,7 @@ from marketsim.ops._function import Function
 from marketsim import context
 from marketsim import float
 @registry.expose(["MACD", "MACD"])
-class MACD_Optional__IObservable__Float____Optional__Float___Optional__Float_(Function[float]):
+class MACD_IObservableFloatFloatFloat(Function[float]):
     """ 
     """ 
     def __init__(self, x = None, slow = None, fast = None):
@@ -52,5 +52,5 @@ def MACD(x = None,slow = None,fast = None):
     if x is None or rtti.can_be_casted(x, IObservable[float]):
         if slow is None or rtti.can_be_casted(slow, float):
             if fast is None or rtti.can_be_casted(fast, float):
-                return MACD_Optional__IObservable__Float____Optional__Float___Optional__Float_(x,slow,fast)
+                return MACD_IObservableFloatFloatFloat(x,slow,fast)
     raise Exception("Cannot find suitable overload")

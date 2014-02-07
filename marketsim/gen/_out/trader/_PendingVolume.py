@@ -4,7 +4,7 @@ from marketsim import IAccount
 from marketsim import registry
 from marketsim.gen._intrinsic.trader.props import PendingVolume_Impl
 @registry.expose(["Trader", "PendingVolume"])
-class PendingVolume_Optional__IAccount_(Observable[Volume],PendingVolume_Impl):
+class PendingVolume_IAccount(Observable[Volume],PendingVolume_Impl):
     """ 
     """ 
     def __init__(self, trader = None):
@@ -35,5 +35,5 @@ def PendingVolume(trader = None):
     from marketsim import IAccount
     from marketsim import rtti
     if trader is None or rtti.can_be_casted(trader, IAccount):
-        return PendingVolume_Optional__IAccount_(trader)
+        return PendingVolume_IAccount(trader)
     raise Exception("Cannot find suitable overload")

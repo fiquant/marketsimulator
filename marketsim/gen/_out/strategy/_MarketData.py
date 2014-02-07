@@ -4,7 +4,7 @@ from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Strategy", "MarketData"])
-class MarketData_Optional__String___Optional__String___Optional__String___Optional__Float___Optional__Float_(ISingleAssetStrategy):
+class MarketData_StringStringStringFloatFloat(ISingleAssetStrategy):
     """   by creating large volume orders for the given price.
     
       Every time step of 1 in the simulation corresponds to a 1 day in the market data.
@@ -81,5 +81,5 @@ def MarketData(ticker = None,start = None,end = None,delta = None,volume = None)
             if end is None or rtti.can_be_casted(end, str):
                 if delta is None or rtti.can_be_casted(delta, float):
                     if volume is None or rtti.can_be_casted(volume, float):
-                        return MarketData_Optional__String___Optional__String___Optional__String___Optional__Float___Optional__Float_(ticker,start,end,delta,volume)
+                        return MarketData_StringStringStringFloatFloat(ticker,start,end,delta,volume)
     raise Exception("Cannot find suitable overload")

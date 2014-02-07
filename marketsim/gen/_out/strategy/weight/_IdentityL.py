@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.strategy.weight import _Identity_Impl
 from marketsim import float
 from marketsim import listOf
 @registry.expose(["Strategy", "IdentityL"])
-class IdentityL_Optional_List__Float__(_Identity_Impl):
+class IdentityL_ListFloat(_Identity_Impl):
     """ 
     """ 
     def __init__(self, array = None):
@@ -27,5 +27,5 @@ def IdentityL(array = None):
     from marketsim import listOf
     from marketsim import rtti
     if array is None or rtti.can_be_casted(array, listOf(float)):
-        return IdentityL_Optional_List__Float__(array)
+        return IdentityL_ListFloat(array)
     raise Exception("Cannot find suitable overload")

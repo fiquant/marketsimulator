@@ -6,7 +6,7 @@ from marketsim import listOf
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Strategy", "MultiArmedBandit"])
-class MultiArmedBandit_Optional_List__ISingleAssetStrategy____Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float____Optional_Optional__IFunction__Float_______IFunction__Float____Optional_Optional_List__Float______List__Float__(_MultiarmedBandit2_Impl):
+class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountIFunctionFloatIFunctionFloatIFunctionFloatListFloatListFloat(_MultiarmedBandit2_Impl):
     """  In some moments of time the efficiency of the strategies is evaluated
      These efficiencies are mapped into weights using *weight* and *normilizer*
      functions per every strategy and *corrector* for the whole collection of weights
@@ -54,5 +54,5 @@ def MultiArmedBandit(strategies = None,account = None,weight = None,normalizer =
             if weight is None or rtti.can_be_casted(weight, IFunction[IFunction[float],IAccount]):
                 if normalizer is None or rtti.can_be_casted(normalizer, IFunction[IFunction[float],IFunction[float]]):
                     if corrector is None or rtti.can_be_casted(corrector, IFunction[listOf(float),listOf(float)]):
-                        return MultiArmedBandit_Optional_List__ISingleAssetStrategy____Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float____Optional_Optional__IFunction__Float_______IFunction__Float____Optional_Optional_List__Float______List__Float__(strategies,account,weight,normalizer,corrector)
+                        return MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountIFunctionFloatIFunctionFloatIFunctionFloatListFloatListFloat(strategies,account,weight,normalizer,corrector)
     raise Exception("Cannot find suitable overload")

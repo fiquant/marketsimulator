@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.observable.on_every_dt import _OnEveryDt_Impl
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Basic", "OnEveryDt"])
-class OnEveryDt_Optional__Float___Optional__IFunction__Float__(Observable[float],_OnEveryDt_Impl):
+class OnEveryDt_FloatIFunctionFloat(Observable[float],_OnEveryDt_Impl):
     """ 
     """ 
     def __init__(self, dt = None, x = None):
@@ -37,5 +37,5 @@ def OnEveryDt(dt = None,x = None):
     from marketsim import rtti
     if dt is None or rtti.can_be_casted(dt, float):
         if x is None or rtti.can_be_casted(x, IFunction[float]):
-            return OnEveryDt_Optional__Float___Optional__IFunction__Float__(dt,x)
+            return OnEveryDt_FloatIFunctionFloat(dt,x)
     raise Exception("Cannot find suitable overload")

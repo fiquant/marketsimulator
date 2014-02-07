@@ -5,7 +5,7 @@ from marketsim import str
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Basic", "RandomWalk"])
-class RandomWalk_Optional__Float___Optional________Float___Optional________Float___Optional__String_(Observable[float],_RandomWalk_Impl):
+class RandomWalk_FloatFloatFloatString(Observable[float],_RandomWalk_Impl):
     """ 
     """ 
     def __init__(self, initialValue = None, deltaDistr = None, intervalDistr = None, name = None):
@@ -54,5 +54,5 @@ def RandomWalk(initialValue = None,deltaDistr = None,intervalDistr = None,name =
         if deltaDistr is None or rtti.can_be_casted(deltaDistr, IFunction[float]):
             if intervalDistr is None or rtti.can_be_casted(intervalDistr, IFunction[float]):
                 if name is None or rtti.can_be_casted(name, str):
-                    return RandomWalk_Optional__Float___Optional________Float___Optional________Float___Optional__String_(initialValue,deltaDistr,intervalDistr,name)
+                    return RandomWalk_FloatFloatFloatString(initialValue,deltaDistr,intervalDistr,name)
     raise Exception("Cannot find suitable overload")

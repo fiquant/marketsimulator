@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.moments.cma import CMA_Impl
 from marketsim.ops._function import Function
 from marketsim import float
 @registry.expose(["Statistics", "Avg"])
-class Avg_Optional__IObservable__Float__(Function[float],CMA_Impl):
+class Avg_IObservableFloat(Function[float],CMA_Impl):
     """ 
     """ 
     def __init__(self, source = None):
@@ -29,5 +29,5 @@ def Avg(source = None):
     from marketsim import float
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservable[float]):
-        return Avg_Optional__IObservable__Float__(source)
+        return Avg_IObservableFloat(source)
     raise Exception("Cannot find suitable overload")

@@ -3,7 +3,7 @@ from marketsim import float
 from marketsim.ops._all import Observable
 from marketsim import IFunction
 @registry.expose(["Trigonometric", "Atan"])
-class Atan_Optional__IFunction__Float__(Observable[float]):
+class Atan_IFunctionFloat(Observable[float]):
     """ 
     """ 
     def __init__(self, x = None):
@@ -40,5 +40,5 @@ def Atan(x = None):
     from marketsim import float
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
-        return Atan_Optional__IFunction__Float__(x)
+        return Atan_IFunctionFloat(x)
     raise Exception("Cannot find suitable overload")

@@ -4,7 +4,7 @@ from marketsim import IOrderQueue
 from marketsim import Volume
 from marketsim import registry
 @registry.expose(["Asset", "LastTradeVolume"])
-class LastTradeVolume_Optional__IOrderQueue_(Observable[Volume],_LastTradeVolume_Impl):
+class LastTradeVolume_IOrderQueue(Observable[Volume],_LastTradeVolume_Impl):
     """   Returns None if there haven't been any trades
     """ 
     def __init__(self, queue = None):
@@ -31,4 +31,4 @@ class LastTradeVolume_Optional__IOrderQueue_(Observable[Volume],_LastTradeVolume
     def __repr__(self):
         return "LastTradeVolume(%(queue)s)" % self.__dict__
     
-LastTradeVolume = LastTradeVolume_Optional__IOrderQueue_
+LastTradeVolume = LastTradeVolume_IOrderQueue

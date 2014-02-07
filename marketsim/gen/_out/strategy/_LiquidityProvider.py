@@ -7,7 +7,7 @@ from marketsim import IEvent
 from marketsim import context
 from marketsim import float
 @registry.expose(["Strategy", "LiquidityProvider"])
-class LiquidityProvider_Optional__IEvent___Optional__________Side__________Float_______IOrderGenerator___Optional__Float___Optional________Float_(ISingleAssetStrategy):
+class LiquidityProvider_IEventSideFloatIOrderGeneratorFloatFloat(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, eventGen = None, orderFactory = None, initialValue = None, priceDistr = None):
@@ -75,5 +75,5 @@ def LiquidityProvider(eventGen = None,orderFactory = None,initialValue = None,pr
         ,IFunction[float]]):
             if initialValue is None or rtti.can_be_casted(initialValue, float):
                 if priceDistr is None or rtti.can_be_casted(priceDistr, IFunction[float]):
-                    return LiquidityProvider_Optional__IEvent___Optional__________Side__________Float_______IOrderGenerator___Optional__Float___Optional________Float_(eventGen,orderFactory,initialValue,priceDistr)
+                    return LiquidityProvider_IEventSideFloatIOrderGeneratorFloatFloat(eventGen,orderFactory,initialValue,priceDistr)
     raise Exception("Cannot find suitable overload")

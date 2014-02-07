@@ -4,7 +4,7 @@ from marketsim import IAccount
 from marketsim.gen._intrinsic.trader.props import Position_Impl
 from marketsim import registry
 @registry.expose(["Trader", "Position"])
-class Position_Optional__IAccount_(Observable[Volume],Position_Impl):
+class Position_IAccount(Observable[Volume],Position_Impl):
     """   It is negative if trader has sold more assets than has bought and
       positive otherwise
     """ 
@@ -36,5 +36,5 @@ def Position(trader = None):
     from marketsim import IAccount
     from marketsim import rtti
     if trader is None or rtti.can_be_casted(trader, IAccount):
-        return Position_Optional__IAccount_(trader)
+        return Position_IAccount(trader)
     raise Exception("Cannot find suitable overload")

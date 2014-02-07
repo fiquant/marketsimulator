@@ -3,7 +3,7 @@ from marketsim import ISingleAssetStrategy
 from marketsim import float
 from marketsim import context
 @registry.expose(["Strategy", "MarketMaker"])
-class MarketMaker_Optional__Float___Optional__Float_(ISingleAssetStrategy):
+class MarketMaker_FloatFloat(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, delta = None, volume = None):
@@ -69,5 +69,5 @@ def MarketMaker(delta = None,volume = None):
     from marketsim import rtti
     if delta is None or rtti.can_be_casted(delta, float):
         if volume is None or rtti.can_be_casted(volume, float):
-            return MarketMaker_Optional__Float___Optional__Float_(delta,volume)
+            return MarketMaker_FloatFloat(delta,volume)
     raise Exception("Cannot find suitable overload")

@@ -4,7 +4,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.observable.breaks_at_changes import _BreaksAtChanges_Impl
 from marketsim import float
 @registry.expose(["Basic", "BreaksAtChanges"])
-class BreaksAtChanges_Optional__IFunction__Float__(Observable[float],_BreaksAtChanges_Impl):
+class BreaksAtChanges_IFunctionFloat(Observable[float],_BreaksAtChanges_Impl):
     """   When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
     """ 
     def __init__(self, source = None):
@@ -36,5 +36,5 @@ def BreaksAtChanges(source = None):
     from marketsim import float
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IFunction[float]):
-        return BreaksAtChanges_Optional__IFunction__Float__(source)
+        return BreaksAtChanges_IFunctionFloat(source)
     raise Exception("Cannot find suitable overload")

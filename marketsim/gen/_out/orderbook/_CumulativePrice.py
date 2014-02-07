@@ -6,7 +6,7 @@ from marketsim import registry
 from marketsim import Price
 from marketsim import float
 @registry.expose(["Asset", "CumulativePrice"])
-class CumulativePrice_Optional__IOrderBook___Optional__IFunction__Float__(Observable[Price],CumulativePrice_Impl):
+class CumulativePrice_IOrderBookIFunctionFloat(Observable[Price],CumulativePrice_Impl):
     """ 
       In other words cumulative price corresponds to trader balance change
       if a market order of volume *depth* is completely matched
@@ -43,4 +43,4 @@ class CumulativePrice_Optional__IOrderBook___Optional__IFunction__Float__(Observ
     def __repr__(self):
         return "CumulativePrice(%(book)s, %(depth)s)" % self.__dict__
     
-CumulativePrice = CumulativePrice_Optional__IOrderBook___Optional__IFunction__Float__
+CumulativePrice = CumulativePrice_IOrderBookIFunctionFloat

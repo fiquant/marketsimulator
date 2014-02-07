@@ -5,7 +5,7 @@ from marketsim import registry
 from marketsim import Price
 from marketsim import float
 @registry.expose(["Basic", "Price"])
-class Price_Optional__IFunction__Float__(Observable[Price],_Observable_Impl):
+class Price_IFunctionFloat(Observable[Price],_Observable_Impl):
     """  Needed since generic functions aren't implemented yet
     """ 
     def __init__(self, x = None):
@@ -37,5 +37,5 @@ def Price(x = None):
     from marketsim import float
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
-        return Price_Optional__IFunction__Float__(x)
+        return Price_IFunctionFloat(x)
     raise Exception("Cannot find suitable overload")

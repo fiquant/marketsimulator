@@ -6,7 +6,7 @@ from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Strategy", "RSI_linear"])
-class RSI_linear_Optional_________Float______IOrderGenerator___Optional__Float___Optional__IObservable__Float____Optional__Float_(ISingleAssetStrategy):
+class RSI_linear_FloatIOrderGeneratorFloatIObservableFloatFloat(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, orderFactory = None, alpha = None, k = None, timeframe = None):
@@ -67,5 +67,5 @@ def RSI_linear(orderFactory = None,alpha = None,k = None,timeframe = None):
         if alpha is None or rtti.can_be_casted(alpha, float):
             if k is None or rtti.can_be_casted(k, IObservable[float]):
                 if timeframe is None or rtti.can_be_casted(timeframe, float):
-                    return RSI_linear_Optional_________Float______IOrderGenerator___Optional__Float___Optional__IObservable__Float____Optional__Float_(orderFactory,alpha,k,timeframe)
+                    return RSI_linear_FloatIOrderGeneratorFloatIObservableFloatFloat(orderFactory,alpha,k,timeframe)
     raise Exception("Cannot find suitable overload")

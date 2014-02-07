@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.event import _Every_Impl
 from marketsim import float
 from marketsim import IFunction
 @registry.expose(["Event", "Every"])
-class Every_Optional________Float_(_Every_Impl):
+class Every_Float(_Every_Impl):
     """ 
     """ 
     def __init__(self, intervalFunc = None):
@@ -28,5 +28,5 @@ def Every(intervalFunc = None):
     from marketsim import IFunction
     from marketsim import rtti
     if intervalFunc is None or rtti.can_be_casted(intervalFunc, IFunction[float]):
-        return Every_Optional________Float_(intervalFunc)
+        return Every_Float(intervalFunc)
     raise Exception("Cannot find suitable overload")

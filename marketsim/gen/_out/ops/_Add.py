@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.ops import _Add_Impl
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Ops", "Add"])
-class Add_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[float],_Add_Impl):
+class Add_IFunctionFloatIFunctionFloat(Observable[float],_Add_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -41,5 +41,5 @@ def Add(x = None,y = None):
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
         if y is None or rtti.can_be_casted(y, IFunction[float]):
-            return Add_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)
+            return Add_IFunctionFloatIFunctionFloat(x,y)
     raise Exception("Cannot find suitable overload")

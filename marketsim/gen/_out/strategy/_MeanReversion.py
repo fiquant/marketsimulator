@@ -7,7 +7,7 @@ from marketsim import IEvent
 from marketsim import context
 from marketsim import float
 @registry.expose(["Strategy", "MeanReversion"])
-class MeanReversion_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float_(ISingleAssetStrategy):
+class MeanReversion_IEventSideIOrderGeneratorFloat(ISingleAssetStrategy):
     """  It estimates this average using some functional and
      if the current asset price is lower than the average
      it buys the asset and if the price is higher it sells the asset.
@@ -69,5 +69,5 @@ def MeanReversion(eventGen = None,orderFactory = None,ewma_alpha = None):
     if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
         if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
             if ewma_alpha is None or rtti.can_be_casted(ewma_alpha, float):
-                return MeanReversion_Optional__IEvent___Optional_________Side______IOrderGenerator___Optional__Float_(eventGen,orderFactory,ewma_alpha)
+                return MeanReversion_IEventSideIOrderGeneratorFloat(eventGen,orderFactory,ewma_alpha)
     raise Exception("Cannot find suitable overload")

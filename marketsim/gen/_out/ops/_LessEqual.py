@@ -5,7 +5,7 @@ from marketsim.gen._intrinsic.ops import _LessEqual_Impl
 from marketsim import bool
 from marketsim import float
 @registry.expose(["Ops", "LessEqual"])
-class LessEqual_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[bool],_LessEqual_Impl):
+class LessEqual_IFunctionFloatIFunctionFloat(Observable[bool],_LessEqual_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -42,5 +42,5 @@ def LessEqual(x = None,y = None):
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
         if y is None or rtti.can_be_casted(y, IFunction[float]):
-            return LessEqual_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)
+            return LessEqual_IFunctionFloatIFunctionFloat(x,y)
     raise Exception("Cannot find suitable overload")

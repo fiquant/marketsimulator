@@ -7,7 +7,7 @@ from marketsim import listOf
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Trader", "MultiAsset"])
-class MultiAsset_Optional_List__ISingleAssetTrader____Optional__IMultiAssetStrategy___Optional__String___Optional__Float___Optional_List__ITimeSerie__(_MultiAsset_Impl):
+class MultiAsset_ListISingleAssetTraderIMultiAssetStrategyStringFloatListITimeSerie(_MultiAsset_Impl):
     """   It can be considered as a composition of single asset traders and multi asset strategies
       At the moment there is no way to instruct a multi asset strategy to trade only on subset of the assets
     """ 
@@ -49,5 +49,5 @@ def MultiAsset(traders = None,strategy = None,name = None,PnL = None,timeseries 
             if name is None or rtti.can_be_casted(name, str):
                 if PnL is None or rtti.can_be_casted(PnL, float):
                     if timeseries is None or rtti.can_be_casted(timeseries, listOf(ITimeSerie)):
-                        return MultiAsset_Optional_List__ISingleAssetTrader____Optional__IMultiAssetStrategy___Optional__String___Optional__Float___Optional_List__ITimeSerie__(traders,strategy,name,PnL,timeseries)
+                        return MultiAsset_ListISingleAssetTraderIMultiAssetStrategyStringFloatListITimeSerie(traders,strategy,name,PnL,timeseries)
     raise Exception("Cannot find suitable overload")

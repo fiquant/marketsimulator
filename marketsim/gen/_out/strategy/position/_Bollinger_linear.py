@@ -6,7 +6,7 @@ from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Volume function", "Bollinger_linear"])
-class Bollinger_linear_Optional__Float___Optional__IObservable__Float____Optional__ISingleAssetTrader_(Observable[Volume]):
+class Bollinger_linear_FloatIObservableFloatISingleAssetTrader(Observable[Volume]):
     """ 
     """ 
     def __init__(self, alpha = None, k = None, trader = None):
@@ -66,5 +66,5 @@ def Bollinger_linear(alpha = None,k = None,trader = None):
     if alpha is None or rtti.can_be_casted(alpha, float):
         if k is None or rtti.can_be_casted(k, IObservable[float]):
             if trader is None or rtti.can_be_casted(trader, ISingleAssetTrader):
-                return Bollinger_linear_Optional__Float___Optional__IObservable__Float____Optional__ISingleAssetTrader_(alpha,k,trader)
+                return Bollinger_linear_FloatIObservableFloatISingleAssetTrader(alpha,k,trader)
     raise Exception("Cannot find suitable overload")

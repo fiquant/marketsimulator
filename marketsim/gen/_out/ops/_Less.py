@@ -5,7 +5,7 @@ from marketsim import registry
 from marketsim import bool
 from marketsim import float
 @registry.expose(["Ops", "Less"])
-class Less_Optional__IFunction__Float____Optional__IFunction__Float__(Observable[bool],_Less_Impl):
+class Less_IFunctionFloatIFunctionFloat(Observable[bool],_Less_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -42,5 +42,5 @@ def Less(x = None,y = None):
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
         if y is None or rtti.can_be_casted(y, IFunction[float]):
-            return Less_Optional__IFunction__Float____Optional__IFunction__Float__(x,y)
+            return Less_IFunctionFloatIFunctionFloat(x,y)
     raise Exception("Cannot find suitable overload")

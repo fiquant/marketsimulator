@@ -5,7 +5,7 @@ from marketsim import registry
 from marketsim import bool
 from marketsim import float
 @registry.expose(["Ops", "Condition_Float"])
-class Condition_Float_Optional__IFunction__Boolean____Optional__IFunction__Float____Optional__IFunction__Float__(Observable[float],_Condition_Impl):
+class Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat(Observable[float],_Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -49,5 +49,5 @@ def Condition_Float(cond = None,ifpart = None,elsepart = None):
     if cond is None or rtti.can_be_casted(cond, IFunction[bool]):
         if ifpart is None or rtti.can_be_casted(ifpart, IFunction[float]):
             if elsepart is None or rtti.can_be_casted(elsepart, IFunction[float]):
-                return Condition_Float_Optional__IFunction__Boolean____Optional__IFunction__Float____Optional__IFunction__Float__(cond,ifpart,elsepart)
+                return Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat(cond,ifpart,elsepart)
     raise Exception("Cannot find suitable overload")

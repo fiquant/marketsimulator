@@ -4,7 +4,7 @@ from marketsim.ops._function import Function
 from marketsim import context
 from marketsim import float
 @registry.expose(["Strategy", "AtanPow"])
-class AtanPow_Optional__IFunction__Float____Optional__Float_(Function[float]):
+class AtanPow_IFunctionFloatFloat(Function[float]):
     """ 
     """ 
     def __init__(self, f = None, base = None):
@@ -50,5 +50,5 @@ def AtanPow(f = None,base = None):
     from marketsim import rtti
     if f is None or rtti.can_be_casted(f, IFunction[float]):
         if base is None or rtti.can_be_casted(base, float):
-            return AtanPow_Optional__IFunction__Float____Optional__Float_(f,base)
+            return AtanPow_IFunctionFloatFloat(f,base)
     raise Exception("Cannot find suitable overload")

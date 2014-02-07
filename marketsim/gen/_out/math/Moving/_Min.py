@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.observable.minmax import Min_Impl
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Statistics", "Min"])
-class Min_Optional__IFunction__Float____Optional__Float_(Observable[float],Min_Impl):
+class Min_IFunctionFloatFloat(Observable[float],Min_Impl):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
@@ -41,5 +41,5 @@ def Min(source = None,timeframe = None):
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IFunction[float]):
         if timeframe is None or rtti.can_be_casted(timeframe, float):
-            return Min_Optional__IFunction__Float____Optional__Float_(source,timeframe)
+            return Min_IFunctionFloatFloat(source,timeframe)
     raise Exception("Cannot find suitable overload")

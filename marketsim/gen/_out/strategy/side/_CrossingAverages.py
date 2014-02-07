@@ -5,7 +5,7 @@ from marketsim.ops._function import Function
 from marketsim import context
 from marketsim import float
 @registry.expose(["Side function", "CrossingAverages"])
-class CrossingAverages_Optional__Float___Optional__Float___Optional__Float___Optional__IOrderBook_(Function[Side]):
+class CrossingAverages_FloatFloatFloatIOrderBook(Function[Side]):
     """ 
     """ 
     def __init__(self, alpha_1 = None, alpha_2 = None, threshold = None, book = None):
@@ -58,5 +58,5 @@ def CrossingAverages(alpha_1 = None,alpha_2 = None,threshold = None,book = None)
         if alpha_2 is None or rtti.can_be_casted(alpha_2, float):
             if threshold is None or rtti.can_be_casted(threshold, float):
                 if book is None or rtti.can_be_casted(book, IOrderBook):
-                    return CrossingAverages_Optional__Float___Optional__Float___Optional__Float___Optional__IOrderBook_(alpha_1,alpha_2,threshold,book)
+                    return CrossingAverages_FloatFloatFloatIOrderBook(alpha_1,alpha_2,threshold,book)
     raise Exception("Cannot find suitable overload")

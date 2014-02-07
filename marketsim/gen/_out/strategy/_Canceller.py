@@ -3,7 +3,7 @@ from marketsim.gen._intrinsic.strategy.canceller import _Canceller_Impl
 from marketsim import float
 from marketsim import IFunction
 @registry.expose(["Strategy", "Canceller"])
-class Canceller_Optional________Float_(_Canceller_Impl):
+class Canceller_Float(_Canceller_Impl):
     """   and in some moments of time it randomly chooses an order and cancels it
       Note: a similar effect can be obtained using order.WithExpiry meta orders
     """ 
@@ -29,5 +29,5 @@ def Canceller(cancellationIntervalDistr = None):
     from marketsim import IFunction
     from marketsim import rtti
     if cancellationIntervalDistr is None or rtti.can_be_casted(cancellationIntervalDistr, IFunction[float]):
-        return Canceller_Optional________Float_(cancellationIntervalDistr)
+        return Canceller_Float(cancellationIntervalDistr)
     raise Exception("Cannot find suitable overload")

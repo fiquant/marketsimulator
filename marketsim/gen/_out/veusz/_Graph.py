@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.veusz import _Graph_Impl
 from marketsim import str
 @registry.expose(["N/A", "Graph"])
-class Graph_Optional__String_(_Graph_Impl):
+class Graph_String(_Graph_Impl):
     """ 
     """ 
     def __init__(self, name = None):
@@ -25,5 +25,5 @@ def Graph(name = None):
     from marketsim import str
     from marketsim import rtti
     if name is None or rtti.can_be_casted(name, str):
-        return Graph_Optional__String_(name)
+        return Graph_String(name)
     raise Exception("Cannot find suitable overload")

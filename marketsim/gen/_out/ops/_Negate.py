@@ -4,7 +4,7 @@ from marketsim import registry
 from marketsim.gen._intrinsic.ops import _Negate_Impl
 from marketsim import float
 @registry.expose(["Ops", "Negate"])
-class Negate_Optional__IFunction__Float__(Observable[float],_Negate_Impl):
+class Negate_IFunctionFloat(Observable[float],_Negate_Impl):
     """ 
     """ 
     def __init__(self, x = None):
@@ -36,5 +36,5 @@ def Negate(x = None):
     from marketsim import float
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
-        return Negate_Optional__IFunction__Float__(x)
+        return Negate_IFunctionFloat(x)
     raise Exception("Cannot find suitable overload")

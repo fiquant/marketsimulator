@@ -5,7 +5,7 @@ from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Strategy", "TradeIfProfitable"])
-class TradeIfProfitable_Optional__ISingleAssetStrategy___Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float__(ISingleAssetStrategy):
+class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccountIFunctionFloat(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, inner = None, account = None, performance = None):
@@ -65,5 +65,5 @@ def TradeIfProfitable(inner = None,account = None,performance = None):
     if inner is None or rtti.can_be_casted(inner, ISingleAssetStrategy):
         if account is None or rtti.can_be_casted(account, IFunction[IAccount,ISingleAssetStrategy]):
             if performance is None or rtti.can_be_casted(performance, IFunction[IFunction[float],IAccount]):
-                return TradeIfProfitable_Optional__ISingleAssetStrategy___Optional_Optional__ISingleAssetStrategy______IAccount___Optional__IAccount_____IFunction__Float__(inner,account,performance)
+                return TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccountIFunctionFloat(inner,account,performance)
     raise Exception("Cannot find suitable overload")

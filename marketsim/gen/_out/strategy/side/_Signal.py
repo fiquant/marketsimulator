@@ -5,7 +5,7 @@ from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Side function", "Signal"])
-class Signal_Optional__IFunction__Float____Optional__Float_(Observable[Side]):
+class Signal_IFunctionFloatFloat(Observable[Side]):
     """ 
     """ 
     def __init__(self, signal = None, threshold = None):
@@ -61,5 +61,5 @@ def Signal(signal = None,threshold = None):
     from marketsim import rtti
     if signal is None or rtti.can_be_casted(signal, IFunction[float]):
         if threshold is None or rtti.can_be_casted(threshold, float):
-            return Signal_Optional__IFunction__Float____Optional__Float_(signal,threshold)
+            return Signal_IFunctionFloatFloat(signal,threshold)
     raise Exception("Cannot find suitable overload")

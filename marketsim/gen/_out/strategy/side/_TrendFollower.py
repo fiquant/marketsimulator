@@ -5,7 +5,7 @@ from marketsim.ops._function import Function
 from marketsim import context
 from marketsim import float
 @registry.expose(["Side function", "TrendFollower"])
-class TrendFollower_Optional__Float___Optional__Float___Optional__IOrderBook_(Function[Side]):
+class TrendFollower_FloatFloatIOrderBook(Function[Side]):
     """ 
     """ 
     def __init__(self, alpha = None, threshold = None, book = None):
@@ -55,5 +55,5 @@ def TrendFollower(alpha = None,threshold = None,book = None):
     if alpha is None or rtti.can_be_casted(alpha, float):
         if threshold is None or rtti.can_be_casted(threshold, float):
             if book is None or rtti.can_be_casted(book, IOrderBook):
-                return TrendFollower_Optional__Float___Optional__Float___Optional__IOrderBook_(alpha,threshold,book)
+                return TrendFollower_FloatFloatIOrderBook(alpha,threshold,book)
     raise Exception("Cannot find suitable overload")

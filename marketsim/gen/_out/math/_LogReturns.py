@@ -4,7 +4,7 @@ from marketsim.ops._function import Function
 from marketsim import context
 from marketsim import float
 @registry.expose(["Basic", "LogReturns"])
-class LogReturns_Optional__IObservable__Float____Optional__Float_(Function[float]):
+class LogReturns_IObservableFloatFloat(Function[float]):
     """ 
     """ 
     def __init__(self, x = None, timeframe = None):
@@ -50,5 +50,5 @@ def LogReturns(x = None,timeframe = None):
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IObservable[float]):
         if timeframe is None or rtti.can_be_casted(timeframe, float):
-            return LogReturns_Optional__IObservable__Float____Optional__Float_(x,timeframe)
+            return LogReturns_IObservableFloatFloat(x,timeframe)
     raise Exception("Cannot find suitable overload")
