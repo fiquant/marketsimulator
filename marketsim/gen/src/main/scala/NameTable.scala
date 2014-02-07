@@ -316,12 +316,6 @@ package object NameTable {
                 }
         }
 
-        def fullyQualifyName(n : AST.QualifiedName) =
-            lookupFunction(n.names) match {
-                case Some((scope, m)) => scope qualifyName m.name
-                case None => throw new Exception(s"Cannot lookup $n from scope $name")
-            }
-
         def fullyQualifyType(n : AST.QualifiedName) =
             lookupType(n.names) match {
                 case Some((scope, m)) => scope qualifyName m.name
@@ -336,83 +330,6 @@ package object NameTable {
             case AST.UnitType => AST.UnitType
         }
 
-        def fullyQualify(isLocal : String => Boolean,
-                         context : List[(Scope, List[AST.Parameter])]) =
-        {
-            def qualify(e : AST.Expr) : AST.Expr = e match {
-                case AST.FunCall(n, params) =>
-                    val (common, qualified) =
-                        n.names match {
-                            case x :: Nil if isLocal(x) => (context.last._2, n)
-                            case _ =>
-                                lookupFunction(n.names) match {
-                                    case Some((scope, m)) =>
-                                        def commonPrefix(s : Scope) : List[AST.Parameter] =
-                                            context find { _._1 == s } match {
-                                                case Some(x) =>
-                                                    //println(x._2)
-                                                    x._2
-                                                case None    =>
-                                                    if (s.parent.nonEmpty)
-                                                        commonPrefix(s.parent.get)
-                                                    else Nil
-                                            }
-                                        (commonPrefix(scope), scope qualifyName m.name)
-                                    case None =>
-                                        throw new Exception(s"Cannot lookup $n from scope $name")
-                                }
-                        }
-                    //println(context.last._2)
-                    val fresh = (common map { p => AST.Var(p.name)}) ++ params
-                    AST.FunCall(qualified, fresh map  qualify )
-
-                case AST.Cast(x, ty) =>
-                    AST.Cast(qualify(x), fullyQualifyType(ty))
-                case x : AST.StringLit => x
-                case x : AST.FloatLit => x
-                case x : AST.IntLit => x
-                case x : AST.Var =>
-                    if (isLocal(x.s))
-                        x
-                    else
-                        throw new Exception(s"Cannot lookup variable ${x.s} while qualifying $e")
-
-                case AST.List_(xs) => AST.List_(xs map qualify)
-                case AST.BinOp(s, x, y) => AST.BinOp(s, qualify(x), qualify(y))
-                case AST.Neg(x) => AST.Neg(qualify(x))
-                case AST.IfThenElse(cond, x, y) => AST.IfThenElse(qualify(cond), qualify(x), qualify(y))
-                case AST.And(x, y) => AST.And(qualify(x), qualify(y))
-                case AST.Or(x, y) => AST.Or(qualify(x), qualify(y))
-                case AST.Not(x) => AST.Not(qualify(x))
-                case AST.Condition(c, x, y) => AST.Condition(c, qualify(x), qualify(y))
-            }
-            qualify(_)
-        }
-
-        def fullyQualified(f : AST.FunDef, context : List[(Scope, List[AST.Parameter])] = List((this, Nil))) = {
-            val packageArgs = context flatMap { _._2 }
-            def isLocal(n : String) = (packageArgs ++ f.parameters find { _.name == n }).nonEmpty
-            f.copy(
-                parameters = packageArgs ++ (f.parameters map { p =>
-                    p.copy(
-                        ty = p.ty map fullyQualifyType,
-                        initializer = p.initializer map fullyQualify(isLocal(_), context)
-                    )
-                }),
-                ty = f.ty map fullyQualifyType,
-                body = f.body map fullyQualify(isLocal(_), context)
-            )
-        }
-
-        def qualifyNames(context : List[(Scope, List[AST.Parameter])]) {
-            packages.values foreach { p => p.qualifyNames(context :+ (p, context.last._2 ++ p.parameters)) }
-
-            functions = functions mapValues {
-                case f : AST.FunDef => fullyQualified(f, context)
-                case a : AST.FunAlias => a.copy(target = fullyQualifyName(a.target))
-                case x => x
-            }
-        }
 
         def toTyped(target : Typed.Package) : Typed.Package =
         {
@@ -453,9 +370,6 @@ package object NameTable {
 
             println("\tapplying before typing annotations")
             Typed.BeforeTyping(impl)
-
-    //        println("\tqualifying names")
-    //        impl.qualifyNames((impl, Nil) :: Nil)
 
             Some(impl)
         } catch {
