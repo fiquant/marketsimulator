@@ -2,7 +2,7 @@ package object Typer
 {
     trait TypingExprCtx
     {
-        def lookupFunction(name : AST.QualifiedName) : Typed.Expr
+        def lookupFunction(name : AST.QualifiedName) : List[(TypesBound.Base, () => Typed.Expr)]
         def lookupVar(name : String) : Typed.Parameter
         def toTyped(t : AST.Type) : TypesBound.Base
     }
@@ -168,16 +168,18 @@ package object Typer
                 val ctx = new TypingExprCtx {
                     def toTyped(t : AST.Type) = self.toBound(t)
 
-                    def lookupFunction(name: AST.QualifiedName) =
+                    def lookupFunction(name: AST.QualifiedName) = {
+                        lazy val nonLocal =
+                            self lookupFunction name map { o => (o.ty, () => Typed.FunctionRef(o)) }
+
                         if (name.names.length == 1) {
                             locals find { _.name == name.names(0) } match {
-                                case Some(p) => Typed.ParamRef(p)
-                                case None    =>
-                                    val overloads = self lookupFunction name
-                                    Typed.FunctionRef(overloads.head)
+                                case Some(p) => (p.ty, () => Typed.ParamRef(p)) :: Nil
+                                case None    => nonLocal
                             }
                         } else
-                            Typed.FunctionRef((self lookupFunction name).head)
+                            nonLocal
+                    }
 
                     def lookupVar(name: String) = locals.find({
                         _.name == name
@@ -274,12 +276,12 @@ package object Typer
     {
         def promote_literal(e : Typed.Expr) =
             if (e.ty canCastTo Typed.topLevel.float_) {
-                val f = ctx.lookupFunction(AST.QualifiedName("const" :: Nil))
+                val f = ctx.lookupFunction(AST.QualifiedName("const" :: Nil)).head._2()
                 Typed.FunctionCall(f, e :: Nil)
             } else e
 
         def function(name : List[String]) =
-            ctx lookupFunction AST.QualifiedName(name.toList)
+            (ctx lookupFunction AST.QualifiedName(name.toList)).head._2()
 
         def promote_opt(e : Typed.Expr) =
             if (e.ty canCastTo Typed.topLevel.floatFunc) e match {
@@ -353,7 +355,7 @@ package object Typer
 
             case AST.FunCall(name, args) =>
 
-                val acc = ctx lookupFunction name
+                val acc = (ctx lookupFunction name).head._2()
                 val ty = acc.ty match {
                     case x : TypesBound.Function => x
                     case _ => throw new Exception(s"$acc must have a function-like type")
