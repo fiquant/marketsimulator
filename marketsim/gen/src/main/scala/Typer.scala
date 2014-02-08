@@ -287,53 +287,25 @@ package object Typer
         def function(name : List[String]) =
             (ctx lookupFunction AST.QualifiedName(name.toList)).head._2()
 
-        def promote_opt(e : Typed.Expr) =
-            if (e.ty canCastTo Typed.topLevel.floatFunc) e match {
-                case Typed.BinOp(c, x, y) =>
-                    val name = c match {
-                        case AST.Mul => "Mul"
-                        case AST.Div => "Div"
-                        case AST.Add => "Add"
-                        case AST.Sub => "Sub"
-                    }
-                    Typed.FunctionCall(
-                        function("ops" :: name :: Nil),
-                        promote_literal(x) :: promote_literal(y) :: Nil)
-
-                case Typed.IfThenElse(cond, x, y) =>
-                    Typed.FunctionCall(
-                        function("ops" :: "Condition_Float" :: Nil),
-                        cond :: promote_literal(x) :: promote_literal(y) :: Nil)
-
-                case x => x
-            } else if (e.ty canCastTo Typed.topLevel.booleanFunc) e match {
-
-                case Typed.Condition(symbol, x, y) =>
-                    val name = symbol match {
-                        case AST.Equal          => "Equal"
-                        case AST.NotEqual       => "NotEqual"
-                        case AST.Less           => "Less"
-                        case AST.Greater        => "Greater"
-                        case AST.LessEqual      => "LessEqual"
-                        case AST.GreaterEqual   => "GreaterEqual"
-                    }
-                    Typed.FunctionCall(
-                        function("ops" :: name :: Nil),
-                        promote_literal(x) :: promote_literal(y) :: Nil)
-                case x => x
-            } else if (e.ty canCastTo Typed.topLevel.sideFunc) e match {
-                case Typed.IfThenElse(cond, x, y) =>
-                    Typed.FunctionCall(
-                        function("ops" :: "Condition_Side" :: Nil),
-                        cond :: x :: y :: Nil)
-                case x => x
-            } else e
-
-
+        def isScalar(e : Typed.Expr) = e.ty canCastTo Typed.topLevel.float_
+        def isFloatFunc(e : Typed.Expr) = e.ty canCastTo Typed.topLevel.floatFunc
+        def isSideFunc(e : Typed.Expr) = e.ty canCastTo Typed.topLevel.sideFunc
 
         def asArith(e : AST.Expr) : Typed.Expr = e match {
             case AST.BinOp(c, x, y) =>
-                promote_opt(Typed.BinOp(c, asArith(x), asArith(y)))
+                val px = asArith(x)
+                val py = asArith(y)
+                if (isScalar(px) && isScalar(py))
+                    Typed.BinOp(c, px, py)
+                else {
+                    val name = c match {
+                            case AST.Mul => "Mul"
+                            case AST.Div => "Div"
+                            case AST.Add => "Add"
+                            case AST.Sub => "Sub"
+                    }
+                    asArith(AST.FunCall(AST.QualifiedName("ops" :: name :: Nil), x :: y :: Nil))
+                }
 
             case AST.Neg(x) =>
 
@@ -348,7 +320,14 @@ package object Typer
             case AST.Cast(x, ty) => Typed.Cast(asArith(x), ctx toTyped ty)
 
             case AST.IfThenElse(cond, x, y) =>
-                promote_opt(Typed.IfThenElse(asArith(cond), asArith(x), asArith(y)))
+                val px = asArith(x)
+                val py = asArith(y)
+                if (isFloatFunc(px) || isFloatFunc(py))
+                    asArith(AST.FunCall(AST.QualifiedName("ops" :: "Condition_Float" :: Nil), cond :: x :: y :: Nil))
+                else if (isSideFunc(px) || isSideFunc(py))
+                    asArith(AST.FunCall(AST.QualifiedName("ops" :: "Condition_Side" :: Nil), cond :: x :: y :: Nil))
+                else
+                    Typed.IfThenElse(asArith(cond), asArith(x), asArith(y))
 
             case AST.FloatLit(d) => Typed.FloatLit(d)
             case AST.StringLit(x) => Typed.StringLit(x)
@@ -434,8 +413,21 @@ package object Typer
             case AST.Or(x, y) => Typed.Or(asArith(x), asArith(y))
             case AST.Not(x) => Typed.Not(asArith(x))
             case AST.Condition(symbol, x, y) =>
-                promote_opt(Typed.Condition(symbol, asArith(x), asArith(y)))
-
+                val px = asArith(x)
+                val py = asArith(y)
+                if (isScalar(px) && isScalar(py))
+                    Typed.Condition(symbol, px, py)
+                else {
+                    val name = symbol match {
+                        case AST.Equal          => "Equal"
+                        case AST.NotEqual       => "NotEqual"
+                        case AST.Less           => "Less"
+                        case AST.Greater        => "Greater"
+                        case AST.LessEqual      => "LessEqual"
+                        case AST.GreaterEqual   => "GreaterEqual"
+                    }
+                    asArith(AST.FunCall(AST.QualifiedName("ops" :: name :: Nil), x :: y :: Nil))
+                }
 
         }
 

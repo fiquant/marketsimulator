@@ -398,7 +398,7 @@ package math
      */
     @label = "Downs_{%(timeframe)s}(%(source)s)"
     def DownMovements(/** observable data source */ source = const(),
-                      /** lag size */ timeframe = 10.0) = observable.Float(Max(const(0.0),Lagged(source,timeframe)-source))
+                      /** lag size */ timeframe = 10.0) = observable.Float(Max(0.0,Lagged(source,timeframe)-source))
     
     /** Arc tangent of x, in radians.
      *
@@ -426,7 +426,7 @@ package math
      */
     @label = "Ups_{%(timeframe)s}(%(source)s)"
     def UpMovements(/** observable data source */ source = const(),
-                    /** lag size */ timeframe = 10.0) = observable.Float(Max(const(0.0),source-Lagged(source,timeframe)))
+                    /** lag size */ timeframe = 10.0) = observable.Float(Max(0.0,source-Lagged(source,timeframe)))
     
     /** Square of *x*
      */
