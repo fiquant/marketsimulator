@@ -38,7 +38,13 @@ package object NameTable {
         }
 
         def add(m : AST.FunctionDeclaration) {
-            functions = functions updated (m.name, m :: (functions getOrElse (m.name, Nil)))
+            functions get m.name match {
+                case None =>
+                    functions = functions updated (m.name, m :: Nil)
+                case Some(overloads) =>
+                    if (!(overloads contains m))
+                        functions = functions updated (m.name, m :: overloads)
+            }
         }
 
         def add(t : AST.TypeDeclaration) {
