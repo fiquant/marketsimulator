@@ -2521,6 +2521,10 @@ package trash {
             	 = x
         
         
+        def f(x : .IFunction[.Float]) : .IFunction[.Float]
+            	 = x
+        
+        
         def f(x : .IFunction[.Volume]) : .IFunction[.Volume]
             	 = x
         

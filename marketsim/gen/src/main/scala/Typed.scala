@@ -288,7 +288,7 @@ package object Typed
                     if (!(overloads contains f))
                         functions = functions updated (f.name, f :: overloads)
             }
-            f
+            functions(f.name)
         }
 
         def insert(t : TypeDeclaration) = {

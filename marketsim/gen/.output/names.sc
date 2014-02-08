@@ -2248,6 +2248,8 @@ package trash
     {
         def f(x : IFunction[Volume]) = x
         
+        def f(x : IFunction[Float]) = x
+        
         def f(x : IFunction[Price]) = x
         
         def g(x : IFunction[Volume]) = f(x)

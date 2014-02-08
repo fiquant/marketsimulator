@@ -23,6 +23,7 @@ package types {
 package overloading {
 
     def f(x : IFunction[Price]) = x
+    def f(x : IFunction[Float]) = x
     def f(x : IFunction[Volume]) = x
 
     def g(x : IFunction[Volume]) = f(x)

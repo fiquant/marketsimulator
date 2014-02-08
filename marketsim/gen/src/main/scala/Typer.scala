@@ -2,7 +2,7 @@ package object Typer
 {
     trait TypingExprCtx
     {
-        def lookupFunction(name : AST.QualifiedName) : List[(TypesBound.Base, () => Typed.Expr)]
+        def lookupFunction(name : AST.QualifiedName) : List[(TypesBound.Function, () => Typed.Expr)]
         def lookupVar(name : String) : Typed.Parameter
         def toTyped(t : AST.Type) : TypesBound.Base
     }
@@ -85,8 +85,6 @@ package object Typer
         private def getTyped(definition : AST.FunDef) : List[Typed.FunctionDecl] = {
             source.typed.get insert
                     visited.enter(source qualifyName definition.name) { toTyped(definition) }
-
-            source.typed.get.getFunction(definition.name).get
         }
 
         private def getTyped(definition : AST.TypeDeclaration) : Typed.TypeDeclaration = {
@@ -104,9 +102,9 @@ package object Typer
             source lookupFunction name.names match {
                 case Nil =>
                         throw new Exception(s"cannot find name $name")
-                case overloads => overloads flatMap {
+                case overloads => (overloads flatMap {
                     case (scope, definition) => Processor(scope).getTyped(definition) map { _.target }
-                }
+                }).toSet[Typed.Function].toList
             }
 
         private def lookupType(name : AST.QualifiedName) : Typed.TypeDeclaration =
@@ -170,11 +168,17 @@ package object Typer
 
                     def lookupFunction(name: AST.QualifiedName) = {
                         lazy val nonLocal =
-                            self lookupFunction name map { o => (o.ty, () => Typed.FunctionRef(o)) }
+                            self lookupFunction name map { o => (asFunction(o.ty), () => Typed.FunctionRef(o)) }
+
+                        def asFunction(t : TypesBound.Base) : TypesBound.Function = t match {
+                            case f : TypesBound.Function => f
+                            case TypesBound.Optional(x) => asFunction(x)
+                            case _ => throw new Exception(t + " is expected to be a function-like type")
+                        }
 
                         if (name.names.length == 1) {
                             locals find { _.name == name.names(0) } match {
-                                case Some(p) => (p.ty, () => Typed.ParamRef(p)) :: Nil
+                                case Some(p) => (asFunction(p.ty), () => Typed.ParamRef(p)) :: Nil
                                 case None    => nonLocal
                             }
                         } else
@@ -357,17 +361,11 @@ package object Typer
 
                 val typed_args = args map asArith
 
-                def checkOverload(o : TypesBound.Base) : Boolean = {
-                    o match {
-                        case ty : TypesBound.Function =>
-                            (typed_args.length >= ty.mandatory_arg_count) &&
-                            (typed_args zip ty.args forall {
-                                case (actual, declared) => actual.ty canCastTo declared
-                            })
-                        case TypesBound.Optional(t) => checkOverload(t)
-                        case _ =>
-                            throw new Exception(s"Overload $o for $name must have a function-like type")
-                    }
+                def checkOverload(ty : TypesBound.Function) : Boolean = {
+                    (typed_args.length >= ty.mandatory_arg_count) &&
+                    (typed_args zip ty.args forall {
+                        case (actual, declared) => actual.ty canCastTo declared
+                    })
                 }
 
                 val overloads = ctx lookupFunction name
@@ -376,8 +374,24 @@ package object Typer
                     case Nil =>
                         throw new Exception(s"No suitable overload for call $name($args). Overloads are"
                                 + predef.crlf + (overloads map { _._1 } mkString predef.crlf))
-                    case (_, makeExpr) :: tl =>
+                    case (_, makeExpr) :: Nil =>
                         Typed.FunctionCall(makeExpr(), typed_args)
+
+                    case lst =>
+                        def canCast(t : TypesBound.Function, u : TypesBound.Function) =
+                            t.args zip u.args forall { case (a,b) => a canCastTo b }
+
+                        lst filter { case (x, _) => lst forall { y => canCast(x, y._1) } } match {
+                            case Nil =>
+                                throw new Exception("there is no the most concrete overload among: " + lst)
+
+                            case (_, makeExpr) :: Nil =>
+                                Typed.FunctionCall(makeExpr(), typed_args)
+
+                            case xs =>
+                                throw new Exception(s"there are several dominating overloads $xs in $overloads and it is strange")
+                        }
+
                 }
 
 
