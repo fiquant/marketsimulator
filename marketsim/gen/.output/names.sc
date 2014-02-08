@@ -2200,18 +2200,6 @@ package observable
 @python = "no"
 package trash
 {
-    package types
-    {
-        type T1 = T
-        
-        type T
-        
-        type R : T
-        
-        type U : T, R
-        
-    }
-    
     package in1
     {
         package in2
@@ -2241,6 +2229,28 @@ package trash
         def toInject1() : () => Int
         
         def toInject2() : () => Int
+        
+    }
+    
+    package types
+    {
+        type T1 = T
+        
+        type T
+        
+        type R : T
+        
+        type U : T, R
+        
+    }
+    
+    package overloading
+    {
+        def f(x : IFunction[Volume]) = x
+        
+        def f(x : IFunction[Price]) = x
+        
+        def g(x : IFunction[Volume]) = f(x)
         
     }
     

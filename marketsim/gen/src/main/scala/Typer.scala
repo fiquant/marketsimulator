@@ -76,16 +76,16 @@ package object Typer
         }
 
         private def getTyped(definition : AST.FunAlias) : List[Typed.FunctionDecl] = {
-            source.typed.get.updateFunction(definition.name, {
+            source.typed.get insert
                     visited.enter(source qualifyName definition.name) { toTyped(definition) }
-            })
+
             source.typed.get.getFunction(definition.name).get
         }
 
         private def getTyped(definition : AST.FunDef) : List[Typed.FunctionDecl] = {
-            source.typed.get.updateFunction(definition.name, {
+            source.typed.get insert
                     visited.enter(source qualifyName definition.name) { toTyped(definition) }
-            })
+
             source.typed.get.getFunction(definition.name).get
         }
 

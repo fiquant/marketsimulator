@@ -20,6 +20,15 @@ package types {
 
 }
 
+package overloading {
+
+    def f(x : IFunction[Price]) = x
+    def f(x : IFunction[Volume]) = x
+
+    def g(x : IFunction[Volume]) = f(x)
+
+}
+
 abstract package _base1 { def toInject1() => Int }
 abstract package _base2 { def toInject2() => Int }
 

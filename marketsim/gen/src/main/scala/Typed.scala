@@ -281,7 +281,13 @@ package object Typed
         def getName : String
 
         def insert(f : FunctionDecl)  = {
-            functions = functions updated (f.name, f :: (functions getOrElse (f.name, Nil)))
+            functions get f.name match {
+                case None =>
+                    functions = functions updated (f.name, f :: Nil)
+                case Some(overloads) =>
+                    if (!(overloads contains f))
+                        functions = functions updated (f.name, f :: overloads)
+            }
             f
         }
 
@@ -302,11 +308,6 @@ package object Typed
                 (packages        equals that.packages)  &&
                 (attributes      equals that.attributes)
             case _ => false
-        }
-
-        def updateFunction(name : String, f : => Typed.FunctionDecl) {
-            if (!(functions contains name))
-                insert(f)
         }
 
         def getOrElseUpdateFunctionAlias(name : String, default : => Typed.FunctionAlias) =

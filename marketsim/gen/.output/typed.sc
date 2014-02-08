@@ -2463,13 +2463,6 @@ package observable {
 @python = "no"
 
 package trash {
-    package types {type T
-        type R : T
-        type T1 = T
-        type U : T, R
-    }
-    
-    
     package in1 {
         package in2 {
             
@@ -2512,6 +2505,28 @@ package trash {
         
         
         def toInject2() : () => .Int
+    }
+    
+    
+    package types {type T
+        type R : T
+        type T1 = T
+        type U : T, R
+    }
+    
+    
+    package overloading {
+        
+        def f(x : .IFunction[.Price]) : .IFunction[.Price]
+            	 = x
+        
+        
+        def f(x : .IFunction[.Volume]) : .IFunction[.Volume]
+            	 = x
+        
+        
+        def g(x : .IFunction[.Volume]) : .IFunction[.Volume]
+            	 = .trash.overloading.f(x)
     }
     
     
