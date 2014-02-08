@@ -45,13 +45,13 @@ package strategy.weight {
      */
     @curried("f")
     def AtanPow(/** function to scale */ f : Optional[IFunction[Float]] = constant(),
-                /** base for power function */ base = 1.002) : IFunction[Float] = math.Atan(math.Pow(constant(base),f))
+                /** base for power function */ base = 1.002) : IFunction[Float] = math.Atan(math.Pow(base,f))
     
     // defined at defs\strategies\efficiency.sc: 63.5
     /** scaling function = max(0, f(x)) + 1
      */
     @curried("f")
-    def Clamp0(/** function to scale */ f : Optional[IFunction[Float]] = constant()) : IFunction[Float] = math.Max(constant(0),f)+constant(1)
+    def Clamp0(/** function to scale */ f : Optional[IFunction[Float]] = constant()) : IFunction[Float] = math.Max(0,f)+1
     
     // defined at defs\strategies\efficiency.sc: 72.5
     /** identity scaling = f(x)

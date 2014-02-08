@@ -398,7 +398,7 @@ package math
      */
     @label = "Downs_{%(timeframe)s}(%(source)s)"
     def DownMovements(/** observable data source */ source = const(),
-                      /** lag size */ timeframe = 10.0) = observable.Float(Max(const(0.0),Lagged(source,timeframe)-source))
+                      /** lag size */ timeframe = 10.0) = observable.Float(Max(0.0,Lagged(source,timeframe)-source))
     
     /** Arc tangent of x, in radians.
      *
@@ -426,7 +426,7 @@ package math
      */
     @label = "Ups_{%(timeframe)s}(%(source)s)"
     def UpMovements(/** observable data source */ source = const(),
-                    /** lag size */ timeframe = 10.0) = observable.Float(Max(const(0.0),source-Lagged(source,timeframe)))
+                    /** lag size */ timeframe = 10.0) = observable.Float(Max(0.0,source-Lagged(source,timeframe)))
     
     /** Square of *x*
      */
@@ -1570,7 +1570,7 @@ package strategy
         /** scaling function = max(0, f(x)) + 1
          */
         @curried("f")
-        def Clamp0(/** function to scale */ f : Optional[IFunction[Float]] = constant()) : IFunction[Float] = math.Max(constant(0),f)+constant(1)
+        def Clamp0(/** function to scale */ f : Optional[IFunction[Float]] = constant()) : IFunction[Float] = math.Max(0,f)+1
         
         /** Returns first derivative of a moving average of the trader efficiency
          */
@@ -1589,7 +1589,7 @@ package strategy
          */
         @curried("f")
         def AtanPow(/** function to scale */ f : Optional[IFunction[Float]] = constant(),
-                    /** base for power function */ base = 1.002) : IFunction[Float] = math.Atan(math.Pow(constant(base),f))
+                    /** base for power function */ base = 1.002) : IFunction[Float] = math.Atan(math.Pow(base,f))
         
         /** Identity function for an array of floats
          */
@@ -1615,7 +1615,7 @@ package strategy
                               /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
                               /** defines multipliers for current asset price when price of
                                 *             order to create is calculated*/ priceDistr = math.random.lognormvariate(0.0,0.1),
-                              /** asset in question */ book = orderbook.OfTrader()) = orderbook.SafeSidePrice(orderbook.Queue(book,side),constant(initialValue))*priceDistr
+                              /** asset in question */ book = orderbook.OfTrader()) = orderbook.SafeSidePrice(orderbook.Queue(book,side),initialValue)*priceDistr
         
     }
     
@@ -1846,7 +1846,7 @@ package strategy
                    /** Start date in DD-MM-YYYY format */ start = "2001-1-1",
                    /** End date in DD-MM-YYYY format */ end = "2010-1-1",
                    /** Price difference between orders placed and underlying quotes */ delta = 1.0,
-                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0) = Combine(Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.Quote(ticker,start,end)+delta),order.price.Limit(side.Sell(),constant(volume*1000)))),event.After(constant(0.0))),Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.Quote(ticker,start,end)-delta),order.price.Limit(side.Buy(),constant(volume*1000)))),event.After(constant(0.0))))
+                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0) = Combine(Generic(order.Iceberg(volume,order.FloatingPrice(observable.BreaksAtChanges(observable.Quote(ticker,start,end)+delta),order.price.Limit(side.Sell(),volume*1000))),event.After(0.0)),Generic(order.Iceberg(volume,order.FloatingPrice(observable.BreaksAtChanges(observable.Quote(ticker,start,end)-delta),order.price.Limit(side.Buy(),volume*1000))),event.After(0.0)))
     
     /** Strategy that listens to all orders sent by a trader to the market
      *  and in some moments of time it randomly chooses an order and cancels it
@@ -1872,7 +1872,7 @@ package strategy
                 /** Event source making the strategy to wake up*/ eventGen = event.Every()) : ISingleAssetStrategy
     
     def MarketMaker(delta = 1.0,
-                    volume = 20.0) = Combine(Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(0.9,orderbook.SafeSidePrice(orderbook.Asks(),constant(100+delta))/math.Exp(math.Atan(trader.Position())/constant(1000)))),order.price.Limit(side.Sell(),constant(volume*1000)))),event.After(constant(0.0))),Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(0.9,orderbook.SafeSidePrice(orderbook.Bids(),constant(100-delta))/math.Exp(math.Atan(trader.Position())/constant(1000)))),order.price.Limit(side.Buy(),constant(volume*1000)))),event.After(constant(0.0))))
+                    volume = 20.0) = Combine(Generic(order.Iceberg(volume,order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(0.9,orderbook.SafeSidePrice(orderbook.Asks(),100+delta)/math.Exp(math.Atan(trader.Position())/1000))),order.price.Limit(side.Sell(),volume*1000))),event.After(0.0)),Generic(order.Iceberg(volume,order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(0.9,orderbook.SafeSidePrice(orderbook.Bids(),100-delta)/math.Exp(math.Atan(trader.Position())/1000))),order.price.Limit(side.Buy(),volume*1000))),event.After(0.0)))
     
     /** Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
      */
@@ -2211,18 +2211,6 @@ package observable
 @python = "no"
 package trash
 {
-    package types
-    {
-        type T1 = T
-        
-        type T
-        
-        type R : T
-        
-        type U : T, R
-        
-    }
-    
     package in1
     {
         package in2
@@ -2252,6 +2240,32 @@ package trash
         def toInject1() : () => Int
         
         def toInject2() : () => Int
+        
+    }
+    
+    package types
+    {
+        type T1 = T
+        
+        type T
+        
+        type R : T
+        
+        type U : T, R
+        
+    }
+    
+    package overloading
+    {
+        def f(x : IFunction[Price]) = x
+        
+        def f(x : IFunction[Float]) = x
+        
+        def f(x : IFunction[Volume]) = x
+        
+        def g(x : IFunction[Volume]) = f(x)
+        
+        def h() = f(12)
         
     }
     

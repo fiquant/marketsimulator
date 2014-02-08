@@ -58,7 +58,7 @@ package strategy.weight
         /** base for power function */
         base = 1.002) : IFunction[Float]
 
-        = math.Atan(math.Pow(constant(base), f))
+        = math.Atan(math.Pow(base, f))
 
     /**
      *  scaling function = max(0, f(x)) + 1
@@ -67,7 +67,7 @@ package strategy.weight
     def Clamp0( /** function to scale */
                 f : Optional[IFunction[Float]] = constant()) : IFunction[Float]
 
-        = math.Max(constant(0), f) + constant(1)
+        = math.Max(0, f) + 1
 
     /** identity scaling = f(x) */
     @curried("f")

@@ -17,6 +17,6 @@ package strategy.price
 
         = orderbook.SafeSidePrice(
                 orderbook.Queue(book, side),
-                constant(initialValue)
+                initialValue
             ) * priceDistr
 }

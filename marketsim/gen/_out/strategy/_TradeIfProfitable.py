@@ -50,8 +50,8 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
     def getImpl(self):
         from marketsim.gen._out.strategy._Suspendable import Suspendable as _strategy_Suspendable
         from marketsim.gen._out.ops._GreaterEqual import GreaterEqual as _ops_GreaterEqual
-        from marketsim.gen._out._const import const as _const
-        return _strategy_Suspendable(self.inner,_ops_GreaterEqual(self.performance(self.account(self.inner)),_const(0)))
+        from marketsim.gen._out._constant import constant as _constant
+        return _strategy_Suspendable(self.inner,_ops_GreaterEqual(self.performance(self.account(self.inner)),_constant(0)))
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

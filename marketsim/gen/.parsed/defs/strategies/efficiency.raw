@@ -233,13 +233,8 @@ Definitions:
 | | | | | | | | | | | - math
 | | | | | | | | | | | - Pow
 | | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - constant
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - base
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - base
 | | | | | | | | | | - Var:
 | | | | | | | | | | | - f
 | | | | | - Some:
@@ -302,22 +297,12 @@ Definitions:
 | | | | | | | | | | - math
 | | | | | | | | | | - Max
 | | | | | | | | - List:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - constant
-| | | | | | | | | | - List:
-| | | | | | | | | | | - IntLit:
-| | | | | | | | | | | | - 0
+| | | | | | | | | - IntLit:
+| | | | | | | | | | - 0
 | | | | | | | | | - Var:
 | | | | | | | | | | - f
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - constant
-| | | | | | | | - List:
-| | | | | | | | | - IntLit:
-| | | | | | | | | | - 1
+| | | | | | | - IntLit:
+| | | | | | | | - 1
 | | | | | - Some:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:

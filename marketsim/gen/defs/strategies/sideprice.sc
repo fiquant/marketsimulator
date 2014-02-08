@@ -68,18 +68,18 @@ package strategy
     Combine(
         Generic(
             order.Iceberg(
-                constant(volume),
+                volume,
                 order.FloatingPrice(
                     observable.BreaksAtChanges(observable.Quote(ticker, start, end) + delta),
-                    order.price.Limit(side.Sell(), constant(volume*1000)))),
-            event.After(constant(0.))),
+                    order.price.Limit(side.Sell(), volume*1000))),
+            event.After(0.)),
         Generic(
             order.Iceberg(
-                constant(volume),
+                volume,
                 order.FloatingPrice(
                     observable.BreaksAtChanges(observable.Quote(ticker, start, end) - delta),
-                    order.price.Limit(side.Buy(), constant(volume*1000)))),
-            event.After(constant(0.)))
+                    order.price.Limit(side.Buy(), volume*1000))),
+            event.After(0.))
     )
 
     def MarketMaker(delta = 1., volume = 20.) =
@@ -87,28 +87,28 @@ package strategy
         Combine(
             Generic(
                 order.Iceberg(
-                    constant(volume),
+                    volume,
                     order.FloatingPrice(
                         observable.BreaksAtChanges(
                             observable.OnEveryDt(0.9,
-                                orderbook.SafeSidePrice(orderbook.Asks(), constant(100 + delta)) /
-                                    math.Exp(math.Atan(trader.Position()) / constant(1000))
+                                orderbook.SafeSidePrice(orderbook.Asks(), 100 + delta) /
+                                    math.Exp(math.Atan(trader.Position()) / 1000)
                             )
                         ),
-                        order.price.Limit(side.Sell(), constant(volume*1000)))),
-            event.After(constant(0.))),
+                        order.price.Limit(side.Sell(), volume*1000))),
+            event.After(0.)),
         Generic(
             order.Iceberg(
-                constant(volume),
+                volume,
                 order.FloatingPrice(
                     observable.BreaksAtChanges(
                         observable.OnEveryDt(0.9,
-                            orderbook.SafeSidePrice(orderbook.Bids(), constant(100 - delta)) /
-                                math.Exp(math.Atan(trader.Position()) / constant(1000))
+                            orderbook.SafeSidePrice(orderbook.Bids(), 100 - delta) /
+                                math.Exp(math.Atan(trader.Position()) / 1000)
                         )
                     ),
-                    order.price.Limit(side.Buy(), constant(volume*1000)))),
-            event.After(constant(0.))))
+                    order.price.Limit(side.Buy(), volume*1000))),
+            event.After(0.)))
 
 
 }

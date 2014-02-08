@@ -280,7 +280,7 @@ package object Typer
     {
         def promote_literal(e : Typed.Expr) =
             if (e.ty canCastTo Typed.topLevel.float_) {
-                val f = ctx.lookupFunction(AST.QualifiedName("const" :: Nil)).head._2()
+                val f = ctx.lookupFunction(AST.QualifiedName("constant" :: Nil)).head._2()
                 Typed.FunctionCall(f, e :: Nil)
             } else e
 

@@ -82,13 +82,8 @@ Definitions:
 | | | | | | | | | | | | - book
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - side
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - constant
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - initialValue
+| | | | | | | | | - Var:
+| | | | | | | | | | - initialValue
 | | | | | | | - Var:
 | | | | | | | | - priceDistr
 | | | | | - None

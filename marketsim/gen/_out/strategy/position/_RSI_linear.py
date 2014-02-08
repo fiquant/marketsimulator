@@ -52,14 +52,14 @@ class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(Observable[Volume]
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.strategy.position._DesiredPosition import DesiredPosition as _strategy_position_DesiredPosition
         from marketsim.gen._out.ops._Mul import Mul as _ops_Mul
         from marketsim.gen._out.math._RSI import RSI as _math_RSI
         from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
         from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
+        from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
-        return _strategy_position_DesiredPosition(_observable_OnEveryDt(1.0,_ops_Mul(_ops_Sub(_const(50.0),_math_RSI(_orderbook_OfTrader(self.trader),self.timeframe,self.alpha)),self.k)),self.trader)
+        return _strategy_position_DesiredPosition(_observable_OnEveryDt(1.0,_ops_Mul(_ops_Sub(_constant(50.0),_math_RSI(_orderbook_OfTrader(self.trader),self.timeframe,self.alpha)),self.k)),self.trader)
     
 def RSI_linear(alpha = None,k = None,timeframe = None,trader = None): 
     from marketsim import float

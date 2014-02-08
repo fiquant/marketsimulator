@@ -428,7 +428,7 @@ package math {
      */
     @label = "Downs_{%(timeframe)s}(%(source)s)"
     def DownMovements(/** observable data source */ source = const(),
-                      /** lag size */ timeframe = 10.0) = observable.Float(Max(const(0.0),Lagged(source,timeframe)-source))
+                      /** lag size */ timeframe = 10.0) = observable.Float(Max(0.0,Lagged(source,timeframe)-source))
     
     // defined at .output\names.sc: 403.5
     /** Arc tangent of x, in radians.
@@ -460,7 +460,7 @@ package math {
      */
     @label = "Ups_{%(timeframe)s}(%(source)s)"
     def UpMovements(/** observable data source */ source = const(),
-                    /** lag size */ timeframe = 10.0) = observable.Float(Max(const(0.0),source-Lagged(source,timeframe)))
+                    /** lag size */ timeframe = 10.0) = observable.Float(Max(0.0,source-Lagged(source,timeframe)))
     
     // defined at .output\names.sc: 431.5
     /** Square of *x*
@@ -1660,7 +1660,7 @@ package strategy {@category = "Side function"
         /** scaling function = max(0, f(x)) + 1
          */
         @curried("f")
-        def Clamp0(/** function to scale */ f : Optional[IFunction[Float]] = constant()) : IFunction[Float] = math.Max(constant(0),f)+constant(1)
+        def Clamp0(/** function to scale */ f : Optional[IFunction[Float]] = constant()) : IFunction[Float] = math.Max(0,f)+1
         
         // defined at .output\names.sc: 1564.9
         /** Returns first derivative of a moving average of the trader efficiency
@@ -1682,7 +1682,7 @@ package strategy {@category = "Side function"
          */
         @curried("f")
         def AtanPow(/** function to scale */ f : Optional[IFunction[Float]] = constant(),
-                    /** base for power function */ base = 1.002) : IFunction[Float] = math.Atan(math.Pow(constant(base),f))
+                    /** base for power function */ base = 1.002) : IFunction[Float] = math.Atan(math.Pow(base,f))
         
         // defined at .output\names.sc: 1583.9
         /** Identity function for an array of floats
@@ -1709,7 +1709,7 @@ package strategy {@category = "Side function"
                               /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
                               /** defines multipliers for current asset price when price of
                                 *             order to create is calculated*/ priceDistr = math.random.lognormvariate(0.0,0.1),
-                              /** asset in question */ book = orderbook.OfTrader()) = orderbook.SafeSidePrice(orderbook.Queue(book,side),constant(initialValue))*priceDistr
+                              /** asset in question */ book = orderbook.OfTrader()) = orderbook.SafeSidePrice(orderbook.Queue(book,side),initialValue)*priceDistr
     }
     @category = "Volume function"
     
@@ -1958,7 +1958,7 @@ package strategy {@category = "Side function"
                    /** Start date in DD-MM-YYYY format */ start = "2001-1-1",
                    /** End date in DD-MM-YYYY format */ end = "2010-1-1",
                    /** Price difference between orders placed and underlying quotes */ delta = 1.0,
-                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0) = Combine(Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.Quote(ticker,start,end)+delta),order.price.Limit(side.Sell(),constant(volume*1000)))),event.After(constant(0.0))),Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.Quote(ticker,start,end)-delta),order.price.Limit(side.Buy(),constant(volume*1000)))),event.After(constant(0.0))))
+                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0) = Combine(Generic(order.Iceberg(volume,order.FloatingPrice(observable.BreaksAtChanges(observable.Quote(ticker,start,end)+delta),order.price.Limit(side.Sell(),volume*1000))),event.After(0.0)),Generic(order.Iceberg(volume,order.FloatingPrice(observable.BreaksAtChanges(observable.Quote(ticker,start,end)-delta),order.price.Limit(side.Buy(),volume*1000))),event.After(0.0)))
     
     // defined at .output\names.sc: 1840.5
     /** Strategy that listens to all orders sent by a trader to the market
@@ -1988,7 +1988,7 @@ package strategy {@category = "Side function"
     
     // defined at .output\names.sc: 1863.5
     def MarketMaker(delta = 1.0,
-                    volume = 20.0) = Combine(Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(0.9,orderbook.SafeSidePrice(orderbook.Asks(),constant(100+delta))/math.Exp(math.Atan(trader.Position())/constant(1000)))),order.price.Limit(side.Sell(),constant(volume*1000)))),event.After(constant(0.0))),Generic(order.Iceberg(constant(volume),order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(0.9,orderbook.SafeSidePrice(orderbook.Bids(),constant(100-delta))/math.Exp(math.Atan(trader.Position())/constant(1000)))),order.price.Limit(side.Buy(),constant(volume*1000)))),event.After(constant(0.0))))
+                    volume = 20.0) = Combine(Generic(order.Iceberg(volume,order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(0.9,orderbook.SafeSidePrice(orderbook.Asks(),100+delta)/math.Exp(math.Atan(trader.Position())/1000))),order.price.Limit(side.Sell(),volume*1000))),event.After(0.0)),Generic(order.Iceberg(volume,order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(0.9,orderbook.SafeSidePrice(orderbook.Bids(),100-delta)/math.Exp(math.Atan(trader.Position())/1000))),order.price.Limit(side.Buy(),volume*1000))),event.After(0.0)))
     
     // defined at .output\names.sc: 1866.5
     /** Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
@@ -2364,6 +2364,45 @@ package observable {
 @python = "no"
 
 package trash {
+    package in1 {
+        package in2 {
+            // defined at .output\names.sc: 2207.13
+            def S1(y = "abc") = y
+            
+            // defined at .output\names.sc: 2209.13
+            def F(x = IntFunc() : IFunction[Float]) = x
+            
+            // defined at .output\names.sc: 2211.13
+            def A(x = constant(),
+                  y = if 3>x+2 then x else x*2) : () => types.T
+            
+            // defined at .output\names.sc: 2214.13
+            def IntObs() : IObservable[Int]
+            
+            // defined at .output\names.sc: 2216.13
+            def IntFunc() : IFunction[Int]
+            
+            // defined at .output\names.sc: 2218.13
+            def C(x : IFunction[CandleStick],
+                  p = [12,23.2,0]) = p
+            
+            // defined at .output\names.sc: 2221.13
+            def S2() : Optional[String] = S1()
+            
+            // defined at .output\names.sc: 2223.13
+            def O(x = IntObs() : IObservable[Float]) = x
+        }
+        
+        // defined at .output\names.sc: 2227.9
+        def A(x : () => .trash.types.T1 = .trash.A()) : () => types.U
+        
+        // defined at .output\names.sc: 2229.9
+        def toInject1() : () => Int
+        
+        // defined at .output\names.sc: 2231.9
+        def toInject2() : () => Int
+    }
+    
     package types {
         type T1 = T
         
@@ -2374,46 +2413,24 @@ package trash {
         type U : T, R
     }
     
-    package in1 {
-        package in2 {
-            // defined at .output\names.sc: 2219.13
-            def S1(y = "abc") = y
-            
-            // defined at .output\names.sc: 2221.13
-            def F(x = IntFunc() : IFunction[Float]) = x
-            
-            // defined at .output\names.sc: 2223.13
-            def A(x = constant(),
-                  y = if 3>x+2 then x else x*2) : () => types.T
-            
-            // defined at .output\names.sc: 2226.13
-            def IntObs() : IObservable[Int]
-            
-            // defined at .output\names.sc: 2228.13
-            def IntFunc() : IFunction[Int]
-            
-            // defined at .output\names.sc: 2230.13
-            def C(x : IFunction[CandleStick],
-                  p = [12,23.2,0]) = p
-            
-            // defined at .output\names.sc: 2233.13
-            def S2() : Optional[String] = S1()
-            
-            // defined at .output\names.sc: 2235.13
-            def O(x = IntObs() : IObservable[Float]) = x
-        }
+    package overloading {
+        // defined at .output\names.sc: 2249.9
+        def f(x : IFunction[Volume]) = x
         
-        // defined at .output\names.sc: 2239.9
-        def A(x : () => .trash.types.T1 = .trash.A()) : () => types.U
+        // defined at .output\names.sc: 2251.9
+        def f(x : IFunction[Float]) = x
         
-        // defined at .output\names.sc: 2241.9
-        def toInject1() : () => Int
+        // defined at .output\names.sc: 2253.9
+        def f(x : IFunction[Price]) = x
         
-        // defined at .output\names.sc: 2243.9
-        def toInject2() : () => Int
+        // defined at .output\names.sc: 2255.9
+        def g(x : IFunction[Volume]) = f(x)
+        
+        // defined at .output\names.sc: 2257.9
+        def h() = f(12)
     }
     
-    // defined at .output\names.sc: 2247.5
+    // defined at .output\names.sc: 2261.5
     def A(x = in1.in2.A()) : () => types.R
 }
 
@@ -2475,14 +2492,14 @@ type IOrderGenerator = IObservable[Order]
 
 type String
 
-// defined at .output\names.sc: 2309.1
+// defined at .output\names.sc: 2323.1
 /** Function always returning *x*
  */
 @category = "Basic"
 @label = "C=%(x)s"
 def constant(x = 1.0) = const(x) : IFunction[Float]
 
-// defined at .output\names.sc: 2315.1
+// defined at .output\names.sc: 2329.1
 /** Trivial observable always returning *False*
  */
 @category = "Basic"
@@ -2490,14 +2507,14 @@ def constant(x = 1.0) = const(x) : IFunction[Float]
 @label = "False"
 def false() : IObservable[Boolean]
 
-// defined at .output\names.sc: 2322.1
+// defined at .output\names.sc: 2336.1
 /** Trivial observable always returning *undefined* or *None* value
  */
 @category = "Basic"
 @python.intrinsic("_constant._Null_Impl")
 def null() : () => Float
 
-// defined at .output\names.sc: 2328.1
+// defined at .output\names.sc: 2342.1
 /** Time serie to store and render it after on a graph
  *  Used to specify what data should be collected about order books and traders
  */
@@ -2509,7 +2526,7 @@ def TimeSerie(source = const(0.0) : IObservable[Any],
               _digitsToShow = 4,
               _smooth = 1) : ITimeSerie
 
-// defined at .output\names.sc: 2339.1
+// defined at .output\names.sc: 2353.1
 /** Trivial observable always returning *x*
  */
 @category = "Basic"
@@ -2517,7 +2534,7 @@ def TimeSerie(source = const(0.0) : IObservable[Any],
 @label = "C=%(x)s"
 def const(x = 1.0) : IObservable[Float]
 
-// defined at .output\names.sc: 2346.1
+// defined at .output\names.sc: 2360.1
 /** Observable returning at the end of every *timeframe*
  * open/close/min/max price, its average and standard deviation
  */
@@ -2527,7 +2544,7 @@ def const(x = 1.0) : IObservable[Float]
 def CandleSticks(/** observable data source considered as asset price */ source = const(),
                  /** size of timeframe */ timeframe = 10.0) : IObservable[CandleStick]
 
-// defined at .output\names.sc: 2355.1
+// defined at .output\names.sc: 2369.1
 /** Trivial observable always returning *True*
  */
 @category = "Basic"
@@ -2535,7 +2552,7 @@ def CandleSticks(/** observable data source considered as asset price */ source 
 @label = "True"
 def true() : IObservable[Boolean]
 
-// defined at .output\names.sc: 2362.1
+// defined at .output\names.sc: 2376.1
 /** Returns *x* if defined and *elsePart* otherwise
  */
 @category = "Basic"
@@ -2544,7 +2561,7 @@ def true() : IObservable[Boolean]
 def IfDefined(x = constant(),
               /** function to take values from when *x* is undefined */ elsePart = constant()) = if x<>null() then x else elsePart
 
-// defined at .output\names.sc: 2370.1
+// defined at .output\names.sc: 2384.1
 /** Time serie holding volume levels of an asset
  * Level of volume V is a price at which cumulative volume of better orders is V
  */

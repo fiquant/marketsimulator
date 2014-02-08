@@ -53,7 +53,6 @@ class MarketData_StringStringStringFloatFloat(ISingleAssetStrategy):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out._const import const as _const
         from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim.gen._out.order._FloatingPrice import FloatingPrice as _order_FloatingPrice
         from marketsim.gen._out.observable._BreaksAtChanges import BreaksAtChanges as _observable_BreaksAtChanges
@@ -67,7 +66,7 @@ class MarketData_StringStringStringFloatFloat(ISingleAssetStrategy):
         from marketsim.gen._out._constant import constant as _constant
         from marketsim.gen._out.order._Iceberg import Iceberg as _order_Iceberg
         from marketsim.gen._out.side._Buy import Buy as _side_Buy
-        return _strategy_Combine(_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_ops_Add(_observable_Quote(self.ticker,self.start,self.end),_const(self.delta))),_order__curried_price_Limit(_side_Sell(),_constant((self.volume*1000))))),_event_After(_constant(0.0))),_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_ops_Sub(_observable_Quote(self.ticker,self.start,self.end),_const(self.delta))),_order__curried_price_Limit(_side_Buy(),_constant((self.volume*1000))))),_event_After(_constant(0.0))))
+        return _strategy_Combine(_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_ops_Add(_observable_Quote(self.ticker,self.start,self.end),_constant(self.delta))),_order__curried_price_Limit(_side_Sell(),_constant((self.volume*1000))))),_event_After(_constant(0.0))),_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_ops_Sub(_observable_Quote(self.ticker,self.start,self.end),_constant(self.delta))),_order__curried_price_Limit(_side_Buy(),_constant((self.volume*1000))))),_event_After(_constant(0.0))))
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
