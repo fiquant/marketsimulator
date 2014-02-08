@@ -13,7 +13,7 @@ package object NameTable {
             with    ScPrintable
     {
         var packages    = Map.empty[String, Scope]
-        var functions   = Map.empty[String, AST.FunctionDeclaration]
+        var functions   = Map.empty[String, List[AST.FunctionDeclaration]]
         var types       = Map.empty[String, AST.TypeDeclaration]
         var attributes  = Typed.Attributes(Map.empty)
         var parent      = Option.empty[Scope]
@@ -38,14 +38,7 @@ package object NameTable {
         }
 
         def add(m : AST.FunctionDeclaration) {
-            functions get m.name match {
-                case None =>
-                    check_name_is_unique(m.name, m)
-                    functions = functions updated (m.name, m)
-                case Some(x) =>
-                    if (x != m)
-                        throw new Exception(s"Trying to replace member $x\r\n by $m\r\n at $qualifiedNameAnon" )
-            }
+            functions = functions updated (m.name, m :: (functions getOrElse (m.name, Nil)))
         }
 
         def add(t : AST.TypeDeclaration) {
@@ -97,15 +90,13 @@ package object NameTable {
         }
 
         private def populate(child: Scope) : Scope = {
-            if (functions contains child.name)
-                throw new Exception(s"Duplicate definition for ${child.name}:\r\n" + functions(child.name) + "\r\n" + child)
             packages get child.name match {
                 case Some(existing) =>
                     if (existing.`abstract` != child.`abstract`)
                         throw new Exception(s"Trying to merge packages with different `abstract` annotations:" + existing + child)
                     if (existing.parameters != child.parameters)
                         throw new Exception(s"Trying to merge packages with different parameters:" + existing + child)
-                    child.functions.values foreach existing.add
+                    child.functions.values foreach { _ foreach existing.add }
                     child.types.values foreach existing.add
                     child.packages.values foreach existing.populate
                     child.attributes.items foreach { p => existing.addAttribute(p._1, p._2) }
@@ -155,7 +146,7 @@ package object NameTable {
                         inner.attributes = Typed.Attributes(pkg.attributes.items ++ inner.attributes.items)
                         populate(inner)
                     }
-                    pkg.functions.values foreach { m =>
+                    pkg.functions.values foreach { _ foreach { m =>
                         add(m match {
                             case f : AST.FunDef =>
                                 f.copy(decorators =
@@ -163,7 +154,7 @@ package object NameTable {
                                                 ++ f.decorators)
                             case x => x
                         })
-                    }
+                    } }
                     pkg.types.values foreach { add }
             }
         }
@@ -221,7 +212,7 @@ package object NameTable {
                  lookupPackage(base.names) match {
                      case Some(b) =>
                          b.injectBasesImpl()
-                         b.functions.values filterNot { functions contains _.name } foreach { add }
+                         b.functions.values filterNot { functions contains _.head.name } foreach { _ foreach { add  } }
                          b.types.values filterNot { types contains _.name } foreach { add }
                          b.packages.values foreach { populate }
                          b.attributes.items foreach { p => addAttribute(p._1, p._2) }
@@ -275,26 +266,28 @@ package object NameTable {
                 }
         }
 
-        private def lookupFunctionInnerScopes(qn : List[String]) : Option[(Scope, AST.FunDef)] =
+        private def lookupFunctionInnerScopes(qn : List[String]) : List[(Scope, AST.FunDef)] =
         {
             //println(s"looking for $qn in inner scopes of $qualifiedNameAnon ")
             qn match {
                 case x :: Nil =>
                     functions get x match {
-                        case Some(f : AST.FunDef) => Some((this, f))
-                        case Some(alias : AST.FunAlias) => lookupFunction(alias.target.names)
-                        case None => None
+                        case None => Nil
+                        case Some(lst) => lst flatMap {
+                            case f : AST.FunDef => (this, f) :: Nil
+                            case a : AST.FunAlias => lookupFunction(a.target.names)
+                        }
                     }
                 case x :: tl =>
                     packages get x map { _ lookupFunctionInnerScopes tl } match {
                         case Some(y)  => y
-                        case None     => None
+                        case None     => Nil
                     }
             }
         }
 
 
-        def lookupFunction(qn : List[String]) : Option[(Scope, AST.FunDef)] =
+        def lookupFunction(qn : List[String]) : List[(Scope, AST.FunDef)] =
         {
             //println(s"looking for $qn in $qualifiedNameAnon")
             if (isAnonymous)
@@ -309,9 +302,11 @@ package object NameTable {
                         }
                     case _ =>
                         lookupFunctionInnerScopes(qn) match {
-                            case Some(x) => Some(x)
-                            case None    =>
-                                parent flatMap { _ lookupFunction qn }
+                            case Nil    => parent match {
+                                case None => Nil
+                                case Some(p) => p lookupFunction qn
+                            }
+                            case x => x
                         }
                 }
         }
@@ -343,9 +338,9 @@ package object NameTable {
 
     private def create(p : AST.Definitions, a : Iterable[AST.Attribute], impl : Scope) {
         p.definitions foreach {
-            case t : AST.TypeDeclaration => impl.add(t)
-            case m : AST.FunctionDeclaration => impl.add(m)
-            case package_def : AST.PackageDef => impl.add(package_def)
+            case t : AST.TypeDeclaration        => impl add t
+            case m : AST.FunctionDeclaration    => impl add m
+            case package_def : AST.PackageDef   => impl add package_def
         }
         a foreach { impl.add }
     }

@@ -436,9 +436,9 @@ package object Typed
         {
             scope.packages.values foreach { apply }
 
-            scope.functions.values collect { case f : AST.FunDef =>
+            scope.functions.values flatMap { _ collect { case f : AST.FunDef =>
                 Typer.annotationsOf(f) collect { case Typed.Annotation(g : BeforeTyping, args) => g.beforeTyping(args)(f, scope) }
-            }
+            } }
         }
     }
 

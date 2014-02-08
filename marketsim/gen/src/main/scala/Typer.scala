@@ -52,7 +52,7 @@ package object Typer
 
                 }
 
-                source.functions.values foreach { definition =>
+                source.functions.values foreach { _ foreach { definition =>
                     try {
                         definition match {
                             case a : AST.FunAlias => getTyped(a)
@@ -63,7 +63,7 @@ package object Typer
                         case ex : Exception =>
                             throw new Exception(s"\r\nWhen typing '${source qualifyName definition.name}':\r\n" + ex.getMessage, ex)
                     }
-                }
+                } }
 
                 source.packages.values foreach { Processor(_).run() }
             } catch {
@@ -100,12 +100,13 @@ package object Typer
             })
         }
 
-        private def lookupFunction(name : AST.QualifiedName) : Typed.Function =
+        private def lookupFunction(name : AST.QualifiedName) : List[Typed.Function] =
             source lookupFunction name.names match {
-                case Some((scope, definition)) =>
-                        Processor(scope).getTyped(definition).head.target
-                case None =>
+                case Nil =>
                         throw new Exception(s"cannot find name $name")
+                case overloads => overloads flatMap {
+                    case (scope, definition) => Processor(scope).getTyped(definition) map { _.target }
+                }
             }
 
         private def lookupType(name : AST.QualifiedName) : Typed.TypeDeclaration =
@@ -171,10 +172,12 @@ package object Typer
                         if (name.names.length == 1) {
                             locals find { _.name == name.names(0) } match {
                                 case Some(p) => Typed.ParamRef(p)
-                                case None    => Typed.FunctionRef(self lookupFunction name)
+                                case None    =>
+                                    val overloads = self lookupFunction name
+                                    Typed.FunctionRef(overloads.head)
                             }
                         } else
-                            Typed.FunctionRef(self lookupFunction name)
+                            Typed.FunctionRef((self lookupFunction name).head)
 
                     def lookupVar(name: String) = locals.find({
                         _.name == name
@@ -221,7 +224,7 @@ package object Typer
         }
 
         private def toTyped(f : AST.FunAlias) : Typed.FunctionAlias =
-            Typed.FunctionAlias(source.typed.get, f.name, lookupFunction(f.target))
+            Typed.FunctionAlias(source.typed.get, f.name, lookupFunction(f.target).head)
 
 
         private def toTyped(p: AST.Parameter, inferType : AST.Expr => Typed.Expr) : Typed.Parameter = {
