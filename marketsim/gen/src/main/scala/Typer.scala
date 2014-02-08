@@ -359,40 +359,75 @@ package object Typer
 
             case AST.FunCall(name, args) =>
 
-                val typed_args = args map asArith
+                def impl(typed_args : List[Typed.Expr]) : Typed.Expr = {
+                    def checkOverload(ty : TypesBound.Function) : Boolean = {
+                        (typed_args.length >= ty.mandatory_arg_count) &&
+                        (typed_args zip ty.args forall {
+                            case (actual, declared) => actual.ty canCastTo declared
+                        })
+                    }
 
-                def checkOverload(ty : TypesBound.Function) : Boolean = {
-                    (typed_args.length >= ty.mandatory_arg_count) &&
-                    (typed_args zip ty.args forall {
-                        case (actual, declared) => actual.ty canCastTo declared
-                    })
+                    val overloads = ctx lookupFunction name
+
+                    overloads filter { o => checkOverload(o._1) } match {
+                        case Nil =>
+
+                            def possibleCasts(prefix : List[Typed.Expr],
+                                              rest   : List[Typed.Expr])
+                                : Stream[List[Typed.Expr]] = rest match
+                            {
+                                case Nil => (prefix :: Nil).toStream
+                                case x :: tl =>
+                                    possibleCasts(prefix :+ x, tl) ++ (
+                                            if (x.ty canCastTo Typed.topLevel.float_)
+                                                possibleCasts(prefix :+ promote_literal(x), tl)
+                                            else
+                                                Stream.empty)
+                            }
+
+                            possibleCasts(Nil, typed_args).toList flatMap { implicit_args =>
+                                try {
+                                    Some(impl(implicit_args))
+                                } catch {
+                                    case _ : Exception => None
+                                }
+                            } match {
+                                case Nil =>
+                                    throw new Exception(s"No suitable overload for call $name($args). Overloads are"
+                                            + predef.crlf + (overloads map { _._1 } mkString predef.crlf))
+
+                                case x :: Nil => x
+
+                                case tl =>
+                                    if (tl forall { _ == tl.head})
+                                        tl.head
+                                    else
+                                        throw new Exception("Conflicting implicit casts gives " + tl)
+                            }
+
+                        case (_, makeExpr) :: Nil =>
+                            Typed.FunctionCall(makeExpr(), typed_args)
+
+                        case lst =>
+                            def canCast(t : TypesBound.Function, u : TypesBound.Function) =
+                                t.args zip u.args forall { case (a,b) => a canCastTo b }
+
+                            lst filter { case (x, _) => lst forall { y => canCast(x, y._1) } } match {
+                                case Nil =>
+                                    throw new Exception("there is no the most concrete overload among: " + lst)
+
+                                case (_, makeExpr) :: Nil =>
+                                    Typed.FunctionCall(makeExpr(), typed_args)
+
+                                case xs =>
+                                    throw new Exception(s"there are several dominating overloads $xs in $overloads and it is strange")
+                            }
+
+                    }
                 }
 
-                val overloads = ctx lookupFunction name
+                impl(args map asArith)
 
-                overloads filter { o => checkOverload(o._1) } match {
-                    case Nil =>
-                        throw new Exception(s"No suitable overload for call $name($args). Overloads are"
-                                + predef.crlf + (overloads map { _._1 } mkString predef.crlf))
-                    case (_, makeExpr) :: Nil =>
-                        Typed.FunctionCall(makeExpr(), typed_args)
-
-                    case lst =>
-                        def canCast(t : TypesBound.Function, u : TypesBound.Function) =
-                            t.args zip u.args forall { case (a,b) => a canCastTo b }
-
-                        lst filter { case (x, _) => lst forall { y => canCast(x, y._1) } } match {
-                            case Nil =>
-                                throw new Exception("there is no the most concrete overload among: " + lst)
-
-                            case (_, makeExpr) :: Nil =>
-                                Typed.FunctionCall(makeExpr(), typed_args)
-
-                            case xs =>
-                                throw new Exception(s"there are several dominating overloads $xs in $overloads and it is strange")
-                        }
-
-                }
 
 
             case AST.And(x, y) => Typed.And(asArith(x), asArith(y))
