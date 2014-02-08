@@ -2531,6 +2531,10 @@ package trash {
         
         def g(x : .IFunction[.Volume]) : .IFunction[.Volume]
             	 = .trash.overloading.f(x)
+        
+        
+        def h() : .IFunction[.Float]
+            	 = .trash.overloading.f(.const(12))
     }
     
     

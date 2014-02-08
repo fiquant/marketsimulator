@@ -2254,6 +2254,8 @@ package trash
         
         def g(x : IFunction[Volume]) = f(x)
         
+        def h() = f(12)
+        
     }
     
     def A(x = in1.in2.A()) : () => types.R

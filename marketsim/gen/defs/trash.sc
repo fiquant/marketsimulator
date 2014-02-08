@@ -28,6 +28,8 @@ package overloading {
 
     def g(x : IFunction[Volume]) = f(x)
 
+    def h() = f(12)
+
 }
 
 abstract package _base1 { def toInject1() => Int }

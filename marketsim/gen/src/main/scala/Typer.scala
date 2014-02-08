@@ -376,11 +376,11 @@ package object Typer
                                               rest   : List[Typed.Expr])
                                 : Stream[List[Typed.Expr]] = rest match
                             {
-                                case Nil => (prefix :: Nil).toStream
+                                case Nil => Stream.empty
                                 case x :: tl =>
                                     possibleCasts(prefix :+ x, tl) ++ (
                                             if (x.ty canCastTo Typed.topLevel.float_)
-                                                possibleCasts(prefix :+ promote_literal(x), tl)
+                                                (prefix ++ (promote_literal(x) :: tl)) :: Nil
                                             else
                                                 Stream.empty)
                             }
