@@ -94,8 +94,8 @@ package object gen
                             }
                     }
                 case f : Typed.FunctionAlias =>
-                    generationUnit(f.target) map { g =>
-                        idx_out.println(base.withImports(Printer.importsOf(f.target).as(f.name)))
+                    generationUnit(f.targets.head) map { g =>
+                        idx_out.println(base.withImports(Printer.importsOf(f.targets.head).as(f.name)))
                     }
             } }
 

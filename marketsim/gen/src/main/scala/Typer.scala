@@ -79,7 +79,7 @@ package object Typer
             source.typed.get insert
                     visited.enter(source qualifyName definition.name) { toTyped(definition) }
 
-            source.typed.get.getFunction(definition.name).get
+            source.typed.get.getFunction(definition.name)
         }
 
         private def getTyped(definition : AST.FunDef) : List[Typed.FunctionDecl] = {
@@ -103,7 +103,7 @@ package object Typer
                 case Nil =>
                         throw new Exception(s"cannot find name $name")
                 case overloads => (overloads flatMap {
-                    case (scope, definition) => Processor(scope).getTyped(definition) map { _.target }
+                    case (scope, definition) => Processor(scope).getTyped(definition) flatMap { _.targets }
                 }).toSet[Typed.Function].toList
             }
 
@@ -230,7 +230,7 @@ package object Typer
         }
 
         private def toTyped(f : AST.FunAlias) : Typed.FunctionAlias =
-            Typed.FunctionAlias(source.typed.get, f.name, lookupFunction(f.target).head)
+            Typed.FunctionAlias(source.typed.get, f.name, lookupFunction(f.target))
 
 
         private def toTyped(p: AST.Parameter, inferType : AST.Expr => Typed.Expr) : Typed.Parameter = {

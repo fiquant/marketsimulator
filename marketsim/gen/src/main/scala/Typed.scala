@@ -139,18 +139,20 @@ package object Typed
     {
         val parent : Package
         val name   : String
-        val target : Function
+        val targets: List[Function]
     }
 
     case class FunctionAlias(parent : Package,
                              name   : String,
-                             target : Function)
+                             targets: List[Function])
             extends sc.FunctionAlias
             with    ScPrintable
             with    FunctionDecl
     {
         override def equals(o : Any) = o match {
-            case other : FunctionAlias => target.qualifiedName == other.target.qualifiedName
+            case other : FunctionAlias =>
+                (targets.length == other.targets.length) &&
+                (targets zip other.targets forall { case (x,y) =>  x.qualifiedName == y.qualifiedName })
             case _ => false
         }
     }
@@ -189,7 +191,7 @@ package object Typed
             with    AST.Positional
             with    FunctionDecl
     {
-        val target = this
+        val targets = this :: Nil
 
         def decorators = attributes :: annotations
 
@@ -310,14 +312,8 @@ package object Typed
             case _ => false
         }
 
-        def getOrElseUpdateFunctionAlias(name : String, default : => Typed.FunctionAlias) =
-            functions get name match {
-                case Some(f) => f
-                case None => insert(default)
-            }
-
         protected def getFunctionImpl(name : String) =
-            functions get name map { _ map { _.target } }
+            (functions getOrElse (name, Nil)) flatMap { _.targets }
 
         def getFunction(name : String) = getFunctionImpl(name)
 
@@ -389,8 +385,8 @@ package object Typed
     {
         override def getFunction(name : String) =
             getFunctionImpl(name) match {
-                case Some(f) => Some(f)
-                case None    => parent getFunction name
+                case Nil    => parent getFunction name
+                case f      => f
             }
 
         override def qualifiedName = AST.QualifiedName(parent.qualifiedName.names :+ name)

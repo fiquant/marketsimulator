@@ -89,7 +89,7 @@ object order_factory
 
         override def call_fields : Code = if (name endsWith "Signed") {
             val original_f = f.parent getFunction (name replace ("Signed", ""))
-            val original = gen.generationUnit(original_f.get.head).get.asInstanceOf[Factory]
+            val original = gen.generationUnit(original_f.head).get.asInstanceOf[Factory]
             original.call_fields
         }  else
             super.call_fields
