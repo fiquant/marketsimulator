@@ -50,13 +50,13 @@ package object gen
 
         for (idx_out <- managed(printWriter(idx_dir, "__init__.py")))
         {
-            p.functions.values foreach { fs =>
+            p.functions foreach { case (base_name, fs) =>
                 val names = fs map {
                     case f : Typed.Function =>
                         try {
                             generationUnit(f) map { g =>
                                 //println(f.parent.qualifiedName, f.name)
-                                for (out <- managed(printWriter(dir, s"_${f.name}.py"))) {
+                                for (out <- managed(printWriter(dir, s"_$base_name.py"))) {
                                     out.println(g.code)
                                 }
                                 idx_out.println(base.withImports(Printer.importsOf(f)))
@@ -82,21 +82,24 @@ package object gen
                     import predef._
 
                     def call(definition : Typed.FunctionDecl) : Code = {
-                        definition match {
-                            case f : Typed.Function =>
-                                generationUnit(f) map { g =>
-                                    val args_to_pass = f.parameters map { _.name } mkString ","
+                        def tryOverload(f : Typed.Function) : Code =
+                            generationUnit(f) map { g =>
+                                val args_to_pass = f.parameters map { _.name } mkString ","
 
-                                    def typecheck(args : List[Typed.Parameter]) : Code = args match {
-                                        case Nil =>
-                                            s"return ${g.name}($args_to_pass)"
-                                        case x :: tl =>
-                                            (s"if ${x.name} is None or rtti.can_be_casted(${x.name}, " ||| x.ty.asCode ||| "):"
-                                                |> typecheck(tl))
-                                    }
-                                    typecheck(f.parameters)
-                                } getOrElse ""
-                            case a : Typed.FunctionAlias => ""
+                                def typecheck(args : List[Typed.Parameter]) : Code = args match {
+                                    case Nil =>
+                                        s"return ${g.name}($args_to_pass)"
+                                    case x :: tl =>
+                                        (s"if ${x.name} is None or rtti.can_be_casted(${x.name}, " ||| x.ty.asCode ||| "):"
+                                            |> typecheck(tl))
+                                }
+                                typecheck(f.parameters)
+                            } getOrElse ""
+
+                        definition match {
+                            case f : Typed.Function => tryOverload(f)
+                            case a : Typed.FunctionAlias =>
+                                a.targets map { tryOverload } reduce { _ | _ }; ""
                         }
                     }
 
@@ -110,12 +113,12 @@ package object gen
                     }
 
                     val resolver =
-                        s"def ${fs.head.name}($input_args): " |> base.withImports(
+                        s"def $base_name($input_args): " |> base.withImports(
                                 calls |||
                                 ImportFrom("rtti", "marketsim") |
                                 """raise Exception("Cannot find suitable overload")""")
 
-                    for (out <- managed(printWriter(dir, s"_${fs.head.name}.py"))) {
+                    for (out <- managed(printWriter(dir, s"_$base_name.py"))) {
                         out.println(resolver)
                     }
                 }
