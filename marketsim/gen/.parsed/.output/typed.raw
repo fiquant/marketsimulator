@@ -1157,6 +1157,96 @@ Definitions:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - y
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Optional
+| | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | | | | - const
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - 
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | | | | - Float
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - \\frac{%(x)s}{%(y)s}
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - ops._Div_Impl
+| | | | - FunDef:
+| | | | | - Div
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Optional
+| | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
 | | | | | | | | | | | | | - IFunction
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - SimpleType:
@@ -24290,7 +24380,7 @@ Definitions:
 | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - Price
+| | | | | | | | | | | | | | | | - Volume
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | - None
 | | | | | | | | | | - List:
@@ -24308,7 +24398,7 @@ Definitions:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | - Price
+| | | | | | | | | | | | | | - Volume
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
@@ -24366,7 +24456,7 @@ Definitions:
 | | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | | - Volume
+| | | | | | | | | | | | | | | | - Price
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | - None
 | | | | | | | | | | - List:
@@ -24384,7 +24474,7 @@ Definitions:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | - Volume
+| | | | | | | | | | | | | | - Price
 | | | | | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:

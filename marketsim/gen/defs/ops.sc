@@ -9,6 +9,10 @@ package ops
     @label = "\\frac{%(x)s}{%(y)s}"
     def Div(x = constant(1.), y = constant(1.)) : IFunction[Float]
 
+    @python.intrinsic.observable("ops._Div_Impl")
+    @label = "\\frac{%(x)s}{%(y)s}"
+    def Div(x = const(1.), y = const(1.)) : IObservable[Float]
+
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     package {
 

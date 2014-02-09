@@ -22,4 +22,9 @@ class Asks_IOrderBook(_Asks_Impl):
     def __repr__(self):
         return "Asks(%(book)s)" % self.__dict__
     
-Asks = Asks_IOrderBook
+def Asks(book = None): 
+    from marketsim import IOrderBook
+    from marketsim import rtti
+    if book is None or rtti.can_be_casted(book, IOrderBook):
+        return Asks_IOrderBook(book)
+    raise Exception("Cannot find suitable overload")

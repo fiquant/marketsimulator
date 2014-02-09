@@ -43,4 +43,12 @@ class CumulativePrice_IOrderBookIFunctionFloat(Observable[Price],CumulativePrice
     def __repr__(self):
         return "CumulativePrice(%(book)s, %(depth)s)" % self.__dict__
     
-CumulativePrice = CumulativePrice_IOrderBookIFunctionFloat
+def CumulativePrice(book = None,depth = None): 
+    from marketsim import IOrderBook
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if book is None or rtti.can_be_casted(book, IOrderBook):
+        if depth is None or rtti.can_be_casted(depth, IFunction[float]):
+            return CumulativePrice_IOrderBookIFunctionFloat(book,depth)
+    raise Exception("Cannot find suitable overload")

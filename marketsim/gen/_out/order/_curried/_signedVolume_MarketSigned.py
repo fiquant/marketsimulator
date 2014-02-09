@@ -29,4 +29,3 @@ class signedVolume_MarketSigned(IFunction[IOrderGenerator, IFunction[float]]):
         
         return MarketSigned(signedVolume)
     
-signedVolume_MarketSigned = signedVolume_MarketSigned

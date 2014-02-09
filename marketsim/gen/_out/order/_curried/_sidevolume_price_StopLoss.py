@@ -41,4 +41,3 @@ class sidevolume_price_StopLoss(IFunction[IFunction[IOrderGenerator,IFunction[fl
         proto = self.proto
         return price_StopLoss(maxloss, proto(side,volume))
     
-sidevolume_price_StopLoss = sidevolume_price_StopLoss

@@ -47,4 +47,11 @@ class WeightedPrice_IOrderQueueFloat(Function[float]):
         from marketsim.gen._out.ops._Div import Div as _ops_Div
         return _ops_Div(_math_EW_Avg(_observable_Float(_ops_Mul(_orderbook_LastTradePrice(self.queue),_orderbook_LastTradeVolume(self.queue))),self.alpha),_math_EW_Avg(_orderbook_LastTradeVolume(self.queue),self.alpha))
     
-WeightedPrice = WeightedPrice_IOrderQueueFloat
+def WeightedPrice(queue = None,alpha = None): 
+    from marketsim import IOrderQueue
+    from marketsim import float
+    from marketsim import rtti
+    if queue is None or rtti.can_be_casted(queue, IOrderQueue):
+        if alpha is None or rtti.can_be_casted(alpha, float):
+            return WeightedPrice_IOrderQueueFloat(queue,alpha)
+    raise Exception("Cannot find suitable overload")

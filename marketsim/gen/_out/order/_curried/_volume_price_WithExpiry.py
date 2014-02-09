@@ -35,4 +35,3 @@ class volume_price_WithExpiry(IFunction[IFunction[IOrderGenerator,IFunction[floa
         proto = self.proto
         return price_WithExpiry(expiry, proto(volume))
     
-volume_price_WithExpiry = volume_price_WithExpiry

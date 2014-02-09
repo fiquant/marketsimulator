@@ -48,6 +48,12 @@ package object TypesBound
             extends Base
             with    sc.Optional
             with    py.Optional
+    {
+        override def canCastToImpl(other : Base) = other match {
+            case Optional(y) => x canCastTo y
+            case _           => false
+        }
+    }
 
     case class List_(x : Base)
             extends Base

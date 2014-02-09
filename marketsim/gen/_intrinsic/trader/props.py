@@ -89,3 +89,6 @@ class PendingVolume_Impl(object):
             self.trader._pendingVolume = _PendingVolume_Impl(self.trader)
         return self.trader._pendingVolume
 
+    def __call__(self):
+        return self._impl()
+

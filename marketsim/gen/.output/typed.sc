@@ -113,6 +113,12 @@ package ops {
     @label = "\\frac{%(x)s}{%(y)s}"
     
     @python.intrinsic.observable("ops._Div_Impl")
+    def Div(x : Optional[.IObservable[.Float]] = .const(1.0),
+            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
+    
+    @label = "\\frac{%(x)s}{%(y)s}"
+    
+    @python.intrinsic.observable("ops._Div_Impl")
     def Div(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
     

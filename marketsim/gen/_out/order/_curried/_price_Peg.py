@@ -33,4 +33,3 @@ class price_Peg(IFunction[IOrderGenerator,IFunction[float]]):
         proto = self.proto
         return Peg(proto(price))
     
-price_Peg = price_Peg

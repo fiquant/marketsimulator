@@ -30,4 +30,14 @@ class Remote_IOrderBookITwoWayLinkListITimeSerie(_Remote_Impl):
     def __repr__(self):
         return "%(orderbook)s.name^remote" % self.__dict__
     
-Remote = Remote_IOrderBookITwoWayLinkListITimeSerie
+def Remote(orderbook = None,link = None,timeseries = None): 
+    from marketsim import rtti
+    from marketsim import IOrderBook
+    from marketsim import listOf
+    from marketsim import ITimeSerie
+    from marketsim import ITwoWayLink
+    if orderbook is None or rtti.can_be_casted(orderbook, IOrderBook):
+        if link is None or rtti.can_be_casted(link, ITwoWayLink):
+            if timeseries is None or rtti.can_be_casted(timeseries, listOf(ITimeSerie)):
+                return Remote_IOrderBookITwoWayLinkListITimeSerie(orderbook,link,timeseries)
+    raise Exception("Cannot find suitable overload")

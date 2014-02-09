@@ -32,4 +32,3 @@ class sidevolume_Market(IFunction[IOrderGenerator, IFunction[Side],IFunction[flo
         
         return Market(side, volume)
     
-sidevolume_Market = sidevolume_Market

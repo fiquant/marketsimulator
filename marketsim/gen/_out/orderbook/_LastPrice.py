@@ -31,4 +31,9 @@ class LastPrice_IOrderQueue(Observable[Price],_LastPrice_Impl):
     def __repr__(self):
         return "LastPrice(%(queue)s)" % self.__dict__
     
-LastPrice = LastPrice_IOrderQueue
+def LastPrice(queue = None): 
+    from marketsim import IOrderQueue
+    from marketsim import rtti
+    if queue is None or rtti.can_be_casted(queue, IOrderQueue):
+        return LastPrice_IOrderQueue(queue)
+    raise Exception("Cannot find suitable overload")

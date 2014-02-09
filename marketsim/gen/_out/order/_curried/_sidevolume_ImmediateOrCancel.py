@@ -39,4 +39,3 @@ class sidevolume_ImmediateOrCancel(IFunction[IOrderGenerator,IFunction[Side]
         proto = self.proto
         return ImmediateOrCancel(proto(side,volume))
     
-sidevolume_ImmediateOrCancel = sidevolume_ImmediateOrCancel

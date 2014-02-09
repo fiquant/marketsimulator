@@ -104,6 +104,11 @@ package ops
     def Div(x = constant(1.0),
             y = constant(1.0)) : IFunction[Float]
     
+    @python.intrinsic.observable("ops._Div_Impl")
+    @label = "\\frac{%(x)s}{%(y)s}"
+    def Div(x = const(1.0),
+            y = const(1.0)) : IObservable[Float]
+    
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @python.intrinsic.observable("ops._LessEqual_Impl")
     @symbol = "<="

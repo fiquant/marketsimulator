@@ -43,4 +43,11 @@ class WeightedPrice_IOrderBookFloat(Function[float]):
         from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
         return _orderbook_WeightedPrice(_orderbook_Bids(self.book),self.alpha)
     
-WeightedPrice = WeightedPrice_IOrderBookFloat
+def WeightedPrice(book = None,alpha = None): 
+    from marketsim import IOrderBook
+    from marketsim import float
+    from marketsim import rtti
+    if book is None or rtti.can_be_casted(book, IOrderBook):
+        if alpha is None or rtti.can_be_casted(alpha, float):
+            return WeightedPrice_IOrderBookFloat(book,alpha)
+    raise Exception("Cannot find suitable overload")

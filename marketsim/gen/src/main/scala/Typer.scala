@@ -390,12 +390,13 @@ package object Typer
                             Typed.FunctionCall(makeExpr(), typed_args)
 
                         case lst =>
-                            def canCast(t : TypesBound.Function, u : TypesBound.Function) =
+                            def better(t : TypesBound.Function, u : TypesBound.Function) =
                                 t.args zip u.args forall { case (a,b) => a canCastTo b }
-
-                            lst filter { case (x, _) => lst forall { y => canCast(x, y._1) } } match {
+                        
+                            lst filter { case (x, _) => lst forall { y => better(x, y._1) } } match {
                                 case Nil =>
-                                    throw new Exception("there is no the most concrete overload among: " + lst)
+                                    throw new Exception("there is no the most concrete overload among: " +
+                                            (lst mkString (predef.crlf, predef.crlf, predef.crlf)))
 
                                 case (_, makeExpr) :: Nil =>
                                     Typed.FunctionCall(makeExpr(), typed_args)

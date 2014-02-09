@@ -27,4 +27,12 @@ class Queue_IOrderBookSide(_Queue_Impl):
     def __repr__(self):
         return "Queue(%(book)s, %(side)s)" % self.__dict__
     
-Queue = Queue_IOrderBookSide
+def Queue(book = None,side = None): 
+    from marketsim import IOrderBook
+    from marketsim import Side
+    from marketsim import IFunction
+    from marketsim import rtti
+    if book is None or rtti.can_be_casted(book, IOrderBook):
+        if side is None or rtti.can_be_casted(side, IFunction[Side]):
+            return Queue_IOrderBookSide(book,side)
+    raise Exception("Cannot find suitable overload")

@@ -31,4 +31,9 @@ class LastTradeVolume_IOrderQueue(Observable[Volume],_LastTradeVolume_Impl):
     def __repr__(self):
         return "LastTradeVolume(%(queue)s)" % self.__dict__
     
-LastTradeVolume = LastTradeVolume_IOrderQueue
+def LastTradeVolume(queue = None): 
+    from marketsim import IOrderQueue
+    from marketsim import rtti
+    if queue is None or rtti.can_be_casted(queue, IOrderQueue):
+        return LastTradeVolume_IOrderQueue(queue)
+    raise Exception("Cannot find suitable overload")

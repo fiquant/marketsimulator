@@ -47,4 +47,9 @@ class LastTradeVolume_IOrderBook(Observable[Volume]):
         from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
         return _orderbook_LastTradeVolume(_orderbook_Asks(self.book))
     
-LastTradeVolume = LastTradeVolume_IOrderBook
+def LastTradeVolume(book = None): 
+    from marketsim import IOrderBook
+    from marketsim import rtti
+    if book is None or rtti.can_be_casted(book, IOrderBook):
+        return LastTradeVolume_IOrderBook(book)
+    raise Exception("Cannot find suitable overload")

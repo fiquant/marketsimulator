@@ -40,4 +40,3 @@ class sideprice_Iceberg(IFunction[IOrderGenerator,IFunction[Side]
         proto = self.proto
         return Iceberg(lotSize, proto(side,price))
     
-sideprice_Iceberg = sideprice_Iceberg

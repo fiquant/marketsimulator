@@ -24,4 +24,10 @@ class Link_IObservableFloat(_Link_Impl):
     def __repr__(self):
         return "Link(%(latency)s)" % self.__dict__
     
-Link = Link_IObservableFloat
+def Link(latency = None): 
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import rtti
+    if latency is None or rtti.can_be_casted(latency, IObservable[float]):
+        return Link_IObservableFloat(latency)
+    raise Exception("Cannot find suitable overload")

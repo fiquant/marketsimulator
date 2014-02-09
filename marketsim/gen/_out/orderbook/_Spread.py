@@ -49,4 +49,9 @@ class Spread_IOrderBook(Observable[Price]):
         from marketsim.gen._out.orderbook.bid._Price import Price as _orderbook_bid_Price
         return _observable_Price(_ops_Sub(_orderbook_ask_Price(self.book),_orderbook_bid_Price(self.book)))
     
-Spread = Spread_IOrderBook
+def Spread(book = None): 
+    from marketsim import IOrderBook
+    from marketsim import rtti
+    if book is None or rtti.can_be_casted(book, IOrderBook):
+        return Spread_IOrderBook(book)
+    raise Exception("Cannot find suitable overload")

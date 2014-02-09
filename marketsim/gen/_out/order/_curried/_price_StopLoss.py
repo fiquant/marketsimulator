@@ -37,4 +37,3 @@ class price_StopLoss(IFunction[IOrderGenerator,IFunction[float]]):
         proto = self.proto
         return StopLoss(maxloss, proto(price))
     
-price_StopLoss = price_StopLoss

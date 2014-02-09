@@ -26,4 +26,10 @@ class TwoWayLink_ILinkILink(_TwoWayLink_Impl):
     def __repr__(self):
         return "TwoWayLink(%(up)s, %(down)s)" % self.__dict__
     
-TwoWayLink = TwoWayLink_ILinkILink
+def TwoWayLink(up = None,down = None): 
+    from marketsim import ILink
+    from marketsim import rtti
+    if up is None or rtti.can_be_casted(up, ILink):
+        if down is None or rtti.can_be_casted(down, ILink):
+            return TwoWayLink_ILinkILink(up,down)
+    raise Exception("Cannot find suitable overload")

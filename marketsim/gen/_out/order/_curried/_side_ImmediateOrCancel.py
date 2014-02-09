@@ -35,4 +35,3 @@ class side_ImmediateOrCancel(IFunction[IOrderGenerator,IFunction[Side]]):
         proto = self.proto
         return ImmediateOrCancel(proto(side))
     
-side_ImmediateOrCancel = side_ImmediateOrCancel

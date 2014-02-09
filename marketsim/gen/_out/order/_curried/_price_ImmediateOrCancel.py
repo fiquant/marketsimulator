@@ -35,4 +35,3 @@ class price_ImmediateOrCancel(IFunction[IOrderGenerator,IFunction[float]]):
         proto = self.proto
         return ImmediateOrCancel(proto(price))
     
-price_ImmediateOrCancel = price_ImmediateOrCancel

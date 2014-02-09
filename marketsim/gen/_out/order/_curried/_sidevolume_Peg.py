@@ -37,4 +37,3 @@ class sidevolume_Peg(IFunction[IOrderGenerator,IFunction[Side]
         proto = self.proto
         return Peg(proto(side,volume))
     
-sidevolume_Peg = sidevolume_Peg

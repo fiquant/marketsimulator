@@ -41,4 +41,13 @@ class VolumeLevels_IOrderQueueFloatInt(Observable[IVolumeLevels],VolumeLevels_Im
     def __repr__(self):
         return "VolumeLevels(%(queue)s)" % self.__dict__
     
-VolumeLevels = VolumeLevels_IOrderQueueFloatInt
+def VolumeLevels(queue = None,volumeDelta = None,volumeCount = None): 
+    from marketsim import IOrderQueue
+    from marketsim import float
+    from marketsim import int
+    from marketsim import rtti
+    if queue is None or rtti.can_be_casted(queue, IOrderQueue):
+        if volumeDelta is None or rtti.can_be_casted(volumeDelta, float):
+            if volumeCount is None or rtti.can_be_casted(volumeCount, int):
+                return VolumeLevels_IOrderQueueFloatInt(queue,volumeDelta,volumeCount)
+    raise Exception("Cannot find suitable overload")

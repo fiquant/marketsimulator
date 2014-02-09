@@ -54,4 +54,12 @@ class SafeSidePrice_IOrderQueueIFunctionFloat(Observable[Price]):
         from marketsim.gen._out.orderbook._LastPrice import LastPrice as _orderbook_LastPrice
         return _observable_Price(_IfDefined(_orderbook_BestPrice(self.queue),_IfDefined(_orderbook_LastPrice(self.queue),self.defaultValue)))
     
-SafeSidePrice = SafeSidePrice_IOrderQueueIFunctionFloat
+def SafeSidePrice(queue = None,defaultValue = None): 
+    from marketsim import IOrderQueue
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if queue is None or rtti.can_be_casted(queue, IOrderQueue):
+        if defaultValue is None or rtti.can_be_casted(defaultValue, IFunction[float]):
+            return SafeSidePrice_IOrderQueueIFunctionFloat(queue,defaultValue)
+    raise Exception("Cannot find suitable overload")

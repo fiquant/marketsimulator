@@ -47,4 +47,9 @@ class Price_IOrderBook(Observable[Price]):
         from marketsim.gen._out.orderbook._Bids import Bids as _orderbook_Bids
         return _orderbook_BestPrice(_orderbook_Bids(self.book))
     
-Price = Price_IOrderBook
+def Price(book = None): 
+    from marketsim import IOrderBook
+    from marketsim import rtti
+    if book is None or rtti.can_be_casted(book, IOrderBook):
+        return Price_IOrderBook(book)
+    raise Exception("Cannot find suitable overload")

@@ -28,4 +28,3 @@ class expovariate(Function[float]):
     def _casts_to(self, dst):
         return expovariate._types[0]._casts_to(dst)
     
-expovariate = expovariate

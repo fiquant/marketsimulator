@@ -36,4 +36,3 @@ class side_price_ImmediateOrCancel(IFunction[IFunction[IOrderGenerator,IFunction
         proto = self.proto
         return price_ImmediateOrCancel(proto(side))
     
-side_price_ImmediateOrCancel = side_price_ImmediateOrCancel

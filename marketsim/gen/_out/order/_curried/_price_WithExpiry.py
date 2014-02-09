@@ -35,4 +35,3 @@ class price_WithExpiry(IFunction[IOrderGenerator,IFunction[float]]):
         proto = self.proto
         return WithExpiry(expiry, proto(price))
     
-price_WithExpiry = price_WithExpiry

@@ -38,4 +38,3 @@ class side_FloatingPrice(IFunction[IOrderGenerator,IFunction[Side]]):
         proto = self.proto
         return FloatingPrice(floatingPrice, proto(side))
     
-side_FloatingPrice = side_FloatingPrice

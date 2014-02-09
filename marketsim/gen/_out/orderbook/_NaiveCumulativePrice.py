@@ -61,4 +61,12 @@ class NaiveCumulativePrice_IOrderBookIFunctionFloat(Observable[Price]):
         from marketsim.gen._out.ops._Greater import Greater as _ops_Greater
         return _observable_Price(_ops_Condition_Float(_ops_Less(self.depth,_constant(0.0)),_ops_Mul(self.depth,_orderbook_ask_Price(self.book)),_ops_Condition_Float(_ops_Greater(self.depth,_constant(0.0)),_ops_Mul(self.depth,_orderbook_bid_Price(self.book)),_constant(0.0))))
     
-NaiveCumulativePrice = NaiveCumulativePrice_IOrderBookIFunctionFloat
+def NaiveCumulativePrice(book = None,depth = None): 
+    from marketsim import IOrderBook
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if book is None or rtti.can_be_casted(book, IOrderBook):
+        if depth is None or rtti.can_be_casted(depth, IFunction[float]):
+            return NaiveCumulativePrice_IOrderBookIFunctionFloat(book,depth)
+    raise Exception("Cannot find suitable overload")

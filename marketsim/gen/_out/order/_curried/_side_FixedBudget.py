@@ -36,4 +36,3 @@ class side_FixedBudget(IFunction[IOrderGenerator, IFunction[Side]]):
         budget = self.budget
         return FixedBudget(side, budget)
     
-side_FixedBudget = side_FixedBudget

@@ -24,4 +24,9 @@ class TickSize_IOrderBook(Function[Price],_TickSize_Impl):
     def __repr__(self):
         return "TickSize(%(book)s)" % self.__dict__
     
-TickSize = TickSize_IOrderBook
+def TickSize(book = None): 
+    from marketsim import IOrderBook
+    from marketsim import rtti
+    if book is None or rtti.can_be_casted(book, IOrderBook):
+        return TickSize_IOrderBook(book)
+    raise Exception("Cannot find suitable overload")
