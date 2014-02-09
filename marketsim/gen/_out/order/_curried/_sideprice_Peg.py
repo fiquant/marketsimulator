@@ -4,7 +4,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "Peg"])
-class sideprice_Peg(IFunction[IOrderGenerator,IFunction[Side]
+class Peg_FloatIOrderGenerator(IFunction[IOrderGenerator,IFunction[Side]
 ,IFunction[float]]):
     """ 
       A peg order is a particular case of the floating price order
@@ -35,3 +35,12 @@ class sideprice_Peg(IFunction[IOrderGenerator,IFunction[Side]
         proto = self.proto
         return Peg(proto(side))
     
+def sideprice_Peg(proto = None): 
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import IOrderGenerator
+    from marketsim import Side
+    if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
+        return Peg_FloatIOrderGenerator(proto)
+    raise Exception("Cannot find suitable overload")

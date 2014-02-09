@@ -162,6 +162,13 @@ object Printer {
         def asCode = fullImportName(f.qualifiedName) ||| (importsOf(f) as fullImportName(f.qualifiedName))
     }
 
+    def decoratedName(f : Typed.Function) =
+        f.name + "_" +
+                (f.parameters map { p =>
+                    "[].()=> ,".toList.foldLeft(p.ty.toString){case (z, s) => z.replace(s.toString, "")}.replace("Optional","")
+                } mkString "")
+
+
     def moduleName(target : Typed.Function) = {
         val name = target.parent.qualifiedName.toString
         "marketsim.gen._out" + name.splitAt(0)._2 + "._" + target.name

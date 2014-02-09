@@ -6,7 +6,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "FixedBudget"])
-class FixedBudget(Observable[Order],IOrderGenerator):
+class FixedBudget_SideIFunctionFloat(Observable[Order],IOrderGenerator):
     """ 
       Fixed budget order acts like a market order
       but the volume is implicitly given by a budget available for trades.
@@ -53,3 +53,12 @@ class FixedBudget(Observable[Order],IOrderGenerator):
         
         return Order_Impl(side, budget)
     
+def FixedBudget(side = None,budget = None): 
+    from marketsim import Side
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if side is None or rtti.can_be_casted(side, IFunction[Side]):
+        if budget is None or rtti.can_be_casted(budget, IFunction[float]):
+            return FixedBudget_SideIFunctionFloat(side,budget)
+    raise Exception("Cannot find suitable overload")

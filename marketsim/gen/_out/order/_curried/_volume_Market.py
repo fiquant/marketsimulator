@@ -4,7 +4,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "Market"])
-class volume_Market(IFunction[IOrderGenerator, IFunction[float]]):
+class Market_SideIFunctionFloat(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
       Market order intructs buy or sell given volume immediately
     """ 
@@ -31,3 +31,10 @@ class volume_Market(IFunction[IOrderGenerator, IFunction[float]]):
         side = self.side
         return Market(side, volume)
     
+def volume_Market(side = None): 
+    from marketsim import Side
+    from marketsim import IFunction
+    from marketsim import rtti
+    if side is None or rtti.can_be_casted(side, IFunction[Side]):
+        return Market_SideIFunctionFloat(side)
+    raise Exception("Cannot find suitable overload")

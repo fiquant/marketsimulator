@@ -3,7 +3,7 @@ from marketsim import IOrderGenerator
 from marketsim import float
 from marketsim import IFunction
 @registry.expose(["Order", "LimitSigned"])
-class signedVolume_LimitSigned(IFunction[IOrderGenerator, IFunction[float]]):
+class LimitSigned_FloatIFunctionFloat(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled
@@ -32,3 +32,10 @@ class signedVolume_LimitSigned(IFunction[IOrderGenerator, IFunction[float]]):
         price = self.price
         return LimitSigned(signedVolume, price)
     
+def signedVolume_LimitSigned(price = None): 
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import rtti
+    if price is None or rtti.can_be_casted(price, IFunction[float]):
+        return LimitSigned_FloatIFunctionFloat(price)
+    raise Exception("Cannot find suitable overload")

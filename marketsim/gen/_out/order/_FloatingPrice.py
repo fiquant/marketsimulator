@@ -5,7 +5,7 @@ from marketsim import IOrderGenerator
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "FloatingPrice"])
-class FloatingPrice(Factory_Impl,IOrderGenerator):
+class FloatingPrice_IObservableFloatFloatIOrderGenerator(Factory_Impl,IOrderGenerator):
     """ 
       Floating price order is initialized by an order having a price and an observable that generates new prices.
       When the observable value changes the order is cancelled and
@@ -40,3 +40,13 @@ class FloatingPrice(Factory_Impl,IOrderGenerator):
         return "FloatingPrice(%(floatingPrice)s, %(proto)s)" % self.__dict__
     
     
+def FloatingPrice(floatingPrice = None,proto = None): 
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import IObservable
+    from marketsim import float
+    from marketsim import IOrderGenerator
+    if floatingPrice is None or rtti.can_be_casted(floatingPrice, IObservable[float]):
+        if proto is None or rtti.can_be_casted(proto, IFunction[IOrderGenerator,IFunction[float]]):
+            return FloatingPrice_IObservableFloatFloatIOrderGenerator(floatingPrice,proto)
+    raise Exception("Cannot find suitable overload")

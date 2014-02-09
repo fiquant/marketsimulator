@@ -65,8 +65,8 @@ object order_factory_curried
 
         override def call_body = call_body_assign_args |
                 call_body_assignments |
-                s"""return ${original.name}($call_fields)""" |||
-                ImportFrom(original.name, "marketsim.gen._out.order._" + original_module_infix + original.name)
+                s"""return ${original.factoryName}($call_fields)""" |||
+                ImportFrom(original.factoryName, "marketsim.gen._out.order._" + original_module_infix + original.factoryName)
 
         override def call_args = join_fields({ _.call_arg }, ",", curried_parameters)
     }
@@ -81,7 +81,7 @@ object order_factory_curried
         def mkParam(p : Typed.Parameter) = FactoryParameter(p)
         override val curried = f.parameters filter { p => !(x.parameters contains p) }
 
-        override def name = (curried map { _.name } mkString "") + "_" + original.name
+        override def factoryName = (curried map { _.name } mkString "") + "_" + original.factoryName
 
         def myBase = s"IFunction["||| original.interface |||", "||| curriedTypesAsList(curried) |||"]"
         override def interface = myBase

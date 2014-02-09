@@ -5,7 +5,7 @@ from marketsim import IOrderGenerator
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "StopLoss"])
-class StopLoss(Observable[Order],IOrderGenerator):
+class StopLoss_IFunctionFloatIOrderGenerator(Observable[Order],IOrderGenerator):
     """ 
       StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
       It keeps track of position and balance change induced by trades of the underlying order and
@@ -50,3 +50,12 @@ class StopLoss(Observable[Order],IOrderGenerator):
         
         return Order_Impl(maxloss, proto)
     
+def StopLoss(maxloss = None,proto = None): 
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import IOrderGenerator
+    from marketsim import rtti
+    if maxloss is None or rtti.can_be_casted(maxloss, IFunction[float]):
+        if proto is None or rtti.can_be_casted(proto, IOrderGenerator):
+            return StopLoss_IFunctionFloatIOrderGenerator(maxloss,proto)
+    raise Exception("Cannot find suitable overload")

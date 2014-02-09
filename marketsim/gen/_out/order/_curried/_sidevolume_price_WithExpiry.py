@@ -4,7 +4,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "price_WithExpiry"])
-class sidevolume_price_WithExpiry(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
+class price_WithExpiry_IFunctionFloatFloatIOrderGenerator(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
 ,IFunction[float]]):
     """ 
      WithExpiry orders can be viewed as ImmediateOrCancel orders
@@ -39,3 +39,14 @@ class sidevolume_price_WithExpiry(IFunction[IFunction[IOrderGenerator,IFunction[
         proto = self.proto
         return price_WithExpiry(expiry, proto(side,volume))
     
+def sidevolume_price_WithExpiry(expiry = None,proto = None): 
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import IOrderGenerator
+    from marketsim import Side
+    if expiry is None or rtti.can_be_casted(expiry, IFunction[float]):
+        if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
+        ,IFunction[float]]):
+            return price_WithExpiry_IFunctionFloatFloatIOrderGenerator(expiry,proto)
+    raise Exception("Cannot find suitable overload")

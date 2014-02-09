@@ -3,7 +3,7 @@ from marketsim import IOrderGenerator
 from marketsim import float
 from marketsim import IFunction
 @registry.expose(["Order", "price_Iceberg"])
-class volume_price_Iceberg(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
+class price_Iceberg_IFunctionFloatFloatIOrderGenerator(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
     """ 
       Iceberg order is initialized by an underlying order and a lot size.
       It sends consequently pieces of the underlying order of size equal or less to the lot size
@@ -36,3 +36,12 @@ class volume_price_Iceberg(IFunction[IFunction[IOrderGenerator,IFunction[float]]
         proto = self.proto
         return price_Iceberg(lotSize, proto(volume))
     
+def volume_price_Iceberg(lotSize = None,proto = None): 
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import IOrderGenerator
+    from marketsim import rtti
+    if lotSize is None or rtti.can_be_casted(lotSize, IFunction[float]):
+        if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
+            return price_Iceberg_IFunctionFloatFloatIOrderGenerator(lotSize,proto)
+    raise Exception("Cannot find suitable overload")

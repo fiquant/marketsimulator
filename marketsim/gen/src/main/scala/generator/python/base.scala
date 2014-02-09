@@ -136,12 +136,7 @@ package object base {
     }
 
     trait DecoratedName extends Printer {
-        def name =
-            f.name + "_" +
-                    (f.parameters map { p =>
-                        "[].()=> ,".toList.foldLeft(p.ty.toString){case (z, s) => z.replace(s.toString, "")}.replace("Optional","")
-                    } mkString "")
-
+        def name = Printer.decoratedName(f)
     }
 
     trait BaseClass_Function extends Printer {

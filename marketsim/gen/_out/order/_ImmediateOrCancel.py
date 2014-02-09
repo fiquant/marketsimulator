@@ -3,7 +3,7 @@ from marketsim import Order
 from marketsim.ops._all import Observable
 from marketsim import IOrderGenerator
 @registry.expose(["Order", "ImmediateOrCancel"])
-class ImmediateOrCancel(Observable[Order],IOrderGenerator):
+class ImmediateOrCancel_IOrderGenerator(Observable[Order],IOrderGenerator):
     """ 
       Immediate-Or-Cancel order sends an underlying order to the market and
       immediately sends a cancel request for it.
@@ -42,3 +42,9 @@ class ImmediateOrCancel(Observable[Order],IOrderGenerator):
         
         return Order_Impl(proto)
     
+def ImmediateOrCancel(proto = None): 
+    from marketsim import IOrderGenerator
+    from marketsim import rtti
+    if proto is None or rtti.can_be_casted(proto, IOrderGenerator):
+        return ImmediateOrCancel_IOrderGenerator(proto)
+    raise Exception("Cannot find suitable overload")

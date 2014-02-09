@@ -4,7 +4,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "price_StopLoss"])
-class side_price_StopLoss(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
+class price_StopLoss_IFunctionFloatFloatIOrderGenerator(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
     """ 
       StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
       It keeps track of position and balance change induced by trades of the underlying order and
@@ -38,3 +38,13 @@ class side_price_StopLoss(IFunction[IFunction[IOrderGenerator,IFunction[float]],
         proto = self.proto
         return price_StopLoss(maxloss, proto(side))
     
+def side_price_StopLoss(maxloss = None,proto = None): 
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import IOrderGenerator
+    from marketsim import Side
+    if maxloss is None or rtti.can_be_casted(maxloss, IFunction[float]):
+        if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
+            return price_StopLoss_IFunctionFloatFloatIOrderGenerator(maxloss,proto)
+    raise Exception("Cannot find suitable overload")

@@ -37,8 +37,9 @@ object order_factory
         extends base.Printer
         with    base.DocString
         with    base.Alias
+        with    base.DecoratedName
     {
-        def name = f.name
+        def factoryName = f.name
 
         def raw_params = f.parameters
 
@@ -59,7 +60,7 @@ object order_factory
             with    base.IntrinsicEx
     {
         if (args.length != 1)
-            throw new Exception(s"Annotation $name should have 1 arguments in" +
+            throw new Exception(s"Annotation $factoryName should have 1 arguments in" +
                     " form (...Order_Impl or ...Factory_Impl)" + "\r\n" + "In function " + f)
 
         val impl_module = implementation_module
@@ -87,8 +88,8 @@ object order_factory
 
         override def call = if (is_factory_intrinsic) "" else super.call
 
-        override def call_fields : Code = if (name endsWith "Signed") {
-            val original_f = f.parent getFunction (name replace ("Signed", ""))
+        override def call_fields : Code = if (factoryName endsWith "Signed") {
+            val original_f = f.parent getFunction (factoryName replace ("Signed", ""))
             val original = gen.generationUnit(original_f.head).get.asInstanceOf[Factory]
             original.call_fields
         }  else

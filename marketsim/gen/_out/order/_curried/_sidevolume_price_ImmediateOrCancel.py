@@ -4,7 +4,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "price_ImmediateOrCancel"])
-class sidevolume_price_ImmediateOrCancel(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
+class price_ImmediateOrCancel_FloatIOrderGenerator(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
 ,IFunction[float]]):
     """ 
       Immediate-Or-Cancel order sends an underlying order to the market and
@@ -39,3 +39,13 @@ class sidevolume_price_ImmediateOrCancel(IFunction[IFunction[IOrderGenerator,IFu
         proto = self.proto
         return price_ImmediateOrCancel(proto(side,volume))
     
+def sidevolume_price_ImmediateOrCancel(proto = None): 
+    from marketsim import IFunction
+    from marketsim import rtti
+    from marketsim import float
+    from marketsim import IOrderGenerator
+    from marketsim import Side
+    if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
+    ,IFunction[float]]):
+        return price_ImmediateOrCancel_FloatIOrderGenerator(proto)
+    raise Exception("Cannot find suitable overload")

@@ -59,7 +59,7 @@ object order_factory_on_proto
         override val curried = factory_of_curried.curried
 
         override val prefix = curried map { _.name } mkString ""
-        override def name = x.name
+        override def factoryName = x.name
 
         override def interface = x.ret_type.asCode
 

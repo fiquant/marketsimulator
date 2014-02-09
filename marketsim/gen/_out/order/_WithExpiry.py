@@ -5,7 +5,7 @@ from marketsim import IOrderGenerator
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "WithExpiry"])
-class WithExpiry(Observable[Order],IOrderGenerator):
+class WithExpiry_IFunctionFloatIOrderGenerator(Observable[Order],IOrderGenerator):
     """ 
      WithExpiry orders can be viewed as ImmediateOrCancel orders
      where cancel order is sent not immediately but after some delay
@@ -48,3 +48,12 @@ class WithExpiry(Observable[Order],IOrderGenerator):
         
         return Order_Impl(expiry, proto)
     
+def WithExpiry(expiry = None,proto = None): 
+    from marketsim import IFunction
+    from marketsim import float
+    from marketsim import IOrderGenerator
+    from marketsim import rtti
+    if expiry is None or rtti.can_be_casted(expiry, IFunction[float]):
+        if proto is None or rtti.can_be_casted(proto, IOrderGenerator):
+            return WithExpiry_IFunctionFloatIOrderGenerator(expiry,proto)
+    raise Exception("Cannot find suitable overload")
