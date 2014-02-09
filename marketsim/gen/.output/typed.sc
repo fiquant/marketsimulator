@@ -2517,7 +2517,7 @@ package trash {
     
     package overloading {
         
-        def f(x : .IFunction[.Price]) : .IFunction[.Price]
+        def f(x : .IFunction[.Volume]) : .IFunction[.Volume]
             	 = x
         
         
@@ -2525,7 +2525,7 @@ package trash {
             	 = x
         
         
-        def f(x : .IFunction[.Volume]) : .IFunction[.Volume]
+        def f(x : .IFunction[.Price]) : .IFunction[.Price]
             	 = x
         
         

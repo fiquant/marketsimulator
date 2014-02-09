@@ -52,18 +52,15 @@ package object Typer
 
                 }
 
-                source.functions.values foreach { _ foreach { definition =>
+                source.functions foreach { case (name, definitions) =>
                     try {
-                        definition match {
-                            case a : AST.FunAlias => getTyped(a)
-                            case f : AST.FunDef => getTyped(f)
-                        }
+                        getTyped(definitions)
                     }
                     catch {
                         case ex : Exception =>
-                            throw new Exception(s"\r\nWhen typing '${source qualifyName definition.name}':\r\n" + ex.getMessage, ex)
+                            throw new Exception(s"\r\nWhen typing '$name' from ${source.qualifiedName}:\r\n" + ex.getMessage, ex)
                     }
-                } }
+                }
 
                 source.packages.values foreach { Processor(_).run() }
             } catch {
@@ -75,20 +72,22 @@ package object Typer
             }
         }
 
-        private def getTyped(definition : AST.FunAlias) : List[Typed.FunctionDecl] = {
-            source.typed.get insert
-                    visited.enter(source qualifyName definition.name) { toTyped(definition) }
+        val typed = source.typed.get
 
-            source.typed.get.getFunction(definition.name)
-        }
-
-        private def getTyped(definition : AST.FunDef) : List[Typed.FunctionDecl] = {
-            source.typed.get insert
-                    visited.enter(source qualifyName definition.name) { toTyped(definition) }
+        private def getTyped(definitions : List[AST.FunctionDeclaration]) = {
+            val name = definitions.head.name
+            if (!(typed.functions contains name))
+                typed insert
+                        visited.enter(source qualifyName name) {
+                            definitions map {
+                                case f : AST.FunAlias => toTyped(f)
+                                case f : AST.FunDef => toTyped(f)
+                            } }
+            typed.functions(name)
         }
 
         private def getTyped(definition : AST.TypeDeclaration) : Typed.TypeDeclaration = {
-            source.typed.get getOrElseUpdateType (definition.name, {
+            typed getOrElseUpdateType (definition.name, {
                     visited.enter(source qualifyName definition.name) {
                         definition match {
                             case t : AST.Interface => toTyped(t)
@@ -102,10 +101,13 @@ package object Typer
             source lookupFunction name.names match {
                 case Nil =>
                         throw new Exception(s"cannot find name $name")
-                case overloads => (overloads flatMap {
-                    case (scope, definition) => Processor(scope).getTyped(definition) flatMap { _.targets }
-                }).toSet[Typed.Function].toList
-            }
+                case overloads =>
+                    val grouped = overloads groupBy { _._1 } mapValues { _ map { _._2 } }
+                    (grouped flatMap {
+                        case (scope, definitions) =>
+                            Processor(scope) getTyped definitions
+                    } flatMap { _.targets }).toList
+                }
 
         private def lookupType(name : AST.QualifiedName) : Typed.TypeDeclaration =
             source lookupType name.names match {
@@ -123,7 +125,7 @@ package object Typer
         private def toTyped(definition  : AST.Interface) : Typed.InterfaceDecl =
         {
             Typed.InterfaceDecl(definition.name,
-                            source.typed.get,
+                            typed,
                             definition.bases map { toUnbound(definition.generics) },
                             definition.generics.elems map { TypesUnbound.Parameter })
         }
@@ -131,7 +133,7 @@ package object Typer
         private def toTyped(definition  : AST.Alias) : Typed.AliasDecl =
         {
             Typed.AliasDecl(definition.name,
-                        source.typed.get,
+                        typed,
                         toUnbound(definition.generics)(definition.target),
                         definition.generics.elems map { TypesUnbound.Parameter })
         }
@@ -160,7 +162,7 @@ package object Typer
 
         private def toTyped(definition  : AST.FunDef): Typed.Function =
         {
-            val target = source.typed.get
+            val target = typed
 
             def inferType(locals: List[Typed.Parameter])(e: AST.Expr) = {
                 val ctx = new TypingExprCtx {
@@ -230,7 +232,7 @@ package object Typer
         }
 
         private def toTyped(f : AST.FunAlias) : Typed.FunctionAlias =
-            Typed.FunctionAlias(source.typed.get, f.name, lookupFunction(f.target))
+            Typed.FunctionAlias(typed, f.name, lookupFunction(f.target))
 
 
         private def toTyped(p: AST.Parameter, inferType : AST.Expr => Typed.Expr) : Typed.Parameter = {

@@ -282,15 +282,12 @@ package object Typed
         def tryGetAttributeImpl(name : String) : Option[String]
         def getName : String
 
-        def insert(f : FunctionDecl)  = {
-            functions get f.name match {
-                case None =>
-                    functions = functions updated (f.name, f :: Nil)
-                case Some(overloads) =>
-                    if (!(overloads contains f))
-                        functions = functions updated (f.name, f :: overloads)
-            }
-            functions(f.name)
+        def insert(fs : List[FunctionDecl]) = {
+            assert(fs forall { _.name == fs.head.name })
+            if (functions contains fs.head.name)
+                assert(fs == functions(fs.head.name))
+            else
+                functions = functions updated (fs.head.name, fs)
         }
 
         def insert(t : TypeDeclaration) = {
