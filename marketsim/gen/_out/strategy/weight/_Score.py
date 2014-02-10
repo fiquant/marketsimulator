@@ -1,3 +1,7 @@
+def score(): 
+    from marketsim import rtti
+    return trader_Score_()
+    raise Exception("Cannot find suitable overload")
 from marketsim.gen._intrinsic.strategy.weight import _Score_Impl
 from marketsim import IAccount
 from marketsim import registry

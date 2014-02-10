@@ -1,3 +1,7 @@
+def unit(): 
+    from marketsim import rtti
+    return trader_Unit_()
+    raise Exception("Cannot find suitable overload")
 from marketsim import IAccount
 from marketsim import registry
 from marketsim.ops._function import Function

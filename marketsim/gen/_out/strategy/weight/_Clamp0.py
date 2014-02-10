@@ -1,3 +1,7 @@
+def clamp0(): 
+    from marketsim import rtti
+    return f_Clamp0_()
+    raise Exception("Cannot find suitable overload")
 from marketsim import IFunction
 from marketsim import registry
 from marketsim.ops._function import Function

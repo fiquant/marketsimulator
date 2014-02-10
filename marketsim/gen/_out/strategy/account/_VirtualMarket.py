@@ -30,3 +30,7 @@ def VirtualMarket(inner = None):
     if inner is None or rtti.can_be_casted(inner, ISingleAssetStrategy):
         return VirtualMarket_ISingleAssetStrategy(inner)
     raise Exception("Cannot find suitable overload")
+def virtualMarket(): 
+    from marketsim import rtti
+    return inner_VirtualMarket_()
+    raise Exception("Cannot find suitable overload")

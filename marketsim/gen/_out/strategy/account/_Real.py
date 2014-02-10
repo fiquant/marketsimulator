@@ -28,3 +28,7 @@ def Real(inner = None):
     if inner is None or rtti.can_be_casted(inner, ISingleAssetStrategy):
         return Real_ISingleAssetStrategy(inner)
     raise Exception("Cannot find suitable overload")
+def real(): 
+    from marketsim import rtti
+    return inner_Real_()
+    raise Exception("Cannot find suitable overload")

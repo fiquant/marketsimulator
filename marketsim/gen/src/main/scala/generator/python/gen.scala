@@ -97,7 +97,7 @@ package object gen
                     definition match {
                         case f : Typed.Function => tryOverload(f)
                         case a : Typed.FunctionAlias =>
-                            a.targets map { tryOverload } reduce { _ | _ }; ""
+                            a.targets map { tryOverload } reduce { _ | _ }
                     }
                 }
 

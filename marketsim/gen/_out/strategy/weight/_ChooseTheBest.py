@@ -29,3 +29,7 @@ def ChooseTheBest(array = None):
     if array is None or rtti.can_be_casted(array, listOf(float)):
         return ChooseTheBest_ListFloat(array)
     raise Exception("Cannot find suitable overload")
+def chooseTheBest(): 
+    from marketsim import rtti
+    return array_ChooseTheBest_()
+    raise Exception("Cannot find suitable overload")
