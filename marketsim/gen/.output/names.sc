@@ -83,7 +83,7 @@ package ops
     @python.intrinsic.observable("ops._Less_Impl")
     @symbol = "<"
     def Less(x = constant(1.0),
-             y = constant(1.0)) : IObservable[Boolean]
+             y = constant(1.0)) : IFunction[Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "*"
@@ -119,7 +119,7 @@ package ops
     @python.intrinsic.observable("ops._NotEqual_Impl")
     @symbol = "<>"
     def NotEqual(x = constant(1.0),
-                 y = constant(1.0)) : IObservable[Boolean]
+                 y = constant(1.0)) : IFunction[Boolean]
     
     @python.intrinsic.observable("ops._Condition_Impl")
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
@@ -131,7 +131,7 @@ package ops
     @python.intrinsic.observable("ops._GreaterEqual_Impl")
     @symbol = ">="
     def GreaterEqual(x = constant(1.0),
-                     y = constant(1.0)) : IObservable[Boolean]
+                     y = constant(1.0)) : IFunction[Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "-"
@@ -181,19 +181,19 @@ package ops
     @python.intrinsic.observable("ops._LessEqual_Impl")
     @symbol = "<="
     def LessEqual(x = constant(1.0),
-                  y = constant(1.0)) : IObservable[Boolean]
+                  y = constant(1.0)) : IFunction[Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @python.intrinsic.observable("ops._Equal_Impl")
     @symbol = "=="
     def Equal(x = constant(1.0),
-              y = constant(1.0)) : IObservable[Boolean]
+              y = constant(1.0)) : IFunction[Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @python.intrinsic.observable("ops._Greater_Impl")
     @symbol = ">"
     def Greater(x = constant(1.0),
-                y = constant(1.0)) : IObservable[Boolean]
+                y = constant(1.0)) : IFunction[Boolean]
     
 }
 

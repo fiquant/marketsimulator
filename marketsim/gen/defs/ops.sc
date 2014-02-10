@@ -91,27 +91,27 @@ package ops
 
         @python.intrinsic.observable("ops._Equal_Impl")
         @symbol = "=="
-        def Equal(x = constant(1.), y = constant(1.)) : IObservable[Boolean]
+        def Equal(x = constant(1.), y = constant(1.)) : IFunction[Boolean]
 
         @python.intrinsic.observable("ops._NotEqual_Impl")
         @symbol = "<>"
-        def NotEqual(x = constant(1.), y = constant(1.)) : IObservable[Boolean]
+        def NotEqual(x = constant(1.), y = constant(1.)) : IFunction[Boolean]
 
         @python.intrinsic.observable("ops._Less_Impl")
         @symbol = "<"
-        def Less(x = constant(1.), y = constant(1.)) : IObservable[Boolean]
+        def Less(x = constant(1.), y = constant(1.)) : IFunction[Boolean]
 
         @python.intrinsic.observable("ops._LessEqual_Impl")
         @symbol = "<="
-        def LessEqual(x = constant(1.), y = constant(1.)) : IObservable[Boolean]
+        def LessEqual(x = constant(1.), y = constant(1.)) : IFunction[Boolean]
 
         @python.intrinsic.observable("ops._Greater_Impl")
         @symbol = ">"
-        def Greater(x = constant(1.), y = constant(1.)) : IObservable[Boolean]
+        def Greater(x = constant(1.), y = constant(1.)) : IFunction[Boolean]
 
         @python.intrinsic.observable("ops._GreaterEqual_Impl")
         @symbol = ">="
-        def GreaterEqual(x = constant(1.), y = constant(1.)) : IObservable[Boolean]
+        def GreaterEqual(x = constant(1.), y = constant(1.)) : IFunction[Boolean]
 
     }
 

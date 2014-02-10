@@ -92,7 +92,7 @@ package ops {
     
     @python.intrinsic.observable("ops._Less_Impl")
     def Less(x : Optional[.IFunction[.Float]] = .constant(1.0),
-             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Boolean]
+             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "*"
@@ -134,7 +134,7 @@ package ops {
     
     @python.intrinsic.observable("ops._NotEqual_Impl")
     def NotEqual(x : Optional[.IFunction[.Float]] = .constant(1.0),
-                 y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Boolean]
+                 y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Boolean]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
@@ -148,7 +148,7 @@ package ops {
     
     @python.intrinsic.observable("ops._GreaterEqual_Impl")
     def GreaterEqual(x : Optional[.IFunction[.Float]] = .constant(1.0),
-                     y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Boolean]
+                     y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "-"
@@ -207,21 +207,21 @@ package ops {
     
     @python.intrinsic.observable("ops._LessEqual_Impl")
     def LessEqual(x : Optional[.IFunction[.Float]] = .constant(1.0),
-                  y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Boolean]
+                  y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "=="
     
     @python.intrinsic.observable("ops._Equal_Impl")
     def Equal(x : Optional[.IFunction[.Float]] = .constant(1.0),
-              y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Boolean]
+              y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = ">"
     
     @python.intrinsic.observable("ops._Greater_Impl")
     def Greater(x : Optional[.IFunction[.Float]] = .constant(1.0),
-                y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Boolean]
+                y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Boolean]
 }
 
 @category = "Basic"
