@@ -10,7 +10,7 @@ class LogReturns_IObservableFloatFloat(Function[float]):
     def __init__(self, x = None, timeframe = None):
         from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
-        self.x = x if x is not None else _const()
+        self.x = x if x is not None else _const(1.0)
         self.timeframe = timeframe if timeframe is not None else 10.0
         rtti.check_fields(self)
         self.impl = self.getImpl()

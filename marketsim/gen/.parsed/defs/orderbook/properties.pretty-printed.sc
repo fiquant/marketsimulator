@@ -90,7 +90,7 @@ package orderbook {
      */
     @python.intrinsic("orderbook.cumulative_price.CumulativePrice_Impl")
     def CumulativePrice(book = OfTrader(),
-                        depth = constant()) : IObservable[Price]
+                        depth = constant(1.0)) : IObservable[Price]
     
     // defined at defs\orderbook\properties.sc: 109.5
     /** Returns naive approximation of price for best orders of total volume *depth*
@@ -100,7 +100,7 @@ package orderbook {
      *  Positive *depth* correponds to will sell assets
      */
     def NaiveCumulativePrice(book = OfTrader(),
-                             depth = constant()) = observable.Price(if depth<0.0 then depth*ask.Price(book) else if depth>0.0 then depth*bid.Price(book) else 0.0)
+                             depth = constant(1.0)) = observable.Price(if depth<0.0 then depth*ask.Price(book) else if depth>0.0 then depth*bid.Price(book) else 0.0)
     
     // defined at defs\orderbook\properties.sc: 124.5
     /** Returns arrays of levels for given volumes [i*volumeDelta for i in range(0, volumeCount)]

@@ -23,7 +23,7 @@ class f_Clamp0_(IFunction[IFunction[float], IFunction[float]]):
     def __call__(self, f = None):
         from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim.gen._out.strategy.weight._clamp0 import Clamp0_IFunctionFloat as _strategy_weight_Clamp0
-        f = f if f is not None else _constant()
+        f = f if f is not None else _constant(1.0)
         
         return _strategy_weight_Clamp0(f)
     

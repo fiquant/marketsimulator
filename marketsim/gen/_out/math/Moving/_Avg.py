@@ -10,7 +10,7 @@ class Avg_IObservableFloatFloat(Function[float],MA_Impl):
     def __init__(self, source = None, timeframe = None):
         from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
-        self.source = source if source is not None else _const()
+        self.source = source if source is not None else _const(1.0)
         self.timeframe = timeframe if timeframe is not None else 100.0
         rtti.check_fields(self)
         MA_Impl.__init__(self)

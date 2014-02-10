@@ -44,20 +44,20 @@ package strategy.weight {
     /** scaling function = atan(base^f(x))
      */
     @curried("f")
-    def AtanPow(/** function to scale */ f : Optional[IFunction[Float]] = constant(),
+    def AtanPow(/** function to scale */ f : Optional[IFunction[Float]] = constant(1.0),
                 /** base for power function */ base = 1.002) : IFunction[Float] = math.Atan(math.Pow(base,f))
     
     // defined at defs\strategies\efficiency.sc: 63.5
     /** scaling function = max(0, f(x)) + 1
      */
     @curried("f")
-    def Clamp0(/** function to scale */ f : Optional[IFunction[Float]] = constant()) : IFunction[Float] = math.Max(0,f)+1
+    def Clamp0(/** function to scale */ f : Optional[IFunction[Float]] = constant(1.0)) : IFunction[Float] = math.Max(0,f)+1
     
     // defined at defs\strategies\efficiency.sc: 72.5
     /** identity scaling = f(x)
      */
     @curried("f")
-    def IdentityF(f : Optional[IFunction[Float]] = constant()) : IFunction[Float] = f
+    def IdentityF(f : Optional[IFunction[Float]] = constant(1.0)) : IFunction[Float] = f
     
     // defined at defs\strategies\efficiency.sc: 77.5
     /** Calculates how many times efficiency of trader went up and went down

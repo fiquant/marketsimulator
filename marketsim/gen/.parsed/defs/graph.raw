@@ -17,6 +17,8 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - const
 | | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | | | -  observable data source considered as asset price 
 | | | | | | - Parameter:

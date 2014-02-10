@@ -11,7 +11,7 @@ package math
              */
             @python.intrinsic("moments.ewma.EWMA_Impl")
             @label = "Avg{{suffix}}"
-            def Avg (/** observable data source */ source = const (),
+            def Avg (/** observable data source */ source = const (1.),
                      /** alpha parameter */        alpha = 0.015) : IDifferentiable
 
             /**
@@ -19,20 +19,20 @@ package math
              */
             @python.intrinsic("moments.ewmv.EWMV_Impl")
             @label = "\\sigma^2{{suffix}}"
-            def Var (       /** observable data source */ source = const (),
+            def Var (       /** observable data source */ source = const (1.),
                             /** alpha parameter */        alpha = 0.015) => Float
             /**
              *  Exponentially weighted moving standard deviation
              */
             @label = "\\sqrt{\\sigma^2{{suffix}}}"
-            def StdDev (    /** observable data source */ source = const (),
+            def StdDev (    /** observable data source */ source = const (1.),
                             /** alpha parameter */        alpha = 0.015) = Sqrt(Var(source, alpha))
 
             /**
              *  Exponentially weighted moving relative standard deviation
              */
             @label = "RSD{{suffix}}"
-            def RelStdDev   (/** observable data source */ source = const (),
+            def RelStdDev   (/** observable data source */ source = const (1.),
                              /** alpha parameter */        alpha = 0.015)
                 = (source - Avg(source, alpha)) / StdDev(source, alpha)
         }
@@ -45,27 +45,27 @@ package math
              */
             @python.intrinsic("moments.cma.CMA_Impl")
             @label = "Avg{{suffix}}"
-            def Avg (/** observable data source */ source = const ()) => Float
+            def Avg (/** observable data source */ source = const (1.)) => Float
 
             /**
              *  Cumulative variance
              */
             @python.intrinsic("moments.cmv.Variance_Impl")
             @label = "\\sigma^2{{suffix}}"
-            def Var (/** observable data source */ source = const ()) => Float
+            def Var (/** observable data source */ source = const (1.)) => Float
 
             /**
              *  Cumulative standard deviation
              */
             @label = "\\sqrt{\\sigma^2{{suffix}}}"
-            def StdDev (/** observable data source */ source = const ())
+            def StdDev (/** observable data source */ source = const (1.))
                 = Sqrt(Var(source))
 
             /**
              *  Cumulative relative standard deviation
              */
             @label = "RSD{{suffix}}"
-            def RelStdDev(/** observable data source */ source = const ())
+            def RelStdDev(/** observable data source */ source = const (1.))
                 = (source - Avg(source)) / StdDev(source)
         }
 
@@ -77,7 +77,7 @@ package math
              */
             @python.intrinsic("moments.ma.MA_Impl")
             @label = "Avg{{suffix}}"
-            def Avg (/** observable data source */ source = const (),
+            def Avg (/** observable data source */ source = const (1.),
                      /** sliding window size    */ timeframe = 100.0) => Float
 
             /**
@@ -85,7 +85,7 @@ package math
              */
             @python.intrinsic("moments.mv.MV_Impl")
             @label = "\\sigma^2{{suffix}}"
-            def Var (/** observable data source */ source = const (),
+            def Var (/** observable data source */ source = const (1.),
                      /** sliding window size    */ timeframe = 100.0)
                 = math.Max(const(0), Avg(observable.Float(source*source), timeframe) - Sqr(Avg(source, timeframe)))
 
@@ -93,14 +93,14 @@ package math
              *  Simple moving standard deviation
              */
             @label = "\\sqrt{\\sigma^2{{suffix}}}"
-            def StdDev (/** observable data source */ source = const (),
+            def StdDev (/** observable data source */ source = const (1.),
                         /** sliding window size    */ timeframe = 100.0) = Sqrt(Var(source))
 
             /**
              *  Simple moving relative standard deviation
              */
             @label = "RSD{{suffix}}"
-            def RelStdDev(  /** observable data source */ source = const (),
+            def RelStdDev(  /** observable data source */ source = const (1.),
                             /** sliding window size    */ timeframe = 100.0)
                 = (source - Avg(source, timeframe)) / StdDev(source, timeframe)
         }

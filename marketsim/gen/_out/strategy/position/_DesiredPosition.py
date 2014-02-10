@@ -18,7 +18,7 @@ class DesiredPosition_IObservableFloatISingleAssetTrader(Observable[Volume]):
         from marketsim import event
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy
         Observable[Volume].__init__(self)
-        self.desiredPosition = desiredPosition if desiredPosition is not None else _const()
+        self.desiredPosition = desiredPosition if desiredPosition is not None else _const(1.0)
         self.trader = trader if trader is not None else _trader_SingleProxy()
         rtti.check_fields(self)
         self.impl = self.getImpl()

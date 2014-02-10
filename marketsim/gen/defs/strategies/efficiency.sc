@@ -54,7 +54,7 @@ package strategy.weight
     @curried("f")
     def AtanPow(
         /** function to scale */
-        f : Optional[IFunction[Float]] = constant(),
+        f : Optional[IFunction[Float]] = constant(1.),
         /** base for power function */
         base = 1.002) : IFunction[Float]
 
@@ -65,13 +65,13 @@ package strategy.weight
      */
     @curried("f")
     def Clamp0( /** function to scale */
-                f : Optional[IFunction[Float]] = constant()) : IFunction[Float]
+                f : Optional[IFunction[Float]] = constant(1.)) : IFunction[Float]
 
         = math.Max(0, f) + 1
 
     /** identity scaling = f(x) */
     @curried("f")
-    def IdentityF(f : Optional[IFunction[Float]] = constant()) : IFunction[Float]
+    def IdentityF(f : Optional[IFunction[Float]] = constant(1.)) : IFunction[Float]
         = f
 
     /** Calculates how many times efficiency of trader went up and went down

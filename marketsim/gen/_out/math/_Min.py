@@ -15,8 +15,8 @@ class Min_IFunctionFloatIFunctionFloat(Observable[float]):
         from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import float
         Observable[float].__init__(self)
-        self.x = x if x is not None else _constant()
-        self.y = y if y is not None else _constant()
+        self.x = x if x is not None else _constant(1.0)
+        self.y = y if y is not None else _constant(1.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)

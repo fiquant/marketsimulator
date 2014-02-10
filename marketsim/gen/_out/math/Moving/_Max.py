@@ -15,7 +15,7 @@ class Max_IFunctionFloatFloat(Observable[float],Max_Impl):
         from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import float
         Observable[float].__init__(self)
-        self.source = source if source is not None else _constant()
+        self.source = source if source is not None else _constant(1.0)
         if isinstance(source, types.IEvent):
             event.subscribe(self.source, self.fire, self)
         self.timeframe = timeframe if timeframe is not None else 100.0

@@ -5,14 +5,14 @@ package math
      */
     @python.intrinsic("observable.lagged.Lagged_Impl")
     @label = "Lagged_{%(timeframe)s}(%(source)s)"
-    def Lagged (/** observable data source */   source = const (),
+    def Lagged (/** observable data source */   source = const (1.),
                 /** lag size */                 timeframe = 10.0) : IObservable[Float]
 
     /**
      *  Returns positive movements of some observable *source* with lag *timeframe*
      */
     @label = "Ups_{%(timeframe)s}(%(source)s)"
-    def UpMovements(/** observable data source */   source = const (),
+    def UpMovements(/** observable data source */   source = const (1.),
                     /** lag size */                 timeframe = 10.0)
 
         = observable.Float(Max(0.0, source - Lagged(source, timeframe)))
@@ -21,7 +21,7 @@ package math
      *  Returns negative movements of some observable *source* with lag *timeframe*
      */
     @label = "Downs_{%(timeframe)s}(%(source)s)"
-    def DownMovements(  /** observable data source */   source = const (),
+    def DownMovements(  /** observable data source */   source = const (1.),
                         /** lag size */                 timeframe = 10.0)
 
         = observable.Float(Max(0.0, Lagged(source, timeframe) - source))
@@ -33,7 +33,7 @@ package math
          *  Absolute value for Relative Strength Index
          */
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
-        def Raw(/** observable data source */   source      = const (),
+        def Raw(/** observable data source */   source      = const (1.),
                 /** lag size */                 timeframe   = 10.0,
                 /** alpha parameter for EWMA */ alpha       = 0.015)
 
@@ -55,7 +55,7 @@ package math
      *  Log returns
      */
     @label = "LogReturns_{%(timeframe)s}(%(x)s)"
-    def LogReturns(/** observable data source */   x = const(),
+    def LogReturns(/** observable data source */   x = const(1.),
                    /** lag size */                 timeframe   = 10.0)
 
         =  Log(x / Lagged(x, timeframe))

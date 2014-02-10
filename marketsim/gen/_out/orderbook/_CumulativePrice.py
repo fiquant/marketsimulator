@@ -26,7 +26,7 @@ class CumulativePrice_IOrderBookIFunctionFloat(Observable[Price],CumulativePrice
         self.book = book if book is not None else _orderbook_OfTrader()
         if isinstance(book, types.IEvent):
             event.subscribe(self.book, self.fire, self)
-        self.depth = depth if depth is not None else _constant()
+        self.depth = depth if depth is not None else _constant(1.0)
         if isinstance(depth, types.IEvent):
             event.subscribe(self.depth, self.fire, self)
         rtti.check_fields(self)

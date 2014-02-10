@@ -17,7 +17,7 @@ class AtanPow_IFunctionFloatFloat(Function[float]):
     def __init__(self, f = None, base = None):
         from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import rtti
-        self.f = f if f is not None else _constant()
+        self.f = f if f is not None else _constant(1.0)
         self.base = base if base is not None else 1.002
         rtti.check_fields(self)
         self.impl = self.getImpl()

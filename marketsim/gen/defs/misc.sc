@@ -14,6 +14,19 @@ package {
     def const(x = 1.0) : IObservable[Float]
 
     /**
+     *  Function always returning *x*
+     */
+    @label = "C=%(x)s"
+    def constant(x = 1) = const(x) : IFunction[Int]
+
+    /**
+     *  Trivial observable always returning *x*
+     */
+    @python.intrinsic.function("_constant._Constant_Impl")
+    @label = "C=%(x)s"
+    def const(x = 1) : IObservable[Int]
+
+    /**
      *  Trivial observable always returning *True*
      */
     @python.intrinsic.function("_constant._True_Impl")
@@ -39,9 +52,9 @@ package {
     @python.observable
     @label = "If def(%(x)s) else %(elsePart)s"
     def IfDefined(
-             x = constant(),
+             x = constant(1.),
              /** function to take values from when *x* is undefined */
-             elsePart = constant()) =
+             elsePart = constant(1.)) =
 
         if x <> null() then x else elsePart
 

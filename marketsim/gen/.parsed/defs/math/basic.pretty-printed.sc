@@ -8,7 +8,7 @@ package math {@category = "Log/Pow"
          */
         @python.observable()
         @label = "{%(x)s}^2"
-        def Sqr(x = constant()) = x*x
+        def Sqr(x = constant(1.0)) = x*x
         
         // defined at defs\math\basic.sc: 14.5
         /** Exponent of *x*
@@ -56,8 +56,8 @@ package math {@category = "Log/Pow"
          */
         @python.observable()
         @label = "min{%(x)s, %(y)s}"
-        def Min(x = constant(),
-                y = constant()) = if x<y then x else y
+        def Min(x = constant(1.0),
+                y = constant(1.0)) = if x<y then x else y
         
         // defined at defs\math\basic.sc: 57.5
         /** Function returning maximum of two functions *x* and *y*.
@@ -65,8 +65,8 @@ package math {@category = "Log/Pow"
          */
         @python.observable()
         @label = "max{%(x)s, %(y)s}"
-        def Max(x = constant(),
-                y = constant()) = if x>y then x else y
+        def Max(x = constant(1.0),
+                y = constant(1.0)) = if x>y then x else y
         
         // defined at defs\math\basic.sc: 65.5
         /** Function returning first derivative on time of *x*

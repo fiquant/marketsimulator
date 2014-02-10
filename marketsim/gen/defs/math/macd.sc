@@ -5,7 +5,7 @@ package math.macd
      *  Moving average convergence/divergence
      */
     @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
-    def MACD(/** source */       x = const(),
+    def MACD(/** source */       x = const(1.),
              /** long period */  slow = 26.0,
              /** short period */ fast = 12.0)
 
@@ -15,7 +15,7 @@ package math.macd
      *  Moving average convergence/divergence signal
      */
     @label = "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-    def Signal(/** source */                x = const(),
+    def Signal(/** source */                x = const(1.),
                /** long period */           slow = 26.0,
                /** short period */          fast = 12.0,
                /** signal period */         timeframe = 9.0,
@@ -27,7 +27,7 @@ package math.macd
      *  Moving average convergence/divergence histogram
      */
     @label = "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-    def Histogram(  /** source */                x = const(),
+    def Histogram(  /** source */                x = const(1.),
                     /** long period */           slow = 26.0,
                     /** short period */          fast = 12.0,
                     /** signal period */         timeframe = 9.0,

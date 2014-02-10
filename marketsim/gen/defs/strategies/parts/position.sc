@@ -5,7 +5,7 @@ package strategy.position
      * Position function for desired position strategy
      */
     def DesiredPosition(
-             /** observable desired position */ desiredPosition = const(),
+             /** observable desired position */ desiredPosition = const(1.),
              /** trader in question */          trader          = trader.SingleProxy())
 
         = observable.Volume(

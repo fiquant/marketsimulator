@@ -7,7 +7,7 @@ package  {
      */
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
     @label = "Candles_{%(source)s}"
-    def CandleSticks(/** observable data source considered as asset price */ source = const(),
+    def CandleSticks(/** observable data source considered as asset price */ source = const(1.0),
                      /** size of timeframe */ timeframe = 10.0) : IObservable[CandleStick]
     
     // defined at defs\graph.sc: 15.5

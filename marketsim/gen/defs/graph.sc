@@ -8,7 +8,7 @@ package
     @python.intrinsic("observable.candlestick.CandleSticks_Impl")
     @label = "Candles_{%(source)s}"
     def CandleSticks(/** observable data source considered as asset price */
-                     source     = const(),
+                     source     = const(1.),
                      /** size of timeframe */
                      timeframe  = 10.0) : IObservable[CandleStick]
 

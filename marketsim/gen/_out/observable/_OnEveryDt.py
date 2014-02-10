@@ -15,7 +15,7 @@ class OnEveryDt_FloatIFunctionFloat(Observable[float],_OnEveryDt_Impl):
         Observable[float].__init__(self)
         self.dt = dt if dt is not None else 1.0
         
-        self.x = x if x is not None else _constant()
+        self.x = x if x is not None else _constant(1.0)
         
         rtti.check_fields(self)
         _OnEveryDt_Impl.__init__(self)

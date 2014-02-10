@@ -104,7 +104,7 @@ package orderbook
      */
     @python.intrinsic("orderbook.cumulative_price.CumulativePrice_Impl")
     def CumulativePrice(book    = OfTrader(),
-                        depth   = constant()) : IObservable[Price]
+                        depth   = constant(1.)) : IObservable[Price]
 
     /**
      *  Returns naive approximation of price for best orders of total volume *depth*
@@ -114,7 +114,7 @@ package orderbook
      *  Positive *depth* correponds to will sell assets
      */
     def NaiveCumulativePrice(book   = OfTrader(),
-                             depth  = constant()) =
+                             depth  = constant(1.)) =
 
         observable.Price(
             if depth < 0.0 then depth*ask.Price(book) else

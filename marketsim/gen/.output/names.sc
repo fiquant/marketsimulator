@@ -300,19 +300,19 @@ package math
         /** Cumulative relative standard deviation
          */
         @label = "RSD{{suffix}}"
-        def RelStdDev(/** observable data source */ source = const()) = (source-Avg(source))/StdDev(source)
+        def RelStdDev(/** observable data source */ source = const(1.0)) = (source-Avg(source))/StdDev(source)
         
         /** Cumulative variance
          */
         @python.intrinsic("moments.cmv.Variance_Impl")
         @label = "\\sigma^2{{suffix}}"
-        def Var(/** observable data source */ source = const()) : () => Float
+        def Var(/** observable data source */ source = const(1.0)) : () => Float
         
         /** Cumulative average
          */
         @python.intrinsic("moments.cma.CMA_Impl")
         @label = "Avg{{suffix}}"
-        def Avg(/** observable data source */ source = const()) : () => Float
+        def Avg(/** observable data source */ source = const(1.0)) : () => Float
         
         /** Cumulative minimum of a function with positive tolerance.
          *
@@ -320,7 +320,7 @@ package math
          */
         @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
         @label = "Min_{\\epsilon}(%(source)s)"
-        def MinEpsilon(/** observable data source */ source = constant(),
+        def MinEpsilon(/** observable data source */ source = constant(1.0),
                        /** tolerance step         */ epsilon = constant(0.01)) : IObservable[Float]
         
         /** Cumulative maximum of a function with positive tolerance.
@@ -329,13 +329,13 @@ package math
          */
         @python.intrinsic("observable.minmax_eps.MaxEpsilon_Impl")
         @label = "Max_{\\epsilon}(%(source)s)"
-        def MaxEpsilon(/** observable data source */ source = constant(),
+        def MaxEpsilon(/** observable data source */ source = constant(1.0),
                        /** tolerance step         */ epsilon = constant(0.01)) : IObservable[Float]
         
         /** Cumulative standard deviation
          */
         @label = "\\sqrt{\\sigma^2{{suffix}}}"
-        def StdDev(/** observable data source */ source = const()) = Sqrt(Var(source))
+        def StdDev(/** observable data source */ source = const(1.0)) = Sqrt(Var(source))
         
     }
     
@@ -345,7 +345,7 @@ package math
         /** Absolute value for Relative Strength Index
          */
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
-        def Raw(/** observable data source */ source = const(),
+        def Raw(/** observable data source */ source = const(1.0),
                 /** lag size */ timeframe = 10.0,
                 /** alpha parameter for EWMA */ alpha = 0.015) = EW.Avg(UpMovements(source,timeframe),alpha)/EW.Avg(DownMovements(source,timeframe),alpha)
         
@@ -357,14 +357,14 @@ package math
         /** Moving average convergence/divergence
          */
         @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
-        def MACD(/** source */ x = const(),
+        def MACD(/** source */ x = const(1.0),
                  /** long period */ slow = 26.0,
                  /** short period */ fast = 12.0) = EW.Avg(x,2.0/(fast+1))-EW.Avg(x,2.0/(slow+1))
         
         /** Moving average convergence/divergence signal
          */
         @label = "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-        def Signal(/** source */ x = const(),
+        def Signal(/** source */ x = const(1.0),
                    /** long period */ slow = 26.0,
                    /** short period */ fast = 12.0,
                    /** signal period */ timeframe = 9.0,
@@ -373,7 +373,7 @@ package math
         /** Moving average convergence/divergence histogram
          */
         @label = "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-        def Histogram(/** source */ x = const(),
+        def Histogram(/** source */ x = const(1.0),
                       /** long period */ slow = 26.0,
                       /** short period */ fast = 12.0,
                       /** signal period */ timeframe = 9.0,
@@ -389,26 +389,26 @@ package math
          */
         @python.intrinsic("moments.ewma.EWMA_Impl")
         @label = "Avg{{suffix}}"
-        def Avg(/** observable data source */ source = const(),
+        def Avg(/** observable data source */ source = const(1.0),
                 /** alpha parameter */ alpha = 0.015) : IDifferentiable
         
         /** Exponentially weighted moving variance
          */
         @python.intrinsic("moments.ewmv.EWMV_Impl")
         @label = "\\sigma^2{{suffix}}"
-        def Var(/** observable data source */ source = const(),
+        def Var(/** observable data source */ source = const(1.0),
                 /** alpha parameter */ alpha = 0.015) : () => Float
         
         /** Exponentially weighted moving standard deviation
          */
         @label = "\\sqrt{\\sigma^2{{suffix}}}"
-        def StdDev(/** observable data source */ source = const(),
+        def StdDev(/** observable data source */ source = const(1.0),
                    /** alpha parameter */ alpha = 0.015) = Sqrt(Var(source,alpha))
         
         /** Exponentially weighted moving relative standard deviation
          */
         @label = "RSD{{suffix}}"
-        def RelStdDev(/** observable data source */ source = const(),
+        def RelStdDev(/** observable data source */ source = const(1.0),
                       /** alpha parameter */ alpha = 0.015) = (source-Avg(source,alpha))/StdDev(source,alpha)
         
     }
@@ -421,40 +421,40 @@ package math
          */
         @python.intrinsic("observable.minmax.Min_Impl")
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
-        def Min(/** observable data source */ source = constant(),
+        def Min(/** observable data source */ source = constant(1.0),
                 /** sliding window size    */ timeframe = 100.0) : IObservable[Float]
         
         /** Simple moving relative standard deviation
          */
         @label = "RSD{{suffix}}"
-        def RelStdDev(/** observable data source */ source = const(),
+        def RelStdDev(/** observable data source */ source = const(1.0),
                       /** sliding window size    */ timeframe = 100.0) = (source-Avg(source,timeframe))/StdDev(source,timeframe)
         
         /** Simple moving variance
          */
         @python.intrinsic("moments.mv.MV_Impl")
         @label = "\\sigma^2{{suffix}}"
-        def Var(/** observable data source */ source = const(),
+        def Var(/** observable data source */ source = const(1.0),
                 /** sliding window size    */ timeframe = 100.0) = math.Max(const(0),Avg(observable.Float(source*source),timeframe)-Sqr(Avg(source,timeframe)))
         
         /** Running maximum of a function
          */
         @python.intrinsic("observable.minmax.Max_Impl")
         @label = "Max_{n=%(timeframe)s}(%(source)s)"
-        def Max(/** observable data source */ source = constant(),
+        def Max(/** observable data source */ source = constant(1.0),
                 /** sliding window size    */ timeframe = 100.0) : IObservable[Float]
         
         /** Simple moving average
          */
         @python.intrinsic("moments.ma.MA_Impl")
         @label = "Avg{{suffix}}"
-        def Avg(/** observable data source */ source = const(),
+        def Avg(/** observable data source */ source = const(1.0),
                 /** sliding window size    */ timeframe = 100.0) : () => Float
         
         /** Simple moving standard deviation
          */
         @label = "\\sqrt{\\sigma^2{{suffix}}}"
-        def StdDev(/** observable data source */ source = const(),
+        def StdDev(/** observable data source */ source = const(1.0),
                    /** sliding window size    */ timeframe = 100.0) = Sqrt(Var(source))
         
     }
@@ -464,13 +464,13 @@ package math
      */
     @python.observable()
     @label = "min{%(x)s, %(y)s}"
-    def Min(x = constant(),
-            y = constant()) = if x<y then x else y
+    def Min(x = constant(1.0),
+            y = constant(1.0)) = if x<y then x else y
     
     /** Returns negative movements of some observable *source* with lag *timeframe*
      */
     @label = "Downs_{%(timeframe)s}(%(source)s)"
-    def DownMovements(/** observable data source */ source = const(),
+    def DownMovements(/** observable data source */ source = const(1.0),
                       /** lag size */ timeframe = 10.0) = observable.Float(Max(0.0,Lagged(source,timeframe)-source))
     
     /** Arc tangent of x, in radians.
@@ -484,7 +484,7 @@ package math
      */
     @python.intrinsic("observable.lagged.Lagged_Impl")
     @label = "Lagged_{%(timeframe)s}(%(source)s)"
-    def Lagged(/** observable data source */ source = const(),
+    def Lagged(/** observable data source */ source = const(1.0),
                /** lag size */ timeframe = 10.0) : IObservable[Float]
     
     /** Function returning maximum of two functions *x* and *y*.
@@ -492,13 +492,13 @@ package math
      */
     @python.observable()
     @label = "max{%(x)s, %(y)s}"
-    def Max(x = constant(),
-            y = constant()) = if x>y then x else y
+    def Max(x = constant(1.0),
+            y = constant(1.0)) = if x>y then x else y
     
     /** Returns positive movements of some observable *source* with lag *timeframe*
      */
     @label = "Ups_{%(timeframe)s}(%(source)s)"
-    def UpMovements(/** observable data source */ source = const(),
+    def UpMovements(/** observable data source */ source = const(1.0),
                     /** lag size */ timeframe = 10.0) = observable.Float(Max(0.0,source-Lagged(source,timeframe)))
     
     /** Square of *x*
@@ -506,12 +506,12 @@ package math
     @category = "Log/Pow"
     @python.observable()
     @label = "{%(x)s}^2"
-    def Sqr(x = constant()) = x*x
+    def Sqr(x = constant(1.0)) = x*x
     
     /** Log returns
      */
     @label = "LogReturns_{%(timeframe)s}(%(x)s)"
-    def LogReturns(/** observable data source */ x = const(),
+    def LogReturns(/** observable data source */ x = const(1.0),
                    /** lag size */ timeframe = 10.0) = Log(x/Lagged(x,timeframe))
     
     /** Square root of *x*
@@ -1632,7 +1632,7 @@ package strategy
         /** scaling function = max(0, f(x)) + 1
          */
         @curried("f")
-        def Clamp0(/** function to scale */ f : Optional[IFunction[Float]] = constant()) : IFunction[Float] = math.Max(0,f)+1
+        def Clamp0(/** function to scale */ f : Optional[IFunction[Float]] = constant(1.0)) : IFunction[Float] = math.Max(0,f)+1
         
         /** Returns first derivative of a moving average of the trader efficiency
          */
@@ -1650,7 +1650,7 @@ package strategy
         /** scaling function = atan(base^f(x))
          */
         @curried("f")
-        def AtanPow(/** function to scale */ f : Optional[IFunction[Float]] = constant(),
+        def AtanPow(/** function to scale */ f : Optional[IFunction[Float]] = constant(1.0),
                     /** base for power function */ base = 1.002) : IFunction[Float] = math.Atan(math.Pow(base,f))
         
         /** Identity function for an array of floats
@@ -1664,7 +1664,7 @@ package strategy
         /** identity scaling = f(x)
          */
         @curried("f")
-        def IdentityF(f : Optional[IFunction[Float]] = constant()) : IFunction[Float] = f
+        def IdentityF(f : Optional[IFunction[Float]] = constant(1.0)) : IFunction[Float] = f
         
     }
     
@@ -1686,7 +1686,7 @@ package strategy
     {
         /** Position function for desired position strategy
          */
-        def DesiredPosition(/** observable desired position */ desiredPosition = const(),
+        def DesiredPosition(/** observable desired position */ desiredPosition = const(1.0),
                             /** trader in question */ trader = trader.SingleProxy()) = observable.Volume(desiredPosition-trader.Position(trader)-trader.PendingVolume(trader))
         
         /** Position function for Bollinger bands strategy with linear scaling
@@ -2149,7 +2149,7 @@ package orderbook
      */
     @python.intrinsic("orderbook.cumulative_price.CumulativePrice_Impl")
     def CumulativePrice(book = OfTrader(),
-                        depth = constant()) : IObservable[Price]
+                        depth = constant(1.0)) : IObservable[Price]
     
     /** Returns arrays of levels for given volumes [i*volumeDelta for i in range(0, volumeCount)]
      *  Level of volume V is a price at which cumulative volume of better orders is V
@@ -2192,7 +2192,7 @@ package orderbook
      *  Positive *depth* correponds to will sell assets
      */
     def NaiveCumulativePrice(book = OfTrader(),
-                             depth = constant()) = observable.Price(if depth<0.0 then depth*ask.Price(book) else if depth>0.0 then depth*bid.Price(book) else 0.0)
+                             depth = constant(1.0)) = observable.Price(if depth<0.0 then depth*ask.Price(book) else if depth>0.0 then depth*bid.Price(book) else 0.0)
     
     /** Represents latency in information propagation from one agent to another one
      * (normally between a trader and a market).
@@ -2223,14 +2223,14 @@ package observable
     @label = "[%(x)s]_dt=%(dt)s"
     @observe_args = "no"
     def OnEveryDt(/** time discretization step */ dt = 1.0,
-                  /** function to discretize */ x = constant()) : IObservable[Float]
+                  /** function to discretize */ x = constant(1.0)) : IObservable[Float]
     
     /** Down casts function *x* to IObservable[Volume].
      * Needed since generic functions aren't implemented yet
      */
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
-    def Volume(x = const() : IFunction[Float]) : IObservable[Volume]
+    def Volume(x = const(1.0) : IFunction[Float]) : IObservable[Volume]
     
     /** Down casts function *x* to IObservable[Side].
      * Needed since generic functions aren't implemented yet
@@ -2244,7 +2244,7 @@ package observable
      */
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
-    def Price(x = const() : IFunction[Float]) : IObservable[Price]
+    def Price(x = const(1.0) : IFunction[Float]) : IObservable[Price]
     
     /** Observable listening to *source*
      *  When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
@@ -2257,7 +2257,7 @@ package observable
      */
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
-    def Float(x = const() : IFunction[Float]) : IObservable[Float]
+    def Float(x = const(1.0) : IFunction[Float]) : IObservable[Float]
     
     /** Observable that downloads closing prices for every day from *start* to *end* for asset given by *ticker*
      *  and follows the price in scale 1 model unit of time = 1 real day
@@ -2397,6 +2397,12 @@ type String
 @label = "C=%(x)s"
 def constant(x = 1.0) = const(x) : IFunction[Float]
 
+/** Function always returning *x*
+ */
+@category = "Basic"
+@label = "C=%(x)s"
+def constant(x = 1) = const(x) : IFunction[Int]
+
 /** Trivial observable always returning *False*
  */
 @category = "Basic"
@@ -2428,13 +2434,20 @@ def TimeSerie(source = const(0.0) : IObservable[Any],
 @label = "C=%(x)s"
 def const(x = 1.0) : IObservable[Float]
 
+/** Trivial observable always returning *x*
+ */
+@category = "Basic"
+@python.intrinsic.function("_constant._Constant_Impl")
+@label = "C=%(x)s"
+def const(x = 1) : IObservable[Int]
+
 /** Observable returning at the end of every *timeframe*
  * open/close/min/max price, its average and standard deviation
  */
 @category = "Basic"
 @python.intrinsic("observable.candlestick.CandleSticks_Impl")
 @label = "Candles_{%(source)s}"
-def CandleSticks(/** observable data source considered as asset price */ source = const(),
+def CandleSticks(/** observable data source considered as asset price */ source = const(1.0),
                  /** size of timeframe */ timeframe = 10.0) : IObservable[CandleStick]
 
 /** Trivial observable always returning *True*
@@ -2449,8 +2462,8 @@ def true() : IObservable[Boolean]
 @category = "Basic"
 @python.observable()
 @label = "If def(%(x)s) else %(elsePart)s"
-def IfDefined(x = constant(),
-              /** function to take values from when *x* is undefined */ elsePart = constant()) = if x<>null() then x else elsePart
+def IfDefined(x = constant(1.0),
+              /** function to take values from when *x* is undefined */ elsePart = constant(1.0)) = if x<>null() then x else elsePart
 
 /** Time serie holding volume levels of an asset
  * Level of volume V is a price at which cumulative volume of better orders is V

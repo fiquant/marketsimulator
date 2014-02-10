@@ -8,7 +8,7 @@ package observable {
     @label = "[%(x)s]_dt=%(dt)s"
     @observe_args = "no"
     def OnEveryDt(/** time discretization step */ dt = 1.0,
-                  /** function to discretize */ x = constant()) : IObservable[Float]
+                  /** function to discretize */ x = constant(1.0)) : IObservable[Float]
     
     // defined at defs\observable.sc: 15.5
     /** Observable that downloads closing prices for every day from *start* to *end* for asset given by *ticker*
@@ -33,7 +33,7 @@ package observable {
      */
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
-    def Float(x = const() : IFunction[Float]) : IObservable[Float]
+    def Float(x = const(1.0) : IFunction[Float]) : IObservable[Float]
     
     // defined at defs\observable.sc: 43.5
     /** Down casts function *x* to IObservable[Price].
@@ -41,7 +41,7 @@ package observable {
      */
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
-    def Price(x = const() : IFunction[Float]) : IObservable[Price]
+    def Price(x = const(1.0) : IFunction[Float]) : IObservable[Price]
     
     // defined at defs\observable.sc: 51.5
     /** Down casts function *x* to IObservable[Volume].
@@ -49,7 +49,7 @@ package observable {
      */
     @python.intrinsic("observable.on_every_dt._Observable_Impl")
     @label = "[%(x)s]"
-    def Volume(x = const() : IFunction[Float]) : IObservable[Volume]
+    def Volume(x = const(1.0) : IFunction[Float]) : IObservable[Volume]
     
     // defined at defs\observable.sc: 59.5
     /** Down casts function *x* to IObservable[Side].

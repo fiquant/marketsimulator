@@ -10,7 +10,7 @@ class MACD_IObservableFloatFloatFloat(Function[float]):
     def __init__(self, x = None, slow = None, fast = None):
         from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
-        self.x = x if x is not None else _const()
+        self.x = x if x is not None else _const(1.0)
         self.slow = slow if slow is not None else 26.0
         self.fast = fast if fast is not None else 12.0
         rtti.check_fields(self)

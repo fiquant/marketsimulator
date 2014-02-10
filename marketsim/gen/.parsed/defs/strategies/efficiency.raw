@@ -210,6 +210,8 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | | | -  function to scale 
 | | | | | | - Parameter:
@@ -286,6 +288,8 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | | | -  function to scale 
 | | | | | - Some:
@@ -352,6 +356,8 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - Var:

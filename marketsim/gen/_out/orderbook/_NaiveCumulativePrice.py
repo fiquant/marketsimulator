@@ -22,7 +22,7 @@ class NaiveCumulativePrice_IOrderBookIFunctionFloat(Observable[Price]):
         from marketsim.gen._out._constant import constant_Float as _constant
         Observable[Price].__init__(self)
         self.book = book if book is not None else _orderbook_OfTrader()
-        self.depth = depth if depth is not None else _constant()
+        self.depth = depth if depth is not None else _constant(1.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)

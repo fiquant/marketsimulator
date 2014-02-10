@@ -15,7 +15,7 @@ class RelStdDev_IObservableFloatFloat(Observable[float]):
         from marketsim import event
         from marketsim import float
         Observable[float].__init__(self)
-        self.source = source if source is not None else _const()
+        self.source = source if source is not None else _const(1.0)
         self.alpha = alpha if alpha is not None else 0.015
         rtti.check_fields(self)
         self.impl = self.getImpl()

@@ -15,7 +15,7 @@ class Lagged_IObservableFloatFloat(Observable[float],Lagged_Impl):
         from marketsim import event
         from marketsim import float
         Observable[float].__init__(self)
-        self.source = source if source is not None else _const()
+        self.source = source if source is not None else _const(1.0)
         if isinstance(source, types.IEvent):
             event.subscribe(self.source, self.fire, self)
         self.timeframe = timeframe if timeframe is not None else 10.0

@@ -10,7 +10,7 @@ class Raw_IObservableFloatFloatFloat(Function[float]):
     def __init__(self, source = None, timeframe = None, alpha = None):
         from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
-        self.source = source if source is not None else _const()
+        self.source = source if source is not None else _const(1.0)
         self.timeframe = timeframe if timeframe is not None else 10.0
         self.alpha = alpha if alpha is not None else 0.015
         rtti.check_fields(self)

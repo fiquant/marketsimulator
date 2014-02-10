@@ -82,6 +82,82 @@ Definitions:
 | | | | | | | - label
 | | | | | | | - C=%(x)s
 | | | | - FunDef:
+| | | | | - constant
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - IntLit:
+| | | | | | | | | - 1
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - Cast:
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - const
+| | | | | | | | - List:
+| | | | | | | | | - Var:
+| | | | | | | | | | - x
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - IFunction
+| | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Int
+| | | | | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Function always returning *x*
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - C=%(x)s
+| | | | - FunDef:
+| | | | | - const
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - x
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - IntLit:
+| | | | | | | | | - 1
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Int
+| | | | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Trivial observable always returning *x*
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - _constant._Constant_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - C=%(x)s
+| | | | - FunDef:
 | | | | | - true
 | | | | | - List:
 | | | | | - None
@@ -179,6 +255,8 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - elsePart
@@ -189,6 +267,8 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - constant
 | | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | | | -  function to take values from when *x* is undefined 
 | | | | | - Some:

@@ -4,7 +4,7 @@ package strategy.position {
     // defined at defs\strategies\parts\position.sc: 4.5
     /** Position function for desired position strategy
      */
-    def DesiredPosition(/** observable desired position */ desiredPosition = const(),
+    def DesiredPosition(/** observable desired position */ desiredPosition = const(1.0),
                         /** trader in question */ trader = trader.SingleProxy()) = observable.Volume(desiredPosition-trader.Position(trader)-trader.PendingVolume(trader))
     
     // defined at defs\strategies\parts\position.sc: 15.5

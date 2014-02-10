@@ -28,6 +28,8 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
 | | | | | | | | | | - List:
 | | | | | | | | | | | -  observable data source 
 | | | | | | | | | - Parameter:
@@ -77,6 +79,8 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
 | | | | | | | | | | - List:
 | | | | | | | | | | | -  observable data source 
 | | | | | | | | | - Parameter:
@@ -140,6 +144,8 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
 | | | | | | | | | | - List:
 | | | | | | | | | | | -  observable data source 
 | | | | | | | | | - Parameter:
@@ -196,6 +202,8 @@ Definitions:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - constant
 | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
 | | | | | | | | | | - List:
 | | | | | | | | | | | -  observable data source 
 | | | | | | | | | - Parameter:
