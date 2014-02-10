@@ -53,9 +53,9 @@ class Bollinger_linear_FloatIObservableFloatISingleAssetTrader(Observable[Volume
         from marketsim.gen._out.observable._oneverydt import OnEveryDt_FloatIFunctionFloat as _observable_OnEveryDt
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader
         from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice
+        from marketsim.gen._out.ops._mul import Mul_IObservableFloatIObservableFloat as _ops_Mul
         from marketsim.gen._out.strategy.position._desiredposition import DesiredPosition_IObservableFloatISingleAssetTrader as _strategy_position_DesiredPosition
         from marketsim.gen._out.math.EW._relstddev import RelStdDev_IObservableFloatFloat as _math_EW_RelStdDev
-        from marketsim.gen._out.ops._mul import Mul_IFunctionFloatIFunctionFloat as _ops_Mul
         return _strategy_position_DesiredPosition(_observable_OnEveryDt(1.0,_ops_Mul(_math_EW_RelStdDev(_orderbook_MidPrice(_orderbook_OfTrader(self.trader)),self.alpha),self.k)),self.trader)
     
 def Bollinger_linear(alpha = None,k = None,trader = None): 

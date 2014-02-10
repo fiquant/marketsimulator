@@ -49,7 +49,7 @@ class DesiredPosition_IObservableFloatISingleAssetTrader(Observable[Volume]):
     
     def getImpl(self):
         from marketsim.gen._out.observable._volume import Volume_IFunctionFloat as _observable_Volume
-        from marketsim.gen._out.ops._sub import Sub_IFunctionFloatIFunctionFloat as _ops_Sub
+        from marketsim.gen._out.ops._sub import Sub_IObservableFloatIObservableFloat as _ops_Sub
         from marketsim.gen._out.trader._position import Position_IAccount as _trader_Position
         from marketsim.gen._out.trader._pendingvolume import PendingVolume_IAccount as _trader_PendingVolume
         return _observable_Volume(_ops_Sub(_ops_Sub(self.desiredPosition,_trader_Position(self.trader)),_trader_PendingVolume(self.trader)))

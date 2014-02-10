@@ -374,7 +374,7 @@ package object Typer
                                 }
                             } match {
                                 case Nil =>
-                                    throw new Exception(s"No suitable overload for call $name($args). Overloads are"
+                                    throw new Exception(s"No suitable overload for call $name(${args mkString ","}). Overloads are"
                                             + predef.crlf + (overloads map { _._1 } mkString predef.crlf))
 
                                 case x :: Nil => x

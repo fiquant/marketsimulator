@@ -42,26 +42,24 @@ Definitions:
 | | | | | - List:
 | | | | | | - Float
 | | | | - List:
-| - Interface:
+| - Alias:
 | | - Volume
 | | - Generics:
 | | | - List:
-| | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - Int
+| | - SimpleType:
+| | | - QualifiedName:
 | | | | - List:
-| - Interface:
+| | | | | - Int
+| | | - List:
+| - Alias:
 | | - Price
 | | - Generics:
 | | | - List:
-| | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
-| | | | | - List:
-| | | | | | - Float
+| | - SimpleType:
+| | | - QualifiedName:
 | | | | - List:
+| | | | | - Float
+| | | - List:
 | - Alias:
 | | - IFunction
 | | - Generics:

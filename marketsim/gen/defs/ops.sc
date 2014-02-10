@@ -1,32 +1,77 @@
 @category = "Ops"
 package ops
 {
-    @python.intrinsic.observable("ops._Negate_Impl")
     @label = "-%(x)s"
-    def Negate(x = constant(1.)) : IObservable[Float]
+    package {
+        @python.intrinsic.observable("ops._Negate_Impl")
+        def Negate(x = constant(1.)) : IFunction[Float]
 
-    @python.intrinsic.observable("ops._Div_Impl")
-    @label = "\\frac{%(x)s}{%(y)s}"
-    def Div(x = constant(1.), y = constant(1.)) : IFunction[Float]
+        @python.intrinsic.observable("ops._Negate_Impl")
+        def Negate(x = const(1.)) : IObservable[Float]
+    }
 
-    @python.intrinsic.observable("ops._Div_Impl")
     @label = "\\frac{%(x)s}{%(y)s}"
-    def Div(x = const(1.), y = const(1.)) : IObservable[Float]
+    package {
+        @python.intrinsic.observable("ops._Div_Impl")
+        def Div(x = constant(1.), y = constant(1.)) : IFunction[Float]
+
+        @python.intrinsic.observable("ops._Div_Impl")
+        def Div(x = const(1.), y = const(1.)) : IObservable[Float]
+
+        @python.intrinsic.observable("ops._Div_Impl")
+        def Div(x = constant(1.), y = const(1.)) : IObservable[Float]
+
+        @python.intrinsic.observable("ops._Div_Impl")
+        def Div(x = const(1.), y = constant(1.)) : IObservable[Float]
+    }
 
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     package {
 
-        @python.intrinsic.observable("ops._Mul_Impl")
         @symbol = "*"
-        def Mul(x = constant(1.), y = constant(1.)) : IFunction[Float]
+        package {
+            @python.intrinsic.observable("ops._Mul_Impl")
+            def Mul(x = constant(1.), y = constant(1.)) : IFunction[Float]
 
-        @python.intrinsic.observable("ops._Add_Impl")
+            @python.intrinsic.observable("ops._Mul_Impl")
+            def Mul(x = const(1.), y = const(1.)) : IObservable[Float]
+
+            @python.intrinsic.observable("ops._Mul_Impl")
+            def Mul(x = constant(1.), y = const(1.)) : IObservable[Float]
+
+            @python.intrinsic.observable("ops._Mul_Impl")
+            def Mul(x = const(1.), y = constant(1.)) : IObservable[Float]
+        }
+    
         @symbol = "+"
-        def Add(x = constant(1.), y = constant(1.)) : IFunction[Float]
-
-        @python.intrinsic.observable("ops._Sub_Impl")
+        package {
+            @python.intrinsic.observable("ops._Add_Impl")
+            def Add(x = constant(1.), y = constant(1.)) : IFunction[Float]
+    
+            @python.intrinsic.observable("ops._Add_Impl")
+            def Add(x = const(1.), y = const(1.)) : IObservable[Float]
+    
+            @python.intrinsic.observable("ops._Add_Impl")
+            def Add(x = constant(1.), y = const(1.)) : IObservable[Float]
+    
+            @python.intrinsic.observable("ops._Add_Impl")
+            def Add(x = const(1.), y = constant(1.)) : IObservable[Float]
+        }
+    
         @symbol = "-"
-        def Sub(x = constant(1.), y = constant(1.)) : IFunction[Float]
+        package {
+            @python.intrinsic.observable("ops._Sub_Impl")
+            def Sub(x = constant(1.), y = constant(1.)) : IFunction[Float]
+    
+            @python.intrinsic.observable("ops._Sub_Impl")
+            def Sub(x = const(1.), y = const(1.)) : IObservable[Float]
+    
+            @python.intrinsic.observable("ops._Sub_Impl")
+            def Sub(x = constant(1.), y = const(1.)) : IObservable[Float]
+    
+            @python.intrinsic.observable("ops._Sub_Impl")
+            def Sub(x = const(1.), y = constant(1.)) : IObservable[Float]
+        }
     }
 
     @python.intrinsic.observable("ops._Condition_Impl")

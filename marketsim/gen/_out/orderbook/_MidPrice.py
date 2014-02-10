@@ -43,12 +43,12 @@ class MidPrice_IOrderBook(Observable[Price]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._div import Div_IFunctionFloatIFunctionFloat as _ops_Div
         from marketsim.gen._out.orderbook.ask._price import Price_IOrderBook as _orderbook_ask_Price
+        from marketsim.gen._out.ops._div import Div_IObservableFloatIFunctionFloat as _ops_Div
+        from marketsim.gen._out.ops._add import Add_IObservableFloatIObservableFloat as _ops_Add
         from marketsim.gen._out.observable._price import Price_IFunctionFloat as _observable_Price
         from marketsim.gen._out.orderbook.bid._price import Price_IOrderBook as _orderbook_bid_Price
         from marketsim.gen._out._constant import constant_Float as _constant
-        from marketsim.gen._out.ops._add import Add_IFunctionFloatIFunctionFloat as _ops_Add
         return _observable_Price(_ops_Div(_ops_Add(_orderbook_ask_Price(self.book),_orderbook_bid_Price(self.book)),_constant(2.0)))
     
 def MidPrice(book = None): 

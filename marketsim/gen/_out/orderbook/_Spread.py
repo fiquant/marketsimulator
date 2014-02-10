@@ -44,7 +44,7 @@ class Spread_IOrderBook(Observable[Price]):
     
     def getImpl(self):
         from marketsim.gen._out.observable._price import Price_IFunctionFloat as _observable_Price
-        from marketsim.gen._out.ops._sub import Sub_IFunctionFloatIFunctionFloat as _ops_Sub
+        from marketsim.gen._out.ops._sub import Sub_IObservableFloatIObservableFloat as _ops_Sub
         from marketsim.gen._out.orderbook.ask._price import Price_IOrderBook as _orderbook_ask_Price
         from marketsim.gen._out.orderbook.bid._price import Price_IOrderBook as _orderbook_bid_Price
         return _observable_Price(_ops_Sub(_orderbook_ask_Price(self.book),_orderbook_bid_Price(self.book)))

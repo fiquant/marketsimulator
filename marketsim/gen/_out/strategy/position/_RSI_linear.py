@@ -58,7 +58,7 @@ class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(Observable[Volume]
         from marketsim.gen._out.strategy.position._desiredposition import DesiredPosition_IObservableFloatISingleAssetTrader as _strategy_position_DesiredPosition
         from marketsim.gen._out.ops._sub import Sub_IFunctionFloatIFunctionFloat as _ops_Sub
         from marketsim.gen._out._constant import constant_Float as _constant
-        from marketsim.gen._out.ops._mul import Mul_IFunctionFloatIFunctionFloat as _ops_Mul
+        from marketsim.gen._out.ops._mul import Mul_IFunctionFloatIObservableFloat as _ops_Mul
         return _strategy_position_DesiredPosition(_observable_OnEveryDt(1.0,_ops_Mul(_ops_Sub(_constant(50.0),_math_RSI(_orderbook_OfTrader(self.trader),self.timeframe,self.alpha)),self.k)),self.trader)
     
 def RSI_linear(alpha = None,k = None,timeframe = None,trader = None): 

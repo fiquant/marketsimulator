@@ -59,8 +59,6 @@ package object gen
                                 for (out <- managed(printWriter(dir, s"_$base_name.py"))) {
                                     out.println(g.code)
                                 }
-                                idx_out.println(base.withImports(Printer.pubImportsOf(f)))
-                                g.name
                             } getOrElse f.name
                         } catch {
                             case e : Exception =>
@@ -68,13 +66,8 @@ package object gen
                                     println(s"An exception '${e.getMessage}' caught when generating python code for $f")
                                     println(e.getMessage)
                                 }
-                                f.name
                         }
                     case f : Typed.FunctionAlias =>
-                        generationUnit(f.targets.head) map { g =>
-                            idx_out.println(base.withImports(Printer.pubImportsOf(f)))
-                        }
-                        f.name
                 }
 
                 import predef._
@@ -105,17 +98,17 @@ package object gen
                     // in fact it is a naive ad-hoc implementation of topological sort
                     case Nil => Nil
                     case _ =>
-                        val (nonTerm, term) =
-                            overloads partition { y =>
-                                overloads exists  { x =>
-                                    x != y &&
-                                    (x._1.ty.args zip y._1.ty.args forall { case (a,b) => a canCastTo b })
-                                }
+                        overloads partition { y =>
+                            overloads exists  { x =>
+                                x != y &&
+                                (x._1.ty.args zip y._1.ty.args forall { case (a,b) => a canCastTo b })
                             }
-                        if (overloads.nonEmpty && term.isEmpty)
-                            throw new Exception(s"there is no weakest overload between: " + (overloads map { _._1 } mkString predef.crlf))
-
-                        term ++ reorder(nonTerm)
+                        } match {
+                            case (_, Nil) =>
+                                throw new Exception(s"there is no weakest overload between: " + (overloads map { _._1 } mkString predef.crlf))
+                            case (nonTerm, term) =>
+                                term ++ reorder(nonTerm)
+                        }
                 }
 
                 def calls = reorder(overloads) map { p => tryOverload(p._1, p._2) } reduce { _ | _ }
@@ -129,6 +122,8 @@ package object gen
 
                 if (calls.toString != "")
                 {
+                    idx_out.println(base.withImports(Printer.pubImportsOf(fs.head)))
+
                     val resolver =
                         s"def $base_name($input_args): " |> base.withImports(
                                 calls |||

@@ -76,8 +76,8 @@ class _Arbitrage_Impl(MultiAssetStrategy):
                     def send(o):
                         self._send(myQueue.book, o)
 
-                    from marketsim.gen._out.side._Buy import Buy
-                    from marketsim.gen._out.side._Sell import Sell
+                    from marketsim.gen._out.side._buy import Buy
+                    from marketsim.gen._out.side._sell import Sell
 
                     my_side = Buy() if side == Side.Buy else Sell()
                     opp_side = Buy() if side == Side.Sell else Sell()

@@ -47,6 +47,7 @@ class MarketMaker_FloatFloat(ISingleAssetStrategy):
         from marketsim.gen._out.orderbook._bids import Bids_IOrderBook as _orderbook_Bids
         from marketsim.gen._out.math._exp import Exp_IFunctionFloat as _math_Exp
         from marketsim.gen._out.observable._oneverydt import OnEveryDt_FloatIFunctionFloat as _observable_OnEveryDt
+        from marketsim.gen._out.ops._div import Div_IObservableFloatIFunctionFloat as _ops_Div
         from marketsim.gen._out.observable._breaksatchanges import BreaksAtChanges_IFunctionFloat as _observable_BreaksAtChanges
         from marketsim.gen._out.trader._position import Position_IAccount as _trader_Position
         from marketsim.gen._out.event._after import After_IFunctionFloat as _event_After

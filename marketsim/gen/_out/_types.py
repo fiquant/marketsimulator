@@ -1,11 +1,11 @@
 #class ITrader(object): pass
 #class IGraph(object): pass
 #class CandleStick(object): pass
-#class Volume(object,Int): pass
+#Volume = Int
 #class IAccount(object): pass
 #class Side(object): pass
 #class Boolean(object): pass
-#class Price(object,Float): pass
+#Price = Float
 #class IOrderQueue(object): pass
 #class Float(object): pass
 #class Int(object,Float): pass

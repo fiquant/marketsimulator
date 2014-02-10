@@ -47,13 +47,35 @@ package veusz
 @category = "Ops"
 package ops
 {
-    @python.intrinsic.observable("ops._Negate_Impl")
     @label = "-%(x)s"
-    def Negate(x = constant(1.0)) : IObservable[Float]
+    @python.intrinsic.observable("ops._Negate_Impl")
+    def Negate(x = constant(1.0)) : IFunction[Float]
+    
+    @label = "-%(x)s"
+    @python.intrinsic.observable("ops._Negate_Impl")
+    def Negate(x = const(1.0)) : IObservable[Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._Add_Impl")
     @symbol = "+"
+    @python.intrinsic.observable("ops._Add_Impl")
+    def Add(x = const(1.0),
+            y = constant(1.0)) : IObservable[Float]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "+"
+    @python.intrinsic.observable("ops._Add_Impl")
+    def Add(x = constant(1.0),
+            y = const(1.0)) : IObservable[Float]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "+"
+    @python.intrinsic.observable("ops._Add_Impl")
+    def Add(x = const(1.0),
+            y = const(1.0)) : IObservable[Float]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "+"
+    @python.intrinsic.observable("ops._Add_Impl")
     def Add(x = constant(1.0),
             y = constant(1.0)) : IFunction[Float]
     
@@ -64,8 +86,26 @@ package ops
              y = constant(1.0)) : IObservable[Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._Mul_Impl")
     @symbol = "*"
+    @python.intrinsic.observable("ops._Mul_Impl")
+    def Mul(x = const(1.0),
+            y = constant(1.0)) : IObservable[Float]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "*"
+    @python.intrinsic.observable("ops._Mul_Impl")
+    def Mul(x = constant(1.0),
+            y = const(1.0)) : IObservable[Float]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "*"
+    @python.intrinsic.observable("ops._Mul_Impl")
+    def Mul(x = const(1.0),
+            y = const(1.0)) : IObservable[Float]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "*"
+    @python.intrinsic.observable("ops._Mul_Impl")
     def Mul(x = constant(1.0),
             y = constant(1.0)) : IFunction[Float]
     
@@ -94,20 +134,48 @@ package ops
                      y = constant(1.0)) : IObservable[Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._Sub_Impl")
     @symbol = "-"
+    @python.intrinsic.observable("ops._Sub_Impl")
+    def Sub(x = const(1.0),
+            y = constant(1.0)) : IObservable[Float]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "-"
+    @python.intrinsic.observable("ops._Sub_Impl")
+    def Sub(x = constant(1.0),
+            y = const(1.0)) : IObservable[Float]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "-"
+    @python.intrinsic.observable("ops._Sub_Impl")
+    def Sub(x = const(1.0),
+            y = const(1.0)) : IObservable[Float]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "-"
+    @python.intrinsic.observable("ops._Sub_Impl")
     def Sub(x = constant(1.0),
             y = constant(1.0)) : IFunction[Float]
     
-    @python.intrinsic.observable("ops._Div_Impl")
     @label = "\\frac{%(x)s}{%(y)s}"
+    @python.intrinsic.observable("ops._Div_Impl")
+    def Div(x = constant(1.0),
+            y = constant(1.0)) : IFunction[Float]
+    
+    @label = "\\frac{%(x)s}{%(y)s}"
+    @python.intrinsic.observable("ops._Div_Impl")
     def Div(x = const(1.0),
             y = const(1.0)) : IObservable[Float]
     
-    @python.intrinsic.observable("ops._Div_Impl")
     @label = "\\frac{%(x)s}{%(y)s}"
+    @python.intrinsic.observable("ops._Div_Impl")
     def Div(x = constant(1.0),
-            y = constant(1.0)) : IFunction[Float]
+            y = const(1.0)) : IObservable[Float]
+    
+    @label = "\\frac{%(x)s}{%(y)s}"
+    @python.intrinsic.observable("ops._Div_Impl")
+    def Div(x = const(1.0),
+            y = constant(1.0)) : IObservable[Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @python.intrinsic.observable("ops._LessEqual_Impl")
@@ -2253,8 +2321,6 @@ package trash
     {
         def f(x : IFunction[Volume]) = x
         
-        def f(x : IFunction[Float]) = x
-        
         def f(x : IFunction[Price]) = x
         
         def g(x : IFunction[Volume]) = f(x)
@@ -2273,7 +2339,7 @@ type IGraph
 
 type CandleStick
 
-type Volume : Int
+type Volume = Int
 
 type Optional[T]
 
@@ -2283,7 +2349,7 @@ type Side
 
 type Boolean
 
-type Price : Float
+type Price = Float
 
 type IOrderQueue
 

@@ -33,8 +33,8 @@ type Boolean
 type Float
 type Int : Float
 
-type Volume : Int
-type Price : Float
+type Volume = Int
+type Price = Float
 
 
 // Alias for a nullary function returning value of type T

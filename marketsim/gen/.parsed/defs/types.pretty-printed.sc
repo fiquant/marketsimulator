@@ -13,9 +13,9 @@ type Float
 
 type Int : Float
 
-type Volume : Int
+type Volume = Int
 
-type Price : Float
+type Price = Float
 
 type IFunction[T] = () => T
 
