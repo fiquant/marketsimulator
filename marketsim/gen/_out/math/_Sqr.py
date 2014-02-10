@@ -43,7 +43,7 @@ class Sqr_IFunctionFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._Mul import Mul as _ops_Mul
+        from marketsim.gen._out.ops._mul import Mul as _ops_Mul
         return _ops_Mul(self.x,self.x)
     
 def Sqr(x = None): 

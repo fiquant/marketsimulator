@@ -11,7 +11,7 @@ class Peg_FloatIOrderGenerator(IFunction[IOrderGenerator,IFunction[float]]):
       they start to race until being matched against the counterparty orders.
     """ 
     def __init__(self, proto = None):
-        from marketsim.gen._out.order._curried._price_Limit import price_Limit as _order__curried_price_Limit
+        from marketsim.gen._out.order._curried._price_limit import price_Limit as _order__curried_price_Limit
         from marketsim import rtti
         self.proto = proto if proto is not None else _order__curried_price_Limit()
         rtti.check_fields(self)
@@ -28,7 +28,7 @@ class Peg_FloatIOrderGenerator(IFunction[IOrderGenerator,IFunction[float]]):
     
     def __call__(self, price = None):
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.order._Peg import Peg
+        from marketsim.gen._out.order._peg import Peg
         price = price if price is not None else _constant(100.0)
         proto = self.proto
         return Peg(proto(price))

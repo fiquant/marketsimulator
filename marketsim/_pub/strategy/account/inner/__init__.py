@@ -1,4 +1,4 @@
-from marketsim.gen._out.strategy.account.inner._inner_VirtualMarket import inner_VirtualMarket
+from marketsim.gen._out.strategy.account.inner._inner_virtualmarket import inner_VirtualMarket
 
-from marketsim.gen._out.strategy.account.inner._inner_Real import inner_Real
+from marketsim.gen._out.strategy.account.inner._inner_real import inner_Real
 

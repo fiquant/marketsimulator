@@ -1,4 +1,4 @@
-from marketsim import bind, context, types, event, _, ops, registry
+from marketsim import bind, event, _
 
 class Base(object):
     """ Observable that fires if underlying source value becomes greater previous maximum plus some epsilon

@@ -6,8 +6,8 @@ def sign(x):
 class CumulativePrice_Impl(object):
 
     def __init__(self):
-        from marketsim.gen._out.orderbook.ask._LastTradePrice import LastTradePrice as Ask
-        from marketsim.gen._out.orderbook.bid._LastTradePrice import LastTradePrice as Bid
+        from marketsim.gen._out.orderbook.ask._lasttradeprice import LastTradePrice as Ask
+        from marketsim.gen._out.orderbook.bid._lasttradeprice import LastTradePrice as Bid
         self.ask = Ask(self.book)
         self.bid = Bid(self.book)
 

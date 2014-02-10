@@ -1,6 +1,6 @@
-from marketsim.gen._out.side._Sell import Sell
+from marketsim.gen._out.side._sell import Sell
 
-from marketsim.gen._out.side._Buy import Buy
+from marketsim.gen._out.side._buy import Buy
 
-from marketsim.gen._out.side._Nothing import Nothing
+from marketsim.gen._out.side._nothing import Nothing
 

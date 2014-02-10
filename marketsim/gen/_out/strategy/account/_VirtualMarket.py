@@ -8,7 +8,7 @@ class VirtualMarket_ISingleAssetStrategy(_VirtualMarket_Impl):
       but we want evaluate in any case would it be profitable or not)
     """ 
     def __init__(self, inner = None):
-        from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
+        from marketsim.gen._out.strategy._noise import Noise as _strategy_Noise
         from marketsim import rtti
         self.inner = inner if inner is not None else _strategy_Noise()
         rtti.check_fields(self)

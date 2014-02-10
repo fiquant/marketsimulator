@@ -26,7 +26,7 @@ class betavariate_FloatFloat(Function[float]):
     
     def __call__(self, *args, **kwargs):
         import random
-        return random.betavariate_FloatFloat(self.Alpha, self.Beta)
+        return random.betavariate(self.Alpha, self.Beta)
     
     def _casts_to(self, dst):
         return betavariate_FloatFloat._types[0]._casts_to(dst)

@@ -1,4 +1,4 @@
-from marketsim import _,  meta, types, ops, registry, event
+from marketsim import _,  event
 
 class _RandomWalk_Impl(object):
     """ A discrete signal with user-defined increments.

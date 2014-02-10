@@ -22,7 +22,7 @@ class f_IdentityF_(IFunction[IFunction[float], IFunction[float]]):
     
     def __call__(self, f = None):
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.strategy.weight._IdentityF import IdentityF
+        from marketsim.gen._out.strategy.weight._identityf import IdentityF
         f = f if f is not None else _constant()
         
         return IdentityF(f)

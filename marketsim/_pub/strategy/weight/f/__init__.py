@@ -1,6 +1,6 @@
-from marketsim.gen._out.strategy.weight.f._f_AtanPow import f_AtanPow
+from marketsim.gen._out.strategy.weight.f._f_atanpow import f_AtanPow
 
-from marketsim.gen._out.strategy.weight.f._f_Clamp0 import f_Clamp0
+from marketsim.gen._out.strategy.weight.f._f_clamp0 import f_Clamp0
 
-from marketsim.gen._out.strategy.weight.f._f_IdentityF import f_IdentityF
+from marketsim.gen._out.strategy.weight.f._f_identityf import f_IdentityF
 

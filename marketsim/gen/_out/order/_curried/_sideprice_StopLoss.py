@@ -14,7 +14,7 @@ class StopLoss_IFunctionFloatIOrderGenerator(IFunction[IOrderGenerator,IFunction
     """ 
     def __init__(self, maxloss = None, proto = None):
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.order._curried._sideprice_Limit import sideprice_Limit as _order__curried_sideprice_Limit
+        from marketsim.gen._out.order._curried._sideprice_limit import sideprice_Limit as _order__curried_sideprice_Limit
         from marketsim import rtti
         self.maxloss = maxloss if maxloss is not None else _constant(0.1)
         self.proto = proto if proto is not None else _order__curried_sideprice_Limit()
@@ -32,9 +32,9 @@ class StopLoss_IFunctionFloatIOrderGenerator(IFunction[IOrderGenerator,IFunction
         return "StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
     
     def __call__(self, side = None,price = None):
-        from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim.gen._out.side._sell import Sell as _side_Sell
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.order._StopLoss import StopLoss
+        from marketsim.gen._out.order._stoploss import StopLoss
         side = side if side is not None else _side_Sell()
         price = price if price is not None else _constant(100.0)
         maxloss = self.maxloss

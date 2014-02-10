@@ -31,7 +31,7 @@ class triangular_FloatFloatFloat(Function[float]):
     
     def __call__(self, *args, **kwargs):
         import random
-        return random.triangular_FloatFloatFloat(self.Low, self.High, self.Mode)
+        return random.triangular(self.Low, self.High, self.Mode)
     
     def _casts_to(self, dst):
         return triangular_FloatFloatFloat._types[0]._casts_to(dst)

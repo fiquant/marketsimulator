@@ -42,7 +42,7 @@ package object gen
                 new BufferedWriter(
                     new OutputStreamWriter(
                         new FileOutputStream(
-                            new File(dst_dir, filename), true))),
+                            new File(dst_dir, filename.toLowerCase), true))),
             true)
 
         if (config.verbose)

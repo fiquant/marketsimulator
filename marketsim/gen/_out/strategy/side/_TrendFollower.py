@@ -9,7 +9,7 @@ class TrendFollower_FloatFloatIOrderBook(Function[Side]):
     """ 
     """ 
     def __init__(self, alpha = None, threshold = None, book = None):
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
+        from marketsim.gen._out.orderbook._oftrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
         self.alpha = alpha if alpha is not None else 0.15
         self.threshold = threshold if threshold is not None else 0.0
@@ -42,10 +42,10 @@ class TrendFollower_FloatFloatIOrderBook(Function[Side]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy.side._Signal import Signal as _strategy_side_Signal
-        from marketsim.gen._out.math._Derivative import Derivative as _math_Derivative
-        from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
-        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
+        from marketsim.gen._out.strategy.side._signal import Signal as _strategy_side_Signal
+        from marketsim.gen._out.math._derivative import Derivative as _math_Derivative
+        from marketsim.gen._out.math.EW._avg import Avg as _math_EW_Avg
+        from marketsim.gen._out.orderbook._midprice import MidPrice as _orderbook_MidPrice
         return _strategy_side_Signal(_math_Derivative(_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha)),self.threshold)
     
 def TrendFollower(alpha = None,threshold = None,book = None): 

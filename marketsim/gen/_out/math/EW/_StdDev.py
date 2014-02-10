@@ -39,8 +39,8 @@ class StdDev_IObservableFloatFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math._Sqrt import Sqrt as _math_Sqrt
-        from marketsim.gen._out.math.EW._Var import Var as _math_EW_Var
+        from marketsim.gen._out.math._sqrt import Sqrt as _math_Sqrt
+        from marketsim.gen._out.math.EW._var import Var as _math_EW_Var
         return _math_Sqrt(_math_EW_Var(self.source,self.alpha))
     
 def StdDev(source = None,alpha = None): 

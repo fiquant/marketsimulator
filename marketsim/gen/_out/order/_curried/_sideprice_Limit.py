@@ -27,9 +27,9 @@ class Limit_SideIFunctionFloatIFunctionFloat(IFunction[IOrderGenerator, IFunctio
         return "Limit(%(volume)s)" % self.__dict__
     
     def __call__(self, side = None,price = None):
-        from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim.gen._out.side._sell import Sell as _side_Sell
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.order._Limit import Limit
+        from marketsim.gen._out.order._limit import Limit
         side = side if side is not None else _side_Sell()
         price = price if price is not None else _constant(100.0)
         volume = self.volume

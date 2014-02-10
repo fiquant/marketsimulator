@@ -11,9 +11,9 @@ class Efficiency_IAccount(Observable[float]):
         from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
-        from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim import event
         from marketsim import float
+        from marketsim.gen._out.trader._singleproxy import SingleProxy as _trader_SingleProxy
         Observable[float].__init__(self)
         self.trader = trader if trader is not None else _trader_SingleProxy()
         rtti.check_fields(self)
@@ -43,12 +43,12 @@ class Efficiency_IAccount(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.observable._Float import Float as _observable_Float
-        from marketsim.gen._out.ops._Add import Add as _ops_Add
-        from marketsim.gen._out.trader._Balance import Balance as _trader_Balance
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
-        from marketsim.gen._out.orderbook._CumulativePrice import CumulativePrice as _orderbook_CumulativePrice
-        from marketsim.gen._out.trader._Position import Position as _trader_Position
+        from marketsim.gen._out.observable._float import Float as _observable_Float
+        from marketsim.gen._out.ops._add import Add as _ops_Add
+        from marketsim.gen._out.orderbook._oftrader import OfTrader as _orderbook_OfTrader
+        from marketsim.gen._out.orderbook._cumulativeprice import CumulativePrice as _orderbook_CumulativePrice
+        from marketsim.gen._out.trader._position import Position as _trader_Position
+        from marketsim.gen._out.trader._balance import Balance as _trader_Balance
         return _observable_Float(_ops_Add(_trader_Balance(self.trader),_orderbook_CumulativePrice(_orderbook_OfTrader(self.trader),_trader_Position(self.trader))))
     
 def Efficiency(trader = None): 

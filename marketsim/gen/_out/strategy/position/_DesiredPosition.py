@@ -15,8 +15,8 @@ class DesiredPosition_IObservableFloatISingleAssetTrader(Observable[Volume]):
         from marketsim import _
         from marketsim import rtti
         from marketsim import Volume
-        from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim import event
+        from marketsim.gen._out.trader._singleproxy import SingleProxy as _trader_SingleProxy
         Observable[Volume].__init__(self)
         self.desiredPosition = desiredPosition if desiredPosition is not None else _const()
         self.trader = trader if trader is not None else _trader_SingleProxy()
@@ -48,10 +48,10 @@ class DesiredPosition_IObservableFloatISingleAssetTrader(Observable[Volume]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.observable._Volume import Volume as _observable_Volume
-        from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
-        from marketsim.gen._out.trader._Position import Position as _trader_Position
-        from marketsim.gen._out.trader._PendingVolume import PendingVolume as _trader_PendingVolume
+        from marketsim.gen._out.observable._volume import Volume as _observable_Volume
+        from marketsim.gen._out.ops._sub import Sub as _ops_Sub
+        from marketsim.gen._out.trader._position import Position as _trader_Position
+        from marketsim.gen._out.trader._pendingvolume import PendingVolume as _trader_PendingVolume
         return _observable_Volume(_ops_Sub(_ops_Sub(self.desiredPosition,_trader_Position(self.trader)),_trader_PendingVolume(self.trader)))
     
 def DesiredPosition(desiredPosition = None,trader = None): 

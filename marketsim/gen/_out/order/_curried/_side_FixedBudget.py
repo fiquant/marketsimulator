@@ -30,8 +30,8 @@ class FixedBudget_SideIFunctionFloat(IFunction[IOrderGenerator, IFunction[Side]]
         return "FixedBudget(%(budget)s)" % self.__dict__
     
     def __call__(self, side = None):
-        from marketsim.gen._out.side._Sell import Sell as _side_Sell
-        from marketsim.gen._out.order._FixedBudget import FixedBudget
+        from marketsim.gen._out.side._sell import Sell as _side_Sell
+        from marketsim.gen._out.order._fixedbudget import FixedBudget
         side = side if side is not None else _side_Sell()
         budget = self.budget
         return FixedBudget(side, budget)

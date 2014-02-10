@@ -16,10 +16,10 @@ class FixedBudget_SideIFunctionFloat(Observable[Order],IOrderGenerator):
       cumulative price of trades to be done won't exceed the given budget.
     """ 
     def __init__(self, side = None, budget = None):
-        from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim import types
         from marketsim.ops._all import Observable
         from marketsim import rtti
+        from marketsim.gen._out.side._sell import Sell as _side_Sell
         from marketsim import event
         from marketsim.gen._out._constant import constant as _constant
         from marketsim import Order

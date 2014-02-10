@@ -15,8 +15,8 @@ class Bollinger_linear_FloatIObservableFloatISingleAssetTrader(Observable[Volume
         from marketsim import _
         from marketsim import rtti
         from marketsim import Volume
-        from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim import event
+        from marketsim.gen._out.trader._singleproxy import SingleProxy as _trader_SingleProxy
         Observable[Volume].__init__(self)
         self.alpha = alpha if alpha is not None else 0.15
         self.k = k if k is not None else _const(0.5)
@@ -50,12 +50,12 @@ class Bollinger_linear_FloatIObservableFloatISingleAssetTrader(Observable[Volume
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math.EW._RelStdDev import RelStdDev as _math_EW_RelStdDev
-        from marketsim.gen._out.strategy.position._DesiredPosition import DesiredPosition as _strategy_position_DesiredPosition
-        from marketsim.gen._out.ops._Mul import Mul as _ops_Mul
-        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
-        from marketsim.gen._out.observable._OnEveryDt import OnEveryDt as _observable_OnEveryDt
+        from marketsim.gen._out.orderbook._midprice import MidPrice as _orderbook_MidPrice
+        from marketsim.gen._out.orderbook._oftrader import OfTrader as _orderbook_OfTrader
+        from marketsim.gen._out.strategy.position._desiredposition import DesiredPosition as _strategy_position_DesiredPosition
+        from marketsim.gen._out.ops._mul import Mul as _ops_Mul
+        from marketsim.gen._out.math.EW._relstddev import RelStdDev as _math_EW_RelStdDev
+        from marketsim.gen._out.observable._oneverydt import OnEveryDt as _observable_OnEveryDt
         return _strategy_position_DesiredPosition(_observable_OnEveryDt(1.0,_ops_Mul(_math_EW_RelStdDev(_orderbook_MidPrice(_orderbook_OfTrader(self.trader)),self.alpha),self.k)),self.trader)
     
 def Bollinger_linear(alpha = None,k = None,trader = None): 

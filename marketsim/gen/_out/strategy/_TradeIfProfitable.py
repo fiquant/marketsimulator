@@ -9,12 +9,12 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
     """ 
     """ 
     def __init__(self, inner = None, account = None, performance = None):
+        from marketsim.gen._out.strategy.account.inner._inner_virtualmarket import inner_VirtualMarket as _strategy_account_inner_inner_VirtualMarket
+        from marketsim.gen._out.strategy.weight.trader._trader_efficiencytrend import trader_EfficiencyTrend as _strategy_weight_trader_trader_EfficiencyTrend
         from marketsim import _
         from marketsim import rtti
-        from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
-        from marketsim.gen._out.strategy.weight.trader._trader_EfficiencyTrend import trader_EfficiencyTrend as _strategy_weight_trader_trader_EfficiencyTrend
-        from marketsim.gen._out.strategy.account.inner._inner_VirtualMarket import inner_VirtualMarket as _strategy_account_inner_inner_VirtualMarket
         from marketsim import event
+        from marketsim.gen._out.strategy._noise import Noise as _strategy_Noise
         self.inner = inner if inner is not None else _strategy_Noise()
         self.account = account if account is not None else _strategy_account_inner_inner_VirtualMarket()
         self.performance = performance if performance is not None else _strategy_weight_trader_trader_EfficiencyTrend()
@@ -48,8 +48,8 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._Suspendable import Suspendable as _strategy_Suspendable
-        from marketsim.gen._out.ops._GreaterEqual import GreaterEqual as _ops_GreaterEqual
+        from marketsim.gen._out.strategy._suspendable import Suspendable as _strategy_Suspendable
+        from marketsim.gen._out.ops._greaterequal import GreaterEqual as _ops_GreaterEqual
         from marketsim.gen._out._constant import constant as _constant
         return _strategy_Suspendable(self.inner,_ops_GreaterEqual(self.performance(self.account(self.inner)),_constant(0)))
     

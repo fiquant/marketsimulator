@@ -45,8 +45,8 @@ class IfDefined_IFunctionFloatIFunctionFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._Condition_Float import Condition_Float as _ops_Condition_Float
-        from marketsim.gen._out.ops._NotEqual import NotEqual as _ops_NotEqual
+        from marketsim.gen._out.ops._condition_float import Condition_Float as _ops_Condition_Float
+        from marketsim.gen._out.ops._notequal import NotEqual as _ops_NotEqual
         from marketsim.gen._out._null import null as _null
         return _ops_Condition_Float(_ops_NotEqual(self.x,_null()),self.x,self.elsePart)
     

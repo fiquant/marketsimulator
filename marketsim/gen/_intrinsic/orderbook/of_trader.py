@@ -1,5 +1,5 @@
 from marketsim import types
-from marketsim.gen._out.trader._SingleProxy import SingleProxy
+from marketsim.gen._out.trader._singleproxy import SingleProxy
 from marketsim import getLabel
 
 class Base(types.IOrderBook):

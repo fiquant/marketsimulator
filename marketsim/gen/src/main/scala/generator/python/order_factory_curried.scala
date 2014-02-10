@@ -66,7 +66,7 @@ object order_factory_curried
         override def call_body = call_body_assign_args |
                 call_body_assignments |
                 s"""return ${original.factoryName}($call_fields)""" |||
-                ImportFrom(original.factoryName, "marketsim.gen._out.order._" + original_module_infix + original.factoryName)
+                ImportFrom(original.factoryName, "marketsim.gen._out.order._" + original_module_infix + original.factoryName.toLowerCase)
 
         override def call_args = join_fields({ _.call_arg }, ",", curried_parameters)
     }

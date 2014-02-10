@@ -9,12 +9,12 @@ def Peg(order):
     and is sent again to the order book 
     with a price one tick better than the best price in the book.
     """
-    from marketsim.gen._out.orderbook._OfTrader import OfTrader
-    from marketsim.gen._out.orderbook._TickSize import TickSize
-    from marketsim.gen._out.orderbook.ask._Price import Price as AskPrice
-    from marketsim.gen._out.orderbook.bid._Price import Price as BidPrice
-    from marketsim.gen._out.math.Cumulative._MaxEpsilon import MaxEpsilon
-    from marketsim.gen._out.math.Cumulative._MinEpsilon import MinEpsilon
+    from marketsim.gen._out.orderbook._oftrader import OfTrader
+    from marketsim.gen._out.orderbook._ticksize import TickSize
+    from marketsim.gen._out.orderbook.ask._price import Price as AskPrice
+    from marketsim.gen._out.orderbook.bid._price import Price as BidPrice
+    from marketsim.gen._out.math.Cumulative._maxepsilon import MaxEpsilon
+    from marketsim.gen._out.math.Cumulative._minepsilon import MinEpsilon
 
     side = order.side
     book = OfTrader()

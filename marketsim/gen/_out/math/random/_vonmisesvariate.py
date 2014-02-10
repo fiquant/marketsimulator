@@ -24,7 +24,7 @@ class vonmisesvariate_FloatFloat(Function[float]):
     
     def __call__(self, *args, **kwargs):
         import random
-        return random.vonmisesvariate_FloatFloat(self.Mu, self.Kappa)
+        return random.vonmisesvariate(self.Mu, self.Kappa)
     
     def _casts_to(self, dst):
         return vonmisesvariate_FloatFloat._types[0]._casts_to(dst)

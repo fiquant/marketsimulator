@@ -27,7 +27,7 @@ class LimitSigned_FloatIFunctionFloat(IFunction[IOrderGenerator, IFunction[float
     
     def __call__(self, signedVolume = None):
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.order._LimitSigned import LimitSigned
+        from marketsim.gen._out.order._limitsigned import LimitSigned
         signedVolume = signedVolume if signedVolume is not None else _constant(1.0)
         price = self.price
         return LimitSigned(signedVolume, price)

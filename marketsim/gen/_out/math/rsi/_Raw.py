@@ -41,10 +41,10 @@ class Raw_IObservableFloatFloatFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._Div import Div as _ops_Div
-        from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
-        from marketsim.gen._out.math._UpMovements import UpMovements as _math_UpMovements
-        from marketsim.gen._out.math._DownMovements import DownMovements as _math_DownMovements
+        from marketsim.gen._out.ops._div import Div as _ops_Div
+        from marketsim.gen._out.math.EW._avg import Avg as _math_EW_Avg
+        from marketsim.gen._out.math._upmovements import UpMovements as _math_UpMovements
+        from marketsim.gen._out.math._downmovements import DownMovements as _math_DownMovements
         return _ops_Div(_math_EW_Avg(_math_UpMovements(self.source,self.timeframe),self.alpha),_math_EW_Avg(_math_DownMovements(self.source,self.timeframe),self.alpha))
     
 def Raw(source = None,timeframe = None,alpha = None): 

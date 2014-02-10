@@ -146,7 +146,7 @@ class Context(object):
     def makeTrader_C(self, strategy, label, additional_ts = []):
         return self.makeTrader(self.book_C, strategy, label, additional_ts)
 
-from marketsim.gen._out.orderbook._Local import Local_StringFloatIntListITimeSerie
+from marketsim.gen._out.orderbook._local import Local_StringFloatIntListITimeSerie
 
 def orderBooksToRender(ctx, traders):
         books = list(set(itertools.chain(*[t.orderBooks for t in traders]))) 
@@ -156,7 +156,7 @@ def orderBooksToRender(ctx, traders):
         graphs = ctx.graphs
         
         def orderbook_ts():
-            from marketsim.gen._out.math._Max import Max
+            from marketsim.gen._out.math._max import Max
 
             thisBook = orderbook.Proxy()
             assetPrice = orderbook.MidPrice(thisBook)

@@ -45,9 +45,9 @@ class Histogram_IObservableFloatFloatFloatFloatFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
-        from marketsim.gen._out.math.macd._MACD import MACD as _math_macd_MACD
-        from marketsim.gen._out.math.macd._Signal import Signal as _math_macd_Signal
+        from marketsim.gen._out.ops._sub import Sub as _ops_Sub
+        from marketsim.gen._out.math.macd._macd import MACD as _math_macd_MACD
+        from marketsim.gen._out.math.macd._signal import Signal as _math_macd_Signal
         return _ops_Sub(_math_macd_MACD(self.x,self.slow,self.fast),_math_macd_Signal(self.x,self.slow,self.fast,self.timeframe,self.step))
     
 def Histogram(x = None,slow = None,fast = None,timeframe = None,step = None): 

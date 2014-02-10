@@ -1,6 +1,6 @@
 from marketsim import ops, event, IAccount, _
 
-from marketsim.gen._out.trader._SingleProxy import SingleProxy
+from marketsim.gen._out.trader._singleproxy import SingleProxy
 
 class OnTraded(event.Event):
     """ Multicast event that is fired once a trade is done by *trader*

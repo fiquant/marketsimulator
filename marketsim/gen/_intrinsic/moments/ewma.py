@@ -2,7 +2,7 @@ import math
 from marketsim import types, registry, ops, registry, event, _, getLabel
 
 from marketsim.gen._intrinsic.observable import fold
-from marketsim.gen._out.observable._OnEveryDt import OnEveryDt
+from marketsim.gen._out.observable._oneverydt import OnEveryDt
 
 
 class EWMA_Impl(fold.Last, types.IDifferentiable):

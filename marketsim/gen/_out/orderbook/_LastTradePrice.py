@@ -12,7 +12,7 @@ class LastTradePrice_IOrderQueue(Observable[Price],_LastTradePrice_Impl):
         from marketsim import types
         from marketsim.ops._all import Observable
         from marketsim import rtti
-        from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
+        from marketsim.gen._out.orderbook._asks import Asks as _orderbook_Asks
         from marketsim import event
         Observable[Price].__init__(self)
         self.queue = queue if queue is not None else _orderbook_Asks()

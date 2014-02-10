@@ -37,8 +37,8 @@ class Clamp0_IFunctionFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._Add import Add as _ops_Add
-        from marketsim.gen._out.math._Max import Max as _math_Max
+        from marketsim.gen._out.ops._add import Add as _ops_Add
+        from marketsim.gen._out.math._max import Max as _math_Max
         from marketsim.gen._out._constant import constant as _constant
         return _ops_Add(_math_Max(_constant(0),self.f),_constant(1))
     

@@ -10,7 +10,7 @@ class Score_IAccount(Function[float],_Score_Impl):
      TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))
     """ 
     def __init__(self, trader = None):
-        from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
+        from marketsim.gen._out.trader._singleproxy import SingleProxy as _trader_SingleProxy
         from marketsim import rtti
         self.trader = trader if trader is not None else _trader_SingleProxy()
         rtti.check_fields(self)

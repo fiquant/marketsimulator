@@ -1,7 +1,7 @@
 from marketsim import (Side, event, request, types, _)
 
 from marketsim.gen._intrinsic.trader.props import OnOrderMatched
-from marketsim.gen._out.orderbook._OfTrader import OfTrader
+from marketsim.gen._out.orderbook._oftrader import OfTrader
 
 class _Account_Impl(types.IAccount):
     

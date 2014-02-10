@@ -1,2 +1,2 @@
-from marketsim.gen._out.veusz._Graph import Graph
+from marketsim.gen._out.veusz._graph import Graph
 

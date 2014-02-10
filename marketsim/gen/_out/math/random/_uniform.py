@@ -28,7 +28,7 @@ class uniform_FloatFloat(Function[float]):
     
     def __call__(self, *args, **kwargs):
         import random
-        return random.uniform_FloatFloat(self.Low, self.High)
+        return random.uniform(self.Low, self.High)
     
     def _casts_to(self, dst):
         return uniform_FloatFloat._types[0]._casts_to(dst)

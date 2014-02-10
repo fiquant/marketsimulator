@@ -171,7 +171,7 @@ object Printer {
 
     def moduleName(target : Typed.Function) = {
         val name = target.parent.qualifiedName.toString
-        "marketsim.gen._out" + name.splitAt(0)._2 + "._" + target.name
+        "marketsim.gen._out" + name.splitAt(0)._2 + "._" + target.name.toLowerCase
     }
 
     def fullImportName(n : AST.QualifiedName) =

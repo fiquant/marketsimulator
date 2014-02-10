@@ -10,9 +10,9 @@ class LiquidityProvider_SideFloatFloatIOrderBook(Function[float]):
     """ 
     """ 
     def __init__(self, side = None, initialValue = None, priceDistr = None, book = None):
-        from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim.gen._out.side._sell import Sell as _side_Sell
         from marketsim.gen._out.math.random._lognormvariate import lognormvariate as _math_random_lognormvariate
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
+        from marketsim.gen._out.orderbook._oftrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
         self.side = side if side is not None else _side_Sell()
         self.initialValue = initialValue if initialValue is not None else 100.0
@@ -47,9 +47,9 @@ class LiquidityProvider_SideFloatFloatIOrderBook(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._Mul import Mul as _ops_Mul
-        from marketsim.gen._out.orderbook._SafeSidePrice import SafeSidePrice as _orderbook_SafeSidePrice
-        from marketsim.gen._out.orderbook._Queue import Queue as _orderbook_Queue
+        from marketsim.gen._out.ops._mul import Mul as _ops_Mul
+        from marketsim.gen._out.orderbook._safesideprice import SafeSidePrice as _orderbook_SafeSidePrice
+        from marketsim.gen._out.orderbook._queue import Queue as _orderbook_Queue
         from marketsim.gen._out._constant import constant as _constant
         return _ops_Mul(_orderbook_SafeSidePrice(_orderbook_Queue(self.book,self.side),_constant(self.initialValue)),self.priceDistr)
     

@@ -17,10 +17,10 @@ class CumulativePrice_IOrderBookIFunctionFloat(Observable[Price],CumulativePrice
     def __init__(self, book = None, depth = None):
         from marketsim import Price
         from marketsim import types
+        from marketsim.gen._out.orderbook._oftrader import OfTrader as _orderbook_OfTrader
         from marketsim.ops._all import Observable
         from marketsim import rtti
         from marketsim import event
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
         from marketsim.gen._out._constant import constant as _constant
         Observable[Price].__init__(self)
         self.book = book if book is not None else _orderbook_OfTrader()

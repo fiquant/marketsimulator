@@ -1,7 +1,7 @@
 from marketsim import Side, event, _
 
-from marketsim.gen._out.order._ImmediateOrCancel import ImmediateOrCancel
-from marketsim.gen._out.order._Limit import Limit
+from marketsim.gen._out.order._immediateorcancel import ImmediateOrCancel
+from marketsim.gen._out.order._limit import Limit
 
 from basic import MultiAssetStrategy
 

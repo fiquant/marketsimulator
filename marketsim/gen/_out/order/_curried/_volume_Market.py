@@ -9,7 +9,7 @@ class Market_SideIFunctionFloat(IFunction[IOrderGenerator, IFunction[float]]):
       Market order intructs buy or sell given volume immediately
     """ 
     def __init__(self, side = None):
-        from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim.gen._out.side._sell import Sell as _side_Sell
         from marketsim import rtti
         self.side = side if side is not None else _side_Sell()
         rtti.check_fields(self)
@@ -26,7 +26,7 @@ class Market_SideIFunctionFloat(IFunction[IOrderGenerator, IFunction[float]]):
     
     def __call__(self, volume = None):
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.order._Market import Market
+        from marketsim.gen._out.order._market import Market
         volume = volume if volume is not None else _constant(1.0)
         side = self.side
         return Market(side, volume)

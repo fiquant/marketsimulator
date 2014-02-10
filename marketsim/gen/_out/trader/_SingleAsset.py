@@ -10,7 +10,7 @@ class SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie(_
     """ 
     """ 
     def __init__(self, orderBook , strategy = None, name = None, amount = None, PnL = None, timeseries = None):
-        from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
+        from marketsim.gen._out.strategy._noise import Noise as _strategy_Noise
         from marketsim import rtti
         self.orderBook = orderBook
         self.strategy = strategy if strategy is not None else _strategy_Noise()

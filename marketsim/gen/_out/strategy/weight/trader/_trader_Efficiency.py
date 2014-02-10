@@ -22,8 +22,8 @@ class trader_Efficiency_(IFunction[IFunction[float], IAccount]):
         return "trader_Efficiency" % self.__dict__
     
     def __call__(self, trader = None):
-        from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
-        from marketsim.gen._out.strategy.weight._Efficiency import Efficiency
+        from marketsim.gen._out.trader._singleproxy import SingleProxy as _trader_SingleProxy
+        from marketsim.gen._out.strategy.weight._efficiency import Efficiency
         trader = trader if trader is not None else _trader_SingleProxy()
         
         return Efficiency(trader)

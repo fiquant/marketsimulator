@@ -22,7 +22,7 @@ class f_AtanPow_Float(IFunction[IFunction[float], IFunction[float]]):
     
     def __call__(self, f = None):
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.strategy.weight._AtanPow import AtanPow
+        from marketsim.gen._out.strategy.weight._atanpow import AtanPow
         f = f if f is not None else _constant()
         base = self.base
         return AtanPow(f,base)

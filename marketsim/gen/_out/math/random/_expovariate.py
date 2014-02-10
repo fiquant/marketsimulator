@@ -23,7 +23,7 @@ class expovariate_Float(Function[float]):
     
     def __call__(self, *args, **kwargs):
         import random
-        return random.expovariate_Float(self.Lambda)
+        return random.expovariate(self.Lambda)
     
     def _casts_to(self, dst):
         return expovariate_Float._types[0]._casts_to(dst)

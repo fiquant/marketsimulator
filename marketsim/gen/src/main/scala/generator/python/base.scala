@@ -171,7 +171,7 @@ package object base {
     trait Intrinsic extends Printer
     {
         def impl_module : String
-        def impl_function = name
+        def impl_function = f.name
 
         override def call_body : Code = s"""return $impl_module.$impl_function($call_fields)""" ||| Import(impl_module)
     }

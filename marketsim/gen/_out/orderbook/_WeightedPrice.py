@@ -8,7 +8,7 @@ class WeightedPrice_IOrderQueueFloat(Function[float]):
     """ 
     """ 
     def __init__(self, queue = None, alpha = None):
-        from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
+        from marketsim.gen._out.orderbook._asks import Asks as _orderbook_Asks
         from marketsim import rtti
         self.queue = queue if queue is not None else _orderbook_Asks()
         self.alpha = alpha if alpha is not None else 0.15
@@ -39,12 +39,12 @@ class WeightedPrice_IOrderQueueFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
-        from marketsim.gen._out.ops._Mul import Mul as _ops_Mul
-        from marketsim.gen._out.orderbook._LastTradeVolume import LastTradeVolume as _orderbook_LastTradeVolume
-        from marketsim.gen._out.orderbook._LastTradePrice import LastTradePrice as _orderbook_LastTradePrice
-        from marketsim.gen._out.observable._Float import Float as _observable_Float
-        from marketsim.gen._out.ops._Div import Div as _ops_Div
+        from marketsim.gen._out.orderbook._lasttradevolume import LastTradeVolume as _orderbook_LastTradeVolume
+        from marketsim.gen._out.observable._float import Float as _observable_Float
+        from marketsim.gen._out.ops._div import Div as _ops_Div
+        from marketsim.gen._out.ops._mul import Mul as _ops_Mul
+        from marketsim.gen._out.math.EW._avg import Avg as _math_EW_Avg
+        from marketsim.gen._out.orderbook._lasttradeprice import LastTradePrice as _orderbook_LastTradePrice
         return _ops_Div(_math_EW_Avg(_observable_Float(_ops_Mul(_orderbook_LastTradePrice(self.queue),_orderbook_LastTradeVolume(self.queue))),self.alpha),_math_EW_Avg(_orderbook_LastTradeVolume(self.queue),self.alpha))
     
 def WeightedPrice(queue = None,alpha = None): 

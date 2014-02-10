@@ -8,7 +8,7 @@ class RSI_IOrderBookFloatFloat(Function[float]):
     """ 
     """ 
     def __init__(self, book = None, timeframe = None, alpha = None):
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
+        from marketsim.gen._out.orderbook._oftrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
         self.book = book if book is not None else _orderbook_OfTrader()
         self.timeframe = timeframe if timeframe is not None else 10.0
@@ -41,12 +41,12 @@ class RSI_IOrderBookFloatFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math.rsi._Raw import Raw as _math_rsi_Raw
-        from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
-        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
-        from marketsim.gen._out.ops._Add import Add as _ops_Add
+        from marketsim.gen._out.orderbook._midprice import MidPrice as _orderbook_MidPrice
+        from marketsim.gen._out.ops._div import Div as _ops_Div
+        from marketsim.gen._out.ops._sub import Sub as _ops_Sub
+        from marketsim.gen._out.ops._add import Add as _ops_Add
+        from marketsim.gen._out.math.rsi._raw import Raw as _math_rsi_Raw
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.ops._Div import Div as _ops_Div
         return _ops_Sub(_constant(100.0),_ops_Div(_constant(100.0),_ops_Add(_constant(1.0),_math_rsi_Raw(_orderbook_MidPrice(self.book),self.timeframe,self.alpha))))
     
 def RSI(book = None,timeframe = None,alpha = None): 

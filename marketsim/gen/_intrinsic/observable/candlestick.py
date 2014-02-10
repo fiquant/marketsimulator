@@ -1,8 +1,8 @@
-from marketsim import types, _, event, ops, context, CandleStick
+from marketsim import _, event, context, CandleStick
 
 
-from marketsim.gen._out.math.Cumulative._Avg import Avg as CMA
-from marketsim.gen._out.math.Cumulative._StdDev import StdDev
+from marketsim.gen._out.math.Cumulative._avg import Avg as CMA
+from marketsim.gen._out.math.Cumulative._stddev import StdDev
 
 from marketsim.gen._out._constant import constant
 

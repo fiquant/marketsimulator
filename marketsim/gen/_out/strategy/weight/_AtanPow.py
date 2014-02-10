@@ -39,8 +39,8 @@ class AtanPow_IFunctionFloatFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math._Atan import Atan as _math_Atan
-        from marketsim.gen._out.math._Pow import Pow as _math_Pow
+        from marketsim.gen._out.math._atan import Atan as _math_Atan
+        from marketsim.gen._out.math._pow import Pow as _math_Pow
         from marketsim.gen._out._constant import constant as _constant
         return _math_Atan(_math_Pow(_constant(self.base),self.f))
     

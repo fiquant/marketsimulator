@@ -22,8 +22,8 @@ class inner_Real_(IFunction[IAccount, ISingleAssetStrategy]):
         return "inner_Real" % self.__dict__
     
     def __call__(self, inner = None):
-        from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
-        from marketsim.gen._out.strategy.account._Real import Real
+        from marketsim.gen._out.strategy._noise import Noise as _strategy_Noise
+        from marketsim.gen._out.strategy.account._real import Real
         inner = inner if inner is not None else _strategy_Noise()
         
         return Real(inner)

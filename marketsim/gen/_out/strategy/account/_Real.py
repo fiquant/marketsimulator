@@ -6,7 +6,7 @@ class Real_ISingleAssetStrategy(_Account_Impl):
     """   how orders sent by the strategy have been actually traded
     """ 
     def __init__(self, inner = None):
-        from marketsim.gen._out.strategy._Noise import Noise as _strategy_Noise
+        from marketsim.gen._out.strategy._noise import Noise as _strategy_Noise
         from marketsim import rtti
         self.inner = inner if inner is not None else _strategy_Noise()
         rtti.check_fields(self)

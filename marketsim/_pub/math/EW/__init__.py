@@ -1,8 +1,8 @@
-from marketsim.gen._out.math.EW._Avg import Avg
+from marketsim.gen._out.math.EW._avg import Avg
 
-from marketsim.gen._out.math.EW._Var import Var
+from marketsim.gen._out.math.EW._var import Var
 
-from marketsim.gen._out.math.EW._StdDev import StdDev
+from marketsim.gen._out.math.EW._stddev import StdDev
 
-from marketsim.gen._out.math.EW._RelStdDev import RelStdDev
+from marketsim.gen._out.math.EW._relstddev import RelStdDev
 

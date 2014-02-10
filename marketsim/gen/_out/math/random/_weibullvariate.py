@@ -24,7 +24,7 @@ class weibullvariate_FloatFloat(Function[float]):
     
     def __call__(self, *args, **kwargs):
         import random
-        return random.weibullvariate_FloatFloat(self.Alpha, self.Beta)
+        return random.weibullvariate(self.Alpha, self.Beta)
     
     def _casts_to(self, dst):
         return weibullvariate_FloatFloat._types[0]._casts_to(dst)

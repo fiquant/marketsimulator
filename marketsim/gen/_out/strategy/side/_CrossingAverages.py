@@ -9,7 +9,7 @@ class CrossingAverages_FloatFloatFloatIOrderBook(Function[Side]):
     """ 
     """ 
     def __init__(self, alpha_1 = None, alpha_2 = None, threshold = None, book = None):
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader as _orderbook_OfTrader
+        from marketsim.gen._out.orderbook._oftrader import OfTrader as _orderbook_OfTrader
         from marketsim import rtti
         self.alpha_1 = alpha_1 if alpha_1 is not None else 0.15
         self.alpha_2 = alpha_2 if alpha_2 is not None else 0.015
@@ -44,10 +44,10 @@ class CrossingAverages_FloatFloatFloatIOrderBook(Function[Side]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy.side._Signal import Signal as _strategy_side_Signal
-        from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
-        from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
-        from marketsim.gen._out.orderbook._MidPrice import MidPrice as _orderbook_MidPrice
+        from marketsim.gen._out.strategy.side._signal import Signal as _strategy_side_Signal
+        from marketsim.gen._out.ops._sub import Sub as _ops_Sub
+        from marketsim.gen._out.math.EW._avg import Avg as _math_EW_Avg
+        from marketsim.gen._out.orderbook._midprice import MidPrice as _orderbook_MidPrice
         return _strategy_side_Signal(_ops_Sub(_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha_1),_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha_2)),self.threshold)
     
 def CrossingAverages(alpha_1 = None,alpha_2 = None,threshold = None,book = None): 

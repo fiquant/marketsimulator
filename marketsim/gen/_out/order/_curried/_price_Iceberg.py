@@ -11,7 +11,7 @@ class Iceberg_IFunctionFloatIOrderGenerator(IFunction[IOrderGenerator,IFunction[
     """ 
     def __init__(self, lotSize = None, proto = None):
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.order._curried._price_Limit import price_Limit as _order__curried_price_Limit
+        from marketsim.gen._out.order._curried._price_limit import price_Limit as _order__curried_price_Limit
         from marketsim import rtti
         self.lotSize = lotSize if lotSize is not None else _constant(10.0)
         self.proto = proto if proto is not None else _order__curried_price_Limit()
@@ -30,7 +30,7 @@ class Iceberg_IFunctionFloatIOrderGenerator(IFunction[IOrderGenerator,IFunction[
     
     def __call__(self, price = None):
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.order._Iceberg import Iceberg
+        from marketsim.gen._out.order._iceberg import Iceberg
         price = price if price is not None else _constant(100.0)
         lotSize = self.lotSize
         proto = self.proto

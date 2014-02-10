@@ -13,7 +13,7 @@ class ImmediateOrCancel_IOrderGenerator(IFunction[IOrderGenerator,IFunction[floa
       either it is cancelled (and consequently never stored in the order queue).
     """ 
     def __init__(self, proto = None):
-        from marketsim.gen._out.order._curried._volume_Limit import volume_Limit as _order__curried_volume_Limit
+        from marketsim.gen._out.order._curried._volume_limit import volume_Limit as _order__curried_volume_Limit
         from marketsim import rtti
         self.proto = proto if proto is not None else _order__curried_volume_Limit()
         rtti.check_fields(self)
@@ -30,7 +30,7 @@ class ImmediateOrCancel_IOrderGenerator(IFunction[IOrderGenerator,IFunction[floa
     
     def __call__(self, volume = None):
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.order._ImmediateOrCancel import ImmediateOrCancel
+        from marketsim.gen._out.order._immediateorcancel import ImmediateOrCancel
         volume = volume if volume is not None else _constant(1.0)
         proto = self.proto
         return ImmediateOrCancel(proto(volume))

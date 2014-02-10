@@ -1,4 +1,4 @@
-from marketsim import event, types, ops
+from marketsim import event
 
 class IndicatorBase(object):
     """ Observable that stores some scalar value and knows how to update it

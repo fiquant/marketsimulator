@@ -1,4 +1,4 @@
-from marketsim import types, registry, event
+from marketsim import types,  event
 
 class Base(object):
     

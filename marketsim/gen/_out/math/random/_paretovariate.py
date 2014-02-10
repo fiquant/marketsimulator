@@ -22,7 +22,7 @@ class paretovariate_Float(Function[float]):
     
     def __call__(self, *args, **kwargs):
         import random
-        return random.paretovariate_Float(self.Alpha)
+        return random.paretovariate(self.Alpha)
     
     def _casts_to(self, dst):
         return paretovariate_Float._types[0]._casts_to(dst)

@@ -7,7 +7,7 @@ class OfTrader_IAccount(_OfTrader_Impl):
       May be used only in objects that are held by traders (so it is used in trader properties and strategies)
     """ 
     def __init__(self, Trader = None):
-        from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
+        from marketsim.gen._out.trader._singleproxy import SingleProxy as _trader_SingleProxy
         from marketsim import rtti
         self.Trader = Trader if Trader is not None else _trader_SingleProxy()
         rtti.check_fields(self)

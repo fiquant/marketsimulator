@@ -22,7 +22,7 @@ class array_ChooseTheBest_(IFunction[listOf(float), listOf(float)]):
         return "array_ChooseTheBest" % self.__dict__
     
     def __call__(self, array = None):
-        from marketsim.gen._out.strategy.weight._ChooseTheBest import ChooseTheBest
+        from marketsim.gen._out.strategy.weight._choosethebest import ChooseTheBest
         array = array if array is not None else []
         
         return ChooseTheBest(array)

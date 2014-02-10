@@ -12,7 +12,7 @@ class WithExpiry_IFunctionFloatIOrderGenerator(IFunction[IOrderGenerator,IFuncti
     """ 
     def __init__(self, expiry = None, proto = None):
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.order._curried._sideprice_Limit import sideprice_Limit as _order__curried_sideprice_Limit
+        from marketsim.gen._out.order._curried._sideprice_limit import sideprice_Limit as _order__curried_sideprice_Limit
         from marketsim import rtti
         self.expiry = expiry if expiry is not None else _constant(10.0)
         self.proto = proto if proto is not None else _order__curried_sideprice_Limit()
@@ -30,9 +30,9 @@ class WithExpiry_IFunctionFloatIOrderGenerator(IFunction[IOrderGenerator,IFuncti
         return "WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
     
     def __call__(self, side = None,price = None):
-        from marketsim.gen._out.side._Sell import Sell as _side_Sell
+        from marketsim.gen._out.side._sell import Sell as _side_Sell
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.order._WithExpiry import WithExpiry
+        from marketsim.gen._out.order._withexpiry import WithExpiry
         side = side if side is not None else _side_Sell()
         price = price if price is not None else _constant(100.0)
         expiry = self.expiry

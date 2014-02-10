@@ -45,8 +45,8 @@ class Max_IFunctionFloatIFunctionFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._Condition_Float import Condition_Float as _ops_Condition_Float
-        from marketsim.gen._out.ops._Greater import Greater as _ops_Greater
+        from marketsim.gen._out.ops._condition_float import Condition_Float as _ops_Condition_Float
+        from marketsim.gen._out.ops._greater import Greater as _ops_Greater
         return _ops_Condition_Float(_ops_Greater(self.x,self.y),self.x,self.y)
     
 def Max(x = None,y = None): 

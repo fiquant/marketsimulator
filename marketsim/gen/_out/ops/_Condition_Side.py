@@ -9,14 +9,14 @@ class Condition_Side_IFunctionBooleanSideSide(Observable[Side],_Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
-        from marketsim.gen._out.side._Sell import Sell as _side_Sell
         from marketsim import types
         from marketsim import Side
         from marketsim.ops._all import Observable
         from marketsim import rtti
+        from marketsim.gen._out.side._sell import Sell as _side_Sell
+        from marketsim.gen._out.side._buy import Buy as _side_Buy
         from marketsim.gen._out._true import true as _true
         from marketsim import event
-        from marketsim.gen._out.side._Buy import Buy as _side_Buy
         Observable[Side].__init__(self)
         self.cond = cond if cond is not None else _true()
         if isinstance(cond, types.IEvent):

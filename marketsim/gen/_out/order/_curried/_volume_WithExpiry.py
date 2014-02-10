@@ -10,7 +10,7 @@ class WithExpiry_IFunctionFloatIOrderGenerator(IFunction[IOrderGenerator,IFuncti
     """ 
     def __init__(self, expiry = None, proto = None):
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.order._curried._volume_Limit import volume_Limit as _order__curried_volume_Limit
+        from marketsim.gen._out.order._curried._volume_limit import volume_Limit as _order__curried_volume_Limit
         from marketsim import rtti
         self.expiry = expiry if expiry is not None else _constant(10.0)
         self.proto = proto if proto is not None else _order__curried_volume_Limit()
@@ -29,7 +29,7 @@ class WithExpiry_IFunctionFloatIOrderGenerator(IFunction[IOrderGenerator,IFuncti
     
     def __call__(self, volume = None):
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.order._WithExpiry import WithExpiry
+        from marketsim.gen._out.order._withexpiry import WithExpiry
         volume = volume if volume is not None else _constant(1.0)
         expiry = self.expiry
         proto = self.proto

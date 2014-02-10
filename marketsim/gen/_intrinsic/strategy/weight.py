@@ -1,7 +1,7 @@
 from marketsim import event, _
 
-from marketsim.gen._out.trader._Efficiency import Efficiency
-from marketsim.gen._out.observable._OnEveryDt import OnEveryDt
+from marketsim.gen._out.trader._efficiency import Efficiency
+from marketsim.gen._out.observable._oneverydt import OnEveryDt
 
 class _Score_Impl(object):
 

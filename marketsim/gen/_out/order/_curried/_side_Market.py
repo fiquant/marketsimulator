@@ -25,8 +25,8 @@ class Market_SideIFunctionFloat(IFunction[IOrderGenerator, IFunction[Side]]):
         return "Market(%(volume)s)" % self.__dict__
     
     def __call__(self, side = None):
-        from marketsim.gen._out.side._Sell import Sell as _side_Sell
-        from marketsim.gen._out.order._Market import Market
+        from marketsim.gen._out.side._sell import Sell as _side_Sell
+        from marketsim.gen._out.order._market import Market
         side = side if side is not None else _side_Sell()
         volume = self.volume
         return Market(side, volume)

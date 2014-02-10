@@ -13,7 +13,7 @@ class ImmediateOrCancel_IOrderGenerator(IFunction[IOrderGenerator,IFunction[Side
       either it is cancelled (and consequently never stored in the order queue).
     """ 
     def __init__(self, proto = None):
-        from marketsim.gen._out.order._curried._side_Limit import side_Limit as _order__curried_side_Limit
+        from marketsim.gen._out.order._curried._side_limit import side_Limit as _order__curried_side_Limit
         from marketsim import rtti
         self.proto = proto if proto is not None else _order__curried_side_Limit()
         rtti.check_fields(self)
@@ -29,8 +29,8 @@ class ImmediateOrCancel_IOrderGenerator(IFunction[IOrderGenerator,IFunction[Side
         return "ImmediateOrCancel(%(proto)s)" % self.__dict__
     
     def __call__(self, side = None):
-        from marketsim.gen._out.side._Sell import Sell as _side_Sell
-        from marketsim.gen._out.order._ImmediateOrCancel import ImmediateOrCancel
+        from marketsim.gen._out.side._sell import Sell as _side_Sell
+        from marketsim.gen._out.order._immediateorcancel import ImmediateOrCancel
         side = side if side is not None else _side_Sell()
         proto = self.proto
         return ImmediateOrCancel(proto(side))

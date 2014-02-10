@@ -1,4 +1,4 @@
-from marketsim import ops, event, _
+from marketsim import  event, _
 
 from marketsim.gen._out._constant import constant
 

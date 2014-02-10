@@ -12,13 +12,13 @@ class FundamentalValue_IEventSideIOrderGeneratorIFunctionFloat(ISingleAssetStrat
      it starts to buy the asset and if the price is higher it starts to sell the asset.
     """ 
     def __init__(self, eventGen = None, orderFactory = None, fundamentalValue = None):
+        from marketsim.gen._out.order._curried._side_market import side_Market as _order__curried_side_Market
         from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
         from marketsim import _
         from marketsim import rtti
-        from marketsim.gen._out.order._curried._side_Market import side_Market as _order__curried_side_Market
         from marketsim import event
+        from marketsim.gen._out.event._every import Every as _event_Every
         from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.event._Every import Every as _event_Every
         self.eventGen = eventGen if eventGen is not None else _event_Every(_math_random_expovariate(1.0))
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market()
         self.fundamentalValue = fundamentalValue if fundamentalValue is not None else _constant(100.0)
@@ -52,8 +52,8 @@ class FundamentalValue_IEventSideIOrderGeneratorIFunctionFloat(ISingleAssetStrat
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
-        from marketsim.gen._out.strategy.side._FundamentalValue import FundamentalValue as _strategy_side_FundamentalValue
+        from marketsim.gen._out.strategy._generic import Generic as _strategy_Generic
+        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue as _strategy_side_FundamentalValue
         return _strategy_Generic(self.orderFactory(_strategy_side_FundamentalValue(self.fundamentalValue)),self.eventGen)
     
     def _send(self, order, source):

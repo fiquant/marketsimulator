@@ -13,8 +13,8 @@ class VolumeLevels_IOrderQueueFloatInt(Observable[IVolumeLevels],VolumeLevels_Im
         from marketsim import types
         from marketsim.ops._all import Observable
         from marketsim import rtti
-        from marketsim.gen._out.orderbook._Asks import Asks as _orderbook_Asks
         from marketsim import IVolumeLevels
+        from marketsim.gen._out.orderbook._asks import Asks as _orderbook_Asks
         from marketsim import event
         Observable[IVolumeLevels].__init__(self)
         self.queue = queue if queue is not None else _orderbook_Asks()

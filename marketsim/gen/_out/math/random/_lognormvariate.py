@@ -27,7 +27,7 @@ class lognormvariate_FloatFloat(Function[float]):
     
     def __call__(self, *args, **kwargs):
         import random
-        return random.lognormvariate_FloatFloat(self.Mu, self.Sigma)
+        return random.lognormvariate(self.Mu, self.Sigma)
     
     def _casts_to(self, dst):
         return lognormvariate_FloatFloat._types[0]._casts_to(dst)

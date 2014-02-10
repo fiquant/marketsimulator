@@ -41,8 +41,8 @@ class MACD_IObservableFloatFloatFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._Sub import Sub as _ops_Sub
-        from marketsim.gen._out.math.EW._Avg import Avg as _math_EW_Avg
+        from marketsim.gen._out.ops._sub import Sub as _ops_Sub
+        from marketsim.gen._out.math.EW._avg import Avg as _math_EW_Avg
         return _ops_Sub(_math_EW_Avg(self.x,(2.0/((self.fast+1)))),_math_EW_Avg(self.x,(2.0/((self.slow+1)))))
     
 def MACD(x = None,slow = None,fast = None): 

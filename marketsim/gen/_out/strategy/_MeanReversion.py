@@ -13,12 +13,12 @@ class MeanReversion_IEventSideIOrderGeneratorFloat(ISingleAssetStrategy):
      it buys the asset and if the price is higher it sells the asset.
     """ 
     def __init__(self, eventGen = None, orderFactory = None, ewma_alpha = None):
+        from marketsim.gen._out.order._curried._side_market import side_Market as _order__curried_side_Market
         from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
         from marketsim import _
         from marketsim import rtti
-        from marketsim.gen._out.order._curried._side_Market import side_Market as _order__curried_side_Market
         from marketsim import event
-        from marketsim.gen._out.event._Every import Every as _event_Every
+        from marketsim.gen._out.event._every import Every as _event_Every
         self.eventGen = eventGen if eventGen is not None else _event_Every(_math_random_expovariate(1.0))
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market()
         self.ewma_alpha = ewma_alpha if ewma_alpha is not None else 0.15
@@ -52,8 +52,8 @@ class MeanReversion_IEventSideIOrderGeneratorFloat(ISingleAssetStrategy):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._Generic import Generic as _strategy_Generic
-        from marketsim.gen._out.strategy.side._MeanReversion import MeanReversion as _strategy_side_MeanReversion
+        from marketsim.gen._out.strategy._generic import Generic as _strategy_Generic
+        from marketsim.gen._out.strategy.side._meanreversion import MeanReversion as _strategy_side_MeanReversion
         return _strategy_Generic(self.orderFactory(_strategy_side_MeanReversion(self.ewma_alpha)),self.eventGen)
     
     def _send(self, order, source):

@@ -30,8 +30,8 @@ class _Canceller_Impl(types.ISingleAssetStrategy):
     def __init__(self):
 
         # orders created by trader
-        from marketsim.gen._out.trader._SingleProxy import SingleProxy
-        from marketsim.gen._out.orderbook._OfTrader import OfTrader
+        from marketsim.gen._out.trader._singleproxy import SingleProxy
+        from marketsim.gen._out.orderbook._oftrader import OfTrader
         self._elements = []
         self._eventGen = event.Every(self.cancellationIntervalDistr)
         self._myTrader = SingleProxy()

@@ -8,7 +8,7 @@ class Efficiency_IAccount(Function[float]):
     """ 
     """ 
     def __init__(self, trader = None):
-        from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
+        from marketsim.gen._out.trader._singleproxy import SingleProxy as _trader_SingleProxy
         from marketsim import rtti
         self.trader = trader if trader is not None else _trader_SingleProxy()
         rtti.check_fields(self)
@@ -37,7 +37,7 @@ class Efficiency_IAccount(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.trader._Efficiency import Efficiency as _trader_Efficiency
+        from marketsim.gen._out.trader._efficiency import Efficiency as _trader_Efficiency
         return _trader_Efficiency(self.trader)
     
 def Efficiency(trader = None): 

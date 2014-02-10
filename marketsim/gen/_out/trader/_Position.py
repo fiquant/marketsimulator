@@ -13,8 +13,8 @@ class Position_IAccount(Observable[Volume],Position_Impl):
         from marketsim.ops._all import Observable
         from marketsim import rtti
         from marketsim import Volume
-        from marketsim.gen._out.trader._SingleProxy import SingleProxy as _trader_SingleProxy
         from marketsim import event
+        from marketsim.gen._out.trader._singleproxy import SingleProxy as _trader_SingleProxy
         Observable[Volume].__init__(self)
         self.trader = trader if trader is not None else _trader_SingleProxy()
         if isinstance(trader, types.IEvent):

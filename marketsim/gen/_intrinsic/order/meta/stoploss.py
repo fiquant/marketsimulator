@@ -2,8 +2,8 @@ from marketsim import Side, event, _
 from .. import market
 import _meta
 
-from marketsim.gen._out.orderbook.ask._Price import Price as AskPrice
-from marketsim.gen._out.orderbook.bid._Price import Price as BidPrice
+from marketsim.gen._out.orderbook.ask._price import Price as AskPrice
+from marketsim.gen._out.orderbook.bid._price import Price as BidPrice
 
 from marketsim.types import *
 
